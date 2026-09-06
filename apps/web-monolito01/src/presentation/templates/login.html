@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block bodyclass %}login-page{% endblock %}
+{% block public_nav %}{% endblock %}
+{% block content %}
+<div class="login-layout"><section class="login-story"><a class="brand" href="{{ url_for('public.index') }}"><span class="brand-symbol">{{ icon('droplet') }}</span><span class="brand-words">Red House<small>RED REGIONAL</small></span></a>
+  <div><span class="eyebrow light">COORDINACIÓN CON PROPÓSITO</span><h1>La información correcta.<br>En el lugar correcto.</h1><p>Un espacio de trabajo para organizar la red, gestionar el inventario y conservar la trazabilidad de cada operación.</p><div class="login-pillars"><div>{{ icon('building-2') }}<strong>Instituciones</strong><span>Un ámbito definido</span></div><div>{{ icon('package') }}<strong>Inventario</strong><span>Información persistida</span></div><div>{{ icon('shield-check') }}<strong>Acceso</strong><span>Perfiles diferenciados</span></div><div>{{ icon('scroll-text') }}<strong>Auditoría</strong><span>Cambios trazables</span></div></div></div>
+  <small>PROYECTO 6 · EQUIPO 01 · ENTORNO ACADÉMICO</small>
+</section><section class="login-form-region"><div class="login-card"><span class="environment-tag">DEMO ACADÉMICO</span><h2>Bienvenido de nuevo</h2><p>Ingresa con tu cuenta institucional.</p>
+  {% if error %}<div class="notice error" role="alert">{{ error }}</div>{% endif %}
+  <form method="post" class="stack">{{ csrf() }}
+    <div class="field"><label for="login_email">Correo electrónico</label><input id="login_email" type="email" name="login_email" maxlength="180" required autocomplete="username" value="{{ request.form.get('login_email', '') }}" placeholder="tu.cuenta@institucion.test"></div>
+    <div class="field"><label for="password">Contraseña</label><div class="password-control"><input id="password" type="password" name="password" maxlength="128" required autocomplete="current-password"><button id="password-toggle" class="icon-button" type="button" aria-label="Mostrar contraseña" aria-pressed="false">{{ icon('eye') }}</button></div></div>
+    <a class="forgot-link" href="{{ url_for('public.recovery') }}">¿Necesitas recuperar tu acceso?</a>
+    <button class="button full large" type="submit">Iniciar sesión {{ icon('arrow-right') }}</button>
+  </form><div class="login-note">{{ icon('lock-keyhole') }}<span>El perfil y el ámbito se verifican en el servidor.<br>Los accesos quedan registrados.</span></div>
+</div><a class="login-back" href="{{ url_for('public.index') }}">{{ icon('arrow-left') }} Volver al sitio público</a></section></div>
+{% endblock %}

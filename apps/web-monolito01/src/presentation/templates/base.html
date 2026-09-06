@@ -1,0 +1,53 @@
+{% from 'macros.html' import icon, csrf with context %}
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Red House: proyecto académico de coordinación regional de bancos de sangre y donación de órganos.">
+  <meta name="color-scheme" content="light">
+  <title>{{ title }} · Red House</title>
+  <link rel="icon" href="{{ url_for('static', filename='img/icons/droplet.svg') }}" type="image/svg+xml">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}">
+  <script src="{{ url_for('static', filename='js/app.js') }}" defer></script>
+  {% block head %}{% endblock %}
+</head>
+<body class="{{ 'portal-body' if principal else 'public-body' }} {% block bodyclass %}{% endblock %}">
+<a class="skip-link" href="#main">Saltar al contenido</a>
+{% if principal %}
+  <aside class="sidebar" id="sidebar" aria-label="Menú principal">
+    <div class="sidebar-brand">
+      <a class="brand" href="{{ url_for('portal.dashboard') }}" aria-label="Red House, panel principal"><span class="brand-symbol">{{ icon('droplet') }}</span><span class="brand-words">Red House<small>RED REGIONAL</small></span></a>
+      <button class="icon-button sidebar-close" id="sidebar-close" type="button" aria-label="Cerrar menú">{{ icon('x') }}</button>
+    </div>
+    <nav class="sidebar-nav">
+      {% set ns = namespace(group='') %}
+      {% for group, id, label, glyph, endpoint, args, permission, planned in navigation %}
+        {% if principal.can(permission) %}
+          {% if group != ns.group %}<div class="nav-group">{{ group }}</div>{% set ns.group = group %}{% endif %}
+          <a class="nav-link {{ 'active' if active|default('') == id else '' }}" href="{{ url_for(endpoint, **args) }}" {% if active|default('') == id %}aria-current="page"{% endif %} title="{{ label }}{{ ' · Vista futura' if planned else '' }}">
+            {{ icon(glyph) }}<span class="nav-label">{{ label }}</span>{% if planned %}<span class="planned-label" aria-label="Vista futura">Próx.</span>{% endif %}
+          </a>
+        {% endif %}
+      {% endfor %}
+    </nav>
+    <div class="sidebar-footer"><div class="demo-indicator"><span></span> ENTORNO ACADÉMICO</div>
+      <div class="user-block"><span class="avatar">{{ principal.party_name[:2]|upper }}</span><div><strong>{{ principal.party_name }}</strong><small>{{ principal.role_name }}</small></div>
+      <form method="post" action="{{ url_for('public.logout') }}">{{ csrf() }}<button class="icon-button" title="Cerrar sesión" aria-label="Cerrar sesión">{{ icon('log-out') }}</button></form></div>
+    </div>
+  </aside>
+  <button class="menu-backdrop" id="menu-backdrop" type="button" aria-label="Cerrar menú"></button>
+  <div class="workspace" id="workspace">
+    <header class="topbar"><div class="topbar-left"><button class="icon-button mobile-toggle" id="menu-toggle" type="button" aria-controls="sidebar" aria-expanded="false" aria-label="Abrir menú">{{ icon('panel-left') }}</button><span class="breadcrumb">Portal institucional <span>/</span> <strong>{{ title }}</strong></span></div>
+      <div class="topbar-right"><span class="environment-tag">DEMO</span><span class="scope-label">{{ principal.institution_name if principal.institution_id else principal.region_name }}</span><span class="avatar small-avatar">{{ principal.party_name[:2]|upper }}</span></div>
+    </header>
+{% else %}
+  {% block public_nav %}<header class="public-nav"><a class="brand" href="{{ url_for('public.index') }}"><span class="brand-symbol">{{ icon('droplet') }}</span><span class="brand-words">Red House<small>RED REGIONAL</small></span></a><nav aria-label="Navegación pública"><a href="{{ url_for('public.index') }}#proyecto">El proyecto</a><a class="button" href="{{ url_for('public.login') }}">Acceso institucional {{ icon('arrow-up-right') }}</a></nav></header>{% endblock %}
+{% endif %}
+<main id="main" class="{{ 'page-content' if principal else '' }}" tabindex="-1">
+  {% for category, message in get_flashed_messages(with_categories=true) %}<div class="notice {{ category }}" role="status">{{ icon('circle-check') }}<span>{{ message }}</span></div>{% endfor %}
+  {% block content %}{% endblock %}
+</main>
+{% if principal %}<footer class="workspace-footer"><span>Red House · Equipo 01</span><span>Datos ficticios · No apto para uso clínico · Horarios UTC</span></footer></div>{% endif %}
+{% block scripts %}{% endblock %}
+</body>
+</html>

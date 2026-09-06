@@ -1,0 +1,2 @@
+{% extends 'base.html' %}
+{% block content %}<section class="standalone card error-page"><span class="error-code">{{ code }}</span><h1>{{ title }}</h1><p>{{ message }}</p><p class="muted">Referencia: <code>{{ g.correlation_id|default('no-disponible') }}</code></p><a class="button" href="{{ url_for('portal.dashboard') if principal else url_for('public.index') }}">{{ icon('arrow-left') }} {{ 'Volver al panel' if principal else 'Volver al inicio' }}</a></section>{% endblock %}

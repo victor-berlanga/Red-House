@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% from 'macros.html' import input, select with context %}
+{% block content %}
+<div class="page-heading"><div><a class="back-link" href="{{ url_for('inventory.index') }}">{{ icon('arrow-left') }} Inventario sanguíneo</a><h1>Registrar unidad DEMO</h1><p>Registra únicamente datos ficticios. Los campos con * son obligatorios.</p></div><span class="environment-tag">PRIMER PARCIAL</span></div>
+<div class="form-layout"><section class="card form-card">{% if error %}<div class="notice error" role="alert">{{ error }}</div>{% endif %}<form method="post">{{ csrf() }}<h2>Identificación y ubicación</h2><div class="form-grid">
+{{ input('traceability_code', 'Folio de trazabilidad DEMO', data, max=30, hint='Único. Ejemplo: RH-DEMO-101.') }}
+<div class="field"><label for="component_id">Componente sanguíneo *</label><select id="component_id" name="component_id" required><option value="">Selecciona un componente</option>{% for item in choices.components if item.is_active %}<option value="{{ item.component_id }}" {% if data.get('component_id') == item.component_id|string %}selected{% endif %}>{{ item.component_name }}</option>{% endfor %}</select></div>
+<div class="field"><label for="location_id">Ubicación institucional *</label><select id="location_id" name="location_id" required><option value="">Selecciona una ubicación</option>{% for item in choices.locations if item.is_active %}<option value="{{ item.location_id }}" {% if data.get('location_id') == item.location_id|string %}selected{% endif %}>{{ item.site_name }} · {{ item.location_code }} · {{ item.location_description }}</option>{% endfor %}</select></div>
+{{ select('recorded_group_code','Grupo registrado (dato ficticio)', [('O-','O-'),('O+','O+'),('A-','A-'),('A+','A+'),('B-','B-'),('B+','B+'),('AB-','AB-'),('AB+','AB+')], data) }}
+{{ input('source_reference','Referencia ficticia del grupo', data, hint='No se evalúa compatibilidad; solo se registra la procedencia del dato DEMO.') }}
+{{ select('current_status','Estado inicial DEMO',[('AVAILABLE','Disponible DEMO'),('QUARANTINED','Cuarentena DEMO')], data) }}
+</div><h2>Fechas registradas</h2><p class="muted">No calculamos vida útil. Introduce ambas fechas ficticias en UTC.</p><div class="form-grid">{{ input('collected_at','Recolección (UTC)',data,'datetime-local') }}{{ input('expires_at','Caducidad (UTC)',data,'datetime-local') }}</div>
+<div class="field"><label for="reason">Motivo del registro *</label><textarea id="reason" name="reason" maxlength="240" required rows="3">{{ data.get('reason','') }}</textarea></div>
+<div class="form-actions"><a class="button secondary" href="{{ url_for('inventory.index') }}">Cancelar</a><button class="button" type="submit">{{ icon('check') }} Guardar unidad</button></div></form></section>
+<aside class="form-aside"><span class="mini-icon">{{ icon('shield-check') }}</span><h2>Trazabilidad desde el alta</h2><p>El registro, el primer movimiento y la auditoría se guardan juntos.</p><ul><li>Folio único e inmutable.</li><li>Componente y ubicación activos.</li><li>Sin donantes ni pacientes reales.</li><li>Una unidad vencida no puede registrarse como disponible.</li></ul><div class="notice">Las asignaciones, etiquetas y decisiones clínicas no forman parte de este formulario.</div></aside></div>
+{% endblock %}

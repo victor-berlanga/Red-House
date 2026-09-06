@@ -1,0 +1,15 @@
+# Instrucciones locales para asistentes de desarrollo
+AGENTS.md
+
+# Entorno local del monolito (nunca versionar secretos ni datos físicos)
+.env
+.env.*
+!.env.example
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+.DS_Store
+node_modules/

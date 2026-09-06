@@ -1,0 +1,1057 @@
+{
+  "result": "PASS",
+  "scope": "Academic first-partial projection, not a full SQL 4NF certification",
+  "schema_sha256": "5222fd8da0a29bd07e7499ab9e99c12303802c2e50725992507fa4389dc96d7c",
+  "postgres_version": 140023,
+  "tables": 23,
+  "primary_keys": 23,
+  "foreign_keys": 24,
+  "check_constraints": 21,
+  "counts": {
+    "institutions": 2,
+    "accounts": 4,
+    "units": 36,
+    "inventory_rows": 36
+  },
+  "mappings": [
+    {
+      "table": "account_role",
+      "kind": "bounded_projection",
+      "logical_table": "ACCOUNT_ROLE",
+      "logical_keys": [
+        [
+          "account_role_id"
+        ]
+      ],
+      "physical_primary_key": "PRIMARY KEY (account_id)",
+      "shared_column_names": [
+        "account_id"
+      ],
+      "physical_only_columns": [
+        "institution_id",
+        "region_name",
+        "role_code"
+      ],
+      "logical_only_columns": [
+        "account_role_id",
+        "assigned_by",
+        "role_id",
+        "valid_from",
+        "valid_until"
+      ]
+    },
+    {
+      "table": "audit_change",
+      "kind": "bounded_projection",
+      "logical_table": "AUDIT_FIELD_CHANGE",
+      "logical_keys": [
+        [
+          "event_id",
+          "record_no",
+          "field_name"
+        ]
+      ],
+      "physical_primary_key": "PRIMARY KEY (event_id, field_name)",
+      "shared_column_names": [
+        "event_id",
+        "field_name"
+      ],
+      "physical_only_columns": [
+        "new_value",
+        "previous_value"
+      ],
+      "logical_only_columns": [
+        "permitted_new_value",
+        "permitted_previous_value",
+        "record_no",
+        "redaction_state"
+      ]
+    },
+    {
+      "table": "audit_event",
+      "kind": "bounded_projection",
+      "logical_table": "AUDIT_EVENT",
+      "logical_keys": [
+        [
+          "event_id"
+        ],
+        [
+          "event_reference"
+        ]
+      ],
+      "physical_primary_key": "PRIMARY KEY (event_id)",
+      "shared_column_names": [
+        "action",
+        "actor_id",
+        "event_id",
+        "occurred_at"
+      ],
+      "physical_only_columns": [
+        "correlation_id",
+        "entity_reference",
+        "entity_type",
+        "institution_id",
+        "outcome",
+        "reason",
+        "region_name"
+      ],
+      "logical_only_columns": [
+        "correlation_reference",
+        "event_reference",
+        "performed_role_code",
+        "performed_scope_reference",
+        "result",
+        "source_component"
+      ]
+    },
+    {
+      "table": "blood_classification",
+      "kind": "bounded_projection",
+      "logical_table": "BLOOD_CLASSIFICATION",
+      "logical_keys": [
+        [
+          "resource_id"
+        ]
+      ],
+      "physical_primary_key": "PRIMARY KEY (resource_id)",
+      "shared_column_names": [
+        "recorded_at",
+        "recorded_group_code",
+        "resource_id",
+        "source_reference"
+      ],
+      "physical_only_columns": [],
+      "logical_only_columns": [
+        "revision_id"
+      ]
+    },
+    {
+      "table": "blood_component",
+      "kind": "bounded_projection",
+      "logical_table": "BLOOD_COMPONENT",
+      "logical_keys": [
+        [
+          "component_id"
+        ],
+        [
+          "component_code"
+        ]
+      ],
+      "physical_primary_key": "PRIMARY KEY (component_id)",
+      "shared_column_names": [
+        "component_code",
+        "component_id",
+        "component_name"
+      ],
+      "physical_only_columns": [
+        "is_active",
+        "region_name",
+        "version_no"
+      ],
+      "logical_only_columns": []
+    },
+    {
+      "table": "blood_movement",
+      "kind": "bounded_projection",
+      "logical_table": "BLOOD_MOVEMENT",
+      "logical_keys": [
+        [
+          "movement_id"
+        ],
+        [
+          "resource_id",
+          "sequence"
+        ]
+      ],
+      "physical_primary_key": "PRIMARY KEY (movement_id)",
+      "shared_column_names": [
+        "actor_id",
+        "destination_location_id",
+        "movement_id",
+        "new_status",
+        "occurred_at",
+        "origin_location_id",
+        "previous_status",
+        "reason",
+        "resource_id",
+        "sequence"
+      ],
+      "physical_only_columns": [],
+      "logical_only_columns": []
+    },
+    {
+      "table": "blood_status_transition",
+      "kind": "mvp_technical_support",
+      "columns": [
+        "previous_status",
+        "new_status",
+        "is_demo"
+      ]
+    },
+    {
+      "table": "blood_unit",
+      "kind": "bounded_projection",
+      "logical_table": "BLOOD_UNIT",
+      "logical_keys": [
+        [
+          "resource_id"
+        ],
+        [
+          "unit_reference"
+        ]
+      ],
+      "physical_primary_key": "PRIMARY KEY (resource_id)",
+      "shared_column_names": [
+        "collected_at",
+        "component_id",
+        "current_status",
+        "expires_at",
+        "location_id",
+        "resource_id"
+      ],
+      "physical_only_columns": [
+        "registered_at",
+        "version_no"
+      ],
+      "logical_only_columns": [
+        "donation_id",
+        "expiry_parameter_version_id",
+        "unit_reference"
+      ]
+    },
+    {
+      "table": "capability",
+      "kind": "bounded_projection",
+      "logical_table": "CAPABILITY",
+      "logical_keys": [
+        [
+          "capability_id"
+        ],
+        [
+          "capability_code"
+        ]
+      ],
+      "physical_primary_key": "PRIMARY KEY (capability_code)",
+      "shared_column_names": [
+        "capability_code",
+        "capability_name"
+      ],
+      "physical_only_columns": [],
+      "logical_only_columns": [
+        "capability_id",
+        "resource_kind"
+      ]
+    },
+    {
+      "table": "contact",
+      "kind": "bounded_projection",
+      "logical_table": "CONTACT",
+      "logical_keys": [
+        [
+          "contact_id"
+        ]
+      ],
+      "physical_primary_key": "PRIMARY KEY (contact_id)",
+      "shared_column_names": [
+        "contact_function",
+        "contact_id",
+        "contact_name"
+      ],
+      "physical_only_columns": [],
+      "logical_only_columns": []
+    },
+    {
+      "table": "contact_method",
+      "kind": "bounded_projection",
+      "logical_table": "CONTACT_METHOD",
+      "logical_keys": [
+        [
+          "contact_method_id"
+        ]
+      ],
+      "physical_primary_key": "PRIMARY KEY (contact_id, method_kind)",
+      "shared_column_names": [
+        "contact_id",
+        "method_kind",
+        "method_value"
+      ],
+      "physical_only_columns": [],
+      "logical_only_columns": [
+        "contact_method_id",
+        "purpose"
+      ]
+    },
+    {
+      "table": "institution",
+      "kind": "bounded_projection",
+      "logical_table": "INSTITUTION",
+      "logical_keys": [
+        [
+          "institution_id"
+        ],
+        [
+          "institution_code"
+        ]
+      ],
+      "physical_primary_key": "PRIMARY KEY (institution_id)",
+      "shared_column_names": [
+        "city",
+        "institution_code",
+        "institution_id",
+        "institution_name",
+        "institution_type",
+        "participation_status",
+        "region_name",
+        "registered_at",
+        "street"
+      ],
+      "physical_only_columns": [
+        "version_no"
+      ],
+      "logical_only_columns": [
+        "latitude",
+        "longitude",
+        "postal_code",
+        "street_number"
+      ]
+    },
+    {
+      "table": "institution_capability",
+      "kind": "bounded_projection",
+      "logical_table": "INSTITUTION_CAPABILITY",
+      "logical_keys": [
+        [
+          "institution_capability_id"
+        ]
+      ],
+      "physical_primary_key": "PRIMARY KEY (institution_id, capability_code)",
+      "shared_column_names": [
+        "institution_id"
+      ],
+      "physical_only_columns": [
+        "capability_code"
+      ],
+      "logical_only_columns": [
+        "capability_id",
+        "institution_capability_id",
+        "valid_from",
+        "valid_until"
+      ]
+    },
+    {
+      "table": "institution_contact",
+      "kind": "bounded_projection",
+      "logical_table": "INSTITUTION_CONTACT",
+      "logical_keys": [
+        [
+          "institution_id",
+          "contact_id"
+        ]
+      ],
+      "physical_primary_key": "PRIMARY KEY (institution_id, contact_id)",
+      "shared_column_names": [
+        "contact_id",
+        "institution_id"
+      ],
+      "physical_only_columns": [],
+      "logical_only_columns": []
+    },
+    {
+      "table": "login_attempt",
+      "kind": "mvp_technical_support",
+      "columns": [
+        "attempt_id",
+        "identity_hash",
+        "address_hash",
+        "occurred_at",
+        "was_successful"
+      ]
+    },
+    {
+      "table": "parameter_version",
+      "kind": "bounded_projection",
+      "logical_table": "PARAMETER_VERSION",
+      "logical_keys": [
+        [
+          "parameter_version_id"
+        ],
+        [
+          "parameter_code",
+          "version_no"
+        ]
+      ],
+      "physical_primary_key": "PRIMARY KEY (parameter_version_id)",
+      "shared_column_names": [
+        "approved_by",
+        "is_demo",
+        "measurement_unit",
+        "parameter_code",
+        "parameter_version_id",
+        "scalar_value",
+        "valid_from",
+        "version_no"
+      ],
+      "physical_only_columns": [
+        "region_name"
+      ],
+      "logical_only_columns": [
+        "scope_id",
+        "source_reference",
+        "valid_until"
+      ]
+    },
+    {
+      "table": "party",
+      "kind": "bounded_projection",
+      "logical_table": "PARTY",
+      "logical_keys": [
+        [
+          "party_id"
+        ]
+      ],
+      "physical_primary_key": "PRIMARY KEY (party_id)",
+      "shared_column_names": [
+        "party_id",
+        "party_name"
+      ],
+      "physical_only_columns": [],
+      "logical_only_columns": [
+        "party_kind"
+      ]
+    },
+    {
+      "table": "resource",
+      "kind": "bounded_projection",
+      "logical_table": "RESOURCE",
+      "logical_keys": [
+        [
+          "resource_id"
+        ],
+        [
+          "traceability_code"
+        ]
+      ],
+      "physical_primary_key": "PRIMARY KEY (resource_id)",
+      "shared_column_names": [
+        "resource_id",
+        "resource_kind",
+        "traceability_code"
+      ],
+      "physical_only_columns": [],
+      "logical_only_columns": []
+    },
+    {
+      "table": "role",
+      "kind": "bounded_projection",
+      "logical_table": "ROLE",
+      "logical_keys": [
+        [
+          "role_id"
+        ],
+        [
+          "role_code"
+        ]
+      ],
+      "physical_primary_key": "PRIMARY KEY (role_code)",
+      "shared_column_names": [
+        "role_code",
+        "role_name"
+      ],
+      "physical_only_columns": [
+        "is_enabled"
+      ],
+      "logical_only_columns": [
+        "role_id"
+      ]
+    },
+    {
+      "table": "site",
+      "kind": "bounded_projection",
+      "logical_table": "SITE",
+      "logical_keys": [
+        [
+          "site_id"
+        ],
+        [
+          "institution_id",
+          "site_code"
+        ]
+      ],
+      "physical_primary_key": "PRIMARY KEY (site_id)",
+      "shared_column_names": [
+        "city",
+        "institution_id",
+        "site_code",
+        "site_id",
+        "site_name",
+        "site_status",
+        "street"
+      ],
+      "physical_only_columns": [
+        "version_no"
+      ],
+      "logical_only_columns": [
+        "latitude",
+        "longitude",
+        "postal_code",
+        "street_number"
+      ]
+    },
+    {
+      "table": "storage_location",
+      "kind": "bounded_projection",
+      "logical_table": "STORAGE_LOCATION",
+      "logical_keys": [
+        [
+          "location_id"
+        ],
+        [
+          "site_id",
+          "location_code"
+        ]
+      ],
+      "physical_primary_key": "PRIMARY KEY (location_id)",
+      "shared_column_names": [
+        "location_code",
+        "location_description",
+        "location_id",
+        "site_id"
+      ],
+      "physical_only_columns": [
+        "is_active",
+        "version_no"
+      ],
+      "logical_only_columns": []
+    },
+    {
+      "table": "user_account",
+      "kind": "bounded_projection",
+      "logical_table": "USER_ACCOUNT",
+      "logical_keys": [
+        [
+          "account_id"
+        ],
+        [
+          "account_reference"
+        ],
+        [
+          "login_email"
+        ],
+        [
+          "party_id"
+        ]
+      ],
+      "physical_primary_key": "PRIMARY KEY (account_id)",
+      "shared_column_names": [
+        "account_id",
+        "account_status",
+        "login_email",
+        "party_id",
+        "password_hash",
+        "registered_at"
+      ],
+      "physical_only_columns": [
+        "version_no"
+      ],
+      "logical_only_columns": [
+        "account_reference"
+      ]
+    },
+    {
+      "table": "web_session",
+      "kind": "mvp_technical_support",
+      "columns": [
+        "session_id",
+        "account_id",
+        "expires_at",
+        "revoked_at",
+        "created_at"
+      ]
+    }
+  ],
+  "constraints": [
+    {
+      "table_name": "account_role",
+      "name": "account_role_check",
+      "type": "c",
+      "definition": "CHECK (((institution_id IS NOT NULL) <> (region_name IS NOT NULL)))"
+    },
+    {
+      "table_name": "account_role",
+      "name": "account_role_check1",
+      "type": "c",
+      "definition": "CHECK ((((role_code)::text <> 'OPERATOR'::text) OR (institution_id IS NOT NULL)))"
+    },
+    {
+      "table_name": "account_role",
+      "name": "account_role_account_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (account_id) REFERENCES user_account(account_id)"
+    },
+    {
+      "table_name": "account_role",
+      "name": "account_role_institution_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (institution_id) REFERENCES institution(institution_id)"
+    },
+    {
+      "table_name": "account_role",
+      "name": "account_role_role_code_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (role_code) REFERENCES role(role_code)"
+    },
+    {
+      "table_name": "account_role",
+      "name": "account_role_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (account_id)"
+    },
+    {
+      "table_name": "audit_change",
+      "name": "audit_change_event_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (event_id) REFERENCES audit_event(event_id)"
+    },
+    {
+      "table_name": "audit_change",
+      "name": "audit_change_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (event_id, field_name)"
+    },
+    {
+      "table_name": "audit_event",
+      "name": "audit_event_outcome_check",
+      "type": "c",
+      "definition": "CHECK (((outcome)::text = ANY ((ARRAY['SUCCESS'::character varying, 'DENIED'::character varying, 'FAILED'::character varying])::text[])))"
+    },
+    {
+      "table_name": "audit_event",
+      "name": "audit_event_actor_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (actor_id) REFERENCES user_account(account_id)"
+    },
+    {
+      "table_name": "audit_event",
+      "name": "audit_event_institution_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (institution_id) REFERENCES institution(institution_id)"
+    },
+    {
+      "table_name": "audit_event",
+      "name": "audit_event_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (event_id)"
+    },
+    {
+      "table_name": "blood_classification",
+      "name": "blood_classification_recorded_group_code_check",
+      "type": "c",
+      "definition": "CHECK (((recorded_group_code)::text = ANY ((ARRAY['O-'::character varying, 'O+'::character varying, 'A-'::character varying, 'A+'::character varying, 'B-'::character varying, 'B+'::character varying, 'AB-'::character varying, 'AB+'::character varying])::text[])))"
+    },
+    {
+      "table_name": "blood_classification",
+      "name": "blood_classification_resource_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (resource_id) REFERENCES blood_unit(resource_id)"
+    },
+    {
+      "table_name": "blood_classification",
+      "name": "blood_classification_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (resource_id)"
+    },
+    {
+      "table_name": "blood_component",
+      "name": "blood_component_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (component_id)"
+    },
+    {
+      "table_name": "blood_component",
+      "name": "blood_component_component_code_key",
+      "type": "u",
+      "definition": "UNIQUE (component_code)"
+    },
+    {
+      "table_name": "blood_movement",
+      "name": "blood_movement_actor_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (actor_id) REFERENCES user_account(account_id)"
+    },
+    {
+      "table_name": "blood_movement",
+      "name": "blood_movement_destination_location_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (destination_location_id) REFERENCES storage_location(location_id)"
+    },
+    {
+      "table_name": "blood_movement",
+      "name": "blood_movement_origin_location_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (origin_location_id) REFERENCES storage_location(location_id)"
+    },
+    {
+      "table_name": "blood_movement",
+      "name": "blood_movement_resource_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (resource_id) REFERENCES blood_unit(resource_id)"
+    },
+    {
+      "table_name": "blood_movement",
+      "name": "blood_movement_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (movement_id)"
+    },
+    {
+      "table_name": "blood_movement",
+      "name": "blood_movement_resource_id_sequence_key",
+      "type": "u",
+      "definition": "UNIQUE (resource_id, sequence)"
+    },
+    {
+      "table_name": "blood_status_transition",
+      "name": "blood_status_transition_check",
+      "type": "c",
+      "definition": "CHECK (((previous_status)::text <> (new_status)::text))"
+    },
+    {
+      "table_name": "blood_status_transition",
+      "name": "blood_status_transition_is_demo_check",
+      "type": "c",
+      "definition": "CHECK (is_demo)"
+    },
+    {
+      "table_name": "blood_status_transition",
+      "name": "blood_status_transition_new_status_check",
+      "type": "c",
+      "definition": "CHECK (((new_status)::text = ANY ((ARRAY['AVAILABLE'::character varying, 'QUARANTINED'::character varying, 'WITHDRAWN'::character varying])::text[])))"
+    },
+    {
+      "table_name": "blood_status_transition",
+      "name": "blood_status_transition_previous_status_check",
+      "type": "c",
+      "definition": "CHECK (((previous_status)::text = ANY ((ARRAY['AVAILABLE'::character varying, 'QUARANTINED'::character varying])::text[])))"
+    },
+    {
+      "table_name": "blood_status_transition",
+      "name": "blood_status_transition_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (previous_status, new_status)"
+    },
+    {
+      "table_name": "blood_unit",
+      "name": "blood_unit_check",
+      "type": "c",
+      "definition": "CHECK ((expires_at > collected_at))"
+    },
+    {
+      "table_name": "blood_unit",
+      "name": "blood_unit_current_status_check",
+      "type": "c",
+      "definition": "CHECK (((current_status)::text = ANY ((ARRAY['AVAILABLE'::character varying, 'QUARANTINED'::character varying, 'WITHDRAWN'::character varying])::text[])))"
+    },
+    {
+      "table_name": "blood_unit",
+      "name": "blood_unit_component_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (component_id) REFERENCES blood_component(component_id)"
+    },
+    {
+      "table_name": "blood_unit",
+      "name": "blood_unit_location_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (location_id) REFERENCES storage_location(location_id)"
+    },
+    {
+      "table_name": "blood_unit",
+      "name": "blood_unit_resource_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (resource_id) REFERENCES resource(resource_id)"
+    },
+    {
+      "table_name": "blood_unit",
+      "name": "blood_unit_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (resource_id)"
+    },
+    {
+      "table_name": "capability",
+      "name": "capability_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (capability_code)"
+    },
+    {
+      "table_name": "contact",
+      "name": "contact_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (contact_id)"
+    },
+    {
+      "table_name": "contact_method",
+      "name": "contact_method_method_kind_check",
+      "type": "c",
+      "definition": "CHECK (((method_kind)::text = ANY ((ARRAY['EMAIL'::character varying, 'PHONE'::character varying])::text[])))"
+    },
+    {
+      "table_name": "contact_method",
+      "name": "contact_method_contact_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (contact_id) REFERENCES contact(contact_id)"
+    },
+    {
+      "table_name": "contact_method",
+      "name": "contact_method_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (contact_id, method_kind)"
+    },
+    {
+      "table_name": "institution",
+      "name": "institution_institution_type_check",
+      "type": "c",
+      "definition": "CHECK (((institution_type)::text = ANY ((ARRAY['BLOOD_BANK'::character varying, 'HOSPITAL'::character varying, 'COORDINATION'::character varying])::text[])))"
+    },
+    {
+      "table_name": "institution",
+      "name": "institution_participation_status_check",
+      "type": "c",
+      "definition": "CHECK (((participation_status)::text = ANY ((ARRAY['ACTIVE'::character varying, 'INACTIVE'::character varying])::text[])))"
+    },
+    {
+      "table_name": "institution",
+      "name": "institution_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (institution_id)"
+    },
+    {
+      "table_name": "institution",
+      "name": "institution_institution_code_key",
+      "type": "u",
+      "definition": "UNIQUE (institution_code)"
+    },
+    {
+      "table_name": "institution_capability",
+      "name": "institution_capability_capability_code_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (capability_code) REFERENCES capability(capability_code)"
+    },
+    {
+      "table_name": "institution_capability",
+      "name": "institution_capability_institution_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (institution_id) REFERENCES institution(institution_id)"
+    },
+    {
+      "table_name": "institution_capability",
+      "name": "institution_capability_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (institution_id, capability_code)"
+    },
+    {
+      "table_name": "institution_contact",
+      "name": "institution_contact_contact_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (contact_id) REFERENCES contact(contact_id)"
+    },
+    {
+      "table_name": "institution_contact",
+      "name": "institution_contact_institution_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (institution_id) REFERENCES institution(institution_id)"
+    },
+    {
+      "table_name": "institution_contact",
+      "name": "institution_contact_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (institution_id, contact_id)"
+    },
+    {
+      "table_name": "institution_contact",
+      "name": "institution_contact_contact_id_key",
+      "type": "u",
+      "definition": "UNIQUE (contact_id)"
+    },
+    {
+      "table_name": "login_attempt",
+      "name": "login_attempt_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (attempt_id)"
+    },
+    {
+      "table_name": "parameter_version",
+      "name": "parameter_version_is_demo_check",
+      "type": "c",
+      "definition": "CHECK (is_demo)"
+    },
+    {
+      "table_name": "parameter_version",
+      "name": "parameter_version_measurement_unit_check",
+      "type": "c",
+      "definition": "CHECK (((measurement_unit)::text = 'HOURS'::text))"
+    },
+    {
+      "table_name": "parameter_version",
+      "name": "parameter_version_parameter_code_check",
+      "type": "c",
+      "definition": "CHECK (((parameter_code)::text = 'EXPIRY_WARNING_HOURS'::text))"
+    },
+    {
+      "table_name": "parameter_version",
+      "name": "parameter_version_scalar_value_check",
+      "type": "c",
+      "definition": "CHECK (((scalar_value >= 1) AND (scalar_value <= 720)))"
+    },
+    {
+      "table_name": "parameter_version",
+      "name": "parameter_version_approved_by_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (approved_by) REFERENCES user_account(account_id)"
+    },
+    {
+      "table_name": "parameter_version",
+      "name": "parameter_version_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (parameter_version_id)"
+    },
+    {
+      "table_name": "parameter_version",
+      "name": "parameter_version_region_name_parameter_code_version_no_key",
+      "type": "u",
+      "definition": "UNIQUE (region_name, parameter_code, version_no)"
+    },
+    {
+      "table_name": "party",
+      "name": "party_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (party_id)"
+    },
+    {
+      "table_name": "resource",
+      "name": "resource_resource_kind_check",
+      "type": "c",
+      "definition": "CHECK (((resource_kind)::text = 'BLOOD'::text))"
+    },
+    {
+      "table_name": "resource",
+      "name": "resource_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (resource_id)"
+    },
+    {
+      "table_name": "resource",
+      "name": "resource_traceability_code_key",
+      "type": "u",
+      "definition": "UNIQUE (traceability_code)"
+    },
+    {
+      "table_name": "role",
+      "name": "role_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (role_code)"
+    },
+    {
+      "table_name": "site",
+      "name": "site_site_status_check",
+      "type": "c",
+      "definition": "CHECK (((site_status)::text = ANY ((ARRAY['ACTIVE'::character varying, 'INACTIVE'::character varying])::text[])))"
+    },
+    {
+      "table_name": "site",
+      "name": "site_institution_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (institution_id) REFERENCES institution(institution_id)"
+    },
+    {
+      "table_name": "site",
+      "name": "site_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (site_id)"
+    },
+    {
+      "table_name": "site",
+      "name": "site_institution_id_site_code_key",
+      "type": "u",
+      "definition": "UNIQUE (institution_id, site_code)"
+    },
+    {
+      "table_name": "storage_location",
+      "name": "storage_location_site_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (site_id) REFERENCES site(site_id)"
+    },
+    {
+      "table_name": "storage_location",
+      "name": "storage_location_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (location_id)"
+    },
+    {
+      "table_name": "storage_location",
+      "name": "storage_location_site_id_location_code_key",
+      "type": "u",
+      "definition": "UNIQUE (site_id, location_code)"
+    },
+    {
+      "table_name": "user_account",
+      "name": "user_account_account_status_check",
+      "type": "c",
+      "definition": "CHECK (((account_status)::text = ANY ((ARRAY['ACTIVE'::character varying, 'INACTIVE'::character varying])::text[])))"
+    },
+    {
+      "table_name": "user_account",
+      "name": "user_account_login_email_check",
+      "type": "c",
+      "definition": "CHECK (((login_email)::text = lower((login_email)::text)))"
+    },
+    {
+      "table_name": "user_account",
+      "name": "user_account_party_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (party_id) REFERENCES party(party_id)"
+    },
+    {
+      "table_name": "user_account",
+      "name": "user_account_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (account_id)"
+    },
+    {
+      "table_name": "user_account",
+      "name": "user_account_login_email_key",
+      "type": "u",
+      "definition": "UNIQUE (login_email)"
+    },
+    {
+      "table_name": "user_account",
+      "name": "user_account_party_id_key",
+      "type": "u",
+      "definition": "UNIQUE (party_id)"
+    },
+    {
+      "table_name": "web_session",
+      "name": "web_session_account_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (account_id) REFERENCES user_account(account_id)"
+    },
+    {
+      "table_name": "web_session",
+      "name": "web_session_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (session_id)"
+    }
+  ],
+  "logical_validation": {
+    "result": "PASS",
+    "tables": 169,
+    "attributes": 918,
+    "sourceAttributes": 208,
+    "partialDecompositions": 8,
+    "transitiveDecompositions": 4,
+    "stagesChecked": 4,
+    "losslessDFWitnesses": 12,
+    "mvdWitnesses": 1,
+    "unsafePermissionSplitRejected": true,
+    "emptyGroupsAndRepeatedValuesPreserved": true,
+    "mermaidDiagrams": 49,
+    "limit": "DF and DMV are modeling assumptions, not discovered clinical rules or proof for unknown dependencies."
+  }
+}

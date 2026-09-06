@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block bodyclass %}landing{% endblock %}
+{% block content %}
+<section class="hero">
+  <div class="hero-copy"><span class="eyebrow light">UNA RED. UN PROPÓSITO COMPARTIDO.</span>
+    <h1>Conectar instituciones.<br><em>Acercar oportunidades.</em></h1>
+    <p>Una plataforma de coordinación para la red regional de bancos de sangre y donación de órganos. Información organizada, operaciones trazables y personas en el centro.</p>
+    <div class="button-row"><a class="button large" href="{{ url_for('public.login') }}">Entrar al portal {{ icon('arrow-right') }}</a><a class="text-link light" href="#proyecto">Conoce el proyecto {{ icon('arrow-down') }}</a></div>
+    <div class="hero-disclaimer">{{ icon('shield-check') }} Proyecto académico · Únicamente datos ficticios</div>
+  </div>
+  <div class="hero-panel"><div class="hero-panel-heading"><span class="brand-symbol">{{ icon('droplet') }}</span><span>RED HOUSE<small>Coordinación con trazabilidad</small></span><span class="live-dot"></span></div>
+    <div class="hero-feature">{{ icon('building-2') }}<div><strong>Instituciones conectadas</strong><p>Una fuente común para representar la red.</p></div></div>
+    <div class="hero-feature">{{ icon('package') }}<div><strong>Inventario visible</strong><p>Consulta y control dentro de cada ámbito.</p></div></div>
+    <div class="hero-feature">{{ icon('file-clock') }}<div><strong>Cada cambio deja una huella</strong><p>Responsables, movimientos y auditoría.</p></div></div>
+    <div class="hero-panel-footer">Diseñada para apoyar a las personas.<br><strong>Nunca para sustituir una decisión médica.</strong></div>
+  </div>
+</section>
+<section class="public-section" id="proyecto"><div class="section-intro"><span class="eyebrow">EL PROYECTO</span><h2>Una base común para trabajar mejor.</h2><p>Primer incremento del sistema web empresarial. La evolución hacia nuevos procesos conservará la separación de responsabilidades y la revisión humana.</p></div>
+  <div class="feature-grid">
+    <article class="card feature-card">{{ icon('shield-check') }}<span class="feature-number">01</span><h3>Acceso responsable</h3><p>Perfiles diferenciados y operaciones limitadas al ámbito institucional autorizado.</p></article>
+    <article class="card feature-card">{{ icon('clock') }}<span class="feature-number">02</span><h3>Control demostrable</h3><p>Unidades ficticias, fechas registradas y un umbral configurable de aviso de caducidad DEMO.</p></article>
+    <article class="card feature-card">{{ icon('scroll-text') }}<span class="feature-number">03</span><h3>Trazabilidad desde el inicio</h3><p>Persistencia real y evidencia auditable de cambios administrativos y operativos.</p></article>
+  </div>
+</section>
+<section class="public-contact"><div><span class="eyebrow">CONTACTO Y ACCESO</span><h2>¿Formas parte del equipo académico?</h2><p>Solicita tu cuenta al responsable de administración del proyecto, Equipo 01. No se reciben solicitudes médicas ni datos de pacientes mediante este sitio.</p></div><a class="button secondary" href="{{ url_for('public.login') }}">Acceso institucional {{ icon('arrow-right') }}</a></section>
+<footer class="public-footer"><span>Red House · Proyecto 6 · Equipo 01</span><span>Demostración académica. No es un servicio de atención médica.</span></footer>
+{% endblock %}

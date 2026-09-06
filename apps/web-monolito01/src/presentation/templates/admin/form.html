@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% from 'macros.html' import input, select with context %}
+{% block content %}
+<div class="page-heading"><div><a class="back-link" href="{{ url_for('admin.index',entity=entity) }}">{{ icon('arrow-left') }} {{ titles[entity] }}</a><h1>{{ title }}</h1><p>Solo datos ficticios. Los campos con * son obligatorios.</p></div></div>
+<div class="form-layout"><section class="card form-card">{% if error %}<div class="notice error" role="alert">{{ error }}</div>{% endif %}<form method="post">{{ csrf() }}{% if identifier %}<input type="hidden" name="version_no" value="{{ data.get('version_no') }}">{% endif %}<div class="form-grid">
+{% if entity == 'institutions' %}
+  {{ input('institution_code','Código institucional',data,max=30) }}{{ input('institution_name','Nombre de la institución',data,max=160) }}
+  {{ select('institution_type','Tipo',[('BLOOD_BANK','Banco de sangre'),('HOSPITAL','Hospital'),('COORDINATION','Coordinación')],data) }}
+  {{ select('participation_status','Participación',[('ACTIVE','Activa'),('INACTIVE','Inactiva')],data) }}
+  {{ input('city','Ciudad',data,max=100) }}{{ input('street','Dirección',data,max=200) }}
+  <div class="field"><label>Región autorizada</label><p class="read-only-value">{{ principal.region_name }}</p></div>
+  <fieldset class="capability-field"><legend>Capacidades declaradas</legend>{% for item in choices.capabilities %}<label class="checkbox"><input type="checkbox" name="capabilities" value="{{ item.capability_code }}" {% if item.capability_code in data.get('capabilities',[]) %}checked{% endif %}> {{ item.capability_name }}</label>{% endfor %}</fieldset>
+  {{ input('contact_name','Contacto institucional',data,required=false) }}{{ input('contact_email','Correo del contacto',data,'email',false,180) }}{{ input('contact_phone','Teléfono del contacto',data,'tel',false,40) }}
+{% elif entity == 'sites' %}
+  <div class="field"><label for="institution_id">Institución *</label><select id="institution_id" name="institution_id" required><option value="">Selecciona una institución</option>{% for item in choices.institutions %}<option value="{{ item.institution_id }}" {% if data.get('institution_id')|string == item.institution_id|string %}selected{% endif %}>{{ item.institution_name }}{{ ' · Inactiva' if item.participation_status != 'ACTIVE' else '' }}</option>{% endfor %}</select></div>
+  {{ input('site_code','Código de sede',data,max=30) }}{{ input('site_name','Nombre de sede',data) }}{{ input('city','Ciudad',data,max=100) }}{{ input('street','Dirección',data,max=200) }}{{ select('site_status','Estado',[('ACTIVE','Activa'),('INACTIVE','Inactiva')],data) }}
+{% elif entity == 'locations' %}
+  <div class="field"><label for="site_id">Sede *</label><select id="site_id" name="site_id" required><option value="">Selecciona una sede</option>{% for item in choices.sites %}<option value="{{ item.site_id }}" {% if data.get('site_id')|string == item.site_id|string %}selected{% endif %}>{{ item.institution_name }} · {{ item.site_name }}</option>{% endfor %}</select></div>
+  {{ input('location_code','Código de ubicación',data,max=30) }}{{ input('location_description','Descripción de ubicación',data,max=150) }}
+{% elif entity == 'components' %}
+  {{ input('component_code','Código del componente',data,max=30) }}{{ input('component_name','Nombre del componente',data,max=100) }}
+{% elif entity == 'users' %}
+  {{ input('party_name','Nombre de la persona',data) }}{{ input('login_email','Correo de acceso',data,'email',true,180) }}
+  {{ select('role_code','Perfil inicial',[('ADMIN','Administrador'),('OPERATOR','Operador de banco de sangre'),('AUDITOR','Auditor')],data) }}
+  <div class="field"><label for="scope">Ámbito autorizado *</label><select id="scope" name="scope" required><option value="">Selecciona un ámbito</option>{% if not principal.institution_id %}<option value="REGIONAL" {% if data.get('scope') == 'REGIONAL' %}selected{% endif %}>Regional · {{ principal.region_name }} (Administrador o Auditor)</option>{% endif %}{% for item in choices.institutions %}<option value="{{ item.institution_id }}" {% if data.get('scope') == item.institution_id|string %}selected{% endif %}>{{ item.institution_name }}</option>{% endfor %}</select></div>
+  {{ select('account_status','Estado de la cuenta',[('ACTIVE','Activa'),('INACTIVE','Inactiva')],data) }}
+  {{ input('password','Nueva contraseña' if identifier else 'Contraseña inicial',data,'password',not identifier,128,'Entre 12 y 128 caracteres. ' ~ ('Déjala vacía para conservar la actual.' if identifier else 'Entrégala por un canal privado.')) }}
+{% endif %}
+{% if entity in ['components','locations'] %}<label class="checkbox"><input type="checkbox" name="is_active" {% if data.get('is_active',true) %}checked{% endif %}> Registro activo</label>{% endif %}
+</div><div class="form-actions"><a class="button secondary" href="{{ url_for('admin.index',entity=entity) }}">Cancelar</a><button class="button" type="submit">{{ icon('check') }} Guardar cambios</button></div></form></section>
+<aside class="form-aside"><span class="mini-icon">{{ icon('shield-check') }}</span><h2>Administración con control</h2><p>{{ 'Los cambios de acceso revocan las sesiones anteriores. El perfil Operador debe pertenecer a una institución concreta.' if entity == 'users' else 'Cada cambio se guarda junto con la evidencia de quién lo realizó y cuándo.' }}</p><ul><li>Ámbito comprobado en el servidor.</li><li>Referencias e identificadores únicos.</li><li>Inactivación sin borrar historial.</li><li>Protección ante ediciones simultáneas.</li></ul><div class="notice">Los permisos administrativos no otorgan facultades clínicas.</div></aside></div>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% macro icon(name, extra='') -%}
+<img class="icon {{ extra }}" src="{{ url_for('static', filename='img/icons/' ~ name ~ '.svg') }}" alt="" width="20" height="20">
+{%- endmacro %}
+
+{% macro csrf() -%}<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">{%- endmacro %}
+
+{% macro badge(status) -%}
+<span class="badge status-{{ status|lower }}">{{ statuses.get(status, {'ACTIVE':'Activa', 'INACTIVE':'Inactiva', 'SUCCESS':'Correcto', 'FAILED':'Fallido', 'DENIED':'Denegado'}.get(status, status)) }}</span>
+{%- endmacro %}
+
+{% macro pagination(total, page) %}
+<div class="pagination">
+  <span>{{ total }} registro{{ '' if total == 1 else 's' }} · Página {{ page }} de {{ [1, ((total + 11) // 12)]|max }}</span>
+  <div class="button-row">
+    {% set args = request.args.to_dict() %}
+    {% if page > 1 %}{% set _ = args.update({'page': page-1}) %}<a class="button small secondary" href="{{ url_for(request.endpoint, **dict(request.view_args, **args)) }}">Anterior</a>{% endif %}
+    {% if page * 12 < total %}{% set _ = args.update({'page': page+1}) %}<a class="button small secondary" href="{{ url_for(request.endpoint, **dict(request.view_args, **args)) }}">Siguiente</a>{% endif %}
+  </div>
+</div>
+{% endmacro %}
+
+{% macro input(name, label, data, type='text', required=true, max=120, hint='') %}
+<div class="field">
+  <label for="{{ name }}">{{ label }}{% if required %} <span aria-hidden="true">*</span>{% endif %}</label>
+  <input id="{{ name }}" name="{{ name }}" type="{{ type }}" value="{{ data.get(name, '') if type != 'password' else '' }}" {% if required %}required{% endif %} maxlength="{{ max }}" {% if hint %}aria-describedby="{{ name }}-hint"{% endif %} {% if type == 'password' %}minlength="12" autocomplete="new-password"{% endif %}>
+  {% if hint %}<small id="{{ name }}-hint">{{ hint }}</small>{% endif %}
+</div>
+{% endmacro %}
+
+{% macro select(name, label, values, data, required=true) %}
+<div class="field"><label for="{{ name }}">{{ label }}{% if required %} <span aria-hidden="true">*</span>{% endif %}</label>
+<select id="{{ name }}" name="{{ name }}" {% if required %}required{% endif %}>
+  <option value="">Selecciona una opción</option>
+  {% for value, text in values %}<option value="{{ value }}" {% if data.get(name, '')|string == value|string %}selected{% endif %}>{{ text }}</option>{% endfor %}
+</select></div>
+{% endmacro %}
+
+{% macro empty(title, text, glyph='inbox') %}
+<div class="empty-state">{{ icon(glyph) }}<h3>{{ title }}</h3><p>{{ text }}</p></div>
+{% endmacro %}

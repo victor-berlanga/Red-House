@@ -1,0 +1,42 @@
+{
+  "verified_on": "2026-09-06",
+  "platform": "macOS",
+  "result": "PASS",
+  "environment": "apps/web-monolito01/.venv",
+  "created_at_current_project_path": true,
+  "activation_and_entrypoints": "PASS",
+  "pip_check": "PASS",
+  "read_only_setup_check": "PASS",
+  "tests": {
+    "passed": 65,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "seconds": 40.924,
+    "report": "Tests_venv.xml",
+    "database": "isolated temporary PostgreSQL",
+    "browser": "Chrome"
+  },
+  "direct_startup": {
+    "command": "python3 run.py",
+    "venv_activation_required": false,
+    "public_gets": {
+      "/health/live": 200,
+      "/": 200,
+      "/login": 200
+    }
+  },
+  "preservation": {
+    "files_outside_venv_unchanged_before_documentation_updates": 155,
+    "private_configuration_unchanged": true,
+    "private_file_mode": "600",
+    "database_not_reinitialized": true,
+    "previous_venv_backed_up_outside_repository": true,
+    "temporary_processes_stopped": true
+  },
+  "team_review_and_windows": {
+    "status": "completed",
+    "source": "Confirmed by the user on 2026-09-06 as completed by other team members.",
+    "windows_executed_by_this_agent": false
+  }
+}
