@@ -143,24 +143,24 @@ Todas usan la contraseña elegida durante el instalador o al ejecutar manualment
 | Correo | Perfil y ámbito | Acceso |
 | --- | --- | --- |
 | `admin@red-house.test` | Administrador regional de `DEMO-NORTE` | Red institucional, cuentas, catálogos y parámetro; no inventario operativo ni auditoría clínica. |
-| `operador@red-house.test` | Operador del Banco Regional Norte | Consulta, alta y movimientos internos de su inventario. |
+| `operador@red-house.test` | Operador del Banco Regional Norte | Consulta, alta, movimientos internos y baja lógica de su inventario. |
 | `operador.valle@red-house.test` | Operador del Hospital del Valle | Las mismas operaciones, exclusivamente en su institución. |
 | `auditor@red-house.test` | Auditor regional de `DEMO-NORTE` | Inventario y bitácora de la región, sin permisos de modificación. |
 
 También se pueden crear cuentas administrativas o auditoras institucionales. Un administrador institucional no puede ampliar su ámbito, modificar el catálogo regional ni incorporar otras instituciones. Una cuenta mantiene un solo perfil y ámbito vigentes en este incremento. Los perfiles no forman una jerarquía de privilegios clínicos.
 
-Para comprobar el flujo: inicia como Operador, registra una unidad ficticia con fechas UTC, consulta su detalle y registra un movimiento con motivo. Recarga para verificar persistencia. Después, inicia como Auditor para consultar la evidencia. La segunda cuenta operadora no puede acceder a esa unidad, ni siquiera mediante su URL directa.
+Para comprobar el flujo: inicia como Operador, registra una unidad ficticia con fechas UTC, consulta su detalle, registra un movimiento con motivo y, si todavía no tiene movimientos operativos posteriores al alta, ejecuta la baja lógica con un motivo. Recarga para verificar persistencia y confirma que la unidad ya no aparece en el inventario ni en el panel, aunque su detalle e historial siguen conservados. Después, inicia como Auditor para consultar la evidencia. La segunda cuenta operadora no puede acceder a esa unidad, ni siquiera mediante su URL directa.
 
 ## Reglas técnicas del incremento
 
 - Todos los horarios se capturan, almacenan y muestran en UTC. La caducidad debe ser posterior a la recolección; no se admite recolección futura ni alta disponible con caducidad vencida.
-- Los estados persistidos son `AVAILABLE`, `QUARANTINED` y `WITHDRAWN`. Las transiciones permitidas son demostrativas; una baja no se revierte desde esta interfaz. La cuarentena de ejemplo no constituye validación de laboratorio.
+- Los estados persistidos son `AVAILABLE`, `QUARANTINED` y `WITHDRAWN`. Las transiciones operativas son demostrativas; `WITHDRAWN` se alcanza mediante la baja lógica exclusiva del Operador y no se revierte desde esta interfaz. La cuarentena de ejemplo no constituye validación de laboratorio.
 - `EXPIRED` y `UNAVAILABLE` se derivan al consultar. Caducidad o referencias inactivas impiden contabilizar una unidad como disponible sin borrar su historial.
 - La ventana inicial de aviso es **72 horas DEMO**; el administrador regional puede registrar otra versión entre 1 y 720 horas. Es un parámetro de interfaz, no una regla de conservación. No modifica las fechas capturadas. Si aún no existe una versión, la consulta utiliza el mismo valor DEMO de 72 horas.
 - Folio, componente, clasificación y fechas quedan inmutables después del alta. La interfaz permite cambios de estado y ubicación dentro de la misma institución; las correcciones clínicas y los traslados entre instituciones requieren procesos posteriores.
 - Las escrituras administrativas llevan control de versión. Los movimientos bloquean la unidad durante la transacción y verifican su versión: ante dos ediciones simultáneas, una se confirma y la otra recibe un conflicto 409.
 - La operación, su movimiento y su auditoría se confirman conjuntamente. Si falla la bitácora, no se guarda parcialmente la operación.
-- No se eliminan unidades ni cuentas desde las vistas: se usa baja o desactivación. La modificación de una cuenta revoca sus sesiones previas; desactivar una institución revoca los accesos asociados.
+- No se eliminan físicamente unidades ni cuentas desde las vistas: se usa baja o desactivación. La baja de una unidad conserva el folio, historial y auditoría, pero la excluye de los listados, contadores, avisos y últimas unidades del panel. Se bloquea si existe cualquier movimiento operativo posterior al alta; en el MVP esto cubre conservadoramente asignación, traslado, entrega u otro evento posterior. La modificación de una cuenta revoca sus sesiones previas; desactivar una institución revoca los accesos asociados.
 
 ## Seguridad y límites
 

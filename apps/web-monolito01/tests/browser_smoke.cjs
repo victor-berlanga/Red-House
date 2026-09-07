@@ -55,7 +55,7 @@ const fs = require('node:fs');
     await page.getByRole('button',{name:'Guardar unidad',exact:true}).click();
     await page.getByRole('heading',{name:'RH-BROWSER-001',exact:true}).waitFor();
     await page.getByLabel('Estado DEMO',{exact:false}).selectOption('QUARANTINED');
-    await page.getByLabel('Motivo',{exact:false}).fill('Cambio ficticio de estado desde navegador');
+    await page.getByLabel('Motivo *',{exact:true}).fill('Cambio ficticio de estado desde navegador');
     await page.getByRole('button',{name:'Guardar movimiento'}).click();
     await page.getByText('Movimiento guardado con trazabilidad y auditoría.').waitFor();
     await capture('unit-detail-desktop');

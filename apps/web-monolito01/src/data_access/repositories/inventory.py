@@ -2,11 +2,13 @@ from .common import pattern, scope
 
 STATUSES = {"AVAILABLE": "Disponible", "QUARANTINED": "Cuarentena DEMO", "WITHDRAWN": "Baja",
             "EXPIRED": "Vencida", "UNAVAILABLE": "Referencia inactiva"}
+VISIBLE_STATUSES = {key: label for key, label in STATUSES.items() if key != "WITHDRAWN"}
 GROUPS = ("O-", "O+", "A-", "A+", "B-", "B+", "AB-", "AB+")
 
 
 def listing(conn, principal, filters, hours, page=1):
     clause, params = scope(principal, "v")
+    clause += " AND v.current_status <> 'WITHDRAWN'"
     clause += " AND (v.traceability_code ILIKE %s OR v.component_name ILIKE %s)"
     params += [pattern(filters.get("q", ""))] * 2
     for name in ("institution_id", "component_id", "effective_status", "recorded_group_code"):
@@ -34,6 +36,7 @@ def one(conn, principal, identifier):
 
 def summary(conn, principal, hours):
     clause, params = scope(principal, "v")
+    clause += " AND v.current_status <> 'WITHDRAWN'"
     totals = conn.execute("""SELECT count(*) AS total, count(*) FILTER (WHERE is_available) AS available,
         count(*) FILTER (WHERE effective_status = 'EXPIRED') AS expired,
         count(*) FILTER (WHERE effective_status = 'QUARANTINED') AS quarantined,

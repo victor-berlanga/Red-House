@@ -44,9 +44,13 @@ if (passwordToggle) passwordToggle.addEventListener("click", () => {
   passwordToggle.setAttribute("aria-label", showing ? "Ocultar contraseña" : "Mostrar contraseña");
 });
 
-// Evita un doble envío accidental. La integridad y concurrencia se validan en servidor.
+// Confirma bajas y evita dobles envíos accidentales. La integridad y concurrencia se validan en servidor.
 document.querySelectorAll('form[method="post"]').forEach(form => {
-  form.addEventListener("submit", () => {
+  form.addEventListener("submit", event => {
+    if (form.dataset.confirm && !window.confirm(form.dataset.confirm)) {
+      event.preventDefault();
+      return;
+    }
     const button = form.querySelector('button[type="submit"]');
     if (button) { button.disabled = true; button.setAttribute("aria-busy", "true"); }
   });

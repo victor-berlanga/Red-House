@@ -51,7 +51,7 @@ def create(principal, data):
 def change(principal, identifier, data):
     require(principal, "inventory.write")
     reason = v.text(data, "reason", "el motivo del movimiento", 240)
-    state = v.choice(data, "current_status", ("AVAILABLE", "QUARANTINED", "WITHDRAWN"), "el estado DEMO")
+    state = v.choice(data, "current_status", ("AVAILABLE", "QUARANTINED"), "el estado DEMO")
     with transaction() as conn:
         existing = repo.one(conn, principal, identifier)
         if not existing:
@@ -87,6 +87,47 @@ def change(principal, identifier, data):
                      institution_id=existing["institution_id"],
                      before={"current_status": previous, "location_id": locked["location_id"]},
                      after={"current_status": state, "location_id": location["location_id"]})
+
+
+def soft_delete(principal, identifier, data):
+    """Retira una unidad sin borrar su identidad, historial ni auditoría."""
+    require(principal, "inventory.write")
+    reason = v.text(data, "reason", "el motivo de la baja", 240)
+    version_no = v.integer(data, "version_no")
+    with transaction() as conn:
+        existing = repo.one(conn, principal, identifier)
+        if not existing:
+            raise BusinessError("La unidad no está disponible en tu ámbito.", 404)
+
+        # Bloquea el agregado antes de comprobar versión e historial.
+        locked = conn.execute("SELECT * FROM blood_unit WHERE resource_id = %s FOR UPDATE", (identifier,)).fetchone()
+        check_version(locked, version_no)
+        if locked["current_status"] == "WITHDRAWN":
+            raise BusinessError("La unidad ya está dada de baja.", 409)
+
+        # El MVP aún no tiene tablas separadas de asignación, traslado o entrega.
+        # Cualquier evento posterior al alta se trata conservadoramente como movimiento
+        # operativo y bloquea la baja para no ocultar trazabilidad.
+        operational_event = conn.execute("""SELECT 1 FROM blood_movement
+            WHERE resource_id = %s AND sequence > 1 LIMIT 1""", (identifier,)).fetchone()
+        if operational_event:
+            raise BusinessError("No se puede dar de baja una unidad con asignación, traslado, entrega o movimiento operativo registrado.", 409)
+
+        previous = locked["current_status"]
+        conn.execute("""UPDATE blood_unit
+            SET current_status = 'WITHDRAWN', version_no = version_no + 1
+            WHERE resource_id = %s""", (identifier,))
+        sequence = conn.execute("""SELECT coalesce(max(sequence), 0) + 1 AS next
+            FROM blood_movement WHERE resource_id = %s""", (identifier,)).fetchone()["next"]
+        insert(conn, "blood_movement", {"resource_id": identifier, "sequence": sequence,
+               "previous_status": previous, "new_status": "WITHDRAWN",
+               "origin_location_id": locked["location_id"],
+               "destination_location_id": locked["location_id"],
+               "actor_id": principal.account_id, "reason": reason}, "movement_id")
+        audit.record(conn, principal, "DELETE", "BLOOD_UNIT", identifier, reason,
+                     institution_id=existing["institution_id"],
+                     before={"current_status": previous, "visible_in_inventory": True},
+                     after={"current_status": "WITHDRAWN", "visible_in_inventory": False})
 
 
 def details(principal, identifier):

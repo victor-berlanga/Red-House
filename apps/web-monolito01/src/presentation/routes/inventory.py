@@ -17,7 +17,7 @@ def index():
     for key in ("institution_id", "component_id"):
         if request.args.get(key):
             filters[key] = v.identifier(request.args, key)
-    for key, allowed in (("effective_status", repo.STATUSES), ("recorded_group_code", repo.GROUPS), ("expiry", ("soon", "expired"))):
+    for key, allowed in (("effective_status", repo.VISIBLE_STATUSES), ("recorded_group_code", repo.GROUPS), ("expiry", ("soon", "expired"))):
         if request.args.get(key):
             filters[key] = v.choice(request.args, key, allowed, key)
     page = v.integer({"page": request.args.get("page", 1)}, "page", 1, 100000)
@@ -29,7 +29,8 @@ def index():
         stats, _, _ = repo.summary(conn, g.principal, hours)
         audit.record(conn, g.principal, "READ", "BLOOD_UNIT", "LIST", "Consulta paginada de inventario autorizado")
     return render_template("inventory/list.html", title="Inventario sanguíneo", active="inventory", rows=rows,
-                           total=total, page=page, choices=choices, hours=hours, stats=stats, groups=repo.GROUPS)
+                           total=total, page=page, choices=choices, hours=hours, stats=stats, groups=repo.GROUPS,
+                           filter_statuses=repo.VISIBLE_STATUSES)
 
 
 @bp.route("/nueva", methods=["GET", "POST"])
@@ -65,11 +66,33 @@ def detail(identifier):
             if exc.status not in (400, 409):
                 raise
             error, status = exc.message, exc.status
+    return _render_detail(identifier, error, status)
+
+
+@bp.post("/<uuid:identifier>/eliminar")
+def soft_delete(identifier):
+    try:
+        service.soft_delete(g.principal, identifier, request.form)
+    except BusinessError as exc:
+        if exc.status not in (400, 409):
+            raise
+        return _render_detail(identifier, exc.message, exc.status)
+    flash("Unidad dada de baja lógicamente. Se conserva su historial y ya no aparece en el inventario.", "success")
+    return redirect(url_for("inventory.index"))
+
+
+@bp.delete("/<uuid:identifier>")
+def delete(identifier):
+    service.soft_delete(g.principal, identifier, request.form or request.get_json(silent=True) or {})
+    return "", 204
+
+
+def _render_detail(identifier, error=None, status=200):
     row, history = service.details(g.principal, identifier)
     with transaction() as conn:
         choices = network.options(conn, g.principal)
-        permitted = conn.execute("SELECT new_status FROM blood_status_transition WHERE previous_status = %s",
+        permitted = conn.execute("SELECT new_status FROM blood_status_transition WHERE previous_status = %s AND new_status <> 'WITHDRAWN'",
                                  (row["current_status"],)).fetchall()
     return render_template("inventory/detail.html", title=row["traceability_code"], active="inventory", unit=row,
                            history=history, choices=choices, permitted=[r["new_status"] for r in permitted],
-                           error=error), status
+                           error=error, can_delete=(row["current_status"] != "WITHDRAWN" and len(history) == 1)), status

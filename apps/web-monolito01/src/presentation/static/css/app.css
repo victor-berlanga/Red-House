@@ -195,6 +195,7 @@ tbody tr:hover { background: #fafbfd; }
 .details-list { margin: 0; padding: 7px 25px; }.details-list > div { padding: 13px 0; border-bottom: 1px solid #edf1f5; display: grid; grid-template-columns: 1fr 1.3fr; gap: 18px; }
 dt { font-size: 11px; color: var(--muted); }dd { font-size: 12px; margin: 0; overflow-wrap: anywhere; }
 .inset { margin: 20px 25px; }.read-only-note { text-align: center; padding: 35px 12px; }.read-only-note .icon { opacity: .45; width: 30px; height: 30px; margin-bottom: 17px; }
+.withdraw-panel { margin-top: 25px; padding-top: 25px; border-top: 1px solid var(--border); }.withdraw-panel h3 { font-size: 14px; margin-bottom: 7px; }.withdraw-panel p { font-size: 11px; }
 .timeline { padding: 10px 25px 25px; list-style: none; margin: 0; }.timeline li { display: flex; gap: 18px; padding: 17px 0; }.timeline li > div { flex: 1; }
 .timeline-point { width: 29px; height: 29px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: #eaf0f7; color: #37567a; font-size: 11px; flex-shrink: 0; }
 .timeline-title { display: flex; justify-content: space-between; gap: 12px; margin-bottom: 7px; font-size: 12px; }.timeline-title time { font-size: 10px; color: var(--muted); }.timeline p { margin: 0 0 5px; font-size: 12px; }.timeline small { font-size: 10px; }

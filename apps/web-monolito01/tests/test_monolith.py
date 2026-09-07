@@ -117,6 +117,68 @@ def test_create_inventory_and_history_are_atomic(client, sign_in, db):
     assert duplicate.status_code == 409
 
 
+def test_operator_soft_delete_hides_inventory_but_preserves_history(client, sign_in, db):
+    sign_in(client)
+    payload = unit_payload(db, "RH-SOFT-DELETE")
+    response = client.post("/inventario/nueva", data={**payload, "csrf_token":csrf(client, "/inventario/nueva")})
+    assert response.status_code == 302
+    row = db.execute("SELECT * FROM blood_inventory WHERE traceability_code = %s", (payload["traceability_code"],)).fetchone()
+    detail_path = f"/inventario/{row['resource_id']}"
+    assert b"Dar de baja unidad" in client.get(detail_path).data
+
+    delete_path = f"/inventario/{row['resource_id']}/eliminar"
+    response = client.post(delete_path, data={"csrf_token":csrf(client, detail_path),
+        "version_no":row["version_no"], "reason":"Retiro ficticio del inventario"})
+    assert response.status_code == 302
+    assert response.location.endswith("/inventario")
+    assert payload["traceability_code"].encode() not in client.get("/inventario").data
+    assert payload["traceability_code"].encode() not in client.get("/panel").data
+
+    stored = db.execute("SELECT * FROM blood_unit WHERE resource_id = %s", (row["resource_id"],)).fetchone()
+    assert stored["current_status"] == "WITHDRAWN"
+    assert stored["version_no"] == row["version_no"] + 1
+    assert db.execute("SELECT count(*) AS n FROM blood_movement WHERE resource_id = %s", (row["resource_id"],)).fetchone()["n"] == 2
+    audit_row = db.execute("SELECT * FROM audit_event WHERE entity_reference = %s AND action = 'DELETE'",
+                           (str(row["resource_id"]),)).fetchone()
+    assert audit_row["outcome"] == "SUCCESS"
+    assert client.get(detail_path).status_code == 200
+    assert b"Baja" in client.get(detail_path).data
+
+    api_payload = unit_payload(db, "RH-HTTP-DELETE")
+    assert client.post("/inventario/nueva", data={**api_payload, "csrf_token":csrf(client, "/inventario/nueva")}).status_code == 302
+    api_row = db.execute("SELECT * FROM blood_inventory WHERE traceability_code = %s", (api_payload["traceability_code"],)).fetchone()
+    api_path = f"/inventario/{api_row['resource_id']}"
+    response = client.delete(api_path, data={"csrf_token":csrf(client, api_path),
+        "version_no":api_row["version_no"], "reason":"Baja HTTP ficticia"})
+    assert response.status_code == 204
+    assert db.execute("SELECT current_status FROM blood_unit WHERE resource_id = %s", (api_row["resource_id"],)).fetchone()["current_status"] == "WITHDRAWN"
+
+
+def test_delete_is_blocked_after_operational_movement_and_not_allowed_to_auditor(client, sign_in, app, db):
+    sign_in(client)
+    payload = unit_payload(db, "RH-SOFT-BLOCKED")
+    assert client.post("/inventario/nueva", data={**payload, "csrf_token":csrf(client, "/inventario/nueva")}).status_code == 302
+    row = db.execute("SELECT * FROM blood_inventory WHERE traceability_code = %s", (payload["traceability_code"],)).fetchone()
+    path = f"/inventario/{row['resource_id']}"
+    assert client.post(path, data={"csrf_token":csrf(client, path), "current_status":"QUARANTINED",
+        "location_id":str(row["location_id"]), "version_no":row["version_no"],
+        "reason":"Movimiento operativo ficticio"}).status_code == 302
+    changed = db.execute("SELECT * FROM blood_unit WHERE resource_id = %s", (row["resource_id"],)).fetchone()
+    blocked = client.post(f"{path}/eliminar", data={"csrf_token":csrf(client, path),
+        "version_no":changed["version_no"], "reason":"Intento de retiro bloqueado"})
+    assert blocked.status_code == 409
+    assert b"movimiento operativo registrado" in blocked.data
+    assert db.execute("SELECT current_status FROM blood_unit WHERE resource_id = %s", (row["resource_id"],)).fetchone()["current_status"] == "QUARANTINED"
+    assert db.execute("SELECT count(*) AS n FROM audit_event WHERE entity_reference = %s AND action = 'DELETE'",
+                      (str(row["resource_id"]),)).fetchone()["n"] == 0
+
+    auditor = app.test_client()
+    sign_in(auditor, "auditor")
+    denied = auditor.post(f"{path}/eliminar", data={"csrf_token":csrf(auditor, path),
+        "version_no":changed["version_no"], "reason":"Sin permiso"})
+    assert denied.status_code == 403
+
+
 def test_expiry_and_illegal_transitions(client, sign_in, db):
     sign_in(client)
     expired = db.execute("SELECT * FROM blood_inventory WHERE institution_code = 'DEMO-NORTE' AND effective_status = 'EXPIRED' LIMIT 1").fetchone()
