@@ -1,0 +1,11 @@
+flowchart TB
+  I[Institución y expediente de donante] --> R[Revisión humana y consentimiento]
+  R --> D[Donación y recolección]
+  D --> P[Procesamiento y liberación humana de componentes]
+  P --> V[Inventario regional disponible]
+  Q[Receptor y solicitud médica] --> C[Candidatos ABO/Rh DEMO y orden explicable]
+  V --> C
+  C --> H[Revisión humana y reserva exclusiva]
+  H --> A[Asignación y traslado]
+  A --> T[Custodia, recepción y cierre]
+  T --> U[Auditoría transversal consultable]

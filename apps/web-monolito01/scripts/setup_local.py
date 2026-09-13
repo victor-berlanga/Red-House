@@ -188,6 +188,7 @@ def prepare_database(connection, schema_path, *, check_only=False, password_read
     from psycopg import sql
     from psycopg.rows import dict_row
     from src.cli import seed_demo
+    from src.data_access.migrations import MIGRATIONS, migrate
     source = schema_path.read_text(encoding='utf-8')
     expected = set(re.findall(r'^CREATE TABLE ([a-z_]+) \(', source, re.MULTILINE))
     with psycopg.connect(connection, row_factory=dict_row,
@@ -208,9 +209,13 @@ def prepare_database(connection, schema_path, *, check_only=False, password_read
             if occupied or other_schema:
                 raise SetupError('La base contiene objetos ajenos a Red House. No se inicializó ni se borró nada.')
             conn.execute(source)
+            migrate(conn)
+        upgraded = expected | {'schema_migration'}
+        for migration in MIGRATIONS.glob('*.sql'):
+            upgraded |= set(re.findall(r'^CREATE TABLE ([a-z_]+) \(', migration.read_text(), re.MULTILINE))
         actual = {r['table_name'] for r in conn.execute("""SELECT table_name FROM information_schema.tables
             WHERE table_schema='red_house' AND table_type='BASE TABLE'""")}
-        if actual != expected or not conn.execute("SELECT to_regclass('red_house.blood_inventory') AS view").fetchone()['view']:
+        if actual not in (expected, upgraded) or not conn.execute("SELECT to_regclass('red_house.blood_inventory') AS view").fetchone()['view']:
             raise SetupError('El esquema no coincide con este incremento. No se migra ni se repara automáticamente.')
         # Todo registro existente se conserva, incluso si no corresponde a la carga DEMO.
         accounts = conn.execute('SELECT count(*) AS n FROM user_account').fetchone()['n']
@@ -219,8 +224,8 @@ def prepare_database(connection, schema_path, *, check_only=False, password_read
         else:
             if check_only:
                 raise SetupError('Aún no hay cuentas. Ejecuta el instalador sin --check.')
-            initial_catalogs = {'role', 'capability', 'blood_status_transition'}
-            for table in expected - initial_catalogs:
+            initial_catalogs = {'role', 'capability', 'blood_status_transition', 'schema_migration'}
+            for table in actual - initial_catalogs:
                 if conn.execute(sql.SQL('SELECT 1 FROM {} LIMIT 1').format(sql.Identifier(table))).fetchone():
                     raise SetupError('Hay datos previos sin cuentas. No se mezclará una carga DEMO con esos registros.')
             seed_demo(conn, (password_reader or demo_password)())

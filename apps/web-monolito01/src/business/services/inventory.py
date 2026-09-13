@@ -59,6 +59,12 @@ def change(principal, identifier, data):
         # Lock del agregado: historial secuencial y cambio de estado indivisibles.
         locked = conn.execute("SELECT * FROM blood_unit WHERE resource_id = %s FOR UPDATE", (identifier,)).fetchone()
         check_version(locked, v.integer(data, "version_no"))
+        if conn.execute("SELECT 1 FROM blood_allocation WHERE resource_id=%s AND current_status<>'CANCELLED'", (identifier,)).fetchone():
+            raise BusinessError("La unidad pertenece a una asignación; sus cambios se registran desde traslado y custodia.", 409)
+        if locked['current_status'] not in ('AVAILABLE', 'QUARANTINED', 'WITHDRAWN'):
+            raise BusinessError('La unidad no admite movimientos de inventario local.',409)
+        if state == 'AVAILABLE' and locked['current_status'] != 'AVAILABLE' and conn.execute('SELECT 1 FROM donation_unit WHERE resource_id=%s',(identifier,)).fetchone():
+            require(principal,'unit.release')
         if locked["current_status"] == "WITHDRAWN":
             raise BusinessError("Una unidad dada de baja no admite nuevos movimientos.", 409)
         location = valid_location(conn, principal, v.identifier(data, "location_id"))
@@ -102,6 +108,8 @@ def soft_delete(principal, identifier, data):
         # Bloquea el agregado antes de comprobar versión e historial.
         locked = conn.execute("SELECT * FROM blood_unit WHERE resource_id = %s FOR UPDATE", (identifier,)).fetchone()
         check_version(locked, version_no)
+        if conn.execute("SELECT 1 FROM blood_allocation WHERE resource_id=%s AND current_status<>'CANCELLED'", (identifier,)).fetchone():
+            raise BusinessError('La unidad tiene una asignación y no admite baja local.',409)
         if locked["current_status"] == "WITHDRAWN":
             raise BusinessError("La unidad ya está dada de baja.", 409)
 
@@ -142,4 +150,10 @@ def details(principal, identifier):
             WHERE m.resource_id = %s ORDER BY m.sequence DESC""", (identifier,)).fetchall()
         audit.record(conn, principal, "READ", "BLOOD_UNIT", identifier, "Consulta de trazabilidad DEMO",
                      institution_id=row["institution_id"])
+        lineage = conn.execute('SELECT du.donation_id,d.donation_code,p.record_code AS donor_code FROM donation_unit du JOIN donation d USING(donation_id) JOIN donor p USING(donor_id) WHERE resource_id=%s',(identifier,)).fetchone()
+        if lineage:
+            row.update(lineage)
+        allocation = conn.execute("SELECT allocation_id FROM blood_allocation WHERE resource_id=%s AND current_status<>'CANCELLED'",(identifier,)).fetchone()
+        if allocation:
+            row.update(allocation)
         return row, history

@@ -19,8 +19,11 @@ class Principal:
     def can(self, action):
         return action in {
             "ADMIN": {"dashboard", "administration", "preview"},
-            "OPERATOR": {"dashboard", "inventory.read", "inventory.write", "preview"},
-            "AUDITOR": {"dashboard", "inventory.read", "audit.read", "preview"},
+            "OPERATOR": {"dashboard", "inventory.read", "inventory.write", "preview", "donor.write", "donation.write", "regional.read", "logistics"},
+            "AUDITOR": {"dashboard", "inventory.read", "audit.read", "preview", "regional.read", "trace.read"},
+            "MEDICAL": {"dashboard", "inventory.read", "preview", "donor.write", "donor.review", "recipient.write", "request.write", "regional.read", "candidate.evaluate", "allocation.authorize", "unit.release", "logistics"},
+            "COORDINATOR": {"dashboard", "inventory.read", "preview", "regional.read", "candidate.evaluate", "logistics", "route.write", "shipment.plan", "trace.read"},
+            "TRANSPORT": {"dashboard", "preview", "logistics"},
         }.get(self.role_code, set())
 
     def includes(self, institution_id, region_name):

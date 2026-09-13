@@ -1,0 +1,10 @@
+flowchart TB
+  B[Navegador actual] -->|Formularios con CSRF| W[Monolito Flask]
+  W -->|HTML Jinja2| B
+  W --> P[(PostgreSQL actual)]
+  subgraph FUT[Comunicación posterior: no implementada]
+    A[Android] -->|JWT y JSON| M[Microservicios REST versionados]
+    D[Escritorio] -->|JWT y XML validado con XSD| M
+    M --> DATA[Almacenes autorizados]
+    M --> R[Redis: sesión y permisos]
+  end

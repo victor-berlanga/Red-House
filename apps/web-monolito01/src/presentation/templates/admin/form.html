@@ -5,9 +5,9 @@
 <div class="form-layout"><section class="card form-card">{% if error %}<div class="notice error" role="alert">{{ error }}</div>{% endif %}<form method="post">{{ csrf() }}{% if identifier %}<input type="hidden" name="version_no" value="{{ data.get('version_no') }}">{% endif %}<div class="form-grid">
 {% if entity == 'institutions' %}
   {{ input('institution_code','Código institucional',data,max=30) }}{{ input('institution_name','Nombre de la institución',data,max=160) }}
-  {{ select('institution_type','Tipo',[('BLOOD_BANK','Banco de sangre'),('HOSPITAL','Hospital'),('COORDINATION','Coordinación')],data) }}
+  {{ select('institution_type','Tipo',[('BLOOD_BANK','Banco de sangre'),('HOSPITAL','Hospital'),('COORDINATION','Coordinación'),('TRANSPLANT_CENTER','Centro de trasplantes')],data) }}
   {{ select('participation_status','Participación',[('ACTIVE','Activa'),('INACTIVE','Inactiva')],data) }}
-  {{ input('city','Ciudad',data,max=100) }}{{ input('street','Dirección',data,max=200) }}
+  {{ input('city','Ciudad',data,max=100) }}{{ input('street','Dirección',data,max=200) }}{{ input('operating_hours','Horarios declarados',data,required=false,max=240) }}
   <div class="field"><label>Región autorizada</label><p class="read-only-value">{{ principal.region_name }}</p></div>
   <fieldset class="capability-field"><legend>Capacidades declaradas</legend>{% for item in choices.capabilities %}<label class="checkbox"><input type="checkbox" name="capabilities" value="{{ item.capability_code }}" {% if item.capability_code in data.get('capabilities',[]) %}checked{% endif %}> {{ item.capability_name }}</label>{% endfor %}</fieldset>
   {{ input('contact_name','Contacto institucional',data,required=false) }}{{ input('contact_email','Correo del contacto',data,'email',false,180) }}{{ input('contact_phone','Teléfono del contacto',data,'tel',false,40) }}
@@ -21,8 +21,8 @@
   {{ input('component_code','Código del componente',data,max=30) }}{{ input('component_name','Nombre del componente',data,max=100) }}
 {% elif entity == 'users' %}
   {{ input('party_name','Nombre de la persona',data) }}{{ input('login_email','Correo de acceso',data,'email',true,180) }}
-  {{ select('role_code','Perfil inicial',[('ADMIN','Administrador'),('OPERATOR','Operador de banco de sangre'),('AUDITOR','Auditor')],data) }}
-  <div class="field"><label for="scope">Ámbito autorizado *</label><select id="scope" name="scope" required><option value="">Selecciona un ámbito</option>{% if not principal.institution_id %}<option value="REGIONAL" {% if data.get('scope') == 'REGIONAL' %}selected{% endif %}>Regional · {{ principal.region_name }} (Administrador o Auditor)</option>{% endif %}{% for item in choices.institutions %}<option value="{{ item.institution_id }}" {% if data.get('scope') == item.institution_id|string %}selected{% endif %}>{{ item.institution_name }}</option>{% endfor %}</select></div>
+  {{ select('role_code','Perfil autorizado',[('ADMIN','Administrador'),('OPERATOR','Operador de banco de sangre'),('AUDITOR','Auditor'),('MEDICAL','Personal médico autorizado'),('COORDINATOR','Coordinador regional'),('TRANSPORT','Personal de traslado')],data) }}
+  <div class="field"><label for="scope">Ámbito autorizado *</label><select id="scope" name="scope" required><option value="">Selecciona un ámbito</option>{% if not principal.institution_id %}<option value="REGIONAL" {% if data.get('scope') == 'REGIONAL' %}selected{% endif %}>Regional · {{ principal.region_name }} (Administrador, Coordinador o Auditor)</option>{% endif %}{% for item in choices.institutions %}<option value="{{ item.institution_id }}" {% if data.get('scope') == item.institution_id|string %}selected{% endif %}>{{ item.institution_name }}</option>{% endfor %}</select></div>
   {{ select('account_status','Estado de la cuenta',[('ACTIVE','Activa'),('INACTIVE','Inactiva')],data) }}
   {{ input('password','Nueva contraseña' if identifier else 'Contraseña inicial',data,'password',not identifier,128,'Entre 12 y 128 caracteres. ' ~ ('Déjala vacía para conservar la actual.' if identifier else 'Entrégala por un canal privado.')) }}
 {% endif %}

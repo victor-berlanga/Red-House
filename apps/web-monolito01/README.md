@@ -1,22 +1,36 @@
 # Red House · Monolito web
 
-Incremento local del primer parcial. Un solo proceso Flask renderiza Jinja2 y ejecuta los casos de negocio contra PostgreSQL; no consume ni implementa microservicios. Todos los datos de la demostración deben ser ficticios.
+Monolito académico de coordinación regional. Un proceso Flask renderiza Jinja2 y ejecuta operaciones reales contra PostgreSQL. No implementa ni consume microservicios.
 
 ## Qué funciona
 
-| Área | Implementación de este incremento |
-| --- | --- |
-| Sitio público y acceso | Presentación, inicio y cierre de sesión, JWT de 15 minutos, revocación y bloqueo temporal de intentos fallidos. |
-| Administración | Alta, edición y desactivación de instituciones, sedes, ubicaciones, componentes y cuentas; contacto institucional y capacidades declaradas; asignación de perfil y ámbito. |
-| Inventario sanguíneo | Alta de unidades, detalle, cambios de estado DEMO y movimientos internos con motivo e historial; búsqueda, filtros y paginación de 12 registros. |
-| Caducidad | Exclusión de unidades vencidas de la disponibilidad al consultar; umbral regional de aviso, versionado y expresamente DEMO. |
-| Panel | Conteos reales del ámbito autorizado, gráfica Highcharts local y tabla accesible con los mismos valores. |
-| Auditoría | Registro transaccional de cambios, accesos y movimientos; consulta autorizada con búsqueda, resultado, fechas y paginación. |
-| Interfaz | Diseño responsive, menú móvil, navegación por teclado y vistas diferenciadas por perfil. |
+- Acceso JWT, sesión y revocación PostgreSQL, CSRF, límites de intentos y permisos por recurso.
+- Administración de instituciones, sedes, contactos, capacidades, horarios, ubicaciones, componentes y cuentas.
+- Donantes, revisión humana, donaciones, recolección, procesamiento y liberación humana de unidades.
+- Receptores institucionales y solicitudes con cantidad, componente y urgencia registrada.
+- Inventario, caducidad, rutas declaradas, candidatos de eritrocitos ABO/Rh DEMO y factores versionados.
+- Autorización humana, reserva transaccional exclusiva, asignación, traslado y eventos de custodia.
+- Recepción, cierre de solicitud, panel regional y auditoría con información minimizada.
 
-Donantes, receptores, órganos, compatibilidad, solicitudes urgentes, asignación/traslados y cadena de custodia tienen **vistas futuras sin funcionalidad**. La recuperación de acceso también es una vista deshabilitada: no envía correos ni modifica contraseñas. No existen expedientes, cálculos clínicos, asignaciones automáticas, mapas de seguimiento ni operaciones simuladas detrás de estas pantallas.
+Seis perfiles están habilitados: Administrador, Operador, Médico, Coordinador, Traslado y Auditor. Las cuatro cuentas iniciales se conservan. **Para operar los perfiles nuevos, el Administrador crea cuentas y asigna el ámbito correspondiente**: Médico y Traslado deben pertenecer a una institución; Coordinador puede tener ámbito regional. No se crean contraseñas predeterminadas ni se cambian las existentes durante la migración.
 
-Los siete perfiles del análisis aparecen en configuración; solamente Administrador, Operador y Auditor están habilitados. No se implementó un editor de permisos arbitrarios.
+Órganos/HLA y recuperación por correo siguen pendientes. El motor no cubre plasma, plaquetas, anticuerpos ni pruebas cruzadas. Las evidencias de custodia son referencias documentales ficticias; no se cargan archivos en esta versión.
+
+- [Guía del recorrido por perfiles](../../documentation/markdowns/Guia_del_flujo_regional.md).
+- [Reporte consolidado Word](../../documentation/docx/Reporte_Tecnico_del_Primer_Avance.docx).
+- [Evidencia nueva: 89 pruebas aprobadas](../../documentation/evidence/ampliacion-monolito/README.md).
+
+## Actualizar una instalación existente
+
+El esquema inicial de 23 tablas se amplía a 38 mediante `data/database/migrations/002_regional.sql`, incluyendo el registro técnico de versiones. Respaldar antes de migrar. Desde esta carpeta:
+
+```sh
+.venv/bin/python -m flask --app run migrate-db
+```
+
+En Windows utilizar `.venv\Scripts\python.exe -m flask --app run migrate-db`. La operación es transaccional, comprueba hashes y no se repite si la versión ya está aplicada. No ejecutar nuevamente `init-db` ni `schema.sql` sobre una instalación existente. El instalador prepara el esquema ampliado cuando crea una instalación nueva; sobre una base previa conserva datos y no sustituye la migración explícita.
+
+En este equipo, el 13 de septiembre se verificó un respaldo restaurado en un clúster exclusivo, se comprobó preservación e idempotencia y se aplicó la migración a la base local. Las cuatro cuentas y 36 unidades previas permanecen. `Upgrade_check.json` registra las huellas y la ubicación privada del respaldo.
 
 ## Preparación automática (recomendada)
 

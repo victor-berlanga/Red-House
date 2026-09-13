@@ -1,0 +1,17 @@
+sequenceDiagram
+  actor U as Usuario
+  participant B as Navegador
+  participant W as Monolito
+  participant P as PostgreSQL
+  U->>B: Credenciales ficticias
+  B->>W: POST login y CSRF
+  W->>P: Intentos, cuenta activa y hash scrypt
+  W->>P: Crear sesión y auditar acceso
+  W-->>B: Cookie JWT HttpOnly con expiración
+  B->>W: Petición protegida
+  W->>W: Firma, emisor, audiencia y expiración
+  W->>P: Sesión activa, rol, revocación y ámbito
+  W-->>B: Recurso autorizado o rechazo
+  B->>W: POST logout con CSRF
+  W->>P: Revocar sesión y auditar
+  W-->>B: Eliminar cookie

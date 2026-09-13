@@ -1,0 +1,3390 @@
+{
+  "columns": [
+    {
+      "table_name": "account_role",
+      "column_name": "account_id",
+      "data_type": "uuid",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "account_role",
+      "column_name": "role_code",
+      "data_type": "character varying",
+      "character_maximum_length": 30,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "account_role",
+      "column_name": "institution_id",
+      "data_type": "uuid",
+      "character_maximum_length": null,
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "account_role",
+      "column_name": "region_name",
+      "data_type": "character varying",
+      "character_maximum_length": 80,
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "audit_change",
+      "column_name": "event_id",
+      "data_type": "uuid",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "audit_change",
+      "column_name": "field_name",
+      "data_type": "character varying",
+      "character_maximum_length": 60,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "audit_change",
+      "column_name": "previous_value",
+      "data_type": "character varying",
+      "character_maximum_length": 240,
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "audit_change",
+      "column_name": "new_value",
+      "data_type": "character varying",
+      "character_maximum_length": 240,
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "audit_event",
+      "column_name": "event_id",
+      "data_type": "uuid",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "audit_event",
+      "column_name": "actor_id",
+      "data_type": "uuid",
+      "character_maximum_length": null,
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "audit_event",
+      "column_name": "institution_id",
+      "data_type": "uuid",
+      "character_maximum_length": null,
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "audit_event",
+      "column_name": "region_name",
+      "data_type": "character varying",
+      "character_maximum_length": 80,
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "audit_event",
+      "column_name": "occurred_at",
+      "data_type": "timestamp with time zone",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "audit_event",
+      "column_name": "action",
+      "data_type": "character varying",
+      "character_maximum_length": 50,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "audit_event",
+      "column_name": "entity_type",
+      "data_type": "character varying",
+      "character_maximum_length": 40,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "audit_event",
+      "column_name": "entity_reference",
+      "data_type": "character varying",
+      "character_maximum_length": 80,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "audit_event",
+      "column_name": "outcome",
+      "data_type": "character varying",
+      "character_maximum_length": 12,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "audit_event",
+      "column_name": "correlation_id",
+      "data_type": "uuid",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "audit_event",
+      "column_name": "reason",
+      "data_type": "character varying",
+      "character_maximum_length": 240,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "blood_allocation",
+      "column_name": "allocation_id",
+      "data_type": "uuid",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "blood_allocation",
+      "column_name": "request_id",
+      "data_type": "uuid",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "blood_allocation",
+      "column_name": "candidate_id",
+      "data_type": "uuid",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "blood_allocation",
+      "column_name": "resource_id",
+      "data_type": "uuid",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "blood_allocation",
+      "column_name": "origin_id",
+      "data_type": "uuid",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "blood_allocation",
+      "column_name": "destination_id",
+      "data_type": "uuid",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "blood_allocation",
+      "column_name": "authorized_by",
+      "data_type": "uuid",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "blood_allocation",
+      "column_name": "authorization_reason",
+      "data_type": "character varying",
+      "character_maximum_length": 240,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "blood_allocation",
+      "column_name": "current_status",
+      "data_type": "character varying",
+      "character_maximum_length": 20,
+      "is_nullable": "NO",
+      "column_default": "'RESERVED'::character varying"
+    },
+    {
+      "table_name": "blood_allocation",
+      "column_name": "reserved_at",
+      "data_type": "timestamp with time zone",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "blood_allocation",
+      "column_name": "received_at",
+      "data_type": "timestamp with time zone",
+      "character_maximum_length": null,
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "blood_allocation",
+      "column_name": "version_no",
+      "data_type": "integer",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": "1"
+    },
+    {
+      "table_name": "blood_candidate",
+      "column_name": "candidate_id",
+      "data_type": "uuid",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "blood_candidate",
+      "column_name": "evaluation_id",
+      "data_type": "uuid",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "blood_candidate",
+      "column_name": "resource_id",
+      "data_type": "uuid",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "blood_candidate",
+      "column_name": "rank_no",
+      "data_type": "integer",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "blood_candidate",
+      "column_name": "unit_version",
+      "data_type": "integer",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "blood_candidate",
+      "column_name": "donor_group",
+      "data_type": "character varying",
+      "character_maximum_length": 3,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "blood_candidate",
+      "column_name": "recipient_group",
+      "data_type": "character varying",
+      "character_maximum_length": 3,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "blood_candidate",
+      "column_name": "urgency",
+      "data_type": "character varying",
+      "character_maximum_length": 20,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "blood_candidate",
+      "column_name": "wait_minutes",
+      "data_type": "integer",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "blood_candidate",
+      "column_name": "distance_km",
+      "data_type": "integer",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "blood_candidate",
+      "column_name": "travel_minutes",
+      "data_type": "integer",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "blood_candidate",
+      "column_name": "route_version",
+      "data_type": "integer",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "blood_candidate",
+      "column_name": "expires_at",
+      "data_type": "timestamp with time zone",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "blood_candidate",
+      "column_name": "explanation",
+      "data_type": "character varying",
+      "character_maximum_length": 1000,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "blood_classification",
+      "column_name": "resource_id",
+      "data_type": "uuid",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "blood_classification",
+      "column_name": "recorded_group_code",
+      "data_type": "character varying",
+      "character_maximum_length": 3,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "blood_classification",
+      "column_name": "source_reference",
+      "data_type": "character varying",
+      "character_maximum_length": 120,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "blood_classification",
+      "column_name": "recorded_at",
+      "data_type": "timestamp with time zone",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "blood_component",
+      "column_name": "component_id",
+      "data_type": "uuid",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "blood_component",
+      "column_name": "component_code",
+      "data_type": "character varying",
+      "character_maximum_length": 30,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "blood_component",
+      "column_name": "component_name",
+      "data_type": "character varying",
+      "character_maximum_length": 100,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "blood_component",
+      "column_name": "region_name",
+      "data_type": "character varying",
+      "character_maximum_length": 80,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "blood_component",
+      "column_name": "is_active",
+      "data_type": "boolean",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": "true"
+    },
+    {
+      "table_name": "blood_component",
+      "column_name": "version_no",
+      "data_type": "integer",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": "1"
+    },
+    {
+      "table_name": "blood_movement",
+      "column_name": "movement_id",
+      "data_type": "uuid",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "blood_movement",
+      "column_name": "resource_id",
+      "data_type": "uuid",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "blood_movement",
+      "column_name": "sequence",
+      "data_type": "integer",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "blood_movement",
+      "column_name": "previous_status",
+      "data_type": "character varying",
+      "character_maximum_length": 16,
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "blood_movement",
+      "column_name": "new_status",
+      "data_type": "character varying",
+      "character_maximum_length": 16,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "blood_movement",
+      "column_name": "origin_location_id",
+      "data_type": "uuid",
+      "character_maximum_length": null,
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "blood_movement",
+      "column_name": "destination_location_id",
+      "data_type": "uuid",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "blood_movement",
+      "column_name": "occurred_at",
+      "data_type": "timestamp with time zone",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "blood_movement",
+      "column_name": "actor_id",
+      "data_type": "uuid",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "blood_movement",
+      "column_name": "reason",
+      "data_type": "character varying",
+      "character_maximum_length": 240,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "blood_request",
+      "column_name": "request_id",
+      "data_type": "uuid",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "blood_request",
+      "column_name": "request_code",
+      "data_type": "character varying",
+      "character_maximum_length": 30,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "blood_request",
+      "column_name": "recipient_id",
+      "data_type": "uuid",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "blood_request",
+      "column_name": "component_id",
+      "data_type": "uuid",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "blood_request",
+      "column_name": "quantity",
+      "data_type": "integer",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "blood_request",
+      "column_name": "urgency",
+      "data_type": "character varying",
+      "character_maximum_length": 20,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "blood_request",
+      "column_name": "justification",
+      "data_type": "character varying",
+      "character_maximum_length": 1000,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "blood_request",
+      "column_name": "current_status",
+      "data_type": "character varying",
+      "character_maximum_length": 20,
+      "is_nullable": "NO",
+      "column_default": "'OPEN'::character varying"
+    },
+    {
+      "table_name": "blood_request",
+      "column_name": "responsible_id",
+      "data_type": "uuid",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "blood_request",
+      "column_name": "requested_at",
+      "data_type": "timestamp with time zone",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "blood_request",
+      "column_name": "closed_at",
+      "data_type": "timestamp with time zone",
+      "character_maximum_length": null,
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "blood_request",
+      "column_name": "version_no",
+      "data_type": "integer",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": "1"
+    },
+    {
+      "table_name": "blood_status_transition",
+      "column_name": "previous_status",
+      "data_type": "character varying",
+      "character_maximum_length": 16,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "blood_status_transition",
+      "column_name": "new_status",
+      "data_type": "character varying",
+      "character_maximum_length": 16,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "blood_status_transition",
+      "column_name": "is_demo",
+      "data_type": "boolean",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": "true"
+    },
+    {
+      "table_name": "blood_unit",
+      "column_name": "resource_id",
+      "data_type": "uuid",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "blood_unit",
+      "column_name": "component_id",
+      "data_type": "uuid",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "blood_unit",
+      "column_name": "location_id",
+      "data_type": "uuid",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "blood_unit",
+      "column_name": "collected_at",
+      "data_type": "timestamp with time zone",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "blood_unit",
+      "column_name": "expires_at",
+      "data_type": "timestamp with time zone",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "blood_unit",
+      "column_name": "current_status",
+      "data_type": "character varying",
+      "character_maximum_length": 16,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "blood_unit",
+      "column_name": "version_no",
+      "data_type": "integer",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": "1"
+    },
+    {
+      "table_name": "blood_unit",
+      "column_name": "registered_at",
+      "data_type": "timestamp with time zone",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "candidate_evaluation",
+      "column_name": "evaluation_id",
+      "data_type": "uuid",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "candidate_evaluation",
+      "column_name": "request_id",
+      "data_type": "uuid",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "candidate_evaluation",
+      "column_name": "algorithm_version",
+      "data_type": "character varying",
+      "character_maximum_length": 60,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "candidate_evaluation",
+      "column_name": "request_version",
+      "data_type": "integer",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "candidate_evaluation",
+      "column_name": "recipient_version",
+      "data_type": "integer",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "candidate_evaluation",
+      "column_name": "actor_id",
+      "data_type": "uuid",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "candidate_evaluation",
+      "column_name": "occurred_at",
+      "data_type": "timestamp with time zone",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "candidate_evaluation",
+      "column_name": "elapsed_ms",
+      "data_type": "numeric",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "capability",
+      "column_name": "capability_code",
+      "data_type": "character varying",
+      "character_maximum_length": 40,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "capability",
+      "column_name": "capability_name",
+      "data_type": "character varying",
+      "character_maximum_length": 100,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "contact",
+      "column_name": "contact_id",
+      "data_type": "uuid",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "contact",
+      "column_name": "contact_name",
+      "data_type": "character varying",
+      "character_maximum_length": 120,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "contact",
+      "column_name": "contact_function",
+      "data_type": "character varying",
+      "character_maximum_length": 80,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "contact_method",
+      "column_name": "contact_id",
+      "data_type": "uuid",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "contact_method",
+      "column_name": "method_kind",
+      "data_type": "character varying",
+      "character_maximum_length": 10,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "contact_method",
+      "column_name": "method_value",
+      "data_type": "character varying",
+      "character_maximum_length": 180,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "custody_event",
+      "column_name": "event_id",
+      "data_type": "uuid",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "custody_event",
+      "column_name": "shipment_id",
+      "data_type": "uuid",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "custody_event",
+      "column_name": "sequence",
+      "data_type": "integer",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "custody_event",
+      "column_name": "status",
+      "data_type": "character varying",
+      "character_maximum_length": 20,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "custody_event",
+      "column_name": "actor_id",
+      "data_type": "uuid",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "custody_event",
+      "column_name": "occurred_at",
+      "data_type": "timestamp with time zone",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "custody_event",
+      "column_name": "location_description",
+      "data_type": "character varying",
+      "character_maximum_length": 240,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "custody_event",
+      "column_name": "observation",
+      "data_type": "character varying",
+      "character_maximum_length": 1000,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "custody_event",
+      "column_name": "evidence_reference",
+      "data_type": "character varying",
+      "character_maximum_length": 240,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "donation",
+      "column_name": "donation_id",
+      "data_type": "uuid",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "donation",
+      "column_name": "donor_id",
+      "data_type": "uuid",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "donation",
+      "column_name": "review_id",
+      "data_type": "uuid",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "donation",
+      "column_name": "donation_code",
+      "data_type": "character varying",
+      "character_maximum_length": 30,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "donation",
+      "column_name": "current_status",
+      "data_type": "character varying",
+      "character_maximum_length": 20,
+      "is_nullable": "NO",
+      "column_default": "'REGISTERED'::character varying"
+    },
+    {
+      "table_name": "donation",
+      "column_name": "collected_at",
+      "data_type": "timestamp with time zone",
+      "character_maximum_length": null,
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "donation",
+      "column_name": "processed_at",
+      "data_type": "timestamp with time zone",
+      "character_maximum_length": null,
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "donation",
+      "column_name": "created_by",
+      "data_type": "uuid",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "donation",
+      "column_name": "registered_at",
+      "data_type": "timestamp with time zone",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "donation",
+      "column_name": "version_no",
+      "data_type": "integer",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": "1"
+    },
+    {
+      "table_name": "donation_event",
+      "column_name": "event_id",
+      "data_type": "uuid",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "donation_event",
+      "column_name": "donation_id",
+      "data_type": "uuid",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "donation_event",
+      "column_name": "status",
+      "data_type": "character varying",
+      "character_maximum_length": 20,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "donation_event",
+      "column_name": "actor_id",
+      "data_type": "uuid",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "donation_event",
+      "column_name": "occurred_at",
+      "data_type": "timestamp with time zone",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "donation_event",
+      "column_name": "observation",
+      "data_type": "character varying",
+      "character_maximum_length": 1000,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "donation_unit",
+      "column_name": "resource_id",
+      "data_type": "uuid",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "donation_unit",
+      "column_name": "donation_id",
+      "data_type": "uuid",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "donation_unit",
+      "column_name": "released_by",
+      "data_type": "uuid",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "donation_unit",
+      "column_name": "release_reference",
+      "data_type": "character varying",
+      "character_maximum_length": 240,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "donation_unit",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "donor",
+      "column_name": "donor_id",
+      "data_type": "uuid",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "donor",
+      "column_name": "institution_id",
+      "data_type": "uuid",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "donor",
+      "column_name": "record_code",
+      "data_type": "character varying",
+      "character_maximum_length": 30,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "donor",
+      "column_name": "display_name",
+      "data_type": "character varying",
+      "character_maximum_length": 120,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "donor",
+      "column_name": "blood_group",
+      "data_type": "character varying",
+      "character_maximum_length": 3,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "donor",
+      "column_name": "donation_kind",
+      "data_type": "character varying",
+      "character_maximum_length": 30,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "donor",
+      "column_name": "background",
+      "data_type": "character varying",
+      "character_maximum_length": 1000,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "donor",
+      "column_name": "restrictions",
+      "data_type": "character varying",
+      "character_maximum_length": 1000,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "donor",
+      "column_name": "consent_reference",
+      "data_type": "character varying",
+      "character_maximum_length": 240,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "donor",
+      "column_name": "consent_at",
+      "data_type": "timestamp with time zone",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "donor",
+      "column_name": "current_status",
+      "data_type": "character varying",
+      "character_maximum_length": 20,
+      "is_nullable": "NO",
+      "column_default": "'PENDING'::character varying"
+    },
+    {
+      "table_name": "donor",
+      "column_name": "created_by",
+      "data_type": "uuid",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "donor",
+      "column_name": "registered_at",
+      "data_type": "timestamp with time zone",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "donor",
+      "column_name": "version_no",
+      "data_type": "integer",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": "1"
+    },
+    {
+      "table_name": "donor_review",
+      "column_name": "review_id",
+      "data_type": "uuid",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "donor_review",
+      "column_name": "donor_id",
+      "data_type": "uuid",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "donor_review",
+      "column_name": "decision",
+      "data_type": "character varying",
+      "character_maximum_length": 20,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "donor_review",
+      "column_name": "reason",
+      "data_type": "character varying",
+      "character_maximum_length": 1000,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "donor_review",
+      "column_name": "actor_id",
+      "data_type": "uuid",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "donor_review",
+      "column_name": "occurred_at",
+      "data_type": "timestamp with time zone",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "institution",
+      "column_name": "institution_id",
+      "data_type": "uuid",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "institution",
+      "column_name": "institution_code",
+      "data_type": "character varying",
+      "character_maximum_length": 30,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "institution",
+      "column_name": "institution_name",
+      "data_type": "character varying",
+      "character_maximum_length": 160,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "institution",
+      "column_name": "institution_type",
+      "data_type": "character varying",
+      "character_maximum_length": 40,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "institution",
+      "column_name": "region_name",
+      "data_type": "character varying",
+      "character_maximum_length": 80,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "institution",
+      "column_name": "city",
+      "data_type": "character varying",
+      "character_maximum_length": 100,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "institution",
+      "column_name": "street",
+      "data_type": "character varying",
+      "character_maximum_length": 200,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "institution",
+      "column_name": "participation_status",
+      "data_type": "character varying",
+      "character_maximum_length": 10,
+      "is_nullable": "NO",
+      "column_default": "'ACTIVE'::character varying"
+    },
+    {
+      "table_name": "institution",
+      "column_name": "version_no",
+      "data_type": "integer",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": "1"
+    },
+    {
+      "table_name": "institution",
+      "column_name": "registered_at",
+      "data_type": "timestamp with time zone",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "institution",
+      "column_name": "operating_hours",
+      "data_type": "character varying",
+      "character_maximum_length": 240,
+      "is_nullable": "NO",
+      "column_default": "''::character varying"
+    },
+    {
+      "table_name": "institution_capability",
+      "column_name": "institution_id",
+      "data_type": "uuid",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "institution_capability",
+      "column_name": "capability_code",
+      "data_type": "character varying",
+      "character_maximum_length": 40,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "institution_contact",
+      "column_name": "institution_id",
+      "data_type": "uuid",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "institution_contact",
+      "column_name": "contact_id",
+      "data_type": "uuid",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "login_attempt",
+      "column_name": "attempt_id",
+      "data_type": "bigint",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "login_attempt",
+      "column_name": "identity_hash",
+      "data_type": "character",
+      "character_maximum_length": 64,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "login_attempt",
+      "column_name": "address_hash",
+      "data_type": "character",
+      "character_maximum_length": 64,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "login_attempt",
+      "column_name": "occurred_at",
+      "data_type": "timestamp with time zone",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "login_attempt",
+      "column_name": "was_successful",
+      "data_type": "boolean",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "parameter_version",
+      "column_name": "parameter_version_id",
+      "data_type": "uuid",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "parameter_version",
+      "column_name": "parameter_code",
+      "data_type": "character varying",
+      "character_maximum_length": 40,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "parameter_version",
+      "column_name": "region_name",
+      "data_type": "character varying",
+      "character_maximum_length": 80,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "parameter_version",
+      "column_name": "version_no",
+      "data_type": "integer",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "parameter_version",
+      "column_name": "scalar_value",
+      "data_type": "integer",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "parameter_version",
+      "column_name": "measurement_unit",
+      "data_type": "character varying",
+      "character_maximum_length": 10,
+      "is_nullable": "NO",
+      "column_default": "'HOURS'::character varying"
+    },
+    {
+      "table_name": "parameter_version",
+      "column_name": "is_demo",
+      "data_type": "boolean",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": "true"
+    },
+    {
+      "table_name": "parameter_version",
+      "column_name": "approved_by",
+      "data_type": "uuid",
+      "character_maximum_length": null,
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "parameter_version",
+      "column_name": "valid_from",
+      "data_type": "timestamp with time zone",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "party",
+      "column_name": "party_id",
+      "data_type": "uuid",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "party",
+      "column_name": "party_name",
+      "data_type": "character varying",
+      "character_maximum_length": 120,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "recipient",
+      "column_name": "recipient_id",
+      "data_type": "uuid",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "recipient",
+      "column_name": "institution_id",
+      "data_type": "uuid",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "recipient",
+      "column_name": "record_code",
+      "data_type": "character varying",
+      "character_maximum_length": 30,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "recipient",
+      "column_name": "display_name",
+      "data_type": "character varying",
+      "character_maximum_length": 120,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "recipient",
+      "column_name": "blood_group",
+      "data_type": "character varying",
+      "character_maximum_length": 3,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "recipient",
+      "column_name": "requirement",
+      "data_type": "character varying",
+      "character_maximum_length": 1000,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "recipient",
+      "column_name": "urgency",
+      "data_type": "character varying",
+      "character_maximum_length": 20,
+      "is_nullable": "NO",
+      "column_default": "'ROUTINE'::character varying"
+    },
+    {
+      "table_name": "recipient",
+      "column_name": "studies",
+      "data_type": "character varying",
+      "character_maximum_length": 1000,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "recipient",
+      "column_name": "restrictions",
+      "data_type": "character varying",
+      "character_maximum_length": 1000,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "recipient",
+      "column_name": "current_status",
+      "data_type": "character varying",
+      "character_maximum_length": 20,
+      "is_nullable": "NO",
+      "column_default": "'ACTIVE'::character varying"
+    },
+    {
+      "table_name": "recipient",
+      "column_name": "responsible_id",
+      "data_type": "uuid",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "recipient",
+      "column_name": "registered_at",
+      "data_type": "timestamp with time zone",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "recipient",
+      "column_name": "version_no",
+      "data_type": "integer",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": "1"
+    },
+    {
+      "table_name": "regional_route",
+      "column_name": "route_id",
+      "data_type": "uuid",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "regional_route",
+      "column_name": "origin_id",
+      "data_type": "uuid",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "regional_route",
+      "column_name": "destination_id",
+      "data_type": "uuid",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "regional_route",
+      "column_name": "distance_km",
+      "data_type": "integer",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "regional_route",
+      "column_name": "travel_minutes",
+      "data_type": "integer",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "regional_route",
+      "column_name": "source_reference",
+      "data_type": "character varying",
+      "character_maximum_length": 240,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "regional_route",
+      "column_name": "recorded_by",
+      "data_type": "uuid",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "regional_route",
+      "column_name": "recorded_at",
+      "data_type": "timestamp with time zone",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "regional_route",
+      "column_name": "version_no",
+      "data_type": "integer",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": "1"
+    },
+    {
+      "table_name": "request_event",
+      "column_name": "event_id",
+      "data_type": "uuid",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "request_event",
+      "column_name": "request_id",
+      "data_type": "uuid",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "request_event",
+      "column_name": "action",
+      "data_type": "character varying",
+      "character_maximum_length": 30,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "request_event",
+      "column_name": "actor_id",
+      "data_type": "uuid",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "request_event",
+      "column_name": "occurred_at",
+      "data_type": "timestamp with time zone",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "request_event",
+      "column_name": "observation",
+      "data_type": "character varying",
+      "character_maximum_length": 240,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "resource",
+      "column_name": "resource_id",
+      "data_type": "uuid",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "resource",
+      "column_name": "traceability_code",
+      "data_type": "character varying",
+      "character_maximum_length": 40,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "resource",
+      "column_name": "resource_kind",
+      "data_type": "character varying",
+      "character_maximum_length": 10,
+      "is_nullable": "NO",
+      "column_default": "'BLOOD'::character varying"
+    },
+    {
+      "table_name": "role",
+      "column_name": "role_code",
+      "data_type": "character varying",
+      "character_maximum_length": 30,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "role",
+      "column_name": "role_name",
+      "data_type": "character varying",
+      "character_maximum_length": 80,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "role",
+      "column_name": "is_enabled",
+      "data_type": "boolean",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "schema_migration",
+      "column_name": "version",
+      "data_type": "character varying",
+      "character_maximum_length": 80,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "schema_migration",
+      "column_name": "sha256",
+      "data_type": "character",
+      "character_maximum_length": 64,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "schema_migration",
+      "column_name": "applied_at",
+      "data_type": "timestamp with time zone",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "shipment",
+      "column_name": "shipment_id",
+      "data_type": "uuid",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "shipment",
+      "column_name": "allocation_id",
+      "data_type": "uuid",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "shipment",
+      "column_name": "transport_id",
+      "data_type": "uuid",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "shipment",
+      "column_name": "vehicle",
+      "data_type": "character varying",
+      "character_maximum_length": 120,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "shipment",
+      "column_name": "departure_at",
+      "data_type": "timestamp with time zone",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "shipment",
+      "column_name": "eta",
+      "data_type": "timestamp with time zone",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "shipment",
+      "column_name": "current_status",
+      "data_type": "character varying",
+      "character_maximum_length": 20,
+      "is_nullable": "NO",
+      "column_default": "'SCHEDULED'::character varying"
+    },
+    {
+      "table_name": "shipment",
+      "column_name": "version_no",
+      "data_type": "integer",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": "1"
+    },
+    {
+      "table_name": "site",
+      "column_name": "site_id",
+      "data_type": "uuid",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "site",
+      "column_name": "institution_id",
+      "data_type": "uuid",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "site",
+      "column_name": "site_code",
+      "data_type": "character varying",
+      "character_maximum_length": 30,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "site",
+      "column_name": "site_name",
+      "data_type": "character varying",
+      "character_maximum_length": 120,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "site",
+      "column_name": "street",
+      "data_type": "character varying",
+      "character_maximum_length": 200,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "site",
+      "column_name": "city",
+      "data_type": "character varying",
+      "character_maximum_length": 100,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "site",
+      "column_name": "site_status",
+      "data_type": "character varying",
+      "character_maximum_length": 10,
+      "is_nullable": "NO",
+      "column_default": "'ACTIVE'::character varying"
+    },
+    {
+      "table_name": "site",
+      "column_name": "version_no",
+      "data_type": "integer",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": "1"
+    },
+    {
+      "table_name": "storage_location",
+      "column_name": "location_id",
+      "data_type": "uuid",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "storage_location",
+      "column_name": "site_id",
+      "data_type": "uuid",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "storage_location",
+      "column_name": "location_code",
+      "data_type": "character varying",
+      "character_maximum_length": 30,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "storage_location",
+      "column_name": "location_description",
+      "data_type": "character varying",
+      "character_maximum_length": 150,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "storage_location",
+      "column_name": "is_active",
+      "data_type": "boolean",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": "true"
+    },
+    {
+      "table_name": "storage_location",
+      "column_name": "version_no",
+      "data_type": "integer",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": "1"
+    },
+    {
+      "table_name": "user_account",
+      "column_name": "account_id",
+      "data_type": "uuid",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "user_account",
+      "column_name": "party_id",
+      "data_type": "uuid",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "user_account",
+      "column_name": "login_email",
+      "data_type": "character varying",
+      "character_maximum_length": 180,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "user_account",
+      "column_name": "password_hash",
+      "data_type": "text",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "user_account",
+      "column_name": "account_status",
+      "data_type": "character varying",
+      "character_maximum_length": 10,
+      "is_nullable": "NO",
+      "column_default": "'ACTIVE'::character varying"
+    },
+    {
+      "table_name": "user_account",
+      "column_name": "version_no",
+      "data_type": "integer",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": "1"
+    },
+    {
+      "table_name": "user_account",
+      "column_name": "registered_at",
+      "data_type": "timestamp with time zone",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "web_session",
+      "column_name": "session_id",
+      "data_type": "uuid",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "web_session",
+      "column_name": "account_id",
+      "data_type": "uuid",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "web_session",
+      "column_name": "expires_at",
+      "data_type": "timestamp with time zone",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "web_session",
+      "column_name": "revoked_at",
+      "data_type": "timestamp with time zone",
+      "character_maximum_length": null,
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "web_session",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "character_maximum_length": null,
+      "is_nullable": "NO",
+      "column_default": "now()"
+    }
+  ],
+  "constraints": [
+    {
+      "table_name": "account_role",
+      "name": "account_role_account_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (account_id) REFERENCES user_account(account_id)"
+    },
+    {
+      "table_name": "account_role",
+      "name": "account_role_check",
+      "type": "c",
+      "definition": "CHECK (((institution_id IS NOT NULL) <> (region_name IS NOT NULL)))"
+    },
+    {
+      "table_name": "account_role",
+      "name": "account_role_check1",
+      "type": "c",
+      "definition": "CHECK ((((role_code)::text <> 'OPERATOR'::text) OR (institution_id IS NOT NULL)))"
+    },
+    {
+      "table_name": "account_role",
+      "name": "account_role_check2",
+      "type": "c",
+      "definition": "CHECK ((((role_code)::text <> ALL ((ARRAY['MEDICAL'::character varying, 'TRANSPORT'::character varying])::text[])) OR (institution_id IS NOT NULL)))"
+    },
+    {
+      "table_name": "account_role",
+      "name": "account_role_institution_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (institution_id) REFERENCES institution(institution_id)"
+    },
+    {
+      "table_name": "account_role",
+      "name": "account_role_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (account_id)"
+    },
+    {
+      "table_name": "account_role",
+      "name": "account_role_role_code_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (role_code) REFERENCES role(role_code)"
+    },
+    {
+      "table_name": "audit_change",
+      "name": "audit_change_event_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (event_id) REFERENCES audit_event(event_id)"
+    },
+    {
+      "table_name": "audit_change",
+      "name": "audit_change_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (event_id, field_name)"
+    },
+    {
+      "table_name": "audit_event",
+      "name": "audit_event_actor_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (actor_id) REFERENCES user_account(account_id)"
+    },
+    {
+      "table_name": "audit_event",
+      "name": "audit_event_institution_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (institution_id) REFERENCES institution(institution_id)"
+    },
+    {
+      "table_name": "audit_event",
+      "name": "audit_event_outcome_check",
+      "type": "c",
+      "definition": "CHECK (((outcome)::text = ANY ((ARRAY['SUCCESS'::character varying, 'DENIED'::character varying, 'FAILED'::character varying])::text[])))"
+    },
+    {
+      "table_name": "audit_event",
+      "name": "audit_event_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (event_id)"
+    },
+    {
+      "table_name": "blood_allocation",
+      "name": "blood_allocation_authorized_by_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (authorized_by) REFERENCES user_account(account_id)"
+    },
+    {
+      "table_name": "blood_allocation",
+      "name": "blood_allocation_candidate_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (candidate_id) REFERENCES blood_candidate(candidate_id)"
+    },
+    {
+      "table_name": "blood_allocation",
+      "name": "blood_allocation_candidate_id_key",
+      "type": "u",
+      "definition": "UNIQUE (candidate_id)"
+    },
+    {
+      "table_name": "blood_allocation",
+      "name": "blood_allocation_current_status_check",
+      "type": "c",
+      "definition": "CHECK (((current_status)::text = ANY ((ARRAY['RESERVED'::character varying, 'ASSIGNED'::character varying, 'IN_TRANSIT'::character varying, 'RECEIVED'::character varying, 'CANCELLED'::character varying])::text[])))"
+    },
+    {
+      "table_name": "blood_allocation",
+      "name": "blood_allocation_destination_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (destination_id) REFERENCES institution(institution_id)"
+    },
+    {
+      "table_name": "blood_allocation",
+      "name": "blood_allocation_origin_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (origin_id) REFERENCES institution(institution_id)"
+    },
+    {
+      "table_name": "blood_allocation",
+      "name": "blood_allocation_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (allocation_id)"
+    },
+    {
+      "table_name": "blood_allocation",
+      "name": "blood_allocation_request_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (request_id) REFERENCES blood_request(request_id)"
+    },
+    {
+      "table_name": "blood_allocation",
+      "name": "blood_allocation_resource_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (resource_id) REFERENCES blood_unit(resource_id)"
+    },
+    {
+      "table_name": "blood_candidate",
+      "name": "blood_candidate_evaluation_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (evaluation_id) REFERENCES candidate_evaluation(evaluation_id)"
+    },
+    {
+      "table_name": "blood_candidate",
+      "name": "blood_candidate_evaluation_id_rank_no_key",
+      "type": "u",
+      "definition": "UNIQUE (evaluation_id, rank_no)"
+    },
+    {
+      "table_name": "blood_candidate",
+      "name": "blood_candidate_evaluation_id_resource_id_key",
+      "type": "u",
+      "definition": "UNIQUE (evaluation_id, resource_id)"
+    },
+    {
+      "table_name": "blood_candidate",
+      "name": "blood_candidate_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (candidate_id)"
+    },
+    {
+      "table_name": "blood_candidate",
+      "name": "blood_candidate_rank_no_check",
+      "type": "c",
+      "definition": "CHECK ((rank_no > 0))"
+    },
+    {
+      "table_name": "blood_candidate",
+      "name": "blood_candidate_resource_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (resource_id) REFERENCES blood_unit(resource_id)"
+    },
+    {
+      "table_name": "blood_candidate",
+      "name": "blood_candidate_wait_minutes_check",
+      "type": "c",
+      "definition": "CHECK ((wait_minutes >= 0))"
+    },
+    {
+      "table_name": "blood_classification",
+      "name": "blood_classification_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (resource_id)"
+    },
+    {
+      "table_name": "blood_classification",
+      "name": "blood_classification_recorded_group_code_check",
+      "type": "c",
+      "definition": "CHECK (((recorded_group_code)::text = ANY ((ARRAY['O-'::character varying, 'O+'::character varying, 'A-'::character varying, 'A+'::character varying, 'B-'::character varying, 'B+'::character varying, 'AB-'::character varying, 'AB+'::character varying])::text[])))"
+    },
+    {
+      "table_name": "blood_classification",
+      "name": "blood_classification_resource_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (resource_id) REFERENCES blood_unit(resource_id)"
+    },
+    {
+      "table_name": "blood_component",
+      "name": "blood_component_component_code_key",
+      "type": "u",
+      "definition": "UNIQUE (component_code)"
+    },
+    {
+      "table_name": "blood_component",
+      "name": "blood_component_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (component_id)"
+    },
+    {
+      "table_name": "blood_movement",
+      "name": "blood_movement_actor_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (actor_id) REFERENCES user_account(account_id)"
+    },
+    {
+      "table_name": "blood_movement",
+      "name": "blood_movement_destination_location_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (destination_location_id) REFERENCES storage_location(location_id)"
+    },
+    {
+      "table_name": "blood_movement",
+      "name": "blood_movement_origin_location_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (origin_location_id) REFERENCES storage_location(location_id)"
+    },
+    {
+      "table_name": "blood_movement",
+      "name": "blood_movement_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (movement_id)"
+    },
+    {
+      "table_name": "blood_movement",
+      "name": "blood_movement_resource_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (resource_id) REFERENCES blood_unit(resource_id)"
+    },
+    {
+      "table_name": "blood_movement",
+      "name": "blood_movement_resource_id_sequence_key",
+      "type": "u",
+      "definition": "UNIQUE (resource_id, sequence)"
+    },
+    {
+      "table_name": "blood_request",
+      "name": "blood_request_component_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (component_id) REFERENCES blood_component(component_id)"
+    },
+    {
+      "table_name": "blood_request",
+      "name": "blood_request_current_status_check",
+      "type": "c",
+      "definition": "CHECK (((current_status)::text = ANY ((ARRAY['OPEN'::character varying, 'IN_PROGRESS'::character varying, 'CLOSED'::character varying, 'CANCELLED'::character varying])::text[])))"
+    },
+    {
+      "table_name": "blood_request",
+      "name": "blood_request_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (request_id)"
+    },
+    {
+      "table_name": "blood_request",
+      "name": "blood_request_quantity_check",
+      "type": "c",
+      "definition": "CHECK (((quantity >= 1) AND (quantity <= 100)))"
+    },
+    {
+      "table_name": "blood_request",
+      "name": "blood_request_recipient_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (recipient_id) REFERENCES recipient(recipient_id)"
+    },
+    {
+      "table_name": "blood_request",
+      "name": "blood_request_request_code_key",
+      "type": "u",
+      "definition": "UNIQUE (request_code)"
+    },
+    {
+      "table_name": "blood_request",
+      "name": "blood_request_responsible_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (responsible_id) REFERENCES user_account(account_id)"
+    },
+    {
+      "table_name": "blood_request",
+      "name": "blood_request_urgency_check",
+      "type": "c",
+      "definition": "CHECK (((urgency)::text = ANY ((ARRAY['URGENT'::character varying, 'PRIORITY'::character varying, 'ROUTINE'::character varying])::text[])))"
+    },
+    {
+      "table_name": "blood_status_transition",
+      "name": "blood_status_transition_check",
+      "type": "c",
+      "definition": "CHECK (((previous_status)::text <> (new_status)::text))"
+    },
+    {
+      "table_name": "blood_status_transition",
+      "name": "blood_status_transition_is_demo_check",
+      "type": "c",
+      "definition": "CHECK (is_demo)"
+    },
+    {
+      "table_name": "blood_status_transition",
+      "name": "blood_status_transition_new_status_check",
+      "type": "c",
+      "definition": "CHECK (((new_status)::text = ANY ((ARRAY['AVAILABLE'::character varying, 'QUARANTINED'::character varying, 'WITHDRAWN'::character varying])::text[])))"
+    },
+    {
+      "table_name": "blood_status_transition",
+      "name": "blood_status_transition_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (previous_status, new_status)"
+    },
+    {
+      "table_name": "blood_status_transition",
+      "name": "blood_status_transition_previous_status_check",
+      "type": "c",
+      "definition": "CHECK (((previous_status)::text = ANY ((ARRAY['AVAILABLE'::character varying, 'QUARANTINED'::character varying])::text[])))"
+    },
+    {
+      "table_name": "blood_unit",
+      "name": "blood_unit_check",
+      "type": "c",
+      "definition": "CHECK ((expires_at > collected_at))"
+    },
+    {
+      "table_name": "blood_unit",
+      "name": "blood_unit_component_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (component_id) REFERENCES blood_component(component_id)"
+    },
+    {
+      "table_name": "blood_unit",
+      "name": "blood_unit_current_status_check",
+      "type": "c",
+      "definition": "CHECK (((current_status)::text = ANY ((ARRAY['AVAILABLE'::character varying, 'QUARANTINED'::character varying, 'WITHDRAWN'::character varying, 'RESERVED'::character varying, 'IN_TRANSIT'::character varying, 'DELIVERED'::character varying])::text[])))"
+    },
+    {
+      "table_name": "blood_unit",
+      "name": "blood_unit_location_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (location_id) REFERENCES storage_location(location_id)"
+    },
+    {
+      "table_name": "blood_unit",
+      "name": "blood_unit_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (resource_id)"
+    },
+    {
+      "table_name": "blood_unit",
+      "name": "blood_unit_resource_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (resource_id) REFERENCES resource(resource_id)"
+    },
+    {
+      "table_name": "candidate_evaluation",
+      "name": "candidate_evaluation_actor_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (actor_id) REFERENCES user_account(account_id)"
+    },
+    {
+      "table_name": "candidate_evaluation",
+      "name": "candidate_evaluation_elapsed_ms_check",
+      "type": "c",
+      "definition": "CHECK ((elapsed_ms >= (0)::numeric))"
+    },
+    {
+      "table_name": "candidate_evaluation",
+      "name": "candidate_evaluation_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (evaluation_id)"
+    },
+    {
+      "table_name": "candidate_evaluation",
+      "name": "candidate_evaluation_request_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (request_id) REFERENCES blood_request(request_id)"
+    },
+    {
+      "table_name": "capability",
+      "name": "capability_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (capability_code)"
+    },
+    {
+      "table_name": "contact",
+      "name": "contact_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (contact_id)"
+    },
+    {
+      "table_name": "contact_method",
+      "name": "contact_method_contact_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (contact_id) REFERENCES contact(contact_id)"
+    },
+    {
+      "table_name": "contact_method",
+      "name": "contact_method_method_kind_check",
+      "type": "c",
+      "definition": "CHECK (((method_kind)::text = ANY ((ARRAY['EMAIL'::character varying, 'PHONE'::character varying])::text[])))"
+    },
+    {
+      "table_name": "contact_method",
+      "name": "contact_method_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (contact_id, method_kind)"
+    },
+    {
+      "table_name": "custody_event",
+      "name": "custody_event_actor_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (actor_id) REFERENCES user_account(account_id)"
+    },
+    {
+      "table_name": "custody_event",
+      "name": "custody_event_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (event_id)"
+    },
+    {
+      "table_name": "custody_event",
+      "name": "custody_event_shipment_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (shipment_id) REFERENCES shipment(shipment_id)"
+    },
+    {
+      "table_name": "custody_event",
+      "name": "custody_event_shipment_id_sequence_key",
+      "type": "u",
+      "definition": "UNIQUE (shipment_id, sequence)"
+    },
+    {
+      "table_name": "donation",
+      "name": "donation_created_by_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (created_by) REFERENCES user_account(account_id)"
+    },
+    {
+      "table_name": "donation",
+      "name": "donation_current_status_check",
+      "type": "c",
+      "definition": "CHECK (((current_status)::text = ANY ((ARRAY['REGISTERED'::character varying, 'COLLECTED'::character varying, 'PROCESSED'::character varying, 'CANCELLED'::character varying])::text[])))"
+    },
+    {
+      "table_name": "donation",
+      "name": "donation_donation_code_key",
+      "type": "u",
+      "definition": "UNIQUE (donation_code)"
+    },
+    {
+      "table_name": "donation",
+      "name": "donation_donor_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (donor_id) REFERENCES donor(donor_id)"
+    },
+    {
+      "table_name": "donation",
+      "name": "donation_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (donation_id)"
+    },
+    {
+      "table_name": "donation",
+      "name": "donation_review_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (review_id) REFERENCES donor_review(review_id)"
+    },
+    {
+      "table_name": "donation_event",
+      "name": "donation_event_actor_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (actor_id) REFERENCES user_account(account_id)"
+    },
+    {
+      "table_name": "donation_event",
+      "name": "donation_event_donation_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (donation_id) REFERENCES donation(donation_id)"
+    },
+    {
+      "table_name": "donation_event",
+      "name": "donation_event_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (event_id)"
+    },
+    {
+      "table_name": "donation_unit",
+      "name": "donation_unit_donation_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (donation_id) REFERENCES donation(donation_id)"
+    },
+    {
+      "table_name": "donation_unit",
+      "name": "donation_unit_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (resource_id)"
+    },
+    {
+      "table_name": "donation_unit",
+      "name": "donation_unit_released_by_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (released_by) REFERENCES user_account(account_id)"
+    },
+    {
+      "table_name": "donation_unit",
+      "name": "donation_unit_resource_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (resource_id) REFERENCES blood_unit(resource_id)"
+    },
+    {
+      "table_name": "donor",
+      "name": "donor_blood_group_check",
+      "type": "c",
+      "definition": "CHECK (((blood_group)::text = ANY ((ARRAY['O-'::character varying, 'O+'::character varying, 'A-'::character varying, 'A+'::character varying, 'B-'::character varying, 'B+'::character varying, 'AB-'::character varying, 'AB+'::character varying])::text[])))"
+    },
+    {
+      "table_name": "donor",
+      "name": "donor_created_by_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (created_by) REFERENCES user_account(account_id)"
+    },
+    {
+      "table_name": "donor",
+      "name": "donor_current_status_check",
+      "type": "c",
+      "definition": "CHECK (((current_status)::text = ANY ((ARRAY['PENDING'::character varying, 'ELIGIBLE'::character varying, 'DEFERRED'::character varying])::text[])))"
+    },
+    {
+      "table_name": "donor",
+      "name": "donor_donation_kind_check",
+      "type": "c",
+      "definition": "CHECK (((donation_kind)::text = ANY ((ARRAY['VOLUNTARY'::character varying, 'REPLACEMENT'::character varying])::text[])))"
+    },
+    {
+      "table_name": "donor",
+      "name": "donor_institution_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (institution_id) REFERENCES institution(institution_id)"
+    },
+    {
+      "table_name": "donor",
+      "name": "donor_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (donor_id)"
+    },
+    {
+      "table_name": "donor",
+      "name": "donor_record_code_key",
+      "type": "u",
+      "definition": "UNIQUE (record_code)"
+    },
+    {
+      "table_name": "donor_review",
+      "name": "donor_review_actor_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (actor_id) REFERENCES user_account(account_id)"
+    },
+    {
+      "table_name": "donor_review",
+      "name": "donor_review_decision_check",
+      "type": "c",
+      "definition": "CHECK (((decision)::text = ANY ((ARRAY['ELIGIBLE'::character varying, 'DEFERRED'::character varying])::text[])))"
+    },
+    {
+      "table_name": "donor_review",
+      "name": "donor_review_donor_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (donor_id) REFERENCES donor(donor_id)"
+    },
+    {
+      "table_name": "donor_review",
+      "name": "donor_review_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (review_id)"
+    },
+    {
+      "table_name": "institution",
+      "name": "institution_institution_code_key",
+      "type": "u",
+      "definition": "UNIQUE (institution_code)"
+    },
+    {
+      "table_name": "institution",
+      "name": "institution_institution_type_check",
+      "type": "c",
+      "definition": "CHECK (((institution_type)::text = ANY ((ARRAY['BLOOD_BANK'::character varying, 'HOSPITAL'::character varying, 'COORDINATION'::character varying, 'TRANSPLANT_CENTER'::character varying])::text[])))"
+    },
+    {
+      "table_name": "institution",
+      "name": "institution_participation_status_check",
+      "type": "c",
+      "definition": "CHECK (((participation_status)::text = ANY ((ARRAY['ACTIVE'::character varying, 'INACTIVE'::character varying])::text[])))"
+    },
+    {
+      "table_name": "institution",
+      "name": "institution_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (institution_id)"
+    },
+    {
+      "table_name": "institution_capability",
+      "name": "institution_capability_capability_code_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (capability_code) REFERENCES capability(capability_code)"
+    },
+    {
+      "table_name": "institution_capability",
+      "name": "institution_capability_institution_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (institution_id) REFERENCES institution(institution_id)"
+    },
+    {
+      "table_name": "institution_capability",
+      "name": "institution_capability_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (institution_id, capability_code)"
+    },
+    {
+      "table_name": "institution_contact",
+      "name": "institution_contact_contact_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (contact_id) REFERENCES contact(contact_id)"
+    },
+    {
+      "table_name": "institution_contact",
+      "name": "institution_contact_contact_id_key",
+      "type": "u",
+      "definition": "UNIQUE (contact_id)"
+    },
+    {
+      "table_name": "institution_contact",
+      "name": "institution_contact_institution_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (institution_id) REFERENCES institution(institution_id)"
+    },
+    {
+      "table_name": "institution_contact",
+      "name": "institution_contact_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (institution_id, contact_id)"
+    },
+    {
+      "table_name": "login_attempt",
+      "name": "login_attempt_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (attempt_id)"
+    },
+    {
+      "table_name": "parameter_version",
+      "name": "parameter_version_approved_by_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (approved_by) REFERENCES user_account(account_id)"
+    },
+    {
+      "table_name": "parameter_version",
+      "name": "parameter_version_is_demo_check",
+      "type": "c",
+      "definition": "CHECK (is_demo)"
+    },
+    {
+      "table_name": "parameter_version",
+      "name": "parameter_version_measurement_unit_check",
+      "type": "c",
+      "definition": "CHECK (((measurement_unit)::text = 'HOURS'::text))"
+    },
+    {
+      "table_name": "parameter_version",
+      "name": "parameter_version_parameter_code_check",
+      "type": "c",
+      "definition": "CHECK (((parameter_code)::text = 'EXPIRY_WARNING_HOURS'::text))"
+    },
+    {
+      "table_name": "parameter_version",
+      "name": "parameter_version_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (parameter_version_id)"
+    },
+    {
+      "table_name": "parameter_version",
+      "name": "parameter_version_region_name_parameter_code_version_no_key",
+      "type": "u",
+      "definition": "UNIQUE (region_name, parameter_code, version_no)"
+    },
+    {
+      "table_name": "parameter_version",
+      "name": "parameter_version_scalar_value_check",
+      "type": "c",
+      "definition": "CHECK (((scalar_value >= 1) AND (scalar_value <= 720)))"
+    },
+    {
+      "table_name": "party",
+      "name": "party_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (party_id)"
+    },
+    {
+      "table_name": "recipient",
+      "name": "recipient_blood_group_check",
+      "type": "c",
+      "definition": "CHECK (((blood_group)::text = ANY ((ARRAY['O-'::character varying, 'O+'::character varying, 'A-'::character varying, 'A+'::character varying, 'B-'::character varying, 'B+'::character varying, 'AB-'::character varying, 'AB+'::character varying])::text[])))"
+    },
+    {
+      "table_name": "recipient",
+      "name": "recipient_current_status_check",
+      "type": "c",
+      "definition": "CHECK (((current_status)::text = ANY ((ARRAY['ACTIVE'::character varying, 'INACTIVE'::character varying])::text[])))"
+    },
+    {
+      "table_name": "recipient",
+      "name": "recipient_institution_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (institution_id) REFERENCES institution(institution_id)"
+    },
+    {
+      "table_name": "recipient",
+      "name": "recipient_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (recipient_id)"
+    },
+    {
+      "table_name": "recipient",
+      "name": "recipient_record_code_key",
+      "type": "u",
+      "definition": "UNIQUE (record_code)"
+    },
+    {
+      "table_name": "recipient",
+      "name": "recipient_responsible_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (responsible_id) REFERENCES user_account(account_id)"
+    },
+    {
+      "table_name": "recipient",
+      "name": "recipient_urgency_check",
+      "type": "c",
+      "definition": "CHECK (((urgency)::text = ANY ((ARRAY['URGENT'::character varying, 'PRIORITY'::character varying, 'ROUTINE'::character varying])::text[])))"
+    },
+    {
+      "table_name": "regional_route",
+      "name": "regional_route_destination_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (destination_id) REFERENCES institution(institution_id)"
+    },
+    {
+      "table_name": "regional_route",
+      "name": "regional_route_distance_km_check",
+      "type": "c",
+      "definition": "CHECK (((distance_km >= 0) AND (distance_km <= 5000)))"
+    },
+    {
+      "table_name": "regional_route",
+      "name": "regional_route_origin_id_destination_id_key",
+      "type": "u",
+      "definition": "UNIQUE (origin_id, destination_id)"
+    },
+    {
+      "table_name": "regional_route",
+      "name": "regional_route_origin_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (origin_id) REFERENCES institution(institution_id)"
+    },
+    {
+      "table_name": "regional_route",
+      "name": "regional_route_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (route_id)"
+    },
+    {
+      "table_name": "regional_route",
+      "name": "regional_route_recorded_by_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (recorded_by) REFERENCES user_account(account_id)"
+    },
+    {
+      "table_name": "regional_route",
+      "name": "regional_route_travel_minutes_check",
+      "type": "c",
+      "definition": "CHECK (((travel_minutes >= 1) AND (travel_minutes <= 10080)))"
+    },
+    {
+      "table_name": "request_event",
+      "name": "request_event_actor_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (actor_id) REFERENCES user_account(account_id)"
+    },
+    {
+      "table_name": "request_event",
+      "name": "request_event_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (event_id)"
+    },
+    {
+      "table_name": "request_event",
+      "name": "request_event_request_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (request_id) REFERENCES blood_request(request_id)"
+    },
+    {
+      "table_name": "resource",
+      "name": "resource_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (resource_id)"
+    },
+    {
+      "table_name": "resource",
+      "name": "resource_resource_kind_check",
+      "type": "c",
+      "definition": "CHECK (((resource_kind)::text = 'BLOOD'::text))"
+    },
+    {
+      "table_name": "resource",
+      "name": "resource_traceability_code_key",
+      "type": "u",
+      "definition": "UNIQUE (traceability_code)"
+    },
+    {
+      "table_name": "role",
+      "name": "role_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (role_code)"
+    },
+    {
+      "table_name": "schema_migration",
+      "name": "schema_migration_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (version)"
+    },
+    {
+      "table_name": "shipment",
+      "name": "shipment_allocation_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (allocation_id) REFERENCES blood_allocation(allocation_id)"
+    },
+    {
+      "table_name": "shipment",
+      "name": "shipment_allocation_id_key",
+      "type": "u",
+      "definition": "UNIQUE (allocation_id)"
+    },
+    {
+      "table_name": "shipment",
+      "name": "shipment_check",
+      "type": "c",
+      "definition": "CHECK ((eta > departure_at))"
+    },
+    {
+      "table_name": "shipment",
+      "name": "shipment_current_status_check",
+      "type": "c",
+      "definition": "CHECK (((current_status)::text = ANY ((ARRAY['SCHEDULED'::character varying, 'PREPARED'::character varying, 'COLLECTED'::character varying, 'IN_TRANSIT'::character varying, 'DELIVERED'::character varying, 'ACCEPTED'::character varying, 'CANCELLED'::character varying])::text[])))"
+    },
+    {
+      "table_name": "shipment",
+      "name": "shipment_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (shipment_id)"
+    },
+    {
+      "table_name": "shipment",
+      "name": "shipment_transport_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (transport_id) REFERENCES user_account(account_id)"
+    },
+    {
+      "table_name": "site",
+      "name": "site_institution_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (institution_id) REFERENCES institution(institution_id)"
+    },
+    {
+      "table_name": "site",
+      "name": "site_institution_id_site_code_key",
+      "type": "u",
+      "definition": "UNIQUE (institution_id, site_code)"
+    },
+    {
+      "table_name": "site",
+      "name": "site_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (site_id)"
+    },
+    {
+      "table_name": "site",
+      "name": "site_site_status_check",
+      "type": "c",
+      "definition": "CHECK (((site_status)::text = ANY ((ARRAY['ACTIVE'::character varying, 'INACTIVE'::character varying])::text[])))"
+    },
+    {
+      "table_name": "storage_location",
+      "name": "storage_location_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (location_id)"
+    },
+    {
+      "table_name": "storage_location",
+      "name": "storage_location_site_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (site_id) REFERENCES site(site_id)"
+    },
+    {
+      "table_name": "storage_location",
+      "name": "storage_location_site_id_location_code_key",
+      "type": "u",
+      "definition": "UNIQUE (site_id, location_code)"
+    },
+    {
+      "table_name": "user_account",
+      "name": "user_account_account_status_check",
+      "type": "c",
+      "definition": "CHECK (((account_status)::text = ANY ((ARRAY['ACTIVE'::character varying, 'INACTIVE'::character varying])::text[])))"
+    },
+    {
+      "table_name": "user_account",
+      "name": "user_account_login_email_check",
+      "type": "c",
+      "definition": "CHECK (((login_email)::text = lower((login_email)::text)))"
+    },
+    {
+      "table_name": "user_account",
+      "name": "user_account_login_email_key",
+      "type": "u",
+      "definition": "UNIQUE (login_email)"
+    },
+    {
+      "table_name": "user_account",
+      "name": "user_account_party_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (party_id) REFERENCES party(party_id)"
+    },
+    {
+      "table_name": "user_account",
+      "name": "user_account_party_id_key",
+      "type": "u",
+      "definition": "UNIQUE (party_id)"
+    },
+    {
+      "table_name": "user_account",
+      "name": "user_account_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (account_id)"
+    },
+    {
+      "table_name": "web_session",
+      "name": "web_session_account_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (account_id) REFERENCES user_account(account_id)"
+    },
+    {
+      "table_name": "web_session",
+      "name": "web_session_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (session_id)"
+    }
+  ],
+  "indexes": [
+    {
+      "tablename": "account_role",
+      "indexname": "account_role_pkey",
+      "indexdef": "CREATE UNIQUE INDEX account_role_pkey ON red_house.account_role USING btree (account_id)"
+    },
+    {
+      "tablename": "account_role",
+      "indexname": "account_role_scope_idx",
+      "indexdef": "CREATE INDEX account_role_scope_idx ON red_house.account_role USING btree (institution_id)"
+    },
+    {
+      "tablename": "audit_change",
+      "indexname": "audit_change_pkey",
+      "indexdef": "CREATE UNIQUE INDEX audit_change_pkey ON red_house.audit_change USING btree (event_id, field_name)"
+    },
+    {
+      "tablename": "audit_event",
+      "indexname": "audit_event_pkey",
+      "indexdef": "CREATE UNIQUE INDEX audit_event_pkey ON red_house.audit_event USING btree (event_id)"
+    },
+    {
+      "tablename": "audit_event",
+      "indexname": "audit_region_time_idx",
+      "indexdef": "CREATE INDEX audit_region_time_idx ON red_house.audit_event USING btree (region_name, occurred_at DESC)"
+    },
+    {
+      "tablename": "audit_event",
+      "indexname": "audit_scope_time_idx",
+      "indexdef": "CREATE INDEX audit_scope_time_idx ON red_house.audit_event USING btree (institution_id, occurred_at DESC)"
+    },
+    {
+      "tablename": "blood_allocation",
+      "indexname": "allocation_request_idx",
+      "indexdef": "CREATE INDEX allocation_request_idx ON red_house.blood_allocation USING btree (request_id)"
+    },
+    {
+      "tablename": "blood_allocation",
+      "indexname": "allocation_resource_exclusive",
+      "indexdef": "CREATE UNIQUE INDEX allocation_resource_exclusive ON red_house.blood_allocation USING btree (resource_id) WHERE ((current_status)::text <> 'CANCELLED'::text)"
+    },
+    {
+      "tablename": "blood_allocation",
+      "indexname": "blood_allocation_candidate_id_key",
+      "indexdef": "CREATE UNIQUE INDEX blood_allocation_candidate_id_key ON red_house.blood_allocation USING btree (candidate_id)"
+    },
+    {
+      "tablename": "blood_allocation",
+      "indexname": "blood_allocation_pkey",
+      "indexdef": "CREATE UNIQUE INDEX blood_allocation_pkey ON red_house.blood_allocation USING btree (allocation_id)"
+    },
+    {
+      "tablename": "blood_candidate",
+      "indexname": "blood_candidate_evaluation_id_rank_no_key",
+      "indexdef": "CREATE UNIQUE INDEX blood_candidate_evaluation_id_rank_no_key ON red_house.blood_candidate USING btree (evaluation_id, rank_no)"
+    },
+    {
+      "tablename": "blood_candidate",
+      "indexname": "blood_candidate_evaluation_id_resource_id_key",
+      "indexdef": "CREATE UNIQUE INDEX blood_candidate_evaluation_id_resource_id_key ON red_house.blood_candidate USING btree (evaluation_id, resource_id)"
+    },
+    {
+      "tablename": "blood_candidate",
+      "indexname": "blood_candidate_pkey",
+      "indexdef": "CREATE UNIQUE INDEX blood_candidate_pkey ON red_house.blood_candidate USING btree (candidate_id)"
+    },
+    {
+      "tablename": "blood_classification",
+      "indexname": "blood_classification_pkey",
+      "indexdef": "CREATE UNIQUE INDEX blood_classification_pkey ON red_house.blood_classification USING btree (resource_id)"
+    },
+    {
+      "tablename": "blood_component",
+      "indexname": "blood_component_component_code_key",
+      "indexdef": "CREATE UNIQUE INDEX blood_component_component_code_key ON red_house.blood_component USING btree (component_code)"
+    },
+    {
+      "tablename": "blood_component",
+      "indexname": "blood_component_pkey",
+      "indexdef": "CREATE UNIQUE INDEX blood_component_pkey ON red_house.blood_component USING btree (component_id)"
+    },
+    {
+      "tablename": "blood_movement",
+      "indexname": "blood_movement_pkey",
+      "indexdef": "CREATE UNIQUE INDEX blood_movement_pkey ON red_house.blood_movement USING btree (movement_id)"
+    },
+    {
+      "tablename": "blood_movement",
+      "indexname": "blood_movement_resource_id_sequence_key",
+      "indexdef": "CREATE UNIQUE INDEX blood_movement_resource_id_sequence_key ON red_house.blood_movement USING btree (resource_id, sequence)"
+    },
+    {
+      "tablename": "blood_request",
+      "indexname": "blood_request_pkey",
+      "indexdef": "CREATE UNIQUE INDEX blood_request_pkey ON red_house.blood_request USING btree (request_id)"
+    },
+    {
+      "tablename": "blood_request",
+      "indexname": "blood_request_request_code_key",
+      "indexdef": "CREATE UNIQUE INDEX blood_request_request_code_key ON red_house.blood_request USING btree (request_code)"
+    },
+    {
+      "tablename": "blood_request",
+      "indexname": "request_queue_idx",
+      "indexdef": "CREATE INDEX request_queue_idx ON red_house.blood_request USING btree (current_status, urgency, requested_at)"
+    },
+    {
+      "tablename": "blood_request",
+      "indexname": "request_recipient_idx",
+      "indexdef": "CREATE INDEX request_recipient_idx ON red_house.blood_request USING btree (recipient_id)"
+    },
+    {
+      "tablename": "blood_status_transition",
+      "indexname": "blood_status_transition_pkey",
+      "indexdef": "CREATE UNIQUE INDEX blood_status_transition_pkey ON red_house.blood_status_transition USING btree (previous_status, new_status)"
+    },
+    {
+      "tablename": "blood_unit",
+      "indexname": "blood_unit_component_idx",
+      "indexdef": "CREATE INDEX blood_unit_component_idx ON red_house.blood_unit USING btree (component_id)"
+    },
+    {
+      "tablename": "blood_unit",
+      "indexname": "blood_unit_expiry_idx",
+      "indexdef": "CREATE INDEX blood_unit_expiry_idx ON red_house.blood_unit USING btree (expires_at) WHERE ((current_status)::text = 'AVAILABLE'::text)"
+    },
+    {
+      "tablename": "blood_unit",
+      "indexname": "blood_unit_location_idx",
+      "indexdef": "CREATE INDEX blood_unit_location_idx ON red_house.blood_unit USING btree (location_id)"
+    },
+    {
+      "tablename": "blood_unit",
+      "indexname": "blood_unit_pkey",
+      "indexdef": "CREATE UNIQUE INDEX blood_unit_pkey ON red_house.blood_unit USING btree (resource_id)"
+    },
+    {
+      "tablename": "candidate_evaluation",
+      "indexname": "candidate_evaluation_pkey",
+      "indexdef": "CREATE UNIQUE INDEX candidate_evaluation_pkey ON red_house.candidate_evaluation USING btree (evaluation_id)"
+    },
+    {
+      "tablename": "capability",
+      "indexname": "capability_pkey",
+      "indexdef": "CREATE UNIQUE INDEX capability_pkey ON red_house.capability USING btree (capability_code)"
+    },
+    {
+      "tablename": "contact",
+      "indexname": "contact_pkey",
+      "indexdef": "CREATE UNIQUE INDEX contact_pkey ON red_house.contact USING btree (contact_id)"
+    },
+    {
+      "tablename": "contact_method",
+      "indexname": "contact_method_pkey",
+      "indexdef": "CREATE UNIQUE INDEX contact_method_pkey ON red_house.contact_method USING btree (contact_id, method_kind)"
+    },
+    {
+      "tablename": "custody_event",
+      "indexname": "custody_event_pkey",
+      "indexdef": "CREATE UNIQUE INDEX custody_event_pkey ON red_house.custody_event USING btree (event_id)"
+    },
+    {
+      "tablename": "custody_event",
+      "indexname": "custody_event_shipment_id_sequence_key",
+      "indexdef": "CREATE UNIQUE INDEX custody_event_shipment_id_sequence_key ON red_house.custody_event USING btree (shipment_id, sequence)"
+    },
+    {
+      "tablename": "donation",
+      "indexname": "donation_donation_code_key",
+      "indexdef": "CREATE UNIQUE INDEX donation_donation_code_key ON red_house.donation USING btree (donation_code)"
+    },
+    {
+      "tablename": "donation",
+      "indexname": "donation_pkey",
+      "indexdef": "CREATE UNIQUE INDEX donation_pkey ON red_house.donation USING btree (donation_id)"
+    },
+    {
+      "tablename": "donation_event",
+      "indexname": "donation_event_pkey",
+      "indexdef": "CREATE UNIQUE INDEX donation_event_pkey ON red_house.donation_event USING btree (event_id)"
+    },
+    {
+      "tablename": "donation_unit",
+      "indexname": "donation_unit_pkey",
+      "indexdef": "CREATE UNIQUE INDEX donation_unit_pkey ON red_house.donation_unit USING btree (resource_id)"
+    },
+    {
+      "tablename": "donor",
+      "indexname": "donor_institution_idx",
+      "indexdef": "CREATE INDEX donor_institution_idx ON red_house.donor USING btree (institution_id)"
+    },
+    {
+      "tablename": "donor",
+      "indexname": "donor_pkey",
+      "indexdef": "CREATE UNIQUE INDEX donor_pkey ON red_house.donor USING btree (donor_id)"
+    },
+    {
+      "tablename": "donor",
+      "indexname": "donor_record_code_key",
+      "indexdef": "CREATE UNIQUE INDEX donor_record_code_key ON red_house.donor USING btree (record_code)"
+    },
+    {
+      "tablename": "donor_review",
+      "indexname": "donor_review_pkey",
+      "indexdef": "CREATE UNIQUE INDEX donor_review_pkey ON red_house.donor_review USING btree (review_id)"
+    },
+    {
+      "tablename": "institution",
+      "indexname": "institution_institution_code_key",
+      "indexdef": "CREATE UNIQUE INDEX institution_institution_code_key ON red_house.institution USING btree (institution_code)"
+    },
+    {
+      "tablename": "institution",
+      "indexname": "institution_pkey",
+      "indexdef": "CREATE UNIQUE INDEX institution_pkey ON red_house.institution USING btree (institution_id)"
+    },
+    {
+      "tablename": "institution_capability",
+      "indexname": "institution_capability_pkey",
+      "indexdef": "CREATE UNIQUE INDEX institution_capability_pkey ON red_house.institution_capability USING btree (institution_id, capability_code)"
+    },
+    {
+      "tablename": "institution_contact",
+      "indexname": "institution_contact_contact_id_key",
+      "indexdef": "CREATE UNIQUE INDEX institution_contact_contact_id_key ON red_house.institution_contact USING btree (contact_id)"
+    },
+    {
+      "tablename": "institution_contact",
+      "indexname": "institution_contact_pkey",
+      "indexdef": "CREATE UNIQUE INDEX institution_contact_pkey ON red_house.institution_contact USING btree (institution_id, contact_id)"
+    },
+    {
+      "tablename": "login_attempt",
+      "indexname": "login_address_time_idx",
+      "indexdef": "CREATE INDEX login_address_time_idx ON red_house.login_attempt USING btree (address_hash, occurred_at DESC)"
+    },
+    {
+      "tablename": "login_attempt",
+      "indexname": "login_attempt_pkey",
+      "indexdef": "CREATE UNIQUE INDEX login_attempt_pkey ON red_house.login_attempt USING btree (attempt_id)"
+    },
+    {
+      "tablename": "login_attempt",
+      "indexname": "login_identity_time_idx",
+      "indexdef": "CREATE INDEX login_identity_time_idx ON red_house.login_attempt USING btree (identity_hash, occurred_at DESC)"
+    },
+    {
+      "tablename": "parameter_version",
+      "indexname": "parameter_version_pkey",
+      "indexdef": "CREATE UNIQUE INDEX parameter_version_pkey ON red_house.parameter_version USING btree (parameter_version_id)"
+    },
+    {
+      "tablename": "parameter_version",
+      "indexname": "parameter_version_region_name_parameter_code_version_no_key",
+      "indexdef": "CREATE UNIQUE INDEX parameter_version_region_name_parameter_code_version_no_key ON red_house.parameter_version USING btree (region_name, parameter_code, version_no)"
+    },
+    {
+      "tablename": "party",
+      "indexname": "party_pkey",
+      "indexdef": "CREATE UNIQUE INDEX party_pkey ON red_house.party USING btree (party_id)"
+    },
+    {
+      "tablename": "recipient",
+      "indexname": "recipient_institution_idx",
+      "indexdef": "CREATE INDEX recipient_institution_idx ON red_house.recipient USING btree (institution_id)"
+    },
+    {
+      "tablename": "recipient",
+      "indexname": "recipient_pkey",
+      "indexdef": "CREATE UNIQUE INDEX recipient_pkey ON red_house.recipient USING btree (recipient_id)"
+    },
+    {
+      "tablename": "recipient",
+      "indexname": "recipient_record_code_key",
+      "indexdef": "CREATE UNIQUE INDEX recipient_record_code_key ON red_house.recipient USING btree (record_code)"
+    },
+    {
+      "tablename": "regional_route",
+      "indexname": "regional_route_origin_id_destination_id_key",
+      "indexdef": "CREATE UNIQUE INDEX regional_route_origin_id_destination_id_key ON red_house.regional_route USING btree (origin_id, destination_id)"
+    },
+    {
+      "tablename": "regional_route",
+      "indexname": "regional_route_pkey",
+      "indexdef": "CREATE UNIQUE INDEX regional_route_pkey ON red_house.regional_route USING btree (route_id)"
+    },
+    {
+      "tablename": "request_event",
+      "indexname": "request_event_pkey",
+      "indexdef": "CREATE UNIQUE INDEX request_event_pkey ON red_house.request_event USING btree (event_id)"
+    },
+    {
+      "tablename": "resource",
+      "indexname": "resource_pkey",
+      "indexdef": "CREATE UNIQUE INDEX resource_pkey ON red_house.resource USING btree (resource_id)"
+    },
+    {
+      "tablename": "resource",
+      "indexname": "resource_traceability_code_key",
+      "indexdef": "CREATE UNIQUE INDEX resource_traceability_code_key ON red_house.resource USING btree (traceability_code)"
+    },
+    {
+      "tablename": "role",
+      "indexname": "role_pkey",
+      "indexdef": "CREATE UNIQUE INDEX role_pkey ON red_house.role USING btree (role_code)"
+    },
+    {
+      "tablename": "schema_migration",
+      "indexname": "schema_migration_pkey",
+      "indexdef": "CREATE UNIQUE INDEX schema_migration_pkey ON red_house.schema_migration USING btree (version)"
+    },
+    {
+      "tablename": "shipment",
+      "indexname": "shipment_allocation_id_key",
+      "indexdef": "CREATE UNIQUE INDEX shipment_allocation_id_key ON red_house.shipment USING btree (allocation_id)"
+    },
+    {
+      "tablename": "shipment",
+      "indexname": "shipment_pkey",
+      "indexdef": "CREATE UNIQUE INDEX shipment_pkey ON red_house.shipment USING btree (shipment_id)"
+    },
+    {
+      "tablename": "shipment",
+      "indexname": "shipment_transport_idx",
+      "indexdef": "CREATE INDEX shipment_transport_idx ON red_house.shipment USING btree (transport_id)"
+    },
+    {
+      "tablename": "site",
+      "indexname": "site_institution_id_site_code_key",
+      "indexdef": "CREATE UNIQUE INDEX site_institution_id_site_code_key ON red_house.site USING btree (institution_id, site_code)"
+    },
+    {
+      "tablename": "site",
+      "indexname": "site_institution_idx",
+      "indexdef": "CREATE INDEX site_institution_idx ON red_house.site USING btree (institution_id)"
+    },
+    {
+      "tablename": "site",
+      "indexname": "site_pkey",
+      "indexdef": "CREATE UNIQUE INDEX site_pkey ON red_house.site USING btree (site_id)"
+    },
+    {
+      "tablename": "storage_location",
+      "indexname": "storage_location_pkey",
+      "indexdef": "CREATE UNIQUE INDEX storage_location_pkey ON red_house.storage_location USING btree (location_id)"
+    },
+    {
+      "tablename": "storage_location",
+      "indexname": "storage_location_site_id_location_code_key",
+      "indexdef": "CREATE UNIQUE INDEX storage_location_site_id_location_code_key ON red_house.storage_location USING btree (site_id, location_code)"
+    },
+    {
+      "tablename": "storage_location",
+      "indexname": "storage_site_idx",
+      "indexdef": "CREATE INDEX storage_site_idx ON red_house.storage_location USING btree (site_id)"
+    },
+    {
+      "tablename": "user_account",
+      "indexname": "user_account_login_email_key",
+      "indexdef": "CREATE UNIQUE INDEX user_account_login_email_key ON red_house.user_account USING btree (login_email)"
+    },
+    {
+      "tablename": "user_account",
+      "indexname": "user_account_party_id_key",
+      "indexdef": "CREATE UNIQUE INDEX user_account_party_id_key ON red_house.user_account USING btree (party_id)"
+    },
+    {
+      "tablename": "user_account",
+      "indexname": "user_account_pkey",
+      "indexdef": "CREATE UNIQUE INDEX user_account_pkey ON red_house.user_account USING btree (account_id)"
+    },
+    {
+      "tablename": "web_session",
+      "indexname": "web_session_account_idx",
+      "indexdef": "CREATE INDEX web_session_account_idx ON red_house.web_session USING btree (account_id)"
+    },
+    {
+      "tablename": "web_session",
+      "indexname": "web_session_pkey",
+      "indexdef": "CREATE UNIQUE INDEX web_session_pkey ON red_house.web_session USING btree (session_id)"
+    }
+  ]
+}

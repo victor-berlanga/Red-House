@@ -35,8 +35,8 @@ def create_app(overrides=None):
 
     CSRFProtect(app)
 
-    from .presentation.routes import admin, inventory, portal, public
-    for blueprint in (public.bp, portal.bp, admin.bp, inventory.bp):
+    from .presentation.routes import admin, inventory, portal, public, regional
+    for blueprint in (public.bp, portal.bp, admin.bp, inventory.bp, regional.bp):
         app.register_blueprint(blueprint)
     from .cli import register
     register(app)

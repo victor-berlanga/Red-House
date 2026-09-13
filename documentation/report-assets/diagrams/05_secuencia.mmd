@@ -1,0 +1,19 @@
+sequenceDiagram
+  actor M as Médico solicitante
+  participant W as Monolito
+  participant DB as PostgreSQL
+  M->>W: Consultar candidatos y factores
+  W->>DB: Leer evaluación versionada
+  DB-->>W: Unidades potenciales
+  W-->>M: Resultado DEMO y límites
+  M->>W: Autorizar unidad, motivo y versión
+  W->>DB: BEGIN y bloquear solicitud y unidad
+  W->>DB: Revalidar ámbito, disponibilidad, ruta y cantidad
+  alt Alternativa vigente
+    W->>DB: Reserva exclusiva, movimiento y auditoría
+    W->>DB: COMMIT
+    W-->>M: Reserva confirmada
+  else Conflicto o evidencia fallida
+    W->>DB: ROLLBACK
+    W-->>M: Rechazo sin reserva parcial
+  end

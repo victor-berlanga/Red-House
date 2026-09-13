@@ -1,5 +1,16 @@
 # PostgreSQL · Subconjunto físico del monolito
 
+## Ampliación regional vigente — 13 de septiembre de 2026
+
+El esquema inicial `schema.sql` conserva sus 23 tablas. La migración incremental `migrations/002_regional.sql` incorpora 14 tablas de negocio y `schema_migration`, para un total de **38 tablas**. Habilita Médico, Coordinador y Traslado; amplía tipos de institución y estados de unidad, sin reinicializar datos. La descripción de las 23 tablas que sigue corresponde a la base inicial.
+
+Las tablas nuevas cubren donantes y revisión, donaciones y etapas, vínculo de unidades, receptores, solicitudes y eventos, rutas, evaluaciones/candidatos, reservas, traslados y custodia. El índice parcial `allocation_resource_exclusive` impide dos asignaciones no canceladas de la misma unidad. La reserva bloquea solicitud y unidad; las decisiones, movimientos y auditoría se confirman juntos. Los eventos y evaluaciones son anexables mediante triggers.
+
+El [Reporte Técnico del Primer Avance](../../documentation/docx/Reporte_Tecnico_del_Primer_Avance.docx) incluye el modelo conceptual y el diccionario físico obtenido del catálogo. El [catálogo JSON](../../documentation/evidence/ampliacion-monolito/Physical_schema.json) conserva columnas, PK, FK, CHECK e índices. La [verificación de actualización](../../documentation/evidence/ampliacion-monolito/Upgrade_check.json) demuestra restauración de copia, migración e idempotencia con preservación de datos.
+
+Para actualizar, usar `flask --app run migrate-db` desde el entorno del monolito. No se ejecuta `schema.sql` nuevamente. Los 169 elementos lógicos semestrales no se convierten automáticamente en este esquema físico.
+
+
 [schema.sql](schema.sql) es la única definición física ejecutable de este incremento: **23 tablas, una vista y restricciones de historial** en el esquema `red_house`, para PostgreSQL 14 o superior. No hay una copia en el código ni un segundo modelo ORM.
 
 Se deriva del análisis, las historias y la matriz de perfiles de `documentation/markdowns`, considerando el [modelo lógico 4FN](../../documentation/database-diagrams/Modelo_4FN.md) y su [trazabilidad](../../documentation/database-diagrams/Trazabilidad_0FN_4FN.md). No instala las 169 relaciones semestrales ni sustituye la documentación de normalización. El Excel histórico no es fuente del SQL.

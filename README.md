@@ -2,7 +2,17 @@
 
 Red regional de bancos de sangre y donación de órganos · Proyecto 6 · Equipo 01.
 
-Este incremento implementa únicamente el **monolito web del primer parcial**, con Flask, Jinja2 y PostgreSQL. Opera con datos ficticios y no realiza decisiones clínicas. Las pantallas futuras están identificadas y sus acciones permanecen deshabilitadas.
+El monolito web ya incluye el **flujo sanguíneo regional previo a microservicios**: donante, revisión humana, donación, recolección, procesamiento, unidad, solicitud de receptor, candidatos ABO/Rh DEMO, autorización, reserva, traslado, custodia, recepción, cierre y auditoría. Usa Flask, Jinja2 y PostgreSQL con datos ficticios.
+
+La sección de órganos/HLA permanece separada y pendiente. El motor computacional cubre únicamente concentrados eritrocitarios; no sustituye revisión clínica. MongoDB, Redis, Docker y los productos independientes conservan su fase posterior.
+
+## Entrega consolidada
+
+- [Reporte Técnico del Primer Avance — Word](documentation/docx/Reporte_Tecnico_del_Primer_Avance.docx).
+- [Reporte Técnico del Primer Avance — PDF](documentation/pdf/Reporte_Tecnico_del_Primer_Avance.pdf): es el reporte completo, no una presentación.
+- [Fuente editable](documentation/markdowns/Reporte_Tecnico_del_Primer_Avance.md), [evidencia de la ampliación](documentation/evidence/ampliacion-monolito/README.md) y [guía del flujo regional](documentation/markdowns/Guia_del_flujo_regional.md).
+
+El reporte contiene los 37 apartados solicitados, diagramas renderizados, capturas, resultados de pruebas y diccionario físico. Los documentos especializados y el reporte integral anterior se conservan como antecedentes.
 
 ## Organización actual
 
@@ -28,7 +38,7 @@ Red-House/
 │       └── README.md
 ├── data/
 │   └── database/
-│       ├── schema.sql           # Única definición física del subconjunto web
+│       ├── schema.sql           # Esquema inicial; ampliación en migrations/
 │       └── README.md
 ├── documentation/
 │   ├── markdowns/               # Fuentes editables de análisis y planificación
@@ -43,6 +53,9 @@ Red-House/
 `apps/`, `data/` y `documentation/` son directorios hermanos dentro de este repositorio. `data_access` usa la convención de nombres de paquetes Python para la capa de acceso a datos. No se crearon carpetas vacías para microservicios, móvil, escritorio, paquetes compartidos o infraestructura futura.
 
 ## Inicio rápido
+
+**Instalación existente:** la actualización local del 13 de septiembre ya aplicó la migración con respaldo y comprobación en copia; conserva las cuatro cuentas y 36 unidades anteriores. En otras instalaciones existentes, ejecutar `.venv/bin/python -m flask --app run migrate-db` después de respaldar y actualizar el código. No volver a ejecutar `schema.sql` sobre una base instalada. La aplicación no migra al arrancar.
+
 
 Con Python 3.12+ y PostgreSQL 14+ ya instalado y encendido, entra a `apps/web-monolito01` y ejecuta **`sh setup.sh` en macOS/Linux** o **`.\setup.cmd` en Windows**. El asistente prepara el entorno Python, la configuración privada, una base nueva, el esquema y las cuentas DEMO. Si ya existe una instalación válida, conserva sus datos y contraseñas. La prueba nativa de Windows fue realizada por otros integrantes del equipo, según confirmación del usuario recibida el 6 de septiembre de 2026. El entorno virtual de este Mac ya se reconstruyó en la ruta actual de `Red-House` y su arranque quedó verificado; no es necesario reinstalar ni reinicializar la base existente.
 

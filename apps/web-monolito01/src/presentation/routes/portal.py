@@ -1,6 +1,6 @@
 from datetime import date
 
-from flask import Blueprint, g, render_template, request
+from flask import Blueprint, g, render_template, request, redirect, url_for
 
 from ...business import validators as v
 from ...business.access import BusinessError, require
@@ -12,6 +12,10 @@ bp = Blueprint("portal", __name__)
 
 @bp.get("/panel")
 def dashboard():
+    if g.principal.role_code == 'TRANSPORT':
+        return redirect(url_for('regional.allocations'))
+    if g.principal.role_code in ('COORDINATOR','MEDICAL'):
+        return redirect(url_for('regional.dashboard'))
     return render_template("dashboard.html", title="Panel principal", active="dashboard", **reporting.dashboard(g.principal))
 
 
@@ -33,6 +37,14 @@ def audit():
 @bp.get("/proximamente/<slug>")
 def future(slug):
     require(g.principal, "preview")
+    destinations = {
+        'donantes': ('regional.people', {'kind':'donor'}),
+        'receptores': ('regional.people', {'kind':'recipient'}),
+        'solicitudes': ('regional.requests', {}), 'compatibilidad': ('regional.requests', {}),
+        'traslados': ('regional.allocations', {}), 'custodia': ('regional.allocations', {})}
+    if slug in destinations:
+        endpoint, args = destinations[slug]
+        return redirect(url_for(endpoint, **args))
     if slug not in FUTURE:
         raise BusinessError("La vista no existe.", 404)
     return render_template("future.html", title=FUTURE[slug]["title"], active=slug, view=FUTURE[slug], slug=slug)

@@ -1,0 +1,11 @@
+flowchart TB
+  W[Monolito actual] --> P[(PostgreSQL: datos transaccionales)]
+  P --> CORE[Instituciones, acceso, donantes y receptores]
+  P --> FLOW[Donaciones, unidades y solicitudes]
+  P --> TRACE[Evaluaciones, reservas, traslados y eventos]
+  P --> REF[Referencias documentales de evidencia]
+  subgraph FUT[Almacenamiento futuro: diseños, sin ejecución]
+    M[(MongoDB: eventos flexibles y telemetría)]
+    R[(Redis: sesión, revocación, caché y temporales)]
+    G[Storage: objetos privados; referencias en PostgreSQL]
+  end

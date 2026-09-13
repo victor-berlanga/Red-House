@@ -1,0 +1,14 @@
+erDiagram
+  INSTITUTION ||--o{ DONOR : registra
+  DONOR ||--o{ DONOR_REVIEW : recibe
+  DONOR ||--o{ DONATION : participa
+  DONATION ||--o{ DONATION_UNIT : origina
+  BLOOD_UNIT ||--o| DONATION_UNIT : vincula
+  INSTITUTION ||--o{ RECIPIENT : atiende
+  RECIPIENT ||--o{ BLOOD_REQUEST : requiere
+  BLOOD_REQUEST ||--o{ CANDIDATE_EVALUATION : evalua
+  CANDIDATE_EVALUATION ||--o{ BLOOD_CANDIDATE : conserva
+  BLOOD_UNIT ||--o{ BLOOD_CANDIDATE : propone
+  BLOOD_CANDIDATE ||--o| BLOOD_ALLOCATION : autoriza
+  BLOOD_ALLOCATION ||--o| SHIPMENT : traslada
+  SHIPMENT ||--|{ CUSTODY_EVENT : documenta

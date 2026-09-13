@@ -33,17 +33,21 @@ FUTURE = {
                  "note": "Los eventos serán secuenciales y no editables. Las fotografías y los archivos privados requieren controles posteriores."},
 }
 
+FUTURE = {"organos": FUTURE["organos"]}
+
 NAV = [
     ("GENERAL", "dashboard", "Panel principal", "layout-grid", "portal.dashboard", {}, "dashboard", False),
-    ("REGISTROS", "donantes", "Donantes", "droplet", "portal.future", {"slug": "donantes"}, "preview", True),
-    ("REGISTROS", "receptores", "Receptores", "users", "portal.future", {"slug": "receptores"}, "preview", True),
-    ("REGISTROS", "inventory", "Inventario sanguíneo", "package", "inventory.index", {}, "inventory.read", False),
-    ("REGISTROS", "organos", "Órganos", "heart-pulse", "portal.future", {"slug": "organos"}, "preview", True),
-    ("PROCESOS", "compatibilidad", "Compatibilidad", "shield-check", "portal.future", {"slug": "compatibilidad"}, "preview", True),
-    ("PROCESOS", "solicitudes", "Solicitudes urgentes", "triangle-alert", "portal.future", {"slug": "solicitudes"}, "preview", True),
-    ("PROCESOS", "traslados", "Asignación y traslados", "truck", "portal.future", {"slug": "traslados"}, "preview", True),
-    ("TRAZABILIDAD", "custodia", "Cadena de custodia", "file-clock", "portal.future", {"slug": "custodia"}, "preview", True),
-    ("TRAZABILIDAD", "audit", "Auditoría", "scroll-text", "portal.audit", {}, "audit.read", False),
+    ("BANCO DE SANGRE", "regional", "Panel regional", "building-2", "regional.dashboard", {}, "regional.read", False),
+    ("BANCO DE SANGRE", "donantes", "Donantes", "droplet", "regional.people", {"kind": "donor"}, "donor.write", False),
+    ("BANCO DE SANGRE", "donaciones", "Donaciones y procesamiento", "layers", "regional.donations", {}, "donor.write", False),
+    ("BANCO DE SANGRE", "receptores", "Receptores", "users", "regional.people", {"kind": "recipient"}, "recipient.write", False),
+    ("BANCO DE SANGRE", "inventory", "Inventario sanguíneo", "package", "inventory.index", {}, "inventory.read", False),
+    ("BANCO DE SANGRE", "solicitudes", "Solicitudes y compatibilidad", "triangle-alert", "regional.requests", {}, "regional.read", False),
+    ("BANCO DE SANGRE", "rutas", "Rutas y estimaciones", "map-pin", "regional.routes", {}, "route.write", False),
+    ("LOGÍSTICA", "traslados", "Traslados y custodia", "truck", "regional.allocations", {}, "logistics", False),
+    ("LOGÍSTICA", "trazabilidad", "Trazabilidad regional", "file-clock", "regional.allocations", {}, "trace.read", False),
+    ("DONACIÓN / TRASPLANTE DE ÓRGANOS", "organos", "Órganos y HLA", "heart-pulse", "portal.future", {"slug": "organos"}, "preview", True),
+    ("AUDITORÍA", "audit", "Bitácora de auditoría", "scroll-text", "portal.audit", {}, "audit.read", False),
     ("ADMINISTRACIÓN", "institutions", "Instituciones", "building-2", "admin.index", {"entity": "institutions"}, "administration", False),
     ("ADMINISTRACIÓN", "users", "Usuarios", "user-round-cog", "admin.index", {"entity": "users"}, "administration", False),
     ("ADMINISTRACIÓN", "components", "Catálogos", "settings-2", "admin.index", {"entity": "components"}, "administration", False),

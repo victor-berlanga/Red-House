@@ -1,0 +1,11 @@
+flowchart TB
+  subgraph LOCAL[Actual: equipo local]
+    B[Navegador] -->|HTTP local| F[Un proceso Flask]
+    F -->|Conexión local| PG[(PostgreSQL)]
+    E[Variables privadas de entorno] --> F
+  end
+  subgraph FUTURO[Arquitectura posterior: no desplegada]
+    GCP[Google Compute Engine: web] --> MS[Contenedores de microservicios]
+    MS --> DAT[PostgreSQL, MongoDB y Redis]
+    MS --> GCS[Google Cloud Storage privado]
+  end

@@ -1,6 +1,7 @@
 from .common import pattern, scope
 
 STATUSES = {"AVAILABLE": "Disponible", "QUARANTINED": "Cuarentena DEMO", "WITHDRAWN": "Baja",
+            "RESERVED": "Reservada", "IN_TRANSIT": "En tránsito", "DELIVERED": "Recibida para solicitud",
             "EXPIRED": "Vencida", "UNAVAILABLE": "Referencia inactiva"}
 VISIBLE_STATUSES = {key: label for key, label in STATUSES.items() if key != "WITHDRAWN"}
 GROUPS = ("O-", "O+", "A-", "A+", "B-", "B+", "AB-", "AB+")

@@ -1,0 +1,91 @@
+const {chromium}=require('playwright');
+const assert=require('node:assert/strict');
+const fs=require('node:fs');
+const path=require('node:path');
+
+(async()=>{
+ const browser=await chromium.launch({channel:'chrome',headless:true});
+ const base=process.env.BASE_URL, data=JSON.parse(process.env.REGIONAL_DATA), output=process.env.BROWSER_ARTIFACTS;
+ fs.mkdirSync(output,{recursive:true});
+ const failures=[],assets=[],pages={};
+ async function login(role){
+   if(pages[role]) return pages[role];
+   const context=await browser.newContext({viewport:{width:1440,height:1000}});
+   const p=await context.newPage();pages[role]=p;
+   p.on('pageerror',e=>failures.push(e.message));
+   p.on('response',r=>{if(r.url().includes('/static/')&&r.status()>=400)assets.push(r.url());});
+   await p.goto(base+'/login');
+   await p.getByLabel('Correo electrónico',{exact:true}).fill(role+'@red-house.test');
+   await p.getByLabel('Contraseña',{exact:true}).fill(process.env.DEMO_PASSWORD);
+   await p.getByRole('button',{name:'Iniciar sesión'}).click();
+   await p.waitForURL(u=>!u.pathname.includes('/login'));
+   return p;
+ }
+ async function submit(p,title,values){
+   const section=p.locator('section').filter({has:p.getByRole('heading',{name:title,exact:true})});
+   assert.equal(await section.count(),1,title);
+   for(const [name,value] of Object.entries(values)){
+      const el=section.locator(`[name="${name}"]`);
+      const tag=await el.evaluate(e=>e.tagName);
+      if(tag==='SELECT') await el.selectOption(String(value));
+      else if((await el.getAttribute('type'))==='checkbox') await el.check();
+      else await el.fill(String(value));
+   }
+   await Promise.all([p.waitForNavigation(),section.getByRole('button').click()]);
+   assert.equal(await p.locator('h1').count(),1);
+   assert(!await p.getByText('Operación no completada',{exact:true}).count(),await p.locator('body').innerText());
+ }
+ async function capture(p,name){await p.evaluate(()=>scrollTo(0,0));await p.screenshot({path:path.join(output,name+'.png'),fullPage:true,animations:'disabled'});await p.screenshot({path:path.join(output,name+'_vista.png'),fullPage:false,animations:'disabled'});}
+ async function overflow(p){assert(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),'Desbordamiento horizontal fuera de tablas');}
+ try{
+   const op=await login('operador');
+   await op.goto(base+'/sangre/personas/donor');
+   await submit(op,'Registrar expediente ficticio',{institution_id:data.north,record_code:'BROWSER-DONOR',display_name:'Donante ficticio de prueba',blood_group:'O-',restrictions:'Ninguna registrada DEMO',donation_kind:'VOLUNTARY',background:'SECRETO-CLINICO-ANTECEDENTES',consent_reference:'CONSENT-BROWSER',consent_at:new Date(Date.now()-60000).toISOString().slice(0,16)});
+   const donorUrl=op.url(),donorId=donorUrl.split('/').at(-1);
+   const med=await login('medico');await med.goto(donorUrl);
+   await submit(med,'Registrar revisión humana',{decision:'ELIGIBLE',reason:'Evaluación humana ficticia',human_confirmation:true});
+   await capture(med,'Donante_revision');
+   await op.goto(base+'/sangre/donaciones');
+   await submit(op,'Registrar donación',{donation_code:'BROWSER-DONATION',donor_id:donorId});
+   const donationUrl=op.url();
+   await submit(op,'Registrar etapa',{status:'COLLECTED',observation:'Recolección demostrativa realizada'});
+   await submit(op,'Registrar etapa',{status:'PROCESSED',observation:'Procesamiento demostrativo documentado'});
+   await med.goto(donationUrl);
+   await submit(med,'Liberar unidad / componente',{traceability_code:'BROWSER-UNIT',component_id:data.component,location_id:data.northLocation,expires_at:new Date(Date.now()+86400000).toISOString().slice(0,16),release_reference:'PRUEBAS-BROWSER',human_confirmation:true});
+   await med.goto(donationUrl);await capture(med,'Donacion_procesamiento');
+   const dest=await login('medico.valle');await dest.goto(base+'/sangre/personas/recipient');
+   await submit(dest,'Registrar expediente ficticio',{institution_id:data.valley,record_code:'BROWSER-RECIPIENT',display_name:'Receptor ficticio de prueba',blood_group:'O-',restrictions:'Ninguna registrada DEMO',requirement:'SECRETO-CLINICO-REQUERIMIENTO',urgency:'URGENT',studies:'SECRETO-CLINICO-ESTUDIOS',current_status:'ACTIVE'});
+   const recipientId=dest.url().split('/').at(-1);
+   await dest.goto(base+'/sangre/solicitudes');
+   await submit(dest,'Crear solicitud de receptor',{request_code:'BROWSER-REQUEST',recipient_id:recipientId,component_id:data.component,quantity:1,urgency:'URGENT',justification:'SECRETO-CLINICO-JUSTIFICACION'});
+   const requestUrl=dest.url();
+   const coord=await login('coordinador');await coord.goto(base+'/sangre/rutas');
+   await submit(coord,'Registrar o actualizar estimación dirigida',{origin_id:data.north,destination_id:data.valley,distance_km:30,travel_minutes:45,source_reference:'Supuesto académico de 30 km / 45 minutos'});
+   await coord.goto(requestUrl);await submit(coord,'Buscar candidatos regionales',{});await capture(coord,'Compatibilidad_priorizacion');
+   assert(!(await coord.locator('body').innerText()).includes('SECRETO-CLINICO'));
+   await coord.setViewportSize({width:390,height:844});await overflow(coord);await capture(coord,'Solicitud_mobile');await coord.setViewportSize({width:1440,height:1000});
+   await dest.goto(requestUrl);
+   const choice=dest.locator('[name=candidate_id] option').filter({hasText:'BROWSER-UNIT'});
+   await submit(dest,'Revisión humana y reserva',{candidate_id:await choice.getAttribute('value'),reason:'Revisión humana demostrativa confirmada',human_confirmation:true});
+   const allocationUrl=dest.url();
+   await coord.goto(allocationUrl);
+   await submit(coord,'Asignar y programar traslado',{transport_id:data.transport,vehicle:'VEHICULO-BROWSER-DEMO',departure_at:new Date(Date.now()+60000).toISOString().slice(0,16),eta:new Date(Date.now()+3600000).toISOString().slice(0,16)});
+   await capture(coord,'Asignacion_traslado');
+   for(const [role,status] of [['operador','PREPARED'],['traslado','COLLECTED'],['traslado','IN_TRANSIT'],['traslado','DELIVERED'],['operador.valle','ACCEPTED']]){
+      const p=await login(role);await p.goto(allocationUrl);
+      const values={status,location_description:'Ubicación ficticia documentada',observation:'Evento DEMO '+status,evidence_reference:'ACTA-BROWSER-'+status};
+      if(status==='ACCEPTED')values.location_id=data.valleyLocation;
+      await submit(p,'Registrar evento de custodia',values);
+   }
+   await dest.goto(requestUrl);await submit(dest,'Cerrar o cancelar solicitud',{status:'CLOSED',observation:'Cantidad recibida y cierre confirmado'});
+   await capture(dest,'Solicitud_cerrada');
+   const auditor=await login('auditor');await auditor.goto(allocationUrl);await capture(auditor,'Cadena_custodia');
+   assert(!(await auditor.locator('body').innerText()).includes('SECRETO-CLINICO'));
+   assert.equal(await auditor.locator('main form').count(),0);
+   await auditor.goto(base+'/auditoria');await capture(auditor,'Auditoria_regional');
+   await coord.goto(base+'/sangre/panel-regional');await coord.locator('.highcharts-root').waitFor();await overflow(coord);await capture(coord,'Panel_regional');
+   await coord.setViewportSize({width:390,height:844});await overflow(coord);await capture(coord,'Panel_regional_mobile');
+   assert.deepEqual(failures,[]);assert.deepEqual(assets,[]);
+   console.log(JSON.stringify({result:'PASS',flow:'donor-to-receipt-and-closure',roles:Object.keys(pages),javascriptErrors:failures,missingAssets:assets,screenshots:fs.readdirSync(output).filter(n=>n.endsWith('.png')).length}));
+ }finally{await browser.close();}
+})().catch(e=>{console.error(e);process.exit(1);});

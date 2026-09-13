@@ -14,18 +14,30 @@ Este archivo es la fuente de verdad del avance del proyecto. Debe actualizarse d
 
 ## Resumen actual
 
-- **Fecha de edición documental:** 2026-09-07
-- **Última actividad registrada:** 2026-09-07
-- **Fase:** Primer parcial cerrado; monolito local verificado
-- **Estado general:** Los ocho paquetes del primer parcial están terminados, con revisión técnica, confirmación del equipo y prueba de Windows comunicadas por el usuario. Monolito ejecutable en `apps/web-monolito01`, entorno virtual propio y esquema PostgreSQL de 23 tablas en `data/database/schema.sql`. El cierre se limita al MVP académico; no declara terminado el sistema semestral ni sus componentes posteriores.
-- **Dominio del negocio:** Red regional de bancos de sangre y donación de órganos
-- **Progreso funcional:** MVP web acotado implementado y revalidado desde `Red-House` con su `.venv` reconstruido: la evidencia histórica conserva 65 pruebas aprobadas en 40.92 s con PostgreSQL temporal y Chrome; este incremento añadió la baja lógica sanguínea y dos pruebas específicas, y los 26 casos de `test_monolith.py` pasaron con PostgreSQL real. Funciones reales: acceso, administración, inventario sanguíneo ficticio, caducidad DEMO, baja lógica con visibilidad excluida, panel y auditoría. Siete pantallas de negocio futuras y recuperación de acceso son únicamente vistas; los demás productos e integraciones del semestre conservan su calendarización posterior.
-- **Sprint Backlog:** 8 terminados (`P1-01` a `P1-08`), 0 en proceso y 21 pendientes de los sprints posteriores. Se cerraron los cinco paquetes restantes tras la confirmación del usuario sobre la revisión del equipo y Windows, y la reconstrucción verificada del entorno. Markdown y Word conservan tareas, criterios de cierre, responsables y dependencias, sin notas añadidas de avance ni pendientes.
-- **Entorno local existente:** `.venv` reconstruido directamente en `Red-House/apps/web-monolito01/.venv`, con dependencias declaradas, activación y ejecutables de esta ruta. `pip check`, `setup.sh --check`, suite completa y arranque directo aprobados. `.env` privado y base existente conservados: 2 instituciones, 4 cuentas y 36 unidades; puerto habitual 5050. Respaldo temporal del entorno anterior en `/private/tmp/red-house-close.Yn7o33/previous_venv`. La comprobación arrancó y detuvo solo su servidor temporal; no se reinicializó la base ni se modificó el servidor habitual.
-- **Preparación automatizada:** `setup.sh` y `setup.cmd` comparten `scripts/setup_local.py`; `python run.py` selecciona el entorno local sin activación manual. Instalación y arranque verificados aquí en macOS. Prueba nativa de Windows realizada por otros integrantes, según confirmación del usuario del 6 de septiembre. Requieren Python y PostgreSQL ya instalados, con PostgreSQL activo.
-- **Repositorio actual:** `Red-House`, con fuentes en `documentation/markdowns`, entregables en `documentation/docx`, modelos en `documentation/database-diagrams` y evidencia de la revisión en `documentation/evidence/primer-parcial`. Los antecedentes no trasladados se identifican como pertenecientes al repositorio de origen. Las verificaciones anteriores conservan su cronología; la suite del 6 de septiembre ya corresponde al código de esta carpeta. Git muestra únicamente `main` y `README.md` versionado; no se hicieron commits, cambios de ramas ni publicaciones remotas.
+- **Accesos locales — restablecimiento posterior autorizado:** se actualizaron las contraseñas de las cuatro cuentas DEMO por petición expresa del usuario. Se conservan usuarios, perfiles y datos; se revocaron sesiones previas y se registró auditoría. Las nuevas contraseñas se entregan únicamente en la conversación, sin guardarlas en texto plano en el repositorio.
+- **Fecha y fase:** 13 de septiembre de 2026; ampliación regional del monolito previa a microservicios implementada y verificada. La aceptación docente no se infiere de las pruebas técnicas.
+- **Alcance confirmado:** flujo sanguíneo completo; motor demostrativo exclusivo de concentrados eritrocitarios, con tabla ABO/Rh sustentada, criterios explicables y autorización humana. Órganos/HLA conserva una sección separada, documentada y pendiente.
+- **Funcionamiento comprobado:** institución → donante → evaluación humana → donación → recolección → procesamiento → unidad → inventario regional → receptor/solicitud → compatibilidad/priorización → autorización/reserva/asignación → traslado → custodia → recepción → cierre → auditoría. Panel con ocho indicadores, distribución por grupo e institución, tendencias y alertas de demanda/caducidad.
+- **Permisos:** seis perfiles habilitados: Administrador, Operador, Médico, Coordinador, Traslado y Auditor. Acceso clínico institucional y logística por tarea; coordinador y auditor reciben vistas minimizadas. El Administrador puede crear las nuevas cuentas; la migración no crea contraseñas ni cuentas adicionales.
+- **Persistencia y conservación:** PostgreSQL local ampliado de 23 a 38 tablas mediante migración incremental. Respaldo privado restaurado y migrado primero en una copia; luego se actualizó la instalación existente. Se conservaron las cuatro cuentas, hashes de contraseñas, 36 unidades e historial originales, sin reinicializar ni cambiar `.env`. Evidencia: `documentation/evidence/ampliacion-monolito/Upgrade_check.json` y `Physical_schema.json`.
+- **Pruebas actuales:** 89 aprobadas, 0 fallos, 0 errores y 0 omisiones en 92.68 s; PostgreSQL real en un clúster exclusivo y Chrome. Incluyen migración, regresión, recorrido regional completo, permisos, concurrencia, estados obsoletos, caducidad, custodia inmutable y rollback de auditoría. Capturas y JUnit en `documentation/evidence/ampliacion-monolito/`.
+- **Entrega documental:** `documentation/docx/Reporte_Tecnico_del_Primer_Avance.docx` y `documentation/pdf/Reporte_Tecnico_del_Primer_Avance.pdf`; 37 apartados, 12 diagramas renderizados, diccionario físico de 38 tablas, evidencia y límites. Fuente y guía operativa en `documentation/markdowns/`; generación reproducible en `documentation/scripts/`. Los once documentos especializados conservan su contenido con una nota que distingue la línea base del avance vigente.
+- **Entorno:** monolito en `apps/web-monolito01`, `.venv` propio y configuración privada existente. Arranque con `python3 run.py`, puerto habitual 5050. Instalación y actualización verificadas en macOS; Windows nativo de este incremento no se volvió a ejecutar.
+- **Límites:** aplicación académica con datos ficticios; no hay validación clínica experta ni decisiones médicas automáticas. Evidencia de custodia mediante referencias documentales, sin carga binaria. Recuperación de contraseña, órganos/HLA, algoritmo semestral no trivial, pruebas de volumen, MongoDB, Redis, GCS, Docker, microservicios, clientes y nube siguen pendientes.
+- **Seguimiento:** los ocho paquetes originales de P1 conservan su cierre histórico; AM-01 a AM-14 documentan este incremento adicional. Las tareas semestrales no quedan cerradas automáticamente. Git contiene fuentes y artefactos; no se realizaron commits ni publicaciones.
 
 ## Terminado
+
+- [x] Implementar y comprobar la ampliación regional AM-01 a AM-13.
+  - **Criterio de aceptación:** recorrer la cadena sanguínea entre dos instituciones con datos persistidos, decisiones humanas, mínimo privilegio, reserva transaccional única, custodia inmutable y cierre tras recepción completa; actualizar la base conservando datos anteriores.
+  - **Evidencia:** servicios `regional.py`, `matching.py`, `logistics.py` y `regional_reporting.py`; migración `002_regional.sql`; pruebas `test_regional.py`, `test_migration.py` y `regional_browser.cjs`. `documentation/evidence/ampliacion-monolito/Tests.xml`: 89 aprobadas en 92.68 s. `Upgrade_check.json` acredita respaldo, restauración, migración idempotente y preservación; `Physical_schema.json` describe las 38 tablas reales.
+  - **Límites de aceptación:** motor RBC-DEMO-1.0 solo para eritrocitos; distancias y ETA declaradas para el ejercicio; custodia con referencia documental, sin carga de archivos. Órganos/HLA y otros componentes no se fuerzan dentro del motor. Los expedientes de receptor con solicitudes quedan bloqueados para edición retrospectiva; correcciones versionadas posteriores pendientes.
+- [x] Consolidar el Reporte Técnico del Primer Avance, AM-14.
+  - **Criterio de aceptación:** evaluación desde un único documento con los 37 apartados, diagramas visibles, modelos y límites, matriz de trazabilidad, evidencias actuales y resultados reproducibles.
+  - **Evidencia:** entregables Word/PDF y fuente Markdown del reporte; doce fuentes Mermaid con SVG/PNG; 56 tablas y 19 imágenes integradas, incluyendo siete capturas de la aplicación. `Report_build.json` registra huellas y contenido; `Report_review.json` comprueba el PDF de 64 páginas, las 37 secciones, imágenes, tablas e integridad XML del Word. Guía de operación por perfil y notas de vigencia en once documentos especializados.
+  - **Alcance:** consolida el incremento comprobado y separa los diseños futuros; no declara aprobación docente, validación clínica, despliegue GCP ni ejecución de componentes distribuidos.
+
+Los elementos siguientes conservan los antecedentes del MVP y deben interpretarse según su fecha; sus restricciones de tres roles, 23 tablas y vistas futuras fueron ampliadas el 13 de septiembre.
 
 - [x] Agregar baja lógica del inventario sanguíneo para el Operador.
   - **Criterio de aceptación:** el Operador puede retirar una unidad con motivo y versión vigente sin borrar sus tablas de identidad, movimiento o auditoría; la unidad deja de aparecer en el listado, filtros visibles, contadores, avisos y últimas unidades del panel; una cuenta sin `inventory.write` no puede ejecutar la operación; una unidad con movimiento operativo posterior al alta recibe 409 y conserva su estado.
@@ -129,11 +141,12 @@ Este archivo es la fuente de verdad del avance del proyecto. Debe actualizarse d
   - **Evidencia actual:** la 0FN de dieciocho registros permanece intacta; `Modelo_1FN.md` a `Modelo_4FN.md` desarrollan la normalización de sus grupos. La 4FN contiene 169 relaciones en diecisiete dominios, con claves y FK explícitas, trazabilidad y restricciones de integridad. `00_ER_BASADO_EN_HU.md` se consultó como referencia por nueva autorización del usuario, sin modificarlo ni considerar su diagrama una prueba de normalización.
   - **Avance físico al 2026-09-05:** subconjunto de 23 tablas y una vista implementado en `data/database/schema.sql`; sus proyecciones, restricciones y límites están documentados y se probaron con PostgreSQL real. El web usa una asignación vigente cuenta–rol–ámbito, sin productos independientes de permisos y tenants.
   - **Revisión técnica al 2026-09-06:** el subconjunto inicial ya se contrastó con el modelo lógico y los RF del primer parcial; las diferencias y sus límites están documentados en el README de datos. Las 23 tablas y su carga ficticia superaron las comprobaciones físicas y la suite completa. No falta repetir esta revisión como si no se hubiera realizado.
+  - **Ampliación al 2026-09-13:** migración incremental aplicada, respaldada y probada; 38 tablas y diccionario físico incorporado al reporte consolidado.
   - **Alcance posterior:** `P1-03` está cerrado para el primer parcial. La validación funcional del modelo semestral, migraciones, respaldos, retención y propietarios entre componentes se atenderán al ampliar el alcance. No se instalaron las 169 relaciones ni una base institucional de producción.
-- [ ] Acordar con el usuario el siguiente proceso antes de habilitar vistas futuras.
-  - **Criterio de aceptación:** confirmar navegación, formularios, nombres y alcance del MVP; acordar el siguiente proceso y validar sus reglas antes de convertir una vista futura en una operación persistente.
-  - **Evidencia actual:** incremento del primer parcial revisado por el equipo según confirmación del usuario, con 65 pruebas aprobadas desde el entorno actual. La revisión inicial está cerrada; no es necesario repetirla como requisito para ese cierre.
-  - **Pendiente:** elegir y delimitar el proceso posterior, infraestructura de despliegue y pruebas de volumen/usabilidad ampliadas; no se consideran completados por la existencia de pantallas.
+- [ ] Preparar los contratos y límites de servicios del siguiente parcial cuando comience esa etapa.
+  - **Criterio de aceptación:** partir del flujo sanguíneo ya comprobado y definir propietarios de datos, contratos JSON/XML, autenticación distribuida y consistencia sin romper el monolito independiente.
+  - **Evidencia actual:** incremento AM-01 a AM-14 y 89 pruebas aprobadas. Las dos decisiones de alcance fueron confirmadas por el usuario e implementadas.
+  - **Pendiente:** contratos, infraestructura distribuida, clientes, reglas de órganos/HLA y pruebas de volumen; este trabajo no inicia microservicios.
 - [ ] Revisar el borrador `Normalizacion_Red_Regional.xlsx` (antecedente del repositorio de origen) únicamente si se retoma expresamente este antecedente, fuera del proceso actual.
   - **Criterio de aceptación:** cada descomposición conserva información, corresponde a dependencias funcionales o multivaluadas justificadas y mantiene separados los hechos de sangre, órganos, seguridad y trazabilidad.
   - **Evidencia actual:** quince hojas relacionales con 0NF, 1NF, 2NF, 3NF y 4NF; 94 relaciones finales únicas en la propuesta de 4NF; una hoja complementaria que distingue PostgreSQL de los almacenes posteriores sin diseñarlos; identificadores estructurales en inglés, datos ficticios en español y generador reproducible.
@@ -141,11 +154,13 @@ Este archivo es la fuente de verdad del avance del proyecto. Debe actualizarse d
 
 ## Bloqueado
 
-No hay bloqueos activos para el cierre del primer parcial. El usuario confirmó la revisión del equipo y la prueba de Windows, y autorizó reconstruir el entorno; la reconstrucción y sus pruebas se completaron. Las decisiones y tareas semestrales futuras conservan su alcance.
+No hay bloqueos activos para el incremento académico autorizado. Las dos decisiones de alcance se confirmaron y las pruebas técnicas pasaron. La validación clínica experta y las tareas semestrales futuras conservan su alcance pendiente.
 
 ## Pendiente
 
 ### Definición del producto
+
+Los pendientes siguientes corresponden a la validación institucional y al alcance semestral. El incremento demostrativo del 13 de septiembre ya separa órganos y sangre, modela estados, aplica autorización humana y documenta sus criterios; esto no sustituye validación clínica ni levantamiento real.
 
 - [ ] Revisar y aprobar los procesos principales y las reglas de negocio consolidadas.
 - [ ] Validar mediante levantamiento con actores el contexto, las organizaciones, los procesos actuales y sus problemas reales.
@@ -263,6 +278,9 @@ No hay bloqueos activos para el cierre del primer parcial. El usuario confirmó 
 
 | Fecha | Decisión | Motivo | Estado |
 | --- | --- | --- | --- |
+| 2026-09-13 | Adelantar el flujo sanguíneo completo al monolito, antes de extraer microservicios, y consolidar un reporte autosuficiente. | Solicitud expresa para atender la retroalimentación docente; sustituye la secuencia que aplazaba estos procesos. | Implementado y verificado; componentes distribuidos posteriores |
+| 2026-09-13 | Mantener órganos/HLA separado y pendiente; limitar matching a eritrocitos, demostrativo y con autorización humana. | Dos confirmaciones expresas del usuario; evitar mezclar dominios e inventar decisiones clínicas. | Implementado como RBC-DEMO-1.0; fuente primaria y límites en el reporte |
+| 2026-09-13 | Migrar con respaldo y ensayo sobre copia; congelar evaluaciones/custodia y bloquear edición retrospectiva de expedientes asociados. | Preservación de datos, trazabilidad y prevención de doble asignación. | Base local actualizada; concurrencia, rollback y conservación probados |
 | 2026-09-07 | Implementar la baja lógica sanguínea con `WITHDRAWN`, evento de movimiento y auditoría, excluyéndola de la visibilidad operativa y reservando la acción al Operador. | El usuario confirmó que no se requiere inventario de órganos todavía y solicitó conservar historial, ocultar la unidad de los listados y bloquear la baja cuando exista actividad operativa posterior al alta. El MVP no dispone aún de entidades separadas para asignación, traslado o entrega, por lo que se aplica una protección conservadora sobre cualquier movimiento posterior. | Vigente para el MVP sanguíneo; órganos y sus reglas permanecen futuros |
 | 2026-09-06 | Cerrar los ocho paquetes del primer parcial y conservar en el backlog solo tareas y criterios de cierre, sin notas añadidas de avance/pendientes. | El usuario confirmó que el equipo ya hizo la revisión y la prueba en Windows; la revisión técnica estaba aprobada y el entorno propio ya está reconstruido y verificado. | Vigente; Markdown y Word sincronizados, sin modificar los cortes posteriores |
 | 2026-09-06 | Reconstruir `.venv` en la ruta actual de Red-House conservando el entorno anterior fuera del repositorio. | Autorización expresa del usuario; eliminar referencias de activación y ejecutables al repositorio de origen sin cambiar `.env`, código, SQL ni datos. | Implementado; dependencias, 65 pruebas y arranque directo aprobados |
@@ -368,6 +386,9 @@ No hay bloqueos activos para el cierre del primer parcial. El usuario confirmó 
 
 | Fecha | Verificación | Resultado |
 | --- | --- | --- |
+| 2026-09-13 | Suite completa de la ampliación con PostgreSQL exclusivo y Chrome; migración desde base anterior y fallos de migración. | 89 aprobadas en 92.68 s; 0 fallos, errores u omisiones. Flujo entre instituciones, reserva concurrente, mínimo privilegio, caducidad, auditoría y custodia comprobados. JUnit y capturas en `documentation/evidence/ampliacion-monolito/`. |
+| 2026-09-13 | Respaldo privado, restauración de copia, migración idempotente y aplicación a la base habitual. | PASS; 38 tablas, cuatro cuentas, contraseñas, 36 unidades e historial conservados mediante comparación de huellas. `Upgrade_check.json` y catálogo físico. |
+| 2026-09-13 | Reporte consolidado y artefactos gráficos. | 37 apartados, 12 diagramas renderizados, 56 tablas y 19 imágenes; Word/PDF reproducibles y manifiesto de huellas. Los once Word especializados conservan su XML original salvo una nota de vigencia. |
 | 2026-09-06 | Entorno reconstruido en la ruta actual: activación, ejecutables, `pip check`, `setup.sh --check`, suite completa con PostgreSQL temporal y Chrome, y arranque con `python3 run.py`. | PASS: **65 pruebas, 40.92 s; 0 fallos, 0 errores y 0 omisiones**. HTTP 200 en `/health/live`, `/` y `/login` sin activación manual. Los 155 archivos ajenos a `.venv` permanecieron idénticos durante la verificación; `.env`, código y datos conservados. Clúster y servidor temporales detenidos. Informes `Tests_venv.xml` y `Environment_check.json` en la carpeta de evidencia. |
 | 2026-09-06 | Confirmación humana del cierre y sincronización documental. | El usuario confirmó la revisión por otros integrantes y la prueba Windows. Backlog: 29 elementos, 8 terminados y 21 pendientes, sin notas de avance/pendientes, con tareas, criterios, responsables y dependencias conservados. Word: 14 tablas, integridad y lectura nativa comprobadas; las demás partes OOXML permanecen idénticas. |
 | 2026-09-06 | Suite actual de `Red-House`: `python -m pytest -q --tb=short --browser -s -p no:cacheprovider`, con entorno limpio, PostgreSQL temporal exclusivo y Chrome. | PASS: **65 pruebas, 40.80 s; 0 fallos, 0 errores, 0 omisiones**. Highcharts renderizado, cero excepciones JavaScript y cero recursos faltantes; formularios, persistencia, permisos, aislamiento, auditoría y responsive comprobados. Resultado JUnit y capturas en `documentation/evidence/primer-parcial/`. Los 148 archivos inspeccionados permanecían idénticos al terminar las pruebas. |
@@ -440,6 +461,30 @@ No hay bloqueos activos para el cierre del primer parcial. El usuario confirmó 
 | 2026-08-12 | Inspección inicial del directorio `proyectoPrueba`. | El directorio estaba vacío antes de crear la documentación base. |
 
 ## Bitácora de trabajo
+
+### 2026-09-13 — Restablecimiento autorizado de accesos DEMO
+
+- El usuario solicitó simplificar las contraseñas de las cuatro cuentas existentes; se actualizaron sus hashes scrypt en una transacción, sin cambiar perfiles ni datos del negocio.
+- Se revocaron las sesiones anteriores y se registraron cuatro eventos `PASSWORD_RESET` sin incluir credenciales.
+- **Criterio de aceptación y evidencia:** inicio y cierre de sesión HTTP con CSRF correctos para Administrador, Operador Norte, Operador Valle y Auditor; cuatro comprobaciones aprobadas. La bitácora de la aplicación conserva los eventos de restablecimiento, acceso y salida.
+- El monolito permanece disponible en `http://127.0.0.1:5050`. La contraseña se entregó al usuario en la conversación y no se añadió a archivos versionados.
+
+### 2026-09-13 — Ampliación regional y reporte consolidado verificados
+
+- Se implementó el flujo sanguíneo integral, con expedientes separados, revisión médica, producción de unidades, solicitudes, candidatos explicables, reserva transaccional, traslado, custodia, recepción y cierre.
+- Se habilitaron Médico, Coordinador y Traslado, con controles por institución y tarea; panel regional sobre datos persistidos y auditoría transversal minimizada.
+- Se probó y aplicó la migración tras respaldo y restauración de una copia; se conservaron cuentas, contraseñas, unidades e historial anteriores.
+- Suite final: 89 pruebas aprobadas en 92.68 s con PostgreSQL y Chrome; evidencia reproducible nueva, incluida concurrencia y recorrido completo.
+- Se consolidaron los 37 apartados en Word/PDF con doce diagramas, diccionario físico y capturas; se añadió guía de operación y notas de vigencia en los documentos anteriores. Se verificaron el PDF de 64 páginas, muestras visuales, enlaces e integridad de Word.
+- Se detuvo el clúster exclusivo de pruebas y se dejó el monolito actualizado en el puerto 5050; salud e inicio de sesión responden HTTP 200. El respaldo privado permanece fuera del repositorio.
+- Quedan explícitamente fuera del incremento órganos/HLA, carga binaria de evidencia, validación clínica experta y componentes distribuidos. No se realizaron commits ni publicaciones.
+
+### 2026-09-13 — Preparación de la ampliación previa a microservicios
+
+- Se leyó la retroalimentación docente y los tres archivos de referencia del directorio superior; se contrastaron con la aplicación, el esquema, permisos, inicialización y reporte integral existente.
+- Se creó `documentation/markdowns/Plan_de_actualizacion_monolito.md`, con catorce paquetes, criterios de aceptación, comprobaciones y estructura de reporte; todos pendientes de implementación.
+- El usuario confirmó el flujo sanguíneo completo y la sección separada de órganos pendiente. Se consultó el alcance por componente del motor demostrativo antes de implementar sus reglas.
+- Se conserva el cierre histórico del MVP. El nuevo flujo regional y el reporte corregido todavía no se declaran terminados. Esta preparación no modificó datos, credenciales ni el Word existente.
 
 ### 2026-09-07 — Baja lógica del inventario sanguíneo
 
@@ -876,4 +921,4 @@ No hay bloqueos activos para el cierre del primer parcial. El usuario confirmó 
 
 ## Próximo paso recomendado
 
-El monolito está listo para arrancar desde `apps/web-monolito01` con `python3 run.py`, sin activar `.venv` ni repetir la instalación o reinicializar la base. El primer parcial está cerrado; antes de implementar más funcionalidad debe acordarse el siguiente proceso y validar sus reglas. MongoDB, Redis, microservicios, clientes, nube y Docker mantienen su calendarización posterior.
+Demostrar el flujo con la `Guia_del_flujo_regional.md` y entregar el Reporte Técnico del Primer Avance en Word/PDF. El Administrador existente puede crear las cuentas de Médico, Coordinador y Traslado con los ámbitos indicados; no hay credenciales nuevas preinstaladas. El monolito arranca desde `apps/web-monolito01` con `python3 run.py`. La siguiente etapa consiste en definir contratos JSON/XML y propietarios de datos para extraer servicios sin perder este flujo; MongoDB, Redis, Docker, clientes y nube mantienen su implementación posterior.

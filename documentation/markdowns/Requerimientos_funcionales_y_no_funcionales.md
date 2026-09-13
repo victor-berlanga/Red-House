@@ -1,5 +1,7 @@
 # Requerimientos funcionales y no funcionales
 
+> **Actualización — 13 de septiembre de 2026:** el flujo sanguíneo se adelanta al monolito antes de extraer microservicios. Este documento conserva la línea base y los requisitos semestrales; sus fases no describen por sí solas el avance actual. El Reporte Técnico del Primer Avance 2.0 consolida el alcance vigente, las pruebas y los límites. Órganos/HLA y componentes distribuidos permanecen posteriores. Véase el [reporte consolidado](../docx/Reporte_Tecnico_del_Primer_Avance.docx).
+
 > **Proyecto:** Red regional de bancos de sangre y donación de órganos — Equipo 01.
 > **Estado:** borrador consolidado para validación académica.
 > **Fecha:** 7 de septiembre de 2026.

@@ -1,0 +1,108 @@
+{
+  "result": "PASS",
+  "copy_restored": true,
+  "copy_migrated": true,
+  "repeat_idempotent": true,
+  "original_migrated": true,
+  "versions": [
+    "002_regional.sql"
+  ],
+  "tables_after": 38,
+  "preserved_tables": {
+    "account_role": {
+      "rows": 4,
+      "sha256": "74eac1ebe60c0178a039aafce671f5f4ddc0a72513de4ad95fde26f3f5f874dc"
+    },
+    "audit_change": {
+      "rows": 74,
+      "sha256": "bbaab0340f2048a09fd3f0b61480587a0cd4702eb48ea43b8e18c8e10459561b"
+    },
+    "audit_event": {
+      "rows": 102,
+      "sha256": "fd73ddbde7dddadff0a615d6f104152d126c5a1b213f7c98b8235547aa8767f6"
+    },
+    "blood_classification": {
+      "rows": 36,
+      "sha256": "8b1afc15605cedcb5b922b82f979e523519ebf28b3a4814b040a62c27724588b"
+    },
+    "blood_component": {
+      "rows": 3,
+      "sha256": "ae8dd7127ed7f03143ba3f85826a804d49b3c3fc829a9be85247f11751711354"
+    },
+    "blood_movement": {
+      "rows": 37,
+      "sha256": "f9f12991c85b3ae97d8b2845190774c2fd111ae7c53cdbf4a85c328e803f9e4d"
+    },
+    "blood_status_transition": {
+      "rows": 4,
+      "sha256": "a1c21bb3b450f5e75a393a14784df2435583226bff9c4c4104ec4138e2c390df"
+    },
+    "blood_unit": {
+      "rows": 36,
+      "sha256": "59ca54a602ac5257aa4c423252eb4c454bc4b8c38a84c8158b7239c9e1ec628a"
+    },
+    "capability": {
+      "rows": 3,
+      "sha256": "00f78c93bdb8afc83ae3b57b31c9b2b2fbf29bddea15bbd7629aed81e0a94f1c"
+    },
+    "contact": {
+      "rows": 2,
+      "sha256": "f186be15827333968e60922edf240e8a391e0a1713e52a9fad8552e4924c8f7a"
+    },
+    "contact_method": {
+      "rows": 2,
+      "sha256": "acb2929bdd4067894a3b00451a834944bac0bc20b4bdd3e0b63fb45c53761604"
+    },
+    "institution": {
+      "rows": 2,
+      "sha256": "738ef6320e2eda0cc81f0c924227b83ab9b194c256b7ab0ca5f5c69b2b664651"
+    },
+    "institution_capability": {
+      "rows": 2,
+      "sha256": "d8caff0d2122280e2bd98ac4df23b9ea2ff576097622a17e54bb0dbf7b1841b5"
+    },
+    "institution_contact": {
+      "rows": 2,
+      "sha256": "dbee5a4df71d017381c54ed655a8dc7420c0c4ca68bbefba3cc660afee6b5bf7"
+    },
+    "login_attempt": {
+      "rows": 10,
+      "sha256": "485b9f93241d0928c50524e26bd192c6ef86692be1a88784764ec461a4628c1a"
+    },
+    "parameter_version": {
+      "rows": 1,
+      "sha256": "5bac2aff022646e5f2877a1067dc4dde4d786d9b3548b69499c70f445e587fb1"
+    },
+    "party": {
+      "rows": 4,
+      "sha256": "89fdf5633f07ed4dbf57fecc6e266aa83a16e832fa803ddbb657004d810bc25f"
+    },
+    "resource": {
+      "rows": 36,
+      "sha256": "c7e85d3165961fbb119afff2e65b6923302a7106679e2ddf0900b7c350ba4acf"
+    },
+    "role": {
+      "rows": 7,
+      "sha256": "a9a1bcc683c235aa396fe40e03d89f6d87edd02003eac19a5fe8342b1b0f6ac2"
+    },
+    "site": {
+      "rows": 2,
+      "sha256": "f69dc5faf79b5f42a7ef894d767cdc4d109585b9e47316eb69bdbdbb76227700"
+    },
+    "storage_location": {
+      "rows": 4,
+      "sha256": "3d3d840fbc7682c5d57a76d06a972750371794a59b7a17e6cc72624936ee02ee"
+    },
+    "user_account": {
+      "rows": 4,
+      "sha256": "0b5360887d7c7130266d5f4ce2743ae38f28ea725c7bfad9eb29ac95bedbe689"
+    },
+    "web_session": {
+      "rows": 10,
+      "sha256": "da9765ff39e82310d948ca827428466367fcb79089c19f650dbfc81514423443"
+    }
+  },
+  "backup_file": "/private/tmp/red-house-regional.ennIeG/backup/before-regional-5c39b2c82d0b464ea265ebe5ced848d2.dump",
+  "backup_mode": "600",
+  "limit": "Solo cambia la habilitación de MEDICAL, COORDINATOR y TRANSPORT; no se crean cuentas ni datos clínicos."
+}

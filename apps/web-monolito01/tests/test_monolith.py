@@ -220,7 +220,7 @@ def test_parameters_versions_and_global_permission(client, sign_in, db):
 
 def test_future_views_are_explicitly_nonfunctional(client, sign_in):
     sign_in(client)
-    for slug in ("donantes","receptores","organos","compatibilidad","solicitudes","traslados","custodia"):
+    for slug in ("organos",):
         response = client.get("/proximamente/"+slug)
         assert response.status_code == 200
         assert "Vista futura · Sin funcionalidad".encode() in response.data
@@ -362,7 +362,7 @@ def test_audit_failure_rolls_back_inventory(client, sign_in, db, monkeypatch):
 
 
 def test_unenabled_roles_and_inactive_accounts_cannot_login(client, app, db):
-    db.execute("UPDATE account_role SET role_code='MEDICAL' WHERE account_id=(SELECT account_id FROM user_account WHERE login_email='operador@red-house.test')")
+    db.execute("UPDATE account_role SET role_code='DONOR' WHERE account_id=(SELECT account_id FROM user_account WHERE login_email='operador@red-house.test')")
     db.commit()
     assert client.post("/login",data={"csrf_token":csrf(client),"login_email":"operador@red-house.test",
         "password":app.config["DEMO_TEST_PASSWORD"]}).status_code == 401

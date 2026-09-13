@@ -1,0 +1,13 @@
+flowchart TB
+  subgraph ACT[Red actual de demostración]
+    B[Navegador local] -->|127.0.0.1:5050| W[Flask]
+    W -->|Socket local o localhost:5432| P[(PostgreSQL)]
+  end
+  subgraph FUT[Red futura: diseño]
+    I[Internet] -->|HTTPS 443| E[Entrada web]
+    E -->|Red privada| S[Servicios internos]
+    S -->|5432 privado| D[(PostgreSQL)]
+    S -->|27017 privado| M[(MongoDB)]
+    S -->|6379 privado| R[(Redis)]
+    S -->|HTTPS autorizado| G[Storage]
+  end

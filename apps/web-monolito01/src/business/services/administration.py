@@ -41,7 +41,8 @@ def save(entity, principal, data, identifier=None):
             values = {
                 "institution_code": v.code(data, "institution_code", "el código"),
                 "institution_name": v.text(data, "institution_name", "el nombre", 160),
-                "institution_type": v.choice(data, "institution_type", ("BLOOD_BANK", "HOSPITAL", "COORDINATION"), "el tipo"),
+                "institution_type": v.choice(data, "institution_type", ("BLOOD_BANK", "HOSPITAL", "COORDINATION", "TRANSPLANT_CENTER"), "el tipo"),
+                "operating_hours": v.text(data, "operating_hours", "los horarios", 240, False),
                 "region_name": principal.region_name,
                 "city": v.text(data, "city", "la ciudad", 100),
                 "street": v.text(data, "street", "la dirección", 200),
@@ -131,10 +132,10 @@ def save(entity, principal, data, identifier=None):
 def save_user(conn, principal, data, identifier, before):
     name = v.text(data, "party_name", "el nombre")
     email = v.email(data)
-    role = v.choice(data, "role_code", ("ADMIN", "OPERATOR", "AUDITOR"), "el perfil inicial")
+    role = v.choice(data, "role_code", ("ADMIN", "OPERATOR", "AUDITOR", "MEDICAL", "COORDINATOR", "TRANSPORT"), "el perfil")
     status = v.choice(data, "account_status", ACTIVE, "el estado")
     if data.get("scope") == "REGIONAL":
-        if principal.institution_id or role == "OPERATOR":
+        if principal.institution_id or role in ("OPERATOR", "MEDICAL", "TRANSPORT"):
             raise BusinessError("Ese perfil o ámbito no está autorizado.", 403)
         institution_id, region_name = None, principal.region_name
     else:

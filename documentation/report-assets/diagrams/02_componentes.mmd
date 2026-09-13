@@ -1,0 +1,12 @@
+flowchart TB
+  UI[Flask: rutas y plantillas Jinja2] --> AUTH[Identidad, CSRF, permisos y ámbito]
+  AUTH --> REG[Donantes, donaciones y receptores]
+  AUTH --> SOL[Solicitudes, evaluación y reserva]
+  AUTH --> LOG[Asignación, traslado y custodia]
+  AUTH --> ADM[Administración e inventario]
+  REG --> DATA[Repositorios y transacciones psycopg]
+  SOL --> DATA
+  LOG --> DATA
+  ADM --> DATA
+  DATA --> PG[(PostgreSQL)]
+  DATA --> AUD[Auditoría en la misma transacción]

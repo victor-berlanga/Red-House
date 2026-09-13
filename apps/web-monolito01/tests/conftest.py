@@ -45,6 +45,8 @@ def app():
     try:
         with application.app_context(), transaction() as conn:
             conn.execute(application.config["SCHEMA_PATH"].read_text(encoding="utf-8"))
+            from src.data_access.migrations import migrate
+            migrate(conn)
             seed_demo(conn, test_password)
         yield application
     finally:

@@ -79,12 +79,25 @@ def seed_demo(conn, password):
 
 
 def register(app):
+    @app.cli.command("migrate-db")
+    def migrate_db_command():
+        """Actualiza el esquema sin reinicializar ni cargar datos de demostración."""
+        from .data_access.migrations import migrate
+        try:
+            with transaction() as conn:
+                versions = migrate(conn)
+        except (psycopg.Error, RuntimeError):
+            raise click.ClickException("No se confirmó la migración. Revisa la versión y los permisos de la base; los cambios son atómicos.") from None
+        click.echo("Migraciones: " + (", ".join(versions) or "sin pendientes"))
+
     @app.cli.command("init-db")
     def init_db_command():
         """Crea el esquema inicial, sin borrar ni sobrescribir otro esquema."""
         try:
             with transaction() as conn:
                 conn.execute(app.config["SCHEMA_PATH"].read_text(encoding="utf-8"))
+                from .data_access.migrations import migrate
+                migrate(conn)
         except psycopg.errors.DuplicateSchema:
             raise click.ClickException("El esquema red_house ya existe. No se modificó; no vuelvas a inicializarlo.") from None
         except psycopg.Error:

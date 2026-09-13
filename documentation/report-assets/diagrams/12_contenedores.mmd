@@ -1,0 +1,14 @@
+flowchart TB
+  subgraph A[Configuración ejecutable actual]
+    B[Navegador web] --> W[Aplicación Flask y Jinja2]
+    W --> P[(PostgreSQL local)]
+  end
+  subgraph F[Arquitectura de contenedores objetivo]
+    WEB[Web empresarial] --> API[Servicios Flask independientes]
+    AND[Android / JSON] --> API
+    DES[Escritorio / XML] --> API
+    API --> ID[Identidad y autorización]
+    API --> DAT[PostgreSQL y MongoDB]
+    ID --> RED[Redis]
+    API --> STO[Google Cloud Storage]
+  end

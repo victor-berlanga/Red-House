@@ -61,10 +61,10 @@ const fs = require('node:fs');
     await capture('unit-detail-desktop');
     await page.reload();
     assert(await page.getByText('Cambio ficticio de estado desde navegador').isVisible());
-    await page.goto(root+'/proximamente/compatibilidad'); await capture('future-desktop');
-    assert(await page.getByRole('button',{name:'Evaluar candidatos',exact:true}).isDisabled());
+    await page.goto(root+'/proximamente/organos'); await capture('future-desktop');
+    assert(await page.getByRole('button',{name:'Registrar disponibilidad',exact:true}).isDisabled());
     await page.setViewportSize({width:390,height:844});
-    for(const route of ['/panel','/inventario','/proximamente/compatibilidad']) {
+    for(const route of ['/panel','/inventario','/proximamente/organos']) {
       await page.goto(root+route); await noOverflow(route+' mobile');
     }
     await capture('future-mobile');
