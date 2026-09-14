@@ -1,6 +1,8 @@
 # Guía de demostración del flujo regional
 
-> Versión: 13 de septiembre de 2026. Datos ficticios. Monolito local previo a microservicios.
+> Versión de interfaz: 14 de septiembre de 2026. Datos ficticios. Monolito local previo a microservicios.
+
+Las etiquetas de las pantallas usan lenguaje operativo (Nombre, Folio, Antecedentes y Vehículo). Esta redacción no cambia el alcance académico ni autoriza datos reales o decisiones médicas automáticas. El aviso de compatibilidad demostrativa y la autorización médica permanecen junto a la evaluación y reserva.
 
 ## Preparación
 
@@ -19,11 +21,17 @@ Desde Administración → Usuarios, crear las siguientes cuentas de demostració
 
 El Operador y Médico no pueden ampliar su ámbito a otras instituciones. El personal de traslado solo verá las órdenes asignadas a su cuenta.
 
+## Búsquedas y filtros
+
+Los listados con buscador se actualizan al dejar de escribir durante 300 ms. Las listas desplegables y fechas actualizan los resultados al cambiar. No es necesario pulsar Buscar o Filtrar; «Limpiar» elimina los criterios. La paginación respeta los filtros y un cambio de criterio vuelve a la primera página.
+
+En Donantes y Receptores puedes filtrar sin perder lo que hayas escrito en el formulario de registro. Si aparece un error de consulta, se conservan los resultados anteriores y puedes pulsar Reintentar. Los controles de registro y autorización siguen requiriendo confirmación explícita.
+
 ## 1. Donante, consentimiento y revisión
 
 Con el Operador Norte, entrar a Donantes y registrar un expediente ficticio: folio único, nombre ficticio, institución, ABO/Rh O−, tipo de donación, antecedentes, restricciones y referencia/fecha de consentimiento en UTC. Usar una fecha no futura. El registro inicia pendiente.
 
-Con el Médico Norte, abrir el expediente y usar «Registrar revisión humana». Capturar la decisión del ejercicio, su fundamento y la confirmación humana. La aplicación no calcula elegibilidad. Una donación no puede registrarse mientras el estado no sea favorable.
+Con el Médico Norte, abrir el expediente y usar «Registrar evaluación del donante». Capturar la decisión del ejercicio, su fundamento y la confirmación humana. La aplicación no calcula elegibilidad. Una donación no puede registrarse mientras el estado no sea favorable.
 
 ## 2. Donación, recolección y procesamiento
 

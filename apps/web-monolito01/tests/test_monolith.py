@@ -88,6 +88,8 @@ def test_role_and_tenant_isolation(client, sign_in, db):
     html = client.get("/inventario?institution_id="+str(other["institution_id"])).data
     assert other["traceability_code"].encode() not in html
     assert "0 registros".encode() in html
+    summary = re.search(rb'data-filter-summary>(.*?)</div>', html, re.S).group(1)
+    assert re.findall(rb'<strong>(\d+)</strong>', summary) == [b'0'] * 4
     payload = unit_payload(db)
     payload["location_id"] = str(other["location_id"])
     assert client.post("/inventario/nueva", data={**payload,"csrf_token":csrf(client,"/inventario/nueva")}).status_code == 404
@@ -223,8 +225,8 @@ def test_future_views_are_explicitly_nonfunctional(client, sign_in):
     for slug in ("organos",):
         response = client.get("/proximamente/"+slug)
         assert response.status_code == 200
-        assert "Vista futura · Sin funcionalidad".encode() in response.data
-        assert b"fieldset disabled" in response.data
+        assert "Módulo no disponible".encode() in response.data
+        assert b'type="button" class="button" disabled' in response.data
         assert client.post("/proximamente/"+slug, data={"csrf_token":csrf(client,"/panel")}).status_code == 405
 
 

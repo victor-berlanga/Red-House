@@ -38,6 +38,8 @@ def create_app(overrides=None):
     from .presentation.routes import admin, inventory, portal, public, regional
     for blueprint in (public.bp, portal.bp, admin.bp, inventory.bp, regional.bp):
         app.register_blueprint(blueprint)
+    from .presentation.views import regional_value
+    app.jinja_env.filters['regional_value'] = regional_value
     from .cli import register
     register(app)
 

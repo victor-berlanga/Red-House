@@ -1,6 +1,7 @@
 """Interfaz del proceso regional; validación y autorización en servicios."""
 from flask import Blueprint,g,render_template,request,redirect,url_for,flash
 
+from ..views import regional_value
 from ...business import validators as v
 from ...business.access import require,BusinessError
 from ...business.services import regional as svc,matching,logistics
@@ -25,8 +26,8 @@ def form(title,action,fields,button='Guardar',version=None):
     return dict(title=title,action=action,fields=fields,button=button,version=version)
 
 
-def page(title,*,rows=None,columns=None,forms=None,facts=None,total=None,number=1,note='',links=None):
-    return render_template('regional/page.html',title=title,active='regional',rows=rows,columns=columns or [],
+def page(title,*,active,rows=None,columns=None,forms=None,facts=None,total=None,number=1,note='',links=None):
+    return render_template('regional/page.html',title=title,active=active,rows=rows,columns=columns or [],
         forms=forms or [],facts=facts or [],total=total,page=number,note=note,links=links or [])
 
 
@@ -58,22 +59,22 @@ def people(kind):
     rows,total=svc.people(g.principal,kind,request.args.get('q','')[:100],n)
     for row in rows:
         row['detail_url']=url_for('regional.person_detail',kind=kind,identifier=row[kind+'_id'])
-    return page('Donantes' if kind=='donor' else 'Receptores',rows=rows,total=total,number=n,
-        columns=[('record_code','Expediente'),('display_name','Nombre ficticio'),('blood_group','ABO/Rh'),('institution_name','Institución'),('current_status','Estado')],
-        forms=[form('Registrar expediente ficticio',url_for('regional.people',kind=kind),person_fields(kind))],
-        note='Acceso institucional restringido. La captura no declara elegibilidad ni compatibilidad clínica.')
+    return page('Donantes' if kind=='donor' else 'Receptores',active='donantes' if kind=='donor' else 'receptores',rows=rows,total=total,number=n,
+        columns=[('record_code','Expediente'),('display_name','Nombre'),('blood_group','ABO/Rh'),('institution_name','Institución'),('current_status','Estado')],
+        forms=[form('Registrar expediente',url_for('regional.people',kind=kind),person_fields(kind))],
+        note='')
 
 
 def person_fields(kind,data=None):
-    fields=[field('institution_id','Institución',options('institutions')),field('record_code','Folio ficticio',limit=30),
-            field('display_name','Nombre ficticio',limit=120),field('blood_group','ABO/Rh registrado',[(k,k) for k in inventory.GROUPS]),
+    fields=[field('institution_id','Institución',options('institutions')),field('record_code','Folio del expediente',limit=30),
+            field('display_name','Nombre',limit=120),field('blood_group','ABO/Rh registrado',[(k,k) for k in inventory.GROUPS]),
             field('restrictions','Restricciones documentadas o “ninguna registrada”')]
     if kind=='donor':
         fields += [field('donation_kind','Tipo de donación',[('VOLUNTARY','Voluntaria'),('REPLACEMENT','Reposición')]),
-            field('background','Antecedentes ficticios'),field('consent_reference','Referencia del consentimiento',limit=240),
+            field('background','Antecedentes'),field('consent_reference','Referencia del consentimiento',limit=240),
             field('consent_at','Fecha del consentimiento (UTC)',kind='datetime-local')]
     else:
-        fields += [field('requirement','Requerimiento registrado'),field('urgency','Urgencia registrada',[('URGENT','Urgente'),('PRIORITY','Prioritaria'),('ROUTINE','Ordinaria')]),field('studies','Estudios y referencias ficticias'),
+        fields += [field('requirement','Requerimiento registrado'),field('urgency','Urgencia registrada',[('URGENT','Urgente'),('PRIORITY','Prioritaria'),('ROUTINE','Ordinaria')]),field('studies','Estudios y referencias'),
                    field('current_status','Estado',[('ACTIVE','Activo'),('INACTIVE','Inactivo')])]
     for f in fields:
         if data and f['name'] in data:
@@ -92,12 +93,12 @@ def person_detail(kind,identifier):
     row,reviews=svc.person_detail(g.principal,kind,identifier)
     forms=[form('Actualizar expediente',request.path,person_fields(kind,row),version=row['version_no'])]
     if kind=='donor' and g.principal.can('donor.review'):
-        forms.append(form('Registrar revisión humana',url_for('regional.review',identifier=identifier),[
-            field('decision','Decisión registrada',[('ELIGIBLE','Elegible según revisión humana DEMO'),('DEFERRED','Diferido por revisión humana')]),
-            field('reason','Fundamento de la decisión'),field('human_confirmation','Confirmo la revisión humana autorizada para el ejercicio',kind='checkbox')],version=row['version_no']))
-    return page('Expediente '+row['record_code'],facts=[('Institución',row['institution_name']),('Estado',row['current_status'])],
+        forms.append(form('Registrar evaluación del donante',url_for('regional.review',identifier=identifier),[
+            field('decision','Decisión registrada',[('ELIGIBLE','Elegible'),('DEFERRED','Diferido')]),
+            field('reason','Fundamento de la decisión'),field('human_confirmation','Confirmo que realicé la evaluación y autorizo la decisión registrada',kind='checkbox')],version=row['version_no']))
+    return page('Expediente '+row['record_code'],active='donantes' if kind=='donor' else 'receptores',facts=[('Institución',row['institution_name']),('Estado',row['current_status'])],
         rows=reviews,columns=[('occurred_at','Fecha UTC'),('decision','Decisión humana'),('party_name','Responsable'),('reason','Fundamento restringido')],forms=forms,
-        note='Los cambios de un donante sin donaciones invalidan su elegibilidad y requieren nueva revisión.')
+        note='Al actualizar los datos del donante se requiere una nueva evaluación.' if kind=='donor' else '')
 
 
 @bp.post('/donantes/<uuid:identifier>/revision')
@@ -118,7 +119,7 @@ def donations():
     forms=[]
     if g.principal.can('donation.write'):
         forms=[form('Registrar donación',request.path,[field('donation_code','Folio de donación',limit=30),field('donor_id','Donante con revisión favorable',person_options('donor'))])]
-    return page('Donación, recolección y procesamiento',rows=rows,total=total,number=n,
+    return page('Donación, recolección y procesamiento',active='donaciones',rows=rows,total=total,number=n,
         columns=[('donation_code','Donación'),('donor_code','Expediente'),('institution_name','Institución'),('current_status','Estado')],forms=forms)
 
 
@@ -135,17 +136,17 @@ def donation_detail(identifier):
     forms=[]
     allowed={'REGISTERED':[('COLLECTED','Registrar recolección'),('CANCELLED','Cancelar')],'COLLECTED':[('PROCESSED','Registrar procesamiento'),('CANCELLED','Cancelar')]}
     if row['current_status'] in allowed and g.principal.can('donation.write'):
-        forms.append(form('Registrar etapa',request.path,[field('status','Evento',allowed[row['current_status']]),field('observation','Observación / referencia del procedimiento ficticio')],version=row['version_no']))
+        forms.append(form('Registrar etapa',request.path,[field('status','Evento',allowed[row['current_status']]),field('observation','Observación / referencia del procedimiento')],version=row['version_no']))
     if row['current_status']=='PROCESSED' and g.principal.can('unit.release'):
         forms.append(form('Liberar unidad / componente',url_for('regional.produce',identifier=identifier),[
             field('traceability_code','Folio de unidad',limit=30),field('component_id','Componente',options('components')),
-            field('location_id','Ubicación',options('locations')),field('expires_at','Caducidad capturada (UTC, DEMO)',kind='datetime-local'),
+            field('location_id','Ubicación',options('locations')),field('expires_at','Caducidad (UTC)',kind='datetime-local'),
             field('release_reference','Referencia de pruebas y liberación autorizada',limit=240),
-            field('human_confirmation','Confirmo la liberación humana documentada',kind='checkbox')]))
-    return page(row['donation_code'],facts=[('Expediente',row['donor_code']),('Estado',row['current_status']),('ABO/Rh',row['blood_group'])],
+            field('human_confirmation','Confirmo la revisión de pruebas y autorizo la liberación de la unidad',kind='checkbox')]))
+    return page(row['donation_code'],active='donaciones',facts=[('Expediente',row['donor_code']),('Estado',row['current_status']),('ABO/Rh',row['blood_group'])],
         rows=history,columns=[('occurred_at','Fecha UTC'),('status','Etapa'),('party_name','Responsable'),('observation','Evidencia registrada')],forms=forms,
         links=[(u['traceability_code'],url_for('inventory.detail',identifier=u['resource_id'])) for u in units],
-        note='Las fechas de las etapas se registran en el servidor. La caducidad se captura; no se calculan vidas útiles clínicas.')
+        note='Cada etapa conserva su fecha, responsable y referencia del procedimiento.')
 
 
 @bp.post('/donaciones/<uuid:identifier>/unidades')
@@ -168,10 +169,10 @@ def requests():
         forms=[form('Crear solicitud de receptor',request.path,[field('request_code','Folio de solicitud',limit=30),
             field('recipient_id','Receptor',person_options('recipient')),field('component_id','Componente',options('components')),
             field('quantity','Cantidad de unidades',kind='number'),field('urgency','Urgencia registrada',[('URGENT','Urgente'),('PRIORITY','Prioritaria'),('ROUTINE','Ordinaria')]),
-            field('justification','Justificación clínica ficticia, visible solo al personal médico')])]
-    return page('Solicitudes regionales',rows=rows,total=total,number=n,forms=forms,
+            field('justification','Justificación clínica (acceso médico)')])]
+    return page('Solicitudes regionales',active='solicitudes',rows=rows,total=total,number=n,forms=forms,
         columns=[('request_code','Solicitud'),('institution_name','Institución'),('component_name','Componente'),('blood_group','ABO/Rh'),('quantity','Cantidad'),('urgency','Urgencia'),('current_status','Estado')],
-        note='Cola demostrativa: urgencia registrada y, en cada nivel, antigüedad. La decisión final pertenece a personal autorizado.')
+        note='Solicitudes ordenadas por urgencia y antigüedad.')
 
 
 @bp.get('/solicitudes/<uuid:identifier>')
@@ -188,10 +189,10 @@ def request_detail(identifier):
     if active and g.principal.can('candidate.evaluate'):
         forms.append(form('Buscar candidatos regionales',url_for('regional.evaluate',identifier=identifier),[],button='Evaluar ABO/Rh y ordenar alternativas'))
     if active and g.principal.can('allocation.authorize') and candidates:
-        forms.append(form('Revisión humana y reserva',url_for('regional.reserve',identifier=identifier),[
+        forms.append(form('Autorización médica y reserva',url_for('regional.reserve',identifier=identifier),[
             field('candidate_id','Unidad potencialmente compatible',[(str(c['candidate_id']),f"{c['rank_no']}. {c['traceability_code']} · {c['institution_name']}") for c in candidates]),
             field('reason','Referencia / motivo de autorización, sin datos personales',limit=240),
-            field('human_confirmation','He revisado estudios, restricciones y resultado; autorizo esta reserva DEMO',kind='checkbox')],button='Autorizar y reservar una unidad',version=row['version_no']))
+            field('human_confirmation','He revisado estudios, restricciones y resultado; autorizo esta reserva',kind='checkbox')],button='Autorizar y reservar una unidad',version=row['version_no']))
     if active and g.principal.can('request.write'):
         forms.append(form('Cerrar o cancelar solicitud',url_for('regional.close_request',identifier=identifier),[
             field('status','Acción',[('CLOSED','Cerrar tras recibir la cantidad completa'),('CANCELLED','Cancelar sin reservas activas ni entregas')]),field('observation','Motivo sin datos clínicos',limit=240)],version=row['version_no']))
@@ -200,10 +201,10 @@ def request_detail(identifier):
         facts += [('Justificación restringida',row['justification'])]
     if evaluation:
         facts += [('Versión del algoritmo',evaluation['algorithm_version']),('Evaluación UTC',evaluation['occurred_at']),('Tiempo de cálculo (ms)',evaluation['elapsed_ms'])]
-    return page(row['request_code'],facts=facts,rows=candidates,forms=forms,
-        columns=[('rank_no','Orden DEMO'),('traceability_code','Unidad'),('institution_name','Origen'),('donor_group','ABO/Rh unidad'),('distance_km','Km DEMO'),('travel_minutes','Minutos estimados'),('expires_at','Caducidad UTC'),('explanation','Factores y límites')],
-        links=[(a['traceability_code']+' · '+a['current_status'],url_for('regional.allocation_detail',identifier=a['allocation_id'])) for a in allocations],
-        note=matching.NOTICE+' Sin ruta registrada, disponibilidad vigente o componente soportado no se proponen unidades. Plasma y plaquetas requieren revisión manual; no se aplica esta tabla.')
+    return page(row['request_code'],active='solicitudes',facts=facts,rows=candidates,forms=forms,
+        columns=[('rank_no','Orden'),('traceability_code','Unidad'),('institution_name','Origen'),('donor_group','ABO/Rh unidad'),('distance_km','Distancia (km)'),('travel_minutes','Minutos estimados'),('expires_at','Caducidad UTC'),('explanation','Factores y límites')],
+        links=[(a['traceability_code']+' · '+regional_value(a['current_status'],'current_status'),url_for('regional.allocation_detail',identifier=a['allocation_id'])) for a in allocations],
+        note=matching.NOTICE+' Evaluación disponible para concentrados eritrocitarios.')
 
 
 @bp.post('/solicitudes/<uuid:identifier>/evaluar')
@@ -236,10 +237,10 @@ def routes():
             JOIN institution i ON i.institution_id=t.origin_id JOIN institution d ON d.institution_id=t.destination_id WHERE '''+clause,params).fetchall()
         svc.event(conn,g.principal,'READ','REGIONAL_ROUTE','LIST',g.principal.institution_id)
     institutions=options('institutions')
-    return page('Rutas y estimaciones regionales',rows=rows,columns=[('origin_name','Origen'),('destination_name','Destino'),('distance_km','Km'),('travel_minutes','Minutos'),('source_reference','Fuente / supuesto'),('version_no','Versión')],
-        forms=[form('Registrar o actualizar estimación dirigida',request.path,[field('origin_id','Origen',institutions),field('destination_id','Destino',institutions),
-            field('distance_km','Distancia en km (DEMO)',kind='number'),field('travel_minutes','Tiempo estimado en minutos (DEMO)',kind='number'),
-            field('source_reference','Fuente o supuesto ficticio explícito',limit=240)])],note='No se consultan mapas ni se infieren distancias. Registra también rutas internas si deseas proponer unidades de la misma institución.')
+    return page('Rutas y estimaciones regionales',active='rutas',rows=rows,columns=[('origin_name','Origen'),('destination_name','Destino'),('distance_km','Km'),('travel_minutes','Minutos'),('source_reference','Fuente / supuesto'),('version_no','Versión')],
+        forms=[form('Registrar o actualizar ruta',request.path,[field('origin_id','Origen',institutions),field('destination_id','Destino',institutions),
+            field('distance_km','Distancia (km)',kind='number'),field('travel_minutes','Tiempo estimado (minutos)',kind='number'),
+            field('source_reference','Fuente de la estimación',limit=240)])],note='Registra la distancia y el tiempo estimado del origen al destino. Incluye rutas internas para traslados dentro de una institución.')
 
 
 @bp.get('/traslados')
@@ -248,7 +249,7 @@ def allocations():
     rows,total=logistics.list_allocations(g.principal,n)
     for row in rows:
         row['detail_url']=url_for('regional.allocation_detail',identifier=row['allocation_id'])
-    return page('Asignación, traslados y custodia',rows=rows,total=total,number=n,
+    return page('Asignación, traslados y custodia',active='traslados' if g.principal.can('logistics') else 'trazabilidad',rows=rows,total=total,number=n,
         columns=[('traceability_code','Recurso'),('request_code','Solicitud'),('origin_name','Origen'),('destination_name','Destino'),('current_status','Asignación'),('shipment_status','Traslado')])
 
 
@@ -266,7 +267,7 @@ def allocation_detail(identifier):
     if row['current_status']=='RESERVED' and g.principal.can('shipment.plan'):
         forms.append(form('Asignar y programar traslado',url_for('regional.plan',identifier=identifier),[
             field('transport_id','Personal de traslado del origen',[(str(t['account_id']),t['party_name']) for t in transports]),
-            field('vehicle','Vehículo ficticio',limit=120),field('departure_at','Salida prevista (UTC)',kind='datetime-local'),field('eta','ETA (UTC)',kind='datetime-local')],version=row['version_no']))
+            field('vehicle','Vehículo',limit=120),field('departure_at','Salida prevista (UTC)',kind='datetime-local'),field('eta','ETA (UTC)',kind='datetime-local')],version=row['version_no']))
     if row['current_status'] in ('RESERVED','ASSIGNED') and g.principal.can('shipment.plan'):
         forms.append(form('Cancelar antes de recolección',url_for('regional.cancel',identifier=identifier),[field('observation','Motivo de cancelación',limit=240)],version=row['version_no']))
     if shipment and shipment['current_status'] not in ('ACCEPTED','CANCELLED') and g.principal.can('logistics'):
@@ -275,16 +276,16 @@ def allocation_detail(identifier):
         choices=[('INCIDENT','Registrar incidencia sin avanzar estado')]
         if permitted:
             choices.insert(0,(next_status,{'PREPARED':'Preparado / entregado para recolección','COLLECTED':'Recolectado / recibido por transportista','IN_TRANSIT':'En tránsito','DELIVERED':'Entregado en destino','ACCEPTED':'Recibido y aceptado por institución'}[next_status]))
-        fields=[field('status','Evento',choices),field('location_description','Ubicación del evento',limit=240),field('observation','Observación sin datos clínicos'),field('evidence_reference','Referencia de evidencia / acta ficticia',limit=240)]
+        fields=[field('status','Evento',choices),field('location_description','Ubicación del evento',limit=240),field('observation','Observación sin datos clínicos'),field('evidence_reference','Referencia de evidencia / acta',limit=240)]
         if next_status=='ACCEPTED' and permitted:
             fields.append(field('location_id','Ubicación receptora (para aceptación)',options('locations'),required=False))
         forms.append(form('Registrar evento de custodia',url_for('regional.step',identifier=identifier),fields,version=shipment['version_no']))
     facts=[('Recurso',row['traceability_code']),('Solicitud',row['request_code']),('Origen',row['origin_name']),('Destino',row['destination_name']),('Asignación',row['current_status']),('Autorizado por (cuenta)',row['authorized_by'])]
     if shipment:
         facts += [('Traslado',shipment['current_status']),('Vehículo',shipment['vehicle']),('Salida prevista UTC',shipment['departure_at']),('ETA UTC',shipment['eta'])]
-    return page('Trazabilidad de '+row['traceability_code'],facts=facts,rows=history,forms=forms,
+    return page('Trazabilidad de '+row['traceability_code'],active='traslados' if g.principal.can('logistics') else 'trazabilidad',facts=facts,rows=history,forms=forms,
         columns=[('sequence','Secuencia'),('occurred_at','Fecha UTC'),('status','Evento'),('party_name','Responsable'),('location_description','Ubicación'),('observation','Observación'),('evidence_reference','Referencia de evidencia')],
-        note='Historial anexable: cada evento conserva actor y fecha del servidor. La recepción no registra una transfusión. Las referencias de evidencia son documentales; no se suben archivos ni fotografías en esta versión.')
+        note='Historial de custodia: cada evento conserva responsable, fecha, ubicación y referencia de evidencia.')
 
 
 @bp.post('/traslados/<uuid:identifier>/programar')

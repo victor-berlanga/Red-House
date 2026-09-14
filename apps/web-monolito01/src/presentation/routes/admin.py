@@ -78,7 +78,7 @@ def settings():
     if request.method == "POST":
         try:
             administration.save_parameter(g.principal, request.form)
-            flash("Nueva versión del umbral DEMO guardada.", "success")
+            flash("Aviso de caducidad actualizado.", "success")
             return redirect(url_for("admin.settings"))
         except BusinessError as exc:
             if exc.status not in (400, 409):

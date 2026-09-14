@@ -63,8 +63,8 @@ def save_person(actor, kind, data, identifier=None):
         if existing and institution['institution_id'] != existing['institution_id']:
             raise BusinessError('Un expediente no cambia de institución.', 409)
         values = dict(institution_id=institution['institution_id'],
-                      record_code=v.code(data,'record_code','el folio ficticio'),
-                      display_name=v.text(data,'display_name','el nombre ficticio'),
+                      record_code=v.code(data,'record_code','el folio del expediente'),
+                      display_name=v.text(data,'display_name','el nombre'),
                       blood_group=v.choice(data,'blood_group',inventory.GROUPS,'ABO/Rh'),
                       restrictions=v.text(data,'restrictions','las restricciones o su ausencia',1000))
         if kind == 'donor':
@@ -72,7 +72,7 @@ def save_person(actor, kind, data, identifier=None):
             if consent_at > now():
                 raise BusinessError('El consentimiento no puede tener fecha futura.')
             values.update(donation_kind=v.choice(data,'donation_kind',('VOLUNTARY','REPLACEMENT'),'tipo de donación'),
-                background=v.text(data,'background','los antecedentes ficticios',1000),
+                background=v.text(data,'background','los antecedentes',1000),
                 consent_reference=v.text(data,'consent_reference','la referencia de consentimiento',240),
                 consent_at=consent_at, current_status='PENDING')
             if existing and conn.execute('SELECT 1 FROM donation WHERE donor_id=%s LIMIT 1',(identifier,)).fetchone():
@@ -84,7 +84,7 @@ def save_person(actor, kind, data, identifier=None):
                 raise BusinessError('El expediente ya respalda solicitudes. Para preservar su historia no se reescribe; una corrección requiere un expediente versionado posterior.',409)
             values.update(requirement=v.text(data,'requirement','el requerimiento',1000),
                           urgency=v.choice({'urgency':data.get('urgency','ROUTINE')},'urgency',('URGENT','PRIORITY','ROUTINE'),'urgencia registrada'),
-                          studies=v.text(data,'studies','los estudios ficticios',1000),
+                          studies=v.text(data,'studies','los estudios',1000),
                           responsible_id=actor.account_id,
                           current_status=v.choice(data,'current_status',('ACTIVE','INACTIVE'),'estado'))
         if existing:
@@ -192,7 +192,7 @@ def produce_unit(actor,identifier,data):
         if row['current_status']!='PROCESSED' or row['donor_status']!='ELIGIBLE':
             raise BusinessError('Se requiere una donación procesada y revisión vigente del donante.',409)
         if data.get('human_confirmation')!='on':
-            raise BusinessError('Confirma la revisión humana para liberar esta unidad DEMO.')
+            raise BusinessError('Confirma la revisión y autorización de liberación de la unidad.')
         expires=v.timestamp(data,'expires_at')
         if expires <= now() or expires<=row['collected_at']:
             raise BusinessError('La fecha capturada de caducidad debe ser posterior a recolección y liberación.')
@@ -246,7 +246,7 @@ def create_request(actor,data):
         row=insert(conn,'blood_request',dict(request_code=v.code(data,'request_code','el folio de solicitud'),
             recipient_id=rec['recipient_id'],component_id=component['component_id'],quantity=v.integer(data,'quantity',1,100),
             urgency=v.choice(data,'urgency',('URGENT','PRIORITY','ROUTINE'),'urgencia registrada'),
-            justification=v.text(data,'justification','la justificación clínica ficticia',1000),responsible_id=actor.account_id),'request_id')
+            justification=v.text(data,'justification','la justificación clínica',1000),responsible_id=actor.account_id),'request_id')
         request_event(conn,actor,row['request_id'],'CREATE','Solicitud registrada por personal médico')
         event(conn,actor,'CREATE','BLOOD_REQUEST',row['request_id'],rec['institution_id'],urgency=row['urgency'],quantity=row['quantity'])
         return row['request_id']
@@ -299,7 +299,7 @@ def save_route(actor,data):
         dest=own_institution(conn,actor,v.identifier(data,'destination_id'))
         distance=v.integer(data,'distance_km',0,5000)
         minutes=v.integer(data,'travel_minutes',1,10080)
-        source=v.text(data,'source_reference','la fuente o supuesto DEMO',240)
+        source=v.text(data,'source_reference','la fuente de la estimación',240)
         row=conn.execute('''INSERT INTO regional_route(origin_id,destination_id,distance_km,travel_minutes,source_reference,recorded_by)
             VALUES (%s,%s,%s,%s,%s,%s) ON CONFLICT(origin_id,destination_id) DO UPDATE
             SET distance_km=excluded.distance_km,travel_minutes=excluded.travel_minutes,source_reference=excluded.source_reference,

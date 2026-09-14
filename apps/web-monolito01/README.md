@@ -2,6 +2,18 @@
 
 Monolito académico de coordinación regional. Un proceso Flask renderiza Jinja2 y ejecuta operaciones reales contra PostgreSQL. No implementa ni consume microservicios.
 
+La revisión de interfaz del 14 de septiembre utiliza lenguaje operativo y marca la sección activa también en páginas de detalle. Órganos muestra su disponibilidad pendiente y recuperación de acceso dirige al administrador, sin formularios simulados. El alcance clínico y técnico permanece documentado; la evaluación de compatibilidad conserva su advertencia y autorización médica. Evidencia: [interfaz-2026-09-14](../../documentation/evidence/interfaz-2026-09-14/README.md).
+
+## Filtros automáticos
+
+Inventario, auditoría, instituciones, sedes, ubicaciones, componentes, usuarios, donantes, receptores y solicitudes actualizan sus resultados sin recargar la página. Los desplegables y fechas se aplican al cambiar; la búsqueda espera 300 ms después de escribir. «Limpiar» restablece los filtros y cada cambio vuelve a la primera página. La URL conserva los criterios para recargar, compartir y usar Atrás/Adelante.
+
+La actualización conserva el foco del buscador y los borradores de formularios de registro. Inventario muestra contadores del conjunto filtrado. Un fallo conserva los resultados anteriores con un mensaje y opción de reintento; las respuestas obsoletas se descartan. Si vence la sesión, se solicita acceso nuevamente. Sin JavaScript permanece el envío convencional del formulario.
+
+Se utiliza JavaScript nativo con Fetch y AbortController sobre las rutas GET existentes. Flask/Jinja2 genera la respuesta HTML y el navegador reemplaza únicamente los resultados, la paginación y los contadores; no se sustituyen formularios de escritura. PostgreSQL y los servicios existentes conservan autorización, consultas parametrizadas y auditoría. No se agregan dependencias de ejecución ni endpoints de microservicios.
+
+Ver [evidencias de filtros](../../documentation/evidence/filtros-2026-09-14/README.md).
+
 ## Qué funciona
 
 - Acceso JWT, sesión y revocación PostgreSQL, CSRF, límites de intentos y permisos por recurso.

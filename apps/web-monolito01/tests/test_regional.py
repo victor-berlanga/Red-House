@@ -2,6 +2,7 @@
 from concurrent.futures import ThreadPoolExecutor
 from datetime import timedelta
 from threading import Barrier
+import re
 
 import psycopg
 import pytest
@@ -106,8 +107,8 @@ def test_complete_cross_institution_flow(app,actors,db,sign_in):
     assert {'AUTHORIZE','RESERVE','ASSIGN','IN_TRANSIT','ACCEPTED','CLOSED'}<=actions
     # Renderizar cada pantalla real con el perfil correspondiente.
     for role,paths in {
-        'operador':['/sangre/personas/donor','/sangre/donaciones',f"/sangre/donaciones/{c['donation']}"],
-        'medico.valle':['/sangre/personas/recipient',f"/sangre/solicitudes/{c['request']}"],
+        'operador':['/sangre/personas/donor',f"/sangre/personas/donor/{c['donor']}",'/sangre/donaciones',f"/sangre/donaciones/{c['donation']}"],
+        'medico.valle':['/sangre/personas/recipient',f"/sangre/personas/recipient/{c['recipient']}",f"/sangre/solicitudes/{c['request']}"],
         'coordinador':['/sangre/panel-regional','/sangre/rutas','/sangre/solicitudes','/sangre/traslados',f'/sangre/traslados/{aid}'],
         'traslado':[f'/sangre/traslados/{aid}'],
         'auditor':['/sangre/panel-regional','/auditoria',f'/sangre/traslados/{aid}']}.items():
@@ -115,6 +116,13 @@ def test_complete_cross_institution_flow(app,actors,db,sign_in):
         for path in paths:
             response=client.get(path)
             assert response.status_code==200,(path,response.status_code)
+            expected = next(base for base in ('/sangre/personas/donor', '/sangre/personas/recipient',
+                '/sangre/donaciones', '/sangre/solicitudes', '/sangre/rutas', '/sangre/traslados',
+                '/sangre/panel-regional', '/auditoria') if path == base or path.startswith(base+'/'))
+            selected = re.findall(rb'<a class="nav-link active"[^>]*href="([^"]+)"[^>]*aria-current="page"', response.data)
+            assert selected == [expected.encode()], (role, path, selected)
+            if '/sangre/traslados' in path:
+                assert ('Trazabilidad regional' if role == 'auditor' else 'Traslados y custodia').encode() in response.data
             if role in ('coordinador','traslado','auditor'):
                 assert b'SECRETO-CLINICO' not in response.data
 
@@ -251,7 +259,8 @@ def test_unsupported_component_requires_manual_review(app,actors,db):
         assert exc.value.status==409
 
 
-def test_regional_browser(app,actors,db,request,tmp_path):
+@pytest.mark.parametrize('script', ['regional_browser.cjs', 'filters_browser.cjs'])
+def test_regional_browser(app,actors,db,request,tmp_path,script):
     if not request.config.getoption('--browser'):
         pytest.skip('Requiere --browser, Chrome y Playwright mediante NODE_PATH.')
     import json,os,subprocess
@@ -265,12 +274,14 @@ def test_regional_browser(app,actors,db,request,tmp_path):
         northLocation=location(actors['operador'].institution_id),valleyLocation=location(actors['operador.valle'].institution_id),
         transport=str(actors['traslado'].account_id),component=str(db.execute("SELECT component_id FROM blood_component WHERE component_code='RBC-DEMO'").fetchone()['component_id']))
     db.commit()
+    if script == 'filters_browser.cjs':
+        case(app, actors)
     server=make_server('127.0.0.1',0,app,threaded=True)
     thread=Thread(target=server.serve_forever,daemon=True);thread.start()
     try:
-        result=subprocess.run(['node',str(Path(__file__).with_name('regional_browser.cjs'))],env={**os.environ,
+        result=subprocess.run(['node',str(Path(__file__).with_name(script))],env={**os.environ,
             'BASE_URL':f'http://127.0.0.1:{server.server_port}','DEMO_PASSWORD':app.config['DEMO_TEST_PASSWORD'],
-            'REGIONAL_DATA':json.dumps(data),'BROWSER_ARTIFACTS':str(Path(os.getenv('BROWSER_ARTIFACTS',str(tmp_path)))/'regional')},
+            'REGIONAL_DATA':json.dumps(data),'BROWSER_ARTIFACTS':str(Path(os.getenv('BROWSER_ARTIFACTS',str(tmp_path)))/('filters' if script == 'filters_browser.cjs' else 'regional'))},
             capture_output=True,text=True,timeout=200)
         assert result.returncode==0,result.stdout+result.stderr
         print(result.stdout)

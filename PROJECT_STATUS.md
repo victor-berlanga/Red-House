@@ -14,6 +14,8 @@ Este archivo es la fuente de verdad del avance del proyecto. Debe actualizarse d
 
 ## Resumen actual
 
+- **Filtros automáticos — 2026-09-14:** diez secciones con actualización sin recarga: inventario, auditoría, cinco catálogos administrativos, donantes, receptores y solicitudes. Búsqueda con espera de 300 ms, selectores/fechas inmediatos, paginación y contadores filtrados, URL e historial, descarte de respuestas obsoletas, reintento y conservación de borradores. Suite vigente: 90 aprobadas en 112.12 s; evidencia en `documentation/evidence/filtros-2026-09-14/`. Monolito actualizado en 5050, sin migración ni cambios de datos del negocio.
+- **Interfaz — 2026-09-14:** textos operativos en pantallas, estados en español y selección correcta de navegación en listados/detalles y móvil. Se retiraron avisos académicos generales; compatibilidad mantiene su advertencia demostrativa y autorización médica. Órganos indica disponibilidad pendiente y recuperación remite al administrador. Sin cambios en reglas, permisos, base ni datos. Suite actual: 89 aprobadas en 94.92 s; evidencia en `documentation/evidence/interfaz-2026-09-14/`.
 - **Accesos locales — restablecimiento posterior autorizado:** se actualizaron las contraseñas de las cuatro cuentas DEMO por petición expresa del usuario. Se conservan usuarios, perfiles y datos; se revocaron sesiones previas y se registró auditoría. Las nuevas contraseñas se entregan únicamente en la conversación, sin guardarlas en texto plano en el repositorio.
 - **Fecha y fase:** 13 de septiembre de 2026; ampliación regional del monolito previa a microservicios implementada y verificada. La aceptación docente no se infiere de las pruebas técnicas.
 - **Alcance confirmado:** flujo sanguíneo completo; motor demostrativo exclusivo de concentrados eritrocitarios, con tabla ABO/Rh sustentada, criterios explicables y autorización humana. Órganos/HLA conserva una sección separada, documentada y pendiente.
@@ -27,6 +29,16 @@ Este archivo es la fuente de verdad del avance del proyecto. Debe actualizarse d
 - **Seguimiento:** los ocho paquetes originales de P1 conservan su cierre histórico; AM-01 a AM-14 documentan este incremento adicional. Las tareas semestrales no quedan cerradas automáticamente. Git contiene fuentes y artefactos; no se realizaron commits ni publicaciones.
 
 ## Terminado
+
+- [x] Aplicar filtros automáticos a los listados que ya disponen de búsqueda y filtros.
+  - **Criterio de aceptación:** filtrar sin pulsar botones ni recargar la página; conservar foco, borradores, permisos y paginación; resultados y contadores coherentes con los criterios; recuperación ante error y respuestas fuera de orden.
+  - **Evidencia:** `tests/filters_browser.cjs`, regresión de ámbito y contadores, `documentation/evidence/filtros-2026-09-14/Tests.xml` y capturas. 90 pruebas aprobadas en 112.12 s, sin fallos, errores u omisiones. Chrome verifica diez secciones, móvil, sesión expirada y alternativa sin JavaScript.
+  - **Decisión:** mejora progresiva mediante `filters.js`, Fetch y AbortController sobre las rutas GET existentes. El HTML se procesa para actualizar solo resultados y resumen. No se introducen API independientes, dependencias nuevas, cambios de esquema ni guardado automático de formularios.
+
+- [x] Corregir textos de producto y sección activa del menú lateral.
+  - **Criterio de aceptación:** etiquetas operativas sin referencias académicas repetitivas; selección única de la sección correcta en listados, detalles y menú móvil; conservación de autorizaciones, datos y flujo.
+  - **Evidencia:** `documentation/evidence/interfaz-2026-09-14/Tests.xml` y capturas; 89 pruebas aprobadas en 94.92 s. Navegación comprobada por ruta y perfil, estados traducidos, flujo completo en Chrome sin errores JavaScript ni recursos faltantes. Verificación HTTP de Donantes sobre la aplicación reiniciada.
+  - **Decisión:** `page()` exige una sección activa explícita. Se evita el enlace duplicado del Coordinador. Los nombres y códigos almacenados no se reescriben; los avisos de compatibilidad y autorización permanecen junto a la operación. Reporte y evidencia anteriores se conservan como corte histórico.
 
 - [x] Implementar y comprobar la ampliación regional AM-01 a AM-13.
   - **Criterio de aceptación:** recorrer la cadena sanguínea entre dos instituciones con datos persistidos, decisiones humanas, mínimo privilegio, reserva transaccional única, custodia inmutable y cierre tras recepción completa; actualizar la base conservando datos anteriores.
@@ -461,6 +473,22 @@ Los pendientes siguientes corresponden a la validación institucional y al alcan
 | 2026-08-12 | Inspección inicial del directorio `proyectoPrueba`. | El directorio estaba vacío antes de crear la documentación base. |
 
 ## Bitácora de trabajo
+
+### 2026-09-14 — Filtros automáticos en los listados
+
+- Se habilitó actualización automática de búsquedas, selectores y fechas en las diez secciones filtrables existentes. La paginación conserva los criterios y un cambio de filtro vuelve a la primera página.
+- Inventario comparte los criterios parametrizados entre el listado y sus contadores, manteniendo aislamiento institucional y exclusión de bajas.
+- La interfaz preserva foco, borradores POST y últimos resultados ante errores; ofrece Reintentar y descarta respuestas obsoletas. La URL y Atrás/Adelante mantienen los criterios.
+- Se conservó la alternativa convencional sin JavaScript; ante sesión expirada se vuelve al acceso.
+- Suite final: 90 aprobadas en 112.12 s, con Chrome y PostgreSQL exclusivo. Se actualizaron guía y README; monolito reiniciado en 5050 y recurso JavaScript comprobados mediante HTTP 200. Clúster de pruebas detenido.
+
+### 2026-09-14 — Textos operativos y navegación corregida
+
+- Se retiraron etiquetas genéricas de demostración y frases sobre implementación de las pantallas; se ajustaron formularios, acceso, paneles, inventario y mensajes de validación.
+- Los estados regionales se presentan en español y las fechas en formato legible. No se traducen nombres, folios ni observaciones almacenados.
+- Se corrigió la sección activa de Donantes y los demás módulos regionales, incluidos detalles y menú móvil. Se evitó la duplicación de traslados para Coordinador.
+- Se sustituyeron formularios sin funcionamiento por indicaciones breves de disponibilidad de órganos y recuperación mediante administrador; no se implementaron funciones nuevas.
+- Suite completa: 89 aprobadas en 94.92 s. Evidencia nueva y guía actualizada; el monolito reiniciado responde en el puerto 5050. Comprobación HTTP del Operador sin modificar expedientes. Clúster de pruebas detenido.
 
 ### 2026-09-13 — Restablecimiento autorizado de accesos DEMO
 

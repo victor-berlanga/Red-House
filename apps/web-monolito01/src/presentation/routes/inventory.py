@@ -26,7 +26,7 @@ def index():
         hours = parameter["scalar_value"] if parameter else 72
         rows, total = repo.listing(conn, g.principal, filters, hours, page)
         choices = network.options(conn, g.principal)
-        stats, _, _ = repo.summary(conn, g.principal, hours)
+        stats, _, _ = repo.summary(conn, g.principal, hours, filters)
         audit.record(conn, g.principal, "READ", "BLOOD_UNIT", "LIST", "Consulta paginada de inventario autorizado")
     return render_template("inventory/list.html", title="Inventario sanguíneo", active="inventory", rows=rows,
                            total=total, page=page, choices=choices, hours=hours, stats=stats, groups=repo.GROUPS,
@@ -40,7 +40,7 @@ def create():
     if request.method == "POST":
         try:
             identifier = service.create(g.principal, request.form)
-            flash("Unidad DEMO registrada. Se guardó su primer movimiento y la auditoría.", "success")
+            flash("Unidad registrada correctamente.", "success")
             return redirect(url_for("inventory.detail", identifier=identifier))
         except BusinessError as exc:
             if exc.status != 400:
@@ -50,7 +50,7 @@ def create():
             error, status = "El folio ya está registrado o una referencia no es válida.", 409
     with transaction() as conn:
         choices = network.options(conn, g.principal)
-    return render_template("inventory/form.html", title="Registrar unidad DEMO", active="inventory",
+    return render_template("inventory/form.html", title="Registrar unidad", active="inventory",
                            choices=choices, groups=repo.GROUPS, error=error, data=request.form), status
 
 

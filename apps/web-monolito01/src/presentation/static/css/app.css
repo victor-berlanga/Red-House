@@ -24,6 +24,11 @@ button:disabled { cursor: not-allowed; opacity: .55; }
 :focus-visible { outline: 3px solid #0ea5e9; outline-offset: 3px; }
 input, select, textarea { width: 100%; min-width: 0; border: 1px solid #cbd5e1; border-radius: 7px; padding: 10px 12px; background: #fff; color: var(--foreground); min-height: 42px; }
 input::placeholder, textarea::placeholder { color: #718096; }
+.live-filters-enabled button[type="submit"] { display: none; }
+.filter-feedback { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; min-height: 24px; margin: 0 20px 12px; color: var(--muted); font-size: 12px; }
+.filter-feedback button[hidden] { display: none; }
+.filter-feedback.filter-error { color: #a21c32; }
+[data-filter-results][aria-busy="true"] { opacity: .6; }
 input:focus, select:focus, textarea:focus { outline: 2px solid #1e3a5f30; border-color: #6383a8; }
 textarea { resize: vertical; }
 fieldset { padding: 0; margin: 0; border: 0; min-width: 0; }

@@ -1,13 +1,13 @@
 from .common import pattern, scope
 
-STATUSES = {"AVAILABLE": "Disponible", "QUARANTINED": "Cuarentena DEMO", "WITHDRAWN": "Baja",
+STATUSES = {"AVAILABLE": "Disponible", "QUARANTINED": "Cuarentena", "WITHDRAWN": "Baja",
             "RESERVED": "Reservada", "IN_TRANSIT": "En tránsito", "DELIVERED": "Recibida para solicitud",
             "EXPIRED": "Vencida", "UNAVAILABLE": "Referencia inactiva"}
 VISIBLE_STATUSES = {key: label for key, label in STATUSES.items() if key != "WITHDRAWN"}
 GROUPS = ("O-", "O+", "A-", "A+", "B-", "B+", "AB-", "AB+")
 
 
-def listing(conn, principal, filters, hours, page=1):
+def listing_scope(principal, filters, hours):
     clause, params = scope(principal, "v")
     clause += " AND v.current_status <> 'WITHDRAWN'"
     clause += " AND (v.traceability_code ILIKE %s OR v.component_name ILIKE %s)"
@@ -22,6 +22,11 @@ def listing(conn, principal, filters, hours, page=1):
         params += [hours]
     elif filters.get("expiry") == "expired":
         clause += " AND v.effective_status = 'EXPIRED'"
+    return clause, params
+
+
+def listing(conn, principal, filters, hours, page=1):
+    clause, params = listing_scope(principal, filters, hours)
     source = " FROM blood_inventory v WHERE " + clause
     count = conn.execute("SELECT count(*) AS total" + source, params).fetchone()["total"]
     rows = conn.execute("SELECT v.*" + source + " ORDER BY expires_at, resource_id LIMIT 12 OFFSET %s",
@@ -35,9 +40,8 @@ def one(conn, principal, identifier):
                         [*params, identifier]).fetchone()
 
 
-def summary(conn, principal, hours):
-    clause, params = scope(principal, "v")
-    clause += " AND v.current_status <> 'WITHDRAWN'"
+def summary(conn, principal, hours, filters=None):
+    clause, params = listing_scope(principal, filters or {}, hours)
     totals = conn.execute("""SELECT count(*) AS total, count(*) FILTER (WHERE is_available) AS available,
         count(*) FILTER (WHERE effective_status = 'EXPIRED') AS expired,
         count(*) FILTER (WHERE effective_status = 'QUARANTINED') AS quarantined,

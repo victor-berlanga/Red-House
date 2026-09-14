@@ -1,39 +1,39 @@
 """Metadatos de presentación; ningún permiso se decide solo por el menú."""
+from datetime import datetime, timezone
+
+REGIONAL_LABELS = {
+    'HOSPITAL': 'Hospital', 'BLOOD_BANK': 'Banco de sangre', 'TRANSPLANT_CENTER': 'Centro de trasplantes',
+    'AVAILABLE': 'Disponible', 'QUARANTINED': 'Cuarentena', 'WITHDRAWN': 'Baja',
+    'PENDING': 'Pendiente de evaluación', 'ELIGIBLE': 'Elegible', 'DEFERRED': 'Diferido',
+    'ACTIVE': 'Activo', 'INACTIVE': 'Inactivo', 'REGISTERED': 'Registrada',
+    'COLLECTED': 'Recolectado', 'PROCESSED': 'Procesado', 'CANCELLED': 'Cancelado',
+    'OPEN': 'Abierta', 'IN_PROGRESS': 'En atención', 'CLOSED': 'Cerrada',
+    'URGENT': 'Urgente', 'PRIORITY': 'Prioritaria', 'ROUTINE': 'Ordinaria',
+    'RESERVED': 'Reservada', 'ASSIGNED': 'Asignada', 'RECEIVED': 'Recibida',
+    'SCHEDULED': 'Programado', 'PREPARED': 'Preparado', 'IN_TRANSIT': 'En tránsito',
+    'DELIVERED': 'Entregado', 'ACCEPTED': 'Aceptado', 'INCIDENT': 'Incidencia',
+}
+
+
+def regional_value(value, field):
+    """Traduce estados tipados; preserva folios, nombres y texto registrado."""
+    if value is None:
+        return '—'
+    if isinstance(value, datetime):
+        return value.astimezone(timezone.utc).strftime('%d/%m/%Y · %H:%M')
+    if field in ('current_status', 'shipment_status', 'status', 'decision', 'urgency',
+                 'institution_type', 'participation_status', 'new_status',
+                 'Estado', 'Asignación', 'Traslado', 'Urgencia'):
+        return REGIONAL_LABELS.get(value, value)
+    return value
+
 TITLES = {"institutions": "Instituciones", "sites": "Sedes", "locations": "Ubicaciones",
           "components": "Componentes sanguíneos", "users": "Usuarios"}
 
 FUTURE = {
-    "donantes": {"title": "Donantes", "icon": "droplet", "subtitle": "Registro y seguimiento de la participación de donantes.",
-                 "action": "Registrar donante", "columns": ["Folio", "Donante", "Institución", "Proceso", "Estado"],
-                 "fields": ["Identificador del expediente", "Tipo de donación", "Consentimiento", "Evaluación autorizada"],
-                 "note": "El registro preliminar no declara elegibilidad. Sangre y órganos tendrán procesos separados."},
-    "receptores": {"title": "Receptores", "icon": "users", "subtitle": "Expedientes y necesidades documentadas por personal médico autorizado.",
-                   "action": "Registrar receptor", "columns": ["Folio", "Receptor", "Institución", "Necesidad", "Seguimiento"],
-                   "fields": ["Expediente institucional", "Recurso solicitado", "Responsable médico", "Estado del proceso"],
-                   "note": "Registrar un receptor no creará una cuenta de usuario ni inferirá urgencia clínica."},
-    "organos": {"title": "Disponibilidad de órganos", "icon": "heart-pulse", "subtitle": "Un flujo especializado, separado del inventario sanguíneo.",
-                "action": "Registrar disponibilidad", "columns": ["Identificador", "Órgano", "Institución", "Viabilidad documentada", "Actualización"],
-                "fields": ["Proceso de donación", "Tipo de órgano", "Referencia de evaluación", "Autorización competente"],
-                "note": "No se calcularán tiempos de viabilidad ni compatibilidad sin reglas clínicas autorizadas."},
-    "compatibilidad": {"title": "Compatibilidad", "icon": "shield-check", "subtitle": "Candidatos explicables, información de origen y revisión humana.",
-                       "action": "Evaluar candidatos", "columns": ["Candidato", "Recurso", "Información disponible", "Regla / versión", "Revisión"],
-                       "fields": ["Solicitud de referencia", "Tipo de recurso", "Estudios autorizados", "Versión de reglas"],
-                       "note": "No hay motor clínico ni puntuaciones simuladas. La asignación siempre requiere revisión humana autorizada."},
-    "solicitudes": {"title": "Solicitudes urgentes", "icon": "triangle-alert", "subtitle": "Seguimiento de necesidades y atención entre instituciones.",
-                    "action": "Nueva solicitud", "columns": ["Folio", "Institución", "Recurso", "Urgencia autorizada", "Estado"],
-                    "fields": ["Receptor de referencia", "Institución solicitante", "Necesidad documentada", "Prioridad autorizada"],
-                    "note": "La urgencia será registrada por personal autorizado; no se deducirá automáticamente."},
-    "traslados": {"title": "Asignación y traslados", "icon": "truck", "subtitle": "Órdenes, responsables y seguimiento de recursos asignados.",
-                  "action": "Programar traslado", "columns": ["Orden", "Recurso", "Origen → destino", "Responsable", "Estado"],
-                  "fields": ["Asignación autorizada", "Institución de origen", "Institución de destino", "Responsable de traslado"],
-                  "note": "La geolocalización, las rutas y las reservas concurrentes se incorporarán en su fase. No se captura ubicación aquí."},
-    "custodia": {"title": "Cadena de custodia", "icon": "file-clock", "subtitle": "Evidencia secuencial desde la recolección hasta la entrega.",
-                 "action": "Registrar evento", "columns": ["Evento", "Recurso", "Responsable", "Fecha UTC", "Evidencia"],
-                 "fields": ["Orden de traslado", "Identificador escaneado", "Evento autorizado", "Referencia de evidencia"],
-                 "note": "Los eventos serán secuenciales y no editables. Las fotografías y los archivos privados requieren controles posteriores."},
+    "organos": {"title": "Órganos y HLA", "subtitle": "Gestión de donación y trasplante de órganos.",
+                "action": "Registrar disponibilidad"},
 }
-
-FUTURE = {"organos": FUTURE["organos"]}
 
 NAV = [
     ("GENERAL", "dashboard", "Panel principal", "layout-grid", "portal.dashboard", {}, "dashboard", False),

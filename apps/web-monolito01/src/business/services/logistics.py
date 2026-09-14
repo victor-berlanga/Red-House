@@ -96,7 +96,7 @@ def plan(actor,identifier,data):
             if not conn.execute("SELECT 1 FROM institution WHERE institution_id=%s AND participation_status='ACTIVE'",(iid,)).fetchone():
                 raise BusinessError('Una institución está inactiva.',409)
         shipment=insert(conn,'shipment',dict(allocation_id=identifier,transport_id=transport['account_id'],
-            vehicle=v.text(data,'vehicle','el vehículo ficticio'),departure_at=departure,eta=eta),'shipment_id')
+            vehicle=v.text(data,'vehicle','el vehículo'),departure_at=departure,eta=eta),'shipment_id')
         conn.execute("UPDATE blood_allocation SET current_status='ASSIGNED',version_no=version_no+1 WHERE allocation_id=%s",(identifier,))
         custody(conn,actor,shipment['shipment_id'],'SCHEDULED',row['origin_name'],'Traslado programado','Orden de traslado '+str(shipment['shipment_id']))
         r.event(conn,actor,'ASSIGN','BLOOD_ALLOCATION',identifier,row['origin_id'],transport_id=transport['account_id'])
@@ -133,7 +133,7 @@ def step(actor,identifier,data):
             raise BusinessError('Tu perfil no puede registrar este evento en esta asignación.',403)
         observation=v.text(data,'observation','la observación sin datos clínicos',1000)
         location=v.text(data,'location_description','la ubicación del evento',240)
-        evidence=v.text(data,'evidence_reference','la referencia de evidencia ficticia',240)
+        evidence=v.text(data,'evidence_reference','la referencia de evidencia',240)
         unit=conn.execute('SELECT * FROM blood_unit WHERE resource_id=%s FOR UPDATE',(row['resource_id'],)).fetchone()
         if target in ('PREPARED','COLLECTED','IN_TRANSIT') and (unit['expires_at']<=r.now() or shipment['eta']>=unit['expires_at']):
             raise BusinessError('La viabilidad temporal capturada no permite iniciar el traslado. Registra la incidencia.',409)
