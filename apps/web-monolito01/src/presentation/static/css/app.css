@@ -254,3 +254,20 @@ dt { font-size: 11px; color: var(--muted); }dd { font-size: 12px; margin: 0; ove
 .regional-section table td { max-width:400px; white-space:normal; overflow-wrap:anywhere; }
 .regional-section .form-grid { margin-top:16px; }
 .regional-section input[type=checkbox] { width:24px; height:24px; }
+
+/* Formularios operativos y seguimiento accesible. */
+.form-group {border:0; padding:0; margin:1.5rem 0; min-width:0;}
+.form-group legend {font-weight:600; color:#475569; margin-bottom:1rem; font-size:.9rem;}
+.wide-field {grid-column:1 / -1;}
+.field textarea {width:100%; min-height:100px; resize:vertical; padding:12px; border:1px solid #cbd5e1; border-radius:6px; font:inherit; background:#fff; color:#0f172a;}
+.field input[type=checkbox] {width:22px; min-height:22px; height:22px; accent-color:#c8102e;}
+.workflow {margin-bottom:1.5rem;}
+.workflow ol {display:flex; flex-wrap:wrap; gap:.75rem; list-style:none; padding:0;}
+.workflow li {padding:.5rem .8rem; border:1px solid #cbd5e1; border-radius:20px; font-size:.85rem;}
+.workflow .current {background:#1e3a5f; color:white; font-weight:600;}
+.workflow .done {background:#e7f4eb; color:#166534;}
+.workflow p {margin:.5rem 0;}
+.stat-card a {color:inherit; text-decoration:underline; text-underline-offset:4px;}
+.regional-facts dd {white-space:pre-wrap; overflow-wrap:anywhere;}
+.timezone-picker {display:flex; gap:.5rem; align-items:center; flex-wrap:wrap;}
+.timezone-picker select {width:auto; min-height:32px;}

@@ -66,13 +66,13 @@ def save_person(actor, kind, data, identifier=None):
                       record_code=v.code(data,'record_code','el folio del expediente'),
                       display_name=v.text(data,'display_name','el nombre'),
                       blood_group=v.choice(data,'blood_group',inventory.GROUPS,'ABO/Rh'),
-                      restrictions=v.text(data,'restrictions','las restricciones o su ausencia',1000))
+                      restrictions=v.paragraph(data,'restrictions','las restricciones o su ausencia',1000))
         if kind == 'donor':
             consent_at = v.timestamp(data,'consent_at')
             if consent_at > now():
                 raise BusinessError('El consentimiento no puede tener fecha futura.')
             values.update(donation_kind=v.choice(data,'donation_kind',('VOLUNTARY','REPLACEMENT'),'tipo de donación'),
-                background=v.text(data,'background','los antecedentes',1000),
+                background=v.paragraph(data,'background','los antecedentes',1000),
                 consent_reference=v.text(data,'consent_reference','la referencia de consentimiento',240),
                 consent_at=consent_at, current_status='PENDING')
             if existing and conn.execute('SELECT 1 FROM donation WHERE donor_id=%s LIMIT 1',(identifier,)).fetchone():
@@ -82,9 +82,9 @@ def save_person(actor, kind, data, identifier=None):
         else:
             if existing and conn.execute("SELECT 1 FROM blood_request WHERE recipient_id=%s LIMIT 1",(identifier,)).fetchone():
                 raise BusinessError('El expediente ya respalda solicitudes. Para preservar su historia no se reescribe; una corrección requiere un expediente versionado posterior.',409)
-            values.update(requirement=v.text(data,'requirement','el requerimiento',1000),
+            values.update(requirement=v.paragraph(data,'requirement','el requerimiento',1000),
                           urgency=v.choice({'urgency':data.get('urgency','ROUTINE')},'urgency',('URGENT','PRIORITY','ROUTINE'),'urgencia registrada'),
-                          studies=v.text(data,'studies','los estudios',1000),
+                          studies=v.paragraph(data,'studies','los estudios',1000),
                           responsible_id=actor.account_id,
                           current_status=v.choice(data,'current_status',('ACTIVE','INACTIVE'),'estado'))
         if existing:
@@ -115,7 +115,7 @@ def review_donor(actor, identifier, data):
         if data.get('human_confirmation') != 'on':
             raise BusinessError('Confirma que registras una decisión humana autorizada para el ejercicio.')
         review=insert(conn,'donor_review',dict(donor_id=identifier,decision=decision,
-            reason=v.text(data,'reason','el fundamento de revisión',1000),actor_id=actor.account_id),'review_id')
+            reason=v.paragraph(data,'reason','el fundamento de revisión',1000),actor_id=actor.account_id),'review_id')
         conn.execute('UPDATE donor SET current_status=%s,version_no=version_no+1 WHERE donor_id=%s',(decision,identifier))
         event(conn,actor,'AUTHORIZE','DONOR_REVIEW',review['review_id'],row['institution_id'],decision=decision)
 
@@ -132,10 +132,15 @@ def donation_row(conn, actor, identifier, lock=False):
     return row
 
 
-def donations(actor, page=1):
+def donations(actor, page=1, query='', status=''):
     require(actor,'donor.write')
     with transaction() as conn:
         clause,params=scope(actor,'i')
+        clause+=' AND (d.donation_code ILIKE %s OR p.record_code ILIKE %s)'
+        params += [pattern(query)] * 2
+        if status:
+            v.choice({'status':status},'status',('REGISTERED','COLLECTED','PROCESSED','CANCELLED'),'estado')
+            clause+=' AND d.current_status=%s'; params.append(status)
         source=' FROM donation d JOIN donor p USING(donor_id) JOIN institution i USING(institution_id) WHERE '+clause
         rows=conn.execute('SELECT d.*,p.record_code AS donor_code,i.institution_name'+source+
                           ' ORDER BY registered_at DESC,donation_id LIMIT 12 OFFSET %s',[*params,(page-1)*12]).fetchall()
@@ -175,7 +180,7 @@ def progress_donation(actor,identifier,data):
             donor=person(conn,actor,'donor',row['donor_id'],lock=True)
             if donor['current_status']!='ELIGIBLE':
                 raise BusinessError('La revisión vigente del donante no permite continuar.',409)
-        observation=v.text(data,'observation','la evidencia de la etapa',1000)
+        observation=v.paragraph(data,'observation','la evidencia de la etapa',1000)
         conn.execute('UPDATE donation SET current_status=%s,version_no=version_no+1 WHERE donation_id=%s',(target,identifier))
         if target in ('COLLECTED','PROCESSED'):
             column='collected_at' if target=='COLLECTED' else 'processed_at'
@@ -201,7 +206,7 @@ def produce_unit(actor,identifier,data):
         if location['institution_id']!=row['institution_id']:
             raise BusinessError('La unidad nace en la institución de la donación.',403)
         component=permitted_reference(conn,'components',actor,v.identifier(data,'component_id'))
-        reference=v.text(data,'release_reference','la referencia de pruebas y liberación humana',240)
+        reference=v.paragraph(data,'release_reference','la referencia de pruebas y liberación humana',240)
         resource=insert(conn,'resource',dict(traceability_code=v.code(data,'traceability_code','el folio de unidad')),'resource_id')
         rid=resource['resource_id']
         insert(conn,'blood_unit',dict(resource_id=rid,component_id=component['component_id'],location_id=location['location_id'],
@@ -246,7 +251,7 @@ def create_request(actor,data):
         row=insert(conn,'blood_request',dict(request_code=v.code(data,'request_code','el folio de solicitud'),
             recipient_id=rec['recipient_id'],component_id=component['component_id'],quantity=v.integer(data,'quantity',1,100),
             urgency=v.choice(data,'urgency',('URGENT','PRIORITY','ROUTINE'),'urgencia registrada'),
-            justification=v.text(data,'justification','la justificación clínica',1000),responsible_id=actor.account_id),'request_id')
+            justification=v.paragraph(data,'justification','la justificación clínica',1000),responsible_id=actor.account_id),'request_id')
         request_event(conn,actor,row['request_id'],'CREATE','Solicitud registrada por personal médico')
         event(conn,actor,'CREATE','BLOOD_REQUEST',row['request_id'],rec['institution_id'],urgency=row['urgency'],quantity=row['quantity'])
         return row['request_id']
@@ -256,16 +261,21 @@ def request_event(conn,actor,identifier,action,observation):
     insert(conn,'request_event',dict(request_id=identifier,action=action,actor_id=actor.account_id,observation=observation),'event_id')
 
 
-def requests_list(actor,page=1,query='',status=''):
+def requests_list(actor,page=1,query='',status='',urgency=''):
     require(actor,'regional.read')
     with transaction() as conn:
         clause,params=scope(actor,'i')
         clause+=' AND q.request_code ILIKE %s'
         params.append(pattern(query))
-        if status:
+        if status and status != 'ACTIVE':
             if status not in ('OPEN','IN_PROGRESS','CLOSED','CANCELLED'):
                 raise BusinessError('Estado de solicitud no válido.')
             clause+=' AND q.current_status=%s'; params.append(status)
+        if status == 'ACTIVE':
+            clause+=" AND q.current_status IN ('OPEN','IN_PROGRESS')"
+        if urgency:
+            v.choice({'urgency':urgency},'urgency',('URGENT','PRIORITY','ROUTINE'),'urgencia')
+            clause+=' AND q.urgency=%s'; params.append(urgency)
         source=' FROM blood_request q JOIN recipient r USING(recipient_id) JOIN institution i USING(institution_id) JOIN blood_component c USING(component_id) WHERE '+clause
         rows=conn.execute('''SELECT q.request_id,q.request_code,q.quantity,q.urgency,q.current_status,q.requested_at,
              r.blood_group,i.institution_name,c.component_name'''+source+''' ORDER BY
@@ -288,7 +298,7 @@ def close_request(actor,identifier,data):
         if target=='CLOSED' and (len(allocations)!=row['quantity'] or any(a['current_status']!='RECEIVED' for a in allocations)):
             raise BusinessError('El cierre exige recibir todas las unidades solicitadas.',409)
         conn.execute('UPDATE blood_request SET current_status=%s,closed_at=now(),version_no=version_no+1 WHERE request_id=%s',(target,identifier))
-        request_event(conn,actor,identifier,target,v.text(data,'observation','el motivo del cierre',240))
+        request_event(conn,actor,identifier,target,v.paragraph(data,'observation','el motivo del cierre',240))
         event(conn,actor,target,'BLOOD_REQUEST',identifier,row['institution_id'])
 
 
@@ -299,7 +309,7 @@ def save_route(actor,data):
         dest=own_institution(conn,actor,v.identifier(data,'destination_id'))
         distance=v.integer(data,'distance_km',0,5000)
         minutes=v.integer(data,'travel_minutes',1,10080)
-        source=v.text(data,'source_reference','la fuente de la estimación',240)
+        source=v.paragraph(data,'source_reference','la fuente de la estimación',240)
         row=conn.execute('''INSERT INTO regional_route(origin_id,destination_id,distance_km,travel_minutes,source_reference,recorded_by)
             VALUES (%s,%s,%s,%s,%s,%s) ON CONFLICT(origin_id,destination_id) DO UPDATE
             SET distance_km=excluded.distance_km,travel_minutes=excluded.travel_minutes,source_reference=excluded.source_reference,

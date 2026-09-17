@@ -21,15 +21,23 @@ Desde Administración → Usuarios, crear las siguientes cuentas de demostració
 
 El Operador y Médico no pueden ampliar su ámbito a otras instituciones. El personal de traslado solo verá las órdenes asignadas a su cuenta.
 
+## Formularios y horarios
+
+Al guardar, el botón indica actividad y bloquea envíos repetidos. Si el servidor rechaza un dato, el formulario conserva la captura y muestra el motivo. Ante un conflicto de versión, revisar los cambios mediante «Recargar datos actuales» antes de volver a intentar; no se actualiza automáticamente la versión del expediente.
+
+Los expedientes con donaciones o solicitudes se muestran como consulta para proteger su historia. Cada detalle incluye seguimiento, siguiente paso y responsable. La selección de donantes para una donación muestra únicamente revisiones favorables vigentes registradas; esto no sustituye una evaluación médica.
+
+Al pie del portal se elige UTC o Monterrey. UTC sigue siendo el valor inicial y el formato de persistencia. Las etiquetas muestran la zona de captura y consulta; auditoría y tendencias usan sus días locales. Cambiar horario recarga la página y solicita confirmación si hay datos pendientes. Antecedentes, estudios y observaciones admiten varias líneas.
+
 ## Búsquedas y filtros
 
-Los listados con buscador se actualizan al dejar de escribir durante 300 ms. Las listas desplegables y fechas actualizan los resultados al cambiar. No es necesario pulsar Buscar o Filtrar; «Limpiar» elimina los criterios. La paginación respeta los filtros y un cambio de criterio vuelve a la primera página.
+Los listados con buscador se actualizan al dejar de escribir durante 300 ms. Las listas desplegables y fechas actualizan los resultados al cambiar. No es necesario pulsar Buscar o Filtrar; «Limpiar» elimina los criterios. La paginación respeta los filtros y un cambio de criterio vuelve a la primera página. Solicitudes ofrece estado y urgencia; Donaciones ofrece estado; Traslados permite buscar por recurso, solicitud o institución y filtrar asignación/etapa. Los indicadores del panel abren los listados con los criterios correspondientes.
 
 En Donantes y Receptores puedes filtrar sin perder lo que hayas escrito en el formulario de registro. Si aparece un error de consulta, se conservan los resultados anteriores y puedes pulsar Reintentar. Los controles de registro y autorización siguen requiriendo confirmación explícita.
 
 ## 1. Donante, consentimiento y revisión
 
-Con el Operador Norte, entrar a Donantes y registrar un expediente ficticio: folio único, nombre ficticio, institución, ABO/Rh O−, tipo de donación, antecedentes, restricciones y referencia/fecha de consentimiento en UTC. Usar una fecha no futura. El registro inicia pendiente.
+Con el Operador Norte, entrar a Donantes y registrar un expediente ficticio: folio único, nombre ficticio, institución, ABO/Rh O−, tipo de donación, antecedentes, restricciones y referencia/fecha de consentimiento en la zona indicada. Usar una fecha no futura. El registro inicia pendiente.
 
 Con el Médico Norte, abrir el expediente y usar «Registrar evaluación del donante». Capturar la decisión del ejercicio, su fundamento y la confirmación humana. La aplicación no calcula elegibilidad. Una donación no puede registrarse mientras el estado no sea favorable.
 
@@ -59,7 +67,7 @@ Una reserva simultánea, una unidad modificada, una ruta actualizada, caducidad 
 
 ## 6. Asignación y traslado
 
-Con el Coordinador, abrir la reserva y programar el traslado: personal del origen, vehículo ficticio, salida prevista y ETA en UTC. La ETA debe ser posterior a la salida, respetar la estimación de ruta y quedar antes de la caducidad capturada.
+Con el Coordinador, abrir la reserva y programar el traslado: personal del origen, vehículo ficticio, salida prevista y ETA en la zona indicada. La ETA debe ser posterior a la salida, respetar la estimación de ruta y quedar antes de la caducidad capturada.
 
 Con el Operador Norte, registrar preparación. Con el Transportista asignado, registrar recolección, tránsito y entrega en ese orden. Cada evento requiere ubicación declarada, observación sin datos clínicos y referencia de evidencia/acta ficticia.
 

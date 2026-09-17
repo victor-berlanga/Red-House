@@ -152,5 +152,12 @@ const path = require('node:path');
       debounce:true,pagination:true,counters:true,history:true,staleResponse:true,networkRetry:true,
       unsavedFormPreserved:true,mobile:true,sessionExpired:true,noJavascript:true,errors},null,2)+'\n');
     console.log('PASS: filtros automáticos en diez secciones y escenarios de recuperación.');
+  } catch(error) {
+    for(const [role,p] of Object.entries(pages)) {
+      await p.screenshot({path:path.join(output,role+'-failure.png'),fullPage:true,animations:'disabled'});
+      const state=await p.evaluate(()=>({width:innerWidth,scroll:scrollY,documentWidth:document.documentElement.scrollWidth,clear:Array.from(document.querySelectorAll('[data-filter-clear]')).map(e=>({rect:e.getBoundingClientRect().toJSON(),hidden:e.hidden,inert:!!e.closest('[inert]'),display:getComputedStyle(e).display})),bodyClass:document.body.className}));
+      console.error(role,JSON.stringify(state));
+    }
+    throw error;
   } finally {await browser.close();}
 })().catch(error=>{console.error(error);process.exit(1);});

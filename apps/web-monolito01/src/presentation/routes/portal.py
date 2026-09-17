@@ -30,6 +30,8 @@ def audit():
         except ValueError:
             raise BusinessError("Selecciona una fecha válida.") from None
     page = v.integer({"page": request.args.get("page", 1)}, "page", 1, 100000)
+    from ..timezones import selected_zone
+    filters['timezone']=selected_zone()
     rows, total = reporting.audit_list(g.principal, filters, page)
     return render_template("audit.html", title="Bitácora de auditoría", active="audit", rows=rows, total=total, page=page)
 
@@ -48,3 +50,17 @@ def future(slug):
     if slug not in FUTURE:
         raise BusinessError("La vista no existe.", 404)
     return render_template("future.html", title=FUTURE[slug]["title"], active=slug, view=FUTURE[slug], slug=slug)
+
+
+@bp.post('/preferencias/horario')
+def timezone_preference():
+    from urllib.parse import urlsplit
+    from ..timezones import ZONES
+    zone=v.choice(request.form,'timezone',ZONES,'zona horaria')
+    target=request.form.get('next','/panel')
+    parsed=urlsplit(target)
+    if parsed.scheme or parsed.netloc or not target.startswith('/') or target.startswith('//') or '\\' in target or any(ord(c)<32 for c in target):
+        target='/panel'
+    response=redirect(target)
+    response.set_cookie('display_timezone',zone,max_age=31536000,httponly=True,samesite='Lax',secure=request.is_secure)
+    return response

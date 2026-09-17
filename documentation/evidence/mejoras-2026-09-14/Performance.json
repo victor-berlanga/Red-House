@@ -1,0 +1,17 @@
+{
+  "inventory": {
+    "full_bytes": 17867,
+    "fragment_bytes": 8874,
+    "full_queries": 12,
+    "fragment_queries": 7,
+    "full_ms": 60.46,
+    "fragment_ms": 36.9
+  },
+  "dashboard": {
+    "one_request_queries": 13,
+    "twenty_request_queries": 13,
+    "one_ms": 56.04,
+    "twenty_ms": 56.21
+  },
+  "note": "Muestra local, sin carga concurrente; tiempos orientativos, no benchmark de producci\u00f3n."
+}

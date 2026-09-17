@@ -2,7 +2,7 @@
 <img class="icon {{ extra }}" src="{{ url_for('static', filename='img/icons/' ~ name ~ '.svg') }}" alt="" width="20" height="20">
 {%- endmacro %}
 
-{% macro csrf() -%}<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">{%- endmacro %}
+{% macro csrf() -%}<input type="hidden" name="_timezone" value="{{ display_timezone }}"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}">{%- endmacro %}
 
 {% macro badge(status) -%}
 <span class="badge status-{{ status|lower }}">{{ statuses.get(status, {'ACTIVE':'Activa', 'INACTIVE':'Inactiva', 'SUCCESS':'Correcto', 'FAILED':'Fallido', 'DENIED':'Denegado'}.get(status, status)) }}</span>

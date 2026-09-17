@@ -2,6 +2,7 @@
 from datetime import datetime, timezone
 
 REGIONAL_LABELS = {
+    'COORDINATION': 'Coordinación', 'destination':'Recepción en mi ámbito',
     'HOSPITAL': 'Hospital', 'BLOOD_BANK': 'Banco de sangre', 'TRANSPLANT_CENTER': 'Centro de trasplantes',
     'AVAILABLE': 'Disponible', 'QUARANTINED': 'Cuarentena', 'WITHDRAWN': 'Baja',
     'PENDING': 'Pendiente de evaluación', 'ELIGIBLE': 'Elegible', 'DEFERRED': 'Diferido',
@@ -20,7 +21,8 @@ def regional_value(value, field):
     if value is None:
         return '—'
     if isinstance(value, datetime):
-        return value.astimezone(timezone.utc).strftime('%d/%m/%Y · %H:%M')
+        from .timezones import datefmt
+        return datefmt(value)
     if field in ('current_status', 'shipment_status', 'status', 'decision', 'urgency',
                  'institution_type', 'participation_status', 'new_status',
                  'Estado', 'Asignación', 'Traslado', 'Urgencia'):

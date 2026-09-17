@@ -4,7 +4,7 @@ from datetime import timedelta
 from ..access import BusinessError,check_version,require
 from .. import validators as v
 from ...data_access.connection import transaction
-from ...data_access.repositories.common import insert
+from ...data_access.repositories.common import insert, pattern
 from ...data_access.repositories import accounts,network
 from . import regional as r
 
@@ -32,7 +32,7 @@ def allocation_row(conn,actor,identifier,lock=False):
     return row
 
 
-def list_allocations(actor,page=1):
+def list_allocations(actor,page=1,query='',status='',shipment_status='',direction=''):
     if not (actor.can('logistics') or actor.can('trace.read')):
         raise BusinessError('No tienes permiso de logística.',403)
     clause='o.region_name=%s'; params=[actor.region_name]
@@ -40,6 +40,22 @@ def list_allocations(actor,page=1):
         clause+=' AND s.transport_id=%s';params.append(actor.account_id)
     elif actor.institution_id:
         clause+=' AND (a.origin_id=%s OR a.destination_id=%s)';params += [actor.institution_id]*2
+    if direction:
+        v.choice({'direction':direction},'direction',('destination',),'dirección')
+        if actor.institution_id:
+            clause+=' AND a.destination_id=%s';params.append(actor.institution_id)
+    clause+=' AND (b.traceability_code ILIKE %s OR q.request_code ILIKE %s OR o.institution_name ILIKE %s OR d.institution_name ILIKE %s)'
+    params += [pattern(query)] * 4
+    if status == 'ACTIVE':
+        clause+=" AND a.current_status IN ('RESERVED','ASSIGNED')"
+    elif status:
+        v.choice({'status':status},'status',('RESERVED','ASSIGNED','RECEIVED','CANCELLED'),'asignación')
+        clause+=' AND a.current_status=%s'; params.append(status)
+    if shipment_status == 'ACTIVE':
+        clause+=" AND s.current_status NOT IN ('ACCEPTED','CANCELLED')"
+    elif shipment_status:
+        v.choice({'state':shipment_status},'state',('SCHEDULED','PREPARED','COLLECTED','IN_TRANSIT','DELIVERED','ACCEPTED','CANCELLED'),'traslado')
+        clause+=' AND s.current_status=%s'; params.append(shipment_status)
     with transaction() as conn:
         source=''' FROM blood_allocation a JOIN institution o ON o.institution_id=a.origin_id
             JOIN institution d ON d.institution_id=a.destination_id JOIN resource b USING(resource_id)
@@ -64,7 +80,7 @@ def cancel(actor,identifier,data):
         shipment=conn.execute('SELECT * FROM shipment WHERE allocation_id=%s FOR UPDATE',(identifier,)).fetchone()
         if shipment and shipment['current_status'] not in ('SCHEDULED','PREPARED'):
             raise BusinessError('La recolección ya comenzó. Registra la incidencia y conserva la custodia.',409)
-        reason=v.text(data,'observation','el motivo',240)
+        reason=v.paragraph(data,'observation','el motivo',240)
         conn.execute('SELECT resource_id FROM blood_unit WHERE resource_id=%s FOR UPDATE',(row['resource_id'],))
         conn.execute("UPDATE blood_allocation SET current_status='CANCELLED',version_no=version_no+1 WHERE allocation_id=%s",(identifier,))
         conn.execute("UPDATE blood_unit SET current_status='AVAILABLE',version_no=version_no+1 WHERE resource_id=%s",(row['resource_id'],))
@@ -131,7 +147,7 @@ def step(actor,identifier,data):
             permitted=actor.role_code=='TRANSPORT' and shipment['transport_id']==actor.account_id
         if not permitted:
             raise BusinessError('Tu perfil no puede registrar este evento en esta asignación.',403)
-        observation=v.text(data,'observation','la observación sin datos clínicos',1000)
+        observation=v.paragraph(data,'observation','la observación sin datos clínicos',1000)
         location=v.text(data,'location_description','la ubicación del evento',240)
         evidence=v.text(data,'evidence_reference','la referencia de evidencia',240)
         unit=conn.execute('SELECT * FROM blood_unit WHERE resource_id=%s FOR UPDATE',(row['resource_id'],)).fetchone()

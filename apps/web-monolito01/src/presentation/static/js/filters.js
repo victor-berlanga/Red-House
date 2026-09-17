@@ -65,7 +65,7 @@
     try {
       const response = await fetch(url, {
         credentials: "same-origin", cache: "no-store", signal: pending.signal,
-        headers: {Accept: "text/html"},
+        headers: {Accept: "text/html", "X-Filter-Fragment": "1"},
       });
       if (ticket !== sequence) return;
       const destination = new URL(response.url);

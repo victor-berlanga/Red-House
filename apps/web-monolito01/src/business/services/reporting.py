@@ -54,8 +54,10 @@ def audit_list(principal, filters, page):
             clause += " AND a.outcome = %s"
             params += [filters["outcome"]]
         if filters.get("date"):
-            clause += " AND a.occurred_at >= %s::date AND a.occurred_at < %s::date + interval '1 day'"
-            params += [filters["date"]] * 2
+            zone=filters.get('timezone','UTC')
+            if zone not in ('UTC','America/Monterrey'): zone='UTC'
+            clause += " AND a.occurred_at >= (%s::date::timestamp AT TIME ZONE %s) AND a.occurred_at < ((%s::date+1)::timestamp AT TIME ZONE %s)"
+            params += [filters["date"],zone,filters["date"],zone]
         source = " FROM audit_event a LEFT JOIN user_account u ON u.account_id = a.actor_id LEFT JOIN party p USING (party_id) WHERE " + clause
         total = conn.execute("SELECT count(*) AS total" + source, params).fetchone()["total"]
         rows = conn.execute("SELECT a.*, coalesce(p.party_name, 'No identificado') AS actor_name" + source +

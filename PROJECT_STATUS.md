@@ -14,6 +14,8 @@ Este archivo es la fuente de verdad del avance del proyecto. Debe actualizarse d
 
 ## Resumen actual
 
+- **Trece mejoras operativas — 2026-09-14:** formularios recuperables y agrupados, doble envío bloqueado, opciones autorizadas con búsqueda, expedientes históricos de consulta, navegación administrativa consistente, seguimiento por etapa, accesos desde KPIs, filtros ampliados, tres gráficas, fragmentos HTML, alertas agrupadas y horarios UTC/Monterrey. 96 pruebas aprobadas en 141.23 s, sin fallos, errores ni omisiones. Evidencia: `documentation/evidence/mejoras-2026-09-14/`. Se incorpora `tzdata==2026.4`; sin migraciones ni cambios de datos habituales.
+
 - **Filtros automáticos — 2026-09-14:** diez secciones con actualización sin recarga: inventario, auditoría, cinco catálogos administrativos, donantes, receptores y solicitudes. Búsqueda con espera de 300 ms, selectores/fechas inmediatos, paginación y contadores filtrados, URL e historial, descarte de respuestas obsoletas, reintento y conservación de borradores. Suite vigente: 90 aprobadas en 112.12 s; evidencia en `documentation/evidence/filtros-2026-09-14/`. Monolito actualizado en 5050, sin migración ni cambios de datos del negocio.
 - **Interfaz — 2026-09-14:** textos operativos en pantallas, estados en español y selección correcta de navegación en listados/detalles y móvil. Se retiraron avisos académicos generales; compatibilidad mantiene su advertencia demostrativa y autorización médica. Órganos indica disponibilidad pendiente y recuperación remite al administrador. Sin cambios en reglas, permisos, base ni datos. Suite actual: 89 aprobadas en 94.92 s; evidencia en `documentation/evidence/interfaz-2026-09-14/`.
 - **Accesos locales — restablecimiento posterior autorizado:** se actualizaron las contraseñas de las cuatro cuentas DEMO por petición expresa del usuario. Se conservan usuarios, perfiles y datos; se revocaron sesiones previas y se registró auditoría. Las nuevas contraseñas se entregan únicamente en la conversación, sin guardarlas en texto plano en el repositorio.
@@ -29,6 +31,13 @@ Este archivo es la fuente de verdad del avance del proyecto. Debe actualizarse d
 - **Seguimiento:** los ocho paquetes originales de P1 conservan su cierre histórico; AM-01 a AM-14 documentan este incremento adicional. Las tareas semestrales no quedan cerradas automáticamente. Git contiene fuentes y artefactos; no se realizaron commits ni publicaciones.
 
 ## Terminado
+
+- [x] Implementar las trece mejoras de usabilidad, presentación y consultas aprobadas por el usuario.
+  - **Criterio de aceptación:** conservar capturas rechazadas y versiones obsoletas; impedir doble envío en interfaz sin reemplazar la validación transaccional; opciones y edición acordes al estado; orientación por etapa/perfil; filtros y KPIs coherentes con el ámbito; gráficas y series completas; respuestas parciales más pequeñas; consultas regionales sin crecimiento por solicitud; fechas locales convertidas a UTC sin ambigüedad.
+  - **Evidencia:** `tests/test_improvements.py`, `tests/improvements_browser.cjs`, regresiones existentes y `documentation/evidence/mejoras-2026-09-14/README.md`, con matriz M-01 a M-13, `Tests.xml`, `Performance.json` y capturas. 96 pruebas aprobadas en 141.23 s, sin fallos, errores ni omisiones.
+  - **Decisiones:** doce secciones filtrables, Jinja con fragmentos sobre las mismas rutas/autorizaciones, formularios sin almacenamiento clínico en navegador, versiones de conflicto conservadas. UTC inicial; elección explícita UTC/Monterrey al pie del portal, confirmación al recargar capturas pendientes y zona original por formulario. `tzdata` respalda sistemas sin base IANA; datos clínicos, sesión, reglas ABO/Rh y esquemas conservados.
+  - **Medición:** inventario: 12 consultas/página completa frente a 7/fragmento, HTML reducido aproximadamente a la mitad. Panel: 13 consultas tanto con una como con veinte solicitudes. Tiempos locales orientativos en `Performance.json`, sin afirmaciones de carga/producción.
+  - **Límites:** no se probó Windows nativo; sí el respaldo horario sin datos del sistema. Los expedientes con historia siguen requiriendo un diseño posterior de correcciones versionadas. Órganos, archivos binarios, microservicios y nube continúan pendientes.
 
 - [x] Aplicar filtros automáticos a los listados que ya disponen de búsqueda y filtros.
   - **Criterio de aceptación:** filtrar sin pulsar botones ni recargar la página; conservar foco, borradores, permisos y paginación; resultados y contadores coherentes con los criterios; recuperación ante error y respuestas fuera de orden.
@@ -473,6 +482,16 @@ Los pendientes siguientes corresponden a la validación institucional y al alcan
 | 2026-08-12 | Inspección inicial del directorio `proyectoPrueba`. | El directorio estaba vacío antes de crear la documentación base. |
 
 ## Bitácora de trabajo
+
+### 2026-09-14 — Trece mejoras operativas y de rendimiento
+
+- Se implementaron los trece puntos autorizados y sus criterios M-01 a M-13, conservando el alcance del monolito y los permisos.
+- Los formularios regionales recuperan capturas ante errores, los expedientes bloqueados se presentan como consulta y los detalles guían el siguiente paso humano.
+- Se añadieron filtros a Donaciones y Traslados, estado/urgencia a Solicitudes, enlaces desde indicadores y dos gráficas adicionales con días vacíos explícitos.
+- Los filtros reciben fragmentos HTML; inventario evita cálculos descartados y opciones innecesarias. Las alertas usan una sola consulta conjunta con pares derivados del mismo motor ABO/Rh.
+- Captura/consulta en UTC o Monterrey, persistencia UTC, filtro de auditoría por día local y datos horarios de respaldo `tzdata==2026.4`.
+- Suite final: 96 pruebas aprobadas en 141.23 s, sin fallos, errores ni omisiones. Se verificaron errores de formulario, versiones, permisos, consultas, sesión, filtros, recorrido sanguíneo, concurrencia, móvil y tres gráficas. Un fallo intermitente de espera de Limpiar no se reprodujo en la repetición ni en la ejecución final; la captura móvil espera la adaptación del menú.
+- Guía, README y evidencia actualizados; los documentos del primer avance conservan su corte histórico. Sin migración ni escrituras de negocio en la base habitual. Monolito reiniciado en 5050: salud, acceso y filtros HTTP 200; JavaScript servido idéntico al archivo actualizado. Clúster temporal detenido.
 
 ### 2026-09-14 — Filtros automáticos en los listados
 

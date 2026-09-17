@@ -38,8 +38,11 @@ def create_app(overrides=None):
     from .presentation.routes import admin, inventory, portal, public, regional
     for blueprint in (public.bp, portal.bp, admin.bp, inventory.bp, regional.bp):
         app.register_blueprint(blueprint)
+    from .presentation.timezones import datefmt, inputfmt, selected_zone, local_value, ZONES
     from .presentation.views import regional_value
     app.jinja_env.filters['regional_value'] = regional_value
+    app.jinja_env.filters['datefmt'] = datefmt
+    app.jinja_env.filters['inputfmt'] = inputfmt
     from .cli import register
     register(app)
 
@@ -49,11 +52,9 @@ def create_app(overrides=None):
         from .data_access.repositories.inventory import STATUSES
         return {"principal": getattr(g, "principal", None), "navigation": NAV, "future_views": FUTURE,
                 "titles": TITLES, "statuses": STATUSES, "utc_now": datetime.now(timezone.utc),
-                "chart_enabled": app.config["HIGHCHARTS_ENABLED"]}
-
-    @app.template_filter("datefmt")
-    def datefmt(value):
-        return value.astimezone(timezone.utc).strftime("%d/%m/%Y · %H:%M") if value else "—"
+                "chart_enabled": app.config["HIGHCHARTS_ENABLED"],
+                "local_now": local_value(datetime.now(timezone.utc)), "display_timezone": selected_zone(), "timezone_choices": ZONES,
+                "filter_fragment": request.method == "GET" and request.headers.get("X-Filter-Fragment") == "1"}
 
     @app.after_request
     def response_headers(response):
@@ -72,15 +73,8 @@ def create_app(overrides=None):
             response.headers["Strict-Transport-Security"] = "max-age=31536000"
         return response
 
-    @app.errorhandler(BusinessError)
-    def business_error(error):
-        if error.status in (403, 404) and getattr(g, "principal", None):
-            from .data_access.connection import transaction
-            from .data_access.repositories.audit import record
-            with transaction() as conn:
-                record(conn, g.principal, "ACCESS", "ENDPOINT", request.endpoint or "UNKNOWN",
-                       "Operación denegada", outcome="DENIED")
-        return render_template("error.html", title="Operación no completada", message=error.message, code=error.status), error.status
+    from .presentation.errors import business_error
+    app.register_error_handler(BusinessError, business_error)
 
     @app.errorhandler(CSRFError)
     def csrf_error(error):

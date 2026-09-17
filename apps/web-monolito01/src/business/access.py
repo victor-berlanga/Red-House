@@ -32,9 +32,9 @@ class Principal:
 
 
 class BusinessError(Exception):
-    def __init__(self, message, status=400):
+    def __init__(self, message, status=400, *, field=None):
         super().__init__(message)
-        self.message, self.status = message, status
+        self.message, self.status, self.field = message, status, field
 
 
 def require(principal, action):

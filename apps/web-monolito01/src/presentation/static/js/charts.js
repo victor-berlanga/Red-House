@@ -1,10 +1,10 @@
 "use strict";
-const chartContainer = document.getElementById("overview-chart");
-if (chartContainer && window.Highcharts) {
+for (const chartContainer of document.querySelectorAll("[data-chart-values]")) {
+  if (!window.Highcharts) continue;
   const values = JSON.parse(chartContainer.dataset.chartValues);
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   window.Highcharts.chart(chartContainer, {
-    chart: {type: "column", backgroundColor: "transparent", height: 245,
+    chart: {type: chartContainer.dataset.chartType || "column", backgroundColor: "transparent", height: 245,
       style: {fontFamily: "Inter, sans-serif"}, animation: !reducedMotion},
     title: {text: null},
     accessibility: {description: chartContainer.dataset.chartTitle},

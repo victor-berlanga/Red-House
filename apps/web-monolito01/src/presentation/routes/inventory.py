@@ -25,8 +25,8 @@ def index():
         parameter = network.parameter(conn, g.principal.region_name)
         hours = parameter["scalar_value"] if parameter else 72
         rows, total = repo.listing(conn, g.principal, filters, hours, page)
-        choices = network.options(conn, g.principal)
-        stats, _, _ = repo.summary(conn, g.principal, hours, filters)
+        choices = {} if request.headers.get("X-Filter-Fragment") == "1" else network.options(conn, g.principal)
+        stats = repo.summary(conn, g.principal, hours, filters, totals_only=True)
         audit.record(conn, g.principal, "READ", "BLOOD_UNIT", "LIST", "Consulta paginada de inventario autorizado")
     return render_template("inventory/list.html", title="Inventario sanguíneo", active="inventory", rows=rows,
                            total=total, page=page, choices=choices, hours=hours, stats=stats, groups=repo.GROUPS,

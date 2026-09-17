@@ -40,13 +40,15 @@ def one(conn, principal, identifier):
                         [*params, identifier]).fetchone()
 
 
-def summary(conn, principal, hours, filters=None):
+def summary(conn, principal, hours, filters=None, *, totals_only=False):
     clause, params = listing_scope(principal, filters or {}, hours)
     totals = conn.execute("""SELECT count(*) AS total, count(*) FILTER (WHERE is_available) AS available,
         count(*) FILTER (WHERE effective_status = 'EXPIRED') AS expired,
         count(*) FILTER (WHERE effective_status = 'QUARANTINED') AS quarantined,
         count(*) FILTER (WHERE is_available AND expires_at <= now() + %s * interval '1 hour') AS soon
         FROM blood_inventory v WHERE """ + clause, [hours, *params]).fetchone()
+    if totals_only:
+        return totals
     groups = conn.execute("""SELECT recorded_group_code AS label, count(*) AS value
         FROM blood_inventory v WHERE """ + clause + " AND is_available GROUP BY recorded_group_code", params).fetchall()
     urgent = conn.execute("""SELECT * FROM blood_inventory v WHERE """ + clause + """

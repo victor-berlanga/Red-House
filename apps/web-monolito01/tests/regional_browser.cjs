@@ -103,7 +103,7 @@ const path=require('node:path');
    assert(!(await auditor.locator('body').innerText()).includes('SECRETO-CLINICO'));
    assert.equal(await auditor.locator('main form').count(),0);
    await auditor.goto(base+'/auditoria');await capture(auditor,'Auditoria_regional');
-   await coord.goto(base+'/sangre/panel-regional');await coord.locator('.highcharts-root').waitFor();await overflow(coord);await capture(coord,'Panel_regional');
+   await coord.goto(base+'/sangre/panel-regional');await coord.locator('#overview-chart .highcharts-root').waitFor();assert.equal(await coord.locator('.highcharts-root').count(),3);await overflow(coord);await capture(coord,'Panel_regional');
    await coord.setViewportSize({width:390,height:844});await overflow(coord);await capture(coord,'Panel_regional_mobile');
    assert.deepEqual(failures,[]);assert.deepEqual(assets,[]);
    console.log(JSON.stringify({result:'PASS',flow:'donor-to-receipt-and-closure',roles:Object.keys(pages),javascriptErrors:failures,missingAssets:assets,screenshots:fs.readdirSync(output).filter(n=>n.endsWith('.png')).length}));

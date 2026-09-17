@@ -259,7 +259,7 @@ def test_unsupported_component_requires_manual_review(app,actors,db):
         assert exc.value.status==409
 
 
-@pytest.mark.parametrize('script', ['regional_browser.cjs', 'filters_browser.cjs'])
+@pytest.mark.parametrize('script', ['regional_browser.cjs', 'filters_browser.cjs', 'improvements_browser.cjs'])
 def test_regional_browser(app,actors,db,request,tmp_path,script):
     if not request.config.getoption('--browser'):
         pytest.skip('Requiere --browser, Chrome y Playwright mediante NODE_PATH.')
@@ -274,14 +274,14 @@ def test_regional_browser(app,actors,db,request,tmp_path,script):
         northLocation=location(actors['operador'].institution_id),valleyLocation=location(actors['operador.valle'].institution_id),
         transport=str(actors['traslado'].account_id),component=str(db.execute("SELECT component_id FROM blood_component WHERE component_code='RBC-DEMO'").fetchone()['component_id']))
     db.commit()
-    if script == 'filters_browser.cjs':
+    if script in ('filters_browser.cjs','improvements_browser.cjs'):
         case(app, actors)
     server=make_server('127.0.0.1',0,app,threaded=True)
     thread=Thread(target=server.serve_forever,daemon=True);thread.start()
     try:
         result=subprocess.run(['node',str(Path(__file__).with_name(script))],env={**os.environ,
             'BASE_URL':f'http://127.0.0.1:{server.server_port}','DEMO_PASSWORD':app.config['DEMO_TEST_PASSWORD'],
-            'REGIONAL_DATA':json.dumps(data),'BROWSER_ARTIFACTS':str(Path(os.getenv('BROWSER_ARTIFACTS',str(tmp_path)))/('filters' if script == 'filters_browser.cjs' else 'regional'))},
+            'REGIONAL_DATA':json.dumps(data),'BROWSER_ARTIFACTS':str(Path(os.getenv('BROWSER_ARTIFACTS',str(tmp_path)))/script.removesuffix('_browser.cjs'))},
             capture_output=True,text=True,timeout=200)
         assert result.returncode==0,result.stdout+result.stderr
         print(result.stdout)

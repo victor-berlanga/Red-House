@@ -4,9 +4,17 @@ Monolito académico de coordinación regional. Un proceso Flask renderiza Jinja2
 
 La revisión de interfaz del 14 de septiembre utiliza lenguaje operativo y marca la sección activa también en páginas de detalle. Órganos muestra su disponibilidad pendiente y recuperación de acceso dirige al administrador, sin formularios simulados. El alcance clínico y técnico permanece documentado; la evaluación de compatibilidad conserva su advertencia y autorización médica. Evidencia: [interfaz-2026-09-14](../../documentation/evidence/interfaz-2026-09-14/README.md).
 
+## Mejoras operativas
+
+Formularios regionales con errores junto a los campos, conservación de capturas rechazadas, áreas de texto y bloqueo de doble envío. Los expedientes con historial se muestran como consulta; las opciones de donantes y receptores reflejan sus estados y permiten buscar por folio/nombre. Los detalles incluyen etapa, siguiente paso y perfil responsable.
+
+El panel incorpora accesos desde sus indicadores, tres gráficas y tendencias de siete días con ceros. Los filtros usan fragmentos HTML y las alertas regionales agrupan sus consultas. La zona horaria puede cambiarse al pie del portal; si hay datos sin guardar, se pide confirmación antes de recargar. `tzdata` respalda el uso de zonas en sistemas que no incluyen sus datos.
+
+Criterios, mediciones y resultados: [trece mejoras verificadas](../../documentation/evidence/mejoras-2026-09-14/README.md).
+
 ## Filtros automáticos
 
-Inventario, auditoría, instituciones, sedes, ubicaciones, componentes, usuarios, donantes, receptores y solicitudes actualizan sus resultados sin recargar la página. Los desplegables y fechas se aplican al cambiar; la búsqueda espera 300 ms después de escribir. «Limpiar» restablece los filtros y cada cambio vuelve a la primera página. La URL conserva los criterios para recargar, compartir y usar Atrás/Adelante.
+Inventario, auditoría, instituciones, sedes, ubicaciones, componentes, usuarios, donantes, receptores, solicitudes, donaciones y traslados actualizan sus resultados sin recargar la página. Los desplegables y fechas se aplican al cambiar; la búsqueda espera 300 ms después de escribir. «Limpiar» restablece los filtros y cada cambio vuelve a la primera página. La URL conserva los criterios para recargar, compartir y usar Atrás/Adelante.
 
 La actualización conserva el foco del buscador y los borradores de formularios de registro. Inventario muestra contadores del conjunto filtrado. Un fallo conserva los resultados anteriores con un mensaje y opción de reintento; las respuestas obsoletas se descartan. Si vence la sesión, se solicita acceso nuevamente. Sin JavaScript permanece el envío convencional del formulario.
 
@@ -175,11 +183,11 @@ Todas usan la contraseña elegida durante el instalador o al ejecutar manualment
 
 También se pueden crear cuentas administrativas o auditoras institucionales. Un administrador institucional no puede ampliar su ámbito, modificar el catálogo regional ni incorporar otras instituciones. Una cuenta mantiene un solo perfil y ámbito vigentes en este incremento. Los perfiles no forman una jerarquía de privilegios clínicos.
 
-Para comprobar el flujo: inicia como Operador, registra una unidad ficticia con fechas UTC, consulta su detalle, registra un movimiento con motivo y, si todavía no tiene movimientos operativos posteriores al alta, ejecuta la baja lógica con un motivo. Recarga para verificar persistencia y confirma que la unidad ya no aparece en el inventario ni en el panel, aunque su detalle e historial siguen conservados. Después, inicia como Auditor para consultar la evidencia. La segunda cuenta operadora no puede acceder a esa unidad, ni siquiera mediante su URL directa.
+Para comprobar el flujo: inicia como Operador, registra una unidad ficticia con fechas en la zona indicada, consulta su detalle, registra un movimiento con motivo y, si todavía no tiene movimientos operativos posteriores al alta, ejecuta la baja lógica con un motivo. Recarga para verificar persistencia y confirma que la unidad ya no aparece en el inventario ni en el panel, aunque su detalle e historial siguen conservados. Después, inicia como Auditor para consultar la evidencia. La segunda cuenta operadora no puede acceder a esa unidad, ni siquiera mediante su URL directa.
 
 ## Reglas técnicas del incremento
 
-- Todos los horarios se capturan, almacenan y muestran en UTC. La caducidad debe ser posterior a la recolección; no se admite recolección futura ni alta disponible con caducidad vencida.
+- UTC es la zona inicial. El selector al pie del portal permite elegir UTC o America/Monterrey para captura y visualización; PostgreSQL conserva UTC. Cada formulario incluye su zona original y se rechazan horas locales ambiguas o inexistentes. La caducidad debe ser posterior a la recolección; no se admite recolección futura ni alta disponible con caducidad vencida.
 - Los estados persistidos son `AVAILABLE`, `QUARANTINED` y `WITHDRAWN`. Las transiciones operativas son demostrativas; `WITHDRAWN` se alcanza mediante la baja lógica exclusiva del Operador y no se revierte desde esta interfaz. La cuarentena de ejemplo no constituye validación de laboratorio.
 - `EXPIRED` y `UNAVAILABLE` se derivan al consultar. Caducidad o referencias inactivas impiden contabilizar una unidad como disponible sin borrar su historial.
 - La ventana inicial de aviso es **72 horas DEMO**; el administrador regional puede registrar otra versión entre 1 y 720 horas. Es un parámetro de interfaz, no una regla de conservación. No modifica las fechas capturadas. Si aún no existe una versión, la consulta utiliza el mismo valor DEMO de 72 horas.

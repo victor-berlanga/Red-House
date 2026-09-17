@@ -51,7 +51,45 @@ document.querySelectorAll('form[method="post"]').forEach(form => {
       event.preventDefault();
       return;
     }
-    const button = form.querySelector('button[type="submit"]');
-    if (button) { button.disabled = true; button.setAttribute("aria-busy", "true"); }
+    if (event.defaultPrevented) return;
+    if (form.dataset.submitting) { event.preventDefault(); return; }
+    form.dataset.submitting = "true";
+    const button = event.submitter || form.querySelector('button:not([type="button"]), input[type="submit"]');
+    if (button) {
+      button.dataset.originalText = button.textContent;
+      button.disabled = true; button.setAttribute("aria-busy", "true");
+      if (button.classList.contains("button")) button.textContent = "Guardando…";
+    }
   });
 });
+
+window.addEventListener("pageshow", () => {
+  document.querySelectorAll('form[data-submitting]').forEach(form => {
+    delete form.dataset.submitting;
+    form.querySelectorAll('[aria-busy="true"]').forEach(button => {
+      button.disabled = false; button.removeAttribute("aria-busy");
+      if (button.dataset.originalText) button.textContent = button.dataset.originalText;
+    });
+  });
+});
+// Búsqueda local de opciones ya autorizadas; nunca consulta expedientes ajenos.
+document.querySelectorAll('[data-option-search]').forEach(input => {
+  const select = document.getElementById(input.dataset.optionSearch);
+  const options = Array.from(select.options).map(option => option.cloneNode(true));
+  input.addEventListener('input', () => {
+    const chosen = select.value, query = input.value.toLocaleLowerCase('es').trim();
+    select.replaceChildren(...options.filter(o => !o.value || o.value === chosen || o.textContent.toLocaleLowerCase('es').includes(query)).map(o => o.cloneNode(true)));
+    select.value = chosen;
+  });
+});
+
+document.querySelectorAll('form[method="post"]:not(.timezone-picker)').forEach(form => {
+  form.addEventListener('input', () => {form.dataset.dirty='true';});
+  form.addEventListener('change', () => {form.dataset.dirty='true';});
+});
+const timezoneForm=document.querySelector('.timezone-picker');
+if (timezoneForm) timezoneForm.addEventListener('submit', event => {
+  if (document.querySelector('form[data-dirty="true"]') && !window.confirm('Cambiar el horario recargará la página. Hay datos sin guardar. ¿Continuar?')) event.preventDefault();
+},true);
+const formError=document.getElementById('form-error');
+if (formError) formError.focus();

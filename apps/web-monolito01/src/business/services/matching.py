@@ -62,7 +62,7 @@ def reserve(actor,identifier,data):
     require(actor,'allocation.authorize')
     if data.get('human_confirmation')!='on':
         raise BusinessError('La reserva exige revisión y autorización humana explícita.')
-    reason=v.text(data,'reason','el fundamento de autorización (sin datos clínicos personales)',240)
+    reason=v.paragraph(data,'reason','el fundamento de autorización (sin datos clínicos personales)',240)
     with transaction() as conn:
         request=r.request_row(conn,actor,identifier,clinical=True,lock=True)
         check_version(request,v.integer(data,'version_no'))

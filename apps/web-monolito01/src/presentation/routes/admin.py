@@ -28,7 +28,7 @@ def index(entity):
     with transaction() as conn:
         rows, total = network.listing(conn, entity, g.principal, query, state, page)
         audit.record(conn, g.principal, "READ", network.ENTITIES[entity][0].upper(), "LIST", "Consulta administrativa autorizada")
-    return render_template("admin/list.html", title=TITLES[entity], active=entity, entity=entity,
+    return render_template("admin/list.html", title=TITLES[entity], active="institutions" if entity in ("sites", "locations") else entity, entity=entity,
                            rows=rows, total=total, page=page, metadata=network.ENTITIES[entity])
 
 
@@ -67,7 +67,7 @@ def form(entity, identifier=None):
         data["capabilities"] = request.form.getlist("capabilities")
         data["is_active"] = request.form.get("is_active") == "on"
     return render_template("admin/form.html", title=("Editar " if identifier else "Registrar ") + TITLES[entity].lower(),
-                           active=entity, entity=entity, data=data, choices=choices,
+                           active="institutions" if entity in ("sites", "locations") else entity, entity=entity, data=data, choices=choices,
                            identifier=identifier, error=error), status
 
 
