@@ -124,7 +124,7 @@ def save(entity, principal, data, identifier=None):
                 conn.execute("""UPDATE web_session SET revoked_at = now() WHERE revoked_at IS NULL AND
                     account_id IN (SELECT account_id FROM account_role WHERE institution_id = %s)""", (identifier,))
         audit.record(conn, principal, "UPDATE" if before else "CREATE", table.upper(), identifier,
-                     "Actualización administrativa" if before else "Registro administrativo",
+                     v.paragraph(data, "audit_reason", "el motivo del cambio (sin datos sensibles)", 240) if before else "Registro administrativo",
                      institution_id=target_institution, before={k: before.get(k) for k in values} if before else {}, after=values)
         return identifier
 
@@ -171,7 +171,7 @@ def save_user(conn, principal, data, identifier, before):
         previous["region_name"] = None if before["institution_id"] else before["region_name"]
         previous["password_changed"] = False
     audit.record(conn, principal, "UPDATE" if before else "CREATE", "USER_ACCOUNT", identifier,
-                 "Cuenta y ámbito actualizados; sesiones anteriores revocadas" if before else "Cuenta creada",
+                 v.paragraph(data, "audit_reason", "el motivo del cambio (sin datos sensibles)", 240) if before else "Cuenta creada",
                  institution_id=institution_id, before=previous, after=tracked)
     return identifier
 
@@ -191,5 +191,5 @@ def save_parameter(principal, data):
                      "region_name": principal.region_name, "version_no": current_version + 1,
                      "scalar_value": hours, "approved_by": principal.account_id}, "parameter_version_id")
         audit.record(conn, principal, "CONFIGURE", "PARAMETER_VERSION", row["parameter_version_id"],
-                     "Umbral DEMO de aviso; no modifica fechas de caducidad",
+                     v.paragraph(data, "audit_reason", "el motivo del cambio (sin datos sensibles)", 240),
                      before={"hours": previous["scalar_value"] if previous else None}, after={"hours": hours})

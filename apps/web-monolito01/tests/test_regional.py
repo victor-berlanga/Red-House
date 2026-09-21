@@ -48,7 +48,7 @@ def case(app,actors,suffix='01'):
             restrictions='Ninguna registrada DEMO',current_status='ACTIVE'))
         request=r.create_request(actors['medico.valle'],dict(request_code='SOL-'+suffix,recipient_id=recipient,component_id=component,
             quantity=1,urgency='URGENT',justification='SECRETO-CLINICO-JUSTIFICACION'))
-        r.save_route(actors['coordinador'],dict(origin_id=actors['operador'].institution_id,destination_id=actors['medico.valle'].institution_id,
+        r.save_route(actors['coordinador'],dict(audit_reason='Actualización de estimación de prueba',origin_id=actors['operador'].institution_id,destination_id=actors['medico.valle'].institution_id,
             distance_km=30,travel_minutes=45,source_reference='Supuesto académico de prueba, no ruta real'))
         eid=matching.evaluate(actors['coordinador'],request)
         with transaction() as conn:
@@ -65,7 +65,7 @@ def reserve(app,actors,c):
 def deliver(app,actors,c,aid):
     with app.app_context():
         departure=r.now()+timedelta(minutes=1)
-        sid=logistics.plan(actors['coordinador'],aid,dict(version_no=1,transport_id=actors['traslado'].account_id,
+        sid=logistics.plan(actors['coordinador'],aid,dict(audit_reason='Programación de prueba',version_no=1,transport_id=actors['traslado'].account_id,
             vehicle='VEHICULO-DEMO',departure_at=departure.isoformat(),eta=(departure+timedelta(minutes=45)).isoformat()))
         for version,(role,target) in enumerate([('operador','PREPARED'),('traslado','COLLECTED'),('traslado','IN_TRANSIT'),('traslado','DELIVERED'),('operador.valle','ACCEPTED')],1):
             data=dict(version_no=version,status=target,location_description='Ubicación ficticia del evento',observation='Evidencia de '+target,evidence_reference='ACTA-DEMO-'+target)
@@ -210,7 +210,7 @@ def test_reservation_audit_failure_rolls_back(app,actors,db,monkeypatch):
 def test_stale_route_and_expired_units_are_rejected(app,actors,db):
     c=case(app,actors)
     with app.app_context():
-        r.save_route(actors['coordinador'],dict(origin_id=actors['operador'].institution_id,destination_id=actors['medico.valle'].institution_id,distance_km=50,travel_minutes=60,source_reference='Nuevo supuesto'))
+        r.save_route(actors['coordinador'],dict(audit_reason='Actualización de estimación de prueba',origin_id=actors['operador'].institution_id,destination_id=actors['medico.valle'].institution_id,distance_km=50,travel_minutes=60,source_reference='Nuevo supuesto'))
         with pytest.raises(BusinessError) as exc: reserve(app,actors,c)
         assert exc.value.status==409
     db.execute("UPDATE blood_unit SET collected_at=now()-interval '2 days',expires_at=now()-interval '1 minute' WHERE resource_id=%s",(c['resource'],));db.commit()
@@ -222,7 +222,7 @@ def test_custody_states_append_only_and_foreign_transport(app,actors,db):
     c=case(app,actors);aid=reserve(app,actors,c)
     with app.app_context():
         departure=r.now()+timedelta(minutes=1)
-        sid=logistics.plan(actors['coordinador'],aid,dict(version_no=1,transport_id=actors['traslado'].account_id,vehicle='DEMO',departure_at=departure.isoformat(),eta=(departure+timedelta(minutes=45)).isoformat()))
+        sid=logistics.plan(actors['coordinador'],aid,dict(audit_reason='Programación de prueba',version_no=1,transport_id=actors['traslado'].account_id,vehicle='DEMO',departure_at=departure.isoformat(),eta=(departure+timedelta(minutes=45)).isoformat()))
         for role,target in [('traslado','PREPARED'),('operador.valle','PREPARED'),('operador','ACCEPTED')]:
             with pytest.raises(BusinessError): logistics.step(actors[role],aid,dict(version_no=1,status=target))
         with pytest.raises(BusinessError): r.close_request(actors['medico.valle'],c['request'],dict(version_no=2,status='CLOSED',observation='Prematuro'))
@@ -259,7 +259,7 @@ def test_unsupported_component_requires_manual_review(app,actors,db):
         assert exc.value.status==409
 
 
-@pytest.mark.parametrize('script', ['regional_browser.cjs', 'filters_browser.cjs', 'improvements_browser.cjs'])
+@pytest.mark.parametrize('script', ['regional_browser.cjs', 'filters_browser.cjs', 'improvements_browser.cjs', 'panels_browser.cjs'])
 def test_regional_browser(app,actors,db,request,tmp_path,script):
     if not request.config.getoption('--browser'):
         pytest.skip('Requiere --browser, Chrome y Playwright mediante NODE_PATH.')
@@ -274,7 +274,7 @@ def test_regional_browser(app,actors,db,request,tmp_path,script):
         northLocation=location(actors['operador'].institution_id),valleyLocation=location(actors['operador.valle'].institution_id),
         transport=str(actors['traslado'].account_id),component=str(db.execute("SELECT component_id FROM blood_component WHERE component_code='RBC-DEMO'").fetchone()['component_id']))
     db.commit()
-    if script in ('filters_browser.cjs','improvements_browser.cjs'):
+    if script in ('filters_browser.cjs','improvements_browser.cjs','panels_browser.cjs'):
         case(app, actors)
     server=make_server('127.0.0.1',0,app,threaded=True)
     thread=Thread(target=server.serve_forever,daemon=True);thread.start()

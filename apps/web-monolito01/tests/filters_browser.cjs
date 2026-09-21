@@ -159,5 +159,9 @@ const path = require('node:path');
       console.error(role,JSON.stringify(state));
     }
     throw error;
-  } finally {await browser.close();}
+  } finally {
+    // Cerrar cada contexto antes del proceso evita dejar páginas/interceptores pendientes.
+    await Promise.all(browser.contexts().map(context=>context.close()));
+    await browser.close();
+  }
 })().catch(error=>{console.error(error);process.exit(1);});

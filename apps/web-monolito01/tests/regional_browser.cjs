@@ -26,12 +26,22 @@ const path=require('node:path');
    assert.equal(await section.count(),1,title);
    for(const [name,value] of Object.entries(values)){
       const el=section.locator(`[name="${name}"]`);
+      if(await el.isDisabled())continue; // El motivo solo se captura al confirmar.
       const tag=await el.evaluate(e=>e.tagName);
       if(tag==='SELECT') await el.selectOption(String(value));
       else if((await el.getAttribute('type'))==='checkbox') await el.check();
       else await el.fill(String(value));
    }
-   await Promise.all([p.waitForNavigation(),section.getByRole('button').click()]);
+   const form=section.locator('form');
+   const submit=section.locator('button[type=submit]');
+   if(await form.getAttribute('data-confirm-edit')){
+     await submit.click();
+     const dialog=section.locator('dialog[open]');
+     assert.equal(await dialog.count(),1);
+     const reason=dialog.locator('textarea');
+     if(await reason.count())await reason.fill(String(values[await reason.getAttribute('name')] || 'Operación de prueba confirmada'));
+     await Promise.all([p.waitForNavigation(),dialog.locator('[data-confirm-accept]').click()]);
+   }else await Promise.all([p.waitForNavigation(),submit.click()]);
    assert.equal(await p.locator('h1').count(),1);
    await navigation(p);
    assert(!await p.getByText('Operación no completada',{exact:true}).count(),await p.locator('body').innerText());
@@ -56,6 +66,9 @@ const path=require('node:path');
    assert(!(await op.locator('body').innerText()).includes('ENTORNO ACADÉMICO'));
    await submit(op,'Registrar expediente',{institution_id:data.north,record_code:'BROWSER-DONOR',display_name:'Donante ficticio de prueba',blood_group:'O-',restrictions:'Ninguna registrada DEMO',donation_kind:'VOLUNTARY',background:'SECRETO-CLINICO-ANTECEDENTES',consent_reference:'CONSENT-BROWSER',consent_at:new Date(Date.now()-60000).toISOString().slice(0,16)});
    const donorUrl=op.url(),donorId=donorUrl.split('/').at(-1);
+   await op.locator('[name=restrictions]').fill('Actualización reservada DEMO');
+   assert(!await op.locator('[name=audit_reason]').isVisible());
+   await submit(op,'Actualizar expediente',{audit_reason:'Corrección documental autorizada'});
    const med=await login('medico');await med.goto(donorUrl);
    await submit(med,'Registrar evaluación del donante',{decision:'ELIGIBLE',reason:'Evaluación humana ficticia',human_confirmation:true});
    await capture(med,'Donante_revision');
@@ -76,6 +89,8 @@ const path=require('node:path');
    const dest=await login('medico.valle');await dest.goto(base+'/sangre/personas/recipient');
    await submit(dest,'Registrar expediente',{institution_id:data.valley,record_code:'BROWSER-RECIPIENT',display_name:'Receptor ficticio de prueba',blood_group:'O-',restrictions:'Ninguna registrada DEMO',requirement:'SECRETO-CLINICO-REQUERIMIENTO',urgency:'URGENT',studies:'SECRETO-CLINICO-ESTUDIOS',current_status:'ACTIVE'});
    const recipientId=dest.url().split('/').at(-1);
+   await dest.locator('[name=studies]').fill('SECRETO-CLINICO-ESTUDIOS actualizado');
+   await submit(dest,'Actualizar expediente',{audit_reason:'Corrección documental autorizada'});
    await dest.goto(base+'/sangre/solicitudes');
    await submit(dest,'Crear solicitud de receptor',{request_code:'BROWSER-REQUEST',recipient_id:recipientId,component_id:data.component,quantity:1,urgency:'URGENT',justification:'SECRETO-CLINICO-JUSTIFICACION'});
    const requestUrl=dest.url();

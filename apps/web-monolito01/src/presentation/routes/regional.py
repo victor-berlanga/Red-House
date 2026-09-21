@@ -41,13 +41,24 @@ def field(name,label,options=None,kind='text',required=True,value='',limit=1000)
 
 
 def form(title,action,fields,button=None,version=None):
+    fields=[dict(f) for f in fields]
+    editing = title in ('Actualizar expediente', 'Actualizar estimación')
+    for f in fields:
+        f['readonly'] = editing and f['name'] == 'institution_id'
+    audited = editing or title in ('Asignar y programar traslado', 'Registrar o actualizar ruta')
+    original = {f['name']: f['value'] for f in fields}
+    if audited:
+        fields.append(field('audit_reason','Motivo de la operación (sin datos personales ni clínicos)',limit=240))
+        fields[-1]['kind']='textarea'
     error = getattr(g,'form_error',None) if action == request.path else None
     if error:
         for f in fields:
-            f['value']=request.form.get(f['name'],'')
+            if not f.get('readonly'):
+                f['value']=request.form.get(f['name'],'')
         # No sustituir una versión obsoleta por la nueva sin revisión del usuario.
         if version is not None: version=request.form.get('version_no','')
-    return dict(title=title,action=action,fields=fields,button=button or title,version=version,error=error)
+    return dict(title=title,action=action,fields=fields,button=button or title,version=version,error=error,
+                editing=editing,original=original,confirm=audited)
 
 
 def display_path():
@@ -67,6 +78,14 @@ def page(title,*,active,rows=None,columns=None,forms=None,facts=None,total=None,
         raise BusinessError('El registro es de solo lectura en su estado actual. Consulta el detalle para revisar su historial.',409)
     if request.method == 'GET' and request.headers.get('X-Detail-Modal') == '1':
         forms=[]
+    # A record's facts and available operations share one card. History remains separate.
+    for item in forms or []:
+        item['confirm'] = item['confirm'] or bool(facts)
+        item['warning'] = ('Actualizar el expediente del donante requiere una nueva evaluación; su estado volverá a pendiente.'
+                           if active=='donantes' and item['editing'] else '')
+    if forms:
+        editable_labels={f['label'] for item in forms if item['editing'] for f in item['fields']}
+        facts=[(label,value) for label,value in facts if label not in editable_labels]
     filters=[]
     if active=='solicitudes':
         filters=[('status','Estado',['ACTIVE','OPEN','IN_PROGRESS','CLOSED','CANCELLED']),('urgency','Urgencia',['URGENT','PRIORITY','ROUTINE'])]
@@ -335,7 +354,7 @@ def route_detail(identifier):
         data.update(origin_id=str(row['origin_id']),destination_id=str(row['destination_id']))
         svc.save_route(g.principal,data,identifier)
         return redirect(url_for('regional.route_edit',identifier=identifier))
-    fields=[field('distance_km','Distancia (km)',kind='number',value=row['distance_km']),field('travel_minutes','Tiempo estimado (minutos)',kind='number',value=row['travel_minutes']),field('source_reference','Fuente de la estimación',value=row['source_reference'],limit=240)]
+    fields=[field('distance_km','Distancia (km)',kind='number',value=row['distance_km']),field('travel_minutes','Tiempo estimado (minutos)',kind='number',value=row['travel_minutes']),field('source_reference','Fuente',value=row['source_reference'],limit=240)]
     return page('Ruta regional',active='rutas',facts=[('Origen',row['origin_name']),('Destino',row['destination_name']),('Distancia (km)',row['distance_km']),('Tiempo estimado (minutos)',row['travel_minutes']),('Fuente',row['source_reference']),('Versión',row['version_no']),('Actualización',row['recorded_at'])],forms=[form('Actualizar estimación',display_path(),fields,version=row['version_no'])] if request.endpoint=='regional.route_edit' else [])
 
 

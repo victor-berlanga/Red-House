@@ -6,11 +6,17 @@ La revisión de interfaz del 14 de septiembre utiliza lenguaje operativo y marca
 
 ## Mejoras operativas
 
+La edición de inventario reúne los datos de la unidad en una tarjeta; únicamente estado y ubicación aparecen como desplegables. «Guardar cambios» abre una confirmación con valores anteriores/nuevos y motivo obligatorio. «Dar de baja» abre su propia confirmación y motivo, conservando historial; no guarda cambios pendientes de los desplegables. Cancelar o cerrar la confirmación no envía datos. Las validaciones de permisos, versiones y motivo permanecen en el servidor.
+
+El mismo patrón se extiende a expedientes, rutas, donaciones, solicitudes, traslados, administración y aviso de caducidad: datos y operaciones del registro en una tarjeta, resumen antes de enviar y motivo/referencia dentro de la confirmación. Las revisiones médicas, liberaciones y eventos de custodia conservan sus formularios y autorizaciones propias. La consulta de candidatos solo confirma el cálculo, sin inventar un motivo clínico. Los motivos administrativos nuevos se validan en servidor y se conservan en la auditoría de la misma transacción; no deben incluir datos personales, clínicos ni contraseñas. Al modificar cuentas se advierte la revocación de sesiones y nunca se muestra la contraseña en el resumen. Los campos de identidad institucional no reasignables son de lectura. Sin JavaScript, estos formularios mantienen los campos de motivo visibles y la validación del servidor, pero no el diálogo. No se agregan ediciones a auditoría, historiales o tableros de consulta.
+
 Las acciones de cada registro se separan en ojo (detalle completo autorizado en una ventana de solo lectura, sin salir del listado) y lápiz (pantalla de edición o gestión existente). El lápiz depende del perfil, ámbito y estado del registro; las rutas `/editar` vuelven a comprobarlo en el servidor. Auditoría e historiales solo permiten consulta. En tablas de agregados, el ojo presenta los campos del resultado, sin inventar una edición del resumen.
 
 La ventana se cierra con su botón, Escape o el fondo; retiene el foco y lo devuelve al control de origen. Conserva filtros, permite reintentar errores de carga y comunica la sesión vencida. Un acceso directo denegado muestra el mensaje una sola vez en la página del portal, con explicación y regreso al panel, manteniendo HTTP 403; los recursos fuera de ámbito conservan 404 para no revelar su existencia. Si falla una consulta iniciada con el ojo, el error aparece dentro de ese mismo diálogo. Sin JavaScript, los errores siguen siendo páginas legibles y los enlaces de edición conservan sus comprobaciones; la apertura modal requiere JavaScript.
 
 Evidencia de acciones y permisos: [acciones-2026-09-21](../../documentation/evidence/acciones-2026-09-21/README.md).
+
+Evidencia de edición unificada y confirmaciones: [paneles-2026-09-21](../../documentation/evidence/paneles-2026-09-21/README.md), con 110 pruebas distintas comprobadas y registro de las repeticiones de navegador.
 
 Formularios regionales con errores junto a los campos, conservación de capturas rechazadas, áreas de texto y bloqueo de doble envío. Los expedientes con historial se muestran como consulta; las opciones de donantes y receptores reflejan sus estados y permiten buscar por folio/nombre. Los detalles incluyen etapa, siguiente paso y perfil responsable.
 

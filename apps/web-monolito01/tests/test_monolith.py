@@ -126,9 +126,13 @@ def test_operator_soft_delete_hides_inventory_but_preserves_history(client, sign
     assert response.status_code == 302
     row = db.execute("SELECT * FROM blood_inventory WHERE traceability_code = %s", (payload["traceability_code"],)).fetchone()
     detail_path = f"/inventario/{row['resource_id']}"
-    assert b"Dar de baja unidad" in client.get(detail_path).data
+    assert b'data-inventory-confirm="withdraw"' in client.get(detail_path).data
 
     delete_path = f"/inventario/{row['resource_id']}/eliminar"
+    rejected = client.post(delete_path, data={"csrf_token":csrf(client, detail_path),
+        "version_no":row["version_no"], "reason":"   "})
+    assert rejected.status_code == 400
+    assert db.execute("SELECT current_status FROM blood_unit WHERE resource_id=%s", (row["resource_id"],)).fetchone()["current_status"] == row["current_status"]
     response = client.post(delete_path, data={"csrf_token":csrf(client, detail_path),
         "version_no":row["version_no"], "reason":"Retiro ficticio del inventario"})
     assert response.status_code == 302
@@ -214,7 +218,7 @@ def test_concurrent_inventory_updates_one_wins(app, db):
 
 def test_parameters_versions_and_global_permission(client, sign_in, db):
     sign_in(client,"admin")
-    response = client.post("/administracion/configuracion/parametros", data={"csrf_token":csrf(client,"/administracion/configuracion/parametros"),"version_no":1,"hours":24})
+    response = client.post("/administracion/configuracion/parametros", data={"csrf_token":csrf(client,"/administracion/configuracion/parametros"),"version_no":1,"hours":24,"audit_reason":"Ajuste del aviso de prueba"})
     assert response.status_code == 302
     assert db.execute("SELECT count(*) AS n FROM parameter_version").fetchone()["n"] == 2
     assert client.post("/administracion/configuracion/parametros",data={"csrf_token":csrf(client,"/panel"),"version_no":1,"hours":10}).status_code == 409
@@ -291,7 +295,7 @@ def test_user_creation_role_change_deactivation_and_self_protection(client, sign
     assert new_client.get("/inventario").status_code == 200
     path=f"/administracion/users/{row['account_id']}/editar"
     assert client.get(path).status_code == 200
-    assert client.post(path,data={**payload,"password":"","version_no":row["version_no"],"account_status":"INACTIVE",
+    assert client.post(path,data={**payload,"audit_reason":"Inactivar cuenta de prueba","password":"","version_no":row["version_no"],"account_status":"INACTIVE",
                                   "csrf_token":csrf(client,path)}).status_code == 302
     assert new_client.get("/inventario").status_code == 302
     admin=accounts.by_email(db,"admin@red-house.test")
@@ -318,7 +322,7 @@ def test_institutional_admin_cannot_expand_scope(client, sign_in, app, db):
 def test_catalog_inactivation_hides_availability_and_stale_write_is_rejected(client, sign_in, db):
     sign_in(client,"admin")
     component=db.execute("SELECT * FROM blood_component LIMIT 1").fetchone()
-    data={"component_code":component["component_code"],"component_name":component["component_name"],"version_no":component["version_no"]}
+    data={"audit_reason":"Inactivar componente de prueba","component_code":component["component_code"],"component_name":component["component_name"],"version_no":component["version_no"]}
     path=f"/administracion/components/{component['component_id']}/editar"
     assert client.post(path,data={**data,"csrf_token":csrf(client,path)}).status_code == 302
     assert db.execute("SELECT count(*) AS n FROM blood_inventory WHERE component_id=%s AND is_available",(component["component_id"],)).fetchone()["n"] == 0
@@ -344,7 +348,7 @@ def test_network_references_contacts_and_activation(client, sign_in, app, db):
     north=db.execute("SELECT * FROM institution WHERE institution_code='DEMO-NORTE'").fetchone()
     operator=app.test_client(); sign_in(operator)
     for key, value in {"institution_code":north["institution_code"],"institution_name":north["institution_name"],"contact_name":"Contacto DEMO",
-        "participation_status":"INACTIVE","version_no":north["version_no"],"csrf_token":csrf(client,"/panel")}.items():
+        "audit_reason":"Inactivar institución de prueba","participation_status":"INACTIVE","version_no":north["version_no"],"csrf_token":csrf(client,"/panel")}.items():
         data[key] = value
     assert client.post(f"/administracion/institutions/{north['institution_id']}/editar",data=data).status_code == 302
     assert operator.get("/panel").status_code == 302

@@ -115,7 +115,8 @@ def plan(actor,identifier,data):
             vehicle=v.text(data,'vehicle','el vehículo'),departure_at=departure,eta=eta),'shipment_id')
         conn.execute("UPDATE blood_allocation SET current_status='ASSIGNED',version_no=version_no+1 WHERE allocation_id=%s",(identifier,))
         custody(conn,actor,shipment['shipment_id'],'SCHEDULED',row['origin_name'],'Traslado programado','Orden de traslado '+str(shipment['shipment_id']))
-        r.event(conn,actor,'ASSIGN','BLOOD_ALLOCATION',identifier,row['origin_id'],transport_id=transport['account_id'])
+        r.event(conn,actor,'ASSIGN','BLOOD_ALLOCATION',identifier,row['origin_id'],transport_id=transport['account_id'],
+                audit_reason=v.paragraph(data,'audit_reason','el motivo de la programación (sin datos sensibles)',240))
         return shipment['shipment_id']
 
 

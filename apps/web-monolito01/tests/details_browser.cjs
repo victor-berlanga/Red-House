@@ -16,7 +16,7 @@ const path=require('node:path');
   await p.screenshot({path:path.join(out,'Detalle_inventario.png')});
   await p.keyboard.press('Escape');assert(await eye.evaluate(e=>e===document.activeElement));
   await p.locator('.row-actions a[aria-label^="Editar"]').first().click();await p.waitForURL(/\/editar$/);
-  assert(await p.getByRole('button',{name:/Guardar movimiento/}).isVisible());
+  assert(await p.getByRole('button',{name:'Guardar cambios',exact:true}).isVisible());
   await p.goto(base+'/inventario');await p.locator('input[name=q]').fill('UNIT-01');
   await p.waitForURL(u=>u.searchParams.get('q')==='UNIT-01');await p.waitForFunction(()=>!document.querySelector('[data-filter-results]').hasAttribute('inert'));
   await p.locator('[data-record-view]').first().click();await dialog.locator('[data-detail-content]').waitFor();assert.equal(new URL(p.url()).searchParams.get('q'),'UNIT-01');

@@ -55,6 +55,7 @@ def form(entity, identifier=None):
                 audit.record(conn, g.principal, "READ", network.ENTITIES[entity][0].upper(), identifier,
                              "Consulta de detalle administrativo", institution_id=data.get("institution_id"))
         choices = network.options(conn, g.principal)
+    original = {key: value for key, value in data.items() if key not in ('password', 'password_hash')}
     if request.method == "POST":
         try:
             administration.save(entity, g.principal, request.form, identifier)
@@ -72,7 +73,7 @@ def form(entity, identifier=None):
         data["is_active"] = request.form.get("is_active") == "on"
     return render_template("admin/form.html", title=("Editar " if identifier else "Registrar ") + TITLES[entity].lower(),
                            active="institutions" if entity in ("sites", "locations") else entity, entity=entity, data=data, choices=choices,
-                           identifier=identifier, error=error), status
+                           identifier=identifier, error=error, original=original), status
 
 
 @bp.get('/<entity>/<uuid:identifier>')

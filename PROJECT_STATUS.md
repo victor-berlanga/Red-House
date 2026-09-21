@@ -14,6 +14,10 @@ Este archivo es la fuente de verdad del avance del proyecto. Debe actualizarse d
 
 ## Resumen actual
 
+- **Paneles unificados y confirmación — 2026-09-21:** extendido el patrón a expedientes, rutas, donaciones, solicitudes, traslados, administración y aviso de caducidad. Datos y operaciones en una tarjeta; motivos/referencias en confirmación, resúmenes sin contraseñas ni contenido clínico, permisos y autorizaciones conservados. Los motivos nuevos se validan y auditan atómicamente. 110 pruebas distintas comprobadas: regresión con 109 aprobadas y un timeout del cierre de Chrome; prueba restante aprobada al repetir, más revisión final de filtros/paneles aprobada. Evidencia: `documentation/evidence/paneles-2026-09-21/`.
+
+- **Edición unificada de inventario — 2026-09-21:** una tarjeta reúne los datos y los desplegables de estado/ubicación. Guardar y dar de baja solicitan resumen y motivo obligatorio en diálogo; el motivo no aparece en el panel general. Validaciones y permisos existentes conservados. 31 pruebas distintas comprobadas: 30 aprobadas en la ejecución de inventario/navegador/detalles y la prueba restante aprobada al actualizar su expectativa del botón. Evidencia: `documentation/evidence/edicion-inventario-2026-09-21/`.
+
 - **Error de permisos sin duplicación — 2026-09-21:** al navegar directamente a una ruta denegada, el mensaje aparece únicamente en la página, sin ventana automática superpuesta. Los diálogos del ojo conservan su funcionamiento. Prueba de navegador aprobada en 12.38 s; evidencia actualizada en `acciones-2026-09-21/Error_page_tests.xml` y `Acceso_denegado.png`. Sustituye la presentación modal automática descrita en el incremento anterior.
 
 - **Consulta modal y edición separada — 2026-09-21:** ojo para detalle completo autorizado sin navegar; lápiz para edición/gestión según perfil, ámbito y estado. Auditoría e historiales solo permiten consulta. Rutas de edición protegidas y ventanas de acceso denegado coherentes con el portal. Regresión: 99 aprobadas en 258.50 s; comprobación final de cuatro pruebas específicas: 4 aprobadas en 17.95 s, sin fallos ni omisiones. Evidencia: `documentation/evidence/acciones-2026-09-21/`. Sin migraciones ni cambios de datos habituales.
@@ -41,6 +45,11 @@ Este archivo es la fuente de verdad del avance del proyecto. Debe actualizarse d
 - **Seguimiento:** los ocho paquetes originales de P1 conservan su cierre histórico; AM-01 a AM-14 documentan este incremento adicional. Las tareas semestrales no quedan cerradas automáticamente. Git contiene fuentes y artefactos; no se realizaron commits ni publicaciones.
 
 ## Terminado
+
+- [x] Extender la edición unificada y la confirmación a los paneles restantes (2026-09-21).
+  - **Criterio de aceptación:** una tarjeta por registro con sus datos y operaciones autorizadas; resumen y motivo/referencia al confirmar, cancelación sin envío, contraseñas ocultas, bloqueo por permisos/historial y persistencia auditable de los motivos nuevos.
+  - **Alcance:** expedientes, donaciones, solicitudes, traslados, rutas, catálogos administrativos, usuarios y aviso de caducidad. Se conservan acciones clínicas y de custodia independientes, así como historiales y auditoría de consulta.
+  - **Evidencia:** `documentation/evidence/paneles-2026-09-21/Tests.xml` (109 aprobadas y un timeout), `Filters_retest.xml` (prueba restante aprobada) y `Browser_retest.xml` (filtros y paneles aprobados tras cierre explícito de contextos). 110 casos distintos comprobados, incluyendo nueve casos nuevos de auditoría/atomicidad y navegador con siete paneles administrativos/configuración/rutas. Capturas de escritorio y móvil inspeccionadas.
 
 - [x] Separar consulta y edición por fila y comprobar acceso directo a endpoints.
   - **Criterio de aceptación:** ojo con detalle completo permitido en diálogo de solo lectura sin cambiar URL/filtros; lápiz hacia la operación existente solo cuando corresponde; autorización real por rol/recurso/estado incluso al escribir la URL; error comprensible con regreso al panel; cierre y foco accesibles, móvil, reintento y sesión vencida.
@@ -498,6 +507,22 @@ Los pendientes siguientes corresponden a la validación institucional y al alcan
 | 2026-08-12 | Inspección inicial del directorio `proyectoPrueba`. | El directorio estaba vacío antes de crear la documentación base. |
 
 ## Bitácora de trabajo
+
+### 2026-09-21 — Edición y gestión unificadas en los demás paneles
+
+- **Terminado:** datos y operaciones del mismo registro comparten tarjeta; las referencias institucionales no reasignables son de lectura. Historiales y tablas de candidatos permanecen independientes. Las autorizaciones humanas y evidencias de custodia siguen siendo requisitos explícitos.
+- Confirmación común con cambios anteriores/nuevos en edición, resumen de operación, motivo/referencia obligatoria y cancelación sin envío. Los contenidos clínicos y contraseñas no se reproducen en resúmenes; modificar cuentas advierte revocación de sesiones. El estado del donante vuelve a pendiente al editar, con advertencia y nueva evaluación requerida conforme a la regla existente.
+- Motivos nuevos administrativos, de expediente, ruta, programación y parámetro guardados en auditoría dentro de la misma transacción. Los rechazos no dejan escrituras parciales ni actualizan versiones. Se conservan capturas y versiones rechazadas; no se redisplayan contraseñas.
+- **Pruebas:** regresión completa: 109 aprobadas y un timeout de navegador en 393.76 s. Los filtros habían completado sus comprobaciones; repetición aislada aprobada en 67.74 s. Se mejoró el cierre de contextos de esa prueba y se repitieron filtros/paneles: 2 aprobadas en 34.13 s. Son 110 pruebas distintas verificadas; no se oculta el timeout inicial. Capturas finales de diálogos limitadas al viewport para evitar artefactos de pantalla completa.
+- Evidencia en `documentation/evidence/paneles-2026-09-21/`; sintaxis JavaScript y `git diff --check` correctos. Sin migraciones, cambios de credenciales ni datos de la instalación habitual. Las bases aleatorias pertenecen exclusivamente a las pruebas. Limitación documentada: sin JavaScript se conservan motivos visibles y validación del servidor, pero no confirmación modal.
+
+### 2026-09-21 — Tarjeta única y confirmación con motivo en inventario
+
+- **Terminado / criterio de aceptación:** reunir información y campos editables en una tarjeta; solo estado y ubicación en desplegables; pedir motivo obligatorio y resumen de la operación al pulsar Guardar cambios o Dar de baja, sin mostrar el motivo en el panel general.
+- La confirmación de guardar muestra valores anteriores/nuevos; sin cambios se informa y no se envía. La baja informa que conserva el historial y que no aplica cambios pendientes de los desplegables. Cancelación, Escape y cierre conservan selecciones sin escribir; foco inicial en motivo y devolución al botón de origen.
+- Los rechazos conservan selecciones, motivo y versión enviados. No se modificaron servicios, permisos, CSRF, estados ni reglas de baja: servidor y navegador rechazan motivo vacío; el historial sigue bloqueando bajas posteriores a movimientos.
+- **Evidencia:** `Tests.xml` registra 30 aprobadas y una expectativa antigua de texto de botón fallida; corregida para comprobar la acción de baja, esa prueba pasa en `Retest.xml` (1.83 s), incluyendo rechazo de motivo de solo espacios. Total: 31 pruebas distintas verificadas. Chrome prueba resumen, cancelación, motivo obligatorio, guardado persistido, historial y baja en móvil; capturas revisadas en `documentation/evidence/edicion-inventario-2026-09-21/`. Sintaxis JavaScript y diff correctos.
+- Documentación actualizada. Datos ficticios y bases de prueba aisladas; sin cambios en la instalación habitual. La tarjeta de historial permanece separada de la tarjeta de edición. Las confirmaciones requieren JavaScript y se informa si está deshabilitado.
 
 ### 2026-09-21 — Retiro de ventana redundante en errores de acceso
 

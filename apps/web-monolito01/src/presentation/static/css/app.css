@@ -272,6 +272,12 @@ dt { font-size: 11px; color: var(--muted); }dd { font-size: 12px; margin: 0; ove
 .timezone-picker {display:flex; gap:.5rem; align-items:center; flex-wrap:wrap;}
 .timezone-picker select {width:auto; min-height:32px;}
 .row-actions {display:flex; align-items:center; gap:8px; white-space:nowrap;}
+.inventory-record-actions {padding:0 25px 25px;}
+.inventory-record-actions .muted {margin-top:16px;}
+.record-dialog.inventory-confirm-dialog {width:min(620px,calc(100vw - 32px));}
+.inventory-confirm-dialog textarea {width:100%;}
+.inventory-record .details-list dd {min-width:0;}
+@media(max-width:700px) {.inventory-record .details-list > div {grid-template-columns:1fr;gap:6px;} .inventory-record .details-list dd {margin:0;} .inventory-record-actions .button-row {flex-wrap:wrap;}}
 .row-actions .icon-button {min-width:40px; min-height:40px;}
 .detail-open {overflow:hidden;}
 .record-dialog {width:min(1000px,calc(100vw - 32px)); max-height:calc(100dvh - 32px); padding:0; border:1px solid #dbe2ea; border-radius:14px; color:#172b43; background:#f8fafc; box-shadow:0 24px 80px #0f172a40;}
@@ -283,3 +289,13 @@ dt { font-size: 11px; color: var(--muted); }dd { font-size: 12px; margin: 0; ove
 .record-dialog-body .detail-grid {grid-template-columns:1fr;}
 .record-dialog-body .error-page {margin:0 auto;}
 @media(max-width:700px) {.record-dialog-body {padding:16px;} .record-dialog-header {padding:12px 16px;} .record-dialog-body .regional-facts {grid-template-columns:1fr;}}
+/* Datos y operaciones del mismo registro, sin tarjetas anidadas. */
+.unified-record { margin-bottom: 24px; }
+.record-operation { border-top: 1px solid var(--border, #dce4ee); padding-top: 24px; margin-top: 24px; }
+.record-operation:first-child { border-top: 0; padding-top: 0; margin-top: 0; }
+.edit-confirm-dialog { max-width: 720px; }
+.edit-confirm-dialog .change-summary { padding-left: 22px; overflow-wrap: anywhere; }
+.edit-confirm-dialog .change-summary li { margin: 8px 0; }
+.edit-confirm-dialog .field { margin-top: 20px; }
+.edit-confirm-dialog .form-actions { flex-wrap: wrap; }
+.confirmation-warning[hidden], .form-group[hidden] { display: none; }

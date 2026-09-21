@@ -103,7 +103,7 @@ def test_route_edit_preserves_identity_and_stale_form(app,actors,db,sign_in):
     path=f"/sangre/rutas/{row['route_id']}/editar"
     assert client.get(path).status_code==200
     assert b'<form' not in client.get(f"/sangre/rutas/{row['route_id']}",headers=MODAL).data
-    data={'version_no':row['version_no'],'distance_km':42,'travel_minutes':60,'source_reference':'Referencia actualizada',
+    data={'audit_reason':'Actualizar estimación de prueba','version_no':row['version_no'],'distance_km':42,'travel_minutes':60,'source_reference':'Referencia actualizada',
           'origin_id':str(row['destination_id']),'destination_id':str(row['origin_id']),'csrf_token':csrf(client,path)}
     assert client.post(path,data=data).status_code==302
     saved=db.execute('SELECT * FROM regional_route WHERE route_id=%s',(row['route_id'],)).fetchone()

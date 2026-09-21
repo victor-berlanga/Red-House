@@ -15,9 +15,9 @@ def now():
     return datetime.now(timezone.utc)
 
 
-def event(conn, actor, action, entity, row_id, institution_id, **values):
+def event(conn, actor, action, entity, row_id, institution_id, *, audit_reason='Proceso regional académico', **values):
     # Solo identificadores/estados: nunca antecedentes, estudios o justificaciones clínicas.
-    audit.record(conn, actor, action, entity, row_id, 'Proceso regional académico',
+    audit.record(conn, actor, action, entity, row_id, audit_reason,
                  institution_id=institution_id, after=values)
 
 
@@ -94,7 +94,8 @@ def save_person(actor, kind, data, identifier=None):
             row = update(conn, kind, kind+'_id', identifier, values, existing['version_no'])
         else:
             row = insert(conn,kind,values,kind+'_id')
-        event(conn,actor,'UPDATE' if existing else 'CREATE',kind.upper(),row[kind+'_id'],institution['institution_id'])
+        event(conn,actor,'UPDATE' if existing else 'CREATE',kind.upper(),row[kind+'_id'],institution['institution_id'],
+              audit_reason=v.paragraph(data,'audit_reason','el motivo del cambio (sin datos clínicos)',240) if existing else 'Registro de expediente')
         return row[kind+'_id']
 
 
@@ -320,4 +321,5 @@ def save_route(actor,data,identifier=None):
             SET distance_km=excluded.distance_km,travel_minutes=excluded.travel_minutes,source_reference=excluded.source_reference,
                 recorded_by=excluded.recorded_by,recorded_at=now(),version_no=regional_route.version_no+1 RETURNING *''',
             (origin['institution_id'],dest['institution_id'],distance,minutes,source,actor.account_id)).fetchone()
-        event(conn,actor,'UPDATE','REGIONAL_ROUTE',row['route_id'],origin['institution_id'],distance_km=distance,travel_minutes=minutes,version_no=row['version_no'])
+        event(conn,actor,'UPDATE','REGIONAL_ROUTE',row['route_id'],origin['institution_id'],distance_km=distance,travel_minutes=minutes,version_no=row['version_no'],
+              audit_reason=v.paragraph(data,'audit_reason','el motivo del cambio (sin datos sensibles)',240))
