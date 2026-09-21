@@ -110,6 +110,7 @@ def test_create_inventory_and_history_are_atomic(client, sign_in, db):
     payload = unit_payload(db)
     response = client.post("/inventario/nueva", data={**payload,"csrf_token":csrf(client,"/inventario/nueva")})
     assert response.status_code == 302
+    assert response.location == '/inventario'
     assert client.get(response.location).status_code == 200
     row = db.execute("SELECT * FROM blood_inventory WHERE traceability_code = %s", (payload["traceability_code"],)).fetchone()
     assert row["is_available"]

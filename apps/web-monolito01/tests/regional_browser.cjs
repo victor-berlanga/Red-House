@@ -58,6 +58,15 @@ const path=require('node:path');
  }
  async function capture(p,name){await navigation(p);await p.evaluate(()=>scrollTo(0,0));await p.screenshot({path:path.join(output,name+'.png'),fullPage:true,animations:'disabled'});await p.screenshot({path:path.join(output,name+'_vista.png'),fullPage:false,animations:'disabled'});}
  async function overflow(p){assert(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),'Desbordamiento horizontal fuera de tablas');}
+ async function openCreatedRecord(p,listing,code){
+   assert.equal(new URL(p.url()).pathname,listing);
+   assert.equal(new URL(p.url()).search,'');
+   const row=p.locator('tbody tr').filter({hasText:code});
+   assert.equal(await row.count(),1,'El alta aparece en su tabla');
+   const detail=await row.locator('[data-record-view]').getAttribute('data-record-view');
+   await p.goto(base+detail);
+   return p.url();
+ }
  try{
    const op=await login('operador');
    await op.goto(base+'/sangre/personas/donor');
@@ -65,7 +74,7 @@ const path=require('node:path');
    assert(!/fictici|académico/i.test((await op.locator('main label').allTextContents()).join(' ')));
    assert(!(await op.locator('body').innerText()).includes('ENTORNO ACADÉMICO'));
    await submit(op,'Registrar expediente',{institution_id:data.north,record_code:'BROWSER-DONOR',display_name:'Donante ficticio de prueba',blood_group:'O-',restrictions:'Ninguna registrada DEMO',donation_kind:'VOLUNTARY',background:'SECRETO-CLINICO-ANTECEDENTES',consent_reference:'CONSENT-BROWSER',consent_at:new Date(Date.now()-60000).toISOString().slice(0,16)});
-   const donorUrl=op.url(),donorId=donorUrl.split('/').at(-1);
+   const donorUrl=await openCreatedRecord(op,'/sangre/personas/donor','BROWSER-DONOR'),donorId=donorUrl.split('/').at(-1);
    await op.locator('[name=restrictions]').fill('Actualización reservada DEMO');
    assert(!await op.locator('[name=audit_reason]').isVisible());
    await submit(op,'Actualizar expediente',{audit_reason:'Corrección documental autorizada'});
@@ -80,20 +89,21 @@ const path=require('node:path');
    await med.keyboard.press('Escape');await med.setViewportSize({width:1440,height:1000});
    await op.goto(base+'/sangre/donaciones');
    await submit(op,'Registrar donación',{donation_code:'BROWSER-DONATION',donor_id:donorId});
-   const donationUrl=op.url();
+   const donationUrl=await openCreatedRecord(op,'/sangre/donaciones','BROWSER-DONATION');
    await submit(op,'Registrar etapa',{status:'COLLECTED',observation:'Recolección demostrativa realizada'});
    await submit(op,'Registrar etapa',{status:'PROCESSED',observation:'Procesamiento demostrativo documentado'});
    await med.goto(donationUrl);
    await submit(med,'Liberar unidad / componente',{traceability_code:'BROWSER-UNIT',component_id:data.component,location_id:data.northLocation,expires_at:new Date(Date.now()+86400000).toISOString().slice(0,16),release_reference:'PRUEBAS-BROWSER',human_confirmation:true});
+   await openCreatedRecord(med,'/inventario','BROWSER-UNIT');
    await med.goto(donationUrl);await capture(med,'Donacion_procesamiento');
    const dest=await login('medico.valle');await dest.goto(base+'/sangre/personas/recipient');
    await submit(dest,'Registrar expediente',{institution_id:data.valley,record_code:'BROWSER-RECIPIENT',display_name:'Receptor ficticio de prueba',blood_group:'O-',restrictions:'Ninguna registrada DEMO',requirement:'SECRETO-CLINICO-REQUERIMIENTO',urgency:'URGENT',studies:'SECRETO-CLINICO-ESTUDIOS',current_status:'ACTIVE'});
-   const recipientId=dest.url().split('/').at(-1);
+   const recipientId=(await openCreatedRecord(dest,'/sangre/personas/recipient','BROWSER-RECIPIENT')).split('/').at(-1);
    await dest.locator('[name=studies]').fill('SECRETO-CLINICO-ESTUDIOS actualizado');
    await submit(dest,'Actualizar expediente',{audit_reason:'Corrección documental autorizada'});
    await dest.goto(base+'/sangre/solicitudes');
    await submit(dest,'Crear solicitud de receptor',{request_code:'BROWSER-REQUEST',recipient_id:recipientId,component_id:data.component,quantity:1,urgency:'URGENT',justification:'SECRETO-CLINICO-JUSTIFICACION'});
-   const requestUrl=dest.url();
+   const requestUrl=await openCreatedRecord(dest,'/sangre/solicitudes','BROWSER-REQUEST');
    const coord=await login('coordinador');await coord.goto(base+'/sangre/rutas');
    await submit(coord,'Registrar o actualizar ruta',{origin_id:data.north,destination_id:data.valley,distance_km:30,travel_minutes:45,source_reference:'Supuesto académico de 30 km / 45 minutos'});
    await coord.goto(requestUrl);await submit(coord,'Buscar candidatos regionales',{});await capture(coord,'Compatibilidad_priorizacion');
@@ -102,9 +112,10 @@ const path=require('node:path');
    await dest.goto(requestUrl);
    const choice=dest.locator('[name=candidate_id] option').filter({hasText:'BROWSER-UNIT'});
    await submit(dest,'Autorización médica y reserva',{candidate_id:await choice.getAttribute('value'),reason:'Revisión humana demostrativa confirmada',human_confirmation:true});
-   const allocationUrl=dest.url();
+   const allocationUrl=await openCreatedRecord(dest,'/sangre/traslados','BROWSER-UNIT');
    await coord.goto(allocationUrl);
    await submit(coord,'Asignar y programar traslado',{transport_id:data.transport,vehicle:'VEHICULO-BROWSER-DEMO',departure_at:new Date(Date.now()+60000).toISOString().slice(0,16),eta:new Date(Date.now()+3600000).toISOString().slice(0,16)});
+   await openCreatedRecord(coord,'/sangre/traslados','BROWSER-UNIT');
    await capture(coord,'Asignacion_traslado');
    for(const [role,status] of [['operador','PREPARED'],['traslado','COLLECTED'],['traslado','IN_TRANSIT'],['traslado','DELIVERED'],['operador.valle','ACCEPTED']]){
       const p=await login(role);await p.goto(allocationUrl);

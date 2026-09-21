@@ -14,6 +14,8 @@ Este archivo es la fuente de verdad del avance del proyecto. Debe actualizarse d
 
 ## Resumen actual
 
+- **Regreso al listado después de altas — 2026-09-21:** inventario, donantes, receptores, donaciones, solicitudes, unidades liberadas, reservas de asignación y programación de traslados vuelven a la tabla de su sección con confirmación. Administración y rutas mantienen el regreso al listado. Sin filtros heredados; se conservan paginación y ámbito autorizado. Verificación: 47 pruebas aprobadas, incluidos los recorridos de inventario y regional en Chrome. Evidencia reproducible: `documentation/evidence/altas-2026-09-21/README.md`.
+
 - **Paneles unificados y confirmación — 2026-09-21:** extendido el patrón a expedientes, rutas, donaciones, solicitudes, traslados, administración y aviso de caducidad. Datos y operaciones en una tarjeta; motivos/referencias en confirmación, resúmenes sin contraseñas ni contenido clínico, permisos y autorizaciones conservados. Los motivos nuevos se validan y auditan atómicamente. 110 pruebas distintas comprobadas: regresión con 109 aprobadas y un timeout del cierre de Chrome; prueba restante aprobada al repetir, más revisión final de filtros/paneles aprobada. Evidencia: `documentation/evidence/paneles-2026-09-21/`.
 
 - **Edición unificada de inventario — 2026-09-21:** una tarjeta reúne los datos y los desplegables de estado/ubicación. Guardar y dar de baja solicitan resumen y motivo obligatorio en diálogo; el motivo no aparece en el panel general. Validaciones y permisos existentes conservados. 31 pruebas distintas comprobadas: 30 aprobadas en la ejecución de inventario/navegador/detalles y la prueba restante aprobada al actualizar su expectativa del botón. Evidencia: `documentation/evidence/edicion-inventario-2026-09-21/`.
@@ -45,6 +47,10 @@ Este archivo es la fuente de verdad del avance del proyecto. Debe actualizarse d
 - **Seguimiento:** los ocho paquetes originales de P1 conservan su cierre histórico; AM-01 a AM-14 documentan este incremento adicional. Las tareas semestrales no quedan cerradas automáticamente. Git contiene fuentes y artefactos; no se realizaron commits ni publicaciones.
 
 ## Terminado
+
+- [x] Volver a la tabla correspondiente después de crear registros.
+  - **Criterio de aceptación:** cada alta exitosa conduce al listado sin filtros de búsqueda, con aviso de éxito y acceso posterior mediante las acciones de la fila; los errores conservan la captura y las validaciones existentes.
+  - **Evidencia:** 46 pruebas aprobadas de monolito/regional en 96.35 s y una prueba de navegador de inventario aprobada en 20.04 s. Se adaptaron los recorridos existentes para comprobar la tabla después del alta antes de continuar desde el detalle. Comandos y alcance en `documentation/evidence/altas-2026-09-21/README.md`.
 
 - [x] Extender la edición unificada y la confirmación a los paneles restantes (2026-09-21).
   - **Criterio de aceptación:** una tarjeta por registro con sus datos y operaciones autorizadas; resumen y motivo/referencia al confirmar, cancelación sin envío, contraseñas ocultas, bloqueo por permisos/historial y persistencia auditable de los motivos nuevos.
@@ -507,6 +513,14 @@ Los pendientes siguientes corresponden a la validación institucional y al alcan
 | 2026-08-12 | Inspección inicial del directorio `proyectoPrueba`. | El directorio estaba vacío antes de crear la documentación base. |
 
 ## Bitácora de trabajo
+
+### 2026-09-21 — Regreso a tablas después de crear registros
+
+- Altas de unidades, expedientes de donante/receptor, donaciones y solicitudes redirigen a sus listados. Liberar una unidad conduce a inventario; reservar una asignación y programar un traslado conducen a la tabla de traslados. Se añadieron confirmaciones a las altas regionales.
+- Administración ya regresaba a sus tablas; rutas conserva ese comportamiento con URL canónica y aviso. Las ediciones, evaluaciones, etapas y eventos conservan su navegación contextual; no se cambiaron servicios, permisos, datos ni esquemas.
+- Verificación con PostgreSQL exclusivo de pruebas y Chrome: 47 pruebas aprobadas, sin fallos ni omisiones en las selecciones ejecutadas. Tres recorridos de navegador ajenos al cambio quedaron fuera de la selección regional. La primera ejecución restringida no pudo conectar por el sandbox; la ejecución autorizada completó las comprobaciones.
+- Límite: la tabla conserva su orden y paginación; un registro puede quedar en otra página. Se respeta el ámbito institucional. No se modificaron datos de la instalación habitual ni se reinició su servidor.
+- Evidencia y reproducción: `documentation/evidence/altas-2026-09-21/README.md`.
 
 ### 2026-09-21 — Edición y gestión unificadas en los demás paneles
 

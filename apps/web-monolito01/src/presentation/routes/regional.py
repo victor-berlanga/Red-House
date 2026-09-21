@@ -124,8 +124,9 @@ def people(kind):
     if kind not in ('donor','recipient'):
         raise BusinessError('La sección no existe.',404)
     if request.method=='POST' and not getattr(g,'form_error',None):
-        identifier=svc.save_person(g.principal,kind,request.form)
-        return redirect(url_for('regional.person_detail',kind=kind,identifier=identifier))
+        svc.save_person(g.principal,kind,request.form)
+        flash('Expediente registrado correctamente.', 'success')
+        return redirect(url_for('regional.people',kind=kind))
     n=v.integer({'page':request.args.get('page',1)},'page',1,100000)
     rows,total=svc.people(g.principal,kind,request.args.get('q','')[:100],n)
     for row in rows:
@@ -192,8 +193,9 @@ def review(identifier):
 @bp.route('/donaciones',methods=['GET','POST'])
 def donations():
     if request.method=='POST' and not getattr(g,'form_error',None):
-        identifier=svc.create_donation(g.principal,request.form)
-        return redirect(url_for('regional.donation_detail',identifier=identifier))
+        svc.create_donation(g.principal,request.form)
+        flash('Donación registrada correctamente.', 'success')
+        return redirect(url_for('regional.donations'))
     n=v.integer({'page':request.args.get('page',1)},'page',1,100000)
     rows,total=svc.donations(g.principal,n,request.args.get('q','')[:100],request.args.get('status',''))
     for row in rows:
@@ -238,15 +240,17 @@ def donation_detail(identifier):
 
 @bp.post('/donaciones/<uuid:identifier>/unidades')
 def produce(identifier):
-    rid=svc.produce_unit(g.principal,identifier,request.form)
-    return redirect(url_for('inventory.detail',identifier=rid))
+    svc.produce_unit(g.principal,identifier,request.form)
+    flash('Unidad liberada y registrada correctamente.', 'success')
+    return redirect(url_for('inventory.index'))
 
 
 @bp.route('/solicitudes',methods=['GET','POST'])
 def requests():
     if request.method=='POST' and not getattr(g,'form_error',None):
-        identifier=svc.create_request(g.principal,request.form)
-        return redirect(url_for('regional.request_detail',identifier=identifier))
+        svc.create_request(g.principal,request.form)
+        flash('Solicitud creada correctamente.', 'success')
+        return redirect(url_for('regional.requests'))
     n=v.integer({'page':request.args.get('page',1)},'page',1,100000)
     rows,total=svc.requests_list(g.principal,n,request.args.get('q','')[:100],request.args.get('status',''),request.args.get('urgency',''))
     for row in rows:
@@ -308,8 +312,9 @@ def evaluate(identifier):
 
 @bp.post('/solicitudes/<uuid:identifier>/reservar')
 def reserve(identifier):
-    aid=matching.reserve(g.principal,identifier,request.form)
-    return redirect(url_for('regional.allocation_detail',identifier=aid))
+    matching.reserve(g.principal,identifier,request.form)
+    flash('Asignación reservada correctamente.', 'success')
+    return redirect(url_for('regional.allocations'))
 
 
 @bp.post('/solicitudes/<uuid:identifier>/cerrar')
@@ -323,7 +328,8 @@ def routes():
     require(g.principal,'route.write')
     if request.method=='POST' and not getattr(g,'form_error',None):
         svc.save_route(g.principal,request.form)
-        return redirect(display_path())
+        flash('Ruta guardada correctamente.', 'success')
+        return redirect(url_for('regional.routes'))
     with transaction() as conn:
         clause,params=scope(g.principal,'i')
         rows=conn.execute('''SELECT t.*,i.institution_name AS origin_name,d.institution_name AS destination_name FROM regional_route t
@@ -411,7 +417,8 @@ def allocation_detail(identifier):
 @bp.post('/traslados/<uuid:identifier>/programar')
 def plan(identifier):
     logistics.plan(g.principal,identifier,request.form)
-    return redirect(url_for('regional.allocation_detail',identifier=identifier))
+    flash('Traslado programado correctamente.', 'success')
+    return redirect(url_for('regional.allocations'))
 
 
 @bp.post('/traslados/<uuid:identifier>/cancelar')

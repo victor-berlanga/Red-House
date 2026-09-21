@@ -39,9 +39,9 @@ def create():
     error, status = None, 200
     if request.method == "POST":
         try:
-            identifier = service.create(g.principal, request.form)
+            service.create(g.principal, request.form)
             flash("Unidad registrada correctamente.", "success")
-            return redirect(url_for("inventory.detail", identifier=identifier))
+            return redirect(url_for("inventory.index"))
         except BusinessError as exc:
             if exc.status != 400:
                 raise
