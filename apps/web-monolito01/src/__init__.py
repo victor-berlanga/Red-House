@@ -54,6 +54,7 @@ def create_app(overrides=None):
                 "titles": TITLES, "statuses": STATUSES, "utc_now": datetime.now(timezone.utc),
                 "chart_enabled": app.config["HIGHCHARTS_ENABLED"],
                 "local_now": local_value(datetime.now(timezone.utc)), "display_timezone": selected_zone(), "timezone_choices": ZONES,
+                "detail_modal": request.method == "GET" and request.headers.get("X-Detail-Modal") == "1",
                 "filter_fragment": request.method == "GET" and request.headers.get("X-Filter-Fragment") == "1"}
 
     @app.after_request

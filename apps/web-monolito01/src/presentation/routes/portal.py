@@ -52,6 +52,25 @@ def future(slug):
     return render_template("future.html", title=FUTURE[slug]["title"], active=slug, view=FUTURE[slug], slug=slug)
 
 
+@bp.get('/auditoria/<uuid:identifier>')
+def audit_detail(identifier):
+    require(g.principal,'audit.read')
+    from ...data_access.connection import transaction
+    from ...data_access.repositories import audit as audit_repo
+    from ..timezones import datefmt
+    with transaction() as conn:
+        column='a.institution_id' if g.principal.institution_id else 'a.region_name'
+        value=g.principal.institution_id or g.principal.region_name
+        row=conn.execute("SELECT a.*,coalesce(p.party_name,'No identificado') AS actor_name FROM audit_event a LEFT JOIN user_account u ON u.account_id=a.actor_id LEFT JOIN party p USING(party_id) WHERE "+column+'=%s AND a.event_id=%s',(value,identifier)).fetchone()
+        if not row:
+            raise BusinessError('El evento no está disponible en tu ámbito.',404)
+        changes=conn.execute('SELECT * FROM audit_change WHERE event_id=%s ORDER BY field_name',(identifier,)).fetchall()
+        audit_repo.record(conn,g.principal,'READ','AUDIT_EVENT',identifier,'Consulta de evidencia de auditoría')
+    facts=[('Fecha',datefmt(row['occurred_at'])),('Actor',row['actor_name']),('Acción',row['action']),('Entidad',row['entity_type']),('Referencia',row['entity_reference']),('Resultado',{'SUCCESS':'Correcto','DENIED':'Denegado','FAILED':'Fallido'}.get(row['outcome'],row['outcome'])),('Motivo',row['reason']),('Correlación',row['correlation_id'])]
+    facts += [(c['field_name'],f"{c['previous_value'] if c['previous_value'] is not None else '—'} → {c['new_value'] if c['new_value'] is not None else '—'}") for c in changes]
+    return render_template('record_detail.html',title='Detalle del evento',active='audit',facts=facts)
+
+
 @bp.post('/preferencias/horario')
 def timezone_preference():
     from urllib.parse import urlsplit

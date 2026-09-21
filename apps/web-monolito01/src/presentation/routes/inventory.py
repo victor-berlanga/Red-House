@@ -55,7 +55,10 @@ def create():
 
 
 @bp.route("/<uuid:identifier>", methods=["GET", "POST"])
+@bp.route("/<uuid:identifier>/editar", methods=["GET", "POST"], endpoint="edit")
 def detail(identifier):
+    if request.endpoint == 'inventory.edit':
+        require(g.principal, 'inventory.write')
     error, status = None, 200
     if request.method == "POST":
         try:
@@ -89,6 +92,8 @@ def delete(identifier):
 
 def _render_detail(identifier, error=None, status=200):
     row, history = service.details(g.principal, identifier)
+    if request.endpoint == 'inventory.edit' and (row['current_status'] not in ('AVAILABLE','QUARANTINED') or row.get('allocation_id')):
+        raise BusinessError('Este registro no admite edición de inventario. Consulta su detalle y el seguimiento de la asignación.', 409)
     with transaction() as conn:
         choices = network.options(conn, g.principal)
         permitted = conn.execute("SELECT new_status FROM blood_status_transition WHERE previous_status = %s AND new_status <> 'WITHDRAWN'",

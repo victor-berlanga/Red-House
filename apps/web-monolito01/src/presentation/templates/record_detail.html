@@ -1,0 +1,5 @@
+{% extends 'detail_fragment.html' if detail_modal else 'base.html' %}
+{% block content %}
+<div class="page-heading"><h1>{{ title }}</h1></div>
+<section class="card form-card"><dl class="regional-facts">{% for label,value in facts %}<div><dt>{{ label }}</dt><dd>{{ value if value is not none and value != '' else '—' }}</dd></div>{% endfor %}</dl></section>
+{% endblock %}

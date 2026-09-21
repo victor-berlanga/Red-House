@@ -47,7 +47,9 @@ def people(actor, kind, query='', page=1):
                          ' AND (p.record_code ILIKE %s OR p.display_name ILIKE %s)').format(sql.Identifier(kind))
         params += [pattern(query)] * 2
         total = conn.execute(sql.SQL('SELECT count(*) AS n') + source, params).fetchone()['n']
-        rows = conn.execute(sql.SQL('SELECT p.*, i.institution_name') + source +
+        history = sql.SQL('EXISTS(SELECT 1 FROM {} h WHERE h.{}=p.{}) AS has_history').format(
+            sql.Identifier('donation' if kind=='donor' else 'blood_request'),sql.Identifier(kind+'_id'),sql.Identifier(kind+'_id'))
+        rows = conn.execute(sql.SQL('SELECT p.*, i.institution_name, ') + history + source +
             sql.SQL(' ORDER BY registered_at DESC, record_code LIMIT 12 OFFSET %s'), [*params,(page-1)*12]).fetchall()
         event(conn, actor, 'SENSITIVE_READ', kind.upper(), 'LIST', actor.institution_id)
         return rows, total
@@ -302,11 +304,14 @@ def close_request(actor,identifier,data):
         event(conn,actor,target,'BLOOD_REQUEST',identifier,row['institution_id'])
 
 
-def save_route(actor,data):
+def save_route(actor,data,identifier=None):
     require(actor,'route.write')
     with transaction() as conn:
         origin=own_institution(conn,actor,v.identifier(data,'origin_id'))
         dest=own_institution(conn,actor,v.identifier(data,'destination_id'))
+        if identifier:
+            previous=conn.execute('SELECT * FROM regional_route WHERE route_id=%s AND origin_id=%s AND destination_id=%s FOR UPDATE',(identifier,origin['institution_id'],dest['institution_id'])).fetchone()
+            check_version(previous,v.integer(data,'version_no'))
         distance=v.integer(data,'distance_km',0,5000)
         minutes=v.integer(data,'travel_minutes',1,10080)
         source=v.paragraph(data,'source_reference','la fuente de la estimación',240)

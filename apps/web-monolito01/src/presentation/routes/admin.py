@@ -36,6 +36,10 @@ def index(entity):
 @bp.route("/<entity>/<uuid:identifier>/editar", methods=["GET", "POST"])
 def form(entity, identifier=None):
     check_entity(entity)
+    if entity == 'components' and g.principal.institution_id:
+        raise BusinessError('El catálogo regional requiere un administrador regional.', 403)
+    if entity == 'institutions' and not identifier and g.principal.institution_id:
+        raise BusinessError('Solo la administración regional puede incorporar instituciones.', 403)
     data, error, status = {}, None, 200
     with transaction() as conn:
         if identifier:
@@ -69,6 +73,30 @@ def form(entity, identifier=None):
     return render_template("admin/form.html", title=("Editar " if identifier else "Registrar ") + TITLES[entity].lower(),
                            active="institutions" if entity in ("sites", "locations") else entity, entity=entity, data=data, choices=choices,
                            identifier=identifier, error=error), status
+
+
+@bp.get('/<entity>/<uuid:identifier>')
+def detail(entity, identifier):
+    check_entity(entity)
+    fields = {
+        'institutions': [('institution_code','Código'),('institution_name','Institución'),('institution_type','Tipo'),('participation_status','Participación'),('region_name','Región'),('city','Ciudad'),('street','Dirección'),('operating_hours','Horarios'),('contact_name','Contacto'),('contact_email','Correo del contacto'),('contact_phone','Teléfono del contacto'),('capability_names','Capacidades')],
+        'sites': [('site_code','Código'),('site_name','Sede'),('institution_name','Institución'),('region_name','Región'),('city','Ciudad'),('street','Dirección'),('site_status','Estado')],
+        'locations': [('location_code','Código'),('location_description','Descripción'),('institution_name','Institución'),('site_name','Sede'),('region_name','Región'),('is_active','Activo')],
+        'components': [('component_code','Código'),('component_name','Componente'),('region_name','Región'),('is_active','Activo')],
+        'users': [('party_name','Nombre'),('login_email','Correo'),('role_name','Perfil'),('institution_name','Institución'),('region_name','Región'),('account_status','Estado')],
+    }
+    with transaction() as conn:
+        row = network.one(conn, entity, g.principal, identifier)
+        if not row:
+            raise BusinessError('El registro no está disponible en tu ámbito.',404)
+        if entity == 'institutions':
+            row.update(network.institution_details(conn, identifier))
+            row['capability_names'] = ', '.join(r['capability_name'] for r in conn.execute('SELECT c.capability_name FROM institution_capability ic JOIN capability c USING(capability_code) WHERE institution_id=%s ORDER BY c.capability_name',(identifier,)))
+        audit.record(conn,g.principal,'READ',network.ENTITIES[entity][0].upper(),identifier,'Consulta de detalle administrativo',institution_id=row.get('institution_id'))
+    from ..views import regional_value
+    facts = [(label, ('Sí' if row.get(key) else 'No') if key=='is_active' else regional_value(row.get(key),'current_status' if key in ('site_status','account_status') else key)) for key,label in fields[entity]]
+    facts.append(('Versión', row.get('version_no')))
+    return render_template('record_detail.html',title=row[network.ENTITIES[entity][2]],facts=facts,active='institutions' if entity in ('sites','locations') else entity)
 
 
 @bp.route("/configuracion/parametros", methods=["GET", "POST"])

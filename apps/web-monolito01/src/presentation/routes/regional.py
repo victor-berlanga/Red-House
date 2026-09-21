@@ -63,6 +63,10 @@ def page(title,*,active,rows=None,columns=None,forms=None,facts=None,total=None,
     from ..timezones import selected_zone
     columns=[(key,label.replace('UTC',selected_zone())) for key,label in (columns or [])]
     facts=[(label.replace('UTC',selected_zone()),value) for label,value in (facts or [])]
+    if request.endpoint.endswith('_edit') and not forms:
+        raise BusinessError('El registro es de solo lectura en su estado actual. Consulta el detalle para revisar su historial.',409)
+    if request.method == 'GET' and request.headers.get('X-Detail-Modal') == '1':
+        forms=[]
     filters=[]
     if active=='solicitudes':
         filters=[('status','Estado',['ACTIVE','OPEN','IN_PROGRESS','CLOSED','CANCELLED']),('urgency','Urgencia',['URGENT','PRIORITY','ROUTINE'])]
@@ -71,7 +75,8 @@ def page(title,*,active,rows=None,columns=None,forms=None,facts=None,total=None,
         filters=[('direction','Dirección',['destination']),('status','Asignación',['ACTIVE','RESERVED','ASSIGNED','RECEIVED','CANCELLED']),('shipment_status','Traslado',['ACTIVE','SCHEDULED','PREPARED','COLLECTED','IN_TRANSIT','DELIVERED','ACCEPTED','CANCELLED'])]
     return render_template('regional/page.html',title=title,active=active,rows=rows,columns=columns or [],
         forms=forms or [],facts=facts or [],total=total,page=number,note=note,links=links or [],
-        filter_fields=filters,listing_url=display_path(),workflow=workflow,form_error=getattr(g,'form_error',None))
+        filter_fields=filters,listing_url=display_path(),workflow=workflow,form_error=getattr(g,'form_error',None),
+        row_links=bool(rows and any(row.get('detail_url') for row in rows)))
 
 
 
@@ -106,6 +111,8 @@ def people(kind):
     rows,total=svc.people(g.principal,kind,request.args.get('q','')[:100],n)
     for row in rows:
         row['detail_url']=url_for('regional.person_detail',kind=kind,identifier=row[kind+'_id'])
+        if not row['has_history'] or (kind=='donor' and g.principal.can('donor.review')):
+            row['edit_url']=url_for('regional.person_edit',kind=kind,identifier=row[kind+'_id'])
     return page('Donantes' if kind=='donor' else 'Receptores',active='donantes' if kind=='donor' else 'receptores',rows=rows,total=total,number=n,
         columns=[('record_code','Expediente'),('display_name','Nombre'),('blood_group','ABO/Rh'),('institution_name','Institución'),('current_status','Estado')],
         forms=[] if fragment() else [form('Registrar expediente',url_for('regional.people',kind=kind),person_fields(kind))],
@@ -132,6 +139,7 @@ def person_fields(kind,data=None):
 
 
 @bp.route('/personas/<kind>/<uuid:identifier>',methods=['GET','POST'])
+@bp.route('/personas/<kind>/<uuid:identifier>/editar',methods=['GET','POST'],endpoint='person_edit')
 def person_detail(kind,identifier):
     if kind not in ('donor','recipient'):
         raise BusinessError('La sección no existe.',404)
@@ -144,7 +152,7 @@ def person_detail(kind,identifier):
     fields=person_fields(kind,row)
     forms=[] if locked else [form('Actualizar expediente',display_path(),fields,version=row['version_no'])]
     facts=[('Institución',row['institution_name']),('Estado',row['current_status'])]
-    if locked:
+    if locked or request.headers.get('X-Detail-Modal') == '1':
         facts += [(f['label'],dict(f['options']).get(str(row.get(f['name'])),row.get(f['name'])) if f['options'] is not None else row.get(f['name'])) for f in fields if f['name']!='institution_id']
 
     if kind=='donor' and g.principal.can('donor.review'):
@@ -152,7 +160,7 @@ def person_detail(kind,identifier):
             field('decision','Decisión registrada',[('ELIGIBLE','Elegible'),('DEFERRED','Diferido')]),
             field('reason','Fundamento de la decisión'),field('human_confirmation','Confirmo que realicé la evaluación y autorizo la decisión registrada',kind='checkbox')],version=row['version_no']))
     return page('Expediente '+row['record_code'],active='donantes' if kind=='donor' else 'receptores',facts=facts,workflow=progress('donor' if kind=='donor' else 'recipient',row['current_status']),
-        rows=reviews,columns=[('occurred_at','Fecha UTC'),('decision','Decisión humana'),('party_name','Responsable'),('reason','Fundamento restringido')],forms=forms,
+        rows=reviews,columns=[('occurred_at','Fecha'),('decision','Decisión humana'),('party_name','Responsable'),('reason','Fundamento restringido')],forms=forms,
         note=('Expediente de consulta: sus datos respaldan donaciones o solicitudes y se conserva su historia.' if locked else 'Al actualizar los datos del donante se requiere una nueva evaluación.' if kind=='donor' else ''))
 
 
@@ -171,6 +179,8 @@ def donations():
     rows,total=svc.donations(g.principal,n,request.args.get('q','')[:100],request.args.get('status',''))
     for row in rows:
         row['detail_url']=url_for('regional.donation_detail',identifier=row['donation_id'])
+        if (row['current_status'] in ('REGISTERED','COLLECTED') and g.principal.can('donation.write')) or (row['current_status']=='PROCESSED' and g.principal.can('unit.release')):
+            row['edit_url']=url_for('regional.donation_edit',identifier=row['donation_id'])
     forms=[]
     if g.principal.can('donation.write') and not fragment():
         forms=[form('Registrar donación',display_path(),[field('donation_code','Folio de donación',limit=30),field('donor_id','Donante con revisión favorable',person_options('donor'))])]
@@ -179,7 +189,10 @@ def donations():
 
 
 @bp.route('/donaciones/<uuid:identifier>',methods=['GET','POST'])
+@bp.route('/donaciones/<uuid:identifier>/editar',methods=['GET','POST'],endpoint='donation_edit')
 def donation_detail(identifier):
+    if request.endpoint == 'regional.donation_edit' and not (g.principal.can('donation.write') or g.principal.can('unit.release')):
+        raise BusinessError('Tu perfil no tiene permiso para gestionar donaciones.',403)
     if request.method=='POST' and not getattr(g,'form_error',None):
         svc.progress_donation(g.principal,identifier,request.form)
         return redirect(display_path())
@@ -199,7 +212,7 @@ def donation_detail(identifier):
             field('release_reference','Referencia de pruebas y liberación autorizada',limit=240),
             field('human_confirmation','Confirmo la revisión de pruebas y autorizo la liberación de la unidad',kind='checkbox')]))
     return page(row['donation_code'],active='donaciones',facts=[('Expediente',row['donor_code']),('Estado',row['current_status']),('ABO/Rh',row['blood_group'])],
-        rows=history,columns=[('occurred_at','Fecha UTC'),('status','Etapa'),('party_name','Responsable'),('observation','Evidencia registrada')],forms=forms,
+        rows=history,columns=[('occurred_at','Fecha'),('status','Etapa'),('party_name','Responsable'),('observation','Evidencia registrada')],forms=forms,
         links=[(u['traceability_code'],url_for('inventory.detail',identifier=u['resource_id'])) for u in units],
         workflow=progress('donation', 'RELEASED' if units else row['current_status']),note='Cada etapa conserva su fecha, responsable y referencia del procedimiento.')
 
@@ -219,6 +232,8 @@ def requests():
     rows,total=svc.requests_list(g.principal,n,request.args.get('q','')[:100],request.args.get('status',''),request.args.get('urgency',''))
     for row in rows:
         row['detail_url']=url_for('regional.request_detail',identifier=row['request_id'])
+        if row['current_status'] in ('OPEN','IN_PROGRESS') and (g.principal.can('request.write') or g.principal.can('candidate.evaluate')):
+            row['edit_url']=url_for('regional.request_edit',identifier=row['request_id'])
     forms=[]
     if g.principal.can('request.write') and not fragment():
         forms=[form('Crear solicitud de receptor',display_path(),[field('request_code','Folio de solicitud',limit=30),
@@ -231,7 +246,10 @@ def requests():
 
 
 @bp.get('/solicitudes/<uuid:identifier>')
+@bp.get('/solicitudes/<uuid:identifier>/editar',endpoint='request_edit')
 def request_detail(identifier):
+    if request.endpoint == 'regional.request_edit' and not (g.principal.can('request.write') or g.principal.can('candidate.evaluate')):
+        raise BusinessError('Tu perfil no tiene permiso para gestionar solicitudes.',403)
     with transaction() as conn:
         row=svc.request_row(conn,g.principal,identifier)
         evaluation=conn.execute('SELECT * FROM candidate_evaluation WHERE request_id=%s ORDER BY occurred_at DESC,evaluation_id DESC LIMIT 1',(identifier,)).fetchone()
@@ -258,7 +276,7 @@ def request_detail(identifier):
     if evaluation:
         facts += [('Versión del algoritmo',evaluation['algorithm_version']),('Evaluación UTC',evaluation['occurred_at']),('Tiempo de cálculo (ms)',evaluation['elapsed_ms'])]
     return page(row['request_code'],active='solicitudes',facts=facts,rows=candidates,forms=forms,
-        columns=[('rank_no','Orden'),('traceability_code','Unidad'),('institution_name','Origen'),('donor_group','ABO/Rh unidad'),('distance_km','Distancia (km)'),('travel_minutes','Minutos estimados'),('expires_at','Caducidad UTC'),('explanation','Factores y límites')],
+        columns=[('rank_no','Orden'),('traceability_code','Unidad'),('institution_name','Origen'),('donor_group','ABO/Rh unidad'),('distance_km','Distancia (km)'),('travel_minutes','Minutos estimados'),('expires_at','Caducidad'),('explanation','Factores y límites')],
         links=[(a['traceability_code']+' · '+regional_value(a['current_status'],'current_status'),url_for('regional.allocation_detail',identifier=a['allocation_id'])) for a in allocations],
         workflow=progress('request', 'CLOSED' if row['current_status']=='CLOSED' else 'CANCELLED' if row['current_status']=='CANCELLED' else 'RECEIVED' if live_allocations and len(live_allocations)==row['quantity'] and all(a['current_status']=='RECEIVED' for a in live_allocations) else 'RESERVED' if live_allocations else 'EVALUATED' if evaluation else 'OPEN'),note=matching.NOTICE+' Evaluación disponible para concentrados eritrocitarios.')
 
@@ -293,10 +311,32 @@ def routes():
             JOIN institution i ON i.institution_id=t.origin_id JOIN institution d ON d.institution_id=t.destination_id WHERE '''+clause,params).fetchall()
         svc.event(conn,g.principal,'READ','REGIONAL_ROUTE','LIST',g.principal.institution_id)
     institutions=options('institutions')
-    return page('Rutas y estimaciones regionales',active='rutas',rows=rows,columns=[('origin_name','Origen'),('destination_name','Destino'),('distance_km','Km'),('travel_minutes','Minutos'),('source_reference','Fuente / supuesto'),('version_no','Versión')],
+    for row in rows:
+        row['detail_url']=url_for('regional.route_detail',identifier=row['route_id'])
+        row['edit_url']=url_for('regional.route_edit',identifier=row['route_id'])
+    return page('Rutas y estimaciones regionales',active='rutas',rows=rows,columns=[('origin_name','Origen'),('destination_name','Destino'),('distance_km','Km'),('travel_minutes','Minutos'),('source_reference','Fuente'),('version_no','Versión')],
         forms=[form('Registrar o actualizar ruta',display_path(),[field('origin_id','Origen',institutions),field('destination_id','Destino',institutions),
             field('distance_km','Distancia (km)',kind='number'),field('travel_minutes','Tiempo estimado (minutos)',kind='number'),
             field('source_reference','Fuente de la estimación',limit=240)])],note='Registra la distancia y el tiempo estimado del origen al destino. Incluye rutas internas para traslados dentro de una institución.')
+
+
+@bp.get('/rutas/<uuid:identifier>')
+@bp.route('/rutas/<uuid:identifier>/editar',methods=['GET','POST'],endpoint='route_edit')
+def route_detail(identifier):
+    require(g.principal,'route.write')
+    with transaction() as conn:
+        clause,params=scope(g.principal,'i')
+        row=conn.execute('SELECT t.*,i.institution_name AS origin_name,d.institution_name AS destination_name FROM regional_route t JOIN institution i ON i.institution_id=t.origin_id JOIN institution d ON d.institution_id=t.destination_id WHERE '+clause+' AND route_id=%s',[*params,identifier]).fetchone()
+        if not row:
+            raise BusinessError('La ruta no está disponible en tu ámbito.',404)
+        svc.event(conn,g.principal,'READ','REGIONAL_ROUTE',identifier,row['origin_id'])
+    if request.method=='POST' and not getattr(g,'form_error',None):
+        data=request.form.to_dict()
+        data.update(origin_id=str(row['origin_id']),destination_id=str(row['destination_id']))
+        svc.save_route(g.principal,data,identifier)
+        return redirect(url_for('regional.route_edit',identifier=identifier))
+    fields=[field('distance_km','Distancia (km)',kind='number',value=row['distance_km']),field('travel_minutes','Tiempo estimado (minutos)',kind='number',value=row['travel_minutes']),field('source_reference','Fuente de la estimación',value=row['source_reference'],limit=240)]
+    return page('Ruta regional',active='rutas',facts=[('Origen',row['origin_name']),('Destino',row['destination_name']),('Distancia (km)',row['distance_km']),('Tiempo estimado (minutos)',row['travel_minutes']),('Fuente',row['source_reference']),('Versión',row['version_no']),('Actualización',row['recorded_at'])],forms=[form('Actualizar estimación',display_path(),fields,version=row['version_no'])] if request.endpoint=='regional.route_edit' else [])
 
 
 @bp.get('/traslados')
@@ -305,12 +345,17 @@ def allocations():
     rows,total=logistics.list_allocations(g.principal,n,request.args.get('q','')[:100],request.args.get('status',''),request.args.get('shipment_status',''),request.args.get('direction',''))
     for row in rows:
         row['detail_url']=url_for('regional.allocation_detail',identifier=row['allocation_id'])
+        if (g.principal.can('shipment.plan') and row['current_status'] in ('RESERVED','ASSIGNED') and row['shipment_status'] in (None,'SCHEDULED','PREPARED')) or (g.principal.can('logistics') and row['shipment_status'] and row['shipment_status'] not in ('ACCEPTED','CANCELLED')):
+            row['edit_url']=url_for('regional.allocation_edit',identifier=row['allocation_id'])
     return page('Asignación, traslados y custodia',active='traslados' if g.principal.can('logistics') else 'trazabilidad',rows=rows,total=total,number=n,
         columns=[('traceability_code','Recurso'),('request_code','Solicitud'),('origin_name','Origen'),('destination_name','Destino'),('current_status','Asignación'),('shipment_status','Traslado')])
 
 
 @bp.get('/traslados/<uuid:identifier>')
+@bp.get('/traslados/<uuid:identifier>/editar',endpoint='allocation_edit')
 def allocation_detail(identifier):
+    if request.endpoint == 'regional.allocation_edit':
+        require(g.principal,'logistics')
     with transaction() as conn:
         row=logistics.allocation_row(conn,g.principal,identifier)
         shipment=conn.execute('SELECT * FROM shipment WHERE allocation_id=%s',(identifier,)).fetchone()
@@ -324,7 +369,7 @@ def allocation_detail(identifier):
         forms.append(form('Asignar y programar traslado',url_for('regional.plan',identifier=identifier),[
             field('transport_id','Personal de traslado del origen',[(str(t['account_id']),t['party_name']) for t in transports]),
             field('vehicle','Vehículo',limit=120),field('departure_at','Salida prevista (UTC)',kind='datetime-local'),field('eta','ETA (UTC)',kind='datetime-local')],version=row['version_no']))
-    if row['current_status'] in ('RESERVED','ASSIGNED') and g.principal.can('shipment.plan'):
+    if row['current_status'] in ('RESERVED','ASSIGNED') and g.principal.can('shipment.plan') and (not shipment or shipment['current_status'] in ('SCHEDULED','PREPARED')):
         forms.append(form('Cancelar antes de recolección',url_for('regional.cancel',identifier=identifier),[field('observation','Motivo de cancelación',limit=240)],version=row['version_no']))
     if shipment and shipment['current_status'] not in ('ACCEPTED','CANCELLED') and g.principal.can('logistics'):
         next_status={'SCHEDULED':'PREPARED','PREPARED':'COLLECTED','COLLECTED':'IN_TRANSIT','IN_TRANSIT':'DELIVERED','DELIVERED':'ACCEPTED'}[shipment['current_status']]
@@ -340,7 +385,7 @@ def allocation_detail(identifier):
     if shipment:
         facts += [('Traslado',shipment['current_status']),('Vehículo',shipment['vehicle']),('Salida prevista UTC',shipment['departure_at']),('ETA UTC',shipment['eta'])]
     return page('Trazabilidad de '+row['traceability_code'],active='traslados' if g.principal.can('logistics') else 'trazabilidad',facts=facts,rows=history,forms=forms,
-        columns=[('sequence','Secuencia'),('occurred_at','Fecha UTC'),('status','Evento'),('party_name','Responsable'),('location_description','Ubicación'),('observation','Observación'),('evidence_reference','Referencia de evidencia')],
+        columns=[('sequence','Secuencia'),('occurred_at','Fecha'),('status','Evento'),('party_name','Responsable'),('location_description','Ubicación'),('observation','Observación'),('evidence_reference','Referencia de evidencia')],
         workflow=progress('shipment',shipment['current_status'] if shipment else row['current_status']),note='Historial de custodia: cada evento conserva responsable, fecha, ubicación y referencia de evidencia.')
 
 
@@ -371,10 +416,11 @@ def redisplay(error):
              'cancel':'allocation_detail','step':'allocation_detail'}
     name=request.endpoint.split('.')[-1]
     parent=parents.get(name,name)
+    parent={'person_edit':'person_detail','donation_edit':'donation_detail','route_edit':'route_detail'}.get(parent,parent)
     args=dict(request.view_args)
     if name=='review': args['kind']='donor'
     g.form_error=error
-    g.display_path=url_for('regional.'+parent,**args)
+    g.display_path=url_for('regional.'+(name if name.endswith('_edit') else parent),**args)
     response=globals()[parent](**args)
     return response,error.status
 

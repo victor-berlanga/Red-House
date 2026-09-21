@@ -2,6 +2,13 @@
 <img class="icon {{ extra }}" src="{{ url_for('static', filename='img/icons/' ~ name ~ '.svg') }}" alt="" width="20" height="20">
 {%- endmacro %}
 
+{% macro row_actions(label, view_url, edit_url=none) -%}
+<div class="row-actions">
+  <button type="button" class="icon-button" data-record-view="{{ view_url }}" aria-label="Ver {{ label }}" title="Ver detalle">{{ icon('eye') }}</button>
+  {% if edit_url %}<a class="icon-button" href="{{ edit_url }}" aria-label="Editar {{ label }}" title="Editar / gestionar registro">{{ icon('pencil') }}</a>{% endif %}
+</div>
+{%- endmacro %}
+
 {% macro csrf() -%}<input type="hidden" name="_timezone" value="{{ display_timezone }}"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}">{%- endmacro %}
 
 {% macro badge(status) -%}

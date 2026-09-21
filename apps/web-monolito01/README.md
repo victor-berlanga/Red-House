@@ -6,6 +6,12 @@ La revisión de interfaz del 14 de septiembre utiliza lenguaje operativo y marca
 
 ## Mejoras operativas
 
+Las acciones de cada registro se separan en ojo (detalle completo autorizado en una ventana de solo lectura, sin salir del listado) y lápiz (pantalla de edición o gestión existente). El lápiz depende del perfil, ámbito y estado del registro; las rutas `/editar` vuelven a comprobarlo en el servidor. Auditoría e historiales solo permiten consulta. En tablas de agregados, el ojo presenta los campos del resultado, sin inventar una edición del resumen.
+
+La ventana se cierra con su botón, Escape o el fondo; retiene el foco y lo devuelve al control de origen. Conserva filtros, permite reintentar errores de carga y comunica la sesión vencida. Un acceso directo denegado muestra el mensaje una sola vez en la página del portal, con explicación y regreso al panel, manteniendo HTTP 403; los recursos fuera de ámbito conservan 404 para no revelar su existencia. Si falla una consulta iniciada con el ojo, el error aparece dentro de ese mismo diálogo. Sin JavaScript, los errores siguen siendo páginas legibles y los enlaces de edición conservan sus comprobaciones; la apertura modal requiere JavaScript.
+
+Evidencia de acciones y permisos: [acciones-2026-09-21](../../documentation/evidence/acciones-2026-09-21/README.md).
+
 Formularios regionales con errores junto a los campos, conservación de capturas rechazadas, áreas de texto y bloqueo de doble envío. Los expedientes con historial se muestran como consulta; las opciones de donantes y receptores reflejan sus estados y permiten buscar por folio/nombre. Los detalles incluyen etapa, siguiente paso y perfil responsable.
 
 El panel incorpora accesos desde sus indicadores, tres gráficas y tendencias de siete días con ceros. Los filtros usan fragmentos HTML y las alertas regionales agrupan sus consultas. La zona horaria puede cambiarse al pie del portal; si hay datos sin guardar, se pide confirmación antes de recargar. `tzdata` respalda el uso de zonas en sistemas que no incluyen sus datos.

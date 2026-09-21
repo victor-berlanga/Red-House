@@ -14,6 +14,16 @@ Este archivo es la fuente de verdad del avance del proyecto. Debe actualizarse d
 
 ## Resumen actual
 
+- **Error de permisos sin duplicación — 2026-09-21:** al navegar directamente a una ruta denegada, el mensaje aparece únicamente en la página, sin ventana automática superpuesta. Los diálogos del ojo conservan su funcionamiento. Prueba de navegador aprobada en 12.38 s; evidencia actualizada en `acciones-2026-09-21/Error_page_tests.xml` y `Acceso_denegado.png`. Sustituye la presentación modal automática descrita en el incremento anterior.
+
+- **Consulta modal y edición separada — 2026-09-21:** ojo para detalle completo autorizado sin navegar; lápiz para edición/gestión según perfil, ámbito y estado. Auditoría e historiales solo permiten consulta. Rutas de edición protegidas y ventanas de acceso denegado coherentes con el portal. Regresión: 99 aprobadas en 258.50 s; comprobación final de cuatro pruebas específicas: 4 aprobadas en 17.95 s, sin fallos ni omisiones. Evidencia: `documentation/evidence/acciones-2026-09-21/`. Sin migraciones ni cambios de datos habituales.
+
+- **Encabezados por contenido — 2026-09-21:** aplicadas las recomendaciones autorizadas: Nombre en usuarios/sedes/componentes, Descripción en ubicaciones; Ámbito en usuarios, Institución en sedes/ubicaciones y Región en componentes; Entidad en auditoría y Fuente en rutas. Se conservan Actor / acción, ABO/Rh y todos los datos de las celdas. Resuelve los pendientes de encabezados compuestos indicados en los cortes anteriores.
+
+- **Encabezados horarios — 2026-09-21:** retiradas las zonas horarias de las tablas de auditoría, panel regional, expedientes, donaciones, candidatos compatibles y custodia. Se conservan fechas, conversiones, selector y etiquetas fuera de tablas. Encabezados compuestos revisados según el contenido de sus celdas, sin modificarlos.
+
+- **Encabezados de inventario — 2026-09-21:** simplificados a Folio, Institución, Recolección y Caducidad. Se conservan los datos secundarios de las celdas y la conversión horaria. Casos similares en otras vistas identificados y pendientes de autorización.
+
 - **Trece mejoras operativas — 2026-09-14:** formularios recuperables y agrupados, doble envío bloqueado, opciones autorizadas con búsqueda, expedientes históricos de consulta, navegación administrativa consistente, seguimiento por etapa, accesos desde KPIs, filtros ampliados, tres gráficas, fragmentos HTML, alertas agrupadas y horarios UTC/Monterrey. 96 pruebas aprobadas en 141.23 s, sin fallos, errores ni omisiones. Evidencia: `documentation/evidence/mejoras-2026-09-14/`. Se incorpora `tzdata==2026.4`; sin migraciones ni cambios de datos habituales.
 
 - **Filtros automáticos — 2026-09-14:** diez secciones con actualización sin recarga: inventario, auditoría, cinco catálogos administrativos, donantes, receptores y solicitudes. Búsqueda con espera de 300 ms, selectores/fechas inmediatos, paginación y contadores filtrados, URL e historial, descarte de respuestas obsoletas, reintento y conservación de borradores. Suite vigente: 90 aprobadas en 112.12 s; evidencia en `documentation/evidence/filtros-2026-09-14/`. Monolito actualizado en 5050, sin migración ni cambios de datos del negocio.
@@ -31,6 +41,12 @@ Este archivo es la fuente de verdad del avance del proyecto. Debe actualizarse d
 - **Seguimiento:** los ocho paquetes originales de P1 conservan su cierre histórico; AM-01 a AM-14 documentan este incremento adicional. Las tareas semestrales no quedan cerradas automáticamente. Git contiene fuentes y artefactos; no se realizaron commits ni publicaciones.
 
 ## Terminado
+
+- [x] Separar consulta y edición por fila y comprobar acceso directo a endpoints.
+  - **Criterio de aceptación:** ojo con detalle completo permitido en diálogo de solo lectura sin cambiar URL/filtros; lápiz hacia la operación existente solo cuando corresponde; autorización real por rol/recurso/estado incluso al escribir la URL; error comprensible con regreso al panel; cierre y foco accesibles, móvil, reintento y sesión vencida.
+  - **Evidencia:** `tests/test_details.py`, `tests/details_browser.cjs`, adaptación de `tests/improvements_browser.cjs`; `documentation/evidence/acciones-2026-09-21/Tests.xml` (99 aprobadas), `Details_tests.xml` (4 aprobadas después del ajuste final), `Route_edit_tests.xml`, `Details_browser.json` y capturas. Son 100 pruebas distintas, pues la comprobación específica incorpora una prueba adicional de edición de rutas.
+  - **Decisiones:** fragmentos Jinja autorizados, no formularios ocultos en el modal; nuevas rutas `/editar` reutilizan servicios y revalidan acceso; estados históricos se conservan. Instituciones y catálogos usan una lista explícita de campos de consulta, sin contraseñas/hashes. Consulta de evidencia de auditoría con comprobación institucional y registro de acceso. Rutas conservan identidad y control de versión al editar desde su pantalla propia.
+  - **Límites:** Chrome/macOS y PostgreSQL temporal; no Windows ni producción. El diálogo requiere JavaScript; errores y pantallas tradicionales siguen disponibles. Tablas agregadas e historiales sin expediente muestran sus campos en consulta, sin acciones de edición inventadas. Se mantienen los endpoints anteriores por compatibilidad y sus validaciones. No se reinició ni migró la instalación habitual.
 
 - [x] Implementar las trece mejoras de usabilidad, presentación y consultas aprobadas por el usuario.
   - **Criterio de aceptación:** conservar capturas rechazadas y versiones obsoletas; impedir doble envío en interfaz sin reemplazar la validación transaccional; opciones y edición acordes al estado; orientación por etapa/perfil; filtros y KPIs coherentes con el ámbito; gráficas y series completas; respuestas parciales más pequeñas; consultas regionales sin crecimiento por solicitud; fechas locales convertidas a UTC sin ambigüedad.
@@ -482,6 +498,43 @@ Los pendientes siguientes corresponden a la validación institucional y al alcan
 | 2026-08-12 | Inspección inicial del directorio `proyectoPrueba`. | El directorio estaba vacío antes de crear la documentación base. |
 
 ## Bitácora de trabajo
+
+### 2026-09-21 — Retiro de ventana redundante en errores de acceso
+
+- **Terminado / criterio de aceptación:** acceso directo denegado con un único mensaje visible en la página, sin duplicarlo en un diálogo; conservar HTTP 403, comprobaciones de permisos y regreso al panel.
+- Se retiró la apertura automática que clonaba el contenido del error. El ojo sigue abriendo detalles y mostrando sus errores dentro del diálogo ya iniciado, sin navegar.
+- **Evidencia:** prueba `test_details_browser` aprobada en 12.38 s; verifica diálogo cerrado ante acceso directo 403, un único encabezado de error y regreso al panel, además de los flujos existentes del ojo/lápiz. Captura `Acceso_denegado.png` y `Error_page_tests.xml` actualizados. Sintaxis JavaScript y `git diff --check` correctos; no se repitió la suite completa para este ajuste de presentación.
+- README actualizado; permisos, datos y servicios conservados. PostgreSQL de pruebas aislado de la instalación habitual.
+
+### 2026-09-21 — Detalle modal, acciones separadas y permisos de edición
+
+- Se aplicaron ojo/lápiz en inventario, últimas unidades, catálogos e instituciones, expedientes, donaciones, solicitudes, rutas y traslados. Auditoría permite abrir la evidencia completa; agregados e historiales permanecen de consulta.
+- El modal solicita HTML de solo lectura, conserva filtros y URL, retira su contenido al cerrar, admite Escape/cierre/fondo, recupera foco y comunica carga, errores de red, reintento y sesión vencida. Los datos sensibles permanecen limitados por permisos del servidor.
+- Se agregaron rutas de edición protegidas, verificaciones de GET para catálogos regionales y bloqueo de gestión de registros sin operaciones disponibles. Se conserva toda autorización transaccional en POST. Las rutas editables conservan origen/destino y versión optimista.
+- Accesos denegados devuelven HTTP 403 con ventana integrada al diseño y regreso al panel; recursos no disponibles conservan 404 y auditoría de denegación, sin revelar datos ajenos.
+- Verificación con bases aleatorias sobre clúster exclusivo: regresión completa 99/99 en 258.50 s; prueba adicional de ruta 1/1; comprobación final 4/4 en 17.95 s tras ajustar título de consultas agregadas y traducción de estados administrativos. Sin fallos ni omisiones en esos resultados finales. Revisión visual de capturas, sintaxis JavaScript y `git diff --check` correctos.
+- README y evidencia actualizados. Sin migraciones, secretos versionados, cambios de credenciales o escrituras de negocio en la base habitual. Se conservan los cambios de encabezados anteriores.
+
+### 2026-09-21 — Nombres de columnas adecuados a su contenido
+
+- **Terminado / criterio de aceptación:** aplicar las recomendaciones de encabezados aprobadas por el usuario, con etiquetas específicas por catálogo; conservar Actor / acción y ABO/Rh.
+- **Cambios:** usuarios: Nombre y Ámbito; sedes: Nombre e Institución; ubicaciones: Descripción e Institución; componentes: Nombre y Región; auditoría: Entidad; rutas: Fuente. Solo cambian encabezados, sin retirar datos secundarios.
+- **Evidencia:** renderizado Jinja de los cuatro catálogos con una fila ficticia, comprobación de encabezados y conservación de nombre/correo/sede; renderizado de auditoría; verificación de Fuente y ABO/Rh y sintaxis Python válida en rutas. `git diff --check` correcto. No se ejecutó navegador ni suite completa para este cambio textual.
+- **Decisión:** la autorización actual resuelve el pendiente de implementación de la entrada anterior. Se mantienen los cambios horarios previos y los datos, permisos y comportamiento existentes.
+
+### 2026-09-21 — Encabezados horarios de las demás tablas
+
+- **Terminado / criterio de aceptación:** dejar Fecha y Caducidad sin sufijos de zona horaria en las tablas restantes; no aplicar cambios a encabezados compuestos.
+- **Evidencia:** renderizado Jinja de auditoría y panel regional en UTC y America/Monterrey, comparado con la versión anterior: únicamente cambian los encabezados. Comparación de `routes/regional.py`: solo cuatro etiquetas de columnas modificadas, sintaxis Python válida. `git diff --check` correcto. No se ejecutó navegador ni suite completa para este ajuste textual.
+- **Alcance:** se conservan filtros, formularios, detalles, selector y conversiones horarias. La entrada anterior conserva el diagnóstico previo; sus pendientes horarios de tablas quedan resueltos aquí.
+- **Revisión pendiente de aplicar:** Nombre es adecuado para usuarios, sedes y componentes; en ubicaciones corresponde Descripción. Ámbito es adecuado para usuarios, Institución para sedes y ubicaciones, Región para componentes. En auditoría Actor / acción combina dos datos relevantes: conviene conservarlo; Entidad puede resumir tipo y referencia identificadora. Fuente es coherente con la referencia de estimación de rutas. Estos cambios siguen sin autorización de implementación.
+
+### 2026-09-21 — Simplificación de encabezados del inventario sanguíneo
+
+- **Terminado / criterio de aceptación:** mostrar Folio e Institución sin el segundo concepto separado por barra y Recolección y Caducidad sin zona horaria en la tabla del listado.
+- **Evidencia:** `apps/web-monolito01/src/presentation/templates/inventory/list.html`; renderizado Jinja del fragmento con UTC y America/Monterrey, encabezados comprobados y cuerpo de la tabla idéntico al anterior. Revisión del diff; no se ejecutó la suite completa ni una prueba de navegador para este cambio de texto.
+- **Decisión y alcance:** solo se modifican cuatro encabezados; se conservan componente, ubicación, fechas, selector de zona, conversión y permisos.
+- **Pendiente, sin modificar por instrucción del usuario:** encabezados compuestos de auditoría, usuarios, sedes, ubicaciones, componentes y rutas; zonas horarias en tablas del panel regional, auditoría, expedientes, donaciones, compatibilidad y custodia. También hay menciones horarias en detalles de unidad, solicitud y traslado y en formularios, para revisión posterior. No se incluye ABO/Rh como redundancia: expresa dos sistemas sanguíneos distintos.
 
 ### 2026-09-14 — Trece mejoras operativas y de rendimiento
 

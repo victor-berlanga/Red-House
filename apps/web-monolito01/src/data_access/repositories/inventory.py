@@ -29,7 +29,7 @@ def listing(conn, principal, filters, hours, page=1):
     clause, params = listing_scope(principal, filters, hours)
     source = " FROM blood_inventory v WHERE " + clause
     count = conn.execute("SELECT count(*) AS total" + source, params).fetchone()["total"]
-    rows = conn.execute("SELECT v.*" + source + " ORDER BY expires_at, resource_id LIMIT 12 OFFSET %s",
+    rows = conn.execute("SELECT v.*, EXISTS(SELECT 1 FROM blood_allocation a WHERE a.resource_id=v.resource_id AND a.current_status<>'CANCELLED') AS has_allocation" + source + " ORDER BY expires_at, resource_id LIMIT 12 OFFSET %s",
                         [*params, (page - 1) * 12]).fetchall()
     return rows, count
 

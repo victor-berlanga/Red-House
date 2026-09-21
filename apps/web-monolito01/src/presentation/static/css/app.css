@@ -271,3 +271,15 @@ dt { font-size: 11px; color: var(--muted); }dd { font-size: 12px; margin: 0; ove
 .regional-facts dd {white-space:pre-wrap; overflow-wrap:anywhere;}
 .timezone-picker {display:flex; gap:.5rem; align-items:center; flex-wrap:wrap;}
 .timezone-picker select {width:auto; min-height:32px;}
+.row-actions {display:flex; align-items:center; gap:8px; white-space:nowrap;}
+.row-actions .icon-button {min-width:40px; min-height:40px;}
+.detail-open {overflow:hidden;}
+.record-dialog {width:min(1000px,calc(100vw - 32px)); max-height:calc(100dvh - 32px); padding:0; border:1px solid #dbe2ea; border-radius:14px; color:#172b43; background:#f8fafc; box-shadow:0 24px 80px #0f172a40;}
+.record-dialog::backdrop {background:#0f172a99;}
+.record-dialog-header {display:flex; align-items:center; justify-content:space-between; gap:16px; padding:16px 24px; border-bottom:1px solid #dbe2ea; background:white;}
+.record-dialog-header h2 {margin:0; font-size:18px;}
+.record-dialog-body {padding:24px; overflow:auto; max-height:calc(100dvh - 120px); overflow-wrap:anywhere;}
+.record-dialog-body .page-heading h1 {font-size:24px;}
+.record-dialog-body .detail-grid {grid-template-columns:1fr;}
+.record-dialog-body .error-page {margin:0 auto;}
+@media(max-width:700px) {.record-dialog-body {padding:16px;} .record-dialog-header {padding:12px 16px;} .record-dialog-body .regional-facts {grid-template-columns:1fr;}}

@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}">
   <script src="{{ url_for('static', filename='js/app.js') }}" defer></script>
   <script src="{{ url_for('static', filename='js/filters.js') }}" defer></script>
+  <script src="{{ url_for('static', filename='js/details.js') }}" defer></script>
   {% block head %}{% endblock %}
 </head>
 <body class="{{ 'portal-body' if principal else 'public-body' }} {% block bodyclass %}{% endblock %}">
@@ -50,5 +51,9 @@
 </main>
 {% if principal %}<footer class="workspace-footer"><span>Red House · Red regional</span><form class="timezone-picker" method="post" action="{{ url_for('portal.timezone_preference') }}">{{ csrf() }}<input type="hidden" name="next" value="{{ request.full_path }}"><label for="display-timezone">Zona horaria</label><select id="display-timezone" name="timezone">{% for value,label in timezone_choices.items() %}<option value="{{ value }}" {% if value==display_timezone %}selected{% endif %}>{{ label }}</option>{% endfor %}</select><button class="button secondary small" type="submit">Aplicar horario</button></form></footer></div>{% endif %}
 {% block scripts %}{% endblock %}
+<dialog id="record-dialog" class="record-dialog" aria-labelledby="record-dialog-title">
+  <div class="record-dialog-header"><h2 id="record-dialog-title">Detalle del registro</h2><button type="button" class="icon-button" data-dialog-close aria-label="Cerrar detalle">{{ icon('x') }}</button></div>
+  <div id="record-dialog-body" class="record-dialog-body" aria-live="polite"></div>
+</dialog>
 </body>
 </html>

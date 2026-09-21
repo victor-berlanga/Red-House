@@ -33,7 +33,7 @@ def dashboard(principal):
             result["urgent"] = urgent
             result["chart_title"] = "Unidades disponibles por grupo registrado"
             clause, params = scope(principal, "v")
-            result["recent"] = conn.execute("SELECT * FROM blood_inventory v WHERE " + clause +
+            result["recent"] = conn.execute("SELECT v.*, EXISTS(SELECT 1 FROM blood_allocation a WHERE a.resource_id=v.resource_id AND a.current_status<>'CANCELLED') AS has_allocation FROM blood_inventory v WHERE " + clause +
                 " AND v.current_status <> 'WITHDRAWN'" +
                 " ORDER BY registered_at DESC, resource_id DESC LIMIT 5", params).fetchall()
         audit.record(conn, principal, "READ", "DASHBOARD", "SUMMARY", "Consulta del panel del ámbito autorizado")
