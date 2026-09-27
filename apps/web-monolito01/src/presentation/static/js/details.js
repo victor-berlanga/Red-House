@@ -68,7 +68,7 @@
       table.querySelectorAll('tbody > tr').forEach(row => {
         const cells=Array.from(row.cells);
         if(cells.length===1 && cells[0].colSpan>1) {cells[0].colSpan++; return;}
-        const td=document.createElement('td'), button=document.createElement('button'), template=document.createElement('template');
+        const td=document.createElement('td');td.dataset.label='Acciones';const button=document.createElement('button'), template=document.createElement('template');
         button.type='button'; button.className='icon-button'; button.dataset.rowPreview='';
         button.setAttribute('aria-label','Ver '+(cells[0]?.textContent.trim() || 'registro')); button.title='Ver detalle';
         const icon=document.createElement('img'); icon.src='/static/img/icons/eye.svg'; icon.className='icon'; icon.alt=''; icon.width=20; icon.height=20; button.append(icon);

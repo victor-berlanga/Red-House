@@ -129,6 +129,9 @@ def custody(conn,actor,shipment_id,status,location,observation,evidence):
 def step(actor,identifier,data):
     require(actor,'logistics')
     with transaction() as conn:
+        initial=allocation_row(conn,actor,identifier)
+        # Serializa recepciones de la misma solicitud y respeta el orden de reserva/cancelación.
+        conn.execute('SELECT request_id FROM blood_request WHERE request_id=%s FOR UPDATE',(initial['request_id'],))
         row=allocation_row(conn,actor,identifier,True)
         shipment=conn.execute('SELECT * FROM shipment WHERE allocation_id=%s FOR UPDATE',(identifier,)).fetchone()
         if not shipment:
@@ -177,3 +180,11 @@ def step(actor,identifier,data):
             conn.execute('UPDATE shipment SET version_no=version_no+1 WHERE shipment_id=%s',(shipment['shipment_id'],))
         custody(conn,actor,shipment['shipment_id'],target,location,observation,evidence)
         r.event(conn,actor,target,'SHIPMENT',shipment['shipment_id'],actor.institution_id or row['origin_id'])
+        if target=='ACCEPTED':
+            completed=conn.execute("""UPDATE blood_request q SET current_status='CLOSED',closed_at=now(),version_no=version_no+1
+                WHERE q.request_id=%s AND q.current_status IN ('OPEN','IN_PROGRESS')
+                AND q.quantity=(SELECT count(*) FROM blood_allocation a WHERE a.request_id=q.request_id AND a.current_status='RECEIVED')
+                RETURNING q.request_id""",(row['request_id'],)).fetchone()
+            if completed:
+                r.request_event(conn,actor,row['request_id'],'CLOSED','Cierre automático tras recepción aceptada de todas las unidades')
+                r.event(conn,actor,'CLOSED','BLOOD_REQUEST',row['request_id'],row['destination_id'],audit_reason='Cantidad completa recibida y aceptada; cierre automático')

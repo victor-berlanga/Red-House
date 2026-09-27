@@ -26,6 +26,7 @@
     dialog.innerHTML = '<div class="record-dialog-header"><h2></h2><button type="button" class="icon-button" aria-label="Cerrar confirmación">×</button></div><div class="record-dialog-body"><p>Revisa la operación antes de confirmar.</p><ul class="change-summary"></ul><p class="notice confirmation-warning" hidden></p><div class="confirmation-fields"></div><div class="form-actions"><button type="button" class="button secondary" data-confirm-cancel>Volver a editar</button><button type="button" class="button" data-confirm-accept>Confirmar y guardar</button></div></div>';
     dialog.querySelector('h2').id = `edit-confirm-title-${index}`;
     dialog.querySelector('h2').textContent = form.dataset.confirmEdit;
+    if(form.dataset.confirmButton)dialog.querySelector('[data-confirm-accept]').textContent=form.dataset.confirmButton;
     const summary = dialog.querySelector('.change-summary');
     const warning = dialog.querySelector('.confirmation-warning');
     const status = document.createElement('p');

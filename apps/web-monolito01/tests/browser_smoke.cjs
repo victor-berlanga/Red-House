@@ -54,7 +54,8 @@ const fs = require('node:fs');
     await page.getByLabel('Motivo del registro').fill('Alta ficticia desde navegador');
     await page.getByRole('button',{name:'Guardar unidad',exact:true}).click();
     await page.waitForURL(root+'/inventario');
-    await page.getByText('Unidad registrada correctamente.',{exact:true}).waitFor();
+    await page.locator('.notice.success').filter({hasText:'Unidad registrada correctamente.'}).waitFor();
+    assert(await page.locator('.notice.success a').isVisible());
     await page.locator('tbody tr').filter({hasText:'RH-BROWSER-001'}).getByRole('link',{name:/Editar/}).click();
     await page.getByRole('heading',{name:'RH-BROWSER-001',exact:true}).waitFor();
     assert.equal(await page.locator('.inventory-record').count(),1);
@@ -98,7 +99,7 @@ const fs = require('node:fs');
     assert(await page.getByText('Unidad dada de baja lógicamente.',{exact:false}).isVisible());
     await page.setViewportSize({width:1440,height:1000});
     await page.goto(root+'/proximamente/organos'); await capture('future-desktop');
-    assert(await page.getByRole('button',{name:'Registrar disponibilidad',exact:true}).isDisabled());
+    assert(await page.getByRole('heading',{name:'Disponibilidad de órganos',exact:true}).isVisible());
     await page.setViewportSize({width:390,height:844});
     for(const route of ['/panel','/inventario','/proximamente/organos']) {
       await page.goto(root+route); await noOverflow(route+' mobile');

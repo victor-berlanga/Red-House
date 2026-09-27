@@ -48,10 +48,36 @@ NAV = [
     ("BANCO DE SANGRE", "rutas", "Rutas y estimaciones", "map-pin", "regional.routes", {}, "route.write", False),
     ("LOGÍSTICA", "traslados", "Traslados y custodia", "truck", "regional.allocations", {}, "logistics", False),
     ("LOGÍSTICA", "trazabilidad", "Trazabilidad regional", "file-clock", "regional.allocations", {}, "trace.read", False),
-    ("DONACIÓN / TRASPLANTE DE ÓRGANOS", "organos", "Órganos y HLA", "heart-pulse", "portal.future", {"slug": "organos"}, "preview", True),
+    ("DONACIÓN / TRASPLANTE DE ÓRGANOS", "organos", "Órganos y HLA", "heart-pulse", "organs.index", {}, "organ.read", False),
+    ("DONACIÓN / TRASPLANTE DE ÓRGANOS", "organos-logistica", "Traslados de órganos", "truck", "organs.allocations", {}, "organ.logistics", False),
     ("AUDITORÍA", "audit", "Bitácora de auditoría", "scroll-text", "portal.audit", {}, "audit.read", False),
     ("ADMINISTRACIÓN", "institutions", "Instituciones", "building-2", "admin.index", {"entity": "institutions"}, "administration", False),
     ("ADMINISTRACIÓN", "users", "Usuarios", "user-round-cog", "admin.index", {"entity": "users"}, "administration", False),
     ("ADMINISTRACIÓN", "components", "Catálogos", "settings-2", "admin.index", {"entity": "components"}, "administration", False),
     ("ADMINISTRACIÓN", "settings", "Roles y parámetros", "sliders-horizontal", "admin.settings", {}, "administration", False),
 ]
+
+
+AUDIT_LABELS = {
+    'ORGAN_DONOR':'Donante de órganos', 'ORGAN_RECIPIENT':'Receptor de órgano',
+    'ORGAN_OFFER':'Disponibilidad de órgano', 'ORGAN_CANDIDATE':'Candidato de órgano',
+    'ORGAN_REVIEW':'Dictamen de órgano', 'ORGAN_ALLOCATION':'Asignación de órgano',
+    'LIST':'Consulta de listado', 'SUMMARY':'Consulta de resumen/panel',
+    'READ':'Consulta', 'SENSITIVE_READ':'Consulta de información restringida',
+    'CREATE':'Alta', 'UPDATE':'Modificación', 'DELETE':'Baja', 'LOGIN':'Inicio de sesión',
+    'LOGOUT':'Cierre de sesión', 'RENEW':'Continuación de sesión', 'ACCESS':'Acceso',
+    'AUTHORIZE':'Autorización', 'EVALUATE':'Evaluación de alternativas', 'RESERVE':'Reserva',
+    'ASSIGN':'Asignación', 'CANCEL':'Cancelación', 'CLOSED':'Solicitud completada',
+    'BLOOD_UNIT':'Unidad sanguínea', 'BLOOD_REQUEST':'Solicitud', 'DONOR':'Donante',
+    'RECIPIENT':'Receptor', 'DONATION':'Donación', 'DONOR_REVIEW':'Evaluación del donante',
+    'SHIPMENT':'Traslado', 'BLOOD_ALLOCATION':'Asignación', 'AUDIT_EVENT':'Evento de auditoría',
+    'USER_ACCOUNT':'Cuenta de usuario', 'WEB_SESSION':'Sesión', 'REGIONAL_ROUTE':'Ruta regional',
+    'REGIONAL_DASHBOARD':'Panel regional', 'DASHBOARD':'Panel principal', 'ENDPOINT':'Operación del portal',
+    'INSTITUTION':'Institución', 'SITE':'Sede', 'STORAGE_LOCATION':'Ubicación', 'BLOOD_COMPONENT':'Componente',
+    'record_code':'Folio del expediente','display_name':'Nombre','blood_group':'ABO/Rh',
+    'restrictions':'Restricciones','background':'Antecedentes','studies':'Estudios',
+    'current_status':'Estado','requirement':'Requerimiento','source_reference':'Procedencia de estimación',
+}
+
+def audit_label(value):
+    return AUDIT_LABELS.get(value, REGIONAL_LABELS.get(value,value))

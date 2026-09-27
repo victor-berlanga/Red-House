@@ -105,5 +105,5 @@ const path=require('node:path');
    await screenshot('Ruta_unificada');
    assert.deepEqual(errors,[]);
    console.log(JSON.stringify({result:'PASS',panels:7,checks:['no-change','required-reason','cancel','escape-focus','password-redaction','revocation-warning','inactivation-warning','single-post','mobile','saved-values'],javascriptErrors:errors}));
- }finally{await browser.close();}
+ }finally{for(const context of browser.contexts()){for(const page of context.pages())await page.close({runBeforeUnload:false});await context.close();}await browser.close();}
 })().catch(e=>{console.error(e);process.exit(1);});

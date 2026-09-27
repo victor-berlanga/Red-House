@@ -48,8 +48,8 @@ def audit_list(principal, filters, page):
         else:
             clause, params = "a.region_name = %s", [principal.region_name]
         query = filters.get("q", "")
-        clause += " AND (a.entity_reference ILIKE %s OR a.action ILIKE %s OR a.entity_type ILIKE %s)"
-        params += [pattern(query)] * 3
+        clause += " AND (a.entity_reference ILIKE %s OR a.action ILIKE %s OR a.entity_type ILIKE %s OR a.entity_reference=ANY(%s) OR a.action=ANY(%s) OR a.entity_type=ANY(%s))"
+        params += [pattern(query)] * 3 + [filters.get("translated_codes",[])] * 3
         if filters.get("outcome"):
             clause += " AND a.outcome = %s"
             params += [filters["outcome"]]

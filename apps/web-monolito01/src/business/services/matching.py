@@ -29,6 +29,25 @@ def candidate_rows(conn,request):
         (request['institution_id'],request['region_name'],request['component_id'])).fetchall()
 
 
+def availability_message(conn, request):
+    """Diagnóstico agregado dentro de la misma región; no expone expedientes."""
+    rows=conn.execute('''SELECT v.recorded_group_code,t.route_id,t.travel_minutes,v.expires_at
+        FROM blood_inventory v LEFT JOIN regional_route t ON t.origin_id=v.institution_id AND t.destination_id=%s
+        WHERE v.region_name=%s AND v.component_id=%s AND v.is_available''',
+        (request['institution_id'],request['region_name'],request['component_id'])).fetchall()
+    if not rows:
+        return 'No hay unidades disponibles de este componente en la región.'
+    rows=[u for u in rows if compatible(u['recorded_group_code'],request['blood_group'])]
+    if not rows:
+        return 'Las unidades disponibles no coinciden con el filtro ABO/Rh de esta solicitud.'
+    routed=[u for u in rows if u['route_id']]
+    if not routed:
+        return 'Hay unidades con coincidencia ABO/Rh, pero falta registrar sus rutas al destino. Solicita al coordinador completar las estimaciones.'
+    if not any(u['expires_at']>r.now()+timedelta(minutes=u['travel_minutes']) for u in routed):
+        return 'Las unidades con ruta no tienen viabilidad temporal suficiente para el traslado estimado.'
+    return 'Hay disponibilidad para evaluar. Busca nuevamente para obtener alternativas vigentes; la reserva siempre revalida el recurso y la ruta.'
+
+
 def evaluate(actor,identifier):
     require(actor,'candidate.evaluate')
     start=perf_counter()

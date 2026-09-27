@@ -93,3 +93,22 @@ if (timezoneForm) timezoneForm.addEventListener('submit', event => {
 },true);
 const formError=document.getElementById('form-error');
 if (formError) formError.focus();
+
+// Reglas visibles de folio, con validación equivalente en servidor.
+document.querySelectorAll('[data-expedient-code]').forEach(input=>input.addEventListener('input',()=>{
+  const value=input.value.trim().toUpperCase();
+  input.setCustomValidity(value===input.dataset.legacyCode||/^[A-Z0-9][A-Z0-9_-]{5,29}$/.test(value)?'':'Usa de 6 a 30 letras, números, guiones o guiones bajos.');
+}));
+// Solo se almacena la URL del listado (sin capturas de formularios).
+document.addEventListener('click',event=>{
+  const link=event.target.closest('.row-actions a[href]');
+  if(link){try{sessionStorage.setItem('red-house-return',JSON.stringify({from:location.pathname+location.search,to:new URL(link.href).pathname}));}catch{}}
+});
+document.querySelectorAll('[data-context-back]').forEach(back=>{try{const saved=JSON.parse(sessionStorage.getItem('red-house-return'));if(saved&&saved.to.replace(/\/editar$/,'')===location.pathname.replace(/\/editar$/,'')&&saved.from.split('?')[0]===back.getAttribute('href'))back.href=saved.from;}catch{}});
+let leaving=false;
+window.addEventListener('session-ended',()=>{leaving=true;});
+document.addEventListener('submit',event=>{if(!event.defaultPrevented)leaving=true;});
+window.addEventListener('pageshow',()=>{leaving=false;});
+window.addEventListener('beforeunload',event=>{
+ if(!leaving&&document.querySelector('form[data-dirty="true"]')){event.preventDefault();event.returnValue='';}
+});

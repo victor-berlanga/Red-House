@@ -29,18 +29,21 @@ def create_app(overrides=None):
         if request.endpoint and request.endpoint not in public:
             g.principal, g.session_id = auth.authenticate(request.cookies.get(app.config["JWT_COOKIE_NAME"]))
             if not g.principal:
+                if request.endpoint in ('public.session_status','public.renew_session'):
+                    return {'message':'Tu sesión terminó. Inicia sesión nuevamente.'},401
                 response = redirect(url_for("public.login"))
                 response.delete_cookie(app.config["JWT_COOKIE_NAME"], path="/")
                 return response
 
     CSRFProtect(app)
 
-    from .presentation.routes import admin, inventory, portal, public, regional
-    for blueprint in (public.bp, portal.bp, admin.bp, inventory.bp, regional.bp):
+    from .presentation.routes import admin, inventory, portal, public, regional, organs
+    for blueprint in (public.bp, portal.bp, admin.bp, inventory.bp, regional.bp, organs.bp):
         app.register_blueprint(blueprint)
     from .presentation.timezones import datefmt, inputfmt, selected_zone, local_value, ZONES
-    from .presentation.views import regional_value
+    from .presentation.views import regional_value, audit_label
     app.jinja_env.filters['regional_value'] = regional_value
+    app.jinja_env.filters['audit_label'] = audit_label
     app.jinja_env.filters['datefmt'] = datefmt
     app.jinja_env.filters['inputfmt'] = inputfmt
     from .cli import register

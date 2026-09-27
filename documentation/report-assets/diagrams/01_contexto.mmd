@@ -1,6 +1,6 @@
 flowchart TB
   subgraph Actual[Monolito regional académico actual]
-    WEB[Red House: sangre, solicitudes, asignación y custodia]
+    WEB[Red House: sangre y órganos; evaluación, asignación y custodia]
   end
   ADM[Administración] --> WEB
   OP[Operador de banco] --> WEB
@@ -10,4 +10,4 @@ flowchart TB
   AUD[Auditor: evidencia sin expediente clínico] --> WEB
   WEB --> A[Institución de origen]
   WEB --> B[Institución solicitante]
-  FUT[Posterior: órganos y HLA, móvil y escritorio] -.-> WEB
+  FUT[Posterior: microservicios, móvil y escritorio] -.-> WEB

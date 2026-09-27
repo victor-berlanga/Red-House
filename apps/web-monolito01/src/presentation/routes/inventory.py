@@ -7,6 +7,8 @@ from ...business.services import inventory as service
 from ...data_access.connection import transaction
 from ...data_access.repositories import audit, inventory as repo, network
 
+from ..notices import created
+
 bp = Blueprint("inventory", __name__, url_prefix="/inventario")
 
 
@@ -39,8 +41,8 @@ def create():
     error, status = None, 200
     if request.method == "POST":
         try:
-            service.create(g.principal, request.form)
-            flash("Unidad registrada correctamente.", "success")
+            identifier=service.create(g.principal, request.form)
+            created("Unidad registrada correctamente.",request.form["traceability_code"].upper(),"inventory.detail",identifier=identifier)
             return redirect(url_for("inventory.index"))
         except BusinessError as exc:
             if exc.status != 400:

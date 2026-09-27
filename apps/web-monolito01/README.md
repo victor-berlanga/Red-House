@@ -1,8 +1,11 @@
 # Red House · Monolito web
 
+> **Actualización del 27 de septiembre de 2026:** órganos/HLA ya dispone de flujo independiente para riñón, hígado y corazón, con estudios e interpretación humana, preselección demostrativa, reserva y custodia. Sustituye las menciones anteriores que lo dejaban pendiente. La migración 004 amplía el esquema a 46 tablas. El procedimiento, reglas y límites se documentan en `documentation/markdowns/Guia_del_flujo_de_organos.md`; las capturas reales están en `documentation/capturas/README.md`.
+
+
 Monolito académico de coordinación regional. Un proceso Flask renderiza Jinja2 y ejecuta operaciones reales contra PostgreSQL. No implementa ni consume microservicios.
 
-La revisión de interfaz del 14 de septiembre utiliza lenguaje operativo y marca la sección activa también en páginas de detalle. Órganos muestra su disponibilidad pendiente y recuperación de acceso dirige al administrador, sin formularios simulados. El alcance clínico y técnico permanece documentado; la evaluación de compatibilidad conserva su advertencia y autorización médica. Evidencia: [interfaz-2026-09-14](../../documentation/evidence/interfaz-2026-09-14/README.md).
+La revisión de interfaz del 14 de septiembre utiliza lenguaje operativo y marca la sección activa también en páginas de detalle. Órganos muestra su disponibilidad pendiente y recuperación de acceso dirige al administrador, sin formularios simulados. El alcance clínico y técnico permanece documentado; la evaluación de compatibilidad conserva su advertencia y autorización médica.
 
 ## Mejoras operativas
 
@@ -14,15 +17,13 @@ Las acciones de cada registro se separan en ojo (detalle completo autorizado en 
 
 La ventana se cierra con su botón, Escape o el fondo; retiene el foco y lo devuelve al control de origen. Conserva filtros, permite reintentar errores de carga y comunica la sesión vencida. Un acceso directo denegado muestra el mensaje una sola vez en la página del portal, con explicación y regreso al panel, manteniendo HTTP 403; los recursos fuera de ámbito conservan 404 para no revelar su existencia. Si falla una consulta iniciada con el ojo, el error aparece dentro de ese mismo diálogo. Sin JavaScript, los errores siguen siendo páginas legibles y los enlaces de edición conservan sus comprobaciones; la apertura modal requiere JavaScript.
 
-Evidencia de acciones y permisos: [acciones-2026-09-21](../../documentation/evidence/acciones-2026-09-21/README.md).
-
-Evidencia de edición unificada y confirmaciones: [paneles-2026-09-21](../../documentation/evidence/paneles-2026-09-21/README.md), con 110 pruebas distintas comprobadas y registro de las repeticiones de navegador.
+La bitácora del proyecto conserva el resumen de las revisiones de acciones, permisos y edición unificada.
 
 Formularios regionales con errores junto a los campos, conservación de capturas rechazadas, áreas de texto y bloqueo de doble envío. Los expedientes con historial se muestran como consulta; las opciones de donantes y receptores reflejan sus estados y permiten buscar por folio/nombre. Los detalles incluyen etapa, siguiente paso y perfil responsable.
 
 El panel incorpora accesos desde sus indicadores, tres gráficas y tendencias de siete días con ceros. Los filtros usan fragmentos HTML y las alertas regionales agrupan sus consultas. La zona horaria puede cambiarse al pie del portal; si hay datos sin guardar, se pide confirmación antes de recargar. `tzdata` respalda el uso de zonas en sistemas que no incluyen sus datos.
 
-Criterios, mediciones y resultados: [trece mejoras verificadas](../../documentation/evidence/mejoras-2026-09-14/README.md).
+Los criterios y resultados resumidos de estas mejoras están registrados en `PROJECT_STATUS.md`.
 
 ## Filtros automáticos
 
@@ -32,7 +33,7 @@ La actualización conserva el foco del buscador y los borradores de formularios 
 
 Se utiliza JavaScript nativo con Fetch y AbortController sobre las rutas GET existentes. Flask/Jinja2 genera la respuesta HTML y el navegador reemplaza únicamente los resultados, la paginación y los contadores; no se sustituyen formularios de escritura. PostgreSQL y los servicios existentes conservan autorización, consultas parametrizadas y auditoría. No se agregan dependencias de ejecución ni endpoints de microservicios.
 
-Ver [evidencias de filtros](../../documentation/evidence/filtros-2026-09-14/README.md).
+Los criterios de filtros y consultas están resumidos en `PROJECT_STATUS.md`.
 
 ## Qué funciona
 
@@ -46,11 +47,11 @@ Ver [evidencias de filtros](../../documentation/evidence/filtros-2026-09-14/READ
 
 Seis perfiles están habilitados: Administrador, Operador, Médico, Coordinador, Traslado y Auditor. Las cuatro cuentas iniciales se conservan. **Para operar los perfiles nuevos, el Administrador crea cuentas y asigna el ámbito correspondiente**: Médico y Traslado deben pertenecer a una institución; Coordinador puede tener ámbito regional. No se crean contraseñas predeterminadas ni se cambian las existentes durante la migración.
 
-Órganos/HLA y recuperación por correo siguen pendientes. El motor no cubre plasma, plaquetas, anticuerpos ni pruebas cruzadas. Las evidencias de custodia son referencias documentales ficticias; no se cargan archivos en esta versión.
+La recuperación por correo y la validación clínica de HLA siguen pendientes; el flujo documental de órganos ya está disponible. El motor no cubre plasma, plaquetas, anticuerpos ni pruebas cruzadas. Las evidencias de custodia son referencias documentales ficticias; no se cargan archivos en esta versión.
 
 - [Guía del recorrido por perfiles](../../documentation/markdowns/Guia_del_flujo_regional.md).
-- [Reporte consolidado Word](../../documentation/docx/Reporte_Tecnico_del_Primer_Avance.docx).
-- [Evidencia nueva: 89 pruebas aprobadas](../../documentation/evidence/ampliacion-monolito/README.md).
+- [Reporte Técnico Integral Word](../../documentation/docx/Reporte_Tecnico_Integral_Red_House.docx) y [PDF](../../documentation/pdf/Reporte_Tecnico_Integral_Red_House.pdf).
+- [Resumen del proyecto](../../PROJECT_STATUS.md).
 
 ## Actualizar una instalación existente
 
@@ -254,9 +255,9 @@ La cobertura incluye autenticación, CSRF, revocación, rol y ámbito, escritura
 
 ### Revisión desde Red-House
 
-El 6 de septiembre de 2026 se ejecutaron **65 pruebas, todas aprobadas y sin omisiones**, desde los archivos actuales de este repositorio, usando un entorno Python recién creado para la revisión, un clúster PostgreSQL temporal exclusivo y Chrome. La ejecución duró 40.80 segundos. Se conservaron el [informe y las capturas](../../documentation/evidence/primer-parcial/README.md), y se detuvo el clúster temporal después de retirar únicamente las bases creadas para pruebas. La base habitual se comprobó solo mediante `setup.sh --check`, sin reinicializarla.
+El 6 de septiembre de 2026 se ejecutaron **65 pruebas, todas aprobadas y sin omisiones**, desde los archivos actuales de este repositorio, usando un entorno Python recién creado para la revisión, un clúster PostgreSQL temporal exclusivo y Chrome. La ejecución duró 40.80 segundos. El clúster temporal se detuvo después de retirar únicamente las bases creadas para pruebas. La base habitual se comprobó solo mediante `setup.sh --check`, sin reinicializarla.
 
-Después de detectar las rutas antiguas del `.venv` copiado, se reconstruyó el entorno por autorización del usuario en `apps/web-monolito01/.venv`. La activación, `pip`, `pytest`, Flask y `sys.prefix` apuntan ahora a `Red-House`; `pip check` y `setup.sh --check` aprobaron. Las **65 pruebas volvieron a aprobar con este entorno, sin omisiones, en 40.92 s**, y `python3 run.py` respondió HTTP 200 en `/health/live`, `/` y `/login` sin activación manual. El entorno anterior se conservó fuera del repositorio como respaldo temporal. No se cambiaron código, SQL, `.env`, credenciales ni datos. La prueba de Windows y la revisión del equipo están confirmadas por el usuario; el [informe de cierre](../../documentation/evidence/primer-parcial/README.md#cierre-del-primer-parcial) distingue esa confirmación de las pruebas ejecutadas aquí.
+Después de detectar las rutas antiguas del `.venv` copiado, se reconstruyó el entorno por autorización del usuario en `apps/web-monolito01/.venv`. La activación, `pip`, `pytest`, Flask y `sys.prefix` apuntan ahora a `Red-House`; `pip check` y `setup.sh --check` aprobaron. Las **65 pruebas volvieron a aprobar con este entorno, sin omisiones, en 40.92 s**, y `python3 run.py` respondió HTTP 200 en `/health/live`, `/` y `/login` sin activación manual. El entorno anterior se conservó fuera del repositorio como respaldo temporal. No se cambiaron código, SQL, `.env`, credenciales ni datos. La prueba de Windows y la revisión del equipo están confirmadas por el usuario; `PROJECT_STATUS.md` distingue esa confirmación de las pruebas ejecutadas aquí.
 
 ## Diseño y dependencias visuales
 
@@ -267,3 +268,14 @@ Los iconos Lucide y las fuentes se sirven localmente con sus licencias en `src/p
 Las decisiones de implementación siguen las referencias oficiales de [seguridad de Flask](https://flask.palletsprojects.com/en/stable/web-security/), [CSRF de Flask-WTF](https://flask-wtf.readthedocs.io/en/1.2.x/csrf/), [parámetros de Psycopg](https://www.psycopg.org/psycopg3/docs/basic/params.html), [validación de PyJWT](https://pyjwt.readthedocs.io/en/stable/api.html) y [accesibilidad de Highcharts](https://www.highcharts.com/docs/accessibility/accessibility-module).
 
 El esquema físico y su relación con la normalización previa se explican en [data/database/README.md](../../data/database/README.md). El [análisis vigente](../../documentation/markdowns/Analisis_del_problema.md) y el [modelo lógico](../../documentation/database-diagrams/Modelo_4FN.md) están en `documentation/`; el ZIP y los modelos sustituidos permanecen como antecedentes en el repositorio de origen.
+
+
+## Mejoras del primer parcial — 23 de septiembre de 2026
+
+Aplicar `python -m flask --app run:app migrate-db` usando el entorno virtual y reiniciar el servidor. La migración 003 renombra la urgencia anterior del receptor a `legacy_urgency`, conserva sus valores y elimina el valor inicial de ese campo histórico. La urgencia operativa se captura únicamente en solicitudes. No se reinicializa la base ni se modifican credenciales.
+
+El panel ofrece resúmenes/desplegables; los listados regionales usan tarjetas en móvil; los folios nuevos exigen 6–30 caracteres; el seguimiento del donante incluye revisiones y donaciones relacionadas. Las solicitudes muestran cobertura, bloquean reservas excedentes en interfaz y servidor, separan cancelación y completan su cierre al aceptar la última unidad. Las rutas registran procedencia manual automáticamente. La auditoría traduce códigos y conserva detalles autorizados.
+
+La sesión conserva 15 minutos de vigencia, con aviso fijo sin contador cinco minutos antes y continuación explícita mediante JWT rotado y revocación PostgreSQL. Al vencer, se redirige directamente al inicio de sesión. La renovación conserva el formulario abierto sin persistir borradores en almacenamiento del navegador. Los expedientes con historia no se desbloquean para edición libre.
+
+Guía de aceptación por perfil: [Pruebas de las mejoras](../../documentation/markdowns/Pruebas_mejoras_primer_parcial.md). El trabajo se limita al primer parcial mejorado: no incorpora volumen por bolsa ni componentes distribuidos.

@@ -1,12 +1,15 @@
 # PostgreSQL · Subconjunto físico del monolito
 
+> **Actualización del 27 de septiembre de 2026:** órganos/HLA ya dispone de flujo independiente para riñón, hígado y corazón, con estudios e interpretación humana, preselección demostrativa, reserva y custodia. Sustituye las menciones anteriores que lo dejaban pendiente. La migración 004 amplía el esquema a 46 tablas. El procedimiento, reglas y límites se documentan en `documentation/markdowns/Guia_del_flujo_de_organos.md`; las capturas reales están en `documentation/capturas/README.md`.
+
+
 ## Ampliación regional vigente — 13 de septiembre de 2026
 
 El esquema inicial `schema.sql` conserva sus 23 tablas. La migración incremental `migrations/002_regional.sql` incorpora 14 tablas de negocio y `schema_migration`, para un total de **38 tablas**. Habilita Médico, Coordinador y Traslado; amplía tipos de institución y estados de unidad, sin reinicializar datos. La descripción de las 23 tablas que sigue corresponde a la base inicial.
 
 Las tablas nuevas cubren donantes y revisión, donaciones y etapas, vínculo de unidades, receptores, solicitudes y eventos, rutas, evaluaciones/candidatos, reservas, traslados y custodia. El índice parcial `allocation_resource_exclusive` impide dos asignaciones no canceladas de la misma unidad. La reserva bloquea solicitud y unidad; las decisiones, movimientos y auditoría se confirman juntos. Los eventos y evaluaciones son anexables mediante triggers.
 
-El [Reporte Técnico del Primer Avance](../../documentation/docx/Reporte_Tecnico_del_Primer_Avance.docx) incluye el modelo conceptual y el diccionario físico obtenido del catálogo. El [catálogo JSON](../../documentation/evidence/ampliacion-monolito/Physical_schema.json) conserva columnas, PK, FK, CHECK e índices. La [verificación de actualización](../../documentation/evidence/ampliacion-monolito/Upgrade_check.json) demuestra restauración de copia, migración e idempotencia con preservación de datos.
+El [Reporte Técnico Integral](../../documentation/docx/Reporte_Tecnico_Integral_Red_House.docx) incluye el modelo conceptual y resume el catálogo físico. `schema.sql` y las migraciones de este directorio son las fuentes ejecutables del esquema actual.
 
 Para actualizar, usar `flask --app run migrate-db` desde el entorno del monolito. No se ejecuta `schema.sql` nuevamente. Los 169 elementos lógicos semestrales no se convierten automáticamente en este esquema físico.
 
@@ -68,7 +71,7 @@ La revisión del 6 de septiembre de 2026 contrastó los RF del primer parcial, e
 
 Las 23 tablas tienen PK; el catálogo real de PostgreSQL confirmó 24 FK y 21 restricciones `CHECK`, sin columnas JSON ni arreglos. La vista `blood_inventory` reconstruyó las 36 unidades ficticias mediante sus referencias sin crear una tabla duplicada. El conjunto lógico volvió a superar su verificador de 49 diagramas y dependencias declaradas. Esto comprueba el alcance técnico descrito, no reglas clínicas desconocidas ni una certificación de 4FN de todo el SQL.
 
-Los [resultados y límites de la revisión](../../documentation/evidence/primer-parcial/README.md) incluyen el catálogo obtenido, las pruebas y evidencia de navegador. No fue necesario cambiar `schema.sql` ni los modelos de 0FN–4FN.
+La revisión inicial confirmó el catálogo obtenido y el alcance de `schema.sql`. No fue necesario cambiar este archivo ni los modelos de 0FN–4FN.
 
 ## Integridad y operación
 

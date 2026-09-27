@@ -81,3 +81,28 @@ def logout(principal, sid):
         conn.execute("UPDATE web_session SET revoked_at = now() WHERE session_id = %s AND account_id = %s",
                      (sid, principal.account_id))
         audit.record(conn, principal, "LOGOUT", "USER_ACCOUNT", principal.account_id, "Sesión cerrada")
+
+
+def session_status(principal, sid):
+    with transaction() as conn:
+        row=conn.execute('SELECT expires_at FROM web_session WHERE session_id=%s AND account_id=%s AND revoked_at IS NULL AND expires_at>now()', (sid,principal.account_id)).fetchone()
+        if not row:
+            raise BusinessError('Tu sesión terminó. Inicia sesión nuevamente.',401)
+        return {'expires_at':row['expires_at'].timestamp(), 'server_time':datetime.now(timezone.utc).timestamp()}
+
+
+def renew(principal, sid):
+    """Renovación explícita con sesión vigente, CSRF y rotación atómica del JWT."""
+    with transaction() as conn:
+        old=conn.execute('SELECT * FROM web_session WHERE session_id=%s AND account_id=%s FOR UPDATE',(sid,principal.account_id)).fetchone()
+        now=datetime.now(timezone.utc)
+        row=accounts.by_id(conn,principal.account_id)
+        if not old or old['revoked_at'] or old['expires_at']<=now or not active(row):
+            raise BusinessError('La sesión ya no puede renovarse. Inicia sesión nuevamente.',401)
+        expires=now+timedelta(seconds=current_app.config['JWT_LIFETIME_SECONDS'])
+        new_sid=uuid4()
+        conn.execute('UPDATE web_session SET revoked_at=%s WHERE session_id=%s',(now,sid))
+        conn.execute('INSERT INTO web_session(session_id,account_id,expires_at) VALUES (%s,%s,%s)',(new_sid,principal.account_id,expires))
+        audit.record(conn,principal,'RENEW','WEB_SESSION',principal.account_id,'Continuación explícita de sesión; credencial anterior revocada')
+        token=jwt.encode({'sub':str(principal.account_id),'jti':str(new_sid),'iat':now,'nbf':now,'exp':expires,'iss':ISSUER,'aud':AUDIENCE},current_app.config['JWT_SECRET_KEY'],algorithm='HS256')
+        return token,{'expires_at':expires.timestamp(),'server_time':now.timestamp()}

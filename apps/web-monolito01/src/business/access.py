@@ -17,6 +17,14 @@ class Principal:
         return cls(**{field: row[field] for field in cls.__dataclass_fields__})
 
     def can(self, action):
+        if action.startswith("organ."):
+            return self.role_code in {
+                "organ.read": {"MEDICAL", "COORDINATOR", "AUDITOR", "OPERATOR"},
+                "organ.medical": {"MEDICAL"},
+                "organ.evaluate": {"MEDICAL", "COORDINATOR"},
+                "organ.plan": {"COORDINATOR"},
+                "organ.logistics": {"MEDICAL", "COORDINATOR", "AUDITOR", "OPERATOR", "TRANSPORT"},
+            }.get(action, set())
         return action in {
             "ADMIN": {"dashboard", "administration", "preview"},
             "OPERATOR": {"dashboard", "inventory.read", "inventory.write", "preview", "donor.write", "donation.write", "regional.read", "logistics"},

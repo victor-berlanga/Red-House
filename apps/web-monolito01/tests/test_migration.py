@@ -40,11 +40,11 @@ def snapshot(conn):
 def test_upgrade_preserves_existing_accounts_units_and_history(legacy_database):
     conn=legacy_database
     before=snapshot(conn)
-    assert migrate(conn)==['002_regional.sql']
+    assert migrate(conn)==['002_regional.sql', '003_recipient_urgency_history.sql', '004_organs.sql']
     assert snapshot(conn)==before
     conn.commit()
     assert migrate(conn)==[]
-    assert conn.execute("SELECT count(*) AS n FROM information_schema.tables WHERE table_schema='red_house' AND table_type='BASE TABLE'").fetchone()['n']==38
+    assert conn.execute("SELECT count(*) AS n FROM information_schema.tables WHERE table_schema='red_house' AND table_type='BASE TABLE'").fetchone()['n']==46
     assert snapshot(conn)==before
 
 

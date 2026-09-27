@@ -46,7 +46,8 @@ def integer(data, name, minimum=1, maximum=1_000_000):
             raise ValueError
         return value
     except (ValueError, TypeError):
-        raise BusinessError(f"{name}: escribe un entero entre {minimum} y {maximum}.", field=name) from None
+        label={'quantity':'Unidades solicitadas','version_no':'Versión del registro','distance_km':'Distancia estimada','travel_minutes':'Tiempo estimado','page':'Página','hours':'Horas de aviso'}.get(name,name)
+        raise BusinessError(f"{label}: escribe un entero entre {minimum} y {maximum}.", field=name) from None
 
 
 def email(data, name="login_email", required=True):

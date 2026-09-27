@@ -21,7 +21,7 @@ const dist=path.dirname(require.resolve('mermaid'));
    await page.goto(`http://127.0.0.1:${server.address().port}/`);
    await page.evaluate(async url=>{window.mermaid=(await import(url)).default;window.mermaid.initialize({startOnLoad:false,securityLevel:'strict',theme:'base',themeVariables:{fontFamily:'Arial',fontSize:'20px',primaryColor:'#f1f5f9',primaryTextColor:'#0f172a',primaryBorderColor:'#64748b',lineColor:'#64748b'},flowchart:{useMaxWidth:false},sequence:{useMaxWidth:false}});},url);
    let index=0;
-   for(const name of fs.readdirSync(root).filter(n=>n.endsWith('.mmd')).sort()){
+   for(const name of fs.readdirSync(root).filter(n=>n.endsWith('.mmd') && (process.argv.length===2 || process.argv.slice(2).includes(n))).sort()){
      const code=fs.readFileSync(path.join(root,name),'utf8');
      const svg=await page.evaluate(async({code,index})=>(await window.mermaid.render('d'+index,code)).svg,{code,index:++index});
      fs.writeFileSync(path.join(root,name.replace('.mmd','.svg')),svg);

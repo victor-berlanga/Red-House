@@ -4,15 +4,17 @@ Red regional de bancos de sangre y donación de órganos · Proyecto 6 · Equipo
 
 El monolito web ya incluye el **flujo sanguíneo regional previo a microservicios**: donante, revisión humana, donación, recolección, procesamiento, unidad, solicitud de receptor, candidatos ABO/Rh DEMO, autorización, reserva, traslado, custodia, recepción, cierre y auditoría. Usa Flask, Jinja2 y PostgreSQL con datos ficticios.
 
-La sección de órganos/HLA permanece separada y pendiente. El motor computacional cubre únicamente concentrados eritrocitarios; no sustituye revisión clínica. MongoDB, Redis, Docker y los productos independientes conservan su fase posterior.
+El módulo separado de órganos cubre riñón, hígado y corazón: estudios/HLA documentales, preselección demostrativa, dictamen humano, reserva, traslado y custodia. El motor ABO/Rh sanguíneo cubre concentrados eritrocitarios; ambos procesos requieren revisión clínica. MongoDB, Redis, Docker y los productos independientes conservan su fase posterior.
 
 ## Entrega consolidada
 
-- [Reporte Técnico del Primer Avance — Word](documentation/docx/Reporte_Tecnico_del_Primer_Avance.docx).
-- [Reporte Técnico del Primer Avance — PDF](documentation/pdf/Reporte_Tecnico_del_Primer_Avance.pdf): es el reporte completo, no una presentación.
-- [Fuente editable](documentation/markdowns/Reporte_Tecnico_del_Primer_Avance.md), [evidencia de la ampliación](documentation/evidence/ampliacion-monolito/README.md) y [guía del flujo regional](documentation/markdowns/Guia_del_flujo_regional.md).
+- [Reporte Técnico Integral Red House — Word](documentation/docx/Reporte_Tecnico_Integral_Red_House.docx).
+- [Reporte Técnico Integral Red House — PDF](documentation/pdf/Reporte_Tecnico_Integral_Red_House.pdf).
+- [Guía del flujo regional](documentation/markdowns/Guia_del_flujo_regional.md).
+- [Guía de órganos y HLA](documentation/markdowns/Guia_del_flujo_de_organos.md).
+- [Capturas reales por requisito](documentation/capturas/README.md).
 
-El reporte contiene los 37 apartados solicitados, diagramas renderizados, capturas, resultados de pruebas y diccionario físico. Los documentos especializados y el reporte integral anterior se conservan como antecedentes.
+El reporte integral reúne la documentación del proyecto y la revisión vigente del avance regional, con diagramas, resultados de pruebas, límites y referencias a evidencia reproducible. Los documentos especializados se conservan como fuentes de detalle.
 
 ## Organización actual
 

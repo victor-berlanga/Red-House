@@ -299,3 +299,49 @@ dt { font-size: 11px; color: var(--muted); }dd { font-size: 12px; margin: 0; ove
 .edit-confirm-dialog .field { margin-top: 20px; }
 .edit-confirm-dialog .form-actions { flex-wrap: wrap; }
 .confirmation-warning[hidden], .form-group[hidden] { display: none; }
+
+/* Mejora del primer parcial: resumen primero, detalle bajo demanda. */
+[hidden] {display:none !important;}
+.context-back {display:inline-block;margin-bottom:18px;}
+.create-record {margin-top:24px;}
+.technical-details > h3 {font-weight:600;padding:16px;}
+.technical-details {margin:16px 0;}
+.technical-details .regional-facts {padding:16px;}
+.review-timeline {padding-left:24px;border-left:2px solid #dbe5ee;list-style:none;}
+.review-timeline li {position:relative;padding:0 0 20px 12px;}
+.review-timeline li::before {content:'';position:absolute;left:-31px;top:4px;width:12px;height:12px;border-radius:50%;background:#1e3a5f;}
+.review-timeline p {margin:6px 0;}
+.coverage {margin:20px 0;}
+.workflow li span {font-weight:700;margin-right:4px;}
+.responsive-records td small {display:block;margin-top:5px;}
+.responsive-records .candidate-explanation {max-width:340px;min-width:150px;}
+.compact-dashboard .stat-card {padding:18px;}
+.compact-dashboard .regional-section {margin-top:16px;}
+.compact-dashboard .chart {margin:0;}
+.dashboard-summary {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;}
+.dashboard-summary>section {min-width:0;}
+.compact-events {list-style:none;padding:0;margin:0;}
+.compact-events li {padding:12px 0;border-bottom:1px solid var(--border);}
+.compact-events small {display:block;margin-top:4px;}
+.session-dialog {max-width:520px;}
+.session-dialog .button-row {flex-wrap:wrap;}
+@media(max-width:700px) {
+  .dashboard-summary {grid-template-columns:1fr;}
+  .responsive-records {min-width:0;width:100%;}
+  .responsive-records thead {position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);}
+  .responsive-records tbody,.responsive-records tr,.responsive-records td {display:block;width:100%;box-sizing:border-box;}
+  .responsive-records tr {padding:12px;border-bottom:2px solid var(--border);}
+  .responsive-records td {padding:7px 4px;border:0;max-width:none !important;white-space:normal;overflow-wrap:break-word;}
+  .responsive-records td[data-label]::before {content:attr(data-label);display:block;font-size:11px;font-weight:600;color:#52647b;margin-bottom:3px;}
+  .responsive-records .candidate-explanation {min-width:0;max-width:none;}
+  .responsive-records .row-actions {justify-content:flex-start;}
+  .topbar-right .scope-label {display:none;}
+}
+
+.page-timezone {font-size:12px;color:var(--muted);margin:0 0 12px;}
+@media(max-width:700px) {
+  .responsive-records tr {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2px 12px;}
+  .responsive-records td[data-label="Origen"],.responsive-records td[data-label="Destino"],
+  .responsive-records td[data-label="Factores y límites"],.responsive-records td[data-label="Acciones"],
+  .responsive-records td[colspan] {grid-column:1 / -1;}
+}

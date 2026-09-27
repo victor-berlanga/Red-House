@@ -161,7 +161,7 @@ const path = require('node:path');
     throw error;
   } finally {
     // Cerrar cada contexto antes del proceso evita dejar páginas/interceptores pendientes.
-    await Promise.all(browser.contexts().map(context=>context.close()));
+    for(const context of browser.contexts()){for(const page of context.pages())await page.close({runBeforeUnload:false});await context.close();}
     await browser.close();
   }
 })().catch(error=>{console.error(error);process.exit(1);});

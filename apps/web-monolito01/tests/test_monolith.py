@@ -225,14 +225,13 @@ def test_parameters_versions_and_global_permission(client, sign_in, db):
     assert client.post("/administracion/configuracion/parametros",data={"csrf_token":csrf(client,"/panel"),"version_no":1,"hours":10}).status_code == 409
 
 
-def test_future_views_are_explicitly_nonfunctional(client, sign_in):
+def test_legacy_organs_url_redirects_to_available_module(client, sign_in):
     sign_in(client)
-    for slug in ("organos",):
-        response = client.get("/proximamente/"+slug)
-        assert response.status_code == 200
-        assert "Módulo no disponible".encode() in response.data
-        assert b'type="button" class="button" disabled' in response.data
-        assert client.post("/proximamente/"+slug, data={"csrf_token":csrf(client,"/panel")}).status_code == 405
+    response=client.get('/proximamente/organos',follow_redirects=True)
+    assert response.status_code==200
+    assert 'Disponibilidad de órganos'.encode() in response.data
+    assert 'Módulo no disponible'.encode() not in response.data
+    assert client.post('/proximamente/organos',data={'csrf_token':csrf(client,'/panel')}).status_code==405
 
 
 def test_sql_injection_and_html_escape(client, sign_in, db):

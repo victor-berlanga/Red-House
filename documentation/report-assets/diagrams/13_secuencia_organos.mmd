@@ -1,0 +1,25 @@
+sequenceDiagram
+  actor C as Coordinador
+  actor M as Médico de destino
+  participant W as Módulo de órganos
+  participant DB as PostgreSQL
+  C->>W: Generar candidatos
+  W->>DB: Tipo, ABO idéntico, ruta y conservación
+  W->>DB: Guardar orden y factores versionados
+  M->>W: Revisar estudios, HLA, tamaño y prueba cruzada
+  W->>DB: Conservar dictamen humano
+  M->>W: Autorizar candidato
+  W->>DB: Bloquear órgano y receptor
+  W->>DB: Revalidar dictamen, versiones, ruta y disponibilidad
+  alt Datos vigentes
+    W->>DB: Reserva exclusiva, custodia y auditoría atómicas
+    W-->>C: Programar traslado
+  else Conflicto
+    W->>DB: Revertir transacción
+    W-->>M: Actualizar evaluación
+  end
+  C->>W: Responsable, vehículo, salida y ETA
+  W->>DB: Asignación y programación
+  Note over W,DB: Origen prepara y transportista recolecta y entrega
+  M->>W: Aceptar recepción en destino
+  W->>DB: Cerrar receptor y registrar custodia y auditoría

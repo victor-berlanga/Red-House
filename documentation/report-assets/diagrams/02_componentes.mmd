@@ -3,6 +3,9 @@ flowchart TB
   AUTH --> REG[Donantes, donaciones y receptores]
   AUTH --> SOL[Solicitudes, evaluación y reserva]
   AUTH --> LOG[Asignación, traslado y custodia]
+  AUTH --> ORG[Órganos: expedientes, estudios HLA y dictamen humano]
+  ORG --> OLOG[Reserva, traslado y custodia propios]
+  OLOG --> DATA
   AUTH --> ADM[Administración e inventario]
   REG --> DATA[Repositorios y transacciones psycopg]
   SOL --> DATA

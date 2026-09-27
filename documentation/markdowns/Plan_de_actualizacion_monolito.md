@@ -1,5 +1,8 @@
 # Actualización del monolito previa a microservicios
 
+> **Actualización del 27 de septiembre de 2026:** órganos/HLA ya dispone de flujo independiente para riñón, hígado y corazón, con estudios e interpretación humana, preselección demostrativa, reserva y custodia. Sustituye las menciones anteriores que lo dejaban pendiente. La migración 004 amplía el esquema a 46 tablas. El procedimiento, reglas y límites se documentan en `documentation/markdowns/Guia_del_flujo_de_organos.md`; las capturas reales están en `documentation/capturas/README.md`.
+
+
 > **Fecha:** 13 de septiembre de 2026.  
 > **Estado:** AM-01 a AM-14 implementados y verificados dentro del alcance académico confirmado.  
 > **Origen:** retroalimentación docente proporcionada por el usuario y autorización para atenderla.  
@@ -9,7 +12,7 @@
 
 El cierre histórico del primer parcial corresponde al MVP de administración e inventario. La retroalimentación exige un incremento adicional dentro del monolito antes de extraer microservicios. El cierre anterior no demuestra la aceptación de este nuevo alcance.
 
-La secuencia vigente para el siguiente trabajo es: definir el alcance demostrativo, ampliar el monolito, comprobar el flujo regional, consolidar el Reporte Técnico del Primer Avance y posteriormente retomar los componentes distribuidos. Los paquetes semestrales existentes conservan sus identificadores; la dependencia anterior que posponía estos procesos hasta disponer de microservicios queda sustituida para este incremento.
+La secuencia seguida fue: definir el alcance demostrativo, ampliar el monolito, comprobar el flujo regional y consolidar el reporte integral. Los paquetes semestrales existentes conservan sus identificadores; la dependencia anterior que posponía estos procesos hasta disponer de microservicios quedó sustituida para este incremento.
 
 Se consultaron `../arquitectura.txt`, `../entregas.txt` y `../proyecto.txt`, referencias externas al repositorio. Confirman los cuatro productos y la calendarización de MongoDB, Redis y Docker. La retroalimentación es la instrucción específica más reciente sobre la ampliación previa del monolito. El plazo relativo de dos semanas no se convierte en una fecha de entrega inventada: falta confirmar su fecha de inicio.
 
@@ -20,7 +23,7 @@ Se consultaron `../arquitectura.txt`, `../entregas.txt` y `../proyecto.txt`, ref
 - Tres perfiles habilitados: Administrador, Operador y Auditor.
 - Siete vistas de negocio futuras; recuperación de acceso sin implementación.
 - Documentos especializados, normalización 0FN–4FN y evidencia histórica de pruebas.
-- Existe `Reporte_Tecnico_Integral_Red_House.docx`: contiene portada, integrantes, capítulos y 14 recursos de imagen. Su existencia no demuestra que satisfaga la nueva rúbrica ni que documente un flujo regional ejecutable. Se conserva como antecedente para elaborar la entrega corregida.
+- `Reporte_Tecnico_Integral_Red_House.docx` es el entregable vigente e incorpora la revisión 2.1 y el estado comprobado. Su versión anterior era solo antecedente y no demostraba por sí misma un flujo regional ejecutable.
 - Código y documentación ya están versionados en Git; la afirmación del estado anterior sobre tener únicamente el README versionado quedó desactualizada.
 
 ## 3. Paquetes y criterios de aceptación
@@ -40,9 +43,9 @@ Se consultaron `../arquitectura.txt`, `../entregas.txt` y `../proyecto.txt`, ref
 | AM-11 | Panel regional | Disponibilidad, próximas caducidades, solicitudes activas/urgentes, reservas, traslados, tiempo de respuesta e instituciones; desgloses, tendencias y alertas obtenidos de datos persistidos. Lista regional válida como alternativa al mapa. |
 | AM-12 | Auditoría transversal | Acceso, consulta sensible, altas, cambios, autorizaciones, reservas, asignaciones, traslado y recepción rastreables. El Auditor no modifica evidencia ni necesita acceder al expediente clínico completo. |
 | AM-13 | Migración y regresión | Migración incremental y transaccional sobre una copia de la base anterior; conserva cuentas, contraseñas, unidades e historial. No reinicializar mediante `schema.sql`. Instalación nueva y actualización verificadas por separado. |
-| AM-14 | Reporte Técnico del Primer Avance | Un documento autosuficiente con los 37 apartados de la retroalimentación, diagramas renderizados y legibles, evidencia actual, resultados de pruebas y límites explícitos. Word como entregable editable; fuentes reproducibles conservadas. |
+| AM-14 | Reporte Técnico Integral Red House | Un documento autosuficiente con los apartados de la retroalimentación, diagramas renderizados y legibles, evidencia actual, resultados de pruebas y límites explícitos. Word como entregable editable y PDF generado. |
 
-AM-01 a AM-14 cuentan con implementación y evidencia para el alcance delimitado. La suite final aprobó 89 pruebas en 92.68 s, sin fallos, errores ni omisiones; incluye migración, permisos, concurrencia y recorrido completo en Chrome. Resultados y capturas: `documentation/evidence/ampliacion-monolito/`. El reporte incorpora la matriz de trazabilidad y el diccionario físico. La aceptación docente permanece independiente de esta comprobación técnica.
+AM-01 a AM-14 cuentan con implementación y verificación para el alcance delimitado. La suite final aprobó 89 pruebas en 92.68 s, sin fallos, errores ni omisiones; incluye migración, permisos, concurrencia y recorrido completo en Chrome. El reporte incorpora la matriz de trazabilidad y el diccionario físico. La aceptación docente permanece independiente de esta comprobación técnica.
 
 AM-09 registra evidencia mediante referencias documentales; no carga archivos binarios. AM-06 cubre solo eritrocitos y AM-07 utiliza criterios demostrativos explicables. Estas limitaciones se conservan expresamente en el reporte.
 
@@ -75,4 +78,4 @@ Se incorporaron diagramas de contexto, contenedores, componentes, despliegue, re
 
 El monolito ya ejecuta el recorrido regional y la base habitual fue actualizada mediante migración incremental después de probar una copia restaurada. Se conservaron cuatro cuentas, sus contraseñas, 36 unidades y todo el historial anterior. Se habilitan seis perfiles; el Administrador puede crear las cuentas nuevas siguiendo `Guia_del_flujo_regional.md`.
 
-El Reporte Técnico del Primer Avance se entrega en Word y PDF, con 37 apartados, doce diagramas renderizados, 56 tablas, 19 imágenes y resultados actuales. Las fuentes y generadores permanecen en el repositorio; once documentos especializados conservan el contenido anterior con una nota de vigencia. Los diseños distribuidos se identifican como futuros y órganos/HLA conserva su sección pendiente. No se declara validación clínica experta ni aceptación docente.
+El Reporte Técnico Integral Red House se conserva en Word y PDF; integra la revisión 2.1, evidencia vigente y límites explícitos. Los documentos especializados conservan el contenido de detalle. El DOCX/PDF/Markdown independiente del Primer Avance y su generador se retiraron para mantener un solo reporte técnico. Los diseños distribuidos se identifican como futuros y órganos/HLA conserva su sección pendiente. No se declara validación clínica experta ni aceptación docente.

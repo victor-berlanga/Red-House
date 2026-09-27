@@ -2,6 +2,7 @@
 for (const chartContainer of document.querySelectorAll("[data-chart-values]")) {
   if (!window.Highcharts) continue;
   const values = JSON.parse(chartContainer.dataset.chartValues);
+  if(!values.length){const empty=document.createElement('p');empty.textContent='Sin registros en el periodo o ámbito seleccionado.';chartContainer.before(empty);chartContainer.hidden=true;continue;}
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   window.Highcharts.chart(chartContainer, {
     chart: {type: chartContainer.dataset.chartType || "column", backgroundColor: "transparent", height: 245,

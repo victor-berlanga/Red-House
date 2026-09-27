@@ -16,7 +16,7 @@ const path=require('node:path');
    const e=form.locator(`[name="${name}"]`);if(await e.evaluate(n=>n.tagName)==='SELECT') await e.selectOption(value);else await e.fill(value);
   }
   let posts=0;op.on('request',req=>{if(req.method()==='POST'&&new URL(req.url()).pathname==='/sangre/personas/donor')posts++;});
-  await Promise.all([op.waitForResponse(r=>r.request().method()==='POST'&&r.status()===400),form.evaluate(f=>{f.requestSubmit();f.requestSubmit();})]);
+  await Promise.all([op.waitForResponse(r=>r.request().method()==='POST'&&r.status()===400),form.evaluate(f=>{f.noValidate=true;f.requestSubmit();f.requestSubmit();})]);
   await op.locator('#form-error').waitFor();assert.equal(posts,1,'Doble envío bloqueado');
   assert.equal(await form.locator('[name=display_name]').inputValue(),'Captura que se conserva');
   assert.equal(await form.locator('textarea[name=background]').inputValue(),'Primera línea\nSegunda línea');
@@ -52,5 +52,5 @@ const path=require('node:path');
   for(const entity of ['sites','locations']){await admin.goto(base+'/administracion/'+entity);assert.equal(await admin.locator('.sidebar-nav [aria-current=page]').getAttribute('href'),'/administracion/institutions');await filtered(admin,'state','ACTIVE');assert(await admin.locator('[data-filter-results] a').count()>0,'Acciones presentes en el fragmento');}
   assert.deepEqual(errors,[]);
   fs.writeFileSync(path.join(out,'Browser_results.json'),JSON.stringify({result:'PASS',doubleSubmit:true,errorCapture:true,multiline:true,timezoneConfirmation:true,searchableOptions:true,newFilters:true,lockedDetails:true,mobile:true,charts:3,drilldown:true,adminNavigation:true,errors},null,2)+'\n');
- }finally{await browser.close();}
+ }finally{for(const context of browser.contexts()){for(const page of context.pages())await page.close({runBeforeUnload:false});await context.close();}await browser.close();}
 })().catch(e=>{console.error(e);process.exit(1);});

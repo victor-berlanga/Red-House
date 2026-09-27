@@ -1,6 +1,6 @@
 # Historias de usuario
 
-> **Actualización — 13 de septiembre de 2026:** el flujo sanguíneo se adelanta al monolito antes de extraer microservicios. Este documento conserva la línea base y los requisitos semestrales; sus fases no describen por sí solas el avance actual. El Reporte Técnico del Primer Avance 2.0 consolida el alcance vigente, las pruebas y los límites. Órganos/HLA y componentes distribuidos permanecen posteriores. Véase el [reporte consolidado](../docx/Reporte_Tecnico_del_Primer_Avance.docx).
+> **Actualización — 27 de septiembre de 2026:** este documento conserva la línea base y los requisitos semestrales; sus fases no describen por sí solas el avance actual. El Reporte Técnico Integral Red House, revisión 2.1, consolida el alcance vigente, las pruebas y los límites. Órganos/HLA y componentes distribuidos permanecen posteriores. Véase el [reporte técnico integral](../docx/Reporte_Tecnico_Integral_Red_House.docx).
 
 > **Proyecto:** Red regional de bancos de sangre y donación de órganos — Equipo 01.  
 > **Estado:** borrador consolidado para validación académica.  

@@ -28,12 +28,15 @@ def connect(dsn):
 
 def fingerprint(conn,columns=None):
     if columns is None:
-        rows=conn.execute("SELECT table_name,column_name FROM information_schema.columns WHERE table_schema='red_house' AND table_name<>'blood_inventory' ORDER BY table_name,ordinal_position").fetchall()
+        rows=conn.execute("SELECT table_name,column_name FROM information_schema.columns WHERE table_schema='red_house' AND table_name NOT IN ('blood_inventory','schema_migration') ORDER BY table_name,ordinal_position").fetchall()
         columns={}
         for row in rows:columns.setdefault(row['table_name'],[]).append(row['column_name'])
     result={}
     for table,names in columns.items():
-        rows=conn.execute(sql.SQL('SELECT {} FROM {}').format(sql.SQL(',').join(map(sql.Identifier,names)),sql.Identifier(table))).fetchall()
+        actual={r['column_name'] for r in conn.execute('SELECT column_name FROM information_schema.columns WHERE table_schema=%s AND table_name=%s',('red_house',table))}
+        selectors=[sql.SQL('{} AS {}').format(sql.Identifier('legacy_urgency'),sql.Identifier(name))
+                   if table=='recipient' and name=='urgency' and 'urgency' not in actual else sql.Identifier(name) for name in names]
+        rows=conn.execute(sql.SQL('SELECT {} FROM {}').format(sql.SQL(',').join(selectors),sql.Identifier(table))).fetchall()
         if table=='role':
             # Único cambio de datos planificado: habilitar los tres perfiles nuevos.
             for row in rows:
@@ -114,7 +117,7 @@ def main():
             applied=True
         report={'result':'PASS','copy_restored':True,'copy_migrated':True,'repeat_idempotent':True,
             'original_migrated':applied,'versions':versions,'tables_after':tables,'preserved_tables':before,
-            'backup_file':str(backup),'backup_mode':'600','limit':'Solo cambia la habilitación de MEDICAL, COORDINATOR y TRANSPORT; no se crean cuentas ni datos clínicos.'}
+            'backup_file':str(backup),'backup_mode':'600','limit':'Se excluye el registro técnico de migraciones de las huellas; urgency del receptor se compara por alias con legacy_urgency. No se crean cuentas ni se cambian datos del negocio.'}
         args.report.parent.mkdir(parents=True,exist_ok=True)
         args.report.write_text(json.dumps(report,indent=2,ensure_ascii=False)+'\n')
         print(json.dumps({k:report[k] for k in ('result','copy_restored','copy_migrated','repeat_idempotent','original_migrated','tables_after')}))

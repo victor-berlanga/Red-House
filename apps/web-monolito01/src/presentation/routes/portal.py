@@ -32,6 +32,8 @@ def audit():
     page = v.integer({"page": request.args.get("page", 1)}, "page", 1, 100000)
     from ..timezones import selected_zone
     filters['timezone']=selected_zone()
+    from ..views import AUDIT_LABELS
+    filters['translated_codes']=[code for code,label in AUDIT_LABELS.items() if filters['q'] and filters['q'].casefold() in label.casefold()]
     rows, total = reporting.audit_list(g.principal, filters, page)
     return render_template("audit.html", title="Bitácora de auditoría", active="audit", rows=rows, total=total, page=page)
 
@@ -47,6 +49,8 @@ def future(slug):
     if slug in destinations:
         endpoint, args = destinations[slug]
         return redirect(url_for(endpoint, **args))
+    if slug == 'organos':
+        return redirect(url_for('organs.index'))
     if slug not in FUTURE:
         raise BusinessError("La vista no existe.", 404)
     return render_template("future.html", title=FUTURE[slug]["title"], active=slug, view=FUTURE[slug], slug=slug)
@@ -66,8 +70,14 @@ def audit_detail(identifier):
             raise BusinessError('El evento no está disponible en tu ámbito.',404)
         changes=conn.execute('SELECT * FROM audit_change WHERE event_id=%s ORDER BY field_name',(identifier,)).fetchall()
         audit_repo.record(conn,g.principal,'READ','AUDIT_EVENT',identifier,'Consulta de evidencia de auditoría')
-    facts=[('Fecha',datefmt(row['occurred_at'])),('Actor',row['actor_name']),('Acción',row['action']),('Entidad',row['entity_type']),('Referencia',row['entity_reference']),('Resultado',{'SUCCESS':'Correcto','DENIED':'Denegado','FAILED':'Fallido'}.get(row['outcome'],row['outcome'])),('Motivo',row['reason']),('Correlación',row['correlation_id'])]
-    facts += [(c['field_name'],f"{c['previous_value'] if c['previous_value'] is not None else '—'} → {c['new_value'] if c['new_value'] is not None else '—'}") for c in changes]
+    from ..views import audit_label
+    facts=[('Fecha',datefmt(row['occurred_at'])),('Actor',row['actor_name']),('Acción',audit_label(row['action'])),('Entidad',audit_label(row['entity_type'])),('Referencia',audit_label(row['entity_reference'])),('Resultado',{'SUCCESS':'Correcto','DENIED':'Denegado','FAILED':'Fallido'}.get(row['outcome'],row['outcome'])),('Motivo',row['reason']),('Correlación',row['correlation_id'])]
+    facts += [(audit_label(c['field_name']),f"{c['previous_value'] if c['previous_value'] is not None else '—'} → {c['new_value'] if c['new_value'] is not None else '—'}") for c in changes]
+    if row['entity_reference'] in ('LIST','SUMMARY'):
+        facts.append(('Alcance de la consulta','Listado autorizado de registros' if row['entity_reference']=='LIST' else 'Indicadores agregados del panel; no corresponde a un expediente individual'))
+    if not changes:
+        facts.append(('Cambios registrados','Este evento no conserva valores anteriores/nuevos. Consulta su acción y motivo.'))
+    facts.append(('Códigos técnicos',row['action']+' / '+row['entity_type']+' / '+row['entity_reference']))
     return render_template('record_detail.html',title='Detalle del evento',active='audit',facts=facts)
 
 

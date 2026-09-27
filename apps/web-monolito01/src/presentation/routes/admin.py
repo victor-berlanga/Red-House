@@ -7,6 +7,7 @@ from ...business.services import administration
 from ...data_access.connection import transaction
 from ...data_access.repositories import audit, network
 from ..views import TITLES
+from ..notices import created
 
 bp = Blueprint("admin", __name__, url_prefix="/administracion")
 
@@ -58,8 +59,8 @@ def form(entity, identifier=None):
     original = {key: value for key, value in data.items() if key not in ('password', 'password_hash')}
     if request.method == "POST":
         try:
-            administration.save(entity, g.principal, request.form, identifier)
-            flash("Cambios guardados en PostgreSQL y registrados en auditoría.", "success")
+            saved=administration.save(entity, g.principal, request.form, identifier)
+            created("Cambios guardados y registrados en auditoría.","","admin.detail",entity=entity,identifier=saved)
             return redirect(url_for("admin.index", entity=entity))
         except BusinessError as exc:
             if exc.status not in (400, 409):

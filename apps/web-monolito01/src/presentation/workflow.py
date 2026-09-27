@@ -10,7 +10,7 @@ FLOWS = {
     'request': [('OPEN','Solicitud','Generar alternativas para revisión','Médico o coordinador regional'),
                 ('EVALUATED','Alternativas','Revisar estudios y autorizar cada reserva','Personal médico de la institución solicitante'),
                 ('RESERVED','Reserva y traslado','Completar reservas y coordinar la entrega','Médico, coordinador y personal de traslado'),
-                ('RECEIVED','Recepción','Revisar recepción completa y cerrar solicitud','Personal médico de la institución solicitante'),
+                ('RECEIVED','Recepción','La solicitud se completa al aceptar toda la cantidad','Personal médico de la institución solicitante'),
                 ('CLOSED','Cierre','Consultar historial y auditoría','Personal autorizado')],
     'shipment': [('RESERVED','Reserva','Asignar responsable y programar traslado','Coordinador regional'),
                  ('SCHEDULED','Programación','Preparar el recurso','Operador de la institución de origen'),
@@ -18,7 +18,7 @@ FLOWS = {
                  ('COLLECTED','Recolección','Registrar salida en tránsito','Transportista asignado'),
                  ('IN_TRANSIT','En tránsito','Registrar entrega en destino','Transportista asignado'),
                  ('DELIVERED','Entrega','Aceptar recepción y registrar ubicación','Operador o médico de la institución de destino'),
-                 ('ACCEPTED','Recepción','Cerrar solicitud al recibir su cantidad completa','Personal médico de la institución solicitante')],
+                 ('ACCEPTED','Recepción','Solicitud completada automáticamente al aceptar todas las unidades','Personal médico de la institución solicitante')],
 }
 
 

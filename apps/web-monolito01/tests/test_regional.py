@@ -62,12 +62,13 @@ def reserve(app,actors,c):
             reason='Referencia de revisión humana DEMO',human_confirmation='on'))
 
 
-def deliver(app,actors,c,aid):
+def deliver(app,actors,c,aid,accept=True):
     with app.app_context():
         departure=r.now()+timedelta(minutes=1)
         sid=logistics.plan(actors['coordinador'],aid,dict(audit_reason='Programación de prueba',version_no=1,transport_id=actors['traslado'].account_id,
             vehicle='VEHICULO-DEMO',departure_at=departure.isoformat(),eta=(departure+timedelta(minutes=45)).isoformat()))
         for version,(role,target) in enumerate([('operador','PREPARED'),('traslado','COLLECTED'),('traslado','IN_TRANSIT'),('traslado','DELIVERED'),('operador.valle','ACCEPTED')],1):
+            if target=='ACCEPTED' and not accept: break
             data=dict(version_no=version,status=target,location_description='Ubicación ficticia del evento',observation='Evidencia de '+target,evidence_reference='ACTA-DEMO-'+target)
             if target=='ACCEPTED':
                 with transaction() as conn:
@@ -91,7 +92,7 @@ def test_complete_cross_institution_flow(app,actors,db,sign_in):
     aid=reserve(app,actors,c)
     sid=deliver(app,actors,c,aid)
     with app.app_context():
-        r.close_request(actors['medico.valle'],c['request'],dict(version_no=2,status='CLOSED',observation='Recepción completa verificada'))
+        # La recepción final cierra automáticamente, sin una operación manual adicional.
         with pytest.raises(BusinessError) as exc:
             r.save_person(actors['medico.valle'],'recipient',dict(version_no=1,institution_id=actors['medico.valle'].institution_id,
                 record_code='REC-01',display_name='Nombre cambiado',blood_group='AB+',restrictions='Ninguna',

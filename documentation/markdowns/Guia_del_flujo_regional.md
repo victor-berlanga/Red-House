@@ -1,6 +1,9 @@
 # Guía de demostración del flujo regional
 
-> Versión de interfaz: 14 de septiembre de 2026. Datos ficticios. Monolito local previo a microservicios.
+> **Actualización del 27 de septiembre de 2026:** órganos/HLA ya dispone de flujo independiente para riñón, hígado y corazón, con estudios e interpretación humana, preselección demostrativa, reserva y custodia. Sustituye las menciones anteriores que lo dejaban pendiente. La migración 004 amplía el esquema a 46 tablas. El procedimiento, reglas y límites se documentan en `documentation/markdowns/Guia_del_flujo_de_organos.md`; las capturas reales están en `documentation/capturas/README.md`.
+
+
+> Versión de interfaz: 23 de septiembre de 2026. Datos ficticios. Monolito local previo a microservicios.
 
 Las etiquetas de las pantallas usan lenguaje operativo (Nombre, Folio, Antecedentes y Vehículo). Esta redacción no cambia el alcance académico ni autoriza datos reales o decisiones médicas automáticas. El aviso de compatibilidad demostrativa y la autorización médica permanecen junto a la evaluación y reserva.
 
@@ -51,11 +54,11 @@ El detalle de cada unidad permite seguir el vínculo a la donación. Las 36 unid
 
 ## 3. Receptor y solicitud de otra institución
 
-Con el Médico Valle, registrar un receptor ficticio O−, requerimiento, urgencia registrada, estudios, restricciones y estado activo. Después crear una solicitud con folio, receptor, concentrado eritrocitario, cantidad 1, urgencia y justificación ficticia. La justificación y el expediente no se muestran al Coordinador ni al Auditor.
+Con el Médico Valle, registrar un receptor ficticio O−, requerimiento, estudios, restricciones y estado activo. Después crear una solicitud con folio, receptor, concentrado eritrocitario, cantidad de unidades/bolsas 1, urgencia y justificación ficticia. La justificación y el expediente no se muestran al Coordinador ni al Auditor.
 
 ## 4. Ruta y candidatos regionales
 
-Con el Coordinador, registrar una ruta dirigida de Banco Regional Norte a Hospital del Valle. Para el ejercicio puede usarse 30 km y 45 minutos, identificando expresamente «Supuesto académico, no ruta real». Las distancias no se infieren de la ciudad ni de la dirección. Registrar también la dirección inversa o una ruta interna si se necesitan esos casos.
+Con el Coordinador, registrar una ruta dirigida de Banco Regional Norte a Hospital del Valle. Para el ejercicio puede usarse 30 km y 45 minutos, quedando identificada automáticamente como estimación manual del coordinador. Las distancias no se infieren de la ciudad ni de la dirección. Registrar también la dirección inversa o una ruta interna si se necesitan esos casos.
 
 Abrir la solicitud y pulsar «Evaluar ABO/Rh y ordenar alternativas». El resultado conserva candidatos, grupo, distancia, estimación, caducidad, explicación y versión RBC-DEMO-1.0. Una unidad sin ruta o sin vigencia suficiente no se propone. Plasma, plaquetas y órganos no utilizan este motor.
 
@@ -77,7 +80,7 @@ Las evidencias actuales son referencias documentales inmutables; no se suben arc
 
 Con el Operador o Médico Valle, abrir el traslado entregado, registrar aceptación y seleccionar una ubicación activa del destino. Una unidad caducada no puede aceptarse para cerrar la solicitud como atendida: se debe registrar la incidencia.
 
-Con el Médico Valle, cerrar la solicitud después de recibir la cantidad completa. Una unidad recibida para esa solicitud no vuelve a aparecer como disponible. La recepción logística y el cierre no registran una transfusión.
+Al aceptar la última unidad requerida, la solicitud se cierra automáticamente en la misma transacción; una recepción parcial no la cierra. El Médico Valle puede consultar el resultado. Una unidad recibida para esa solicitud no vuelve a aparecer como disponible. La recepción logística y el cierre no registran una transfusión.
 
 ## 8. Panel y auditoría
 
@@ -85,6 +88,10 @@ Con el Coordinador, consultar Panel regional: unidades disponibles y próximas a
 
 Con el Auditor, consultar el panel, las asignaciones/custodia y la bitácora. Comprobar quién autorizó, reservó, preparó, transportó, entregó y recibió, sin acceder al expediente clínico ni modificar la evidencia.
 
-## Evidencia reproducible
+## Pruebas del flujo
 
-`tests/regional_browser.cjs` realiza este recorrido mediante formularios de navegador. `tests/test_regional.py` prueba integración, permisos, concurrencia, versiones, caducidad, custodia y rollback. `tests/test_migration.py` verifica actualización desde el esquema anterior y rollback de una migración incompatible. Consultar `documentation/evidence/ampliacion-monolito/Tests.xml` y las capturas asociadas.
+`tests/regional_browser.cjs` realiza este recorrido mediante formularios de navegador. `tests/test_regional.py` prueba integración, permisos, concurrencia, versiones, caducidad, custodia y rollback. `tests/test_migration.py` verifica actualización desde el esquema anterior y rollback de una migración incompatible. `PROJECT_STATUS.md` resume los resultados registrados por revisión.
+
+## Mejoras de interfaz y sesión
+
+Consultar [Pruebas de las mejoras del primer parcial](Pruebas_mejoras_primer_parcial.md) para revisar altas desplegables, folios de 6–30 caracteres, seguimiento visual, cobertura de solicitudes, cancelación separada, tarjetas móviles, auditoría en español y aviso de sesión a los 13 minutos con renovación explícita. La urgencia pertenece únicamente a solicitudes; el valor anterior del receptor se conserva como legado.

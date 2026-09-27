@@ -1,6 +1,9 @@
 # Diseño arquitectónico
 
-> **Actualización — 13 de septiembre de 2026:** el flujo sanguíneo se adelanta al monolito antes de extraer microservicios. Este documento conserva la línea base y los requisitos semestrales; sus fases no describen por sí solas el avance actual. El Reporte Técnico del Primer Avance 2.0 consolida el alcance vigente, las pruebas y los límites. Órganos/HLA y componentes distribuidos permanecen posteriores. Véase el [reporte consolidado](../docx/Reporte_Tecnico_del_Primer_Avance.docx).
+> **Actualización del 27 de septiembre de 2026:** órganos/HLA ya dispone de flujo independiente para riñón, hígado y corazón, con estudios e interpretación humana, preselección demostrativa, reserva y custodia. Sustituye las menciones anteriores que lo dejaban pendiente. La migración 004 amplía el esquema a 46 tablas. El procedimiento, reglas y límites se documentan en `documentation/markdowns/Guia_del_flujo_de_organos.md`; las capturas reales están en `documentation/capturas/README.md`.
+
+
+> **Actualización — 27 de septiembre de 2026:** este documento conserva la línea base y los requisitos semestrales; sus fases no describen por sí solas el avance actual. El Reporte Técnico Integral Red House, revisión 2.1, consolida el alcance vigente, las pruebas y los límites. Los componentes distribuidos permanecen posteriores; la ampliación actual de órganos se describe en la actualización superior. Véase el [reporte técnico integral](../docx/Reporte_Tecnico_Integral_Red_House.docx).
 
 > **Proyecto:** Red regional de bancos de sangre y donación de órganos — Equipo 01.  
 > **Versión:** diseño arquitectónico inicial del semestre.  

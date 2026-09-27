@@ -69,6 +69,8 @@ def save_person(actor, kind, data, identifier=None):
                       display_name=v.text(data,'display_name','el nombre'),
                       blood_group=v.choice(data,'blood_group',inventory.GROUPS,'ABO/Rh'),
                       restrictions=v.paragraph(data,'restrictions','las restricciones o su ausencia',1000))
+        if (not existing or values['record_code'] != existing['record_code']) and len(values['record_code']) < 6:
+            raise BusinessError('El folio del expediente debe tener de 6 a 30 caracteres. Ejemplo: DON-000123.', field='record_code')
         if kind == 'donor':
             consent_at = v.timestamp(data,'consent_at')
             if consent_at > now():
@@ -85,7 +87,6 @@ def save_person(actor, kind, data, identifier=None):
             if existing and conn.execute("SELECT 1 FROM blood_request WHERE recipient_id=%s LIMIT 1",(identifier,)).fetchone():
                 raise BusinessError('El expediente ya respalda solicitudes. Para preservar su historia no se reescribe; una corrección requiere un expediente versionado posterior.',409)
             values.update(requirement=v.paragraph(data,'requirement','el requerimiento',1000),
-                          urgency=v.choice({'urgency':data.get('urgency','ROUTINE')},'urgency',('URGENT','PRIORITY','ROUTINE'),'urgencia registrada'),
                           studies=v.paragraph(data,'studies','los estudios',1000),
                           responsible_id=actor.account_id,
                           current_status=v.choice(data,'current_status',('ACTIVE','INACTIVE'),'estado'))
@@ -94,7 +95,9 @@ def save_person(actor, kind, data, identifier=None):
             row = update(conn, kind, kind+'_id', identifier, values, existing['version_no'])
         else:
             row = insert(conn,kind,values,kind+'_id')
+        changes = {key: 'Modificado; contenido reservado' for key in values if existing and str(existing.get(key)) != str(values[key])}
         event(conn,actor,'UPDATE' if existing else 'CREATE',kind.upper(),row[kind+'_id'],institution['institution_id'],
+              **changes,
               audit_reason=v.paragraph(data,'audit_reason','el motivo del cambio (sin datos clínicos)',240) if existing else 'Registro de expediente')
         return row[kind+'_id']
 
@@ -313,13 +316,14 @@ def save_route(actor,data,identifier=None):
         if identifier:
             previous=conn.execute('SELECT * FROM regional_route WHERE route_id=%s AND origin_id=%s AND destination_id=%s FOR UPDATE',(identifier,origin['institution_id'],dest['institution_id'])).fetchone()
             check_version(previous,v.integer(data,'version_no'))
+        prior=conn.execute('SELECT source_reference FROM regional_route WHERE origin_id=%s AND destination_id=%s',(origin['institution_id'],dest['institution_id'])).fetchone()
         distance=v.integer(data,'distance_km',0,5000)
         minutes=v.integer(data,'travel_minutes',1,10080)
-        source=v.paragraph(data,'source_reference','la fuente de la estimación',240)
+        source='Estimación manual registrada por el coordinador'
         row=conn.execute('''INSERT INTO regional_route(origin_id,destination_id,distance_km,travel_minutes,source_reference,recorded_by)
             VALUES (%s,%s,%s,%s,%s,%s) ON CONFLICT(origin_id,destination_id) DO UPDATE
             SET distance_km=excluded.distance_km,travel_minutes=excluded.travel_minutes,source_reference=excluded.source_reference,
                 recorded_by=excluded.recorded_by,recorded_at=now(),version_no=regional_route.version_no+1 RETURNING *''',
             (origin['institution_id'],dest['institution_id'],distance,minutes,source,actor.account_id)).fetchone()
-        event(conn,actor,'UPDATE','REGIONAL_ROUTE',row['route_id'],origin['institution_id'],distance_km=distance,travel_minutes=minutes,version_no=row['version_no'],
+        event(conn,actor,'UPDATE','REGIONAL_ROUTE',row['route_id'],origin['institution_id'],distance_km=distance,travel_minutes=minutes,version_no=row['version_no'],previous_source=prior['source_reference'] if prior else None,source_reference=source,
               audit_reason=v.paragraph(data,'audit_reason','el motivo del cambio (sin datos sensibles)',240))

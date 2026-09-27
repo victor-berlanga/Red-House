@@ -1,4 +1,4 @@
-from flask import Blueprint, current_app, flash, g, make_response, redirect, render_template, request, session, url_for
+from flask import Blueprint, current_app, flash, g, make_response, redirect, render_template, request, session, url_for, jsonify
 
 from ...business.services import auth
 
@@ -50,3 +50,18 @@ def recovery():
 @bp.get("/health/live")
 def live():
     return {"status": "alive", "component": "red-house-monolith"}
+
+
+@bp.get('/sesion/estado')
+def session_status():
+    return jsonify(auth.session_status(g.principal,g.session_id))
+
+
+@bp.post('/sesion/continuar')
+def renew_session():
+    token,state=auth.renew(g.principal,g.session_id)
+    from flask_wtf.csrf import generate_csrf
+    state['csrf_token']=generate_csrf()
+    response=jsonify(state)
+    response.set_cookie(current_app.config['JWT_COOKIE_NAME'],token,max_age=current_app.config['JWT_LIFETIME_SECONDS'],httponly=True,secure=current_app.config['PRODUCTION'],samesite='Lax',path='/')
+    return response

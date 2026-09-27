@@ -1,0 +1,12 @@
+erDiagram
+  INSTITUTION ||--o{ ORGAN_DONOR : registra
+  INSTITUTION ||--o{ ORGAN_RECIPIENT : atiende
+  ORGAN_DONOR ||--o{ ORGAN_OFFER : aporta
+  ORGAN_OFFER ||--o{ ORGAN_EVALUATION : evalua
+  ORGAN_EVALUATION ||--o{ ORGAN_CANDIDATE : conserva
+  ORGAN_RECIPIENT ||--o{ ORGAN_CANDIDATE : participa
+  ORGAN_CANDIDATE ||--o{ ORGAN_REVIEW : dictamen
+  ORGAN_REVIEW ||--o{ ORGAN_ALLOCATION : autoriza
+  ORGAN_OFFER ||--o{ ORGAN_ALLOCATION : reserva_exclusiva
+  ORGAN_RECIPIENT ||--o{ ORGAN_ALLOCATION : asignacion_exclusiva
+  ORGAN_ALLOCATION ||--o{ ORGAN_CUSTODY_EVENT : historial_inmutable
