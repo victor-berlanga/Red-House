@@ -39,7 +39,7 @@ def app():
     with psycopg.connect(base, autocommit=True) as control:
         control.execute(sql.SQL("CREATE DATABASE {}").format(sql.Identifier(name)))
     test_password = secrets.token_urlsafe(24)
-    application = create_app({"TESTING": True, "PRODUCTION": False, "SESSION_COOKIE_SECURE": False,
+    application = create_app({"TESTING": True, "BACKEND_MODE": "local", "PRODUCTION": False, "SESSION_COOKIE_SECURE": False,
         "DATABASE_URL": make_conninfo(base, dbname=name), "SECRET_KEY": secrets.token_hex(32),
         "JWT_SECRET_KEY": secrets.token_hex(32), "HIGHCHARTS_ENABLED": False, "DEMO_TEST_PASSWORD": test_password})
     try:

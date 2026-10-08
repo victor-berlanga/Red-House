@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="page-heading"><div><span class="eyebrow">EXPEDIENTE Y SEGUIMIENTO</span><h1>{{ title }}</h1></div></div>
+{% if note %}<div class="notice">{{ note }}</div>{% endif %}
+<div class="button-row">{% for label,link in actions %}<a class="button secondary" href="{{ link }}">{{ label }}</a>{% endfor %}</div>
+<section class="card form-card"><dl class="regional-facts">{% for label,value in facts %}<div><dt>{{ label }}</dt><dd>{{ value|portal_value }}</dd></div>{% endfor %}</dl></section>
+{% for label,items in sections %}<section class="card form-card regional-section"><h2>{{ label }}</h2><ul class="review-timeline">{% for item in items %}<li>
+{% if item._href %}<a class="button secondary small" href="{{ item._href }}">Consultar evaluación</a>{% endif %}
+{% for key,value in item.items() if key not in ['id','tenant_id','_href','resource','donor_id','shipment_id'] %}<p><strong>{{ {'actor_id':'Responsable (referencia)','created_at':'Fecha','state':'Paso','sequence':'Secuencia','status':'Estado','quantity':'Cantidad','decision':'Dictamen','reason':'Fundamento','message':'Seguimiento','action':'Movimiento','algorithm_version':'Regla','elapsed_ms':'Tiempo (ms)','request_id':'Solicitud','correlation_id':'Correlación','hash':'Huella de integridad','kind':'Tipo'}.get(key,key) }}:</strong> {{ value|portal_value }}</p>{% endfor %}
+</li>{% else %}<li>Sin eventos registrados.</li>{% endfor %}</ul></section>{% endfor %}
+{% endblock %}

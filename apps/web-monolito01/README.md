@@ -1,9 +1,11 @@
 # Red House · Monolito web
 
+> **Corte actual — 7 de octubre de 2026:** el portal ya consume los diez microservicios y Monitoreo. La instalación preparada usa `BACKEND_MODE=microservices`, cuentas anteriores conservadas y una nueva demostración de seis instituciones de Nuevo León. [Guía de integración, arranque conjunto, roles y límites](INTEGRACION.md). Los apartados siguientes conservan la guía histórica del modo `BACKEND_MODE=local`; sus funciones SQL no describen automáticamente los contratos del portal integrado.
+
 > **Actualización del 27 de septiembre de 2026:** órganos/HLA ya dispone de flujo independiente para riñón, hígado y corazón, con estudios e interpretación humana, preselección demostrativa, reserva y custodia. Sustituye las menciones anteriores que lo dejaban pendiente. La migración 004 amplía el esquema a 46 tablas. El procedimiento, reglas y límites se documentan en `documentation/markdowns/Guia_del_flujo_de_organos.md`; las capturas reales están en `documentation/capturas/README.md`.
 
 
-Monolito académico de coordinación regional. Un proceso Flask renderiza Jinja2 y ejecuta operaciones reales contra PostgreSQL. No implementa ni consume microservicios.
+En el modo histórico local, un proceso Flask renderiza Jinja2 y ejecuta operaciones contra PostgreSQL. En el modo integrado, las API de los servicios son la autoridad del negocio y la web conserva la presentación Flask/Jinja2.
 
 La revisión de interfaz del 14 de septiembre utiliza lenguaje operativo y marca la sección activa también en páginas de detalle. Órganos muestra su disponibilidad pendiente y recuperación de acceso dirige al administrador, sin formularios simulados. El alcance clínico y técnico permanece documentado; la evaluación de compatibilidad conserva su advertencia y autorización médica.
 

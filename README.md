@@ -2,9 +2,11 @@
 
 Red regional de bancos de sangre y donación de órganos · Proyecto 6 · Equipo 01.
 
-El monolito web ya incluye el **flujo sanguíneo regional previo a microservicios**: donante, revisión humana, donación, recolección, procesamiento, unidad, solicitud de receptor, candidatos ABO/Rh DEMO, autorización, reserva, traslado, custodia, recepción, cierre y auditoría. Usa Flask, Jinja2 y PostgreSQL con datos ficticios.
+El portal web Flask/Jinja2 ya opera mediante los **diez microservicios y Monitoreo**: donantes, inventario, solicitudes, revisión humana, compatibilidad DEMO, reservas, traslados, custodia, alertas y auditoría. La instalación activa contiene datos ficticios de seis instituciones de Nuevo León, con PostgreSQL, Redis y MongoDB reales. [Arranque, acceso, demostración y arquitectura](apps/web-monolito01/INTEGRACION.md).
 
-El módulo separado de órganos cubre riñón, hígado y corazón: estudios/HLA documentales, preselección demostrativa, dictamen humano, reserva, traslado y custodia. El motor ABO/Rh sanguíneo cubre concentrados eritrocitarios; ambos procesos requieren revisión clínica. MongoDB, Redis, Docker y los productos independientes conservan su fase posterior.
+El módulo separado de órganos cubre riñón, hígado y corazón: estudios/HLA documentales, preselección demostrativa, dictamen humano, reserva, traslado y custodia. El motor ABO/Rh sanguíneo cubre concentrados eritrocitarios; ambos procesos requieren revisión clínica.
+
+El módulo independiente de [microservicios](apps/services/README.md) mantiene API JSON/XML, JWT y Redis, PostgreSQL, MongoDB y Swagger. La web los consume por HTTP y sus sesiones no sustituyen la autorización de las API. Resultados actuales en [VALIDACION](apps/services/docs/VALIDACION.md). Móvil, escritorio, Docker y GCP permanecen posteriores. [Apuntes TXT para presentación](stuff/temporal-microservicios/00-LEER-PRIMERO.txt).
 
 ## Entrega consolidada
 
@@ -14,18 +16,20 @@ El módulo separado de órganos cubre riñón, hígado y corazón: estudios/HLA 
 - [Guía de órganos y HLA](documentation/markdowns/Guia_del_flujo_de_organos.md).
 - [Capturas reales por requisito](documentation/capturas/README.md).
 
-El reporte integral reúne la documentación del proyecto y la revisión vigente del avance regional, con diagramas, resultados de pruebas, límites y referencias a evidencia reproducible. Los documentos especializados se conservan como fuentes de detalle.
+El reporte integral conserva el corte histórico del monolito. El estado vigente de servicios e integración está en [PROJECT_STATUS.md](PROJECT_STATUS.md) y en la [revisión del 8 de octubre](apps/services/docs/REVISION_2026_10_08.md), con sus pruebas y límites. Los documentos especializados se conservan como fuentes de detalle.
 
 ## Organización actual
 
 ```text
 Red-House/
 ├── apps/
+│   ├── services/              # Diez microservicios, monitoreo, contratos y pruebas
 │   └── web-monolito01/
 │       ├── src/
 │       │   ├── presentation/     # Rutas HTTP, Jinja2, CSS, JS y recursos visuales
-│       │   ├── business/         # Autorización, validaciones y casos de negocio
-│       │   ├── data_access/      # Conexiones, repositorios y consultas parametrizadas
+│       │   ├── integration/      # Cliente HTTP, sesiones cifradas y rutas del portal integrado
+│       │   ├── business/         # Autorización común y negocio histórico del modo local
+│       │   ├── data_access/      # Repositorios históricos; no se usan en modo integrado
 │       │   ├── config/           # Configuración desde variables de entorno
 │       │   └── cli.py           # Inicialización y carga académica explícitas
 │       ├── scripts/
@@ -48,13 +52,18 @@ Red-House/
 │   └── database-diagrams/      # Etapas 0FN–4FN y trazabilidad
 │       └── normalization/      # Especificación y verificadores del modelo
 ├── .gitignore
+├── stuff/temporal-microservicios/ # Un TXT de presentación por servicio
 ├── AGENTS.md                    # Requisitos permanentes
 └── PROJECT_STATUS.md            # Avance comprobado y pendientes
 ```
 
-`apps/`, `data/` y `documentation/` son directorios hermanos dentro de este repositorio. `data_access` usa la convención de nombres de paquetes Python para la capa de acceso a datos. No se crearon carpetas vacías para microservicios, móvil, escritorio, paquetes compartidos o infraestructura futura.
+`apps/`, `data/`, `documentation/` y `stuff/` son directorios hermanos dentro de este repositorio. `data_access` usa la convención de nombres de paquetes Python para la capa de acceso a datos. `apps/services` contiene componentes ejecutables; móvil y escritorio conservan su implementación posterior.
 
 ## Inicio rápido
+
+**Instalación integrada actual:** abrir <http://127.0.0.1:5050>. Para iniciar o detener web, servicios y sus dependencias conjuntamente, seguir la [guía de integración](apps/web-monolito01/INTEGRACION.md). Las ocho cuentas anteriores conservan sus contraseñas. El `.env` habitual ya apunta al nuevo entorno; no ejecutar el instalador histórico ni reinicializar bases para arrancarlo.
+
+Los procedimientos siguientes corresponden al modo histórico `BACKEND_MODE=local`; no provisionan los microservicios.
 
 **Instalación existente:** la actualización local del 13 de septiembre ya aplicó la migración con respaldo y comprobación en copia; conserva las cuatro cuentas y 36 unidades anteriores. En otras instalaciones existentes, ejecutar `.venv/bin/python -m flask --app run migrate-db` después de respaldar y actualizar el código. No volver a ejecutar `schema.sql` sobre una base instalada. La aplicación no migra al arrancar.
 

@@ -1,0 +1,56 @@
+{
+  "date": "2026-10-07",
+  "health": {
+    "identidad_acceso": 200,
+    "donantes": 200,
+    "receptores": 200,
+    "inventario": 200,
+    "compatibilidad": 200,
+    "priorizacion_geografia": 200,
+    "transporte": 200,
+    "custodia": 200,
+    "alertas": 200,
+    "auditoria": 200,
+    "monitoreo": 200,
+    "web": 200
+  },
+  "counts": {
+    "institutions": 6,
+    "donors": 108,
+    "donations": 36,
+    "campaigns": 12,
+    "appointments": 36,
+    "recipients": 72,
+    "requests": 72,
+    "blood_units": 216,
+    "organ_offers": 36,
+    "shipments": 18,
+    "audit_events": 1951,
+    "alerts_in_first_institution": 47
+  },
+  "limits": {
+    "identidad_acceso": 180,
+    "donantes": 180,
+    "receptores": 180,
+    "inventario": 180,
+    "compatibilidad": 180,
+    "priorizacion_geografia": 180,
+    "transporte": 180,
+    "custodia": 180,
+    "alertas": 180,
+    "auditoria": 180,
+    "monitoreo": 180
+  },
+  "custody_chains": 18,
+  "shipment_states": {
+    "PREPARED": 3,
+    "PLANNED": 3,
+    "CANCELLED": 3,
+    "ACCEPTED": 3,
+    "DELIVERED": 3,
+    "IN_TRANSIT": 3
+  },
+  "availability_cache": "HIT",
+  "legacy_accounts_hash_and_role_preserved": 8,
+  "result": "passed"
+}

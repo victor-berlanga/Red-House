@@ -1,13 +1,14 @@
 """Zona de interfaz explícita; almacenamiento y servicios conservan UTC."""
 from datetime import timezone
 from zoneinfo import ZoneInfo
-from flask import g, has_request_context, request
+from flask import current_app, g, has_request_context, request
 
 ZONES={'UTC':'UTC', 'America/Monterrey':'Monterrey'}
 
 def selected_zone():
     if not has_request_context(): return 'UTC'
-    value=request.form.get('_timezone',request.cookies.get('display_timezone','UTC')) if request.method=='POST' else request.cookies.get('display_timezone','UTC')
+    default=current_app.config.get('DEFAULT_DISPLAY_TIMEZONE','UTC')
+    value=request.form.get('_timezone',request.cookies.get('display_timezone',default)) if request.method=='POST' else request.cookies.get('display_timezone',default)
     return value if value in ZONES else 'UTC'
 
 def local_value(value):

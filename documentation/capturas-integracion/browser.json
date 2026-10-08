@@ -1,0 +1,235 @@
+{
+  "browser": "Chrome",
+  "base": "http://127.0.0.1:5050",
+  "checks": [
+    {
+      "route": "/panel",
+      "width": 1440,
+      "document": 1440,
+      "heading": "Panel principal",
+      "rows": 19,
+      "charts": 4
+    },
+    {
+      "route": "/inventario",
+      "width": 1440,
+      "document": 1440,
+      "heading": "Inventario sanguíneo",
+      "rows": 20,
+      "charts": 0
+    },
+    {
+      "route": "/disponibilidad",
+      "width": 1440,
+      "document": 1440,
+      "heading": "Disponibilidad regional",
+      "rows": 20,
+      "charts": 0
+    },
+    {
+      "route": "/organos",
+      "width": 1440,
+      "document": 1440,
+      "heading": "Órganos y HLA",
+      "rows": 6,
+      "charts": 0
+    },
+    {
+      "route": "/solicitudes",
+      "width": 1440,
+      "document": 1440,
+      "heading": "Solicitudes y compatibilidad",
+      "rows": 12,
+      "charts": 0
+    },
+    {
+      "route": "/donantes/donor",
+      "width": 1440,
+      "document": 1440,
+      "heading": "Donantes",
+      "rows": 18,
+      "charts": 0
+    },
+    {
+      "route": "/inventario/nuevo",
+      "width": 1440,
+      "document": 1440,
+      "heading": "Registrar unidad",
+      "rows": 0,
+      "charts": 0
+    },
+    {
+      "route": "/solicitudes",
+      "width": 1440,
+      "document": 1440,
+      "heading": "Solicitudes y compatibilidad",
+      "rows": 12,
+      "charts": 0
+    },
+    {
+      "route": "/evaluaciones/7cc44acb-b53b-4af8-a47e-68828b8d2c91",
+      "width": 1440,
+      "document": 1440,
+      "heading": "Compatibilidad y candidatos",
+      "rows": 11,
+      "charts": 0
+    },
+    {
+      "route": "/traslados",
+      "width": 1440,
+      "document": 1440,
+      "heading": "Traslados y custodia",
+      "rows": 6,
+      "charts": 0
+    },
+    {
+      "route": "/traslados/9c8d2d32-f8da-4ed8-a3dd-445e0558f835",
+      "width": 1440,
+      "document": 1440,
+      "heading": "Traslado 9C8D2D32",
+      "rows": 0,
+      "charts": 0
+    },
+    {
+      "route": "/administracion/institutions",
+      "width": 1440,
+      "document": 1440,
+      "heading": "Instituciones",
+      "rows": 6,
+      "charts": 0
+    },
+    {
+      "route": "/administracion/users",
+      "width": 1440,
+      "document": 1440,
+      "heading": "Usuarios",
+      "rows": 15,
+      "charts": 0
+    },
+    {
+      "route": "/monitoreo",
+      "width": 1440,
+      "document": 1440,
+      "heading": "Estado de la plataforma",
+      "rows": 11,
+      "charts": 0
+    },
+    {
+      "route": "/reservas",
+      "width": 1440,
+      "document": 1440,
+      "heading": "Reservas y asignaciones",
+      "rows": 18,
+      "charts": 0
+    },
+    {
+      "route": "/rutas",
+      "width": 1440,
+      "document": 1440,
+      "heading": "Rutas y estimaciones",
+      "rows": 20,
+      "charts": 0
+    },
+    {
+      "route": "/traslados",
+      "width": 1440,
+      "document": 1440,
+      "heading": "Traslados y custodia",
+      "rows": 18,
+      "charts": 0
+    },
+    {
+      "route": "/traslados",
+      "width": 1440,
+      "document": 1440,
+      "heading": "Traslados y custodia",
+      "rows": 3,
+      "charts": 0
+    },
+    {
+      "route": "/auditoria",
+      "width": 1440,
+      "document": 1440,
+      "heading": "Bitácora de auditoría",
+      "rows": 20,
+      "charts": 0
+    },
+    {
+      "route": "/monitoreo",
+      "width": 1440,
+      "document": 1440,
+      "heading": "Estado de la plataforma",
+      "rows": 11,
+      "charts": 0
+    },
+    {
+      "route": "/campanas",
+      "width": 1440,
+      "document": 1440,
+      "heading": "Campañas de donación",
+      "rows": 2,
+      "charts": 0
+    },
+    {
+      "route": "/citas",
+      "width": 1440,
+      "document": 1440,
+      "heading": "Citas de donación",
+      "rows": 1,
+      "charts": 0
+    },
+    {
+      "route": "/notificaciones",
+      "width": 1440,
+      "document": 1440,
+      "heading": "Notificaciones",
+      "rows": 1,
+      "charts": 0
+    },
+    {
+      "route": "/panel",
+      "width": 390,
+      "document": 390,
+      "heading": "Panel principal",
+      "rows": 19,
+      "charts": 4
+    },
+    {
+      "route": "/inventario",
+      "width": 390,
+      "document": 390,
+      "heading": "Inventario sanguíneo",
+      "rows": 20,
+      "charts": 0
+    },
+    {
+      "route": "/inventario/nuevo",
+      "width": 390,
+      "document": 390,
+      "heading": "Registrar unidad",
+      "rows": 0,
+      "charts": 0
+    },
+    {
+      "route": "/organos",
+      "width": 390,
+      "document": 390,
+      "heading": "Órganos y HLA",
+      "rows": 6,
+      "charts": 0
+    }
+  ],
+  "captures": [
+    "01-panel-medico.png",
+    "02-inventario.png",
+    "03-disponibilidad.png",
+    "04-organos.png",
+    "05-compatibilidad.png",
+    "06-traslado-custodia.png",
+    "07-monitoreo.png",
+    "08-inventario-movil.png"
+  ],
+  "javascriptErrors": 0,
+  "staticFailures": 0,
+  "result": "passed"
+}

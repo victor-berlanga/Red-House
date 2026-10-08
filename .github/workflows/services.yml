@@ -1,0 +1,43 @@
+name: Microservicios y portal
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  regression:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    env:
+      REDHOUSE_TEST_ROOT: /tmp
+      REDHOUSE_TEST_MONGOD: /usr/bin/mongod
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: |
+            apps/services/requirements*.txt
+            apps/web-monolito01/requirements.txt
+      # https://www.mongodb.com/docs/v8.0/tutorial/install-mongodb-on-ubuntu/
+      - name: Dependencias locales, sin contenedores
+        run: |
+          curl -fsSL https://pgp.mongodb.com/server-8.0.asc | sudo gpg --dearmor -o /usr/share/keyrings/mongodb-server-8.0.gpg
+          echo "deb [ arch=amd64 signed-by=/usr/share/keyrings/mongodb-server-8.0.gpg ] https://repo.mongodb.org/apt/ubuntu noble/mongodb-org/8.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-8.0.list
+          sudo apt-get update
+          sudo apt-get install -y postgresql redis-server mongodb-org-server
+          pg_config --bindir >> "$GITHUB_PATH"
+          python -m pip install -r apps/services/requirements-dev.txt
+      - name: Análisis estático y formato
+        run: |
+          ruff check --select E9,F63,F7,F82 apps/services apps/web-monolito01/src/integration
+          ruff format --check apps/services apps/web-monolito01/src/integration
+      - name: Contratos, seguridad, datos y portal HTTP
+        run: python -m pytest apps/services/tests -q --junitxml=results/services.xml
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: results
+          path: results/services.xml

@@ -1,0 +1,87 @@
+{
+  "type": "object",
+  "required": [
+    "data",
+    "meta"
+  ],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": [
+        "correlation_id",
+        "service",
+        "version"
+      ],
+      "properties": {
+        "correlation_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "service": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "required": [
+        "id",
+        "tenant_id",
+        "kind",
+        "name",
+        "version",
+        "active"
+      ],
+      "properties": {
+        "name": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "municipality": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Municipality",
+          "type": "string"
+        },
+        "address": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Address",
+          "type": "string"
+        },
+        "id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "tenant_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "kind": {
+          "const": "sites"
+        },
+        "active": {
+          "type": "boolean"
+        },
+        "version": {
+          "type": "integer"
+        },
+        "parent_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uuid"
+        },
+        "details": {
+          "type": "object"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "type": "object",
+  "required": [
+    "data",
+    "meta"
+  ],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": [
+        "correlation_id",
+        "service",
+        "version"
+      ],
+      "properties": {
+        "correlation_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "service": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "properties": {
+        "file": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "shipment_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "owner_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "object_path": {
+              "type": "string"
+            },
+            "mime_type": {
+              "type": "string"
+            },
+            "size": {
+              "type": "integer"
+            },
+            "status": {
+              "type": "string"
+            },
+            "generation": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "created_at": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "id"
+          ]
+        },
+        "upload_url": {
+          "type": "string"
+        },
+        "expires_in": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "file",
+        "upload_url",
+        "expires_in"
+      ]
+    }
+  }
+}

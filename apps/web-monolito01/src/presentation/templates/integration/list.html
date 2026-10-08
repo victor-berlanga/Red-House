@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% from 'macros.html' import icon with context %}
+{% block content %}
+<div class="page-heading"><div><span class="eyebrow">RED REGIONAL · NUEVO LEÓN</span><h1>{{ title }}</h1><p>{{ total }} registros autorizados · página {{ page }} de {{ pages }}</p></div><div class="button-row">{% if new %}<a class="button" href="{{ new }}">Nuevo registro</a>{% endif %}<a class="button secondary" href="{{ export }}">Exportar página CSV</a></div></div>
+{% if note %}<div class="notice">{{ note }}</div>{% endif %}
+{% if active=='traslados' and principal.role_code!='TRANSPORT' %}<p><a class="text-link" href="{{ url_for('regional.reservations') }}">Consultar reservas y asignaciones →</a></p>{% endif %}
+{% if filters %}<form class="card form-card filters" method="get">
+{% for name in filters %}<div class="field"><label for="filter-{{ name }}">{{ {'q':'Buscar por nombre o folio','status':'Estado','kind':'Recurso','role':'Perfil'}.get(name,name) }}</label>
+{% if name=='kind' %}<select id="filter-{{ name }}" name="{{ name }}"><option value="">Todos</option>{% for code in ['BLOOD','ORGAN'] %}<option value="{{ code }}" {% if request.args.get(name)==code %}selected{% endif %}>{{ code|portal_value }}</option>{% endfor %}</select>
+{% elif name=='role' %}<select id="filter-{{ name }}" name="{{ name }}"><option value="">Todos</option>{% for code,label in roles.items() %}<option value="{{ code }}" {% if request.args.get(name)==code %}selected{% endif %}>{{ label }}</option>{% endfor %}</select>
+{% elif name=='status' %}<select id="filter-{{ name }}" name="{{ name }}"><option value="">Todos</option>{% for code in (['QUARANTINE','AVAILABLE','RESERVED','IN_TRANSIT','RECEIVED','WITHDRAWN'] if active in ['inventory','organos'] else ['OPEN','IN_PROGRESS','CLOSED','CANCELLED']) %}<option value="{{ code }}" {% if request.args.get(name)==code %}selected{% endif %}>{{ code|portal_value }}</option>{% endfor %}</select>
+{% else %}<input id="filter-{{ name }}" name="{{ name }}" maxlength="100" value="{{ request.args.get(name,'') }}">{% endif %}</div>{% endfor %}
+<button class="button secondary" type="submit">Aplicar filtros</button><a class="text-link" href="{{ request.path }}">Limpiar</a></form>{% endif %}
+<section class="card"><div class="table-scroll"><table><thead><tr>{% for name,label in columns %}<th>{{ label }}</th>{% endfor %}<th>Acciones</th></tr></thead><tbody>
+{% for row in rows %}<tr>{% for name,label in columns %}<td>{% if name=='status' %}<span class="status">{{ row.get(name)|portal_value }}</span>{% else %}{{ row.get(name)|portal_value }}{% endif %}</td>{% endfor %}<td>{% if row._href %}<a class="button secondary small" href="{{ row._href }}" aria-label="Consultar {{ row.get('folio') or row.get('reference') or 'registro' }}">{{ icon('eye') }} Consultar</a>{% else %}—{% endif %}</td></tr>
+{% else %}<tr><td colspan="{{ columns|length+1 }}">No hay registros para los filtros seleccionados.</td></tr>{% endfor %}
+</tbody></table></div></section>
+<nav class="button-row" aria-label="Paginación">{% for number,link in pagination %}<a class="button {{ 'secondary' if number!=page }}" href="{{ link }}" {% if number==page %}aria-current="page"{% endif %}>{{ number }}</a>{% endfor %}</nav>
+{% endblock %}

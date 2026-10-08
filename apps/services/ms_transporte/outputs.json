@@ -1,0 +1,626 @@
+{
+  "shipment_create": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "reservation_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "origin_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "destination_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "region_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "transport_user_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "departure_at": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "eta": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "status": {
+        "type": "string"
+      },
+      "version": {
+        "type": "integer"
+      },
+      "sequence": {
+        "type": "integer"
+      },
+      "inventory_pending": {
+        "type": "boolean"
+      },
+      "expires_at": {
+        "type": "string",
+        "format": "date-time"
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "shipment_list": {
+    "type": "object",
+    "properties": {
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "reservation_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "origin_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "destination_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "region_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "transport_user_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "departure_at": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "eta": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "status": {
+              "type": "string"
+            },
+            "version": {
+              "type": "integer"
+            },
+            "sequence": {
+              "type": "integer"
+            },
+            "inventory_pending": {
+              "type": "boolean"
+            },
+            "expires_at": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "id"
+          ]
+        }
+      },
+      "page": {
+        "type": "integer"
+      },
+      "page_size": {
+        "type": "integer"
+      },
+      "total": {
+        "type": "integer"
+      }
+    },
+    "required": [
+      "items",
+      "page",
+      "page_size",
+      "total"
+    ]
+  },
+  "shipment_detail": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "reservation_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "origin_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "destination_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "region_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "transport_user_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "departure_at": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "eta": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "status": {
+        "type": "string"
+      },
+      "version": {
+        "type": "integer"
+      },
+      "sequence": {
+        "type": "integer"
+      },
+      "inventory_pending": {
+        "type": "boolean"
+      },
+      "expires_at": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "decisions": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "id",
+            "actor_id",
+            "action",
+            "reason",
+            "changes",
+            "created_at"
+          ],
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "actor_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "action": {
+              "type": "string"
+            },
+            "reason": {
+              "type": "string"
+            },
+            "changes": {
+              "type": "object"
+            },
+            "created_at": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        }
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "shipment_transition": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "reservation_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "origin_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "destination_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "region_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "transport_user_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "departure_at": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "eta": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "status": {
+        "type": "string"
+      },
+      "version": {
+        "type": "integer"
+      },
+      "sequence": {
+        "type": "integer"
+      },
+      "inventory_pending": {
+        "type": "boolean"
+      },
+      "expires_at": {
+        "type": "string",
+        "format": "date-time"
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "telemetry_create": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "shipment_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "actor_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "latitude": {
+        "type": "number"
+      },
+      "longitude": {
+        "type": "number"
+      },
+      "captured_at": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "created_at": {
+        "type": "string",
+        "format": "date-time"
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "telemetry_list": {
+    "type": "object",
+    "properties": {
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "shipment_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "actor_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "latitude": {
+              "type": "number"
+            },
+            "longitude": {
+              "type": "number"
+            },
+            "captured_at": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "created_at": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "id"
+          ]
+        }
+      },
+      "page": {
+        "type": "integer"
+      },
+      "page_size": {
+        "type": "integer"
+      },
+      "total": {
+        "type": "integer"
+      }
+    },
+    "required": [
+      "items",
+      "page",
+      "page_size",
+      "total"
+    ]
+  },
+  "shipment_internal": {
+    "type": "object",
+    "properties": {
+      "authorized": {
+        "type": "boolean"
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      }
+    },
+    "required": [
+      "authorized",
+      "id"
+    ]
+  },
+  "file_prepare": {
+    "type": "object",
+    "properties": {
+      "file": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "shipment_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "owner_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "object_path": {
+            "type": "string"
+          },
+          "mime_type": {
+            "type": "string"
+          },
+          "size": {
+            "type": "integer"
+          },
+          "status": {
+            "type": "string"
+          },
+          "generation": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "id"
+        ]
+      },
+      "upload_url": {
+        "type": "string"
+      },
+      "expires_in": {
+        "type": "integer"
+      }
+    },
+    "required": [
+      "file",
+      "upload_url",
+      "expires_in"
+    ]
+  },
+  "file_verify": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "shipment_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "owner_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "object_path": {
+        "type": "string"
+      },
+      "mime_type": {
+        "type": "string"
+      },
+      "size": {
+        "type": "integer"
+      },
+      "status": {
+        "type": "string"
+      },
+      "generation": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "created_at": {
+        "type": "string",
+        "format": "date-time"
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "file_download": {
+    "type": "object",
+    "properties": {
+      "download_url": {
+        "type": "string"
+      },
+      "expires_in": {
+        "type": "integer"
+      }
+    },
+    "required": [
+      "download_url",
+      "expires_in"
+    ]
+  },
+  "portal_summary": {
+    "type": "object",
+    "properties": {
+      "total": {
+        "type": "integer"
+      },
+      "statuses": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "type": "string"
+            },
+            "value": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "status",
+            "value"
+          ]
+        }
+      },
+      "groups": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "label": {
+              "type": [
+                "string",
+                "integer"
+              ]
+            },
+            "value": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "label",
+            "value"
+          ]
+        }
+      },
+      "urgencies": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "label": {
+              "type": [
+                "string",
+                "integer"
+              ]
+            },
+            "value": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "label",
+            "value"
+          ]
+        }
+      },
+      "trend": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "label": {
+              "type": [
+                "string",
+                "integer"
+              ]
+            },
+            "value": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "label",
+            "value"
+          ]
+        }
+      },
+      "institutions": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "institution_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "value": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "institution_id",
+            "value"
+          ]
+        }
+      },
+      "expiring": {
+        "type": "integer"
+      },
+      "expired": {
+        "type": "integer"
+      }
+    },
+    "required": [
+      "total",
+      "statuses"
+    ]
+  }
+}

@@ -1,0 +1,112 @@
+{
+  "synthetic_units": 0,
+  "total_units": 5000,
+  "insertion_ms": 45.059,
+  "query_plan_before": [
+    {
+      "Plan": {
+        "Node Type": "Limit",
+        "Parallel Aware": false,
+        "Async Capable": false,
+        "Startup Cost": 345.05,
+        "Total Cost": 345.1,
+        "Plan Rows": 20,
+        "Plan Width": 24,
+        "Actual Startup Time": 6.74,
+        "Actual Total Time": 6.759,
+        "Actual Rows": 20,
+        "Actual Loops": 1,
+        "Plans": [
+          {
+            "Node Type": "Sort",
+            "Parent Relationship": "Outer",
+            "Parallel Aware": false,
+            "Async Capable": false,
+            "Startup Cost": 345.05,
+            "Total Cost": 357.55,
+            "Plan Rows": 5000,
+            "Plan Width": 24,
+            "Actual Startup Time": 6.733,
+            "Actual Total Time": 6.739,
+            "Actual Rows": 20,
+            "Actual Loops": 1,
+            "Sort Key": [
+              "expires_at",
+              "id"
+            ],
+            "Sort Method": "top-N heapsort",
+            "Sort Space Used": 27,
+            "Sort Space Type": "Memory",
+            "Plans": [
+              {
+                "Node Type": "Seq Scan",
+                "Parent Relationship": "Outer",
+                "Parallel Aware": false,
+                "Async Capable": false,
+                "Relation Name": "resources",
+                "Alias": "resources",
+                "Startup Cost": 0.0,
+                "Total Cost": 212.0,
+                "Plan Rows": 5000,
+                "Plan Width": 24,
+                "Actual Startup Time": 0.028,
+                "Actual Total Time": 4.254,
+                "Actual Rows": 5000,
+                "Actual Loops": 1,
+                "Filter": "((region_id = 'af439ace-a33e-4058-9bac-56b56412b52f'::uuid) AND (status = 'AVAILABLE'::text) AND (expires_at > now()))",
+                "Rows Removed by Filter": 0
+              }
+            ]
+          }
+        ]
+      },
+      "Planning Time": 0.843,
+      "Triggers": [],
+      "Execution Time": 6.865
+    }
+  ],
+  "query_plan": [
+    {
+      "Plan": {
+        "Node Type": "Limit",
+        "Parallel Aware": false,
+        "Async Capable": false,
+        "Startup Cost": 0.29,
+        "Total Cost": 1.29,
+        "Plan Rows": 20,
+        "Plan Width": 24,
+        "Actual Startup Time": 0.575,
+        "Actual Total Time": 0.593,
+        "Actual Rows": 20,
+        "Actual Loops": 1,
+        "Plans": [
+          {
+            "Node Type": "Index Only Scan",
+            "Parent Relationship": "Outer",
+            "Parallel Aware": false,
+            "Async Capable": false,
+            "Scan Direction": "Forward",
+            "Index Name": "availability_page",
+            "Relation Name": "resources",
+            "Alias": "resources",
+            "Startup Cost": 0.29,
+            "Total Cost": 252.28,
+            "Plan Rows": 5000,
+            "Plan Width": 24,
+            "Actual Startup Time": 0.572,
+            "Actual Total Time": 0.583,
+            "Actual Rows": 20,
+            "Actual Loops": 1,
+            "Index Cond": "((region_id = 'af439ace-a33e-4058-9bac-56b56412b52f'::uuid) AND (expires_at > now()))",
+            "Rows Removed by Index Recheck": 0,
+            "Heap Fetches": 0
+          }
+        ]
+      },
+      "Planning Time": 0.733,
+      "Triggers": [],
+      "Execution Time": 0.668
+    }
+  ],
+  "notice": "Carga exclusivamente ficticia; no liberaci\u00f3n m\u00e9dica de recursos reales."
+}

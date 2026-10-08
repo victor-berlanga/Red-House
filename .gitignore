@@ -13,3 +13,10 @@ __pycache__/
 htmlcov/
 .DS_Store
 node_modules/
+
+# Entorno persistente local y entregas de servicios: datos/secretos fuera de Git
+.local/
+.ruff_cache/
+*.egg-info/
+build/
+dist/

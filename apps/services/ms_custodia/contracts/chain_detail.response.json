@@ -1,0 +1,202 @@
+{
+  "type": "object",
+  "required": [
+    "data",
+    "meta"
+  ],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": [
+        "correlation_id",
+        "service",
+        "version"
+      ],
+      "properties": {
+        "correlation_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "service": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "properties": {
+        "chain": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "region_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "origin_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "destination_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "last_sequence": {
+              "type": "integer"
+            },
+            "last_hash": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "region_id",
+            "origin_id",
+            "destination_id",
+            "last_sequence",
+            "last_hash"
+          ]
+        },
+        "events": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "shipment_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "sequence": {
+                "type": "integer"
+              },
+              "event": {
+                "additionalProperties": false,
+                "properties": {
+                  "event_id": {
+                    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                    "title": "Event Id",
+                    "type": "string"
+                  },
+                  "source": {
+                    "maxLength": 200,
+                    "minLength": 1,
+                    "title": "Source",
+                    "type": "string"
+                  },
+                  "action": {
+                    "maxLength": 200,
+                    "minLength": 1,
+                    "title": "Action",
+                    "type": "string"
+                  },
+                  "resource_id": {
+                    "maxLength": 200,
+                    "minLength": 1,
+                    "title": "Resource Id",
+                    "type": "string"
+                  },
+                  "tenant_id": {
+                    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                    "title": "Tenant Id",
+                    "type": "string"
+                  },
+                  "region_id": {
+                    "anyOf": [
+                      {
+                        "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "title": "Region Id"
+                  },
+                  "actor_id": {
+                    "anyOf": [
+                      {
+                        "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "title": "Actor Id"
+                  },
+                  "correlation_id": {
+                    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                    "title": "Correlation Id",
+                    "type": "string"
+                  },
+                  "occurred_at": {
+                    "maxLength": 200,
+                    "minLength": 1,
+                    "title": "Occurred At",
+                    "type": "string"
+                  },
+                  "metadata": {
+                    "additionalProperties": true,
+                    "title": "Metadata",
+                    "type": "object"
+                  }
+                },
+                "required": [
+                  "event_id",
+                  "source",
+                  "action",
+                  "resource_id",
+                  "tenant_id",
+                  "region_id",
+                  "actor_id",
+                  "correlation_id",
+                  "occurred_at",
+                  "metadata"
+                ],
+                "title": "Event",
+                "type": "object"
+              },
+              "previous_hash": {
+                "type": "string"
+              },
+              "hash": {
+                "type": "string"
+              },
+              "created_at": {
+                "type": "string",
+                "format": "date-time"
+              }
+            },
+            "required": [
+              "id",
+              "shipment_id",
+              "sequence",
+              "event",
+              "previous_hash",
+              "hash",
+              "created_at"
+            ]
+          }
+        },
+        "notice": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "chain",
+        "events",
+        "notice"
+      ]
+    }
+  }
+}

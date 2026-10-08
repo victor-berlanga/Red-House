@@ -1,0 +1,66 @@
+RED HOUSE — INVENTARIO Y RESERVAS
+Unidad: ms_inventario
+Puerto por defecto: 5104
+Versión del servicio: 0.2.0
+
+1. QUÉ HACE Y POR QUÉ EXISTE
+Mantiene unidades de sangre y ofertas de órganos, su disponibilidad, reservas y ubicación institucional.
+
+2. TECNOLOGÍAS Y DATOS
+Flask (REST), Python 3.12+, Psycopg, PostgreSQL, PyJWT/cryptography (RS256), Redis, Pydantic, lxml (XML/XSD), Waitress, Swagger/OpenAPI.
+PostgreSQL es autoridad de recursos, movimientos y operaciones. Redis ofrece caché breve de disponibilidad y seguridad; una reserva siempre reconsulta PostgreSQL.
+Entre servicios se utilizan firmas Ed25519, nonce con expiración, autorización delegada donde aplica e identificadores de correlación.
+
+3. ESCENARIO PARA EXPLICARLO
+El origen registra y libera un recurso; el destino lo reserva con evaluación y dictamen favorable; tras recepción queda registrado en la institución de destino.
+
+4. CONTRATOS Y OPERACIONES
+API v1; JSON para móvil y XML para escritorio. Swagger local en /docs y OpenAPI en /openapi.json.
+Entradas XML con raíz request y XSD por operación. Respuestas XML conservan tipos mediante field/item y atributo type.
+  POST /api/v1/resources: Registrar unidad u oferta separada, inicialmente en cuarentena
+  POST /api/v1/resources/<identifier>/release: Liberación humana documentada
+  GET /api/v1/resources: Inventario propio; coordinador recibe disponibilidad regional mínima
+  GET /api/v1/availability: Disponibilidad regional minimizada con caché autorizada
+  GET /internal/v1/available-resources: Fuente autoritativa de candidatos; omite caché
+  POST /api/v1/reservations: Reservar con retención de capacidad y seguimiento de operación
+  GET /api/v1/operations/<identifier>: Consultar resultado tras pérdida de respuesta
+  POST /api/v1/operations/<identifier>/resume: Reanudar confirmación o compensación pendiente
+  GET /api/v1/reservations/<identifier>: Consultar asignación autorizada
+  POST /api/v1/reservations/<identifier>/cancel: Liberar reserva antes de programar un traslado
+  GET /internal/v1/reservations/<identifier>: Datos mínimos para planear traslado
+  POST /internal/v1/reservations/<identifier>/claim: Vincular traslado durable antes de permitir recolección
+  POST /internal/v1/events: Aplicar hechos logísticos en orden y sin duplicación
+  GET /api/v1/resources/<identifier>: Recurso y movimientos; sin identidad del donante
+  GET /api/v1/reservations: Reservas institucionales o regionales para coordinación
+  GET /api/v1/summary: Indicadores agregados autorizados; no expone expedientes
+  PATCH /api/v1/resources/<identifier>: Corregir unidad antes de liberación clínica
+  POST /api/v1/resources/<identifier>/withdraw: Baja lógica sin reservas ni traslado; conserva historial
+
+5. SEGURIDAD Y ERRORES
+Acceso denegado por defecto. JWT con firma, emisor, audiencia, expiración, sesión, revocación y permisos vigentes.
+Validación estricta: campos desconocidos, nulos no autorizados, cadenas vacías, tipos incorrectos, JSON duplicado, NaN/Infinity y XML con DTD se rechazan.
+Errores equivalentes JSON/XML: 400/422 entrada, 401 autenticación, 403 autorización, 404 inexistente, 409 estado/versión, 429 límite, 503 dependencia.
+No se exponen credenciales ni contenido clínico en logs; cada petición registra ruta, estado, duración y correlación.
+
+6. PREGUNTAS QUE PODRÍAN HACER
+¿Cómo evita doble reserva? Bloqueo de fila y un índice único de reserva activa.
+¿Una caché desactualizada puede asignar sangre? No: solo orienta búsquedas.
+¿Para qué Idempotency-Key? Permite repetir tras perder una respuesta sin duplicar la reserva; otra entrada con la misma clave produce conflicto.
+¿Se pueden cancelar recursos recolectados? No.
+¿Se calcula caducidad clínica? No: el límite se captura y debe provenir de una fuente autorizada.
+
+7. GUION BREVE PARA UNA DIAPOSITIVA
+Problema: Mantiene unidades de sangre y ofertas de órganos, su disponibilidad, reservas y ubicación institucional.
+Entrada: petición REST autorizada y validada.
+Proceso: aplicar permisos, reglas operativas y persistencia propia.
+Salida: resultado JSON/XML, correlación y evento auditable cuando corresponde.
+Demostración: Swagger -> operación -> consulta posterior -> revisión de auditoría/salud.
+
+8. CÓMO COMPROBAR Y QUÉ NO AFIRMAR
+Leer apps/services/README.md y apps/services/docs/VALIDACION.md.
+Cada unidad conserva sus consultas, contratos outputs.json y migraciones. scripts/package_service.py entrega un solo dominio con una copia de utilidades comunes; scripts/upgrade.py y local.py restart-service permiten actualizarlo individualmente.
+XML de salida se valida con XSD estructural y DTO semántico: redhouse.xml_response.validate_response.
+El estado /health/worker permite detectar workers detenidos o publicación de eventos atrasada. Los motivos se conservan en el historial privado del propietario; los eventos centrales son minimizados.
+Las reglas DEMO no sustituyen evaluación clínica. No afirmar despliegue en GCP, Docker, HLA automatizada o móvil/escritorio integrados.
+No mostrar state.json, archivos de configuración privada ni tokens durante la presentación.
+La web integrada tiene pruebas HTTP con dependencias reales y recorridos de navegador. Leer apps/web-monolito01/INTEGRACION.md.

@@ -21,6 +21,11 @@ def create_app(overrides=None):
             raise RuntimeError(f"Configura {key} con al menos 32 caracteres aleatorios en el entorno local.")
     if app.config["SECRET_KEY"] == app.config["JWT_SECRET_KEY"]:
         raise RuntimeError("SECRET_KEY y JWT_SECRET_KEY deben ser diferentes.")
+    if app.config['BACKEND_MODE'] == 'microservices':
+        from .integration import configure
+        return configure(app)
+    if app.config['BACKEND_MODE'] != 'local':
+        raise RuntimeError('BACKEND_MODE debe ser local o microservices.')
 
     @app.before_request
     def identity():

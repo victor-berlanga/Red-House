@@ -1,0 +1,2024 @@
+{
+  "login": {
+    "type": "object",
+    "properties": {
+      "access_token": {
+        "type": "string"
+      },
+      "refresh_token": {
+        "type": "string"
+      },
+      "token_type": {
+        "const": "Bearer"
+      },
+      "expires_in": {
+        "type": "integer"
+      },
+      "user": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "tenant_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "region_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "username": {
+            "type": "string"
+          },
+          "role": {
+            "type": "string"
+          },
+          "active": {
+            "type": "boolean"
+          },
+          "version": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "id",
+          "tenant_id",
+          "region_id",
+          "username",
+          "role",
+          "active",
+          "version"
+        ]
+      }
+    },
+    "required": [
+      "access_token",
+      "refresh_token",
+      "token_type",
+      "expires_in",
+      "user"
+    ]
+  },
+  "refresh": {
+    "type": "object",
+    "properties": {
+      "access_token": {
+        "type": "string"
+      },
+      "refresh_token": {
+        "type": "string"
+      },
+      "token_type": {
+        "const": "Bearer"
+      },
+      "expires_in": {
+        "type": "integer"
+      }
+    },
+    "required": [
+      "access_token",
+      "refresh_token",
+      "token_type",
+      "expires_in"
+    ]
+  },
+  "logout": {
+    "type": "object",
+    "properties": {
+      "revoked": {
+        "type": "boolean"
+      }
+    },
+    "required": [
+      "revoked"
+    ]
+  },
+  "me": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "tenant_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "region_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "username": {
+        "type": "string"
+      },
+      "role": {
+        "type": "string"
+      },
+      "active": {
+        "type": "boolean"
+      },
+      "version": {
+        "type": "integer"
+      }
+    },
+    "required": [
+      "id",
+      "tenant_id",
+      "region_id",
+      "username",
+      "role",
+      "active",
+      "version"
+    ]
+  },
+  "institutions": {
+    "type": "object",
+    "properties": {
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "name": {
+              "type": "string"
+            },
+            "region_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "active": {
+              "type": "boolean"
+            },
+            "version": {
+              "type": "integer"
+            },
+            "created_by": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "format": "uuid"
+            }
+          },
+          "required": [
+            "id"
+          ]
+        }
+      },
+      "page": {
+        "type": "integer"
+      },
+      "page_size": {
+        "type": "integer"
+      },
+      "total": {
+        "type": "integer"
+      }
+    },
+    "required": [
+      "items",
+      "page",
+      "page_size",
+      "total"
+    ]
+  },
+  "institution_create": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "name": {
+        "type": "string"
+      },
+      "region_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "active": {
+        "type": "boolean"
+      },
+      "version": {
+        "type": "integer"
+      },
+      "created_by": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "uuid"
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "user_create": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "tenant_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "region_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "username": {
+        "type": "string"
+      },
+      "role": {
+        "type": "string"
+      },
+      "active": {
+        "type": "boolean"
+      },
+      "version": {
+        "type": "integer"
+      }
+    },
+    "required": [
+      "id",
+      "tenant_id",
+      "region_id",
+      "username",
+      "role",
+      "active",
+      "version"
+    ]
+  },
+  "user_state": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "tenant_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "region_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "username": {
+        "type": "string"
+      },
+      "role": {
+        "type": "string"
+      },
+      "active": {
+        "type": "boolean"
+      },
+      "version": {
+        "type": "integer"
+      }
+    },
+    "required": [
+      "id",
+      "tenant_id",
+      "region_id",
+      "username",
+      "role",
+      "active",
+      "version"
+    ]
+  },
+  "institution_internal": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "name": {
+        "type": "string"
+      },
+      "region_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "active": {
+        "type": "boolean"
+      },
+      "version": {
+        "type": "integer"
+      },
+      "created_by": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "uuid"
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "user_internal": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "tenant_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "region_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "username": {
+        "type": "string"
+      },
+      "role": {
+        "type": "string"
+      },
+      "active": {
+        "type": "boolean"
+      },
+      "version": {
+        "type": "integer"
+      }
+    },
+    "required": [
+      "id",
+      "tenant_id",
+      "region_id",
+      "username",
+      "role",
+      "active",
+      "version"
+    ]
+  },
+  "user_list": {
+    "type": "object",
+    "properties": {
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "tenant_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "username": {
+              "type": "string"
+            },
+            "role": {
+              "type": "string"
+            },
+            "active": {
+              "type": "boolean"
+            },
+            "version": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "id",
+            "tenant_id",
+            "username",
+            "role",
+            "active",
+            "version"
+          ]
+        }
+      },
+      "page": {
+        "type": "integer"
+      },
+      "page_size": {
+        "type": "integer"
+      },
+      "total": {
+        "type": "integer"
+      }
+    },
+    "required": [
+      "items",
+      "page",
+      "page_size",
+      "total"
+    ]
+  },
+  "institution_detail": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "name": {
+        "type": "string"
+      },
+      "region_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "active": {
+        "type": "boolean"
+      },
+      "version": {
+        "type": "integer"
+      },
+      "created_by": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "uuid"
+      },
+      "decisions": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "id",
+            "actor_id",
+            "action",
+            "reason",
+            "changes",
+            "created_at"
+          ],
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "actor_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "action": {
+              "type": "string"
+            },
+            "reason": {
+              "type": "string"
+            },
+            "changes": {
+              "type": "object"
+            },
+            "created_at": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        }
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "institution_edit": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "name": {
+        "type": "string"
+      },
+      "region_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "active": {
+        "type": "boolean"
+      },
+      "version": {
+        "type": "integer"
+      },
+      "created_by": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "uuid"
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "institution_administrator": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "tenant_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "region_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "username": {
+        "type": "string"
+      },
+      "role": {
+        "type": "string"
+      },
+      "active": {
+        "type": "boolean"
+      },
+      "version": {
+        "type": "integer"
+      }
+    },
+    "required": [
+      "id",
+      "tenant_id",
+      "region_id",
+      "username",
+      "role",
+      "active",
+      "version"
+    ]
+  },
+  "revoke": {
+    "type": "object",
+    "required": [
+      "revoked"
+    ],
+    "properties": {
+      "revoked": {
+        "const": true
+      }
+    }
+  },
+  "location_internal": {
+    "type": "object",
+    "required": [
+      "id",
+      "tenant_id",
+      "active"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "tenant_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "active": {
+        "type": "boolean"
+      }
+    }
+  },
+  "sites_create": {
+    "type": "object",
+    "required": [
+      "id",
+      "tenant_id",
+      "kind",
+      "name",
+      "version",
+      "active"
+    ],
+    "properties": {
+      "name": {
+        "maxLength": 200,
+        "minLength": 1,
+        "title": "Name",
+        "type": "string"
+      },
+      "municipality": {
+        "maxLength": 200,
+        "minLength": 1,
+        "title": "Municipality",
+        "type": "string"
+      },
+      "address": {
+        "maxLength": 200,
+        "minLength": 1,
+        "title": "Address",
+        "type": "string"
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "tenant_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "kind": {
+        "const": "sites"
+      },
+      "active": {
+        "type": "boolean"
+      },
+      "version": {
+        "type": "integer"
+      },
+      "parent_id": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "uuid"
+      },
+      "details": {
+        "type": "object"
+      }
+    }
+  },
+  "sites_edit": {
+    "type": "object",
+    "required": [
+      "id",
+      "tenant_id",
+      "kind",
+      "name",
+      "version",
+      "active"
+    ],
+    "properties": {
+      "name": {
+        "maxLength": 200,
+        "minLength": 1,
+        "title": "Name",
+        "type": "string"
+      },
+      "municipality": {
+        "maxLength": 200,
+        "minLength": 1,
+        "title": "Municipality",
+        "type": "string"
+      },
+      "address": {
+        "maxLength": 200,
+        "minLength": 1,
+        "title": "Address",
+        "type": "string"
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "tenant_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "kind": {
+        "const": "sites"
+      },
+      "active": {
+        "type": "boolean"
+      },
+      "version": {
+        "type": "integer"
+      },
+      "parent_id": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "uuid"
+      },
+      "details": {
+        "type": "object"
+      }
+    }
+  },
+  "sites_detail": {
+    "type": "object",
+    "required": [
+      "id",
+      "tenant_id",
+      "kind",
+      "name",
+      "version",
+      "active"
+    ],
+    "properties": {
+      "name": {
+        "maxLength": 200,
+        "minLength": 1,
+        "title": "Name",
+        "type": "string"
+      },
+      "municipality": {
+        "maxLength": 200,
+        "minLength": 1,
+        "title": "Municipality",
+        "type": "string"
+      },
+      "address": {
+        "maxLength": 200,
+        "minLength": 1,
+        "title": "Address",
+        "type": "string"
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "tenant_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "kind": {
+        "const": "sites"
+      },
+      "active": {
+        "type": "boolean"
+      },
+      "version": {
+        "type": "integer"
+      },
+      "parent_id": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "uuid"
+      },
+      "details": {
+        "type": "object"
+      },
+      "decisions": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "id",
+            "actor_id",
+            "action",
+            "reason",
+            "changes",
+            "created_at"
+          ],
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "actor_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "action": {
+              "type": "string"
+            },
+            "reason": {
+              "type": "string"
+            },
+            "changes": {
+              "type": "object"
+            },
+            "created_at": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        }
+      }
+    }
+  },
+  "sites_list_rows": {
+    "type": "object",
+    "required": [
+      "items",
+      "page",
+      "page_size",
+      "total"
+    ],
+    "properties": {
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "id",
+            "tenant_id",
+            "kind",
+            "name",
+            "version",
+            "active"
+          ],
+          "properties": {
+            "name": {
+              "maxLength": 200,
+              "minLength": 1,
+              "title": "Name",
+              "type": "string"
+            },
+            "municipality": {
+              "maxLength": 200,
+              "minLength": 1,
+              "title": "Municipality",
+              "type": "string"
+            },
+            "address": {
+              "maxLength": 200,
+              "minLength": 1,
+              "title": "Address",
+              "type": "string"
+            },
+            "id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "tenant_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "kind": {
+              "const": "sites"
+            },
+            "active": {
+              "type": "boolean"
+            },
+            "version": {
+              "type": "integer"
+            },
+            "parent_id": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "format": "uuid"
+            },
+            "details": {
+              "type": "object"
+            }
+          }
+        }
+      },
+      "page": {
+        "type": "integer"
+      },
+      "page_size": {
+        "type": "integer"
+      },
+      "total": {
+        "type": "integer"
+      }
+    }
+  },
+  "contacts_create": {
+    "type": "object",
+    "required": [
+      "id",
+      "tenant_id",
+      "kind",
+      "name",
+      "version",
+      "active"
+    ],
+    "properties": {
+      "name": {
+        "maxLength": 200,
+        "minLength": 1,
+        "title": "Name",
+        "type": "string"
+      },
+      "value": {
+        "maxLength": 200,
+        "minLength": 1,
+        "title": "Value",
+        "type": "string"
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "tenant_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "kind": {
+        "const": "contacts"
+      },
+      "active": {
+        "type": "boolean"
+      },
+      "version": {
+        "type": "integer"
+      },
+      "parent_id": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "uuid"
+      },
+      "details": {
+        "type": "object"
+      }
+    }
+  },
+  "contacts_edit": {
+    "type": "object",
+    "required": [
+      "id",
+      "tenant_id",
+      "kind",
+      "name",
+      "version",
+      "active"
+    ],
+    "properties": {
+      "name": {
+        "maxLength": 200,
+        "minLength": 1,
+        "title": "Name",
+        "type": "string"
+      },
+      "value": {
+        "maxLength": 200,
+        "minLength": 1,
+        "title": "Value",
+        "type": "string"
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "tenant_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "kind": {
+        "const": "contacts"
+      },
+      "active": {
+        "type": "boolean"
+      },
+      "version": {
+        "type": "integer"
+      },
+      "parent_id": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "uuid"
+      },
+      "details": {
+        "type": "object"
+      }
+    }
+  },
+  "contacts_detail": {
+    "type": "object",
+    "required": [
+      "id",
+      "tenant_id",
+      "kind",
+      "name",
+      "version",
+      "active"
+    ],
+    "properties": {
+      "name": {
+        "maxLength": 200,
+        "minLength": 1,
+        "title": "Name",
+        "type": "string"
+      },
+      "value": {
+        "maxLength": 200,
+        "minLength": 1,
+        "title": "Value",
+        "type": "string"
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "tenant_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "kind": {
+        "const": "contacts"
+      },
+      "active": {
+        "type": "boolean"
+      },
+      "version": {
+        "type": "integer"
+      },
+      "parent_id": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "uuid"
+      },
+      "details": {
+        "type": "object"
+      },
+      "decisions": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "id",
+            "actor_id",
+            "action",
+            "reason",
+            "changes",
+            "created_at"
+          ],
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "actor_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "action": {
+              "type": "string"
+            },
+            "reason": {
+              "type": "string"
+            },
+            "changes": {
+              "type": "object"
+            },
+            "created_at": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        }
+      }
+    }
+  },
+  "contacts_list_rows": {
+    "type": "object",
+    "required": [
+      "items",
+      "page",
+      "page_size",
+      "total"
+    ],
+    "properties": {
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "id",
+            "tenant_id",
+            "kind",
+            "name",
+            "version",
+            "active"
+          ],
+          "properties": {
+            "name": {
+              "maxLength": 200,
+              "minLength": 1,
+              "title": "Name",
+              "type": "string"
+            },
+            "value": {
+              "maxLength": 200,
+              "minLength": 1,
+              "title": "Value",
+              "type": "string"
+            },
+            "id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "tenant_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "kind": {
+              "const": "contacts"
+            },
+            "active": {
+              "type": "boolean"
+            },
+            "version": {
+              "type": "integer"
+            },
+            "parent_id": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "format": "uuid"
+            },
+            "details": {
+              "type": "object"
+            }
+          }
+        }
+      },
+      "page": {
+        "type": "integer"
+      },
+      "page_size": {
+        "type": "integer"
+      },
+      "total": {
+        "type": "integer"
+      }
+    }
+  },
+  "schedules_create": {
+    "type": "object",
+    "required": [
+      "id",
+      "tenant_id",
+      "kind",
+      "name",
+      "version",
+      "active"
+    ],
+    "properties": {
+      "name": {
+        "maxLength": 200,
+        "minLength": 1,
+        "title": "Name",
+        "type": "string"
+      },
+      "parent_id": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "uuid"
+      },
+      "weekday": {
+        "maximum": 6,
+        "minimum": 0,
+        "title": "Weekday",
+        "type": "integer"
+      },
+      "opens_at": {
+        "pattern": "^[0-2][0-9]:[0-5][0-9]$",
+        "title": "Opens At",
+        "type": "string"
+      },
+      "closes_at": {
+        "pattern": "^[0-2][0-9]:[0-5][0-9]$",
+        "title": "Closes At",
+        "type": "string"
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "tenant_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "kind": {
+        "const": "schedules"
+      },
+      "active": {
+        "type": "boolean"
+      },
+      "version": {
+        "type": "integer"
+      },
+      "details": {
+        "type": "object"
+      }
+    }
+  },
+  "schedules_edit": {
+    "type": "object",
+    "required": [
+      "id",
+      "tenant_id",
+      "kind",
+      "name",
+      "version",
+      "active"
+    ],
+    "properties": {
+      "name": {
+        "maxLength": 200,
+        "minLength": 1,
+        "title": "Name",
+        "type": "string"
+      },
+      "parent_id": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "uuid"
+      },
+      "weekday": {
+        "maximum": 6,
+        "minimum": 0,
+        "title": "Weekday",
+        "type": "integer"
+      },
+      "opens_at": {
+        "pattern": "^[0-2][0-9]:[0-5][0-9]$",
+        "title": "Opens At",
+        "type": "string"
+      },
+      "closes_at": {
+        "pattern": "^[0-2][0-9]:[0-5][0-9]$",
+        "title": "Closes At",
+        "type": "string"
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "tenant_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "kind": {
+        "const": "schedules"
+      },
+      "active": {
+        "type": "boolean"
+      },
+      "version": {
+        "type": "integer"
+      },
+      "details": {
+        "type": "object"
+      }
+    }
+  },
+  "schedules_detail": {
+    "type": "object",
+    "required": [
+      "id",
+      "tenant_id",
+      "kind",
+      "name",
+      "version",
+      "active"
+    ],
+    "properties": {
+      "name": {
+        "maxLength": 200,
+        "minLength": 1,
+        "title": "Name",
+        "type": "string"
+      },
+      "parent_id": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "uuid"
+      },
+      "weekday": {
+        "maximum": 6,
+        "minimum": 0,
+        "title": "Weekday",
+        "type": "integer"
+      },
+      "opens_at": {
+        "pattern": "^[0-2][0-9]:[0-5][0-9]$",
+        "title": "Opens At",
+        "type": "string"
+      },
+      "closes_at": {
+        "pattern": "^[0-2][0-9]:[0-5][0-9]$",
+        "title": "Closes At",
+        "type": "string"
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "tenant_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "kind": {
+        "const": "schedules"
+      },
+      "active": {
+        "type": "boolean"
+      },
+      "version": {
+        "type": "integer"
+      },
+      "details": {
+        "type": "object"
+      },
+      "decisions": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "id",
+            "actor_id",
+            "action",
+            "reason",
+            "changes",
+            "created_at"
+          ],
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "actor_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "action": {
+              "type": "string"
+            },
+            "reason": {
+              "type": "string"
+            },
+            "changes": {
+              "type": "object"
+            },
+            "created_at": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        }
+      }
+    }
+  },
+  "schedules_list_rows": {
+    "type": "object",
+    "required": [
+      "items",
+      "page",
+      "page_size",
+      "total"
+    ],
+    "properties": {
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "id",
+            "tenant_id",
+            "kind",
+            "name",
+            "version",
+            "active"
+          ],
+          "properties": {
+            "name": {
+              "maxLength": 200,
+              "minLength": 1,
+              "title": "Name",
+              "type": "string"
+            },
+            "parent_id": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "format": "uuid"
+            },
+            "weekday": {
+              "maximum": 6,
+              "minimum": 0,
+              "title": "Weekday",
+              "type": "integer"
+            },
+            "opens_at": {
+              "pattern": "^[0-2][0-9]:[0-5][0-9]$",
+              "title": "Opens At",
+              "type": "string"
+            },
+            "closes_at": {
+              "pattern": "^[0-2][0-9]:[0-5][0-9]$",
+              "title": "Closes At",
+              "type": "string"
+            },
+            "id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "tenant_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "kind": {
+              "const": "schedules"
+            },
+            "active": {
+              "type": "boolean"
+            },
+            "version": {
+              "type": "integer"
+            },
+            "details": {
+              "type": "object"
+            }
+          }
+        }
+      },
+      "page": {
+        "type": "integer"
+      },
+      "page_size": {
+        "type": "integer"
+      },
+      "total": {
+        "type": "integer"
+      }
+    }
+  },
+  "capacities_create": {
+    "type": "object",
+    "required": [
+      "id",
+      "tenant_id",
+      "kind",
+      "name",
+      "version",
+      "active"
+    ],
+    "properties": {
+      "name": {
+        "maxLength": 200,
+        "minLength": 1,
+        "title": "Name",
+        "type": "string"
+      },
+      "parent_id": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "uuid"
+      },
+      "component": {
+        "maxLength": 200,
+        "minLength": 1,
+        "title": "Component",
+        "type": "string"
+      },
+      "quantity": {
+        "maximum": 100000,
+        "minimum": 0,
+        "title": "Quantity",
+        "type": "integer"
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "tenant_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "kind": {
+        "const": "capacities"
+      },
+      "active": {
+        "type": "boolean"
+      },
+      "version": {
+        "type": "integer"
+      },
+      "details": {
+        "type": "object"
+      }
+    }
+  },
+  "capacities_edit": {
+    "type": "object",
+    "required": [
+      "id",
+      "tenant_id",
+      "kind",
+      "name",
+      "version",
+      "active"
+    ],
+    "properties": {
+      "name": {
+        "maxLength": 200,
+        "minLength": 1,
+        "title": "Name",
+        "type": "string"
+      },
+      "parent_id": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "uuid"
+      },
+      "component": {
+        "maxLength": 200,
+        "minLength": 1,
+        "title": "Component",
+        "type": "string"
+      },
+      "quantity": {
+        "maximum": 100000,
+        "minimum": 0,
+        "title": "Quantity",
+        "type": "integer"
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "tenant_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "kind": {
+        "const": "capacities"
+      },
+      "active": {
+        "type": "boolean"
+      },
+      "version": {
+        "type": "integer"
+      },
+      "details": {
+        "type": "object"
+      }
+    }
+  },
+  "capacities_detail": {
+    "type": "object",
+    "required": [
+      "id",
+      "tenant_id",
+      "kind",
+      "name",
+      "version",
+      "active"
+    ],
+    "properties": {
+      "name": {
+        "maxLength": 200,
+        "minLength": 1,
+        "title": "Name",
+        "type": "string"
+      },
+      "parent_id": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "uuid"
+      },
+      "component": {
+        "maxLength": 200,
+        "minLength": 1,
+        "title": "Component",
+        "type": "string"
+      },
+      "quantity": {
+        "maximum": 100000,
+        "minimum": 0,
+        "title": "Quantity",
+        "type": "integer"
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "tenant_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "kind": {
+        "const": "capacities"
+      },
+      "active": {
+        "type": "boolean"
+      },
+      "version": {
+        "type": "integer"
+      },
+      "details": {
+        "type": "object"
+      },
+      "decisions": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "id",
+            "actor_id",
+            "action",
+            "reason",
+            "changes",
+            "created_at"
+          ],
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "actor_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "action": {
+              "type": "string"
+            },
+            "reason": {
+              "type": "string"
+            },
+            "changes": {
+              "type": "object"
+            },
+            "created_at": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        }
+      }
+    }
+  },
+  "capacities_list_rows": {
+    "type": "object",
+    "required": [
+      "items",
+      "page",
+      "page_size",
+      "total"
+    ],
+    "properties": {
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "id",
+            "tenant_id",
+            "kind",
+            "name",
+            "version",
+            "active"
+          ],
+          "properties": {
+            "name": {
+              "maxLength": 200,
+              "minLength": 1,
+              "title": "Name",
+              "type": "string"
+            },
+            "parent_id": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "format": "uuid"
+            },
+            "component": {
+              "maxLength": 200,
+              "minLength": 1,
+              "title": "Component",
+              "type": "string"
+            },
+            "quantity": {
+              "maximum": 100000,
+              "minimum": 0,
+              "title": "Quantity",
+              "type": "integer"
+            },
+            "id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "tenant_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "kind": {
+              "const": "capacities"
+            },
+            "active": {
+              "type": "boolean"
+            },
+            "version": {
+              "type": "integer"
+            },
+            "details": {
+              "type": "object"
+            }
+          }
+        }
+      },
+      "page": {
+        "type": "integer"
+      },
+      "page_size": {
+        "type": "integer"
+      },
+      "total": {
+        "type": "integer"
+      }
+    }
+  },
+  "locations_create": {
+    "type": "object",
+    "required": [
+      "id",
+      "tenant_id",
+      "kind",
+      "name",
+      "version",
+      "active"
+    ],
+    "properties": {
+      "name": {
+        "maxLength": 200,
+        "minLength": 1,
+        "title": "Name",
+        "type": "string"
+      },
+      "parent_id": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "uuid"
+      },
+      "description": {
+        "maxLength": 200,
+        "minLength": 1,
+        "title": "Description",
+        "type": "string"
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "tenant_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "kind": {
+        "const": "locations"
+      },
+      "active": {
+        "type": "boolean"
+      },
+      "version": {
+        "type": "integer"
+      },
+      "details": {
+        "type": "object"
+      }
+    }
+  },
+  "locations_edit": {
+    "type": "object",
+    "required": [
+      "id",
+      "tenant_id",
+      "kind",
+      "name",
+      "version",
+      "active"
+    ],
+    "properties": {
+      "name": {
+        "maxLength": 200,
+        "minLength": 1,
+        "title": "Name",
+        "type": "string"
+      },
+      "parent_id": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "uuid"
+      },
+      "description": {
+        "maxLength": 200,
+        "minLength": 1,
+        "title": "Description",
+        "type": "string"
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "tenant_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "kind": {
+        "const": "locations"
+      },
+      "active": {
+        "type": "boolean"
+      },
+      "version": {
+        "type": "integer"
+      },
+      "details": {
+        "type": "object"
+      }
+    }
+  },
+  "locations_detail": {
+    "type": "object",
+    "required": [
+      "id",
+      "tenant_id",
+      "kind",
+      "name",
+      "version",
+      "active"
+    ],
+    "properties": {
+      "name": {
+        "maxLength": 200,
+        "minLength": 1,
+        "title": "Name",
+        "type": "string"
+      },
+      "parent_id": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "uuid"
+      },
+      "description": {
+        "maxLength": 200,
+        "minLength": 1,
+        "title": "Description",
+        "type": "string"
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "tenant_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "kind": {
+        "const": "locations"
+      },
+      "active": {
+        "type": "boolean"
+      },
+      "version": {
+        "type": "integer"
+      },
+      "details": {
+        "type": "object"
+      },
+      "decisions": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "id",
+            "actor_id",
+            "action",
+            "reason",
+            "changes",
+            "created_at"
+          ],
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "actor_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "action": {
+              "type": "string"
+            },
+            "reason": {
+              "type": "string"
+            },
+            "changes": {
+              "type": "object"
+            },
+            "created_at": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        }
+      }
+    }
+  },
+  "locations_list_rows": {
+    "type": "object",
+    "required": [
+      "items",
+      "page",
+      "page_size",
+      "total"
+    ],
+    "properties": {
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "id",
+            "tenant_id",
+            "kind",
+            "name",
+            "version",
+            "active"
+          ],
+          "properties": {
+            "name": {
+              "maxLength": 200,
+              "minLength": 1,
+              "title": "Name",
+              "type": "string"
+            },
+            "parent_id": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "format": "uuid"
+            },
+            "description": {
+              "maxLength": 200,
+              "minLength": 1,
+              "title": "Description",
+              "type": "string"
+            },
+            "id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "tenant_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "kind": {
+              "const": "locations"
+            },
+            "active": {
+              "type": "boolean"
+            },
+            "version": {
+              "type": "integer"
+            },
+            "details": {
+              "type": "object"
+            }
+          }
+        }
+      },
+      "page": {
+        "type": "integer"
+      },
+      "page_size": {
+        "type": "integer"
+      },
+      "total": {
+        "type": "integer"
+      }
+    }
+  }
+}

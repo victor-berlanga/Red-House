@@ -1,0 +1,157 @@
+{
+  "status": {
+    "type": "object",
+    "properties": {
+      "latest": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "service": {
+              "type": "string"
+            },
+            "state": {
+              "type": "string"
+            },
+            "elapsed_ms": {
+              "type": "number"
+            },
+            "dependency": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "last_error": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "version": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "created_at": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "id"
+          ]
+        }
+      },
+      "statistics": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "service": {
+              "type": "string"
+            },
+            "checks": {
+              "type": "integer"
+            },
+            "errors": {
+              "type": "integer"
+            },
+            "average_ms": {
+              "type": "number"
+            },
+            "availability_percent": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "service",
+            "checks",
+            "errors",
+            "average_ms",
+            "availability_percent"
+          ]
+        }
+      },
+      "notice": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "latest",
+      "statistics",
+      "notice"
+    ]
+  },
+  "checks_list": {
+    "type": "object",
+    "properties": {
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "service": {
+              "type": "string"
+            },
+            "state": {
+              "type": "string"
+            },
+            "elapsed_ms": {
+              "type": "number"
+            },
+            "dependency": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "last_error": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "version": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "created_at": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "id"
+          ]
+        }
+      },
+      "page": {
+        "type": "integer"
+      },
+      "page_size": {
+        "type": "integer"
+      },
+      "total": {
+        "type": "integer"
+      }
+    },
+    "required": [
+      "items",
+      "page",
+      "page_size",
+      "total"
+    ]
+  }
+}

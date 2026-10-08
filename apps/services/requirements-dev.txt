@@ -1,0 +1,7 @@
+-r requirements.txt
+-r ../web-monolito01/requirements.txt
+pytest>=8.4,<10
+jsonschema>=4.25,<5
+openapi-spec-validator>=0.7.2,<0.9
+locust>=2.40,<3
+ruff==0.16.10

@@ -1,0 +1,2 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:element name="request" nillable="false"><xs:complexType><xs:all><xs:element name="active" minOccurs="1" nillable="false"><xs:simpleType><xs:restriction base="xs:boolean"/></xs:simpleType></xs:element><xs:element name="version" minOccurs="1" nillable="false"><xs:simpleType><xs:restriction base="xs:integer"><xs:minInclusive value="1"/></xs:restriction></xs:simpleType></xs:element></xs:all></xs:complexType></xs:element></xs:schema>

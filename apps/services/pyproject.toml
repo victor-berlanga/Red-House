@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=80"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "red-house-services"
+version = "0.2.0"
+requires-python = ">=3.12"
+dynamic = ["dependencies"]
+
+[tool.setuptools.dynamic]
+dependencies = {file = ["requirements.txt"]}
+
+[tool.setuptools.packages.find]
+include = ["redhouse*", "ms_*", "servicio_monitoreo*"]
+
+[tool.setuptools.package-data]
+redhouse = ["*.xsd"]
+"*" = ["outputs.json", "migrations/*.sql", "contracts/*.json", "contracts/*.xml", "contracts/*.xsd"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"

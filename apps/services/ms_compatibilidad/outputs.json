@@ -1,0 +1,227 @@
+{
+  "evaluation_create": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "tenant_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "request_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "request_version": {
+        "type": "integer"
+      },
+      "recipient_version": {
+        "type": "integer"
+      },
+      "kind": {
+        "type": "string"
+      },
+      "algorithm_version": {
+        "type": "string"
+      },
+      "snapshot": {},
+      "candidates": {},
+      "elapsed_ms": {
+        "type": "number"
+      },
+      "created_at": {
+        "type": "string",
+        "format": "date-time"
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "evaluation_detail": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "tenant_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "request_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "request_version": {
+        "type": "integer"
+      },
+      "recipient_version": {
+        "type": "integer"
+      },
+      "kind": {
+        "type": "string"
+      },
+      "algorithm_version": {
+        "type": "string"
+      },
+      "snapshot": {},
+      "candidates": {},
+      "elapsed_ms": {
+        "type": "number"
+      },
+      "created_at": {
+        "type": "string",
+        "format": "date-time"
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "evaluation_review": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "evaluation_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "resource_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "tenant_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "actor_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "decision": {
+        "type": "string"
+      },
+      "reason": {
+        "type": "string"
+      },
+      "created_at": {
+        "type": "string",
+        "format": "date-time"
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "evaluation_internal": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "tenant_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "request_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "request_version": {
+        "type": "integer"
+      },
+      "recipient_version": {
+        "type": "integer"
+      },
+      "kind": {
+        "type": "string"
+      },
+      "algorithm_version": {
+        "type": "string"
+      },
+      "snapshot": {},
+      "candidates": {},
+      "elapsed_ms": {
+        "type": "number"
+      },
+      "created_at": {
+        "type": "string",
+        "format": "date-time"
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "evaluation_list": {
+    "type": "object",
+    "properties": {
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "tenant_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "request_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "request_version": {
+              "type": "integer"
+            },
+            "recipient_version": {
+              "type": "integer"
+            },
+            "kind": {
+              "type": "string"
+            },
+            "algorithm_version": {
+              "type": "string"
+            },
+            "snapshot": {},
+            "candidates": {},
+            "elapsed_ms": {
+              "type": "number"
+            },
+            "created_at": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "id"
+          ]
+        }
+      },
+      "page": {
+        "type": "integer"
+      },
+      "page_size": {
+        "type": "integer"
+      },
+      "total": {
+        "type": "integer"
+      }
+    },
+    "required": [
+      "items",
+      "page",
+      "page_size",
+      "total"
+    ]
+  }
+}

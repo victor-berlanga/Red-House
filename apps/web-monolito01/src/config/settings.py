@@ -14,6 +14,8 @@ def settings():
         "SECRET_KEY": os.getenv("SECRET_KEY"),
         "JWT_SECRET_KEY": os.getenv("JWT_SECRET_KEY"),
         "DATABASE_URL": os.getenv("DATABASE_URL", "postgresql://localhost/red_house"),
+        "BACKEND_MODE": os.getenv("BACKEND_MODE", "local"),
+        "MICROSERVICES_CONFIG": os.getenv("MICROSERVICES_CONFIG"),
         "PRODUCTION": production,
         "SESSION_COOKIE_NAME": "red_house_csrf",
         "SESSION_COOKIE_SECURE": production,

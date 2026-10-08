@@ -1,0 +1,1148 @@
+{
+  "donor_create": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "tenant_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "user_id": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "uuid"
+      },
+      "folio": {
+        "type": "string"
+      },
+      "display_name": {
+        "type": "string"
+      },
+      "blood_group": {
+        "type": "string"
+      },
+      "consent": {
+        "type": "boolean"
+      },
+      "status": {
+        "type": "string"
+      },
+      "version": {
+        "type": "integer"
+      },
+      "created_at": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "restrictions": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "background": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "donation_kind": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "consent_reference": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "consent_at": {
+        "type": [
+          "string",
+          "null"
+        ]
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "donors": {
+    "type": "object",
+    "properties": {
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "tenant_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "user_id": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "format": "uuid"
+            },
+            "folio": {
+              "type": "string"
+            },
+            "display_name": {
+              "type": "string"
+            },
+            "blood_group": {
+              "type": "string"
+            },
+            "consent": {
+              "type": "boolean"
+            },
+            "status": {
+              "type": "string"
+            },
+            "version": {
+              "type": "integer"
+            },
+            "created_at": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "restrictions": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "background": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "donation_kind": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "consent_reference": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "consent_at": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "id"
+          ]
+        }
+      },
+      "page": {
+        "type": "integer"
+      },
+      "page_size": {
+        "type": "integer"
+      },
+      "total": {
+        "type": "integer"
+      }
+    },
+    "required": [
+      "items",
+      "page",
+      "page_size",
+      "total"
+    ]
+  },
+  "donor_detail": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "tenant_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "user_id": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "uuid"
+      },
+      "folio": {
+        "type": "string"
+      },
+      "display_name": {
+        "type": "string"
+      },
+      "blood_group": {
+        "type": "string"
+      },
+      "consent": {
+        "type": "boolean"
+      },
+      "status": {
+        "type": "string"
+      },
+      "version": {
+        "type": "integer"
+      },
+      "created_at": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "restrictions": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "background": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "donation_kind": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "consent_reference": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "consent_at": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "decisions": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "id",
+            "actor_id",
+            "action",
+            "reason",
+            "changes",
+            "created_at"
+          ],
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "actor_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "action": {
+              "type": "string"
+            },
+            "reason": {
+              "type": "string"
+            },
+            "changes": {
+              "type": "object"
+            },
+            "created_at": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        }
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "donor_review": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "donor_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "decision": {
+        "type": "string"
+      },
+      "reason": {
+        "type": "string"
+      },
+      "actor_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "created_at": {
+        "type": "string",
+        "format": "date-time"
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "campaign_create": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "tenant_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "title": {
+        "type": "string"
+      },
+      "starts_at": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "ends_at": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "capacity": {
+        "type": "integer"
+      },
+      "status": {
+        "type": "string"
+      },
+      "version": {
+        "type": "integer"
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "campaigns": {
+    "type": "object",
+    "properties": {
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "tenant_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "title": {
+              "type": "string"
+            },
+            "starts_at": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "ends_at": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "capacity": {
+              "type": "integer"
+            },
+            "status": {
+              "type": "string"
+            },
+            "version": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "id"
+          ]
+        }
+      },
+      "page": {
+        "type": "integer"
+      },
+      "page_size": {
+        "type": "integer"
+      },
+      "total": {
+        "type": "integer"
+      }
+    },
+    "required": [
+      "items",
+      "page",
+      "page_size",
+      "total"
+    ]
+  },
+  "appointment_create": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "tenant_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "donor_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "campaign_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "status": {
+        "type": "string"
+      },
+      "created_at": {
+        "type": "string",
+        "format": "date-time"
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "appointments": {
+    "type": "object",
+    "properties": {
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "tenant_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "donor_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "campaign_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "status": {
+              "type": "string"
+            },
+            "created_at": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "id"
+          ]
+        }
+      },
+      "page": {
+        "type": "integer"
+      },
+      "page_size": {
+        "type": "integer"
+      },
+      "total": {
+        "type": "integer"
+      }
+    },
+    "required": [
+      "items",
+      "page",
+      "page_size",
+      "total"
+    ]
+  },
+  "appointment_cancel": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "tenant_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "donor_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "campaign_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "status": {
+        "type": "string"
+      },
+      "created_at": {
+        "type": "string",
+        "format": "date-time"
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "donation_create": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "donor_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "tenant_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "kind": {
+        "type": "string"
+      },
+      "component": {
+        "type": "string"
+      },
+      "blood_group": {
+        "type": "string"
+      },
+      "collected_at": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "status": {
+        "type": "string"
+      },
+      "version": {
+        "type": "integer"
+      },
+      "created_at": {
+        "type": "string",
+        "format": "date-time"
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "donations_list": {
+    "type": "object",
+    "properties": {
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "donor_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "tenant_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "kind": {
+              "type": "string"
+            },
+            "component": {
+              "type": "string"
+            },
+            "blood_group": {
+              "type": "string"
+            },
+            "collected_at": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "status": {
+              "type": "string"
+            },
+            "version": {
+              "type": "integer"
+            },
+            "created_at": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "id"
+          ]
+        }
+      },
+      "page": {
+        "type": "integer"
+      },
+      "page_size": {
+        "type": "integer"
+      },
+      "total": {
+        "type": "integer"
+      }
+    },
+    "required": [
+      "items",
+      "page",
+      "page_size",
+      "total"
+    ]
+  },
+  "donation_step": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "donor_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "tenant_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "kind": {
+        "type": "string"
+      },
+      "component": {
+        "type": "string"
+      },
+      "blood_group": {
+        "type": "string"
+      },
+      "collected_at": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "status": {
+        "type": "string"
+      },
+      "version": {
+        "type": "integer"
+      },
+      "created_at": {
+        "type": "string",
+        "format": "date-time"
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "donation_internal": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "donor_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "tenant_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "kind": {
+        "type": "string"
+      },
+      "component": {
+        "type": "string"
+      },
+      "blood_group": {
+        "type": "string"
+      },
+      "collected_at": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "status": {
+        "type": "string"
+      },
+      "version": {
+        "type": "integer"
+      },
+      "created_at": {
+        "type": "string",
+        "format": "date-time"
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "donation_detail": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "donor_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "tenant_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "kind": {
+        "type": "string"
+      },
+      "component": {
+        "type": "string"
+      },
+      "blood_group": {
+        "type": "string"
+      },
+      "collected_at": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "status": {
+        "type": "string"
+      },
+      "version": {
+        "type": "integer"
+      },
+      "created_at": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "decisions": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "id",
+            "actor_id",
+            "action",
+            "reason",
+            "changes",
+            "created_at"
+          ],
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "actor_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "action": {
+              "type": "string"
+            },
+            "reason": {
+              "type": "string"
+            },
+            "changes": {
+              "type": "object"
+            },
+            "created_at": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        }
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "portal_summary": {
+    "type": "object",
+    "properties": {
+      "total": {
+        "type": "integer"
+      },
+      "statuses": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "type": "string"
+            },
+            "value": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "status",
+            "value"
+          ]
+        }
+      },
+      "groups": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "label": {
+              "type": [
+                "string",
+                "integer"
+              ]
+            },
+            "value": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "label",
+            "value"
+          ]
+        }
+      },
+      "urgencies": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "label": {
+              "type": [
+                "string",
+                "integer"
+              ]
+            },
+            "value": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "label",
+            "value"
+          ]
+        }
+      },
+      "trend": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "label": {
+              "type": [
+                "string",
+                "integer"
+              ]
+            },
+            "value": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "label",
+            "value"
+          ]
+        }
+      },
+      "institutions": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "institution_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "value": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "institution_id",
+            "value"
+          ]
+        }
+      },
+      "expiring": {
+        "type": "integer"
+      },
+      "expired": {
+        "type": "integer"
+      }
+    },
+    "required": [
+      "total",
+      "statuses"
+    ]
+  },
+  "donor_edit": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "tenant_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "user_id": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "uuid"
+      },
+      "folio": {
+        "type": "string"
+      },
+      "display_name": {
+        "type": "string"
+      },
+      "blood_group": {
+        "type": "string"
+      },
+      "consent": {
+        "type": "boolean"
+      },
+      "status": {
+        "type": "string"
+      },
+      "version": {
+        "type": "integer"
+      },
+      "created_at": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "restrictions": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "background": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "donation_kind": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "consent_reference": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "consent_at": {
+        "type": [
+          "string",
+          "null"
+        ]
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "donation_edit": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "donor_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "tenant_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "kind": {
+        "type": "string"
+      },
+      "component": {
+        "type": "string"
+      },
+      "blood_group": {
+        "type": "string"
+      },
+      "collected_at": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "status": {
+        "type": "string"
+      },
+      "version": {
+        "type": "integer"
+      },
+      "created_at": {
+        "type": "string",
+        "format": "date-time"
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "campaign_edit": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "tenant_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "title": {
+        "type": "string"
+      },
+      "starts_at": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "ends_at": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "capacity": {
+        "type": "integer"
+      },
+      "status": {
+        "type": "string"
+      },
+      "version": {
+        "type": "integer"
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "campaign_detail": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "tenant_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "title": {
+        "type": "string"
+      },
+      "starts_at": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "ends_at": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "capacity": {
+        "type": "integer"
+      },
+      "status": {
+        "type": "string"
+      },
+      "version": {
+        "type": "integer"
+      },
+      "decisions": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "id",
+            "actor_id",
+            "action",
+            "reason",
+            "changes",
+            "created_at"
+          ],
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "actor_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "action": {
+              "type": "string"
+            },
+            "reason": {
+              "type": "string"
+            },
+            "changes": {
+              "type": "object"
+            },
+            "created_at": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        }
+      }
+    },
+    "required": [
+      "id"
+    ]
+  }
+}

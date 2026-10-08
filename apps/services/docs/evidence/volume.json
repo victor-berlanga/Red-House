@@ -1,0 +1,68 @@
+{
+  "synthetic_units": 5000,
+  "insertion_ms": 277.325,
+  "query_plan": [
+    {
+      "Plan": {
+        "Node Type": "Limit",
+        "Parallel Aware": false,
+        "Async Capable": false,
+        "Startup Cost": 345.05,
+        "Total Cost": 345.1,
+        "Plan Rows": 20,
+        "Plan Width": 24,
+        "Actual Startup Time": 2.088,
+        "Actual Total Time": 2.092,
+        "Actual Rows": 20,
+        "Actual Loops": 1,
+        "Plans": [
+          {
+            "Node Type": "Sort",
+            "Parent Relationship": "Outer",
+            "Parallel Aware": false,
+            "Async Capable": false,
+            "Startup Cost": 345.05,
+            "Total Cost": 357.55,
+            "Plan Rows": 5000,
+            "Plan Width": 24,
+            "Actual Startup Time": 2.085,
+            "Actual Total Time": 2.086,
+            "Actual Rows": 20,
+            "Actual Loops": 1,
+            "Sort Key": [
+              "expires_at",
+              "id"
+            ],
+            "Sort Method": "top-N heapsort",
+            "Sort Space Used": 27,
+            "Sort Space Type": "Memory",
+            "Plans": [
+              {
+                "Node Type": "Seq Scan",
+                "Parent Relationship": "Outer",
+                "Parallel Aware": false,
+                "Async Capable": false,
+                "Relation Name": "resources",
+                "Alias": "resources",
+                "Startup Cost": 0.0,
+                "Total Cost": 212.0,
+                "Plan Rows": 5000,
+                "Plan Width": 24,
+                "Actual Startup Time": 0.009,
+                "Actual Total Time": 1.358,
+                "Actual Rows": 5000,
+                "Actual Loops": 1,
+                "Filter": "((region_id = 'af439ace-a33e-4058-9bac-56b56412b52f'::uuid) AND (status = 'AVAILABLE'::text) AND (expires_at > now()))",
+                "Rows Removed by Filter": 0
+              }
+            ]
+          }
+        ]
+      },
+      "Planning Time": 0.47,
+      "Triggers": [],
+      "Execution Time": 2.127
+    }
+  ],
+  "notice": "Carga exclusivamente ficticia; no liberaci\u00f3n m\u00e9dica de recursos reales."
+}

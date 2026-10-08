@@ -1,0 +1,520 @@
+{
+  "route_create": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "origin_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "destination_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "region_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "distance_km": {
+        "type": "number"
+      },
+      "travel_minutes": {
+        "type": "integer"
+      },
+      "source": {
+        "type": "string"
+      },
+      "version": {
+        "type": "integer"
+      },
+      "updated_at": {
+        "type": "string",
+        "format": "date-time"
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "routes_list": {
+    "type": "object",
+    "properties": {
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "origin_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "destination_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "region_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "distance_km": {
+              "type": "number"
+            },
+            "travel_minutes": {
+              "type": "integer"
+            },
+            "source": {
+              "type": "string"
+            },
+            "version": {
+              "type": "integer"
+            },
+            "updated_at": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "id"
+          ]
+        }
+      },
+      "page": {
+        "type": "integer"
+      },
+      "page_size": {
+        "type": "integer"
+      },
+      "total": {
+        "type": "integer"
+      }
+    },
+    "required": [
+      "items",
+      "page",
+      "page_size",
+      "total"
+    ]
+  },
+  "route_update": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "origin_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "destination_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "region_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "distance_km": {
+        "type": "number"
+      },
+      "travel_minutes": {
+        "type": "integer"
+      },
+      "source": {
+        "type": "string"
+      },
+      "version": {
+        "type": "integer"
+      },
+      "updated_at": {
+        "type": "string",
+        "format": "date-time"
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "route_internal": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "origin_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "destination_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "region_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "distance_km": {
+        "type": "number"
+      },
+      "travel_minutes": {
+        "type": "integer"
+      },
+      "source": {
+        "type": "string"
+      },
+      "version": {
+        "type": "integer"
+      },
+      "updated_at": {
+        "type": "string",
+        "format": "date-time"
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "routes_internal": {
+    "type": "object",
+    "properties": {
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "origin_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "destination_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "region_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "distance_km": {
+              "type": "number"
+            },
+            "travel_minutes": {
+              "type": "integer"
+            },
+            "source": {
+              "type": "string"
+            },
+            "version": {
+              "type": "integer"
+            },
+            "updated_at": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "id"
+          ]
+        }
+      }
+    },
+    "required": [
+      "items"
+    ]
+  },
+  "ranking_create": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "tenant_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "evaluation_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "algorithm_version": {
+        "type": "string"
+      },
+      "factors": {},
+      "result": {},
+      "elapsed_ms": {
+        "type": "number"
+      },
+      "created_at": {
+        "type": "string",
+        "format": "date-time"
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "ranking_detail": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "tenant_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "evaluation_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "algorithm_version": {
+        "type": "string"
+      },
+      "factors": {},
+      "result": {},
+      "elapsed_ms": {
+        "type": "number"
+      },
+      "created_at": {
+        "type": "string",
+        "format": "date-time"
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "proposal_create": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "tenant_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "algorithm_version": {
+        "type": "string"
+      },
+      "snapshots": {},
+      "result": {},
+      "elapsed_ms": {
+        "type": "number"
+      },
+      "slot_count": {
+        "type": "integer"
+      },
+      "matched_count": {
+        "type": "integer"
+      },
+      "created_at": {
+        "type": "string",
+        "format": "date-time"
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "proposal_detail": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "tenant_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "algorithm_version": {
+        "type": "string"
+      },
+      "snapshots": {},
+      "result": {},
+      "elapsed_ms": {
+        "type": "number"
+      },
+      "slot_count": {
+        "type": "integer"
+      },
+      "matched_count": {
+        "type": "integer"
+      },
+      "created_at": {
+        "type": "string",
+        "format": "date-time"
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "proposal_list": {
+    "type": "object",
+    "properties": {
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "tenant_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "algorithm_version": {
+              "type": "string"
+            },
+            "snapshots": {},
+            "result": {},
+            "elapsed_ms": {
+              "type": "number"
+            },
+            "slot_count": {
+              "type": "integer"
+            },
+            "matched_count": {
+              "type": "integer"
+            },
+            "created_at": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "id"
+          ]
+        }
+      },
+      "page": {
+        "type": "integer"
+      },
+      "page_size": {
+        "type": "integer"
+      },
+      "total": {
+        "type": "integer"
+      }
+    },
+    "required": [
+      "items",
+      "page",
+      "page_size",
+      "total"
+    ]
+  },
+  "ranking_list": {
+    "type": "object",
+    "properties": {
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "tenant_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "evaluation_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "algorithm_version": {
+              "type": "string"
+            },
+            "factors": {},
+            "result": {},
+            "elapsed_ms": {
+              "type": "number"
+            },
+            "created_at": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "id"
+          ]
+        }
+      },
+      "page": {
+        "type": "integer"
+      },
+      "page_size": {
+        "type": "integer"
+      },
+      "total": {
+        "type": "integer"
+      }
+    },
+    "required": [
+      "items",
+      "page",
+      "page_size",
+      "total"
+    ]
+  },
+  "route_detail": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "origin_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "destination_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "region_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "distance_km": {
+        "type": "number"
+      },
+      "travel_minutes": {
+        "type": "integer"
+      },
+      "source": {
+        "type": "string"
+      },
+      "version": {
+        "type": "integer"
+      },
+      "updated_at": {
+        "type": "string",
+        "format": "date-time"
+      }
+    },
+    "required": [
+      "id"
+    ]
+  }
+}

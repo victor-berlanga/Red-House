@@ -1,0 +1,1569 @@
+{
+  "resource_create": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "tenant_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "region_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "folio": {
+        "type": "string"
+      },
+      "current_institution_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "donation_id": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "uuid"
+      },
+      "kind": {
+        "type": "string"
+      },
+      "component": {
+        "type": "string"
+      },
+      "blood_group": {
+        "type": "string"
+      },
+      "expires_at": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "status": {
+        "type": "string"
+      },
+      "version": {
+        "type": "integer"
+      },
+      "created_at": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "location_id": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "uuid"
+      },
+      "collected_at": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "date-time"
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "resource_release": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "tenant_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "region_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "folio": {
+        "type": "string"
+      },
+      "current_institution_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "donation_id": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "uuid"
+      },
+      "kind": {
+        "type": "string"
+      },
+      "component": {
+        "type": "string"
+      },
+      "blood_group": {
+        "type": "string"
+      },
+      "expires_at": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "status": {
+        "type": "string"
+      },
+      "version": {
+        "type": "integer"
+      },
+      "created_at": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "location_id": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "uuid"
+      },
+      "collected_at": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "date-time"
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "resources_list": {
+    "type": "object",
+    "properties": {
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "tenant_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "region_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "folio": {
+              "type": "string"
+            },
+            "current_institution_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "donation_id": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "format": "uuid"
+            },
+            "kind": {
+              "type": "string"
+            },
+            "component": {
+              "type": "string"
+            },
+            "blood_group": {
+              "type": "string"
+            },
+            "expires_at": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "status": {
+              "type": "string"
+            },
+            "version": {
+              "type": "integer"
+            },
+            "created_at": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "location_id": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "format": "uuid"
+            },
+            "collected_at": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "id"
+          ]
+        }
+      },
+      "page": {
+        "type": "integer"
+      },
+      "page_size": {
+        "type": "integer"
+      },
+      "total": {
+        "type": "integer"
+      }
+    },
+    "required": [
+      "items",
+      "page",
+      "page_size",
+      "total"
+    ]
+  },
+  "availability": {
+    "type": "object",
+    "properties": {
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "tenant_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "region_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "folio": {
+              "type": "string"
+            },
+            "current_institution_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "donation_id": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "format": "uuid"
+            },
+            "kind": {
+              "type": "string"
+            },
+            "component": {
+              "type": "string"
+            },
+            "blood_group": {
+              "type": "string"
+            },
+            "expires_at": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "status": {
+              "type": "string"
+            },
+            "version": {
+              "type": "integer"
+            },
+            "created_at": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "location_id": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "format": "uuid"
+            },
+            "collected_at": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "id"
+          ]
+        }
+      },
+      "page": {
+        "type": "integer"
+      },
+      "page_size": {
+        "type": "integer"
+      },
+      "total": {
+        "type": "integer"
+      }
+    },
+    "required": [
+      "items",
+      "page",
+      "page_size",
+      "total"
+    ]
+  },
+  "resources_internal": {
+    "type": "object",
+    "properties": {
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "folio": {
+              "type": "string"
+            },
+            "tenant_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "region_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "kind": {
+              "type": "string"
+            },
+            "component": {
+              "type": "string"
+            },
+            "blood_group": {
+              "type": "string"
+            },
+            "expires_at": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "status": {
+              "type": "string"
+            },
+            "version": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "id",
+            "folio",
+            "tenant_id",
+            "region_id",
+            "kind",
+            "component",
+            "blood_group",
+            "expires_at",
+            "status",
+            "version"
+          ]
+        }
+      }
+    },
+    "required": [
+      "items"
+    ]
+  },
+  "reservation_create": {
+    "type": "object",
+    "properties": {
+      "operation_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "status": {
+        "type": "string",
+        "enum": [
+          "PENDING",
+          "ROLLBACK_PENDING",
+          "COMPLETED",
+          "FAILED"
+        ]
+      },
+      "error": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "reservation": {
+        "anyOf": [
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "operation_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "resource_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "request_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "recipient_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "origin_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "destination_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "region_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "hold_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "evaluation_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "route_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "route_version": {
+                "type": "integer"
+              },
+              "status": {
+                "type": "string"
+              },
+              "shipment_id": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "format": "uuid"
+              },
+              "shipment_sequence": {
+                "type": "integer"
+              },
+              "created_at": {
+                "type": "string",
+                "format": "date-time"
+              }
+            },
+            "required": [
+              "id",
+              "operation_id",
+              "resource_id",
+              "request_id",
+              "recipient_id",
+              "origin_id",
+              "destination_id",
+              "region_id",
+              "hold_id",
+              "evaluation_id",
+              "route_id",
+              "route_version",
+              "status",
+              "shipment_id",
+              "shipment_sequence",
+              "created_at"
+            ]
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": [
+      "operation_id",
+      "status",
+      "error",
+      "reservation"
+    ]
+  },
+  "operation_detail": {
+    "type": "object",
+    "properties": {
+      "operation_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "status": {
+        "type": "string",
+        "enum": [
+          "PENDING",
+          "ROLLBACK_PENDING",
+          "COMPLETED",
+          "FAILED"
+        ]
+      },
+      "error": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "reservation": {
+        "anyOf": [
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "operation_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "resource_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "request_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "recipient_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "origin_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "destination_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "region_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "hold_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "evaluation_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "route_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "route_version": {
+                "type": "integer"
+              },
+              "status": {
+                "type": "string"
+              },
+              "shipment_id": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "format": "uuid"
+              },
+              "shipment_sequence": {
+                "type": "integer"
+              },
+              "created_at": {
+                "type": "string",
+                "format": "date-time"
+              }
+            },
+            "required": [
+              "id",
+              "operation_id",
+              "resource_id",
+              "request_id",
+              "recipient_id",
+              "origin_id",
+              "destination_id",
+              "region_id",
+              "hold_id",
+              "evaluation_id",
+              "route_id",
+              "route_version",
+              "status",
+              "shipment_id",
+              "shipment_sequence",
+              "created_at"
+            ]
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": [
+      "operation_id",
+      "status",
+      "error",
+      "reservation"
+    ]
+  },
+  "operation_resume": {
+    "type": "object",
+    "properties": {
+      "operation_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "status": {
+        "type": "string",
+        "enum": [
+          "PENDING",
+          "ROLLBACK_PENDING",
+          "COMPLETED",
+          "FAILED"
+        ]
+      },
+      "error": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "reservation": {
+        "anyOf": [
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "operation_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "resource_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "request_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "recipient_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "origin_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "destination_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "region_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "hold_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "evaluation_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "route_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "route_version": {
+                "type": "integer"
+              },
+              "status": {
+                "type": "string"
+              },
+              "shipment_id": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "format": "uuid"
+              },
+              "shipment_sequence": {
+                "type": "integer"
+              },
+              "created_at": {
+                "type": "string",
+                "format": "date-time"
+              }
+            },
+            "required": [
+              "id",
+              "operation_id",
+              "resource_id",
+              "request_id",
+              "recipient_id",
+              "origin_id",
+              "destination_id",
+              "region_id",
+              "hold_id",
+              "evaluation_id",
+              "route_id",
+              "route_version",
+              "status",
+              "shipment_id",
+              "shipment_sequence",
+              "created_at"
+            ]
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": [
+      "operation_id",
+      "status",
+      "error",
+      "reservation"
+    ]
+  },
+  "reservation_detail": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "operation_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "resource_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "request_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "recipient_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "origin_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "destination_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "region_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "hold_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "evaluation_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "route_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "route_version": {
+        "type": "integer"
+      },
+      "status": {
+        "type": "string"
+      },
+      "shipment_id": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "uuid"
+      },
+      "shipment_sequence": {
+        "type": "integer"
+      },
+      "created_at": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "decisions": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "id",
+            "actor_id",
+            "action",
+            "reason",
+            "changes",
+            "created_at"
+          ],
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "actor_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "action": {
+              "type": "string"
+            },
+            "reason": {
+              "type": "string"
+            },
+            "changes": {
+              "type": "object"
+            },
+            "created_at": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        }
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "reservation_cancel": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "operation_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "resource_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "request_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "recipient_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "origin_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "destination_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "region_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "hold_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "evaluation_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "route_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "route_version": {
+        "type": "integer"
+      },
+      "status": {
+        "type": "string"
+      },
+      "shipment_id": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "uuid"
+      },
+      "shipment_sequence": {
+        "type": "integer"
+      },
+      "created_at": {
+        "type": "string",
+        "format": "date-time"
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "reservation_internal": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "operation_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "resource_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "request_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "recipient_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "origin_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "destination_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "region_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "hold_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "evaluation_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "route_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "route_version": {
+        "type": "integer"
+      },
+      "status": {
+        "type": "string"
+      },
+      "shipment_id": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "uuid"
+      },
+      "shipment_sequence": {
+        "type": "integer"
+      },
+      "created_at": {
+        "type": "string",
+        "format": "date-time"
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "reservation_claim": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "operation_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "resource_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "request_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "recipient_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "origin_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "destination_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "region_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "hold_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "evaluation_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "route_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "route_version": {
+        "type": "integer"
+      },
+      "status": {
+        "type": "string"
+      },
+      "shipment_id": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "uuid"
+      },
+      "shipment_sequence": {
+        "type": "integer"
+      },
+      "created_at": {
+        "type": "string",
+        "format": "date-time"
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "inventory_events": {
+    "type": "object",
+    "properties": {
+      "duplicate": {
+        "type": "boolean"
+      },
+      "stored": {
+        "type": "boolean"
+      },
+      "applied": {
+        "type": "boolean"
+      }
+    },
+    "required": []
+  },
+  "resource_detail": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "tenant_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "region_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "folio": {
+        "type": "string"
+      },
+      "current_institution_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "donation_id": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "uuid"
+      },
+      "kind": {
+        "type": "string"
+      },
+      "component": {
+        "type": "string"
+      },
+      "blood_group": {
+        "type": "string"
+      },
+      "expires_at": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "status": {
+        "type": "string"
+      },
+      "version": {
+        "type": "integer"
+      },
+      "created_at": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "location_id": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "uuid"
+      },
+      "collected_at": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "date-time"
+      },
+      "decisions": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "id",
+            "actor_id",
+            "action",
+            "reason",
+            "changes",
+            "created_at"
+          ],
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "actor_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "action": {
+              "type": "string"
+            },
+            "reason": {
+              "type": "string"
+            },
+            "changes": {
+              "type": "object"
+            },
+            "created_at": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        }
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "reservation_list": {
+    "type": "object",
+    "properties": {
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "operation_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "resource_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "request_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "recipient_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "origin_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "destination_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "region_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "hold_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "evaluation_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "route_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "route_version": {
+              "type": "integer"
+            },
+            "status": {
+              "type": "string"
+            },
+            "shipment_id": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "format": "uuid"
+            },
+            "shipment_sequence": {
+              "type": "integer"
+            },
+            "created_at": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "id"
+          ]
+        }
+      },
+      "page": {
+        "type": "integer"
+      },
+      "page_size": {
+        "type": "integer"
+      },
+      "total": {
+        "type": "integer"
+      }
+    },
+    "required": [
+      "items",
+      "page",
+      "page_size",
+      "total"
+    ]
+  },
+  "portal_summary": {
+    "type": "object",
+    "properties": {
+      "total": {
+        "type": "integer"
+      },
+      "statuses": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "type": "string"
+            },
+            "value": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "status",
+            "value"
+          ]
+        }
+      },
+      "groups": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "label": {
+              "type": [
+                "string",
+                "integer"
+              ]
+            },
+            "value": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "label",
+            "value"
+          ]
+        }
+      },
+      "urgencies": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "label": {
+              "type": [
+                "string",
+                "integer"
+              ]
+            },
+            "value": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "label",
+            "value"
+          ]
+        }
+      },
+      "trend": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "label": {
+              "type": [
+                "string",
+                "integer"
+              ]
+            },
+            "value": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "label",
+            "value"
+          ]
+        }
+      },
+      "institutions": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "institution_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "value": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "institution_id",
+            "value"
+          ]
+        }
+      },
+      "expiring": {
+        "type": "integer"
+      },
+      "expired": {
+        "type": "integer"
+      }
+    },
+    "required": [
+      "total",
+      "statuses"
+    ]
+  },
+  "resource_edit": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "tenant_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "region_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "folio": {
+        "type": "string"
+      },
+      "current_institution_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "donation_id": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "uuid"
+      },
+      "kind": {
+        "type": "string"
+      },
+      "component": {
+        "type": "string"
+      },
+      "blood_group": {
+        "type": "string"
+      },
+      "expires_at": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "status": {
+        "type": "string"
+      },
+      "version": {
+        "type": "integer"
+      },
+      "created_at": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "location_id": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "uuid"
+      },
+      "collected_at": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "date-time"
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "resource_withdraw": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "tenant_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "region_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "folio": {
+        "type": "string"
+      },
+      "current_institution_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "donation_id": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "uuid"
+      },
+      "kind": {
+        "type": "string"
+      },
+      "component": {
+        "type": "string"
+      },
+      "blood_group": {
+        "type": "string"
+      },
+      "expires_at": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "status": {
+        "type": "string"
+      },
+      "version": {
+        "type": "integer"
+      },
+      "created_at": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "location_id": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "uuid"
+      },
+      "collected_at": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "date-time"
+      }
+    },
+    "required": [
+      "id"
+    ]
+  }
+}
