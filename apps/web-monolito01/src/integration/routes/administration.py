@@ -13,6 +13,8 @@ from .common import (
     render_template,
     request,
     require,
+    redirect,
+    find_record,
     submit,
     table,
     url_for,
@@ -55,6 +57,7 @@ def admin_index(entity):
                 ("active", "Activo"),
             ],
             filters=("q", "role"),
+            links=lambda row: url_for("admin.user_detail", identifier=row["id"]),
             new=url_for("admin.new", entity=entity),
             actions=lambda row: (
                 [
@@ -74,13 +77,7 @@ def admin_index(entity):
             ),
         )
     if entity == "components":
-        return render_template(
-            "integration/catalogue.html",
-            title="Catálogos",
-            active="components",
-            components=COMPONENTS,
-            groups=GROUPS,
-        )
+        return redirect(url_for("maintenance.catalogue_list", kind="sites"))
     raise BusinessError("Catálogo no disponible.", 404)
 
 
@@ -127,6 +124,7 @@ def admin_new(entity):
 )
 def user_state(identifier):
     require(g.principal, "administration")
+    row = find_record("identidad_acceso", "/api/v1/users", identifier)
     return submit(
         "identidad_acceso",
         "/api/v1/users/" + str(identifier),
@@ -137,27 +135,27 @@ def user_state(identifier):
                 "checkbox",
                 default=request.args.get("active") == "true",
             ),
-            field(
-                "version", "Versión", "number", default=request.args.get("version", 1)
-            ),
+            field("version", "Versión", "hidden", default=row["version"]),
         ],
         method="PATCH",
-        title="Cambiar estado de la cuenta",
+        title="Cambiar acceso de " + row["username"],
         active="users",
         back=url_for("admin.index", entity="users"),
-        note="Desactivar revoca sus sesiones. Reactivar no recupera tokens anteriores.",
+        note="Al desactivar la cuenta se cierran sus sesiones. Si la reactivas, deberá iniciar sesión nuevamente.",
     )
 
 
 @admin.get("/configuracion")
 def settings():
     require(g.principal, "administration")
-    return render_template(
-        "integration/settings.html",
-        title="Roles y parámetros",
-        active="settings",
-        roles=ROLES,
-    )
+    return redirect(url_for("admin.index", entity="users"))
+
+
+@admin.get("/administracion/usuarios/<uuid:identifier>")
+def user_detail(identifier):
+    require(g.principal, "administration")
+    row = find_record("identidad_acceso", "/api/v1/users", identifier)
+    return detail(row["username"], "users", row)
 
 
 @admin.get("/instituciones/<uuid:identifier>")

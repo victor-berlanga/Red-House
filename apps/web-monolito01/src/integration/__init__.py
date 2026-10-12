@@ -143,7 +143,7 @@ NAV = [
     (
         "BANCO DE SANGRE",
         "citas",
-        "Citas",
+        "Inscripciones",
         "calendar-days",
         "regional.appointments",
         {},
@@ -235,18 +235,8 @@ NAV = [
         "components",
         "Catálogos",
         "settings-2",
-        "admin.index",
-        {"entity": "components"},
-        "administration",
-        False,
-    ),
-    (
-        "ADMINISTRACIÓN",
-        "settings",
-        "Roles y parámetros",
-        "sliders-horizontal",
-        "admin.settings",
-        {},
+        "maintenance.catalogue_list",
+        {"kind": "sites"},
         "administration",
         False,
     ),
@@ -372,6 +362,10 @@ def configure(app):
 
     app.jinja_env.filters["portal_value"] = display
     app.jinja_env.filters["portal_html"] = display_html
+    from .presentation import event_label, service_label, related_alert
+
+    app.jinja_env.filters.update(event_label=event_label, service_label=service_label)
+    app.jinja_env.globals["related_alert"] = related_alert
 
     @app.context_processor
     def context():
@@ -402,7 +396,13 @@ def configure(app):
                 "X-Content-Type-Options": "nosniff",
                 "X-Frame-Options": "DENY",
                 "Referrer-Policy": "same-origin",
-                "Permissions-Policy": "camera=(), microphone=(), geolocation=()",
+                "Permissions-Policy": "camera=(), microphone=(), geolocation="
+                + (
+                    "(self)"
+                    if request.endpoint == "regional.telemetry"
+                    and getattr(g, "location_capture", False)
+                    else "()"
+                ),
                 "X-Request-ID": str(g.correlation_id),
             }
         )

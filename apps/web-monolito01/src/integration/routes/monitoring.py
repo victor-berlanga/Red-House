@@ -1,6 +1,7 @@
 """Rutas web: monitoring. Las reglas residen en las API propietarias."""
 
 from .common import call, detail, portal, render_template, submit, table, url_for
+from ..presentation import related_alert
 
 
 @portal.get("/notificaciones")
@@ -11,6 +12,7 @@ def alerts():
         "alertas",
         "/api/v1/alerts",
         [("message_code", "Evento"), ("status", "Estado"), ("created_at", "Fecha")],
+        links=related_alert,
         actions=lambda row: (
             [
                 (
@@ -32,6 +34,7 @@ def alert_ack(identifier):
         "/api/v1/alerts/" + str(identifier) + "/acknowledge",
         [],
         title="Confirmar lectura del aviso",
+        prompt="Marcar esta notificación como leída.",
         active="alertas",
         back=url_for("portal.alerts"),
     )

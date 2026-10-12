@@ -1,0 +1,4 @@
+# Bash debe conservar LF incluso al clonar desde Git para Windows.
+*.sh text eol=lf
+*.bat text eol=crlf
+*.cmd text eol=crlf

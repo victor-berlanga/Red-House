@@ -28,6 +28,7 @@
     payload.set('_timezone', zone);
     dates.forEach(input => payload.append('date_values', input.value));
     const controls = new Set([select,...dates]);
+    document.querySelectorAll('[data-capture-location]').forEach(button => controls.add(button));
     dates.forEach(input => input.form?.querySelectorAll('button[type="submit"],input[type="submit"]').forEach(button => controls.add(button)));
     const previous = Array.from(controls, control => [control,control.disabled]);
     const restoreFocus = document.activeElement === select;

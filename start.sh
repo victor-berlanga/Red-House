@@ -3,6 +3,6 @@
 set -euo pipefail
 redhouse_root="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 if [[ "${1:-}" == '--help' || "${1:-}" == '-h' ]]; then
-    exec bash "$redhouse_root/componentes.sh" --help
+    exec bash "$redhouse_root/components.sh" --help
 fi
-exec bash "$redhouse_root/componentes.sh" todo "$@"
+exec bash "$redhouse_root/components.sh" todo "$@"

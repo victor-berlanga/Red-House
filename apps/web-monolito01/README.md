@@ -87,6 +87,8 @@ cd apps\web-monolito01
 .\setup.cmd
 ```
 
+También puedes ejecutar `.\setup.bat` con los mismos argumentos (por ejemplo, `.\setup.bat --check`); delega en `setup.cmd` y conserva su código de salida. Es el instalador nativo del modo histórico, independiente de los `.bat` de la raíz que operan los microservicios mediante WSL.
+
 Ambos ejecutan el mismo [instalador Python](scripts/setup_local.py). Crean `.venv`, instalan `requirements.txt`, generan un `.env` privado con dos claves aleatorias diferentes, crean la base nueva y ejecutan el esquema y la carga DEMO existentes. No duplican SQL ni reglas de negocio.
 
 En una instalación nueva se solicitan el servidor local, puerto, usuario y contraseña de PostgreSQL, el nombre de una base nueva y el puerto web (5050 por defecto). Después eliges y confirmas una contraseña de 12–128 caracteres para las cuatro cuentas DEMO. **La contraseña PostgreSQL y la contraseña de las cuentas web son distintas**; la segunda se almacena únicamente como hash. Las contraseñas se capturan con entrada oculta y no tienen valores predeterminados.

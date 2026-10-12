@@ -82,5 +82,5 @@ def resolve_binary(name, directory, saved=None, explicit=None):
             return str(Path(candidate).absolute())
     raise RuntimeError(
         f"No se encontró {name} compatible ({'PostgreSQL ' + pg_major(directory) if name in ('postgres', 'initdb') else 'MongoDB 8.0' if name == 'mongod' else 'Redis 7+'}). "
-        "Ejecuta bash instalar.sh para preparar las dependencias."
+        "Ejecuta bash install.sh para preparar las dependencias."
     )

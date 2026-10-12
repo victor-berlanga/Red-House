@@ -1,22 +1,24 @@
-{% extends 'base.html' %}
+{% extends 'detail_fragment.html' if action_modal else 'base.html' %}
 {% from 'macros.html' import csrf with context %}
 {% block content %}
-<div class="page-heading"><div><span class="eyebrow">REGISTRO INSTITUCIONAL</span><h1>{{ title }}</h1></div></div>
-{% if back %}<p><a class="back-link" href="{{ back }}">← Volver</a></p>{% endif %}
+<div data-action-content>
+<div class="page-heading"><div><h1>{{ title }}</h1></div></div>
+{% if back and not action_modal %}<p><a class="back-link" href="{{ back }}">← Volver</a></p>{% endif %}
 {% if note %}<div class="notice">{{ note }}</div>{% endif %}
 {% if error %}<div class="notice error" role="alert">{{ error }} Los valores capturados se conservan para que puedas revisarlos.</div>{% endif %}
-<form method="post" class="card form-card record-form">{{ csrf() }}<input type="hidden" name="idempotency_key" value="{{ idempotency_key }}">{% if return_target %}<input type="hidden" name="return_to" value="{{ return_target }}">{% endif %}<p class="form-introduction">Los campos marcados con * son obligatorios.</p><div class="record-fields">
+<form method="post" action="{{ request.full_path }}" class="card form-card record-form">{{ csrf() }}<input type="hidden" name="idempotency_key" value="{{ idempotency_key }}">{% if return_target %}<input type="hidden" name="return_to" value="{{ return_target }}">{% endif %}{% if prompt %}<p class="action-prompt">{{ prompt }}</p>{% endif %}{% if fields|rejectattr("type","equalto","hidden")|list %}<p class="form-introduction">Los campos marcados con * son obligatorios.</p>{% endif %}{% if location_capture %}<div class="location-capture"><button type="button" class="button secondary" data-capture-location>Usar mi ubicación actual</button><p data-location-feedback role="status">La ubicación se consulta solo al pulsar el botón. Revisa los datos antes de guardarlos.</p></div>{% endif %}<div class="record-fields">
 {% for field in fields %}
 {% set value=request.form.get(field.name,field.default) %}
 {% if field.type=='hidden' %}<input type="hidden" name="{{ field.name }}" value="{{ value }}">
 {% else %}<div class="field {{ 'wide-field' if field.type in ['textarea','multiselect','checkbox'] or field.lookup }}" {% if field.lookup %}data-service-selector="{{ field.lookup }}"{% endif %}><label for="{{ field.name }}">{{ field.label }}{% if field.required %} <span aria-hidden="true">*</span>{% endif %}</label>
 {% if field.lookup %}<label for="search-{{ field.name }}">Buscar opciones</label><input type="search" id="search-{{ field.name }}" data-service-option-search maxlength="100" autocomplete="off"><p data-service-option-status role="status"></p>{% endif %}
 {% if field.type=='multiselect' %}<select id="{{ field.name }}" name="{{ field.name }}" multiple size="8" {% if field.required %}required{% endif %}>{% for code,label in field.options %}<option value="{{ code }}" {% if code in request.form.getlist(field.name) %}selected{% endif %}>{{ label }}</option>{% endfor %}</select><small>Puedes seleccionar varias opciones usando ⌘ o Ctrl.</small>
-{% elif field.type=='select' %}<select id="{{ field.name }}" name="{{ field.name }}" {% if field.required %}required{% endif %}><option value="">Selecciona una opción{{ ' (opcional)' if not field.required else '' }}</option>{% for code,label in field.options %}<option value="{{ code }}" {% if value|string==code|string %}selected{% endif %}>{{ label }}</option>{% endfor %}</select>
+{% elif field.type in ['select','integer-select'] %}<select id="{{ field.name }}" name="{{ field.name }}" {% if field.required %}required{% endif %}><option value="">Selecciona una opción{{ ' (opcional)' if not field.required else '' }}</option>{% for code,label in field.options %}<option value="{{ code }}" {% if value|string==code|string %}selected{% endif %}>{{ label }}</option>{% endfor %}</select>
 {% elif field.type=='textarea' %}<textarea id="{{ field.name }}" name="{{ field.name }}" rows="4" maxlength="1000" {% if field.required %}required{% endif %}>{{ value }}</textarea>
 {% elif field.type=='checkbox' %}<input id="{{ field.name }}" type="checkbox" name="{{ field.name }}" {% if value %}checked{% endif %} {% if field.required and field.name!='active' %}required{% endif %}>
 {% else %}<input id="{{ field.name }}" type="{{ 'number' if field.type=='decimal' else field.type }}" name="{{ field.name }}" {% if field.type=='decimal' %}step="any"{% endif %} {% if field.type=='number' %}step="1"{% endif %} value="{{ '' if field.type=='password' else value }}" {% if field.required %}required{% endif %} {% if field.type=='password' %}minlength="12" maxlength="128" autocomplete="new-password"{% endif %}>{% endif %}{% if field.lookup %}<button type="button" class="button secondary small" data-service-option-more {% if not field.has_more %}hidden{% endif %}>Ver más opciones</button>{% endif %}</div>{% endif %}
-{% endfor %}</div><div class="form-actions"><button class="button" type="submit">{{ submit_label }}</button>{% if back %}<a class="button secondary" href="{{ back }}">Cancelar</a>{% endif %}</div></form>
+{% endfor %}</div><div class="form-actions"><button class="button" type="submit">{{ submit_label }}</button>{% if back %}<a class="button secondary" data-action-cancel href="{{ back }}">{{ "Volver" if prompt else "Cancelar" }}</a>{% endif %}</div></form>
+</div>
 {% endblock %}
 
-{% block scripts %}<script src="{{ url_for('static',filename='js/service-selectors.js') }}" defer></script>{% endblock %}
+{% block scripts %}{% if location_capture %}<script src="{{ url_for('static',filename='js/location.js') }}" defer></script>{% endif %}<script src="{{ url_for('static',filename='js/service-selectors.js') }}" defer></script>{% endblock %}

@@ -68,7 +68,7 @@ def logout():
 
 @public.get("/recuperar-acceso")
 def recovery():
-    return render_template("recovery.html", title="Recuperar acceso")
+    return redirect(url_for("public.login", help="access", _anchor="access-help"))
 
 
 @public.get("/health/live")

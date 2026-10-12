@@ -60,3 +60,60 @@ La paginación anterior tenía enlaces numéricos poco distinguibles. Ahora Ante
 El selector horario está al inicio de la página y se aplica al cambiarlo. Las fechas de consulta, modales y nuevos fragmentos mantienen su instante; los formularios convierten fechas sin perder borradores. Se probó guardar la preferencia, ausencia de navegación, conversión de fechas, conservación ante 503 y operación sin JavaScript. Se mantiene CSRF y una lista cerrada de zonas (UTC y America/Monterrey); no se cambian fechas almacenadas ni contratos de MS.
 
 Evidencias: [14 pruebas HTTP aprobadas](evidence/ui-controls-junit.xml), [5 pruebas históricas aprobadas](evidence/ui-controls-legacy.xml), [Chrome](evidence/ui-controls/report.json), [captura escritorio](evidence/ui-controls/controls-desktop.png), [captura móvil](evidence/ui-controls/controls-mobile.png). Las capturas y mediciones de tamaño de la sección anterior corresponden al corte previo a esta corrección.
+
+## Limpieza del portal por tareas — 12/10/2026
+
+Este incremento atiende la revisión del usuario sobre pantallas de aspecto demostrativo. Sustituye las descripciones anteriores del menú, las confirmaciones y la ubicación del selector horario para el modo integrado. El modo histórico conserva sus funciones propias.
+
+| Área | Criterio de aceptación y resultado |
+| --- | --- |
+| Administración | «Roles y parámetros» desaparece del menú; `/configuracion` redirige a Usuarios comprobando el rol. Catálogos abre Sedes; la antigua portada redirige al mismo destino. Se retiraron las dos plantillas informativas. |
+| Acceso | La orientación para recuperar acceso está dentro del login; el enlace histórico abre esa ayuda. No se presenta como un restablecimiento automático. |
+| Formularios | La versión de cuenta es oculta y procede del listado autorizado; la API conserva el control de concurrencia. Horarios utiliza días con nombre y controles de hora, enviando los tipos requeridos por el contrato. |
+| Notificaciones y auditoría | Eventos y servicios tienen etiquetas legibles, también en CSV. Las notificaciones ofrecen acceso al registro relacionado cuando el perfil dispone de esa consulta. Las lecturas se confirman desde el listado mediante POST con CSRF e idempotencia. |
+| Confirmaciones | Cancelar inscripción, evaluar candidatos, ordenar candidatos y reanudar pueden abrirse en un diálogo contextual. El GET no modifica datos; el formulario conserva destino explícito, CSRF y POST. Cerrar devuelve el foco; sin JavaScript existe la página completa. Los formularios sin campos visibles no anuncian campos obligatorios. |
+| Detalles y evaluación | Se retiraron los ojos que únicamente duplicaban la fila. Usuarios e inscripciones tienen consultas autorizadas. Las referencias de expedientes/solicitudes/recursos se resuelven por sus API según perfil; ante referencia inaccesible se conserva una etiqueta sin enlace. Versiones y tiempos del algoritmo están en trazabilidad desplegable. Las limitaciones clínicas y las decisiones humanas permanecen. |
+| Inscripciones | `/citas` representa explícitamente reserva de cupo en campaña, con campaña, periodo y estado; el operador también ve al donante. Consulta y cancelación buscan exclusivamente en el listado autorizado. El periodo de campaña no se presenta como una cita individual. |
+| Paneles | Donante muestra inscripciones personales recientes; Auditor muestra actividad regional reciente. Se retiró el contador genérico de instituciones de esos perfiles. |
+| Monitoreo | Presenta disponibilidad de operaciones primero y diagnóstico técnico desplegable, conservando dependencias, error, versión y métricas. Los permisos permanecen. |
+| Horario y estados vacíos | Un único selector dentro de la cabecera conserva cambio asíncrono, conversión de fechas, borradores, CSRF y alternativa sin JavaScript. Los listados vacíos sin filtros no sugieren filtrar ni muestran paginación o exportación vacías. |
+| Ubicación | El transportista puede solicitar una captura puntual del navegador solo en un traslado propio recolectado/en tránsito. `Permissions-Policy` permite geolocalización propia exclusivamente en esa pantalla autorizada. Completa coordenadas/fecha, informa precisión y requiere guardar explícitamente. Permiso denegado mantiene captura manual. Se coordinan captura y cambio horario para evitar sobrescrituras simultáneas. No hay seguimiento de fondo. |
+
+### Evidencia y reproducción
+
+- [Regresión HTTP](evidence/product-ui-junit.xml): **34 aprobadas**, incluyendo flujos sangre/órganos, permisos, aislamiento, sesión, formularios, CSRF, caché y paginación, 214.46 s.
+- [Repetición de los cinco casos nuevos](evidence/product-ui-flows-junit.xml): **5 aprobadas**, 95.15 s, sobre los ajustes finales de inscripciones y captura. Son casos incluidos en las 34 anteriores, no cinco casos únicos adicionales.
+- [Comprobación final focalizada](evidence/product-ui-final-junit.xml): **2 aprobadas**, 47.55 s, después de ajustar el texto del botón de ubicación y los estados vacíos. [Estado vacío móvil](evidence/product-ui/empty-state-report.json) comprobado y captura actualizada.
+- [Recorrido Chrome](evidence/product-ui/report.json): **51 visitas**, siete perfiles, escritorio/móvil, confirmación contextual, error 503, conservación de foco/borrador/instante y alternativa sin JavaScript; cero errores JavaScript/estáticos o desbordamientos detectados. [Script](../../web-monolito01/tests/product_ui_browser.cjs).
+- [Ubicación en Chrome](evidence/product-ui/location-report.json): permiso y coordenadas simulados por el navegador, ninguna escritura automática, denegación recuperable y guardado real de una muestra en un traslado **temporal** de pruebas. [Script](../../web-monolito01/tests/location_browser.cjs), invocado por `test_product_ui.py`. No certifica precisión GPS física.
+- Capturas: [catálogos](evidence/product-ui/catalogues.png), [confirmación](evidence/product-ui/cancel-dialog.png), [donante](evidence/product-ui/donor1-panel.png), [auditor](evidence/product-ui/auditor1-panel.png), [horario móvil](evidence/product-ui/timezone-mobile.png), [inscripciones móvil](evidence/product-ui/registrations-mobile.png) y [ubicación móvil](evidence/product-ui/location-mobile.png).
+- Ruff con la selección de CI y formato aprobados; sintaxis Python/Jinja/JavaScript y `git diff --check` comprobados.
+
+Desde la raíz, con dependencias ya preparadas:
+
+```sh
+REDHOUSE_TEST_MONGOD="$PWD/.local/tools/mongodb-8.0.17/bin/mongod" apps/services/.venv/bin/python -m pytest apps/services/tests/test_product_ui.py apps/services/tests/test_web_integration.py apps/services/tests/test_maintenance_web.py apps/services/tests/test_ui_cache.py -q
+NODE_PATH=/ruta/node_modules node apps/web-monolito01/tests/product_ui_browser.cjs --state .local/demo/state.json --output /tmp/red-house-product-ui
+REDHOUSE_TEST_MONGOD="$PWD/.local/tools/mongodb-8.0.17/bin/mongod" REDHOUSE_BROWSER_MODULES=/ruta/node_modules apps/services/.venv/bin/python -m pytest apps/services/tests/test_product_ui.py -q
+```
+
+`NODE_PATH`/`REDHOUSE_BROWSER_MODULES` debe contener Playwright; los scripts utilizan Chrome instalado. Las pruebas HTTP crean servicios y bases desechables. La prueba de ubicación crea un servidor web temporal, pasa una sesión temporal en archivo privado y elimina ese archivo al terminar. El recorrido de la DEMO inicia sesiones y consulta datos, pero no cancela inscripciones ni registra ubicaciones en ella.
+
+### Alcance y pendientes conservados
+
+No se modificaron reglas clínicas, contratos de API ni datos de negocio de la DEMO. Se reinició el portal y su worker de sesiones para cargar el código. Al finalizar se detectó el entorno completo detenido mediante el comando de estado; se inició nuevamente la configuración existente para dejar disponible el portal, sin inicializar datos ni migrar bases. La agenda individual por sede/hora, el restablecimiento automático de contraseña, la validación clínica del motor, Android, escritorio y nube siguen pendientes. No se ocultaron sus limitaciones para aparentar funcionalidad terminada. Resolver campañas, donantes y referencias añade lecturas autorizadas; se reutilizan etiquetas dentro de cada petición, sin crear caché clínica compartida. Las consultas individuales de cuentas/inscripciones recorren el listado autorizado porque las API actuales no tienen esos endpoints de detalle; no se certifica su rendimiento con volúmenes masivos.
+
+## Renovación de sesión según actividad — 12/10/2026
+
+La web renueva en segundo plano cuando el token entra en sus últimos cinco minutos y hubo interacción real en los últimos cinco minutos. Teclado, captura, puntero, desplazamiento y toque en una pestaña visible actualizan esa actividad; las consultas periódicas, los eventos sintéticos y la mera visibilidad no la actualizan. Abrir una página visible inicia su ventana de actividad. El aviso de inactividad solo aparece cerca del vencimiento cuando no hay actividad reciente; no se ha definido un nuevo plazo fijo de inactividad independiente del JWT.
+
+Las pestañas comparten únicamente avisos y la hora de actividad mediante BroadcastChannel. Los borradores permanecen en la página. Se reutiliza el POST protegido por CSRF y la rotación existente, manteniendo expiración, revocación y límite absoluto del backend. Un 409 de renovación concurrente consulta el estado antes de reintentar; un fallo de conexión informa del problema y limita reintentos automáticos a uno cada 30 segundos. Tras suspender una pestaña se consulta el vencimiento del servidor antes de salir por un plazo local obsoleto. El script es compartido por los dos modos web; no cambia sus contratos ni almacenes.
+
+Evidencia: [escenarios Chrome con reloj acelerado y API simulada](evidence/session-activity-browser.json), incluido uso activo durante 36 minutos, inactividad real, continuación manual, errores 503/409/401 y coordinación entre pestañas. [Prueba HTTP integrada aprobada](evidence/session-renewal-junit.xml): renovación y cierre con servicios y bases temporales reales, tokens sin exposición y acceso revocado. No se modificaron registros de negocio en la DEMO. Sin JavaScript se conserva el vencimiento del backend; la renovación automática requiere el script.
+
+Reproducción desde la raíz:
+
+```sh
+NODE_PATH=/ruta/node_modules node apps/web-monolito01/tests/session_activity_browser.cjs apps/services/docs/evidence/session-activity-browser.json
+REDHOUSE_TEST_MONGOD="$PWD/.local/tools/mongodb-8.0.17/bin/mongod" apps/services/.venv/bin/python -m pytest apps/services/tests/test_web_integration.py::test_renewal_and_logout_revoke_backend_session_without_exposing_tokens -q
+```

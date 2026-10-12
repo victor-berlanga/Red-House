@@ -16,7 +16,7 @@ LISTS = {
     "donaciones": ("Donaciones", "/donaciones", "Registrar donación"),
     "solicitudes": ("Solicitudes", "/solicitudes", "Crear solicitud"),
     "campanas": ("Campañas", "/campanas", "Crear campaña"),
-    "citas": ("Citas", "/citas", "Agendar cita"),
+    "citas": ("Inscripciones", "/citas", "Reservar cupo"),
     "rutas": ("Rutas", "/rutas", "Registrar ruta"),
     "traslados": ("Traslados", "/traslados", "Planear traslado"),
     "institutions": (
@@ -165,6 +165,13 @@ FIELD_LABELS = {
     "user_id": "Cuenta",
     "donor_id": "Donante",
     "recipient_id": "Receptor",
+    "campaign_title": "Campaña",
+    "campaign_start": "Inicio de la campaña",
+    "campaign_end": "Fin de la campaña",
+    "donor_name": "Donante",
+    "Solicitud": "Solicitud",
+    "Recurso": "Recurso",
+    "Explicación": "Motivo de la propuesta",
 }
 
 TECHNICAL = {
@@ -258,6 +265,135 @@ TASKS = {
     "DONOR": [
         ("Mi expediente", "/donantes/donor", "Consultar registro y evaluaciones"),
         ("Campañas", "/campanas", "Consultar jornadas de donación"),
-        ("Mis citas", "/citas", "Agendar o cancelar una cita"),
+        ("Mis inscripciones", "/citas", "Reservar cupo en una campaña"),
     ],
 }
+
+
+EVENT_LABELS = {
+    "ALERT_ACKNOWLEDGED": "Notificación leída",
+    "ALLOCATION_PROPOSAL_CREATED": "Propuesta de cobertura generada",
+    "APPOINTMENT_BOOKED": "Inscripción en campaña confirmada",
+    "APPOINTMENT_CANCELLED": "Inscripción en campaña cancelada",
+    "CAMPAIGN_CREATED": "Campaña registrada",
+    "CAMPAIGN_UPDATED": "Campaña actualizada",
+    "CATALOGUE_CREATED": "Entrada de catálogo registrada",
+    "CATALOGUE_UPDATED": "Catálogo actualizado",
+    "DONATION_COLLECTED": "Donación recolectada",
+    "DONATION_PROCESSED": "Donación procesada",
+    "DONATION_REJECTED": "Donación rechazada",
+    "DONATION_UPDATED": "Donación actualizada",
+    "DONOR_REGISTERED": "Donante registrado",
+    "DONOR_REVIEWED": "Evaluación del donante registrada",
+    "DONOR_UPDATED": "Expediente del donante actualizado",
+    "EVALUATION_CREATED": "Evaluación de candidatos generada",
+    "EVALUATION_REVIEWED": "Dictamen de candidato registrado",
+    "FILE_PREPARED": "Archivo preparado",
+    "FILE_VERIFIED": "Archivo verificado",
+    "INSTITUTION_CREATED": "Institución registrada",
+    "INSTITUTION_PROVISIONED": "Acceso institucional habilitado",
+    "INSTITUTION_UPDATED": "Institución actualizada",
+    "INVENTORY_SHIPMENT_EVENT": "Inventario actualizado por traslado",
+    "LOGIN": "Inicio de sesión",
+    "LOGIN_FAILED": "Intento de acceso fallido",
+    "LOGOUT": "Cierre de sesión",
+    "REFRESH_ATTEMPT": "Renovación de sesión solicitada",
+    "RANKING_CREATED": "Orden de candidatos generado",
+    "RECIPIENT_CREATED": "Receptor registrado",
+    "RECIPIENT_UPDATED": "Expediente del receptor actualizado",
+    "REQUEST_CREATED": "Solicitud registrada",
+    "REQUEST_UPDATED": "Solicitud actualizada",
+    "REQUEST_CANCELLED": "Solicitud cancelada",
+    "REQUEST_CLOSED": "Solicitud atendida",
+    "REQUEST_IN_PROGRESS": "Solicitud en atención",
+    "REQUEST_OPEN": "Solicitud abierta",
+    "RESERVATION_CANCELLED": "Reserva cancelada",
+    "RESERVATION_RECEIVED": "Recurso reservado recibido",
+    "RESOURCE_CREATED": "Recurso registrado",
+    "RESOURCE_RELEASED": "Recurso liberado",
+    "RESOURCE_RESERVED": "Reserva de recurso confirmada",
+    "RESOURCE_UPDATED": "Recurso actualizado",
+    "RESOURCE_WITHDRAWN": "Recurso retirado",
+    "ROUTE_CREATED": "Ruta registrada",
+    "ROUTE_UPDATED": "Ruta actualizada",
+    "SHIPMENT_PLAN_PENDING": "Planeación de traslado en confirmación",
+    "SHIPMENT_PLAN_REJECTED": "Planeación de traslado rechazada",
+    "SHIPMENT_PLANNED": "Traslado programado",
+    "SHIPMENT_PREPARED": "Traslado preparado",
+    "SHIPMENT_COLLECTED": "Recolección confirmada",
+    "SHIPMENT_IN_TRANSIT": "Traslado en tránsito",
+    "SHIPMENT_DELIVERED": "Entrega de traslado registrada",
+    "SHIPMENT_ACCEPTED": "Recepción de traslado aceptada",
+    "SHIPMENT_CANCELLED": "Traslado cancelado",
+    "SHIPMENT_INCIDENT": "Incidencia de traslado registrada",
+    "TELEMETRY_RECORDED": "Ubicación de traslado registrada",
+    "USER_CREATED": "Cuenta creada",
+    "USER_STATE_CHANGED": "Acceso de cuenta actualizado",
+    "CAPACITY_HELD": "Cupo de solicitud retenido",
+    "CAPACITY_CONFIRMED": "Cupo de solicitud confirmado",
+    "CAPACITY_RELEASED": "Cupo de solicitud liberado",
+    "CAPACITY_RECEIVED": "Recepción aplicada a la solicitud",
+}
+
+SERVICE_LABELS = {
+    "identidad_acceso": "Acceso y cuentas",
+    "donantes": "Donantes y campañas",
+    "receptores": "Receptores y solicitudes",
+    "inventario": "Inventario y reservas",
+    "compatibilidad": "Evaluación de candidatos",
+    "priorizacion_geografia": "Cobertura y rutas",
+    "transporte": "Traslados",
+    "custodia": "Cadena de custodia",
+    "alertas": "Notificaciones",
+    "auditoria": "Auditoría",
+    "monitoreo": "Supervisión de disponibilidad",
+}
+
+
+def event_label(code):
+    return EVENT_LABELS.get(code, "Actividad registrada")
+
+
+def service_label(code):
+    return SERVICE_LABELS.get(code, "Servicio de la plataforma")
+
+
+def related_alert(row):
+    """Enlaces de consulta por perfil; el propietario valida el recurso al abrirlo."""
+    from uuid import UUID
+
+    code, identifier, role = (
+        row.get("message_code", ""),
+        row.get("resource_id"),
+        g.principal.role_code,
+    )
+    try:
+        identifier = UUID(str(identifier))
+    except ValueError:
+        return None
+    if code.startswith("APPOINTMENT_") and role in ("DONOR", "OPERATOR"):
+        return url_for("regional.appointment_detail", identifier=identifier)
+    if code.startswith("DONOR_") and role in ("DONOR", "OPERATOR", "MEDICAL"):
+        return url_for("regional.person_detail", kind="donor", identifier=identifier)
+    if code.startswith("CAMPAIGN_") and role in ("DONOR", "OPERATOR", "MEDICAL"):
+        return url_for("regional.campaign_detail", identifier=identifier)
+    if code.startswith("REQUEST_") and role in ("OPERATOR", "MEDICAL"):
+        return url_for("regional.request_detail", identifier=identifier)
+    if code.startswith("SHIPMENT_") and role in (
+        "OPERATOR",
+        "MEDICAL",
+        "COORDINATOR",
+        "TRANSPORT",
+    ):
+        return url_for("regional.shipment_detail", identifier=identifier)
+    if (code == "RESOURCE_RESERVED" or code.startswith("RESERVATION_")) and role in (
+        "OPERATOR",
+        "MEDICAL",
+        "COORDINATOR",
+    ):
+        return url_for("regional.reservation", identifier=identifier)
+    if code.startswith("RESOURCE_") and role in ("OPERATOR", "MEDICAL", "COORDINATOR"):
+        return url_for("inventory.detail", identifier=identifier)
+    if code.startswith("DONATION_") and role in ("OPERATOR", "MEDICAL"):
+        return url_for("regional.donation_detail", identifier=identifier)
+    return None

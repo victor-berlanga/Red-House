@@ -61,9 +61,26 @@ def catalogue_fields(kind):
         fields += [field("parent_id", "Sede", "select", choices(sites, "name"))]
         if kind == "schedules":
             fields += [
-                field("weekday", "Día (0 lunes, 6 domingo)", "number"),
-                field("opens_at", "Apertura (HH:MM)"),
-                field("closes_at", "Cierre (HH:MM)"),
+                field(
+                    "weekday",
+                    "Día de la semana",
+                    "integer-select",
+                    list(
+                        enumerate(
+                            [
+                                "Lunes",
+                                "Martes",
+                                "Miércoles",
+                                "Jueves",
+                                "Viernes",
+                                "Sábado",
+                                "Domingo",
+                            ]
+                        )
+                    ),
+                ),
+                field("opens_at", "Apertura", "time"),
+                field("closes_at", "Cierre", "time"),
             ]
         elif kind == "capacities":
             fields += [
@@ -299,7 +316,7 @@ def edit(entity, identifier):
         title="Editar registro",
         active=active,
         back=back,
-        note="Los registros con historia operativa conservan sus datos; el servicio comprueba si la corrección está permitida.",
+        note=None,
     )
 
 

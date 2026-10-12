@@ -152,7 +152,7 @@ def post(client, path, data):
 def test_roles_can_render_authorized_pages_through_http(web, p, user, paths):
     client = login(web, p, user)
     for path in paths + ["/notificaciones", "/sesion/estado"]:
-        response = client.get(path)
+        response = client.get(path, follow_redirects=True)
         assert response.status_code == 200, (
             user,
             path,

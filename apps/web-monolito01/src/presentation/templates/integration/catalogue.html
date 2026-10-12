@@ -1,3 +1,0 @@
-{% extends 'base.html' %}
-{% block content %}
-<div class="button-row">{% for kind,title in [('sites','Sedes'),('contacts','Contactos'),('schedules','Horarios'),('capacities','Capacidades'),('locations','Ubicaciones')] %}<a class="button secondary" href="{{ url_for('maintenance.catalogue_list',kind=kind) }}">{{ title }}</a>{% endfor %}</div><div class="page-heading"><h1>Catálogos</h1></div><section class="card form-card"><h2>Componentes disponibles</h2><ul>{% for code,label in components %}<li>{{ label }}</li>{% endfor %}</ul><h2>Grupos sanguíneos</h2><p>{{ groups|join(' · ') }}</p><p>Las reglas de compatibilidad son demostrativas y versionadas. Ampliar componentes o criterios clínicos requiere validación autorizada.</p></section>{% endblock %}

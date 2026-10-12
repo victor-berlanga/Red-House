@@ -579,7 +579,7 @@ class Environment:
                 executable = commands[name][0]
                 if not Path(executable).is_file() or not os.access(executable, os.X_OK):
                     raise RuntimeError(
-                        f"Falta el ejecutable de {name}. Ejecuta bash instalar.sh con el mismo --directory."
+                        f"Falta el ejecutable de {name}. Ejecuta bash install.sh con el mismo --directory."
                     )
                 from urllib.parse import urlsplit
 

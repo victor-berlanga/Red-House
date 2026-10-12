@@ -192,7 +192,8 @@ def test_history_disables_edit_and_account_view_is_not_deactivation(web, p):
     )
     admin = login(web, p, "admin1")
     listing = etree.HTML(admin.get("/administracion/users").data)
-    assert listing.xpath("//button[@data-row-preview]")
+    assert listing.xpath("//a[@data-record-view]")
+    assert not listing.xpath("//button[@data-row-preview]")
     assert not listing.xpath('//a[@data-record-view and contains(@href,"/estado")]')
     assert listing.xpath('//a[contains(@href,"/estado")]')
 

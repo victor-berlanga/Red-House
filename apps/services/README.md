@@ -20,7 +20,7 @@ Cada unidad tiene fábrica Flask, entrada ejecutable, requisitos, OpenAPI, XSD y
 
 ## Arranque simplificado
 
-Desde la raíz: `bash instalar.sh` instala las dependencias faltantes y prepara la configuración; después `bash iniciar.sh` inicia bases, API, workers y web sin revisar paquetes ni versiones. `bash componentes.sh` abre un menú; admite `ms`, `web`, `bases` o un servicio como `donantes`, además de `estado`, `detener` y `reiniciar`. Conserva el entorno existente y recupera solo los procesos faltantes. [Guía completa del lanzador](docs/ARRANQUE_LOCAL.md).
+Desde la raíz: `bash install.sh` instala las dependencias faltantes y prepara la configuración; después `bash start.sh` inicia bases, API, workers y web sin revisar paquetes ni versiones. `bash components.sh` abre un menú; admite `ms`, `web`, `bases` o un servicio como `donantes`, además de `estado`, `detener` y `reiniciar`. Conserva el entorno existente y recupera solo los procesos faltantes. [Guía completa del lanzador](docs/ARRANQUE_LOCAL.md).
 
 ## Instalar y probar sin Docker
 

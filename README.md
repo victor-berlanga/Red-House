@@ -11,17 +11,19 @@ El módulo independiente de [microservicios](apps/services/README.md) mantiene A
 ## Arranque local
 
 ```bash
-bash instalar.sh                    # Preparar dependencias/configuración
-bash iniciar.sh                     # Iniciar todo, sin revisar paquetes
-bash componentes.sh                 # Menú para elegir componentes
-bash componentes.sh inventario      # Una API y su worker
-bash componentes.sh ms              # Todas las API y workers
-bash componentes.sh web             # Solo la web integrada
-bash componentes.sh estado
-bash componentes.sh detener todo
+bash install.sh                    # Preparar dependencias/configuración
+bash start.sh                     # Iniciar todo, sin revisar paquetes
+bash components.sh                 # Menú para elegir componentes
+bash components.sh inventario      # Una API y su worker
+bash components.sh ms              # Todas las API y workers
+bash components.sh web             # Solo la web integrada
+bash components.sh estado
+bash stop.sh                        # Detener web, servicios, workers y bases
 ```
 
 Instalación separada del arranque: conserva los datos de `.local/demo` y recupera procesos faltantes. El instalador automático es para macOS; MongoDB permanece en `.local/tools`. [Guía de opciones, requisitos y solución de errores](apps/services/docs/ARRANQUE_LOCAL.md).
+
+En **Windows con WSL 2**, usa `.\install.bat`, `.\start.bat`, `.\components.bat` y `.\stop.bat` desde PowerShell (en CMD puedes omitir `.\`). Estos archivos ejecutan los scripts existentes dentro de la distribución Linux predeterminada; las dependencias del sistema deben estar instaladas allí. [Preparación y ejemplos para Windows](apps/services/docs/ARRANQUE_LOCAL.md#windows-bat-mediante-wsl). Para la web histórica existe además `apps/web-monolito01/setup.bat`, nativo de Windows y equivalente a `setup.cmd`.
 
 ## Entrega consolidada
 

@@ -1,0 +1,14 @@
+{
+  "checks": [
+    "36 minutos con teclado, ratón y desplazamiento: renovación automática limitada, sin aviso ni pérdida del borrador",
+    "Inactividad: polling y eventos sintéticos no renuevan; aviso y salida al vencer",
+    "Continuación manual tras inactividad renueva una vez y conserva captura",
+    "503: mensaje de conexión, sin bucle de peticiones y reintento manual recupera sesión",
+    "409 de otra renovación: consulta el nuevo vencimiento sin mostrar aviso ni duplicar renovación",
+    "401/revocación conserva salida a login aunque haya actividad",
+    "Pestañas: actividad compartida evita aviso en la otra pestaña; cierre compartido sigue vigente",
+    "Pestaña reanudada valida el vencimiento del servidor antes de salir con un plazo local obsoleto"
+  ],
+  "errors": [],
+  "result": "passed"
+}

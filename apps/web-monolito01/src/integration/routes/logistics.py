@@ -299,6 +299,16 @@ def shipment_transition(identifier, state):
 
 @regional.route("/traslados/<uuid:identifier>/ubicacion", methods=["GET", "POST"])
 def telemetry(identifier):
+    row = call("transporte", "/api/v1/shipments/" + str(identifier))
+    if g.principal.role_code != "TRANSPORT" or row["status"] not in (
+        "COLLECTED",
+        "IN_TRANSIT",
+    ):
+        raise BusinessError(
+            "La ubicación solo se registra durante un traslado activo asignado a tu cuenta.",
+            403,
+        )
+    g.location_capture = True
     return submit(
         "transporte",
         "/api/v1/shipments/" + str(identifier) + "/telemetry",
@@ -307,10 +317,11 @@ def telemetry(identifier):
             field("longitude", "Longitud capturada", "decimal"),
             field("captured_at", "Fecha de captura", "datetime-local", default=soon()),
         ],
-        title="Ubicación durante traslado activo",
+        title="Registrar ubicación",
         active="traslados",
         back=url_for("regional.shipment_detail", identifier=identifier),
         note="Captura únicamente la ubicación autorizada del proceso. La muestra debe corresponder a los últimos cinco minutos.",
+        location_capture=True,
     )
 
 

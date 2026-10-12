@@ -36,6 +36,8 @@ from ..presentation import (
     grouped_facts,
     institution_label,
     edit_action,
+    event_label,
+    SERVICE_LABELS,
 )
 
 public = Blueprint("public", __name__)
@@ -72,7 +74,7 @@ LABELS = {
     "CLOSED": "Cerrada",
     "CANCELLED": "Cancelado",
     "ACTIVE": "Activo",
-    "BOOKED": "Agendada",
+    "BOOKED": "Inscrita",
     "PROCESSED": "Procesado",
     "REJECTED": "Rechazado",
     "PLANNED": "Programado",
@@ -145,6 +147,19 @@ def rows(service, path, **params):
         page += 1
 
 
+def find_record(service, path, identifier):
+    """Busca únicamente en el listado autorizado cuando la API no tiene detalle."""
+    page = 1
+    while True:
+        batch = call(service, path, params={"page_size": 100, "page": page})
+        for row in batch["items"]:
+            if str(row["id"]) == str(identifier):
+                return row
+        if not batch["items"] or page * 100 >= batch["total"]:
+            raise BusinessError("El registro no está disponible en tu ámbito.", 404)
+        page += 1
+
+
 def field(name, label, type="text", options=None, default="", required=True):
     return dict(
         name=name,
@@ -201,6 +216,8 @@ def submit(
     back=None,
     success=None,
     note=None,
+    prompt=None,
+    location_capture=False,
 ):
     error, status = None, 200
     destination = return_to(active, back)
@@ -217,7 +234,7 @@ def submit(
                     continue
                 if item["type"] == "checkbox":
                     value = value == "on"
-                elif item["type"] == "number" or (
+                elif item["type"] in ("number", "integer-select") or (
                     item["type"] == "hidden" and isinstance(item["default"], int)
                 ):
                     value = int(value)
@@ -256,6 +273,9 @@ def submit(
         return_target=request.values.get("return_to", ""),
         submit_label="Guardar cambios" if method == "PATCH" else title.split(" · ")[0],
         note=note,
+        prompt=prompt,
+        location_capture=location_capture,
+        action_modal=request.headers.get("X-Action-Modal") == "1",
     ), status
 
 
@@ -272,6 +292,7 @@ def table(
     new=None,
     filters=(),
     note=None,
+    prepare=None,
 ):
     params = dict(params or {})
     for name in filters:
@@ -288,6 +309,8 @@ def table(
         page = pages
         data = call(service, path, params={**params, "page": page, "page_size": 20})
     items = data["items"]
+    if prepare:
+        prepare(items)
     target = request.path + (
         "?" + request.query_string.decode() if request.query_string else ""
     )
@@ -301,6 +324,7 @@ def table(
         ]
         if "id" in row:
             row["reference"] = row.get("folio") or "REG-" + row["id"][:8].upper()
+        row["_action_key"] = uuid4().hex
     pages = max(1, math.ceil(data["total"] / 20))
     pagination = []
     for num in sorted({1, pages, page - 1, page, page + 1}):
@@ -320,7 +344,12 @@ def table(
         for row in items:
             cells = []
             for name, label in columns:
-                value = str(display(row.get(name)))
+                value = row.get(name)
+                if name in ("message_code", "action"):
+                    value = event_label(value)
+                elif name == "source" and active == "audit":
+                    value = SERVICE_LABELS.get(value, "Servicio de la plataforma")
+                value = str(display(value))
                 cells.append(
                     "'" + value if value.startswith(("=", "+", "-", "@")) else value
                 )
@@ -359,6 +388,7 @@ def table(
             "alertas",
         ),
         note=note,
+        has_actions=any(row["_href"] or row["_actions"] for row in items),
         export=url_for(
             request.endpoint,
             **{**request.view_args, **params, "page": page, "format": "csv"},
@@ -404,13 +434,80 @@ def facts(row):
         "source": "Procedencia",
         "distance_km": "Distancia estimada (km)",
         "travel_minutes": "Tiempo estimado (min)",
-        "active": "Cuenta activa",
+        "active": "Activo",
         "role": "Perfil",
         "action": "Acción",
         "occurred_at": "Fecha",
         "last_error": "Último error",
     }
-    return [(label, row[name]) for name, label in labels.items() if name in row]
+    result = []
+    for name, label in labels.items():
+        if name not in row:
+            continue
+        value = row[name]
+        if name in ("action", "message_code"):
+            value = event_label(value)
+        elif name == "source" and value in SERVICE_LABELS:
+            value = SERVICE_LABELS[value]
+        result.append((label, reference_value(name, value)))
+    return result
+
+
+def reference_value(name, value):
+    """Resuelve referencias por las API autorizadas, sin acceso directo a datos."""
+    if not value:
+        return value
+    sources = {
+        "donor_id": (
+            "donantes",
+            "donors",
+            "regional.person_detail",
+            {"kind": "donor"},
+            ("OPERATOR", "MEDICAL", "DONOR"),
+        ),
+        "recipient_id": (
+            "receptores",
+            "recipients",
+            "regional.person_detail",
+            {"kind": "recipient"},
+            ("MEDICAL",),
+        ),
+        "resource_id": (
+            "inventario",
+            "resources",
+            "inventory.detail",
+            {},
+            ("OPERATOR", "MEDICAL", "COORDINATOR"),
+        ),
+        "request_id": (
+            "receptores",
+            "requests",
+            "regional.request_detail",
+            {},
+            ("OPERATOR", "MEDICAL"),
+        ),
+    }
+    if name not in sources:
+        return value
+    service, path, endpoint, args, allowed = sources[name]
+    if g.principal.role_code not in allowed:
+        return {"_label": FIELD_LABELS[name] + " · " + str(value)[:8].upper()}
+    cache = g.setdefault("reference_labels", {})
+    key = (name, str(value))
+    if key not in cache:
+        try:
+            related = call(service, "/api/v1/" + path + "/" + str(value))
+            cache[key] = {
+                "_label": related.get("display_name")
+                or related.get("folio")
+                or FIELD_LABELS[name] + " · " + str(value)[:8].upper(),
+                "_href": url_for(endpoint, identifier=value, **args),
+            }
+        except BusinessError as exc:
+            if exc.status not in (403, 404, 503):
+                raise
+            cache[key] = {"_label": FIELD_LABELS[name] + " · " + str(value)[:8].upper()}
+    return cache[key]
 
 
 def detail(title, active, row, actions=(), sections=(), note=None):

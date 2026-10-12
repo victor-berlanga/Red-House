@@ -1,6 +1,7 @@
 """Rutas web: dashboard. Las reglas residen en las API propietarias."""
 
 from .common import BusinessError, call, display, g, portal, regional, render_template
+from ..appointments import enrich_appointments
 
 
 @portal.get("/panel")
@@ -9,9 +10,9 @@ def dashboard():
     role = g.principal.role_code
     stats, charts, failures = [], [], []
 
-    def fetch(service):
+    def fetch(service, path="/api/v1/summary", params=None):
         try:
-            return call(service, "/api/v1/summary")
+            return call(service, path, params=params)
         except BusinessError as exc:
             failures.append((service, exc.message))
             return None
@@ -74,7 +75,19 @@ def dashboard():
                 )
             )
     alerts = call("alertas", "/api/v1/alerts", params={"page_size": 5})
-    if not stats:
+    appointments, audit_events = [], []
+    if role == "DONOR":
+        registrations = fetch("donantes", "/api/v1/appointments", {"page_size": 5})
+        if registrations:
+            appointments = registrations["items"]
+            enrich_appointments(appointments)
+        # El resumen es personal; no cuenta instituciones ajenas a la tarea.
+    elif role == "AUDITOR":
+        audit = fetch("auditoria", "/api/v1/events", {"page_size": 5})
+        if audit:
+            stats = [("Eventos en la bitácora regional", audit["total"])]
+            audit_events = audit["items"]
+    elif not stats and role == "ADMIN":
         stats = [
             ("Instituciones de la región", len(g.institutions)),
             ("Notificaciones autorizadas", alerts["total"]),
@@ -87,4 +100,6 @@ def dashboard():
         charts=charts,
         failures=failures,
         alerts=alerts["items"],
+        appointments=appointments,
+        audit_events=audit_events,
     )

@@ -283,7 +283,7 @@ def prepare_environment(args):
         # Solo procesos creados por esta preparación; nunca detener una DEMO activa.
         env.stop()
     print(
-        "Dependencias y configuración listas. Para iniciar: bash iniciar.sh"
+        "Dependencias y configuración listas. Para iniciar: bash start.sh"
         + (
             " --directory " + str(directory)
             if directory != REPO / ".local/demo"
@@ -306,7 +306,7 @@ def operate(args):
         return
     if not state_path.exists():
         raise RuntimeError(
-            "Entorno todavía no preparado. Ejecuta bash instalar.sh con el mismo --directory."
+            "Entorno todavía no preparado. Ejecuta bash install.sh con el mismo --directory."
         )
     state = json.loads(state_path.read_text())
     component = args.component if args.action == "reiniciar" else args.action
@@ -408,7 +408,7 @@ def main():
         if args.action == "preparar":
             python = ensure_python(SERVICES_ROOT, not args.no_install)
         elif not python.is_file():
-            raise RuntimeError("Falta el entorno Python. Ejecuta bash instalar.sh.")
+            raise RuntimeError("Falta el entorno Python. Ejecuta bash install.sh.")
         # Reejecutar con el venv sin liberar el bloqueo entre preparación y operación.
         if Path(sys.prefix).resolve() != (SERVICES_ROOT / ".venv").resolve():
             os.set_inheritable(lock.fileno(), True)
@@ -435,7 +435,7 @@ if __name__ == "__main__":
         )
         sys.exit(exc.returncode or 1)
     except ModuleNotFoundError:
-        print("Faltan dependencias Python. Ejecuta bash instalar.sh.", file=sys.stderr)
+        print("Faltan dependencias Python. Ejecuta bash install.sh.", file=sys.stderr)
         sys.exit(1)
     except (RuntimeError, OSError, ValueError) as exc:
         print(f"Error: {exc}", file=sys.stderr)

@@ -117,7 +117,7 @@ def test_missing_dependency_preflight_launches_nothing(tmp_path, monkeypatch):
         Mock(side_effect=AssertionError("No revisar versiones al iniciar")),
     )
     env.launch = Mock()
-    with pytest.raises(RuntimeError, match="instalar.sh"):
+    with pytest.raises(RuntimeError, match="install.sh"):
         env.ensure_infrastructure()
     env.launch.assert_not_called()
 
@@ -190,7 +190,9 @@ def test_incomplete_directory_never_reinitialized(tmp_path, monkeypatch):
     local.Environment.init.assert_not_called()
 
 
-@pytest.mark.parametrize("script", ["iniciar.sh", "componentes.sh", "instalar.sh"])
+@pytest.mark.parametrize(
+    "script", ["start.sh", "components.sh", "install.sh", "stop.sh"]
+)
 def test_shell_help_from_another_directory(script, tmp_path):
     result = subprocess.run(
         ["bash", str(REPO / script), "--help"],
@@ -198,12 +200,13 @@ def test_shell_help_from_another_directory(script, tmp_path):
         capture_output=True,
         text=True,
     )
-    assert result.returncode == 0 and "instalar.sh" in result.stdout
+    assert result.returncode == 0 and "Uso:" in result.stdout
+    assert script in result.stdout
 
 
 def test_menu_dispatches_selected_service_without_shell_evaluation(tmp_path):
     result = subprocess.run(
-        ["bash", str(REPO / "componentes.sh")],
+        ["bash", str(REPO / "components.sh")],
         input="4\ninvalid; touch INJECTED\n",
         cwd=tmp_path,
         capture_output=True,
@@ -258,7 +261,7 @@ def test_unprepared_start_does_not_initialize_or_install(tmp_path, monkeypatch):
     monkeypatch.setattr(
         local.Environment, "init", Mock(side_effect=AssertionError("No inicializar"))
     )
-    with pytest.raises(RuntimeError, match="instalar.sh"):
+    with pytest.raises(RuntimeError, match="install.sh"):
         manager.operate(SimpleNamespace(directory=directory, action="todo"))
     assert not directory.exists()
 

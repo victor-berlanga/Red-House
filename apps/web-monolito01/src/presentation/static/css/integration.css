@@ -97,3 +97,31 @@
 .integrated-ui .filter-feedback.filter-complete { position:absolute; width:1px; height:1px; min-height:0; padding:0; overflow:hidden; clip-path:inset(50%); }
 .integrated-ui .page-heading > div { min-width:0; max-width:100%; }
 .integrated-ui .page-heading h1,.integrated-ui .page-heading p { overflow-wrap:anywhere; }
+.timezone-menu { position:relative; font-size:12px; flex-shrink:0; }
+.timezone-menu > summary { cursor:pointer; color:var(--secondary); }
+.integrated-ui .timezone-menu[open] > summary { margin-bottom:0; }
+.timezone-popover { position:absolute; right:0; top:32px; width:min(280px,80vw); padding:18px; background:white; border:1px solid var(--border); border-radius:10px; box-shadow:0 8px 24px #0f1b2d20; z-index:40; }
+.timezone-popover .timezone-picker { display:grid; gap:10px; }
+.timezone-popover select { width:100%; }
+.timezone-popover [role=status] { display:block; margin-top:8px; }
+.access-help { margin-top:20px; font-size:13px; }
+.access-help summary { cursor:pointer; color:var(--secondary); }
+.access-help p { font-size:13px; }
+.integrated-ui .inline-action { margin:0; }
+.integrated-ui .inline-action button { border:0; background:none; font:inherit; cursor:pointer; padding:4px; }
+.integrated-ui #action-dialog .record-form { border:0; padding:0; box-shadow:none; }
+.integrated-ui #action-dialog .page-heading h1 { font-size:24px; }
+.integrated-ui #action-dialog { width:min(600px,calc(100vw - 32px)); }
+.integrated-ui #action-dialog .action-prompt { font-size:14px; line-height:1.6; margin:0; }
+.integrated-ui #action-dialog .record-form { background:transparent; }
+.integrated-ui .status-up { background:#e7f4eb; color:#166534; }
+.integrated-ui .status-down { background:#fde8ec; color:#a0102a; }
+.integrated-ui .status-degraded { background:#fff5dc; color:#77510b; }
+.integrated-ui .location-capture { margin-bottom:24px; }
+.integrated-ui .location-capture p { font-size:13px; }
+.integrated-ui .service-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:16px; }
+.integrated-ui .service-card { padding:20px; }
+.integrated-ui .service-card h2 { font-size:17px; }
+.integrated-ui .service-card p { font-size:13px; }
+.integrated-ui .service-card small { color:var(--muted); }
+@media(max-width:700px) { .integrated-ui .topbar-left .breadcrumb { display:none; } .integrated-ui .topbar-right { gap:12px; } }

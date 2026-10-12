@@ -16,29 +16,30 @@ if [[ $# -eq 0 ]]; then
 fi
 if [[ "$1" == '--help' || "$1" == '-h' ]]; then
     cat <<'HELP'
-Uso: bash iniciar.sh [--directory RUTA] [--web-port 5050]
-     bash componentes.sh [COMPONENTE | ACCIÓN [COMPONENTE]] [opciones]
+Uso: bash start.sh [--directory RUTA] [--web-port 5050]
+     bash stop.sh [--directory RUTA]
+     bash components.sh [COMPONENTE | ACCIÓN [COMPONENTE]] [opciones]
 Sin argumentos: menú interactivo.
 Componentes: todo, ms, web, bases o nombre de microservicio (listar).
 Acciones: estado, listar, detener [todo|ms|web|SERVICIO],
           reiniciar [todo|ms|web|SERVICIO].
 Opciones: --directory RUTA (predeterminado: .local/demo del repositorio),
           --web-port PUERTO.
-Ejemplos: bash componentes.sh inventario
-          bash componentes.sh reiniciar donantes
-Instalación y preparación (una vez): bash instalar.sh
+Ejemplos: bash components.sh inventario
+          bash components.sh reiniciar donantes
+Instalación y preparación (una vez): bash install.sh
 Estos comandos solo operan el entorno existente; no revisan ni instalan paquetes.
 HELP
     exit 0
 fi
 if [[ "$1" == 'preparar' ]]; then
-    printf 'Para instalar o preparar el entorno ejecuta: bash instalar.sh
+    printf 'Para instalar o preparar el entorno ejecuta: bash install.sh
 ' >&2
     exit 2
 fi
 redhouse_python="$redhouse_root/apps/services/.venv/bin/python"
 if [[ ! -x "$redhouse_python" ]]; then
-    printf 'Falta el entorno Python. Ejecuta primero: bash instalar.sh
+    printf 'Falta el entorno Python. Ejecuta primero: bash install.sh
 ' >&2
     exit 1
 fi

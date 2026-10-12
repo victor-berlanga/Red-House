@@ -86,7 +86,7 @@ const report={checks:[],pages:[],errors:[],captures:[]};
    const {ctx,page}=await login(user);
    for(const route of paths) await inspect(page,user,route,route==='/panel'&&user==='medical1'?'medical-dashboard.png':null);
    if(user==='admin1'){
-    await inspect(page,user,'/administracion/users');await page.locator('[data-row-preview]').first().click();
+    await inspect(page,user,'/administracion/users');await page.locator('[data-record-view]').first().click();await page.locator('[data-detail-content]').waitFor();
     assert.equal(await page.locator('#record-dialog-body form').count(),0);report.checks.push('Vista de usuario separada de activar/desactivar');
    }
    await ctx.close();

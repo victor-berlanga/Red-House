@@ -36,8 +36,7 @@ def main():
             [
                 "bash",
                 str(
-                    REPO
-                    / ("instalar.sh" if parts[0] == "preparar" else "componentes.sh")
+                    REPO / ("install.sh" if parts[0] == "preparar" else "components.sh")
                 ),
                 *(parts[1:] if parts[0] == "preparar" else parts),
                 "--directory",

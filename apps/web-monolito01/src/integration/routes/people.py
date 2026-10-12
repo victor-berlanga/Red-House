@@ -1,4 +1,5 @@
 from ..selectors import selection
+from ..appointments import enrich_appointments
 
 """Rutas web: people. Las reglas residen en las API propietarias."""
 from .common import (
@@ -12,6 +13,7 @@ from .common import (
     detail,
     edit_action,
     field,
+    find_record,
     g,
     regional,
     request,
@@ -31,7 +33,9 @@ def people(kind):
         ("donantes", "donors") if kind == "donor" else ("receptores", "recipients")
     )
     return table(
-        "Donantes" if kind == "donor" else "Receptores",
+        ("Mi expediente" if g.principal.role_code == "DONOR" else "Donantes")
+        if kind == "donor"
+        else "Receptores",
         "donantes" if kind == "donor" else "receptores",
         service,
         "/api/v1/" + path,
@@ -317,16 +321,31 @@ def campaign_new():
 @regional.get("/citas")
 def appointments():
     return table(
-        "Citas de donación",
+        "Mis inscripciones"
+        if g.principal.role_code == "DONOR"
+        else "Inscripciones a campañas",
         "citas",
         "donantes",
         "/api/v1/appointments",
-        [("reference", "Cita"), ("status", "Estado"), ("created_at", "Registro")],
+        [
+            ("campaign_title", "Campaña"),
+            *(
+                [("donor_name", "Donante")]
+                if g.principal.role_code == "OPERATOR"
+                else []
+            ),
+            ("campaign_start", "Inicio de campaña"),
+            ("campaign_end", "Fin de campaña"),
+            ("status", "Estado"),
+        ],
+        prepare=enrich_appointments,
+        links=lambda row: url_for("regional.appointment_detail", identifier=row["id"]),
+        note="La inscripción reserva un cupo en la campaña. Confirma con tu institución el lugar y la hora de atención.",
         new=url_for("regional.appointment_new"),
         actions=lambda row: (
             [
                 (
-                    "Cancelar cita",
+                    "Cancelar inscripción",
                     url_for("regional.appointment_cancel", identifier=row["id"]),
                     "cancel",
                 )
@@ -346,21 +365,57 @@ def appointment_new():
             selection("donor_id", "Donante", "donors"),
             selection("campaign_id", "Campaña", "campaigns"),
         ],
-        title="Agendar cita",
+        title="Reservar cupo en campaña",
         active="citas",
         back=url_for("regional.appointments"),
+        note="Reserva un cupo; la institución confirmará el lugar y la hora de atención.",
     )
 
 
 @regional.route("/citas/<uuid:identifier>/cancelar", methods=["GET", "POST"])
 def appointment_cancel(identifier):
+    row = find_record("donantes", "/api/v1/appointments", identifier)
+    enrich_appointments([row])
     return submit(
         "donantes",
         "/api/v1/appointments/" + str(identifier) + "/cancel",
         [],
-        title="Cancelar cita",
+        title="Cancelar inscripción",
+        prompt=(
+            "¿Cancelar tu inscripción a «"
+            if g.principal.role_code == "DONOR"
+            else "¿Cancelar la inscripción de " + row["donor_name"] + " a «"
+        )
+        + row["campaign_title"]
+        + "»? Se liberará el cupo reservado.",
         active="citas",
         back=url_for("regional.appointments"),
+    )
+
+
+@regional.get("/citas/<uuid:identifier>")
+def appointment_detail(identifier):
+    row = find_record("donantes", "/api/v1/appointments", identifier)
+    enrich_appointments([row])
+    actions = [
+        (
+            "Consultar campaña",
+            url_for("regional.campaign_detail", identifier=row["campaign_id"]),
+        )
+    ]
+    if row["status"] == "BOOKED":
+        actions.append(
+            (
+                "Cancelar inscripción",
+                url_for("regional.appointment_cancel", identifier=identifier),
+            )
+        )
+    return detail(
+        "Inscripción a campaña",
+        "citas",
+        row,
+        actions,
+        note="El periodo corresponde a la campaña. Confirma el lugar y la hora de atención con tu institución.",
     )
 
 

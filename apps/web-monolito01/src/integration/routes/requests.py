@@ -99,7 +99,7 @@ def request_detail(identifier):
         row,
         actions,
         sections,
-        note="La recepción logística completa cierra la solicitud; no registra una transfusión o trasplante.",
+        note=None,
     )
 
 
@@ -114,6 +114,7 @@ def evaluate(identifier):
         back=url_for("regional.request_detail", identifier=identifier),
         success=lambda row: url_for("regional.evaluation_detail", identifier=row["id"]),
         note="Preselección demostrativa explicable. Se requiere dictamen humano antes de reservar; no interpreta HLA.",
+        prompt="Consultar recursos disponibles para esta solicitud y generar una evaluación para revisión médica.",
     )
 
 
@@ -212,7 +213,7 @@ def reserve(identifier, resource_id):
         success=lambda row: url_for(
             "regional.operation", identifier=row["operation_id"]
         ),
-        note="La reserva vuelve a comprobar versiones, disponibilidad y capacidad. Ante una respuesta pendiente, consulta su seguimiento.",
+        note="La disponibilidad se confirma al reservar. Si la operación queda pendiente, consulta su seguimiento antes de volver a intentarlo.",
     )
 
 
@@ -322,7 +323,8 @@ def rank(identifier):
         "priorizacion_geografia",
         "/api/v1/rankings",
         [field("evaluation_id", "Evaluación", "hidden", default=str(identifier))],
-        title="Generar ranking operativo",
+        title="Ordenar candidatos",
+        prompt="Ordenar los candidatos de esta evaluación según los criterios logísticos registrados. El resultado requiere revisión médica.",
         active="solicitudes",
         back=url_for("regional.evaluation_detail", identifier=identifier),
     )
@@ -339,12 +341,11 @@ def proposals():
             ("reference", "Propuesta"),
             ("slot_count", "Cupos considerados"),
             ("matched_count", "Cobertura propuesta"),
-            ("elapsed_ms", "Procesamiento · ms"),
             ("created_at", "Registro"),
         ],
         new=url_for("regional.proposal_new"),
         links=lambda row: url_for("regional.proposal_detail", identifier=row["id"]),
-        note="Matching máximo sobre evaluaciones con dictamen favorable. Las propuestas no reservan recursos ni sustituyen la autorización médica.",
+        note="Propone cómo cubrir solicitudes con candidatos de dictamen favorable, evitando asignar el mismo recurso dos veces. Requiere autorización médica para reservar.",
     )
 
 
@@ -377,7 +378,7 @@ def proposal_new():
         active="propuestas",
         back=url_for("regional.proposals"),
         success=lambda row: url_for("regional.proposal_detail", identifier=row["id"]),
-        note="Selecciona evaluaciones con dictámenes favorables. Se conserva la versión de cada instantánea; toda reserva posterior vuelve a validar disponibilidad y capacidad.",
+        note="Selecciona evaluaciones con dictámenes favorables. La disponibilidad se comprobará de nuevo al reservar.",
     )
 
 
@@ -405,5 +406,5 @@ def proposal_detail(identifier):
         "propuestas",
         row,
         sections=sections,
-        note="La propuesta se basa en instantáneas y no modifica inventario ni solicitudes. Reservar requiere revalidación y autorización humana.",
+        note="Esta propuesta no reserva recursos. Cada reserva requiere confirmar disponibilidad y autorización médica.",
     )
