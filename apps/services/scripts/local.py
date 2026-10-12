@@ -5,7 +5,6 @@ import importlib
 import json
 import os
 import secrets
-import shutil
 import signal
 import socket
 import subprocess
@@ -34,6 +33,7 @@ from werkzeug.security import generate_password_hash
 
 from redhouse.config import MONGO_SERVICES, SERVICES
 from redhouse.schema import COMMON, SCHEMAS
+from scripts.dependencies import resolve_binary
 
 
 def free_port():
@@ -64,6 +64,17 @@ def pid_matches(pid, directory):
         ["ps", "-p", str(pid), "-o", "command="], capture_output=True, text=True
     )
     return str(directory) in result.stdout
+
+
+def check_port(port, name):
+    with socket.socket() as sock:
+        sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        try:
+            sock.bind(("127.0.0.1", port))
+        except OSError:
+            raise RuntimeError(
+                f"Puerto {port} de {name} ocupado por otro proceso; no se interviene."
+            ) from None
 
 
 def infrastructure_pid(state, name):
@@ -102,17 +113,20 @@ def infrastructure_pid(state, name):
 class Environment:
     def __init__(self, directory, mongo_bin=None):
         self.directory = Path(directory).resolve()
-        self.mongo_bin = mongo_bin or shutil.which("mongod")
+        self.mongo_bin = mongo_bin
         self.processes = []
         self.configs = {}
         self.state = {}
 
     def launch(self, args, name):
-        log = open(self.directory / (name + ".log"), "ab")
-        process = subprocess.Popen(
-            args, stdout=log, stderr=subprocess.STDOUT, cwd=ROOT, start_new_session=True
-        )
-        log.close()
+        with open(self.directory / (name + ".log"), "ab") as log:
+            process = subprocess.Popen(
+                args,
+                stdout=log,
+                stderr=subprocess.STDOUT,
+                cwd=ROOT,
+                start_new_session=True,
+            )
         self.processes.append(process)
         return process
 
@@ -130,10 +144,12 @@ class Environment:
         raise RuntimeError("Dependencia no inició dentro del tiempo límite.")
 
     def init(self, seed=True):
-        if not self.mongo_bin:
-            raise RuntimeError(
-                "Indica --mongo-bin con un mongod instalado o descargado; no se sustituye por un mock."
-            )
+        self.mongo_bin = resolve_binary(
+            "mongod", self.directory, explicit=self.mongo_bin
+        )
+        initdb = resolve_binary("initdb", self.directory)
+        postgres = resolve_binary("postgres", self.directory)
+        redis_bin = resolve_binary("redis-server", self.directory)
         self.directory.mkdir(parents=True, exist_ok=True, mode=0o700)
         os.chmod(self.directory, 0o700)
         if (self.directory / "state.json").exists() or (self.directory / "pg").exists():
@@ -146,10 +162,6 @@ class Environment:
         )
         pwfile = self.directory / "pg-password"
         private_file(pwfile, pgpassword + "\n")
-        initdb = shutil.which("initdb") or "/usr/local/opt/postgresql@14/bin/initdb"
-        postgres = (
-            shutil.which("postgres") or "/usr/local/opt/postgresql@14/bin/postgres"
-        )
         command = [
             initdb,
             "-D",
@@ -194,9 +206,7 @@ class Environment:
             f"bind 127.0.0.1\nport {redisport}\nprotected-mode yes\naclfile {aclfile}\n"
             f"dir {self.directory}\nappendonly yes\nappendfsync always\nmaxmemory-policy noeviction\n",
         )
-        redisprocess = self.launch(
-            [shutil.which("redis-server"), str(redisconf)], "redis"
-        )
+        redisprocess = self.launch([redis_bin, str(redisconf)], "redis")
         redisadmin = redis.Redis(
             host="127.0.0.1",
             port=redisport,
@@ -491,30 +501,21 @@ class Environment:
         return self
 
     def start(self, workers=True, services=None):
-        for service in services or SERVICES:
-            process = self.launch(
-                [
-                    sys.executable,
-                    str(ROOT / "run.py"),
-                    service,
-                    "--config",
-                    str(self.directory / (service + ".json")),
-                ],
-                service,
-            )
-            self.state["service_pids"][service] = process.pid
+        selected = list(SERVICES if services is None else services)
+        # Comprobar todos los puertos antes de publicar procesos nuevos.
+        for service in selected:
+            pid = self.state.get("service_pids", {}).get(service)
+            if not pid or not pid_matches(pid, self.directory):
+                port = int(self.state["urls"][service].rsplit(":", 1)[1])
+                check_port(port, service)
+        for service in selected:
+            pid = self.state.get("service_pids", {}).get(service)
+            if not pid or not pid_matches(pid, self.directory):
+                self.start_api(service)
             if workers:
-                worker = self.launch(
-                    [
-                        sys.executable,
-                        str(ROOT / "worker.py"),
-                        service,
-                        "--config",
-                        str(self.directory / (service + ".json")),
-                    ],
-                    service + "-worker",
-                )
-                self.state["worker_pids"][service] = worker.pid
+                pid = self.state.get("worker_pids", {}).get(service)
+                if not pid or not pid_matches(pid, self.directory):
+                    self.start_worker(service)
         self.save()
         import requests
 
@@ -528,14 +529,110 @@ class Environment:
             ):
                 raise RuntimeError("Worker no inició.")
 
-        for service in services or SERVICES:
+        for service in selected:
             self.wait(lambda service=service: available(service), seconds=30)
         return self
 
+    def start_api(self, service):
+        process = self.launch(
+            [
+                sys.executable,
+                str(ROOT / "run.py"),
+                service,
+                "--config",
+                str(self.directory / (service + ".json")),
+            ],
+            service,
+        )
+        self.state["service_pids"][service] = process.pid
+        self.save()
+
+    def start_worker(self, service):
+        worker = self.launch(
+            [
+                sys.executable,
+                str(ROOT / "worker.py"),
+                service,
+                "--config",
+                str(self.directory / (service + ".json")),
+            ],
+            service + "-worker",
+        )
+        self.state["worker_pids"][service] = worker.pid
+        self.save()
+
+    def ensure_infrastructure(self):
+        commands = self.state.get("infrastructure_commands", {})
+        if set(commands) != {"postgres", "redis", "mongodb"}:
+            raise RuntimeError(
+                "Entorno sin comandos de infraestructura; conserva sus datos."
+            )
+        if self.mongo_bin:
+            commands["mongodb"][0] = self.mongo_bin
+        # El instalador ya resolvió/versionó las rutas. No consultar versiones al arrancar.
+        pending = []
+        for name in commands:
+            current = infrastructure_pid(self.state, name)
+            if current:
+                self.state["infrastructure_pids"][name] = current
+            else:
+                executable = commands[name][0]
+                if not Path(executable).is_file() or not os.access(executable, os.X_OK):
+                    raise RuntimeError(
+                        f"Falta el ejecutable de {name}. Ejecuta bash instalar.sh con el mismo --directory."
+                    )
+                from urllib.parse import urlsplit
+
+                url = self.state[
+                    {
+                        "postgres": "database_admin",
+                        "redis": "redis_admin",
+                        "mongodb": "mongo_admin",
+                    }[name]
+                ]
+                check_port(urlsplit(url).port, name)
+                pending.append(name)
+        self.save()
+        for name in pending:
+            self.state["infrastructure_pids"][name] = self.launch(
+                commands[name], name
+            ).pid
+            self.save()
+        self.wait(
+            lambda: psycopg.connect(
+                self.state["database_admin"], connect_timeout=2
+            ).close()
+        )
+
+        def redis_ready():
+            with redis.Redis.from_url(
+                self.state["redis_admin"], socket_connect_timeout=2, socket_timeout=2
+            ) as client:
+                client.ping()
+
+        def mongo_ready():
+            with MongoClient(
+                self.state["mongo_admin"], serverSelectionTimeoutMS=1000
+            ) as client:
+                client.admin.command("ping")
+
+        self.wait(redis_ready)
+        self.wait(mongo_ready)
+
     def save(self):
         path = self.directory / "state.json"
-        path.write_text(json.dumps(self.state, indent=2))
-        os.chmod(path, 0o600)
+        # Una interrupción no debe truncar el único registro de configuración/PID.
+        with tempfile.NamedTemporaryFile(
+            mode="w", dir=self.directory, delete=False
+        ) as stream:
+            temporary = Path(stream.name)
+            try:
+                stream.write(json.dumps(self.state, indent=2))
+                stream.flush()
+                os.fsync(stream.fileno())
+                os.replace(temporary, path)
+            finally:
+                temporary.unlink(missing_ok=True)
 
     def stop(self):
         for process in reversed(self.processes):
@@ -552,7 +649,16 @@ class Environment:
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
-        "action", choices=("init", "start", "stop", "status", "restart-service")
+        "action",
+        choices=(
+            "init",
+            "start",
+            "start-infrastructure",
+            "stop",
+            "stop-service",
+            "status",
+            "restart-service",
+        ),
     )
     parser.add_argument("--directory", type=Path, required=True)
     parser.add_argument("--mongo-bin")
@@ -563,7 +669,7 @@ def main():
     if args.action == "init":
         try:
             env.init()
-        except Exception:
+        except BaseException:
             env.stop()
             raise
         print(
@@ -575,9 +681,13 @@ def main():
         )
         return
     env.state = json.loads((env.directory / "state.json").read_text())
-    if args.action == "restart-service":
+    if Path(env.state["directory"]).resolve() != env.directory:
+        raise RuntimeError(
+            "El directorio no corresponde al entorno; usa relocate.py para moverlo."
+        )
+    if args.action in ("restart-service", "stop-service"):
         if not args.service:
-            parser.error("restart-service requiere --service")
+            parser.error(args.action + " requiere --service")
         for group in ("service_pids", "worker_pids"):
             pid = env.state.get(group, {}).get(args.service)
             if pid and pid_matches(pid, env.directory):
@@ -589,47 +699,25 @@ def main():
                     raise RuntimeError(
                         "El proceso no terminó; no se duplica el servicio."
                     )
+        if args.action == "stop-service":
+            print("Servicio detenido:", args.service)
+            return
+        env.ensure_infrastructure()
         env.start(not args.no_workers, [args.service])
         print(
             "Servicio reiniciado:", args.service, "; los demás procesos se conservaron."
         )
         return
-    if args.action == "start":
-        # init deja la infraestructura activa; start solo publica servicios y workers.
-        for pid in (
-            *env.state["service_pids"].values(),
-            *env.state["worker_pids"].values(),
-        ):
-            if pid_matches(pid, env.directory):
-                raise RuntimeError(
-                    "Hay procesos anteriores activos; detener antes de iniciar."
-                )
-        for name, pid in env.state["infrastructure_pids"].items():
-            current_pid = infrastructure_pid(env.state, name)
-            if current_pid:
-                env.state["infrastructure_pids"][name] = current_pid
-            else:
-                commands = env.state.get("infrastructure_commands", {})
-                if name not in commands:
-                    raise RuntimeError(
-                        "Entorno antiguo sin configuración de reinicio; conserva sus datos y crea otro para esta versión."
-                    )
-                env.state["infrastructure_pids"][name] = env.launch(
-                    commands[name], name
-                ).pid
-        env.save()
-        env.wait(lambda: psycopg.connect(env.state["database_admin"]).close())
-        env.wait(lambda: redis.Redis.from_url(env.state["redis_admin"]).ping())
-        env.wait(
-            lambda: MongoClient(
-                env.state["mongo_admin"], serverSelectionTimeoutMS=1000
-            ).admin.command("ping")
-        )
-        env.start(not args.no_workers)
-        print(
-            "Once procesos HTTP independientes iniciados; URLs en",
-            env.directory / "state.json",
-        )
+    if args.action in ("start", "start-infrastructure"):
+        env.ensure_infrastructure()
+        if args.action == "start":
+            env.start(not args.no_workers, [args.service] if args.service else None)
+            print(
+                "Servicios solicitados disponibles; URLs en",
+                env.directory / "state.json",
+            )
+        else:
+            print("PostgreSQL, Redis y MongoDB disponibles.")
     elif args.action == "stop":
         # Verificar PID y comando antes de señalar; evitar reutilización de PID ajeno.
         signaled = []

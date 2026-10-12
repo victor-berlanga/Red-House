@@ -8,6 +8,21 @@ El módulo separado de órganos cubre riñón, hígado y corazón: estudios/HLA 
 
 El módulo independiente de [microservicios](apps/services/README.md) mantiene API JSON/XML, JWT y Redis, PostgreSQL, MongoDB y Swagger. La web los consume por HTTP y sus sesiones no sustituyen la autorización de las API. Resultados actuales en [VALIDACION](apps/services/docs/VALIDACION.md). Móvil, escritorio, Docker y GCP permanecen posteriores. [Apuntes TXT para presentación](stuff/temporal-microservicios/00-LEER-PRIMERO.txt).
 
+## Arranque local
+
+```bash
+bash instalar.sh                    # Preparar dependencias/configuración
+bash iniciar.sh                     # Iniciar todo, sin revisar paquetes
+bash componentes.sh                 # Menú para elegir componentes
+bash componentes.sh inventario      # Una API y su worker
+bash componentes.sh ms              # Todas las API y workers
+bash componentes.sh web             # Solo la web integrada
+bash componentes.sh estado
+bash componentes.sh detener todo
+```
+
+Instalación separada del arranque: conserva los datos de `.local/demo` y recupera procesos faltantes. El instalador automático es para macOS; MongoDB permanece en `.local/tools`. [Guía de opciones, requisitos y solución de errores](apps/services/docs/ARRANQUE_LOCAL.md).
+
 ## Entrega consolidada
 
 - [Reporte Técnico Integral Red House — Word](documentation/docx/Reporte_Tecnico_Integral_Red_House.docx).

@@ -18,6 +18,10 @@ Diez servicios Flask y un componente de monitoreo, independientes del monolito. 
 
 Cada unidad tiene fábrica Flask, entrada ejecutable, requisitos, OpenAPI, XSD y ejemplos. `redhouse/` contiene infraestructura común; los módulos de dominio no importan las reglas, tablas ni vistas de otros servicios. Su comunicación se realiza por HTTP autenticado. Los flujos de llamadas no recursan: los contratos de consulta y los comandos de coordinación tienen responsabilidades distintas.
 
+## Arranque simplificado
+
+Desde la raíz: `bash instalar.sh` instala las dependencias faltantes y prepara la configuración; después `bash iniciar.sh` inicia bases, API, workers y web sin revisar paquetes ni versiones. `bash componentes.sh` abre un menú; admite `ms`, `web`, `bases` o un servicio como `donantes`, además de `estado`, `detener` y `reiniciar`. Conserva el entorno existente y recupera solo los procesos faltantes. [Guía completa del lanzador](docs/ARRANQUE_LOCAL.md).
+
 ## Instalar y probar sin Docker
 
 Requisitos: Python 3.12+, PostgreSQL 14+ con `initdb`/`postgres` disponibles, Redis 7+ para ACL de claves, MongoDB Community 8.x con `mongod` disponible. La verificación de este incremento se realizó en macOS Intel. Windows y Linux nativos todavía no están comprobados.
@@ -45,7 +49,7 @@ Abrir `URL_DEL_SERVICIO/docs` para Swagger, `/openapi.json` para el contrato y `
 .venv/bin/python scripts/local.py start --directory /private/tmp/red-house-ms-local
 ```
 
-`stop` señala únicamente procesos cuyos comandos corresponden al directorio indicado; conserva sus datos. `start` reinicia las dependencias de ese entorno cuando sea necesario y publica nuevamente servicios y workers. No es un supervisor de producción. Para un servicio aislado:
+`stop` señala únicamente procesos cuyos comandos corresponden al directorio indicado; conserva sus datos. `start` recupera las dependencias de ese entorno cuando sea necesario y publica los servicios y workers faltantes, conservando los activos. `start --service donantes` limita la selección a una API/worker. No es un supervisor de producción. Para un servicio aislado:
 
 ```sh
 .venv/bin/python run.py inventario --config /ruta/privada/inventario.json

@@ -17,6 +17,16 @@ sys.path.insert(0, str(ROOT))
 from scripts.local import pid_matches, private_file
 
 
+def web_environment(directory):
+    from dotenv import dotenv_values
+
+    env = os.environ.copy()
+    path = directory / "web-secrets.env"
+    if path.exists():
+        env.update({k: v for k, v in dotenv_values(path).items() if v is not None})
+    return env
+
+
 def save(directory, state):
     temporary = directory / "state-platform.tmp"
     if temporary.exists():
@@ -42,6 +52,7 @@ def session_worker(directory, state):
                 str(directory / "web-client.json"),
             ],
             cwd=web,
+            env=web_environment(directory),
             stdout=log,
             stderr=log,
             start_new_session=True,
@@ -57,17 +68,22 @@ def session_worker(directory, state):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("action", choices=("start", "stop", "status", "restart-web"))
+    parser.add_argument(
+        "action",
+        choices=("start", "start-web", "stop", "stop-web", "status", "restart-web"),
+    )
     parser.add_argument("--directory", type=Path, required=True)
     parser.add_argument("--web-port", type=int, default=5050)
     args = parser.parse_args()
-    restart_web_only = args.action == "restart-web"
+    restart_web_only = args.action in ("restart-web", "start-web")
+    if args.action == "start-web":
+        args.action = "start"
     directory = args.directory.resolve()
     state = json.loads((directory / "state.json").read_text())
     if Path(state["directory"]).resolve() != directory:
         raise RuntimeError("Directorio no corresponde a este entorno.")
     command = [sys.executable, str(ROOT / "scripts/local.py")]
-    if args.action == "restart-web":
+    if args.action in ("restart-web", "stop-web"):
         processes = list(state.get("web_pids", {}).values())
         for pid in processes:
             if pid_matches(pid, directory):
@@ -82,22 +98,12 @@ def main():
             raise RuntimeError("Un proceso web no terminó; no se duplica el portal.")
         state["web_pids"] = {}
         save(directory, state)
+        if args.action == "stop-web":
+            print("Portal y worker web detenidos; servicios conservados.")
+            return
         args.action = "start"
     if args.action == "start":
-        active = [pid_matches(pid, directory) for pid in state["service_pids"].values()]
-        workers = [
-            pid_matches(pid, directory) for pid in state.get("worker_pids", {}).values()
-        ]
-        if not restart_web_only and (
-            len(active) != 11
-            or not all(active)
-            or len(workers) != 11
-            or not all(workers)
-        ):
-            if any(active):
-                subprocess.run(
-                    command + ["stop", "--directory", str(directory)], check=True
-                )
+        if not restart_web_only:
             subprocess.run(
                 command + ["start", "--directory", str(directory)], check=True
             )
@@ -139,6 +145,7 @@ def main():
                     str(args.web_port),
                 ],
                 cwd=web,
+                env=web_environment(directory),
                 stdout=log,
                 stderr=log,
                 start_new_session=True,

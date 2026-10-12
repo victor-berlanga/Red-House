@@ -18,6 +18,8 @@ Portal web: <http://127.0.0.1:5050>. El entorno nuevo conserva una DEMO ficticia
 
 Son las URLs de este entorno; una instalación nueva elige otros puertos. Su disponibilidad depende de procesos locales activos y no persiste tras apagar el equipo sin iniciar nuevamente.
 
+Preparación (12/10/2026): `bash instalar.sh`. Arranque habitual: `bash iniciar.sh`, sin revisar ni instalar dependencias. Selección de componentes: `bash componentes.sh`. El ejecutable MongoDB se instaló de forma persistente en `.local/tools/mongodb-8.0.17`; la configuración privada ya no apunta al binario eliminado de `/private/tmp`. [Instalación, menú y comandos](ARRANQUE_LOCAL.md).
+
 Desde la raíz:
 
 ```sh

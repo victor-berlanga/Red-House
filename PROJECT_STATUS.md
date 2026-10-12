@@ -1,6 +1,6 @@
 # Estado vigente de Red House
 
-Actualizado: **8 de octubre de 2026**. Leer junto con [AGENTS.md](AGENTS.md). Este archivo distingue implementación comprobada y trabajo pendiente; no declara terminado el producto semestral. [Bitácora y estados anteriores](documentation/historial/ESTADO_HASTA_2026_10_07.md).
+Actualizado: **12 de octubre de 2026**. Leer junto con [AGENTS.md](AGENTS.md). Este archivo distingue implementación comprobada y trabajo pendiente; no declara terminado el producto semestral. [Bitácora y estados anteriores](documentation/historial/ESTADO_HASTA_2026_10_07.md).
 
 ## Alcance y decisiones vigentes
 
@@ -9,6 +9,23 @@ Actualizado: **8 de octubre de 2026**. Leer junto con [AGENTS.md](AGENTS.md). Es
 - Stack vigente: Python/Flask, PostgreSQL, Redis, MongoDB, JWT, Swagger/OpenAPI, JSON/XML. Docker, móvil, escritorio y GCP siguen en fase posterior por instrucción expresa del usuario. No se añadieron frameworks, brokers ni proveedores de nube.
 - Cada propietario conserva consultas, entradas, DTO de salida, migraciones y base propia. Biblioteca `redhouse` limitada a mecanismos técnicos; entregas con una copia fija de esa biblioteca y un solo dominio. API v1 compatible con cuerpos anteriores; cambios incompatibles futuros requieren versión y transición de consumidores.
 - Sangre y órganos separados. Reglas RBC-DEMO/ORGAN-DEMO y matching operativo explicable; interpretación HLA y decisiones clínicas corresponden a personal autorizado. No presentar una recepción como transfusión o trasplante realizado.
+
+## Separación de instalación y arranque — 12/10/2026
+
+- Por solicitud del usuario, `bash instalar.sh` concentra la revisión/instalación de dependencias, selección de binarios y preparación de configuración. `bash iniciar.sh` inicia la plataforma preparada; `bash componentes.sh` conserva el menú y la operación individual. El arranque, reinicio, estado y detención ya no ejecutan `pip check`, comparan requisitos ni consultan `--version` de los binarios.
+- La instalación sobre un entorno existente conserva sus datos y procesos. En uno nuevo, provisiona las bases y las detiene al terminar; no deja aplicaciones iniciadas. Iniciar un directorio sin preparar indica usar el instalador, sin crear datos automáticamente. Las comprobaciones operativas de procesos, puertos y salud se conservan.
+- Criterios/evidencia: **26 pruebas unitarias aprobadas**, incluida la prohibición de comprobaciones e instalaciones en las ocho acciones operativas ([JUnit](apps/services/docs/evidence/launcher-unit.xml)); **14 comprobaciones reales** del instalador y ciclo de vida en clúster aislado ([informe](apps/services/docs/evidence/launcher-lifecycle.json)). Sintaxis Bash, Ruff y formato comprobados. [Guía actualizada](apps/services/docs/ARRANQUE_LOCAL.md).
+- Esta decisión sustituye el arranque con instalación automática descrito en el incremento inicial de abajo. La DEMO ya preparada puede usar directamente `bash iniciar.sh`. Se mantienen los límites de plataforma y los pendientes de la entrega anterior.
+
+## Arranque Bash y recuperación de MongoDB — incremento inicial del 12/10/2026
+
+- Causa comprobada: `state.json` conservaba `/private/tmp/red-house-mongodb-tools/bin/mongod`, ya inexistente; los datos de `.local/demo` seguían presentes. MongoDB **8.0.17** instalado con archivo oficial y SHA-256 verificado en `.local/tools/mongodb-8.0.17`. Ruta del ejecutable reparada; PostgreSQL 14, credenciales y datos conservados.
+- Nuevos `iniciar.sh` y `componentes.sh`: instalación de dependencias faltantes, menú/CLI para todo, bases, todos los MS, una API/worker o web/worker; estado, detención, reinicio y `--no-install`. Preparación Python en venv propios; instalación automática de binarios para macOS, sin Docker. [Guía completa y límites](apps/services/docs/ARRANQUE_LOCAL.md).
+- `local.py start` conserva procesos activos y recupera únicamente los faltantes; valida binarios/versiones y puertos antes de lanzar dependencias, y guarda el estado de forma atómica. `integrated.py start-web/stop-web` permite operar solo la web. Los Bash serializan operaciones mediante bloqueo; los comandos Python directos no toman ese bloqueo.
+- Configuración nueva: dos instituciones/cuentas DEMO básicas, sin importar automáticamente expedientes de Nuevo León. Se rechaza inicializar un directorio no vacío sin `state.json`. Claves web privadas persistentes; reutiliza las existentes durante la preparación inicial y no modifica `.env` histórico.
+- Criterios de aceptación: inicio completo con salud disponible; inicio parcial y repetido sin duplicar ni reiniciar procesos ajenos; recuperación de worker; conflicto de puerto sin matar al propietario; conservación de configuración/cuentas tras parada total; datos históricos DEMO preservados. Evidencia: 15 pruebas unitarias y 11 comprobaciones reales aprobadas en el corte inicial; los informes del lanzador se actualizaron con las 26 pruebas y 14 comprobaciones de la separación posterior. Ese clúster quedó detenido al terminar.
+- DEMO activa verificada: once API con readiness HTTP 200, portal HTTP 200, seis instituciones, 108 donantes, 72 receptores/solicitudes, 216 unidades sanguíneas, 36 ofertas de órganos y 18 traslados; 18 cadenas de custodia válidas ([informe](apps/services/docs/evidence/launcher-demo.json)). Tanto `bash iniciar.sh` como el comando Python original funcionaron. Portal disponible en `http://127.0.0.1:5050`.
+- Validación proporcional: sintaxis Bash, Ruff y formato de archivos Python modificados; no se repitió la suite completa de negocio. Límites: verificado en macOS Intel con Python/PostgreSQL/Redis ya instalados; sí se ejerció la descarga/instalación real de MongoDB. La instalación de Homebrew desde cero, Apple Silicon y Linux quedan sin certificación local. No se implementó supervisor ni arranque automático al encender el equipo.
 
 ## Corrección de controles y horario — 08/10/2026
 
@@ -63,7 +80,7 @@ Datos y credenciales en **`.local/demo`** (privado, ignorado por Git), trasladad
 
 DEMO Nuevo León: seis instituciones, 108 donantes, 36 donaciones, 12 campañas, 36 citas, 72 receptores/solicitudes, 252 recursos y 18 traslados. Se añadieron por API 54 registros administrativos ficticios de sedes, contactos, horarios, capacidad declarada y ubicaciones. [Carga de catálogos](apps/services/docs/evidence/review-catalogues.json). No se reescribieron estados clínicos ni expedientes existentes.
 
-Desde la raíz:
+Desde la raíz (preferido: `bash iniciar.sh`; menú: `bash componentes.sh`):
 
 ```sh
 apps/services/.venv/bin/python apps/services/scripts/integrated.py start --directory .local/demo
