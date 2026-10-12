@@ -7,6 +7,7 @@ import json
 import os
 import platform
 import secrets
+import shlex
 import subprocess
 import sys
 import tarfile
@@ -18,10 +19,10 @@ REPO = Path(__file__).resolve().parents[1]
 SERVICES_ROOT = REPO / "apps/services"
 WEB = REPO / "apps/web-monolito01"
 sys.path.insert(0, str(SERVICES_ROOT))
-from scripts.dependencies import MONGO_SHA256, MONGO_VERSION, pg_major, resolve_binary
-
 # Leer el catálogo sin importar Flask ni dependencias antes de preparar el venv.
 import ast
+
+from scripts.dependencies import MONGO_SHA256, MONGO_VERSION, pg_major, resolve_binary
 
 config_tree = ast.parse((SERVICES_ROOT / "redhouse/config.py").read_text())
 SERVICES = next(
@@ -37,47 +38,126 @@ def run(command):
     subprocess.run([str(x) for x in command], check=True)
 
 
+def venv_help():
+    version = f"{sys.version_info.major}.{sys.version_info.minor}"
+    message = (
+        f"Python {version} necesita los módulos venv y ensurepip para preparar pip. "
+    )
+    if platform.system() == "Linux":
+        message += (
+            "En Debian/Ubuntu (también dentro de WSL), ejecuta en la terminal Linux:\n"
+            f"  sudo apt update\n  sudo apt install python{version}-venv\n"
+            "Si el paquete no está disponible, instala el soporte venv desde el mismo "
+            "proveedor de ese Python, o utiliza Python 3.12 con python3.12-venv. "
+            "En otras distribuciones usa su gestor de paquetes. "
+        )
+    else:
+        message += (
+            "Repara la instalación de Python 3.12+ para incluir venv y ensurepip. "
+        )
+    return message + (
+        "Los paquetes del sistema no se instalan automáticamente en Linux. "
+        "Si no tienes permisos de administrador, solicita su instalación. "
+        "Después repite bash install.sh (o install.bat desde Windows)."
+    )
+
+
+def ensure_pip(python, install):
+    if (
+        subprocess.run(
+            check=False,
+            args=[str(python), "-m", "pip", "--version"],
+            capture_output=True,
+        ).returncode
+        == 0
+    ):
+        return
+    if not install:
+        raise RuntimeError(
+            f"Falta pip o no funciona en {python.parent.parent}. "
+            "Ejecuta el instalador sin --no-install para intentar repararlo."
+        )
+    print(f"Reparando pip en {python.parent.parent}…", flush=True)
+    try:
+        run([python, "-m", "ensurepip", "--upgrade"])
+    except (subprocess.CalledProcessError, OSError) as exc:
+        raise RuntimeError(
+            f"No se pudo preparar pip en {python.parent.parent}. "
+            "Revisa el error anterior y los permisos de escritura de esa carpeta. "
+            + venv_help()
+        ) from exc
+    if subprocess.run(
+        check=False, args=[str(python), "-m", "pip", "--version"], capture_output=True
+    ).returncode:
+        raise RuntimeError(
+            f"pip sigue sin funcionar en {python.parent.parent}. " + venv_help()
+        )
+
+
 def ensure_python(app, install):
     python = app / ".venv/bin/python"
     if not python.exists():
         if not install:
-            raise RuntimeError(f"Falta el entorno Python de {app.name}.")
+            raise RuntimeError(
+                f"Falta el entorno Python de {app.name}. Ejecuta el instalador sin --no-install."
+            )
+        if subprocess.run(
+            check=False,
+            args=[sys.executable, "-c", "import venv, ensurepip"],
+            capture_output=True,
+        ).returncode:
+            raise RuntimeError("No se puede crear el entorno virtual. " + venv_help())
         print(f"Creando entorno Python de {app.name}…", flush=True)
-        run([sys.executable, "-m", "venv", app / ".venv"])
+        try:
+            run([sys.executable, "-m", "venv", app / ".venv"])
+        except (subprocess.CalledProcessError, OSError) as exc:
+            raise RuntimeError(
+                f"No se pudo crear el entorno virtual {app / '.venv'}. "
+                "Revisa el error anterior, el espacio libre y los permisos de escritura. "
+                + venv_help()
+            ) from exc
     if subprocess.run(
-        [str(python), "-c", "import sys; sys.exit(sys.version_info < (3, 12))"],
+        check=False,
+        args=[str(python), "-c", "import sys; sys.exit(sys.version_info < (3, 12))"],
         capture_output=True,
     ).returncode:
         raise RuntimeError(
             f"El .venv de {app.name} necesita Python 3.12+. "
             "Detén sus procesos y recrea ese entorno virtual con Python 3.12; las bases se conservan."
         )
+    ensure_pip(python, install)
     # pip incluye packaging: comprobar versiones y extras sin consultar la red.
     check = """
 import sys
 from importlib.metadata import version, PackageNotFoundError
 from pip._vendor.packaging.requirements import Requirement
 from pathlib import Path
+missing = []
 for line in Path(sys.argv[1]).read_text().splitlines():
     if not line.strip() or line.startswith('#'): continue
     r=Requirement(line)
     if r.marker and not r.marker.evaluate(): continue
     try: installed=version(r.name)
-    except PackageNotFoundError: sys.exit(1)
-    if installed not in r.specifier: sys.exit(1)
+    except PackageNotFoundError:
+        missing.append(str(r))
+        continue
+    if installed not in r.specifier: missing.append(str(r))
+print(', '.join(missing))
+sys.exit(bool(missing))
 """
-    ready = (
-        subprocess.run(
-            [str(python), "-c", check, str(app / "requirements.txt")],
-            stdout=subprocess.DEVNULL,
-            stderr=subprocess.DEVNULL,
-        ).returncode
-        == 0
+    requirements = subprocess.run(
+        check=False,
+        args=[str(python), "-c", check, str(app / "requirements.txt")],
+        capture_output=True,
+        text=True,
     )
+    ready = requirements.returncode == 0
     if ready:
         ready = (
             subprocess.run(
-                [str(python), "-m", "pip", "check"], capture_output=True
+                check=False,
+                args=[str(python), "-m", "pip", "check"],
+                capture_output=True,
             ).returncode
             == 0
         )
@@ -85,7 +165,8 @@ for line in Path(sys.argv[1]).read_text().splitlines():
     if ready:
         ready = (
             subprocess.run(
-                [
+                check=False,
+                args=[
                     str(python),
                     "-c",
                     "import psycopg, cryptography; from psycopg import pq; assert pq.__impl__ == 'binary'",
@@ -97,11 +178,27 @@ for line in Path(sys.argv[1]).read_text().splitlines():
     if not ready:
         if not install:
             raise RuntimeError(
-                f"Dependencias incompletas en {app.name}; ejecuta sin --no-install."
+                f"Dependencias incompletas en {app.name}: "
+                + (
+                    requirements.stdout.strip()
+                    or "conflictos de pip o extras psycopg/cryptography"
+                )
+                + "; ejecuta el instalador sin --no-install."
             )
         print(f"Instalando dependencias de {app.name}…", flush=True)
-        run([python, "-m", "pip", "install", "-r", app / "requirements.txt"])
-        run([python, "-m", "pip", "check"])
+        try:
+            run([python, "-m", "pip", "install", "-r", app / "requirements.txt"])
+            run([python, "-m", "pip", "check"])
+        except (subprocess.CalledProcessError, OSError) as exc:
+            raise RuntimeError(
+                f"No se completaron las dependencias de {app.name}. "
+                f"Archivo: {app / 'requirements.txt'}. "
+                "El error anterior de pip identifica el paquete o conflicto. "
+                "Revisa conexión/proxy, compatibilidad con tu Python y permisos de escritura "
+                f"en {app / '.venv'}. No ejecutes pip con sudo. "
+                "Corrige la causa y repite el instalador. Para comprobar conflictos entre paquetes instalados:\n  "
+                + shlex.join([str(python), "-m", "pip", "check"])
+            ) from exc
     return python
 
 

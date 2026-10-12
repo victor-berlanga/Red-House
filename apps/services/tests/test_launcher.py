@@ -2,13 +2,14 @@
 
 import importlib.util
 import json
-import sys
 import subprocess
+import sys
 from pathlib import Path
 from types import SimpleNamespace
 from unittest.mock import Mock
 
 import pytest
+
 from scripts import dependencies, local
 
 REPO = Path(__file__).resolve().parents[3]
@@ -195,7 +196,8 @@ def test_incomplete_directory_never_reinitialized(tmp_path, monkeypatch):
 )
 def test_shell_help_from_another_directory(script, tmp_path):
     result = subprocess.run(
-        ["bash", str(REPO / script), "--help"],
+        check=False,
+        args=["bash", str(REPO / script), "--help"],
         cwd=tmp_path,
         capture_output=True,
         text=True,
@@ -206,7 +208,8 @@ def test_shell_help_from_another_directory(script, tmp_path):
 
 def test_menu_dispatches_selected_service_without_shell_evaluation(tmp_path):
     result = subprocess.run(
-        ["bash", str(REPO / "components.sh")],
+        check=False,
+        args=["bash", str(REPO / "components.sh")],
         input="4\ninvalid; touch INJECTED\n",
         cwd=tmp_path,
         capture_output=True,
@@ -282,3 +285,143 @@ def test_running_infrastructure_does_not_check_binary_versions(tmp_path, monkeyp
     env.launch = Mock()
     env.ensure_infrastructure()
     env.launch.assert_not_called()
+
+
+@pytest.mark.parametrize("app_name", ["services", "web-monolito01"])
+def test_missing_venv_support_has_wsl_instructions_before_creation(
+    tmp_path, monkeypatch, app_name
+):
+    app = tmp_path / app_name
+    monkeypatch.setattr(manager.platform, "system", lambda: "Linux")
+    monkeypatch.setattr(manager.sys, "version_info", SimpleNamespace(major=3, minor=14))
+    monkeypatch.setattr(
+        manager.subprocess, "run", Mock(return_value=SimpleNamespace(returncode=1))
+    )
+    monkeypatch.setattr(manager, "run", Mock())
+    with pytest.raises(RuntimeError, match="sudo apt install python3.14-venv") as error:
+        manager.ensure_python(app, True)
+    assert "WSL" in str(error.value)
+    assert "administrador" in str(error.value)
+    assert not (app / ".venv").exists()
+    manager.run.assert_not_called()
+
+
+@pytest.mark.parametrize(
+    "failure", [PermissionError("denied"), subprocess.CalledProcessError(1, "venv")]
+)
+def test_venv_creation_failure_identifies_directory_and_permissions(
+    tmp_path, monkeypatch, failure
+):
+    monkeypatch.setattr(
+        manager.subprocess, "run", Mock(return_value=SimpleNamespace(returncode=0))
+    )
+    monkeypatch.setattr(manager, "run", Mock(side_effect=failure))
+    with pytest.raises(RuntimeError, match="permisos de escritura") as error:
+        manager.ensure_python(tmp_path, True)
+    assert str(tmp_path / ".venv") in str(error.value)
+
+
+def test_partial_venv_repairs_pip_without_recreating_it(tmp_path, monkeypatch):
+    python = tmp_path / ".venv/bin/python"
+    python.parent.mkdir(parents=True)
+    python.touch()
+    sentinel = tmp_path / ".venv/keep"
+    sentinel.write_text("preservar")
+    monkeypatch.setattr(
+        manager.subprocess,
+        "run",
+        Mock(
+            side_effect=[
+                SimpleNamespace(returncode=0),  # versión
+                SimpleNamespace(returncode=1),  # pip ausente
+                SimpleNamespace(returncode=0),  # pip reparado
+                SimpleNamespace(returncode=0, stdout=""),  # requisitos
+                SimpleNamespace(returncode=0),  # pip check
+                SimpleNamespace(returncode=0),  # extras
+            ]
+        ),
+    )
+    monkeypatch.setattr(manager, "run", Mock())
+    assert manager.ensure_python(tmp_path, True) == python
+    manager.run.assert_called_once_with([python, "-m", "ensurepip", "--upgrade"])
+    assert sentinel.read_text() == "preservar"
+
+
+def test_missing_pip_no_install_does_not_repair(tmp_path, monkeypatch):
+    monkeypatch.setattr(
+        manager.subprocess, "run", Mock(return_value=SimpleNamespace(returncode=1))
+    )
+    monkeypatch.setattr(manager, "run", Mock())
+    with pytest.raises(RuntimeError, match="Falta pip"):
+        manager.ensure_pip(tmp_path / ".venv/bin/python", False)
+    manager.run.assert_not_called()
+
+
+def test_pip_repair_failure_reports_required_system_package(tmp_path, monkeypatch):
+    monkeypatch.setattr(manager.platform, "system", lambda: "Linux")
+    monkeypatch.setattr(
+        manager.subprocess, "run", Mock(return_value=SimpleNamespace(returncode=1))
+    )
+    monkeypatch.setattr(
+        manager, "run", Mock(side_effect=subprocess.CalledProcessError(1, "ensurepip"))
+    )
+    with pytest.raises(RuntimeError, match="sudo apt install python") as error:
+        manager.ensure_pip(tmp_path / ".venv/bin/python", True)
+    assert "No se pudo preparar pip" in str(error.value)
+
+
+@pytest.mark.parametrize("install", [False, True])
+def test_missing_requirements_or_failed_install_has_actionable_error(
+    tmp_path, monkeypatch, install
+):
+    python = tmp_path / ".venv/bin/python"
+    python.parent.mkdir(parents=True)
+    python.touch()
+    monkeypatch.setattr(manager, "ensure_pip", Mock())
+    monkeypatch.setattr(
+        manager.subprocess,
+        "run",
+        Mock(
+            side_effect=[
+                SimpleNamespace(returncode=0),
+                SimpleNamespace(returncode=1, stdout="Flask==3.1.2"),
+            ]
+        ),
+    )
+    monkeypatch.setattr(
+        manager, "run", Mock(side_effect=subprocess.CalledProcessError(1, "pip"))
+    )
+    with pytest.raises(RuntimeError) as error:
+        manager.ensure_python(tmp_path, install)
+    if install:
+        assert "requirements.txt" in str(error.value)
+        assert "permisos de escritura" in str(error.value)
+        assert "pip check" in str(error.value)
+    else:
+        assert "Flask==3.1.2" in str(error.value)
+        manager.run.assert_not_called()
+
+
+def test_real_venv_without_pip_can_be_repaired_offline(tmp_path):
+    subprocess.run(
+        [sys.executable, "-m", "venv", "--without-pip", str(tmp_path / "venv")],
+        check=True,
+    )
+    python = tmp_path / "venv/bin/python"
+    assert (
+        subprocess.run(
+            check=False,
+            args=[str(python), "-m", "pip", "--version"],
+            capture_output=True,
+        ).returncode
+        != 0
+    )
+    manager.ensure_pip(python, True)
+    assert (
+        subprocess.run(
+            check=False,
+            args=[str(python), "-m", "pip", "--version"],
+            capture_output=True,
+        ).returncode
+        == 0
+    )

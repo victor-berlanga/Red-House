@@ -94,6 +94,23 @@ Verificación local de esta entrega: revisión estática de los BAT, corresponde
 
 ## Directorios, puertos y diagnóstico
 
+### Falta venv, ensurepip o pip durante la instalación
+
+`install.bat` ejecuta `install.sh` dentro de WSL: ambos usan la misma comprobación Python. Si aparece `ensurepip is not available` y una ruta `/mnt/c/...`, la dependencia falta en el Python de Linux/WSL. Instalar Python en Windows no corrige ese entorno.
+
+El instalador comprueba `venv` y `ensurepip` antes de crear un entorno nuevo. Si falta ese soporte, termina con error e indica el paquete correspondiente a la versión de Python seleccionada. Por ejemplo, para el Python **3.14** de la captura del fallo, en Debian/Ubuntu se ejecuta **dentro de WSL**:
+
+```bash
+sudo apt update
+sudo apt install python3.14-venv
+```
+
+El paquete debe proceder del proveedor de ese Python; si no está disponible en los repositorios configurados, instala una versión compatible con su soporte `venv` (por ejemplo, Python 3.12 y `python3.12-venv`). Si no tienes permisos administrativos, solicita esa instalación. Después repite `install.bat` desde PowerShell o `bash install.sh` desde Linux. El instalador no ejecuta `sudo` ni modifica los paquetes del sistema Linux.
+
+Un intento anterior puede haber dejado `.venv/bin/python` pero no `pip`. Ahora se intenta reparar con `ensurepip --upgrade`, sin borrar el entorno; si falla, se identifica la carpeta y se muestran las instrucciones de reparación. `--no-install` informa del problema sin repararlo. Los errores al crear el entorno o instalar requisitos conservan la salida original y añaden orientación sobre permisos, espacio, conexión y compatibilidad. Los requisitos ausentes o con versión incorrecta se enumeran con `--no-install`; los conflictos internos o extras se señalan por separado.
+
+Verificado con pruebas simuladas de módulos ausentes, permisos y fallos de paquetes, además de una reparación real sin red de un entorno temporal creado sin `pip`. La ejecución de BAT/WSL sigue pendiente en Windows.
+
 ```bash
 bash install.sh --directory .local/otra-demo
 bash start.sh --directory .local/otra-demo --web-port 5051

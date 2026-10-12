@@ -10,6 +10,14 @@ Actualizado: **12 de octubre de 2026**. Leer junto con [AGENTS.md](AGENTS.md). E
 - Cada propietario conserva consultas, entradas, DTO de salida, migraciones y base propia. Biblioteca `redhouse` limitada a mecanismos técnicos; entregas con una copia fija de esa biblioteca y un solo dominio. API v1 compatible con cuerpos anteriores; cambios incompatibles futuros requieren versión y transición de consumidores.
 - Sangre y órganos separados. Reglas RBC-DEMO/ORGAN-DEMO y matching operativo explicable; interpretación HLA y decisiones clínicas corresponden a personal autorizado. No presentar una recepción como transfusión o trasplante realizado.
 
+## Diagnóstico de instalación Python y WSL — 12/10/2026
+
+- Causa del fallo reportado: `install.bat` delega en Bash/WSL; el Python 3.14 de la captura no dispone de `ensurepip`. El gestor compartido solo comprobaba la versión y la existencia del ejecutable, por lo que tanto BAT como SH podían fallar y reutilizar un `.venv` incompleto.
+- Ahora se comprueban `venv`/`ensurepip` antes de crear el entorno y `pip` antes de instalar requisitos, para servicios y web. Un entorno sin pip se repara con `ensurepip --upgrade`; si falla, se informa de la carpeta afectada, permisos y paquete del sistema correspondiente. En Debian/Ubuntu se indica `pythonX.Y-venv` según el Python del instalador. Linux conserva instalación manual de paquetes del sistema; sin privilegios se indica solicitarla al administrador. BAT aclara que trabaja dentro de WSL.
+- Errores de creación/instalación incluyen contexto y pasos de recuperación; `--no-install` no repara ni instala y enumera requisitos ausentes o incompatibles. No se borran entornos ni datos. [Guía de diagnóstico](apps/services/docs/ARRANQUE_LOCAL.md#falta-venv-ensurepip-o-pip-durante-la-instalación).
+- Criterios de aceptación: detectar soporte venv ausente antes de crear archivos, diagnosticar permisos/fallos de pip, reparar pip sin recrear el entorno y conservar el comportamiento sin instalación. Evidencia: **37 pruebas aprobadas en 18.35 s** (27 anteriores y 10 nuevos casos), incluyendo reparación real sin red de un venv temporal sin pip; [JUnit](apps/services/docs/evidence/launcher-install-errors.xml). Ruff y formato aprobados en ambos archivos Python modificados, sintaxis Bash y `git diff --check` correctos.
+- Límite: fallos Linux/WSL reproducidos mediante sustitutos en pruebas; BAT/WSL no ejecutado en este Mac. No se operó la DEMO ni se certifica instalación completa en Windows. Sigue pendiente comprobarla allí.
+
 ## Lanzadores en inglés y parada completa — 12/10/2026
 
 - Renombrados los pares SH/BAT a `install`, `start` y `components`; añadidos `stop.sh` y `stop.bat`. `setup` y `homebrew` ya tenían nombres en inglés. Referencias operativas, ayudas, mensajes Python y pruebas actualizados; los argumentos del gestor permanecen en español.
