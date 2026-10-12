@@ -22,7 +22,7 @@ def dashboard():
             stats += [
                 ("Recursos en tu ámbito", stock["total"]),
                 ("Próximos a caducar · 48 h", stock["expiring"]),
-                ("Disponibles con fecha vencida", stock["expired"]),
+                ("Requieren revisión por caducidad", stock["expired"]),
             ]
             charts += [
                 ("Disponibilidad sanguínea por ABO / Rh", stock["groups"]),
@@ -44,7 +44,7 @@ def dashboard():
                         ],
                     )
                 )
-        req = fetch("receptores")
+        req = fetch("receptores") if role in ("MEDICAL", "OPERATOR") else None
         if req:
             stats.append(("Solicitudes institucionales", req["total"]))
             charts.append(

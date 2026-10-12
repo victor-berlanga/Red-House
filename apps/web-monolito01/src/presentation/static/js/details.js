@@ -24,6 +24,8 @@
         message('Tu sesión terminó. Inicia sesión nuevamente para consultar este registro.');
         const link = document.createElement('a'); link.href='/login'; link.className='button'; link.textContent='Iniciar sesión'; body.append(link); return;
       }
+      if (response.status === 401 || response.status === 403) { message("No tienes permiso para consultar este registro o tu sesión terminó."); return; }
+      if (!response.ok) throw new Error("Respuesta no válida");
       const html = await response.text();
       if (pending !== controller || !dialog.open) return;
       const doc = new DOMParser().parseFromString(html, 'text/html');
@@ -46,7 +48,7 @@
   }
   document.addEventListener('click', event => {
     const trigger = event.target.closest('[data-record-view]');
-    if (trigger) { event.preventDefault(); show(trigger.dataset.recordView, trigger); return; }
+    if (trigger && !event.ctrlKey && !event.metaKey && !event.shiftKey && event.button === 0) { event.preventDefault(); show(trigger.dataset.recordView, trigger); return; }
     const inline = event.target.closest('[data-row-preview]');
     if (inline) {
       controller?.abort(); controller=null;
@@ -60,7 +62,7 @@
   // sin inventar una operación de edición sobre agregados o eventos inmutables.
   function enhanceTables() {
     document.querySelectorAll('main table').forEach(table => {
-      if (table.dataset.previewReady || table.querySelector('[data-record-view]')) return;
+      if (table.hasAttribute('data-no-preview') || table.dataset.previewReady || table.querySelector('[data-record-view]')) return;
       const headers=Array.from(table.querySelectorAll('thead th'));
       if (!headers.length || headers.some(h => h.textContent.trim()==='Acciones')) return;
       table.dataset.previewReady='true';

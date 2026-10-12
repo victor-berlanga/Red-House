@@ -113,10 +113,10 @@ class Demo:
                     tenant = self.state["tenants"][i]
                     conn.execute(
                         "UPDATE institutions SET name=%s WHERE id=%s",
-                        (HOSPITALS[i] + " · " + CITIES[i] + " · DEMO", tenant),
+                        (HOSPITALS[i] + " · " + CITIES[i], tenant),
                     )
                 else:
-                    name = HOSPITALS[i] + " · " + CITIES[i] + " · DEMO"
+                    name = HOSPITALS[i] + " · " + CITIES[i]
                     existing = conn.execute(
                         "SELECT id FROM institutions WHERE name=%s AND region_id=%s",
                         (name, self.state["region_id"]),

@@ -17,6 +17,7 @@ from redhouse.decisions import record, history
 from redhouse.events import consume, emit
 from redhouse.models import Confirm, Group, ID, Kind, Model, Text, utc_date, validate_id
 from redhouse.security import key, own, redis_call
+from redhouse.cache import cached_read
 from .states import RESOURCE_FILTER
 
 
@@ -484,15 +485,34 @@ def register(app):
         "/api/v1/resources",
         roles=("OPERATOR", "MEDICAL", "COORDINATOR"),
         paginated=True,
-        query=("q", "kind", "status"),
+        query=(
+            "q",
+            "kind",
+            "status",
+            "blood_group",
+            "component",
+            "current_institution_id",
+            "expiry",
+        ),
         summary="Inventario propio; coordinador recibe disponibilidad regional mínima",
     )
+    @cached_read("inventory", ttl=10)
     def resources_list():
         with transaction() as conn:
             filters = {
                 "q": ("folio",),
                 "kind": ("kind", ("BLOOD", "ORGAN")),
                 "status": ("status", RESOURCE_FILTER),
+                "blood_group": (
+                    "blood_group",
+                    ("O-", "O+", "A-", "A+", "B-", "B+", "AB-", "AB+"),
+                ),
+                "component": ("component", ("RBC-DEMO", "KIDNEY", "LIVER", "HEART")),
+                "current_institution_id": ("current_institution_id", ()),
+                "expiry": (
+                    "(CASE WHEN expires_at<=now() THEN 'expired' WHEN expires_at<=now()+interval '48 hours' THEN 'soon' ELSE 'later' END)",
+                    ("expired", "soon", "later"),
+                ),
             }
             visible = "" if request.args.get("status") else " AND status<>'WITHDRAWN'"
             if g.actor["role"] == "COORDINATOR":
@@ -519,21 +539,11 @@ def register(app):
         paginated=True,
         summary="Disponibilidad regional minimizada con caché autorizada",
     )
+    @cached_read("inventory", ttl=15)
     def availability():
         from redhouse.api import pagination
 
         page, size, offset = pagination()
-        # TTL breve: nunca se utiliza esta proyección para decidir una reserva.
-        cache_key = key(
-            f"cache:inventario:availability:{g.actor['region_id']}:{g.actor['tenant_id']}:{g.actor['role']}:{page}:{size}"
-        )
-        bypass = "no-cache" in request.headers.get("Cache-Control", "")
-        cached = None if bypass else redis_call(lambda r: r.get(cache_key))
-        if cached:
-            g.cache_hit = True
-            g.cache_status = "HIT"
-            return json.loads(cached)
-        g.cache_status = "BYPASS" if bypass else "MISS"
         with transaction() as conn:
             count = conn.execute(
                 "SELECT count(*) AS n FROM resources WHERE region_id=%s AND status='AVAILABLE' AND expires_at>now()",
@@ -553,12 +563,6 @@ def register(app):
                 "notice": "Disponibilidad orientativa; la reserva revalida PostgreSQL.",
             }
         )
-        if not bypass:
-            redis_call(
-                lambda r: r.set(
-                    cache_key, json.dumps(result), ex=app.config["CACHE_TTL"]
-                )
-            )
         return result
 
     @endpoint(

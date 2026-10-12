@@ -401,7 +401,10 @@ def test_additive_migration_preserves_v1_data_and_is_repeatable(p):
         ).fetchall() == [(identifier, "OLD-0001", None, None)]
         assert conn.execute(
             "SELECT version FROM schema_version ORDER BY version"
-        ).fetchall() == [(1,), (2,), (3,)]
+        ).fetchall() == [(1,), (2,), (3,), (4,)]
+        assert conn.execute("SELECT name,revision FROM cache_revision").fetchall() == [
+            ("inventory", 0)
+        ]
         conn.rollback()
 
 

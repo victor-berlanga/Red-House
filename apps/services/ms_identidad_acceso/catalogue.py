@@ -14,6 +14,7 @@ from redhouse.errors import APIError
 from redhouse.events import emit
 from redhouse.models import Confirm, ID, Model, Text
 from redhouse.security import own
+from redhouse.cache import cached_read
 
 
 class Site(Model):
@@ -109,6 +110,7 @@ def install(app):
             version=(Annotated[int, Field(ge=1)], ...),
         )
 
+        @cached_read("catalogues", ttl=30)
         def list_rows():
             with transaction() as conn:
                 result = listing(

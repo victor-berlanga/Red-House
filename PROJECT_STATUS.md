@@ -10,7 +10,26 @@ Actualizado: **8 de octubre de 2026**. Leer junto con [AGENTS.md](AGENTS.md). Es
 - Cada propietario conserva consultas, entradas, DTO de salida, migraciones y base propia. Biblioteca `redhouse` limitada a mecanismos técnicos; entregas con una copia fija de esa biblioteca y un solo dominio. API v1 compatible con cuerpos anteriores; cambios incompatibles futuros requieren versión y transición de consumidores.
 - Sangre y órganos separados. Reglas RBC-DEMO/ORGAN-DEMO y matching operativo explicable; interpretación HLA y decisiones clínicas corresponden a personal autorizado. No presentar una recepción como transfusión o trasplante realizado.
 
-## Incremento de revisión implementado
+## Corrección de controles y horario — 08/10/2026
+
+- El botón **Filtrar** solo queda como alternativa si no se activa JavaScript; los listados sin filtros conservan su acción útil de actualizar. Se retiraron el pie «Red House · Red regional / Entorno de pruebas» y contadores visuales repetidos. El carácter de los datos continúa documentado.
+- Paginación con **Anterior**, **Siguiente**, números separados y página actual; controles arriba y abajo, límites deshabilitados y conservación de filtros. Una página que dejó de existir muestra la última disponible.
+- Horario junto al encabezado: seleccionar Monterrey/UTC guarda la preferencia con CSRF y actualiza fechas, fragmentos y modales sin navegación del documento. Las fechas de formularios abiertos se convierten conservando el instante; el resto del borrador permanece intacto. Ante error se conserva la presentación anterior y se ofrece reintentar. Sin JavaScript permanece el envío convencional.
+- Evidencia: [14 pruebas HTTP](apps/services/docs/evidence/ui-controls-junit.xml), incluidas las vistas de siete perfiles, paginación, conversión/persistencia de horario y CSRF; [5 regresiones históricas](apps/services/docs/evidence/ui-controls-legacy.xml), todas aprobadas. [Navegador](apps/services/docs/evidence/ui-controls/report.json): navegación real, filtros, zona, borradores, 503, móvil y alternativa sin JavaScript. Detalles en [documentación UI](apps/services/docs/UI_UX_JINJA_2026_10_08.md#corrección-de-controles-tras-la-revisión-del-usuario).
+
+## Incremento UI/UX y Jinja — 08/10/2026
+
+- Implementado en `Microservicios`: ojo de consulta y lápiz de edición separados; acciones de estado explícitas, tablas compactas/adaptables, detalle por secciones y trazabilidad desplegable, panel con tareas por perfil. Nombres sin sufijo repetido; límites clínicos conservados. El pie de entorno se retiró en la corrección posterior solicitada por el usuario.
+- Filtros GET con fragmentos Jinja, espera de 300 ms, cancelación de consultas anteriores, foco e historial; filtros/página conservados al volver desde edición. Actualización opcional cada 30 s en listados operativos, sin WebSockets. No se agregó Docker ni otro framework.
+- Caché autorizada propiedad de Inventario (listado/resumen 10 s, disponibilidad 15 s) e Identidad (catálogos 30 s), con invalidación mediante revisión SQL en el mismo commit. Sesión/JWT/permisos se validan antes del HIT. Receptores expone `can_edit` opcional; el backend sigue comprobando reglas al guardar.
+- Criterios, arquitectura, límites, comandos y capturas: [UI/UX y Jinja](apps/services/docs/UI_UX_JINJA_2026_10_08.md). [Chrome](apps/services/docs/evidence/ui/report.json): **36 páginas**, siete perfiles, filtros sin navegación del documento, modal de consulta, regreso desde edición, error/reintento, actualización periódica y móvil de 390 px; cero errores JavaScript/estáticos/desbordamientos.
+- [Suite general](apps/services/docs/evidence/ui-cache-junit.xml): **117 aprobadas de 118** en 424.20 s. Único fallo: la prueba de migración esperaba versiones 1–3, pero se añadió correctamente la 4. Se actualizó la aserción y comprobó revisión inicial; [repetición focalizada](apps/services/docs/evidence/ui-final-targeted.xml): **9 aprobadas**, incluida esa migración, en 62.82 s. No quedan fallos de esa ejecución sin resolver; no se presenta como una única ejecución de 118 aprobadas.
+- [Monolito histórico](apps/services/docs/evidence/ui-legacy-junit.xml): **121 aprobadas y 8 omitidas**, 305.03 s. El fixture de pruebas web utiliza ahora el timeout normal de 8 s, tras timeouts intermitentes con 2 s; la configuración productiva no cambió.
+- Entorno existente `.local/demo` preservado: respaldos y migraciones aditivas en Inventario e Identidad; reinicio individual de esos servicios, Receptores y web. Once servicios y portal disponibles. No se borraron ni recargaron expedientes ni se modificó la base histórica de negocio del monolito.
+- Rendimiento medido: 30 pares por endpoint, caché sin reducción de latencia demostrada en este volumen (Disponibilidad 108.795 vs 100.581 ms; resumen 87.782 vs 85.993 ms). Fragmento Jinja de 20 resultados: 17 837 vs 28 965 bytes, **38.4 % menos HTML**; no equivale a una mejora de tiempo de respuesta garantizada. [Mediciones](apps/services/docs/UI_UX_JINJA_2026_10_08.md#medición-local-y-límites-del-rendimiento).
+- Pendiente de esta entrega: revisión visual del usuario. La consulta periódica y los TTL no equivalen a actualización instantánea; las mediciones locales no certifican escalabilidad. Los Word/PDF y la matriz Excel anteriores mantienen su corte histórico; los permisos de roles no se ampliaron.
+
+## Incremento de revisión anterior
 
 | Área | Criterio de aceptación y evidencia |
 | --- | --- |

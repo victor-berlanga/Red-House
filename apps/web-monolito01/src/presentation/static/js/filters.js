@@ -22,10 +22,11 @@
   form.after(feedback);
   form.classList.add("live-filters-enabled");
 
-  let controller, delay, sequence = 0, composing = false;
+  let controller, delay, sequence = 0, composing = false, loading = false;
   let desired = new URL(location.href);
 
   function busy(value) {
+    loading = value;
     results.setAttribute("aria-busy", String(value));
     results.inert = value;
   }
@@ -35,7 +36,7 @@
     controller?.abort();
     sequence += 1;
     retry.hidden = true;
-    feedback.classList.remove("filter-error");
+    feedback.classList.remove("filter-error", "filter-complete");
     return sequence;
   }
 
@@ -86,15 +87,25 @@
           !response.headers.get("content-type")?.includes("text/html")) throw new Error("Invalid response");
       const html = await response.text();
       if (ticket !== sequence) return;
-      const document = new DOMParser().parseFromString(html, "text/html");
-      const next = document.querySelector("[data-filter-results]");
-      const nextSummary = document.querySelector("[data-filter-summary]");
+      const parsed = new DOMParser().parseFromString(html, "text/html");
+      const next = parsed.querySelector("[data-filter-results]");
+      const nextSummary = parsed.querySelector("[data-filter-summary]");
       if (!next || (summary && !nextSummary)) throw new Error("Missing results");
       // Solo reemplaza resultados: los filtros mantienen el foco y los POST su borrador.
       results.replaceChildren(...next.childNodes);
       results.dataset.resultCount = next.dataset.resultCount;
+      if (next.dataset.page) {
+        results.dataset.page = next.dataset.page;
+        if (Number(url.searchParams.get('page') || 1) !== Number(next.dataset.page)) url.searchParams.set('page', next.dataset.page);
+      }
+      document.querySelectorAll('[data-list-return]').forEach(link => {
+        const target = new URL(link.href);
+        target.searchParams.set('return_to', url.pathname + url.search);
+        link.href = target.href;
+      });
       if (summary) summary.replaceChildren(...nextSummary.childNodes);
       if (history && url.href !== location.href) window.history.pushState(null, "", url);
+      feedback.classList.add("filter-complete");
       message.textContent = `${next.dataset.resultCount} resultado${next.dataset.resultCount === "1" ? "" : "s"}`;
       if (focus) { busy(false); results.focus({preventScroll: true}); }
     } catch (error) {
@@ -164,6 +175,14 @@
     restoreFilters(url);
     schedule(0, url, {history: false});
   });
+  const refreshControl = form.querySelector('[data-auto-refresh]');
+  const interval = Number(form.dataset.refreshInterval);
+  if (refreshControl && interval >= 30000) {
+    setInterval(() => {
+      if (!refreshControl.checked || document.hidden || loading || composing || document.querySelector('dialog[open], form[data-dirty="true"]')) return;
+      schedule(0, new URL(location.href), {history: false});
+    }, interval);
+  }
   window.addEventListener("pagehide", () => { invalidate(); busy(false); });
   window.addEventListener("pageshow", event => {
     if (event.persisted) {

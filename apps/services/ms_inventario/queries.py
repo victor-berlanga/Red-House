@@ -7,6 +7,7 @@ from redhouse.decisions import history
 from redhouse.errors import APIError
 from redhouse.security import own
 from .states import RESERVATION_FILTER
+from redhouse.cache import cached_read
 
 
 def install(app):
@@ -89,6 +90,7 @@ def install(app):
         roles=("OPERATOR", "MEDICAL", "COORDINATOR"),
         summary="Indicadores agregados autorizados; no expone expedientes",
     )
+    @cached_read("inventory", ttl=10)
     def portal_summary():
         with transaction() as conn:
             if g.actor["role"] == "COORDINATOR":

@@ -68,3 +68,11 @@ Navegador: `node apps/web-monolito01/tests/integrated_browser.cjs --state .local
 ## Límites que siguen abiertos
 
 Reglas clínicas oficiales/HLA, agenda clínica detallada, políticas de retención, recuperación de contraseña, email/push, GCS real y archivos grandes, aplicaciones móvil/escritorio, Docker, GCP, HTTPS productivo, redundancia, estrés/saturación y validación institucional. La separación de entregas no evita fallas en dependencias comunes ni hace compatibles cambios arbitrarios de contratos. PostgreSQL y Redis siguen compartiendo instancia física en esta DEMO.
+
+## Revisión UI/UX y caché — 08/10/2026
+
+[Informe y reproducción](UI_UX_JINJA_2026_10_08.md). Suite completa del incremento: 117/118 aprobadas (424.20 s); la aserción restante esperaba migraciones 1–3, ya actualizada a 1–4. Repetición focalizada: 9/9 aprobadas (62.82 s), incluida migración, invalidación, aislamiento, revocación, fragmentos Jinja y edición. No se ocultó el primer resultado: [JUnit general](evidence/ui-cache-junit.xml), [JUnit final focalizado](evidence/ui-final-targeted.xml).
+
+Modo histórico: 121 aprobadas y 8 omitidas (305.03 s), [JUnit](evidence/ui-legacy-junit.xml). Chrome: 36 páginas y siete perfiles, sin errores JavaScript, archivos estáticos fallidos ni desbordamiento del documento; [informe](evidence/ui/report.json) y capturas en el informe UI/UX. Las pruebas de navegador son de lectura; la persistencia de edición se comprueba mediante HTTP en bases temporales.
+
+Rendimiento de esta revisión: 30 pares de Disponibilidad y 30 de resumen, autenticación/auditoría activas. No se observó reducción de latencia con caché en la muestra local; resultados completos y limitaciones en [informe UI/UX](UI_UX_JINJA_2026_10_08.md#medición-local-y-límites-del-rendimiento). El fragmento de 20 filas reduce el HTML de 28 965 a 17 837 bytes (38.4 %); no se extrapola a velocidad ni escalabilidad.

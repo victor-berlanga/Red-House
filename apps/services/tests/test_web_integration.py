@@ -43,7 +43,9 @@ def web(p, monkeypatch):
                 "WEB_SESSION_STORE": str(
                     p.env.directory / ("web-" + uuid4().hex + ".sqlite3")
                 ),
-                "SERVICE_TIMEOUT": 2,
+                # Igual al valor normal del cliente: el login calcula un hash
+                # costoso y las pruebas levantan once servicios en esta máquina.
+                "SERVICE_TIMEOUT": 8,
             },
         }
     )

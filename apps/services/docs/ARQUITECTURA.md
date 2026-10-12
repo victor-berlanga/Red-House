@@ -13,7 +13,7 @@ Alcance inicial aprobado el 7 de octubre de 2026: diez servicios más monitoreo,
 | Auditoría eventual | Registro local obligatorio transaccional, centralización deduplicada; fallar la centralización conserva pendientes. |
 | Seguridad distribuida | RS256 solo firmado por Identidad; Redis activo/versionado; Ed25519 por servicio y JWT delegado en consultas interactivas. |
 | Sangre y órganos | Tipo, componente, solicitudes y restricciones diferenciados; las reglas clínicas siguen siendo demostrativas o humanas. |
-| Caché orientativa | Disponibilidad minimizada por región/institución/rol/paginación, TTL 15 s; reserva omite caché. |
+| Caché orientativa | Datos autorizados por usuario/institución/región/rol/ruta/filtros; inventario/resumen 10 s, disponibilidad 15 s, catálogos 30 s. Generación SQL transaccional; reserva omite caché. |
 | MongoDB justificado | Transporte: telemetría/documentos; Custodia: proyección de historia; Auditoría: eventos documentales; Monitoreo: sondeos. PostgreSQL conserva los compromisos transaccionales. |
 | Contratos | API v1, JSON y XML, XSD de entrada y envoltura de salida, OpenAPI con esquemas, ejemplos y errores. |
 
@@ -74,3 +74,11 @@ Los límites se separan por servicio/usuario/institución, por servicio emisor i
 Readiness comprueba migraciones requeridas, dependencias, latido del worker y antigüedad del outbox. Monitoreo marca verificaciones antiguas y resume las últimas 24 horas. Un bucket configurado debe responder; no se presenta como disponible por existir una cadena de configuración. GCS real continúa pendiente.
 
 XML v1 conserva su formato: `response.xsd` valida la estructura y `redhouse.xml_response.validate_response` valida tipos y el DTO publicado por operación. Ambos pasos son necesarios. La biblioteca `jsonschema`, que ya se usaba en pruebas, pasa a ejecución para esta validación; no se incorporó otro framework, broker ni proveedor.
+
+## Interfaz Jinja y caché de lecturas (08/10/2026)
+
+El navegador solicita fragmentos HTML al portal con `X-Filter-Fragment: 1` y `X-Detail-Modal: 1`. La web mantiene autorización, escape Jinja y consumo HTTP de las API; no consulta Redis ni las bases de los servicios directamente. JavaScript mejora los GET: 300 ms de espera al escribir, cancelación de peticiones anteriores, historial del navegador, foco conservado y consulta opcional cada 30 s. No se añadieron WebSockets ni un framework de interfaz.
+
+`redhouse/cache.py` es un mecanismo técnico compartido en código; cada servicio publica su propia copia y controla su namespace y tablas. Inventario e Identidad incorporan su migración `004.sql`, una fila de revisión y triggers de sentencia en `resources`/`catalogue`. La revisión cambia en el mismo commit que los datos. Un rollback no la cambia y una consulta antigua en vuelo solo puede llenar una generación anterior. Las revisiones se leen desde PostgreSQL incluso en HIT: una caída de esa base no se oculta con datos almacenados. Los TTL limitan el envejecimiento por paso del tiempo (p. ej., caducidad); las operaciones críticas vuelven a comprobar datos y estados en su propietario.
+
+Esta invalidación por servicio es conservadora: un cambio invalida todas sus consultas del namespace. Evita dependencias de invalidación entre dominios, a costa de más fallos de caché con muchas escrituras. El HTML, los formularios y las decisiones no se cachean. Para actualizar una instalación existente, respaldar y migrar Inventario e Identidad mediante `scripts/upgrade.py` antes de reiniciar sus procesos. Receptores añade `can_edit` opcional a listados y detalles sin cambiar los cuerpos de escritura ni `/api/v1`.

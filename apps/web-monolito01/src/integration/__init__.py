@@ -19,6 +19,7 @@ from ..presentation.timezones import (
 )
 from ..presentation.views import audit_label, regional_value
 from . import sessions
+from .presentation import institution_label, FIELD_LABELS, TECHNICAL, TASKS
 from .client import call, validate_urls
 
 ROLES = {
@@ -314,7 +315,10 @@ def configure(app):
                         params={"page_size": 100, "page": page},
                     )
                     names.update(
-                        {row["id"]: row["name"] for row in institutions["items"]}
+                        {
+                            row["id"]: institution_label(row["name"])
+                            for row in institutions["items"]
+                        }
                     )
                     if page * 100 >= institutions["total"] or not institutions["items"]:
                         break
@@ -364,7 +368,10 @@ def configure(app):
     )
     from .routes import display
 
+    from .routes.common import display_html
+
     app.jinja_env.filters["portal_value"] = display
+    app.jinja_env.filters["portal_html"] = display_html
 
     @app.context_processor
     def context():
@@ -377,8 +384,13 @@ def configure(app):
             display_timezone=selected_zone(),
             timezone_choices=ZONES,
             local_now=local_value(datetime.now(timezone.utc)),
-            detail_modal=False,
-            filter_fragment=False,
+            detail_modal=request.method == "GET"
+            and request.headers.get("X-Detail-Modal") == "1",
+            filter_fragment=request.method == "GET"
+            and request.headers.get("X-Filter-Fragment") == "1",
+            field_labels=FIELD_LABELS,
+            technical_fields=TECHNICAL,
+            tasks=TASKS.get(getattr(g.principal, "role_code", ""), []),
             roles=ROLES,
             integration_mode=True,
         )

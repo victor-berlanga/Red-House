@@ -66,7 +66,7 @@ JSON de éxito: `{"data": ..., "meta": {"correlation_id": "UUID", "service": "in
 
 Los ejemplos XML de entrada usan raíz `request`, campos del contrato, `item` para listas y `xsi:nil="true"` únicamente en campos anulables. La salida XML conserva tipos mediante elementos `field`/`item` y atributo `type`; el esquema de envoltura está en `/schemas/response.xsd`. Los campos concretos y sus tipos están en OpenAPI y `x-json-equivalent-schema`: el XSD de envoltura no reemplaza esa validación de datos del consumidor. Los errores también respetan `Accept`.
 
-Los listados autorizados incorporan `page`, `page_size` (máximo 100), `items` y `total`. Un listado minimizado puede omitir columnas clínicas según rol. Disponibilidad tiene caché de 15 segundos; `Cache-Control: no-cache` permite medir la consulta sin caché y mantiene toda la autenticación Redis. Nunca se utiliza la caché para autorizar reservas.
+Los listados autorizados incorporan `page`, `page_size` (máximo 100), `items` y `total`. Un listado minimizado puede omitir columnas clínicas según rol. Inventario y su resumen tienen caché de 10 segundos, Disponibilidad de 15 y catálogos institucionales de 30. Las claves incluyen usuario, institución, región, rol, ruta, filtros y revisión SQL del propietario; las escrituras confirmadas cambian esa revisión dentro de la misma transacción. Los tokens y permisos se validan antes de cada HIT. `Cache-Control: no-cache` permite medir la consulta sin caché y mantiene toda la autenticación Redis. Nunca se utiliza la caché para autorizar reservas.
 
 ## Flujos incluidos
 

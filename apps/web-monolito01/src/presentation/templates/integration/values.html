@@ -1,0 +1,9 @@
+{% macro status_badge(value) -%}<span class="badge status-{{ value|lower }}">{{ value|portal_html }}</span>{%- endmacro %}
+{% macro value_view(value, name='') -%}
+{% if value is mapping %}<dl class="nested-facts">{% for key,item in value.items() if not key.startswith('_') %}<div><dt>{{ field_labels.get(key,key|replace('_',' ')|capitalize) }}</dt><dd>{{ value_view(item,key) }}</dd></div>{% endfor %}</dl>
+{% elif value is sequence and value is not string %}<ul class="value-list">{% for item in value %}<li>{{ value_view(item) }}</li>{% else %}<li>Sin registros</li>{% endfor %}</ul>
+{% elif name=='actor_id' %}{% if value|string==principal.account_id|string %}{{ principal.party_name }}{% else %}<span title="Referencia del responsable">Cuenta · {{ (value|string)[:8]|upper }}</span>{% endif %}
+{% elif name=='status' or name=='state' or name=='decision' %}{{ status_badge(value) }}
+{% elif name=='weekday' and value is number %}{{ ['Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','Domingo'][value] }}
+{% else %}{{ value|portal_html }}{% endif %}
+{%- endmacro %}

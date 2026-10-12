@@ -2,6 +2,8 @@
 
 from .common import (
     BusinessError,
+    call,
+    detail,
     COMPONENTS,
     GROUPS,
     ROLES,
@@ -28,7 +30,18 @@ def admin_index(entity):
             "/api/v1/institutions",
             [("name", "Institución"), ("active", "Participación activa")],
             new=url_for("admin.new", entity=entity),
-            links=lambda r: url_for("maintenance.institution_edit", identifier=r["id"]),
+            links=lambda r: url_for("admin.institution_detail", identifier=r["id"]),
+            actions=lambda r: (
+                [
+                    (
+                        "Editar institución",
+                        url_for("maintenance.institution_edit", identifier=r["id"]),
+                        "pencil",
+                    )
+                ]
+                if r["id"] == str(g.principal.institution_id)
+                else []
+            ),
         )
     if entity == "users":
         return table(
@@ -40,15 +53,24 @@ def admin_index(entity):
                 ("username", "Cuenta"),
                 ("role", "Perfil"),
                 ("active", "Activo"),
-                ("version", "Versión"),
             ],
             filters=("q", "role"),
             new=url_for("admin.new", entity=entity),
-            links=lambda row: url_for(
-                "admin.user_state",
-                identifier=row["id"],
-                version=row["version"],
-                active="false" if row["active"] else "true",
+            actions=lambda row: (
+                [
+                    (
+                        "Desactivar" if row["active"] else "Activar",
+                        url_for(
+                            "admin.user_state",
+                            identifier=row["id"],
+                            version=row["version"],
+                            active="false" if row["active"] else "true",
+                        ),
+                        "state",
+                    )
+                ]
+                if row["id"] != str(g.principal.account_id)
+                else []
             ),
         )
     if entity == "components":
@@ -136,3 +158,25 @@ def settings():
         active="settings",
         roles=ROLES,
     )
+
+
+@admin.get("/instituciones/<uuid:identifier>")
+def institution_detail(identifier):
+    require(g.principal, "administration")
+    row = call("identidad_acceso", "/api/v1/institutions/" + str(identifier))
+    actions = []
+    if str(identifier) == str(g.principal.institution_id):
+        actions.append(
+            (
+                "Editar institución",
+                url_for("maintenance.institution_edit", identifier=identifier),
+            )
+        )
+    elif row.get("created_by") == str(g.principal.account_id):
+        actions.append(
+            (
+                "Configurar primer administrador",
+                url_for("maintenance.institution_administrator", identifier=identifier),
+            )
+        )
+    return detail(row["name"], "institutions", row, actions)

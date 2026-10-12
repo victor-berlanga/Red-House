@@ -71,7 +71,7 @@ def upgrade(directory, services):
             ]
             migrate(conn, service)
             runtime = "rh_" + service
-            for table in ("decisions", "worker_health", "catalogue"):
+            for table in ("decisions", "worker_health", "catalogue", "cache_revision"):
                 if conn.execute("SELECT to_regclass(%s)", ("api." + table,)).fetchone()[
                     0
                 ]:

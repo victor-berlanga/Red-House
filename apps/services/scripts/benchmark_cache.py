@@ -15,6 +15,11 @@ def main():
     parser.add_argument("--state", type=Path, required=True)
     parser.add_argument("--report", type=Path, required=True)
     parser.add_argument("--pairs", type=int, default=30)
+    parser.add_argument(
+        "--path",
+        choices=("/api/v1/availability", "/api/v1/resources", "/api/v1/summary"),
+        default="/api/v1/availability",
+    )
     args = parser.parse_args()
     state = json.loads(args.state.read_text())
     urls = state["urls"]
@@ -44,7 +49,7 @@ def main():
                 headers["Cache-Control"] = "no-cache"
             start = perf_counter()
             response = session.get(
-                urls["inventario"] + "/api/v1/availability", headers=headers, timeout=10
+                urls["inventario"] + args.path, headers=headers, timeout=10
             )
             elapsed = (perf_counter() - start) * 1000
             if response.status_code != 200:
@@ -80,6 +85,7 @@ def main():
         json.dumps(
             {
                 "results": summary,
+                "path": args.path,
                 "cache_status": hits,
                 "errors": failures,
                 "duration_seconds": round(duration, 3),

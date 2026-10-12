@@ -21,11 +21,22 @@ from flask import (
     url_for,
 )
 from flask_wtf.csrf import generate_csrf
+from markupsafe import Markup, escape
 
 from ...business.access import BusinessError, require
 from ...presentation.timezones import datefmt, selected_zone, ZONES
 from .. import ROLES, sessions
 from ..client import call
+from ..presentation import (
+    LISTS,
+    FIELD_LABELS,
+    TECHNICAL,
+    return_to,
+    contextual,
+    grouped_facts,
+    institution_label,
+    edit_action,
+)
 
 public = Blueprint("public", __name__)
 portal = Blueprint("portal", __name__)
@@ -36,7 +47,7 @@ admin = Blueprint("admin", __name__)
 
 GROUPS = ("O-", "O+", "A-", "A+", "B-", "B+", "AB-", "AB+")
 COMPONENTS = (
-    ("RBC-DEMO", "Eritrocitos · demostración"),
+    ("RBC-DEMO", "Eritrocitos"),
     ("KIDNEY", "Riñón"),
     ("LIVER", "Hígado"),
     ("HEART", "Corazón"),
@@ -73,6 +84,12 @@ LABELS = {
     "COMPLETED": "Completado",
     "FAILED": "Fallido",
     "WITHDRAWN": "Retirado",
+    "ACKNOWLEDGED": "Leída",
+    "CREATED": "Registro inicial",
+    "RELEASED": "Liberación",
+    "INACTIVE": "Inactivo",
+    "VOLUNTARY": "Voluntaria",
+    "REPLACEMENT": "Reposición",
     "ROLLBACK_PENDING": "Compensación pendiente",
     "FAVORABLE": "Favorable",
     "UNFAVORABLE": "No favorable",
@@ -93,7 +110,7 @@ def display(value):
         return "Información registrada"
     if isinstance(value, str):
         if value in getattr(g, "institutions", {}):
-            return g.institutions[value]
+            return institution_label(g.institutions[value])
         if value in LABELS:
             return LABELS[value]
         if len(value) > 19 and value[10:11] == "T":
@@ -101,7 +118,21 @@ def display(value):
                 return datefmt(datetime.fromisoformat(value.replace("Z", "+00:00")))
             except ValueError:
                 pass
-    return value
+    return institution_label(value)
+
+
+def display_html(value):
+    """Conserva el instante UTC en HTML; CSV sigue usando display sin etiquetas."""
+    if isinstance(value, str) and len(value) > 19 and value[10:11] == "T":
+        try:
+            captured = datetime.fromisoformat(value.replace("Z", "+00:00"))
+            if captured.tzinfo is not None:
+                return Markup('<time datetime="{}" data-local-time>{}</time>').format(
+                    escape(captured.isoformat()), escape(datefmt(captured))
+                )
+        except ValueError:
+            pass
+    return display(value)
 
 
 def rows(service, path, **params):
@@ -172,6 +203,7 @@ def submit(
     note=None,
 ):
     error, status = None, 200
+    destination = return_to(active, back)
     if request.method == "POST":
         try:
             data = {}
@@ -203,7 +235,9 @@ def submit(
                 data,
                 idem=request.form.get("idempotency_key") or uuid4().hex,
             )
-            flash("Operación registrada correctamente.", "success")
+            flash(title + ": operación completada.", "success")
+            if request.values.get("return_to"):
+                return redirect(destination)
             if success:
                 return redirect(success(result))
             return redirect(back or url_for("portal.dashboard"))
@@ -218,7 +252,9 @@ def submit(
         fields=fields,
         error=error,
         idempotency_key=request.form.get("idempotency_key") or uuid4().hex,
-        back=back,
+        back=destination,
+        return_target=request.values.get("return_to", ""),
+        submit_label="Guardar cambios" if method == "PATCH" else title.split(" · ")[0],
         note=note,
     ), status
 
@@ -232,6 +268,7 @@ def table(
     *,
     params=None,
     links=None,
+    actions=None,
     new=None,
     filters=(),
     note=None,
@@ -246,9 +283,22 @@ def table(
     except ValueError:
         raise BusinessError("Página inválida.", 422) from None
     data = call(service, path, params={**params, "page": page, "page_size": 20})
+    pages = max(1, math.ceil(data["total"] / 20))
+    if page > pages:
+        page = pages
+        data = call(service, path, params={**params, "page": page, "page_size": 20})
     items = data["items"]
+    target = request.path + (
+        "?" + request.query_string.decode() if request.query_string else ""
+    )
     for row in items:
-        row["_href"] = links(row) if links else None
+        row["_href"] = contextual(links(row), target) if links else None
+        row["_actions"] = [
+            (label, contextual(link, target), glyph)
+            for label, link, glyph in (
+                actions(row) if actions else edit_action(path.rsplit("/", 1)[-1], row)
+            )
+        ]
         if "id" in row:
             row["reference"] = row.get("folio") or "REG-" + row["id"][:8].upper()
     pages = max(1, math.ceil(data["total"] / 20))
@@ -292,8 +342,22 @@ def table(
         page=page,
         pages=pages,
         pagination=pagination,
-        new=new,
+        previous_page=dict(pagination).get(page - 1),
+        next_page=dict(pagination).get(page + 1),
+        new=contextual(new, target),
+        new_label=LISTS.get(active, ("", "", "Registrar"))[2],
         filters=filters,
+        filter_options=filter_choices(active),
+        groups=GROUPS,
+        refresh_enabled=active
+        in (
+            "inventory",
+            "organos",
+            "disponibilidad",
+            "solicitudes",
+            "traslados",
+            "alertas",
+        ),
         note=note,
         export=url_for(
             request.endpoint,
@@ -304,6 +368,7 @@ def table(
 
 def facts(row):
     labels = {
+        **FIELD_LABELS,
         "folio": "Folio",
         "display_name": "Nombre",
         "username": "Cuenta",
@@ -354,12 +419,19 @@ def detail(title, active, row, actions=(), sections=(), note=None):
         label == "Decisiones registradas" for label, items in sections
     ):
         sections.append(("Decisiones registradas", row["decisions"]))
+    prepared = facts(row)
     return render_template(
         "integration/detail.html",
-        title=title,
+        title=institution_label(title),
         active=active,
-        facts=facts(row),
-        actions=actions,
+        facts=prepared,
+        fact_groups=grouped_facts(row, prepared),
+        record=row,
+        back=return_to(active),
+        full_url=contextual(request.path, return_to(active)),
+        actions=[
+            (label, contextual(link, return_to(active))) for label, link in actions
+        ],
         sections=sections,
         note=note,
     )
@@ -410,3 +482,41 @@ def location_field(name="location_id"):
     from ..selectors import selection
 
     return selection(name, "Ubicación de almacenamiento", "locations", required=False)
+
+
+def filter_choices(active):
+    states = {
+        "inventory": [
+            "QUARANTINE",
+            "AVAILABLE",
+            "RESERVED",
+            "IN_TRANSIT",
+            "RECEIVED",
+            "WITHDRAWN",
+        ],
+        "organos": [
+            "QUARANTINE",
+            "AVAILABLE",
+            "RESERVED",
+            "IN_TRANSIT",
+            "RECEIVED",
+            "WITHDRAWN",
+        ],
+        "solicitudes": ["OPEN", "IN_PROGRESS", "CLOSED", "CANCELLED"],
+        "donaciones": ["COLLECTED", "PROCESSED", "REJECTED"],
+        "donantes": ["PRELIMINARY", "ELIGIBLE", "DEFERRED"],
+    }
+    return {
+        "status": [(v, display(v)) for v in states.get(active, [])],
+        "kind": [(v, display(v)) for v in ("BLOOD", "ORGAN")],
+        "role": list(ROLES.items()),
+        "blood_group": [(v, v) for v in GROUPS],
+        "component": list(COMPONENTS if active == "organos" else COMPONENTS[:1]),
+        "expiry": [
+            ("soon", "Próximas 48 horas"),
+            ("expired", "Fecha vencida"),
+            ("later", "Después de 48 horas"),
+        ],
+        "active": [("true", "Activo"), ("false", "Inactivo")],
+        "current_institution_id": list(getattr(g, "institutions", {}).items()),
+    }

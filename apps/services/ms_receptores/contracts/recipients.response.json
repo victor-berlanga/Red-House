@@ -79,6 +79,10 @@
                   "string",
                   "null"
                 ]
+              },
+              "can_edit": {
+                "type": "boolean",
+                "description": "Disponibilidad de corrección según el historial; la escritura revalida permisos y versión."
               }
             },
             "required": [

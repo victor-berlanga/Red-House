@@ -38,7 +38,7 @@ def availability():
             ("blood_group", "ABO / Rh"),
             ("expires_at", "Caducidad capturada"),
         ],
-        note="Consulta orientativa de recursos disponibles, con caché breve. La evaluación y la reserva verifican nuevamente los datos actuales y requieren revisión humana.",
+        note="La disponibilidad se confirma al evaluar y reservar el recurso.",
     )
 
 
@@ -62,12 +62,21 @@ def stock(kind):
             ("folio", "Folio"),
             ("component", "Componente"),
             ("blood_group", "ABO / Rh"),
-            ("current_institution_id", "Institución"),
+            *(
+                ([("current_institution_id", "Institución")])
+                if g.principal.role_code == "COORDINATOR"
+                else []
+            ),
             ("expires_at", "Caducidad"),
             ("status", "Estado"),
         ],
         params={"kind": kind},
-        filters=("q", "status"),
+        filters=("q", "status", "blood_group", "expiry")
+        + (
+            ("current_institution_id",)
+            if g.principal.role_code == "COORDINATOR"
+            else ()
+        ),
         links=lambda row: url_for("inventory.detail", identifier=row["id"]),
         new=url_for("inventory.new", kind=kind)
         if g.principal.role_code == "OPERATOR"

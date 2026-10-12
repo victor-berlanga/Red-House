@@ -1,0 +1,10 @@
+{
+  "checks": [
+    "Filtros automáticos sin botón; paginación Anterior/Siguiente real, sin recarga, conserva búsqueda y límites",
+    "Horario automático actualiza fechas y modales; controles visibles y sin desbordamiento en 390 px",
+    "Zona persiste; formulario conserva borrador e instante de fecha; 503 revierte selector sin perder datos",
+    "Sin JavaScript: filtro manual y enlaces de paginación siguen operativos"
+  ],
+  "errors": [],
+  "result": "passed"
+}

@@ -6,6 +6,7 @@ from flask import Blueprint, g, request, url_for
 from ..business.access import BusinessError, require
 from ..presentation.timezones import selected_zone
 from .client import call
+from .presentation import edit_action
 from .routes.common import (
     field,
     submit,
@@ -33,6 +34,8 @@ CATALOGUES = {
 def defaults(fields, row):
     for item in fields:
         value = row.get(item["name"], "")
+        if value is None:
+            value = ""
         if value and item["type"] == "datetime-local":
             value = (
                 datetime.fromisoformat(value.replace("Z", "+00:00"))
@@ -82,12 +85,19 @@ def catalogue_list(kind):
         "components",
         "identidad_acceso",
         "/api/v1/catalogues/" + kind,
-        [("name", "Nombre"), ("active", "Activo"), ("version", "Versión")],
-        filters=("q",),
+        [("name", "Nombre"), ("active", "Activo")],
+        filters=("q", "active"),
         new=url_for("maintenance.catalogue_new", kind=kind),
         links=lambda r: url_for(
-            "maintenance.catalogue_edit", kind=kind, identifier=r["id"]
+            "maintenance.catalogue_detail", kind=kind, identifier=r["id"]
         ),
+        actions=lambda r: [
+            (
+                "Editar",
+                url_for("maintenance.catalogue_edit", kind=kind, identifier=r["id"]),
+                "pencil",
+            )
+        ],
     )
 
 
@@ -199,7 +209,21 @@ def edit(entity, identifier):
     if entity not in owners:
         raise BusinessError("Registro no disponible.", 404)
     path = "/api/v1/" + entity + "/" + str(identifier)
+    allowed_roles = {
+        "donors": ("OPERATOR", "MEDICAL"),
+        "recipients": ("MEDICAL",),
+        "resources": ("OPERATOR",),
+        "requests": ("MEDICAL",),
+        "donations": ("MEDICAL",),
+        "campaigns": ("OPERATOR",),
+    }
+    if g.principal.role_code not in allowed_roles[entity]:
+        raise BusinessError("Tu perfil no permite editar este registro.", 403)
     row = call(owners[entity], path)
+    if not edit_action(entity, row):
+        raise BusinessError(
+            "El estado o historial de este registro ya no permite corregirlo.", 409
+        )
     if entity in ("donors", "recipients"):
         fields = [
             field("folio", "Folio"),
@@ -290,4 +314,23 @@ def withdraw(identifier):
         title="Retirar " + row["folio"],
         active="inventory",
         back=url_for("inventory.detail", identifier=identifier),
+    )
+
+
+@bp.get("/catalogos/<kind>/<uuid:identifier>")
+def catalogue_detail(kind, identifier):
+    require(g.principal, "administration")
+    if kind not in CATALOGUES:
+        raise BusinessError("Catálogo no disponible.", 404)
+    row = call("identidad_acceso", "/api/v1/catalogues/" + kind + "/" + str(identifier))
+    return detail(
+        row["name"],
+        "components",
+        row,
+        [
+            (
+                "Editar",
+                url_for("maintenance.catalogue_edit", kind=kind, identifier=identifier),
+            )
+        ],
     )

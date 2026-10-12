@@ -85,7 +85,7 @@ def request_detail(identifier):
                     url_for("regional.request_cancel", identifier=identifier),
                 ),
             ]
-    if row["status"] == "OPEN" and g.principal.role_code == "MEDICAL":
+    if row.get("can_edit") and g.principal.role_code == "MEDICAL":
         actions.append(
             (
                 "Editar solicitud",

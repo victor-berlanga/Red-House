@@ -1,0 +1,128 @@
+{
+  "results": {
+    "cache": {
+      "samples": 30,
+      "mean_ms": 108.795,
+      "median_ms": 101.21,
+      "p95_ms": 159.984
+    },
+    "without_cache": {
+      "samples": 30,
+      "mean_ms": 100.581,
+      "median_ms": 97.547,
+      "p95_ms": 157.09
+    }
+  },
+  "cache_status": {
+    "BYPASS": 30,
+    "MISS": 1,
+    "HIT": 29
+  },
+  "errors": [],
+  "duration_seconds": 6.282,
+  "process_resources": {
+    "infrastructure_pids:postgres": {
+      "rss_mb": 4.27,
+      "cpu_percent_during_sample": 5.05
+    },
+    "infrastructure_pids:redis": {
+      "rss_mb": 3.07,
+      "cpu_percent_during_sample": 1.45
+    },
+    "infrastructure_pids:mongodb": {
+      "rss_mb": 87.75,
+      "cpu_percent_during_sample": 1.6
+    },
+    "service_pids:identidad_acceso": {
+      "rss_mb": 67.29,
+      "cpu_percent_during_sample": 0.01
+    },
+    "service_pids:donantes": {
+      "rss_mb": 26.23,
+      "cpu_percent_during_sample": 0.01
+    },
+    "service_pids:receptores": {
+      "rss_mb": 27.94,
+      "cpu_percent_during_sample": 0.01
+    },
+    "service_pids:inventario": {
+      "rss_mb": 35.14,
+      "cpu_percent_during_sample": 27.35
+    },
+    "service_pids:compatibilidad": {
+      "rss_mb": 23.43,
+      "cpu_percent_during_sample": 0.01
+    },
+    "service_pids:priorizacion_geografia": {
+      "rss_mb": 25.3,
+      "cpu_percent_during_sample": 0.01
+    },
+    "service_pids:transporte": {
+      "rss_mb": 28.4,
+      "cpu_percent_during_sample": 0.05
+    },
+    "service_pids:custodia": {
+      "rss_mb": 26.12,
+      "cpu_percent_during_sample": 0.04
+    },
+    "service_pids:alertas": {
+      "rss_mb": 27.32,
+      "cpu_percent_during_sample": 0.01
+    },
+    "service_pids:auditoria": {
+      "rss_mb": 31.41,
+      "cpu_percent_during_sample": 15.11
+    },
+    "service_pids:monitoreo": {
+      "rss_mb": 25.91,
+      "cpu_percent_during_sample": 0.12
+    },
+    "worker_pids:identidad_acceso": {
+      "rss_mb": 29.76,
+      "cpu_percent_during_sample": 0.54
+    },
+    "worker_pids:donantes": {
+      "rss_mb": 22.68,
+      "cpu_percent_during_sample": 0.42
+    },
+    "worker_pids:receptores": {
+      "rss_mb": 26.19,
+      "cpu_percent_during_sample": 0.29
+    },
+    "worker_pids:inventario": {
+      "rss_mb": 30.89,
+      "cpu_percent_during_sample": 12.42
+    },
+    "worker_pids:compatibilidad": {
+      "rss_mb": 18.48,
+      "cpu_percent_during_sample": 0.43
+    },
+    "worker_pids:priorizacion_geografia": {
+      "rss_mb": 22.51,
+      "cpu_percent_during_sample": 0.34
+    },
+    "worker_pids:transporte": {
+      "rss_mb": 22.64,
+      "cpu_percent_during_sample": 1.15
+    },
+    "worker_pids:custodia": {
+      "rss_mb": 18.38,
+      "cpu_percent_during_sample": 0.79
+    },
+    "worker_pids:alertas": {
+      "rss_mb": 22.64,
+      "cpu_percent_during_sample": 0.3
+    },
+    "worker_pids:auditoria": {
+      "rss_mb": 25.45,
+      "cpu_percent_during_sample": 5.6
+    },
+    "worker_pids:monitoreo": {
+      "rss_mb": 26.62,
+      "cpu_percent_during_sample": 3.69
+    }
+  },
+  "method": "Pares alternados, misma cuenta y endpoint; autenticaci\u00f3n y auditor\u00eda activas en ambos modos.",
+  "limitation": "Muestra peque\u00f1a local con procesos compartidos; no demuestra escalabilidad ni causalidad estad\u00edstica.",
+  "path": "/api/v1/availability"
+}

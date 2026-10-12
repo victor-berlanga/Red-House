@@ -1,0 +1,237 @@
+{
+  "checks": [
+    "Filtro parcial sin navegación, conserva foco y actualiza regreso del alta",
+    "Ojo solo consulta; Escape devuelve foco y mantiene filtros",
+    "Lápiz abre edición; cancelar regresa al filtro",
+    "503 conserva tabla; reintento recupera estado vacío",
+    "Atrás restaura filtros y resultados parciales",
+    "Actualización opcional cada 30 s consulta fragmento autorizado",
+    "Vista de usuario separada de activar/desactivar"
+  ],
+  "pages": [
+    {
+      "user": "operator1",
+      "route": "/inventario",
+      "width": 1440,
+      "scroll": 1440
+    },
+    {
+      "user": "admin1",
+      "route": "/panel",
+      "width": 1440,
+      "scroll": 1440
+    },
+    {
+      "user": "admin1",
+      "route": "/administracion/institutions",
+      "width": 1440,
+      "scroll": 1440
+    },
+    {
+      "user": "admin1",
+      "route": "/administracion/users",
+      "width": 1440,
+      "scroll": 1440
+    },
+    {
+      "user": "admin1",
+      "route": "/administracion/components",
+      "width": 1440,
+      "scroll": 1440
+    },
+    {
+      "user": "admin1",
+      "route": "/catalogos/sites",
+      "width": 1440,
+      "scroll": 1440
+    },
+    {
+      "user": "admin1",
+      "route": "/catalogos/contacts",
+      "width": 1440,
+      "scroll": 1440
+    },
+    {
+      "user": "admin1",
+      "route": "/catalogos/schedules",
+      "width": 1440,
+      "scroll": 1440
+    },
+    {
+      "user": "admin1",
+      "route": "/catalogos/capacities",
+      "width": 1440,
+      "scroll": 1440
+    },
+    {
+      "user": "admin1",
+      "route": "/catalogos/locations",
+      "width": 1440,
+      "scroll": 1440
+    },
+    {
+      "user": "admin1",
+      "route": "/administracion/users",
+      "width": 1440,
+      "scroll": 1440
+    },
+    {
+      "user": "medical1",
+      "route": "/panel",
+      "width": 1440,
+      "scroll": 1440
+    },
+    {
+      "user": "medical1",
+      "route": "/inventario",
+      "width": 1440,
+      "scroll": 1440
+    },
+    {
+      "user": "medical1",
+      "route": "/organos",
+      "width": 1440,
+      "scroll": 1440
+    },
+    {
+      "user": "medical1",
+      "route": "/solicitudes",
+      "width": 1440,
+      "scroll": 1440
+    },
+    {
+      "user": "medical1",
+      "route": "/donantes/donor",
+      "width": 1440,
+      "scroll": 1440
+    },
+    {
+      "user": "medical1",
+      "route": "/donantes/recipient",
+      "width": 1440,
+      "scroll": 1440
+    },
+    {
+      "user": "medical1",
+      "route": "/donaciones",
+      "width": 1440,
+      "scroll": 1440
+    },
+    {
+      "user": "coordinator1",
+      "route": "/panel",
+      "width": 1440,
+      "scroll": 1440
+    },
+    {
+      "user": "coordinator1",
+      "route": "/inventario",
+      "width": 1440,
+      "scroll": 1440
+    },
+    {
+      "user": "coordinator1",
+      "route": "/disponibilidad",
+      "width": 1440,
+      "scroll": 1440
+    },
+    {
+      "user": "coordinator1",
+      "route": "/traslados",
+      "width": 1440,
+      "scroll": 1440
+    },
+    {
+      "user": "coordinator1",
+      "route": "/reservas",
+      "width": 1440,
+      "scroll": 1440
+    },
+    {
+      "user": "coordinator1",
+      "route": "/rutas",
+      "width": 1440,
+      "scroll": 1440
+    },
+    {
+      "user": "transport1",
+      "route": "/panel",
+      "width": 1440,
+      "scroll": 1440
+    },
+    {
+      "user": "transport1",
+      "route": "/traslados",
+      "width": 1440,
+      "scroll": 1440
+    },
+    {
+      "user": "auditor1",
+      "route": "/panel",
+      "width": 1440,
+      "scroll": 1440
+    },
+    {
+      "user": "auditor1",
+      "route": "/auditoria",
+      "width": 1440,
+      "scroll": 1440
+    },
+    {
+      "user": "donor1",
+      "route": "/panel",
+      "width": 1440,
+      "scroll": 1440
+    },
+    {
+      "user": "donor1",
+      "route": "/campanas",
+      "width": 1440,
+      "scroll": 1440
+    },
+    {
+      "user": "donor1",
+      "route": "/citas",
+      "width": 1440,
+      "scroll": 1440
+    },
+    {
+      "user": "donor1",
+      "route": "/donantes/donor",
+      "width": 1440,
+      "scroll": 1440
+    },
+    {
+      "user": "operator1-mobile",
+      "route": "/inventario",
+      "width": 390,
+      "scroll": 390
+    },
+    {
+      "user": "operator1-mobile",
+      "route": "/donantes/donor",
+      "width": 390,
+      "scroll": 390
+    },
+    {
+      "user": "operator1-mobile",
+      "route": "/campanas",
+      "width": 390,
+      "scroll": 390
+    },
+    {
+      "user": "operator1-mobile",
+      "route": "/inventario/nuevo",
+      "width": 390,
+      "scroll": 390
+    }
+  ],
+  "errors": [],
+  "captures": [
+    "inventory-desktop.png",
+    "record-detail.png",
+    "medical-dashboard.png",
+    "inventory-mobile.png"
+  ],
+  "result": "passed"
+}

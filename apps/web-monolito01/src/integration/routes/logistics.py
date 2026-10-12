@@ -34,15 +34,24 @@ def routes_list():
             ("destination_id", "Destino"),
             ("distance_km", "Distancia · km"),
             ("travel_minutes", "Tiempo · min"),
-            ("source", "Procedencia"),
-            ("version", "Versión"),
         ],
+        actions=lambda row: (
+            [
+                (
+                    "Editar ruta",
+                    url_for("regional.route_edit", identifier=row["id"]),
+                    "pencil",
+                )
+            ]
+            if g.principal.role_code == "COORDINATOR"
+            else []
+        ),
         new=url_for("regional.route_new")
         if g.principal.role_code == "COORDINATOR"
         else None,
         links=lambda row: (
-            url_for("regional.route_edit", identifier=row["id"])
-            if g.principal.role_code == "COORDINATOR"
+            url_for("regional.route_detail", identifier=row["id"])
+            if g.principal.role_code in ("COORDINATOR", "MEDICAL")
             else None
         ),
     )
@@ -303,3 +312,14 @@ def telemetry(identifier):
         back=url_for("regional.shipment_detail", identifier=identifier),
         note="Captura únicamente la ubicación autorizada del proceso. La muestra debe corresponder a los últimos cinco minutos.",
     )
+
+
+@regional.get("/rutas/<uuid:identifier>")
+def route_detail(identifier):
+    row = call("priorizacion_geografia", "/api/v1/routes/" + str(identifier))
+    actions = (
+        [("Editar ruta", url_for("regional.route_edit", identifier=identifier))]
+        if g.principal.role_code == "COORDINATOR"
+        else []
+    )
+    return detail("Ruta entre instituciones", "rutas", row, actions)

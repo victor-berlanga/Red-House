@@ -47,6 +47,7 @@ if (passwordToggle) passwordToggle.addEventListener("click", () => {
 // Confirma bajas y evita dobles envíos accidentales. La integridad y concurrencia se validan en servidor.
 document.querySelectorAll('form[method="post"]').forEach(form => {
   form.addEventListener("submit", event => {
+    if (form.hasAttribute("data-live-timezone")) return;
     if (form.dataset.confirm && !window.confirm(form.dataset.confirm)) {
       event.preventDefault();
       return;
@@ -89,7 +90,7 @@ document.querySelectorAll('form[method="post"]:not(.timezone-picker)').forEach(f
 });
 const timezoneForm=document.querySelector('.timezone-picker');
 if (timezoneForm) timezoneForm.addEventListener('submit', event => {
-  if (document.querySelector('form[data-dirty="true"]') && !window.confirm('Cambiar el horario recargará la página. Hay datos sin guardar. ¿Continuar?')) event.preventDefault();
+  if (!timezoneForm.hasAttribute('data-live-timezone') && document.querySelector('form[data-dirty="true"]') && !window.confirm('Cambiar el horario recargará la página. Hay datos sin guardar. ¿Continuar?')) event.preventDefault();
 },true);
 const formError=document.getElementById('form-error');
 if (formError) formError.focus();

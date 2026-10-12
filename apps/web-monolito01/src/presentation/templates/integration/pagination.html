@@ -1,0 +1,7 @@
+{% macro page_controls(position) -%}
+<nav class="pagination" aria-label="Paginación {{ position }}"><span>Página {{ page }} de {{ pages }}</span><div class="pagination-controls">
+{% if previous_page %}<a class="page-control" data-page-previous rel="prev" href="{{ previous_page }}">← Anterior</a>{% else %}<span class="page-control" aria-disabled="true">← Anterior</span>{% endif %}
+{% for number,link in pagination %}{% if number==page %}<span class="page-control" aria-current="page" aria-label="Página {{ number }}, actual">{{ number }}</span>{% else %}<a class="page-control" href="{{ link }}" aria-label="Ir a la página {{ number }}">{{ number }}</a>{% endif %}{% endfor %}
+{% if next_page %}<a class="page-control" data-page-next rel="next" href="{{ next_page }}">Siguiente →</a>{% else %}<span class="page-control" aria-disabled="true">Siguiente →</span>{% endif %}
+</div></nav>
+{%- endmacro %}

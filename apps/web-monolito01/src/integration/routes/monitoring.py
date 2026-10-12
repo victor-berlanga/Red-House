@@ -11,10 +11,16 @@ def alerts():
         "alertas",
         "/api/v1/alerts",
         [("message_code", "Evento"), ("status", "Estado"), ("created_at", "Fecha")],
-        links=lambda row: (
-            url_for("portal.alert_ack", identifier=row["id"])
+        actions=lambda row: (
+            [
+                (
+                    "Marcar como leída",
+                    url_for("portal.alert_ack", identifier=row["id"]),
+                    "read",
+                )
+            ]
             if row["status"] == "OPEN"
-            else None
+            else []
         ),
     )
 

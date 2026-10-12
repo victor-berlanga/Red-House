@@ -44,7 +44,7 @@ const report = {browser:'Chrome',base,checks:[],captures:[],javascriptErrors:0,s
     await inspect(medical.page,'/inventario','02-inventario.png');
     const inventoryRows=await medical.page.locator('tbody tr').count(); assert.ok(inventoryRows>=10);
     await medical.page.locator('#filter-q').fill('SAN-');
-    await Promise.all([medical.page.waitForURL('**/inventario?**'),medical.page.getByRole('button',{name:'Aplicar filtros'}).click()]);
+    await medical.page.waitForFunction(()=>new URL(location.href).searchParams.get('q')==='SAN-');
     assert.ok(await medical.page.locator('tbody tr').count()>=10);
     await inspect(medical.page,'/disponibilidad','03-disponibilidad.png');
     await inspect(medical.page,'/organos','04-organos.png');

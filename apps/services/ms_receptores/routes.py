@@ -166,7 +166,7 @@ def register(app):
     def recipients():
         with transaction() as conn:
             columns = (
-                "*"
+                "recipients.*, NOT EXISTS(SELECT 1 FROM requests r WHERE r.recipient_id=recipients.id) AS can_edit"
                 if g.actor["role"] == "MEDICAL"
                 else "id,tenant_id,folio,kind,status,version"
             )
@@ -195,6 +195,9 @@ def register(app):
         with transaction() as conn:
             row = get(conn, "recipients", identifier)
             own(row["tenant_id"])
+            row["can_edit"] = not conn.execute(
+                "SELECT 1 FROM requests WHERE recipient_id=%s LIMIT 1", (identifier,)
+            ).fetchone()
             row["decisions"] = history(conn, identifier)
             return row
 
@@ -256,6 +259,7 @@ def register(app):
                 "requests",
                 "tenant_id=%s",
                 (g.actor["tenant_id"],),
+                columns="requests.*, (status='OPEN' AND NOT EXISTS(SELECT 1 FROM holds h WHERE h.request_id=requests.id)) AS can_edit",
                 filters={
                     "kind": ("kind", ("BLOOD", "ORGAN")),
                     "status": (
@@ -274,6 +278,12 @@ def register(app):
     def request_detail(identifier):
         with transaction() as conn:
             row = snapshot(conn, identifier)
+            row["can_edit"] = (
+                row["status"] == "OPEN"
+                and not conn.execute(
+                    "SELECT 1 FROM holds WHERE request_id=%s LIMIT 1", (identifier,)
+                ).fetchone()
+            )
             row["decisions"] = history(conn, identifier)
             row["coverage"] = conn.execute(
                 "SELECT status,count(*) AS quantity FROM holds WHERE request_id=%s GROUP BY status",

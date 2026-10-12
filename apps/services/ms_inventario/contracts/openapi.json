@@ -564,6 +564,38 @@
               "type": "string",
               "maxLength": 100
             }
+          },
+          {
+            "name": "blood_group",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          },
+          {
+            "name": "component",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          },
+          {
+            "name": "current_institution_id",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          },
+          {
+            "name": "expiry",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
           }
         ],
         "description": "Roles: OPERATOR, MEDICAL, COORDINATOR. Contrato público de API.",

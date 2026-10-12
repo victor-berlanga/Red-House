@@ -10,6 +10,7 @@ from .common import (
     choices,
     confirmations,
     detail,
+    edit_action,
     field,
     g,
     regional,
@@ -36,12 +37,15 @@ def people(kind):
         "/api/v1/" + path,
         [
             ("folio", "Folio"),
-            ("display_name", "Nombre"),
-            ("blood_group", "ABO / Rh"),
-            ("kind", "Recurso"),
+            *(
+                [("display_name", "Nombre"), ("blood_group", "ABO / Rh")]
+                if kind == "donor" or g.principal.role_code == "MEDICAL"
+                else []
+            ),
+            *([("kind", "Recurso")] if kind == "recipient" else []),
             ("status", "Estado"),
         ],
-        filters=("q",) if kind == "donor" else ("q", "kind"),
+        filters=("q", "status") if kind == "donor" else ("q", "kind"),
         links=lambda row: (
             url_for("regional.person_detail", kind=kind, identifier=row["id"])
             if kind == "donor" or g.principal.role_code == "MEDICAL"
@@ -122,19 +126,12 @@ def person_detail(kind, identifier):
                 url_for("regional.donation_new", donor_id=identifier),
             ),
         ]
-    if (kind == "donor" and g.principal.role_code in ("OPERATOR", "MEDICAL")) or (
-        kind == "recipient" and g.principal.role_code == "MEDICAL"
-    ):
-        actions.append(
-            (
-                "Editar expediente",
-                url_for(
-                    "maintenance.edit",
-                    entity="donors" if kind == "donor" else "recipients",
-                    identifier=identifier,
-                ),
-            )
+    actions.extend(
+        ("Editar expediente", link)
+        for _, link, _ in edit_action(
+            "donors" if kind == "donor" else "recipients", row
         )
+    )
     return detail(
         row["folio"],
         "donantes" if kind == "donor" else "receptores",
@@ -296,13 +293,7 @@ def campaigns():
         new=url_for("regional.campaign_new")
         if g.principal.role_code == "OPERATOR"
         else None,
-        links=(
-            lambda r: url_for(
-                "maintenance.edit", entity="campaigns", identifier=r["id"]
-            )
-        )
-        if g.principal.role_code == "OPERATOR"
-        else None,
+        links=lambda row: url_for("regional.campaign_detail", identifier=row["id"]),
     )
 
 
@@ -332,10 +323,16 @@ def appointments():
         "/api/v1/appointments",
         [("reference", "Cita"), ("status", "Estado"), ("created_at", "Registro")],
         new=url_for("regional.appointment_new"),
-        links=lambda row: (
-            url_for("regional.appointment_cancel", identifier=row["id"])
+        actions=lambda row: (
+            [
+                (
+                    "Cancelar cita",
+                    url_for("regional.appointment_cancel", identifier=row["id"]),
+                    "cancel",
+                )
+            ]
             if row["status"] == "BOOKED"
-            else None
+            else []
         ),
     )
 
@@ -365,3 +362,19 @@ def appointment_cancel(identifier):
         active="citas",
         back=url_for("regional.appointments"),
     )
+
+
+@regional.get("/campanas/<uuid:identifier>")
+def campaign_detail(identifier):
+    row = call("donantes", "/api/v1/campaigns/" + str(identifier))
+    actions = (
+        [
+            (
+                "Editar campaña",
+                url_for("maintenance.edit", entity="campaigns", identifier=identifier),
+            )
+        ]
+        if g.principal.role_code == "OPERATOR"
+        else []
+    )
+    return detail(row["title"], "campanas", row, actions)

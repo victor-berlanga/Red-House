@@ -1,93 +1,103 @@
-# Portal web integrado — 8 de octubre de 2026
+# Decisiones de arquitectura — servicios 0.2.0
 
-El portal Flask/Jinja2 consume los diez microservicios y Monitoreo por HTTP. Sus formularios, tablas, gráficas y procesos utilizan persistencia real en las bases independientes de los servicios. La web no ejecuta consultas a sus antiguas tablas de negocio ni importa las implementaciones de dominio de los microservicios.
+Alcance inicial aprobado el 7 de octubre de 2026: diez servicios más monitoreo, desarrollados y probados antes de integrar clientes, Redis y MongoDB permitidos, Docker pospuesto. En el siguiente incremento autorizado se integró el portal Flask como consumidor HTTP; las API siguen siendo independientes de sus plantillas y sesiones. [Arquitectura y operación web](../../web-monolito01/INTEGRACION.md).
 
-## Operar el entorno preparado
-
-Portal: <http://127.0.0.1:5050>. Las rutas Swagger actuales se encuentran en [Entorno local](../services/docs/ENTORNO_LOCAL_ACTUAL.md).
-
-Desde la raíz del repositorio:
-
-```sh
-apps/services/.venv/bin/python apps/services/scripts/integrated.py start --directory /Users/victorberlanga/Programacion/integracion/Red-House/.local/demo
-apps/services/.venv/bin/python apps/services/scripts/integrated.py status --directory /Users/victorberlanga/Programacion/integracion/Red-House/.local/demo
-apps/services/.venv/bin/python apps/services/scripts/integrated.py stop --directory /Users/victorberlanga/Programacion/integracion/Red-House/.local/demo
-```
-
-El lanzador administra exclusivamente los procesos de ese directorio; detiene también workers y dependencias propias, conserva los datos y permite cambiar el puerto con `--web-port`. No sustituye un supervisor productivo. El directorio privado debe conservarse: contiene bases, claves y configuración; perderlo requiere crear otro entorno y reconfigurar la web.
-
-La instalación habitual tiene `BACKEND_MODE=microservices` y `MICROSERVICES_CONFIG` apuntando al archivo privado `web-client.json`. `python run.py` desde esta carpeta inicia únicamente la web; los servicios deben estar encendidos por separado o mediante el lanzador conjunto. El modo explícito `BACKEND_MODE=local` conserva el funcionamiento histórico contra PostgreSQL; los datos de ambos modos son independientes y no se sincronizan. Nunca se activa como respaldo automático ante una caída de las API.
-
-## Acceso y responsabilidades
-
-Se conservaron ocho cuentas activas de la instalación anterior, sus roles y hashes: se puede iniciar sesión con sus correos y contraseñas habituales. Sus ámbitos se asignaron a instituciones de la demostración según municipio, usando Monterrey cuando no había coincidencia. Las cuentas DEMO `admin1`, `operator1`, `medical1`, `coordinator1`, `transport1`, `auditor1`, `donor1` representan Monterrey; el sufijo 2 corresponde a San Nicolás, hasta el 6 para Santa Catarina. Su contraseña aleatoria se consulta **localmente** en el `state.json` privado; no está versionada ni debe mostrarse en la presentación.
-
-| Perfil | Recorrido autorizado |
+| Decisión | Implementación y efecto |
 | --- | --- |
-| Administrador | Instituciones, primer administrador, cuentas y catálogos de su ámbito y monitoreo; sin acceso clínico por ser administrador |
-| Operador | Donantes, citas, procesamiento, ingreso de recursos, preparación y aceptación física institucional |
-| Médico | Receptores, solicitudes, dictámenes, liberación, evaluación, ranking, propuesta y reserva autorizada |
-| Coordinador | Inventario regional minimizado, reservas, rutas, planificación de traslados y monitoreo |
-| Personal de traslado | Órdenes asignadas, recolección, tránsito, entrega y ubicación durante estados autorizados |
-| Auditor | Registro regional minimizado y monitoreo |
-| Donante | Su expediente, campañas, citas y avisos autorizados |
+| Un propietario por dato | Once bases PostgreSQL dedicadas en un clúster local exclusivo, con roles distintos. No se accede a tablas de otro servicio. |
+| Compartir infraestructura, no reglas | `redhouse` contiene autenticación, codecs, contratos, persistencia y eventos; cada módulo contiene sus reglas y rutas. |
+| Consistencia local fuerte | Transacción SQL de negocio, evento local y outbox. Restricciones únicas y bloqueos de fila. |
+| Coordinación explícita | Retención en Receptores → reserva local en Inventario → confirmación. Resultado pendiente durable y compensación limitada. |
+| Fallos parciales | Liveness separado de readiness; API con 503 seguro, reintentos de eventos, circuito por destinatario dentro del lote. |
+| Custodia separada | Transporte es dueño de estados y hechos físicos; Custodia conserva su secuencia inmutable. MongoDB recibe proyecciones sin doble escritura directa. |
+| Auditoría eventual | Registro local obligatorio transaccional, centralización deduplicada; fallar la centralización conserva pendientes. |
+| Seguridad distribuida | RS256 solo firmado por Identidad; Redis activo/versionado; Ed25519 por servicio y JWT delegado en consultas interactivas. |
+| Sangre y órganos | Tipo, componente, solicitudes y restricciones diferenciados; las reglas clínicas siguen siendo demostrativas o humanas. |
+| Caché orientativa | Datos autorizados por usuario/institución/región/rol/ruta/filtros; inventario/resumen 10 s, disponibilidad 15 s, catálogos 30 s. Generación SQL transaccional; reserva omite caché. |
+| MongoDB justificado | Transporte: telemetría/documentos; Custodia: proyección de historia; Auditoría: eventos documentales; Monitoreo: sondeos. PostgreSQL conserva los compromisos transaccionales. |
+| Contratos | API v1, JSON y XML, XSD de entrada y envoltura de salida, OpenAPI con esquemas, ejemplos y errores. |
 
-Los permisos finales, estados y versiones se comprueban siempre en la API. Las alertas y la auditoría se reciben mediante outbox/inbox; su centralización es eventual. El portal muestra operaciones pendientes y permite consultar/reanudar una reserva sin asumir que un timeout equivale a fallo.
+## Reserva y fallos
 
-## Datos de demostración
+1. Médico del destino solicita una reserva con evaluación y dictamen favorable.
+2. Inventario registra una operación por usuario e Idempotency-Key. Las repeticiones con distinto cuerpo se rechazan.
+3. Receptores bloquea solicitud y receptor; verifica versiones, estado y cantidad retenida/confirmada/recibida; registra un grant por operación.
+4. Inventario bloquea operación y recurso; revalida estado, versión y viabilidad temporal con la ruta capturada, y registra reserva y evento en una sola transacción.
+5. Confirma el grant por contrato; una respuesta perdida mantiene estado pendiente que puede consultarse y reanudarse.
+6. Un conflicto local libera el grant; si la liberación no responde, queda ROLLBACK_PENDING. Una interrupción entre grant y commit puede compensarse después de 60 segundos, siempre que no exista reserva local.
 
-Se eligió una carga nueva coherente entre servicios, preservando la base anterior como referencia. No se borraron ni modificaron sus registros de negocio. Los nombres de pacientes, instituciones y operaciones son ficticios; los municipios representan Nuevo León.
+Las operaciones sin grant ni reserva requieren reintento autorizado; no se deduce fracaso a partir de un timeout. Los tiempos de espera de las llamadas son conexión 1 s/lectura 3 s. El worker no almacena JWT de usuarios.
 
-| Elemento | Carga inicial |
-| --- | ---: |
-| Instituciones en Monterrey, San Nicolás, Guadalupe, Apodaca, Escobedo y Santa Catarina | 6 |
-| Cuentas DEMO + cuentas anteriores conservadas | 42 + 8 |
-| Donantes | 108 |
-| Donaciones, campañas y citas | 36, 12 y 36 |
-| Receptores y solicitudes | 72 y 72 |
-| Unidades sanguíneas y ofertas de órganos | 216 y 36 |
-| Rutas capturadas, con procedencia ficticia explícita | 36 |
-| Traslados interhospitalarios | 18 |
+El ciclo de una ruta es independiente; Inventario revalida su versión antes de reservar y Transporte antes de planificar. No se promete congelación global de rutas ni simultaneidad ACID entre servicios. Cambios posteriores requieren revisión operativa; la aprobación clínica real y su protocolo institucional siguen pendientes.
 
-Los 18 traslados cubren programado, preparado, en tránsito, entregado, aceptado y cancelado. Se crearon mediante roles reales y API: revisión humana representada por el médico, evaluación versionada, reserva, planificación y pasos físicos. Incluyen custodia verificable, avisos, auditoría y ubicación autorizada para los tres traslados en tránsito. Las pruebas automáticas crean datos adicionales en bases aisladas; no aumentan esta carga. Operaciones posteriores realizadas en el portal sí cambian sus conteos.
+## Traslado y recepción
 
-Para mostrar un recorrido, usar Operador del origen para ingreso en cuarentena, Médico del origen para liberación, Médico del destino para receptor/solicitud/evaluación/dictamen/reserva, Coordinador para planificación, Operador del origen para preparación, Traslado asignado para recolección/tránsito/entrega y Operador del destino para aceptación. El recurso cambia de ubicación institucional y la solicitud cierra cuando recibe la cantidad completa. Esto no certifica una transfusión o trasplante realizado.
+La orden se guarda pendiente y se vincula exclusivamente a la reserva antes de permitir pasos físicos. Mientras no se confirme ese vínculo no se puede recolectar. Una reserva con orden vinculada solo puede cancelarse mediante Transporte, antes de recolección. Cada paso conserva su actor, razón, secuencia y evento local durable.
 
-## Seguridad y separación
+Los consumidores aplican eventos con inbox deduplicado. Inventario exige secuencia; recepción cambia el recurso a RECEIVED y su institución actual a destino, y emite el evento que confirma recepción del grant. Receptores cierra únicamente cuando toda la cantidad se recibió. La disponibilidad nunca reaparece por un fallo de custodia o notificación.
 
-Identidad emite JWT RS256 de 15 minutos y renovación opaca rotada. Cada petición protegida de la web consulta `/auth/me`; cada operación de negocio consulta JWT, sesión, revocación y permisos mediante Redis en el servicio correspondiente. Disponibilidad regional usa caché autorizada breve; evaluación y reserva vuelven a consultar las fuentes autoritativas.
+Una entrega física tardía puede registrarse como DELIVERED o incidencia. La aceptación ACCEPTED y el cierre de la solicitud se bloquean si el recurso ya caducó; no se inventa un plazo clínico nuevo. La recepción no equivale a liberación clínica. Los procesos de cuarentena posterior, transfusión y trasplante están fuera de este incremento y necesitan definición normativa.
 
-El navegador recibe únicamente un identificador aleatorio de sesión con cookie HttpOnly/SameSite. Los tokens permanecen cifrados con Fernet en un SQLite privado de la web, con permisos 0600 y fuera de Git. **Ese archivo guarda credenciales temporales, nunca expedientes ni inventario**; Redis de los servicios continúa siendo la autoridad de sesión. La cookie Flask conserva solamente CSRF y preferencias. CSRF, escape HTML, tiempos de espera, correlación, CSV protegido contra fórmulas y errores uniformes se mantienen. Ante dependencia inaccesible se informa 503 y no se vuelve a la base anterior.
+## Límites técnicos
 
-## Reproducir una instalación nueva
+- El portal integrado utiliza datos nuevos en las bases de sus propietarios; la antigua base se conserva como referencia y no recibe doble escritura. Solo se copiaron ocho cuentas activas y sus hashes durante el provisionamiento explícito.
+- Los permisos regionales se restringen por `region_id`; expedientes clínicos por institución, y logística por asignación.
+- Un hash encadenado detecta alteraciones del registro bajo el modelo de confianza; no certifica verdad física ni evita intervención de un administrador de infraestructura.
+- SQL y MongoDB no contienen binarios. GCS tiene adaptador opcional, sin evidencia de operación en nube.
+- No hay broker adicional ni dependencias AWS/Azure: el outbox se entrega mediante HTTP y workers locales.
+- La instancia física compartida facilita pruebas, pero detener PostgreSQL afecta todas esas bases. El despliegue independiente de procesos no implica alta disponibilidad de infraestructura.
 
-Instalar las dependencias propias de `apps/services/requirements-dev.txt` y `apps/web-monolito01/requirements.txt` en sus respectivos `.venv`. Requiere Python 3.12+, PostgreSQL, Redis y MongoDB; macOS Intel está comprobado. Sustituir las rutas siguientes por un directorio **nuevo** fuera de Git y por el binario local `mongod`:
+## Fuentes técnicas
 
-```sh
-apps/services/.venv/bin/python apps/services/scripts/local.py init --directory /ruta/privada/demo --mongo-bin /ruta/a/mongod
-apps/services/.venv/bin/python apps/services/scripts/seed_nuevo_leon.py provision --directory /ruta/privada/demo
-apps/services/.venv/bin/python apps/services/scripts/local.py start --directory /ruta/privada/demo
-apps/services/.venv/bin/python apps/services/scripts/seed_nuevo_leon.py populate --directory /ruta/privada/demo
-apps/services/.venv/bin/python apps/services/scripts/seed_nuevo_leon.py restore --directory /ruta/privada/demo
-apps/services/.venv/bin/python apps/services/scripts/local.py stop --directory /ruta/privada/demo
-apps/services/.venv/bin/python apps/services/scripts/integrated.py start --directory /ruta/privada/demo
-```
+El diseño de datos y consistencia se contrastó con [Microsoft: data considerations](https://learn.microsoft.com/en-us/azure/architecture/microservices/design/data-considerations), el registro de publicación con [AWS: transactional outbox](https://docs.aws.amazon.com/prescriptive-guidance/latest/cloud-design-patterns/transactional-outbox.html) y la coordinación con [Microsoft: saga](https://learn.microsoft.com/en-us/azure/architecture/patterns/saga). Estas fuentes describen patrones; no implican usar esos proveedores.
 
-Agregar `--preserve-web-accounts` a `provision` solamente si se desea leer las cuentas de una instalación anterior accesible mediante su `.env`; la lectura usa transacción de solo lectura. Configurar en el `.env` web `BACKEND_MODE=microservices`, `MICROSERVICES_CONFIG=/ruta/privada/demo/web-client.json` y dos secretos propios distintos. `provision` requiere inventario vacío; `populate` rechaza una carga ya completada. No es un importador de expedientes históricos ni un migrador reanudable tras una carga parcial; ante esa situación crear otro entorno exclusivo, sin borrar bases ajenas.
+Referencias de implementación: [Flask](https://flask.palletsprojects.com/en/stable/api/), [PyJWT](https://pyjwt.readthedocs.io/en/stable/api.html), [Psycopg](https://www.psycopg.org/psycopg3/docs/basic/transactions.html), [Redis](https://redis.io/docs/latest/develop/clients/redis-py/), [PyMongo](https://www.mongodb.com/docs/languages/python/pymongo-driver/current/), [lxml](https://lxml.de/validation.html) y [OpenAPI/Swagger](https://swagger.io/docs/specification/v3_0/describing-request-body/describing-request-body/).
 
-## Alcance y evidencia
+## Independencia de las entregas (8 de octubre)
 
-Pruebas de flujos reales desde Flask a los servicios: [test_web_integration.py](../services/tests/test_web_integration.py). La fixture prohíbe SQL del monolito y apunta su antigua conexión a un destino inaccesible. Incluye sangre y riñón/hígado/corazón hasta recepción, procedencia de donación, matching sin reserva automática, administración/revocación, roles, filtros, CSV, CSRF, renovación y caída/recuperación de Identidad. Resultados comprobados: [VALIDACION](../services/docs/VALIDACION.md).
+Cada propietario mantiene `routes.py`, `queries.py`, sus modelos de entrada, `outputs.json` y `migrations/`. Las consultas de negocio y las definiciones de tablas no viven en una biblioteca central. `redhouse` contiene mecanismos técnicos comunes, sin importar dominios vecinos. Identidad es propietario de sedes, contactos, horarios, capacidades y ubicaciones; Inventario conserva referencias y las valida mediante HTTP.
 
-El recorrido [integrated_browser.cjs](tests/integrated_browser.cjs) comprueba Chrome real, Highcharts, filtros, vistas por perfil y pantallas de 1440 y 390 píxeles. Requiere Playwright y Chrome instalados; recibe `--state` privado y `--output` para sus capturas e informe, sin publicar credenciales.
+`scripts/package_service.py` construye una carpeta que contiene un único dominio y una copia de las utilidades compartidas, con manifiesto SHA-256. La copia queda fijada en esa entrega: modificar el código compartido del repositorio no cambia una entrega instalada. Los once paquetes se cargan y publican OpenAPI en pruebas sin disponer de otros módulos de dominio.
 
-Esta integración incluye catálogos de sedes, horarios, contactos, capacidades y ubicaciones administrados por Identidad y ediciones versionadas de registros en estados permitidos. El detalle de restricciones y propietarios está en [la matriz de revisión](../services/docs/REVISION_2026_10_08.md). Los catálogos clínicos y roles se muestran para consulta, sin permitir alterar reglas desde una pantalla. Los formularios usan el contrato disponible de cada servicio, no todos los campos históricos del monolito. HLA sigue documental y las reglas DEMO conservan sus límites clínicos. Correos/push, archivos reales en GCS, móvil, escritorio, Docker y despliegue GCP continúan pendientes. El reporte Word/PDF y capturas anteriores describen el corte histórico del monolito; este documento y `PROJECT_STATUS.md` registran el nuevo corte.
+Las migraciones son aditivas, numeradas, transaccionales y protegidas mediante bloqueo por base. Se aplican explícitamente con el propietario, después de un respaldo, antes de iniciar la nueva versión. Las credenciales HTTP no migran esquemas. `local.py restart-service` cambia únicamente API y worker del servicio seleccionado. La API conserva `/api/v1`, admite los cuerpos anteriores y agrega campos opcionales; una ruptura futura requiere otra versión y un periodo de convivencia. No retirar columnas mientras exista un consumidor anterior.
 
+Independencia no significa ausencia de dependencias: una reserva necesita Inventario, Receptores y Compatibilidad, y la autenticación necesita Identidad/Redis. Al detener un propietario, sus operaciones pueden responder 503; otros procesos y operaciones sin esa dependencia continúan. Una actualización arbitraria que rompa contratos no puede garantizar continuidad. La base física PostgreSQL y Redis compartidos siguen siendo puntos de fallo comunes en la DEMO.
 
-## Incremento del 8 de octubre
+## Clientes, conexiones y estado operacional
 
-La sesión local se elimina incluso si Identidad no responde al logout; una revocación cifrada pendiente se procesa con `scripts/session_worker.py`, incluido en el lanzador integrado. La renovación no mantiene el bloqueo SQLite durante la llamada HTTP. Si se inicia únicamente `run.py`, debe iniciarse también ese worker o ejecutar el comando Flask `retry-session-revocations` periódicamente.
+La web separa rutas por proceso, formularios de mantenimiento y selectores paginados. No comparte modelos de dominio con las API. HTTP reutiliza conexiones por hilo; Redis reutiliza su pool y MongoDB un cliente por aplicación. PostgreSQL conserva transacciones y conexiones cortas; no se agregó un intermediario de infraestructura.
 
-Los selectores permiten buscar y cargar más opciones, sin truncar los registros a la primera página. Los motivos de edición/cancelación y los actores aparecen en el historial autorizado. Los registros con historia operativa no admiten una edición retrospectiva libre: consultar la matriz de revisión.
+La renovación web toma una concesión por sesión y libera el bloqueo SQLite antes de llamar a Identidad. Logout elimina la sesión local inmediatamente, conserva únicamente una revocación cifrada pendiente y un worker reintenta hasta completarla o expirar. Este SQLite es almacenamiento técnico de credenciales de la web, no una base del dominio ni una autoridad alternativa a Redis.
 
-El entorno anterior temporal se conservó como respaldo detenido. No iniciar esa copia al mismo tiempo que `.local/demo`, porque conserva los mismos puertos. Catálogos DEMO: `apps/services/scripts/seed_catalogues.py`; usa las API, solo admite la demostración previamente provisionada y evita repetir nombres existentes.
+Los límites se separan por servicio/usuario/institución, por servicio emisor interno y por IP anónima. Un fallo SQL después de publicar la versión de permisos en Redis puede repararse desde la versión SQL autoritativa, bajo bloqueo de usuario. Los motivos de decisiones se guardan en historial local inmutable con acceso del propietario; los eventos centrales permanecen minimizados.
+
+Readiness comprueba migraciones requeridas, dependencias, latido del worker y antigüedad del outbox. Monitoreo marca verificaciones antiguas y resume las últimas 24 horas. Un bucket configurado debe responder; no se presenta como disponible por existir una cadena de configuración. GCS real continúa pendiente.
+
+XML v1 conserva su formato: `response.xsd` valida la estructura y `redhouse.xml_response.validate_response` valida tipos y el DTO publicado por operación. Ambos pasos son necesarios. La biblioteca `jsonschema`, que ya se usaba en pruebas, pasa a ejecución para esta validación; no se incorporó otro framework, broker ni proveedor.
+
+## Interfaz Jinja y caché de lecturas (08/10/2026)
+
+El navegador solicita fragmentos HTML al portal con `X-Filter-Fragment: 1` y `X-Detail-Modal: 1`. La web mantiene autorización, escape Jinja y consumo HTTP de las API; no consulta Redis ni las bases de los servicios directamente. JavaScript mejora los GET: 300 ms de espera al escribir, cancelación de peticiones anteriores, historial del navegador, foco conservado y consulta opcional cada 30 s. No se añadieron WebSockets ni un framework de interfaz.
+
+`redhouse/cache.py` es un mecanismo técnico compartido en código; cada servicio publica su propia copia y controla su namespace y tablas. Inventario e Identidad incorporan su migración `004.sql`, una fila de revisión y triggers de sentencia en `resources`/`catalogue`. La revisión cambia en el mismo commit que los datos. Un rollback no la cambia y una consulta antigua en vuelo solo puede llenar una generación anterior. Las revisiones se leen desde PostgreSQL incluso en HIT: una caída de esa base no se oculta con datos almacenados. Los TTL limitan el envejecimiento por paso del tiempo (p. ej., caducidad); las operaciones críticas vuelven a comprobar datos y estados en su propietario.
+
+Esta invalidación por servicio es conservadora: un cambio invalida todas sus consultas del namespace. Evita dependencias de invalidación entre dominios, a costa de más fallos de caché con muchas escrituras. El HTML, los formularios y las decisiones no se cachean. Para actualizar una instalación existente, respaldar y migrar Inventario e Identidad mediante `scripts/upgrade.py` antes de reiniciar sus procesos. Receptores añade `can_edit` opcional a listados y detalles sin cambiar los cuerpos de escritura ni `/api/v1`.
+
+## Interfaz y filtros Jinja (08/10/2026)
+
+- La columna Acciones diferencia **Ver** (ojo, modal de solo lectura), **Editar** (lápiz, formulario propio) y operaciones explícitas como cancelar cita o desactivar cuenta. El estado/historial puede impedir una corrección; la API revalida todo al guardar. Los catálogos, campañas, rutas e instituciones tienen vista de consulta independiente.
+- Los listados muestran información operativa compacta; el detalle organiza expediente, eventos y referencias técnicas desplegables. Se preservan folios completos, fechas y grupo sanguíneo. Las tablas se reorganizan en móvil. El panel presenta accesos según perfil y permite desplegar los datos de las gráficas.
+- Jinja sigue generando tanto páginas completas como fragmentos. `filters.js` actualiza resultados al escribir (300 ms) o seleccionar; mantiene foco, paginación y Atrás/Adelante. Sin JavaScript queda el GET convencional. Los formularios conservan el listado mediante `return_to`, limitado a rutas internas permitidas. Un error temporal conserva la tabla y ofrece reintento; una pérdida de autorización la vacía.
+- Inventario, órganos, disponibilidad, solicitudes, traslados y avisos permiten activar consultas cada 30 s. No es una conexión push ni una actualización instantánea garantizada. No consulta mientras el documento está oculto, hay un modal abierto o un formulario tiene cambios sin guardar.
+- Redis cachea datos autorizados en los propietarios; la web no almacena HTML compartido entre usuarios. Una escritura confirmada invalida el namespace correspondiente en el mismo commit SQL. Se conservan validaciones JWT/sesión y auditoría en cada petición.
+- Se retiró el pie repetitivo «Red House · Red regional / Entorno de pruebas» por indicación del usuario. El carácter de los datos se documenta aquí; se conserva la identidad de marca en la navegación y los límites clínicos en los procesos correspondientes. Los nombres visibles omiten el sufijo repetido « · DEMO».
+
+Regresión específica: [test_ui_cache.py](../services/tests/test_ui_cache.py). Navegador: [integrated_ui_browser.cjs](tests/integrated_ui_browser.cjs), con `--state /ruta/privada/state.json --output /ruta/evidencia` y Playwright disponible en `NODE_PATH`. Prueba siete perfiles, modal, filtros sin navegación de documento, foco, regreso desde edición, fallo/reintento, actualización periódica y 390 px. Evidencia y alcance: [UI/UX y Jinja](../services/docs/UI_UX_JINJA_2026_10_08.md).
+
+### Controles y zona horaria
+
+El filtro automático oculta **Filtrar** cuando JavaScript está activo; sin él conserva el GET convencional. La paginación tiene Anterior/Siguiente y números separados en los extremos de la tabla. Los límites deshabilitados no ejecutan peticiones, y las páginas fuera de rango se ajustan a la última disponible.
+
+En el modo integrado, `timezone.js` guarda la preferencia mediante POST con CSRF y `X-Timezone-Update: 1`. Jinja conserva los instantes en elementos `time`; JavaScript los representa con `Intl` en la zona elegida, incluidos fragmentos y modales posteriores. Los campos `datetime-local` se convierten con `ZoneInfo` en Flask, junto con su `_timezone`, sin guardar el formulario ni perder otros valores. Durante el cambio se protege el envío de formularios con fechas. Un fallo mantiene su zona anterior. El modo histórico conserva su envío convencional y validación de zona.
+
+Prueba de navegador reproducible: `tests/integrated_controls_browser.cjs --state /ruta/privada/state.json --output /ruta/evidencia`, con Playwright disponible en `NODE_PATH`.
