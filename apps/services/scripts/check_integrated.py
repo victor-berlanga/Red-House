@@ -1,23 +1,19 @@
-"""Comprobación de lectura de la DEMO y cuentas conservadas; nunca publica secretos."""
+"""Comprobación de lectura de el entorno y cuentas conservadas; nunca publica secretos."""
 
 import argparse
 import hashlib
 import json
-import sys
 from collections import Counter
 from datetime import datetime, timezone
 from pathlib import Path
 
-import psycopg
 import requests
-from psycopg.rows import dict_row
 
 
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--directory", type=Path, required=True)
     parser.add_argument("--report", type=Path, required=True)
-    parser.add_argument("--check-legacy-accounts", action="store_true")
     args = parser.parse_args()
     directory = args.directory.resolve()
     state = json.loads((directory / "state.json").read_text())
@@ -124,44 +120,6 @@ def main():
     report["counts"]["alerts_in_first_institution"] = api(
         "alertas", "/api/v1/alerts?page_size=1", "operator1"
     ).json()["data"]["total"]
-    if args.check_legacy_accounts:
-        web = Path(__file__).resolve().parents[2] / "web-monolito01"
-        sys.path.insert(0, str(web))
-        from src.config.settings import settings
-        from src.data_access.repositories.accounts import SELECT_ACCOUNT
-
-        with psycopg.connect(
-            settings()["DATABASE_URL"],
-            row_factory=dict_row,
-            options="-c search_path=red_house,pg_catalog -c default_transaction_read_only=on",
-        ) as source:
-            original = source.execute(SELECT_ACCOUNT).fetchall()
-        with psycopg.connect(
-            state["database_owners"]["identidad_acceso"],
-            row_factory=dict_row,
-            options="-c search_path=api,pg_catalog -c default_transaction_read_only=on",
-        ) as target:
-            users = {
-                row["username"]: row
-                for row in target.execute(
-                    "SELECT username,password_hash,role FROM users"
-                ).fetchall()
-            }
-        preserved = 0
-        for row in original:
-            if (
-                row["account_status"] == "ACTIVE"
-                and row["is_enabled"]
-                and row["login_email"] in users
-            ):
-                current = users[row["login_email"]]
-                assert (
-                    current["password_hash"] == row["password_hash"]
-                    and current["role"] == row["role_code"]
-                )
-                preserved += 1
-        report["legacy_accounts_hash_and_role_preserved"] = preserved
-        assert preserved == 8
     expected = {
         "institutions": 6,
         "donors": 108,

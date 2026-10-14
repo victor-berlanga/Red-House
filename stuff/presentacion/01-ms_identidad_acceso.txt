@@ -1,0 +1,84 @@
+RED HOUSE — IDENTIDAD Y ACCESO
+Unidad: ms_identidad_acceso
+Puerto por defecto: 5101
+Versión del servicio: 0.2.0
+
+1. QUÉ HACE Y POR QUÉ EXISTE
+Identifica a cada persona y limita qué puede hacer y en qué institución.
+
+2. TECNOLOGÍAS Y DATOS
+Flask (REST), Python 3.12+, Psycopg, PostgreSQL, PyJWT/cryptography (RS256), Redis, Pydantic, lxml (XML/XSD), Waitress, Swagger/OpenAPI.
+Usuarios, instituciones, sesiones registradas y hashes scrypt en PostgreSQL. Redis conserva sesiones activas, permisos versionados, renovaciones y revocaciones.
+Entre servicios se utilizan firmas Ed25519, nonce con expiración, autorización delegada donde aplica e identificadores de correlación.
+
+3. ESCENARIO PARA EXPLICARLO
+Un médico inicia sesión, recibe JWT y renovación; Inventario verifica su sesión y permisos antes de reservar.
+
+4. CONTRATOS Y OPERACIONES
+API v1; JSON para móvil y XML para escritorio. Swagger local en /docs y OpenAPI en /openapi.json.
+Entradas XML con raíz request y XSD por operación. Respuestas XML conservan tipos mediante field/item y atributo type.
+  POST /api/v1/auth/login: Iniciar sesión independiente
+  POST /api/v1/auth/refresh: Rotar renovación; repetición revoca familia
+  POST /api/v1/auth/logout: Cerrar sesión y revocar familia
+  POST /api/v1/auth/revoke: Revocar familia con renovación opaca, incluso si venció el JWT de acceso
+  GET /api/v1/auth/me: Consultar perfil y permisos vigentes
+  GET /api/v1/institutions: Instituciones de la región; sin datos clínicos
+  POST /api/v1/institutions: Registrar institución de la región
+  GET /api/v1/institutions/<identifier>: Detalle administrativo de institución regional
+  PATCH /api/v1/institutions/<identifier>: Editar nombre institucional propio con versión y motivo
+  POST /api/v1/institutions/<identifier>/administrator: Provisionar primer administrador de una institución creada por esta cuenta
+  POST /api/v1/users: Crear cuenta institucional
+  PATCH /api/v1/users/<identifier>: Activar/desactivar cuenta; invalidar permisos antes del cambio
+  GET /internal/v1/institutions/<identifier>: Referencia institucional autorizada
+  GET /internal/v1/users/<identifier>: Validar personal de traslado
+  GET /api/v1/users: Cuentas propias o personal regional de traslado; nunca hashes ni sesiones
+  GET /api/v1/catalogues/sites: Consultar sites
+  GET /api/v1/catalogues/sites/<identifier>: Detalle de sites
+  POST /api/v1/catalogues/sites: Registrar sites
+  PATCH /api/v1/catalogues/sites/<identifier>: Editar o desactivar sites
+  GET /api/v1/catalogues/contacts: Consultar contacts
+  GET /api/v1/catalogues/contacts/<identifier>: Detalle de contacts
+  POST /api/v1/catalogues/contacts: Registrar contacts
+  PATCH /api/v1/catalogues/contacts/<identifier>: Editar o desactivar contacts
+  GET /api/v1/catalogues/schedules: Consultar schedules
+  GET /api/v1/catalogues/schedules/<identifier>: Detalle de schedules
+  POST /api/v1/catalogues/schedules: Registrar schedules
+  PATCH /api/v1/catalogues/schedules/<identifier>: Editar o desactivar schedules
+  GET /api/v1/catalogues/capacities: Consultar capacities
+  GET /api/v1/catalogues/capacities/<identifier>: Detalle de capacities
+  POST /api/v1/catalogues/capacities: Registrar capacities
+  PATCH /api/v1/catalogues/capacities/<identifier>: Editar o desactivar capacities
+  GET /api/v1/catalogues/locations: Consultar locations
+  GET /api/v1/catalogues/locations/<identifier>: Detalle de locations
+  POST /api/v1/catalogues/locations: Registrar locations
+  PATCH /api/v1/catalogues/locations/<identifier>: Editar o desactivar locations
+  GET /internal/v1/locations/<identifier>: Validar ubicación y sede de la institución del usuario
+
+5. SEGURIDAD Y ERRORES
+Acceso denegado por defecto. JWT con firma, emisor, audiencia, expiración, sesión, revocación y permisos vigentes.
+Validación estricta: campos desconocidos, nulos no autorizados, cadenas vacías, tipos incorrectos, JSON duplicado, NaN/Infinity y XML con DTD se rechazan.
+Errores equivalentes JSON/XML: 400/422 entrada, 401 autenticación, 403 autorización, 404 inexistente, 409 estado/versión, 429 límite, 503 dependencia.
+No se exponen credenciales ni contenido clínico en logs; cada petición registra ruta, estado, duración y correlación.
+
+6. PREGUNTAS QUE PODRÍAN HACER
+¿Por qué no basta JWT? Una firma válida no demuestra que la sesión siga activa: Redis permite revocar y cambiar permisos.
+¿Se acepta alg:none? No. Solo RS256 con emisor, audiencia y claims obligatorios.
+¿Qué pasa con una renovación reutilizada? Se revoca su familia de sesión.
+¿El administrador puede ver expedientes? No por tener ese rol.
+¿La contraseña es cifrada? Se conserva un hash scrypt; no se recupera la original.
+
+7. GUION BREVE PARA UNA DIAPOSITIVA
+Problema: Identifica a cada persona y limita qué puede hacer y en qué institución.
+Entrada: petición REST autorizada y validada.
+Proceso: aplicar permisos, reglas operativas y persistencia propia.
+Salida: resultado JSON/XML, correlación y evento auditable cuando corresponde.
+Presentación: Swagger -> operación -> consulta posterior -> revisión de auditoría/salud.
+
+8. CÓMO COMPROBAR Y QUÉ NO AFIRMAR
+Leer apps/services/README.md y documentation/markdowns/Pruebas_y_validacion.md.
+Cada unidad conserva sus consultas, contratos outputs.json y migraciones. scripts/package_service.py entrega un solo dominio con una copia de utilidades comunes; scripts/upgrade.py y local.py restart-service permiten actualizarlo individualmente.
+XML de salida se valida con XSD estructural y DTO semántico: redhouse.xml_response.validate_response.
+El estado /health/worker permite detectar workers detenidos o publicación de eventos atrasada. Los motivos se conservan en el historial privado del propietario; los eventos centrales son minimizados.
+Las reglas no sustituyen evaluación clínica. No afirmar despliegue en GCP, Docker, HLA automatizada o móvil/escritorio integrados.
+No mostrar state.json, archivos de configuración privada ni tokens durante la presentación.
+La web integrada tiene pruebas HTTP con dependencias reales y recorridos de navegador. Leer apps/web/README.md.

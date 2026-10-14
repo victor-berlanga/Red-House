@@ -5,7 +5,7 @@ redhouse_root="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 if [[ "${1:-}" == '--help' || "${1:-}" == '-h' ]]; then
     cat <<'HELP'
 Uso: bash install.sh [--directory RUTA] [--no-install]
-Instala dependencias faltantes y prepara el entorno (predeterminado: .local/demo).
+Instala dependencias faltantes y prepara el entorno (predeterminado: .local/runtime).
 --no-install: comprobar/preparar usando únicamente dependencias ya instaladas.
 En un entorno nuevo las bases se encienden para inicializarlo y se detienen al terminar.
 No inicia las aplicaciones. Después ejecuta: bash start.sh

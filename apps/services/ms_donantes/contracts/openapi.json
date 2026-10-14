@@ -3,7 +3,7 @@
   "info": {
     "title": "Red House — donantes",
     "version": "0.2.0",
-    "description": "API independiente JSON/XML. Reglas clínicas demostrativas; requiere revisión humana. XML de respuesta validable en /schemas/response.xsd."
+    "description": "API independiente JSON/XML. Reglas clínicas ilustrativas; requiere revisión humana. XML de respuesta validable en /schemas/response.xsd."
   },
   "paths": {
     "/api/v1/donors": {
@@ -161,7 +161,7 @@
                     "id": "00000000-0000-4000-8000-000000000001",
                     "tenant_id": "00000000-0000-4000-8000-000000000001",
                     "user_id": "00000000-0000-4000-8000-000000000001",
-                    "folio": "DEMO-000001",
+                    "folio": "PRUEBA-000001",
                     "display_name": "Dato ficticio para reemplazar",
                     "blood_group": "Dato ficticio para reemplazar",
                     "consent": true,
@@ -185,7 +185,7 @@
                 "schema": {
                   "type": "string"
                 },
-                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"tenant_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"user_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"folio\" type=\"string\">DEMO-000001</field><field name=\"display_name\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"blood_group\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"consent\" type=\"boolean\">true</field><field name=\"status\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"version\" type=\"integer\">1</field><field name=\"created_at\" type=\"string\">2030-01-01T15:00:00+00:00</field><field name=\"restrictions\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"background\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"donation_kind\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"consent_reference\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"consent_at\" type=\"string\">Dato ficticio para reemplazar</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">donantes</field><field name=\"version\" type=\"string\">0.2.0</field></field></response>",
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"tenant_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"user_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"folio\" type=\"string\">PRUEBA-000001</field><field name=\"display_name\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"blood_group\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"consent\" type=\"boolean\">true</field><field name=\"status\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"version\" type=\"integer\">1</field><field name=\"created_at\" type=\"string\">2030-01-01T15:00:00+00:00</field><field name=\"restrictions\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"background\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"donation_kind\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"consent_reference\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"consent_at\" type=\"string\">Dato ficticio para reemplazar</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">donantes</field><field name=\"version\" type=\"string\">0.2.0</field></field></response>",
                 "x-json-equivalent-schema": {
                   "type": "object",
                   "required": [
@@ -489,7 +489,7 @@
                 "donation_kind": null,
                 "consent_reference": null,
                 "consent_at": null,
-                "folio": "DEMO-000001",
+                "folio": "PRUEBA-000001",
                 "display_name": "Dato ficticio para reemplazar",
                 "blood_group": "O-",
                 "consent": true
@@ -499,7 +499,7 @@
               "schema": {
                 "type": "string"
               },
-              "example": "<?xml version='1.0' encoding='UTF-8'?>\n<request xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><restrictions xsi:nil=\"true\"/><background xsi:nil=\"true\"/><donation_kind xsi:nil=\"true\"/><consent_reference xsi:nil=\"true\"/><consent_at xsi:nil=\"true\"/><folio>DEMO-000001</folio><display_name>Dato ficticio para reemplazar</display_name><blood_group>O-</blood_group><consent>true</consent></request>",
+              "example": "<?xml version='1.0' encoding='UTF-8'?>\n<request xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><restrictions xsi:nil=\"true\"/><background xsi:nil=\"true\"/><donation_kind xsi:nil=\"true\"/><consent_reference xsi:nil=\"true\"/><consent_at xsi:nil=\"true\"/><folio>PRUEBA-000001</folio><display_name>Dato ficticio para reemplazar</display_name><blood_group>O-</blood_group><consent>true</consent></request>",
               "x-xsd": "/schemas/donor_create.xsd",
               "x-json-equivalent-schema": {
                 "$ref": "#/components/schemas/DonorCreate"
@@ -1230,7 +1230,7 @@
                     "id": "00000000-0000-4000-8000-000000000001",
                     "tenant_id": "00000000-0000-4000-8000-000000000001",
                     "user_id": "00000000-0000-4000-8000-000000000001",
-                    "folio": "DEMO-000001",
+                    "folio": "PRUEBA-000001",
                     "display_name": "Dato ficticio para reemplazar",
                     "blood_group": "Dato ficticio para reemplazar",
                     "consent": true,
@@ -1255,7 +1255,7 @@
                 "schema": {
                   "type": "string"
                 },
-                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"tenant_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"user_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"folio\" type=\"string\">DEMO-000001</field><field name=\"display_name\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"blood_group\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"consent\" type=\"boolean\">true</field><field name=\"status\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"version\" type=\"integer\">1</field><field name=\"created_at\" type=\"string\">2030-01-01T15:00:00+00:00</field><field name=\"restrictions\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"background\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"donation_kind\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"consent_reference\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"consent_at\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"decisions\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">donantes</field><field name=\"version\" type=\"string\">0.2.0</field></field></response>",
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"tenant_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"user_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"folio\" type=\"string\">PRUEBA-000001</field><field name=\"display_name\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"blood_group\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"consent\" type=\"boolean\">true</field><field name=\"status\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"version\" type=\"integer\">1</field><field name=\"created_at\" type=\"string\">2030-01-01T15:00:00+00:00</field><field name=\"restrictions\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"background\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"donation_kind\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"consent_reference\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"consent_at\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"decisions\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">donantes</field><field name=\"version\" type=\"string\">0.2.0</field></field></response>",
                 "x-json-equivalent-schema": {
                   "type": "object",
                   "required": [
@@ -1747,7 +1747,7 @@
                     "id": "00000000-0000-4000-8000-000000000001",
                     "tenant_id": "00000000-0000-4000-8000-000000000001",
                     "user_id": "00000000-0000-4000-8000-000000000001",
-                    "folio": "DEMO-000001",
+                    "folio": "PRUEBA-000001",
                     "display_name": "Dato ficticio para reemplazar",
                     "blood_group": "Dato ficticio para reemplazar",
                     "consent": true,
@@ -1771,7 +1771,7 @@
                 "schema": {
                   "type": "string"
                 },
-                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"tenant_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"user_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"folio\" type=\"string\">DEMO-000001</field><field name=\"display_name\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"blood_group\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"consent\" type=\"boolean\">true</field><field name=\"status\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"version\" type=\"integer\">1</field><field name=\"created_at\" type=\"string\">2030-01-01T15:00:00+00:00</field><field name=\"restrictions\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"background\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"donation_kind\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"consent_reference\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"consent_at\" type=\"string\">Dato ficticio para reemplazar</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">donantes</field><field name=\"version\" type=\"string\">0.2.0</field></field></response>",
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"tenant_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"user_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"folio\" type=\"string\">PRUEBA-000001</field><field name=\"display_name\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"blood_group\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"consent\" type=\"boolean\">true</field><field name=\"status\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"version\" type=\"integer\">1</field><field name=\"created_at\" type=\"string\">2030-01-01T15:00:00+00:00</field><field name=\"restrictions\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"background\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"donation_kind\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"consent_reference\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"consent_at\" type=\"string\">Dato ficticio para reemplazar</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">donantes</field><field name=\"version\" type=\"string\">0.2.0</field></field></response>",
                 "x-json-equivalent-schema": {
                   "type": "object",
                   "required": [
@@ -2077,7 +2077,7 @@
                 "donation_kind": null,
                 "consent_reference": null,
                 "consent_at": null,
-                "folio": "DEMO-000001",
+                "folio": "PRUEBA-000001",
                 "display_name": "Dato ficticio para reemplazar",
                 "blood_group": "O-",
                 "consent": true,
@@ -2088,7 +2088,7 @@
               "schema": {
                 "type": "string"
               },
-              "example": "<?xml version='1.0' encoding='UTF-8'?>\n<request xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><human_confirmation>true</human_confirmation><reason>Dato ficticio para reemplazar</reason><restrictions xsi:nil=\"true\"/><background xsi:nil=\"true\"/><donation_kind xsi:nil=\"true\"/><consent_reference xsi:nil=\"true\"/><consent_at xsi:nil=\"true\"/><folio>DEMO-000001</folio><display_name>Dato ficticio para reemplazar</display_name><blood_group>O-</blood_group><consent>true</consent><version>1</version></request>",
+              "example": "<?xml version='1.0' encoding='UTF-8'?>\n<request xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><human_confirmation>true</human_confirmation><reason>Dato ficticio para reemplazar</reason><restrictions xsi:nil=\"true\"/><background xsi:nil=\"true\"/><donation_kind xsi:nil=\"true\"/><consent_reference xsi:nil=\"true\"/><consent_at xsi:nil=\"true\"/><folio>PRUEBA-000001</folio><display_name>Dato ficticio para reemplazar</display_name><blood_group>O-</blood_group><consent>true</consent><version>1</version></request>",
               "x-xsd": "/schemas/donor_edit.xsd",
               "x-json-equivalent-schema": {
                 "$ref": "#/components/schemas/DonorEdit"
@@ -4696,7 +4696,7 @@
                     "donor_id": "00000000-0000-4000-8000-000000000001",
                     "tenant_id": "00000000-0000-4000-8000-000000000001",
                     "kind": "Dato ficticio para reemplazar",
-                    "component": "RBC-DEMO",
+                    "component": "RBC",
                     "blood_group": "Dato ficticio para reemplazar",
                     "collected_at": "2030-01-01T15:00:00+00:00",
                     "status": "Dato ficticio para reemplazar",
@@ -4714,7 +4714,7 @@
                 "schema": {
                   "type": "string"
                 },
-                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"donor_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"tenant_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"kind\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"component\" type=\"string\">RBC-DEMO</field><field name=\"blood_group\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"collected_at\" type=\"string\">2030-01-01T15:00:00+00:00</field><field name=\"status\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"version\" type=\"integer\">1</field><field name=\"created_at\" type=\"string\">2030-01-01T15:00:00+00:00</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">donantes</field><field name=\"version\" type=\"string\">0.2.0</field></field></response>",
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"donor_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"tenant_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"kind\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"component\" type=\"string\">RBC</field><field name=\"blood_group\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"collected_at\" type=\"string\">2030-01-01T15:00:00+00:00</field><field name=\"status\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"version\" type=\"integer\">1</field><field name=\"created_at\" type=\"string\">2030-01-01T15:00:00+00:00</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">donantes</field><field name=\"version\" type=\"string\">0.2.0</field></field></response>",
                 "x-json-equivalent-schema": {
                   "type": "object",
                   "required": [
@@ -4985,7 +4985,7 @@
                 "reason": "Dato ficticio para reemplazar",
                 "donor_id": "00000000-0000-4000-8000-000000000001",
                 "kind": "BLOOD",
-                "component": "RBC-DEMO",
+                "component": "RBC",
                 "collected_at": "2026-10-01T15:00:00+00:00"
               }
             },
@@ -4993,7 +4993,7 @@
               "schema": {
                 "type": "string"
               },
-              "example": "<?xml version='1.0' encoding='UTF-8'?>\n<request xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><human_confirmation>true</human_confirmation><reason>Dato ficticio para reemplazar</reason><donor_id>00000000-0000-4000-8000-000000000001</donor_id><kind>BLOOD</kind><component>RBC-DEMO</component><collected_at>2026-10-01T15:00:00+00:00</collected_at></request>",
+              "example": "<?xml version='1.0' encoding='UTF-8'?>\n<request xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><human_confirmation>true</human_confirmation><reason>Dato ficticio para reemplazar</reason><donor_id>00000000-0000-4000-8000-000000000001</donor_id><kind>BLOOD</kind><component>RBC</component><collected_at>2026-10-01T15:00:00+00:00</collected_at></request>",
               "x-xsd": "/schemas/donation_create.xsd",
               "x-json-equivalent-schema": {
                 "$ref": "#/components/schemas/DonationCreate"
@@ -5610,7 +5610,7 @@
                     "donor_id": "00000000-0000-4000-8000-000000000001",
                     "tenant_id": "00000000-0000-4000-8000-000000000001",
                     "kind": "Dato ficticio para reemplazar",
-                    "component": "RBC-DEMO",
+                    "component": "RBC",
                     "blood_group": "Dato ficticio para reemplazar",
                     "collected_at": "2030-01-01T15:00:00+00:00",
                     "status": "Dato ficticio para reemplazar",
@@ -5628,7 +5628,7 @@
                 "schema": {
                   "type": "string"
                 },
-                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"donor_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"tenant_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"kind\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"component\" type=\"string\">RBC-DEMO</field><field name=\"blood_group\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"collected_at\" type=\"string\">2030-01-01T15:00:00+00:00</field><field name=\"status\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"version\" type=\"integer\">1</field><field name=\"created_at\" type=\"string\">2030-01-01T15:00:00+00:00</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">donantes</field><field name=\"version\" type=\"string\">0.2.0</field></field></response>",
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"donor_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"tenant_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"kind\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"component\" type=\"string\">RBC</field><field name=\"blood_group\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"collected_at\" type=\"string\">2030-01-01T15:00:00+00:00</field><field name=\"status\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"version\" type=\"integer\">1</field><field name=\"created_at\" type=\"string\">2030-01-01T15:00:00+00:00</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">donantes</field><field name=\"version\" type=\"string\">0.2.0</field></field></response>",
                 "x-json-equivalent-schema": {
                   "type": "object",
                   "required": [
@@ -6067,7 +6067,7 @@
                     "donor_id": "00000000-0000-4000-8000-000000000001",
                     "tenant_id": "00000000-0000-4000-8000-000000000001",
                     "kind": "Dato ficticio para reemplazar",
-                    "component": "RBC-DEMO",
+                    "component": "RBC",
                     "blood_group": "Dato ficticio para reemplazar",
                     "collected_at": "2030-01-01T15:00:00+00:00",
                     "status": "Dato ficticio para reemplazar",
@@ -6085,7 +6085,7 @@
                 "schema": {
                   "type": "string"
                 },
-                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"donor_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"tenant_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"kind\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"component\" type=\"string\">RBC-DEMO</field><field name=\"blood_group\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"collected_at\" type=\"string\">2030-01-01T15:00:00+00:00</field><field name=\"status\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"version\" type=\"integer\">1</field><field name=\"created_at\" type=\"string\">2030-01-01T15:00:00+00:00</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">donantes</field><field name=\"version\" type=\"string\">0.2.0</field></field></response>",
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"donor_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"tenant_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"kind\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"component\" type=\"string\">RBC</field><field name=\"blood_group\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"collected_at\" type=\"string\">2030-01-01T15:00:00+00:00</field><field name=\"status\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"version\" type=\"integer\">1</field><field name=\"created_at\" type=\"string\">2030-01-01T15:00:00+00:00</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">donantes</field><field name=\"version\" type=\"string\">0.2.0</field></field></response>",
                 "x-json-equivalent-schema": {
                   "type": "object",
                   "required": [
@@ -6506,7 +6506,7 @@
                     "donor_id": "00000000-0000-4000-8000-000000000001",
                     "tenant_id": "00000000-0000-4000-8000-000000000001",
                     "kind": "Dato ficticio para reemplazar",
-                    "component": "RBC-DEMO",
+                    "component": "RBC",
                     "blood_group": "Dato ficticio para reemplazar",
                     "collected_at": "2030-01-01T15:00:00+00:00",
                     "status": "Dato ficticio para reemplazar",
@@ -6525,7 +6525,7 @@
                 "schema": {
                   "type": "string"
                 },
-                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"donor_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"tenant_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"kind\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"component\" type=\"string\">RBC-DEMO</field><field name=\"blood_group\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"collected_at\" type=\"string\">2030-01-01T15:00:00+00:00</field><field name=\"status\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"version\" type=\"integer\">1</field><field name=\"created_at\" type=\"string\">2030-01-01T15:00:00+00:00</field><field name=\"decisions\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">donantes</field><field name=\"version\" type=\"string\">0.2.0</field></field></response>",
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"donor_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"tenant_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"kind\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"component\" type=\"string\">RBC</field><field name=\"blood_group\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"collected_at\" type=\"string\">2030-01-01T15:00:00+00:00</field><field name=\"status\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"version\" type=\"integer\">1</field><field name=\"created_at\" type=\"string\">2030-01-01T15:00:00+00:00</field><field name=\"decisions\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">donantes</field><field name=\"version\" type=\"string\">0.2.0</field></field></response>",
                 "x-json-equivalent-schema": {
                   "type": "object",
                   "required": [
@@ -6954,7 +6954,7 @@
                     "donor_id": "00000000-0000-4000-8000-000000000001",
                     "tenant_id": "00000000-0000-4000-8000-000000000001",
                     "kind": "Dato ficticio para reemplazar",
-                    "component": "RBC-DEMO",
+                    "component": "RBC",
                     "blood_group": "Dato ficticio para reemplazar",
                     "collected_at": "2030-01-01T15:00:00+00:00",
                     "status": "Dato ficticio para reemplazar",
@@ -6972,7 +6972,7 @@
                 "schema": {
                   "type": "string"
                 },
-                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"donor_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"tenant_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"kind\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"component\" type=\"string\">RBC-DEMO</field><field name=\"blood_group\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"collected_at\" type=\"string\">2030-01-01T15:00:00+00:00</field><field name=\"status\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"version\" type=\"integer\">1</field><field name=\"created_at\" type=\"string\">2030-01-01T15:00:00+00:00</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">donantes</field><field name=\"version\" type=\"string\">0.2.0</field></field></response>",
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"donor_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"tenant_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"kind\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"component\" type=\"string\">RBC</field><field name=\"blood_group\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"collected_at\" type=\"string\">2030-01-01T15:00:00+00:00</field><field name=\"status\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"version\" type=\"integer\">1</field><field name=\"created_at\" type=\"string\">2030-01-01T15:00:00+00:00</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">donantes</field><field name=\"version\" type=\"string\">0.2.0</field></field></response>",
                 "x-json-equivalent-schema": {
                   "type": "object",
                   "required": [

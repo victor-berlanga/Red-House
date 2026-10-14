@@ -1,4 +1,4 @@
-"""Completa catálogos administrativos ficticios de la DEMO NL, por API e idempotentemente."""
+"""Completa catálogos administrativos ficticios de el entorno NL, por API e idempotentemente."""
 
 import argparse
 import hashlib
@@ -26,9 +26,11 @@ def main():
     state = json.loads((directory / "state.json").read_text())
     if (
         str(directory) != state["directory"]
-        or not (directory / "demo-nl.json").exists()
+        or not (directory / "dataset-nl.json").exists()
     ):
-        raise RuntimeError("Este script requiere la DEMO NL previamente provisionada.")
+        raise RuntimeError(
+            "Este script requiere el entorno NL previamente provisionada."
+        )
     result = {}
     with requests.Session() as http:
         http.trust_env = False
@@ -40,7 +42,7 @@ def main():
                 timeout=15,
             )
             if login.status_code != 200:
-                raise RuntimeError("No se pudo autenticar el administrador DEMO.")
+                raise RuntimeError("No se pudo autenticar el administrador.")
             headers = {
                 "Authorization": "Bearer " + login.json()["data"]["access_token"]
             }
@@ -88,7 +90,7 @@ def main():
             site = create(
                 "sites",
                 {
-                    "name": "Sede DEMO " + municipality,
+                    "name": "Sede " + municipality,
                     "municipality": municipality,
                     "address": "Avenida de la Solidaridad "
                     + str(100 + i)
@@ -98,7 +100,7 @@ def main():
             create(
                 "contacts",
                 {
-                    "name": "Coordinación DEMO",
+                    "name": "Coordinación",
                     "value": "coordinacion" + str(i) + "@red-house.example",
                 },
             )
@@ -106,7 +108,7 @@ def main():
                 create(
                     "schedules",
                     {
-                        "name": "Atención administrativa DEMO "
+                        "name": "Atención administrativa "
                         + ["lunes", "martes", "miércoles", "jueves", "viernes"][day],
                         "parent_id": site["id"],
                         "weekday": day,
@@ -117,16 +119,16 @@ def main():
             create(
                 "capacities",
                 {
-                    "name": "Capacidad declarada DEMO",
+                    "name": "Capacidad declarada",
                     "parent_id": site["id"],
-                    "component": "RBC-DEMO",
+                    "component": "RBC",
                     "quantity": 240,
                 },
             )
             create(
                 "locations",
                 {
-                    "name": "Registro de ubicación DEMO",
+                    "name": "Registro de ubicación",
                     "parent_id": site["id"],
                     "description": "Referencia logística ficticia; sin reglas clínicas de conservación",
                 },
@@ -139,7 +141,7 @@ def main():
         + "\n"
     )
     print(
-        "Catálogos DEMO verificados para seis instituciones; sin modificar inventarios ni reglas clínicas."
+        "Catálogos verificados para seis instituciones; sin modificar inventarios ni reglas clínicas."
     )
 
 

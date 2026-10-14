@@ -2,6 +2,7 @@
 
 import importlib.util
 import json
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -228,7 +229,7 @@ def test_runtime_never_checks_or_installs_dependencies(action, tmp_path, monkeyp
     python = service_root / ".venv/bin/python"
     python.parent.mkdir(parents=True)
     python.touch()
-    directory = tmp_path / "demo"
+    directory = tmp_path / "sample"
     directory.mkdir()
     state = {
         "directory": str(directory),
@@ -287,7 +288,7 @@ def test_running_infrastructure_does_not_check_binary_versions(tmp_path, monkeyp
     env.launch.assert_not_called()
 
 
-@pytest.mark.parametrize("app_name", ["services", "web-monolito01"])
+@pytest.mark.parametrize("app_name", ["services", "web"])
 def test_missing_venv_support_has_wsl_instructions_before_creation(
     tmp_path, monkeypatch, app_name
 ):
@@ -425,3 +426,34 @@ def test_real_venv_without_pip_can_be_repaired_offline(tmp_path):
         ).returncode
         == 0
     )
+
+
+def test_homebrew_rejects_linux_before_searching_or_installing(tmp_path):
+    binary(tmp_path, "uname", "Linux")
+    marker = tmp_path / "brew-called"
+    brew = tmp_path / "brew"
+    brew.write_text('#!/bin/sh\ntouch "' + str(marker) + '"\n')
+    brew.chmod(0o700)
+    result = subprocess.run(
+        ["bash", str(REPO / "scripts/homebrew.sh"), "redis"],
+        check=False,
+        env={**os.environ, "PATH": str(tmp_path) + os.pathsep + os.environ["PATH"]},
+        capture_output=True,
+        text=True,
+    )
+    assert result.returncode == 1
+    assert "exclusivo de macOS" in result.stderr
+    assert not marker.exists()
+
+
+def test_default_install_does_not_hide_an_existing_environment(tmp_path, monkeypatch):
+    old = tmp_path / ".local/previous"
+    old.mkdir(parents=True)
+    (old / "state.json").write_text("{}")
+    monkeypatch.setattr(manager, "REPO", tmp_path)
+    monkeypatch.setattr(sys, "argv", ["manage.py", "preparar"])
+    monkeypatch.setattr(manager, "ensure_python", Mock())
+    with pytest.raises(RuntimeError, match="No se creará otra base"):
+        manager.main()
+    manager.ensure_python.assert_not_called()
+    assert not (tmp_path / ".local/runtime").exists()

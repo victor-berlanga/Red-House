@@ -1,6 +1,6 @@
 # Tecnologías a utilizar: MongoDB, Redis y contenedores Docker
 
-> **Actualización — 27 de septiembre de 2026:** este documento conserva la línea base y los requisitos semestrales; sus fases no describen por sí solas el avance actual. El Reporte Técnico Integral Red House, revisión 2.1, consolida el alcance vigente, las pruebas y los límites. Órganos/HLA y componentes distribuidos permanecen posteriores. Véase el [reporte técnico integral](../docx/Reporte_Tecnico_Integral_Red_House.docx).
+> Revisión documental — 14 de octubre de 2026: documento de referencia para el alcance y la planificación del semestre. Las fases y fechas originales expresan la secuencia prevista, no el estado de implementación. El portal integrado, los microservicios, PostgreSQL, MongoDB y Redis ya tienen operación local; Android, escritorio, Docker y GCP siguen pendientes. [PROJECT_STATUS.md](../../PROJECT_STATUS.md) registra el avance comprobado. La arquitectura ejecutable se describe en [Arquitectura.md](Arquitectura.md) y la persistencia en [Datos_y_persistencia.md](Datos_y_persistencia.md). El reporte integral de septiembre conserva una entrega anterior.
 
 > **Proyecto:** Red regional de bancos de sangre y donación de órganos — Equipo 01.  
 > **Estado:** investigación tecnológica introductoria.  
@@ -137,7 +137,7 @@ La falla de MongoDB, Redis o un contenedor deberá detectarse y registrarse. La 
 | Primer parcial | Investigar conceptos, usos, beneficios y riesgos; mostrar las tecnologías solo en la arquitectura objetivo; ejecutar el web y PostgreSQL localmente sin contenedores | Este documento, diagramas con fases diferenciadas y producto mínimo con persistencia real en PostgreSQL |
 | Segundo parcial | Completar diseños de MongoDB y Redis; definir colecciones, documentos, índices, claves y expiraciones; crear Dockerfiles y Docker Compose; poner las tres tecnologías en operación | Inserciones, consultas, actualizaciones, agregaciones e índices en MongoDB; sesiones, revocaciones, caché y temporales en Redis; contenedores y servicios reproducibles |
 | Tercer parcial | Desplegar, monitorear y probar dependencias, rendimiento, fallos y recuperación en la infraestructura definida | Health checks, métricas, pruebas con y sin Redis, fallas controladas, respaldos y evidencia de despliegue |
-| Entrega final | Corregir, optimizar y documentar la configuración realmente liberada | Manuales, scripts, configuraciones, resultados de pruebas y demostración integral coherentes con la versión final |
+| Entrega final | Corregir, optimizar y documentar la configuración realmente liberada | Manuales, scripts, configuraciones, resultados de pruebas y presentación integral coherentes con la versión final |
 
 ## 8. Criterios para el diseño del segundo parcial
 

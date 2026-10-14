@@ -1,6 +1,6 @@
 # Matriz de perfiles y permisos
 
-> **Actualización — 27 de septiembre de 2026:** este documento conserva la línea base y los requisitos semestrales; sus fases no describen por sí solas el avance actual. El Reporte Técnico Integral Red House, revisión 2.1, consolida el alcance vigente, las pruebas y los límites. Órganos/HLA y componentes distribuidos permanecen posteriores. Véase el [reporte técnico integral](../docx/Reporte_Tecnico_Integral_Red_House.docx).
+> Revisión documental — 14 de octubre de 2026: documento de referencia para el alcance y la planificación del semestre. Las fases y fechas originales expresan la secuencia prevista, no el estado de implementación. El portal integrado, los microservicios, PostgreSQL, MongoDB y Redis ya tienen operación local; Android, escritorio, Docker y GCP siguen pendientes. [PROJECT_STATUS.md](../../PROJECT_STATUS.md) registra el avance comprobado. La arquitectura ejecutable se describe en [Arquitectura.md](Arquitectura.md) y la persistencia en [Datos_y_persistencia.md](Datos_y_persistencia.md). El reporte integral de septiembre conserva una entrega anterior.
 
 > **Proyecto:** Red regional de bancos de sangre y donación de órganos — Equipo 01.  
 > **Estado:** borrador consolidado para validación académica.  
@@ -90,7 +90,7 @@ El consumo de microservicios será indirecto a través del sistema web o de las 
 | Donantes | Enviar y consultar un registro preliminar propio | Donante | REG, CON | Posterior; pendiente de validación presencial o profesional |
 | Campañas y citas | Consultar campañas y programar, consultar o cancelar citas propias | Donante | CON, REG | Posterior; solo campañas publicadas y vigentes |
 | Avisos | Consultar avisos propios de elegibilidad o seguimiento | Donante | CON | Posterior; el aviso debe proceder de una decisión autorizada |
-| Inventario sanguíneo | Registrar unidades ficticias, consultar inventario y cambiar estados permitidos | Operador de banco de sangre | REG, CON | Primer parcial con caducidad demostrativa; ampliación posterior |
+| Inventario sanguíneo | Registrar unidades ficticias, consultar inventario y cambiar estados permitidos | Operador de banco de sangre | REG, CON | Primer parcial con caducidad ilustrativa; ampliación posterior |
 | Órganos | Mantener disponibilidad y viabilidad mediante el flujo especializado | Personal médico autorizado | REG, CON | Posterior; separado del inventario sanguíneo y sujeto a validación clínica |
 | Pruebas y estudios | Capturar resultados y consultar su estado e historial | Operador de banco de sangre y Personal médico autorizado | REG, CON | Posterior; la captura no confirma compatibilidad ni disponibilidad |
 | Etiquetas | Imprimir o reimprimir una etiqueta trazable | Operador de banco de sangre | EJE | Posterior; plantilla autorizada y motivo de reimpresión |

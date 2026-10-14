@@ -1,6 +1,6 @@
 # Plan de trabajo del semestre
 
-> **Actualización — 27 de septiembre de 2026:** este documento conserva la línea base y los requisitos semestrales; sus fases no describen por sí solas el avance actual. El Reporte Técnico Integral Red House, revisión 2.1, consolida el alcance vigente, las pruebas y los límites. Órganos/HLA y componentes distribuidos permanecen posteriores. Véase el [reporte técnico integral](../docx/Reporte_Tecnico_Integral_Red_House.docx).
+> Revisión documental — 14 de octubre de 2026: documento de referencia para el alcance y la planificación del semestre. Las fases y fechas originales expresan la secuencia prevista, no el estado de implementación. El portal integrado, los microservicios, PostgreSQL, MongoDB y Redis ya tienen operación local; Android, escritorio, Docker y GCP siguen pendientes. [PROJECT_STATUS.md](../../PROJECT_STATUS.md) registra el avance comprobado. La arquitectura ejecutable se describe en [Arquitectura.md](Arquitectura.md) y la persistencia en [Datos_y_persistencia.md](Datos_y_persistencia.md). El reporte integral de septiembre conserva una entrega anterior.
 
 > **Proyecto:** Red regional de bancos de sangre y donación de órganos — Equipo 01.  
 > **Estado:** plan semestral inicial para validación académica.  
@@ -13,7 +13,7 @@ El trabajo del semestre se organizará en incrementos ejecutables que conduzcan 
 
 Cada parcial deberá cerrar con funcionamiento demostrable, persistencia real, pruebas y evidencia proporcional al incremento. Los diagramas, documentos, prototipos o interfaces estáticas apoyarán el desarrollo, pero no sustituirán la operación ejecutable exigida para cada etapa.
 
-La plataforma permanecerá como herramienta de coordinación y apoyo. Ningún incremento automatizará decisiones médicas o regulatorias que requieran intervención humana, ni utilizará reglas clínicas inventadas. Hasta contar con validación competente se emplearán datos ficticios y criterios demostrativos claramente identificados.
+La plataforma permanecerá como herramienta de coordinación y apoyo. Ningún incremento automatizará decisiones médicas o regulatorias que requieran intervención humana, ni utilizará reglas clínicas inventadas. Hasta contar con validación competente se emplearán datos ficticios y criterios ilustrativos claramente identificados.
 
 El calendario operativo se regirá por los cuatro cortes oficiales. Las fechas de inicio y cierre se registrarán en el tablero una vez confirmadas por la institución, sin alterar las dependencias ni los criterios de logro.
 
@@ -26,7 +26,7 @@ El calendario operativo se regirá por los cuatro cortes oficiales. Las fechas d
 | Primer parcial | Desde el inicio del semestre hasta el primer corte | Comprender el negocio, aprobar la arquitectura y ejecutar una base web funcional | Sistema web mínimo con identidad, tres perfiles iniciales, catálogos, inventario sanguíneo ficticio, PostgreSQL y auditoría, ejecutado localmente sin contenedores |
 | Segundo parcial | Entre el primer y el segundo corte | Transformar la base inicial en una solución distribuida | Web ampliada, microservicios, aplicación móvil y aplicación de escritorio comunicados mediante JSON y XML, con JWT, Redis, MongoDB, Docker y contratos documentados |
 | Tercer parcial | Entre el segundo y el tercer corte | Completar la integración, nube, seguridad, algoritmos y comportamiento bajo carga o fallos | Plataforma funcionalmente completa en GCP, monitoreo, buckets, algoritmos, tres flujos integrales y evidencia de rendimiento y resiliencia |
-| Entrega final | Después del tercer corte y hasta la presentación final | Estabilizar, verificar y presentar profesionalmente la solución completa | Versión liberable, pruebas finales, documentación y manuales, video, presentación y demostración integral |
+| Entrega final | Después del tercer corte y hasta la presentación final | Estabilizar, verificar y presentar profesionalmente la solución completa | Versión liberable, pruebas finales, documentación y manuales, video, presentación y presentación integral |
 
 ### 2.2 Principios de ejecución
 
@@ -52,8 +52,8 @@ El calendario operativo se regirá por los cuatro cortes oficiales. Las fechas d
 | P1-04 | Elaborar y revisar prototipos del sitio público, acceso, paneles iniciales, instituciones, tipos de componentes, inventario y auditoría | Alejandra Morón — Experiencia web y análisis funcional | P1-01 | Prototipos responsive alineados con permisos y criterios de aceptación, sin presentarlos como funcionalidad terminada |
 | P1-05 | Configurar repositorio, ramas, incidencias, tablero, convenciones, dependencias y variables de entorno | Galia Sejudo — Desarrollo y operación | P1-02 | Entorno local reproducible para el sistema web y PostgreSQL sin contenedores; secretos fuera del repositorio y procedimientos documentados |
 | P1-06 | Implementar la base web con Python, Flask, Jinja2, HTML5, CSS3 y JavaScript: página pública, inicio y cierre de sesión, JWT, menús y panel básico por perfil inicial | Alberto Reyna — Sistema web y seguridad | P1-03, P1-04, P1-05 | Administrador, Operador de banco de sangre y Auditor acceden solo a su menú y ámbito; la interfaz es responsive y maneja errores de forma segura |
-| P1-07 | Implementar instituciones, tipos de componentes sanguíneos y gestión inicial del inventario ficticio con caducidad demostrativa | Alberto Reyna — Sistema web y datos | P1-03, P1-06 | Altas y consultas reales en PostgreSQL, filtros básicos, cambios de estado controlados, historial y auditoría con datos ficticios |
-| P1-08 | Ejecutar pruebas, preparar datos iniciales y realizar la demostración técnica en el entorno local documentado | Alberto Reyna — Calidad e integración | P1-05, P1-06, P1-07 | Inicio de sesión, acceso por perfil, dos catálogos, proceso de inventario, consulta, persistencia en PostgreSQL y auditoría demostrados sin maquetas ni contenedores |
+| P1-07 | Implementar instituciones, tipos de componentes sanguíneos y gestión inicial del inventario ficticio con caducidad ilustrativa | Alberto Reyna — Sistema web y datos | P1-03, P1-06 | Altas y consultas reales en PostgreSQL, filtros básicos, cambios de estado controlados, historial y auditoría con datos ficticios |
+| P1-08 | Ejecutar pruebas, preparar datos iniciales y realizar la presentación técnica en el entorno local documentado | Alberto Reyna — Calidad e integración | P1-05, P1-06, P1-07 | Inicio de sesión, acceso por perfil, dos catálogos, proceso de inventario, consulta, persistencia en PostgreSQL y auditoría demostrados sin maquetas ni contenedores |
 
 El primer parcial se considerará cerrado cuando exista una base técnica ejecutable y no solamente documentación. MongoDB, Redis y los contenedores Docker se limitarán en esta etapa a la investigación introductoria y a su representación como elementos futuros de la arquitectura. Matching clínico, HLA, ranking, órganos, optimización geográfica, aplicación móvil y aplicación de escritorio también permanecerán fuera de este incremento funcional, pero dentro de la arquitectura y del plan semestral.
 
@@ -82,10 +82,10 @@ El catálogo funcional de referencia comprende donantes, receptores, inventario,
 | P3-02 | Configurar Google Cloud Storage para evidencias, documentos, reportes e imágenes autorizadas | Galia Sejudo — Nube, datos y seguridad | P3-01 | Objetos privados con metadatos, hash, privacidad y referencias en base de datos; carga y consulta mediante URLs firmadas |
 | P3-03 | Completar health checks y el servicio central de monitoreo | Alejandra Morón — Monitoreo y microservicios | P2-02, P3-01 | Estados de proceso, PostgreSQL, MongoDB, Redis y Storage; latencia, versión, errores, historial y alertas visibles sin detener los servicios supervisados |
 | P3-04 | Completar el endurecimiento de seguridad de extremo a extremo | Alberto Reyna — Seguridad y calidad | P2-03, P3-01, P3-02 | Permisos por recurso, rate limiting, validación JSON, XML/XSD y archivos, protección XXE, secretos, auditoría, ocultamiento y errores seguros verificados |
-| P3-05 | Implementar y documentar las capacidades algorítmicas priorizadas del dominio | Alberto Reyna — Algoritmos, datos y análisis funcional | Reglas clínicas o demostrativas validadas, P2-07 | Matching sanguíneo y HLA, ranking con urgencia, tiempo y distancia, pronóstico de caducidad, balanceo e inconsistencias se organizan en incrementos explicables; al menos un algoritmo no trivial queda integrado, medido y probado |
+| P3-05 | Implementar y documentar las capacidades algorítmicas priorizadas del dominio | Alberto Reyna — Algoritmos, datos y análisis funcional | Reglas clínicas o ilustrativas validadas, P2-07 | Matching sanguíneo y HLA, ranking con urgencia, tiempo y distancia, pronóstico de caducidad, balanceo e inconsistencias se organizan en incrementos explicables; al menos un algoritmo no trivial queda integrado, medido y probado |
 | P3-06 | Generar el conjunto de datos de volumen y ejecutar mediciones y pruebas Locust | Galia Sejudo — Calidad, datos y rendimiento | P3-03, P3-05 y flujos estables | Inserción, consulta, índices, caché, recursos, comportamiento con y sin Redis, usuarios concurrentes, RPS, media, p95, p99, errores, saturación y recuperación documentados |
 | P3-07 | Completar al menos tres flujos integrales de principio a fin | Victor Berlanga — Integración de productos | P3-01 a P3-05 | Cada flujo involucra usuario, cliente, microservicios, Redis, PostgreSQL o MongoDB, auditoría, notificación y visualización; incluye bucket cuando maneja archivos |
-| P3-08 | Ejecutar pruebas de fallos y realizar la demostración en la nube | Alberto Reyna — Calidad, monitoreo y operación | P3-03, P3-04, P3-06, P3-07 | Se detectan y registran caídas, dependencias inaccesibles y timeouts; se informa sin corrupción y la operación se recupera al restablecerse el servicio |
+| P3-08 | Ejecutar pruebas de fallos y realizar la presentación en la nube | Alberto Reyna — Calidad, monitoreo y operación | P3-03, P3-04, P3-06, P3-07 | Se detectan y registran caídas, dependencias inaccesibles y timeouts; se informa sin corrupción y la operación se recupera al restablecerse el servicio |
 
 El tercer parcial cerrará con la plataforma funcionalmente completa. Los servicios opcionales, un clúster o procesamiento distribuido solo se añadirán cuando las mediciones demuestren que resuelven una necesidad concreta.
 
@@ -97,7 +97,7 @@ El tercer parcial cerrará con la plataforma funcionalmente completa. Los servic
 | EF-02 | Corregir defectos y completar pruebas unitarias, integración, sistema, regresión, contratos, seguridad, carga, estrés, recuperación, roles, archivos, datos masivos y usabilidad | Alejandra Morón — Todos los frentes técnicos | EF-01 | Pruebas reproducibles, defectos críticos cerrados y resultados conservados |
 | EF-03 | Optimizar consultas, índices, caché, consumo, interfaces y recuperación sin alterar reglas aprobadas | Alberto Reyna — Datos, calidad y experiencia | EF-02 | Comparación antes y después, ausencia de regresiones y límites conocidos documentados |
 | EF-04 | Completar expediente técnico, manuales, scripts, Swagger, evidencias de GCP, bitácora de participación, registro de incidencias y paquete de instalación o despliegue | Alejandra Morón — Documentación y operación | EF-02, EF-03 | Documentación consistente con la versión liberada y procedimientos reproducibles |
-| EF-05 | Preparar video, presentación, ensayo de la demostración integral y entrega de código, aplicaciones, contenedores y evidencias | Galia Sejudo — Equipo completo | EF-04 | Demostración de web, móvil, escritorio, microservicios, seguridad, datos, algoritmo, nube, monitoreo, carga y recuperación; participación de los cuatro integrantes |
+| EF-05 | Preparar video, presentación, ensayo de la presentación integral y entrega de código, aplicaciones, contenedores y evidencias | Galia Sejudo — Equipo completo | EF-04 | Presentación de web, móvil, escritorio, microservicios, seguridad, datos, algoritmo, nube, monitoreo, carga y recuperación; participación de los cuatro integrantes |
 
 El despliegue en el entorno institucional denominado `ubiquitous` quedará condicionado a la disponibilidad de acceso y especificaciones técnicas, además del despliegue en GCP. La entrega final no se utilizará para desarrollar componentes que debieron quedar completos durante el tercer parcial.
 
@@ -119,7 +119,7 @@ Los flujos podrán ajustarse si cambia una regla aprobada, pero deberán conserv
 | Límites de componentes y propietarios de datos | Modelos, microservicios y transacciones | Evitar duplicación de reglas, acceso directo desde clientes y dependencias circulares |
 | Modelo de identidad, JWT, sesión y autorización | Web, móvil, escritorio y APIs protegidas | Definir contrato común antes de integrar los clientes |
 | Contratos JSON, XML y XSD versionados | Desarrollo paralelo de móvil y escritorio | Ejecutar pruebas de contrato y mantener ejemplos equivalentes de ambos formatos |
-| Reglas clínicas, regulatorias o demostrativas validadas | Compatibilidad, priorización, caducidad y asignación | Bloquear uso real de criterios pendientes y conservar versión y explicación |
+| Reglas clínicas, regulatorias o ilustrativas validadas | Compatibilidad, priorización, caducidad y asignación | Bloquear uso real de criterios pendientes y conservar versión y explicación |
 | Integración local estable | Despliegue en GCP y pruebas de fallos | Resolver primero errores reproducibles en contenedores locales |
 | Flujos funcionales completos | Datos de volumen, Locust y optimización | No medir endpoints aislados como sustituto de escenarios reales |
 | Cierre funcional del tercer parcial | Estabilización final | No aceptar nuevas funciones salvo corrección indispensable y aprobada |
@@ -132,12 +132,12 @@ Los flujos podrán ajustarse si cambia una regla aprobada, pero deberán conserv
 | Arquitectura e integración | Límites, diagramas, contratos, secuencias, dependencias y coherencia entre componentes | Diagramas versionados, contratos revisados y pruebas integradas |
 | Sistema web | Portal público y privado, perfiles, procesos, paneles, reportes y persistencia web | Commits, revisiones, pruebas y evidencia ejecutable |
 | Microservicios | APIs, lógica de dominio, JSON/XML, salud, errores, auditoría y despliegue independiente | Servicios ejecutables, OpenAPI, pruebas y logs controlados |
-| Aplicaciones cliente | Android y escritorio, capacidades del dispositivo, XML/XSD, manejo de red e interfaces por perfil | Aplicaciones instalables o ejecutables, pruebas y demostración de flujos |
+| Aplicaciones cliente | Android y escritorio, capacidades del dispositivo, XML/XSD, manejo de red e interfaces por perfil | Aplicaciones instalables o ejecutables, pruebas y presentación de flujos |
 | Datos y nube | PostgreSQL, MongoDB, Redis, Storage, índices, respaldos, redes y despliegue | Modelos, scripts, mediciones, contenedores y evidencia de GCP |
 | Seguridad y calidad | Autenticación, autorización, validaciones, pruebas, carga, fallos, usabilidad y defectos | Casos ejecutados, resultados, incidencias y verificaciones de recuperación |
 | Documentación y presentación | Expediente, manuales, evidencias, video, presentación y bitácora | Documentos consistentes con la versión, material audiovisual y participación registrada |
 
-El equipo está integrado por Alejandra Morón, Alberto Reyna, Galia Sejudo y Victor Berlanga. Los responsables principales de cada paquete se indican en este plan; la persona revisora se asignará en el tablero antes de comenzar. Una misma persona podrá participar en varios frentes y la bitácora deberá mostrar contribuciones de los cuatro integrantes en construcción, revisión, pruebas, documentación o demostración.
+El equipo está integrado por Alejandra Morón, Alberto Reyna, Galia Sejudo y Victor Berlanga. Los responsables principales de cada paquete se indican en este plan; la persona revisora se asignará en el tablero antes de comenzar. Una misma persona podrá participar en varios frentes y la bitácora deberá mostrar contribuciones de los cuatro integrantes en construcción, revisión, pruebas, documentación o presentación.
 
 ## 7. Criterio común de terminado
 
@@ -150,14 +150,14 @@ Un paquete de trabajo se considerará terminado únicamente cuando:
 5. Actualice contratos, modelos, diagramas y manuales afectados.
 6. Pueda ejecutarse o reproducirse mediante las instrucciones y contenedores definidos.
 7. No exponga secretos, tokens, datos clínicos, ubicaciones o evidencias innecesarias.
-8. Cuente con evidencia verificable para la demostración del parcial.
+8. Cuente con evidencia verificable para la presentación del parcial.
 
 ## 8. Riesgos del plan y respuesta prevista
 
 | Riesgo | Impacto | Respuesta prevista |
 | --- | --- | --- |
 | Alcance mayor que la capacidad académica | Componentes incompletos o integración tardía | Priorizar cortes verticales, respetar el MVP y completar funcionalidad antes del cierre del tercer parcial |
-| Reglas clínicas o regulatorias no validadas | Resultados incorrectos o afirmaciones indebidas | Usar datos y reglas demostrativas identificadas; mantener revisión humana y bloquear uso real |
+| Reglas clínicas o regulatorias no validadas | Resultados incorrectos o afirmaciones indebidas | Usar datos y reglas ilustrativas identificadas; mantener revisión humana y bloquear uso real |
 | Contratos JSON y XML divergentes | Móvil y escritorio interpretan resultados distintos | Definir una semántica común, versionar contratos y automatizar pruebas JSON y XSD |
 | Modelo de datos prematuro o duplicado | Migraciones costosas e inconsistencias | Aprobar propietarios, claves y ciclos de vida antes de consolidar el modelo físico |
 | Seguridad agregada tardíamente | Retrabajo y exposición de información | Incorporar identidad, permisos, validación, auditoría y secretos desde el primer incremento pertinente |
@@ -182,7 +182,7 @@ Un paquete de trabajo se considerará terminado únicamente cuando:
 
 ## 10. Control del plan
 
-El tablero de tareas, el registro de incidencias y la bitácora de participación se revisarán al menos una vez por semana y antes de cada demostración. Cada paquete deberá mantener sincronizados el responsable principal indicado en este plan, la persona revisora, las dependencias, el criterio de aceptación, la evidencia y el estado.
+El tablero de tareas, el registro de incidencias y la bitácora de participación se revisarán al menos una vez por semana y antes de cada presentación. Cada paquete deberá mantener sincronizados el responsable principal indicado en este plan, la persona revisora, las dependencias, el criterio de aceptación, la evidencia y el estado.
 
 Los cambios de alcance se evaluarán por su efecto en requisitos, historias, reglas, permisos, arquitectura, datos, contratos, pruebas y manuales. Un cambio clínico o normativo no se incorporará como regla autorizada sin fuente y aprobación competentes. Si aparece una desviación de calendario, se reordenarán tareas o servicios opcionales antes de comprometer la seguridad, la trazabilidad o los entregables obligatorios.
 

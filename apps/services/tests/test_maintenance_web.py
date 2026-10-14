@@ -108,7 +108,7 @@ def test_location_reference_and_receipt_fields_render(web, p):
         {
             "name": "Almacén " + uuid4().hex[:6],
             "parent_id": site["id"],
-            "description": "Ubicación controlada demostrativa",
+            "description": "Ubicación controlada ilustrativa",
         },
     )
     location = p.ok(
@@ -120,7 +120,7 @@ def test_location_reference_and_receipt_fields_render(web, p):
         "/inventario/nuevo?kind=BLOOD",
         {
             "folio": "LOC-" + uuid4().hex[:8],
-            "component": "RBC-DEMO",
+            "component": "RBC",
             "blood_group": "O-",
             "expires_at": iso(days=2),
             "location_id": location["id"],
@@ -145,7 +145,7 @@ def client_permissions(p, row, location):
         data={
             "folio": "FOREIGN-" + uuid4().hex[:8],
             "kind": "BLOOD",
-            "component": "RBC-DEMO",
+            "component": "RBC",
             "blood_group": "O-",
             "expires_at": iso(days=2),
             "location_id": location["id"],

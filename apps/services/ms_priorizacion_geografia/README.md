@@ -8,4 +8,4 @@ Ejecutar desde `apps/services`: `python run.py priorizacion_geografia --config /
 
 Swagger: `/docs`. Contratos estáticos y XSD: [contracts](contracts). Guía común: [README](../README.md).
 
-Apuntes de presentación: [TXT](../../../stuff/temporal-microservicios/06-ms_priorizacion_geografia.txt).
+Apuntes de presentación: [TXT](../../../stuff/presentacion/06-ms_priorizacion_geografia.txt).

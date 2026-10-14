@@ -8,4 +8,4 @@ Ejecutar desde `apps/services`: `python run.py compatibilidad --config /ruta/pri
 
 Swagger: `/docs`. Contratos estáticos y XSD: [contracts](contracts). Guía común: [README](../README.md).
 
-Apuntes de presentación: [TXT](../../../stuff/temporal-microservicios/05-ms_compatibilidad.txt).
+Apuntes de presentación: [TXT](../../../stuff/presentacion/05-ms_compatibilidad.txt).

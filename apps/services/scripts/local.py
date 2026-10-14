@@ -445,7 +445,7 @@ class Environment:
                 for index, tenant in enumerate(tenants):
                     conn.execute(
                         "INSERT INTO institutions(id,name,region_id) VALUES(%s,%s,%s)",
-                        (tenant, f"Hospital DEMO {index + 1}", region),
+                        (tenant, f"Hospital {index + 1}", region),
                     )
                     for role in (
                         "ADMIN",
@@ -673,7 +673,7 @@ def main():
             env.stop()
             raise
         print(
-            "Entorno creado. Configuración y credenciales DEMO privadas en",
+            "Entorno creado. Configuración y credenciales privadas en",
             env.directory / "state.json",
         )
         print(

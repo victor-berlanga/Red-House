@@ -17,7 +17,7 @@ from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
 SERVICES_ROOT = REPO / "apps/services"
-WEB = REPO / "apps/web-monolito01"
+WEB = REPO / "apps/web"
 sys.path.insert(0, str(SERVICES_ROOT))
 # Leer el catálogo sin importar Flask ni dependencias antes de preparar el venv.
 import ast
@@ -40,25 +40,21 @@ def run(command):
 
 def venv_help():
     version = f"{sys.version_info.major}.{sys.version_info.minor}"
-    message = (
-        f"Python {version} necesita los módulos venv y ensurepip para preparar pip. "
-    )
+    message = f"\nCausa: Python {version} necesita los módulos venv y ensurepip para preparar pip.\n"
     if platform.system() == "Linux":
         message += (
-            "En Debian/Ubuntu (también dentro de WSL), ejecuta en la terminal Linux:\n"
+            "Solución en Debian/Ubuntu (también dentro de WSL):\n"
             f"  sudo apt update\n  sudo apt install python{version}-venv\n"
             "Si el paquete no está disponible, instala el soporte venv desde el mismo "
-            "proveedor de ese Python, o utiliza Python 3.12 con python3.12-venv. "
-            "En otras distribuciones usa su gestor de paquetes. "
+            "proveedor de ese Python.\n"
+            "En otras distribuciones usa su gestor de paquetes.\n"
+            "Los paquetes del sistema no se instalan automáticamente.\n"
         )
     else:
-        message += (
-            "Repara la instalación de Python 3.12+ para incluir venv y ensurepip. "
-        )
+        message += "Solución: repara la instalación de Python 3.12+ para incluir venv y ensurepip.\n"
     return message + (
-        "Los paquetes del sistema no se instalan automáticamente en Linux. "
-        "Si no tienes permisos de administrador, solicita su instalación. "
-        "Después repite bash install.sh (o install.bat desde Windows)."
+        "Si no tienes permisos de administrador, solicita su instalación.\n"
+        "Después repite el instalador. No es necesario borrar las bases de datos."
     )
 
 
@@ -82,8 +78,8 @@ def ensure_pip(python, install):
         run([python, "-m", "ensurepip", "--upgrade"])
     except (subprocess.CalledProcessError, OSError) as exc:
         raise RuntimeError(
-            f"No se pudo preparar pip en {python.parent.parent}. "
-            "Revisa el error anterior y los permisos de escritura de esa carpeta. "
+            f"No se pudo preparar pip.\nEntorno: {python.parent.parent}\n"
+            "Revisa el error anterior y los permisos de escritura de esa carpeta.\n"
             + venv_help()
         ) from exc
     if subprocess.run(
@@ -373,17 +369,17 @@ def prepare_environment(args):
         else:
             env.init()
             print(
-                "Entorno nuevo creado con dos instituciones y cuentas DEMO básicas; credenciales privadas en state.json."
+                "Entorno nuevo creado con dos instituciones y cuentas básicas; credenciales privadas en state.json."
             )
         prepare_web(directory, env.state)
     finally:
-        # Solo procesos creados por esta preparación; nunca detener una DEMO activa.
+        # Solo procesos creados por esta preparación; nunca detener una instalación activa.
         env.stop()
     print(
         "Dependencias y configuración listas. Para iniciar: bash start.sh"
         + (
             " --directory " + str(directory)
-            if directory != REPO / ".local/demo"
+            if directory != REPO / ".local/runtime"
             else ""
         )
     )
@@ -473,7 +469,7 @@ def main():
         choices=[c for c in COMPONENTS if c != "bases"],
         default="todo",
     )
-    parser.add_argument("--directory", type=Path, default=REPO / ".local/demo")
+    parser.add_argument("--directory", type=Path, default=REPO / ".local/runtime")
     parser.add_argument("--web-port", type=int, default=5050)
     parser.add_argument("--no-install", action="store_true")
     args = parser.parse_args()
@@ -485,6 +481,18 @@ def main():
         print("\n".join(SERVICES))
         return
     args.directory = args.directory.resolve()
+    if (
+        args.directory == REPO / ".local/runtime"
+        and not (args.directory / "state.json").exists()
+    ):
+        existing = sorted((REPO / ".local").glob("*/state.json"))
+        if existing:
+            raise RuntimeError(
+                "Hay un entorno preparado en otra carpeta: "
+                + ", ".join(str(path.parent) for path in existing)
+                + ". Usa --directory con esa ruta o trasládalo detenido con "
+                "apps/services/scripts/relocate.py. No se creará otra base automáticamente."
+            )
     os.umask(0o077)
     lock_root = REPO / ".local"
     lock_root.mkdir(exist_ok=True, mode=0o700)

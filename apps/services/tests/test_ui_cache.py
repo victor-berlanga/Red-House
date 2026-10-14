@@ -134,7 +134,7 @@ def test_jinja_fragments_readonly_modal_and_return_after_edit(web, p):
         data={
             "folio": "UI-" + uuid4().hex[:10],
             "kind": "BLOOD",
-            "component": "RBC-DEMO",
+            "component": "RBC",
             "blood_group": "O+",
             "expires_at": iso(days=2),
         },
@@ -157,7 +157,7 @@ def test_jinja_fragments_readonly_modal_and_return_after_edit(web, p):
     assert values["return_to"] == target
     values.update(
         folio=unit["folio"],
-        component="RBC-DEMO",
+        component="RBC",
         blood_group="O+",
         expires_at=iso(days=3),
         human_confirmation="on",
@@ -204,7 +204,7 @@ def test_pagination_controls_preserve_filters_and_recover_last_page(web, p):
     with p.owner("inventario") as conn:
         with conn.cursor() as cursor:
             cursor.executemany(
-                "INSERT INTO resources(id,tenant_id,region_id,current_institution_id,folio,kind,component,blood_group,expires_at) VALUES(%s,%s,%s,%s,%s,'BLOOD','RBC-DEMO','O-',now()+interval '2 days')",
+                "INSERT INTO resources(id,tenant_id,region_id,current_institution_id,folio,kind,component,blood_group,expires_at) VALUES(%s,%s,%s,%s,%s,'BLOOD','RBC','O-',now()+interval '2 days')",
                 [
                     (
                         str(uuid4()),

@@ -8,4 +8,4 @@ Ejecutar desde `apps/services`: `python run.py transporte --config /ruta/privada
 
 Swagger: `/docs`. Contratos estáticos y XSD: [contracts](contracts). Guía común: [README](../README.md).
 
-Apuntes de presentación: [TXT](../../../stuff/temporal-microservicios/07-ms_transporte.txt).
+Apuntes de presentación: [TXT](../../../stuff/presentacion/07-ms_transporte.txt).

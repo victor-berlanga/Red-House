@@ -21,9 +21,9 @@ from redhouse.examples import response_xml
 from scripts.package_service import package
 
 ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT.parent / "web-monolito01"))
+sys.path.insert(0, str(ROOT.parent / "web"))
 from src.integration import sessions
-from src.business.access import BusinessError
+from src.access import BusinessError
 
 
 def app_for_sessions(tmp_path):

@@ -33,7 +33,7 @@ def main():
         with conn.cursor() as cursor:
             cursor.executemany(
                 "INSERT INTO resources(id,tenant_id,current_institution_id,region_id,folio,kind,component,blood_group,expires_at,status) "
-                "VALUES(%s,%s,%s,%s,%s,'BLOOD','RBC-DEMO',%s,%s,'AVAILABLE')",
+                "VALUES(%s,%s,%s,%s,%s,'BLOOD','RBC',%s,%s,'AVAILABLE')",
                 [
                     (
                         str(uuid4()),

@@ -1,6 +1,6 @@
 # Casos de uso principales
 
-> **Actualización — 27 de septiembre de 2026:** este documento conserva la línea base y los requisitos semestrales; sus fases no describen por sí solas el avance actual. El Reporte Técnico Integral Red House, revisión 2.1, consolida el alcance vigente, las pruebas y los límites. Órganos/HLA y componentes distribuidos permanecen posteriores. Véase el [reporte técnico integral](../docx/Reporte_Tecnico_Integral_Red_House.docx).
+> Revisión documental — 14 de octubre de 2026: documento de referencia para el alcance y la planificación del semestre. Las fases y fechas originales expresan la secuencia prevista, no el estado de implementación. El portal integrado, los microservicios, PostgreSQL, MongoDB y Redis ya tienen operación local; Android, escritorio, Docker y GCP siguen pendientes. [PROJECT_STATUS.md](../../PROJECT_STATUS.md) registra el avance comprobado. La arquitectura ejecutable se describe en [Arquitectura.md](Arquitectura.md) y la persistencia en [Datos_y_persistencia.md](Datos_y_persistencia.md). El reporte integral de septiembre conserva una entrega anterior.
 
 > **Proyecto:** Red regional de bancos de sangre y donación de órganos — Equipo 01.  
 > **Estado:** línea base documental del alcance completo.  
@@ -13,7 +13,7 @@ Este documento describe las interacciones principales entre los actores y la pla
 
 El alcance corresponde al proyecto completo. Los casos identificados para el primer parcial delimitan el producto mínimo funcional; los casos posteriores permanecen documentados para orientar los siguientes incrementos. La plataforma proporciona coordinación y apoyo a decisiones, pero no sustituye la evaluación médica, ética o normativa ni confirma automáticamente decisiones que requieran intervención humana autorizada.
 
-Los flujos clínicos o regulatorios se ejecutarán con datos ficticios y reglas demostrativas mientras no existan fuentes vigentes y validación competente. Los flujos distinguen expresamente la sangre de los órganos y no establecen fórmulas, ponderaciones, tiempos de conservación ni reglas de compatibilidad no documentadas.
+Los flujos clínicos o regulatorios se ejecutarán con datos ficticios y reglas ilustrativas mientras no existan fuentes vigentes y validación competente. Los flujos distinguen expresamente la sangre de los órganos y no establecen fórmulas, ponderaciones, tiempos de conservación ni reglas de compatibilidad no documentadas.
 
 ## 2. Convenciones y condiciones comunes
 
@@ -176,7 +176,7 @@ Los flujos clínicos o regulatorios se ejecutarán con datos ficticios y reglas 
 
 - Si existe un posible duplicado, la plataforma solicita revisar el registro encontrado antes de crear otro.
 - Un valor referenciado por operaciones anteriores se inactiva en lugar de eliminarse de forma destructiva.
-- Un parámetro demostrativo se identifica como tal y no se presenta como regla clínica autorizada.
+- Un parámetro ilustrativo se identifica como tal y no se presenta como regla clínica autorizada.
 - Desactivar una institución impide nuevas operaciones según las reglas aplicables, pero conserva historial y relaciones existentes.
 
 **Trazabilidad principal**
@@ -205,7 +205,7 @@ Los flujos clínicos o regulatorios se ejecutarán con datos ficticios y reglas 
 1. El actor selecciona expresamente el proceso de sangre o el proceso especializado de órganos.
 2. Para sangre, registra o consulta la unidad con identificador único, institución, ubicación, componente, fechas y estado; para órganos, captura únicamente disponibilidad, viabilidad y datos autorizados del flujo especializado.
 3. La plataforma valida campos, duplicados, referencias y transición solicitada sin mezclar reglas entre tipos de recurso.
-4. En el inventario sanguíneo del primer parcial se calcula la proximidad de caducidad mediante el parámetro demostrativo visible.
+4. En el inventario sanguíneo del primer parcial se calcula la proximidad de caducidad mediante el parámetro ilustrativo visible.
 5. El actor confirma la operación y la plataforma persiste el nuevo estado y el movimiento correspondiente.
 6. En el incremento de escritorio, el Operador puede previsualizar e imprimir una etiqueta autorizada vinculada con el identificador de la unidad.
 7. La plataforma registra la operación y actualiza las consultas autorizadas de inventario o disponibilidad.
@@ -353,7 +353,7 @@ Los flujos clínicos o regulatorios se ejecutarán con datos ficticios y reglas 
 | Fase | Posterior. |
 | Componentes | Sistema web o aplicación de escritorio; microservicios; PostgreSQL, MongoDB o Redis conforme al dato; auditoría. |
 | Disparador | Una solicitud completa requiere identificar y ordenar alternativas compatibles. |
-| Precondiciones | Solicitud, recursos y datos mínimos disponibles; reglas autorizadas y versionadas o reglas demostrativas identificadas. |
+| Precondiciones | Solicitud, recursos y datos mínimos disponibles; reglas autorizadas y versionadas o reglas ilustrativas identificadas. |
 | Postcondiciones | Se conserva una evaluación inmutable con candidatos, posición, factores, versión, explicación y decisión humana relacionada cuando exista. |
 
 **Flujo principal**
@@ -659,7 +659,7 @@ Los flujos clínicos o regulatorios se ejecutarán con datos ficticios y reglas 
 | Primer parcial | `CU-01`, `CU-02`, `CU-03`, flujo sanguíneo inicial de `CU-04`, panel básico de `CU-12` y alcance básico de `CU-14`. |
 | Segundo parcial | `CU-05` a `CU-11` y `CU-13`, junto con la ampliación distribuida de los casos transversales. |
 | Tercer parcial | Integración completa de `CU-08` a `CU-15`, algoritmos, nube, monitoreo, volumen y recuperación ante fallos. |
-| Entrega final | Regresión y demostración integral de los quince casos conforme al alcance implementado. |
+| Entrega final | Regresión y presentación integral de los quince casos conforme al alcance implementado. |
 
 La inclusión de un caso en un incremento posterior no autoriza a anticipar reglas clínicas sin validar. Del mismo modo, documentar el alcance completo no implica que todos los casos estén implementados en el primer parcial.
 

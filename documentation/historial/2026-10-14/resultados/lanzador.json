@@ -1,0 +1,22 @@
+{
+  "date": "2026-10-14T14:30:31.147508+00:00",
+  "result": "passed",
+  "checks": [
+    "start_requires_prepared_environment",
+    "installer_prepares_without_leaving_processes_running",
+    "fresh_environment_databases_only",
+    "single_service_and_worker",
+    "all_services_preserve_existing_service",
+    "web_and_session_worker",
+    "installer_preserves_running_environment",
+    "repeat_start_preserves_all_pids",
+    "missing_worker_recovered_without_api_restart",
+    "restart_one_service_preserves_other_processes",
+    "occupied_web_port_rejected_without_killing_owner",
+    "stop_and_start_services_preserve_web",
+    "concurrent_launcher_rejected",
+    "cold_restart_preserves_configuration_and_accounts"
+  ],
+  "environment": "new isolated local cluster; stopped after verification",
+  "platform": "darwin"
+}

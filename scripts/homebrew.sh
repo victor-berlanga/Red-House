@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 # Se usa solo cuando falta una dependencia que requiere Homebrew.
 redhouse_find_brew() {
+    if [[ "$(uname -s)" != Darwin ]]; then
+        printf 'Este auxiliar es exclusivo de macOS. En Ubuntu utiliza los paquetes de tu distribucion; consulta documentation/markdowns/Instalacion_y_operacion.md.\n' >&2
+        return 1
+    fi
     redhouse_brew="$(command -v brew || true)"
     if [[ -z "$redhouse_brew" ]]; then
         for redhouse_brew_path in /opt/homebrew/bin/brew /usr/local/bin/brew; do

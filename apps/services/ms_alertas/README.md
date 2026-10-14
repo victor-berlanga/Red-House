@@ -8,4 +8,4 @@ Ejecutar desde `apps/services`: `python run.py alertas --config /ruta/privada/al
 
 Swagger: `/docs`. Contratos estáticos y XSD: [contracts](contracts). Guía común: [README](../README.md).
 
-Apuntes de presentación: [TXT](../../../stuff/temporal-microservicios/09-ms_alertas.txt).
+Apuntes de presentación: [TXT](../../../stuff/presentacion/09-ms_alertas.txt).

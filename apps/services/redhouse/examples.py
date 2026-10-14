@@ -4,7 +4,7 @@ from lxml import etree as E
 
 from .codec import xml_value
 
-DEMO_ID = "00000000-0000-4000-8000-000000000001"
+EXAMPLE_ID = "00000000-0000-4000-8000-000000000001"
 
 
 def sample(schema, root=None, name="", depth=0):
@@ -45,15 +45,15 @@ def sample(schema, root=None, name="", depth=0):
         or name.endswith("_id")
         or name in ("id", "identifier", "evaluation_ids")
     ):
-        return DEMO_ID
+        return EXAMPLE_ID
     if "pattern" in schema and "[0-9a-f]{8}" in schema["pattern"]:
-        return DEMO_ID
+        return EXAMPLE_ID
     if name == "sha256":
         return "0" * 64
     if name == "password":
         return "CAMBIAR_CREDENCIAL_PRIVADA"
     if name == "refresh_token":
-        return DEMO_ID + ".CAMBIAR_POR_RENOVACION_RECIBIDA_EN_LOGIN_00000000"
+        return EXAMPLE_ID + ".CAMBIAR_POR_RENOVACION_RECIBIDA_EN_LOGIN_00000000"
     if (
         name in ("expires_at", "starts_at", "departure_at", "eta", "ends_at")
         or schema.get("format") == "date-time"
@@ -62,11 +62,11 @@ def sample(schema, root=None, name="", depth=0):
     if name in ("captured_at", "collected_at", "occurred_at"):
         return "2026-10-01T15:00:00+00:00"
     if name == "component":
-        return "RBC-DEMO"
+        return "RBC"
     if name in ("opens_at", "closes_at"):
         return "08:00" if name == "opens_at" else "17:00"
     if name == "folio":
-        return "DEMO-000001"
+        return "PRUEBA-000001"
     return "Dato ficticio para reemplazar"
 
 

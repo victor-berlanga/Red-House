@@ -41,7 +41,7 @@ def session_worker(directory, state):
     pid = state.get("web_pids", {}).get("revocations")
     if pid and pid_matches(pid, directory):
         return
-    web = ROOT.parent / "web-monolito01"
+    web = ROOT.parent / "web"
     python = web / ".venv" / ("Scripts/python.exe" if os.name == "nt" else "bin/python")
     with open(directory / "web-sessions.log", "ab") as log:
         process = subprocess.Popen(
@@ -124,7 +124,7 @@ def main():
             ) from None
         finally:
             test.close()
-        web = ROOT.parent / "web-monolito01"
+        web = ROOT.parent / "web"
         python = (
             web / ".venv" / ("Scripts/python.exe" if os.name == "nt" else "bin/python")
         )

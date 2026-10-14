@@ -8,7 +8,7 @@ def iso(minutes=0, days=0):
     ).isoformat()
 
 
-def resource(p, kind="BLOOD", component="RBC-DEMO", group="O-", expires=None):
+def resource(p, kind="BLOOD", component="RBC", group="O-", expires=None):
     row = p.ok(
         "inventario",
         "POST",
@@ -35,7 +35,7 @@ def resource(p, kind="BLOOD", component="RBC-DEMO", group="O-", expires=None):
     )
 
 
-def recipient_request(p, kind="BLOOD", component="RBC-DEMO", group="A+", quantity=1):
+def recipient_request(p, kind="BLOOD", component="RBC", group="A+", quantity=1):
     recipient = p.ok(
         "receptores",
         "POST",

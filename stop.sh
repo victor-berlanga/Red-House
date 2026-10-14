@@ -7,7 +7,7 @@ if [[ "${1:-}" == '--help' || "${1:-}" == '-h' ]]; then
 Uso: bash stop.sh [--directory RUTA]
 Detiene la web, las API, sus workers, PostgreSQL, Redis y MongoDB del entorno.
 Conserva los datos y no detiene procesos ajenos al proyecto.
-Directorio predeterminado: .local/demo del repositorio.
+Directorio predeterminado: .local/runtime del repositorio.
 HELP
     exit 0
 fi

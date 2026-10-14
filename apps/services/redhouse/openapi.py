@@ -33,7 +33,7 @@ ERROR = {
 
 
 def spec(app):
-    from .examples import DEMO_ID, request_xml, response_xml, sample
+    from .examples import EXAMPLE_ID, request_xml, response_xml, sample
 
     paths, schemas = {}, {"Error": ERROR}
     for contract in app.extensions["contracts"]:
@@ -136,7 +136,7 @@ def spec(app):
         example = {
             "data": sample(result),
             "meta": {
-                "correlation_id": DEMO_ID,
+                "correlation_id": EXAMPLE_ID,
                 "service": app.config["SERVICE"],
                 "version": app.config["VERSION"],
             },
@@ -228,7 +228,7 @@ def spec(app):
         "info": {
             "title": "Red House — " + app.config["SERVICE"],
             "version": app.config["VERSION"],
-            "description": "API independiente JSON/XML. Reglas clínicas demostrativas; requiere revisión humana. XML de respuesta validable en /schemas/response.xsd.",
+            "description": "API independiente JSON/XML. Reglas clínicas ilustrativas; requiere revisión humana. XML de respuesta validable en /schemas/response.xsd.",
         },
         "paths": paths,
         "components": {

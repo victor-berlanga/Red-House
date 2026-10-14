@@ -21,5 +21,5 @@ echo Instalacion y preparacion: install.bat
 exit /b 0
 
 :missing_wsl
-echo Falta WSL. Consulta apps/services/docs/ARRANQUE_LOCAL.md. >&2
+echo Falta WSL. Consulta documentation/markdowns/Instalacion_y_operacion.md. >&2
 exit /b 1

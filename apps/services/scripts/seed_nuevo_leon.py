@@ -1,11 +1,9 @@
 """Provisiona solo un entorno local nuevo. Los datos de negocio se crean por API con perfiles reales."""
 
 import argparse
-import importlib
 import json
 import os
 import sys
-import time
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from uuid import uuid4
@@ -71,7 +69,7 @@ LAST = (
 )
 ROLES = ("ADMIN", "OPERATOR", "MEDICAL", "COORDINATOR", "TRANSPORT", "AUDITOR", "DONOR")
 GROUPS = ("O+", "A+", "B+", "AB+", "O-", "A-", "B-", "AB-")
-REASON = "Registro ficticio para demostración académica; revisión humana representada por el perfil autorizado."
+REASON = "Registro ficticio para presentación académica; revisión humana representada por el perfil autorizado."
 
 
 def write_private(path, value):
@@ -80,14 +78,14 @@ def write_private(path, value):
     os.replace(temporary, path)
 
 
-class Demo:
+class RegionalDataset:
     def __init__(self, directory):
         self.directory = directory.resolve()
         self.state = json.loads((directory / "state.json").read_text())
         if Path(self.state["directory"]).resolve() != self.directory:
             raise RuntimeError("Directorio no coincide con entorno local propio.")
         self.tokens = {}
-        migration = self.directory / "legacy-account-migration.json"
+        migration = self.directory / "regional-load.json"
         self.summary = json.loads(migration.read_text()) if migration.exists() else {}
 
     def sql(self, service):
@@ -97,8 +95,8 @@ class Demo:
             row_factory=dict_row,
         )
 
-    def provision(self, legacy=False):
-        if (self.directory / "demo-nl.json").exists():
+    def provision(self):
+        if (self.directory / "dataset-nl.json").exists():
             raise RuntimeError(
                 "Esta carga ya terminó; no duplicar datos ni reinicializar."
             )
@@ -128,7 +126,7 @@ class Demo:
                         "INSERT INTO institutions(id,name,region_id) VALUES(%s,%s,%s) ON CONFLICT(id) DO NOTHING",
                         (tenant, name, self.state["region_id"]),
                     )
-                    # Reutilizar el hash aleatorio de las cuentas DEMO, nunca copiar contraseña al repositorio.
+                    # Reutilizar el hash aleatorio de las cuentas, nunca copiar contraseña al repositorio.
                     password_hash = conn.execute(
                         "SELECT password_hash FROM users LIMIT 1"
                     ).fetchone()["password_hash"]
@@ -149,60 +147,6 @@ class Demo:
                             "tenant_id": tenant,
                             "role": role,
                         }
-            imported = 0
-            if legacy:
-                sys.path.insert(0, str(ROOT.parent / "web-monolito01"))
-                from src.config.settings import settings
-                from src.data_access.repositories.accounts import SELECT_ACCOUNT
-
-                config = settings()
-                try:
-                    with psycopg.connect(
-                        config["DATABASE_URL"],
-                        row_factory=dict_row,
-                        options="-c search_path=red_house,pg_catalog -c default_transaction_read_only=on -c statement_timeout=5000",
-                    ) as source:
-                        accounts = source.execute(SELECT_ACCOUNT).fetchall()
-                    for account in accounts:
-                        if (
-                            account["account_status"] != "ACTIVE"
-                            or not account["is_enabled"]
-                            or account["role_code"] not in ROLES
-                        ):
-                            continue
-                        if (
-                            account["institution_id"]
-                            and account["participation_status"] != "ACTIVE"
-                        ):
-                            continue
-                        username = account["login_email"]
-                        if len(username) > 80:
-                            continue
-                        institution = (account["institution_name"] or "").casefold()
-                        index = next(
-                            (
-                                i
-                                for i, city in enumerate(CITIES)
-                                if city.casefold() in institution
-                            ),
-                            0,
-                        )
-                        conn.execute(
-                            "INSERT INTO users(id,tenant_id,username,password_hash,role) VALUES(%s,%s,%s,%s,%s) ON CONFLICT(username) DO NOTHING",
-                            (
-                                account["account_id"],
-                                self.state["tenants"][index],
-                                username,
-                                account["password_hash"],
-                                account["role_code"],
-                            ),
-                        )
-                        imported += 1
-                    self.summary["legacy_accounts_preserved"] = imported
-                except psycopg.Error:
-                    raise RuntimeError(
-                        "No se pudo leer la base anterior. No se modificó; revisa su disponibilidad antes de integrar accesos."
-                    ) from None
         for service in self.state["urls"]:
             path = self.directory / (service + ".json")
             config = json.loads(path.read_text())
@@ -212,7 +156,7 @@ class Demo:
             write_private(path, json.dumps(config, indent=2))
         write_private(self.directory / "state.json", json.dumps(self.state, indent=2))
         write_private(
-            self.directory / "legacy-account-migration.json",
+            self.directory / "regional-load.json",
             json.dumps(self.summary, indent=2),
         )
         write_private(
@@ -239,9 +183,7 @@ class Demo:
                 timeout=20,
             )
             if login.status_code != 200:
-                raise RuntimeError(
-                    "No se pudo autenticar perfil DEMO durante la carga."
-                )
+                raise RuntimeError("No se pudo autenticar perfil durante la carga.")
             self.tokens[user] = login.json()["data"]["access_token"]
         response = requests.request(
             method,
@@ -311,7 +253,7 @@ class Demo:
                     {
                         "donor_id": donors[n]["id"],
                         "kind": "BLOOD",
-                        "component": "RBC-DEMO",
+                        "component": "RBC",
                         "collected_at": datetime.now(timezone.utc).isoformat(),
                         "reason": REASON,
                         "human_confirmation": True,
@@ -367,7 +309,7 @@ class Demo:
             for n in range(42):
                 kind = "BLOOD" if n < 36 else "ORGAN"
                 component = (
-                    "RBC-DEMO"
+                    "RBC"
                     if kind == "BLOOD"
                     else ("KIDNEY", "LIVER", "HEART")[(n - 36) % 3]
                 )
@@ -424,7 +366,7 @@ class Demo:
                         "organ_type": organ,
                         "studies": "Expediente ficticio de "
                         + CITIES[i]
-                        + ". Estudios documentales de demostración; HLA y pruebas cruzadas requieren revisión especializada, sin interpretación automática.",
+                        + ". Estudios documentales de presentación; HLA y pruebas cruzadas requieren revisión especializada, sin interpretación automática.",
                     },
                 )
                 req = self.call(
@@ -434,7 +376,7 @@ class Demo:
                     medical,
                     {
                         "recipient_id": recipient["id"],
-                        "component": "RBC-DEMO" if kind == "BLOOD" else organ,
+                        "component": "RBC" if kind == "BLOOD" else organ,
                         "quantity": 1 if n % 3 == 0 or kind == "ORGAN" else n % 3 + 1,
                         "urgency": n % 3 + 1,
                     },
@@ -455,7 +397,7 @@ class Demo:
                         "destination_id": destination,
                         "distance_km": distance,
                         "travel_minutes": 5 if i == j else 18 + abs(i - j) * 7,
-                        "source": "Estimación operativa ficticia entre municipios de Nuevo León · DEMO; no navegación ni tiempo de tráfico verificado.",
+                        "source": "Estimación operativa ficticia entre municipios de Nuevo León; no navegación ni tiempo de tráfico verificado.",
                     },
                 )
         shipments = []
@@ -508,7 +450,7 @@ class Demo:
                 )
                 if result["status"] != "COMPLETED":
                     raise RuntimeError(
-                        "Reserva DEMO pendiente; consultar y resolver antes de continuar."
+                        "Reserva pendiente; consultar y resolver antes de continuar."
                     )
                 origin = self.state["tenants"].index(candidate["origin_id"])
                 transport = "transport" + str(origin + 1)
@@ -595,11 +537,11 @@ class Demo:
             notice="Todos los nombres, instituciones, estudios, fechas y límites son ficticios. Los municipios son de Nuevo León. No representa pacientes ni reglas clínicas reales.",
         )
         write_private(
-            self.directory / "demo-nl.json",
+            self.directory / "dataset-nl.json",
             json.dumps(self.summary, indent=2, ensure_ascii=False),
         )
         print(
-            "Carga de demostración finalizada; resumen sin credenciales guardado en demo-nl.json."
+            "Carga de presentación finalizada; resumen sin credenciales guardado en dataset-nl.json."
         )
 
     def restore(self):
@@ -621,15 +563,14 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("action", choices=("provision", "populate", "restore"))
     parser.add_argument("--directory", type=Path, required=True)
-    parser.add_argument("--preserve-web-accounts", action="store_true")
     args = parser.parse_args()
-    demo = Demo(args.directory)
+    sample = RegionalDataset(args.directory)
     if args.action == "provision":
-        demo.provision(args.preserve_web_accounts)
+        sample.provision()
     elif args.action == "populate":
-        demo.populate()
+        sample.populate()
     else:
-        demo.restore()
+        sample.restore()
 
 
 if __name__ == "__main__":

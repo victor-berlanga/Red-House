@@ -1,6 +1,6 @@
 # Matriz de trazabilidad integral
 
-> **Actualización — 27 de septiembre de 2026:** este documento conserva la línea base y los requisitos semestrales; sus fases no describen por sí solas el avance actual. El Reporte Técnico Integral Red House, revisión 2.1, consolida el alcance vigente, las pruebas y los límites. Órganos/HLA y componentes distribuidos permanecen posteriores. Véase el [reporte técnico integral](../docx/Reporte_Tecnico_Integral_Red_House.docx).
+> Revisión documental — 14 de octubre de 2026: documento de referencia para el alcance y la planificación del semestre. Las fases y fechas originales expresan la secuencia prevista, no el estado de implementación. El portal integrado, los microservicios, PostgreSQL, MongoDB y Redis ya tienen operación local; Android, escritorio, Docker y GCP siguen pendientes. [PROJECT_STATUS.md](../../PROJECT_STATUS.md) registra el avance comprobado. La arquitectura ejecutable se describe en [Arquitectura.md](Arquitectura.md) y la persistencia en [Datos_y_persistencia.md](Datos_y_persistencia.md). El reporte integral de septiembre conserva una entrega anterior.
 
 > **Proyecto:** Red regional de bancos de sangre y donación de órganos — Equipo 01.  
 > **Estado:** línea base documental del alcance completo.  
@@ -13,7 +13,7 @@ La matriz vincula cada requerimiento funcional y no funcional con la historia de
 
 La cobertura corresponde a todo el semestre. La fase **Primer parcial** delimita el producto mínimo funcional, **Posterior** identifica capacidades de los siguientes incrementos y **Transversal** señala obligaciones que se aplican cada vez que el proceso relacionado entra en operación. La matriz no presenta como implementados los elementos que solo se encuentran documentados.
 
-Las relaciones clínicas o regulatorias conservan su clasificación original. Hasta disponer de validación competente, su verificación académica utilizará datos ficticios, reglas demostrativas identificadas y comprobación explícita de la intervención humana.
+Las relaciones clínicas o regulatorias conservan su clasificación original. Hasta disponer de validación competente, su verificación académica utilizará datos ficticios, reglas ilustrativas identificadas y comprobación explícita de la intervención humana.
 
 ## 2. Modelo de trazabilidad
 
@@ -31,7 +31,7 @@ Las relaciones clínicas o regulatorias conservan su clasificación original. Ha
 
 | Código | Evidencia prevista |
 | --- | --- |
-| `VT-01` | Prueba funcional o demostración del flujo con resultado esperado, persistencia real y auditoría cuando corresponda. |
+| `VT-01` | Prueba funcional o presentación del flujo con resultado esperado, persistencia real y auditoría cuando corresponda. |
 | `VT-02` | Prueba de autenticación, autorización, ámbito, sesión, revocación, ocultamiento o manejo seguro de errores. |
 | `VT-03` | Prueba de contrato HTTP, JSON, XML/XSD, versionamiento, validación y documentación OpenAPI/Swagger. |
 | `VT-04` | Prueba de persistencia, integridad, transacción, índices, metadatos, retención, respaldo o restauración. |
@@ -39,7 +39,7 @@ Las relaciones clínicas o regulatorias conservan su clasificación original. Ha
 | `VT-06` | Prueba de salud, timeout, dependencia inaccesible, degradación, recuperación e idempotencia. |
 | `VT-07` | Medición de carga, concurrencia, consumo, media, p95, p99, errores y recuperación mediante el conjunto de datos definido. |
 | `VT-08` | Prueba de interfaz, accesibilidad, dispositivo, conectividad, sincronización o tarea de usabilidad. |
-| `VT-09` | Validación clínica/normativa o, mientras esté pendiente, demostración identificada con datos ficticios, explicación y control humano. |
+| `VT-09` | Validación clínica/normativa o, mientras esté pendiente, presentación identificada con datos ficticios, explicación y control humano. |
 
 ## 3. Resumen de cobertura
 
@@ -84,7 +84,7 @@ Los rangos y las familias representan cobertura agrupada y no significan que cad
 | **RF-WEB-005**<br>Primer parcial<br>Instituciones y sedes como fuente conceptual única. | HU-WEB-005 | RN-ACC-005 | CU-03 | VT-01, VT-02, VT-04 |
 | **RF-WEB-006**<br>Posterior<br>Expediente autorizado de donantes. | HU-WEB-006 | RN-GOB-004, RN-PER-002 | CU-05 | VT-01, VT-02, VT-09 |
 | **RF-WEB-007**<br>Posterior<br>Expediente protegido de receptores o pacientes. | HU-WEB-007 | RN-GOB-004, RN-PER-004 | CU-06 | VT-01, VT-02, VT-09 |
-| **RF-WEB-008**<br>Primer parcial<br>Inventario sanguíneo ficticio y caducidad demostrativa. | HU-WEB-008 | RN-GOB-003, RN-GOB-004, RN-INV-001, RN-INV-002 | CU-04 | VT-01, VT-04, VT-09 |
+| **RF-WEB-008**<br>Primer parcial<br>Inventario sanguíneo ficticio y caducidad ilustrativa. | HU-WEB-008 | RN-GOB-003, RN-GOB-004, RN-INV-001, RN-INV-002 | CU-04 | VT-01, VT-04, VT-09 |
 | **RF-WEB-009**<br>Posterior<br>Disponibilidad y viabilidad de órganos mediante flujo separado. | HU-WEB-009 | RN-GOB-004, RN-INV-003 | CU-04 | VT-01, VT-02, VT-09 |
 | **RF-WEB-010**<br>Posterior<br>Solicitudes ordinarias y urgentes. | HU-WEB-010 | RN-PER-004, RN-SOL-001, RN-SOL-002 | CU-06 | VT-01, VT-02, VT-09 |
 | **RF-WEB-011**<br>Posterior<br>Captura y consulta de pruebas o estudios diferenciados. | HU-WEB-011 | RN-INV-004, RN-SOL-003 | CU-07 | VT-01, VT-02, VT-09 |

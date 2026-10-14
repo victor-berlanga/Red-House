@@ -1,6 +1,6 @@
 # Historias de usuario
 
-> **Actualización — 27 de septiembre de 2026:** este documento conserva la línea base y los requisitos semestrales; sus fases no describen por sí solas el avance actual. El Reporte Técnico Integral Red House, revisión 2.1, consolida el alcance vigente, las pruebas y los límites. Órganos/HLA y componentes distribuidos permanecen posteriores. Véase el [reporte técnico integral](../docx/Reporte_Tecnico_Integral_Red_House.docx).
+> Revisión documental — 14 de octubre de 2026: documento de referencia para el alcance y la planificación del semestre. Las fases y fechas originales expresan la secuencia prevista, no el estado de implementación. El portal integrado, los microservicios, PostgreSQL, MongoDB y Redis ya tienen operación local; Android, escritorio, Docker y GCP siguen pendientes. [PROJECT_STATUS.md](../../PROJECT_STATUS.md) registra el avance comprobado. La arquitectura ejecutable se describe en [Arquitectura.md](Arquitectura.md) y la persistencia en [Datos_y_persistencia.md](Datos_y_persistencia.md). El reporte integral de septiembre conserva una entrega anterior.
 
 > **Proyecto:** Red regional de bancos de sangre y donación de órganos — Equipo 01.  
 > **Estado:** borrador consolidado para validación académica.  
@@ -13,7 +13,7 @@ Este documento define las historias de usuario de la solución completa a partir
 
 La fase **Primer parcial** identifica el subconjunto inicial del sistema web. Las historias **Posteriores** continúan dentro del alcance del proyecto y deberán considerarse en la arquitectura, los datos y la planeación aunque todavía no estén implementadas. Las historias **Transversales** se incorporarán gradualmente en todos los incrementos a los que correspondan.
 
-La plataforma será una herramienta de coordinación y apoyo. Ninguna historia autoriza que el sistema sustituya la evaluación médica, ética o normativa, ni que invente reglas de compatibilidad, elegibilidad, urgencia, conservación, priorización o asignación. Hasta contar con fuentes y validaciones autorizadas, los datos y las reglas utilizados en demostraciones serán ficticios y se identificarán como demostrativos.
+La plataforma será una herramienta de coordinación y apoyo. Ninguna historia autoriza que el sistema sustituya la evaluación médica, ética o normativa, ni que invente reglas de compatibilidad, elegibilidad, urgencia, conservación, priorización o asignación. Hasta contar con fuentes y validaciones autorizadas, los datos y las reglas utilizados en demostraciones serán ficticios y se identificarán como ilustrativos.
 
 ## 2. Convenciones
 
@@ -44,7 +44,7 @@ Además de los criterios particulares de cada historia, se aplicarán los siguie
 3. Los mensajes de error deberán ser comprensibles y no revelar datos personales o clínicos, secretos, tokens ni detalles internos.
 4. Los procesos de sangre y los de órganos conservarán datos, estados, reglas y validaciones diferenciados.
 5. Los resultados de compatibilidad, priorización, pronóstico o recomendación mostrarán su procedencia y requerirán la intervención humana autorizada que corresponda.
-6. Los criterios clínicos o regulatorios pendientes no se considerarán aceptados por estar escritos en este documento; deberán validarse antes de utilizarse con fines distintos de una demostración académica.
+6. Los criterios clínicos o regulatorios pendientes no se considerarán aceptados por estar escritos en este documento; deberán validarse antes de utilizarse con fines distintos de una presentación académica.
 
 ## 3. Sistema web empresarial
 
@@ -67,7 +67,7 @@ Además de los criterios particulares de cada historia, se aplicarán los siguie
 1. La página pública explica el propósito académico de la red y presenta únicamente contenido autorizado.
 2. El visitante puede llegar al inicio de sesión desde la navegación pública.
 3. La página no muestra inventarios detallados ni datos personales, clínicos, logísticos o de auditoría.
-4. El contenido puede consultarse desde los tamaños de pantalla definidos para la demostración.
+4. El contenido puede consultarse desde los tamaños de pantalla definidos para la presentación.
 
 ### HU-WEB-002 — Acceder de forma segura a la plataforma
 
@@ -131,7 +131,7 @@ Además de los criterios particulares de cada historia, se aplicarán los siguie
 3. Se validan los campos obligatorios, la unicidad definida y las referencias activas antes de guardar.
 4. Un valor que ya tiene historial no se elimina de forma que rompa registros anteriores; se inactiva cuando corresponda.
 5. Todo cambio conserva fecha, responsable y valores necesarios para auditoría.
-6. Los parámetros demostrativos se identifican como tales y no se presentan como reglas clínicas válidas.
+6. Los parámetros ilustrativos se identifican como tales y no se presentan como reglas clínicas válidas.
 
 ### HU-WEB-005 — Administrar instituciones participantes
 
@@ -200,7 +200,7 @@ Además de los criterios particulares de cada historia, se aplicarán los siguie
 
 ### Épica WEB-04 — Inventario regional
 
-### HU-WEB-008 — Gestionar inventario sanguíneo y caducidad demostrativa
+### HU-WEB-008 — Gestionar inventario sanguíneo y caducidad ilustrativa
 
 | Campo | Valor |
 | --- | --- |
@@ -217,7 +217,7 @@ Además de los criterios particulares de cada historia, se aplicarán los siguie
 1. Cada unidad recibe un identificador de trazabilidad único y conserva el tipo de componente, los datos temporales, la ubicación y el estado definidos para el MVP.
 2. Las consultas permiten búsqueda, filtros y paginación por institución, componente, estado y proximidad de caducidad.
 3. Solo se permiten transiciones de estado configuradas y cada transición conserva responsable, fecha y motivo cuando aplique.
-4. La proximidad de caducidad se calcula con un parámetro demostrativo visible y configurable, no con una regla presentada como criterio médico oficial.
+4. La proximidad de caducidad se calcula con un parámetro ilustrativo visible y configurable, no con una regla presentada como criterio médico oficial.
 5. Una unidad vencida o dada de baja no aparece como disponible para nuevas operaciones.
 6. El alta y los cambios se guardan en PostgreSQL y producen evidencia básica de auditoría.
 
@@ -411,7 +411,7 @@ Las siguientes historias expresan resultados del negocio proporcionados principa
 
 **Criterios de aceptación**
 
-1. La evaluación utiliza únicamente datos suficientes y reglas de compatibilidad, urgencia y prioridad autorizadas, versionadas o identificadas expresamente como demostrativas; cuando corresponda, puede considerar resultados autorizados de comparación u optimización por distancia y tiempo.
+1. La evaluación utiliza únicamente datos suficientes y reglas de compatibilidad, urgencia y prioridad autorizadas, versionadas o identificadas expresamente como ilustrativas; cuando corresponda, puede considerar resultados autorizados de comparación u optimización por distancia y tiempo.
 2. Los procesos sanguíneos y HLA se calculan y explican conforme a sus reglas diferenciadas; la falta de información se muestra y no se interpreta como compatibilidad.
 3. La urgencia utilizada corresponde a la registrada por personal autorizado y no es creada o modificada por el algoritmo.
 4. Cada resultado conserva entradas relevantes, factores, ponderaciones, versión, fecha, posición y explicación reproducible.
@@ -459,7 +459,7 @@ Las siguientes historias expresan resultados del negocio proporcionados principa
 2. La alerta se dirige únicamente a perfiles y ámbitos que pueden actuar sobre su causa.
 3. Los eventos repetidos dentro de la regla definida se deduplican o relacionan sin ocultar su frecuencia.
 4. El usuario puede marcarla como leída, atendida o cerrada conforme al flujo permitido y queda registro de la acción.
-5. Las reglas de urgencia, caducidad o inconsistencia son configuradas y versionadas; las demostrativas se muestran como tales.
+5. Las reglas de urgencia, caducidad o inconsistencia son configuradas y versionadas; las ilustrativas se muestran como tales.
 6. Una alerta informa y orienta la revisión, pero no ejecuta automáticamente una baja, transferencia o decisión clínica.
 
 ### HU-MS-004 — Consultar pronósticos de caducidad y sugerencias de balanceo

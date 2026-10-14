@@ -172,7 +172,7 @@ def register(app):
             dict(
                 c,
                 rank=i,
-                explanation="Orden operativo DEMO: límite capturado, minutos, distancia e identificador estable; requiere dictamen humano.",
+                explanation="Orden operativo: límite capturado, minutos, distancia e identificador estable; requiere dictamen humano.",
             )
             for i, c in enumerate(ordered, 1)
         ]
@@ -186,7 +186,7 @@ def register(app):
                     id=str(uuid4()),
                     tenant_id=g.actor["tenant_id"],
                     evaluation_id=data["evaluation_id"],
-                    algorithm_version="LOGISTICS-DEMO-1.0",
+                    algorithm_version="LOGISTICS-1.0",
                     factors={
                         "order": [
                             "expires_at",
@@ -206,7 +206,7 @@ def register(app):
                 "RANKING_CREATED",
                 row["id"],
                 row["tenant_id"],
-                metadata={"algorithm_version": "LOGISTICS-DEMO-1.0"},
+                metadata={"algorithm_version": "LOGISTICS-1.0"},
             )
             return row
 
@@ -288,7 +288,7 @@ def register(app):
                 dict(
                     id=str(uuid4()),
                     tenant_id=g.actor["tenant_id"],
-                    algorithm_version="COVERAGE-DEMO-HK-1.0",
+                    algorithm_version="COVERAGE-HK-1.0",
                     snapshots=details,
                     result=result,
                     elapsed_ms=elapsed,

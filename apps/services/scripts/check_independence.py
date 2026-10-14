@@ -1,4 +1,4 @@
-"""Verifica reinicio selectivo y continuidad de inventario/portal en la DEMO propia."""
+"""Verifica reinicio selectivo y continuidad de inventario/portal en el entorno propia."""
 
 import argparse
 import json

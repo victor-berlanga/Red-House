@@ -1,0 +1,18 @@
+{
+  "tables": 111,
+  "lost_rows": [],
+  "unexpected_changes": [],
+  "changed_tables": [
+    "identidad_acceso.cache_revision",
+    "identidad_acceso.catalogue",
+    "identidad_acceso.schema_version",
+    "donantes.donations",
+    "donantes.schema_version",
+    "receptores.requests",
+    "receptores.schema_version",
+    "inventario.cache_revision",
+    "inventario.resources",
+    "inventario.schema_version"
+  ],
+  "scope": "Comparación con aplicaciones detenidas durante la normalización de componentes. Usuarios e historiales mantuvieron hashes idénticos; no se publican datos ni hashes de filas."
+}

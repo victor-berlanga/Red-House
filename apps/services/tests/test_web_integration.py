@@ -1,6 +1,5 @@
 """Flask web real -> once API HTTP reales -> PostgreSQL/Redis/MongoDB físicos."""
 
-import re
 import secrets
 import sys
 import threading
@@ -14,20 +13,17 @@ from werkzeug.serving import make_server
 from .conftest import QuietHandler
 from .helpers import iso, route
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "web-monolito01"))
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "web"))
 from src import create_app
 
 
 @pytest.fixture
 def web(p, monkeypatch):
-    from src.data_access import connection
+    # The retired SQL backend must not be importable by the portal.
+    import importlib.util
 
-    def forbidden_sql(*args, **kwargs):
-        raise AssertionError(
-            "El portal integrado no debe consultar ni escribir SQL del monolito."
-        )
+    assert importlib.util.find_spec("src.data_access") is None
 
-    monkeypatch.setattr(connection, "transaction", forbidden_sql)
     app = create_app(
         {
             "SECRET_KEY": secrets.token_hex(32),
@@ -168,7 +164,7 @@ def test_roles_can_render_authorized_pages_through_http(web, p, user, paths):
 @pytest.mark.parametrize(
     "kind,component,group",
     [
-        ("BLOOD", "RBC-DEMO", "A+"),
+        ("BLOOD", "RBC", "A+"),
         ("ORGAN", "KIDNEY", "O+"),
         ("ORGAN", "LIVER", "O+"),
         ("ORGAN", "HEART", "O+"),
@@ -309,7 +305,7 @@ def test_forms_keep_values_and_same_idempotency_after_error(web, p):
     values.update(
         folio="invalid",
         kind="BLOOD",
-        component="RBC-DEMO",
+        component="RBC",
         blood_group="O+",
         expires_at="2020-01-01T10:00",
         donation_id="",
@@ -331,7 +327,7 @@ def test_web_rejects_csrf_wrong_role_and_cross_institution(web, p):
         "/inventario/nuevo",
         {
             "folio": "SAFE-" + uuid4().hex[:12],
-            "component": "RBC-DEMO",
+            "component": "RBC",
             "blood_group": "O+",
             "expires_at": iso(days=2),
         },
@@ -355,7 +351,7 @@ def test_filtered_pagination_counts_and_minimized_recipient_search(web, p):
         "/inventario/nuevo",
         {
             "folio": code,
-            "component": "RBC-DEMO",
+            "component": "RBC",
             "blood_group": "O+",
             "expires_at": iso(days=2),
         },
@@ -472,7 +468,7 @@ def test_donor_campaign_appointment_processing_and_inventory_source_from_web(web
         {
             "donor_id": donor_id,
             "kind": "BLOOD",
-            "component": "RBC-DEMO",
+            "component": "RBC",
             "collected_at": iso(),
             "human_confirmation": "on",
             "reason": "Registro de recolección ficticia autorizada",
@@ -492,7 +488,7 @@ def test_donor_campaign_appointment_processing_and_inventory_source_from_web(web
         "/inventario/nuevo",
         {
             "folio": "SAN-SRC-" + uuid4().hex[:10],
-            "component": "RBC-DEMO",
+            "component": "RBC",
             "blood_group": "O+",
             "expires_at": iso(days=2),
             "donation_id": donation_url.rsplit("/", 1)[1],
@@ -511,7 +507,7 @@ def test_donor_campaign_appointment_processing_and_inventory_source_from_web(web
 
 
 def test_matching_proposal_from_web_does_not_reserve(web, p):
-    from .helpers import resource, recipient_request, evaluation
+    from .helpers import evaluation, recipient_request, resource
 
     unit = resource(p)
     _, req = recipient_request(p)
@@ -536,7 +532,7 @@ def test_matching_proposal_from_web_does_not_reserve(web, p):
 
 def test_admin_web_creation_deactivation_revokes_new_user(web, p):
     admin = login(web, p, "admin1")
-    username = "doctor-" + uuid4().hex[:12] + "@redhouse.demo"
+    username = "doctor-" + uuid4().hex[:12] + "@redhouse.test"
     post(
         admin,
         "/administracion/users/nuevo",

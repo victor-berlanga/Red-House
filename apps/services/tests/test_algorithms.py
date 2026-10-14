@@ -30,7 +30,7 @@ def test_matching_is_maximum_against_exhaustive_small_graphs():
         assert len(set(result.values())) == len(result)
 
 
-def test_rbc_demo_filter_matches_documented_matrix():
+def test_rbc_sample_filter_matches_documented_matrix():
     groups = ["O-", "O+", "A-", "A+", "B-", "B+", "AB-", "AB+"]
     expected = {
         "O-": {"O-"},

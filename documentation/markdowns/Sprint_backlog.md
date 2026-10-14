@@ -1,6 +1,6 @@
 # Sprint Backlog — Plan de trabajo del semestre
 
-> **Actualización — 27 de septiembre de 2026:** este documento conserva la línea base y los requisitos semestrales; sus fases no describen por sí solas el avance actual. El Reporte Técnico Integral Red House, revisión 2.1, consolida el alcance vigente, las pruebas y los límites. Órganos/HLA y componentes distribuidos permanecen posteriores. Véase el [reporte técnico integral](../docx/Reporte_Tecnico_Integral_Red_House.docx).
+> Revisión documental — 14 de octubre de 2026: documento de referencia para el alcance y la planificación del semestre. Las fases y fechas originales expresan la secuencia prevista, no el estado de implementación. El portal integrado, los microservicios, PostgreSQL, MongoDB y Redis ya tienen operación local; Android, escritorio, Docker y GCP siguen pendientes. [PROJECT_STATUS.md](../../PROJECT_STATUS.md) registra el avance comprobado. La arquitectura ejecutable se describe en [Arquitectura.md](Arquitectura.md) y la persistencia en [Datos_y_persistencia.md](Datos_y_persistencia.md). El reporte integral de septiembre conserva una entrega anterior.
 
 > **Proyecto:** Red regional de bancos de sangre y donación de órganos — Equipo 01.  
 > **Versión:** cierre del primer parcial.  
@@ -17,7 +17,7 @@ Cada elemento identifica los RF y RNF directamente relacionados. Esta relación 
 
 ## 2. Criterios de administración
 
-| Estado | Significado |
+| Estado al cierre del primer parcial | Significado |
 | --- | --- |
 | Pendiente | El elemento no ha iniciado o todavía no cuenta con evidencia parcial registrada. |
 | En proceso | Existe trabajo o evidencia parcial, pero aún no se satisface todo el criterio de cierre. |
@@ -31,7 +31,7 @@ Un elemento solo podrá marcarse como terminado cuando su resultado sea verifica
 > **Cierre de referencia:** 19 de septiembre.  
 > **Incremento esperado:** sistema web mínimo con identidad, tres perfiles iniciales, catálogos, inventario sanguíneo ficticio, PostgreSQL y auditoría, ejecutado localmente sin contenedores.
 
-| ID | Tarea y criterio de cierre | Responsable, frente y dependencias | Estado |
+| ID | Tarea y criterio de cierre | Responsable, frente y dependencias | Estado al cierre del primer parcial |
 | --- | --- | --- | --- |
 | `P1-01` | **Tarea:** Aprobar el análisis, RF/RNF, historias, reglas y matriz de perfiles; completar casos de uso principales y matriz de trazabilidad.<br>**Cierre:** Documentos coherentes, IDs estables, criterios verificables y relaciones sin referencias inexistentes. | **Responsable:** Alejandra Morón.<br>**Frente:** Análisis funcional y documentación.<br>**Dependencias:** borradores vigentes. | Terminado |
 | `P1-02` | **Tarea:** Diseñar contexto, contenedores, componentes, despliegue, red, secuencias, comunicación, autenticación y almacenamiento.<br>**Cierre:** Diagramas revisados y justificación de web, microservicios, datos, contenedores futuros, Compute Engine y posibles procesos de clúster, distinguiendo la ejecución local del primer parcial de la arquitectura objetivo. | **Responsable:** Galia Sejudo.<br>**Frente:** Arquitectura e integración.<br>**Dependencias:** `P1-01`. | Terminado |
@@ -39,8 +39,8 @@ Un elemento solo podrá marcarse como terminado cuando su resultado sea verifica
 | `P1-04` | **Tarea:** Elaborar y revisar prototipos del sitio público, acceso, paneles iniciales, instituciones, tipos de componentes, inventario y auditoría.<br>**Cierre:** Prototipos responsive alineados con permisos y criterios de aceptación, sin presentarlos como funcionalidad terminada. | **Responsable:** Alejandra Morón.<br>**Frente:** Experiencia web y análisis funcional.<br>**Dependencias:** `P1-01`. | Terminado |
 | `P1-05` | **Tarea:** Configurar repositorio, ramas, incidencias, tablero, convenciones, dependencias y variables de entorno.<br>**Cierre:** Entorno local reproducible para el sistema web y PostgreSQL sin contenedores; secretos fuera del repositorio y procedimientos documentados. | **Responsable:** Galia Sejudo.<br>**Frente:** Desarrollo y operación.<br>**Dependencias:** `P1-02`. | Terminado |
 | `P1-06` | **Tarea:** Implementar la base web con Python, Flask, Jinja2, HTML5, CSS3 y JavaScript: página pública, inicio y cierre de sesión, JWT, menús y panel básico por perfil inicial.<br>**Cierre:** Administrador, Operador de banco de sangre y Auditor acceden solo a su menú y ámbito; la interfaz es responsive y maneja errores de forma segura. | **Responsable:** Alberto Reyna.<br>**Frente:** Sistema web y seguridad.<br>**Dependencias:** `P1-03`, `P1-04`, `P1-05`. | Terminado |
-| `P1-07` | **Tarea:** Implementar instituciones, tipos de componentes sanguíneos y gestión inicial del inventario ficticio con caducidad demostrativa.<br>**Cierre:** Altas y consultas reales en PostgreSQL, filtros básicos, cambios de estado controlados, historial y auditoría con datos ficticios. | **Responsable:** Alberto Reyna.<br>**Frente:** Sistema web y datos.<br>**Dependencias:** `P1-03`, `P1-06`. | Terminado |
-| `P1-08` | **Tarea:** Ejecutar pruebas, preparar datos iniciales y realizar la demostración técnica en el entorno local documentado.<br>**Cierre:** Inicio de sesión, acceso por perfil, dos catálogos, proceso de inventario, consulta, persistencia en PostgreSQL y auditoría demostrados sin maquetas ni contenedores. | **Responsable:** Alberto Reyna.<br>**Frente:** Calidad e integración.<br>**Dependencias:** `P1-05`, `P1-06`, `P1-07`. | Terminado |
+| `P1-07` | **Tarea:** Implementar instituciones, tipos de componentes sanguíneos y gestión inicial del inventario ficticio con caducidad ilustrativa.<br>**Cierre:** Altas y consultas reales en PostgreSQL, filtros básicos, cambios de estado controlados, historial y auditoría con datos ficticios. | **Responsable:** Alberto Reyna.<br>**Frente:** Sistema web y datos.<br>**Dependencias:** `P1-03`, `P1-06`. | Terminado |
+| `P1-08` | **Tarea:** Ejecutar pruebas, preparar datos iniciales y realizar la presentación técnica en el entorno local documentado.<br>**Cierre:** Inicio de sesión, acceso por perfil, dos catálogos, proceso de inventario, consulta, persistencia en PostgreSQL y auditoría demostrados sin maquetas ni contenedores. | **Responsable:** Alberto Reyna.<br>**Frente:** Calidad e integración.<br>**Dependencias:** `P1-05`, `P1-06`, `P1-07`. | Terminado |
 
 ### 3.1 Requerimientos relacionados
 
@@ -61,7 +61,7 @@ Un elemento solo podrá marcarse como terminado cuando su resultado sea verifica
 > **Cierre de referencia:** 24 de octubre.  
 > **Incremento esperado:** web ampliada, microservicios, aplicación móvil y aplicación de escritorio comunicados mediante JSON y XML, con JWT, Redis, MongoDB, Docker y contratos documentados.
 
-| ID | Tarea y criterio de cierre | Responsable, frente y dependencias | Estado |
+| ID | Tarea y criterio de cierre | Responsable, frente y dependencias | Estado al cierre del primer parcial |
 | --- | --- | --- | --- |
 | `P2-01` | **Tarea:** Confirmar Java o Kotlin para Android, la tecnología de escritorio, los límites de los microservicios y la estrategia de contenedores Docker; definir contratos versionados JSON y XML, esquemas XSD, errores y autenticación.<br>**Cierre:** Decisiones registradas, contratos de solicitud y respuesta, ejemplos de ambos formatos, criterios de compatibilidad hacia atrás y distribución local de contenedores definida. | **Responsable:** Galia Sejudo.<br>**Frente:** Arquitectura e integración.<br>**Dependencias:** cierre de Sprint 1, reglas y modelos aprobados. | Pendiente |
 | `P2-02` | **Tarea:** Implementar con Flask y REST versionado los microservicios necesarios para los flujos priorizados, cada uno con responsabilidad y contenedor propios.<br>**Cierre:** Rutas versionadas, validación, JSON y XML, códigos HTTP, correlación, logs, límites de consumo, OpenAPI y endpoints de salud por servicio. | **Responsable:** Victor Berlanga.<br>**Frente:** Microservicios.<br>**Dependencias:** `P2-01`. | Pendiente |
@@ -91,7 +91,7 @@ Un elemento solo podrá marcarse como terminado cuando su resultado sea verifica
 > **Cierre de referencia:** 16 de noviembre.  
 > **Incremento esperado:** plataforma funcionalmente completa en GCP, monitoreo, buckets, algoritmos, tres flujos integrales y evidencia de rendimiento y resiliencia.
 
-| ID | Tarea y criterio de cierre | Responsable, frente y dependencias | Estado |
+| ID | Tarea y criterio de cierre | Responsable, frente y dependencias | Estado al cierre del primer parcial |
 | --- | --- | --- | --- |
 | `P3-01` | **Tarea:** Diseñar y desplegar la distribución en Google Cloud Platform.<br>**Cierre:** Google Compute Engine, redes privadas, firewall, puertos mínimos, variables, credenciales protegidas, HTTPS cuando sea posible y logs centralizables. | **Responsable:** Alberto Reyna.<br>**Frente:** Nube y operación.<br>**Dependencias:** cierre de Sprint 2 y decisiones de infraestructura. | Pendiente |
 | `P3-02` | **Tarea:** Configurar Google Cloud Storage para evidencias, documentos, reportes e imágenes autorizadas.<br>**Cierre:** Objetos privados con metadatos, hash, privacidad y referencias en base de datos; carga y consulta mediante URLs firmadas. | **Responsable:** Galia Sejudo.<br>**Frente:** Nube, datos y seguridad.<br>**Dependencias:** `P3-01`. | Pendiente |
@@ -100,7 +100,7 @@ Un elemento solo podrá marcarse como terminado cuando su resultado sea verifica
 | `P3-05` | **Tarea:** Implementar y documentar las capacidades algorítmicas priorizadas del dominio.<br>**Cierre:** Matching sanguíneo y HLA, ranking con urgencia, tiempo y distancia, pronóstico de caducidad, balanceo e inconsistencias se organizan en incrementos explicables; al menos un algoritmo no trivial queda integrado, medido y probado. | **Responsable:** Alberto Reyna.<br>**Frente:** Algoritmos, datos y análisis funcional.<br>**Dependencias:** reglas validadas, `P2-07`. | Pendiente |
 | `P3-06` | **Tarea:** Generar el conjunto de datos de volumen y ejecutar mediciones y pruebas Locust.<br>**Cierre:** Inserción, consulta, índices, caché, recursos, comportamiento con y sin Redis, usuarios concurrentes, RPS, media, p95, p99, errores, saturación y recuperación documentados. | **Responsable:** Galia Sejudo.<br>**Frente:** Calidad, datos y rendimiento.<br>**Dependencias:** `P3-03`, `P3-05` y flujos estables. | Pendiente |
 | `P3-07` | **Tarea:** Completar al menos tres flujos integrales de principio a fin.<br>**Cierre:** Cada flujo involucra usuario, cliente, microservicios, Redis, PostgreSQL o MongoDB, auditoría, notificación y visualización; incluye bucket cuando maneja archivos. | **Responsable:** Victor Berlanga.<br>**Frente:** Integración de productos.<br>**Dependencias:** `P3-01` a `P3-05`. | Pendiente |
-| `P3-08` | **Tarea:** Ejecutar pruebas de fallos y realizar la demostración en la nube.<br>**Cierre:** Se detectan y registran caídas, dependencias inaccesibles y timeouts; se informa sin corrupción y la operación se recupera al restablecerse el servicio. | **Responsable:** Alberto Reyna.<br>**Frente:** Calidad, monitoreo y operación.<br>**Dependencias:** `P3-03`, `P3-04`, `P3-06`, `P3-07`. | Pendiente |
+| `P3-08` | **Tarea:** Ejecutar pruebas de fallos y realizar la presentación en la nube.<br>**Cierre:** Se detectan y registran caídas, dependencias inaccesibles y timeouts; se informa sin corrupción y la operación se recupera al restablecerse el servicio. | **Responsable:** Alberto Reyna.<br>**Frente:** Calidad, monitoreo y operación.<br>**Dependencias:** `P3-03`, `P3-04`, `P3-06`, `P3-07`. | Pendiente |
 
 ### 5.1 Requerimientos relacionados
 
@@ -119,15 +119,15 @@ Un elemento solo podrá marcarse como terminado cuando su resultado sea verifica
 
 > **Objetivo:** estabilizar, verificar y presentar profesionalmente la solución completa.  
 > **Cierre de referencia:** 5 de diciembre.  
-> **Incremento esperado:** versión liberable, pruebas finales, documentación y manuales, video, presentación y demostración integral.
+> **Incremento esperado:** versión liberable, pruebas finales, documentación y manuales, video, presentación y presentación integral.
 
-| ID | Tarea y criterio de cierre | Responsable, frente y dependencias | Estado |
+| ID | Tarea y criterio de cierre | Responsable, frente y dependencias | Estado al cierre del primer parcial |
 | --- | --- | --- | --- |
 | `EF-01` | **Tarea:** Congelar nuevas funciones y clasificar los defectos funcionales, de integración, seguridad, datos, sincronización, archivos y rendimiento.<br>**Cierre:** Lista priorizada sin módulos faltantes disfrazados de defectos; responsables y evidencia definidos. | **Responsable:** Victor Berlanga.<br>**Frente:** Coordinación y calidad.<br>**Dependencias:** cierre de Sprint 3. | Pendiente |
 | `EF-02` | **Tarea:** Corregir defectos y completar pruebas unitarias, integración, sistema, regresión, contratos, seguridad, carga, estrés, recuperación, roles, archivos, datos masivos y usabilidad.<br>**Cierre:** Pruebas reproducibles, defectos críticos cerrados y resultados conservados. | **Responsable:** Alejandra Morón.<br>**Frente:** Todos los frentes técnicos.<br>**Dependencias:** `EF-01`. | Pendiente |
 | `EF-03` | **Tarea:** Optimizar consultas, índices, caché, consumo, interfaces y recuperación sin alterar reglas aprobadas.<br>**Cierre:** Comparación antes y después, ausencia de regresiones y límites conocidos documentados. | **Responsable:** Alberto Reyna.<br>**Frente:** Datos, calidad y experiencia.<br>**Dependencias:** `EF-02`. | Pendiente |
 | `EF-04` | **Tarea:** Completar expediente técnico, manuales, scripts, Swagger, evidencias de GCP, bitácora de participación, registro de incidencias y paquete de instalación o despliegue.<br>**Cierre:** Documentación consistente con la versión liberada y procedimientos reproducibles. | **Responsable:** Alejandra Morón.<br>**Frente:** Documentación y operación.<br>**Dependencias:** `EF-02`, `EF-03`. | Pendiente |
-| `EF-05` | **Tarea:** Preparar video, presentación, ensayo de la demostración integral y entrega de código, aplicaciones, contenedores y evidencias.<br>**Cierre:** Demostración de web, móvil, escritorio, microservicios, seguridad, datos, algoritmo, nube, monitoreo, carga y recuperación; participación de los cuatro integrantes. | **Responsable:** Galia Sejudo.<br>**Frente:** Equipo completo.<br>**Dependencias:** `EF-04`. | Pendiente |
+| `EF-05` | **Tarea:** Preparar video, presentación, ensayo de la presentación integral y entrega de código, aplicaciones, contenedores y evidencias.<br>**Cierre:** Presentación de web, móvil, escritorio, microservicios, seguridad, datos, algoritmo, nube, monitoreo, carga y recuperación; participación de los cuatro integrantes. | **Responsable:** Galia Sejudo.<br>**Frente:** Equipo completo.<br>**Dependencias:** `EF-04`. | Pendiente |
 
 ### 6.1 Requerimientos relacionados
 
@@ -137,10 +137,10 @@ Un elemento solo podrá marcarse como terminado cuando su resultado sea verifica
 | `EF-02` | Todos los RF y RNF consolidados, como alcance de la verificación final. |
 | `EF-03` | RNF-WEB-002 a RNF-WEB-004; RNF-MS-005, RNF-MS-006; RNF-MOV-003, RNF-MOV-004; RNF-DESK-003, RNF-DESK-004; RNF-DAT-004; RNF-INF-005, RNF-INF-007, RNF-INF-008; RNF-MON-001 a RNF-MON-003. |
 | `EF-04` | Todos los RF y RNF consolidados, como alcance de la documentación y de las evidencias finales. |
-| `EF-05` | Todos los RF y RNF consolidados, como alcance de la demostración integral. |
+| `EF-05` | Todos los RF y RNF consolidados, como alcance de la presentación integral. |
 
 ## 7. Seguimiento del backlog
 
-El backlog se revisará durante el seguimiento semanal y antes de cada demostración. Toda actualización conservará el identificador del elemento y registrará el cambio de estado, la persona responsable, la persona revisora, las fechas reales, los impedimentos y la ubicación de la evidencia.
+El backlog se revisará durante el seguimiento semanal y antes de cada presentación. Toda actualización conservará el identificador del elemento y registrará el cambio de estado, la persona responsable, la persona revisora, las fechas reales, los impedimentos y la ubicación de la evidencia.
 
 Los cambios de alcance deberán reflejarse primero en el plan de trabajo y después en el Sprint Backlog. Una actividad nueva no reemplazará silenciosamente un paquete comprometido ni permitirá omitir seguridad, trazabilidad, pruebas o documentación necesarias para su cierre.

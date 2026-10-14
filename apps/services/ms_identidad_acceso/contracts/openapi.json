@@ -3,7 +3,7 @@
   "info": {
     "title": "Red House — identidad_acceso",
     "version": "0.2.0",
-    "description": "API independiente JSON/XML. Reglas clínicas demostrativas; requiere revisión humana. XML de respuesta validable en /schemas/response.xsd."
+    "description": "API independiente JSON/XML. Reglas clínicas ilustrativas; requiere revisión humana. XML de respuesta validable en /schemas/response.xsd."
   },
   "paths": {
     "/api/v1/auth/login": {
@@ -12509,7 +12509,7 @@
                   "data": {
                     "name": "Dato ficticio para reemplazar",
                     "parent_id": "00000000-0000-4000-8000-000000000001",
-                    "component": "RBC-DEMO",
+                    "component": "RBC",
                     "quantity": 1,
                     "id": "00000000-0000-4000-8000-000000000001",
                     "tenant_id": "00000000-0000-4000-8000-000000000001",
@@ -12529,7 +12529,7 @@
                 "schema": {
                   "type": "string"
                 },
-                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"name\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"parent_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"component\" type=\"string\">RBC-DEMO</field><field name=\"quantity\" type=\"integer\">1</field><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"tenant_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"kind\" type=\"string\">capacities</field><field name=\"active\" type=\"boolean\">true</field><field name=\"version\" type=\"integer\">1</field><field name=\"details\" type=\"object\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">identidad_acceso</field><field name=\"version\" type=\"string\">0.2.0</field></field></response>",
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"name\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"parent_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"component\" type=\"string\">RBC</field><field name=\"quantity\" type=\"integer\">1</field><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"tenant_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"kind\" type=\"string\">capacities</field><field name=\"active\" type=\"boolean\">true</field><field name=\"version\" type=\"integer\">1</field><field name=\"details\" type=\"object\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">identidad_acceso</field><field name=\"version\" type=\"string\">0.2.0</field></field></response>",
                 "x-json-equivalent-schema": {
                   "type": "object",
                   "required": [
@@ -12813,7 +12813,7 @@
               "example": {
                 "name": "Dato ficticio para reemplazar",
                 "parent_id": "00000000-0000-4000-8000-000000000001",
-                "component": "RBC-DEMO",
+                "component": "RBC",
                 "quantity": 1
               }
             },
@@ -12821,7 +12821,7 @@
               "schema": {
                 "type": "string"
               },
-              "example": "<?xml version='1.0' encoding='UTF-8'?>\n<request xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><name>Dato ficticio para reemplazar</name><parent_id>00000000-0000-4000-8000-000000000001</parent_id><component>RBC-DEMO</component><quantity>1</quantity></request>",
+              "example": "<?xml version='1.0' encoding='UTF-8'?>\n<request xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><name>Dato ficticio para reemplazar</name><parent_id>00000000-0000-4000-8000-000000000001</parent_id><component>RBC</component><quantity>1</quantity></request>",
               "x-xsd": "/schemas/capacities_create.xsd",
               "x-json-equivalent-schema": {
                 "$ref": "#/components/schemas/Capacity"
@@ -13004,7 +13004,7 @@
                   "data": {
                     "name": "Dato ficticio para reemplazar",
                     "parent_id": "00000000-0000-4000-8000-000000000001",
-                    "component": "RBC-DEMO",
+                    "component": "RBC",
                     "quantity": 1,
                     "id": "00000000-0000-4000-8000-000000000001",
                     "tenant_id": "00000000-0000-4000-8000-000000000001",
@@ -13025,7 +13025,7 @@
                 "schema": {
                   "type": "string"
                 },
-                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"name\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"parent_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"component\" type=\"string\">RBC-DEMO</field><field name=\"quantity\" type=\"integer\">1</field><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"tenant_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"kind\" type=\"string\">capacities</field><field name=\"active\" type=\"boolean\">true</field><field name=\"version\" type=\"integer\">1</field><field name=\"details\" type=\"object\"/><field name=\"decisions\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">identidad_acceso</field><field name=\"version\" type=\"string\">0.2.0</field></field></response>",
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"name\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"parent_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"component\" type=\"string\">RBC</field><field name=\"quantity\" type=\"integer\">1</field><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"tenant_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"kind\" type=\"string\">capacities</field><field name=\"active\" type=\"boolean\">true</field><field name=\"version\" type=\"integer\">1</field><field name=\"details\" type=\"object\"/><field name=\"decisions\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">identidad_acceso</field><field name=\"version\" type=\"string\">0.2.0</field></field></response>",
                 "x-json-equivalent-schema": {
                   "type": "object",
                   "required": [
@@ -13482,7 +13482,7 @@
                   "data": {
                     "name": "Dato ficticio para reemplazar",
                     "parent_id": "00000000-0000-4000-8000-000000000001",
-                    "component": "RBC-DEMO",
+                    "component": "RBC",
                     "quantity": 1,
                     "id": "00000000-0000-4000-8000-000000000001",
                     "tenant_id": "00000000-0000-4000-8000-000000000001",
@@ -13502,7 +13502,7 @@
                 "schema": {
                   "type": "string"
                 },
-                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"name\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"parent_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"component\" type=\"string\">RBC-DEMO</field><field name=\"quantity\" type=\"integer\">1</field><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"tenant_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"kind\" type=\"string\">capacities</field><field name=\"active\" type=\"boolean\">true</field><field name=\"version\" type=\"integer\">1</field><field name=\"details\" type=\"object\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">identidad_acceso</field><field name=\"version\" type=\"string\">0.2.0</field></field></response>",
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"name\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"parent_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"component\" type=\"string\">RBC</field><field name=\"quantity\" type=\"integer\">1</field><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"tenant_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"kind\" type=\"string\">capacities</field><field name=\"active\" type=\"boolean\">true</field><field name=\"version\" type=\"integer\">1</field><field name=\"details\" type=\"object\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">identidad_acceso</field><field name=\"version\" type=\"string\">0.2.0</field></field></response>",
                 "x-json-equivalent-schema": {
                   "type": "object",
                   "required": [
@@ -13788,7 +13788,7 @@
                 "reason": "Dato ficticio para reemplazar",
                 "name": "Dato ficticio para reemplazar",
                 "parent_id": "00000000-0000-4000-8000-000000000001",
-                "component": "RBC-DEMO",
+                "component": "RBC",
                 "quantity": 1,
                 "active": true,
                 "version": 1
@@ -13798,7 +13798,7 @@
               "schema": {
                 "type": "string"
               },
-              "example": "<?xml version='1.0' encoding='UTF-8'?>\n<request xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><human_confirmation>true</human_confirmation><reason>Dato ficticio para reemplazar</reason><name>Dato ficticio para reemplazar</name><parent_id>00000000-0000-4000-8000-000000000001</parent_id><component>RBC-DEMO</component><quantity>1</quantity><active>true</active><version>1</version></request>",
+              "example": "<?xml version='1.0' encoding='UTF-8'?>\n<request xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><human_confirmation>true</human_confirmation><reason>Dato ficticio para reemplazar</reason><name>Dato ficticio para reemplazar</name><parent_id>00000000-0000-4000-8000-000000000001</parent_id><component>RBC</component><quantity>1</quantity><active>true</active><version>1</version></request>",
               "x-xsd": "/schemas/capacities_edit.xsd",
               "x-json-equivalent-schema": {
                 "$ref": "#/components/schemas/CapacityEdit"

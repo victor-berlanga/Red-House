@@ -1,0 +1,275 @@
+{
+  "pages": [
+    {
+      "user": "admin1",
+      "route": "/panel",
+      "width": 1440
+    },
+    {
+      "user": "admin1",
+      "route": "/configuracion",
+      "width": 1440
+    },
+    {
+      "user": "admin1",
+      "route": "/administracion/components",
+      "width": 1440
+    },
+    {
+      "user": "admin1",
+      "route": "/catalogos/sites",
+      "width": 1440
+    },
+    {
+      "user": "admin1",
+      "route": "/catalogos/contacts",
+      "width": 1440
+    },
+    {
+      "user": "admin1",
+      "route": "/catalogos/schedules",
+      "width": 1440
+    },
+    {
+      "user": "admin1",
+      "route": "/catalogos/capacities",
+      "width": 1440
+    },
+    {
+      "user": "admin1",
+      "route": "/catalogos/locations",
+      "width": 1440
+    },
+    {
+      "user": "admin1",
+      "route": "/catalogos/schedules/nuevo",
+      "width": 1440
+    },
+    {
+      "user": "admin1",
+      "route": "/administracion/users",
+      "width": 1440
+    },
+    {
+      "user": "admin1",
+      "route": "/administracion/institutions",
+      "width": 1440
+    },
+    {
+      "user": "admin1",
+      "route": "/monitoreo",
+      "width": 1440
+    },
+    {
+      "user": "admin1",
+      "route": "/catalogos/sites",
+      "width": 1440
+    },
+    {
+      "user": "admin1",
+      "route": "/administracion/users",
+      "width": 1440
+    },
+    {
+      "user": "operator1",
+      "route": "/panel",
+      "width": 1440
+    },
+    {
+      "user": "operator1",
+      "route": "/inventario",
+      "width": 1440
+    },
+    {
+      "user": "operator1",
+      "route": "/disponibilidad",
+      "width": 1440
+    },
+    {
+      "user": "operator1",
+      "route": "/donantes/donor",
+      "width": 1440
+    },
+    {
+      "user": "operator1",
+      "route": "/donantes/recipient",
+      "width": 1440
+    },
+    {
+      "user": "operator1",
+      "route": "/donaciones",
+      "width": 1440
+    },
+    {
+      "user": "operator1",
+      "route": "/campanas",
+      "width": 1440
+    },
+    {
+      "user": "operator1",
+      "route": "/citas",
+      "width": 1440
+    },
+    {
+      "user": "operator1",
+      "route": "/rutas",
+      "width": 1440
+    },
+    {
+      "user": "operator1",
+      "route": "/traslados",
+      "width": 1440
+    },
+    {
+      "user": "operator1",
+      "route": "/organos",
+      "width": 1440
+    },
+    {
+      "user": "operator1",
+      "route": "/notificaciones",
+      "width": 1440
+    },
+    {
+      "user": "operator1",
+      "route": "/notificaciones",
+      "width": 1440
+    },
+    {
+      "user": "operator1",
+      "route": "/citas",
+      "width": 1440
+    },
+    {
+      "user": "operator1",
+      "route": "/inventario/nuevo",
+      "width": 1440
+    },
+    {
+      "user": "medical1",
+      "route": "/panel",
+      "width": 1440
+    },
+    {
+      "user": "medical1",
+      "route": "/solicitudes",
+      "width": 1440
+    },
+    {
+      "user": "medical1",
+      "route": "/propuestas",
+      "width": 1440
+    },
+    {
+      "user": "medical1",
+      "route": "/organos",
+      "width": 1440
+    },
+    {
+      "user": "coordinator1",
+      "route": "/panel",
+      "width": 1440
+    },
+    {
+      "user": "coordinator1",
+      "route": "/monitoreo",
+      "width": 1440
+    },
+    {
+      "user": "coordinator1",
+      "route": "/reservas",
+      "width": 1440
+    },
+    {
+      "user": "coordinator1",
+      "route": "/traslados",
+      "width": 1440
+    },
+    {
+      "user": "transport1",
+      "route": "/panel",
+      "width": 1440
+    },
+    {
+      "user": "transport1",
+      "route": "/traslados",
+      "width": 1440
+    },
+    {
+      "user": "transport1",
+      "route": "/rutas",
+      "width": 1440
+    },
+    {
+      "user": "auditor1",
+      "route": "/panel",
+      "width": 1440
+    },
+    {
+      "user": "auditor1",
+      "route": "/auditoria",
+      "width": 1440
+    },
+    {
+      "user": "auditor1",
+      "route": "/monitoreo",
+      "width": 1440
+    },
+    {
+      "user": "donor1",
+      "route": "/panel",
+      "width": 1440
+    },
+    {
+      "user": "donor1",
+      "route": "/donantes/donor",
+      "width": 1440
+    },
+    {
+      "user": "donor1",
+      "route": "/citas",
+      "width": 1440
+    },
+    {
+      "user": "donor1",
+      "route": "/campanas",
+      "width": 1440
+    },
+    {
+      "user": "donor1-mobile",
+      "route": "/panel",
+      "width": 390
+    },
+    {
+      "user": "donor1-mobile",
+      "route": "/citas",
+      "width": 390
+    },
+    {
+      "user": "donor1-mobile",
+      "route": "/campanas",
+      "width": 390
+    },
+    {
+      "user": "operator1-no-js",
+      "route": "/citas",
+      "width": 1440
+    }
+  ],
+  "checks": [
+    "Cancelar inscripción muestra campaña en diálogo y conserva listado/foco sin enviar operación",
+    "Confirmación fallida ofrece acceso alternativo y permite cerrar",
+    "Horario en cabecera conserva borrador/instante, revierte ante 503 y cabe en móvil",
+    "Sin JavaScript: confirmación completa y selector horario funcionan"
+  ],
+  "errors": [],
+  "captures": [
+    "catalogues.png",
+    "cancel-dialog.png",
+    "timezone-mobile.png",
+    "auditor1-panel.png",
+    "donor1-panel.png",
+    "registrations-mobile.png"
+  ],
+  "result": "passed"
+}

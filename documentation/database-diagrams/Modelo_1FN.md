@@ -28,7 +28,7 @@ El resultado tiene **169 relaciones lógicas**. La cantidad responde al desarrol
 
 Se conservan deliberadamente **ocho casos de dependencia parcial** y **cuatro de dependencia transitiva** en este esquema 1FN. Son descriptores de referencia actualmente repetidos, no copias históricas inmutables. Los demás atributos ya se sitúan en la relación correspondiente al hecho que describen.
 
-### Ejemplo DEMO de extracción
+### Ejemplo PRUEBA de extracción
 
 Una institución puede tener contactos [C1, C2] y ninguna sede todavía. Se conserva su fila en `INSTITUTION`, dos pertenencias en `INSTITUTION_CONTACT` y ninguna fila en `SITE`. No se crea una sede ficticia, ni se elimina la institución por un join sin coincidencias. Cada método de C1 se conserva en `CONTACT_METHOD` con su identidad; si dos eventos tienen el mismo contenido, sus identidades u ordinales permiten conservar ambos.
 
@@ -161,9 +161,9 @@ Este catálogo define todas las relaciones de la etapa, no solo un ejemplo. Las 
 | `CATALOG_CHANGE` | `PK: (change_id)` | `change_id, catalog_version_id, occurred_at, actor_id, reason` |
 | `CATALOG_CHANGED_ENTRY` | `PK: (change_id, entry_id)` | `change_id, entry_id` |
 | `CATALOG_CHANGE_FIELD` | `PK: (change_id, field_name)` | `change_id, field_name, previous_value, new_value` |
-| `PARAMETER_VERSION` | `PK: (parameter_version_id); CK1: (parameter_code, version_no)` | `parameter_version_id, parameter_code, version_no, scalar_value, measurement_unit, scope_id, is_demo, source_reference, approved_by, valid_from, valid_until` |
+| `PARAMETER_VERSION` | `PK: (parameter_version_id); CK1: (parameter_code, version_no)` | `parameter_version_id, parameter_code, version_no, scalar_value, measurement_unit, scope_id, is_sample, source_reference, approved_by, valid_from, valid_until` |
 | `CATALOG_PARAMETER` | `PK: (catalog_version_id, parameter_version_id)` | `catalog_version_id, parameter_version_id` |
-| `RULE_VERSION` | `PK: (rule_version_id); CK1: (rule_reference, version_no)` | `rule_version_id, rule_reference, version_no, resource_kind, application_process, source_reference, scope_id, approved_by, valid_from, valid_until, is_demo` |
+| `RULE_VERSION` | `PK: (rule_version_id); CK1: (rule_reference, version_no)` | `rule_version_id, rule_reference, version_no, resource_kind, application_process, source_reference, scope_id, approved_by, valid_from, valid_until, is_sample` |
 
 ### 04 — Donantes y episodios de donación
 
@@ -379,4 +379,4 @@ node documentation/database-diagrams/normalization/validate.mjs
 
 El verificador comprueba los cuatro esquemas, claves declaradas y su minimalidad respecto de las DF proporcionadas, FK y tipos, redundancias parciales y transitivas, trazabilidad de los 208 atributos iniciales, cobertura de todas las tablas finales, reconstrucciones de ejemplo y sintaxis Mermaid. También detecta divergencias entre la especificación y los Markdown.
 
-Las pruebas usan datos DEMO sin significado clínico. No descubren dependencias de negocio, no prueban todas las instancias posibles y no sustituyen la justificación algebraica ni la revisión funcional. Una DF o DMV nueva obliga a volver a evaluar la forma normal. El analizador Mermaid se carga de la instalación local de VS Code; en otro entorno se puede indicar un módulo ya instalado mediante `NORMALIZATION_MERMAID_MODULE`, sin instalar dependencias automáticamente.
+Las pruebas usan datos PRUEBA sin significado clínico. No descubren dependencias de negocio, no prueban todas las instancias posibles y no sustituyen la justificación algebraica ni la revisión funcional. Una DF o DMV nueva obliga a volver a evaluar la forma normal. El analizador Mermaid se carga de la instalación local de VS Code; en otro entorno se puede indicar un módulo ya instalado mediante `NORMALIZATION_MERMAID_MODULE`, sin instalar dependencias automáticamente.

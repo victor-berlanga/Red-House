@@ -14,7 +14,7 @@ from redhouse.models import Confirm, ID, Model, utc_date
 from redhouse.security import own
 
 ABO = {"O": {"O"}, "A": {"O", "A"}, "B": {"O", "B"}, "AB": {"O", "A", "B", "AB"}}
-NOTICE = "Filtro demostrativo; no interpreta HLA, anticuerpos, tamaño ni pruebas cruzadas. Requiere dictamen médico."
+NOTICE = "Filtro ilustrativo; no interpreta HLA, anticuerpos, tamaño ni pruebas cruzadas. Requiere dictamen médico."
 
 
 def compatible(donor, recipient):
@@ -40,7 +40,7 @@ def register(app):
         model=EvaluationCreate,
         roles=("MEDICAL",),
         status=201,
-        summary="Preselección demostrativa con datos y reglas versionados",
+        summary="Preselección ilustrativa con datos y reglas versionados",
     )
     def evaluation_create(data):
         started = perf_counter()
@@ -50,7 +50,7 @@ def register(app):
             or req["recipient"]["status"] != "ACTIVE"
         ):
             raise APIError("conflict", "Solicitud o receptor inactivos.", 409)
-        if req["kind"] == "BLOOD" and req["component"] != "RBC-DEMO":
+        if req["kind"] == "BLOOD" and req["component"] != "RBC":
             raise APIError(
                 "manual_review_required",
                 "Componente sin regla computacional validada; requiere revisión externa.",
@@ -107,7 +107,7 @@ def register(app):
                     + NOTICE,
                 }
             )
-        algorithm = "RBC-DEMO-1.0" if req["kind"] == "BLOOD" else "ORGAN-DEMO-1.0"
+        algorithm = "RBC-1.0" if req["kind"] == "BLOOD" else "ORGAN-1.0"
         elapsed = round((perf_counter() - started) * 1000, 3)
         snapshot = dict(req, missing_data=missing, clinical_notice=NOTICE)
 

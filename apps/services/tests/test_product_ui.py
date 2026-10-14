@@ -110,7 +110,20 @@ def test_notifications_read_post_is_authorized_and_translated(web, p):
 
 
 def test_campaign_registration_context_and_cancel_modal(web, p):
-    donor = login(web, p, "donor1")
+    username = "appointments-" + uuid4().hex[:12]
+    p.ok(
+        "identidad_acceso",
+        "POST",
+        "/api/v1/users",
+        user="admin1",
+        data={
+            "username": username,
+            "password": p.env.state["password"],
+            "role": "DONOR",
+            "tenant_id": p.env.state["tenants"][0],
+        },
+    )
+    donor = login(web, p, username)
     person_url = post(
         donor,
         "/donantes/donor/nuevo",
@@ -219,7 +232,7 @@ def test_location_capture_requires_assigned_active_shipment(web, p):
     )
     assert "geolocation=()" in transport.get("/panel").headers["Permissions-Policy"]
     # Prueba opcional en Chrome con ubicación simulada y el mismo entorno aislado.
-    # Nunca utiliza credenciales ni expedientes del entorno de demostración.
+    # Nunca utiliza credenciales ni expedientes del entorno de presentación.
     import json
     import os
     import subprocess
@@ -234,7 +247,10 @@ def test_location_capture_requires_assigned_active_shipment(web, p):
         )
         threading.Thread(target=server.serve_forever, daemon=True).start()
         state = p.env.directory / "location-browser.json"
-        output = Path(__file__).resolve().parents[1] / "docs/evidence/product-ui"
+        output = (
+            Path(__file__).resolve().parents[1]
+            / "../../documentation/historial/integracion/resultados/product-ui"
+        )
         output.mkdir(parents=True, exist_ok=True)
         state.touch(mode=0o600)
         state.write_text(
@@ -251,8 +267,7 @@ def test_location_capture_requires_assigned_active_shipment(web, p):
         )
         try:
             script = (
-                Path(__file__).resolve().parents[2]
-                / "web-monolito01/tests/location_browser.cjs"
+                Path(__file__).resolve().parents[2] / "web/tests/location_browser.cjs"
             )
             subprocess.run(
                 ["node", str(script), str(state), str(output)],

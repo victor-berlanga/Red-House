@@ -1,0 +1,19 @@
+RED HOUSE — APUNTES PARA PRESENTACIÓN
+Fecha: 2026-10-08
+
+Diez microservicios y un componente de monitoreo.
+Los puertos 5101–5111 son los valores por defecto; el entorno de prueba utiliza puertos libres y los registra en state.json.
+El portal Flask/Jinja2 ya consume las API de los servicios. Móvil, escritorio y contenedores siguen pendientes.
+Los apuntes deben leerse junto a documentation/markdowns/Pruebas_y_validacion.md para conocer exactamente qué se comprobó.
+
+01-ms_identidad_acceso.txt: Identidad y acceso
+02-ms_donantes.txt: Donantes
+03-ms_receptores.txt: Receptores y solicitudes
+04-ms_inventario.txt: Inventario y reservas
+05-ms_compatibilidad.txt: Compatibilidad
+06-ms_priorizacion_geografia.txt: Priorización y geografía
+07-ms_transporte.txt: Transporte
+08-ms_custodia.txt: Cadena de custodia
+09-ms_alertas.txt: Alertas
+10-ms_auditoria.txt: Auditoría
+11-servicio_monitoreo.txt: Monitoreo

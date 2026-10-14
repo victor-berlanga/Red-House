@@ -1,9 +1,6 @@
 # Diseño arquitectónico
 
-> **Actualización del 27 de septiembre de 2026:** órganos/HLA ya dispone de flujo independiente para riñón, hígado y corazón, con estudios e interpretación humana, preselección demostrativa, reserva y custodia. Sustituye las menciones anteriores que lo dejaban pendiente. La migración 004 amplía el esquema a 46 tablas. El procedimiento, reglas y límites se documentan en `documentation/markdowns/Guia_del_flujo_de_organos.md`; las capturas reales están en `documentation/capturas/README.md`.
-
-
-> **Actualización — 27 de septiembre de 2026:** este documento conserva la línea base y los requisitos semestrales; sus fases no describen por sí solas el avance actual. El Reporte Técnico Integral Red House, revisión 2.1, consolida el alcance vigente, las pruebas y los límites. Los componentes distribuidos permanecen posteriores; la ampliación actual de órganos se describe en la actualización superior. Véase el [reporte técnico integral](../docx/Reporte_Tecnico_Integral_Red_House.docx).
+> Revisión documental — 14 de octubre de 2026: documento de referencia para el alcance y la planificación del semestre. Las fases y fechas originales expresan la secuencia prevista, no el estado de implementación. El portal integrado, los microservicios, PostgreSQL, MongoDB y Redis ya tienen operación local; Android, escritorio, Docker y GCP siguen pendientes. [PROJECT_STATUS.md](../../PROJECT_STATUS.md) registra el avance comprobado. La arquitectura ejecutable se describe en [Arquitectura.md](Arquitectura.md) y la persistencia en [Datos_y_persistencia.md](Datos_y_persistencia.md). El reporte integral de septiembre conserva una entrega anterior.
 
 > **Proyecto:** Red regional de bancos de sangre y donación de órganos — Equipo 01.  
 > **Versión:** diseño arquitectónico inicial del semestre.  
@@ -23,7 +20,7 @@ La plataforma apoyará la coordinación, la compatibilidad, la priorización, la
 
 | Fase | Alcance arquitectónico |
 | --- | --- |
-| Primer parcial | Sistema web modular con página pública y portal privado; autenticación JWT básica; Administrador, Operador de banco de sangre y Auditor; menú y panel principal básico por perfil inicial; administración de instituciones y tipos de componentes sanguíneos; inventario sanguíneo ficticio con caducidad demostrativa; PostgreSQL y auditoría básica en un entorno local documentado sin contenedores. |
+| Primer parcial | Sistema web modular con página pública y portal privado; autenticación JWT básica; Administrador, Operador de banco de sangre y Auditor; menú y panel principal básico por perfil inicial; administración de instituciones y tipos de componentes sanguíneos; inventario sanguíneo ficticio con caducidad ilustrativa; PostgreSQL y auditoría básica en un entorno local documentado sin contenedores. |
 | Posterior — segundo parcial | Microservicios Flask REST versionados; respuestas JSON y XML; OpenAPI/Swagger y XSD; perfiles restantes; ampliación web; aplicación Android; aplicación de escritorio; diseño detallado y uso funcional de MongoDB y Redis; Dockerfiles, Docker Compose y contenedores independientes; contratos y seguridad distribuida. |
 | Posterior — tercer parcial | Despliegue en Google Compute Engine; Google Cloud Storage; monitoreo; algoritmos explicables; tres flujos integrales; datos de volumen; Locust; pruebas de fallos, rendimiento y recuperación. |
 | Transversal | Separación de responsabilidades, autorización por perfil y ámbito, protección de datos, trazabilidad, auditoría, manejo seguro de errores, contratos versionados, pruebas y documentación coherente con cada incremento. |
@@ -48,7 +45,7 @@ Los principios aplicables a todas las vistas son:
 - Los microservicios no dependen de vistas, plantillas ni sesiones internas del sistema web.
 - Cada dato tiene un único propietario autoritativo, aunque varias aplicaciones puedan consultarlo con autorización.
 - La autorización se aplica en cada petición protegida; el punto de entrada no reemplaza los controles de cada servicio.
-- Las reglas clínicas o regulatorias pendientes solo pueden representarse mediante configuraciones demostrativas claramente identificadas y no constituyen criterios autorizados para procesos sanitarios.
+- Las reglas clínicas o regulatorias pendientes solo pueden representarse mediante configuraciones ilustrativas claramente identificadas y no constituyen criterios autorizados para procesos sanitarios.
 - La observabilidad no debe detener las operaciones que supervisa ni exponer información sensible.
 
 ## 3. Estilo arquitectónico y decisiones principales
@@ -355,7 +352,7 @@ sequenceDiagram
     O->>W: Envía alta o cambio de una unidad ficticia
     W->>S: Solicita autorización de la operación
     S-->>W: Perfil y ámbito autorizados
-    W->>W: Valida campos y transición demostrativa
+    W->>W: Valida campos y transición ilustrativa
     W->>P: Transacción de unidad, movimiento y auditoría
     P-->>W: Confirmación persistida
     W-->>O: Resultado y panel básico actualizado
@@ -363,7 +360,7 @@ sequenceDiagram
 
 **Figura 6. Secuencia del proceso principal demostrable en el primer parcial.**
 
-La caducidad del MVP utiliza un parámetro demostrativo identificado y datos ficticios. El proceso no evalúa compatibilidad clínica, HLA, órganos ni asignaciones reales. La transacción conserva el estado de la unidad, el movimiento y el evento básico de auditoría de forma consistente.
+La caducidad del MVP utiliza un parámetro ilustrativo identificado y datos ficticios. El proceso no evalúa compatibilidad clínica, HLA, órganos ni asignaciones reales. La transacción conserva el estado de la unidad, el movimiento y el evento básico de auditoría de forma consistente.
 
 ### 9.2 Flujo integral FI-01: donante, campaña, cita y aviso
 
@@ -748,7 +745,7 @@ Los logs incluirán timestamp, servicio, versión, resultado, duración e identi
 | --- | --- | --- |
 | Matching sanguíneo y HLA | `ms-compatibilidad` | Candidatos, datos faltantes, versión y explicación; requiere reglas autorizadas y no decide la asignación. |
 | Ranking, urgencia, tiempo y distancia | `ms-priorizacion-geografia` | Orden y factores utilizados; la urgencia es registrada por personal autorizado y la fuente geográfica queda identificada. |
-| Pronóstico de caducidad y balanceo regional | `ms-inventario` | Riesgo o sugerencia demostrativa con limitaciones; no ejecuta transferencias automáticamente. |
+| Pronóstico de caducidad y balanceo regional | `ms-inventario` | Riesgo o sugerencia ilustrativa con limitaciones; no ejecuta transferencias automáticamente. |
 | Detección de inconsistencias | Servicio propietario y `ms-alertas` | Hallazgo explicable y alerta dirigida; no corrige silenciosamente el dato. |
 
 La arquitectura reserva componentes y mecanismos de trazabilidad para estas capacidades, sin establecer fórmulas, ponderaciones ni reglas clínicas. La especificación de cada algoritmo incluirá entradas, salidas, restricciones, pseudocódigo, métricas, casos de prueba, versión, limitaciones y autoridad de validación antes de su implementación.

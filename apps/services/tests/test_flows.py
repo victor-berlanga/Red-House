@@ -76,7 +76,7 @@ def test_donor_campaign_appointment_review_and_alert(p):
 @pytest.mark.parametrize(
     "kind,component,group",
     [
-        ("BLOOD", "RBC-DEMO", "O-"),
+        ("BLOOD", "RBC", "O-"),
         ("ORGAN", "KIDNEY", "A-"),
         ("ORGAN", "LIVER", "A+"),
         ("ORGAN", "HEART", "A+"),
@@ -92,7 +92,7 @@ def test_resource_to_receipt_custody_audit_and_notification(p, kind, component, 
         "/api/v1/rankings",
         data={"evaluation_id": evaluated["id"]},
     )
-    assert ranked["algorithm_version"] == "LOGISTICS-DEMO-1.0"
+    assert ranked["algorithm_version"] == "LOGISTICS-1.0"
     reserved = reservation(p, evaluated, unit)
     assert reserved["status"] == "COMPLETED"
     shipment = plan(p, reserved["reservation"])

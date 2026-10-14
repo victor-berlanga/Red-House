@@ -23,7 +23,7 @@ Sin argumentos: menú interactivo.
 Componentes: todo, ms, web, bases o nombre de microservicio (listar).
 Acciones: estado, listar, detener [todo|ms|web|SERVICIO],
           reiniciar [todo|ms|web|SERVICIO].
-Opciones: --directory RUTA (predeterminado: .local/demo del repositorio),
+Opciones: --directory RUTA (predeterminado: .local/runtime del repositorio),
           --web-port PUERTO.
 Ejemplos: bash components.sh inventario
           bash components.sh reiniciar donantes

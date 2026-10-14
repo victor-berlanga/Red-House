@@ -1,6 +1,6 @@
 # Requerimientos funcionales y no funcionales
 
-> **Actualización — 27 de septiembre de 2026:** este documento conserva la línea base y los requisitos semestrales; sus fases no describen por sí solas el avance actual. El Reporte Técnico Integral Red House, revisión 2.1, consolida el alcance vigente, las pruebas y los límites. Órganos/HLA y componentes distribuidos permanecen posteriores. Véase el [reporte técnico integral](../docx/Reporte_Tecnico_Integral_Red_House.docx).
+> Revisión documental — 14 de octubre de 2026: documento de referencia para el alcance y la planificación del semestre. Las fases y fechas originales expresan la secuencia prevista, no el estado de implementación. El portal integrado, los microservicios, PostgreSQL, MongoDB y Redis ya tienen operación local; Android, escritorio, Docker y GCP siguen pendientes. [PROJECT_STATUS.md](../../PROJECT_STATUS.md) registra el avance comprobado. La arquitectura ejecutable se describe en [Arquitectura.md](Arquitectura.md) y la persistencia en [Datos_y_persistencia.md](Datos_y_persistencia.md). El reporte integral de septiembre conserva una entrega anterior.
 
 > **Proyecto:** Red regional de bancos de sangre y donación de órganos — Equipo 01.
 > **Estado:** borrador consolidado para validación académica.
@@ -13,7 +13,7 @@ Este documento especifica los requerimientos funcionales y no funcionales de la 
 
 La fase **Primer parcial** identifica el subconjunto que deberá implementarse inicialmente; no elimina los requerimientos **Posteriores**. Los requerimientos **Transversales** deberán considerarse desde el diseño y aplicarse en los incrementos correspondientes.
 
-La plataforma apoyará la coordinación y las decisiones, pero no sustituirá la evaluación médica, ética o normativa. Las reglas de compatibilidad, elegibilidad, urgencia, conservación, priorización y asignación deberán provenir de fuentes autorizadas, versionarse y validarse. Durante el proyecto académico solo se utilizarán datos ficticios y reglas demostrativas identificadas como tales.
+La plataforma apoyará la coordinación y las decisiones, pero no sustituirá la evaluación médica, ética o normativa. Las reglas de compatibilidad, elegibilidad, urgencia, conservación, priorización y asignación deberán provenir de fuentes autorizadas, versionarse y validarse. Durante el proyecto académico solo se utilizarán datos ficticios y reglas ilustrativas identificadas como tales.
 
 ## 2. Convenciones
 
@@ -53,7 +53,7 @@ Los prefijos `RF` y `RNF` identifican requerimientos funcionales y no funcionale
 | RF-WEB-005 | Primer parcial | Alta | Técnica | El Administrador deberá poder registrar y mantener instituciones, sedes, ubicación, contactos, capacidades y estado de participación en la red, como fuente conceptual única de la información institucional utilizada por los demás procesos. |
 | RF-WEB-006 | Posterior | Alta | Clínica/normativa | El personal autorizado deberá poder registrar y actualizar donantes con los datos, consentimientos, restricciones y estados pertinentes al tipo de donación. |
 | RF-WEB-007 | Posterior | Alta | Clínica/normativa | El Personal médico autorizado deberá poder registrar y actualizar receptores o pacientes y su participación en listas o procesos autorizados, sin crear por defecto un acceso directo para el receptor. |
-| RF-WEB-008 | Primer parcial | Alta | Demostrativa | El Operador de banco de sangre deberá poder registrar unidades sanguíneas ficticias, consultar su inventario, cambiar estados de forma controlada, conservar su historial y visualizar proximidad de caducidad mediante un parámetro demostrativo. |
+| RF-WEB-008 | Primer parcial | Alta | Demostrativa | El Operador de banco de sangre deberá poder registrar unidades sanguíneas ficticias, consultar su inventario, cambiar estados de forma controlada, conservar su historial y visualizar proximidad de caducidad mediante un parámetro ilustrativo. |
 | RF-WEB-009 | Posterior | Alta | Clínica/normativa | El personal autorizado deberá poder mantener la disponibilidad y viabilidad de órganos mediante un flujo especializado y separado del inventario ordinario de unidades sanguíneas. |
 | RF-WEB-010 | Posterior | Alta | Clínica/normativa | El Personal médico autorizado deberá poder registrar y dar seguimiento a solicitudes ordinarias y urgentes, asociándolas con receptor, institución, necesidad y urgencia autorizada. |
 | RF-WEB-011 | Posterior | Alta | Clínica/normativa | El personal autorizado deberá poder capturar y consultar pruebas y estudios, diferenciando los aplicables a sangre de los correspondientes a órganos y tejidos. |

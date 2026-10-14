@@ -16,10 +16,10 @@ echo Python requiere venv y ensurepip en esa distribucion Linux.
 echo Requiere WSL 2 y Python 3.12+, PostgreSQL 14, Redis 7+ y MongoDB 8.0 en Linux.
 echo Las rutas relativas parten de la raiz del repositorio.
 echo No inicia las aplicaciones. Despues ejecuta: start.bat
-echo Guia: apps/services/docs/ARRANQUE_LOCAL.md
+echo Guia: documentation/markdowns/Instalacion_y_operacion.md
 exit /b 0
 
 :missing_wsl
 echo Falta WSL. Instala WSL 2 y configura una distribucion Linux predeterminada. >&2
-echo Consulta apps/services/docs/ARRANQUE_LOCAL.md antes de instalar dependencias. >&2
+echo Consulta documentation/markdowns/Instalacion_y_operacion.md antes de instalar dependencias. >&2
 exit /b 1

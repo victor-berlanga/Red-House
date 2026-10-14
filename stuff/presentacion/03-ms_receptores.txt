@@ -1,0 +1,63 @@
+RED HOUSE — RECEPTORES Y SOLICITUDES
+Unidad: ms_receptores
+Puerto por defecto: 5103
+Versión del servicio: 0.2.0
+
+1. QUÉ HACE Y POR QUÉ EXISTE
+Administra expedientes de receptores y el ciclo de vida y cobertura de solicitudes.
+
+2. TECNOLOGÍAS Y DATOS
+Flask (REST), Python 3.12+, Psycopg, PostgreSQL, PyJWT/cryptography (RS256), Redis, Pydantic, lxml (XML/XSD), Waitress, Swagger/OpenAPI.
+PostgreSQL conserva receptores, solicitudes y retenciones de capacidad; Redis valida sesión y permisos. Auditoría/alertas reciben eventos durables.
+Entre servicios se utilizan firmas Ed25519, nonce con expiración, autorización delegada donde aplica e identificadores de correlación.
+
+3. ESCENARIO PARA EXPLICARLO
+Una solicitud de una unidad retiene un cupo antes de que Inventario reserve el recurso. Dos peticiones concurrentes no pueden cubrir dos veces ese cupo.
+
+4. CONTRATOS Y OPERACIONES
+API v1; JSON para móvil y XML para escritorio. Swagger local en /docs y OpenAPI en /openapi.json.
+Entradas XML con raíz request y XSD por operación. Respuestas XML conservan tipos mediante field/item y atributo type.
+  POST /api/v1/recipients: Expediente diferenciado de sangre u órgano
+  GET /api/v1/recipients: Expedientes de la propia institución
+  GET /api/v1/recipients/<identifier>: Consultar expediente clínico autorizado
+  POST /api/v1/requests: Solicitud humana de recursos
+  GET /api/v1/requests: Solicitudes institucionales y cobertura
+  GET /api/v1/requests/<identifier>: Solicitud y reservas pendientes/confirmadas
+  POST /api/v1/requests/<identifier>/cancel: Cancelar únicamente sin reservas pendientes o físicas
+  GET /internal/v1/requests/<identifier>: Instantánea mínima para compatibilidad y reserva
+  POST /internal/v1/holds: Retener capacidad; serializar solicitud y receptor
+  POST /internal/v1/holds/<identifier>: Confirmar, liberar o recibir retención de forma idempotente
+  GET /internal/v1/holds-by-operation/<identifier>: Localizar retención tras perder una respuesta
+  POST /internal/v1/events: Recibir recepción o liberación sin duplicados
+  GET /api/v1/summary: Indicadores agregados autorizados; no expone expedientes
+  PATCH /api/v1/recipients/<identifier>: Corregir receptor antes de registrar solicitudes
+  PATCH /api/v1/requests/<identifier>: Editar solicitud abierta sin retenciones, invalidando evaluaciones anteriores
+
+5. SEGURIDAD Y ERRORES
+Acceso denegado por defecto. JWT con firma, emisor, audiencia, expiración, sesión, revocación y permisos vigentes.
+Validación estricta: campos desconocidos, nulos no autorizados, cadenas vacías, tipos incorrectos, JSON duplicado, NaN/Infinity y XML con DTD se rechazan.
+Errores equivalentes JSON/XML: 400/422 entrada, 401 autenticación, 403 autorización, 404 inexistente, 409 estado/versión, 429 límite, 503 dependencia.
+No se exponen credenciales ni contenido clínico en logs; cada petición registra ruta, estado, duración y correlación.
+
+6. PREGUNTAS QUE PODRÍAN HACER
+¿Por qué existe una retención? Evita que dos recursos distintos excedan la misma solicitud.
+¿Se libera automáticamente al vencer una petición HTTP? No: un timeout no demuestra que la operación haya fallado. Se consulta y recupera.
+¿Se cancela con retenciones pendientes? No; primero se resuelve la coordinación.
+¿Cuándo cierra? Al confirmar la recepción de toda la cantidad solicitada.
+¿Cerrar significa trasplante? No: significa recepción logística.
+
+7. GUION BREVE PARA UNA DIAPOSITIVA
+Problema: Administra expedientes de receptores y el ciclo de vida y cobertura de solicitudes.
+Entrada: petición REST autorizada y validada.
+Proceso: aplicar permisos, reglas operativas y persistencia propia.
+Salida: resultado JSON/XML, correlación y evento auditable cuando corresponde.
+Presentación: Swagger -> operación -> consulta posterior -> revisión de auditoría/salud.
+
+8. CÓMO COMPROBAR Y QUÉ NO AFIRMAR
+Leer apps/services/README.md y documentation/markdowns/Pruebas_y_validacion.md.
+Cada unidad conserva sus consultas, contratos outputs.json y migraciones. scripts/package_service.py entrega un solo dominio con una copia de utilidades comunes; scripts/upgrade.py y local.py restart-service permiten actualizarlo individualmente.
+XML de salida se valida con XSD estructural y DTO semántico: redhouse.xml_response.validate_response.
+El estado /health/worker permite detectar workers detenidos o publicación de eventos atrasada. Los motivos se conservan en el historial privado del propietario; los eventos centrales son minimizados.
+Las reglas no sustituyen evaluación clínica. No afirmar despliegue en GCP, Docker, HLA automatizada o móvil/escritorio integrados.
+No mostrar state.json, archivos de configuración privada ni tokens durante la presentación.
+La web integrada tiene pruebas HTTP con dependencias reales y recorridos de navegador. Leer apps/web/README.md.

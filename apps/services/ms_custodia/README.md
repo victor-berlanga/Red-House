@@ -8,4 +8,4 @@ Ejecutar desde `apps/services`: `python run.py custodia --config /ruta/privada/c
 
 Swagger: `/docs`. Contratos estáticos y XSD: [contracts](contracts). Guía común: [README](../README.md).
 
-Apuntes de presentación: [TXT](../../../stuff/temporal-microservicios/08-ms_custodia.txt).
+Apuntes de presentación: [TXT](../../../stuff/presentacion/08-ms_custodia.txt).

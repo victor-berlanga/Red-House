@@ -8,4 +8,4 @@ Ejecutar desde `apps/services`: `python run.py identidad_acceso --config /ruta/p
 
 Swagger: `/docs`. Contratos estáticos y XSD: [contracts](contracts). Guía común: [README](../README.md).
 
-Apuntes de presentación: [TXT](../../../stuff/temporal-microservicios/01-ms_identidad_acceso.txt).
+Apuntes de presentación: [TXT](../../../stuff/presentacion/01-ms_identidad_acceso.txt).

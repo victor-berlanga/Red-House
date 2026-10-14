@@ -8,4 +8,4 @@ Ejecutar desde `apps/services`: `python run.py donantes --config /ruta/privada/d
 
 Swagger: `/docs`. Contratos estáticos y XSD: [contracts](contracts). Guía común: [README](../README.md).
 
-Apuntes de presentación: [TXT](../../../stuff/temporal-microservicios/02-ms_donantes.txt).
+Apuntes de presentación: [TXT](../../../stuff/presentacion/02-ms_donantes.txt).

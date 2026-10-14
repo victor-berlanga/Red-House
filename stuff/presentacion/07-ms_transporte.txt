@@ -1,0 +1,59 @@
+RED HOUSE — TRANSPORTE
+Unidad: ms_transporte
+Puerto por defecto: 5107
+Versión del servicio: 0.2.0
+
+1. QUÉ HACE Y POR QUÉ EXISTE
+Planea y sigue traslados, responsables, incidencias, ubicación autorizada y evidencias.
+
+2. TECNOLOGÍAS Y DATOS
+Flask (REST), Python 3.12+, Psycopg, PostgreSQL, PyJWT/cryptography (RS256), Redis, Pydantic, lxml (XML/XSD), Waitress, Swagger/OpenAPI.
+PostgreSQL conserva órdenes, pasos y referencias de archivos. MongoDB recibe documentos y telemetría mediante outbox. Redis conserva sesión y referencia de ubicación reciente. GCS dispone de adaptador opcional para archivos privados.
+Entre servicios se utilizan firmas Ed25519, nonce con expiración, autorización delegada donde aplica e identificadores de correlación.
+
+3. ESCENARIO PARA EXPLICARLO
+Coordinación planea; origen prepara; traslado recoge y entrega; destino acepta. Cada paso genera eventos de custodia y auditoría.
+
+4. CONTRATOS Y OPERACIONES
+API v1; JSON para móvil y XML para escritorio. Swagger local en /docs y OpenAPI en /openapi.json.
+Entradas XML con raíz request y XSD por operación. Respuestas XML conservan tipos mediante field/item y atributo type.
+  POST /api/v1/shipments: Planear traslado y confirmar vínculo exclusivo con Inventario
+  GET /api/v1/shipments: Traslados de la región, institución o responsable
+  GET /api/v1/shipments/<identifier>: Estado logístico y coordinación pendiente
+  POST /api/v1/shipments/<identifier>/transitions: Registrar paso autorizado y evento de custodia durable
+  POST /api/v1/shipments/<identifier>/telemetry: Ubicación solo del responsable durante traslado activo
+  GET /api/v1/shipments/<identifier>/telemetry: Historial de ubicación con autorización por traslado
+  GET /internal/v1/shipments/<identifier>/access: Autorizar consulta de custodia por asignación logística
+  POST /api/v1/shipments/<identifier>/files: Preparar carga privada con URL firmada de cinco minutos
+  POST /api/v1/files/<identifier>/verify: Verificar tamaño, MIME, firma de archivo y SHA-256 del objeto real
+  GET /api/v1/files/<identifier>/download: Descargar evidencia verificada mediante acceso temporal privado
+  GET /api/v1/summary: Indicadores agregados autorizados; no expone expedientes
+
+5. SEGURIDAD Y ERRORES
+Acceso denegado por defecto. JWT con firma, emisor, audiencia, expiración, sesión, revocación y permisos vigentes.
+Validación estricta: campos desconocidos, nulos no autorizados, cadenas vacías, tipos incorrectos, JSON duplicado, NaN/Infinity y XML con DTD se rechazan.
+Errores equivalentes JSON/XML: 400/422 entrada, 401 autenticación, 403 autorización, 404 inexistente, 409 estado/versión, 429 límite, 503 dependencia.
+No se exponen credenciales ni contenido clínico en logs; cada petición registra ruta, estado, duración y correlación.
+
+6. PREGUNTAS QUE PODRÍAN HACER
+¿Cualquiera actualiza una orden? No: rol, institución y responsable asignado.
+¿Se registra GPS permanentemente? No: solo responsable y estados COLLECTED/IN_TRANSIT.
+¿Una caída de custodia pierde una recolección? El evento queda durable en PostgreSQL y se reintenta.
+¿Se puede deshacer una recolección física? No; se registra la incidencia.
+¿GCS está comprobado en nube? No: el adaptador exige bucket y credenciales reales y devuelve 503 si faltan; no fabrica URLs.
+
+7. GUION BREVE PARA UNA DIAPOSITIVA
+Problema: Planea y sigue traslados, responsables, incidencias, ubicación autorizada y evidencias.
+Entrada: petición REST autorizada y validada.
+Proceso: aplicar permisos, reglas operativas y persistencia propia.
+Salida: resultado JSON/XML, correlación y evento auditable cuando corresponde.
+Presentación: Swagger -> operación -> consulta posterior -> revisión de auditoría/salud.
+
+8. CÓMO COMPROBAR Y QUÉ NO AFIRMAR
+Leer apps/services/README.md y documentation/markdowns/Pruebas_y_validacion.md.
+Cada unidad conserva sus consultas, contratos outputs.json y migraciones. scripts/package_service.py entrega un solo dominio con una copia de utilidades comunes; scripts/upgrade.py y local.py restart-service permiten actualizarlo individualmente.
+XML de salida se valida con XSD estructural y DTO semántico: redhouse.xml_response.validate_response.
+El estado /health/worker permite detectar workers detenidos o publicación de eventos atrasada. Los motivos se conservan en el historial privado del propietario; los eventos centrales son minimizados.
+Las reglas no sustituyen evaluación clínica. No afirmar despliegue en GCP, Docker, HLA automatizada o móvil/escritorio integrados.
+No mostrar state.json, archivos de configuración privada ni tokens durante la presentación.
+La web integrada tiene pruebas HTTP con dependencias reales y recorridos de navegador. Leer apps/web/README.md.

@@ -1,0 +1,52 @@
+RED HOUSE — AUDITORÍA
+Unidad: ms_auditoria
+Puerto por defecto: 5110
+Versión del servicio: 0.2.0
+
+1. QUÉ HACE Y POR QUÉ EXISTE
+Recibe registros minimizados de accesos, cambios, evaluaciones y decisiones.
+
+2. TECNOLOGÍAS Y DATOS
+Flask (REST), Python 3.12+, Psycopg, PostgreSQL, PyJWT/cryptography (RS256), Redis, Pydantic, lxml (XML/XSD), Waitress, Swagger/OpenAPI.
+PostgreSQL mantiene registro inmutable bajo credenciales de aplicación. MongoDB proporciona proyección documental flexible. Redis controla sesión, perfil Auditor y región.
+Entre servicios se utilizan firmas Ed25519, nonce con expiración, autorización delegada donde aplica e identificadores de correlación.
+
+3. ESCENARIO PARA EXPLICARLO
+El cambio y su evento se guardan juntos en el servicio de origen. Auditoría recibe después el evento con reintentos y deduplicación.
+
+4. CONTRATOS Y OPERACIONES
+API v1; JSON para móvil y XML para escritorio. Swagger local en /docs y OpenAPI en /openapi.json.
+Entradas XML con raíz request y XSD por operación. Respuestas XML conservan tipos mediante field/item y atributo type.
+  POST /internal/v1/events: Recibir registro minimizado y conservarlo de forma inmutable
+  GET /api/v1/events: Bitácora regional de solo lectura; sin credenciales ni contenido clínico
+  GET /api/v1/events/<identifier>: Evento auditable y correlación
+  GET /api/v1/documentary-events: Proyección documental MongoDB; puede estar pendiente de sincronización
+
+5. SEGURIDAD Y ERRORES
+Acceso denegado por defecto. JWT con firma, emisor, audiencia, expiración, sesión, revocación y permisos vigentes.
+Validación estricta: campos desconocidos, nulos no autorizados, cadenas vacías, tipos incorrectos, JSON duplicado, NaN/Infinity y XML con DTD se rechazan.
+Errores equivalentes JSON/XML: 400/422 entrada, 401 autenticación, 403 autorización, 404 inexistente, 409 estado/versión, 429 límite, 503 dependencia.
+No se exponen credenciales ni contenido clínico en logs; cada petición registra ruta, estado, duración y correlación.
+
+6. PREGUNTAS QUE PODRÍAN HACER
+¿Qué pasa si Auditoría cae? Los eventos quedan pendientes en cada outbox.
+¿Y si falla el registro local obligatorio? Se revierte la transacción local; una retención remota puede necesitar compensación.
+¿Almacena JWT o estudios? No.
+¿Es síncrona toda la auditoría? El registro local es transaccional; la centralización es eventual.
+¿Qué identifica un recorrido? X-Correlation-ID se propaga entre llamadas y eventos.
+
+7. GUION BREVE PARA UNA DIAPOSITIVA
+Problema: Recibe registros minimizados de accesos, cambios, evaluaciones y decisiones.
+Entrada: petición REST autorizada y validada.
+Proceso: aplicar permisos, reglas operativas y persistencia propia.
+Salida: resultado JSON/XML, correlación y evento auditable cuando corresponde.
+Presentación: Swagger -> operación -> consulta posterior -> revisión de auditoría/salud.
+
+8. CÓMO COMPROBAR Y QUÉ NO AFIRMAR
+Leer apps/services/README.md y documentation/markdowns/Pruebas_y_validacion.md.
+Cada unidad conserva sus consultas, contratos outputs.json y migraciones. scripts/package_service.py entrega un solo dominio con una copia de utilidades comunes; scripts/upgrade.py y local.py restart-service permiten actualizarlo individualmente.
+XML de salida se valida con XSD estructural y DTO semántico: redhouse.xml_response.validate_response.
+El estado /health/worker permite detectar workers detenidos o publicación de eventos atrasada. Los motivos se conservan en el historial privado del propietario; los eventos centrales son minimizados.
+Las reglas no sustituyen evaluación clínica. No afirmar despliegue en GCP, Docker, HLA automatizada o móvil/escritorio integrados.
+No mostrar state.json, archivos de configuración privada ni tokens durante la presentación.
+La web integrada tiene pruebas HTTP con dependencias reales y recorridos de navegador. Leer apps/web/README.md.

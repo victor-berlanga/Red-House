@@ -1,25 +1,25 @@
 """Casos reproducibles encontrados en la revisión del 8 de octubre."""
 
 import json
-from uuid import uuid4
 from datetime import datetime, timedelta, timezone
 from unittest.mock import patch
+from uuid import uuid4
 
 import pytest
-from flask import Flask, g
+from flask import Flask
 from lxml import etree as E
+from ms_donantes.routes import DonorCreate
+from ms_transporte.routes import Transition
 from redhouse.codec import parse, request_xsd
 from redhouse.errors import APIError
-from ms_transporte.routes import Transition
-from ms_donantes.routes import DonorCreate
+
 from .helpers import (
-    resource,
-    recipient_request,
     evaluation,
-    reservation,
-    plan,
-    move,
     iso,
+    plan,
+    recipient_request,
+    reservation,
+    resource,
 )
 
 CONFIRM = {
@@ -94,7 +94,8 @@ def test_rate_limits_separate_users_behind_same_web_ip(p, monkeypatch):
     with app.app_context():
         client = redis_client()
         # Solo los contadores de esta prueba; los usuarios de fixture tienen actividad previa.
-        import hashlib, time
+        import hashlib
+        import time
 
         for name in ("operator1", "medical1"):
             account = p.env.state["accounts"][name]
@@ -126,8 +127,8 @@ def test_rate_limits_separate_users_behind_same_web_ip(p, monkeypatch):
 
 
 def test_permission_publication_recovers_after_sql_rollback(p):
-    from redhouse.security import key, redis_client
     import ms_identidad_acceso.routes as identity
+    from redhouse.security import key, redis_client
 
     username = "recover_" + uuid4().hex[:10]
     password = uuid4().hex
@@ -223,7 +224,7 @@ def test_catalogues_scope_version_and_dependencies(p):
         data={
             "name": "Refrigerador " + uuid4().hex[:6],
             "parent_id": site["id"],
-            "description": "Ubicación demostrativa",
+            "description": "Ubicación ilustrativa",
         },
     )
     path = "/api/v1/catalogues/sites/" + site["id"]
@@ -275,7 +276,7 @@ def test_edit_and_withdraw_preserve_history_and_version(p):
     raw = {
         "folio": "EDIT-" + uuid4().hex[:12],
         "kind": "BLOOD",
-        "component": "RBC-DEMO",
+        "component": "RBC",
         "blood_group": "O-",
         "expires_at": iso(days=2),
     }
@@ -374,9 +375,9 @@ def test_configured_storage_health_does_not_report_unconfigured(p, monkeypatch):
 
 
 def test_additive_migration_preserves_v1_data_and_is_repeatable(p):
-    from redhouse.schema import COMMON, SCHEMAS
-    from redhouse.migrations import migrate
     from psycopg import sql
+    from redhouse.migrations import migrate
+    from redhouse.schema import COMMON, SCHEMAS
 
     with p.owner("inventario") as conn:
         namespace = "upgrade_" + uuid4().hex
@@ -401,9 +402,12 @@ def test_additive_migration_preserves_v1_data_and_is_repeatable(p):
         ).fetchall() == [(identifier, "OLD-0001", None, None)]
         assert conn.execute(
             "SELECT version FROM schema_version ORDER BY version"
-        ).fetchall() == [(1,), (2,), (3,), (4,)]
+        ).fetchall() == [(1,), (2,), (3,), (4,), (5,)]
+        assert conn.execute("SELECT component,version FROM resources").fetchall() == [
+            ("RBC", 2)
+        ]
         assert conn.execute("SELECT name,revision FROM cache_revision").fetchall() == [
-            ("inventory", 0)
+            ("inventory", 1)
         ]
         conn.rollback()
 

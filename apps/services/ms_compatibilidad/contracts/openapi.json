@@ -3,13 +3,13 @@
   "info": {
     "title": "Red House — compatibilidad",
     "version": "0.2.0",
-    "description": "API independiente JSON/XML. Reglas clínicas demostrativas; requiere revisión humana. XML de respuesta validable en /schemas/response.xsd."
+    "description": "API independiente JSON/XML. Reglas clínicas ilustrativas; requiere revisión humana. XML de respuesta validable en /schemas/response.xsd."
   },
   "paths": {
     "/api/v1/evaluations": {
       "post": {
         "operationId": "evaluation_create",
-        "summary": "Preselección demostrativa con datos y reglas versionados",
+        "summary": "Preselección ilustrativa con datos y reglas versionados",
         "parameters": [
           {
             "name": "X-Correlation-ID",

@@ -37,7 +37,7 @@ def test_donation_provenance_and_processed_intake(p):
         data={
             "donor_id": donor["id"],
             "kind": "BLOOD",
-            "component": "RBC-DEMO",
+            "component": "RBC",
             "collected_at": iso(minutes=-1),
             "human_confirmation": True,
             "reason": "Recolección ficticia documentada",
@@ -46,7 +46,7 @@ def test_donation_provenance_and_processed_intake(p):
     incoming = {
         "folio": "DERIVED-" + uuid4().hex[:10],
         "kind": "BLOOD",
-        "component": "RBC-DEMO",
+        "component": "RBC",
         "blood_group": "O-",
         "expires_at": iso(days=2),
         "donation_id": donation["id"],

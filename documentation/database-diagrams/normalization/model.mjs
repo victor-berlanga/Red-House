@@ -53,9 +53,9 @@ T('CATALOG_ENTRY_VALUE','entry_id value_no','value_name scalar_value',{entry_id:
 T('CATALOG_CHANGE','change_id','catalog_version_id occurred_at actor_id reason',{catalog_version_id:'CATALOG_VERSION',actor_id:'PARTY'});
 T('CATALOG_CHANGED_ENTRY','change_id entry_id','',{change_id:'CATALOG_CHANGE',entry_id:'CATALOG_ENTRY'});
 T('CATALOG_CHANGE_FIELD','change_id field_name','previous_value new_value',{change_id:'CATALOG_CHANGE'});
-T('PARAMETER_VERSION','parameter_version_id','parameter_code version_no scalar_value measurement_unit scope_id is_demo source_reference approved_by valid_from valid_until',{scope_id:'ACCESS_SCOPE',approved_by:'PARTY'},['parameter_code version_no']);
+T('PARAMETER_VERSION','parameter_version_id','parameter_code version_no scalar_value measurement_unit scope_id is_sample source_reference approved_by valid_from valid_until',{scope_id:'ACCESS_SCOPE',approved_by:'PARTY'},['parameter_code version_no']);
 T('CATALOG_PARAMETER','catalog_version_id parameter_version_id','',{catalog_version_id:'CATALOG_VERSION',parameter_version_id:'PARAMETER_VERSION'});
-T('RULE_VERSION','rule_version_id','rule_reference version_no resource_kind application_process source_reference scope_id approved_by valid_from valid_until is_demo',{scope_id:'ACCESS_SCOPE',approved_by:'PARTY'},['rule_reference version_no']);
+T('RULE_VERSION','rule_version_id','rule_reference version_no resource_kind application_process source_reference scope_id approved_by valid_from valid_until is_sample',{scope_id:'ACCESS_SCOPE',approved_by:'PARTY'},['rule_reference version_no']);
 
 D('04 — Donantes y episodios de donación');
 T('DONOR','donor_id','donor_reference full_name birth_date registration_status registered_at',{},['donor_reference']);

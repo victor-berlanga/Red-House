@@ -9,10 +9,9 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from redhouse.codec import request_xsd
 from redhouse.config import SERVICES
-from redhouse.openapi import spec
-from redhouse.output_schemas import result_schema
-from redhouse.openapi import META
 from redhouse.examples import request_xml, sample
+from redhouse.openapi import META, spec
+from redhouse.output_schemas import result_schema
 
 DESCRIPTIONS = {
     "identidad_acceso": (
@@ -47,15 +46,15 @@ DESCRIPTIONS = {
         "Compatibilidad",
         "Genera candidatos explicables y conserva evaluaciones y dictámenes humanos.",
         "PostgreSQL conserva instantáneas, versiones, candidatos y revisión. Flask consulta propietarios por HTTP; Redis valida JWT y permisos.",
-        "Para RBC-DEMO se aplica el filtro ABO/RhD ya documentado. Para órgano se preselecciona mismo tipo y ABO idéntico, sin interpretar HLA.",
-        "¿Una coincidencia es autorización clínica? No.\n¿Interpreta HLA? No; su interpretación corresponde al especialista.\n¿Qué sucede con datos faltantes? La evaluación conserva exclusiones logísticas y aviso de limitaciones.\n¿Se conserva la regla usada? Sí: RBC-DEMO-1.0 u ORGAN-DEMO-1.0 y versiones de datos/ruta.\n¿Puedo reservar solo con evaluación? No: también se exige dictamen favorable y confirmación humana.",
+        "Para RBC se aplica el filtro ABO/RhD ya documentado. Para órgano se preselecciona mismo tipo y ABO idéntico, sin interpretar HLA.",
+        "¿Una coincidencia es autorización clínica? No.\n¿Interpreta HLA? No; su interpretación corresponde al especialista.\n¿Qué sucede con datos faltantes? La evaluación conserva exclusiones logísticas y aviso de limitaciones.\n¿Se conserva la regla usada? Sí: RBC-1.0 u ORGAN-1.0 y versiones de datos/ruta.\n¿Puedo reservar solo con evaluación? No: también se exige dictamen favorable y confirmación humana.",
     ),
     "priorizacion_geografia": (
         "Priorización y geografía",
         "Mantiene estimaciones de rutas, ranking operativo y propuestas de cobertura máxima.",
         "PostgreSQL conserva rutas versionadas, factores, rankings y propuestas. Python ejecuta ordenamiento y matching bipartito Hopcroft–Karp. Redis aplica seguridad.",
         "Si un paciente admite A o B y otro solo A, un recorrido voraz puede dejar uno sin propuesta. Un camino aumentante permite proponer B al flexible y A al restringido.",
-        "¿Por qué dos responsabilidades en un servicio? Ruta, tiempo y distancia participan en el ranking operativo; sus contratos permanecen separados.\n¿Usa Google Maps? No: las rutas actuales son estimaciones capturadas con procedencia.\n¿El ranking prioriza clínicamente? No: orden operativo demostrativo, sin ponderaciones médicas inventadas.\n¿El algoritmo es no trivial? Matching utiliza BFS/DFS y caminos aumentantes; O(E raíz(V)) con las limitaciones documentadas.\n¿La propuesta reserva? No: reserva y autorización se realizan posteriormente en Inventario.",
+        "¿Por qué dos responsabilidades en un servicio? Ruta, tiempo y distancia participan en el ranking operativo; sus contratos permanecen separados.\n¿Usa Google Maps? No: las rutas actuales son estimaciones capturadas con procedencia.\n¿El ranking prioriza clínicamente? No: orden operativo ilustrativo, sin ponderaciones médicas inventadas.\n¿El algoritmo es no trivial? Matching utiliza BFS/DFS y caminos aumentantes; O(E raíz(V)) con las limitaciones documentadas.\n¿La propuesta reserva? No: reserva y autorización se realizan posteriormente en Inventario.",
     ),
     "transporte": (
         "Transporte",
@@ -96,7 +95,7 @@ DESCRIPTIONS = {
 
 
 def main():
-    notes = ROOT.parents[1] / "stuff" / "temporal-microservicios"
+    notes = ROOT.parents[1] / "stuff" / "presentacion"
     notes.mkdir(parents=True, exist_ok=True)
     index = [
         "RED HOUSE — APUNTES PARA PRESENTACIÓN",
@@ -105,7 +104,7 @@ def main():
         "Diez microservicios y un componente de monitoreo.",
         "Los puertos 5101–5111 son los valores por defecto; el entorno de prueba utiliza puertos libres y los registra en state.json.",
         "El portal Flask/Jinja2 ya consume las API de los servicios. Móvil, escritorio y contenedores siguen pendientes.",
-        "Los apuntes deben leerse junto a apps/services/docs/VALIDACION.md para conocer exactamente qué se comprobó.",
+        "Los apuntes deben leerse junto a documentation/markdowns/Pruebas_y_validacion.md para conocer exactamente qué se comprobó.",
         "",
     ]
     for number, (service, port) in enumerate(SERVICES.items(), 1):
@@ -188,21 +187,21 @@ Problema: {purpose}
 Entrada: petición REST autorizada y validada.
 Proceso: aplicar permisos, reglas operativas y persistencia propia.
 Salida: resultado JSON/XML, correlación y evento auditable cuando corresponde.
-Demostración: Swagger -> operación -> consulta posterior -> revisión de auditoría/salud.
+Presentación: Swagger -> operación -> consulta posterior -> revisión de auditoría/salud.
 
 8. CÓMO COMPROBAR Y QUÉ NO AFIRMAR
-Leer apps/services/README.md y apps/services/docs/VALIDACION.md.
+Leer apps/services/README.md y documentation/markdowns/Pruebas_y_validacion.md.
 Cada unidad conserva sus consultas, contratos outputs.json y migraciones. scripts/package_service.py entrega un solo dominio con una copia de utilidades comunes; scripts/upgrade.py y local.py restart-service permiten actualizarlo individualmente.
 XML de salida se valida con XSD estructural y DTO semántico: redhouse.xml_response.validate_response.
 El estado /health/worker permite detectar workers detenidos o publicación de eventos atrasada. Los motivos se conservan en el historial privado del propietario; los eventos centrales son minimizados.
-Las reglas DEMO no sustituyen evaluación clínica. No afirmar despliegue en GCP, Docker, HLA automatizada o móvil/escritorio integrados.
+Las reglas no sustituyen evaluación clínica. No afirmar despliegue en GCP, Docker, HLA automatizada o móvil/escritorio integrados.
 No mostrar state.json, archivos de configuración privada ni tokens durante la presentación.
-La web integrada tiene pruebas HTTP con dependencias reales y recorridos de navegador. Leer apps/web-monolito01/INTEGRACION.md.
+La web integrada tiene pruebas HTTP con dependencias reales y recorridos de navegador. Leer apps/web/README.md.
 """
         (notes / filename).write_text(text)
         index.append(f"{filename}: {title}")
         (folder / "README.md").write_text(
-            f"# {title}\n\n{purpose}\n\nPuerto por defecto: `{port}`.\n\nEjecutar desde `apps/services`: `python run.py {service} --config /ruta/privada/{service}.json`.\n\nSwagger: `/docs`. Contratos estáticos y XSD: [contracts](contracts). Guía común: [README](../README.md).\n\nApuntes de presentación: [TXT](../../../stuff/temporal-microservicios/{filename}).\n"
+            f"# {title}\n\n{purpose}\n\nPuerto por defecto: `{port}`.\n\nEjecutar desde `apps/services`: `python run.py {service} --config /ruta/privada/{service}.json`.\n\nSwagger: `/docs`. Contratos estáticos y XSD: [contracts](contracts). Guía común: [README](../README.md).\n\nApuntes de presentación: [TXT](../../../stuff/presentacion/{filename}).\n"
         )
         (folder / "requirements.txt").write_text("-r ../requirements.txt\n")
         env_lines = [
@@ -225,7 +224,7 @@ La web integrada tiene pruebas HTTP con dependencias reales y recorridos de nave
             env_lines.append("GCS_BUCKET=")
         (folder / ".env.example").write_text("\n".join(env_lines) + "\n")
         (folder / "run.py").write_text(
-            f'from pathlib import Path\nimport sys\nsys.path.insert(0, str(Path(__file__).resolve().parents[1]))\nfrom run import main\n\nif __name__ == "__main__":\n    sys.argv.insert(1, "{service}")\n    main()\n'
+            f'from pathlib import Path\nimport sys\n\nsys.path.insert(0, str(Path(__file__).resolve().parents[1]))\nfrom run import main\n\nif __name__ == "__main__":\n    sys.argv.insert(1, "{service}")\n    main()\n'
         )
     (notes / "00-LEER-PRIMERO.txt").write_text("\n".join(index) + "\n")
     print(

@@ -20,7 +20,7 @@ jobs:
           cache: pip
           cache-dependency-path: |
             apps/services/requirements*.txt
-            apps/web-monolito01/requirements.txt
+            apps/web/requirements.txt
       # https://www.mongodb.com/docs/v8.0/tutorial/install-mongodb-on-ubuntu/
       - name: Dependencias locales, sin contenedores
         run: |
@@ -32,8 +32,8 @@ jobs:
           python -m pip install -r apps/services/requirements-dev.txt
       - name: Análisis estático y formato
         run: |
-          ruff check --select E9,F63,F7,F82 apps/services apps/web-monolito01/src/integration
-          ruff format --check apps/services apps/web-monolito01/src/integration
+          ruff check --select E9,F63,F7,F82 apps/services apps/web/src/integration
+          ruff format --check apps/services apps/web/src/integration
       - name: Contratos, seguridad, datos y portal HTTP
         run: python -m pytest apps/services/tests -q --junitxml=results/services.xml
       - uses: actions/upload-artifact@v4

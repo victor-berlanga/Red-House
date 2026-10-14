@@ -102,7 +102,7 @@ erDiagram
         string catalog_status
         object administrative_scope "Regional or institutional scope"
         array entries "Codes, labels, grouped values and states"
-        array parameter_definitions "Value, unit, scope and DEMO marker"
+        array parameter_definitions "Value, unit, scope and PRUEBA marker"
         array change_history "Entry, previous data, date and author"
     }
 
@@ -175,7 +175,7 @@ erDiagram
         object location_details "Authorized current storage location"
         datetime collected_at
         datetime expires_at
-        object expiry_parameter "Applied value, unit, version and DEMO marker"
+        object expiry_parameter "Applied value, unit, version and PRUEBA marker"
         array test_results "Tests, sources, review states and corrections"
         array movement_history "Movement, status change, actor, date and reason"
         array label_prints "Template, version, actor, date and reprint reason"
@@ -385,7 +385,7 @@ Los siguientes grupos siguen dentro de las tablas. Sus subcampos se indican para
 | `BLOOD_UNIT.label_prints` | `template_reference`, `template_version`, `traceability_code`, `printed_at`, `printed_by`, `destination`, `result` y `reprint_reason`. |
 | `RESOURCE_REQUEST.blood_requirements` | `component_code`, `component_name`, `quantity`, `measurement_unit` y `authorized_context`. |
 | `CANDIDATE_ASSESSMENT.candidates` | `candidate_reference`, `resource_kind`, `blood_resource_details` u `organ_resource_details`, `compatibility_results[]`, `factors[]`, `geographic_result`, `ranking_position`, `missing_data[]` y `explanation`. |
-| `CANDIDATE_ASSESSMENT.applied_rules` | `rule_reference`, `source`, `version`, `validity`, `application_scope`, `approved_by` y `demonstration_marker`. |
+| `CANDIDATE_ASSESSMENT.applied_rules` | `rule_reference`, `source`, `version`, `validity`, `application_scope`, `approved_by` y `illustration_marker`. |
 | Factores y resultados geográficos del candidato | Cada factor conserva `factor_name`, `value`, `unit`, `authorized_weight` y `source`; el cálculo geográfico conserva `origin`, `destination`, `distance`, `estimated_duration`, `source`, `calculated_at` y `limitations`. |
 | `CANDIDATE_ASSESSMENT.human_reviews` | `assessment_reference`, `candidate_reference`, `reviewer`, `decision`, `reason`, `reviewed_at` y `evidence_references[]`. |
 | `ALLOCATION.human_authorizations` | `authorized_person`, `institution`, `competence_reference`, `decision`, `decided_at`, `reason` y `evidence_references[]`. |
@@ -410,7 +410,7 @@ La inmutabilidad lógica sigue aplicándose dentro de esos grupos: una correcci�
 | Necesidad | Representación en esta propuesta |
 | --- | --- |
 | Identidad, ámbitos, instituciones y catálogos del primer parcial | `USER_ACCOUNT`, `INSTITUTION` y `REFERENCE_CATALOG`; las instituciones se consultan desde su entidad y no se duplican como otro catálogo administrable. |
-| Inventario sanguíneo y auditoría inicial | `BLOOD_UNIT` y `AUDIT_EVENT`, con datos ficticios y parámetro de caducidad demostrativo. |
+| Inventario sanguíneo y auditoría inicial | `BLOOD_UNIT` y `AUDIT_EVENT`, con datos ficticios y parámetro de caducidad ilustrativo. |
 | Registro, campañas, citas y avisos del donante | `DONOR`, `CAMPAIGN`, `APPOINTMENT` y `ALERT`. |
 | Receptor, estudios, solicitud y evaluación | `RECIPIENT`, los estudios agrupados en sus sujetos o recursos, `RESOURCE_REQUEST` y `CANDIDATE_ASSESSMENT`. |
 | Asignación, traslado y custodia | `ALLOCATION` y `TRANSFER_ORDER`, con autorizaciones y eventos agrupados. |

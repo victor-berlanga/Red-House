@@ -1,6 +1,6 @@
 # Análisis del problema
 
-> **Actualización — 27 de septiembre de 2026:** este documento conserva la línea base y los requisitos semestrales; sus fases no describen por sí solas el avance actual. El Reporte Técnico Integral Red House, revisión 2.1, consolida el alcance vigente, las pruebas y los límites. Órganos/HLA y componentes distribuidos permanecen posteriores. Véase el [reporte técnico integral](../docx/Reporte_Tecnico_Integral_Red_House.docx).
+> Revisión documental — 14 de octubre de 2026: documento de referencia para el alcance y la planificación del semestre. Las fases y fechas originales expresan la secuencia prevista, no el estado de implementación. El portal integrado, los microservicios, PostgreSQL, MongoDB y Redis ya tienen operación local; Android, escritorio, Docker y GCP siguen pendientes. [PROJECT_STATUS.md](../../PROJECT_STATUS.md) registra el avance comprobado. La arquitectura ejecutable se describe en [Arquitectura.md](Arquitectura.md) y la persistencia en [Datos_y_persistencia.md](Datos_y_persistencia.md). El reporte integral de septiembre conserva una entrega anterior.
 
 > **Estado del documento:** línea base académica revisada.
 > **Fecha de validación documental:** 7 de septiembre de 2026.
@@ -25,7 +25,7 @@ Para mantener un alcance viable se adoptan los siguientes límites:
 
 - Las instituciones, personas y operaciones utilizadas en demostraciones serán ficticias.
 - No se almacenarán datos clínicos reales ni se conectará la solución académica a sistemas hospitalarios reales.
-- Las reglas de compatibilidad, elegibilidad, urgencia, conservación y asignación no se inventarán. Podrán representarse como reglas demostrativas claramente identificadas, pero no como criterios válidos para uso médico.
+- Las reglas de compatibilidad, elegibilidad, urgencia, conservación y asignación no se inventarán. Podrán representarse como reglas ilustrativas claramente identificadas, pero no como criterios válidos para uso médico.
 - La validación de esta versión es documental. La validación con especialistas e instituciones se registra como trabajo necesario antes de cualquier uso real.
 - El análisis, los requisitos y la arquitectura completa abarcarán sangre y órganos, así como el sistema web, los microservicios, la aplicación móvil y la aplicación de escritorio. El producto mínimo del primer parcial se concentrará en un proceso acotado de inventario sanguíneo, sin automatizar decisiones clínicas.
 - La documentación conservará las capacidades previstas para todo el proyecto, aunque se implementen en incrementos posteriores.
@@ -214,10 +214,10 @@ Para esta etapa se utilizará la siguiente clasificación mínima, sin intentar 
 | Categoría | Responsable conceptual | Sensibilidad | Uso permitido en el proyecto académico |
 | --- | --- | --- | --- |
 | Instituciones y catálogos | Administración regional o institucional | Interna | Datos ficticios para configuración y consultas |
-| Usuarios, roles y permisos | Administración autorizada | Confidencial | Identidades ficticias y control de acceso demostrativo |
+| Usuarios, roles y permisos | Administración autorizada | Confidencial | Identidades ficticias y control de acceso ilustrativo |
 | Donantes y receptores | Institución responsable de la atención | Sensible | Datos completamente sintéticos |
 | Inventario sanguíneo | Banco de sangre responsable | Sensible operacional | Registro, consulta, estados y auditoría del MVP |
-| Pruebas y compatibilidad | Personal clínico o de laboratorio autorizado | Clínica sensible | Solo estructuras o valores marcados como demostrativos |
+| Pruebas y compatibilidad | Personal clínico o de laboratorio autorizado | Clínica sensible | Solo estructuras o valores marcados como ilustrativos |
 | Solicitudes y asignaciones | Institución solicitante y responsables autorizados | Clínica y operacional | Diseño documental; implementación posterior |
 | Traslado, ubicación y fotografías | Coordinación del traslado | Sensible y temporal | Diseño documental; no captura real en el primer parcial |
 | Auditoría | Operador autorizado de la plataforma | Confidencial | Evidencia ficticia de accesos y cambios del MVP |
@@ -306,7 +306,7 @@ El incremento deberá demostrar, como mínimo:
 - Dos catálogos funcionales: instituciones —administradas como entidades y reutilizadas como catálogo de referencia— y tipos de componentes sanguíneos.
 - Registro de una unidad ficticia con identificador único, institución, tipo, fechas y estado.
 - Consulta del inventario con búsqueda o filtros básicos.
-- Cambio controlado de estado y señalamiento de unidades próximas a caducar mediante una regla demostrativa configurable, sin presentarla como norma clínica.
+- Cambio controlado de estado y señalamiento de unidades próximas a caducar mediante una regla ilustrativa configurable, sin presentarla como norma clínica.
 - Persistencia real en PostgreSQL y registro básico de auditoría.
 - Ejecución local reproducible mediante dependencias y variables documentadas, con PostgreSQL como almacenamiento real del incremento.
 

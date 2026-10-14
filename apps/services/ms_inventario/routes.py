@@ -507,7 +507,7 @@ def register(app):
                     "blood_group",
                     ("O-", "O+", "A-", "A+", "B-", "B+", "AB-", "AB+"),
                 ),
-                "component": ("component", ("RBC-DEMO", "KIDNEY", "LIVER", "HEART")),
+                "component": ("component", ("RBC", "KIDNEY", "LIVER", "HEART")),
                 "current_institution_id": ("current_institution_id", ()),
                 "expiry": (
                     "(CASE WHEN expires_at<=now() THEN 'expired' WHEN expires_at<=now()+interval '48 hours' THEN 'soon' ELSE 'later' END)",

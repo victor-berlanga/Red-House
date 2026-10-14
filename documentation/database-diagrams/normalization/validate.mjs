@@ -94,21 +94,21 @@ assert.deepEqual([...mappedTables].sort(),tables.map(t=>t.name).sort(),'A final 
 for (const step of [...partialSteps,...transitiveSteps]) {
   const d = step.determinant[0];
   const moved = Object.keys(step.mappings);
-  const rows = [1,2].flatMap(parent=>[1,2].map(item=>({[d]:`DEMO_${parent}`,item_no:item,...Object.fromEntries(moved.map(c=>[c,`${c}_${parent}`]))})));
+  const rows = [1,2].flatMap(parent=>[1,2].map(item=>({[d]:`PRUEBA_${parent}`,item_no:item,...Object.fromEntries(moved.map(c=>[c,`${c}_${parent}`]))})));
   assert(obeysFD(rows,[d],moved));
   assert.deepEqual(canonical(join(project(rows,[d,'item_no']),project(rows,[d,...moved]))),canonical(rows));
   const invalid = structuredClone(rows);
-  invalid[1][moved[0]]='DEMO_INCONSISTENT';
+  invalid[1][moved[0]]='PRUEBA_INCONSISTENT';
   assert(!obeysFD(invalid,[d],moved),'An inconsistent input must be rejected, not silently deduplicated');
 }
 
 // DMV de directorio: teléfonos/contactos generales no asignados a un turno.
-const directory = ['CONTACT_A','CONTACT_B'].flatMap(contact_id=>[1,2].map(schedule_sequence=>({site_id:'SITE_DEMO',contact_id,schedule_sequence})));
+const directory = ['CONTACT_A','CONTACT_B'].flatMap(contact_id=>[1,2].map(schedule_sequence=>({site_id:'SITE_PRUEBA',contact_id,schedule_sequence})));
 assert.deepEqual(canonical(join(project(directory,['site_id','contact_id']),project(directory,['site_id','schedule_sequence']))),canonical(directory));
 // Contraejemplo: separar permiso y ámbito daría facultades que no existían.
 const grants = [
-  {account_role_id:'ROLE_DEMO',permission_id:'READ',scope_id:'SITE_A'},
-  {account_role_id:'ROLE_DEMO',permission_id:'WRITE',scope_id:'SITE_B'},
+  {account_role_id:'ROLE_PRUEBA',permission_id:'READ',scope_id:'SITE_A'},
+  {account_role_id:'ROLE_PRUEBA',permission_id:'WRITE',scope_id:'SITE_B'},
 ];
 assert.equal(canonical(join(project(grants,['account_role_id','permission_id']),project(grants,['account_role_id','scope_id']))).length,4);
 assert.equal(grants.length,2);

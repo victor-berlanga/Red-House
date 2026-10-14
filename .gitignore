@@ -1,7 +1,7 @@
 # Instrucciones locales para asistentes de desarrollo
 AGENTS.md
 
-# Entorno local del monolito (nunca versionar secretos ni datos físicos)
+# Entornos locales de las aplicaciones (nunca versionar secretos ni datos físicos)
 .env
 .env.*
 !.env.example
@@ -20,3 +20,6 @@ node_modules/
 *.egg-info/
 build/
 dist/
+
+# Salidas temporales de pruebas; conservar solo resultados seleccionados en historial
+/results/

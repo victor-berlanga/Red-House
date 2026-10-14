@@ -1,4 +1,4 @@
-"""Prueba real del lanzador en un entorno NUEVO; nunca reinicializa la DEMO."""
+"""Prueba real del lanzador en un entorno NUEVO; nunca reinicializa el entorno."""
 
 import argparse
 import fcntl
