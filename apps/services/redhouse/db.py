@@ -6,6 +6,7 @@ from psycopg.rows import dict_row
 from psycopg.types.json import Jsonb
 
 from .errors import APIError
+from .shared import service_schema
 
 
 @contextmanager
@@ -15,11 +16,23 @@ def transaction():
             current_app.config["DATABASE_URL"],
             row_factory=dict_row,
             connect_timeout=2,
-            options="-c search_path=api,pg_catalog -c statement_timeout=5000 -c lock_timeout=3000 -c timezone=UTC",
+            options=f"-c search_path={service_schema(current_app.config['SERVICE'])},pg_catalog -c statement_timeout=5000 -c lock_timeout=3000 -c timezone=UTC",
         ) as conn:
             yield conn
     except psycopg.errors.UniqueViolation:
         raise APIError("conflict", "El registro u operación ya existe.", 409) from None
+    except psycopg.errors.ForeignKeyViolation:
+        raise APIError(
+            "reference_conflict",
+            "La operación referencia un registro inexistente o todavía relacionado.",
+            409,
+        ) from None
+    except psycopg.errors.CheckViolation:
+        raise APIError(
+            "constraint_conflict",
+            "La operación no cumple las restricciones de integridad.",
+            409,
+        ) from None
     except (
         psycopg.errors.LockNotAvailable,
         psycopg.errors.SerializationFailure,

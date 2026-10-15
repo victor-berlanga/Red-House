@@ -38,7 +38,7 @@ python3 -m venv .venv
 .venv/bin/python scripts/local.py status --directory /private/tmp/red-house-ms-local
 ```
 
-`init` crea un clúster exclusivo, once bases PostgreSQL, roles con privilegios limitados, usuarios Redis con ACL, cuatro bases documentales y cuentas ficticias. Usa puertos libres y conserva sus URLs en `state.json`. **No utiliza `.env`, cuentas ni datos del monolito.** Rechaza reinicializar un directorio que ya tenga datos.
+`init` crea un clúster exclusivo, una base PostgreSQL compartida `red_house`, vistas de acceso por servicio, roles con privilegios limitados, usuarios Redis con ACL, cuatro bases documentales y cuentas ficticias. Usa puertos libres y conserva sus URLs en `state.json`. **No utiliza `.env`, cuentas ni datos del monolito.** Rechaza reinicializar un directorio que ya tenga datos.
 
 El directorio privado tiene permiso 0700; las configuraciones y credenciales generadas tienen 0600. `state.json` incluye las cuentas y su contraseña aleatoria; leerlo localmente, sin pegarlo en logs, Git ni presentaciones. Cada proceso recibe una configuración propia: solo Identidad conserva la clave privada RS256; cada servicio recibe su propia clave Ed25519 y las públicas de los demás.
 
@@ -130,3 +130,5 @@ El entorno habitual está en `.local/runtime` de la raíz, ignorado por Git, con
 Catálogos institucionales, primer administrador, ediciones permitidas y límites: [revisión implementada](../../documentation/historial/integracion/REVISION_2026_10_08.md). El validador de salida XML se puede ejecutar con `scripts/validate_response.py`; consultar `--help`. El estado del worker está en `/health/worker`. El lanzador integrado incluye el worker web de revocaciones pendientes.
 
 CI definida en `.github/workflows/services.yml`, con bases locales sin Docker. Su ejecución remota solo puede afirmarse después de recibir un resultado de GitHub; las pruebas locales se documentan por separado.
+
+El esquema vigente y la conversión desde bases separadas están en [Base compartida](../../documentation/markdowns/Esquema_compartido.md). Las migraciones por servicio se conservan como especificación de origen; no deben ejecutarse directamente sobre las vistas.

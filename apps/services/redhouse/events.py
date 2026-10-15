@@ -153,15 +153,18 @@ def dispatch(limit=100):
 def consume(conn, event):
     serialized = json.dumps(event, sort_keys=True, separators=(",", ":"))
     fingerprint = hashlib.sha256(serialized.encode()).hexdigest()
-    row = conn.execute(
-        "INSERT INTO inbox(event_id,fingerprint) VALUES(%s,%s) ON CONFLICT DO NOTHING RETURNING event_id",
-        (event["event_id"], fingerprint),
-    ).fetchone()
-    if row:
-        return True
+    conn.execute(
+        "SELECT pg_advisory_xact_lock(hashtextextended(%s, 51))", (event["event_id"],)
+    )
     old = conn.execute(
         "SELECT fingerprint FROM inbox WHERE event_id=%s", (event["event_id"],)
     ).fetchone()
+    if old is None:
+        conn.execute(
+            "INSERT INTO inbox(event_id,fingerprint) VALUES(%s,%s)",
+            (event["event_id"], fingerprint),
+        )
+        return True
     if old["fingerprint"] != fingerprint:
         raise APIError("event_conflict", "Evento repetido con contenido distinto.", 409)
     return False

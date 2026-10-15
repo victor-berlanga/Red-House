@@ -32,7 +32,7 @@ from pymongo import MongoClient
 from werkzeug.security import generate_password_hash
 
 from redhouse.config import MONGO_SERVICES, SERVICES
-from redhouse.schema import COMMON, SCHEMAS
+from redhouse.shared import service_schema
 from scripts.dependencies import resolve_binary
 
 
@@ -252,64 +252,55 @@ class Environment:
         service_keys = {s: pem(ed25519.Ed25519PrivateKey.generate()) for s in SERVICES}
         urls = {s: f"http://127.0.0.1:{free_port()}" for s in SERVICES}
         dbowners, runtime_dbs = {}, {}
+        dbname = "red_house"
+        with psycopg.connect(admin_url, autocommit=True) as conn:
+            conn.execute("CREATE ROLE rh_shared_owner NOLOGIN")
+            conn.execute("CREATE DATABASE red_house OWNER rh_shared_owner")
+            conn.execute("REVOKE ALL ON DATABASE red_house FROM PUBLIC")
+        owner_url = (
+            f"postgresql://rh_bootstrap:{pgpassword}@127.0.0.1:{pgport}/red_house"
+        )
+        with psycopg.connect(owner_url) as conn:
+            conn.execute("SET ROLE rh_shared_owner")
+            conn.execute((ROOT.parents[1] / "data/database/schema.sql").read_text())
+            conn.execute("REVOKE ALL ON SCHEMA public FROM PUBLIC")
+            conn.execute("REVOKE ALL ON SCHEMA red_house FROM PUBLIC")
         for service in SERVICES:
-            dbname, owner, username = (
-                "rh_" + service,
-                "rh_" + service + "_owner",
-                "rh_" + service,
-            )
+            username = "rh_" + service
             password = secrets.token_urlsafe(32)
-            with psycopg.connect(admin_url, autocommit=True) as conn:
-                conn.execute(
-                    sql.SQL("CREATE ROLE {} NOLOGIN").format(sql.Identifier(owner))
-                )
-                conn.execute(
-                    sql.SQL("CREATE ROLE {} LOGIN PASSWORD {}").format(
-                        sql.Identifier(username), sql.Literal(password)
-                    )
-                )
-                conn.execute(
-                    sql.SQL("CREATE DATABASE {} OWNER {}").format(
-                        sql.Identifier(dbname), sql.Identifier(owner)
-                    )
-                )
-                conn.execute(
-                    sql.SQL("REVOKE ALL ON DATABASE {} FROM PUBLIC").format(
-                        sql.Identifier(dbname)
-                    )
-                )
-                conn.execute(
-                    sql.SQL("GRANT CONNECT ON DATABASE {} TO {}").format(
-                        sql.Identifier(dbname), sql.Identifier(username)
-                    )
-                )
-            owner_url = (
-                f"postgresql://rh_bootstrap:{pgpassword}@127.0.0.1:{pgport}/{dbname}"
-            )
-            dbowners[service] = owner_url
+            access = service_schema(service)
+            owner_options = quote("-csearch_path=" + access + ",pg_catalog", safe="")
+            dbowners[service] = owner_url + "?options=" + owner_options
             with psycopg.connect(owner_url) as conn:
-                conn.execute("REVOKE ALL ON SCHEMA public FROM PUBLIC")
                 conn.execute(
-                    sql.SQL("CREATE SCHEMA api AUTHORIZATION {}").format(
-                        sql.Identifier(owner)
-                    )
+                    sql.SQL(
+                        "CREATE ROLE {} LOGIN PASSWORD {} NOSUPERUSER NOCREATEDB NOCREATEROLE"
+                    ).format(sql.Identifier(username), sql.Literal(password))
                 )
-                conn.execute(sql.SQL("SET ROLE {}").format(sql.Identifier(owner)))
-                conn.execute("SET search_path=api,pg_catalog")
-                conn.execute(COMMON + SCHEMAS[service])
-                conn.execute("INSERT INTO schema_version(version) VALUES(1)")
-                from redhouse.migrations import migrate
-
-                migrate(conn, service)
                 conn.execute(
-                    sql.SQL("GRANT USAGE ON SCHEMA api TO {}").format(
+                    sql.SQL(
+                        "ALTER ROLE {} IN DATABASE red_house SET search_path={},pg_catalog"
+                    ).format(sql.Identifier(username), sql.Identifier(access))
+                )
+                conn.execute(
+                    sql.SQL("GRANT CONNECT ON DATABASE red_house TO {}").format(
                         sql.Identifier(username)
                     )
                 )
                 conn.execute(
+                    sql.SQL("REVOKE ALL ON SCHEMA {} FROM PUBLIC").format(
+                        sql.Identifier(access)
+                    )
+                )
+                conn.execute(
+                    sql.SQL("GRANT USAGE ON SCHEMA {} TO {}").format(
+                        sql.Identifier(access), sql.Identifier(username)
+                    )
+                )
+                conn.execute(
                     sql.SQL(
-                        "GRANT SELECT,INSERT,UPDATE,DELETE ON ALL TABLES IN SCHEMA api TO {}"
-                    ).format(sql.Identifier(username))
+                        "GRANT SELECT,INSERT,UPDATE,DELETE ON ALL TABLES IN SCHEMA {} TO {}"
+                    ).format(sql.Identifier(access), sql.Identifier(username))
                 )
                 for table in (
                     "activity_events",
@@ -332,14 +323,21 @@ class Environment:
                     "checks",
                 ):
                     if conn.execute(
-                        "SELECT to_regclass(%s)", ("api." + table,)
+                        "SELECT to_regclass(%s)", (access + "." + table,)
                     ).fetchone()[0]:
                         conn.execute(
-                            sql.SQL("REVOKE UPDATE,DELETE ON {} FROM {}").format(
-                                sql.Identifier(table), sql.Identifier(username)
+                            sql.SQL("REVOKE UPDATE,DELETE ON {}.{} FROM {}").format(
+                                sql.Identifier(access),
+                                sql.Identifier(table),
+                                sql.Identifier(username),
                             )
                         )
-            database_url = f"postgresql://{username}:{password}@127.0.0.1:{pgport}/{dbname}?options=-csearch_path%3Dapi%2Cpg_catalog"
+                conn.execute(
+                    sql.SQL(
+                        "REVOKE INSERT,UPDATE,DELETE ON {}.schema_version FROM {}"
+                    ).format(sql.Identifier(access), sql.Identifier(username))
+                )
+            database_url = f"postgresql://{username}:{password}@127.0.0.1:{pgport}/red_house?options={owner_options}"
             runtime_dbs[service] = database_url
             redis_user, redis_pwd = service, secrets.token_urlsafe(32)
             # ACL de lectura para sesiones/permisos; solo Identidad puede escribirlos.
@@ -400,12 +398,13 @@ class Environment:
                 "SERVICE_PRIVATE_KEY": service_keys[service][0],
                 "SERVICE_PUBLIC_KEYS": {s: service_keys[s][1] for s in SERVICES},
                 "SERVICE_URLS": urls,
-                "MONGODB_DATABASE": dbname,
+                "MONGODB_DATABASE": "rh_" + service,
             }
             if service == "identidad_acceso":
                 config["JWT_PRIVATE_KEY"] = jwt_private
             if service in MONGO_SERVICES:
-                mongo_db = mongo[dbname]
+                mongo_name = "rh_" + service
+                mongo_db = mongo[mongo_name]
                 mongo_db.create_collection("events")
                 mongo_db.events.create_index([("region_id", 1), ("source", 1)])
                 mongo_db.command(
@@ -413,7 +412,7 @@ class Environment:
                     "journal_writer",
                     privileges=[
                         {
-                            "resource": {"db": dbname, "collection": "events"},
+                            "resource": {"db": mongo_name, "collection": "events"},
                             "actions": ["find", "insert"],
                         }
                     ],
@@ -424,10 +423,10 @@ class Environment:
                     "createUser",
                     service,
                     pwd=mongo_pwd,
-                    roles=[{"role": "journal_writer", "db": dbname}],
+                    roles=[{"role": "journal_writer", "db": mongo_name}],
                 )
                 config["MONGODB_URL"] = (
-                    f"mongodb://{service}:{mongo_pwd}@127.0.0.1:{mongoport}/{dbname}?authSource={dbname}"
+                    f"mongodb://{service}:{mongo_pwd}@127.0.0.1:{mongoport}/{mongo_name}?authSource={mongo_name}"
                 )
             self.configs[service] = config
             private_file(
@@ -441,7 +440,7 @@ class Environment:
         accounts = {}
         if seed:
             with psycopg.connect(dbowners["identidad_acceso"]) as conn:
-                conn.execute("SET search_path=api,pg_catalog")
+                conn.execute("SET search_path=access_identidad_acceso,pg_catalog")
                 for index, tenant in enumerate(tenants):
                     conn.execute(
                         "INSERT INTO institutions(id,name,region_id) VALUES(%s,%s,%s)",
@@ -474,6 +473,7 @@ class Environment:
                             "role": role,
                         }
         self.state = {
+            "database_layout": "shared-v6",
             "directory": str(self.directory),
             "database_admin": admin_url,
             "database_owners": dbowners,
@@ -501,6 +501,10 @@ class Environment:
         return self
 
     def start(self, workers=True, services=None):
+        if self.state.get("database_layout") != "shared-v6":
+            raise RuntimeError(
+                "El entorno conserva bases separadas. Ejecuta scripts/migrate_shared.py con APIs y workers detenidos antes de iniciar esta versión."
+            )
         selected = list(SERVICES if services is None else services)
         # Comprobar todos los puertos antes de publicar procesos nuevos.
         for service in selected:

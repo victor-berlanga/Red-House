@@ -27,9 +27,7 @@ def main():
     ):
         raise RuntimeError("Entorno o volumen inválidos.")
     started = perf_counter()
-    with psycopg.connect(
-        state["database_owners"]["inventario"], options="-c search_path=api,pg_catalog"
-    ) as conn:
+    with psycopg.connect(state["database_owners"]["inventario"]) as conn:
         with conn.cursor() as cursor:
             cursor.executemany(
                 "INSERT INTO resources(id,tenant_id,current_institution_id,region_id,folio,kind,component,blood_group,expires_at,status) "

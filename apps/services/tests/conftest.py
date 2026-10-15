@@ -60,7 +60,6 @@ class Platform:
     def owner(self, service):
         return psycopg.connect(
             self.env.state["database_owners"][service],
-            options="-c search_path=api,pg_catalog",
         )
 
     def drain(self, rounds=8):
@@ -79,11 +78,7 @@ def platform():
     import os
     import shutil
 
-    mongo_bin = (
-        os.environ.get("REDHOUSE_TEST_MONGOD")
-        or shutil.which("mongod")
-        or "/private/tmp/red-house-mongodb-tools/bin/mongod"
-    )
+    mongo_bin = os.environ.get("REDHOUSE_TEST_MONGOD") or shutil.which("mongod")
     directory = tempfile.mkdtemp(
         prefix="red-house-ms-tests-", dir=os.environ.get("REDHOUSE_TEST_ROOT", "/tmp")
     )
@@ -133,4 +128,20 @@ def platform():
 
 @pytest.fixture
 def p(platform):
+    # Session fixtures can outlive the real 15-minute access token. Renew only
+    # between tests, leaving expiry/revocation behavior within each test intact.
+    import time
+    import jwt
+
+    for username, token in platform.tokens.items():
+        claims = jwt.decode(token, options={"verify_signature": False})
+        if claims["exp"] <= time.time() + 120:
+            result = platform.ok(
+                "identidad_acceso",
+                "POST",
+                "/api/v1/auth/login",
+                user=None,
+                data={"username": username, "password": platform.env.state["password"]},
+            )
+            platform.tokens[username] = result["access_token"]
     return platform

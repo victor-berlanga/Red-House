@@ -4,7 +4,7 @@ Alcance inicial aprobado el 7 de octubre de 2026: diez servicios más monitoreo,
 
 | Decisión | Implementación y efecto |
 | --- | --- |
-| Un propietario por dato | Once bases PostgreSQL dedicadas en un clúster local exclusivo, con roles distintos. No se accede a tablas de otro servicio. |
+| Base compartida y permisos por servicio | Una base `red_house`, tablas comunes y claves foráneas entre módulos. Vistas `access_*` sin copias físicas; cada credencial conserva permisos limitados. |
 | Compartir infraestructura, no reglas | `redhouse` contiene autenticación, codecs, contratos, persistencia y eventos; cada módulo contiene sus reglas y rutas. |
 | Consistencia local fuerte | Transacción SQL de negocio, evento local y outbox. Restricciones únicas y bloqueos de fila. |
 | Coordinación explícita | Retención en Receptores → reserva local en Inventario → confirmación. Resultado pendiente durable y compensación limitada. |
@@ -14,7 +14,7 @@ Alcance inicial aprobado el 7 de octubre de 2026: diez servicios más monitoreo,
 | Seguridad distribuida | RS256 solo firmado por Identidad; Redis activo/versionado; Ed25519 por servicio y JWT delegado en consultas interactivas. |
 | Sangre y órganos | Tipo, componente, solicitudes y restricciones diferenciados; las reglas clínicas siguen siendo ilustrativas o humanas. |
 | Caché orientativa | Datos autorizados por usuario/institución/región/rol/ruta/filtros; inventario/resumen 10 s, disponibilidad 15 s, catálogos 30 s. Generación SQL transaccional; reserva omite caché. |
-| MongoDB justificado | Transporte: telemetría/documentos; Custodia: proyección de historia; Auditoría: eventos documentales; Monitoreo: sondeos. PostgreSQL conserva los compromisos transaccionales. |
+| MongoDB justificado | Transporte: telemetría/documentos; Custodia: proyección de historia; Auditoría: eventos documentales; Monitoreo: sondeos persistidos primero en MongoDB para observar fallas de PostgreSQL. PostgreSQL conserva los compromisos transaccionales. |
 | Contratos | API v1, JSON y XML, XSD de entrada y envoltura de salida, OpenAPI con esquemas, ejemplos y errores. |
 
 ## Reserva y fallos
@@ -82,3 +82,5 @@ El navegador solicita fragmentos HTML al portal con `X-Filter-Fragment: 1` y `X-
 `redhouse/cache.py` es un mecanismo técnico compartido en código; cada servicio publica su propia copia y controla su namespace y tablas. Inventario e Identidad incorporan su migración `004.sql`, una fila de revisión y triggers de sentencia en `resources`/`catalogue`. La revisión cambia en el mismo commit que los datos. Un rollback no la cambia y una consulta antigua en vuelo solo puede llenar una generación anterior. Las revisiones se leen desde PostgreSQL incluso en HIT: una caída de esa base no se oculta con datos almacenados. Los TTL limitan el envejecimiento por paso del tiempo (p. ej., caducidad); las operaciones críticas vuelven a comprobar datos y estados en su propietario.
 
 Esta invalidación por servicio es conservadora: un cambio invalida todas sus consultas del namespace. Evita dependencias de invalidación entre dominios, a costa de más fallos de caché con muchas escrituras. El HTML, los formularios y las decisiones no se cachean. Para actualizar una instalación existente, respaldar y migrar Inventario e Identidad mediante `scripts/upgrade.py` antes de reiniciar sus procesos. Receptores añade `can_edit` opcional a listados y detalles sin cambiar los cuerpos de escritura ni `/api/v1`.
+
+Desde el 15 de octubre, [el esquema compartido](Esquema_compartido.md) sustituye la separación de bases. La coordinación HTTP descrita se conserva; no se afirma atomicidad global de una secuencia HTTP.

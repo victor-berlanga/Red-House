@@ -58,6 +58,7 @@ def test_explicit_missing_binary_is_not_silently_replaced(tmp_path, monkeypatch)
 def environment(tmp_path):
     env = local.Environment(tmp_path)
     env.state = {
+        "database_layout": "shared-v6",
         "directory": str(tmp_path),
         "service_pids": {"donantes": 100, "inventario": 200},
         "worker_pids": {"donantes": 101, "inventario": 201},
@@ -457,3 +458,12 @@ def test_default_install_does_not_hide_an_existing_environment(tmp_path, monkeyp
         manager.main()
     manager.ensure_python.assert_not_called()
     assert not (tmp_path / ".local/runtime").exists()
+
+
+def test_start_refuses_unmigrated_layout(tmp_path):
+    env = environment(tmp_path)
+    env.state.pop("database_layout")
+    env.start_api = Mock()
+    with pytest.raises(RuntimeError, match="migrate_shared"):
+        env.start(services=["donantes"])
+    env.start_api.assert_not_called()

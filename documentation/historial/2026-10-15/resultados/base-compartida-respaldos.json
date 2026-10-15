@@ -1,0 +1,115 @@
+{
+  "result": "passed",
+  "services": {
+    "alertas": {
+      "restored": true,
+      "existing_rows_preserved": true,
+      "tables_verified": 7,
+      "versions": [
+        1,
+        2
+      ]
+    },
+    "auditoria": {
+      "restored": true,
+      "existing_rows_preserved": true,
+      "tables_verified": 7,
+      "versions": [
+        1,
+        2
+      ]
+    },
+    "compatibilidad": {
+      "restored": true,
+      "existing_rows_preserved": true,
+      "tables_verified": 8,
+      "versions": [
+        1,
+        2
+      ]
+    },
+    "custodia": {
+      "restored": true,
+      "existing_rows_preserved": true,
+      "tables_verified": 8,
+      "versions": [
+        1,
+        2
+      ]
+    },
+    "donantes": {
+      "restored": true,
+      "existing_rows_preserved": true,
+      "tables_verified": 12,
+      "versions": [
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    "identidad_acceso": {
+      "restored": true,
+      "existing_rows_preserved": true,
+      "tables_verified": 11,
+      "versions": [
+        1,
+        2,
+        4,
+        5,
+        6
+      ]
+    },
+    "inventario": {
+      "restored": true,
+      "existing_rows_preserved": true,
+      "tables_verified": 12,
+      "versions": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    "monitoreo": {
+      "restored": true,
+      "existing_rows_preserved": true,
+      "tables_verified": 7,
+      "versions": [
+        1,
+        2
+      ]
+    },
+    "priorizacion_geografia": {
+      "restored": true,
+      "existing_rows_preserved": true,
+      "tables_verified": 9,
+      "versions": [
+        1,
+        2,
+        3
+      ]
+    },
+    "receptores": {
+      "restored": true,
+      "existing_rows_preserved": true,
+      "tables_verified": 9,
+      "versions": [
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    "transporte": {
+      "restored": true,
+      "existing_rows_preserved": true,
+      "tables_verified": 10,
+      "versions": [
+        1,
+        2
+      ]
+    }
+  }
+}

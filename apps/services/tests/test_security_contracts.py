@@ -387,9 +387,9 @@ def test_database_and_redis_privileges_are_separate(p):
     with psycopg.connect(cfg["DATABASE_URL"]) as conn:
         with pytest.raises(psycopg.errors.InsufficientPrivilege):
             conn.execute("CREATE TABLE forbidden(id integer)")
-    url = cfg["DATABASE_URL"].replace("/rh_inventario?", "/rh_receptores?")
-    with pytest.raises(psycopg.OperationalError):
-        psycopg.connect(url)
+    with psycopg.connect(cfg["DATABASE_URL"]) as conn:
+        with pytest.raises(psycopg.errors.InsufficientPrivilege):
+            conn.execute("SELECT * FROM access_receptores.recipients")
     client = redis.Redis.from_url(cfg["REDIS_URL"], decode_responses=True)
     with pytest.raises(redis.exceptions.NoPermissionError):
         client.set(

@@ -42,12 +42,17 @@ def register(app):
             if not consume(conn, data):
                 return {"duplicate": True}
             conn.execute(
-                "INSERT INTO chains(id,region_id,origin_id,destination_id) VALUES(%s,%s,%s,%s) ON CONFLICT DO NOTHING",
+                "SELECT pg_advisory_xact_lock(hashtextextended(%s, 52))",
+                (data["resource_id"],),
+            )
+            conn.execute(
+                "INSERT INTO chains(id,region_id,origin_id,destination_id) SELECT %s,%s,%s,%s WHERE NOT EXISTS(SELECT 1 FROM chains WHERE id=%s)",
                 (
                     data["resource_id"],
                     data["region_id"],
                     meta["origin_id"],
                     meta["destination_id"],
+                    data["resource_id"],
                 ),
             )
             chain = get(conn, "chains", data["resource_id"], True)

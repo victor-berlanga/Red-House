@@ -47,7 +47,18 @@ def endpoint(
                 else:
                     rate_limit("user", g.actor["tenant_id"] + ":" + g.actor["id"])
                 if method == "GET":
-                    audit_read(next(iter(params.values()), "collection"))
+                    try:
+                        audit_read(next(iter(params.values()), "collection"))
+                    except APIError as exc:
+                        if (
+                            current_app.config["SERVICE"] != "monitoreo"
+                            or path != "/api/v1/status"
+                            or exc.code != "database_unavailable"
+                        ):
+                            raise
+                        current_app.logger.warning(
+                            "monitor_status_read_sql_audit_unavailable"
+                        )
             elif path.startswith("/api/"):
                 rate_limit()
             data = parse(model) if model else None
@@ -104,7 +115,11 @@ def atomic(operation, data, fn):
     user = g.actor["id"]
     with transaction() as conn:
         lock = int.from_bytes(
-            hashlib.sha256((user + idem).encode()).digest()[:8], "big", signed=True
+            hashlib.sha256(
+                (current_app.config["SERVICE"] + ":" + user + ":" + idem).encode()
+            ).digest()[:8],
+            "big",
+            signed=True,
         )
         conn.execute("SELECT pg_advisory_xact_lock(%s)", (lock,))
         old = conn.execute(

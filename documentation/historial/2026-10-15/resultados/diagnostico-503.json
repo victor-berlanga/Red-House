@@ -1,0 +1,75 @@
+{
+  "finding": "Suspensión del Mac durante la ejecución local; correlación con los dos fallos de preparación web.",
+  "sources": [
+    "pmset -g log",
+    "auditoría de Identidad del entorno temporal original, consultada en modo de lectura",
+    "JUnit original y nueva ejecución del módulo web con logs INFO"
+  ],
+  "timezone": "America/Monterrey (-06:00)",
+  "power_events": [
+    {
+      "time": "2026-10-15T11:24:26-06:00",
+      "event": "Clamshell Sleep",
+      "seconds_until_darkwake": 71
+    },
+    {
+      "time": "2026-10-15T11:25:37-06:00",
+      "event": "DarkWake",
+      "awake_seconds": 7
+    },
+    {
+      "time": "2026-10-15T11:25:44-06:00",
+      "event": "Maintenance Sleep",
+      "seconds_until_darkwake": 78
+    },
+    {
+      "time": "2026-10-15T11:27:02-06:00",
+      "event": "DarkWake",
+      "awake_seconds": 20
+    },
+    {
+      "time": "2026-10-15T11:27:22-06:00",
+      "event": "Maintenance Sleep",
+      "seconds_until_darkwake": 73
+    },
+    {
+      "time": "2026-10-15T11:28:35-06:00",
+      "event": "DarkWake",
+      "awake_seconds": 9
+    }
+  ],
+  "failed_case_login_events": [
+    {
+      "test": "test_identity_outage_reports_503_without_legacy_fallback",
+      "login_time": "2026-10-15T11:27:23.721634-06:00",
+      "failure": "Login devolvió 503 antes del apagado deliberado de Identidad."
+    },
+    {
+      "test": "test_renewal_and_logout_revoke_backend_session_without_exposing_tokens",
+      "login_time": "2026-10-15T11:27:42.763976-06:00",
+      "failure": "Login completado; GET /solicitudes/nueva devolvió 503 antes de probar renovación."
+    }
+  ],
+  "configured_deadlines_seconds": {
+    "web_http_connect": 1,
+    "web_http_read": 8,
+    "redis_connect_and_read": 1,
+    "postgres_connect": 2
+  },
+  "verification": {
+    "tests": 19,
+    "failures": 0,
+    "errors": 0,
+    "seconds": 444.236,
+    "api_responses": 1317,
+    "api_5xx": 0,
+    "max_api_elapsed_ms": 1512.914,
+    "expected_web_connection_errors": 1
+  },
+  "limits": [
+    "El JUnit original no retuvo la excepción de transporte ni el error de dependencia: no puede atribuirse cada 503 a HTTP, Redis o PostgreSQL con certeza.",
+    "La coincidencia temporal demuestra que las pruebas se ejecutaron durante suspensión/despertares parciales; no es una medición controlada de causalidad para cada excepción.",
+    "La nueva ejecución cubre los 19 casos web; no se repitió toda la suite de 171 casos.",
+    "No se modificaron bases del proyecto, lógica de negocio, timeouts ni reintentos."
+  ]
+}

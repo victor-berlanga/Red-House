@@ -14,13 +14,22 @@ from redhouse.db import transaction
 
 def heartbeat(error=None):
     with transaction() as conn:
+        from flask import current_app
+
         conn.execute(
-            "INSERT INTO worker_health(id,checked_at,last_success,last_error) "
-            "VALUES(1,now(),CASE WHEN %s::text IS NULL THEN now() ELSE NULL END,%s) "
-            "ON CONFLICT(id) DO UPDATE SET checked_at=now(), "
-            "last_success=coalesce(EXCLUDED.last_success,worker_health.last_success),last_error=EXCLUDED.last_error",
-            (error, error),
+            "SELECT pg_advisory_xact_lock(hashtextextended(%s,53))",
+            (current_app.config["SERVICE"],),
         )
+        if conn.execute("SELECT id FROM worker_health WHERE id=1").fetchone():
+            conn.execute(
+                "UPDATE worker_health SET checked_at=now(),last_success=CASE WHEN %s::text IS NULL THEN now() ELSE last_success END,last_error=%s WHERE id=1",
+                (error, error),
+            )
+        else:
+            conn.execute(
+                "INSERT INTO worker_health(id,checked_at,last_success,last_error) VALUES(1,now(),CASE WHEN %s::text IS NULL THEN now() ELSE NULL END,%s)",
+                (error, error),
+            )
 
 
 def main():

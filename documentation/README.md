@@ -28,6 +28,7 @@ El backlog conserva el estado registrado al cierre del primer parcial; el avance
 | --- | --- |
 | Normalización y diseño lógico académico | [Modelos 0FN–4FN](database-diagrams/README.md) |
 | Arquitectura ejecutable y responsabilidades | [Arquitectura](markdowns/Arquitectura.md) |
+| Base compartida objetivo y cambios respecto de main | [Esquema compartido](markdowns/Esquema_compartido.md) |
 | Bases, migraciones y persistencia | [Datos y persistencia](markdowns/Datos_y_persistencia.md) |
 | Preparación y operación | [Instalación y operación](markdowns/Instalacion_y_operacion.md) |
 | Portal y contratos HTTP | [Integración web](markdowns/Integracion_web.md) |

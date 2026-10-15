@@ -8,7 +8,7 @@ Consulta salud y conserva disponibilidad, latencia, versión y dependencia que f
 
 2. TECNOLOGÍAS Y DATOS
 Flask (REST), Python 3.12+, Psycopg, PostgreSQL, PyJWT/cryptography (RS256), Redis, Pydantic, lxml (XML/XSD), Waitress, Swagger/OpenAPI.
-HTTP requests consulta /health/ready; PostgreSQL conserva verificaciones; MongoDB recibe historial documental; Redis protege las consultas. El worker sondea cada 30 segundos.
+HTTP requests consulta /health/ready; MongoDB guarda primero cada sondeo y PostgreSQL conserva las verificaciones. El estado puede consultarse desde MongoDB si PostgreSQL falla. Redis protege las consultas. El worker sondea cada 30 segundos.
 Entre servicios se utilizan firmas Ed25519, nonce con expiración, autorización delegada donde aplica e identificadores de correlación.
 
 3. ESCENARIO PARA EXPLICARLO

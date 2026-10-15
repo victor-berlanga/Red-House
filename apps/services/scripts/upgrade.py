@@ -24,6 +24,19 @@ def upgrade(directory, services):
     state = json.loads((directory / "state.json").read_text())
     if Path(state["directory"]).resolve() != directory:
         raise RuntimeError("El directorio no coincide con el entorno.")
+    if state.get("database_layout") == "shared-v6":
+        with psycopg.connect(next(iter(state["database_owners"].values()))) as conn:
+            version = conn.execute(
+                "SELECT max(version) FROM red_house.schema_migration"
+            ).fetchone()[0]
+        if version != 6:
+            raise RuntimeError(
+                "Versión compartida inesperada; requiere una migración global revisada."
+            )
+        print(
+            "Esquema compartido versión 6 verificado; no hay migraciones posteriores registradas."
+        )
+        return {"shared_version": version}
     stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S%fZ")
     backup = directory / "backups" / stamp
     backup.mkdir(parents=True, mode=0o700)

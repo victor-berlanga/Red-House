@@ -19,7 +19,7 @@ bash components.sh estado
 bash stop.sh
 ```
 
-El instalador crea entornos Python separados para `apps/web` y `apps/services`. La configuración y los datos persistentes se guardan en `.local/runtime/`, excluido de Git. En un entorno nuevo se crean once bases PostgreSQL, cuentas iniciales y configuraciones de Redis y MongoDB; al terminar la preparación se detienen los procesos creados por ella. Una instalación existente conserva sus datos y no vuelve a cargar registros.
+El instalador crea entornos Python separados para `apps/web` y `apps/services`. La configuración y los datos persistentes se guardan en `.local/runtime/`, excluido de Git. En un entorno nuevo se crea una base PostgreSQL compartida, cuentas iniciales y configuraciones de Redis y MongoDB; al terminar la preparación se detienen los procesos creados por ella. Una instalación existente conserva sus datos y no vuelve a cargar registros.
 
 `start.sh` inicia bases, API, workers y portal; no instala paquetes ni aplica migraciones. `stop.sh` detiene los procesos de ese entorno sin eliminar datos. El portal utiliza `http://127.0.0.1:5050` por defecto. `estado` informa disponibilidad; no garantiza por sí solo el funcionamiento de todos los procesos de negocio.
 
@@ -66,11 +66,11 @@ Respaldar antes de actualizar el código. Para cambios de esquema, detener las a
 bash components.sh detener web
 bash components.sh detener ms
 bash components.sh bases
-apps/services/.venv/bin/python apps/services/scripts/upgrade.py --directory .local/runtime
+apps/services/.venv/bin/python apps/services/scripts/migrate_shared.py --directory .local/runtime
 bash start.sh
 ```
 
-`upgrade.py` crea un respaldo por base antes de migrarla; `--service inventario` limita la operación a ese propietario. Las migraciones no se repiten si ya están registradas. Ver [datos y persistencia](Datos_y_persistencia.md).
+`migrate_shared.py` respalda las bases y configuraciones anteriores, copia y compara filas y publica las conexiones compartidas solo al terminar. Conserva las bases originales y rechaza sobrescribir un destino existente. En un entorno ya compartido no repite la copia. `upgrade.py` verifica la versión global 6; no hay migraciones globales posteriores registradas. Ver [datos y persistencia](Datos_y_persistencia.md).
 
 Para trasladar un entorno detenido se utiliza `apps/services/scripts/relocate.py --source ORIGEN --destination DESTINO`; copia los datos, actualiza rutas de configuración y conserva el origen. No reemplaza un respaldo exportable entre versiones o sistemas.
 

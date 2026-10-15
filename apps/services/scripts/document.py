@@ -87,7 +87,7 @@ DESCRIPTIONS = {
     "monitoreo": (
         "Monitoreo",
         "Consulta salud y conserva disponibilidad, latencia, versión y dependencia que falla.",
-        "HTTP requests consulta /health/ready; PostgreSQL conserva verificaciones; MongoDB recibe historial documental; Redis protege las consultas. El worker sondea cada 30 segundos.",
+        "HTTP requests consulta /health/ready; MongoDB guarda primero cada sondeo y PostgreSQL conserva las verificaciones. El estado puede consultarse desde MongoDB si PostgreSQL falla. Redis protege las consultas. El worker sondea cada 30 segundos.",
         "Con Redis detenido, el proceso sigue vivo, readiness se degrada y las operaciones protegidas fallan de forma cerrada.",
         "¿Liveness significa que todo funciona? No: solo que el proceso responde.\n¿Readiness revisa migración? Sí: comprueba versión de esquema y dependencias aplicables.\n¿Todos requieren MongoDB? No: su health indica not_applicable donde no corresponde.\n¿Storage está verde sin GCS? Se informa not_configured, required=false, no se simula disponibilidad.\n¿Hay una interfaz? El portal integrado consulta estados y verificaciones mediante la API con el JWT del usuario autorizado.",
     ),
@@ -206,7 +206,7 @@ La web integrada tiene pruebas HTTP con dependencias reales y recorridos de nave
         (folder / "requirements.txt").write_text("-r ../requirements.txt\n")
         env_lines = [
             "# Configuración exclusiva de esta unidad; guardar fuera de Git.",
-            f"{service.upper()}_DATABASE_URL=postgresql://USUARIO:CAMBIAR@127.0.0.1:5432/rh_{service}",
+            f"{service.upper()}_DATABASE_URL=postgresql://USUARIO:CAMBIAR@127.0.0.1:5432/red_house?options=-csearch_path%3Daccess_{service}%2Cpg_catalog",
             f"REDIS_URL=redis://{service}:CAMBIAR@127.0.0.1:6379/0",
             "REDIS_PREFIX=redhouse-ms:",
             "JWT_PUBLIC_KEY=PEM_PUBLICO_RS256",

@@ -1,0 +1,98 @@
+{
+  "result": "passed",
+  "layout": "shared-v6",
+  "physical_tables": 71,
+  "tables_compared": 111,
+  "rows_compared": 118428,
+  "service_connections": {
+    "identidad_acceso": {
+      "database": "red_house",
+      "schema": "access_identidad_acceso"
+    },
+    "donantes": {
+      "database": "red_house",
+      "schema": "access_donantes"
+    },
+    "receptores": {
+      "database": "red_house",
+      "schema": "access_receptores"
+    },
+    "inventario": {
+      "database": "red_house",
+      "schema": "access_inventario"
+    },
+    "compatibilidad": {
+      "database": "red_house",
+      "schema": "access_compatibilidad"
+    },
+    "priorizacion_geografia": {
+      "database": "red_house",
+      "schema": "access_priorizacion_geografia"
+    },
+    "transporte": {
+      "database": "red_house",
+      "schema": "access_transporte"
+    },
+    "custodia": {
+      "database": "red_house",
+      "schema": "access_custodia"
+    },
+    "alertas": {
+      "database": "red_house",
+      "schema": "access_alertas"
+    },
+    "auditoria": {
+      "database": "red_house",
+      "schema": "access_auditoria"
+    },
+    "monitoreo": {
+      "database": "red_house",
+      "schema": "access_monitoreo"
+    }
+  },
+  "before_counts": {
+    "institutions": 6,
+    "donors": 108,
+    "donations": 36,
+    "campaigns": 0,
+    "appointments": 36,
+    "recipients": 72,
+    "requests": 72,
+    "blood_units": 216,
+    "organ_offers": 36,
+    "shipments": 18,
+    "audit_events": 6447,
+    "alerts_in_first_institution": 47
+  },
+  "after_counts": {
+    "institutions": 6,
+    "donors": 108,
+    "donations": 36,
+    "campaigns": 0,
+    "appointments": 36,
+    "recipients": 72,
+    "requests": 72,
+    "blood_units": 216,
+    "organ_offers": 36,
+    "shipments": 18,
+    "audit_events": 6545,
+    "alerts_in_first_institution": 47
+  },
+  "health": {
+    "identidad_acceso": 200,
+    "donantes": 200,
+    "receptores": 200,
+    "inventario": 200,
+    "compatibilidad": 200,
+    "priorizacion_geografia": 200,
+    "transporte": 200,
+    "custodia": 200,
+    "alertas": 200,
+    "auditoria": 200,
+    "monitoreo": 200,
+    "web": 200
+  },
+  "custody_chains": 18,
+  "availability_cache": "HIT",
+  "original_databases_retained": true
+}

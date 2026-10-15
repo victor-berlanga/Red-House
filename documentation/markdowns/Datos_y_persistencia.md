@@ -1,25 +1,29 @@
 # Datos y persistencia
 
-El portal consume HTTP; cada servicio es propietario de sus registros. [Mapa de bases y SQL](../../data/database/README.md).
-
 ## Almacenamiento
 
-- PostgreSQL: once bases lógicas en un servidor local. Conserva operaciones, estados, referencias, eventos transaccionales y pendientes de entrega.
-- MongoDB: telemetría/documentos de Transporte, proyecciones de Custodia, Auditoría y sondeos de Monitoreo.
-- Redis: sesiones, revocaciones, permisos temporales, límites de consumo y caché. Las expiraciones de estos datos no eliminan expedientes de PostgreSQL.
-- SQLite privado del portal: sesiones cifradas y revocaciones pendientes, sin tablas de negocio.
-- Google Cloud Storage: adaptador disponible; falta verificar el bucket real. Los archivos no se almacenan como binarios en las bases.
+- PostgreSQL: una base compartida `red_house`. Las 71 tablas físicas están en el esquema `red_house`. Cada servicio usa credenciales propias y vistas de acceso; no hay una copia física por servicio.
+- MongoDB: documentos/eventos de Transporte, Custodia, Auditoría y Monitoreo. Monitoreo escribe primero sus sondeos aquí para registrar caídas de PostgreSQL.
+- Redis: sesiones, permisos, revocaciones, límites de consumo y caché. No sustituye los expedientes transaccionales.
+- SQLite privado del portal: sesiones cifradas y revocaciones pendientes; no almacena las entidades de negocio.
+- Google Cloud Storage: adaptador disponible; falta validar bucket real. PostgreSQL conserva referencias y metadatos de archivos.
+
+[Esquema y generación](../../data/database/README.md) · [Cambios respecto de main](Esquema_compartido.md).
 
 ## Ciclo de vida
 
-`install.sh` crea un entorno solo cuando no existe; carga dos instituciones y cuentas iniciales ficticias. Si ya está preparado, conserva los datos. `start.sh` y `stop.sh` operan procesos; no recargan registros. El entorno predeterminado es `.local/runtime/`.
+La instalación nueva crea una única base y cuentas iniciales ficticias. Arrancar o detener procesos no reinicializa registros. El entorno privado es `.local/runtime/`, excluido de Git. La carga regional ampliada continúa siendo explícita.
 
-La carga ampliada de Nuevo León es explícita y comprueba que no se duplique. Una prueba automatizada puede crear bases desechables independientes; no equivale al entorno usado por el portal.
+Los entornos anteriores con once bases requieren `apps/services/scripts/migrate_shared.py`. No basta cambiar DATABASE_URL. El proceso crea respaldos, copia datos hacia una base nueva, compara filas y verifica relaciones antes de publicar configuraciones. Las bases antiguas permanecen intactas; no se usan como fallback del sistema nuevo.
 
-## Migraciones
+## Versiones y permisos
 
-Cada servicio mantiene SQL numerado en `migrations/`. `schema_version` registra lo aplicado. Las actualizaciones se ejecutan con el propietario mediante `apps/services/scripts/upgrade.py`, que respalda antes de modificar cada base. El proceso HTTP no migra tablas.
+`red_house.schema_migration` registra la versión global; la adaptación ejecutable es la versión 6. `service_schema_version` conserva el corte de las migraciones de origen por servicio. Las API no ejecutan migraciones al recibir peticiones. `upgrade.py` verifica la versión compartida; no aplica automáticamente SQL histórico sobre las vistas.
 
-Las migraciones de normalización cambian el código anterior de eritrocitos a `RBC` en Donantes, Receptores, Inventario y capacidades de Identidad. Conservan IDs, relaciones y filas, e incrementan las versiones modificadas. Una evaluación anterior puede requerir repetirse al cambiar la versión del recurso; los registros históricos y las cadenas firmadas no se reescriben.
+Las colas, inbox, idempotencia y latidos se guardan en tablas comunes con ámbito de servicio. Las claves y vistas impiden que un consumidor procese trabajo de otro. La caché mantiene revisiones independientes para catálogos e inventario. Los historiales siguen siendo anexables y las credenciales de ejecución no pueden cambiar versiones de esquema.
 
-Los valores anteriores aparecen exclusivamente donde son necesarios para identificar datos a migrar y probar la transición. No se deben ocultar ni alterar valores de auditoría para eliminar una etiqueta visual.
+La adaptación conserva la coordinación HTTP de los procesos actuales. Tener una sola base no convierte por sí mismo una secuencia HTTP completa en una transacción SQL. Las claves foráneas sí verifican las referencias entre módulos.
+
+## Verificaciones
+
+El generador restaura el SQL en una base temporal y compara la estructura. Las pruebas de integración comprueban base única, permisos, claves foráneas, colas aisladas, conservación de datos y monitoreo con PostgreSQL inaccesible. Los resultados de la ejecución actual están en `PROJECT_STATUS.md`; los resultados anteriores no certifican una versión posterior.

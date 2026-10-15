@@ -14,6 +14,8 @@ jobs:
       REDHOUSE_TEST_MONGOD: /usr/bin/mongod
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
@@ -35,9 +37,13 @@ jobs:
           ruff check --select E9,F63,F7,F82 apps/services apps/web/src/integration
           ruff format --check apps/services apps/web/src/integration
       - name: Contratos, seguridad, datos y portal HTTP
-        run: python -m pytest apps/services/tests -q --junitxml=results/services.xml
+        run: >-
+          python -m pytest apps/services/tests -q
+          --junitxml=results/services.xml
+          --log-file=results/services.log --log-file-level=INFO
+          -o junit_logging=all -o junit_log_passing_tests=false
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: results
-          path: results/services.xml
+          path: results/services.*

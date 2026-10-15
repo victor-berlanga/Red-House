@@ -2,7 +2,7 @@
 
 Red regional de bancos de sangre y donación de órganos · Proyecto 6 · Equipo 01.
 
-Portal Flask/Jinja2 conectado por HTTP a diez microservicios y Monitoreo. PostgreSQL mantiene once bases persistentes, una por servicio; Redis mantiene sesiones y caché; MongoDB conserva documentos y proyecciones. Los datos locales son ficticios. Las reglas de compatibilidad requieren revisión humana y no sustituyen decisiones clínicas.
+Portal Flask/Jinja2 conectado por HTTP a diez microservicios y Monitoreo. PostgreSQL mantiene una base persistente compartida (`red_house`), con permisos por servicio; Redis mantiene sesiones y caché; MongoDB conserva documentos y proyecciones. Los datos locales son ficticios. Las reglas de compatibilidad requieren revisión humana y no sustituyen decisiones clínicas.
 
 ## Instalación y ejecución
 
@@ -24,7 +24,7 @@ En Windows, los pares `.bat` ejecutan estos comandos mediante WSL/Ubuntu; no son
 apps/web/                  Portal actual; consume las API
 apps/services/             Microservicios, migraciones, contratos y pruebas
 scripts/                   Gestión conjunta del entorno
-data/database/            Mapa de bases; el SQL pertenece a cada servicio
+data/database/            Esquema SQL compartido y referencias del origen
 documentation/markdowns/  Análisis, planificación y guías actuales
 documentation/docx/       Ediciones de la documentación semestral
 documentation/database-diagrams/  Diseño lógico y normalización
@@ -41,4 +41,6 @@ stuff/presentacion/        Apuntes generados para exposición
 - [Microservicios y contratos](apps/services/README.md).
 - [Portal web](apps/web/README.md).
 
-El monolito SQL anterior se retiró del código ejecutable. Sus guías de operación y resultados están identificados en el historial; el análisis y la planificación del semestre permanecen en las carpetas documentales por formato; su código permanece recuperable mediante Git. Android, escritorio, Docker y despliegue en GCP siguen pendientes.
+El backend web monolítico anterior se retiró del código ejecutable. Sus guías de operación y resultados están identificados en el historial; el análisis y la planificación del semestre permanecen en las carpetas documentales por formato; su código permanece recuperable mediante Git. Android, escritorio, Docker y despliegue en GCP siguen pendientes.
+
+La [base compartida basada en main](documentation/markdowns/Esquema_compartido.md) conserva las 45 tablas heredadas y agrega 26 para los contratos actuales. Las instalaciones nuevas la utilizan directamente; los entornos anteriores deben ejecutar el migrador documentado, con respaldo y comprobación de filas, antes de iniciar esta versión.

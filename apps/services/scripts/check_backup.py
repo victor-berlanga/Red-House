@@ -64,11 +64,23 @@ def main():
                 with psycopg.connect(
                     make_conninfo(state["database_admin"], dbname=name)
                 ) as conn:
-                    conn.execute("SET search_path=api,pg_catalog")
+                    shared = (
+                        conn.execute("SELECT to_regnamespace('red_house')").fetchone()[
+                            0
+                        ]
+                        is not None
+                    )
+                    namespace = "red_house" if shared else "api"
+                    conn.execute(
+                        sql.SQL("SET search_path={},pg_catalog").format(
+                            sql.Identifier(namespace)
+                        )
+                    )
                     tables = [
                         row[0]
                         for row in conn.execute(
-                            "SELECT tablename FROM pg_tables WHERE schemaname='api' AND tablename!='schema_version' ORDER BY tablename"
+                            "SELECT tablename FROM pg_tables WHERE schemaname=%s AND tablename NOT IN ('schema_version','schema_migration') ORDER BY tablename",
+                            (namespace,),
                         )
                     ]
 
@@ -83,13 +95,16 @@ def main():
                         }
 
                     before = counts()
-                    migrate(conn, service)
-                    migrate(conn, service)
+                    if not shared:
+                        migrate(conn, service)
+                        migrate(conn, service)
                     assert before == counts(), service
                     versions = [
                         row[0]
                         for row in conn.execute(
-                            "SELECT version FROM schema_version ORDER BY version"
+                            "SELECT version FROM schema_migration ORDER BY version"
+                            if shared
+                            else "SELECT version FROM schema_version ORDER BY version"
                         )
                     ]
                     report[service] = {
@@ -108,9 +123,7 @@ def main():
     args.report.write_text(
         json.dumps({"result": "passed", "services": report}, indent=2) + "\n"
     )
-    print(
-        "Respaldos restaurados, migración repetida y datos conservados en once bases desechables."
-    )
+    print("Respaldos restaurados y datos verificados en bases desechables.")
 
 
 if __name__ == "__main__":

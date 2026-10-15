@@ -91,7 +91,6 @@ class RegionalDataset:
     def sql(self, service):
         return psycopg.connect(
             self.state["database_owners"][service],
-            options="-c search_path=api,pg_catalog",
             row_factory=dict_row,
         )
 
@@ -123,8 +122,8 @@ class RegionalDataset:
                     if i >= len(self.state["tenants"]):
                         self.state["tenants"].append(tenant)
                     conn.execute(
-                        "INSERT INTO institutions(id,name,region_id) VALUES(%s,%s,%s) ON CONFLICT(id) DO NOTHING",
-                        (tenant, name, self.state["region_id"]),
+                        "INSERT INTO institutions(id,name,region_id) SELECT %s,%s,%s WHERE NOT EXISTS(SELECT 1 FROM institutions WHERE id=%s)",
+                        (tenant, name, self.state["region_id"], tenant),
                     )
                     # Reutilizar el hash aleatorio de las cuentas, nunca copiar contraseña al repositorio.
                     password_hash = conn.execute(
@@ -134,8 +133,8 @@ class RegionalDataset:
                         username = role.lower() + str(i + 1)
                         user = str(uuid4())
                         conn.execute(
-                            "INSERT INTO users(id,tenant_id,username,password_hash,role) VALUES(%s,%s,%s,%s,%s) ON CONFLICT(username) DO NOTHING",
-                            (user, tenant, username, password_hash, role),
+                            "INSERT INTO users(id,tenant_id,username,password_hash,role) SELECT %s,%s,%s,%s,%s WHERE NOT EXISTS(SELECT 1 FROM users WHERE username=%s)",
+                            (user, tenant, username, password_hash, role, username),
                         )
                         user = str(
                             conn.execute(

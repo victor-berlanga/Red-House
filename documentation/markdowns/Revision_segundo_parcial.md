@@ -97,7 +97,7 @@ Por cada servicio falta consolidar en una ficha: identificación, justificación
 - [ ] Compose con PostgreSQL, MongoDB, Redis, API, workers de eventos, worker de sesiones web y monitoreo.
 - [ ] Redes, DNS interno, puertos publicados y URLs configurables; no trasladar `127.0.0.1` del host como dirección entre contenedores.
 - [ ] Volúmenes para datos y sesiones técnicas cuando corresponda; secretos fuera de las imágenes y del control de versiones.
-- [ ] Inicialización reproducible de once bases, roles, migraciones, usuarios MongoDB, ACL Redis y datos ficticios mínimos.
+- [ ] Inicialización reproducible de la base compartida, roles, migraciones, usuarios MongoDB, ACL Redis y datos ficticios mínimos (arquitectura revisada el 15/10).
 - [ ] Health checks, dependencias listas, reintentos, logs y parada ordenada; verificar que los workers realmente entregan eventos.
 - [ ] Documentar levantar, consultar estado, detener, reiniciar un servicio y preservar datos.
 - [ ] Ensayar desde un clon limpio, sin `.venv` ni `.local/runtime` heredados; conservar salida de build, estado y comunicaciones.
