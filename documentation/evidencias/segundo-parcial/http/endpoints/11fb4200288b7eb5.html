@@ -1,0 +1,93 @@
+<!doctype html><html lang="es"><meta charset="utf-8"><title>transporte /api/v1/shipments/&lt;identifier&gt;</title><style>body{font:15px system-ui;margin:32px;background:#f4f5f7;color:#202631}main{max-width:1250px;margin:auto}h1{color:#8e2434;font-size:26px}small{color:#556}a{color:#8e2434}table{border-collapse:collapse;width:100%;background:white}td,th{padding:9px;border:1px solid #ccd;vertical-align:top;text-align:left}pre{white-space:pre-wrap;word-break:break-word;background:#fff;border:1px solid #ccd;padding:12px;font:12px monospace;max-height:300px;overflow:auto}section{margin:20px 0}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.tag{padding:4px 9px;background:#e5ece7}.error{background:#f8e5e6}input{padding:12px;width:70%;margin:15px 0}details{margin:12px 0}nav{margin-bottom:20px}</style><main><nav><a href="../index.html">Inventario completo</a></nav><h1>transporte · GET /api/v1/shipments/&lt;identifier&gt;</h1><p>Estado logístico y coordinación pendiente</p><p>Registro de ejecución real. Credenciales y firmas redactadas. Los cuerpos completos están en el JSON enlazado.</p><section><h2>HTTP 200</h2><p><b>2026-10-19T16:27:50.417015+00:00</b> · versión 0.3.0</p><p>Correlación: 1c7d0ac5-2ce2-4638-82c3-d33ca6d4027b<br>URL: http://127.0.0.1:56264/api/v1/shipments/b52dc499-7158-46d7-89a1-00c2f3f871c5</p><p><a href="../records/cbf5ea4cf4f8a6e680b63c5a.json">Petición, respuesta, headers y persistencia completos</a></p><div class="grid"><div><h3>Petición</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Host&quot;: &quot;127.0.0.1:56264&quot;,
+    &quot;User-Agent&quot;: &quot;python-requests/2.34.2&quot;,
+    &quot;Accept-Encoding&quot;: &quot;gzip, deflate, br&quot;,
+    &quot;Accept&quot;: &quot;application/json&quot;,
+    &quot;Connection&quot;: &quot;keep-alive&quot;,
+    &quot;X-Correlation-Id&quot;: &quot;1c7d0ac5-2ce2-4638-82c3-d33ca6d4027b&quot;,
+    &quot;Authorization&quot;: &quot;[REDACTED]&quot;
+  },
+  &quot;parameters&quot;: {},
+  &quot;body&quot;: &quot;&quot;
+}</pre></div><div><h3>Respuesta</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Content-Type&quot;: &quot;application/json&quot;,
+    &quot;Content-Length&quot;: &quot;957&quot;,
+    &quot;X-Correlation-ID&quot;: &quot;1c7d0ac5-2ce2-4638-82c3-d33ca6d4027b&quot;,
+    &quot;Cache-Control&quot;: &quot;no-store&quot;,
+    &quot;X-Content-Type-Options&quot;: &quot;nosniff&quot;,
+    &quot;Referrer-Policy&quot;: &quot;no-referrer&quot;
+  },
+  &quot;body&quot;: {
+    &quot;data&quot;: {
+      &quot;id&quot;: &quot;b52dc499-7158-46d7-89a1-00c2f3f871c5&quot;,
+      &quot;reservation_id&quot;: &quot;f0ed3e75-df56-4919-ba33-f655bba63721&quot;,
+      &quot;origin_id&quot;: &quot;87255e79-2a0a-4e44-ad21-8002ccd5688d&quot;,
+      &quot;destination_id&quot;: &quot;a0920053-13c5-4d42-b53e-74b35a779f58&quot;,
+      &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+      &quot;transport_user_id&quot;: &quot;3980f3c5-484c-4178-b03c-8d65c598ecd7&quot;,
+      &quot;departure_at&quot;: &quot;2026-10-19T16:28:46.493084+00:00&quot;,
+      &quot;eta&quot;: &quot;2026-10-19T16:57:46.493194+00:00&quot;,
+      &quot;status&quot;: &quot;PLANNED&quot;,
+      &quot;version&quot;: 1,
+      &quot;sequence&quot;: 1,
+      &quot;inventory_pending&quot;: false,
+      &quot;expires_at&quot;: &quot;2026-10-21T16:27:42.097211+00:00&quot;,
+      &quot;decisions&quot;: [
+        {
+          &quot;id&quot;: &quot;7d08652a-3765-45cf-af2a-3fddc9567b09&quot;,
+          &quot;actor_id&quot;: &quot;c17e9575-b990-4b29-9087-4481a6e6db6e&quot;,
+          &quot;action&quot;: &quot;SHIPMENT_PLAN_PENDING&quot;,
+          &quot;reason&quot;: &quot;Plan de traslado ficticio aprobado&quot;,
+          &quot;changes&quot;: {},
+          &quot;created_at&quot;: &quot;2026-10-19T16:27:47.471309+00:00&quot;
+        }
+      ],
+      &quot;transitions&quot;: []
+    },
+    &quot;meta&quot;: {
+      &quot;correlation_id&quot;: &quot;1c7d0ac5-2ce2-4638-82c3-d33ca6d4027b&quot;,
+      &quot;service&quot;: &quot;transporte&quot;,
+      &quot;version&quot;: &quot;0.3.0&quot;
+    }
+  }
+}</pre></div></div><details><summary>Persistencia y versión de implementación</summary><pre>{
+  &quot;effect&quot;: &quot;read&quot;,
+  &quot;note&quot;: &quot;Consulta; accesos protegidos generan auditoría local transaccional.&quot;
+}</pre><p>SHA-256: e7eb0044cb5544477c1a4b79a264977e16ddd17c216e8a88ed6d187af95af791</p></details></section><section><h2>HTTP 401</h2><p><b>2026-10-19T16:28:24.111959+00:00</b> · versión 0.3.0</p><p>Correlación: d43bcf12-1e19-4ef4-8405-b4b3b47079ad<br>URL: http://127.0.0.1:56264/api/v1/shipments/b567cbad-9962-4cea-8f81-f0a8a3ff0f00</p><p><a href="../records/043fc13dbecf6fa7e36f01d1.json">Petición, respuesta, headers y persistencia completos</a></p><div class="grid"><div><h3>Petición</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Host&quot;: &quot;127.0.0.1:56264&quot;,
+    &quot;User-Agent&quot;: &quot;python-requests/2.34.2&quot;,
+    &quot;Accept-Encoding&quot;: &quot;gzip, deflate, br&quot;,
+    &quot;Accept&quot;: &quot;application/json&quot;,
+    &quot;Connection&quot;: &quot;keep-alive&quot;,
+    &quot;Idempotency-Key&quot;: &quot;9f49c449b9a64a2791a5202545d47937&quot;
+  },
+  &quot;parameters&quot;: {},
+  &quot;body&quot;: &quot;&quot;
+}</pre></div><div><h3>Respuesta</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Content-Type&quot;: &quot;application/json&quot;,
+    &quot;Content-Length&quot;: &quot;202&quot;,
+    &quot;X-Correlation-ID&quot;: &quot;d43bcf12-1e19-4ef4-8405-b4b3b47079ad&quot;,
+    &quot;Cache-Control&quot;: &quot;no-store&quot;,
+    &quot;X-Content-Type-Options&quot;: &quot;nosniff&quot;,
+    &quot;Referrer-Policy&quot;: &quot;no-referrer&quot;
+  },
+  &quot;body&quot;: {
+    &quot;error&quot;: {
+      &quot;code&quot;: &quot;unauthorized&quot;,
+      &quot;message&quot;: &quot;JWT de acceso requerido.&quot;,
+      &quot;details&quot;: []
+    },
+    &quot;meta&quot;: {
+      &quot;correlation_id&quot;: &quot;d43bcf12-1e19-4ef4-8405-b4b3b47079ad&quot;,
+      &quot;service&quot;: &quot;transporte&quot;,
+      &quot;version&quot;: &quot;0.3.0&quot;
+    }
+  }
+}</pre></div></div><details><summary>Persistencia y versión de implementación</summary><pre>{
+  &quot;effect&quot;: &quot;controlled_error&quot;,
+  &quot;note&quot;: &quot;No se infiere ausencia de efectos de un error; revisar correlación y estado de operación.&quot;
+}</pre><p>SHA-256: e7eb0044cb5544477c1a4b79a264977e16ddd17c216e8a88ed6d187af95af791</p></details></section><h2>Todas las variantes ejecutadas</h2><ul><li><a href="../records/a6289361792bf97d603b2231.json">200 · embedded · application/json · 2026-10-19T16:22:54.705298+00:00</a></li><li><a href="../records/cbf5ea4cf4f8a6e680b63c5a.json">200 · http · application/json · 2026-10-19T16:27:50.417015+00:00</a></li><li><a href="../records/043fc13dbecf6fa7e36f01d1.json">401 · http · application/json · 2026-10-19T16:28:24.111959+00:00</a></li><li><a href="../records/64fc78b0b2f41065ec3c03ba.json">401 · http · application/xml; charset=utf-8 · 2026-10-19T16:28:24.158206+00:00</a></li><li><a href="../records/c4e2bebc1fb69fdd4287b2ae.json">404 · http · application/json · 2026-10-19T16:28:24.328460+00:00</a></li></ul></main></html>

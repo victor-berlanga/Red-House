@@ -1,0 +1,96 @@
+{
+  "captured_at": "2026-10-19T16:39:28.105793+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "6eac28b3c6355ff29f1aabe6ed2aa76b6e104ed4888482a02b3967184783afa9",
+  "transport": "http",
+  "method": "PATCH",
+  "route": "/api/v1/resources/<identifier>",
+  "objective": "Corregir unidad antes de liberación clínica",
+  "url": "http://127.0.0.1:56261/api/v1/resources/a76a231c-63e5-4425-b974-f57f86097698",
+  "parameters": {},
+  "path_parameters": {
+    "identifier": "a76a231c-63e5-4425-b974-f57f86097698"
+  },
+  "request_headers": {
+    "Host": "127.0.0.1:56261",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "0be0e9d45fdf42e7907f61f5f12accae",
+    "Authorization": "[REDACTED]",
+    "Content-Length": "243",
+    "Content-Type": "application/json"
+  },
+  "request_body": {
+    "folio": "EDIT-3effe3f08d02",
+    "kind": "BLOOD",
+    "component": "RBC",
+    "blood_group": "O-",
+    "expires_at": "2026-10-21T16:39:27.754243+00:00",
+    "human_confirmation": true,
+    "reason": "Corrección ficticia con revisión humana",
+    "version": 1
+  },
+  "status": 200,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "631",
+    "X-Correlation-ID": "74e90937-422e-41cc-a2b1-f4a0bcd863dd",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "data": {
+      "id": "a76a231c-63e5-4425-b974-f57f86097698",
+      "tenant_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+      "region_id": "7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb",
+      "folio": "EDIT-3effe3f08d02",
+      "current_institution_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+      "donation_id": null,
+      "kind": "BLOOD",
+      "component": "RBC",
+      "blood_group": "O-",
+      "expires_at": "2026-10-21T16:39:27.754243+00:00",
+      "status": "QUARANTINE",
+      "version": 2,
+      "created_at": "2026-10-19T16:39:27.863441+00:00",
+      "location_id": null,
+      "collected_at": null
+    },
+    "meta": {
+      "correlation_id": "74e90937-422e-41cc-a2b1-f4a0bcd863dd",
+      "service": "inventario",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "74e90937-422e-41cc-a2b1-f4a0bcd863dd",
+  "persistence": {
+    "effect": "committed",
+    "store": "PostgreSQL red_house",
+    "query": "SELECT operation,fingerprint,result FROM idempotency WHERE user_id=:actor AND key=:idempotency_key",
+    "row": {
+      "operation": "resource_edit:a76a231c-63e5-4425-b974-f57f86097698",
+      "fingerprint": "3fe79ac6c07b564da67c9b69478af65c4e38827bb52140ab6e55de57a31f9354",
+      "result": {
+        "id": "a76a231c-63e5-4425-b974-f57f86097698",
+        "kind": "BLOOD",
+        "folio": "EDIT-3effe3f08d02",
+        "status": "QUARANTINE",
+        "version": 2,
+        "component": "RBC",
+        "region_id": "7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb",
+        "tenant_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+        "created_at": "2026-10-19T16:39:27.863441+00:00",
+        "expires_at": "2026-10-21T16:39:27.754243+00:00",
+        "blood_group": "O-",
+        "donation_id": null,
+        "location_id": null,
+        "collected_at": null,
+        "current_institution_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d"
+      }
+    }
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "captured_at": "2026-10-19T16:28:40.213965+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "a72d90d185b760994571ed560b74d7f59cc2cca663c983d7842c7150387e7f9a",
+  "transport": "http",
+  "method": "GET",
+  "route": "/api/v1/allocation-proposals/<identifier>",
+  "objective": "Consultar propuesta, límites y versiones originales",
+  "url": "http://127.0.0.1:56263/api/v1/allocation-proposals/fac80d43-e162-467d-980e-9a77bf464837",
+  "parameters": {},
+  "path_parameters": {
+    "identifier": "fac80d43-e162-467d-980e-9a77bf464837"
+  },
+  "request_headers": {
+    "Host": "127.0.0.1:56263",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "e047bf9461b946db90e191ec0a963038",
+    "Authorization": "[REDACTED]"
+  },
+  "request_body": "",
+  "status": 200,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "887",
+    "X-Correlation-ID": "8efe7b4e-45ab-4c3b-8640-f24bd8ebc8ef",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "data": {
+      "id": "fac80d43-e162-467d-980e-9a77bf464837",
+      "tenant_id": "a0920053-13c5-4d42-b53e-74b35a779f58",
+      "algorithm_version": "COVERAGE-HK-1.0",
+      "snapshots": {
+        "7c40cf2d-8180-4c7c-bd93-e2e9d808c27d": {
+          "evaluation_id": "276b84f1-a9f3-4cc5-9bc4-d3e397dfbbcd",
+          "request_version": 2,
+          "algorithm_version": "RBC-1.0"
+        }
+      },
+      "result": [
+        {
+          "slot": "7c40cf2d-8180-4c7c-bd93-e2e9d808c27d:0",
+          "request_id": "7c40cf2d-8180-4c7c-bd93-e2e9d808c27d",
+          "explanation": "Candidato con dictamen favorable en la instantánea; matching máximo evita duplicar recursos. Requiere revalidación y autorización de reserva.",
+          "resource_id": "7ff4f730-038e-40e3-906e-4863d2fea007"
+        }
+      ],
+      "elapsed_ms": 0.116,
+      "slot_count": 1,
+      "matched_count": 1,
+      "created_at": "2026-10-19T16:28:39.976434+00:00"
+    },
+    "meta": {
+      "correlation_id": "8efe7b4e-45ab-4c3b-8640-f24bd8ebc8ef",
+      "service": "priorizacion_geografia",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "8efe7b4e-45ab-4c3b-8640-f24bd8ebc8ef",
+  "persistence": {
+    "effect": "read",
+    "note": "Consulta; accesos protegidos generan auditoría local transaccional."
+  }
+}

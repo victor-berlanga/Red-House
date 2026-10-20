@@ -1,0 +1,51 @@
+{
+  "captured_at": "2026-10-19T16:27:25.509998+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "e7eb0044cb5544477c1a4b79a264977e16ddd17c216e8a88ed6d187af95af791",
+  "transport": "http",
+  "method": "GET",
+  "route": "/api/v1/shipments/<identifier>/tracking",
+  "objective": "Último paso documental con versión y referencia a PostgreSQL",
+  "url": "http://127.0.0.1:56264/api/v1/shipments/859eea1a-1b77-4b08-9a53-5038495b9521/tracking",
+  "parameters": {},
+  "path_parameters": {
+    "identifier": "859eea1a-1b77-4b08-9a53-5038495b9521"
+  },
+  "request_headers": {
+    "Host": "127.0.0.1:56264",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "2e38977def604feca3534e10af2b00d2",
+    "Authorization": "[REDACTED]"
+  },
+  "request_body": "",
+  "status": 403,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "204",
+    "X-Correlation-ID": "c54dd99a-03a1-459a-9ffe-c759fa0948b2",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "error": {
+      "code": "forbidden",
+      "message": "Traslado de otro responsable.",
+      "details": []
+    },
+    "meta": {
+      "correlation_id": "c54dd99a-03a1-459a-9ffe-c759fa0948b2",
+      "service": "transporte",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "c54dd99a-03a1-459a-9ffe-c759fa0948b2",
+  "persistence": {
+    "effect": "controlled_error",
+    "note": "No se infiere ausencia de efectos de un error; revisar correlación y estado de operación."
+  }
+}

@@ -1,0 +1,103 @@
+<!doctype html><html lang="es"><meta charset="utf-8"><title>transporte /api/v1/shipments</title><style>body{font:15px system-ui;margin:32px;background:#f4f5f7;color:#202631}main{max-width:1250px;margin:auto}h1{color:#8e2434;font-size:26px}small{color:#556}a{color:#8e2434}table{border-collapse:collapse;width:100%;background:white}td,th{padding:9px;border:1px solid #ccd;vertical-align:top;text-align:left}pre{white-space:pre-wrap;word-break:break-word;background:#fff;border:1px solid #ccd;padding:12px;font:12px monospace;max-height:300px;overflow:auto}section{margin:20px 0}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.tag{padding:4px 9px;background:#e5ece7}.error{background:#f8e5e6}input{padding:12px;width:70%;margin:15px 0}details{margin:12px 0}nav{margin-bottom:20px}</style><main><nav><a href="../index.html">Inventario completo</a></nav><h1>transporte · POST /api/v1/shipments</h1><p>Planear traslado y confirmar vínculo exclusivo con Inventario</p><p>Registro de ejecución real. Credenciales y firmas redactadas. Los cuerpos completos están en el JSON enlazado.</p><section><h2>HTTP 202</h2><p><b>2026-10-19T16:26:48.878926+00:00</b> · versión 0.3.0</p><p>Correlación: e1036ea4-28c7-4721-8ec6-88db7beb489b<br>URL: http://127.0.0.1:56264/api/v1/shipments</p><p><a href="../records/3f0e8f06db2b7af16b914ef6.json">Petición, respuesta, headers y persistencia completos</a></p><div class="grid"><div><h3>Petición</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Host&quot;: &quot;127.0.0.1:56264&quot;,
+    &quot;User-Agent&quot;: &quot;python-requests/2.34.2&quot;,
+    &quot;Accept-Encoding&quot;: &quot;gzip, deflate, br&quot;,
+    &quot;Accept&quot;: &quot;application/json&quot;,
+    &quot;Connection&quot;: &quot;keep-alive&quot;,
+    &quot;Idempotency-Key&quot;: &quot;ef4865aade504382878a636145ec288d&quot;,
+    &quot;Authorization&quot;: &quot;[REDACTED]&quot;,
+    &quot;Content-Length&quot;: &quot;290&quot;,
+    &quot;Content-Type&quot;: &quot;application/json&quot;
+  },
+  &quot;parameters&quot;: {},
+  &quot;body&quot;: {
+    &quot;reservation_id&quot;: &quot;1e1b90e8-2d0a-425b-bc78-f2b497c2af6a&quot;,
+    &quot;transport_user_id&quot;: &quot;3980f3c5-484c-4178-b03c-8d65c598ecd7&quot;,
+    &quot;departure_at&quot;: &quot;2026-10-19T16:27:47.736841+00:00&quot;,
+    &quot;eta&quot;: &quot;2026-10-19T16:56:47.736928+00:00&quot;,
+    &quot;human_confirmation&quot;: true,
+    &quot;reason&quot;: &quot;Plan de traslado ficticio aprobado&quot;
+  }
+}</pre></div><div><h3>Respuesta</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Content-Type&quot;: &quot;application/json&quot;,
+    &quot;Content-Length&quot;: &quot;675&quot;,
+    &quot;X-Correlation-ID&quot;: &quot;e1036ea4-28c7-4721-8ec6-88db7beb489b&quot;,
+    &quot;Cache-Control&quot;: &quot;no-store&quot;,
+    &quot;X-Content-Type-Options&quot;: &quot;nosniff&quot;,
+    &quot;Referrer-Policy&quot;: &quot;no-referrer&quot;
+  },
+  &quot;body&quot;: {
+    &quot;data&quot;: {
+      &quot;id&quot;: &quot;859eea1a-1b77-4b08-9a53-5038495b9521&quot;,
+      &quot;reservation_id&quot;: &quot;1e1b90e8-2d0a-425b-bc78-f2b497c2af6a&quot;,
+      &quot;origin_id&quot;: &quot;87255e79-2a0a-4e44-ad21-8002ccd5688d&quot;,
+      &quot;destination_id&quot;: &quot;a0920053-13c5-4d42-b53e-74b35a779f58&quot;,
+      &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+      &quot;transport_user_id&quot;: &quot;3980f3c5-484c-4178-b03c-8d65c598ecd7&quot;,
+      &quot;departure_at&quot;: &quot;2026-10-19T16:27:47.736841+00:00&quot;,
+      &quot;eta&quot;: &quot;2026-10-19T16:56:47.736928+00:00&quot;,
+      &quot;status&quot;: &quot;PLANNED&quot;,
+      &quot;version&quot;: 1,
+      &quot;sequence&quot;: 1,
+      &quot;inventory_pending&quot;: false,
+      &quot;expires_at&quot;: &quot;2026-10-21T16:26:43.322896+00:00&quot;
+    },
+    &quot;meta&quot;: {
+      &quot;correlation_id&quot;: &quot;e1036ea4-28c7-4721-8ec6-88db7beb489b&quot;,
+      &quot;service&quot;: &quot;transporte&quot;,
+      &quot;version&quot;: &quot;0.3.0&quot;
+    }
+  }
+}</pre></div></div><details><summary>Persistencia y versión de implementación</summary><pre>{
+  &quot;effect&quot;: &quot;committed&quot;,
+  &quot;store&quot;: &quot;PostgreSQL red_house&quot;,
+  &quot;query&quot;: &quot;SELECT id,reservation_id,status,inventory_pending FROM shipments WHERE id=%s&quot;,
+  &quot;parameters&quot;: [
+    &quot;859eea1a-1b77-4b08-9a53-5038495b9521&quot;
+  ],
+  &quot;row&quot;: {
+    &quot;id&quot;: &quot;859eea1a-1b77-4b08-9a53-5038495b9521&quot;,
+    &quot;reservation_id&quot;: &quot;1e1b90e8-2d0a-425b-bc78-f2b497c2af6a&quot;,
+    &quot;status&quot;: &quot;PLANNED&quot;,
+    &quot;inventory_pending&quot;: false
+  }
+}</pre><p>SHA-256: e7eb0044cb5544477c1a4b79a264977e16ddd17c216e8a88ed6d187af95af791</p></details></section><section><h2>HTTP 401</h2><p><b>2026-10-19T16:28:23.749879+00:00</b> · versión 0.3.0</p><p>Correlación: adad4999-1741-4f26-8a1b-82e01042f5d7<br>URL: http://127.0.0.1:56264/api/v1/shipments</p><p><a href="../records/376e8b913fc7cd626a12b608.json">Petición, respuesta, headers y persistencia completos</a></p><div class="grid"><div><h3>Petición</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Host&quot;: &quot;127.0.0.1:56264&quot;,
+    &quot;User-Agent&quot;: &quot;python-requests/2.34.2&quot;,
+    &quot;Accept-Encoding&quot;: &quot;gzip, deflate, br&quot;,
+    &quot;Accept&quot;: &quot;application/json&quot;,
+    &quot;Connection&quot;: &quot;keep-alive&quot;,
+    &quot;Idempotency-Key&quot;: &quot;79ed3c4d1cda4d32a5446e3ec28434c7&quot;,
+    &quot;Content-Length&quot;: &quot;2&quot;,
+    &quot;Content-Type&quot;: &quot;application/json&quot;
+  },
+  &quot;parameters&quot;: {},
+  &quot;body&quot;: {}
+}</pre></div><div><h3>Respuesta</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Content-Type&quot;: &quot;application/json&quot;,
+    &quot;Content-Length&quot;: &quot;202&quot;,
+    &quot;X-Correlation-ID&quot;: &quot;adad4999-1741-4f26-8a1b-82e01042f5d7&quot;,
+    &quot;Cache-Control&quot;: &quot;no-store&quot;,
+    &quot;X-Content-Type-Options&quot;: &quot;nosniff&quot;,
+    &quot;Referrer-Policy&quot;: &quot;no-referrer&quot;
+  },
+  &quot;body&quot;: {
+    &quot;error&quot;: {
+      &quot;code&quot;: &quot;unauthorized&quot;,
+      &quot;message&quot;: &quot;JWT de acceso requerido.&quot;,
+      &quot;details&quot;: []
+    },
+    &quot;meta&quot;: {
+      &quot;correlation_id&quot;: &quot;adad4999-1741-4f26-8a1b-82e01042f5d7&quot;,
+      &quot;service&quot;: &quot;transporte&quot;,
+      &quot;version&quot;: &quot;0.3.0&quot;
+    }
+  }
+}</pre></div></div><details><summary>Persistencia y versión de implementación</summary><pre>{
+  &quot;effect&quot;: &quot;controlled_error&quot;,
+  &quot;note&quot;: &quot;No se infiere ausencia de efectos de un error; revisar correlación y estado de operación.&quot;
+}</pre><p>SHA-256: e7eb0044cb5544477c1a4b79a264977e16ddd17c216e8a88ed6d187af95af791</p></details></section><h2>Todas las variantes ejecutadas</h2><ul><li><a href="../records/2949e5447bfcfcce49126b59.json">202 · embedded · application/json · 2026-10-19T16:22:54.194201+00:00</a></li><li><a href="../records/376e8b913fc7cd626a12b608.json">401 · http · application/json · 2026-10-19T16:28:23.749879+00:00</a></li><li><a href="../records/3f0e8f06db2b7af16b914ef6.json">202 · http · application/json · 2026-10-19T16:26:48.878926+00:00</a></li><li><a href="../records/ef79295ff1310b4e934edd92.json">401 · http · application/xml; charset=utf-8 · 2026-10-19T16:28:23.791920+00:00</a></li></ul></main></html>

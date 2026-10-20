@@ -1,0 +1,68 @@
+{
+  "captured_at": "2026-10-19T16:22:45.951499+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "ff2e7260f413ab4edb16a5555f512ec7404cdb118d66af3fc8a1e4dd2c6136b4",
+  "transport": "embedded",
+  "method": "GET",
+  "route": "/internal/v1/requests/<identifier>",
+  "objective": "Instantánea mínima para compatibilidad y reserva",
+  "url": "http://localhost/internal/v1/requests/6e221b47-5225-4015-92f2-531d6b373ef2",
+  "parameters": {},
+  "path_parameters": {
+    "identifier": "6e221b47-5225-4015-92f2-531d6b373ef2"
+  },
+  "request_headers": {
+    "Host": "localhost",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+    "X-Service": "compatibilidad",
+    "X-Service-Time": "1792426965",
+    "X-Service-Nonce": "7f034ede-8b42-4a57-9e17-828dadbdec49",
+    "X-Service-Signature": "[REDACTED]",
+    "X-Correlation-Id": "2bdb95e7-6a41-449f-8866-43e62540620e",
+    "Authorization": "[REDACTED]"
+  },
+  "request_body": "[Invalid JSON omitted; sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855]",
+  "status": 200,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "579",
+    "X-Correlation-ID": "2bdb95e7-6a41-449f-8866-43e62540620e",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "data": {
+      "id": "6e221b47-5225-4015-92f2-531d6b373ef2",
+      "tenant_id": "a0920053-13c5-4d42-b53e-74b35a779f58",
+      "recipient_id": "faf8c2f0-89d4-48c2-aa33-2c707585c068",
+      "kind": "BLOOD",
+      "component": "RBC",
+      "quantity": 1,
+      "urgency": 3,
+      "status": "OPEN",
+      "version": 1,
+      "created_at": "2026-10-19T16:22:44.705127+00:00",
+      "recipient": {
+        "id": "faf8c2f0-89d4-48c2-aa33-2c707585c068",
+        "kind": "BLOOD",
+        "blood_group": "O+",
+        "organ_type": null,
+        "status": "ACTIVE",
+        "version": 1
+      }
+    },
+    "meta": {
+      "correlation_id": "2bdb95e7-6a41-449f-8866-43e62540620e",
+      "service": "receptores",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "2bdb95e7-6a41-449f-8866-43e62540620e",
+  "persistence": {
+    "effect": "read",
+    "note": "Consulta; accesos protegidos generan auditoría local transaccional."
+  }
+}

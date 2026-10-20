@@ -1,0 +1,162 @@
+{
+  "date": "2026-10-20T21:22:52.962Z",
+  "origin": "https://34.18.186.116",
+  "pages": [
+    {
+      "user": "admin1",
+      "route": "/panel",
+      "status": 200
+    },
+    {
+      "user": "admin1",
+      "route": "/administracion/users",
+      "status": 200
+    },
+    {
+      "user": "admin1",
+      "route": "/catalogos/sites",
+      "status": 200
+    },
+    {
+      "user": "operator1",
+      "route": "/panel",
+      "status": 200
+    },
+    {
+      "user": "operator1",
+      "route": "/inventario",
+      "status": 200
+    },
+    {
+      "user": "operator1",
+      "route": "/donaciones",
+      "status": 200
+    },
+    {
+      "user": "medical2",
+      "route": "/panel",
+      "status": 200
+    },
+    {
+      "user": "medical2",
+      "route": "/solicitudes",
+      "status": 200
+    },
+    {
+      "user": "medical2",
+      "route": "/donantes/recipient",
+      "status": 200
+    },
+    {
+      "user": "coordinator1",
+      "route": "/panel",
+      "status": 200
+    },
+    {
+      "user": "coordinator1",
+      "route": "/disponibilidad",
+      "status": 200
+    },
+    {
+      "user": "coordinator1",
+      "route": "/traslados",
+      "status": 200
+    },
+    {
+      "user": "coordinator1",
+      "route": "/rutas",
+      "status": 200
+    },
+    {
+      "user": "transport1",
+      "route": "/panel",
+      "status": 200
+    },
+    {
+      "user": "transport1",
+      "route": "/traslados",
+      "status": 200
+    },
+    {
+      "user": "auditor1",
+      "route": "/panel",
+      "status": 200
+    },
+    {
+      "user": "auditor1",
+      "route": "/auditoria",
+      "status": 200
+    },
+    {
+      "user": "donor1",
+      "route": "/panel",
+      "status": 200
+    },
+    {
+      "user": "donor1",
+      "route": "/campanas",
+      "status": 200
+    },
+    {
+      "user": "donor1",
+      "route": "/citas",
+      "status": 200
+    }
+  ],
+  "checks": [
+    {
+      "user": "admin1",
+      "chartsMatchServer": true,
+      "chartCount": 0
+    },
+    {
+      "user": "operator1",
+      "chartsMatchServer": true,
+      "chartCount": 4
+    },
+    {
+      "secureCookies": true,
+      "renew": 200,
+      "logout": 302,
+      "closedCookieRejected": true
+    },
+    {
+      "user": "medical2",
+      "chartsMatchServer": true,
+      "chartCount": 4
+    },
+    {
+      "user": "coordinator1",
+      "chartsMatchServer": true,
+      "chartCount": 4
+    },
+    {
+      "user": "transport1",
+      "chartsMatchServer": true,
+      "chartCount": 1
+    },
+    {
+      "user": "auditor1",
+      "chartsMatchServer": true,
+      "chartCount": 0
+    },
+    {
+      "user": "donor1",
+      "chartsMatchServer": true,
+      "chartCount": 0
+    },
+    {
+      "responsiveWidth": 390,
+      "horizontalOverflow": false
+    },
+    {
+      "swagger": "https://34.18.186.116/services/inventario/docs/",
+      "execute": 200,
+      "prefix": "/services/inventario"
+    }
+  ],
+  "errors": [],
+  "localRequests": [],
+  "status": "passed",
+  "completedAt": "2026-10-20T21:25:58.712Z"
+}

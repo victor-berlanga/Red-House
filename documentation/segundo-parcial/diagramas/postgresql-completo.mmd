@@ -1,0 +1,882 @@
+erDiagram
+  direction LR
+  account_role {
+    uuid account_id
+    varchar role_code
+    uuid institution_id
+    varchar region_name
+  }
+  algorithm_run {
+    uuid run_id
+    uuid institution_id
+    uuid actor_id
+    text operation
+    text algorithm_version
+    uuid blood_evaluation_id
+    uuid organ_evaluation_id
+    jsonb inputs
+    jsonb factors
+    jsonb result
+    float8 elapsed_ms
+    timestamptz created_at
+  }
+  allocation_operation {
+    uuid id
+    uuid user_id
+    uuid tenant_id
+    text key
+    text fingerprint
+    jsonb input
+    text status
+    uuid hold_id
+    text error
+    timestamptz last_recovery_at
+    timestamptz created_at
+  }
+  appointment {
+    uuid appointment_id
+    uuid donor_id
+    uuid campaign_id
+    text current_status
+    timestamptz created_at
+    uuid tenant_id
+  }
+  audit_change {
+    uuid event_id
+    varchar field_name
+    varchar previous_value
+    varchar new_value
+  }
+  audit_event {
+    uuid event_id
+    uuid actor_id
+    uuid institution_id
+    varchar region_name
+    timestamptz occurred_at
+    text action
+    varchar entity_type
+    varchar entity_reference
+    varchar outcome
+    uuid correlation_id
+    varchar reason
+    text source_service
+    jsonb metadata
+    uuid region_id
+    jsonb event
+  }
+  balance_proposal {
+    uuid id
+    uuid tenant_id
+    text algorithm_version
+    jsonb snapshots
+    jsonb result
+    float8 elapsed_ms
+    int4 slot_count
+    int4 matched_count
+    timestamptz created_at
+  }
+  blood_allocation {
+    uuid allocation_id
+    uuid request_id
+    uuid candidate_id
+    uuid resource_id
+    uuid origin_id
+    uuid destination_id
+    uuid authorized_by
+    varchar authorization_reason
+    text current_status
+    timestamptz reserved_at
+    timestamptz received_at
+    int4 version_no
+    uuid review_id
+    uuid operation_id
+    uuid recipient_id
+    uuid region_id
+    uuid hold_id
+    uuid evaluation_id
+    uuid route_id
+    int4 route_version
+    uuid shipment_id
+    int4 shipment_sequence
+  }
+  blood_candidate {
+    uuid candidate_id
+    uuid evaluation_id
+    uuid resource_id
+    int4 rank_no
+    int4 unit_version
+    varchar donor_group
+    varchar recipient_group
+    varchar urgency
+    int4 wait_minutes
+    int4 distance_km
+    int4 travel_minutes
+    int4 route_version
+    timestamptz expires_at
+    varchar explanation
+  }
+  blood_classification {
+    uuid resource_id
+    varchar recorded_group_code
+    varchar source_reference
+    timestamptz recorded_at
+  }
+  blood_component {
+    uuid component_id
+    varchar component_code
+    varchar component_name
+    varchar region_name
+    bool is_active
+    int4 version_no
+  }
+  blood_movement {
+    uuid movement_id
+    uuid resource_id
+    int4 sequence
+    varchar previous_status
+    varchar new_status
+    uuid origin_location_id
+    uuid destination_location_id
+    timestamptz occurred_at
+    uuid actor_id
+    varchar reason
+    text action
+  }
+  blood_request {
+    uuid request_id
+    varchar request_code
+    uuid recipient_id
+    uuid component_id
+    int4 quantity
+    varchar urgency
+    varchar justification
+    text current_status
+    uuid responsible_id
+    timestamptz requested_at
+    timestamptz closed_at
+    int4 version_no
+    uuid tenant_id
+    text kind
+    text component
+    int4 priority_level
+  }
+  blood_review {
+    uuid review_id
+    uuid candidate_id
+    uuid actor_id
+    text decision
+    text reason
+    timestamptz occurred_at
+    uuid evaluation_id
+    uuid resource_id
+    uuid tenant_id
+  }
+  blood_status_transition {
+    varchar previous_status
+    varchar new_status
+    bool is_illustrative
+  }
+  blood_unit {
+    uuid resource_id
+    uuid component_id
+    uuid location_id
+    timestamptz collected_at
+    timestamptz expires_at
+    varchar current_status
+    int4 version_no
+    timestamptz registered_at
+  }
+  cache_revision {
+    text name
+    int8 revision
+  }
+  campaign {
+    uuid campaign_id
+    uuid institution_id
+    text title
+    timestamptz starts_at
+    timestamptz ends_at
+    int4 capacity
+    text current_status
+    int4 version_no
+  }
+  candidate_evaluation {
+    uuid evaluation_id
+    uuid request_id
+    text algorithm_version
+    int4 request_version
+    int4 recipient_version
+    uuid actor_id
+    timestamptz occurred_at
+    float8 elapsed_ms
+    uuid tenant_id
+    text kind
+    jsonb snapshot
+    jsonb candidates
+  }
+  capability {
+    varchar capability_code
+    varchar capability_name
+  }
+  catalogue_entry {
+    uuid id
+    uuid tenant_id
+    text kind
+    text name
+    uuid parent_id
+    jsonb details
+    bool active
+    int4 version
+    timestamptz created_at
+  }
+  contact {
+    uuid contact_id
+    varchar contact_name
+    varchar contact_function
+  }
+  contact_method {
+    uuid contact_id
+    varchar method_kind
+    varchar method_value
+  }
+  custody_chain {
+    uuid id
+    uuid region_id
+    uuid origin_id
+    uuid destination_id
+    int4 last_sequence
+    text last_hash
+  }
+  custody_event {
+    uuid event_id
+    uuid shipment_id
+    int4 sequence
+    varchar status
+    uuid actor_id
+    timestamptz occurred_at
+    varchar location_description
+    varchar observation
+    varchar evidence_reference
+    text previous_hash
+    text event_hash
+    jsonb event
+  }
+  donation {
+    uuid donation_id
+    uuid donor_id
+    uuid review_id
+    varchar donation_code
+    text current_status
+    timestamptz collected_at
+    timestamptz processed_at
+    uuid created_by
+    timestamptz registered_at
+    int4 version_no
+    uuid tenant_id
+    text kind
+    text component
+    text blood_group
+  }
+  donation_event {
+    uuid event_id
+    uuid donation_id
+    text status
+    uuid actor_id
+    timestamptz occurred_at
+    text observation
+  }
+  donation_unit {
+    uuid resource_id
+    uuid donation_id
+    uuid released_by
+    varchar release_reference
+    timestamptz created_at
+  }
+  donor {
+    uuid donor_id
+    uuid institution_id
+    text record_code
+    text display_name
+    text blood_group
+    text donation_kind
+    text background
+    text restrictions
+    text consent_reference
+    text consent_at
+    text current_status
+    uuid created_by
+    timestamptz registered_at
+    int4 version_no
+    uuid account_id
+    bool consent
+  }
+  donor_review {
+    uuid review_id
+    uuid donor_id
+    text decision
+    text reason
+    uuid actor_id
+    timestamptz occurred_at
+  }
+  institution {
+    uuid institution_id
+    varchar institution_code
+    text institution_name
+    varchar institution_type
+    varchar region_name
+    varchar city
+    varchar street
+    varchar participation_status
+    int4 version_no
+    timestamptz registered_at
+    varchar operating_hours
+    uuid region_id
+    bool active
+    uuid created_by
+  }
+  institution_capability {
+    uuid institution_id
+    varchar capability_code
+  }
+  institution_contact {
+    uuid institution_id
+    uuid contact_id
+  }
+  login_attempt {
+    int8 attempt_id
+    bpchar identity_hash
+    bpchar address_hash
+    timestamptz occurred_at
+    bool was_successful
+  }
+  notification {
+    uuid notification_id
+    uuid event_id
+    uuid institution_id
+    text target_role
+    uuid target_account_id
+    text message_code
+    text entity_reference
+    text current_status
+    uuid acknowledged_by
+    timestamptz created_at
+    uuid region_id
+  }
+  organ_allocation {
+    uuid allocation_id
+    uuid candidate_id
+    uuid review_id
+    uuid offer_id
+    uuid recipient_id
+    uuid authorized_by
+    varchar authorization_reference
+    varchar current_status
+    uuid transport_id
+    varchar vehicle
+    timestamptz departure_at
+    timestamptz eta
+    timestamptz reserved_at
+    timestamptz received_at
+    int4 version_no
+  }
+  organ_candidate {
+    uuid candidate_id
+    uuid evaluation_id
+    uuid offer_id
+    uuid recipient_id
+    int4 offer_version
+    int4 recipient_version
+    int4 route_version
+    int4 rank_no
+    varchar algorithm_version
+    text explanation
+    int4 distance_km
+    int4 travel_minutes
+    uuid evaluated_by
+    timestamptz evaluated_at
+  }
+  organ_custody_event {
+    uuid event_id
+    uuid allocation_id
+    varchar status
+    uuid actor_id
+    timestamptz occurred_at
+    varchar location_description
+    text observation
+    varchar evidence_reference
+    text previous_hash
+    text event_hash
+  }
+  organ_donor {
+    uuid donor_id
+    uuid institution_id
+    varchar record_code
+    varchar display_name
+    varchar abo
+    varchar donation_kind
+    varchar consent_reference
+    text studies
+    text hla
+    varchar clinical_reference
+    uuid reviewed_by
+    timestamptz registered_at
+  }
+  organ_evaluation {
+    uuid evaluation_id
+    uuid offer_id
+    uuid evaluated_by
+    varchar algorithm_version
+    timestamptz evaluated_at
+  }
+  organ_offer {
+    uuid offer_id
+    uuid donor_id
+    varchar record_code
+    varchar organ_type
+    varchar anatomical_description
+    timestamptz recovered_at
+    timestamptz preservation_until
+    varchar preservation_reference
+    uuid released_by
+    varchar current_status
+    int4 version_no
+    timestamptz registered_at
+  }
+  organ_recipient {
+    uuid recipient_id
+    uuid institution_id
+    varchar record_code
+    varchar display_name
+    varchar organ_type
+    varchar abo
+    text studies
+    text hla
+    varchar urgency
+    timestamptz waiting_since
+    varchar clinical_reference
+    uuid responsible_id
+    varchar current_status
+    int4 version_no
+    timestamptz registered_at
+  }
+  organ_review {
+    uuid review_id
+    uuid candidate_id
+    varchar decision
+    text hla_assessment
+    text size_assessment
+    varchar crossmatch_reference
+    varchar clinical_reference
+    uuid reviewed_by
+    timestamptz occurred_at
+  }
+  parameter_version {
+    uuid parameter_version_id
+    varchar parameter_code
+    varchar region_name
+    int4 version_no
+    int4 scalar_value
+    varchar measurement_unit
+    bool is_illustrative
+    uuid approved_by
+    timestamptz valid_from
+  }
+  party {
+    uuid party_id
+    varchar party_name
+  }
+  ranking_run {
+    uuid id
+    uuid tenant_id
+    uuid evaluation_id
+    text algorithm_version
+    jsonb factors
+    jsonb result
+    float8 elapsed_ms
+    timestamptz created_at
+  }
+  recipient {
+    uuid recipient_id
+    uuid institution_id
+    text record_code
+    text display_name
+    text blood_group
+    text requirement
+    varchar legacy_urgency
+    text studies
+    text restrictions
+    text current_status
+    uuid responsible_id
+    timestamptz registered_at
+    int4 version_no
+    text kind
+    text organ_type
+  }
+  regional_route {
+    uuid route_id
+    uuid origin_id
+    uuid destination_id
+    float8 distance_km
+    int4 travel_minutes
+    text source_reference
+    uuid recorded_by
+    timestamptz recorded_at
+    int4 version_no
+    uuid region_id
+  }
+  request_event {
+    uuid event_id
+    uuid request_id
+    varchar action
+    uuid actor_id
+    timestamptz occurred_at
+    varchar observation
+  }
+  request_hold {
+    uuid id
+    uuid request_id
+    uuid recipient_id
+    uuid operation_id
+    uuid resource_id
+    text kind
+    int4 request_version
+    uuid region_id
+    text status
+    timestamptz created_at
+  }
+  resource {
+    uuid resource_id
+    varchar traceability_code
+    text resource_kind
+    uuid tenant_id
+    uuid region_id
+    text folio
+    uuid current_institution_id
+    uuid donation_id
+    text component
+    text blood_group
+    timestamptz expires_at
+    text status
+    int4 version
+    timestamptz created_at
+    uuid location_id
+    timestamptz collected_at
+  }
+  resource_review {
+    uuid id
+    uuid resource_id
+    uuid actor_id
+    text decision
+    text reason
+    timestamptz created_at
+  }
+  role {
+    varchar role_code
+    varchar role_name
+    bool is_enabled
+  }
+  schema_migration {
+    int4 version
+    text description
+    timestamptz installed_at
+  }
+  service_activity_events {
+    text service
+    uuid id
+    uuid tenant_id
+    jsonb event
+    timestamptz created_at
+  }
+  service_decisions {
+    text service
+    uuid id
+    uuid resource_id
+    uuid tenant_id
+    uuid actor_id
+    text action
+    text reason
+    jsonb changes
+    timestamptz created_at
+  }
+  service_health_check {
+    uuid check_id
+    text service
+    text state
+    float8 elapsed_ms
+    text dependency
+    text last_error
+    text deployed_version
+    timestamptz checked_at
+  }
+  service_idempotency {
+    text service
+    uuid id
+    uuid user_id
+    text key
+    text operation
+    text fingerprint
+    jsonb result
+    timestamptz created_at
+  }
+  service_inbox {
+    text service
+    uuid event_id
+    text fingerprint
+    timestamptz created_at
+  }
+  service_outbox {
+    text service
+    uuid id
+    uuid event_id
+    text target
+    jsonb event
+    timestamptz created_at
+    timestamptz delivered_at
+    int4 attempts
+    timestamptz next_attempt
+    text last_error
+  }
+  service_schema_version {
+    text service
+    int4 version
+    timestamptz installed_at
+  }
+  service_worker_health {
+    text service
+    int4 id
+    timestamptz checked_at
+    timestamptz last_success
+    text last_error
+  }
+  shipment {
+    uuid shipment_id
+    uuid allocation_id
+    uuid transport_id
+    varchar vehicle
+    timestamptz departure_at
+    timestamptz eta
+    text current_status
+    int4 version_no
+    uuid organ_allocation_id
+    uuid origin_id
+    uuid destination_id
+    uuid region_id
+    int4 sequence
+    bool inventory_pending
+    timestamptz expires_at
+  }
+  shipment_transition {
+    uuid id
+    uuid shipment_id
+    int4 sequence
+    text state
+    uuid actor_id
+    text reason
+    jsonb evidence
+    timestamptz created_at
+  }
+  site {
+    uuid site_id
+    uuid institution_id
+    varchar site_code
+    varchar site_name
+    varchar street
+    varchar city
+    varchar site_status
+    int4 version_no
+  }
+  site_schedule {
+    uuid schedule_id
+    uuid site_id
+    int2 weekday
+    time opens_at
+    time closes_at
+  }
+  storage_location {
+    uuid location_id
+    uuid site_id
+    varchar location_code
+    varchar location_description
+    bool is_active
+    int4 version_no
+  }
+  stored_file {
+    uuid file_id
+    uuid shipment_id
+    uuid owner_id
+    text object_path
+    text mime_type
+    int4 size_bytes
+    text sha256
+    text current_status
+    text generation
+    timestamptz created_at
+  }
+  transport_telemetry {
+    uuid telemetry_id
+    uuid shipment_id
+    uuid actor_id
+    float8 latitude
+    float8 longitude
+    timestamptz captured_at
+    timestamptz created_at
+  }
+  user_account {
+    uuid account_id
+    uuid party_id
+    varchar login_email
+    text password_hash
+    varchar account_status
+    int4 version_no
+    timestamptz registered_at
+    text username
+    uuid tenant_id
+    text role
+    bool active
+  }
+  web_session {
+    uuid session_id
+    uuid account_id
+    timestamptz expires_at
+    timestamptz revoked_at
+    timestamptz created_at
+  }
+  user_account ||..o| account_role : account_role_account_id_fkey
+  institution |o..o{ account_role : account_role_institution_id_fkey
+  role ||..o{ account_role : account_role_role_code_fkey
+  user_account |o..o{ algorithm_run : algorithm_run_actor_id_fkey
+  candidate_evaluation |o..o{ algorithm_run : algorithm_run_blood_evaluation_id_fkey
+  institution ||..o{ algorithm_run : algorithm_run_institution_id_fkey
+  organ_evaluation |o..o{ algorithm_run : algorithm_run_organ_evaluation_id_fkey
+  institution ||..o{ allocation_operation : shared_operations_tenant_id
+  user_account ||..o{ allocation_operation : shared_operations_user_id
+  campaign ||..o{ appointment : api_appointments_campaign_id_fkey
+  donor ||..o{ appointment : api_appointments_donor_id_fkey
+  institution ||..o{ appointment : shared_appointments_tenant_id
+  audit_event ||..o{ audit_change : audit_change_event_id_fkey
+  user_account |o..o{ audit_event : shared_audit_events_actor_id
+  institution ||..o{ audit_event : shared_audit_events_tenant_id
+  institution ||..o{ balance_proposal : shared_proposals_tenant_id
+  allocation_operation ||..o| blood_allocation : api_reservations_operation_id_fkey
+  resource ||..o{ blood_allocation : api_reservations_resource_id_fkey
+  user_account |o..o{ blood_allocation : blood_allocation_authorized_by_fkey
+  blood_candidate |o..o| blood_allocation : blood_allocation_candidate_id_fkey
+  blood_review |o..o{ blood_allocation : blood_allocation_review_id_fkey
+  institution ||..o{ blood_allocation : shared_reservations_destination_id
+  candidate_evaluation ||..o{ blood_allocation : shared_reservations_evaluation_id
+  request_hold ||..o| blood_allocation : shared_reservations_hold_id
+  institution ||..o{ blood_allocation : shared_reservations_origin_id
+  recipient ||..o{ blood_allocation : shared_reservations_recipient_id
+  blood_request ||..o{ blood_allocation : shared_reservations_request_id
+  regional_route ||..o{ blood_allocation : shared_reservations_route_id
+  candidate_evaluation ||..o{ blood_candidate : blood_candidate_evaluation_id_fkey
+  blood_unit ||..o{ blood_candidate : blood_candidate_resource_id_fkey
+  blood_unit ||..o| blood_classification : blood_classification_resource_id_fkey
+  resource ||..o{ blood_movement : api_movements_resource_id_fkey
+  storage_location |o..o{ blood_movement : blood_movement_destination_location_id_fkey
+  storage_location |o..o{ blood_movement : blood_movement_origin_location_id_fkey
+  user_account ||..o{ blood_movement : shared_movements_actor_id
+  recipient ||..o{ blood_request : api_requests_recipient_id_fkey
+  blood_component |o..o{ blood_request : blood_request_component_id_fkey
+  user_account |o..o{ blood_request : blood_request_responsible_id_fkey
+  institution ||..o{ blood_request : shared_requests_tenant_id
+  candidate_evaluation ||..o{ blood_review : api_reviews_evaluation_id_fkey
+  blood_candidate |o..o{ blood_review : blood_review_candidate_id_fkey
+  user_account ||..o{ blood_review : shared_reviews_actor_id
+  resource ||..o{ blood_review : shared_reviews_resource_id
+  institution ||..o{ blood_review : shared_reviews_tenant_id
+  blood_component ||..o{ blood_unit : blood_unit_component_id_fkey
+  storage_location ||..o{ blood_unit : blood_unit_location_id_fkey
+  resource ||..o| blood_unit : blood_unit_resource_id_fkey
+  institution ||..o{ campaign : shared_campaigns_tenant_id
+  user_account |o..o{ candidate_evaluation : candidate_evaluation_actor_id_fkey
+  blood_request ||..o{ candidate_evaluation : shared_evaluations_request_id
+  institution ||..o{ candidate_evaluation : shared_evaluations_tenant_id
+  catalogue_entry |o..o{ catalogue_entry : api_catalogue_parent_id_fkey
+  institution ||..o{ catalogue_entry : api_catalogue_tenant_id_fkey
+  contact ||..o{ contact_method : contact_method_contact_id_fkey
+  institution ||..o{ custody_chain : shared_chains_destination_id
+  shipment ||..o| custody_chain : shared_chains_id
+  institution ||..o{ custody_chain : shared_chains_origin_id
+  custody_chain ||..o{ custody_event : api_custody_events_shipment_id_fkey
+  user_account |o..o{ custody_event : custody_event_actor_id_fkey
+  donor ||..o{ donation : api_donations_donor_id_fkey
+  user_account |o..o{ donation : donation_created_by_fkey
+  donor_review |o..o{ donation : donation_review_id_fkey
+  institution ||..o{ donation : shared_donations_tenant_id
+  donation ||..o{ donation_event : api_donation_steps_donation_id_fkey
+  user_account ||..o{ donation_event : shared_donation_steps_actor_id
+  donation ||..o{ donation_unit : donation_unit_donation_id_fkey
+  user_account ||..o{ donation_unit : donation_unit_released_by_fkey
+  blood_unit ||..o| donation_unit : donation_unit_resource_id_fkey
+  user_account |o..o{ donor : donor_created_by_fkey
+  institution ||..o{ donor : shared_donors_tenant_id
+  user_account |o..o{ donor : shared_donors_user_id
+  donor ||..o{ donor_review : api_donor_reviews_donor_id_fkey
+  user_account ||..o{ donor_review : shared_donor_reviews_actor_id
+  user_account |o..o{ institution : api_institutions_created_by_fkey
+  capability ||..o{ institution_capability : institution_capability_capability_code_fkey
+  institution ||..o{ institution_capability : institution_capability_institution_id_fkey
+  contact ||..o| institution_contact : institution_contact_contact_id_fkey
+  institution ||..o{ institution_contact : institution_contact_institution_id_fkey
+  user_account |o..o{ notification : shared_alerts_acknowledged_by
+  user_account |o..o{ notification : shared_alerts_target_user_id
+  institution ||..o{ notification : shared_alerts_tenant_id
+  user_account ||..o{ organ_allocation : organ_allocation_authorized_by_fkey
+  organ_candidate ||..o{ organ_allocation : organ_allocation_candidate_id_fkey
+  organ_offer ||..o{ organ_allocation : organ_allocation_offer_id_fkey
+  organ_recipient ||..o{ organ_allocation : organ_allocation_recipient_id_fkey
+  organ_review ||..o{ organ_allocation : organ_allocation_review_id_fkey
+  user_account |o..o{ organ_allocation : organ_allocation_transport_id_fkey
+  user_account ||..o{ organ_candidate : organ_candidate_evaluated_by_fkey
+  organ_evaluation ||..o{ organ_candidate : organ_candidate_evaluation_id_fkey
+  organ_offer ||..o{ organ_candidate : organ_candidate_offer_id_fkey
+  organ_recipient ||..o{ organ_candidate : organ_candidate_recipient_id_fkey
+  user_account ||..o{ organ_custody_event : organ_custody_event_actor_id_fkey
+  organ_allocation ||..o{ organ_custody_event : organ_custody_event_allocation_id_fkey
+  institution ||..o{ organ_donor : organ_donor_institution_id_fkey
+  user_account ||..o{ organ_donor : organ_donor_reviewed_by_fkey
+  user_account ||..o{ organ_evaluation : organ_evaluation_evaluated_by_fkey
+  organ_offer ||..o{ organ_evaluation : organ_evaluation_offer_id_fkey
+  organ_donor ||..o{ organ_offer : organ_offer_donor_id_fkey
+  user_account ||..o{ organ_offer : organ_offer_released_by_fkey
+  institution ||..o{ organ_recipient : organ_recipient_institution_id_fkey
+  user_account ||..o{ organ_recipient : organ_recipient_responsible_id_fkey
+  organ_candidate ||..o{ organ_review : organ_review_candidate_id_fkey
+  user_account ||..o{ organ_review : organ_review_reviewed_by_fkey
+  user_account |o..o{ parameter_version : parameter_version_approved_by_fkey
+  candidate_evaluation ||..o{ ranking_run : shared_rankings_evaluation_id
+  institution ||..o{ ranking_run : shared_rankings_tenant_id
+  user_account |o..o{ recipient : recipient_responsible_id_fkey
+  institution ||..o{ recipient : shared_recipients_tenant_id
+  user_account |o..o{ regional_route : regional_route_recorded_by_fkey
+  institution ||..o{ regional_route : shared_routes_destination_id
+  institution ||..o{ regional_route : shared_routes_origin_id
+  user_account ||..o{ request_event : request_event_actor_id_fkey
+  blood_request ||..o{ request_event : request_event_request_id_fkey
+  recipient ||..o{ request_hold : api_holds_recipient_id_fkey
+  blood_request ||..o{ request_hold : api_holds_request_id_fkey
+  resource ||..o{ request_hold : shared_holds_resource_id
+  institution ||..o{ resource : shared_resources_current_institution_id
+  donation |o..o{ resource : shared_resources_donation_id
+  institution ||..o{ resource : shared_resources_tenant_id
+  resource ||..o{ resource_review : api_resource_reviews_resource_id_fkey
+  user_account ||..o{ resource_review : shared_resource_reviews_actor_id
+  institution ||..o{ shipment : shared_shipments_destination_id
+  institution ||..o{ shipment : shared_shipments_origin_id
+  blood_allocation ||..o| shipment : shared_shipments_reservation_id
+  user_account ||..o{ shipment : shared_shipments_transport_user_id
+  organ_allocation |o..o| shipment : shipment_organ_allocation_id_fkey
+  shipment ||..o{ shipment_transition : api_transitions_shipment_id_fkey
+  user_account ||..o{ shipment_transition : shared_transitions_actor_id
+  institution ||..o{ site : site_institution_id_fkey
+  site ||..o{ site_schedule : site_schedule_site_id_fkey
+  site ||..o{ storage_location : storage_location_site_id_fkey
+  shipment ||..o{ stored_file : api_files_shipment_id_fkey
+  user_account ||..o{ stored_file : shared_files_owner_id
+  shipment ||..o{ transport_telemetry : api_telemetry_shipment_id_fkey
+  user_account ||..o{ transport_telemetry : shared_telemetry_actor_id
+  institution ||..o{ user_account : api_users_tenant_id_fkey
+  institution ||..o{ user_account : shared_users_tenant_id
+  party |o..o| user_account : user_account_party_id_fkey
+  user_account ||..o{ web_session : api_sessions_user_id_fkey

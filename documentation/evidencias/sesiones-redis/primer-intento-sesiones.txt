@@ -1,0 +1,42 @@
+.......F........................................................         [100%]
+=================================== FAILURES ===================================
+_____ test_storage_upgrade_is_repeatable_preserves_secret_and_pending_rows _____
+
+web = <Flask 'src'>, p = <tests.conftest.Platform object at 0x10bcfa3f0>
+
+    def test_storage_upgrade_is_repeatable_preserves_secret_and_pending_rows(web, p):
+        from scripts.web_sessions import upgrade_local
+    
+        sid = secrets.token_urlsafe(32)
+        with (
+            web.app_context(),
+            patch.object(sessions, "call", side_effect=BusinessError("Unavailable", 503)),
+        ):
+            save_session(web, sid)
+            sessions.logout(sid)
+        expected = dict(p.env.state["web_sessions"])
+>       assert upgrade_local(p.env.directory, p.env.state) == expected
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+apps/services/tests/test_web_sessions.py:240: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+apps/services/scripts/web_sessions.py:92: in upgrade_local
+    config = provision_web_storage(
+apps/services/scripts/web_sessions.py:79: in provision_web_storage
+    private_file(path, json.dumps(config, indent=2) + "\n")
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = PosixPath('/private/tmp/red-house-ms-tests-7tgrhyko/web-storage.json')
+value = '{\n  "WEB_REDIS_URL": "redis://[REDACTED]",\n  "WEB_R...TABASE_URL": "postgresql://[REDACTED]"\n}\n'
+
+    def private_file(path, value):
+>       fd = os.open(path, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileExistsError: [Errno 17] File exists: '/private/tmp/red-house-ms-tests-7tgrhyko/web-storage.json'
+
+apps/services/scripts/local.py:40: FileExistsError
+------------------------------ Captured log call -------------------------------
+WARNING  src:sessions.py:259 remote_logout_unconfirmed status=503
+=========================== short test summary info ============================
+FAILED apps/services/tests/test_web_sessions.py::test_storage_upgrade_is_repeatable_preserves_secret_and_pending_rows
+1 failed, 63 passed in 152.80s (0:02:32)

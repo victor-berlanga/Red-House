@@ -1,0 +1,72 @@
+{
+  "captured_at": "2026-10-19T16:23:25.289258+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "bfa44d7f9eed353dec3bafc8b15f8c356f1d5755eda053077cae211dc4490657",
+  "transport": "embedded",
+  "method": "POST",
+  "route": "/internal/v1/events",
+  "objective": "Generar alertas por evento con deduplicación y destinatarios explícitos",
+  "url": "http://localhost/internal/v1/events",
+  "parameters": {},
+  "path_parameters": {},
+  "request_headers": {
+    "Host": "localhost",
+    "Content-Type": "application/json",
+    "Content-Length": "465",
+    "Accept": "application/json",
+    "X-Service": "donantes",
+    "X-Service-Time": "1792427005",
+    "X-Service-Nonce": "1ac22419-7c5a-4d28-94a5-db4d73bb9fcb",
+    "X-Service-Signature": "[REDACTED]",
+    "X-Correlation-Id": "d13bda34-e069-4aa7-a057-f18347236c11"
+  },
+  "request_body": {
+    "action": "DONOR_REVIEWED",
+    "source": "donantes",
+    "actor_id": "fa9be2a2-91fc-4871-b69f-53fecc15e1ba",
+    "event_id": "a74f90cc-b509-4831-9fc0-6fe37888b888",
+    "metadata": {
+      "status": "ELIGIBLE",
+      "recipient_user_id": null
+    },
+    "region_id": "7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb",
+    "tenant_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+    "occurred_at": "2026-10-19T16:22:09.197136+00:00",
+    "resource_id": "de7e1a18-0098-48bf-91be-796e1e2ca0de",
+    "correlation_id": "a2fe8cc3-9242-45d5-b9fa-c4e62939e66e"
+  },
+  "status": 200,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "153",
+    "X-Correlation-ID": "d13bda34-e069-4aa7-a057-f18347236c11",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "data": {
+      "stored": true,
+      "recipients": 1
+    },
+    "meta": {
+      "correlation_id": "d13bda34-e069-4aa7-a057-f18347236c11",
+      "service": "alertas",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "d13bda34-e069-4aa7-a057-f18347236c11",
+  "persistence": {
+    "effect": "committed",
+    "store": "PostgreSQL red_house",
+    "query": "SELECT event_id,fingerprint FROM inbox WHERE event_id=%s",
+    "parameters": [
+      "a74f90cc-b509-4831-9fc0-6fe37888b888"
+    ],
+    "row": {
+      "event_id": "a74f90cc-b509-4831-9fc0-6fe37888b888",
+      "fingerprint": "f46340d39bcc1ddd8288ce3bb0faa42374d7612a469a69dc380f77d3bf0c923f"
+    }
+  }
+}

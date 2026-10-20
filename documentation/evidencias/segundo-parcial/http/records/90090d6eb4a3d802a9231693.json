@@ -1,0 +1,48 @@
+{
+  "captured_at": "2026-10-19T18:30:58.526655+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "a72d90d185b760994571ed560b74d7f59cc2cca663c983d7842c7150387e7f9a",
+  "transport": "http",
+  "method": "GET",
+  "route": "/health/live",
+  "objective": "live",
+  "url": "http://127.0.0.1:60901/health/live",
+  "parameters": {},
+  "path_parameters": {},
+  "request_headers": {
+    "Host": "127.0.0.1:60901",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "text/plain",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "58328b8862024c5097a3e7d2a9cf32d7"
+  },
+  "request_body": "",
+  "status": 406,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "236",
+    "X-Correlation-ID": "d4df518d-8b41-4693-bf71-2737fdddc55f",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "error": {
+      "code": "not_acceptable",
+      "message": "Solicita application/json o application/xml.",
+      "details": []
+    },
+    "meta": {
+      "correlation_id": "d4df518d-8b41-4693-bf71-2737fdddc55f",
+      "service": "priorizacion_geografia",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "d4df518d-8b41-4693-bf71-2737fdddc55f",
+  "persistence": {
+    "effect": "controlled_error",
+    "note": "No se infiere ausencia de efectos de un error; revisar correlación y estado de operación."
+  }
+}

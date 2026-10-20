@@ -1,0 +1,68 @@
+{
+  "captured_at": "2026-10-19T16:28:35.270312+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "1a8dccae105e0c261a0273a99f999923c88cbf235f750f80f0ac2f487c8b6654",
+  "transport": "http",
+  "method": "GET",
+  "route": "/api/v1/donations/<identifier>",
+  "objective": "Donación y pasos de procesamiento institucionales",
+  "url": "http://127.0.0.1:56259/api/v1/donations/01fe4e48-64e5-464e-8d8c-516ca8702915",
+  "parameters": {},
+  "path_parameters": {
+    "identifier": "01fe4e48-64e5-464e-8d8c-516ca8702915"
+  },
+  "request_headers": {
+    "Host": "127.0.0.1:56259",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "24b5e17989d04418a3258d814fb0f642",
+    "Authorization": "[REDACTED]"
+  },
+  "request_body": "",
+  "status": 200,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "734",
+    "X-Correlation-ID": "0a7b7643-31f0-48a6-b072-01815b36bb97",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "data": {
+      "id": "01fe4e48-64e5-464e-8d8c-516ca8702915",
+      "donor_id": "f1519332-df58-4dc1-be03-b48006870393",
+      "tenant_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+      "kind": "BLOOD",
+      "component": "RBC",
+      "blood_group": "O-",
+      "collected_at": "2026-10-19T16:23:34.824570+00:00",
+      "status": "COLLECTED",
+      "version": 1,
+      "created_at": "2026-10-19T16:28:34.904323+00:00",
+      "decisions": [],
+      "steps": [
+        {
+          "id": "672bb5e2-9d2b-44b8-90f0-9b086121113b",
+          "state": "COLLECTED",
+          "reason": "Corrección ficticia autorizada para evidencia HTTP",
+          "actor_id": "fa9be2a2-91fc-4871-b69f-53fecc15e1ba",
+          "created_at": "2026-10-19T16:28:34.904323+00:00"
+        }
+      ]
+    },
+    "meta": {
+      "correlation_id": "0a7b7643-31f0-48a6-b072-01815b36bb97",
+      "service": "donantes",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "0a7b7643-31f0-48a6-b072-01815b36bb97",
+  "persistence": {
+    "effect": "read",
+    "note": "Consulta; accesos protegidos generan auditoría local transaccional."
+  }
+}

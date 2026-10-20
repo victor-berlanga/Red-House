@@ -1,0 +1,92 @@
+<!doctype html><html lang="es"><meta charset="utf-8"><title>inventario /internal/v1/reservations/&lt;identifier&gt;/claim</title><style>body{font:15px system-ui;margin:32px;background:#f4f5f7;color:#202631}main{max-width:1250px;margin:auto}h1{color:#8e2434;font-size:26px}small{color:#556}a{color:#8e2434}table{border-collapse:collapse;width:100%;background:white}td,th{padding:9px;border:1px solid #ccd;vertical-align:top;text-align:left}pre{white-space:pre-wrap;word-break:break-word;background:#fff;border:1px solid #ccd;padding:12px;font:12px monospace;max-height:300px;overflow:auto}section{margin:20px 0}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.tag{padding:4px 9px;background:#e5ece7}.error{background:#f8e5e6}input{padding:12px;width:70%;margin:15px 0}details{margin:12px 0}nav{margin-bottom:20px}</style><main><nav><a href="../index.html">Inventario completo</a></nav><h1>inventario · POST /internal/v1/reservations/&lt;identifier&gt;/claim</h1><p>Vincular traslado durable antes de permitir recolección</p><p>Registro de ejecución real. Credenciales y firmas redactadas. Los cuerpos completos están en el JSON enlazado.</p><section><h2>HTTP 200</h2><p><b>2026-10-19T16:26:48.663662+00:00</b> · versión 0.3.0</p><p>Correlación: e1036ea4-28c7-4721-8ec6-88db7beb489b<br>URL: http://127.0.0.1:56261/internal/v1/reservations/1e1b90e8-2d0a-425b-bc78-f2b497c2af6a/claim</p><p><a href="../records/a8a3335926442724f7342667.json">Petición, respuesta, headers y persistencia completos</a></p><div class="grid"><div><h3>Petición</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Host&quot;: &quot;127.0.0.1:56261&quot;,
+    &quot;User-Agent&quot;: &quot;python-requests/2.34.2&quot;,
+    &quot;Accept-Encoding&quot;: &quot;gzip, deflate, br&quot;,
+    &quot;Accept&quot;: &quot;application/json&quot;,
+    &quot;Connection&quot;: &quot;keep-alive&quot;,
+    &quot;Content-Type&quot;: &quot;application/json&quot;,
+    &quot;X-Service&quot;: &quot;transporte&quot;,
+    &quot;X-Service-Time&quot;: &quot;1792427208&quot;,
+    &quot;X-Service-Nonce&quot;: &quot;8f9eb3ce-f6ea-4408-a3bb-7316578bc6f0&quot;,
+    &quot;X-Service-Signature&quot;: &quot;[REDACTED]&quot;,
+    &quot;X-Correlation-Id&quot;: &quot;e1036ea4-28c7-4721-8ec6-88db7beb489b&quot;,
+    &quot;Content-Length&quot;: &quot;54&quot;
+  },
+  &quot;parameters&quot;: {},
+  &quot;body&quot;: {
+    &quot;shipment_id&quot;: &quot;859eea1a-1b77-4b08-9a53-5038495b9521&quot;
+  }
+}</pre></div><div><h3>Respuesta</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Content-Type&quot;: &quot;application/json&quot;,
+    &quot;Content-Length&quot;: &quot;885&quot;,
+    &quot;X-Correlation-ID&quot;: &quot;e1036ea4-28c7-4721-8ec6-88db7beb489b&quot;,
+    &quot;Cache-Control&quot;: &quot;no-store&quot;,
+    &quot;X-Content-Type-Options&quot;: &quot;nosniff&quot;,
+    &quot;Referrer-Policy&quot;: &quot;no-referrer&quot;
+  },
+  &quot;body&quot;: {
+    &quot;data&quot;: {
+      &quot;id&quot;: &quot;1e1b90e8-2d0a-425b-bc78-f2b497c2af6a&quot;,
+      &quot;operation_id&quot;: &quot;795429b9-bf80-46be-a8fe-de43eae6699e&quot;,
+      &quot;resource_id&quot;: &quot;32e70838-54db-4e5e-b991-5b57395cc25b&quot;,
+      &quot;request_id&quot;: &quot;17c8321c-0f0f-4a1d-8df9-50ce48be5f4a&quot;,
+      &quot;recipient_id&quot;: &quot;5ad73a0c-5225-49a2-8d9e-74722aa5d373&quot;,
+      &quot;origin_id&quot;: &quot;87255e79-2a0a-4e44-ad21-8002ccd5688d&quot;,
+      &quot;destination_id&quot;: &quot;a0920053-13c5-4d42-b53e-74b35a779f58&quot;,
+      &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+      &quot;hold_id&quot;: &quot;42ebb506-6100-446b-ac2a-2a342deb962f&quot;,
+      &quot;evaluation_id&quot;: &quot;a958a3d4-e310-461c-84f9-82709c9abf09&quot;,
+      &quot;route_id&quot;: &quot;7b1745f6-56e0-43d3-9c3d-1c35538d7aae&quot;,
+      &quot;route_version&quot;: 2,
+      &quot;status&quot;: &quot;RESERVED&quot;,
+      &quot;shipment_id&quot;: &quot;859eea1a-1b77-4b08-9a53-5038495b9521&quot;,
+      &quot;shipment_sequence&quot;: 0,
+      &quot;created_at&quot;: &quot;2026-10-19T16:26:46.880992+00:00&quot;
+    },
+    &quot;meta&quot;: {
+      &quot;correlation_id&quot;: &quot;e1036ea4-28c7-4721-8ec6-88db7beb489b&quot;,
+      &quot;service&quot;: &quot;inventario&quot;,
+      &quot;version&quot;: &quot;0.3.0&quot;
+    }
+  }
+}</pre></div></div><details><summary>Persistencia y versión de implementación</summary><pre>{
+  &quot;effect&quot;: &quot;committed&quot;,
+  &quot;store&quot;: &quot;PostgreSQL red_house&quot;,
+  &quot;query&quot;: &quot;SELECT id,status,shipment_id FROM reservations WHERE id=%s&quot;,
+  &quot;parameters&quot;: [
+    &quot;1e1b90e8-2d0a-425b-bc78-f2b497c2af6a&quot;
+  ],
+  &quot;row&quot;: {
+    &quot;id&quot;: &quot;1e1b90e8-2d0a-425b-bc78-f2b497c2af6a&quot;,
+    &quot;status&quot;: &quot;RESERVED&quot;,
+    &quot;shipment_id&quot;: &quot;859eea1a-1b77-4b08-9a53-5038495b9521&quot;
+  }
+}</pre><p>SHA-256: 6eac28b3c6355ff29f1aabe6ed2aa76b6e104ed4888482a02b3967184783afa9</p></details></section><section><h2>HTTP 401</h2><p><b>2026-10-19T16:28:18.353545+00:00</b> · versión 0.3.0</p><p>Correlación: 2bb7dc71-0879-4010-aa6d-764496f1bc7f<br>URL: http://127.0.0.1:56261/internal/v1/reservations/27e6d206-c323-4b72-9366-afb976d593a8/claim</p><p><a href="../records/5f451290cd9a876e326221ab.json">Petición, respuesta, headers y persistencia completos</a></p><div class="grid"><div><h3>Petición</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Host&quot;: &quot;127.0.0.1:56261&quot;,
+    &quot;User-Agent&quot;: &quot;python-requests/2.34.2&quot;,
+    &quot;Accept-Encoding&quot;: &quot;gzip, deflate, br&quot;,
+    &quot;Accept&quot;: &quot;application/xml&quot;,
+    &quot;Connection&quot;: &quot;keep-alive&quot;,
+    &quot;Idempotency-Key&quot;: &quot;ac5ca29de4af42bf827fe938bcc5df7e&quot;,
+    &quot;Content-Length&quot;: &quot;2&quot;,
+    &quot;Content-Type&quot;: &quot;application/json&quot;
+  },
+  &quot;parameters&quot;: {},
+  &quot;body&quot;: {}
+}</pre></div><div><h3>Respuesta</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Content-Type&quot;: &quot;application/xml; charset=utf-8&quot;,
+    &quot;Content-Length&quot;: &quot;520&quot;,
+    &quot;X-Correlation-ID&quot;: &quot;2bb7dc71-0879-4010-aa6d-764496f1bc7f&quot;,
+    &quot;Cache-Control&quot;: &quot;no-store&quot;,
+    &quot;X-Content-Type-Options&quot;: &quot;nosniff&quot;,
+    &quot;Referrer-Policy&quot;: &quot;no-referrer&quot;
+  },
+  &quot;body&quot;: &quot;&lt;response type=\&quot;object\&quot;&gt;&lt;field name=\&quot;error\&quot; type=\&quot;object\&quot;&gt;&lt;field name=\&quot;code\&quot; type=\&quot;string\&quot;&gt;unauthorized_service&lt;/field&gt;&lt;field name=\&quot;message\&quot; type=\&quot;string\&quot;&gt;Identidad de servicio inválida.&lt;/field&gt;&lt;field name=\&quot;details\&quot; type=\&quot;array\&quot;/&gt;&lt;/field&gt;&lt;field name=\&quot;meta\&quot; type=\&quot;object\&quot;&gt;&lt;field name=\&quot;correlation_id\&quot; type=\&quot;string\&quot;&gt;2bb7dc71-0879-4010-aa6d-764496f1bc7f&lt;/field&gt;&lt;field name=\&quot;service\&quot; type=\&quot;string\&quot;&gt;inventario&lt;/field&gt;&lt;field name=\&quot;version\&quot; type=\&quot;string\&quot;&gt;0.3.0&lt;/field&gt;&lt;/field&gt;&lt;/response&gt;&quot;
+}</pre></div></div><details><summary>Persistencia y versión de implementación</summary><pre>{
+  &quot;effect&quot;: &quot;controlled_error&quot;,
+  &quot;note&quot;: &quot;No se infiere ausencia de efectos de un error; revisar correlación y estado de operación.&quot;
+}</pre><p>SHA-256: 6eac28b3c6355ff29f1aabe6ed2aa76b6e104ed4888482a02b3967184783afa9</p></details></section><h2>Todas las variantes ejecutadas</h2><ul><li><a href="../records/a8a3335926442724f7342667.json">200 · http · application/json · 2026-10-19T16:26:48.663662+00:00</a></li><li><a href="../records/5f451290cd9a876e326221ab.json">401 · http · application/xml; charset=utf-8 · 2026-10-19T16:28:18.353545+00:00</a></li><li><a href="../records/0c55d880119984e18d698b01.json">401 · http · application/json · 2026-10-19T16:28:18.322186+00:00</a></li><li><a href="../records/8b7a6dbead803422568163ce.json">200 · embedded · application/json · 2026-10-19T16:22:53.948840+00:00</a></li></ul></main></html>

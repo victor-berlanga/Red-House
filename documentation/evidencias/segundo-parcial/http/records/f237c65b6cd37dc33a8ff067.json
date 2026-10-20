@@ -1,0 +1,39 @@
+{
+  "captured_at": "2026-10-19T16:28:24.975425+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "e7eb0044cb5544477c1a4b79a264977e16ddd17c216e8a88ed6d187af95af791",
+  "transport": "http",
+  "method": "GET",
+  "route": "/api/v1/files/<identifier>/download",
+  "objective": "Descargar evidencia verificada mediante acceso temporal privado",
+  "url": "http://127.0.0.1:56264/api/v1/files/f23ce8c6-521c-4061-8b5c-0b350519d22c/download",
+  "parameters": {},
+  "path_parameters": {
+    "identifier": "f23ce8c6-521c-4061-8b5c-0b350519d22c"
+  },
+  "request_headers": {
+    "Host": "127.0.0.1:56264",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/xml",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "6562fdb2422b4f2daf5e36f587bb3703"
+  },
+  "request_body": "",
+  "status": 401,
+  "response_headers": {
+    "Content-Type": "application/xml; charset=utf-8",
+    "Content-Length": "504",
+    "X-Correlation-ID": "5d0058a6-2ca0-4217-ad2a-bbcefeae74d5",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": "<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">unauthorized</field><field name=\"message\" type=\"string\">JWT de acceso requerido.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">5d0058a6-2ca0-4217-ad2a-bbcefeae74d5</field><field name=\"service\" type=\"string\">transporte</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>",
+  "correlation_id": "5d0058a6-2ca0-4217-ad2a-bbcefeae74d5",
+  "persistence": {
+    "effect": "controlled_error",
+    "note": "No se infiere ausencia de efectos de un error; revisar correlación y estado de operación."
+  }
+}

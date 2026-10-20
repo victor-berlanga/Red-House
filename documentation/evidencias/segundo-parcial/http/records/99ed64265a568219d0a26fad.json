@@ -1,0 +1,77 @@
+{
+  "captured_at": "2026-10-19T16:22:14.286427+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "6eac28b3c6355ff29f1aabe6ed2aa76b6e104ed4888482a02b3967184783afa9",
+  "transport": "http",
+  "method": "GET",
+  "route": "/internal/v1/available-resources",
+  "objective": "Fuente autoritativa de candidatos; omite caché",
+  "url": "http://127.0.0.1:56261/internal/v1/available-resources",
+  "parameters": {},
+  "path_parameters": {},
+  "request_headers": {
+    "Host": "127.0.0.1:56261",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Content-Type": "application/json",
+    "X-Service": "compatibilidad",
+    "X-Service-Time": "1792426934",
+    "X-Service-Nonce": "67555cd8-eb13-451e-be54-bc161692c2e0",
+    "X-Service-Signature": "[REDACTED]",
+    "X-Correlation-Id": "e8605323-8f95-4257-b8bc-aff6414fe9b3",
+    "Authorization": "[REDACTED]"
+  },
+  "request_body": "[Invalid JSON omitted; sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855]",
+  "status": 200,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "792",
+    "X-Correlation-ID": "e8605323-8f95-4257-b8bc-aff6414fe9b3",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "data": {
+      "items": [
+        {
+          "id": "559a7b23-5ec2-431c-860a-3a298e0f703c",
+          "folio": "UNIT-442972ad3042",
+          "tenant_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+          "region_id": "7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb",
+          "kind": "BLOOD",
+          "component": "RBC",
+          "blood_group": "O-",
+          "expires_at": "2026-10-21T16:22:11.360817+00:00",
+          "status": "AVAILABLE",
+          "version": 2
+        },
+        {
+          "id": "1c92030d-87e6-43a8-b1c6-d81623055a40",
+          "folio": "UNIT-b4f2ad6139dc",
+          "tenant_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+          "region_id": "7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb",
+          "kind": "BLOOD",
+          "component": "RBC",
+          "blood_group": "A-",
+          "expires_at": "2026-10-21T16:22:11.829681+00:00",
+          "status": "AVAILABLE",
+          "version": 2
+        }
+      ]
+    },
+    "meta": {
+      "correlation_id": "e8605323-8f95-4257-b8bc-aff6414fe9b3",
+      "service": "inventario",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "e8605323-8f95-4257-b8bc-aff6414fe9b3",
+  "persistence": {
+    "effect": "read",
+    "note": "Consulta; accesos protegidos generan auditoría local transaccional."
+  }
+}

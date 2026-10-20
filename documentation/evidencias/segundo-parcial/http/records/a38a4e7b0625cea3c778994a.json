@@ -1,0 +1,61 @@
+{
+  "captured_at": "2026-10-19T16:28:31.896340+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "b82acfc07e7ff0221196c291a52b1986e4d1ac69b3f6769bffe29f4a02fa5c9b",
+  "transport": "http",
+  "method": "GET",
+  "route": "/api/v1/catalogues/contacts/<identifier>",
+  "objective": "Detalle de contacts",
+  "url": "http://127.0.0.1:56258/api/v1/catalogues/contacts/39c33bb7-1b7d-40b4-bcbe-586e19cdeaf0",
+  "parameters": {},
+  "path_parameters": {
+    "identifier": "39c33bb7-1b7d-40b4-bcbe-586e19cdeaf0"
+  },
+  "request_headers": {
+    "Host": "127.0.0.1:56258",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "5fc9c456500c4255a7ebaf1d968e4112",
+    "Authorization": "[REDACTED]"
+  },
+  "request_body": "",
+  "status": 200,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "489",
+    "X-Correlation-ID": "70118389-8a5b-4e08-914a-34409042cdd6",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "data": {
+      "id": "39c33bb7-1b7d-40b4-bcbe-586e19cdeaf0",
+      "tenant_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+      "kind": "contacts",
+      "name": "Registro ficticio 2aded110",
+      "parent_id": null,
+      "details": {
+        "value": "contacto@example.invalid"
+      },
+      "active": true,
+      "version": 1,
+      "created_at": "2026-10-19T16:28:31.465834+00:00",
+      "value": "contacto@example.invalid",
+      "decisions": []
+    },
+    "meta": {
+      "correlation_id": "70118389-8a5b-4e08-914a-34409042cdd6",
+      "service": "identidad_acceso",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "70118389-8a5b-4e08-914a-34409042cdd6",
+  "persistence": {
+    "effect": "read",
+    "note": "Consulta; accesos protegidos generan auditoría local transaccional."
+  }
+}

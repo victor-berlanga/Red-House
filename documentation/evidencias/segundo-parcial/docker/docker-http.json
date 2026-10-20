@@ -1,0 +1,94 @@
+[
+  {
+    "captured_at": "2026-10-19T13:19:30.458675+00:00",
+    "service": "identidad_acceso",
+    "method": "POST",
+    "url": "http://127.0.0.1:6101/api/v1/auth/login",
+    "request_headers": {
+      "Accept": "application/json",
+      "Idempotency-Key": "d3193753d2e241daae9cfa235257f8ee",
+      "X-Correlation-ID": "2b057f6b-125b-469c-9356-a15782d1d157"
+    },
+    "request_body": {
+      "username": "admin1",
+      "password": "[REDACTED]"
+    },
+    "status": 200,
+    "response_headers": {
+      "Server": "nginx/1.28.3",
+      "Date": "Mon, 19 Oct 2026 13:19:30 GMT",
+      "Content-Type": "application/json",
+      "Content-Length": "1251",
+      "Connection": "keep-alive",
+      "Cache-Control": "no-store",
+      "Referrer-Policy": "no-referrer",
+      "X-Content-Type-Options": "nosniff",
+      "X-Correlation-Id": "2b057f6b-125b-469c-9356-a15782d1d157",
+      "X-Backend": "172.18.0.20:8080"
+    },
+    "response_body": {
+      "data": {
+        "access_token": "[REDACTED]",
+        "refresh_token": "[REDACTED]",
+        "token_type": "[REDACTED]",
+        "expires_in": 900,
+        "user": {
+          "id": "1be8f4d3-1d2f-4522-8d9b-dbe06a3b2146",
+          "tenant_id": "7b4c7ee3-20ef-4345-bf68-c08748c9b7f0",
+          "region_id": "cb0a1fba-dc5c-4197-bdfb-63ba06920766",
+          "username": "admin1",
+          "role": "ADMIN",
+          "active": true,
+          "version": 1
+        }
+      },
+      "meta": {
+        "correlation_id": "2b057f6b-125b-469c-9356-a15782d1d157",
+        "service": "identidad_acceso",
+        "version": "0.3.0"
+      }
+    },
+    "elapsed_ms": 4294.294
+  },
+  {
+    "captured_at": "2026-10-19T13:19:33.468732+00:00",
+    "service": "identidad_acceso",
+    "method": "POST",
+    "url": "http://127.0.0.1:6101/api/v1/auth/login",
+    "request_headers": {
+      "Accept": "application/json",
+      "Idempotency-Key": "d3106e6cd14443179fa8bc2b317d1d3c",
+      "X-Correlation-ID": "0f22c12e-c6f5-4937-8b6a-54eed63539df"
+    },
+    "request_body": {
+      "username": "operator1",
+      "password": "[REDACTED]"
+    },
+    "status": 503,
+    "response_headers": {
+      "Server": "nginx/1.28.3",
+      "Date": "Mon, 19 Oct 2026 13:19:33 GMT",
+      "Content-Type": "application/json",
+      "Content-Length": "233",
+      "Connection": "keep-alive",
+      "Cache-Control": "no-store",
+      "Referrer-Policy": "no-referrer",
+      "X-Content-Type-Options": "nosniff",
+      "X-Correlation-Id": "0f22c12e-c6f5-4937-8b6a-54eed63539df",
+      "X-Backend": "172.18.0.20:8080"
+    },
+    "response_body": {
+      "error": {
+        "code": "database_unavailable",
+        "message": "Almacenamiento temporalmente inaccesible.",
+        "details": []
+      },
+      "meta": {
+        "correlation_id": "0f22c12e-c6f5-4937-8b6a-54eed63539df",
+        "service": "identidad_acceso",
+        "version": "0.3.0"
+      }
+    },
+    "elapsed_ms": 3007.056
+  }
+]

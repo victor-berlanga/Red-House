@@ -1,0 +1,74 @@
+{
+  "captured_at": "2026-10-19T16:26:31.743924+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "1a8dccae105e0c261a0273a99f999923c88cbf235f750f80f0ac2f487c8b6654",
+  "transport": "embedded",
+  "method": "POST",
+  "route": "/api/v1/campaigns",
+  "objective": "Crear campaña y capacidad de citas",
+  "url": "http://localhost/api/v1/campaigns",
+  "parameters": {},
+  "path_parameters": {},
+  "request_headers": {
+    "Host": "localhost",
+    "Content-Type": "application/json",
+    "Content-Length": "164",
+    "Accept": "application/json",
+    "X-Correlation-Id": "2bcf07c9-0d42-415c-9088-4df7b82a126b",
+    "Authorization": "[REDACTED]",
+    "Idempotency-Key": "3f3db78f2cd34dc2af772d8c8924f2f4"
+  },
+  "request_body": {
+    "title": "Jornada solidaria ficticia fa1bc7cdebd4",
+    "starts_at": "2026-10-19T16:26:31.171263+00:00",
+    "ends_at": "2026-10-21T16:26:31.171349+00:00",
+    "capacity": 15
+  },
+  "status": 201,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "416",
+    "X-Correlation-ID": "2bcf07c9-0d42-415c-9088-4df7b82a126b",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "data": {
+      "id": "7c4b8cc0-8368-4c4f-8c14-92d7102e703d",
+      "tenant_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+      "title": "Jornada solidaria ficticia fa1bc7cdebd4",
+      "starts_at": "2026-10-19T16:26:31.171263+00:00",
+      "ends_at": "2026-10-21T16:26:31.171349+00:00",
+      "capacity": 15,
+      "status": "OPEN",
+      "version": 1
+    },
+    "meta": {
+      "correlation_id": "2bcf07c9-0d42-415c-9088-4df7b82a126b",
+      "service": "donantes",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "2bcf07c9-0d42-415c-9088-4df7b82a126b",
+  "persistence": {
+    "effect": "committed",
+    "store": "PostgreSQL red_house",
+    "query": "SELECT operation,fingerprint,result FROM idempotency WHERE user_id=:actor AND key=:idempotency_key",
+    "row": {
+      "operation": "campaign_create",
+      "fingerprint": "c9a8d3cf0ac9b0b71ac10049c3914edb8f54bcea1e177ac1dadc4b6539148ec0",
+      "result": {
+        "id": "7c4b8cc0-8368-4c4f-8c14-92d7102e703d",
+        "title": "Jornada solidaria ficticia fa1bc7cdebd4",
+        "status": "OPEN",
+        "ends_at": "2026-10-21T16:26:31.171349+00:00",
+        "version": 1,
+        "capacity": 15,
+        "starts_at": "2026-10-19T16:26:31.171263+00:00",
+        "tenant_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d"
+      }
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "captured_at": "2026-10-19T16:28:14.948926+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "ff2e7260f413ab4edb16a5555f512ec7404cdb118d66af3fc8a1e4dd2c6136b4",
+  "transport": "http",
+  "method": "POST",
+  "route": "/internal/v1/holds",
+  "objective": "Retener capacidad; serializar solicitud y receptor",
+  "url": "http://127.0.0.1:56260/internal/v1/holds",
+  "parameters": {},
+  "path_parameters": {},
+  "request_headers": {
+    "Host": "127.0.0.1:56260",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/xml",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "f0c28ddbf8d64967a038b5c2238e8f9b",
+    "Content-Length": "2",
+    "Content-Type": "application/json"
+  },
+  "request_body": {},
+  "status": 401,
+  "response_headers": {
+    "Content-Type": "application/xml; charset=utf-8",
+    "Content-Length": "520",
+    "X-Correlation-ID": "b6ec12e4-e798-44d2-9a66-13e6745d9fc8",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": "<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">unauthorized_service</field><field name=\"message\" type=\"string\">Identidad de servicio inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">b6ec12e4-e798-44d2-9a66-13e6745d9fc8</field><field name=\"service\" type=\"string\">receptores</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>",
+  "correlation_id": "b6ec12e4-e798-44d2-9a66-13e6745d9fc8",
+  "persistence": {
+    "effect": "controlled_error",
+    "note": "No se infiere ausencia de efectos de un error; revisar correlación y estado de operación."
+  }
+}

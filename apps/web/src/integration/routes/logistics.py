@@ -195,6 +195,13 @@ def shipment_detail(identifier):
         )
     actions = []
     role = g.principal.role_code
+    if role in ("TRANSPORT", "OPERATOR", "COORDINATOR"):
+        actions.append(
+            (
+                "Evidencias privadas",
+                url_for("regional.shipment_files", identifier=identifier),
+            )
+        )
     next_state = {
         "PLANNED": "PREPARED",
         "PREPARED": "COLLECTED",

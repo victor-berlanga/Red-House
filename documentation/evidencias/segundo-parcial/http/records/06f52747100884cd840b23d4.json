@@ -1,0 +1,119 @@
+{
+  "captured_at": "2026-10-19T16:22:47.070498+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "edd69e48ffcbd19733c620b1f2bcc1fcd82057a7b17a2d0eb2188ccf77d7f18f",
+  "transport": "embedded",
+  "method": "GET",
+  "route": "/api/v1/evaluations/<identifier>",
+  "objective": "Consultar evaluación, explicación y dictámenes",
+  "url": "http://localhost/api/v1/evaluations/d689ca9c-4d24-4cec-965e-93f49d4f2cdb",
+  "parameters": {},
+  "path_parameters": {
+    "identifier": "d689ca9c-4d24-4cec-965e-93f49d4f2cdb"
+  },
+  "request_headers": {
+    "Host": "localhost",
+    "Accept": "application/json",
+    "Idempotency-Key": "cecfb6c756234dea91f893f23841b66d",
+    "Authorization": "[REDACTED]"
+  },
+  "request_body": "",
+  "status": 200,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "2645",
+    "X-Correlation-ID": "1b1b918c-0c99-4def-bafe-76388d6fc7c8",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "data": {
+      "id": "d689ca9c-4d24-4cec-965e-93f49d4f2cdb",
+      "tenant_id": "a0920053-13c5-4d42-b53e-74b35a779f58",
+      "request_id": "6e221b47-5225-4015-92f2-531d6b373ef2",
+      "request_version": 1,
+      "recipient_version": 1,
+      "kind": "BLOOD",
+      "algorithm_version": "RBC-1.0",
+      "snapshot": {
+        "id": "6e221b47-5225-4015-92f2-531d6b373ef2",
+        "kind": "BLOOD",
+        "status": "OPEN",
+        "urgency": 3,
+        "version": 1,
+        "quantity": 1,
+        "component": "RBC",
+        "recipient": {
+          "id": "faf8c2f0-89d4-48c2-aa33-2c707585c068",
+          "kind": "BLOOD",
+          "status": "ACTIVE",
+          "version": 1,
+          "organ_type": null,
+          "blood_group": "O+"
+        },
+        "tenant_id": "a0920053-13c5-4d42-b53e-74b35a779f58",
+        "created_at": "2026-10-19T16:22:44.705127+00:00",
+        "missing_data": {
+          "route": 0,
+          "expired": 0,
+          "other_component": 0
+        },
+        "recipient_id": "faf8c2f0-89d4-48c2-aa33-2c707585c068",
+        "clinical_notice": "Filtro ilustrativo; no interpreta HLA, anticuerpos, tamaño ni pruebas cruzadas. Requiere dictamen médico."
+      },
+      "candidates": [
+        {
+          "route_id": "7b1745f6-56e0-43d3-9c3d-1c35538d7aae",
+          "origin_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+          "expires_at": "2026-10-21T16:22:11.360817+00:00",
+          "distance_km": 10.0,
+          "explanation": "ABO/RhD potencial para eritrocitos. Filtro ilustrativo; no interpreta HLA, anticuerpos, tamaño ni pruebas cruzadas. Requiere dictamen médico.",
+          "resource_id": "559a7b23-5ec2-431c-860a-3a298e0f703c",
+          "route_version": 2,
+          "resource_folio": "UNIT-442972ad3042",
+          "travel_minutes": 15,
+          "resource_version": 2
+        },
+        {
+          "route_id": "7b1745f6-56e0-43d3-9c3d-1c35538d7aae",
+          "origin_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+          "expires_at": "2026-10-21T16:22:17.191242+00:00",
+          "distance_km": 10.0,
+          "explanation": "ABO/RhD potencial para eritrocitos. Filtro ilustrativo; no interpreta HLA, anticuerpos, tamaño ni pruebas cruzadas. Requiere dictamen médico.",
+          "resource_id": "cf311e62-182d-4d22-8836-61352e0b8436",
+          "route_version": 2,
+          "resource_folio": "UNIT-0bc33e58c998",
+          "travel_minutes": 15,
+          "resource_version": 2
+        },
+        {
+          "route_id": "7b1745f6-56e0-43d3-9c3d-1c35538d7aae",
+          "origin_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+          "expires_at": "2026-10-21T16:22:39.586845+00:00",
+          "distance_km": 10.0,
+          "explanation": "ABO/RhD potencial para eritrocitos. Filtro ilustrativo; no interpreta HLA, anticuerpos, tamaño ni pruebas cruzadas. Requiere dictamen médico.",
+          "resource_id": "40ecb372-b846-44f1-852e-cb96ddc75e4d",
+          "route_version": 2,
+          "resource_folio": "NL-WEB-7f26430c57bd",
+          "travel_minutes": 15,
+          "resource_version": 2
+        }
+      ],
+      "elapsed_ms": 1208.539,
+      "created_at": "2026-10-19T16:22:46.667807+00:00",
+      "reviews": []
+    },
+    "meta": {
+      "correlation_id": "1b1b918c-0c99-4def-bafe-76388d6fc7c8",
+      "service": "compatibilidad",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "1b1b918c-0c99-4def-bafe-76388d6fc7c8",
+  "persistence": {
+    "effect": "read",
+    "note": "Consulta; accesos protegidos generan auditoría local transaccional."
+  }
+}

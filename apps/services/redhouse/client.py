@@ -54,14 +54,18 @@ def call(service, method, path, data=None, delegate=True):
     if delegate and has_request_context():
         headers["Authorization"] = request.headers.get("Authorization", "")
     try:
-        response = http_client().request(
-            method,
-            url.rstrip("/") + path,
-            data=body,
-            headers=headers,
-            timeout=(1, 3),
-            allow_redirects=False,
-        )
+        local_dispatch = cfg.get("LOCAL_DISPATCH")
+        if local_dispatch is not None:
+            response = local_dispatch(service, method, path, data=body, headers=headers)
+        else:
+            response = http_client().request(
+                method,
+                url.rstrip("/") + path,
+                data=body,
+                headers=headers,
+                timeout=(1, 3),
+                allow_redirects=False,
+            )
         result = response.json()
         if not isinstance(result, dict) or not isinstance(result.get("meta"), dict):
             raise ValueError()

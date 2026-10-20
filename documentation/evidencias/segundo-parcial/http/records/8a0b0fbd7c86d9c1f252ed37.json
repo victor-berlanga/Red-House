@@ -1,0 +1,77 @@
+{
+  "captured_at": "2026-10-19T16:27:53.419436+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "e7eb0044cb5544477c1a4b79a264977e16ddd17c216e8a88ed6d187af95af791",
+  "transport": "http",
+  "method": "POST",
+  "route": "/api/v1/files/<identifier>/verify",
+  "objective": "Verificar tamaño, MIME, firma de archivo y SHA-256 del objeto real",
+  "url": "http://127.0.0.1:56264/api/v1/files/71dbae37-fa9f-4f5f-99a0-f485fd7e46f6/verify",
+  "parameters": {},
+  "path_parameters": {
+    "identifier": "71dbae37-fa9f-4f5f-99a0-f485fd7e46f6"
+  },
+  "request_headers": {
+    "Host": "127.0.0.1:56264",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "X-Correlation-Id": "233a612f-d37f-42df-ba41-edcc5976d86b",
+    "Authorization": "[REDACTED]",
+    "Idempotency-Key": "e4437adaeb1c4b639c262152b819b333-verify",
+    "Content-Length": "0"
+  },
+  "request_body": "",
+  "status": 200,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "636",
+    "X-Correlation-ID": "233a612f-d37f-42df-ba41-edcc5976d86b",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "data": {
+      "id": "71dbae37-fa9f-4f5f-99a0-f485fd7e46f6",
+      "shipment_id": "b52dc499-7158-46d7-89a1-00c2f3f871c5",
+      "owner_id": "b7e21549-9533-4cc8-a5bc-3d55493b8ada",
+      "object_path": "evidence/7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb/b52dc499-7158-46d7-89a1-00c2f3f871c5/71dbae37-fa9f-4f5f-99a0-f485fd7e46f6",
+      "mime_type": "image/png",
+      "size": 74,
+      "sha256": "77845f63cbd1ecb93e10fbaff7e657044d25d59f0586905c9bdbddeb2c477309",
+      "status": "VERIFIED",
+      "generation": "1792427273203717",
+      "created_at": "2026-10-19T16:27:51.293092+00:00"
+    },
+    "meta": {
+      "correlation_id": "233a612f-d37f-42df-ba41-edcc5976d86b",
+      "service": "transporte",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "233a612f-d37f-42df-ba41-edcc5976d86b",
+  "persistence": {
+    "effect": "committed",
+    "store": "PostgreSQL red_house",
+    "query": "SELECT operation,fingerprint,result FROM idempotency WHERE user_id=:actor AND key=:idempotency_key",
+    "row": {
+      "operation": "file_verify:71dbae37-fa9f-4f5f-99a0-f485fd7e46f6",
+      "fingerprint": "482e9c7b768bc51ab46eb29122356143adf7e0e8540276919cea1d9a42fa1704",
+      "result": {
+        "id": "71dbae37-fa9f-4f5f-99a0-f485fd7e46f6",
+        "size": 74,
+        "sha256": "77845f63cbd1ecb93e10fbaff7e657044d25d59f0586905c9bdbddeb2c477309",
+        "status": "VERIFIED",
+        "owner_id": "b7e21549-9533-4cc8-a5bc-3d55493b8ada",
+        "mime_type": "image/png",
+        "created_at": "2026-10-19T16:27:51.293092+00:00",
+        "generation": "1792427273203717",
+        "object_path": "evidence/7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb/b52dc499-7158-46d7-89a1-00c2f3f871c5/71dbae37-fa9f-4f5f-99a0-f485fd7e46f6",
+        "shipment_id": "b52dc499-7158-46d7-89a1-00c2f3f871c5"
+      }
+    }
+  }
+}

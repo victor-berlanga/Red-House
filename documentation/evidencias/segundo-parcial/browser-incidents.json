@@ -1,0 +1,10 @@
+[
+  {
+    "check": "browser_file_input",
+    "expected": "Formulario de carga para un traslado abierto",
+    "obtained": "El capturador eligió un traslado ACCEPTED; la interfaz ocultó correctamente el formulario y el selector agotó 30 s.",
+    "correction": "Preparar mediante API un traslado ficticio abierto y filtrar estados cerrados en el capturador. No se modifican permisos ni reglas de la aplicación.",
+    "prior_checks": "20 páginas, siete perfiles, series Highcharts y ancho 390 aprobados.",
+    "execution_started_at": "2026-10-19T18:20:19.553Z"
+  }
+]

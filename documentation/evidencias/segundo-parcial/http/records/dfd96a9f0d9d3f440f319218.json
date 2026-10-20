@@ -1,0 +1,169 @@
+{
+  "captured_at": "2026-10-19T16:22:48.390630+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "a72d90d185b760994571ed560b74d7f59cc2cca663c983d7842c7150387e7f9a",
+  "transport": "embedded",
+  "method": "POST",
+  "route": "/api/v1/rankings",
+  "objective": "Ranking operativo explicable y versionado, no decisión clínica",
+  "url": "http://localhost/api/v1/rankings",
+  "parameters": {},
+  "path_parameters": {},
+  "request_headers": {
+    "Host": "localhost",
+    "Content-Type": "application/json",
+    "Content-Length": "57",
+    "Accept": "application/json",
+    "X-Correlation-Id": "5e063d4a-d747-4dd3-8342-960522744ef4",
+    "Authorization": "[REDACTED]",
+    "Idempotency-Key": "a66adeece22f4efea0dc9232bbef0064"
+  },
+  "request_body": {
+    "evaluation_id": "d689ca9c-4d24-4cec-965e-93f49d4f2cdb"
+  },
+  "status": 201,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "1988",
+    "X-Correlation-ID": "5e063d4a-d747-4dd3-8342-960522744ef4",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "data": {
+      "id": "429747b1-8685-41b8-bb0e-4bf5389c1e8f",
+      "tenant_id": "a0920053-13c5-4d42-b53e-74b35a779f58",
+      "evaluation_id": "d689ca9c-4d24-4cec-965e-93f49d4f2cdb",
+      "algorithm_version": "LOGISTICS-1.0",
+      "factors": {
+        "order": [
+          "expires_at",
+          "travel_minutes",
+          "distance_km",
+          "resource_id"
+        ],
+        "urgency": 3,
+        "request_created_at": "2026-10-19T16:22:44.705127+00:00"
+      },
+      "result": [
+        {
+          "rank": 1,
+          "route_id": "7b1745f6-56e0-43d3-9c3d-1c35538d7aae",
+          "origin_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+          "expires_at": "2026-10-21T16:22:11.360817+00:00",
+          "distance_km": 10.0,
+          "explanation": "Orden operativo: límite capturado, minutos, distancia e identificador estable; requiere dictamen humano.",
+          "resource_id": "559a7b23-5ec2-431c-860a-3a298e0f703c",
+          "route_version": 2,
+          "resource_folio": "UNIT-442972ad3042",
+          "travel_minutes": 15,
+          "resource_version": 2
+        },
+        {
+          "rank": 2,
+          "route_id": "7b1745f6-56e0-43d3-9c3d-1c35538d7aae",
+          "origin_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+          "expires_at": "2026-10-21T16:22:17.191242+00:00",
+          "distance_km": 10.0,
+          "explanation": "Orden operativo: límite capturado, minutos, distancia e identificador estable; requiere dictamen humano.",
+          "resource_id": "cf311e62-182d-4d22-8836-61352e0b8436",
+          "route_version": 2,
+          "resource_folio": "UNIT-0bc33e58c998",
+          "travel_minutes": 15,
+          "resource_version": 2
+        },
+        {
+          "rank": 3,
+          "route_id": "7b1745f6-56e0-43d3-9c3d-1c35538d7aae",
+          "origin_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+          "expires_at": "2026-10-21T16:22:39.586845+00:00",
+          "distance_km": 10.0,
+          "explanation": "Orden operativo: límite capturado, minutos, distancia e identificador estable; requiere dictamen humano.",
+          "resource_id": "40ecb372-b846-44f1-852e-cb96ddc75e4d",
+          "route_version": 2,
+          "resource_folio": "NL-WEB-7f26430c57bd",
+          "travel_minutes": 15,
+          "resource_version": 2
+        }
+      ],
+      "elapsed_ms": 0.052,
+      "created_at": "2026-10-19T16:22:48.343532+00:00"
+    },
+    "meta": {
+      "correlation_id": "5e063d4a-d747-4dd3-8342-960522744ef4",
+      "service": "priorizacion_geografia",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "5e063d4a-d747-4dd3-8342-960522744ef4",
+  "persistence": {
+    "effect": "committed",
+    "store": "PostgreSQL red_house",
+    "query": "SELECT operation,fingerprint,result FROM idempotency WHERE user_id=:actor AND key=:idempotency_key",
+    "row": {
+      "operation": "ranking_create",
+      "fingerprint": "f6be76002c840bf50ae61c30185e482a39a403b21588399a4835f1fea20621e5",
+      "result": {
+        "id": "429747b1-8685-41b8-bb0e-4bf5389c1e8f",
+        "result": [
+          {
+            "rank": 1,
+            "route_id": "7b1745f6-56e0-43d3-9c3d-1c35538d7aae",
+            "origin_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+            "expires_at": "2026-10-21T16:22:11.360817+00:00",
+            "distance_km": 10.0,
+            "explanation": "Orden operativo: límite capturado, minutos, distancia e identificador estable; requiere dictamen humano.",
+            "resource_id": "559a7b23-5ec2-431c-860a-3a298e0f703c",
+            "route_version": 2,
+            "resource_folio": "UNIT-442972ad3042",
+            "travel_minutes": 15,
+            "resource_version": 2
+          },
+          {
+            "rank": 2,
+            "route_id": "7b1745f6-56e0-43d3-9c3d-1c35538d7aae",
+            "origin_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+            "expires_at": "2026-10-21T16:22:17.191242+00:00",
+            "distance_km": 10.0,
+            "explanation": "Orden operativo: límite capturado, minutos, distancia e identificador estable; requiere dictamen humano.",
+            "resource_id": "cf311e62-182d-4d22-8836-61352e0b8436",
+            "route_version": 2,
+            "resource_folio": "UNIT-0bc33e58c998",
+            "travel_minutes": 15,
+            "resource_version": 2
+          },
+          {
+            "rank": 3,
+            "route_id": "7b1745f6-56e0-43d3-9c3d-1c35538d7aae",
+            "origin_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+            "expires_at": "2026-10-21T16:22:39.586845+00:00",
+            "distance_km": 10.0,
+            "explanation": "Orden operativo: límite capturado, minutos, distancia e identificador estable; requiere dictamen humano.",
+            "resource_id": "40ecb372-b846-44f1-852e-cb96ddc75e4d",
+            "route_version": 2,
+            "resource_folio": "NL-WEB-7f26430c57bd",
+            "travel_minutes": 15,
+            "resource_version": 2
+          }
+        ],
+        "factors": {
+          "order": [
+            "expires_at",
+            "travel_minutes",
+            "distance_km",
+            "resource_id"
+          ],
+          "urgency": 3,
+          "request_created_at": "2026-10-19T16:22:44.705127+00:00"
+        },
+        "tenant_id": "a0920053-13c5-4d42-b53e-74b35a779f58",
+        "created_at": "2026-10-19T16:22:48.343532+00:00",
+        "elapsed_ms": 0.052,
+        "evaluation_id": "d689ca9c-4d24-4cec-965e-93f49d4f2cdb",
+        "algorithm_version": "LOGISTICS-1.0"
+      }
+    }
+  }
+}

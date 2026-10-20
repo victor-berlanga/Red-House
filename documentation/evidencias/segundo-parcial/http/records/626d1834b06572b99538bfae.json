@@ -1,0 +1,118 @@
+{
+  "captured_at": "2026-10-19T16:28:39.664285+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "a72d90d185b760994571ed560b74d7f59cc2cca663c983d7842c7150387e7f9a",
+  "transport": "http",
+  "method": "GET",
+  "route": "/api/v1/rankings/<identifier>",
+  "objective": "Factores, explicación y resultados del ranking",
+  "url": "http://127.0.0.1:56263/api/v1/rankings/f7cf52ae-f14b-4016-b225-907ec29f9ae9",
+  "parameters": {},
+  "path_parameters": {
+    "identifier": "f7cf52ae-f14b-4016-b225-907ec29f9ae9"
+  },
+  "request_headers": {
+    "Host": "127.0.0.1:56263",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "b0b0db6d4b384a40ba967bcc692a99eb",
+    "Authorization": "[REDACTED]"
+  },
+  "request_body": "",
+  "status": 200,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "2458",
+    "X-Correlation-ID": "aad8eb3c-bd76-4625-b33d-bd7a0f25b83b",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "data": {
+      "id": "f7cf52ae-f14b-4016-b225-907ec29f9ae9",
+      "tenant_id": "a0920053-13c5-4d42-b53e-74b35a779f58",
+      "evaluation_id": "276b84f1-a9f3-4cc5-9bc4-d3e397dfbbcd",
+      "algorithm_version": "LOGISTICS-1.0",
+      "factors": {
+        "order": [
+          "expires_at",
+          "travel_minutes",
+          "distance_km",
+          "resource_id"
+        ],
+        "urgency": 2,
+        "request_created_at": "2026-10-19T16:28:36.860453+00:00"
+      },
+      "result": [
+        {
+          "rank": 1,
+          "route_id": "7b1745f6-56e0-43d3-9c3d-1c35538d7aae",
+          "origin_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+          "expires_at": "2026-10-21T16:22:11.360817+00:00",
+          "distance_km": 10.0,
+          "explanation": "Orden operativo: límite capturado, minutos, distancia e identificador estable; requiere dictamen humano.",
+          "resource_id": "559a7b23-5ec2-431c-860a-3a298e0f703c",
+          "route_version": 2,
+          "resource_folio": "UNIT-442972ad3042",
+          "travel_minutes": 15,
+          "resource_version": 2
+        },
+        {
+          "rank": 2,
+          "route_id": "7b1745f6-56e0-43d3-9c3d-1c35538d7aae",
+          "origin_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+          "expires_at": "2026-10-21T16:22:11.829681+00:00",
+          "distance_km": 10.0,
+          "explanation": "Orden operativo: límite capturado, minutos, distancia e identificador estable; requiere dictamen humano.",
+          "resource_id": "1c92030d-87e6-43a8-b1c6-d81623055a40",
+          "route_version": 2,
+          "resource_folio": "UNIT-b4f2ad6139dc",
+          "travel_minutes": 15,
+          "resource_version": 2
+        },
+        {
+          "rank": 3,
+          "route_id": "7b1745f6-56e0-43d3-9c3d-1c35538d7aae",
+          "origin_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+          "expires_at": "2026-10-21T16:22:17.191242+00:00",
+          "distance_km": 10.0,
+          "explanation": "Orden operativo: límite capturado, minutos, distancia e identificador estable; requiere dictamen humano.",
+          "resource_id": "cf311e62-182d-4d22-8836-61352e0b8436",
+          "route_version": 2,
+          "resource_folio": "UNIT-0bc33e58c998",
+          "travel_minutes": 15,
+          "resource_version": 2
+        },
+        {
+          "rank": 4,
+          "route_id": "7b1745f6-56e0-43d3-9c3d-1c35538d7aae",
+          "origin_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+          "expires_at": "2026-10-21T16:28:37.346038+00:00",
+          "distance_km": 10.0,
+          "explanation": "Orden operativo: límite capturado, minutos, distancia e identificador estable; requiere dictamen humano.",
+          "resource_id": "7ff4f730-038e-40e3-906e-4863d2fea007",
+          "route_version": 2,
+          "resource_folio": "UNIT-1ce0b6824ecc",
+          "travel_minutes": 15,
+          "resource_version": 2
+        }
+      ],
+      "elapsed_ms": 0.044,
+      "created_at": "2026-10-19T16:28:39.364091+00:00"
+    },
+    "meta": {
+      "correlation_id": "aad8eb3c-bd76-4625-b33d-bd7a0f25b83b",
+      "service": "priorizacion_geografia",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "aad8eb3c-bd76-4625-b33d-bd7a0f25b83b",
+  "persistence": {
+    "effect": "read",
+    "note": "Consulta; accesos protegidos generan auditoría local transaccional."
+  }
+}

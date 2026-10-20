@@ -1,0 +1,105 @@
+<!doctype html><html lang="es"><meta charset="utf-8"><title>alertas /api/v1/alerts/&lt;identifier&gt;/acknowledge</title><style>body{font:15px system-ui;margin:32px;background:#f4f5f7;color:#202631}main{max-width:1250px;margin:auto}h1{color:#8e2434;font-size:26px}small{color:#556}a{color:#8e2434}table{border-collapse:collapse;width:100%;background:white}td,th{padding:9px;border:1px solid #ccd;vertical-align:top;text-align:left}pre{white-space:pre-wrap;word-break:break-word;background:#fff;border:1px solid #ccd;padding:12px;font:12px monospace;max-height:300px;overflow:auto}section{margin:20px 0}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.tag{padding:4px 9px;background:#e5ece7}.error{background:#f8e5e6}input{padding:12px;width:70%;margin:15px 0}details{margin:12px 0}nav{margin-bottom:20px}</style><main><nav><a href="../index.html">Inventario completo</a></nav><h1>alertas · POST /api/v1/alerts/&lt;identifier&gt;/acknowledge</h1><p>Acusar recibo sin modificar el hecho de origen</p><p>Registro de ejecución real. Credenciales y firmas redactadas. Los cuerpos completos están en el JSON enlazado.</p><section><h2>HTTP 200</h2><p><b>2026-10-19T16:35:41.709634+00:00</b> · versión 0.3.0</p><p>Correlación: 6a47cbc5-05c7-44da-84ac-9058e0f7d092<br>URL: http://127.0.0.1:56266/api/v1/alerts/2f587bbd-6608-407c-b217-638993069344/acknowledge</p><p><a href="../records/7e8b7f9f34b16c1f51a02423.json">Petición, respuesta, headers y persistencia completos</a></p><div class="grid"><div><h3>Petición</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Host&quot;: &quot;127.0.0.1:56266&quot;,
+    &quot;User-Agent&quot;: &quot;python-requests/2.34.2&quot;,
+    &quot;Accept-Encoding&quot;: &quot;gzip, deflate, br&quot;,
+    &quot;Accept&quot;: &quot;application/json&quot;,
+    &quot;Connection&quot;: &quot;keep-alive&quot;,
+    &quot;X-Correlation-Id&quot;: &quot;6a47cbc5-05c7-44da-84ac-9058e0f7d092&quot;,
+    &quot;Authorization&quot;: &quot;[REDACTED]&quot;,
+    &quot;Idempotency-Key&quot;: &quot;d40ac96db37f46cba57f586de396637c&quot;,
+    &quot;Content-Type&quot;: &quot;application/json&quot;,
+    &quot;Content-Length&quot;: &quot;2&quot;
+  },
+  &quot;parameters&quot;: {},
+  &quot;body&quot;: {}
+}</pre></div><div><h3>Respuesta</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Content-Type&quot;: &quot;application/json&quot;,
+    &quot;Content-Length&quot;: &quot;602&quot;,
+    &quot;X-Correlation-ID&quot;: &quot;6a47cbc5-05c7-44da-84ac-9058e0f7d092&quot;,
+    &quot;Cache-Control&quot;: &quot;no-store&quot;,
+    &quot;X-Content-Type-Options&quot;: &quot;nosniff&quot;,
+    &quot;Referrer-Policy&quot;: &quot;no-referrer&quot;
+  },
+  &quot;body&quot;: {
+    &quot;data&quot;: {
+      &quot;id&quot;: &quot;2f587bbd-6608-407c-b217-638993069344&quot;,
+      &quot;event_id&quot;: &quot;370a6fcc-00ca-481b-9ba1-972693e28bd5&quot;,
+      &quot;tenant_id&quot;: &quot;87255e79-2a0a-4e44-ad21-8002ccd5688d&quot;,
+      &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+      &quot;target_role&quot;: &quot;OPERATOR&quot;,
+      &quot;target_user_id&quot;: null,
+      &quot;message_code&quot;: &quot;RESOURCE_RESERVED&quot;,
+      &quot;resource_id&quot;: &quot;c740fd63-1ff2-42bc-936e-00b3efca46dc&quot;,
+      &quot;status&quot;: &quot;ACKNOWLEDGED&quot;,
+      &quot;acknowledged_by&quot;: &quot;b7e21549-9533-4cc8-a5bc-3d55493b8ada&quot;,
+      &quot;created_at&quot;: &quot;2026-10-19T16:35:16.012782+00:00&quot;
+    },
+    &quot;meta&quot;: {
+      &quot;correlation_id&quot;: &quot;6a47cbc5-05c7-44da-84ac-9058e0f7d092&quot;,
+      &quot;service&quot;: &quot;alertas&quot;,
+      &quot;version&quot;: &quot;0.3.0&quot;
+    }
+  }
+}</pre></div></div><details><summary>Persistencia y versión de implementación</summary><pre>{
+  &quot;effect&quot;: &quot;committed&quot;,
+  &quot;store&quot;: &quot;PostgreSQL red_house&quot;,
+  &quot;query&quot;: &quot;SELECT operation,fingerprint,result FROM idempotency WHERE user_id=:actor AND key=:idempotency_key&quot;,
+  &quot;row&quot;: {
+    &quot;operation&quot;: &quot;alert_ack:2f587bbd-6608-407c-b217-638993069344&quot;,
+    &quot;fingerprint&quot;: &quot;0acad36d35447d6d27050bb540008412d7c502ed8d7bbc0a2765ba5c8166f398&quot;,
+    &quot;result&quot;: {
+      &quot;id&quot;: &quot;2f587bbd-6608-407c-b217-638993069344&quot;,
+      &quot;status&quot;: &quot;ACKNOWLEDGED&quot;,
+      &quot;event_id&quot;: &quot;370a6fcc-00ca-481b-9ba1-972693e28bd5&quot;,
+      &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+      &quot;tenant_id&quot;: &quot;87255e79-2a0a-4e44-ad21-8002ccd5688d&quot;,
+      &quot;created_at&quot;: &quot;2026-10-19T16:35:16.012782+00:00&quot;,
+      &quot;resource_id&quot;: &quot;c740fd63-1ff2-42bc-936e-00b3efca46dc&quot;,
+      &quot;target_role&quot;: &quot;OPERATOR&quot;,
+      &quot;message_code&quot;: &quot;RESOURCE_RESERVED&quot;,
+      &quot;target_user_id&quot;: null,
+      &quot;acknowledged_by&quot;: &quot;b7e21549-9533-4cc8-a5bc-3d55493b8ada&quot;
+    }
+  }
+}</pre><p>SHA-256: bfa44d7f9eed353dec3bafc8b15f8c356f1d5755eda053077cae211dc4490657</p></details></section><section><h2>HTTP 403</h2><p><b>2026-10-19T16:35:41.093260+00:00</b> · versión 0.3.0</p><p>Correlación: c9ff7a58-c2a8-442b-8004-5148b583a7c3<br>URL: http://127.0.0.1:56266/api/v1/alerts/2f587bbd-6608-407c-b217-638993069344/acknowledge</p><p><a href="../records/d0fa6d6a76c1446a7be711d2.json">Petición, respuesta, headers y persistencia completos</a></p><div class="grid"><div><h3>Petición</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Host&quot;: &quot;127.0.0.1:56266&quot;,
+    &quot;User-Agent&quot;: &quot;python-requests/2.34.2&quot;,
+    &quot;Accept-Encoding&quot;: &quot;gzip, deflate, br&quot;,
+    &quot;Accept&quot;: &quot;application/json&quot;,
+    &quot;Connection&quot;: &quot;keep-alive&quot;,
+    &quot;X-Correlation-Id&quot;: &quot;c9ff7a58-c2a8-442b-8004-5148b583a7c3&quot;,
+    &quot;Authorization&quot;: &quot;[REDACTED]&quot;,
+    &quot;Idempotency-Key&quot;: &quot;3ed64c824cb94a85864e4fbe1e8005bd&quot;,
+    &quot;Content-Type&quot;: &quot;application/json&quot;,
+    &quot;Content-Length&quot;: &quot;2&quot;
+  },
+  &quot;parameters&quot;: {},
+  &quot;body&quot;: {}
+}</pre></div><div><h3>Respuesta</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Content-Type&quot;: &quot;application/json&quot;,
+    &quot;Content-Length&quot;: &quot;200&quot;,
+    &quot;X-Correlation-ID&quot;: &quot;c9ff7a58-c2a8-442b-8004-5148b583a7c3&quot;,
+    &quot;Cache-Control&quot;: &quot;no-store&quot;,
+    &quot;X-Content-Type-Options&quot;: &quot;nosniff&quot;,
+    &quot;Referrer-Policy&quot;: &quot;no-referrer&quot;
+  },
+  &quot;body&quot;: {
+    &quot;error&quot;: {
+      &quot;code&quot;: &quot;forbidden&quot;,
+      &quot;message&quot;: &quot;Alerta de otro destinatario.&quot;,
+      &quot;details&quot;: []
+    },
+    &quot;meta&quot;: {
+      &quot;correlation_id&quot;: &quot;c9ff7a58-c2a8-442b-8004-5148b583a7c3&quot;,
+      &quot;service&quot;: &quot;alertas&quot;,
+      &quot;version&quot;: &quot;0.3.0&quot;
+    }
+  }
+}</pre></div></div><details><summary>Persistencia y versión de implementación</summary><pre>{
+  &quot;effect&quot;: &quot;controlled_error&quot;,
+  &quot;note&quot;: &quot;No se infiere ausencia de efectos de un error; revisar correlación y estado de operación.&quot;
+}</pre><p>SHA-256: bfa44d7f9eed353dec3bafc8b15f8c356f1d5755eda053077cae211dc4490657</p></details></section><h2>Todas las variantes ejecutadas</h2><ul><li><a href="../records/d0fa6d6a76c1446a7be711d2.json">403 · http · application/json · 2026-10-19T16:35:41.093260+00:00</a></li><li><a href="../records/1ee05c4f869793d012ddad5b.json">401 · http · application/xml; charset=utf-8 · 2026-10-19T16:28:28.010907+00:00</a></li><li><a href="../records/f7daa5416a9042198f10a243.json">401 · http · application/json · 2026-10-19T16:28:27.982650+00:00</a></li><li><a href="../records/7e8b7f9f34b16c1f51a02423.json">200 · http · application/json · 2026-10-19T16:35:41.709634+00:00</a></li></ul></main></html>

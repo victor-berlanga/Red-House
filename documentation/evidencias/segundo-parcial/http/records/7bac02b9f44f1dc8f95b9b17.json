@@ -1,0 +1,76 @@
+{
+  "captured_at": "2026-10-19T16:22:49.779036+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "ff2e7260f413ab4edb16a5555f512ec7404cdb118d66af3fc8a1e4dd2c6136b4",
+  "transport": "embedded",
+  "method": "POST",
+  "route": "/internal/v1/holds",
+  "objective": "Retener capacidad; serializar solicitud y receptor",
+  "url": "http://localhost/internal/v1/holds",
+  "parameters": {},
+  "path_parameters": {},
+  "request_headers": {
+    "Host": "localhost",
+    "Content-Type": "application/json",
+    "Content-Length": "202",
+    "Accept": "application/json",
+    "X-Service": "inventario",
+    "X-Service-Time": "1792426969",
+    "X-Service-Nonce": "1a292412-b55f-479a-bc5f-2ecf3e2543cf",
+    "X-Service-Signature": "[REDACTED]",
+    "X-Correlation-Id": "86821baa-df50-4ec8-b788-87e600e6ee03",
+    "Authorization": "[REDACTED]"
+  },
+  "request_body": {
+    "operation_id": "73f80114-0036-4db3-bcce-f4e105a01587",
+    "request_id": "6e221b47-5225-4015-92f2-531d6b373ef2",
+    "resource_id": "40ecb372-b846-44f1-852e-cb96ddc75e4d",
+    "request_version": 1,
+    "recipient_version": 1
+  },
+  "status": 200,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "550",
+    "X-Correlation-ID": "86821baa-df50-4ec8-b788-87e600e6ee03",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "data": {
+      "id": "1e44cb71-3b21-4e2a-a8fa-3f3794bde272",
+      "request_id": "6e221b47-5225-4015-92f2-531d6b373ef2",
+      "recipient_id": "faf8c2f0-89d4-48c2-aa33-2c707585c068",
+      "operation_id": "73f80114-0036-4db3-bcce-f4e105a01587",
+      "resource_id": "40ecb372-b846-44f1-852e-cb96ddc75e4d",
+      "kind": "BLOOD",
+      "request_version": 1,
+      "region_id": "7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb",
+      "status": "HELD",
+      "created_at": "2026-10-19T16:22:49.678291+00:00"
+    },
+    "meta": {
+      "correlation_id": "86821baa-df50-4ec8-b788-87e600e6ee03",
+      "service": "receptores",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "86821baa-df50-4ec8-b788-87e600e6ee03",
+  "persistence": {
+    "effect": "committed",
+    "store": "PostgreSQL red_house",
+    "query": "SELECT id,operation_id,request_id,resource_id,status FROM holds WHERE id=%s",
+    "parameters": [
+      "1e44cb71-3b21-4e2a-a8fa-3f3794bde272"
+    ],
+    "row": {
+      "id": "1e44cb71-3b21-4e2a-a8fa-3f3794bde272",
+      "operation_id": "73f80114-0036-4db3-bcce-f4e105a01587",
+      "request_id": "6e221b47-5225-4015-92f2-531d6b373ef2",
+      "resource_id": "40ecb372-b846-44f1-852e-cb96ddc75e4d",
+      "status": "HELD"
+    }
+  }
+}

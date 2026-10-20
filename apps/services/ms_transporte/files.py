@@ -1,6 +1,5 @@
 """Contratos, autorización y persistencia de evidencias de traslados."""
 
-import hashlib
 from typing import Annotated, Literal
 from uuid import uuid4
 from flask import g
@@ -11,6 +10,7 @@ from redhouse.errors import APIError
 from redhouse.events import emit
 from redhouse.models import Model
 from redhouse.storage import bucket, signed_url
+from redhouse.file_validation import inspect_content
 
 
 class Upload(Model):
@@ -69,6 +69,10 @@ def register_files(app, access):
                 target.blob(row["object_path"]), "PUT", row["mime_type"]
             ),
             "expires_in": 300,
+            "upload_headers": {
+                "Content-Type": row["mime_type"],
+                "x-goog-if-generation-match": "0",
+            },
         }
 
     @endpoint(
@@ -83,32 +87,36 @@ def register_files(app, access):
             row = get(conn, "files", identifier)
             shipment = get(conn, "shipments", str(row["shipment_id"]))
             access(shipment)
+            if row["status"] == "VERIFIED":
+                return row
         target = bucket()
         try:
             blob = target.blob(row["object_path"])
-            blob.reload()
+            blob.reload(timeout=8, retry=None)
             if blob.size != row["size"] or blob.content_type != row["mime_type"]:
                 raise APIError(
                     "file_validation",
                     "Tamaño o tipo de archivo diferente al declarado.",
                     422,
                 )
-            content = blob.download_as_bytes(if_generation_match=blob.generation)
-            magic = {
-                "image/jpeg": b"\xff\xd8\xff",
-                "image/png": b"\x89PNG\r\n\x1a\n",
-                "application/pdf": b"%PDF-",
-            }[row["mime_type"]]
-            if (
-                not content.startswith(magic)
-                or hashlib.sha256(content).hexdigest() != row["sha256"]
-            ):
-                raise APIError(
-                    "file_validation", "Contenido o hash de archivo inválido.", 422
-                )
-        except APIError:
+            content = blob.download_as_bytes(
+                if_generation_match=blob.generation, timeout=8, retry=None
+            )
+            inspect_content(content, row["mime_type"], row["sha256"])
+        except APIError as exc:
+            file_failure(identifier, shipment, "REJECTED", exc.code)
             raise
-        except Exception:
+        except Exception as exc:
+            from google.api_core.exceptions import NotFound
+
+            if isinstance(exc, NotFound):
+                file_failure(identifier, shipment, "MISSING", "object_missing")
+                raise APIError(
+                    "object_missing",
+                    "El objeto aún no existe en el almacenamiento privado.",
+                    404,
+                ) from None
+            file_failure(identifier, shipment, "ERROR", "storage_unavailable")
             raise APIError(
                 "storage_unavailable", "No se pudo verificar el objeto.", 503
             ) from None
@@ -144,3 +152,31 @@ def register_files(app, access):
                 raise APIError("conflict", "Archivo pendiente de verificación.", 409)
         blob = bucket().blob(row["object_path"], generation=int(row["generation"]))
         return {"download_url": signed_url(blob, "GET"), "expires_in": 300}
+
+    @endpoint(
+        app,
+        "/api/v1/shipments/<identifier>/files",
+        roles=("TRANSPORT", "OPERATOR", "COORDINATOR"),
+        paginated=True,
+        summary="Evidencias del traslado y estado persistente de validación",
+    )
+    def file_list(identifier):
+        from redhouse.api import listing
+
+        with transaction() as conn:
+            access(get(conn, "shipments", identifier))
+            return listing(conn, "files", "shipment_id=%s", (identifier,))
+
+
+def file_failure(identifier, shipment, state, code):
+    with transaction() as conn:
+        row = get(conn, "files", identifier, True)
+        if row["status"] != "VERIFIED":
+            update(conn, "files", identifier, {"status": state})
+            emit(
+                conn,
+                "FILE_" + state,
+                identifier,
+                shipment["origin_id"],
+                metadata={"code": code},
+            )

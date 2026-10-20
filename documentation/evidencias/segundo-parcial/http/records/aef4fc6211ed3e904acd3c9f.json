@@ -1,0 +1,82 @@
+{
+  "captured_at": "2026-10-19T16:28:35.374376+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "1a8dccae105e0c261a0273a99f999923c88cbf235f750f80f0ac2f487c8b6654",
+  "transport": "http",
+  "method": "PATCH",
+  "route": "/api/v1/donations/<identifier>",
+  "objective": "Corregir fecha antes de procesamiento, conservando motivo",
+  "url": "http://127.0.0.1:56259/api/v1/donations/01fe4e48-64e5-464e-8d8c-516ca8702915",
+  "parameters": {},
+  "path_parameters": {
+    "identifier": "01fe4e48-64e5-464e-8d8c-516ca8702915"
+  },
+  "request_headers": {
+    "Host": "127.0.0.1:56259",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "76210d14bcec4111960848393f713e61",
+    "Authorization": "[REDACTED]",
+    "Content-Length": "163",
+    "Content-Type": "application/json"
+  },
+  "request_body": {
+    "human_confirmation": true,
+    "reason": "Corrección ficticia autorizada para evidencia HTTP",
+    "collected_at": "2026-10-19T16:24:35.277187+00:00",
+    "version": 1
+  },
+  "status": 200,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "469",
+    "X-Correlation-ID": "9b7d46f3-21f1-4a4a-b46a-c9e46ac9f6b9",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "data": {
+      "id": "01fe4e48-64e5-464e-8d8c-516ca8702915",
+      "donor_id": "f1519332-df58-4dc1-be03-b48006870393",
+      "tenant_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+      "kind": "BLOOD",
+      "component": "RBC",
+      "blood_group": "O-",
+      "collected_at": "2026-10-19T16:24:35.277187+00:00",
+      "status": "COLLECTED",
+      "version": 2,
+      "created_at": "2026-10-19T16:28:34.904323+00:00"
+    },
+    "meta": {
+      "correlation_id": "9b7d46f3-21f1-4a4a-b46a-c9e46ac9f6b9",
+      "service": "donantes",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "9b7d46f3-21f1-4a4a-b46a-c9e46ac9f6b9",
+  "persistence": {
+    "effect": "committed",
+    "store": "PostgreSQL red_house",
+    "query": "SELECT operation,fingerprint,result FROM idempotency WHERE user_id=:actor AND key=:idempotency_key",
+    "row": {
+      "operation": "donation_edit:01fe4e48-64e5-464e-8d8c-516ca8702915",
+      "fingerprint": "946d37704d8e5684dca5e42d6d1e4dd6468e812aee3cd121399f0875300c3848",
+      "result": {
+        "id": "01fe4e48-64e5-464e-8d8c-516ca8702915",
+        "kind": "BLOOD",
+        "status": "COLLECTED",
+        "version": 2,
+        "donor_id": "f1519332-df58-4dc1-be03-b48006870393",
+        "component": "RBC",
+        "tenant_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+        "created_at": "2026-10-19T16:28:34.904323+00:00",
+        "blood_group": "O-",
+        "collected_at": "2026-10-19T16:24:35.277187+00:00"
+      }
+    }
+  }
+}

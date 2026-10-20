@@ -1,0 +1,94 @@
+{
+  "captured_at": "2026-10-19T16:28:33.295132+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "b82acfc07e7ff0221196c291a52b1986e4d1ac69b3f6769bffe29f4a02fa5c9b",
+  "transport": "http",
+  "method": "PATCH",
+  "route": "/api/v1/catalogues/capacities/<identifier>",
+  "objective": "Editar o desactivar capacities",
+  "url": "http://127.0.0.1:56258/api/v1/catalogues/capacities/4212b4f5-f83b-414b-9a6f-317eb71f5e08",
+  "parameters": {},
+  "path_parameters": {
+    "identifier": "4212b4f5-f83b-414b-9a6f-317eb71f5e08"
+  },
+  "request_headers": {
+    "Host": "127.0.0.1:56258",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "ab29e02a7635469495d7d19e4dcb547e",
+    "Authorization": "[REDACTED]",
+    "Content-Length": "253",
+    "Content-Type": "application/json"
+  },
+  "request_body": {
+    "name": "Registro ficticio fed3b179",
+    "parent_id": "e94a4fda-d0f3-4fe4-86f5-749cc71a6d3a",
+    "component": "RBC",
+    "quantity": 5,
+    "human_confirmation": true,
+    "reason": "Corrección ficticia autorizada para evidencia HTTP",
+    "active": true,
+    "version": 1
+  },
+  "status": 200,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "504",
+    "X-Correlation-ID": "71547f88-8f3b-4ef7-859b-eb983118bb07",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "data": {
+      "id": "4212b4f5-f83b-414b-9a6f-317eb71f5e08",
+      "tenant_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+      "kind": "capacities",
+      "name": "Registro ficticio fed3b179",
+      "parent_id": "e94a4fda-d0f3-4fe4-86f5-749cc71a6d3a",
+      "details": {
+        "quantity": 5,
+        "component": "RBC"
+      },
+      "active": true,
+      "version": 2,
+      "created_at": "2026-10-19T16:28:32.972029+00:00",
+      "quantity": 5,
+      "component": "RBC"
+    },
+    "meta": {
+      "correlation_id": "71547f88-8f3b-4ef7-859b-eb983118bb07",
+      "service": "identidad_acceso",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "71547f88-8f3b-4ef7-859b-eb983118bb07",
+  "persistence": {
+    "effect": "committed",
+    "store": "PostgreSQL red_house",
+    "query": "SELECT operation,fingerprint,result FROM idempotency WHERE user_id=:actor AND key=:idempotency_key",
+    "row": {
+      "operation": "capacities_edit:4212b4f5-f83b-414b-9a6f-317eb71f5e08",
+      "fingerprint": "d7c028e07596e5e7949e6b66487fe6a52f7eb59fe4eddba335e5d1eb9dfe58a1",
+      "result": {
+        "id": "4212b4f5-f83b-414b-9a6f-317eb71f5e08",
+        "kind": "capacities",
+        "name": "Registro ficticio fed3b179",
+        "active": true,
+        "details": {
+          "quantity": 5,
+          "component": "RBC"
+        },
+        "version": 2,
+        "quantity": 5,
+        "component": "RBC",
+        "parent_id": "e94a4fda-d0f3-4fe4-86f5-749cc71a6d3a",
+        "tenant_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+        "created_at": "2026-10-19T16:28:32.972029+00:00"
+      }
+    }
+  }
+}

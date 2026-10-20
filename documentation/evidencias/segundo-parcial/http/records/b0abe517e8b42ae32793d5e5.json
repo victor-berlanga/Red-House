@@ -1,0 +1,44 @@
+{
+  "captured_at": "2026-10-19T18:30:58.264020+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "6eac28b3c6355ff29f1aabe6ed2aa76b6e104ed4888482a02b3967184783afa9",
+  "transport": "http",
+  "method": "GET",
+  "route": "/health/database",
+  "objective": "health_database",
+  "url": "http://127.0.0.1:60899/health/database",
+  "parameters": {},
+  "path_parameters": {},
+  "request_headers": {
+    "Host": "127.0.0.1:60899",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "df5dcbfe1d2943f3a38b9d9145b28abd"
+  },
+  "request_body": "",
+  "status": 200,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "93",
+    "X-Correlation-ID": "f3b439d6-15bf-423b-9d4b-b9fa4fa82364",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "data": {
+      "state": "up"
+    },
+    "meta": {
+      "correlation_id": "f3b439d6-15bf-423b-9d4b-b9fa4fa82364"
+    }
+  },
+  "correlation_id": "f3b439d6-15bf-423b-9d4b-b9fa4fa82364",
+  "persistence": {
+    "effect": "read",
+    "note": "Consulta; accesos protegidos generan auditoría local transaccional."
+  }
+}

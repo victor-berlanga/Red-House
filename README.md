@@ -2,9 +2,11 @@
 
 Red regional de bancos de sangre y donación de órganos · Proyecto 6 · Equipo 01.
 
-Portal Flask/Jinja2 conectado por HTTP a diez microservicios y Monitoreo. PostgreSQL mantiene una base persistente compartida (`red_house`), con permisos por servicio; Redis mantiene sesiones y caché; MongoDB conserva documentos y proyecciones. Los datos locales son ficticios. Las reglas de compatibilidad requieren revisión humana y no sustituyen decisiones clínicas.
+Portal Flask/Jinja2 con backend modular autónomo y diez microservicios más Monitoreo. El modo HTTP sigue disponible mediante configuración explícita. PostgreSQL mantiene una base persistente compartida (`red_house`), con permisos por servicio; Redis mantiene sesiones y caché; MongoDB conserva documentos y proyecciones. Los datos locales son ficticios. Las reglas de compatibilidad requieren revisión humana y no sustituyen decisiones clínicas.
 
-## Instalación y ejecución
+El sistema desplegado está disponible en **https://34.18.186.116**. Todo se ejecuta en GCP; no requiere iniciar nada localmente. [Guía de acceso y administración](deployment/gcp/README.md).
+
+## Instalación y ejecución local opcional
 
 ```bash
 bash install.sh                 # Preparar dependencias y un entorno persistente
@@ -18,10 +20,12 @@ En Windows, los pares `.bat` ejecutan estos comandos mediante WSL/Ubuntu; no son
 
 [Requisitos, configuración y recuperación](documentation/markdowns/Instalacion_y_operacion.md).
 
+La VM conserva una copia independiente de los datos del Docker de demostración. El entorno local quedó detenido; sus archivos y respaldos se conservan.
+
 ## Organización
 
 ```text
-apps/web/                  Portal actual; consume las API
+apps/web/                  Portal con backend modular o cliente HTTP
 apps/services/             Microservicios, migraciones, contratos y pruebas
 scripts/                   Gestión conjunta del entorno
 data/database/            Esquema SQL compartido y referencias del origen
@@ -41,6 +45,12 @@ stuff/presentacion/        Apuntes generados para exposición
 - [Microservicios y contratos](apps/services/README.md).
 - [Portal web](apps/web/README.md).
 
-El backend web monolítico anterior se retiró del código ejecutable. Sus guías de operación y resultados están identificados en el historial; el análisis y la planificación del semestre permanecen en las carpetas documentales por formato; su código permanece recuperable mediante Git. Android, escritorio, Docker y despliegue en GCP siguen pendientes.
+El backend web monolítico anterior se retiró del código ejecutable. Sus guías de operación y resultados están identificados en el historial; el análisis y la planificación del semestre permanecen en las carpetas documentales por formato; su código permanece recuperable mediante Git. Android y escritorio quedan fuera del segundo parcial. Docker, GCS privado y la VM GCE con acceso público por IP y HTTPS están implementados; operación productiva y redundancia siguen pendientes.
 
 La [base compartida basada en main](documentation/markdowns/Esquema_compartido.md) conserva las 45 tablas heredadas y agrega 26 para los contratos actuales. Las instalaciones nuevas la utilizan directamente; los entornos anteriores deben ejecutar el migrador documentado, con respaldo y comprobación de filas, antes de iniciar esta versión.
+
+## Segundo parcial
+
+[Reporte integral](documentation/markdowns/Reporte_tecnico_segundo_parcial.md) · [Matriz de cumplimiento](documentation/markdowns/Cierre_segundo_parcial.md) · [Resultados verificables](documentation/evidencias/segundo-parcial/RESULTADOS.md) · [Docker](deployment/README.md) · [Guion de demostración](stuff/presentacion/Guion_segundo_parcial.md).
+
+El Compose usa `.local/compose`, volúmenes propios y puertos 6050/6101–6111. Mantiene dos instancias por API y workers supervisados. No monta los archivos físicos de `.local/runtime`. El portal modular mantiene sus operaciones cuando las API están detenidas, siempre que sus dependencias compartidas estén disponibles.

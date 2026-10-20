@@ -1,0 +1,48 @@
+{
+  "captured_at": "2026-10-19T18:30:58.367084+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "edd69e48ffcbd19733c620b1f2bcc1fcd82057a7b17a2d0eb2188ccf77d7f18f",
+  "transport": "http",
+  "method": "GET",
+  "route": "/health/redis",
+  "objective": "health_redis",
+  "url": "http://127.0.0.1:60900/health/redis",
+  "parameters": {},
+  "path_parameters": {},
+  "request_headers": {
+    "Host": "127.0.0.1:60900",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "text/plain",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "4ede536797ce459e99e18a62d5802d49"
+  },
+  "request_body": "",
+  "status": 406,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "228",
+    "X-Correlation-ID": "9195eba4-1e5f-4138-898b-625cbd03bc8d",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "error": {
+      "code": "not_acceptable",
+      "message": "Solicita application/json o application/xml.",
+      "details": []
+    },
+    "meta": {
+      "correlation_id": "9195eba4-1e5f-4138-898b-625cbd03bc8d",
+      "service": "compatibilidad",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "9195eba4-1e5f-4138-898b-625cbd03bc8d",
+  "persistence": {
+    "effect": "controlled_error",
+    "note": "No se infiere ausencia de efectos de un error; revisar correlación y estado de operación."
+  }
+}

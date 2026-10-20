@@ -1,0 +1,41 @@
+{
+  "captured_at": "2026-10-19T16:28:24.413945+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "e7eb0044cb5544477c1a4b79a264977e16ddd17c216e8a88ed6d187af95af791",
+  "transport": "http",
+  "method": "POST",
+  "route": "/api/v1/shipments/<identifier>/transitions",
+  "objective": "Registrar paso autorizado y evento de custodia durable",
+  "url": "http://127.0.0.1:56264/api/v1/shipments/7bb45cdb-d454-4d11-8c59-dae02c25e01b/transitions",
+  "parameters": {},
+  "path_parameters": {
+    "identifier": "7bb45cdb-d454-4d11-8c59-dae02c25e01b"
+  },
+  "request_headers": {
+    "Host": "127.0.0.1:56264",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/xml",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "af08095e36914f8b98bbc6c7c1c2c338",
+    "Content-Length": "2",
+    "Content-Type": "application/json"
+  },
+  "request_body": {},
+  "status": 401,
+  "response_headers": {
+    "Content-Type": "application/xml; charset=utf-8",
+    "Content-Length": "504",
+    "X-Correlation-ID": "9a3052b7-481e-4792-b204-25c0b444aafa",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": "<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">unauthorized</field><field name=\"message\" type=\"string\">JWT de acceso requerido.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">9a3052b7-481e-4792-b204-25c0b444aafa</field><field name=\"service\" type=\"string\">transporte</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>",
+  "correlation_id": "9a3052b7-481e-4792-b204-25c0b444aafa",
+  "persistence": {
+    "effect": "controlled_error",
+    "note": "No se infiere ausencia de efectos de un error; revisar correlación y estado de operación."
+  }
+}

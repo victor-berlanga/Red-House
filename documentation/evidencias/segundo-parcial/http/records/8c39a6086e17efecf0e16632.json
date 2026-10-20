@@ -1,0 +1,65 @@
+{
+  "captured_at": "2026-10-19T16:28:23.178286+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "e7eb0044cb5544477c1a4b79a264977e16ddd17c216e8a88ed6d187af95af791",
+  "transport": "http",
+  "method": "GET",
+  "route": "/health/ready",
+  "objective": "ready",
+  "url": "http://127.0.0.1:56264/health/ready",
+  "parameters": {},
+  "path_parameters": {},
+  "request_headers": {
+    "Host": "127.0.0.1:56264",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "6147604202a848d78730ad7c54c7234e"
+  },
+  "request_body": "",
+  "status": 200,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "356",
+    "X-Correlation-ID": "0d2b7473-0f02-4f69-88b1-d529e1522078",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "data": {
+      "state": "up",
+      "dependencies": {
+        "database": {
+          "state": "up"
+        },
+        "redis": {
+          "state": "up"
+        },
+        "mongodb": {
+          "state": "up"
+        },
+        "storage": {
+          "state": "not_configured",
+          "required": false
+        },
+        "worker": {
+          "state": "not_configured",
+          "required": false
+        }
+      },
+      "service": "transporte",
+      "version": "0.3.0"
+    },
+    "meta": {
+      "correlation_id": "0d2b7473-0f02-4f69-88b1-d529e1522078"
+    }
+  },
+  "correlation_id": "0d2b7473-0f02-4f69-88b1-d529e1522078",
+  "persistence": {
+    "effect": "read",
+    "note": "Consulta; accesos protegidos generan auditoría local transaccional."
+  }
+}

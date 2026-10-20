@@ -1,4 +1,4 @@
-"""Cliente HTTP del servidor web. Nunca importa código ni conecta a bases de los MS."""
+"""Adaptador web: backend modular propio o HTTP, elegido antes de operar."""
 
 import json
 import atexit
@@ -52,15 +52,27 @@ def call(service, path, method="GET", data=None, *, token=None, idem=None, param
         body = json.dumps(data, allow_nan=False).encode()
         headers["Content-Type"] = "application/json"
     try:
-        with http_client().request(
-            method,
-            url,
-            data=body,
-            headers=headers,
-            timeout=(1, current_app.config.get("SERVICE_TIMEOUT", 8)),
-            allow_redirects=False,
-            stream=True,
-        ) as response:
+        kernel = current_app.extensions.get("application_kernel")
+        if kernel is not None:
+            target = urlsplit(url)
+            response = kernel.request(
+                service,
+                method,
+                target.path + ("?" + target.query if target.query else ""),
+                data=body,
+                headers=headers,
+            )
+        else:
+            response = http_client().request(
+                method,
+                url,
+                data=body,
+                headers=headers,
+                timeout=(1, current_app.config.get("SERVICE_TIMEOUT", 8)),
+                allow_redirects=False,
+                stream=True,
+            )
+        with response:
             status = response.status_code
             if (
                 300 <= status < 400

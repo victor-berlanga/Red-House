@@ -1,0 +1,17 @@
+[
+  {
+    "check": "snapshot_private_paths",
+    "expected": "Excluir secretos y cachés conservando la configuración versionada",
+    "obtained": "La validación rechazó .codegraph/.gitignore, un marcador versionado sin credenciales. Se detuvo antes de instalar contenedores.",
+    "correction": "Permitir únicamente ese marcador; conservar el rechazo de .env y de contenido privado .local/.venv/.codegraph.",
+    "source_log": "/private/tmp/redhouse-clean-clone-final.log"
+  },
+  {
+    "check": "docker_image_metadata_dns",
+    "expected": "Resolver Docker Hub y construir las imágenes",
+    "obtained": "Falló lookup registry-1.docker.io: no such host al consultar metadatos de python:3.13-slim-bookworm. Secretos, arranque de almacenes y bootstrap habían pasado.",
+    "action": "Conservar resultado fallido y verificar resolución antes de repetir instalación en volúmenes nuevos.",
+    "evidence": "clean-clone-dns-failure.json",
+    "source_log": "/private/tmp/redhouse-clean-clone-repeat.log"
+  }
+]

@@ -1,0 +1,48 @@
+{
+  "captured_at": "2026-10-19T18:30:57.634585+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "b82acfc07e7ff0221196c291a52b1986e4d1ac69b3f6769bffe29f4a02fa5c9b",
+  "transport": "http",
+  "method": "GET",
+  "route": "/health/database",
+  "objective": "health_database",
+  "url": "http://127.0.0.1:60896/health/database",
+  "parameters": {},
+  "path_parameters": {},
+  "request_headers": {
+    "Host": "127.0.0.1:60896",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "text/plain",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "591a7b5e114e43f3aac7bb4f07e7d6cb"
+  },
+  "request_body": "",
+  "status": 406,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "230",
+    "X-Correlation-ID": "2f14f46a-d3ea-4e0b-8476-fdc6225d981a",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "error": {
+      "code": "not_acceptable",
+      "message": "Solicita application/json o application/xml.",
+      "details": []
+    },
+    "meta": {
+      "correlation_id": "2f14f46a-d3ea-4e0b-8476-fdc6225d981a",
+      "service": "identidad_acceso",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "2f14f46a-d3ea-4e0b-8476-fdc6225d981a",
+  "persistence": {
+    "effect": "controlled_error",
+    "note": "No se infiere ausencia de efectos de un error; revisar correlación y estado de operación."
+  }
+}

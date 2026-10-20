@@ -1,0 +1,67 @@
+<!doctype html><html lang="es"><meta charset="utf-8"><title>priorizacion_geografia /health/database</title><style>body{font:15px system-ui;margin:32px;background:#f4f5f7;color:#202631}main{max-width:1250px;margin:auto}h1{color:#8e2434;font-size:26px}small{color:#556}a{color:#8e2434}table{border-collapse:collapse;width:100%;background:white}td,th{padding:9px;border:1px solid #ccd;vertical-align:top;text-align:left}pre{white-space:pre-wrap;word-break:break-word;background:#fff;border:1px solid #ccd;padding:12px;font:12px monospace;max-height:300px;overflow:auto}section{margin:20px 0}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.tag{padding:4px 9px;background:#e5ece7}.error{background:#f8e5e6}input{padding:12px;width:70%;margin:15px 0}details{margin:12px 0}nav{margin-bottom:20px}</style><main><nav><a href="../index.html">Inventario completo</a></nav><h1>priorizacion_geografia · GET /health/database</h1><p>Infraestructura y documentación</p><p>Registro de ejecución real. Credenciales y firmas redactadas. Los cuerpos completos están en el JSON enlazado.</p><section><h2>HTTP 200</h2><p><b>2026-10-19T16:28:20.477366+00:00</b> · versión 0.3.0</p><p>Correlación: dfbd49cb-a24a-458c-b240-e4226cf0dcb9<br>URL: http://127.0.0.1:56263/health/database</p><p><a href="../records/f86c19084cdd235d426a8d62.json">Petición, respuesta, headers y persistencia completos</a></p><div class="grid"><div><h3>Petición</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Host&quot;: &quot;127.0.0.1:56263&quot;,
+    &quot;User-Agent&quot;: &quot;python-requests/2.34.2&quot;,
+    &quot;Accept-Encoding&quot;: &quot;gzip, deflate, br&quot;,
+    &quot;Accept&quot;: &quot;application/json&quot;,
+    &quot;Connection&quot;: &quot;keep-alive&quot;,
+    &quot;Idempotency-Key&quot;: &quot;4fa186f699104f47ac52663159683e80&quot;
+  },
+  &quot;parameters&quot;: {},
+  &quot;body&quot;: &quot;&quot;
+}</pre></div><div><h3>Respuesta</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Content-Type&quot;: &quot;application/json&quot;,
+    &quot;Content-Length&quot;: &quot;93&quot;,
+    &quot;X-Correlation-ID&quot;: &quot;dfbd49cb-a24a-458c-b240-e4226cf0dcb9&quot;,
+    &quot;Cache-Control&quot;: &quot;no-store&quot;,
+    &quot;X-Content-Type-Options&quot;: &quot;nosniff&quot;,
+    &quot;Referrer-Policy&quot;: &quot;no-referrer&quot;
+  },
+  &quot;body&quot;: {
+    &quot;data&quot;: {
+      &quot;state&quot;: &quot;up&quot;
+    },
+    &quot;meta&quot;: {
+      &quot;correlation_id&quot;: &quot;dfbd49cb-a24a-458c-b240-e4226cf0dcb9&quot;
+    }
+  }
+}</pre></div></div><details><summary>Persistencia y versión de implementación</summary><pre>{
+  &quot;effect&quot;: &quot;read&quot;,
+  &quot;note&quot;: &quot;Consulta; accesos protegidos generan auditoría local transaccional.&quot;
+}</pre><p>SHA-256: a72d90d185b760994571ed560b74d7f59cc2cca663c983d7842c7150387e7f9a</p></details></section><section><h2>HTTP 406</h2><p><b>2026-10-19T18:30:58.539434+00:00</b> · versión 0.3.0</p><p>Correlación: d4f9b9f8-37b4-4a9f-8256-18c45bfb16bd<br>URL: http://127.0.0.1:60901/health/database</p><p><a href="../records/ca2b1702b50462f9296c0602.json">Petición, respuesta, headers y persistencia completos</a></p><div class="grid"><div><h3>Petición</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Host&quot;: &quot;127.0.0.1:60901&quot;,
+    &quot;User-Agent&quot;: &quot;python-requests/2.34.2&quot;,
+    &quot;Accept-Encoding&quot;: &quot;gzip, deflate, br&quot;,
+    &quot;Accept&quot;: &quot;text/plain&quot;,
+    &quot;Connection&quot;: &quot;keep-alive&quot;,
+    &quot;Idempotency-Key&quot;: &quot;9d8505b4e9084ce5986f85d11ad213c5&quot;
+  },
+  &quot;parameters&quot;: {},
+  &quot;body&quot;: &quot;&quot;
+}</pre></div><div><h3>Respuesta</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Content-Type&quot;: &quot;application/json&quot;,
+    &quot;Content-Length&quot;: &quot;236&quot;,
+    &quot;X-Correlation-ID&quot;: &quot;d4f9b9f8-37b4-4a9f-8256-18c45bfb16bd&quot;,
+    &quot;Cache-Control&quot;: &quot;no-store&quot;,
+    &quot;X-Content-Type-Options&quot;: &quot;nosniff&quot;,
+    &quot;Referrer-Policy&quot;: &quot;no-referrer&quot;
+  },
+  &quot;body&quot;: {
+    &quot;error&quot;: {
+      &quot;code&quot;: &quot;not_acceptable&quot;,
+      &quot;message&quot;: &quot;Solicita application/json o application/xml.&quot;,
+      &quot;details&quot;: []
+    },
+    &quot;meta&quot;: {
+      &quot;correlation_id&quot;: &quot;d4f9b9f8-37b4-4a9f-8256-18c45bfb16bd&quot;,
+      &quot;service&quot;: &quot;priorizacion_geografia&quot;,
+      &quot;version&quot;: &quot;0.3.0&quot;
+    }
+  }
+}</pre></div></div><details><summary>Persistencia y versión de implementación</summary><pre>{
+  &quot;effect&quot;: &quot;controlled_error&quot;,
+  &quot;note&quot;: &quot;No se infiere ausencia de efectos de un error; revisar correlación y estado de operación.&quot;
+}</pre><p>SHA-256: a72d90d185b760994571ed560b74d7f59cc2cca663c983d7842c7150387e7f9a</p></details></section><h2>Todas las variantes ejecutadas</h2><ul><li><a href="../records/f86c19084cdd235d426a8d62.json">200 · http · application/json · 2026-10-19T16:28:20.477366+00:00</a></li><li><a href="../records/ca2b1702b50462f9296c0602.json">406 · http · application/json · 2026-10-19T18:30:58.539434+00:00</a></li><li><a href="../records/400a8f6181595bbc49d267ff.json">503 · http · application/json · 2026-10-19T18:30:58.568884+00:00</a></li><li><a href="../records/134a8a6526ed6d8120743f0a.json">200 · http · application/json · 2026-10-19T18:30:58.606750+00:00</a></li></ul></main></html>

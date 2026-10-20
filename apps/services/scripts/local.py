@@ -12,27 +12,21 @@ import sys
 import tempfile
 import time
 from pathlib import Path
-from urllib.parse import quote
-from uuid import uuid4
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 import psycopg
 import redis
-from cryptography.hazmat.primitives.asymmetric import ed25519, rsa
 from cryptography.hazmat.primitives.serialization import (
     Encoding,
     NoEncryption,
     PrivateFormat,
     PublicFormat,
 )
-from psycopg import sql
 from pymongo import MongoClient
-from werkzeug.security import generate_password_hash
 
-from redhouse.config import MONGO_SERVICES, SERVICES
-from redhouse.shared import service_schema
+from redhouse.config import SERVICES
 from scripts.dependencies import resolve_binary
 
 
@@ -245,235 +239,34 @@ class Environment:
         bootstrap.close()
         mongo_admin_url = f"mongodb://rh_bootstrap:{mongopassword}@127.0.0.1:{mongoport}/?authSource=admin"
         mongo = MongoClient(mongo_admin_url, serverSelectionTimeoutMS=2000)
-        prefix = "rh-" + uuid4().hex[:12] + ":"
-        jwt_private, jwt_public = pem(
-            rsa.generate_private_key(public_exponent=65537, key_size=2048)
-        )
-        service_keys = {s: pem(ed25519.Ed25519PrivateKey.generate()) for s in SERVICES}
+        from scripts.provision import provision
+
         urls = {s: f"http://127.0.0.1:{free_port()}" for s in SERVICES}
-        dbowners, runtime_dbs = {}, {}
-        dbname = "red_house"
-        with psycopg.connect(admin_url, autocommit=True) as conn:
-            conn.execute("CREATE ROLE rh_shared_owner NOLOGIN")
-            conn.execute("CREATE DATABASE red_house OWNER rh_shared_owner")
-            conn.execute("REVOKE ALL ON DATABASE red_house FROM PUBLIC")
-        owner_url = (
-            f"postgresql://rh_bootstrap:{pgpassword}@127.0.0.1:{pgport}/red_house"
+        prepared = provision(
+            self.directory,
+            admin_url=admin_url,
+            pg_host="127.0.0.1",
+            pgport=pgport,
+            redisadmin=redisadmin,
+            redis_host="127.0.0.1",
+            redisport=redisport,
+            mongo=mongo,
+            mongo_host="127.0.0.1",
+            mongoport=mongoport,
+            urls=urls,
+            schema_path=ROOT.parents[1] / "data/database/schema.sql",
+            seed=seed,
         )
-        with psycopg.connect(owner_url) as conn:
-            conn.execute("SET ROLE rh_shared_owner")
-            conn.execute((ROOT.parents[1] / "data/database/schema.sql").read_text())
-            conn.execute("REVOKE ALL ON SCHEMA public FROM PUBLIC")
-            conn.execute("REVOKE ALL ON SCHEMA red_house FROM PUBLIC")
-        for service in SERVICES:
-            username = "rh_" + service
-            password = secrets.token_urlsafe(32)
-            access = service_schema(service)
-            owner_options = quote("-csearch_path=" + access + ",pg_catalog", safe="")
-            dbowners[service] = owner_url + "?options=" + owner_options
-            with psycopg.connect(owner_url) as conn:
-                conn.execute(
-                    sql.SQL(
-                        "CREATE ROLE {} LOGIN PASSWORD {} NOSUPERUSER NOCREATEDB NOCREATEROLE"
-                    ).format(sql.Identifier(username), sql.Literal(password))
-                )
-                conn.execute(
-                    sql.SQL(
-                        "ALTER ROLE {} IN DATABASE red_house SET search_path={},pg_catalog"
-                    ).format(sql.Identifier(username), sql.Identifier(access))
-                )
-                conn.execute(
-                    sql.SQL("GRANT CONNECT ON DATABASE red_house TO {}").format(
-                        sql.Identifier(username)
-                    )
-                )
-                conn.execute(
-                    sql.SQL("REVOKE ALL ON SCHEMA {} FROM PUBLIC").format(
-                        sql.Identifier(access)
-                    )
-                )
-                conn.execute(
-                    sql.SQL("GRANT USAGE ON SCHEMA {} TO {}").format(
-                        sql.Identifier(access), sql.Identifier(username)
-                    )
-                )
-                conn.execute(
-                    sql.SQL(
-                        "GRANT SELECT,INSERT,UPDATE,DELETE ON ALL TABLES IN SCHEMA {} TO {}"
-                    ).format(sql.Identifier(access), sql.Identifier(username))
-                )
-                for table in (
-                    "activity_events",
-                    "schema_version",
-                    "inbox",
-                    "idempotency",
-                    "decisions",
-                    "donor_reviews",
-                    "donation_steps",
-                    "resource_reviews",
-                    "movements",
-                    "reviews",
-                    "evaluations",
-                    "rankings",
-                    "proposals",
-                    "transitions",
-                    "telemetry",
-                    "custody_events",
-                    "audit_events",
-                    "checks",
-                ):
-                    if conn.execute(
-                        "SELECT to_regclass(%s)", (access + "." + table,)
-                    ).fetchone()[0]:
-                        conn.execute(
-                            sql.SQL("REVOKE UPDATE,DELETE ON {}.{} FROM {}").format(
-                                sql.Identifier(access),
-                                sql.Identifier(table),
-                                sql.Identifier(username),
-                            )
-                        )
-                conn.execute(
-                    sql.SQL(
-                        "REVOKE INSERT,UPDATE,DELETE ON {}.schema_version FROM {}"
-                    ).format(sql.Identifier(access), sql.Identifier(username))
-                )
-            database_url = f"postgresql://{username}:{password}@127.0.0.1:{pgport}/red_house?options={owner_options}"
-            runtime_dbs[service] = database_url
-            redis_user, redis_pwd = service, secrets.token_urlsafe(32)
-            # ACL de lectura para sesiones/permisos; solo Identidad puede escribirlos.
-            key_rules = [
-                f"%R~{prefix}session:*",
-                f"%R~{prefix}permissions:*",
-                f"%R~{prefix}permission_version:*",
-                f"%R~{prefix}revoked:*",
-                f"~{prefix}limit:{service}:*",
-                f"~{prefix}nonce:{service}:*",
-                f"~{prefix}cache:{service}:*",
-            ]
-            if service == "identidad_acceso":
-                key_rules += [
-                    f"~{prefix}{area}:*"
-                    for area in (
-                        "session",
-                        "permissions",
-                        "permission_version",
-                        "revoked",
-                        "refresh",
-                        "used_refresh",
-                        "login_fail",
-                    )
-                ]
-            if service == "transporte":
-                key_rules.append(f"~{prefix}transporte:location:*")
-            redisadmin.execute_command(
-                "ACL",
-                "SETUSER",
-                redis_user,
-                "on",
-                ">" + redis_pwd,
-                "resetkeys",
-                "-@all",
-                *key_rules,
-                "+ping",
-                "+get",
-                "+mget",
-                "+exists",
-                "+set",
-                "+del",
-                "+incr",
-                "+expire",
-                "+ttl",
-                "+eval",
-                "+multi",
-                "+exec",
-            )
-            config = {
-                "SERVICE": service,
-                "PORT": int(urls[service].rsplit(":", 1)[1]),
-                "DATABASE_URL": database_url,
-                "WORKER_REQUIRED": True,
-                "REDIS_URL": f"redis://{redis_user}:{redis_pwd}@127.0.0.1:{redisport}/0",
-                "REDIS_PREFIX": prefix,
-                "JWT_PUBLIC_KEY": jwt_public,
-                "SERVICE_PRIVATE_KEY": service_keys[service][0],
-                "SERVICE_PUBLIC_KEYS": {s: service_keys[s][1] for s in SERVICES},
-                "SERVICE_URLS": urls,
-                "MONGODB_DATABASE": "rh_" + service,
-            }
-            if service == "identidad_acceso":
-                config["JWT_PRIVATE_KEY"] = jwt_private
-            if service in MONGO_SERVICES:
-                mongo_name = "rh_" + service
-                mongo_db = mongo[mongo_name]
-                mongo_db.create_collection("events")
-                mongo_db.events.create_index([("region_id", 1), ("source", 1)])
-                mongo_db.command(
-                    "createRole",
-                    "journal_writer",
-                    privileges=[
-                        {
-                            "resource": {"db": mongo_name, "collection": "events"},
-                            "actions": ["find", "insert"],
-                        }
-                    ],
-                    roles=[],
-                )
-                mongo_pwd = secrets.token_urlsafe(32)
-                mongo_db.command(
-                    "createUser",
-                    service,
-                    pwd=mongo_pwd,
-                    roles=[{"role": "journal_writer", "db": mongo_name}],
-                )
-                config["MONGODB_URL"] = (
-                    f"mongodb://{service}:{mongo_pwd}@127.0.0.1:{mongoport}/{mongo_name}?authSource={mongo_name}"
-                )
-            self.configs[service] = config
-            private_file(
-                self.directory / (service + ".json"), json.dumps(config, indent=2)
-            )
+        self.configs = prepared["configs"]
+        dbowners, accounts = prepared["database_owners"], prepared["accounts"]
+        password, region, tenants = (
+            prepared[k] for k in ("password", "region_id", "tenants")
+        )
         mongo.close()
         redisadmin.execute_command("ACL", "SAVE")
-        region = str(uuid4())
-        tenants = [str(uuid4()), str(uuid4())]
-        password = secrets.token_urlsafe(18)
-        accounts = {}
-        if seed:
-            with psycopg.connect(dbowners["identidad_acceso"]) as conn:
-                conn.execute("SET search_path=access_identidad_acceso,pg_catalog")
-                for index, tenant in enumerate(tenants):
-                    conn.execute(
-                        "INSERT INTO institutions(id,name,region_id) VALUES(%s,%s,%s)",
-                        (tenant, f"Hospital {index + 1}", region),
-                    )
-                    for role in (
-                        "ADMIN",
-                        "OPERATOR",
-                        "MEDICAL",
-                        "COORDINATOR",
-                        "TRANSPORT",
-                        "AUDITOR",
-                        "DONOR",
-                    ):
-                        username = role.lower() + str(index + 1)
-                        user_id = str(uuid4())
-                        conn.execute(
-                            "INSERT INTO users(id,tenant_id,username,password_hash,role) VALUES(%s,%s,%s,%s,%s)",
-                            (
-                                user_id,
-                                tenant,
-                                username,
-                                generate_password_hash(password),
-                                role,
-                            ),
-                        )
-                        accounts[username] = {
-                            "id": user_id,
-                            "tenant_id": tenant,
-                            "role": role,
-                        }
         self.state = {
             "database_layout": "shared-v6",
+            "web_sessions": prepared["web_sessions"],
             "directory": str(self.directory),
             "database_admin": admin_url,
             "database_owners": dbowners,

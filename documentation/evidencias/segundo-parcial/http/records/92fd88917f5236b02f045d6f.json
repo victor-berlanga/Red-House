@@ -1,0 +1,48 @@
+{
+  "captured_at": "2026-10-19T16:28:07.800741+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "b82acfc07e7ff0221196c291a52b1986e4d1ac69b3f6769bffe29f4a02fa5c9b",
+  "transport": "http",
+  "method": "GET",
+  "route": "/api/v1/catalogues/schedules",
+  "objective": "Consultar schedules",
+  "url": "http://127.0.0.1:56258/api/v1/catalogues/schedules",
+  "parameters": {},
+  "path_parameters": {},
+  "request_headers": {
+    "Host": "127.0.0.1:56258",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "bb9caf16c4224dea9225f8172f251b18"
+  },
+  "request_body": "",
+  "status": 401,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "208",
+    "X-Correlation-ID": "246931d9-d45e-4d98-8293-f74deb394701",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "error": {
+      "code": "unauthorized",
+      "message": "JWT de acceso requerido.",
+      "details": []
+    },
+    "meta": {
+      "correlation_id": "246931d9-d45e-4d98-8293-f74deb394701",
+      "service": "identidad_acceso",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "246931d9-d45e-4d98-8293-f74deb394701",
+  "persistence": {
+    "effect": "controlled_error",
+    "note": "No se infiere ausencia de efectos de un error; revisar correlación y estado de operación."
+  }
+}

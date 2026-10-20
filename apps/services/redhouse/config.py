@@ -28,7 +28,7 @@ def settings(service, overrides=None):
     cfg = {
         "SERVICE": service,
         "PORT": SERVICES[service],
-        "VERSION": "0.1.0",
+        "VERSION": "0.3.0",
         "DATABASE_URL": env.get(f"{service.upper()}_DATABASE_URL", ""),
         "REDIS_URL": env.get("REDIS_URL", "redis://127.0.0.1:6379/0"),
         "REDIS_PREFIX": env.get("REDIS_PREFIX", "redhouse-ms:"),

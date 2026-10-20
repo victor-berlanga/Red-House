@@ -440,6 +440,21 @@
       },
       "expires_in": {
         "type": "integer"
+      },
+      "upload_headers": {
+        "type": "object",
+        "properties": {
+          "Content-Type": {
+            "type": "string"
+          },
+          "x-goog-if-generation-match": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "Content-Type",
+          "x-goog-if-generation-match"
+        ]
       }
     },
     "required": [
@@ -621,6 +636,170 @@
     "required": [
       "total",
       "statuses"
+    ]
+  },
+  "shipment_tracking": {
+    "type": "object",
+    "properties": {
+      "shipment_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "region_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "origin_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "destination_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "transport_user_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "reservation_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "last_event_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "schema_version": {
+        "type": "integer",
+        "minimum": 1
+      },
+      "version": {
+        "type": "integer",
+        "minimum": 1
+      },
+      "last_state": {
+        "type": "string"
+      },
+      "owner": {
+        "type": "string"
+      },
+      "occurred_at": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "pending": {
+        "type": "boolean"
+      }
+    },
+    "required": [
+      "shipment_id",
+      "region_id",
+      "origin_id",
+      "destination_id",
+      "transport_user_id",
+      "reservation_id",
+      "last_event_id",
+      "schema_version",
+      "version",
+      "last_state",
+      "owner",
+      "occurred_at",
+      "pending"
+    ]
+  },
+  "shipment_statistics": {
+    "type": "object",
+    "properties": {
+      "schema_version": {
+        "type": "integer"
+      },
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "last_state": {
+              "type": "string"
+            },
+            "count": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "last_state",
+            "count"
+          ]
+        }
+      }
+    },
+    "required": [
+      "items",
+      "schema_version"
+    ]
+  },
+  "file_list": {
+    "type": "object",
+    "properties": {
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "shipment_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "owner_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "object_path": {
+              "type": "string"
+            },
+            "mime_type": {
+              "type": "string"
+            },
+            "size": {
+              "type": "integer"
+            },
+            "status": {
+              "type": "string"
+            },
+            "generation": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "created_at": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "id"
+          ]
+        }
+      },
+      "page": {
+        "type": "integer"
+      },
+      "page_size": {
+        "type": "integer"
+      },
+      "total": {
+        "type": "integer"
+      }
+    },
+    "required": [
+      "items",
+      "page",
+      "page_size",
+      "total"
     ]
   }
 }

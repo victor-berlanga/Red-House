@@ -1,0 +1,15 @@
+{
+  "first_run": {
+    "passed": 63,
+    "failed": 1,
+    "reason": "El helper de archivos privados originales impide sobrescribir una configuración existente (O_EXCL).",
+    "correction": "Reemplazo atómico privado; probar actualización repetida sin rotar credenciales.",
+    "credentials": "URLs con credenciales redactadas en el registro del intento."
+  },
+  "fixture_collection": {
+    "passed": 56,
+    "errors": 8,
+    "reason": "La limpieza de imports eliminó el fixture web importado para pytest.",
+    "correction": "Importación explícita del fixture; nueva ejecución completa."
+  }
+}

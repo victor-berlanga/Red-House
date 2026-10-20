@@ -1,0 +1,111 @@
+{
+  "captured_at": "2026-10-19T16:28:24.063108+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "e7eb0044cb5544477c1a4b79a264977e16ddd17c216e8a88ed6d187af95af791",
+  "transport": "http",
+  "method": "GET",
+  "route": "/api/v1/shipments",
+  "objective": "Traslados de la región, institución o responsable",
+  "url": "http://127.0.0.1:56264/api/v1/shipments",
+  "parameters": {},
+  "path_parameters": {},
+  "request_headers": {
+    "Host": "127.0.0.1:56264",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "cd38e26cd77a461e8711fb599980a73b",
+    "Authorization": "[REDACTED]"
+  },
+  "request_body": "",
+  "status": 200,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "2394",
+    "X-Correlation-ID": "5cff37d6-2fdb-43f6-aac6-78df2e632486",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "data": {
+      "items": [
+        {
+          "id": "b52dc499-7158-46d7-89a1-00c2f3f871c5",
+          "reservation_id": "f0ed3e75-df56-4919-ba33-f655bba63721",
+          "origin_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+          "destination_id": "a0920053-13c5-4d42-b53e-74b35a779f58",
+          "region_id": "7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb",
+          "transport_user_id": "3980f3c5-484c-4178-b03c-8d65c598ecd7",
+          "departure_at": "2026-10-19T16:28:46.493084+00:00",
+          "eta": "2026-10-19T16:57:46.493194+00:00",
+          "status": "PLANNED",
+          "version": 1,
+          "sequence": 1,
+          "inventory_pending": false,
+          "expires_at": "2026-10-21T16:27:42.097211+00:00"
+        },
+        {
+          "id": "859eea1a-1b77-4b08-9a53-5038495b9521",
+          "reservation_id": "1e1b90e8-2d0a-425b-bc78-f2b497c2af6a",
+          "origin_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+          "destination_id": "a0920053-13c5-4d42-b53e-74b35a779f58",
+          "region_id": "7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb",
+          "transport_user_id": "3980f3c5-484c-4178-b03c-8d65c598ecd7",
+          "departure_at": "2026-10-19T16:27:47.736841+00:00",
+          "eta": "2026-10-19T16:56:47.736928+00:00",
+          "status": "COLLECTED",
+          "version": 3,
+          "sequence": 3,
+          "inventory_pending": false,
+          "expires_at": "2026-10-21T16:26:43.322896+00:00"
+        },
+        {
+          "id": "129b0941-1526-492a-9dbf-5d45b002cfdc",
+          "reservation_id": "7b93adbf-beeb-4a6d-af41-85ce5a1a590f",
+          "origin_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+          "destination_id": "a0920053-13c5-4d42-b53e-74b35a779f58",
+          "region_id": "7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb",
+          "transport_user_id": "3980f3c5-484c-4178-b03c-8d65c598ecd7",
+          "departure_at": "2026-10-19T16:26:18.633856+00:00",
+          "eta": "2026-10-19T17:05:18.633932+00:00",
+          "status": "ACCEPTED",
+          "version": 6,
+          "sequence": 6,
+          "inventory_pending": false,
+          "expires_at": "2026-10-21T16:25:06.907186+00:00"
+        },
+        {
+          "id": "ea3e5e8c-ee3a-4cea-894b-b2f88714458a",
+          "reservation_id": "1fa376a0-38fe-4e22-9f96-0dc4640d9d64",
+          "origin_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+          "destination_id": "a0920053-13c5-4d42-b53e-74b35a779f58",
+          "region_id": "7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb",
+          "transport_user_id": "3980f3c5-484c-4178-b03c-8d65c598ecd7",
+          "departure_at": "2026-10-19T16:23:51.339169+00:00",
+          "eta": "2026-10-19T17:02:51.339325+00:00",
+          "status": "ACCEPTED",
+          "version": 6,
+          "sequence": 6,
+          "inventory_pending": false,
+          "expires_at": "2026-10-21T16:22:39.586845+00:00"
+        }
+      ],
+      "page": 1,
+      "page_size": 20,
+      "total": 4
+    },
+    "meta": {
+      "correlation_id": "5cff37d6-2fdb-43f6-aac6-78df2e632486",
+      "service": "transporte",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "5cff37d6-2fdb-43f6-aac6-78df2e632486",
+  "persistence": {
+    "effect": "read",
+    "note": "Consulta; accesos protegidos generan auditoría local transaccional."
+  }
+}

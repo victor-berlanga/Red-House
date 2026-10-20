@@ -1,0 +1,57 @@
+{
+  "captured_at": "2026-10-19T16:22:53.298695+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "b82acfc07e7ff0221196c291a52b1986e4d1ac69b3f6769bffe29f4a02fa5c9b",
+  "transport": "embedded",
+  "method": "GET",
+  "route": "/internal/v1/users/<identifier>",
+  "objective": "Validar personal de traslado",
+  "url": "http://localhost/internal/v1/users/3980f3c5-484c-4178-b03c-8d65c598ecd7",
+  "parameters": {},
+  "path_parameters": {
+    "identifier": "3980f3c5-484c-4178-b03c-8d65c598ecd7"
+  },
+  "request_headers": {
+    "Host": "localhost",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+    "X-Service": "transporte",
+    "X-Service-Time": "1792426972",
+    "X-Service-Nonce": "8e36fa33-00f0-42c5-8079-5d0f91d3341b",
+    "X-Service-Signature": "[REDACTED]",
+    "X-Correlation-Id": "4932744c-6d82-4528-89f2-e2a1acea9115",
+    "Authorization": "[REDACTED]"
+  },
+  "request_body": "[Invalid JSON omitted; sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855]",
+  "status": 200,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "358",
+    "X-Correlation-ID": "4932744c-6d82-4528-89f2-e2a1acea9115",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "data": {
+      "id": "3980f3c5-484c-4178-b03c-8d65c598ecd7",
+      "tenant_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+      "region_id": "7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb",
+      "username": "transport1",
+      "role": "TRANSPORT",
+      "active": true,
+      "version": 1
+    },
+    "meta": {
+      "correlation_id": "4932744c-6d82-4528-89f2-e2a1acea9115",
+      "service": "identidad_acceso",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "4932744c-6d82-4528-89f2-e2a1acea9115",
+  "persistence": {
+    "effect": "read",
+    "note": "Consulta; accesos protegidos generan auditoría local transaccional."
+  }
+}

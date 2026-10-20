@@ -1,0 +1,70 @@
+{
+  "captured_at": "2026-10-19T16:26:32.048820+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "1a8dccae105e0c261a0273a99f999923c88cbf235f750f80f0ac2f487c8b6654",
+  "transport": "embedded",
+  "method": "GET",
+  "route": "/api/v1/campaigns",
+  "objective": "Campañas institucionales vigentes",
+  "url": "http://localhost/api/v1/campaigns?page_size=100",
+  "parameters": {
+    "page_size": "100"
+  },
+  "path_parameters": {},
+  "request_headers": {
+    "Host": "localhost",
+    "Accept": "application/json",
+    "Idempotency-Key": "c9db70e7942c440ca7ee6166e96d0ad8",
+    "Authorization": "[REDACTED]"
+  },
+  "request_body": "",
+  "status": 200,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "735",
+    "X-Correlation-ID": "c05d2740-b837-43c5-8c9c-d0bff3d2944f",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "data": {
+      "items": [
+        {
+          "id": "7c4b8cc0-8368-4c4f-8c14-92d7102e703d",
+          "tenant_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+          "title": "Jornada solidaria ficticia fa1bc7cdebd4",
+          "starts_at": "2026-10-19T16:26:31.171263+00:00",
+          "ends_at": "2026-10-21T16:26:31.171349+00:00",
+          "capacity": 15,
+          "status": "OPEN",
+          "version": 1
+        },
+        {
+          "id": "77b06cb9-c543-44b7-9861-3946fb628bf8",
+          "tenant_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+          "title": "Cupo uno",
+          "starts_at": "2026-10-19T16:27:10.909940+00:00",
+          "ends_at": "2026-10-20T16:22:10.910007+00:00",
+          "capacity": 1,
+          "status": "OPEN",
+          "version": 1
+        }
+      ],
+      "page": 1,
+      "page_size": 100,
+      "total": 2
+    },
+    "meta": {
+      "correlation_id": "c05d2740-b837-43c5-8c9c-d0bff3d2944f",
+      "service": "donantes",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "c05d2740-b837-43c5-8c9c-d0bff3d2944f",
+  "persistence": {
+    "effect": "read",
+    "note": "Consulta; accesos protegidos generan auditoría local transaccional."
+  }
+}

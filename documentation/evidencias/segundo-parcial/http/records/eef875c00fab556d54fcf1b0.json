@@ -1,0 +1,44 @@
+{
+  "captured_at": "2026-10-19T18:30:58.494040+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "edd69e48ffcbd19733c620b1f2bcc1fcd82057a7b17a2d0eb2188ccf77d7f18f",
+  "transport": "http",
+  "method": "GET",
+  "route": "/health/redis",
+  "objective": "health_redis",
+  "url": "http://127.0.0.1:60900/health/redis",
+  "parameters": {},
+  "path_parameters": {},
+  "request_headers": {
+    "Host": "127.0.0.1:60900",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "d50783a527a748da977623932b9e11a3"
+  },
+  "request_body": "",
+  "status": 200,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "93",
+    "X-Correlation-ID": "b1f22ee5-4f8f-4497-84cc-eaf7a752d241",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "data": {
+      "state": "up"
+    },
+    "meta": {
+      "correlation_id": "b1f22ee5-4f8f-4497-84cc-eaf7a752d241"
+    }
+  },
+  "correlation_id": "b1f22ee5-4f8f-4497-84cc-eaf7a752d241",
+  "persistence": {
+    "effect": "read",
+    "note": "Consulta; accesos protegidos generan auditoría local transaccional."
+  }
+}

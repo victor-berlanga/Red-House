@@ -1,20 +1,14 @@
 """Contratos y aislamiento sin iniciar bases ni servicios de red."""
 
 import importlib
-import json
 import os
-import secrets
 import subprocess
 import sys
-import time
 from pathlib import Path
-from concurrent.futures import ThreadPoolExecutor
-from threading import Event
 from unittest.mock import patch
 from uuid import uuid4
 
 import pytest
-from flask import Flask
 from redhouse.config import SERVICES
 from redhouse.xml_response import validate_response
 from redhouse.examples import response_xml
@@ -22,87 +16,6 @@ from scripts.package_service import package
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT.parent / "web"))
-from src.integration import sessions
-from src.access import BusinessError
-
-
-def app_for_sessions(tmp_path):
-    app = Flask(__name__)
-    app.config.update(
-        SECRET_KEY=secrets.token_hex(32),
-        WEB_SESSION_STORE=str(tmp_path / "sessions.sqlite3"),
-    )
-    return app
-
-
-def save_session(app, sid):
-    with app.app_context(), sessions.database() as conn:
-        sessions.save(
-            conn,
-            sid,
-            {
-                "access_token": "old-access",
-                "refresh_token": "private-refresh",
-                "expires_at": time.time() + 900,
-                "session_expires": time.time() + 86400,
-            },
-        )
-
-
-def test_logout_failure_clears_credentials_and_queues_encrypted_revocation(tmp_path):
-    app = app_for_sessions(tmp_path)
-    sid = secrets.token_urlsafe(32)
-    save_session(app, sid)
-    with (
-        app.app_context(),
-        patch.object(sessions, "call", side_effect=BusinessError("Unavailable", 503)),
-    ):
-        assert sessions.logout(sid) is False
-        assert sessions.load(sid) is None
-        with sessions.database() as conn:
-            payload = conn.execute("SELECT payload FROM revocations").fetchone()[0]
-            assert b"private-refresh" not in payload and b"old-access" not in payload
-    with (
-        app.app_context(),
-        patch.object(sessions, "call", return_value={"revoked": True}),
-    ):
-        assert sessions.retry_revocations() == 1
-        assert sessions.load(sid) is None
-
-
-def test_network_renewal_does_not_lock_other_sessions(tmp_path):
-    app = app_for_sessions(tmp_path)
-    first, second = secrets.token_urlsafe(32), secrets.token_urlsafe(32)
-    save_session(app, first)
-    waiting, finish = Event(), Event()
-
-    def remote(*args, **kwargs):
-        waiting.set()
-        assert finish.wait(5)
-        return {
-            "access_token": "new-access",
-            "refresh_token": "new-refresh",
-            "expires_in": 900,
-        }
-
-    def renew():
-        with app.app_context():
-            return sessions.renew(first)
-
-    with (
-        patch.object(sessions, "call", side_effect=remote),
-        ThreadPoolExecutor(max_workers=2) as pool,
-    ):
-        pending = pool.submit(renew)
-        assert waiting.wait(3)
-        try:
-            independent = pool.submit(save_session, app, second)
-            independent.result(timeout=2)
-        finally:
-            finish.set()
-        pending.result(timeout=5)
-    with app.app_context():
-        assert sessions.load(first)["access_token"] == "new-access"
 
 
 def test_xml_response_rejects_invalid_types_duplicates_and_missing_fields():

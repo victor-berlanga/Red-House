@@ -1,0 +1,62 @@
+{
+  "captured_at": "2026-10-19T16:43:01.815682+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "b82acfc07e7ff0221196c291a52b1986e4d1ac69b3f6769bffe29f4a02fa5c9b",
+  "transport": "http",
+  "method": "POST",
+  "route": "/api/v1/auth/logout",
+  "objective": "Cerrar sesión y revocar familia",
+  "url": "http://127.0.0.1:56258/api/v1/auth/logout",
+  "parameters": {},
+  "path_parameters": {},
+  "request_headers": {
+    "Host": "127.0.0.1:56258",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "cdfd6b2ef39b46dda94504ba84607971",
+    "Authorization": "[REDACTED]",
+    "Content-Length": "0"
+  },
+  "request_body": "",
+  "status": 200,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "146",
+    "X-Correlation-ID": "84ef8d4d-e482-493b-9145-4931797c58e2",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "data": {
+      "revoked": true
+    },
+    "meta": {
+      "correlation_id": "84ef8d4d-e482-493b-9145-4931797c58e2",
+      "service": "identidad_acceso",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "84ef8d4d-e482-493b-9145-4931797c58e2",
+  "persistence": {
+    "effect": "committed",
+    "store": "PostgreSQL red_house",
+    "query": "SELECT id,user_id,expires_at,revoked_at FROM sessions WHERE id=%s",
+    "parameters": [
+      "f6702848-9c40-49cc-a4ce-707e7635bc52"
+    ],
+    "row": {
+      "id": "f6702848-9c40-49cc-a4ce-707e7635bc52",
+      "user_id": "a5898ca7-9e7b-47c9-9f64-9c5cebf413f5",
+      "expires_at": "2026-10-20 16:43:00.902451+00:00",
+      "revoked_at": "2026-10-19 16:43:01.709925+00:00"
+    },
+    "redis": {
+      "session_exists": false,
+      "session_ttl": -2
+    }
+  }
+}

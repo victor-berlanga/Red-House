@@ -1,0 +1,106 @@
+<!doctype html><html lang="es"><meta charset="utf-8"><title>inventario /api/v1/availability</title><style>body{font:15px system-ui;margin:32px;background:#f4f5f7;color:#202631}main{max-width:1250px;margin:auto}h1{color:#8e2434;font-size:26px}small{color:#556}a{color:#8e2434}table{border-collapse:collapse;width:100%;background:white}td,th{padding:9px;border:1px solid #ccd;vertical-align:top;text-align:left}pre{white-space:pre-wrap;word-break:break-word;background:#fff;border:1px solid #ccd;padding:12px;font:12px monospace;max-height:300px;overflow:auto}section{margin:20px 0}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.tag{padding:4px 9px;background:#e5ece7}.error{background:#f8e5e6}input{padding:12px;width:70%;margin:15px 0}details{margin:12px 0}nav{margin-bottom:20px}</style><main><nav><a href="../index.html">Inventario completo</a></nav><h1>inventario · GET /api/v1/availability</h1><p>Disponibilidad regional minimizada con caché autorizada</p><p>Registro de ejecución real. Credenciales y firmas redactadas. Los cuerpos completos están en el JSON enlazado.</p><section><h2>HTTP 200</h2><p><b>2026-10-19T16:28:17.511529+00:00</b> · versión 0.3.0</p><p>Correlación: 6aca3757-face-423c-8385-978f433abe48<br>URL: http://127.0.0.1:56261/api/v1/availability</p><p><a href="../records/e1a8713b29a6132da6525bd9.json">Petición, respuesta, headers y persistencia completos</a></p><div class="grid"><div><h3>Petición</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Host&quot;: &quot;127.0.0.1:56261&quot;,
+    &quot;User-Agent&quot;: &quot;python-requests/2.34.2&quot;,
+    &quot;Accept-Encoding&quot;: &quot;gzip, deflate, br&quot;,
+    &quot;Accept&quot;: &quot;application/json&quot;,
+    &quot;Connection&quot;: &quot;keep-alive&quot;,
+    &quot;Idempotency-Key&quot;: &quot;ce3feb49c7c144098217ab52b313a6b3&quot;,
+    &quot;Authorization&quot;: &quot;[REDACTED]&quot;
+  },
+  &quot;parameters&quot;: {},
+  &quot;body&quot;: &quot;&quot;
+}</pre></div><div><h3>Respuesta</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Content-Type&quot;: &quot;application/json&quot;,
+    &quot;Content-Length&quot;: &quot;985&quot;,
+    &quot;X-Correlation-ID&quot;: &quot;6aca3757-face-423c-8385-978f433abe48&quot;,
+    &quot;Cache-Control&quot;: &quot;no-store&quot;,
+    &quot;X-Content-Type-Options&quot;: &quot;nosniff&quot;,
+    &quot;Referrer-Policy&quot;: &quot;no-referrer&quot;,
+    &quot;X-Cache&quot;: &quot;MISS&quot;
+  },
+  &quot;body&quot;: {
+    &quot;data&quot;: {
+      &quot;items&quot;: [
+        {
+          &quot;id&quot;: &quot;559a7b23-5ec2-431c-860a-3a298e0f703c&quot;,
+          &quot;tenant_id&quot;: &quot;87255e79-2a0a-4e44-ad21-8002ccd5688d&quot;,
+          &quot;kind&quot;: &quot;BLOOD&quot;,
+          &quot;component&quot;: &quot;RBC&quot;,
+          &quot;blood_group&quot;: &quot;O-&quot;,
+          &quot;expires_at&quot;: &quot;2026-10-21T16:22:11.360817+00:00&quot;,
+          &quot;status&quot;: &quot;AVAILABLE&quot;,
+          &quot;version&quot;: 2
+        },
+        {
+          &quot;id&quot;: &quot;1c92030d-87e6-43a8-b1c6-d81623055a40&quot;,
+          &quot;tenant_id&quot;: &quot;87255e79-2a0a-4e44-ad21-8002ccd5688d&quot;,
+          &quot;kind&quot;: &quot;BLOOD&quot;,
+          &quot;component&quot;: &quot;RBC&quot;,
+          &quot;blood_group&quot;: &quot;A-&quot;,
+          &quot;expires_at&quot;: &quot;2026-10-21T16:22:11.829681+00:00&quot;,
+          &quot;status&quot;: &quot;AVAILABLE&quot;,
+          &quot;version&quot;: 2
+        },
+        {
+          &quot;id&quot;: &quot;cf311e62-182d-4d22-8836-61352e0b8436&quot;,
+          &quot;tenant_id&quot;: &quot;87255e79-2a0a-4e44-ad21-8002ccd5688d&quot;,
+          &quot;kind&quot;: &quot;BLOOD&quot;,
+          &quot;component&quot;: &quot;RBC&quot;,
+          &quot;blood_group&quot;: &quot;O-&quot;,
+          &quot;expires_at&quot;: &quot;2026-10-21T16:22:17.191242+00:00&quot;,
+          &quot;status&quot;: &quot;AVAILABLE&quot;,
+          &quot;version&quot;: 2
+        }
+      ],
+      &quot;page&quot;: 1,
+      &quot;page_size&quot;: 20,
+      &quot;total&quot;: 3,
+      &quot;notice&quot;: &quot;Disponibilidad orientativa; la reserva revalida PostgreSQL.&quot;
+    },
+    &quot;meta&quot;: {
+      &quot;correlation_id&quot;: &quot;6aca3757-face-423c-8385-978f433abe48&quot;,
+      &quot;service&quot;: &quot;inventario&quot;,
+      &quot;version&quot;: &quot;0.3.0&quot;
+    }
+  }
+}</pre></div></div><details><summary>Persistencia y versión de implementación</summary><pre>{
+  &quot;effect&quot;: &quot;read&quot;,
+  &quot;note&quot;: &quot;Consulta; accesos protegidos generan auditoría local transaccional.&quot;
+}</pre><p>SHA-256: 6eac28b3c6355ff29f1aabe6ed2aa76b6e104ed4888482a02b3967184783afa9</p></details></section><section><h2>HTTP 401</h2><p><b>2026-10-19T16:28:17.098866+00:00</b> · versión 0.3.0</p><p>Correlación: 592fa9d8-8da5-445e-9623-2aacb4e6d95d<br>URL: http://127.0.0.1:56261/api/v1/availability</p><p><a href="../records/fed9b8a7904f185cce8f4bc2.json">Petición, respuesta, headers y persistencia completos</a></p><div class="grid"><div><h3>Petición</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Host&quot;: &quot;127.0.0.1:56261&quot;,
+    &quot;User-Agent&quot;: &quot;python-requests/2.34.2&quot;,
+    &quot;Accept-Encoding&quot;: &quot;gzip, deflate, br&quot;,
+    &quot;Accept&quot;: &quot;application/json&quot;,
+    &quot;Connection&quot;: &quot;keep-alive&quot;,
+    &quot;Idempotency-Key&quot;: &quot;3e41124b0e0140fd960339fbb16b6398&quot;
+  },
+  &quot;parameters&quot;: {},
+  &quot;body&quot;: &quot;&quot;
+}</pre></div><div><h3>Respuesta</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Content-Type&quot;: &quot;application/json&quot;,
+    &quot;Content-Length&quot;: &quot;202&quot;,
+    &quot;X-Correlation-ID&quot;: &quot;592fa9d8-8da5-445e-9623-2aacb4e6d95d&quot;,
+    &quot;Cache-Control&quot;: &quot;no-store&quot;,
+    &quot;X-Content-Type-Options&quot;: &quot;nosniff&quot;,
+    &quot;Referrer-Policy&quot;: &quot;no-referrer&quot;
+  },
+  &quot;body&quot;: {
+    &quot;error&quot;: {
+      &quot;code&quot;: &quot;unauthorized&quot;,
+      &quot;message&quot;: &quot;JWT de acceso requerido.&quot;,
+      &quot;details&quot;: []
+    },
+    &quot;meta&quot;: {
+      &quot;correlation_id&quot;: &quot;592fa9d8-8da5-445e-9623-2aacb4e6d95d&quot;,
+      &quot;service&quot;: &quot;inventario&quot;,
+      &quot;version&quot;: &quot;0.3.0&quot;
+    }
+  }
+}</pre></div></div><details><summary>Persistencia y versión de implementación</summary><pre>{
+  &quot;effect&quot;: &quot;controlled_error&quot;,
+  &quot;note&quot;: &quot;No se infiere ausencia de efectos de un error; revisar correlación y estado de operación.&quot;
+}</pre><p>SHA-256: 6eac28b3c6355ff29f1aabe6ed2aa76b6e104ed4888482a02b3967184783afa9</p></details></section><h2>Todas las variantes ejecutadas</h2><ul><li><a href="../records/fed9b8a7904f185cce8f4bc2.json">401 · http · application/json · 2026-10-19T16:28:17.098866+00:00</a></li><li><a href="../records/38065c811f3d50880ea3a2ad.json">401 · http · application/xml; charset=utf-8 · 2026-10-19T16:28:17.143375+00:00</a></li><li><a href="../records/e1a8713b29a6132da6525bd9.json">200 · http · application/json · 2026-10-19T16:28:17.511529+00:00</a></li></ul></main></html>

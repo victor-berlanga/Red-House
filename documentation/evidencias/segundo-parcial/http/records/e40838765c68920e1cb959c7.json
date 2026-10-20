@@ -1,0 +1,2588 @@
+{
+  "captured_at": "2026-10-19T16:40:35.291711+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "f1a9056ec92eb7006810957e59fb326815b25003ea30d5ed1de2439e7ed8f42a",
+  "transport": "wsgi",
+  "method": "GET",
+  "route": "/openapi.json",
+  "objective": "openapi",
+  "url": "http://localhost/openapi.json",
+  "parameters": {},
+  "path_parameters": {},
+  "request_headers": {
+    "User-Agent": "Werkzeug/3.1.9",
+    "Host": "localhost"
+  },
+  "request_body": "",
+  "status": 200,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "64965",
+    "X-Correlation-ID": "9240824e-562c-4372-b339-1845366eaf5b",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "components": {
+      "schemas": {
+        "Error": {
+          "properties": {
+            "error": {
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "details": {
+                  "items": {
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "code",
+                "message",
+                "details"
+              ],
+              "type": "object"
+            },
+            "meta": {
+              "properties": {
+                "correlation_id": {
+                  "format": "uuid",
+                  "type": "string"
+                },
+                "service": {
+                  "type": "string"
+                },
+                "version": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "correlation_id",
+                "service",
+                "version"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "error",
+            "meta"
+          ],
+          "type": "object"
+        },
+        "Event": {
+          "additionalProperties": false,
+          "properties": {
+            "action": {
+              "maxLength": 200,
+              "minLength": 1,
+              "title": "Action",
+              "type": "string"
+            },
+            "actor_id": {
+              "anyOf": [
+                {
+                  "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Actor Id"
+            },
+            "correlation_id": {
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+              "title": "Correlation Id",
+              "type": "string"
+            },
+            "event_id": {
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+              "title": "Event Id",
+              "type": "string"
+            },
+            "metadata": {
+              "additionalProperties": true,
+              "title": "Metadata",
+              "type": "object"
+            },
+            "occurred_at": {
+              "maxLength": 200,
+              "minLength": 1,
+              "title": "Occurred At",
+              "type": "string"
+            },
+            "region_id": {
+              "anyOf": [
+                {
+                  "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Region Id"
+            },
+            "resource_id": {
+              "maxLength": 200,
+              "minLength": 1,
+              "title": "Resource Id",
+              "type": "string"
+            },
+            "source": {
+              "maxLength": 200,
+              "minLength": 1,
+              "title": "Source",
+              "type": "string"
+            },
+            "tenant_id": {
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+              "title": "Tenant Id",
+              "type": "string"
+            }
+          },
+          "required": [
+            "event_id",
+            "source",
+            "action",
+            "resource_id",
+            "tenant_id",
+            "region_id",
+            "actor_id",
+            "correlation_id",
+            "occurred_at",
+            "metadata"
+          ],
+          "title": "Event",
+          "type": "object"
+        }
+      },
+      "securitySchemes": {
+        "BearerJWT": {
+          "bearerFormat": "JWT RS256",
+          "scheme": "bearer",
+          "type": "http"
+        },
+        "ServiceSignature": "[REDACTED]"
+      }
+    },
+    "info": {
+      "description": "API independiente JSON/XML. Reglas clínicas ilustrativas; requiere revisión humana. XML de respuesta validable en /schemas/response.xsd.",
+      "title": "Red House — auditoria",
+      "version": "0.3.0"
+    },
+    "openapi": "3.1.0",
+    "paths": {
+      "/api/v1/documentary-events": {
+        "get": {
+          "description": "Roles: AUDITOR. Contrato público de API.",
+          "operationId": "documentary_events",
+          "parameters": [
+            {
+              "in": "header",
+              "name": "X-Correlation-ID",
+              "schema": {
+                "format": "uuid",
+                "type": "string"
+              }
+            },
+            {
+              "in": "header",
+              "name": "Accept",
+              "schema": {
+                "enum": [
+                  "application/json",
+                  "application/xml"
+                ],
+                "type": "string"
+              }
+            },
+            {
+              "in": "query",
+              "name": "page",
+              "schema": {
+                "default": 1,
+                "minimum": 1,
+                "type": "integer"
+              }
+            },
+            {
+              "in": "query",
+              "name": "page_size",
+              "schema": {
+                "default": 20,
+                "maximum": 100,
+                "minimum": 1,
+                "type": "integer"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "example": {
+                    "data": {
+                      "items": [],
+                      "page": 1,
+                      "page_size": 1,
+                      "total": 1
+                    },
+                    "meta": {
+                      "correlation_id": "00000000-0000-4000-8000-000000000001",
+                      "service": "auditoria",
+                      "version": "0.3.0"
+                    }
+                  },
+                  "schema": {
+                    "properties": {
+                      "data": {
+                        "properties": {
+                          "items": {
+                            "items": {
+                              "additionalProperties": false,
+                              "properties": {
+                                "action": {
+                                  "maxLength": 200,
+                                  "minLength": 1,
+                                  "title": "Action",
+                                  "type": "string"
+                                },
+                                "actor_id": {
+                                  "anyOf": [
+                                    {
+                                      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                                      "type": "string"
+                                    },
+                                    {
+                                      "type": "null"
+                                    }
+                                  ],
+                                  "title": "Actor Id"
+                                },
+                                "correlation_id": {
+                                  "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                                  "title": "Correlation Id",
+                                  "type": "string"
+                                },
+                                "event_id": {
+                                  "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                                  "title": "Event Id",
+                                  "type": "string"
+                                },
+                                "metadata": {
+                                  "additionalProperties": true,
+                                  "title": "Metadata",
+                                  "type": "object"
+                                },
+                                "occurred_at": {
+                                  "maxLength": 200,
+                                  "minLength": 1,
+                                  "title": "Occurred At",
+                                  "type": "string"
+                                },
+                                "region_id": {
+                                  "anyOf": [
+                                    {
+                                      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                                      "type": "string"
+                                    },
+                                    {
+                                      "type": "null"
+                                    }
+                                  ],
+                                  "title": "Region Id"
+                                },
+                                "resource_id": {
+                                  "maxLength": 200,
+                                  "minLength": 1,
+                                  "title": "Resource Id",
+                                  "type": "string"
+                                },
+                                "source": {
+                                  "maxLength": 200,
+                                  "minLength": 1,
+                                  "title": "Source",
+                                  "type": "string"
+                                },
+                                "tenant_id": {
+                                  "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                                  "title": "Tenant Id",
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "event_id",
+                                "source",
+                                "action",
+                                "resource_id",
+                                "tenant_id",
+                                "region_id",
+                                "actor_id",
+                                "correlation_id",
+                                "occurred_at",
+                                "metadata"
+                              ],
+                              "title": "Event",
+                              "type": "object"
+                            },
+                            "type": "array"
+                          },
+                          "page": {
+                            "type": "integer"
+                          },
+                          "page_size": {
+                            "type": "integer"
+                          },
+                          "total": {
+                            "type": "integer"
+                          }
+                        },
+                        "required": [
+                          "items",
+                          "page",
+                          "page_size",
+                          "total"
+                        ],
+                        "type": "object"
+                      },
+                      "meta": {
+                        "properties": {
+                          "correlation_id": {
+                            "format": "uuid",
+                            "type": "string"
+                          },
+                          "service": {
+                            "type": "string"
+                          },
+                          "version": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "correlation_id",
+                          "service",
+                          "version"
+                        ],
+                        "type": "object"
+                      }
+                    },
+                    "required": [
+                      "data",
+                      "meta"
+                    ],
+                    "type": "object"
+                  }
+                },
+                "application/xml": {
+                  "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"items\" type=\"array\"/><field name=\"page\" type=\"integer\">1</field><field name=\"page_size\" type=\"integer\">1</field><field name=\"total\" type=\"integer\">1</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>",
+                  "schema": {
+                    "type": "string"
+                  },
+                  "x-json-equivalent-schema": {
+                    "properties": {
+                      "data": {
+                        "properties": {
+                          "items": {
+                            "items": {
+                              "additionalProperties": false,
+                              "properties": {
+                                "action": {
+                                  "maxLength": 200,
+                                  "minLength": 1,
+                                  "title": "Action",
+                                  "type": "string"
+                                },
+                                "actor_id": {
+                                  "anyOf": [
+                                    {
+                                      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                                      "type": "string"
+                                    },
+                                    {
+                                      "type": "null"
+                                    }
+                                  ],
+                                  "title": "Actor Id"
+                                },
+                                "correlation_id": {
+                                  "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                                  "title": "Correlation Id",
+                                  "type": "string"
+                                },
+                                "event_id": {
+                                  "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                                  "title": "Event Id",
+                                  "type": "string"
+                                },
+                                "metadata": {
+                                  "additionalProperties": true,
+                                  "title": "Metadata",
+                                  "type": "object"
+                                },
+                                "occurred_at": {
+                                  "maxLength": 200,
+                                  "minLength": 1,
+                                  "title": "Occurred At",
+                                  "type": "string"
+                                },
+                                "region_id": {
+                                  "anyOf": [
+                                    {
+                                      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                                      "type": "string"
+                                    },
+                                    {
+                                      "type": "null"
+                                    }
+                                  ],
+                                  "title": "Region Id"
+                                },
+                                "resource_id": {
+                                  "maxLength": 200,
+                                  "minLength": 1,
+                                  "title": "Resource Id",
+                                  "type": "string"
+                                },
+                                "source": {
+                                  "maxLength": 200,
+                                  "minLength": 1,
+                                  "title": "Source",
+                                  "type": "string"
+                                },
+                                "tenant_id": {
+                                  "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                                  "title": "Tenant Id",
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "event_id",
+                                "source",
+                                "action",
+                                "resource_id",
+                                "tenant_id",
+                                "region_id",
+                                "actor_id",
+                                "correlation_id",
+                                "occurred_at",
+                                "metadata"
+                              ],
+                              "title": "Event",
+                              "type": "object"
+                            },
+                            "type": "array"
+                          },
+                          "page": {
+                            "type": "integer"
+                          },
+                          "page_size": {
+                            "type": "integer"
+                          },
+                          "total": {
+                            "type": "integer"
+                          }
+                        },
+                        "required": [
+                          "items",
+                          "page",
+                          "page_size",
+                          "total"
+                        ],
+                        "type": "object"
+                      },
+                      "meta": {
+                        "properties": {
+                          "correlation_id": {
+                            "format": "uuid",
+                            "type": "string"
+                          },
+                          "service": {
+                            "type": "string"
+                          },
+                          "version": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "correlation_id",
+                          "service",
+                          "version"
+                        ],
+                        "type": "object"
+                      }
+                    },
+                    "required": [
+                      "data",
+                      "meta"
+                    ],
+                    "type": "object"
+                  },
+                  "x-response-schema": "/schemas/documentary_events.response.json",
+                  "x-xsd": "/schemas/response.xsd"
+                }
+              },
+              "description": "Resultado confirmado o estado pendiente documentado."
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "example": {
+                    "error": {
+                      "code": "validation",
+                      "details": [],
+                      "message": "Petición no disponible o inválida."
+                    },
+                    "meta": {
+                      "correlation_id": "00000000-0000-4000-8000-000000000001",
+                      "service": "auditoria",
+                      "version": "0.3.0"
+                    }
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                },
+                "application/xml": {
+                  "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">validation</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>",
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              },
+              "description": "Error uniforme."
+            },
+            "401": {
+              "content": {
+                "application/json": {
+                  "example": {
+                    "error": {
+                      "code": "unauthorized",
+                      "details": [],
+                      "message": "Credencial inválida, expirada o revocada."
+                    },
+                    "meta": {
+                      "correlation_id": "00000000-0000-4000-8000-000000000001",
+                      "service": "auditoria",
+                      "version": "0.3.0"
+                    }
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                },
+                "application/xml": {
+                  "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">unauthorized</field><field name=\"message\" type=\"string\">Credencial inválida, expirada o revocada.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>",
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              },
+              "description": "Credencial inválida, expirada o revocada."
+            },
+            "403": {
+              "content": {
+                "application/json": {
+                  "example": {
+                    "error": {
+                      "code": "forbidden",
+                      "details": [],
+                      "message": "Sin permiso institucional o de recurso."
+                    },
+                    "meta": {
+                      "correlation_id": "00000000-0000-4000-8000-000000000001",
+                      "service": "auditoria",
+                      "version": "0.3.0"
+                    }
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                },
+                "application/xml": {
+                  "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">forbidden</field><field name=\"message\" type=\"string\">Sin permiso institucional o de recurso.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>",
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              },
+              "description": "Sin permiso institucional o de recurso."
+            },
+            "404": {
+              "content": {
+                "application/json": {
+                  "example": {
+                    "error": {
+                      "code": "not_found",
+                      "details": [],
+                      "message": "Petición no disponible o inválida."
+                    },
+                    "meta": {
+                      "correlation_id": "00000000-0000-4000-8000-000000000001",
+                      "service": "auditoria",
+                      "version": "0.3.0"
+                    }
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                },
+                "application/xml": {
+                  "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">not_found</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>",
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              },
+              "description": "Error uniforme."
+            },
+            "406": {
+              "content": {
+                "application/json": {
+                  "example": {
+                    "error": {
+                      "code": "not_acceptable",
+                      "details": [],
+                      "message": "Petición no disponible o inválida."
+                    },
+                    "meta": {
+                      "correlation_id": "00000000-0000-4000-8000-000000000001",
+                      "service": "auditoria",
+                      "version": "0.3.0"
+                    }
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                },
+                "application/xml": {
+                  "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">not_acceptable</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>",
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              },
+              "description": "Error uniforme."
+            },
+            "409": {
+              "content": {
+                "application/json": {
+                  "example": {
+                    "error": {
+                      "code": "conflict",
+                      "details": [],
+                      "message": "Conflicto de estado, versión o idempotencia."
+                    },
+                    "meta": {
+                      "correlation_id": "00000000-0000-4000-8000-000000000001",
+                      "service": "auditoria",
+                      "version": "0.3.0"
+                    }
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                },
+                "application/xml": {
+                  "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">conflict</field><field name=\"message\" type=\"string\">Conflicto de estado, versión o idempotencia.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>",
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              },
+              "description": "Conflicto de estado, versión o idempotencia."
+            },
+            "413": {
+              "content": {
+                "application/json": {
+                  "example": {
+                    "error": {
+                      "code": "http_error",
+                      "details": [],
+                      "message": "Petición no disponible o inválida."
+                    },
+                    "meta": {
+                      "correlation_id": "00000000-0000-4000-8000-000000000001",
+                      "service": "auditoria",
+                      "version": "0.3.0"
+                    }
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                },
+                "application/xml": {
+                  "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">http_error</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>",
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              },
+              "description": "Error uniforme."
+            },
+            "415": {
+              "content": {
+                "application/json": {
+                  "example": {
+                    "error": {
+                      "code": "unsupported_media",
+                      "details": [],
+                      "message": "Petición no disponible o inválida."
+                    },
+                    "meta": {
+                      "correlation_id": "00000000-0000-4000-8000-000000000001",
+                      "service": "auditoria",
+                      "version": "0.3.0"
+                    }
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                },
+                "application/xml": {
+                  "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">unsupported_media</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>",
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              },
+              "description": "Error uniforme."
+            },
+            "422": {
+              "content": {
+                "application/json": {
+                  "example": {
+                    "error": {
+                      "code": "validation",
+                      "details": [],
+                      "message": "Petición no disponible o inválida."
+                    },
+                    "meta": {
+                      "correlation_id": "00000000-0000-4000-8000-000000000001",
+                      "service": "auditoria",
+                      "version": "0.3.0"
+                    }
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                },
+                "application/xml": {
+                  "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">validation</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>",
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              },
+              "description": "Error uniforme."
+            },
+            "429": {
+              "content": {
+                "application/json": {
+                  "example": {
+                    "error": {
+                      "code": "rate_limit",
+                      "details": [],
+                      "message": "Petición no disponible o inválida."
+                    },
+                    "meta": {
+                      "correlation_id": "00000000-0000-4000-8000-000000000001",
+                      "service": "auditoria",
+                      "version": "0.3.0"
+                    }
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                },
+                "application/xml": {
+                  "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">rate_limit</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>",
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              },
+              "description": "Error uniforme."
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "example": {
+                    "error": {
+                      "code": "internal_error",
+                      "details": [],
+                      "message": "Petición no disponible o inválida."
+                    },
+                    "meta": {
+                      "correlation_id": "00000000-0000-4000-8000-000000000001",
+                      "service": "auditoria",
+                      "version": "0.3.0"
+                    }
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                },
+                "application/xml": {
+                  "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">internal_error</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>",
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              },
+              "description": "Error uniforme."
+            },
+            "503": {
+              "content": {
+                "application/json": {
+                  "example": {
+                    "error": {
+                      "code": "dependency_unavailable",
+                      "details": [],
+                      "message": "Dependencia inaccesible; consultar estado antes de repetir."
+                    },
+                    "meta": {
+                      "correlation_id": "00000000-0000-4000-8000-000000000001",
+                      "service": "auditoria",
+                      "version": "0.3.0"
+                    }
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                },
+                "application/xml": {
+                  "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">dependency_unavailable</field><field name=\"message\" type=\"string\">Dependencia inaccesible; consultar estado antes de repetir.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>",
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              },
+              "description": "Dependencia inaccesible; consultar estado antes de repetir."
+            }
+          },
+          "security": [
+            {
+              "BearerJWT": []
+            }
+          ],
+          "summary": "Proyección documental MongoDB; puede estar pendiente de sincronización"
+        }
+      },
+      "/api/v1/events": {
+        "get": {
+          "description": "Roles: AUDITOR. Contrato público de API.",
+          "operationId": "audit_list",
+          "parameters": [
+            {
+              "in": "header",
+              "name": "X-Correlation-ID",
+              "schema": {
+                "format": "uuid",
+                "type": "string"
+              }
+            },
+            {
+              "in": "header",
+              "name": "Accept",
+              "schema": {
+                "enum": [
+                  "application/json",
+                  "application/xml"
+                ],
+                "type": "string"
+              }
+            },
+            {
+              "in": "query",
+              "name": "page",
+              "schema": {
+                "default": 1,
+                "minimum": 1,
+                "type": "integer"
+              }
+            },
+            {
+              "in": "query",
+              "name": "page_size",
+              "schema": {
+                "default": 20,
+                "maximum": 100,
+                "minimum": 1,
+                "type": "integer"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "example": {
+                    "data": {
+                      "items": [],
+                      "page": 1,
+                      "page_size": 1,
+                      "total": 1
+                    },
+                    "meta": {
+                      "correlation_id": "00000000-0000-4000-8000-000000000001",
+                      "service": "auditoria",
+                      "version": "0.3.0"
+                    }
+                  },
+                  "schema": {
+                    "properties": {
+                      "data": {
+                        "properties": {
+                          "items": {
+                            "items": {
+                              "properties": {
+                                "action": {
+                                  "type": "string"
+                                },
+                                "actor_id": {
+                                  "format": "uuid",
+                                  "type": [
+                                    "string",
+                                    "null"
+                                  ]
+                                },
+                                "created_at": {
+                                  "format": "date-time",
+                                  "type": "string"
+                                },
+                                "event": {},
+                                "id": {
+                                  "format": "uuid",
+                                  "type": "string"
+                                },
+                                "region_id": {
+                                  "format": "uuid",
+                                  "type": "string"
+                                },
+                                "source": {
+                                  "type": "string"
+                                },
+                                "tenant_id": {
+                                  "format": "uuid",
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "id"
+                              ],
+                              "type": "object"
+                            },
+                            "type": "array"
+                          },
+                          "page": {
+                            "type": "integer"
+                          },
+                          "page_size": {
+                            "type": "integer"
+                          },
+                          "total": {
+                            "type": "integer"
+                          }
+                        },
+                        "required": [
+                          "items",
+                          "page",
+                          "page_size",
+                          "total"
+                        ],
+                        "type": "object"
+                      },
+                      "meta": {
+                        "properties": {
+                          "correlation_id": {
+                            "format": "uuid",
+                            "type": "string"
+                          },
+                          "service": {
+                            "type": "string"
+                          },
+                          "version": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "correlation_id",
+                          "service",
+                          "version"
+                        ],
+                        "type": "object"
+                      }
+                    },
+                    "required": [
+                      "data",
+                      "meta"
+                    ],
+                    "type": "object"
+                  }
+                },
+                "application/xml": {
+                  "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"items\" type=\"array\"/><field name=\"page\" type=\"integer\">1</field><field name=\"page_size\" type=\"integer\">1</field><field name=\"total\" type=\"integer\">1</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>",
+                  "schema": {
+                    "type": "string"
+                  },
+                  "x-json-equivalent-schema": {
+                    "properties": {
+                      "data": {
+                        "properties": {
+                          "items": {
+                            "items": {
+                              "properties": {
+                                "action": {
+                                  "type": "string"
+                                },
+                                "actor_id": {
+                                  "format": "uuid",
+                                  "type": [
+                                    "string",
+                                    "null"
+                                  ]
+                                },
+                                "created_at": {
+                                  "format": "date-time",
+                                  "type": "string"
+                                },
+                                "event": {},
+                                "id": {
+                                  "format": "uuid",
+                                  "type": "string"
+                                },
+                                "region_id": {
+                                  "format": "uuid",
+                                  "type": "string"
+                                },
+                                "source": {
+                                  "type": "string"
+                                },
+                                "tenant_id": {
+                                  "format": "uuid",
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "id"
+                              ],
+                              "type": "object"
+                            },
+                            "type": "array"
+                          },
+                          "page": {
+                            "type": "integer"
+                          },
+                          "page_size": {
+                            "type": "integer"
+                          },
+                          "total": {
+                            "type": "integer"
+                          }
+                        },
+                        "required": [
+                          "items",
+                          "page",
+                          "page_size",
+                          "total"
+                        ],
+                        "type": "object"
+                      },
+                      "meta": {
+                        "properties": {
+                          "correlation_id": {
+                            "format": "uuid",
+                            "type": "string"
+                          },
+                          "service": {
+                            "type": "string"
+                          },
+                          "version": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "correlation_id",
+                          "service",
+                          "version"
+                        ],
+                        "type": "object"
+                      }
+                    },
+                    "required": [
+                      "data",
+                      "meta"
+                    ],
+                    "type": "object"
+                  },
+                  "x-response-schema": "/schemas/audit_list.response.json",
+                  "x-xsd": "/schemas/response.xsd"
+                }
+              },
+              "description": "Resultado confirmado o estado pendiente documentado."
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "example": {
+                    "error": {
+                      "code": "validation",
+                      "details": [],
+                      "message": "Petición no disponible o inválida."
+                    },
+                    "meta": {
+                      "correlation_id": "00000000-0000-4000-8000-000000000001",
+                      "service": "auditoria",
+                      "version": "0.3.0"
+                    }
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                },
+                "application/xml": {
+                  "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">validation</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>",
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              },
+              "description": "Error uniforme."
+            },
+            "401": {
+              "content": {
+                "application/json": {
+                  "example": {
+                    "error": {
+                      "code": "unauthorized",
+                      "details": [],
+                      "message": "Credencial inválida, expirada o revocada."
+                    },
+                    "meta": {
+                      "correlation_id": "00000000-0000-4000-8000-000000000001",
+                      "service": "auditoria",
+                      "version": "0.3.0"
+                    }
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                },
+                "application/xml": {
+                  "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">unauthorized</field><field name=\"message\" type=\"string\">Credencial inválida, expirada o revocada.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>",
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              },
+              "description": "Credencial inválida, expirada o revocada."
+            },
+            "403": {
+              "content": {
+                "application/json": {
+                  "example": {
+                    "error": {
+                      "code": "forbidden",
+                      "details": [],
+                      "message": "Sin permiso institucional o de recurso."
+                    },
+                    "meta": {
+                      "correlation_id": "00000000-0000-4000-8000-000000000001",
+                      "service": "auditoria",
+                      "version": "0.3.0"
+                    }
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                },
+                "application/xml": {
+                  "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">forbidden</field><field name=\"message\" type=\"string\">Sin permiso institucional o de recurso.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>",
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              },
+              "description": "Sin permiso institucional o de recurso."
+            },
+            "404": {
+              "content": {
+                "application/json": {
+                  "example": {
+                    "error": {
+                      "code": "not_found",
+                      "details": [],
+                      "message": "Petición no disponible o inválida."
+                    },
+                    "meta": {
+                      "correlation_id": "00000000-0000-4000-8000-000000000001",
+                      "service": "auditoria",
+                      "version": "0.3.0"
+                    }
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                },
+                "application/xml": {
+                  "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">not_found</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>",
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              },
+              "description": "Error uniforme."
+            },
+            "406": {
+              "content": {
+                "application/json": {
+                  "example": {
+                    "error": {
+                      "code": "not_acceptable",
+                      "details": [],
+                      "message": "Petición no disponible o inválida."
+                    },
+                    "meta": {
+                      "correlation_id": "00000000-0000-4000-8000-000000000001",
+                      "service": "auditoria",
+                      "version": "0.3.0"
+                    }
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                },
+                "application/xml": {
+                  "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">not_acceptable</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>",
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              },
+              "description": "Error uniforme."
+            },
+            "409": {
+              "content": {
+                "application/json": {
+                  "example": {
+                    "error": {
+                      "code": "conflict",
+                      "details": [],
+                      "message": "Conflicto de estado, versión o idempotencia."
+                    },
+                    "meta": {
+                      "correlation_id": "00000000-0000-4000-8000-000000000001",
+                      "service": "auditoria",
+                      "version": "0.3.0"
+                    }
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                },
+                "application/xml": {
+                  "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">conflict</field><field name=\"message\" type=\"string\">Conflicto de estado, versión o idempotencia.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>",
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              },
+              "description": "Conflicto de estado, versión o idempotencia."
+            },
+            "413": {
+              "content": {
+                "application/json": {
+                  "example": {
+                    "error": {
+                      "code": "http_error",
+                      "details": [],
+                      "message": "Petición no disponible o inválida."
+                    },
+                    "meta": {
+                      "correlation_id": "00000000-0000-4000-8000-000000000001",
+                      "service": "auditoria",
+                      "version": "0.3.0"
+                    }
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                },
+                "application/xml": {
+                  "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">http_error</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>",
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              },
+              "description": "Error uniforme."
+            },
+            "415": {
+              "content": {
+                "application/json": {
+                  "example": {
+                    "error": {
+                      "code": "unsupported_media",
+                      "details": [],
+                      "message": "Petición no disponible o inválida."
+                    },
+                    "meta": {
+                      "correlation_id": "00000000-0000-4000-8000-000000000001",
+                      "service": "auditoria",
+                      "version": "0.3.0"
+                    }
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                },
+                "application/xml": {
+                  "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">unsupported_media</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>",
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              },
+              "description": "Error uniforme."
+            },
+            "422": {
+              "content": {
+                "application/json": {
+                  "example": {
+                    "error": {
+                      "code": "validation",
+                      "details": [],
+                      "message": "Petición no disponible o inválida."
+                    },
+                    "meta": {
+                      "correlation_id": "00000000-0000-4000-8000-000000000001",
+                      "service": "auditoria",
+                      "version": "0.3.0"
+                    }
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                },
+                "application/xml": {
+                  "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">validation</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>",
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              },
+              "description": "Error uniforme."
+            },
+            "429": {
+              "content": {
+                "application/json": {
+                  "example": {
+                    "error": {
+                      "code": "rate_limit",
+                      "details": [],
+                      "message": "Petición no disponible o inválida."
+                    },
+                    "meta": {
+                      "correlation_id": "00000000-0000-4000-8000-000000000001",
+                      "service": "auditoria",
+                      "version": "0.3.0"
+                    }
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                },
+                "application/xml": {
+                  "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">rate_limit</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>",
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              },
+              "description": "Error uniforme."
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "example": {
+                    "error": {
+                      "code": "internal_error",
+                      "details": [],
+                      "message": "Petición no disponible o inválida."
+                    },
+                    "meta": {
+                      "correlation_id": "00000000-0000-4000-8000-000000000001",
+                      "service": "auditoria",
+                      "version": "0.3.0"
+                    }
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                },
+                "application/xml": {
+                  "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">internal_error</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>",
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              },
+              "description": "Error uniforme."
+            },
+            "503": {
+              "content": {
+                "application/json": {
+                  "example": {
+                    "error": {
+                      "code": "dependency_unavailable",
+                      "details": [],
+                      "message": "Dependencia inaccesible; consultar estado antes de repetir."
+                    },
+                    "meta": {
+                      "correlation_id": "00000000-0000-4000-8000-000000000001",
+                      "service": "auditoria",
+                      "version": "0.3.0"
+                    }
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                },
+                "application/xml": {
+                  "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">dependency_unavailable</field><field name=\"message\" type=\"string\">Dependencia inaccesible; consultar estado antes de repetir.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>",
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              },
+              "description": "Dependencia inaccesible; consultar estado antes de repetir."
+            }
+          },
+          "security": [
+            {
+              "BearerJWT": []
+            }
+          ],
+          "summary": "Bitácora regional de solo lectura; sin credenciales ni contenido clínico"
+        }
+      },
+      "/api/v1/events/{identifier}": {
+        "get": {
+          "description": "Roles: AUDITOR. Contrato público de API.",
+          "operationId": "audit_detail",
+          "parameters": [
+            {
+              "in": "path",
+              "name": "identifier",
+              "required": true,
+              "schema": {
+                "format": "uuid",
+                "type": "string"
+              }
+            },
+            {
+              "in": "header",
+              "name": "X-Correlation-ID",
+              "schema": {
+                "format": "uuid",
+                "type": "string"
+              }
+            },
+            {
+              "in": "header",
+              "name": "Accept",
+              "schema": {
+                "enum": [
+                  "application/json",
+                  "application/xml"
+                ],
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "example": {
+                    "data": {
+                      "action": "Dato ficticio para reemplazar",
+                      "actor_id": "00000000-0000-4000-8000-000000000001",
+                      "created_at": "2030-01-01T15:00:00+00:00",
+                      "event": {},
+                      "id": "00000000-0000-4000-8000-000000000001",
+                      "region_id": "00000000-0000-4000-8000-000000000001",
+                      "source": "Dato ficticio para reemplazar",
+                      "tenant_id": "00000000-0000-4000-8000-000000000001"
+                    },
+                    "meta": {
+                      "correlation_id": "00000000-0000-4000-8000-000000000001",
+                      "service": "auditoria",
+                      "version": "0.3.0"
+                    }
+                  },
+                  "schema": {
+                    "properties": {
+                      "data": {
+                        "properties": {
+                          "action": {
+                            "type": "string"
+                          },
+                          "actor_id": {
+                            "format": "uuid",
+                            "type": [
+                              "string",
+                              "null"
+                            ]
+                          },
+                          "created_at": {
+                            "format": "date-time",
+                            "type": "string"
+                          },
+                          "event": {},
+                          "id": {
+                            "format": "uuid",
+                            "type": "string"
+                          },
+                          "region_id": {
+                            "format": "uuid",
+                            "type": "string"
+                          },
+                          "source": {
+                            "type": "string"
+                          },
+                          "tenant_id": {
+                            "format": "uuid",
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "id"
+                        ],
+                        "type": "object"
+                      },
+                      "meta": {
+                        "properties": {
+                          "correlation_id": {
+                            "format": "uuid",
+                            "type": "string"
+                          },
+                          "service": {
+                            "type": "string"
+                          },
+                          "version": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "correlation_id",
+                          "service",
+                          "version"
+                        ],
+                        "type": "object"
+                      }
+                    },
+                    "required": [
+                      "data",
+                      "meta"
+                    ],
+                    "type": "object"
+                  }
+                },
+                "application/xml": {
+                  "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"tenant_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"region_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"source\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"action\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"actor_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"event\" type=\"object\"/><field name=\"created_at\" type=\"string\">2030-01-01T15:00:00+00:00</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>",
+                  "schema": {
+                    "type": "string"
+                  },
+                  "x-json-equivalent-schema": {
+                    "properties": {
+                      "data": {
+                        "properties": {
+                          "action": {
+                            "type": "string"
+                          },
+                          "actor_id": {
+                            "format": "uuid",
+                            "type": [
+                              "string",
+                              "null"
+                            ]
+                          },
+                          "created_at": {
+                            "format": "date-time",
+                            "type": "string"
+                          },
+                          "event": {},
+                          "id": {
+                            "format": "uuid",
+                            "type": "string"
+                          },
+                          "region_id": {
+                            "format": "uuid",
+                            "type": "string"
+                          },
+                          "source": {
+                            "type": "string"
+                          },
+                          "tenant_id": {
+                            "format": "uuid",
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "id"
+                        ],
+                        "type": "object"
+                      },
+                      "meta": {
+                        "properties": {
+                          "correlation_id": {
+                            "format": "uuid",
+                            "type": "string"
+                          },
+                          "service": {
+                            "type": "string"
+                          },
+                          "version": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "correlation_id",
+                          "service",
+                          "version"
+                        ],
+                        "type": "object"
+                      }
+                    },
+                    "required": [
+                      "data",
+                      "meta"
+                    ],
+                    "type": "object"
+                  },
+                  "x-response-schema": "/schemas/audit_detail.response.json",
+                  "x-xsd": "/schemas/response.xsd"
+                }
+              },
+              "description": "Resultado confirmado o estado pendiente documentado."
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "example": {
+                    "error": {
+                      "code": "validation",
+                      "details": [],
+                      "message": "Petición no disponible o inválida."
+                    },
+                    "meta": {
+                      "correlation_id": "00000000-0000-4000-8000-000000000001",
+                      "service": "auditoria",
+                      "version": "0.3.0"
+                    }
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                },
+                "application/xml": {
+                  "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">validation</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>",
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              },
+              "description": "Error uniforme."
+            },
+            "401": {
+              "content": {
+                "application/json": {
+                  "example": {
+                    "error": {
+                      "code": "unauthorized",
+                      "details": [],
+                      "message": "Credencial inválida, expirada o revocada."
+                    },
+                    "meta": {
+                      "correlation_id": "00000000-0000-4000-8000-000000000001",
+                      "service": "auditoria",
+                      "version": "0.3.0"
+                    }
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                },
+                "application/xml": {
+                  "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">unauthorized</field><field name=\"message\" type=\"string\">Credencial inválida, expirada o revocada.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>",
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              },
+              "description": "Credencial inválida, expirada o revocada."
+            },
+            "403": {
+              "content": {
+                "application/json": {
+                  "example": {
+                    "error": {
+                      "code": "forbidden",
+                      "details": [],
+                      "message": "Sin permiso institucional o de recurso."
+                    },
+                    "meta": {
+                      "correlation_id": "00000000-0000-4000-8000-000000000001",
+                      "service": "auditoria",
+                      "version": "0.3.0"
+                    }
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                },
+                "application/xml": {
+                  "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">forbidden</field><field name=\"message\" type=\"string\">Sin permiso institucional o de recurso.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>",
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              },
+              "description": "Sin permiso institucional o de recurso."
+            },
+            "404": {
+              "content": {
+                "application/json": {
+                  "example": {
+                    "error": {
+                      "code": "not_found",
+                      "details": [],
+                      "message": "Petición no disponible o inválida."
+                    },
+                    "meta": {
+                      "correlation_id": "00000000-0000-4000-8000-000000000001",
+                      "service": "auditoria",
+                      "version": "0.3.0"
+                    }
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                },
+                "application/xml": {
+                  "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">not_found</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>",
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              },
+              "description": "Error uniforme."
+            },
+            "406": {
+              "content": {
+                "application/json": {
+                  "example": {
+                    "error": {
+                      "code": "not_acceptable",
+                      "details": [],
+                      "message": "Petición no disponible o inválida."
+                    },
+                    "meta": {
+                      "correlation_id": "00000000-0000-4000-8000-000000000001",
+                      "service": "auditoria",
+                      "version": "0.3.0"
+                    }
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                },
+                "application/xml": {
+                  "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">not_acceptable</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>",
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              },
+              "description": "Error uniforme."
+            },
+            "409": {
+              "content": {
+                "application/json": {
+                  "example": {
+                    "error": {
+                      "code": "conflict",
+                      "details": [],
+                      "message": "Conflicto de estado, versión o idempotencia."
+                    },
+                    "meta": {
+                      "correlation_id": "00000000-0000-4000-8000-000000000001",
+                      "service": "auditoria",
+                      "version": "0.3.0"
+                    }
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                },
+                "application/xml": {
+                  "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">conflict</field><field name=\"message\" type=\"string\">Conflicto de estado, versión o idempotencia.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>",
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              },
+              "description": "Conflicto de estado, versión o idempotencia."
+            },
+            "413": {
+              "content": {
+                "application/json": {
+                  "example": {
+                    "error": {
+                      "code": "http_error",
+                      "details": [],
+                      "message": "Petición no disponible o inválida."
+                    },
+                    "meta": {
+                      "correlation_id": "00000000-0000-4000-8000-000000000001",
+                      "service": "auditoria",
+                      "version": "0.3.0"
+                    }
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                },
+                "application/xml": {
+                  "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">http_error</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>",
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              },
+              "description": "Error uniforme."
+            },
+            "415": {
+              "content": {
+                "application/json": {
+                  "example": {
+                    "error": {
+                      "code": "unsupported_media",
+                      "details": [],
+                      "message": "Petición no disponible o inválida."
+                    },
+                    "meta": {
+                      "correlation_id": "00000000-0000-4000-8000-000000000001",
+                      "service": "auditoria",
+                      "version": "0.3.0"
+                    }
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                },
+                "application/xml": {
+                  "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">unsupported_media</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>",
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              },
+              "description": "Error uniforme."
+            },
+            "422": {
+              "content": {
+                "application/json": {
+                  "example": {
+                    "error": {
+                      "code": "validation",
+                      "details": [],
+                      "message": "Petición no disponible o inválida."
+                    },
+                    "meta": {
+                      "correlation_id": "00000000-0000-4000-8000-000000000001",
+                      "service": "auditoria",
+                      "version": "0.3.0"
+                    }
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                },
+                "application/xml": {
+                  "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">validation</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>",
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              },
+              "description": "Error uniforme."
+            },
+            "429": {
+              "content": {
+                "application/json": {
+                  "example": {
+                    "error": {
+                      "code": "rate_limit",
+                      "details": [],
+                      "message": "Petición no disponible o inválida."
+                    },
+                    "meta": {
+                      "correlation_id": "00000000-0000-4000-8000-000000000001",
+                      "service": "auditoria",
+                      "version": "0.3.0"
+                    }
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                },
+                "application/xml": {
+                  "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">rate_limit</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>",
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              },
+              "description": "Error uniforme."
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "example": {
+                    "error": {
+                      "code": "internal_error",
+                      "details": [],
+                      "message": "Petición no disponible o inválida."
+                    },
+                    "meta": {
+                      "correlation_id": "00000000-0000-4000-8000-000000000001",
+                      "service": "auditoria",
+                      "version": "0.3.0"
+                    }
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                },
+                "application/xml": {
+                  "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">internal_error</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>",
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              },
+              "description": "Error uniforme."
+            },
+            "503": {
+              "content": {
+                "application/json": {
+                  "example": {
+                    "error": {
+                      "code": "dependency_unavailable",
+                      "details": [],
+                      "message": "Dependencia inaccesible; consultar estado antes de repetir."
+                    },
+                    "meta": {
+                      "correlation_id": "00000000-0000-4000-8000-000000000001",
+                      "service": "auditoria",
+                      "version": "0.3.0"
+                    }
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                },
+                "application/xml": {
+                  "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">dependency_unavailable</field><field name=\"message\" type=\"string\">Dependencia inaccesible; consultar estado antes de repetir.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>",
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              },
+              "description": "Dependencia inaccesible; consultar estado antes de repetir."
+            }
+          },
+          "security": [
+            {
+              "BearerJWT": []
+            }
+          ],
+          "summary": "Evento auditable y correlación"
+        }
+      },
+      "/internal/v1/events": {
+        "post": {
+          "description": "Roles: según sesión. Contrato interno firmado; consumidores: identidad_acceso, donantes, receptores, inventario, compatibilidad, priorizacion_geografia, transporte, custodia, alertas, auditoria, monitoreo",
+          "operationId": "audit_ingest",
+          "parameters": [
+            {
+              "in": "header",
+              "name": "X-Correlation-ID",
+              "schema": {
+                "format": "uuid",
+                "type": "string"
+              }
+            },
+            {
+              "in": "header",
+              "name": "Accept",
+              "schema": {
+                "enum": [
+                  "application/json",
+                  "application/xml"
+                ],
+                "type": "string"
+              }
+            },
+            {
+              "in": "header",
+              "name": "X-Service",
+              "required": true,
+              "schema": {
+                "enum": [
+                  "identidad_acceso",
+                  "donantes",
+                  "receptores",
+                  "inventario",
+                  "compatibilidad",
+                  "priorizacion_geografia",
+                  "transporte",
+                  "custodia",
+                  "alertas",
+                  "auditoria",
+                  "monitoreo"
+                ],
+                "type": "string"
+              }
+            },
+            {
+              "in": "header",
+              "name": "X-Service-Time",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "in": "header",
+              "name": "X-Service-Nonce",
+              "required": true,
+              "schema": {
+                "format": "uuid",
+                "type": "string"
+              }
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "action": "Dato ficticio para reemplazar",
+                  "actor_id": null,
+                  "correlation_id": "00000000-0000-4000-8000-000000000001",
+                  "event_id": "00000000-0000-4000-8000-000000000001",
+                  "metadata": {},
+                  "occurred_at": "2026-10-01T15:00:00+00:00",
+                  "region_id": null,
+                  "resource_id": "00000000-0000-4000-8000-000000000001",
+                  "source": "Dato ficticio para reemplazar",
+                  "tenant_id": "00000000-0000-4000-8000-000000000001"
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Event"
+                }
+              },
+              "application/xml": {
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<request xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><event_id>00000000-0000-4000-8000-000000000001</event_id><source>Dato ficticio para reemplazar</source><action>Dato ficticio para reemplazar</action><resource_id>00000000-0000-4000-8000-000000000001</resource_id><tenant_id>00000000-0000-4000-8000-000000000001</tenant_id><region_id xsi:nil=\"true\"/><actor_id xsi:nil=\"true\"/><correlation_id>00000000-0000-4000-8000-000000000001</correlation_id><occurred_at>2026-10-01T15:00:00+00:00</occurred_at><metadata/></request>",
+                "schema": {
+                  "type": "string"
+                },
+                "x-json-equivalent-schema": {
+                  "$ref": "#/components/schemas/Event"
+                },
+                "x-xsd": "/schemas/audit_ingest.xsd"
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "example": {
+                    "data": {
+                      "applied": true,
+                      "duplicate": true,
+                      "stored": true
+                    },
+                    "meta": {
+                      "correlation_id": "00000000-0000-4000-8000-000000000001",
+                      "service": "auditoria",
+                      "version": "0.3.0"
+                    }
+                  },
+                  "schema": {
+                    "properties": {
+                      "data": {
+                        "properties": {
+                          "applied": {
+                            "type": "boolean"
+                          },
+                          "duplicate": {
+                            "type": "boolean"
+                          },
+                          "stored": {
+                            "type": "boolean"
+                          }
+                        },
+                        "required": [],
+                        "type": "object"
+                      },
+                      "meta": {
+                        "properties": {
+                          "correlation_id": {
+                            "format": "uuid",
+                            "type": "string"
+                          },
+                          "service": {
+                            "type": "string"
+                          },
+                          "version": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "correlation_id",
+                          "service",
+                          "version"
+                        ],
+                        "type": "object"
+                      }
+                    },
+                    "required": [
+                      "data",
+                      "meta"
+                    ],
+                    "type": "object"
+                  }
+                },
+                "application/xml": {
+                  "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"duplicate\" type=\"boolean\">true</field><field name=\"stored\" type=\"boolean\">true</field><field name=\"applied\" type=\"boolean\">true</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>",
+                  "schema": {
+                    "type": "string"
+                  },
+                  "x-json-equivalent-schema": {
+                    "properties": {
+                      "data": {
+                        "properties": {
+                          "applied": {
+                            "type": "boolean"
+                          },
+                          "duplicate": {
+                            "type": "boolean"
+                          },
+                          "stored": {
+                            "type": "boolean"
+                          }
+                        },
+                        "required": [],
+                        "type": "object"
+                      },
+                      "meta": {
+                        "properties": {
+                          "correlation_id": {
+                            "format": "uuid",
+                            "type": "string"
+                          },
+                          "service": {
+                            "type": "string"
+                          },
+                          "version": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "correlation_id",
+                          "service",
+                          "version"
+                        ],
+                        "type": "object"
+                      }
+                    },
+                    "required": [
+                      "data",
+                      "meta"
+                    ],
+                    "type": "object"
+                  },
+                  "x-response-schema": "/schemas/audit_ingest.response.json",
+                  "x-xsd": "/schemas/response.xsd"
+                }
+              },
+              "description": "Resultado confirmado o estado pendiente documentado."
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "example": {
+                    "error": {
+                      "code": "validation",
+                      "details": [],
+                      "message": "Petición no disponible o inválida."
+                    },
+                    "meta": {
+                      "correlation_id": "00000000-0000-4000-8000-000000000001",
+                      "service": "auditoria",
+                      "version": "0.3.0"
+                    }
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                },
+                "application/xml": {
+                  "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">validation</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>",
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              },
+              "description": "Error uniforme."
+            },
+            "401": {
+              "content": {
+                "application/json": {
+                  "example": {
+                    "error": {
+                      "code": "unauthorized",
+                      "details": [],
+                      "message": "Credencial inválida, expirada o revocada."
+                    },
+                    "meta": {
+                      "correlation_id": "00000000-0000-4000-8000-000000000001",
+                      "service": "auditoria",
+                      "version": "0.3.0"
+                    }
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                },
+                "application/xml": {
+                  "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">unauthorized</field><field name=\"message\" type=\"string\">Credencial inválida, expirada o revocada.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>",
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              },
+              "description": "Credencial inválida, expirada o revocada."
+            },
+            "403": {
+              "content": {
+                "application/json": {
+                  "example": {
+                    "error": {
+                      "code": "forbidden",
+                      "details": [],
+                      "message": "Sin permiso institucional o de recurso."
+                    },
+                    "meta": {
+                      "correlation_id": "00000000-0000-4000-8000-000000000001",
+                      "service": "auditoria",
+                      "version": "0.3.0"
+                    }
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                },
+                "application/xml": {
+                  "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">forbidden</field><field name=\"message\" type=\"string\">Sin permiso institucional o de recurso.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>",
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              },
+              "description": "Sin permiso institucional o de recurso."
+            },
+            "404": {
+              "content": {
+                "application/json": {
+                  "example": {
+                    "error": {
+                      "code": "not_found",
+                      "details": [],
+                      "message": "Petición no disponible o inválida."
+                    },
+                    "meta": {
+                      "correlation_id": "00000000-0000-4000-8000-000000000001",
+                      "service": "auditoria",
+                      "version": "0.3.0"
+                    }
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                },
+                "application/xml": {
+                  "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">not_found</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>",
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              },
+              "description": "Error uniforme."
+            },
+            "406": {
+              "content": {
+                "application/json": {
+                  "example": {
+                    "error": {
+                      "code": "not_acceptable",
+                      "details": [],
+                      "message": "Petición no disponible o inválida."
+                    },
+                    "meta": {
+                      "correlation_id": "00000000-0000-4000-8000-000000000001",
+                      "service": "auditoria",
+                      "version": "0.3.0"
+                    }
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                },
+                "application/xml": {
+                  "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">not_acceptable</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>",
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              },
+              "description": "Error uniforme."
+            },
+            "409": {
+              "content": {
+                "application/json": {
+                  "example": {
+                    "error": {
+                      "code": "conflict",
+                      "details": [],
+                      "message": "Conflicto de estado, versión o idempotencia."
+                    },
+                    "meta": {
+                      "correlation_id": "00000000-0000-4000-8000-000000000001",
+                      "service": "auditoria",
+                      "version": "0.3.0"
+                    }
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                },
+                "application/xml": {
+                  "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">conflict</field><field name=\"message\" type=\"string\">Conflicto de estado, versión o idempotencia.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>",
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              },
+              "description": "Conflicto de estado, versión o idempotencia."
+            },
+            "413": {
+              "content": {
+                "application/json": {
+                  "example": {
+                    "error": {
+                      "code": "http_error",
+                      "details": [],
+                      "message": "Petición no disponible o inválida."
+                    },
+                    "meta": {
+                      "correlation_id": "00000000-0000-4000-8000-000000000001",
+                      "service": "auditoria",
+                      "version": "0.3.0"
+                    }
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                },
+                "application/xml": {
+                  "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">http_error</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>",
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              },
+              "description": "Error uniforme."
+            },
+            "415": {
+              "content": {
+                "application/json": {
+                  "example": {
+                    "error": {
+                      "code": "unsupported_media",
+                      "details": [],
+                      "message": "Petición no disponible o inválida."
+                    },
+                    "meta": {
+                      "correlation_id": "00000000-0000-4000-8000-000000000001",
+                      "service": "auditoria",
+                      "version": "0.3.0"
+                    }
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                },
+                "application/xml": {
+                  "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">unsupported_media</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>",
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              },
+              "description": "Error uniforme."
+            },
+            "422": {
+              "content": {
+                "application/json": {
+                  "example": {
+                    "error": {
+                      "code": "validation",
+                      "details": [],
+                      "message": "Petición no disponible o inválida."
+                    },
+                    "meta": {
+                      "correlation_id": "00000000-0000-4000-8000-000000000001",
+                      "service": "auditoria",
+                      "version": "0.3.0"
+                    }
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                },
+                "application/xml": {
+                  "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">validation</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>",
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              },
+              "description": "Error uniforme."
+            },
+            "429": {
+              "content": {
+                "application/json": {
+                  "example": {
+                    "error": {
+                      "code": "rate_limit",
+                      "details": [],
+                      "message": "Petición no disponible o inválida."
+                    },
+                    "meta": {
+                      "correlation_id": "00000000-0000-4000-8000-000000000001",
+                      "service": "auditoria",
+                      "version": "0.3.0"
+                    }
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                },
+                "application/xml": {
+                  "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">rate_limit</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>",
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              },
+              "description": "Error uniforme."
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "example": {
+                    "error": {
+                      "code": "internal_error",
+                      "details": [],
+                      "message": "Petición no disponible o inválida."
+                    },
+                    "meta": {
+                      "correlation_id": "00000000-0000-4000-8000-000000000001",
+                      "service": "auditoria",
+                      "version": "0.3.0"
+                    }
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                },
+                "application/xml": {
+                  "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">internal_error</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>",
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              },
+              "description": "Error uniforme."
+            },
+            "503": {
+              "content": {
+                "application/json": {
+                  "example": {
+                    "error": {
+                      "code": "dependency_unavailable",
+                      "details": [],
+                      "message": "Dependencia inaccesible; consultar estado antes de repetir."
+                    },
+                    "meta": {
+                      "correlation_id": "00000000-0000-4000-8000-000000000001",
+                      "service": "auditoria",
+                      "version": "0.3.0"
+                    }
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                },
+                "application/xml": {
+                  "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">dependency_unavailable</field><field name=\"message\" type=\"string\">Dependencia inaccesible; consultar estado antes de repetir.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>",
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              },
+              "description": "Dependencia inaccesible; consultar estado antes de repetir."
+            }
+          },
+          "security": [
+            {
+              "ServiceSignature": "[REDACTED]"
+            }
+          ],
+          "summary": "Recibir registro minimizado y conservarlo de forma inmutable"
+        }
+      }
+    }
+  },
+  "correlation_id": "9240824e-562c-4372-b339-1845366eaf5b",
+  "persistence": {
+    "effect": "read",
+    "note": "Consulta; accesos protegidos generan auditoría local transaccional."
+  }
+}

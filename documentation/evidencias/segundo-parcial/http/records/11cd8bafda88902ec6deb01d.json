@@ -1,0 +1,93 @@
+{
+  "captured_at": "2026-10-19T16:28:32.418583+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "b82acfc07e7ff0221196c291a52b1986e4d1ac69b3f6769bffe29f4a02fa5c9b",
+  "transport": "http",
+  "method": "POST",
+  "route": "/api/v1/catalogues/schedules",
+  "objective": "Registrar schedules",
+  "url": "http://127.0.0.1:56258/api/v1/catalogues/schedules",
+  "parameters": {},
+  "path_parameters": {},
+  "request_headers": {
+    "Host": "127.0.0.1:56258",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "03f02a2a6226473f8535edb19e44c65d",
+    "Authorization": "[REDACTED]",
+    "Content-Length": "148",
+    "Content-Type": "application/json"
+  },
+  "request_body": {
+    "name": "Registro ficticio 1529faa9",
+    "parent_id": "e94a4fda-d0f3-4fe4-86f5-749cc71a6d3a",
+    "weekday": 1,
+    "opens_at": "08:00",
+    "closes_at": "16:00"
+  },
+  "status": 201,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "547",
+    "X-Correlation-ID": "80e1a6cc-047f-4e1d-a085-f1b999c3e47b",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "data": {
+      "id": "7034bc9c-c090-437e-a348-5adb55ac91a7",
+      "tenant_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+      "kind": "schedules",
+      "name": "Registro ficticio 1529faa9",
+      "parent_id": "e94a4fda-d0f3-4fe4-86f5-749cc71a6d3a",
+      "details": {
+        "weekday": 1,
+        "opens_at": "08:00",
+        "closes_at": "16:00"
+      },
+      "active": true,
+      "version": 1,
+      "created_at": "2026-10-19T16:28:32.341412+00:00",
+      "weekday": 1,
+      "opens_at": "08:00",
+      "closes_at": "16:00"
+    },
+    "meta": {
+      "correlation_id": "80e1a6cc-047f-4e1d-a085-f1b999c3e47b",
+      "service": "identidad_acceso",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "80e1a6cc-047f-4e1d-a085-f1b999c3e47b",
+  "persistence": {
+    "effect": "committed",
+    "store": "PostgreSQL red_house",
+    "query": "SELECT operation,fingerprint,result FROM idempotency WHERE user_id=:actor AND key=:idempotency_key",
+    "row": {
+      "operation": "schedules_create",
+      "fingerprint": "1456074ed7845148bdac648968cfc008f5dad8eb0294904710b448a1e5779e57",
+      "result": {
+        "id": "7034bc9c-c090-437e-a348-5adb55ac91a7",
+        "kind": "schedules",
+        "name": "Registro ficticio 1529faa9",
+        "active": true,
+        "details": {
+          "weekday": 1,
+          "opens_at": "08:00",
+          "closes_at": "16:00"
+        },
+        "version": 1,
+        "weekday": 1,
+        "opens_at": "08:00",
+        "closes_at": "16:00",
+        "parent_id": "e94a4fda-d0f3-4fe4-86f5-749cc71a6d3a",
+        "tenant_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+        "created_at": "2026-10-19T16:28:32.341412+00:00"
+      }
+    }
+  }
+}

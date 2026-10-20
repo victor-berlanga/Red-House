@@ -1,0 +1,58 @@
+{
+  "captured_at": "2026-10-19T16:39:24.790114+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "b82acfc07e7ff0221196c291a52b1986e4d1ac69b3f6769bffe29f4a02fa5c9b",
+  "transport": "http",
+  "method": "POST",
+  "route": "/api/v1/institutions/<identifier>/administrator",
+  "objective": "Provisionar primer administrador de una institución creada por esta cuenta",
+  "url": "http://127.0.0.1:56258/api/v1/institutions/cfb912d8-8601-42a8-9572-ef9fe0559a80/administrator",
+  "parameters": {},
+  "path_parameters": {
+    "identifier": "cfb912d8-8601-42a8-9572-ef9fe0559a80"
+  },
+  "request_headers": {
+    "Host": "127.0.0.1:56258",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "6d0fc3cb656d4f36924c522e0aa2c15c",
+    "Authorization": "[REDACTED]",
+    "Content-Length": "173",
+    "Content-Type": "application/json"
+  },
+  "request_body": {
+    "human_confirmation": true,
+    "reason": "Corrección ficticia con revisión humana",
+    "username": "new_admin_9ad1a57d",
+    "password": "[REDACTED]"
+  },
+  "status": 409,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "252",
+    "X-Correlation-ID": "49631ba5-657d-46ba-8256-78dd5d3d7bba",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "error": {
+      "code": "conflict",
+      "message": "La institución ya tiene cuentas; su administrador gestiona los accesos.",
+      "details": []
+    },
+    "meta": {
+      "correlation_id": "49631ba5-657d-46ba-8256-78dd5d3d7bba",
+      "service": "identidad_acceso",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "49631ba5-657d-46ba-8256-78dd5d3d7bba",
+  "persistence": {
+    "effect": "controlled_error",
+    "note": "No se infiere ausencia de efectos de un error; revisar correlación y estado de operación."
+  }
+}

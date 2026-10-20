@@ -1,0 +1,40 @@
+{
+  "captured_at": "2026-10-19T16:48:53.001341+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "6eac28b3c6355ff29f1aabe6ed2aa76b6e104ed4888482a02b3967184783afa9",
+  "transport": "http",
+  "method": "GET",
+  "route": "/api/v1/resources/<identifier>",
+  "objective": "Recurso y movimientos; sin identidad del donante",
+  "url": "http://127.0.0.1:56261/api/v1/resources/b66cb61c-23de-4e57-a499-5d20cf4297c5",
+  "parameters": {},
+  "path_parameters": {
+    "identifier": "b66cb61c-23de-4e57-a499-5d20cf4297c5"
+  },
+  "request_headers": {
+    "Host": "127.0.0.1:56261",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/xml",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "7da6e6df58a240479138e3a57298f9ac",
+    "Authorization": "[REDACTED]"
+  },
+  "request_body": "",
+  "status": 200,
+  "response_headers": {
+    "Content-Type": "application/xml; charset=utf-8",
+    "Content-Length": "2946",
+    "X-Correlation-ID": "1a38d1a7-d7e1-4e53-93fc-acbf6ba032be",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": "<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"id\" type=\"string\">b66cb61c-23de-4e57-a499-5d20cf4297c5</field><field name=\"tenant_id\" type=\"string\">87255e79-2a0a-4e44-ad21-8002ccd5688d</field><field name=\"region_id\" type=\"string\">7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb</field><field name=\"folio\" type=\"string\">NL-WEB-c29002120314</field><field name=\"current_institution_id\" type=\"string\">a0920053-13c5-4d42-b53e-74b35a779f58</field><field name=\"donation_id\" type=\"null\"/><field name=\"kind\" type=\"string\">BLOOD</field><field name=\"component\" type=\"string\">RBC</field><field name=\"blood_group\" type=\"string\">O-</field><field name=\"expires_at\" type=\"string\">2026-10-21T16:45:14.767875+00:00</field><field name=\"status\" type=\"string\">RECEIVED</field><field name=\"version\" type=\"integer\">5</field><field name=\"created_at\" type=\"string\">2026-10-19T16:45:15.631374+00:00</field><field name=\"location_id\" type=\"null\"/><field name=\"collected_at\" type=\"null\"/><field name=\"decisions\" type=\"array\"/><field name=\"movements\" type=\"array\"><item type=\"object\"><field name=\"id\" type=\"string\">2e11f94b-4224-4741-b039-979504c392cc</field><field name=\"action\" type=\"string\">CREATED</field><field name=\"created_at\" type=\"string\">2026-10-19T16:45:15.631374+00:00</field></item><item type=\"object\"><field name=\"id\" type=\"string\">58bee388-2d1d-46c6-9b33-eba550e0b19d</field><field name=\"action\" type=\"string\">RELEASED</field><field name=\"created_at\" type=\"string\">2026-10-19T16:45:16.420939+00:00</field></item><item type=\"object\"><field name=\"id\" type=\"string\">a1c353e7-4c3b-4328-b8e7-b82071eb0515</field><field name=\"action\" type=\"string\">RESERVED</field><field name=\"created_at\" type=\"string\">2026-10-19T16:45:20.363454+00:00</field></item><item type=\"object\"><field name=\"id\" type=\"string\">679561f9-9ac8-451d-be7e-d71c9532d906</field><field name=\"action\" type=\"string\">COLLECTED</field><field name=\"created_at\" type=\"string\">2026-10-19T16:47:46.454926+00:00</field></item><item type=\"object\"><field name=\"id\" type=\"string\">cfc85226-c5a7-4b6c-833e-5b5b7ae94ec7</field><field name=\"action\" type=\"string\">ACCEPTED</field><field name=\"created_at\" type=\"string\">2026-10-19T16:47:53.400563+00:00</field></item></field><field name=\"reviews\" type=\"array\"><item type=\"object\"><field name=\"id\" type=\"string\">dc712cd9-e7a9-4bb8-b4c5-01ff3b6ada58</field><field name=\"decision\" type=\"string\">RELEASED</field><field name=\"reason\" type=\"string\">Liberación humana ficticia desde el portal</field><field name=\"actor_id\" type=\"string\">fa9be2a2-91fc-4871-b69f-53fecc15e1ba</field><field name=\"created_at\" type=\"string\">2026-10-19T16:45:16.420939+00:00</field></item></field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">1a38d1a7-d7e1-4e53-93fc-acbf6ba032be</field><field name=\"service\" type=\"string\">inventario</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>",
+  "correlation_id": "1a38d1a7-d7e1-4e53-93fc-acbf6ba032be",
+  "persistence": {
+    "effect": "read",
+    "note": "Consulta; accesos protegidos generan auditoría local transaccional."
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "bucket": "red-house-evidencias-sistemas-integracion-01",
+  "file": {
+    "id": "71dbae37-fa9f-4f5f-99a0-f485fd7e46f6",
+    "shipment_id": "b52dc499-7158-46d7-89a1-00c2f3f871c5",
+    "owner_id": "b7e21549-9533-4cc8-a5bc-3d55493b8ada",
+    "object_path": "evidence/7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb/b52dc499-7158-46d7-89a1-00c2f3f871c5/71dbae37-fa9f-4f5f-99a0-f485fd7e46f6",
+    "mime_type": "image/png",
+    "size": 74,
+    "sha256": "77845f63cbd1ecb93e10fbaff7e657044d25d59f0586905c9bdbddeb2c477309",
+    "status": "VERIFIED",
+    "generation": "1792427273203717",
+    "created_at": "2026-10-19T16:27:51.293092+00:00"
+  },
+  "web_upload_http": 303,
+  "signed_download_http": 200,
+  "download_sha256": "77845f63cbd1ecb93e10fbaff7e657044d25d59f0586905c9bdbddeb2c477309",
+  "anonymous_http": 403,
+  "expired_http": 400,
+  "expired_code": "ExpiredToken",
+  "invalid_content_http": 422,
+  "missing_object_http": 404,
+  "dependency_failure_and_recovery": [
+    503,
+    200
+  ],
+  "cleanup": "test objects deleted in finally"
+}

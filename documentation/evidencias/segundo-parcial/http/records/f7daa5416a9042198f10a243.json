@@ -1,0 +1,52 @@
+{
+  "captured_at": "2026-10-19T16:28:27.982650+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "bfa44d7f9eed353dec3bafc8b15f8c356f1d5755eda053077cae211dc4490657",
+  "transport": "http",
+  "method": "POST",
+  "route": "/api/v1/alerts/<identifier>/acknowledge",
+  "objective": "Acusar recibo sin modificar el hecho de origen",
+  "url": "http://127.0.0.1:56266/api/v1/alerts/a8a6b04b-47ce-4ca0-9452-ce88c298632f/acknowledge",
+  "parameters": {},
+  "path_parameters": {
+    "identifier": "a8a6b04b-47ce-4ca0-9452-ce88c298632f"
+  },
+  "request_headers": {
+    "Host": "127.0.0.1:56266",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "cbbb2d49f29a4ccfbb77a6f5a5282c12",
+    "Content-Length": "2",
+    "Content-Type": "application/json"
+  },
+  "request_body": {},
+  "status": 401,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "199",
+    "X-Correlation-ID": "5bfa8e27-1efa-494d-b1e6-7d68329e3a97",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "error": {
+      "code": "unauthorized",
+      "message": "JWT de acceso requerido.",
+      "details": []
+    },
+    "meta": {
+      "correlation_id": "5bfa8e27-1efa-494d-b1e6-7d68329e3a97",
+      "service": "alertas",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "5bfa8e27-1efa-494d-b1e6-7d68329e3a97",
+  "persistence": {
+    "effect": "controlled_error",
+    "note": "No se infiere ausencia de efectos de un error; revisar correlación y estado de operación."
+  }
+}

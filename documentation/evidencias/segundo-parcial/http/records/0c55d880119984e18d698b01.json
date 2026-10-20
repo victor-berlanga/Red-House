@@ -1,0 +1,52 @@
+{
+  "captured_at": "2026-10-19T16:28:18.322186+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "6eac28b3c6355ff29f1aabe6ed2aa76b6e104ed4888482a02b3967184783afa9",
+  "transport": "http",
+  "method": "POST",
+  "route": "/internal/v1/reservations/<identifier>/claim",
+  "objective": "Vincular traslado durable antes de permitir recolección",
+  "url": "http://127.0.0.1:56261/internal/v1/reservations/27e6d206-c323-4b72-9366-afb976d593a8/claim",
+  "parameters": {},
+  "path_parameters": {
+    "identifier": "27e6d206-c323-4b72-9366-afb976d593a8"
+  },
+  "request_headers": {
+    "Host": "127.0.0.1:56261",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "d337c2e31b1e4ff1b09b2e93fc63acad",
+    "Content-Length": "2",
+    "Content-Type": "application/json"
+  },
+  "request_body": {},
+  "status": 401,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "218",
+    "X-Correlation-ID": "bc402e46-3732-48fa-877b-80c52a900263",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "error": {
+      "code": "unauthorized_service",
+      "message": "Identidad de servicio inválida.",
+      "details": []
+    },
+    "meta": {
+      "correlation_id": "bc402e46-3732-48fa-877b-80c52a900263",
+      "service": "inventario",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "bc402e46-3732-48fa-877b-80c52a900263",
+  "persistence": {
+    "effect": "controlled_error",
+    "note": "No se infiere ausencia de efectos de un error; revisar correlación y estado de operación."
+  }
+}

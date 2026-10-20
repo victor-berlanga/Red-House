@@ -1,6 +1,61 @@
 # Estado vigente de Red House
 
-Actualizado: **15 de octubre de 2026**. Leer junto con `AGENTS.md` y el [índice documental](documentation/README.md). El historial detallado está separado del estado actual.
+Actualizado: **20 de octubre de 2026**. Leer junto con `AGENTS.md` y el [índice documental](documentation/README.md). El historial detallado está separado del estado actual.
+
+## VM Google Compute Engine con acceso público (20 de octubre)
+
+El sistema implementado está disponible en **https://34.18.186.116**. HTTP redirige a HTTPS. Monolito, once propietarios de API con dos réplicas, workers, PostgreSQL, MongoDB y Redis se ejecutan en la VM; los archivos privados residen en GCS. No requiere túneles ni procesos locales. La IP quedó reservada como `red-house-public`; Nginx publica únicamente TCP 80/443 y mantiene los puertos de diagnóstico en loopback. Las bases no tienen puertos publicados. [Guía y comandos](deployment/gcp/README.md).
+
+La VM `red-house`, proyecto `sistemas-integracion-01`, zona `me-central1-a`, conserva las características comprobadas de `maquina01`: CentOS Stream 10, `e2-standard-2`, 2 vCPU, 8 GB RAM y disco `pd-standard` de 20 GB. La instancia original no se modificó. La copia inicial conservó **15 263 filas de 72 tablas SQL y 7 721 documentos MongoDB**, con conteos/hashes iguales, además de Redis y permisos. Las pruebas posteriores agregan datos ficticios; esas cifras no representan el conteo actual.
+
+Criterios del acceso público: abrir todo el portal desde la IP sin dependencias locales; mantener JWT, CSRF y archivos privados; permitir las API y Swagger en `/services/<servicio>/`; conservar las bases privadas; renovar TLS automáticamente y detener los servicios locales. [Resultados](documentation/evidencias/gcp/RESULTADOS.md): **27 contenedores saludables**, sistema habilitado al arranque, cuatro controles HTTP aprobados (sangre por API, JSON/XML de once servicios, sangre por web y GCS), **20 páginas de siete perfiles** en Chrome, gráficas, cookies seguras, renovación/cierre de sesión, rechazo de cookie cerrada y ejecución Swagger 200. Once servicios pasaron readiness, documentación, OpenAPI y XSD por HTTPS; ocho puertos internos no resultaron accesibles desde el cliente externo.
+
+Let's Encrypt emitió un certificado válido para la IP. Certbot 5.8.0 comprueba la renovación cada seis horas mediante systemd; la simulación de renovación y recarga de Nginx pasó. La web declara HTTPS explícitamente en Waitress y usa cookies `Secure`, `HttpOnly`, `SameSite=Lax`. OpenAPI/Swagger reconoce los prefijos públicos; las rutas internas están bloqueadas en la entrada externa. No se agregaron motores de datos ni se cambió la lógica clínica.
+
+La VM queda encendida en `/opt/redhouse`. Docker Desktop, el contenedor auxiliar de compilación y PostgreSQL de Homebrew quedaron detenidos en el equipo local; tampoco hay portal, APIs ni túneles de Red House ejecutándose localmente. Código y datos locales se conservan como copia independiente. La verificación de navegador actúa únicamente como cliente externo y termina al finalizar.
+
+GCS utiliza identidad adjunta de Compute Engine y firma IAM acotada, sin ADC personales ni claves privadas de cuenta de servicio. Las cuentas de aplicación conservan las del Docker copiado. Se mantiene la evidencia anterior del túnel como primera etapa, reemplazada por este acceso público. No se ensayó un reinicio completo de la VM ni se certifican redundancia entre hosts, carga sostenida u operación clínica/productiva. Las ediciones Word/PDF anteriores conservan su fecha y alcance.
+
+## Material breve para la exposición (20 de octubre)
+
+Se agregaron [cuatro guías de presentación](stuff/presentacion/README.md): nivel general y técnico, cada uno en español e inglés. Cada guía tiene ocho bloques, notas para hablar y demostración propuesta; duración orientativa de 8–10 o 12–15 minutos según el nivel. Se actualizaron el índice de `stuff`, la lectura inicial y el enlace al guion ampliado.
+
+Criterios de aceptación: resumir avances y funcionamiento del parcial, mantener equivalencia entre idiomas, omitir portada e integrantes y distinguir lo implementado de lo pendiente. Las guías reflejan el portal autónomo, Docker, sesiones Redis/PostgreSQL, archivos privados y resultados fechados; las cantidades de distintas ejecuciones no se suman como casos únicos.
+
+Validación documental: las cuatro guías conservan ocho bloques; 41 enlaces locales comprobados en los siete Markdown de presentación e índice, sin destinos ausentes. Se revisaron cifras, equivalencia de contenido y formato. Solo se modificó documentación; no se repitieron pruebas de aplicación ni se iniciaron servicios. Ensayo, exposición y grabación siguen a cargo del equipo.
+
+## Sesiones del portal en Redis (20 de octubre)
+
+Por solicitud del usuario se retiró el almacenamiento local de sesiones de la aplicación. Redis conserva tokens cifrados con TTL de hasta 86400 s y concesiones de renovación de 60 s. PostgreSQL conserva cierres y revocaciones pendientes en `web_runtime.session_revocations`. Credenciales separadas: ACL `web_sessions` limitada al prefijo del portal y rol `rh_web_sessions` limitado a la tabla técnica. El esquema del dominio mantiene 71 tablas; con la tabla técnica son 72 en la misma base.
+
+Criterios: no importar ni montar el almacén anterior; preservar cookie opaca, cifrado, expiración, permisos, concurrencia y cierre seguro; actualizar instalaciones local/Docker sin modificar filas del dominio; conservar pendientes ante fallos y documentar la operación. [Resultados y reproducción](documentation/evidencias/sesiones-redis/RESULTADOS.md): **121 pruebas de regresión aprobadas** (798.33 s) y **9 pruebas finales del módulo** (82.26 s), incluido rechazo de revocaciones indescifrables. Las ocho pruebas originales del módulo se repiten; no se suman como casos únicos.
+
+Migración aplicada a `.local/runtime` y `.local/compose`: 120 681 y 15 122 filas de dominio conservadas respectivamente; bootstrap Docker repetido sin rotar credenciales. No existían sesiones o revocaciones antiguas vigentes. Respaldos privados conservados. Docker comprobó login, renovación y logout por HTTP con todas las API detenidas, cifrado/TTL Redis y rechazo de cookie cerrada; sin volumen local de sesiones. Respaldo restaurado en motores nuevos: **15209 filas de 72 tablas** idénticas y permisos del portal conservados. Word/PDF y guías actualizados.
+
+Límites: PostgreSQL es necesario para verificar las marcas de cierre; ante su caída, acceso protegido y cierre global responden 503, aunque se elimina la cookie del navegador. Si Redis cae, la marca se conserva y el worker completa la revocación al recuperarse. Si falta la clave de cifrado, el pendiente se conserva. Los usuarios deben iniciar sesión nuevamente. Los entornos intervenidos quedan detenidos con datos conservados. Las evidencias del cierre del 19 de octubre son antecedentes y no se atribuyen a esta revisión.
+
+## Segundo parcial: cierre técnico documentado (19 de octubre)
+
+Aplicación **0.3.0**. Se completó el incremento de `stuff/prompts/completar_segundo_parcial.md`, con los límites y pendientes externos indicados en la [matriz final](documentation/markdowns/Cierre_segundo_parcial.md). El entorno habitual `.local/runtime` y sus datos permanecen separados de las pruebas.
+
+Implementado: backend web modular autónomo con reglas/JWT/Redis compartidos y workers propios; Dockerfiles por servicio/web, dos instancias por API incluyendo Identidad/Monitoreo, gateway DNS, volúmenes y secretos privados; proyección MongoDB versionada/reconstruible; flujo web GCS privado con validación de contenido/hash, estados y firmas; expediente HTTP con persistencia y capturas. El [informe integral](documentation/markdowns/Reporte_tecnico_segundo_parcial.md), once fichas, diagramas y catálogo físico de 71 tablas/145 índices se entregan en [Word/PDF](documentation/segundo-parcial/README.md), sin portada ni nombres.
+
+Pruebas finales verificadas:
+
+- [Regresión](documentation/evidencias/segundo-parcial/regresion-final.xml): **182 aprobadas**, cero fallos y omisiones, **2005.90 s**, con GCS real. Incluye 40 pruebas del lanzador. [Salud complementaria](documentation/evidencias/segundo-parcial/salud-complementaria.xml): una prueba posterior aprobada en **36.08 s**, informada por separado.
+- [HTTP](documentation/evidencias/segundo-parcial/http/index.html): **284/284 métodos/rutas con éxito y captura**, 240 con error; 44 documentos fijos con justificación de no aplicabilidad. Todas las escrituras capturadas tienen comprobación de persistencia.
+- [Docker](documentation/evidencias/segundo-parcial/docker-release/docker-results.json): **nueve controles aprobados**. Sangre por API; órganos y JSON/XML de once propietarios sin las réplicas A; sangre/órganos por web con las 22 API apagadas; gateway 502 sin autoridades; ambas imágenes de Inventario sustituidas con **100 consultas continuas 200** y altas persistidas; reinicio de los tres almacenes con SQL conservado y lecturas recuperadas.
+- [Navegador](documentation/evidencias/segundo-parcial/browser/browser-results.json): **20 páginas de siete perfiles**, series Highcharts contrastadas con datos del servidor, ancho 390 sin desbordamiento, carga GCS verificada y Swagger ejecutado 200; sin errores JavaScript.
+- [Respaldo/restauración](documentation/evidencias/segundo-parcial/backup-restore.json): **15 122 filas SQL de 71 tablas**, **7 632 documentos MongoDB**, cinco usuarios y cuatro roles documentales iguales por conteo/hash; clave Redis restaurada con TTL 3575 s. Motores nuevos, sin puertos publicados.
+- [Clon limpio](documentation/evidencias/segundo-parcial/clean-clone.json): **ocho etapas aprobadas**, secretos y volúmenes nuevos, **27 contenedores saludables**, sangre por API y JSON/XML de once propietarios; bootstrap repetido. Instantánea Git temporal local, sin publicar commits. [630 archivos de aplicación/despliegue idénticos](documentation/evidencias/segundo-parcial/source-validation.json) y hashes de servicios iguales a los capturados en la regresión.
+
+GCP autorizado: bucket privado `red-house-evidencias-sistemas-integracion-01`, Standard, `us-central1`, acceso uniforme y bloqueo público; cuenta `red-house-archivos`, permisos de objetos limitados al bucket y firma limitada a esa cuenta. ADC impersonada, sin claves privadas descargadas. [Prueba real](documentation/evidencias/segundo-parcial/gcs-real.json): carga, descarga/hash, rechazo público, archivo inválido, objeto ausente, expiración `400 ExpiredToken`, fallo 503 y recuperación 200. La evidencia ficticia del navegador permanece para demostración; la prueba automatizada limpió sus propios objetos.
+
+Los [resultados](documentation/evidencias/segundo-parcial/RESULTADOS.md) conservan los incidentes y sus correcciones: esperas GCS, configuración Docker, conexiones SQL, sondeos de salud, datos de captura, autenticación durante restauración MongoDB, orden del agregado SQL y DNS del primer clon. La restauración final de las API incluyó cierre de tapa de 11:24:40 a 12:16:02; [registro](documentation/evidencias/segundo-parcial/docker-release/host-suspension.json). Esa duración de pared no mide RTO. No se ampliaron deadlines para aprobar.
+
+[Revisión final de artefactos](documentation/evidencias/segundo-parcial/validacion-artefactos.json): informe de 36 páginas y catálogo físico de 41, Word íntegros, figuras/tablas inspeccionadas y sin texto fuera de página; 2214 enlaces locales válidos, 1204 archivos de evidencia revisados sin los patrones de credenciales buscados. Ruff y formato de 163 archivos, sintaxis JavaScript, `git diff --check` y sincronización CodeGraph aprobados.
+
+Los Compose de demostración y prueba quedan **detenidos**, con datos y respaldos privados conservados. Inicio del principal: `python3 deployment/start.py`. Presentación presencial, participación real y grabación/publicación de YouTube siguen pendientes del equipo. Los límites funcionales y productivos figuran abajo y en la matriz; no se declara completa la entrega académica externa.
 
 ## Decisión de arquitectura (15 de octubre)
 
@@ -10,13 +65,15 @@ Por indicación del usuario se implementa una base PostgreSQL compartida por tod
 
 ## Sistema actual
 
-- `apps/web/`: portal Flask/Jinja2 que consume HTTP. El backend SQL histórico y sus instaladores fueron retirados; no hay doble escritura ni fallback local.
+- `apps/web/`: portal Flask/Jinja2 con backend modular propio o consumo HTTP explícito. El backend histórico permanece retirado; no hay doble escritura ni cambio automático de backend tras un fallo.
 - `apps/services/`: diez microservicios y Monitoreo, con contratos JSON/XML, JWT, Redis, PostgreSQL y MongoDB.
-- PostgreSQL conserva una base operativa compartida, `red_house`, con 71 tablas y credenciales separadas por servicio. MongoDB conserva documentos/proyecciones; Redis mantiene sesiones y datos temporales. La web conserva sesiones técnicas cifradas en SQLite privado.
+- PostgreSQL conserva una base operativa compartida, `red_house`, con 71 tablas y credenciales separadas por servicio. MongoDB conserva documentos/proyecciones; Redis mantiene sesiones y datos temporales. La web conserva sesiones técnicas cifradas y bloqueos en Redis; una tabla técnica adicional en `web_runtime` conserva cierres y revocaciones pendientes (72 tablas totales entre ambos esquemas).
 - La carga regional es ficticia, pero sus operaciones y almacenamiento son reales. No se reinicializa al arrancar. Las reglas de compatibilidad y priorización no sustituyen la revisión médica.
-- Android, escritorio, Docker y GCP permanecen en una etapa posterior; no se eligieron nuevas tecnologías cliente.
+- Android y escritorio están fuera de este parcial. Docker, bucket GCS y VM GCE con acceso por IP y HTTPS están implementados; operación productiva y redundancia continúan pendientes.
 
 ## Operación
+
+Acceso habitual: **https://34.18.186.116**, con todo el procesamiento en GCP. Los comandos siguientes son para desarrollo local opcional y no son necesarios para usar la VM.
 
 Desde la raíz: `bash install.sh`, `bash start.sh`, `bash components.sh estado` y `bash stop.sh`. Los BAT de Windows utilizan WSL/Ubuntu; no son un port nativo.
 
@@ -37,11 +94,12 @@ El entorno predeterminado es `.local/runtime/`, privado y excluido de Git. El or
 ## Pendientes
 
 - Validación clínica/normativa de reglas, HLA, elegibilidad, asignación, retención y acceso institucional.
-- Agenda por sede/hora, recuperación de acceso, email/push y administración institucional definitiva.
-- Bucket GCS real, archivos grandes, firmas y fallos de nube.
-- Android, escritorio XML, contenedores, HTTPS, GCP, supervisión y operación productiva.
+- Agenda detallada por sede/hora, recuperación automatizada de contraseña, email/push y reportes regulatorios certificados.
+- Presentación presencial, participación nominal, grabación/publicación de YouTube y enlace accesible del equipo.
+- Android, escritorio XML, operación productiva y redundancia de infraestructura; la VM GCE académica ya ejecuta Docker con supervisión por instancia y HTTPS público.
 - Carga sostenida, saturación, alta disponibilidad y ejecución de CI remoto. Windows/WSL y Ubuntu completos no están certificados por las pruebas de este Mac.
-- Diagrama físico de la base compartida y nueva edición del reporte integral Word/PDF para el sistema integrado. Los modelos 0FN–4FN y las once ediciones Word de planificación siguen siendo referencias del semestre; el reporte del monolito permanece como antecedente.
+
+El diagrama físico compartido, catálogo de 71 tablas, informe integral y evidencias de archivos/continuidad pertenecen al incremento actual descrito al inicio. Los modelos 0FN–4FN y las once ediciones Word de planificación se conservan como referencias del semestre; el reporte del monolito anterior es un antecedente.
 
 ## Revisión documental del 14 de octubre
 

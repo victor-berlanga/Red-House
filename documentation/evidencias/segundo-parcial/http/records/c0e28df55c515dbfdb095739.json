@@ -1,0 +1,52 @@
+{
+  "captured_at": "2026-10-19T16:28:07.742463+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "b82acfc07e7ff0221196c291a52b1986e4d1ac69b3f6769bffe29f4a02fa5c9b",
+  "transport": "http",
+  "method": "PATCH",
+  "route": "/api/v1/catalogues/contacts/<identifier>",
+  "objective": "Editar o desactivar contacts",
+  "url": "http://127.0.0.1:56258/api/v1/catalogues/contacts/77cb0e19-5baf-4011-bde3-519c6f961250",
+  "parameters": {},
+  "path_parameters": {
+    "identifier": "77cb0e19-5baf-4011-bde3-519c6f961250"
+  },
+  "request_headers": {
+    "Host": "127.0.0.1:56258",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "29b9897835c7468982c4e4650a45a840",
+    "Content-Length": "2",
+    "Content-Type": "application/json"
+  },
+  "request_body": {},
+  "status": 401,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "208",
+    "X-Correlation-ID": "7105f134-796d-42cb-ac20-767325e7fc9f",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "error": {
+      "code": "unauthorized",
+      "message": "JWT de acceso requerido.",
+      "details": []
+    },
+    "meta": {
+      "correlation_id": "7105f134-796d-42cb-ac20-767325e7fc9f",
+      "service": "identidad_acceso",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "7105f134-796d-42cb-ac20-767325e7fc9f",
+  "persistence": {
+    "effect": "controlled_error",
+    "note": "No se infiere ausencia de efectos de un error; revisar correlación y estado de operación."
+  }
+}

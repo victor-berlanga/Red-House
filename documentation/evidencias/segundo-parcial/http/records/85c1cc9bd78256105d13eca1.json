@@ -1,0 +1,56 @@
+{
+  "captured_at": "2026-10-19T16:33:21.816805+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "6eac28b3c6355ff29f1aabe6ed2aa76b6e104ed4888482a02b3967184783afa9",
+  "transport": "http",
+  "method": "POST",
+  "route": "/api/v1/reservations",
+  "objective": "Reservar con retención de capacidad y seguimiento de operación",
+  "url": "http://127.0.0.1:56261/api/v1/reservations",
+  "parameters": {},
+  "path_parameters": {},
+  "request_headers": {
+    "Host": "127.0.0.1:56261",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "305b8a556fa842dd8b77986005e76aef",
+    "Authorization": "[REDACTED]",
+    "Content-Length": "193",
+    "Content-Type": "application/json"
+  },
+  "request_body": {
+    "evaluation_id": "84e33124-d0d3-4e8b-a8cf-cc953fe7a846",
+    "resource_id": "173edbb4-fe82-492f-a7d0-6cfa5e7c0764",
+    "human_confirmation": true,
+    "reason": "Reserva concurrente ficticia autorizada"
+  },
+  "status": 409,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "211",
+    "X-Correlation-ID": "93445934-4f5c-4c22-907b-a89f5623c626",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "error": {
+      "code": "stale_resource",
+      "message": "Recurso reservado o modificado.",
+      "details": []
+    },
+    "meta": {
+      "correlation_id": "93445934-4f5c-4c22-907b-a89f5623c626",
+      "service": "inventario",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "93445934-4f5c-4c22-907b-a89f5623c626",
+  "persistence": {
+    "effect": "controlled_error",
+    "note": "No se infiere ausencia de efectos de un error; revisar correlación y estado de operación."
+  }
+}

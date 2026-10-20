@@ -1,0 +1,243 @@
+<!doctype html><html lang="es"><meta charset="utf-8"><title>custodia /api/v1/chains/&lt;identifier&gt;</title><style>body{font:15px system-ui;margin:32px;background:#f4f5f7;color:#202631}main{max-width:1250px;margin:auto}h1{color:#8e2434;font-size:26px}small{color:#556}a{color:#8e2434}table{border-collapse:collapse;width:100%;background:white}td,th{padding:9px;border:1px solid #ccd;vertical-align:top;text-align:left}pre{white-space:pre-wrap;word-break:break-word;background:#fff;border:1px solid #ccd;padding:12px;font:12px monospace;max-height:300px;overflow:auto}section{margin:20px 0}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.tag{padding:4px 9px;background:#e5ece7}.error{background:#f8e5e6}input{padding:12px;width:70%;margin:15px 0}details{margin:12px 0}nav{margin-bottom:20px}</style><main><nav><a href="../index.html">Inventario completo</a></nav><h1>custodia · GET /api/v1/chains/&lt;identifier&gt;</h1><p>Consultar cadena; hash detecta alteraciones, no certifica veracidad física</p><p>Registro de ejecución real. Credenciales y firmas redactadas. Los cuerpos completos están en el JSON enlazado.</p><section><h2>HTTP 200</h2><p><b>2026-10-19T16:31:15.514011+00:00</b> · versión 0.3.0</p><p>Correlación: 76140ac4-3b26-4c30-8ba1-a24c26750010<br>URL: http://127.0.0.1:56265/api/v1/chains/beb48ef1-cb8d-41b5-8ab7-3d80dd76c3b9</p><p><a href="../records/c1cbf43ea2f7f7e26da8c1d6.json">Petición, respuesta, headers y persistencia completos</a></p><div class="grid"><div><h3>Petición</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Host&quot;: &quot;127.0.0.1:56265&quot;,
+    &quot;User-Agent&quot;: &quot;python-requests/2.34.2&quot;,
+    &quot;Accept-Encoding&quot;: &quot;gzip, deflate, br&quot;,
+    &quot;Accept&quot;: &quot;application/json&quot;,
+    &quot;Connection&quot;: &quot;keep-alive&quot;,
+    &quot;Idempotency-Key&quot;: &quot;3368b3a3976042e3949661647a4760b9&quot;,
+    &quot;Authorization&quot;: &quot;[REDACTED]&quot;
+  },
+  &quot;parameters&quot;: {},
+  &quot;body&quot;: &quot;&quot;
+}</pre></div><div><h3>Respuesta</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Content-Type&quot;: &quot;application/json&quot;,
+    &quot;Content-Length&quot;: &quot;7131&quot;,
+    &quot;X-Correlation-ID&quot;: &quot;76140ac4-3b26-4c30-8ba1-a24c26750010&quot;,
+    &quot;Cache-Control&quot;: &quot;no-store&quot;,
+    &quot;X-Content-Type-Options&quot;: &quot;nosniff&quot;,
+    &quot;Referrer-Policy&quot;: &quot;no-referrer&quot;
+  },
+  &quot;body&quot;: {
+    &quot;data&quot;: {
+      &quot;chain&quot;: {
+        &quot;id&quot;: &quot;beb48ef1-cb8d-41b5-8ab7-3d80dd76c3b9&quot;,
+        &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+        &quot;origin_id&quot;: &quot;87255e79-2a0a-4e44-ad21-8002ccd5688d&quot;,
+        &quot;destination_id&quot;: &quot;a0920053-13c5-4d42-b53e-74b35a779f58&quot;,
+        &quot;last_sequence&quot;: 6,
+        &quot;last_hash&quot;: &quot;6435c81775b11006b5feaf4fdea34e0233d6aa3473c31efe20c7a15c76c7bf26&quot;
+      },
+      &quot;events&quot;: [
+        {
+          &quot;id&quot;: &quot;5051372a-59ef-48c1-b567-e5463b5359da&quot;,
+          &quot;shipment_id&quot;: &quot;beb48ef1-cb8d-41b5-8ab7-3d80dd76c3b9&quot;,
+          &quot;sequence&quot;: 1,
+          &quot;event&quot;: {
+            &quot;action&quot;: &quot;SHIPMENT_PLANNED&quot;,
+            &quot;source&quot;: &quot;transporte&quot;,
+            &quot;actor_id&quot;: null,
+            &quot;event_id&quot;: &quot;5051372a-59ef-48c1-b567-e5463b5359da&quot;,
+            &quot;metadata&quot;: {
+              &quot;state&quot;: &quot;PLANNED&quot;,
+              &quot;evidence&quot;: null,
+              &quot;sequence&quot;: 1,
+              &quot;origin_id&quot;: &quot;87255e79-2a0a-4e44-ad21-8002ccd5688d&quot;,
+              &quot;destination_id&quot;: &quot;a0920053-13c5-4d42-b53e-74b35a779f58&quot;,
+              &quot;reservation_id&quot;: &quot;4f05e679-e4b4-41d7-868d-20c86d461e33&quot;,
+              &quot;transport_user_id&quot;: &quot;3980f3c5-484c-4178-b03c-8d65c598ecd7&quot;,
+              &quot;destination_location_id&quot;: null
+            },
+            &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+            &quot;tenant_id&quot;: &quot;87255e79-2a0a-4e44-ad21-8002ccd5688d&quot;,
+            &quot;occurred_at&quot;: &quot;2026-10-19T16:30:43.110167+00:00&quot;,
+            &quot;resource_id&quot;: &quot;beb48ef1-cb8d-41b5-8ab7-3d80dd76c3b9&quot;,
+            &quot;correlation_id&quot;: &quot;2ca164e1-a3a2-4444-ba5d-46261d5ac531&quot;
+          },
+          &quot;previous_hash&quot;: &quot;&quot;,
+          &quot;hash&quot;: &quot;06320b7b3ddfec95952f94f9329cacdac95a26aba6eeaa3e7bbba263cc217131&quot;,
+          &quot;created_at&quot;: &quot;2026-10-19T16:30:55.972568+00:00&quot;
+        },
+        {
+          &quot;id&quot;: &quot;23bf335f-03c7-4db6-8a44-374199399071&quot;,
+          &quot;shipment_id&quot;: &quot;beb48ef1-cb8d-41b5-8ab7-3d80dd76c3b9&quot;,
+          &quot;sequence&quot;: 2,
+          &quot;event&quot;: {
+            &quot;action&quot;: &quot;SHIPMENT_PREPARED&quot;,
+            &quot;source&quot;: &quot;transporte&quot;,
+            &quot;actor_id&quot;: &quot;b7e21549-9533-4cc8-a5bc-3d55493b8ada&quot;,
+            &quot;event_id&quot;: &quot;23bf335f-03c7-4db6-8a44-374199399071&quot;,
+            &quot;metadata&quot;: {
+              &quot;state&quot;: &quot;PREPARED&quot;,
+              &quot;evidence&quot;: null,
+              &quot;sequence&quot;: 2,
+              &quot;origin_id&quot;: &quot;87255e79-2a0a-4e44-ad21-8002ccd5688d&quot;,
+              &quot;destination_id&quot;: &quot;a0920053-13c5-4d42-b53e-74b35a779f58&quot;,
+              &quot;reservation_id&quot;: &quot;4f05e679-e4b4-41d7-868d-20c86d461e33&quot;,
+              &quot;transport_user_id&quot;: &quot;3980f3c5-484c-4178-b03c-8d65c598ecd7&quot;,
+              &quot;destination_location_id&quot;: null
+            },
+            &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+            &quot;tenant_id&quot;: &quot;87255e79-2a0a-4e44-ad21-8002ccd5688d&quot;,
+            &quot;occurred_at&quot;: &quot;2026-10-19T16:30:43.433147+00:00&quot;,
+            &quot;resource_id&quot;: &quot;beb48ef1-cb8d-41b5-8ab7-3d80dd76c3b9&quot;,
+            &quot;correlation_id&quot;: &quot;089fb0b2-a19d-447e-9553-3c7eb06199b7&quot;
+          },
+          &quot;previous_hash&quot;: &quot;06320b7b3ddfec95952f94f9329cacdac95a26aba6eeaa3e7bbba263cc217131&quot;,
+          &quot;hash&quot;: &quot;aa3367b4f7a163530e3c187468ba0d9b7746ce4a093a59fa46fcd70feddd01d6&quot;,
+          &quot;created_at&quot;: &quot;2026-10-19T16:30:57.684938+00:00&quot;
+        },
+        {
+          &quot;id&quot;: &quot;8dca0790-9eff-4959-bac4-3fc1f0db69e8&quot;,
+          &quot;shipment_id&quot;: &quot;beb48ef1-cb8d-41b5-8ab7-3d80dd76c3b9&quot;,
+          &quot;sequence&quot;: 3,
+          &quot;event&quot;: {
+            &quot;action&quot;: &quot;SHIPMENT_COLLECTED&quot;,
+            &quot;source&quot;: &quot;transporte&quot;,
+            &quot;actor_id&quot;: &quot;3980f3c5-484c-4178-b03c-8d65c598ecd7&quot;,
+            &quot;event_id&quot;: &quot;8dca0790-9eff-4959-bac4-3fc1f0db69e8&quot;,
+            &quot;metadata&quot;: {
+              &quot;state&quot;: &quot;COLLECTED&quot;,
+              &quot;evidence&quot;: null,
+              &quot;sequence&quot;: 3,
+              &quot;origin_id&quot;: &quot;87255e79-2a0a-4e44-ad21-8002ccd5688d&quot;,
+              &quot;destination_id&quot;: &quot;a0920053-13c5-4d42-b53e-74b35a779f58&quot;,
+              &quot;reservation_id&quot;: &quot;4f05e679-e4b4-41d7-868d-20c86d461e33&quot;,
+              &quot;transport_user_id&quot;: &quot;3980f3c5-484c-4178-b03c-8d65c598ecd7&quot;,
+              &quot;destination_location_id&quot;: null
+            },
+            &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+            &quot;tenant_id&quot;: &quot;87255e79-2a0a-4e44-ad21-8002ccd5688d&quot;,
+            &quot;occurred_at&quot;: &quot;2026-10-19T16:30:43.775228+00:00&quot;,
+            &quot;resource_id&quot;: &quot;beb48ef1-cb8d-41b5-8ab7-3d80dd76c3b9&quot;,
+            &quot;correlation_id&quot;: &quot;d8b4cdd0-93ee-47d1-91a8-7f4c39ff12e1&quot;
+          },
+          &quot;previous_hash&quot;: &quot;aa3367b4f7a163530e3c187468ba0d9b7746ce4a093a59fa46fcd70feddd01d6&quot;,
+          &quot;hash&quot;: &quot;694614e531857cb97c7f8e95253631a40ef42910134573e51a8d33e439d1bd9c&quot;,
+          &quot;created_at&quot;: &quot;2026-10-19T16:30:58.680469+00:00&quot;
+        },
+        {
+          &quot;id&quot;: &quot;fb9bc5f8-a353-4da3-8bda-92d93142eaa4&quot;,
+          &quot;shipment_id&quot;: &quot;beb48ef1-cb8d-41b5-8ab7-3d80dd76c3b9&quot;,
+          &quot;sequence&quot;: 4,
+          &quot;event&quot;: {
+            &quot;action&quot;: &quot;SHIPMENT_IN_TRANSIT&quot;,
+            &quot;source&quot;: &quot;transporte&quot;,
+            &quot;actor_id&quot;: &quot;3980f3c5-484c-4178-b03c-8d65c598ecd7&quot;,
+            &quot;event_id&quot;: &quot;fb9bc5f8-a353-4da3-8bda-92d93142eaa4&quot;,
+            &quot;metadata&quot;: {
+              &quot;state&quot;: &quot;IN_TRANSIT&quot;,
+              &quot;evidence&quot;: null,
+              &quot;sequence&quot;: 4,
+              &quot;origin_id&quot;: &quot;87255e79-2a0a-4e44-ad21-8002ccd5688d&quot;,
+              &quot;destination_id&quot;: &quot;a0920053-13c5-4d42-b53e-74b35a779f58&quot;,
+              &quot;reservation_id&quot;: &quot;4f05e679-e4b4-41d7-868d-20c86d461e33&quot;,
+              &quot;transport_user_id&quot;: &quot;3980f3c5-484c-4178-b03c-8d65c598ecd7&quot;,
+              &quot;destination_location_id&quot;: null
+            },
+            &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+            &quot;tenant_id&quot;: &quot;87255e79-2a0a-4e44-ad21-8002ccd5688d&quot;,
+            &quot;occurred_at&quot;: &quot;2026-10-19T16:30:44.131059+00:00&quot;,
+            &quot;resource_id&quot;: &quot;beb48ef1-cb8d-41b5-8ab7-3d80dd76c3b9&quot;,
+            &quot;correlation_id&quot;: &quot;ebe1af6e-c8eb-41b0-b6ae-c1dbfabfd911&quot;
+          },
+          &quot;previous_hash&quot;: &quot;694614e531857cb97c7f8e95253631a40ef42910134573e51a8d33e439d1bd9c&quot;,
+          &quot;hash&quot;: &quot;36214c621cbccb32adc5713dca64057533f6ca6356892c7308222435ec8253a4&quot;,
+          &quot;created_at&quot;: &quot;2026-10-19T16:31:00.578259+00:00&quot;
+        },
+        {
+          &quot;id&quot;: &quot;4057104b-ee3d-44ff-9b89-6a92e3dfc541&quot;,
+          &quot;shipment_id&quot;: &quot;beb48ef1-cb8d-41b5-8ab7-3d80dd76c3b9&quot;,
+          &quot;sequence&quot;: 5,
+          &quot;event&quot;: {
+            &quot;action&quot;: &quot;SHIPMENT_DELIVERED&quot;,
+            &quot;source&quot;: &quot;transporte&quot;,
+            &quot;actor_id&quot;: &quot;3980f3c5-484c-4178-b03c-8d65c598ecd7&quot;,
+            &quot;event_id&quot;: &quot;4057104b-ee3d-44ff-9b89-6a92e3dfc541&quot;,
+            &quot;metadata&quot;: {
+              &quot;state&quot;: &quot;DELIVERED&quot;,
+              &quot;evidence&quot;: null,
+              &quot;sequence&quot;: 5,
+              &quot;origin_id&quot;: &quot;87255e79-2a0a-4e44-ad21-8002ccd5688d&quot;,
+              &quot;destination_id&quot;: &quot;a0920053-13c5-4d42-b53e-74b35a779f58&quot;,
+              &quot;reservation_id&quot;: &quot;4f05e679-e4b4-41d7-868d-20c86d461e33&quot;,
+              &quot;transport_user_id&quot;: &quot;3980f3c5-484c-4178-b03c-8d65c598ecd7&quot;,
+              &quot;destination_location_id&quot;: null
+            },
+            &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+            &quot;tenant_id&quot;: &quot;87255e79-2a0a-4e44-ad21-8002ccd5688d&quot;,
+            &quot;occurred_at&quot;: &quot;2026-10-19T16:30:44.783634+00:00&quot;,
+            &quot;resource_id&quot;: &quot;beb48ef1-cb8d-41b5-8ab7-3d80dd76c3b9&quot;,
+            &quot;correlation_id&quot;: &quot;7aecae79-c5e7-484b-b387-5402bbd51e54&quot;
+          },
+          &quot;previous_hash&quot;: &quot;36214c621cbccb32adc5713dca64057533f6ca6356892c7308222435ec8253a4&quot;,
+          &quot;hash&quot;: &quot;a4f38a48c1aa4e40407db267334d631b90662b92ac7f040dd25034dd4923f898&quot;,
+          &quot;created_at&quot;: &quot;2026-10-19T16:31:01.532281+00:00&quot;
+        },
+        {
+          &quot;id&quot;: &quot;45e1f8f4-40c2-4071-a55b-60e784fded0b&quot;,
+          &quot;shipment_id&quot;: &quot;beb48ef1-cb8d-41b5-8ab7-3d80dd76c3b9&quot;,
+          &quot;sequence&quot;: 6,
+          &quot;event&quot;: {
+            &quot;action&quot;: &quot;SHIPMENT_ACCEPTED&quot;,
+            &quot;source&quot;: &quot;transporte&quot;,
+            &quot;actor_id&quot;: &quot;08496c01-6621-4892-8d45-8152c6693b65&quot;,
+            &quot;event_id&quot;: &quot;45e1f8f4-40c2-4071-a55b-60e784fded0b&quot;,
+            &quot;metadata&quot;: {
+              &quot;state&quot;: &quot;ACCEPTED&quot;,
+              &quot;evidence&quot;: null,
+              &quot;sequence&quot;: 6,
+              &quot;origin_id&quot;: &quot;87255e79-2a0a-4e44-ad21-8002ccd5688d&quot;,
+              &quot;destination_id&quot;: &quot;a0920053-13c5-4d42-b53e-74b35a779f58&quot;,
+              &quot;reservation_id&quot;: &quot;4f05e679-e4b4-41d7-868d-20c86d461e33&quot;,
+              &quot;transport_user_id&quot;: &quot;3980f3c5-484c-4178-b03c-8d65c598ecd7&quot;,
+              &quot;destination_location_id&quot;: null
+            },
+            &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+            &quot;tenant_id&quot;: &quot;87255e79-2a0a-4e44-ad21-8002ccd5688d&quot;,
+            &quot;occurred_at&quot;: &quot;2026-10-19T16:30:45.395762+00:00&quot;,
+            &quot;resource_id&quot;: &quot;beb48ef1-cb8d-41b5-8ab7-3d80dd76c3b9&quot;,
+            &quot;correlation_id&quot;: &quot;7747c72f-c3e3-4863-844d-ec194b9f1470&quot;
+          },
+          &quot;previous_hash&quot;: &quot;a4f38a48c1aa4e40407db267334d631b90662b92ac7f040dd25034dd4923f898&quot;,
+          &quot;hash&quot;: &quot;6435c81775b11006b5feaf4fdea34e0233d6aa3473c31efe20c7a15c76c7bf26&quot;,
+          &quot;created_at&quot;: &quot;2026-10-19T16:31:03.765806+00:00&quot;
+        }
+      ],
+      &quot;notice&quot;: &quot;Recepción no significa transfusión ni trasplante. Evidencia inmutable bajo credenciales de aplicación; no impide intervención del propietario de base.&quot;
+    },
+    &quot;meta&quot;: {
+      &quot;correlation_id&quot;: &quot;76140ac4-3b26-4c30-8ba1-a24c26750010&quot;,
+      &quot;service&quot;: &quot;custodia&quot;,
+      &quot;version&quot;: &quot;0.3.0&quot;
+    }
+  }
+}</pre></div></div><details><summary>Persistencia y versión de implementación</summary><pre>{
+  &quot;effect&quot;: &quot;read&quot;,
+  &quot;note&quot;: &quot;Consulta; accesos protegidos generan auditoría local transaccional.&quot;
+}</pre><p>SHA-256: 864e3dda7901fd4edb3082758390ed9006bf1eeb509502b67d2009709a43ddd8</p></details></section><section><h2>HTTP 401</h2><p><b>2026-10-19T16:28:26.970183+00:00</b> · versión 0.3.0</p><p>Correlación: e98b461c-6554-464d-bcb8-893ff5afd265<br>URL: http://127.0.0.1:56265/api/v1/chains/a12ebf9e-9a64-4e5d-ab57-843066be1918</p><p><a href="../records/62cf6f51b80380014a1af82e.json">Petición, respuesta, headers y persistencia completos</a></p><div class="grid"><div><h3>Petición</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Host&quot;: &quot;127.0.0.1:56265&quot;,
+    &quot;User-Agent&quot;: &quot;python-requests/2.34.2&quot;,
+    &quot;Accept-Encoding&quot;: &quot;gzip, deflate, br&quot;,
+    &quot;Accept&quot;: &quot;application/xml&quot;,
+    &quot;Connection&quot;: &quot;keep-alive&quot;,
+    &quot;Idempotency-Key&quot;: &quot;bd809eda0f8f401186278c89a1489498&quot;
+  },
+  &quot;parameters&quot;: {},
+  &quot;body&quot;: &quot;&quot;
+}</pre></div><div><h3>Respuesta</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Content-Type&quot;: &quot;application/xml; charset=utf-8&quot;,
+    &quot;Content-Length&quot;: &quot;502&quot;,
+    &quot;X-Correlation-ID&quot;: &quot;e98b461c-6554-464d-bcb8-893ff5afd265&quot;,
+    &quot;Cache-Control&quot;: &quot;no-store&quot;,
+    &quot;X-Content-Type-Options&quot;: &quot;nosniff&quot;,
+    &quot;Referrer-Policy&quot;: &quot;no-referrer&quot;
+  },
+  &quot;body&quot;: &quot;&lt;response type=\&quot;object\&quot;&gt;&lt;field name=\&quot;error\&quot; type=\&quot;object\&quot;&gt;&lt;field name=\&quot;code\&quot; type=\&quot;string\&quot;&gt;unauthorized&lt;/field&gt;&lt;field name=\&quot;message\&quot; type=\&quot;string\&quot;&gt;JWT de acceso requerido.&lt;/field&gt;&lt;field name=\&quot;details\&quot; type=\&quot;array\&quot;/&gt;&lt;/field&gt;&lt;field name=\&quot;meta\&quot; type=\&quot;object\&quot;&gt;&lt;field name=\&quot;correlation_id\&quot; type=\&quot;string\&quot;&gt;e98b461c-6554-464d-bcb8-893ff5afd265&lt;/field&gt;&lt;field name=\&quot;service\&quot; type=\&quot;string\&quot;&gt;custodia&lt;/field&gt;&lt;field name=\&quot;version\&quot; type=\&quot;string\&quot;&gt;0.3.0&lt;/field&gt;&lt;/field&gt;&lt;/response&gt;&quot;
+}</pre></div></div><details><summary>Persistencia y versión de implementación</summary><pre>{
+  &quot;effect&quot;: &quot;controlled_error&quot;,
+  &quot;note&quot;: &quot;No se infiere ausencia de efectos de un error; revisar correlación y estado de operación.&quot;
+}</pre><p>SHA-256: 864e3dda7901fd4edb3082758390ed9006bf1eeb509502b67d2009709a43ddd8</p></details></section><h2>Todas las variantes ejecutadas</h2><ul><li><a href="../records/9d14d6d10ab638353cd3d63c.json">200 · embedded · application/json · 2026-10-19T16:24:47.700392+00:00</a></li><li><a href="../records/c1cbf43ea2f7f7e26da8c1d6.json">200 · http · application/json · 2026-10-19T16:31:15.514011+00:00</a></li><li><a href="../records/62cf6f51b80380014a1af82e.json">401 · http · application/xml; charset=utf-8 · 2026-10-19T16:28:26.970183+00:00</a></li><li><a href="../records/908624e71a8c828b7e850ff2.json">401 · http · application/json · 2026-10-19T16:28:26.926561+00:00</a></li><li><a href="../records/d45859e67a95e57628ae46fd.json">404 · http · application/json · 2026-10-19T16:28:27.174839+00:00</a></li></ul></main></html>

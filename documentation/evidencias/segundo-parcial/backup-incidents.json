@@ -1,0 +1,32 @@
+[
+  {
+    "check": "backup_mongo_state",
+    "expected": "Calcular hash canónico de documentos antes del respaldo",
+    "obtained": "SyntaxError al pasar el script Python embebido: salto de línea escapado incorrectamente. Fallo antes de exportar o restaurar datos.",
+    "correction": "Usar cadena raw para conservar el literal de separación en el código enviado al contenedor.",
+    "source_log": "/private/tmp/redhouse-backup-final.log"
+  },
+  {
+    "check": "isolated_mongorestore_initialization",
+    "expected": "Restaurar archivo en MongoDB nuevo",
+    "obtained": "Primer mongorestore terminó con error sin conservar stderr detallado. La repetición del mismo archivo sobre el mismo contenedor temporal restauró sin error.",
+    "diagnosis": "No se puede atribuir con certeza el primer fallo. El sondeo anterior podía aceptar el servidor temporal de inicialización de la imagen.",
+    "correction": "Conservar diagnóstico sin contraseña y exigir servidor definitivo como PID 1 antes de comprobar PostgreSQL/MongoDB. Se mantiene el plazo original de 45 s.",
+    "source_log": "/private/tmp/redhouse-backup-repeat.log"
+  },
+  {
+    "check": "isolated_mongorestore_authentication",
+    "expected": "Restaurar documentos, índices y credenciales",
+    "obtained": "7632 documentos restaurados; createIndexes rechazado por falta de autenticación durante la restauración conjunta de admin y bases de aplicación.",
+    "correction": "Restaurar admin primero; iniciar otro proceso autenticado para rh_*.*. Comparar además conteos y hashes de usuarios/roles, sin publicar credenciales.",
+    "reference": "https://www.mongodb.com/docs/database-tools/mongorestore/#std-option-mongorestore.--drop",
+    "source_log": "/private/tmp/redhouse-backup-verified.log"
+  },
+  {
+    "check": "sql_comparison_order",
+    "expected": "Comparación determinista de las 71 tablas",
+    "obtained": "La agregación SQL devolvió tablas en orden distinto; los conteos y hashes por nombre coincidían, al igual que documentos MongoDB y usuarios/roles.",
+    "correction": "Orden explícito por nombre dentro de json_agg. Se conserva la comparación completa de cada fila y documento.",
+    "source_log": "/private/tmp/redhouse-backup-auth-final.log"
+  }
+]

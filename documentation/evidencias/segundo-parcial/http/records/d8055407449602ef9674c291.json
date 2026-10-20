@@ -1,0 +1,52 @@
+{
+  "captured_at": "2026-10-19T16:28:11.801750+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "1a8dccae105e0c261a0273a99f999923c88cbf235f750f80f0ac2f487c8b6654",
+  "transport": "http",
+  "method": "POST",
+  "route": "/api/v1/appointments/<identifier>/cancel",
+  "objective": "Cancelar cita y liberar cupo",
+  "url": "http://127.0.0.1:56259/api/v1/appointments/b7713509-b0a1-4c72-8788-2f48a61f813e/cancel",
+  "parameters": {},
+  "path_parameters": {
+    "identifier": "b7713509-b0a1-4c72-8788-2f48a61f813e"
+  },
+  "request_headers": {
+    "Host": "127.0.0.1:56259",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "035356fc13ba47c298356c2d17bc8327",
+    "Content-Length": "2",
+    "Content-Type": "application/json"
+  },
+  "request_body": {},
+  "status": 401,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "200",
+    "X-Correlation-ID": "40765a86-5b0e-4577-9d3d-9d4468b22b49",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "error": {
+      "code": "unauthorized",
+      "message": "JWT de acceso requerido.",
+      "details": []
+    },
+    "meta": {
+      "correlation_id": "40765a86-5b0e-4577-9d3d-9d4468b22b49",
+      "service": "donantes",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "40765a86-5b0e-4577-9d3d-9d4468b22b49",
+  "persistence": {
+    "effect": "controlled_error",
+    "note": "No se infiere ausencia de efectos de un error; revisar correlación y estado de operación."
+  }
+}

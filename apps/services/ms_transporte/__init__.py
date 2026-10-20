@@ -1,7 +1,7 @@
 from redhouse.app import base_app, complete_app
 
 
-VERSION = "0.2.0"
+VERSION = "0.3.0"
 
 
 def create_app(config=None):
@@ -13,4 +13,8 @@ def create_app(config=None):
     from .queries import install
 
     install(app)
+    from .projection import install as projection
+    from .routes import shipment_access
+
+    projection(app, shipment_access)
     return complete_app(app)

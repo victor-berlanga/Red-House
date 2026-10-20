@@ -1,0 +1,104 @@
+[
+  {
+    "report": "redhouse-final-20261019.xml",
+    "sha256": "35d10b101f5e8345f261a13f0443fad24961acbd90c7f50b13e335944eed90a3",
+    "suites": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "1",
+        "skipped": "0",
+        "tests": "177",
+        "time": "1344.060",
+        "timestamp": "2026-10-19T06:59:11.366717-06:00",
+        "hostname": "Victors-MacBook-Air.local"
+      }
+    ],
+    "incidents": [
+      {
+        "case": "tests.test_documents_storage.test_gcs_web_upload_private_download_validation_expiry_and_recovery",
+        "status": "failure",
+        "message": "requests.exceptions.ReadTimeout: HTTPConnectionPool(host='127.0.0.1', port=50213): Read timed out. (read timeout=20)"
+      }
+    ]
+  },
+  {
+    "report": "redhouse-extra-20261019.xml",
+    "sha256": "965dd3f28460147b87ceadad984c01b4eef99439400741b527ce24f8463afc5f",
+    "suites": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "3",
+        "skipped": "0",
+        "tests": "7",
+        "time": "83.032",
+        "timestamp": "2026-10-19T07:36:40.970988-06:00",
+        "hostname": "Victors-MacBook-Air.local"
+      }
+    ],
+    "incidents": [
+      {
+        "case": "tests.test_evidence_catalog.test_all_registered_routes_expose_real_http_contracts_and_controlled_errors",
+        "status": "failure",
+        "message": "AssertionError: assert 500 == 200\n +  where 500 = <Response [500]>.status_code\n +    where <Response [500]> = request('identidad_acceso', 'GET', '/docs/static/swagger-ui.css', user=None)\n +      where request = <tests.conftest.Platform object at 0x10f0a9010>.request"
+      },
+      {
+        "case": "tests.test_evidence_catalog.test_edits_details_and_recovery_have_http_and_committed_evidence",
+        "status": "failure",
+        "message": "AssertionError: (422, '{\"error\": {\"code\": \"validation\", \"message\": \"La solicitud no cumple el contrato.\", \"details\": [{\"field\": \"human... {\"correlation_id\": \"84c3d4e9-0482-4266-a97e-24ec743ef81b\", \"service\": \"priorizacion_geografia\", \"version\": \"0.3.0\"}}')\nassert 422 < 300\n +  where 422 = <Response [422]>.status_code"
+      },
+      {
+        "case": "tests.test_evidence_catalog.test_pooled_transactions_preserve_rollback_credentials_and_recover",
+        "status": "failure",
+        "message": "psycopg.errors.InsufficientPrivilege: permission denied to create temporary tables in database \"red_house\"\nLINE 1: CREATE TEMP TABLE pool_rollback_probe(id integer)\n                          ^"
+      }
+    ]
+  },
+  {
+    "report": "redhouse-extra-fixed.xml",
+    "sha256": "08abbb237ddf8f7c05a6ca917cf72ea328738ec30b81e9ea69c5c943309d6d24",
+    "suites": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "1",
+        "skipped": "0",
+        "tests": "3",
+        "time": "63.868",
+        "timestamp": "2026-10-19T07:40:01.550371-06:00",
+        "hostname": "Victors-MacBook-Air.local"
+      }
+    ],
+    "incidents": [
+      {
+        "case": "tests.test_evidence_catalog.test_edits_details_and_recovery_have_http_and_committed_evidence",
+        "status": "failure",
+        "message": "AssertionError: (422, '{\"error\": {\"code\": \"validation\", \"message\": \"La solicitud no cumple el contrato.\", \"details\": [{\"field\": \"reaso... {\"correlation_id\": \"14e1bc8e-ce3c-4a16-93fc-bbf81530bd88\", \"service\": \"priorizacion_geografia\", \"version\": \"0.3.0\"}}')\nassert 422 < 300\n +  where 422 = <Response [422]>.status_code"
+      }
+    ]
+  },
+  {
+    "report": "redhouse-proof-final.xml",
+    "sha256": "a2ee8faec9aec3914e57ffa9cf320b29eae5648f37526b293b9f723bffcf9109",
+    "suites": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "1",
+        "tests": "7",
+        "time": "195.613",
+        "timestamp": "2026-10-19T09:56:16.143093-06:00",
+        "hostname": "Victors-MacBook-Air.local"
+      }
+    ],
+    "incidents": [
+      {
+        "case": "tests.test_documents_storage.test_gcs_web_upload_private_download_validation_expiry_and_recovery",
+        "status": "skipped",
+        "message": "Requiere bucket GCS real autorizado y ADC; no se simula nube."
+      }
+    ]
+  }
+]

@@ -1,0 +1,50 @@
+{
+  "captured_at": "2026-10-19T16:28:05.612521+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "b82acfc07e7ff0221196c291a52b1986e4d1ac69b3f6769bffe29f4a02fa5c9b",
+  "transport": "http",
+  "method": "GET",
+  "route": "/internal/v1/institutions/<identifier>",
+  "objective": "Referencia institucional autorizada",
+  "url": "http://127.0.0.1:56258/internal/v1/institutions/2b3e6f98-660d-44de-bcb4-5b863781c5a3",
+  "parameters": {},
+  "path_parameters": {
+    "identifier": "2b3e6f98-660d-44de-bcb4-5b863781c5a3"
+  },
+  "request_headers": {
+    "Host": "127.0.0.1:56258",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "166c03be47f24a689ef182eebe859677"
+  },
+  "request_body": "",
+  "status": 401,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "224",
+    "X-Correlation-ID": "7d7924e7-3142-4829-9bec-5d1699f51097",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "error": {
+      "code": "unauthorized_service",
+      "message": "Identidad de servicio inválida.",
+      "details": []
+    },
+    "meta": {
+      "correlation_id": "7d7924e7-3142-4829-9bec-5d1699f51097",
+      "service": "identidad_acceso",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "7d7924e7-3142-4829-9bec-5d1699f51097",
+  "persistence": {
+    "effect": "controlled_error",
+    "note": "No se infiere ausencia de efectos de un error; revisar correlación y estado de operación."
+  }
+}

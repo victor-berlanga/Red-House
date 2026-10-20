@@ -1,0 +1,33 @@
+{
+  "status": "passed",
+  "local_links_checked": 226,
+  "broken_links": [],
+  "texts_checked_for_credentials": 19,
+  "sensitive_patterns": [],
+  "artifacts": [
+    {
+      "name": "Reporte_tecnico_segundo_parcial",
+      "pages": 38,
+      "pdf_sha256": "9f704dbd5f9eebf02ada2e3e89d3536c22b34f9b872b9eeb99dac84dadb2c788",
+      "word_sha256": "775400b60a97170d2cd9436973c3a3bd7c9b15045a9e87190a0f7b643e5c0cfd",
+      "word_zip_valid": true,
+      "no_sqlite": true,
+      "out_of_page_words": 0
+    },
+    {
+      "name": "Modelo_fisico_PostgreSQL",
+      "pages": 41,
+      "pdf_sha256": "b2b3c55f7a57dc37f48cd07c6fed1dcb9feb6d54640214d7df74debf528be9c8",
+      "word_sha256": "e0b854141a1b75bc80029917651fa92e0687740bb06c187e4dff61a87fb85c42",
+      "word_zip_valid": true,
+      "no_sqlite": true,
+      "out_of_page_words": 0
+    }
+  ],
+  "static_checks": [
+    "ruff E9,F63,F7,F82",
+    "ruff format 12 archivos",
+    "git diff --check"
+  ],
+  "limitations": "Comprobación de patrones y secretos de las configuraciones intervenidas; no es una certificación general de ausencia de datos sensibles."
+}

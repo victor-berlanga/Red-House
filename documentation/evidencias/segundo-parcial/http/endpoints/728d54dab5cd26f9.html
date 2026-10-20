@@ -1,0 +1,87 @@
+<!doctype html><html lang="es"><meta charset="utf-8"><title>identidad_acceso /api/v1/auth/logout</title><style>body{font:15px system-ui;margin:32px;background:#f4f5f7;color:#202631}main{max-width:1250px;margin:auto}h1{color:#8e2434;font-size:26px}small{color:#556}a{color:#8e2434}table{border-collapse:collapse;width:100%;background:white}td,th{padding:9px;border:1px solid #ccd;vertical-align:top;text-align:left}pre{white-space:pre-wrap;word-break:break-word;background:#fff;border:1px solid #ccd;padding:12px;font:12px monospace;max-height:300px;overflow:auto}section{margin:20px 0}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.tag{padding:4px 9px;background:#e5ece7}.error{background:#f8e5e6}input{padding:12px;width:70%;margin:15px 0}details{margin:12px 0}nav{margin-bottom:20px}</style><main><nav><a href="../index.html">Inventario completo</a></nav><h1>identidad_acceso · POST /api/v1/auth/logout</h1><p>Cerrar sesión y revocar familia</p><p>Registro de ejecución real. Credenciales y firmas redactadas. Los cuerpos completos están en el JSON enlazado.</p><section><h2>HTTP 200</h2><p><b>2026-10-19T16:43:01.815682+00:00</b> · versión 0.3.0</p><p>Correlación: 84ef8d4d-e482-493b-9145-4931797c58e2<br>URL: http://127.0.0.1:56258/api/v1/auth/logout</p><p><a href="../records/cb932640b4bfb8a0b203008b.json">Petición, respuesta, headers y persistencia completos</a></p><div class="grid"><div><h3>Petición</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Host&quot;: &quot;127.0.0.1:56258&quot;,
+    &quot;User-Agent&quot;: &quot;python-requests/2.34.2&quot;,
+    &quot;Accept-Encoding&quot;: &quot;gzip, deflate, br&quot;,
+    &quot;Accept&quot;: &quot;application/json&quot;,
+    &quot;Connection&quot;: &quot;keep-alive&quot;,
+    &quot;Idempotency-Key&quot;: &quot;cdfd6b2ef39b46dda94504ba84607971&quot;,
+    &quot;Authorization&quot;: &quot;[REDACTED]&quot;,
+    &quot;Content-Length&quot;: &quot;0&quot;
+  },
+  &quot;parameters&quot;: {},
+  &quot;body&quot;: &quot;&quot;
+}</pre></div><div><h3>Respuesta</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Content-Type&quot;: &quot;application/json&quot;,
+    &quot;Content-Length&quot;: &quot;146&quot;,
+    &quot;X-Correlation-ID&quot;: &quot;84ef8d4d-e482-493b-9145-4931797c58e2&quot;,
+    &quot;Cache-Control&quot;: &quot;no-store&quot;,
+    &quot;X-Content-Type-Options&quot;: &quot;nosniff&quot;,
+    &quot;Referrer-Policy&quot;: &quot;no-referrer&quot;
+  },
+  &quot;body&quot;: {
+    &quot;data&quot;: {
+      &quot;revoked&quot;: true
+    },
+    &quot;meta&quot;: {
+      &quot;correlation_id&quot;: &quot;84ef8d4d-e482-493b-9145-4931797c58e2&quot;,
+      &quot;service&quot;: &quot;identidad_acceso&quot;,
+      &quot;version&quot;: &quot;0.3.0&quot;
+    }
+  }
+}</pre></div></div><details><summary>Persistencia y versión de implementación</summary><pre>{
+  &quot;effect&quot;: &quot;committed&quot;,
+  &quot;store&quot;: &quot;PostgreSQL red_house&quot;,
+  &quot;query&quot;: &quot;SELECT id,user_id,expires_at,revoked_at FROM sessions WHERE id=%s&quot;,
+  &quot;parameters&quot;: [
+    &quot;f6702848-9c40-49cc-a4ce-707e7635bc52&quot;
+  ],
+  &quot;row&quot;: {
+    &quot;id&quot;: &quot;f6702848-9c40-49cc-a4ce-707e7635bc52&quot;,
+    &quot;user_id&quot;: &quot;a5898ca7-9e7b-47c9-9f64-9c5cebf413f5&quot;,
+    &quot;expires_at&quot;: &quot;2026-10-20 16:43:00.902451+00:00&quot;,
+    &quot;revoked_at&quot;: &quot;2026-10-19 16:43:01.709925+00:00&quot;
+  },
+  &quot;redis&quot;: {
+    &quot;session_exists&quot;: false,
+    &quot;session_ttl&quot;: -2
+  }
+}</pre><p>SHA-256: b82acfc07e7ff0221196c291a52b1986e4d1ac69b3f6769bffe29f4a02fa5c9b</p></details></section><section><h2>HTTP 401</h2><p><b>2026-10-19T16:28:04.575432+00:00</b> · versión 0.3.0</p><p>Correlación: 5bd69fed-2915-4e2c-9c54-7e083af10483<br>URL: http://127.0.0.1:56258/api/v1/auth/logout</p><p><a href="../records/82eb401adc02d36d14778eac.json">Petición, respuesta, headers y persistencia completos</a></p><div class="grid"><div><h3>Petición</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Host&quot;: &quot;127.0.0.1:56258&quot;,
+    &quot;User-Agent&quot;: &quot;python-requests/2.34.2&quot;,
+    &quot;Accept-Encoding&quot;: &quot;gzip, deflate, br&quot;,
+    &quot;Accept&quot;: &quot;application/json&quot;,
+    &quot;Connection&quot;: &quot;keep-alive&quot;,
+    &quot;Idempotency-Key&quot;: &quot;e42a109cb1f34813b386e389b02d45e3&quot;,
+    &quot;Content-Length&quot;: &quot;2&quot;,
+    &quot;Content-Type&quot;: &quot;application/json&quot;
+  },
+  &quot;parameters&quot;: {},
+  &quot;body&quot;: {}
+}</pre></div><div><h3>Respuesta</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Content-Type&quot;: &quot;application/json&quot;,
+    &quot;Content-Length&quot;: &quot;208&quot;,
+    &quot;X-Correlation-ID&quot;: &quot;5bd69fed-2915-4e2c-9c54-7e083af10483&quot;,
+    &quot;Cache-Control&quot;: &quot;no-store&quot;,
+    &quot;X-Content-Type-Options&quot;: &quot;nosniff&quot;,
+    &quot;Referrer-Policy&quot;: &quot;no-referrer&quot;
+  },
+  &quot;body&quot;: {
+    &quot;error&quot;: {
+      &quot;code&quot;: &quot;unauthorized&quot;,
+      &quot;message&quot;: &quot;JWT de acceso requerido.&quot;,
+      &quot;details&quot;: []
+    },
+    &quot;meta&quot;: {
+      &quot;correlation_id&quot;: &quot;5bd69fed-2915-4e2c-9c54-7e083af10483&quot;,
+      &quot;service&quot;: &quot;identidad_acceso&quot;,
+      &quot;version&quot;: &quot;0.3.0&quot;
+    }
+  }
+}</pre></div></div><details><summary>Persistencia y versión de implementación</summary><pre>{
+  &quot;effect&quot;: &quot;controlled_error&quot;,
+  &quot;note&quot;: &quot;No se infiere ausencia de efectos de un error; revisar correlación y estado de operación.&quot;
+}</pre><p>SHA-256: b82acfc07e7ff0221196c291a52b1986e4d1ac69b3f6769bffe29f4a02fa5c9b</p></details></section><h2>Todas las variantes ejecutadas</h2><ul><li><a href="../records/82eb401adc02d36d14778eac.json">401 · http · application/json · 2026-10-19T16:28:04.575432+00:00</a></li><li><a href="../records/0e86e6dcd5d9f283ffbbe3d5.json">401 · http · application/xml; charset=utf-8 · 2026-10-19T16:28:04.603774+00:00</a></li><li><a href="../records/cb932640b4bfb8a0b203008b.json">200 · http · application/json · 2026-10-19T16:43:01.815682+00:00</a></li></ul></main></html>

@@ -1,0 +1,160 @@
+{
+  "captured_at": "2026-10-19T16:43:08.759897+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "6eac28b3c6355ff29f1aabe6ed2aa76b6e104ed4888482a02b3967184783afa9",
+  "transport": "http",
+  "method": "GET",
+  "route": "/internal/v1/available-resources",
+  "objective": "Fuente autoritativa de candidatos; omite caché",
+  "url": "http://127.0.0.1:56261/internal/v1/available-resources",
+  "parameters": {},
+  "path_parameters": {},
+  "request_headers": {
+    "Host": "127.0.0.1:56261",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "a23b0cd3d38045bfb81ecf74deb5283a",
+    "Authorization": "[REDACTED]",
+    "X-Service": "compatibilidad",
+    "X-Service-Time": "1792428188",
+    "X-Service-Nonce": "a6b50ad1-ff44-42f3-85cc-5bf0f0adbfb3",
+    "X-Service-Signature": "[REDACTED]"
+  },
+  "request_body": "",
+  "status": 200,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "3095",
+    "X-Correlation-ID": "b334a43a-845e-4945-be81-5929e89d0755",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "data": {
+      "items": [
+        {
+          "id": "559a7b23-5ec2-431c-860a-3a298e0f703c",
+          "folio": "UNIT-442972ad3042",
+          "tenant_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+          "region_id": "7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb",
+          "kind": "BLOOD",
+          "component": "RBC",
+          "blood_group": "O-",
+          "expires_at": "2026-10-21T16:22:11.360817+00:00",
+          "status": "AVAILABLE",
+          "version": 2
+        },
+        {
+          "id": "1c92030d-87e6-43a8-b1c6-d81623055a40",
+          "folio": "UNIT-b4f2ad6139dc",
+          "tenant_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+          "region_id": "7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb",
+          "kind": "BLOOD",
+          "component": "RBC",
+          "blood_group": "A-",
+          "expires_at": "2026-10-21T16:22:11.829681+00:00",
+          "status": "AVAILABLE",
+          "version": 2
+        },
+        {
+          "id": "cf311e62-182d-4d22-8836-61352e0b8436",
+          "folio": "UNIT-0bc33e58c998",
+          "tenant_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+          "region_id": "7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb",
+          "kind": "BLOOD",
+          "component": "RBC",
+          "blood_group": "O-",
+          "expires_at": "2026-10-21T16:22:17.191242+00:00",
+          "status": "AVAILABLE",
+          "version": 2
+        },
+        {
+          "id": "7ff4f730-038e-40e3-906e-4863d2fea007",
+          "folio": "UNIT-1ce0b6824ecc",
+          "tenant_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+          "region_id": "7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb",
+          "kind": "BLOOD",
+          "component": "RBC",
+          "blood_group": "O-",
+          "expires_at": "2026-10-21T16:28:37.346038+00:00",
+          "status": "AVAILABLE",
+          "version": 4
+        },
+        {
+          "id": "8e5e485e-f1a2-4e26-86be-2f8ba104961c",
+          "folio": "UNIT-ede4bc39b5df",
+          "tenant_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+          "region_id": "7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb",
+          "kind": "BLOOD",
+          "component": "RBC",
+          "blood_group": "O-",
+          "expires_at": "2026-10-21T16:29:59.537353+00:00",
+          "status": "AVAILABLE",
+          "version": 2
+        },
+        {
+          "id": "dd3b459f-75fd-496a-bb3f-1225fd87f349",
+          "folio": "UNIT-f8bdb6cb2c5b",
+          "tenant_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+          "region_id": "7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb",
+          "kind": "BLOOD",
+          "component": "RBC",
+          "blood_group": "O-",
+          "expires_at": "2026-10-21T16:33:07.126273+00:00",
+          "status": "AVAILABLE",
+          "version": 4
+        },
+        {
+          "id": "bd7f6a06-e0d3-4e9f-8e8b-0e80a97dec49",
+          "folio": "UNIT-ad6b5a5a3872",
+          "tenant_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+          "region_id": "7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb",
+          "kind": "BLOOD",
+          "component": "RBC",
+          "blood_group": "O-",
+          "expires_at": "2026-10-21T16:33:22.351699+00:00",
+          "status": "AVAILABLE",
+          "version": 2
+        },
+        {
+          "id": "2b10c651-1bf7-412c-9f10-883b1890676b",
+          "folio": "UNIT-e537971b1aa0",
+          "tenant_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+          "region_id": "7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb",
+          "kind": "BLOOD",
+          "component": "RBC",
+          "blood_group": "O-",
+          "expires_at": "2026-10-21T16:36:52.207856+00:00",
+          "status": "AVAILABLE",
+          "version": 2
+        },
+        {
+          "id": "00647d11-ac39-4d8e-b036-b2fc99d89192",
+          "folio": "UNIT-b3bad7f1f440",
+          "tenant_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+          "region_id": "7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb",
+          "kind": "BLOOD",
+          "component": "RBC",
+          "blood_group": "O-",
+          "expires_at": "2026-10-21T16:37:21.439173+00:00",
+          "status": "AVAILABLE",
+          "version": 2
+        }
+      ]
+    },
+    "meta": {
+      "correlation_id": "b334a43a-845e-4945-be81-5929e89d0755",
+      "service": "inventario",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "b334a43a-845e-4945-be81-5929e89d0755",
+  "persistence": {
+    "effect": "read",
+    "note": "Consulta; accesos protegidos generan auditoría local transaccional."
+  }
+}

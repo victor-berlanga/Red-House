@@ -1,0 +1,96 @@
+{
+  "captured_at": "2026-10-19T16:34:10.540889+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "1a8dccae105e0c261a0273a99f999923c88cbf235f750f80f0ac2f487c8b6654",
+  "transport": "http",
+  "method": "PATCH",
+  "route": "/api/v1/donors/<identifier>",
+  "objective": "Corregir expediente sin dictámenes ni donaciones",
+  "url": "http://127.0.0.1:56259/api/v1/donors/d68430a6-fd4a-4ec7-819e-510313251dfa",
+  "parameters": {},
+  "path_parameters": {
+    "identifier": "d68430a6-fd4a-4ec7-819e-510313251dfa"
+  },
+  "request_headers": {
+    "Host": "127.0.0.1:56259",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "X-Correlation-Id": "ffcaf6f5-a9c8-4316-a15b-090cef707099",
+    "Authorization": "[REDACTED]",
+    "Idempotency-Key": "764a8d4dfced48f3aa4e5e1ad5b948c0",
+    "Content-Type": "application/json",
+    "Content-Length": "202"
+  },
+  "request_body": {
+    "folio": "EDIT-e7c56049",
+    "display_name": "María Garza López",
+    "blood_group": "O-",
+    "consent": true,
+    "version": 1,
+    "reason": "Corrección ficticia autorizada",
+    "human_confirmation": true
+  },
+  "status": 200,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "541",
+    "X-Correlation-ID": "ffcaf6f5-a9c8-4316-a15b-090cef707099",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "data": {
+      "id": "d68430a6-fd4a-4ec7-819e-510313251dfa",
+      "tenant_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+      "user_id": null,
+      "folio": "EDIT-e7c56049",
+      "display_name": "María Garza López",
+      "blood_group": "O-",
+      "consent": true,
+      "status": "PRELIMINARY",
+      "version": 2,
+      "created_at": "2026-10-19T16:34:09.508539+00:00",
+      "restrictions": null,
+      "background": null,
+      "donation_kind": null,
+      "consent_reference": null,
+      "consent_at": null
+    },
+    "meta": {
+      "correlation_id": "ffcaf6f5-a9c8-4316-a15b-090cef707099",
+      "service": "donantes",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "ffcaf6f5-a9c8-4316-a15b-090cef707099",
+  "persistence": {
+    "effect": "committed",
+    "store": "PostgreSQL red_house",
+    "query": "SELECT operation,fingerprint,result FROM idempotency WHERE user_id=:actor AND key=:idempotency_key",
+    "row": {
+      "operation": "donor_edit:d68430a6-fd4a-4ec7-819e-510313251dfa",
+      "fingerprint": "795814892c9ef3b5f08c41f5d1b44b0a90ba39017fc0f6cec44875a37354193d",
+      "result": {
+        "id": "d68430a6-fd4a-4ec7-819e-510313251dfa",
+        "folio": "EDIT-e7c56049",
+        "status": "PRELIMINARY",
+        "consent": true,
+        "user_id": null,
+        "version": 2,
+        "tenant_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+        "background": null,
+        "consent_at": null,
+        "created_at": "2026-10-19T16:34:09.508539+00:00",
+        "blood_group": "O-",
+        "display_name": "María Garza López",
+        "restrictions": null,
+        "donation_kind": null,
+        "consent_reference": null
+      }
+    }
+  }
+}

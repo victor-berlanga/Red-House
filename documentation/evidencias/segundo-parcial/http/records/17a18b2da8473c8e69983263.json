@@ -1,0 +1,52 @@
+{
+  "captured_at": "2026-10-19T16:28:21.452741+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "a72d90d185b760994571ed560b74d7f59cc2cca663c983d7842c7150387e7f9a",
+  "transport": "http",
+  "method": "PATCH",
+  "route": "/api/v1/routes/<identifier>",
+  "objective": "Actualizar ruta con control de versión",
+  "url": "http://127.0.0.1:56263/api/v1/routes/bf2dc718-0997-486e-983a-2eba1a92ba85",
+  "parameters": {},
+  "path_parameters": {
+    "identifier": "bf2dc718-0997-486e-983a-2eba1a92ba85"
+  },
+  "request_headers": {
+    "Host": "127.0.0.1:56263",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "0e97ceac576441849993e2fdd52b21e0",
+    "Content-Length": "2",
+    "Content-Type": "application/json"
+  },
+  "request_body": {},
+  "status": 401,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "214",
+    "X-Correlation-ID": "593ced9d-2538-4ea6-9e8d-c8fed447c52a",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "error": {
+      "code": "unauthorized",
+      "message": "JWT de acceso requerido.",
+      "details": []
+    },
+    "meta": {
+      "correlation_id": "593ced9d-2538-4ea6-9e8d-c8fed447c52a",
+      "service": "priorizacion_geografia",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "593ced9d-2538-4ea6-9e8d-c8fed447c52a",
+  "persistence": {
+    "effect": "controlled_error",
+    "note": "No se infiere ausencia de efectos de un error; revisar correlación y estado de operación."
+  }
+}

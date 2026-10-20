@@ -1,0 +1,46 @@
+{
+  "captured_at": "2026-10-19T16:28:27.192176+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "bfa44d7f9eed353dec3bafc8b15f8c356f1d5755eda053077cae211dc4490657",
+  "transport": "http",
+  "method": "GET",
+  "route": "/health/live",
+  "objective": "live",
+  "url": "http://127.0.0.1:56266/health/live",
+  "parameters": {},
+  "path_parameters": {},
+  "request_headers": {
+    "Host": "127.0.0.1:56266",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "61e4d274186d4fb6b8b496ef8872afd4"
+  },
+  "request_body": "",
+  "status": 200,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "135",
+    "X-Correlation-ID": "645fd059-5c6e-483c-ad48-0b034239c057",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "data": {
+      "state": "up",
+      "service": "alertas",
+      "version": "0.3.0"
+    },
+    "meta": {
+      "correlation_id": "645fd059-5c6e-483c-ad48-0b034239c057"
+    }
+  },
+  "correlation_id": "645fd059-5c6e-483c-ad48-0b034239c057",
+  "persistence": {
+    "effect": "read",
+    "note": "Consulta; accesos protegidos generan auditoría local transaccional."
+  }
+}

@@ -1,0 +1,493 @@
+{
+  "date": "2026-10-19T18:20:19.553Z",
+  "pages": [
+    {
+      "user": "admin1",
+      "route": "/panel",
+      "status": 200,
+      "capture": "admin1-panel.png"
+    },
+    {
+      "user": "admin1",
+      "route": "/administracion/users",
+      "status": 200,
+      "capture": "admin1-administracion-users.png"
+    },
+    {
+      "user": "admin1",
+      "route": "/catalogos/sites",
+      "status": 200,
+      "capture": "admin1-catalogos-sites.png"
+    },
+    {
+      "user": "operator1",
+      "route": "/panel",
+      "status": 200,
+      "capture": "operator1-panel.png"
+    },
+    {
+      "user": "operator1",
+      "route": "/inventario",
+      "status": 200,
+      "capture": "operator1-inventario.png"
+    },
+    {
+      "user": "operator1",
+      "route": "/donaciones",
+      "status": 200,
+      "capture": "operator1-donaciones.png"
+    },
+    {
+      "user": "medical2",
+      "route": "/panel",
+      "status": 200,
+      "capture": "medical2-panel.png"
+    },
+    {
+      "user": "medical2",
+      "route": "/solicitudes",
+      "status": 200,
+      "capture": "medical2-solicitudes.png"
+    },
+    {
+      "user": "medical2",
+      "route": "/donantes/recipient",
+      "status": 200,
+      "capture": "medical2-donantes-recipient.png"
+    },
+    {
+      "user": "coordinator1",
+      "route": "/panel",
+      "status": 200,
+      "capture": "coordinator1-panel.png"
+    },
+    {
+      "user": "coordinator1",
+      "route": "/disponibilidad",
+      "status": 200,
+      "capture": "coordinator1-disponibilidad.png"
+    },
+    {
+      "user": "coordinator1",
+      "route": "/traslados",
+      "status": 200,
+      "capture": "coordinator1-traslados.png"
+    },
+    {
+      "user": "coordinator1",
+      "route": "/rutas",
+      "status": 200,
+      "capture": "coordinator1-rutas.png"
+    },
+    {
+      "user": "transport1",
+      "route": "/panel",
+      "status": 200,
+      "capture": "transport1-panel.png"
+    },
+    {
+      "user": "transport1",
+      "route": "/traslados",
+      "status": 200,
+      "capture": "transport1-traslados.png"
+    },
+    {
+      "user": "auditor1",
+      "route": "/panel",
+      "status": 200,
+      "capture": "auditor1-panel.png"
+    },
+    {
+      "user": "auditor1",
+      "route": "/auditoria",
+      "status": 200,
+      "capture": "auditor1-auditoria.png"
+    },
+    {
+      "user": "donor1",
+      "route": "/panel",
+      "status": 200,
+      "capture": "donor1-panel.png"
+    },
+    {
+      "user": "donor1",
+      "route": "/campanas",
+      "status": 200,
+      "capture": "donor1-campanas.png"
+    },
+    {
+      "user": "donor1",
+      "route": "/citas",
+      "status": 200,
+      "capture": "donor1-citas.png"
+    }
+  ],
+  "errors": [],
+  "checks": [
+    {
+      "user": "admin1",
+      "highcharts": true,
+      "charts": [],
+      "date": "2026-10-19T18:20:29.521Z"
+    },
+    {
+      "user": "operator1",
+      "highcharts": true,
+      "charts": [
+        {
+          "title": "Disponibilidad sanguínea por ABO / Rh",
+          "expected": [],
+          "values": [],
+          "labels": []
+        },
+        {
+          "title": "Estado del inventario",
+          "expected": [
+            {
+              "label": "Cuarentena",
+              "value": 2
+            }
+          ],
+          "values": [
+            2
+          ],
+          "labels": [
+            "Cuarentena"
+          ]
+        },
+        {
+          "title": "Urgencia capturada · solicitudes abiertas",
+          "expected": [],
+          "values": [],
+          "labels": []
+        },
+        {
+          "title": "Etapas de traslado",
+          "expected": [
+            {
+              "label": "Aceptado",
+              "value": 12
+            }
+          ],
+          "values": [
+            12
+          ],
+          "labels": [
+            "Aceptado"
+          ]
+        }
+      ],
+      "date": "2026-10-19T18:20:40.429Z"
+    },
+    {
+      "user": "medical2",
+      "highcharts": true,
+      "charts": [
+        {
+          "title": "Disponibilidad sanguínea por ABO / Rh",
+          "expected": [],
+          "values": [],
+          "labels": []
+        },
+        {
+          "title": "Estado del inventario",
+          "expected": [
+            {
+              "label": "Recibido",
+              "value": 12
+            }
+          ],
+          "values": [
+            12
+          ],
+          "labels": [
+            "Recibido"
+          ]
+        },
+        {
+          "title": "Urgencia capturada · solicitudes abiertas",
+          "expected": [],
+          "values": [],
+          "labels": []
+        },
+        {
+          "title": "Etapas de traslado",
+          "expected": [
+            {
+              "label": "Aceptado",
+              "value": 12
+            }
+          ],
+          "values": [
+            12
+          ],
+          "labels": [
+            "Aceptado"
+          ]
+        }
+      ],
+      "date": "2026-10-19T18:20:50.390Z"
+    },
+    {
+      "user": "coordinator1",
+      "highcharts": true,
+      "charts": [
+        {
+          "title": "Disponibilidad sanguínea por ABO / Rh",
+          "expected": [],
+          "values": [],
+          "labels": []
+        },
+        {
+          "title": "Estado del inventario",
+          "expected": [
+            {
+              "label": "Cuarentena",
+              "value": 2
+            },
+            {
+              "label": "Recibido",
+              "value": 12
+            }
+          ],
+          "values": [
+            2,
+            12
+          ],
+          "labels": [
+            "Cuarentena",
+            "Recibido"
+          ]
+        },
+        {
+          "title": "Recursos por institución",
+          "expected": [
+            {
+              "label": "Hospital 1",
+              "value": 2
+            },
+            {
+              "label": "Hospital 2",
+              "value": 12
+            }
+          ],
+          "values": [
+            2,
+            12
+          ],
+          "labels": [
+            "Hospital 1",
+            "Hospital 2"
+          ]
+        },
+        {
+          "title": "Etapas de traslado",
+          "expected": [
+            {
+              "label": "Aceptado",
+              "value": 12
+            }
+          ],
+          "values": [
+            12
+          ],
+          "labels": [
+            "Aceptado"
+          ]
+        }
+      ],
+      "date": "2026-10-19T18:20:57.362Z"
+    },
+    {
+      "user": "transport1",
+      "highcharts": true,
+      "charts": [
+        {
+          "title": "Etapas de traslado",
+          "expected": [
+            {
+              "label": "Aceptado",
+              "value": 12
+            }
+          ],
+          "values": [
+            12
+          ],
+          "labels": [
+            "Aceptado"
+          ]
+        }
+      ],
+      "date": "2026-10-19T18:21:06.980Z"
+    },
+    {
+      "user": "auditor1",
+      "highcharts": true,
+      "charts": [],
+      "date": "2026-10-19T18:21:12.316Z"
+    },
+    {
+      "user": "donor1",
+      "highcharts": true,
+      "charts": [],
+      "date": "2026-10-19T18:21:17.312Z"
+    },
+    {
+      "responsive_width": 390,
+      "horizontal_overflow": false
+    },
+    {
+      "user": "operator1",
+      "highcharts": true,
+      "charts": [
+        {
+          "title": "Disponibilidad sanguínea por ABO / Rh",
+          "expected": [],
+          "values": [],
+          "labels": []
+        },
+        {
+          "title": "Estado del inventario",
+          "expected": [
+            {
+              "label": "Cuarentena",
+              "value": 2
+            },
+            {
+              "label": "Reservado",
+              "value": 1
+            }
+          ],
+          "values": [
+            2,
+            1
+          ],
+          "labels": [
+            "Cuarentena",
+            "Reservado"
+          ]
+        },
+        {
+          "title": "Urgencia capturada · solicitudes abiertas",
+          "expected": [],
+          "values": [],
+          "labels": []
+        },
+        {
+          "title": "Etapas de traslado",
+          "expected": [
+            {
+              "label": "Aceptado",
+              "value": 12
+            },
+            {
+              "label": "Programado",
+              "value": 1
+            }
+          ],
+          "values": [
+            12,
+            1
+          ],
+          "labels": [
+            "Aceptado",
+            "Programado"
+          ]
+        }
+      ],
+      "date": "2026-10-19T18:23:37.790Z"
+    },
+    {
+      "web_gcs_upload": "VERIFIED",
+      "shipment": "12e4bd40-406d-459d-9af5-880ce2f9b748",
+      "date": "2026-10-19T18:23:42.675Z"
+    }
+  ],
+  "swagger": {
+    "url": "http://127.0.0.1:6104/api/v1/resources?page=1&page_size=20",
+    "method": "GET",
+    "headers": {
+      "accept-encoding": "gzip, deflate, br, zstd",
+      "accept-language": "en-US,en;q=0.9",
+      "authorization": "[REDACTED]",
+      "connection": "keep-alive",
+      "host": "127.0.0.1:6104",
+      "sec-fetch-dest": "empty",
+      "sec-fetch-mode": "cors",
+      "sec-fetch-site": "same-origin",
+      "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+      "accept": "application/json",
+      "sec-ch-ua": "\"Google Chrome\";v=\"155\", \"Chromium\";v=\"155\", \"Not(A:Brand\";v=\"24\"",
+      "sec-ch-ua-mobile": "?0",
+      "sec-ch-ua-platform": "\"macOS\""
+    },
+    "status": 200,
+    "body": {
+      "data": {
+        "items": [
+          {
+            "id": "054aa894-ba73-4e01-8d21-1f348921bdf8",
+            "tenant_id": "7b4c7ee3-20ef-4345-bf68-c08748c9b7f0",
+            "region_id": "cb0a1fba-dc5c-4197-bdfb-63ba06920766",
+            "folio": "UNIT-f5ca5a04337a",
+            "current_institution_id": "7b4c7ee3-20ef-4345-bf68-c08748c9b7f0",
+            "donation_id": null,
+            "kind": "BLOOD",
+            "component": "RBC",
+            "blood_group": "O-",
+            "expires_at": "2026-10-21T18:23:04.880164+00:00",
+            "status": "RESERVED",
+            "version": 3,
+            "created_at": "2026-10-19T18:23:04.895112+00:00",
+            "location_id": null,
+            "collected_at": null
+          },
+          {
+            "id": "92885a9e-56ef-4b26-b6bc-b45f9372f52a",
+            "tenant_id": "7b4c7ee3-20ef-4345-bf68-c08748c9b7f0",
+            "region_id": "cb0a1fba-dc5c-4197-bdfb-63ba06920766",
+            "folio": "ROLLING-7f8563661698",
+            "current_institution_id": "7b4c7ee3-20ef-4345-bf68-c08748c9b7f0",
+            "donation_id": null,
+            "kind": "BLOOD",
+            "component": "RBC",
+            "blood_group": "O+",
+            "expires_at": "2026-10-21T18:18:06.721463+00:00",
+            "status": "QUARANTINE",
+            "version": 1,
+            "created_at": "2026-10-19T18:18:06.742478+00:00",
+            "location_id": null,
+            "collected_at": null
+          },
+          {
+            "id": "fe26d031-1583-4c7c-8408-5cfdcf176355",
+            "tenant_id": "7b4c7ee3-20ef-4345-bf68-c08748c9b7f0",
+            "region_id": "cb0a1fba-dc5c-4197-bdfb-63ba06920766",
+            "folio": "ROLLING-d6188dbd0bad",
+            "current_institution_id": "7b4c7ee3-20ef-4345-bf68-c08748c9b7f0",
+            "donation_id": null,
+            "kind": "BLOOD",
+            "component": "RBC",
+            "blood_group": "O+",
+            "expires_at": "2026-10-21T18:17:49.527694+00:00",
+            "status": "QUARANTINE",
+            "version": 1,
+            "created_at": "2026-10-19T18:17:49.546876+00:00",
+            "location_id": null,
+            "collected_at": null
+          }
+        ],
+        "page": 1,
+        "page_size": 20,
+        "total": 3
+      },
+      "meta": {
+        "correlation_id": "d3d76803-cc07-4ac9-91bb-1fc39cf4e9d7",
+        "service": "inventario",
+        "version": "0.3.0"
+      }
+    }
+  },
+  "status": "passed",
+  "completed_at": "2026-10-19T18:23:59.309Z"
+}

@@ -1,0 +1,185 @@
+{
+  "date": "2026-10-20T21:23:53.888037+00:00",
+  "result": "passed",
+  "origin": "https://34.18.186.116",
+  "redirect": 308,
+  "unauthenticated_api": 401,
+  "tls": {
+    "protocol": "TLSv1.3",
+    "issuer": [
+      [
+        [
+          "countryName",
+          "US"
+        ]
+      ],
+      [
+        [
+          "organizationName",
+          "Let's Encrypt"
+        ]
+      ],
+      [
+        [
+          "commonName",
+          "YE1"
+        ]
+      ]
+    ],
+    "not_before": "Oct 20 20:15:51 2026 GMT",
+    "not_after": "Oct 27 12:15:50 2026 GMT",
+    "subject_alt_name": [
+      [
+        "IP Address",
+        "34.18.186.116"
+      ]
+    ],
+    "trust_verified": true
+  },
+  "services": [
+    {
+      "service": "identidad-acceso",
+      "statuses": {
+        "/health/ready": 200,
+        "/docs/": 200,
+        "/openapi.json": 200,
+        "/schemas/response.xsd": 200
+      },
+      "internal_blocked": true
+    },
+    {
+      "service": "donantes",
+      "statuses": {
+        "/health/ready": 200,
+        "/docs/": 200,
+        "/openapi.json": 200,
+        "/schemas/response.xsd": 200
+      },
+      "internal_blocked": true
+    },
+    {
+      "service": "receptores",
+      "statuses": {
+        "/health/ready": 200,
+        "/docs/": 200,
+        "/openapi.json": 200,
+        "/schemas/response.xsd": 200
+      },
+      "internal_blocked": true
+    },
+    {
+      "service": "inventario",
+      "statuses": {
+        "/health/ready": 200,
+        "/docs/": 200,
+        "/openapi.json": 200,
+        "/schemas/response.xsd": 200
+      },
+      "internal_blocked": true
+    },
+    {
+      "service": "compatibilidad",
+      "statuses": {
+        "/health/ready": 200,
+        "/docs/": 200,
+        "/openapi.json": 200,
+        "/schemas/response.xsd": 200
+      },
+      "internal_blocked": true
+    },
+    {
+      "service": "priorizacion-geografia",
+      "statuses": {
+        "/health/ready": 200,
+        "/docs/": 200,
+        "/openapi.json": 200,
+        "/schemas/response.xsd": 200
+      },
+      "internal_blocked": true
+    },
+    {
+      "service": "transporte",
+      "statuses": {
+        "/health/ready": 200,
+        "/docs/": 200,
+        "/openapi.json": 200,
+        "/schemas/response.xsd": 200
+      },
+      "internal_blocked": true
+    },
+    {
+      "service": "custodia",
+      "statuses": {
+        "/health/ready": 200,
+        "/docs/": 200,
+        "/openapi.json": 200,
+        "/schemas/response.xsd": 200
+      },
+      "internal_blocked": true
+    },
+    {
+      "service": "alertas",
+      "statuses": {
+        "/health/ready": 200,
+        "/docs/": 200,
+        "/openapi.json": 200,
+        "/schemas/response.xsd": 200
+      },
+      "internal_blocked": true
+    },
+    {
+      "service": "auditoria",
+      "statuses": {
+        "/health/ready": 200,
+        "/docs/": 200,
+        "/openapi.json": 200,
+        "/schemas/response.xsd": 200
+      },
+      "internal_blocked": true
+    },
+    {
+      "service": "monitoreo",
+      "statuses": {
+        "/health/ready": 200,
+        "/docs/": 200,
+        "/openapi.json": 200,
+        "/schemas/response.xsd": 200
+      },
+      "internal_blocked": true
+    }
+  ],
+  "private_ports": [
+    {
+      "port": 5432,
+      "accessible": false
+    },
+    {
+      "port": 27017,
+      "accessible": false
+    },
+    {
+      "port": 6379,
+      "accessible": false
+    },
+    {
+      "port": 5050,
+      "accessible": false
+    },
+    {
+      "port": 6050,
+      "accessible": false
+    },
+    {
+      "port": 6101,
+      "accessible": false
+    },
+    {
+      "port": 6104,
+      "accessible": false
+    },
+    {
+      "port": 6111,
+      "accessible": false
+    }
+  ]
+}

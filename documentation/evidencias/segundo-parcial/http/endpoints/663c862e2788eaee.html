@@ -1,0 +1,73 @@
+<!doctype html><html lang="es"><meta charset="utf-8"><title>alertas /api/v1/alerts</title><style>body{font:15px system-ui;margin:32px;background:#f4f5f7;color:#202631}main{max-width:1250px;margin:auto}h1{color:#8e2434;font-size:26px}small{color:#556}a{color:#8e2434}table{border-collapse:collapse;width:100%;background:white}td,th{padding:9px;border:1px solid #ccd;vertical-align:top;text-align:left}pre{white-space:pre-wrap;word-break:break-word;background:#fff;border:1px solid #ccd;padding:12px;font:12px monospace;max-height:300px;overflow:auto}section{margin:20px 0}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.tag{padding:4px 9px;background:#e5ece7}.error{background:#f8e5e6}input{padding:12px;width:70%;margin:15px 0}details{margin:12px 0}nav{margin-bottom:20px}</style><main><nav><a href="../index.html">Inventario completo</a></nav><h1>alertas · GET /api/v1/alerts</h1><p>Bandeja autorizada: institución, rol y usuario</p><p>Registro de ejecución real. Credenciales y firmas redactadas. Los cuerpos completos están en el JSON enlazado.</p><section><h2>HTTP 200</h2><p><b>2026-10-19T16:28:27.955550+00:00</b> · versión 0.3.0</p><p>Correlación: e1b465ce-2f40-412c-bb78-5938c83f3886<br>URL: http://127.0.0.1:56266/api/v1/alerts</p><p><a href="../records/fa356d3dc26519864d146abc.json">Petición, respuesta, headers y persistencia completos</a></p><div class="grid"><div><h3>Petición</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Host&quot;: &quot;127.0.0.1:56266&quot;,
+    &quot;User-Agent&quot;: &quot;python-requests/2.34.2&quot;,
+    &quot;Accept-Encoding&quot;: &quot;gzip, deflate, br&quot;,
+    &quot;Accept&quot;: &quot;application/json&quot;,
+    &quot;Connection&quot;: &quot;keep-alive&quot;,
+    &quot;Idempotency-Key&quot;: &quot;7e48e59861fc4f5c9b4fe256e4d9138f&quot;,
+    &quot;Authorization&quot;: &quot;[REDACTED]&quot;
+  },
+  &quot;parameters&quot;: {},
+  &quot;body&quot;: &quot;&quot;
+}</pre></div><div><h3>Respuesta</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Content-Type&quot;: &quot;application/json&quot;,
+    &quot;Content-Length&quot;: &quot;173&quot;,
+    &quot;X-Correlation-ID&quot;: &quot;e1b465ce-2f40-412c-bb78-5938c83f3886&quot;,
+    &quot;Cache-Control&quot;: &quot;no-store&quot;,
+    &quot;X-Content-Type-Options&quot;: &quot;nosniff&quot;,
+    &quot;Referrer-Policy&quot;: &quot;no-referrer&quot;
+  },
+  &quot;body&quot;: {
+    &quot;data&quot;: {
+      &quot;items&quot;: [],
+      &quot;page&quot;: 1,
+      &quot;page_size&quot;: 20,
+      &quot;total&quot;: 0
+    },
+    &quot;meta&quot;: {
+      &quot;correlation_id&quot;: &quot;e1b465ce-2f40-412c-bb78-5938c83f3886&quot;,
+      &quot;service&quot;: &quot;alertas&quot;,
+      &quot;version&quot;: &quot;0.3.0&quot;
+    }
+  }
+}</pre></div></div><details><summary>Persistencia y versión de implementación</summary><pre>{
+  &quot;effect&quot;: &quot;read&quot;,
+  &quot;note&quot;: &quot;Consulta; accesos protegidos generan auditoría local transaccional.&quot;
+}</pre><p>SHA-256: bfa44d7f9eed353dec3bafc8b15f8c356f1d5755eda053077cae211dc4490657</p></details></section><section><h2>HTTP 401</h2><p><b>2026-10-19T16:28:27.836107+00:00</b> · versión 0.3.0</p><p>Correlación: 9bb7a492-ad27-434b-bf9f-b657d75cb700<br>URL: http://127.0.0.1:56266/api/v1/alerts</p><p><a href="../records/7de4443cf6fedcf7b234f864.json">Petición, respuesta, headers y persistencia completos</a></p><div class="grid"><div><h3>Petición</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Host&quot;: &quot;127.0.0.1:56266&quot;,
+    &quot;User-Agent&quot;: &quot;python-requests/2.34.2&quot;,
+    &quot;Accept-Encoding&quot;: &quot;gzip, deflate, br&quot;,
+    &quot;Accept&quot;: &quot;application/json&quot;,
+    &quot;Connection&quot;: &quot;keep-alive&quot;,
+    &quot;Idempotency-Key&quot;: &quot;d9d61424818c443f8470ab8979492637&quot;
+  },
+  &quot;parameters&quot;: {},
+  &quot;body&quot;: &quot;&quot;
+}</pre></div><div><h3>Respuesta</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Content-Type&quot;: &quot;application/json&quot;,
+    &quot;Content-Length&quot;: &quot;199&quot;,
+    &quot;X-Correlation-ID&quot;: &quot;9bb7a492-ad27-434b-bf9f-b657d75cb700&quot;,
+    &quot;Cache-Control&quot;: &quot;no-store&quot;,
+    &quot;X-Content-Type-Options&quot;: &quot;nosniff&quot;,
+    &quot;Referrer-Policy&quot;: &quot;no-referrer&quot;
+  },
+  &quot;body&quot;: {
+    &quot;error&quot;: {
+      &quot;code&quot;: &quot;unauthorized&quot;,
+      &quot;message&quot;: &quot;JWT de acceso requerido.&quot;,
+      &quot;details&quot;: []
+    },
+    &quot;meta&quot;: {
+      &quot;correlation_id&quot;: &quot;9bb7a492-ad27-434b-bf9f-b657d75cb700&quot;,
+      &quot;service&quot;: &quot;alertas&quot;,
+      &quot;version&quot;: &quot;0.3.0&quot;
+    }
+  }
+}</pre></div></div><details><summary>Persistencia y versión de implementación</summary><pre>{
+  &quot;effect&quot;: &quot;controlled_error&quot;,
+  &quot;note&quot;: &quot;No se infiere ausencia de efectos de un error; revisar correlación y estado de operación.&quot;
+}</pre><p>SHA-256: bfa44d7f9eed353dec3bafc8b15f8c356f1d5755eda053077cae211dc4490657</p></details></section><h2>Todas las variantes ejecutadas</h2><ul><li><a href="../records/7de4443cf6fedcf7b234f864.json">401 · http · application/json · 2026-10-19T16:28:27.836107+00:00</a></li><li><a href="../records/fa356d3dc26519864d146abc.json">200 · http · application/json · 2026-10-19T16:28:27.955550+00:00</a></li><li><a href="../records/37a35004809b3b3ac825c98a.json">401 · http · application/xml; charset=utf-8 · 2026-10-19T16:28:27.865030+00:00</a></li></ul></main></html>

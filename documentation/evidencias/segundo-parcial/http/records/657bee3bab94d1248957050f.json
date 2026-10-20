@@ -1,0 +1,45 @@
+{
+  "captured_at": "2026-10-19T18:31:04.364958+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "f1a9056ec92eb7006810957e59fb326815b25003ea30d5ed1de2439e7ed8f42a",
+  "transport": "http",
+  "method": "GET",
+  "route": "/health/database",
+  "objective": "health_database",
+  "url": "http://127.0.0.1:60905/health/database",
+  "parameters": {},
+  "path_parameters": {},
+  "request_headers": {
+    "Host": "127.0.0.1:60905",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "1a895466a199447f81128ed0950d1b00"
+  },
+  "request_body": "",
+  "status": 503,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "130",
+    "X-Correlation-ID": "166780b0-b5cf-4613-b4be-e9425fcf6a1c",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "data": {
+      "state": "down",
+      "error": "dependency_unavailable"
+    },
+    "meta": {
+      "correlation_id": "166780b0-b5cf-4613-b4be-e9425fcf6a1c"
+    }
+  },
+  "correlation_id": "166780b0-b5cf-4613-b4be-e9425fcf6a1c",
+  "persistence": {
+    "effect": "controlled_error",
+    "note": "No se infiere ausencia de efectos de un error; revisar correlación y estado de operación."
+  }
+}

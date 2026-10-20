@@ -1,0 +1,74 @@
+{
+  "captured_at": "2026-10-19T16:22:09.231772+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "1a8dccae105e0c261a0273a99f999923c88cbf235f750f80f0ac2f487c8b6654",
+  "transport": "http",
+  "method": "POST",
+  "route": "/api/v1/donors/<identifier>/reviews",
+  "objective": "Dictamen humano de elegibilidad",
+  "url": "http://127.0.0.1:56259/api/v1/donors/de7e1a18-0098-48bf-91be-796e1e2ca0de/reviews",
+  "parameters": {},
+  "path_parameters": {
+    "identifier": "de7e1a18-0098-48bf-91be-796e1e2ca0de"
+  },
+  "request_headers": {
+    "Host": "127.0.0.1:56259",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "5622294b50ec4a3591e6e2feed5749ad",
+    "Authorization": "[REDACTED]",
+    "Content-Length": "123",
+    "Content-Type": "application/json"
+  },
+  "request_body": {
+    "human_confirmation": true,
+    "reason": "Evaluación humana ficticia documentada",
+    "decision": "ELIGIBLE",
+    "version": 1
+  },
+  "status": 201,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "398",
+    "X-Correlation-ID": "a2fe8cc3-9242-45d5-b9fa-c4e62939e66e",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "data": {
+      "id": "a84e64d3-eb25-4d63-9601-8da174342ff8",
+      "donor_id": "de7e1a18-0098-48bf-91be-796e1e2ca0de",
+      "decision": "ELIGIBLE",
+      "reason": "Evaluación humana ficticia documentada",
+      "actor_id": "fa9be2a2-91fc-4871-b69f-53fecc15e1ba",
+      "created_at": "2026-10-19T16:22:09.148272+00:00"
+    },
+    "meta": {
+      "correlation_id": "a2fe8cc3-9242-45d5-b9fa-c4e62939e66e",
+      "service": "donantes",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "a2fe8cc3-9242-45d5-b9fa-c4e62939e66e",
+  "persistence": {
+    "effect": "committed",
+    "store": "PostgreSQL red_house",
+    "query": "SELECT operation,fingerprint,result FROM idempotency WHERE user_id=:actor AND key=:idempotency_key",
+    "row": {
+      "operation": "donor_review:de7e1a18-0098-48bf-91be-796e1e2ca0de",
+      "fingerprint": "8e1d67ecd1348143bea4f84bcefd73ce1313ea3b9d2e73985c470b5e145cf749",
+      "result": {
+        "id": "a84e64d3-eb25-4d63-9601-8da174342ff8",
+        "reason": "Evaluación humana ficticia documentada",
+        "actor_id": "fa9be2a2-91fc-4871-b69f-53fecc15e1ba",
+        "decision": "ELIGIBLE",
+        "donor_id": "de7e1a18-0098-48bf-91be-796e1e2ca0de",
+        "created_at": "2026-10-19T16:22:09.148272+00:00"
+      }
+    }
+  }
+}

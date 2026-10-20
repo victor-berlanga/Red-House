@@ -1,0 +1,88 @@
+{
+  "captured_at": "2026-10-19T16:28:32.070798+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "b82acfc07e7ff0221196c291a52b1986e4d1ac69b3f6769bffe29f4a02fa5c9b",
+  "transport": "http",
+  "method": "PATCH",
+  "route": "/api/v1/catalogues/contacts/<identifier>",
+  "objective": "Editar o desactivar contacts",
+  "url": "http://127.0.0.1:56258/api/v1/catalogues/contacts/39c33bb7-1b7d-40b4-bcbe-586e19cdeaf0",
+  "parameters": {},
+  "path_parameters": {
+    "identifier": "39c33bb7-1b7d-40b4-bcbe-586e19cdeaf0"
+  },
+  "request_headers": {
+    "Host": "127.0.0.1:56258",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "f3e98ef531c647f6adefa7f837e48725",
+    "Authorization": "[REDACTED]",
+    "Content-Length": "202",
+    "Content-Type": "application/json"
+  },
+  "request_body": {
+    "name": "Registro ficticio 2aded110",
+    "value": "contacto@example.invalid",
+    "human_confirmation": true,
+    "reason": "Corrección ficticia autorizada para evidencia HTTP",
+    "active": true,
+    "version": 1
+  },
+  "status": 200,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "472",
+    "X-Correlation-ID": "903b6aa4-6d18-4342-a667-627d59d7f7b9",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "data": {
+      "id": "39c33bb7-1b7d-40b4-bcbe-586e19cdeaf0",
+      "tenant_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+      "kind": "contacts",
+      "name": "Registro ficticio 2aded110",
+      "parent_id": null,
+      "details": {
+        "value": "contacto@example.invalid"
+      },
+      "active": true,
+      "version": 2,
+      "created_at": "2026-10-19T16:28:31.465834+00:00",
+      "value": "contacto@example.invalid"
+    },
+    "meta": {
+      "correlation_id": "903b6aa4-6d18-4342-a667-627d59d7f7b9",
+      "service": "identidad_acceso",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "903b6aa4-6d18-4342-a667-627d59d7f7b9",
+  "persistence": {
+    "effect": "committed",
+    "store": "PostgreSQL red_house",
+    "query": "SELECT operation,fingerprint,result FROM idempotency WHERE user_id=:actor AND key=:idempotency_key",
+    "row": {
+      "operation": "contacts_edit:39c33bb7-1b7d-40b4-bcbe-586e19cdeaf0",
+      "fingerprint": "b9746287cbfa5c044625ee04c89ca1ba907559fb854c3b51d825792f22d7278a",
+      "result": {
+        "id": "39c33bb7-1b7d-40b4-bcbe-586e19cdeaf0",
+        "kind": "contacts",
+        "name": "Registro ficticio 2aded110",
+        "value": "contacto@example.invalid",
+        "active": true,
+        "details": {
+          "value": "contacto@example.invalid"
+        },
+        "version": 2,
+        "parent_id": null,
+        "tenant_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+        "created_at": "2026-10-19T16:28:31.465834+00:00"
+      }
+    }
+  }
+}

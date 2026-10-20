@@ -1,0 +1,56 @@
+{
+  "captured_at": "2026-10-19T16:33:24.993510+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "6eac28b3c6355ff29f1aabe6ed2aa76b6e104ed4888482a02b3967184783afa9",
+  "transport": "http",
+  "method": "POST",
+  "route": "/api/v1/reservations",
+  "objective": "Reservar con retención de capacidad y seguimiento de operación",
+  "url": "http://127.0.0.1:56261/api/v1/reservations",
+  "parameters": {},
+  "path_parameters": {},
+  "request_headers": {
+    "Host": "127.0.0.1:56261",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "5eb6c00200e64425ad5e807ae57327ca",
+    "Authorization": "[REDACTED]",
+    "Content-Length": "193",
+    "Content-Type": "application/json"
+  },
+  "request_body": {
+    "evaluation_id": "c15c5035-8afc-4e9c-b1e2-f996d97eace5",
+    "resource_id": "bd7f6a06-e0d3-4e9f-8e8b-0e80a97dec49",
+    "human_confirmation": true,
+    "reason": "Reserva concurrente ficticia autorizada"
+  },
+  "status": 409,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "238",
+    "X-Correlation-ID": "3cdeca5d-f56a-4dfc-a739-486765b145f9",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "error": {
+      "code": "request_covered",
+      "message": "Solicitud cerrada, receptor inactivo o cantidad cubierta.",
+      "details": []
+    },
+    "meta": {
+      "correlation_id": "3cdeca5d-f56a-4dfc-a739-486765b145f9",
+      "service": "inventario",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "3cdeca5d-f56a-4dfc-a739-486765b145f9",
+  "persistence": {
+    "effect": "controlled_error",
+    "note": "No se infiere ausencia de efectos de un error; revisar correlación y estado de operación."
+  }
+}

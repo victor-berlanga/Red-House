@@ -1,7 +1,7 @@
 from redhouse.app import base_app, complete_app
 
 
-VERSION = "0.2.0"
+VERSION = "0.3.0"
 
 
 def create_app(config=None):

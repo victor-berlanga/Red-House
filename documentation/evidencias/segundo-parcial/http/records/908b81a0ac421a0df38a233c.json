@@ -1,0 +1,49 @@
+{
+  "captured_at": "2026-10-19T16:43:08.483074+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "f1a9056ec92eb7006810957e59fb326815b25003ea30d5ed1de2439e7ed8f42a",
+  "transport": "http",
+  "method": "GET",
+  "route": "/api/v1/events",
+  "objective": "Bitácora regional de solo lectura; sin credenciales ni contenido clínico",
+  "url": "http://127.0.0.1:56267/api/v1/events",
+  "parameters": {},
+  "path_parameters": {},
+  "request_headers": {
+    "Host": "127.0.0.1:56267",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "1d28811655e149ab87e1ddc64abefccb",
+    "Authorization": "[REDACTED]"
+  },
+  "request_body": "",
+  "status": 403,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "214",
+    "X-Correlation-ID": "f1d9890a-9528-40e2-8d63-1d702b13017c",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "error": {
+      "code": "forbidden",
+      "message": "Perfil sin permiso para esta operación.",
+      "details": []
+    },
+    "meta": {
+      "correlation_id": "f1d9890a-9528-40e2-8d63-1d702b13017c",
+      "service": "auditoria",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "f1d9890a-9528-40e2-8d63-1d702b13017c",
+  "persistence": {
+    "effect": "controlled_error",
+    "note": "No se infiere ausencia de efectos de un error; revisar correlación y estado de operación."
+  }
+}

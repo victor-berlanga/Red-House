@@ -1,10 +1,19 @@
 RED HOUSE — APUNTES PARA PRESENTACIÓN
-Fecha: 2026-10-08
+Fecha: 2026-10-20
+
+Para exponer, comenzar por README.md: contiene cuatro guías breves,
+en español e inglés, dentro de no_tecnica/ y tecnica/.
+Guion_segundo_parcial.md conserva el procedimiento ampliado de ensayo.
 
 Diez microservicios y un componente de monitoreo.
-Los puertos 5101–5111 son los valores por defecto; el entorno de prueba utiliza puertos libres y los registra en state.json.
-El portal Flask/Jinja2 ya consume las API de los servicios. Móvil, escritorio y contenedores siguen pendientes.
-Los apuntes deben leerse junto a documentation/markdowns/Pruebas_y_validacion.md para conocer exactamente qué se comprobó.
+Docker está implementado, con dos instancias por API y backend propio del portal.
+El portal Docker ejecuta módulos de negocio dentro de su proceso; el consumo HTTP
+de las API es un modo configurable, sin cambio automático entre ambos modos.
+La VM GCE ejecuta el proyecto completo: https://34.18.186.116. No requiere túnel ni procesos locales; consultar deployment/gcp/README.md.
+Móvil, escritorio y operación productiva continúan pendientes.
+Consultar deployment/README.md para arrancar el entorno y conocer sus puertos.
+La evidencia vigente está en documentation/evidencias/segundo-parcial/RESULTADOS.md
+y documentation/evidencias/sesiones-redis/RESULTADOS.md, con sus fechas y alcances.
 
 01-ms_identidad_acceso.txt: Identidad y acceso
 02-ms_donantes.txt: Donantes

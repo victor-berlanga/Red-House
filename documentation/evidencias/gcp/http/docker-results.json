@@ -1,0 +1,34 @@
+{
+  "date": "2026-10-20T20:52:13.759955+00:00",
+  "result": "passed",
+  "stage": "gcp_web_files",
+  "checks": [
+    {
+      "check": "flujo_BLOOD",
+      "status": "passed",
+      "shipment_id": "ea4fde72-c7fc-4b06-895e-2b6db914ca3f",
+      "resource_id": "0c0dce18-ed5f-4088-b233-67b0c7fe2276",
+      "request_id": "5caeceda-577a-4ff7-9350-6bcffbe0109a",
+      "persistence": [
+        {
+          "id": "0c0dce18-ed5f-4088-b233-67b0c7fe2276",
+          "status": "RECEIVED",
+          "tenant_id": "7b4c7ee3-20ef-4345-bf68-c08748c9b7f0"
+        }
+      ]
+    },
+    {
+      "check": "sangre_y_once_servicios_json_xml",
+      "status": "passed"
+    },
+    {
+      "check": "gcs_web_identidad_vm",
+      "status": "passed",
+      "file_id": "79100975-c214-42be-923e-4b6983867479",
+      "shipment_id": "609144d4-b5cd-485b-9551-077268ab1cad",
+      "sha256": "4e27e1f355325927f676ffdd5258b33f812edf7296b072e4d2a6075c0498fdf5",
+      "anonymous_status": 403,
+      "download_hash_matches": true
+    }
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "captured_at": "2026-10-19T16:26:30.454868+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "1a8dccae105e0c261a0273a99f999923c88cbf235f750f80f0ac2f487c8b6654",
+  "transport": "embedded",
+  "method": "GET",
+  "route": "/api/v1/donors/<identifier>",
+  "objective": "Expediente y evaluaciones humanas",
+  "url": "http://localhost/api/v1/donors/3cb9c304-3ac6-4955-bad8-d39fd2fdba05",
+  "parameters": {},
+  "path_parameters": {
+    "identifier": "3cb9c304-3ac6-4955-bad8-d39fd2fdba05"
+  },
+  "request_headers": {
+    "Host": "localhost",
+    "Accept": "application/json",
+    "X-Correlation-Id": "b2a9c63c-0131-47f1-83f5-7f104bd0058f",
+    "Authorization": "[REDACTED]"
+  },
+  "request_body": "",
+  "status": 200,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "582",
+    "X-Correlation-ID": "b2a9c63c-0131-47f1-83f5-7f104bd0058f",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "data": {
+      "id": "3cb9c304-3ac6-4955-bad8-d39fd2fdba05",
+      "tenant_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+      "user_id": null,
+      "folio": "DON-WEB-a91ade2864",
+      "display_name": "Daniela Salinas Cavazos",
+      "blood_group": "O+",
+      "consent": true,
+      "status": "PRELIMINARY",
+      "version": 1,
+      "created_at": "2026-10-19T16:26:30.053409+00:00",
+      "restrictions": null,
+      "background": null,
+      "donation_kind": null,
+      "consent_reference": null,
+      "consent_at": null,
+      "decisions": [],
+      "reviews": []
+    },
+    "meta": {
+      "correlation_id": "b2a9c63c-0131-47f1-83f5-7f104bd0058f",
+      "service": "donantes",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "b2a9c63c-0131-47f1-83f5-7f104bd0058f",
+  "persistence": {
+    "effect": "read",
+    "note": "Consulta; accesos protegidos generan auditoría local transaccional."
+  }
+}

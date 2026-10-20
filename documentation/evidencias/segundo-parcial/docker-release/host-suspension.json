@@ -1,0 +1,39 @@
+{
+  "source": "pmset -g log",
+  "timezone": "America/Monterrey UTC-06:00",
+  "date": "2026-10-19",
+  "events": [
+    {
+      "time": "11:24:40",
+      "state": "Sleep",
+      "reason": "Clamshell Sleep"
+    },
+    {
+      "time": "11:26:34",
+      "state": "DarkWake",
+      "reason": "Maintenance"
+    },
+    {
+      "time": "11:26:41",
+      "state": "Sleep",
+      "reason": "Maintenance Sleep"
+    },
+    {
+      "time": "11:27:59",
+      "state": "DarkWake",
+      "reason": "Maintenance"
+    },
+    {
+      "time": "11:28:08",
+      "state": "Sleep",
+      "reason": "Maintenance Sleep"
+    },
+    {
+      "time": "12:16:02",
+      "state": "Wake",
+      "reason": "LidOpen/UserActivity"
+    }
+  ],
+  "affected_stage": "restore_web_apis",
+  "interpretation": "El intervalo entre cierre y apertura de tapa está incluido en la duración de pared de esta restauración. No usar esa duración como latencia o RTO. Los escenarios de negocio anteriores y los de actualización/reinicio posteriores se completaron despierto."
+}

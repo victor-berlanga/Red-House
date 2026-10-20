@@ -1,0 +1,39 @@
+{
+  "captured_at": "2026-10-19T16:28:26.702090+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "864e3dda7901fd4edb3082758390ed9006bf1eeb509502b67d2009709a43ddd8",
+  "transport": "http",
+  "method": "GET",
+  "route": "/schemas/<name>.xsd",
+  "objective": "schema",
+  "url": "http://127.0.0.1:56265/schemas/response.xsd",
+  "parameters": {},
+  "path_parameters": {
+    "name": "response"
+  },
+  "request_headers": {
+    "Host": "127.0.0.1:56265",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "07a03170ef4c4e8ebc72dd1a7e3d5714"
+  },
+  "request_body": "",
+  "status": 200,
+  "response_headers": {
+    "Content-Type": "application/xml; charset=utf-8",
+    "Content-Length": "993",
+    "X-Correlation-ID": "0413b6bf-ecf5-4361-b110-2912259730dd",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": "<xs:schema xmlns:xs=\"http://www.w3.org/2001/XMLSchema\">\n  <xs:simpleType name=\"ValueKind\"><xs:restriction base=\"xs:string\">\n    <xs:enumeration value=\"object\"/><xs:enumeration value=\"array\"/><xs:enumeration value=\"string\"/>\n    <xs:enumeration value=\"integer\"/><xs:enumeration value=\"number\"/><xs:enumeration value=\"boolean\"/><xs:enumeration value=\"null\"/>\n  </xs:restriction></xs:simpleType>\n  <xs:complexType name=\"Value\" mixed=\"true\">\n    <xs:choice minOccurs=\"0\" maxOccurs=\"unbounded\">\n      <xs:element name=\"field\"><xs:complexType mixed=\"true\"><xs:complexContent mixed=\"true\"><xs:extension base=\"Value\">\n        <xs:attribute name=\"name\" type=\"xs:string\" use=\"required\"/>\n      </xs:extension></xs:complexContent></xs:complexType></xs:element>\n      <xs:element name=\"item\" type=\"Value\"/>\n    </xs:choice>\n    <xs:attribute name=\"type\" type=\"ValueKind\" use=\"required\"/>\n  </xs:complexType>\n  <xs:element name=\"response\" type=\"Value\"/>\n</xs:schema>",
+  "correlation_id": "0413b6bf-ecf5-4361-b110-2912259730dd",
+  "persistence": {
+    "effect": "read",
+    "note": "Consulta; accesos protegidos generan auditoría local transaccional."
+  }
+}

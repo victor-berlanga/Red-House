@@ -1,0 +1,216 @@
+<!doctype html><html lang="es"><meta charset="utf-8"><title>compatibilidad /api/v1/evaluations/&lt;identifier&gt;</title><style>body{font:15px system-ui;margin:32px;background:#f4f5f7;color:#202631}main{max-width:1250px;margin:auto}h1{color:#8e2434;font-size:26px}small{color:#556}a{color:#8e2434}table{border-collapse:collapse;width:100%;background:white}td,th{padding:9px;border:1px solid #ccd;vertical-align:top;text-align:left}pre{white-space:pre-wrap;word-break:break-word;background:#fff;border:1px solid #ccd;padding:12px;font:12px monospace;max-height:300px;overflow:auto}section{margin:20px 0}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.tag{padding:4px 9px;background:#e5ece7}.error{background:#f8e5e6}input{padding:12px;width:70%;margin:15px 0}details{margin:12px 0}nav{margin-bottom:20px}</style><main><nav><a href="../index.html">Inventario completo</a></nav><h1>compatibilidad · GET /api/v1/evaluations/&lt;identifier&gt;</h1><p>Consultar evaluación, explicación y dictámenes</p><p>Registro de ejecución real. Credenciales y firmas redactadas. Los cuerpos completos están en el JSON enlazado.</p><section><h2>HTTP 200</h2><p><b>2026-10-19T16:45:18.739086+00:00</b> · versión 0.3.0</p><p>Correlación: 1f490a15-4447-4bf3-86f6-0dd15e8a7134<br>URL: http://127.0.0.1:56262/api/v1/evaluations/f9e39d81-9cae-47ec-a55b-a7b29f995ee3</p><p><a href="../records/c197bfe0c5e7f95f44d193d5.json">Petición, respuesta, headers y persistencia completos</a></p><div class="grid"><div><h3>Petición</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Host&quot;: &quot;127.0.0.1:56262&quot;,
+    &quot;User-Agent&quot;: &quot;python-requests/2.34.2&quot;,
+    &quot;Accept-Encoding&quot;: &quot;gzip, deflate, br&quot;,
+    &quot;Accept&quot;: &quot;application/json&quot;,
+    &quot;Connection&quot;: &quot;keep-alive&quot;,
+    &quot;Idempotency-Key&quot;: &quot;b1b81c21992a4b1c91763747cd7d2afd&quot;,
+    &quot;Authorization&quot;: &quot;[REDACTED]&quot;
+  },
+  &quot;parameters&quot;: {},
+  &quot;body&quot;: &quot;&quot;
+}</pre></div><div><h3>Respuesta</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Content-Type&quot;: &quot;application/json&quot;,
+    &quot;Content-Length&quot;: &quot;6137&quot;,
+    &quot;X-Correlation-ID&quot;: &quot;1f490a15-4447-4bf3-86f6-0dd15e8a7134&quot;,
+    &quot;Cache-Control&quot;: &quot;no-store&quot;,
+    &quot;X-Content-Type-Options&quot;: &quot;nosniff&quot;,
+    &quot;Referrer-Policy&quot;: &quot;no-referrer&quot;
+  },
+  &quot;body&quot;: {
+    &quot;data&quot;: {
+      &quot;id&quot;: &quot;f9e39d81-9cae-47ec-a55b-a7b29f995ee3&quot;,
+      &quot;tenant_id&quot;: &quot;a0920053-13c5-4d42-b53e-74b35a779f58&quot;,
+      &quot;request_id&quot;: &quot;a849fee9-045b-46ad-8fe2-cf9f9f13fc59&quot;,
+      &quot;request_version&quot;: 1,
+      &quot;recipient_version&quot;: 1,
+      &quot;kind&quot;: &quot;BLOOD&quot;,
+      &quot;algorithm_version&quot;: &quot;RBC-1.0&quot;,
+      &quot;snapshot&quot;: {
+        &quot;id&quot;: &quot;a849fee9-045b-46ad-8fe2-cf9f9f13fc59&quot;,
+        &quot;kind&quot;: &quot;BLOOD&quot;,
+        &quot;status&quot;: &quot;OPEN&quot;,
+        &quot;urgency&quot;: 3,
+        &quot;version&quot;: 1,
+        &quot;quantity&quot;: 1,
+        &quot;component&quot;: &quot;RBC&quot;,
+        &quot;recipient&quot;: {
+          &quot;id&quot;: &quot;d8933a9f-322d-4ba7-96bd-e6a453a9f524&quot;,
+          &quot;kind&quot;: &quot;BLOOD&quot;,
+          &quot;status&quot;: &quot;ACTIVE&quot;,
+          &quot;version&quot;: 1,
+          &quot;organ_type&quot;: null,
+          &quot;blood_group&quot;: &quot;A+&quot;
+        },
+        &quot;tenant_id&quot;: &quot;a0920053-13c5-4d42-b53e-74b35a779f58&quot;,
+        &quot;created_at&quot;: &quot;2026-10-19T16:45:17.712654+00:00&quot;,
+        &quot;missing_data&quot;: {
+          &quot;route&quot;: 0,
+          &quot;expired&quot;: 0,
+          &quot;other_component&quot;: 0
+        },
+        &quot;recipient_id&quot;: &quot;d8933a9f-322d-4ba7-96bd-e6a453a9f524&quot;,
+        &quot;clinical_notice&quot;: &quot;Filtro ilustrativo; no interpreta HLA, anticuerpos, tamaño ni pruebas cruzadas. Requiere dictamen médico.&quot;
+      },
+      &quot;candidates&quot;: [
+        {
+          &quot;route_id&quot;: &quot;7b1745f6-56e0-43d3-9c3d-1c35538d7aae&quot;,
+          &quot;origin_id&quot;: &quot;87255e79-2a0a-4e44-ad21-8002ccd5688d&quot;,
+          &quot;expires_at&quot;: &quot;2026-10-21T16:22:11.360817+00:00&quot;,
+          &quot;distance_km&quot;: 10.0,
+          &quot;explanation&quot;: &quot;ABO/RhD potencial para eritrocitos. Filtro ilustrativo; no interpreta HLA, anticuerpos, tamaño ni pruebas cruzadas. Requiere dictamen médico.&quot;,
+          &quot;resource_id&quot;: &quot;559a7b23-5ec2-431c-860a-3a298e0f703c&quot;,
+          &quot;route_version&quot;: 3,
+          &quot;resource_folio&quot;: &quot;UNIT-442972ad3042&quot;,
+          &quot;travel_minutes&quot;: 15,
+          &quot;resource_version&quot;: 2
+        },
+        {
+          &quot;route_id&quot;: &quot;7b1745f6-56e0-43d3-9c3d-1c35538d7aae&quot;,
+          &quot;origin_id&quot;: &quot;87255e79-2a0a-4e44-ad21-8002ccd5688d&quot;,
+          &quot;expires_at&quot;: &quot;2026-10-21T16:22:11.829681+00:00&quot;,
+          &quot;distance_km&quot;: 10.0,
+          &quot;explanation&quot;: &quot;ABO/RhD potencial para eritrocitos. Filtro ilustrativo; no interpreta HLA, anticuerpos, tamaño ni pruebas cruzadas. Requiere dictamen médico.&quot;,
+          &quot;resource_id&quot;: &quot;1c92030d-87e6-43a8-b1c6-d81623055a40&quot;,
+          &quot;route_version&quot;: 3,
+          &quot;resource_folio&quot;: &quot;UNIT-b4f2ad6139dc&quot;,
+          &quot;travel_minutes&quot;: 15,
+          &quot;resource_version&quot;: 2
+        },
+        {
+          &quot;route_id&quot;: &quot;7b1745f6-56e0-43d3-9c3d-1c35538d7aae&quot;,
+          &quot;origin_id&quot;: &quot;87255e79-2a0a-4e44-ad21-8002ccd5688d&quot;,
+          &quot;expires_at&quot;: &quot;2026-10-21T16:22:17.191242+00:00&quot;,
+          &quot;distance_km&quot;: 10.0,
+          &quot;explanation&quot;: &quot;ABO/RhD potencial para eritrocitos. Filtro ilustrativo; no interpreta HLA, anticuerpos, tamaño ni pruebas cruzadas. Requiere dictamen médico.&quot;,
+          &quot;resource_id&quot;: &quot;cf311e62-182d-4d22-8836-61352e0b8436&quot;,
+          &quot;route_version&quot;: 3,
+          &quot;resource_folio&quot;: &quot;UNIT-0bc33e58c998&quot;,
+          &quot;travel_minutes&quot;: 15,
+          &quot;resource_version&quot;: 2
+        },
+        {
+          &quot;route_id&quot;: &quot;7b1745f6-56e0-43d3-9c3d-1c35538d7aae&quot;,
+          &quot;origin_id&quot;: &quot;87255e79-2a0a-4e44-ad21-8002ccd5688d&quot;,
+          &quot;expires_at&quot;: &quot;2026-10-21T16:28:37.346038+00:00&quot;,
+          &quot;distance_km&quot;: 10.0,
+          &quot;explanation&quot;: &quot;ABO/RhD potencial para eritrocitos. Filtro ilustrativo; no interpreta HLA, anticuerpos, tamaño ni pruebas cruzadas. Requiere dictamen médico.&quot;,
+          &quot;resource_id&quot;: &quot;7ff4f730-038e-40e3-906e-4863d2fea007&quot;,
+          &quot;route_version&quot;: 3,
+          &quot;resource_folio&quot;: &quot;UNIT-1ce0b6824ecc&quot;,
+          &quot;travel_minutes&quot;: 15,
+          &quot;resource_version&quot;: 4
+        },
+        {
+          &quot;route_id&quot;: &quot;7b1745f6-56e0-43d3-9c3d-1c35538d7aae&quot;,
+          &quot;origin_id&quot;: &quot;87255e79-2a0a-4e44-ad21-8002ccd5688d&quot;,
+          &quot;expires_at&quot;: &quot;2026-10-21T16:29:59.537353+00:00&quot;,
+          &quot;distance_km&quot;: 10.0,
+          &quot;explanation&quot;: &quot;ABO/RhD potencial para eritrocitos. Filtro ilustrativo; no interpreta HLA, anticuerpos, tamaño ni pruebas cruzadas. Requiere dictamen médico.&quot;,
+          &quot;resource_id&quot;: &quot;8e5e485e-f1a2-4e26-86be-2f8ba104961c&quot;,
+          &quot;route_version&quot;: 3,
+          &quot;resource_folio&quot;: &quot;UNIT-ede4bc39b5df&quot;,
+          &quot;travel_minutes&quot;: 15,
+          &quot;resource_version&quot;: 2
+        },
+        {
+          &quot;route_id&quot;: &quot;7b1745f6-56e0-43d3-9c3d-1c35538d7aae&quot;,
+          &quot;origin_id&quot;: &quot;87255e79-2a0a-4e44-ad21-8002ccd5688d&quot;,
+          &quot;expires_at&quot;: &quot;2026-10-21T16:33:07.126273+00:00&quot;,
+          &quot;distance_km&quot;: 10.0,
+          &quot;explanation&quot;: &quot;ABO/RhD potencial para eritrocitos. Filtro ilustrativo; no interpreta HLA, anticuerpos, tamaño ni pruebas cruzadas. Requiere dictamen médico.&quot;,
+          &quot;resource_id&quot;: &quot;dd3b459f-75fd-496a-bb3f-1225fd87f349&quot;,
+          &quot;route_version&quot;: 3,
+          &quot;resource_folio&quot;: &quot;UNIT-f8bdb6cb2c5b&quot;,
+          &quot;travel_minutes&quot;: 15,
+          &quot;resource_version&quot;: 4
+        },
+        {
+          &quot;route_id&quot;: &quot;7b1745f6-56e0-43d3-9c3d-1c35538d7aae&quot;,
+          &quot;origin_id&quot;: &quot;87255e79-2a0a-4e44-ad21-8002ccd5688d&quot;,
+          &quot;expires_at&quot;: &quot;2026-10-21T16:33:22.351699+00:00&quot;,
+          &quot;distance_km&quot;: 10.0,
+          &quot;explanation&quot;: &quot;ABO/RhD potencial para eritrocitos. Filtro ilustrativo; no interpreta HLA, anticuerpos, tamaño ni pruebas cruzadas. Requiere dictamen médico.&quot;,
+          &quot;resource_id&quot;: &quot;bd7f6a06-e0d3-4e9f-8e8b-0e80a97dec49&quot;,
+          &quot;route_version&quot;: 3,
+          &quot;resource_folio&quot;: &quot;UNIT-ad6b5a5a3872&quot;,
+          &quot;travel_minutes&quot;: 15,
+          &quot;resource_version&quot;: 2
+        },
+        {
+          &quot;route_id&quot;: &quot;7b1745f6-56e0-43d3-9c3d-1c35538d7aae&quot;,
+          &quot;origin_id&quot;: &quot;87255e79-2a0a-4e44-ad21-8002ccd5688d&quot;,
+          &quot;expires_at&quot;: &quot;2026-10-21T16:36:52.207856+00:00&quot;,
+          &quot;distance_km&quot;: 10.0,
+          &quot;explanation&quot;: &quot;ABO/RhD potencial para eritrocitos. Filtro ilustrativo; no interpreta HLA, anticuerpos, tamaño ni pruebas cruzadas. Requiere dictamen médico.&quot;,
+          &quot;resource_id&quot;: &quot;2b10c651-1bf7-412c-9f10-883b1890676b&quot;,
+          &quot;route_version&quot;: 3,
+          &quot;resource_folio&quot;: &quot;UNIT-e537971b1aa0&quot;,
+          &quot;travel_minutes&quot;: 15,
+          &quot;resource_version&quot;: 2
+        },
+        {
+          &quot;route_id&quot;: &quot;7b1745f6-56e0-43d3-9c3d-1c35538d7aae&quot;,
+          &quot;origin_id&quot;: &quot;87255e79-2a0a-4e44-ad21-8002ccd5688d&quot;,
+          &quot;expires_at&quot;: &quot;2026-10-21T16:37:21.439173+00:00&quot;,
+          &quot;distance_km&quot;: 10.0,
+          &quot;explanation&quot;: &quot;ABO/RhD potencial para eritrocitos. Filtro ilustrativo; no interpreta HLA, anticuerpos, tamaño ni pruebas cruzadas. Requiere dictamen médico.&quot;,
+          &quot;resource_id&quot;: &quot;00647d11-ac39-4d8e-b036-b2fc99d89192&quot;,
+          &quot;route_version&quot;: 3,
+          &quot;resource_folio&quot;: &quot;UNIT-b3bad7f1f440&quot;,
+          &quot;travel_minutes&quot;: 15,
+          &quot;resource_version&quot;: 2
+        },
+        {
+          &quot;route_id&quot;: &quot;7b1745f6-56e0-43d3-9c3d-1c35538d7aae&quot;,
+          &quot;origin_id&quot;: &quot;87255e79-2a0a-4e44-ad21-8002ccd5688d&quot;,
+          &quot;expires_at&quot;: &quot;2026-10-21T16:45:14.767875+00:00&quot;,
+          &quot;distance_km&quot;: 10.0,
+          &quot;explanation&quot;: &quot;ABO/RhD potencial para eritrocitos. Filtro ilustrativo; no interpreta HLA, anticuerpos, tamaño ni pruebas cruzadas. Requiere dictamen médico.&quot;,
+          &quot;resource_id&quot;: &quot;b66cb61c-23de-4e57-a499-5d20cf4297c5&quot;,
+          &quot;route_version&quot;: 3,
+          &quot;resource_folio&quot;: &quot;NL-WEB-c29002120314&quot;,
+          &quot;travel_minutes&quot;: 15,
+          &quot;resource_version&quot;: 2
+        }
+      ],
+      &quot;elapsed_ms&quot;: 425.996,
+      &quot;created_at&quot;: &quot;2026-10-19T16:45:18.522527+00:00&quot;,
+      &quot;reviews&quot;: []
+    },
+    &quot;meta&quot;: {
+      &quot;correlation_id&quot;: &quot;1f490a15-4447-4bf3-86f6-0dd15e8a7134&quot;,
+      &quot;service&quot;: &quot;compatibilidad&quot;,
+      &quot;version&quot;: &quot;0.3.0&quot;
+    }
+  }
+}</pre></div></div><details><summary>Persistencia y versión de implementación</summary><pre>{
+  &quot;effect&quot;: &quot;read&quot;,
+  &quot;note&quot;: &quot;Consulta; accesos protegidos generan auditoría local transaccional.&quot;
+}</pre><p>SHA-256: edd69e48ffcbd19733c620b1f2bcc1fcd82057a7b17a2d0eb2188ccf77d7f18f</p></details></section><section><h2>HTTP 401</h2><p><b>2026-10-19T16:28:19.833481+00:00</b> · versión 0.3.0</p><p>Correlación: 7516404f-33d4-4e28-98c3-d2d3befa4472<br>URL: http://127.0.0.1:56262/api/v1/evaluations/6160a671-fa18-42fd-a3d3-59b95ac2b655</p><p><a href="../records/16a97df9968b0ed4c49c8938.json">Petición, respuesta, headers y persistencia completos</a></p><div class="grid"><div><h3>Petición</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Host&quot;: &quot;127.0.0.1:56262&quot;,
+    &quot;User-Agent&quot;: &quot;python-requests/2.34.2&quot;,
+    &quot;Accept-Encoding&quot;: &quot;gzip, deflate, br&quot;,
+    &quot;Accept&quot;: &quot;application/xml&quot;,
+    &quot;Connection&quot;: &quot;keep-alive&quot;,
+    &quot;Idempotency-Key&quot;: &quot;bb5d1945980b4570bfee8e81ad909697&quot;
+  },
+  &quot;parameters&quot;: {},
+  &quot;body&quot;: &quot;&quot;
+}</pre></div><div><h3>Respuesta</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Content-Type&quot;: &quot;application/xml; charset=utf-8&quot;,
+    &quot;Content-Length&quot;: &quot;508&quot;,
+    &quot;X-Correlation-ID&quot;: &quot;7516404f-33d4-4e28-98c3-d2d3befa4472&quot;,
+    &quot;Cache-Control&quot;: &quot;no-store&quot;,
+    &quot;X-Content-Type-Options&quot;: &quot;nosniff&quot;,
+    &quot;Referrer-Policy&quot;: &quot;no-referrer&quot;
+  },
+  &quot;body&quot;: &quot;&lt;response type=\&quot;object\&quot;&gt;&lt;field name=\&quot;error\&quot; type=\&quot;object\&quot;&gt;&lt;field name=\&quot;code\&quot; type=\&quot;string\&quot;&gt;unauthorized&lt;/field&gt;&lt;field name=\&quot;message\&quot; type=\&quot;string\&quot;&gt;JWT de acceso requerido.&lt;/field&gt;&lt;field name=\&quot;details\&quot; type=\&quot;array\&quot;/&gt;&lt;/field&gt;&lt;field name=\&quot;meta\&quot; type=\&quot;object\&quot;&gt;&lt;field name=\&quot;correlation_id\&quot; type=\&quot;string\&quot;&gt;7516404f-33d4-4e28-98c3-d2d3befa4472&lt;/field&gt;&lt;field name=\&quot;service\&quot; type=\&quot;string\&quot;&gt;compatibilidad&lt;/field&gt;&lt;field name=\&quot;version\&quot; type=\&quot;string\&quot;&gt;0.3.0&lt;/field&gt;&lt;/field&gt;&lt;/response&gt;&quot;
+}</pre></div></div><details><summary>Persistencia y versión de implementación</summary><pre>{
+  &quot;effect&quot;: &quot;controlled_error&quot;,
+  &quot;note&quot;: &quot;No se infiere ausencia de efectos de un error; revisar correlación y estado de operación.&quot;
+}</pre><p>SHA-256: edd69e48ffcbd19733c620b1f2bcc1fcd82057a7b17a2d0eb2188ccf77d7f18f</p></details></section><h2>Todas las variantes ejecutadas</h2><ul><li><a href="../records/06f52747100884cd840b23d4.json">200 · embedded · application/json · 2026-10-19T16:22:47.070498+00:00</a></li><li><a href="../records/c197bfe0c5e7f95f44d193d5.json">200 · http · application/json · 2026-10-19T16:45:18.739086+00:00</a></li><li><a href="../records/16a97df9968b0ed4c49c8938.json">401 · http · application/xml; charset=utf-8 · 2026-10-19T16:28:19.833481+00:00</a></li><li><a href="../records/fc54c28387afd3ba207e26b1.json">404 · http · application/json · 2026-10-19T16:28:19.959810+00:00</a></li><li><a href="../records/abe44137360098b2628daae8.json">401 · http · application/json · 2026-10-19T16:28:19.794658+00:00</a></li></ul></main></html>

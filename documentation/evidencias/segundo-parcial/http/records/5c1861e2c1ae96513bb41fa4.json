@@ -1,0 +1,80 @@
+{
+  "captured_at": "2026-10-19T16:29:51.747306+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "a72d90d185b760994571ed560b74d7f59cc2cca663c983d7842c7150387e7f9a",
+  "transport": "http",
+  "method": "PATCH",
+  "route": "/api/v1/routes/<identifier>",
+  "objective": "Actualizar ruta con control de versión",
+  "url": "http://127.0.0.1:56263/api/v1/routes/7b1745f6-56e0-43d3-9c3d-1c35538d7aae",
+  "parameters": {},
+  "path_parameters": {
+    "identifier": "7b1745f6-56e0-43d3-9c3d-1c35538d7aae"
+  },
+  "request_headers": {
+    "Host": "127.0.0.1:56263",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "9a37fe6f2290431aa1665befbd7367c2",
+    "Authorization": "[REDACTED]",
+    "Content-Length": "106",
+    "Content-Type": "application/json"
+  },
+  "request_body": {
+    "version": 2,
+    "distance_km": 10.0,
+    "travel_minutes": 15,
+    "source": "Estimación ficticia verificada"
+  },
+  "status": 200,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "497",
+    "X-Correlation-ID": "b11d248c-1533-4f9b-bae2-d63357dcd6d9",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "data": {
+      "id": "7b1745f6-56e0-43d3-9c3d-1c35538d7aae",
+      "origin_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+      "destination_id": "a0920053-13c5-4d42-b53e-74b35a779f58",
+      "region_id": "7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb",
+      "distance_km": 10.0,
+      "travel_minutes": 15,
+      "source": "Estimación ficticia verificada",
+      "version": 3,
+      "updated_at": "2026-10-19T16:29:51.700618+00:00"
+    },
+    "meta": {
+      "correlation_id": "b11d248c-1533-4f9b-bae2-d63357dcd6d9",
+      "service": "priorizacion_geografia",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "b11d248c-1533-4f9b-bae2-d63357dcd6d9",
+  "persistence": {
+    "effect": "committed",
+    "store": "PostgreSQL red_house",
+    "query": "SELECT operation,fingerprint,result FROM idempotency WHERE user_id=:actor AND key=:idempotency_key",
+    "row": {
+      "operation": "route_update:7b1745f6-56e0-43d3-9c3d-1c35538d7aae",
+      "fingerprint": "620f3a5294296c9d741ae4d25f49c1d4507d7c6afe5f7c626b045a28dfd129af",
+      "result": {
+        "id": "7b1745f6-56e0-43d3-9c3d-1c35538d7aae",
+        "source": "Estimación ficticia verificada",
+        "version": 3,
+        "origin_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+        "region_id": "7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb",
+        "updated_at": "2026-10-19T16:29:51.700618+00:00",
+        "distance_km": 10.0,
+        "destination_id": "a0920053-13c5-4d42-b53e-74b35a779f58",
+        "travel_minutes": 15
+      }
+    }
+  }
+}

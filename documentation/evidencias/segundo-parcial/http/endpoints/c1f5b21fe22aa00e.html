@@ -1,0 +1,139 @@
+<!doctype html><html lang="es"><meta charset="utf-8"><title>priorizacion_geografia /api/v1/rankings/&lt;identifier&gt;</title><style>body{font:15px system-ui;margin:32px;background:#f4f5f7;color:#202631}main{max-width:1250px;margin:auto}h1{color:#8e2434;font-size:26px}small{color:#556}a{color:#8e2434}table{border-collapse:collapse;width:100%;background:white}td,th{padding:9px;border:1px solid #ccd;vertical-align:top;text-align:left}pre{white-space:pre-wrap;word-break:break-word;background:#fff;border:1px solid #ccd;padding:12px;font:12px monospace;max-height:300px;overflow:auto}section{margin:20px 0}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.tag{padding:4px 9px;background:#e5ece7}.error{background:#f8e5e6}input{padding:12px;width:70%;margin:15px 0}details{margin:12px 0}nav{margin-bottom:20px}</style><main><nav><a href="../index.html">Inventario completo</a></nav><h1>priorizacion_geografia · GET /api/v1/rankings/&lt;identifier&gt;</h1><p>Factores, explicación y resultados del ranking</p><p>Registro de ejecución real. Credenciales y firmas redactadas. Los cuerpos completos están en el JSON enlazado.</p><section><h2>HTTP 200</h2><p><b>2026-10-19T16:28:39.664285+00:00</b> · versión 0.3.0</p><p>Correlación: aad8eb3c-bd76-4625-b33d-bd7a0f25b83b<br>URL: http://127.0.0.1:56263/api/v1/rankings/f7cf52ae-f14b-4016-b225-907ec29f9ae9</p><p><a href="../records/626d1834b06572b99538bfae.json">Petición, respuesta, headers y persistencia completos</a></p><div class="grid"><div><h3>Petición</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Host&quot;: &quot;127.0.0.1:56263&quot;,
+    &quot;User-Agent&quot;: &quot;python-requests/2.34.2&quot;,
+    &quot;Accept-Encoding&quot;: &quot;gzip, deflate, br&quot;,
+    &quot;Accept&quot;: &quot;application/json&quot;,
+    &quot;Connection&quot;: &quot;keep-alive&quot;,
+    &quot;Idempotency-Key&quot;: &quot;b0b0db6d4b384a40ba967bcc692a99eb&quot;,
+    &quot;Authorization&quot;: &quot;[REDACTED]&quot;
+  },
+  &quot;parameters&quot;: {},
+  &quot;body&quot;: &quot;&quot;
+}</pre></div><div><h3>Respuesta</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Content-Type&quot;: &quot;application/json&quot;,
+    &quot;Content-Length&quot;: &quot;2458&quot;,
+    &quot;X-Correlation-ID&quot;: &quot;aad8eb3c-bd76-4625-b33d-bd7a0f25b83b&quot;,
+    &quot;Cache-Control&quot;: &quot;no-store&quot;,
+    &quot;X-Content-Type-Options&quot;: &quot;nosniff&quot;,
+    &quot;Referrer-Policy&quot;: &quot;no-referrer&quot;
+  },
+  &quot;body&quot;: {
+    &quot;data&quot;: {
+      &quot;id&quot;: &quot;f7cf52ae-f14b-4016-b225-907ec29f9ae9&quot;,
+      &quot;tenant_id&quot;: &quot;a0920053-13c5-4d42-b53e-74b35a779f58&quot;,
+      &quot;evaluation_id&quot;: &quot;276b84f1-a9f3-4cc5-9bc4-d3e397dfbbcd&quot;,
+      &quot;algorithm_version&quot;: &quot;LOGISTICS-1.0&quot;,
+      &quot;factors&quot;: {
+        &quot;order&quot;: [
+          &quot;expires_at&quot;,
+          &quot;travel_minutes&quot;,
+          &quot;distance_km&quot;,
+          &quot;resource_id&quot;
+        ],
+        &quot;urgency&quot;: 2,
+        &quot;request_created_at&quot;: &quot;2026-10-19T16:28:36.860453+00:00&quot;
+      },
+      &quot;result&quot;: [
+        {
+          &quot;rank&quot;: 1,
+          &quot;route_id&quot;: &quot;7b1745f6-56e0-43d3-9c3d-1c35538d7aae&quot;,
+          &quot;origin_id&quot;: &quot;87255e79-2a0a-4e44-ad21-8002ccd5688d&quot;,
+          &quot;expires_at&quot;: &quot;2026-10-21T16:22:11.360817+00:00&quot;,
+          &quot;distance_km&quot;: 10.0,
+          &quot;explanation&quot;: &quot;Orden operativo: límite capturado, minutos, distancia e identificador estable; requiere dictamen humano.&quot;,
+          &quot;resource_id&quot;: &quot;559a7b23-5ec2-431c-860a-3a298e0f703c&quot;,
+          &quot;route_version&quot;: 2,
+          &quot;resource_folio&quot;: &quot;UNIT-442972ad3042&quot;,
+          &quot;travel_minutes&quot;: 15,
+          &quot;resource_version&quot;: 2
+        },
+        {
+          &quot;rank&quot;: 2,
+          &quot;route_id&quot;: &quot;7b1745f6-56e0-43d3-9c3d-1c35538d7aae&quot;,
+          &quot;origin_id&quot;: &quot;87255e79-2a0a-4e44-ad21-8002ccd5688d&quot;,
+          &quot;expires_at&quot;: &quot;2026-10-21T16:22:11.829681+00:00&quot;,
+          &quot;distance_km&quot;: 10.0,
+          &quot;explanation&quot;: &quot;Orden operativo: límite capturado, minutos, distancia e identificador estable; requiere dictamen humano.&quot;,
+          &quot;resource_id&quot;: &quot;1c92030d-87e6-43a8-b1c6-d81623055a40&quot;,
+          &quot;route_version&quot;: 2,
+          &quot;resource_folio&quot;: &quot;UNIT-b4f2ad6139dc&quot;,
+          &quot;travel_minutes&quot;: 15,
+          &quot;resource_version&quot;: 2
+        },
+        {
+          &quot;rank&quot;: 3,
+          &quot;route_id&quot;: &quot;7b1745f6-56e0-43d3-9c3d-1c35538d7aae&quot;,
+          &quot;origin_id&quot;: &quot;87255e79-2a0a-4e44-ad21-8002ccd5688d&quot;,
+          &quot;expires_at&quot;: &quot;2026-10-21T16:22:17.191242+00:00&quot;,
+          &quot;distance_km&quot;: 10.0,
+          &quot;explanation&quot;: &quot;Orden operativo: límite capturado, minutos, distancia e identificador estable; requiere dictamen humano.&quot;,
+          &quot;resource_id&quot;: &quot;cf311e62-182d-4d22-8836-61352e0b8436&quot;,
+          &quot;route_version&quot;: 2,
+          &quot;resource_folio&quot;: &quot;UNIT-0bc33e58c998&quot;,
+          &quot;travel_minutes&quot;: 15,
+          &quot;resource_version&quot;: 2
+        },
+        {
+          &quot;rank&quot;: 4,
+          &quot;route_id&quot;: &quot;7b1745f6-56e0-43d3-9c3d-1c35538d7aae&quot;,
+          &quot;origin_id&quot;: &quot;87255e79-2a0a-4e44-ad21-8002ccd5688d&quot;,
+          &quot;expires_at&quot;: &quot;2026-10-21T16:28:37.346038+00:00&quot;,
+          &quot;distance_km&quot;: 10.0,
+          &quot;explanation&quot;: &quot;Orden operativo: límite capturado, minutos, distancia e identificador estable; requiere dictamen humano.&quot;,
+          &quot;resource_id&quot;: &quot;7ff4f730-038e-40e3-906e-4863d2fea007&quot;,
+          &quot;route_version&quot;: 2,
+          &quot;resource_folio&quot;: &quot;UNIT-1ce0b6824ecc&quot;,
+          &quot;travel_minutes&quot;: 15,
+          &quot;resource_version&quot;: 2
+        }
+      ],
+      &quot;elapsed_ms&quot;: 0.044,
+      &quot;created_at&quot;: &quot;2026-10-19T16:28:39.364091+00:00&quot;
+    },
+    &quot;meta&quot;: {
+      &quot;correlation_id&quot;: &quot;aad8eb3c-bd76-4625-b33d-bd7a0f25b83b&quot;,
+      &quot;service&quot;: &quot;priorizacion_geografia&quot;,
+      &quot;version&quot;: &quot;0.3.0&quot;
+    }
+  }
+}</pre></div></div><details><summary>Persistencia y versión de implementación</summary><pre>{
+  &quot;effect&quot;: &quot;read&quot;,
+  &quot;note&quot;: &quot;Consulta; accesos protegidos generan auditoría local transaccional.&quot;
+}</pre><p>SHA-256: a72d90d185b760994571ed560b74d7f59cc2cca663c983d7842c7150387e7f9a</p></details></section><section><h2>HTTP 401</h2><p><b>2026-10-19T16:28:21.817104+00:00</b> · versión 0.3.0</p><p>Correlación: d3589507-8770-42e2-b1c1-6925f8ece486<br>URL: http://127.0.0.1:56263/api/v1/rankings/d887a9a2-0ba5-4050-a739-50b994388e9d</p><p><a href="../records/bc64bb947209493fea2178db.json">Petición, respuesta, headers y persistencia completos</a></p><div class="grid"><div><h3>Petición</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Host&quot;: &quot;127.0.0.1:56263&quot;,
+    &quot;User-Agent&quot;: &quot;python-requests/2.34.2&quot;,
+    &quot;Accept-Encoding&quot;: &quot;gzip, deflate, br&quot;,
+    &quot;Accept&quot;: &quot;application/json&quot;,
+    &quot;Connection&quot;: &quot;keep-alive&quot;,
+    &quot;Idempotency-Key&quot;: &quot;15a9be3875a84df98827e0f14b491ad8&quot;
+  },
+  &quot;parameters&quot;: {},
+  &quot;body&quot;: &quot;&quot;
+}</pre></div><div><h3>Respuesta</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Content-Type&quot;: &quot;application/json&quot;,
+    &quot;Content-Length&quot;: &quot;214&quot;,
+    &quot;X-Correlation-ID&quot;: &quot;d3589507-8770-42e2-b1c1-6925f8ece486&quot;,
+    &quot;Cache-Control&quot;: &quot;no-store&quot;,
+    &quot;X-Content-Type-Options&quot;: &quot;nosniff&quot;,
+    &quot;Referrer-Policy&quot;: &quot;no-referrer&quot;
+  },
+  &quot;body&quot;: {
+    &quot;error&quot;: {
+      &quot;code&quot;: &quot;unauthorized&quot;,
+      &quot;message&quot;: &quot;JWT de acceso requerido.&quot;,
+      &quot;details&quot;: []
+    },
+    &quot;meta&quot;: {
+      &quot;correlation_id&quot;: &quot;d3589507-8770-42e2-b1c1-6925f8ece486&quot;,
+      &quot;service&quot;: &quot;priorizacion_geografia&quot;,
+      &quot;version&quot;: &quot;0.3.0&quot;
+    }
+  }
+}</pre></div></div><details><summary>Persistencia y versión de implementación</summary><pre>{
+  &quot;effect&quot;: &quot;controlled_error&quot;,
+  &quot;note&quot;: &quot;No se infiere ausencia de efectos de un error; revisar correlación y estado de operación.&quot;
+}</pre><p>SHA-256: a72d90d185b760994571ed560b74d7f59cc2cca663c983d7842c7150387e7f9a</p></details></section><h2>Todas las variantes ejecutadas</h2><ul><li><a href="../records/bc64bb947209493fea2178db.json">401 · http · application/json · 2026-10-19T16:28:21.817104+00:00</a></li><li><a href="../records/626d1834b06572b99538bfae.json">200 · http · application/json · 2026-10-19T16:28:39.664285+00:00</a></li><li><a href="../records/ed30725e1b57ea95add39106.json">401 · http · application/xml; charset=utf-8 · 2026-10-19T16:28:21.861981+00:00</a></li><li><a href="../records/c426cb84cd68c66d690b223e.json">404 · http · application/json · 2026-10-19T16:28:22.081620+00:00</a></li></ul></main></html>

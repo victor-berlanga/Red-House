@@ -1,0 +1,100 @@
+{
+  "version": "0.3.0",
+  "application_matches_final_regression": true,
+  "services": [
+    {
+      "service": "identidad_acceso",
+      "current_sha256": "b82acfc07e7ff0221196c291a52b1986e4d1ac69b3f6769bffe29f4a02fa5c9b",
+      "captured_sha256": [
+        "b82acfc07e7ff0221196c291a52b1986e4d1ac69b3f6769bffe29f4a02fa5c9b"
+      ],
+      "matches": true
+    },
+    {
+      "service": "donantes",
+      "current_sha256": "1a8dccae105e0c261a0273a99f999923c88cbf235f750f80f0ac2f487c8b6654",
+      "captured_sha256": [
+        "1a8dccae105e0c261a0273a99f999923c88cbf235f750f80f0ac2f487c8b6654"
+      ],
+      "matches": true
+    },
+    {
+      "service": "receptores",
+      "current_sha256": "ff2e7260f413ab4edb16a5555f512ec7404cdb118d66af3fc8a1e4dd2c6136b4",
+      "captured_sha256": [
+        "ff2e7260f413ab4edb16a5555f512ec7404cdb118d66af3fc8a1e4dd2c6136b4"
+      ],
+      "matches": true
+    },
+    {
+      "service": "inventario",
+      "current_sha256": "6eac28b3c6355ff29f1aabe6ed2aa76b6e104ed4888482a02b3967184783afa9",
+      "captured_sha256": [
+        "6eac28b3c6355ff29f1aabe6ed2aa76b6e104ed4888482a02b3967184783afa9"
+      ],
+      "matches": true
+    },
+    {
+      "service": "compatibilidad",
+      "current_sha256": "edd69e48ffcbd19733c620b1f2bcc1fcd82057a7b17a2d0eb2188ccf77d7f18f",
+      "captured_sha256": [
+        "edd69e48ffcbd19733c620b1f2bcc1fcd82057a7b17a2d0eb2188ccf77d7f18f"
+      ],
+      "matches": true
+    },
+    {
+      "service": "priorizacion_geografia",
+      "current_sha256": "a72d90d185b760994571ed560b74d7f59cc2cca663c983d7842c7150387e7f9a",
+      "captured_sha256": [
+        "a72d90d185b760994571ed560b74d7f59cc2cca663c983d7842c7150387e7f9a"
+      ],
+      "matches": true
+    },
+    {
+      "service": "transporte",
+      "current_sha256": "e7eb0044cb5544477c1a4b79a264977e16ddd17c216e8a88ed6d187af95af791",
+      "captured_sha256": [
+        "e7eb0044cb5544477c1a4b79a264977e16ddd17c216e8a88ed6d187af95af791"
+      ],
+      "matches": true
+    },
+    {
+      "service": "custodia",
+      "current_sha256": "864e3dda7901fd4edb3082758390ed9006bf1eeb509502b67d2009709a43ddd8",
+      "captured_sha256": [
+        "864e3dda7901fd4edb3082758390ed9006bf1eeb509502b67d2009709a43ddd8"
+      ],
+      "matches": true
+    },
+    {
+      "service": "alertas",
+      "current_sha256": "bfa44d7f9eed353dec3bafc8b15f8c356f1d5755eda053077cae211dc4490657",
+      "captured_sha256": [
+        "bfa44d7f9eed353dec3bafc8b15f8c356f1d5755eda053077cae211dc4490657"
+      ],
+      "matches": true
+    },
+    {
+      "service": "auditoria",
+      "current_sha256": "f1a9056ec92eb7006810957e59fb326815b25003ea30d5ed1de2439e7ed8f42a",
+      "captured_sha256": [
+        "f1a9056ec92eb7006810957e59fb326815b25003ea30d5ed1de2439e7ed8f42a"
+      ],
+      "matches": true
+    },
+    {
+      "service": "monitoreo",
+      "current_sha256": "b8204c203189de890c197ffcc608103454231faa36b5def1b043c829582fb590",
+      "captured_sha256": [
+        "b8204c203189de890c197ffcc608103454231faa36b5def1b043c829582fb590"
+      ],
+      "matches": true
+    }
+  ],
+  "clean_clone_source": {
+    "snapshot_commit": "5c3f920dc76fb4ad963c0badb6945026d6c42b1e",
+    "runtime_files": 630,
+    "sha256": "5bc41a90b1e16b7277a2a764710e15c7f2e6b65bdd928296d99a35e75295106d",
+    "differences": []
+  }
+}

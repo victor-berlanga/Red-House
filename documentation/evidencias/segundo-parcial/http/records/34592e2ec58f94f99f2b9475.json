@@ -1,0 +1,51 @@
+{
+  "captured_at": "2026-10-19T16:28:05.264402+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "b82acfc07e7ff0221196c291a52b1986e4d1ac69b3f6769bffe29f4a02fa5c9b",
+  "transport": "http",
+  "method": "GET",
+  "route": "/api/v1/institutions/<identifier>",
+  "objective": "Detalle administrativo de institución regional",
+  "url": "http://127.0.0.1:56258/api/v1/institutions/5a49c512-c59f-4b84-8d85-fa1b6461dc8c",
+  "parameters": {},
+  "path_parameters": {
+    "identifier": "5a49c512-c59f-4b84-8d85-fa1b6461dc8c"
+  },
+  "request_headers": {
+    "Host": "127.0.0.1:56258",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "253e1742a0ba4056983c7dd020327078",
+    "Authorization": "[REDACTED]"
+  },
+  "request_body": "",
+  "status": 404,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "201",
+    "X-Correlation-ID": "32a4bd6c-6a91-43d9-a29f-cda6609a78e6",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "error": {
+      "code": "not_found",
+      "message": "Recurso inexistente.",
+      "details": []
+    },
+    "meta": {
+      "correlation_id": "32a4bd6c-6a91-43d9-a29f-cda6609a78e6",
+      "service": "identidad_acceso",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "32a4bd6c-6a91-43d9-a29f-cda6609a78e6",
+  "persistence": {
+    "effect": "controlled_error",
+    "note": "No se infiere ausencia de efectos de un error; revisar correlación y estado de operación."
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "captured_at": "2026-10-19T18:30:58.296849+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "6eac28b3c6355ff29f1aabe6ed2aa76b6e104ed4888482a02b3967184783afa9",
+  "transport": "http",
+  "method": "GET",
+  "route": "/health/redis",
+  "objective": "health_redis",
+  "url": "http://127.0.0.1:60899/health/redis",
+  "parameters": {},
+  "path_parameters": {},
+  "request_headers": {
+    "Host": "127.0.0.1:60899",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "45bbfedd4e6341d181f5f41478eb5665"
+  },
+  "request_body": "",
+  "status": 503,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "130",
+    "X-Correlation-ID": "8a67efd1-e7b7-4e98-9c28-33ae3f5375a3",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "data": {
+      "state": "down",
+      "error": "dependency_unavailable"
+    },
+    "meta": {
+      "correlation_id": "8a67efd1-e7b7-4e98-9c28-33ae3f5375a3"
+    }
+  },
+  "correlation_id": "8a67efd1-e7b7-4e98-9c28-33ae3f5375a3",
+  "persistence": {
+    "effect": "controlled_error",
+    "note": "No se infiere ausencia de efectos de un error; revisar correlación y estado de operación."
+  }
+}

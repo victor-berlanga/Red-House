@@ -1,0 +1,48 @@
+{
+  "captured_at": "2026-10-19T16:28:11.986376+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "1a8dccae105e0c261a0273a99f999923c88cbf235f750f80f0ac2f487c8b6654",
+  "transport": "http",
+  "method": "GET",
+  "route": "/api/v1/donations",
+  "objective": "Donaciones de la institución sin expediente personal",
+  "url": "http://127.0.0.1:56259/api/v1/donations",
+  "parameters": {},
+  "path_parameters": {},
+  "request_headers": {
+    "Host": "127.0.0.1:56259",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "718416c4bdaa47fa9a7af33ea7fac928"
+  },
+  "request_body": "",
+  "status": 401,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "200",
+    "X-Correlation-ID": "989a05a0-18f7-4890-8c50-a789ab15b913",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "error": {
+      "code": "unauthorized",
+      "message": "JWT de acceso requerido.",
+      "details": []
+    },
+    "meta": {
+      "correlation_id": "989a05a0-18f7-4890-8c50-a789ab15b913",
+      "service": "donantes",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "989a05a0-18f7-4890-8c50-a789ab15b913",
+  "persistence": {
+    "effect": "controlled_error",
+    "note": "No se infiere ausencia de efectos de un error; revisar correlación y estado de operación."
+  }
+}

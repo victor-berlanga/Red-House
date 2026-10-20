@@ -1,0 +1,52 @@
+{
+  "captured_at": "2026-10-19T16:24:47.585885+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "e7eb0044cb5544477c1a4b79a264977e16ddd17c216e8a88ed6d187af95af791",
+  "transport": "embedded",
+  "method": "GET",
+  "route": "/internal/v1/shipments/<identifier>/access",
+  "objective": "Autorizar consulta de custodia por asignación logística",
+  "url": "http://localhost/internal/v1/shipments/ea3e5e8c-ee3a-4cea-894b-b2f88714458a/access",
+  "parameters": {},
+  "path_parameters": {
+    "identifier": "ea3e5e8c-ee3a-4cea-894b-b2f88714458a"
+  },
+  "request_headers": {
+    "Host": "localhost",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+    "X-Service": "custodia",
+    "X-Service-Time": "1792427087",
+    "X-Service-Nonce": "f39b2b95-b186-4a72-949c-0e6cdc9f434d",
+    "X-Service-Signature": "[REDACTED]",
+    "X-Correlation-Id": "0c286370-78ab-4cd6-bff5-ddb24feae822",
+    "Authorization": "[REDACTED]"
+  },
+  "request_body": "[Invalid JSON omitted; sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855]",
+  "status": 200,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "189",
+    "X-Correlation-ID": "0c286370-78ab-4cd6-bff5-ddb24feae822",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "data": {
+      "authorized": true,
+      "id": "ea3e5e8c-ee3a-4cea-894b-b2f88714458a"
+    },
+    "meta": {
+      "correlation_id": "0c286370-78ab-4cd6-bff5-ddb24feae822",
+      "service": "transporte",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "0c286370-78ab-4cd6-bff5-ddb24feae822",
+  "persistence": {
+    "effect": "read",
+    "note": "Consulta; accesos protegidos generan auditoría local transaccional."
+  }
+}

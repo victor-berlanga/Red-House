@@ -1,0 +1,334 @@
+<!doctype html><html lang="es"><meta charset="utf-8"><title>auditoria /api/v1/documentary-events</title><style>body{font:15px system-ui;margin:32px;background:#f4f5f7;color:#202631}main{max-width:1250px;margin:auto}h1{color:#8e2434;font-size:26px}small{color:#556}a{color:#8e2434}table{border-collapse:collapse;width:100%;background:white}td,th{padding:9px;border:1px solid #ccd;vertical-align:top;text-align:left}pre{white-space:pre-wrap;word-break:break-word;background:#fff;border:1px solid #ccd;padding:12px;font:12px monospace;max-height:300px;overflow:auto}section{margin:20px 0}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.tag{padding:4px 9px;background:#e5ece7}.error{background:#f8e5e6}input{padding:12px;width:70%;margin:15px 0}details{margin:12px 0}nav{margin-bottom:20px}</style><main><nav><a href="../index.html">Inventario completo</a></nav><h1>auditoria · GET /api/v1/documentary-events</h1><p>Proyección documental MongoDB; puede estar pendiente de sincronización</p><p>Registro de ejecución real. Credenciales y firmas redactadas. Los cuerpos completos están en el JSON enlazado.</p><section><h2>HTTP 200</h2><p><b>2026-10-19T16:28:29.180789+00:00</b> · versión 0.3.0</p><p>Correlación: bf472c3e-9098-49f7-8266-5f4c5f1960b5<br>URL: http://127.0.0.1:56267/api/v1/documentary-events</p><p><a href="../records/430c3c79969b6f8ae5e8b621.json">Petición, respuesta, headers y persistencia completos</a></p><div class="grid"><div><h3>Petición</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Host&quot;: &quot;127.0.0.1:56267&quot;,
+    &quot;User-Agent&quot;: &quot;python-requests/2.34.2&quot;,
+    &quot;Accept-Encoding&quot;: &quot;gzip, deflate, br&quot;,
+    &quot;Accept&quot;: &quot;application/json&quot;,
+    &quot;Connection&quot;: &quot;keep-alive&quot;,
+    &quot;Idempotency-Key&quot;: &quot;013989eb3e514450a79e204b447c5f8b&quot;,
+    &quot;Authorization&quot;: &quot;[REDACTED]&quot;
+  },
+  &quot;parameters&quot;: {},
+  &quot;body&quot;: &quot;&quot;
+}</pre></div><div><h3>Respuesta</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Content-Type&quot;: &quot;application/json&quot;,
+    &quot;Content-Length&quot;: &quot;9433&quot;,
+    &quot;X-Correlation-ID&quot;: &quot;bf472c3e-9098-49f7-8266-5f4c5f1960b5&quot;,
+    &quot;Cache-Control&quot;: &quot;no-store&quot;,
+    &quot;X-Content-Type-Options&quot;: &quot;nosniff&quot;,
+    &quot;Referrer-Policy&quot;: &quot;no-referrer&quot;
+  },
+  &quot;body&quot;: {
+    &quot;data&quot;: {
+      &quot;items&quot;: [
+        {
+          &quot;action&quot;: &quot;READ&quot;,
+          &quot;source&quot;: &quot;identidad_acceso&quot;,
+          &quot;actor_id&quot;: &quot;b7e21549-9533-4cc8-a5bc-3d55493b8ada&quot;,
+          &quot;event_id&quot;: &quot;01646a0b-a5a6-412d-b721-211b8a91f638&quot;,
+          &quot;metadata&quot;: {},
+          &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+          &quot;tenant_id&quot;: &quot;87255e79-2a0a-4e44-ad21-8002ccd5688d&quot;,
+          &quot;occurred_at&quot;: &quot;2026-10-19T16:26:31.288410+00:00&quot;,
+          &quot;resource_id&quot;: &quot;collection&quot;,
+          &quot;correlation_id&quot;: &quot;2e3ac05f-67b0-4b11-b595-cbfa5b151cdb&quot;
+        },
+        {
+          &quot;action&quot;: &quot;READ&quot;,
+          &quot;source&quot;: &quot;transporte&quot;,
+          &quot;actor_id&quot;: &quot;3980f3c5-484c-4178-b03c-8d65c598ecd7&quot;,
+          &quot;event_id&quot;: &quot;02ba5fe9-45f6-4cf0-8241-55e495f59d08&quot;,
+          &quot;metadata&quot;: {},
+          &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+          &quot;tenant_id&quot;: &quot;87255e79-2a0a-4e44-ad21-8002ccd5688d&quot;,
+          &quot;occurred_at&quot;: &quot;2026-10-19T16:22:57.103256+00:00&quot;,
+          &quot;resource_id&quot;: &quot;ea3e5e8c-ee3a-4cea-894b-b2f88714458a&quot;,
+          &quot;correlation_id&quot;: &quot;494f7e65-e1a6-4f58-b9d9-9a779cae8224&quot;
+        },
+        {
+          &quot;action&quot;: &quot;ALLOCATION_PROPOSAL_CREATED&quot;,
+          &quot;source&quot;: &quot;priorizacion_geografia&quot;,
+          &quot;actor_id&quot;: &quot;a5898ca7-9e7b-47c9-9f64-9c5cebf413f5&quot;,
+          &quot;event_id&quot;: &quot;030e9b9d-b437-43a4-aa58-ec67a2afffcb&quot;,
+          &quot;metadata&quot;: {
+            &quot;algorithm_version&quot;: &quot;COVERAGE-HK-1.0&quot;
+          },
+          &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+          &quot;tenant_id&quot;: &quot;a0920053-13c5-4d42-b53e-74b35a779f58&quot;,
+          &quot;occurred_at&quot;: &quot;2026-10-19T16:22:17.034028+00:00&quot;,
+          &quot;resource_id&quot;: &quot;632d0ca6-b701-487e-bf04-0500ec3a4af2&quot;,
+          &quot;correlation_id&quot;: &quot;8b0bc9f5-c4fb-414f-8e15-b375893025f6&quot;
+        },
+        {
+          &quot;action&quot;: &quot;READ&quot;,
+          &quot;source&quot;: &quot;compatibilidad&quot;,
+          &quot;actor_id&quot;: &quot;a5898ca7-9e7b-47c9-9f64-9c5cebf413f5&quot;,
+          &quot;event_id&quot;: &quot;03aeffb7-c15a-4b5b-9bfc-03bfe2ce417e&quot;,
+          &quot;metadata&quot;: {},
+          &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+          &quot;tenant_id&quot;: &quot;a0920053-13c5-4d42-b53e-74b35a779f58&quot;,
+          &quot;occurred_at&quot;: &quot;2026-10-19T16:22:48.038374+00:00&quot;,
+          &quot;resource_id&quot;: &quot;d689ca9c-4d24-4cec-965e-93f49d4f2cdb&quot;,
+          &quot;correlation_id&quot;: &quot;5e063d4a-d747-4dd3-8342-960522744ef4&quot;
+        },
+        {
+          &quot;action&quot;: &quot;READ&quot;,
+          &quot;source&quot;: &quot;receptores&quot;,
+          &quot;actor_id&quot;: &quot;a5898ca7-9e7b-47c9-9f64-9c5cebf413f5&quot;,
+          &quot;event_id&quot;: &quot;03ddd302-aaee-496e-abaf-8a3fcaf3d0d0&quot;,
+          &quot;metadata&quot;: {},
+          &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+          &quot;tenant_id&quot;: &quot;a0920053-13c5-4d42-b53e-74b35a779f58&quot;,
+          &quot;occurred_at&quot;: &quot;2026-10-19T16:26:20.303033+00:00&quot;,
+          &quot;resource_id&quot;: &quot;530b638d-a0e4-4e65-9e8b-81f0aa7dfd05&quot;,
+          &quot;correlation_id&quot;: &quot;31ad66de-8c81-4b79-bb7b-f40f9cf00864&quot;
+        },
+        {
+          &quot;action&quot;: &quot;READ&quot;,
+          &quot;source&quot;: &quot;identidad_acceso&quot;,
+          &quot;actor_id&quot;: &quot;b7e21549-9533-4cc8-a5bc-3d55493b8ada&quot;,
+          &quot;event_id&quot;: &quot;0415ac05-8dd8-4734-b908-29fbb5570309&quot;,
+          &quot;metadata&quot;: {},
+          &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+          &quot;tenant_id&quot;: &quot;87255e79-2a0a-4e44-ad21-8002ccd5688d&quot;,
+          &quot;occurred_at&quot;: &quot;2026-10-19T16:26:42.998750+00:00&quot;,
+          &quot;resource_id&quot;: &quot;collection&quot;,
+          &quot;correlation_id&quot;: &quot;5f06e059-ffff-46cd-b9e9-9bde69451759&quot;
+        },
+        {
+          &quot;action&quot;: &quot;READ&quot;,
+          &quot;source&quot;: &quot;identidad_acceso&quot;,
+          &quot;actor_id&quot;: &quot;3980f3c5-484c-4178-b03c-8d65c598ecd7&quot;,
+          &quot;event_id&quot;: &quot;045c36fe-b6ea-454d-890b-a8d0c16b90e2&quot;,
+          &quot;metadata&quot;: {},
+          &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+          &quot;tenant_id&quot;: &quot;87255e79-2a0a-4e44-ad21-8002ccd5688d&quot;,
+          &quot;occurred_at&quot;: &quot;2026-10-19T16:25:24.587751+00:00&quot;,
+          &quot;resource_id&quot;: &quot;collection&quot;,
+          &quot;correlation_id&quot;: &quot;a90bc7bd-36e6-4565-99ea-5cf8cc8f1aca&quot;
+        },
+        {
+          &quot;action&quot;: &quot;READ&quot;,
+          &quot;source&quot;: &quot;priorizacion_geografia&quot;,
+          &quot;actor_id&quot;: &quot;a5898ca7-9e7b-47c9-9f64-9c5cebf413f5&quot;,
+          &quot;event_id&quot;: &quot;047e24cc-dfc7-4dfc-9c28-ae9dbf9d4f75&quot;,
+          &quot;metadata&quot;: {},
+          &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+          &quot;tenant_id&quot;: &quot;a0920053-13c5-4d42-b53e-74b35a779f58&quot;,
+          &quot;occurred_at&quot;: &quot;2026-10-19T16:26:46.294207+00:00&quot;,
+          &quot;resource_id&quot;: &quot;7b1745f6-56e0-43d3-9c3d-1c35538d7aae&quot;,
+          &quot;correlation_id&quot;: &quot;b2219a1e-7253-4263-8147-b3d554337f59&quot;
+        },
+        {
+          &quot;action&quot;: &quot;SHIPMENT_COLLECTED&quot;,
+          &quot;source&quot;: &quot;transporte&quot;,
+          &quot;actor_id&quot;: &quot;3980f3c5-484c-4178-b03c-8d65c598ecd7&quot;,
+          &quot;event_id&quot;: &quot;056943b6-73dd-4705-81aa-36594c45a41b&quot;,
+          &quot;metadata&quot;: {
+            &quot;state&quot;: &quot;COLLECTED&quot;,
+            &quot;evidence&quot;: null,
+            &quot;sequence&quot;: 3,
+            &quot;origin_id&quot;: &quot;87255e79-2a0a-4e44-ad21-8002ccd5688d&quot;,
+            &quot;destination_id&quot;: &quot;a0920053-13c5-4d42-b53e-74b35a779f58&quot;,
+            &quot;reservation_id&quot;: &quot;1e1b90e8-2d0a-425b-bc78-f2b497c2af6a&quot;,
+            &quot;transport_user_id&quot;: &quot;3980f3c5-484c-4178-b03c-8d65c598ecd7&quot;,
+            &quot;destination_location_id&quot;: null
+          },
+          &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+          &quot;tenant_id&quot;: &quot;87255e79-2a0a-4e44-ad21-8002ccd5688d&quot;,
+          &quot;occurred_at&quot;: &quot;2026-10-19T16:26:49.351359+00:00&quot;,
+          &quot;resource_id&quot;: &quot;859eea1a-1b77-4b08-9a53-5038495b9521&quot;,
+          &quot;correlation_id&quot;: &quot;48aa3cc2-1e1f-43cd-83d2-2740e36a7d12&quot;
+        },
+        {
+          &quot;action&quot;: &quot;READ&quot;,
+          &quot;source&quot;: &quot;transporte&quot;,
+          &quot;actor_id&quot;: &quot;08496c01-6621-4892-8d45-8152c6693b65&quot;,
+          &quot;event_id&quot;: &quot;07906939-ec9a-47c4-8a6e-550567731753&quot;,
+          &quot;metadata&quot;: {},
+          &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+          &quot;tenant_id&quot;: &quot;a0920053-13c5-4d42-b53e-74b35a779f58&quot;,
+          &quot;occurred_at&quot;: &quot;2026-10-19T16:25:26.379864+00:00&quot;,
+          &quot;resource_id&quot;: &quot;129b0941-1526-492a-9dbf-5d45b002cfdc&quot;,
+          &quot;correlation_id&quot;: &quot;0d5ca1e6-fcdc-4ed5-a337-949456777f28&quot;
+        },
+        {
+          &quot;action&quot;: &quot;CAPACITY_RECEIVED&quot;,
+          &quot;source&quot;: &quot;receptores&quot;,
+          &quot;actor_id&quot;: null,
+          &quot;event_id&quot;: &quot;0915b390-1d8c-4232-866f-69201efdadab&quot;,
+          &quot;metadata&quot;: {},
+          &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+          &quot;tenant_id&quot;: &quot;a0920053-13c5-4d42-b53e-74b35a779f58&quot;,
+          &quot;occurred_at&quot;: &quot;2026-10-19T16:26:13.531315+00:00&quot;,
+          &quot;resource_id&quot;: &quot;530b638d-a0e4-4e65-9e8b-81f0aa7dfd05&quot;,
+          &quot;correlation_id&quot;: &quot;f2a0801b-d8b6-47e1-a890-5d32641e0ffc&quot;
+        },
+        {
+          &quot;action&quot;: &quot;READ&quot;,
+          &quot;source&quot;: &quot;identidad_acceso&quot;,
+          &quot;actor_id&quot;: &quot;b7e21549-9533-4cc8-a5bc-3d55493b8ada&quot;,
+          &quot;event_id&quot;: &quot;0b9a7ba4-bf8d-47ad-a37d-54a00f17f858&quot;,
+          &quot;metadata&quot;: {},
+          &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+          &quot;tenant_id&quot;: &quot;87255e79-2a0a-4e44-ad21-8002ccd5688d&quot;,
+          &quot;occurred_at&quot;: &quot;2026-10-19T16:26:29.951287+00:00&quot;,
+          &quot;resource_id&quot;: &quot;collection&quot;,
+          &quot;correlation_id&quot;: &quot;52da92f6-73af-4d52-8d86-fbb8f7f40be5&quot;
+        },
+        {
+          &quot;action&quot;: &quot;READ&quot;,
+          &quot;source&quot;: &quot;transporte&quot;,
+          &quot;actor_id&quot;: &quot;3980f3c5-484c-4178-b03c-8d65c598ecd7&quot;,
+          &quot;event_id&quot;: &quot;0bfe384e-fc54-4ed3-8951-e5920f06328c&quot;,
+          &quot;metadata&quot;: {},
+          &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+          &quot;tenant_id&quot;: &quot;87255e79-2a0a-4e44-ad21-8002ccd5688d&quot;,
+          &quot;occurred_at&quot;: &quot;2026-10-19T16:25:23.530831+00:00&quot;,
+          &quot;resource_id&quot;: &quot;129b0941-1526-492a-9dbf-5d45b002cfdc&quot;,
+          &quot;correlation_id&quot;: &quot;70bcce5e-2a3c-4691-8c51-6e114a4f253e&quot;
+        },
+        {
+          &quot;action&quot;: &quot;SHIPMENT_DELIVERED&quot;,
+          &quot;source&quot;: &quot;transporte&quot;,
+          &quot;actor_id&quot;: &quot;3980f3c5-484c-4178-b03c-8d65c598ecd7&quot;,
+          &quot;event_id&quot;: &quot;0c4cf8a7-c477-4a94-9523-44ca82b74951&quot;,
+          &quot;metadata&quot;: {
+            &quot;state&quot;: &quot;DELIVERED&quot;,
+            &quot;evidence&quot;: null,
+            &quot;sequence&quot;: 5,
+            &quot;origin_id&quot;: &quot;87255e79-2a0a-4e44-ad21-8002ccd5688d&quot;,
+            &quot;destination_id&quot;: &quot;a0920053-13c5-4d42-b53e-74b35a779f58&quot;,
+            &quot;reservation_id&quot;: &quot;7b93adbf-beeb-4a6d-af41-85ce5a1a590f&quot;,
+            &quot;transport_user_id&quot;: &quot;3980f3c5-484c-4178-b03c-8d65c598ecd7&quot;,
+            &quot;destination_location_id&quot;: null
+          },
+          &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+          &quot;tenant_id&quot;: &quot;87255e79-2a0a-4e44-ad21-8002ccd5688d&quot;,
+          &quot;occurred_at&quot;: &quot;2026-10-19T16:25:25.248838+00:00&quot;,
+          &quot;resource_id&quot;: &quot;129b0941-1526-492a-9dbf-5d45b002cfdc&quot;,
+          &quot;correlation_id&quot;: &quot;87c68fe6-8ff9-4a83-8344-ec0a15b2b3b3&quot;
+        },
+        {
+          &quot;action&quot;: &quot;READ&quot;,
+          &quot;source&quot;: &quot;inventario&quot;,
+          &quot;actor_id&quot;: &quot;b7e21549-9533-4cc8-a5bc-3d55493b8ada&quot;,
+          &quot;event_id&quot;: &quot;110a0d1c-c9d6-4e31-b041-72f68ae691d3&quot;,
+          &quot;metadata&quot;: {},
+          &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+          &quot;tenant_id&quot;: &quot;87255e79-2a0a-4e44-ad21-8002ccd5688d&quot;,
+          &quot;occurred_at&quot;: &quot;2026-10-19T16:26:42.236061+00:00&quot;,
+          &quot;resource_id&quot;: &quot;collection&quot;,
+          &quot;correlation_id&quot;: &quot;d700052a-ccc4-4ee8-8838-8d9da660caff&quot;
+        },
+        {
+          &quot;action&quot;: &quot;READ&quot;,
+          &quot;source&quot;: &quot;identidad_acceso&quot;,
+          &quot;actor_id&quot;: &quot;c17e9575-b990-4b29-9087-4481a6e6db6e&quot;,
+          &quot;event_id&quot;: &quot;11f88ec1-fc4b-4172-99a2-e44092555705&quot;,
+          &quot;metadata&quot;: {},
+          &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+          &quot;tenant_id&quot;: &quot;87255e79-2a0a-4e44-ad21-8002ccd5688d&quot;,
+          &quot;occurred_at&quot;: &quot;2026-10-19T16:26:48.042390+00:00&quot;,
+          &quot;resource_id&quot;: &quot;3980f3c5-484c-4178-b03c-8d65c598ecd7&quot;,
+          &quot;correlation_id&quot;: &quot;e1036ea4-28c7-4721-8ec6-88db7beb489b&quot;
+        },
+        {
+          &quot;action&quot;: &quot;READ&quot;,
+          &quot;source&quot;: &quot;priorizacion_geografia&quot;,
+          &quot;actor_id&quot;: &quot;a5898ca7-9e7b-47c9-9f64-9c5cebf413f5&quot;,
+          &quot;event_id&quot;: &quot;13b1519f-219a-4fb8-9bd8-ce02e4236a7f&quot;,
+          &quot;metadata&quot;: {},
+          &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+          &quot;tenant_id&quot;: &quot;a0920053-13c5-4d42-b53e-74b35a779f58&quot;,
+          &quot;occurred_at&quot;: &quot;2026-10-19T16:26:45.182983+00:00&quot;,
+          &quot;resource_id&quot;: &quot;collection&quot;,
+          &quot;correlation_id&quot;: &quot;90e8dbbe-5f6a-4a76-bf1f-53cd7c14ee01&quot;
+        },
+        {
+          &quot;action&quot;: &quot;READ&quot;,
+          &quot;source&quot;: &quot;compatibilidad&quot;,
+          &quot;actor_id&quot;: &quot;a5898ca7-9e7b-47c9-9f64-9c5cebf413f5&quot;,
+          &quot;event_id&quot;: &quot;15459dcc-b0cf-4071-800f-9d5fa562e33c&quot;,
+          &quot;metadata&quot;: {},
+          &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+          &quot;tenant_id&quot;: &quot;a0920053-13c5-4d42-b53e-74b35a779f58&quot;,
+          &quot;occurred_at&quot;: &quot;2026-10-19T16:22:16.681288+00:00&quot;,
+          &quot;resource_id&quot;: &quot;296943f3-9e84-4f05-bbc1-01744d9656e8&quot;,
+          &quot;correlation_id&quot;: &quot;8b0bc9f5-c4fb-414f-8e15-b375893025f6&quot;
+        },
+        {
+          &quot;action&quot;: &quot;READ&quot;,
+          &quot;source&quot;: &quot;identidad_acceso&quot;,
+          &quot;actor_id&quot;: &quot;b7e21549-9533-4cc8-a5bc-3d55493b8ada&quot;,
+          &quot;event_id&quot;: &quot;15648358-6b1d-4760-b211-06d8ce8b3e1c&quot;,
+          &quot;metadata&quot;: {},
+          &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+          &quot;tenant_id&quot;: &quot;87255e79-2a0a-4e44-ad21-8002ccd5688d&quot;,
+          &quot;occurred_at&quot;: &quot;2026-10-19T16:22:54.424742+00:00&quot;,
+          &quot;resource_id&quot;: &quot;collection&quot;,
+          &quot;correlation_id&quot;: &quot;2adc4ad4-115d-4ce4-bdef-3b559329e7ff&quot;
+        },
+        {
+          &quot;action&quot;: &quot;READ&quot;,
+          &quot;source&quot;: &quot;identidad_acceso&quot;,
+          &quot;actor_id&quot;: &quot;c17e9575-b990-4b29-9087-4481a6e6db6e&quot;,
+          &quot;event_id&quot;: &quot;164c7148-b581-4520-838e-fa4bd2d42172&quot;,
+          &quot;metadata&quot;: {},
+          &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+          &quot;tenant_id&quot;: &quot;87255e79-2a0a-4e44-ad21-8002ccd5688d&quot;,
+          &quot;occurred_at&quot;: &quot;2026-10-19T16:22:52.556767+00:00&quot;,
+          &quot;resource_id&quot;: &quot;collection&quot;,
+          &quot;correlation_id&quot;: &quot;4932744c-6d82-4528-89f2-e2a1acea9115&quot;
+        }
+      ],
+      &quot;page&quot;: 1,
+      &quot;page_size&quot;: 20,
+      &quot;total&quot;: 343
+    },
+    &quot;meta&quot;: {
+      &quot;correlation_id&quot;: &quot;bf472c3e-9098-49f7-8266-5f4c5f1960b5&quot;,
+      &quot;service&quot;: &quot;auditoria&quot;,
+      &quot;version&quot;: &quot;0.3.0&quot;
+    }
+  }
+}</pre></div></div><details><summary>Persistencia y versión de implementación</summary><pre>{
+  &quot;effect&quot;: &quot;read&quot;,
+  &quot;note&quot;: &quot;Consulta; accesos protegidos generan auditoría local transaccional.&quot;
+}</pre><p>SHA-256: f1a9056ec92eb7006810957e59fb326815b25003ea30d5ed1de2439e7ed8f42a</p></details></section><section><h2>HTTP 401</h2><p><b>2026-10-19T16:28:29.052638+00:00</b> · versión 0.3.0</p><p>Correlación: acd1dd1a-6467-4e4c-9c52-9186d1f6bcc4<br>URL: http://127.0.0.1:56267/api/v1/documentary-events</p><p><a href="../records/f439857e9a47181e41ccf0f9.json">Petición, respuesta, headers y persistencia completos</a></p><div class="grid"><div><h3>Petición</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Host&quot;: &quot;127.0.0.1:56267&quot;,
+    &quot;User-Agent&quot;: &quot;python-requests/2.34.2&quot;,
+    &quot;Accept-Encoding&quot;: &quot;gzip, deflate, br&quot;,
+    &quot;Accept&quot;: &quot;application/json&quot;,
+    &quot;Connection&quot;: &quot;keep-alive&quot;,
+    &quot;Idempotency-Key&quot;: &quot;0f5b357aacd349b1bf75e86846235269&quot;
+  },
+  &quot;parameters&quot;: {},
+  &quot;body&quot;: &quot;&quot;
+}</pre></div><div><h3>Respuesta</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Content-Type&quot;: &quot;application/json&quot;,
+    &quot;Content-Length&quot;: &quot;201&quot;,
+    &quot;X-Correlation-ID&quot;: &quot;acd1dd1a-6467-4e4c-9c52-9186d1f6bcc4&quot;,
+    &quot;Cache-Control&quot;: &quot;no-store&quot;,
+    &quot;X-Content-Type-Options&quot;: &quot;nosniff&quot;,
+    &quot;Referrer-Policy&quot;: &quot;no-referrer&quot;
+  },
+  &quot;body&quot;: {
+    &quot;error&quot;: {
+      &quot;code&quot;: &quot;unauthorized&quot;,
+      &quot;message&quot;: &quot;JWT de acceso requerido.&quot;,
+      &quot;details&quot;: []
+    },
+    &quot;meta&quot;: {
+      &quot;correlation_id&quot;: &quot;acd1dd1a-6467-4e4c-9c52-9186d1f6bcc4&quot;,
+      &quot;service&quot;: &quot;auditoria&quot;,
+      &quot;version&quot;: &quot;0.3.0&quot;
+    }
+  }
+}</pre></div></div><details><summary>Persistencia y versión de implementación</summary><pre>{
+  &quot;effect&quot;: &quot;controlled_error&quot;,
+  &quot;note&quot;: &quot;No se infiere ausencia de efectos de un error; revisar correlación y estado de operación.&quot;
+}</pre><p>SHA-256: f1a9056ec92eb7006810957e59fb326815b25003ea30d5ed1de2439e7ed8f42a</p></details></section><h2>Todas las variantes ejecutadas</h2><ul><li><a href="../records/f439857e9a47181e41ccf0f9.json">401 · http · application/json · 2026-10-19T16:28:29.052638+00:00</a></li><li><a href="../records/9a4ac7eb8e211e616cf572ea.json">503 · http · application/json · 2026-10-19T16:37:02.247975+00:00</a></li><li><a href="../records/b31d198d1f6a729cc920b468.json">401 · http · application/xml; charset=utf-8 · 2026-10-19T16:28:29.087652+00:00</a></li><li><a href="../records/430c3c79969b6f8ae5e8b621.json">200 · http · application/json · 2026-10-19T16:28:29.180789+00:00</a></li></ul></main></html>

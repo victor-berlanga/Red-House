@@ -1,0 +1,44 @@
+{
+  "captured_at": "2026-10-19T16:28:09.864955+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "1a8dccae105e0c261a0273a99f999923c88cbf235f750f80f0ac2f487c8b6654",
+  "transport": "http",
+  "method": "GET",
+  "route": "/health/storage",
+  "objective": "health_storage",
+  "url": "http://127.0.0.1:56259/health/storage",
+  "parameters": {},
+  "path_parameters": {},
+  "request_headers": {
+    "Host": "127.0.0.1:56259",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "e49b9793bd554d9fbb8c18cdde3674af"
+  },
+  "request_body": "",
+  "status": 200,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "105",
+    "X-Correlation-ID": "a0b8d8a2-6c8e-427d-ba12-400b18b9d4a8",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "data": {
+      "state": "not_applicable"
+    },
+    "meta": {
+      "correlation_id": "a0b8d8a2-6c8e-427d-ba12-400b18b9d4a8"
+    }
+  },
+  "correlation_id": "a0b8d8a2-6c8e-427d-ba12-400b18b9d4a8",
+  "persistence": {
+    "effect": "read",
+    "note": "Consulta; accesos protegidos generan auditoría local transaccional."
+  }
+}

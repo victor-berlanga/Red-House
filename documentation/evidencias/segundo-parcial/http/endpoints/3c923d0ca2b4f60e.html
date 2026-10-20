@@ -1,0 +1,67 @@
+<!doctype html><html lang="es"><meta charset="utf-8"><title>auditoria /health/database</title><style>body{font:15px system-ui;margin:32px;background:#f4f5f7;color:#202631}main{max-width:1250px;margin:auto}h1{color:#8e2434;font-size:26px}small{color:#556}a{color:#8e2434}table{border-collapse:collapse;width:100%;background:white}td,th{padding:9px;border:1px solid #ccd;vertical-align:top;text-align:left}pre{white-space:pre-wrap;word-break:break-word;background:#fff;border:1px solid #ccd;padding:12px;font:12px monospace;max-height:300px;overflow:auto}section{margin:20px 0}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.tag{padding:4px 9px;background:#e5ece7}.error{background:#f8e5e6}input{padding:12px;width:70%;margin:15px 0}details{margin:12px 0}nav{margin-bottom:20px}</style><main><nav><a href="../index.html">Inventario completo</a></nav><h1>auditoria · GET /health/database</h1><p>Infraestructura y documentación</p><p>Registro de ejecución real. Credenciales y firmas redactadas. Los cuerpos completos están en el JSON enlazado.</p><section><h2>HTTP 200</h2><p><b>2026-10-19T16:28:28.114751+00:00</b> · versión 0.3.0</p><p>Correlación: d50a7305-4e17-4245-9d96-70d7ae42efc0<br>URL: http://127.0.0.1:56267/health/database</p><p><a href="../records/dfe44bdeb950bbae44dfa64e.json">Petición, respuesta, headers y persistencia completos</a></p><div class="grid"><div><h3>Petición</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Host&quot;: &quot;127.0.0.1:56267&quot;,
+    &quot;User-Agent&quot;: &quot;python-requests/2.34.2&quot;,
+    &quot;Accept-Encoding&quot;: &quot;gzip, deflate, br&quot;,
+    &quot;Accept&quot;: &quot;application/json&quot;,
+    &quot;Connection&quot;: &quot;keep-alive&quot;,
+    &quot;Idempotency-Key&quot;: &quot;bb03c39bb4674aa5a1c247761a1e0c0d&quot;
+  },
+  &quot;parameters&quot;: {},
+  &quot;body&quot;: &quot;&quot;
+}</pre></div><div><h3>Respuesta</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Content-Type&quot;: &quot;application/json&quot;,
+    &quot;Content-Length&quot;: &quot;93&quot;,
+    &quot;X-Correlation-ID&quot;: &quot;d50a7305-4e17-4245-9d96-70d7ae42efc0&quot;,
+    &quot;Cache-Control&quot;: &quot;no-store&quot;,
+    &quot;X-Content-Type-Options&quot;: &quot;nosniff&quot;,
+    &quot;Referrer-Policy&quot;: &quot;no-referrer&quot;
+  },
+  &quot;body&quot;: {
+    &quot;data&quot;: {
+      &quot;state&quot;: &quot;up&quot;
+    },
+    &quot;meta&quot;: {
+      &quot;correlation_id&quot;: &quot;d50a7305-4e17-4245-9d96-70d7ae42efc0&quot;
+    }
+  }
+}</pre></div></div><details><summary>Persistencia y versión de implementación</summary><pre>{
+  &quot;effect&quot;: &quot;read&quot;,
+  &quot;note&quot;: &quot;Consulta; accesos protegidos generan auditoría local transaccional.&quot;
+}</pre><p>SHA-256: f1a9056ec92eb7006810957e59fb326815b25003ea30d5ed1de2439e7ed8f42a</p></details></section><section><h2>HTTP 406</h2><p><b>2026-10-19T18:31:04.343181+00:00</b> · versión 0.3.0</p><p>Correlación: e17ded4b-f35f-495e-a806-c44e8b600e39<br>URL: http://127.0.0.1:60905/health/database</p><p><a href="../records/49e6b039cc6e90cdca30bed4.json">Petición, respuesta, headers y persistencia completos</a></p><div class="grid"><div><h3>Petición</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Host&quot;: &quot;127.0.0.1:60905&quot;,
+    &quot;User-Agent&quot;: &quot;python-requests/2.34.2&quot;,
+    &quot;Accept-Encoding&quot;: &quot;gzip, deflate, br&quot;,
+    &quot;Accept&quot;: &quot;text/plain&quot;,
+    &quot;Connection&quot;: &quot;keep-alive&quot;,
+    &quot;Idempotency-Key&quot;: &quot;3e0e14eae3e54d3b8f17000eee4867a7&quot;
+  },
+  &quot;parameters&quot;: {},
+  &quot;body&quot;: &quot;&quot;
+}</pre></div><div><h3>Respuesta</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Content-Type&quot;: &quot;application/json&quot;,
+    &quot;Content-Length&quot;: &quot;223&quot;,
+    &quot;X-Correlation-ID&quot;: &quot;e17ded4b-f35f-495e-a806-c44e8b600e39&quot;,
+    &quot;Cache-Control&quot;: &quot;no-store&quot;,
+    &quot;X-Content-Type-Options&quot;: &quot;nosniff&quot;,
+    &quot;Referrer-Policy&quot;: &quot;no-referrer&quot;
+  },
+  &quot;body&quot;: {
+    &quot;error&quot;: {
+      &quot;code&quot;: &quot;not_acceptable&quot;,
+      &quot;message&quot;: &quot;Solicita application/json o application/xml.&quot;,
+      &quot;details&quot;: []
+    },
+    &quot;meta&quot;: {
+      &quot;correlation_id&quot;: &quot;e17ded4b-f35f-495e-a806-c44e8b600e39&quot;,
+      &quot;service&quot;: &quot;auditoria&quot;,
+      &quot;version&quot;: &quot;0.3.0&quot;
+    }
+  }
+}</pre></div></div><details><summary>Persistencia y versión de implementación</summary><pre>{
+  &quot;effect&quot;: &quot;controlled_error&quot;,
+  &quot;note&quot;: &quot;No se infiere ausencia de efectos de un error; revisar correlación y estado de operación.&quot;
+}</pre><p>SHA-256: f1a9056ec92eb7006810957e59fb326815b25003ea30d5ed1de2439e7ed8f42a</p></details></section><h2>Todas las variantes ejecutadas</h2><ul><li><a href="../records/dfe44bdeb950bbae44dfa64e.json">200 · http · application/json · 2026-10-19T16:28:28.114751+00:00</a></li><li><a href="../records/49e6b039cc6e90cdca30bed4.json">406 · http · application/json · 2026-10-19T18:31:04.343181+00:00</a></li><li><a href="../records/657bee3bab94d1248957050f.json">503 · http · application/json · 2026-10-19T18:31:04.364958+00:00</a></li><li><a href="../records/439e3e46bca7d2aa16565d79.json">200 · http · application/json · 2026-10-19T18:31:04.408138+00:00</a></li></ul></main></html>

@@ -1,0 +1,230 @@
+{
+  "captured_at": "2026-10-19T16:24:47.700392+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "864e3dda7901fd4edb3082758390ed9006bf1eeb509502b67d2009709a43ddd8",
+  "transport": "embedded",
+  "method": "GET",
+  "route": "/api/v1/chains/<identifier>",
+  "objective": "Consultar cadena; hash detecta alteraciones, no certifica veracidad física",
+  "url": "http://localhost/api/v1/chains/ea3e5e8c-ee3a-4cea-894b-b2f88714458a",
+  "parameters": {},
+  "path_parameters": {
+    "identifier": "ea3e5e8c-ee3a-4cea-894b-b2f88714458a"
+  },
+  "request_headers": {
+    "Host": "localhost",
+    "Accept": "application/json",
+    "X-Correlation-Id": "0c286370-78ab-4cd6-bff5-ddb24feae822",
+    "Authorization": "[REDACTED]"
+  },
+  "request_body": "",
+  "status": 200,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "7131",
+    "X-Correlation-ID": "0c286370-78ab-4cd6-bff5-ddb24feae822",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "data": {
+      "chain": {
+        "id": "ea3e5e8c-ee3a-4cea-894b-b2f88714458a",
+        "region_id": "7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb",
+        "origin_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+        "destination_id": "a0920053-13c5-4d42-b53e-74b35a779f58",
+        "last_sequence": 6,
+        "last_hash": "4b7e66582a3564571839ecdda4bd906b63b54440b2221cd11d0749a324089e30"
+      },
+      "events": [
+        {
+          "id": "23442d38-d12e-451e-b897-1bef56f6a7a7",
+          "shipment_id": "ea3e5e8c-ee3a-4cea-894b-b2f88714458a",
+          "sequence": 1,
+          "event": {
+            "action": "SHIPMENT_PLANNED",
+            "source": "transporte",
+            "actor_id": null,
+            "event_id": "23442d38-d12e-451e-b897-1bef56f6a7a7",
+            "metadata": {
+              "state": "PLANNED",
+              "evidence": null,
+              "sequence": 1,
+              "origin_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+              "destination_id": "a0920053-13c5-4d42-b53e-74b35a779f58",
+              "reservation_id": "1fa376a0-38fe-4e22-9f96-0dc4640d9d64",
+              "transport_user_id": "3980f3c5-484c-4178-b03c-8d65c598ecd7",
+              "destination_location_id": null
+            },
+            "region_id": "7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb",
+            "tenant_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+            "occurred_at": "2026-10-19T16:22:54.127805+00:00",
+            "resource_id": "ea3e5e8c-ee3a-4cea-894b-b2f88714458a",
+            "correlation_id": "4932744c-6d82-4528-89f2-e2a1acea9115"
+          },
+          "previous_hash": "",
+          "hash": "65869c9ee23cc8fffb0dbada1c167d9fbc37f55a7b04ca32e73c1c3c6e4f2a0a",
+          "created_at": "2026-10-19T16:24:00.929540+00:00"
+        },
+        {
+          "id": "6de40c3c-8650-40ec-8a2e-74b7b99b4df7",
+          "shipment_id": "ea3e5e8c-ee3a-4cea-894b-b2f88714458a",
+          "sequence": 2,
+          "event": {
+            "action": "SHIPMENT_PREPARED",
+            "source": "transporte",
+            "actor_id": "b7e21549-9533-4cc8-a5bc-3d55493b8ada",
+            "event_id": "6de40c3c-8650-40ec-8a2e-74b7b99b4df7",
+            "metadata": {
+              "state": "PREPARED",
+              "evidence": null,
+              "sequence": 2,
+              "origin_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+              "destination_id": "a0920053-13c5-4d42-b53e-74b35a779f58",
+              "reservation_id": "1fa376a0-38fe-4e22-9f96-0dc4640d9d64",
+              "transport_user_id": "3980f3c5-484c-4178-b03c-8d65c598ecd7",
+              "destination_location_id": null
+            },
+            "region_id": "7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb",
+            "tenant_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+            "occurred_at": "2026-10-19T16:22:55.340750+00:00",
+            "resource_id": "ea3e5e8c-ee3a-4cea-894b-b2f88714458a",
+            "correlation_id": "52faa4f0-abe7-4b5b-9772-05bc481f4911"
+          },
+          "previous_hash": "65869c9ee23cc8fffb0dbada1c167d9fbc37f55a7b04ca32e73c1c3c6e4f2a0a",
+          "hash": "3d4b2ba6cf8a6224ccb1ffc5168b1c14a04117ebfa575452eb54752260d37af5",
+          "created_at": "2026-10-19T16:24:04.381259+00:00"
+        },
+        {
+          "id": "1fedaf5c-468d-4288-9151-06112e1125e6",
+          "shipment_id": "ea3e5e8c-ee3a-4cea-894b-b2f88714458a",
+          "sequence": 3,
+          "event": {
+            "action": "SHIPMENT_COLLECTED",
+            "source": "transporte",
+            "actor_id": "3980f3c5-484c-4178-b03c-8d65c598ecd7",
+            "event_id": "1fedaf5c-468d-4288-9151-06112e1125e6",
+            "metadata": {
+              "state": "COLLECTED",
+              "evidence": null,
+              "sequence": 3,
+              "origin_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+              "destination_id": "a0920053-13c5-4d42-b53e-74b35a779f58",
+              "reservation_id": "1fa376a0-38fe-4e22-9f96-0dc4640d9d64",
+              "transport_user_id": "3980f3c5-484c-4178-b03c-8d65c598ecd7",
+              "destination_location_id": null
+            },
+            "region_id": "7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb",
+            "tenant_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+            "occurred_at": "2026-10-19T16:22:56.619414+00:00",
+            "resource_id": "ea3e5e8c-ee3a-4cea-894b-b2f88714458a",
+            "correlation_id": "3a9a6e8b-4985-4d42-9ca0-0264503fc758"
+          },
+          "previous_hash": "3d4b2ba6cf8a6224ccb1ffc5168b1c14a04117ebfa575452eb54752260d37af5",
+          "hash": "8815cc033c88a1e98ec88c619a25d87a7cd3a190a736c04342795a2a0b4609d5",
+          "created_at": "2026-10-19T16:24:08.591457+00:00"
+        },
+        {
+          "id": "d3fc224d-0a93-4bef-a805-861c082177a8",
+          "shipment_id": "ea3e5e8c-ee3a-4cea-894b-b2f88714458a",
+          "sequence": 4,
+          "event": {
+            "action": "SHIPMENT_IN_TRANSIT",
+            "source": "transporte",
+            "actor_id": "3980f3c5-484c-4178-b03c-8d65c598ecd7",
+            "event_id": "d3fc224d-0a93-4bef-a805-861c082177a8",
+            "metadata": {
+              "state": "IN_TRANSIT",
+              "evidence": null,
+              "sequence": 4,
+              "origin_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+              "destination_id": "a0920053-13c5-4d42-b53e-74b35a779f58",
+              "reservation_id": "1fa376a0-38fe-4e22-9f96-0dc4640d9d64",
+              "transport_user_id": "3980f3c5-484c-4178-b03c-8d65c598ecd7",
+              "destination_location_id": null
+            },
+            "region_id": "7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb",
+            "tenant_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+            "occurred_at": "2026-10-19T16:22:57.846177+00:00",
+            "resource_id": "ea3e5e8c-ee3a-4cea-894b-b2f88714458a",
+            "correlation_id": "b21bc927-dac7-4e9c-a27b-76ee70a223b7"
+          },
+          "previous_hash": "8815cc033c88a1e98ec88c619a25d87a7cd3a190a736c04342795a2a0b4609d5",
+          "hash": "51985fedefe94af81da0498b5ff50739d02853dba37d543e4ce2217539722b47",
+          "created_at": "2026-10-19T16:24:11.143662+00:00"
+        },
+        {
+          "id": "33016477-c45f-495e-a9c5-8d256816fea7",
+          "shipment_id": "ea3e5e8c-ee3a-4cea-894b-b2f88714458a",
+          "sequence": 5,
+          "event": {
+            "action": "SHIPMENT_DELIVERED",
+            "source": "transporte",
+            "actor_id": "3980f3c5-484c-4178-b03c-8d65c598ecd7",
+            "event_id": "33016477-c45f-495e-a9c5-8d256816fea7",
+            "metadata": {
+              "state": "DELIVERED",
+              "evidence": null,
+              "sequence": 5,
+              "origin_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+              "destination_id": "a0920053-13c5-4d42-b53e-74b35a779f58",
+              "reservation_id": "1fa376a0-38fe-4e22-9f96-0dc4640d9d64",
+              "transport_user_id": "3980f3c5-484c-4178-b03c-8d65c598ecd7",
+              "destination_location_id": null
+            },
+            "region_id": "7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb",
+            "tenant_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+            "occurred_at": "2026-10-19T16:22:59.106585+00:00",
+            "resource_id": "ea3e5e8c-ee3a-4cea-894b-b2f88714458a",
+            "correlation_id": "a057d13c-3bfe-4be5-813f-00195dc4ece0"
+          },
+          "previous_hash": "51985fedefe94af81da0498b5ff50739d02853dba37d543e4ce2217539722b47",
+          "hash": "922a3cd81b53e563af09b37fc9f2fe43d9ecd4a05c5fe8dd5fe00299f02a1a6b",
+          "created_at": "2026-10-19T16:24:14.410462+00:00"
+        },
+        {
+          "id": "5ff5596c-c602-4962-b95a-d994baa2c0f6",
+          "shipment_id": "ea3e5e8c-ee3a-4cea-894b-b2f88714458a",
+          "sequence": 6,
+          "event": {
+            "action": "SHIPMENT_ACCEPTED",
+            "source": "transporte",
+            "actor_id": "08496c01-6621-4892-8d45-8152c6693b65",
+            "event_id": "5ff5596c-c602-4962-b95a-d994baa2c0f6",
+            "metadata": {
+              "state": "ACCEPTED",
+              "evidence": null,
+              "sequence": 6,
+              "origin_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+              "destination_id": "a0920053-13c5-4d42-b53e-74b35a779f58",
+              "reservation_id": "1fa376a0-38fe-4e22-9f96-0dc4640d9d64",
+              "transport_user_id": "3980f3c5-484c-4178-b03c-8d65c598ecd7",
+              "destination_location_id": null
+            },
+            "region_id": "7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb",
+            "tenant_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+            "occurred_at": "2026-10-19T16:23:01.033123+00:00",
+            "resource_id": "ea3e5e8c-ee3a-4cea-894b-b2f88714458a",
+            "correlation_id": "9ef68001-6c72-4e63-90df-3e6f38c9bc80"
+          },
+          "previous_hash": "922a3cd81b53e563af09b37fc9f2fe43d9ecd4a05c5fe8dd5fe00299f02a1a6b",
+          "hash": "4b7e66582a3564571839ecdda4bd906b63b54440b2221cd11d0749a324089e30",
+          "created_at": "2026-10-19T16:24:17.162017+00:00"
+        }
+      ],
+      "notice": "Recepción no significa transfusión ni trasplante. Evidencia inmutable bajo credenciales de aplicación; no impide intervención del propietario de base."
+    },
+    "meta": {
+      "correlation_id": "0c286370-78ab-4cd6-bff5-ddb24feae822",
+      "service": "custodia",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "0c286370-78ab-4cd6-bff5-ddb24feae822",
+  "persistence": {
+    "effect": "read",
+    "note": "Consulta; accesos protegidos generan auditoría local transaccional."
+  }
+}

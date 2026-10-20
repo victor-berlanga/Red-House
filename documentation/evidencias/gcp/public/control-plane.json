@@ -1,0 +1,45 @@
+{
+  "address": {
+    "address": "34.18.186.116",
+    "name": "red-house-public",
+    "status": "IN_USE",
+    "users": [
+      "https://www.googleapis.com/compute/v1/projects/sistemas-integracion-01/zones/me-central1-a/instances/red-house"
+    ]
+  },
+  "firewall": {
+    "allowed": [
+      {
+        "IPProtocol": "tcp",
+        "ports": [
+          "80"
+        ]
+      },
+      {
+        "IPProtocol": "tcp",
+        "ports": [
+          "443"
+        ]
+      }
+    ],
+    "direction": "INGRESS",
+    "disabled": false,
+    "name": "red-house-web",
+    "sourceRanges": [
+      "0.0.0.0/0"
+    ],
+    "targetTags": [
+      "red-house-web"
+    ]
+  },
+  "instance": {
+    "name": "red-house",
+    "status": "RUNNING",
+    "tags": {
+      "fingerprint": "EiXZC0TvxS0=",
+      "items": [
+        "red-house-web"
+      ]
+    }
+  }
+}

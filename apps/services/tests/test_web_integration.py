@@ -36,9 +36,7 @@ def web(p, monkeypatch):
             "DATABASE_URL": "postgresql://UNREACHABLE/legacy",
             "MICROSERVICES_CONFIG": {
                 "SERVICE_URLS": p.urls,
-                "WEB_SESSION_STORE": str(
-                    p.env.directory / ("web-" + uuid4().hex + ".sqlite3")
-                ),
+                **p.env.state["web_sessions"],
                 # Igual al valor normal del cliente: el login calcula un hash
                 # costoso y las pruebas levantan once servicios en esta máquina.
                 "SERVICE_TIMEOUT": 8,
@@ -406,14 +404,13 @@ def test_renewal_and_logout_revoke_backend_session_without_exposing_tokens(web, 
     result = client.post("/sesion/continuar", headers={"X-CSRFToken": csrf})
     assert result.status_code == 200 and "csrf_token" in result.json
     assert "access_token" not in result.json and "refresh_token" not in result.json
-    from src.integration.sessions import load
+    from src.integration.sessions import load, redis_client, redis_key, key
 
     with web.app_context():
         value = load(cookie)
-    assert (
-        value["access_token"].encode()
-        not in Path(web.config["WEB_SESSION_STORE"]).read_bytes()
-    )
+        payload = redis_client().get(redis_key("session", key(cookie)))
+        assert value["access_token"].encode() not in payload
+        assert value["refresh_token"].encode() not in payload
     logout = client.post("/logout", data={"csrf_token": result.json["csrf_token"]})
     assert logout.status_code == 302 and client.get("/inventario").status_code == 302
     revoked = p.request(

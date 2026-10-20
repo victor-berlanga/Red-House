@@ -1,0 +1,72 @@
+<!doctype html><html lang="es"><meta charset="utf-8"><title>receptores /api/v1/recipients/&lt;identifier&gt;</title><style>body{font:15px system-ui;margin:32px;background:#f4f5f7;color:#202631}main{max-width:1250px;margin:auto}h1{color:#8e2434;font-size:26px}small{color:#556}a{color:#8e2434}table{border-collapse:collapse;width:100%;background:white}td,th{padding:9px;border:1px solid #ccd;vertical-align:top;text-align:left}pre{white-space:pre-wrap;word-break:break-word;background:#fff;border:1px solid #ccd;padding:12px;font:12px monospace;max-height:300px;overflow:auto}section{margin:20px 0}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.tag{padding:4px 9px;background:#e5ece7}.error{background:#f8e5e6}input{padding:12px;width:70%;margin:15px 0}details{margin:12px 0}nav{margin-bottom:20px}</style><main><nav><a href="../index.html">Inventario completo</a></nav><h1>receptores · GET /api/v1/recipients/&lt;identifier&gt;</h1><p>Consultar expediente clínico autorizado</p><p>Registro de ejecución real. Credenciales y firmas redactadas. Los cuerpos completos están en el JSON enlazado.</p><section><h2>HTTP 200</h2><p><b>2026-10-19T16:44:36.902833+00:00</b> · versión 0.3.0</p><p>Correlación: f1ab4d65-ec2c-4ea3-8db2-9b982ab5ab52<br>URL: http://127.0.0.1:56260/api/v1/recipients/6e917411-d018-426b-80f8-97a0f23b5b57</p><p><a href="../records/ab6657d86a64d55e034082fc.json">Petición, respuesta, headers y persistencia completos</a></p><div class="grid"><div><h3>Petición</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Host&quot;: &quot;127.0.0.1:56260&quot;,
+    &quot;User-Agent&quot;: &quot;python-requests/2.34.2&quot;,
+    &quot;Accept-Encoding&quot;: &quot;gzip, deflate, br&quot;,
+    &quot;Accept&quot;: &quot;application/json&quot;,
+    &quot;Connection&quot;: &quot;keep-alive&quot;,
+    &quot;X-Correlation-Id&quot;: &quot;f1ab4d65-ec2c-4ea3-8db2-9b982ab5ab52&quot;,
+    &quot;Authorization&quot;: &quot;[REDACTED]&quot;
+  },
+  &quot;parameters&quot;: {},
+  &quot;body&quot;: &quot;&quot;
+}</pre></div><div><h3>Respuesta</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Content-Type&quot;: &quot;application/json&quot;,
+    &quot;Content-Length&quot;: &quot;528&quot;,
+    &quot;X-Correlation-ID&quot;: &quot;f1ab4d65-ec2c-4ea3-8db2-9b982ab5ab52&quot;,
+    &quot;Cache-Control&quot;: &quot;no-store&quot;,
+    &quot;X-Content-Type-Options&quot;: &quot;nosniff&quot;,
+    &quot;Referrer-Policy&quot;: &quot;no-referrer&quot;
+  },
+  &quot;body&quot;: {
+    &quot;data&quot;: {
+      &quot;id&quot;: &quot;6e917411-d018-426b-80f8-97a0f23b5b57&quot;,
+      &quot;tenant_id&quot;: &quot;a0920053-13c5-4d42-b53e-74b35a779f58&quot;,
+      &quot;folio&quot;: &quot;PATIENT-cc6bbf48cb2d&quot;,
+      &quot;display_name&quot;: &quot;Paciente ficticio&quot;,
+      &quot;kind&quot;: &quot;BLOOD&quot;,
+      &quot;blood_group&quot;: &quot;A+&quot;,
+      &quot;organ_type&quot;: null,
+      &quot;studies&quot;: &quot;Estudios ficticios con revisión externa pendiente&quot;,
+      &quot;status&quot;: &quot;ACTIVE&quot;,
+      &quot;version&quot;: 1,
+      &quot;restrictions&quot;: null,
+      &quot;requirement&quot;: null,
+      &quot;can_edit&quot;: false,
+      &quot;decisions&quot;: []
+    },
+    &quot;meta&quot;: {
+      &quot;correlation_id&quot;: &quot;f1ab4d65-ec2c-4ea3-8db2-9b982ab5ab52&quot;,
+      &quot;service&quot;: &quot;receptores&quot;,
+      &quot;version&quot;: &quot;0.3.0&quot;
+    }
+  }
+}</pre></div></div><details><summary>Persistencia y versión de implementación</summary><pre>{
+  &quot;effect&quot;: &quot;read&quot;,
+  &quot;note&quot;: &quot;Consulta; accesos protegidos generan auditoría local transaccional.&quot;
+}</pre><p>SHA-256: ff2e7260f413ab4edb16a5555f512ec7404cdb118d66af3fc8a1e4dd2c6136b4</p></details></section><section><h2>HTTP 401</h2><p><b>2026-10-19T16:28:14.140974+00:00</b> · versión 0.3.0</p><p>Correlación: 4d65ee61-c445-471d-b164-e72ebb42b2cf<br>URL: http://127.0.0.1:56260/api/v1/recipients/fe4c2878-e211-4e31-985e-70a9e4ef2297</p><p><a href="../records/7a8a08cbb14a2e9566709b77.json">Petición, respuesta, headers y persistencia completos</a></p><div class="grid"><div><h3>Petición</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Host&quot;: &quot;127.0.0.1:56260&quot;,
+    &quot;User-Agent&quot;: &quot;python-requests/2.34.2&quot;,
+    &quot;Accept-Encoding&quot;: &quot;gzip, deflate, br&quot;,
+    &quot;Accept&quot;: &quot;application/xml&quot;,
+    &quot;Connection&quot;: &quot;keep-alive&quot;,
+    &quot;Idempotency-Key&quot;: &quot;8d02b089f40c4466998a34f83a9a4a5c&quot;
+  },
+  &quot;parameters&quot;: {},
+  &quot;body&quot;: &quot;&quot;
+}</pre></div><div><h3>Respuesta</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Content-Type&quot;: &quot;application/xml; charset=utf-8&quot;,
+    &quot;Content-Length&quot;: &quot;504&quot;,
+    &quot;X-Correlation-ID&quot;: &quot;4d65ee61-c445-471d-b164-e72ebb42b2cf&quot;,
+    &quot;Cache-Control&quot;: &quot;no-store&quot;,
+    &quot;X-Content-Type-Options&quot;: &quot;nosniff&quot;,
+    &quot;Referrer-Policy&quot;: &quot;no-referrer&quot;
+  },
+  &quot;body&quot;: &quot;&lt;response type=\&quot;object\&quot;&gt;&lt;field name=\&quot;error\&quot; type=\&quot;object\&quot;&gt;&lt;field name=\&quot;code\&quot; type=\&quot;string\&quot;&gt;unauthorized&lt;/field&gt;&lt;field name=\&quot;message\&quot; type=\&quot;string\&quot;&gt;JWT de acceso requerido.&lt;/field&gt;&lt;field name=\&quot;details\&quot; type=\&quot;array\&quot;/&gt;&lt;/field&gt;&lt;field name=\&quot;meta\&quot; type=\&quot;object\&quot;&gt;&lt;field name=\&quot;correlation_id\&quot; type=\&quot;string\&quot;&gt;4d65ee61-c445-471d-b164-e72ebb42b2cf&lt;/field&gt;&lt;field name=\&quot;service\&quot; type=\&quot;string\&quot;&gt;receptores&lt;/field&gt;&lt;field name=\&quot;version\&quot; type=\&quot;string\&quot;&gt;0.3.0&lt;/field&gt;&lt;/field&gt;&lt;/response&gt;&quot;
+}</pre></div></div><details><summary>Persistencia y versión de implementación</summary><pre>{
+  &quot;effect&quot;: &quot;controlled_error&quot;,
+  &quot;note&quot;: &quot;No se infiere ausencia de efectos de un error; revisar correlación y estado de operación.&quot;
+}</pre><p>SHA-256: ff2e7260f413ab4edb16a5555f512ec7404cdb118d66af3fc8a1e4dd2c6136b4</p></details></section><h2>Todas las variantes ejecutadas</h2><ul><li><a href="../records/7a8a08cbb14a2e9566709b77.json">401 · http · application/xml; charset=utf-8 · 2026-10-19T16:28:14.140974+00:00</a></li><li><a href="../records/7fa50428584872200f5da4bc.json">403 · http · application/json · 2026-10-19T16:43:08.363937+00:00</a></li><li><a href="../records/ab6657d86a64d55e034082fc.json">200 · http · application/json · 2026-10-19T16:44:36.902833+00:00</a></li><li><a href="../records/491364b8e55f999921e4b2d1.json">401 · http · application/json · 2026-10-19T16:28:14.112828+00:00</a></li><li><a href="../records/a4973e8986e470ebeaf35c04.json">404 · http · application/json · 2026-10-19T16:28:14.239529+00:00</a></li></ul></main></html>

@@ -1,0 +1,17 @@
+[Unit]
+Description=Red House Docker platform
+Requires=docker.service
+After=docker.service network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+WorkingDirectory=/opt/redhouse
+ExecStart=/usr/bin/python3 /opt/redhouse/deployment/start.py
+ExecStop=/usr/bin/docker compose -f /opt/redhouse/compose.yaml stop
+TimeoutStartSec=900
+TimeoutStopSec=180
+
+[Install]
+WantedBy=multi-user.target

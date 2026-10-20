@@ -1,0 +1,297 @@
+{
+  "date": "2026-10-20T21:21:43.046220+00:00",
+  "containers": [
+    {
+      "name": "redhouse-parcial2-gateway-1",
+      "health": "healthy",
+      "image_id": "sha256:a8b39bd9cf0f83869a2162827a0caf6137ddf759d50a171451b335cecc87d236",
+      "ports": {
+        "5101/tcp": [
+          {
+            "HostIp": "127.0.0.1",
+            "HostPort": "6101"
+          }
+        ],
+        "5102/tcp": [
+          {
+            "HostIp": "127.0.0.1",
+            "HostPort": "6102"
+          }
+        ],
+        "5103/tcp": [
+          {
+            "HostIp": "127.0.0.1",
+            "HostPort": "6103"
+          }
+        ],
+        "5104/tcp": [
+          {
+            "HostIp": "127.0.0.1",
+            "HostPort": "6104"
+          }
+        ],
+        "5105/tcp": [
+          {
+            "HostIp": "127.0.0.1",
+            "HostPort": "6105"
+          }
+        ],
+        "5106/tcp": [
+          {
+            "HostIp": "127.0.0.1",
+            "HostPort": "6106"
+          }
+        ],
+        "5107/tcp": [
+          {
+            "HostIp": "127.0.0.1",
+            "HostPort": "6107"
+          }
+        ],
+        "5108/tcp": [
+          {
+            "HostIp": "127.0.0.1",
+            "HostPort": "6108"
+          }
+        ],
+        "5109/tcp": [
+          {
+            "HostIp": "127.0.0.1",
+            "HostPort": "6109"
+          }
+        ],
+        "5110/tcp": [
+          {
+            "HostIp": "127.0.0.1",
+            "HostPort": "6110"
+          }
+        ],
+        "5111/tcp": [
+          {
+            "HostIp": "127.0.0.1",
+            "HostPort": "6111"
+          }
+        ],
+        "80/tcp": null,
+        "8081/tcp": [
+          {
+            "HostIp": "0.0.0.0",
+            "HostPort": "80"
+          }
+        ],
+        "8443/tcp": [
+          {
+            "HostIp": "0.0.0.0",
+            "HostPort": "443"
+          }
+        ]
+      }
+    },
+    {
+      "name": "redhouse-parcial2-web-1",
+      "health": "healthy",
+      "image_id": "sha256:30307a74a653b7ceef99290497017fc83ec8cb94083b7f3181a3f1b367f3d589",
+      "ports": {
+        "8080/tcp": [
+          {
+            "HostIp": "127.0.0.1",
+            "HostPort": "6050"
+          }
+        ]
+      }
+    },
+    {
+      "name": "redhouse-parcial2-monitoreo-b-1",
+      "health": "healthy",
+      "image_id": "sha256:728eddc0e89b95c96439526dcadf902394ae8ba0833556ce9169cefd92ab5cbc",
+      "ports": {}
+    },
+    {
+      "name": "redhouse-parcial2-monitoreo-a-1",
+      "health": "healthy",
+      "image_id": "sha256:728eddc0e89b95c96439526dcadf902394ae8ba0833556ce9169cefd92ab5cbc",
+      "ports": {}
+    },
+    {
+      "name": "redhouse-parcial2-transporte-b-1",
+      "health": "healthy",
+      "image_id": "sha256:0335757db81188f726fd71b210783237dbf127cf905cc3724a30306dfb1bde78",
+      "ports": {}
+    },
+    {
+      "name": "redhouse-parcial2-transporte-a-1",
+      "health": "healthy",
+      "image_id": "sha256:0335757db81188f726fd71b210783237dbf127cf905cc3724a30306dfb1bde78",
+      "ports": {}
+    },
+    {
+      "name": "redhouse-parcial2-inventario-b-1",
+      "health": "healthy",
+      "image_id": "sha256:e8404b3c1bab3cc24d6d89f24264f08cda881b1fc8c6ed4d94ec123305ebb7af",
+      "ports": {}
+    },
+    {
+      "name": "redhouse-parcial2-inventario-a-1",
+      "health": "healthy",
+      "image_id": "sha256:e8404b3c1bab3cc24d6d89f24264f08cda881b1fc8c6ed4d94ec123305ebb7af",
+      "ports": {}
+    },
+    {
+      "name": "redhouse-parcial2-priorizacion-geografia-b-1",
+      "health": "healthy",
+      "image_id": "sha256:0b02a413b202593797e3c4f674ed3a1f30c99104b8601cad9eb6d3bd2a6b82dc",
+      "ports": {}
+    },
+    {
+      "name": "redhouse-parcial2-priorizacion-geografia-a-1",
+      "health": "healthy",
+      "image_id": "sha256:0b02a413b202593797e3c4f674ed3a1f30c99104b8601cad9eb6d3bd2a6b82dc",
+      "ports": {}
+    },
+    {
+      "name": "redhouse-parcial2-compatibilidad-a-1",
+      "health": "healthy",
+      "image_id": "sha256:3e037891d0f6b012c99a5881b2ab1d7c13b9375e932c5a0d6bc777257f00ac2d",
+      "ports": {}
+    },
+    {
+      "name": "redhouse-parcial2-compatibilidad-b-1",
+      "health": "healthy",
+      "image_id": "sha256:3e037891d0f6b012c99a5881b2ab1d7c13b9375e932c5a0d6bc777257f00ac2d",
+      "ports": {}
+    },
+    {
+      "name": "redhouse-parcial2-receptores-a-1",
+      "health": "healthy",
+      "image_id": "sha256:4a2bf06dc35575e9e8d52ea25a98858ec1fab69396e36c4598196fa4edd8b6a5",
+      "ports": {}
+    },
+    {
+      "name": "redhouse-parcial2-receptores-b-1",
+      "health": "healthy",
+      "image_id": "sha256:4a2bf06dc35575e9e8d52ea25a98858ec1fab69396e36c4598196fa4edd8b6a5",
+      "ports": {}
+    },
+    {
+      "name": "redhouse-parcial2-donantes-a-1",
+      "health": "healthy",
+      "image_id": "sha256:641751b16daa62c4904aad7d2723bab8b4d048b036e872c0da624e6de6b25305",
+      "ports": {}
+    },
+    {
+      "name": "redhouse-parcial2-donantes-b-1",
+      "health": "healthy",
+      "image_id": "sha256:641751b16daa62c4904aad7d2723bab8b4d048b036e872c0da624e6de6b25305",
+      "ports": {}
+    },
+    {
+      "name": "redhouse-parcial2-identidad-acceso-a-1",
+      "health": "healthy",
+      "image_id": "sha256:eaee6331bb2f6b951132dca516462c1bc2444d4a705b8342a263316fb1cd9f44",
+      "ports": {}
+    },
+    {
+      "name": "redhouse-parcial2-identidad-acceso-b-1",
+      "health": "healthy",
+      "image_id": "sha256:eaee6331bb2f6b951132dca516462c1bc2444d4a705b8342a263316fb1cd9f44",
+      "ports": {}
+    },
+    {
+      "name": "redhouse-parcial2-custodia-b-1",
+      "health": "healthy",
+      "image_id": "sha256:5eaa5b5b1e24d49d4f518d1b782e755b542c3b39b16c0f700d1cfbe4eba2d7f9",
+      "ports": {}
+    },
+    {
+      "name": "redhouse-parcial2-custodia-a-1",
+      "health": "healthy",
+      "image_id": "sha256:5eaa5b5b1e24d49d4f518d1b782e755b542c3b39b16c0f700d1cfbe4eba2d7f9",
+      "ports": {}
+    },
+    {
+      "name": "redhouse-parcial2-alertas-a-1",
+      "health": "healthy",
+      "image_id": "sha256:1043dfc89e2ac0d02d5fa0428380be89c2c434f9ade9db134e94d99e48828edb",
+      "ports": {}
+    },
+    {
+      "name": "redhouse-parcial2-alertas-b-1",
+      "health": "healthy",
+      "image_id": "sha256:1043dfc89e2ac0d02d5fa0428380be89c2c434f9ade9db134e94d99e48828edb",
+      "ports": {}
+    },
+    {
+      "name": "redhouse-parcial2-auditoria-b-1",
+      "health": "healthy",
+      "image_id": "sha256:5328690df1bc0b0833dd91f94ecb38a56e78bb0fe0ccce3fe5008f36cff927d0",
+      "ports": {}
+    },
+    {
+      "name": "redhouse-parcial2-auditoria-a-1",
+      "health": "healthy",
+      "image_id": "sha256:5328690df1bc0b0833dd91f94ecb38a56e78bb0fe0ccce3fe5008f36cff927d0",
+      "ports": {}
+    },
+    {
+      "name": "redhouse-parcial2-redis-1",
+      "health": "healthy",
+      "image_id": "sha256:4fa24486b8bcca8eec45ee0eb166edc674795e53a2b53d1a9ef263eecebaac85",
+      "ports": {
+        "6379/tcp": null
+      }
+    },
+    {
+      "name": "redhouse-parcial2-postgres-1",
+      "health": "healthy",
+      "image_id": "sha256:5a05f61a534e50e679d27fb45953afec7821f2ffc2aa6c738b94515ca0891ac2",
+      "ports": {
+        "5432/tcp": null
+      }
+    },
+    {
+      "name": "redhouse-parcial2-mongodb-1",
+      "health": "healthy",
+      "image_id": "sha256:afa897893e731d236b5c20466a19c3aa46af923367dbf91b6ed11806a8f246a8",
+      "ports": {
+        "27017/tcp": null
+      }
+    }
+  ],
+  "systemd_active": "active",
+  "systemd_enabled": "enabled",
+  "public": {
+    "address": "34.18.186.116",
+    "origin": "https://34.18.186.116"
+  },
+  "certificate_timer": "active",
+  "logical_cpus": 2,
+  "os": "CentOS Stream release 10 (Coughlan)",
+  "disk": {
+    "total_bytes": 21195915264,
+    "used_bytes": 7668002816,
+    "free_bytes": 13527912448
+  },
+  "restoration": {
+    "result": "passed",
+    "postgres_tables": 72,
+    "postgres_rows": 15263,
+    "mongo_documents": 7721,
+    "sql_mongo_counts_and_hashes_match": true,
+    "redis_restored": true,
+    "web_permissions": {
+      "technical_table": true,
+      "domain_schema": false
+    },
+    "personal_adc_used": false
+  },
+  "source_hashes": {
+    "compose.yaml": "642e8076532351f15768dbcf599c5290328577583ae89f27f143508f30f6ebf8",
+    "deployment/start.py": "8fb56406c1cf6aedda02db927bcd57bbfe287c07ab16cf8603ce38d74ccee13c",
+    "apps/services/redhouse/storage.py": "a3ab0d2b590f472bc31c4d473b9d0fbfb8e68dfd5c5a2bcd94a22fee25ffb7b7",
+    "apps/web/src/integration/sessions.py": "ec1be8cfd3564e74e4b55dafcdfaaa5c6f1a4625053f558bd65e7f90a454b186",
+    "apps/web/scripts/run_web.py": "eed066428da90925a299430242f9f72747eaff5bc315e4d855db2b38d43ce7fc",
+    "apps/services/redhouse/openapi.py": "47c1f9c2d8833d31fc83ef1cffdf6f91cbb34ea657e488c050184ccba039bd53"
+  },
+  "web_image_matches_sources": true,
+  "result": "passed"
+}

@@ -1,0 +1,100 @@
+<!doctype html><html lang="es"><meta charset="utf-8"><title>transporte /api/v1/shipments/&lt;identifier&gt;/transitions</title><style>body{font:15px system-ui;margin:32px;background:#f4f5f7;color:#202631}main{max-width:1250px;margin:auto}h1{color:#8e2434;font-size:26px}small{color:#556}a{color:#8e2434}table{border-collapse:collapse;width:100%;background:white}td,th{padding:9px;border:1px solid #ccd;vertical-align:top;text-align:left}pre{white-space:pre-wrap;word-break:break-word;background:#fff;border:1px solid #ccd;padding:12px;font:12px monospace;max-height:300px;overflow:auto}section{margin:20px 0}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.tag{padding:4px 9px;background:#e5ece7}.error{background:#f8e5e6}input{padding:12px;width:70%;margin:15px 0}details{margin:12px 0}nav{margin-bottom:20px}</style><main><nav><a href="../index.html">Inventario completo</a></nav><h1>transporte · POST /api/v1/shipments/&lt;identifier&gt;/transitions</h1><p>Registrar paso autorizado y evento de custodia durable</p><p>Registro de ejecución real. Credenciales y firmas redactadas. Los cuerpos completos están en el JSON enlazado.</p><section><h2>HTTP 200</h2><p><b>2026-10-19T16:26:49.120310+00:00</b> · versión 0.3.0</p><p>Correlación: 076aef2c-75d4-4f93-b18e-e2c4f6ae0d01<br>URL: http://127.0.0.1:56264/api/v1/shipments/859eea1a-1b77-4b08-9a53-5038495b9521/transitions</p><p><a href="../records/d8ad309b43ac71cca9d2ed17.json">Petición, respuesta, headers y persistencia completos</a></p><div class="grid"><div><h3>Petición</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Host&quot;: &quot;127.0.0.1:56264&quot;,
+    &quot;User-Agent&quot;: &quot;python-requests/2.34.2&quot;,
+    &quot;Accept-Encoding&quot;: &quot;gzip, deflate, br&quot;,
+    &quot;Accept&quot;: &quot;application/json&quot;,
+    &quot;Connection&quot;: &quot;keep-alive&quot;,
+    &quot;Idempotency-Key&quot;: &quot;eebcc4e4413f49259726f8a912b9ddfb&quot;,
+    &quot;Authorization&quot;: &quot;[REDACTED]&quot;,
+    &quot;Content-Length&quot;: &quot;139&quot;,
+    &quot;Content-Type&quot;: &quot;application/json&quot;
+  },
+  &quot;parameters&quot;: {},
+  &quot;body&quot;: {
+    &quot;state&quot;: &quot;PREPARED&quot;,
+    &quot;version&quot;: 1,
+    &quot;human_confirmation&quot;: true,
+    &quot;reason&quot;: &quot;Confirmación física ficticia del paso logístico&quot;
+  }
+}</pre></div><div><h3>Respuesta</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Content-Type&quot;: &quot;application/json&quot;,
+    &quot;Content-Length&quot;: &quot;676&quot;,
+    &quot;X-Correlation-ID&quot;: &quot;076aef2c-75d4-4f93-b18e-e2c4f6ae0d01&quot;,
+    &quot;Cache-Control&quot;: &quot;no-store&quot;,
+    &quot;X-Content-Type-Options&quot;: &quot;nosniff&quot;,
+    &quot;Referrer-Policy&quot;: &quot;no-referrer&quot;
+  },
+  &quot;body&quot;: {
+    &quot;data&quot;: {
+      &quot;id&quot;: &quot;859eea1a-1b77-4b08-9a53-5038495b9521&quot;,
+      &quot;reservation_id&quot;: &quot;1e1b90e8-2d0a-425b-bc78-f2b497c2af6a&quot;,
+      &quot;origin_id&quot;: &quot;87255e79-2a0a-4e44-ad21-8002ccd5688d&quot;,
+      &quot;destination_id&quot;: &quot;a0920053-13c5-4d42-b53e-74b35a779f58&quot;,
+      &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+      &quot;transport_user_id&quot;: &quot;3980f3c5-484c-4178-b03c-8d65c598ecd7&quot;,
+      &quot;departure_at&quot;: &quot;2026-10-19T16:27:47.736841+00:00&quot;,
+      &quot;eta&quot;: &quot;2026-10-19T16:56:47.736928+00:00&quot;,
+      &quot;status&quot;: &quot;PREPARED&quot;,
+      &quot;version&quot;: 2,
+      &quot;sequence&quot;: 2,
+      &quot;inventory_pending&quot;: false,
+      &quot;expires_at&quot;: &quot;2026-10-21T16:26:43.322896+00:00&quot;
+    },
+    &quot;meta&quot;: {
+      &quot;correlation_id&quot;: &quot;076aef2c-75d4-4f93-b18e-e2c4f6ae0d01&quot;,
+      &quot;service&quot;: &quot;transporte&quot;,
+      &quot;version&quot;: &quot;0.3.0&quot;
+    }
+  }
+}</pre></div></div><details><summary>Persistencia y versión de implementación</summary><pre>{
+  &quot;effect&quot;: &quot;committed&quot;,
+  &quot;store&quot;: &quot;PostgreSQL red_house&quot;,
+  &quot;query&quot;: &quot;SELECT operation,fingerprint,result FROM idempotency WHERE user_id=:actor AND key=:idempotency_key&quot;,
+  &quot;row&quot;: {
+    &quot;operation&quot;: &quot;shipment_transition:859eea1a-1b77-4b08-9a53-5038495b9521&quot;,
+    &quot;fingerprint&quot;: &quot;8f85046f04869bfb9a40d6dc16e3ab772480ecdf8b278479c9b6a9930bb52a09&quot;,
+    &quot;result&quot;: {
+      &quot;id&quot;: &quot;859eea1a-1b77-4b08-9a53-5038495b9521&quot;,
+      &quot;eta&quot;: &quot;2026-10-19T16:56:47.736928+00:00&quot;,
+      &quot;status&quot;: &quot;PREPARED&quot;,
+      &quot;version&quot;: 2,
+      &quot;sequence&quot;: 2,
+      &quot;origin_id&quot;: &quot;87255e79-2a0a-4e44-ad21-8002ccd5688d&quot;,
+      &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+      &quot;expires_at&quot;: &quot;2026-10-21T16:26:43.322896+00:00&quot;,
+      &quot;departure_at&quot;: &quot;2026-10-19T16:27:47.736841+00:00&quot;,
+      &quot;destination_id&quot;: &quot;a0920053-13c5-4d42-b53e-74b35a779f58&quot;,
+      &quot;reservation_id&quot;: &quot;1e1b90e8-2d0a-425b-bc78-f2b497c2af6a&quot;,
+      &quot;inventory_pending&quot;: false,
+      &quot;transport_user_id&quot;: &quot;3980f3c5-484c-4178-b03c-8d65c598ecd7&quot;
+    }
+  }
+}</pre><p>SHA-256: e7eb0044cb5544477c1a4b79a264977e16ddd17c216e8a88ed6d187af95af791</p></details></section><section><h2>HTTP 401</h2><p><b>2026-10-19T16:28:24.413945+00:00</b> · versión 0.3.0</p><p>Correlación: 9a3052b7-481e-4792-b204-25c0b444aafa<br>URL: http://127.0.0.1:56264/api/v1/shipments/7bb45cdb-d454-4d11-8c59-dae02c25e01b/transitions</p><p><a href="../records/438e479fdf2325befe50f552.json">Petición, respuesta, headers y persistencia completos</a></p><div class="grid"><div><h3>Petición</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Host&quot;: &quot;127.0.0.1:56264&quot;,
+    &quot;User-Agent&quot;: &quot;python-requests/2.34.2&quot;,
+    &quot;Accept-Encoding&quot;: &quot;gzip, deflate, br&quot;,
+    &quot;Accept&quot;: &quot;application/xml&quot;,
+    &quot;Connection&quot;: &quot;keep-alive&quot;,
+    &quot;Idempotency-Key&quot;: &quot;af08095e36914f8b98bbc6c7c1c2c338&quot;,
+    &quot;Content-Length&quot;: &quot;2&quot;,
+    &quot;Content-Type&quot;: &quot;application/json&quot;
+  },
+  &quot;parameters&quot;: {},
+  &quot;body&quot;: {}
+}</pre></div><div><h3>Respuesta</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Content-Type&quot;: &quot;application/xml; charset=utf-8&quot;,
+    &quot;Content-Length&quot;: &quot;504&quot;,
+    &quot;X-Correlation-ID&quot;: &quot;9a3052b7-481e-4792-b204-25c0b444aafa&quot;,
+    &quot;Cache-Control&quot;: &quot;no-store&quot;,
+    &quot;X-Content-Type-Options&quot;: &quot;nosniff&quot;,
+    &quot;Referrer-Policy&quot;: &quot;no-referrer&quot;
+  },
+  &quot;body&quot;: &quot;&lt;response type=\&quot;object\&quot;&gt;&lt;field name=\&quot;error\&quot; type=\&quot;object\&quot;&gt;&lt;field name=\&quot;code\&quot; type=\&quot;string\&quot;&gt;unauthorized&lt;/field&gt;&lt;field name=\&quot;message\&quot; type=\&quot;string\&quot;&gt;JWT de acceso requerido.&lt;/field&gt;&lt;field name=\&quot;details\&quot; type=\&quot;array\&quot;/&gt;&lt;/field&gt;&lt;field name=\&quot;meta\&quot; type=\&quot;object\&quot;&gt;&lt;field name=\&quot;correlation_id\&quot; type=\&quot;string\&quot;&gt;9a3052b7-481e-4792-b204-25c0b444aafa&lt;/field&gt;&lt;field name=\&quot;service\&quot; type=\&quot;string\&quot;&gt;transporte&lt;/field&gt;&lt;field name=\&quot;version\&quot; type=\&quot;string\&quot;&gt;0.3.0&lt;/field&gt;&lt;/field&gt;&lt;/response&gt;&quot;
+}</pre></div></div><details><summary>Persistencia y versión de implementación</summary><pre>{
+  &quot;effect&quot;: &quot;controlled_error&quot;,
+  &quot;note&quot;: &quot;No se infiere ausencia de efectos de un error; revisar correlación y estado de operación.&quot;
+}</pre><p>SHA-256: e7eb0044cb5544477c1a4b79a264977e16ddd17c216e8a88ed6d187af95af791</p></details></section><h2>Todas las variantes ejecutadas</h2><ul><li><a href="../records/29337ae0269cc8d0597a697f.json">200 · embedded · application/json · 2026-10-19T16:22:55.423251+00:00</a></li><li><a href="../records/438e479fdf2325befe50f552.json">401 · http · application/xml; charset=utf-8 · 2026-10-19T16:28:24.413945+00:00</a></li><li><a href="../records/49c77d39c3f527962adc579a.json">409 · http · application/json · 2026-10-19T16:39:08.540856+00:00</a></li><li><a href="../records/d8ad309b43ac71cca9d2ed17.json">200 · http · application/json · 2026-10-19T16:26:49.120310+00:00</a></li><li><a href="../records/3e531c6bfd366f3aff9d6f9f.json">401 · http · application/json · 2026-10-19T16:28:24.372211+00:00</a></li></ul></main></html>

@@ -1,0 +1,69 @@
+{
+  "captured_at": "2026-10-19T16:37:21.415813+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "6eac28b3c6355ff29f1aabe6ed2aa76b6e104ed4888482a02b3967184783afa9",
+  "transport": "http",
+  "method": "GET",
+  "route": "/api/v1/operations/<identifier>",
+  "objective": "Consultar resultado tras pérdida de respuesta",
+  "url": "http://127.0.0.1:56261/api/v1/operations/8b9b8d6f-d5f8-4540-a1ed-0f5c0a377313",
+  "parameters": {},
+  "path_parameters": {
+    "identifier": "8b9b8d6f-d5f8-4540-a1ed-0f5c0a377313"
+  },
+  "request_headers": {
+    "Host": "127.0.0.1:56261",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "e91aace49063407fac5a1de0ced34869",
+    "Authorization": "[REDACTED]"
+  },
+  "request_body": "",
+  "status": 200,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "962",
+    "X-Correlation-ID": "a0b7ea32-89d7-40f8-b861-006113f6bbbb",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "data": {
+      "operation_id": "8b9b8d6f-d5f8-4540-a1ed-0f5c0a377313",
+      "status": "COMPLETED",
+      "error": null,
+      "reservation": {
+        "id": "32a3cd00-b098-4703-8dbf-598c400495e7",
+        "operation_id": "8b9b8d6f-d5f8-4540-a1ed-0f5c0a377313",
+        "resource_id": "cdedddd8-b542-4aaf-bb03-c525c9f069f4",
+        "request_id": "0a95f5d7-ecc2-48ee-ae61-a32b9f081074",
+        "recipient_id": "9109590c-125a-49ff-bcb3-990fdf9b7197",
+        "origin_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+        "destination_id": "a0920053-13c5-4d42-b53e-74b35a779f58",
+        "region_id": "7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb",
+        "hold_id": "748f4c2d-35d8-49a3-9f98-8fdd733bb2ef",
+        "evaluation_id": "7bddb46f-476b-4830-844b-211038a7ddb4",
+        "route_id": "7b1745f6-56e0-43d3-9c3d-1c35538d7aae",
+        "route_version": 3,
+        "status": "RESERVED",
+        "shipment_id": null,
+        "shipment_sequence": 0,
+        "created_at": "2026-10-19T16:37:20.061812+00:00"
+      }
+    },
+    "meta": {
+      "correlation_id": "a0b7ea32-89d7-40f8-b861-006113f6bbbb",
+      "service": "inventario",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "a0b7ea32-89d7-40f8-b861-006113f6bbbb",
+  "persistence": {
+    "effect": "read",
+    "note": "Consulta; accesos protegidos generan auditoría local transaccional."
+  }
+}

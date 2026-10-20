@@ -75,6 +75,21 @@
         },
         "expires_in": {
           "type": "integer"
+        },
+        "upload_headers": {
+          "type": "object",
+          "properties": {
+            "Content-Type": {
+              "type": "string"
+            },
+            "x-goog-if-generation-match": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "Content-Type",
+            "x-goog-if-generation-match"
+          ]
         }
       },
       "required": [

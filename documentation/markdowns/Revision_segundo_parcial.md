@@ -1,4 +1,7 @@
-# Revisión de cumplimiento — segundo parcial
+# Diagnóstico histórico: Revisión de cumplimiento — segundo parcial
+
+**Actualización del 19/10/2026:** este documento conserva la revisión inicial del 14 de octubre. Para implementación, pruebas y pendientes actuales, consultar [la matriz de cierre](Cierre_segundo_parcial.md), [el informe integral](Reporte_tecnico_segundo_parcial.md) y [los resultados fechados](../evidencias/segundo-parcial/RESULTADOS.md). Los faltantes iniciales siguientes no equivalen al estado actual.
+
 
 **Proyecto:** Red House, red regional de bancos de sangre y donación de órganos · Equipo 01.  
 **Corte de revisión:** 14 de octubre de 2026. **Entrega:** jueves 22 de octubre de 2026.  
@@ -160,7 +163,7 @@ La base está implementada en `redhouse/security.py`, `redhouse/cache.py` e Iden
 - [ ] Catálogo de prefijos/claves: propietario, dato, propósito, TTL, creación, invalidación y permisos.
 - [ ] Mostrar login y sesión, acceso autorizado, JWT inválido/expirado, usuario sin permisos y rechazo tras logout/revocación.
 - [ ] Mostrar TTL antes/después, caché HIT/MISS, invalidación por escritura y rate limiting, sin exponer valores secretos.
-- [ ] Explicar que la sesión técnica cifrada en SQLite del portal no reemplaza la autoridad de Redis.
+- [x] Sesión técnica del portal en Redis con ACL y TTL; cierres durables en PostgreSQL. Sustitución documentada el 20 de octubre; véase `Datos_y_persistencia.md`.
 - [ ] Documentar autenticación interna con firma de servicio y los casos sin JWT humano delegado; demostrar sus permisos y protección contra repetición.
 
 **Aceptación:** el mismo usuario/sesión tiene decisiones de autorización coherentes en web y API, y Redis inaccesible produce fallo controlado en las operaciones protegidas.

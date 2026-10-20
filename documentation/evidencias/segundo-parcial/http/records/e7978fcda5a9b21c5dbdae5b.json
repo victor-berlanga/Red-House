@@ -1,0 +1,88 @@
+{
+  "captured_at": "2026-10-19T16:26:30.107390+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "1a8dccae105e0c261a0273a99f999923c88cbf235f750f80f0ac2f487c8b6654",
+  "transport": "embedded",
+  "method": "POST",
+  "route": "/api/v1/donors",
+  "objective": "Registro preliminar con consentimiento",
+  "url": "http://localhost/api/v1/donors",
+  "parameters": {},
+  "path_parameters": {},
+  "request_headers": {
+    "Host": "localhost",
+    "Content-Type": "application/json",
+    "Content-Length": "112",
+    "Accept": "application/json",
+    "X-Correlation-Id": "52da92f6-73af-4d52-8d86-fbb8f7f40be5",
+    "Authorization": "[REDACTED]",
+    "Idempotency-Key": "b5f26005e49a461e8b02e655ad8db33a"
+  },
+  "request_body": {
+    "folio": "DON-WEB-a91ade2864",
+    "display_name": "Daniela Salinas Cavazos",
+    "blood_group": "O+",
+    "consent": true
+  },
+  "status": 201,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "550",
+    "X-Correlation-ID": "52da92f6-73af-4d52-8d86-fbb8f7f40be5",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "data": {
+      "id": "3cb9c304-3ac6-4955-bad8-d39fd2fdba05",
+      "tenant_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+      "user_id": null,
+      "folio": "DON-WEB-a91ade2864",
+      "display_name": "Daniela Salinas Cavazos",
+      "blood_group": "O+",
+      "consent": true,
+      "status": "PRELIMINARY",
+      "version": 1,
+      "created_at": "2026-10-19T16:26:30.053409+00:00",
+      "restrictions": null,
+      "background": null,
+      "donation_kind": null,
+      "consent_reference": null,
+      "consent_at": null
+    },
+    "meta": {
+      "correlation_id": "52da92f6-73af-4d52-8d86-fbb8f7f40be5",
+      "service": "donantes",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "52da92f6-73af-4d52-8d86-fbb8f7f40be5",
+  "persistence": {
+    "effect": "committed",
+    "store": "PostgreSQL red_house",
+    "query": "SELECT operation,fingerprint,result FROM idempotency WHERE user_id=:actor AND key=:idempotency_key",
+    "row": {
+      "operation": "donor_create",
+      "fingerprint": "242f629b4dfcdbff2b6ff72b85fe19f1e367d31dfaf8fc1e5605a2f0c8079df3",
+      "result": {
+        "id": "3cb9c304-3ac6-4955-bad8-d39fd2fdba05",
+        "folio": "DON-WEB-a91ade2864",
+        "status": "PRELIMINARY",
+        "consent": true,
+        "user_id": null,
+        "version": 1,
+        "tenant_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+        "background": null,
+        "consent_at": null,
+        "created_at": "2026-10-19T16:26:30.053409+00:00",
+        "blood_group": "O+",
+        "display_name": "Daniela Salinas Cavazos",
+        "restrictions": null,
+        "donation_kind": null,
+        "consent_reference": null
+      }
+    }
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "captured_at": "2026-10-19T16:28:33.765667+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "b82acfc07e7ff0221196c291a52b1986e4d1ac69b3f6769bffe29f4a02fa5c9b",
+  "transport": "http",
+  "method": "GET",
+  "route": "/api/v1/catalogues/locations/<identifier>",
+  "objective": "Detalle de locations",
+  "url": "http://127.0.0.1:56258/api/v1/catalogues/locations/267831f4-368a-4c5a-9a21-0ba025372902",
+  "parameters": {},
+  "path_parameters": {
+    "identifier": "267831f4-368a-4c5a-9a21-0ba025372902"
+  },
+  "request_headers": {
+    "Host": "127.0.0.1:56258",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "15f9095e5b00436e89eaac5f169a6d9f",
+    "Authorization": "[REDACTED]"
+  },
+  "request_body": "",
+  "status": 200,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "548",
+    "X-Correlation-ID": "fdd5a3d6-59cd-4d60-b8ef-3b5fe0ece739",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "data": {
+      "id": "267831f4-368a-4c5a-9a21-0ba025372902",
+      "tenant_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+      "kind": "locations",
+      "name": "Registro ficticio 848f0449",
+      "parent_id": "e94a4fda-d0f3-4fe4-86f5-749cc71a6d3a",
+      "details": {
+        "description": "Ubicación ficticia autorizada"
+      },
+      "active": true,
+      "version": 1,
+      "created_at": "2026-10-19T16:28:33.449847+00:00",
+      "description": "Ubicación ficticia autorizada",
+      "decisions": []
+    },
+    "meta": {
+      "correlation_id": "fdd5a3d6-59cd-4d60-b8ef-3b5fe0ece739",
+      "service": "identidad_acceso",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "fdd5a3d6-59cd-4d60-b8ef-3b5fe0ece739",
+  "persistence": {
+    "effect": "read",
+    "note": "Consulta; accesos protegidos generan auditoría local transaccional."
+  }
+}

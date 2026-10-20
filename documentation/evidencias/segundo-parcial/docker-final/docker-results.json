@@ -1,0 +1,46 @@
+{
+  "date": "2026-10-19T16:05:13.900260+00:00",
+  "checks": [
+    {
+      "check": "flujo_BLOOD",
+      "status": "passed",
+      "shipment_id": "fadc7d33-8bed-49b8-8f10-44bd502291f8",
+      "resource_id": "cd22e7f8-8956-4fbd-add0-ec99521148eb",
+      "request_id": "a56cf967-ff6e-40e2-83fe-2974895c03a9",
+      "persistence": [
+        {
+          "id": "cd22e7f8-8956-4fbd-add0-ec99521148eb",
+          "status": "RECEIVED",
+          "tenant_id": "7b4c7ee3-20ef-4345-bf68-c08748c9b7f0"
+        }
+      ]
+    },
+    {
+      "check": "once_servicios_json_xml",
+      "status": "passed"
+    },
+    {
+      "check": "flujo_ORGAN",
+      "status": "passed",
+      "shipment_id": "306ad28c-c6db-4c00-beaa-1df68f4f9aef",
+      "resource_id": "27940933-c66f-4792-ac0e-f80820a2c166",
+      "request_id": "948c6d7b-96fa-4e11-92d0-51812e230416",
+      "persistence": [
+        {
+          "id": "27940933-c66f-4792-ac0e-f80820a2c166",
+          "status": "RECEIVED",
+          "tenant_id": "7b4c7ee3-20ef-4345-bf68-c08748c9b7f0"
+        }
+      ]
+    },
+    {
+      "check": "once_replicas_a_detenidas",
+      "status": "passed"
+    },
+    {
+      "check": "execution",
+      "status": "failed",
+      "error": "Docker falló: up -d --wait;  Container redhouse-parcial2-compatibilidad-a-1 Starting \n Container redhouse-parcial2-donantes-a-1 Starting \n Container redhouse-parcial2-identidad-acceso-a-1 Starting \n Container redhouse-parcial2-inventario-a-1 Starting \n Container redhouse-parcial2-priorizacion-geografia-a-1 Starting \n Container redhouse-parcial2-transporte-a-1 Starting \n Container redhouse-parcial2-receptores-a-1 Starting \n Container redhouse-parcial2-alertas-a-1 Starting \n Container redhouse-parcial2-auditoria-a-1 Starting \n Container redhouse-parcial2-custodia-a-1 Starting \n Container redhouse-parcial2-monitoreo-a-1 Starting \n Container redhouse-parcial2-compatibilidad-a-1 Started \n Container redhouse-parcial2-donantes-a-1 Started \n Container redhouse-parcial2-identidad-acceso-a-1 Started \n Container redhouse-parcial2-inventario-a-1 Started \n Container redhouse-parcial2-priorizacion-geografia-a-1 Started \n Container redhouse-parcial2-transporte-a-1 Started \n Container redhouse-parcial2-receptores-a-1 Started \n Container redhouse-parcial2-alertas-a-1 Started \n Container redhouse-parcial2-auditoria-a-1 Started \n Container redhouse-parcial2-custodia-a-1 Started \n Container redhouse-parcial2-monitoreo-a-1 Started \n Container redhouse-parcial2-donantes-a-1 Waiting \n Container redhouse-parcial2-auditoria-a-1 Waiting \n Container redhouse-parcial2-receptores-a-1 Waiting \n Container redhouse-parcial2-priorizacion-geografia-a-1 Waiting \n Container redhouse-parcial2-compatibilidad-a-1 Waiting \n Container redhouse-parcial2-identidad-acceso-a-1 Waiting \n Container redhouse-parcial2-monitoreo-a-1 Waiting \n Container redhouse-parcial2-custodia-a-1 Waiting \n Container redhouse-parcial2-inventario-a-1 Waiting \n Container redhouse-parcial2-transporte-a-1 Waiting \n Container redhouse-parcial2-alertas-a-1 Waiting \ncontainer redhouse-parcial2-inventario-a-1 is unhealthy\n"
+    }
+  ]
+}

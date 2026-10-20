@@ -1,0 +1,100 @@
+{
+  "date": "2026-10-19T20:08:44.652994+00:00",
+  "status": "passed",
+  "version": "0.3.0",
+  "checks": {
+    "regresion-final.xml": {
+      "tests": 182,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "salud-complementaria.xml": {
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "docker": {
+      "status": "passed",
+      "checks": 9
+    },
+    "browser": {
+      "status": "passed",
+      "pages": 20,
+      "javascript_errors": 0,
+      "swagger_http": 200
+    },
+    "backup_restore": {
+      "status": "passed",
+      "tables": 71,
+      "rows": 15122
+    },
+    "clean_clone": {
+      "status": "passed",
+      "steps": 8,
+      "snapshot_commit": "5c3f920dc76fb4ad963c0badb6945026d6c42b1e",
+      "healthy_containers": 27
+    },
+    "http": {
+      "endpoints": 284,
+      "with_http": 284,
+      "with_success": 284,
+      "with_error": 240,
+      "endpoint_captures": 284,
+      "fixed_documents_error_not_applicable": 44
+    },
+    "documents": [
+      {
+        "file": "documentation/pdf/Reporte_tecnico_segundo_parcial.pdf",
+        "pages": 36,
+        "words": 13914,
+        "page_bounds_violations": []
+      },
+      {
+        "file": "documentation/pdf/Modelo_fisico_PostgreSQL.pdf",
+        "pages": 41,
+        "words": 7726,
+        "page_bounds_violations": []
+      }
+    ],
+    "links": {
+      "checked": 2214,
+      "missing": 0
+    },
+    "credential_scan": {
+      "files": 1204,
+      "findings": 0,
+      "scope": "JWT, claves privadas, firmas GCS, renovación Google y secretos reales de los tres Compose"
+    },
+    "exports": [
+      {
+        "path": "documentation/docx/Reporte_tecnico_segundo_parcial.docx",
+        "bytes": 486577,
+        "sha256": "7d349077c90a6be814988a88f281662909c9be6589826099a9033d73f6dc5818"
+      },
+      {
+        "path": "documentation/docx/Modelo_fisico_PostgreSQL.docx",
+        "bytes": 55159,
+        "sha256": "53c86a5c2f16162132d3d3abe9f16716c793f3aba96b5f7d4ef67df2053878b8"
+      },
+      {
+        "path": "documentation/pdf/Reporte_tecnico_segundo_parcial.pdf",
+        "bytes": 1207390,
+        "sha256": "a463b29309764ec434ee80ca08136138701fc9683b422eeaf34e32a54affaeb4"
+      },
+      {
+        "path": "documentation/pdf/Modelo_fisico_PostgreSQL.pdf",
+        "bytes": 1545231,
+        "sha256": "d58a2a41ef6b5988bd70322eb5b0be1c5f5692434265d385c950a6ff8c71177d"
+      }
+    ],
+    "static": {
+      "ruff_selected_rules": "passed: E9,F63,F7,F82",
+      "ruff_format_files": 163,
+      "git_diff_check": "passed",
+      "node_syntax": "passed: capture_live_partial.cjs, capture_http_evidence.cjs",
+      "codegraph_sync": "Already up to date"
+    }
+  }
+}

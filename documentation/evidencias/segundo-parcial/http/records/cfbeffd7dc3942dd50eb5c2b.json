@@ -1,0 +1,52 @@
+{
+  "captured_at": "2026-10-19T16:28:13.234479+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "1a8dccae105e0c261a0273a99f999923c88cbf235f750f80f0ac2f487c8b6654",
+  "transport": "http",
+  "method": "PATCH",
+  "route": "/api/v1/campaigns/<identifier>",
+  "objective": "Editar campaña sin reducir cupos ya ocupados",
+  "url": "http://127.0.0.1:56259/api/v1/campaigns/eddcb75c-2cf3-4d0d-af03-87e4bd2a4731",
+  "parameters": {},
+  "path_parameters": {
+    "identifier": "eddcb75c-2cf3-4d0d-af03-87e4bd2a4731"
+  },
+  "request_headers": {
+    "Host": "127.0.0.1:56259",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "d413ec251f9c4785b503045cf7186c2d",
+    "Content-Length": "2",
+    "Content-Type": "application/json"
+  },
+  "request_body": {},
+  "status": 401,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "200",
+    "X-Correlation-ID": "dd667f76-0c0a-4213-adab-12bf8156b51a",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "error": {
+      "code": "unauthorized",
+      "message": "JWT de acceso requerido.",
+      "details": []
+    },
+    "meta": {
+      "correlation_id": "dd667f76-0c0a-4213-adab-12bf8156b51a",
+      "service": "donantes",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "dd667f76-0c0a-4213-adab-12bf8156b51a",
+  "persistence": {
+    "effect": "controlled_error",
+    "note": "No se infiere ausencia de efectos de un error; revisar correlación y estado de operación."
+  }
+}

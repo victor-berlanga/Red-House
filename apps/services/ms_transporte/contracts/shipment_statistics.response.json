@@ -1,0 +1,59 @@
+{
+  "type": "object",
+  "required": [
+    "data",
+    "meta"
+  ],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": [
+        "correlation_id",
+        "service",
+        "version"
+      ],
+      "properties": {
+        "correlation_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "service": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "type": "integer"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "last_state": {
+                "type": "string"
+              },
+              "count": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "last_state",
+              "count"
+            ]
+          }
+        }
+      },
+      "required": [
+        "items",
+        "schema_version"
+      ]
+    }
+  }
+}

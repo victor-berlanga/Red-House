@@ -1,0 +1,55 @@
+{
+  "date": "2026-10-19T16:14:21.460631+00:00",
+  "checks": [
+    {
+      "check": "flujo_BLOOD",
+      "status": "passed",
+      "shipment_id": "d0b4e104-be5c-4ff9-8057-ce10a4cdf7d8",
+      "resource_id": "c837dace-735a-4d16-82bd-fd2700b19576",
+      "request_id": "8325bed8-1f38-43ab-ae64-2ea0e1a5003d",
+      "persistence": [
+        {
+          "id": "c837dace-735a-4d16-82bd-fd2700b19576",
+          "status": "RECEIVED",
+          "tenant_id": "7b4c7ee3-20ef-4345-bf68-c08748c9b7f0"
+        }
+      ]
+    },
+    {
+      "check": "once_servicios_json_xml",
+      "status": "passed"
+    },
+    {
+      "check": "web_sin_api_BLOOD",
+      "status": "passed",
+      "shipment_id": "e3c6eed6-5f91-4f1d-917c-dad457c3f400",
+      "persistence": [
+        {
+          "id": "57b219c9-1152-4ec3-96dd-b24eb1d26ba2",
+          "status": "RECEIVED"
+        }
+      ]
+    },
+    {
+      "check": "web_sin_api_ORGAN",
+      "status": "passed",
+      "shipment_id": "8bdb2efe-2c3e-4a65-99f4-648d6511d2c3",
+      "persistence": [
+        {
+          "id": "445475dd-feea-4ceb-9b11-dd4b6aa46c63",
+          "status": "RECEIVED"
+        }
+      ]
+    },
+    {
+      "check": "api_sin_autoridad_no_promete_continuidad",
+      "status": "passed",
+      "http": 502
+    },
+    {
+      "check": "execution",
+      "status": "failed",
+      "error": "Docker falló: up -d --wait;  Container redhouse-parcial2-auditoria-a-1 Starting \n Container redhouse-parcial2-alertas-a-1 Starting \n Container redhouse-parcial2-auditoria-a-1 Started \n Container redhouse-parcial2-alertas-a-1 Started \n Container redhouse-parcial2-alertas-a-1 Waiting \n Container redhouse-parcial2-auditoria-a-1 Waiting \n Container redhouse-parcial2-alertas-a-1 Healthy \ncontainer redhouse-parcial2-auditoria-a-1 is unhealthy\n"
+    }
+  ]
+}

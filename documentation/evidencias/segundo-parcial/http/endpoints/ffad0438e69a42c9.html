@@ -1,0 +1,67 @@
+<!doctype html><html lang="es"><meta charset="utf-8"><title>inventario /health/mongodb</title><style>body{font:15px system-ui;margin:32px;background:#f4f5f7;color:#202631}main{max-width:1250px;margin:auto}h1{color:#8e2434;font-size:26px}small{color:#556}a{color:#8e2434}table{border-collapse:collapse;width:100%;background:white}td,th{padding:9px;border:1px solid #ccd;vertical-align:top;text-align:left}pre{white-space:pre-wrap;word-break:break-word;background:#fff;border:1px solid #ccd;padding:12px;font:12px monospace;max-height:300px;overflow:auto}section{margin:20px 0}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.tag{padding:4px 9px;background:#e5ece7}.error{background:#f8e5e6}input{padding:12px;width:70%;margin:15px 0}details{margin:12px 0}nav{margin-bottom:20px}</style><main><nav><a href="../index.html">Inventario completo</a></nav><h1>inventario · GET /health/mongodb</h1><p>Infraestructura y documentación</p><p>Registro de ejecución real. Credenciales y firmas redactadas. Los cuerpos completos están en el JSON enlazado.</p><section><h2>HTTP 200</h2><p><b>2026-10-19T16:28:15.656732+00:00</b> · versión 0.3.0</p><p>Correlación: 344f3101-8e02-4887-a3ce-9c7381c24d27<br>URL: http://127.0.0.1:56261/health/mongodb</p><p><a href="../records/fc88624a0696ee0c6da6cf6e.json">Petición, respuesta, headers y persistencia completos</a></p><div class="grid"><div><h3>Petición</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Host&quot;: &quot;127.0.0.1:56261&quot;,
+    &quot;User-Agent&quot;: &quot;python-requests/2.34.2&quot;,
+    &quot;Accept-Encoding&quot;: &quot;gzip, deflate, br&quot;,
+    &quot;Accept&quot;: &quot;application/json&quot;,
+    &quot;Connection&quot;: &quot;keep-alive&quot;,
+    &quot;Idempotency-Key&quot;: &quot;4d054a8f86c94d6c9222d06abbf63392&quot;
+  },
+  &quot;parameters&quot;: {},
+  &quot;body&quot;: &quot;&quot;
+}</pre></div><div><h3>Respuesta</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Content-Type&quot;: &quot;application/json&quot;,
+    &quot;Content-Length&quot;: &quot;105&quot;,
+    &quot;X-Correlation-ID&quot;: &quot;344f3101-8e02-4887-a3ce-9c7381c24d27&quot;,
+    &quot;Cache-Control&quot;: &quot;no-store&quot;,
+    &quot;X-Content-Type-Options&quot;: &quot;nosniff&quot;,
+    &quot;Referrer-Policy&quot;: &quot;no-referrer&quot;
+  },
+  &quot;body&quot;: {
+    &quot;data&quot;: {
+      &quot;state&quot;: &quot;not_applicable&quot;
+    },
+    &quot;meta&quot;: {
+      &quot;correlation_id&quot;: &quot;344f3101-8e02-4887-a3ce-9c7381c24d27&quot;
+    }
+  }
+}</pre></div></div><details><summary>Persistencia y versión de implementación</summary><pre>{
+  &quot;effect&quot;: &quot;read&quot;,
+  &quot;note&quot;: &quot;Consulta; accesos protegidos generan auditoría local transaccional.&quot;
+}</pre><p>SHA-256: 6eac28b3c6355ff29f1aabe6ed2aa76b6e104ed4888482a02b3967184783afa9</p></details></section><section><h2>HTTP 406</h2><p><b>2026-10-19T18:30:58.207694+00:00</b> · versión 0.3.0</p><p>Correlación: 6052ae92-9650-4590-880c-4a0c63215c78<br>URL: http://127.0.0.1:60899/health/mongodb</p><p><a href="../records/432cdfaf3851b8fbd57f2d33.json">Petición, respuesta, headers y persistencia completos</a></p><div class="grid"><div><h3>Petición</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Host&quot;: &quot;127.0.0.1:60899&quot;,
+    &quot;User-Agent&quot;: &quot;python-requests/2.34.2&quot;,
+    &quot;Accept-Encoding&quot;: &quot;gzip, deflate, br&quot;,
+    &quot;Accept&quot;: &quot;text/plain&quot;,
+    &quot;Connection&quot;: &quot;keep-alive&quot;,
+    &quot;Idempotency-Key&quot;: &quot;c7035c3897444645b750b532cc8b7539&quot;
+  },
+  &quot;parameters&quot;: {},
+  &quot;body&quot;: &quot;&quot;
+}</pre></div><div><h3>Respuesta</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Content-Type&quot;: &quot;application/json&quot;,
+    &quot;Content-Length&quot;: &quot;224&quot;,
+    &quot;X-Correlation-ID&quot;: &quot;6052ae92-9650-4590-880c-4a0c63215c78&quot;,
+    &quot;Cache-Control&quot;: &quot;no-store&quot;,
+    &quot;X-Content-Type-Options&quot;: &quot;nosniff&quot;,
+    &quot;Referrer-Policy&quot;: &quot;no-referrer&quot;
+  },
+  &quot;body&quot;: {
+    &quot;error&quot;: {
+      &quot;code&quot;: &quot;not_acceptable&quot;,
+      &quot;message&quot;: &quot;Solicita application/json o application/xml.&quot;,
+      &quot;details&quot;: []
+    },
+    &quot;meta&quot;: {
+      &quot;correlation_id&quot;: &quot;6052ae92-9650-4590-880c-4a0c63215c78&quot;,
+      &quot;service&quot;: &quot;inventario&quot;,
+      &quot;version&quot;: &quot;0.3.0&quot;
+    }
+  }
+}</pre></div></div><details><summary>Persistencia y versión de implementación</summary><pre>{
+  &quot;effect&quot;: &quot;controlled_error&quot;,
+  &quot;note&quot;: &quot;No se infiere ausencia de efectos de un error; revisar correlación y estado de operación.&quot;
+}</pre><p>SHA-256: 6eac28b3c6355ff29f1aabe6ed2aa76b6e104ed4888482a02b3967184783afa9</p></details></section><h2>Todas las variantes ejecutadas</h2><ul><li><a href="../records/fc88624a0696ee0c6da6cf6e.json">200 · http · application/json · 2026-10-19T16:28:15.656732+00:00</a></li><li><a href="../records/432cdfaf3851b8fbd57f2d33.json">406 · http · application/json · 2026-10-19T18:30:58.207694+00:00</a></li></ul></main></html>

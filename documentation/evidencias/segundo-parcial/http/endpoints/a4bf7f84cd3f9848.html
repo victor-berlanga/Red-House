@@ -1,0 +1,86 @@
+<!doctype html><html lang="es"><meta charset="utf-8"><title>identidad_acceso /api/v1/users/&lt;identifier&gt;</title><style>body{font:15px system-ui;margin:32px;background:#f4f5f7;color:#202631}main{max-width:1250px;margin:auto}h1{color:#8e2434;font-size:26px}small{color:#556}a{color:#8e2434}table{border-collapse:collapse;width:100%;background:white}td,th{padding:9px;border:1px solid #ccd;vertical-align:top;text-align:left}pre{white-space:pre-wrap;word-break:break-word;background:#fff;border:1px solid #ccd;padding:12px;font:12px monospace;max-height:300px;overflow:auto}section{margin:20px 0}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.tag{padding:4px 9px;background:#e5ece7}.error{background:#f8e5e6}input{padding:12px;width:70%;margin:15px 0}details{margin:12px 0}nav{margin-bottom:20px}</style><main><nav><a href="../index.html">Inventario completo</a></nav><h1>identidad_acceso · PATCH /api/v1/users/&lt;identifier&gt;</h1><p>Activar/desactivar cuenta; invalidar permisos antes del cambio</p><p>Registro de ejecución real. Credenciales y firmas redactadas. Los cuerpos completos están en el JSON enlazado.</p><section><h2>HTTP 200</h2><p><b>2026-10-19T16:43:05.135672+00:00</b> · versión 0.3.0</p><p>Correlación: 1b6bab30-005a-4521-8f4a-ae7f95af992e<br>URL: http://127.0.0.1:56258/api/v1/users/84535151-2653-4c3a-9757-9f539c22182e</p><p><a href="../records/fef08292076103f76e4e27db.json">Petición, respuesta, headers y persistencia completos</a></p><div class="grid"><div><h3>Petición</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Host&quot;: &quot;127.0.0.1:56258&quot;,
+    &quot;User-Agent&quot;: &quot;python-requests/2.34.2&quot;,
+    &quot;Accept-Encoding&quot;: &quot;gzip, deflate, br&quot;,
+    &quot;Accept&quot;: &quot;application/json&quot;,
+    &quot;Connection&quot;: &quot;keep-alive&quot;,
+    &quot;Idempotency-Key&quot;: &quot;5574d0a56c064228b72bc67e9ed8a391&quot;,
+    &quot;Authorization&quot;: &quot;[REDACTED]&quot;,
+    &quot;Content-Length&quot;: &quot;31&quot;,
+    &quot;Content-Type&quot;: &quot;application/json&quot;
+  },
+  &quot;parameters&quot;: {},
+  &quot;body&quot;: {
+    &quot;active&quot;: false,
+    &quot;version&quot;: 1
+  }
+}</pre></div><div><h3>Respuesta</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Content-Type&quot;: &quot;application/json&quot;,
+    &quot;Content-Length&quot;: &quot;366&quot;,
+    &quot;X-Correlation-ID&quot;: &quot;1b6bab30-005a-4521-8f4a-ae7f95af992e&quot;,
+    &quot;Cache-Control&quot;: &quot;no-store&quot;,
+    &quot;X-Content-Type-Options&quot;: &quot;nosniff&quot;,
+    &quot;Referrer-Policy&quot;: &quot;no-referrer&quot;
+  },
+  &quot;body&quot;: {
+    &quot;data&quot;: {
+      &quot;id&quot;: &quot;84535151-2653-4c3a-9757-9f539c22182e&quot;,
+      &quot;tenant_id&quot;: &quot;a0920053-13c5-4d42-b53e-74b35a779f58&quot;,
+      &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+      &quot;username&quot;: &quot;fenced_15b122372cc8&quot;,
+      &quot;role&quot;: &quot;MEDICAL&quot;,
+      &quot;active&quot;: false,
+      &quot;version&quot;: 2
+    },
+    &quot;meta&quot;: {
+      &quot;correlation_id&quot;: &quot;1b6bab30-005a-4521-8f4a-ae7f95af992e&quot;,
+      &quot;service&quot;: &quot;identidad_acceso&quot;,
+      &quot;version&quot;: &quot;0.3.0&quot;
+    }
+  }
+}</pre></div></div><details><summary>Persistencia y versión de implementación</summary><pre>{
+  &quot;effect&quot;: &quot;committed&quot;,
+  &quot;store&quot;: &quot;PostgreSQL red_house&quot;,
+  &quot;query&quot;: &quot;SELECT operation,fingerprint,result FROM idempotency WHERE user_id=:actor AND key=:idempotency_key&quot;,
+  &quot;row&quot;: {
+    &quot;operation&quot;: &quot;user_state:84535151-2653-4c3a-9757-9f539c22182e&quot;,
+    &quot;fingerprint&quot;: &quot;43e1acbbfcac7332d80ce791cc0c7e899f83eedc1e7c7b786e0f4a8a15028769&quot;,
+    &quot;result&quot;: {
+      &quot;id&quot;: &quot;84535151-2653-4c3a-9757-9f539c22182e&quot;,
+      &quot;role&quot;: &quot;MEDICAL&quot;,
+      &quot;active&quot;: false,
+      &quot;version&quot;: 2,
+      &quot;username&quot;: &quot;fenced_15b122372cc8&quot;,
+      &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+      &quot;tenant_id&quot;: &quot;a0920053-13c5-4d42-b53e-74b35a779f58&quot;
+    }
+  }
+}</pre><p>SHA-256: b82acfc07e7ff0221196c291a52b1986e4d1ac69b3f6769bffe29f4a02fa5c9b</p></details></section><section><h2>HTTP 401</h2><p><b>2026-10-19T16:28:05.563202+00:00</b> · versión 0.3.0</p><p>Correlación: 317f20f1-60f9-4261-8225-2d908e5ee759<br>URL: http://127.0.0.1:56258/api/v1/users/8f5b71d7-afba-4f38-80b7-4eb2bf84aab8</p><p><a href="../records/6b7cec896beab4682620ca16.json">Petición, respuesta, headers y persistencia completos</a></p><div class="grid"><div><h3>Petición</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Host&quot;: &quot;127.0.0.1:56258&quot;,
+    &quot;User-Agent&quot;: &quot;python-requests/2.34.2&quot;,
+    &quot;Accept-Encoding&quot;: &quot;gzip, deflate, br&quot;,
+    &quot;Accept&quot;: &quot;application/xml&quot;,
+    &quot;Connection&quot;: &quot;keep-alive&quot;,
+    &quot;Idempotency-Key&quot;: &quot;708fb7ca97f94016a375fc8e179b7e5b&quot;,
+    &quot;Content-Length&quot;: &quot;2&quot;,
+    &quot;Content-Type&quot;: &quot;application/json&quot;
+  },
+  &quot;parameters&quot;: {},
+  &quot;body&quot;: {}
+}</pre></div><div><h3>Respuesta</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Content-Type&quot;: &quot;application/xml; charset=utf-8&quot;,
+    &quot;Content-Length&quot;: &quot;510&quot;,
+    &quot;X-Correlation-ID&quot;: &quot;317f20f1-60f9-4261-8225-2d908e5ee759&quot;,
+    &quot;Cache-Control&quot;: &quot;no-store&quot;,
+    &quot;X-Content-Type-Options&quot;: &quot;nosniff&quot;,
+    &quot;Referrer-Policy&quot;: &quot;no-referrer&quot;
+  },
+  &quot;body&quot;: &quot;&lt;response type=\&quot;object\&quot;&gt;&lt;field name=\&quot;error\&quot; type=\&quot;object\&quot;&gt;&lt;field name=\&quot;code\&quot; type=\&quot;string\&quot;&gt;unauthorized&lt;/field&gt;&lt;field name=\&quot;message\&quot; type=\&quot;string\&quot;&gt;JWT de acceso requerido.&lt;/field&gt;&lt;field name=\&quot;details\&quot; type=\&quot;array\&quot;/&gt;&lt;/field&gt;&lt;field name=\&quot;meta\&quot; type=\&quot;object\&quot;&gt;&lt;field name=\&quot;correlation_id\&quot; type=\&quot;string\&quot;&gt;317f20f1-60f9-4261-8225-2d908e5ee759&lt;/field&gt;&lt;field name=\&quot;service\&quot; type=\&quot;string\&quot;&gt;identidad_acceso&lt;/field&gt;&lt;field name=\&quot;version\&quot; type=\&quot;string\&quot;&gt;0.3.0&lt;/field&gt;&lt;/field&gt;&lt;/response&gt;&quot;
+}</pre></div></div><details><summary>Persistencia y versión de implementación</summary><pre>{
+  &quot;effect&quot;: &quot;controlled_error&quot;,
+  &quot;note&quot;: &quot;No se infiere ausencia de efectos de un error; revisar correlación y estado de operación.&quot;
+}</pre><p>SHA-256: b82acfc07e7ff0221196c291a52b1986e4d1ac69b3f6769bffe29f4a02fa5c9b</p></details></section><h2>Todas las variantes ejecutadas</h2><ul><li><a href="../records/6b7cec896beab4682620ca16.json">401 · http · application/xml; charset=utf-8 · 2026-10-19T16:28:05.563202+00:00</a></li><li><a href="../records/72f802440ceb4f8c62c330c9.json">401 · http · application/json · 2026-10-19T16:28:05.531636+00:00</a></li><li><a href="../records/fef08292076103f76e4e27db.json">200 · http · application/json · 2026-10-19T16:43:05.135672+00:00</a></li><li><a href="../records/5e08a9d989c5da8aa0c5457d.json">503 · http · application/json · 2026-10-19T16:39:23.119502+00:00</a></li></ul></main></html>

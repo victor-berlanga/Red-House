@@ -1,0 +1,80 @@
+{
+  "captured_at": "2026-10-19T16:26:35.140869+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "1a8dccae105e0c261a0273a99f999923c88cbf235f750f80f0ac2f487c8b6654",
+  "transport": "embedded",
+  "method": "POST",
+  "route": "/api/v1/donations/<identifier>/steps",
+  "objective": "Documentar procesamiento o rechazo; no infiere elegibilidad clínica",
+  "url": "http://localhost/api/v1/donations/36590df8-2f8e-48ae-82ae-34d2f2afee97/steps",
+  "parameters": {},
+  "path_parameters": {
+    "identifier": "36590df8-2f8e-48ae-82ae-34d2f2afee97"
+  },
+  "request_headers": {
+    "Host": "localhost",
+    "Content-Type": "application/json",
+    "Content-Length": "112",
+    "Accept": "application/json",
+    "X-Correlation-Id": "f98bf663-b365-4009-8700-3ed9f6afd41f",
+    "Authorization": "[REDACTED]",
+    "Idempotency-Key": "f1c923a9f9dc4601b72ac7d31d69a793"
+  },
+  "request_body": {
+    "state": "PROCESSED",
+    "version": 1,
+    "reason": "Procesamiento ficticio documentado",
+    "human_confirmation": true
+  },
+  "status": 200,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "469",
+    "X-Correlation-ID": "f98bf663-b365-4009-8700-3ed9f6afd41f",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "data": {
+      "id": "36590df8-2f8e-48ae-82ae-34d2f2afee97",
+      "donor_id": "3cb9c304-3ac6-4955-bad8-d39fd2fdba05",
+      "tenant_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+      "kind": "BLOOD",
+      "component": "RBC",
+      "blood_group": "O+",
+      "collected_at": "2026-10-19T16:26:33.327680+00:00",
+      "status": "PROCESSED",
+      "version": 2,
+      "created_at": "2026-10-19T16:26:34.067100+00:00"
+    },
+    "meta": {
+      "correlation_id": "f98bf663-b365-4009-8700-3ed9f6afd41f",
+      "service": "donantes",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "f98bf663-b365-4009-8700-3ed9f6afd41f",
+  "persistence": {
+    "effect": "committed",
+    "store": "PostgreSQL red_house",
+    "query": "SELECT operation,fingerprint,result FROM idempotency WHERE user_id=:actor AND key=:idempotency_key",
+    "row": {
+      "operation": "donation_step:36590df8-2f8e-48ae-82ae-34d2f2afee97",
+      "fingerprint": "6ce1785376863f9b443d2cb7d0b86c9bb31c6e625a957963e6f839a0c3d81b86",
+      "result": {
+        "id": "36590df8-2f8e-48ae-82ae-34d2f2afee97",
+        "kind": "BLOOD",
+        "status": "PROCESSED",
+        "version": 2,
+        "donor_id": "3cb9c304-3ac6-4955-bad8-d39fd2fdba05",
+        "component": "RBC",
+        "tenant_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+        "created_at": "2026-10-19T16:26:34.067100+00:00",
+        "blood_group": "O+",
+        "collected_at": "2026-10-19T16:26:33.327680+00:00"
+      }
+    }
+  }
+}

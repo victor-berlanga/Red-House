@@ -1,0 +1,39 @@
+{
+  "captured_at": "2026-10-19T16:28:26.970183+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "864e3dda7901fd4edb3082758390ed9006bf1eeb509502b67d2009709a43ddd8",
+  "transport": "http",
+  "method": "GET",
+  "route": "/api/v1/chains/<identifier>",
+  "objective": "Consultar cadena; hash detecta alteraciones, no certifica veracidad física",
+  "url": "http://127.0.0.1:56265/api/v1/chains/a12ebf9e-9a64-4e5d-ab57-843066be1918",
+  "parameters": {},
+  "path_parameters": {
+    "identifier": "a12ebf9e-9a64-4e5d-ab57-843066be1918"
+  },
+  "request_headers": {
+    "Host": "127.0.0.1:56265",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/xml",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "bd809eda0f8f401186278c89a1489498"
+  },
+  "request_body": "",
+  "status": 401,
+  "response_headers": {
+    "Content-Type": "application/xml; charset=utf-8",
+    "Content-Length": "502",
+    "X-Correlation-ID": "e98b461c-6554-464d-bcb8-893ff5afd265",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": "<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">unauthorized</field><field name=\"message\" type=\"string\">JWT de acceso requerido.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">e98b461c-6554-464d-bcb8-893ff5afd265</field><field name=\"service\" type=\"string\">custodia</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>",
+  "correlation_id": "e98b461c-6554-464d-bcb8-893ff5afd265",
+  "persistence": {
+    "effect": "controlled_error",
+    "note": "No se infiere ausencia de efectos de un error; revisar correlación y estado de operación."
+  }
+}

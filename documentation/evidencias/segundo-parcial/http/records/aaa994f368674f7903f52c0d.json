@@ -1,0 +1,48 @@
+{
+  "captured_at": "2026-10-19T18:31:07.051399+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "b8204c203189de890c197ffcc608103454231faa36b5def1b043c829582fb590",
+  "transport": "http",
+  "method": "GET",
+  "route": "/health/ready",
+  "objective": "ready",
+  "url": "http://127.0.0.1:60906/health/ready",
+  "parameters": {},
+  "path_parameters": {},
+  "request_headers": {
+    "Host": "127.0.0.1:60906",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "text/plain",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "e07bfc847167431b941fa7a00d08eb6a"
+  },
+  "request_body": "",
+  "status": 406,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "223",
+    "X-Correlation-ID": "da849f29-c4db-4f9f-9bb5-d972b2c5ae20",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "error": {
+      "code": "not_acceptable",
+      "message": "Solicita application/json o application/xml.",
+      "details": []
+    },
+    "meta": {
+      "correlation_id": "da849f29-c4db-4f9f-9bb5-d972b2c5ae20",
+      "service": "monitoreo",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "da849f29-c4db-4f9f-9bb5-d972b2c5ae20",
+  "persistence": {
+    "effect": "controlled_error",
+    "note": "No se infiere ausencia de efectos de un error; revisar correlación y estado de operación."
+  }
+}

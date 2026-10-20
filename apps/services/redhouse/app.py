@@ -136,8 +136,11 @@ def base_app(service, config=None):
                     return {"state": "not_configured", "required": False}
                 from .storage import bucket
 
-                if not bucket().exists(timeout=2):
-                    raise RuntimeError("bucket_unavailable")
+                # Object-level runtime permissions suffice; no bucket-admin role.
+                next(
+                    iter(bucket().list_blobs(max_results=1, timeout=2, retry=None)),
+                    None,
+                )
                 return {"state": "up", "required": True}
             elif name == "worker":
                 if not app.config.get("WORKER_REQUIRED", False):
@@ -219,4 +222,13 @@ def complete_app(app):
     from .openapi import install
 
     install(app)
+    import os
+
+    evidence = app.config.get("HTTP_EVIDENCE_DIRECTORY") or os.environ.get(
+        "REDHOUSE_HTTP_EVIDENCE"
+    )
+    if evidence:
+        from .evidence import install as capture
+
+        capture(app, evidence)
     return app

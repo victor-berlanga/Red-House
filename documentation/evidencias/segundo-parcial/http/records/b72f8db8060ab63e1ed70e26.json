@@ -1,0 +1,45 @@
+{
+  "captured_at": "2026-10-19T18:31:05.496949+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "f1a9056ec92eb7006810957e59fb326815b25003ea30d5ed1de2439e7ed8f42a",
+  "transport": "http",
+  "method": "GET",
+  "route": "/health/mongodb",
+  "objective": "health_mongodb",
+  "url": "http://127.0.0.1:60905/health/mongodb",
+  "parameters": {},
+  "path_parameters": {},
+  "request_headers": {
+    "Host": "127.0.0.1:60905",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "e235bb83020a49e5b81d1f3c44612325"
+  },
+  "request_body": "",
+  "status": 503,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "130",
+    "X-Correlation-ID": "7cba477c-2a0d-4f1f-bf5b-6bc2b483cb2d",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "data": {
+      "state": "down",
+      "error": "dependency_unavailable"
+    },
+    "meta": {
+      "correlation_id": "7cba477c-2a0d-4f1f-bf5b-6bc2b483cb2d"
+    }
+  },
+  "correlation_id": "7cba477c-2a0d-4f1f-bf5b-6bc2b483cb2d",
+  "persistence": {
+    "effect": "controlled_error",
+    "note": "No se infiere ausencia de efectos de un error; revisar correlación y estado de operación."
+  }
+}

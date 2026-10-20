@@ -1,0 +1,10 @@
+{
+  "date": "2026-10-19T13:16:41.003310+00:00",
+  "checks": [
+    {
+      "check": "execution",
+      "status": "failed",
+      "error": "('identidad_acceso', '/api/v1/auth/login', 503, '{\"error\": {\"code\": \"database_unavailable\", \"message\": \"Almacenamiento temporalmente inaccesible.\", \"details\": []}, \"meta\": {\"correlation_id\": \"83318cf9-ec75-4664-85b4-cd57976204d1\", \"service\": \"identidad_acceso\", \"version\": \"0.3.0\"}}')"
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "captured_at": "2026-10-19T16:28:23.540973+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "e7eb0044cb5544477c1a4b79a264977e16ddd17c216e8a88ed6d187af95af791",
+  "transport": "http",
+  "method": "GET",
+  "route": "/docs/",
+  "objective": "bp_docs.swagger_blueprint_doc_handler",
+  "url": "http://127.0.0.1:56264/docs/",
+  "parameters": {},
+  "path_parameters": {},
+  "request_headers": {
+    "Host": "127.0.0.1:56264",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "ef556b19f95c428b9ae3f1ccc5227701"
+  },
+  "request_body": "",
+  "status": 200,
+  "response_headers": {
+    "Content-Type": "text/html; charset=utf-8",
+    "Content-Length": "1386",
+    "X-Correlation-ID": "143e7761-15ab-4ea9-bbc4-1b8fe44c5c61",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": "<!-- HTML for static distribution bundle build -->\n<!DOCTYPE html>\n<html lang=\"en\">\n    <head>\n        <meta charset=\"UTF-8\">\n        <title>Red House — transporte</title>\n        <link rel=\"stylesheet\"\n              type=\"text/css\"\n              href=\"/docs/static/swagger-ui.css\" />\n        <link rel=\"stylesheet\"\n              type=\"text/css\"\n              href=\"/docs/static/index.css\" />\n        <link rel=\"icon\"\n              type=\"image/png\"\n              href=\"/docs/static/favicon-32x32.png\"\n              sizes=\"32x32\" />\n        <link rel=\"icon\"\n              type=\"image/png\"\n              href=\"/docs/static/favicon-16x16.png\"\n              sizes=\"16x16\" />\n        \n    </head>\n    <body>\n        <div id=\"swagger-ui\"></div>\n        <script src=\"/docs/static/swagger-ui-bundle.js\" charset=\"UTF-8\"> </script>\n        <script src=\"/docs/static/swagger-ui-standalone-preset.js\"\n                charset=\"UTF-8\"></script>\n        <script>\nwindow.onload = function() {\n    const ui = SwaggerUIBundle({\n        dom_id: \"#swagger-ui\",\n        deepLinking: true,\n        displayRequestDuration: true,\n        layout: \"StandaloneLayout\",\n        plugins: [SwaggerUIBundle.plugins.DownloadUrl],\n        presets: [SwaggerUIBundle.presets.apis, SwaggerUIStandalonePreset],\n        url: \"/docs/swagger.json\",\n    });\n\n    \n\n    window.ui = ui;\n};\n        </script>\n    </body>\n</html>",
+  "correlation_id": "143e7761-15ab-4ea9-bbc4-1b8fe44c5c61",
+  "persistence": {
+    "effect": "read",
+    "note": "Consulta; accesos protegidos generan auditoría local transaccional."
+  }
+}

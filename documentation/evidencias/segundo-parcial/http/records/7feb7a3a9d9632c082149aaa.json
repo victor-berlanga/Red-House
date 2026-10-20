@@ -1,0 +1,62 @@
+{
+  "captured_at": "2026-10-19T16:39:28.309380+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "6eac28b3c6355ff29f1aabe6ed2aa76b6e104ed4888482a02b3967184783afa9",
+  "transport": "http",
+  "method": "PATCH",
+  "route": "/api/v1/resources/<identifier>",
+  "objective": "Corregir unidad antes de liberación clínica",
+  "url": "http://127.0.0.1:56261/api/v1/resources/a76a231c-63e5-4425-b974-f57f86097698",
+  "parameters": {},
+  "path_parameters": {
+    "identifier": "a76a231c-63e5-4425-b974-f57f86097698"
+  },
+  "request_headers": {
+    "Host": "127.0.0.1:56261",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "f73215ef27474d8183c80837cedaaebb",
+    "Authorization": "[REDACTED]",
+    "Content-Length": "243",
+    "Content-Type": "application/json"
+  },
+  "request_body": {
+    "folio": "EDIT-ddee323727ae",
+    "kind": "BLOOD",
+    "component": "RBC",
+    "blood_group": "O-",
+    "expires_at": "2026-10-21T16:39:27.754243+00:00",
+    "human_confirmation": true,
+    "reason": "Corrección ficticia con revisión humana",
+    "version": 1
+  },
+  "status": 409,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "205",
+    "X-Correlation-ID": "2b7f26a4-2317-4b66-81ed-c3c431d22eaf",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "error": {
+      "code": "conflict",
+      "message": "Recurso obsoleto o ya liberado.",
+      "details": []
+    },
+    "meta": {
+      "correlation_id": "2b7f26a4-2317-4b66-81ed-c3c431d22eaf",
+      "service": "inventario",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "2b7f26a4-2317-4b66-81ed-c3c431d22eaf",
+  "persistence": {
+    "effect": "controlled_error",
+    "note": "No se infiere ausencia de efectos de un error; revisar correlación y estado de operación."
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "captured_at": "2026-10-19T16:28:27.714352+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "bfa44d7f9eed353dec3bafc8b15f8c356f1d5755eda053077cae211dc4490657",
+  "transport": "http",
+  "method": "GET",
+  "route": "/schemas/<name>.xsd",
+  "objective": "schema",
+  "url": "http://127.0.0.1:56266/schemas/missing.xsd",
+  "parameters": {},
+  "path_parameters": {
+    "name": "missing"
+  },
+  "request_headers": {
+    "Host": "127.0.0.1:56266",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "587c0e2ff4024dfcba1c8a16c271067e"
+  },
+  "request_body": "",
+  "status": 404,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "192",
+    "X-Correlation-ID": "4a004647-ba67-42a7-ab23-17b9a13f77a3",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "error": {
+      "code": "not_found",
+      "message": "Esquema inexistente.",
+      "details": []
+    },
+    "meta": {
+      "correlation_id": "4a004647-ba67-42a7-ab23-17b9a13f77a3",
+      "service": "alertas",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "4a004647-ba67-42a7-ab23-17b9a13f77a3",
+  "persistence": {
+    "effect": "controlled_error",
+    "note": "No se infiere ausencia de efectos de un error; revisar correlación y estado de operación."
+  }
+}

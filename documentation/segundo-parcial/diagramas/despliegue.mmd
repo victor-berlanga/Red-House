@@ -1,0 +1,20 @@
+flowchart LR
+ B[Navegador local] -->|6050| W[Web sin privilegios]
+ C[Clientes API de prueba] -->|6101 a 6111| G[Gateway]
+ subgraph Host[Host Docker de demostración]
+  subgraph Data[Red interna data]
+   A[Instancias A: once API y workers]
+   D[Instancias B: once API y workers]
+   P[(PostgreSQL y volumen propio)]
+   M[(MongoDB y volumen propio)]
+   R[(Redis y volumen propio)]
+  end
+  G --> A & D
+  W --> P & M & R
+  A --> P & M & R
+  D --> P & M & R
+  S[Secretos externos a imágenes] -.-> W & A & D
+ end
+ W -->|HTTPS| O[GCS privado]
+ A -->|Transporte HTTPS| O
+ D -->|Transporte HTTPS| O

@@ -1,0 +1,70 @@
+{
+  "captured_at": "2026-10-19T16:34:06.029770+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "b82acfc07e7ff0221196c291a52b1986e4d1ac69b3f6769bffe29f4a02fa5c9b",
+  "transport": "http",
+  "method": "POST",
+  "route": "/api/v1/institutions",
+  "objective": "Registrar institución de la región",
+  "url": "http://127.0.0.1:56258/api/v1/institutions",
+  "parameters": {},
+  "path_parameters": {},
+  "request_headers": {
+    "Host": "127.0.0.1:56258",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "X-Correlation-Id": "db981727-935b-4638-86fe-a71886adc60b",
+    "Authorization": "[REDACTED]",
+    "Idempotency-Key": "85d5555476314128936e313805a288ab",
+    "Content-Type": "application/json",
+    "Content-Length": "33"
+  },
+  "request_body": {
+    "name": "Hospital Web 14c16141"
+  },
+  "status": 201,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "345",
+    "X-Correlation-ID": "db981727-935b-4638-86fe-a71886adc60b",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "data": {
+      "id": "47ca97d7-2e0c-4730-ae78-b24ce2f2fa37",
+      "name": "Hospital Web 14c16141",
+      "region_id": "7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb",
+      "active": true,
+      "created_by": "575f0812-36fb-451f-b643-91b934c9ce73",
+      "version": 1
+    },
+    "meta": {
+      "correlation_id": "db981727-935b-4638-86fe-a71886adc60b",
+      "service": "identidad_acceso",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "db981727-935b-4638-86fe-a71886adc60b",
+  "persistence": {
+    "effect": "committed",
+    "store": "PostgreSQL red_house",
+    "query": "SELECT operation,fingerprint,result FROM idempotency WHERE user_id=:actor AND key=:idempotency_key",
+    "row": {
+      "operation": "institution_create",
+      "fingerprint": "3291e230a9b8074e80f4b103ec0b1a3a2654bd09d9ee6e50157d1c140da7fdc6",
+      "result": {
+        "id": "47ca97d7-2e0c-4730-ae78-b24ce2f2fa37",
+        "name": "Hospital Web 14c16141",
+        "active": true,
+        "version": 1,
+        "region_id": "7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb",
+        "created_by": "575f0812-36fb-451f-b643-91b934c9ce73"
+      }
+    }
+  }
+}

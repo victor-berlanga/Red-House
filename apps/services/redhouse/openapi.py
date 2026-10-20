@@ -35,6 +35,7 @@ ERROR = {
 def spec(app):
     from .examples import EXAMPLE_ID, request_xml, response_xml, sample
 
+    prefix = app.config.get("PUBLIC_API_PREFIX", "")
     paths, schemas = {}, {"Error": ERROR}
     for contract in app.extensions["contracts"]:
         path = re.sub(r"<(?:(?:[^:>]+):)?([^>]+)>", r"{\1}", contract["path"])
@@ -175,14 +176,40 @@ def spec(app):
                             "schema": {"type": "string"},
                             "example": response_xml(example),
                             "x-json-equivalent-schema": schema,
-                            "x-xsd": "/schemas/response.xsd",
-                            "x-response-schema": f"/schemas/{contract['name']}.response.json",
+                            "x-xsd": prefix + "/schemas/response.xsd",
+                            "x-response-schema": f"{prefix}/schemas/{contract['name']}.response.json",
                         },
                     },
                 }
             },
         }
         for status in (400, 401, 403, 404, 406, 409, 413, 415, 422, 429, 500, 503):
+            error_example = {
+                "error": {
+                    "code": {
+                        400: "validation",
+                        401: "unauthorized",
+                        403: "forbidden",
+                        404: "not_found",
+                        406: "not_acceptable",
+                        409: "conflict",
+                        413: "http_error",
+                        415: "unsupported_media",
+                        422: "validation",
+                        429: "rate_limit",
+                        500: "internal_error",
+                        503: "dependency_unavailable",
+                    }[status],
+                    "message": {
+                        401: "Credencial inválida, expirada o revocada.",
+                        403: "Sin permiso institucional o de recurso.",
+                        409: "Conflicto de estado, versión o idempotencia.",
+                        503: "Dependencia inaccesible; consultar estado antes de repetir.",
+                    }.get(status, "Petición no disponible o inválida."),
+                    "details": [],
+                },
+                "meta": example["meta"],
+            }
             operation["responses"][str(status)] = {
                 "description": {
                     401: "Credencial inválida, expirada o revocada.",
@@ -192,9 +219,13 @@ def spec(app):
                 }.get(status, "Error uniforme."),
                 "content": {
                     "application/json": {
-                        "schema": {"$ref": "#/components/schemas/Error"}
+                        "schema": {"$ref": "#/components/schemas/Error"},
+                        "example": error_example,
                     },
-                    "application/xml": {"schema": {"type": "string"}},
+                    "application/xml": {
+                        "schema": {"type": "string"},
+                        "example": response_xml(error_example),
+                    },
                 },
             }
         if contract["model"]:
@@ -215,7 +246,7 @@ def spec(app):
                     "application/xml": {
                         "schema": {"type": "string"},
                         "example": request_xml(input_example),
-                        "x-xsd": f"/schemas/{contract['name']}.xsd",
+                        "x-xsd": f"{prefix}/schemas/{contract['name']}.xsd",
                         "x-json-equivalent-schema": {
                             "$ref": f"#/components/schemas/{model.__name__}"
                         },
@@ -223,7 +254,7 @@ def spec(app):
                 },
             }
         paths.setdefault(path, {})[contract["method"].lower()] = operation
-    return {
+    document = {
         "openapi": "3.1.0",
         "info": {
             "title": "Red House — " + app.config["SERVICE"],
@@ -248,6 +279,9 @@ def spec(app):
             },
         },
     }
+    if prefix:
+        document["servers"] = [{"url": prefix}]
+    return document
 
 
 def install(app):
@@ -303,7 +337,7 @@ def install(app):
     api_doc(
         app,
         config=spec(app),
-        url_prefix="/docs",
+        url_prefix=app.config.get("PUBLIC_API_PREFIX", "") + "/docs",
         host_inject=False,
         title="Red House — " + app.config["SERVICE"],
     )

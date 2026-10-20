@@ -1,0 +1,119 @@
+{
+  "captured_at": "2026-10-19T16:26:32.425770+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "1a8dccae105e0c261a0273a99f999923c88cbf235f750f80f0ac2f487c8b6654",
+  "transport": "embedded",
+  "method": "GET",
+  "route": "/api/v1/donors",
+  "objective": "Expedientes autorizados",
+  "url": "http://localhost/api/v1/donors?page=1&page_size=20",
+  "parameters": {
+    "page": "1",
+    "page_size": "20"
+  },
+  "path_parameters": {},
+  "request_headers": {
+    "Host": "localhost",
+    "Accept": "application/json",
+    "X-Correlation-Id": "9b0ee21a-50ca-4367-9f12-5e1794e10b0c",
+    "Authorization": "[REDACTED]"
+  },
+  "request_body": "",
+  "status": 200,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "1894",
+    "X-Correlation-ID": "9b0ee21a-50ca-4367-9f12-5e1794e10b0c",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "data": {
+      "items": [
+        {
+          "id": "3cb9c304-3ac6-4955-bad8-d39fd2fdba05",
+          "tenant_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+          "user_id": null,
+          "folio": "DON-WEB-a91ade2864",
+          "display_name": "Daniela Salinas Cavazos",
+          "blood_group": "O+",
+          "consent": true,
+          "status": "ELIGIBLE",
+          "version": 2,
+          "created_at": "2026-10-19T16:26:30.053409+00:00",
+          "restrictions": null,
+          "background": null,
+          "donation_kind": null,
+          "consent_reference": null,
+          "consent_at": null
+        },
+        {
+          "id": "f22c0c58-7637-4299-a931-8b60a2a6df76",
+          "tenant_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+          "user_id": null,
+          "folio": "CAPACITY-0246addd49",
+          "display_name": "Donante ficticio para cupo",
+          "blood_group": "O+",
+          "consent": true,
+          "status": "PRELIMINARY",
+          "version": 1,
+          "created_at": "2026-10-19T16:22:10.792522+00:00",
+          "restrictions": null,
+          "background": null,
+          "donation_kind": null,
+          "consent_reference": null,
+          "consent_at": null
+        },
+        {
+          "id": "c919c566-c25b-4f48-a94d-1a336e59a65d",
+          "tenant_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+          "user_id": null,
+          "folio": "CAPACITY-f0aefe0126",
+          "display_name": "Donante ficticio para cupo",
+          "blood_group": "O+",
+          "consent": true,
+          "status": "PRELIMINARY",
+          "version": 1,
+          "created_at": "2026-10-19T16:22:10.598480+00:00",
+          "restrictions": null,
+          "background": null,
+          "donation_kind": null,
+          "consent_reference": null,
+          "consent_at": null
+        },
+        {
+          "id": "de7e1a18-0098-48bf-91be-796e1e2ca0de",
+          "tenant_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+          "user_id": null,
+          "folio": "SOURCE-b50993c6fc",
+          "display_name": "Procedencia ficticia",
+          "blood_group": "O-",
+          "consent": true,
+          "status": "ELIGIBLE",
+          "version": 2,
+          "created_at": "2026-10-19T16:22:08.902649+00:00",
+          "restrictions": null,
+          "background": null,
+          "donation_kind": null,
+          "consent_reference": null,
+          "consent_at": null
+        }
+      ],
+      "page": 1,
+      "page_size": 20,
+      "total": 4
+    },
+    "meta": {
+      "correlation_id": "9b0ee21a-50ca-4367-9f12-5e1794e10b0c",
+      "service": "donantes",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "9b0ee21a-50ca-4367-9f12-5e1794e10b0c",
+  "persistence": {
+    "effect": "read",
+    "note": "Consulta; accesos protegidos generan auditoría local transaccional."
+  }
+}

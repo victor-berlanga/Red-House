@@ -1,0 +1,65 @@
+<!doctype html><html lang="es"><meta charset="utf-8"><title>transporte /internal/v1/shipments/&lt;identifier&gt;/access</title><style>body{font:15px system-ui;margin:32px;background:#f4f5f7;color:#202631}main{max-width:1250px;margin:auto}h1{color:#8e2434;font-size:26px}small{color:#556}a{color:#8e2434}table{border-collapse:collapse;width:100%;background:white}td,th{padding:9px;border:1px solid #ccd;vertical-align:top;text-align:left}pre{white-space:pre-wrap;word-break:break-word;background:#fff;border:1px solid #ccd;padding:12px;font:12px monospace;max-height:300px;overflow:auto}section{margin:20px 0}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.tag{padding:4px 9px;background:#e5ece7}.error{background:#f8e5e6}input{padding:12px;width:70%;margin:15px 0}details{margin:12px 0}nav{margin-bottom:20px}</style><main><nav><a href="../index.html">Inventario completo</a></nav><h1>transporte · GET /internal/v1/shipments/&lt;identifier&gt;/access</h1><p>Autorizar consulta de custodia por asignación logística</p><p>Registro de ejecución real. Credenciales y firmas redactadas. Los cuerpos completos están en el JSON enlazado.</p><section><h2>HTTP 200</h2><p><b>2026-10-19T16:31:15.420667+00:00</b> · versión 0.3.0</p><p>Correlación: 76140ac4-3b26-4c30-8ba1-a24c26750010<br>URL: http://127.0.0.1:56264/internal/v1/shipments/beb48ef1-cb8d-41b5-8ab7-3d80dd76c3b9/access</p><p><a href="../records/eba1b54f82ef8ba7b55c61ed.json">Petición, respuesta, headers y persistencia completos</a></p><div class="grid"><div><h3>Petición</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Host&quot;: &quot;127.0.0.1:56264&quot;,
+    &quot;User-Agent&quot;: &quot;python-requests/2.34.2&quot;,
+    &quot;Accept-Encoding&quot;: &quot;gzip, deflate, br&quot;,
+    &quot;Accept&quot;: &quot;application/json&quot;,
+    &quot;Connection&quot;: &quot;keep-alive&quot;,
+    &quot;Content-Type&quot;: &quot;application/json&quot;,
+    &quot;X-Service&quot;: &quot;custodia&quot;,
+    &quot;X-Service-Time&quot;: &quot;1792427475&quot;,
+    &quot;X-Service-Nonce&quot;: &quot;fe59112c-2168-4843-82dc-a1fa4b9905e8&quot;,
+    &quot;X-Service-Signature&quot;: &quot;[REDACTED]&quot;,
+    &quot;X-Correlation-Id&quot;: &quot;76140ac4-3b26-4c30-8ba1-a24c26750010&quot;,
+    &quot;Authorization&quot;: &quot;[REDACTED]&quot;
+  },
+  &quot;parameters&quot;: {},
+  &quot;body&quot;: &quot;[Invalid JSON omitted; sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855]&quot;
+}</pre></div><div><h3>Respuesta</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Content-Type&quot;: &quot;application/json&quot;,
+    &quot;Content-Length&quot;: &quot;189&quot;,
+    &quot;X-Correlation-ID&quot;: &quot;76140ac4-3b26-4c30-8ba1-a24c26750010&quot;,
+    &quot;Cache-Control&quot;: &quot;no-store&quot;,
+    &quot;X-Content-Type-Options&quot;: &quot;nosniff&quot;,
+    &quot;Referrer-Policy&quot;: &quot;no-referrer&quot;
+  },
+  &quot;body&quot;: {
+    &quot;data&quot;: {
+      &quot;authorized&quot;: true,
+      &quot;id&quot;: &quot;beb48ef1-cb8d-41b5-8ab7-3d80dd76c3b9&quot;
+    },
+    &quot;meta&quot;: {
+      &quot;correlation_id&quot;: &quot;76140ac4-3b26-4c30-8ba1-a24c26750010&quot;,
+      &quot;service&quot;: &quot;transporte&quot;,
+      &quot;version&quot;: &quot;0.3.0&quot;
+    }
+  }
+}</pre></div></div><details><summary>Persistencia y versión de implementación</summary><pre>{
+  &quot;effect&quot;: &quot;read&quot;,
+  &quot;note&quot;: &quot;Consulta; accesos protegidos generan auditoría local transaccional.&quot;
+}</pre><p>SHA-256: e7eb0044cb5544477c1a4b79a264977e16ddd17c216e8a88ed6d187af95af791</p></details></section><section><h2>HTTP 401</h2><p><b>2026-10-19T16:28:24.761883+00:00</b> · versión 0.3.0</p><p>Correlación: aa69460d-9780-495d-ba99-996917ad3c83<br>URL: http://127.0.0.1:56264/internal/v1/shipments/e4a93754-d7c6-418d-86ec-2830c6b5ddba/access</p><p><a href="../records/c1862b5ad0dc9f8c7cf5678d.json">Petición, respuesta, headers y persistencia completos</a></p><div class="grid"><div><h3>Petición</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Host&quot;: &quot;127.0.0.1:56264&quot;,
+    &quot;User-Agent&quot;: &quot;python-requests/2.34.2&quot;,
+    &quot;Accept-Encoding&quot;: &quot;gzip, deflate, br&quot;,
+    &quot;Accept&quot;: &quot;application/xml&quot;,
+    &quot;Connection&quot;: &quot;keep-alive&quot;,
+    &quot;Idempotency-Key&quot;: &quot;cd9a77fc2d704c4a92438d2a7a8c4d3b&quot;
+  },
+  &quot;parameters&quot;: {},
+  &quot;body&quot;: &quot;&quot;
+}</pre></div><div><h3>Respuesta</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Content-Type&quot;: &quot;application/xml; charset=utf-8&quot;,
+    &quot;Content-Length&quot;: &quot;520&quot;,
+    &quot;X-Correlation-ID&quot;: &quot;aa69460d-9780-495d-ba99-996917ad3c83&quot;,
+    &quot;Cache-Control&quot;: &quot;no-store&quot;,
+    &quot;X-Content-Type-Options&quot;: &quot;nosniff&quot;,
+    &quot;Referrer-Policy&quot;: &quot;no-referrer&quot;
+  },
+  &quot;body&quot;: &quot;&lt;response type=\&quot;object\&quot;&gt;&lt;field name=\&quot;error\&quot; type=\&quot;object\&quot;&gt;&lt;field name=\&quot;code\&quot; type=\&quot;string\&quot;&gt;unauthorized_service&lt;/field&gt;&lt;field name=\&quot;message\&quot; type=\&quot;string\&quot;&gt;Identidad de servicio inválida.&lt;/field&gt;&lt;field name=\&quot;details\&quot; type=\&quot;array\&quot;/&gt;&lt;/field&gt;&lt;field name=\&quot;meta\&quot; type=\&quot;object\&quot;&gt;&lt;field name=\&quot;correlation_id\&quot; type=\&quot;string\&quot;&gt;aa69460d-9780-495d-ba99-996917ad3c83&lt;/field&gt;&lt;field name=\&quot;service\&quot; type=\&quot;string\&quot;&gt;transporte&lt;/field&gt;&lt;field name=\&quot;version\&quot; type=\&quot;string\&quot;&gt;0.3.0&lt;/field&gt;&lt;/field&gt;&lt;/response&gt;&quot;
+}</pre></div></div><details><summary>Persistencia y versión de implementación</summary><pre>{
+  &quot;effect&quot;: &quot;controlled_error&quot;,
+  &quot;note&quot;: &quot;No se infiere ausencia de efectos de un error; revisar correlación y estado de operación.&quot;
+}</pre><p>SHA-256: e7eb0044cb5544477c1a4b79a264977e16ddd17c216e8a88ed6d187af95af791</p></details></section><h2>Todas las variantes ejecutadas</h2><ul><li><a href="../records/c1862b5ad0dc9f8c7cf5678d.json">401 · http · application/xml; charset=utf-8 · 2026-10-19T16:28:24.761883+00:00</a></li><li><a href="../records/bf845cbdd56bea959576b9e5.json">401 · http · application/json · 2026-10-19T16:28:24.728256+00:00</a></li><li><a href="../records/eba1b54f82ef8ba7b55c61ed.json">200 · http · application/json · 2026-10-19T16:31:15.420667+00:00</a></li><li><a href="../records/e4bbe888e021753edb0823a0.json">200 · embedded · application/json · 2026-10-19T16:24:47.585885+00:00</a></li></ul></main></html>

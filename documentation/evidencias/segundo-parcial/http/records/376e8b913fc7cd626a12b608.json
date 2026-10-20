@@ -1,0 +1,50 @@
+{
+  "captured_at": "2026-10-19T16:28:23.749879+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "e7eb0044cb5544477c1a4b79a264977e16ddd17c216e8a88ed6d187af95af791",
+  "transport": "http",
+  "method": "POST",
+  "route": "/api/v1/shipments",
+  "objective": "Planear traslado y confirmar vínculo exclusivo con Inventario",
+  "url": "http://127.0.0.1:56264/api/v1/shipments",
+  "parameters": {},
+  "path_parameters": {},
+  "request_headers": {
+    "Host": "127.0.0.1:56264",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "79ed3c4d1cda4d32a5446e3ec28434c7",
+    "Content-Length": "2",
+    "Content-Type": "application/json"
+  },
+  "request_body": {},
+  "status": 401,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "202",
+    "X-Correlation-ID": "adad4999-1741-4f26-8a1b-82e01042f5d7",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "error": {
+      "code": "unauthorized",
+      "message": "JWT de acceso requerido.",
+      "details": []
+    },
+    "meta": {
+      "correlation_id": "adad4999-1741-4f26-8a1b-82e01042f5d7",
+      "service": "transporte",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "adad4999-1741-4f26-8a1b-82e01042f5d7",
+  "persistence": {
+    "effect": "controlled_error",
+    "note": "No se infiere ausencia de efectos de un error; revisar correlación y estado de operación."
+  }
+}

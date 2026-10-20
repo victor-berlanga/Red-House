@@ -1,0 +1,76 @@
+{
+  "captured_at": "2026-10-19T16:22:47.542632+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "edd69e48ffcbd19733c620b1f2bcc1fcd82057a7b17a2d0eb2188ccf77d7f18f",
+  "transport": "embedded",
+  "method": "POST",
+  "route": "/api/v1/evaluations/<identifier>/reviews",
+  "objective": "Registrar dictamen humano inmutable de un candidato",
+  "url": "http://localhost/api/v1/evaluations/d689ca9c-4d24-4cec-965e-93f49d4f2cdb/reviews",
+  "parameters": {},
+  "path_parameters": {
+    "identifier": "d689ca9c-4d24-4cec-965e-93f49d4f2cdb"
+  },
+  "request_headers": {
+    "Host": "localhost",
+    "Content-Type": "application/json",
+    "Content-Length": "169",
+    "Accept": "application/json",
+    "X-Correlation-Id": "a40e1ab4-009c-44c9-b920-09ac9173b204",
+    "Authorization": "[REDACTED]",
+    "Idempotency-Key": "e48fa79310364cea9aa402166c760bb9"
+  },
+  "request_body": {
+    "resource_id": "40ecb372-b846-44f1-852e-cb96ddc75e4d",
+    "decision": "FAVORABLE",
+    "reason": "Dictamen humano favorable ficticio desde la web",
+    "human_confirmation": true
+  },
+  "status": 201,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "526",
+    "X-Correlation-ID": "a40e1ab4-009c-44c9-b920-09ac9173b204",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "data": {
+      "id": "1e26400a-58f8-4153-9b0d-f4f854f0304a",
+      "evaluation_id": "d689ca9c-4d24-4cec-965e-93f49d4f2cdb",
+      "resource_id": "40ecb372-b846-44f1-852e-cb96ddc75e4d",
+      "tenant_id": "a0920053-13c5-4d42-b53e-74b35a779f58",
+      "actor_id": "a5898ca7-9e7b-47c9-9f64-9c5cebf413f5",
+      "decision": "FAVORABLE",
+      "reason": "Dictamen humano favorable ficticio desde la web",
+      "created_at": "2026-10-19T16:22:47.486697+00:00"
+    },
+    "meta": {
+      "correlation_id": "a40e1ab4-009c-44c9-b920-09ac9173b204",
+      "service": "compatibilidad",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "a40e1ab4-009c-44c9-b920-09ac9173b204",
+  "persistence": {
+    "effect": "committed",
+    "store": "PostgreSQL red_house",
+    "query": "SELECT operation,fingerprint,result FROM idempotency WHERE user_id=:actor AND key=:idempotency_key",
+    "row": {
+      "operation": "evaluation_review:d689ca9c-4d24-4cec-965e-93f49d4f2cdb",
+      "fingerprint": "9d9bcb114b2a4b4223acea57ce4b9b11aaf0698d97c4d52d5c84f298663dd830",
+      "result": {
+        "id": "1e26400a-58f8-4153-9b0d-f4f854f0304a",
+        "reason": "Dictamen humano favorable ficticio desde la web",
+        "actor_id": "a5898ca7-9e7b-47c9-9f64-9c5cebf413f5",
+        "decision": "FAVORABLE",
+        "tenant_id": "a0920053-13c5-4d42-b53e-74b35a779f58",
+        "created_at": "2026-10-19T16:22:47.486697+00:00",
+        "resource_id": "40ecb372-b846-44f1-852e-cb96ddc75e4d",
+        "evaluation_id": "d689ca9c-4d24-4cec-965e-93f49d4f2cdb"
+      }
+    }
+  }
+}

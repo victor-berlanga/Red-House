@@ -1,0 +1,41 @@
+{
+  "date": "2026-10-19T15:59:27.091168+00:00",
+  "checks": [
+    {
+      "check": "flujo_BLOOD",
+      "status": "passed",
+      "shipment_id": "6d71c2e7-6eac-4ee0-84ae-eccafb6a3965",
+      "resource_id": "5dd4245c-2f03-4c68-bce4-ea5a8c2c369d",
+      "request_id": "f570e554-a1ce-4e62-9e58-6f1bc6df841a",
+      "persistence": [
+        {
+          "id": "5dd4245c-2f03-4c68-bce4-ea5a8c2c369d",
+          "status": "RECEIVED",
+          "tenant_id": "7b4c7ee3-20ef-4345-bf68-c08748c9b7f0"
+        }
+      ]
+    },
+    {
+      "check": "once_servicios_json_xml",
+      "status": "passed"
+    },
+    {
+      "check": "flujo_ORGAN",
+      "status": "passed",
+      "shipment_id": "6b1f29d4-344e-403d-a69b-4ded462fafa9",
+      "resource_id": "821b4a48-ac8f-487c-b5d8-99e4767be397",
+      "request_id": "b58d4e3a-2e96-4d66-a3bb-3968ee131247",
+      "persistence": [
+        {
+          "id": "821b4a48-ac8f-487c-b5d8-99e4767be397",
+          "status": "RECEIVED",
+          "tenant_id": "7b4c7ee3-20ef-4345-bf68-c08748c9b7f0"
+        }
+      ]
+    },
+    {
+      "check": "once_replicas_a_detenidas",
+      "status": "passed"
+    }
+  ]
+}

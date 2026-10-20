@@ -1,0 +1,135 @@
+<!doctype html><html lang="es"><meta charset="utf-8"><title>inventario /api/v1/reservations</title><style>body{font:15px system-ui;margin:32px;background:#f4f5f7;color:#202631}main{max-width:1250px;margin:auto}h1{color:#8e2434;font-size:26px}small{color:#556}a{color:#8e2434}table{border-collapse:collapse;width:100%;background:white}td,th{padding:9px;border:1px solid #ccd;vertical-align:top;text-align:left}pre{white-space:pre-wrap;word-break:break-word;background:#fff;border:1px solid #ccd;padding:12px;font:12px monospace;max-height:300px;overflow:auto}section{margin:20px 0}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.tag{padding:4px 9px;background:#e5ece7}.error{background:#f8e5e6}input{padding:12px;width:70%;margin:15px 0}details{margin:12px 0}nav{margin-bottom:20px}</style><main><nav><a href="../index.html">Inventario completo</a></nav><h1>inventario · GET /api/v1/reservations</h1><p>Reservas institucionales o regionales para coordinación</p><p>Registro de ejecución real. Credenciales y firmas redactadas. Los cuerpos completos están en el JSON enlazado.</p><section><h2>HTTP 200</h2><p><b>2026-10-19T16:28:18.831363+00:00</b> · versión 0.3.0</p><p>Correlación: dff301fa-5a19-4c82-84e6-97f4519b447f<br>URL: http://127.0.0.1:56261/api/v1/reservations</p><p><a href="../records/9c6bbfbe70627e04701b3611.json">Petición, respuesta, headers y persistencia completos</a></p><div class="grid"><div><h3>Petición</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Host&quot;: &quot;127.0.0.1:56261&quot;,
+    &quot;User-Agent&quot;: &quot;python-requests/2.34.2&quot;,
+    &quot;Accept-Encoding&quot;: &quot;gzip, deflate, br&quot;,
+    &quot;Accept&quot;: &quot;application/json&quot;,
+    &quot;Connection&quot;: &quot;keep-alive&quot;,
+    &quot;Idempotency-Key&quot;: &quot;21856233b47c40a3b9da4ee14aea2266&quot;,
+    &quot;Authorization&quot;: &quot;[REDACTED]&quot;
+  },
+  &quot;parameters&quot;: {},
+  &quot;body&quot;: &quot;&quot;
+}</pre></div><div><h3>Respuesta</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Content-Type&quot;: &quot;application/json&quot;,
+    &quot;Content-Length&quot;: &quot;3232&quot;,
+    &quot;X-Correlation-ID&quot;: &quot;dff301fa-5a19-4c82-84e6-97f4519b447f&quot;,
+    &quot;Cache-Control&quot;: &quot;no-store&quot;,
+    &quot;X-Content-Type-Options&quot;: &quot;nosniff&quot;,
+    &quot;Referrer-Policy&quot;: &quot;no-referrer&quot;
+  },
+  &quot;body&quot;: {
+    &quot;data&quot;: {
+      &quot;items&quot;: [
+        {
+          &quot;id&quot;: &quot;f0ed3e75-df56-4919-ba33-f655bba63721&quot;,
+          &quot;operation_id&quot;: &quot;b160190f-106f-4980-8ad5-349c5f6212b3&quot;,
+          &quot;resource_id&quot;: &quot;9b1f4a78-d344-45e6-a0f6-9c6b7f65f8d4&quot;,
+          &quot;request_id&quot;: &quot;50c9b0fb-0c01-4009-bfb2-3ec80438b436&quot;,
+          &quot;recipient_id&quot;: &quot;dc1dbfaa-a9d1-4123-9a3d-8f832651c222&quot;,
+          &quot;origin_id&quot;: &quot;87255e79-2a0a-4e44-ad21-8002ccd5688d&quot;,
+          &quot;destination_id&quot;: &quot;a0920053-13c5-4d42-b53e-74b35a779f58&quot;,
+          &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+          &quot;hold_id&quot;: &quot;2e07507d-61de-4b52-bb2c-30a57b0fa12c&quot;,
+          &quot;evaluation_id&quot;: &quot;4f202848-a4dd-4082-8f52-6905eda2671f&quot;,
+          &quot;route_id&quot;: &quot;7b1745f6-56e0-43d3-9c3d-1c35538d7aae&quot;,
+          &quot;route_version&quot;: 2,
+          &quot;status&quot;: &quot;RESERVED&quot;,
+          &quot;shipment_id&quot;: &quot;b52dc499-7158-46d7-89a1-00c2f3f871c5&quot;,
+          &quot;shipment_sequence&quot;: 0,
+          &quot;created_at&quot;: &quot;2026-10-19T16:27:45.636435+00:00&quot;
+        },
+        {
+          &quot;id&quot;: &quot;1e1b90e8-2d0a-425b-bc78-f2b497c2af6a&quot;,
+          &quot;operation_id&quot;: &quot;795429b9-bf80-46be-a8fe-de43eae6699e&quot;,
+          &quot;resource_id&quot;: &quot;32e70838-54db-4e5e-b991-5b57395cc25b&quot;,
+          &quot;request_id&quot;: &quot;17c8321c-0f0f-4a1d-8df9-50ce48be5f4a&quot;,
+          &quot;recipient_id&quot;: &quot;5ad73a0c-5225-49a2-8d9e-74722aa5d373&quot;,
+          &quot;origin_id&quot;: &quot;87255e79-2a0a-4e44-ad21-8002ccd5688d&quot;,
+          &quot;destination_id&quot;: &quot;a0920053-13c5-4d42-b53e-74b35a779f58&quot;,
+          &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+          &quot;hold_id&quot;: &quot;42ebb506-6100-446b-ac2a-2a342deb962f&quot;,
+          &quot;evaluation_id&quot;: &quot;a958a3d4-e310-461c-84f9-82709c9abf09&quot;,
+          &quot;route_id&quot;: &quot;7b1745f6-56e0-43d3-9c3d-1c35538d7aae&quot;,
+          &quot;route_version&quot;: 2,
+          &quot;status&quot;: &quot;IN_TRANSIT&quot;,
+          &quot;shipment_id&quot;: &quot;859eea1a-1b77-4b08-9a53-5038495b9521&quot;,
+          &quot;shipment_sequence&quot;: 3,
+          &quot;created_at&quot;: &quot;2026-10-19T16:26:46.880992+00:00&quot;
+        },
+        {
+          &quot;id&quot;: &quot;7b93adbf-beeb-4a6d-af41-85ce5a1a590f&quot;,
+          &quot;operation_id&quot;: &quot;9111731d-86c4-4ddb-a24c-4d943c4ab110&quot;,
+          &quot;resource_id&quot;: &quot;943588c6-d948-4e86-9128-0211622fe674&quot;,
+          &quot;request_id&quot;: &quot;530b638d-a0e4-4e65-9e8b-81f0aa7dfd05&quot;,
+          &quot;recipient_id&quot;: &quot;f38068f1-bcbf-450c-af9c-4699d761d06e&quot;,
+          &quot;origin_id&quot;: &quot;87255e79-2a0a-4e44-ad21-8002ccd5688d&quot;,
+          &quot;destination_id&quot;: &quot;a0920053-13c5-4d42-b53e-74b35a779f58&quot;,
+          &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+          &quot;hold_id&quot;: &quot;ebb0f38b-5932-4221-9ef8-716ebe315c29&quot;,
+          &quot;evaluation_id&quot;: &quot;89e4c90c-e748-4e77-8ff3-94b0de87406c&quot;,
+          &quot;route_id&quot;: &quot;7b1745f6-56e0-43d3-9c3d-1c35538d7aae&quot;,
+          &quot;route_version&quot;: 2,
+          &quot;status&quot;: &quot;RECEIVED&quot;,
+          &quot;shipment_id&quot;: &quot;129b0941-1526-492a-9dbf-5d45b002cfdc&quot;,
+          &quot;shipment_sequence&quot;: 6,
+          &quot;created_at&quot;: &quot;2026-10-19T16:25:17.999920+00:00&quot;
+        },
+        {
+          &quot;id&quot;: &quot;1fa376a0-38fe-4e22-9f96-0dc4640d9d64&quot;,
+          &quot;operation_id&quot;: &quot;73f80114-0036-4db3-bcce-f4e105a01587&quot;,
+          &quot;resource_id&quot;: &quot;40ecb372-b846-44f1-852e-cb96ddc75e4d&quot;,
+          &quot;request_id&quot;: &quot;6e221b47-5225-4015-92f2-531d6b373ef2&quot;,
+          &quot;recipient_id&quot;: &quot;faf8c2f0-89d4-48c2-aa33-2c707585c068&quot;,
+          &quot;origin_id&quot;: &quot;87255e79-2a0a-4e44-ad21-8002ccd5688d&quot;,
+          &quot;destination_id&quot;: &quot;a0920053-13c5-4d42-b53e-74b35a779f58&quot;,
+          &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+          &quot;hold_id&quot;: &quot;1e44cb71-3b21-4e2a-a8fa-3f3794bde272&quot;,
+          &quot;evaluation_id&quot;: &quot;d689ca9c-4d24-4cec-965e-93f49d4f2cdb&quot;,
+          &quot;route_id&quot;: &quot;7b1745f6-56e0-43d3-9c3d-1c35538d7aae&quot;,
+          &quot;route_version&quot;: 2,
+          &quot;status&quot;: &quot;RECEIVED&quot;,
+          &quot;shipment_id&quot;: &quot;ea3e5e8c-ee3a-4cea-894b-b2f88714458a&quot;,
+          &quot;shipment_sequence&quot;: 6,
+          &quot;created_at&quot;: &quot;2026-10-19T16:22:50.050890+00:00&quot;
+        }
+      ],
+      &quot;page&quot;: 1,
+      &quot;page_size&quot;: 20,
+      &quot;total&quot;: 4
+    },
+    &quot;meta&quot;: {
+      &quot;correlation_id&quot;: &quot;dff301fa-5a19-4c82-84e6-97f4519b447f&quot;,
+      &quot;service&quot;: &quot;inventario&quot;,
+      &quot;version&quot;: &quot;0.3.0&quot;
+    }
+  }
+}</pre></div></div><details><summary>Persistencia y versión de implementación</summary><pre>{
+  &quot;effect&quot;: &quot;read&quot;,
+  &quot;note&quot;: &quot;Consulta; accesos protegidos generan auditoría local transaccional.&quot;
+}</pre><p>SHA-256: 6eac28b3c6355ff29f1aabe6ed2aa76b6e104ed4888482a02b3967184783afa9</p></details></section><section><h2>HTTP 401</h2><p><b>2026-10-19T16:28:18.698052+00:00</b> · versión 0.3.0</p><p>Correlación: 5ac6b4ce-d750-4edc-8e24-f3acea23c303<br>URL: http://127.0.0.1:56261/api/v1/reservations</p><p><a href="../records/a63f085da922634135a6ad23.json">Petición, respuesta, headers y persistencia completos</a></p><div class="grid"><div><h3>Petición</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Host&quot;: &quot;127.0.0.1:56261&quot;,
+    &quot;User-Agent&quot;: &quot;python-requests/2.34.2&quot;,
+    &quot;Accept-Encoding&quot;: &quot;gzip, deflate, br&quot;,
+    &quot;Accept&quot;: &quot;application/xml&quot;,
+    &quot;Connection&quot;: &quot;keep-alive&quot;,
+    &quot;Idempotency-Key&quot;: &quot;035860dc710c49b0bcc18d88dbefc35f&quot;
+  },
+  &quot;parameters&quot;: {},
+  &quot;body&quot;: &quot;&quot;
+}</pre></div><div><h3>Respuesta</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Content-Type&quot;: &quot;application/xml; charset=utf-8&quot;,
+    &quot;Content-Length&quot;: &quot;504&quot;,
+    &quot;X-Correlation-ID&quot;: &quot;5ac6b4ce-d750-4edc-8e24-f3acea23c303&quot;,
+    &quot;Cache-Control&quot;: &quot;no-store&quot;,
+    &quot;X-Content-Type-Options&quot;: &quot;nosniff&quot;,
+    &quot;Referrer-Policy&quot;: &quot;no-referrer&quot;
+  },
+  &quot;body&quot;: &quot;&lt;response type=\&quot;object\&quot;&gt;&lt;field name=\&quot;error\&quot; type=\&quot;object\&quot;&gt;&lt;field name=\&quot;code\&quot; type=\&quot;string\&quot;&gt;unauthorized&lt;/field&gt;&lt;field name=\&quot;message\&quot; type=\&quot;string\&quot;&gt;JWT de acceso requerido.&lt;/field&gt;&lt;field name=\&quot;details\&quot; type=\&quot;array\&quot;/&gt;&lt;/field&gt;&lt;field name=\&quot;meta\&quot; type=\&quot;object\&quot;&gt;&lt;field name=\&quot;correlation_id\&quot; type=\&quot;string\&quot;&gt;5ac6b4ce-d750-4edc-8e24-f3acea23c303&lt;/field&gt;&lt;field name=\&quot;service\&quot; type=\&quot;string\&quot;&gt;inventario&lt;/field&gt;&lt;field name=\&quot;version\&quot; type=\&quot;string\&quot;&gt;0.3.0&lt;/field&gt;&lt;/field&gt;&lt;/response&gt;&quot;
+}</pre></div></div><details><summary>Persistencia y versión de implementación</summary><pre>{
+  &quot;effect&quot;: &quot;controlled_error&quot;,
+  &quot;note&quot;: &quot;No se infiere ausencia de efectos de un error; revisar correlación y estado de operación.&quot;
+}</pre><p>SHA-256: 6eac28b3c6355ff29f1aabe6ed2aa76b6e104ed4888482a02b3967184783afa9</p></details></section><h2>Todas las variantes ejecutadas</h2><ul><li><a href="../records/9c6bbfbe70627e04701b3611.json">200 · http · application/json · 2026-10-19T16:28:18.831363+00:00</a></li><li><a href="../records/a63f085da922634135a6ad23.json">401 · http · application/xml; charset=utf-8 · 2026-10-19T16:28:18.698052+00:00</a></li><li><a href="../records/53880eebb3724c88633622e7.json">200 · embedded · application/json · 2026-10-19T16:22:51.710277+00:00</a></li><li><a href="../records/3a9c40170d2484dc7efc9770.json">401 · http · application/json · 2026-10-19T16:28:18.642124+00:00</a></li></ul></main></html>

@@ -1,0 +1,45 @@
+{
+  "captured_at": "2026-10-19T16:28:01.231279+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "e7eb0044cb5544477c1a4b79a264977e16ddd17c216e8a88ed6d187af95af791",
+  "transport": "http",
+  "method": "GET",
+  "route": "/health/storage",
+  "objective": "health_storage",
+  "url": "http://127.0.0.1:56264/health/storage",
+  "parameters": {},
+  "path_parameters": {},
+  "request_headers": {
+    "Host": "127.0.0.1:56264",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "20ee95b1e6fe4733940657f01f8fb1e4"
+  },
+  "request_body": "",
+  "status": 503,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "130",
+    "X-Correlation-ID": "44172047-686d-48bc-9587-075edb849ea7",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "data": {
+      "state": "down",
+      "error": "dependency_unavailable"
+    },
+    "meta": {
+      "correlation_id": "44172047-686d-48bc-9587-075edb849ea7"
+    }
+  },
+  "correlation_id": "44172047-686d-48bc-9587-075edb849ea7",
+  "persistence": {
+    "effect": "controlled_error",
+    "note": "No se infiere ausencia de efectos de un error; revisar correlación y estado de operación."
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "captured_at": "2026-10-19T16:22:20.330336+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "6eac28b3c6355ff29f1aabe6ed2aa76b6e104ed4888482a02b3967184783afa9",
+  "transport": "http",
+  "method": "POST",
+  "route": "/api/v1/reservations",
+  "objective": "Reservar con retención de capacidad y seguimiento de operación",
+  "url": "http://127.0.0.1:56261/api/v1/reservations",
+  "parameters": {},
+  "path_parameters": {},
+  "request_headers": {
+    "Host": "127.0.0.1:56261",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "aa6218a749da4d2dba004f586b4eaf40",
+    "Authorization": "[REDACTED]",
+    "Content-Length": "192",
+    "Content-Type": "application/json"
+  },
+  "request_body": {
+    "evaluation_id": "99de7f92-7035-41d3-b8f9-57d27b739a5b",
+    "resource_id": "cf311e62-182d-4d22-8836-61352e0b8436",
+    "human_confirmation": true,
+    "reason": "Reserva ficticia de candidato obsoleto"
+  },
+  "status": 409,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "213",
+    "X-Correlation-ID": "48b81ce6-b0af-4245-9978-ead4ed97d8ab",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "error": {
+      "code": "stale_route",
+      "message": "Ruta modificada; evalúa nuevamente.",
+      "details": []
+    },
+    "meta": {
+      "correlation_id": "48b81ce6-b0af-4245-9978-ead4ed97d8ab",
+      "service": "inventario",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "48b81ce6-b0af-4245-9978-ead4ed97d8ab",
+  "persistence": {
+    "effect": "controlled_error",
+    "note": "No se infiere ausencia de efectos de un error; revisar correlación y estado de operación."
+  }
+}

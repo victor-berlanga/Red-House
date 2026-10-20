@@ -1,0 +1,140 @@
+<!doctype html><html lang="es"><meta charset="utf-8"><title>priorizacion_geografia /api/v1/allocation-proposals</title><style>body{font:15px system-ui;margin:32px;background:#f4f5f7;color:#202631}main{max-width:1250px;margin:auto}h1{color:#8e2434;font-size:26px}small{color:#556}a{color:#8e2434}table{border-collapse:collapse;width:100%;background:white}td,th{padding:9px;border:1px solid #ccd;vertical-align:top;text-align:left}pre{white-space:pre-wrap;word-break:break-word;background:#fff;border:1px solid #ccd;padding:12px;font:12px monospace;max-height:300px;overflow:auto}section{margin:20px 0}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.tag{padding:4px 9px;background:#e5ece7}.error{background:#f8e5e6}input{padding:12px;width:70%;margin:15px 0}details{margin:12px 0}nav{margin-bottom:20px}</style><main><nav><a href="../index.html">Inventario completo</a></nav><h1>priorizacion_geografia · POST /api/v1/allocation-proposals</h1><p>Matching máximo de candidatos con dictamen favorable; propuesta sin reservas</p><p>Registro de ejecución real. Credenciales y firmas redactadas. Los cuerpos completos están en el JSON enlazado.</p><section><h2>HTTP 201</h2><p><b>2026-10-19T16:22:17.059806+00:00</b> · versión 0.3.0</p><p>Correlación: 8b0bc9f5-c4fb-414f-8e15-b375893025f6<br>URL: http://127.0.0.1:56263/api/v1/allocation-proposals</p><p><a href="../records/b78423f051c8b5c37a1f3884.json">Petición, respuesta, headers y persistencia completos</a></p><div class="grid"><div><h3>Petición</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Host&quot;: &quot;127.0.0.1:56263&quot;,
+    &quot;User-Agent&quot;: &quot;python-requests/2.34.2&quot;,
+    &quot;Accept-Encoding&quot;: &quot;gzip, deflate, br&quot;,
+    &quot;Accept&quot;: &quot;application/json&quot;,
+    &quot;Connection&quot;: &quot;keep-alive&quot;,
+    &quot;Idempotency-Key&quot;: &quot;6d82a77557e74fd6babbd9c6e605fe30&quot;,
+    &quot;Authorization&quot;: &quot;[REDACTED]&quot;,
+    &quot;Content-Length&quot;: &quot;100&quot;,
+    &quot;Content-Type&quot;: &quot;application/json&quot;
+  },
+  &quot;parameters&quot;: {},
+  &quot;body&quot;: {
+    &quot;evaluation_ids&quot;: [
+      &quot;296943f3-9e84-4f05-bbc1-01744d9656e8&quot;,
+      &quot;05f36fbc-4270-4182-9dc7-33b70698fb4e&quot;
+    ]
+  }
+}</pre></div><div><h3>Respuesta</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Content-Type&quot;: &quot;application/json&quot;,
+    &quot;Content-Length&quot;: &quot;1364&quot;,
+    &quot;X-Correlation-ID&quot;: &quot;8b0bc9f5-c4fb-414f-8e15-b375893025f6&quot;,
+    &quot;Cache-Control&quot;: &quot;no-store&quot;,
+    &quot;X-Content-Type-Options&quot;: &quot;nosniff&quot;,
+    &quot;Referrer-Policy&quot;: &quot;no-referrer&quot;
+  },
+  &quot;body&quot;: {
+    &quot;data&quot;: {
+      &quot;id&quot;: &quot;632d0ca6-b701-487e-bf04-0500ec3a4af2&quot;,
+      &quot;tenant_id&quot;: &quot;a0920053-13c5-4d42-b53e-74b35a779f58&quot;,
+      &quot;algorithm_version&quot;: &quot;COVERAGE-HK-1.0&quot;,
+      &quot;snapshots&quot;: {
+        &quot;ed7faf1b-300c-453f-864d-3f219937f094&quot;: {
+          &quot;evaluation_id&quot;: &quot;296943f3-9e84-4f05-bbc1-01744d9656e8&quot;,
+          &quot;request_version&quot;: 1,
+          &quot;algorithm_version&quot;: &quot;RBC-1.0&quot;
+        },
+        &quot;fae64212-2d14-459b-9c43-d474533857f7&quot;: {
+          &quot;evaluation_id&quot;: &quot;05f36fbc-4270-4182-9dc7-33b70698fb4e&quot;,
+          &quot;request_version&quot;: 1,
+          &quot;algorithm_version&quot;: &quot;RBC-1.0&quot;
+        }
+      },
+      &quot;result&quot;: [
+        {
+          &quot;slot&quot;: &quot;ed7faf1b-300c-453f-864d-3f219937f094:0&quot;,
+          &quot;request_id&quot;: &quot;ed7faf1b-300c-453f-864d-3f219937f094&quot;,
+          &quot;explanation&quot;: &quot;Candidato con dictamen favorable en la instantánea; matching máximo evita duplicar recursos. Requiere revalidación y autorización de reserva.&quot;,
+          &quot;resource_id&quot;: &quot;1c92030d-87e6-43a8-b1c6-d81623055a40&quot;
+        },
+        {
+          &quot;slot&quot;: &quot;fae64212-2d14-459b-9c43-d474533857f7:0&quot;,
+          &quot;request_id&quot;: &quot;fae64212-2d14-459b-9c43-d474533857f7&quot;,
+          &quot;explanation&quot;: &quot;Candidato con dictamen favorable en la instantánea; matching máximo evita duplicar recursos. Requiere revalidación y autorización de reserva.&quot;,
+          &quot;resource_id&quot;: &quot;559a7b23-5ec2-431c-860a-3a298e0f703c&quot;
+        }
+      ],
+      &quot;elapsed_ms&quot;: 0.18,
+      &quot;slot_count&quot;: 2,
+      &quot;matched_count&quot;: 2,
+      &quot;created_at&quot;: &quot;2026-10-19T16:22:17.013013+00:00&quot;
+    },
+    &quot;meta&quot;: {
+      &quot;correlation_id&quot;: &quot;8b0bc9f5-c4fb-414f-8e15-b375893025f6&quot;,
+      &quot;service&quot;: &quot;priorizacion_geografia&quot;,
+      &quot;version&quot;: &quot;0.3.0&quot;
+    }
+  }
+}</pre></div></div><details><summary>Persistencia y versión de implementación</summary><pre>{
+  &quot;effect&quot;: &quot;committed&quot;,
+  &quot;store&quot;: &quot;PostgreSQL red_house&quot;,
+  &quot;query&quot;: &quot;SELECT operation,fingerprint,result FROM idempotency WHERE user_id=:actor AND key=:idempotency_key&quot;,
+  &quot;row&quot;: {
+    &quot;operation&quot;: &quot;proposal_create&quot;,
+    &quot;fingerprint&quot;: &quot;44192357e9f6b2449928ace32f52a4f7acf665501e14035080935c2981b0550f&quot;,
+    &quot;result&quot;: {
+      &quot;id&quot;: &quot;632d0ca6-b701-487e-bf04-0500ec3a4af2&quot;,
+      &quot;result&quot;: [
+        {
+          &quot;slot&quot;: &quot;ed7faf1b-300c-453f-864d-3f219937f094:0&quot;,
+          &quot;request_id&quot;: &quot;ed7faf1b-300c-453f-864d-3f219937f094&quot;,
+          &quot;explanation&quot;: &quot;Candidato con dictamen favorable en la instantánea; matching máximo evita duplicar recursos. Requiere revalidación y autorización de reserva.&quot;,
+          &quot;resource_id&quot;: &quot;1c92030d-87e6-43a8-b1c6-d81623055a40&quot;
+        },
+        {
+          &quot;slot&quot;: &quot;fae64212-2d14-459b-9c43-d474533857f7:0&quot;,
+          &quot;request_id&quot;: &quot;fae64212-2d14-459b-9c43-d474533857f7&quot;,
+          &quot;explanation&quot;: &quot;Candidato con dictamen favorable en la instantánea; matching máximo evita duplicar recursos. Requiere revalidación y autorización de reserva.&quot;,
+          &quot;resource_id&quot;: &quot;559a7b23-5ec2-431c-860a-3a298e0f703c&quot;
+        }
+      ],
+      &quot;snapshots&quot;: {
+        &quot;ed7faf1b-300c-453f-864d-3f219937f094&quot;: {
+          &quot;evaluation_id&quot;: &quot;296943f3-9e84-4f05-bbc1-01744d9656e8&quot;,
+          &quot;request_version&quot;: 1,
+          &quot;algorithm_version&quot;: &quot;RBC-1.0&quot;
+        },
+        &quot;fae64212-2d14-459b-9c43-d474533857f7&quot;: {
+          &quot;evaluation_id&quot;: &quot;05f36fbc-4270-4182-9dc7-33b70698fb4e&quot;,
+          &quot;request_version&quot;: 1,
+          &quot;algorithm_version&quot;: &quot;RBC-1.0&quot;
+        }
+      },
+      &quot;tenant_id&quot;: &quot;a0920053-13c5-4d42-b53e-74b35a779f58&quot;,
+      &quot;created_at&quot;: &quot;2026-10-19T16:22:17.013013+00:00&quot;,
+      &quot;elapsed_ms&quot;: 0.18,
+      &quot;slot_count&quot;: 2,
+      &quot;matched_count&quot;: 2,
+      &quot;algorithm_version&quot;: &quot;COVERAGE-HK-1.0&quot;
+    }
+  }
+}</pre><p>SHA-256: a72d90d185b760994571ed560b74d7f59cc2cca663c983d7842c7150387e7f9a</p></details></section><section><h2>HTTP 401</h2><p><b>2026-10-19T16:28:22.172028+00:00</b> · versión 0.3.0</p><p>Correlación: 9232f02f-f0f2-48d2-8ff9-7e7cbcd0e042<br>URL: http://127.0.0.1:56263/api/v1/allocation-proposals</p><p><a href="../records/f881bba2c51e575fbfe92be1.json">Petición, respuesta, headers y persistencia completos</a></p><div class="grid"><div><h3>Petición</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Host&quot;: &quot;127.0.0.1:56263&quot;,
+    &quot;User-Agent&quot;: &quot;python-requests/2.34.2&quot;,
+    &quot;Accept-Encoding&quot;: &quot;gzip, deflate, br&quot;,
+    &quot;Accept&quot;: &quot;application/xml&quot;,
+    &quot;Connection&quot;: &quot;keep-alive&quot;,
+    &quot;Idempotency-Key&quot;: &quot;1152c4087f5c47b281ec2910dd5b56b5&quot;,
+    &quot;Content-Length&quot;: &quot;2&quot;,
+    &quot;Content-Type&quot;: &quot;application/json&quot;
+  },
+  &quot;parameters&quot;: {},
+  &quot;body&quot;: {}
+}</pre></div><div><h3>Respuesta</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Content-Type&quot;: &quot;application/xml; charset=utf-8&quot;,
+    &quot;Content-Length&quot;: &quot;516&quot;,
+    &quot;X-Correlation-ID&quot;: &quot;9232f02f-f0f2-48d2-8ff9-7e7cbcd0e042&quot;,
+    &quot;Cache-Control&quot;: &quot;no-store&quot;,
+    &quot;X-Content-Type-Options&quot;: &quot;nosniff&quot;,
+    &quot;Referrer-Policy&quot;: &quot;no-referrer&quot;
+  },
+  &quot;body&quot;: &quot;&lt;response type=\&quot;object\&quot;&gt;&lt;field name=\&quot;error\&quot; type=\&quot;object\&quot;&gt;&lt;field name=\&quot;code\&quot; type=\&quot;string\&quot;&gt;unauthorized&lt;/field&gt;&lt;field name=\&quot;message\&quot; type=\&quot;string\&quot;&gt;JWT de acceso requerido.&lt;/field&gt;&lt;field name=\&quot;details\&quot; type=\&quot;array\&quot;/&gt;&lt;/field&gt;&lt;field name=\&quot;meta\&quot; type=\&quot;object\&quot;&gt;&lt;field name=\&quot;correlation_id\&quot; type=\&quot;string\&quot;&gt;9232f02f-f0f2-48d2-8ff9-7e7cbcd0e042&lt;/field&gt;&lt;field name=\&quot;service\&quot; type=\&quot;string\&quot;&gt;priorizacion_geografia&lt;/field&gt;&lt;field name=\&quot;version\&quot; type=\&quot;string\&quot;&gt;0.3.0&lt;/field&gt;&lt;/field&gt;&lt;/response&gt;&quot;
+}</pre></div></div><details><summary>Persistencia y versión de implementación</summary><pre>{
+  &quot;effect&quot;: &quot;controlled_error&quot;,
+  &quot;note&quot;: &quot;No se infiere ausencia de efectos de un error; revisar correlación y estado de operación.&quot;
+}</pre><p>SHA-256: a72d90d185b760994571ed560b74d7f59cc2cca663c983d7842c7150387e7f9a</p></details></section><h2>Todas las variantes ejecutadas</h2><ul><li><a href="../records/f881bba2c51e575fbfe92be1.json">401 · http · application/xml; charset=utf-8 · 2026-10-19T16:28:22.172028+00:00</a></li><li><a href="../records/b78423f051c8b5c37a1f3884.json">201 · http · application/json · 2026-10-19T16:22:17.059806+00:00</a></li><li><a href="../records/fbe229afa14337a5527178b4.json">401 · http · application/json · 2026-10-19T16:28:22.128348+00:00</a></li></ul></main></html>

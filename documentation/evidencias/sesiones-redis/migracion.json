@@ -1,0 +1,33 @@
+{
+  "legacy_inspection": {
+    "runtime": {
+      "active_sessions": 0,
+      "pending_revocations": 0
+    },
+    "compose": {
+      "active_sessions": 0,
+      "pending_revocations": 0
+    }
+  },
+  "previous_storage": "Preservado como respaldo privado; ninguna sesión o revocación vigente que importar.",
+  "status": "passed",
+  "runtime": {
+    "status": "passed",
+    "domain_tables": 71,
+    "domain_rows_before": 120681,
+    "domain_rows_after": 120681,
+    "all_table_counts_equal": true,
+    "backup_private": "/Users/victorberlanga/Programacion/integracion/Red-House/.local/runtime/backups/web-redis-20261020T195421Z",
+    "web_started": false
+  },
+  "compose": {
+    "status": "passed",
+    "domain_tables": 71,
+    "domain_rows_before": 15122,
+    "domain_rows_after": 15122,
+    "all_table_counts_equal": true,
+    "bootstrap_repeated": true,
+    "credentials_preserved": true,
+    "backup_private": "/Users/victorberlanga/Programacion/integracion/Red-House/.local/compose/backups/web-redis-20261020T195703Z"
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "captured_at": "2026-10-19T16:28:24.372211+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "e7eb0044cb5544477c1a4b79a264977e16ddd17c216e8a88ed6d187af95af791",
+  "transport": "http",
+  "method": "POST",
+  "route": "/api/v1/shipments/<identifier>/transitions",
+  "objective": "Registrar paso autorizado y evento de custodia durable",
+  "url": "http://127.0.0.1:56264/api/v1/shipments/7bb45cdb-d454-4d11-8c59-dae02c25e01b/transitions",
+  "parameters": {},
+  "path_parameters": {
+    "identifier": "7bb45cdb-d454-4d11-8c59-dae02c25e01b"
+  },
+  "request_headers": {
+    "Host": "127.0.0.1:56264",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "4f1d4c34c2d743e39d10193e698d8116",
+    "Content-Length": "2",
+    "Content-Type": "application/json"
+  },
+  "request_body": {},
+  "status": 401,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "202",
+    "X-Correlation-ID": "78dc27dc-9f63-44a4-8358-33f615e961e1",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "error": {
+      "code": "unauthorized",
+      "message": "JWT de acceso requerido.",
+      "details": []
+    },
+    "meta": {
+      "correlation_id": "78dc27dc-9f63-44a4-8358-33f615e961e1",
+      "service": "transporte",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "78dc27dc-9f63-44a4-8358-33f615e961e1",
+  "persistence": {
+    "effect": "controlled_error",
+    "note": "No se infiere ausencia de efectos de un error; revisar correlación y estado de operación."
+  }
+}

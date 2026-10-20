@@ -1,0 +1,51 @@
+{
+  "captured_at": "2026-10-19T16:27:55.528001+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "e7eb0044cb5544477c1a4b79a264977e16ddd17c216e8a88ed6d187af95af791",
+  "transport": "http",
+  "method": "GET",
+  "route": "/api/v1/files/<identifier>/download",
+  "objective": "Descargar evidencia verificada mediante acceso temporal privado",
+  "url": "http://127.0.0.1:56264/api/v1/files/71dbae37-fa9f-4f5f-99a0-f485fd7e46f6/download",
+  "parameters": {},
+  "path_parameters": {
+    "identifier": "71dbae37-fa9f-4f5f-99a0-f485fd7e46f6"
+  },
+  "request_headers": {
+    "Host": "127.0.0.1:56264",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "2ef06c69dac246debc62fc7c02bfd11f",
+    "Authorization": "[REDACTED]"
+  },
+  "request_body": "",
+  "status": 403,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "204",
+    "X-Correlation-ID": "e703cdcc-d128-4c4e-9399-e48bce57cf91",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "error": {
+      "code": "forbidden",
+      "message": "Traslado de otro responsable.",
+      "details": []
+    },
+    "meta": {
+      "correlation_id": "e703cdcc-d128-4c4e-9399-e48bce57cf91",
+      "service": "transporte",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "e703cdcc-d128-4c4e-9399-e48bce57cf91",
+  "persistence": {
+    "effect": "controlled_error",
+    "note": "No se infiere ausencia de efectos de un error; revisar correlación y estado de operación."
+  }
+}

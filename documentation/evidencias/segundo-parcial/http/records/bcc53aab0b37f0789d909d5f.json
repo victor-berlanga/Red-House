@@ -1,0 +1,56 @@
+{
+  "captured_at": "2026-10-19T16:37:24.746573+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "6eac28b3c6355ff29f1aabe6ed2aa76b6e104ed4888482a02b3967184783afa9",
+  "transport": "http",
+  "method": "POST",
+  "route": "/api/v1/reservations",
+  "objective": "Reservar con retención de capacidad y seguimiento de operación",
+  "url": "http://127.0.0.1:56261/api/v1/reservations",
+  "parameters": {},
+  "path_parameters": {},
+  "request_headers": {
+    "Host": "127.0.0.1:56261",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "adeae647841c4300ae300d7576704f74",
+    "Authorization": "[REDACTED]",
+    "Content-Length": "194",
+    "Content-Type": "application/json"
+  },
+  "request_body": {
+    "evaluation_id": "2c7daf9b-2c5d-4210-809c-4d68eaefe4e4",
+    "resource_id": "00647d11-ac39-4d8e-b036-b2fc99d89192",
+    "human_confirmation": true,
+    "reason": "Reserva ficticia para comprobar rollback"
+  },
+  "status": 500,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "215",
+    "X-Correlation-ID": "75ff6dfc-a9c7-4982-8187-85451262894f",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "error": {
+      "code": "internal_error",
+      "message": "No se pudo completar la operación.",
+      "details": []
+    },
+    "meta": {
+      "correlation_id": "75ff6dfc-a9c7-4982-8187-85451262894f",
+      "service": "inventario",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "75ff6dfc-a9c7-4982-8187-85451262894f",
+  "persistence": {
+    "effect": "controlled_error",
+    "note": "No se infiere ausencia de efectos de un error; revisar correlación y estado de operación."
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "captured_at": "2026-10-19T16:39:29.571614+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "1a8dccae105e0c261a0273a99f999923c88cbf235f750f80f0ac2f487c8b6654",
+  "transport": "http",
+  "method": "GET",
+  "route": "/health/worker",
+  "objective": "health_worker",
+  "url": "http://127.0.0.1:56259/health/worker",
+  "parameters": {},
+  "path_parameters": {},
+  "request_headers": {
+    "Host": "127.0.0.1:56259",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "c93cda2f58514097a3c679638ee6d01f"
+  },
+  "request_body": "",
+  "status": 503,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "163",
+    "X-Correlation-ID": "2cb5433d-9790-4507-9818-c93e01d81b2b",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "data": {
+      "state": "down",
+      "error": "worker_unavailable",
+      "pending": 0,
+      "oldest_seconds": 0.0
+    },
+    "meta": {
+      "correlation_id": "2cb5433d-9790-4507-9818-c93e01d81b2b"
+    }
+  },
+  "correlation_id": "2cb5433d-9790-4507-9818-c93e01d81b2b",
+  "persistence": {
+    "effect": "controlled_error",
+    "note": "No se infiere ausencia de efectos de un error; revisar correlación y estado de operación."
+  }
+}

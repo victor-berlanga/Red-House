@@ -1,0 +1,80 @@
+{
+  "captured_at": "2026-10-19T16:27:11.907545+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "6eac28b3c6355ff29f1aabe6ed2aa76b6e104ed4888482a02b3967184783afa9",
+  "transport": "http",
+  "method": "POST",
+  "route": "/internal/v1/events",
+  "objective": "Aplicar hechos logísticos en orden y sin duplicación",
+  "url": "http://127.0.0.1:56261/internal/v1/events",
+  "parameters": {},
+  "path_parameters": {},
+  "request_headers": {
+    "Host": "127.0.0.1:56261",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Content-Type": "application/json",
+    "X-Service": "transporte",
+    "X-Service-Time": "1792427231",
+    "X-Service-Nonce": "dd164dc5-a3f7-4ddc-97c9-9458fa36b8b5",
+    "X-Service-Signature": "[REDACTED]",
+    "X-Correlation-Id": "cbf731c0-803f-4163-9b64-9d8e0e96e515",
+    "Content-Length": "690"
+  },
+  "request_body": {
+    "action": "SHIPMENT_PLANNED",
+    "source": "transporte",
+    "actor_id": null,
+    "event_id": "c371274e-86ce-475d-a157-878aaf6838fb",
+    "metadata": {
+      "state": "PLANNED",
+      "evidence": null,
+      "sequence": 1,
+      "origin_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+      "destination_id": "a0920053-13c5-4d42-b53e-74b35a779f58",
+      "reservation_id": "1e1b90e8-2d0a-425b-bc78-f2b497c2af6a",
+      "transport_user_id": "3980f3c5-484c-4178-b03c-8d65c598ecd7",
+      "destination_location_id": null
+    },
+    "region_id": "7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb",
+    "tenant_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+    "occurred_at": "2026-10-19T16:26:48.800178+00:00",
+    "resource_id": "859eea1a-1b77-4b08-9a53-5038495b9521",
+    "correlation_id": "e1036ea4-28c7-4721-8ec6-88db7beb489b"
+  },
+  "status": 200,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "140",
+    "X-Correlation-ID": "cbf731c0-803f-4163-9b64-9d8e0e96e515",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "data": {
+      "applied": true
+    },
+    "meta": {
+      "correlation_id": "cbf731c0-803f-4163-9b64-9d8e0e96e515",
+      "service": "inventario",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "cbf731c0-803f-4163-9b64-9d8e0e96e515",
+  "persistence": {
+    "effect": "committed",
+    "store": "PostgreSQL red_house",
+    "query": "SELECT event_id,fingerprint FROM inbox WHERE event_id=%s",
+    "parameters": [
+      "c371274e-86ce-475d-a157-878aaf6838fb"
+    ],
+    "row": {
+      "event_id": "c371274e-86ce-475d-a157-878aaf6838fb",
+      "fingerprint": "e40abe9dcc2b2b6e1829d8ff7ce480b2ec45856bd63b5672d2466950f9be42c6"
+    }
+  }
+}

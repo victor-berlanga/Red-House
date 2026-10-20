@@ -1,0 +1,15 @@
+flowchart TB
+ N[Usuario y navegador] --> W[Portal Flask y Jinja2]
+ W --> K[Backend modular propio 0.3.0]
+ A[Clientes futuros JSON y XML] --> G[Gateway Nginx]
+ G --> API[Once API Flask con dos instancias]
+ K --> R[Reglas compartidas y autorización JWT]
+ API --> R
+ R --> PG[(PostgreSQL red_house)]
+ R --> RD[(Redis sesiones y permisos)]
+ K --> WW[Workers propios]
+ API --> AW[Workers por instancia]
+ WW --> Q[Outbox e inbox transaccionales]
+ AW --> Q
+ Q --> MO[(MongoDB eventos y proyecciones)]
+ R --> GC[Google Cloud Storage privado]

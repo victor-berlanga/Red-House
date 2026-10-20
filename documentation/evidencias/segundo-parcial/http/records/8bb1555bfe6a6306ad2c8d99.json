@@ -1,0 +1,72 @@
+{
+  "captured_at": "2026-10-19T16:26:30.997501+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "1a8dccae105e0c261a0273a99f999923c88cbf235f750f80f0ac2f487c8b6654",
+  "transport": "embedded",
+  "method": "POST",
+  "route": "/api/v1/donors/<identifier>/reviews",
+  "objective": "Dictamen humano de elegibilidad",
+  "url": "http://localhost/api/v1/donors/3cb9c304-3ac6-4955-bad8-d39fd2fdba05/reviews",
+  "parameters": {},
+  "path_parameters": {
+    "identifier": "3cb9c304-3ac6-4955-bad8-d39fd2fdba05"
+  },
+  "request_headers": {
+    "Host": "localhost",
+    "Content-Type": "application/json",
+    "Content-Length": "120",
+    "Accept": "application/json",
+    "X-Correlation-Id": "27036dfd-8f0b-4edb-bdbf-3427e55befe7",
+    "Authorization": "[REDACTED]",
+    "Idempotency-Key": "fe54d1f73a0b4b659275c45fe2b58568"
+  },
+  "request_body": {
+    "decision": "ELIGIBLE",
+    "version": 1,
+    "reason": "Dictamen humano ficticio de elegibilidad",
+    "human_confirmation": true
+  },
+  "status": 201,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "399",
+    "X-Correlation-ID": "27036dfd-8f0b-4edb-bdbf-3427e55befe7",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "data": {
+      "id": "ca5eb2c1-9591-428d-8af9-77362119f299",
+      "donor_id": "3cb9c304-3ac6-4955-bad8-d39fd2fdba05",
+      "decision": "ELIGIBLE",
+      "reason": "Dictamen humano ficticio de elegibilidad",
+      "actor_id": "fa9be2a2-91fc-4871-b69f-53fecc15e1ba",
+      "created_at": "2026-10-19T16:26:30.881576+00:00"
+    },
+    "meta": {
+      "correlation_id": "27036dfd-8f0b-4edb-bdbf-3427e55befe7",
+      "service": "donantes",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "27036dfd-8f0b-4edb-bdbf-3427e55befe7",
+  "persistence": {
+    "effect": "committed",
+    "store": "PostgreSQL red_house",
+    "query": "SELECT operation,fingerprint,result FROM idempotency WHERE user_id=:actor AND key=:idempotency_key",
+    "row": {
+      "operation": "donor_review:3cb9c304-3ac6-4955-bad8-d39fd2fdba05",
+      "fingerprint": "8532df66cc2e7349a33e2c312bab589a40faeae4d109402dab71cc0c8bead770",
+      "result": {
+        "id": "ca5eb2c1-9591-428d-8af9-77362119f299",
+        "reason": "Dictamen humano ficticio de elegibilidad",
+        "actor_id": "fa9be2a2-91fc-4871-b69f-53fecc15e1ba",
+        "decision": "ELIGIBLE",
+        "donor_id": "3cb9c304-3ac6-4955-bad8-d39fd2fdba05",
+        "created_at": "2026-10-19T16:26:30.881576+00:00"
+      }
+    }
+  }
+}

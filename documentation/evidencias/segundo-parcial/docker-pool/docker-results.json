@@ -1,0 +1,28 @@
+{
+  "date": "2026-10-19T14:42:03.760415+00:00",
+  "checks": [
+    {
+      "check": "flujo_BLOOD",
+      "status": "passed",
+      "shipment_id": "70a434b0-ab3a-4dce-ab2d-64f43070b625",
+      "resource_id": "ac9e351f-4b8a-4d36-89f0-6e602a185bb8",
+      "request_id": "ddf3cb2e-3f07-4626-95be-c7be3524a847",
+      "persistence": [
+        {
+          "id": "ac9e351f-4b8a-4d36-89f0-6e602a185bb8",
+          "status": "RECEIVED",
+          "tenant_id": "7b4c7ee3-20ef-4345-bf68-c08748c9b7f0"
+        }
+      ]
+    },
+    {
+      "check": "once_servicios_json_xml",
+      "status": "passed"
+    },
+    {
+      "check": "execution",
+      "status": "failed",
+      "error": "('identidad_acceso', '/api/v1/auth/login', 504, '<html>\\r\\n<head><title>504 Gateway Time-out</title></head>\\r\\n<body>\\r\\n<center><h1>504 Gateway Time-out</h1></center>\\r\\n<hr><center>nginx/1.28.3</center>\\r\\n</body>\\r\\n</html>\\r\\n')"
+    }
+  ]
+}

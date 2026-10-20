@@ -1,0 +1,10 @@
+{
+  "date": "2026-10-19T13:14:32.842359+00:00",
+  "checks": [
+    {
+      "check": "execution",
+      "status": "failed",
+      "error": "HTTPConnectionPool(host='127.0.0.1', port=6101): Max retries exceeded with url: /api/v1/auth/login (Caused by NewConnectionError(\"HTTPConnection(host='127.0.0.1', port=6101): Failed to establish a new connection: [Errno 61] Connection refused\"))"
+    }
+  ]
+}

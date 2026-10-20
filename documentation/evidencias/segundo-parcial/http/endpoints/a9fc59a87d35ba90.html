@@ -1,0 +1,103 @@
+<!doctype html><html lang="es"><meta charset="utf-8"><title>monitoreo /health/ready</title><style>body{font:15px system-ui;margin:32px;background:#f4f5f7;color:#202631}main{max-width:1250px;margin:auto}h1{color:#8e2434;font-size:26px}small{color:#556}a{color:#8e2434}table{border-collapse:collapse;width:100%;background:white}td,th{padding:9px;border:1px solid #ccd;vertical-align:top;text-align:left}pre{white-space:pre-wrap;word-break:break-word;background:#fff;border:1px solid #ccd;padding:12px;font:12px monospace;max-height:300px;overflow:auto}section{margin:20px 0}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.tag{padding:4px 9px;background:#e5ece7}.error{background:#f8e5e6}input{padding:12px;width:70%;margin:15px 0}details{margin:12px 0}nav{margin-bottom:20px}</style><main><nav><a href="../index.html">Inventario completo</a></nav><h1>monitoreo · GET /health/ready</h1><p>Infraestructura y documentación</p><p>Registro de ejecución real. Credenciales y firmas redactadas. Los cuerpos completos están en el JSON enlazado.</p><section><h2>HTTP 200</h2><p><b>2026-10-19T16:28:29.387948+00:00</b> · versión 0.3.0</p><p>Correlación: f000ac2e-0528-4b6a-8735-cf8cabab9976<br>URL: http://127.0.0.1:56268/health/ready</p><p><a href="../records/e2b6e61b4f107d106d669f1a.json">Petición, respuesta, headers y persistencia completos</a></p><div class="grid"><div><h3>Petición</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Host&quot;: &quot;127.0.0.1:56268&quot;,
+    &quot;User-Agent&quot;: &quot;python-requests/2.34.2&quot;,
+    &quot;Accept-Encoding&quot;: &quot;gzip, deflate, br&quot;,
+    &quot;Accept&quot;: &quot;application/json&quot;,
+    &quot;Connection&quot;: &quot;keep-alive&quot;,
+    &quot;Idempotency-Key&quot;: &quot;e7dc2a0a15b4407eb53f272a7f604001&quot;
+  },
+  &quot;parameters&quot;: {},
+  &quot;body&quot;: &quot;&quot;
+}</pre></div><div><h3>Respuesta</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Content-Type&quot;: &quot;application/json&quot;,
+    &quot;Content-Length&quot;: &quot;336&quot;,
+    &quot;X-Correlation-ID&quot;: &quot;f000ac2e-0528-4b6a-8735-cf8cabab9976&quot;,
+    &quot;Cache-Control&quot;: &quot;no-store&quot;,
+    &quot;X-Content-Type-Options&quot;: &quot;nosniff&quot;,
+    &quot;Referrer-Policy&quot;: &quot;no-referrer&quot;
+  },
+  &quot;body&quot;: {
+    &quot;data&quot;: {
+      &quot;state&quot;: &quot;up&quot;,
+      &quot;dependencies&quot;: {
+        &quot;database&quot;: {
+          &quot;state&quot;: &quot;up&quot;
+        },
+        &quot;redis&quot;: {
+          &quot;state&quot;: &quot;up&quot;
+        },
+        &quot;mongodb&quot;: {
+          &quot;state&quot;: &quot;up&quot;
+        },
+        &quot;storage&quot;: {
+          &quot;state&quot;: &quot;not_applicable&quot;
+        },
+        &quot;worker&quot;: {
+          &quot;state&quot;: &quot;not_configured&quot;,
+          &quot;required&quot;: false
+        }
+      },
+      &quot;service&quot;: &quot;monitoreo&quot;,
+      &quot;version&quot;: &quot;0.3.0&quot;
+    },
+    &quot;meta&quot;: {
+      &quot;correlation_id&quot;: &quot;f000ac2e-0528-4b6a-8735-cf8cabab9976&quot;
+    }
+  }
+}</pre></div></div><details><summary>Persistencia y versión de implementación</summary><pre>{
+  &quot;effect&quot;: &quot;read&quot;,
+  &quot;note&quot;: &quot;Consulta; accesos protegidos generan auditoría local transaccional.&quot;
+}</pre><p>SHA-256: b8204c203189de890c197ffcc608103454231faa36b5def1b043c829582fb590</p></details></section><section><h2>HTTP 503</h2><p><b>2026-10-19T16:43:10.701854+00:00</b> · versión 0.3.0</p><p>Correlación: cdfb3dba-3519-463c-998f-ddd865e630a9<br>URL: http://127.0.0.1:56268/health/ready</p><p><a href="../records/af0ef31ea801f956d0bded92.json">Petición, respuesta, headers y persistencia completos</a></p><div class="grid"><div><h3>Petición</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Host&quot;: &quot;127.0.0.1:56268&quot;,
+    &quot;User-Agent&quot;: &quot;python-requests/2.34.2&quot;,
+    &quot;Accept-Encoding&quot;: &quot;gzip, deflate, br&quot;,
+    &quot;Accept&quot;: &quot;*/*&quot;,
+    &quot;Connection&quot;: &quot;keep-alive&quot;
+  },
+  &quot;parameters&quot;: {},
+  &quot;body&quot;: &quot;&quot;
+}</pre></div><div><h3>Respuesta</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Content-Type&quot;: &quot;application/json&quot;,
+    &quot;Content-Length&quot;: &quot;379&quot;,
+    &quot;X-Correlation-ID&quot;: &quot;cdfb3dba-3519-463c-998f-ddd865e630a9&quot;,
+    &quot;Cache-Control&quot;: &quot;no-store&quot;,
+    &quot;X-Content-Type-Options&quot;: &quot;nosniff&quot;,
+    &quot;Referrer-Policy&quot;: &quot;no-referrer&quot;
+  },
+  &quot;body&quot;: {
+    &quot;data&quot;: {
+      &quot;state&quot;: &quot;degraded&quot;,
+      &quot;dependencies&quot;: {
+        &quot;database&quot;: {
+          &quot;state&quot;: &quot;down&quot;,
+          &quot;error&quot;: &quot;dependency_unavailable&quot;
+        },
+        &quot;redis&quot;: {
+          &quot;state&quot;: &quot;up&quot;
+        },
+        &quot;mongodb&quot;: {
+          &quot;state&quot;: &quot;up&quot;
+        },
+        &quot;storage&quot;: {
+          &quot;state&quot;: &quot;not_applicable&quot;
+        },
+        &quot;worker&quot;: {
+          &quot;state&quot;: &quot;not_configured&quot;,
+          &quot;required&quot;: false
+        }
+      },
+      &quot;service&quot;: &quot;monitoreo&quot;,
+      &quot;version&quot;: &quot;0.3.0&quot;
+    },
+    &quot;meta&quot;: {
+      &quot;correlation_id&quot;: &quot;cdfb3dba-3519-463c-998f-ddd865e630a9&quot;
+    }
+  }
+}</pre></div></div><details><summary>Persistencia y versión de implementación</summary><pre>{
+  &quot;effect&quot;: &quot;controlled_error&quot;,
+  &quot;note&quot;: &quot;No se infiere ausencia de efectos de un error; revisar correlación y estado de operación.&quot;
+}</pre><p>SHA-256: b8204c203189de890c197ffcc608103454231faa36b5def1b043c829582fb590</p></details></section><h2>Todas las variantes ejecutadas</h2><ul><li><a href="../records/e2b6e61b4f107d106d669f1a.json">200 · http · application/json · 2026-10-19T16:28:29.387948+00:00</a></li><li><a href="../records/af0ef31ea801f956d0bded92.json">503 · http · application/json · 2026-10-19T16:43:10.701854+00:00</a></li><li><a href="../records/aaa994f368674f7903f52c0d.json">406 · http · application/json · 2026-10-19T18:31:07.051399+00:00</a></li><li><a href="../records/0a5703f5e4b947fbf2ddf4ee.json">200 · http · application/json · 2026-10-19T18:31:07.153486+00:00</a></li><li><a href="../records/bdd2aa7f0a40d9b8dab332ff.json">503 · http · application/json · 2026-10-19T18:31:07.107009+00:00</a></li></ul></main></html>

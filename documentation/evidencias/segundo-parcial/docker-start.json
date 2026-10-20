@@ -1,0 +1,317 @@
+{
+  "captured_at": "2026-10-19T17:05:51.035302+00:00",
+  "phase": "initial_bounded_start",
+  "containers": [
+    {
+      "Name": "redhouse-parcial2-alertas-a-1",
+      "Service": "alertas-a",
+      "Image": "redhouse/alertas:0.3.0",
+      "State": "running",
+      "Health": "healthy",
+      "Publishers": []
+    },
+    {
+      "Name": "redhouse-parcial2-alertas-b-1",
+      "Service": "alertas-b",
+      "Image": "redhouse/alertas:0.3.0",
+      "State": "running",
+      "Health": "healthy",
+      "Publishers": []
+    },
+    {
+      "Name": "redhouse-parcial2-auditoria-a-1",
+      "Service": "auditoria-a",
+      "Image": "redhouse/auditoria:0.3.0",
+      "State": "running",
+      "Health": "healthy",
+      "Publishers": []
+    },
+    {
+      "Name": "redhouse-parcial2-auditoria-b-1",
+      "Service": "auditoria-b",
+      "Image": "redhouse/auditoria:0.3.0",
+      "State": "running",
+      "Health": "healthy",
+      "Publishers": []
+    },
+    {
+      "Name": "redhouse-parcial2-compatibilidad-a-1",
+      "Service": "compatibilidad-a",
+      "Image": "redhouse/compatibilidad:0.3.0",
+      "State": "running",
+      "Health": "healthy",
+      "Publishers": []
+    },
+    {
+      "Name": "redhouse-parcial2-compatibilidad-b-1",
+      "Service": "compatibilidad-b",
+      "Image": "redhouse/compatibilidad:0.3.0",
+      "State": "running",
+      "Health": "healthy",
+      "Publishers": []
+    },
+    {
+      "Name": "redhouse-parcial2-custodia-a-1",
+      "Service": "custodia-a",
+      "Image": "redhouse/custodia:0.3.0",
+      "State": "running",
+      "Health": "healthy",
+      "Publishers": []
+    },
+    {
+      "Name": "redhouse-parcial2-custodia-b-1",
+      "Service": "custodia-b",
+      "Image": "redhouse/custodia:0.3.0",
+      "State": "running",
+      "Health": "healthy",
+      "Publishers": []
+    },
+    {
+      "Name": "redhouse-parcial2-donantes-a-1",
+      "Service": "donantes-a",
+      "Image": "redhouse/donantes:0.3.0",
+      "State": "running",
+      "Health": "healthy",
+      "Publishers": []
+    },
+    {
+      "Name": "redhouse-parcial2-donantes-b-1",
+      "Service": "donantes-b",
+      "Image": "redhouse/donantes:0.3.0",
+      "State": "running",
+      "Health": "healthy",
+      "Publishers": []
+    },
+    {
+      "Name": "redhouse-parcial2-gateway-1",
+      "Service": "gateway",
+      "Image": "nginx:1.28-alpine",
+      "State": "running",
+      "Health": "healthy",
+      "Publishers": [
+        {
+          "URL": "127.0.0.1",
+          "TargetPort": 5101,
+          "PublishedPort": 6101,
+          "Protocol": "tcp"
+        },
+        {
+          "URL": "127.0.0.1",
+          "TargetPort": 5102,
+          "PublishedPort": 6102,
+          "Protocol": "tcp"
+        },
+        {
+          "URL": "127.0.0.1",
+          "TargetPort": 5103,
+          "PublishedPort": 6103,
+          "Protocol": "tcp"
+        },
+        {
+          "URL": "127.0.0.1",
+          "TargetPort": 5104,
+          "PublishedPort": 6104,
+          "Protocol": "tcp"
+        },
+        {
+          "URL": "127.0.0.1",
+          "TargetPort": 5105,
+          "PublishedPort": 6105,
+          "Protocol": "tcp"
+        },
+        {
+          "URL": "127.0.0.1",
+          "TargetPort": 5106,
+          "PublishedPort": 6106,
+          "Protocol": "tcp"
+        },
+        {
+          "URL": "127.0.0.1",
+          "TargetPort": 5107,
+          "PublishedPort": 6107,
+          "Protocol": "tcp"
+        },
+        {
+          "URL": "127.0.0.1",
+          "TargetPort": 5108,
+          "PublishedPort": 6108,
+          "Protocol": "tcp"
+        },
+        {
+          "URL": "127.0.0.1",
+          "TargetPort": 5109,
+          "PublishedPort": 6109,
+          "Protocol": "tcp"
+        },
+        {
+          "URL": "127.0.0.1",
+          "TargetPort": 5110,
+          "PublishedPort": 6110,
+          "Protocol": "tcp"
+        },
+        {
+          "URL": "127.0.0.1",
+          "TargetPort": 5111,
+          "PublishedPort": 6111,
+          "Protocol": "tcp"
+        }
+      ]
+    },
+    {
+      "Name": "redhouse-parcial2-identidad-acceso-a-1",
+      "Service": "identidad-acceso-a",
+      "Image": "redhouse/identidad_acceso:0.3.0",
+      "State": "running",
+      "Health": "healthy",
+      "Publishers": []
+    },
+    {
+      "Name": "redhouse-parcial2-identidad-acceso-b-1",
+      "Service": "identidad-acceso-b",
+      "Image": "redhouse/identidad_acceso:0.3.0",
+      "State": "running",
+      "Health": "healthy",
+      "Publishers": []
+    },
+    {
+      "Name": "redhouse-parcial2-inventario-a-1",
+      "Service": "inventario-a",
+      "Image": "redhouse/inventario:0.3.0",
+      "State": "running",
+      "Health": "healthy",
+      "Publishers": []
+    },
+    {
+      "Name": "redhouse-parcial2-inventario-b-1",
+      "Service": "inventario-b",
+      "Image": "redhouse/inventario:0.3.0",
+      "State": "running",
+      "Health": "healthy",
+      "Publishers": []
+    },
+    {
+      "Name": "redhouse-parcial2-mongodb-1",
+      "Service": "mongodb",
+      "Image": "sha256:a2deeafb3b70db7ed12c286079110246938d5501aaddb2265f868263d829acfb",
+      "State": "running",
+      "Health": "healthy",
+      "Publishers": [
+        {
+          "URL": "",
+          "TargetPort": 27017,
+          "PublishedPort": 0,
+          "Protocol": "tcp"
+        }
+      ]
+    },
+    {
+      "Name": "redhouse-parcial2-monitoreo-a-1",
+      "Service": "monitoreo-a",
+      "Image": "redhouse/monitoreo:0.3.0",
+      "State": "running",
+      "Health": "healthy",
+      "Publishers": []
+    },
+    {
+      "Name": "redhouse-parcial2-monitoreo-b-1",
+      "Service": "monitoreo-b",
+      "Image": "redhouse/monitoreo:0.3.0",
+      "State": "running",
+      "Health": "healthy",
+      "Publishers": []
+    },
+    {
+      "Name": "redhouse-parcial2-postgres-1",
+      "Service": "postgres",
+      "Image": "postgres:14-bookworm",
+      "State": "running",
+      "Health": "healthy",
+      "Publishers": [
+        {
+          "URL": "",
+          "TargetPort": 5432,
+          "PublishedPort": 0,
+          "Protocol": "tcp"
+        }
+      ]
+    },
+    {
+      "Name": "redhouse-parcial2-priorizacion-geografia-a-1",
+      "Service": "priorizacion-geografia-a",
+      "Image": "redhouse/priorizacion_geografia:0.3.0",
+      "State": "running",
+      "Health": "healthy",
+      "Publishers": []
+    },
+    {
+      "Name": "redhouse-parcial2-priorizacion-geografia-b-1",
+      "Service": "priorizacion-geografia-b",
+      "Image": "redhouse/priorizacion_geografia:0.3.0",
+      "State": "running",
+      "Health": "healthy",
+      "Publishers": []
+    },
+    {
+      "Name": "redhouse-parcial2-receptores-a-1",
+      "Service": "receptores-a",
+      "Image": "redhouse/receptores:0.3.0",
+      "State": "running",
+      "Health": "healthy",
+      "Publishers": []
+    },
+    {
+      "Name": "redhouse-parcial2-receptores-b-1",
+      "Service": "receptores-b",
+      "Image": "redhouse/receptores:0.3.0",
+      "State": "running",
+      "Health": "healthy",
+      "Publishers": []
+    },
+    {
+      "Name": "redhouse-parcial2-redis-1",
+      "Service": "redis",
+      "Image": "redis:7.4-bookworm",
+      "State": "running",
+      "Health": "healthy",
+      "Publishers": [
+        {
+          "URL": "",
+          "TargetPort": 6379,
+          "PublishedPort": 0,
+          "Protocol": "tcp"
+        }
+      ]
+    },
+    {
+      "Name": "redhouse-parcial2-transporte-a-1",
+      "Service": "transporte-a",
+      "Image": "redhouse/transporte:0.3.0",
+      "State": "running",
+      "Health": "healthy",
+      "Publishers": []
+    },
+    {
+      "Name": "redhouse-parcial2-transporte-b-1",
+      "Service": "transporte-b",
+      "Image": "redhouse/transporte:0.3.0",
+      "State": "running",
+      "Health": "healthy",
+      "Publishers": []
+    },
+    {
+      "Name": "redhouse-parcial2-web-1",
+      "Service": "web",
+      "Image": "redhouse/web:0.3.0",
+      "State": "running",
+      "Health": "healthy",
+      "Publishers": [
+        {
+          "URL": "127.0.0.1",
+          "TargetPort": 8080,
+          "PublishedPort": 6050,
+          "Protocol": "tcp"
+        }
+      ]
+    }
+  ]
+}

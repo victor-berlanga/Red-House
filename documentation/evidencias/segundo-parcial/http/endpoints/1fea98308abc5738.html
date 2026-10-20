@@ -1,0 +1,103 @@
+<!doctype html><html lang="es"><meta charset="utf-8"><title>auditoria /schemas/&lt;name&gt;.response.json</title><style>body{font:15px system-ui;margin:32px;background:#f4f5f7;color:#202631}main{max-width:1250px;margin:auto}h1{color:#8e2434;font-size:26px}small{color:#556}a{color:#8e2434}table{border-collapse:collapse;width:100%;background:white}td,th{padding:9px;border:1px solid #ccd;vertical-align:top;text-align:left}pre{white-space:pre-wrap;word-break:break-word;background:#fff;border:1px solid #ccd;padding:12px;font:12px monospace;max-height:300px;overflow:auto}section{margin:20px 0}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.tag{padding:4px 9px;background:#e5ece7}.error{background:#f8e5e6}input{padding:12px;width:70%;margin:15px 0}details{margin:12px 0}nav{margin-bottom:20px}</style><main><nav><a href="../index.html">Inventario completo</a></nav><h1>auditoria · GET /schemas/&lt;name&gt;.response.json</h1><p>Infraestructura y documentación</p><p>Registro de ejecución real. Credenciales y firmas redactadas. Los cuerpos completos están en el JSON enlazado.</p><section><h2>HTTP 200</h2><p><b>2026-10-19T16:28:28.409722+00:00</b> · versión 0.3.0</p><p>Correlación: fe484163-97c9-443d-9c04-3834935623da<br>URL: http://127.0.0.1:56267/schemas/audit_ingest.response.json</p><p><a href="../records/60d285f5370c861ffb250aeb.json">Petición, respuesta, headers y persistencia completos</a></p><div class="grid"><div><h3>Petición</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Host&quot;: &quot;127.0.0.1:56267&quot;,
+    &quot;User-Agent&quot;: &quot;python-requests/2.34.2&quot;,
+    &quot;Accept-Encoding&quot;: &quot;gzip, deflate, br&quot;,
+    &quot;Accept&quot;: &quot;application/json&quot;,
+    &quot;Connection&quot;: &quot;keep-alive&quot;,
+    &quot;Idempotency-Key&quot;: &quot;28e5850679804d18a4b4be83b1e33204&quot;
+  },
+  &quot;parameters&quot;: {},
+  &quot;body&quot;: &quot;&quot;
+}</pre></div><div><h3>Respuesta</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Content-Type&quot;: &quot;application/json&quot;,
+    &quot;Content-Length&quot;: &quot;399&quot;,
+    &quot;X-Correlation-ID&quot;: &quot;fe484163-97c9-443d-9c04-3834935623da&quot;,
+    &quot;Cache-Control&quot;: &quot;no-store&quot;,
+    &quot;X-Content-Type-Options&quot;: &quot;nosniff&quot;,
+    &quot;Referrer-Policy&quot;: &quot;no-referrer&quot;
+  },
+  &quot;body&quot;: {
+    &quot;properties&quot;: {
+      &quot;data&quot;: {
+        &quot;properties&quot;: {
+          &quot;applied&quot;: {
+            &quot;type&quot;: &quot;boolean&quot;
+          },
+          &quot;duplicate&quot;: {
+            &quot;type&quot;: &quot;boolean&quot;
+          },
+          &quot;stored&quot;: {
+            &quot;type&quot;: &quot;boolean&quot;
+          }
+        },
+        &quot;required&quot;: [],
+        &quot;type&quot;: &quot;object&quot;
+      },
+      &quot;meta&quot;: {
+        &quot;properties&quot;: {
+          &quot;correlation_id&quot;: {
+            &quot;format&quot;: &quot;uuid&quot;,
+            &quot;type&quot;: &quot;string&quot;
+          },
+          &quot;service&quot;: {
+            &quot;type&quot;: &quot;string&quot;
+          },
+          &quot;version&quot;: {
+            &quot;type&quot;: &quot;string&quot;
+          }
+        },
+        &quot;required&quot;: [
+          &quot;correlation_id&quot;,
+          &quot;service&quot;,
+          &quot;version&quot;
+        ],
+        &quot;type&quot;: &quot;object&quot;
+      }
+    },
+    &quot;required&quot;: [
+      &quot;data&quot;,
+      &quot;meta&quot;
+    ],
+    &quot;type&quot;: &quot;object&quot;
+  }
+}</pre></div></div><details><summary>Persistencia y versión de implementación</summary><pre>{
+  &quot;effect&quot;: &quot;read&quot;,
+  &quot;note&quot;: &quot;Consulta; accesos protegidos generan auditoría local transaccional.&quot;
+}</pre><p>SHA-256: f1a9056ec92eb7006810957e59fb326815b25003ea30d5ed1de2439e7ed8f42a</p></details></section><section><h2>HTTP 404</h2><p><b>2026-10-19T16:28:28.454213+00:00</b> · versión 0.3.0</p><p>Correlación: c4197d71-baeb-46bf-808c-079819c8a37c<br>URL: http://127.0.0.1:56267/schemas/missing.response.json</p><p><a href="../records/885c2bc2f24751c1d2d3a131.json">Petición, respuesta, headers y persistencia completos</a></p><div class="grid"><div><h3>Petición</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Host&quot;: &quot;127.0.0.1:56267&quot;,
+    &quot;User-Agent&quot;: &quot;python-requests/2.34.2&quot;,
+    &quot;Accept-Encoding&quot;: &quot;gzip, deflate, br&quot;,
+    &quot;Accept&quot;: &quot;application/json&quot;,
+    &quot;Connection&quot;: &quot;keep-alive&quot;,
+    &quot;Idempotency-Key&quot;: &quot;736b3dfc12164e9e98642d13ebe4e1b0&quot;
+  },
+  &quot;parameters&quot;: {},
+  &quot;body&quot;: &quot;&quot;
+}</pre></div><div><h3>Respuesta</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Content-Type&quot;: &quot;application/json&quot;,
+    &quot;Content-Length&quot;: &quot;195&quot;,
+    &quot;X-Correlation-ID&quot;: &quot;c4197d71-baeb-46bf-808c-079819c8a37c&quot;,
+    &quot;Cache-Control&quot;: &quot;no-store&quot;,
+    &quot;X-Content-Type-Options&quot;: &quot;nosniff&quot;,
+    &quot;Referrer-Policy&quot;: &quot;no-referrer&quot;
+  },
+  &quot;body&quot;: {
+    &quot;error&quot;: {
+      &quot;code&quot;: &quot;not_found&quot;,
+      &quot;message&quot;: &quot;Contrato inexistente.&quot;,
+      &quot;details&quot;: []
+    },
+    &quot;meta&quot;: {
+      &quot;correlation_id&quot;: &quot;c4197d71-baeb-46bf-808c-079819c8a37c&quot;,
+      &quot;service&quot;: &quot;auditoria&quot;,
+      &quot;version&quot;: &quot;0.3.0&quot;
+    }
+  }
+}</pre></div></div><details><summary>Persistencia y versión de implementación</summary><pre>{
+  &quot;effect&quot;: &quot;controlled_error&quot;,
+  &quot;note&quot;: &quot;No se infiere ausencia de efectos de un error; revisar correlación y estado de operación.&quot;
+}</pre><p>SHA-256: f1a9056ec92eb7006810957e59fb326815b25003ea30d5ed1de2439e7ed8f42a</p></details></section><h2>Todas las variantes ejecutadas</h2><ul><li><a href="../records/60d285f5370c861ffb250aeb.json">200 · http · application/json · 2026-10-19T16:28:28.409722+00:00</a></li><li><a href="../records/885c2bc2f24751c1d2d3a131.json">404 · http · application/json · 2026-10-19T16:28:28.454213+00:00</a></li></ul></main></html>

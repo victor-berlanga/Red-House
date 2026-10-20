@@ -1,0 +1,15 @@
+erDiagram
+ institution ||--o{ user_account : pertenece
+ institution ||--o{ donor : registra
+ donor ||--o{ donation : origina
+ donation o|--o{ resource : produce
+ institution ||--o{ recipient : atiende
+ recipient ||--o{ blood_request : solicita
+ blood_request ||--o{ candidate_evaluation : evalua
+ candidate_evaluation ||--o{ blood_allocation : revisa
+ resource ||--o{ blood_allocation : reserva
+ blood_allocation ||--o| shipment : traslada
+ shipment ||--o{ shipment_transition : cambia
+ shipment ||--o{ custody_event : documenta
+ shipment ||--o{ stored_file : evidencia
+ user_account ||--o{ audit_event : actua

@@ -1,0 +1,76 @@
+EEEEEEEE........................................................         [100%]
+==================================== ERRORS ====================================
+_ ERROR at setup of test_logout_failure_clears_credentials_and_queues_encrypted_revocation _
+file /Users/victorberlanga/Programacion/integracion/Red-House/apps/services/tests/test_web_sessions.py, line 31
+  def test_logout_failure_clears_credentials_and_queues_encrypted_revocation(web):
+E       fixture 'web' not found
+>       available fixtures: cache, capfd, capfdbinary, caplog, capsys, capsysbinary, capteesys, doctest_namespace, fastsession, monkeypatch, p, platform, pytestconfig, record_property, record_testsuite_property, record_xml_attribute, recwarn, session, subtests, tmp_path, tmp_path_factory, tmpdir, tmpdir_factory
+>       use 'pytest --fixtures [testpath]' for help on them.
+
+/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/tests/test_web_sessions.py:31
+_ ERROR at setup of test_network_renewal_does_not_lock_other_sessions_and_rejects_same_session _
+file /Users/victorberlanga/Programacion/integracion/Red-House/apps/services/tests/test_web_sessions.py, line 62
+  def test_network_renewal_does_not_lock_other_sessions_and_rejects_same_session(web):
+E       fixture 'web' not found
+>       available fixtures: cache, capfd, capfdbinary, caplog, capsys, capsysbinary, capteesys, doctest_namespace, fastsession, monkeypatch, p, platform, pytestconfig, record_property, record_testsuite_property, record_xml_attribute, recwarn, session, subtests, tmp_path, tmp_path_factory, tmpdir, tmpdir_factory
+>       use 'pytest --fixtures [testpath]' for help on them.
+
+/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/tests/test_web_sessions.py:62
+_____ ERROR at setup of test_logout_during_refresh_never_recreates_session _____
+file /Users/victorberlanga/Programacion/integracion/Red-House/apps/services/tests/test_web_sessions.py, line 98
+  def test_logout_during_refresh_never_recreates_session(web):
+E       fixture 'web' not found
+>       available fixtures: cache, capfd, capfdbinary, caplog, capsys, capsysbinary, capteesys, doctest_namespace, fastsession, monkeypatch, p, platform, pytestconfig, record_property, record_testsuite_property, record_xml_attribute, recwarn, session, subtests, tmp_path, tmp_path_factory, tmpdir, tmpdir_factory
+>       use 'pytest --fixtures [testpath]' for help on them.
+
+/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/tests/test_web_sessions.py:98
+_ ERROR at setup of test_redis_outage_logout_is_durable_and_revokes_after_recovery _
+file /Users/victorberlanga/Programacion/integracion/Red-House/apps/services/tests/test_web_sessions.py, line 142
+      def renew():
+E       fixture 'web' not found
+>       available fixtures: cache, capfd, capfdbinary, caplog, capsys, capsysbinary, capteesys, doctest_namespace, fastsession, monkeypatch, p, platform, pytestconfig, record_property, record_testsuite_property, record_xml_attribute, recwarn, session, subtests, tmp_path, tmp_path_factory, tmpdir, tmpdir_factory
+>       use 'pytest --fixtures [testpath]' for help on them.
+
+/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/tests/test_web_sessions.py:142
+_ ERROR at setup of test_postgres_outage_fails_closed_and_logout_removes_browser_cookie _
+file /Users/victorberlanga/Programacion/integracion/Red-House/apps/services/tests/test_web_sessions.py, line 176
+  def test_redis_outage_logout_is_durable_and_revokes_after_recovery(web, p, monkeypatch):
+E       fixture 'web' not found
+>       available fixtures: cache, capfd, capfdbinary, caplog, capsys, capsysbinary, capteesys, doctest_namespace, fastsession, monkeypatch, p, platform, pytestconfig, record_property, record_testsuite_property, record_xml_attribute, recwarn, session, subtests, tmp_path, tmp_path_factory, tmpdir, tmpdir_factory
+>       use 'pytest --fixtures [testpath]' for help on them.
+
+/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/tests/test_web_sessions.py:176
+_ ERROR at setup of test_encrypted_session_is_shared_between_web_instances_and_expires _
+file /Users/victorberlanga/Programacion/integracion/Red-House/apps/services/tests/test_web_sessions.py, line 193
+  def test_postgres_outage_fails_closed_and_logout_removes_browser_cookie(
+E       fixture 'web' not found
+>       available fixtures: cache, capfd, capfdbinary, caplog, capsys, capsysbinary, capteesys, doctest_namespace, fastsession, monkeypatch, p, platform, pytestconfig, record_property, record_testsuite_property, record_xml_attribute, recwarn, session, subtests, tmp_path, tmp_path_factory, tmpdir, tmpdir_factory
+>       use 'pytest --fixtures [testpath]' for help on them.
+
+/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/tests/test_web_sessions.py:193
+_ ERROR at setup of test_portal_credentials_cannot_read_identity_keys_or_domain_tables _
+file /Users/victorberlanga/Programacion/integracion/Red-House/apps/services/tests/test_web_sessions.py, line 215
+  def test_encrypted_session_is_shared_between_web_instances_and_expires(web, p):
+E       fixture 'web' not found
+>       available fixtures: cache, capfd, capfdbinary, caplog, capsys, capsysbinary, capteesys, doctest_namespace, fastsession, monkeypatch, p, platform, pytestconfig, record_property, record_testsuite_property, record_xml_attribute, recwarn, session, subtests, tmp_path, tmp_path_factory, tmpdir, tmpdir_factory
+>       use 'pytest --fixtures [testpath]' for help on them.
+
+/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/tests/test_web_sessions.py:215
+_ ERROR at setup of test_storage_upgrade_is_repeatable_preserves_secret_and_pending_rows _
+file /Users/victorberlanga/Programacion/integracion/Red-House/apps/services/tests/test_web_sessions.py, line 228
+  def test_portal_credentials_cannot_read_identity_keys_or_domain_tables(web, p):
+E       fixture 'web' not found
+>       available fixtures: cache, capfd, capfdbinary, caplog, capsys, capsysbinary, capteesys, doctest_namespace, fastsession, monkeypatch, p, platform, pytestconfig, record_property, record_testsuite_property, record_xml_attribute, recwarn, session, subtests, tmp_path, tmp_path_factory, tmpdir, tmpdir_factory
+>       use 'pytest --fixtures [testpath]' for help on them.
+
+/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/tests/test_web_sessions.py:228
+=========================== short test summary info ============================
+ERROR apps/services/tests/test_web_sessions.py::test_logout_failure_clears_credentials_and_queues_encrypted_revocation
+ERROR apps/services/tests/test_web_sessions.py::test_network_renewal_does_not_lock_other_sessions_and_rejects_same_session
+ERROR apps/services/tests/test_web_sessions.py::test_logout_during_refresh_never_recreates_session
+ERROR apps/services/tests/test_web_sessions.py::test_redis_outage_logout_is_durable_and_revokes_after_recovery
+ERROR apps/services/tests/test_web_sessions.py::test_postgres_outage_fails_closed_and_logout_removes_browser_cookie
+ERROR apps/services/tests/test_web_sessions.py::test_encrypted_session_is_shared_between_web_instances_and_expires
+ERROR apps/services/tests/test_web_sessions.py::test_portal_credentials_cannot_read_identity_keys_or_domain_tables
+ERROR apps/services/tests/test_web_sessions.py::test_storage_upgrade_is_repeatable_preserves_secret_and_pending_rows
+56 passed, 8 errors in 176.84s (0:02:56)

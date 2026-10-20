@@ -1,0 +1,64 @@
+{
+  "captured_at": "2026-10-19T16:43:10.701854+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "b8204c203189de890c197ffcc608103454231faa36b5def1b043c829582fb590",
+  "transport": "http",
+  "method": "GET",
+  "route": "/health/ready",
+  "objective": "ready",
+  "url": "http://127.0.0.1:56268/health/ready",
+  "parameters": {},
+  "path_parameters": {},
+  "request_headers": {
+    "Host": "127.0.0.1:56268",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "*/*",
+    "Connection": "keep-alive"
+  },
+  "request_body": "",
+  "status": 503,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "379",
+    "X-Correlation-ID": "cdfb3dba-3519-463c-998f-ddd865e630a9",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "data": {
+      "state": "degraded",
+      "dependencies": {
+        "database": {
+          "state": "down",
+          "error": "dependency_unavailable"
+        },
+        "redis": {
+          "state": "up"
+        },
+        "mongodb": {
+          "state": "up"
+        },
+        "storage": {
+          "state": "not_applicable"
+        },
+        "worker": {
+          "state": "not_configured",
+          "required": false
+        }
+      },
+      "service": "monitoreo",
+      "version": "0.3.0"
+    },
+    "meta": {
+      "correlation_id": "cdfb3dba-3519-463c-998f-ddd865e630a9"
+    }
+  },
+  "correlation_id": "cdfb3dba-3519-463c-998f-ddd865e630a9",
+  "persistence": {
+    "effect": "controlled_error",
+    "note": "No se infiere ausencia de efectos de un error; revisar correlación y estado de operación."
+  }
+}

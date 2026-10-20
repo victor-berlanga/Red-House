@@ -1,0 +1,64 @@
+{
+  "captured_at": "2026-10-19T16:39:31.542890+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "b82acfc07e7ff0221196c291a52b1986e4d1ac69b3f6769bffe29f4a02fa5c9b",
+  "transport": "http",
+  "method": "POST",
+  "route": "/api/v1/auth/revoke",
+  "objective": "Revocar familia con renovación opaca, incluso si venció el JWT de acceso",
+  "url": "http://127.0.0.1:56258/api/v1/auth/revoke",
+  "parameters": {},
+  "path_parameters": {},
+  "request_headers": {
+    "Host": "127.0.0.1:56258",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "f1c487c0e3464b2594dd726e90652e8f",
+    "Content-Length": "101",
+    "Content-Type": "application/json"
+  },
+  "request_body": {
+    "refresh_token": "[REDACTED]"
+  },
+  "status": 200,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "146",
+    "X-Correlation-ID": "4d9e05e7-20f7-4e8c-9ce6-dfe2d1cb0903",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "data": {
+      "revoked": true
+    },
+    "meta": {
+      "correlation_id": "4d9e05e7-20f7-4e8c-9ce6-dfe2d1cb0903",
+      "service": "identidad_acceso",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "4d9e05e7-20f7-4e8c-9ce6-dfe2d1cb0903",
+  "persistence": {
+    "effect": "committed",
+    "store": "PostgreSQL red_house",
+    "query": "SELECT id,user_id,expires_at,revoked_at FROM sessions WHERE id=%s",
+    "parameters": [
+      "a1d13054-a174-4fe9-aba4-cede64f6bc1a"
+    ],
+    "row": {
+      "id": "a1d13054-a174-4fe9-aba4-cede64f6bc1a",
+      "user_id": "b7e21549-9533-4cc8-a5bc-3d55493b8ada",
+      "expires_at": "2026-10-20 16:39:30.764580+00:00",
+      "revoked_at": "2026-10-19 16:39:31.481416+00:00"
+    },
+    "redis": {
+      "session_exists": false,
+      "session_ttl": -2
+    }
+  }
+}

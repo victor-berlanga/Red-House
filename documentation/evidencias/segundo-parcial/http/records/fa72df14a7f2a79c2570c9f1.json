@@ -1,0 +1,56 @@
+{
+  "captured_at": "2026-10-19T16:34:24.346955+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "b82acfc07e7ff0221196c291a52b1986e4d1ac69b3f6769bffe29f4a02fa5c9b",
+  "transport": "http",
+  "method": "GET",
+  "route": "/internal/v1/locations/<identifier>",
+  "objective": "Validar ubicación y sede de la institución del usuario",
+  "url": "http://127.0.0.1:56258/internal/v1/locations/0f21c6a7-7cf4-4a19-a0be-d110e8e99dfa",
+  "parameters": {},
+  "path_parameters": {
+    "identifier": "0f21c6a7-7cf4-4a19-a0be-d110e8e99dfa"
+  },
+  "request_headers": {
+    "Host": "127.0.0.1:56258",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Content-Type": "application/json",
+    "X-Service": "inventario",
+    "X-Service-Time": "1792427664",
+    "X-Service-Nonce": "24136793-ac7e-49cd-8278-918fe26d54dc",
+    "X-Service-Signature": "[REDACTED]",
+    "X-Correlation-Id": "6700b203-0a61-46e1-b0a6-4a45f1191986",
+    "Authorization": "[REDACTED]"
+  },
+  "request_body": "[Invalid JSON omitted; sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855]",
+  "status": 200,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "244",
+    "X-Correlation-ID": "6700b203-0a61-46e1-b0a6-4a45f1191986",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "data": {
+      "id": "0f21c6a7-7cf4-4a19-a0be-d110e8e99dfa",
+      "tenant_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+      "active": true
+    },
+    "meta": {
+      "correlation_id": "6700b203-0a61-46e1-b0a6-4a45f1191986",
+      "service": "identidad_acceso",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "6700b203-0a61-46e1-b0a6-4a45f1191986",
+  "persistence": {
+    "effect": "read",
+    "note": "Consulta; accesos protegidos generan auditoría local transaccional."
+  }
+}

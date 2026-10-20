@@ -1,0 +1,52 @@
+{
+  "captured_at": "2026-10-19T16:28:08.304552+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "b82acfc07e7ff0221196c291a52b1986e4d1ac69b3f6769bffe29f4a02fa5c9b",
+  "transport": "http",
+  "method": "PATCH",
+  "route": "/api/v1/catalogues/schedules/<identifier>",
+  "objective": "Editar o desactivar schedules",
+  "url": "http://127.0.0.1:56258/api/v1/catalogues/schedules/4c53e72e-ce34-4297-bae9-8d24aa61f6a1",
+  "parameters": {},
+  "path_parameters": {
+    "identifier": "4c53e72e-ce34-4297-bae9-8d24aa61f6a1"
+  },
+  "request_headers": {
+    "Host": "127.0.0.1:56258",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "7700ce03864d4982bc5d7e70b084857b",
+    "Content-Length": "2",
+    "Content-Type": "application/json"
+  },
+  "request_body": {},
+  "status": 401,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "208",
+    "X-Correlation-ID": "eaa8a8b9-7092-474a-81da-f8b1d635311a",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "error": {
+      "code": "unauthorized",
+      "message": "JWT de acceso requerido.",
+      "details": []
+    },
+    "meta": {
+      "correlation_id": "eaa8a8b9-7092-474a-81da-f8b1d635311a",
+      "service": "identidad_acceso",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "eaa8a8b9-7092-474a-81da-f8b1d635311a",
+  "persistence": {
+    "effect": "controlled_error",
+    "note": "No se infiere ausencia de efectos de un error; revisar correlación y estado de operación."
+  }
+}

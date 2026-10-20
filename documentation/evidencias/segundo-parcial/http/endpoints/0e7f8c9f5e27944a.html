@@ -1,0 +1,100 @@
+<!doctype html><html lang="es"><meta charset="utf-8"><title>transporte /api/v1/files/&lt;identifier&gt;/verify</title><style>body{font:15px system-ui;margin:32px;background:#f4f5f7;color:#202631}main{max-width:1250px;margin:auto}h1{color:#8e2434;font-size:26px}small{color:#556}a{color:#8e2434}table{border-collapse:collapse;width:100%;background:white}td,th{padding:9px;border:1px solid #ccd;vertical-align:top;text-align:left}pre{white-space:pre-wrap;word-break:break-word;background:#fff;border:1px solid #ccd;padding:12px;font:12px monospace;max-height:300px;overflow:auto}section{margin:20px 0}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.tag{padding:4px 9px;background:#e5ece7}.error{background:#f8e5e6}input{padding:12px;width:70%;margin:15px 0}details{margin:12px 0}nav{margin-bottom:20px}</style><main><nav><a href="../index.html">Inventario completo</a></nav><h1>transporte · POST /api/v1/files/&lt;identifier&gt;/verify</h1><p>Verificar tamaño, MIME, firma de archivo y SHA-256 del objeto real</p><p>Registro de ejecución real. Credenciales y firmas redactadas. Los cuerpos completos están en el JSON enlazado.</p><section><h2>HTTP 200</h2><p><b>2026-10-19T16:27:53.419436+00:00</b> · versión 0.3.0</p><p>Correlación: 233a612f-d37f-42df-ba41-edcc5976d86b<br>URL: http://127.0.0.1:56264/api/v1/files/71dbae37-fa9f-4f5f-99a0-f485fd7e46f6/verify</p><p><a href="../records/8a0b0fbd7c86d9c1f252ed37.json">Petición, respuesta, headers y persistencia completos</a></p><div class="grid"><div><h3>Petición</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Host&quot;: &quot;127.0.0.1:56264&quot;,
+    &quot;User-Agent&quot;: &quot;python-requests/2.34.2&quot;,
+    &quot;Accept-Encoding&quot;: &quot;gzip, deflate, br&quot;,
+    &quot;Accept&quot;: &quot;application/json&quot;,
+    &quot;Connection&quot;: &quot;keep-alive&quot;,
+    &quot;X-Correlation-Id&quot;: &quot;233a612f-d37f-42df-ba41-edcc5976d86b&quot;,
+    &quot;Authorization&quot;: &quot;[REDACTED]&quot;,
+    &quot;Idempotency-Key&quot;: &quot;e4437adaeb1c4b639c262152b819b333-verify&quot;,
+    &quot;Content-Length&quot;: &quot;0&quot;
+  },
+  &quot;parameters&quot;: {},
+  &quot;body&quot;: &quot;&quot;
+}</pre></div><div><h3>Respuesta</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Content-Type&quot;: &quot;application/json&quot;,
+    &quot;Content-Length&quot;: &quot;636&quot;,
+    &quot;X-Correlation-ID&quot;: &quot;233a612f-d37f-42df-ba41-edcc5976d86b&quot;,
+    &quot;Cache-Control&quot;: &quot;no-store&quot;,
+    &quot;X-Content-Type-Options&quot;: &quot;nosniff&quot;,
+    &quot;Referrer-Policy&quot;: &quot;no-referrer&quot;
+  },
+  &quot;body&quot;: {
+    &quot;data&quot;: {
+      &quot;id&quot;: &quot;71dbae37-fa9f-4f5f-99a0-f485fd7e46f6&quot;,
+      &quot;shipment_id&quot;: &quot;b52dc499-7158-46d7-89a1-00c2f3f871c5&quot;,
+      &quot;owner_id&quot;: &quot;b7e21549-9533-4cc8-a5bc-3d55493b8ada&quot;,
+      &quot;object_path&quot;: &quot;evidence/7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb/b52dc499-7158-46d7-89a1-00c2f3f871c5/71dbae37-fa9f-4f5f-99a0-f485fd7e46f6&quot;,
+      &quot;mime_type&quot;: &quot;image/png&quot;,
+      &quot;size&quot;: 74,
+      &quot;sha256&quot;: &quot;77845f63cbd1ecb93e10fbaff7e657044d25d59f0586905c9bdbddeb2c477309&quot;,
+      &quot;status&quot;: &quot;VERIFIED&quot;,
+      &quot;generation&quot;: &quot;1792427273203717&quot;,
+      &quot;created_at&quot;: &quot;2026-10-19T16:27:51.293092+00:00&quot;
+    },
+    &quot;meta&quot;: {
+      &quot;correlation_id&quot;: &quot;233a612f-d37f-42df-ba41-edcc5976d86b&quot;,
+      &quot;service&quot;: &quot;transporte&quot;,
+      &quot;version&quot;: &quot;0.3.0&quot;
+    }
+  }
+}</pre></div></div><details><summary>Persistencia y versión de implementación</summary><pre>{
+  &quot;effect&quot;: &quot;committed&quot;,
+  &quot;store&quot;: &quot;PostgreSQL red_house&quot;,
+  &quot;query&quot;: &quot;SELECT operation,fingerprint,result FROM idempotency WHERE user_id=:actor AND key=:idempotency_key&quot;,
+  &quot;row&quot;: {
+    &quot;operation&quot;: &quot;file_verify:71dbae37-fa9f-4f5f-99a0-f485fd7e46f6&quot;,
+    &quot;fingerprint&quot;: &quot;482e9c7b768bc51ab46eb29122356143adf7e0e8540276919cea1d9a42fa1704&quot;,
+    &quot;result&quot;: {
+      &quot;id&quot;: &quot;71dbae37-fa9f-4f5f-99a0-f485fd7e46f6&quot;,
+      &quot;size&quot;: 74,
+      &quot;sha256&quot;: &quot;77845f63cbd1ecb93e10fbaff7e657044d25d59f0586905c9bdbddeb2c477309&quot;,
+      &quot;status&quot;: &quot;VERIFIED&quot;,
+      &quot;owner_id&quot;: &quot;b7e21549-9533-4cc8-a5bc-3d55493b8ada&quot;,
+      &quot;mime_type&quot;: &quot;image/png&quot;,
+      &quot;created_at&quot;: &quot;2026-10-19T16:27:51.293092+00:00&quot;,
+      &quot;generation&quot;: &quot;1792427273203717&quot;,
+      &quot;object_path&quot;: &quot;evidence/7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb/b52dc499-7158-46d7-89a1-00c2f3f871c5/71dbae37-fa9f-4f5f-99a0-f485fd7e46f6&quot;,
+      &quot;shipment_id&quot;: &quot;b52dc499-7158-46d7-89a1-00c2f3f871c5&quot;
+    }
+  }
+}</pre><p>SHA-256: e7eb0044cb5544477c1a4b79a264977e16ddd17c216e8a88ed6d187af95af791</p></details></section><section><h2>HTTP 422</h2><p><b>2026-10-19T16:27:57.927294+00:00</b> · versión 0.3.0</p><p>Correlación: be4f2990-b053-4609-8ac2-b5022754c4bd<br>URL: http://127.0.0.1:56264/api/v1/files/6df7ab2e-ec56-43d3-9d81-ad1b5ed1732c/verify</p><p><a href="../records/8cf2ccd89282238e049efbe0.json">Petición, respuesta, headers y persistencia completos</a></p><div class="grid"><div><h3>Petición</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Host&quot;: &quot;127.0.0.1:56264&quot;,
+    &quot;User-Agent&quot;: &quot;python-requests/2.34.2&quot;,
+    &quot;Accept-Encoding&quot;: &quot;gzip, deflate, br&quot;,
+    &quot;Accept&quot;: &quot;application/json&quot;,
+    &quot;Connection&quot;: &quot;keep-alive&quot;,
+    &quot;Idempotency-Key&quot;: &quot;238fac387c8844888d2bf90d3eadfad3&quot;,
+    &quot;Authorization&quot;: &quot;[REDACTED]&quot;,
+    &quot;Content-Length&quot;: &quot;0&quot;
+  },
+  &quot;parameters&quot;: {},
+  &quot;body&quot;: &quot;&quot;
+}</pre></div><div><h3>Respuesta</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Content-Type&quot;: &quot;application/json&quot;,
+    &quot;Content-Length&quot;: &quot;246&quot;,
+    &quot;X-Correlation-ID&quot;: &quot;be4f2990-b053-4609-8ac2-b5022754c4bd&quot;,
+    &quot;Cache-Control&quot;: &quot;no-store&quot;,
+    &quot;X-Content-Type-Options&quot;: &quot;nosniff&quot;,
+    &quot;Referrer-Policy&quot;: &quot;no-referrer&quot;
+  },
+  &quot;body&quot;: {
+    &quot;error&quot;: {
+      &quot;code&quot;: &quot;file_validation&quot;,
+      &quot;message&quot;: &quot;Archivo ilegible, contenido activo o tipo diferente al declarado.&quot;,
+      &quot;details&quot;: []
+    },
+    &quot;meta&quot;: {
+      &quot;correlation_id&quot;: &quot;be4f2990-b053-4609-8ac2-b5022754c4bd&quot;,
+      &quot;service&quot;: &quot;transporte&quot;,
+      &quot;version&quot;: &quot;0.3.0&quot;
+    }
+  }
+}</pre></div></div><details><summary>Persistencia y versión de implementación</summary><pre>{
+  &quot;effect&quot;: &quot;controlled_error&quot;,
+  &quot;note&quot;: &quot;No se infiere ausencia de efectos de un error; revisar correlación y estado de operación.&quot;
+}</pre><p>SHA-256: e7eb0044cb5544477c1a4b79a264977e16ddd17c216e8a88ed6d187af95af791</p></details></section><h2>Todas las variantes ejecutadas</h2><ul><li><a href="../records/8a0b0fbd7c86d9c1f252ed37.json">200 · http · application/json · 2026-10-19T16:27:53.419436+00:00</a></li><li><a href="../records/8cf2ccd89282238e049efbe0.json">422 · http · application/json · 2026-10-19T16:27:57.927294+00:00</a></li><li><a href="../records/198e02eb29c5b586bfa3f4cf.json">404 · http · application/json · 2026-10-19T16:27:58.479463+00:00</a></li><li><a href="../records/990127c6f46e291c87af7247.json">401 · http · application/json · 2026-10-19T16:28:24.869695+00:00</a></li><li><a href="../records/e3c0ee547119c75ccb93dc74.json">401 · http · application/xml; charset=utf-8 · 2026-10-19T16:28:24.903589+00:00</a></li></ul></main></html>

@@ -1,0 +1,77 @@
+{
+  "captured_at": "2026-10-19T16:22:53.948840+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "6eac28b3c6355ff29f1aabe6ed2aa76b6e104ed4888482a02b3967184783afa9",
+  "transport": "embedded",
+  "method": "POST",
+  "route": "/internal/v1/reservations/<identifier>/claim",
+  "objective": "Vincular traslado durable antes de permitir recolección",
+  "url": "http://localhost/internal/v1/reservations/1fa376a0-38fe-4e22-9f96-0dc4640d9d64/claim",
+  "parameters": {},
+  "path_parameters": {
+    "identifier": "1fa376a0-38fe-4e22-9f96-0dc4640d9d64"
+  },
+  "request_headers": {
+    "Host": "localhost",
+    "Content-Type": "application/json",
+    "Content-Length": "54",
+    "Accept": "application/json",
+    "X-Service": "transporte",
+    "X-Service-Time": "1792426973",
+    "X-Service-Nonce": "29149f41-debe-4390-865c-e288135a8fa6",
+    "X-Service-Signature": "[REDACTED]",
+    "X-Correlation-Id": "4932744c-6d82-4528-89f2-e2a1acea9115"
+  },
+  "request_body": {
+    "shipment_id": "ea3e5e8c-ee3a-4cea-894b-b2f88714458a"
+  },
+  "status": 200,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "885",
+    "X-Correlation-ID": "4932744c-6d82-4528-89f2-e2a1acea9115",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "data": {
+      "id": "1fa376a0-38fe-4e22-9f96-0dc4640d9d64",
+      "operation_id": "73f80114-0036-4db3-bcce-f4e105a01587",
+      "resource_id": "40ecb372-b846-44f1-852e-cb96ddc75e4d",
+      "request_id": "6e221b47-5225-4015-92f2-531d6b373ef2",
+      "recipient_id": "faf8c2f0-89d4-48c2-aa33-2c707585c068",
+      "origin_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+      "destination_id": "a0920053-13c5-4d42-b53e-74b35a779f58",
+      "region_id": "7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb",
+      "hold_id": "1e44cb71-3b21-4e2a-a8fa-3f3794bde272",
+      "evaluation_id": "d689ca9c-4d24-4cec-965e-93f49d4f2cdb",
+      "route_id": "7b1745f6-56e0-43d3-9c3d-1c35538d7aae",
+      "route_version": 2,
+      "status": "RESERVED",
+      "shipment_id": "ea3e5e8c-ee3a-4cea-894b-b2f88714458a",
+      "shipment_sequence": 0,
+      "created_at": "2026-10-19T16:22:50.050890+00:00"
+    },
+    "meta": {
+      "correlation_id": "4932744c-6d82-4528-89f2-e2a1acea9115",
+      "service": "inventario",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "4932744c-6d82-4528-89f2-e2a1acea9115",
+  "persistence": {
+    "effect": "committed",
+    "store": "PostgreSQL red_house",
+    "query": "SELECT id,status,shipment_id FROM reservations WHERE id=%s",
+    "parameters": [
+      "1fa376a0-38fe-4e22-9f96-0dc4640d9d64"
+    ],
+    "row": {
+      "id": "1fa376a0-38fe-4e22-9f96-0dc4640d9d64",
+      "status": "RESERVED",
+      "shipment_id": "ea3e5e8c-ee3a-4cea-894b-b2f88714458a"
+    }
+  }
+}

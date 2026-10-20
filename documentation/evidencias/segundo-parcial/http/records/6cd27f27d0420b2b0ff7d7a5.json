@@ -1,0 +1,39 @@
+{
+  "captured_at": "2026-10-19T16:28:04.545800+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "b82acfc07e7ff0221196c291a52b1986e4d1ac69b3f6769bffe29f4a02fa5c9b",
+  "transport": "http",
+  "method": "POST",
+  "route": "/api/v1/auth/refresh",
+  "objective": "Rotar renovación; repetición revoca familia",
+  "url": "http://127.0.0.1:56258/api/v1/auth/refresh",
+  "parameters": {},
+  "path_parameters": {},
+  "request_headers": {
+    "Host": "127.0.0.1:56258",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/xml",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "c1e9e9a6d4dd499a8b2a52b2dc264d8c",
+    "Content-Length": "2",
+    "Content-Type": "application/json"
+  },
+  "request_body": {},
+  "status": 422,
+  "response_headers": {
+    "Content-Type": "application/xml; charset=utf-8",
+    "Content-Length": "656",
+    "X-Correlation-ID": "a7bb9303-5eea-4b0a-ad44-38f413cf6f77",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": "<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">validation</field><field name=\"message\" type=\"string\">La solicitud no cumple el contrato.</field><field name=\"details\" type=\"array\"><item type=\"object\"><field name=\"field\" type=\"string\">refresh_token</field><field name=\"code\" type=\"string\">missing</field></item></field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">a7bb9303-5eea-4b0a-ad44-38f413cf6f77</field><field name=\"service\" type=\"string\">identidad_acceso</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>",
+  "correlation_id": "a7bb9303-5eea-4b0a-ad44-38f413cf6f77",
+  "persistence": {
+    "effect": "controlled_error",
+    "note": "No se infiere ausencia de efectos de un error; revisar correlación y estado de operación."
+  }
+}

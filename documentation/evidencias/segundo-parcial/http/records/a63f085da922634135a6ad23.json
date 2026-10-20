@@ -1,0 +1,37 @@
+{
+  "captured_at": "2026-10-19T16:28:18.698052+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "6eac28b3c6355ff29f1aabe6ed2aa76b6e104ed4888482a02b3967184783afa9",
+  "transport": "http",
+  "method": "GET",
+  "route": "/api/v1/reservations",
+  "objective": "Reservas institucionales o regionales para coordinación",
+  "url": "http://127.0.0.1:56261/api/v1/reservations",
+  "parameters": {},
+  "path_parameters": {},
+  "request_headers": {
+    "Host": "127.0.0.1:56261",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/xml",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "035860dc710c49b0bcc18d88dbefc35f"
+  },
+  "request_body": "",
+  "status": 401,
+  "response_headers": {
+    "Content-Type": "application/xml; charset=utf-8",
+    "Content-Length": "504",
+    "X-Correlation-ID": "5ac6b4ce-d750-4edc-8e24-f3acea23c303",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": "<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">unauthorized</field><field name=\"message\" type=\"string\">JWT de acceso requerido.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">5ac6b4ce-d750-4edc-8e24-f3acea23c303</field><field name=\"service\" type=\"string\">inventario</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>",
+  "correlation_id": "5ac6b4ce-d750-4edc-8e24-f3acea23c303",
+  "persistence": {
+    "effect": "controlled_error",
+    "note": "No se infiere ausencia de efectos de un error; revisar correlación y estado de operación."
+  }
+}

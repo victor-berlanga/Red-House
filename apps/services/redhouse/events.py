@@ -104,6 +104,9 @@ def deliver_mongo(event):
                     raise APIError(
                         "event_conflict", "Evento repetido con contenido distinto.", 409
                     )
+            projector = current_app.extensions.get("project_event")
+            if projector:
+                projector(client[current_app.config["MONGODB_DATABASE"]], event)
     except PyMongoError:
         raise APIError(
             "mongodb_unavailable", "MongoDB temporalmente inaccesible.", 503

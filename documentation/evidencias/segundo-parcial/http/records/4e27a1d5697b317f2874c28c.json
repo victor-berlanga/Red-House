@@ -1,0 +1,61 @@
+{
+  "captured_at": "2026-10-19T16:27:25.299580+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "e7eb0044cb5544477c1a4b79a264977e16ddd17c216e8a88ed6d187af95af791",
+  "transport": "http",
+  "method": "GET",
+  "route": "/api/v1/shipments/<identifier>/tracking",
+  "objective": "Último paso documental con versión y referencia a PostgreSQL",
+  "url": "http://127.0.0.1:56264/api/v1/shipments/859eea1a-1b77-4b08-9a53-5038495b9521/tracking",
+  "parameters": {},
+  "path_parameters": {
+    "identifier": "859eea1a-1b77-4b08-9a53-5038495b9521"
+  },
+  "request_headers": {
+    "Host": "127.0.0.1:56264",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "1c23a3f2f8024fc1824b298afc012331",
+    "Authorization": "[REDACTED]"
+  },
+  "request_body": "",
+  "status": 200,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "672",
+    "X-Correlation-ID": "46c91b3c-49b5-40eb-a1cd-651abd99d380",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "data": {
+      "destination_id": "a0920053-13c5-4d42-b53e-74b35a779f58",
+      "last_event_id": "056943b6-73dd-4705-81aa-36594c45a41b",
+      "last_state": "COLLECTED",
+      "occurred_at": "2026-10-19T16:26:49.351359+00:00",
+      "origin_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+      "owner": "transporte",
+      "region_id": "7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb",
+      "reservation_id": "1e1b90e8-2d0a-425b-bc78-f2b497c2af6a",
+      "schema_version": 1,
+      "shipment_id": "859eea1a-1b77-4b08-9a53-5038495b9521",
+      "transport_user_id": "3980f3c5-484c-4178-b03c-8d65c598ecd7",
+      "version": 3,
+      "pending": false
+    },
+    "meta": {
+      "correlation_id": "46c91b3c-49b5-40eb-a1cd-651abd99d380",
+      "service": "transporte",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "46c91b3c-49b5-40eb-a1cd-651abd99d380",
+  "persistence": {
+    "effect": "read",
+    "note": "Consulta; accesos protegidos generan auditoría local transaccional."
+  }
+}

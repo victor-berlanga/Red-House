@@ -1,0 +1,108 @@
+{
+  "captured_at": "2026-10-19T16:28:19.629780+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "edd69e48ffcbd19733c620b1f2bcc1fcd82057a7b17a2d0eb2188ccf77d7f18f",
+  "transport": "http",
+  "method": "GET",
+  "route": "/schemas/<name>.response.json",
+  "objective": "response_contract",
+  "url": "http://127.0.0.1:56262/schemas/evaluation_create.response.json",
+  "parameters": {},
+  "path_parameters": {
+    "name": "evaluation_create"
+  },
+  "request_headers": {
+    "Host": "127.0.0.1:56262",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "4327b4bd658e4fb099c79fb59e50c137"
+  },
+  "request_body": "",
+  "status": 200,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "699",
+    "X-Correlation-ID": "cd55ac95-a520-44b9-b12d-e6814d284d2e",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "properties": {
+      "data": {
+        "properties": {
+          "algorithm_version": {
+            "type": "string"
+          },
+          "candidates": {},
+          "created_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "elapsed_ms": {
+            "type": "number"
+          },
+          "id": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "kind": {
+            "type": "string"
+          },
+          "recipient_version": {
+            "type": "integer"
+          },
+          "request_id": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "request_version": {
+            "type": "integer"
+          },
+          "snapshot": {},
+          "tenant_id": {
+            "format": "uuid",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "type": "object"
+      },
+      "meta": {
+        "properties": {
+          "correlation_id": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "service": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "correlation_id",
+          "service",
+          "version"
+        ],
+        "type": "object"
+      }
+    },
+    "required": [
+      "data",
+      "meta"
+    ],
+    "type": "object"
+  },
+  "correlation_id": "cd55ac95-a520-44b9-b12d-e6814d284d2e",
+  "persistence": {
+    "effect": "read",
+    "note": "Consulta; accesos protegidos generan auditoría local transaccional."
+  }
+}

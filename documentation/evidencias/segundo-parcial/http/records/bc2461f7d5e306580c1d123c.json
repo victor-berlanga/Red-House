@@ -1,0 +1,50 @@
+{
+  "captured_at": "2026-10-19T16:28:27.762534+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "bfa44d7f9eed353dec3bafc8b15f8c356f1d5755eda053077cae211dc4490657",
+  "transport": "http",
+  "method": "POST",
+  "route": "/internal/v1/events",
+  "objective": "Generar alertas por evento con deduplicación y destinatarios explícitos",
+  "url": "http://127.0.0.1:56266/internal/v1/events",
+  "parameters": {},
+  "path_parameters": {},
+  "request_headers": {
+    "Host": "127.0.0.1:56266",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "2c5a152c7a7f4aab976e609ba52b637e",
+    "Content-Length": "2",
+    "Content-Type": "application/json"
+  },
+  "request_body": {},
+  "status": 401,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "215",
+    "X-Correlation-ID": "b68d70db-5a88-4833-94d6-82edbb152b4f",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "error": {
+      "code": "unauthorized_service",
+      "message": "Identidad de servicio inválida.",
+      "details": []
+    },
+    "meta": {
+      "correlation_id": "b68d70db-5a88-4833-94d6-82edbb152b4f",
+      "service": "alertas",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "b68d70db-5a88-4833-94d6-82edbb152b4f",
+  "persistence": {
+    "effect": "controlled_error",
+    "note": "No se infiere ausencia de efectos de un error; revisar correlación y estado de operación."
+  }
+}

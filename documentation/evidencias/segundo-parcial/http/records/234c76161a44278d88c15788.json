@@ -1,0 +1,86 @@
+{
+  "captured_at": "2026-10-19T16:22:12.376584+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "ff2e7260f413ab4edb16a5555f512ec7404cdb118d66af3fc8a1e4dd2c6136b4",
+  "transport": "http",
+  "method": "POST",
+  "route": "/api/v1/recipients",
+  "objective": "Expediente diferenciado de sangre u órgano",
+  "url": "http://127.0.0.1:56260/api/v1/recipients",
+  "parameters": {},
+  "path_parameters": {},
+  "request_headers": {
+    "Host": "127.0.0.1:56260",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "de2c5699dd6f469b847e1da2f3c1835b",
+    "Authorization": "[REDACTED]",
+    "Content-Length": "197",
+    "Content-Type": "application/json"
+  },
+  "request_body": {
+    "folio": "PATIENT-ce80b8afc475",
+    "display_name": "Paciente ficticio",
+    "kind": "BLOOD",
+    "blood_group": "A+",
+    "organ_type": null,
+    "studies": "Estudios ficticios con revisión externa pendiente"
+  },
+  "status": 201,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "492",
+    "X-Correlation-ID": "02427e79-39f6-4ac0-a24c-4bae726e89a2",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "data": {
+      "id": "2d8856e5-92e6-4c1e-aa54-e72e20297356",
+      "tenant_id": "a0920053-13c5-4d42-b53e-74b35a779f58",
+      "folio": "PATIENT-ce80b8afc475",
+      "display_name": "Paciente ficticio",
+      "kind": "BLOOD",
+      "blood_group": "A+",
+      "organ_type": null,
+      "studies": "Estudios ficticios con revisión externa pendiente",
+      "status": "ACTIVE",
+      "version": 1,
+      "restrictions": null,
+      "requirement": null
+    },
+    "meta": {
+      "correlation_id": "02427e79-39f6-4ac0-a24c-4bae726e89a2",
+      "service": "receptores",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "02427e79-39f6-4ac0-a24c-4bae726e89a2",
+  "persistence": {
+    "effect": "committed",
+    "store": "PostgreSQL red_house",
+    "query": "SELECT operation,fingerprint,result FROM idempotency WHERE user_id=:actor AND key=:idempotency_key",
+    "row": {
+      "operation": "recipient_create",
+      "fingerprint": "b08614dadb2bdd7363f0fc465f518f3fa182e3772eb2100ce710371141519a50",
+      "result": {
+        "id": "2d8856e5-92e6-4c1e-aa54-e72e20297356",
+        "kind": "BLOOD",
+        "folio": "PATIENT-ce80b8afc475",
+        "status": "ACTIVE",
+        "studies": "Estudios ficticios con revisión externa pendiente",
+        "version": 1,
+        "tenant_id": "a0920053-13c5-4d42-b53e-74b35a779f58",
+        "organ_type": null,
+        "blood_group": "A+",
+        "requirement": null,
+        "display_name": "Paciente ficticio",
+        "restrictions": null
+      }
+    }
+  }
+}

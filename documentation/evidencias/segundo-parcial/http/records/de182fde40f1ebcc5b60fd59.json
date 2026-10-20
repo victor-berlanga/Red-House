@@ -1,0 +1,51 @@
+{
+  "captured_at": "2026-10-19T16:28:07.656024+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "b82acfc07e7ff0221196c291a52b1986e4d1ac69b3f6769bffe29f4a02fa5c9b",
+  "transport": "http",
+  "method": "GET",
+  "route": "/api/v1/catalogues/contacts/<identifier>",
+  "objective": "Detalle de contacts",
+  "url": "http://127.0.0.1:56258/api/v1/catalogues/contacts/53f53476-9c36-425e-8c71-ef76aa5a7a97",
+  "parameters": {},
+  "path_parameters": {
+    "identifier": "53f53476-9c36-425e-8c71-ef76aa5a7a97"
+  },
+  "request_headers": {
+    "Host": "127.0.0.1:56258",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "a3a239aa084e4433baf57d1c97e6a820",
+    "Authorization": "[REDACTED]"
+  },
+  "request_body": "",
+  "status": 404,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "201",
+    "X-Correlation-ID": "d85d6a16-4a65-4902-8c2a-9ab96dd0d04e",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "error": {
+      "code": "not_found",
+      "message": "Recurso inexistente.",
+      "details": []
+    },
+    "meta": {
+      "correlation_id": "d85d6a16-4a65-4902-8c2a-9ab96dd0d04e",
+      "service": "identidad_acceso",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "d85d6a16-4a65-4902-8c2a-9ab96dd0d04e",
+  "persistence": {
+    "effect": "controlled_error",
+    "note": "No se infiere ausencia de efectos de un error; revisar correlación y estado de operación."
+  }
+}

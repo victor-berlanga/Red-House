@@ -163,7 +163,7 @@ class RegionalDataset:
             json.dumps(
                 {
                     "SERVICE_URLS": self.state["urls"],
-                    "WEB_SESSION_STORE": str(self.directory / "web-sessions.sqlite3"),
+                    **self.state["web_sessions"],
                     "REGION_NAME": "Nuevo León",
                     "SERVICE_TIMEOUT": 8,
                 },

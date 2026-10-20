@@ -1,0 +1,83 @@
+<!doctype html><html lang="es"><meta charset="utf-8"><title>transporte /api/v1/shipments/&lt;identifier&gt;/tracking</title><style>body{font:15px system-ui;margin:32px;background:#f4f5f7;color:#202631}main{max-width:1250px;margin:auto}h1{color:#8e2434;font-size:26px}small{color:#556}a{color:#8e2434}table{border-collapse:collapse;width:100%;background:white}td,th{padding:9px;border:1px solid #ccd;vertical-align:top;text-align:left}pre{white-space:pre-wrap;word-break:break-word;background:#fff;border:1px solid #ccd;padding:12px;font:12px monospace;max-height:300px;overflow:auto}section{margin:20px 0}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.tag{padding:4px 9px;background:#e5ece7}.error{background:#f8e5e6}input{padding:12px;width:70%;margin:15px 0}details{margin:12px 0}nav{margin-bottom:20px}</style><main><nav><a href="../index.html">Inventario completo</a></nav><h1>transporte · GET /api/v1/shipments/&lt;identifier&gt;/tracking</h1><p>Último paso documental con versión y referencia a PostgreSQL</p><p>Registro de ejecución real. Credenciales y firmas redactadas. Los cuerpos completos están en el JSON enlazado.</p><section><h2>HTTP 200</h2><p><b>2026-10-19T16:27:25.299580+00:00</b> · versión 0.3.0</p><p>Correlación: 46c91b3c-49b5-40eb-a1cd-651abd99d380<br>URL: http://127.0.0.1:56264/api/v1/shipments/859eea1a-1b77-4b08-9a53-5038495b9521/tracking</p><p><a href="../records/4e27a1d5697b317f2874c28c.json">Petición, respuesta, headers y persistencia completos</a></p><div class="grid"><div><h3>Petición</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Host&quot;: &quot;127.0.0.1:56264&quot;,
+    &quot;User-Agent&quot;: &quot;python-requests/2.34.2&quot;,
+    &quot;Accept-Encoding&quot;: &quot;gzip, deflate, br&quot;,
+    &quot;Accept&quot;: &quot;application/json&quot;,
+    &quot;Connection&quot;: &quot;keep-alive&quot;,
+    &quot;Idempotency-Key&quot;: &quot;1c23a3f2f8024fc1824b298afc012331&quot;,
+    &quot;Authorization&quot;: &quot;[REDACTED]&quot;
+  },
+  &quot;parameters&quot;: {},
+  &quot;body&quot;: &quot;&quot;
+}</pre></div><div><h3>Respuesta</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Content-Type&quot;: &quot;application/json&quot;,
+    &quot;Content-Length&quot;: &quot;672&quot;,
+    &quot;X-Correlation-ID&quot;: &quot;46c91b3c-49b5-40eb-a1cd-651abd99d380&quot;,
+    &quot;Cache-Control&quot;: &quot;no-store&quot;,
+    &quot;X-Content-Type-Options&quot;: &quot;nosniff&quot;,
+    &quot;Referrer-Policy&quot;: &quot;no-referrer&quot;
+  },
+  &quot;body&quot;: {
+    &quot;data&quot;: {
+      &quot;destination_id&quot;: &quot;a0920053-13c5-4d42-b53e-74b35a779f58&quot;,
+      &quot;last_event_id&quot;: &quot;056943b6-73dd-4705-81aa-36594c45a41b&quot;,
+      &quot;last_state&quot;: &quot;COLLECTED&quot;,
+      &quot;occurred_at&quot;: &quot;2026-10-19T16:26:49.351359+00:00&quot;,
+      &quot;origin_id&quot;: &quot;87255e79-2a0a-4e44-ad21-8002ccd5688d&quot;,
+      &quot;owner&quot;: &quot;transporte&quot;,
+      &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+      &quot;reservation_id&quot;: &quot;1e1b90e8-2d0a-425b-bc78-f2b497c2af6a&quot;,
+      &quot;schema_version&quot;: 1,
+      &quot;shipment_id&quot;: &quot;859eea1a-1b77-4b08-9a53-5038495b9521&quot;,
+      &quot;transport_user_id&quot;: &quot;3980f3c5-484c-4178-b03c-8d65c598ecd7&quot;,
+      &quot;version&quot;: 3,
+      &quot;pending&quot;: false
+    },
+    &quot;meta&quot;: {
+      &quot;correlation_id&quot;: &quot;46c91b3c-49b5-40eb-a1cd-651abd99d380&quot;,
+      &quot;service&quot;: &quot;transporte&quot;,
+      &quot;version&quot;: &quot;0.3.0&quot;
+    }
+  }
+}</pre></div></div><details><summary>Persistencia y versión de implementación</summary><pre>{
+  &quot;effect&quot;: &quot;read&quot;,
+  &quot;note&quot;: &quot;Consulta; accesos protegidos generan auditoría local transaccional.&quot;
+}</pre><p>SHA-256: e7eb0044cb5544477c1a4b79a264977e16ddd17c216e8a88ed6d187af95af791</p></details></section><section><h2>HTTP 404</h2><p><b>2026-10-19T16:28:25.774783+00:00</b> · versión 0.3.0</p><p>Correlación: e9a20ecf-b986-46b8-86b5-536fee259e37<br>URL: http://127.0.0.1:56264/api/v1/shipments/39792e67-a625-42bc-94bd-d1d94cfa0838/tracking</p><p><a href="../records/74ad7abed6ec19319143f568.json">Petición, respuesta, headers y persistencia completos</a></p><div class="grid"><div><h3>Petición</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Host&quot;: &quot;127.0.0.1:56264&quot;,
+    &quot;User-Agent&quot;: &quot;python-requests/2.34.2&quot;,
+    &quot;Accept-Encoding&quot;: &quot;gzip, deflate, br&quot;,
+    &quot;Accept&quot;: &quot;application/json&quot;,
+    &quot;Connection&quot;: &quot;keep-alive&quot;,
+    &quot;Idempotency-Key&quot;: &quot;70fae595130846c290b359979abfcac5&quot;,
+    &quot;Authorization&quot;: &quot;[REDACTED]&quot;
+  },
+  &quot;parameters&quot;: {},
+  &quot;body&quot;: &quot;&quot;
+}</pre></div><div><h3>Respuesta</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Content-Type&quot;: &quot;application/json&quot;,
+    &quot;Content-Length&quot;: &quot;195&quot;,
+    &quot;X-Correlation-ID&quot;: &quot;e9a20ecf-b986-46b8-86b5-536fee259e37&quot;,
+    &quot;Cache-Control&quot;: &quot;no-store&quot;,
+    &quot;X-Content-Type-Options&quot;: &quot;nosniff&quot;,
+    &quot;Referrer-Policy&quot;: &quot;no-referrer&quot;
+  },
+  &quot;body&quot;: {
+    &quot;error&quot;: {
+      &quot;code&quot;: &quot;not_found&quot;,
+      &quot;message&quot;: &quot;Recurso inexistente.&quot;,
+      &quot;details&quot;: []
+    },
+    &quot;meta&quot;: {
+      &quot;correlation_id&quot;: &quot;e9a20ecf-b986-46b8-86b5-536fee259e37&quot;,
+      &quot;service&quot;: &quot;transporte&quot;,
+      &quot;version&quot;: &quot;0.3.0&quot;
+    }
+  }
+}</pre></div></div><details><summary>Persistencia y versión de implementación</summary><pre>{
+  &quot;effect&quot;: &quot;controlled_error&quot;,
+  &quot;note&quot;: &quot;No se infiere ausencia de efectos de un error; revisar correlación y estado de operación.&quot;
+}</pre><p>SHA-256: e7eb0044cb5544477c1a4b79a264977e16ddd17c216e8a88ed6d187af95af791</p></details></section><h2>Todas las variantes ejecutadas</h2><ul><li><a href="../records/4e27a1d5697b317f2874c28c.json">200 · http · application/json · 2026-10-19T16:27:25.299580+00:00</a></li><li><a href="../records/74ad7abed6ec19319143f568.json">404 · http · application/json · 2026-10-19T16:28:25.774783+00:00</a></li><li><a href="../records/528dfa1f81acaf8dc0b3cd74.json">401 · http · application/json · 2026-10-19T16:28:25.586758+00:00</a></li><li><a href="../records/f35db8598a995232f397cba1.json">401 · http · application/xml; charset=utf-8 · 2026-10-19T16:28:25.623134+00:00</a></li><li><a href="../records/6dfdbbb5e0cd4ce052cf50ab.json">403 · http · application/json · 2026-10-19T16:27:25.509998+00:00</a></li></ul></main></html>

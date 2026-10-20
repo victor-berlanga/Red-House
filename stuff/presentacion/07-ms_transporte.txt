@@ -1,14 +1,14 @@
 RED HOUSE — TRANSPORTE
 Unidad: ms_transporte
 Puerto por defecto: 5107
-Versión del servicio: 0.2.0
+Versión del servicio: 0.3.0
 
 1. QUÉ HACE Y POR QUÉ EXISTE
 Planea y sigue traslados, responsables, incidencias, ubicación autorizada y evidencias.
 
 2. TECNOLOGÍAS Y DATOS
 Flask (REST), Python 3.12+, Psycopg, PostgreSQL, PyJWT/cryptography (RS256), Redis, Pydantic, lxml (XML/XSD), Waitress, Swagger/OpenAPI.
-PostgreSQL conserva órdenes, pasos y referencias de archivos. MongoDB recibe documentos y telemetría mediante outbox. Redis conserva sesión y referencia de ubicación reciente. GCS dispone de adaptador opcional para archivos privados.
+PostgreSQL conserva órdenes, pasos y referencias de archivos. MongoDB recibe documentos y telemetría mediante outbox. Redis conserva sesión y referencia de ubicación reciente. GCS almacena archivos privados; el portal carga, verifica y descarga mediante firmas temporales.
 Entre servicios se utilizan firmas Ed25519, nonce con expiración, autorización delegada donde aplica e identificadores de correlación.
 
 3. ESCENARIO PARA EXPLICARLO
@@ -27,7 +27,10 @@ Entradas XML con raíz request y XSD por operación. Respuestas XML conservan ti
   POST /api/v1/shipments/<identifier>/files: Preparar carga privada con URL firmada de cinco minutos
   POST /api/v1/files/<identifier>/verify: Verificar tamaño, MIME, firma de archivo y SHA-256 del objeto real
   GET /api/v1/files/<identifier>/download: Descargar evidencia verificada mediante acceso temporal privado
+  GET /api/v1/shipments/<identifier>/files: Evidencias del traslado y estado persistente de validación
   GET /api/v1/summary: Indicadores agregados autorizados; no expone expedientes
+  GET /api/v1/shipments/<identifier>/tracking: Último paso documental con versión y referencia a PostgreSQL
+  GET /api/v1/shipment-statistics: Agregación regional del último paso documental de cada traslado
 
 5. SEGURIDAD Y ERRORES
 Acceso denegado por defecto. JWT con firma, emisor, audiencia, expiración, sesión, revocación y permisos vigentes.
@@ -40,7 +43,7 @@ No se exponen credenciales ni contenido clínico en logs; cada petición registr
 ¿Se registra GPS permanentemente? No: solo responsable y estados COLLECTED/IN_TRANSIT.
 ¿Una caída de custodia pierde una recolección? El evento queda durable en PostgreSQL y se reintenta.
 ¿Se puede deshacer una recolección física? No; se registra la incidencia.
-¿GCS está comprobado en nube? No: el adaptador exige bucket y credenciales reales y devuelve 503 si faltan; no fabrica URLs.
+¿GCS está comprobado en nube? Sí: se probaron carga, descarga, permisos, contenido inválido, objeto ausente, firma expirada y recuperación con el bucket privado autorizado. Sin configuración devuelve 503.
 
 7. GUION BREVE PARA UNA DIAPOSITIVA
 Problema: Planea y sigue traslados, responsables, incidencias, ubicación autorizada y evidencias.

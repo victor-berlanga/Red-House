@@ -363,12 +363,13 @@ def test_configured_storage_health_does_not_report_unconfigured(p, monkeypatch):
     )
     target = Mock()
     with patch("redhouse.storage.bucket", return_value=target):
-        target.exists.return_value = False
+        target.list_blobs.side_effect = RuntimeError("storage_unavailable")
         assert (
             p.request("transporte", "GET", "/health/storage", user=None).status_code
             == 503
         )
-        target.exists.return_value = True
+        target.list_blobs.side_effect = None
+        target.list_blobs.return_value = []
         assert p.request("transporte", "GET", "/health/storage", user=None).json()[
             "data"
         ] == {"state": "up", "required": True}

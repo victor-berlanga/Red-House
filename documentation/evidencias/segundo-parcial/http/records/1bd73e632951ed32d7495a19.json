@@ -1,0 +1,50 @@
+{
+  "captured_at": "2026-10-19T16:43:09.138883+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "1a8dccae105e0c261a0273a99f999923c88cbf235f750f80f0ac2f487c8b6654",
+  "transport": "http",
+  "method": "GET",
+  "route": "/api/v1/donors",
+  "objective": "Expedientes autorizados",
+  "url": "http://127.0.0.1:56259/api/v1/donors",
+  "parameters": {},
+  "path_parameters": {},
+  "request_headers": {
+    "Host": "127.0.0.1:56259",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "9f0b56b983ce4728810279167aa45d62",
+    "Authorization": "[REDACTED]"
+  },
+  "request_body": "",
+  "status": 429,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "203",
+    "X-Correlation-ID": "fd373661-b760-4dec-bc5f-3eab8e69901f",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer",
+    "Retry-After": "60"
+  },
+  "response_body": {
+    "error": {
+      "code": "rate_limit",
+      "message": "Límite de consumo alcanzado.",
+      "details": []
+    },
+    "meta": {
+      "correlation_id": "fd373661-b760-4dec-bc5f-3eab8e69901f",
+      "service": "donantes",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "fd373661-b760-4dec-bc5f-3eab8e69901f",
+  "persistence": {
+    "effect": "controlled_error",
+    "note": "No se infiere ausencia de efectos de un error; revisar correlación y estado de operación."
+  }
+}

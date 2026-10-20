@@ -1,0 +1,115 @@
+<!doctype html><html lang="es"><meta charset="utf-8"><title>inventario /api/v1/reservations</title><style>body{font:15px system-ui;margin:32px;background:#f4f5f7;color:#202631}main{max-width:1250px;margin:auto}h1{color:#8e2434;font-size:26px}small{color:#556}a{color:#8e2434}table{border-collapse:collapse;width:100%;background:white}td,th{padding:9px;border:1px solid #ccd;vertical-align:top;text-align:left}pre{white-space:pre-wrap;word-break:break-word;background:#fff;border:1px solid #ccd;padding:12px;font:12px monospace;max-height:300px;overflow:auto}section{margin:20px 0}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.tag{padding:4px 9px;background:#e5ece7}.error{background:#f8e5e6}input{padding:12px;width:70%;margin:15px 0}details{margin:12px 0}nav{margin-bottom:20px}</style><main><nav><a href="../index.html">Inventario completo</a></nav><h1>inventario · POST /api/v1/reservations</h1><p>Reservar con retención de capacidad y seguimiento de operación</p><p>Registro de ejecución real. Credenciales y firmas redactadas. Los cuerpos completos están en el JSON enlazado.</p><section><h2>HTTP 202</h2><p><b>2026-10-19T16:26:47.640029+00:00</b> · versión 0.3.0</p><p>Correlación: b2219a1e-7253-4263-8147-b3d554337f59<br>URL: http://127.0.0.1:56261/api/v1/reservations</p><p><a href="../records/622959deb054d84cb5d07162.json">Petición, respuesta, headers y persistencia completos</a></p><div class="grid"><div><h3>Petición</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Host&quot;: &quot;127.0.0.1:56261&quot;,
+    &quot;User-Agent&quot;: &quot;python-requests/2.34.2&quot;,
+    &quot;Accept-Encoding&quot;: &quot;gzip, deflate, br&quot;,
+    &quot;Accept&quot;: &quot;application/json&quot;,
+    &quot;Connection&quot;: &quot;keep-alive&quot;,
+    &quot;Idempotency-Key&quot;: &quot;67cf8f1bba614b30a7d08b4c4dd872aa&quot;,
+    &quot;Authorization&quot;: &quot;[REDACTED]&quot;,
+    &quot;Content-Length&quot;: &quot;207&quot;,
+    &quot;Content-Type&quot;: &quot;application/json&quot;
+  },
+  &quot;parameters&quot;: {},
+  &quot;body&quot;: {
+    &quot;evaluation_id&quot;: &quot;a958a3d4-e310-461c-84f9-82709c9abf09&quot;,
+    &quot;resource_id&quot;: &quot;32e70838-54db-4e5e-b991-5b57395cc25b&quot;,
+    &quot;human_confirmation&quot;: true,
+    &quot;reason&quot;: &quot;Asignación humana ficticia para integración&quot;
+  }
+}</pre></div><div><h3>Respuesta</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Content-Type&quot;: &quot;application/json&quot;,
+    &quot;Content-Length&quot;: &quot;962&quot;,
+    &quot;X-Correlation-ID&quot;: &quot;b2219a1e-7253-4263-8147-b3d554337f59&quot;,
+    &quot;Cache-Control&quot;: &quot;no-store&quot;,
+    &quot;X-Content-Type-Options&quot;: &quot;nosniff&quot;,
+    &quot;Referrer-Policy&quot;: &quot;no-referrer&quot;
+  },
+  &quot;body&quot;: {
+    &quot;data&quot;: {
+      &quot;operation_id&quot;: &quot;795429b9-bf80-46be-a8fe-de43eae6699e&quot;,
+      &quot;status&quot;: &quot;COMPLETED&quot;,
+      &quot;error&quot;: null,
+      &quot;reservation&quot;: {
+        &quot;id&quot;: &quot;1e1b90e8-2d0a-425b-bc78-f2b497c2af6a&quot;,
+        &quot;operation_id&quot;: &quot;795429b9-bf80-46be-a8fe-de43eae6699e&quot;,
+        &quot;resource_id&quot;: &quot;32e70838-54db-4e5e-b991-5b57395cc25b&quot;,
+        &quot;request_id&quot;: &quot;17c8321c-0f0f-4a1d-8df9-50ce48be5f4a&quot;,
+        &quot;recipient_id&quot;: &quot;5ad73a0c-5225-49a2-8d9e-74722aa5d373&quot;,
+        &quot;origin_id&quot;: &quot;87255e79-2a0a-4e44-ad21-8002ccd5688d&quot;,
+        &quot;destination_id&quot;: &quot;a0920053-13c5-4d42-b53e-74b35a779f58&quot;,
+        &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+        &quot;hold_id&quot;: &quot;42ebb506-6100-446b-ac2a-2a342deb962f&quot;,
+        &quot;evaluation_id&quot;: &quot;a958a3d4-e310-461c-84f9-82709c9abf09&quot;,
+        &quot;route_id&quot;: &quot;7b1745f6-56e0-43d3-9c3d-1c35538d7aae&quot;,
+        &quot;route_version&quot;: 2,
+        &quot;status&quot;: &quot;RESERVED&quot;,
+        &quot;shipment_id&quot;: null,
+        &quot;shipment_sequence&quot;: 0,
+        &quot;created_at&quot;: &quot;2026-10-19T16:26:46.880992+00:00&quot;
+      }
+    },
+    &quot;meta&quot;: {
+      &quot;correlation_id&quot;: &quot;b2219a1e-7253-4263-8147-b3d554337f59&quot;,
+      &quot;service&quot;: &quot;inventario&quot;,
+      &quot;version&quot;: &quot;0.3.0&quot;
+    }
+  }
+}</pre></div></div><details><summary>Persistencia y versión de implementación</summary><pre>{
+  &quot;effect&quot;: &quot;committed&quot;,
+  &quot;store&quot;: &quot;PostgreSQL red_house&quot;,
+  &quot;query&quot;: &quot;SELECT id,status,hold_id,error FROM operations WHERE id=%s&quot;,
+  &quot;parameters&quot;: [
+    &quot;795429b9-bf80-46be-a8fe-de43eae6699e&quot;
+  ],
+  &quot;row&quot;: {
+    &quot;id&quot;: &quot;795429b9-bf80-46be-a8fe-de43eae6699e&quot;,
+    &quot;status&quot;: &quot;COMPLETED&quot;,
+    &quot;hold_id&quot;: &quot;42ebb506-6100-446b-ac2a-2a342deb962f&quot;,
+    &quot;error&quot;: null
+  }
+}</pre><p>SHA-256: 6eac28b3c6355ff29f1aabe6ed2aa76b6e104ed4888482a02b3967184783afa9</p></details></section><section><h2>HTTP 409</h2><p><b>2026-10-19T16:22:20.330336+00:00</b> · versión 0.3.0</p><p>Correlación: 48b81ce6-b0af-4245-9978-ead4ed97d8ab<br>URL: http://127.0.0.1:56261/api/v1/reservations</p><p><a href="../records/67dec0d0cfea6df5605745c2.json">Petición, respuesta, headers y persistencia completos</a></p><div class="grid"><div><h3>Petición</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Host&quot;: &quot;127.0.0.1:56261&quot;,
+    &quot;User-Agent&quot;: &quot;python-requests/2.34.2&quot;,
+    &quot;Accept-Encoding&quot;: &quot;gzip, deflate, br&quot;,
+    &quot;Accept&quot;: &quot;application/json&quot;,
+    &quot;Connection&quot;: &quot;keep-alive&quot;,
+    &quot;Idempotency-Key&quot;: &quot;aa6218a749da4d2dba004f586b4eaf40&quot;,
+    &quot;Authorization&quot;: &quot;[REDACTED]&quot;,
+    &quot;Content-Length&quot;: &quot;192&quot;,
+    &quot;Content-Type&quot;: &quot;application/json&quot;
+  },
+  &quot;parameters&quot;: {},
+  &quot;body&quot;: {
+    &quot;evaluation_id&quot;: &quot;99de7f92-7035-41d3-b8f9-57d27b739a5b&quot;,
+    &quot;resource_id&quot;: &quot;cf311e62-182d-4d22-8836-61352e0b8436&quot;,
+    &quot;human_confirmation&quot;: true,
+    &quot;reason&quot;: &quot;Reserva ficticia de candidato obsoleto&quot;
+  }
+}</pre></div><div><h3>Respuesta</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Content-Type&quot;: &quot;application/json&quot;,
+    &quot;Content-Length&quot;: &quot;213&quot;,
+    &quot;X-Correlation-ID&quot;: &quot;48b81ce6-b0af-4245-9978-ead4ed97d8ab&quot;,
+    &quot;Cache-Control&quot;: &quot;no-store&quot;,
+    &quot;X-Content-Type-Options&quot;: &quot;nosniff&quot;,
+    &quot;Referrer-Policy&quot;: &quot;no-referrer&quot;
+  },
+  &quot;body&quot;: {
+    &quot;error&quot;: {
+      &quot;code&quot;: &quot;stale_route&quot;,
+      &quot;message&quot;: &quot;Ruta modificada; evalúa nuevamente.&quot;,
+      &quot;details&quot;: []
+    },
+    &quot;meta&quot;: {
+      &quot;correlation_id&quot;: &quot;48b81ce6-b0af-4245-9978-ead4ed97d8ab&quot;,
+      &quot;service&quot;: &quot;inventario&quot;,
+      &quot;version&quot;: &quot;0.3.0&quot;
+    }
+  }
+}</pre></div></div><details><summary>Persistencia y versión de implementación</summary><pre>{
+  &quot;effect&quot;: &quot;controlled_error&quot;,
+  &quot;note&quot;: &quot;No se infiere ausencia de efectos de un error; revisar correlación y estado de operación.&quot;
+}</pre><p>SHA-256: 6eac28b3c6355ff29f1aabe6ed2aa76b6e104ed4888482a02b3967184783afa9</p></details></section><h2>Todas las variantes ejecutadas</h2><ul><li><a href="../records/67dec0d0cfea6df5605745c2.json">409 · http · application/json · 2026-10-19T16:22:20.330336+00:00</a></li><li><a href="../records/5e8411b9c9b5594c269a2858.json">401 · http · application/json · 2026-10-19T16:28:17.645900+00:00</a></li><li><a href="../records/00cd0c91128e5bf15b1bda02.json">401 · http · application/xml; charset=utf-8 · 2026-10-19T16:28:17.677015+00:00</a></li><li><a href="../records/dcbbea117233686242af8830.json">202 · embedded · application/json · 2026-10-19T16:22:50.895090+00:00</a></li><li><a href="../records/622959deb054d84cb5d07162.json">202 · http · application/json · 2026-10-19T16:26:47.640029+00:00</a></li><li><a href="../records/85c1cc9bd78256105d13eca1.json">409 · http · application/json · 2026-10-19T16:33:21.816805+00:00</a></li><li><a href="../records/1ad69b0001531490ae76232b.json">409 · http · application/json · 2026-10-19T16:33:24.993510+00:00</a></li><li><a href="../records/bcc53aab0b37f0789d909d5f.json">500 · http · application/json · 2026-10-19T16:37:24.746573+00:00</a></li></ul></main></html>

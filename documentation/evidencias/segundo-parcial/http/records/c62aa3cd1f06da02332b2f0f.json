@@ -1,0 +1,50 @@
+{
+  "captured_at": "2026-10-19T16:28:27.662272+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "bfa44d7f9eed353dec3bafc8b15f8c356f1d5755eda053077cae211dc4490657",
+  "transport": "http",
+  "method": "GET",
+  "route": "/docs/static/<path:filename>",
+  "objective": "bp_docs.static",
+  "url": "http://127.0.0.1:56266/docs/static/missing-file.css",
+  "parameters": {},
+  "path_parameters": {
+    "filename": "missing-file.css"
+  },
+  "request_headers": {
+    "Host": "127.0.0.1:56266",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "eb848bca4f79405bbe31ab7fcb629248"
+  },
+  "request_body": "",
+  "status": 404,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "209",
+    "X-Correlation-ID": "f0006d0a-ddb5-4f17-8dd5-16ccac8b123e",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "error": {
+      "code": "http_error",
+      "message": "Petición no disponible o inválida.",
+      "details": []
+    },
+    "meta": {
+      "correlation_id": "f0006d0a-ddb5-4f17-8dd5-16ccac8b123e",
+      "service": "alertas",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "f0006d0a-ddb5-4f17-8dd5-16ccac8b123e",
+  "persistence": {
+    "effect": "controlled_error",
+    "note": "No se infiere ausencia de efectos de un error; revisar correlación y estado de operación."
+  }
+}

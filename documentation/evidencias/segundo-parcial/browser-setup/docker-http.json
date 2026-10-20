@@ -1,0 +1,1240 @@
+[
+  {
+    "captured_at": "2026-10-19T18:23:00.149605+00:00",
+    "service": "identidad_acceso",
+    "method": "POST",
+    "url": "http://127.0.0.1:6101/api/v1/auth/login",
+    "request_headers": {
+      "Accept": "application/json",
+      "Idempotency-Key": "ef91089286aa47f59936702bc1fe14f7",
+      "X-Correlation-ID": "201c0c2a-9bfd-404e-8d04-d2beaf4e9e4d"
+    },
+    "request_body": {
+      "username": "admin1",
+      "password": "[REDACTED]"
+    },
+    "status": 200,
+    "response_headers": {
+      "Server": "nginx/1.28.3",
+      "Date": "Mon, 19 Oct 2026 18:23:00 GMT",
+      "Content-Type": "application/json",
+      "Content-Length": "1251",
+      "Connection": "keep-alive",
+      "Cache-Control": "no-store",
+      "Referrer-Policy": "no-referrer",
+      "X-Content-Type-Options": "nosniff",
+      "X-Correlation-Id": "201c0c2a-9bfd-404e-8d04-d2beaf4e9e4d",
+      "X-Backend": "172.18.0.13:8080"
+    },
+    "response_body": {
+      "data": {
+        "access_token": "[REDACTED]",
+        "refresh_token": "[REDACTED]",
+        "token_type": "[REDACTED]",
+        "expires_in": 900,
+        "user": {
+          "id": "1be8f4d3-1d2f-4522-8d9b-dbe06a3b2146",
+          "tenant_id": "7b4c7ee3-20ef-4345-bf68-c08748c9b7f0",
+          "region_id": "cb0a1fba-dc5c-4197-bdfb-63ba06920766",
+          "username": "admin1",
+          "role": "ADMIN",
+          "active": true,
+          "version": 1
+        }
+      },
+      "meta": {
+        "correlation_id": "201c0c2a-9bfd-404e-8d04-d2beaf4e9e4d",
+        "service": "identidad_acceso",
+        "version": "0.3.0"
+      }
+    },
+    "elapsed_ms": 444.541
+  },
+  {
+    "captured_at": "2026-10-19T18:23:00.454077+00:00",
+    "service": "identidad_acceso",
+    "method": "POST",
+    "url": "http://127.0.0.1:6101/api/v1/auth/login",
+    "request_headers": {
+      "Accept": "application/json",
+      "Idempotency-Key": "20b8f4208c6c42c0b58df7c4803c21e8",
+      "X-Correlation-ID": "d7b6d64a-cc21-4392-8e43-7ef16c1112a7"
+    },
+    "request_body": {
+      "username": "operator1",
+      "password": "[REDACTED]"
+    },
+    "status": 200,
+    "response_headers": {
+      "Server": "nginx/1.28.3",
+      "Date": "Mon, 19 Oct 2026 18:23:00 GMT",
+      "Content-Type": "application/json",
+      "Content-Length": "1257",
+      "Connection": "keep-alive",
+      "Cache-Control": "no-store",
+      "Referrer-Policy": "no-referrer",
+      "X-Content-Type-Options": "nosniff",
+      "X-Correlation-Id": "d7b6d64a-cc21-4392-8e43-7ef16c1112a7",
+      "X-Backend": "172.18.0.12:8080"
+    },
+    "response_body": {
+      "data": {
+        "access_token": "[REDACTED]",
+        "refresh_token": "[REDACTED]",
+        "token_type": "[REDACTED]",
+        "expires_in": 900,
+        "user": {
+          "id": "443f5a2c-38d8-4c86-89ae-1e43e77f2db5",
+          "tenant_id": "7b4c7ee3-20ef-4345-bf68-c08748c9b7f0",
+          "region_id": "cb0a1fba-dc5c-4197-bdfb-63ba06920766",
+          "username": "operator1",
+          "role": "OPERATOR",
+          "active": true,
+          "version": 1
+        }
+      },
+      "meta": {
+        "correlation_id": "d7b6d64a-cc21-4392-8e43-7ef16c1112a7",
+        "service": "identidad_acceso",
+        "version": "0.3.0"
+      }
+    },
+    "elapsed_ms": 301.43
+  },
+  {
+    "captured_at": "2026-10-19T18:23:00.808604+00:00",
+    "service": "identidad_acceso",
+    "method": "POST",
+    "url": "http://127.0.0.1:6101/api/v1/auth/login",
+    "request_headers": {
+      "Accept": "application/json",
+      "Idempotency-Key": "2b85af4b9717447991cabe7d4a61b07b",
+      "X-Correlation-ID": "f8fc4798-eddb-43b7-80ec-5bcf4312c6b9"
+    },
+    "request_body": {
+      "username": "medical1",
+      "password": "[REDACTED]"
+    },
+    "status": 200,
+    "response_headers": {
+      "Server": "nginx/1.28.3",
+      "Date": "Mon, 19 Oct 2026 18:23:00 GMT",
+      "Content-Type": "application/json",
+      "Content-Length": "1255",
+      "Connection": "keep-alive",
+      "Cache-Control": "no-store",
+      "Referrer-Policy": "no-referrer",
+      "X-Content-Type-Options": "nosniff",
+      "X-Correlation-Id": "f8fc4798-eddb-43b7-80ec-5bcf4312c6b9",
+      "X-Backend": "172.18.0.13:8080"
+    },
+    "response_body": {
+      "data": {
+        "access_token": "[REDACTED]",
+        "refresh_token": "[REDACTED]",
+        "token_type": "[REDACTED]",
+        "expires_in": 900,
+        "user": {
+          "id": "fa08a0cf-ef4d-427e-b20d-3644af14675e",
+          "tenant_id": "7b4c7ee3-20ef-4345-bf68-c08748c9b7f0",
+          "region_id": "cb0a1fba-dc5c-4197-bdfb-63ba06920766",
+          "username": "medical1",
+          "role": "MEDICAL",
+          "active": true,
+          "version": 1
+        }
+      },
+      "meta": {
+        "correlation_id": "f8fc4798-eddb-43b7-80ec-5bcf4312c6b9",
+        "service": "identidad_acceso",
+        "version": "0.3.0"
+      }
+    },
+    "elapsed_ms": 354.154
+  },
+  {
+    "captured_at": "2026-10-19T18:23:01.125122+00:00",
+    "service": "identidad_acceso",
+    "method": "POST",
+    "url": "http://127.0.0.1:6101/api/v1/auth/login",
+    "request_headers": {
+      "Accept": "application/json",
+      "Idempotency-Key": "a62ee9550c824e5995edb992afd9a824",
+      "X-Correlation-ID": "df7f9890-6564-4447-94cb-7946086ad8b3"
+    },
+    "request_body": {
+      "username": "coordinator1",
+      "password": "[REDACTED]"
+    },
+    "status": 200,
+    "response_headers": {
+      "Server": "nginx/1.28.3",
+      "Date": "Mon, 19 Oct 2026 18:23:01 GMT",
+      "Content-Type": "application/json",
+      "Content-Length": "1263",
+      "Connection": "keep-alive",
+      "Cache-Control": "no-store",
+      "Referrer-Policy": "no-referrer",
+      "X-Content-Type-Options": "nosniff",
+      "X-Correlation-Id": "df7f9890-6564-4447-94cb-7946086ad8b3",
+      "X-Backend": "172.18.0.13:8080"
+    },
+    "response_body": {
+      "data": {
+        "access_token": "[REDACTED]",
+        "refresh_token": "[REDACTED]",
+        "token_type": "[REDACTED]",
+        "expires_in": 900,
+        "user": {
+          "id": "fa92e74f-fc2a-431b-8fa6-f5aca79b2054",
+          "tenant_id": "7b4c7ee3-20ef-4345-bf68-c08748c9b7f0",
+          "region_id": "cb0a1fba-dc5c-4197-bdfb-63ba06920766",
+          "username": "coordinator1",
+          "role": "COORDINATOR",
+          "active": true,
+          "version": 1
+        }
+      },
+      "meta": {
+        "correlation_id": "df7f9890-6564-4447-94cb-7946086ad8b3",
+        "service": "identidad_acceso",
+        "version": "0.3.0"
+      }
+    },
+    "elapsed_ms": 315.878
+  },
+  {
+    "captured_at": "2026-10-19T18:23:01.393165+00:00",
+    "service": "identidad_acceso",
+    "method": "POST",
+    "url": "http://127.0.0.1:6101/api/v1/auth/login",
+    "request_headers": {
+      "Accept": "application/json",
+      "Idempotency-Key": "356668c4cef14fd2a025d2661c62108f",
+      "X-Correlation-ID": "d4c085b8-f044-4f1f-8d51-af051a5f7411"
+    },
+    "request_body": {
+      "username": "transport1",
+      "password": "[REDACTED]"
+    },
+    "status": 200,
+    "response_headers": {
+      "Server": "nginx/1.28.3",
+      "Date": "Mon, 19 Oct 2026 18:23:01 GMT",
+      "Content-Type": "application/json",
+      "Content-Length": "1259",
+      "Connection": "keep-alive",
+      "Cache-Control": "no-store",
+      "Referrer-Policy": "no-referrer",
+      "X-Content-Type-Options": "nosniff",
+      "X-Correlation-Id": "d4c085b8-f044-4f1f-8d51-af051a5f7411",
+      "X-Backend": "172.18.0.12:8080"
+    },
+    "response_body": {
+      "data": {
+        "access_token": "[REDACTED]",
+        "refresh_token": "[REDACTED]",
+        "token_type": "[REDACTED]",
+        "expires_in": 900,
+        "user": {
+          "id": "321c9aa9-c99d-4866-aca9-e881a8442cdb",
+          "tenant_id": "7b4c7ee3-20ef-4345-bf68-c08748c9b7f0",
+          "region_id": "cb0a1fba-dc5c-4197-bdfb-63ba06920766",
+          "username": "transport1",
+          "role": "TRANSPORT",
+          "active": true,
+          "version": 1
+        }
+      },
+      "meta": {
+        "correlation_id": "d4c085b8-f044-4f1f-8d51-af051a5f7411",
+        "service": "identidad_acceso",
+        "version": "0.3.0"
+      }
+    },
+    "elapsed_ms": 267.51
+  },
+  {
+    "captured_at": "2026-10-19T18:23:01.701421+00:00",
+    "service": "identidad_acceso",
+    "method": "POST",
+    "url": "http://127.0.0.1:6101/api/v1/auth/login",
+    "request_headers": {
+      "Accept": "application/json",
+      "Idempotency-Key": "2acc0391a4e14800836cfec3c00f58cb",
+      "X-Correlation-ID": "ee217657-9188-4d45-ac7f-f9d623a9ea99"
+    },
+    "request_body": {
+      "username": "auditor1",
+      "password": "[REDACTED]"
+    },
+    "status": 200,
+    "response_headers": {
+      "Server": "nginx/1.28.3",
+      "Date": "Mon, 19 Oct 2026 18:23:01 GMT",
+      "Content-Type": "application/json",
+      "Content-Length": "1255",
+      "Connection": "keep-alive",
+      "Cache-Control": "no-store",
+      "Referrer-Policy": "no-referrer",
+      "X-Content-Type-Options": "nosniff",
+      "X-Correlation-Id": "ee217657-9188-4d45-ac7f-f9d623a9ea99",
+      "X-Backend": "172.18.0.13:8080"
+    },
+    "response_body": {
+      "data": {
+        "access_token": "[REDACTED]",
+        "refresh_token": "[REDACTED]",
+        "token_type": "[REDACTED]",
+        "expires_in": 900,
+        "user": {
+          "id": "959b5c1f-5aac-4c96-818a-797b8185cd64",
+          "tenant_id": "7b4c7ee3-20ef-4345-bf68-c08748c9b7f0",
+          "region_id": "cb0a1fba-dc5c-4197-bdfb-63ba06920766",
+          "username": "auditor1",
+          "role": "AUDITOR",
+          "active": true,
+          "version": 1
+        }
+      },
+      "meta": {
+        "correlation_id": "ee217657-9188-4d45-ac7f-f9d623a9ea99",
+        "service": "identidad_acceso",
+        "version": "0.3.0"
+      }
+    },
+    "elapsed_ms": 307.624
+  },
+  {
+    "captured_at": "2026-10-19T18:23:02.237939+00:00",
+    "service": "identidad_acceso",
+    "method": "POST",
+    "url": "http://127.0.0.1:6101/api/v1/auth/login",
+    "request_headers": {
+      "Accept": "application/json",
+      "Idempotency-Key": "7c5ecb05920648558d1c82b6966c30a2",
+      "X-Correlation-ID": "f581969e-3a05-47c9-ab29-304f4af931b8"
+    },
+    "request_body": {
+      "username": "donor1",
+      "password": "[REDACTED]"
+    },
+    "status": 200,
+    "response_headers": {
+      "Server": "nginx/1.28.3",
+      "Date": "Mon, 19 Oct 2026 18:23:02 GMT",
+      "Content-Type": "application/json",
+      "Content-Length": "1251",
+      "Connection": "keep-alive",
+      "Cache-Control": "no-store",
+      "Referrer-Policy": "no-referrer",
+      "X-Content-Type-Options": "nosniff",
+      "X-Correlation-Id": "f581969e-3a05-47c9-ab29-304f4af931b8",
+      "X-Backend": "172.18.0.12:8080"
+    },
+    "response_body": {
+      "data": {
+        "access_token": "[REDACTED]",
+        "refresh_token": "[REDACTED]",
+        "token_type": "[REDACTED]",
+        "expires_in": 900,
+        "user": {
+          "id": "26395225-d2a4-4265-b1c8-0c5cb1e62c4c",
+          "tenant_id": "7b4c7ee3-20ef-4345-bf68-c08748c9b7f0",
+          "region_id": "cb0a1fba-dc5c-4197-bdfb-63ba06920766",
+          "username": "donor1",
+          "role": "DONOR",
+          "active": true,
+          "version": 1
+        }
+      },
+      "meta": {
+        "correlation_id": "f581969e-3a05-47c9-ab29-304f4af931b8",
+        "service": "identidad_acceso",
+        "version": "0.3.0"
+      }
+    },
+    "elapsed_ms": 536.206
+  },
+  {
+    "captured_at": "2026-10-19T18:23:02.669502+00:00",
+    "service": "identidad_acceso",
+    "method": "POST",
+    "url": "http://127.0.0.1:6101/api/v1/auth/login",
+    "request_headers": {
+      "Accept": "application/json",
+      "Idempotency-Key": "3a0d51289d984aa3b536ef7e1fe067bc",
+      "X-Correlation-ID": "017af5de-a372-498a-9e0b-2c9a6ffb261b"
+    },
+    "request_body": {
+      "username": "admin2",
+      "password": "[REDACTED]"
+    },
+    "status": 200,
+    "response_headers": {
+      "Server": "nginx/1.28.3",
+      "Date": "Mon, 19 Oct 2026 18:23:02 GMT",
+      "Content-Type": "application/json",
+      "Content-Length": "1251",
+      "Connection": "keep-alive",
+      "Cache-Control": "no-store",
+      "Referrer-Policy": "no-referrer",
+      "X-Content-Type-Options": "nosniff",
+      "X-Correlation-Id": "017af5de-a372-498a-9e0b-2c9a6ffb261b",
+      "X-Backend": "172.18.0.13:8080"
+    },
+    "response_body": {
+      "data": {
+        "access_token": "[REDACTED]",
+        "refresh_token": "[REDACTED]",
+        "token_type": "[REDACTED]",
+        "expires_in": 900,
+        "user": {
+          "id": "f27685d8-4589-44e0-aede-1ff29c3a117f",
+          "tenant_id": "9a3d5655-ca71-4fe9-8fd8-23ab7c325629",
+          "region_id": "cb0a1fba-dc5c-4197-bdfb-63ba06920766",
+          "username": "admin2",
+          "role": "ADMIN",
+          "active": true,
+          "version": 1
+        }
+      },
+      "meta": {
+        "correlation_id": "017af5de-a372-498a-9e0b-2c9a6ffb261b",
+        "service": "identidad_acceso",
+        "version": "0.3.0"
+      }
+    },
+    "elapsed_ms": 430.887
+  },
+  {
+    "captured_at": "2026-10-19T18:23:03.285142+00:00",
+    "service": "identidad_acceso",
+    "method": "POST",
+    "url": "http://127.0.0.1:6101/api/v1/auth/login",
+    "request_headers": {
+      "Accept": "application/json",
+      "Idempotency-Key": "af387ca96f3642f696134bf87114fac1",
+      "X-Correlation-ID": "0c5c12da-f009-43be-8a5c-db09e9ae0df3"
+    },
+    "request_body": {
+      "username": "operator2",
+      "password": "[REDACTED]"
+    },
+    "status": 200,
+    "response_headers": {
+      "Server": "nginx/1.28.3",
+      "Date": "Mon, 19 Oct 2026 18:23:03 GMT",
+      "Content-Type": "application/json",
+      "Content-Length": "1257",
+      "Connection": "keep-alive",
+      "Cache-Control": "no-store",
+      "Referrer-Policy": "no-referrer",
+      "X-Content-Type-Options": "nosniff",
+      "X-Correlation-Id": "0c5c12da-f009-43be-8a5c-db09e9ae0df3",
+      "X-Backend": "172.18.0.12:8080"
+    },
+    "response_body": {
+      "data": {
+        "access_token": "[REDACTED]",
+        "refresh_token": "[REDACTED]",
+        "token_type": "[REDACTED]",
+        "expires_in": 900,
+        "user": {
+          "id": "393c38c6-363a-493c-8e64-7ca9f7704999",
+          "tenant_id": "9a3d5655-ca71-4fe9-8fd8-23ab7c325629",
+          "region_id": "cb0a1fba-dc5c-4197-bdfb-63ba06920766",
+          "username": "operator2",
+          "role": "OPERATOR",
+          "active": true,
+          "version": 1
+        }
+      },
+      "meta": {
+        "correlation_id": "0c5c12da-f009-43be-8a5c-db09e9ae0df3",
+        "service": "identidad_acceso",
+        "version": "0.3.0"
+      }
+    },
+    "elapsed_ms": 614.93
+  },
+  {
+    "captured_at": "2026-10-19T18:23:03.520304+00:00",
+    "service": "identidad_acceso",
+    "method": "POST",
+    "url": "http://127.0.0.1:6101/api/v1/auth/login",
+    "request_headers": {
+      "Accept": "application/json",
+      "Idempotency-Key": "95d99551740740eabed4dc3350f624a7",
+      "X-Correlation-ID": "12c30466-7bd3-42ab-95bc-12d3cfd9b9a1"
+    },
+    "request_body": {
+      "username": "medical2",
+      "password": "[REDACTED]"
+    },
+    "status": 200,
+    "response_headers": {
+      "Server": "nginx/1.28.3",
+      "Date": "Mon, 19 Oct 2026 18:23:03 GMT",
+      "Content-Type": "application/json",
+      "Content-Length": "1255",
+      "Connection": "keep-alive",
+      "Cache-Control": "no-store",
+      "Referrer-Policy": "no-referrer",
+      "X-Content-Type-Options": "nosniff",
+      "X-Correlation-Id": "12c30466-7bd3-42ab-95bc-12d3cfd9b9a1",
+      "X-Backend": "172.18.0.13:8080"
+    },
+    "response_body": {
+      "data": {
+        "access_token": "[REDACTED]",
+        "refresh_token": "[REDACTED]",
+        "token_type": "[REDACTED]",
+        "expires_in": 900,
+        "user": {
+          "id": "f8e1a866-c620-405f-8a8f-60ce0230e93e",
+          "tenant_id": "9a3d5655-ca71-4fe9-8fd8-23ab7c325629",
+          "region_id": "cb0a1fba-dc5c-4197-bdfb-63ba06920766",
+          "username": "medical2",
+          "role": "MEDICAL",
+          "active": true,
+          "version": 1
+        }
+      },
+      "meta": {
+        "correlation_id": "12c30466-7bd3-42ab-95bc-12d3cfd9b9a1",
+        "service": "identidad_acceso",
+        "version": "0.3.0"
+      }
+    },
+    "elapsed_ms": 234.736
+  },
+  {
+    "captured_at": "2026-10-19T18:23:03.759459+00:00",
+    "service": "identidad_acceso",
+    "method": "POST",
+    "url": "http://127.0.0.1:6101/api/v1/auth/login",
+    "request_headers": {
+      "Accept": "application/json",
+      "Idempotency-Key": "07309dec464c4eebaf21613cf1bdb92c",
+      "X-Correlation-ID": "52123cf8-b207-4c77-b4da-3dadc50c2ba5"
+    },
+    "request_body": {
+      "username": "coordinator2",
+      "password": "[REDACTED]"
+    },
+    "status": 200,
+    "response_headers": {
+      "Server": "nginx/1.28.3",
+      "Date": "Mon, 19 Oct 2026 18:23:03 GMT",
+      "Content-Type": "application/json",
+      "Content-Length": "1263",
+      "Connection": "keep-alive",
+      "Cache-Control": "no-store",
+      "Referrer-Policy": "no-referrer",
+      "X-Content-Type-Options": "nosniff",
+      "X-Correlation-Id": "52123cf8-b207-4c77-b4da-3dadc50c2ba5",
+      "X-Backend": "172.18.0.12:8080"
+    },
+    "response_body": {
+      "data": {
+        "access_token": "[REDACTED]",
+        "refresh_token": "[REDACTED]",
+        "token_type": "[REDACTED]",
+        "expires_in": 900,
+        "user": {
+          "id": "61f9b94f-5e61-470d-92ef-b68a1d06e76e",
+          "tenant_id": "9a3d5655-ca71-4fe9-8fd8-23ab7c325629",
+          "region_id": "cb0a1fba-dc5c-4197-bdfb-63ba06920766",
+          "username": "coordinator2",
+          "role": "COORDINATOR",
+          "active": true,
+          "version": 1
+        }
+      },
+      "meta": {
+        "correlation_id": "52123cf8-b207-4c77-b4da-3dadc50c2ba5",
+        "service": "identidad_acceso",
+        "version": "0.3.0"
+      }
+    },
+    "elapsed_ms": 238.756
+  },
+  {
+    "captured_at": "2026-10-19T18:23:04.110607+00:00",
+    "service": "identidad_acceso",
+    "method": "POST",
+    "url": "http://127.0.0.1:6101/api/v1/auth/login",
+    "request_headers": {
+      "Accept": "application/json",
+      "Idempotency-Key": "1f3e893137224fa9b0334280bfdcadd2",
+      "X-Correlation-ID": "1c432b30-5722-4699-acf1-32ecbd043167"
+    },
+    "request_body": {
+      "username": "transport2",
+      "password": "[REDACTED]"
+    },
+    "status": 200,
+    "response_headers": {
+      "Server": "nginx/1.28.3",
+      "Date": "Mon, 19 Oct 2026 18:23:04 GMT",
+      "Content-Type": "application/json",
+      "Content-Length": "1259",
+      "Connection": "keep-alive",
+      "Cache-Control": "no-store",
+      "Referrer-Policy": "no-referrer",
+      "X-Content-Type-Options": "nosniff",
+      "X-Correlation-Id": "1c432b30-5722-4699-acf1-32ecbd043167",
+      "X-Backend": "172.18.0.13:8080"
+    },
+    "response_body": {
+      "data": {
+        "access_token": "[REDACTED]",
+        "refresh_token": "[REDACTED]",
+        "token_type": "[REDACTED]",
+        "expires_in": 900,
+        "user": {
+          "id": "6e472f05-0b06-40eb-8021-9969da254608",
+          "tenant_id": "9a3d5655-ca71-4fe9-8fd8-23ab7c325629",
+          "region_id": "cb0a1fba-dc5c-4197-bdfb-63ba06920766",
+          "username": "transport2",
+          "role": "TRANSPORT",
+          "active": true,
+          "version": 1
+        }
+      },
+      "meta": {
+        "correlation_id": "1c432b30-5722-4699-acf1-32ecbd043167",
+        "service": "identidad_acceso",
+        "version": "0.3.0"
+      }
+    },
+    "elapsed_ms": 350.792
+  },
+  {
+    "captured_at": "2026-10-19T18:23:04.503090+00:00",
+    "service": "identidad_acceso",
+    "method": "POST",
+    "url": "http://127.0.0.1:6101/api/v1/auth/login",
+    "request_headers": {
+      "Accept": "application/json",
+      "Idempotency-Key": "88c187c5890a492f935f74e5d18d66af",
+      "X-Correlation-ID": "9973efe6-6a01-4426-b98a-a442e61cbcfd"
+    },
+    "request_body": {
+      "username": "auditor2",
+      "password": "[REDACTED]"
+    },
+    "status": 200,
+    "response_headers": {
+      "Server": "nginx/1.28.3",
+      "Date": "Mon, 19 Oct 2026 18:23:04 GMT",
+      "Content-Type": "application/json",
+      "Content-Length": "1255",
+      "Connection": "keep-alive",
+      "Cache-Control": "no-store",
+      "Referrer-Policy": "no-referrer",
+      "X-Content-Type-Options": "nosniff",
+      "X-Correlation-Id": "9973efe6-6a01-4426-b98a-a442e61cbcfd",
+      "X-Backend": "172.18.0.12:8080"
+    },
+    "response_body": {
+      "data": {
+        "access_token": "[REDACTED]",
+        "refresh_token": "[REDACTED]",
+        "token_type": "[REDACTED]",
+        "expires_in": 900,
+        "user": {
+          "id": "65a1185e-795e-41dc-9d89-25b2048b9fe8",
+          "tenant_id": "9a3d5655-ca71-4fe9-8fd8-23ab7c325629",
+          "region_id": "cb0a1fba-dc5c-4197-bdfb-63ba06920766",
+          "username": "auditor2",
+          "role": "AUDITOR",
+          "active": true,
+          "version": 1
+        }
+      },
+      "meta": {
+        "correlation_id": "9973efe6-6a01-4426-b98a-a442e61cbcfd",
+        "service": "identidad_acceso",
+        "version": "0.3.0"
+      }
+    },
+    "elapsed_ms": 392.016
+  },
+  {
+    "captured_at": "2026-10-19T18:23:04.879638+00:00",
+    "service": "identidad_acceso",
+    "method": "POST",
+    "url": "http://127.0.0.1:6101/api/v1/auth/login",
+    "request_headers": {
+      "Accept": "application/json",
+      "Idempotency-Key": "105e42444bbb449eac053d0822b94fde",
+      "X-Correlation-ID": "7daf77e9-f40c-4136-93be-d963b46fac4b"
+    },
+    "request_body": {
+      "username": "donor2",
+      "password": "[REDACTED]"
+    },
+    "status": 200,
+    "response_headers": {
+      "Server": "nginx/1.28.3",
+      "Date": "Mon, 19 Oct 2026 18:23:04 GMT",
+      "Content-Type": "application/json",
+      "Content-Length": "1251",
+      "Connection": "keep-alive",
+      "Cache-Control": "no-store",
+      "Referrer-Policy": "no-referrer",
+      "X-Content-Type-Options": "nosniff",
+      "X-Correlation-Id": "7daf77e9-f40c-4136-93be-d963b46fac4b",
+      "X-Backend": "172.18.0.13:8080"
+    },
+    "response_body": {
+      "data": {
+        "access_token": "[REDACTED]",
+        "refresh_token": "[REDACTED]",
+        "token_type": "[REDACTED]",
+        "expires_in": 900,
+        "user": {
+          "id": "8e8fb8ed-45ea-4351-ba4a-b2cb39ad0d66",
+          "tenant_id": "9a3d5655-ca71-4fe9-8fd8-23ab7c325629",
+          "region_id": "cb0a1fba-dc5c-4197-bdfb-63ba06920766",
+          "username": "donor2",
+          "role": "DONOR",
+          "active": true,
+          "version": 1
+        }
+      },
+      "meta": {
+        "correlation_id": "7daf77e9-f40c-4136-93be-d963b46fac4b",
+        "service": "identidad_acceso",
+        "version": "0.3.0"
+      }
+    },
+    "elapsed_ms": 376.068
+  },
+  {
+    "captured_at": "2026-10-19T18:23:04.943292+00:00",
+    "service": "inventario",
+    "method": "POST",
+    "url": "http://127.0.0.1:6104/api/v1/resources",
+    "request_headers": {
+      "Accept": "application/json",
+      "Idempotency-Key": "95916d3c8e7b458b92c1c9ff1694eb18",
+      "X-Correlation-ID": "9d49cedd-37e4-4ab2-bdb6-1c2ef03c92a2",
+      "Authorization": "[REDACTED]"
+    },
+    "request_body": {
+      "folio": "UNIT-f5ca5a04337a",
+      "kind": "BLOOD",
+      "component": "RBC",
+      "blood_group": "O-",
+      "expires_at": "2026-10-21T18:23:04.880164+00:00"
+    },
+    "status": 201,
+    "response_headers": {
+      "Server": "nginx/1.28.3",
+      "Date": "Mon, 19 Oct 2026 18:23:04 GMT",
+      "Content-Type": "application/json",
+      "Content-Length": "631",
+      "Connection": "keep-alive",
+      "Cache-Control": "no-store",
+      "Referrer-Policy": "no-referrer",
+      "X-Content-Type-Options": "nosniff",
+      "X-Correlation-Id": "9d49cedd-37e4-4ab2-bdb6-1c2ef03c92a2",
+      "X-Backend": "172.18.0.22:8080"
+    },
+    "response_body": {
+      "data": {
+        "id": "054aa894-ba73-4e01-8d21-1f348921bdf8",
+        "tenant_id": "7b4c7ee3-20ef-4345-bf68-c08748c9b7f0",
+        "region_id": "cb0a1fba-dc5c-4197-bdfb-63ba06920766",
+        "folio": "UNIT-f5ca5a04337a",
+        "current_institution_id": "7b4c7ee3-20ef-4345-bf68-c08748c9b7f0",
+        "donation_id": null,
+        "kind": "BLOOD",
+        "component": "RBC",
+        "blood_group": "O-",
+        "expires_at": "2026-10-21T18:23:04.880164+00:00",
+        "status": "QUARANTINE",
+        "version": 1,
+        "created_at": "2026-10-19T18:23:04.895112+00:00",
+        "location_id": null,
+        "collected_at": null
+      },
+      "meta": {
+        "correlation_id": "9d49cedd-37e4-4ab2-bdb6-1c2ef03c92a2",
+        "service": "inventario",
+        "version": "0.3.0"
+      }
+    },
+    "elapsed_ms": 63.186
+  },
+  {
+    "captured_at": "2026-10-19T18:23:05.008778+00:00",
+    "service": "inventario",
+    "method": "POST",
+    "url": "http://127.0.0.1:6104/api/v1/resources/054aa894-ba73-4e01-8d21-1f348921bdf8/release",
+    "request_headers": {
+      "Accept": "application/json",
+      "Idempotency-Key": "a525fc998e0b42929a1b637507615a41",
+      "X-Correlation-ID": "148f6fae-0033-4a71-80df-26e6794bfecf",
+      "Authorization": "[REDACTED]"
+    },
+    "request_body": {
+      "human_confirmation": true,
+      "reason": "Liberación humana con datos ficticios",
+      "version": 1
+    },
+    "status": 200,
+    "response_headers": {
+      "Server": "nginx/1.28.3",
+      "Date": "Mon, 19 Oct 2026 18:23:05 GMT",
+      "Content-Type": "application/json",
+      "Content-Length": "630",
+      "Connection": "keep-alive",
+      "Cache-Control": "no-store",
+      "Referrer-Policy": "no-referrer",
+      "X-Content-Type-Options": "nosniff",
+      "X-Correlation-Id": "148f6fae-0033-4a71-80df-26e6794bfecf",
+      "X-Backend": "172.18.0.23:8080"
+    },
+    "response_body": {
+      "data": {
+        "id": "054aa894-ba73-4e01-8d21-1f348921bdf8",
+        "tenant_id": "7b4c7ee3-20ef-4345-bf68-c08748c9b7f0",
+        "region_id": "cb0a1fba-dc5c-4197-bdfb-63ba06920766",
+        "folio": "UNIT-f5ca5a04337a",
+        "current_institution_id": "7b4c7ee3-20ef-4345-bf68-c08748c9b7f0",
+        "donation_id": null,
+        "kind": "BLOOD",
+        "component": "RBC",
+        "blood_group": "O-",
+        "expires_at": "2026-10-21T18:23:04.880164+00:00",
+        "status": "AVAILABLE",
+        "version": 2,
+        "created_at": "2026-10-19T18:23:04.895112+00:00",
+        "location_id": null,
+        "collected_at": null
+      },
+      "meta": {
+        "correlation_id": "148f6fae-0033-4a71-80df-26e6794bfecf",
+        "service": "inventario",
+        "version": "0.3.0"
+      }
+    },
+    "elapsed_ms": 64.677
+  },
+  {
+    "captured_at": "2026-10-19T18:23:05.106878+00:00",
+    "service": "receptores",
+    "method": "POST",
+    "url": "http://127.0.0.1:6103/api/v1/recipients",
+    "request_headers": {
+      "Accept": "application/json",
+      "Idempotency-Key": "26f66a3708d54fef9c4217933e2239fd",
+      "X-Correlation-ID": "d9e657a4-e0ef-41d8-b879-77dc57353a92",
+      "Authorization": "[REDACTED]"
+    },
+    "request_body": {
+      "folio": "PATIENT-63b3c3cbf3ac",
+      "display_name": "Paciente ficticio",
+      "kind": "BLOOD",
+      "blood_group": "A+",
+      "organ_type": null,
+      "studies": "Estudios ficticios con revisión externa pendiente"
+    },
+    "status": 201,
+    "response_headers": {
+      "Server": "nginx/1.28.3",
+      "Date": "Mon, 19 Oct 2026 18:23:05 GMT",
+      "Content-Type": "application/json",
+      "Content-Length": "492",
+      "Connection": "keep-alive",
+      "Cache-Control": "no-store",
+      "Referrer-Policy": "no-referrer",
+      "X-Content-Type-Options": "nosniff",
+      "X-Correlation-Id": "d9e657a4-e0ef-41d8-b879-77dc57353a92",
+      "X-Backend": "172.18.0.16:8080"
+    },
+    "response_body": {
+      "data": {
+        "id": "69265269-e253-4d6e-9efd-17ff0d22cc29",
+        "tenant_id": "9a3d5655-ca71-4fe9-8fd8-23ab7c325629",
+        "folio": "PATIENT-63b3c3cbf3ac",
+        "display_name": "Paciente ficticio",
+        "kind": "BLOOD",
+        "blood_group": "A+",
+        "organ_type": null,
+        "studies": "Estudios ficticios con revisión externa pendiente",
+        "status": "ACTIVE",
+        "version": 1,
+        "restrictions": null,
+        "requirement": null
+      },
+      "meta": {
+        "correlation_id": "d9e657a4-e0ef-41d8-b879-77dc57353a92",
+        "service": "receptores",
+        "version": "0.3.0"
+      }
+    },
+    "elapsed_ms": 97.412
+  },
+  {
+    "captured_at": "2026-10-19T18:23:05.269408+00:00",
+    "service": "receptores",
+    "method": "POST",
+    "url": "http://127.0.0.1:6103/api/v1/requests",
+    "request_headers": {
+      "Accept": "application/json",
+      "Idempotency-Key": "b90d95e17c2341debd674b543940e740",
+      "X-Correlation-ID": "d63295a9-c13e-4794-9b04-1d22562acd5b",
+      "Authorization": "[REDACTED]"
+    },
+    "request_body": {
+      "recipient_id": "69265269-e253-4d6e-9efd-17ff0d22cc29",
+      "component": "RBC",
+      "quantity": 1,
+      "urgency": 3
+    },
+    "status": 201,
+    "response_headers": {
+      "Server": "nginx/1.28.3",
+      "Date": "Mon, 19 Oct 2026 18:23:05 GMT",
+      "Content-Type": "application/json",
+      "Content-Length": "426",
+      "Connection": "keep-alive",
+      "Cache-Control": "no-store",
+      "Referrer-Policy": "no-referrer",
+      "X-Content-Type-Options": "nosniff",
+      "X-Correlation-Id": "d63295a9-c13e-4794-9b04-1d22562acd5b",
+      "X-Backend": "172.18.0.17:8080"
+    },
+    "response_body": {
+      "data": {
+        "id": "9d72a2dc-5d79-4449-af8a-6e53954ed494",
+        "tenant_id": "9a3d5655-ca71-4fe9-8fd8-23ab7c325629",
+        "recipient_id": "69265269-e253-4d6e-9efd-17ff0d22cc29",
+        "kind": "BLOOD",
+        "component": "RBC",
+        "quantity": 1,
+        "urgency": 3,
+        "status": "OPEN",
+        "version": 1,
+        "created_at": "2026-10-19T18:23:05.152322+00:00"
+      },
+      "meta": {
+        "correlation_id": "d63295a9-c13e-4794-9b04-1d22562acd5b",
+        "service": "receptores",
+        "version": "0.3.0"
+      }
+    },
+    "elapsed_ms": 161.444
+  },
+  {
+    "captured_at": "2026-10-19T18:23:05.397512+00:00",
+    "service": "priorizacion_geografia",
+    "method": "GET",
+    "url": "http://127.0.0.1:6106/api/v1/routes",
+    "request_headers": {
+      "Accept": "application/json",
+      "Idempotency-Key": "06dd2ed317504b7090503c873efedaa9",
+      "X-Correlation-ID": "295b921d-9fdf-431a-8933-4467a1454efd",
+      "Authorization": "[REDACTED]"
+    },
+    "request_body": null,
+    "status": 200,
+    "response_headers": {
+      "Server": "nginx/1.28.3",
+      "Date": "Mon, 19 Oct 2026 18:23:05 GMT",
+      "Content-Type": "application/json",
+      "Content-Length": "556",
+      "Connection": "keep-alive",
+      "Cache-Control": "no-store",
+      "Referrer-Policy": "no-referrer",
+      "X-Content-Type-Options": "nosniff",
+      "X-Correlation-Id": "295b921d-9fdf-431a-8933-4467a1454efd",
+      "X-Backend": "172.18.0.20:8080"
+    },
+    "response_body": {
+      "data": {
+        "items": [
+          {
+            "id": "fe2c928d-25a5-4e89-82d2-b91500872287",
+            "origin_id": "7b4c7ee3-20ef-4345-bf68-c08748c9b7f0",
+            "destination_id": "9a3d5655-ca71-4fe9-8fd8-23ab7c325629",
+            "region_id": "cb0a1fba-dc5c-4197-bdfb-63ba06920766",
+            "distance_km": 10.0,
+            "travel_minutes": 15,
+            "source": "Estimación ficticia de prueba Docker",
+            "version": 1,
+            "updated_at": "2026-10-19T14:39:53.690767+00:00"
+          }
+        ],
+        "page": 1,
+        "page_size": 20,
+        "total": 1
+      },
+      "meta": {
+        "correlation_id": "295b921d-9fdf-431a-8933-4467a1454efd",
+        "service": "priorizacion_geografia",
+        "version": "0.3.0"
+      }
+    },
+    "elapsed_ms": 128.178
+  },
+  {
+    "captured_at": "2026-10-19T18:23:05.704352+00:00",
+    "service": "compatibilidad",
+    "method": "POST",
+    "url": "http://127.0.0.1:6105/api/v1/evaluations",
+    "request_headers": {
+      "Accept": "application/json",
+      "Idempotency-Key": "9fd82e4b711d4e928425b040c7e56a7c",
+      "X-Correlation-ID": "379e58fe-27c4-4e1f-b737-c9f6b2e8bd3c",
+      "Authorization": "[REDACTED]"
+    },
+    "request_body": {
+      "request_id": "9d72a2dc-5d79-4449-af8a-6e53954ed494"
+    },
+    "status": 201,
+    "response_headers": {
+      "Server": "nginx/1.28.3",
+      "Date": "Mon, 19 Oct 2026 18:23:05 GMT",
+      "Content-Type": "application/json",
+      "Content-Length": "1629",
+      "Connection": "keep-alive",
+      "Cache-Control": "no-store",
+      "Referrer-Policy": "no-referrer",
+      "X-Content-Type-Options": "nosniff",
+      "X-Correlation-Id": "379e58fe-27c4-4e1f-b737-c9f6b2e8bd3c",
+      "X-Backend": "172.18.0.19:8080"
+    },
+    "response_body": {
+      "data": {
+        "id": "3b1dcc96-6ab3-438a-af88-2af1af38ee38",
+        "tenant_id": "9a3d5655-ca71-4fe9-8fd8-23ab7c325629",
+        "request_id": "9d72a2dc-5d79-4449-af8a-6e53954ed494",
+        "request_version": 1,
+        "recipient_version": 1,
+        "kind": "BLOOD",
+        "algorithm_version": "RBC-1.0",
+        "snapshot": {
+          "id": "9d72a2dc-5d79-4449-af8a-6e53954ed494",
+          "kind": "BLOOD",
+          "status": "OPEN",
+          "urgency": 3,
+          "version": 1,
+          "quantity": 1,
+          "component": "RBC",
+          "recipient": {
+            "id": "69265269-e253-4d6e-9efd-17ff0d22cc29",
+            "kind": "BLOOD",
+            "status": "ACTIVE",
+            "version": 1,
+            "organ_type": null,
+            "blood_group": "A+"
+          },
+          "tenant_id": "9a3d5655-ca71-4fe9-8fd8-23ab7c325629",
+          "created_at": "2026-10-19T18:23:05.152322+00:00",
+          "missing_data": {
+            "route": 0,
+            "expired": 0,
+            "other_component": 0
+          },
+          "recipient_id": "69265269-e253-4d6e-9efd-17ff0d22cc29",
+          "clinical_notice": "Filtro ilustrativo; no interpreta HLA, anticuerpos, tamaño ni pruebas cruzadas. Requiere dictamen médico."
+        },
+        "candidates": [
+          {
+            "route_id": "fe2c928d-25a5-4e89-82d2-b91500872287",
+            "origin_id": "7b4c7ee3-20ef-4345-bf68-c08748c9b7f0",
+            "expires_at": "2026-10-21T18:23:04.880164+00:00",
+            "distance_km": 10.0,
+            "explanation": "ABO/RhD potencial para eritrocitos. Filtro ilustrativo; no interpreta HLA, anticuerpos, tamaño ni pruebas cruzadas. Requiere dictamen médico.",
+            "resource_id": "054aa894-ba73-4e01-8d21-1f348921bdf8",
+            "route_version": 1,
+            "resource_folio": "UNIT-f5ca5a04337a",
+            "travel_minutes": 15,
+            "resource_version": 2
+          }
+        ],
+        "elapsed_ms": 206.849,
+        "created_at": "2026-10-19T18:23:05.647876+00:00"
+      },
+      "meta": {
+        "correlation_id": "379e58fe-27c4-4e1f-b737-c9f6b2e8bd3c",
+        "service": "compatibilidad",
+        "version": "0.3.0"
+      }
+    },
+    "elapsed_ms": 305.475
+  },
+  {
+    "captured_at": "2026-10-19T18:23:05.830340+00:00",
+    "service": "compatibilidad",
+    "method": "POST",
+    "url": "http://127.0.0.1:6105/api/v1/evaluations/3b1dcc96-6ab3-438a-af88-2af1af38ee38/reviews",
+    "request_headers": {
+      "Accept": "application/json",
+      "Idempotency-Key": "91f1c0ce519c40c4bd296b172b5c1118",
+      "X-Correlation-ID": "e794d003-e4ea-4b66-a77d-362de0291b8a",
+      "Authorization": "[REDACTED]"
+    },
+    "request_body": {
+      "resource_id": "054aa894-ba73-4e01-8d21-1f348921bdf8",
+      "human_confirmation": true,
+      "decision": "FAVORABLE",
+      "reason": "Dictamen médico favorable ficticio"
+    },
+    "status": 201,
+    "response_headers": {
+      "Server": "nginx/1.28.3",
+      "Date": "Mon, 19 Oct 2026 18:23:05 GMT",
+      "Content-Type": "application/json",
+      "Content-Length": "514",
+      "Connection": "keep-alive",
+      "Cache-Control": "no-store",
+      "Referrer-Policy": "no-referrer",
+      "X-Content-Type-Options": "nosniff",
+      "X-Correlation-Id": "e794d003-e4ea-4b66-a77d-362de0291b8a",
+      "X-Backend": "172.18.0.18:8080"
+    },
+    "response_body": {
+      "data": {
+        "id": "94938305-0adc-474b-9a9a-5abe86ba5dd9",
+        "evaluation_id": "3b1dcc96-6ab3-438a-af88-2af1af38ee38",
+        "resource_id": "054aa894-ba73-4e01-8d21-1f348921bdf8",
+        "tenant_id": "9a3d5655-ca71-4fe9-8fd8-23ab7c325629",
+        "actor_id": "f8e1a866-c620-405f-8a8f-60ce0230e93e",
+        "decision": "FAVORABLE",
+        "reason": "Dictamen médico favorable ficticio",
+        "created_at": "2026-10-19T18:23:05.747473+00:00"
+      },
+      "meta": {
+        "correlation_id": "e794d003-e4ea-4b66-a77d-362de0291b8a",
+        "service": "compatibilidad",
+        "version": "0.3.0"
+      }
+    },
+    "elapsed_ms": 125.005
+  },
+  {
+    "captured_at": "2026-10-19T18:23:06.341794+00:00",
+    "service": "inventario",
+    "method": "POST",
+    "url": "http://127.0.0.1:6104/api/v1/reservations",
+    "request_headers": {
+      "Accept": "application/json",
+      "Idempotency-Key": "dab6e46432c54a6086eb9d30abd15a87",
+      "X-Correlation-ID": "e5c48cb5-ded5-4849-a8eb-0ba37b4d6023",
+      "Authorization": "[REDACTED]"
+    },
+    "request_body": {
+      "evaluation_id": "3b1dcc96-6ab3-438a-af88-2af1af38ee38",
+      "resource_id": "054aa894-ba73-4e01-8d21-1f348921bdf8",
+      "human_confirmation": true,
+      "reason": "Asignación humana ficticia para integración"
+    },
+    "status": 202,
+    "response_headers": {
+      "Server": "nginx/1.28.3",
+      "Date": "Mon, 19 Oct 2026 18:23:06 GMT",
+      "Content-Type": "application/json",
+      "Content-Length": "962",
+      "Connection": "keep-alive",
+      "Cache-Control": "no-store",
+      "Referrer-Policy": "no-referrer",
+      "X-Content-Type-Options": "nosniff",
+      "X-Correlation-Id": "e5c48cb5-ded5-4849-a8eb-0ba37b4d6023",
+      "X-Backend": "172.18.0.23:8080"
+    },
+    "response_body": {
+      "data": {
+        "operation_id": "f13ceb83-2715-4cda-8363-f7205c90ff0b",
+        "status": "COMPLETED",
+        "error": null,
+        "reservation": {
+          "id": "10cb1ca1-018a-47dd-ba02-fc765bb81ec4",
+          "operation_id": "f13ceb83-2715-4cda-8363-f7205c90ff0b",
+          "resource_id": "054aa894-ba73-4e01-8d21-1f348921bdf8",
+          "request_id": "9d72a2dc-5d79-4449-af8a-6e53954ed494",
+          "recipient_id": "69265269-e253-4d6e-9efd-17ff0d22cc29",
+          "origin_id": "7b4c7ee3-20ef-4345-bf68-c08748c9b7f0",
+          "destination_id": "9a3d5655-ca71-4fe9-8fd8-23ab7c325629",
+          "region_id": "cb0a1fba-dc5c-4197-bdfb-63ba06920766",
+          "hold_id": "d2bfd12a-ba55-4dda-950e-94d33c811ce8",
+          "evaluation_id": "3b1dcc96-6ab3-438a-af88-2af1af38ee38",
+          "route_id": "fe2c928d-25a5-4e89-82d2-b91500872287",
+          "route_version": 1,
+          "status": "RESERVED",
+          "shipment_id": null,
+          "shipment_sequence": 0,
+          "created_at": "2026-10-19T18:23:06.189214+00:00"
+        }
+      },
+      "meta": {
+        "correlation_id": "e5c48cb5-ded5-4849-a8eb-0ba37b4d6023",
+        "service": "inventario",
+        "version": "0.3.0"
+      }
+    },
+    "elapsed_ms": 510.561
+  },
+  {
+    "captured_at": "2026-10-19T18:23:06.692728+00:00",
+    "service": "transporte",
+    "method": "POST",
+    "url": "http://127.0.0.1:6107/api/v1/shipments",
+    "request_headers": {
+      "Accept": "application/json",
+      "Idempotency-Key": "76b2eb9b0a984a0d93a4e4c847dc784e",
+      "X-Correlation-ID": "bab0c412-e3a7-45de-a121-e3f6517f2669",
+      "Authorization": "[REDACTED]"
+    },
+    "request_body": {
+      "reservation_id": "10cb1ca1-018a-47dd-ba02-fc765bb81ec4",
+      "transport_user_id": "321c9aa9-c99d-4866-aca9-e881a8442cdb",
+      "departure_at": "2026-10-19T18:24:06.342541+00:00",
+      "eta": "2026-10-19T18:53:06.342572+00:00",
+      "human_confirmation": true,
+      "reason": "Plan de traslado ficticio aprobado"
+    },
+    "status": 202,
+    "response_headers": {
+      "Server": "nginx/1.28.3",
+      "Date": "Mon, 19 Oct 2026 18:23:06 GMT",
+      "Content-Type": "application/json",
+      "Content-Length": "675",
+      "Connection": "keep-alive",
+      "Cache-Control": "no-store",
+      "Referrer-Policy": "no-referrer",
+      "X-Content-Type-Options": "nosniff",
+      "X-Correlation-Id": "bab0c412-e3a7-45de-a121-e3f6517f2669",
+      "X-Backend": "172.19.0.3:8080"
+    },
+    "response_body": {
+      "data": {
+        "id": "12e4bd40-406d-459d-9af5-880ce2f9b748",
+        "reservation_id": "10cb1ca1-018a-47dd-ba02-fc765bb81ec4",
+        "origin_id": "7b4c7ee3-20ef-4345-bf68-c08748c9b7f0",
+        "destination_id": "9a3d5655-ca71-4fe9-8fd8-23ab7c325629",
+        "region_id": "cb0a1fba-dc5c-4197-bdfb-63ba06920766",
+        "transport_user_id": "321c9aa9-c99d-4866-aca9-e881a8442cdb",
+        "departure_at": "2026-10-19T18:24:06.342541+00:00",
+        "eta": "2026-10-19T18:53:06.342572+00:00",
+        "status": "PLANNED",
+        "version": 1,
+        "sequence": 1,
+        "inventory_pending": false,
+        "expires_at": "2026-10-21T18:23:04.880164+00:00"
+      },
+      "meta": {
+        "correlation_id": "bab0c412-e3a7-45de-a121-e3f6517f2669",
+        "service": "transporte",
+        "version": "0.3.0"
+      }
+    },
+    "elapsed_ms": 350.177
+  }
+]

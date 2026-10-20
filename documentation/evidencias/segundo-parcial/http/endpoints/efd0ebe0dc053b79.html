@@ -1,0 +1,96 @@
+<!doctype html><html lang="es"><meta charset="utf-8"><title>custodia /internal/v1/events</title><style>body{font:15px system-ui;margin:32px;background:#f4f5f7;color:#202631}main{max-width:1250px;margin:auto}h1{color:#8e2434;font-size:26px}small{color:#556}a{color:#8e2434}table{border-collapse:collapse;width:100%;background:white}td,th{padding:9px;border:1px solid #ccd;vertical-align:top;text-align:left}pre{white-space:pre-wrap;word-break:break-word;background:#fff;border:1px solid #ccd;padding:12px;font:12px monospace;max-height:300px;overflow:auto}section{margin:20px 0}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.tag{padding:4px 9px;background:#e5ece7}.error{background:#f8e5e6}input{padding:12px;width:70%;margin:15px 0}details{margin:12px 0}nav{margin-bottom:20px}</style><main><nav><a href="../index.html">Inventario completo</a></nav><h1>custodia · POST /internal/v1/events</h1><p>Custodia secuencial, deduplicada e inmutable</p><p>Registro de ejecución real. Credenciales y firmas redactadas. Los cuerpos completos están en el JSON enlazado.</p><section><h2>HTTP 200</h2><p><b>2026-10-19T16:27:11.494233+00:00</b> · versión 0.3.0</p><p>Correlación: 904b3447-1888-4f59-b8e1-974bb7623f59<br>URL: http://127.0.0.1:56265/internal/v1/events</p><p><a href="../records/8d45a24a6548e40aef02c296.json">Petición, respuesta, headers y persistencia completos</a></p><div class="grid"><div><h3>Petición</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Host&quot;: &quot;127.0.0.1:56265&quot;,
+    &quot;User-Agent&quot;: &quot;python-requests/2.34.2&quot;,
+    &quot;Accept-Encoding&quot;: &quot;gzip, deflate, br&quot;,
+    &quot;Accept&quot;: &quot;application/json&quot;,
+    &quot;Connection&quot;: &quot;keep-alive&quot;,
+    &quot;Content-Type&quot;: &quot;application/json&quot;,
+    &quot;X-Service&quot;: &quot;transporte&quot;,
+    &quot;X-Service-Time&quot;: &quot;1792427231&quot;,
+    &quot;X-Service-Nonce&quot;: &quot;0a405c67-06be-4274-af93-0abb3f59ee58&quot;,
+    &quot;X-Service-Signature&quot;: &quot;[REDACTED]&quot;,
+    &quot;X-Correlation-Id&quot;: &quot;904b3447-1888-4f59-b8e1-974bb7623f59&quot;,
+    &quot;Content-Length&quot;: &quot;690&quot;
+  },
+  &quot;parameters&quot;: {},
+  &quot;body&quot;: {
+    &quot;action&quot;: &quot;SHIPMENT_PLANNED&quot;,
+    &quot;source&quot;: &quot;transporte&quot;,
+    &quot;actor_id&quot;: null,
+    &quot;event_id&quot;: &quot;c371274e-86ce-475d-a157-878aaf6838fb&quot;,
+    &quot;metadata&quot;: {
+      &quot;state&quot;: &quot;PLANNED&quot;,
+      &quot;evidence&quot;: null,
+      &quot;sequence&quot;: 1,
+      &quot;origin_id&quot;: &quot;87255e79-2a0a-4e44-ad21-8002ccd5688d&quot;,
+      &quot;destination_id&quot;: &quot;a0920053-13c5-4d42-b53e-74b35a779f58&quot;,
+      &quot;reservation_id&quot;: &quot;1e1b90e8-2d0a-425b-bc78-f2b497c2af6a&quot;,
+      &quot;transport_user_id&quot;: &quot;3980f3c5-484c-4178-b03c-8d65c598ecd7&quot;,
+      &quot;destination_location_id&quot;: null
+    },
+    &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+    &quot;tenant_id&quot;: &quot;87255e79-2a0a-4e44-ad21-8002ccd5688d&quot;,
+    &quot;occurred_at&quot;: &quot;2026-10-19T16:26:48.800178+00:00&quot;,
+    &quot;resource_id&quot;: &quot;859eea1a-1b77-4b08-9a53-5038495b9521&quot;,
+    &quot;correlation_id&quot;: &quot;e1036ea4-28c7-4721-8ec6-88db7beb489b&quot;
+  }
+}</pre></div><div><h3>Respuesta</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Content-Type&quot;: &quot;application/json&quot;,
+    &quot;Content-Length&quot;: &quot;228&quot;,
+    &quot;X-Correlation-ID&quot;: &quot;904b3447-1888-4f59-b8e1-974bb7623f59&quot;,
+    &quot;Cache-Control&quot;: &quot;no-store&quot;,
+    &quot;X-Content-Type-Options&quot;: &quot;nosniff&quot;,
+    &quot;Referrer-Policy&quot;: &quot;no-referrer&quot;
+  },
+  &quot;body&quot;: {
+    &quot;data&quot;: {
+      &quot;stored&quot;: true,
+      &quot;sequence&quot;: 1,
+      &quot;hash&quot;: &quot;e40abe9dcc2b2b6e1829d8ff7ce480b2ec45856bd63b5672d2466950f9be42c6&quot;
+    },
+    &quot;meta&quot;: {
+      &quot;correlation_id&quot;: &quot;904b3447-1888-4f59-b8e1-974bb7623f59&quot;,
+      &quot;service&quot;: &quot;custodia&quot;,
+      &quot;version&quot;: &quot;0.3.0&quot;
+    }
+  }
+}</pre></div></div><details><summary>Persistencia y versión de implementación</summary><pre>{
+  &quot;effect&quot;: &quot;committed&quot;,
+  &quot;store&quot;: &quot;PostgreSQL red_house&quot;,
+  &quot;query&quot;: &quot;SELECT event_id,fingerprint FROM inbox WHERE event_id=%s&quot;,
+  &quot;parameters&quot;: [
+    &quot;c371274e-86ce-475d-a157-878aaf6838fb&quot;
+  ],
+  &quot;row&quot;: {
+    &quot;event_id&quot;: &quot;c371274e-86ce-475d-a157-878aaf6838fb&quot;,
+    &quot;fingerprint&quot;: &quot;e40abe9dcc2b2b6e1829d8ff7ce480b2ec45856bd63b5672d2466950f9be42c6&quot;
+  }
+}</pre><p>SHA-256: 864e3dda7901fd4edb3082758390ed9006bf1eeb509502b67d2009709a43ddd8</p></details></section><section><h2>HTTP 401</h2><p><b>2026-10-19T16:28:26.868420+00:00</b> · versión 0.3.0</p><p>Correlación: 2147d2e8-51f4-484b-9e19-c202378c6057<br>URL: http://127.0.0.1:56265/internal/v1/events</p><p><a href="../records/fd483ce2c0cace10211df2e4.json">Petición, respuesta, headers y persistencia completos</a></p><div class="grid"><div><h3>Petición</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Host&quot;: &quot;127.0.0.1:56265&quot;,
+    &quot;User-Agent&quot;: &quot;python-requests/2.34.2&quot;,
+    &quot;Accept-Encoding&quot;: &quot;gzip, deflate, br&quot;,
+    &quot;Accept&quot;: &quot;application/xml&quot;,
+    &quot;Connection&quot;: &quot;keep-alive&quot;,
+    &quot;Idempotency-Key&quot;: &quot;5c25fef691c346389bab8326d2ca94c8&quot;,
+    &quot;Content-Length&quot;: &quot;2&quot;,
+    &quot;Content-Type&quot;: &quot;application/json&quot;
+  },
+  &quot;parameters&quot;: {},
+  &quot;body&quot;: {}
+}</pre></div><div><h3>Respuesta</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Content-Type&quot;: &quot;application/xml; charset=utf-8&quot;,
+    &quot;Content-Length&quot;: &quot;518&quot;,
+    &quot;X-Correlation-ID&quot;: &quot;2147d2e8-51f4-484b-9e19-c202378c6057&quot;,
+    &quot;Cache-Control&quot;: &quot;no-store&quot;,
+    &quot;X-Content-Type-Options&quot;: &quot;nosniff&quot;,
+    &quot;Referrer-Policy&quot;: &quot;no-referrer&quot;
+  },
+  &quot;body&quot;: &quot;&lt;response type=\&quot;object\&quot;&gt;&lt;field name=\&quot;error\&quot; type=\&quot;object\&quot;&gt;&lt;field name=\&quot;code\&quot; type=\&quot;string\&quot;&gt;unauthorized_service&lt;/field&gt;&lt;field name=\&quot;message\&quot; type=\&quot;string\&quot;&gt;Identidad de servicio inválida.&lt;/field&gt;&lt;field name=\&quot;details\&quot; type=\&quot;array\&quot;/&gt;&lt;/field&gt;&lt;field name=\&quot;meta\&quot; type=\&quot;object\&quot;&gt;&lt;field name=\&quot;correlation_id\&quot; type=\&quot;string\&quot;&gt;2147d2e8-51f4-484b-9e19-c202378c6057&lt;/field&gt;&lt;field name=\&quot;service\&quot; type=\&quot;string\&quot;&gt;custodia&lt;/field&gt;&lt;field name=\&quot;version\&quot; type=\&quot;string\&quot;&gt;0.3.0&lt;/field&gt;&lt;/field&gt;&lt;/response&gt;&quot;
+}</pre></div></div><details><summary>Persistencia y versión de implementación</summary><pre>{
+  &quot;effect&quot;: &quot;controlled_error&quot;,
+  &quot;note&quot;: &quot;No se infiere ausencia de efectos de un error; revisar correlación y estado de operación.&quot;
+}</pre><p>SHA-256: 864e3dda7901fd4edb3082758390ed9006bf1eeb509502b67d2009709a43ddd8</p></details></section><h2>Todas las variantes ejecutadas</h2><ul><li><a href="../records/8d45a24a6548e40aef02c296.json">200 · http · application/json · 2026-10-19T16:27:11.494233+00:00</a></li><li><a href="../records/74aeb73a977d0562ba143d5a.json">200 · embedded · application/json · 2026-10-19T16:24:01.051103+00:00</a></li><li><a href="../records/fd483ce2c0cace10211df2e4.json">401 · http · application/xml; charset=utf-8 · 2026-10-19T16:28:26.868420+00:00</a></li><li><a href="../records/25de1ed8af6716e88313f44d.json">401 · http · application/json · 2026-10-19T16:28:26.817608+00:00</a></li></ul></main></html>

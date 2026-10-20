@@ -1,0 +1,52 @@
+{
+  "captured_at": "2026-10-19T16:22:40.460466+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "b82acfc07e7ff0221196c291a52b1986e4d1ac69b3f6769bffe29f4a02fa5c9b",
+  "transport": "embedded",
+  "method": "GET",
+  "route": "/api/v1/catalogues/locations",
+  "objective": "Consultar locations",
+  "url": "http://localhost/api/v1/catalogues/locations?active=true&page=1&page_size=20",
+  "parameters": {
+    "active": "true",
+    "page": "1",
+    "page_size": "20"
+  },
+  "path_parameters": {},
+  "request_headers": {
+    "Host": "localhost",
+    "Accept": "application/json",
+    "X-Correlation-Id": "29fbfe1d-0663-4c5a-bed1-ca824a1e8028",
+    "Authorization": "[REDACTED]"
+  },
+  "request_body": "",
+  "status": 200,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "182",
+    "X-Correlation-ID": "29fbfe1d-0663-4c5a-bed1-ca824a1e8028",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer",
+    "X-Cache": "MISS"
+  },
+  "response_body": {
+    "data": {
+      "items": [],
+      "page": 1,
+      "page_size": 20,
+      "total": 0
+    },
+    "meta": {
+      "correlation_id": "29fbfe1d-0663-4c5a-bed1-ca824a1e8028",
+      "service": "identidad_acceso",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "29fbfe1d-0663-4c5a-bed1-ca824a1e8028",
+  "persistence": {
+    "effect": "read",
+    "note": "Consulta; accesos protegidos generan auditoría local transaccional."
+  }
+}

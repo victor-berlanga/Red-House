@@ -1,0 +1,107 @@
+{
+  "captured_at": "2026-10-19T16:28:06.098466+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "b82acfc07e7ff0221196c291a52b1986e4d1ac69b3f6769bffe29f4a02fa5c9b",
+  "transport": "http",
+  "method": "GET",
+  "route": "/api/v1/users",
+  "objective": "Cuentas propias o personal regional de traslado; nunca hashes ni sesiones",
+  "url": "http://127.0.0.1:56258/api/v1/users",
+  "parameters": {},
+  "path_parameters": {},
+  "request_headers": {
+    "Host": "127.0.0.1:56258",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "9483347d4fd54bb580c4ee76aef2f15e",
+    "Authorization": "[REDACTED]"
+  },
+  "request_body": "",
+  "status": 200,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "1404",
+    "X-Correlation-ID": "f21ba2bf-6d5c-4950-8171-85996eb982e8",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "data": {
+      "items": [
+        {
+          "id": "575f0812-36fb-451f-b643-91b934c9ce73",
+          "tenant_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+          "username": "admin1",
+          "role": "ADMIN",
+          "active": true,
+          "version": 1
+        },
+        {
+          "id": "0b9f793e-3a14-4531-aca4-653df89c89ec",
+          "tenant_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+          "username": "auditor1",
+          "role": "AUDITOR",
+          "active": true,
+          "version": 1
+        },
+        {
+          "id": "c17e9575-b990-4b29-9087-4481a6e6db6e",
+          "tenant_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+          "username": "coordinator1",
+          "role": "COORDINATOR",
+          "active": true,
+          "version": 1
+        },
+        {
+          "id": "8cbb4f8f-9276-4c19-ba09-37a606593c8e",
+          "tenant_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+          "username": "donor1",
+          "role": "DONOR",
+          "active": true,
+          "version": 1
+        },
+        {
+          "id": "fa9be2a2-91fc-4871-b69f-53fecc15e1ba",
+          "tenant_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+          "username": "medical1",
+          "role": "MEDICAL",
+          "active": true,
+          "version": 1
+        },
+        {
+          "id": "b7e21549-9533-4cc8-a5bc-3d55493b8ada",
+          "tenant_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+          "username": "operator1",
+          "role": "OPERATOR",
+          "active": true,
+          "version": 1
+        },
+        {
+          "id": "3980f3c5-484c-4178-b03c-8d65c598ecd7",
+          "tenant_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+          "username": "transport1",
+          "role": "TRANSPORT",
+          "active": true,
+          "version": 1
+        }
+      ],
+      "page": 1,
+      "page_size": 20,
+      "total": 7
+    },
+    "meta": {
+      "correlation_id": "f21ba2bf-6d5c-4950-8171-85996eb982e8",
+      "service": "identidad_acceso",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "f21ba2bf-6d5c-4950-8171-85996eb982e8",
+  "persistence": {
+    "effect": "read",
+    "note": "Consulta; accesos protegidos generan auditoría local transaccional."
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "captured_at": "2026-10-19T16:22:43.687094+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "ff2e7260f413ab4edb16a5555f512ec7404cdb118d66af3fc8a1e4dd2c6136b4",
+  "transport": "embedded",
+  "method": "POST",
+  "route": "/api/v1/recipients",
+  "objective": "Expediente diferenciado de sangre u órgano",
+  "url": "http://localhost/api/v1/recipients",
+  "parameters": {},
+  "path_parameters": {},
+  "request_headers": {
+    "Host": "localhost",
+    "Content-Type": "application/json",
+    "Content-Length": "219",
+    "Accept": "application/json",
+    "X-Correlation-Id": "c5b8b7f7-658d-415f-80f6-309311535f29",
+    "Authorization": "[REDACTED]",
+    "Idempotency-Key": "9224e5499be24e058cba3e9c1fba5a27"
+  },
+  "request_body": {
+    "folio": "PAC-6fb32728a6a0",
+    "display_name": "Ana Sofía Garza Treviño",
+    "blood_group": "O+",
+    "kind": "BLOOD",
+    "organ_type": null,
+    "studies": "Estudios ficticios; HLA documental sujeto a revisión humana"
+  },
+  "status": 201,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "506",
+    "X-Correlation-ID": "c5b8b7f7-658d-415f-80f6-309311535f29",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "data": {
+      "id": "faf8c2f0-89d4-48c2-aa33-2c707585c068",
+      "tenant_id": "a0920053-13c5-4d42-b53e-74b35a779f58",
+      "folio": "PAC-6fb32728a6a0",
+      "display_name": "Ana Sofía Garza Treviño",
+      "kind": "BLOOD",
+      "blood_group": "O+",
+      "organ_type": null,
+      "studies": "Estudios ficticios; HLA documental sujeto a revisión humana",
+      "status": "ACTIVE",
+      "version": 1,
+      "restrictions": null,
+      "requirement": null
+    },
+    "meta": {
+      "correlation_id": "c5b8b7f7-658d-415f-80f6-309311535f29",
+      "service": "receptores",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "c5b8b7f7-658d-415f-80f6-309311535f29",
+  "persistence": {
+    "effect": "committed",
+    "store": "PostgreSQL red_house",
+    "query": "SELECT operation,fingerprint,result FROM idempotency WHERE user_id=:actor AND key=:idempotency_key",
+    "row": {
+      "operation": "recipient_create",
+      "fingerprint": "0a0db7dc03d22fd087e82885e7c7923e3a6f5089d7a3854b68ad2d4b313d4ce8",
+      "result": {
+        "id": "faf8c2f0-89d4-48c2-aa33-2c707585c068",
+        "kind": "BLOOD",
+        "folio": "PAC-6fb32728a6a0",
+        "status": "ACTIVE",
+        "studies": "Estudios ficticios; HLA documental sujeto a revisión humana",
+        "version": 1,
+        "tenant_id": "a0920053-13c5-4d42-b53e-74b35a779f58",
+        "organ_type": null,
+        "blood_group": "O+",
+        "requirement": null,
+        "display_name": "Ana Sofía Garza Treviño",
+        "restrictions": null
+      }
+    }
+  }
+}

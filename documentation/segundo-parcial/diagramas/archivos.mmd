@@ -1,0 +1,19 @@
+sequenceDiagram
+ actor Usuario
+ participant Web
+ participant Transporte
+ participant SQL as PostgreSQL
+ participant GCS as Bucket privado
+ Usuario->>Web: Archivo ficticio autorizado
+ Web->>Transporte: Preparar tipo, tamaño y SHA-256
+ Transporte->>SQL: Referencia persistente y propietario
+ Transporte-->>Web: URL PUT firmada y encabezados
+ Web->>GCS: Carga con generación inexistente
+ Web->>Transporte: Verificar identificador
+ Transporte->>GCS: Metadatos y generación exacta
+ Transporte->>Transporte: Hash, MIME y estructura
+ Transporte->>SQL: VERIFIED o error explícito
+ Usuario->>Web: Descargar
+ Web->>Transporte: Autorizar recurso y descarga
+ Transporte-->>Web: URL GET temporal por generación
+ Web-->>Usuario: Redirección privada

@@ -1,0 +1,94 @@
+<!doctype html><html lang="es"><meta charset="utf-8"><title>identidad_acceso /api/v1/auth/refresh</title><style>body{font:15px system-ui;margin:32px;background:#f4f5f7;color:#202631}main{max-width:1250px;margin:auto}h1{color:#8e2434;font-size:26px}small{color:#556}a{color:#8e2434}table{border-collapse:collapse;width:100%;background:white}td,th{padding:9px;border:1px solid #ccd;vertical-align:top;text-align:left}pre{white-space:pre-wrap;word-break:break-word;background:#fff;border:1px solid #ccd;padding:12px;font:12px monospace;max-height:300px;overflow:auto}section{margin:20px 0}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.tag{padding:4px 9px;background:#e5ece7}.error{background:#f8e5e6}input{padding:12px;width:70%;margin:15px 0}details{margin:12px 0}nav{margin-bottom:20px}</style><main><nav><a href="../index.html">Inventario completo</a></nav><h1>identidad_acceso · POST /api/v1/auth/refresh</h1><p>Rotar renovación; repetición revoca familia</p><p>Registro de ejecución real. Credenciales y firmas redactadas. Los cuerpos completos están en el JSON enlazado.</p><section><h2>HTTP 200</h2><p><b>2026-10-19T16:43:00.025695+00:00</b> · versión 0.3.0</p><p>Correlación: 8f9a4ed8-0735-4e9f-b609-59d5490dbf4c<br>URL: http://127.0.0.1:56258/api/v1/auth/refresh</p><p><a href="../records/f01f2a0641f4b333b7010c94.json">Petición, respuesta, headers y persistencia completos</a></p><div class="grid"><div><h3>Petición</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Host&quot;: &quot;127.0.0.1:56258&quot;,
+    &quot;User-Agent&quot;: &quot;python-requests/2.34.2&quot;,
+    &quot;Accept-Encoding&quot;: &quot;gzip, deflate, br&quot;,
+    &quot;Accept&quot;: &quot;application/json&quot;,
+    &quot;Connection&quot;: &quot;keep-alive&quot;,
+    &quot;Idempotency-Key&quot;: &quot;d844f371e2a542a1985f14b72b7bdbb6&quot;,
+    &quot;Content-Length&quot;: &quot;101&quot;,
+    &quot;Content-Type&quot;: &quot;application/json&quot;
+  },
+  &quot;parameters&quot;: {},
+  &quot;body&quot;: {
+    &quot;refresh_token&quot;: &quot;[REDACTED]&quot;
+  }
+}</pre></div><div><h3>Respuesta</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Content-Type&quot;: &quot;application/json&quot;,
+    &quot;Content-Length&quot;: &quot;1020&quot;,
+    &quot;X-Correlation-ID&quot;: &quot;8f9a4ed8-0735-4e9f-b609-59d5490dbf4c&quot;,
+    &quot;Cache-Control&quot;: &quot;no-store&quot;,
+    &quot;X-Content-Type-Options&quot;: &quot;nosniff&quot;,
+    &quot;Referrer-Policy&quot;: &quot;no-referrer&quot;
+  },
+  &quot;body&quot;: {
+    &quot;data&quot;: {
+      &quot;access_token&quot;: &quot;[REDACTED]&quot;,
+      &quot;refresh_token&quot;: &quot;[REDACTED]&quot;,
+      &quot;token_type&quot;: &quot;[REDACTED]&quot;,
+      &quot;expires_in&quot;: 900
+    },
+    &quot;meta&quot;: {
+      &quot;correlation_id&quot;: &quot;8f9a4ed8-0735-4e9f-b609-59d5490dbf4c&quot;,
+      &quot;service&quot;: &quot;identidad_acceso&quot;,
+      &quot;version&quot;: &quot;0.3.0&quot;
+    }
+  }
+}</pre></div></div><details><summary>Persistencia y versión de implementación</summary><pre>{
+  &quot;effect&quot;: &quot;committed&quot;,
+  &quot;store&quot;: &quot;PostgreSQL red_house&quot;,
+  &quot;query&quot;: &quot;SELECT id,user_id,expires_at,revoked_at FROM sessions WHERE id=%s&quot;,
+  &quot;parameters&quot;: [
+    &quot;2b7f0e3e-f45e-4ec5-b1c9-0855d96f07b3&quot;
+  ],
+  &quot;row&quot;: {
+    &quot;id&quot;: &quot;2b7f0e3e-f45e-4ec5-b1c9-0855d96f07b3&quot;,
+    &quot;user_id&quot;: &quot;a5898ca7-9e7b-47c9-9f64-9c5cebf413f5&quot;,
+    &quot;expires_at&quot;: &quot;2026-10-20 16:42:58.744693+00:00&quot;,
+    &quot;revoked_at&quot;: null
+  },
+  &quot;redis&quot;: {
+    &quot;session_exists&quot;: true,
+    &quot;session_ttl&quot;: 86399
+  }
+}</pre><p>SHA-256: b82acfc07e7ff0221196c291a52b1986e4d1ac69b3f6769bffe29f4a02fa5c9b</p></details></section><section><h2>HTTP 401</h2><p><b>2026-10-19T16:39:31.725239+00:00</b> · versión 0.3.0</p><p>Correlación: d82675e0-be17-4e96-a023-5a5f96c58632<br>URL: http://127.0.0.1:56258/api/v1/auth/refresh</p><p><a href="../records/d666ea59bbc19b3a74a7e6e5.json">Petición, respuesta, headers y persistencia completos</a></p><div class="grid"><div><h3>Petición</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Host&quot;: &quot;127.0.0.1:56258&quot;,
+    &quot;User-Agent&quot;: &quot;python-requests/2.34.2&quot;,
+    &quot;Accept-Encoding&quot;: &quot;gzip, deflate, br&quot;,
+    &quot;Accept&quot;: &quot;application/json&quot;,
+    &quot;Connection&quot;: &quot;keep-alive&quot;,
+    &quot;Idempotency-Key&quot;: &quot;0d4fc5ec049b4108a59bc049d044aa04&quot;,
+    &quot;Content-Length&quot;: &quot;101&quot;,
+    &quot;Content-Type&quot;: &quot;application/json&quot;
+  },
+  &quot;parameters&quot;: {},
+  &quot;body&quot;: {
+    &quot;refresh_token&quot;: &quot;[REDACTED]&quot;
+  }
+}</pre></div><div><h3>Respuesta</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Content-Type&quot;: &quot;application/json&quot;,
+    &quot;Content-Length&quot;: &quot;206&quot;,
+    &quot;X-Correlation-ID&quot;: &quot;d82675e0-be17-4e96-a023-5a5f96c58632&quot;,
+    &quot;Cache-Control&quot;: &quot;no-store&quot;,
+    &quot;X-Content-Type-Options&quot;: &quot;nosniff&quot;,
+    &quot;Referrer-Policy&quot;: &quot;no-referrer&quot;
+  },
+  &quot;body&quot;: {
+    &quot;error&quot;: {
+      &quot;code&quot;: &quot;unauthorized&quot;,
+      &quot;message&quot;: &quot;Renovación inválida.&quot;,
+      &quot;details&quot;: []
+    },
+    &quot;meta&quot;: {
+      &quot;correlation_id&quot;: &quot;d82675e0-be17-4e96-a023-5a5f96c58632&quot;,
+      &quot;service&quot;: &quot;identidad_acceso&quot;,
+      &quot;version&quot;: &quot;0.3.0&quot;
+    }
+  }
+}</pre></div></div><details><summary>Persistencia y versión de implementación</summary><pre>{
+  &quot;effect&quot;: &quot;controlled_error&quot;,
+  &quot;note&quot;: &quot;No se infiere ausencia de efectos de un error; revisar correlación y estado de operación.&quot;
+}</pre><p>SHA-256: b82acfc07e7ff0221196c291a52b1986e4d1ac69b3f6769bffe29f4a02fa5c9b</p></details></section><h2>Todas las variantes ejecutadas</h2><ul><li><a href="../records/d666ea59bbc19b3a74a7e6e5.json">401 · http · application/json · 2026-10-19T16:39:31.725239+00:00</a></li><li><a href="../records/f01f2a0641f4b333b7010c94.json">200 · http · application/json · 2026-10-19T16:43:00.025695+00:00</a></li><li><a href="../records/6cd27f27d0420b2b0ff7d7a5.json">422 · http · application/xml; charset=utf-8 · 2026-10-19T16:28:04.545800+00:00</a></li><li><a href="../records/e3199ffb8f93ea2230ed7703.json">422 · http · application/json · 2026-10-19T16:28:04.517031+00:00</a></li></ul></main></html>

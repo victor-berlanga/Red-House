@@ -1,6 +1,6 @@
-# Decisiones de arquitectura — servicios 0.2.0
+# Decisiones de arquitectura — servicios 0.3.0
 
-Alcance inicial aprobado el 7 de octubre de 2026: diez servicios más monitoreo, desarrollados y probados antes de integrar clientes, Redis y MongoDB permitidos, Docker pospuesto. En el siguiente incremento autorizado se integró el portal Flask como consumidor HTTP; las API siguen siendo independientes de sus plantillas y sesiones. [Arquitectura y operación web](../../apps/web/README.md).
+La versión 0.3.0 incorpora un monolito modular autónomo y dos instancias Docker por API, incluyendo Identidad y Monitoreo. El backend web se selecciona explícitamente: `monolith` ejecuta módulos WSGI sin listeners internos; `microservices` consume HTTP. Ambas modalidades conservan JWT, Redis, permisos, contratos, transacciones y las mismas reglas versionadas. No se cambia de backend después de una escritura fallida. [Despliegue reproducible](../../deployment/README.md) · [Informe integral](Reporte_tecnico_segundo_parcial.md).
 
 | Decisión | Implementación y efecto |
 | --- | --- |
@@ -40,12 +40,12 @@ Una entrega física tardía puede registrarse como DELIVERED o incidencia. La ac
 
 ## Límites técnicos
 
-- El portal integrado utiliza datos nuevos en las bases de sus propietarios; la antigua base se conserva como referencia y no recibe doble escritura. Ocho cuentas y sus hashes se conservaron durante el provisionamiento inicial. Ese procedimiento histórico no forma parte del instalador actual.
+- El portal modular utiliza la base compartida y credenciales limitadas por módulo. El entorno Docker de ensayo está separado del entorno habitual; no se reinicializaron sus datos.
 - Los permisos regionales se restringen por `region_id`; expedientes clínicos por institución, y logística por asignación.
 - Un hash encadenado detecta alteraciones del registro bajo el modelo de confianza; no certifica verdad física ni evita intervención de un administrador de infraestructura.
-- SQL y MongoDB no contienen binarios. GCS tiene adaptador opcional, sin evidencia de operación en nube.
+- SQL y MongoDB no contienen binarios. GCS tiene un bucket privado real y flujo web de carga/descarga; la evidencia se conserva en el expediente del segundo parcial.
 - No hay broker adicional ni dependencias AWS/Azure: el outbox se entrega mediante HTTP y workers locales.
-- La instancia física compartida facilita pruebas, pero detener PostgreSQL afecta todas esas bases. El despliegue independiente de procesos no implica alta disponibilidad de infraestructura.
+- La instancia física compartida facilita pruebas, pero detener PostgreSQL afecta todos los propietarios. El despliegue independiente de procesos no implica alta disponibilidad de infraestructura.
 
 ## Fuentes técnicas
 
@@ -61,26 +61,32 @@ Cada propietario mantiene `routes.py`, `queries.py`, sus modelos de entrada, `ou
 
 Las migraciones son aditivas, numeradas, transaccionales y protegidas mediante bloqueo por base. Se aplican explícitamente con el propietario, después de un respaldo, antes de iniciar la nueva versión. Las credenciales HTTP no migran esquemas. `local.py restart-service` cambia únicamente API y worker del servicio seleccionado. La API conserva `/api/v1`, admite los cuerpos anteriores y agrega campos opcionales; una ruptura futura requiere otra versión y un periodo de convivencia. No retirar columnas mientras exista un consumidor anterior.
 
-Independencia no significa ausencia de dependencias: una reserva necesita Inventario, Receptores y Compatibilidad, y la autenticación necesita Identidad/Redis. Al detener un propietario, sus operaciones pueden responder 503; otros procesos y operaciones sin esa dependencia continúan. Una actualización arbitraria que rompa contratos no puede garantizar continuidad. La base física PostgreSQL y Redis compartidos siguen siendo puntos de fallo comunes en el entorno.
+Independencia no significa ausencia de dependencias: una reserva necesita Inventario, Receptores y Compatibilidad, y la autenticación necesita Identidad/Redis. Al detener una réplica, el gateway conserva la otra. Al detener todas las API de un propietario, los clientes JSON/XML pierden esa autoridad; el monolito conserva sus módulos y workers propios mientras sus almacenes estén disponibles. Una actualización arbitraria que rompa contratos no puede garantizar continuidad. La base física PostgreSQL y Redis compartidos siguen siendo puntos de fallo comunes en el entorno.
 
 ## Clientes, conexiones y estado operacional
 
-La web separa rutas por proceso, formularios de mantenimiento y selectores paginados. No comparte modelos de dominio con las API. HTTP reutiliza conexiones por hilo; Redis reutiliza su pool y MongoDB un cliente por aplicación. PostgreSQL conserva transacciones y conexiones cortas; no se agregó un intermediario de infraestructura.
+La web separa rutas por proceso, formularios de mantenimiento y selectores paginados. El backend modular comparte una copia fijada de los módulos de dominio con las imágenes API. HTTP reutiliza conexiones por hilo; Redis reutiliza su pool y MongoDB un cliente por aplicación. Docker habilita pools PostgreSQL de hasta dos conexiones por módulo/proceso, con espera máxima de dos segundos y comprobación de conexión. Las transacciones conservan commit/rollback; no se repiten escrituras automáticamente.
 
-La renovación web toma una concesión por sesión y libera el bloqueo SQLite antes de llamar a Identidad. Logout elimina la sesión local inmediatamente, conserva únicamente una revocación cifrada pendiente y un worker reintenta hasta completarla o expirar. Este SQLite es almacenamiento técnico de credenciales de la web, no una base del dominio ni una autoridad alternativa a Redis.
+La web guarda tokens cifrados en Redis bajo un prefijo y una ACL exclusivos. La renovación adquiere una concesión de 60 segundos por sesión y comprueba su propietario al actualizar o liberar. Logout registra primero una marca durable en PostgreSQL (`web_runtime.session_revocations`), conserva las credenciales cifradas pendientes y elimina la sesión Redis. El worker reintenta la revocación en Identidad. Si Redis está caído, la marca impide reutilizar la cookie al recuperarse; el worker obtiene y revoca las credenciales cuando vuelve Redis. Si PostgreSQL falla, el acceso protegido devuelve 503 y logout borra la cookie del navegador, informando que no pudo confirmar el cierre global. Las marcas duran hasta 24 horas; las credenciales de revocaciones confirmadas se eliminan.
 
 Los límites se separan por servicio/usuario/institución, por servicio emisor interno y por IP anónima. Un fallo SQL después de publicar la versión de permisos en Redis puede repararse desde la versión SQL autoritativa, bajo bloqueo de usuario. Los motivos de decisiones se guardan en historial local inmutable con acceso del propietario; los eventos centrales permanecen minimizados.
 
-Readiness comprueba migraciones requeridas, dependencias, latido del worker y antigüedad del outbox. Monitoreo marca verificaciones antiguas y resume las últimas 24 horas. Un bucket configurado debe responder; no se presenta como disponible por existir una cadena de configuración. GCS real continúa pendiente.
+Readiness comprueba migraciones requeridas, dependencias, latido del worker y antigüedad del outbox. Monitoreo marca verificaciones antiguas y resume las últimas 24 horas. Un bucket configurado debe responder; no se presenta como disponible por existir una cadena de configuración. La salud GCS comprueba acceso a objetos con el permiso mínimo del bucket y tiempos de espera acotados.
 
 XML v1 conserva su formato: `response.xsd` valida la estructura y `redhouse.xml_response.validate_response` valida tipos y el DTO publicado por operación. Ambos pasos son necesarios. La biblioteca `jsonschema`, que ya se usaba en pruebas, pasa a ejecución para esta validación; no se incorporó otro framework, broker ni proveedor.
 
 ## Interfaz Jinja y caché de lecturas (08/10/2026)
 
-El navegador solicita fragmentos HTML al portal con `X-Filter-Fragment: 1` y `X-Detail-Modal: 1`. La web mantiene autorización, escape Jinja y consumo HTTP de las API; no consulta Redis ni las bases de los servicios directamente. JavaScript mejora los GET: 300 ms de espera al escribir, cancelación de peticiones anteriores, historial del navegador, foco conservado y consulta opcional cada 30 s. No se añadieron WebSockets ni un framework de interfaz.
+El navegador solicita fragmentos HTML al portal con `X-Filter-Fragment: 1` y `X-Detail-Modal: 1`. La web mantiene autorización y escape Jinja. Sus módulos propios acceden a Redis y a vistas SQL limitadas; en modo HTTP esos accesos pertenecen a las API. JavaScript mejora los GET: 300 ms de espera al escribir, cancelación de peticiones anteriores, historial del navegador, foco conservado y consulta opcional cada 30 s. No se añadieron WebSockets ni un framework de interfaz.
 
 `redhouse/cache.py` es un mecanismo técnico compartido en código; cada servicio publica su propia copia y controla su namespace y tablas. Inventario e Identidad incorporan su migración `004.sql`, una fila de revisión y triggers de sentencia en `resources`/`catalogue`. La revisión cambia en el mismo commit que los datos. Un rollback no la cambia y una consulta antigua en vuelo solo puede llenar una generación anterior. Las revisiones se leen desde PostgreSQL incluso en HIT: una caída de esa base no se oculta con datos almacenados. Los TTL limitan el envejecimiento por paso del tiempo (p. ej., caducidad); las operaciones críticas vuelven a comprobar datos y estados en su propietario.
 
 Esta invalidación por servicio es conservadora: un cambio invalida todas sus consultas del namespace. Evita dependencias de invalidación entre dominios, a costa de más fallos de caché con muchas escrituras. El HTML, los formularios y las decisiones no se cachean. Para actualizar una instalación existente, respaldar y migrar Inventario e Identidad mediante `scripts/upgrade.py` antes de reiniciar sus procesos. Receptores añade `can_edit` opcional a listados y detalles sin cambiar los cuerpos de escritura ni `/api/v1`.
 
 Desde el 15 de octubre, [el esquema compartido](Esquema_compartido.md) sustituye la separación de bases. La coordinación HTTP descrita se conserva; no se afirma atomicidad global de una secuencia HTTP.
+
+## MongoDB y archivos de la versión 0.3.0
+
+`shipment_tracking` es una proyección mutable de Transporte: usa el UUID del traslado como `_id`, versión de esquema y secuencia de evento. Solo aplica secuencias posteriores; rechaza contenido conflictivo y se reconstruye desde eventos inmutables. El rol de ejecución puede actualizar esta colección, pero no los eventos. Las consultas regionales y las agregaciones emplean índices comprobados mediante `explain`.
+
+Los archivos se validan por tamaño, firma de formato, MIME, estructura y SHA-256 antes y después de subirlos. PostgreSQL conserva estados y generación del objeto. El bucket privado exige URLs firmadas de cinco minutos. El reporte de resultados distingue estas pruebas de un futuro despliegue productivo en GCE.

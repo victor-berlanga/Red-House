@@ -1,0 +1,85 @@
+<!doctype html><html lang="es"><meta charset="utf-8"><title>receptores /internal/v1/holds-by-operation/&lt;identifier&gt;</title><style>body{font:15px system-ui;margin:32px;background:#f4f5f7;color:#202631}main{max-width:1250px;margin:auto}h1{color:#8e2434;font-size:26px}small{color:#556}a{color:#8e2434}table{border-collapse:collapse;width:100%;background:white}td,th{padding:9px;border:1px solid #ccd;vertical-align:top;text-align:left}pre{white-space:pre-wrap;word-break:break-word;background:#fff;border:1px solid #ccd;padding:12px;font:12px monospace;max-height:300px;overflow:auto}section{margin:20px 0}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.tag{padding:4px 9px;background:#e5ece7}.error{background:#f8e5e6}input{padding:12px;width:70%;margin:15px 0}details{margin:12px 0}nav{margin-bottom:20px}</style><main><nav><a href="../index.html">Inventario completo</a></nav><h1>receptores · GET /internal/v1/holds-by-operation/&lt;identifier&gt;</h1><p>Localizar retención tras perder una respuesta</p><p>Registro de ejecución real. Credenciales y firmas redactadas. Los cuerpos completos están en el JSON enlazado.</p><section><h2>HTTP 200</h2><p><b>2026-10-19T16:37:25.101033+00:00</b> · versión 0.3.0</p><p>Correlación: 97dc2087-2391-41fe-a452-c0599361ace4<br>URL: http://127.0.0.1:56260/internal/v1/holds-by-operation/309b3c58-27b0-476e-9040-fe19e3488180</p><p><a href="../records/7042c5d0d35b98ca58bf4d73.json">Petición, respuesta, headers y persistencia completos</a></p><div class="grid"><div><h3>Petición</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Host&quot;: &quot;127.0.0.1:56260&quot;,
+    &quot;User-Agent&quot;: &quot;python-requests/2.34.2&quot;,
+    &quot;Accept-Encoding&quot;: &quot;gzip, deflate, br&quot;,
+    &quot;Accept&quot;: &quot;application/json&quot;,
+    &quot;Connection&quot;: &quot;keep-alive&quot;,
+    &quot;Content-Type&quot;: &quot;application/json&quot;,
+    &quot;X-Service&quot;: &quot;inventario&quot;,
+    &quot;X-Service-Time&quot;: &quot;1792427844&quot;,
+    &quot;X-Service-Nonce&quot;: &quot;2725b5e9-321a-428f-a714-4380ad6bec85&quot;,
+    &quot;X-Service-Signature&quot;: &quot;[REDACTED]&quot;,
+    &quot;X-Correlation-Id&quot;: &quot;97dc2087-2391-41fe-a452-c0599361ace4&quot;
+  },
+  &quot;parameters&quot;: {},
+  &quot;body&quot;: &quot;[Invalid JSON omitted; sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855]&quot;
+}</pre></div><div><h3>Respuesta</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Content-Type&quot;: &quot;application/json&quot;,
+    &quot;Content-Length&quot;: &quot;560&quot;,
+    &quot;X-Correlation-ID&quot;: &quot;97dc2087-2391-41fe-a452-c0599361ace4&quot;,
+    &quot;Cache-Control&quot;: &quot;no-store&quot;,
+    &quot;X-Content-Type-Options&quot;: &quot;nosniff&quot;,
+    &quot;Referrer-Policy&quot;: &quot;no-referrer&quot;
+  },
+  &quot;body&quot;: {
+    &quot;data&quot;: {
+      &quot;hold&quot;: {
+        &quot;id&quot;: &quot;3c985217-6e82-4cb9-95cb-87139f947b0a&quot;,
+        &quot;request_id&quot;: &quot;1ceb4884-4fde-406f-b7eb-060b59b1b054&quot;,
+        &quot;recipient_id&quot;: &quot;7787e399-94ed-4261-b656-64a61b372aac&quot;,
+        &quot;operation_id&quot;: &quot;309b3c58-27b0-476e-9040-fe19e3488180&quot;,
+        &quot;resource_id&quot;: &quot;00647d11-ac39-4d8e-b036-b2fc99d89192&quot;,
+        &quot;kind&quot;: &quot;BLOOD&quot;,
+        &quot;request_version&quot;: 1,
+        &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+        &quot;status&quot;: &quot;HELD&quot;,
+        &quot;created_at&quot;: &quot;2026-10-19T16:37:24.400102+00:00&quot;
+      }
+    },
+    &quot;meta&quot;: {
+      &quot;correlation_id&quot;: &quot;97dc2087-2391-41fe-a452-c0599361ace4&quot;,
+      &quot;service&quot;: &quot;receptores&quot;,
+      &quot;version&quot;: &quot;0.3.0&quot;
+    }
+  }
+}</pre></div></div><details><summary>Persistencia y versión de implementación</summary><pre>{
+  &quot;effect&quot;: &quot;read&quot;,
+  &quot;note&quot;: &quot;Consulta; accesos protegidos generan auditoría local transaccional.&quot;
+}</pre><p>SHA-256: ff2e7260f413ab4edb16a5555f512ec7404cdb118d66af3fc8a1e4dd2c6136b4</p></details></section><section><h2>HTTP 401</h2><p><b>2026-10-19T16:28:15.032891+00:00</b> · versión 0.3.0</p><p>Correlación: b5f9c048-647e-4bd0-b948-5241bf3c00a4<br>URL: http://127.0.0.1:56260/internal/v1/holds-by-operation/2fa643c2-28e2-4d22-b36e-cb1aaf546d6b</p><p><a href="../records/08de39f96f4bc98da5b6a062.json">Petición, respuesta, headers y persistencia completos</a></p><div class="grid"><div><h3>Petición</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Host&quot;: &quot;127.0.0.1:56260&quot;,
+    &quot;User-Agent&quot;: &quot;python-requests/2.34.2&quot;,
+    &quot;Accept-Encoding&quot;: &quot;gzip, deflate, br&quot;,
+    &quot;Accept&quot;: &quot;application/json&quot;,
+    &quot;Connection&quot;: &quot;keep-alive&quot;,
+    &quot;Idempotency-Key&quot;: &quot;7ef4429d491a4b3d8ed6c5b607b7b41e&quot;
+  },
+  &quot;parameters&quot;: {},
+  &quot;body&quot;: &quot;&quot;
+}</pre></div><div><h3>Respuesta</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Content-Type&quot;: &quot;application/json&quot;,
+    &quot;Content-Length&quot;: &quot;218&quot;,
+    &quot;X-Correlation-ID&quot;: &quot;b5f9c048-647e-4bd0-b948-5241bf3c00a4&quot;,
+    &quot;Cache-Control&quot;: &quot;no-store&quot;,
+    &quot;X-Content-Type-Options&quot;: &quot;nosniff&quot;,
+    &quot;Referrer-Policy&quot;: &quot;no-referrer&quot;
+  },
+  &quot;body&quot;: {
+    &quot;error&quot;: {
+      &quot;code&quot;: &quot;unauthorized_service&quot;,
+      &quot;message&quot;: &quot;Identidad de servicio inválida.&quot;,
+      &quot;details&quot;: []
+    },
+    &quot;meta&quot;: {
+      &quot;correlation_id&quot;: &quot;b5f9c048-647e-4bd0-b948-5241bf3c00a4&quot;,
+      &quot;service&quot;: &quot;receptores&quot;,
+      &quot;version&quot;: &quot;0.3.0&quot;
+    }
+  }
+}</pre></div></div><details><summary>Persistencia y versión de implementación</summary><pre>{
+  &quot;effect&quot;: &quot;controlled_error&quot;,
+  &quot;note&quot;: &quot;No se infiere ausencia de efectos de un error; revisar correlación y estado de operación.&quot;
+}</pre><p>SHA-256: ff2e7260f413ab4edb16a5555f512ec7404cdb118d66af3fc8a1e4dd2c6136b4</p></details></section><h2>Todas las variantes ejecutadas</h2><ul><li><a href="../records/08de39f96f4bc98da5b6a062.json">401 · http · application/json · 2026-10-19T16:28:15.032891+00:00</a></li><li><a href="../records/7042c5d0d35b98ca58bf4d73.json">200 · http · application/json · 2026-10-19T16:37:25.101033+00:00</a></li><li><a href="../records/8c842aaa98819f45ee9d38a9.json">401 · http · application/xml; charset=utf-8 · 2026-10-19T16:28:15.085363+00:00</a></li></ul></main></html>

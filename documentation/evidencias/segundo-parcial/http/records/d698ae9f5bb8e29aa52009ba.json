@@ -1,0 +1,76 @@
+{
+  "captured_at": "2026-10-19T16:21:55.251267+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "b82acfc07e7ff0221196c291a52b1986e4d1ac69b3f6769bffe29f4a02fa5c9b",
+  "transport": "http",
+  "method": "POST",
+  "route": "/api/v1/auth/login",
+  "objective": "Iniciar sesión independiente",
+  "url": "http://127.0.0.1:56258/api/v1/auth/login",
+  "parameters": {},
+  "path_parameters": {},
+  "request_headers": {
+    "Host": "127.0.0.1:56258",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "*/*",
+    "Connection": "keep-alive",
+    "Content-Length": "62",
+    "Content-Type": "application/json"
+  },
+  "request_body": {
+    "username": "admin1",
+    "password": "[REDACTED]"
+  },
+  "status": 200,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "1251",
+    "X-Correlation-ID": "da0f2f6e-b367-4ba1-afe9-b4056547d49f",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "data": {
+      "access_token": "[REDACTED]",
+      "refresh_token": "[REDACTED]",
+      "token_type": "[REDACTED]",
+      "expires_in": 900,
+      "user": {
+        "id": "575f0812-36fb-451f-b643-91b934c9ce73",
+        "tenant_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+        "region_id": "7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb",
+        "username": "admin1",
+        "role": "ADMIN",
+        "active": true,
+        "version": 1
+      }
+    },
+    "meta": {
+      "correlation_id": "da0f2f6e-b367-4ba1-afe9-b4056547d49f",
+      "service": "identidad_acceso",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "da0f2f6e-b367-4ba1-afe9-b4056547d49f",
+  "persistence": {
+    "effect": "committed",
+    "store": "PostgreSQL red_house",
+    "query": "SELECT id,user_id,expires_at,revoked_at FROM sessions WHERE id=%s",
+    "parameters": [
+      "b5376d4b-9e08-4378-9e95-2bc60c5fec2a"
+    ],
+    "row": {
+      "id": "b5376d4b-9e08-4378-9e95-2bc60c5fec2a",
+      "user_id": "575f0812-36fb-451f-b643-91b934c9ce73",
+      "expires_at": "2026-10-20 16:21:54.738842+00:00",
+      "revoked_at": null
+    },
+    "redis": {
+      "session_exists": true,
+      "session_ttl": 86400
+    }
+  }
+}

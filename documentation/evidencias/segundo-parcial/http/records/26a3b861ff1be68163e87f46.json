@@ -1,0 +1,78 @@
+{
+  "captured_at": "2026-10-19T16:22:14.808723+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "edd69e48ffcbd19733c620b1f2bcc1fcd82057a7b17a2d0eb2188ccf77d7f18f",
+  "transport": "http",
+  "method": "POST",
+  "route": "/api/v1/evaluations/<identifier>/reviews",
+  "objective": "Registrar dictamen humano inmutable de un candidato",
+  "url": "http://127.0.0.1:56262/api/v1/evaluations/296943f3-9e84-4f05-bbc1-01744d9656e8/reviews",
+  "parameters": {},
+  "path_parameters": {
+    "identifier": "296943f3-9e84-4f05-bbc1-01744d9656e8"
+  },
+  "request_headers": {
+    "Host": "127.0.0.1:56262",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "c51533367f5b49a99bfc30576684f0dd",
+    "Authorization": "[REDACTED]",
+    "Content-Length": "161",
+    "Content-Type": "application/json"
+  },
+  "request_body": {
+    "resource_id": "559a7b23-5ec2-431c-860a-3a298e0f703c",
+    "human_confirmation": true,
+    "decision": "FAVORABLE",
+    "reason": "Dictamen médico favorable ficticio"
+  },
+  "status": 201,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "514",
+    "X-Correlation-ID": "b187126c-6c28-4124-afbd-42292f5790d9",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "data": {
+      "id": "eec99ead-4ea5-4b10-8656-ea1d8508d9f4",
+      "evaluation_id": "296943f3-9e84-4f05-bbc1-01744d9656e8",
+      "resource_id": "559a7b23-5ec2-431c-860a-3a298e0f703c",
+      "tenant_id": "a0920053-13c5-4d42-b53e-74b35a779f58",
+      "actor_id": "a5898ca7-9e7b-47c9-9f64-9c5cebf413f5",
+      "decision": "FAVORABLE",
+      "reason": "Dictamen médico favorable ficticio",
+      "created_at": "2026-10-19T16:22:14.747609+00:00"
+    },
+    "meta": {
+      "correlation_id": "b187126c-6c28-4124-afbd-42292f5790d9",
+      "service": "compatibilidad",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "b187126c-6c28-4124-afbd-42292f5790d9",
+  "persistence": {
+    "effect": "committed",
+    "store": "PostgreSQL red_house",
+    "query": "SELECT operation,fingerprint,result FROM idempotency WHERE user_id=:actor AND key=:idempotency_key",
+    "row": {
+      "operation": "evaluation_review:296943f3-9e84-4f05-bbc1-01744d9656e8",
+      "fingerprint": "ed918d8ddec8d35c478c7c89655f4899499e3aeb27755437ba98af98d8f93c1c",
+      "result": {
+        "id": "eec99ead-4ea5-4b10-8656-ea1d8508d9f4",
+        "reason": "Dictamen médico favorable ficticio",
+        "actor_id": "a5898ca7-9e7b-47c9-9f64-9c5cebf413f5",
+        "decision": "FAVORABLE",
+        "tenant_id": "a0920053-13c5-4d42-b53e-74b35a779f58",
+        "created_at": "2026-10-19T16:22:14.747609+00:00",
+        "resource_id": "559a7b23-5ec2-431c-860a-3a298e0f703c",
+        "evaluation_id": "296943f3-9e84-4f05-bbc1-01744d9656e8"
+      }
+    }
+  }
+}

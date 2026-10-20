@@ -59,9 +59,9 @@ DESCRIPTIONS = {
     "transporte": (
         "Transporte",
         "Planea y sigue traslados, responsables, incidencias, ubicación autorizada y evidencias.",
-        "PostgreSQL conserva órdenes, pasos y referencias de archivos. MongoDB recibe documentos y telemetría mediante outbox. Redis conserva sesión y referencia de ubicación reciente. GCS dispone de adaptador opcional para archivos privados.",
+        "PostgreSQL conserva órdenes, pasos y referencias de archivos. MongoDB recibe documentos y telemetría mediante outbox. Redis conserva sesión y referencia de ubicación reciente. GCS almacena archivos privados; el portal carga, verifica y descarga mediante firmas temporales.",
         "Coordinación planea; origen prepara; traslado recoge y entrega; destino acepta. Cada paso genera eventos de custodia y auditoría.",
-        "¿Cualquiera actualiza una orden? No: rol, institución y responsable asignado.\n¿Se registra GPS permanentemente? No: solo responsable y estados COLLECTED/IN_TRANSIT.\n¿Una caída de custodia pierde una recolección? El evento queda durable en PostgreSQL y se reintenta.\n¿Se puede deshacer una recolección física? No; se registra la incidencia.\n¿GCS está comprobado en nube? No: el adaptador exige bucket y credenciales reales y devuelve 503 si faltan; no fabrica URLs.",
+        "¿Cualquiera actualiza una orden? No: rol, institución y responsable asignado.\n¿Se registra GPS permanentemente? No: solo responsable y estados COLLECTED/IN_TRANSIT.\n¿Una caída de custodia pierde una recolección? El evento queda durable en PostgreSQL y se reintenta.\n¿Se puede deshacer una recolección física? No; se registra la incidencia.\n¿GCS está comprobado en nube? Sí: se probaron carga, descarga, permisos, contenido inválido, objeto ausente, firma expirada y recuperación con el bucket privado autorizado. Sin configuración devuelve 503.",
     ),
     "custodia": (
         "Cadena de custodia",

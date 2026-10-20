@@ -1,0 +1,68 @@
+{
+  "captured_at": "2026-10-19T16:30:36.305589+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "1a8dccae105e0c261a0273a99f999923c88cbf235f750f80f0ac2f487c8b6654",
+  "transport": "http",
+  "method": "POST",
+  "route": "/api/v1/appointments/<identifier>/cancel",
+  "objective": "Cancelar cita y liberar cupo",
+  "url": "http://127.0.0.1:56259/api/v1/appointments/3cc2ea75-b660-4b84-9855-62f76037437e/cancel",
+  "parameters": {},
+  "path_parameters": {
+    "identifier": "3cc2ea75-b660-4b84-9855-62f76037437e"
+  },
+  "request_headers": {
+    "Host": "127.0.0.1:56259",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "00c466771dac49368b0f202bd2d4469f",
+    "Authorization": "[REDACTED]",
+    "Content-Length": "0"
+  },
+  "request_body": "",
+  "status": 200,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "400",
+    "X-Correlation-ID": "31dfa1d9-4d1e-4606-bbd8-d2e7c223661f",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "data": {
+      "id": "3cc2ea75-b660-4b84-9855-62f76037437e",
+      "tenant_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+      "donor_id": "2ced6008-b64e-42db-a7e1-a72aba1c1d6a",
+      "campaign_id": "0e78daa8-84cd-46f5-aa98-fbf6f5b741c7",
+      "status": "CANCELLED",
+      "created_at": "2026-10-19T16:30:05.089615+00:00"
+    },
+    "meta": {
+      "correlation_id": "31dfa1d9-4d1e-4606-bbd8-d2e7c223661f",
+      "service": "donantes",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "31dfa1d9-4d1e-4606-bbd8-d2e7c223661f",
+  "persistence": {
+    "effect": "committed",
+    "store": "PostgreSQL red_house",
+    "query": "SELECT operation,fingerprint,result FROM idempotency WHERE user_id=:actor AND key=:idempotency_key",
+    "row": {
+      "operation": "appointment_cancel:3cc2ea75-b660-4b84-9855-62f76037437e",
+      "fingerprint": "88484e3c82ab26ecff068a7640295155316d80f6fb9a0b7dd8fcb6670a3f3817",
+      "result": {
+        "id": "3cc2ea75-b660-4b84-9855-62f76037437e",
+        "status": "CANCELLED",
+        "donor_id": "2ced6008-b64e-42db-a7e1-a72aba1c1d6a",
+        "tenant_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+        "created_at": "2026-10-19T16:30:05.089615+00:00",
+        "campaign_id": "0e78daa8-84cd-46f5-aa98-fbf6f5b741c7"
+      }
+    }
+  }
+}

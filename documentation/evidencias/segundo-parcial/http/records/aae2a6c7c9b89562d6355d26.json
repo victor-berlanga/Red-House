@@ -1,0 +1,52 @@
+{
+  "captured_at": "2026-10-19T16:28:05.307496+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "b82acfc07e7ff0221196c291a52b1986e4d1ac69b3f6769bffe29f4a02fa5c9b",
+  "transport": "http",
+  "method": "PATCH",
+  "route": "/api/v1/institutions/<identifier>",
+  "objective": "Editar nombre institucional propio con versión y motivo",
+  "url": "http://127.0.0.1:56258/api/v1/institutions/e311bfc7-e70c-4285-b9a2-56a94095d182",
+  "parameters": {},
+  "path_parameters": {
+    "identifier": "e311bfc7-e70c-4285-b9a2-56a94095d182"
+  },
+  "request_headers": {
+    "Host": "127.0.0.1:56258",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "d6d321e048944f2e8c5986fe701475df",
+    "Content-Length": "2",
+    "Content-Type": "application/json"
+  },
+  "request_body": {},
+  "status": 401,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "208",
+    "X-Correlation-ID": "74d58e2c-f6dc-4312-bcc2-51fd63656c16",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "error": {
+      "code": "unauthorized",
+      "message": "JWT de acceso requerido.",
+      "details": []
+    },
+    "meta": {
+      "correlation_id": "74d58e2c-f6dc-4312-bcc2-51fd63656c16",
+      "service": "identidad_acceso",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "74d58e2c-f6dc-4312-bcc2-51fd63656c16",
+  "persistence": {
+    "effect": "controlled_error",
+    "note": "No se infiere ausencia de efectos de un error; revisar correlación y estado de operación."
+  }
+}

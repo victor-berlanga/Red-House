@@ -1,0 +1,84 @@
+{
+  "captured_at": "2026-10-19T16:26:47.640029+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "6eac28b3c6355ff29f1aabe6ed2aa76b6e104ed4888482a02b3967184783afa9",
+  "transport": "http",
+  "method": "POST",
+  "route": "/api/v1/reservations",
+  "objective": "Reservar con retención de capacidad y seguimiento de operación",
+  "url": "http://127.0.0.1:56261/api/v1/reservations",
+  "parameters": {},
+  "path_parameters": {},
+  "request_headers": {
+    "Host": "127.0.0.1:56261",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "67cf8f1bba614b30a7d08b4c4dd872aa",
+    "Authorization": "[REDACTED]",
+    "Content-Length": "207",
+    "Content-Type": "application/json"
+  },
+  "request_body": {
+    "evaluation_id": "a958a3d4-e310-461c-84f9-82709c9abf09",
+    "resource_id": "32e70838-54db-4e5e-b991-5b57395cc25b",
+    "human_confirmation": true,
+    "reason": "Asignación humana ficticia para integración"
+  },
+  "status": 202,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "962",
+    "X-Correlation-ID": "b2219a1e-7253-4263-8147-b3d554337f59",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "data": {
+      "operation_id": "795429b9-bf80-46be-a8fe-de43eae6699e",
+      "status": "COMPLETED",
+      "error": null,
+      "reservation": {
+        "id": "1e1b90e8-2d0a-425b-bc78-f2b497c2af6a",
+        "operation_id": "795429b9-bf80-46be-a8fe-de43eae6699e",
+        "resource_id": "32e70838-54db-4e5e-b991-5b57395cc25b",
+        "request_id": "17c8321c-0f0f-4a1d-8df9-50ce48be5f4a",
+        "recipient_id": "5ad73a0c-5225-49a2-8d9e-74722aa5d373",
+        "origin_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+        "destination_id": "a0920053-13c5-4d42-b53e-74b35a779f58",
+        "region_id": "7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb",
+        "hold_id": "42ebb506-6100-446b-ac2a-2a342deb962f",
+        "evaluation_id": "a958a3d4-e310-461c-84f9-82709c9abf09",
+        "route_id": "7b1745f6-56e0-43d3-9c3d-1c35538d7aae",
+        "route_version": 2,
+        "status": "RESERVED",
+        "shipment_id": null,
+        "shipment_sequence": 0,
+        "created_at": "2026-10-19T16:26:46.880992+00:00"
+      }
+    },
+    "meta": {
+      "correlation_id": "b2219a1e-7253-4263-8147-b3d554337f59",
+      "service": "inventario",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "b2219a1e-7253-4263-8147-b3d554337f59",
+  "persistence": {
+    "effect": "committed",
+    "store": "PostgreSQL red_house",
+    "query": "SELECT id,status,hold_id,error FROM operations WHERE id=%s",
+    "parameters": [
+      "795429b9-bf80-46be-a8fe-de43eae6699e"
+    ],
+    "row": {
+      "id": "795429b9-bf80-46be-a8fe-de43eae6699e",
+      "status": "COMPLETED",
+      "hold_id": "42ebb506-6100-446b-ac2a-2a342deb962f",
+      "error": null
+    }
+  }
+}

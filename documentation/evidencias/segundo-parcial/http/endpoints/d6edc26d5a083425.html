@@ -1,0 +1,113 @@
+<!doctype html><html lang="es"><meta charset="utf-8"><title>transporte /api/v1/shipments/&lt;identifier&gt;/files</title><style>body{font:15px system-ui;margin:32px;background:#f4f5f7;color:#202631}main{max-width:1250px;margin:auto}h1{color:#8e2434;font-size:26px}small{color:#556}a{color:#8e2434}table{border-collapse:collapse;width:100%;background:white}td,th{padding:9px;border:1px solid #ccd;vertical-align:top;text-align:left}pre{white-space:pre-wrap;word-break:break-word;background:#fff;border:1px solid #ccd;padding:12px;font:12px monospace;max-height:300px;overflow:auto}section{margin:20px 0}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.tag{padding:4px 9px;background:#e5ece7}.error{background:#f8e5e6}input{padding:12px;width:70%;margin:15px 0}details{margin:12px 0}nav{margin-bottom:20px}</style><main><nav><a href="../index.html">Inventario completo</a></nav><h1>transporte · POST /api/v1/shipments/&lt;identifier&gt;/files</h1><p>Preparar carga privada con URL firmada de cinco minutos</p><p>Registro de ejecución real. Credenciales y firmas redactadas. Los cuerpos completos están en el JSON enlazado.</p><section><h2>HTTP 201</h2><p><b>2026-10-19T16:27:51.966538+00:00</b> · versión 0.3.0</p><p>Correlación: 233a612f-d37f-42df-ba41-edcc5976d86b<br>URL: http://127.0.0.1:56264/api/v1/shipments/b52dc499-7158-46d7-89a1-00c2f3f871c5/files</p><p><a href="../records/0cdc94fffe3951bc0805af1f.json">Petición, respuesta, headers y persistencia completos</a></p><div class="grid"><div><h3>Petición</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Host&quot;: &quot;127.0.0.1:56264&quot;,
+    &quot;User-Agent&quot;: &quot;python-requests/2.34.2&quot;,
+    &quot;Accept-Encoding&quot;: &quot;gzip, deflate, br&quot;,
+    &quot;Accept&quot;: &quot;application/json&quot;,
+    &quot;Connection&quot;: &quot;keep-alive&quot;,
+    &quot;X-Correlation-Id&quot;: &quot;233a612f-d37f-42df-ba41-edcc5976d86b&quot;,
+    &quot;Authorization&quot;: &quot;[REDACTED]&quot;,
+    &quot;Idempotency-Key&quot;: &quot;e4437adaeb1c4b639c262152b819b333&quot;,
+    &quot;Content-Type&quot;: &quot;application/json&quot;,
+    &quot;Content-Length&quot;: &quot;116&quot;
+  },
+  &quot;parameters&quot;: {},
+  &quot;body&quot;: {
+    &quot;mime_type&quot;: &quot;image/png&quot;,
+    &quot;size&quot;: 74,
+    &quot;sha256&quot;: &quot;77845f63cbd1ecb93e10fbaff7e657044d25d59f0586905c9bdbddeb2c477309&quot;
+  }
+}</pre></div><div><h3>Respuesta</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Content-Type&quot;: &quot;application/json&quot;,
+    &quot;Content-Length&quot;: &quot;1760&quot;,
+    &quot;X-Correlation-ID&quot;: &quot;233a612f-d37f-42df-ba41-edcc5976d86b&quot;,
+    &quot;Cache-Control&quot;: &quot;no-store&quot;,
+    &quot;X-Content-Type-Options&quot;: &quot;nosniff&quot;,
+    &quot;Referrer-Policy&quot;: &quot;no-referrer&quot;
+  },
+  &quot;body&quot;: {
+    &quot;data&quot;: {
+      &quot;file&quot;: {
+        &quot;id&quot;: &quot;71dbae37-fa9f-4f5f-99a0-f485fd7e46f6&quot;,
+        &quot;shipment_id&quot;: &quot;b52dc499-7158-46d7-89a1-00c2f3f871c5&quot;,
+        &quot;owner_id&quot;: &quot;b7e21549-9533-4cc8-a5bc-3d55493b8ada&quot;,
+        &quot;object_path&quot;: &quot;evidence/7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb/b52dc499-7158-46d7-89a1-00c2f3f871c5/71dbae37-fa9f-4f5f-99a0-f485fd7e46f6&quot;,
+        &quot;mime_type&quot;: &quot;image/png&quot;,
+        &quot;size&quot;: 74,
+        &quot;sha256&quot;: &quot;77845f63cbd1ecb93e10fbaff7e657044d25d59f0586905c9bdbddeb2c477309&quot;,
+        &quot;status&quot;: &quot;PENDING&quot;,
+        &quot;generation&quot;: null,
+        &quot;created_at&quot;: &quot;2026-10-19T16:27:51.293092+00:00&quot;
+      },
+      &quot;upload_url&quot;: &quot;[REDACTED]&quot;,
+      &quot;expires_in&quot;: 300,
+      &quot;upload_headers&quot;: {
+        &quot;Content-Type&quot;: &quot;image/png&quot;,
+        &quot;x-goog-if-generation-match&quot;: &quot;0&quot;
+      }
+    },
+    &quot;meta&quot;: {
+      &quot;correlation_id&quot;: &quot;233a612f-d37f-42df-ba41-edcc5976d86b&quot;,
+      &quot;service&quot;: &quot;transporte&quot;,
+      &quot;version&quot;: &quot;0.3.0&quot;
+    }
+  }
+}</pre></div></div><details><summary>Persistencia y versión de implementación</summary><pre>{
+  &quot;effect&quot;: &quot;committed&quot;,
+  &quot;store&quot;: &quot;PostgreSQL red_house&quot;,
+  &quot;query&quot;: &quot;SELECT operation,fingerprint,result FROM idempotency WHERE user_id=:actor AND key=:idempotency_key&quot;,
+  &quot;row&quot;: {
+    &quot;operation&quot;: &quot;file_prepare:b52dc499-7158-46d7-89a1-00c2f3f871c5&quot;,
+    &quot;fingerprint&quot;: &quot;98ba01206e224b587086725cfa627b3064e56828d40678fb756692df4e246fbe&quot;,
+    &quot;result&quot;: {
+      &quot;id&quot;: &quot;71dbae37-fa9f-4f5f-99a0-f485fd7e46f6&quot;,
+      &quot;size&quot;: 74,
+      &quot;sha256&quot;: &quot;77845f63cbd1ecb93e10fbaff7e657044d25d59f0586905c9bdbddeb2c477309&quot;,
+      &quot;status&quot;: &quot;PENDING&quot;,
+      &quot;owner_id&quot;: &quot;b7e21549-9533-4cc8-a5bc-3d55493b8ada&quot;,
+      &quot;mime_type&quot;: &quot;image/png&quot;,
+      &quot;created_at&quot;: &quot;2026-10-19T16:27:51.293092+00:00&quot;,
+      &quot;generation&quot;: null,
+      &quot;object_path&quot;: &quot;evidence/7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb/b52dc499-7158-46d7-89a1-00c2f3f871c5/71dbae37-fa9f-4f5f-99a0-f485fd7e46f6&quot;,
+      &quot;shipment_id&quot;: &quot;b52dc499-7158-46d7-89a1-00c2f3f871c5&quot;
+    }
+  }
+}</pre><p>SHA-256: e7eb0044cb5544477c1a4b79a264977e16ddd17c216e8a88ed6d187af95af791</p></details></section><section><h2>HTTP 401</h2><p><b>2026-10-19T16:28:24.795628+00:00</b> · versión 0.3.0</p><p>Correlación: 88f5795c-ae64-4e50-bbf6-d22724dfe7a3<br>URL: http://127.0.0.1:56264/api/v1/shipments/a01f81b9-b320-40ab-95a0-ee32be1d8485/files</p><p><a href="../records/aeddfcb44f61121dfb358d07.json">Petición, respuesta, headers y persistencia completos</a></p><div class="grid"><div><h3>Petición</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Host&quot;: &quot;127.0.0.1:56264&quot;,
+    &quot;User-Agent&quot;: &quot;python-requests/2.34.2&quot;,
+    &quot;Accept-Encoding&quot;: &quot;gzip, deflate, br&quot;,
+    &quot;Accept&quot;: &quot;application/json&quot;,
+    &quot;Connection&quot;: &quot;keep-alive&quot;,
+    &quot;Idempotency-Key&quot;: &quot;98298647669a48e1b24d91213106e58e&quot;,
+    &quot;Content-Length&quot;: &quot;2&quot;,
+    &quot;Content-Type&quot;: &quot;application/json&quot;
+  },
+  &quot;parameters&quot;: {},
+  &quot;body&quot;: {}
+}</pre></div><div><h3>Respuesta</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Content-Type&quot;: &quot;application/json&quot;,
+    &quot;Content-Length&quot;: &quot;202&quot;,
+    &quot;X-Correlation-ID&quot;: &quot;88f5795c-ae64-4e50-bbf6-d22724dfe7a3&quot;,
+    &quot;Cache-Control&quot;: &quot;no-store&quot;,
+    &quot;X-Content-Type-Options&quot;: &quot;nosniff&quot;,
+    &quot;Referrer-Policy&quot;: &quot;no-referrer&quot;
+  },
+  &quot;body&quot;: {
+    &quot;error&quot;: {
+      &quot;code&quot;: &quot;unauthorized&quot;,
+      &quot;message&quot;: &quot;JWT de acceso requerido.&quot;,
+      &quot;details&quot;: []
+    },
+    &quot;meta&quot;: {
+      &quot;correlation_id&quot;: &quot;88f5795c-ae64-4e50-bbf6-d22724dfe7a3&quot;,
+      &quot;service&quot;: &quot;transporte&quot;,
+      &quot;version&quot;: &quot;0.3.0&quot;
+    }
+  }
+}</pre></div></div><details><summary>Persistencia y versión de implementación</summary><pre>{
+  &quot;effect&quot;: &quot;controlled_error&quot;,
+  &quot;note&quot;: &quot;No se infiere ausencia de efectos de un error; revisar correlación y estado de operación.&quot;
+}</pre><p>SHA-256: e7eb0044cb5544477c1a4b79a264977e16ddd17c216e8a88ed6d187af95af791</p></details></section><h2>Todas las variantes ejecutadas</h2><ul><li><a href="../records/aeddfcb44f61121dfb358d07.json">401 · http · application/json · 2026-10-19T16:28:24.795628+00:00</a></li><li><a href="../records/a30b759d314fba2ca430cc29.json">401 · http · application/xml; charset=utf-8 · 2026-10-19T16:28:24.833183+00:00</a></li><li><a href="../records/0cdc94fffe3951bc0805af1f.json">201 · http · application/json · 2026-10-19T16:27:51.966538+00:00</a></li></ul></main></html>

@@ -1,0 +1,50 @@
+{
+  "captured_at": "2026-10-19T16:28:24.728256+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "e7eb0044cb5544477c1a4b79a264977e16ddd17c216e8a88ed6d187af95af791",
+  "transport": "http",
+  "method": "GET",
+  "route": "/internal/v1/shipments/<identifier>/access",
+  "objective": "Autorizar consulta de custodia por asignación logística",
+  "url": "http://127.0.0.1:56264/internal/v1/shipments/e4a93754-d7c6-418d-86ec-2830c6b5ddba/access",
+  "parameters": {},
+  "path_parameters": {
+    "identifier": "e4a93754-d7c6-418d-86ec-2830c6b5ddba"
+  },
+  "request_headers": {
+    "Host": "127.0.0.1:56264",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "11fdcbe4a647429fba4607472dba22a8"
+  },
+  "request_body": "",
+  "status": 401,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "218",
+    "X-Correlation-ID": "4c28ab99-8e17-42ad-bc63-c58753b94185",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "error": {
+      "code": "unauthorized_service",
+      "message": "Identidad de servicio inválida.",
+      "details": []
+    },
+    "meta": {
+      "correlation_id": "4c28ab99-8e17-42ad-bc63-c58753b94185",
+      "service": "transporte",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "4c28ab99-8e17-42ad-bc63-c58753b94185",
+  "persistence": {
+    "effect": "controlled_error",
+    "note": "No se infiere ausencia de efectos de un error; revisar correlación y estado de operación."
+  }
+}

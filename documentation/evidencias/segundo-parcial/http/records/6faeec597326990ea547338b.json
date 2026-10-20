@@ -1,0 +1,50 @@
+{
+  "captured_at": "2026-10-19T16:28:10.890015+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "1a8dccae105e0c261a0273a99f999923c88cbf235f750f80f0ac2f487c8b6654",
+  "transport": "http",
+  "method": "POST",
+  "route": "/api/v1/campaigns",
+  "objective": "Crear campaña y capacidad de citas",
+  "url": "http://127.0.0.1:56259/api/v1/campaigns",
+  "parameters": {},
+  "path_parameters": {},
+  "request_headers": {
+    "Host": "127.0.0.1:56259",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "1f42c6486227487d9674c41390351489",
+    "Content-Length": "2",
+    "Content-Type": "application/json"
+  },
+  "request_body": {},
+  "status": 401,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "200",
+    "X-Correlation-ID": "20316843-42b1-4467-a647-8519dcc6a1ef",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "error": {
+      "code": "unauthorized",
+      "message": "JWT de acceso requerido.",
+      "details": []
+    },
+    "meta": {
+      "correlation_id": "20316843-42b1-4467-a647-8519dcc6a1ef",
+      "service": "donantes",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "20316843-42b1-4467-a647-8519dcc6a1ef",
+  "persistence": {
+    "effect": "controlled_error",
+    "note": "No se infiere ausencia de efectos de un error; revisar correlación y estado de operación."
+  }
+}

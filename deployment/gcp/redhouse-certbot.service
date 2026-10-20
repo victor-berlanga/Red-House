@@ -1,0 +1,10 @@
+[Unit]
+Description=Renovar el certificado HTTPS de Red House
+Requires=docker.service
+After=docker.service network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/opt/redhouse-certbot/bin/certbot renew --quiet
+TimeoutStartSec=600

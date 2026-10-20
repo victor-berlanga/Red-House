@@ -1,0 +1,30 @@
+{
+  "date": "2026-10-19T18:34:31.174582+00:00",
+  "status": "failed",
+  "snapshot_commit": "5c4e942527bfd4ef9de3b29b758676365b29ea9c",
+  "compose_project": "redhouse-clean-4c1ade45",
+  "files_sha256": "d8e566b89ac1ed84f4343db600d007562276c8e0f43728430c7f700aa2606b68",
+  "source": "Instantánea del árbol de trabajo en commit local temporal; no publicada",
+  "steps": [
+    {
+      "command": "python3 deployment/prepare.py",
+      "status": "passed"
+    },
+    {
+      "command": "docker compose -f <clean-clone>/compose.yaml --profile install build bootstrap",
+      "status": "passed"
+    },
+    {
+      "command": "docker compose -f <clean-clone>/compose.yaml up -d --wait postgres redis mongodb",
+      "status": "passed"
+    },
+    {
+      "command": "docker compose -f <clean-clone>/compose.yaml --profile install run --rm bootstrap",
+      "status": "passed"
+    }
+  ],
+  "private_environment": "/private/tmp/redhouse-clean-keey9al4",
+  "stage": "docker compose -f <clean-clone>/compose.yaml --parallel 2 build",
+  "error_type": "RuntimeError",
+  "containers_stopped": true
+}

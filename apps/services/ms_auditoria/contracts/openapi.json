@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Red House — auditoria",
-    "version": "0.2.0",
+    "version": "0.3.0",
     "description": "API independiente JSON/XML. Reglas clínicas ilustrativas; requiere revisión humana. XML de respuesta validable en /schemas/response.xsd."
   },
   "paths": {
@@ -133,7 +133,7 @@
                   "meta": {
                     "correlation_id": "00000000-0000-4000-8000-000000000001",
                     "service": "auditoria",
-                    "version": "0.2.0"
+                    "version": "0.3.0"
                   }
                 }
               },
@@ -141,7 +141,7 @@
                 "schema": {
                   "type": "string"
                 },
-                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"duplicate\" type=\"boolean\">true</field><field name=\"stored\" type=\"boolean\">true</field><field name=\"applied\" type=\"boolean\">true</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.2.0</field></field></response>",
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"duplicate\" type=\"boolean\">true</field><field name=\"stored\" type=\"boolean\">true</field><field name=\"applied\" type=\"boolean\">true</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>",
                 "x-json-equivalent-schema": {
                   "type": "object",
                   "required": [
@@ -197,12 +197,25 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": {
+                    "code": "validation",
+                    "message": "Petición no disponible o inválida.",
+                    "details": []
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "auditoria",
+                    "version": "0.3.0"
+                  }
                 }
               },
               "application/xml": {
                 "schema": {
                   "type": "string"
-                }
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">validation</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>"
               }
             }
           },
@@ -212,12 +225,25 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": {
+                    "code": "unauthorized",
+                    "message": "Credencial inválida, expirada o revocada.",
+                    "details": []
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "auditoria",
+                    "version": "0.3.0"
+                  }
                 }
               },
               "application/xml": {
                 "schema": {
                   "type": "string"
-                }
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">unauthorized</field><field name=\"message\" type=\"string\">Credencial inválida, expirada o revocada.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>"
               }
             }
           },
@@ -227,12 +253,25 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": {
+                    "code": "forbidden",
+                    "message": "Sin permiso institucional o de recurso.",
+                    "details": []
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "auditoria",
+                    "version": "0.3.0"
+                  }
                 }
               },
               "application/xml": {
                 "schema": {
                   "type": "string"
-                }
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">forbidden</field><field name=\"message\" type=\"string\">Sin permiso institucional o de recurso.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>"
               }
             }
           },
@@ -242,12 +281,25 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": {
+                    "code": "not_found",
+                    "message": "Petición no disponible o inválida.",
+                    "details": []
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "auditoria",
+                    "version": "0.3.0"
+                  }
                 }
               },
               "application/xml": {
                 "schema": {
                   "type": "string"
-                }
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">not_found</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>"
               }
             }
           },
@@ -257,12 +309,25 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": {
+                    "code": "not_acceptable",
+                    "message": "Petición no disponible o inválida.",
+                    "details": []
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "auditoria",
+                    "version": "0.3.0"
+                  }
                 }
               },
               "application/xml": {
                 "schema": {
                   "type": "string"
-                }
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">not_acceptable</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>"
               }
             }
           },
@@ -272,12 +337,25 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": {
+                    "code": "conflict",
+                    "message": "Conflicto de estado, versión o idempotencia.",
+                    "details": []
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "auditoria",
+                    "version": "0.3.0"
+                  }
                 }
               },
               "application/xml": {
                 "schema": {
                   "type": "string"
-                }
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">conflict</field><field name=\"message\" type=\"string\">Conflicto de estado, versión o idempotencia.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>"
               }
             }
           },
@@ -287,12 +365,25 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": {
+                    "code": "http_error",
+                    "message": "Petición no disponible o inválida.",
+                    "details": []
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "auditoria",
+                    "version": "0.3.0"
+                  }
                 }
               },
               "application/xml": {
                 "schema": {
                   "type": "string"
-                }
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">http_error</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>"
               }
             }
           },
@@ -302,12 +393,25 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": {
+                    "code": "unsupported_media",
+                    "message": "Petición no disponible o inválida.",
+                    "details": []
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "auditoria",
+                    "version": "0.3.0"
+                  }
                 }
               },
               "application/xml": {
                 "schema": {
                   "type": "string"
-                }
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">unsupported_media</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>"
               }
             }
           },
@@ -317,12 +421,25 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": {
+                    "code": "validation",
+                    "message": "Petición no disponible o inválida.",
+                    "details": []
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "auditoria",
+                    "version": "0.3.0"
+                  }
                 }
               },
               "application/xml": {
                 "schema": {
                   "type": "string"
-                }
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">validation</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>"
               }
             }
           },
@@ -332,12 +449,25 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": {
+                    "code": "rate_limit",
+                    "message": "Petición no disponible o inválida.",
+                    "details": []
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "auditoria",
+                    "version": "0.3.0"
+                  }
                 }
               },
               "application/xml": {
                 "schema": {
                   "type": "string"
-                }
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">rate_limit</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>"
               }
             }
           },
@@ -347,12 +477,25 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": {
+                    "code": "internal_error",
+                    "message": "Petición no disponible o inválida.",
+                    "details": []
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "auditoria",
+                    "version": "0.3.0"
+                  }
                 }
               },
               "application/xml": {
                 "schema": {
                   "type": "string"
-                }
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">internal_error</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>"
               }
             }
           },
@@ -362,12 +505,25 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": {
+                    "code": "dependency_unavailable",
+                    "message": "Dependencia inaccesible; consultar estado antes de repetir.",
+                    "details": []
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "auditoria",
+                    "version": "0.3.0"
+                  }
                 }
               },
               "application/xml": {
                 "schema": {
                   "type": "string"
-                }
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">dependency_unavailable</field><field name=\"message\" type=\"string\">Dependencia inaccesible; consultar estado antes de repetir.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>"
               }
             }
           }
@@ -561,7 +717,7 @@
                   "meta": {
                     "correlation_id": "00000000-0000-4000-8000-000000000001",
                     "service": "auditoria",
-                    "version": "0.2.0"
+                    "version": "0.3.0"
                   }
                 }
               },
@@ -569,7 +725,7 @@
                 "schema": {
                   "type": "string"
                 },
-                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"items\" type=\"array\"/><field name=\"page\" type=\"integer\">1</field><field name=\"page_size\" type=\"integer\">1</field><field name=\"total\" type=\"integer\">1</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.2.0</field></field></response>",
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"items\" type=\"array\"/><field name=\"page\" type=\"integer\">1</field><field name=\"page_size\" type=\"integer\">1</field><field name=\"total\" type=\"integer\">1</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>",
                 "x-json-equivalent-schema": {
                   "type": "object",
                   "required": [
@@ -671,12 +827,25 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": {
+                    "code": "validation",
+                    "message": "Petición no disponible o inválida.",
+                    "details": []
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "auditoria",
+                    "version": "0.3.0"
+                  }
                 }
               },
               "application/xml": {
                 "schema": {
                   "type": "string"
-                }
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">validation</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>"
               }
             }
           },
@@ -686,12 +855,25 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": {
+                    "code": "unauthorized",
+                    "message": "Credencial inválida, expirada o revocada.",
+                    "details": []
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "auditoria",
+                    "version": "0.3.0"
+                  }
                 }
               },
               "application/xml": {
                 "schema": {
                   "type": "string"
-                }
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">unauthorized</field><field name=\"message\" type=\"string\">Credencial inválida, expirada o revocada.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>"
               }
             }
           },
@@ -701,12 +883,25 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": {
+                    "code": "forbidden",
+                    "message": "Sin permiso institucional o de recurso.",
+                    "details": []
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "auditoria",
+                    "version": "0.3.0"
+                  }
                 }
               },
               "application/xml": {
                 "schema": {
                   "type": "string"
-                }
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">forbidden</field><field name=\"message\" type=\"string\">Sin permiso institucional o de recurso.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>"
               }
             }
           },
@@ -716,12 +911,25 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": {
+                    "code": "not_found",
+                    "message": "Petición no disponible o inválida.",
+                    "details": []
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "auditoria",
+                    "version": "0.3.0"
+                  }
                 }
               },
               "application/xml": {
                 "schema": {
                   "type": "string"
-                }
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">not_found</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>"
               }
             }
           },
@@ -731,12 +939,25 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": {
+                    "code": "not_acceptable",
+                    "message": "Petición no disponible o inválida.",
+                    "details": []
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "auditoria",
+                    "version": "0.3.0"
+                  }
                 }
               },
               "application/xml": {
                 "schema": {
                   "type": "string"
-                }
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">not_acceptable</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>"
               }
             }
           },
@@ -746,12 +967,25 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": {
+                    "code": "conflict",
+                    "message": "Conflicto de estado, versión o idempotencia.",
+                    "details": []
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "auditoria",
+                    "version": "0.3.0"
+                  }
                 }
               },
               "application/xml": {
                 "schema": {
                   "type": "string"
-                }
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">conflict</field><field name=\"message\" type=\"string\">Conflicto de estado, versión o idempotencia.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>"
               }
             }
           },
@@ -761,12 +995,25 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": {
+                    "code": "http_error",
+                    "message": "Petición no disponible o inválida.",
+                    "details": []
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "auditoria",
+                    "version": "0.3.0"
+                  }
                 }
               },
               "application/xml": {
                 "schema": {
                   "type": "string"
-                }
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">http_error</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>"
               }
             }
           },
@@ -776,12 +1023,25 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": {
+                    "code": "unsupported_media",
+                    "message": "Petición no disponible o inválida.",
+                    "details": []
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "auditoria",
+                    "version": "0.3.0"
+                  }
                 }
               },
               "application/xml": {
                 "schema": {
                   "type": "string"
-                }
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">unsupported_media</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>"
               }
             }
           },
@@ -791,12 +1051,25 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": {
+                    "code": "validation",
+                    "message": "Petición no disponible o inválida.",
+                    "details": []
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "auditoria",
+                    "version": "0.3.0"
+                  }
                 }
               },
               "application/xml": {
                 "schema": {
                   "type": "string"
-                }
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">validation</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>"
               }
             }
           },
@@ -806,12 +1079,25 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": {
+                    "code": "rate_limit",
+                    "message": "Petición no disponible o inválida.",
+                    "details": []
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "auditoria",
+                    "version": "0.3.0"
+                  }
                 }
               },
               "application/xml": {
                 "schema": {
                   "type": "string"
-                }
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">rate_limit</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>"
               }
             }
           },
@@ -821,12 +1107,25 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": {
+                    "code": "internal_error",
+                    "message": "Petición no disponible o inválida.",
+                    "details": []
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "auditoria",
+                    "version": "0.3.0"
+                  }
                 }
               },
               "application/xml": {
                 "schema": {
                   "type": "string"
-                }
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">internal_error</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>"
               }
             }
           },
@@ -836,12 +1135,25 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": {
+                    "code": "dependency_unavailable",
+                    "message": "Dependencia inaccesible; consultar estado antes de repetir.",
+                    "details": []
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "auditoria",
+                    "version": "0.3.0"
+                  }
                 }
               },
               "application/xml": {
                 "schema": {
                   "type": "string"
-                }
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">dependency_unavailable</field><field name=\"message\" type=\"string\">Dependencia inaccesible; consultar estado antes de repetir.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>"
               }
             }
           }
@@ -974,7 +1286,7 @@
                   "meta": {
                     "correlation_id": "00000000-0000-4000-8000-000000000001",
                     "service": "auditoria",
-                    "version": "0.2.0"
+                    "version": "0.3.0"
                   }
                 }
               },
@@ -982,7 +1294,7 @@
                 "schema": {
                   "type": "string"
                 },
-                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"tenant_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"region_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"source\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"action\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"actor_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"event\" type=\"object\"/><field name=\"created_at\" type=\"string\">2030-01-01T15:00:00+00:00</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.2.0</field></field></response>",
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"tenant_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"region_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"source\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"action\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"actor_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"event\" type=\"object\"/><field name=\"created_at\" type=\"string\">2030-01-01T15:00:00+00:00</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>",
                 "x-json-equivalent-schema": {
                   "type": "object",
                   "required": [
@@ -1061,12 +1373,25 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": {
+                    "code": "validation",
+                    "message": "Petición no disponible o inválida.",
+                    "details": []
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "auditoria",
+                    "version": "0.3.0"
+                  }
                 }
               },
               "application/xml": {
                 "schema": {
                   "type": "string"
-                }
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">validation</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>"
               }
             }
           },
@@ -1076,12 +1401,25 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": {
+                    "code": "unauthorized",
+                    "message": "Credencial inválida, expirada o revocada.",
+                    "details": []
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "auditoria",
+                    "version": "0.3.0"
+                  }
                 }
               },
               "application/xml": {
                 "schema": {
                   "type": "string"
-                }
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">unauthorized</field><field name=\"message\" type=\"string\">Credencial inválida, expirada o revocada.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>"
               }
             }
           },
@@ -1091,12 +1429,25 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": {
+                    "code": "forbidden",
+                    "message": "Sin permiso institucional o de recurso.",
+                    "details": []
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "auditoria",
+                    "version": "0.3.0"
+                  }
                 }
               },
               "application/xml": {
                 "schema": {
                   "type": "string"
-                }
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">forbidden</field><field name=\"message\" type=\"string\">Sin permiso institucional o de recurso.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>"
               }
             }
           },
@@ -1106,12 +1457,25 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": {
+                    "code": "not_found",
+                    "message": "Petición no disponible o inválida.",
+                    "details": []
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "auditoria",
+                    "version": "0.3.0"
+                  }
                 }
               },
               "application/xml": {
                 "schema": {
                   "type": "string"
-                }
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">not_found</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>"
               }
             }
           },
@@ -1121,12 +1485,25 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": {
+                    "code": "not_acceptable",
+                    "message": "Petición no disponible o inválida.",
+                    "details": []
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "auditoria",
+                    "version": "0.3.0"
+                  }
                 }
               },
               "application/xml": {
                 "schema": {
                   "type": "string"
-                }
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">not_acceptable</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>"
               }
             }
           },
@@ -1136,12 +1513,25 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": {
+                    "code": "conflict",
+                    "message": "Conflicto de estado, versión o idempotencia.",
+                    "details": []
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "auditoria",
+                    "version": "0.3.0"
+                  }
                 }
               },
               "application/xml": {
                 "schema": {
                   "type": "string"
-                }
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">conflict</field><field name=\"message\" type=\"string\">Conflicto de estado, versión o idempotencia.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>"
               }
             }
           },
@@ -1151,12 +1541,25 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": {
+                    "code": "http_error",
+                    "message": "Petición no disponible o inválida.",
+                    "details": []
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "auditoria",
+                    "version": "0.3.0"
+                  }
                 }
               },
               "application/xml": {
                 "schema": {
                   "type": "string"
-                }
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">http_error</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>"
               }
             }
           },
@@ -1166,12 +1569,25 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": {
+                    "code": "unsupported_media",
+                    "message": "Petición no disponible o inválida.",
+                    "details": []
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "auditoria",
+                    "version": "0.3.0"
+                  }
                 }
               },
               "application/xml": {
                 "schema": {
                   "type": "string"
-                }
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">unsupported_media</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>"
               }
             }
           },
@@ -1181,12 +1597,25 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": {
+                    "code": "validation",
+                    "message": "Petición no disponible o inválida.",
+                    "details": []
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "auditoria",
+                    "version": "0.3.0"
+                  }
                 }
               },
               "application/xml": {
                 "schema": {
                   "type": "string"
-                }
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">validation</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>"
               }
             }
           },
@@ -1196,12 +1625,25 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": {
+                    "code": "rate_limit",
+                    "message": "Petición no disponible o inválida.",
+                    "details": []
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "auditoria",
+                    "version": "0.3.0"
+                  }
                 }
               },
               "application/xml": {
                 "schema": {
                   "type": "string"
-                }
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">rate_limit</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>"
               }
             }
           },
@@ -1211,12 +1653,25 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": {
+                    "code": "internal_error",
+                    "message": "Petición no disponible o inválida.",
+                    "details": []
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "auditoria",
+                    "version": "0.3.0"
+                  }
                 }
               },
               "application/xml": {
                 "schema": {
                   "type": "string"
-                }
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">internal_error</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>"
               }
             }
           },
@@ -1226,12 +1681,25 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": {
+                    "code": "dependency_unavailable",
+                    "message": "Dependencia inaccesible; consultar estado antes de repetir.",
+                    "details": []
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "auditoria",
+                    "version": "0.3.0"
+                  }
                 }
               },
               "application/xml": {
                 "schema": {
                   "type": "string"
-                }
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">dependency_unavailable</field><field name=\"message\" type=\"string\">Dependencia inaccesible; consultar estado antes de repetir.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>"
               }
             }
           }
@@ -1442,7 +1910,7 @@
                   "meta": {
                     "correlation_id": "00000000-0000-4000-8000-000000000001",
                     "service": "auditoria",
-                    "version": "0.2.0"
+                    "version": "0.3.0"
                   }
                 }
               },
@@ -1450,7 +1918,7 @@
                 "schema": {
                   "type": "string"
                 },
-                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"items\" type=\"array\"/><field name=\"page\" type=\"integer\">1</field><field name=\"page_size\" type=\"integer\">1</field><field name=\"total\" type=\"integer\">1</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.2.0</field></field></response>",
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"items\" type=\"array\"/><field name=\"page\" type=\"integer\">1</field><field name=\"page_size\" type=\"integer\">1</field><field name=\"total\" type=\"integer\">1</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>",
                 "x-json-equivalent-schema": {
                   "type": "object",
                   "required": [
@@ -1601,12 +2069,25 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": {
+                    "code": "validation",
+                    "message": "Petición no disponible o inválida.",
+                    "details": []
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "auditoria",
+                    "version": "0.3.0"
+                  }
                 }
               },
               "application/xml": {
                 "schema": {
                   "type": "string"
-                }
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">validation</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>"
               }
             }
           },
@@ -1616,12 +2097,25 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": {
+                    "code": "unauthorized",
+                    "message": "Credencial inválida, expirada o revocada.",
+                    "details": []
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "auditoria",
+                    "version": "0.3.0"
+                  }
                 }
               },
               "application/xml": {
                 "schema": {
                   "type": "string"
-                }
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">unauthorized</field><field name=\"message\" type=\"string\">Credencial inválida, expirada o revocada.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>"
               }
             }
           },
@@ -1631,12 +2125,25 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": {
+                    "code": "forbidden",
+                    "message": "Sin permiso institucional o de recurso.",
+                    "details": []
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "auditoria",
+                    "version": "0.3.0"
+                  }
                 }
               },
               "application/xml": {
                 "schema": {
                   "type": "string"
-                }
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">forbidden</field><field name=\"message\" type=\"string\">Sin permiso institucional o de recurso.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>"
               }
             }
           },
@@ -1646,12 +2153,25 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": {
+                    "code": "not_found",
+                    "message": "Petición no disponible o inválida.",
+                    "details": []
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "auditoria",
+                    "version": "0.3.0"
+                  }
                 }
               },
               "application/xml": {
                 "schema": {
                   "type": "string"
-                }
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">not_found</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>"
               }
             }
           },
@@ -1661,12 +2181,25 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": {
+                    "code": "not_acceptable",
+                    "message": "Petición no disponible o inválida.",
+                    "details": []
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "auditoria",
+                    "version": "0.3.0"
+                  }
                 }
               },
               "application/xml": {
                 "schema": {
                   "type": "string"
-                }
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">not_acceptable</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>"
               }
             }
           },
@@ -1676,12 +2209,25 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": {
+                    "code": "conflict",
+                    "message": "Conflicto de estado, versión o idempotencia.",
+                    "details": []
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "auditoria",
+                    "version": "0.3.0"
+                  }
                 }
               },
               "application/xml": {
                 "schema": {
                   "type": "string"
-                }
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">conflict</field><field name=\"message\" type=\"string\">Conflicto de estado, versión o idempotencia.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>"
               }
             }
           },
@@ -1691,12 +2237,25 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": {
+                    "code": "http_error",
+                    "message": "Petición no disponible o inválida.",
+                    "details": []
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "auditoria",
+                    "version": "0.3.0"
+                  }
                 }
               },
               "application/xml": {
                 "schema": {
                   "type": "string"
-                }
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">http_error</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>"
               }
             }
           },
@@ -1706,12 +2265,25 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": {
+                    "code": "unsupported_media",
+                    "message": "Petición no disponible o inválida.",
+                    "details": []
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "auditoria",
+                    "version": "0.3.0"
+                  }
                 }
               },
               "application/xml": {
                 "schema": {
                   "type": "string"
-                }
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">unsupported_media</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>"
               }
             }
           },
@@ -1721,12 +2293,25 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": {
+                    "code": "validation",
+                    "message": "Petición no disponible o inválida.",
+                    "details": []
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "auditoria",
+                    "version": "0.3.0"
+                  }
                 }
               },
               "application/xml": {
                 "schema": {
                   "type": "string"
-                }
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">validation</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>"
               }
             }
           },
@@ -1736,12 +2321,25 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": {
+                    "code": "rate_limit",
+                    "message": "Petición no disponible o inválida.",
+                    "details": []
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "auditoria",
+                    "version": "0.3.0"
+                  }
                 }
               },
               "application/xml": {
                 "schema": {
                   "type": "string"
-                }
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">rate_limit</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>"
               }
             }
           },
@@ -1751,12 +2349,25 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": {
+                    "code": "internal_error",
+                    "message": "Petición no disponible o inválida.",
+                    "details": []
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "auditoria",
+                    "version": "0.3.0"
+                  }
                 }
               },
               "application/xml": {
                 "schema": {
                   "type": "string"
-                }
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">internal_error</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>"
               }
             }
           },
@@ -1766,12 +2377,25 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": {
+                    "code": "dependency_unavailable",
+                    "message": "Dependencia inaccesible; consultar estado antes de repetir.",
+                    "details": []
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "auditoria",
+                    "version": "0.3.0"
+                  }
                 }
               },
               "application/xml": {
                 "schema": {
                   "type": "string"
-                }
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">dependency_unavailable</field><field name=\"message\" type=\"string\">Dependencia inaccesible; consultar estado antes de repetir.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>"
               }
             }
           }

@@ -1,0 +1,50 @@
+{
+  "captured_at": "2026-10-19T16:43:07.682444+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "1a8dccae105e0c261a0273a99f999923c88cbf235f750f80f0ac2f487c8b6654",
+  "transport": "http",
+  "method": "POST",
+  "route": "/api/v1/donors",
+  "objective": "Registro preliminar con consentimiento",
+  "url": "http://127.0.0.1:56259/api/v1/donors",
+  "parameters": {},
+  "path_parameters": {},
+  "request_headers": {
+    "Host": "127.0.0.1:56259",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "*/*",
+    "Connection": "keep-alive",
+    "Authorization": "[REDACTED]",
+    "Content-Type": "text/plain",
+    "Content-Length": "5"
+  },
+  "request_body": "hello",
+  "status": 415,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "201",
+    "X-Correlation-ID": "aff10bf8-6b88-469e-84b5-6d3fd3ce8d97",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "error": {
+      "code": "unsupported_media_type",
+      "message": "Usa JSON o XML.",
+      "details": []
+    },
+    "meta": {
+      "correlation_id": "aff10bf8-6b88-469e-84b5-6d3fd3ce8d97",
+      "service": "donantes",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "aff10bf8-6b88-469e-84b5-6d3fd3ce8d97",
+  "persistence": {
+    "effect": "controlled_error",
+    "note": "No se infiere ausencia de efectos de un error; revisar correlación y estado de operación."
+  }
+}

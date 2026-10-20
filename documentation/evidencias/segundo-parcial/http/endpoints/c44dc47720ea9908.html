@@ -1,0 +1,89 @@
+<!doctype html><html lang="es"><meta charset="utf-8"><title>donantes /api/v1/donations/&lt;identifier&gt;</title><style>body{font:15px system-ui;margin:32px;background:#f4f5f7;color:#202631}main{max-width:1250px;margin:auto}h1{color:#8e2434;font-size:26px}small{color:#556}a{color:#8e2434}table{border-collapse:collapse;width:100%;background:white}td,th{padding:9px;border:1px solid #ccd;vertical-align:top;text-align:left}pre{white-space:pre-wrap;word-break:break-word;background:#fff;border:1px solid #ccd;padding:12px;font:12px monospace;max-height:300px;overflow:auto}section{margin:20px 0}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.tag{padding:4px 9px;background:#e5ece7}.error{background:#f8e5e6}input{padding:12px;width:70%;margin:15px 0}details{margin:12px 0}nav{margin-bottom:20px}</style><main><nav><a href="../index.html">Inventario completo</a></nav><h1>donantes · GET /api/v1/donations/&lt;identifier&gt;</h1><p>Donación y pasos de procesamiento institucionales</p><p>Registro de ejecución real. Credenciales y firmas redactadas. Los cuerpos completos están en el JSON enlazado.</p><section><h2>HTTP 200</h2><p><b>2026-10-19T16:28:35.270312+00:00</b> · versión 0.3.0</p><p>Correlación: 0a7b7643-31f0-48a6-b072-01815b36bb97<br>URL: http://127.0.0.1:56259/api/v1/donations/01fe4e48-64e5-464e-8d8c-516ca8702915</p><p><a href="../records/8a0d6f6626f2e56dd78cc76d.json">Petición, respuesta, headers y persistencia completos</a></p><div class="grid"><div><h3>Petición</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Host&quot;: &quot;127.0.0.1:56259&quot;,
+    &quot;User-Agent&quot;: &quot;python-requests/2.34.2&quot;,
+    &quot;Accept-Encoding&quot;: &quot;gzip, deflate, br&quot;,
+    &quot;Accept&quot;: &quot;application/json&quot;,
+    &quot;Connection&quot;: &quot;keep-alive&quot;,
+    &quot;Idempotency-Key&quot;: &quot;24b5e17989d04418a3258d814fb0f642&quot;,
+    &quot;Authorization&quot;: &quot;[REDACTED]&quot;
+  },
+  &quot;parameters&quot;: {},
+  &quot;body&quot;: &quot;&quot;
+}</pre></div><div><h3>Respuesta</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Content-Type&quot;: &quot;application/json&quot;,
+    &quot;Content-Length&quot;: &quot;734&quot;,
+    &quot;X-Correlation-ID&quot;: &quot;0a7b7643-31f0-48a6-b072-01815b36bb97&quot;,
+    &quot;Cache-Control&quot;: &quot;no-store&quot;,
+    &quot;X-Content-Type-Options&quot;: &quot;nosniff&quot;,
+    &quot;Referrer-Policy&quot;: &quot;no-referrer&quot;
+  },
+  &quot;body&quot;: {
+    &quot;data&quot;: {
+      &quot;id&quot;: &quot;01fe4e48-64e5-464e-8d8c-516ca8702915&quot;,
+      &quot;donor_id&quot;: &quot;f1519332-df58-4dc1-be03-b48006870393&quot;,
+      &quot;tenant_id&quot;: &quot;87255e79-2a0a-4e44-ad21-8002ccd5688d&quot;,
+      &quot;kind&quot;: &quot;BLOOD&quot;,
+      &quot;component&quot;: &quot;RBC&quot;,
+      &quot;blood_group&quot;: &quot;O-&quot;,
+      &quot;collected_at&quot;: &quot;2026-10-19T16:23:34.824570+00:00&quot;,
+      &quot;status&quot;: &quot;COLLECTED&quot;,
+      &quot;version&quot;: 1,
+      &quot;created_at&quot;: &quot;2026-10-19T16:28:34.904323+00:00&quot;,
+      &quot;decisions&quot;: [],
+      &quot;steps&quot;: [
+        {
+          &quot;id&quot;: &quot;672bb5e2-9d2b-44b8-90f0-9b086121113b&quot;,
+          &quot;state&quot;: &quot;COLLECTED&quot;,
+          &quot;reason&quot;: &quot;Corrección ficticia autorizada para evidencia HTTP&quot;,
+          &quot;actor_id&quot;: &quot;fa9be2a2-91fc-4871-b69f-53fecc15e1ba&quot;,
+          &quot;created_at&quot;: &quot;2026-10-19T16:28:34.904323+00:00&quot;
+        }
+      ]
+    },
+    &quot;meta&quot;: {
+      &quot;correlation_id&quot;: &quot;0a7b7643-31f0-48a6-b072-01815b36bb97&quot;,
+      &quot;service&quot;: &quot;donantes&quot;,
+      &quot;version&quot;: &quot;0.3.0&quot;
+    }
+  }
+}</pre></div></div><details><summary>Persistencia y versión de implementación</summary><pre>{
+  &quot;effect&quot;: &quot;read&quot;,
+  &quot;note&quot;: &quot;Consulta; accesos protegidos generan auditoría local transaccional.&quot;
+}</pre><p>SHA-256: 1a8dccae105e0c261a0273a99f999923c88cbf235f750f80f0ac2f487c8b6654</p></details></section><section><h2>HTTP 401</h2><p><b>2026-10-19T16:28:12.497815+00:00</b> · versión 0.3.0</p><p>Correlación: 333ba298-2dde-46c9-8b66-4a018b73eee1<br>URL: http://127.0.0.1:56259/api/v1/donations/c88c9460-2a53-4373-a6fb-2a00f83df225</p><p><a href="../records/1bd9fbe03c796b46527b4762.json">Petición, respuesta, headers y persistencia completos</a></p><div class="grid"><div><h3>Petición</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Host&quot;: &quot;127.0.0.1:56259&quot;,
+    &quot;User-Agent&quot;: &quot;python-requests/2.34.2&quot;,
+    &quot;Accept-Encoding&quot;: &quot;gzip, deflate, br&quot;,
+    &quot;Accept&quot;: &quot;application/json&quot;,
+    &quot;Connection&quot;: &quot;keep-alive&quot;,
+    &quot;Idempotency-Key&quot;: &quot;fd5ede0a1d40418a9d1d2295eb05c46f&quot;
+  },
+  &quot;parameters&quot;: {},
+  &quot;body&quot;: &quot;&quot;
+}</pre></div><div><h3>Respuesta</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Content-Type&quot;: &quot;application/json&quot;,
+    &quot;Content-Length&quot;: &quot;200&quot;,
+    &quot;X-Correlation-ID&quot;: &quot;333ba298-2dde-46c9-8b66-4a018b73eee1&quot;,
+    &quot;Cache-Control&quot;: &quot;no-store&quot;,
+    &quot;X-Content-Type-Options&quot;: &quot;nosniff&quot;,
+    &quot;Referrer-Policy&quot;: &quot;no-referrer&quot;
+  },
+  &quot;body&quot;: {
+    &quot;error&quot;: {
+      &quot;code&quot;: &quot;unauthorized&quot;,
+      &quot;message&quot;: &quot;JWT de acceso requerido.&quot;,
+      &quot;details&quot;: []
+    },
+    &quot;meta&quot;: {
+      &quot;correlation_id&quot;: &quot;333ba298-2dde-46c9-8b66-4a018b73eee1&quot;,
+      &quot;service&quot;: &quot;donantes&quot;,
+      &quot;version&quot;: &quot;0.3.0&quot;
+    }
+  }
+}</pre></div></div><details><summary>Persistencia y versión de implementación</summary><pre>{
+  &quot;effect&quot;: &quot;controlled_error&quot;,
+  &quot;note&quot;: &quot;No se infiere ausencia de efectos de un error; revisar correlación y estado de operación.&quot;
+}</pre><p>SHA-256: 1a8dccae105e0c261a0273a99f999923c88cbf235f750f80f0ac2f487c8b6654</p></details></section><h2>Todas las variantes ejecutadas</h2><ul><li><a href="../records/1bd9fbe03c796b46527b4762.json">401 · http · application/json · 2026-10-19T16:28:12.497815+00:00</a></li><li><a href="../records/51a97c49569113d719cb980f.json">401 · http · application/xml; charset=utf-8 · 2026-10-19T16:28:12.542054+00:00</a></li><li><a href="../records/8a0d6f6626f2e56dd78cc76d.json">200 · http · application/json · 2026-10-19T16:28:35.270312+00:00</a></li><li><a href="../records/77e036ffdb5c239f430f4c8c.json">404 · http · application/json · 2026-10-19T16:28:12.682923+00:00</a></li><li><a href="../records/9e050f104d2b01b87024a1d2.json">200 · embedded · application/json · 2026-10-19T16:26:34.579754+00:00</a></li></ul></main></html>

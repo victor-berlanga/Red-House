@@ -1,0 +1,86 @@
+{
+  "captured_at": "2026-10-19T16:22:55.423251+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "e7eb0044cb5544477c1a4b79a264977e16ddd17c216e8a88ed6d187af95af791",
+  "transport": "embedded",
+  "method": "POST",
+  "route": "/api/v1/shipments/<identifier>/transitions",
+  "objective": "Registrar paso autorizado y evento de custodia durable",
+  "url": "http://localhost/api/v1/shipments/ea3e5e8c-ee3a-4cea-894b-b2f88714458a/transitions",
+  "parameters": {},
+  "path_parameters": {
+    "identifier": "ea3e5e8c-ee3a-4cea-894b-b2f88714458a"
+  },
+  "request_headers": {
+    "Host": "localhost",
+    "Content-Type": "application/json",
+    "Content-Length": "131",
+    "Accept": "application/json",
+    "X-Correlation-Id": "52faa4f0-abe7-4b5b-9772-05bc481f4911",
+    "Authorization": "[REDACTED]",
+    "Idempotency-Key": "49b48dec9f8d433aa7088704b24b95bb"
+  },
+  "request_body": {
+    "state": "PREPARED",
+    "version": 1,
+    "reason": "Confirmación física ficticia desde el portal",
+    "human_confirmation": true
+  },
+  "status": 200,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "676",
+    "X-Correlation-ID": "52faa4f0-abe7-4b5b-9772-05bc481f4911",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "data": {
+      "id": "ea3e5e8c-ee3a-4cea-894b-b2f88714458a",
+      "reservation_id": "1fa376a0-38fe-4e22-9f96-0dc4640d9d64",
+      "origin_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+      "destination_id": "a0920053-13c5-4d42-b53e-74b35a779f58",
+      "region_id": "7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb",
+      "transport_user_id": "3980f3c5-484c-4178-b03c-8d65c598ecd7",
+      "departure_at": "2026-10-19T16:23:51.339169+00:00",
+      "eta": "2026-10-19T17:02:51.339325+00:00",
+      "status": "PREPARED",
+      "version": 2,
+      "sequence": 2,
+      "inventory_pending": false,
+      "expires_at": "2026-10-21T16:22:39.586845+00:00"
+    },
+    "meta": {
+      "correlation_id": "52faa4f0-abe7-4b5b-9772-05bc481f4911",
+      "service": "transporte",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "52faa4f0-abe7-4b5b-9772-05bc481f4911",
+  "persistence": {
+    "effect": "committed",
+    "store": "PostgreSQL red_house",
+    "query": "SELECT operation,fingerprint,result FROM idempotency WHERE user_id=:actor AND key=:idempotency_key",
+    "row": {
+      "operation": "shipment_transition:ea3e5e8c-ee3a-4cea-894b-b2f88714458a",
+      "fingerprint": "9152a7a87c3a5fdfc789841541567f4c3a77bba019fe5e22c562463f884c8cc6",
+      "result": {
+        "id": "ea3e5e8c-ee3a-4cea-894b-b2f88714458a",
+        "eta": "2026-10-19T17:02:51.339325+00:00",
+        "status": "PREPARED",
+        "version": 2,
+        "sequence": 2,
+        "origin_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+        "region_id": "7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb",
+        "expires_at": "2026-10-21T16:22:39.586845+00:00",
+        "departure_at": "2026-10-19T16:23:51.339169+00:00",
+        "destination_id": "a0920053-13c5-4d42-b53e-74b35a779f58",
+        "reservation_id": "1fa376a0-38fe-4e22-9f96-0dc4640d9d64",
+        "inventory_pending": false,
+        "transport_user_id": "3980f3c5-484c-4178-b03c-8d65c598ecd7"
+      }
+    }
+  }
+}

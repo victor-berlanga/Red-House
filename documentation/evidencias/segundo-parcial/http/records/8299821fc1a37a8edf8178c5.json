@@ -1,0 +1,39 @@
+{
+  "captured_at": "2026-10-19T16:28:10.626224+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "1a8dccae105e0c261a0273a99f999923c88cbf235f750f80f0ac2f487c8b6654",
+  "transport": "http",
+  "method": "GET",
+  "route": "/api/v1/donors/<identifier>",
+  "objective": "Expediente y evaluaciones humanas",
+  "url": "http://127.0.0.1:56259/api/v1/donors/ffe76ca3-3b8e-4c48-af30-cb0a62e71409",
+  "parameters": {},
+  "path_parameters": {
+    "identifier": "ffe76ca3-3b8e-4c48-af30-cb0a62e71409"
+  },
+  "request_headers": {
+    "Host": "127.0.0.1:56259",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/xml",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "4d6a529e207d4ff4a02ce13bdebab5fa"
+  },
+  "request_body": "",
+  "status": 401,
+  "response_headers": {
+    "Content-Type": "application/xml; charset=utf-8",
+    "Content-Length": "502",
+    "X-Correlation-ID": "9952d008-bcd3-439d-9ef6-b9fe937cc281",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": "<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">unauthorized</field><field name=\"message\" type=\"string\">JWT de acceso requerido.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">9952d008-bcd3-439d-9ef6-b9fe937cc281</field><field name=\"service\" type=\"string\">donantes</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>",
+  "correlation_id": "9952d008-bcd3-439d-9ef6-b9fe937cc281",
+  "persistence": {
+    "effect": "controlled_error",
+    "note": "No se infiere ausencia de efectos de un error; revisar correlación y estado de operación."
+  }
+}

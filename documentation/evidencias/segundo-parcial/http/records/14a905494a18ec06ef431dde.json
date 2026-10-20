@@ -1,0 +1,50 @@
+{
+  "captured_at": "2026-10-19T16:28:11.735140+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "1a8dccae105e0c261a0273a99f999923c88cbf235f750f80f0ac2f487c8b6654",
+  "transport": "http",
+  "method": "GET",
+  "route": "/api/v1/appointments",
+  "objective": "Citas propias o institucionales",
+  "url": "http://127.0.0.1:56259/api/v1/appointments",
+  "parameters": {},
+  "path_parameters": {},
+  "request_headers": {
+    "Host": "127.0.0.1:56259",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "b770836552904e9db1e47a45c9d4f2c4",
+    "Authorization": "[REDACTED]"
+  },
+  "request_body": "",
+  "status": 200,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "174",
+    "X-Correlation-ID": "7587cbb0-94f5-44c5-8ffd-b853e1864691",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "data": {
+      "items": [],
+      "page": 1,
+      "page_size": 20,
+      "total": 0
+    },
+    "meta": {
+      "correlation_id": "7587cbb0-94f5-44c5-8ffd-b853e1864691",
+      "service": "donantes",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "7587cbb0-94f5-44c5-8ffd-b853e1864691",
+  "persistence": {
+    "effect": "read",
+    "note": "Consulta; accesos protegidos generan auditoría local transaccional."
+  }
+}

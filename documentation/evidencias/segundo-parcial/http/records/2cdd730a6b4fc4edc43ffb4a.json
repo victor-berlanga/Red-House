@@ -1,0 +1,61 @@
+{
+  "captured_at": "2026-10-19T16:28:25.545491+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "e7eb0044cb5544477c1a4b79a264977e16ddd17c216e8a88ed6d187af95af791",
+  "transport": "http",
+  "method": "GET",
+  "route": "/api/v1/summary",
+  "objective": "Indicadores agregados autorizados; no expone expedientes",
+  "url": "http://127.0.0.1:56264/api/v1/summary",
+  "parameters": {},
+  "path_parameters": {},
+  "request_headers": {
+    "Host": "127.0.0.1:56264",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "e6d3f35cc32d4976adfb4aea08beec54",
+    "Authorization": "[REDACTED]"
+  },
+  "request_body": "",
+  "status": 200,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "257",
+    "X-Correlation-ID": "cd0c8207-020a-4386-b5b9-56faf2594267",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "data": {
+      "total": 4,
+      "statuses": [
+        {
+          "status": "ACCEPTED",
+          "value": 2
+        },
+        {
+          "status": "COLLECTED",
+          "value": 1
+        },
+        {
+          "status": "PLANNED",
+          "value": 1
+        }
+      ]
+    },
+    "meta": {
+      "correlation_id": "cd0c8207-020a-4386-b5b9-56faf2594267",
+      "service": "transporte",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "cd0c8207-020a-4386-b5b9-56faf2594267",
+  "persistence": {
+    "effect": "read",
+    "note": "Consulta; accesos protegidos generan auditoría local transaccional."
+  }
+}

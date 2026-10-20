@@ -1,0 +1,74 @@
+{
+  "captured_at": "2026-10-19T16:43:05.135672+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "b82acfc07e7ff0221196c291a52b1986e4d1ac69b3f6769bffe29f4a02fa5c9b",
+  "transport": "http",
+  "method": "PATCH",
+  "route": "/api/v1/users/<identifier>",
+  "objective": "Activar/desactivar cuenta; invalidar permisos antes del cambio",
+  "url": "http://127.0.0.1:56258/api/v1/users/84535151-2653-4c3a-9757-9f539c22182e",
+  "parameters": {},
+  "path_parameters": {
+    "identifier": "84535151-2653-4c3a-9757-9f539c22182e"
+  },
+  "request_headers": {
+    "Host": "127.0.0.1:56258",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "5574d0a56c064228b72bc67e9ed8a391",
+    "Authorization": "[REDACTED]",
+    "Content-Length": "31",
+    "Content-Type": "application/json"
+  },
+  "request_body": {
+    "active": false,
+    "version": 1
+  },
+  "status": 200,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "366",
+    "X-Correlation-ID": "1b6bab30-005a-4521-8f4a-ae7f95af992e",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "data": {
+      "id": "84535151-2653-4c3a-9757-9f539c22182e",
+      "tenant_id": "a0920053-13c5-4d42-b53e-74b35a779f58",
+      "region_id": "7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb",
+      "username": "fenced_15b122372cc8",
+      "role": "MEDICAL",
+      "active": false,
+      "version": 2
+    },
+    "meta": {
+      "correlation_id": "1b6bab30-005a-4521-8f4a-ae7f95af992e",
+      "service": "identidad_acceso",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "1b6bab30-005a-4521-8f4a-ae7f95af992e",
+  "persistence": {
+    "effect": "committed",
+    "store": "PostgreSQL red_house",
+    "query": "SELECT operation,fingerprint,result FROM idempotency WHERE user_id=:actor AND key=:idempotency_key",
+    "row": {
+      "operation": "user_state:84535151-2653-4c3a-9757-9f539c22182e",
+      "fingerprint": "43e1acbbfcac7332d80ce791cc0c7e899f83eedc1e7c7b786e0f4a8a15028769",
+      "result": {
+        "id": "84535151-2653-4c3a-9757-9f539c22182e",
+        "role": "MEDICAL",
+        "active": false,
+        "version": 2,
+        "username": "fenced_15b122372cc8",
+        "region_id": "7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb",
+        "tenant_id": "a0920053-13c5-4d42-b53e-74b35a779f58"
+      }
+    }
+  }
+}

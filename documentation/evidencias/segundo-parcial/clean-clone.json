@@ -1,0 +1,71 @@
+{
+  "date": "2026-10-19T19:55:19.212999+00:00",
+  "status": "passed",
+  "snapshot_commit": "5c3f920dc76fb4ad963c0badb6945026d6c42b1e",
+  "compose_project": "redhouse-clean-f91d7d83",
+  "files_sha256": "821fe2752788339f45ceb8252eb99099d4a7a418973a90775af4b98305575b37",
+  "source": "Instantánea del árbol de trabajo en commit local temporal; no publicada",
+  "steps": [
+    {
+      "command": "python3 deployment/prepare.py",
+      "status": "passed"
+    },
+    {
+      "command": "docker compose -f <clean-clone>/compose.yaml --profile install build bootstrap",
+      "status": "passed"
+    },
+    {
+      "command": "docker compose -f <clean-clone>/compose.yaml up -d --wait postgres redis mongodb",
+      "status": "passed"
+    },
+    {
+      "command": "docker compose -f <clean-clone>/compose.yaml --profile install run --rm bootstrap",
+      "status": "passed"
+    },
+    {
+      "command": "docker compose -f <clean-clone>/compose.yaml --parallel 2 build",
+      "status": "passed"
+    },
+    {
+      "command": "python3 deployment/start.py",
+      "status": "passed"
+    },
+    {
+      "command": "/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/.venv/bin/python deployment/verify.py --phase smoke --output /private/tmp/redhouse-clean-uqq8phmx/business",
+      "status": "passed"
+    },
+    {
+      "command": "docker compose -f <clean-clone>/compose.yaml --profile install run --rm bootstrap",
+      "status": "passed"
+    }
+  ],
+  "private_environment": "/private/tmp/redhouse-clean-uqq8phmx",
+  "stage": "complete",
+  "business": {
+    "date": "2026-10-19T20:04:06.040897+00:00",
+    "result": "passed",
+    "stage": "complete",
+    "checks": [
+      {
+        "check": "flujo_BLOOD",
+        "status": "passed",
+        "shipment_id": "b9260738-da29-4090-8e40-9e08a10c240e",
+        "resource_id": "5e00f201-0e30-43e3-9f44-5652a46ba221",
+        "request_id": "cfa3d03d-abf1-42be-b8b6-0fb935a8dd86",
+        "persistence": [
+          {
+            "id": "5e00f201-0e30-43e3-9f44-5652a46ba221",
+            "status": "RECEIVED",
+            "tenant_id": "4e371161-7d78-4b8a-b430-ef7b84eae2ae"
+          }
+        ]
+      },
+      {
+        "check": "once_servicios_json_xml",
+        "status": "passed"
+      }
+    ]
+  },
+  "containers_stopped": true,
+  "completed_at": "2026-10-19T20:04:44.138714+00:00"
+}

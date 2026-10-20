@@ -1,0 +1,68 @@
+{
+  "captured_at": "2026-10-19T16:22:51.997237+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "b82acfc07e7ff0221196c291a52b1986e4d1ac69b3f6769bffe29f4a02fa5c9b",
+  "transport": "embedded",
+  "method": "GET",
+  "route": "/api/v1/users",
+  "objective": "Cuentas propias o personal regional de traslado; nunca hashes ni sesiones",
+  "url": "http://localhost/api/v1/users?role=TRANSPORT&page=1&page_size=20",
+  "parameters": {
+    "role": "TRANSPORT",
+    "page": "1",
+    "page_size": "20"
+  },
+  "path_parameters": {},
+  "request_headers": {
+    "Host": "localhost",
+    "Accept": "application/json",
+    "X-Correlation-Id": "10b6c774-9cb5-491e-9be3-fb46f2f22bde",
+    "Authorization": "[REDACTED]"
+  },
+  "request_body": "",
+  "status": 200,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "536",
+    "X-Correlation-ID": "10b6c774-9cb5-491e-9be3-fb46f2f22bde",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "data": {
+      "items": [
+        {
+          "id": "3980f3c5-484c-4178-b03c-8d65c598ecd7",
+          "tenant_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+          "username": "transport1",
+          "role": "TRANSPORT",
+          "active": true,
+          "version": 1
+        },
+        {
+          "id": "cd0ad58f-5599-455c-8298-b6e12480e01a",
+          "tenant_id": "a0920053-13c5-4d42-b53e-74b35a779f58",
+          "username": "transport2",
+          "role": "TRANSPORT",
+          "active": true,
+          "version": 1
+        }
+      ],
+      "page": 1,
+      "page_size": 20,
+      "total": 2
+    },
+    "meta": {
+      "correlation_id": "10b6c774-9cb5-491e-9be3-fb46f2f22bde",
+      "service": "identidad_acceso",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "10b6c774-9cb5-491e-9be3-fb46f2f22bde",
+  "persistence": {
+    "effect": "read",
+    "note": "Consulta; accesos protegidos generan auditoría local transaccional."
+  }
+}

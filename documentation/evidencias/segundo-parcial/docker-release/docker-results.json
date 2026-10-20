@@ -1,0 +1,106 @@
+{
+  "date": "2026-10-19T18:18:43.113597+00:00",
+  "result": "passed",
+  "stage": "complete",
+  "checks": [
+    {
+      "check": "flujo_BLOOD",
+      "status": "passed",
+      "shipment_id": "9dd9313c-9783-418f-9911-b9c0f93c0c83",
+      "resource_id": "dfd2663d-7ebd-475f-a200-33f92dbf216f",
+      "request_id": "ffdb3f96-e590-4960-a7e6-72b12168a70a",
+      "persistence": [
+        {
+          "id": "dfd2663d-7ebd-475f-a200-33f92dbf216f",
+          "status": "RECEIVED",
+          "tenant_id": "7b4c7ee3-20ef-4345-bf68-c08748c9b7f0"
+        }
+      ]
+    },
+    {
+      "check": "once_servicios_json_xml",
+      "status": "passed"
+    },
+    {
+      "check": "flujo_ORGAN",
+      "status": "passed",
+      "shipment_id": "306a9f78-b37b-4c3f-a9f2-dd7d5018c34d",
+      "resource_id": "48d33aa5-81d5-4894-b009-621aab1a69f3",
+      "request_id": "307768e7-05e3-4837-995f-9cb1ebc69337",
+      "persistence": [
+        {
+          "id": "48d33aa5-81d5-4894-b009-621aab1a69f3",
+          "status": "RECEIVED",
+          "tenant_id": "7b4c7ee3-20ef-4345-bf68-c08748c9b7f0"
+        }
+      ]
+    },
+    {
+      "check": "once_replicas_a_detenidas",
+      "status": "passed"
+    },
+    {
+      "check": "web_sin_api_BLOOD",
+      "status": "passed",
+      "shipment_id": "d4f497da-771c-48d0-92ec-172cb0fedddb",
+      "persistence": [
+        {
+          "id": "fc569306-9b3d-45ff-8045-10cef5f51281",
+          "status": "RECEIVED"
+        }
+      ]
+    },
+    {
+      "check": "web_sin_api_ORGAN",
+      "status": "passed",
+      "shipment_id": "fa62a5d0-0d2c-446e-add7-d397a6f30d90",
+      "persistence": [
+        {
+          "id": "303656a7-6702-4d56-9a3c-b62be4162159",
+          "status": "RECEIVED"
+        }
+      ]
+    },
+    {
+      "check": "api_sin_autoridad_no_promete_continuidad",
+      "status": "passed",
+      "http": 502
+    },
+    {
+      "check": "actualizacion_secuencial_imagen_compatible",
+      "status": "passed",
+      "requests": 100,
+      "codes": [
+        200
+      ],
+      "before_images": {
+        "inventario-a": "sha256:33f58e72a2fb6570d8e7ba8be0c7e33ab570b48d0a117fa5d063cee238218283",
+        "inventario-b": "sha256:33f58e72a2fb6570d8e7ba8be0c7e33ab570b48d0a117fa5d063cee238218283"
+      },
+      "after_images": {
+        "inventario-a": "sha256:652be9de6d6a72388742efd5d2b401ee936ee763828df518d19a7cbdfb104b3a",
+        "inventario-b": "sha256:652be9de6d6a72388742efd5d2b401ee936ee763828df518d19a7cbdfb104b3a"
+      }
+    },
+    {
+      "check": "persistencia_reinicio",
+      "status": "passed",
+      "before": [
+        {
+          "id": "dfd2663d-7ebd-475f-a200-33f92dbf216f",
+          "folio": "UNIT-6caee040bdb2",
+          "status": "RECEIVED",
+          "version": 5
+        }
+      ],
+      "after": [
+        {
+          "id": "dfd2663d-7ebd-475f-a200-33f92dbf216f",
+          "folio": "UNIT-6caee040bdb2",
+          "status": "RECEIVED",
+          "version": 5
+        }
+      ]
+    }
+  ]
+}

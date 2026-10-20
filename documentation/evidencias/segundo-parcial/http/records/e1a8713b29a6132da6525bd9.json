@@ -1,0 +1,83 @@
+{
+  "captured_at": "2026-10-19T16:28:17.511529+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "6eac28b3c6355ff29f1aabe6ed2aa76b6e104ed4888482a02b3967184783afa9",
+  "transport": "http",
+  "method": "GET",
+  "route": "/api/v1/availability",
+  "objective": "Disponibilidad regional minimizada con caché autorizada",
+  "url": "http://127.0.0.1:56261/api/v1/availability",
+  "parameters": {},
+  "path_parameters": {},
+  "request_headers": {
+    "Host": "127.0.0.1:56261",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "ce3feb49c7c144098217ab52b313a6b3",
+    "Authorization": "[REDACTED]"
+  },
+  "request_body": "",
+  "status": 200,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "985",
+    "X-Correlation-ID": "6aca3757-face-423c-8385-978f433abe48",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer",
+    "X-Cache": "MISS"
+  },
+  "response_body": {
+    "data": {
+      "items": [
+        {
+          "id": "559a7b23-5ec2-431c-860a-3a298e0f703c",
+          "tenant_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+          "kind": "BLOOD",
+          "component": "RBC",
+          "blood_group": "O-",
+          "expires_at": "2026-10-21T16:22:11.360817+00:00",
+          "status": "AVAILABLE",
+          "version": 2
+        },
+        {
+          "id": "1c92030d-87e6-43a8-b1c6-d81623055a40",
+          "tenant_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+          "kind": "BLOOD",
+          "component": "RBC",
+          "blood_group": "A-",
+          "expires_at": "2026-10-21T16:22:11.829681+00:00",
+          "status": "AVAILABLE",
+          "version": 2
+        },
+        {
+          "id": "cf311e62-182d-4d22-8836-61352e0b8436",
+          "tenant_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+          "kind": "BLOOD",
+          "component": "RBC",
+          "blood_group": "O-",
+          "expires_at": "2026-10-21T16:22:17.191242+00:00",
+          "status": "AVAILABLE",
+          "version": 2
+        }
+      ],
+      "page": 1,
+      "page_size": 20,
+      "total": 3,
+      "notice": "Disponibilidad orientativa; la reserva revalida PostgreSQL."
+    },
+    "meta": {
+      "correlation_id": "6aca3757-face-423c-8385-978f433abe48",
+      "service": "inventario",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "6aca3757-face-423c-8385-978f433abe48",
+  "persistence": {
+    "effect": "read",
+    "note": "Consulta; accesos protegidos generan auditoría local transaccional."
+  }
+}

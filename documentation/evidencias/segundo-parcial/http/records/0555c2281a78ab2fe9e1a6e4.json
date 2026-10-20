@@ -1,0 +1,52 @@
+{
+  "captured_at": "2026-10-19T16:28:14.967078+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "ff2e7260f413ab4edb16a5555f512ec7404cdb118d66af3fc8a1e4dd2c6136b4",
+  "transport": "http",
+  "method": "POST",
+  "route": "/internal/v1/holds/<identifier>",
+  "objective": "Confirmar, liberar o recibir retención de forma idempotente",
+  "url": "http://127.0.0.1:56260/internal/v1/holds/548ba180-4e6d-4612-9cbf-7f89c5b8dcc2",
+  "parameters": {},
+  "path_parameters": {
+    "identifier": "548ba180-4e6d-4612-9cbf-7f89c5b8dcc2"
+  },
+  "request_headers": {
+    "Host": "127.0.0.1:56260",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "0f375929da454cbf8475793c5db27116",
+    "Content-Length": "2",
+    "Content-Type": "application/json"
+  },
+  "request_body": {},
+  "status": 401,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "218",
+    "X-Correlation-ID": "7f27b205-3cf8-4f5c-94af-ad0447f9b633",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "error": {
+      "code": "unauthorized_service",
+      "message": "Identidad de servicio inválida.",
+      "details": []
+    },
+    "meta": {
+      "correlation_id": "7f27b205-3cf8-4f5c-94af-ad0447f9b633",
+      "service": "receptores",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "7f27b205-3cf8-4f5c-94af-ad0447f9b633",
+  "persistence": {
+    "effect": "controlled_error",
+    "note": "No se infiere ausencia de efectos de un error; revisar correlación y estado de operación."
+  }
+}

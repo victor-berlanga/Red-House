@@ -1,0 +1,51 @@
+{
+  "captured_at": "2026-10-19T16:28:27.174839+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "864e3dda7901fd4edb3082758390ed9006bf1eeb509502b67d2009709a43ddd8",
+  "transport": "http",
+  "method": "GET",
+  "route": "/api/v1/chains/<identifier>",
+  "objective": "Consultar cadena; hash detecta alteraciones, no certifica veracidad física",
+  "url": "http://127.0.0.1:56265/api/v1/chains/a12ebf9e-9a64-4e5d-ab57-843066be1918",
+  "parameters": {},
+  "path_parameters": {
+    "identifier": "a12ebf9e-9a64-4e5d-ab57-843066be1918"
+  },
+  "request_headers": {
+    "Host": "127.0.0.1:56265",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "89533ffc270e46159f109a58380bee7d",
+    "Authorization": "[REDACTED]"
+  },
+  "request_body": "",
+  "status": 404,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "193",
+    "X-Correlation-ID": "5adc1279-aaf5-4de9-9d8f-b21d7b1d0f79",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "error": {
+      "code": "not_found",
+      "message": "Recurso inexistente.",
+      "details": []
+    },
+    "meta": {
+      "correlation_id": "5adc1279-aaf5-4de9-9d8f-b21d7b1d0f79",
+      "service": "custodia",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "5adc1279-aaf5-4de9-9d8f-b21d7b1d0f79",
+  "persistence": {
+    "effect": "controlled_error",
+    "note": "No se infiere ausencia de efectos de un error; revisar correlación y estado de operación."
+  }
+}

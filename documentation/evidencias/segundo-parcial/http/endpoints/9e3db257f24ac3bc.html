@@ -1,0 +1,93 @@
+<!doctype html><html lang="es"><meta charset="utf-8"><title>receptores /api/v1/requests/&lt;identifier&gt;/cancel</title><style>body{font:15px system-ui;margin:32px;background:#f4f5f7;color:#202631}main{max-width:1250px;margin:auto}h1{color:#8e2434;font-size:26px}small{color:#556}a{color:#8e2434}table{border-collapse:collapse;width:100%;background:white}td,th{padding:9px;border:1px solid #ccd;vertical-align:top;text-align:left}pre{white-space:pre-wrap;word-break:break-word;background:#fff;border:1px solid #ccd;padding:12px;font:12px monospace;max-height:300px;overflow:auto}section{margin:20px 0}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.tag{padding:4px 9px;background:#e5ece7}.error{background:#f8e5e6}input{padding:12px;width:70%;margin:15px 0}details{margin:12px 0}nav{margin-bottom:20px}</style><main><nav><a href="../index.html">Inventario completo</a></nav><h1>receptores · POST /api/v1/requests/&lt;identifier&gt;/cancel</h1><p>Cancelar únicamente sin reservas pendientes o físicas</p><p>Registro de ejecución real. Credenciales y firmas redactadas. Los cuerpos completos están en el JSON enlazado.</p><section><h2>HTTP 200</h2><p><b>2026-10-19T16:39:27.222687+00:00</b> · versión 0.3.0</p><p>Correlación: 1ed9f4cf-9d14-45f2-8103-3ad899b16659<br>URL: http://127.0.0.1:56260/api/v1/requests/7a7aad67-cf3c-4f97-8438-888662844a64/cancel</p><p><a href="../records/1c85428632de79b02429a5eb.json">Petición, respuesta, headers y persistencia completos</a></p><div class="grid"><div><h3>Petición</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Host&quot;: &quot;127.0.0.1:56260&quot;,
+    &quot;User-Agent&quot;: &quot;python-requests/2.34.2&quot;,
+    &quot;Accept-Encoding&quot;: &quot;gzip, deflate, br&quot;,
+    &quot;Accept&quot;: &quot;application/json&quot;,
+    &quot;Connection&quot;: &quot;keep-alive&quot;,
+    &quot;Idempotency-Key&quot;: &quot;ef09bc7596ea4cc7a8d94f0b618a261d&quot;,
+    &quot;Authorization&quot;: &quot;[REDACTED]&quot;,
+    &quot;Content-Length&quot;: &quot;105&quot;,
+    &quot;Content-Type&quot;: &quot;application/json&quot;
+  },
+  &quot;parameters&quot;: {},
+  &quot;body&quot;: {
+    &quot;human_confirmation&quot;: true,
+    &quot;reason&quot;: &quot;Corrección ficticia con revisión humana&quot;,
+    &quot;version&quot;: 1
+  }
+}</pre></div><div><h3>Respuesta</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Content-Type&quot;: &quot;application/json&quot;,
+    &quot;Content-Length&quot;: &quot;431&quot;,
+    &quot;X-Correlation-ID&quot;: &quot;1ed9f4cf-9d14-45f2-8103-3ad899b16659&quot;,
+    &quot;Cache-Control&quot;: &quot;no-store&quot;,
+    &quot;X-Content-Type-Options&quot;: &quot;nosniff&quot;,
+    &quot;Referrer-Policy&quot;: &quot;no-referrer&quot;
+  },
+  &quot;body&quot;: {
+    &quot;data&quot;: {
+      &quot;id&quot;: &quot;7a7aad67-cf3c-4f97-8438-888662844a64&quot;,
+      &quot;tenant_id&quot;: &quot;a0920053-13c5-4d42-b53e-74b35a779f58&quot;,
+      &quot;recipient_id&quot;: &quot;d496bf29-a101-4603-aea9-b6398371721e&quot;,
+      &quot;kind&quot;: &quot;BLOOD&quot;,
+      &quot;component&quot;: &quot;RBC&quot;,
+      &quot;quantity&quot;: 1,
+      &quot;urgency&quot;: 3,
+      &quot;status&quot;: &quot;CANCELLED&quot;,
+      &quot;version&quot;: 2,
+      &quot;created_at&quot;: &quot;2026-10-19T16:39:26.897807+00:00&quot;
+    },
+    &quot;meta&quot;: {
+      &quot;correlation_id&quot;: &quot;1ed9f4cf-9d14-45f2-8103-3ad899b16659&quot;,
+      &quot;service&quot;: &quot;receptores&quot;,
+      &quot;version&quot;: &quot;0.3.0&quot;
+    }
+  }
+}</pre></div></div><details><summary>Persistencia y versión de implementación</summary><pre>{
+  &quot;effect&quot;: &quot;committed&quot;,
+  &quot;store&quot;: &quot;PostgreSQL red_house&quot;,
+  &quot;query&quot;: &quot;SELECT operation,fingerprint,result FROM idempotency WHERE user_id=:actor AND key=:idempotency_key&quot;,
+  &quot;row&quot;: {
+    &quot;operation&quot;: &quot;request_cancel:7a7aad67-cf3c-4f97-8438-888662844a64&quot;,
+    &quot;fingerprint&quot;: &quot;98f3179b71b3fb768a16478c833a96078d5425e345f612a8303997572a323694&quot;,
+    &quot;result&quot;: {
+      &quot;id&quot;: &quot;7a7aad67-cf3c-4f97-8438-888662844a64&quot;,
+      &quot;kind&quot;: &quot;BLOOD&quot;,
+      &quot;status&quot;: &quot;CANCELLED&quot;,
+      &quot;urgency&quot;: 3,
+      &quot;version&quot;: 2,
+      &quot;quantity&quot;: 1,
+      &quot;component&quot;: &quot;RBC&quot;,
+      &quot;tenant_id&quot;: &quot;a0920053-13c5-4d42-b53e-74b35a779f58&quot;,
+      &quot;created_at&quot;: &quot;2026-10-19T16:39:26.897807+00:00&quot;,
+      &quot;recipient_id&quot;: &quot;d496bf29-a101-4603-aea9-b6398371721e&quot;
+    }
+  }
+}</pre><p>SHA-256: ff2e7260f413ab4edb16a5555f512ec7404cdb118d66af3fc8a1e4dd2c6136b4</p></details></section><section><h2>HTTP 401</h2><p><b>2026-10-19T16:28:14.812594+00:00</b> · versión 0.3.0</p><p>Correlación: 0427dcde-8438-495e-b798-fac8b1bb463d<br>URL: http://127.0.0.1:56260/api/v1/requests/56082d6a-6775-4209-a50b-51ae3a6ddf8a/cancel</p><p><a href="../records/9446a5a74345d5161f7046d0.json">Petición, respuesta, headers y persistencia completos</a></p><div class="grid"><div><h3>Petición</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Host&quot;: &quot;127.0.0.1:56260&quot;,
+    &quot;User-Agent&quot;: &quot;python-requests/2.34.2&quot;,
+    &quot;Accept-Encoding&quot;: &quot;gzip, deflate, br&quot;,
+    &quot;Accept&quot;: &quot;application/xml&quot;,
+    &quot;Connection&quot;: &quot;keep-alive&quot;,
+    &quot;Idempotency-Key&quot;: &quot;8b5c4ae9360f42b4a078b9d064b222bf&quot;,
+    &quot;Content-Length&quot;: &quot;2&quot;,
+    &quot;Content-Type&quot;: &quot;application/json&quot;
+  },
+  &quot;parameters&quot;: {},
+  &quot;body&quot;: {}
+}</pre></div><div><h3>Respuesta</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Content-Type&quot;: &quot;application/xml; charset=utf-8&quot;,
+    &quot;Content-Length&quot;: &quot;504&quot;,
+    &quot;X-Correlation-ID&quot;: &quot;0427dcde-8438-495e-b798-fac8b1bb463d&quot;,
+    &quot;Cache-Control&quot;: &quot;no-store&quot;,
+    &quot;X-Content-Type-Options&quot;: &quot;nosniff&quot;,
+    &quot;Referrer-Policy&quot;: &quot;no-referrer&quot;
+  },
+  &quot;body&quot;: &quot;&lt;response type=\&quot;object\&quot;&gt;&lt;field name=\&quot;error\&quot; type=\&quot;object\&quot;&gt;&lt;field name=\&quot;code\&quot; type=\&quot;string\&quot;&gt;unauthorized&lt;/field&gt;&lt;field name=\&quot;message\&quot; type=\&quot;string\&quot;&gt;JWT de acceso requerido.&lt;/field&gt;&lt;field name=\&quot;details\&quot; type=\&quot;array\&quot;/&gt;&lt;/field&gt;&lt;field name=\&quot;meta\&quot; type=\&quot;object\&quot;&gt;&lt;field name=\&quot;correlation_id\&quot; type=\&quot;string\&quot;&gt;0427dcde-8438-495e-b798-fac8b1bb463d&lt;/field&gt;&lt;field name=\&quot;service\&quot; type=\&quot;string\&quot;&gt;receptores&lt;/field&gt;&lt;field name=\&quot;version\&quot; type=\&quot;string\&quot;&gt;0.3.0&lt;/field&gt;&lt;/field&gt;&lt;/response&gt;&quot;
+}</pre></div></div><details><summary>Persistencia y versión de implementación</summary><pre>{
+  &quot;effect&quot;: &quot;controlled_error&quot;,
+  &quot;note&quot;: &quot;No se infiere ausencia de efectos de un error; revisar correlación y estado de operación.&quot;
+}</pre><p>SHA-256: ff2e7260f413ab4edb16a5555f512ec7404cdb118d66af3fc8a1e4dd2c6136b4</p></details></section><h2>Todas las variantes ejecutadas</h2><ul><li><a href="../records/9446a5a74345d5161f7046d0.json">401 · http · application/xml; charset=utf-8 · 2026-10-19T16:28:14.812594+00:00</a></li><li><a href="../records/55c321616c223a07c854ebb8.json">401 · http · application/json · 2026-10-19T16:28:14.778885+00:00</a></li><li><a href="../records/1c85428632de79b02429a5eb.json">200 · http · application/json · 2026-10-19T16:39:27.222687+00:00</a></li></ul></main></html>

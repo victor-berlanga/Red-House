@@ -1,0 +1,52 @@
+{
+  "captured_at": "2026-10-19T16:28:19.995813+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "edd69e48ffcbd19733c620b1f2bcc1fcd82057a7b17a2d0eb2188ccf77d7f18f",
+  "transport": "http",
+  "method": "POST",
+  "route": "/api/v1/evaluations/<identifier>/reviews",
+  "objective": "Registrar dictamen humano inmutable de un candidato",
+  "url": "http://127.0.0.1:56262/api/v1/evaluations/3efe395c-9757-4541-b5ed-df6054269f8a/reviews",
+  "parameters": {},
+  "path_parameters": {
+    "identifier": "3efe395c-9757-4541-b5ed-df6054269f8a"
+  },
+  "request_headers": {
+    "Host": "127.0.0.1:56262",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "74167b788e9a4d23945bc017a2bfa3ba",
+    "Content-Length": "2",
+    "Content-Type": "application/json"
+  },
+  "request_body": {},
+  "status": 401,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "206",
+    "X-Correlation-ID": "36934d5b-0983-45cb-a8c8-b1bf24a2abc0",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "error": {
+      "code": "unauthorized",
+      "message": "JWT de acceso requerido.",
+      "details": []
+    },
+    "meta": {
+      "correlation_id": "36934d5b-0983-45cb-a8c8-b1bf24a2abc0",
+      "service": "compatibilidad",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "36934d5b-0983-45cb-a8c8-b1bf24a2abc0",
+  "persistence": {
+    "effect": "controlled_error",
+    "note": "No se infiere ausencia de efectos de un error; revisar correlación y estado de operación."
+  }
+}

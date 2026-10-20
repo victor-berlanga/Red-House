@@ -1,0 +1,14 @@
+{
+  "result": "passed",
+  "local_links": 122,
+  "evidence_files_scanned": 8,
+  "remote_source_hashes_match": true,
+  "ruff": "passed",
+  "shell_syntax": "passed",
+  "javascript_syntax": "passed",
+  "test_adjustments": [
+    "Empty Highcharts containers checked as hidden, with no instance required",
+    "Swagger authorization waits for the security schema to load",
+    "TLS inspected with certifi CA bundle; verification remains enabled"
+  ]
+}

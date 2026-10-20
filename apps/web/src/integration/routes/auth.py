@@ -59,9 +59,22 @@ def login():
 
 @public.post("/logout")
 def logout():
-    sessions.logout(request.cookies.get(current_app.config["JWT_COOKIE_NAME"]))
+    error = None
+    try:
+        sessions.logout(request.cookies.get(current_app.config["JWT_COOKIE_NAME"]))
+    except BusinessError as exc:
+        error = exc
     session.clear()
-    response = redirect(url_for("public.login"))
+    response = (
+        make_response(
+            render_template(
+                "login.html", title="Acceso institucional", error=error.message
+            ),
+            error.status,
+        )
+        if error
+        else redirect(url_for("public.login"))
+    )
     response.delete_cookie(current_app.config["JWT_COOKIE_NAME"])
     return response
 

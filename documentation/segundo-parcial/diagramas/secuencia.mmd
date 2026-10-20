@@ -1,0 +1,23 @@
+sequenceDiagram
+ actor Medico
+ participant App as Web o cliente API
+ participant Inv as Inventario
+ participant Rec as Receptores
+ participant Tra as Transporte
+ participant Out as Outbox SQL
+ participant Cu as Custodia y Auditoría
+ Medico->>App: Revisión favorable y confirmación
+ App->>Inv: Reservar con Idempotency-Key
+ Inv->>Rec: Retener cupo firmado
+ Rec-->>Inv: Identificador de retención
+ Inv->>Inv: Bloquear recurso y persistir operación
+ Inv->>Rec: Confirmar retención
+ Inv-->>App: Operación y reserva
+ App->>Tra: Planear y confirmar pasos físicos
+ Tra->>Out: Estado y evento en transacción
+ Out->>Cu: Entregar evento firmado
+ Cu-->>Out: Acuse idempotente
+ Out->>Inv: Recepción aceptada
+ Out->>Rec: Actualizar cobertura
+ App->>Rec: Consultar resultado autorizado
+ Rec-->>App: Solicitud cerrada

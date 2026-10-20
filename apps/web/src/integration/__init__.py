@@ -249,21 +249,22 @@ class RemotePrincipal(Principal):
 
 
 def configure(app):
-    config = app.config.get("MICROSERVICES_CONFIG")
-    if isinstance(config, (str, Path)):
-        config = json.loads(Path(config).read_text())
-    if not isinstance(config, dict):
-        raise RuntimeError(
-            "MICROSERVICES_CONFIG debe apuntar a configuración privada del cliente web."
+    if app.config["BACKEND_MODE"] == "monolith":
+        from redhouse.embedded import ApplicationKernel
+
+        app.extensions["application_kernel"] = ApplicationKernel(
+            app.config["DOMAIN_CONFIGS"]
         )
-    app.config.update(config)
     app.config["DEFAULT_DISPLAY_TIMEZONE"] = "America/Monterrey"
     validate_urls(app.config.get("SERVICE_URLS"))
-    if not app.config.get("WEB_SESSION_STORE"):
-        raise RuntimeError("Configura almacenamiento privado de sesiones web.")
+    for key in ("WEB_REDIS_URL", "WEB_REDIS_PREFIX", "WEB_DATABASE_URL"):
+        if not app.config.get(key):
+            raise RuntimeError(f"Configura {key}; ejecuta la actualización de sesiones web.")
 
     @app.before_request
     def identify():
+        if request.endpoint == "regional.shipment_files":
+            request.max_content_length = 11 * 1024 * 1024
         g.correlation_id, g.principal, g.access_token = uuid4(), None, None
         public = {
             "public.index",

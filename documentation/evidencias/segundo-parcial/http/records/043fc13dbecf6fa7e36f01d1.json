@@ -1,0 +1,50 @@
+{
+  "captured_at": "2026-10-19T16:28:24.111959+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "e7eb0044cb5544477c1a4b79a264977e16ddd17c216e8a88ed6d187af95af791",
+  "transport": "http",
+  "method": "GET",
+  "route": "/api/v1/shipments/<identifier>",
+  "objective": "Estado logístico y coordinación pendiente",
+  "url": "http://127.0.0.1:56264/api/v1/shipments/b567cbad-9962-4cea-8f81-f0a8a3ff0f00",
+  "parameters": {},
+  "path_parameters": {
+    "identifier": "b567cbad-9962-4cea-8f81-f0a8a3ff0f00"
+  },
+  "request_headers": {
+    "Host": "127.0.0.1:56264",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "9f49c449b9a64a2791a5202545d47937"
+  },
+  "request_body": "",
+  "status": 401,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "202",
+    "X-Correlation-ID": "d43bcf12-1e19-4ef4-8405-b4b3b47079ad",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "error": {
+      "code": "unauthorized",
+      "message": "JWT de acceso requerido.",
+      "details": []
+    },
+    "meta": {
+      "correlation_id": "d43bcf12-1e19-4ef4-8405-b4b3b47079ad",
+      "service": "transporte",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "d43bcf12-1e19-4ef4-8405-b4b3b47079ad",
+  "persistence": {
+    "effect": "controlled_error",
+    "note": "No se infiere ausencia de efectos de un error; revisar correlación y estado de operación."
+  }
+}

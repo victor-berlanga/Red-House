@@ -1,0 +1,76 @@
+<!doctype html><html lang="es"><meta charset="utf-8"><title>donantes /api/v1/donors</title><style>body{font:15px system-ui;margin:32px;background:#f4f5f7;color:#202631}main{max-width:1250px;margin:auto}h1{color:#8e2434;font-size:26px}small{color:#556}a{color:#8e2434}table{border-collapse:collapse;width:100%;background:white}td,th{padding:9px;border:1px solid #ccd;vertical-align:top;text-align:left}pre{white-space:pre-wrap;word-break:break-word;background:#fff;border:1px solid #ccd;padding:12px;font:12px monospace;max-height:300px;overflow:auto}section{margin:20px 0}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.tag{padding:4px 9px;background:#e5ece7}.error{background:#f8e5e6}input{padding:12px;width:70%;margin:15px 0}details{margin:12px 0}nav{margin-bottom:20px}</style><main><nav><a href="../index.html">Inventario completo</a></nav><h1>donantes · POST /api/v1/donors</h1><p>Registro preliminar con consentimiento</p><p>Registro de ejecución real. Credenciales y firmas redactadas. Los cuerpos completos están en el JSON enlazado.</p><section><h2>HTTP 201</h2><p><b>2026-10-19T16:43:06.757934+00:00</b> · versión 0.3.0</p><p>Correlación: a384bcee-9124-43fb-b78b-4db62fd6767f<br>URL: http://127.0.0.1:56259/api/v1/donors</p><p><a href="../records/a157957ab72a0f3cd8d2faf0.json">Petición, respuesta, headers y persistencia completos</a></p><div class="grid"><div><h3>Petición</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Host&quot;: &quot;127.0.0.1:56259&quot;,
+    &quot;User-Agent&quot;: &quot;python-requests/2.34.2&quot;,
+    &quot;Accept-Encoding&quot;: &quot;gzip, deflate, br&quot;,
+    &quot;Accept&quot;: &quot;application/xml&quot;,
+    &quot;Connection&quot;: &quot;keep-alive&quot;,
+    &quot;Authorization&quot;: &quot;[REDACTED]&quot;,
+    &quot;Idempotency-Key&quot;: &quot;b713a329d4524f09ab25b4d170e4d2fa&quot;,
+    &quot;Content-Type&quot;: &quot;application/xml&quot;,
+    &quot;Content-Length&quot;: &quot;141&quot;
+  },
+  &quot;parameters&quot;: {},
+  &quot;body&quot;: &quot;&lt;request&gt;&lt;folio&gt;XML-7cf32aa330&lt;/folio&gt;&lt;display_name&gt;Ficticio XML&lt;/display_name&gt;&lt;blood_group&gt;O-&lt;/blood_group&gt;&lt;consent&gt;true&lt;/consent&gt;&lt;/request&gt;&quot;
+}</pre></div><div><h3>Respuesta</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Content-Type&quot;: &quot;application/xml; charset=utf-8&quot;,
+    &quot;Content-Length&quot;: &quot;1133&quot;,
+    &quot;X-Correlation-ID&quot;: &quot;a384bcee-9124-43fb-b78b-4db62fd6767f&quot;,
+    &quot;Cache-Control&quot;: &quot;no-store&quot;,
+    &quot;X-Content-Type-Options&quot;: &quot;nosniff&quot;,
+    &quot;Referrer-Policy&quot;: &quot;no-referrer&quot;
+  },
+  &quot;body&quot;: &quot;&lt;response type=\&quot;object\&quot;&gt;&lt;field name=\&quot;data\&quot; type=\&quot;object\&quot;&gt;&lt;field name=\&quot;id\&quot; type=\&quot;string\&quot;&gt;8f6d32d8-33de-4acb-980b-7119fe341d16&lt;/field&gt;&lt;field name=\&quot;tenant_id\&quot; type=\&quot;string\&quot;&gt;87255e79-2a0a-4e44-ad21-8002ccd5688d&lt;/field&gt;&lt;field name=\&quot;user_id\&quot; type=\&quot;null\&quot;/&gt;&lt;field name=\&quot;folio\&quot; type=\&quot;string\&quot;&gt;XML-7cf32aa330&lt;/field&gt;&lt;field name=\&quot;display_name\&quot; type=\&quot;string\&quot;&gt;Ficticio XML&lt;/field&gt;&lt;field name=\&quot;blood_group\&quot; type=\&quot;string\&quot;&gt;O-&lt;/field&gt;&lt;field name=\&quot;consent\&quot; type=\&quot;boolean\&quot;&gt;true&lt;/field&gt;&lt;field name=\&quot;status\&quot; type=\&quot;string\&quot;&gt;PRELIMINARY&lt;/field&gt;&lt;field name=\&quot;version\&quot; type=\&quot;integer\&quot;&gt;1&lt;/field&gt;&lt;field name=\&quot;created_at\&quot; type=\&quot;string\&quot;&gt;2026-10-19T16:43:06.677842+00:00&lt;/field&gt;&lt;field name=\&quot;restrictions\&quot; type=\&quot;null\&quot;/&gt;&lt;field name=\&quot;background\&quot; type=\&quot;null\&quot;/&gt;&lt;field name=\&quot;donation_kind\&quot; type=\&quot;null\&quot;/&gt;&lt;field name=\&quot;consent_reference\&quot; type=\&quot;null\&quot;/&gt;&lt;field name=\&quot;consent_at\&quot; type=\&quot;null\&quot;/&gt;&lt;/field&gt;&lt;field name=\&quot;meta\&quot; type=\&quot;object\&quot;&gt;&lt;field name=\&quot;correlation_id\&quot; type=\&quot;string\&quot;&gt;a384bcee-9124-43fb-b78b-4db62fd6767f&lt;/field&gt;&lt;field name=\&quot;service\&quot; type=\&quot;string\&quot;&gt;donantes&lt;/field&gt;&lt;field name=\&quot;version\&quot; type=\&quot;string\&quot;&gt;0.3.0&lt;/field&gt;&lt;/field&gt;&lt;/response&gt;&quot;
+}</pre></div></div><details><summary>Persistencia y versión de implementación</summary><pre>{
+  &quot;effect&quot;: &quot;committed&quot;,
+  &quot;store&quot;: &quot;PostgreSQL red_house&quot;,
+  &quot;query&quot;: &quot;SELECT operation,fingerprint,result FROM idempotency WHERE user_id=:actor AND key=:idempotency_key&quot;,
+  &quot;row&quot;: {
+    &quot;operation&quot;: &quot;donor_create&quot;,
+    &quot;fingerprint&quot;: &quot;a43298a3ab115ca46d5f01bbcfec0b0ed4f89d9749266eb0bd9942ac7552f8f9&quot;,
+    &quot;result&quot;: {
+      &quot;id&quot;: &quot;8f6d32d8-33de-4acb-980b-7119fe341d16&quot;,
+      &quot;folio&quot;: &quot;XML-7cf32aa330&quot;,
+      &quot;status&quot;: &quot;PRELIMINARY&quot;,
+      &quot;consent&quot;: true,
+      &quot;user_id&quot;: null,
+      &quot;version&quot;: 1,
+      &quot;tenant_id&quot;: &quot;87255e79-2a0a-4e44-ad21-8002ccd5688d&quot;,
+      &quot;background&quot;: null,
+      &quot;consent_at&quot;: null,
+      &quot;created_at&quot;: &quot;2026-10-19T16:43:06.677842+00:00&quot;,
+      &quot;blood_group&quot;: &quot;O-&quot;,
+      &quot;display_name&quot;: &quot;Ficticio XML&quot;,
+      &quot;restrictions&quot;: null,
+      &quot;donation_kind&quot;: null,
+      &quot;consent_reference&quot;: null
+    }
+  }
+}</pre><p>SHA-256: 1a8dccae105e0c261a0273a99f999923c88cbf235f750f80f0ac2f487c8b6654</p></details></section><section><h2>HTTP 401</h2><p><b>2026-10-19T16:28:10.366619+00:00</b> · versión 0.3.0</p><p>Correlación: 31d78bee-6a56-4a47-a780-02e392c85d73<br>URL: http://127.0.0.1:56259/api/v1/donors</p><p><a href="../records/d2a88ec89dbff7e12d1e2dd1.json">Petición, respuesta, headers y persistencia completos</a></p><div class="grid"><div><h3>Petición</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Host&quot;: &quot;127.0.0.1:56259&quot;,
+    &quot;User-Agent&quot;: &quot;python-requests/2.34.2&quot;,
+    &quot;Accept-Encoding&quot;: &quot;gzip, deflate, br&quot;,
+    &quot;Accept&quot;: &quot;application/xml&quot;,
+    &quot;Connection&quot;: &quot;keep-alive&quot;,
+    &quot;Idempotency-Key&quot;: &quot;a42f2f34a67042379743e73c1aac3d3e&quot;,
+    &quot;Content-Length&quot;: &quot;2&quot;,
+    &quot;Content-Type&quot;: &quot;application/json&quot;
+  },
+  &quot;parameters&quot;: {},
+  &quot;body&quot;: {}
+}</pre></div><div><h3>Respuesta</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Content-Type&quot;: &quot;application/xml; charset=utf-8&quot;,
+    &quot;Content-Length&quot;: &quot;502&quot;,
+    &quot;X-Correlation-ID&quot;: &quot;31d78bee-6a56-4a47-a780-02e392c85d73&quot;,
+    &quot;Cache-Control&quot;: &quot;no-store&quot;,
+    &quot;X-Content-Type-Options&quot;: &quot;nosniff&quot;,
+    &quot;Referrer-Policy&quot;: &quot;no-referrer&quot;
+  },
+  &quot;body&quot;: &quot;&lt;response type=\&quot;object\&quot;&gt;&lt;field name=\&quot;error\&quot; type=\&quot;object\&quot;&gt;&lt;field name=\&quot;code\&quot; type=\&quot;string\&quot;&gt;unauthorized&lt;/field&gt;&lt;field name=\&quot;message\&quot; type=\&quot;string\&quot;&gt;JWT de acceso requerido.&lt;/field&gt;&lt;field name=\&quot;details\&quot; type=\&quot;array\&quot;/&gt;&lt;/field&gt;&lt;field name=\&quot;meta\&quot; type=\&quot;object\&quot;&gt;&lt;field name=\&quot;correlation_id\&quot; type=\&quot;string\&quot;&gt;31d78bee-6a56-4a47-a780-02e392c85d73&lt;/field&gt;&lt;field name=\&quot;service\&quot; type=\&quot;string\&quot;&gt;donantes&lt;/field&gt;&lt;field name=\&quot;version\&quot; type=\&quot;string\&quot;&gt;0.3.0&lt;/field&gt;&lt;/field&gt;&lt;/response&gt;&quot;
+}</pre></div></div><details><summary>Persistencia y versión de implementación</summary><pre>{
+  &quot;effect&quot;: &quot;controlled_error&quot;,
+  &quot;note&quot;: &quot;No se infiere ausencia de efectos de un error; revisar correlación y estado de operación.&quot;
+}</pre><p>SHA-256: 1a8dccae105e0c261a0273a99f999923c88cbf235f750f80f0ac2f487c8b6654</p></details></section><h2>Todas las variantes ejecutadas</h2><ul><li><a href="../records/e7978fcda5a9b21c5dbdae5b.json">201 · embedded · application/json · 2026-10-19T16:26:30.107390+00:00</a></li><li><a href="../records/a157957ab72a0f3cd8d2faf0.json">201 · http · application/xml; charset=utf-8 · 2026-10-19T16:43:06.757934+00:00</a></li><li><a href="../records/d2a88ec89dbff7e12d1e2dd1.json">401 · http · application/xml; charset=utf-8 · 2026-10-19T16:28:10.366619+00:00</a></li><li><a href="../records/a4aa0001acc860a5fa658e4e.json">201 · http · application/json · 2026-10-19T16:22:08.966389+00:00</a></li><li><a href="../records/c4daf3228f12574ef801ad26.json">401 · http · application/json · 2026-10-19T16:28:10.330261+00:00</a></li><li><a href="../records/3a516fda11db410e17e3b161.json">422 · http · application/json · 2026-10-19T16:43:05.898136+00:00</a></li><li><a href="../records/bc953fd5c9f7f4118e959b18.json">415 · http · application/json · 2026-10-19T16:43:07.682444+00:00</a></li><li><a href="../records/dabfd3468d36275cb0e44f2c.json">400 · http · application/xml; charset=utf-8 · 2026-10-19T16:43:07.202420+00:00</a></li><li><a href="../records/e7e9420bb79dc9cd7ddca404.json">400 · http · application/json · 2026-10-19T16:43:06.308502+00:00</a></li></ul></main></html>

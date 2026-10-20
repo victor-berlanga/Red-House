@@ -1,0 +1,59 @@
+{
+  "captured_at": "2026-10-19T16:22:13.383305+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "b82acfc07e7ff0221196c291a52b1986e4d1ac69b3f6769bffe29f4a02fa5c9b",
+  "transport": "http",
+  "method": "GET",
+  "route": "/internal/v1/institutions/<identifier>",
+  "objective": "Referencia institucional autorizada",
+  "url": "http://127.0.0.1:56258/internal/v1/institutions/87255e79-2a0a-4e44-ad21-8002ccd5688d",
+  "parameters": {},
+  "path_parameters": {
+    "identifier": "87255e79-2a0a-4e44-ad21-8002ccd5688d"
+  },
+  "request_headers": {
+    "Host": "127.0.0.1:56258",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Content-Type": "application/json",
+    "X-Service": "priorizacion_geografia",
+    "X-Service-Time": "1792426933",
+    "X-Service-Nonce": "239afef3-b83c-4d44-bd8a-7b83fe52c8c4",
+    "X-Service-Signature": "[REDACTED]",
+    "X-Correlation-Id": "e51a1a91-1f9b-46d7-9574-48ba8a64e057",
+    "Authorization": "[REDACTED]"
+  },
+  "request_body": "[Invalid JSON omitted; sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855]",
+  "status": 200,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "300",
+    "X-Correlation-ID": "e51a1a91-1f9b-46d7-9574-48ba8a64e057",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "data": {
+      "id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+      "name": "Hospital 1",
+      "region_id": "7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb",
+      "active": true,
+      "created_by": null,
+      "version": 1
+    },
+    "meta": {
+      "correlation_id": "e51a1a91-1f9b-46d7-9574-48ba8a64e057",
+      "service": "identidad_acceso",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "e51a1a91-1f9b-46d7-9574-48ba8a64e057",
+  "persistence": {
+    "effect": "read",
+    "note": "Consulta; accesos protegidos generan auditoría local transaccional."
+  }
+}

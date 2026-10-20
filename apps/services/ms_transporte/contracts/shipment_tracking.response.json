@@ -1,0 +1,98 @@
+{
+  "type": "object",
+  "required": [
+    "data",
+    "meta"
+  ],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": [
+        "correlation_id",
+        "service",
+        "version"
+      ],
+      "properties": {
+        "correlation_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "service": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "properties": {
+        "shipment_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "region_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "origin_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "destination_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "transport_user_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "reservation_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "last_event_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "schema_version": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "version": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "last_state": {
+          "type": "string"
+        },
+        "owner": {
+          "type": "string"
+        },
+        "occurred_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "pending": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "shipment_id",
+        "region_id",
+        "origin_id",
+        "destination_id",
+        "transport_user_id",
+        "reservation_id",
+        "last_event_id",
+        "schema_version",
+        "version",
+        "last_state",
+        "owner",
+        "occurred_at",
+        "pending"
+      ]
+    }
+  }
+}

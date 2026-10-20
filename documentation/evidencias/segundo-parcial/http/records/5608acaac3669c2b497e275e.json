@@ -1,0 +1,67 @@
+{
+  "captured_at": "2026-10-19T16:22:40.036423+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "b82acfc07e7ff0221196c291a52b1986e4d1ac69b3f6769bffe29f4a02fa5c9b",
+  "transport": "embedded",
+  "method": "GET",
+  "route": "/api/v1/institutions",
+  "objective": "Instituciones de la región; sin datos clínicos",
+  "url": "http://localhost/api/v1/institutions?page_size=100&page=1",
+  "parameters": {
+    "page_size": "100",
+    "page": "1"
+  },
+  "path_parameters": {},
+  "request_headers": {
+    "Host": "localhost",
+    "Accept": "application/json",
+    "X-Correlation-Id": "29fbfe1d-0663-4c5a-bed1-ca824a1e8028",
+    "Authorization": "[REDACTED]"
+  },
+  "request_body": "",
+  "status": 200,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "527",
+    "X-Correlation-ID": "29fbfe1d-0663-4c5a-bed1-ca824a1e8028",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "data": {
+      "items": [
+        {
+          "id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+          "name": "Hospital 1",
+          "region_id": "7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb",
+          "active": true,
+          "created_by": null,
+          "version": 1
+        },
+        {
+          "id": "a0920053-13c5-4d42-b53e-74b35a779f58",
+          "name": "Hospital 2",
+          "region_id": "7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb",
+          "active": true,
+          "created_by": null,
+          "version": 1
+        }
+      ],
+      "page": 1,
+      "page_size": 100,
+      "total": 2
+    },
+    "meta": {
+      "correlation_id": "29fbfe1d-0663-4c5a-bed1-ca824a1e8028",
+      "service": "identidad_acceso",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "29fbfe1d-0663-4c5a-bed1-ca824a1e8028",
+  "persistence": {
+    "effect": "read",
+    "note": "Consulta; accesos protegidos generan auditoría local transaccional."
+  }
+}

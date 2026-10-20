@@ -1,0 +1,60 @@
+{
+  "captured_at": "2026-10-19T16:22:09.782491+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "1a8dccae105e0c261a0273a99f999923c88cbf235f750f80f0ac2f487c8b6654",
+  "transport": "http",
+  "method": "GET",
+  "route": "/internal/v1/donations/<identifier>",
+  "objective": "Referencia de procedencia; sin identidad ni estudios del donante",
+  "url": "http://127.0.0.1:56259/internal/v1/donations/ebac8855-3399-45e2-a630-eda2e44463a6",
+  "parameters": {},
+  "path_parameters": {
+    "identifier": "ebac8855-3399-45e2-a630-eda2e44463a6"
+  },
+  "request_headers": {
+    "Host": "127.0.0.1:56259",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Content-Type": "application/json",
+    "X-Service": "inventario",
+    "X-Service-Time": "1792426929",
+    "X-Service-Nonce": "458e41c6-ed17-42fb-8aaa-af5911a02ae3",
+    "X-Service-Signature": "[REDACTED]",
+    "X-Correlation-Id": "ec4ad455-0e6f-4e34-a740-4467e87da737",
+    "Authorization": "[REDACTED]"
+  },
+  "request_body": "[Invalid JSON omitted; sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855]",
+  "status": 200,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "315",
+    "X-Correlation-ID": "ec4ad455-0e6f-4e34-a740-4467e87da737",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "data": {
+      "id": "ebac8855-3399-45e2-a630-eda2e44463a6",
+      "tenant_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+      "kind": "BLOOD",
+      "component": "RBC",
+      "blood_group": "O-",
+      "status": "COLLECTED",
+      "version": 1
+    },
+    "meta": {
+      "correlation_id": "ec4ad455-0e6f-4e34-a740-4467e87da737",
+      "service": "donantes",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "ec4ad455-0e6f-4e34-a740-4467e87da737",
+  "persistence": {
+    "effect": "read",
+    "note": "Consulta; accesos protegidos generan auditoría local transaccional."
+  }
+}

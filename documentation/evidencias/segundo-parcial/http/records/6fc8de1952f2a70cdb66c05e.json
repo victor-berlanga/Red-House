@@ -1,0 +1,57 @@
+{
+  "captured_at": "2026-10-19T16:27:25.733918+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "e7eb0044cb5544477c1a4b79a264977e16ddd17c216e8a88ed6d187af95af791",
+  "transport": "http",
+  "method": "GET",
+  "route": "/api/v1/shipment-statistics",
+  "objective": "Agregación regional del último paso documental de cada traslado",
+  "url": "http://127.0.0.1:56264/api/v1/shipment-statistics",
+  "parameters": {},
+  "path_parameters": {},
+  "request_headers": {
+    "Host": "127.0.0.1:56264",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "7b406ada0ab440cf87af2b4b11f4b5fb",
+    "Authorization": "[REDACTED]"
+  },
+  "request_body": "",
+  "status": 200,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "236",
+    "X-Correlation-ID": "e8328ed8-68d0-43dd-af78-a197ae52a74c",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "data": {
+      "items": [
+        {
+          "count": 2,
+          "last_state": "ACCEPTED"
+        },
+        {
+          "count": 1,
+          "last_state": "COLLECTED"
+        }
+      ],
+      "schema_version": 1
+    },
+    "meta": {
+      "correlation_id": "e8328ed8-68d0-43dd-af78-a197ae52a74c",
+      "service": "transporte",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "e8328ed8-68d0-43dd-af78-a197ae52a74c",
+  "persistence": {
+    "effect": "read",
+    "note": "Consulta; accesos protegidos generan auditoría local transaccional."
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "captured_at": "2026-10-19T16:28:25.831148+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "e7eb0044cb5544477c1a4b79a264977e16ddd17c216e8a88ed6d187af95af791",
+  "transport": "http",
+  "method": "GET",
+  "route": "/api/v1/shipment-statistics",
+  "objective": "Agregación regional del último paso documental de cada traslado",
+  "url": "http://127.0.0.1:56264/api/v1/shipment-statistics",
+  "parameters": {},
+  "path_parameters": {},
+  "request_headers": {
+    "Host": "127.0.0.1:56264",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "21cbd8d91bb546cebbc65171ac66dc17"
+  },
+  "request_body": "",
+  "status": 401,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "202",
+    "X-Correlation-ID": "18b086fb-26a4-4c51-aa00-594ac3e7b80c",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "error": {
+      "code": "unauthorized",
+      "message": "JWT de acceso requerido.",
+      "details": []
+    },
+    "meta": {
+      "correlation_id": "18b086fb-26a4-4c51-aa00-594ac3e7b80c",
+      "service": "transporte",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "18b086fb-26a4-4c51-aa00-594ac3e7b80c",
+  "persistence": {
+    "effect": "controlled_error",
+    "note": "No se infiere ausencia de efectos de un error; revisar correlación y estado de operación."
+  }
+}

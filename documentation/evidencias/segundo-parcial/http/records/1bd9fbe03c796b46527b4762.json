@@ -1,0 +1,50 @@
+{
+  "captured_at": "2026-10-19T16:28:12.497815+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "1a8dccae105e0c261a0273a99f999923c88cbf235f750f80f0ac2f487c8b6654",
+  "transport": "http",
+  "method": "GET",
+  "route": "/api/v1/donations/<identifier>",
+  "objective": "Donación y pasos de procesamiento institucionales",
+  "url": "http://127.0.0.1:56259/api/v1/donations/c88c9460-2a53-4373-a6fb-2a00f83df225",
+  "parameters": {},
+  "path_parameters": {
+    "identifier": "c88c9460-2a53-4373-a6fb-2a00f83df225"
+  },
+  "request_headers": {
+    "Host": "127.0.0.1:56259",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "fd5ede0a1d40418a9d1d2295eb05c46f"
+  },
+  "request_body": "",
+  "status": 401,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "200",
+    "X-Correlation-ID": "333ba298-2dde-46c9-8b66-4a018b73eee1",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "error": {
+      "code": "unauthorized",
+      "message": "JWT de acceso requerido.",
+      "details": []
+    },
+    "meta": {
+      "correlation_id": "333ba298-2dde-46c9-8b66-4a018b73eee1",
+      "service": "donantes",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "333ba298-2dde-46c9-8b66-4a018b73eee1",
+  "persistence": {
+    "effect": "controlled_error",
+    "note": "No se infiere ausencia de efectos de un error; revisar correlación y estado de operación."
+  }
+}

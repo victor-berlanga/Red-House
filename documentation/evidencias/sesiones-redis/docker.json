@@ -1,0 +1,19 @@
+{
+  "date": "2026-10-20T20:09:39.208173+00:00",
+  "status": "passed",
+  "http": {
+    "login": 302,
+    "renew": 200,
+    "logout": 302,
+    "closed_cookie_replay": 302
+  },
+  "storage": {
+    "ttl": 86380,
+    "tokens_encrypted": true,
+    "postgres_role": "rh_web_sessions"
+  },
+  "local_session_mount": false,
+  "web_image": "sha256:6fb9158ba5b8404f4f3a0b44ae4713b5fb94f900aafdf2d983b50b08dcbcd832",
+  "backend": "monolith",
+  "api_containers_running": []
+}

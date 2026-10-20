@@ -1,0 +1,36 @@
+{
+  "captured_at": "2026-10-19T16:41:46.450189+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "1a8dccae105e0c261a0273a99f999923c88cbf235f750f80f0ac2f487c8b6654",
+  "transport": "http",
+  "method": "GET",
+  "route": "/docs",
+  "objective": "bp_docs.swagger_blueprint_doc_handler",
+  "url": "http://127.0.0.1:56259/docs",
+  "parameters": {},
+  "path_parameters": {},
+  "request_headers": {
+    "Host": "127.0.0.1:56259",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "*/*",
+    "Connection": "keep-alive"
+  },
+  "request_body": "",
+  "status": 200,
+  "response_headers": {
+    "Content-Type": "text/html; charset=utf-8",
+    "Content-Length": "1384",
+    "X-Correlation-ID": "c0ea04f7-1d95-4092-800d-15a550697df6",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": "<!-- HTML for static distribution bundle build -->\n<!DOCTYPE html>\n<html lang=\"en\">\n    <head>\n        <meta charset=\"UTF-8\">\n        <title>Red House — donantes</title>\n        <link rel=\"stylesheet\"\n              type=\"text/css\"\n              href=\"/docs/static/swagger-ui.css\" />\n        <link rel=\"stylesheet\"\n              type=\"text/css\"\n              href=\"/docs/static/index.css\" />\n        <link rel=\"icon\"\n              type=\"image/png\"\n              href=\"/docs/static/favicon-32x32.png\"\n              sizes=\"32x32\" />\n        <link rel=\"icon\"\n              type=\"image/png\"\n              href=\"/docs/static/favicon-16x16.png\"\n              sizes=\"16x16\" />\n        \n    </head>\n    <body>\n        <div id=\"swagger-ui\"></div>\n        <script src=\"/docs/static/swagger-ui-bundle.js\" charset=\"UTF-8\"> </script>\n        <script src=\"/docs/static/swagger-ui-standalone-preset.js\"\n                charset=\"UTF-8\"></script>\n        <script>\nwindow.onload = function() {\n    const ui = SwaggerUIBundle({\n        dom_id: \"#swagger-ui\",\n        deepLinking: true,\n        displayRequestDuration: true,\n        layout: \"StandaloneLayout\",\n        plugins: [SwaggerUIBundle.plugins.DownloadUrl],\n        presets: [SwaggerUIBundle.presets.apis, SwaggerUIStandalonePreset],\n        url: \"/docs/swagger.json\",\n    });\n\n    \n\n    window.ui = ui;\n};\n        </script>\n    </body>\n</html>",
+  "correlation_id": "c0ea04f7-1d95-4092-800d-15a550697df6",
+  "persistence": {
+    "effect": "read",
+    "note": "Consulta; accesos protegidos generan auditoría local transaccional."
+  }
+}

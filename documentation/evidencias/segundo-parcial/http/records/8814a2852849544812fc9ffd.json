@@ -1,0 +1,126 @@
+{
+  "captured_at": "2026-10-19T16:22:44.195528+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "ff2e7260f413ab4edb16a5555f512ec7404cdb118d66af3fc8a1e4dd2c6136b4",
+  "transport": "embedded",
+  "method": "GET",
+  "route": "/api/v1/recipients",
+  "objective": "Expedientes de la propia institución",
+  "url": "http://localhost/api/v1/recipients?page=1&page_size=20",
+  "parameters": {
+    "page": "1",
+    "page_size": "20"
+  },
+  "path_parameters": {},
+  "request_headers": {
+    "Host": "localhost",
+    "Accept": "application/json",
+    "X-Correlation-Id": "c4a1aa16-08fd-4938-a8b9-3f7870f069b5",
+    "Authorization": "[REDACTED]"
+  },
+  "request_body": "",
+  "status": 200,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "2141",
+    "X-Correlation-ID": "c4a1aa16-08fd-4938-a8b9-3f7870f069b5",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "data": {
+      "items": [
+        {
+          "id": "faf8c2f0-89d4-48c2-aa33-2c707585c068",
+          "tenant_id": "a0920053-13c5-4d42-b53e-74b35a779f58",
+          "folio": "PAC-6fb32728a6a0",
+          "display_name": "Ana Sofía Garza Treviño",
+          "kind": "BLOOD",
+          "blood_group": "O+",
+          "organ_type": null,
+          "studies": "Estudios ficticios; HLA documental sujeto a revisión humana",
+          "status": "ACTIVE",
+          "version": 1,
+          "restrictions": null,
+          "requirement": null,
+          "can_edit": true
+        },
+        {
+          "id": "b14934cc-5249-446f-8a36-df1112d5171c",
+          "tenant_id": "a0920053-13c5-4d42-b53e-74b35a779f58",
+          "folio": "PATIENT-808a94eb3b43",
+          "display_name": "Paciente ficticio",
+          "kind": "BLOOD",
+          "blood_group": "O-",
+          "organ_type": null,
+          "studies": "Estudios ficticios con revisión externa pendiente",
+          "status": "ACTIVE",
+          "version": 1,
+          "restrictions": null,
+          "requirement": null,
+          "can_edit": false
+        },
+        {
+          "id": "a90ec68e-905f-4cd5-b54a-56f060a936d2",
+          "tenant_id": "a0920053-13c5-4d42-b53e-74b35a779f58",
+          "folio": "PATIENT-b6b57d2e5d7a",
+          "display_name": "Paciente ficticio",
+          "kind": "ORGAN",
+          "blood_group": "A+",
+          "organ_type": "KIDNEY",
+          "studies": "Estudios ficticios con revisión externa pendiente",
+          "status": "ACTIVE",
+          "version": 1,
+          "restrictions": null,
+          "requirement": null,
+          "can_edit": false
+        },
+        {
+          "id": "2d8856e5-92e6-4c1e-aa54-e72e20297356",
+          "tenant_id": "a0920053-13c5-4d42-b53e-74b35a779f58",
+          "folio": "PATIENT-ce80b8afc475",
+          "display_name": "Paciente ficticio",
+          "kind": "BLOOD",
+          "blood_group": "A+",
+          "organ_type": null,
+          "studies": "Estudios ficticios con revisión externa pendiente",
+          "status": "ACTIVE",
+          "version": 1,
+          "restrictions": null,
+          "requirement": null,
+          "can_edit": false
+        },
+        {
+          "id": "7bcd2cfa-dbd8-4521-b164-11c71297a36f",
+          "tenant_id": "a0920053-13c5-4d42-b53e-74b35a779f58",
+          "folio": "PATIENT-ff478ec2475b",
+          "display_name": "Paciente ficticio",
+          "kind": "BLOOD",
+          "blood_group": "A+",
+          "organ_type": null,
+          "studies": "Estudios ficticios con revisión externa pendiente",
+          "status": "ACTIVE",
+          "version": 1,
+          "restrictions": null,
+          "requirement": null,
+          "can_edit": false
+        }
+      ],
+      "page": 1,
+      "page_size": 20,
+      "total": 5
+    },
+    "meta": {
+      "correlation_id": "c4a1aa16-08fd-4938-a8b9-3f7870f069b5",
+      "service": "receptores",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "c4a1aa16-08fd-4938-a8b9-3f7870f069b5",
+  "persistence": {
+    "effect": "read",
+    "note": "Consulta; accesos protegidos generan auditoría local transaccional."
+  }
+}

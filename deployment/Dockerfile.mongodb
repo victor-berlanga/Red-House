@@ -1,0 +1,4 @@
+FROM mongo:8.0
+# A driver ping avoids launching the interactive JavaScript shell every 5 seconds.
+RUN apt-get update && apt-get install -y --no-install-recommends python3-pymongo && rm -rf /var/lib/apt/lists/*
+COPY deployment/mongo_health.py /usr/local/lib/redhouse/mongo_health.py

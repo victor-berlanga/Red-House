@@ -1,10 +1,10 @@
 # Portal web
 
-Flask/Jinja2 presenta los procesos regionales y consume exclusivamente las API de `apps/services`. No tiene repositorios PostgreSQL ni un modo SQL alternativo. La sesión técnica usa SQLite privado y cifrado; la autorización de negocio corresponde a las API y Redis.
+Flask/Jinja2 presenta los procesos regionales. `BACKEND_MODE=monolith` ejecuta módulos de aplicación propios mediante WSGI y sus workers; no requiere listeners de las API. `microservices` consume HTTP. Ambos usan las mismas reglas versionadas, JWT, Redis y credenciales por propietario. El backend se selecciona antes de operar; no se cambia tras una escritura fallida. Las sesiones técnicas cifradas y las concesiones de renovación usan Redis con TTL. PostgreSQL conserva las marcas de cierre y las revocaciones pendientes en `web_runtime.session_revocations`.
 
-Desde la raíz del repositorio: `bash install.sh`, después `bash start.sh`. Para operar solo el portal: `bash components.sh web`. Las operaciones requieren que sus microservicios estén disponibles.
+Desde la raíz del repositorio: `bash install.sh`, después `bash start.sh`. Para operar solo el portal: `bash components.sh web`. El modo modular requiere PostgreSQL y Redis y las dependencias particulares de cada operación; el modo HTTP requiere además las API correspondientes.
 
-- `src/integration/`: cliente HTTP, sesiones, formularios y rutas.
+- `src/integration/`: adaptador modular/HTTP, sesiones, formularios, rutas y archivos privados GCS.
 - `src/presentation/`: plantillas, recursos y formatos compartidos.
 - `src/access.py`: tipos de identidad y errores del portal.
 - `src/config/`: configuración por entorno.
@@ -12,3 +12,5 @@ Desde la raíz del repositorio: `bash install.sh`, después `bash start.sh`. Par
 - `tests/`: recorridos de navegador. Las pruebas HTTP integradas están en `../services/tests/`.
 
 [Instalación](../../documentation/markdowns/Instalacion_y_operacion.md) · [Arquitectura](../../documentation/markdowns/Arquitectura.md).
+
+Docker: [instalación y operación](../../deployment/README.md), con portal en `http://127.0.0.1:6050`. El backend modular usa una copia fijada de los módulos `apps/services`, sin copiar reglas en JavaScript ni compartir sesiones internas del portal con las API. Los módulos conservan conexiones limitadas por servicio; Android y escritorio futuros utilizarán exclusivamente las API JSON/XML.

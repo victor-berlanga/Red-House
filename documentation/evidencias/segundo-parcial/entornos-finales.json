@@ -1,0 +1,354 @@
+{
+  "captured_at": "2026-10-19T20:06:38.432418+00:00",
+  "running": 0,
+  "containers_retained": 69,
+  "containers": [
+    {
+      "name": "redhouse-clean-f91d7d83-web-1",
+      "state": "exited",
+      "status": "Exited (137) About a minute ago"
+    },
+    {
+      "name": "redhouse-clean-f91d7d83-monitoreo-a-1",
+      "state": "exited",
+      "status": "Exited (0) About a minute ago"
+    },
+    {
+      "name": "redhouse-clean-f91d7d83-monitoreo-b-1",
+      "state": "exited",
+      "status": "Exited (0) About a minute ago"
+    },
+    {
+      "name": "redhouse-clean-f91d7d83-transporte-b-1",
+      "state": "exited",
+      "status": "Exited (0) About a minute ago"
+    },
+    {
+      "name": "redhouse-clean-f91d7d83-transporte-a-1",
+      "state": "exited",
+      "status": "Exited (0) About a minute ago"
+    },
+    {
+      "name": "redhouse-clean-f91d7d83-inventario-b-1",
+      "state": "exited",
+      "status": "Exited (0) About a minute ago"
+    },
+    {
+      "name": "redhouse-clean-f91d7d83-inventario-a-1",
+      "state": "exited",
+      "status": "Exited (0) About a minute ago"
+    },
+    {
+      "name": "redhouse-clean-f91d7d83-priorizacion-geografia-b-1",
+      "state": "exited",
+      "status": "Exited (0) About a minute ago"
+    },
+    {
+      "name": "redhouse-clean-f91d7d83-priorizacion-geografia-a-1",
+      "state": "exited",
+      "status": "Exited (0) About a minute ago"
+    },
+    {
+      "name": "redhouse-clean-f91d7d83-compatibilidad-b-1",
+      "state": "exited",
+      "status": "Exited (0) About a minute ago"
+    },
+    {
+      "name": "redhouse-clean-f91d7d83-compatibilidad-a-1",
+      "state": "exited",
+      "status": "Exited (0) About a minute ago"
+    },
+    {
+      "name": "redhouse-clean-f91d7d83-receptores-b-1",
+      "state": "exited",
+      "status": "Exited (0) About a minute ago"
+    },
+    {
+      "name": "redhouse-clean-f91d7d83-receptores-a-1",
+      "state": "exited",
+      "status": "Exited (0) About a minute ago"
+    },
+    {
+      "name": "redhouse-clean-f91d7d83-donantes-a-1",
+      "state": "exited",
+      "status": "Exited (0) About a minute ago"
+    },
+    {
+      "name": "redhouse-clean-f91d7d83-donantes-b-1",
+      "state": "exited",
+      "status": "Exited (0) About a minute ago"
+    },
+    {
+      "name": "redhouse-clean-f91d7d83-identidad-acceso-a-1",
+      "state": "exited",
+      "status": "Exited (0) About a minute ago"
+    },
+    {
+      "name": "redhouse-clean-f91d7d83-identidad-acceso-b-1",
+      "state": "exited",
+      "status": "Exited (0) About a minute ago"
+    },
+    {
+      "name": "redhouse-clean-f91d7d83-custodia-b-1",
+      "state": "exited",
+      "status": "Exited (0) About a minute ago"
+    },
+    {
+      "name": "redhouse-clean-f91d7d83-custodia-a-1",
+      "state": "exited",
+      "status": "Exited (0) About a minute ago"
+    },
+    {
+      "name": "redhouse-clean-f91d7d83-alertas-b-1",
+      "state": "exited",
+      "status": "Exited (0) About a minute ago"
+    },
+    {
+      "name": "redhouse-clean-f91d7d83-alertas-a-1",
+      "state": "exited",
+      "status": "Exited (0) About a minute ago"
+    },
+    {
+      "name": "redhouse-clean-f91d7d83-auditoria-b-1",
+      "state": "exited",
+      "status": "Exited (0) About a minute ago"
+    },
+    {
+      "name": "redhouse-clean-f91d7d83-auditoria-a-1",
+      "state": "exited",
+      "status": "Exited (0) About a minute ago"
+    },
+    {
+      "name": "redhouse-clean-f91d7d83-gateway-1",
+      "state": "exited",
+      "status": "Exited (0) 2 minutes ago"
+    },
+    {
+      "name": "redhouse-clean-f91d7d83-mongodb-1",
+      "state": "exited",
+      "status": "Exited (0) 2 minutes ago"
+    },
+    {
+      "name": "redhouse-clean-f91d7d83-postgres-1",
+      "state": "exited",
+      "status": "Exited (137) About a minute ago"
+    },
+    {
+      "name": "redhouse-clean-f91d7d83-redis-1",
+      "state": "exited",
+      "status": "Exited (0) 2 minutes ago"
+    },
+    {
+      "name": "redhouse-clean-4c1ade45-postgres-1",
+      "state": "exited",
+      "status": "Exited (0) 12 minutes ago"
+    },
+    {
+      "name": "redhouse-clean-4c1ade45-redis-1",
+      "state": "exited",
+      "status": "Exited (0) 12 minutes ago"
+    },
+    {
+      "name": "redhouse-clean-4c1ade45-mongodb-1",
+      "state": "exited",
+      "status": "Exited (0) 12 minutes ago"
+    },
+    {
+      "name": "redhouse-restore-redis-9912c03b04",
+      "state": "exited",
+      "status": "Exited (0) 2 hours ago"
+    },
+    {
+      "name": "redhouse-restore-mongo-9912c03b04",
+      "state": "exited",
+      "status": "Exited (0) 2 hours ago"
+    },
+    {
+      "name": "redhouse-restore-pg-9912c03b04",
+      "state": "exited",
+      "status": "Exited (0) 2 hours ago"
+    },
+    {
+      "name": "redhouse-restore-redis-171d31ea6b",
+      "state": "exited",
+      "status": "Exited (0) 2 hours ago"
+    },
+    {
+      "name": "redhouse-restore-mongo-171d31ea6b",
+      "state": "exited",
+      "status": "Exited (0) 2 hours ago"
+    },
+    {
+      "name": "redhouse-restore-pg-171d31ea6b",
+      "state": "exited",
+      "status": "Exited (0) 2 hours ago"
+    },
+    {
+      "name": "redhouse-restore-redis-833f9ccff4",
+      "state": "exited",
+      "status": "Exited (0) 2 hours ago"
+    },
+    {
+      "name": "redhouse-restore-mongo-833f9ccff4",
+      "state": "exited",
+      "status": "Exited (0) 2 hours ago"
+    },
+    {
+      "name": "redhouse-restore-pg-833f9ccff4",
+      "state": "exited",
+      "status": "Exited (0) 2 hours ago"
+    },
+    {
+      "name": "redhouse-restore-redis-4bbc38ebb2",
+      "state": "exited",
+      "status": "Exited (0) 2 hours ago"
+    },
+    {
+      "name": "redhouse-restore-mongo-4bbc38ebb2",
+      "state": "exited",
+      "status": "Exited (0) 2 hours ago"
+    },
+    {
+      "name": "redhouse-restore-pg-4bbc38ebb2",
+      "state": "exited",
+      "status": "Exited (0) 2 hours ago"
+    },
+    {
+      "name": "redhouse-parcial2-inventario-b-1",
+      "state": "exited",
+      "status": "Exited (0) 2 hours ago"
+    },
+    {
+      "name": "redhouse-parcial2-inventario-a-1",
+      "state": "exited",
+      "status": "Exited (0) 2 hours ago"
+    },
+    {
+      "name": "redhouse-parcial2-web-1",
+      "state": "exited",
+      "status": "Exited (137) 2 hours ago"
+    },
+    {
+      "name": "redhouse-parcial2-monitoreo-b-1",
+      "state": "exited",
+      "status": "Exited (0) 2 hours ago"
+    },
+    {
+      "name": "redhouse-parcial2-monitoreo-a-1",
+      "state": "exited",
+      "status": "Exited (0) 2 hours ago"
+    },
+    {
+      "name": "redhouse-parcial2-transporte-b-1",
+      "state": "exited",
+      "status": "Exited (0) 2 hours ago"
+    },
+    {
+      "name": "redhouse-parcial2-transporte-a-1",
+      "state": "exited",
+      "status": "Exited (0) 2 hours ago"
+    },
+    {
+      "name": "redhouse-parcial2-priorizacion-geografia-a-1",
+      "state": "exited",
+      "status": "Exited (0) 2 hours ago"
+    },
+    {
+      "name": "redhouse-parcial2-priorizacion-geografia-b-1",
+      "state": "exited",
+      "status": "Exited (0) 2 hours ago"
+    },
+    {
+      "name": "redhouse-parcial2-compatibilidad-a-1",
+      "state": "exited",
+      "status": "Exited (0) 2 hours ago"
+    },
+    {
+      "name": "redhouse-parcial2-compatibilidad-b-1",
+      "state": "exited",
+      "status": "Exited (0) 2 hours ago"
+    },
+    {
+      "name": "redhouse-parcial2-receptores-a-1",
+      "state": "exited",
+      "status": "Exited (0) 2 hours ago"
+    },
+    {
+      "name": "redhouse-parcial2-receptores-b-1",
+      "state": "exited",
+      "status": "Exited (0) 2 hours ago"
+    },
+    {
+      "name": "redhouse-parcial2-donantes-b-1",
+      "state": "exited",
+      "status": "Exited (0) 2 hours ago"
+    },
+    {
+      "name": "redhouse-parcial2-donantes-a-1",
+      "state": "exited",
+      "status": "Exited (0) 2 hours ago"
+    },
+    {
+      "name": "redhouse-parcial2-identidad-acceso-a-1",
+      "state": "exited",
+      "status": "Exited (0) 2 hours ago"
+    },
+    {
+      "name": "redhouse-parcial2-identidad-acceso-b-1",
+      "state": "exited",
+      "status": "Exited (0) 2 hours ago"
+    },
+    {
+      "name": "redhouse-parcial2-custodia-a-1",
+      "state": "exited",
+      "status": "Exited (0) 2 hours ago"
+    },
+    {
+      "name": "redhouse-parcial2-custodia-b-1",
+      "state": "exited",
+      "status": "Exited (0) 2 hours ago"
+    },
+    {
+      "name": "redhouse-parcial2-alertas-a-1",
+      "state": "exited",
+      "status": "Exited (0) 2 hours ago"
+    },
+    {
+      "name": "redhouse-parcial2-alertas-b-1",
+      "state": "exited",
+      "status": "Exited (0) 2 hours ago"
+    },
+    {
+      "name": "redhouse-parcial2-auditoria-b-1",
+      "state": "exited",
+      "status": "Exited (0) 2 hours ago"
+    },
+    {
+      "name": "redhouse-parcial2-auditoria-a-1",
+      "state": "exited",
+      "status": "Exited (0) 2 hours ago"
+    },
+    {
+      "name": "redhouse-parcial2-gateway-1",
+      "state": "exited",
+      "status": "Exited (0) 2 hours ago"
+    },
+    {
+      "name": "redhouse-parcial2-mongodb-1",
+      "state": "exited",
+      "status": "Exited (0) 2 hours ago"
+    },
+    {
+      "name": "redhouse-parcial2-postgres-1",
+      "state": "exited",
+      "status": "Exited (0) 2 hours ago"
+    },
+    {
+      "name": "redhouse-parcial2-redis-1",
+      "state": "exited",
+      "status": "Exited (0) 2 hours ago"
+    }
+  ],
+  "volumes_policy": "Conservados; no se ejecutó down -v",
+  "start_main": "python3 deployment/start.py"
+}

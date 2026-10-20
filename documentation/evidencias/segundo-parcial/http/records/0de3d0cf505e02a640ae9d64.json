@@ -1,0 +1,66 @@
+{
+  "captured_at": "2026-10-19T16:28:41.758960+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "6eac28b3c6355ff29f1aabe6ed2aa76b6e104ed4888482a02b3967184783afa9",
+  "transport": "http",
+  "method": "GET",
+  "route": "/api/v1/reservations/<identifier>",
+  "objective": "Consultar asignación autorizada",
+  "url": "http://127.0.0.1:56261/api/v1/reservations/da71f5f1-ab8a-4aa6-ba05-e6f227ba04f9",
+  "parameters": {},
+  "path_parameters": {
+    "identifier": "da71f5f1-ab8a-4aa6-ba05-e6f227ba04f9"
+  },
+  "request_headers": {
+    "Host": "127.0.0.1:56261",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "6f5187e49946414f9e2661ea6e27bf8e",
+    "Authorization": "[REDACTED]"
+  },
+  "request_body": "",
+  "status": 200,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "918",
+    "X-Correlation-ID": "dee2b8f9-4094-4454-b849-8b230dc083e4",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "data": {
+      "id": "da71f5f1-ab8a-4aa6-ba05-e6f227ba04f9",
+      "operation_id": "ac7a57b7-b45b-4dc7-93f7-a8dc09d9495b",
+      "resource_id": "7ff4f730-038e-40e3-906e-4863d2fea007",
+      "request_id": "7c40cf2d-8180-4c7c-bd93-e2e9d808c27d",
+      "recipient_id": "83458f2a-fc42-485e-8098-d23679690d11",
+      "origin_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+      "destination_id": "a0920053-13c5-4d42-b53e-74b35a779f58",
+      "region_id": "7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb",
+      "hold_id": "55663baf-0b92-4b06-ba2d-5a0bfdf4e7c1",
+      "evaluation_id": "276b84f1-a9f3-4cc5-9bc4-d3e397dfbbcd",
+      "route_id": "7b1745f6-56e0-43d3-9c3d-1c35538d7aae",
+      "route_version": 2,
+      "status": "RESERVED",
+      "shipment_id": null,
+      "shipment_sequence": 0,
+      "created_at": "2026-10-19T16:28:40.652398+00:00",
+      "expires_at": "2026-10-21T16:28:37.346038+00:00",
+      "decisions": []
+    },
+    "meta": {
+      "correlation_id": "dee2b8f9-4094-4454-b849-8b230dc083e4",
+      "service": "inventario",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "dee2b8f9-4094-4454-b849-8b230dc083e4",
+  "persistence": {
+    "effect": "read",
+    "note": "Consulta; accesos protegidos generan auditoría local transaccional."
+  }
+}

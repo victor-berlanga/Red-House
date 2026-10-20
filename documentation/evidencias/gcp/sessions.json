@@ -1,0 +1,42 @@
+{
+  "date": "2026-10-20T20:52:22.177726+00:00",
+  "status": "passed",
+  "http": {
+    "login": 302,
+    "renew": 200,
+    "logout": 302,
+    "closed_cookie_replay": 302
+  },
+  "storage": {
+    "ttl": 86394,
+    "tokens_encrypted": true,
+    "postgres_role": "rh_web_sessions"
+  },
+  "local_session_mount": false,
+  "web_image": "sha256:8ce62e78f6a2d70f256dfd53803e71d982508c78a01574238fb261e353799c7e",
+  "backend": "monolith",
+  "api_containers_running": [
+    "alertas-a",
+    "alertas-b",
+    "auditoria-a",
+    "auditoria-b",
+    "compatibilidad-a",
+    "compatibilidad-b",
+    "custodia-a",
+    "custodia-b",
+    "donantes-a",
+    "donantes-b",
+    "identidad-acceso-a",
+    "identidad-acceso-b",
+    "inventario-a",
+    "inventario-b",
+    "monitoreo-a",
+    "monitoreo-b",
+    "priorizacion-geografia-a",
+    "priorizacion-geografia-b",
+    "receptores-a",
+    "receptores-b",
+    "transporte-a",
+    "transporte-b"
+  ]
+}

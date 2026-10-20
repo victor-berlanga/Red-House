@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% from 'macros.html' import csrf with context %}
+{% block content %}
+<div class="page-heading"><div><h1>Evidencias del traslado</h1><p>Archivos privados para documentar este proceso.</p></div></div>
+<p><a class="back-link" href="{{ url_for('regional.shipment_detail',identifier=shipment.id) }}">Volver al traslado</a></p>
+{% if error %}<div class="notice error" role="alert">{{ error }}</div>{% endif %}
+{% if can_upload %}
+<form method="post" enctype="multipart/form-data" class="card form-card">
+{{ csrf() }}<input type="hidden" name="idempotency_key" value="{{ idempotency_key }}">
+<div class="field"><label for="evidence">Seleccionar evidencia</label><input type="file" id="evidence" name="evidence" accept="image/jpeg,image/png,application/pdf" required><p>JPEG, PNG o PDF. Máximo 10 MiB. Adjunta únicamente evidencia autorizada para este traslado.</p></div>
+<button type="submit" class="button">Cargar y verificar</button>
+</form>
+{% endif %}
+<section class="card record-section"><h2>Archivos registrados</h2>
+{% for file in files['items'] %}
+<article class="record-section"><p>{{ file.mime_type }} · {{ file.size }} bytes · {{ {'PENDING':'Pendiente de carga o verificación','VERIFIED':'Verificado','REJECTED':'Archivo rechazado','MISSING':'Objeto pendiente de carga','ERROR':'Verificación temporalmente no disponible'}.get(file.status,file.status) }}</p>
+{% if file.status=='VERIFIED' %}<a class="button secondary" href="{{ url_for('regional.download_file',identifier=file.id) }}" rel="noreferrer">Descargar archivo privado</a>
+{% elif can_upload %}<form method="post" action="{{ url_for('regional.verify_file',identifier=file.id) }}">{{ csrf() }}<input type="hidden" name="idempotency_key" value="{{ idempotency_key }}-{{ file.id }}"><button class="button secondary" type="submit">Verificar carga pendiente</button></form>{% endif %}
+<small>Referencia: {{ file.id }}</small></article>
+{% else %}<p>No hay evidencias registradas.</p>{% endfor %}
+<nav aria-label="Páginas de evidencias">{% if files.page>1 %}<a href="{{ url_for('regional.shipment_files',identifier=shipment.id,page=files.page-1) }}">Anterior</a>{% endif %} <span>Página {{ files.page }}</span> {% if files.page*files.page_size<files.total %}<a href="{{ url_for('regional.shipment_files',identifier=shipment.id,page=files.page+1) }}">Siguiente</a>{% endif %}</nav>
+</section>
+{% endblock %}

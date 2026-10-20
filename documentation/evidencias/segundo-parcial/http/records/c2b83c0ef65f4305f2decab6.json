@@ -1,0 +1,123 @@
+{
+  "captured_at": "2026-10-19T16:28:23.601539+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "e7eb0044cb5544477c1a4b79a264977e16ddd17c216e8a88ed6d187af95af791",
+  "transport": "http",
+  "method": "GET",
+  "route": "/schemas/<name>.response.json",
+  "objective": "response_contract",
+  "url": "http://127.0.0.1:56264/schemas/shipment_create.response.json",
+  "parameters": {},
+  "path_parameters": {
+    "name": "shipment_create"
+  },
+  "request_headers": {
+    "Host": "127.0.0.1:56264",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "c5699c9ea2764e8fa1448e762ce92e0d"
+  },
+  "request_body": "",
+  "status": 200,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "878",
+    "X-Correlation-ID": "3f175ddd-37d4-42de-a94b-4065f8b5f334",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "properties": {
+      "data": {
+        "properties": {
+          "departure_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "destination_id": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "eta": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "expires_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "id": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "inventory_pending": {
+            "type": "boolean"
+          },
+          "origin_id": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "region_id": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "reservation_id": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "sequence": {
+            "type": "integer"
+          },
+          "status": {
+            "type": "string"
+          },
+          "transport_user_id": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "version": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "type": "object"
+      },
+      "meta": {
+        "properties": {
+          "correlation_id": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "service": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "correlation_id",
+          "service",
+          "version"
+        ],
+        "type": "object"
+      }
+    },
+    "required": [
+      "data",
+      "meta"
+    ],
+    "type": "object"
+  },
+  "correlation_id": "3f175ddd-37d4-42de-a94b-4065f8b5f334",
+  "persistence": {
+    "effect": "read",
+    "note": "Consulta; accesos protegidos generan auditoría local transaccional."
+  }
+}

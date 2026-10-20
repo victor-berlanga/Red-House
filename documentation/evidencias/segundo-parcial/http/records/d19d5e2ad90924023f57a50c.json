@@ -1,0 +1,52 @@
+{
+  "captured_at": "2026-10-19T16:44:16.989166+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "6eac28b3c6355ff29f1aabe6ed2aa76b6e104ed4888482a02b3967184783afa9",
+  "transport": "http",
+  "method": "GET",
+  "route": "/api/v1/resources",
+  "objective": "Inventario propio; coordinador recibe disponibilidad regional mínima",
+  "url": "http://127.0.0.1:56261/api/v1/resources?q=UNIT-e62c66ceaf37&blood_group=O-",
+  "parameters": {
+    "q": "UNIT-e62c66ceaf37",
+    "blood_group": "O-"
+  },
+  "path_parameters": {},
+  "request_headers": {
+    "Host": "127.0.0.1:56261",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "6bd3f08126344589b8e279046d3d64b9",
+    "Authorization": "[REDACTED]"
+  },
+  "request_body": "",
+  "status": 403,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "215",
+    "X-Correlation-ID": "d601f90f-8e85-4bb7-ad24-b531144d990d",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "error": {
+      "code": "forbidden",
+      "message": "Perfil sin permiso para esta operación.",
+      "details": []
+    },
+    "meta": {
+      "correlation_id": "d601f90f-8e85-4bb7-ad24-b531144d990d",
+      "service": "inventario",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "d601f90f-8e85-4bb7-ad24-b531144d990d",
+  "persistence": {
+    "effect": "controlled_error",
+    "note": "No se infiere ausencia de efectos de un error; revisar correlación y estado de operación."
+  }
+}

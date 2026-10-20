@@ -1,0 +1,79 @@
+{
+  "captured_at": "2026-10-19T16:22:13.706849+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "a72d90d185b760994571ed560b74d7f59cc2cca663c983d7842c7150387e7f9a",
+  "transport": "http",
+  "method": "POST",
+  "route": "/api/v1/routes",
+  "objective": "Registrar estimación logística con procedencia",
+  "url": "http://127.0.0.1:56263/api/v1/routes",
+  "parameters": {},
+  "path_parameters": {},
+  "request_headers": {
+    "Host": "127.0.0.1:56263",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "9c3e14aa80004245aa8bcee408e11aa5",
+    "Authorization": "[REDACTED]",
+    "Content-Length": "212",
+    "Content-Type": "application/json"
+  },
+  "request_body": {
+    "origin_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+    "destination_id": "a0920053-13c5-4d42-b53e-74b35a779f58",
+    "distance_km": 10.0,
+    "travel_minutes": 15,
+    "source": "Estimación manual ficticia para pruebas"
+  },
+  "status": 201,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "506",
+    "X-Correlation-ID": "e51a1a91-1f9b-46d7-9574-48ba8a64e057",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "data": {
+      "id": "7b1745f6-56e0-43d3-9c3d-1c35538d7aae",
+      "origin_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+      "destination_id": "a0920053-13c5-4d42-b53e-74b35a779f58",
+      "region_id": "7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb",
+      "distance_km": 10.0,
+      "travel_minutes": 15,
+      "source": "Estimación manual ficticia para pruebas",
+      "version": 1,
+      "updated_at": "2026-10-19T16:22:13.654189+00:00"
+    },
+    "meta": {
+      "correlation_id": "e51a1a91-1f9b-46d7-9574-48ba8a64e057",
+      "service": "priorizacion_geografia",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "e51a1a91-1f9b-46d7-9574-48ba8a64e057",
+  "persistence": {
+    "effect": "committed",
+    "store": "PostgreSQL red_house",
+    "query": "SELECT operation,fingerprint,result FROM idempotency WHERE user_id=:actor AND key=:idempotency_key",
+    "row": {
+      "operation": "route_create",
+      "fingerprint": "4c45727df278935564be6c4786c1e9fffcc6874d01baa27fcfe391ef42f8331c",
+      "result": {
+        "id": "7b1745f6-56e0-43d3-9c3d-1c35538d7aae",
+        "source": "Estimación manual ficticia para pruebas",
+        "version": 1,
+        "origin_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+        "region_id": "7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb",
+        "updated_at": "2026-10-19T16:22:13.654189+00:00",
+        "distance_km": 10.0,
+        "destination_id": "a0920053-13c5-4d42-b53e-74b35a779f58",
+        "travel_minutes": 15
+      }
+    }
+  }
+}

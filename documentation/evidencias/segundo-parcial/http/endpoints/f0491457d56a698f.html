@@ -1,0 +1,125 @@
+<!doctype html><html lang="es"><meta charset="utf-8"><title>inventario /api/v1/resources</title><style>body{font:15px system-ui;margin:32px;background:#f4f5f7;color:#202631}main{max-width:1250px;margin:auto}h1{color:#8e2434;font-size:26px}small{color:#556}a{color:#8e2434}table{border-collapse:collapse;width:100%;background:white}td,th{padding:9px;border:1px solid #ccd;vertical-align:top;text-align:left}pre{white-space:pre-wrap;word-break:break-word;background:#fff;border:1px solid #ccd;padding:12px;font:12px monospace;max-height:300px;overflow:auto}section{margin:20px 0}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.tag{padding:4px 9px;background:#e5ece7}.error{background:#f8e5e6}input{padding:12px;width:70%;margin:15px 0}details{margin:12px 0}nav{margin-bottom:20px}</style><main><nav><a href="../index.html">Inventario completo</a></nav><h1>inventario · POST /api/v1/resources</h1><p>Registrar unidad u oferta separada, inicialmente en cuarentena</p><p>Registro de ejecución real. Credenciales y firmas redactadas. Los cuerpos completos están en el JSON enlazado.</p><section><h2>HTTP 201</h2><p><b>2026-10-19T16:22:10.439597+00:00</b> · versión 0.3.0</p><p>Correlación: 2da6d21f-8a87-4831-8178-5785d70dbb91<br>URL: http://127.0.0.1:56261/api/v1/resources</p><p><a href="../records/d4a7230a8d11c63081654abc.json">Petición, respuesta, headers y persistencia completos</a></p><div class="grid"><div><h3>Petición</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Host&quot;: &quot;127.0.0.1:56261&quot;,
+    &quot;User-Agent&quot;: &quot;python-requests/2.34.2&quot;,
+    &quot;Accept-Encoding&quot;: &quot;gzip, deflate, br&quot;,
+    &quot;Accept&quot;: &quot;application/json&quot;,
+    &quot;Connection&quot;: &quot;keep-alive&quot;,
+    &quot;Idempotency-Key&quot;: &quot;a294999101544660954fd139a564f632&quot;,
+    &quot;Authorization&quot;: &quot;[REDACTED]&quot;,
+    &quot;Content-Length&quot;: &quot;194&quot;,
+    &quot;Content-Type&quot;: &quot;application/json&quot;
+  },
+  &quot;parameters&quot;: {},
+  &quot;body&quot;: {
+    &quot;folio&quot;: &quot;DERIVED-3e400eda4b&quot;,
+    &quot;kind&quot;: &quot;BLOOD&quot;,
+    &quot;component&quot;: &quot;RBC&quot;,
+    &quot;blood_group&quot;: &quot;O-&quot;,
+    &quot;expires_at&quot;: &quot;2026-10-21T16:22:09.506794+00:00&quot;,
+    &quot;donation_id&quot;: &quot;ebac8855-3399-45e2-a630-eda2e44463a6&quot;
+  }
+}</pre></div><div><h3>Respuesta</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Content-Type&quot;: &quot;application/json&quot;,
+    &quot;Content-Length&quot;: &quot;666&quot;,
+    &quot;X-Correlation-ID&quot;: &quot;2da6d21f-8a87-4831-8178-5785d70dbb91&quot;,
+    &quot;Cache-Control&quot;: &quot;no-store&quot;,
+    &quot;X-Content-Type-Options&quot;: &quot;nosniff&quot;,
+    &quot;Referrer-Policy&quot;: &quot;no-referrer&quot;
+  },
+  &quot;body&quot;: {
+    &quot;data&quot;: {
+      &quot;id&quot;: &quot;45484394-0695-4fb1-a474-e5a87e14ef4d&quot;,
+      &quot;tenant_id&quot;: &quot;87255e79-2a0a-4e44-ad21-8002ccd5688d&quot;,
+      &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+      &quot;folio&quot;: &quot;DERIVED-3e400eda4b&quot;,
+      &quot;current_institution_id&quot;: &quot;87255e79-2a0a-4e44-ad21-8002ccd5688d&quot;,
+      &quot;donation_id&quot;: &quot;ebac8855-3399-45e2-a630-eda2e44463a6&quot;,
+      &quot;kind&quot;: &quot;BLOOD&quot;,
+      &quot;component&quot;: &quot;RBC&quot;,
+      &quot;blood_group&quot;: &quot;O-&quot;,
+      &quot;expires_at&quot;: &quot;2026-10-21T16:22:09.506794+00:00&quot;,
+      &quot;status&quot;: &quot;QUARANTINE&quot;,
+      &quot;version&quot;: 1,
+      &quot;created_at&quot;: &quot;2026-10-19T16:22:10.369101+00:00&quot;,
+      &quot;location_id&quot;: null,
+      &quot;collected_at&quot;: null
+    },
+    &quot;meta&quot;: {
+      &quot;correlation_id&quot;: &quot;2da6d21f-8a87-4831-8178-5785d70dbb91&quot;,
+      &quot;service&quot;: &quot;inventario&quot;,
+      &quot;version&quot;: &quot;0.3.0&quot;
+    }
+  }
+}</pre></div></div><details><summary>Persistencia y versión de implementación</summary><pre>{
+  &quot;effect&quot;: &quot;committed&quot;,
+  &quot;store&quot;: &quot;PostgreSQL red_house&quot;,
+  &quot;query&quot;: &quot;SELECT operation,fingerprint,result FROM idempotency WHERE user_id=:actor AND key=:idempotency_key&quot;,
+  &quot;row&quot;: {
+    &quot;operation&quot;: &quot;resource_create&quot;,
+    &quot;fingerprint&quot;: &quot;e2b6eb8715df2200f8f217da6c5a93dc3ebc6a09284a325685a1093f166a32bb&quot;,
+    &quot;result&quot;: {
+      &quot;id&quot;: &quot;45484394-0695-4fb1-a474-e5a87e14ef4d&quot;,
+      &quot;kind&quot;: &quot;BLOOD&quot;,
+      &quot;folio&quot;: &quot;DERIVED-3e400eda4b&quot;,
+      &quot;status&quot;: &quot;QUARANTINE&quot;,
+      &quot;version&quot;: 1,
+      &quot;component&quot;: &quot;RBC&quot;,
+      &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+      &quot;tenant_id&quot;: &quot;87255e79-2a0a-4e44-ad21-8002ccd5688d&quot;,
+      &quot;created_at&quot;: &quot;2026-10-19T16:22:10.369101+00:00&quot;,
+      &quot;expires_at&quot;: &quot;2026-10-21T16:22:09.506794+00:00&quot;,
+      &quot;blood_group&quot;: &quot;O-&quot;,
+      &quot;donation_id&quot;: &quot;ebac8855-3399-45e2-a630-eda2e44463a6&quot;,
+      &quot;location_id&quot;: null,
+      &quot;collected_at&quot;: null,
+      &quot;current_institution_id&quot;: &quot;87255e79-2a0a-4e44-ad21-8002ccd5688d&quot;
+    }
+  }
+}</pre><p>SHA-256: 6eac28b3c6355ff29f1aabe6ed2aa76b6e104ed4888482a02b3967184783afa9</p></details></section><section><h2>HTTP 400</h2><p><b>2026-10-19T16:53:21.812340+00:00</b> · versión 0.3.0</p><p>Correlación: 0474dc52-3925-4508-a6cf-277fb3d79e61<br>URL: http://127.0.0.1:56261/api/v1/resources</p><p><a href="../records/4772b5977e3cefc27f12030d.json">Petición, respuesta, headers y persistencia completos</a></p><div class="grid"><div><h3>Petición</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Host&quot;: &quot;127.0.0.1:56261&quot;,
+    &quot;User-Agent&quot;: &quot;python-requests/2.34.2&quot;,
+    &quot;Accept-Encoding&quot;: &quot;gzip, deflate, br&quot;,
+    &quot;Accept&quot;: &quot;application/json&quot;,
+    &quot;Connection&quot;: &quot;keep-alive&quot;,
+    &quot;X-Correlation-Id&quot;: &quot;0474dc52-3925-4508-a6cf-277fb3d79e61&quot;,
+    &quot;Authorization&quot;: &quot;[REDACTED]&quot;,
+    &quot;Idempotency-Key&quot;: &quot;3a1f8901f9e44328917f5611039dde52&quot;,
+    &quot;Content-Type&quot;: &quot;application/json&quot;,
+    &quot;Content-Length&quot;: &quot;121&quot;
+  },
+  &quot;parameters&quot;: {},
+  &quot;body&quot;: {
+    &quot;folio&quot;: &quot;invalid&quot;,
+    &quot;kind&quot;: &quot;BLOOD&quot;,
+    &quot;component&quot;: &quot;RBC&quot;,
+    &quot;blood_group&quot;: &quot;O+&quot;,
+    &quot;expires_at&quot;: &quot;2020-01-01T16:00:00+00:00&quot;
+  }
+}</pre></div><div><h3>Respuesta</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Content-Type&quot;: &quot;application/json&quot;,
+    &quot;Content-Length&quot;: &quot;227&quot;,
+    &quot;X-Correlation-ID&quot;: &quot;0474dc52-3925-4508-a6cf-277fb3d79e61&quot;,
+    &quot;Cache-Control&quot;: &quot;no-store&quot;,
+    &quot;X-Content-Type-Options&quot;: &quot;nosniff&quot;,
+    &quot;Referrer-Policy&quot;: &quot;no-referrer&quot;
+  },
+  &quot;body&quot;: {
+    &quot;error&quot;: {
+      &quot;code&quot;: &quot;validation&quot;,
+      &quot;message&quot;: &quot;Límite de conservación capturado debe ser futuro.&quot;,
+      &quot;details&quot;: []
+    },
+    &quot;meta&quot;: {
+      &quot;correlation_id&quot;: &quot;0474dc52-3925-4508-a6cf-277fb3d79e61&quot;,
+      &quot;service&quot;: &quot;inventario&quot;,
+      &quot;version&quot;: &quot;0.3.0&quot;
+    }
+  }
+}</pre></div></div><details><summary>Persistencia y versión de implementación</summary><pre>{
+  &quot;effect&quot;: &quot;controlled_error&quot;,
+  &quot;note&quot;: &quot;No se infiere ausencia de efectos de un error; revisar correlación y estado de operación.&quot;
+}</pre><p>SHA-256: 6eac28b3c6355ff29f1aabe6ed2aa76b6e104ed4888482a02b3967184783afa9</p></details></section><h2>Todas las variantes ejecutadas</h2><ul><li><a href="../records/4772b5977e3cefc27f12030d.json">400 · http · application/json · 2026-10-19T16:53:21.812340+00:00</a></li><li><a href="../records/7c829868e23230814c9adef9.json">201 · embedded · application/json · 2026-10-19T16:22:41.810521+00:00</a></li><li><a href="../records/2951abbf2a42d70d336d7099.json">403 · http · application/json · 2026-10-19T16:34:25.100205+00:00</a></li><li><a href="../records/7483d135c5195339de09372f.json">409 · http · application/json · 2026-10-19T16:22:09.792970+00:00</a></li><li><a href="../records/d727091bf43186aef788fb91.json">401 · http · application/json · 2026-10-19T16:28:16.503606+00:00</a></li><li><a href="../records/d4a7230a8d11c63081654abc.json">201 · http · application/json · 2026-10-19T16:22:10.439597+00:00</a></li><li><a href="../records/55750673dada5e8355598bae.json">401 · http · application/xml; charset=utf-8 · 2026-10-19T16:28:16.546728+00:00</a></li></ul></main></html>

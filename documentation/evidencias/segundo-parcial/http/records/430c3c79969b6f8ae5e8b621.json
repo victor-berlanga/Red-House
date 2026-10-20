@@ -1,0 +1,311 @@
+{
+  "captured_at": "2026-10-19T16:28:29.180789+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "f1a9056ec92eb7006810957e59fb326815b25003ea30d5ed1de2439e7ed8f42a",
+  "transport": "http",
+  "method": "GET",
+  "route": "/api/v1/documentary-events",
+  "objective": "Proyección documental MongoDB; puede estar pendiente de sincronización",
+  "url": "http://127.0.0.1:56267/api/v1/documentary-events",
+  "parameters": {},
+  "path_parameters": {},
+  "request_headers": {
+    "Host": "127.0.0.1:56267",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "013989eb3e514450a79e204b447c5f8b",
+    "Authorization": "[REDACTED]"
+  },
+  "request_body": "",
+  "status": 200,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "9433",
+    "X-Correlation-ID": "bf472c3e-9098-49f7-8266-5f4c5f1960b5",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "data": {
+      "items": [
+        {
+          "action": "READ",
+          "source": "identidad_acceso",
+          "actor_id": "b7e21549-9533-4cc8-a5bc-3d55493b8ada",
+          "event_id": "01646a0b-a5a6-412d-b721-211b8a91f638",
+          "metadata": {},
+          "region_id": "7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb",
+          "tenant_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+          "occurred_at": "2026-10-19T16:26:31.288410+00:00",
+          "resource_id": "collection",
+          "correlation_id": "2e3ac05f-67b0-4b11-b595-cbfa5b151cdb"
+        },
+        {
+          "action": "READ",
+          "source": "transporte",
+          "actor_id": "3980f3c5-484c-4178-b03c-8d65c598ecd7",
+          "event_id": "02ba5fe9-45f6-4cf0-8241-55e495f59d08",
+          "metadata": {},
+          "region_id": "7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb",
+          "tenant_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+          "occurred_at": "2026-10-19T16:22:57.103256+00:00",
+          "resource_id": "ea3e5e8c-ee3a-4cea-894b-b2f88714458a",
+          "correlation_id": "494f7e65-e1a6-4f58-b9d9-9a779cae8224"
+        },
+        {
+          "action": "ALLOCATION_PROPOSAL_CREATED",
+          "source": "priorizacion_geografia",
+          "actor_id": "a5898ca7-9e7b-47c9-9f64-9c5cebf413f5",
+          "event_id": "030e9b9d-b437-43a4-aa58-ec67a2afffcb",
+          "metadata": {
+            "algorithm_version": "COVERAGE-HK-1.0"
+          },
+          "region_id": "7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb",
+          "tenant_id": "a0920053-13c5-4d42-b53e-74b35a779f58",
+          "occurred_at": "2026-10-19T16:22:17.034028+00:00",
+          "resource_id": "632d0ca6-b701-487e-bf04-0500ec3a4af2",
+          "correlation_id": "8b0bc9f5-c4fb-414f-8e15-b375893025f6"
+        },
+        {
+          "action": "READ",
+          "source": "compatibilidad",
+          "actor_id": "a5898ca7-9e7b-47c9-9f64-9c5cebf413f5",
+          "event_id": "03aeffb7-c15a-4b5b-9bfc-03bfe2ce417e",
+          "metadata": {},
+          "region_id": "7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb",
+          "tenant_id": "a0920053-13c5-4d42-b53e-74b35a779f58",
+          "occurred_at": "2026-10-19T16:22:48.038374+00:00",
+          "resource_id": "d689ca9c-4d24-4cec-965e-93f49d4f2cdb",
+          "correlation_id": "5e063d4a-d747-4dd3-8342-960522744ef4"
+        },
+        {
+          "action": "READ",
+          "source": "receptores",
+          "actor_id": "a5898ca7-9e7b-47c9-9f64-9c5cebf413f5",
+          "event_id": "03ddd302-aaee-496e-abaf-8a3fcaf3d0d0",
+          "metadata": {},
+          "region_id": "7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb",
+          "tenant_id": "a0920053-13c5-4d42-b53e-74b35a779f58",
+          "occurred_at": "2026-10-19T16:26:20.303033+00:00",
+          "resource_id": "530b638d-a0e4-4e65-9e8b-81f0aa7dfd05",
+          "correlation_id": "31ad66de-8c81-4b79-bb7b-f40f9cf00864"
+        },
+        {
+          "action": "READ",
+          "source": "identidad_acceso",
+          "actor_id": "b7e21549-9533-4cc8-a5bc-3d55493b8ada",
+          "event_id": "0415ac05-8dd8-4734-b908-29fbb5570309",
+          "metadata": {},
+          "region_id": "7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb",
+          "tenant_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+          "occurred_at": "2026-10-19T16:26:42.998750+00:00",
+          "resource_id": "collection",
+          "correlation_id": "5f06e059-ffff-46cd-b9e9-9bde69451759"
+        },
+        {
+          "action": "READ",
+          "source": "identidad_acceso",
+          "actor_id": "3980f3c5-484c-4178-b03c-8d65c598ecd7",
+          "event_id": "045c36fe-b6ea-454d-890b-a8d0c16b90e2",
+          "metadata": {},
+          "region_id": "7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb",
+          "tenant_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+          "occurred_at": "2026-10-19T16:25:24.587751+00:00",
+          "resource_id": "collection",
+          "correlation_id": "a90bc7bd-36e6-4565-99ea-5cf8cc8f1aca"
+        },
+        {
+          "action": "READ",
+          "source": "priorizacion_geografia",
+          "actor_id": "a5898ca7-9e7b-47c9-9f64-9c5cebf413f5",
+          "event_id": "047e24cc-dfc7-4dfc-9c28-ae9dbf9d4f75",
+          "metadata": {},
+          "region_id": "7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb",
+          "tenant_id": "a0920053-13c5-4d42-b53e-74b35a779f58",
+          "occurred_at": "2026-10-19T16:26:46.294207+00:00",
+          "resource_id": "7b1745f6-56e0-43d3-9c3d-1c35538d7aae",
+          "correlation_id": "b2219a1e-7253-4263-8147-b3d554337f59"
+        },
+        {
+          "action": "SHIPMENT_COLLECTED",
+          "source": "transporte",
+          "actor_id": "3980f3c5-484c-4178-b03c-8d65c598ecd7",
+          "event_id": "056943b6-73dd-4705-81aa-36594c45a41b",
+          "metadata": {
+            "state": "COLLECTED",
+            "evidence": null,
+            "sequence": 3,
+            "origin_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+            "destination_id": "a0920053-13c5-4d42-b53e-74b35a779f58",
+            "reservation_id": "1e1b90e8-2d0a-425b-bc78-f2b497c2af6a",
+            "transport_user_id": "3980f3c5-484c-4178-b03c-8d65c598ecd7",
+            "destination_location_id": null
+          },
+          "region_id": "7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb",
+          "tenant_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+          "occurred_at": "2026-10-19T16:26:49.351359+00:00",
+          "resource_id": "859eea1a-1b77-4b08-9a53-5038495b9521",
+          "correlation_id": "48aa3cc2-1e1f-43cd-83d2-2740e36a7d12"
+        },
+        {
+          "action": "READ",
+          "source": "transporte",
+          "actor_id": "08496c01-6621-4892-8d45-8152c6693b65",
+          "event_id": "07906939-ec9a-47c4-8a6e-550567731753",
+          "metadata": {},
+          "region_id": "7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb",
+          "tenant_id": "a0920053-13c5-4d42-b53e-74b35a779f58",
+          "occurred_at": "2026-10-19T16:25:26.379864+00:00",
+          "resource_id": "129b0941-1526-492a-9dbf-5d45b002cfdc",
+          "correlation_id": "0d5ca1e6-fcdc-4ed5-a337-949456777f28"
+        },
+        {
+          "action": "CAPACITY_RECEIVED",
+          "source": "receptores",
+          "actor_id": null,
+          "event_id": "0915b390-1d8c-4232-866f-69201efdadab",
+          "metadata": {},
+          "region_id": "7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb",
+          "tenant_id": "a0920053-13c5-4d42-b53e-74b35a779f58",
+          "occurred_at": "2026-10-19T16:26:13.531315+00:00",
+          "resource_id": "530b638d-a0e4-4e65-9e8b-81f0aa7dfd05",
+          "correlation_id": "f2a0801b-d8b6-47e1-a890-5d32641e0ffc"
+        },
+        {
+          "action": "READ",
+          "source": "identidad_acceso",
+          "actor_id": "b7e21549-9533-4cc8-a5bc-3d55493b8ada",
+          "event_id": "0b9a7ba4-bf8d-47ad-a37d-54a00f17f858",
+          "metadata": {},
+          "region_id": "7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb",
+          "tenant_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+          "occurred_at": "2026-10-19T16:26:29.951287+00:00",
+          "resource_id": "collection",
+          "correlation_id": "52da92f6-73af-4d52-8d86-fbb8f7f40be5"
+        },
+        {
+          "action": "READ",
+          "source": "transporte",
+          "actor_id": "3980f3c5-484c-4178-b03c-8d65c598ecd7",
+          "event_id": "0bfe384e-fc54-4ed3-8951-e5920f06328c",
+          "metadata": {},
+          "region_id": "7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb",
+          "tenant_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+          "occurred_at": "2026-10-19T16:25:23.530831+00:00",
+          "resource_id": "129b0941-1526-492a-9dbf-5d45b002cfdc",
+          "correlation_id": "70bcce5e-2a3c-4691-8c51-6e114a4f253e"
+        },
+        {
+          "action": "SHIPMENT_DELIVERED",
+          "source": "transporte",
+          "actor_id": "3980f3c5-484c-4178-b03c-8d65c598ecd7",
+          "event_id": "0c4cf8a7-c477-4a94-9523-44ca82b74951",
+          "metadata": {
+            "state": "DELIVERED",
+            "evidence": null,
+            "sequence": 5,
+            "origin_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+            "destination_id": "a0920053-13c5-4d42-b53e-74b35a779f58",
+            "reservation_id": "7b93adbf-beeb-4a6d-af41-85ce5a1a590f",
+            "transport_user_id": "3980f3c5-484c-4178-b03c-8d65c598ecd7",
+            "destination_location_id": null
+          },
+          "region_id": "7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb",
+          "tenant_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+          "occurred_at": "2026-10-19T16:25:25.248838+00:00",
+          "resource_id": "129b0941-1526-492a-9dbf-5d45b002cfdc",
+          "correlation_id": "87c68fe6-8ff9-4a83-8344-ec0a15b2b3b3"
+        },
+        {
+          "action": "READ",
+          "source": "inventario",
+          "actor_id": "b7e21549-9533-4cc8-a5bc-3d55493b8ada",
+          "event_id": "110a0d1c-c9d6-4e31-b041-72f68ae691d3",
+          "metadata": {},
+          "region_id": "7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb",
+          "tenant_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+          "occurred_at": "2026-10-19T16:26:42.236061+00:00",
+          "resource_id": "collection",
+          "correlation_id": "d700052a-ccc4-4ee8-8838-8d9da660caff"
+        },
+        {
+          "action": "READ",
+          "source": "identidad_acceso",
+          "actor_id": "c17e9575-b990-4b29-9087-4481a6e6db6e",
+          "event_id": "11f88ec1-fc4b-4172-99a2-e44092555705",
+          "metadata": {},
+          "region_id": "7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb",
+          "tenant_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+          "occurred_at": "2026-10-19T16:26:48.042390+00:00",
+          "resource_id": "3980f3c5-484c-4178-b03c-8d65c598ecd7",
+          "correlation_id": "e1036ea4-28c7-4721-8ec6-88db7beb489b"
+        },
+        {
+          "action": "READ",
+          "source": "priorizacion_geografia",
+          "actor_id": "a5898ca7-9e7b-47c9-9f64-9c5cebf413f5",
+          "event_id": "13b1519f-219a-4fb8-9bd8-ce02e4236a7f",
+          "metadata": {},
+          "region_id": "7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb",
+          "tenant_id": "a0920053-13c5-4d42-b53e-74b35a779f58",
+          "occurred_at": "2026-10-19T16:26:45.182983+00:00",
+          "resource_id": "collection",
+          "correlation_id": "90e8dbbe-5f6a-4a76-bf1f-53cd7c14ee01"
+        },
+        {
+          "action": "READ",
+          "source": "compatibilidad",
+          "actor_id": "a5898ca7-9e7b-47c9-9f64-9c5cebf413f5",
+          "event_id": "15459dcc-b0cf-4071-800f-9d5fa562e33c",
+          "metadata": {},
+          "region_id": "7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb",
+          "tenant_id": "a0920053-13c5-4d42-b53e-74b35a779f58",
+          "occurred_at": "2026-10-19T16:22:16.681288+00:00",
+          "resource_id": "296943f3-9e84-4f05-bbc1-01744d9656e8",
+          "correlation_id": "8b0bc9f5-c4fb-414f-8e15-b375893025f6"
+        },
+        {
+          "action": "READ",
+          "source": "identidad_acceso",
+          "actor_id": "b7e21549-9533-4cc8-a5bc-3d55493b8ada",
+          "event_id": "15648358-6b1d-4760-b211-06d8ce8b3e1c",
+          "metadata": {},
+          "region_id": "7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb",
+          "tenant_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+          "occurred_at": "2026-10-19T16:22:54.424742+00:00",
+          "resource_id": "collection",
+          "correlation_id": "2adc4ad4-115d-4ce4-bdef-3b559329e7ff"
+        },
+        {
+          "action": "READ",
+          "source": "identidad_acceso",
+          "actor_id": "c17e9575-b990-4b29-9087-4481a6e6db6e",
+          "event_id": "164c7148-b581-4520-838e-fa4bd2d42172",
+          "metadata": {},
+          "region_id": "7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb",
+          "tenant_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+          "occurred_at": "2026-10-19T16:22:52.556767+00:00",
+          "resource_id": "collection",
+          "correlation_id": "4932744c-6d82-4528-89f2-e2a1acea9115"
+        }
+      ],
+      "page": 1,
+      "page_size": 20,
+      "total": 343
+    },
+    "meta": {
+      "correlation_id": "bf472c3e-9098-49f7-8266-5f4c5f1960b5",
+      "service": "auditoria",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "bf472c3e-9098-49f7-8266-5f4c5f1960b5",
+  "persistence": {
+    "effect": "read",
+    "note": "Consulta; accesos protegidos generan auditoría local transaccional."
+  }
+}

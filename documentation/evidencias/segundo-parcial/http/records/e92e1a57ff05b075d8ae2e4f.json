@@ -1,0 +1,75 @@
+{
+  "captured_at": "2026-10-19T16:29:59.174498+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "e7eb0044cb5544477c1a4b79a264977e16ddd17c216e8a88ed6d187af95af791",
+  "transport": "http",
+  "method": "POST",
+  "route": "/api/v1/shipments/<identifier>/telemetry",
+  "objective": "Ubicación solo del responsable durante traslado activo",
+  "url": "http://127.0.0.1:56264/api/v1/shipments/9430550a-90dc-4cbc-b7e9-112cbdfc70a4/telemetry",
+  "parameters": {},
+  "path_parameters": {
+    "identifier": "9430550a-90dc-4cbc-b7e9-112cbdfc70a4"
+  },
+  "request_headers": {
+    "Host": "127.0.0.1:56264",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "31b8220f05e346cfa808181c50d1d5c5",
+    "Authorization": "[REDACTED]",
+    "Content-Length": "90",
+    "Content-Type": "application/json"
+  },
+  "request_body": {
+    "latitude": 25.6,
+    "longitude": -100.3,
+    "captured_at": "2026-10-19T16:29:58.848042+00:00"
+  },
+  "status": 201,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "416",
+    "X-Correlation-ID": "b483903a-1e5f-4aee-80bb-c1cdc9c1582c",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "data": {
+      "id": "77ebd23e-186f-4db7-8e3c-0d4f12600bf7",
+      "shipment_id": "9430550a-90dc-4cbc-b7e9-112cbdfc70a4",
+      "actor_id": "3980f3c5-484c-4178-b03c-8d65c598ecd7",
+      "latitude": 25.6,
+      "longitude": -100.3,
+      "captured_at": "2026-10-19T16:29:58.848042+00:00",
+      "created_at": "2026-10-19T16:29:59.001775+00:00"
+    },
+    "meta": {
+      "correlation_id": "b483903a-1e5f-4aee-80bb-c1cdc9c1582c",
+      "service": "transporte",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "b483903a-1e5f-4aee-80bb-c1cdc9c1582c",
+  "persistence": {
+    "effect": "committed",
+    "store": "PostgreSQL red_house",
+    "query": "SELECT operation,fingerprint,result FROM idempotency WHERE user_id=:actor AND key=:idempotency_key",
+    "row": {
+      "operation": "telemetry_create:9430550a-90dc-4cbc-b7e9-112cbdfc70a4",
+      "fingerprint": "90e0c3e7e6c4042d24534c13bea481dad24c3368b1b9d6146cca11b478180118",
+      "result": {
+        "id": "77ebd23e-186f-4db7-8e3c-0d4f12600bf7",
+        "actor_id": "3980f3c5-484c-4178-b03c-8d65c598ecd7",
+        "latitude": 25.6,
+        "longitude": -100.3,
+        "created_at": "2026-10-19T16:29:59.001775+00:00",
+        "captured_at": "2026-10-19T16:29:58.848042+00:00",
+        "shipment_id": "9430550a-90dc-4cbc-b7e9-112cbdfc70a4"
+      }
+    }
+  }
+}

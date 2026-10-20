@@ -1,0 +1,93 @@
+<!doctype html><html lang="es"><meta charset="utf-8"><title>receptores /internal/v1/holds</title><style>body{font:15px system-ui;margin:32px;background:#f4f5f7;color:#202631}main{max-width:1250px;margin:auto}h1{color:#8e2434;font-size:26px}small{color:#556}a{color:#8e2434}table{border-collapse:collapse;width:100%;background:white}td,th{padding:9px;border:1px solid #ccd;vertical-align:top;text-align:left}pre{white-space:pre-wrap;word-break:break-word;background:#fff;border:1px solid #ccd;padding:12px;font:12px monospace;max-height:300px;overflow:auto}section{margin:20px 0}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.tag{padding:4px 9px;background:#e5ece7}.error{background:#f8e5e6}input{padding:12px;width:70%;margin:15px 0}details{margin:12px 0}nav{margin-bottom:20px}</style><main><nav><a href="../index.html">Inventario completo</a></nav><h1>receptores · POST /internal/v1/holds</h1><p>Retener capacidad; serializar solicitud y receptor</p><p>Registro de ejecución real. Credenciales y firmas redactadas. Los cuerpos completos están en el JSON enlazado.</p><section><h2>HTTP 200</h2><p><b>2026-10-19T16:26:46.646218+00:00</b> · versión 0.3.0</p><p>Correlación: b2219a1e-7253-4263-8147-b3d554337f59<br>URL: http://127.0.0.1:56260/internal/v1/holds</p><p><a href="../records/eceac29c3023c00211483e6e.json">Petición, respuesta, headers y persistencia completos</a></p><div class="grid"><div><h3>Petición</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Host&quot;: &quot;127.0.0.1:56260&quot;,
+    &quot;User-Agent&quot;: &quot;python-requests/2.34.2&quot;,
+    &quot;Accept-Encoding&quot;: &quot;gzip, deflate, br&quot;,
+    &quot;Accept&quot;: &quot;application/json&quot;,
+    &quot;Connection&quot;: &quot;keep-alive&quot;,
+    &quot;Content-Type&quot;: &quot;application/json&quot;,
+    &quot;X-Service&quot;: &quot;inventario&quot;,
+    &quot;X-Service-Time&quot;: &quot;1792427206&quot;,
+    &quot;X-Service-Nonce&quot;: &quot;e654961f-fe2d-4fef-b68c-ff099e46a8bd&quot;,
+    &quot;X-Service-Signature&quot;: &quot;[REDACTED]&quot;,
+    &quot;X-Correlation-Id&quot;: &quot;b2219a1e-7253-4263-8147-b3d554337f59&quot;,
+    &quot;Authorization&quot;: &quot;[REDACTED]&quot;,
+    &quot;Content-Length&quot;: &quot;202&quot;
+  },
+  &quot;parameters&quot;: {},
+  &quot;body&quot;: {
+    &quot;operation_id&quot;: &quot;795429b9-bf80-46be-a8fe-de43eae6699e&quot;,
+    &quot;request_id&quot;: &quot;17c8321c-0f0f-4a1d-8df9-50ce48be5f4a&quot;,
+    &quot;resource_id&quot;: &quot;32e70838-54db-4e5e-b991-5b57395cc25b&quot;,
+    &quot;request_version&quot;: 1,
+    &quot;recipient_version&quot;: 1
+  }
+}</pre></div><div><h3>Respuesta</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Content-Type&quot;: &quot;application/json&quot;,
+    &quot;Content-Length&quot;: &quot;550&quot;,
+    &quot;X-Correlation-ID&quot;: &quot;b2219a1e-7253-4263-8147-b3d554337f59&quot;,
+    &quot;Cache-Control&quot;: &quot;no-store&quot;,
+    &quot;X-Content-Type-Options&quot;: &quot;nosniff&quot;,
+    &quot;Referrer-Policy&quot;: &quot;no-referrer&quot;
+  },
+  &quot;body&quot;: {
+    &quot;data&quot;: {
+      &quot;id&quot;: &quot;42ebb506-6100-446b-ac2a-2a342deb962f&quot;,
+      &quot;request_id&quot;: &quot;17c8321c-0f0f-4a1d-8df9-50ce48be5f4a&quot;,
+      &quot;recipient_id&quot;: &quot;5ad73a0c-5225-49a2-8d9e-74722aa5d373&quot;,
+      &quot;operation_id&quot;: &quot;795429b9-bf80-46be-a8fe-de43eae6699e&quot;,
+      &quot;resource_id&quot;: &quot;32e70838-54db-4e5e-b991-5b57395cc25b&quot;,
+      &quot;kind&quot;: &quot;BLOOD&quot;,
+      &quot;request_version&quot;: 1,
+      &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+      &quot;status&quot;: &quot;HELD&quot;,
+      &quot;created_at&quot;: &quot;2026-10-19T16:26:46.569177+00:00&quot;
+    },
+    &quot;meta&quot;: {
+      &quot;correlation_id&quot;: &quot;b2219a1e-7253-4263-8147-b3d554337f59&quot;,
+      &quot;service&quot;: &quot;receptores&quot;,
+      &quot;version&quot;: &quot;0.3.0&quot;
+    }
+  }
+}</pre></div></div><details><summary>Persistencia y versión de implementación</summary><pre>{
+  &quot;effect&quot;: &quot;committed&quot;,
+  &quot;store&quot;: &quot;PostgreSQL red_house&quot;,
+  &quot;query&quot;: &quot;SELECT id,operation_id,request_id,resource_id,status FROM holds WHERE id=%s&quot;,
+  &quot;parameters&quot;: [
+    &quot;42ebb506-6100-446b-ac2a-2a342deb962f&quot;
+  ],
+  &quot;row&quot;: {
+    &quot;id&quot;: &quot;42ebb506-6100-446b-ac2a-2a342deb962f&quot;,
+    &quot;operation_id&quot;: &quot;795429b9-bf80-46be-a8fe-de43eae6699e&quot;,
+    &quot;request_id&quot;: &quot;17c8321c-0f0f-4a1d-8df9-50ce48be5f4a&quot;,
+    &quot;resource_id&quot;: &quot;32e70838-54db-4e5e-b991-5b57395cc25b&quot;,
+    &quot;status&quot;: &quot;HELD&quot;
+  }
+}</pre><p>SHA-256: ff2e7260f413ab4edb16a5555f512ec7404cdb118d66af3fc8a1e4dd2c6136b4</p></details></section><section><h2>HTTP 401</h2><p><b>2026-10-19T16:28:14.948926+00:00</b> · versión 0.3.0</p><p>Correlación: b6ec12e4-e798-44d2-9a66-13e6745d9fc8<br>URL: http://127.0.0.1:56260/internal/v1/holds</p><p><a href="../records/af54219ee6795541f8fad5b0.json">Petición, respuesta, headers y persistencia completos</a></p><div class="grid"><div><h3>Petición</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Host&quot;: &quot;127.0.0.1:56260&quot;,
+    &quot;User-Agent&quot;: &quot;python-requests/2.34.2&quot;,
+    &quot;Accept-Encoding&quot;: &quot;gzip, deflate, br&quot;,
+    &quot;Accept&quot;: &quot;application/xml&quot;,
+    &quot;Connection&quot;: &quot;keep-alive&quot;,
+    &quot;Idempotency-Key&quot;: &quot;f0c28ddbf8d64967a038b5c2238e8f9b&quot;,
+    &quot;Content-Length&quot;: &quot;2&quot;,
+    &quot;Content-Type&quot;: &quot;application/json&quot;
+  },
+  &quot;parameters&quot;: {},
+  &quot;body&quot;: {}
+}</pre></div><div><h3>Respuesta</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Content-Type&quot;: &quot;application/xml; charset=utf-8&quot;,
+    &quot;Content-Length&quot;: &quot;520&quot;,
+    &quot;X-Correlation-ID&quot;: &quot;b6ec12e4-e798-44d2-9a66-13e6745d9fc8&quot;,
+    &quot;Cache-Control&quot;: &quot;no-store&quot;,
+    &quot;X-Content-Type-Options&quot;: &quot;nosniff&quot;,
+    &quot;Referrer-Policy&quot;: &quot;no-referrer&quot;
+  },
+  &quot;body&quot;: &quot;&lt;response type=\&quot;object\&quot;&gt;&lt;field name=\&quot;error\&quot; type=\&quot;object\&quot;&gt;&lt;field name=\&quot;code\&quot; type=\&quot;string\&quot;&gt;unauthorized_service&lt;/field&gt;&lt;field name=\&quot;message\&quot; type=\&quot;string\&quot;&gt;Identidad de servicio inválida.&lt;/field&gt;&lt;field name=\&quot;details\&quot; type=\&quot;array\&quot;/&gt;&lt;/field&gt;&lt;field name=\&quot;meta\&quot; type=\&quot;object\&quot;&gt;&lt;field name=\&quot;correlation_id\&quot; type=\&quot;string\&quot;&gt;b6ec12e4-e798-44d2-9a66-13e6745d9fc8&lt;/field&gt;&lt;field name=\&quot;service\&quot; type=\&quot;string\&quot;&gt;receptores&lt;/field&gt;&lt;field name=\&quot;version\&quot; type=\&quot;string\&quot;&gt;0.3.0&lt;/field&gt;&lt;/field&gt;&lt;/response&gt;&quot;
+}</pre></div></div><details><summary>Persistencia y versión de implementación</summary><pre>{
+  &quot;effect&quot;: &quot;controlled_error&quot;,
+  &quot;note&quot;: &quot;No se infiere ausencia de efectos de un error; revisar correlación y estado de operación.&quot;
+}</pre><p>SHA-256: ff2e7260f413ab4edb16a5555f512ec7404cdb118d66af3fc8a1e4dd2c6136b4</p></details></section><h2>Todas las variantes ejecutadas</h2><ul><li><a href="../records/af54219ee6795541f8fad5b0.json">401 · http · application/xml; charset=utf-8 · 2026-10-19T16:28:14.948926+00:00</a></li><li><a href="../records/7bac02b9f44f1dc8f95b9b17.json">200 · embedded · application/json · 2026-10-19T16:22:49.779036+00:00</a></li><li><a href="../records/eceac29c3023c00211483e6e.json">200 · http · application/json · 2026-10-19T16:26:46.646218+00:00</a></li><li><a href="../records/9da6a5e8b485299e8e70e8ae.json">401 · http · application/json · 2026-10-19T16:28:14.916325+00:00</a></li><li><a href="../records/d12adb66f2265009d7949229.json">409 · http · application/json · 2026-10-19T16:33:24.936814+00:00</a></li></ul></main></html>

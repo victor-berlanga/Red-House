@@ -1,0 +1,54 @@
+{
+  "captured_at": "2026-10-19T16:35:41.093260+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "bfa44d7f9eed353dec3bafc8b15f8c356f1d5755eda053077cae211dc4490657",
+  "transport": "http",
+  "method": "POST",
+  "route": "/api/v1/alerts/<identifier>/acknowledge",
+  "objective": "Acusar recibo sin modificar el hecho de origen",
+  "url": "http://127.0.0.1:56266/api/v1/alerts/2f587bbd-6608-407c-b217-638993069344/acknowledge",
+  "parameters": {},
+  "path_parameters": {
+    "identifier": "2f587bbd-6608-407c-b217-638993069344"
+  },
+  "request_headers": {
+    "Host": "127.0.0.1:56266",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "X-Correlation-Id": "c9ff7a58-c2a8-442b-8004-5148b583a7c3",
+    "Authorization": "[REDACTED]",
+    "Idempotency-Key": "3ed64c824cb94a85864e4fbe1e8005bd",
+    "Content-Type": "application/json",
+    "Content-Length": "2"
+  },
+  "request_body": {},
+  "status": 403,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "200",
+    "X-Correlation-ID": "c9ff7a58-c2a8-442b-8004-5148b583a7c3",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "error": {
+      "code": "forbidden",
+      "message": "Alerta de otro destinatario.",
+      "details": []
+    },
+    "meta": {
+      "correlation_id": "c9ff7a58-c2a8-442b-8004-5148b583a7c3",
+      "service": "alertas",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "c9ff7a58-c2a8-442b-8004-5148b583a7c3",
+  "persistence": {
+    "effect": "controlled_error",
+    "note": "No se infiere ausencia de efectos de un error; revisar correlación y estado de operación."
+  }
+}

@@ -1,0 +1,94 @@
+<!doctype html><html lang="es"><meta charset="utf-8"><title>donantes /api/v1/donations/&lt;identifier&gt;/steps</title><style>body{font:15px system-ui;margin:32px;background:#f4f5f7;color:#202631}main{max-width:1250px;margin:auto}h1{color:#8e2434;font-size:26px}small{color:#556}a{color:#8e2434}table{border-collapse:collapse;width:100%;background:white}td,th{padding:9px;border:1px solid #ccd;vertical-align:top;text-align:left}pre{white-space:pre-wrap;word-break:break-word;background:#fff;border:1px solid #ccd;padding:12px;font:12px monospace;max-height:300px;overflow:auto}section{margin:20px 0}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.tag{padding:4px 9px;background:#e5ece7}.error{background:#f8e5e6}input{padding:12px;width:70%;margin:15px 0}details{margin:12px 0}nav{margin-bottom:20px}</style><main><nav><a href="../index.html">Inventario completo</a></nav><h1>donantes · POST /api/v1/donations/&lt;identifier&gt;/steps</h1><p>Documentar procesamiento o rechazo; no infiere elegibilidad clínica</p><p>Registro de ejecución real. Credenciales y firmas redactadas. Los cuerpos completos están en el JSON enlazado.</p><section><h2>HTTP 200</h2><p><b>2026-10-19T16:22:09.959678+00:00</b> · versión 0.3.0</p><p>Correlación: e30ed15f-f2c9-4fc4-80f1-d1d4f9369a9f<br>URL: http://127.0.0.1:56259/api/v1/donations/ebac8855-3399-45e2-a630-eda2e44463a6/steps</p><p><a href="../records/04ae28cc242e9ca82abbbf2c.json">Petición, respuesta, headers y persistencia completos</a></p><div class="grid"><div><h3>Petición</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Host&quot;: &quot;127.0.0.1:56259&quot;,
+    &quot;User-Agent&quot;: &quot;python-requests/2.34.2&quot;,
+    &quot;Accept-Encoding&quot;: &quot;gzip, deflate, br&quot;,
+    &quot;Accept&quot;: &quot;application/json&quot;,
+    &quot;Connection&quot;: &quot;keep-alive&quot;,
+    &quot;Idempotency-Key&quot;: &quot;9f28cccc6af241a6b55f0b3e6d7a9c4c&quot;,
+    &quot;Authorization&quot;: &quot;[REDACTED]&quot;,
+    &quot;Content-Length&quot;: &quot;112&quot;,
+    &quot;Content-Type&quot;: &quot;application/json&quot;
+  },
+  &quot;parameters&quot;: {},
+  &quot;body&quot;: {
+    &quot;state&quot;: &quot;PROCESSED&quot;,
+    &quot;version&quot;: 1,
+    &quot;human_confirmation&quot;: true,
+    &quot;reason&quot;: &quot;Procesamiento ficticio documentado&quot;
+  }
+}</pre></div><div><h3>Respuesta</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Content-Type&quot;: &quot;application/json&quot;,
+    &quot;Content-Length&quot;: &quot;469&quot;,
+    &quot;X-Correlation-ID&quot;: &quot;e30ed15f-f2c9-4fc4-80f1-d1d4f9369a9f&quot;,
+    &quot;Cache-Control&quot;: &quot;no-store&quot;,
+    &quot;X-Content-Type-Options&quot;: &quot;nosniff&quot;,
+    &quot;Referrer-Policy&quot;: &quot;no-referrer&quot;
+  },
+  &quot;body&quot;: {
+    &quot;data&quot;: {
+      &quot;id&quot;: &quot;ebac8855-3399-45e2-a630-eda2e44463a6&quot;,
+      &quot;donor_id&quot;: &quot;de7e1a18-0098-48bf-91be-796e1e2ca0de&quot;,
+      &quot;tenant_id&quot;: &quot;87255e79-2a0a-4e44-ad21-8002ccd5688d&quot;,
+      &quot;kind&quot;: &quot;BLOOD&quot;,
+      &quot;component&quot;: &quot;RBC&quot;,
+      &quot;blood_group&quot;: &quot;O-&quot;,
+      &quot;collected_at&quot;: &quot;2026-10-19T16:21:09.294830+00:00&quot;,
+      &quot;status&quot;: &quot;PROCESSED&quot;,
+      &quot;version&quot;: 2,
+      &quot;created_at&quot;: &quot;2026-10-19T16:22:09.376100+00:00&quot;
+    },
+    &quot;meta&quot;: {
+      &quot;correlation_id&quot;: &quot;e30ed15f-f2c9-4fc4-80f1-d1d4f9369a9f&quot;,
+      &quot;service&quot;: &quot;donantes&quot;,
+      &quot;version&quot;: &quot;0.3.0&quot;
+    }
+  }
+}</pre></div></div><details><summary>Persistencia y versión de implementación</summary><pre>{
+  &quot;effect&quot;: &quot;committed&quot;,
+  &quot;store&quot;: &quot;PostgreSQL red_house&quot;,
+  &quot;query&quot;: &quot;SELECT operation,fingerprint,result FROM idempotency WHERE user_id=:actor AND key=:idempotency_key&quot;,
+  &quot;row&quot;: {
+    &quot;operation&quot;: &quot;donation_step:ebac8855-3399-45e2-a630-eda2e44463a6&quot;,
+    &quot;fingerprint&quot;: &quot;c77b539768cc47586bf9dadcbb64319f177178ce7195069ff34eeb0c5b6d20f1&quot;,
+    &quot;result&quot;: {
+      &quot;id&quot;: &quot;ebac8855-3399-45e2-a630-eda2e44463a6&quot;,
+      &quot;kind&quot;: &quot;BLOOD&quot;,
+      &quot;status&quot;: &quot;PROCESSED&quot;,
+      &quot;version&quot;: 2,
+      &quot;donor_id&quot;: &quot;de7e1a18-0098-48bf-91be-796e1e2ca0de&quot;,
+      &quot;component&quot;: &quot;RBC&quot;,
+      &quot;tenant_id&quot;: &quot;87255e79-2a0a-4e44-ad21-8002ccd5688d&quot;,
+      &quot;created_at&quot;: &quot;2026-10-19T16:22:09.376100+00:00&quot;,
+      &quot;blood_group&quot;: &quot;O-&quot;,
+      &quot;collected_at&quot;: &quot;2026-10-19T16:21:09.294830+00:00&quot;
+    }
+  }
+}</pre><p>SHA-256: 1a8dccae105e0c261a0273a99f999923c88cbf235f750f80f0ac2f487c8b6654</p></details></section><section><h2>HTTP 401</h2><p><b>2026-10-19T16:28:12.340153+00:00</b> · versión 0.3.0</p><p>Correlación: dae6950e-980a-451a-91c8-7408184fe42e<br>URL: http://127.0.0.1:56259/api/v1/donations/62e80c09-2478-453c-b8fe-bf4a89641c6a/steps</p><p><a href="../records/ad3ee1ba185741f745417502.json">Petición, respuesta, headers y persistencia completos</a></p><div class="grid"><div><h3>Petición</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Host&quot;: &quot;127.0.0.1:56259&quot;,
+    &quot;User-Agent&quot;: &quot;python-requests/2.34.2&quot;,
+    &quot;Accept-Encoding&quot;: &quot;gzip, deflate, br&quot;,
+    &quot;Accept&quot;: &quot;application/xml&quot;,
+    &quot;Connection&quot;: &quot;keep-alive&quot;,
+    &quot;Idempotency-Key&quot;: &quot;5fa75afb2f6b46e7a25c95b58c193f0e&quot;,
+    &quot;Content-Length&quot;: &quot;2&quot;,
+    &quot;Content-Type&quot;: &quot;application/json&quot;
+  },
+  &quot;parameters&quot;: {},
+  &quot;body&quot;: {}
+}</pre></div><div><h3>Respuesta</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Content-Type&quot;: &quot;application/xml; charset=utf-8&quot;,
+    &quot;Content-Length&quot;: &quot;502&quot;,
+    &quot;X-Correlation-ID&quot;: &quot;dae6950e-980a-451a-91c8-7408184fe42e&quot;,
+    &quot;Cache-Control&quot;: &quot;no-store&quot;,
+    &quot;X-Content-Type-Options&quot;: &quot;nosniff&quot;,
+    &quot;Referrer-Policy&quot;: &quot;no-referrer&quot;
+  },
+  &quot;body&quot;: &quot;&lt;response type=\&quot;object\&quot;&gt;&lt;field name=\&quot;error\&quot; type=\&quot;object\&quot;&gt;&lt;field name=\&quot;code\&quot; type=\&quot;string\&quot;&gt;unauthorized&lt;/field&gt;&lt;field name=\&quot;message\&quot; type=\&quot;string\&quot;&gt;JWT de acceso requerido.&lt;/field&gt;&lt;field name=\&quot;details\&quot; type=\&quot;array\&quot;/&gt;&lt;/field&gt;&lt;field name=\&quot;meta\&quot; type=\&quot;object\&quot;&gt;&lt;field name=\&quot;correlation_id\&quot; type=\&quot;string\&quot;&gt;dae6950e-980a-451a-91c8-7408184fe42e&lt;/field&gt;&lt;field name=\&quot;service\&quot; type=\&quot;string\&quot;&gt;donantes&lt;/field&gt;&lt;field name=\&quot;version\&quot; type=\&quot;string\&quot;&gt;0.3.0&lt;/field&gt;&lt;/field&gt;&lt;/response&gt;&quot;
+}</pre></div></div><details><summary>Persistencia y versión de implementación</summary><pre>{
+  &quot;effect&quot;: &quot;controlled_error&quot;,
+  &quot;note&quot;: &quot;No se infiere ausencia de efectos de un error; revisar correlación y estado de operación.&quot;
+}</pre><p>SHA-256: 1a8dccae105e0c261a0273a99f999923c88cbf235f750f80f0ac2f487c8b6654</p></details></section><h2>Todas las variantes ejecutadas</h2><ul><li><a href="../records/04ae28cc242e9ca82abbbf2c.json">200 · http · application/json · 2026-10-19T16:22:09.959678+00:00</a></li><li><a href="../records/ad3ee1ba185741f745417502.json">401 · http · application/xml; charset=utf-8 · 2026-10-19T16:28:12.340153+00:00</a></li><li><a href="../records/d213b0e7c49815091db59313.json">200 · embedded · application/json · 2026-10-19T16:26:35.140869+00:00</a></li><li><a href="../records/3696da2b2d6e1825c365167d.json">401 · http · application/json · 2026-10-19T16:28:12.297950+00:00</a></li></ul></main></html>

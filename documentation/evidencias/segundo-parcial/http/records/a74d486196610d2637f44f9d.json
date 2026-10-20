@@ -1,0 +1,68 @@
+{
+  "captured_at": "2026-10-19T16:23:01.555160+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "f1a9056ec92eb7006810957e59fb326815b25003ea30d5ed1de2439e7ed8f42a",
+  "transport": "embedded",
+  "method": "POST",
+  "route": "/internal/v1/events",
+  "objective": "Recibir registro minimizado y conservarlo de forma inmutable",
+  "url": "http://localhost/internal/v1/events",
+  "parameters": {},
+  "path_parameters": {},
+  "request_headers": {
+    "Host": "localhost",
+    "Content-Type": "application/json",
+    "Content-Length": "420",
+    "Accept": "application/json",
+    "X-Service": "identidad_acceso",
+    "X-Service-Time": "1792426981",
+    "X-Service-Nonce": "0701475d-fda0-4699-bc40-fe408776b814",
+    "X-Service-Signature": "[REDACTED]",
+    "X-Correlation-Id": "e4f06cdc-b52c-442c-a5fa-b4afea6a19f2"
+  },
+  "request_body": {
+    "action": "LOGIN",
+    "source": "identidad_acceso",
+    "actor_id": "575f0812-36fb-451f-b643-91b934c9ce73",
+    "event_id": "e4fb424d-ce70-4413-8663-abee5905b6d8",
+    "metadata": {},
+    "region_id": "7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb",
+    "tenant_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+    "occurred_at": "2026-10-19T16:21:54.757424+00:00",
+    "resource_id": "575f0812-36fb-451f-b643-91b934c9ce73",
+    "correlation_id": "da0f2f6e-b367-4ba1-afe9-b4056547d49f"
+  },
+  "status": 200,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "138",
+    "X-Correlation-ID": "e4f06cdc-b52c-442c-a5fa-b4afea6a19f2",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "data": {
+      "stored": true
+    },
+    "meta": {
+      "correlation_id": "e4f06cdc-b52c-442c-a5fa-b4afea6a19f2",
+      "service": "auditoria",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "e4f06cdc-b52c-442c-a5fa-b4afea6a19f2",
+  "persistence": {
+    "effect": "committed",
+    "store": "PostgreSQL red_house",
+    "query": "SELECT event_id,fingerprint FROM inbox WHERE event_id=%s",
+    "parameters": [
+      "e4fb424d-ce70-4413-8663-abee5905b6d8"
+    ],
+    "row": {
+      "event_id": "e4fb424d-ce70-4413-8663-abee5905b6d8",
+      "fingerprint": "814aa932522337b7b9c12f8605ddb3b40eba017bcadab78c443866194d956548"
+    }
+  }
+}

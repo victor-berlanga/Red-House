@@ -1,0 +1,115 @@
+{
+  "maquina01": {
+    "name": "maquina01",
+    "machineType": "https://www.googleapis.com/compute/v1/projects/sistemas-integracion-01/zones/me-central1-a/machineTypes/e2-standard-2",
+    "status": "TERMINATED",
+    "zone": "https://www.googleapis.com/compute/v1/projects/sistemas-integracion-01/zones/me-central1-a",
+    "creationTimestamp": "2026-08-10T09:37:05.771-07:00",
+    "scheduling": {
+      "automaticRestart": true,
+      "onHostMaintenance": "MIGRATE",
+      "preemptible": false,
+      "provisioningModel": "STANDARD"
+    },
+    "shieldedInstanceConfig": {
+      "enableIntegrityMonitoring": true,
+      "enableSecureBoot": false,
+      "enableVtpm": true
+    },
+    "serviceAccounts": [
+      {
+        "email": "346663760057-compute@developer.gserviceaccount.com",
+        "scopes": [
+          "https://www.googleapis.com/auth/devstorage.read_only",
+          "https://www.googleapis.com/auth/logging.write",
+          "https://www.googleapis.com/auth/monitoring.write",
+          "https://www.googleapis.com/auth/pubsub",
+          "https://www.googleapis.com/auth/service.management.readonly",
+          "https://www.googleapis.com/auth/servicecontrol",
+          "https://www.googleapis.com/auth/trace.append"
+        ]
+      }
+    ],
+    "disks": [
+      {
+        "boot": true,
+        "diskSizeGb": "20",
+        "source": "https://www.googleapis.com/compute/v1/projects/sistemas-integracion-01/zones/me-central1-a/disks/maquina01",
+        "architecture": "X86_64"
+      }
+    ],
+    "network": [
+      {
+        "network": "https://www.googleapis.com/compute/v1/projects/sistemas-integracion-01/global/networks/default",
+        "subnetwork": "https://www.googleapis.com/compute/v1/projects/sistemas-integracion-01/regions/me-central1/subnetworks/default",
+        "networkIP": "10.212.0.2",
+        "accessConfigs": [
+          {
+            "kind": "compute#accessConfig",
+            "name": "external-nat",
+            "networkTier": "PREMIUM",
+            "type": "ONE_TO_ONE_NAT"
+          }
+        ]
+      }
+    ]
+  },
+  "red-house": {
+    "name": "red-house",
+    "machineType": "https://www.googleapis.com/compute/v1/projects/sistemas-integracion-01/zones/me-central1-a/machineTypes/e2-standard-2",
+    "status": "RUNNING",
+    "zone": "https://www.googleapis.com/compute/v1/projects/sistemas-integracion-01/zones/me-central1-a",
+    "creationTimestamp": "2026-10-20T13:32:19.200-07:00",
+    "scheduling": {
+      "automaticRestart": true,
+      "onHostMaintenance": "MIGRATE",
+      "preemptible": false,
+      "provisioningModel": "STANDARD"
+    },
+    "shieldedInstanceConfig": {
+      "enableIntegrityMonitoring": true,
+      "enableSecureBoot": false,
+      "enableVtpm": true
+    },
+    "serviceAccounts": [
+      {
+        "email": "red-house-archivos@sistemas-integracion-01.iam.gserviceaccount.com",
+        "scopes": [
+          "https://www.googleapis.com/auth/cloud-platform"
+        ]
+      }
+    ],
+    "disks": [
+      {
+        "boot": true,
+        "diskSizeGb": "20",
+        "source": "https://www.googleapis.com/compute/v1/projects/sistemas-integracion-01/zones/me-central1-a/disks/red-house",
+        "architecture": "X86_64"
+      }
+    ],
+    "network": [
+      {
+        "network": "https://www.googleapis.com/compute/v1/projects/sistemas-integracion-01/global/networks/default",
+        "subnetwork": "https://www.googleapis.com/compute/v1/projects/sistemas-integracion-01/regions/me-central1/subnetworks/default",
+        "networkIP": "10.212.0.3",
+        "accessConfigs": [
+          {
+            "kind": "compute#accessConfig",
+            "name": "external-nat",
+            "natIP": "34.18.186.116",
+            "networkTier": "PREMIUM",
+            "type": "ONE_TO_ONE_NAT"
+          }
+        ]
+      }
+    ]
+  },
+  "reference_specs": {
+    "vcpus": 2,
+    "memory_mb": 8192,
+    "os": "CentOS Stream 10",
+    "image": "centos-stream-10-v20260609",
+    "disk_gb": 20,
+    "disk_type": "pd-standard"
+  }
+}

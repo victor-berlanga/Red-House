@@ -36,20 +36,20 @@ El backlog conserva el estado registrado al cierre del primer parcial; el avance
 | Pruebas y resultados | [Validación](markdowns/Pruebas_y_validacion.md) |
 | Matriz de roles con fecha de corte | [Excel](excel/Matriz_Roles_Permisos_Red_House.xlsx) |
 
+## Segundo parcial: implementación 0.3.0
+
+- [Reporte técnico integral](markdowns/Reporte_tecnico_segundo_parcial.md), con arquitectura, procesos, requisitos y decisiones.
+- [Fichas de los once servicios](segundo-parcial/Fichas_microservicios.md) y [modelo físico PostgreSQL](segundo-parcial/Modelo_fisico.md).
+- [Diagramas actuales](segundo-parcial/diagramas/), incluida la relación física completa en SVG ampliable.
+- [Matriz de cumplimiento y fallos](markdowns/Cierre_segundo_parcial.md), [resultados](evidencias/segundo-parcial/RESULTADOS.md) y [expediente HTTP por endpoint](evidencias/segundo-parcial/http/index.html).
+- [Instalación Docker, respaldo y restauración](../deployment/README.md) y [guion presencial/video](../stuff/presentacion/Guion_segundo_parcial.md).
+- [VM GCP, túnel SSH y administración](../deployment/gcp/README.md), con [resultados del despliegue](evidencias/gcp/RESULTADOS.md).
+- Ediciones de entrega: [Reporte Word](docx/Reporte_tecnico_segundo_parcial.docx), [Reporte PDF](pdf/Reporte_tecnico_segundo_parcial.pdf), [modelo físico Word](docx/Modelo_fisico_PostgreSQL.docx) y [modelo físico PDF](pdf/Modelo_fisico_PostgreSQL.pdf).
+
 ## Entregas anteriores
 
-La [revisión del segundo parcial](markdowns/Revision_segundo_parcial.md) contrasta el enunciado de entrega del 22 de octubre con la implementación y detalla faltantes, prioridades, evidencia y criterios de cierre al 14/10/2026.
+La [revisión del segundo parcial](markdowns/Revision_segundo_parcial.md) conserva el diagnóstico del 14/10/2026 y enlaza la matriz vigente. Sus faltantes originales no describen el cierre actual.
 
-El [historial](historial/README.md) contiene resultados fechados, capturas, bitácoras y documentos específicos de implementaciones anteriores. El reporte integral en Word/PDF y sus ilustraciones describen la entrega del monolito; se conservan juntos para poder consultarla sin confundirla con la arquitectura ejecutable actual.
-
-```text
-documentation/
-├── markdowns/          Análisis, requisitos, planificación y guías actuales
-├── docx/               Ediciones de la documentación semestral
-├── excel/              Matrices
-├── database-diagrams/  Diseño lógico, normalización y sus generadores
-├── pdf/                Reservado para nuevas exportaciones
-└── historial/          Entregas anteriores, resultados y bitácora
-```
+El [historial](historial/README.md) conserva resultados fechados y documentos de implementaciones anteriores. Las fuentes de planificación del semestre mantienen su fecha de corte; el informe integral 0.3.0 y sus evidencias describen el incremento actual.
 
 Actualizar el documento correspondiente a cada tema; no crear un documento nuevo por conversación. Un cambio de implementación puede requerir revisar una sección sin retirar todo el documento de planificación.

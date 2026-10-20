@@ -1,0 +1,60 @@
+<!doctype html><html lang="es"><meta charset="utf-8"><title>donantes /schemas/&lt;name&gt;.xsd</title><style>body{font:15px system-ui;margin:32px;background:#f4f5f7;color:#202631}main{max-width:1250px;margin:auto}h1{color:#8e2434;font-size:26px}small{color:#556}a{color:#8e2434}table{border-collapse:collapse;width:100%;background:white}td,th{padding:9px;border:1px solid #ccd;vertical-align:top;text-align:left}pre{white-space:pre-wrap;word-break:break-word;background:#fff;border:1px solid #ccd;padding:12px;font:12px monospace;max-height:300px;overflow:auto}section{margin:20px 0}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.tag{padding:4px 9px;background:#e5ece7}.error{background:#f8e5e6}input{padding:12px;width:70%;margin:15px 0}details{margin:12px 0}nav{margin-bottom:20px}</style><main><nav><a href="../index.html">Inventario completo</a></nav><h1>donantes · GET /schemas/&lt;name&gt;.xsd</h1><p>Infraestructura y documentación</p><p>Registro de ejecución real. Credenciales y firmas redactadas. Los cuerpos completos están en el JSON enlazado.</p><section><h2>HTTP 200</h2><p><b>2026-10-19T16:28:10.233064+00:00</b> · versión 0.3.0</p><p>Correlación: 673faec2-a1e8-4d2e-bf82-cce974277884<br>URL: http://127.0.0.1:56259/schemas/response.xsd</p><p><a href="../records/81dd2f7f7610d23b57d2fffe.json">Petición, respuesta, headers y persistencia completos</a></p><div class="grid"><div><h3>Petición</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Host&quot;: &quot;127.0.0.1:56259&quot;,
+    &quot;User-Agent&quot;: &quot;python-requests/2.34.2&quot;,
+    &quot;Accept-Encoding&quot;: &quot;gzip, deflate, br&quot;,
+    &quot;Accept&quot;: &quot;application/json&quot;,
+    &quot;Connection&quot;: &quot;keep-alive&quot;,
+    &quot;Idempotency-Key&quot;: &quot;853364ce79e4443cabf66d07205032ff&quot;
+  },
+  &quot;parameters&quot;: {},
+  &quot;body&quot;: &quot;&quot;
+}</pre></div><div><h3>Respuesta</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Content-Type&quot;: &quot;application/xml; charset=utf-8&quot;,
+    &quot;Content-Length&quot;: &quot;993&quot;,
+    &quot;X-Correlation-ID&quot;: &quot;673faec2-a1e8-4d2e-bf82-cce974277884&quot;,
+    &quot;Cache-Control&quot;: &quot;no-store&quot;,
+    &quot;X-Content-Type-Options&quot;: &quot;nosniff&quot;,
+    &quot;Referrer-Policy&quot;: &quot;no-referrer&quot;
+  },
+  &quot;body&quot;: &quot;&lt;xs:schema xmlns:xs=\&quot;http://www.w3.org/2001/XMLSchema\&quot;&gt;\n  &lt;xs:simpleType name=\&quot;ValueKind\&quot;&gt;&lt;xs:restriction base=\&quot;xs:string\&quot;&gt;\n    &lt;xs:enumeration value=\&quot;object\&quot;/&gt;&lt;xs:enumeration value=\&quot;array\&quot;/&gt;&lt;xs:enumeration value=\&quot;string\&quot;/&gt;\n    &lt;xs:enumeration value=\&quot;integer\&quot;/&gt;&lt;xs:enumeration value=\&quot;number\&quot;/&gt;&lt;xs:enumeration value=\&quot;boolean\&quot;/&gt;&lt;xs:enumeration value=\&quot;null\&quot;/&gt;\n  &lt;/xs:restriction&gt;&lt;/xs:simpleType&gt;\n  &lt;xs:complexType name=\&quot;Value\&quot; mixed=\&quot;true\&quot;&gt;\n    &lt;xs:choice minOccurs=\&quot;0\&quot; maxOccurs=\&quot;unbounded\&quot;&gt;\n      &lt;xs:element name=\&quot;field\&quot;&gt;&lt;xs:complexType mixed=\&quot;true\&quot;&gt;&lt;xs:complexContent mixed=\&quot;true\&quot;&gt;&lt;xs:extension base=\&quot;Value\&quot;&gt;\n        &lt;xs:attribute name=\&quot;name\&quot; type=\&quot;xs:string\&quot; use=\&quot;required\&quot;/&gt;\n      &lt;/xs:extension&gt;&lt;/xs:complexContent&gt;&lt;/xs:complexType&gt;&lt;/xs:element&gt;\n      &lt;xs:element name=\&quot;item\&quot; type=\&quot;Value\&quot;/&gt;\n    &lt;/xs:choice&gt;\n    &lt;xs:attribute name=\&quot;type\&quot; type=\&quot;ValueKind\&quot; use=\&quot;required\&quot;/&gt;\n  &lt;/xs:complexType&gt;\n  &lt;xs:element name=\&quot;response\&quot; type=\&quot;Value\&quot;/&gt;\n&lt;/xs:schema&gt;&quot;
+}</pre></div></div><details><summary>Persistencia y versión de implementación</summary><pre>{
+  &quot;effect&quot;: &quot;read&quot;,
+  &quot;note&quot;: &quot;Consulta; accesos protegidos generan auditoría local transaccional.&quot;
+}</pre><p>SHA-256: 1a8dccae105e0c261a0273a99f999923c88cbf235f750f80f0ac2f487c8b6654</p></details></section><section><h2>HTTP 404</h2><p><b>2026-10-19T16:28:10.268773+00:00</b> · versión 0.3.0</p><p>Correlación: 57c39987-582e-4b76-a88f-a7dc8a52efc3<br>URL: http://127.0.0.1:56259/schemas/missing.xsd</p><p><a href="../records/18ee76a4dc766184c45bdd0c.json">Petición, respuesta, headers y persistencia completos</a></p><div class="grid"><div><h3>Petición</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Host&quot;: &quot;127.0.0.1:56259&quot;,
+    &quot;User-Agent&quot;: &quot;python-requests/2.34.2&quot;,
+    &quot;Accept-Encoding&quot;: &quot;gzip, deflate, br&quot;,
+    &quot;Accept&quot;: &quot;application/json&quot;,
+    &quot;Connection&quot;: &quot;keep-alive&quot;,
+    &quot;Idempotency-Key&quot;: &quot;bbd1233fd3ea485f9dfed7cb7119a84f&quot;
+  },
+  &quot;parameters&quot;: {},
+  &quot;body&quot;: &quot;&quot;
+}</pre></div><div><h3>Respuesta</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Content-Type&quot;: &quot;application/json&quot;,
+    &quot;Content-Length&quot;: &quot;193&quot;,
+    &quot;X-Correlation-ID&quot;: &quot;57c39987-582e-4b76-a88f-a7dc8a52efc3&quot;,
+    &quot;Cache-Control&quot;: &quot;no-store&quot;,
+    &quot;X-Content-Type-Options&quot;: &quot;nosniff&quot;,
+    &quot;Referrer-Policy&quot;: &quot;no-referrer&quot;
+  },
+  &quot;body&quot;: {
+    &quot;error&quot;: {
+      &quot;code&quot;: &quot;not_found&quot;,
+      &quot;message&quot;: &quot;Esquema inexistente.&quot;,
+      &quot;details&quot;: []
+    },
+    &quot;meta&quot;: {
+      &quot;correlation_id&quot;: &quot;57c39987-582e-4b76-a88f-a7dc8a52efc3&quot;,
+      &quot;service&quot;: &quot;donantes&quot;,
+      &quot;version&quot;: &quot;0.3.0&quot;
+    }
+  }
+}</pre></div></div><details><summary>Persistencia y versión de implementación</summary><pre>{
+  &quot;effect&quot;: &quot;controlled_error&quot;,
+  &quot;note&quot;: &quot;No se infiere ausencia de efectos de un error; revisar correlación y estado de operación.&quot;
+}</pre><p>SHA-256: 1a8dccae105e0c261a0273a99f999923c88cbf235f750f80f0ac2f487c8b6654</p></details></section><h2>Todas las variantes ejecutadas</h2><ul><li><a href="../records/18ee76a4dc766184c45bdd0c.json">404 · http · application/json · 2026-10-19T16:28:10.268773+00:00</a></li><li><a href="../records/81dd2f7f7610d23b57d2fffe.json">200 · http · application/xml; charset=utf-8 · 2026-10-19T16:28:10.233064+00:00</a></li></ul></main></html>

@@ -1,0 +1,176 @@
+{
+  "projection": {
+    "_id": "859eea1a-1b77-4b08-9a53-5038495b9521",
+    "destination_id": "a0920053-13c5-4d42-b53e-74b35a779f58",
+    "last_event_id": "056943b6-73dd-4705-81aa-36594c45a41b",
+    "last_state": "COLLECTED",
+    "occurred_at": "2026-10-19T16:26:49.351359+00:00",
+    "origin_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+    "owner": "transporte",
+    "region_id": "7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb",
+    "reservation_id": "1e1b90e8-2d0a-425b-bc78-f2b497c2af6a",
+    "schema_version": 1,
+    "shipment_id": "859eea1a-1b77-4b08-9a53-5038495b9521",
+    "transport_user_id": "3980f3c5-484c-4178-b03c-8d65c598ecd7",
+    "version": 3
+  },
+  "events_replayed": 6,
+  "unchanged_after_duplicates_and_rebuild": true,
+  "explain": {
+    "explainVersion": "1",
+    "queryPlanner": {
+      "namespace": "rh_transporte.shipment_tracking",
+      "parsedQuery": {
+        "region_id": {
+          "$eq": "7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb"
+        }
+      },
+      "indexFilterSet": false,
+      "queryHash": "646115ED",
+      "planCacheShapeHash": "646115ED",
+      "planCacheKey": "839FC822",
+      "optimizationTimeMillis": 0,
+      "maxIndexedOrSolutionsReached": false,
+      "maxIndexedAndSolutionsReached": false,
+      "maxScansToExplodeReached": false,
+      "prunedSimilarIndexes": false,
+      "winningPlan": {
+        "isCached": false,
+        "stage": "FETCH",
+        "inputStage": {
+          "stage": "IXSCAN",
+          "keyPattern": {
+            "region_id": 1,
+            "last_state": 1
+          },
+          "indexName": "regional_state",
+          "isMultiKey": false,
+          "multiKeyPaths": {
+            "region_id": [],
+            "last_state": []
+          },
+          "isUnique": false,
+          "isSparse": false,
+          "isPartial": false,
+          "indexVersion": 2,
+          "direction": "forward",
+          "indexBounds": {
+            "region_id": [
+              "[\"7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb\", \"7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb\"]"
+            ],
+            "last_state": [
+              "[MinKey, MaxKey]"
+            ]
+          }
+        }
+      },
+      "rejectedPlans": []
+    },
+    "executionStats": {
+      "executionSuccess": true,
+      "nReturned": 3,
+      "executionTimeMillis": 4,
+      "totalKeysExamined": 3,
+      "totalDocsExamined": 3,
+      "executionStages": {
+        "isCached": false,
+        "stage": "FETCH",
+        "nReturned": 3,
+        "executionTimeMillisEstimate": 0,
+        "works": 4,
+        "advanced": 3,
+        "needTime": 0,
+        "needYield": 0,
+        "saveState": 0,
+        "restoreState": 0,
+        "isEOF": 1,
+        "docsExamined": 3,
+        "alreadyHasObj": 0,
+        "inputStage": {
+          "stage": "IXSCAN",
+          "nReturned": 3,
+          "executionTimeMillisEstimate": 0,
+          "works": 4,
+          "advanced": 3,
+          "needTime": 0,
+          "needYield": 0,
+          "saveState": 0,
+          "restoreState": 0,
+          "isEOF": 1,
+          "keyPattern": {
+            "region_id": 1,
+            "last_state": 1
+          },
+          "indexName": "regional_state",
+          "isMultiKey": false,
+          "multiKeyPaths": {
+            "region_id": [],
+            "last_state": []
+          },
+          "isUnique": false,
+          "isSparse": false,
+          "isPartial": false,
+          "indexVersion": 2,
+          "direction": "forward",
+          "indexBounds": {
+            "region_id": [
+              "[\"7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb\", \"7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb\"]"
+            ],
+            "last_state": [
+              "[MinKey, MaxKey]"
+            ]
+          },
+          "keysExamined": 3,
+          "seeks": 1,
+          "dupsTested": 0,
+          "dupsDropped": 0
+        }
+      }
+    },
+    "queryShapeHash": "2741B6F73005AF52A0A63D1A71E8807492B81B58F4C90900F333B2AF1163FD37",
+    "command": {
+      "find": "shipment_tracking",
+      "filter": {
+        "region_id": "7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb"
+      },
+      "$db": "rh_transporte"
+    },
+    "serverInfo": {
+      "host": "Victors-MacBook-Air.local",
+      "port": 56204,
+      "version": "8.0.17",
+      "gitVersion": "b20e43625b72f4bb43cc15107f80ac966ae13b6d"
+    },
+    "serverParameters": {
+      "internalQueryFacetBufferSizeBytes": 104857600,
+      "internalQueryFacetMaxOutputDocSizeBytes": 104857600,
+      "internalLookupStageIntermediateDocumentMaxSizeBytes": 104857600,
+      "internalDocumentSourceGroupMaxMemoryBytes": 104857600,
+      "internalQueryMaxBlockingSortMemoryUsageBytes": 104857600,
+      "internalQueryProhibitBlockingMergeOnMongoS": 0,
+      "internalQueryMaxAddToSetBytes": 104857600,
+      "internalDocumentSourceSetWindowFieldsMaxMemoryBytes": 104857600,
+      "internalQueryFrameworkControl": "trySbeRestricted",
+      "internalQueryPlannerIgnoreIndexWithCollationForRegex": 1
+    },
+    "ok": 1.0
+  },
+  "indexes": [
+    {
+      "v": 2,
+      "key": {
+        "_id": 1
+      },
+      "name": "_id_"
+    },
+    {
+      "v": 2,
+      "key": {
+        "region_id": 1,
+        "last_state": 1
+      },
+      "name": "regional_state"
+    }
+  ],
+  "immutable_event_update": "denied"
+}

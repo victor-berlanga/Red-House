@@ -1,0 +1,64 @@
+<!doctype html><html lang="es"><meta charset="utf-8"><title>receptores /health/redis</title><style>body{font:15px system-ui;margin:32px;background:#f4f5f7;color:#202631}main{max-width:1250px;margin:auto}h1{color:#8e2434;font-size:26px}small{color:#556}a{color:#8e2434}table{border-collapse:collapse;width:100%;background:white}td,th{padding:9px;border:1px solid #ccd;vertical-align:top;text-align:left}pre{white-space:pre-wrap;word-break:break-word;background:#fff;border:1px solid #ccd;padding:12px;font:12px monospace;max-height:300px;overflow:auto}section{margin:20px 0}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.tag{padding:4px 9px;background:#e5ece7}.error{background:#f8e5e6}input{padding:12px;width:70%;margin:15px 0}details{margin:12px 0}nav{margin-bottom:20px}</style><main><nav><a href="../index.html">Inventario completo</a></nav><h1>receptores · GET /health/redis</h1><p>Infraestructura y documentación</p><p>Registro de ejecución real. Credenciales y firmas redactadas. Los cuerpos completos están en el JSON enlazado.</p><section><h2>HTTP 200</h2><p><b>2026-10-19T16:28:13.426217+00:00</b> · versión 0.3.0</p><p>Correlación: 5b25dfca-a5b1-4f8f-be3e-759fb751fcb3<br>URL: http://127.0.0.1:56260/health/redis</p><p><a href="../records/9861a5e396f12c687f2eb815.json">Petición, respuesta, headers y persistencia completos</a></p><div class="grid"><div><h3>Petición</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Host&quot;: &quot;127.0.0.1:56260&quot;,
+    &quot;User-Agent&quot;: &quot;python-requests/2.34.2&quot;,
+    &quot;Accept-Encoding&quot;: &quot;gzip, deflate, br&quot;,
+    &quot;Accept&quot;: &quot;application/json&quot;,
+    &quot;Connection&quot;: &quot;keep-alive&quot;,
+    &quot;Idempotency-Key&quot;: &quot;97556401ed504c30a412f53990f27293&quot;
+  },
+  &quot;parameters&quot;: {},
+  &quot;body&quot;: &quot;&quot;
+}</pre></div><div><h3>Respuesta</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Content-Type&quot;: &quot;application/json&quot;,
+    &quot;Content-Length&quot;: &quot;93&quot;,
+    &quot;X-Correlation-ID&quot;: &quot;5b25dfca-a5b1-4f8f-be3e-759fb751fcb3&quot;,
+    &quot;Cache-Control&quot;: &quot;no-store&quot;,
+    &quot;X-Content-Type-Options&quot;: &quot;nosniff&quot;,
+    &quot;Referrer-Policy&quot;: &quot;no-referrer&quot;
+  },
+  &quot;body&quot;: {
+    &quot;data&quot;: {
+      &quot;state&quot;: &quot;up&quot;
+    },
+    &quot;meta&quot;: {
+      &quot;correlation_id&quot;: &quot;5b25dfca-a5b1-4f8f-be3e-759fb751fcb3&quot;
+    }
+  }
+}</pre></div></div><details><summary>Persistencia y versión de implementación</summary><pre>{
+  &quot;effect&quot;: &quot;read&quot;,
+  &quot;note&quot;: &quot;Consulta; accesos protegidos generan auditoría local transaccional.&quot;
+}</pre><p>SHA-256: ff2e7260f413ab4edb16a5555f512ec7404cdb118d66af3fc8a1e4dd2c6136b4</p></details></section><section><h2>HTTP 503</h2><p><b>2026-10-19T18:30:58.109323+00:00</b> · versión 0.3.0</p><p>Correlación: df832163-f102-4f31-9022-f948c2c73f61<br>URL: http://127.0.0.1:60898/health/redis</p><p><a href="../records/6e592b5ccd0b600d4fcdbdf3.json">Petición, respuesta, headers y persistencia completos</a></p><div class="grid"><div><h3>Petición</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Host&quot;: &quot;127.0.0.1:60898&quot;,
+    &quot;User-Agent&quot;: &quot;python-requests/2.34.2&quot;,
+    &quot;Accept-Encoding&quot;: &quot;gzip, deflate, br&quot;,
+    &quot;Accept&quot;: &quot;application/json&quot;,
+    &quot;Connection&quot;: &quot;keep-alive&quot;,
+    &quot;Idempotency-Key&quot;: &quot;2cab01bb419749f7924de8ff5aedc6d9&quot;
+  },
+  &quot;parameters&quot;: {},
+  &quot;body&quot;: &quot;&quot;
+}</pre></div><div><h3>Respuesta</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Content-Type&quot;: &quot;application/json&quot;,
+    &quot;Content-Length&quot;: &quot;130&quot;,
+    &quot;X-Correlation-ID&quot;: &quot;df832163-f102-4f31-9022-f948c2c73f61&quot;,
+    &quot;Cache-Control&quot;: &quot;no-store&quot;,
+    &quot;X-Content-Type-Options&quot;: &quot;nosniff&quot;,
+    &quot;Referrer-Policy&quot;: &quot;no-referrer&quot;
+  },
+  &quot;body&quot;: {
+    &quot;data&quot;: {
+      &quot;state&quot;: &quot;down&quot;,
+      &quot;error&quot;: &quot;dependency_unavailable&quot;
+    },
+    &quot;meta&quot;: {
+      &quot;correlation_id&quot;: &quot;df832163-f102-4f31-9022-f948c2c73f61&quot;
+    }
+  }
+}</pre></div></div><details><summary>Persistencia y versión de implementación</summary><pre>{
+  &quot;effect&quot;: &quot;controlled_error&quot;,
+  &quot;note&quot;: &quot;No se infiere ausencia de efectos de un error; revisar correlación y estado de operación.&quot;
+}</pre><p>SHA-256: ff2e7260f413ab4edb16a5555f512ec7404cdb118d66af3fc8a1e4dd2c6136b4</p></details></section><h2>Todas las variantes ejecutadas</h2><ul><li><a href="../records/9861a5e396f12c687f2eb815.json">200 · http · application/json · 2026-10-19T16:28:13.426217+00:00</a></li><li><a href="../records/4d46a7eaa7e285ee08a8164c.json">200 · http · application/json · 2026-10-19T18:30:58.142925+00:00</a></li><li><a href="../records/6e592b5ccd0b600d4fcdbdf3.json">503 · http · application/json · 2026-10-19T18:30:58.109323+00:00</a></li><li><a href="../records/84c0a4aabb7aa4412426c60c.json">406 · http · application/json · 2026-10-19T18:30:57.971794+00:00</a></li></ul></main></html>

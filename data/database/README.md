@@ -36,3 +36,7 @@ Los usuarios PostgreSQL y permisos los administra el instalador. Compartir base 
 `postgresql/` conserva las once exportaciones estructurales de la distribución anterior, útiles para revisar la conversión. No son el esquema de una instalación nueva. `scripts/export_schemas.py` reproduce esas exportaciones antiguas; el generador vigente es `build_shared_schema.py`.
 
 El [SQL del monolito original](../../documentation/historial/primer-parcial/database/schema.sql) conserva la etapa histórica. El estado operativo y la migración verificada se registran en [PROJECT_STATUS.md](../../PROJECT_STATUS.md).
+
+## Sesiones técnicas del portal
+
+El instalador aplica también [web_sessions.sql](web_sessions.sql): una tabla `web_runtime.session_revocations` en la misma base. Son 71 tablas del dominio y una técnica, 72 en total. La credencial `rh_web_sessions` solo consulta y modifica esta tabla; carece de acceso a los esquemas del dominio. Sesiones activas y bloqueos del portal se guardan en Redis con ACL propia.

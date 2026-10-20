@@ -1,0 +1,50 @@
+{
+  "captured_at": "2026-10-19T16:28:08.701934+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "b82acfc07e7ff0221196c291a52b1986e4d1ac69b3f6769bffe29f4a02fa5c9b",
+  "transport": "http",
+  "method": "GET",
+  "route": "/api/v1/catalogues/capacities/<identifier>",
+  "objective": "Detalle de capacities",
+  "url": "http://127.0.0.1:56258/api/v1/catalogues/capacities/ea2aeb7c-d2eb-4eba-ab63-e7738602a766",
+  "parameters": {},
+  "path_parameters": {
+    "identifier": "ea2aeb7c-d2eb-4eba-ab63-e7738602a766"
+  },
+  "request_headers": {
+    "Host": "127.0.0.1:56258",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "3a9a84012f5543a68e216c766722bf3f"
+  },
+  "request_body": "",
+  "status": 401,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "208",
+    "X-Correlation-ID": "2e13637f-d7f8-451f-b2f0-6c5ff27dc184",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "error": {
+      "code": "unauthorized",
+      "message": "JWT de acceso requerido.",
+      "details": []
+    },
+    "meta": {
+      "correlation_id": "2e13637f-d7f8-451f-b2f0-6c5ff27dc184",
+      "service": "identidad_acceso",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "2e13637f-d7f8-451f-b2f0-6c5ff27dc184",
+  "persistence": {
+    "effect": "controlled_error",
+    "note": "No se infiere ausencia de efectos de un error; revisar correlación y estado de operación."
+  }
+}

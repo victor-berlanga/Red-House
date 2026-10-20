@@ -1,0 +1,535 @@
+<!doctype html><html lang="es"><meta charset="utf-8"><title>auditoria /api/v1/events</title><style>body{font:15px system-ui;margin:32px;background:#f4f5f7;color:#202631}main{max-width:1250px;margin:auto}h1{color:#8e2434;font-size:26px}small{color:#556}a{color:#8e2434}table{border-collapse:collapse;width:100%;background:white}td,th{padding:9px;border:1px solid #ccd;vertical-align:top;text-align:left}pre{white-space:pre-wrap;word-break:break-word;background:#fff;border:1px solid #ccd;padding:12px;font:12px monospace;max-height:300px;overflow:auto}section{margin:20px 0}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.tag{padding:4px 9px;background:#e5ece7}.error{background:#f8e5e6}input{padding:12px;width:70%;margin:15px 0}details{margin:12px 0}nav{margin-bottom:20px}</style><main><nav><a href="../index.html">Inventario completo</a></nav><h1>auditoria · GET /api/v1/events</h1><p>Bitácora regional de solo lectura; sin credenciales ni contenido clínico</p><p>Registro de ejecución real. Credenciales y firmas redactadas. Los cuerpos completos están en el JSON enlazado.</p><section><h2>HTTP 200</h2><p><b>2026-10-19T16:28:28.707279+00:00</b> · versión 0.3.0</p><p>Correlación: 6337e51c-2f6b-43bd-b2fd-4893d30fd722<br>URL: http://127.0.0.1:56267/api/v1/events</p><p><a href="../records/00554bfe0b03e80e18a2afd1.json">Petición, respuesta, headers y persistencia completos</a></p><div class="grid"><div><h3>Petición</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Host&quot;: &quot;127.0.0.1:56267&quot;,
+    &quot;User-Agent&quot;: &quot;python-requests/2.34.2&quot;,
+    &quot;Accept-Encoding&quot;: &quot;gzip, deflate, br&quot;,
+    &quot;Accept&quot;: &quot;application/json&quot;,
+    &quot;Connection&quot;: &quot;keep-alive&quot;,
+    &quot;Idempotency-Key&quot;: &quot;0f1883da5bfb4d4ba9e07624bfb38fb0&quot;,
+    &quot;Authorization&quot;: &quot;[REDACTED]&quot;
+  },
+  &quot;parameters&quot;: {},
+  &quot;body&quot;: &quot;&quot;
+}</pre></div><div><h3>Respuesta</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Content-Type&quot;: &quot;application/json&quot;,
+    &quot;Content-Length&quot;: &quot;16428&quot;,
+    &quot;X-Correlation-ID&quot;: &quot;6337e51c-2f6b-43bd-b2fd-4893d30fd722&quot;,
+    &quot;Cache-Control&quot;: &quot;no-store&quot;,
+    &quot;X-Content-Type-Options&quot;: &quot;nosniff&quot;,
+    &quot;Referrer-Policy&quot;: &quot;no-referrer&quot;
+  },
+  &quot;body&quot;: {
+    &quot;data&quot;: {
+      &quot;items&quot;: [
+        {
+          &quot;id&quot;: &quot;9a2f8462-5fe2-4d2f-ad2f-978b488dff7b&quot;,
+          &quot;tenant_id&quot;: &quot;a0920053-13c5-4d42-b53e-74b35a779f58&quot;,
+          &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+          &quot;source&quot;: &quot;inventario&quot;,
+          &quot;action&quot;: &quot;INVENTORY_SHIPMENT_EVENT&quot;,
+          &quot;actor_id&quot;: &quot;3980f3c5-484c-4178-b03c-8d65c598ecd7&quot;,
+          &quot;event&quot;: {
+            &quot;action&quot;: &quot;INVENTORY_SHIPMENT_EVENT&quot;,
+            &quot;source&quot;: &quot;inventario&quot;,
+            &quot;actor_id&quot;: &quot;3980f3c5-484c-4178-b03c-8d65c598ecd7&quot;,
+            &quot;event_id&quot;: &quot;9a2f8462-5fe2-4d2f-ad2f-978b488dff7b&quot;,
+            &quot;metadata&quot;: {
+              &quot;status&quot;: &quot;COLLECTED&quot;
+            },
+            &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+            &quot;tenant_id&quot;: &quot;a0920053-13c5-4d42-b53e-74b35a779f58&quot;,
+            &quot;occurred_at&quot;: &quot;2026-10-19T16:27:13.875868+00:00&quot;,
+            &quot;resource_id&quot;: &quot;1e1b90e8-2d0a-425b-bc78-f2b497c2af6a&quot;,
+            &quot;correlation_id&quot;: &quot;b38fd19a-5a88-4a6e-80b1-b93e26201da1&quot;
+          },
+          &quot;created_at&quot;: &quot;2026-10-19T16:27:23.265571+00:00&quot;
+        },
+        {
+          &quot;id&quot;: &quot;2c45f715-f16d-4cfb-ac83-99e0fe360ea6&quot;,
+          &quot;tenant_id&quot;: &quot;a0920053-13c5-4d42-b53e-74b35a779f58&quot;,
+          &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+          &quot;source&quot;: &quot;inventario&quot;,
+          &quot;action&quot;: &quot;INVENTORY_SHIPMENT_EVENT&quot;,
+          &quot;actor_id&quot;: &quot;b7e21549-9533-4cc8-a5bc-3d55493b8ada&quot;,
+          &quot;event&quot;: {
+            &quot;action&quot;: &quot;INVENTORY_SHIPMENT_EVENT&quot;,
+            &quot;source&quot;: &quot;inventario&quot;,
+            &quot;actor_id&quot;: &quot;b7e21549-9533-4cc8-a5bc-3d55493b8ada&quot;,
+            &quot;event_id&quot;: &quot;2c45f715-f16d-4cfb-ac83-99e0fe360ea6&quot;,
+            &quot;metadata&quot;: {
+              &quot;status&quot;: &quot;PREPARED&quot;
+            },
+            &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+            &quot;tenant_id&quot;: &quot;a0920053-13c5-4d42-b53e-74b35a779f58&quot;,
+            &quot;occurred_at&quot;: &quot;2026-10-19T16:27:13.162796+00:00&quot;,
+            &quot;resource_id&quot;: &quot;1e1b90e8-2d0a-425b-bc78-f2b497c2af6a&quot;,
+            &quot;correlation_id&quot;: &quot;5bf89541-3b22-4c54-ac8f-8617479c91bf&quot;
+          },
+          &quot;created_at&quot;: &quot;2026-10-19T16:27:22.970660+00:00&quot;
+        },
+        {
+          &quot;id&quot;: &quot;dda8ce22-04b3-4909-bec0-f21088a34cc2&quot;,
+          &quot;tenant_id&quot;: &quot;a0920053-13c5-4d42-b53e-74b35a779f58&quot;,
+          &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+          &quot;source&quot;: &quot;inventario&quot;,
+          &quot;action&quot;: &quot;INVENTORY_SHIPMENT_EVENT&quot;,
+          &quot;actor_id&quot;: null,
+          &quot;event&quot;: {
+            &quot;action&quot;: &quot;INVENTORY_SHIPMENT_EVENT&quot;,
+            &quot;source&quot;: &quot;inventario&quot;,
+            &quot;actor_id&quot;: null,
+            &quot;event_id&quot;: &quot;dda8ce22-04b3-4909-bec0-f21088a34cc2&quot;,
+            &quot;metadata&quot;: {
+              &quot;status&quot;: &quot;PLANNED&quot;
+            },
+            &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+            &quot;tenant_id&quot;: &quot;a0920053-13c5-4d42-b53e-74b35a779f58&quot;,
+            &quot;occurred_at&quot;: &quot;2026-10-19T16:27:11.879149+00:00&quot;,
+            &quot;resource_id&quot;: &quot;1e1b90e8-2d0a-425b-bc78-f2b497c2af6a&quot;,
+            &quot;correlation_id&quot;: &quot;cbf731c0-803f-4163-9b64-9d8e0e96e515&quot;
+          },
+          &quot;created_at&quot;: &quot;2026-10-19T16:27:22.786797+00:00&quot;
+        },
+        {
+          &quot;id&quot;: &quot;9cda060c-24cf-484f-abe0-b91ff12edd9d&quot;,
+          &quot;tenant_id&quot;: &quot;a0920053-13c5-4d42-b53e-74b35a779f58&quot;,
+          &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+          &quot;source&quot;: &quot;custodia&quot;,
+          &quot;action&quot;: &quot;READ&quot;,
+          &quot;actor_id&quot;: &quot;08496c01-6621-4892-8d45-8152c6693b65&quot;,
+          &quot;event&quot;: {
+            &quot;action&quot;: &quot;READ&quot;,
+            &quot;source&quot;: &quot;custodia&quot;,
+            &quot;actor_id&quot;: &quot;08496c01-6621-4892-8d45-8152c6693b65&quot;,
+            &quot;event_id&quot;: &quot;9cda060c-24cf-484f-abe0-b91ff12edd9d&quot;,
+            &quot;metadata&quot;: {},
+            &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+            &quot;tenant_id&quot;: &quot;a0920053-13c5-4d42-b53e-74b35a779f58&quot;,
+            &quot;occurred_at&quot;: &quot;2026-10-19T16:26:19.671092+00:00&quot;,
+            &quot;resource_id&quot;: &quot;129b0941-1526-492a-9dbf-5d45b002cfdc&quot;,
+            &quot;correlation_id&quot;: &quot;c4760560-6834-48c2-8753-2f22aa80ad29&quot;
+          },
+          &quot;created_at&quot;: &quot;2026-10-19T16:27:15.264484+00:00&quot;
+        },
+        {
+          &quot;id&quot;: &quot;056943b6-73dd-4705-81aa-36594c45a41b&quot;,
+          &quot;tenant_id&quot;: &quot;87255e79-2a0a-4e44-ad21-8002ccd5688d&quot;,
+          &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+          &quot;source&quot;: &quot;transporte&quot;,
+          &quot;action&quot;: &quot;SHIPMENT_COLLECTED&quot;,
+          &quot;actor_id&quot;: &quot;3980f3c5-484c-4178-b03c-8d65c598ecd7&quot;,
+          &quot;event&quot;: {
+            &quot;action&quot;: &quot;SHIPMENT_COLLECTED&quot;,
+            &quot;source&quot;: &quot;transporte&quot;,
+            &quot;actor_id&quot;: &quot;3980f3c5-484c-4178-b03c-8d65c598ecd7&quot;,
+            &quot;event_id&quot;: &quot;056943b6-73dd-4705-81aa-36594c45a41b&quot;,
+            &quot;metadata&quot;: {
+              &quot;state&quot;: &quot;COLLECTED&quot;,
+              &quot;evidence&quot;: null,
+              &quot;sequence&quot;: 3,
+              &quot;origin_id&quot;: &quot;87255e79-2a0a-4e44-ad21-8002ccd5688d&quot;,
+              &quot;destination_id&quot;: &quot;a0920053-13c5-4d42-b53e-74b35a779f58&quot;,
+              &quot;reservation_id&quot;: &quot;1e1b90e8-2d0a-425b-bc78-f2b497c2af6a&quot;,
+              &quot;transport_user_id&quot;: &quot;3980f3c5-484c-4178-b03c-8d65c598ecd7&quot;,
+              &quot;destination_location_id&quot;: null
+            },
+            &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+            &quot;tenant_id&quot;: &quot;87255e79-2a0a-4e44-ad21-8002ccd5688d&quot;,
+            &quot;occurred_at&quot;: &quot;2026-10-19T16:26:49.351359+00:00&quot;,
+            &quot;resource_id&quot;: &quot;859eea1a-1b77-4b08-9a53-5038495b9521&quot;,
+            &quot;correlation_id&quot;: &quot;48aa3cc2-1e1f-43cd-83d2-2740e36a7d12&quot;
+          },
+          &quot;created_at&quot;: &quot;2026-10-19T16:27:14.529274+00:00&quot;
+        },
+        {
+          &quot;id&quot;: &quot;a2f2df0a-badf-43e0-8691-91a994584486&quot;,
+          &quot;tenant_id&quot;: &quot;87255e79-2a0a-4e44-ad21-8002ccd5688d&quot;,
+          &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+          &quot;source&quot;: &quot;transporte&quot;,
+          &quot;action&quot;: &quot;SHIPMENT_PREPARED&quot;,
+          &quot;actor_id&quot;: &quot;b7e21549-9533-4cc8-a5bc-3d55493b8ada&quot;,
+          &quot;event&quot;: {
+            &quot;action&quot;: &quot;SHIPMENT_PREPARED&quot;,
+            &quot;source&quot;: &quot;transporte&quot;,
+            &quot;actor_id&quot;: &quot;b7e21549-9533-4cc8-a5bc-3d55493b8ada&quot;,
+            &quot;event_id&quot;: &quot;a2f2df0a-badf-43e0-8691-91a994584486&quot;,
+            &quot;metadata&quot;: {
+              &quot;state&quot;: &quot;PREPARED&quot;,
+              &quot;evidence&quot;: null,
+              &quot;sequence&quot;: 2,
+              &quot;origin_id&quot;: &quot;87255e79-2a0a-4e44-ad21-8002ccd5688d&quot;,
+              &quot;destination_id&quot;: &quot;a0920053-13c5-4d42-b53e-74b35a779f58&quot;,
+              &quot;reservation_id&quot;: &quot;1e1b90e8-2d0a-425b-bc78-f2b497c2af6a&quot;,
+              &quot;transport_user_id&quot;: &quot;3980f3c5-484c-4178-b03c-8d65c598ecd7&quot;,
+              &quot;destination_location_id&quot;: null
+            },
+            &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+            &quot;tenant_id&quot;: &quot;87255e79-2a0a-4e44-ad21-8002ccd5688d&quot;,
+            &quot;occurred_at&quot;: &quot;2026-10-19T16:26:49.057994+00:00&quot;,
+            &quot;resource_id&quot;: &quot;859eea1a-1b77-4b08-9a53-5038495b9521&quot;,
+            &quot;correlation_id&quot;: &quot;076aef2c-75d4-4f93-b18e-e2c4f6ae0d01&quot;
+          },
+          &quot;created_at&quot;: &quot;2026-10-19T16:27:13.395957+00:00&quot;
+        },
+        {
+          &quot;id&quot;: &quot;c371274e-86ce-475d-a157-878aaf6838fb&quot;,
+          &quot;tenant_id&quot;: &quot;87255e79-2a0a-4e44-ad21-8002ccd5688d&quot;,
+          &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+          &quot;source&quot;: &quot;transporte&quot;,
+          &quot;action&quot;: &quot;SHIPMENT_PLANNED&quot;,
+          &quot;actor_id&quot;: null,
+          &quot;event&quot;: {
+            &quot;action&quot;: &quot;SHIPMENT_PLANNED&quot;,
+            &quot;source&quot;: &quot;transporte&quot;,
+            &quot;actor_id&quot;: null,
+            &quot;event_id&quot;: &quot;c371274e-86ce-475d-a157-878aaf6838fb&quot;,
+            &quot;metadata&quot;: {
+              &quot;state&quot;: &quot;PLANNED&quot;,
+              &quot;evidence&quot;: null,
+              &quot;sequence&quot;: 1,
+              &quot;origin_id&quot;: &quot;87255e79-2a0a-4e44-ad21-8002ccd5688d&quot;,
+              &quot;destination_id&quot;: &quot;a0920053-13c5-4d42-b53e-74b35a779f58&quot;,
+              &quot;reservation_id&quot;: &quot;1e1b90e8-2d0a-425b-bc78-f2b497c2af6a&quot;,
+              &quot;transport_user_id&quot;: &quot;3980f3c5-484c-4178-b03c-8d65c598ecd7&quot;,
+              &quot;destination_location_id&quot;: null
+            },
+            &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+            &quot;tenant_id&quot;: &quot;87255e79-2a0a-4e44-ad21-8002ccd5688d&quot;,
+            &quot;occurred_at&quot;: &quot;2026-10-19T16:26:48.800178+00:00&quot;,
+            &quot;resource_id&quot;: &quot;859eea1a-1b77-4b08-9a53-5038495b9521&quot;,
+            &quot;correlation_id&quot;: &quot;e1036ea4-28c7-4721-8ec6-88db7beb489b&quot;
+          },
+          &quot;created_at&quot;: &quot;2026-10-19T16:27:10.978801+00:00&quot;
+        },
+        {
+          &quot;id&quot;: &quot;95838751-638c-4014-92ee-8c0a8b7ba97f&quot;,
+          &quot;tenant_id&quot;: &quot;87255e79-2a0a-4e44-ad21-8002ccd5688d&quot;,
+          &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+          &quot;source&quot;: &quot;transporte&quot;,
+          &quot;action&quot;: &quot;SHIPMENT_PLAN_PENDING&quot;,
+          &quot;actor_id&quot;: &quot;c17e9575-b990-4b29-9087-4481a6e6db6e&quot;,
+          &quot;event&quot;: {
+            &quot;action&quot;: &quot;SHIPMENT_PLAN_PENDING&quot;,
+            &quot;source&quot;: &quot;transporte&quot;,
+            &quot;actor_id&quot;: &quot;c17e9575-b990-4b29-9087-4481a6e6db6e&quot;,
+            &quot;event_id&quot;: &quot;95838751-638c-4014-92ee-8c0a8b7ba97f&quot;,
+            &quot;metadata&quot;: {},
+            &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+            &quot;tenant_id&quot;: &quot;87255e79-2a0a-4e44-ad21-8002ccd5688d&quot;,
+            &quot;occurred_at&quot;: &quot;2026-10-19T16:26:48.471842+00:00&quot;,
+            &quot;resource_id&quot;: &quot;859eea1a-1b77-4b08-9a53-5038495b9521&quot;,
+            &quot;correlation_id&quot;: &quot;e1036ea4-28c7-4721-8ec6-88db7beb489b&quot;
+          },
+          &quot;created_at&quot;: &quot;2026-10-19T16:27:10.574908+00:00&quot;
+        },
+        {
+          &quot;id&quot;: &quot;844d7ba9-878d-4e59-8971-0b5dcdb83c21&quot;,
+          &quot;tenant_id&quot;: &quot;a0920053-13c5-4d42-b53e-74b35a779f58&quot;,
+          &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+          &quot;source&quot;: &quot;transporte&quot;,
+          &quot;action&quot;: &quot;READ&quot;,
+          &quot;actor_id&quot;: &quot;08496c01-6621-4892-8d45-8152c6693b65&quot;,
+          &quot;event&quot;: {
+            &quot;action&quot;: &quot;READ&quot;,
+            &quot;source&quot;: &quot;transporte&quot;,
+            &quot;actor_id&quot;: &quot;08496c01-6621-4892-8d45-8152c6693b65&quot;,
+            &quot;event_id&quot;: &quot;844d7ba9-878d-4e59-8971-0b5dcdb83c21&quot;,
+            &quot;metadata&quot;: {},
+            &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+            &quot;tenant_id&quot;: &quot;a0920053-13c5-4d42-b53e-74b35a779f58&quot;,
+            &quot;occurred_at&quot;: &quot;2026-10-19T16:26:19.817794+00:00&quot;,
+            &quot;resource_id&quot;: &quot;129b0941-1526-492a-9dbf-5d45b002cfdc&quot;,
+            &quot;correlation_id&quot;: &quot;c4760560-6834-48c2-8753-2f22aa80ad29&quot;
+          },
+          &quot;created_at&quot;: &quot;2026-10-19T16:27:10.262522+00:00&quot;
+        },
+        {
+          &quot;id&quot;: &quot;453d2f66-edad-4695-92a3-ee0350a47edf&quot;,
+          &quot;tenant_id&quot;: &quot;a0920053-13c5-4d42-b53e-74b35a779f58&quot;,
+          &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+          &quot;source&quot;: &quot;transporte&quot;,
+          &quot;action&quot;: &quot;READ&quot;,
+          &quot;actor_id&quot;: &quot;08496c01-6621-4892-8d45-8152c6693b65&quot;,
+          &quot;event&quot;: {
+            &quot;action&quot;: &quot;READ&quot;,
+            &quot;source&quot;: &quot;transporte&quot;,
+            &quot;actor_id&quot;: &quot;08496c01-6621-4892-8d45-8152c6693b65&quot;,
+            &quot;event_id&quot;: &quot;453d2f66-edad-4695-92a3-ee0350a47edf&quot;,
+            &quot;metadata&quot;: {},
+            &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+            &quot;tenant_id&quot;: &quot;a0920053-13c5-4d42-b53e-74b35a779f58&quot;,
+            &quot;occurred_at&quot;: &quot;2026-10-19T16:26:19.474705+00:00&quot;,
+            &quot;resource_id&quot;: &quot;129b0941-1526-492a-9dbf-5d45b002cfdc&quot;,
+            &quot;correlation_id&quot;: &quot;c4760560-6834-48c2-8753-2f22aa80ad29&quot;
+          },
+          &quot;created_at&quot;: &quot;2026-10-19T16:27:10.091387+00:00&quot;
+        },
+        {
+          &quot;id&quot;: &quot;c129a90f-b31f-44db-9e7d-f8a32d54c586&quot;,
+          &quot;tenant_id&quot;: &quot;87255e79-2a0a-4e44-ad21-8002ccd5688d&quot;,
+          &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+          &quot;source&quot;: &quot;priorizacion_geografia&quot;,
+          &quot;action&quot;: &quot;READ&quot;,
+          &quot;actor_id&quot;: &quot;c17e9575-b990-4b29-9087-4481a6e6db6e&quot;,
+          &quot;event&quot;: {
+            &quot;action&quot;: &quot;READ&quot;,
+            &quot;source&quot;: &quot;priorizacion_geografia&quot;,
+            &quot;actor_id&quot;: &quot;c17e9575-b990-4b29-9087-4481a6e6db6e&quot;,
+            &quot;event_id&quot;: &quot;c129a90f-b31f-44db-9e7d-f8a32d54c586&quot;,
+            &quot;metadata&quot;: {},
+            &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+            &quot;tenant_id&quot;: &quot;87255e79-2a0a-4e44-ad21-8002ccd5688d&quot;,
+            &quot;occurred_at&quot;: &quot;2026-10-19T16:26:48.244118+00:00&quot;,
+            &quot;resource_id&quot;: &quot;7b1745f6-56e0-43d3-9c3d-1c35538d7aae&quot;,
+            &quot;correlation_id&quot;: &quot;e1036ea4-28c7-4721-8ec6-88db7beb489b&quot;
+          },
+          &quot;created_at&quot;: &quot;2026-10-19T16:27:09.929366+00:00&quot;
+        },
+        {
+          &quot;id&quot;: &quot;047e24cc-dfc7-4dfc-9c28-ae9dbf9d4f75&quot;,
+          &quot;tenant_id&quot;: &quot;a0920053-13c5-4d42-b53e-74b35a779f58&quot;,
+          &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+          &quot;source&quot;: &quot;priorizacion_geografia&quot;,
+          &quot;action&quot;: &quot;READ&quot;,
+          &quot;actor_id&quot;: &quot;a5898ca7-9e7b-47c9-9f64-9c5cebf413f5&quot;,
+          &quot;event&quot;: {
+            &quot;action&quot;: &quot;READ&quot;,
+            &quot;source&quot;: &quot;priorizacion_geografia&quot;,
+            &quot;actor_id&quot;: &quot;a5898ca7-9e7b-47c9-9f64-9c5cebf413f5&quot;,
+            &quot;event_id&quot;: &quot;047e24cc-dfc7-4dfc-9c28-ae9dbf9d4f75&quot;,
+            &quot;metadata&quot;: {},
+            &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+            &quot;tenant_id&quot;: &quot;a0920053-13c5-4d42-b53e-74b35a779f58&quot;,
+            &quot;occurred_at&quot;: &quot;2026-10-19T16:26:46.294207+00:00&quot;,
+            &quot;resource_id&quot;: &quot;7b1745f6-56e0-43d3-9c3d-1c35538d7aae&quot;,
+            &quot;correlation_id&quot;: &quot;b2219a1e-7253-4263-8147-b3d554337f59&quot;
+          },
+          &quot;created_at&quot;: &quot;2026-10-19T16:27:09.690746+00:00&quot;
+        },
+        {
+          &quot;id&quot;: &quot;13b1519f-219a-4fb8-9bd8-ce02e4236a7f&quot;,
+          &quot;tenant_id&quot;: &quot;a0920053-13c5-4d42-b53e-74b35a779f58&quot;,
+          &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+          &quot;source&quot;: &quot;priorizacion_geografia&quot;,
+          &quot;action&quot;: &quot;READ&quot;,
+          &quot;actor_id&quot;: &quot;a5898ca7-9e7b-47c9-9f64-9c5cebf413f5&quot;,
+          &quot;event&quot;: {
+            &quot;action&quot;: &quot;READ&quot;,
+            &quot;source&quot;: &quot;priorizacion_geografia&quot;,
+            &quot;actor_id&quot;: &quot;a5898ca7-9e7b-47c9-9f64-9c5cebf413f5&quot;,
+            &quot;event_id&quot;: &quot;13b1519f-219a-4fb8-9bd8-ce02e4236a7f&quot;,
+            &quot;metadata&quot;: {},
+            &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+            &quot;tenant_id&quot;: &quot;a0920053-13c5-4d42-b53e-74b35a779f58&quot;,
+            &quot;occurred_at&quot;: &quot;2026-10-19T16:26:45.182983+00:00&quot;,
+            &quot;resource_id&quot;: &quot;collection&quot;,
+            &quot;correlation_id&quot;: &quot;90e8dbbe-5f6a-4a76-bf1f-53cd7c14ee01&quot;
+          },
+          &quot;created_at&quot;: &quot;2026-10-19T16:27:09.465413+00:00&quot;
+        },
+        {
+          &quot;id&quot;: &quot;3dbeb912-ceca-4e53-a6e3-e85528310f46&quot;,
+          &quot;tenant_id&quot;: &quot;a0920053-13c5-4d42-b53e-74b35a779f58&quot;,
+          &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+          &quot;source&quot;: &quot;compatibilidad&quot;,
+          &quot;action&quot;: &quot;READ&quot;,
+          &quot;actor_id&quot;: &quot;a5898ca7-9e7b-47c9-9f64-9c5cebf413f5&quot;,
+          &quot;event&quot;: {
+            &quot;action&quot;: &quot;READ&quot;,
+            &quot;source&quot;: &quot;compatibilidad&quot;,
+            &quot;actor_id&quot;: &quot;a5898ca7-9e7b-47c9-9f64-9c5cebf413f5&quot;,
+            &quot;event_id&quot;: &quot;3dbeb912-ceca-4e53-a6e3-e85528310f46&quot;,
+            &quot;metadata&quot;: {},
+            &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+            &quot;tenant_id&quot;: &quot;a0920053-13c5-4d42-b53e-74b35a779f58&quot;,
+            &quot;occurred_at&quot;: &quot;2026-10-19T16:26:46.065302+00:00&quot;,
+            &quot;resource_id&quot;: &quot;a958a3d4-e310-461c-84f9-82709c9abf09&quot;,
+            &quot;correlation_id&quot;: &quot;b2219a1e-7253-4263-8147-b3d554337f59&quot;
+          },
+          &quot;created_at&quot;: &quot;2026-10-19T16:27:09.148487+00:00&quot;
+        },
+        {
+          &quot;id&quot;: &quot;2d203ce4-9c0e-48c8-80bb-ef95844d60ae&quot;,
+          &quot;tenant_id&quot;: &quot;a0920053-13c5-4d42-b53e-74b35a779f58&quot;,
+          &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+          &quot;source&quot;: &quot;compatibilidad&quot;,
+          &quot;action&quot;: &quot;EVALUATION_REVIEWED&quot;,
+          &quot;actor_id&quot;: &quot;a5898ca7-9e7b-47c9-9f64-9c5cebf413f5&quot;,
+          &quot;event&quot;: {
+            &quot;action&quot;: &quot;EVALUATION_REVIEWED&quot;,
+            &quot;source&quot;: &quot;compatibilidad&quot;,
+            &quot;actor_id&quot;: &quot;a5898ca7-9e7b-47c9-9f64-9c5cebf413f5&quot;,
+            &quot;event_id&quot;: &quot;2d203ce4-9c0e-48c8-80bb-ef95844d60ae&quot;,
+            &quot;metadata&quot;: {
+              &quot;status&quot;: &quot;FAVORABLE&quot;
+            },
+            &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+            &quot;tenant_id&quot;: &quot;a0920053-13c5-4d42-b53e-74b35a779f58&quot;,
+            &quot;occurred_at&quot;: &quot;2026-10-19T16:26:45.596841+00:00&quot;,
+            &quot;resource_id&quot;: &quot;a958a3d4-e310-461c-84f9-82709c9abf09&quot;,
+            &quot;correlation_id&quot;: &quot;1244ad49-7c5b-4cd3-a019-d4dc0aa8c21d&quot;
+          },
+          &quot;created_at&quot;: &quot;2026-10-19T16:27:08.932891+00:00&quot;
+        },
+        {
+          &quot;id&quot;: &quot;45327c04-a925-4bfc-9f6c-febbebf1cd28&quot;,
+          &quot;tenant_id&quot;: &quot;a0920053-13c5-4d42-b53e-74b35a779f58&quot;,
+          &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+          &quot;source&quot;: &quot;compatibilidad&quot;,
+          &quot;action&quot;: &quot;EVALUATION_CREATED&quot;,
+          &quot;actor_id&quot;: &quot;a5898ca7-9e7b-47c9-9f64-9c5cebf413f5&quot;,
+          &quot;event&quot;: {
+            &quot;action&quot;: &quot;EVALUATION_CREATED&quot;,
+            &quot;source&quot;: &quot;compatibilidad&quot;,
+            &quot;actor_id&quot;: &quot;a5898ca7-9e7b-47c9-9f64-9c5cebf413f5&quot;,
+            &quot;event_id&quot;: &quot;45327c04-a925-4bfc-9f6c-febbebf1cd28&quot;,
+            &quot;metadata&quot;: {
+              &quot;candidate_count&quot;: 4,
+              &quot;algorithm_version&quot;: &quot;RBC-1.0&quot;
+            },
+            &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+            &quot;tenant_id&quot;: &quot;a0920053-13c5-4d42-b53e-74b35a779f58&quot;,
+            &quot;occurred_at&quot;: &quot;2026-10-19T16:26:45.358481+00:00&quot;,
+            &quot;resource_id&quot;: &quot;a958a3d4-e310-461c-84f9-82709c9abf09&quot;,
+            &quot;correlation_id&quot;: &quot;90e8dbbe-5f6a-4a76-bf1f-53cd7c14ee01&quot;
+          },
+          &quot;created_at&quot;: &quot;2026-10-19T16:27:08.680405+00:00&quot;
+        },
+        {
+          &quot;id&quot;: &quot;6c960097-d084-4fde-8196-407e465a015f&quot;,
+          &quot;tenant_id&quot;: &quot;87255e79-2a0a-4e44-ad21-8002ccd5688d&quot;,
+          &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+          &quot;source&quot;: &quot;inventario&quot;,
+          &quot;action&quot;: &quot;READ&quot;,
+          &quot;actor_id&quot;: &quot;c17e9575-b990-4b29-9087-4481a6e6db6e&quot;,
+          &quot;event&quot;: {
+            &quot;action&quot;: &quot;READ&quot;,
+            &quot;source&quot;: &quot;inventario&quot;,
+            &quot;actor_id&quot;: &quot;c17e9575-b990-4b29-9087-4481a6e6db6e&quot;,
+            &quot;event_id&quot;: &quot;6c960097-d084-4fde-8196-407e465a015f&quot;,
+            &quot;metadata&quot;: {},
+            &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+            &quot;tenant_id&quot;: &quot;87255e79-2a0a-4e44-ad21-8002ccd5688d&quot;,
+            &quot;occurred_at&quot;: &quot;2026-10-19T16:26:47.868350+00:00&quot;,
+            &quot;resource_id&quot;: &quot;1e1b90e8-2d0a-425b-bc78-f2b497c2af6a&quot;,
+            &quot;correlation_id&quot;: &quot;e1036ea4-28c7-4721-8ec6-88db7beb489b&quot;
+          },
+          &quot;created_at&quot;: &quot;2026-10-19T16:27:08.369435+00:00&quot;
+        },
+        {
+          &quot;id&quot;: &quot;703b0d99-4e34-4272-9a58-1caec8f8041e&quot;,
+          &quot;tenant_id&quot;: &quot;a0920053-13c5-4d42-b53e-74b35a779f58&quot;,
+          &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+          &quot;source&quot;: &quot;inventario&quot;,
+          &quot;action&quot;: &quot;RESOURCE_RESERVED&quot;,
+          &quot;actor_id&quot;: &quot;a5898ca7-9e7b-47c9-9f64-9c5cebf413f5&quot;,
+          &quot;event&quot;: {
+            &quot;action&quot;: &quot;RESOURCE_RESERVED&quot;,
+            &quot;source&quot;: &quot;inventario&quot;,
+            &quot;actor_id&quot;: &quot;a5898ca7-9e7b-47c9-9f64-9c5cebf413f5&quot;,
+            &quot;event_id&quot;: &quot;703b0d99-4e34-4272-9a58-1caec8f8041e&quot;,
+            &quot;metadata&quot;: {
+              &quot;origin_id&quot;: &quot;87255e79-2a0a-4e44-ad21-8002ccd5688d&quot;,
+              &quot;destination_id&quot;: &quot;a0920053-13c5-4d42-b53e-74b35a779f58&quot;
+            },
+            &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+            &quot;tenant_id&quot;: &quot;a0920053-13c5-4d42-b53e-74b35a779f58&quot;,
+            &quot;occurred_at&quot;: &quot;2026-10-19T16:26:46.973785+00:00&quot;,
+            &quot;resource_id&quot;: &quot;1e1b90e8-2d0a-425b-bc78-f2b497c2af6a&quot;,
+            &quot;correlation_id&quot;: &quot;b2219a1e-7253-4263-8147-b3d554337f59&quot;
+          },
+          &quot;created_at&quot;: &quot;2026-10-19T16:27:07.981858+00:00&quot;
+        },
+        {
+          &quot;id&quot;: &quot;fde4112a-2305-4984-b34e-e84936792e51&quot;,
+          &quot;tenant_id&quot;: &quot;a0920053-13c5-4d42-b53e-74b35a779f58&quot;,
+          &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+          &quot;source&quot;: &quot;inventario&quot;,
+          &quot;action&quot;: &quot;READ&quot;,
+          &quot;actor_id&quot;: &quot;a5898ca7-9e7b-47c9-9f64-9c5cebf413f5&quot;,
+          &quot;event&quot;: {
+            &quot;action&quot;: &quot;READ&quot;,
+            &quot;source&quot;: &quot;inventario&quot;,
+            &quot;actor_id&quot;: &quot;a5898ca7-9e7b-47c9-9f64-9c5cebf413f5&quot;,
+            &quot;event_id&quot;: &quot;fde4112a-2305-4984-b34e-e84936792e51&quot;,
+            &quot;metadata&quot;: {},
+            &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+            &quot;tenant_id&quot;: &quot;a0920053-13c5-4d42-b53e-74b35a779f58&quot;,
+            &quot;occurred_at&quot;: &quot;2026-10-19T16:26:44.950954+00:00&quot;,
+            &quot;resource_id&quot;: &quot;collection&quot;,
+            &quot;correlation_id&quot;: &quot;90e8dbbe-5f6a-4a76-bf1f-53cd7c14ee01&quot;
+          },
+          &quot;created_at&quot;: &quot;2026-10-19T16:27:07.787174+00:00&quot;
+        },
+        {
+          &quot;id&quot;: &quot;b3efdc85-bc19-4d61-8ced-9ee230d220e6&quot;,
+          &quot;tenant_id&quot;: &quot;87255e79-2a0a-4e44-ad21-8002ccd5688d&quot;,
+          &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+          &quot;source&quot;: &quot;inventario&quot;,
+          &quot;action&quot;: &quot;RESOURCE_RELEASED&quot;,
+          &quot;actor_id&quot;: &quot;fa9be2a2-91fc-4871-b69f-53fecc15e1ba&quot;,
+          &quot;event&quot;: {
+            &quot;action&quot;: &quot;RESOURCE_RELEASED&quot;,
+            &quot;source&quot;: &quot;inventario&quot;,
+            &quot;actor_id&quot;: &quot;fa9be2a2-91fc-4871-b69f-53fecc15e1ba&quot;,
+            &quot;event_id&quot;: &quot;b3efdc85-bc19-4d61-8ced-9ee230d220e6&quot;,
+            &quot;metadata&quot;: {},
+            &quot;region_id&quot;: &quot;7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb&quot;,
+            &quot;tenant_id&quot;: &quot;87255e79-2a0a-4e44-ad21-8002ccd5688d&quot;,
+            &quot;occurred_at&quot;: &quot;2026-10-19T16:26:43.761536+00:00&quot;,
+            &quot;resource_id&quot;: &quot;32e70838-54db-4e5e-b991-5b57395cc25b&quot;,
+            &quot;correlation_id&quot;: &quot;7fa262f3-4170-49ea-baba-5230406570fa&quot;
+          },
+          &quot;created_at&quot;: &quot;2026-10-19T16:27:07.593269+00:00&quot;
+        }
+      ],
+      &quot;page&quot;: 1,
+      &quot;page_size&quot;: 20,
+      &quot;total&quot;: 343
+    },
+    &quot;meta&quot;: {
+      &quot;correlation_id&quot;: &quot;6337e51c-2f6b-43bd-b2fd-4893d30fd722&quot;,
+      &quot;service&quot;: &quot;auditoria&quot;,
+      &quot;version&quot;: &quot;0.3.0&quot;
+    }
+  }
+}</pre></div></div><details><summary>Persistencia y versión de implementación</summary><pre>{
+  &quot;effect&quot;: &quot;read&quot;,
+  &quot;note&quot;: &quot;Consulta; accesos protegidos generan auditoría local transaccional.&quot;
+}</pre><p>SHA-256: f1a9056ec92eb7006810957e59fb326815b25003ea30d5ed1de2439e7ed8f42a</p></details></section><section><h2>HTTP 401</h2><p><b>2026-10-19T16:28:28.556817+00:00</b> · versión 0.3.0</p><p>Correlación: 97b79ced-c8d2-4874-bb8e-9bf335b1f5cb<br>URL: http://127.0.0.1:56267/api/v1/events</p><p><a href="../records/eed493f50c6100e64feb298e.json">Petición, respuesta, headers y persistencia completos</a></p><div class="grid"><div><h3>Petición</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Host&quot;: &quot;127.0.0.1:56267&quot;,
+    &quot;User-Agent&quot;: &quot;python-requests/2.34.2&quot;,
+    &quot;Accept-Encoding&quot;: &quot;gzip, deflate, br&quot;,
+    &quot;Accept&quot;: &quot;application/json&quot;,
+    &quot;Connection&quot;: &quot;keep-alive&quot;,
+    &quot;Idempotency-Key&quot;: &quot;a4c8104c883d4989a51f1eddfd4b21e4&quot;
+  },
+  &quot;parameters&quot;: {},
+  &quot;body&quot;: &quot;&quot;
+}</pre></div><div><h3>Respuesta</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Content-Type&quot;: &quot;application/json&quot;,
+    &quot;Content-Length&quot;: &quot;201&quot;,
+    &quot;X-Correlation-ID&quot;: &quot;97b79ced-c8d2-4874-bb8e-9bf335b1f5cb&quot;,
+    &quot;Cache-Control&quot;: &quot;no-store&quot;,
+    &quot;X-Content-Type-Options&quot;: &quot;nosniff&quot;,
+    &quot;Referrer-Policy&quot;: &quot;no-referrer&quot;
+  },
+  &quot;body&quot;: {
+    &quot;error&quot;: {
+      &quot;code&quot;: &quot;unauthorized&quot;,
+      &quot;message&quot;: &quot;JWT de acceso requerido.&quot;,
+      &quot;details&quot;: []
+    },
+    &quot;meta&quot;: {
+      &quot;correlation_id&quot;: &quot;97b79ced-c8d2-4874-bb8e-9bf335b1f5cb&quot;,
+      &quot;service&quot;: &quot;auditoria&quot;,
+      &quot;version&quot;: &quot;0.3.0&quot;
+    }
+  }
+}</pre></div></div><details><summary>Persistencia y versión de implementación</summary><pre>{
+  &quot;effect&quot;: &quot;controlled_error&quot;,
+  &quot;note&quot;: &quot;No se infiere ausencia de efectos de un error; revisar correlación y estado de operación.&quot;
+}</pre><p>SHA-256: f1a9056ec92eb7006810957e59fb326815b25003ea30d5ed1de2439e7ed8f42a</p></details></section><h2>Todas las variantes ejecutadas</h2><ul><li><a href="../records/eed493f50c6100e64feb298e.json">401 · http · application/json · 2026-10-19T16:28:28.556817+00:00</a></li><li><a href="../records/908b81a0ac421a0df38a233c.json">403 · http · application/json · 2026-10-19T16:43:08.483074+00:00</a></li><li><a href="../records/00554bfe0b03e80e18a2afd1.json">200 · http · application/json · 2026-10-19T16:28:28.707279+00:00</a></li><li><a href="../records/4a3cf1aab3feeef95d1926b4.json">401 · http · application/xml; charset=utf-8 · 2026-10-19T16:28:28.587610+00:00</a></li></ul></main></html>

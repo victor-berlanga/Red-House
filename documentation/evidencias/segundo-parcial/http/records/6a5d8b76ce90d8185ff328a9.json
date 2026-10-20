@@ -1,0 +1,59 @@
+{
+  "captured_at": "2026-10-19T16:28:04.455656+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "b82acfc07e7ff0221196c291a52b1986e4d1ac69b3f6769bffe29f4a02fa5c9b",
+  "transport": "http",
+  "method": "POST",
+  "route": "/api/v1/auth/login",
+  "objective": "Iniciar sesión independiente",
+  "url": "http://127.0.0.1:56258/api/v1/auth/login",
+  "parameters": {},
+  "path_parameters": {},
+  "request_headers": {
+    "Host": "127.0.0.1:56258",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "7f0e9c6de1d046d6bf90b117affb2d1f",
+    "Content-Length": "2",
+    "Content-Type": "application/json"
+  },
+  "request_body": {},
+  "status": 422,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "299",
+    "X-Correlation-ID": "3b212c70-4243-40e2-85f5-c6f8c6a1f6df",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "error": {
+      "code": "validation",
+      "message": "La solicitud no cumple el contrato.",
+      "details": [
+        {
+          "field": "username",
+          "code": "missing"
+        },
+        {
+          "field": "password",
+          "code": "missing"
+        }
+      ]
+    },
+    "meta": {
+      "correlation_id": "3b212c70-4243-40e2-85f5-c6f8c6a1f6df",
+      "service": "identidad_acceso",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "3b212c70-4243-40e2-85f5-c6f8c6a1f6df",
+  "persistence": {
+    "effect": "controlled_error",
+    "note": "No se infiere ausencia de efectos de un error; revisar correlación y estado de operación."
+  }
+}

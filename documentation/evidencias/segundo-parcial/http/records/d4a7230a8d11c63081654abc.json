@@ -1,0 +1,92 @@
+{
+  "captured_at": "2026-10-19T16:22:10.439597+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "6eac28b3c6355ff29f1aabe6ed2aa76b6e104ed4888482a02b3967184783afa9",
+  "transport": "http",
+  "method": "POST",
+  "route": "/api/v1/resources",
+  "objective": "Registrar unidad u oferta separada, inicialmente en cuarentena",
+  "url": "http://127.0.0.1:56261/api/v1/resources",
+  "parameters": {},
+  "path_parameters": {},
+  "request_headers": {
+    "Host": "127.0.0.1:56261",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "a294999101544660954fd139a564f632",
+    "Authorization": "[REDACTED]",
+    "Content-Length": "194",
+    "Content-Type": "application/json"
+  },
+  "request_body": {
+    "folio": "DERIVED-3e400eda4b",
+    "kind": "BLOOD",
+    "component": "RBC",
+    "blood_group": "O-",
+    "expires_at": "2026-10-21T16:22:09.506794+00:00",
+    "donation_id": "ebac8855-3399-45e2-a630-eda2e44463a6"
+  },
+  "status": 201,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "666",
+    "X-Correlation-ID": "2da6d21f-8a87-4831-8178-5785d70dbb91",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "data": {
+      "id": "45484394-0695-4fb1-a474-e5a87e14ef4d",
+      "tenant_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+      "region_id": "7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb",
+      "folio": "DERIVED-3e400eda4b",
+      "current_institution_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+      "donation_id": "ebac8855-3399-45e2-a630-eda2e44463a6",
+      "kind": "BLOOD",
+      "component": "RBC",
+      "blood_group": "O-",
+      "expires_at": "2026-10-21T16:22:09.506794+00:00",
+      "status": "QUARANTINE",
+      "version": 1,
+      "created_at": "2026-10-19T16:22:10.369101+00:00",
+      "location_id": null,
+      "collected_at": null
+    },
+    "meta": {
+      "correlation_id": "2da6d21f-8a87-4831-8178-5785d70dbb91",
+      "service": "inventario",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "2da6d21f-8a87-4831-8178-5785d70dbb91",
+  "persistence": {
+    "effect": "committed",
+    "store": "PostgreSQL red_house",
+    "query": "SELECT operation,fingerprint,result FROM idempotency WHERE user_id=:actor AND key=:idempotency_key",
+    "row": {
+      "operation": "resource_create",
+      "fingerprint": "e2b6eb8715df2200f8f217da6c5a93dc3ebc6a09284a325685a1093f166a32bb",
+      "result": {
+        "id": "45484394-0695-4fb1-a474-e5a87e14ef4d",
+        "kind": "BLOOD",
+        "folio": "DERIVED-3e400eda4b",
+        "status": "QUARANTINE",
+        "version": 1,
+        "component": "RBC",
+        "region_id": "7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb",
+        "tenant_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+        "created_at": "2026-10-19T16:22:10.369101+00:00",
+        "expires_at": "2026-10-21T16:22:09.506794+00:00",
+        "blood_group": "O-",
+        "donation_id": "ebac8855-3399-45e2-a630-eda2e44463a6",
+        "location_id": null,
+        "collected_at": null,
+        "current_institution_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d"
+      }
+    }
+  }
+}

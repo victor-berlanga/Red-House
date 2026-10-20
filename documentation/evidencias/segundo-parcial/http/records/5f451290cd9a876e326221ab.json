@@ -1,0 +1,41 @@
+{
+  "captured_at": "2026-10-19T16:28:18.353545+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "6eac28b3c6355ff29f1aabe6ed2aa76b6e104ed4888482a02b3967184783afa9",
+  "transport": "http",
+  "method": "POST",
+  "route": "/internal/v1/reservations/<identifier>/claim",
+  "objective": "Vincular traslado durable antes de permitir recolección",
+  "url": "http://127.0.0.1:56261/internal/v1/reservations/27e6d206-c323-4b72-9366-afb976d593a8/claim",
+  "parameters": {},
+  "path_parameters": {
+    "identifier": "27e6d206-c323-4b72-9366-afb976d593a8"
+  },
+  "request_headers": {
+    "Host": "127.0.0.1:56261",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/xml",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "ac5ca29de4af42bf827fe938bcc5df7e",
+    "Content-Length": "2",
+    "Content-Type": "application/json"
+  },
+  "request_body": {},
+  "status": 401,
+  "response_headers": {
+    "Content-Type": "application/xml; charset=utf-8",
+    "Content-Length": "520",
+    "X-Correlation-ID": "2bb7dc71-0879-4010-aa6d-764496f1bc7f",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": "<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">unauthorized_service</field><field name=\"message\" type=\"string\">Identidad de servicio inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">2bb7dc71-0879-4010-aa6d-764496f1bc7f</field><field name=\"service\" type=\"string\">inventario</field><field name=\"version\" type=\"string\">0.3.0</field></field></response>",
+  "correlation_id": "2bb7dc71-0879-4010-aa6d-764496f1bc7f",
+  "persistence": {
+    "effect": "controlled_error",
+    "note": "No se infiere ausencia de efectos de un error; revisar correlación y estado de operación."
+  }
+}

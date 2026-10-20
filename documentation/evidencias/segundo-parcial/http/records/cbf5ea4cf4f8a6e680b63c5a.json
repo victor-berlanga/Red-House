@@ -1,0 +1,72 @@
+{
+  "captured_at": "2026-10-19T16:27:50.417015+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "e7eb0044cb5544477c1a4b79a264977e16ddd17c216e8a88ed6d187af95af791",
+  "transport": "http",
+  "method": "GET",
+  "route": "/api/v1/shipments/<identifier>",
+  "objective": "Estado logístico y coordinación pendiente",
+  "url": "http://127.0.0.1:56264/api/v1/shipments/b52dc499-7158-46d7-89a1-00c2f3f871c5",
+  "parameters": {},
+  "path_parameters": {
+    "identifier": "b52dc499-7158-46d7-89a1-00c2f3f871c5"
+  },
+  "request_headers": {
+    "Host": "127.0.0.1:56264",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "X-Correlation-Id": "1c7d0ac5-2ce2-4638-82c3-d33ca6d4027b",
+    "Authorization": "[REDACTED]"
+  },
+  "request_body": "",
+  "status": 200,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "957",
+    "X-Correlation-ID": "1c7d0ac5-2ce2-4638-82c3-d33ca6d4027b",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "data": {
+      "id": "b52dc499-7158-46d7-89a1-00c2f3f871c5",
+      "reservation_id": "f0ed3e75-df56-4919-ba33-f655bba63721",
+      "origin_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+      "destination_id": "a0920053-13c5-4d42-b53e-74b35a779f58",
+      "region_id": "7ed125ac-d82d-4e2d-a5ec-f1365ada9cdb",
+      "transport_user_id": "3980f3c5-484c-4178-b03c-8d65c598ecd7",
+      "departure_at": "2026-10-19T16:28:46.493084+00:00",
+      "eta": "2026-10-19T16:57:46.493194+00:00",
+      "status": "PLANNED",
+      "version": 1,
+      "sequence": 1,
+      "inventory_pending": false,
+      "expires_at": "2026-10-21T16:27:42.097211+00:00",
+      "decisions": [
+        {
+          "id": "7d08652a-3765-45cf-af2a-3fddc9567b09",
+          "actor_id": "c17e9575-b990-4b29-9087-4481a6e6db6e",
+          "action": "SHIPMENT_PLAN_PENDING",
+          "reason": "Plan de traslado ficticio aprobado",
+          "changes": {},
+          "created_at": "2026-10-19T16:27:47.471309+00:00"
+        }
+      ],
+      "transitions": []
+    },
+    "meta": {
+      "correlation_id": "1c7d0ac5-2ce2-4638-82c3-d33ca6d4027b",
+      "service": "transporte",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "1c7d0ac5-2ce2-4638-82c3-d33ca6d4027b",
+  "persistence": {
+    "effect": "read",
+    "note": "Consulta; accesos protegidos generan auditoría local transaccional."
+  }
+}

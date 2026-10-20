@@ -92,6 +92,7 @@ def ensure_pip(python, install):
 
 def ensure_python(app, install):
     python = app / ".venv/bin/python"
+    requirement_file = app / ("requirements-monolith.txt" if app == WEB else "requirements.txt")
     if not python.exists():
         if not install:
             raise RuntimeError(
@@ -129,7 +130,13 @@ from importlib.metadata import version, PackageNotFoundError
 from pip._vendor.packaging.requirements import Requirement
 from pathlib import Path
 missing = []
-for line in Path(sys.argv[1]).read_text().splitlines():
+def lines(path):
+    for line in path.read_text().splitlines():
+        if line.startswith('-r '):
+            yield from lines((path.parent / line[3:].strip()).resolve())
+        else:
+            yield line
+for line in lines(Path(sys.argv[1])):
     if not line.strip() or line.startswith('#'): continue
     r=Requirement(line)
     if r.marker and not r.marker.evaluate(): continue
@@ -143,7 +150,7 @@ sys.exit(bool(missing))
 """
     requirements = subprocess.run(
         check=False,
-        args=[str(python), "-c", check, str(app / "requirements.txt")],
+        args=[str(python), "-c", check, str(requirement_file)],
         capture_output=True,
         text=True,
     )
@@ -183,7 +190,7 @@ sys.exit(bool(missing))
             )
         print(f"Instalando dependencias de {app.name}…", flush=True)
         try:
-            run([python, "-m", "pip", "install", "-r", app / "requirements.txt"])
+            run([python, "-m", "pip", "install", "-r", requirement_file])
             run([python, "-m", "pip", "check"])
         except (subprocess.CalledProcessError, OSError) as exc:
             raise RuntimeError(
@@ -295,9 +302,11 @@ def prepare_web(directory, state):
             json.dumps(
                 {
                     "SERVICE_URLS": state["urls"],
-                    "WEB_SESSION_STORE": str(directory / "web-sessions.sqlite3"),
+                    **state["web_sessions"],
                     "REGION_NAME": "Red regional",
                     "SERVICE_TIMEOUT": 8,
+                    "BACKEND_MODE": "monolith",
+                    "DOMAIN_CONFIGS": str(directory),
                 },
                 indent=2,
             ),
@@ -435,7 +444,7 @@ def operate(args):
         run(integrated + ["start-web"] + location + web_port)
         selected = []
         print(
-            "Solo la web está solicitada; sus operaciones necesitan los microservicios correspondientes."
+            "Solo la web está solicitada; el modo monolith requiere sus bases y configuraciones de dominio."
         )
     else:
         command = "start-infrastructure" if component == "bases" else "start"

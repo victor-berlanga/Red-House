@@ -1,0 +1,123 @@
+{
+  "captured_at": "2026-10-19T16:28:04.359163+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "b82acfc07e7ff0221196c291a52b1986e4d1ac69b3f6769bffe29f4a02fa5c9b",
+  "transport": "http",
+  "method": "GET",
+  "route": "/schemas/<name>.response.json",
+  "objective": "response_contract",
+  "url": "http://127.0.0.1:56258/schemas/login.response.json",
+  "parameters": {},
+  "path_parameters": {
+    "name": "login"
+  },
+  "request_headers": {
+    "Host": "127.0.0.1:56258",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "2494f32d70154ab78e63042e8a9b64e9"
+  },
+  "request_body": "",
+  "status": 200,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "866",
+    "X-Correlation-ID": "bc2ffdc2-dd8a-4ccc-98c0-76217ef479f9",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "properties": {
+      "data": {
+        "properties": {
+          "access_token": "[REDACTED]",
+          "expires_in": {
+            "type": "integer"
+          },
+          "refresh_token": "[REDACTED]",
+          "token_type": "[REDACTED]",
+          "user": {
+            "properties": {
+              "active": {
+                "type": "boolean"
+              },
+              "id": {
+                "format": "uuid",
+                "type": "string"
+              },
+              "region_id": {
+                "format": "uuid",
+                "type": "string"
+              },
+              "role": {
+                "type": "string"
+              },
+              "tenant_id": {
+                "format": "uuid",
+                "type": "string"
+              },
+              "username": {
+                "type": "string"
+              },
+              "version": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id",
+              "tenant_id",
+              "region_id",
+              "username",
+              "role",
+              "active",
+              "version"
+            ],
+            "type": "object"
+          }
+        },
+        "required": [
+          "access_token",
+          "refresh_token",
+          "token_type",
+          "expires_in",
+          "user"
+        ],
+        "type": "object"
+      },
+      "meta": {
+        "properties": {
+          "correlation_id": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "service": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "correlation_id",
+          "service",
+          "version"
+        ],
+        "type": "object"
+      }
+    },
+    "required": [
+      "data",
+      "meta"
+    ],
+    "type": "object"
+  },
+  "correlation_id": "bc2ffdc2-dd8a-4ccc-98c0-76217ef479f9",
+  "persistence": {
+    "effect": "read",
+    "note": "Consulta; accesos protegidos generan auditoría local transaccional."
+  }
+}

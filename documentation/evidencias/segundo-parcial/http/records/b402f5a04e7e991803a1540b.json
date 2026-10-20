@@ -1,0 +1,51 @@
+{
+  "captured_at": "2026-10-19T16:27:55.677243+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "e7eb0044cb5544477c1a4b79a264977e16ddd17c216e8a88ed6d187af95af791",
+  "transport": "http",
+  "method": "GET",
+  "route": "/api/v1/files/<identifier>/download",
+  "objective": "Descargar evidencia verificada mediante acceso temporal privado",
+  "url": "http://127.0.0.1:56264/api/v1/files/887112b1-6120-4ca0-bffb-8e728c5c84af/download",
+  "parameters": {},
+  "path_parameters": {
+    "identifier": "887112b1-6120-4ca0-bffb-8e728c5c84af"
+  },
+  "request_headers": {
+    "Host": "127.0.0.1:56264",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "bba091ce770e4f8ea0d18d26c9e57a5b",
+    "Authorization": "[REDACTED]"
+  },
+  "request_body": "",
+  "status": 404,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "195",
+    "X-Correlation-ID": "9794bb26-07bf-41f4-96ba-075e08347dd4",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "error": {
+      "code": "not_found",
+      "message": "Recurso inexistente.",
+      "details": []
+    },
+    "meta": {
+      "correlation_id": "9794bb26-07bf-41f4-96ba-075e08347dd4",
+      "service": "transporte",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "9794bb26-07bf-41f4-96ba-075e08347dd4",
+  "persistence": {
+    "effect": "controlled_error",
+    "note": "No se infiere ausencia de efectos de un error; revisar correlación y estado de operación."
+  }
+}

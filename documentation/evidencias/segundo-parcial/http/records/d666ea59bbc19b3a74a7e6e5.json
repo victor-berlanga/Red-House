@@ -1,0 +1,52 @@
+{
+  "captured_at": "2026-10-19T16:39:31.725239+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "b82acfc07e7ff0221196c291a52b1986e4d1ac69b3f6769bffe29f4a02fa5c9b",
+  "transport": "http",
+  "method": "POST",
+  "route": "/api/v1/auth/refresh",
+  "objective": "Rotar renovación; repetición revoca familia",
+  "url": "http://127.0.0.1:56258/api/v1/auth/refresh",
+  "parameters": {},
+  "path_parameters": {},
+  "request_headers": {
+    "Host": "127.0.0.1:56258",
+    "User-Agent": "python-requests/2.34.2",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Idempotency-Key": "0d4fc5ec049b4108a59bc049d044aa04",
+    "Content-Length": "101",
+    "Content-Type": "application/json"
+  },
+  "request_body": {
+    "refresh_token": "[REDACTED]"
+  },
+  "status": 401,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "206",
+    "X-Correlation-ID": "d82675e0-be17-4e96-a023-5a5f96c58632",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "error": {
+      "code": "unauthorized",
+      "message": "Renovación inválida.",
+      "details": []
+    },
+    "meta": {
+      "correlation_id": "d82675e0-be17-4e96-a023-5a5f96c58632",
+      "service": "identidad_acceso",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "d82675e0-be17-4e96-a023-5a5f96c58632",
+  "persistence": {
+    "effect": "controlled_error",
+    "note": "No se infiere ausencia de efectos de un error; revisar correlación y estado de operación."
+  }
+}

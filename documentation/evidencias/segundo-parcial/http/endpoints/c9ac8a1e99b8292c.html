@@ -1,0 +1,62 @@
+<!doctype html><html lang="es"><meta charset="utf-8"><title>monitoreo /api/v1/status</title><style>body{font:15px system-ui;margin:32px;background:#f4f5f7;color:#202631}main{max-width:1250px;margin:auto}h1{color:#8e2434;font-size:26px}small{color:#556}a{color:#8e2434}table{border-collapse:collapse;width:100%;background:white}td,th{padding:9px;border:1px solid #ccd;vertical-align:top;text-align:left}pre{white-space:pre-wrap;word-break:break-word;background:#fff;border:1px solid #ccd;padding:12px;font:12px monospace;max-height:300px;overflow:auto}section{margin:20px 0}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.tag{padding:4px 9px;background:#e5ece7}.error{background:#f8e5e6}input{padding:12px;width:70%;margin:15px 0}details{margin:12px 0}nav{margin-bottom:20px}</style><main><nav><a href="../index.html">Inventario completo</a></nav><h1>monitoreo · GET /api/v1/status</h1><p>Estado, promedio, último error, versión e historial resumido</p><p>Registro de ejecución real. Credenciales y firmas redactadas. Los cuerpos completos están en el JSON enlazado.</p><section><h2>HTTP 200</h2><p><b>2026-10-19T16:28:29.944577+00:00</b> · versión 0.3.0</p><p>Correlación: dcef7d9d-2a99-4c04-8793-9e41b00f1c93<br>URL: http://127.0.0.1:56268/api/v1/status</p><p><a href="../records/4ed6c4da88f96340702b2e3e.json">Petición, respuesta, headers y persistencia completos</a></p><div class="grid"><div><h3>Petición</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Host&quot;: &quot;127.0.0.1:56268&quot;,
+    &quot;User-Agent&quot;: &quot;python-requests/2.34.2&quot;,
+    &quot;Accept-Encoding&quot;: &quot;gzip, deflate, br&quot;,
+    &quot;Accept&quot;: &quot;application/json&quot;,
+    &quot;Connection&quot;: &quot;keep-alive&quot;,
+    &quot;Idempotency-Key&quot;: &quot;68e5f6bf973c4cd1ae494d4547c980a5&quot;,
+    &quot;Authorization&quot;: &quot;[REDACTED]&quot;
+  },
+  &quot;parameters&quot;: {},
+  &quot;body&quot;: &quot;&quot;
+}</pre></div><div><h3>Respuesta</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Content-Type&quot;: &quot;application/json&quot;,
+    &quot;Content-Length&quot;: &quot;325&quot;,
+    &quot;X-Correlation-ID&quot;: &quot;dcef7d9d-2a99-4c04-8793-9e41b00f1c93&quot;,
+    &quot;Cache-Control&quot;: &quot;no-store&quot;,
+    &quot;X-Content-Type-Options&quot;: &quot;nosniff&quot;,
+    &quot;Referrer-Policy&quot;: &quot;no-referrer&quot;
+  },
+  &quot;body&quot;: {
+    &quot;data&quot;: {
+      &quot;latest&quot;: [],
+      &quot;statistics&quot;: [],
+      &quot;window_hours&quot;: 24,
+      &quot;notice&quot;: &quot;Estado técnico global, sin datos clínicos. Estadísticas de las últimas 24 horas; un sondeo vencido no acredita disponibilidad actual.&quot;
+    },
+    &quot;meta&quot;: {
+      &quot;correlation_id&quot;: &quot;dcef7d9d-2a99-4c04-8793-9e41b00f1c93&quot;,
+      &quot;service&quot;: &quot;monitoreo&quot;,
+      &quot;version&quot;: &quot;0.3.0&quot;
+    }
+  }
+}</pre></div></div><details><summary>Persistencia y versión de implementación</summary><pre>{
+  &quot;effect&quot;: &quot;read&quot;,
+  &quot;note&quot;: &quot;Consulta; accesos protegidos generan auditoría local transaccional.&quot;
+}</pre><p>SHA-256: b8204c203189de890c197ffcc608103454231faa36b5def1b043c829582fb590</p></details></section><section><h2>HTTP 401</h2><p><b>2026-10-19T16:28:29.801830+00:00</b> · versión 0.3.0</p><p>Correlación: bc6e6370-7a74-442f-8b0b-3d7ddd16cf34<br>URL: http://127.0.0.1:56268/api/v1/status</p><p><a href="../records/528b66648cbe5a2bb088d784.json">Petición, respuesta, headers y persistencia completos</a></p><div class="grid"><div><h3>Petición</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Host&quot;: &quot;127.0.0.1:56268&quot;,
+    &quot;User-Agent&quot;: &quot;python-requests/2.34.2&quot;,
+    &quot;Accept-Encoding&quot;: &quot;gzip, deflate, br&quot;,
+    &quot;Accept&quot;: &quot;application/xml&quot;,
+    &quot;Connection&quot;: &quot;keep-alive&quot;,
+    &quot;Idempotency-Key&quot;: &quot;6e6ee2ffeec04211a13fc3fef54339e9&quot;
+  },
+  &quot;parameters&quot;: {},
+  &quot;body&quot;: &quot;&quot;
+}</pre></div><div><h3>Respuesta</h3><pre>{
+  &quot;headers&quot;: {
+    &quot;Content-Type&quot;: &quot;application/xml; charset=utf-8&quot;,
+    &quot;Content-Length&quot;: &quot;503&quot;,
+    &quot;X-Correlation-ID&quot;: &quot;bc6e6370-7a74-442f-8b0b-3d7ddd16cf34&quot;,
+    &quot;Cache-Control&quot;: &quot;no-store&quot;,
+    &quot;X-Content-Type-Options&quot;: &quot;nosniff&quot;,
+    &quot;Referrer-Policy&quot;: &quot;no-referrer&quot;
+  },
+  &quot;body&quot;: &quot;&lt;response type=\&quot;object\&quot;&gt;&lt;field name=\&quot;error\&quot; type=\&quot;object\&quot;&gt;&lt;field name=\&quot;code\&quot; type=\&quot;string\&quot;&gt;unauthorized&lt;/field&gt;&lt;field name=\&quot;message\&quot; type=\&quot;string\&quot;&gt;JWT de acceso requerido.&lt;/field&gt;&lt;field name=\&quot;details\&quot; type=\&quot;array\&quot;/&gt;&lt;/field&gt;&lt;field name=\&quot;meta\&quot; type=\&quot;object\&quot;&gt;&lt;field name=\&quot;correlation_id\&quot; type=\&quot;string\&quot;&gt;bc6e6370-7a74-442f-8b0b-3d7ddd16cf34&lt;/field&gt;&lt;field name=\&quot;service\&quot; type=\&quot;string\&quot;&gt;monitoreo&lt;/field&gt;&lt;field name=\&quot;version\&quot; type=\&quot;string\&quot;&gt;0.3.0&lt;/field&gt;&lt;/field&gt;&lt;/response&gt;&quot;
+}</pre></div></div><details><summary>Persistencia y versión de implementación</summary><pre>{
+  &quot;effect&quot;: &quot;controlled_error&quot;,
+  &quot;note&quot;: &quot;No se infiere ausencia de efectos de un error; revisar correlación y estado de operación.&quot;
+}</pre><p>SHA-256: b8204c203189de890c197ffcc608103454231faa36b5def1b043c829582fb590</p></details></section><h2>Todas las variantes ejecutadas</h2><ul><li><a href="../records/4ed6c4da88f96340702b2e3e.json">200 · http · application/json · 2026-10-19T16:28:29.944577+00:00</a></li><li><a href="../records/528b66648cbe5a2bb088d784.json">401 · http · application/xml; charset=utf-8 · 2026-10-19T16:28:29.801830+00:00</a></li><li><a href="../records/0ec76490ff8ef6fb19bb68b0.json">401 · http · application/json · 2026-10-19T16:28:29.760076+00:00</a></li></ul></main></html>

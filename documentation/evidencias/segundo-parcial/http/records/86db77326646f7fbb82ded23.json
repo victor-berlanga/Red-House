@@ -1,0 +1,57 @@
+{
+  "captured_at": "2026-10-19T16:26:36.879473+00:00",
+  "version": "0.3.0",
+  "source_revision": "working-tree",
+  "implementation_sha256": "1a8dccae105e0c261a0273a99f999923c88cbf235f750f80f0ac2f487c8b6654",
+  "transport": "embedded",
+  "method": "GET",
+  "route": "/internal/v1/donations/<identifier>",
+  "objective": "Referencia de procedencia; sin identidad ni estudios del donante",
+  "url": "http://localhost/internal/v1/donations/36590df8-2f8e-48ae-82ae-34d2f2afee97",
+  "parameters": {},
+  "path_parameters": {
+    "identifier": "36590df8-2f8e-48ae-82ae-34d2f2afee97"
+  },
+  "request_headers": {
+    "Host": "localhost",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+    "X-Service": "inventario",
+    "X-Service-Time": "1792427196",
+    "X-Service-Nonce": "25e5c3e1-fc2c-4f34-95e7-9859808831d4",
+    "X-Service-Signature": "[REDACTED]",
+    "X-Correlation-Id": "eeb89f1a-1787-41cd-8544-b7c206304cd8",
+    "Authorization": "[REDACTED]"
+  },
+  "request_body": "[Invalid JSON omitted; sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855]",
+  "status": 200,
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Content-Length": "315",
+    "X-Correlation-ID": "eeb89f1a-1787-41cd-8544-b7c206304cd8",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer"
+  },
+  "response_body": {
+    "data": {
+      "id": "36590df8-2f8e-48ae-82ae-34d2f2afee97",
+      "tenant_id": "87255e79-2a0a-4e44-ad21-8002ccd5688d",
+      "kind": "BLOOD",
+      "component": "RBC",
+      "blood_group": "O+",
+      "status": "PROCESSED",
+      "version": 2
+    },
+    "meta": {
+      "correlation_id": "eeb89f1a-1787-41cd-8544-b7c206304cd8",
+      "service": "donantes",
+      "version": "0.3.0"
+    }
+  },
+  "correlation_id": "eeb89f1a-1787-41cd-8544-b7c206304cd8",
+  "persistence": {
+    "effect": "read",
+    "note": "Consulta; accesos protegidos generan auditoría local transaccional."
+  }
+}
