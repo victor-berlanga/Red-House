@@ -16,6 +16,14 @@ La VM queda encendida en `/opt/redhouse`. Docker Desktop, el contenedor auxiliar
 
 GCS utiliza identidad adjunta de Compute Engine y firma IAM acotada, sin ADC personales ni claves privadas de cuenta de servicio. Las cuentas de aplicación conservan las del Docker copiado. Se mantiene la evidencia anterior del túnel como primera etapa, reemplazada por este acceso público. No se ensayó un reinicio completo de la VM ni se certifican redundancia entre hosts, carga sostenida u operación clínica/productiva. Las ediciones Word/PDF anteriores conservan su fecha y alcance.
 
+## Guiones de demostración presencial y video (20 de octubre)
+
+Se agregaron dos guiones en `stuff/demostracion_segundo_parcial/`, en [español](stuff/demostracion_segundo_parcial/guion_es.md) e [inglés](stuff/demostracion_segundo_parcial/guide_en.md), a partir de la consigna de presentación compartida por el usuario. Ambos cubren qué decir y qué enseñar en clase y en YouTube, sin portada ni nombres. El índice de `stuff` enlaza el nuevo material.
+
+Criterios de aceptación: cubrir sistema web, microservicios, JSON/XML, Swagger, JWT, MongoDB, Redis, Docker y proceso de negocio con evidencias reales; conservar equivalencia entre idiomas; repartir responsabilidades entre todos los integrantes; indicar publicación pública u oculta. El recorrido propone un traslado preparado y un alta por Swagger seguida por identificador y correlación hasta el portal, PostgreSQL, MongoDB y logs Docker. Redis se demuestra mediante existencia/TTL de sesión antes y después del logout. Se distingue expresamente el portal monolítico del consumo HTTP de las API, la bitácora SQL del documento MongoDB y los indicadores de salud de una petición de negocio.
+
+Validación documental: 28 enlaces locales comprobados entre los nuevos guiones y el índice; sintaxis correcta en diez bloques shell, seis fragmentos Python embebidos y dos plantillas JSON. Comandos iguales entre idiomas; cinco métodos/rutas contrastados con OpenAPI y cuatro nombres de servicios con Compose. Las consultas usan las vistas y permisos existentes y muestran campos seleccionados. No se ejecutaron los comandos de demostración ni se alteró GCP, datos o servicios locales. Ensayo con folios/fechas nuevos, participación, grabación y publicación siguen pendientes del equipo; el guion no acredita esas actividades.
+
 ## Material breve para la exposición (20 de octubre)
 
 Se agregaron [cuatro guías de presentación](stuff/presentacion/README.md): nivel general y técnico, cada uno en español e inglés. Cada guía tiene ocho bloques, notas para hablar y demostración propuesta; duración orientativa de 8–10 o 12–15 minutos según el nivel. Se actualizaron el índice de `stuff`, la lectura inicial y el enlace al guion ampliado.
