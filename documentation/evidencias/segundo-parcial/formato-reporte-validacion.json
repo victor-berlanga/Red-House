@@ -1,0 +1,202 @@
+{
+  "date": "2026-10-22",
+  "scope": "Edición final del reporte: sin bitácoras, índice después de portada y referencias unificadas con APA 7 para fuentes web.",
+  "artifacts": {
+    "documentation/pdf/Reporte_tecnico_segundo_parcial.pdf": {
+      "sha256": "249c42278652037a0b033c87b25d44c0aacd7cce3f64ad0119342157170722d1",
+      "bytes": 1367139
+    },
+    "documentation/docx/Reporte_tecnico_segundo_parcial.docx": {
+      "sha256": "f3965e5e2affbe1c44f594ffe38a794b4e49a708b899ed007f023de4a32e68bd",
+      "bytes": 505418
+    }
+  },
+  "pages": 40,
+  "tables": 27,
+  "cover_pixels_identical_at_72_dpi": true,
+  "images_preserved_by_hash": 6,
+  "toc": {
+    "page": 2,
+    "entries": [
+      {
+        "title": "1. Resumen ejecutivo y problema",
+        "page": 3,
+        "anchor": "report_section_1"
+      },
+      {
+        "title": "2. Objetivos, alcance y actores",
+        "page": 3,
+        "anchor": "report_section_2"
+      },
+      {
+        "title": "3. Requisitos y trazabilidad",
+        "page": 4,
+        "anchor": "report_section_3"
+      },
+      {
+        "title": "4. Arquitectura y continuidad",
+        "page": 5,
+        "anchor": "report_section_4"
+      },
+      {
+        "title": "5. Procesos integrados",
+        "page": 7,
+        "anchor": "report_section_5"
+      },
+      {
+        "title": "6. Persistencia y modelo físico",
+        "page": 9,
+        "anchor": "report_section_6"
+      },
+      {
+        "title": "7. Servicios, contratos y comunicación",
+        "page": 12,
+        "anchor": "report_section_7"
+      },
+      {
+        "title": "8. Seguridad y consistencia",
+        "page": 12,
+        "anchor": "report_section_8"
+      },
+      {
+        "title": "9. Algoritmos",
+        "page": 12,
+        "anchor": "report_section_9"
+      },
+      {
+        "title": "10. Instalación, operación y recuperación",
+        "page": 13,
+        "anchor": "report_section_10"
+      },
+      {
+        "title": "11. Pruebas, evidencia y criterios de aceptación",
+        "page": 14,
+        "anchor": "report_section_11"
+      },
+      {
+        "title": "12. Limitaciones del alcance",
+        "page": 15,
+        "anchor": "report_section_12"
+      },
+      {
+        "title": "13. Catálogo de microservicios",
+        "page": 16,
+        "anchor": "report_section_13"
+      },
+      {
+        "title": "13.1. Identidad y acceso",
+        "page": 16,
+        "anchor": "report_section_14"
+      },
+      {
+        "title": "13.2. Donantes",
+        "page": 20,
+        "anchor": "report_section_15"
+      },
+      {
+        "title": "13.3. Receptores y solicitudes",
+        "page": 22,
+        "anchor": "report_section_16"
+      },
+      {
+        "title": "13.4. Inventario y reservas",
+        "page": 25,
+        "anchor": "report_section_17"
+      },
+      {
+        "title": "13.5. Compatibilidad",
+        "page": 27,
+        "anchor": "report_section_18"
+      },
+      {
+        "title": "13.6. Priorización y geografía",
+        "page": 29,
+        "anchor": "report_section_19"
+      },
+      {
+        "title": "13.7. Transporte",
+        "page": 31,
+        "anchor": "report_section_20"
+      },
+      {
+        "title": "13.8. Cadena de custodia",
+        "page": 33,
+        "anchor": "report_section_21"
+      },
+      {
+        "title": "13.9. Alertas",
+        "page": 34,
+        "anchor": "report_section_22"
+      },
+      {
+        "title": "13.10. Auditoría",
+        "page": 35,
+        "anchor": "report_section_23"
+      },
+      {
+        "title": "13.11. Monitoreo",
+        "page": 37,
+        "anchor": "report_section_24"
+      },
+      {
+        "title": "14. Referencias",
+        "page": 39,
+        "anchor": "report_section_25"
+      }
+    ],
+    "all_page_numbers_and_pdf_links_verified": true
+  },
+  "references": {
+    "heading_count": 1,
+    "start_page": 39,
+    "at_end": true,
+    "web_sources": 7,
+    "web_links_verified_in_pdf": true,
+    "format": "APA 7: autor, fecha disponible o s. f., título en cursiva, sitio cuando difiere del autor, URL; orden alfabético y sangría francesa.",
+    "metadata_verified_on": "2026-10-22",
+    "urls": [
+      "https://www.psycopg.org/psycopg3/docs/advanced/pool.html",
+      "https://nginx.org/en/docs/http/ngx_http_proxy_module.html",
+      "https://www.mongodb.com/docs/database-tools/mongorestore/",
+      "https://docs.cloud.google.com/storage/docs/access-control/signing-urls-with-helpers",
+      "https://docs.cloud.google.com/storage/docs/access-control/iam-roles",
+      "https://docs.cloud.google.com/storage/docs/xml-api/reference-status",
+      "https://docs.docker.com/compose/how-tos/networking/"
+    ],
+    "unique_local_paths_verified": 53
+  },
+  "content_validation": {
+    "missing_exported_paragraphs_or_cells": [],
+    "page_bounds_violations": [],
+    "history_headings_absent": true,
+    "source_logs_preserved": [
+      "documentation/evidencias/segundo-parcial/RESULTADOS.md",
+      "documentation/evidencias/sesiones-redis/RESULTADOS.md"
+    ],
+    "academic_delivery_pending_phrases_absent": true,
+    "section_12": "Limitaciones del alcance: validación clínica, puntos únicos de infraestructura y alcance de pruebas de rendimiento.",
+    "academic_delivery_status": {
+      "status": "Realizado por el equipo",
+      "source": "Confirmación expresa del usuario el 22 de octubre de 2026",
+      "independent_video_url_verification": false
+    }
+  },
+  "limitations": [
+    "Verificación editorial y de exportación; no se ejecutaron de nuevo pruebas de aplicación.",
+    "Los resultados de aceptación mantienen el alcance y las fechas de sus evidencias.",
+    "El índice requiere regeneración con --pdf después de editar contenido."
+  ],
+  "visual_review": {
+    "detail_pages": [
+      1,
+      2,
+      15
+    ],
+    "observations": "Sección 12 revisada; índice recalculado y portada conservada. El cambio no altera las fuentes APA ni los estilos."
+  },
+  "static_checks": [
+    "Ruff aprobado",
+    "Formato Ruff aprobado",
+    "git diff --check aprobado"
+  ]
+}

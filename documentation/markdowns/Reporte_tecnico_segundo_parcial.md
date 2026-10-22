@@ -1,8 +1,6 @@
 # Red House: documento técnico del segundo parcial
 
-Proyecto 6, equipo 01. Entrega prevista: 22 de octubre de 2026. Edición de implementación 0.3.0. Las referencias a evidencia apuntan a archivos ejecutados y conservados; los ejemplos de contratos se identifican por separado.
-
-Actualización del 20 de octubre: las sesiones técnicas del portal usan Redis y las revocaciones pendientes PostgreSQL. Las mediciones integrales del 19 de octubre se conservan como antecedentes; la nueva [validación de sesiones](../evidencias/sesiones-redis/RESULTADOS.md) documenta esta sustitución, su migración y sus pruebas.
+Proyecto 6, equipo 01. Entrega: 22 de octubre de 2026. Edición de implementación 0.3.0. Este documento presenta la arquitectura, los procesos, los contratos y los resultados de validación del sistema. Las fuentes técnicas y los artefactos de respaldo se reúnen en las referencias finales.
 
 ## 1. Resumen ejecutivo y problema
 
@@ -32,19 +30,9 @@ Los objetivos específicos son conservar registros de donantes y receptores; con
 
 La implementación distingue sangre y órganos mediante tipos, componentes, estados y reglas de evaluación. No interpreta HLA ni decide aptitud clínica. No implementa Android ni escritorio. La recuperación automatizada de contraseña, email/push, agenda detallada por sede/hora y reportes regulatorios certificados continúan pendientes. La ayuda de acceso y la exportación CSV de una página no se presentan como esas funciones.
 
-## 3. Correcciones y trazabilidad
+## 3. Requisitos y trazabilidad
 
-Las correcciones siguientes se comprueban en código y pruebas. No se atribuyen al docente observaciones que el equipo no proporcionó.
-
-| Situación anterior | Cambio del segundo parcial | Criterio verificable |
-| --- | --- | --- |
-| Portal dependiente de HTTP para todo el negocio | Backend modular propio seleccionado al configurar el portal | Sangre y órganos con todas las API detenidas |
-| Una instancia por API | Dos instancias de cada propietario, incluida Identidad, con workers | JSON/XML y flujo completo con las instancias A detenidas |
-| Persistencia separada por servicio en antecedentes | Base `red_house`, 71 tablas y vistas `access_*` | Esquema físico, permisos y pruebas de la base compartida |
-| Infraestructura sin Compose | Dockerfiles propios, redes, volúmenes, secretos e inicializador | Construcción, arranque, reinicio y recreación de instancias |
-| MongoDB con eventos inmutables | Proyección mutable de seguimiento, versionada y reconstruible | Actualización, duplicados, desorden, reconstrucción e índice |
-| Adaptador de archivos sin flujo web completo | Selección, carga, verificación, estados y descarga privada | Prueba con bucket real, archivo inválido y URL expirada |
-| Ejemplos estáticos de API | Captura optativa de solicitudes ejecutadas y verificación de persistencia | Inventario y expediente HTTP con fecha, versión y correlación |
+La matriz relaciona los requisitos funcionales y no funcionales con los módulos responsables y su evidencia de aceptación.
 
 | ID | Requisito comprometido | Implementación / evidencia |
 | --- | --- | --- |
@@ -65,13 +53,13 @@ Las correcciones siguientes se comprueban en código y pruebas. No se atribuyen 
 | RNF-04 | Reproducibilidad | `deployment/README.md`, Compose y secretos generados |
 | RNF-05 | Recuperación y trazabilidad | Operaciones persistentes, correlación, auditoría y pruebas de fallos |
 
-La [matriz de cierre](Cierre_segundo_parcial.md) determina qué criterios tienen evidencia final y cuáles conservan limitaciones. Las cifras históricas no se suman a las pruebas nuevas.
+La [matriz de cierre](Cierre_segundo_parcial.md) determina qué criterios tienen evidencia final y cuáles conservan limitaciones. Los resultados se interpretan según el alcance de cada validación.
 
 ## 4. Arquitectura y continuidad
 
 ![Componentes actuales](../segundo-parcial/diagramas/componentes.svg)
 
-El navegador consume HTML y formularios del portal. El módulo de integración traduce cada operación a un contrato de aplicación. En modo `monolith`, `ApplicationKernel` ejecuta los módulos Flask mediante WSGI dentro del proceso, sin abrir listeners internos. El mismo controlador valida entradas, JWT, permisos Redis, reglas y transacciones. Las llamadas internas conservan firma de servicio y delegación del usuario. El modo HTTP se conserva como configuración explícita para pruebas y entornos anteriores; no es un fallback automático.
+El navegador consume HTML y formularios del portal. El módulo de integración traduce cada operación a un contrato de aplicación. En modo `monolith`, `ApplicationKernel` ejecuta los módulos Flask mediante WSGI dentro del proceso, sin abrir listeners internos. El mismo controlador valida entradas, JWT, permisos Redis, reglas y transacciones. Las llamadas internas conservan firma de servicio y delegación del usuario. El modo HTTP se conserva como configuración explícita para pruebas e integración; no es un fallback automático.
 
 Cada módulo accede a PostgreSQL con su propia credencial limitada. El portal es una aplicación backend autorizada, no un cliente móvil con acceso directo a bases. Los microservicios no dependen de las vistas, plantillas ni sesiones privadas del portal. Las imágenes de dominio contienen únicamente su módulo y la biblioteca común; cada imagen puede actualizarse de forma individual.
 
@@ -79,9 +67,9 @@ La reutilización se fija mediante versión 0.3.0 y hashes de fuente en la evide
 
 ![Despliegue y redes](../segundo-parcial/diagramas/despliegue.svg)
 
-Nginx descubre dos destinos por servicio mediante DNS Docker. Hay redundancia para Identidad y los otros diez propietarios. Cada instancia supervisa su API y su worker. La web ejecuta sus propios workers de todos los dominios. Los workers comparten colas SQL con bloqueo `FOR UPDATE SKIP LOCKED`; los consumidores deduplican eventos. La proyección MongoDB también admite duplicados y orden de entrega diferente.
+Nginx descubre dos destinos por servicio mediante DNS Docker (Docker, s. f.). Hay redundancia para Identidad y los otros diez propietarios. Cada instancia supervisa su API y su worker. La web ejecuta sus propios workers de todos los dominios. Los workers comparten colas SQL con bloqueo `FOR UPDATE SKIP LOCKED`; los consumidores deduplican eventos. La proyección MongoDB también admite duplicados y orden de entrega diferente.
 
-El gateway reintenta conexiones fallidas sin habilitar `non_idempotent`. Una respuesta perdida después de enviar una escritura tiene resultado incierto. El cliente conserva `Idempotency-Key`, consulta la operación y repite con la misma clave solo según su contrato. No cambia a otro backend después de escribir. Reservas y retenciones tienen identidad persistente y recuperación explícita.
+El gateway reintenta conexiones fallidas sin habilitar `non_idempotent` (NGINX, s. f.). Una respuesta perdida después de enviar una escritura tiene resultado incierto. El cliente conserva `Idempotency-Key`, consulta la operación y repite con la misma clave solo según su contrato. No cambia a otro backend después de escribir. Reservas y retenciones tienen identidad persistente y recuperación explícita.
 
 | Fallo | Portal modular | Clientes API | Recuperación |
 | --- | --- | --- | --- |
@@ -122,7 +110,7 @@ El usuario autorizado selecciona PNG, JPEG o PDF de hasta 10 MiB. El portal calc
 
 Después de cargar, el servicio consulta metadatos y descarga la generación exacta para comprobar tamaño, SHA-256, tipo y estructura. Se limitan dimensiones de imágenes y páginas de PDF; se rechazan PDFs cifrados y mecanismos activos detectados. Esta validación estructural no sustituye un antivirus ni una política clínica de retención.
 
-Los estados distinguen registro preparado, verificado, rechazado, ausente y error. Una descarga requiere autorización por recurso y estado verificado; se entrega una URL firmada temporal ligada a la generación. El bucket bloquea acceso público y no almacena datos reales de pacientes en estas pruebas.
+Los estados distinguen registro preparado, verificado, rechazado, ausente y error. Una descarga requiere autorización por recurso y estado verificado; se entrega una URL firmada temporal ligada a la generación (Google Cloud, 2026c). El bucket bloquea acceso público y no almacena datos reales de pacientes en estas pruebas.
 
 ## 6. Persistencia y modelo físico
 
@@ -130,13 +118,13 @@ Los estados distinguen registro preparado, verificado, rechazado, ausente y erro
 
 ### PostgreSQL
 
-La base `red_house` conserva 71 tablas físicas en el esquema del dominio y una tabla técnica del portal en `web_runtime`, 72 en total. Deriva del esquema fijado de main y las ampliaciones descritas en [Esquema compartido](Esquema_compartido.md). Las vistas `access_<servicio>` adaptan los nombres del contrato sin duplicar registros. Cada credencial de ejecución dispone de permisos únicamente sobre su ámbito. El propietario estructural no inicia sesión. Los usuarios de aplicación no reciben acceso administrativo a las tablas físicas.
+El modelo documentado de la edición 0.3.0 comprende 71 tablas físicas en el esquema del dominio y una tabla técnica del portal en `web_runtime`, 72 en total. Su estructura se describe en [Esquema compartido](Esquema_compartido.md). Las vistas `access_<servicio>` adaptan los nombres del contrato sin duplicar registros. Cada credencial de ejecución dispone de permisos únicamente sobre su ámbito. El propietario estructural no inicia sesión. Los usuarios de aplicación no reciben acceso administrativo a las tablas físicas.
 
-El [catálogo físico completo](../segundo-parcial/Modelo_fisico.md) se genera desde `pg_catalog` e `information_schema`: columnas, tipos, obligatoriedad, valores predeterminados, claves, restricciones e índices. Incluye tablas conservadas como antecedente que las API no escriben; su existencia no se confunde con una función terminada. El archivo JSON de metadatos permite contrastar el catálogo con la base instalada.
+El [catálogo físico completo](../segundo-parcial/Modelo_fisico.md) se genera desde `pg_catalog` e `information_schema`: columnas, tipos, obligatoriedad, valores predeterminados, claves, restricciones e índices. Distingue las tablas utilizadas por las API de las tablas que no participan en sus operaciones. El archivo JSON de metadatos permite contrastar el catálogo con la base instalada.
 
 Las tablas `service_*` incluyen propietario en su clave. Las vistas de outbox, inbox, decisiones, idempotencia, actividad y latido filtran ese propietario. Las funciones privilegiadas usan objetos calificados y `search_path` restringido. Los historiales mantienen prohibición de actualización/eliminación para las credenciales de ejecución.
 
-El SQL de instalación se aplica explícitamente a una base vacía. Arrancar una API no destruye ni reconstruye tablas. Las migraciones de entornos anteriores, sus respaldos y la comparación histórica de filas permanecen documentados; el entorno habitual no se usa para fallos destructivos de esta entrega.
+El SQL de instalación se aplica explícitamente a una base vacía. Arrancar una API no destruye ni reconstruye tablas. Las migraciones requieren respaldo y comprobación de integridad. Los ensayos destructivos utilizan entornos aislados.
 
 ### MongoDB
 
@@ -177,7 +165,7 @@ Las evidencias de login, renovación y revocación conservan comprobaciones SQL 
 
 ### Google Cloud Storage
 
-El proyecto autorizado es `sistemas-integracion-01`. El bucket `red-house-evidencias-sistemas-integracion-01` usa Standard, `us-central1`, acceso uniforme y prevención de acceso público. La cuenta `red-house-archivos` recibió permisos de objetos limitados a ese bucket; la firma del usuario se limita a esa cuenta. Se utilizan credenciales impersonadas, sin descargar claves privadas de servicio.
+El proyecto autorizado es `sistemas-integracion-01`. El bucket `red-house-evidencias-sistemas-integracion-01` usa Standard, `us-central1`, acceso uniforme y prevención de acceso público. La cuenta `red-house-archivos` tiene permisos de objetos limitados a ese bucket; la firma del usuario se limita a esa cuenta (Google Cloud, 2026b). Se utilizan credenciales impersonadas, sin descargar claves privadas de servicio.
 
 PostgreSQL conserva identificador, traslado, propietario, ruta, MIME, tamaño, hash, generación y estado. Los archivos no se insertan en las bases. La prueba elimina únicamente sus objetos ficticios identificados; no vacía el bucket. Retención clínica, borrado de expedientes reales, antimalware y operación productiva requieren decisiones posteriores.
 
@@ -211,25 +199,25 @@ La evaluación conserva reglas, versiones y exclusiones. El ranking operativo ex
 
 El matching puede encontrar una cobertura mayor que una elección voraz cuando una solicitud admite varios recursos y otra solo uno. La salida es una propuesta; no modifica inventario ni reemplaza autorizaciones. Las pruebas comparan casos restrictivos, propuestas y ausencia de reservas automáticas. Problema, pseudocódigo, casos y límites adicionales están en [Algoritmos](Algoritmos.md).
 
-Las mediciones anteriores de volumen y Locust se conservan como antecedentes identificados por fecha. No se atribuyen al código 0.3.0 sin repetición. La prueba de continuidad con carga moderada no equivale a carga sostenida, estrés o capacidad productiva certificada.
+La validación de continuidad utiliza carga moderada. La capacidad bajo carga sostenida, estrés y saturación requiere mediciones específicas; los resultados de continuidad no certifican capacidad productiva.
 
 ## 10. Instalación, operación y recuperación
 
 El procedimiento ejecutable está en [deployment/README.md](../../deployment/README.md). Requiere Docker Compose v2 y Python para preparar secretos. El instalador genera contraseñas, claves de firma y configuraciones privadas; crea la base compartida, ACL, usuarios documentales y 14 cuentas ficticias. Una repetición verifica versión y aplica únicamente la migración documental aditiva.
 
-El ensayo desde una instantánea Git local clonada aprobó ocho etapas: preparación, construcción del instalador, arranque de almacenes, bootstrap, construcción de aplicaciones, arranque de 27 contenedores saludables, flujo de sangre con consultas JSON/XML de los once propietarios y repetición del bootstrap. Empleó secretos y volúmenes nuevos. El primer intento tuvo un fallo DNS del registro de imágenes; se conserva junto a la repetición aprobada. La [evidencia del clon](../evidencias/segundo-parcial/clean-clone.json) identifica la instantánea y los resultados.
+El ensayo desde una instantánea Git local clonada aprobó ocho etapas: preparación, construcción del instalador, arranque de almacenes, bootstrap, construcción de aplicaciones, arranque de 27 contenedores saludables, flujo de sangre con consultas JSON/XML de los once propietarios y repetición del bootstrap. Empleó secretos y volúmenes nuevos. La [evidencia del clon](../evidencias/segundo-parcial/clean-clone.json) identifica la instantánea y los resultados.
 
 El portal local Docker está en `http://127.0.0.1:6050`; gateway API en 6101–6111. PostgreSQL, Redis y MongoDB no publican puertos. La red `data` es interna. El acceso externo se limita a componentes que requieren GCS y al gateway/portal. Las aplicaciones se ejecutan sin privilegios, con sistema de archivos de solo lectura y áreas temporales explícitas.
 
 Liveness comprueba el proceso. Readiness verifica dependencias aplicables y versión de esquema. El health check de cada contenedor verifica además el latido de su propio worker para que el latido de otra réplica no oculte su fallo. Los logs incluyen servicio, ruta, estado, tiempo y correlación, sin cuerpo ni credenciales.
 
-El arranque se realiza por pares de réplicas, empezando por los consumidores de eventos, para permitir el drenaje de colas conservadas. El sondeo Docker usa un proceso Python mínimo, sin cargar paquetes de la aplicación. Las conexiones PostgreSQL se reutilizan en pools acotados por aplicación, credencial y esquema; un fallo no provoca la repetición automática de una escritura.
+El arranque se realiza por pares de réplicas, empezando por los consumidores de eventos, para permitir el drenaje de colas conservadas. El sondeo Docker usa un proceso Python mínimo, sin cargar paquetes de la aplicación. Las conexiones PostgreSQL se reutilizan en pools acotados por aplicación, credencial y esquema (Psycopg Team, s. f.); un fallo no provoca la repetición automática de una escritura.
 
 Una actualización compatible reemplaza primero A, espera salud y ejecuta una operación, después B. No se aplican cambios destructivos de esquema en el arranque. Cambiar contratos o persistencia requiere una migración planificada con compatibilidad temporal y respaldo. Recrear la misma versión prueba el mecanismo; no demuestra compatibilidad con una migración futura desconocida.
 
 El ensayo final reemplazó ambas imágenes de Inventario por un ID distinto. Las 100 consultas continuas respondieron 200 y se verificó un alta SQL después de cada sustitución. La versión contractual permaneció en 0.3.0; esa prueba acredita la actualización compatible de este incremento.
 
-El respaldo debe conservar PostgreSQL, documentos MongoDB, persistencia/ACL Redis, configuración privada, claves y sesiones web, además de los objetos GCS según su política. Restaurar solo tablas sin las claves o las colas puede dejar referencias y sesiones incoherentes. El procedimiento de respaldo y restauración aislada se detalla en la guía; los archivos con datos y secretos no forman parte del expediente público.
+El respaldo debe conservar PostgreSQL, documentos MongoDB, persistencia/ACL Redis, configuración privada, claves y sesiones web, además de los objetos GCS según su política. La restauración documental utiliza las herramientas de respaldo y restauración de MongoDB (MongoDB, Inc., s. f.). Restaurar solo tablas sin las claves o las colas puede dejar referencias y sesiones incoherentes. El procedimiento de respaldo y restauración aislada se detalla en la guía; los archivos con datos y secretos no forman parte del expediente público.
 
 La restauración comprobada conserva 15 122 filas de 71 tablas, 7 632 documentos, cinco usuarios y cuatro roles MongoDB mediante conteos y hashes idénticos. Redis recuperó la clave de prueba con TTL de 3575 s. Se restauró en motores nuevos sin puertos publicados. Las generaciones GCS no se copian en ese respaldo local y deben conservarse en el bucket.
 
@@ -241,7 +229,7 @@ Las pruebas Docker ejecutan operaciones de negocio a través del gateway; detien
 
 La prueba GCS usa el bucket autorizado, carga y descarga un PNG ficticio, comprueba metadatos SQL, rechazo de acceso público, autorización por traslado, objeto ausente, MIME/contenido inválido, prohibición de sobreescritura, firma expirada y degradación/recuperación. No utiliza URLs fabricadas.
 
-Los resultados finales y sus tiempos se incorporan en [Resultados de validación](../evidencias/segundo-parcial/RESULTADOS.md). Ese registro conserva esperado, obtenido y diagnóstico. Los límites de espera no se aumentan para ocultar un fallo. Una repetición posterior se identifica y no borra el resultado fallido previo.
+Los [resultados de validación](../evidencias/segundo-parcial/RESULTADOS.md) reúnen los valores esperados y obtenidos y los archivos de evidencia. Los resultados siguientes corresponden a ejecuciones identificadas; sus cantidades no se suman como si fueran una sola suite.
 
 La regresión final aprobó 182 pruebas, sin fallos ni omisiones, en 2005.90 s. Una prueba complementaria posterior aprobó en 36.08 s los errores de negociación y las conexiones fallidas/recuperadas de salud para los once propietarios. Docker aprobó nueve comprobaciones operativas. Chrome verificó 20 páginas de siete perfiles, las series Highcharts frente a sus datos del servidor, ancho 390 sin desbordamiento, una carga privada verificada y una consulta Swagger real.
 
@@ -249,16 +237,29 @@ El inventario final contiene 284 métodos/rutas con éxito HTTP y captura. Hay e
 
 La captura automática inventaría los métodos y rutas reales de cada aplicación. Cada registro incluye objetivo, URL, parámetros, headers redactados, petición, respuesta, código, fecha, versión, correlación, transporte y hash de implementación. Las escrituras idempotentes se vinculan a una consulta del resultado comprometido en PostgreSQL. Las operaciones sin ese registro requieren la evidencia de flujo o de su almacén específico; el informe de cobertura señala las brechas en lugar de fabricar ejemplos.
 
-## 12. Presentación y trabajo pendiente
+### Resultados de aceptación
 
-El [guion de demostración](../../stuff/presentacion/Guion_segundo_parcial.md) organiza responsabilidades y pasos reproducibles. No asigna nombres ni inventa participación. Incluye explicación del problema, arquitectura, flujo completo, JSON/XML, Swagger, Redis, MongoDB, archivos, Docker y fallos. El equipo completará reparto de participación, ensayo, grabación y publicación de YouTube.
+| Validación | Resultado comprobado | Evidencia |
+| --- | --- | --- |
+| Regresión de servicios, 19 de octubre de 2026 | 182 pruebas aprobadas; cero fallos y omisiones; 2005.90 s | [JUnit de regresión](../evidencias/segundo-parcial/regresion-final.xml) |
+| Salud de los once servicios | Negociación 406, dependencia inaccesible 503 y recuperación 200; una prueba aprobada en 36.08 s | [JUnit de salud](../evidencias/segundo-parcial/salud-complementaria.xml) |
+| Continuidad Docker | Nueve controles aprobados; flujos API y web, sustitución de instancias y reinicio de almacenes | [Controles Docker](../evidencias/segundo-parcial/docker-release/docker-results.json) |
+| MongoDB | Proyección versionada, deduplicación, reconstrucción e índice regional IXSCAN; eventos inmutables | [Prueba de proyección](../evidencias/segundo-parcial/mongo-projection.json) |
+| Archivos GCS | Descarga 200 con hash idéntico; acceso anónimo 403; contenido inválido 422; objeto ausente 404; firma expirada 400 ExpiredToken; fallo 503 y recuperación 200 | [Validación GCS](../evidencias/segundo-parcial/gcs-real.json) |
+| Interfaz web | 20 páginas de siete perfiles; Highcharts contrastado con datos del servidor; ancho de 390 px sin desbordamiento; sin errores JavaScript | [Validación en navegador](../evidencias/segundo-parcial/browser/browser-results.json) |
+| Sesiones y seguridad web, 20 de octubre de 2026 | 121 pruebas aprobadas en 798.33 s; incluye continuidad, seguridad, instalación y contratos | [JUnit de sesiones y web](../evidencias/sesiones-redis/regresion.xml) |
+| Módulo de sesiones | Nueve pruebas aprobadas en 82.26 s; cifrado, expiración, ACL, concurrencia, revocación y fallos | [JUnit del módulo](../evidencias/sesiones-redis/sesiones-final.xml) |
+| Sesiones mediante HTTP Docker | Login 302, renovación 200 y logout 302; rechazo de cookie cerrada; tokens cifrados y TTL verificado | [Sesiones en Docker](../evidencias/sesiones-redis/docker.json) |
+| Restauración con sesiones técnicas | 15 209 filas de 72 tablas idénticas por conteo y hash; permisos del portal limitados; clave Redis con TTL de 3531 s | [Restauración de sesiones](../evidencias/sesiones-redis/backup-restore.json) |
 
-La entrega académica completa requiere presentación presencial de todos los integrantes y un video accesible. Preparar el guion y los artefactos no acredita esos requisitos externos. Tampoco acredita validación clínica, operación productiva, pruebas de infraestructura multizona o certificación normativa.
+El ensayo de firma expirada comprueba tanto el código HTTP como el código XML `ExpiredToken`, conforme al contrato del proveedor (Google Cloud, 2026a). Las nueve pruebas del módulo de sesiones se superponen con la regresión de 121 casos; no representan 130 casos distintos. Las mediciones de restauración corresponden a instantáneas identificadas y no describen cantidades de datos permanentes de la plataforma.
 
-## 13. Fuentes técnicas
+Las pruebas de sesiones verifican acceso desde dos instancias, renovación simultánea, cierre durante renovación, caída de Redis y PostgreSQL y recuperación de credenciales cifradas. Si Redis falla durante el cierre, PostgreSQL conserva la revocación pendiente. Si PostgreSQL falla, el acceso protegido devuelve 503 y el cierre elimina la cookie sin afirmar que confirmó la revocación global. Las marcas de cierre impiden reactivar cookies antiguas después de restaurar Redis. La [validación de sesiones](../evidencias/sesiones-redis/RESULTADOS.md) documenta las condiciones reproducibles de estos ensayos.
 
-- [Reintentos y upstream de Nginx](https://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_next_upstream): distingue reintento de conexión y operaciones no idempotentes.
-- [Redes y DNS de Docker Compose](https://docs.docker.com/compose/how-tos/networking/): descubrimiento de servicios y recreación de contenedores.
-- [Roles IAM de Cloud Storage](https://docs.cloud.google.com/storage/docs/access-control/iam-roles): alcance de permisos sobre objetos.
-- [Firmas de URLs de Cloud Storage](https://docs.cloud.google.com/storage/docs/access-control/signing-urls-with-helpers): acceso temporal a objetos privados.
-- [Enunciado y matriz de ejecución](Cierre_segundo_parcial.md), [reglas del proyecto](Reglas_de_negocio.md) y [modelo compartido](Esquema_compartido.md): fuentes internas de alcance y trazabilidad.
+## 12. Limitaciones del alcance
+
+La compatibilidad y la priorización proporcionan apoyo a la coordinación y requieren revisión humana autorizada. Los resultados académicos no constituyen validación clínica ni certificación normativa para utilizar el sistema en atención real.
+
+La redundancia de las API se limita a dos instancias por servicio dentro de un mismo host. PostgreSQL, Redis, MongoDB, el gateway y el host continúan siendo puntos únicos de infraestructura; no se ha demostrado tolerancia a la pérdida completa del host ni disponibilidad entre zonas.
+
+Las pruebas de continuidad y recuperación acreditan los escenarios descritos en sus evidencias. No establecen capacidad bajo carga sostenida, saturación o estrés productivo, ni garantizan compatibilidad con migraciones futuras que modifiquen contratos o estructuras de datos.

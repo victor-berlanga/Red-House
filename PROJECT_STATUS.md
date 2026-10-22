@@ -1,6 +1,20 @@
 # Estado vigente de Red House
 
-Actualizado: **21 de octubre de 2026**. Leer junto con `AGENTS.md` y el [índice documental](documentation/README.md). El historial detallado está separado del estado actual.
+Actualizado: **22 de octubre de 2026**. Leer junto con `AGENTS.md` y el [índice documental](documentation/README.md). El historial detallado está separado del estado actual.
+
+## Cierre de presentación y video (22 de octubre)
+
+El usuario confirma que el guion, la presentación, la participación del equipo y la grabación/publicación del video de YouTube ya están realizados. Se retiran de los pendientes vigentes. La sección 12 del reporte queda titulada «Limitaciones del alcance» y describe únicamente límites clínicos, de infraestructura y de validación de rendimiento. La confirmación del equipo es la fuente de este cierre; no se ha comprobado de forma independiente una URL del video.
+
+Criterios de aceptación: ausencia de tareas de presentación o video pendientes en el reporte final, conservación de limitaciones técnicas justificadas, Word/PDF regenerados e índice coherente. La evidencia editorial se actualiza en `documentation/evidencias/segundo-parcial/formato-reporte-validacion.json`.
+
+## Formato del reporte del segundo parcial (22 de octubre)
+
+Por solicitud del usuario, el [reporte PDF](documentation/pdf/Reporte_tecnico_segundo_parcial.pdf) y su [Word editable](documentation/docx/Reporte_tecnico_segundo_parcial.docx) adoptan el diseño del reporte del primer parcial: portada original completa, Arial, jerarquía de títulos rojos/grises, márgenes carta, tablas con encabezado rojo y letras blancas, bordes negros y pie de página «Equipo 01». Se conserva literalmente la portada, incluida su fecha original. Una revisión editorial posterior elimina notas de actualización, comparaciones antes/después y narraciones de incidentes; conserva arquitectura, contratos, resultados de aceptación y límites de la edición 0.3.0. Las bitácoras de cierre y pruebas permanecen intactas como fuentes independientes, sin anexarse completas al reporte.
+
+Criterios de aceptación y evidencia final: **40 páginas y 27 tablas**, portada idéntica píxel a píxel a 72 ppp y seis imágenes conservadas por hash, incluido el logo. Índice en la página 2 con **25 entradas**, números y enlaces PDF contrastados con los destinos. Una sola sección de referencias al final, desde la página 39: **siete fuentes web en APA 7**, con metadatos consultados en sus páginas oficiales, títulos en cursiva, sangría francesa y citas autor-fecha en el cuerpo; 53 rutas internas únicas comprobadas. Todos los textos de los párrafos/celdas exportados aparecen en el PDF y no hay palabras fuera de página. [Verificación estructurada](documentation/evidencias/segundo-parcial/formato-reporte-validacion.json). La primera revisión de formato tuvo 48 páginas y conservaba las bitácoras completas; queda sustituida por esta edición final.
+
+`scripts/export_partial_report.py --pdf` reutiliza el Word histórico como plantilla, incorpora las fuentes editoriales del reporte, las fichas y `documentation/segundo-parcial/Referencias.md`, y pagina con LibreOffice hasta estabilizar el índice; dos pasadas comprobadas. El catálogo físico conserva su formato. Ruff y formato aprobados. Cambio documental, sin modificaciones funcionales ni nueva ejecución de pruebas de aplicación. La portada depende del Word histórico y los números del índice deben regenerarse después de editar contenido. LibreOffice necesitó ejecución fuera del sandbox por acceso al entorno gráfico de macOS; no se cambiaron servicios ni configuraciones de la aplicación.
 
 ## Capturas reales de Swagger público (21 de octubre)
 
@@ -94,7 +108,7 @@ Se agregaron dos guiones en `stuff/demostracion_segundo_parcial/`, en [español]
 
 Criterios de aceptación: cubrir sistema web, microservicios, JSON/XML, Swagger, JWT, MongoDB, Redis, Docker y proceso de negocio con evidencias reales; conservar equivalencia entre idiomas; repartir responsabilidades entre todos los integrantes; indicar publicación pública u oculta. El recorrido propone un traslado preparado y un alta por Swagger seguida por identificador y correlación hasta el portal, PostgreSQL, MongoDB y logs Docker. Redis se demuestra mediante existencia/TTL de sesión antes y después del logout. Se distingue expresamente el portal monolítico del consumo HTTP de las API, la bitácora SQL del documento MongoDB y los indicadores de salud de una petición de negocio.
 
-Validación documental: 28 enlaces locales comprobados entre los nuevos guiones y el índice; sintaxis correcta en diez bloques shell, seis fragmentos Python embebidos y dos plantillas JSON. Comandos iguales entre idiomas; cinco métodos/rutas contrastados con OpenAPI y cuatro nombres de servicios con Compose. Las consultas usan las vistas y permisos existentes y muestran campos seleccionados. No se ejecutaron los comandos de demostración ni se alteró GCP, datos o servicios locales. Ensayo con folios/fechas nuevos, participación, grabación y publicación siguen pendientes del equipo; el guion no acredita esas actividades.
+Validación documental: 28 enlaces locales comprobados entre los nuevos guiones y el índice; sintaxis correcta en diez bloques shell, seis fragmentos Python embebidos y dos plantillas JSON. Comandos iguales entre idiomas; cinco métodos/rutas contrastados con OpenAPI y cuatro nombres de servicios con Compose. Las consultas usan las vistas y permisos existentes y muestran campos seleccionados. No se ejecutaron los comandos de demostración ni se alteró GCP, datos o servicios locales. La participación, grabación y publicación fueron confirmadas como realizadas por el equipo el 22 de octubre; la validación documental del guion no verificó esas actividades.
 
 ## Material breve para la exposición (20 de octubre)
 
@@ -135,7 +149,7 @@ Los [resultados](documentation/evidencias/segundo-parcial/RESULTADOS.md) conserv
 
 [Revisión final de artefactos](documentation/evidencias/segundo-parcial/validacion-artefactos.json): informe de 36 páginas y catálogo físico de 41, Word íntegros, figuras/tablas inspeccionadas y sin texto fuera de página; 2214 enlaces locales válidos, 1204 archivos de evidencia revisados sin los patrones de credenciales buscados. Ruff y formato de 163 archivos, sintaxis JavaScript, `git diff --check` y sincronización CodeGraph aprobados.
 
-Los Compose de demostración y prueba quedan **detenidos**, con datos y respaldos privados conservados. Inicio del principal: `python3 deployment/start.py`. Presentación presencial, participación real y grabación/publicación de YouTube siguen pendientes del equipo. Los límites funcionales y productivos figuran abajo y en la matriz; no se declara completa la entrega académica externa.
+Los Compose de demostración y prueba quedan **detenidos**, con datos y respaldos privados conservados. Inicio del principal: `python3 deployment/start.py`. La presentación y el video ya fueron realizados por el equipo, según su confirmación del 22 de octubre. Los límites funcionales y productivos figuran abajo y en la matriz; no se declara completa la entrega académica externa.
 
 ## Decisión de arquitectura (15 de octubre)
 
@@ -175,7 +189,6 @@ El entorno predeterminado es `.local/runtime/`, privado y excluido de Git. El or
 
 - Validación clínica/normativa de reglas, HLA, elegibilidad, asignación, retención y acceso institucional.
 - Agenda detallada por sede/hora, recuperación automatizada de contraseña, email/push y reportes regulatorios certificados.
-- Presentación presencial, participación nominal, grabación/publicación de YouTube y enlace accesible del equipo.
 - Android, escritorio XML, operación productiva y redundancia de infraestructura; la VM GCE académica ya ejecuta Docker con supervisión por instancia y HTTPS público.
 - Carga sostenida, saturación, alta disponibilidad y ejecución de CI remoto. Windows/WSL y Ubuntu completos no están certificados por las pruebas de este Mac.
 

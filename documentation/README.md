@@ -47,6 +47,8 @@ El backlog conserva el estado registrado al cierre del primer parcial; el avance
 - [VM GCP, HTTPS y administración](../deployment/gcp/README.md), con [resultados del despliegue](evidencias/gcp/RESULTADOS.md) y [actualización de auditoría y formularios](evidencias/gcp/auditoria-formularios/RESULTADOS.md).
 - Ediciones de entrega: [Reporte Word](docx/Reporte_tecnico_segundo_parcial.docx), [Reporte PDF](pdf/Reporte_tecnico_segundo_parcial.pdf), [modelo físico Word](docx/Modelo_fisico_PostgreSQL.docx) y [modelo físico PDF](pdf/Modelo_fisico_PostgreSQL.pdf).
 
+El reporte reutiliza la portada y los estilos del primer parcial. Presenta contenido técnico y resultados de aceptación, con índice enlazado y [referencias web APA 7](segundo-parcial/Referencias.md) al final; las bitácoras se consultan por separado. [Verificación editorial y de formato](evidencias/segundo-parcial/formato-reporte-validacion.json). Para regenerar Word y PDF desde la raíz, ejecutar `python scripts/export_partial_report.py --pdf` en un entorno con `python-docx`, `Markdown`, `lxml`, `Pillow`, `PyMuPDF` y `soffice` (LibreOffice) en PATH. El generador pagina hasta estabilizar los números del índice. Sin `--pdf` se obtiene un Word de trabajo con las páginas del índice pendientes. El Word histórico en `historial/primer-parcial/docx/` debe conservarse como plantilla. `--physical` exporta el catálogo físico con su formato independiente.
+
 ## Entregas anteriores
 
 La [revisión del segundo parcial](markdowns/Revision_segundo_parcial.md) conserva el diagnóstico del 14/10/2026 y enlaza la matriz vigente. Sus faltantes originales no describen el cierre actual.

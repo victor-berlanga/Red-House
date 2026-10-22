@@ -19,7 +19,7 @@ Las pruebas del 14 y 15 de octubre son antecedentes, no resultados de este cambi
 | Fallos y recuperación | Pruebas históricas | Nuevas comprobaciones de dependencias, instancia, monolito y actualización | Entornos aislados | **Aprobado**: nueve controles Docker y una prueba complementaria de salud para los once propietarios; incidentes conservados |
 | Respaldo | Procedimiento sin ensayo integral de este despliegue | Exportación coordinada y restauración en tres contenedores nuevos | Aplicaciones pausadas, secretos privados y volúmenes nuevos | **Aprobado**: 71 tablas/15 122 filas SQL, 7 632 documentos MongoDB, usuarios/roles por hash y clave Redis con TTL; [comparación](../evidencias/segundo-parcial/backup-restore.json) |
 | Documento técnico | Guías dispersas y revisión histórica | Informe, once fichas, diagramas, catálogo físico y trazabilidad | Código y resultados fechados | **Entregado**: [informe Word](../docx/Reporte_tecnico_segundo_parcial.docx) / [PDF](../pdf/Reporte_tecnico_segundo_parcial.pdf), [modelo físico](../segundo-parcial/Modelo_fisico.md), once fichas y figuras actuales |
-| Presentación | Apuntes individuales | [Guion presencial y de video](../../stuff/presentacion/Guion_segundo_parcial.md), reparto por responsabilidad y demo reproducible | Participación y publicación reales del equipo | **Material preparado; requisito externo pendiente**: ensayo, presentación, grabación, publicación y enlace de YouTube |
+| Presentación | Apuntes individuales | [Guion presencial y de video](../../stuff/presentacion/Guion_segundo_parcial.md), reparto por responsabilidad y demo reproducible | Participación y publicación reales del equipo | **Realizado por el equipo**, según confirmación del 22/10/2026: guion, presentación y video de YouTube |
 
 ## Decisión de continuidad
 
@@ -63,7 +63,7 @@ Recuperación automatizada de contraseña, email/push, agenda detallada por sede
 
 Las observaciones textuales del docente no fueron proporcionadas. El informe describe correcciones técnicas verificadas sin inventar su procedencia. Los nombres y la portada se omiten por instrucción del usuario. El equipo agregará los datos de identificación y la participación reales cuando corresponda.
 
-La entrega académica completa sigue pendiente de presentación presencial y YouTube; no se atribuyen al código esos requisitos externos.
+El equipo confirmó el 22 de octubre que el guion, la presentación y el video de YouTube ya están realizados. Este cierre se registra por confirmación del equipo; no corresponde a una nueva prueba de software.
 
 ## Actualización de sesiones del 20 de octubre
 
