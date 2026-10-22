@@ -1,0 +1,243 @@
+{
+  "identidad-acceso": {
+    "public_endpoints": 34,
+    "success_captures": 34,
+    "error_captures": 1,
+    "missing": [],
+    "internal_excluded": [
+      {
+        "method": "GET",
+        "path": "/internal/v1/audit-assignees/{identifier}",
+        "operationId": "audit_assignee",
+        "summary": "Validar coordinador regional para un hallazgo",
+        "internal": true
+      },
+      {
+        "method": "GET",
+        "path": "/internal/v1/institutions/{identifier}",
+        "operationId": "institution_internal",
+        "summary": "Referencia institucional autorizada",
+        "internal": true
+      },
+      {
+        "method": "GET",
+        "path": "/internal/v1/locations/{identifier}",
+        "operationId": "location_internal",
+        "summary": "Validar ubicación y sede de la institución del usuario",
+        "internal": true
+      },
+      {
+        "method": "GET",
+        "path": "/internal/v1/users/{identifier}",
+        "operationId": "user_internal",
+        "summary": "Validar personal de traslado",
+        "internal": true
+      }
+    ]
+  },
+  "donantes": {
+    "public_endpoints": 19,
+    "success_captures": 19,
+    "error_captures": 1,
+    "missing": [],
+    "internal_excluded": [
+      {
+        "method": "GET",
+        "path": "/internal/v1/donations/{identifier}",
+        "operationId": "donation_internal",
+        "summary": "Referencia de procedencia; sin identidad ni estudios del donante",
+        "internal": true
+      }
+    ]
+  },
+  "receptores": {
+    "public_endpoints": 10,
+    "success_captures": 10,
+    "error_captures": 1,
+    "missing": [],
+    "internal_excluded": [
+      {
+        "method": "POST",
+        "path": "/internal/v1/events",
+        "operationId": "recipient_events",
+        "summary": "Recibir recepción o liberación sin duplicados",
+        "internal": true
+      },
+      {
+        "method": "POST",
+        "path": "/internal/v1/holds",
+        "operationId": "hold_create",
+        "summary": "Retener capacidad; serializar solicitud y receptor",
+        "internal": true
+      },
+      {
+        "method": "GET",
+        "path": "/internal/v1/holds-by-operation/{identifier}",
+        "operationId": "hold_lookup",
+        "summary": "Localizar retención tras perder una respuesta",
+        "internal": true
+      },
+      {
+        "method": "POST",
+        "path": "/internal/v1/holds/{identifier}",
+        "operationId": "hold_action",
+        "summary": "Confirmar, liberar o recibir retención de forma idempotente",
+        "internal": true
+      },
+      {
+        "method": "GET",
+        "path": "/internal/v1/requests/{identifier}",
+        "operationId": "request_internal",
+        "summary": "Instantánea mínima para compatibilidad y reserva",
+        "internal": true
+      }
+    ]
+  },
+  "inventario": {
+    "public_endpoints": 14,
+    "success_captures": 14,
+    "error_captures": 1,
+    "missing": [],
+    "internal_excluded": [
+      {
+        "method": "GET",
+        "path": "/internal/v1/available-resources",
+        "operationId": "resources_internal",
+        "summary": "Fuente autoritativa de candidatos; omite caché",
+        "internal": true
+      },
+      {
+        "method": "POST",
+        "path": "/internal/v1/events",
+        "operationId": "inventory_events",
+        "summary": "Aplicar hechos logísticos en orden y sin duplicación",
+        "internal": true
+      },
+      {
+        "method": "GET",
+        "path": "/internal/v1/reservations/{identifier}",
+        "operationId": "reservation_internal",
+        "summary": "Datos mínimos para planear traslado",
+        "internal": true
+      },
+      {
+        "method": "POST",
+        "path": "/internal/v1/reservations/{identifier}/claim",
+        "operationId": "reservation_claim",
+        "summary": "Vincular traslado durable antes de permitir recolección",
+        "internal": true
+      }
+    ]
+  },
+  "compatibilidad": {
+    "public_endpoints": 4,
+    "success_captures": 4,
+    "error_captures": 1,
+    "missing": [],
+    "internal_excluded": [
+      {
+        "method": "GET",
+        "path": "/internal/v1/evaluations/{identifier}",
+        "operationId": "evaluation_internal",
+        "summary": "Instantánea y dictámenes para reservar o priorizar",
+        "internal": true
+      }
+    ]
+  },
+  "priorizacion-geografia": {
+    "public_endpoints": 10,
+    "success_captures": 10,
+    "error_captures": 1,
+    "missing": [],
+    "internal_excluded": [
+      {
+        "method": "GET",
+        "path": "/internal/v1/route-options",
+        "operationId": "routes_internal",
+        "summary": "Estimaciones regionales para filtrar candidatos",
+        "internal": true
+      },
+      {
+        "method": "GET",
+        "path": "/internal/v1/routes/{identifier}",
+        "operationId": "route_internal",
+        "summary": "Revalidar una ruta conocida",
+        "internal": true
+      }
+    ]
+  },
+  "transporte": {
+    "public_endpoints": 13,
+    "success_captures": 13,
+    "error_captures": 1,
+    "missing": [],
+    "internal_excluded": [
+      {
+        "method": "GET",
+        "path": "/internal/v1/shipments/{identifier}/access",
+        "operationId": "shipment_internal",
+        "summary": "Autorizar consulta de custodia por asignación logística",
+        "internal": true
+      }
+    ]
+  },
+  "custodia": {
+    "public_endpoints": 1,
+    "success_captures": 1,
+    "error_captures": 1,
+    "missing": [],
+    "internal_excluded": [
+      {
+        "method": "POST",
+        "path": "/internal/v1/events",
+        "operationId": "custody_ingest",
+        "summary": "Custodia secuencial, deduplicada e inmutable",
+        "internal": true
+      }
+    ]
+  },
+  "alertas": {
+    "public_endpoints": 2,
+    "success_captures": 2,
+    "error_captures": 1,
+    "missing": [],
+    "internal_excluded": [
+      {
+        "method": "POST",
+        "path": "/internal/v1/events",
+        "operationId": "alert_ingest",
+        "summary": "Generar alertas por evento con deduplicación y destinatarios explícitos",
+        "internal": true
+      }
+    ]
+  },
+  "auditoria": {
+    "public_endpoints": 10,
+    "success_captures": 10,
+    "error_captures": 1,
+    "missing": [],
+    "internal_excluded": [
+      {
+        "method": "POST",
+        "path": "/internal/v1/events",
+        "operationId": "audit_ingest",
+        "summary": "Recibir registro minimizado y conservarlo de forma inmutable",
+        "internal": true
+      }
+    ]
+  },
+  "monitoreo": {
+    "public_endpoints": 2,
+    "success_captures": 2,
+    "error_captures": 1,
+    "missing": [],
+    "internal_excluded": []
+  },
+  "summary": {
+    "public_endpoints": 119,
+    "success_captures": 119,
+    "error_captures": 11,
+    "screenshots": 130,
+    "complete": true
+  }
+}

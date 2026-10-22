@@ -1,0 +1,1004 @@
+{
+  "identidad-acceso": [
+    {
+      "method": "GET",
+      "path": "/api/v1/audit-assignees",
+      "operationId": "audit_assignees",
+      "summary": "Coordinadores habilitados de la región para atención de hallazgos",
+      "internal": false
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/auth/login",
+      "operationId": "login",
+      "summary": "Iniciar sesión independiente",
+      "internal": false
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/auth/logout",
+      "operationId": "logout",
+      "summary": "Cerrar sesión y revocar familia",
+      "internal": false
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/auth/me",
+      "operationId": "me",
+      "summary": "Consultar perfil y permisos vigentes",
+      "internal": false
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/auth/refresh",
+      "operationId": "refresh",
+      "summary": "Rotar renovación; repetición revoca familia",
+      "internal": false
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/auth/revoke",
+      "operationId": "revoke",
+      "summary": "Revocar familia con renovación opaca, incluso si venció el JWT de acceso",
+      "internal": false
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/catalogues/capacities",
+      "operationId": "capacities_list_rows",
+      "summary": "Consultar capacities",
+      "internal": false
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/catalogues/capacities",
+      "operationId": "capacities_create",
+      "summary": "Registrar capacities",
+      "internal": false
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/catalogues/capacities/{identifier}",
+      "operationId": "capacities_detail",
+      "summary": "Detalle de capacities",
+      "internal": false
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/v1/catalogues/capacities/{identifier}",
+      "operationId": "capacities_edit",
+      "summary": "Editar o desactivar capacities",
+      "internal": false
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/catalogues/contacts",
+      "operationId": "contacts_list_rows",
+      "summary": "Consultar contacts",
+      "internal": false
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/catalogues/contacts",
+      "operationId": "contacts_create",
+      "summary": "Registrar contacts",
+      "internal": false
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/catalogues/contacts/{identifier}",
+      "operationId": "contacts_detail",
+      "summary": "Detalle de contacts",
+      "internal": false
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/v1/catalogues/contacts/{identifier}",
+      "operationId": "contacts_edit",
+      "summary": "Editar o desactivar contacts",
+      "internal": false
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/catalogues/locations",
+      "operationId": "locations_list_rows",
+      "summary": "Consultar locations",
+      "internal": false
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/catalogues/locations",
+      "operationId": "locations_create",
+      "summary": "Registrar locations",
+      "internal": false
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/catalogues/locations/{identifier}",
+      "operationId": "locations_detail",
+      "summary": "Detalle de locations",
+      "internal": false
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/v1/catalogues/locations/{identifier}",
+      "operationId": "locations_edit",
+      "summary": "Editar o desactivar locations",
+      "internal": false
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/catalogues/schedules",
+      "operationId": "schedules_list_rows",
+      "summary": "Consultar schedules",
+      "internal": false
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/catalogues/schedules",
+      "operationId": "schedules_create",
+      "summary": "Registrar schedules",
+      "internal": false
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/catalogues/schedules/{identifier}",
+      "operationId": "schedules_detail",
+      "summary": "Detalle de schedules",
+      "internal": false
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/v1/catalogues/schedules/{identifier}",
+      "operationId": "schedules_edit",
+      "summary": "Editar o desactivar schedules",
+      "internal": false
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/catalogues/sites",
+      "operationId": "sites_list_rows",
+      "summary": "Consultar sites",
+      "internal": false
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/catalogues/sites",
+      "operationId": "sites_create",
+      "summary": "Registrar sites",
+      "internal": false
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/catalogues/sites/{identifier}",
+      "operationId": "sites_detail",
+      "summary": "Detalle de sites",
+      "internal": false
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/v1/catalogues/sites/{identifier}",
+      "operationId": "sites_edit",
+      "summary": "Editar o desactivar sites",
+      "internal": false
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/institutions",
+      "operationId": "institutions",
+      "summary": "Instituciones de la región; sin datos clínicos",
+      "internal": false
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/institutions",
+      "operationId": "institution_create",
+      "summary": "Registrar institución de la región",
+      "internal": false
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/institutions/{identifier}",
+      "operationId": "institution_detail",
+      "summary": "Detalle administrativo de institución regional",
+      "internal": false
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/v1/institutions/{identifier}",
+      "operationId": "institution_edit",
+      "summary": "Editar nombre institucional propio con versión y motivo",
+      "internal": false
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/institutions/{identifier}/administrator",
+      "operationId": "institution_administrator",
+      "summary": "Provisionar primer administrador de una institución creada por esta cuenta",
+      "internal": false
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/users",
+      "operationId": "user_list",
+      "summary": "Cuentas propias o personal regional de traslado; nunca hashes ni sesiones",
+      "internal": false
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/users",
+      "operationId": "user_create",
+      "summary": "Crear cuenta institucional",
+      "internal": false
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/v1/users/{identifier}",
+      "operationId": "user_state",
+      "summary": "Activar/desactivar cuenta; invalidar permisos antes del cambio",
+      "internal": false
+    },
+    {
+      "method": "GET",
+      "path": "/internal/v1/audit-assignees/{identifier}",
+      "operationId": "audit_assignee",
+      "summary": "Validar coordinador regional para un hallazgo",
+      "internal": true
+    },
+    {
+      "method": "GET",
+      "path": "/internal/v1/institutions/{identifier}",
+      "operationId": "institution_internal",
+      "summary": "Referencia institucional autorizada",
+      "internal": true
+    },
+    {
+      "method": "GET",
+      "path": "/internal/v1/locations/{identifier}",
+      "operationId": "location_internal",
+      "summary": "Validar ubicación y sede de la institución del usuario",
+      "internal": true
+    },
+    {
+      "method": "GET",
+      "path": "/internal/v1/users/{identifier}",
+      "operationId": "user_internal",
+      "summary": "Validar personal de traslado",
+      "internal": true
+    }
+  ],
+  "donantes": [
+    {
+      "method": "GET",
+      "path": "/api/v1/appointments",
+      "operationId": "appointments",
+      "summary": "Citas propias o institucionales",
+      "internal": false
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/appointments",
+      "operationId": "appointment_create",
+      "summary": "Reservar cita sin exceder capacidad",
+      "internal": false
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/appointments/{identifier}/cancel",
+      "operationId": "appointment_cancel",
+      "summary": "Cancelar cita y liberar cupo",
+      "internal": false
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/campaigns",
+      "operationId": "campaigns",
+      "summary": "Campañas institucionales vigentes",
+      "internal": false
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/campaigns",
+      "operationId": "campaign_create",
+      "summary": "Crear campaña y capacidad de citas",
+      "internal": false
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/campaigns/{identifier}",
+      "operationId": "campaign_detail",
+      "summary": "Detalle de campaña institucional",
+      "internal": false
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/v1/campaigns/{identifier}",
+      "operationId": "campaign_edit",
+      "summary": "Editar campaña sin reducir cupos ya ocupados",
+      "internal": false
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/donations",
+      "operationId": "donations_list",
+      "summary": "Donaciones de la institución sin expediente personal",
+      "internal": false
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/donations",
+      "operationId": "donation_create",
+      "summary": "Registrar donación tras elegibilidad y confirmación humana",
+      "internal": false
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/donations/{identifier}",
+      "operationId": "donation_detail",
+      "summary": "Donación y pasos de procesamiento institucionales",
+      "internal": false
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/v1/donations/{identifier}",
+      "operationId": "donation_edit",
+      "summary": "Corregir fecha antes de procesamiento, conservando motivo",
+      "internal": false
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/donations/{identifier}/steps",
+      "operationId": "donation_step",
+      "summary": "Documentar procesamiento o rechazo; no infiere elegibilidad clínica",
+      "internal": false
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/donors",
+      "operationId": "donors",
+      "summary": "Expedientes autorizados",
+      "internal": false
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/donors",
+      "operationId": "donor_create",
+      "summary": "Registro preliminar con consentimiento",
+      "internal": false
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/donors/{identifier}",
+      "operationId": "donor_detail",
+      "summary": "Expediente y evaluaciones humanas",
+      "internal": false
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/v1/donors/{identifier}",
+      "operationId": "donor_edit",
+      "summary": "Corregir expediente sin dictámenes ni donaciones",
+      "internal": false
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/donors/{identifier}/reviews",
+      "operationId": "donor_review",
+      "summary": "Dictamen humano de elegibilidad",
+      "internal": false
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/donors/{identifier}/withdraw",
+      "operationId": "donor_withdraw",
+      "summary": "Dar de baja: borrar sin historial o conservar como inactivo",
+      "internal": false
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/summary",
+      "operationId": "portal_summary",
+      "summary": "Indicadores agregados autorizados; no expone expedientes",
+      "internal": false
+    },
+    {
+      "method": "GET",
+      "path": "/internal/v1/donations/{identifier}",
+      "operationId": "donation_internal",
+      "summary": "Referencia de procedencia; sin identidad ni estudios del donante",
+      "internal": true
+    }
+  ],
+  "receptores": [
+    {
+      "method": "GET",
+      "path": "/api/v1/recipients",
+      "operationId": "recipients",
+      "summary": "Expedientes de la propia institución",
+      "internal": false
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/recipients",
+      "operationId": "recipient_create",
+      "summary": "Expediente diferenciado de sangre u órgano",
+      "internal": false
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/recipients/{identifier}",
+      "operationId": "recipient_detail",
+      "summary": "Consultar expediente clínico autorizado",
+      "internal": false
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/v1/recipients/{identifier}",
+      "operationId": "recipient_edit",
+      "summary": "Corregir receptor antes de registrar solicitudes",
+      "internal": false
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/requests",
+      "operationId": "requests_list",
+      "summary": "Solicitudes institucionales y cobertura",
+      "internal": false
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/requests",
+      "operationId": "request_create",
+      "summary": "Solicitud humana de recursos",
+      "internal": false
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/requests/{identifier}",
+      "operationId": "request_detail",
+      "summary": "Solicitud y reservas pendientes/confirmadas",
+      "internal": false
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/v1/requests/{identifier}",
+      "operationId": "request_edit",
+      "summary": "Editar solicitud abierta sin retenciones, invalidando evaluaciones anteriores",
+      "internal": false
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/requests/{identifier}/cancel",
+      "operationId": "request_cancel",
+      "summary": "Cancelar únicamente sin reservas pendientes o físicas",
+      "internal": false
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/summary",
+      "operationId": "portal_summary",
+      "summary": "Indicadores agregados autorizados; no expone expedientes",
+      "internal": false
+    },
+    {
+      "method": "POST",
+      "path": "/internal/v1/events",
+      "operationId": "recipient_events",
+      "summary": "Recibir recepción o liberación sin duplicados",
+      "internal": true
+    },
+    {
+      "method": "POST",
+      "path": "/internal/v1/holds",
+      "operationId": "hold_create",
+      "summary": "Retener capacidad; serializar solicitud y receptor",
+      "internal": true
+    },
+    {
+      "method": "GET",
+      "path": "/internal/v1/holds-by-operation/{identifier}",
+      "operationId": "hold_lookup",
+      "summary": "Localizar retención tras perder una respuesta",
+      "internal": true
+    },
+    {
+      "method": "POST",
+      "path": "/internal/v1/holds/{identifier}",
+      "operationId": "hold_action",
+      "summary": "Confirmar, liberar o recibir retención de forma idempotente",
+      "internal": true
+    },
+    {
+      "method": "GET",
+      "path": "/internal/v1/requests/{identifier}",
+      "operationId": "request_internal",
+      "summary": "Instantánea mínima para compatibilidad y reserva",
+      "internal": true
+    }
+  ],
+  "inventario": [
+    {
+      "method": "GET",
+      "path": "/api/v1/availability",
+      "operationId": "availability",
+      "summary": "Disponibilidad regional minimizada con caché autorizada",
+      "internal": false
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/operations/{identifier}",
+      "operationId": "operation_detail",
+      "summary": "Consultar resultado tras pérdida de respuesta",
+      "internal": false
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/operations/{identifier}/resume",
+      "operationId": "operation_resume",
+      "summary": "Reanudar confirmación o compensación pendiente",
+      "internal": false
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/reservations",
+      "operationId": "reservation_list",
+      "summary": "Reservas institucionales o regionales para coordinación",
+      "internal": false
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/reservations",
+      "operationId": "reservation_create",
+      "summary": "Reservar con retención de capacidad y seguimiento de operación",
+      "internal": false
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/reservations/{identifier}",
+      "operationId": "reservation_detail",
+      "summary": "Consultar asignación autorizada",
+      "internal": false
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/reservations/{identifier}/cancel",
+      "operationId": "reservation_cancel",
+      "summary": "Liberar reserva antes de programar un traslado",
+      "internal": false
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/resources",
+      "operationId": "resources_list",
+      "summary": "Inventario propio; coordinador recibe disponibilidad regional mínima",
+      "internal": false
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/resources",
+      "operationId": "resource_create",
+      "summary": "Registrar unidad u oferta separada, inicialmente en cuarentena",
+      "internal": false
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/resources/{identifier}",
+      "operationId": "resource_detail",
+      "summary": "Recurso y movimientos; sin identidad del donante",
+      "internal": false
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/v1/resources/{identifier}",
+      "operationId": "resource_edit",
+      "summary": "Corregir unidad antes de liberación clínica",
+      "internal": false
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/resources/{identifier}/release",
+      "operationId": "resource_release",
+      "summary": "Liberación humana documentada",
+      "internal": false
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/resources/{identifier}/withdraw",
+      "operationId": "resource_withdraw",
+      "summary": "Baja lógica sin reservas ni traslado; conserva historial",
+      "internal": false
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/summary",
+      "operationId": "portal_summary",
+      "summary": "Indicadores agregados autorizados; no expone expedientes",
+      "internal": false
+    },
+    {
+      "method": "GET",
+      "path": "/internal/v1/available-resources",
+      "operationId": "resources_internal",
+      "summary": "Fuente autoritativa de candidatos; omite caché",
+      "internal": true
+    },
+    {
+      "method": "POST",
+      "path": "/internal/v1/events",
+      "operationId": "inventory_events",
+      "summary": "Aplicar hechos logísticos en orden y sin duplicación",
+      "internal": true
+    },
+    {
+      "method": "GET",
+      "path": "/internal/v1/reservations/{identifier}",
+      "operationId": "reservation_internal",
+      "summary": "Datos mínimos para planear traslado",
+      "internal": true
+    },
+    {
+      "method": "POST",
+      "path": "/internal/v1/reservations/{identifier}/claim",
+      "operationId": "reservation_claim",
+      "summary": "Vincular traslado durable antes de permitir recolección",
+      "internal": true
+    }
+  ],
+  "compatibilidad": [
+    {
+      "method": "GET",
+      "path": "/api/v1/evaluations",
+      "operationId": "evaluation_list",
+      "summary": "Historial institucional de evaluaciones y versiones",
+      "internal": false
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/evaluations",
+      "operationId": "evaluation_create",
+      "summary": "Preselección ilustrativa con datos y reglas versionados",
+      "internal": false
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/evaluations/{identifier}",
+      "operationId": "evaluation_detail",
+      "summary": "Consultar evaluación, explicación y dictámenes",
+      "internal": false
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/evaluations/{identifier}/reviews",
+      "operationId": "evaluation_review",
+      "summary": "Registrar dictamen humano inmutable de un candidato",
+      "internal": false
+    },
+    {
+      "method": "GET",
+      "path": "/internal/v1/evaluations/{identifier}",
+      "operationId": "evaluation_internal",
+      "summary": "Instantánea y dictámenes para reservar o priorizar",
+      "internal": true
+    }
+  ],
+  "priorizacion-geografia": [
+    {
+      "method": "GET",
+      "path": "/api/v1/allocation-proposals",
+      "operationId": "proposal_list",
+      "summary": "Historial institucional de propuestas de cobertura, sin reservas automáticas",
+      "internal": false
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/allocation-proposals",
+      "operationId": "proposal_create",
+      "summary": "Matching máximo de candidatos con dictamen favorable; propuesta sin reservas",
+      "internal": false
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/allocation-proposals/{identifier}",
+      "operationId": "proposal_detail",
+      "summary": "Consultar propuesta, límites y versiones originales",
+      "internal": false
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/rankings",
+      "operationId": "ranking_list",
+      "summary": "Historial propio de rankings operativos",
+      "internal": false
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/rankings",
+      "operationId": "ranking_create",
+      "summary": "Ranking operativo explicable y versionado, no decisión clínica",
+      "internal": false
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/rankings/{identifier}",
+      "operationId": "ranking_detail",
+      "summary": "Factores, explicación y resultados del ranking",
+      "internal": false
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/routes",
+      "operationId": "routes_list",
+      "summary": "Rutas autorizadas de la región",
+      "internal": false
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/routes",
+      "operationId": "route_create",
+      "summary": "Registrar estimación logística con procedencia",
+      "internal": false
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/routes/{identifier}",
+      "operationId": "route_detail",
+      "summary": "Consultar una ruta regional por identificador",
+      "internal": false
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/v1/routes/{identifier}",
+      "operationId": "route_update",
+      "summary": "Actualizar ruta con control de versión",
+      "internal": false
+    },
+    {
+      "method": "GET",
+      "path": "/internal/v1/route-options",
+      "operationId": "routes_internal",
+      "summary": "Estimaciones regionales para filtrar candidatos",
+      "internal": true
+    },
+    {
+      "method": "GET",
+      "path": "/internal/v1/routes/{identifier}",
+      "operationId": "route_internal",
+      "summary": "Revalidar una ruta conocida",
+      "internal": true
+    }
+  ],
+  "transporte": [
+    {
+      "method": "GET",
+      "path": "/api/v1/files/{identifier}/download",
+      "operationId": "file_download",
+      "summary": "Descargar evidencia verificada mediante acceso temporal privado",
+      "internal": false
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/files/{identifier}/verify",
+      "operationId": "file_verify",
+      "summary": "Verificar tamaño, MIME, firma de archivo y SHA-256 del objeto real",
+      "internal": false
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/shipment-statistics",
+      "operationId": "shipment_statistics",
+      "summary": "Agregación regional del último paso documental de cada traslado",
+      "internal": false
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/shipments",
+      "operationId": "shipment_list",
+      "summary": "Traslados de la región, institución o responsable",
+      "internal": false
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/shipments",
+      "operationId": "shipment_create",
+      "summary": "Planear traslado y confirmar vínculo exclusivo con Inventario",
+      "internal": false
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/shipments/{identifier}",
+      "operationId": "shipment_detail",
+      "summary": "Estado logístico y coordinación pendiente",
+      "internal": false
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/shipments/{identifier}/files",
+      "operationId": "file_list",
+      "summary": "Evidencias del traslado y estado persistente de validación",
+      "internal": false
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/shipments/{identifier}/files",
+      "operationId": "file_prepare",
+      "summary": "Preparar carga privada con URL firmada de cinco minutos",
+      "internal": false
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/shipments/{identifier}/telemetry",
+      "operationId": "telemetry_list",
+      "summary": "Historial de ubicación con autorización por traslado",
+      "internal": false
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/shipments/{identifier}/telemetry",
+      "operationId": "telemetry_create",
+      "summary": "Ubicación solo del responsable durante traslado activo",
+      "internal": false
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/shipments/{identifier}/tracking",
+      "operationId": "shipment_tracking",
+      "summary": "Último paso documental con versión y referencia a PostgreSQL",
+      "internal": false
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/shipments/{identifier}/transitions",
+      "operationId": "shipment_transition",
+      "summary": "Registrar paso autorizado y evento de custodia durable",
+      "internal": false
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/summary",
+      "operationId": "portal_summary",
+      "summary": "Indicadores agregados autorizados; no expone expedientes",
+      "internal": false
+    },
+    {
+      "method": "GET",
+      "path": "/internal/v1/shipments/{identifier}/access",
+      "operationId": "shipment_internal",
+      "summary": "Autorizar consulta de custodia por asignación logística",
+      "internal": true
+    }
+  ],
+  "custodia": [
+    {
+      "method": "GET",
+      "path": "/api/v1/chains/{identifier}",
+      "operationId": "chain_detail",
+      "summary": "Consultar cadena; hash detecta alteraciones, no certifica veracidad física",
+      "internal": false
+    },
+    {
+      "method": "POST",
+      "path": "/internal/v1/events",
+      "operationId": "custody_ingest",
+      "summary": "Custodia secuencial, deduplicada e inmutable",
+      "internal": true
+    }
+  ],
+  "alertas": [
+    {
+      "method": "GET",
+      "path": "/api/v1/alerts",
+      "operationId": "alerts_list",
+      "summary": "Bandeja autorizada: institución, rol y usuario",
+      "internal": false
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/alerts/{identifier}/acknowledge",
+      "operationId": "alert_ack",
+      "summary": "Acusar recibo sin modificar el hecho de origen",
+      "internal": false
+    },
+    {
+      "method": "POST",
+      "path": "/internal/v1/events",
+      "operationId": "alert_ingest",
+      "summary": "Generar alertas por evento con deduplicación y destinatarios explícitos",
+      "internal": true
+    }
+  ],
+  "auditoria": [
+    {
+      "method": "GET",
+      "path": "/api/v1/documentary-events",
+      "operationId": "documentary_events",
+      "summary": "Proyección documental MongoDB; puede estar pendiente de sincronización",
+      "internal": false
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/event-options",
+      "operationId": "audit_options",
+      "summary": "Categorías, acciones, resultados y límite de exportación",
+      "internal": false
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/events",
+      "operationId": "audit_list",
+      "summary": "Bitácora regional de solo lectura; sin credenciales ni contenido clínico",
+      "internal": false
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/events/export",
+      "operationId": "audit_export",
+      "summary": "Exportar hasta 5000 resultados con los mismos filtros y una instantánea consistente",
+      "internal": false
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/events/{identifier}",
+      "operationId": "audit_detail",
+      "summary": "Evento auditable y correlación",
+      "internal": false
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/events/{identifier}/related",
+      "operationId": "audit_related",
+      "summary": "Secuencia regional relacionada por recursos o correlación; máximo 500 eventos y cuatro saltos",
+      "internal": false
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/findings",
+      "operationId": "finding_list",
+      "summary": "Hallazgos regionales para auditor o asignados al responsable",
+      "internal": false
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/findings",
+      "operationId": "finding_create",
+      "summary": "Registrar hallazgo con eventos o recurso autorizado y coordinador responsable",
+      "internal": false
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/findings/{identifier}",
+      "operationId": "finding_detail",
+      "summary": "Hallazgo, referencias e historial inmutable de atención",
+      "internal": false
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/findings/{identifier}/actions",
+      "operationId": "finding_action",
+      "summary": "Atención por responsable; cierre o devolución exclusivamente por auditor",
+      "internal": false
+    },
+    {
+      "method": "POST",
+      "path": "/internal/v1/events",
+      "operationId": "audit_ingest",
+      "summary": "Recibir registro minimizado y conservarlo de forma inmutable",
+      "internal": true
+    }
+  ],
+  "monitoreo": [
+    {
+      "method": "GET",
+      "path": "/api/v1/checks",
+      "operationId": "checks_list",
+      "summary": "Historial persistente de verificaciones",
+      "internal": false
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/status",
+      "operationId": "status",
+      "summary": "Estado, promedio, último error, versión e historial resumido",
+      "internal": false
+    }
+  ]
+}

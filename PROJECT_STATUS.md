@@ -2,6 +2,16 @@
 
 Actualizado: **21 de octubre de 2026**. Leer junto con `AGENTS.md` y el [índice documental](documentation/README.md). El historial detallado está separado del estado actual.
 
+## Capturas reales de Swagger público (21 de octubre)
+
+Por solicitud del usuario se ejecutaron las **119 operaciones públicas** de los once microservicios desde Swagger UI contra HTTPS GCP. Se conservaron **130 capturas nativas de Chrome**: un éxito HTTP 2xx por operación y un rechazo 401 sin JWT por servicio. [Índice visual](documentation/evidencias/gcp/swagger-endpoints/index.html), [cobertura](documentation/evidencias/gcp/swagger-endpoints/coverage.json), [detalle y reproducción](documentation/evidencias/gcp/swagger-endpoints/README.md) y [ZIP](stuff/capturas_swagger.zip). Las 21 operaciones internas del inventario OpenAPI quedan excluidas por aclaración expresa del usuario; las capturas finales utilizan el acceso público sin túneles ni exposición de puertos internos.
+
+Criterios de aceptación: imágenes de ejecuciones reales en Swagger, respuestas exitosas por método/ruta pública, una respuesta fallida adicional por servicio, organización por propietario y ausencia de imágenes generadas por IA. Credenciales, tokens y URLs firmadas se enmascaran; los ejemplos estáticos y Curl se ocultan para distinguir la respuesta ejecutada y proteger credenciales. Las imágenes provienen de Chrome automatizado, no de la sesión de navegador que el usuario tenía abierta.
+
+La demostración creó registros ficticios propios, con folios `SW-mvivbj7j-*` y nombres Swagger: institución/cuentas, catálogos, donante, campaña/cita, donación, receptor/solicitudes, ruta, recursos, reservas, traslado y hallazgo. Se capturaron ediciones, cancelaciones y bajas sobre esos registros, más recepción interhospitalaria, custodia, archivo PNG privado en GCS y ciclo de hallazgo cerrado. Los datos ficticios y el objeto GCS se conservan; no se modificó código de aplicación ni se publicaron configuraciones o credenciales privadas. Los checkpoints están en `.local/swagger-capture`, fuera del expediente público.
+
+[Verificación](documentation/evidencias/gcp/swagger-endpoints/validation.json): cobertura 119/119, once errores 401, 130 PNG íntegros y distintos con hashes, comprobación de patrones de secretos en artefactos de texto y ZIP íntegro de 22.335.076 bytes. Se inspeccionaron visualmente capturas de autorización, liberación e inicio de sesión. Sintaxis JavaScript y Ruff del generador del índice aprobados. Se conservan en el manifiesto los intentos fallidos de automatización y su reanudación; no se presentan como una nueva ejecución de la suite de regresión.
+
 ## Auditoría investigable y validación de formularios (21 de octubre)
 
 Implementados los prompts `mejorar_auditoria.md` y `mejorar_validacion_formularios.md`. La bitácora incorpora acciones concretas, responsable/institución/recurso, ejecución y resultado, filtros combinables, detalle histórico y secuencia relacionada. Inicialmente muestra negocio, decisiones y seguridad; conserva sesiones, consultas y técnicos fuera de esa vista inicial. Contador, paginación y CSV comparten filtros; la exportación completa admite 5.000 eventos. Los datos históricos ausentes no se inventan.
