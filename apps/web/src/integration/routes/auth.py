@@ -1,6 +1,7 @@
 """Rutas web: auth. Las reglas residen en las API propietarias."""
 
 from zoneinfo import ZoneInfo
+from ..forms import prepare_fields, attach_errors
 
 from .common import (
     BusinessError,
@@ -21,6 +22,7 @@ from .common import (
     timezone,
     url_for,
     urlsplit,
+    field,
 )
 
 
@@ -31,7 +33,16 @@ def index():
 
 @public.route("/login", methods=["GET", "POST"])
 def login():
-    error, status = None, 200
+    error, status, field_errors = None, 200, []
+    fields = prepare_fields(
+        [
+            field("username", "Cuenta institucional"),
+            field("password", "Contraseña", "password"),
+        ],
+        "identidad_acceso",
+        "/api/v1/auth/login",
+        "POST",
+    )
     if request.method == "POST":
         try:
             sid = sessions.login(
@@ -52,8 +63,18 @@ def login():
             return response
         except BusinessError as exc:
             error, status = exc.message, exc.status
+            field_errors = attach_errors(fields, exc)
+            for item in fields:
+                if item["name"] == "username":
+                    item["name"] = "login_email"
     return make_response(
-        render_template("login.html", title="Acceso institucional", error=error), status
+        render_template(
+            "login.html",
+            title="Acceso institucional",
+            error=error,
+            field_errors=field_errors,
+        ),
+        status,
     )
 
 

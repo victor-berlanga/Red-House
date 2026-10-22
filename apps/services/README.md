@@ -1,6 +1,8 @@
 # Microservicios Red House
 
-Diez servicios Flask y un componente de monitoreo, independientes del portal. API REST v1 en JSON y XML, Swagger local, PostgreSQL real, Redis real y MongoDB real para los propietarios que lo necesitan. El [portal web ya consume las API](../../documentation/markdowns/Integracion_web.md); móvil, escritorio y Docker siguen pendientes.
+Actualización de auditoría y validación: [contratos, permisos, exportación y migración 6→7](../../documentation/markdowns/Auditoria_y_formularios.md). [Resultados y estado de despliegue del incremento](../../documentation/evidencias/auditoria-formularios/RESULTADOS.md).
+
+Diez servicios Flask y un componente de monitoreo, independientes del portal. API REST v1 en JSON y XML, Swagger local, PostgreSQL real, Redis real y MongoDB real para los propietarios que lo necesitan. El [portal web admite HTTP y ejecución autónoma](../../documentation/markdowns/Integracion_web.md). [Despliegue Docker](../../deployment/README.md); móvil y escritorio siguen pendientes.
 
 | Unidad | Puerto predeterminado | Propietario |
 | --- | --- | --- |

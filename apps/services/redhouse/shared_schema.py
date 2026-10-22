@@ -163,7 +163,9 @@ def extend(conn):
                 + ("SET NOT NULL" if required else "DROP NOT NULL")
             )
         # Preserve immutable main triggers; add current ones later where absent.
-    # Build constraints after all targets exist.
+    # Build constraints after all targets exist; foreign keys also need every
+    # referenced primary/unique key, including tables introduced in this increment.
+    pending_references = []
     for table, (schema, fields) in specs.items():
         if table in COMMON_TABLES:
             continue
@@ -181,10 +183,14 @@ def extend(conn):
                 ).fetchone()
             ):
                 continue
-            conn.execute(
+            statement = (
                 f"ALTER TABLE red_house.{ident(physical)} ADD CONSTRAINT {ident('api_' + name)} "
                 + rewrite(definition, schema, table)
             )
+            if kind == "f":
+                pending_references.append(statement)
+            else:
+                conn.execute(statement)
         indexes = conn.execute(
             """SELECT c.relname,pg_get_indexdef(i.indexrelid) FROM pg_index i JOIN pg_class c ON c.oid=i.indexrelid
          WHERE i.indrelid=%s::regclass AND NOT EXISTS(SELECT 1 FROM pg_constraint WHERE conindid=i.indexrelid)""",
@@ -212,6 +218,8 @@ def extend(conn):
             conn.execute(
                 f"CREATE TRIGGER api_immutable BEFORE UPDATE OR DELETE ON red_house.{ident(physical)} FOR EACH ROW EXECUTE FUNCTION red_house.reject_history_mutation()"
             )
+    for statement in pending_references:
+        conn.execute(statement)
     for table, refs in REFERENCES.items():
         physical, mapping = target(table)
         for column, (remote, key) in refs.items():

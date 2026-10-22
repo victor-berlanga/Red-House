@@ -1,0 +1,44 @@
+{
+  "startedAt": "2026-10-21T15:49:34.787Z",
+  "origin": "https://34.18.186.116",
+  "checks": [
+    {
+      "name": "Volver sin aviso",
+      "passed": true
+    },
+    {
+      "name": "Cancelar sin aviso",
+      "passed": true
+    },
+    {
+      "name": "Recargar sin aviso y sin guardar",
+      "passed": true
+    },
+    {
+      "name": "Baja elimina registro vacío",
+      "passed": true
+    },
+    {
+      "name": "Baja conserva historial",
+      "passed": true
+    }
+  ],
+  "records": [
+    {
+      "id": "0e17ac98-cf75-4762-b497-887d1e04c779",
+      "folio": "CHECK-3576A487",
+      "withHistory": false,
+      "result": "DELETED"
+    },
+    {
+      "id": "8e8d854b-5ed8-41e3-b992-62c8a1cd0d95",
+      "folio": "CHECK-8A38BBF5",
+      "withHistory": true,
+      "result": "INACTIVE"
+    }
+  ],
+  "dialogs": [],
+  "errors": [],
+  "result": "passed",
+  "completedAt": "2026-10-21T15:50:14.392Z"
+}

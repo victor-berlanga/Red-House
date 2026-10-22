@@ -9,6 +9,7 @@ from redhouse.api import atomic, endpoint, listing
 from redhouse.client import call
 from redhouse.db import get, insert, transaction, update
 from redhouse.errors import APIError
+from redhouse.validation import invalid
 from redhouse.decisions import record, history
 from redhouse.events import emit, queue
 from redhouse.models import Confirm, ID, Model, Reason, Text, utc_date
@@ -189,19 +190,35 @@ def register(app):
                 "stale_route", "Revisa y reautoriza la reserva: la ruta cambió.", 409
             )
         departure, eta, expires = (
-            utc_date(data["departure_at"]),
-            utc_date(data["eta"]),
+            utc_date(data["departure_at"], "departure_at"),
+            utc_date(data["eta"], "eta"),
             utc_date(reservation["expires_at"]),
         )
-        if not departure < eta < expires or departure < datetime.now(
-            timezone.utc
-        ) - timedelta(minutes=1):
-            raise APIError(
-                "validation", "Horario inválido o posterior al límite capturado."
+        if departure >= eta:
+            raise invalid(
+                "La llegada debe ser posterior a la salida.",
+                "departure_at",
+                "eta",
+                code="date_order",
+            )
+        if eta >= expires:
+            raise invalid(
+                "La llegada debe ser anterior a la caducidad de la reserva.",
+                "eta",
+                code="arrival_expiry",
+            )
+        if departure < datetime.now(timezone.utc) - timedelta(minutes=1):
+            raise invalid(
+                "La salida no puede haber ocurrido hace más de un minuto.",
+                "departure_at",
+                code="past_departure",
             )
         if eta < departure + timedelta(minutes=route["travel_minutes"]):
-            raise APIError(
-                "validation", "Llegada anterior a la duración estimada de ruta."
+            raise invalid(
+                f"La llegada debe permitir al menos {route['travel_minutes']} minutos de recorrido desde la salida.",
+                "departure_at",
+                "eta",
+                code="route_duration",
             )
 
         def work(conn):
@@ -405,9 +422,13 @@ def register(app):
         summary="Ubicación solo del responsable durante traslado activo",
     )
     def telemetry_create(identifier, data):
-        captured = utc_date(data["captured_at"])
+        captured = utc_date(data["captured_at"], "captured_at")
         if abs((datetime.now(timezone.utc) - captured).total_seconds()) > 300:
-            raise APIError("validation", "Ubicación debe ser reciente (cinco minutos).")
+            raise invalid(
+                "La fecha de ubicación debe estar a no más de cinco minutos del momento actual.",
+                "captured_at",
+                code="location_time",
+            )
 
         def work(conn):
             row = get(conn, "shipments", identifier, True)

@@ -8,7 +8,14 @@ from redhouse.errors import APIError
 from redhouse.event_model import Event
 from redhouse.events import consume, emit
 
-SOURCES = ("donantes", "receptores", "inventario", "transporte", "monitoreo")
+SOURCES = (
+    "donantes",
+    "receptores",
+    "inventario",
+    "transporte",
+    "monitoreo",
+    "auditoria",
+)
 
 
 def register(app):
@@ -26,7 +33,15 @@ def register(app):
             raise APIError("forbidden", "Fuente o región de evento incorrectas.", 403)
         action, metadata = data["action"], data["metadata"]
         recipients = [(data["tenant_id"], "OPERATOR", None)]
-        if action.startswith("REQUEST_"):
+        if data["source"] == "auditoria" and action.startswith("AUDIT_FINDING_"):
+            recipients = [
+                (
+                    metadata["recipient_tenant_id"],
+                    metadata["recipient_role"],
+                    metadata["recipient_user_id"],
+                )
+            ]
+        elif action.startswith("REQUEST_"):
             recipients = [(data["tenant_id"], "MEDICAL", None)]
         elif action.startswith("SHIPMENT_") or action == "RESOURCE_RESERVED":
             recipients = [

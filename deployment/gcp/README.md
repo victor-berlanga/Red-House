@@ -98,4 +98,42 @@ La VM reutiliza el bucket privado autorizado; los registros conservan referencia
 
 El despliegue tiene una VM y una instancia de cada almacén. Las réplicas API permiten ensayar fallos de aplicación; la infraestructura completa no tiene redundancia. El acceso público utiliza HTTPS, sin dominio. Android, escritorio, validación clínica y operación productiva siguen fuera de este despliegue. [Resultados y límites verificados](../../documentation/evidencias/gcp/RESULTADOS.md).
 
+## Datos para la demostración
+
+El 21 de octubre se amplió la base de GCP con datos ficticios relacionados, conservando los registros anteriores. Cada hospital original dispone de 34 donantes, 30 campañas, 59 citas y 30 donaciones. También se agregaron inventarios, receptores, solicitudes y 30 traslados con archivos reales privados. `donor1` y `donor2` tienen expediente propio y 30 citas cada uno. Los listados muestran 20 filas por página; usar «Siguiente» para ver el resto.
+
+La carga [`populate_demo.py`](populate_demo.py) está acotada a esta VM y a este conjunto de demostración. Usa las credenciales privadas existentes y las API autenticadas; sus consultas administrativas SQL son de lectura. Conserva fechas, identificadores y claves de idempotencia en `/opt/redhouse/.local/compose/demo-20261021/checkpoint.json`. Exige el manifiesto del respaldo previo y bloquea ejecuciones simultáneas. Para reanudar este mismo conjunto, dentro de la VM:
+
+```sh
+sudo python3 /opt/redhouse/deployment/gcp/populate_demo.py --apply
+```
+
+La carga ya está aplicada; no forma parte del arranque normal. Conservar el checkpoint y el respaldo en `demo-20261021/backup-before/`. No borrar ese directorio para generar otro conjunto. Las fechas de campaña y caducidad pertenecen a esta demostración; repetir el comando no las renueva. El script no es un instalador ni un restaurador para otra VM.
+
+Por indicación del usuario, los nombres actuales y el generador omiten la etiqueta `DEMO`. Los folios usan `RH26`; las 16 cuentas adicionales son `donor_1_01`–`donor_1_08` y `donor_2_01`–`donor_2_08`, con sus mismas contraseñas. [`normalize_labels.py`](normalize_labels.py) documenta la corrección de los 743 registros originales mediante una transacción limitada a sus textos actuales. Sin argumentos muestra los cambios pendientes; `--apply` exige el respaldo privado de `labels-20261021/`. La corrección ya está aplicada y conserva UUID, cantidades, relaciones, versiones y estados. Los eventos históricos y el checkpoint original permanecen intactos.
+
+[`verify_demo.cjs`](verify_demo.cjs) revisa los listados por HTTPS con Chrome/Playwright y la copia privada de credenciales. Se ejecuta desde la raíz del repositorio, en un equipo cliente con esas dependencias disponibles; no inicia servicios. [Cantidades, excepciones por tabla, comprobaciones y capturas](../../documentation/evidencias/gcp/datos-demo/RESULTADOS.md).
+
+## Baja de donantes
+
+Desde el 21 de octubre, el perfil médico puede usar **Donantes → icono de papelera** (etiqueta «Retirar donante») en su institución. Sin historia se elimina la fila; con dictámenes, donaciones, citas o correcciones se conserva como inactiva, fuera de listados y selectores. Se cancelan las citas pendientes y se conserva auditoría. Volver, Cancelar y recargar un formulario ya no muestran el aviso nativo de cambios sin guardar. [Criterios, verificación en GCP y límites](../../documentation/evidencias/gcp/bajas-donantes/RESULTADOS.md).
+
+La baja por sí sola conserva el arranque habitual y no necesita migraciones ni cargar nuevamente los datos. [`verify_donor_withdrawal.cjs`](verify_donor_withdrawal.cjs) comprueba la función desde un navegador cliente; crea dos registros propios y da de baja ambos, por lo que no se ejecuta automáticamente al iniciar.
+
+La confirmación presenta solo las consecuencias para el usuario. Los detalles técnicos quedan en las vistas autorizadas de administración y auditoría. [`verify_portal_copy.cjs`](verify_portal_copy.cjs) revisa el icono, textos y visibilidad por perfil consultando registros existentes, sin enviar formularios de negocio. [Resultados de esta revisión](../../documentation/evidencias/gcp/bajas-donantes/RESULTADOS.md#ajuste-posterior-de-presentación).
+
+## Auditoría, hallazgos y formularios
+
+Publicados el 21 de octubre de 2026. La instalación utiliza esquema global **7** y Auditoría **3**, con 74 tablas de dominio y una tabla técnica de sesiones. Se conservaron datos y credenciales. La bitácora incorpora filtros, exportación e investigación relacionada; el seguimiento de hallazgos separa atención del coordinador y verificación del auditor. Los formularios muestran límites y errores por campo conservando la captura. [Resultados del despliegue](../../documentation/evidencias/gcp/auditoria-formularios/RESULTADOS.md).
+
+Para otra instalación que todavía use esquema 6, preparar imágenes nuevas antes del corte, respaldar y verificar la restauración, detener aplicaciones y ejecutar:
+
+```sh
+sudo python3 /opt/redhouse/deployment/migrate_audit.py --directory /opt/redhouse/.local/compose
+```
+
+La herramienta realiza otro respaldo PostgreSQL privado y aplica la migración aditiva; en versión 7 no modifica nada. No sustituir la base existente por `schema.sql`. Después, iniciar las imágenes nuevas con los overrides privados mediante `deployment/start.py` y verificar readiness. Conservar los permisos de lectura/recorrido de los directorios de código al empaquetar: las imágenes ejecutan como UID 10001. Las carpetas privadas de configuración y respaldo mantienen acceso restringido.
+
+[`verify_audit_forms.cjs`](verify_audit_forms.cjs) recibe por stdin `password`, `coordinator` y `output`, usando Chrome/Playwright. Envía cuatro formularios de donante inválidos y conserva un hallazgo ficticio cerrado; no se ejecuta en el arranque. [`verify_audit_forms.py`](verify_audit_forms.py), dentro de la VM, recibe `--finding`, `--resource` y `--output`; consulta JSON/XML, permisos, historial, avisos y detalles seguros de validación. Ambos requieren una verificación autorizada del entorno académico.
+
 Referencias utilizadas: [crear VM con gcloud](https://docs.cloud.google.com/sdk/gcloud/reference/compute/instances/create), [Docker en CentOS](https://docs.docker.com/engine/install/centos/), [firma de URLs de GCS](https://docs.cloud.google.com/storage/docs/access-control/signing-urls-with-helpers), [certificados IP con Certbot](https://letsencrypt.org/2026/03/11/shorter-certs-certbot/) y [Waitress detrás de un proxy](https://docs.pylonsproject.org/projects/waitress/en/stable/reverse-proxy.html).

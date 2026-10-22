@@ -27,6 +27,7 @@ from ...access import BusinessError, require
 from ...presentation.timezones import datefmt, selected_zone, ZONES
 from .. import ROLES, sessions
 from ..client import call
+from ..forms import prepare_fields, attach_errors
 from ..presentation import (
     LISTS,
     FIELD_LABELS,
@@ -72,6 +73,11 @@ LABELS = {
     "OPEN": "Abierta",
     "IN_PROGRESS": "En atención",
     "CLOSED": "Cerrada",
+    "PENDING_VERIFICATION": "Pendiente de verificación",
+    "LOW": "Baja",
+    "MEDIUM": "Media",
+    "HIGH": "Alta",
+    "CRITICAL": "Crítica",
     "CANCELLED": "Cancelado",
     "ACTIVE": "Activo",
     "BOOKED": "Inscrita",
@@ -92,13 +98,13 @@ LABELS = {
     "INACTIVE": "Inactivo",
     "VOLUNTARY": "Voluntaria",
     "REPLACEMENT": "Reposición",
-    "ROLLBACK_PENDING": "Compensación pendiente",
+    "ROLLBACK_PENDING": "Cancelación en proceso",
     "FAVORABLE": "Favorable",
     "UNFAVORABLE": "No favorable",
     "INCIDENT": "Incidencia",
     "up": "Disponible",
-    "down": "Caído",
-    "degraded": "Degradado",
+    "down": "No disponible",
+    "degraded": "Disponibilidad limitada",
     **ROLES,
 }
 
@@ -219,32 +225,52 @@ def submit(
     prompt=None,
     location_capture=False,
 ):
-    error, status = None, 200
+    error, status, field_errors = None, 200, []
+    fields = prepare_fields(fields, service, path, method)
     destination = return_to(active, back)
     if request.method == "POST":
         try:
             data = {}
+            conversion_errors = []
             for item in fields:
                 value = request.form.get(item["name"], "")
+                if isinstance(value, str) and item["type"] != "password":
+                    value = value.strip()
                 if item["type"] == "multiselect":
                     value = request.form.getlist(item["name"])
                 if not value and not item["required"]:
                     if item["name"] == "organ_type":
                         data[item["name"]] = None
                     continue
-                if item["type"] == "checkbox":
-                    value = value == "on"
-                elif item["type"] in ("number", "integer-select") or (
-                    item["type"] == "hidden" and isinstance(item["default"], int)
-                ):
-                    value = int(value)
-                elif item["type"] == "decimal":
-                    value = float(value)
-                    if not math.isfinite(value):
-                        raise ValueError()
-                elif item["type"] == "datetime-local":
-                    value = local_date(value)
+                try:
+                    if item["type"] == "checkbox":
+                        value = value == "on"
+                    elif item["type"] in ("number", "integer-select") or (
+                        item["type"] == "hidden" and isinstance(item["default"], int)
+                    ):
+                        value = int(value)
+                    elif item["type"] == "decimal":
+                        value = float(value)
+                        if not math.isfinite(value):
+                            raise ValueError()
+                    elif item["type"] == "datetime-local":
+                        value = local_date(value)
+                except (ValueError, TypeError, BusinessError):
+                    message = (
+                        "Escribe una fecha y hora válidas."
+                        if item["type"] == "datetime-local"
+                        else (
+                            "Escribe un número entero."
+                            if item["type"] != "decimal"
+                            else "Escribe un número válido."
+                        )
+                    )
+                    conversion_errors.append(dict(field=item["name"], message=message))
                 data[item["name"]] = value
+            if conversion_errors:
+                raise BusinessError(
+                    "Revisa los datos señalados.", 422, details=conversion_errors
+                )
             result = call(
                 service,
                 path,
@@ -262,12 +288,16 @@ def submit(
             error, status = "Revisa los valores numéricos capturados.", 422
         except BusinessError as exc:
             error, status = exc.message, exc.status
+            field_errors = attach_errors(fields, exc)
+            if not field_errors and exc.code in ("validation", "invalid_body"):
+                error = "Revisa los datos y las instrucciones del formulario antes de reenviar."
     return render_template(
         "integration/form.html",
         title=title,
         active=active,
         fields=fields,
         error=error,
+        field_errors=field_errors,
         idempotency_key=request.form.get("idempotency_key") or uuid4().hex,
         back=destination,
         return_target=request.values.get("return_to", ""),
@@ -293,6 +323,7 @@ def table(
     filters=(),
     note=None,
     prepare=None,
+    filter_options=None,
 ):
     params = dict(params or {})
     for name in filters:
@@ -376,7 +407,7 @@ def table(
         new=contextual(new, target),
         new_label=LISTS.get(active, ("", "", "Registrar"))[2],
         filters=filters,
-        filter_options=filter_choices(active),
+        filter_options=filter_options or filter_choices(active),
         groups=GROUPS,
         refresh_enabled=active
         in (
@@ -527,7 +558,12 @@ def detail(title, active, row, actions=(), sections=(), note=None):
         back=return_to(active),
         full_url=contextual(request.path, return_to(active)),
         actions=[
-            (label, contextual(link, return_to(active))) for label, link in actions
+            (
+                action[0],
+                contextual(action[1], return_to(active)),
+                action[2] if len(action) > 2 else None,
+            )
+            for action in actions
         ],
         sections=sections,
         note=note,

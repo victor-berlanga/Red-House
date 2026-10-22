@@ -6,6 +6,7 @@ from .client import call
 
 bp = Blueprint("selectors", __name__)
 SOURCES = {
+    "audit-assignees": ("identidad_acceso", "audit-assignees", "username", {}),
     "donors": ("donantes", "donors", "display_name", {}),
     "eligible-donors": ("donantes", "donors", "display_name", {"status": "ELIGIBLE"}),
     "recipients": ("receptores", "recipients", "display_name", {}),
@@ -62,6 +63,8 @@ def fetch(source, page=1, query=""):
 
 
 def selection(name, label, source, default="", required=True):
+    if request.method == "POST":
+        default = request.form.get(name, "")
     data = fetch(source)
     options = [(r["id"], r["label"]) for r in data["items"]]
     # Un identificador ya seleccionado no desaparece por estar en otra página.

@@ -15,7 +15,7 @@ dependencies = {file = ["requirements.txt"]}
 include = ["redhouse*", "ms_*", "servicio_monitoreo*"]
 
 [tool.setuptools.package-data]
-redhouse = ["*.xsd"]
+redhouse = ["*.xsd", "shared_migrations/*.sql"]
 "*" = ["outputs.json", "migrations/*.sql", "contracts/*.json", "contracts/*.xml", "contracts/*.xsd"]
 
 [tool.pytest.ini_options]

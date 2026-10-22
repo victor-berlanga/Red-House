@@ -7,6 +7,7 @@ from pydantic import Field
 from redhouse.api import atomic, endpoint, listing
 from redhouse.db import get, insert, transaction, update
 from redhouse.errors import APIError
+from redhouse.validation import invalid
 from redhouse.decisions import record, history
 from redhouse.events import consume, emit
 from redhouse.models import Confirm, Group, ID, Kind, Model, Organ, Reason, Text
@@ -139,9 +140,11 @@ def register(app):
         if (data["kind"] == "BLOOD" and data["organ_type"] is not None) or (
             data["kind"] == "ORGAN" and data["organ_type"] is None
         ):
-            raise APIError(
-                "validation",
-                "Tipo de órgano obligatorio exclusivamente para receptores de órganos.",
+            raise invalid(
+                "Selecciona un órgano si el recurso es Órgano; para Sangre deja el órgano vacío.",
+                "kind",
+                "organ_type",
+                code="organ_kind",
             )
 
         def work(conn):
@@ -216,13 +219,16 @@ def register(app):
             own(person["tenant_id"])
             if person["status"] != "ACTIVE":
                 raise APIError("conflict", "Receptor inactivo.", 409)
-            if person["kind"] == "ORGAN" and (
-                data["quantity"] != 1 or data["component"] != person["organ_type"]
-            ):
-                raise APIError(
-                    "validation",
-                    "Solicitud de órgano debe coincidir con expediente y cantidad uno.",
-                )
+            if person["kind"] == "ORGAN":
+                if data["quantity"] != 1:
+                    raise invalid(
+                        "Una solicitud de órgano debe indicar una unidad.", "quantity"
+                    )
+                if data["component"] != person["organ_type"]:
+                    raise invalid(
+                        "Selecciona el mismo órgano registrado en el expediente del receptor.",
+                        "component",
+                    )
             row = insert(
                 conn,
                 "requests",

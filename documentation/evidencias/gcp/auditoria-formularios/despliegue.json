@@ -1,0 +1,1086 @@
+{
+  "started_at": "2026-10-21T21:56:49.445825+00:00",
+  "updated_at": "2026-10-21T23:37:06.415549+00:00",
+  "stage": "deployed",
+  "maintenance_started_at": "2026-10-21T21:58:50.546682+00:00",
+  "maintenance_finished_at": "2026-10-21T23:37:06.415519+00:00",
+  "backup": {
+    "path": "/opt/redhouse/.local/compose/backups/20261021T215850Z",
+    "restore": "passed",
+    "postgres_tables": 72,
+    "mongo_collections": 7
+  },
+  "rehearsal_preserved_tables": 70,
+  "preserved_tables": 70,
+  "tables_before": [
+    {
+      "name": "account_role",
+      "rows": 0,
+      "digest": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "name": "algorithm_run",
+      "rows": 0,
+      "digest": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "name": "allocation_operation",
+      "rows": 48,
+      "digest": "08ed1f727c59165f0f0f1235176558e9"
+    },
+    {
+      "name": "appointment",
+      "rows": 118,
+      "digest": "7bdf129da0dd3f197291277bb68d21fe"
+    },
+    {
+      "name": "audit_change",
+      "rows": 0,
+      "digest": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "name": "audit_event",
+      "rows": 7928,
+      "digest": "0c51fc2cd8a1e98855ae46b74b8aadd0"
+    },
+    {
+      "name": "balance_proposal",
+      "rows": 30,
+      "digest": "dd66f747bbdcc7bbfb34c2104a494b13"
+    },
+    {
+      "name": "blood_allocation",
+      "rows": 48,
+      "digest": "11c906e0aca07b9a90c3c7043bec2750"
+    },
+    {
+      "name": "blood_candidate",
+      "rows": 0,
+      "digest": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "name": "blood_classification",
+      "rows": 0,
+      "digest": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "name": "blood_component",
+      "rows": 0,
+      "digest": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "name": "blood_movement",
+      "rows": 392,
+      "digest": "2c6423b1120030af4fd195a873695b89"
+    },
+    {
+      "name": "blood_request",
+      "rows": 138,
+      "digest": "e7ed6430b82b6738d2d25b00e1afca80"
+    },
+    {
+      "name": "blood_review",
+      "rows": 78,
+      "digest": "07370cc5e8e84529642dfd3d780ed951"
+    },
+    {
+      "name": "blood_status_transition",
+      "rows": 4,
+      "digest": "83dfefd5986caa23b3cfa17188c22069"
+    },
+    {
+      "name": "blood_unit",
+      "rows": 0,
+      "digest": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "name": "cache_revision",
+      "rows": 2,
+      "digest": "46c726ec2e295b6efa6eba68237994ea"
+    },
+    {
+      "name": "campaign",
+      "rows": 60,
+      "digest": "cf258f59885929ac1675447fb347e873"
+    },
+    {
+      "name": "candidate_evaluation",
+      "rows": 78,
+      "digest": "92eeb1660dd356ba1151bc8203f0fef7"
+    },
+    {
+      "name": "capability",
+      "rows": 3,
+      "digest": "7ee8eaf3ebedeb22d1da901211e02b48"
+    },
+    {
+      "name": "catalogue_entry",
+      "rows": 300,
+      "digest": "f0fd497fdccfa7f3f3cf5ba8f8244e2c"
+    },
+    {
+      "name": "contact",
+      "rows": 0,
+      "digest": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "name": "contact_method",
+      "rows": 0,
+      "digest": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "name": "custody_chain",
+      "rows": 48,
+      "digest": "62b8c4bc0d134afb9e1e591b9e64774c"
+    },
+    {
+      "name": "custody_event",
+      "rows": 213,
+      "digest": "f095dcd5feae02a8ce04f64b6569c9b3"
+    },
+    {
+      "name": "donation",
+      "rows": 60,
+      "digest": "6b6b7d973c7cc74c17be938d46cfb70f"
+    },
+    {
+      "name": "donation_event",
+      "rows": 120,
+      "digest": "9b73c926a1f6855c161360a70c85a60b"
+    },
+    {
+      "name": "donation_unit",
+      "rows": 0,
+      "digest": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "name": "donor",
+      "rows": 71,
+      "digest": "c6d8f58bed8092294136f2e03035ac7b"
+    },
+    {
+      "name": "donor_review",
+      "rows": 65,
+      "digest": "d3e590ed022d3e66104c621f7768a062"
+    },
+    {
+      "name": "institution",
+      "rows": 30,
+      "digest": "b6edda17223df6b87191b9241c6eef81"
+    },
+    {
+      "name": "institution_capability",
+      "rows": 0,
+      "digest": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "name": "institution_contact",
+      "rows": 0,
+      "digest": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "name": "login_attempt",
+      "rows": 0,
+      "digest": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "name": "notification",
+      "rows": 990,
+      "digest": "1b64a813a42884b00d00794ae256a131"
+    },
+    {
+      "name": "organ_allocation",
+      "rows": 0,
+      "digest": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "name": "organ_candidate",
+      "rows": 0,
+      "digest": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "name": "organ_custody_event",
+      "rows": 0,
+      "digest": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "name": "organ_donor",
+      "rows": 0,
+      "digest": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "name": "organ_evaluation",
+      "rows": 0,
+      "digest": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "name": "organ_offer",
+      "rows": 0,
+      "digest": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "name": "organ_recipient",
+      "rows": 0,
+      "digest": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "name": "organ_review",
+      "rows": 0,
+      "digest": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "name": "parameter_version",
+      "rows": 0,
+      "digest": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "name": "party",
+      "rows": 0,
+      "digest": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "name": "ranking_run",
+      "rows": 75,
+      "digest": "d9d4bf2467f7ee5212723a2dccd10ee0"
+    },
+    {
+      "name": "recipient",
+      "rows": 138,
+      "digest": "fcde0361d637b631a2d42b9ecc9a42aa"
+    },
+    {
+      "name": "regional_route",
+      "rows": 32,
+      "digest": "387fbf15452080319d87e0bfb3f416dc"
+    },
+    {
+      "name": "request_event",
+      "rows": 0,
+      "digest": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "name": "request_hold",
+      "rows": 48,
+      "digest": "2bcf362250a612e1d8b782e03fadc51b"
+    },
+    {
+      "name": "resource",
+      "rows": 141,
+      "digest": "3bde53d627be869a2506ddab44ef12de"
+    },
+    {
+      "name": "resource_review",
+      "rows": 138,
+      "digest": "b7ae23959d75db65054511ed13e77ed7"
+    },
+    {
+      "name": "role",
+      "rows": 7,
+      "digest": "bf3cabdf76c84281c6470123b4aa9d28"
+    },
+    {
+      "name": "schema_migration",
+      "rows": 6,
+      "digest": "91149b45db924041f9c142e8f65f5647"
+    },
+    {
+      "name": "service_activity_events",
+      "rows": 7928,
+      "digest": "3dde5632984c028fb17be0b76e36b04f"
+    },
+    {
+      "name": "service_decisions",
+      "rows": 794,
+      "digest": "e4df7c5574fd272a6e88431ee581248b"
+    },
+    {
+      "name": "service_health_check",
+      "rows": 40706,
+      "digest": "bafc89571dce80cfe08cd9af80b97e7c"
+    },
+    {
+      "name": "service_idempotency",
+      "rows": 2018,
+      "digest": "a0bb973dec542ed288f83cb2c4c35ede"
+    },
+    {
+      "name": "service_inbox",
+      "rows": 9014,
+      "digest": "07b70e48c6c5a1ec04d2bb9a975ae811"
+    },
+    {
+      "name": "service_outbox",
+      "rows": 17420,
+      "digest": "45417a7a1bf6d6e5c67a730c08f49ebf"
+    },
+    {
+      "name": "service_schema_version",
+      "rows": 33,
+      "digest": "70988128aa10d151998125c891b0fa80"
+    },
+    {
+      "name": "service_worker_health",
+      "rows": 11,
+      "digest": "558e4e10ffe785b5239fc079d6e90840"
+    },
+    {
+      "name": "shipment",
+      "rows": 48,
+      "digest": "eff30f9bc0cf3a8e3055388b631ba6d1"
+    },
+    {
+      "name": "shipment_transition",
+      "rows": 165,
+      "digest": "7dfe2d1ba9f4ced32f39a8277e971308"
+    },
+    {
+      "name": "site",
+      "rows": 0,
+      "digest": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "name": "site_schedule",
+      "rows": 0,
+      "digest": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "name": "storage_location",
+      "rows": 0,
+      "digest": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "name": "stored_file",
+      "rows": 33,
+      "digest": "b899f6a5b375b24fc6568f1a5c104c6f"
+    },
+    {
+      "name": "transport_telemetry",
+      "rows": 50,
+      "digest": "3cf1b1a976c97130d5d7e71eb70c9ef0"
+    },
+    {
+      "name": "user_account",
+      "rows": 30,
+      "digest": "80edbdc9b37f39b62476cf7710d24429"
+    },
+    {
+      "name": "web_runtime.session_revocations",
+      "rows": 41,
+      "digest": "be15b82f8200f50e8f9c0ec5567e7c9a"
+    },
+    {
+      "name": "web_session",
+      "rows": 372,
+      "digest": "59fb6c5412ccf5bf30b3e521416b1928"
+    }
+  ],
+  "tables_after_migration": [
+    {
+      "name": "account_role",
+      "rows": 0,
+      "digest": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "name": "algorithm_run",
+      "rows": 0,
+      "digest": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "name": "allocation_operation",
+      "rows": 48,
+      "digest": "08ed1f727c59165f0f0f1235176558e9"
+    },
+    {
+      "name": "appointment",
+      "rows": 118,
+      "digest": "7bdf129da0dd3f197291277bb68d21fe"
+    },
+    {
+      "name": "audit_change",
+      "rows": 0,
+      "digest": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "name": "audit_event",
+      "rows": 7928,
+      "digest": "0c51fc2cd8a1e98855ae46b74b8aadd0"
+    },
+    {
+      "name": "audit_finding_actions",
+      "rows": 0,
+      "digest": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "name": "audit_finding_links",
+      "rows": 0,
+      "digest": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "name": "audit_findings",
+      "rows": 0,
+      "digest": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "name": "balance_proposal",
+      "rows": 30,
+      "digest": "dd66f747bbdcc7bbfb34c2104a494b13"
+    },
+    {
+      "name": "blood_allocation",
+      "rows": 48,
+      "digest": "11c906e0aca07b9a90c3c7043bec2750"
+    },
+    {
+      "name": "blood_candidate",
+      "rows": 0,
+      "digest": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "name": "blood_classification",
+      "rows": 0,
+      "digest": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "name": "blood_component",
+      "rows": 0,
+      "digest": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "name": "blood_movement",
+      "rows": 392,
+      "digest": "2c6423b1120030af4fd195a873695b89"
+    },
+    {
+      "name": "blood_request",
+      "rows": 138,
+      "digest": "e7ed6430b82b6738d2d25b00e1afca80"
+    },
+    {
+      "name": "blood_review",
+      "rows": 78,
+      "digest": "07370cc5e8e84529642dfd3d780ed951"
+    },
+    {
+      "name": "blood_status_transition",
+      "rows": 4,
+      "digest": "83dfefd5986caa23b3cfa17188c22069"
+    },
+    {
+      "name": "blood_unit",
+      "rows": 0,
+      "digest": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "name": "cache_revision",
+      "rows": 2,
+      "digest": "46c726ec2e295b6efa6eba68237994ea"
+    },
+    {
+      "name": "campaign",
+      "rows": 60,
+      "digest": "cf258f59885929ac1675447fb347e873"
+    },
+    {
+      "name": "candidate_evaluation",
+      "rows": 78,
+      "digest": "92eeb1660dd356ba1151bc8203f0fef7"
+    },
+    {
+      "name": "capability",
+      "rows": 3,
+      "digest": "7ee8eaf3ebedeb22d1da901211e02b48"
+    },
+    {
+      "name": "catalogue_entry",
+      "rows": 300,
+      "digest": "f0fd497fdccfa7f3f3cf5ba8f8244e2c"
+    },
+    {
+      "name": "contact",
+      "rows": 0,
+      "digest": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "name": "contact_method",
+      "rows": 0,
+      "digest": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "name": "custody_chain",
+      "rows": 48,
+      "digest": "62b8c4bc0d134afb9e1e591b9e64774c"
+    },
+    {
+      "name": "custody_event",
+      "rows": 213,
+      "digest": "f095dcd5feae02a8ce04f64b6569c9b3"
+    },
+    {
+      "name": "donation",
+      "rows": 60,
+      "digest": "6b6b7d973c7cc74c17be938d46cfb70f"
+    },
+    {
+      "name": "donation_event",
+      "rows": 120,
+      "digest": "9b73c926a1f6855c161360a70c85a60b"
+    },
+    {
+      "name": "donation_unit",
+      "rows": 0,
+      "digest": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "name": "donor",
+      "rows": 71,
+      "digest": "c6d8f58bed8092294136f2e03035ac7b"
+    },
+    {
+      "name": "donor_review",
+      "rows": 65,
+      "digest": "d3e590ed022d3e66104c621f7768a062"
+    },
+    {
+      "name": "institution",
+      "rows": 30,
+      "digest": "b6edda17223df6b87191b9241c6eef81"
+    },
+    {
+      "name": "institution_capability",
+      "rows": 0,
+      "digest": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "name": "institution_contact",
+      "rows": 0,
+      "digest": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "name": "login_attempt",
+      "rows": 0,
+      "digest": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "name": "notification",
+      "rows": 990,
+      "digest": "1b64a813a42884b00d00794ae256a131"
+    },
+    {
+      "name": "organ_allocation",
+      "rows": 0,
+      "digest": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "name": "organ_candidate",
+      "rows": 0,
+      "digest": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "name": "organ_custody_event",
+      "rows": 0,
+      "digest": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "name": "organ_donor",
+      "rows": 0,
+      "digest": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "name": "organ_evaluation",
+      "rows": 0,
+      "digest": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "name": "organ_offer",
+      "rows": 0,
+      "digest": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "name": "organ_recipient",
+      "rows": 0,
+      "digest": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "name": "organ_review",
+      "rows": 0,
+      "digest": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "name": "parameter_version",
+      "rows": 0,
+      "digest": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "name": "party",
+      "rows": 0,
+      "digest": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "name": "ranking_run",
+      "rows": 75,
+      "digest": "d9d4bf2467f7ee5212723a2dccd10ee0"
+    },
+    {
+      "name": "recipient",
+      "rows": 138,
+      "digest": "fcde0361d637b631a2d42b9ecc9a42aa"
+    },
+    {
+      "name": "regional_route",
+      "rows": 32,
+      "digest": "387fbf15452080319d87e0bfb3f416dc"
+    },
+    {
+      "name": "request_event",
+      "rows": 0,
+      "digest": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "name": "request_hold",
+      "rows": 48,
+      "digest": "2bcf362250a612e1d8b782e03fadc51b"
+    },
+    {
+      "name": "resource",
+      "rows": 141,
+      "digest": "3bde53d627be869a2506ddab44ef12de"
+    },
+    {
+      "name": "resource_review",
+      "rows": 138,
+      "digest": "b7ae23959d75db65054511ed13e77ed7"
+    },
+    {
+      "name": "role",
+      "rows": 7,
+      "digest": "bf3cabdf76c84281c6470123b4aa9d28"
+    },
+    {
+      "name": "schema_migration",
+      "rows": 7,
+      "digest": "cc43d99ee64b29213bd3cd5bfde5bc8a"
+    },
+    {
+      "name": "service_activity_events",
+      "rows": 7928,
+      "digest": "3dde5632984c028fb17be0b76e36b04f"
+    },
+    {
+      "name": "service_decisions",
+      "rows": 794,
+      "digest": "e4df7c5574fd272a6e88431ee581248b"
+    },
+    {
+      "name": "service_health_check",
+      "rows": 40706,
+      "digest": "bafc89571dce80cfe08cd9af80b97e7c"
+    },
+    {
+      "name": "service_idempotency",
+      "rows": 2018,
+      "digest": "a0bb973dec542ed288f83cb2c4c35ede"
+    },
+    {
+      "name": "service_inbox",
+      "rows": 9014,
+      "digest": "07b70e48c6c5a1ec04d2bb9a975ae811"
+    },
+    {
+      "name": "service_outbox",
+      "rows": 17420,
+      "digest": "45417a7a1bf6d6e5c67a730c08f49ebf"
+    },
+    {
+      "name": "service_schema_version",
+      "rows": 34,
+      "digest": "f40e6de181799f4a491787f0d0c69656"
+    },
+    {
+      "name": "service_worker_health",
+      "rows": 11,
+      "digest": "558e4e10ffe785b5239fc079d6e90840"
+    },
+    {
+      "name": "shipment",
+      "rows": 48,
+      "digest": "eff30f9bc0cf3a8e3055388b631ba6d1"
+    },
+    {
+      "name": "shipment_transition",
+      "rows": 165,
+      "digest": "7dfe2d1ba9f4ced32f39a8277e971308"
+    },
+    {
+      "name": "site",
+      "rows": 0,
+      "digest": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "name": "site_schedule",
+      "rows": 0,
+      "digest": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "name": "storage_location",
+      "rows": 0,
+      "digest": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "name": "stored_file",
+      "rows": 33,
+      "digest": "b899f6a5b375b24fc6568f1a5c104c6f"
+    },
+    {
+      "name": "transport_telemetry",
+      "rows": 50,
+      "digest": "3cf1b1a976c97130d5d7e71eb70c9ef0"
+    },
+    {
+      "name": "user_account",
+      "rows": 30,
+      "digest": "80edbdc9b37f39b62476cf7710d24429"
+    },
+    {
+      "name": "web_runtime.session_revocations",
+      "rows": 41,
+      "digest": "be15b82f8200f50e8f9c0ec5567e7c9a"
+    },
+    {
+      "name": "web_session",
+      "rows": 372,
+      "digest": "59fb6c5412ccf5bf30b3e521416b1928"
+    }
+  ],
+  "mongo_preserved": true,
+  "configuration_preserved": true,
+  "migration_repeat": "El esquema ya tiene la versi\u00f3n 7; no se modific\u00f3.",
+  "health": {
+    "6101": 200,
+    "6102": 200,
+    "6103": 200,
+    "6104": 200,
+    "6105": 200,
+    "6106": 200,
+    "6107": 200,
+    "6108": 200,
+    "6109": 200,
+    "6110": 200,
+    "6111": 200
+  },
+  "containers": [
+    {
+      "name": "redhouse-parcial2-web-1",
+      "status": "Up 26 seconds (healthy)"
+    },
+    {
+      "name": "redhouse-parcial2-monitoreo-b-1",
+      "status": "Up 40 seconds (healthy)"
+    },
+    {
+      "name": "redhouse-parcial2-monitoreo-a-1",
+      "status": "Up 40 seconds (healthy)"
+    },
+    {
+      "name": "redhouse-parcial2-transporte-b-1",
+      "status": "Up 56 seconds (healthy)"
+    },
+    {
+      "name": "redhouse-parcial2-transporte-a-1",
+      "status": "Up 55 seconds (healthy)"
+    },
+    {
+      "name": "redhouse-parcial2-inventario-b-1",
+      "status": "Up About a minute (healthy)"
+    },
+    {
+      "name": "redhouse-parcial2-inventario-a-1",
+      "status": "Up About a minute (healthy)"
+    },
+    {
+      "name": "redhouse-parcial2-priorizacion-geografia-b-1",
+      "status": "Up About a minute (healthy)"
+    },
+    {
+      "name": "redhouse-parcial2-priorizacion-geografia-a-1",
+      "status": "Up About a minute (healthy)"
+    },
+    {
+      "name": "redhouse-parcial2-compatibilidad-b-1",
+      "status": "Up About a minute (healthy)"
+    },
+    {
+      "name": "redhouse-parcial2-compatibilidad-a-1",
+      "status": "Up About a minute (healthy)"
+    },
+    {
+      "name": "redhouse-parcial2-receptores-b-1",
+      "status": "Up About a minute (healthy)"
+    },
+    {
+      "name": "redhouse-parcial2-receptores-a-1",
+      "status": "Up About a minute (healthy)"
+    },
+    {
+      "name": "redhouse-parcial2-donantes-a-1",
+      "status": "Up 2 minutes (healthy)"
+    },
+    {
+      "name": "redhouse-parcial2-donantes-b-1",
+      "status": "Up 2 minutes (healthy)"
+    },
+    {
+      "name": "redhouse-parcial2-identidad-acceso-a-1",
+      "status": "Up 2 minutes (healthy)"
+    },
+    {
+      "name": "redhouse-parcial2-identidad-acceso-b-1",
+      "status": "Up 2 minutes (healthy)"
+    },
+    {
+      "name": "redhouse-parcial2-custodia-a-1",
+      "status": "Up 2 minutes (healthy)"
+    },
+    {
+      "name": "redhouse-parcial2-custodia-b-1",
+      "status": "Up 2 minutes (healthy)"
+    },
+    {
+      "name": "redhouse-parcial2-alertas-b-1",
+      "status": "Up 2 minutes (healthy)"
+    },
+    {
+      "name": "redhouse-parcial2-alertas-a-1",
+      "status": "Up 2 minutes (healthy)"
+    },
+    {
+      "name": "redhouse-parcial2-auditoria-a-1",
+      "status": "Up 3 minutes (healthy)"
+    },
+    {
+      "name": "redhouse-parcial2-auditoria-b-1",
+      "status": "Up 3 minutes (healthy)"
+    },
+    {
+      "name": "redhouse-parcial2-gateway-1",
+      "status": "Up 12 seconds (healthy)"
+    },
+    {
+      "name": "redhouse-parcial2-redis-1",
+      "status": "Up 10 hours (healthy)"
+    },
+    {
+      "name": "redhouse-parcial2-postgres-1",
+      "status": "Up 10 hours (healthy)"
+    },
+    {
+      "name": "redhouse-parcial2-mongodb-1",
+      "status": "Up 10 hours (healthy)"
+    }
+  ],
+  "source_verified": true,
+  "images_before": {
+    "identidad-acceso-a": {
+      "tag": "redhouse/identidad_acceso:0.3.0",
+      "id": "sha256:eaee6331bb2f6b951132dca516462c1bc2444d4a705b8342a263316fb1cd9f44"
+    },
+    "donantes-a": {
+      "tag": "redhouse/donantes:0.3.0",
+      "id": "sha256:7bfed58ce6eca1dd509cc9cee1d0d35d5558aebed18d7d57edec9c5c83ac14c3"
+    },
+    "receptores-a": {
+      "tag": "redhouse/receptores:0.3.0",
+      "id": "sha256:4a2bf06dc35575e9e8d52ea25a98858ec1fab69396e36c4598196fa4edd8b6a5"
+    },
+    "inventario-a": {
+      "tag": "redhouse/inventario:0.3.0",
+      "id": "sha256:e8404b3c1bab3cc24d6d89f24264f08cda881b1fc8c6ed4d94ec123305ebb7af"
+    },
+    "compatibilidad-a": {
+      "tag": "redhouse/compatibilidad:0.3.0",
+      "id": "sha256:3e037891d0f6b012c99a5881b2ab1d7c13b9375e932c5a0d6bc777257f00ac2d"
+    },
+    "priorizacion-geografia-a": {
+      "tag": "redhouse/priorizacion_geografia:0.3.0",
+      "id": "sha256:0b02a413b202593797e3c4f674ed3a1f30c99104b8601cad9eb6d3bd2a6b82dc"
+    },
+    "transporte-a": {
+      "tag": "redhouse/transporte:0.3.0",
+      "id": "sha256:0335757db81188f726fd71b210783237dbf127cf905cc3724a30306dfb1bde78"
+    },
+    "custodia-a": {
+      "tag": "redhouse/custodia:0.3.0",
+      "id": "sha256:5eaa5b5b1e24d49d4f518d1b782e755b542c3b39b16c0f700d1cfbe4eba2d7f9"
+    },
+    "alertas-a": {
+      "tag": "redhouse/alertas:0.3.0",
+      "id": "sha256:1043dfc89e2ac0d02d5fa0428380be89c2c434f9ade9db134e94d99e48828edb"
+    },
+    "auditoria-a": {
+      "tag": "redhouse/auditoria:0.3.0",
+      "id": "sha256:5328690df1bc0b0833dd91f94ecb38a56e78bb0fe0ccce3fe5008f36cff927d0"
+    },
+    "monitoreo-a": {
+      "tag": "redhouse/monitoreo:0.3.0",
+      "id": "sha256:728eddc0e89b95c96439526dcadf902394ae8ba0833556ce9169cefd92ab5cbc"
+    },
+    "web": {
+      "tag": "redhouse/web:0.3.0",
+      "id": "sha256:1afd00373e04ff6831c98d6406438708ed1858863f97c8be8da3db8e5141ad3b"
+    }
+  },
+  "images_after": {
+    "identidad-acceso-a": "sha256:391536fa56cec07a7b7d24138ff01e4fa5bea6e49ebae1fa510746550b23cc0c",
+    "donantes-a": "sha256:069cdb20f6a3e6adec74ac9987b0febbe3329ab244b45b543eef7ef460b2371e",
+    "receptores-a": "sha256:844f8ba55ad595909a7108887da739b1d828f7b57cab34d214753cdf39cf6a0f",
+    "inventario-a": "sha256:69c59cca2bbeb8f519013b22c10355dfa69a2e14702a3e36c3083857402692df",
+    "compatibilidad-a": "sha256:01cd951600ae62fca0bf97ed7a4139ab38bd2cbec2c57d9a37b797d35c6153e8",
+    "priorizacion-geografia-a": "sha256:bae49d33e98aefe4090f0414755131e45f4088a70789089ee83f8db783f663af",
+    "transporte-a": "sha256:fdbc808415884a1538667b0b25be13dcceb5aeca0486d3b299c1a4b9229ce676",
+    "custodia-a": "sha256:6cc7e17602b257ea0474b2de5ee82d6b49bede2f6db862217495970f2310e272",
+    "alertas-a": "sha256:e8d9100cdf7d825fbab73f2f8a53048e29b236e900fd3d2f05613271c07a02dd",
+    "auditoria-a": "sha256:f9698cc99cb87d4c770cdf19bf50f104d22b5acb73c560b60d8d8e720a5f095a",
+    "monitoreo-a": "sha256:33029c27186c5085af65fdf8b3c0f4ac1f6fe924933919b6d040a251d511aba0",
+    "web": "sha256:66245a08e449bc4f6f138a68a202a80cc668f83cd66278a1cddf152ea0c96af7"
+  },
+  "initial_start_failure": {
+    "stage": "failed",
+    "message": "Command '['docker', 'compose', '-f', '/opt/redhouse/compose.yaml', '-f', '/opt/redhouse/.local/compose/gcs.compose.yaml', '-f', '/opt/redhouse/.local/compose/public.compose.yaml', 'up', '-d', '--no-deps', '--wait', '--wait-timeout', '120', 'auditoria-a', 'auditoria-b']' returned non-zero exit status 1.",
+    "cause": "Staged code directories inherited mode 0700; non-root container could not read migrations/contracts"
+  },
+  "source_check": {
+    "identidad-acceso-a": {
+      "checked": 144,
+      "mismatches": []
+    },
+    "identidad-acceso-b": {
+      "checked": 144,
+      "mismatches": []
+    },
+    "donantes-a": {
+      "checked": 102,
+      "mismatches": []
+    },
+    "donantes-b": {
+      "checked": 102,
+      "mismatches": []
+    },
+    "receptores-a": {
+      "checked": 89,
+      "mismatches": []
+    },
+    "receptores-b": {
+      "checked": 89,
+      "mismatches": []
+    },
+    "inventario-a": {
+      "checked": 96,
+      "mismatches": []
+    },
+    "inventario-b": {
+      "checked": 96,
+      "mismatches": []
+    },
+    "compatibilidad-a": {
+      "checked": 58,
+      "mismatches": []
+    },
+    "compatibilidad-b": {
+      "checked": 58,
+      "mismatches": []
+    },
+    "priorizacion-geografia-a": {
+      "checked": 73,
+      "mismatches": []
+    },
+    "priorizacion-geografia-b": {
+      "checked": 73,
+      "mismatches": []
+    },
+    "transporte-a": {
+      "checked": 75,
+      "mismatches": []
+    },
+    "transporte-b": {
+      "checked": 75,
+      "mismatches": []
+    },
+    "custodia-a": {
+      "checked": 51,
+      "mismatches": []
+    },
+    "custodia-b": {
+      "checked": 51,
+      "mismatches": []
+    },
+    "alertas-a": {
+      "checked": 52,
+      "mismatches": []
+    },
+    "alertas-b": {
+      "checked": 52,
+      "mismatches": []
+    },
+    "auditoria-a": {
+      "checked": 69,
+      "mismatches": []
+    },
+    "auditoria-b": {
+      "checked": 69,
+      "mismatches": []
+    },
+    "monitoreo-a": {
+      "checked": 48,
+      "mismatches": []
+    },
+    "monitoreo-b": {
+      "checked": 48,
+      "mismatches": []
+    },
+    "web": {
+      "checked": 675,
+      "mismatches": []
+    }
+  },
+  "backup_restore": {
+    "backup": "passed",
+    "restore": "passed",
+    "redis": {
+      "restored": true,
+      "ttl": 3571
+    },
+    "web_permissions": {
+      "technical_table": true,
+      "domain_schema": false
+    }
+  },
+  "backup_files": {
+    "postgres.dump": {
+      "bytes": 6278240,
+      "sha256": "d436c0e5367273216ab0725a79b029b2bef38aed7756026b1656d77fa9d94501"
+    },
+    "roles.sql": {
+      "bytes": 4165,
+      "sha256": "902c80c5f529aa5379e219317b17d31d0a6440465fbaac23e532c965720e39f8"
+    },
+    "mongo.archive.gz": {
+      "bytes": 2282131,
+      "sha256": "9eadabc967038d904b258406788d302d90560dd413a39ece4b4ca6c6995ac2fd"
+    },
+    "dump.rdb": {
+      "bytes": 34759,
+      "sha256": "83f4983c091bb146617bb7487dd2b284405705ba8c9a2c2675518ae43be50202"
+    },
+    "redis.acl": {
+      "bytes": 5244,
+      "sha256": "7f1fe15358e208c871bf5ccbe68e916118460ff2aa92f14066a603900190f4d3"
+    }
+  },
+  "schema": {
+    "before": 6,
+    "after": 7,
+    "auditoria_before": 2,
+    "auditoria_after": 3,
+    "domain_tables": 74,
+    "tables_including_web_sessions": 75
+  }
+}

@@ -22,9 +22,10 @@ class Principal:
 
 
 class BusinessError(Exception):
-    def __init__(self, message, status=400, *, field=None):
+    def __init__(self, message, status=400, *, field=None, details=None, code=None):
         super().__init__(message)
         self.message, self.status, self.field = message, status, field
+        self.details, self.code = details or [], code
 
 
 def require(principal, action):

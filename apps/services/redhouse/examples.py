@@ -9,6 +9,8 @@ EXAMPLE_ID = "00000000-0000-4000-8000-000000000001"
 
 def sample(schema, root=None, name="", depth=0):
     root = root or schema
+    if schema.get("examples"):
+        return schema["examples"][0]
     if depth > 8:
         return None
     if "$ref" in schema:

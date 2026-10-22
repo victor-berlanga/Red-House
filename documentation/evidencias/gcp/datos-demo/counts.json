@@ -1,0 +1,883 @@
+{
+  "date": "2026-10-21T14:35:12.186757+00:00",
+  "result": "passed",
+  "target": 30,
+  "writes": "authenticated_business_http",
+  "baseline": [
+    {
+      "name": "red_house.account_role",
+      "rows": 0
+    },
+    {
+      "name": "red_house.algorithm_run",
+      "rows": 0
+    },
+    {
+      "name": "red_house.allocation_operation",
+      "rows": 18
+    },
+    {
+      "name": "red_house.appointment",
+      "rows": 0
+    },
+    {
+      "name": "red_house.audit_change",
+      "rows": 0
+    },
+    {
+      "name": "red_house.audit_event",
+      "rows": 2444
+    },
+    {
+      "name": "red_house.balance_proposal",
+      "rows": 0
+    },
+    {
+      "name": "red_house.blood_allocation",
+      "rows": 18
+    },
+    {
+      "name": "red_house.blood_candidate",
+      "rows": 0
+    },
+    {
+      "name": "red_house.blood_classification",
+      "rows": 0
+    },
+    {
+      "name": "red_house.blood_component",
+      "rows": 0
+    },
+    {
+      "name": "red_house.blood_movement",
+      "rows": 86
+    },
+    {
+      "name": "red_house.blood_request",
+      "rows": 18
+    },
+    {
+      "name": "red_house.blood_review",
+      "rows": 18
+    },
+    {
+      "name": "red_house.blood_status_transition",
+      "rows": 4
+    },
+    {
+      "name": "red_house.blood_unit",
+      "rows": 0
+    },
+    {
+      "name": "red_house.cache_revision",
+      "rows": 2
+    },
+    {
+      "name": "red_house.campaign",
+      "rows": 0
+    },
+    {
+      "name": "red_house.candidate_evaluation",
+      "rows": 18
+    },
+    {
+      "name": "red_house.capability",
+      "rows": 3
+    },
+    {
+      "name": "red_house.catalogue_entry",
+      "rows": 0
+    },
+    {
+      "name": "red_house.contact",
+      "rows": 0
+    },
+    {
+      "name": "red_house.contact_method",
+      "rows": 0
+    },
+    {
+      "name": "red_house.custody_chain",
+      "rows": 18
+    },
+    {
+      "name": "red_house.custody_event",
+      "rows": 93
+    },
+    {
+      "name": "red_house.donation",
+      "rows": 0
+    },
+    {
+      "name": "red_house.donation_event",
+      "rows": 0
+    },
+    {
+      "name": "red_house.donation_unit",
+      "rows": 0
+    },
+    {
+      "name": "red_house.donor",
+      "rows": 0
+    },
+    {
+      "name": "red_house.donor_review",
+      "rows": 0
+    },
+    {
+      "name": "red_house.institution",
+      "rows": 2
+    },
+    {
+      "name": "red_house.institution_capability",
+      "rows": 0
+    },
+    {
+      "name": "red_house.institution_contact",
+      "rows": 0
+    },
+    {
+      "name": "red_house.login_attempt",
+      "rows": 0
+    },
+    {
+      "name": "red_house.notification",
+      "rows": 270
+    },
+    {
+      "name": "red_house.organ_allocation",
+      "rows": 0
+    },
+    {
+      "name": "red_house.organ_candidate",
+      "rows": 0
+    },
+    {
+      "name": "red_house.organ_custody_event",
+      "rows": 0
+    },
+    {
+      "name": "red_house.organ_donor",
+      "rows": 0
+    },
+    {
+      "name": "red_house.organ_evaluation",
+      "rows": 0
+    },
+    {
+      "name": "red_house.organ_offer",
+      "rows": 0
+    },
+    {
+      "name": "red_house.organ_recipient",
+      "rows": 0
+    },
+    {
+      "name": "red_house.organ_review",
+      "rows": 0
+    },
+    {
+      "name": "red_house.parameter_version",
+      "rows": 0
+    },
+    {
+      "name": "red_house.party",
+      "rows": 0
+    },
+    {
+      "name": "red_house.ranking_run",
+      "rows": 15
+    },
+    {
+      "name": "red_house.recipient",
+      "rows": 18
+    },
+    {
+      "name": "red_house.regional_route",
+      "rows": 1
+    },
+    {
+      "name": "red_house.request_event",
+      "rows": 0
+    },
+    {
+      "name": "red_house.request_hold",
+      "rows": 18
+    },
+    {
+      "name": "red_house.resource",
+      "rows": 20
+    },
+    {
+      "name": "red_house.resource_review",
+      "rows": 18
+    },
+    {
+      "name": "red_house.role",
+      "rows": 7
+    },
+    {
+      "name": "red_house.schema_migration",
+      "rows": 6
+    },
+    {
+      "name": "red_house.service_activity_events",
+      "rows": 2444
+    },
+    {
+      "name": "red_house.service_decisions",
+      "rows": 18
+    },
+    {
+      "name": "red_house.service_health_check",
+      "rows": 10511
+    },
+    {
+      "name": "red_house.service_idempotency",
+      "rows": 225
+    },
+    {
+      "name": "red_house.service_inbox",
+      "rows": 2804
+    },
+    {
+      "name": "red_house.service_outbox",
+      "rows": 5436
+    },
+    {
+      "name": "red_house.service_schema_version",
+      "rows": 33
+    },
+    {
+      "name": "red_house.service_worker_health",
+      "rows": 11
+    },
+    {
+      "name": "red_house.shipment",
+      "rows": 18
+    },
+    {
+      "name": "red_house.shipment_transition",
+      "rows": 75
+    },
+    {
+      "name": "red_house.site",
+      "rows": 0
+    },
+    {
+      "name": "red_house.site_schedule",
+      "rows": 0
+    },
+    {
+      "name": "red_house.storage_location",
+      "rows": 0
+    },
+    {
+      "name": "red_house.stored_file",
+      "rows": 3
+    },
+    {
+      "name": "red_house.transport_telemetry",
+      "rows": 0
+    },
+    {
+      "name": "red_house.user_account",
+      "rows": 14
+    },
+    {
+      "name": "red_house.web_session",
+      "rows": 278
+    },
+    {
+      "name": "web_runtime.session_revocations",
+      "rows": 16
+    }
+  ],
+  "after": [
+    {
+      "name": "red_house.regional_route",
+      "rows": 32
+    },
+    {
+      "name": "red_house.institution",
+      "rows": 30
+    },
+    {
+      "name": "red_house.cache_revision",
+      "rows": 2
+    },
+    {
+      "name": "red_house.capability",
+      "rows": 3
+    },
+    {
+      "name": "red_house.blood_status_transition",
+      "rows": 4
+    },
+    {
+      "name": "red_house.schema_migration",
+      "rows": 6
+    },
+    {
+      "name": "red_house.role",
+      "rows": 7
+    },
+    {
+      "name": "red_house.service_worker_health",
+      "rows": 11
+    },
+    {
+      "name": "red_house.request_hold",
+      "rows": 48
+    },
+    {
+      "name": "red_house.service_schema_version",
+      "rows": 33
+    },
+    {
+      "name": "red_house.custody_chain",
+      "rows": 48
+    },
+    {
+      "name": "red_house.donation",
+      "rows": 60
+    },
+    {
+      "name": "red_house.campaign",
+      "rows": 60
+    },
+    {
+      "name": "red_house.shipment",
+      "rows": 48
+    },
+    {
+      "name": "red_house.stored_file",
+      "rows": 33
+    },
+    {
+      "name": "red_house.user_account",
+      "rows": 30
+    },
+    {
+      "name": "red_house.blood_allocation",
+      "rows": 48
+    },
+    {
+      "name": "red_house.donor_review",
+      "rows": 64
+    },
+    {
+      "name": "red_house.appointment",
+      "rows": 118
+    },
+    {
+      "name": "red_house.blood_request",
+      "rows": 138
+    },
+    {
+      "name": "red_house.service_decisions",
+      "rows": 48
+    },
+    {
+      "name": "red_house.donor",
+      "rows": 68
+    },
+    {
+      "name": "red_house.blood_review",
+      "rows": 78
+    },
+    {
+      "name": "web_runtime.session_revocations",
+      "rows": 26
+    },
+    {
+      "name": "red_house.resource_review",
+      "rows": 138
+    },
+    {
+      "name": "red_house.allocation_operation",
+      "rows": 48
+    },
+    {
+      "name": "red_house.resource",
+      "rows": 140
+    },
+    {
+      "name": "red_house.recipient",
+      "rows": 138
+    },
+    {
+      "name": "red_house.donation_event",
+      "rows": 120
+    },
+    {
+      "name": "red_house.shipment_transition",
+      "rows": 165
+    },
+    {
+      "name": "red_house.web_session",
+      "rows": 327
+    },
+    {
+      "name": "red_house.organ_donor",
+      "rows": 0
+    },
+    {
+      "name": "red_house.organ_review",
+      "rows": 0
+    },
+    {
+      "name": "red_house.organ_offer",
+      "rows": 0
+    },
+    {
+      "name": "red_house.organ_custody_event",
+      "rows": 0
+    },
+    {
+      "name": "red_house.audit_change",
+      "rows": 0
+    },
+    {
+      "name": "red_house.site",
+      "rows": 0
+    },
+    {
+      "name": "red_house.organ_recipient",
+      "rows": 0
+    },
+    {
+      "name": "red_house.organ_allocation",
+      "rows": 0
+    },
+    {
+      "name": "red_house.blood_candidate",
+      "rows": 0
+    },
+    {
+      "name": "red_house.request_event",
+      "rows": 0
+    },
+    {
+      "name": "red_house.login_attempt",
+      "rows": 0
+    },
+    {
+      "name": "red_house.donation_unit",
+      "rows": 0
+    },
+    {
+      "name": "red_house.blood_movement",
+      "rows": 391
+    },
+    {
+      "name": "red_house.blood_component",
+      "rows": 0
+    },
+    {
+      "name": "red_house.ranking_run",
+      "rows": 75
+    },
+    {
+      "name": "red_house.storage_location",
+      "rows": 0
+    },
+    {
+      "name": "red_house.contact_method",
+      "rows": 0
+    },
+    {
+      "name": "red_house.contact",
+      "rows": 0
+    },
+    {
+      "name": "red_house.parameter_version",
+      "rows": 0
+    },
+    {
+      "name": "red_house.candidate_evaluation",
+      "rows": 78
+    },
+    {
+      "name": "red_house.blood_classification",
+      "rows": 0
+    },
+    {
+      "name": "red_house.account_role",
+      "rows": 0
+    },
+    {
+      "name": "red_house.party",
+      "rows": 0
+    },
+    {
+      "name": "red_house.algorithm_run",
+      "rows": 0
+    },
+    {
+      "name": "red_house.organ_candidate",
+      "rows": 0
+    },
+    {
+      "name": "red_house.catalogue_entry",
+      "rows": 300
+    },
+    {
+      "name": "red_house.organ_evaluation",
+      "rows": 0
+    },
+    {
+      "name": "red_house.balance_proposal",
+      "rows": 30
+    },
+    {
+      "name": "red_house.blood_unit",
+      "rows": 0
+    },
+    {
+      "name": "red_house.institution_capability",
+      "rows": 0
+    },
+    {
+      "name": "red_house.transport_telemetry",
+      "rows": 50
+    },
+    {
+      "name": "red_house.site_schedule",
+      "rows": 0
+    },
+    {
+      "name": "red_house.institution_contact",
+      "rows": 0
+    },
+    {
+      "name": "red_house.custody_event",
+      "rows": 213
+    },
+    {
+      "name": "red_house.notification",
+      "rows": 986
+    },
+    {
+      "name": "red_house.service_idempotency",
+      "rows": 1987
+    },
+    {
+      "name": "red_house.service_inbox",
+      "rows": 6978
+    },
+    {
+      "name": "red_house.service_health_check",
+      "rows": 12062
+    },
+    {
+      "name": "red_house.audit_event",
+      "rows": 5896
+    },
+    {
+      "name": "red_house.service_activity_events",
+      "rows": 5896
+    },
+    {
+      "name": "red_house.service_outbox",
+      "rows": 13352
+    }
+  ],
+  "visible_by_institution": {
+    "1": {
+      "donors": 34,
+      "campaigns": 30,
+      "appointments": 59,
+      "own_appointments": 30,
+      "donations": 30,
+      "recipients": 60,
+      "requests": 60,
+      "resources": 65,
+      "own_donor_profiles": 1
+    },
+    "2": {
+      "donors": 34,
+      "campaigns": 30,
+      "appointments": 59,
+      "own_appointments": 30,
+      "donations": 30,
+      "recipients": 78,
+      "requests": 78,
+      "resources": 75,
+      "own_donor_profiles": 1
+    }
+  },
+  "shipments": [
+    {
+      "case": 0,
+      "id": "c1623744-c86a-4216-8d3f-dc330261cae7",
+      "kind": "BLOOD",
+      "origin": 1,
+      "destination": 2,
+      "status": "ACCEPTED",
+      "file_id": "52a1f48c-bb7e-417d-82fe-e8adeae5ce14"
+    },
+    {
+      "case": 1,
+      "id": "d047516a-e3d9-413e-a9d5-8fb8493b3606",
+      "kind": "BLOOD",
+      "origin": 2,
+      "destination": 1,
+      "status": "ACCEPTED",
+      "file_id": "7842ba13-7b38-423a-8245-ef8e3872e9d3"
+    },
+    {
+      "case": 2,
+      "id": "bf790e17-5475-4be7-9b79-334929c1f6f3",
+      "kind": "ORGAN",
+      "origin": 1,
+      "destination": 2,
+      "status": "ACCEPTED",
+      "file_id": "847769a8-3637-4682-8424-7e7fb5614919"
+    },
+    {
+      "case": 3,
+      "id": "aea37d18-26ff-401d-b79b-5ef8f5216972",
+      "kind": "ORGAN",
+      "origin": 2,
+      "destination": 1,
+      "status": "ACCEPTED",
+      "file_id": "4c5d7776-552a-463f-b499-50df0339ca40"
+    },
+    {
+      "case": 4,
+      "id": "d1631262-b58b-484f-ad19-e061e25095c6",
+      "kind": "BLOOD",
+      "origin": 1,
+      "destination": 2,
+      "status": "ACCEPTED",
+      "file_id": "d925eaef-8a3b-431e-95ea-290117fa345d"
+    },
+    {
+      "case": 5,
+      "id": "8562bb4f-7bd2-4f1f-9122-1b817c9e9961",
+      "kind": "BLOOD",
+      "origin": 2,
+      "destination": 1,
+      "status": "ACCEPTED",
+      "file_id": "f0cae5c5-70e9-441f-9793-66ea6e320c12"
+    },
+    {
+      "case": 6,
+      "id": "abfaf6cb-3254-4746-b2c9-c4b8ebe45caa",
+      "kind": "ORGAN",
+      "origin": 1,
+      "destination": 2,
+      "status": "ACCEPTED",
+      "file_id": "bc7db748-b1fe-416f-8ed0-f0a3f4b61b94"
+    },
+    {
+      "case": 7,
+      "id": "81c2fa29-6c36-46a6-a252-4bc844ad2123",
+      "kind": "ORGAN",
+      "origin": 2,
+      "destination": 1,
+      "status": "ACCEPTED",
+      "file_id": "8ab8bf4f-0b70-4de4-b677-1fbe38057a42"
+    },
+    {
+      "case": 8,
+      "id": "bf0e5f1d-27e5-49fb-8f3f-ca25d39d42db",
+      "kind": "BLOOD",
+      "origin": 1,
+      "destination": 2,
+      "status": "ACCEPTED",
+      "file_id": "d347ef0b-32ad-4bb3-9409-5347ac8c762b"
+    },
+    {
+      "case": 9,
+      "id": "68aa74fb-3cfa-490e-ac73-1fdc1d025907",
+      "kind": "BLOOD",
+      "origin": 2,
+      "destination": 1,
+      "status": "ACCEPTED",
+      "file_id": "7f69a575-671a-4ee7-81e2-43df2f89e211"
+    },
+    {
+      "case": 10,
+      "id": "464cb08f-f990-4c42-bfb4-fbfa86f15e08",
+      "kind": "ORGAN",
+      "origin": 1,
+      "destination": 2,
+      "status": "IN_TRANSIT",
+      "file_id": "c875969e-f3f0-4677-8f02-a5fdfe43af37"
+    },
+    {
+      "case": 11,
+      "id": "e31be8d0-fb04-49fc-9f31-c93c0c8a3bea",
+      "kind": "ORGAN",
+      "origin": 2,
+      "destination": 1,
+      "status": "IN_TRANSIT",
+      "file_id": "12c8668b-2c8c-4ae7-add9-ce5d50bc4c02"
+    },
+    {
+      "case": 12,
+      "id": "6df780f4-feb4-4d1b-a53c-8a2ce9783334",
+      "kind": "BLOOD",
+      "origin": 1,
+      "destination": 2,
+      "status": "IN_TRANSIT",
+      "file_id": "96a3dbaa-5432-4138-adb6-026cbf2a2ff2"
+    },
+    {
+      "case": 13,
+      "id": "1734f6b2-df02-4684-ae89-c87687125124",
+      "kind": "BLOOD",
+      "origin": 2,
+      "destination": 1,
+      "status": "IN_TRANSIT",
+      "file_id": "5fdf2d1d-dee8-477e-aa06-b55ef8f49dc3"
+    },
+    {
+      "case": 14,
+      "id": "2774abef-e1e3-451c-bf40-09ffdac419fc",
+      "kind": "ORGAN",
+      "origin": 1,
+      "destination": 2,
+      "status": "IN_TRANSIT",
+      "file_id": "2f8a28fb-eb14-49fe-a97b-aa9290480e2d"
+    },
+    {
+      "case": 15,
+      "id": "de8ad864-35a9-4604-9163-9b32051acfc6",
+      "kind": "ORGAN",
+      "origin": 2,
+      "destination": 1,
+      "status": "IN_TRANSIT",
+      "file_id": "8bc0379b-b01f-461e-bfbf-e1d9b304c048"
+    },
+    {
+      "case": 16,
+      "id": "59e30855-a741-4dc5-b757-e02eb9b991bd",
+      "kind": "BLOOD",
+      "origin": 1,
+      "destination": 2,
+      "status": "IN_TRANSIT",
+      "file_id": "611ad820-5bfd-485d-8172-c99fc762ac91"
+    },
+    {
+      "case": 17,
+      "id": "a2054ba1-b59c-4e90-8df6-fff077fec528",
+      "kind": "BLOOD",
+      "origin": 2,
+      "destination": 1,
+      "status": "IN_TRANSIT",
+      "file_id": "ebd04da9-15c0-436b-a806-177086a4c79e"
+    },
+    {
+      "case": 18,
+      "id": "a53d0146-e56d-42cc-8e12-1c5a0e9e02ac",
+      "kind": "ORGAN",
+      "origin": 1,
+      "destination": 2,
+      "status": "IN_TRANSIT",
+      "file_id": "e40b89cb-c755-48ba-985c-14bbfa23b459"
+    },
+    {
+      "case": 19,
+      "id": "c95bdf98-3570-42eb-8436-4596ed413d23",
+      "kind": "ORGAN",
+      "origin": 2,
+      "destination": 1,
+      "status": "IN_TRANSIT",
+      "file_id": "ad1f01bf-9bb0-489e-8495-4f4320470015"
+    },
+    {
+      "case": 20,
+      "id": "d1fc3ec9-25b6-4db6-acd2-8184846ccc3f",
+      "kind": "BLOOD",
+      "origin": 1,
+      "destination": 2,
+      "status": "COLLECTED",
+      "file_id": "ab1e9640-4c7e-425c-8def-5399c787ac65"
+    },
+    {
+      "case": 21,
+      "id": "79c65ad0-179e-4a2d-a535-649a9669c0eb",
+      "kind": "BLOOD",
+      "origin": 2,
+      "destination": 1,
+      "status": "COLLECTED",
+      "file_id": "85463d7e-18fa-4c81-87b6-bf85db55b981"
+    },
+    {
+      "case": 22,
+      "id": "87da2341-c4d6-44ba-a4ed-0f058e8aeb04",
+      "kind": "ORGAN",
+      "origin": 1,
+      "destination": 2,
+      "status": "COLLECTED",
+      "file_id": "d05b0fff-a51f-48e3-84fc-bda58b119b6e"
+    },
+    {
+      "case": 23,
+      "id": "a9c30c6e-4f91-40e5-beea-c96b696a6199",
+      "kind": "ORGAN",
+      "origin": 2,
+      "destination": 1,
+      "status": "COLLECTED",
+      "file_id": "7bac7441-17c4-42cb-9634-38d58ab0c50e"
+    },
+    {
+      "case": 24,
+      "id": "33c1e006-6abd-416f-b3fb-5853559fceac",
+      "kind": "BLOOD",
+      "origin": 1,
+      "destination": 2,
+      "status": "COLLECTED",
+      "file_id": "dea58707-e060-4e83-9d36-4f7e8e8f8a29"
+    },
+    {
+      "case": 25,
+      "id": "2ceb0daf-0963-42f5-898a-ad9ca8d8e80e",
+      "kind": "BLOOD",
+      "origin": 2,
+      "destination": 1,
+      "status": "PLANNED",
+      "file_id": "241b2499-c0a4-4d5d-bbe0-30ecd170c525"
+    },
+    {
+      "case": 26,
+      "id": "984f6941-9053-47ef-a53c-91a356ad69c2",
+      "kind": "ORGAN",
+      "origin": 1,
+      "destination": 2,
+      "status": "PLANNED",
+      "file_id": "40720803-3403-4694-8e78-90ffd07503e6"
+    },
+    {
+      "case": 27,
+      "id": "8c3242a6-cdcf-4882-87ea-ad271adf6ddd",
+      "kind": "ORGAN",
+      "origin": 2,
+      "destination": 1,
+      "status": "PLANNED",
+      "file_id": "f1eee0ea-9a43-4185-8615-1dc1ed0c880b"
+    },
+    {
+      "case": 28,
+      "id": "baac4371-16ff-41ae-ab79-ca75536347d0",
+      "kind": "BLOOD",
+      "origin": 1,
+      "destination": 2,
+      "status": "PLANNED",
+      "file_id": "b04cdb51-605f-4c86-b16e-4e85b2ebba23"
+    },
+    {
+      "case": 29,
+      "id": "df832952-9954-465a-b272-2ed938f8314b",
+      "kind": "BLOOD",
+      "origin": 2,
+      "destination": 1,
+      "status": "PLANNED",
+      "file_id": "84a83947-9a2e-4827-bf00-463b3290b841"
+    }
+  ],
+  "completed_operations": 1755
+}

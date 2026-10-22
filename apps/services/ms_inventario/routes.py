@@ -13,6 +13,7 @@ from redhouse.client import call
 from redhouse.codec import plain
 from redhouse.db import get, insert, transaction, update
 from redhouse.errors import APIError
+from redhouse.validation import invalid
 from redhouse.decisions import record, history
 from redhouse.events import consume, emit
 from redhouse.models import Confirm, Group, ID, Kind, Model, Text, utc_date, validate_id
@@ -372,24 +373,39 @@ def register(app):
         from .locations import validate_location
 
         validate_location(data["location_id"])
-        expires = utc_date(data["expires_at"])
+        expires = utc_date(data["expires_at"], "expires_at")
         if expires <= datetime.now(timezone.utc):
-            raise APIError(
-                "validation", "Límite de conservación capturado debe ser futuro."
+            raise invalid(
+                "La caducidad capturada debe ser posterior al momento actual.",
+                "expires_at",
+                code="expired_date",
             )
-        collected = utc_date(data["collected_at"]) if data["collected_at"] else None
-        if collected and (
-            collected > datetime.now(timezone.utc) or collected >= expires
-        ):
-            raise APIError(
-                "validation", "Recolección futura o posterior al límite capturado."
+        collected = (
+            utc_date(data["collected_at"], "collected_at")
+            if data["collected_at"]
+            else None
+        )
+        if collected and collected > datetime.now(timezone.utc):
+            raise invalid(
+                "La recolección no puede ser posterior al momento actual.",
+                "collected_at",
+                code="future_date",
+            )
+        if collected and collected >= expires:
+            raise invalid(
+                "La recolección debe ser anterior a la caducidad capturada.",
+                "collected_at",
+                "expires_at",
+                code="date_order",
             )
         if data["kind"] == "ORGAN" and data["component"] not in (
             "KIDNEY",
             "LIVER",
             "HEART",
         ):
-            raise APIError("validation", "Tipo de órgano no soportado.")
+            raise invalid(
+                "Selecciona un órgano de las opciones disponibles.", "component"
+            )
         if data["donation_id"]:
             donation = call(
                 "donantes", "GET", "/internal/v1/donations/" + data["donation_id"]

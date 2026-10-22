@@ -1,0 +1,966 @@
+{
+  "unique_latest_results": {
+    "passed": 176,
+    "failed": 0,
+    "error": 0,
+    "skipped": 0
+  },
+  "runs": [
+    {
+      "report": "regresion-inicial.xml",
+      "tests": 29,
+      "passed": 21,
+      "failed": 0,
+      "error": 8,
+      "skipped": 0,
+      "seconds": 24.54
+    },
+    {
+      "report": "integracion.xml",
+      "tests": 30,
+      "passed": 29,
+      "failed": 1,
+      "error": 0,
+      "skipped": 0,
+      "seconds": 289.45
+    },
+    {
+      "report": "regresion.xml",
+      "tests": 107,
+      "passed": 104,
+      "failed": 3,
+      "error": 0,
+      "skipped": 0,
+      "seconds": 809.34
+    },
+    {
+      "report": "verificacion-final.xml",
+      "tests": 70,
+      "passed": 69,
+      "failed": 1,
+      "error": 0,
+      "skipped": 0,
+      "seconds": 316.41
+    },
+    {
+      "report": "cierre.xml",
+      "tests": 3,
+      "passed": 2,
+      "failed": 1,
+      "error": 0,
+      "skipped": 0,
+      "seconds": 65.51
+    },
+    {
+      "report": "selector.xml",
+      "tests": 1,
+      "passed": 1,
+      "failed": 0,
+      "error": 0,
+      "skipped": 0,
+      "seconds": 30.85
+    },
+    {
+      "report": "navegador-final.xml",
+      "tests": 1,
+      "passed": 1,
+      "failed": 0,
+      "error": 0,
+      "skipped": 0,
+      "seconds": 66.06
+    }
+  ],
+  "cases": [
+    {
+      "case": "tests.test_audit_migration::test_backup_inventory_includes_finding_history",
+      "status": "passed",
+      "report": "cierre.xml"
+    },
+    {
+      "case": "tests.test_audit_migration::test_v6_migration_preserves_records_and_is_repeatable",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_continuity::test_complete_web_flow_without_apis[BLOOD-RBC-O+]",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_continuity::test_complete_web_flow_without_apis[ORGAN-KIDNEY-O+]",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_continuity::test_donation_processing_without_apis",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_continuity::test_monolith_redis_failure_fails_closed_and_recovers",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_donor_withdrawal::test_appointment_racing_with_withdrawal_has_no_orphan_or_active_booking",
+      "status": "passed",
+      "report": "verificacion-final.xml"
+    },
+    {
+      "case": "tests.test_donor_withdrawal::test_donor_with_history_is_inactive_and_cannot_start_new_operations[appointment]",
+      "status": "passed",
+      "report": "verificacion-final.xml"
+    },
+    {
+      "case": "tests.test_donor_withdrawal::test_donor_with_history_is_inactive_and_cannot_start_new_operations[cancelled_appointment]",
+      "status": "passed",
+      "report": "verificacion-final.xml"
+    },
+    {
+      "case": "tests.test_donor_withdrawal::test_donor_with_history_is_inactive_and_cannot_start_new_operations[donation]",
+      "status": "passed",
+      "report": "verificacion-final.xml"
+    },
+    {
+      "case": "tests.test_donor_withdrawal::test_donor_with_history_is_inactive_and_cannot_start_new_operations[edit]",
+      "status": "passed",
+      "report": "verificacion-final.xml"
+    },
+    {
+      "case": "tests.test_donor_withdrawal::test_donor_with_history_is_inactive_and_cannot_start_new_operations[review]",
+      "status": "passed",
+      "report": "verificacion-final.xml"
+    },
+    {
+      "case": "tests.test_donor_withdrawal::test_empty_donor_is_deleted_with_idempotency_and_audit",
+      "status": "passed",
+      "report": "verificacion-final.xml"
+    },
+    {
+      "case": "tests.test_donor_withdrawal::test_web_withdrawal_requires_csrf_and_preserves_inactive_history[microservices]",
+      "status": "passed",
+      "report": "verificacion-final.xml"
+    },
+    {
+      "case": "tests.test_donor_withdrawal::test_web_withdrawal_requires_csrf_and_preserves_inactive_history[monolith]",
+      "status": "passed",
+      "report": "verificacion-final.xml"
+    },
+    {
+      "case": "tests.test_donor_withdrawal::test_withdrawal_accepts_xml_and_validates_response_contract",
+      "status": "passed",
+      "report": "verificacion-final.xml"
+    },
+    {
+      "case": "tests.test_donor_withdrawal::test_withdrawal_rejects_stale_or_invalid_confirmation[change0-409]",
+      "status": "passed",
+      "report": "verificacion-final.xml"
+    },
+    {
+      "case": "tests.test_donor_withdrawal::test_withdrawal_rejects_stale_or_invalid_confirmation[change1-422]",
+      "status": "passed",
+      "report": "verificacion-final.xml"
+    },
+    {
+      "case": "tests.test_donor_withdrawal::test_withdrawal_rejects_stale_or_invalid_confirmation[change2-422]",
+      "status": "passed",
+      "report": "verificacion-final.xml"
+    },
+    {
+      "case": "tests.test_donor_withdrawal::test_withdrawal_rejects_stale_or_invalid_confirmation[change3-422]",
+      "status": "passed",
+      "report": "verificacion-final.xml"
+    },
+    {
+      "case": "tests.test_donor_withdrawal::test_withdrawal_requires_same_institution_medical_role[None]",
+      "status": "passed",
+      "report": "verificacion-final.xml"
+    },
+    {
+      "case": "tests.test_donor_withdrawal::test_withdrawal_requires_same_institution_medical_role[admin1]",
+      "status": "passed",
+      "report": "verificacion-final.xml"
+    },
+    {
+      "case": "tests.test_donor_withdrawal::test_withdrawal_requires_same_institution_medical_role[donor1]",
+      "status": "passed",
+      "report": "verificacion-final.xml"
+    },
+    {
+      "case": "tests.test_donor_withdrawal::test_withdrawal_requires_same_institution_medical_role[medical2]",
+      "status": "passed",
+      "report": "verificacion-final.xml"
+    },
+    {
+      "case": "tests.test_donor_withdrawal::test_withdrawal_requires_same_institution_medical_role[operator1]",
+      "status": "passed",
+      "report": "verificacion-final.xml"
+    },
+    {
+      "case": "tests.test_flows::test_cancellation_before_collection_releases_request",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_flows::test_donor_campaign_appointment_review_and_alert",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_flows::test_idempotent_reservation_does_not_duplicate",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_flows::test_resource_to_receipt_custody_audit_and_notification[BLOOD-RBC-O-]",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_flows::test_resource_to_receipt_custody_audit_and_notification[ORGAN-HEART-A+]",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_flows::test_resource_to_receipt_custody_audit_and_notification[ORGAN-KIDNEY-A-]",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_flows::test_resource_to_receipt_custody_audit_and_notification[ORGAN-LIVER-A+]",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_flows::test_two_requests_cannot_reserve_same_resource",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_flows::test_two_units_cannot_overfill_one_unit_request",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_form_limits::test_campaign_dates_capacity_conflict_and_retry",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_form_limits::test_file_rejections_explain_correction[-image/png-None-vac\\xedo]",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_form_limits::test_file_rejections_explain_correction[archivo-application/pdf-None-PDF v\\xe1lido]",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_form_limits::test_file_rejections_explain_correction[archivo-image/png-0000000000000000000000000000000000000000000000000000000000000000-cambi\\xf3]",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_form_limits::test_file_rejections_explain_correction[archivo-image/png-None-formato]",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_form_limits::test_inventory_and_shipment_date_rejections_are_atomic",
+      "status": "passed",
+      "report": "verificacion-final.xml"
+    },
+    {
+      "case": "tests.test_form_limits::test_numeric_boundaries_and_public_messages[CampaignCreate-body0-capacity-1-10000-json]",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_form_limits::test_numeric_boundaries_and_public_messages[CampaignCreate-body0-capacity-1-10000-xml]",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_form_limits::test_numeric_boundaries_and_public_messages[Capacity-body3-quantity-0-100000-json]",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_form_limits::test_numeric_boundaries_and_public_messages[Capacity-body3-quantity-0-100000-xml]",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_form_limits::test_numeric_boundaries_and_public_messages[RequestCreate-body1-quantity-1-100-json]",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_form_limits::test_numeric_boundaries_and_public_messages[RequestCreate-body1-quantity-1-100-xml]",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_form_limits::test_numeric_boundaries_and_public_messages[RequestCreate-body2-urgency-1-3-json]",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_form_limits::test_numeric_boundaries_and_public_messages[RequestCreate-body2-urgency-1-3-xml]",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_form_limits::test_numeric_boundaries_and_public_messages[RouteCreate-body6-distance_km-0.0-20000.0-json]",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_form_limits::test_numeric_boundaries_and_public_messages[RouteCreate-body6-distance_km-0.0-20000.0-xml]",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_form_limits::test_numeric_boundaries_and_public_messages[RouteCreate-body7-travel_minutes-0-10080-json]",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_form_limits::test_numeric_boundaries_and_public_messages[RouteCreate-body7-travel_minutes-0-10080-xml]",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_form_limits::test_numeric_boundaries_and_public_messages[Telemetry-body4-latitude--90.0-90.0-json]",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_form_limits::test_numeric_boundaries_and_public_messages[Telemetry-body4-latitude--90.0-90.0-xml]",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_form_limits::test_numeric_boundaries_and_public_messages[Telemetry-body5-longitude--180.0-180.0-json]",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_form_limits::test_numeric_boundaries_and_public_messages[Telemetry-body5-longitude--180.0-180.0-xml]",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_form_limits::test_schedule_and_organ_request_dependencies",
+      "status": "passed",
+      "report": "verificacion-final.xml"
+    },
+    {
+      "case": "tests.test_form_limits::test_text_boundaries_json_xml[Confirm-body2-reason-6-1000-json]",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_form_limits::test_text_boundaries_json_xml[Confirm-body2-reason-6-1000-xml]",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_form_limits::test_text_boundaries_json_xml[Login-body0-username-3-80-json]",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_form_limits::test_text_boundaries_json_xml[Login-body0-username-3-80-xml]",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_form_limits::test_text_boundaries_json_xml[Login-body1-password-12-128-json]",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_form_limits::test_text_boundaries_json_xml[Login-body1-password-12-128-xml]",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_form_limits::test_text_boundaries_json_xml[RecipientCreate-body3-studies-6-1000-json]",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_form_limits::test_text_boundaries_json_xml[RecipientCreate-body3-studies-6-1000-xml]",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_form_limits::test_text_boundaries_json_xml[RecipientCreate-body4-requirement-6-1000-json]",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_form_limits::test_text_boundaries_json_xml[RecipientCreate-body4-requirement-6-1000-xml]",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_form_limits::test_text_boundaries_json_xml[RecipientCreate-body5-display_name-1-200-json]",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_form_limits::test_text_boundaries_json_xml[RecipientCreate-body5-display_name-1-200-xml]",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_form_limits::test_text_boundaries_json_xml[RecipientCreate-body6-folio-6-30-json]",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_form_limits::test_text_boundaries_json_xml[RecipientCreate-body6-folio-6-30-xml]",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_maintenance_web::test_catalogues_bootstrap_and_edits_through_web",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_maintenance_web::test_location_reference_and_receipt_fields_render",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_maintenance_web::test_search_and_pagination_reach_records_after_first_hundred",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_review_unit::test_catalogue_schemas_and_examples_compile_without_dependencies",
+      "status": "passed",
+      "report": "verificacion-final.xml"
+    },
+    {
+      "case": "tests.test_review_unit::test_legacy_rows_helper_does_not_truncate_after_first_hundred",
+      "status": "passed",
+      "report": "verificacion-final.xml"
+    },
+    {
+      "case": "tests.test_review_unit::test_service_artifact_loads_without_other_domain_packages[alertas]",
+      "status": "passed",
+      "report": "verificacion-final.xml"
+    },
+    {
+      "case": "tests.test_review_unit::test_service_artifact_loads_without_other_domain_packages[auditoria]",
+      "status": "passed",
+      "report": "verificacion-final.xml"
+    },
+    {
+      "case": "tests.test_review_unit::test_service_artifact_loads_without_other_domain_packages[compatibilidad]",
+      "status": "passed",
+      "report": "verificacion-final.xml"
+    },
+    {
+      "case": "tests.test_review_unit::test_service_artifact_loads_without_other_domain_packages[custodia]",
+      "status": "passed",
+      "report": "verificacion-final.xml"
+    },
+    {
+      "case": "tests.test_review_unit::test_service_artifact_loads_without_other_domain_packages[donantes]",
+      "status": "passed",
+      "report": "verificacion-final.xml"
+    },
+    {
+      "case": "tests.test_review_unit::test_service_artifact_loads_without_other_domain_packages[identidad_acceso]",
+      "status": "passed",
+      "report": "verificacion-final.xml"
+    },
+    {
+      "case": "tests.test_review_unit::test_service_artifact_loads_without_other_domain_packages[inventario]",
+      "status": "passed",
+      "report": "verificacion-final.xml"
+    },
+    {
+      "case": "tests.test_review_unit::test_service_artifact_loads_without_other_domain_packages[monitoreo]",
+      "status": "passed",
+      "report": "verificacion-final.xml"
+    },
+    {
+      "case": "tests.test_review_unit::test_service_artifact_loads_without_other_domain_packages[priorizacion_geografia]",
+      "status": "passed",
+      "report": "verificacion-final.xml"
+    },
+    {
+      "case": "tests.test_review_unit::test_service_artifact_loads_without_other_domain_packages[receptores]",
+      "status": "passed",
+      "report": "verificacion-final.xml"
+    },
+    {
+      "case": "tests.test_review_unit::test_service_artifact_loads_without_other_domain_packages[transporte]",
+      "status": "passed",
+      "report": "verificacion-final.xml"
+    },
+    {
+      "case": "tests.test_review_unit::test_xml_response_rejects_invalid_types_duplicates_and_missing_fields",
+      "status": "passed",
+      "report": "verificacion-final.xml"
+    },
+    {
+      "case": "tests.test_security_contracts::test_account_deactivation_fences_permissions_and_preserves_password",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_security_contracts::test_database_and_redis_privileges_are_separate",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_security_contracts::test_duplicate_json_keys_nonfinite_and_wrong_media",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_security_contracts::test_health_swagger_and_openapi_all_services[alertas]",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_security_contracts::test_health_swagger_and_openapi_all_services[auditoria]",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_security_contracts::test_health_swagger_and_openapi_all_services[compatibilidad]",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_security_contracts::test_health_swagger_and_openapi_all_services[custodia]",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_security_contracts::test_health_swagger_and_openapi_all_services[donantes]",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_security_contracts::test_health_swagger_and_openapi_all_services[identidad_acceso]",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_security_contracts::test_health_swagger_and_openapi_all_services[inventario]",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_security_contracts::test_health_swagger_and_openapi_all_services[monitoreo]",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_security_contracts::test_health_swagger_and_openapi_all_services[priorizacion_geografia]",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_security_contracts::test_health_swagger_and_openapi_all_services[receptores]",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_security_contracts::test_health_swagger_and_openapi_all_services[transporte]",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_security_contracts::test_institution_role_and_assignment_authorization",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_security_contracts::test_internal_signature_delegation_replay_and_wrong_caller",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_security_contracts::test_jwt_rejects_invalid_variants_before_domain[audience]",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_security_contracts::test_jwt_rejects_invalid_variants_before_domain[expired]",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_security_contracts::test_jwt_rejects_invalid_variants_before_domain[hs256]",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_security_contracts::test_jwt_rejects_invalid_variants_before_domain[issuer]",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_security_contracts::test_jwt_rejects_invalid_variants_before_domain[missing]",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_security_contracts::test_jwt_rejects_invalid_variants_before_domain[none]",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_security_contracts::test_jwt_rejects_invalid_variants_before_domain[numeric_sub]",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_security_contracts::test_jwt_rejects_invalid_variants_before_domain[refresh_use]",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_security_contracts::test_rate_limit",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_security_contracts::test_session_rotation_replay_and_logout",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_security_contracts::test_strict_inputs[blood_group-X+]",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_security_contracts::test_strict_inputs[consent-1]",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_security_contracts::test_strict_inputs[consent-None]",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_security_contracts::test_strict_inputs[display_name-   ]",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_security_contracts::test_strict_inputs[display_name-Nombre\\x00inv\\xe1lido]",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_security_contracts::test_strict_inputs[display_name-None]",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_security_contracts::test_strict_inputs[unknown-injection]",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_security_contracts::test_xml_schema_json_parity_errors_and_xxe",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_validation_audit::test_audit_default_categories_filters_exports_and_scope",
+      "status": "passed",
+      "report": "verificacion-final.xml"
+    },
+    {
+      "case": "tests.test_validation_audit::test_audit_export_limit_and_date_window",
+      "status": "passed",
+      "report": "verificacion-final.xml"
+    },
+    {
+      "case": "tests.test_validation_audit::test_audit_related_uses_documented_links_and_never_invents_history",
+      "status": "passed",
+      "report": "verificacion-final.xml"
+    },
+    {
+      "case": "tests.test_validation_audit::test_browser_validation_and_finding_workflow",
+      "status": "passed",
+      "report": "navegador-final.xml"
+    },
+    {
+      "case": "tests.test_validation_audit::test_exact_text_limits_and_empty_optionals[1000]",
+      "status": "passed",
+      "report": "verificacion-final.xml"
+    },
+    {
+      "case": "tests.test_validation_audit::test_exact_text_limits_and_empty_optionals[6]",
+      "status": "passed",
+      "report": "verificacion-final.xml"
+    },
+    {
+      "case": "tests.test_validation_audit::test_file_form_marks_reselection_without_creating_records",
+      "status": "passed",
+      "report": "verificacion-final.xml"
+    },
+    {
+      "case": "tests.test_validation_audit::test_finding_lifecycle_permissions_idempotency_and_history",
+      "status": "passed",
+      "report": "verificacion-final.xml"
+    },
+    {
+      "case": "tests.test_validation_audit::test_finding_xml_contract_and_foreign_links",
+      "status": "passed",
+      "report": "verificacion-final.xml"
+    },
+    {
+      "case": "tests.test_validation_audit::test_findings_without_http_services",
+      "status": "passed",
+      "report": "cierre.xml"
+    },
+    {
+      "case": "tests.test_validation_audit::test_new_events_capture_actor_without_clinical_fields",
+      "status": "passed",
+      "report": "verificacion-final.xml"
+    },
+    {
+      "case": "tests.test_validation_audit::test_numeric_and_source_limits_keep_field[distance_km--1]",
+      "status": "passed",
+      "report": "verificacion-final.xml"
+    },
+    {
+      "case": "tests.test_validation_audit::test_numeric_and_source_limits_keep_field[distance_km-20001]",
+      "status": "passed",
+      "report": "verificacion-final.xml"
+    },
+    {
+      "case": "tests.test_validation_audit::test_numeric_and_source_limits_keep_field[source-corto]",
+      "status": "passed",
+      "report": "verificacion-final.xml"
+    },
+    {
+      "case": "tests.test_validation_audit::test_numeric_and_source_limits_keep_field[travel_minutes-0.5]",
+      "status": "passed",
+      "report": "verificacion-final.xml"
+    },
+    {
+      "case": "tests.test_validation_audit::test_numeric_and_source_limits_keep_field[travel_minutes-10081]",
+      "status": "passed",
+      "report": "verificacion-final.xml"
+    },
+    {
+      "case": "tests.test_validation_audit::test_safe_field_errors_json_xml[changes0-fields0-json]",
+      "status": "passed",
+      "report": "verificacion-final.xml"
+    },
+    {
+      "case": "tests.test_validation_audit::test_safe_field_errors_json_xml[changes0-fields0-xml]",
+      "status": "passed",
+      "report": "verificacion-final.xml"
+    },
+    {
+      "case": "tests.test_validation_audit::test_safe_field_errors_json_xml[changes1-fields1-json]",
+      "status": "passed",
+      "report": "verificacion-final.xml"
+    },
+    {
+      "case": "tests.test_validation_audit::test_safe_field_errors_json_xml[changes1-fields1-xml]",
+      "status": "passed",
+      "report": "verificacion-final.xml"
+    },
+    {
+      "case": "tests.test_validation_audit::test_safe_field_errors_json_xml[changes2-fields2-json]",
+      "status": "passed",
+      "report": "verificacion-final.xml"
+    },
+    {
+      "case": "tests.test_validation_audit::test_safe_field_errors_json_xml[changes2-fields2-xml]",
+      "status": "passed",
+      "report": "verificacion-final.xml"
+    },
+    {
+      "case": "tests.test_validation_audit::test_safe_field_errors_json_xml[changes3-fields3-json]",
+      "status": "passed",
+      "report": "verificacion-final.xml"
+    },
+    {
+      "case": "tests.test_validation_audit::test_safe_field_errors_json_xml[changes3-fields3-xml]",
+      "status": "passed",
+      "report": "verificacion-final.xml"
+    },
+    {
+      "case": "tests.test_validation_audit::test_safe_field_errors_json_xml[changes4-fields4-json]",
+      "status": "passed",
+      "report": "verificacion-final.xml"
+    },
+    {
+      "case": "tests.test_validation_audit::test_safe_field_errors_json_xml[changes4-fields4-xml]",
+      "status": "passed",
+      "report": "verificacion-final.xml"
+    },
+    {
+      "case": "tests.test_validation_audit::test_safe_field_errors_json_xml[changes5-fields5-json]",
+      "status": "passed",
+      "report": "verificacion-final.xml"
+    },
+    {
+      "case": "tests.test_validation_audit::test_safe_field_errors_json_xml[changes5-fields5-xml]",
+      "status": "passed",
+      "report": "verificacion-final.xml"
+    },
+    {
+      "case": "tests.test_validation_audit::test_safe_field_errors_json_xml[changes6-fields6-json]",
+      "status": "passed",
+      "report": "verificacion-final.xml"
+    },
+    {
+      "case": "tests.test_validation_audit::test_safe_field_errors_json_xml[changes6-fields6-xml]",
+      "status": "passed",
+      "report": "verificacion-final.xml"
+    },
+    {
+      "case": "tests.test_validation_audit::test_selector_retains_value_from_later_page_on_failed_submit",
+      "status": "passed",
+      "report": "selector.xml"
+    },
+    {
+      "case": "tests.test_validation_audit::test_web_audit_preserves_filters_and_csv_escapes_formulas",
+      "status": "passed",
+      "report": "verificacion-final.xml"
+    },
+    {
+      "case": "tests.test_validation_audit::test_web_login_does_not_echo_password",
+      "status": "passed",
+      "report": "verificacion-final.xml"
+    },
+    {
+      "case": "tests.test_validation_audit::test_web_preserves_fields_marks_errors_and_retries_atomically[autonomous]",
+      "status": "passed",
+      "report": "verificacion-final.xml"
+    },
+    {
+      "case": "tests.test_validation_audit::test_web_preserves_fields_marks_errors_and_retries_atomically[web]",
+      "status": "passed",
+      "report": "verificacion-final.xml"
+    },
+    {
+      "case": "tests.test_web_integration::test_admin_web_creation_deactivation_revokes_new_user",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_web_integration::test_donor_campaign_appointment_processing_and_inventory_source_from_web",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_web_integration::test_filtered_pagination_counts_and_minimized_recipient_search",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_web_integration::test_forms_keep_values_and_same_idempotency_after_error",
+      "status": "passed",
+      "report": "verificacion-final.xml"
+    },
+    {
+      "case": "tests.test_web_integration::test_full_reservation_transport_receipt_from_web_and_xml[BLOOD-RBC-A+]",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_web_integration::test_full_reservation_transport_receipt_from_web_and_xml[ORGAN-HEART-O+]",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_web_integration::test_full_reservation_transport_receipt_from_web_and_xml[ORGAN-KIDNEY-O+]",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_web_integration::test_full_reservation_transport_receipt_from_web_and_xml[ORGAN-LIVER-O+]",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_web_integration::test_identity_outage_reports_503_without_legacy_fallback",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_web_integration::test_matching_proposal_from_web_does_not_reserve",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_web_integration::test_renewal_and_logout_revoke_backend_session_without_exposing_tokens",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_web_integration::test_roles_can_render_authorized_pages_through_http[admin1-paths0]",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_web_integration::test_roles_can_render_authorized_pages_through_http[auditor1-paths5]",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_web_integration::test_roles_can_render_authorized_pages_through_http[coordinator1-paths3]",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_web_integration::test_roles_can_render_authorized_pages_through_http[donor1-paths6]",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_web_integration::test_roles_can_render_authorized_pages_through_http[medical1-paths2]",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_web_integration::test_roles_can_render_authorized_pages_through_http[operator1-paths1]",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_web_integration::test_roles_can_render_authorized_pages_through_http[transport1-paths4]",
+      "status": "passed",
+      "report": "regresion.xml"
+    },
+    {
+      "case": "tests.test_web_integration::test_web_rejects_csrf_wrong_role_and_cross_institution",
+      "status": "passed",
+      "report": "regresion.xml"
+    }
+  ],
+  "environment": {
+    "python": "3.12.6",
+    "pytest": "9.1.1",
+    "Flask": "3.1.3",
+    "pydantic": "2.13.5",
+    "psycopg": "3.3.5",
+    "redis_client": "7.4.1",
+    "pymongo": "4.18.2",
+    "MongoDB": "8.0.17"
+  },
+  "deployed": false
+}

@@ -15,6 +15,7 @@ from redhouse.events import emit
 from redhouse.models import Confirm, ID, Model, Text
 from redhouse.security import own
 from redhouse.cache import cached_read
+from redhouse.validation import invalid
 
 
 class Site(Model):
@@ -76,15 +77,21 @@ def values(conn, kind, data):
         if not site["active"]:
             raise APIError("conflict", "Sede inactiva.", 409)
     if kind == "schedules":
-        try:
-            start, end = (
-                time.fromisoformat(data["opens_at"]),
-                time.fromisoformat(data["closes_at"]),
+        hours = {}
+        for name in ("opens_at", "closes_at"):
+            try:
+                hours[name] = time.fromisoformat(data[name])
+            except ValueError:
+                raise invalid(
+                    "Escribe una hora válida entre 00:00 y 23:59.", name
+                ) from None
+        if hours["opens_at"] >= hours["closes_at"]:
+            raise invalid(
+                "El cierre debe ser posterior a la apertura del mismo día.",
+                "opens_at",
+                "closes_at",
+                code="time_order",
             )
-        except ValueError:
-            raise APIError("validation", "Horario inválido.") from None
-        if start >= end:
-            raise APIError("validation", "El cierre debe ser posterior a la apertura.")
     detail = {
         k: v
         for k, v in data.items()

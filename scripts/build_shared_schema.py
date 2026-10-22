@@ -15,6 +15,7 @@ sys.path.insert(0, str(ROOT / "apps/services"))
 import psycopg
 from psycopg import sql
 from redhouse.shared_schema import extend
+from redhouse.shared_migrations import upgrade, LATEST_VERSION
 
 BASE_COMMIT = "44eeaf90c445b4d9564c2f0ab2dd3167f0296418"
 SOURCES = [
@@ -119,6 +120,7 @@ def build(check, binaries):
                 before = inventory(conn)
                 conn.execute(extension)
                 extend(conn)
+                upgrade(conn)
                 after = inventory(conn)
                 assert set(before) <= set(after)
                 for table, columns in before.items():
@@ -199,7 +201,7 @@ def build(check, binaries):
                 assert inventory(conn) == after
                 assert (
                     conn.execute("SELECT count(*) FROM schema_migration").fetchone()[0]
-                    == 6
+                    == LATEST_VERSION
                 )
                 assert (
                     conn.execute(

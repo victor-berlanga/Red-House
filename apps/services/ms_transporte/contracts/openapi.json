@@ -8439,7 +8439,38 @@
               "details": {
                 "type": "array",
                 "items": {
-                  "type": "object"
+                  "type": "object",
+                  "properties": {
+                    "field": {
+                      "type": "string",
+                      "description": "Ruta del campo en la entrada; no incluye su valor."
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "Corrección segura en español."
+                    },
+                    "min_length": {
+                      "type": "number"
+                    },
+                    "max_length": {
+                      "type": "number"
+                    },
+                    "ge": {
+                      "type": "number"
+                    },
+                    "le": {
+                      "type": "number"
+                    },
+                    "gt": {
+                      "type": "number"
+                    },
+                    "lt": {
+                      "type": "number"
+                    }
+                  }
                 }
               }
             }

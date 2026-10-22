@@ -107,6 +107,8 @@ def provision(
                 "telemetry",
                 "custody_events",
                 "audit_events",
+                "audit_finding_links",
+                "audit_finding_actions",
                 "checks",
             ):
                 if conn.execute(
@@ -124,6 +126,10 @@ def provision(
                     "REVOKE INSERT,UPDATE,DELETE ON {}.schema_version FROM {}"
                 ).format(sql.Identifier(access), sql.Identifier(username))
             )
+            if service == "auditoria":
+                from redhouse.shared_migrations import upgrade
+
+                upgrade(conn)
         database_url = f"postgresql://{username}:{password}@{pg_host}:{pgport}/red_house?options={owner_options}"
         runtime_dbs[service] = database_url
         redis_user, redis_pwd = service, secrets.token_urlsafe(32)

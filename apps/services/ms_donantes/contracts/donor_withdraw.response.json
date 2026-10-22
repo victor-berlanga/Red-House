@@ -1,0 +1,55 @@
+{
+  "type": "object",
+  "required": [
+    "data",
+    "meta"
+  ],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": [
+        "correlation_id",
+        "service",
+        "version"
+      ],
+      "properties": {
+        "correlation_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "service": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "required": [
+        "id",
+        "mode",
+        "cancelled_appointments"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "mode": {
+          "type": "string",
+          "enum": [
+            "DELETED",
+            "INACTIVE"
+          ]
+        },
+        "cancelled_appointments": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

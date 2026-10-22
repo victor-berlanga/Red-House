@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="page-heading"><div><h1>{{ row.action_label }}</h1><p>{{ row.category_label }} · {{ row.result_label }}</p></div><a class="button" href="{{ url_for('portal.finding_new',event_id=row.id) }}">Registrar hallazgo</a></div>
+<p><a class="back-link" href="{{ back }}">Volver al listado filtrado</a></p>
+<section class="card record-section"><h2>Datos registrados al ejecutar la acción</h2>
+<dl class="audit-facts">
+<dt>Responsable</dt><dd>{{ row.actor_display }}</dd>
+<dt>Perfil registrado</dt><dd>{{ roles.get(row.actor_role, 'No registrado') }}</dd>
+<dt>Institución del responsable (referencia histórica)</dt><dd>{{ row.actor_institution_id or 'No registrada' }}</dd>
+<dt>Institución afectada</dt><dd>{{ row.tenant_id|portal_html }}</dd>
+<dt>Recurso o folio</dt><dd>{{ row.resource_display }}</dd>
+<dt>Fecha de ejecución</dt><dd>{{ row.executed_at|portal_html if row.executed_at else 'No registrada' }}</dd>
+<dt>Fecha de centralización</dt><dd>{{ row.created_at|portal_html }}</dd>
+<dt>Motivo</dt><dd>{{ row.reason or 'No registrado en este evento' }}</dd>
+<dt>Correlación</dt><dd>{{ row.correlation_id }}</dd>
+</dl>
+{% if row.changed_fields %}<h3>Cambios documentados</h3><ul>{% for name in row.changed_fields %}<li>{{ field_labels.get(name, name) }}{% if name in row.changes %}: {{ row.changes[name]|portal_html }}{% endif %}</li>{% endfor %}</ul>{% else %}<p>No hay cambios detallados registrados en este evento.</p>{% endif %}
+<p>Los datos históricos ausentes se muestran como no registrados. El nombre visible de la institución afectada procede del catálogo actual.</p>
+</section>
+<section class="card record-section"><h2>Secuencia de eventos relacionados</h2><p>Relaciones documentadas por recurso o correlación, ordenadas por fecha de ejecución.</p>
+{% if related.limited %}<div class="notice">La secuencia alcanzó su límite de {{ related.limit }} eventos o {{ related.max_hops }} niveles de relación. Usa el filtro de recurso y fechas para continuar la investigación.</div>{% endif %}
+<ol class="audit-timeline">{% for item in related['items'] %}<li><time>{{ item.executed_at|portal_html if item.executed_at else 'Fecha no registrada' }}</time> · <a href="{{ url_for('portal.audit_detail',identifier=item.id,return_to=back) }}">{{ item.action_label }}</a> · {{ item.actor_display }} · {{ item.resource_display }}</li>{% endfor %}</ol>
+</section>
+{% endblock %}

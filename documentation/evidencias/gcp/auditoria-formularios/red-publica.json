@@ -1,0 +1,67 @@
+{
+  "checked_at": "2026-10-22T00:09:15.635050+00:00",
+  "result": "passed",
+  "checks": [
+    {
+      "url": "https://34.18.186.116/login",
+      "status": 200,
+      "tls_verified": true
+    },
+    {
+      "url": "https://34.18.186.116/services/identidad-acceso/health/ready",
+      "status": 200,
+      "tls_verified": true
+    },
+    {
+      "url": "https://34.18.186.116/services/donantes/health/ready",
+      "status": 200,
+      "tls_verified": true
+    },
+    {
+      "url": "https://34.18.186.116/services/receptores/health/ready",
+      "status": 200,
+      "tls_verified": true
+    },
+    {
+      "url": "https://34.18.186.116/services/inventario/health/ready",
+      "status": 200,
+      "tls_verified": true
+    },
+    {
+      "url": "https://34.18.186.116/services/compatibilidad/health/ready",
+      "status": 200,
+      "tls_verified": true
+    },
+    {
+      "url": "https://34.18.186.116/services/priorizacion-geografia/health/ready",
+      "status": 200,
+      "tls_verified": true
+    },
+    {
+      "url": "https://34.18.186.116/services/transporte/health/ready",
+      "status": 200,
+      "tls_verified": true
+    },
+    {
+      "url": "https://34.18.186.116/services/custodia/health/ready",
+      "status": 200,
+      "tls_verified": true
+    },
+    {
+      "url": "https://34.18.186.116/services/alertas/health/ready",
+      "status": 200,
+      "tls_verified": true
+    },
+    {
+      "url": "https://34.18.186.116/services/auditoria/health/ready",
+      "status": 200,
+      "tls_verified": true
+    },
+    {
+      "url": "https://34.18.186.116/services/monitoreo/health/ready",
+      "status": 200,
+      "tls_verified": true
+    }
+  ],
+  "http_redirect": "308 https://34.18.186.116/"
+}

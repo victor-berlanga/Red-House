@@ -8,6 +8,29 @@ from .db import insert
 
 
 def record(conn, resource_id, tenant_id, action, reason, changes=None):
+    # Conserva el motivo autorizado y nombres de campos, sin replicar estudios,
+    # identidad clínica, contraseñas ni contenido de documentos en la bitácora.
+    contexts = g.setdefault("audit_changes", {})
+    contexts[str(resource_id)] = {
+        "reason": reason,
+        "changed_fields": sorted((changes or {}).keys()),
+        "changes": {
+            k: v
+            for k, v in (changes or {}).items()
+            if k
+            in (
+                "status",
+                "state",
+                "active",
+                "version",
+                "mode",
+                "previous_status",
+                "cancelled_appointments",
+                "capacity",
+                "quantity",
+            )
+        },
+    }
     return insert(
         conn,
         "decisions",

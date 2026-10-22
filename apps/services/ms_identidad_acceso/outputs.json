@@ -2020,5 +2020,80 @@
         "type": "integer"
       }
     }
+  },
+  "audit_assignees": {
+    "type": "object",
+    "properties": {
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "username": {
+              "type": "string"
+            },
+            "tenant_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "role": {
+              "type": "string",
+              "const": "COORDINATOR"
+            }
+          },
+          "required": [
+            "id",
+            "username",
+            "tenant_id",
+            "role"
+          ]
+        }
+      },
+      "page": {
+        "type": "integer"
+      },
+      "page_size": {
+        "type": "integer"
+      },
+      "total": {
+        "type": "integer"
+      }
+    },
+    "required": [
+      "items",
+      "page",
+      "page_size",
+      "total"
+    ]
+  },
+  "audit_assignee": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "username": {
+        "type": "string"
+      },
+      "tenant_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "role": {
+        "type": "string",
+        "const": "COORDINATOR"
+      }
+    },
+    "required": [
+      "id",
+      "username",
+      "tenant_id",
+      "role"
+    ]
   }
 }

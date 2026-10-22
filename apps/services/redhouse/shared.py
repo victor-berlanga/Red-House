@@ -223,6 +223,13 @@ REFERENCES = {
         "acknowledged_by": ("users", "id"),
     },
     "audit_events": {"tenant_id": ("institutions", "id"), "actor_id": ("users", "id")},
+    "audit_findings": {
+        "tenant_id": ("institutions", "id"),
+        "assignee_tenant_id": ("institutions", "id"),
+        "assignee_id": ("users", "id"),
+        "created_by": ("users", "id"),
+    },
+    "audit_finding_actions": {"actor_id": ("users", "id")},
 }
 
 

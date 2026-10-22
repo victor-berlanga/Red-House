@@ -109,6 +109,50 @@ def refresh_key(token):
 def register(app):
     @endpoint(
         app,
+        "/api/v1/audit-assignees",
+        roles=("AUDITOR",),
+        paginated=True,
+        query=("q",),
+        summary="Coordinadores habilitados de la región para atención de hallazgos",
+    )
+    def audit_assignees():
+        with transaction() as conn:
+            return listing(
+                conn,
+                "users u JOIN institutions i ON i.id=u.tenant_id",
+                "i.region_id=%s AND u.active AND i.active AND u.role='COORDINATOR'",
+                (g.actor["region_id"],),
+                columns="u.id,u.username,u.tenant_id,u.role",
+                order="u.username,u.id",
+                filters={"q": ("u.username",)},
+            )
+
+    @endpoint(
+        app,
+        "/internal/v1/audit-assignees/<identifier>",
+        internal=("auditoria",),
+        roles=("AUDITOR",),
+        summary="Validar coordinador regional para un hallazgo",
+    )
+    def audit_assignee(identifier):
+        with transaction() as conn:
+            row = get(conn, "users", identifier)
+            institution = get(conn, "institutions", str(row["tenant_id"]))
+            if (
+                str(institution["region_id"]) != g.actor["region_id"]
+                or not institution["active"]
+                or not row["active"]
+                or row["role"] != "COORDINATOR"
+            ):
+                raise APIError(
+                    "forbidden",
+                    "El responsable debe ser un coordinador activo de tu región.",
+                    403,
+                )
+            return {key: row[key] for key in ("id", "username", "tenant_id", "role")}
+
+    @endpoint(
+        app,
         "/api/v1/auth/login",
         "POST",
         model=Login,

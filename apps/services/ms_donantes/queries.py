@@ -33,7 +33,10 @@ def install(app):
     )
     def portal_summary():
         with transaction() as conn:
-            where, values = "tenant_id=%s", (g.actor["tenant_id"],)
+            where, values = (
+                "tenant_id=%s AND status<>'INACTIVE'",
+                (g.actor["tenant_id"],),
+            )
             counts = conn.execute(
                 "SELECT status,count(*) AS value FROM donors WHERE "
                 + where

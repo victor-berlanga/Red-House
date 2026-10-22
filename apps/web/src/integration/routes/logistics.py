@@ -188,7 +188,7 @@ def shipment_detail(identifier):
                 "Cadena de custodia",
                 [
                     {
-                        "message": "Historial pendiente de sincronización. Los eventos del traslado se conservan."
+                        "message": "No pudimos actualizar el historial del traslado. Vuelve a consultarlo en unos momentos."
                     }
                 ],
             )

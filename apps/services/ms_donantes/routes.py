@@ -12,6 +12,8 @@ from redhouse.events import emit
 from redhouse.decisions import history
 from redhouse.models import Confirm, Group, ID, Kind, Model, Reason, Text, utc_date
 from redhouse.security import own
+from .withdrawal import require_active
+from redhouse.validation import invalid
 
 
 class DonorCreate(Model):
@@ -24,11 +26,20 @@ class DonorCreate(Model):
     @model_validator(mode="after")
     def consent_document(self):
         if bool(self.consent_at) != bool(self.consent_reference):
-            raise ValueError(
-                "La referencia y fecha de consentimiento se capturan juntas."
+            raise invalid(
+                "Agrega la fecha y la referencia del consentimiento o deja ambos campos vacíos.",
+                "consent_reference",
+                "consent_at",
+                code="paired_fields",
             )
-        if self.consent_at and utc_date(self.consent_at) > datetime.now(timezone.utc):
-            raise ValueError("El consentimiento no puede ser futuro.")
+        if self.consent_at and utc_date(self.consent_at, "consent_at") > datetime.now(
+            timezone.utc
+        ):
+            raise invalid(
+                "Utiliza una fecha de consentimiento no posterior al momento actual.",
+                "consent_at",
+                code="future_date",
+            )
         return self
 
     folio: Annotated[
@@ -111,7 +122,7 @@ def register(app):
     )
     def donors():
         with transaction() as conn:
-            condition = "tenant_id=%s" + (
+            condition = "tenant_id=%s AND status<>'INACTIVE'" + (
                 " AND user_id=%s" if g.actor["role"] == "DONOR" else ""
             )
             values = (
@@ -160,6 +171,7 @@ def register(app):
         def work(conn):
             donor = get(conn, "donors", identifier, True)
             own(donor["tenant_id"])
+            require_active(donor)
             if donor["version"] != data["version"]:
                 raise APIError(
                     "stale_version", "Expediente actualizado; vuelve a revisarlo.", 409
@@ -210,13 +222,22 @@ def register(app):
     def campaign_create(data):
         values = dict(
             data,
-            starts_at=utc_date(data["starts_at"]),
-            ends_at=utc_date(data["ends_at"]),
+            starts_at=utc_date(data["starts_at"], "starts_at"),
+            ends_at=utc_date(data["ends_at"], "ends_at"),
         )
-        if values["ends_at"] <= values["starts_at"] or values[
-            "ends_at"
-        ] <= datetime.now(timezone.utc):
-            raise APIError("validation", "Intervalo de campaña inválido.")
+        if values["ends_at"] <= values["starts_at"]:
+            raise invalid(
+                "La fecha final debe ser posterior al inicio.",
+                "starts_at",
+                "ends_at",
+                code="date_order",
+            )
+        if values["ends_at"] <= datetime.now(timezone.utc):
+            raise invalid(
+                "La fecha final ya venció; utiliza una fecha futura.",
+                "ends_at",
+                code="expired_date",
+            )
 
         def work(conn):
             row = insert(
@@ -261,6 +282,7 @@ def register(app):
         def work(conn):
             donor = get(conn, "donors", data["donor_id"], True)
             donor_access(donor)
+            require_active(donor)
             campaign = get(conn, "campaigns", data["campaign_id"], True)
             own(campaign["tenant_id"])
             count = conn.execute(
@@ -344,19 +366,26 @@ def register(app):
         summary="Registrar donación tras elegibilidad y confirmación humana",
     )
     def donation_create(data):
-        captured = utc_date(data["collected_at"])
+        captured = utc_date(data["collected_at"], "collected_at")
         if captured > datetime.now(timezone.utc):
-            raise APIError("validation", "Recolección no puede ser futura.")
+            raise invalid(
+                "La recolección no puede ser posterior al momento actual.",
+                "collected_at",
+                code="future_date",
+            )
         if data["kind"] == "ORGAN" and data["component"] not in (
             "KIDNEY",
             "LIVER",
             "HEART",
         ):
-            raise APIError("validation", "Tipo de órgano no soportado.")
+            raise invalid(
+                "Selecciona un órgano de las opciones disponibles.", "component"
+            )
 
         def work(conn):
             donor = get(conn, "donors", data["donor_id"], True)
             own(donor["tenant_id"])
+            require_active(donor)
             if donor["status"] != "ELIGIBLE":
                 raise APIError(
                     "human_review_required",

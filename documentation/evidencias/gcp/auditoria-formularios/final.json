@@ -1,0 +1,366 @@
+{
+  "before_after_unchanged": [
+    "account_role",
+    "algorithm_run",
+    "allocation_operation",
+    "appointment",
+    "audit_change",
+    "balance_proposal",
+    "blood_allocation",
+    "blood_candidate",
+    "blood_classification",
+    "blood_component",
+    "blood_movement",
+    "blood_request",
+    "blood_review",
+    "blood_status_transition",
+    "blood_unit",
+    "cache_revision",
+    "campaign",
+    "candidate_evaluation",
+    "capability",
+    "catalogue_entry",
+    "contact",
+    "contact_method",
+    "custody_chain",
+    "custody_event",
+    "donation",
+    "donation_event",
+    "donation_unit",
+    "donor",
+    "donor_review",
+    "institution",
+    "institution_capability",
+    "institution_contact",
+    "login_attempt",
+    "organ_allocation",
+    "organ_candidate",
+    "organ_custody_event",
+    "organ_donor",
+    "organ_evaluation",
+    "organ_offer",
+    "organ_recipient",
+    "organ_review",
+    "parameter_version",
+    "party",
+    "ranking_run",
+    "recipient",
+    "regional_route",
+    "request_event",
+    "request_hold",
+    "resource",
+    "resource_review",
+    "role",
+    "service_decisions",
+    "shipment",
+    "shipment_transition",
+    "site",
+    "site_schedule",
+    "storage_location",
+    "stored_file",
+    "transport_telemetry",
+    "user_account"
+  ],
+  "changed_expected": {
+    "audit_event": {
+      "before": {
+        "name": "audit_event",
+        "rows": 7928,
+        "digest": "0c51fc2cd8a1e98855ae46b74b8aadd0"
+      },
+      "after": {
+        "name": "audit_event",
+        "rows": 8093,
+        "digest": "9caf7dbec429782f366d4dfa558f02ef"
+      }
+    },
+    "notification": {
+      "before": {
+        "name": "notification",
+        "rows": 990,
+        "digest": "1b64a813a42884b00d00794ae256a131"
+      },
+      "after": {
+        "name": "notification",
+        "rows": 994,
+        "digest": "5481f24d0e19d18a494e2014d033d055"
+      }
+    },
+    "schema_migration": {
+      "before": {
+        "name": "schema_migration",
+        "rows": 6,
+        "digest": "91149b45db924041f9c142e8f65f5647"
+      },
+      "after": {
+        "name": "schema_migration",
+        "rows": 7,
+        "digest": "cc43d99ee64b29213bd3cd5bfde5bc8a"
+      }
+    },
+    "service_activity_events": {
+      "before": {
+        "name": "service_activity_events",
+        "rows": 7928,
+        "digest": "3dde5632984c028fb17be0b76e36b04f"
+      },
+      "after": {
+        "name": "service_activity_events",
+        "rows": 8093,
+        "digest": "f7f30b3b487af6feeb803c4e625a1063"
+      }
+    },
+    "service_health_check": {
+      "before": {
+        "name": "service_health_check",
+        "rows": 40706,
+        "digest": "bafc89571dce80cfe08cd9af80b97e7c"
+      },
+      "after": {
+        "name": "service_health_check",
+        "rows": 42510,
+        "digest": "2f42b302ba1032223cd12661659fd8e1"
+      }
+    },
+    "service_idempotency": {
+      "before": {
+        "name": "service_idempotency",
+        "rows": 2018,
+        "digest": "a0bb973dec542ed288f83cb2c4c35ede"
+      },
+      "after": {
+        "name": "service_idempotency",
+        "rows": 2030,
+        "digest": "be957896a918e2963c721316c5ad89d7"
+      }
+    },
+    "service_inbox": {
+      "before": {
+        "name": "service_inbox",
+        "rows": 9014,
+        "digest": "07b70e48c6c5a1ec04d2bb9a975ae811"
+      },
+      "after": {
+        "name": "service_inbox",
+        "rows": 9183,
+        "digest": "758e5aa1489293a681e60cbe2d37a6f3"
+      }
+    },
+    "service_outbox": {
+      "before": {
+        "name": "service_outbox",
+        "rows": 17420,
+        "digest": "45417a7a1bf6d6e5c67a730c08f49ebf"
+      },
+      "after": {
+        "name": "service_outbox",
+        "rows": 17754,
+        "digest": "69fa36aba95a24f8b343e765af27a222"
+      }
+    },
+    "service_schema_version": {
+      "before": {
+        "name": "service_schema_version",
+        "rows": 33,
+        "digest": "70988128aa10d151998125c891b0fa80"
+      },
+      "after": {
+        "name": "service_schema_version",
+        "rows": 34,
+        "digest": "f40e6de181799f4a491787f0d0c69656"
+      }
+    },
+    "service_worker_health": {
+      "before": {
+        "name": "service_worker_health",
+        "rows": 11,
+        "digest": "558e4e10ffe785b5239fc079d6e90840"
+      },
+      "after": {
+        "name": "service_worker_health",
+        "rows": 11,
+        "digest": "fd5fdc1eedbda2d3a6c96e7a105e1a8b"
+      }
+    },
+    "web_runtime.session_revocations": {
+      "before": {
+        "name": "web_runtime.session_revocations",
+        "rows": 41,
+        "digest": "be15b82f8200f50e8f9c0ec5567e7c9a"
+      },
+      "after": {
+        "name": "web_runtime.session_revocations",
+        "rows": 45,
+        "digest": "63631f1ab06888a1ae56a23d6e33681c"
+      }
+    },
+    "web_session": {
+      "before": {
+        "name": "web_session",
+        "rows": 372,
+        "digest": "59fb6c5412ccf5bf30b3e521416b1928"
+      },
+      "after": {
+        "name": "web_session",
+        "rows": 384,
+        "digest": "d45f60ef78d3fd7ac5437cd234976601"
+      }
+    }
+  },
+  "prior_audit_history_preserved": {
+    "rows": 7928,
+    "digest": "0c51fc2cd8a1e98855ae46b74b8aadd0"
+  },
+  "new_tables": {
+    "audit_findings": {
+      "name": "audit_findings",
+      "rows": 1,
+      "digest": "7d1330cd4afff55ad02cff8ee667895d"
+    },
+    "audit_finding_links": {
+      "name": "audit_finding_links",
+      "rows": 1,
+      "digest": "db9ab377d11ce2643ee7145ee18b046d"
+    },
+    "audit_finding_actions": {
+      "name": "audit_finding_actions",
+      "rows": 4,
+      "digest": "70eb6ae3653a928a5e04bc970514f090"
+    }
+  },
+  "permissions": {
+    "schema": 7,
+    "audit_schema": 3,
+    "history_update": false,
+    "history_delete": false,
+    "links_update": false,
+    "links_delete": false
+  },
+  "containers": [
+    {
+      "name": "redhouse-parcial2-web-1",
+      "status": "Up 27 minutes (healthy)"
+    },
+    {
+      "name": "redhouse-parcial2-monitoreo-b-1",
+      "status": "Up 28 minutes (healthy)"
+    },
+    {
+      "name": "redhouse-parcial2-monitoreo-a-1",
+      "status": "Up 28 minutes (healthy)"
+    },
+    {
+      "name": "redhouse-parcial2-transporte-b-1",
+      "status": "Up 28 minutes (healthy)"
+    },
+    {
+      "name": "redhouse-parcial2-transporte-a-1",
+      "status": "Up 28 minutes (healthy)"
+    },
+    {
+      "name": "redhouse-parcial2-inventario-b-1",
+      "status": "Up 28 minutes (healthy)"
+    },
+    {
+      "name": "redhouse-parcial2-inventario-a-1",
+      "status": "Up 28 minutes (healthy)"
+    },
+    {
+      "name": "redhouse-parcial2-priorizacion-geografia-b-1",
+      "status": "Up 28 minutes (healthy)"
+    },
+    {
+      "name": "redhouse-parcial2-priorizacion-geografia-a-1",
+      "status": "Up 28 minutes (healthy)"
+    },
+    {
+      "name": "redhouse-parcial2-compatibilidad-b-1",
+      "status": "Up 29 minutes (healthy)"
+    },
+    {
+      "name": "redhouse-parcial2-compatibilidad-a-1",
+      "status": "Up 29 minutes (healthy)"
+    },
+    {
+      "name": "redhouse-parcial2-receptores-b-1",
+      "status": "Up 29 minutes (healthy)"
+    },
+    {
+      "name": "redhouse-parcial2-receptores-a-1",
+      "status": "Up 29 minutes (healthy)"
+    },
+    {
+      "name": "redhouse-parcial2-donantes-a-1",
+      "status": "Up 29 minutes (healthy)"
+    },
+    {
+      "name": "redhouse-parcial2-donantes-b-1",
+      "status": "Up 29 minutes (healthy)"
+    },
+    {
+      "name": "redhouse-parcial2-identidad-acceso-a-1",
+      "status": "Up 29 minutes (healthy)"
+    },
+    {
+      "name": "redhouse-parcial2-identidad-acceso-b-1",
+      "status": "Up 29 minutes (healthy)"
+    },
+    {
+      "name": "redhouse-parcial2-custodia-a-1",
+      "status": "Up 30 minutes (healthy)"
+    },
+    {
+      "name": "redhouse-parcial2-custodia-b-1",
+      "status": "Up 30 minutes (healthy)"
+    },
+    {
+      "name": "redhouse-parcial2-alertas-b-1",
+      "status": "Up 30 minutes (healthy)"
+    },
+    {
+      "name": "redhouse-parcial2-alertas-a-1",
+      "status": "Up 30 minutes (healthy)"
+    },
+    {
+      "name": "redhouse-parcial2-auditoria-a-1",
+      "status": "Up 30 minutes (healthy)"
+    },
+    {
+      "name": "redhouse-parcial2-auditoria-b-1",
+      "status": "Up 30 minutes (healthy)"
+    },
+    {
+      "name": "redhouse-parcial2-gateway-1",
+      "status": "Up 27 minutes (healthy)"
+    },
+    {
+      "name": "redhouse-parcial2-redis-1",
+      "status": "Up 10 hours (healthy)"
+    },
+    {
+      "name": "redhouse-parcial2-postgres-1",
+      "status": "Up 10 hours (healthy)"
+    },
+    {
+      "name": "redhouse-parcial2-mongodb-1",
+      "status": "Up 10 hours (healthy)"
+    }
+  ],
+  "health": {
+    "6101": 200,
+    "6102": 200,
+    "6103": 200,
+    "6104": 200,
+    "6105": 200,
+    "6106": 200,
+    "6107": 200,
+    "6108": 200,
+    "6109": 200,
+    "6110": 200,
+    "6111": 200
+  },
+  "systemd": "active",
+  "certificate_timer": "active",
+  "checked_at": "2026-10-22T00:04:35.918253+00:00",
+  "result": "passed"
+}

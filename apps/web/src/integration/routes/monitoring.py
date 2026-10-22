@@ -40,40 +40,6 @@ def alert_ack(identifier):
     )
 
 
-@portal.get("/auditoria")
-def audit():
-    return table(
-        "Bitácora de auditoría",
-        "audit",
-        "auditoria",
-        "/api/v1/events",
-        [("action", "Acción"), ("source", "Origen"), ("created_at", "Centralización")],
-        links=lambda row: url_for("portal.audit_detail", identifier=row["id"]),
-    )
-
-
-@portal.get("/auditoria/<uuid:identifier>")
-def audit_detail(identifier):
-    row = call("auditoria", "/api/v1/events/" + str(identifier))
-    event = row["event"]
-    return detail(
-        "Evento de auditoría",
-        "audit",
-        dict(row, occurred_at=event["occurred_at"]),
-        sections=[
-            (
-                "Trazabilidad",
-                [
-                    {
-                        "correlation_id": event["correlation_id"],
-                        "resource": event["resource_id"],
-                    }
-                ],
-            )
-        ],
-    )
-
-
 @portal.get("/monitoreo")
 def monitor():
     data = call("monitoreo", "/api/v1/status")

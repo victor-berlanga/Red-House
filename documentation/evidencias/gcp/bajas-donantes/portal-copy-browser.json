@@ -1,0 +1,188 @@
+{
+  "startedAt": "2026-10-21T16:57:17.820Z",
+  "origin": "https://34.18.186.116",
+  "pages": [
+    {
+      "user": "medical1",
+      "route": "/donantes/donor",
+      "status": 200
+    },
+    {
+      "user": "medical1",
+      "route": "/donantes/donor/889554e3-8b7c-42a0-8064-f90265a3325f",
+      "status": 200
+    },
+    {
+      "user": "medical1",
+      "route": "/donantes/donor/8e8d854b-5ed8-41e3-b992-62c8a1cd0d95",
+      "status": 200
+    },
+    {
+      "user": "medical1",
+      "route": "/solicitudes",
+      "status": 200
+    },
+    {
+      "user": "medical1",
+      "route": "/solicitudes/6f744d7c-7cd6-4127-9a6f-5e5e73c8f3a9",
+      "status": 200
+    },
+    {
+      "user": "medical1",
+      "route": "/propuestas",
+      "status": 200
+    },
+    {
+      "user": "medical1",
+      "route": "/propuestas/61dea9d3-ede1-4c3a-973e-93667998a652",
+      "status": 200
+    },
+    {
+      "user": "operator1",
+      "route": "/donantes/donor",
+      "status": 200
+    },
+    {
+      "user": "operator1",
+      "route": "/donantes/donor/889554e3-8b7c-42a0-8064-f90265a3325f",
+      "status": 200
+    },
+    {
+      "user": "operator1",
+      "route": "/donaciones",
+      "status": 200
+    },
+    {
+      "user": "operator1",
+      "route": "/donaciones/f0ab6893-1201-4372-91b2-c9ef9a9e5ee9",
+      "status": 200
+    },
+    {
+      "user": "operator1",
+      "route": "/inventario",
+      "status": 200
+    },
+    {
+      "user": "operator1",
+      "route": "/inventario/90d884fb-4ba1-45bb-93ea-c0ecf904f9af",
+      "status": 200
+    },
+    {
+      "user": "operator1",
+      "route": "/traslados",
+      "status": 200
+    },
+    {
+      "user": "operator1",
+      "route": "/traslados/df832952-9954-465a-b272-2ed938f8314b",
+      "status": 200
+    },
+    {
+      "user": "operator1",
+      "route": "/traslados/df832952-9954-465a-b272-2ed938f8314b/archivos",
+      "status": 200
+    },
+    {
+      "user": "coordinator1",
+      "route": "/monitoreo",
+      "status": 200
+    },
+    {
+      "user": "admin1",
+      "route": "/monitoreo",
+      "status": 200
+    },
+    {
+      "user": "admin1",
+      "route": "/administracion/users",
+      "status": 200
+    },
+    {
+      "user": "admin1",
+      "route": "/administracion/usuarios/1be8f4d3-1d2f-4522-8d9b-dbe06a3b2146",
+      "status": 200
+    },
+    {
+      "user": "auditor1",
+      "route": "/monitoreo",
+      "status": 200
+    },
+    {
+      "user": "auditor1",
+      "route": "/auditoria",
+      "status": 200
+    },
+    {
+      "user": "auditor1",
+      "route": "/auditoria/d43530d3-f120-49f5-9cc1-1c25017eaab2",
+      "status": 200
+    },
+    {
+      "user": "donor1",
+      "route": "/donantes/donor",
+      "status": 200
+    },
+    {
+      "user": "donor1",
+      "route": "/donantes/donor/759aa9fe-bdc7-4338-b83e-97a97744a159",
+      "status": 200
+    },
+    {
+      "user": "medical2",
+      "route": "/donantes/donor",
+      "status": 200
+    },
+    {
+      "user": "medical2",
+      "route": "/donantes/donor/82b5053f-3d55-420c-919a-38d9c7365c7d",
+      "status": 200
+    }
+  ],
+  "checks": [
+    {
+      "name": "medical1: papelera accesible con teclado y confirmación clara; Cancelar sin diálogo",
+      "passed": true
+    },
+    {
+      "name": "Expediente inactivo: antecedentes legibles sin modo de borrado ni referencias técnicas",
+      "passed": true
+    },
+    {
+      "name": "Propuesta: explicación operativa sin terminología del algoritmo",
+      "passed": true
+    },
+    {
+      "name": "operator1: conserva permisos y expediente sin detalles técnicos",
+      "passed": true
+    },
+    {
+      "name": "Evidencias: formato y tamaño legibles sin identificadores de almacenamiento",
+      "passed": true
+    },
+    {
+      "name": "coordinator1: disponibilidad visible; diagnóstico según perfil",
+      "passed": true
+    },
+    {
+      "name": "admin1: disponibilidad visible; diagnóstico según perfil",
+      "passed": true
+    },
+    {
+      "name": "auditor1: disponibilidad visible; diagnóstico según perfil",
+      "passed": true
+    },
+    {
+      "name": "donor1: conserva permisos y expediente sin detalles técnicos",
+      "passed": true
+    },
+    {
+      "name": "medical2: papelera accesible con teclado y confirmación clara; Cancelar sin diálogo",
+      "passed": true
+    }
+  ],
+  "errors": [],
+  "dialogs": [],
+  "businessWrites": [],
+  "result": "passed",
+  "completedAt": "2026-10-21T16:59:33.047Z"
+}

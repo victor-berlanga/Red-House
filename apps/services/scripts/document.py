@@ -1,5 +1,6 @@
 """Genera contratos revisables y apuntes TXT por servicio; no lee secretos."""
 
+import argparse
 import importlib
 import json
 import sys
@@ -95,8 +96,16 @@ DESCRIPTIONS = {
 
 
 def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--contracts-only",
+        action="store_true",
+        help="Actualizar contratos sin reescribir documentación editorial.",
+    )
+    args = parser.parse_args()
     notes = ROOT.parents[1] / "stuff" / "presentacion"
-    notes.mkdir(parents=True, exist_ok=True)
+    if not args.contracts_only:
+        notes.mkdir(parents=True, exist_ok=True)
     index = [
         "RED HOUSE — APUNTES PARA PRESENTACIÓN",
         "Fecha: 2026-10-08",
@@ -147,6 +156,8 @@ def main():
                 (contracts / (c["name"] + ".example.xml")).write_text(
                     request_xml(value) + "\n"
                 )
+        if args.contracts_only:
+            continue
         filename = f"{number:02d}-{module}.txt"
         endpoints = "\n".join(
             f"  {c['method']} {c['path']}: {c['summary']}"
@@ -226,10 +237,9 @@ La web integrada tiene pruebas HTTP con dependencias reales y recorridos de nave
         (folder / "run.py").write_text(
             f'from pathlib import Path\nimport sys\n\nsys.path.insert(0, str(Path(__file__).resolve().parents[1]))\nfrom run import main\n\nif __name__ == "__main__":\n    sys.argv.insert(1, "{service}")\n    main()\n'
         )
-    (notes / "00-LEER-PRIMERO.txt").write_text("\n".join(index) + "\n")
-    print(
-        "Contratos, once apuntes TXT e índice generados sin leer configuración privada."
-    )
+    if not args.contracts_only:
+        (notes / "00-LEER-PRIMERO.txt").write_text("\n".join(index) + "\n")
+    print("Contratos generados sin leer configuración privada.")
 
 
 if __name__ == "__main__":

@@ -1,0 +1,1565 @@
+[
+  {
+    "service": "identidad_acceso",
+    "path": "/api/v1/auth/login",
+    "method": "POST",
+    "fields": {
+      "username": {
+        "maxLength": 80,
+        "minLength": 3,
+        "type": "string"
+      },
+      "password": {
+        "maxLength": 128,
+        "minLength": 12,
+        "type": "string"
+      }
+    }
+  },
+  {
+    "service": "identidad_acceso",
+    "path": "/api/v1/auth/refresh",
+    "method": "POST",
+    "fields": {
+      "refresh_token": {
+        "maxLength": 120,
+        "minLength": 60,
+        "type": "string"
+      }
+    }
+  },
+  {
+    "service": "identidad_acceso",
+    "path": "/api/v1/auth/revoke",
+    "method": "POST",
+    "fields": {
+      "refresh_token": {
+        "maxLength": 120,
+        "minLength": 60,
+        "type": "string"
+      }
+    }
+  },
+  {
+    "service": "identidad_acceso",
+    "path": "/api/v1/institutions",
+    "method": "POST",
+    "fields": {
+      "name": {
+        "maxLength": 200,
+        "minLength": 1,
+        "type": "string"
+      }
+    }
+  },
+  {
+    "service": "identidad_acceso",
+    "path": "/api/v1/institutions/<identifier>",
+    "method": "PATCH",
+    "fields": {
+      "human_confirmation": {
+        "const": true,
+        "type": "boolean"
+      },
+      "reason": {
+        "maxLength": 1000,
+        "minLength": 6,
+        "type": "string"
+      },
+      "name": {
+        "maxLength": 200,
+        "minLength": 1,
+        "type": "string"
+      },
+      "version": {
+        "minimum": 1,
+        "type": "integer"
+      }
+    }
+  },
+  {
+    "service": "identidad_acceso",
+    "path": "/api/v1/institutions/<identifier>/administrator",
+    "method": "POST",
+    "fields": {
+      "human_confirmation": {
+        "const": true,
+        "type": "boolean"
+      },
+      "reason": {
+        "maxLength": 1000,
+        "minLength": 6,
+        "type": "string"
+      },
+      "username": {
+        "maxLength": 80,
+        "minLength": 3,
+        "type": "string"
+      },
+      "password": {
+        "maxLength": 128,
+        "minLength": 12,
+        "type": "string"
+      }
+    }
+  },
+  {
+    "service": "identidad_acceso",
+    "path": "/api/v1/users",
+    "method": "POST",
+    "fields": {
+      "username": {
+        "maxLength": 80,
+        "minLength": 3,
+        "type": "string"
+      },
+      "password": {
+        "maxLength": 128,
+        "minLength": 12,
+        "type": "string"
+      },
+      "tenant_id": {
+        "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+        "type": "string"
+      },
+      "role": {
+        "enum": [
+          "ADMIN",
+          "OPERATOR",
+          "MEDICAL",
+          "COORDINATOR",
+          "TRANSPORT",
+          "AUDITOR",
+          "DONOR"
+        ],
+        "type": "string"
+      }
+    }
+  },
+  {
+    "service": "identidad_acceso",
+    "path": "/api/v1/users/<identifier>",
+    "method": "PATCH",
+    "fields": {
+      "active": {
+        "type": "boolean"
+      },
+      "version": {
+        "minimum": 1,
+        "type": "integer"
+      }
+    }
+  },
+  {
+    "service": "identidad_acceso",
+    "path": "/api/v1/catalogues/sites",
+    "method": "POST",
+    "fields": {
+      "name": {
+        "maxLength": 200,
+        "minLength": 1,
+        "type": "string"
+      },
+      "municipality": {
+        "maxLength": 200,
+        "minLength": 1,
+        "type": "string"
+      },
+      "address": {
+        "maxLength": 200,
+        "minLength": 1,
+        "type": "string"
+      }
+    }
+  },
+  {
+    "service": "identidad_acceso",
+    "path": "/api/v1/catalogues/sites/<identifier>",
+    "method": "PATCH",
+    "fields": {
+      "human_confirmation": {
+        "const": true,
+        "type": "boolean"
+      },
+      "reason": {
+        "maxLength": 1000,
+        "minLength": 6,
+        "type": "string"
+      },
+      "name": {
+        "maxLength": 200,
+        "minLength": 1,
+        "type": "string"
+      },
+      "municipality": {
+        "maxLength": 200,
+        "minLength": 1,
+        "type": "string"
+      },
+      "address": {
+        "maxLength": 200,
+        "minLength": 1,
+        "type": "string"
+      },
+      "active": {
+        "type": "boolean"
+      },
+      "version": {
+        "minimum": 1,
+        "type": "integer"
+      }
+    }
+  },
+  {
+    "service": "identidad_acceso",
+    "path": "/api/v1/catalogues/contacts",
+    "method": "POST",
+    "fields": {
+      "name": {
+        "maxLength": 200,
+        "minLength": 1,
+        "type": "string"
+      },
+      "value": {
+        "maxLength": 200,
+        "minLength": 1,
+        "type": "string"
+      }
+    }
+  },
+  {
+    "service": "identidad_acceso",
+    "path": "/api/v1/catalogues/contacts/<identifier>",
+    "method": "PATCH",
+    "fields": {
+      "human_confirmation": {
+        "const": true,
+        "type": "boolean"
+      },
+      "reason": {
+        "maxLength": 1000,
+        "minLength": 6,
+        "type": "string"
+      },
+      "name": {
+        "maxLength": 200,
+        "minLength": 1,
+        "type": "string"
+      },
+      "value": {
+        "maxLength": 200,
+        "minLength": 1,
+        "type": "string"
+      },
+      "active": {
+        "type": "boolean"
+      },
+      "version": {
+        "minimum": 1,
+        "type": "integer"
+      }
+    }
+  },
+  {
+    "service": "identidad_acceso",
+    "path": "/api/v1/catalogues/schedules",
+    "method": "POST",
+    "fields": {
+      "name": {
+        "maxLength": 200,
+        "minLength": 1,
+        "type": "string"
+      },
+      "parent_id": {
+        "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+        "type": "string"
+      },
+      "weekday": {
+        "maximum": 6,
+        "minimum": 0,
+        "type": "integer"
+      },
+      "opens_at": {
+        "pattern": "^[0-2][0-9]:[0-5][0-9]$",
+        "type": "string"
+      },
+      "closes_at": {
+        "pattern": "^[0-2][0-9]:[0-5][0-9]$",
+        "type": "string"
+      }
+    }
+  },
+  {
+    "service": "identidad_acceso",
+    "path": "/api/v1/catalogues/schedules/<identifier>",
+    "method": "PATCH",
+    "fields": {
+      "human_confirmation": {
+        "const": true,
+        "type": "boolean"
+      },
+      "reason": {
+        "maxLength": 1000,
+        "minLength": 6,
+        "type": "string"
+      },
+      "name": {
+        "maxLength": 200,
+        "minLength": 1,
+        "type": "string"
+      },
+      "parent_id": {
+        "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+        "type": "string"
+      },
+      "weekday": {
+        "maximum": 6,
+        "minimum": 0,
+        "type": "integer"
+      },
+      "opens_at": {
+        "pattern": "^[0-2][0-9]:[0-5][0-9]$",
+        "type": "string"
+      },
+      "closes_at": {
+        "pattern": "^[0-2][0-9]:[0-5][0-9]$",
+        "type": "string"
+      },
+      "active": {
+        "type": "boolean"
+      },
+      "version": {
+        "minimum": 1,
+        "type": "integer"
+      }
+    }
+  },
+  {
+    "service": "identidad_acceso",
+    "path": "/api/v1/catalogues/capacities",
+    "method": "POST",
+    "fields": {
+      "name": {
+        "maxLength": 200,
+        "minLength": 1,
+        "type": "string"
+      },
+      "parent_id": {
+        "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+        "type": "string"
+      },
+      "component": {
+        "maxLength": 200,
+        "minLength": 1,
+        "type": "string"
+      },
+      "quantity": {
+        "maximum": 100000,
+        "minimum": 0,
+        "type": "integer"
+      }
+    }
+  },
+  {
+    "service": "identidad_acceso",
+    "path": "/api/v1/catalogues/capacities/<identifier>",
+    "method": "PATCH",
+    "fields": {
+      "human_confirmation": {
+        "const": true,
+        "type": "boolean"
+      },
+      "reason": {
+        "maxLength": 1000,
+        "minLength": 6,
+        "type": "string"
+      },
+      "name": {
+        "maxLength": 200,
+        "minLength": 1,
+        "type": "string"
+      },
+      "parent_id": {
+        "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+        "type": "string"
+      },
+      "component": {
+        "maxLength": 200,
+        "minLength": 1,
+        "type": "string"
+      },
+      "quantity": {
+        "maximum": 100000,
+        "minimum": 0,
+        "type": "integer"
+      },
+      "active": {
+        "type": "boolean"
+      },
+      "version": {
+        "minimum": 1,
+        "type": "integer"
+      }
+    }
+  },
+  {
+    "service": "identidad_acceso",
+    "path": "/api/v1/catalogues/locations",
+    "method": "POST",
+    "fields": {
+      "name": {
+        "maxLength": 200,
+        "minLength": 1,
+        "type": "string"
+      },
+      "parent_id": {
+        "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+        "type": "string"
+      },
+      "description": {
+        "maxLength": 200,
+        "minLength": 1,
+        "type": "string"
+      }
+    }
+  },
+  {
+    "service": "identidad_acceso",
+    "path": "/api/v1/catalogues/locations/<identifier>",
+    "method": "PATCH",
+    "fields": {
+      "human_confirmation": {
+        "const": true,
+        "type": "boolean"
+      },
+      "reason": {
+        "maxLength": 1000,
+        "minLength": 6,
+        "type": "string"
+      },
+      "name": {
+        "maxLength": 200,
+        "minLength": 1,
+        "type": "string"
+      },
+      "parent_id": {
+        "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+        "type": "string"
+      },
+      "description": {
+        "maxLength": 200,
+        "minLength": 1,
+        "type": "string"
+      },
+      "active": {
+        "type": "boolean"
+      },
+      "version": {
+        "minimum": 1,
+        "type": "integer"
+      }
+    }
+  },
+  {
+    "service": "donantes",
+    "path": "/api/v1/donors",
+    "method": "POST",
+    "fields": {
+      "restrictions": {
+        "maxLength": 1000,
+        "minLength": 6,
+        "type": "string"
+      },
+      "background": {
+        "maxLength": 1000,
+        "minLength": 6,
+        "type": "string"
+      },
+      "donation_kind": {
+        "enum": [
+          "VOLUNTARY",
+          "REPLACEMENT"
+        ],
+        "type": "string"
+      },
+      "consent_reference": {
+        "maxLength": 200,
+        "minLength": 1,
+        "type": "string"
+      },
+      "consent_at": {
+        "maxLength": 200,
+        "minLength": 1,
+        "type": "string"
+      },
+      "folio": {
+        "maxLength": 30,
+        "minLength": 6,
+        "pattern": "^[A-Za-z0-9_-]+$",
+        "type": "string"
+      },
+      "display_name": {
+        "maxLength": 200,
+        "minLength": 1,
+        "type": "string"
+      },
+      "blood_group": {
+        "enum": [
+          "O-",
+          "O+",
+          "A-",
+          "A+",
+          "B-",
+          "B+",
+          "AB-",
+          "AB+"
+        ],
+        "type": "string"
+      },
+      "consent": {
+        "const": true,
+        "type": "boolean"
+      }
+    }
+  },
+  {
+    "service": "donantes",
+    "path": "/api/v1/donors/<identifier>/reviews",
+    "method": "POST",
+    "fields": {
+      "human_confirmation": {
+        "const": true,
+        "type": "boolean"
+      },
+      "reason": {
+        "maxLength": 1000,
+        "minLength": 6,
+        "type": "string"
+      },
+      "decision": {
+        "enum": [
+          "ELIGIBLE",
+          "DEFERRED"
+        ],
+        "type": "string"
+      },
+      "version": {
+        "minimum": 1,
+        "type": "integer"
+      }
+    }
+  },
+  {
+    "service": "donantes",
+    "path": "/api/v1/campaigns",
+    "method": "POST",
+    "fields": {
+      "title": {
+        "maxLength": 200,
+        "minLength": 1,
+        "type": "string"
+      },
+      "starts_at": {
+        "maxLength": 200,
+        "minLength": 1,
+        "type": "string"
+      },
+      "ends_at": {
+        "maxLength": 200,
+        "minLength": 1,
+        "type": "string"
+      },
+      "capacity": {
+        "maximum": 10000,
+        "minimum": 1,
+        "type": "integer"
+      }
+    }
+  },
+  {
+    "service": "donantes",
+    "path": "/api/v1/appointments",
+    "method": "POST",
+    "fields": {
+      "donor_id": {
+        "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+        "type": "string"
+      },
+      "campaign_id": {
+        "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+        "type": "string"
+      }
+    }
+  },
+  {
+    "service": "donantes",
+    "path": "/api/v1/donations",
+    "method": "POST",
+    "fields": {
+      "human_confirmation": {
+        "const": true,
+        "type": "boolean"
+      },
+      "reason": {
+        "maxLength": 1000,
+        "minLength": 6,
+        "type": "string"
+      },
+      "donor_id": {
+        "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+        "type": "string"
+      },
+      "kind": {
+        "enum": [
+          "BLOOD",
+          "ORGAN"
+        ],
+        "type": "string"
+      },
+      "component": {
+        "maxLength": 200,
+        "minLength": 1,
+        "type": "string"
+      },
+      "collected_at": {
+        "maxLength": 200,
+        "minLength": 1,
+        "type": "string"
+      }
+    }
+  },
+  {
+    "service": "donantes",
+    "path": "/api/v1/donations/<identifier>/steps",
+    "method": "POST",
+    "fields": {
+      "human_confirmation": {
+        "const": true,
+        "type": "boolean"
+      },
+      "reason": {
+        "maxLength": 1000,
+        "minLength": 6,
+        "type": "string"
+      },
+      "state": {
+        "enum": [
+          "PROCESSED",
+          "REJECTED"
+        ],
+        "type": "string"
+      },
+      "version": {
+        "minimum": 1,
+        "type": "integer"
+      }
+    }
+  },
+  {
+    "service": "donantes",
+    "path": "/api/v1/donors/<identifier>",
+    "method": "PATCH",
+    "fields": {
+      "human_confirmation": {
+        "const": true,
+        "type": "boolean"
+      },
+      "reason": {
+        "maxLength": 1000,
+        "minLength": 6,
+        "type": "string"
+      },
+      "restrictions": {
+        "maxLength": 1000,
+        "minLength": 6,
+        "type": "string"
+      },
+      "background": {
+        "maxLength": 1000,
+        "minLength": 6,
+        "type": "string"
+      },
+      "donation_kind": {
+        "enum": [
+          "VOLUNTARY",
+          "REPLACEMENT"
+        ],
+        "type": "string"
+      },
+      "consent_reference": {
+        "maxLength": 200,
+        "minLength": 1,
+        "type": "string"
+      },
+      "consent_at": {
+        "maxLength": 200,
+        "minLength": 1,
+        "type": "string"
+      },
+      "folio": {
+        "maxLength": 30,
+        "minLength": 6,
+        "pattern": "^[A-Za-z0-9_-]+$",
+        "type": "string"
+      },
+      "display_name": {
+        "maxLength": 200,
+        "minLength": 1,
+        "type": "string"
+      },
+      "blood_group": {
+        "enum": [
+          "O-",
+          "O+",
+          "A-",
+          "A+",
+          "B-",
+          "B+",
+          "AB-",
+          "AB+"
+        ],
+        "type": "string"
+      },
+      "consent": {
+        "const": true,
+        "type": "boolean"
+      },
+      "version": {
+        "minimum": 1,
+        "type": "integer"
+      }
+    }
+  },
+  {
+    "service": "donantes",
+    "path": "/api/v1/donations/<identifier>",
+    "method": "PATCH",
+    "fields": {
+      "human_confirmation": {
+        "const": true,
+        "type": "boolean"
+      },
+      "reason": {
+        "maxLength": 1000,
+        "minLength": 6,
+        "type": "string"
+      },
+      "collected_at": {
+        "maxLength": 200,
+        "minLength": 1,
+        "type": "string"
+      },
+      "version": {
+        "minimum": 1,
+        "type": "integer"
+      }
+    }
+  },
+  {
+    "service": "donantes",
+    "path": "/api/v1/campaigns/<identifier>",
+    "method": "PATCH",
+    "fields": {
+      "human_confirmation": {
+        "const": true,
+        "type": "boolean"
+      },
+      "reason": {
+        "maxLength": 1000,
+        "minLength": 6,
+        "type": "string"
+      },
+      "title": {
+        "maxLength": 200,
+        "minLength": 1,
+        "type": "string"
+      },
+      "starts_at": {
+        "maxLength": 200,
+        "minLength": 1,
+        "type": "string"
+      },
+      "ends_at": {
+        "maxLength": 200,
+        "minLength": 1,
+        "type": "string"
+      },
+      "capacity": {
+        "maximum": 10000,
+        "minimum": 1,
+        "type": "integer"
+      },
+      "version": {
+        "minimum": 1,
+        "type": "integer"
+      }
+    }
+  },
+  {
+    "service": "donantes",
+    "path": "/api/v1/donors/<identifier>/withdraw",
+    "method": "POST",
+    "fields": {
+      "human_confirmation": {
+        "const": true,
+        "type": "boolean"
+      },
+      "reason": {
+        "maxLength": 1000,
+        "minLength": 6,
+        "type": "string"
+      },
+      "version": {
+        "minimum": 1,
+        "type": "integer"
+      }
+    }
+  },
+  {
+    "service": "receptores",
+    "path": "/api/v1/recipients",
+    "method": "POST",
+    "fields": {
+      "restrictions": {
+        "maxLength": 1000,
+        "minLength": 6,
+        "type": "string"
+      },
+      "requirement": {
+        "maxLength": 1000,
+        "minLength": 6,
+        "type": "string"
+      },
+      "status": {
+        "enum": [
+          "ACTIVE",
+          "INACTIVE"
+        ],
+        "type": "string"
+      },
+      "folio": {
+        "maxLength": 30,
+        "minLength": 6,
+        "pattern": "^[A-Za-z0-9_-]+$",
+        "type": "string"
+      },
+      "display_name": {
+        "maxLength": 200,
+        "minLength": 1,
+        "type": "string"
+      },
+      "kind": {
+        "enum": [
+          "BLOOD",
+          "ORGAN"
+        ],
+        "type": "string"
+      },
+      "blood_group": {
+        "enum": [
+          "O-",
+          "O+",
+          "A-",
+          "A+",
+          "B-",
+          "B+",
+          "AB-",
+          "AB+"
+        ],
+        "type": "string"
+      },
+      "organ_type": {
+        "enum": [
+          "KIDNEY",
+          "LIVER",
+          "HEART"
+        ],
+        "type": "string"
+      },
+      "studies": {
+        "maxLength": 1000,
+        "minLength": 6,
+        "type": "string"
+      }
+    }
+  },
+  {
+    "service": "receptores",
+    "path": "/api/v1/requests",
+    "method": "POST",
+    "fields": {
+      "recipient_id": {
+        "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+        "type": "string"
+      },
+      "component": {
+        "maxLength": 200,
+        "minLength": 1,
+        "type": "string"
+      },
+      "quantity": {
+        "maximum": 100,
+        "minimum": 1,
+        "type": "integer"
+      },
+      "urgency": {
+        "maximum": 3,
+        "minimum": 1,
+        "type": "integer"
+      }
+    }
+  },
+  {
+    "service": "receptores",
+    "path": "/api/v1/requests/<identifier>/cancel",
+    "method": "POST",
+    "fields": {
+      "human_confirmation": {
+        "const": true,
+        "type": "boolean"
+      },
+      "reason": {
+        "maxLength": 1000,
+        "minLength": 6,
+        "type": "string"
+      },
+      "version": {
+        "minimum": 1,
+        "type": "integer"
+      }
+    }
+  },
+  {
+    "service": "receptores",
+    "path": "/api/v1/recipients/<identifier>",
+    "method": "PATCH",
+    "fields": {
+      "human_confirmation": {
+        "const": true,
+        "type": "boolean"
+      },
+      "reason": {
+        "maxLength": 1000,
+        "minLength": 6,
+        "type": "string"
+      },
+      "restrictions": {
+        "maxLength": 1000,
+        "minLength": 6,
+        "type": "string"
+      },
+      "requirement": {
+        "maxLength": 1000,
+        "minLength": 6,
+        "type": "string"
+      },
+      "status": {
+        "enum": [
+          "ACTIVE",
+          "INACTIVE"
+        ],
+        "type": "string"
+      },
+      "folio": {
+        "maxLength": 30,
+        "minLength": 6,
+        "pattern": "^[A-Za-z0-9_-]+$",
+        "type": "string"
+      },
+      "display_name": {
+        "maxLength": 200,
+        "minLength": 1,
+        "type": "string"
+      },
+      "kind": {
+        "enum": [
+          "BLOOD",
+          "ORGAN"
+        ],
+        "type": "string"
+      },
+      "blood_group": {
+        "enum": [
+          "O-",
+          "O+",
+          "A-",
+          "A+",
+          "B-",
+          "B+",
+          "AB-",
+          "AB+"
+        ],
+        "type": "string"
+      },
+      "organ_type": {
+        "enum": [
+          "KIDNEY",
+          "LIVER",
+          "HEART"
+        ],
+        "type": "string"
+      },
+      "studies": {
+        "maxLength": 1000,
+        "minLength": 6,
+        "type": "string"
+      },
+      "version": {
+        "minimum": 1,
+        "type": "integer"
+      }
+    }
+  },
+  {
+    "service": "receptores",
+    "path": "/api/v1/requests/<identifier>",
+    "method": "PATCH",
+    "fields": {
+      "human_confirmation": {
+        "const": true,
+        "type": "boolean"
+      },
+      "reason": {
+        "maxLength": 1000,
+        "minLength": 6,
+        "type": "string"
+      },
+      "component": {
+        "maxLength": 200,
+        "minLength": 1,
+        "type": "string"
+      },
+      "quantity": {
+        "maximum": 100,
+        "minimum": 1,
+        "type": "integer"
+      },
+      "urgency": {
+        "maximum": 3,
+        "minimum": 1,
+        "type": "integer"
+      },
+      "version": {
+        "minimum": 1,
+        "type": "integer"
+      }
+    }
+  },
+  {
+    "service": "inventario",
+    "path": "/api/v1/resources",
+    "method": "POST",
+    "fields": {
+      "collected_at": {
+        "maxLength": 200,
+        "minLength": 1,
+        "type": "string"
+      },
+      "location_id": {
+        "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+        "type": "string"
+      },
+      "folio": {
+        "maxLength": 30,
+        "minLength": 6,
+        "pattern": "^[A-Za-z0-9_-]+$",
+        "type": "string"
+      },
+      "kind": {
+        "enum": [
+          "BLOOD",
+          "ORGAN"
+        ],
+        "type": "string"
+      },
+      "component": {
+        "maxLength": 200,
+        "minLength": 1,
+        "type": "string"
+      },
+      "blood_group": {
+        "enum": [
+          "O-",
+          "O+",
+          "A-",
+          "A+",
+          "B-",
+          "B+",
+          "AB-",
+          "AB+"
+        ],
+        "type": "string"
+      },
+      "expires_at": {
+        "maxLength": 200,
+        "minLength": 1,
+        "type": "string"
+      },
+      "donation_id": {
+        "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+        "type": "string"
+      }
+    }
+  },
+  {
+    "service": "inventario",
+    "path": "/api/v1/resources/<identifier>/release",
+    "method": "POST",
+    "fields": {
+      "human_confirmation": {
+        "const": true,
+        "type": "boolean"
+      },
+      "reason": {
+        "maxLength": 1000,
+        "minLength": 6,
+        "type": "string"
+      },
+      "version": {
+        "minimum": 1,
+        "type": "integer"
+      }
+    }
+  },
+  {
+    "service": "inventario",
+    "path": "/api/v1/reservations",
+    "method": "POST",
+    "fields": {
+      "human_confirmation": {
+        "const": true,
+        "type": "boolean"
+      },
+      "reason": {
+        "maxLength": 1000,
+        "minLength": 6,
+        "type": "string"
+      },
+      "evaluation_id": {
+        "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+        "type": "string"
+      },
+      "resource_id": {
+        "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+        "type": "string"
+      }
+    }
+  },
+  {
+    "service": "inventario",
+    "path": "/api/v1/reservations/<identifier>/cancel",
+    "method": "POST",
+    "fields": {
+      "human_confirmation": {
+        "const": true,
+        "type": "boolean"
+      },
+      "reason": {
+        "maxLength": 1000,
+        "minLength": 6,
+        "type": "string"
+      }
+    }
+  },
+  {
+    "service": "inventario",
+    "path": "/api/v1/resources/<identifier>",
+    "method": "PATCH",
+    "fields": {
+      "human_confirmation": {
+        "const": true,
+        "type": "boolean"
+      },
+      "reason": {
+        "maxLength": 1000,
+        "minLength": 6,
+        "type": "string"
+      },
+      "collected_at": {
+        "maxLength": 200,
+        "minLength": 1,
+        "type": "string"
+      },
+      "location_id": {
+        "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+        "type": "string"
+      },
+      "folio": {
+        "maxLength": 30,
+        "minLength": 6,
+        "pattern": "^[A-Za-z0-9_-]+$",
+        "type": "string"
+      },
+      "kind": {
+        "enum": [
+          "BLOOD",
+          "ORGAN"
+        ],
+        "type": "string"
+      },
+      "component": {
+        "maxLength": 200,
+        "minLength": 1,
+        "type": "string"
+      },
+      "blood_group": {
+        "enum": [
+          "O-",
+          "O+",
+          "A-",
+          "A+",
+          "B-",
+          "B+",
+          "AB-",
+          "AB+"
+        ],
+        "type": "string"
+      },
+      "expires_at": {
+        "maxLength": 200,
+        "minLength": 1,
+        "type": "string"
+      },
+      "donation_id": {
+        "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+        "type": "string"
+      },
+      "version": {
+        "minimum": 1,
+        "type": "integer"
+      }
+    }
+  },
+  {
+    "service": "inventario",
+    "path": "/api/v1/resources/<identifier>/withdraw",
+    "method": "POST",
+    "fields": {
+      "human_confirmation": {
+        "const": true,
+        "type": "boolean"
+      },
+      "reason": {
+        "maxLength": 1000,
+        "minLength": 6,
+        "type": "string"
+      },
+      "version": {
+        "minimum": 1,
+        "type": "integer"
+      }
+    }
+  },
+  {
+    "service": "compatibilidad",
+    "path": "/api/v1/evaluations",
+    "method": "POST",
+    "fields": {
+      "request_id": {
+        "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+        "type": "string"
+      }
+    }
+  },
+  {
+    "service": "compatibilidad",
+    "path": "/api/v1/evaluations/<identifier>/reviews",
+    "method": "POST",
+    "fields": {
+      "human_confirmation": {
+        "const": true,
+        "type": "boolean"
+      },
+      "reason": {
+        "maxLength": 1000,
+        "minLength": 6,
+        "type": "string"
+      },
+      "resource_id": {
+        "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+        "type": "string"
+      },
+      "decision": {
+        "enum": [
+          "FAVORABLE",
+          "UNFAVORABLE"
+        ],
+        "type": "string"
+      }
+    }
+  },
+  {
+    "service": "priorizacion_geografia",
+    "path": "/api/v1/routes",
+    "method": "POST",
+    "fields": {
+      "origin_id": {
+        "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+        "type": "string"
+      },
+      "destination_id": {
+        "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+        "type": "string"
+      },
+      "distance_km": {
+        "maximum": 20000,
+        "minimum": 0,
+        "type": "number"
+      },
+      "travel_minutes": {
+        "maximum": 10080,
+        "minimum": 0,
+        "type": "integer"
+      },
+      "source": {
+        "maxLength": 1000,
+        "minLength": 6,
+        "type": "string"
+      }
+    }
+  },
+  {
+    "service": "priorizacion_geografia",
+    "path": "/api/v1/routes/<identifier>",
+    "method": "PATCH",
+    "fields": {
+      "distance_km": {
+        "maximum": 20000,
+        "minimum": 0,
+        "type": "number"
+      },
+      "travel_minutes": {
+        "maximum": 10080,
+        "minimum": 0,
+        "type": "integer"
+      },
+      "source": {
+        "maxLength": 1000,
+        "minLength": 6,
+        "type": "string"
+      },
+      "version": {
+        "minimum": 1,
+        "type": "integer"
+      }
+    }
+  },
+  {
+    "service": "priorizacion_geografia",
+    "path": "/api/v1/rankings",
+    "method": "POST",
+    "fields": {
+      "evaluation_id": {
+        "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+        "type": "string"
+      }
+    }
+  },
+  {
+    "service": "priorizacion_geografia",
+    "path": "/api/v1/allocation-proposals",
+    "method": "POST",
+    "fields": {
+      "evaluation_ids": {
+        "maxItems": 100,
+        "minItems": 1,
+        "type": "array"
+      }
+    }
+  },
+  {
+    "service": "transporte",
+    "path": "/api/v1/shipments",
+    "method": "POST",
+    "fields": {
+      "human_confirmation": {
+        "const": true,
+        "type": "boolean"
+      },
+      "reason": {
+        "maxLength": 1000,
+        "minLength": 6,
+        "type": "string"
+      },
+      "reservation_id": {
+        "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+        "type": "string"
+      },
+      "transport_user_id": {
+        "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+        "type": "string"
+      },
+      "departure_at": {
+        "maxLength": 200,
+        "minLength": 1,
+        "type": "string"
+      },
+      "eta": {
+        "maxLength": 200,
+        "minLength": 1,
+        "type": "string"
+      }
+    }
+  },
+  {
+    "service": "transporte",
+    "path": "/api/v1/shipments/<identifier>/transitions",
+    "method": "POST",
+    "fields": {
+      "human_confirmation": {
+        "const": true,
+        "type": "boolean"
+      },
+      "reason": {
+        "maxLength": 1000,
+        "minLength": 6,
+        "type": "string"
+      },
+      "state": {
+        "enum": [
+          "PREPARED",
+          "COLLECTED",
+          "IN_TRANSIT",
+          "DELIVERED",
+          "ACCEPTED",
+          "INCIDENT",
+          "CANCELLED"
+        ],
+        "type": "string"
+      },
+      "version": {
+        "minimum": 1,
+        "type": "integer"
+      },
+      "evidence": {
+        "type": "object"
+      },
+      "destination_location_id": {
+        "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+        "type": "string"
+      }
+    }
+  },
+  {
+    "service": "transporte",
+    "path": "/api/v1/shipments/<identifier>/telemetry",
+    "method": "POST",
+    "fields": {
+      "latitude": {
+        "maximum": 90,
+        "minimum": -90,
+        "type": "number"
+      },
+      "longitude": {
+        "maximum": 180,
+        "minimum": -180,
+        "type": "number"
+      },
+      "captured_at": {
+        "maxLength": 200,
+        "minLength": 1,
+        "type": "string"
+      }
+    }
+  },
+  {
+    "service": "transporte",
+    "path": "/api/v1/shipments/<identifier>/files",
+    "method": "POST",
+    "fields": {
+      "mime_type": {
+        "enum": [
+          "image/jpeg",
+          "image/png",
+          "application/pdf"
+        ],
+        "type": "string"
+      },
+      "size": {
+        "maximum": 10485760,
+        "minimum": 1,
+        "type": "integer"
+      },
+      "sha256": {
+        "pattern": "^[0-9a-f]{64}$",
+        "type": "string"
+      }
+    }
+  },
+  {
+    "service": "auditoria",
+    "path": "/api/v1/findings",
+    "method": "POST",
+    "fields": {
+      "description": {
+        "maxLength": 1000,
+        "minLength": 6,
+        "type": "string"
+      },
+      "priority": {
+        "enum": [
+          "LOW",
+          "MEDIUM",
+          "HIGH",
+          "CRITICAL"
+        ],
+        "type": "string"
+      },
+      "assignee_id": {
+        "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+        "type": "string"
+      },
+      "event_ids": {
+        "maxItems": 20,
+        "type": "array"
+      },
+      "resource_id": {
+        "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+        "type": "string"
+      },
+      "evidence": {
+        "maxLength": 1000,
+        "minLength": 6,
+        "type": "string"
+      }
+    }
+  },
+  {
+    "service": "auditoria",
+    "path": "/api/v1/findings/<identifier>/actions",
+    "method": "POST",
+    "fields": {
+      "human_confirmation": {
+        "const": true,
+        "type": "boolean"
+      },
+      "reason": {
+        "maxLength": 1000,
+        "minLength": 6,
+        "type": "string"
+      },
+      "version": {
+        "minimum": 1,
+        "type": "integer"
+      },
+      "status": {
+        "enum": [
+          "IN_PROGRESS",
+          "PENDING_VERIFICATION",
+          "CLOSED"
+        ],
+        "type": "string"
+      },
+      "corrective_action": {
+        "maxLength": 1000,
+        "minLength": 6,
+        "type": "string"
+      },
+      "evidence": {
+        "maxLength": 1000,
+        "minLength": 6,
+        "type": "string"
+      }
+    }
+  }
+]

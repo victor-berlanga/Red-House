@@ -2,16 +2,16 @@
 
 import json
 import math
-import re
 from datetime import date, datetime
 from decimal import Decimal
 from uuid import UUID
 
-from flask import Response, request
+from flask import Response, request, g
 from lxml import etree as E
 from pydantic import ValidationError
 
 from .errors import APIError
+from .validation import details_for, invalid
 
 XS = "http://www.w3.org/2001/XMLSchema"
 XSI = "http://www.w3.org/2001/XMLSchema-instance"
@@ -139,12 +139,13 @@ def _decode(element, schema, root):
     if typ == "array":
         return [_decode(child, schema["items"], root) for child in element]
     text = element.text or ""
-    if typ == "integer":
-        return int(text)
-    if typ == "number":
-        return float(text)
+    if typ in ("integer", "number"):
+        try:
+            return int(text) if typ == "integer" else float(text)
+        except ValueError:
+            return text  # Pydantic conserva el campo y comunica el tipo esperado.
     if typ == "boolean":
-        return text in ("true", "1")
+        return text in ("true", "1") if text in ("true", "false", "0", "1") else text
     return text
 
 
@@ -166,7 +167,42 @@ def parse(model):
                 raise ValueError()
             if tree.tag != "request" or len(list(tree.iter())) > 2000:
                 raise ValueError()
-            E.XMLSchema(E.fromstring(request_xsd(model))).assertValid(tree)
+            # El XSD sigue siendo obligatorio. Sus mensajes internos pueden incluir
+            # datos del cuerpo: devolver únicamente campos conocidos y causas seguras.
+            validator = E.XMLSchema(E.fromstring(request_xsd(model)))
+            if not validator.validate(tree):
+                try:
+                    decoded = _decode(
+                        tree, model.model_json_schema(), model.model_json_schema()
+                    )
+                    model.model_validate(decoded)
+                except ValidationError as exc:
+                    raise APIError(
+                        "validation",
+                        "Revisa los datos señalados.",
+                        422,
+                        details_for(exc),
+                    ) from None
+                except (KeyError, ValueError, TypeError):
+                    pass
+                fields = model.model_fields
+                details = []
+                for entry in validator.error_log:
+                    name = (entry.path or "").rsplit("/", 1)[-1].split("[")[0]
+                    if name in fields:
+                        details.append(
+                            {
+                                "field": name,
+                                "code": "xml_schema",
+                                "message": "Revisa el formato y los límites indicados para este campo.",
+                            }
+                        )
+                raise APIError(
+                    "invalid_body",
+                    "Revisa el formato de los datos enviados.",
+                    400,
+                    details,
+                )
             obj = _decode(tree, model.model_json_schema(), model.model_json_schema())
         else:
             raise APIError("unsupported_media_type", "Usa JSON o XML.", 415)
@@ -174,35 +210,38 @@ def parse(model):
             raise ValueError()
 
         # Evita que Literal[True] acepte el entero 1 y números no finitos.
-        def strict(value, schema, root):
+        def strict(value, schema, root, path=""):
             schema = _resolve(schema, root)
             typ = schema.get("type")
             if value is None:
                 return
             if typ == "boolean" and type(value) is not bool:
-                raise ValueError()
+                raise invalid(
+                    "Selecciona o confirma una opción válida.", path, code="bool_type"
+                )
             if typ == "number" and (
                 type(value) not in (int, float) or not math.isfinite(value)
             ):
-                raise ValueError()
+                raise invalid("Escribe un número finito.", path, code="finite_number")
             if typ == "object" and isinstance(value, dict):
                 for k, v in value.items():
                     if k in schema.get("properties", {}):
-                        strict(v, schema["properties"][k], root)
+                        strict(
+                            v, schema["properties"][k], root, f"{path}.{k}".lstrip(".")
+                        )
             if typ == "array" and isinstance(value, list):
-                for v in value:
-                    strict(v, schema["items"], root)
+                for index, v in enumerate(value):
+                    strict(v, schema["items"], root, f"{path}.{index}")
 
         schema = model.model_json_schema()
         strict(obj, schema, schema)
-        return model.model_validate(obj).model_dump()
+        validated = model.model_validate(obj).model_dump()
+        if isinstance(validated.get("reason"), str):
+            g.validated_reason = validated["reason"]
+        return validated
     except ValidationError as exc:
-        details = [
-            {"field": ".".join(map(str, e["loc"])), "code": e["type"]}
-            for e in exc.errors()
-        ]
         raise APIError(
-            "validation", "La solicitud no cumple el contrato.", 422, details
+            "validation", "Revisa los datos señalados.", 422, details_for(exc)
         ) from None
     except (
         ValueError,

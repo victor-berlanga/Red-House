@@ -204,6 +204,21 @@ CREATE FUNCTION access_alertas.insert_worker_health() RETURNS trigger
 
 
 --
+-- Name: event_time(text); Type: FUNCTION; Schema: access_auditoria; Owner: -
+--
+
+CREATE FUNCTION access_auditoria.event_time(value text) RETURNS timestamp with time zone
+    LANGUAGE plpgsql IMMUTABLE STRICT
+    SET search_path TO 'pg_catalog'
+    AS $_$
+BEGIN
+ IF value !~ '^[0-9]{4}-[0-9]{2}-[0-9]{2}T.*(Z|[+-][0-9]{2}:[0-9]{2})$' THEN RETURN NULL; END IF;
+ RETURN value::timestamptz;
+EXCEPTION WHEN invalid_datetime_format OR datetime_field_overflow THEN RETURN NULL;
+END $_$;
+
+
+--
 -- Name: insert_activity_events(); Type: FUNCTION; Schema: access_auditoria; Owner: -
 --
 
@@ -1523,6 +1538,122 @@ CREATE VIEW access_auditoria.audit_events AS
     audit_event.event,
     audit_event.occurred_at AS created_at
    FROM red_house.audit_event;
+
+
+--
+-- Name: audit_finding_actions; Type: TABLE; Schema: red_house; Owner: -
+--
+
+CREATE TABLE red_house.audit_finding_actions (
+    id uuid NOT NULL,
+    finding_id uuid NOT NULL,
+    actor_id uuid NOT NULL,
+    actor_name text NOT NULL,
+    actor_role text NOT NULL,
+    previous_status text,
+    status text NOT NULL,
+    reason text NOT NULL,
+    corrective_action text,
+    evidence text,
+    correlation_id uuid NOT NULL,
+    created_at timestamp with time zone DEFAULT now() NOT NULL,
+    CONSTRAINT api_audit_finding_actions_corrective_action_check CHECK (((corrective_action IS NULL) OR ((length(corrective_action) >= 6) AND (length(corrective_action) <= 1000)))),
+    CONSTRAINT api_audit_finding_actions_evidence_check CHECK (((evidence IS NULL) OR ((length(evidence) >= 6) AND (length(evidence) <= 1000)))),
+    CONSTRAINT api_audit_finding_actions_reason_check CHECK (((length(reason) >= 6) AND (length(reason) <= 1000)))
+);
+
+
+--
+-- Name: audit_finding_actions; Type: VIEW; Schema: access_auditoria; Owner: -
+--
+
+CREATE VIEW access_auditoria.audit_finding_actions AS
+ SELECT audit_finding_actions.id,
+    audit_finding_actions.finding_id,
+    audit_finding_actions.actor_id,
+    audit_finding_actions.actor_name,
+    audit_finding_actions.actor_role,
+    audit_finding_actions.previous_status,
+    audit_finding_actions.status,
+    audit_finding_actions.reason,
+    audit_finding_actions.corrective_action,
+    audit_finding_actions.evidence,
+    audit_finding_actions.correlation_id,
+    audit_finding_actions.created_at
+   FROM red_house.audit_finding_actions;
+
+
+--
+-- Name: audit_finding_links; Type: TABLE; Schema: red_house; Owner: -
+--
+
+CREATE TABLE red_house.audit_finding_links (
+    id uuid NOT NULL,
+    finding_id uuid NOT NULL,
+    event_id uuid NOT NULL
+);
+
+
+--
+-- Name: audit_finding_links; Type: VIEW; Schema: access_auditoria; Owner: -
+--
+
+CREATE VIEW access_auditoria.audit_finding_links AS
+ SELECT audit_finding_links.id,
+    audit_finding_links.finding_id,
+    audit_finding_links.event_id
+   FROM red_house.audit_finding_links;
+
+
+--
+-- Name: audit_findings; Type: TABLE; Schema: red_house; Owner: -
+--
+
+CREATE TABLE red_house.audit_findings (
+    id uuid NOT NULL,
+    tenant_id uuid NOT NULL,
+    region_id uuid NOT NULL,
+    description text NOT NULL,
+    priority text NOT NULL,
+    assignee_id uuid NOT NULL,
+    assignee_tenant_id uuid NOT NULL,
+    assignee_name text NOT NULL,
+    created_by uuid NOT NULL,
+    resource_id uuid,
+    evidence text,
+    status text DEFAULT 'OPEN'::text NOT NULL,
+    version integer DEFAULT 1 NOT NULL,
+    created_at timestamp with time zone DEFAULT now() NOT NULL,
+    updated_at timestamp with time zone DEFAULT now() NOT NULL,
+    CONSTRAINT api_audit_findings_description_check CHECK (((length(description) >= 6) AND (length(description) <= 1000))),
+    CONSTRAINT api_audit_findings_evidence_check CHECK (((evidence IS NULL) OR ((length(evidence) >= 6) AND (length(evidence) <= 1000)))),
+    CONSTRAINT api_audit_findings_priority_check CHECK ((priority = ANY (ARRAY['LOW'::text, 'MEDIUM'::text, 'HIGH'::text, 'CRITICAL'::text]))),
+    CONSTRAINT api_audit_findings_status_check CHECK ((status = ANY (ARRAY['OPEN'::text, 'IN_PROGRESS'::text, 'PENDING_VERIFICATION'::text, 'CLOSED'::text]))),
+    CONSTRAINT api_audit_findings_version_check CHECK ((version > 0))
+);
+
+
+--
+-- Name: audit_findings; Type: VIEW; Schema: access_auditoria; Owner: -
+--
+
+CREATE VIEW access_auditoria.audit_findings AS
+ SELECT audit_findings.id,
+    audit_findings.tenant_id,
+    audit_findings.region_id,
+    audit_findings.description,
+    audit_findings.priority,
+    audit_findings.assignee_id,
+    audit_findings.assignee_tenant_id,
+    audit_findings.assignee_name,
+    audit_findings.created_by,
+    audit_findings.resource_id,
+    audit_findings.evidence,
+    audit_findings.status,
+    audit_findings.version,
+    audit_findings.created_at,
+    audit_findings.updated_at
+   FROM red_house.audit_findings;
 
 
 --
@@ -4309,6 +4440,41 @@ ALTER TABLE ONLY access_auditoria.audit_events ALTER COLUMN created_at SET DEFAU
 
 
 --
+-- Name: audit_finding_actions created_at; Type: DEFAULT; Schema: access_auditoria; Owner: -
+--
+
+ALTER TABLE ONLY access_auditoria.audit_finding_actions ALTER COLUMN created_at SET DEFAULT now();
+
+
+--
+-- Name: audit_findings status; Type: DEFAULT; Schema: access_auditoria; Owner: -
+--
+
+ALTER TABLE ONLY access_auditoria.audit_findings ALTER COLUMN status SET DEFAULT 'OPEN'::text;
+
+
+--
+-- Name: audit_findings version; Type: DEFAULT; Schema: access_auditoria; Owner: -
+--
+
+ALTER TABLE ONLY access_auditoria.audit_findings ALTER COLUMN version SET DEFAULT 1;
+
+
+--
+-- Name: audit_findings created_at; Type: DEFAULT; Schema: access_auditoria; Owner: -
+--
+
+ALTER TABLE ONLY access_auditoria.audit_findings ALTER COLUMN created_at SET DEFAULT now();
+
+
+--
+-- Name: audit_findings updated_at; Type: DEFAULT; Schema: access_auditoria; Owner: -
+--
+
+ALTER TABLE ONLY access_auditoria.audit_findings ALTER COLUMN updated_at SET DEFAULT now();
+
+
+--
 -- Name: decisions changes; Type: DEFAULT; Schema: access_auditoria; Owner: -
 --
 
@@ -5348,6 +5514,38 @@ ALTER TABLE ONLY red_house.notification
 
 
 --
+-- Name: audit_finding_actions api_audit_finding_actions_pkey; Type: CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.audit_finding_actions
+    ADD CONSTRAINT api_audit_finding_actions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: audit_finding_links api_audit_finding_links_finding_id_event_id_key; Type: CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.audit_finding_links
+    ADD CONSTRAINT api_audit_finding_links_finding_id_event_id_key UNIQUE (finding_id, event_id);
+
+
+--
+-- Name: audit_finding_links api_audit_finding_links_pkey; Type: CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.audit_finding_links
+    ADD CONSTRAINT api_audit_finding_links_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: audit_findings api_audit_findings_pkey; Type: CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.audit_findings
+    ADD CONSTRAINT api_audit_findings_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: catalogue_entry api_catalogue_pkey; Type: CONSTRAINT; Schema: red_house; Owner: -
 --
 
@@ -6231,6 +6429,20 @@ CREATE UNIQUE INDEX api_active_organ_request ON red_house.blood_request USING bt
 
 
 --
+-- Name: api_audit_finding_actions_timeline; Type: INDEX; Schema: red_house; Owner: -
+--
+
+CREATE INDEX api_audit_finding_actions_timeline ON red_house.audit_finding_actions USING btree (finding_id, created_at, id);
+
+
+--
+-- Name: api_audit_findings_scope; Type: INDEX; Schema: red_house; Owner: -
+--
+
+CREATE INDEX api_audit_findings_scope ON red_house.audit_findings USING btree (region_id, assignee_id, status, created_at);
+
+
+--
 -- Name: api_audit_search; Type: INDEX; Schema: red_house; Owner: -
 --
 
@@ -6294,10 +6506,52 @@ CREATE UNIQUE INDEX appointment_active ON red_house.appointment USING btree (don
 
 
 --
+-- Name: audit_action_search; Type: INDEX; Schema: red_house; Owner: -
+--
+
+CREATE INDEX audit_action_search ON red_house.audit_event USING btree (region_id, action, actor_id);
+
+
+--
+-- Name: audit_correlation_search; Type: INDEX; Schema: red_house; Owner: -
+--
+
+CREATE INDEX audit_correlation_search ON red_house.audit_event USING btree (region_id, ((event ->> 'correlation_id'::text)));
+
+
+--
+-- Name: audit_execution_search; Type: INDEX; Schema: red_house; Owner: -
+--
+
+CREATE INDEX audit_execution_search ON red_house.audit_event USING btree (region_id, access_auditoria.event_time((event ->> 'occurred_at'::text)), event_id);
+
+
+--
+-- Name: audit_finding_actions_timeline; Type: INDEX; Schema: red_house; Owner: -
+--
+
+CREATE INDEX audit_finding_actions_timeline ON red_house.audit_finding_actions USING btree (finding_id, created_at, id);
+
+
+--
+-- Name: audit_findings_scope; Type: INDEX; Schema: red_house; Owner: -
+--
+
+CREATE INDEX audit_findings_scope ON red_house.audit_findings USING btree (region_id, assignee_id, status, created_at);
+
+
+--
 -- Name: audit_region_time_idx; Type: INDEX; Schema: red_house; Owner: -
 --
 
 CREATE INDEX audit_region_time_idx ON red_house.audit_event USING btree (region_name, occurred_at DESC);
+
+
+--
+-- Name: audit_resource_search; Type: INDEX; Schema: red_house; Owner: -
+--
+
+CREATE INDEX audit_resource_search ON red_house.audit_event USING btree (region_id, ((event ->> 'resource_id'::text)));
 
 
 --
@@ -7001,6 +7255,20 @@ CREATE TRIGGER api_catalogue_cache AFTER INSERT OR DELETE OR UPDATE OR TRUNCATE 
 
 
 --
+-- Name: audit_finding_actions api_immutable; Type: TRIGGER; Schema: red_house; Owner: -
+--
+
+CREATE TRIGGER api_immutable BEFORE DELETE OR UPDATE ON red_house.audit_finding_actions FOR EACH ROW EXECUTE FUNCTION red_house.reject_history_mutation();
+
+
+--
+-- Name: audit_finding_links api_immutable; Type: TRIGGER; Schema: red_house; Owner: -
+--
+
+CREATE TRIGGER api_immutable BEFORE DELETE OR UPDATE ON red_house.audit_finding_links FOR EACH ROW EXECUTE FUNCTION red_house.reject_history_mutation();
+
+
+--
 -- Name: shipment_transition api_immutable; Type: TRIGGER; Schema: red_house; Owner: -
 --
 
@@ -7294,6 +7562,30 @@ ALTER TABLE ONLY red_house.appointment
 
 ALTER TABLE ONLY red_house.appointment
     ADD CONSTRAINT api_appointments_donor_id_fkey FOREIGN KEY (donor_id) REFERENCES red_house.donor(donor_id) DEFERRABLE;
+
+
+--
+-- Name: audit_finding_actions api_audit_finding_actions_finding_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.audit_finding_actions
+    ADD CONSTRAINT api_audit_finding_actions_finding_id_fkey FOREIGN KEY (finding_id) REFERENCES red_house.audit_findings(id) DEFERRABLE;
+
+
+--
+-- Name: audit_finding_links api_audit_finding_links_event_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.audit_finding_links
+    ADD CONSTRAINT api_audit_finding_links_event_id_fkey FOREIGN KEY (event_id) REFERENCES red_house.audit_event(event_id) DEFERRABLE;
+
+
+--
+-- Name: audit_finding_links api_audit_finding_links_finding_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.audit_finding_links
+    ADD CONSTRAINT api_audit_finding_links_finding_id_fkey FOREIGN KEY (finding_id) REFERENCES red_house.audit_findings(id) DEFERRABLE;
 
 
 --
@@ -7945,6 +8237,46 @@ ALTER TABLE ONLY red_house.audit_event
 
 
 --
+-- Name: audit_finding_actions shared_audit_finding_actions_actor_id; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.audit_finding_actions
+    ADD CONSTRAINT shared_audit_finding_actions_actor_id FOREIGN KEY (actor_id) REFERENCES red_house.user_account(account_id) DEFERRABLE;
+
+
+--
+-- Name: audit_findings shared_audit_findings_assignee_id; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.audit_findings
+    ADD CONSTRAINT shared_audit_findings_assignee_id FOREIGN KEY (assignee_id) REFERENCES red_house.user_account(account_id) DEFERRABLE;
+
+
+--
+-- Name: audit_findings shared_audit_findings_assignee_tenant_id; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.audit_findings
+    ADD CONSTRAINT shared_audit_findings_assignee_tenant_id FOREIGN KEY (assignee_tenant_id) REFERENCES red_house.institution(institution_id) DEFERRABLE;
+
+
+--
+-- Name: audit_findings shared_audit_findings_created_by; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.audit_findings
+    ADD CONSTRAINT shared_audit_findings_created_by FOREIGN KEY (created_by) REFERENCES red_house.user_account(account_id) DEFERRABLE;
+
+
+--
+-- Name: audit_findings shared_audit_findings_tenant_id; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.audit_findings
+    ADD CONSTRAINT shared_audit_findings_tenant_id FOREIGN KEY (tenant_id) REFERENCES red_house.institution(institution_id) DEFERRABLE;
+
+
+--
 -- Name: campaign shared_campaigns_tenant_id; Type: FK CONSTRAINT; Schema: red_house; Owner: -
 --
 
@@ -8362,10 +8694,12 @@ INSERT INTO red_house."schema_migration" ("version","description") VALUES (3,'Ur
 INSERT INTO red_house."schema_migration" ("version","description") VALUES (4,'Flujo de órganos');
 INSERT INTO red_house."schema_migration" ("version","description") VALUES (5,'Base compartida para microservicios');
 INSERT INTO red_house."schema_migration" ("version","description") VALUES (6,'Adaptación ejecutable de servicios y relaciones compartidas');
+INSERT INTO red_house."schema_migration" ("version","description") VALUES (7,'Investigación de auditoría e historial de hallazgos');
 INSERT INTO red_house."service_schema_version" ("service","version") VALUES ('alertas',1);
 INSERT INTO red_house."service_schema_version" ("service","version") VALUES ('alertas',2);
 INSERT INTO red_house."service_schema_version" ("service","version") VALUES ('auditoria',1);
 INSERT INTO red_house."service_schema_version" ("service","version") VALUES ('auditoria',2);
+INSERT INTO red_house."service_schema_version" ("service","version") VALUES ('auditoria',3);
 INSERT INTO red_house."service_schema_version" ("service","version") VALUES ('compatibilidad',1);
 INSERT INTO red_house."service_schema_version" ("service","version") VALUES ('compatibilidad',2);
 INSERT INTO red_house."service_schema_version" ("service","version") VALUES ('custodia',1);

@@ -25,6 +25,18 @@ from .common import (
 )
 
 
+def withdrawal_action(row):
+    if g.principal.role_code != "MEDICAL" or row["status"] == "INACTIVE":
+        return []
+    return [
+        (
+            "Retirar donante",
+            url_for("regional.donor_withdraw", identifier=row["id"]),
+            "trash",
+        )
+    ]
+
+
 @regional.get("/donantes/<kind>")
 def people(kind):
     if kind not in ("donor", "recipient"):
@@ -57,6 +69,9 @@ def people(kind):
         ),
         new=url_for("regional.person_new", kind=kind)
         if kind == "donor" or g.principal.role_code == "MEDICAL"
+        else None,
+        actions=(lambda row: edit_action("donors", row) + withdrawal_action(row))
+        if kind == "donor"
         else None,
     )
 
@@ -119,7 +134,11 @@ def person_detail(kind, identifier):
         + str(identifier),
     )
     actions = []
-    if kind == "donor" and g.principal.role_code == "MEDICAL":
+    if (
+        kind == "donor"
+        and g.principal.role_code == "MEDICAL"
+        and row["status"] != "INACTIVE"
+    ):
         actions = [
             (
                 "Registrar dictamen",
@@ -136,6 +155,8 @@ def person_detail(kind, identifier):
             "donors" if kind == "donor" else "recipients", row
         )
     )
+    if kind == "donor":
+        actions.extend(withdrawal_action(row))
     return detail(
         row["folio"],
         "donantes" if kind == "donor" else "receptores",
@@ -144,7 +165,45 @@ def person_detail(kind, identifier):
         sections=[("Evaluaciones humanas", row.get("reviews", []))]
         if kind == "donor"
         else [],
-        note="La información registrada requiere evaluación humana autorizada.",
+        note=(
+            "Este donante ya no está activo. Puedes consultar sus antecedentes."
+            if kind == "donor" and row["status"] == "INACTIVE"
+            else "La información registrada requiere evaluación humana autorizada."
+        ),
+    )
+
+
+@regional.route("/donantes/donor/<uuid:identifier>/baja", methods=["GET", "POST"])
+def donor_withdraw(identifier):
+    if g.principal.role_code != "MEDICAL":
+        raise BusinessError("Solo el personal médico puede retirar donantes.", 403)
+    version = 0
+    subject = ""
+    if request.method == "GET":
+        row = call("donantes", "/api/v1/donors/" + str(identifier))
+        if row["status"] == "INACTIVE":
+            raise BusinessError("Este donante ya no está activo.", 409)
+        version = row["version"]
+        subject = f"{row['display_name']} · Folio: {row['folio']}. "
+    return submit(
+        "donantes",
+        "/api/v1/donors/" + str(identifier) + "/withdraw",
+        [
+            field("version", "Versión", "hidden", default=version),
+            field("reason", "Motivo", "textarea"),
+            field(
+                "human_confirmation",
+                "Confirmo que quiero retirar a este donante",
+                "checkbox",
+            ),
+        ],
+        title="Retirar donante",
+        active="donantes",
+        back=url_for("regional.people", kind="donor"),
+        note=(
+            subject + "Dejará de aparecer en la lista de donantes. "
+            "Sus citas pendientes se cancelarán."
+        ),
     )
 
 

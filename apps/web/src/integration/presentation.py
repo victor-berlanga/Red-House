@@ -28,6 +28,7 @@ LISTS = {
     "components": ("Catálogos", "/administracion/components", "Registrar entrada"),
     "alertas": ("Notificaciones", "/notificaciones", "Registrar aviso"),
     "audit": ("Bitácora", "/auditoria", "Registrar evento"),
+    "findings": ("Hallazgos", "/hallazgos", "Registrar hallazgo"),
     "propuestas": ("Propuestas", "/propuestas", "Crear propuesta"),
     "disponibilidad": ("Disponibilidad", "/disponibilidad", "Registrar recurso"),
 }
@@ -127,6 +128,8 @@ FIELD_LABELS = {
     "actor_id": "Responsable",
     "evidence": "Evidencia",
     "changes": "Cambios registrados",
+    "previous_status": "Estado anterior",
+    "cancelled_appointments": "Citas canceladas",
     "sequence": "Secuencia",
     "folio": "Folio",
     "component": "Componente",
@@ -234,6 +237,11 @@ TASKS = {
     ],
     "COORDINATOR": [
         (
+            "Hallazgos asignados",
+            "/hallazgos",
+            "Registrar atención y evidencias de corrección",
+        ),
+        (
             "Reservas y asignaciones",
             "/reservas",
             "Consultar recursos para planear traslados",
@@ -255,6 +263,7 @@ TASKS = {
         ),
     ],
     "AUDITOR": [
+        ("Hallazgos", "/hallazgos", "Investigar y verificar acciones correctivas"),
         ("Bitácora", "/auditoria", "Consultar eventos de la región"),
         (
             "Estado de la plataforma",
@@ -271,6 +280,12 @@ TASKS = {
 
 
 EVENT_LABELS = {
+    "READ": "Consulta de información",
+    "AUDIT_FINDING_CREATED": "Hallazgo registrado",
+    "AUDIT_FINDING_IN_PROGRESS": "Atención de hallazgo registrada",
+    "AUDIT_FINDING_PENDING_VERIFICATION": "Hallazgo enviado a verificación",
+    "AUDIT_FINDING_REOPENED": "Hallazgo devuelto a atención",
+    "AUDIT_FINDING_CLOSED": "Hallazgo verificado y cerrado",
     "ALERT_ACKNOWLEDGED": "Notificación leída",
     "ALLOCATION_PROPOSAL_CREATED": "Propuesta de cobertura generada",
     "APPOINTMENT_BOOKED": "Inscripción en campaña confirmada",
@@ -286,6 +301,7 @@ EVENT_LABELS = {
     "DONOR_REGISTERED": "Donante registrado",
     "DONOR_REVIEWED": "Evaluación del donante registrada",
     "DONOR_UPDATED": "Expediente del donante actualizado",
+    "DONOR_WITHDRAWN": "Donante dado de baja",
     "EVALUATION_CREATED": "Evaluación de candidatos generada",
     "EVALUATION_REVIEWED": "Dictamen de candidato registrado",
     "FILE_PREPARED": "Archivo preparado",
@@ -351,7 +367,7 @@ SERVICE_LABELS = {
 
 
 def event_label(code):
-    return EVENT_LABELS.get(code, "Actividad registrada")
+    return EVENT_LABELS.get(code, "Evento sin clasificación: " + str(code))
 
 
 def service_label(code):
@@ -373,6 +389,8 @@ def related_alert(row):
         return None
     if code.startswith("APPOINTMENT_") and role in ("DONOR", "OPERATOR"):
         return url_for("regional.appointment_detail", identifier=identifier)
+    if code == "DONOR_WITHDRAWN" and role in ("DONOR", "OPERATOR", "MEDICAL"):
+        return url_for("regional.people", kind="donor")
     if code.startswith("DONOR_") and role in ("DONOR", "OPERATOR", "MEDICAL"):
         return url_for("regional.person_detail", kind="donor", identifier=identifier)
     if code.startswith("CAMPAIGN_") and role in ("DONOR", "OPERATOR", "MEDICAL"):

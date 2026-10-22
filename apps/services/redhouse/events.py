@@ -20,6 +20,10 @@ def emit(
     conn, action, resource_id, tenant_id, *, targets=("auditoria",), metadata=None
 ):
     actor = getattr(g, "actor", {})
+    from .audit_context import snapshot
+
+    metadata = dict(metadata or {})
+    metadata["audit"] = snapshot(conn, action, resource_id, metadata)
     event = {
         "event_id": str(uuid4()),
         "source": current_app.config["SERVICE"],
@@ -29,7 +33,7 @@ def emit(
         "region_id": actor.get("region_id"),
         "actor_id": actor.get("id"),
         "correlation_id": getattr(g, "correlation_id", str(uuid4())),
-        "metadata": metadata or {},
+        "metadata": metadata,
         "occurred_at": conn.execute("SELECT clock_timestamp() AS time")
         .fetchone()["time"]
         .isoformat(),

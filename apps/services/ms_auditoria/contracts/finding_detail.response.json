@@ -1,0 +1,213 @@
+{
+  "type": "object",
+  "required": [
+    "data",
+    "meta"
+  ],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": [
+        "correlation_id",
+        "service",
+        "version"
+      ],
+      "properties": {
+        "correlation_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "service": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "tenant_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "region_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "description": {
+          "type": "string"
+        },
+        "priority": {
+          "type": "string",
+          "enum": [
+            "LOW",
+            "MEDIUM",
+            "HIGH",
+            "CRITICAL"
+          ]
+        },
+        "assignee_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "assignee_tenant_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "assignee_name": {
+          "type": "string"
+        },
+        "created_by": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "resource_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uuid"
+        },
+        "evidence": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "OPEN",
+            "IN_PROGRESS",
+            "PENDING_VERIFICATION",
+            "CLOSED"
+          ]
+        },
+        "version": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "events": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "event_id": {
+                "type": "string",
+                "format": "uuid"
+              }
+            },
+            "required": [
+              "event_id"
+            ]
+          }
+        },
+        "history": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "finding_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "actor_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "actor_name": {
+                "type": "string"
+              },
+              "actor_role": {
+                "type": "string"
+              },
+              "previous_status": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "status": {
+                "type": "string"
+              },
+              "reason": {
+                "type": "string"
+              },
+              "corrective_action": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "evidence": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "correlation_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "created_at": {
+                "type": "string",
+                "format": "date-time"
+              }
+            },
+            "required": [
+              "id",
+              "finding_id",
+              "actor_id",
+              "actor_name",
+              "actor_role",
+              "previous_status",
+              "status",
+              "reason",
+              "corrective_action",
+              "evidence",
+              "correlation_id",
+              "created_at"
+            ]
+          }
+        }
+      },
+      "required": [
+        "id",
+        "tenant_id",
+        "region_id",
+        "description",
+        "priority",
+        "assignee_id",
+        "assignee_tenant_id",
+        "assignee_name",
+        "created_by",
+        "resource_id",
+        "evidence",
+        "status",
+        "version",
+        "created_at",
+        "updated_at",
+        "events",
+        "history"
+      ]
+    }
+  }
+}

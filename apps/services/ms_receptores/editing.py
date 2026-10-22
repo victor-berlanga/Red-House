@@ -6,6 +6,7 @@ from redhouse.api import atomic, endpoint
 from redhouse.db import get, update
 from redhouse.decisions import record
 from redhouse.errors import APIError
+from redhouse.validation import invalid
 from redhouse.events import emit
 from redhouse.models import Confirm, Text
 from redhouse.security import own
@@ -34,8 +35,11 @@ def install(app):
     )
     def recipient_edit(identifier, data):
         if (data["kind"] == "ORGAN") != (data["organ_type"] is not None):
-            raise APIError(
-                "validation", "Tipo de órgano obligatorio exclusivamente para órganos."
+            raise invalid(
+                "Selecciona un órgano si el recurso es Órgano; para Sangre deja el órgano vacío.",
+                "kind",
+                "organ_type",
+                code="organ_kind",
             )
 
         def work(conn):

@@ -1,0 +1,106 @@
+{
+  "type": "object",
+  "required": [
+    "data",
+    "meta"
+  ],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": [
+        "correlation_id",
+        "service",
+        "version"
+      ],
+      "properties": {
+        "correlation_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "service": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "action": {
+                "type": "string"
+              },
+              "action_label": {
+                "type": "string"
+              },
+              "actor_display": {
+                "type": "string"
+              },
+              "tenant_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "resource_display": {
+                "type": "string"
+              },
+              "executed_at": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "format": "date-time"
+              },
+              "result_label": {
+                "type": "string"
+              },
+              "category_label": {
+                "type": "string"
+              },
+              "created_at": {
+                "type": "string",
+                "format": "date-time"
+              }
+            },
+            "required": [
+              "id",
+              "action",
+              "action_label",
+              "actor_display",
+              "tenant_id",
+              "resource_display",
+              "executed_at",
+              "result_label",
+              "category_label",
+              "created_at"
+            ]
+          }
+        },
+        "page": {
+          "type": "integer"
+        },
+        "page_size": {
+          "type": "integer"
+        },
+        "total": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "items",
+        "page",
+        "page_size",
+        "total"
+      ]
+    }
+  }
+}

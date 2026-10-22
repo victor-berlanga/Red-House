@@ -70,10 +70,20 @@ def command(args, *, data=None, output=None):
 
 def sql_state(prefix):
     tables = json.loads(
-        (
-            ROOT / "documentation/evidencias/segundo-parcial/postgresql-physical.json"
-        ).read_text()
-    )["tables"]
+        command(
+            prefix
+            + [
+                "psql",
+                "-U",
+                "rh_bootstrap",
+                "-d",
+                "red_house",
+                "-qAt",
+                "-c",
+                "SELECT json_agg(json_build_object('name',tablename) ORDER BY tablename) FROM pg_tables WHERE schemaname='red_house'",
+            ]
+        )
+    )
     queries = []
     for table in tables:
         name = table["name"]

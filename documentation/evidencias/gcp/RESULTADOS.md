@@ -1,5 +1,7 @@
 # Despliegue GCP verificado — 20 de octubre de 2026
 
+Actualización del 21 de octubre: [auditoría, hallazgos y formularios publicados](auditoria-formularios/RESULTADOS.md), esquema 7, respaldo/restauración comprobados, 27 contenedores saludables y verificación HTTPS. Las cifras siguientes conservan el alcance de la instalación inicial.
+
 VM `red-house` creada con `gcloud` en `sistemas-integracion-01`, zona `me-central1-a`. Se conservaron CPU, RAM, disco, sistema operativo, red y opciones Shielded de `maquina01`: CentOS Stream 10, `e2-standard-2`, 2 vCPU, 8 GB y disco estándar de 20 GB. La instancia original permaneció detenida. [Configuraciones consultadas](instance.json).
 
 La primera instalación utilizó túnel SSH y copia de los datos del Docker de demostración; el acceso público se habilitó posteriormente por solicitud del usuario. El código se transfirió desde el directorio de trabajo, incluidos los cambios todavía sin commit, excluyendo Git, entornos locales y credenciales personales. Docker construyó las imágenes para x86_64 en la VM.
@@ -54,3 +56,11 @@ Se verificaron los hashes de `compose.yaml`, `deployment/start.py`, el adaptador
 - Los objetos GCS existentes mantienen sus referencias en el mismo bucket. Los respaldos SQL/MongoDB/Redis no contienen los objetos de ese bucket.
 
 La VM queda encendida. El Docker local volvió a quedar detenido con sus datos conservados. [Acceso, arranque, parada y scripts de reproducción](../../../deployment/gcp/README.md).
+
+## Baja de donantes y navegación (21 de octubre)
+
+La revisión posterior incorporó la baja de donantes y retiró el aviso al salir de formularios. Se comprobaron 27 pruebas aisladas, ambos tipos de baja desde el portal público y la conservación de los registros anteriores. [Resultados de bajas y navegación](bajas-donantes/RESULTADOS.md).
+
+## Ampliación de la demostración (21 de octubre)
+
+Se agregaron datos ficticios relacionados mediante las API de la VM: 68 donantes, 60 campañas, 118 citas y 30 traslados nuevos, además de inventario, solicitudes y catálogos. Se alcanzó el mínimo de 30 en las tablas operativas de negocio; las tablas heredadas y los catálogos cerrados conservan sus cantidades justificadas. [Conteos actuales, pruebas y capturas](datos-demo/RESULTADOS.md). Las cifras de restauración de este informe siguen siendo evidencia del despliegue original.

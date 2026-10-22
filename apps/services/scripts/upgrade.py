@@ -25,18 +25,66 @@ def upgrade(directory, services):
     if Path(state["directory"]).resolve() != directory:
         raise RuntimeError("El directorio no coincide con el entorno.")
     if state.get("database_layout") == "shared-v6":
-        with psycopg.connect(next(iter(state["database_owners"].values()))) as conn:
+        from redhouse.shared_migrations import upgrade as upgrade_shared, LATEST_VERSION
+
+        dsn = next(iter(state["database_owners"].values()))
+        with psycopg.connect(dsn) as conn:
             version = conn.execute(
                 "SELECT max(version) FROM red_house.schema_migration"
             ).fetchone()[0]
-        if version != 6:
+        if version not in (6, LATEST_VERSION):
             raise RuntimeError(
                 "Versión compartida inesperada; requiere una migración global revisada."
             )
+        backup = None
+        if version < LATEST_VERSION:
+            stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S%fZ")
+            backup = directory / "backups" / ("audit-" + stamp)
+            backup.mkdir(parents=True, mode=0o700)
+            params = conninfo_to_dict(dsn)
+            binary = shutil.which("pg_dump") or str(
+                Path(state["infrastructure_commands"]["postgres"][0]).with_name(
+                    "pg_dump"
+                )
+            )
+            dump = backup / "red_house.dump"
+            result = subprocess.run(
+                [
+                    binary,
+                    "--host",
+                    params["host"],
+                    "--port",
+                    params["port"],
+                    "--username",
+                    params["user"],
+                    "--dbname",
+                    params["dbname"],
+                    "--format=custom",
+                    "--file",
+                    str(dump),
+                ],
+                env=dict(os.environ, PGPASSWORD=params["password"]),
+                capture_output=True,
+            )
+            if result.returncode:
+                raise RuntimeError(
+                    "Falló el respaldo; no se aplicó la migración compartida."
+                )
+            dump.chmod(0o600)
+        with psycopg.connect(dsn) as conn:
+            conn.execute("SET ROLE rh_shared_owner")
+            current = upgrade_shared(conn)
+        report = {
+            "before": version,
+            "shared_version": current,
+            "backup": str(backup) if backup else None,
+        }
+        if backup:
+            (backup / "report.json").write_text(json.dumps(report, indent=2) + "\n")
         print(
-            "Esquema compartido versión 6 verificado; no hay migraciones posteriores registradas."
+            f"Esquema compartido versión {current} verificado; registros conservados."
         )
-        return {"shared_version": version}
+        return report
     stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S%fZ")
     backup = directory / "backups" / stamp
     backup.mkdir(parents=True, mode=0o700)
@@ -84,7 +132,15 @@ def upgrade(directory, services):
             ]
             migrate(conn, service)
             runtime = "rh_" + service
-            for table in ("decisions", "worker_health", "catalogue", "cache_revision"):
+            for table in (
+                "decisions",
+                "worker_health",
+                "catalogue",
+                "cache_revision",
+                "audit_findings",
+                "audit_finding_links",
+                "audit_finding_actions",
+            ):
                 if conn.execute("SELECT to_regclass(%s)", ("api." + table,)).fetchone()[
                     0
                 ]:
@@ -98,6 +154,22 @@ def upgrade(directory, services):
                     sql.Identifier(runtime)
                 )
             )
+            if service == "auditoria":
+                conn.execute(
+                    sql.SQL("REVOKE DELETE ON audit_findings FROM {}").format(
+                        sql.Identifier(runtime)
+                    )
+                )
+                conn.execute(
+                    sql.SQL(
+                        "REVOKE UPDATE,DELETE ON audit_finding_links,audit_finding_actions FROM {}"
+                    ).format(sql.Identifier(runtime))
+                )
+                conn.execute(
+                    sql.SQL("GRANT EXECUTE ON FUNCTION event_time(text) TO {}").format(
+                        sql.Identifier(runtime)
+                    )
+                )
             after = [
                 r[0]
                 for r in conn.execute(

@@ -1,0 +1,17 @@
+{% macro summary(error, fields=[]) %}
+{% if error %}<div id="form-error" class="notice error" role="alert" tabindex="-1" data-error-summary>
+{% if fields %}<p>Revisa {{ 'el campo señalado' if fields|length == 1 else 'los ' ~ fields|length ~ ' campos señalados' }}.</p><ul>{% for field in fields %}<li><a href="#{{ field.name }}">{{ field.label }}: {{ field.errors|join(' ') }}</a></li>{% endfor %}</ul>
+{% else %}<p>{{ error }}</p>{% endif %}</div>{% endif %}
+{% endmacro %}
+
+{% macro attributes(field) %}
+{% if field.required and field.name != 'active' %}required{% endif %}
+{% for key,value in field.attrs.items() %}{{ key }}="{{ value }}" {% endfor %}
+aria-describedby="{{ field.name }}-help{% if field.errors %} {{ field.name }}-error{% endif %}"
+{% if field.errors %}aria-invalid="true"{% endif %}
+{% endmacro %}
+
+{% macro messages(field) %}
+<small id="{{ field.name }}-help" class="field-help">{{ field.help }}</small>
+{% if field.errors %}<p id="{{ field.name }}-error" class="field-error" data-field-error>{{ field.errors|join(' ') }}</p>{% endif %}
+{% endmacro %}

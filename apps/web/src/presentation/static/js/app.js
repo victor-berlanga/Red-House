@@ -106,10 +106,3 @@ document.addEventListener('click',event=>{
   if(link){try{sessionStorage.setItem('red-house-return',JSON.stringify({from:location.pathname+location.search,to:new URL(link.href).pathname}));}catch{}}
 });
 document.querySelectorAll('[data-context-back]').forEach(back=>{try{const saved=JSON.parse(sessionStorage.getItem('red-house-return'));if(saved&&saved.to.replace(/\/editar$/,'')===location.pathname.replace(/\/editar$/,'')&&saved.from.split('?')[0]===back.getAttribute('href'))back.href=saved.from;}catch{}});
-let leaving=false;
-window.addEventListener('session-ended',()=>{leaving=true;});
-document.addEventListener('submit',event=>{if(!event.defaultPrevented)leaving=true;});
-window.addEventListener('pageshow',()=>{leaving=false;});
-window.addEventListener('beforeunload',event=>{
- if(!leaving&&document.querySelector('form[data-dirty="true"]')){event.preventDefault();event.returnValue='';}
-});

@@ -1,0 +1,82 @@
+{
+  "origin": "https://34.18.186.116",
+  "startedAt": "2026-10-21T23:59:32.185Z",
+  "checks": [
+    {
+      "name": "Ayudas y límites; errores después de enviar; foco y teclado; formulario móvil sin desbordamiento",
+      "passed": true
+    },
+    {
+      "name": "Cuatro errores originales: HTTP 422 con campos y mensajes concretos; valores y consentimiento conservados",
+      "passed": true
+    },
+    {
+      "name": "Categorías, filtro por recurso, CSV, detalle y regreso; alta de un hallazgo ficticio vinculado",
+      "passed": true
+    },
+    {
+      "name": "Atención por responsable, verificación por auditor y cierre con evidencia obligatoria e historial",
+      "passed": true
+    }
+  ],
+  "validations": [
+    {
+      "name": "Restricciones de tres caracteres",
+      "status": 422,
+      "fields": [
+        "restrictions"
+      ],
+      "summary": "Revisa el campo señalado.\n\nRestricciones documentadas: Escribe al menos 6 caracteres o deja este campo vacío.",
+      "valuesPreserved": true
+    },
+    {
+      "name": "Antecedentes de cuatro caracteres",
+      "status": 422,
+      "fields": [
+        "background"
+      ],
+      "summary": "Revisa el campo señalado.\n\nAntecedentes documentales: Escribe al menos 6 caracteres o deja este campo vacío.",
+      "valuesPreserved": true
+    },
+    {
+      "name": "Referencia de consentimiento sin fecha",
+      "status": 422,
+      "fields": [
+        "consent_reference",
+        "consent_at"
+      ],
+      "summary": "Revisa los 2 campos señalados.\n\nReferencia del consentimiento: Agrega la fecha y la referencia del consentimiento o deja ambos campos vacíos.\nFecha del consentimiento: Agrega la fecha y la referencia del consentimiento o deja ambos campos vacíos.",
+      "valuesPreserved": true
+    },
+    {
+      "name": "Consentimiento con fecha futura",
+      "status": 422,
+      "fields": [
+        "consent_at"
+      ],
+      "summary": "Revisa el campo señalado.\n\nFecha del consentimiento: Utiliza una fecha de consentimiento no posterior al momento actual.",
+      "valuesPreserved": true
+    }
+  ],
+  "errors": [],
+  "pages": [
+    "/login",
+    "/donantes/donor/nuevo",
+    "/donantes/donor/nuevo",
+    "/donantes/donor/nuevo",
+    "/donantes/donor/nuevo",
+    "/donantes/donor/nuevo",
+    "/donantes/donor",
+    "/login",
+    "/auditoria",
+    "/login",
+    "/hallazgos/64a78c6b-7b39-447c-a12b-9d482835f1b7",
+    "/login",
+    "/hallazgos/64a78c6b-7b39-447c-a12b-9d482835f1b7"
+  ],
+  "resourceId": "cff9574d-a2a8-4d2d-b95f-e7467ec92424",
+  "eventId": "a391da1d-698a-456a-b5ee-84ffd58ad2e5",
+  "findingPath": "/hallazgos/64a78c6b-7b39-447c-a12b-9d482835f1b7",
+  "result": "passed",
+  "finishedAt": "2026-10-22T00:01:38.133Z"
+}

@@ -309,7 +309,8 @@ def test_forms_keep_values_and_same_idempotency_after_error(web, p):
         donation_id="",
     )
     response = client.post("/inventario/nuevo", data=values)
-    assert response.status_code == 400
+    assert response.status_code == 422
+    assert b'id="expires_at-error"' in response.data
     assert values["idempotency_key"].encode() in response.data
     assert b'value="invalid"' in response.data
     assert b"2020-01-01T10:00" in response.data

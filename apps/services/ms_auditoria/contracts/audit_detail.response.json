@@ -57,6 +57,88 @@
         "created_at": {
           "type": "string",
           "format": "date-time"
+        },
+        "executed_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "actor_name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "actor_role": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "actor_institution_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "resource_folio": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "reason": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "resource_id": {
+          "type": "string"
+        },
+        "correlation_id": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string"
+        },
+        "result": {
+          "type": "string"
+        },
+        "action_label": {
+          "type": "string"
+        },
+        "category_label": {
+          "type": "string"
+        },
+        "result_label": {
+          "type": "string"
+        },
+        "actor_display": {
+          "type": "string"
+        },
+        "resource_display": {
+          "type": "string"
+        },
+        "changes": {
+          "type": "object"
+        },
+        "changed_fields": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "resource_refs": {
+          "type": "array",
+          "items": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
         }
       },
       "required": [

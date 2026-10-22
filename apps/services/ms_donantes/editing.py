@@ -11,6 +11,8 @@ from redhouse.events import emit
 from redhouse.models import Confirm, Text, utc_date
 from redhouse.security import own
 from .routes import DonorCreate, CampaignCreate
+from .withdrawal import require_active
+from redhouse.validation import invalid
 
 
 class DonorEdit(DonorCreate, Confirm):
@@ -39,6 +41,7 @@ def install(app):
         def work(conn):
             row = get(conn, "donors", identifier, True)
             own(row["tenant_id"])
+            require_active(row)
             if (
                 row["version"] != data["version"]
                 or conn.execute(
@@ -89,9 +92,13 @@ def install(app):
         summary="Corregir fecha antes de procesamiento, conservando motivo",
     )
     def donation_edit(identifier, data):
-        captured = utc_date(data["collected_at"])
+        captured = utc_date(data["collected_at"], "collected_at")
         if captured > datetime.now(timezone.utc):
-            raise APIError("validation", "La recolección no puede ser futura.")
+            raise invalid(
+                "La recolección no puede ser posterior al momento actual.",
+                "collected_at",
+                code="future_date",
+            )
 
         def work(conn):
             row = get(conn, "donations", identifier, True)
@@ -126,9 +133,23 @@ def install(app):
         summary="Editar campaña sin reducir cupos ya ocupados",
     )
     def campaign_edit(identifier, data):
-        start, end = utc_date(data["starts_at"]), utc_date(data["ends_at"])
-        if start >= end or end <= datetime.now(timezone.utc):
-            raise APIError("validation", "Intervalo de campaña inválido.")
+        start, end = (
+            utc_date(data["starts_at"], "starts_at"),
+            utc_date(data["ends_at"], "ends_at"),
+        )
+        if start >= end:
+            raise invalid(
+                "La fecha final debe ser posterior al inicio.",
+                "starts_at",
+                "ends_at",
+                code="date_order",
+            )
+        if end <= datetime.now(timezone.utc):
+            raise invalid(
+                "La fecha final ya venció; utiliza una fecha futura.",
+                "ends_at",
+                code="expired_date",
+            )
 
         def work(conn):
             row = get(conn, "campaigns", identifier, True)
@@ -137,11 +158,19 @@ def install(app):
                 "SELECT count(*) AS n FROM appointments WHERE campaign_id=%s AND status='BOOKED'",
                 (identifier,),
             ).fetchone()["n"]
-            if row["version"] != data["version"] or data["capacity"] < booked:
+            if row["version"] != data["version"]:
                 raise APIError(
-                    "conflict",
-                    "Versión obsoleta o capacidad inferior a las citas reservadas.",
+                    "stale_version",
+                    "La campaña cambió. Vuelve a abrirla y revisa los cambios antes de guardar.",
                     409,
+                )
+            if data["capacity"] < booked:
+                raise invalid(
+                    f"El cupo mínimo permitido es {booked}: ya existen {booked} citas reservadas.",
+                    "capacity",
+                    code="reserved_capacity",
+                    status=409,
+                    ge=booked,
                 )
             fields = dict(
                 title=data["title"],

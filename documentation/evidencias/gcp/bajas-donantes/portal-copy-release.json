@@ -1,0 +1,251 @@
+{
+  "started_at": "2026-10-21T16:54:46.933991+00:00",
+  "files_before": {
+    "apps/web/src/integration/__init__.py": "290b4c0f72bb83a59b974412c000a9a7433eb177258e9328d2da6701ebcc2b5e",
+    "apps/web/src/integration/client.py": "78af69469dfdc1481c9833deb6acbd341e3585e2cbe3c44a53eea449c04781ad",
+    "apps/web/src/integration/presentation.py": "77330890fc133bc9e624eb3fb5de6d5c3faf84c61f190507bff536be75215f53",
+    "apps/web/src/integration/routes/common.py": "d66e5d3b4231928b818a2f5dcd03882685f2c5af5484802ecf22432510eca9ae",
+    "apps/web/src/integration/routes/people.py": "3ca6d1dedef1788f6dfc88e2ab6901327b23021a240cca61b9df3ec2dcda3af4",
+    "apps/web/src/integration/routes/requests.py": "0deacedbfc616f5c3274a82be3ea1a9a55a7e1858b307485cd3cc35d0f6c853b",
+    "apps/web/src/integration/routes/logistics.py": "0546c870a715de5e46391172f87a8c33503a1751c8d0b00a8df722ed8653d05a",
+    "apps/web/src/integration/routes/files.py": "a7488df08a0a39d28507413af9cacf818789d7ddefd3d61ae3d9bec20316b77b",
+    "apps/web/src/presentation/static/img/icons/trash.svg": null,
+    "apps/web/src/presentation/static/css/integration.css": "c176cced4e0f7539bfe417adfbcc3349799bff996c70bf1f2310c4ad114c58a4",
+    "apps/web/src/presentation/templates/integration/list.html": "9552925fcc3b7eb75d7789cb3ff1655b92acad9edba8b4de6726a5a4509f2494",
+    "apps/web/src/presentation/templates/integration/detail.html": "fff38a43302b24b37eb858d1420bfdf7fe980cdaf71ddcc716ade2ae72c1064d",
+    "apps/web/src/presentation/templates/integration/values.html": "a6cd32fb4c1045b957b5e0621eee11e2814f0062ddd9c86b3b8c33fb3200443a",
+    "apps/web/src/presentation/templates/integration/evaluation.html": "bc644acda7086e0b574681cdeeeb18f16783a6e4f52d738fd7a5d599668e8011",
+    "apps/web/src/presentation/templates/integration/files.html": "886bd62797d38c7ad46025a1997bc4541b6330f56ef781e77b7722ec8312b591",
+    "apps/web/src/presentation/templates/integration/monitor.html": "7f883cf2225dad119a3ec9093a701c3d71858be048cbd59e9682b8bff99f53ce",
+    "apps/services/tests/test_donor_withdrawal.py": "35d1209b87c21aa8465855627defaa1334ac75f84c389abd80c06e31fd085558",
+    "deployment/gcp/verify_donor_withdrawal.cjs": "e0ecfb1ffd06c3ed4bb1b0071656501b3c7b94b9711e73701d48f99af828d995"
+  },
+  "image_before": "sha256:b10b1362fb3dbc108fae4b8ad4278f37fc25720312239aa9762cae43af19804b",
+  "source_sha256": {
+    "apps/web/src/integration/__init__.py": "7cf2896c326a1111906ebb850e00e3cf34015801ec3d59f64a52d7e40280acd1",
+    "apps/web/src/integration/client.py": "f321cb75ed34e49670ca9250d4a63d0b7154ce178f8611ed9281fda5cd95e445",
+    "apps/web/src/integration/presentation.py": "45f3f4afdd426b8637d6c71564d109917480879120249aee2668f67a80a16ec2",
+    "apps/web/src/integration/routes/common.py": "1311040b0ecf9a2ec21bed5f495503af1a5480ad47be2fa69a4b2db480fa7460",
+    "apps/web/src/integration/routes/people.py": "f638682f7ea7198f5b11e3b967581ff6a993ee6892dc99900a7c98b5c8a4aa6b",
+    "apps/web/src/integration/routes/requests.py": "d953bce26c7f1f8acb82a569ade43028e5cfa74c5994f9c155d08419dca41de4",
+    "apps/web/src/integration/routes/logistics.py": "2bfa2d29374eaafe666fcb92b8e31e7db798635240e0fe3d68bb7bca1f8f5008",
+    "apps/web/src/integration/routes/files.py": "6fc5314ec3773a12fe202a89244633bce20f2b6199efc0ccf4fd1828174b87c9",
+    "apps/web/src/presentation/static/img/icons/trash.svg": "a74a57521df452fa4b99f59f2fcf48278f896506ef7b7d0e53d5d47b563c60b0",
+    "apps/web/src/presentation/static/css/integration.css": "7348575d71208907a4d8c4ac64af3c98f44b8a62f80477d830a09a735f876e81",
+    "apps/web/src/presentation/templates/integration/list.html": "83d24380a775cbc52c547e4b07c54045623a058149d0ddbe23e6cc35b0417937",
+    "apps/web/src/presentation/templates/integration/detail.html": "a397b69029e61a5ea19d4d799e0d2a1640f6141f06dbb858b4fa51747fc01854",
+    "apps/web/src/presentation/templates/integration/values.html": "10d07e4b54a082946ac21cfdda27ae8ef3344ca756962f98bd4766b1e4713c1b",
+    "apps/web/src/presentation/templates/integration/evaluation.html": "b203f1a83bc51373e8db144f04f62d4932b2103f6cfb576a3c052456a3c76186",
+    "apps/web/src/presentation/templates/integration/files.html": "c631528d6ceb9556864d080046351480707372cfcfaea3ee78e42bcc3f377c72",
+    "apps/web/src/presentation/templates/integration/monitor.html": "21e3527aeb132436f5f34aefe811b92c7b6b77422549c4b8e020bb894752a873",
+    "apps/services/tests/test_donor_withdrawal.py": "5c6c5b3f65b679faf7407b58ee9ac3ee571e0692dfbeae468223c380a3981ab8",
+    "deployment/gcp/verify_donor_withdrawal.cjs": "f3db574c215219669a8510c470bf2782aed94d5c3dd86210afa292aa96156aaf"
+  },
+  "image_after": "sha256:1afd00373e04ff6831c98d6406438708ed1858863f97c8be8da3db8e5141ad3b",
+  "tables_before": {
+    "donor": {
+      "count": 71,
+      "hash": "6375507c5f4a96e3da62392ab6998b84"
+    },
+    "donor_review": {
+      "count": 65,
+      "hash": "2d8c8b299073a283ba9ecbbf03127892"
+    },
+    "donation": {
+      "count": 60,
+      "hash": "ff7df5dc11203151b8ac3e5ef326f503"
+    },
+    "appointment": {
+      "count": 118,
+      "hash": "0bc2f4040f33627b4abba88930906fcc"
+    }
+  },
+  "tables_after_deploy": {
+    "donor": {
+      "count": 71,
+      "hash": "6375507c5f4a96e3da62392ab6998b84"
+    },
+    "donor_review": {
+      "count": 65,
+      "hash": "2d8c8b299073a283ba9ecbbf03127892"
+    },
+    "donation": {
+      "count": 60,
+      "hash": "ff7df5dc11203151b8ac3e5ef326f503"
+    },
+    "appointment": {
+      "count": 118,
+      "hash": "0bc2f4040f33627b4abba88930906fcc"
+    }
+  },
+  "tables_preserved": true,
+  "containers": [
+    {
+      "name": "redhouse-parcial2-web-1",
+      "status": "Up 13 seconds (healthy)",
+      "image": "redhouse/web:0.3.0"
+    },
+    {
+      "name": "redhouse-parcial2-donantes-b-1",
+      "status": "Up About an hour (healthy)",
+      "image": "redhouse/donantes:0.3.0"
+    },
+    {
+      "name": "redhouse-parcial2-donantes-a-1",
+      "status": "Up About an hour (healthy)",
+      "image": "redhouse/donantes:0.3.0"
+    },
+    {
+      "name": "redhouse-parcial2-gateway-1",
+      "status": "Up 3 hours (healthy)",
+      "image": "nginx:1.28-alpine"
+    },
+    {
+      "name": "redhouse-parcial2-monitoreo-b-1",
+      "status": "Up 3 hours (healthy)",
+      "image": "redhouse/monitoreo:0.3.0"
+    },
+    {
+      "name": "redhouse-parcial2-monitoreo-a-1",
+      "status": "Up 3 hours (healthy)",
+      "image": "redhouse/monitoreo:0.3.0"
+    },
+    {
+      "name": "redhouse-parcial2-transporte-b-1",
+      "status": "Up 3 hours (healthy)",
+      "image": "redhouse/transporte:0.3.0"
+    },
+    {
+      "name": "redhouse-parcial2-transporte-a-1",
+      "status": "Up 3 hours (healthy)",
+      "image": "redhouse/transporte:0.3.0"
+    },
+    {
+      "name": "redhouse-parcial2-inventario-b-1",
+      "status": "Up 3 hours (healthy)",
+      "image": "redhouse/inventario:0.3.0"
+    },
+    {
+      "name": "redhouse-parcial2-inventario-a-1",
+      "status": "Up 3 hours (healthy)",
+      "image": "redhouse/inventario:0.3.0"
+    },
+    {
+      "name": "redhouse-parcial2-priorizacion-geografia-b-1",
+      "status": "Up 3 hours (healthy)",
+      "image": "redhouse/priorizacion_geografia:0.3.0"
+    },
+    {
+      "name": "redhouse-parcial2-priorizacion-geografia-a-1",
+      "status": "Up 3 hours (healthy)",
+      "image": "redhouse/priorizacion_geografia:0.3.0"
+    },
+    {
+      "name": "redhouse-parcial2-compatibilidad-a-1",
+      "status": "Up 3 hours (healthy)",
+      "image": "redhouse/compatibilidad:0.3.0"
+    },
+    {
+      "name": "redhouse-parcial2-compatibilidad-b-1",
+      "status": "Up 3 hours (healthy)",
+      "image": "redhouse/compatibilidad:0.3.0"
+    },
+    {
+      "name": "redhouse-parcial2-receptores-a-1",
+      "status": "Up 3 hours (healthy)",
+      "image": "redhouse/receptores:0.3.0"
+    },
+    {
+      "name": "redhouse-parcial2-receptores-b-1",
+      "status": "Up 3 hours (healthy)",
+      "image": "redhouse/receptores:0.3.0"
+    },
+    {
+      "name": "redhouse-parcial2-identidad-acceso-a-1",
+      "status": "Up 3 hours (healthy)",
+      "image": "redhouse/identidad_acceso:0.3.0"
+    },
+    {
+      "name": "redhouse-parcial2-identidad-acceso-b-1",
+      "status": "Up 3 hours (healthy)",
+      "image": "redhouse/identidad_acceso:0.3.0"
+    },
+    {
+      "name": "redhouse-parcial2-custodia-b-1",
+      "status": "Up 3 hours (healthy)",
+      "image": "redhouse/custodia:0.3.0"
+    },
+    {
+      "name": "redhouse-parcial2-custodia-a-1",
+      "status": "Up 3 hours (healthy)",
+      "image": "redhouse/custodia:0.3.0"
+    },
+    {
+      "name": "redhouse-parcial2-alertas-a-1",
+      "status": "Up 3 hours (healthy)",
+      "image": "redhouse/alertas:0.3.0"
+    },
+    {
+      "name": "redhouse-parcial2-alertas-b-1",
+      "status": "Up 3 hours (healthy)",
+      "image": "redhouse/alertas:0.3.0"
+    },
+    {
+      "name": "redhouse-parcial2-auditoria-b-1",
+      "status": "Up 3 hours (healthy)",
+      "image": "redhouse/auditoria:0.3.0"
+    },
+    {
+      "name": "redhouse-parcial2-auditoria-a-1",
+      "status": "Up 3 hours (healthy)",
+      "image": "redhouse/auditoria:0.3.0"
+    },
+    {
+      "name": "redhouse-parcial2-redis-1",
+      "status": "Up 3 hours (healthy)",
+      "image": "redis:7.4-bookworm"
+    },
+    {
+      "name": "redhouse-parcial2-postgres-1",
+      "status": "Up 3 hours (healthy)",
+      "image": "postgres:14-bookworm"
+    },
+    {
+      "name": "redhouse-parcial2-mongodb-1",
+      "status": "Up 3 hours (healthy)",
+      "image": "afa897893e73"
+    }
+  ],
+  "health": {
+    "6101": 200,
+    "6102": 200,
+    "6103": 200,
+    "6104": 200,
+    "6105": 200,
+    "6106": 200,
+    "6107": 200,
+    "6108": 200,
+    "6109": 200,
+    "6110": 200,
+    "6111": 200
+  },
+  "deployed_at": "2026-10-21T16:57:05.867058+00:00",
+  "container_source_verified": {
+    "apps/web/src/integration/__init__.py": true,
+    "apps/web/src/integration/client.py": true,
+    "apps/web/src/integration/presentation.py": true,
+    "apps/web/src/integration/routes/common.py": true,
+    "apps/web/src/integration/routes/people.py": true,
+    "apps/web/src/integration/routes/requests.py": true,
+    "apps/web/src/integration/routes/logistics.py": true,
+    "apps/web/src/integration/routes/files.py": true,
+    "apps/web/src/presentation/static/img/icons/trash.svg": true,
+    "apps/web/src/presentation/static/css/integration.css": true,
+    "apps/web/src/presentation/templates/integration/list.html": true,
+    "apps/web/src/presentation/templates/integration/detail.html": true,
+    "apps/web/src/presentation/templates/integration/values.html": true,
+    "apps/web/src/presentation/templates/integration/evaluation.html": true,
+    "apps/web/src/presentation/templates/integration/files.html": true,
+    "apps/web/src/presentation/templates/integration/monitor.html": true
+  }
+}

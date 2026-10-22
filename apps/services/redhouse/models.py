@@ -50,13 +50,19 @@ class Confirm(Model):
     reason: Reason
 
 
-def utc_date(value):
+def utc_date(value, field=None):
     try:
         result = datetime.fromisoformat(value.replace("Z", "+00:00"))
         if result.tzinfo is None:
             raise ValueError()
         return result
     except (ValueError, AttributeError):
+        if field:
+            from .validation import invalid
+
+            raise invalid(
+                "Escribe una fecha y hora válidas con zona horaria.", field
+            ) from None
         from .errors import APIError
 
         raise APIError(

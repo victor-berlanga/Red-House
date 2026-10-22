@@ -45,6 +45,7 @@ PERMISSIONS = {
     "logistics": {"COORDINATOR", "MEDICAL", "OPERATOR", "TRANSPORT"},
     "organ.read": {"COORDINATOR", "MEDICAL", "OPERATOR"},
     "audit.read": {"AUDITOR"},
+    "findings.read": {"AUDITOR", "COORDINATOR"},
     "administration": {"ADMIN"},
     "alerts.read": set(ROLES),
     "monitor.read": {"ADMIN", "COORDINATOR", "AUDITOR"},
@@ -202,6 +203,16 @@ NAV = [
     ),
     (
         "SEGUIMIENTO",
+        "findings",
+        "Hallazgos",
+        "scroll-text",
+        "portal.findings",
+        {},
+        "findings.read",
+        False,
+    ),
+    (
+        "SEGUIMIENTO",
         "monitoreo",
         "Estado de la plataforma",
         "shield-check",
@@ -259,7 +270,9 @@ def configure(app):
     validate_urls(app.config.get("SERVICE_URLS"))
     for key in ("WEB_REDIS_URL", "WEB_REDIS_PREFIX", "WEB_DATABASE_URL"):
         if not app.config.get(key):
-            raise RuntimeError(f"Configura {key}; ejecuta la actualización de sesiones web.")
+            raise RuntimeError(
+                f"Configura {key}; ejecuta la actualización de sesiones web."
+            )
 
     @app.before_request
     def identify():
@@ -385,6 +398,8 @@ def configure(app):
             and request.headers.get("X-Filter-Fragment") == "1",
             field_labels=FIELD_LABELS,
             technical_fields=TECHNICAL,
+            show_technical_details=getattr(g.principal, "role_code", "")
+            in ("ADMIN", "AUDITOR"),
             tasks=TASKS.get(getattr(g.principal, "role_code", ""), []),
             roles=ROLES,
             integration_mode=True,
@@ -436,6 +451,13 @@ def configure(app):
 
     @app.errorhandler(HTTPException)
     def http_error(exc):
+        if exc.code == 413:
+            return render_template(
+                "error.html",
+                title="Archivo demasiado grande",
+                code=413,
+                message="Vuelve al formulario y selecciona un JPEG, PNG o PDF de hasta 10 MiB. Debes seleccionar nuevamente el archivo.",
+            ), 413
         return render_template(
             "error.html",
             title="Página no disponible",

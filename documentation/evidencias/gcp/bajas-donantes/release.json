@@ -1,0 +1,210 @@
+{
+  "created_at": "2026-10-21T15:42:02.590561+00:00",
+  "backup": "/opt/redhouse/.local/donor-withdrawal-20261021/backup/before.dump",
+  "bytes": 5249286,
+  "sha256": "ec29461a019f8f713c7e5a54144aaa68ae4bfbb27593bb2620db7cb737155807",
+  "restore_listing_valid": true,
+  "images_before": {
+    "web": "sha256:30307a74a653b7ceef99290497017fc83ec8cb94083b7f3181a3f1b367f3d589",
+    "donantes": "sha256:641751b16daa62c4904aad7d2723bab8b4d048b036e872c0da624e6de6b25305"
+  },
+  "tables_before": {
+    "donor": {
+      "count": 70,
+      "hash": "68f3ec738403001fef9c3f0f3a6ef263"
+    },
+    "donor_review": {
+      "count": 64,
+      "hash": "b9fbad99ecc2b55a531ca509d2e11ee5"
+    },
+    "donation": {
+      "count": 60,
+      "hash": "ff7df5dc11203151b8ac3e5ef326f503"
+    },
+    "appointment": {
+      "count": 118,
+      "hash": "0bc2f4040f33627b4abba88930906fcc"
+    }
+  },
+  "source_sha256": {
+    "apps/services/ms_donantes/__init__.py": "ab7d9e2d9987b3c833cffac2178d6aa35825e6caee4106ad311b9be19e95f914",
+    "apps/services/ms_donantes/editing.py": "4ae20bbe51ee82350b168ada06838fcad8f8721510da5b4401d1b801227b1b20",
+    "apps/services/ms_donantes/routes.py": "6fa3edc70ebb46542f704849a9eef7819aa2e402fb31ee849d748f79ca9caa56",
+    "apps/services/ms_donantes/queries.py": "c2be7be97692ea11704ea451db44f8343918e7327206a41790a0766fc2bec4e0",
+    "apps/services/ms_donantes/withdrawal.py": "127e4aeb3dbf4b3e69b28e4e18f79d81e031bcdb82fd22cadf9522ee47d7118f",
+    "apps/services/ms_donantes/outputs.json": "92e1258a2a5f4e4bd89c45442028f03e541bad1357acf46d248cc1abe08b6e30",
+    "apps/services/ms_donantes/contracts/openapi.json": "9b285c524cf6ad61635dafecfbd26ee72c6e448e90e12d441801a5b18aafb2dc",
+    "apps/services/ms_donantes/contracts/donor_withdraw.response.json": "b941e966a86da2749a738b8dd30a7a3b72505f28040fc27a6b42c0b34ce4d74a",
+    "apps/services/ms_donantes/contracts/donor_withdraw.xsd": "91b1ae6987a4697910884165b8fa52a279a3eaca370c488e910c3eb24abc369f",
+    "apps/services/ms_donantes/contracts/donor_withdraw.example.json": "a63eaecf32030a45c06ee5b61bc7f9ce994650c8dda0742edbedebaf9145bb1e",
+    "apps/services/ms_donantes/contracts/donor_withdraw.example.xml": "26945f360e3075dc9dfa4ab81f91d1281631ebf712094a9a534b7f0feac31065",
+    "apps/web/src/integration/routes/people.py": "3ca6d1dedef1788f6dfc88e2ab6901327b23021a240cca61b9df3ec2dcda3af4",
+    "apps/web/src/integration/presentation.py": "77330890fc133bc9e624eb3fb5de6d5c3faf84c61f190507bff536be75215f53",
+    "apps/web/src/presentation/static/js/app.js": "005943bbf719f722879f94df9df0a4cafb341292ba4ee675c090efb863dbb6c8",
+    "apps/services/tests/test_donor_withdrawal.py": "35d1209b87c21aa8465855627defaa1334ac75f84c389abd80c06e31fd085558",
+    "apps/services/ms_donantes/README.md": "704b48f958945c5d21ca033aabbeff445daf9164a3e9a4a8723a2e144f388c57",
+    "deployment/gcp/verify_donor_withdrawal.cjs": "e0ecfb1ffd06c3ed4bb1b0071656501b3c7b94b9711e73701d48f99af828d995"
+  },
+  "images_after": {
+    "donantes": "sha256:7bfed58ce6eca1dd509cc9cee1d0d35d5558aebed18d7d57edec9c5c83ac14c3",
+    "web": "sha256:b10b1362fb3dbc108fae4b8ad4278f37fc25720312239aa9762cae43af19804b"
+  },
+  "tables_after_deploy": {
+    "donor": {
+      "count": 70,
+      "hash": "68f3ec738403001fef9c3f0f3a6ef263"
+    },
+    "donor_review": {
+      "count": 64,
+      "hash": "b9fbad99ecc2b55a531ca509d2e11ee5"
+    },
+    "donation": {
+      "count": 60,
+      "hash": "ff7df5dc11203151b8ac3e5ef326f503"
+    },
+    "appointment": {
+      "count": 118,
+      "hash": "0bc2f4040f33627b4abba88930906fcc"
+    }
+  },
+  "tables_preserved": true,
+  "health": {
+    "identidad_acceso": 200,
+    "donantes": 200,
+    "receptores": 200,
+    "inventario": 200,
+    "compatibilidad": 200,
+    "priorizacion_geografia": 200,
+    "transporte": 200,
+    "custodia": 200,
+    "alertas": 200,
+    "auditoria": 200,
+    "monitoreo": 200
+  },
+  "containers": [
+    {
+      "name": "redhouse-parcial2-web-1",
+      "status": "Up 2 minutes (healthy)"
+    },
+    {
+      "name": "redhouse-parcial2-donantes-b-1",
+      "status": "Up 2 minutes (healthy)"
+    },
+    {
+      "name": "redhouse-parcial2-donantes-a-1",
+      "status": "Up 3 minutes (healthy)"
+    },
+    {
+      "name": "redhouse-parcial2-gateway-1",
+      "status": "Up 2 hours (healthy)"
+    },
+    {
+      "name": "redhouse-parcial2-monitoreo-b-1",
+      "status": "Up 2 hours (healthy)"
+    },
+    {
+      "name": "redhouse-parcial2-monitoreo-a-1",
+      "status": "Up 2 hours (healthy)"
+    },
+    {
+      "name": "redhouse-parcial2-transporte-b-1",
+      "status": "Up 2 hours (healthy)"
+    },
+    {
+      "name": "redhouse-parcial2-transporte-a-1",
+      "status": "Up 2 hours (healthy)"
+    },
+    {
+      "name": "redhouse-parcial2-inventario-b-1",
+      "status": "Up 2 hours (healthy)"
+    },
+    {
+      "name": "redhouse-parcial2-inventario-a-1",
+      "status": "Up 2 hours (healthy)"
+    },
+    {
+      "name": "redhouse-parcial2-priorizacion-geografia-b-1",
+      "status": "Up 2 hours (healthy)"
+    },
+    {
+      "name": "redhouse-parcial2-priorizacion-geografia-a-1",
+      "status": "Up 2 hours (healthy)"
+    },
+    {
+      "name": "redhouse-parcial2-compatibilidad-a-1",
+      "status": "Up 2 hours (healthy)"
+    },
+    {
+      "name": "redhouse-parcial2-compatibilidad-b-1",
+      "status": "Up 2 hours (healthy)"
+    },
+    {
+      "name": "redhouse-parcial2-receptores-a-1",
+      "status": "Up 2 hours (healthy)"
+    },
+    {
+      "name": "redhouse-parcial2-receptores-b-1",
+      "status": "Up 2 hours (healthy)"
+    },
+    {
+      "name": "redhouse-parcial2-identidad-acceso-a-1",
+      "status": "Up 2 hours (healthy)"
+    },
+    {
+      "name": "redhouse-parcial2-identidad-acceso-b-1",
+      "status": "Up 2 hours (healthy)"
+    },
+    {
+      "name": "redhouse-parcial2-custodia-b-1",
+      "status": "Up 2 hours (healthy)"
+    },
+    {
+      "name": "redhouse-parcial2-custodia-a-1",
+      "status": "Up 2 hours (healthy)"
+    },
+    {
+      "name": "redhouse-parcial2-alertas-a-1",
+      "status": "Up 2 hours (healthy)"
+    },
+    {
+      "name": "redhouse-parcial2-alertas-b-1",
+      "status": "Up 2 hours (healthy)"
+    },
+    {
+      "name": "redhouse-parcial2-auditoria-b-1",
+      "status": "Up 2 hours (healthy)"
+    },
+    {
+      "name": "redhouse-parcial2-auditoria-a-1",
+      "status": "Up 2 hours (healthy)"
+    },
+    {
+      "name": "redhouse-parcial2-redis-1",
+      "status": "Up 2 hours (healthy)"
+    },
+    {
+      "name": "redhouse-parcial2-postgres-1",
+      "status": "Up 2 hours (healthy)"
+    },
+    {
+      "name": "redhouse-parcial2-mongodb-1",
+      "status": "Up 2 hours (healthy)"
+    }
+  ],
+  "deployed_at": "2026-10-21T15:48:20.452823+00:00",
+  "tests": {
+    "name": "pytest",
+    "errors": "0",
+    "failures": "0",
+    "skipped": "0",
+    "tests": "27",
+    "time": "86.509",
+    "timestamp": "2026-10-21T15:44:50.216651+00:00",
+    "hostname": "3d42b2c577fb",
+    "file": "withdrawal-tests.xml"
+  },
+  "result": "passed",
+  "isolated_containers_removed": true,
+  "health_verified_at": "2026-10-21T15:50:44.602436+00:00",
+  "verification_note": "La primera cuenta por etiqueta de Compose incluyó el MongoDB aislado, cuya imagen heredaba esa etiqueta. Los 27 contenedores de la aplicación estaban saludables; se retiró el entorno temporal y se comprobó la cuenta final."
+}

@@ -25,7 +25,34 @@ ERROR = {
             "properties": {
                 "code": {"type": "string"},
                 "message": {"type": "string"},
-                "details": {"type": "array", "items": {"type": "object"}},
+                "details": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "field": {
+                                "type": "string",
+                                "description": "Ruta del campo en la entrada; no incluye su valor.",
+                            },
+                            "code": {"type": "string"},
+                            "message": {
+                                "type": "string",
+                                "description": "Corrección segura en español.",
+                            },
+                            **{
+                                key: {"type": "number"}
+                                for key in (
+                                    "min_length",
+                                    "max_length",
+                                    "ge",
+                                    "le",
+                                    "gt",
+                                    "lt",
+                                )
+                            },
+                        },
+                    },
+                },
             },
         },
     },

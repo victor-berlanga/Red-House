@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="page-heading"><div><h1>Seguimiento de hallazgo</h1><p>{{ states[row.status] }} · Prioridad {{ priorities[row.priority]|lower }}</p></div></div>
+<p><a class="back-link" href="{{ back }}">Volver a hallazgos</a></p>
+<section class="card record-section"><h2>Descripción</h2><p>{{ row.description }}</p><p><strong>Responsable de atención:</strong> {{ row.assignee_name }}</p><p><strong>Evidencia:</strong> {{ row.evidence or 'Pendiente de aportar' }}</p>
+{% if row.resource_id and principal.role_code == 'AUDITOR' %}<p><a href="{{ url_for('portal.audit',applied='1',categories='ALL',resource=row.resource_id) }}">Investigar eventos del recurso vinculado</a></p>{% endif %}
+{% if principal.role_code == 'AUDITOR' %}<ul>{% for item in row.events %}<li><a href="{{ url_for('portal.audit_detail',identifier=item.event_id) }}">Consultar evento vinculado {{ loop.index }}</a></li>{% endfor %}</ul>{% endif %}
+{% if transitions %}<div class="form-actions">{% for state,label in transitions %}<a class="button" href="{{ url_for('portal.finding_action',identifier=row.id,state=state) }}">{{ label }}</a>{% endfor %}</div>{% endif %}
+</section>
+<section class="card record-section"><h2>Historial de atención</h2>
+{% for action in row.history %}<article class="finding-action"><h3>{{ states[action.status] }}</h3><p>{{ action.actor_name }} · {{ action.created_at|portal_html }}</p><p><strong>Motivo:</strong> {{ action.reason }}</p>{% if action.corrective_action %}<p><strong>Acción correctiva:</strong> {{ action.corrective_action }}</p>{% endif %}{% if action.evidence %}<p><strong>Evidencia:</strong> {{ action.evidence }}</p>{% endif %}</article>{% endfor %}
+</section>
+{% endblock %}

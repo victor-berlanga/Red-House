@@ -1,5 +1,7 @@
 # Portal web
 
+[Auditoría, seguimiento de hallazgos y errores accesibles de formularios](../../documentation/markdowns/Auditoria_y_formularios.md): comportamiento, permisos, límites y migración necesaria para instalaciones existentes.
+
 Flask/Jinja2 presenta los procesos regionales. `BACKEND_MODE=monolith` ejecuta módulos de aplicación propios mediante WSGI y sus workers; no requiere listeners de las API. `microservices` consume HTTP. Ambos usan las mismas reglas versionadas, JWT, Redis y credenciales por propietario. El backend se selecciona antes de operar; no se cambia tras una escritura fallida. Las sesiones técnicas cifradas y las concesiones de renovación usan Redis con TTL. PostgreSQL conserva las marcas de cierre y las revocaciones pendientes en `web_runtime.session_revocations`.
 
 Desde la raíz del repositorio: `bash install.sh`, después `bash start.sh`. Para operar solo el portal: `bash components.sh web`. El modo modular requiere PostgreSQL y Redis y las dependencias particulares de cada operación; el modo HTTP requiere además las API correspondientes.

@@ -1,0 +1,200 @@
+{
+  "checks": [
+    {
+      "name": "Traslados del transportista",
+      "status": 200,
+      "mime": "application/json"
+    },
+    {
+      "name": "identidad_acceso application/json",
+      "status": 200,
+      "mime": "application/json"
+    },
+    {
+      "name": "identidad_acceso application/xml",
+      "status": 200,
+      "mime": "application/xml"
+    },
+    {
+      "name": "donantes application/json",
+      "status": 200,
+      "mime": "application/json"
+    },
+    {
+      "name": "donantes application/xml",
+      "status": 200,
+      "mime": "application/xml"
+    },
+    {
+      "name": "receptores application/json",
+      "status": 200,
+      "mime": "application/json"
+    },
+    {
+      "name": "receptores application/xml",
+      "status": 200,
+      "mime": "application/xml"
+    },
+    {
+      "name": "inventario application/json",
+      "status": 200,
+      "mime": "application/json"
+    },
+    {
+      "name": "inventario application/xml",
+      "status": 200,
+      "mime": "application/xml"
+    },
+    {
+      "name": "compatibilidad application/json",
+      "status": 200,
+      "mime": "application/json"
+    },
+    {
+      "name": "compatibilidad application/xml",
+      "status": 200,
+      "mime": "application/xml"
+    },
+    {
+      "name": "priorizacion_geografia application/json",
+      "status": 200,
+      "mime": "application/json"
+    },
+    {
+      "name": "priorizacion_geografia application/xml",
+      "status": 200,
+      "mime": "application/xml"
+    },
+    {
+      "name": "transporte application/json",
+      "status": 200,
+      "mime": "application/json"
+    },
+    {
+      "name": "transporte application/xml",
+      "status": 200,
+      "mime": "application/xml"
+    },
+    {
+      "name": "alertas application/json",
+      "status": 200,
+      "mime": "application/json"
+    },
+    {
+      "name": "alertas application/xml",
+      "status": 200,
+      "mime": "application/xml"
+    },
+    {
+      "name": "auditoria application/json",
+      "status": 200,
+      "mime": "application/json"
+    },
+    {
+      "name": "auditoria application/xml",
+      "status": 200,
+      "mime": "application/xml"
+    },
+    {
+      "name": "monitoreo application/json",
+      "status": 200,
+      "mime": "application/json"
+    },
+    {
+      "name": "monitoreo application/xml",
+      "status": 200,
+      "mime": "application/xml"
+    },
+    {
+      "name": "custodia application/json",
+      "status": 200,
+      "mime": "application/json"
+    },
+    {
+      "name": "custodia application/xml",
+      "status": 200,
+      "mime": "application/xml"
+    },
+    {
+      "name": "Catálogo de auditoría",
+      "status": 200,
+      "mime": "application/json"
+    },
+    {
+      "name": "Filtro por recurso",
+      "status": 200,
+      "mime": "application/json"
+    },
+    {
+      "name": "Exportación filtrada completa",
+      "status": 200,
+      "mime": "application/json"
+    },
+    {
+      "name": "Detalle histórico",
+      "status": 200,
+      "mime": "application/json"
+    },
+    {
+      "name": "Secuencia relacionada",
+      "status": 200,
+      "mime": "application/json"
+    },
+    {
+      "name": "Acceso rechazado medical1",
+      "status": 403
+    },
+    {
+      "name": "Acceso rechazado operator1",
+      "status": 403
+    },
+    {
+      "name": "Acceso rechazado coordinator2",
+      "status": 404
+    },
+    {
+      "name": "Acceso rechazado None",
+      "status": 401
+    },
+    {
+      "name": "Hallazgo cerrado application/json",
+      "status": 200,
+      "mime": "application/json"
+    },
+    {
+      "name": "Hallazgo cerrado application/xml",
+      "status": 200,
+      "mime": "application/xml"
+    },
+    {
+      "name": "Historial del hallazgo",
+      "status": 200,
+      "mime": "application/json"
+    },
+    {
+      "name": "Detalles seguros de validación application/json",
+      "status": 422
+    },
+    {
+      "name": "Detalles seguros de validación application/xml",
+      "status": 422
+    },
+    {
+      "name": "Notificación dirigida a coordinación y auditoría",
+      "passed": true
+    }
+  ],
+  "resource_id": "cff9574d-a2a8-4d2d-b95f-e7467ec92424",
+  "finding_id": "64a78c6b-7b39-447c-a12b-9d482835f1b7",
+  "filtered_total": 1,
+  "filtered_ids": [
+    "a391da1d-698a-456a-b5ee-84ffd58ad2e5"
+  ],
+  "finding": {
+    "status": "CLOSED",
+    "version": 4,
+    "history_count": 4,
+    "links": 1
+  },
+  "result": "passed"
+}

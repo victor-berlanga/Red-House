@@ -83,6 +83,14 @@ def platform():
         prefix="red-house-ms-tests-", dir=os.environ.get("REDHOUSE_TEST_ROOT", "/tmp")
     )
     env = Environment(directory, mongo_bin)
+    # Arranques fríos de MongoDB en equipos de desarrollo/CI lentos.
+    # Solo cambia la espera del entorno de prueba, nunca las reglas o dependencias.
+    if os.environ.get("REDHOUSE_TEST_STARTUP_TIMEOUT"):
+        from functools import partial
+
+        env.wait = partial(
+            env.wait, seconds=int(os.environ["REDHOUSE_TEST_STARTUP_TIMEOUT"])
+        )
     apps, servers, threads = {}, {}, []
     try:
         env.init()

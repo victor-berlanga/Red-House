@@ -32,7 +32,7 @@ def call(service, path, method="GET", data=None, *, token=None, idem=None, param
         or "?" in path
         or "#" in path
     ):
-        raise BusinessError("Operación de servicio no configurada.", 503)
+        raise BusinessError("Esta operación no está disponible en este momento.", 503)
     url = urls[service].rstrip("/") + path
     if params:
         url += "?" + urlencode(
@@ -103,22 +103,29 @@ def call(service, path, method="GET", data=None, *, token=None, idem=None, param
             headers["X-Correlation-ID"],
         )
         raise BusinessError(
-            "Un servicio necesario no está disponible. Conserva el formulario y vuelve a intentarlo; si enviaste una reserva, consulta su estado antes de repetirla.",
+            "No pudimos completar la operación. Conserva el formulario y vuelve a intentarlo; si enviaste una reserva, consulta su estado antes de repetirla.",
             503,
         ) from None
     if status >= 400:
         error = value.get("error", {})
         message = error.get("message")
         if not isinstance(message, str) or len(message) > 1200:
-            message = "El servicio no pudo completar la operación."
+            message = "No pudimos completar la operación. Vuelve a intentarlo en unos momentos."
         raise BusinessError(
             message,
             status
             if status in (400, 401, 403, 404, 409, 413, 415, 422, 429, 503)
             else 503,
+            details=error.get("details")
+            if isinstance(error.get("details"), list)
+            else [],
+            code=error.get("code"),
         )
     if "data" not in value:
-        raise BusinessError("Un servicio devolvió una respuesta inválida.", 503)
+        raise BusinessError(
+            "No pudimos consultar la información. Vuelve a intentarlo en unos momentos.",
+            503,
+        )
     return value["data"]
 
 

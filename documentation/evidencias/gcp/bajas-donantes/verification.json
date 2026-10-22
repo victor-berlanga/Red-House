@@ -1,0 +1,85 @@
+{
+  "verified_at": "2026-10-21T15:52:12.521916+00:00",
+  "records": [
+    {
+      "id": "0e17ac98-cf75-4762-b497-887d1e04c779",
+      "mode": "DELETED",
+      "database": {
+        "rows": 0,
+        "status": null
+      },
+      "decisions": [
+        {
+          "action": "DONOR_WITHDRAWN",
+          "mode": "DELETED"
+        }
+      ],
+      "central_audit_events": 1
+    },
+    {
+      "id": "8e8d854b-5ed8-41e3-b992-62c8a1cd0d95",
+      "mode": "INACTIVE",
+      "database": {
+        "rows": 1,
+        "status": "INACTIVE"
+      },
+      "decisions": [
+        {
+          "action": "DONOR_WITHDRAWN",
+          "mode": "INACTIVE"
+        }
+      ],
+      "central_audit_events": 1
+    }
+  ],
+  "existing_tables": {
+    "donor": {
+      "count": 70,
+      "hash": "68f3ec738403001fef9c3f0f3a6ef263",
+      "preserved": true
+    },
+    "donor_review": {
+      "count": 64,
+      "hash": "b9fbad99ecc2b55a531ca509d2e11ee5",
+      "preserved": true
+    },
+    "donation": {
+      "count": 60,
+      "hash": "ff7df5dc11203151b8ac3e5ef326f503",
+      "preserved": true
+    },
+    "appointment": {
+      "count": 118,
+      "hash": "0bc2f4040f33627b4abba88930906fcc",
+      "preserved": true
+    }
+  },
+  "runtime_sources": {
+    "redhouse-parcial2-donantes-a-1": {
+      "matched": true,
+      "files": 12
+    },
+    "redhouse-parcial2-donantes-b-1": {
+      "matched": true,
+      "files": 12
+    },
+    "redhouse-parcial2-web-1": {
+      "matched": true,
+      "files": 16
+    }
+  },
+  "health": {
+    "identidad_acceso": 200,
+    "donantes": 200,
+    "receptores": 200,
+    "inventario": 200,
+    "compatibilidad": 200,
+    "priorizacion_geografia": 200,
+    "transporte": 200,
+    "custodia": 200,
+    "alertas": 200,
+    "auditoria": 200,
+    "monitoreo": 200
+  },
+  "result": "passed"
+}

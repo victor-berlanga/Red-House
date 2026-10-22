@@ -1,0 +1,729 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="8" failures="0" skipped="0" tests="29" time="24.541" timestamp="2026-10-21T14:42:42.891423-06:00" hostname="Victors-MacBook-Air.local"><testcase classname="tests.test_validation_audit" name="test_safe_field_errors_json_xml[changes0-fields0-json]" time="0.165" /><testcase classname="tests.test_validation_audit" name="test_safe_field_errors_json_xml[changes0-fields0-xml]" time="0.131" /><testcase classname="tests.test_validation_audit" name="test_safe_field_errors_json_xml[changes1-fields1-json]" time="0.069" /><testcase classname="tests.test_validation_audit" name="test_safe_field_errors_json_xml[changes1-fields1-xml]" time="0.142" /><testcase classname="tests.test_validation_audit" name="test_safe_field_errors_json_xml[changes2-fields2-json]" time="0.065" /><testcase classname="tests.test_validation_audit" name="test_safe_field_errors_json_xml[changes2-fields2-xml]" time="0.166" /><testcase classname="tests.test_validation_audit" name="test_safe_field_errors_json_xml[changes3-fields3-json]" time="0.083" /><testcase classname="tests.test_validation_audit" name="test_safe_field_errors_json_xml[changes3-fields3-xml]" time="0.218" /><testcase classname="tests.test_validation_audit" name="test_safe_field_errors_json_xml[changes4-fields4-json]" time="0.113" /><testcase classname="tests.test_validation_audit" name="test_safe_field_errors_json_xml[changes4-fields4-xml]" time="0.169" /><testcase classname="tests.test_validation_audit" name="test_safe_field_errors_json_xml[changes5-fields5-json]" time="0.092" /><testcase classname="tests.test_validation_audit" name="test_safe_field_errors_json_xml[changes5-fields5-xml]" time="0.160" /><testcase classname="tests.test_validation_audit" name="test_safe_field_errors_json_xml[changes6-fields6-json]" time="0.125" /><testcase classname="tests.test_validation_audit" name="test_safe_field_errors_json_xml[changes6-fields6-xml]" time="0.126" /><testcase classname="tests.test_validation_audit" name="test_exact_text_limits_and_empty_optionals[6]" time="0.068" /><testcase classname="tests.test_validation_audit" name="test_exact_text_limits_and_empty_optionals[1000]" time="0.067" /><testcase classname="tests.test_validation_audit" name="test_numeric_and_source_limits_keep_field[distance_km--1]" time="0.059" /><testcase classname="tests.test_validation_audit" name="test_numeric_and_source_limits_keep_field[distance_km-20001]" time="0.050" /><testcase classname="tests.test_validation_audit" name="test_numeric_and_source_limits_keep_field[travel_minutes-10081]" time="0.049" /><testcase classname="tests.test_validation_audit" name="test_numeric_and_source_limits_keep_field[travel_minutes-0.5]" time="0.057" /><testcase classname="tests.test_validation_audit" name="test_numeric_and_source_limits_keep_field[source-corto]" time="0.064" /><testcase classname="tests.test_validation_audit" name="test_web_preserves_fields_marks_errors_and_retries_atomically[web]" time="10.095"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">@pytest.fixture(scope="session")
+    def platform():
+        import os
+        import shutil
+    
+        mongo_bin = os.environ.get("REDHOUSE_TEST_MONGOD") or shutil.which("mongod")
+        directory = tempfile.mkdtemp(
+            prefix="red-house-ms-tests-", dir=os.environ.get("REDHOUSE_TEST_ROOT", "/tmp")
+        )
+        env = Environment(directory, mongo_bin)
+        apps, servers, threads = {}, {}, []
+        try:
+&gt;           env.init()
+
+apps/services/tests/conftest.py:88: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'mongod'
+directory = PosixPath('/private/tmp/red-house-ms-tests-sosa1b94'), saved = None
+explicit = '/Users/victorberlanga/Programacion/integracion/Red-House/.local/tools/mongodb-8.0.17/bin/mongod'
+
+    def resolve_binary(name, directory, saved=None, explicit=None):
+        """Conservar el major de PostgreSQL y la serie MongoDB de este entorno."""
+        override = explicit or os.environ.get(
+            {
+                "mongod": "REDHOUSE_MONGOD",
+                "redis-server": "REDHOUSE_REDIS",
+                "postgres": "REDHOUSE_POSTGRES",
+                "initdb": "REDHOUSE_INITDB",
+            }[name]
+        )
+        candidates = [override] if override else [saved, shutil.which(name)]
+        if not override:
+            if name == "mongod":
+                candidates.append(
+                    str(REPO / f".local/tools/mongodb-{MONGO_VERSION}/bin/mongod")
+                )
+            for prefix in ("/opt/homebrew", "/usr/local", "/home/linuxbrew/.linuxbrew"):
+                package = {
+                    "postgres": "postgresql@" + pg_major(directory),
+                    "initdb": "postgresql@" + pg_major(directory),
+                    "mongod": "mongodb-community@8.0",
+                    "redis-server": "redis",
+                }[name]
+                candidates.append(f"{prefix}/opt/{package}/bin/{name}")
+            if name in ("postgres", "initdb"):
+                candidates.append(f"/usr/lib/postgresql/{pg_major(directory)}/bin/{name}")
+        for candidate in dict.fromkeys(candidates):
+            if (
+                not candidate
+                or not Path(candidate).is_file()
+                or not os.access(candidate, os.X_OK)
+            ):
+                continue
+            try:
+                result = subprocess.run(
+                    [candidate, "--version"], capture_output=True, text=True, timeout=10
+                )
+            except (OSError, subprocess.TimeoutExpired):
+                continue
+            if result.returncode:
+                continue
+            output = result.stdout + result.stderr
+            pattern = {
+                "postgres": r"PostgreSQL\) (\d+)\.",
+                "initdb": r"PostgreSQL\) (\d+)\.",
+                "mongod": r"db version v(\d+\.\d+)\.",
+                "redis-server": r"v=(\d+)\.",
+            }[name]
+            match = re.search(pattern, output)
+            if not match:
+                continue
+            version = match.group(1)
+            compatible = (
+                version == pg_major(directory)
+                if name in ("postgres", "initdb")
+                else version == "8.0"
+                if name == "mongod"
+                else int(version) &gt;= 7
+            )
+            if compatible:
+                return str(Path(candidate).absolute())
+&gt;       raise RuntimeError(
+            f"No se encontró {name} compatible ({'PostgreSQL ' + pg_major(directory) if name in ('postgres', 'initdb') else 'MongoDB 8.0' if name == 'mongod' else 'Redis 7+'}). "
+            "Ejecuta bash install.sh para preparar las dependencias."
+        )
+E       RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.
+
+apps/services/scripts/dependencies.py:83: RuntimeError</error></testcase><testcase classname="tests.test_validation_audit" name="test_web_preserves_fields_marks_errors_and_retries_atomically[autonomous]" time="0.015"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">@pytest.fixture(scope="session")
+    def platform():
+        import os
+        import shutil
+    
+        mongo_bin = os.environ.get("REDHOUSE_TEST_MONGOD") or shutil.which("mongod")
+        directory = tempfile.mkdtemp(
+            prefix="red-house-ms-tests-", dir=os.environ.get("REDHOUSE_TEST_ROOT", "/tmp")
+        )
+        env = Environment(directory, mongo_bin)
+        apps, servers, threads = {}, {}, []
+        try:
+&gt;           env.init()
+
+apps/services/tests/conftest.py:88: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'mongod'
+directory = PosixPath('/private/tmp/red-house-ms-tests-sosa1b94'), saved = None
+explicit = '/Users/victorberlanga/Programacion/integracion/Red-House/.local/tools/mongodb-8.0.17/bin/mongod'
+
+    def resolve_binary(name, directory, saved=None, explicit=None):
+        """Conservar el major de PostgreSQL y la serie MongoDB de este entorno."""
+        override = explicit or os.environ.get(
+            {
+                "mongod": "REDHOUSE_MONGOD",
+                "redis-server": "REDHOUSE_REDIS",
+                "postgres": "REDHOUSE_POSTGRES",
+                "initdb": "REDHOUSE_INITDB",
+            }[name]
+        )
+        candidates = [override] if override else [saved, shutil.which(name)]
+        if not override:
+            if name == "mongod":
+                candidates.append(
+                    str(REPO / f".local/tools/mongodb-{MONGO_VERSION}/bin/mongod")
+                )
+            for prefix in ("/opt/homebrew", "/usr/local", "/home/linuxbrew/.linuxbrew"):
+                package = {
+                    "postgres": "postgresql@" + pg_major(directory),
+                    "initdb": "postgresql@" + pg_major(directory),
+                    "mongod": "mongodb-community@8.0",
+                    "redis-server": "redis",
+                }[name]
+                candidates.append(f"{prefix}/opt/{package}/bin/{name}")
+            if name in ("postgres", "initdb"):
+                candidates.append(f"/usr/lib/postgresql/{pg_major(directory)}/bin/{name}")
+        for candidate in dict.fromkeys(candidates):
+            if (
+                not candidate
+                or not Path(candidate).is_file()
+                or not os.access(candidate, os.X_OK)
+            ):
+                continue
+            try:
+                result = subprocess.run(
+                    [candidate, "--version"], capture_output=True, text=True, timeout=10
+                )
+            except (OSError, subprocess.TimeoutExpired):
+                continue
+            if result.returncode:
+                continue
+            output = result.stdout + result.stderr
+            pattern = {
+                "postgres": r"PostgreSQL\) (\d+)\.",
+                "initdb": r"PostgreSQL\) (\d+)\.",
+                "mongod": r"db version v(\d+\.\d+)\.",
+                "redis-server": r"v=(\d+)\.",
+            }[name]
+            match = re.search(pattern, output)
+            if not match:
+                continue
+            version = match.group(1)
+            compatible = (
+                version == pg_major(directory)
+                if name in ("postgres", "initdb")
+                else version == "8.0"
+                if name == "mongod"
+                else int(version) &gt;= 7
+            )
+            if compatible:
+                return str(Path(candidate).absolute())
+&gt;       raise RuntimeError(
+            f"No se encontró {name} compatible ({'PostgreSQL ' + pg_major(directory) if name in ('postgres', 'initdb') else 'MongoDB 8.0' if name == 'mongod' else 'Redis 7+'}). "
+            "Ejecuta bash install.sh para preparar las dependencias."
+        )
+E       RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.
+
+apps/services/scripts/dependencies.py:83: RuntimeError</error></testcase><testcase classname="tests.test_validation_audit" name="test_web_login_does_not_echo_password" time="0.008"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">@pytest.fixture(scope="session")
+    def platform():
+        import os
+        import shutil
+    
+        mongo_bin = os.environ.get("REDHOUSE_TEST_MONGOD") or shutil.which("mongod")
+        directory = tempfile.mkdtemp(
+            prefix="red-house-ms-tests-", dir=os.environ.get("REDHOUSE_TEST_ROOT", "/tmp")
+        )
+        env = Environment(directory, mongo_bin)
+        apps, servers, threads = {}, {}, []
+        try:
+&gt;           env.init()
+
+apps/services/tests/conftest.py:88: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'mongod'
+directory = PosixPath('/private/tmp/red-house-ms-tests-sosa1b94'), saved = None
+explicit = '/Users/victorberlanga/Programacion/integracion/Red-House/.local/tools/mongodb-8.0.17/bin/mongod'
+
+    def resolve_binary(name, directory, saved=None, explicit=None):
+        """Conservar el major de PostgreSQL y la serie MongoDB de este entorno."""
+        override = explicit or os.environ.get(
+            {
+                "mongod": "REDHOUSE_MONGOD",
+                "redis-server": "REDHOUSE_REDIS",
+                "postgres": "REDHOUSE_POSTGRES",
+                "initdb": "REDHOUSE_INITDB",
+            }[name]
+        )
+        candidates = [override] if override else [saved, shutil.which(name)]
+        if not override:
+            if name == "mongod":
+                candidates.append(
+                    str(REPO / f".local/tools/mongodb-{MONGO_VERSION}/bin/mongod")
+                )
+            for prefix in ("/opt/homebrew", "/usr/local", "/home/linuxbrew/.linuxbrew"):
+                package = {
+                    "postgres": "postgresql@" + pg_major(directory),
+                    "initdb": "postgresql@" + pg_major(directory),
+                    "mongod": "mongodb-community@8.0",
+                    "redis-server": "redis",
+                }[name]
+                candidates.append(f"{prefix}/opt/{package}/bin/{name}")
+            if name in ("postgres", "initdb"):
+                candidates.append(f"/usr/lib/postgresql/{pg_major(directory)}/bin/{name}")
+        for candidate in dict.fromkeys(candidates):
+            if (
+                not candidate
+                or not Path(candidate).is_file()
+                or not os.access(candidate, os.X_OK)
+            ):
+                continue
+            try:
+                result = subprocess.run(
+                    [candidate, "--version"], capture_output=True, text=True, timeout=10
+                )
+            except (OSError, subprocess.TimeoutExpired):
+                continue
+            if result.returncode:
+                continue
+            output = result.stdout + result.stderr
+            pattern = {
+                "postgres": r"PostgreSQL\) (\d+)\.",
+                "initdb": r"PostgreSQL\) (\d+)\.",
+                "mongod": r"db version v(\d+\.\d+)\.",
+                "redis-server": r"v=(\d+)\.",
+            }[name]
+            match = re.search(pattern, output)
+            if not match:
+                continue
+            version = match.group(1)
+            compatible = (
+                version == pg_major(directory)
+                if name in ("postgres", "initdb")
+                else version == "8.0"
+                if name == "mongod"
+                else int(version) &gt;= 7
+            )
+            if compatible:
+                return str(Path(candidate).absolute())
+&gt;       raise RuntimeError(
+            f"No se encontró {name} compatible ({'PostgreSQL ' + pg_major(directory) if name in ('postgres', 'initdb') else 'MongoDB 8.0' if name == 'mongod' else 'Redis 7+'}). "
+            "Ejecuta bash install.sh para preparar las dependencias."
+        )
+E       RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.
+
+apps/services/scripts/dependencies.py:83: RuntimeError</error></testcase><testcase classname="tests.test_validation_audit" name="test_audit_default_categories_filters_exports_and_scope" time="0.006"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">@pytest.fixture(scope="session")
+    def platform():
+        import os
+        import shutil
+    
+        mongo_bin = os.environ.get("REDHOUSE_TEST_MONGOD") or shutil.which("mongod")
+        directory = tempfile.mkdtemp(
+            prefix="red-house-ms-tests-", dir=os.environ.get("REDHOUSE_TEST_ROOT", "/tmp")
+        )
+        env = Environment(directory, mongo_bin)
+        apps, servers, threads = {}, {}, []
+        try:
+&gt;           env.init()
+
+apps/services/tests/conftest.py:88: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'mongod'
+directory = PosixPath('/private/tmp/red-house-ms-tests-sosa1b94'), saved = None
+explicit = '/Users/victorberlanga/Programacion/integracion/Red-House/.local/tools/mongodb-8.0.17/bin/mongod'
+
+    def resolve_binary(name, directory, saved=None, explicit=None):
+        """Conservar el major de PostgreSQL y la serie MongoDB de este entorno."""
+        override = explicit or os.environ.get(
+            {
+                "mongod": "REDHOUSE_MONGOD",
+                "redis-server": "REDHOUSE_REDIS",
+                "postgres": "REDHOUSE_POSTGRES",
+                "initdb": "REDHOUSE_INITDB",
+            }[name]
+        )
+        candidates = [override] if override else [saved, shutil.which(name)]
+        if not override:
+            if name == "mongod":
+                candidates.append(
+                    str(REPO / f".local/tools/mongodb-{MONGO_VERSION}/bin/mongod")
+                )
+            for prefix in ("/opt/homebrew", "/usr/local", "/home/linuxbrew/.linuxbrew"):
+                package = {
+                    "postgres": "postgresql@" + pg_major(directory),
+                    "initdb": "postgresql@" + pg_major(directory),
+                    "mongod": "mongodb-community@8.0",
+                    "redis-server": "redis",
+                }[name]
+                candidates.append(f"{prefix}/opt/{package}/bin/{name}")
+            if name in ("postgres", "initdb"):
+                candidates.append(f"/usr/lib/postgresql/{pg_major(directory)}/bin/{name}")
+        for candidate in dict.fromkeys(candidates):
+            if (
+                not candidate
+                or not Path(candidate).is_file()
+                or not os.access(candidate, os.X_OK)
+            ):
+                continue
+            try:
+                result = subprocess.run(
+                    [candidate, "--version"], capture_output=True, text=True, timeout=10
+                )
+            except (OSError, subprocess.TimeoutExpired):
+                continue
+            if result.returncode:
+                continue
+            output = result.stdout + result.stderr
+            pattern = {
+                "postgres": r"PostgreSQL\) (\d+)\.",
+                "initdb": r"PostgreSQL\) (\d+)\.",
+                "mongod": r"db version v(\d+\.\d+)\.",
+                "redis-server": r"v=(\d+)\.",
+            }[name]
+            match = re.search(pattern, output)
+            if not match:
+                continue
+            version = match.group(1)
+            compatible = (
+                version == pg_major(directory)
+                if name in ("postgres", "initdb")
+                else version == "8.0"
+                if name == "mongod"
+                else int(version) &gt;= 7
+            )
+            if compatible:
+                return str(Path(candidate).absolute())
+&gt;       raise RuntimeError(
+            f"No se encontró {name} compatible ({'PostgreSQL ' + pg_major(directory) if name in ('postgres', 'initdb') else 'MongoDB 8.0' if name == 'mongod' else 'Redis 7+'}). "
+            "Ejecuta bash install.sh para preparar las dependencias."
+        )
+E       RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.
+
+apps/services/scripts/dependencies.py:83: RuntimeError</error></testcase><testcase classname="tests.test_validation_audit" name="test_audit_related_uses_documented_links_and_never_invents_history" time="0.007"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">@pytest.fixture(scope="session")
+    def platform():
+        import os
+        import shutil
+    
+        mongo_bin = os.environ.get("REDHOUSE_TEST_MONGOD") or shutil.which("mongod")
+        directory = tempfile.mkdtemp(
+            prefix="red-house-ms-tests-", dir=os.environ.get("REDHOUSE_TEST_ROOT", "/tmp")
+        )
+        env = Environment(directory, mongo_bin)
+        apps, servers, threads = {}, {}, []
+        try:
+&gt;           env.init()
+
+apps/services/tests/conftest.py:88: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'mongod'
+directory = PosixPath('/private/tmp/red-house-ms-tests-sosa1b94'), saved = None
+explicit = '/Users/victorberlanga/Programacion/integracion/Red-House/.local/tools/mongodb-8.0.17/bin/mongod'
+
+    def resolve_binary(name, directory, saved=None, explicit=None):
+        """Conservar el major de PostgreSQL y la serie MongoDB de este entorno."""
+        override = explicit or os.environ.get(
+            {
+                "mongod": "REDHOUSE_MONGOD",
+                "redis-server": "REDHOUSE_REDIS",
+                "postgres": "REDHOUSE_POSTGRES",
+                "initdb": "REDHOUSE_INITDB",
+            }[name]
+        )
+        candidates = [override] if override else [saved, shutil.which(name)]
+        if not override:
+            if name == "mongod":
+                candidates.append(
+                    str(REPO / f".local/tools/mongodb-{MONGO_VERSION}/bin/mongod")
+                )
+            for prefix in ("/opt/homebrew", "/usr/local", "/home/linuxbrew/.linuxbrew"):
+                package = {
+                    "postgres": "postgresql@" + pg_major(directory),
+                    "initdb": "postgresql@" + pg_major(directory),
+                    "mongod": "mongodb-community@8.0",
+                    "redis-server": "redis",
+                }[name]
+                candidates.append(f"{prefix}/opt/{package}/bin/{name}")
+            if name in ("postgres", "initdb"):
+                candidates.append(f"/usr/lib/postgresql/{pg_major(directory)}/bin/{name}")
+        for candidate in dict.fromkeys(candidates):
+            if (
+                not candidate
+                or not Path(candidate).is_file()
+                or not os.access(candidate, os.X_OK)
+            ):
+                continue
+            try:
+                result = subprocess.run(
+                    [candidate, "--version"], capture_output=True, text=True, timeout=10
+                )
+            except (OSError, subprocess.TimeoutExpired):
+                continue
+            if result.returncode:
+                continue
+            output = result.stdout + result.stderr
+            pattern = {
+                "postgres": r"PostgreSQL\) (\d+)\.",
+                "initdb": r"PostgreSQL\) (\d+)\.",
+                "mongod": r"db version v(\d+\.\d+)\.",
+                "redis-server": r"v=(\d+)\.",
+            }[name]
+            match = re.search(pattern, output)
+            if not match:
+                continue
+            version = match.group(1)
+            compatible = (
+                version == pg_major(directory)
+                if name in ("postgres", "initdb")
+                else version == "8.0"
+                if name == "mongod"
+                else int(version) &gt;= 7
+            )
+            if compatible:
+                return str(Path(candidate).absolute())
+&gt;       raise RuntimeError(
+            f"No se encontró {name} compatible ({'PostgreSQL ' + pg_major(directory) if name in ('postgres', 'initdb') else 'MongoDB 8.0' if name == 'mongod' else 'Redis 7+'}). "
+            "Ejecuta bash install.sh para preparar las dependencias."
+        )
+E       RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.
+
+apps/services/scripts/dependencies.py:83: RuntimeError</error></testcase><testcase classname="tests.test_validation_audit" name="test_new_events_capture_actor_without_clinical_fields" time="0.007"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">@pytest.fixture(scope="session")
+    def platform():
+        import os
+        import shutil
+    
+        mongo_bin = os.environ.get("REDHOUSE_TEST_MONGOD") or shutil.which("mongod")
+        directory = tempfile.mkdtemp(
+            prefix="red-house-ms-tests-", dir=os.environ.get("REDHOUSE_TEST_ROOT", "/tmp")
+        )
+        env = Environment(directory, mongo_bin)
+        apps, servers, threads = {}, {}, []
+        try:
+&gt;           env.init()
+
+apps/services/tests/conftest.py:88: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'mongod'
+directory = PosixPath('/private/tmp/red-house-ms-tests-sosa1b94'), saved = None
+explicit = '/Users/victorberlanga/Programacion/integracion/Red-House/.local/tools/mongodb-8.0.17/bin/mongod'
+
+    def resolve_binary(name, directory, saved=None, explicit=None):
+        """Conservar el major de PostgreSQL y la serie MongoDB de este entorno."""
+        override = explicit or os.environ.get(
+            {
+                "mongod": "REDHOUSE_MONGOD",
+                "redis-server": "REDHOUSE_REDIS",
+                "postgres": "REDHOUSE_POSTGRES",
+                "initdb": "REDHOUSE_INITDB",
+            }[name]
+        )
+        candidates = [override] if override else [saved, shutil.which(name)]
+        if not override:
+            if name == "mongod":
+                candidates.append(
+                    str(REPO / f".local/tools/mongodb-{MONGO_VERSION}/bin/mongod")
+                )
+            for prefix in ("/opt/homebrew", "/usr/local", "/home/linuxbrew/.linuxbrew"):
+                package = {
+                    "postgres": "postgresql@" + pg_major(directory),
+                    "initdb": "postgresql@" + pg_major(directory),
+                    "mongod": "mongodb-community@8.0",
+                    "redis-server": "redis",
+                }[name]
+                candidates.append(f"{prefix}/opt/{package}/bin/{name}")
+            if name in ("postgres", "initdb"):
+                candidates.append(f"/usr/lib/postgresql/{pg_major(directory)}/bin/{name}")
+        for candidate in dict.fromkeys(candidates):
+            if (
+                not candidate
+                or not Path(candidate).is_file()
+                or not os.access(candidate, os.X_OK)
+            ):
+                continue
+            try:
+                result = subprocess.run(
+                    [candidate, "--version"], capture_output=True, text=True, timeout=10
+                )
+            except (OSError, subprocess.TimeoutExpired):
+                continue
+            if result.returncode:
+                continue
+            output = result.stdout + result.stderr
+            pattern = {
+                "postgres": r"PostgreSQL\) (\d+)\.",
+                "initdb": r"PostgreSQL\) (\d+)\.",
+                "mongod": r"db version v(\d+\.\d+)\.",
+                "redis-server": r"v=(\d+)\.",
+            }[name]
+            match = re.search(pattern, output)
+            if not match:
+                continue
+            version = match.group(1)
+            compatible = (
+                version == pg_major(directory)
+                if name in ("postgres", "initdb")
+                else version == "8.0"
+                if name == "mongod"
+                else int(version) &gt;= 7
+            )
+            if compatible:
+                return str(Path(candidate).absolute())
+&gt;       raise RuntimeError(
+            f"No se encontró {name} compatible ({'PostgreSQL ' + pg_major(directory) if name in ('postgres', 'initdb') else 'MongoDB 8.0' if name == 'mongod' else 'Redis 7+'}). "
+            "Ejecuta bash install.sh para preparar las dependencias."
+        )
+E       RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.
+
+apps/services/scripts/dependencies.py:83: RuntimeError</error></testcase><testcase classname="tests.test_validation_audit" name="test_finding_lifecycle_permissions_idempotency_and_history" time="0.007"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">@pytest.fixture(scope="session")
+    def platform():
+        import os
+        import shutil
+    
+        mongo_bin = os.environ.get("REDHOUSE_TEST_MONGOD") or shutil.which("mongod")
+        directory = tempfile.mkdtemp(
+            prefix="red-house-ms-tests-", dir=os.environ.get("REDHOUSE_TEST_ROOT", "/tmp")
+        )
+        env = Environment(directory, mongo_bin)
+        apps, servers, threads = {}, {}, []
+        try:
+&gt;           env.init()
+
+apps/services/tests/conftest.py:88: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'mongod'
+directory = PosixPath('/private/tmp/red-house-ms-tests-sosa1b94'), saved = None
+explicit = '/Users/victorberlanga/Programacion/integracion/Red-House/.local/tools/mongodb-8.0.17/bin/mongod'
+
+    def resolve_binary(name, directory, saved=None, explicit=None):
+        """Conservar el major de PostgreSQL y la serie MongoDB de este entorno."""
+        override = explicit or os.environ.get(
+            {
+                "mongod": "REDHOUSE_MONGOD",
+                "redis-server": "REDHOUSE_REDIS",
+                "postgres": "REDHOUSE_POSTGRES",
+                "initdb": "REDHOUSE_INITDB",
+            }[name]
+        )
+        candidates = [override] if override else [saved, shutil.which(name)]
+        if not override:
+            if name == "mongod":
+                candidates.append(
+                    str(REPO / f".local/tools/mongodb-{MONGO_VERSION}/bin/mongod")
+                )
+            for prefix in ("/opt/homebrew", "/usr/local", "/home/linuxbrew/.linuxbrew"):
+                package = {
+                    "postgres": "postgresql@" + pg_major(directory),
+                    "initdb": "postgresql@" + pg_major(directory),
+                    "mongod": "mongodb-community@8.0",
+                    "redis-server": "redis",
+                }[name]
+                candidates.append(f"{prefix}/opt/{package}/bin/{name}")
+            if name in ("postgres", "initdb"):
+                candidates.append(f"/usr/lib/postgresql/{pg_major(directory)}/bin/{name}")
+        for candidate in dict.fromkeys(candidates):
+            if (
+                not candidate
+                or not Path(candidate).is_file()
+                or not os.access(candidate, os.X_OK)
+            ):
+                continue
+            try:
+                result = subprocess.run(
+                    [candidate, "--version"], capture_output=True, text=True, timeout=10
+                )
+            except (OSError, subprocess.TimeoutExpired):
+                continue
+            if result.returncode:
+                continue
+            output = result.stdout + result.stderr
+            pattern = {
+                "postgres": r"PostgreSQL\) (\d+)\.",
+                "initdb": r"PostgreSQL\) (\d+)\.",
+                "mongod": r"db version v(\d+\.\d+)\.",
+                "redis-server": r"v=(\d+)\.",
+            }[name]
+            match = re.search(pattern, output)
+            if not match:
+                continue
+            version = match.group(1)
+            compatible = (
+                version == pg_major(directory)
+                if name in ("postgres", "initdb")
+                else version == "8.0"
+                if name == "mongod"
+                else int(version) &gt;= 7
+            )
+            if compatible:
+                return str(Path(candidate).absolute())
+&gt;       raise RuntimeError(
+            f"No se encontró {name} compatible ({'PostgreSQL ' + pg_major(directory) if name in ('postgres', 'initdb') else 'MongoDB 8.0' if name == 'mongod' else 'Redis 7+'}). "
+            "Ejecuta bash install.sh para preparar las dependencias."
+        )
+E       RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.
+
+apps/services/scripts/dependencies.py:83: RuntimeError</error></testcase><testcase classname="tests.test_validation_audit" name="test_web_audit_preserves_filters_and_csv_escapes_formulas" time="0.008"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">@pytest.fixture(scope="session")
+    def platform():
+        import os
+        import shutil
+    
+        mongo_bin = os.environ.get("REDHOUSE_TEST_MONGOD") or shutil.which("mongod")
+        directory = tempfile.mkdtemp(
+            prefix="red-house-ms-tests-", dir=os.environ.get("REDHOUSE_TEST_ROOT", "/tmp")
+        )
+        env = Environment(directory, mongo_bin)
+        apps, servers, threads = {}, {}, []
+        try:
+&gt;           env.init()
+
+apps/services/tests/conftest.py:88: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'mongod'
+directory = PosixPath('/private/tmp/red-house-ms-tests-sosa1b94'), saved = None
+explicit = '/Users/victorberlanga/Programacion/integracion/Red-House/.local/tools/mongodb-8.0.17/bin/mongod'
+
+    def resolve_binary(name, directory, saved=None, explicit=None):
+        """Conservar el major de PostgreSQL y la serie MongoDB de este entorno."""
+        override = explicit or os.environ.get(
+            {
+                "mongod": "REDHOUSE_MONGOD",
+                "redis-server": "REDHOUSE_REDIS",
+                "postgres": "REDHOUSE_POSTGRES",
+                "initdb": "REDHOUSE_INITDB",
+            }[name]
+        )
+        candidates = [override] if override else [saved, shutil.which(name)]
+        if not override:
+            if name == "mongod":
+                candidates.append(
+                    str(REPO / f".local/tools/mongodb-{MONGO_VERSION}/bin/mongod")
+                )
+            for prefix in ("/opt/homebrew", "/usr/local", "/home/linuxbrew/.linuxbrew"):
+                package = {
+                    "postgres": "postgresql@" + pg_major(directory),
+                    "initdb": "postgresql@" + pg_major(directory),
+                    "mongod": "mongodb-community@8.0",
+                    "redis-server": "redis",
+                }[name]
+                candidates.append(f"{prefix}/opt/{package}/bin/{name}")
+            if name in ("postgres", "initdb"):
+                candidates.append(f"/usr/lib/postgresql/{pg_major(directory)}/bin/{name}")
+        for candidate in dict.fromkeys(candidates):
+            if (
+                not candidate
+                or not Path(candidate).is_file()
+                or not os.access(candidate, os.X_OK)
+            ):
+                continue
+            try:
+                result = subprocess.run(
+                    [candidate, "--version"], capture_output=True, text=True, timeout=10
+                )
+            except (OSError, subprocess.TimeoutExpired):
+                continue
+            if result.returncode:
+                continue
+            output = result.stdout + result.stderr
+            pattern = {
+                "postgres": r"PostgreSQL\) (\d+)\.",
+                "initdb": r"PostgreSQL\) (\d+)\.",
+                "mongod": r"db version v(\d+\.\d+)\.",
+                "redis-server": r"v=(\d+)\.",
+            }[name]
+            match = re.search(pattern, output)
+            if not match:
+                continue
+            version = match.group(1)
+            compatible = (
+                version == pg_major(directory)
+                if name in ("postgres", "initdb")
+                else version == "8.0"
+                if name == "mongod"
+                else int(version) &gt;= 7
+            )
+            if compatible:
+                return str(Path(candidate).absolute())
+&gt;       raise RuntimeError(
+            f"No se encontró {name} compatible ({'PostgreSQL ' + pg_major(directory) if name in ('postgres', 'initdb') else 'MongoDB 8.0' if name == 'mongod' else 'Redis 7+'}). "
+            "Ejecuta bash install.sh para preparar las dependencias."
+        )
+E       RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.
+
+apps/services/scripts/dependencies.py:83: RuntimeError</error></testcase></testsuite></testsuites>

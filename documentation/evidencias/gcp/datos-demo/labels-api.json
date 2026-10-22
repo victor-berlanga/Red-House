@@ -1,0 +1,81 @@
+{
+  "date": "2026-10-21T14:58:48.260474+00:00",
+  "checks": [
+    {
+      "user": "operator1",
+      "entity": "donors",
+      "total": 34,
+      "old_marker_present": false
+    },
+    {
+      "user": "operator1",
+      "entity": "campaigns",
+      "total": 30,
+      "old_marker_present": false
+    },
+    {
+      "user": "medical1",
+      "entity": "recipients",
+      "total": 60,
+      "old_marker_present": false
+    },
+    {
+      "user": "operator1",
+      "entity": "resources",
+      "total": 65,
+      "old_marker_present": false
+    },
+    {
+      "user": "admin1",
+      "entity": "users",
+      "total": 15,
+      "old_marker_present": false
+    },
+    {
+      "user": "donor_1_01",
+      "renamed_login_valid": true,
+      "own_profile_visible": true
+    },
+    {
+      "user": "operator2",
+      "entity": "donors",
+      "total": 34,
+      "old_marker_present": false
+    },
+    {
+      "user": "operator2",
+      "entity": "campaigns",
+      "total": 30,
+      "old_marker_present": false
+    },
+    {
+      "user": "medical2",
+      "entity": "recipients",
+      "total": 78,
+      "old_marker_present": false
+    },
+    {
+      "user": "operator2",
+      "entity": "resources",
+      "total": 75,
+      "old_marker_present": false
+    },
+    {
+      "user": "admin2",
+      "entity": "users",
+      "total": 15,
+      "old_marker_present": false
+    },
+    {
+      "user": "donor_2_01",
+      "renamed_login_valid": true,
+      "own_profile_visible": true
+    },
+    {
+      "entity": "institutions",
+      "total": 30,
+      "old_marker_present": false
+    }
+  ],
+  "result": "passed"
+}

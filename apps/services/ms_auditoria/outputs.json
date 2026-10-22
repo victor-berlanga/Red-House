@@ -51,6 +51,88 @@
             "created_at": {
               "type": "string",
               "format": "date-time"
+            },
+            "executed_at": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "format": "date-time"
+            },
+            "actor_name": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "actor_role": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "actor_institution_id": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "resource_folio": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "reason": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "resource_id": {
+              "type": "string"
+            },
+            "correlation_id": {
+              "type": "string"
+            },
+            "category": {
+              "type": "string"
+            },
+            "result": {
+              "type": "string"
+            },
+            "action_label": {
+              "type": "string"
+            },
+            "category_label": {
+              "type": "string"
+            },
+            "result_label": {
+              "type": "string"
+            },
+            "actor_display": {
+              "type": "string"
+            },
+            "resource_display": {
+              "type": "string"
+            },
+            "changes": {
+              "type": "object"
+            },
+            "changed_fields": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "resource_refs": {
+              "type": "array",
+              "items": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
             }
           },
           "required": [
@@ -107,6 +189,88 @@
       "created_at": {
         "type": "string",
         "format": "date-time"
+      },
+      "executed_at": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "date-time"
+      },
+      "actor_name": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "actor_role": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "actor_institution_id": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "resource_folio": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "reason": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "resource_id": {
+        "type": "string"
+      },
+      "correlation_id": {
+        "type": "string"
+      },
+      "category": {
+        "type": "string"
+      },
+      "result": {
+        "type": "string"
+      },
+      "action_label": {
+        "type": "string"
+      },
+      "category_label": {
+        "type": "string"
+      },
+      "result_label": {
+        "type": "string"
+      },
+      "actor_display": {
+        "type": "string"
+      },
+      "resource_display": {
+        "type": "string"
+      },
+      "changes": {
+        "type": "object"
+      },
+      "changed_fields": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "resource_refs": {
+        "type": "array",
+        "items": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
       }
     },
     "required": [
@@ -221,6 +385,750 @@
       "page",
       "page_size",
       "total"
+    ]
+  },
+  "audit_export": {
+    "type": "object",
+    "properties": {
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "action": {
+              "type": "string"
+            },
+            "action_label": {
+              "type": "string"
+            },
+            "actor_display": {
+              "type": "string"
+            },
+            "tenant_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "resource_display": {
+              "type": "string"
+            },
+            "executed_at": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "format": "date-time"
+            },
+            "result_label": {
+              "type": "string"
+            },
+            "category_label": {
+              "type": "string"
+            },
+            "created_at": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "id",
+            "action",
+            "action_label",
+            "actor_display",
+            "tenant_id",
+            "resource_display",
+            "executed_at",
+            "result_label",
+            "category_label",
+            "created_at"
+          ]
+        }
+      },
+      "page": {
+        "type": "integer"
+      },
+      "page_size": {
+        "type": "integer"
+      },
+      "total": {
+        "type": "integer"
+      }
+    },
+    "required": [
+      "items",
+      "page",
+      "page_size",
+      "total"
+    ]
+  },
+  "audit_related": {
+    "type": "object",
+    "properties": {
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "tenant_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "region_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "source": {
+              "type": "string"
+            },
+            "action": {
+              "type": "string"
+            },
+            "actor_id": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "format": "uuid"
+            },
+            "event": {},
+            "created_at": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "executed_at": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "format": "date-time"
+            },
+            "actor_name": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "actor_role": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "actor_institution_id": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "resource_folio": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "reason": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "resource_id": {
+              "type": "string"
+            },
+            "correlation_id": {
+              "type": "string"
+            },
+            "category": {
+              "type": "string"
+            },
+            "result": {
+              "type": "string"
+            },
+            "action_label": {
+              "type": "string"
+            },
+            "category_label": {
+              "type": "string"
+            },
+            "result_label": {
+              "type": "string"
+            },
+            "actor_display": {
+              "type": "string"
+            },
+            "resource_display": {
+              "type": "string"
+            },
+            "changes": {
+              "type": "object"
+            },
+            "changed_fields": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "resource_refs": {
+              "type": "array",
+              "items": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          },
+          "required": [
+            "id"
+          ]
+        }
+      },
+      "limited": {
+        "type": "boolean"
+      },
+      "limit": {
+        "type": "integer"
+      },
+      "max_hops": {
+        "type": "integer"
+      }
+    },
+    "required": [
+      "items",
+      "limited",
+      "limit",
+      "max_hops"
+    ]
+  },
+  "audit_options": {
+    "type": "object",
+    "properties": {
+      "categories": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "string"
+        }
+      },
+      "actions": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "string"
+        }
+      },
+      "results": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "string"
+        }
+      },
+      "export_limit": {
+        "type": "integer"
+      }
+    },
+    "required": [
+      "categories",
+      "actions",
+      "results",
+      "export_limit"
+    ]
+  },
+  "finding_create": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "tenant_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "region_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "description": {
+        "type": "string"
+      },
+      "priority": {
+        "type": "string",
+        "enum": [
+          "LOW",
+          "MEDIUM",
+          "HIGH",
+          "CRITICAL"
+        ]
+      },
+      "assignee_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "assignee_tenant_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "assignee_name": {
+        "type": "string"
+      },
+      "created_by": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "resource_id": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "uuid"
+      },
+      "evidence": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "status": {
+        "type": "string",
+        "enum": [
+          "OPEN",
+          "IN_PROGRESS",
+          "PENDING_VERIFICATION",
+          "CLOSED"
+        ]
+      },
+      "version": {
+        "type": "integer",
+        "minimum": 1
+      },
+      "created_at": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "updated_at": {
+        "type": "string",
+        "format": "date-time"
+      }
+    },
+    "required": [
+      "id",
+      "tenant_id",
+      "region_id",
+      "description",
+      "priority",
+      "assignee_id",
+      "assignee_tenant_id",
+      "assignee_name",
+      "created_by",
+      "resource_id",
+      "evidence",
+      "status",
+      "version",
+      "created_at",
+      "updated_at"
+    ]
+  },
+  "finding_action": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "tenant_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "region_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "description": {
+        "type": "string"
+      },
+      "priority": {
+        "type": "string",
+        "enum": [
+          "LOW",
+          "MEDIUM",
+          "HIGH",
+          "CRITICAL"
+        ]
+      },
+      "assignee_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "assignee_tenant_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "assignee_name": {
+        "type": "string"
+      },
+      "created_by": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "resource_id": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "uuid"
+      },
+      "evidence": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "status": {
+        "type": "string",
+        "enum": [
+          "OPEN",
+          "IN_PROGRESS",
+          "PENDING_VERIFICATION",
+          "CLOSED"
+        ]
+      },
+      "version": {
+        "type": "integer",
+        "minimum": 1
+      },
+      "created_at": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "updated_at": {
+        "type": "string",
+        "format": "date-time"
+      }
+    },
+    "required": [
+      "id",
+      "tenant_id",
+      "region_id",
+      "description",
+      "priority",
+      "assignee_id",
+      "assignee_tenant_id",
+      "assignee_name",
+      "created_by",
+      "resource_id",
+      "evidence",
+      "status",
+      "version",
+      "created_at",
+      "updated_at"
+    ]
+  },
+  "finding_list": {
+    "type": "object",
+    "properties": {
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "tenant_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "region_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": {
+              "type": "string"
+            },
+            "priority": {
+              "type": "string",
+              "enum": [
+                "LOW",
+                "MEDIUM",
+                "HIGH",
+                "CRITICAL"
+              ]
+            },
+            "assignee_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "assignee_tenant_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "assignee_name": {
+              "type": "string"
+            },
+            "created_by": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "resource_id": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "format": "uuid"
+            },
+            "evidence": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "status": {
+              "type": "string",
+              "enum": [
+                "OPEN",
+                "IN_PROGRESS",
+                "PENDING_VERIFICATION",
+                "CLOSED"
+              ]
+            },
+            "version": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "created_at": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "updated_at": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "id",
+            "tenant_id",
+            "region_id",
+            "description",
+            "priority",
+            "assignee_id",
+            "assignee_tenant_id",
+            "assignee_name",
+            "created_by",
+            "resource_id",
+            "evidence",
+            "status",
+            "version",
+            "created_at",
+            "updated_at"
+          ]
+        }
+      },
+      "page": {
+        "type": "integer"
+      },
+      "page_size": {
+        "type": "integer"
+      },
+      "total": {
+        "type": "integer"
+      }
+    },
+    "required": [
+      "items",
+      "page",
+      "page_size",
+      "total"
+    ]
+  },
+  "finding_detail": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "tenant_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "region_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "description": {
+        "type": "string"
+      },
+      "priority": {
+        "type": "string",
+        "enum": [
+          "LOW",
+          "MEDIUM",
+          "HIGH",
+          "CRITICAL"
+        ]
+      },
+      "assignee_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "assignee_tenant_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "assignee_name": {
+        "type": "string"
+      },
+      "created_by": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "resource_id": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "uuid"
+      },
+      "evidence": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "status": {
+        "type": "string",
+        "enum": [
+          "OPEN",
+          "IN_PROGRESS",
+          "PENDING_VERIFICATION",
+          "CLOSED"
+        ]
+      },
+      "version": {
+        "type": "integer",
+        "minimum": 1
+      },
+      "created_at": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "updated_at": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "events": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "event_id": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          "required": [
+            "event_id"
+          ]
+        }
+      },
+      "history": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "finding_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "actor_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "actor_name": {
+              "type": "string"
+            },
+            "actor_role": {
+              "type": "string"
+            },
+            "previous_status": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "status": {
+              "type": "string"
+            },
+            "reason": {
+              "type": "string"
+            },
+            "corrective_action": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "evidence": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "correlation_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "created_at": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "id",
+            "finding_id",
+            "actor_id",
+            "actor_name",
+            "actor_role",
+            "previous_status",
+            "status",
+            "reason",
+            "corrective_action",
+            "evidence",
+            "correlation_id",
+            "created_at"
+          ]
+        }
+      }
+    },
+    "required": [
+      "id",
+      "tenant_id",
+      "region_id",
+      "description",
+      "priority",
+      "assignee_id",
+      "assignee_tenant_id",
+      "assignee_name",
+      "created_by",
+      "resource_id",
+      "evidence",
+      "status",
+      "version",
+      "created_at",
+      "updated_at",
+      "events",
+      "history"
     ]
   }
 }

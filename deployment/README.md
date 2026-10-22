@@ -168,3 +168,9 @@ apps/services/.venv/bin/python deployment/verify_web_sessions.py
 ```
 
 Comprueba login, renovación, cierre, rechazo de cookie cerrada, TTL y cifrado Redis, rol PostgreSQL limitado y ausencia de volumen local de sesiones. El informe registra las API realmente encendidas durante la prueba.
+
+## Auditoría y hallazgos: esquema 7
+
+El incremento de auditoría agrega tres tablas de seguimiento: 74 tablas de dominio y 75 contando las revocaciones del portal. Las instalaciones con esquema 6 requieren respaldo y migración aditiva antes de arrancar el código nuevo. `python3 deployment/migrate_audit.py --directory /ruta/privada/de/compose` respalda PostgreSQL/roles y aplica la migración; no recrea la base ni modifica eventos históricos. Repetirlo sobre versión 7 no vuelve a migrar.
+
+Consultar [procedimiento y permisos](../documentation/markdowns/Auditoria_y_formularios.md#actualización-conservando-datos) y [evidencia del incremento](../documentation/evidencias/auditoria-formularios/RESULTADOS.md) antes de atribuir estos cambios al despliegue público.

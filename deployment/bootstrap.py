@@ -12,6 +12,7 @@ sys.path.insert(0, "/app/apps/services")
 from redhouse.config import SERVICES
 from scripts.local import private_file
 from scripts.provision import provision
+from redhouse.shared_migrations import LATEST_VERSION
 
 
 def main():
@@ -27,7 +28,7 @@ def main():
             version = conn.execute(
                 "SELECT max(version) FROM red_house.schema_migration"
             ).fetchone()[0]
-            if version != 6:
+            if version != LATEST_VERSION:
                 raise RuntimeError(
                     "Requiere una migración explícita compatible; arranque cancelado."
                 )
@@ -58,7 +59,9 @@ def main():
         web_path.chmod(0o644)
         state["web_sessions"] = storage
         write_private(state_path, json.dumps(state, indent=2) + "\n")
-        print("Instalación existente v6 verificada; datos y credenciales conservados.")
+        print(
+            f"Instalación existente v{LATEST_VERSION} verificada; datos y credenciales conservados."
+        )
         return
     urls = {name: f"http://gateway:{port}" for name, port in SERVICES.items()}
     redisadmin = redis.Redis(

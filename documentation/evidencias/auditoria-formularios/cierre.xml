@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="3" time="65.513" timestamp="2026-10-21T15:20:58.989246-06:00" hostname="Victors-MacBook-Air.local"><testcase classname="tests.test_validation_audit" name="test_selector_retains_value_from_later_page_on_failed_submit" time="42.950"><failure message="assert 403 == 422&#10; +  where 403 = &lt;WrapperTestResponse streamed [403 FORBIDDEN]&gt;.status_code">web = &lt;Flask 'src'&gt;, p = &lt;tests.conftest.Platform object at 0x1148057c0&gt;
+
+    def test_selector_retains_value_from_later_page_on_failed_submit(web, p):
+        identifiers = [str(uuid4()) for _ in range(21)]
+        with p.owner("donantes") as conn, conn.cursor() as cursor:
+            cursor.executemany(
+                "INSERT INTO donors(id,tenant_id,folio,display_name,blood_group,consent,status) VALUES(%s,%s,%s,'Persona ficticia','O+',true,'ELIGIBLE')",
+                [
+                    (identifier, p.env.state["tenants"][0], "AAA-" + uuid4().hex[:12])
+                    for identifier in identifiers
+                ],
+            )
+            chosen = str(uuid4())
+            conn.execute(
+                "INSERT INTO donors(id,tenant_id,folio,display_name,blood_group,consent,status) VALUES(%s,%s,%s,'Última persona ficticia','O+',true,'ELIGIBLE')",
+                (chosen, p.env.state["tenants"][0], "ZZZ-" + uuid4().hex[:12]),
+            )
+        client = login(web, p, "operator1")
+        path = "/donaciones/nueva"
+        visible = p.ok(
+            "donantes",
+            "GET",
+            "/api/v1/donors?status=ELIGIBLE&amp;page_size=20",
+            user="operator1",
+        )["items"]
+        first_page = {row["id"] for row in visible}
+        chosen = next(
+            identifier
+            for identifier in [*identifiers, chosen]
+            if identifier not in first_page
+        )
+        assert chosen not in client.get(path).text
+        data = {
+            **form(client, path),
+            "donor_id": chosen,
+            "kind": "BLOOD",
+            "component": "RBC",
+            "collected_at": "2026-10-01T10:00",
+            "reason": "corto",
+            "human_confirmation": "on",
+        }
+        response = client.post(path, data=data)
+&gt;       assert response.status_code == 422
+E       assert 403 == 422
+E        +  where 403 = &lt;WrapperTestResponse streamed [403 FORBIDDEN]&gt;.status_code
+
+apps/services/tests/test_validation_audit.py:216: AssertionError</failure></testcase><testcase classname="tests.test_validation_audit" name="test_findings_without_http_services" time="19.230" /><testcase classname="tests.test_audit_migration" name="test_backup_inventory_includes_finding_history" time="1.497" /></testsuite></testsuites>

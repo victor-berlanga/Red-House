@@ -8,6 +8,7 @@ from redhouse.api import atomic, endpoint
 from redhouse.db import get, update, insert
 from redhouse.decisions import record
 from redhouse.errors import APIError
+from redhouse.validation import invalid
 from redhouse.events import emit
 from redhouse.models import Confirm, utc_date
 from redhouse.security import own
@@ -36,18 +37,38 @@ def install(app):
         from .locations import validate_location
 
         validate_location(data["location_id"])
-        expires = utc_date(data["expires_at"])
-        if expires <= datetime.now(timezone.utc) or (
-            data["kind"] == "ORGAN"
-            and data["component"] not in ("KIDNEY", "LIVER", "HEART")
+        expires = utc_date(data["expires_at"], "expires_at")
+        if expires <= datetime.now(timezone.utc):
+            raise invalid(
+                "La caducidad capturada debe ser posterior al momento actual.",
+                "expires_at",
+                code="expired_date",
+            )
+        if data["kind"] == "ORGAN" and data["component"] not in (
+            "KIDNEY",
+            "LIVER",
+            "HEART",
         ):
-            raise APIError("validation", "Componente o caducidad inválidos.")
-        collected = utc_date(data["collected_at"]) if data["collected_at"] else None
-        if collected and (
-            collected > datetime.now(timezone.utc) or collected >= expires
-        ):
-            raise APIError(
-                "validation", "Recolección futura o posterior al límite capturado."
+            raise invalid(
+                "Selecciona un órgano de las opciones disponibles.", "component"
+            )
+        collected = (
+            utc_date(data["collected_at"], "collected_at")
+            if data["collected_at"]
+            else None
+        )
+        if collected and collected > datetime.now(timezone.utc):
+            raise invalid(
+                "La recolección no puede ser posterior al momento actual.",
+                "collected_at",
+                code="future_date",
+            )
+        if collected and collected >= expires:
+            raise invalid(
+                "La recolección debe ser anterior a la caducidad capturada.",
+                "collected_at",
+                "expires_at",
+                code="date_order",
             )
 
         def work(conn):

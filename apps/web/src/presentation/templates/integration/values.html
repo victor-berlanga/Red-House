@@ -2,7 +2,7 @@
 {% macro value_view(value, name='') -%}
 {% if value is mapping and value._label is defined %}{% if value._href %}<a class="text-link" href="{{ value._href }}">{{ value._label }}</a>{% else %}{{ value._label }}{% endif %}
 {% elif name in ['action','message_code'] %}{{ value|event_label }}
-{% elif value is mapping %}<dl class="nested-facts">{% for key,item in value.items() if not key.startswith('_') %}<div><dt>{{ field_labels.get(key,key|replace('_',' ')|capitalize) }}</dt><dd>{{ value_view(item,key) }}</dd></div>{% endfor %}</dl>
+{% elif value is mapping %}<dl class="nested-facts">{% for key,item in value.items() if not key.startswith('_') and (show_technical_details or name!='changes' or (key in field_labels and key not in technical_fields)) %}<div><dt>{{ field_labels.get(key,key|replace('_',' ')|capitalize) }}</dt><dd>{{ value_view(item,key) }}</dd></div>{% endfor %}</dl>
 {% elif value is sequence and value is not string %}<ul class="value-list">{% for item in value %}<li>{{ value_view(item) }}</li>{% else %}<li>Sin registros</li>{% endfor %}</ul>
 {% elif name=='actor_id' %}{% if value|string==principal.account_id|string %}{{ principal.party_name }}{% else %}<span title="Referencia del responsable">Cuenta · {{ (value|string)[:8]|upper }}</span>{% endif %}
 {% elif name=='status' or name=='state' or name=='decision' %}{{ status_badge(value) }}

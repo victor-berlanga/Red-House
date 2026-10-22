@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="30" time="289.449" timestamp="2026-10-21T14:52:04.011866-06:00" hostname="Victors-MacBook-Air.local"><testcase classname="tests.test_validation_audit" name="test_safe_field_errors_json_xml[changes0-fields0-json]" time="0.135" /><testcase classname="tests.test_validation_audit" name="test_safe_field_errors_json_xml[changes0-fields0-xml]" time="0.113" /><testcase classname="tests.test_validation_audit" name="test_safe_field_errors_json_xml[changes1-fields1-json]" time="0.063" /><testcase classname="tests.test_validation_audit" name="test_safe_field_errors_json_xml[changes1-fields1-xml]" time="0.124" /><testcase classname="tests.test_validation_audit" name="test_safe_field_errors_json_xml[changes2-fields2-json]" time="0.053" /><testcase classname="tests.test_validation_audit" name="test_safe_field_errors_json_xml[changes2-fields2-xml]" time="0.122" /><testcase classname="tests.test_validation_audit" name="test_safe_field_errors_json_xml[changes3-fields3-json]" time="0.065" /><testcase classname="tests.test_validation_audit" name="test_safe_field_errors_json_xml[changes3-fields3-xml]" time="0.110" /><testcase classname="tests.test_validation_audit" name="test_safe_field_errors_json_xml[changes4-fields4-json]" time="0.046" /><testcase classname="tests.test_validation_audit" name="test_safe_field_errors_json_xml[changes4-fields4-xml]" time="0.105" /><testcase classname="tests.test_validation_audit" name="test_safe_field_errors_json_xml[changes5-fields5-json]" time="0.051" /><testcase classname="tests.test_validation_audit" name="test_safe_field_errors_json_xml[changes5-fields5-xml]" time="0.099" /><testcase classname="tests.test_validation_audit" name="test_safe_field_errors_json_xml[changes6-fields6-json]" time="0.051" /><testcase classname="tests.test_validation_audit" name="test_safe_field_errors_json_xml[changes6-fields6-xml]" time="0.088" /><testcase classname="tests.test_validation_audit" name="test_exact_text_limits_and_empty_optionals[6]" time="0.044" /><testcase classname="tests.test_validation_audit" name="test_exact_text_limits_and_empty_optionals[1000]" time="0.045" /><testcase classname="tests.test_validation_audit" name="test_numeric_and_source_limits_keep_field[distance_km--1]" time="0.040" /><testcase classname="tests.test_validation_audit" name="test_numeric_and_source_limits_keep_field[distance_km-20001]" time="0.037" /><testcase classname="tests.test_validation_audit" name="test_numeric_and_source_limits_keep_field[travel_minutes-10081]" time="0.036" /><testcase classname="tests.test_validation_audit" name="test_numeric_and_source_limits_keep_field[travel_minutes-0.5]" time="0.041" /><testcase classname="tests.test_validation_audit" name="test_numeric_and_source_limits_keep_field[source-corto]" time="0.040" /><testcase classname="tests.test_validation_audit" name="test_web_preserves_fields_marks_errors_and_retries_atomically[web]" time="144.438" /><testcase classname="tests.test_validation_audit" name="test_web_preserves_fields_marks_errors_and_retries_atomically[autonomous]" time="18.032" /><testcase classname="tests.test_validation_audit" name="test_web_login_does_not_echo_password" time="1.993" /><testcase classname="tests.test_validation_audit" name="test_audit_default_categories_filters_exports_and_scope" time="9.996" /><testcase classname="tests.test_validation_audit" name="test_audit_related_uses_documented_links_and_never_invents_history" time="2.035" /><testcase classname="tests.test_validation_audit" name="test_new_events_capture_actor_without_clinical_fields" time="53.772" /><testcase classname="tests.test_validation_audit" name="test_finding_lifecycle_permissions_idempotency_and_history" time="21.883" /><testcase classname="tests.test_validation_audit" name="test_web_audit_preserves_filters_and_csv_escapes_formulas" time="9.467" /><testcase classname="tests.test_validation_audit" name="test_browser_validation_and_finding_workflow" time="23.219"><failure message="AssertionError: Expected values to be strictly equal:&#10;  &#10;  false !== true&#10;  &#10;  &#10;assert 1 == 0&#10; +  where 1 = CompletedProcess(args=['node', '/Users/victorberlanga/Programacion/integracion/Red-House/scripts/verify_audit_forms.cjs'], returncode=1, stdout='', stderr='Expected values to be strictly equal:\n\nfalse !== true\n\n').returncode">web = &lt;Flask 'src'&gt;, p = &lt;tests.conftest.Platform object at 0x115d49d90&gt;
+
+    def test_browser_validation_and_finding_workflow(web, p):
+        import os
+        import subprocess
+        import threading
+        from pathlib import Path
+        from werkzeug.serving import make_server
+        from .conftest import QuietHandler
+    
+        root = Path(__file__).resolve().parents[3]
+    
+        def drain():
+            p.drain()
+            return {"drained": True}
+    
+        web.add_url_rule("/test/drain", "test_drain", web.extensions["csrf"].exempt(drain), methods=["POST"])
+        server = make_server("127.0.0.1", 0, web, threaded=True, request_handler=QuietHandler)
+        thread = threading.Thread(target=server.serve_forever, daemon=True)
+        thread.start()
+        try:
+            result = subprocess.run(["node", str(root / "scripts/verify_audit_forms.cjs")], input=json.dumps({
+                "base": f"http://127.0.0.1:{server.server_port}", "password": p.env.state["password"],
+                "coordinator": p.env.state["accounts"]["coordinator1"]["id"],
+                "output": str(root / "documentation/evidencias/auditoria-formularios/browser"),
+            }), text=True, capture_output=True, timeout=300, env=dict(os.environ))
+&gt;           assert result.returncode == 0, result.stdout + result.stderr
+E           AssertionError: Expected values to be strictly equal:
+E             
+E             false !== true
+E             
+E             
+E           assert 1 == 0
+E            +  where 1 = CompletedProcess(args=['node', '/Users/victorberlanga/Programacion/integracion/Red-House/scripts/verify_audit_forms.cjs'], returncode=1, stdout='', stderr='Expected values to be strictly equal:\n\nfalse !== true\n\n').returncode
+
+apps/services/tests/test_validation_audit.py:248: AssertionError</failure></testcase></testsuite></testsuites>

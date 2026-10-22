@@ -9,6 +9,7 @@ from . import (
     logistics,
     administration,
     monitoring,
+    audit,
     files,
 )
 

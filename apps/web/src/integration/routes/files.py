@@ -20,7 +20,7 @@ def shipment_files(identifier):
         raise BusinessError("Tu perfil no puede gestionar evidencias.", 403)
     path = "/api/v1/shipments/" + str(identifier)
     shipment = call("transporte", path)
-    error, status = None, 200
+    error, status, field_errors = None, 200, []
     idem = request.form.get("idempotency_key") or uuid4().hex
     if request.method == "POST":
         try:
@@ -33,8 +33,12 @@ def shipment_files(identifier):
                 "application/pdf",
             ):
                 raise BusinessError(
-                    "Selecciona un JPEG, PNG o PDF de hasta 10 MiB.", 422
+                    "Selecciona un JPEG, PNG o PDF no vacío de hasta 10 MiB.",
+                    422,
+                    field="evidence",
                 )
+            digest = hashlib.sha256(content).hexdigest()
+            upload_key = hashlib.sha256((idem + digest + mime).encode()).hexdigest()
             prepared = call(
                 "transporte",
                 path + "/files",
@@ -42,9 +46,9 @@ def shipment_files(identifier):
                 {
                     "mime_type": mime,
                     "size": len(content),
-                    "sha256": hashlib.sha256(content).hexdigest(),
+                    "sha256": digest,
                 },
-                idem=idem,
+                idem=upload_key,
             )
             target = urlsplit(prepared["upload_url"])
             if (
@@ -53,7 +57,10 @@ def shipment_files(identifier):
                 or target.username
                 or target.password
             ):
-                raise BusinessError("Destino de almacenamiento inválido.", 503)
+                raise BusinessError(
+                    "No pudimos cargar el archivo. Vuelve a intentarlo en unos momentos.",
+                    503,
+                )
             try:
                 response = http_client().put(
                     prepared["upload_url"],
@@ -73,7 +80,7 @@ def shipment_files(identifier):
                 "transporte",
                 "/api/v1/files/" + prepared["file"]["id"] + "/verify",
                 "POST",
-                idem=idem + "-verify",
+                idem=upload_key + "-verify",
             )
             flash("Evidencia cargada y verificada.", "success")
             return redirect(
@@ -81,6 +88,14 @@ def shipment_files(identifier):
             )
         except BusinessError as exc:
             error, status = str(exc), exc.status
+            if exc.field == "evidence" or exc.status in (400, 413, 415, 422):
+                field_errors = [
+                    dict(
+                        name="evidence",
+                        label="Evidencia",
+                        errors=[error + " Selecciona nuevamente el archivo."],
+                    )
+                ]
     files = call(
         "transporte",
         path + "/files",
@@ -93,6 +108,7 @@ def shipment_files(identifier):
         shipment=shipment,
         files=files,
         error=error,
+        field_errors=field_errors,
         idempotency_key=idem,
         can_upload=shipment["status"] not in ("ACCEPTED", "CANCELLED", "REJECTED")
         and not shipment["inventory_pending"],

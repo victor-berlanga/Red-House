@@ -1144,5 +1144,31 @@
     "required": [
       "id"
     ]
+  },
+  "donor_withdraw": {
+    "type": "object",
+    "required": [
+      "id",
+      "mode",
+      "cancelled_appointments"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "mode": {
+        "type": "string",
+        "enum": [
+          "DELETED",
+          "INACTIVE"
+        ]
+      },
+      "cancelled_appointments": {
+        "type": "integer",
+        "minimum": 0
+      }
+    },
+    "additionalProperties": false
   }
 }

@@ -32,6 +32,7 @@ El backlog conserva el estado registrado al cierre del primer parcial; el avance
 | Bases, migraciones y persistencia | [Datos y persistencia](markdowns/Datos_y_persistencia.md) |
 | Preparación y operación | [Instalación y operación](markdowns/Instalacion_y_operacion.md) |
 | Portal y contratos HTTP | [Integración web](markdowns/Integracion_web.md) |
+| Auditoría, hallazgos y validación de formularios | [Guía y migración](markdowns/Auditoria_y_formularios.md) |
 | Algoritmos y límites | [Algoritmos](markdowns/Algoritmos.md) |
 | Pruebas y resultados | [Validación](markdowns/Pruebas_y_validacion.md) |
 | Matriz de roles con fecha de corte | [Excel](excel/Matriz_Roles_Permisos_Red_House.xlsx) |
@@ -43,7 +44,7 @@ El backlog conserva el estado registrado al cierre del primer parcial; el avance
 - [Diagramas actuales](segundo-parcial/diagramas/), incluida la relación física completa en SVG ampliable.
 - [Matriz de cumplimiento y fallos](markdowns/Cierre_segundo_parcial.md), [resultados](evidencias/segundo-parcial/RESULTADOS.md) y [expediente HTTP por endpoint](evidencias/segundo-parcial/http/index.html).
 - [Instalación Docker, respaldo y restauración](../deployment/README.md) y [guion presencial/video](../stuff/presentacion/Guion_segundo_parcial.md).
-- [VM GCP, túnel SSH y administración](../deployment/gcp/README.md), con [resultados del despliegue](evidencias/gcp/RESULTADOS.md).
+- [VM GCP, HTTPS y administración](../deployment/gcp/README.md), con [resultados del despliegue](evidencias/gcp/RESULTADOS.md) y [actualización de auditoría y formularios](evidencias/gcp/auditoria-formularios/RESULTADOS.md).
 - Ediciones de entrega: [Reporte Word](docx/Reporte_tecnico_segundo_parcial.docx), [Reporte PDF](pdf/Reporte_tecnico_segundo_parcial.pdf), [modelo físico Word](docx/Modelo_fisico_PostgreSQL.docx) y [modelo físico PDF](pdf/Modelo_fisico_PostgreSQL.pdf).
 
 ## Entregas anteriores

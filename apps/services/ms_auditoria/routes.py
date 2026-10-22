@@ -1,14 +1,31 @@
 from flask import g
 
-from redhouse.api import endpoint, listing
+from redhouse.api import endpoint
 from redhouse.config import SERVICES
 from redhouse.db import insert, transaction
 from redhouse.errors import APIError
 from redhouse.event_model import Event
 from redhouse.events import consume, mongodb, queue
+from . import queries
 
 
 def register(app):
+    @endpoint(
+        app,
+        "/api/v1/event-options",
+        roles=("AUDITOR",),
+        summary="Categorías, acciones, resultados y límite de exportación",
+    )
+    def audit_options():
+        from redhouse.audit_catalog import ACTIONS, CATEGORIES, RESULTS
+
+        return {
+            "categories": CATEGORIES,
+            "actions": {key: value[0] for key, value in ACTIONS.items()},
+            "results": RESULTS,
+            "export_limit": queries.MAX_EXPORT,
+        }
+
     @endpoint(
         app,
         "/internal/v1/events",
@@ -45,13 +62,33 @@ def register(app):
         "/api/v1/events",
         roles=("AUDITOR",),
         paginated=True,
+        query=queries.FILTERS,
         summary="Bitácora regional de solo lectura; sin credenciales ni contenido clínico",
     )
     def audit_list():
         with transaction() as conn:
-            return listing(
-                conn, "audit_events", "region_id=%s", (g.actor["region_id"],)
-            )
+            return queries.listing(conn)
+
+    @endpoint(
+        app,
+        "/api/v1/events/export",
+        roles=("AUDITOR",),
+        query=queries.FILTERS,
+        summary="Exportar hasta 5000 resultados con los mismos filtros y una instantánea consistente",
+    )
+    def audit_export():
+        with transaction() as conn:
+            return queries.listing(conn, export=True)
+
+    @endpoint(
+        app,
+        "/api/v1/events/<identifier>/related",
+        roles=("AUDITOR",),
+        summary="Secuencia regional relacionada por recursos o correlación; máximo 500 eventos y cuatro saltos",
+    )
+    def audit_related(identifier):
+        with transaction() as conn:
+            return queries.related(conn, identifier)
 
     @endpoint(
         app,
@@ -60,13 +97,8 @@ def register(app):
         summary="Evento auditable y correlación",
     )
     def audit_detail(identifier):
-        from redhouse.db import get
-
         with transaction() as conn:
-            row = get(conn, "audit_events", identifier)
-            if str(row["region_id"]) != g.actor["region_id"]:
-                raise APIError("forbidden", "Evento fuera de la región.", 403)
-            return row
+            return queries.event(conn, identifier)
 
     @endpoint(
         app,
@@ -102,3 +134,7 @@ def register(app):
                 "Proyección documental temporalmente inaccesible.",
                 503,
             ) from None
+
+    from .findings import register as register_findings
+
+    register_findings(app)

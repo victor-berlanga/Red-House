@@ -75,6 +75,7 @@ def call(service, method, path, data=None, delegate=True):
                 error.get("code", "dependency_error"),
                 error.get("message", "Dependencia rechazó la operación."),
                 response.status_code,
+                error.get("details", []),
             )
         if "data" not in result:
             raise ValueError()

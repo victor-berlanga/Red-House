@@ -1,0 +1,59 @@
+{
+  "date": "2026-10-21T14:56:57.396567+00:00",
+  "result": "passed",
+  "rows_changed": 743,
+  "tables": {
+    "institution": 28,
+    "user_account": 16,
+    "catalogue_entry": 300,
+    "donor": 68,
+    "campaign": 60,
+    "resource": 120,
+    "recipient": 120,
+    "regional_route": 31
+  },
+  "counts_before": {
+    "institution": 30,
+    "user_account": 30,
+    "catalogue_entry": 300,
+    "donor": 68,
+    "campaign": 60,
+    "resource": 140,
+    "recipient": 138,
+    "regional_route": 32
+  },
+  "counts_after": {
+    "institution": 30,
+    "user_account": 30,
+    "catalogue_entry": 300,
+    "donor": 68,
+    "campaign": 60,
+    "resource": 140,
+    "recipient": 138,
+    "regional_route": 32
+  },
+  "unchanged_columns_verified_in_transaction": true,
+  "historical_events_untouched": true,
+  "identifiers_password_hashes_versions_and_states_preserved": true,
+  "audit_events_added": 743,
+  "second_pass_changes": 0,
+  "backup_sha256": "0b37a9a22b50c24b4fcb567cbcab54b62e3f5e048dea87ba71182e7d512b86ac",
+  "username_mapping": {
+    "demo_donor_1_01": "donor_1_01",
+    "demo_donor_1_02": "donor_1_02",
+    "demo_donor_1_03": "donor_1_03",
+    "demo_donor_1_04": "donor_1_04",
+    "demo_donor_1_05": "donor_1_05",
+    "demo_donor_1_06": "donor_1_06",
+    "demo_donor_1_07": "donor_1_07",
+    "demo_donor_1_08": "donor_1_08",
+    "demo_donor_2_01": "donor_2_01",
+    "demo_donor_2_02": "donor_2_02",
+    "demo_donor_2_03": "donor_2_03",
+    "demo_donor_2_04": "donor_2_04",
+    "demo_donor_2_05": "donor_2_05",
+    "demo_donor_2_06": "donor_2_06",
+    "demo_donor_2_07": "donor_2_07",
+    "demo_donor_2_08": "donor_2_08"
+  }
+}

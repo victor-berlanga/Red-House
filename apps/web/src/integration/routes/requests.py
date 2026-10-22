@@ -113,7 +113,7 @@ def evaluate(identifier):
         active="solicitudes",
         back=url_for("regional.request_detail", identifier=identifier),
         success=lambda row: url_for("regional.evaluation_detail", identifier=row["id"]),
-        note="Preselección ilustrativa explicable. Se requiere dictamen humano antes de reservar; no interpreta HLA.",
+        note="Los candidatos son orientativos y requieren revisión médica antes de reservar. La interpretación de HLA corresponde al especialista.",
         prompt="Consultar recursos disponibles para esta solicitud y generar una evaluación para revisión médica.",
     )
 
@@ -242,7 +242,7 @@ def operation(identifier):
         "solicitudes",
         row,
         actions,
-        note="Pendiente no significa fallida. Conserva este enlace para consultar el resultado.",
+        note="Si la reserva sigue pendiente, consulta su estado aquí antes de solicitarla de nuevo.",
     )
 
 
@@ -394,7 +394,13 @@ def proposal_detail(identifier):
                 {
                     "Solicitud": "SOL-" + r["request_id"][:8].upper(),
                     "Recurso": "REC-" + r["resource_id"][:8].upper(),
-                    "Explicación": r["explanation"],
+                    "Explicación": (
+                        "Candidato con dictamen favorable. Cada recurso se propone una sola vez. "
+                        "Antes de reservar, confirma su disponibilidad y la autorización médica."
+                        if r["explanation"]
+                        == "Candidato con dictamen favorable en la instantánea; matching máximo evita duplicar recursos. Requiere revalidación y autorización de reserva."
+                        else r["explanation"]
+                    ),
                 }
                 for r in row["result"]
             ],

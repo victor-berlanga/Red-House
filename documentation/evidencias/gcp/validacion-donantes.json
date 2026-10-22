@@ -1,0 +1,42 @@
+[
+  {
+    "case": "Restricciones de tres caracteres",
+    "status": 422,
+    "alerts": [
+      "La solicitud no cumple el contrato. Los valores capturados se conservan para que puedas revisarlos."
+    ],
+    "stayed_on_form": true,
+    "name_preserved": true,
+    "field_errors": 0
+  },
+  {
+    "case": "Antecedentes de cuatro caracteres",
+    "status": 422,
+    "alerts": [
+      "La solicitud no cumple el contrato. Los valores capturados se conservan para que puedas revisarlos."
+    ],
+    "stayed_on_form": true,
+    "name_preserved": true,
+    "field_errors": 0
+  },
+  {
+    "case": "Referencia de consentimiento sin fecha",
+    "status": 422,
+    "alerts": [
+      "La solicitud no cumple el contrato. Los valores capturados se conservan para que puedas revisarlos."
+    ],
+    "stayed_on_form": true,
+    "name_preserved": true,
+    "field_errors": 0
+  },
+  {
+    "case": "Consentimiento con fecha futura",
+    "status": 422,
+    "alerts": [
+      "La solicitud no cumple el contrato. Los valores capturados se conservan para que puedas revisarlos."
+    ],
+    "stayed_on_form": true,
+    "name_preserved": true,
+    "field_errors": 0
+  }
+]
