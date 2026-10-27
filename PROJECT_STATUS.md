@@ -1,6 +1,40 @@
 # Estado vigente de Red House
 
-Actualizado: **22 de octubre de 2026**. Leer junto con `AGENTS.md` y el [índice documental](documentation/README.md). El historial detallado está separado del estado actual.
+Actualizado: **27 de octubre de 2026**. Leer junto con `AGENTS.md` y el [índice documental](documentation/README.md). El historial detallado está separado del estado actual.
+
+## Requisito de rastreo GPS por WebSockets y mapa de Nuevo León 27 de octubre
+
+Por solicitud del usuario se añadió la [especificación transversal de rastreo GPS por WebSockets](stuff/prompts/entrega-final/09_rastreo_gps_websockets.md), integrada en contexto, ocho prompts, índice y guía de comprobación. Exige mapa interactivo actual de Nuevo León, recepción normalizada desde GPS/puente futuro, simulador ejecutable, canal WSS real, mensajes JSON para Android y XML/XSD para escritorio, permisos por traslado, persistencia, recuperación desde cursor, señal/antigüedad visibles y pruebas de privacidad/fallos. Las capas cartográficas deben documentar proveedor, procedencia/actualización y términos; no se confunde ruta, ubicación observada y ETA.
+
+**Disponibilidad confirmada por el usuario:** el GPS físico todavía no está disponible y se incorporará posteriormente. No se eligió marca/protocolo ni proveedor cartográfico; su selección/verificación pertenece a la implementación. El software deberá probarse con simulador identificado sin presentar esa prueba como integración del equipo físico. La especificación cita documentación primaria de seguridad WSS y política cartográfica; la integración física queda como aceptación futura explícita.
+
+Criterios de aceptación documental: diez requisitos TRACK-01 a TRACK-10, incorporación consistente a las ocho etapas y sus comprobaciones, conservación de formatos/roles/autonomía web y vínculos válidos. Verificación aprobada: doce Markdown, 29 enlaces relativos, diez requisitos TRACK, ocho pares de encargos/comprobaciones y las 24 responsabilidades BE conservadas; formato del diff sin errores. Este cambio modifica únicamente prompts/documentación; no implementa WebSockets, mapa ni receptor GPS, no despliega y no modifica datos o servicios.
+
+Por solicitud posterior del usuario, el archivo de rastreo se numeró como `09_rastreo_gps_websockets.md` y se actualizaron sus referencias. Se lee desde el prompt 01 como complemento transversal; no se pospone hasta después de la entrega 08. Índice y guía explican cuándo usarlo e incluyen un par adicional de encargo/comprobación y expectativas para incorporar el rastreo a componentes ya implementados sin duplicarlo. Cambio exclusivamente documental, sin ejecutar el complemento.
+
+## Guía de ejecución y comprobación por etapa 27 de octubre
+
+Por solicitud del usuario se añadió una [guía Markdown de ejecución y comprobación](stuff/prompts/entrega-final/GUIA_EJECUCION_Y_COMPROBACION.md), enlazada desde el índice de prompts. Contiene ocho prompts iniciales, ocho de auditoría, resultados esperados y señales de etapa incompleta por componente, además de un encargo para corregir los pendientes encontrados. Las comprobaciones distinguen evidencia del código actual, pruebas históricas aplicables, dependencias posteriores y aprobación clínica externa; no ejecutan correcciones ni modifican la instalación habitual.
+
+Criterios de aceptación: ocho etapas enlazadas a sus requisitos completos, bloques copiables, formato de informe y veredictos explícitos, instrucciones sobre lectura del contexto 00 y uso de conversaciones por etapa. Verificación documental aprobada: ocho pares de prompts inicial/comprobación, ocho listas de expectativas, 17 bloques copiables y 18 enlaces relativos válidos entre los once Markdown de la carpeta; formato del diff sin errores. Sin ejecución de los encargos, pruebas de aplicación, cambios de código funcional, datos ni servicios. La creación de esta guía no modifica el estado de implementación de las etapas.
+
+## Prompts de implementación para la entrega final 26 de octubre
+
+Por solicitud del usuario se preparó una [guía con ocho prompts de ejecución](stuff/prompts/entrega-final/README.md) y contexto común: backend/microservicios, reglas clínicas/algoritmos, portal web, Android, escritorio, seguridad/infraestructura, integración/pruebas/rendimiento y documentación/entrega. Cubren las 24 responsabilidades funcionales propuestas por la retroalimentación, sin imponer 24 procesos ni duplicar capacidades existentes. Son instrucciones para trabajo futuro; no constituyen implementación ni cierre funcional.
+
+Precisión posterior solicitada por el usuario: los prompts identifican expresamente la recomendación docente de una arquitectura objetivo de **24 microservicios**, sin convertirla en obligación de implementar exactamente 24 servicios independientes. Exigen matriz de evolución desde los once actuales, cobertura de cada una de las 24 responsabilidades, justificación de agrupaciones/extracciones y separación entre servicios, módulos y réplicas. Criterio de aceptación: coherencia entre guía, contexto, backend, pruebas y documentación, sin duplicar reglas ni propietarios para alcanzar una cifra. Este ajuste es únicamente documental.
+
+**Decisiones confirmadas por el usuario en esta conversación:** Android se desarrollará con **Kotlin y Jetpack Compose**; escritorio con **PySide6 y Python**. Se conservan la base PostgreSQL compartida, web autónoma y consumo JSON/XML por los clientes. Los prompts incorporan HLA registrado/completitud/evaluación/dictamen separados, revisión profesional, trazabilidad hasta uso/destino, cadena de frío, archivos analizados, MFA, offline restringido y continuidad con RTO/RPO.
+
+Criterios de aceptación del cambio documental: ocho encargos específicos con funciones, dependencias, pruebas y entregables; decisiones tecnológicas coherentes; cobertura de la retroalimentación y vínculos locales válidos. Verificación documental aprobada: diez archivos, nueve enlaces relativos, 24 responsabilidades backend, cinco algoritmos y 14 módulos de escritorio; `git diff --check` sin errores. No se ejecutaron pruebas de aplicación ni se modificaron código funcional, datos, contratos desplegados o servicios. La implementación de estos prompts permanece pendiente; aprobaciones clínicas y recursos externos se distinguirán de los criterios técnicos.
+
+## Revisión del paquete en Downloads (22 de octubre)
+
+Revisado `/Users/victorberlanga/Downloads/Red-House-Microservicios` por solicitud del usuario, sin modificar esa carpeta ni iniciar servicios. Al comenzar, sus **2770 archivos comparables eran idénticos por SHA-256** a la copia de trabajo; faltaban únicamente `AGENTS.md` y el `.env` privado de la web. La omisión del entorno privado es correcta. La carpeta contiene los Word/PDF finales y la plantilla histórica usada para regenerarlos.
+
+Criterios: integridad respecto del origen, sintaxis/configuración válidas, contratos y algoritmos comprobables sin bases y ausencia de secretos bajo los patrones buscados. **19 pruebas aprobadas en 60.71 s**, con dependencias del venv existente del origen; **197 Python, 1222 JSON, diez shell y 16 archivos Office/ZIP** íntegros. Docker Compose y Ruff de errores críticos aprobados; búsqueda de claves privadas/credenciales bajo los patrones utilizados sin candidatos. De 745 enlaces locales, uno histórico apunta a `AGENTS.md` omitido. Ruff de formato falla en `apps/services/ms_auditoria/findings.py:213` y haría fallar ese paso de CI; 162 archivos ya tienen formato correcto. Ambos detalles siguen sin modificar.
+
+[Detalle y límites](documentation/evidencias/revision-paquete/revision.json) · [JUnit](documentation/evidencias/revision-paquete/tests.xml). La revisión no ejecutó instalación, arranque, regresión completa ni pruebas reales contra PostgreSQL/MongoDB/Redis/GCS desde el paquete; no certifica esos recorridos. Los `.DS_Store` incluidos no afectan ejecución. Este registro se agregó después de comparar las dos carpetas.
 
 ## Cierre de presentación y video (22 de octubre)
 

@@ -1,0 +1,72 @@
+{
+  "date": "2026-10-22",
+  "target": "/Users/victorberlanga/Downloads/Red-House-Microservicios",
+  "reference": "/Users/victorberlanga/Programacion/integracion/Red-House",
+  "scope": "Revisión de integridad y comprobaciones estáticas/unitarias; no se inicia ni instala la plataforma. Carpeta Downloads sin modificaciones.",
+  "comparison": {
+    "files_identical": 2770,
+    "missing_from_package": [
+      "AGENTS.md",
+      "apps/web/.env"
+    ],
+    "extra_files": [],
+    "changed_files": [],
+    "notes": "Comparación realizada antes de registrar esta revisión en el repositorio de referencia. .env privado omitido correctamente; AGENTS.md no es requisito de ejecución."
+  },
+  "checks": {
+    "syntax_and_integrity": {
+      "counts": {
+        "shell": 10,
+        "office_zip": 16,
+        "json": 1222,
+        "python": 197
+      },
+      "errors": [],
+      "secret_candidates": [],
+      "local_links": 745,
+      "broken_links": [
+        [
+          "documentation/historial/bitacora/ESTADO_HASTA_2026_10_12.md",
+          "../../../AGENTS.md"
+        ]
+      ]
+    },
+    "docker_compose_config": "passed",
+    "ruff_check_E9_F63_F7_F82": "passed",
+    "ruff_format_check": {
+      "status": "failed",
+      "file": "apps/services/ms_auditoria/findings.py",
+      "line": 213,
+      "formatted_files": 162
+    },
+    "pytest": {
+      "passed": 19,
+      "seconds": 60.71,
+      "modules": [
+        "test_algorithms.py",
+        "test_review_unit.py",
+        "test_private_config.py"
+      ],
+      "junit": "tests.xml"
+    }
+  },
+  "findings": [
+    {
+      "priority": "medium",
+      "file": "apps/services/ms_auditoria/findings.py",
+      "line": 213,
+      "finding": "Ruff exige reformatear el diccionario. La comprobación ruff format --check utilizada en CI devuelve error."
+    },
+    {
+      "priority": "low",
+      "file": "documentation/historial/bitacora/ESTADO_HASTA_2026_10_12.md",
+      "line": 3,
+      "finding": "Enlace ../../../AGENTS.md sin destino en el paquete."
+    }
+  ],
+  "limits": [
+    "No se ejecutó la regresión completa ni se certificó arranque, integración con bases o GCS desde esta carpeta.",
+    "Las dependencias de las pruebas se tomaron del venv existente del repositorio de referencia.",
+    "La búsqueda de secretos se limita a los patrones registrados en la revisión; no certifica ausencia de cualquier secreto."
+  ]
+}
