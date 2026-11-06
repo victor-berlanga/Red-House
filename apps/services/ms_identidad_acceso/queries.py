@@ -12,7 +12,7 @@ def install(app):
         "/api/v1/users",
         roles=("ADMIN", "COORDINATOR"),
         paginated=True,
-        query=("q", "role"),
+        query=("q", "role", "from_at", "until_at", "date_field", "sort"),
         summary="Cuentas propias o personal regional de traslado; nunca hashes ni sesiones",
     )
     def user_list():

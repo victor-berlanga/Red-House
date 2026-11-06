@@ -55,7 +55,16 @@ def install(app):
         "/api/v1/reservations",
         roles=("OPERATOR", "MEDICAL", "COORDINATOR"),
         paginated=True,
-        query=("status", "request_id", "q", "unplanned"),
+        query=(
+            "status",
+            "request_id",
+            "q",
+            "unplanned",
+            "from_at",
+            "until_at",
+            "date_field",
+            "sort",
+        ),
         summary="Reservas institucionales o regionales para coordinación",
     )
     def reservation_list():

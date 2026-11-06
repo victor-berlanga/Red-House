@@ -1,0 +1,787 @@
+[
+  {
+    "startedAt": "2026-11-04T13:09:01.009Z",
+    "finishedAt": "2026-11-04T13:11:37.205Z",
+    "checks": [
+      {
+        "name": "Inicio de sesión origin con cookie Secure",
+        "role": "origin",
+        "at": "2026-11-04T13:10:16.937Z",
+        "result": "PASS"
+      }
+    ],
+    "consoleErrors": [],
+    "networkErrors": [],
+    "records": {},
+    "privateReportDownloaded": false,
+    "passed": false,
+    "failure": "Selección nativa no coincide en branch",
+    "take": "natural03",
+    "selection": {
+      "take": "natural03",
+      "stop_chapter": 7,
+      "trim_start": 5
+    },
+    "raw_sha256": "f45ac259c8d2e04abe2c69252b80103bc471d4e444ffd45a9ef1c4a235b71be3"
+  },
+  {
+    "startedAt": "2026-11-04T13:12:32.639Z",
+    "finishedAt": "2026-11-04T13:15:27.510Z",
+    "checks": [
+      {
+        "name": "Inicio de sesión origin con cookie Secure",
+        "role": "origin",
+        "at": "2026-11-04T13:13:17.189Z",
+        "result": "PASS"
+      },
+      {
+        "name": "Ruta vial pública persistida y reproducida",
+        "role": "origin",
+        "at": "2026-11-04T13:13:52.719Z",
+        "result": "PASS"
+      },
+      {
+        "name": "ALG-04 ejecutado y persistido",
+        "role": "origin",
+        "at": "2026-11-04T13:14:28.199Z",
+        "result": "PASS"
+      },
+      {
+        "name": "ALG-05 ejecutado y persistido",
+        "role": "origin",
+        "at": "2026-11-04T13:15:00.346Z",
+        "result": "PASS"
+      }
+    ],
+    "consoleErrors": [],
+    "networkErrors": [
+      {
+        "status": 403,
+        "path": "/inventario/c108ad4e-9c01-44b3-a45b-b49f3e9e26d9/liberar",
+        "role": "origin"
+      }
+    ],
+    "records": {},
+    "privateReportDownloaded": false,
+    "passed": false,
+    "failure": "The expression evaluated to a falsy value:",
+    "take": "natural04",
+    "selection": {
+      "take": "natural04",
+      "start_chapter": 2,
+      "stop_chapter": 8
+    },
+    "raw_sha256": "f168890f3b6154834059431cac9f0455af6ec28b6871a062735f4f0d8989a793"
+  },
+  {
+    "startedAt": "2026-11-04T13:16:23.573Z",
+    "finishedAt": "2026-11-04T13:18:48.342Z",
+    "checks": [
+      {
+        "name": "Inicio de sesión origin con cookie Secure",
+        "role": "origin",
+        "at": "2026-11-04T13:17:01.365Z",
+        "result": "PASS"
+      },
+      {
+        "name": "Liberación sin reautenticación rechazada",
+        "role": "origin",
+        "at": "2026-11-04T13:17:28.977Z",
+        "result": "PASS"
+      },
+      {
+        "name": "Liberación con MFA, perfil completo y reautenticación; persiste al recargar",
+        "role": "origin",
+        "at": "2026-11-04T13:17:48.375Z",
+        "result": "PASS"
+      },
+      {
+        "name": "Inicio de sesión destination con cookie Secure",
+        "role": "destination",
+        "at": "2026-11-04T13:18:04.172Z",
+        "result": "PASS"
+      }
+    ],
+    "consoleErrors": [],
+    "networkErrors": [
+      {
+        "status": 403,
+        "path": "/inventario/c108ad4e-9c01-44b3-a45b-b49f3e9e26d9/liberar",
+        "role": "origin"
+      }
+    ],
+    "records": {
+      "request": "3ef633b1-df5f-4255-9373-2cbea5a9660d"
+    },
+    "privateReportDownloaded": false,
+    "passed": false,
+    "failure": "Registro guardado; falta enlace de continuación previsto",
+    "take": "natural05",
+    "selection": {
+      "take": "natural05",
+      "start_chapter": 2
+    },
+    "raw_sha256": "d158f9245154807ca85ec9336dbdf15489733980febc12db5381a2b52bd69567"
+  },
+  {
+    "startedAt": "2026-11-04T13:19:08.607Z",
+    "finishedAt": "2026-11-04T13:21:28.285Z",
+    "checks": [
+      {
+        "name": "Inicio de sesión destination con cookie Secure",
+        "role": "destination",
+        "at": "2026-11-04T13:19:39.521Z",
+        "result": "PASS"
+      },
+      {
+        "name": "Solicitud, evaluación y revisión humana",
+        "role": "destination",
+        "at": "2026-11-04T13:20:21.550Z",
+        "result": "PASS"
+      },
+      {
+        "name": "Inicio de sesión origin con cookie Secure",
+        "role": "origin",
+        "at": "2026-11-04T13:20:41.472Z",
+        "result": "PASS"
+      }
+    ],
+    "consoleErrors": [],
+    "networkErrors": [],
+    "records": {
+      "request": "3ef633b1-df5f-4255-9373-2cbea5a9660d",
+      "oldEvaluation": "0320e965-8ecf-45ba-ad1a-94ae4aece6be"
+    },
+    "privateReportDownloaded": false,
+    "passed": false,
+    "failure": "Registro guardado; falta enlace de continuación previsto",
+    "take": "natural06",
+    "selection": {
+      "take": "natural06",
+      "after_login": true
+    },
+    "raw_sha256": "bb9f5fe746fde75abb6d868cbd5d5abbdf0286d18486d6d366c357f605cad500"
+  },
+  {
+    "startedAt": "2026-11-04T13:23:05.156Z",
+    "finishedAt": "2026-11-04T13:30:02.469Z",
+    "checks": [
+      {
+        "name": "Inicio de sesión origin con cookie Secure",
+        "role": "origin",
+        "at": "2026-11-04T13:23:43.921Z",
+        "result": "PASS"
+      },
+      {
+        "name": "Nueva versión de laboratorio autorizada con MFA y reautenticación",
+        "role": "origin",
+        "at": "2026-11-04T13:24:58.925Z",
+        "result": "PASS"
+      },
+      {
+        "name": "Inicio de sesión destination con cookie Secure",
+        "role": "destination",
+        "at": "2026-11-04T13:25:12.848Z",
+        "result": "PASS"
+      },
+      {
+        "name": "Reserva con dictamen anterior rechazada visiblemente",
+        "role": "destination",
+        "at": "2026-11-04T13:25:51.324Z",
+        "result": "PASS"
+      },
+      {
+        "name": "ALG-01 reproducible desde evaluación",
+        "role": "destination",
+        "at": "2026-11-04T13:27:21.979Z",
+        "result": "PASS"
+      },
+      {
+        "name": "ALG-02 reproducible desde evaluación",
+        "role": "destination",
+        "at": "2026-11-04T13:28:00.568Z",
+        "result": "PASS"
+      },
+      {
+        "name": "ALG-03 reproducible desde evaluación",
+        "role": "destination",
+        "at": "2026-11-04T13:28:38.920Z",
+        "result": "PASS"
+      },
+      {
+        "name": "Nueva evaluación y revisión permiten reservar una sola vez",
+        "role": "destination",
+        "at": "2026-11-04T13:29:18.266Z",
+        "result": "PASS"
+      },
+      {
+        "name": "Inicio de sesión coordinator con cookie Secure",
+        "role": "coordinator",
+        "at": "2026-11-04T13:29:32.671Z",
+        "result": "PASS"
+      }
+    ],
+    "consoleErrors": [],
+    "networkErrors": [
+      {
+        "status": 409,
+        "path": "/evaluaciones/0320e965-8ecf-45ba-ad1a-94ae4aece6be/reservar/c108ad4e-9c01-44b3-a45b-b49f3e9e26d9",
+        "role": "destination"
+      }
+    ],
+    "records": {
+      "request": "3ef633b1-df5f-4255-9373-2cbea5a9660d",
+      "oldEvaluation": "0320e965-8ecf-45ba-ad1a-94ae4aece6be",
+      "correctedResult": "d1f6b0aa-3b0b-4807-b18d-6159133a3f88",
+      "freshEvaluation": "87d35135-2c9f-4b97-b27f-2e477e2d6b55"
+    },
+    "privateReportDownloaded": false,
+    "passed": false,
+    "failure": "Registro guardado; falta enlace de continuación previsto",
+    "take": "natural07",
+    "selection": {
+      "take": "natural07",
+      "after_login": true
+    },
+    "raw_sha256": "fab2cec6f2d5d0ca5fc8e4ded09deb673c0829b3faadc11cc3b2aeefd4aa91a9"
+  },
+  {
+    "startedAt": "2026-11-04T13:35:16.987Z",
+    "finishedAt": "2026-11-04T13:42:33.783Z",
+    "checks": [
+      {
+        "name": "Inicio de sesión coordinator con cookie Secure",
+        "role": "coordinator",
+        "at": "2026-11-04T13:35:55.080Z",
+        "result": "PASS"
+      },
+      {
+        "name": "Inicio de sesión operator1 con cookie Secure",
+        "role": "operator1",
+        "at": "2026-11-04T13:36:29.812Z",
+        "result": "PASS"
+      },
+      {
+        "name": "Inicio de sesión transport1 con cookie Secure",
+        "role": "transport1",
+        "at": "2026-11-04T13:37:28.082Z",
+        "result": "PASS"
+      },
+      {
+        "name": "Custodia incompleta no avanza; mensaje visible en escritorio",
+        "role": "transport1",
+        "at": "2026-11-04T13:38:07.017Z",
+        "result": "PASS"
+      },
+      {
+        "name": "Inicio de sesión operator2 con cookie Secure",
+        "role": "operator2",
+        "at": "2026-11-04T13:40:14.003Z",
+        "result": "PASS"
+      },
+      {
+        "name": "Traslado completo, custodia y aceptación persistente",
+        "role": "operator2",
+        "at": "2026-11-04T13:41:16.321Z",
+        "result": "PASS"
+      },
+      {
+        "name": "Inicio de sesión destination con cookie Secure",
+        "role": "destination",
+        "at": "2026-11-04T13:41:36.299Z",
+        "result": "PASS"
+      }
+    ],
+    "consoleErrors": [],
+    "networkErrors": [
+      {
+        "status": 409,
+        "path": "/inventario/c108ad4e-9c01-44b3-a45b-b49f3e9e26d9/destino",
+        "role": "destination"
+      }
+    ],
+    "records": {
+      "request": "3ef633b1-df5f-4255-9373-2cbea5a9660d",
+      "oldEvaluation": "0320e965-8ecf-45ba-ad1a-94ae4aece6be",
+      "correctedResult": "d1f6b0aa-3b0b-4807-b18d-6159133a3f88",
+      "freshEvaluation": "87d35135-2c9f-4b97-b27f-2e477e2d6b55",
+      "shipment": "e68b36e1-fb65-4e0e-b5eb-8e9c6d671401",
+      "reservation": "f68b05de-c683-41cb-922e-29d0d750539d"
+    },
+    "privateReportDownloaded": false,
+    "passed": false,
+    "failure": "locator.getAttribute: Timeout 20000ms exceeded.",
+    "take": "natural10",
+    "selection": {
+      "take": "natural10",
+      "after_login": true,
+      "stop_chapter": 6
+    },
+    "raw_sha256": "cecf010813fb73d069086fb005b4abbf7f3b92ec574b7304cc156d469375d28a"
+  },
+  {
+    "startedAt": "2026-11-04T13:45:10.424Z",
+    "finishedAt": "2026-11-04T13:47:00.727Z",
+    "checks": [
+      {
+        "name": "Inicio de sesión destination con cookie Secure",
+        "role": "destination",
+        "at": "2026-11-04T13:45:53.148Z",
+        "result": "PASS"
+      }
+    ],
+    "consoleErrors": [],
+    "networkErrors": [],
+    "records": {
+      "request": "3ef633b1-df5f-4255-9373-2cbea5a9660d",
+      "oldEvaluation": "0320e965-8ecf-45ba-ad1a-94ae4aece6be",
+      "correctedResult": "d1f6b0aa-3b0b-4807-b18d-6159133a3f88",
+      "freshEvaluation": "87d35135-2c9f-4b97-b27f-2e477e2d6b55",
+      "shipment": "e68b36e1-fb65-4e0e-b5eb-8e9c6d671401",
+      "reservation": "f68b05de-c683-41cb-922e-29d0d750539d"
+    },
+    "privateReportDownloaded": false,
+    "passed": false,
+    "failure": "Control fuera del área visible",
+    "take": "natural11",
+    "selection": {
+      "take": "natural11",
+      "after_login": true,
+      "trim_end_wall_ms": 72000
+    },
+    "raw_sha256": "d61e91718df060654f763d3e4d75d7a400cc162e8c42426fa319f90b32acffe2"
+  },
+  {
+    "startedAt": "2026-11-04T13:48:43.687Z",
+    "finishedAt": "2026-11-04T14:00:29.189Z",
+    "checks": [
+      {
+        "name": "Inicio de sesión destination con cookie Secure",
+        "role": "destination",
+        "at": "2026-11-04T13:49:21.919Z",
+        "result": "PASS"
+      },
+      {
+        "name": "Uso académico y corrección documental conservan historia",
+        "role": "destination",
+        "at": "2026-11-04T13:50:25.026Z",
+        "result": "PASS"
+      },
+      {
+        "name": "Filtros y reporte privado del propietario extraído",
+        "role": "destination",
+        "at": "2026-11-04T13:51:19.429Z",
+        "result": "PASS"
+      },
+      {
+        "name": "Inicio de sesión auditor1 con cookie Secure",
+        "role": "auditor1",
+        "at": "2026-11-04T13:51:32.201Z",
+        "result": "PASS"
+      },
+      {
+        "name": "Auditoría visible en escritorio",
+        "role": "auditor1",
+        "at": "2026-11-04T13:51:51.981Z",
+        "result": "PASS"
+      },
+      {
+        "name": "Inicio de sesión origin con cookie Secure",
+        "role": "origin",
+        "at": "2026-11-04T13:52:12.470Z",
+        "result": "PASS"
+      },
+      {
+        "name": "Módulo Panel principal",
+        "role": "origin",
+        "at": "2026-11-04T13:52:20.902Z",
+        "result": "PASS"
+      },
+      {
+        "name": "Módulo Apoyo a decisiones",
+        "role": "origin",
+        "at": "2026-11-04T13:52:33.406Z",
+        "result": "PASS"
+      },
+      {
+        "name": "Módulo Laboratorio",
+        "role": "origin",
+        "at": "2026-11-04T13:52:46.613Z",
+        "result": "PASS"
+      },
+      {
+        "name": "Módulo Reportes privados",
+        "role": "origin",
+        "at": "2026-11-04T13:52:59.913Z",
+        "result": "PASS"
+      },
+      {
+        "name": "Módulo Donantes",
+        "role": "origin",
+        "at": "2026-11-04T13:53:13.066Z",
+        "result": "PASS"
+      },
+      {
+        "name": "Módulo Donaciones y procesamiento",
+        "role": "origin",
+        "at": "2026-11-04T13:53:24.360Z",
+        "result": "PASS"
+      },
+      {
+        "name": "Módulo Receptores",
+        "role": "origin",
+        "at": "2026-11-04T13:53:35.912Z",
+        "result": "PASS"
+      },
+      {
+        "name": "Módulo Inventario sanguíneo",
+        "role": "origin",
+        "at": "2026-11-04T13:53:46.999Z",
+        "result": "PASS"
+      },
+      {
+        "name": "Módulo Disponibilidad regional",
+        "role": "origin",
+        "at": "2026-11-04T13:53:58.253Z",
+        "result": "PASS"
+      },
+      {
+        "name": "Módulo Solicitudes y compatibilidad",
+        "role": "origin",
+        "at": "2026-11-04T13:54:09.507Z",
+        "result": "PASS"
+      },
+      {
+        "name": "Módulo Propuestas de cobertura",
+        "role": "origin",
+        "at": "2026-11-04T13:54:20.868Z",
+        "result": "PASS"
+      },
+      {
+        "name": "Módulo Campañas",
+        "role": "origin",
+        "at": "2026-11-04T13:54:33.064Z",
+        "result": "PASS"
+      },
+      {
+        "name": "Módulo Rutas y estimaciones",
+        "role": "origin",
+        "at": "2026-11-04T13:54:45.399Z",
+        "result": "PASS"
+      },
+      {
+        "name": "Módulo Traslados y custodia",
+        "role": "origin",
+        "at": "2026-11-04T13:54:57.959Z",
+        "result": "PASS"
+      },
+      {
+        "name": "Módulo Órganos y HLA",
+        "role": "origin",
+        "at": "2026-11-04T13:55:12.064Z",
+        "result": "PASS"
+      },
+      {
+        "name": "Módulo Notificaciones",
+        "role": "origin",
+        "at": "2026-11-04T13:55:25.800Z",
+        "result": "PASS"
+      },
+      {
+        "name": "Inicio de sesión coordinator con cookie Secure",
+        "role": "coordinator",
+        "at": "2026-11-04T13:55:40.192Z",
+        "result": "PASS"
+      },
+      {
+        "name": "Módulo Panel principal",
+        "role": "coordinator",
+        "at": "2026-11-04T13:55:47.710Z",
+        "result": "PASS"
+      },
+      {
+        "name": "Módulo Apoyo a decisiones",
+        "role": "coordinator",
+        "at": "2026-11-04T13:55:58.561Z",
+        "result": "PASS"
+      },
+      {
+        "name": "Módulo Reportes privados",
+        "role": "coordinator",
+        "at": "2026-11-04T13:56:09.604Z",
+        "result": "PASS"
+      },
+      {
+        "name": "Módulo Inventario sanguíneo",
+        "role": "coordinator",
+        "at": "2026-11-04T13:56:20.535Z",
+        "result": "PASS"
+      },
+      {
+        "name": "Módulo Disponibilidad regional",
+        "role": "coordinator",
+        "at": "2026-11-04T13:56:31.660Z",
+        "result": "PASS"
+      },
+      {
+        "name": "Módulo Rutas y estimaciones",
+        "role": "coordinator",
+        "at": "2026-11-04T13:56:42.621Z",
+        "result": "PASS"
+      },
+      {
+        "name": "Módulo Traslados y custodia",
+        "role": "coordinator",
+        "at": "2026-11-04T13:56:53.796Z",
+        "result": "PASS"
+      },
+      {
+        "name": "Módulo Órganos y HLA",
+        "role": "coordinator",
+        "at": "2026-11-04T13:57:04.842Z",
+        "result": "PASS"
+      },
+      {
+        "name": "Módulo Notificaciones",
+        "role": "coordinator",
+        "at": "2026-11-04T13:57:16.420Z",
+        "result": "PASS"
+      },
+      {
+        "name": "Módulo Hallazgos",
+        "role": "coordinator",
+        "at": "2026-11-04T13:57:28.988Z",
+        "result": "PASS"
+      },
+      {
+        "name": "Módulo Estado de la plataforma",
+        "role": "coordinator",
+        "at": "2026-11-04T13:57:43.130Z",
+        "result": "PASS"
+      },
+      {
+        "name": "Inicio de sesión admin con cookie Secure",
+        "role": "admin",
+        "at": "2026-11-04T13:57:56.403Z",
+        "result": "PASS"
+      },
+      {
+        "name": "Módulo Panel principal",
+        "role": "admin",
+        "at": "2026-11-04T13:58:03.943Z",
+        "result": "PASS"
+      },
+      {
+        "name": "Módulo Reportes privados",
+        "role": "admin",
+        "at": "2026-11-04T13:58:14.722Z",
+        "result": "PASS"
+      },
+      {
+        "name": "Módulo Notificaciones",
+        "role": "admin",
+        "at": "2026-11-04T13:58:25.687Z",
+        "result": "PASS"
+      },
+      {
+        "name": "Módulo Estado de la plataforma",
+        "role": "admin",
+        "at": "2026-11-04T13:58:37.884Z",
+        "result": "PASS"
+      },
+      {
+        "name": "Módulo Instituciones",
+        "role": "admin",
+        "at": "2026-11-04T13:58:48.992Z",
+        "result": "PASS"
+      },
+      {
+        "name": "Módulo Usuarios",
+        "role": "admin",
+        "at": "2026-11-04T13:59:00.588Z",
+        "result": "PASS"
+      },
+      {
+        "name": "Módulo Catálogos",
+        "role": "admin",
+        "at": "2026-11-04T13:59:11.754Z",
+        "result": "PASS"
+      },
+      {
+        "name": "Inicio de sesión donor1 con cookie Secure",
+        "role": "donor1",
+        "at": "2026-11-04T13:59:22.962Z",
+        "result": "PASS"
+      },
+      {
+        "name": "Módulo Panel principal",
+        "role": "donor1",
+        "at": "2026-11-04T13:59:30.596Z",
+        "result": "PASS"
+      },
+      {
+        "name": "Módulo Reportes privados",
+        "role": "donor1",
+        "at": "2026-11-04T13:59:41.066Z",
+        "result": "PASS"
+      },
+      {
+        "name": "Módulo Donantes",
+        "role": "donor1",
+        "at": "2026-11-04T13:59:51.744Z",
+        "result": "PASS"
+      },
+      {
+        "name": "Módulo Campañas",
+        "role": "donor1",
+        "at": "2026-11-04T14:00:02.539Z",
+        "result": "PASS"
+      },
+      {
+        "name": "Módulo Inscripciones",
+        "role": "donor1",
+        "at": "2026-11-04T14:00:13.552Z",
+        "result": "PASS"
+      },
+      {
+        "name": "Módulo Notificaciones",
+        "role": "donor1",
+        "at": "2026-11-04T14:00:24.594Z",
+        "result": "PASS"
+      },
+      {
+        "name": "Cierre de sesión",
+        "role": "donor1",
+        "at": "2026-11-04T14:00:29.186Z",
+        "result": "PASS"
+      }
+    ],
+    "consoleErrors": [],
+    "networkErrors": [],
+    "records": {
+      "request": "3ef633b1-df5f-4255-9373-2cbea5a9660d",
+      "oldEvaluation": "0320e965-8ecf-45ba-ad1a-94ae4aece6be",
+      "correctedResult": "d1f6b0aa-3b0b-4807-b18d-6159133a3f88",
+      "freshEvaluation": "87d35135-2c9f-4b97-b27f-2e477e2d6b55",
+      "shipment": "e68b36e1-fb65-4e0e-b5eb-8e9c6d671401",
+      "reservation": "f68b05de-c683-41cb-922e-29d0d750539d",
+      "report": "41914bba-f8a2-4194-a8f8-38eb42045a8d"
+    },
+    "privateReportDownloaded": true,
+    "passed": true,
+    "take": "natural12",
+    "selection": {
+      "take": "natural12",
+      "after_login": true,
+      "skip_chapters": [
+        5,
+        6,
+        7,
+        11,
+        13,
+        16,
+        17,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        32,
+        33,
+        34
+      ],
+      "stop_chapter": 44
+    },
+    "raw_sha256": "a5de860ea9da5bb4b471357db04bc95a54c24c6a8a5124d50efae99dc7eb3754"
+  },
+  {
+    "startedAt": "2026-11-04T14:00:52.087Z",
+    "finishedAt": "2026-11-04T14:02:52.852Z",
+    "checks": [
+      {
+        "name": "Inicio de sesión origin con cookie Secure",
+        "role": "origin",
+        "at": "2026-11-04T14:01:34.561Z",
+        "result": "PASS"
+      },
+      {
+        "name": "Completitud consultada sin aprobación clínica",
+        "role": "origin",
+        "at": "2026-11-04T14:02:20.805Z",
+        "result": "PASS"
+      }
+    ],
+    "consoleErrors": [],
+    "networkErrors": [],
+    "records": {
+      "sample": "2f56544d-0407-4320-bbc3-beb303d1fa8c"
+    },
+    "privateReportDownloaded": false,
+    "passed": false,
+    "failure": "locator.waitFor: Timeout 15000ms exceeded.",
+    "take": "natural13",
+    "selection": {
+      "take": "natural13",
+      "after_login": true,
+      "stop_chapter": 1
+    },
+    "raw_sha256": "dd4cb2819210e3fe7406623b6ef139d06e89ef02d546fb16a67acd3515ed28bb"
+  },
+  {
+    "startedAt": "2026-11-04T14:03:46.239Z",
+    "finishedAt": "2026-11-04T14:05:35.794Z",
+    "checks": [
+      {
+        "name": "Inicio de sesión origin con cookie Secure",
+        "role": "origin",
+        "at": "2026-11-04T14:04:39.442Z",
+        "result": "PASS"
+      },
+      {
+        "name": "Detalle HLA consultado por la interfaz",
+        "role": "origin",
+        "at": "2026-11-04T14:05:09.539Z",
+        "result": "PASS"
+      }
+    ],
+    "consoleErrors": [],
+    "networkErrors": [],
+    "records": {},
+    "privateReportDownloaded": false,
+    "passed": false,
+    "failure": "Control fuera del área visible",
+    "take": "natural14",
+    "selection": {
+      "take": "natural14",
+      "after_login": true,
+      "stop_chapter": 1
+    },
+    "raw_sha256": "7d878552fffb4dfabd1d371fa47bd7c330996030957f3fe172aaaa0d0153248a"
+  },
+  {
+    "startedAt": "2026-11-04T14:06:08.793Z",
+    "finishedAt": "2026-11-04T14:07:02.130Z",
+    "checks": [
+      {
+        "name": "Recorrido de la página pública mediante enlaces y desplazamiento nativo",
+        "role": "public",
+        "at": "2026-11-04T14:07:02.128Z",
+        "result": "PASS"
+      }
+    ],
+    "consoleErrors": [],
+    "networkErrors": [],
+    "records": {},
+    "privateReportDownloaded": false,
+    "passed": true,
+    "take": "natural15",
+    "selection": {
+      "take": "natural15",
+      "trim_start": 5
+    },
+    "raw_sha256": "1fcd488ad0926db509b8053dca2952acd619ebaa3e4e7d29ed6ee7947edc55c3"
+  }
+]

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="1" failures="0" skipped="0" tests="1" time="48.966" timestamp="2026-10-29T07:32:46.163790-06:00" hostname="Victors-MacBook-Air.local"><testcase classname="tests.test_correction_backend" name="test_destination_correction_invariants_and_history[json]" time="44.105"><error message="failed on setup with &quot;psycopg.errors.UndefinedTable: relation &quot;access_transporte.document_metadata&quot; does not exist&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:245: in init
+    prepared = provision(
+apps/services/scripts/provision.py:132: in provision
+    upgrade(conn)
+apps/services/redhouse/shared_migrations.py:30: in upgrade
+    grants(conn)
+apps/services/redhouse/extension_schema.py:140: in grants
+    conn.execute("REVOKE ALL ON access_transporte.files,access_transporte.document_metadata,access_transporte.file_scans,access_transporte.export_jobs FROM rh_transporte")
+apps/services/.venv/lib/python3.12/site-packages/psycopg/connection.py:300: in execute
+    raise ex.with_traceback(None)
+E   psycopg.errors.UndefinedTable: relation "access_transporte.document_metadata" does not exist</error></testcase></testsuite></testsuites>

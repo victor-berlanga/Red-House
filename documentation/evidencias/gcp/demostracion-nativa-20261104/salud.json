@@ -1,0 +1,25 @@
+{
+  "recorded_at": "2026-11-04T14:11:49.167201+00:00",
+  "portal": {
+    "url": "https://34.18.186.116/health/live",
+    "body": {
+      "backend": "microservices",
+      "component": "red-house-web",
+      "status": "alive"
+    }
+  },
+  "compatibilidad": {
+    "url": "https://34.18.186.116/services/compatibilidad/health/live",
+    "body": {
+      "data": {
+        "state": "up",
+        "service": "compatibilidad",
+        "version": "0.4.4"
+      },
+      "meta": {
+        "correlation_id": "e5330f68-5f69-4bd8-8978-f04a4c6ac192"
+      }
+    }
+  },
+  "scope": "Consulta HTTPS posterior a la grabación; no comprobación integral de dependencias"
+}

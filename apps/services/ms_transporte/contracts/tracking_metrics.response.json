@@ -1,0 +1,90 @@
+{
+  "type": "object",
+  "required": [
+    "data",
+    "meta"
+  ],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": [
+        "correlation_id",
+        "service",
+        "version"
+      ],
+      "properties": {
+        "correlation_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "service": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      }
+    },
+    "data": {
+      "additionalProperties": false,
+      "properties": {
+        "shipment_id": {
+          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+          "title": "Shipment Id",
+          "type": "string"
+        },
+        "persisted_points": {
+          "title": "Persisted Points",
+          "type": "integer"
+        },
+        "received_last_minute": {
+          "title": "Received Last Minute",
+          "type": "integer"
+        },
+        "last_received_at": {
+          "anyOf": [
+            {
+              "maxLength": 200,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Last Received At"
+        },
+        "capture_to_receive_p95_ms": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Capture To Receive P95 Ms"
+        },
+        "mongo_pending_events": {
+          "title": "Mongo Pending Events",
+          "type": "integer"
+        },
+        "active_connections_global": {
+          "title": "Active Connections Global",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "shipment_id",
+        "persisted_points",
+        "received_last_minute",
+        "last_received_at",
+        "capture_to_receive_p95_ms",
+        "mongo_pending_events",
+        "active_connections_global"
+      ],
+      "title": "TrackingMetrics",
+      "type": "object"
+    }
+  }
+}

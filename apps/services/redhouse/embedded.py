@@ -15,7 +15,7 @@ from werkzeug.wrappers import Response as WSGIResponse
 
 from .config import SERVICES
 
-APPLICATION_VERSION = "0.3.0"
+APPLICATION_VERSION = "0.4.4"
 
 
 class ApplicationKernel:

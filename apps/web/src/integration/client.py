@@ -1,7 +1,7 @@
 """Adaptador web: backend modular propio o HTTP, elegido antes de operar."""
 
 import json
-import atexit
+import weakref
 from threading import local
 import requests
 from urllib.parse import urlencode, urlsplit
@@ -15,16 +15,32 @@ from ..access import BusinessError
 _clients = local()
 
 
+def _close_adapters(adapters):
+    for adapter in adapters.values():
+        adapter.close()
+
+
 def http_client():
     if not hasattr(_clients, "session"):
         _clients.session = requests.Session()
         _clients.session.trust_env = False
-        atexit.register(_clients.session.close)
+        # Own adapters without retaining sessions from completed worker threads.
+        weakref.finalize(_clients.session, _close_adapters, _clients.session.adapters)
     _clients.session.cookies.clear()
     return _clients.session
 
 
-def call(service, path, method="GET", data=None, *, token=None, idem=None, params=None):
+def call(
+    service,
+    path,
+    method="GET",
+    data=None,
+    *,
+    token=None,
+    idem=None,
+    params=None,
+    proof=None,
+):
     urls = current_app.config["SERVICE_URLS"]
     if (
         service not in urls
@@ -47,6 +63,8 @@ def call(service, path, method="GET", data=None, *, token=None, idem=None, param
         headers["Authorization"] = "Bearer " + token
     if method in ("POST", "PATCH", "PUT"):
         headers["Idempotency-Key"] = idem or uuid4().hex
+    if proof:
+        headers["X-Reauthentication-Proof"] = proof
     body = None
     if data is not None:
         body = json.dumps(data, allow_nan=False).encode()
@@ -114,7 +132,7 @@ def call(service, path, method="GET", data=None, *, token=None, idem=None, param
         raise BusinessError(
             message,
             status
-            if status in (400, 401, 403, 404, 409, 413, 415, 422, 429, 503)
+            if status in (400, 401, 403, 404, 409, 412, 413, 415, 422, 429, 503)
             else 503,
             details=error.get("details")
             if isinstance(error.get("details"), list)

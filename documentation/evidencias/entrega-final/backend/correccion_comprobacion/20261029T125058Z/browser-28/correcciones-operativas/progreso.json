@@ -1,0 +1,137 @@
+{
+  "version": "0.4.1",
+  "checks": [
+    {
+      "name": "MFA ausente rechazado sin iniciar sesión",
+      "role": "origin",
+      "at": "2026-10-29T16:11:17.704Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Inicio de sesión y cookies Secure sobre TLS",
+      "role": "origin",
+      "at": "2026-10-29T16:11:21.765Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Liberación sin reautenticación rechazada",
+      "role": "origin",
+      "at": "2026-10-29T16:11:24.472Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Liberación con MFA, perfil completo y reautenticación; persiste al recargar",
+      "role": "origin",
+      "at": "2026-10-29T16:11:33.636Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Inicio de sesión y cookies Secure sobre TLS",
+      "role": "destination",
+      "at": "2026-10-29T16:11:39.469Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Solicitud, evaluación y revisión humana",
+      "role": "destination",
+      "at": "2026-10-29T16:11:46.840Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Nueva versión de laboratorio autorizada con MFA y reautenticación",
+      "role": "origin",
+      "at": "2026-10-29T16:12:02.989Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Reserva con dictamen anterior rechazada visiblemente",
+      "role": "destination",
+      "at": "2026-10-29T16:12:07.382Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Nueva evaluación y revisión permiten reservar una sola vez",
+      "role": "destination",
+      "at": "2026-10-29T16:12:33.084Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Inicio de sesión y cookies Secure sobre TLS",
+      "role": "coordinator",
+      "at": "2026-10-29T16:12:38.025Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Inicio de sesión y cookies Secure sobre TLS",
+      "role": "operator1",
+      "at": "2026-10-29T16:12:47.383Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Inicio de sesión y cookies Secure sobre TLS",
+      "role": "transport1",
+      "at": "2026-10-29T16:12:55.198Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Custodia incompleta no avanza; mensaje visible en móvil",
+      "role": "transport1",
+      "at": "2026-10-29T16:12:57.079Z",
+      "result": "PASS"
+    },
+    {
+      "name": "WSS real por Nginx; publicación, recepción y reconexión por cursor",
+      "role": "transport1",
+      "at": "2026-10-29T16:13:02.324Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Inicio de sesión y cookies Secure sobre TLS",
+      "role": "operator2",
+      "at": "2026-10-29T16:13:14.298Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Traslado completo, custodia y aceptación persistente",
+      "role": "operator2",
+      "at": "2026-10-29T16:14:32.048Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Tipo incompatible rechazado; uso y corrección documental conservan historia",
+      "role": "destination",
+      "at": "2026-10-29T16:15:36.677Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Institución anterior no accede al recurso recibido por otra",
+      "role": "origin",
+      "at": "2026-10-29T16:15:38.529Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Inicio de sesión y cookies Secure sobre TLS",
+      "role": "limited",
+      "at": "2026-10-29T16:15:46.704Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Inicio de sesión y cookies Secure sobre TLS",
+      "role": "admin",
+      "at": "2026-10-29T16:15:53.521Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Sesión vencida en servidor redirige al inicio de sesión",
+      "role": "admin",
+      "at": "2026-10-29T16:15:57.591Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Cambio institucional de rol retira la sesión anterior",
+      "role": "admin",
+      "at": "2026-10-29T16:15:58.300Z",
+      "result": "PASS"
+    }
+  ]
+}

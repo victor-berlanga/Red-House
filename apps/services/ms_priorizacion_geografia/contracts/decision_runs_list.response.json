@@ -1,0 +1,552 @@
+{
+  "type": "object",
+  "required": [
+    "data",
+    "meta"
+  ],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": [
+        "correlation_id",
+        "service",
+        "version"
+      ],
+      "properties": {
+        "correlation_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "service": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "required": [
+        "items",
+        "page",
+        "page_size",
+        "total"
+      ],
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "title": "Id",
+                "type": "string"
+              },
+              "tenant_id": {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "title": "Tenant Id",
+                "type": "string"
+              },
+              "author_id": {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "title": "Author Id",
+                "type": "string"
+              },
+              "algorithm_version": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Algorithm Version",
+                "type": "string"
+              },
+              "source": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Source",
+                "type": "string"
+              },
+              "snapshot": {
+                "additionalProperties": true,
+                "title": "Snapshot",
+                "type": "object"
+              },
+              "result": {
+                "anyOf": [
+                  {
+                    "additionalProperties": false,
+                    "properties": {
+                      "evaluations": {
+                        "items": {
+                          "additionalProperties": false,
+                          "properties": {
+                            "id": {
+                              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                              "title": "Id",
+                              "type": "string"
+                            },
+                            "profile": {
+                              "additionalProperties": true,
+                              "title": "Profile",
+                              "type": "object"
+                            },
+                            "considered": {
+                              "items": {
+                                "additionalProperties": true,
+                                "type": "object"
+                              },
+                              "title": "Considered",
+                              "type": "array"
+                            },
+                            "candidates": {
+                              "items": {
+                                "additionalProperties": true,
+                                "type": "object"
+                              },
+                              "title": "Candidates",
+                              "type": "array"
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "profile",
+                            "considered",
+                            "candidates"
+                          ],
+                          "title": "ExplainedEvaluation",
+                          "type": "object"
+                        },
+                        "title": "Evaluations",
+                        "type": "array"
+                      },
+                      "clinical_approval": {
+                        "const": false,
+                        "title": "Clinical Approval",
+                        "type": "boolean"
+                      },
+                      "professional_verdict": {
+                        "const": "NOT_ISSUED",
+                        "title": "Professional Verdict",
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "evaluations",
+                      "clinical_approval",
+                      "professional_verdict"
+                    ],
+                    "title": "ExplainedResult",
+                    "type": "object"
+                  },
+                  {
+                    "additionalProperties": false,
+                    "properties": {
+                      "pairs": {
+                        "additionalProperties": {
+                          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                          "type": "string"
+                        },
+                        "title": "Pairs",
+                        "type": "object"
+                      },
+                      "slot_count": {
+                        "title": "Slot Count",
+                        "type": "integer"
+                      },
+                      "reservations_created": {
+                        "const": 0,
+                        "title": "Reservations Created",
+                        "type": "integer"
+                      },
+                      "optimization": {
+                        "const": "MAXIMUM_CARDINALITY_ONLY",
+                        "title": "Optimization",
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "pairs",
+                      "slot_count",
+                      "reservations_created",
+                      "optimization"
+                    ],
+                    "title": "CoverageResult",
+                    "type": "object"
+                  },
+                  {
+                    "additionalProperties": false,
+                    "properties": {
+                      "findings": {
+                        "items": {
+                          "additionalProperties": false,
+                          "properties": {
+                            "code": {
+                              "maxLength": 200,
+                              "minLength": 1,
+                              "title": "Code",
+                              "type": "string"
+                            },
+                            "identifier": {
+                              "maxLength": 200,
+                              "minLength": 1,
+                              "title": "Identifier",
+                              "type": "string"
+                            },
+                            "evidence": {
+                              "additionalProperties": true,
+                              "title": "Evidence",
+                              "type": "object"
+                            },
+                            "outcome": {
+                              "const": "POTENTIAL_ANOMALY",
+                              "title": "Outcome",
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "code",
+                            "identifier",
+                            "evidence",
+                            "outcome"
+                          ],
+                          "title": "PotentialAnomaly",
+                          "type": "object"
+                        },
+                        "title": "Findings",
+                        "type": "array"
+                      },
+                      "clinical_approval": {
+                        "const": false,
+                        "title": "Clinical Approval",
+                        "type": "boolean"
+                      },
+                      "automatic_correction": {
+                        "const": false,
+                        "title": "Automatic Correction",
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "findings",
+                      "clinical_approval",
+                      "automatic_correction"
+                    ],
+                    "title": "AnomalyResult",
+                    "type": "object"
+                  },
+                  {
+                    "additionalProperties": false,
+                    "properties": {
+                      "status": {
+                        "const": "INSUFFICIENT_RECORDED_USE",
+                        "title": "Status",
+                        "type": "string"
+                      },
+                      "clinical_approval": {
+                        "const": false,
+                        "title": "Clinical Approval",
+                        "type": "boolean"
+                      },
+                      "limitations": {
+                        "items": {
+                          "type": "string"
+                        },
+                        "title": "Limitations",
+                        "type": "array"
+                      }
+                    },
+                    "required": [
+                      "status",
+                      "clinical_approval",
+                      "limitations"
+                    ],
+                    "title": "InsufficientHistory",
+                    "type": "object"
+                  },
+                  {
+                    "additionalProperties": false,
+                    "properties": {
+                      "findings": {
+                        "items": {
+                          "additionalProperties": false,
+                          "properties": {
+                            "identifier": {
+                              "title": "Identifier",
+                              "type": "string"
+                            },
+                            "outcome": {
+                              "title": "Outcome",
+                              "type": "string"
+                            },
+                            "reasons": {
+                              "items": {
+                                "type": "string"
+                              },
+                              "title": "Reasons",
+                              "type": "array"
+                            }
+                          },
+                          "required": [
+                            "identifier",
+                            "outcome",
+                            "reasons"
+                          ],
+                          "title": "Finding",
+                          "type": "object"
+                        },
+                        "title": "Findings",
+                        "type": "array"
+                      },
+                      "path": {
+                        "items": {
+                          "type": "string"
+                        },
+                        "title": "Path",
+                        "type": "array"
+                      },
+                      "metrics": {
+                        "items": {
+                          "additionalProperties": false,
+                          "properties": {
+                            "name": {
+                              "title": "Name",
+                              "type": "string"
+                            },
+                            "value": {
+                              "title": "Value",
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "name",
+                            "value"
+                          ],
+                          "title": "Metric",
+                          "type": "object"
+                        },
+                        "title": "Metrics",
+                        "type": "array"
+                      },
+                      "clinical_approval": {
+                        "const": false,
+                        "default": false,
+                        "title": "Clinical Approval",
+                        "type": "boolean"
+                      },
+                      "estimated_arrival_at": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ],
+                        "default": null,
+                        "title": "Estimated Arrival At"
+                      },
+                      "eta_basis": {
+                        "default": "UNAVAILABLE",
+                        "title": "Eta Basis",
+                        "type": "string"
+                      },
+                      "professional_verdict": {
+                        "const": "NOT_ISSUED",
+                        "default": "NOT_ISSUED",
+                        "title": "Professional Verdict",
+                        "type": "string"
+                      },
+                      "limitations": {
+                        "items": {
+                          "type": "string"
+                        },
+                        "title": "Limitations",
+                        "type": "array"
+                      },
+                      "tracking": {
+                        "additionalProperties": true,
+                        "title": "Tracking",
+                        "type": "object"
+                      },
+                      "road_reference": {
+                        "anyOf": [
+                          {
+                            "additionalProperties": true,
+                            "type": "object"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ],
+                        "default": null,
+                        "title": "Road Reference"
+                      }
+                    },
+                    "required": [
+                      "limitations",
+                      "tracking"
+                    ],
+                    "title": "GeographicResult",
+                    "type": "object"
+                  },
+                  {
+                    "additionalProperties": false,
+                    "properties": {
+                      "findings": {
+                        "items": {
+                          "additionalProperties": false,
+                          "properties": {
+                            "identifier": {
+                              "title": "Identifier",
+                              "type": "string"
+                            },
+                            "outcome": {
+                              "title": "Outcome",
+                              "type": "string"
+                            },
+                            "reasons": {
+                              "items": {
+                                "type": "string"
+                              },
+                              "title": "Reasons",
+                              "type": "array"
+                            }
+                          },
+                          "required": [
+                            "identifier",
+                            "outcome",
+                            "reasons"
+                          ],
+                          "title": "Finding",
+                          "type": "object"
+                        },
+                        "title": "Findings",
+                        "type": "array"
+                      },
+                      "path": {
+                        "items": {
+                          "type": "string"
+                        },
+                        "title": "Path",
+                        "type": "array"
+                      },
+                      "metrics": {
+                        "items": {
+                          "additionalProperties": false,
+                          "properties": {
+                            "name": {
+                              "title": "Name",
+                              "type": "string"
+                            },
+                            "value": {
+                              "title": "Value",
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "name",
+                            "value"
+                          ],
+                          "title": "Metric",
+                          "type": "object"
+                        },
+                        "title": "Metrics",
+                        "type": "array"
+                      },
+                      "clinical_approval": {
+                        "const": false,
+                        "default": false,
+                        "title": "Clinical Approval",
+                        "type": "boolean"
+                      },
+                      "estimated_arrival_at": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ],
+                        "default": null,
+                        "title": "Estimated Arrival At"
+                      },
+                      "eta_basis": {
+                        "default": "UNAVAILABLE",
+                        "title": "Eta Basis",
+                        "type": "string"
+                      },
+                      "professional_verdict": {
+                        "const": "NOT_ISSUED",
+                        "default": "NOT_ISSUED",
+                        "title": "Professional Verdict",
+                        "type": "string"
+                      },
+                      "limitations": {
+                        "items": {
+                          "type": "string"
+                        },
+                        "title": "Limitations",
+                        "type": "array"
+                      }
+                    },
+                    "required": [
+                      "limitations"
+                    ],
+                    "title": "Output",
+                    "type": "object"
+                  }
+                ],
+                "title": "Result"
+              },
+              "fingerprint": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Fingerprint",
+                "type": "string"
+              },
+              "elapsed_ms": {
+                "title": "Elapsed Ms",
+                "type": "number"
+              },
+              "synthetic": {
+                "title": "Synthetic",
+                "type": "boolean"
+              },
+              "created_at": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Created At",
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "tenant_id",
+              "author_id",
+              "algorithm_version",
+              "source",
+              "snapshot",
+              "result",
+              "fingerprint",
+              "elapsed_ms",
+              "synthetic",
+              "created_at"
+            ],
+            "title": "DecisionRun",
+            "type": "object"
+          }
+        },
+        "page": {
+          "type": "integer"
+        },
+        "page_size": {
+          "type": "integer"
+        },
+        "total": {
+          "type": "integer"
+        }
+      }
+    }
+  }
+}

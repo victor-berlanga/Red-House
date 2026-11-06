@@ -62,6 +62,13 @@ def endpoint(
             elif path.startswith("/api/"):
                 rate_limit()
             data = parse(model) if model else None
+            if fn.__name__ in current_app.config.get("REAUTH_REQUIRED_OPERATIONS", ()):
+                from .reauth import require
+
+                require(
+                    fn.__name__,
+                    params.get("identifier") or (data or {}).get("resource_id"),
+                )
             output = fn(data=data, **params) if model else fn(**params)
             return respond(
                 {
@@ -158,12 +165,53 @@ def pagination(extra=()):
 
 
 def listing(
-    conn, table, where, values, *, order="created_at DESC,id", columns="*", filters=None
+    conn,
+    table,
+    where,
+    values,
+    *,
+    order="created_at DESC,id",
+    columns="*",
+    filters=None,
+    date_columns=None,
 ):
     # Tabla, columnas, condición y orden son constantes de módulos, nunca entradas HTTP.
-    filters = filters or {}
-    page, size, offset = pagination(filters)
+    filters = dict(filters or {})
+    filters.setdefault("q", ("id::text",))
+    page, size, offset = pagination(
+        (*filters, "from_at", "until_at", "date_field", "sort")
+    )
     where, values = "(" + where + ")", list(values)
+    date_fields = set(date_columns or ("created_at",))
+    if table == "resources":
+        date_fields.add("expires_at")
+    if table == "shipments":
+        date_fields.add("departure_at")
+    default_date = (
+        "created_at" if "created_at" in date_fields else sorted(date_fields)[0]
+    )
+    date_column = request.args.get("date_field", default_date)
+    if date_column not in date_fields:
+        raise APIError("validation", "Campo temporal no permitido.", 422)
+    from .models import utc_date
+
+    bounds = {}
+    for param, op in (("from_at", ">="), ("until_at", "<")):
+        if param in request.args:
+            bounds[param] = utc_date(request.args[param], param)
+            where += " AND " + date_column + op + "%s"
+            values.append(bounds[param])
+    if len(bounds) == 2 and bounds["from_at"] >= bounds["until_at"]:
+        raise APIError("validation", "Ventana temporal inválida.", 422)
+    orders = {
+        "ID_ASC": "id",
+        "DATE_ASC": date_column + ",id",
+        "DATE_DESC": date_column + " DESC,id",
+    }
+    if "sort" in request.args:
+        if request.args["sort"] not in orders:
+            raise APIError("validation", "Orden no permitido.", 422)
+        order = orders[request.args["sort"]]
     for name, config in filters.items():
         value = request.args.get(name, "").strip()
         if not value:

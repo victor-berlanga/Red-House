@@ -1,0 +1,35 @@
+{
+  "version": "0.4.1",
+  "checks": [
+    {
+      "name": "MFA ausente rechazado sin iniciar sesión",
+      "role": "origin",
+      "at": "2026-11-01T03:34:31.132Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Inicio de sesión y cookies Secure sobre TLS",
+      "role": "origin",
+      "at": "2026-11-01T03:34:36.706Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Liberación sin reautenticación rechazada",
+      "role": "origin",
+      "at": "2026-11-01T03:34:40.351Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Liberación con MFA, perfil completo y reautenticación; persiste al recargar",
+      "role": "origin",
+      "at": "2026-11-01T03:35:05.959Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Inicio de sesión y cookies Secure sobre TLS",
+      "role": "destination",
+      "at": "2026-11-01T03:35:16.768Z",
+      "result": "PASS"
+    }
+  ]
+}

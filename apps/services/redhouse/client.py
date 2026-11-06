@@ -1,6 +1,6 @@
 import json
 import time
-import atexit
+import weakref
 from threading import local
 from uuid import uuid4
 
@@ -13,17 +13,23 @@ from .security import internal_signature
 _clients = local()
 
 
+def _close_adapters(adapters):
+    for adapter in adapters.values():
+        adapter.close()
+
+
 def http_client():
     if not hasattr(_clients, "session"):
         _clients.session = requests.Session()
         _clients.session.trust_env = False
-        atexit.register(_clients.session.close)
+        # Finalizer owns adapters, never the session: worker exit releases its pools.
+        weakref.finalize(_clients.session, _close_adapters, _clients.session.adapters)
     # Las credenciales siempre viajan en el encabezado de esta petición.
     _clients.session.cookies.clear()
     return _clients.session
 
 
-def call(service, method, path, data=None, delegate=True):
+def call(service, method, path, data=None, delegate=True, forward_headers=False):
     cfg = current_app.config
     url = cfg["SERVICE_URLS"].get(service)
     if not url:
@@ -53,6 +59,10 @@ def call(service, method, path, data=None, delegate=True):
     }
     if delegate and has_request_context():
         headers["Authorization"] = request.headers.get("Authorization", "")
+    if forward_headers and delegate and has_request_context():
+        for name in ("Idempotency-Key", "X-Reauthentication-Proof"):
+            if name in request.headers:
+                headers[name] = request.headers[name]
     try:
         local_dispatch = cfg.get("LOCAL_DISPATCH")
         if local_dispatch is not None:

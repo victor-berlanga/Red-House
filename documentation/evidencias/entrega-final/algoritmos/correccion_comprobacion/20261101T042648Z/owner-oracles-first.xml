@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="10" time="75.440" timestamp="2026-10-31T23:02:02.731260-06:00" hostname="Victors-MacBook-Air.local"><testcase classname="tests.test_stage02_oracles" name="test_each_missing_rank_factor_excludes_without_default_priority[urgency]" time="0.019" /><testcase classname="tests.test_stage02_oracles" name="test_each_missing_rank_factor_excludes_without_default_priority[urgency_source]" time="0.012" /><testcase classname="tests.test_stage02_oracles" name="test_each_missing_rank_factor_excludes_without_default_priority[waiting_minutes]" time="0.006" /><testcase classname="tests.test_stage02_oracles" name="test_each_missing_rank_factor_excludes_without_default_priority[expiry_minutes]" time="0.006" /><testcase classname="tests.test_stage02_oracles" name="test_each_missing_rank_factor_excludes_without_default_priority[travel_minutes]" time="0.005" /><testcase classname="tests.test_stage02_oracles" name="test_each_missing_rank_factor_excludes_without_default_priority[distance_km]" time="0.006" /><testcase classname="tests.test_stage02_oracles" name="test_forecast_lots_against_constant_rate_capacity_oracle[quantities0-expected0]" time="0.017" /><testcase classname="tests.test_stage02_oracles" name="test_forecast_lots_against_constant_rate_capacity_oracle[quantities1-expected1]" time="0.008" /><testcase classname="tests.test_stage02_oracles" name="test_forecast_lots_against_constant_rate_capacity_oracle[quantities2-expected2]" time="0.012" /><testcase classname="tests.test_stage02_oracles" name="test_authoritative_anomalies_outbox_failure_resolution_and_history" time="70.679"><failure message="AssertionError: assert {'BROKEN_SEQU...LINEAGE', ...} &lt;= {'BROKEN_SEQU...VATIONS', ...}&#10;  &#10;  Extra items in the left set:&#10;  'INCOMPATIBLE_QUANTITY'">p = &lt;tests.conftest.Platform object at 0x1138297f0&gt;
+monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x1133c33e0&gt;
+
+    def test_authoritative_anomalies_outbox_failure_resolution_and_history(p,monkeypatch):
+        """Administrative corruption is confined to this disposable fixture database."""
+        from .test_correction_backend import laboratory
+        first=resource(p);second=resource(p)
+        _,req=recipient_request(p);ev=evaluation(p,req,[first]);allocation=reservation(p,ev,first)['reservation']
+        _,req2=recipient_request(p);ev2=evaluation(p,req2,[second]);allocation2=reservation(p,ev2,second)['reservation']
+        shipment=plan(p,allocation)
+        # Laboratory fixture can be attached to an unallocated separate resource.
+        unit=api(p,'inventario','/api/v1/resources',dict(folio='ANOMLAB-'+uuid4().hex[:10],kind='BLOOD',component='RBC',blood_group='O-',expires_at=iso(days=1)),user='operator1')
+        _,body,result=laboratory(p,unit,'json')
+        donor=api(p,'donantes','/api/v1/donors',dict(folio='ANOMDON-'+uuid4().hex[:10],display_name='Donante ficticio',blood_group='O-',consent=True))
+        donation=str(uuid4());lineage=str(uuid4());equipment=str(uuid4());cold=str(uuid4());reading=str(uuid4());hold=str(uuid4())
+        tenant=p.env.state['tenants'][0];actor=p.env.state['accounts']['medical1']['id']
+        with p.owner('donantes') as conn:
+            conn.execute("INSERT INTO donations(id,donor_id,tenant_id,kind,component,blood_group,collected_at) VALUES(%s,%s,%s,'BLOOD','RBC','O-',now())",(donation,donor['id'],tenant))
+        foreign=api(p,'inventario','/api/v1/resources',dict(folio=first['folio'],kind='BLOOD',component='RBC',blood_group='O-',expires_at=iso(days=1)),user='operator2')
+        indexes=[]
+        try:
+            with p.owner('inventario') as conn:
+                # Duplicate folios may arrive from another institution; no global uniqueness assumption.
+                conn.execute('UPDATE resources SET current_institution_id=%s WHERE id=%s',(tenant,foreign['id']))
+                conn.execute('INSERT INTO resource_lineage(id,parent_id,child_id,donation_id,tenant_id,author_id,reason) VALUES(%s,%s,%s,%s,%s,%s,%s)',(lineage,first['id'],second['id'],donation,tenant,actor,'Corrupt fixture: donation differs from both resources'))
+                conn.execute("INSERT INTO cold_equipment(id,tenant_id,label,location) VALUES(%s,%s,'Synthetic equipment','Synthetic location')",(equipment,tenant))
+                conn.execute("INSERT INTO cold_profiles(id,tenant_id,kind,component,minimum_c,maximum_c,max_gap_seconds,source,synthetic,version,author_id,effective_at) VALUES(%s,%s,'BLOOD','RBC',1,5,60,'Synthetic thresholds',true,1,%s,now())",(cold,tenant,actor))
+                conn.execute("INSERT INTO cold_readings(id,resource_id,equipment_id,profile_id,tenant_id,temperature_c,captured_at,source,excursion,gap,author_id) VALUES(%s,%s,%s,%s,%s,20,now(),'Persisted fixture',false,false,%s)",(reading,unit['id'],equipment,cold,tenant,actor))
+                indexes=conn.execute("SELECT indexname,indexdef FROM pg_indexes WHERE schemaname='red_house' AND tablename='blood_allocation' AND indexname IN ('allocation_resource_exclusive','api_resource_reserved')").fetchall()
+                for name,_ in indexes: conn.execute(sql.SQL('DROP INDEX red_house.{}').format(sql.Identifier(name)))
+                conn.execute('UPDATE reservations SET resource_id=%s WHERE id=%s',(first['id'],allocation2['id']))
+            with p.owner('compatibilidad') as conn: conn.execute('UPDATE lab_samples SET tenant_id=%s WHERE id=%s',(p.env.state['tenants'][1],body['sample_id']))
+            with p.owner('transporte') as conn: conn.execute('UPDATE shipments SET sequence=3 WHERE id=%s',(shipment['id'],))
+            with p.owner('receptores') as conn:
+                conn.execute('INSERT INTO holds(id,request_id,recipient_id,operation_id,resource_id,kind,request_version,region_id) SELECT %s,request_id,recipient_id,%s,%s,kind,request_version,region_id FROM holds WHERE id=%s',(hold,str(uuid4()),second['id'],allocation['hold_id']))
+            app=p.apps['priorizacion_geografia'];original=app.config['SERVICE_URLS']
+            monkeypatch.setitem(app.config,'SERVICE_URLS',dict(original,auditoria='http://127.0.0.1:1'))
+            run=api(p,'priorizacion_geografia','/api/v1/decision-runs',{'branch':'ALG-05'})
+            expected={'DUPLICATE_IDENTIFIER','MULTIPLE_RESERVATIONS','INVALID_DONATION_PROVENANCE','INVALID_LINEAGE','THERMAL_INCOHERENCE','FOREIGN_SAMPLE','BROKEN_SEQUENCE','STALE_PROJECTION','INCOMPATIBLE_QUANTITY'}
+&gt;           assert expected &lt;= {x['code'] for x in run['result']['findings']}
+E           AssertionError: assert {'BROKEN_SEQU...LINEAGE', ...} &lt;= {'BROKEN_SEQU...VATIONS', ...}
+E             
+E             Extra items in the left set:
+E             'INCOMPATIBLE_QUANTITY'
+
+apps/services/tests/test_stage02_oracles.py:71: AssertionError</failure></testcase></testsuite></testsuites>

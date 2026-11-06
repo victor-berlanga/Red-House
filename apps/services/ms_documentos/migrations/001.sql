@@ -1,0 +1,1 @@
+-- Propietario extraído en migración global 013; no duplica tablas históricas.

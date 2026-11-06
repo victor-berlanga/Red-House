@@ -3,7 +3,7 @@ from typing import Annotated, Literal
 from uuid import uuid4
 
 from flask import g
-from pydantic import Field
+from pydantic import Field, model_validator
 
 from redhouse.api import atomic, endpoint, listing
 from redhouse.client import call
@@ -26,7 +26,16 @@ class Evidence(Model):
     object_id: ID
 
 
+class CustodyCheck(Model):
+    scanned_resource_id: ID
+    seal: Text
+    captured_at: Text
+    reported_handover_user_id: ID
+    electronic_acceptance: Literal[True]
+
+
 class Transition(Confirm):
+    custody: CustodyCheck | None = None
     state: Literal[
         "PREPARED",
         "COLLECTED",
@@ -40,11 +49,21 @@ class Transition(Confirm):
     evidence: Evidence | None = None
     destination_location_id: ID | None = None
 
+    @model_validator(mode="after")
+    def required_handover(self):
+        if (
+            self.state in ("COLLECTED", "DELIVERED", "ACCEPTED")
+            and self.custody is None
+        ):
+            raise ValueError(
+                "custody obligatorio: escaneo, sello, fecha, contraparte y aceptación"
+            )
+        return self
 
-class Telemetry(Model):
-    latitude: Annotated[float, Field(ge=-90, le=90)]
-    longitude: Annotated[float, Field(ge=-180, le=180)]
-    captured_at: Text
+
+# Transición explícita: la ruta histórica recibe el mismo sobre normalizado que WSS.
+from .tracking_contracts import Position as Telemetry, StoredPosition
+from redhouse.extension_contracts import schema
 
 
 def shipment_access(row):
@@ -62,7 +81,13 @@ def shipment_access(row):
 
 
 def logistics_event(
-    conn, row, state, actor_id, evidence=None, destination_location_id=None
+    conn,
+    row,
+    state,
+    actor_id,
+    evidence=None,
+    destination_location_id=None,
+    custody=None,
 ):
     sequence = row["sequence"] + 1
     event = emit(
@@ -80,6 +105,7 @@ def logistics_event(
             "transport_user_id": str(row["transport_user_id"]),
             "evidence": evidence,
             "destination_location_id": destination_location_id,
+            "custody": custody,
         },
     )
     queue(conn, event, "mongodb")
@@ -260,6 +286,7 @@ def register(app):
         "/api/v1/shipments",
         roles=("COORDINATOR", "TRANSPORT", "OPERATOR", "MEDICAL"),
         paginated=True,
+        query=("from_at", "until_at", "date_field", "sort", "status", "q"),
         summary="Traslados de la región, institución o responsable",
     )
     def shipment_list():
@@ -274,7 +301,31 @@ def register(app):
                     (g.actor["tenant_id"], g.actor["tenant_id"]),
                 )
             return listing(
-                conn, "shipments", where, values, order="departure_at DESC,id"
+                conn,
+                "shipments",
+                where,
+                values,
+                columns="shipments.*,"
+                + "(SELECT min(created_at) FROM transitions WHERE shipment_id=shipments.id AND state='COLLECTED') AS collected_at,"
+                + "(SELECT min(created_at) FROM transitions WHERE shipment_id=shipments.id AND state='ACCEPTED') AS accepted_at,"
+                + "(SELECT extract(epoch FROM (min(created_at) FILTER(WHERE state='ACCEPTED') - min(created_at) FILTER(WHERE state='COLLECTED')))::double precision FROM transitions WHERE shipment_id=shipments.id) AS observed_seconds",
+                order="departure_at DESC,id",
+                filters={
+                    "status": (
+                        "status",
+                        (
+                            "PLANNED",
+                            "PREPARED",
+                            "COLLECTED",
+                            "IN_TRANSIT",
+                            "DELIVERED",
+                            "ACCEPTED",
+                            "CANCELLED",
+                            "REJECTED",
+                        ),
+                    ),
+                    "q": ("id::text",),
+                },
             )
 
     @endpoint(
@@ -318,6 +369,10 @@ def register(app):
                 raise APIError("conflict", "Ubicación receptora inactiva.", 409)
 
         def work(conn):
+            conn.execute(
+                "SELECT pg_advisory_xact_lock(hashtextextended(%s,83))",
+                ("shipment-evidence:" + identifier,),
+            )
             row = get(conn, "shipments", identifier, True)
             shipment_access(row)
             if (
@@ -372,14 +427,64 @@ def register(app):
                         409,
                     )
             if data["evidence"]:
-                evidence_row = get(conn, "files", data["evidence"]["object_id"])
-                if (
-                    str(evidence_row["shipment_id"]) != identifier
-                    or evidence_row["status"] != "VERIFIED"
-                ):
-                    raise APIError(
-                        "conflict", "Evidencia no verificada para este traslado.", 409
+                call(
+                    "documentos",
+                    "POST",
+                    "/internal/v1/files/"
+                    + data["evidence"]["object_id"]
+                    + "/transport-check",
+                    {"shipment_id": identifier},
+                    delegate=False,
+                )
+            if data["custody"] or state == "ACCEPTED":
+                validation = call(
+                    "inventario",
+                    "POST",
+                    f"/internal/v1/reservations/{row['reservation_id']}/custody-check",
+                    {"shipment_id": identifier, "check_quality": state == "ACCEPTED"},
+                    delegate=False,
+                )
+                if data["custody"]:
+                    captured = utc_date(data["custody"]["captured_at"])
+                    handover = call(
+                        "identidad_acceso",
+                        "GET",
+                        "/internal/v1/custody-users/"
+                        + data["custody"]["reported_handover_user_id"],
+                        delegate=False,
                     )
+                    expected_role = "TRANSPORT" if state == "ACCEPTED" else "OPERATOR"
+                    expected_tenant = (
+                        row["origin_id"]
+                        if state in ("COLLECTED", "ACCEPTED")
+                        else row["destination_id"]
+                    )
+                    if (
+                        not handover["active"]
+                        or handover["role"] != expected_role
+                        or handover["tenant_id"] != str(expected_tenant)
+                        or (
+                            state == "ACCEPTED"
+                            and handover["id"] != str(row["transport_user_id"])
+                        )
+                    ):
+                        raise APIError(
+                            "custody_mismatch",
+                            "Responsable de entrega/recepción no habilitado para este paso.",
+                            409,
+                        )
+                    if (
+                        data["custody"]["scanned_resource_id"]
+                        != validation["resource_id"]
+                        or captured > datetime.now(timezone.utc)
+                        or captured < datetime.now(timezone.utc) - timedelta(hours=24)
+                        or state not in ("COLLECTED", "DELIVERED", "ACCEPTED")
+                    ):
+                        raise APIError(
+                            "custody_mismatch",
+                            "Escaneo, fecha o paso de custodia incompatible.",
+                            409,
+                        )
             seq = logistics_event(
                 conn,
                 row,
@@ -387,6 +492,7 @@ def register(app):
                 actor["id"],
                 data["evidence"],
                 data["destination_location_id"],
+                data["custody"],
             )
             insert(
                 conn,
@@ -417,66 +523,24 @@ def register(app):
         "/api/v1/shipments/<identifier>/telemetry",
         "POST",
         model=Telemetry,
+        result=schema(StoredPosition),
         roles=("TRANSPORT",),
         status=201,
         summary="Ubicación solo del responsable durante traslado activo",
     )
     def telemetry_create(identifier, data):
-        captured = utc_date(data["captured_at"], "captured_at")
-        if abs((datetime.now(timezone.utc) - captured).total_seconds()) > 300:
-            raise invalid(
-                "La fecha de ubicación debe estar a no más de cinco minutos del momento actual.",
-                "captured_at",
-                code="location_time",
-            )
+        from flask import request
+        from .tracking import publish
 
-        def work(conn):
-            row = get(conn, "shipments", identifier, True)
-            shipment_access(row)
-            if (
-                row["status"] not in ("COLLECTED", "IN_TRANSIT")
-                or row["inventory_pending"]
-            ):
-                raise APIError(
-                    "conflict",
-                    "No se autoriza ubicación fuera del traslado activo.",
-                    409,
-                )
-            point = insert(
-                conn,
-                "telemetry",
-                dict(
-                    id=str(uuid4()),
-                    shipment_id=identifier,
-                    actor_id=g.actor["id"],
-                    **dict(data, captured_at=captured),
-                ),
+        if data["shipment_id"] != identifier:
+            raise APIError(
+                "forbidden", "El traslado del mensaje no coincide con la ruta.", 403
             )
-            event = emit(
-                conn,
-                "TELEMETRY_RECORDED",
-                identifier,
-                row["origin_id"],
-                metadata={"point_id": str(point["id"])},
-            )
-            # La posición exacta solo va a la colección privada del propietario.
-            private = dict(
-                event,
-                event_id=str(point["id"]),
-                metadata=dict(data, shipment_id=identifier),
-            )
-            queue(conn, private, "mongodb")
-            return point
-
-        result = atomic("telemetry_create:" + identifier, data, work)
-        from redhouse.security import key, redis_call
-
-        redis_call(
-            lambda r: r.set(
-                key("transporte:location:" + identifier), str(result["id"]), ex=300
-            )
+        return publish(
+            data,
+            "user",
+            request.headers.get("Authorization", "").removeprefix("Bearer "),
         )
-        return result
 
     @endpoint(
         app,
@@ -484,6 +548,7 @@ def register(app):
         roles=("TRANSPORT", "COORDINATOR"),
         paginated=True,
         summary="Historial de ubicación con autorización por traslado",
+        query=("q", "from_at", "until_at", "date_field", "sort"),
     )
     def telemetry_list(identifier):
         with transaction() as conn:
@@ -502,7 +567,3 @@ def register(app):
             row = get(conn, "shipments", identifier)
             shipment_access(row)
             return {"authorized": True, "id": identifier}
-
-    from .files import register_files
-
-    register_files(app, shipment_access)

@@ -13,3 +13,6 @@ jsonschema>=4.25,<5
 Pillow>=12.1,<14
 pypdf>=6.6,<8
 psycopg_pool>=3.3,<4
+simple-websocket==1.1.0
+gevent==26.9.0
+websocket-client==1.9.2

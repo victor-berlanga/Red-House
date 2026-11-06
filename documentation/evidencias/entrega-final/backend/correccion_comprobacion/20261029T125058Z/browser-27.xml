@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="344.941" timestamp="2026-10-29T10:01:48.750325-06:00" hostname="Victors-MacBook-Air.local"><testcase classname="tests.test_correction_browser" name="test_operational_browser_corrections" time="343.365"><failure message="AssertionError: {&quot;passed&quot;:false,&quot;checks&quot;:22,&quot;failure&quot;:&quot;false == true&quot;}&#10;  &#10;assert 1 == 0&#10; +  where 1 = CompletedProcess(args=['node', '/Users/victorberlanga/Programacion/integracion/Red-House/scripts/verify_backend_corrections.cjs'], returncode=1, stdout='{&quot;passed&quot;:false,&quot;checks&quot;:22,&quot;failure&quot;:&quot;false == true&quot;}\n', stderr='').returncode">apps/services/tests/test_correction_browser.py:283: in test_operational_browser_corrections
+    assert completed.returncode == 0, completed.stdout + completed.stderr
+E   AssertionError: {"passed":false,"checks":22,"failure":"false == true"}
+E     
+E   assert 1 == 0
+E    +  where 1 = CompletedProcess(args=['node', '/Users/victorberlanga/Programacion/integracion/Red-House/scripts/verify_backend_corrections.cjs'], returncode=1, stdout='{"passed":false,"checks":22,"failure":"false == true"}\n', stderr='').returncode</failure></testcase></testsuite></testsuites>

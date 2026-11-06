@@ -1,0 +1,15 @@
+F
+=================================== FAILURES ===================================
+______ test_documents_configuration_upgrade_repeatable_preserves_sessions ______
+apps/services/tests/test_correction_upgrade.py:49: in test_documents_configuration_upgrade_repeatable_preserves_sessions
+    provision_documents(directory, state)
+apps/services/scripts/upgrade_documents.py:143: in provision_documents
+    private_file(path, json.dumps(current, indent=2))
+apps/services/scripts/local.py:40: in private_file
+    fd = os.open(path, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   FileExistsError: [Errno 17] File exists: '/private/tmp/rh-upgrade-rypd_0vb/alertas.json'
+=========================== short test summary info ============================
+FAILED apps/services/tests/test_correction_upgrade.py::test_documents_configuration_upgrade_repeatable_preserves_sessions
+!!!!!!!!!!!!!!!!!!!!!!!!!! stopping after 1 failures !!!!!!!!!!!!!!!!!!!!!!!!!!!
+1 failed, 32 deselected in 18.80s

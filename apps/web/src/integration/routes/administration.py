@@ -1,6 +1,7 @@
 """Rutas web: administration. Las reglas residen en las API propietarias."""
 
 from .common import (
+    confirmations,
     BusinessError,
     call,
     detail,
@@ -155,7 +156,12 @@ def settings():
 def user_detail(identifier):
     require(g.principal, "administration")
     row = find_record("identidad_acceso", "/api/v1/users", identifier)
-    return detail(row["username"], "users", row)
+    return detail(
+        row["username"],
+        "users",
+        row,
+        [("Cambiar perfil", url_for("admin.user_role", identifier=identifier))],
+    )
 
 
 @admin.get("/instituciones/<uuid:identifier>")
@@ -178,3 +184,34 @@ def institution_detail(identifier):
             )
         )
     return detail(row["name"], "institutions", row, actions)
+
+
+@admin.route(
+    "/administracion/usuarios/<uuid:identifier>/perfil", methods=["GET", "POST"]
+)
+def user_role(identifier):
+    require(g.principal, "administration")
+    row = find_record("identidad_acceso", "/api/v1/users", identifier)
+    return submit(
+        "identidad_acceso",
+        f"/api/v1/users/{identifier}/role",
+        [
+            field(
+                "role",
+                "Nuevo perfil",
+                "select",
+                [
+                    (k, v)
+                    for k, v in ROLES.items()
+                    if k in ("OPERATOR", "MEDICAL", "DONOR", "TRANSPORT")
+                ],
+                default=row["role"],
+            ),
+            field("version", "Versión", "hidden", default=row["version"]),
+        ]
+        + confirmations(),
+        title="Cambiar perfil",
+        active="users",
+        back=url_for("admin.user_detail", identifier=identifier),
+        note="El cambio cierra todas las sesiones de la cuenta. El nuevo perfil se aplica al iniciar sesión nuevamente.",
+    )

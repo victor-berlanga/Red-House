@@ -1,0 +1,57 @@
+{
+  "type": "object",
+  "required": [
+    "data",
+    "meta"
+  ],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": [
+        "correlation_id",
+        "service",
+        "version"
+      ],
+      "properties": {
+        "correlation_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "service": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      }
+    },
+    "data": {
+      "additionalProperties": false,
+      "properties": {
+        "rules": {
+          "items": {
+            "additionalProperties": true,
+            "type": "object"
+          },
+          "title": "Rules",
+          "type": "array"
+        },
+        "catalogues": {
+          "items": {
+            "additionalProperties": true,
+            "type": "object"
+          },
+          "title": "Catalogues",
+          "type": "array"
+        },
+        "clinical_approval": {
+          "default": false,
+          "title": "Clinical Approval",
+          "type": "boolean"
+        }
+      },
+      "title": "Sources",
+      "type": "object"
+    }
+  }
+}

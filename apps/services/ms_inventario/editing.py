@@ -76,6 +76,14 @@ def install(app):
             own(row["tenant_id"])
             if row["version"] != data["version"] or row["status"] != "QUARANTINE":
                 raise APIError("conflict", "Recurso obsoleto o ya liberado.", 409)
+            if conn.execute(
+                "SELECT 1 FROM resource_controls WHERE id=%s", (identifier,)
+            ).fetchone():
+                raise APIError(
+                    "controlled_resource",
+                    "Unidad vinculada a laboratorio/frío: registra corrección y dictamen, sin reescribir su clasificación.",
+                    409,
+                )
             if str(row["donation_id"] or "") != str(data["donation_id"] or "") or (
                 row["donation_id"]
                 and any(row[k] != data[k] for k in ("kind", "component", "blood_group"))

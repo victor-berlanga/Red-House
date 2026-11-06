@@ -1,0 +1,1213 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="202" failures="0" skipped="2" tests="323" time="189.412" timestamp="2026-10-28T09:17:52.540176-06:00" hostname="Victors-MacBook-Air.local"><testcase classname="tests.test_algorithms" name="test_matching_finds_augmenting_path_greedy_misses" time="0.004" /><testcase classname="tests.test_algorithms" name="test_matching_is_maximum_against_exhaustive_small_graphs" time="0.486" /><testcase classname="tests.test_algorithms" name="test_rbc_sample_filter_matches_documented_matrix" time="0.005" /><testcase classname="tests.test_audit_migration" name="test_v6_migration_preserves_records_and_is_repeatable[e03db262294ac9d143c71132a8c842cb6802c794-6]" time="10.335"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_audit_migration" name="test_v6_migration_preserves_records_and_is_repeatable[8909baf-7]" time="0.003"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_audit_migration" name="test_backup_inventory_includes_finding_history" time="0.002"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_catalogue" name="test_donation_provenance_and_processed_intake" time="0.003"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_catalogue" name="test_campaign_capacity_serializes_different_donors" time="0.003"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_catalogue" name="test_proposal_persists_maximum_matching_without_reservations" time="0.002"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_catalogue" name="test_stale_route_blocks_reservation" time="0.003"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_catalogue" name="test_reception_expiry_does_not_republish_resource" time="0.003"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_continuity" name="test_complete_web_flow_without_apis[BLOOD-RBC-O+]" time="0.003"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_continuity" name="test_complete_web_flow_without_apis[ORGAN-KIDNEY-O+]" time="0.003"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_continuity" name="test_donation_processing_without_apis" time="0.002"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_continuity" name="test_monolith_redis_failure_fails_closed_and_recovers" time="0.002"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_documents_storage" name="test_projection_updates_order_dedup_rebuild_indexes_and_permissions" time="0.003"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_documents_storage" name="test_gcs_web_upload_private_download_validation_expiry_and_recovery" time="0.004"><skipped type="pytest.skip" message="Requiere bucket GCS real autorizado y ADC; no se simula nube.">/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/tests/test_documents_storage.py:112: Requiere bucket GCS real autorizado y ADC; no se simula nube.</skipped></testcase><testcase classname="tests.test_donor_withdrawal" name="test_empty_donor_is_deleted_with_idempotency_and_audit" time="0.003"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_donor_withdrawal" name="test_withdrawal_requires_same_institution_medical_role[operator1]" time="0.002"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_donor_withdrawal" name="test_withdrawal_requires_same_institution_medical_role[admin1]" time="0.001"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_donor_withdrawal" name="test_withdrawal_requires_same_institution_medical_role[donor1]" time="0.001"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_donor_withdrawal" name="test_withdrawal_requires_same_institution_medical_role[medical2]" time="0.001"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_donor_withdrawal" name="test_withdrawal_requires_same_institution_medical_role[None]" time="0.001"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_donor_withdrawal" name="test_withdrawal_rejects_stale_or_invalid_confirmation[change0-409]" time="0.001"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_donor_withdrawal" name="test_withdrawal_rejects_stale_or_invalid_confirmation[change1-422]" time="0.001"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_donor_withdrawal" name="test_withdrawal_rejects_stale_or_invalid_confirmation[change2-422]" time="0.002"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_donor_withdrawal" name="test_withdrawal_rejects_stale_or_invalid_confirmation[change3-422]" time="0.002"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_donor_withdrawal" name="test_donor_with_history_is_inactive_and_cannot_start_new_operations[review]" time="0.002"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_donor_withdrawal" name="test_donor_with_history_is_inactive_and_cannot_start_new_operations[donation]" time="0.001"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_donor_withdrawal" name="test_donor_with_history_is_inactive_and_cannot_start_new_operations[appointment]" time="0.001"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_donor_withdrawal" name="test_donor_with_history_is_inactive_and_cannot_start_new_operations[cancelled_appointment]" time="0.001"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_donor_withdrawal" name="test_donor_with_history_is_inactive_and_cannot_start_new_operations[edit]" time="0.001"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_donor_withdrawal" name="test_appointment_racing_with_withdrawal_has_no_orphan_or_active_booking" time="0.001"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_donor_withdrawal" name="test_web_withdrawal_requires_csrf_and_preserves_inactive_history[microservices]" time="0.001"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_donor_withdrawal" name="test_web_withdrawal_requires_csrf_and_preserves_inactive_history[monolith]" time="0.002"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_donor_withdrawal" name="test_withdrawal_accepts_xml_and_validates_response_contract" time="0.002"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_evidence_catalog" name="test_all_registered_routes_expose_real_http_contracts_and_controlled_errors" time="0.003"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_evidence_catalog" name="test_edits_details_and_recovery_have_http_and_committed_evidence" time="0.002"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_evidence_catalog" name="test_pooled_transactions_preserve_rollback_credentials_and_recover" time="0.002"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_final_acceptance" name="test_institution_services_responsibles_and_current_scope[json]" time="0.003"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_final_acceptance" name="test_institution_services_responsibles_and_current_scope[xml]" time="0.002"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_final_acceptance" name="test_operational_release_cannot_omit_laboratory_profile" time="0.002"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_final_acceptance" name="test_published_websocket_examples_validate_both_encodings" time="0.570" /><testcase classname="tests.test_final_acceptance" name="test_acl_upgrade_preserves_accounts_passwords_and_sessions" time="0.001"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_final_acceptance" name="test_policy_corrections_keep_author_source_effectivity_and_history[json]" time="0.002"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_final_acceptance" name="test_policy_corrections_keep_author_source_effectivity_and_history[xml]" time="0.001"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_final_acceptance" name="test_expiry_worker_quarantines_without_deleting_and_is_repeatable" time="0.001"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_final_delivery_documents" name="test_smtp_push_retry_escalation_dedup_and_close[json]" time="0.001"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_final_delivery_documents" name="test_smtp_push_retry_escalation_dedup_and_close[xml]" time="0.002"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_final_delivery_documents" name="test_documents_scan_private_access_and_export_formats[json]" time="0.002"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_final_delivery_documents" name="test_documents_scan_private_access_and_export_formats[xml]" time="0.002"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_final_delivery_documents" name="test_clamd_infected_unavailable_and_formula_injection" time="0.002"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_final_identity" name="test_mfa_reauth_contact_recovery_and_revocation[json]" time="0.003"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_final_identity" name="test_mfa_reauth_contact_recovery_and_revocation[xml]" time="0.003"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_final_identity" name="test_totp_rfc_vector_and_policy_requirement" time="0.003"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_final_operations" name="test_consent_agenda_capacity_reminders_processing_and_lineage[json]" time="0.002"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_final_operations" name="test_consent_agenda_capacity_reminders_processing_and_lineage[xml]" time="0.003"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_final_operations" name="test_interoperability_accreditations_analytics_and_external_authorizations[json]" time="0.002"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_final_operations" name="test_interoperability_accreditations_analytics_and_external_authorizations[xml]" time="0.002"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_final_quality" name="test_laboratory_missing_results_correction_quarantine_and_final_destination[json]" time="0.002"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_final_quality" name="test_laboratory_missing_results_correction_quarantine_and_final_destination[xml]" time="0.002"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_final_tracking" name="test_wss_json_xml_durable_replay_order_and_revocation" time="0.003"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_final_tracking" name="test_wss_rejects_donor_device_read_invalid_and_conflicting_events[json]" time="0.003"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_final_tracking" name="test_wss_rejects_donor_device_read_invalid_and_conflicting_events[xml]" time="0.001"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_final_tracking" name="test_tracking_rejects_xxe_nonfinite_and_unknown_fields" time="0.008" /><testcase classname="tests.test_final_tracking" name="test_sync_commands_idempotency_scope_versions_and_cursor[json]" time="0.002"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_final_tracking" name="test_sync_commands_idempotency_scope_versions_and_cursor[xml]" time="0.003"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_final_tracking" name="test_executable_simulator_offline_reconnect_and_dedup[json]" time="0.003"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_final_tracking" name="test_executable_simulator_offline_reconnect_and_dedup[xml]" time="0.002"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_final_tracking" name="test_tracking_dependency_failure_preserves_durable_cursor[redis]" time="0.002"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_final_tracking" name="test_tracking_dependency_failure_preserves_durable_cursor[postgres]" time="0.002"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_final_tracking" name="test_tracking_dependency_failure_preserves_durable_cursor[mongodb]" time="0.001"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_final_tracking" name="test_tracking_scope_origin_cursor_limits_and_device_revocation" time="0.001"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_final_tracking" name="test_nmea_adapter_checksum_units_and_no_fix" time="0.025" /><testcase classname="tests.test_final_tracking" name="test_custody_scans_receipt_sync_and_distinct_final_use[json]" time="0.001"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_final_tracking" name="test_custody_scans_receipt_sync_and_distinct_final_use[xml]" time="0.001"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_final_tracking" name="test_concurrent_emitters_subscribers_and_delayed_consumer" time="0.001"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_final_tracking" name="test_two_production_wss_processes_single_and_total_outage" time="0.001"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_flows" name="test_donor_campaign_appointment_review_and_alert" time="0.001"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_flows" name="test_resource_to_receipt_custody_audit_and_notification[BLOOD-RBC-O-]" time="0.001"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_flows" name="test_resource_to_receipt_custody_audit_and_notification[ORGAN-KIDNEY-A-]" time="0.001"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_flows" name="test_resource_to_receipt_custody_audit_and_notification[ORGAN-LIVER-A+]" time="0.001"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_flows" name="test_resource_to_receipt_custody_audit_and_notification[ORGAN-HEART-A+]" time="0.001"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_flows" name="test_cancellation_before_collection_releases_request" time="0.001"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_flows" name="test_two_requests_cannot_reserve_same_resource" time="0.001"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_flows" name="test_two_units_cannot_overfill_one_unit_request" time="0.001"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_flows" name="test_idempotent_reservation_does_not_duplicate" time="0.001"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_form_limits" name="test_numeric_boundaries_and_public_messages[CampaignCreate-body0-capacity-1-10000-json]" time="0.025" /><testcase classname="tests.test_form_limits" name="test_numeric_boundaries_and_public_messages[CampaignCreate-body0-capacity-1-10000-xml]" time="0.018" /><testcase classname="tests.test_form_limits" name="test_numeric_boundaries_and_public_messages[RequestCreate-body1-quantity-1-100-json]" time="0.010" /><testcase classname="tests.test_form_limits" name="test_numeric_boundaries_and_public_messages[RequestCreate-body1-quantity-1-100-xml]" time="0.019" /><testcase classname="tests.test_form_limits" name="test_numeric_boundaries_and_public_messages[RequestCreate-body2-urgency-1-3-json]" time="0.013" /><testcase classname="tests.test_form_limits" name="test_numeric_boundaries_and_public_messages[RequestCreate-body2-urgency-1-3-xml]" time="0.027" /><testcase classname="tests.test_form_limits" name="test_numeric_boundaries_and_public_messages[Capacity-body3-quantity-0-100000-json]" time="0.017" /><testcase classname="tests.test_form_limits" name="test_numeric_boundaries_and_public_messages[Capacity-body3-quantity-0-100000-xml]" time="0.042" /><testcase classname="tests.test_form_limits" name="test_numeric_boundaries_and_public_messages[Telemetry-body4-latitude--90.0-90.0-json]" time="0.032" /><testcase classname="tests.test_form_limits" name="test_numeric_boundaries_and_public_messages[Telemetry-body4-latitude--90.0-90.0-xml]" time="0.043" /><testcase classname="tests.test_form_limits" name="test_numeric_boundaries_and_public_messages[Telemetry-body5-longitude--180.0-180.0-json]" time="0.017" /><testcase classname="tests.test_form_limits" name="test_numeric_boundaries_and_public_messages[Telemetry-body5-longitude--180.0-180.0-xml]" time="0.034" /><testcase classname="tests.test_form_limits" name="test_numeric_boundaries_and_public_messages[RouteCreate-body6-distance_km-0.0-20000.0-json]" time="0.016" /><testcase classname="tests.test_form_limits" name="test_numeric_boundaries_and_public_messages[RouteCreate-body6-distance_km-0.0-20000.0-xml]" time="0.032" /><testcase classname="tests.test_form_limits" name="test_numeric_boundaries_and_public_messages[RouteCreate-body7-travel_minutes-0-10080-json]" time="0.012" /><testcase classname="tests.test_form_limits" name="test_numeric_boundaries_and_public_messages[RouteCreate-body7-travel_minutes-0-10080-xml]" time="0.030" /><testcase classname="tests.test_form_limits" name="test_text_boundaries_json_xml[Login-body0-username-3-80-json]" time="0.011" /><testcase classname="tests.test_form_limits" name="test_text_boundaries_json_xml[Login-body0-username-3-80-xml]" time="0.023" /><testcase classname="tests.test_form_limits" name="test_text_boundaries_json_xml[Login-body1-password-12-128-json]" time="0.013" /><testcase classname="tests.test_form_limits" name="test_text_boundaries_json_xml[Login-body1-password-12-128-xml]" time="0.020" /><testcase classname="tests.test_form_limits" name="test_text_boundaries_json_xml[Confirm-body2-reason-6-1000-json]" time="0.009" /><testcase classname="tests.test_form_limits" name="test_text_boundaries_json_xml[Confirm-body2-reason-6-1000-xml]" time="0.017" /><testcase classname="tests.test_form_limits" name="test_text_boundaries_json_xml[RecipientCreate-body3-studies-6-1000-json]" time="0.012" /><testcase classname="tests.test_form_limits" name="test_text_boundaries_json_xml[RecipientCreate-body3-studies-6-1000-xml]" time="0.033" /><testcase classname="tests.test_form_limits" name="test_text_boundaries_json_xml[RecipientCreate-body4-requirement-6-1000-json]" time="0.011" /><testcase classname="tests.test_form_limits" name="test_text_boundaries_json_xml[RecipientCreate-body4-requirement-6-1000-xml]" time="0.028" /><testcase classname="tests.test_form_limits" name="test_text_boundaries_json_xml[RecipientCreate-body5-display_name-1-200-json]" time="0.011" /><testcase classname="tests.test_form_limits" name="test_text_boundaries_json_xml[RecipientCreate-body5-display_name-1-200-xml]" time="0.027" /><testcase classname="tests.test_form_limits" name="test_text_boundaries_json_xml[RecipientCreate-body6-folio-6-30-json]" time="0.017" /><testcase classname="tests.test_form_limits" name="test_text_boundaries_json_xml[RecipientCreate-body6-folio-6-30-xml]" time="0.028" /><testcase classname="tests.test_form_limits" name="test_campaign_dates_capacity_conflict_and_retry" time="0.001"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_form_limits" name="test_inventory_and_shipment_date_rejections_are_atomic" time="0.001"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_form_limits" name="test_schedule_and_organ_request_dependencies" time="0.001"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_form_limits" name="test_file_rejections_explain_correction[-image/png-None-vac\xedo]" time="0.002" /><testcase classname="tests.test_form_limits" name="test_file_rejections_explain_correction[archivo-image/png-0000000000000000000000000000000000000000000000000000000000000000-cambi\xf3]" time="0.003" /><testcase classname="tests.test_form_limits" name="test_file_rejections_explain_correction[archivo-image/png-None-formato]" time="0.003" /><testcase classname="tests.test_form_limits" name="test_file_rejections_explain_correction[archivo-application/pdf-None-PDF v\xe1lido]" time="0.002" /><testcase classname="tests.test_health_evidence" name="test_health_contracts_dependency_failure_and_recovery_for_each_service" time="0.001"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_launcher" name="test_missing_saved_mongodb_falls_back_to_persistent_install" time="0.735" /><testcase classname="tests.test_launcher" name="test_wrong_postgres_major_rejected_before_opening_data" time="0.709" /><testcase classname="tests.test_launcher" name="test_explicit_missing_binary_is_not_silently_replaced" time="0.003" /><testcase classname="tests.test_launcher" name="test_start_preserves_apis_and_recovers_only_missing_worker" time="0.005" /><testcase classname="tests.test_launcher" name="test_empty_selection_starts_nothing" time="0.004" /><testcase classname="tests.test_launcher" name="test_port_conflict_prevents_all_selected_launches" time="0.003" /><testcase classname="tests.test_launcher" name="test_missing_dependency_preflight_launches_nothing" time="0.003" /><testcase classname="tests.test_launcher" name="test_save_is_private_and_preserves_previous_state_on_replace_failure" time="0.005" /><testcase classname="tests.test_launcher" name="test_web_preparation_preserves_existing_config_and_keys" time="0.005" /><testcase classname="tests.test_launcher" name="test_corrupt_download_is_not_installed" time="0.004" /><testcase classname="tests.test_launcher" name="test_wrong_directory_rejected_before_preparation" time="0.004" /><testcase classname="tests.test_launcher" name="test_incomplete_directory_never_reinitialized" time="0.003" /><testcase classname="tests.test_launcher" name="test_shell_help_from_another_directory[start.sh]" time="0.064" /><testcase classname="tests.test_launcher" name="test_shell_help_from_another_directory[components.sh]" time="0.036" /><testcase classname="tests.test_launcher" name="test_shell_help_from_another_directory[install.sh]" time="0.040" /><testcase classname="tests.test_launcher" name="test_shell_help_from_another_directory[stop.sh]" time="0.041" /><testcase classname="tests.test_launcher" name="test_menu_dispatches_selected_service_without_shell_evaluation" time="0.287" /><testcase classname="tests.test_launcher" name="test_runtime_never_checks_or_installs_dependencies[todo]" time="0.008" /><testcase classname="tests.test_launcher" name="test_runtime_never_checks_or_installs_dependencies[ms]" time="0.007" /><testcase classname="tests.test_launcher" name="test_runtime_never_checks_or_installs_dependencies[web]" time="0.009" /><testcase classname="tests.test_launcher" name="test_runtime_never_checks_or_installs_dependencies[bases]" time="0.010" /><testcase classname="tests.test_launcher" name="test_runtime_never_checks_or_installs_dependencies[inventario]" time="0.010" /><testcase classname="tests.test_launcher" name="test_runtime_never_checks_or_installs_dependencies[estado]" time="0.007" /><testcase classname="tests.test_launcher" name="test_runtime_never_checks_or_installs_dependencies[detener]" time="0.007" /><testcase classname="tests.test_launcher" name="test_runtime_never_checks_or_installs_dependencies[reiniciar]" time="0.010" /><testcase classname="tests.test_launcher" name="test_unprepared_start_does_not_initialize_or_install" time="0.003" /><testcase classname="tests.test_launcher" name="test_running_infrastructure_does_not_check_binary_versions" time="0.006" /><testcase classname="tests.test_launcher" name="test_missing_venv_support_has_wsl_instructions_before_creation[services]" time="0.004" /><testcase classname="tests.test_launcher" name="test_missing_venv_support_has_wsl_instructions_before_creation[web]" time="0.003" /><testcase classname="tests.test_launcher" name="test_venv_creation_failure_identifies_directory_and_permissions[failure0]" time="0.006" /><testcase classname="tests.test_launcher" name="test_venv_creation_failure_identifies_directory_and_permissions[failure1]" time="0.004" /><testcase classname="tests.test_launcher" name="test_partial_venv_repairs_pip_without_recreating_it" time="0.007" /><testcase classname="tests.test_launcher" name="test_missing_pip_no_install_does_not_repair" time="0.003" /><testcase classname="tests.test_launcher" name="test_pip_repair_failure_reports_required_system_package" time="0.005" /><testcase classname="tests.test_launcher" name="test_missing_requirements_or_failed_install_has_actionable_error[False]" time="0.007" /><testcase classname="tests.test_launcher" name="test_missing_requirements_or_failed_install_has_actionable_error[True]" time="0.007" /><testcase classname="tests.test_launcher" name="test_real_venv_without_pip_can_be_repaired_offline" time="6.785" /><testcase classname="tests.test_launcher" name="test_homebrew_rejects_linux_before_searching_or_installing" time="0.593" /><testcase classname="tests.test_launcher" name="test_default_install_does_not_hide_an_existing_environment" time="0.007" /><testcase classname="tests.test_launcher" name="test_start_refuses_unmigrated_layout" time="0.003" /><testcase classname="tests.test_maintenance_web" name="test_catalogues_bootstrap_and_edits_through_web" time="0.001"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_maintenance_web" name="test_search_and_pagination_reach_records_after_first_hundred" time="0.001"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_maintenance_web" name="test_location_reference_and_receipt_fields_render" time="0.003"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_private_config" name="test_web_loads_and_validates_mounted_configuration[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-True]" time="0.292" /><testcase classname="tests.test_private_config" name="test_web_loads_and_validates_mounted_configuration[short-False]" time="0.009" /><testcase classname="tests.test_product_ui" name="test_admin_redirects_and_weekday_roundtrip" time="0.001"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_product_ui" name="test_notifications_read_post_is_authorized_and_translated" time="0.001"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_product_ui" name="test_campaign_registration_context_and_cancel_modal" time="0.002"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_product_ui" name="test_personal_dashboards_timezone_and_help" time="0.002"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_product_ui" name="test_location_capture_requires_assigned_active_shipment" time="0.002"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_resilience" name="test_redis_down_fails_closed_and_recovers_sessions" time="0.002"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_resilience" name="test_postgresql_down_liveness_readiness_and_recovery" time="0.002"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_resilience" name="test_mongodb_down_keeps_audit_durable_then_replays" time="0.002"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_resilience" name="test_lost_confirmation_response_can_resume_without_duplicate" time="0.002"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_resilience" name="test_local_audit_failure_rolls_back_and_compensates_hold" time="0.002"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_resilience" name="test_custody_service_down_does_not_lose_physical_event" time="0.003"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_resilience" name="test_receipt_closes_multiunit_request_once" time="0.004"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_resilience" name="test_monitoring_records_degraded_down_and_recovery" time="0.002"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_review_regressions" name="test_nested_evidence_json_xml_parity" time="0.057" /><testcase classname="tests.test_review_regressions" name="test_expired_shipment_cannot_advance_or_fulfill[PLANNED-PREPARED-operator1]" time="0.002"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_review_regressions" name="test_expired_shipment_cannot_advance_or_fulfill[PREPARED-COLLECTED-transport1]" time="0.002"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_review_regressions" name="test_expired_shipment_cannot_advance_or_fulfill[COLLECTED-IN_TRANSIT-transport1]" time="0.002"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_review_regressions" name="test_expired_shipment_cannot_advance_or_fulfill[DELIVERED-ACCEPTED-operator2]" time="0.002"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_review_regressions" name="test_rate_limits_separate_users_behind_same_web_ip" time="0.002"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_review_regressions" name="test_permission_publication_recovers_after_sql_rollback" time="0.002"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_review_regressions" name="test_onboarding_cannot_take_over_existing_or_other_institution" time="0.006"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_review_regressions" name="test_catalogues_scope_version_and_dependencies" time="0.002"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_review_regressions" name="test_request_cancellation_preserves_private_reason" time="0.003"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_review_regressions" name="test_edit_and_withdraw_preserve_history_and_version" time="0.001"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_review_regressions" name="test_worker_health_exposes_stopped_worker_and_recovery" time="0.002"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_review_regressions" name="test_configured_storage_health_does_not_report_unconfigured" time="0.001"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_review_regressions" name="test_additive_migration_preserves_v1_data_and_is_repeatable" time="0.001"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_review_regressions" name="test_revoke_with_refresh_removes_session_even_after_access_expired" time="0.001"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_review_regressions" name="test_xml_output_matches_published_operation_dto" time="0.001"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_review_unit" name="test_xml_response_rejects_invalid_types_duplicates_and_missing_fields" time="0.010" /><testcase classname="tests.test_review_unit" name="test_legacy_rows_helper_does_not_truncate_after_first_hundred" time="0.005" /><testcase classname="tests.test_review_unit" name="test_service_artifact_loads_without_other_domain_packages[identidad_acceso]" time="6.660" /><testcase classname="tests.test_review_unit" name="test_service_artifact_loads_without_other_domain_packages[donantes]" time="5.247" /><testcase classname="tests.test_review_unit" name="test_service_artifact_loads_without_other_domain_packages[receptores]" time="4.424" /><testcase classname="tests.test_review_unit" name="test_service_artifact_loads_without_other_domain_packages[inventario]" time="7.012" /><testcase classname="tests.test_review_unit" name="test_service_artifact_loads_without_other_domain_packages[compatibilidad]" time="5.447" /><testcase classname="tests.test_review_unit" name="test_service_artifact_loads_without_other_domain_packages[priorizacion_geografia]" time="5.813" /><testcase classname="tests.test_review_unit" name="test_service_artifact_loads_without_other_domain_packages[transporte]" time="6.914" /><testcase classname="tests.test_review_unit" name="test_service_artifact_loads_without_other_domain_packages[custodia]" time="3.946" /><testcase classname="tests.test_review_unit" name="test_service_artifact_loads_without_other_domain_packages[alertas]" time="4.024" /><testcase classname="tests.test_review_unit" name="test_service_artifact_loads_without_other_domain_packages[auditoria]" time="4.210" /><testcase classname="tests.test_review_unit" name="test_service_artifact_loads_without_other_domain_packages[monitoreo]" time="4.286" /><testcase classname="tests.test_review_unit" name="test_catalogue_schemas_and_examples_compile_without_dependencies" time="4.128" /><testcase classname="tests.test_security_contracts" name="test_health_swagger_and_openapi_all_services[identidad_acceso]" time="0.001"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_security_contracts" name="test_health_swagger_and_openapi_all_services[donantes]" time="0.001"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_security_contracts" name="test_health_swagger_and_openapi_all_services[receptores]" time="0.001"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_security_contracts" name="test_health_swagger_and_openapi_all_services[inventario]" time="0.001"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_security_contracts" name="test_health_swagger_and_openapi_all_services[compatibilidad]" time="0.001"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_security_contracts" name="test_health_swagger_and_openapi_all_services[priorizacion_geografia]" time="0.002"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_security_contracts" name="test_health_swagger_and_openapi_all_services[transporte]" time="0.002"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_security_contracts" name="test_health_swagger_and_openapi_all_services[custodia]" time="0.002"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_security_contracts" name="test_health_swagger_and_openapi_all_services[alertas]" time="0.002"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_security_contracts" name="test_health_swagger_and_openapi_all_services[auditoria]" time="0.001"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_security_contracts" name="test_health_swagger_and_openapi_all_services[monitoreo]" time="0.001"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_security_contracts" name="test_jwt_rejects_invalid_variants_before_domain[none]" time="0.002"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_security_contracts" name="test_jwt_rejects_invalid_variants_before_domain[hs256]" time="0.002"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_security_contracts" name="test_jwt_rejects_invalid_variants_before_domain[expired]" time="0.002"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_security_contracts" name="test_jwt_rejects_invalid_variants_before_domain[audience]" time="0.001"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_security_contracts" name="test_jwt_rejects_invalid_variants_before_domain[issuer]" time="0.001"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_security_contracts" name="test_jwt_rejects_invalid_variants_before_domain[missing]" time="0.001"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_security_contracts" name="test_jwt_rejects_invalid_variants_before_domain[refresh_use]" time="0.001"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_security_contracts" name="test_jwt_rejects_invalid_variants_before_domain[numeric_sub]" time="0.001"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_security_contracts" name="test_session_rotation_replay_and_logout" time="0.001"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_security_contracts" name="test_account_deactivation_fences_permissions_and_preserves_password" time="0.001"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_security_contracts" name="test_strict_inputs[display_name-None]" time="0.001"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_security_contracts" name="test_strict_inputs[display_name-   ]" time="0.002"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_security_contracts" name="test_strict_inputs[display_name-Nombre\x00inv\xe1lido]" time="0.003"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_security_contracts" name="test_strict_inputs[consent-None]" time="0.002"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_security_contracts" name="test_strict_inputs[consent-1]" time="0.001"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_security_contracts" name="test_strict_inputs[blood_group-X+]" time="0.002"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_security_contracts" name="test_strict_inputs[unknown-injection]" time="0.001"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_security_contracts" name="test_xml_schema_json_parity_errors_and_xxe" time="0.001"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_security_contracts" name="test_duplicate_json_keys_nonfinite_and_wrong_media" time="0.002"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_security_contracts" name="test_institution_role_and_assignment_authorization" time="0.002"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_security_contracts" name="test_internal_signature_delegation_replay_and_wrong_caller" time="0.002"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_security_contracts" name="test_database_and_redis_privileges_are_separate" time="0.001"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_security_contracts" name="test_rate_limit" time="0.001"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_shared_database" name="test_all_services_use_same_database_and_physical_tables" time="0.002"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_shared_database" name="test_service_credentials_cannot_read_other_service_or_base_tables" time="0.001"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_shared_database" name="test_shared_fk_rejects_orphan_and_rolls_back_other_module_write" time="0.001"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_shared_database" name="test_common_inbox_is_scoped_by_service" time="0.001"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_shared_database" name="test_monitor_records_and_serves_status_when_postgres_unavailable" time="0.001"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_shared_database" name="test_migration_preserves_rows_and_repoints_all_services" time="76.700" /><testcase classname="tests.test_ui_cache" name="test_inventory_cache_scope_filters_commit_rollback_and_xml" time="0.007"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_ui_cache" name="test_cache_late_fill_cannot_restore_previous_generation" time="0.003"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_ui_cache" name="test_catalogue_cache_invalidation_and_revocation" time="0.003"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_ui_cache" name="test_jinja_fragments_readonly_modal_and_return_after_edit" time="0.003"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_ui_cache" name="test_history_disables_edit_and_account_view_is_not_deactivation" time="0.002"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_ui_cache" name="test_pagination_controls_preserve_filters_and_recover_last_page" time="0.003"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_ui_cache" name="test_timezone_async_converts_form_dates_and_persists_without_redirect" time="0.006"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_validation_audit" name="test_safe_field_errors_json_xml[changes0-fields0-json]" time="0.064" /><testcase classname="tests.test_validation_audit" name="test_safe_field_errors_json_xml[changes0-fields0-xml]" time="0.066" /><testcase classname="tests.test_validation_audit" name="test_safe_field_errors_json_xml[changes1-fields1-json]" time="0.032" /><testcase classname="tests.test_validation_audit" name="test_safe_field_errors_json_xml[changes1-fields1-xml]" time="0.044" /><testcase classname="tests.test_validation_audit" name="test_safe_field_errors_json_xml[changes2-fields2-json]" time="0.016" /><testcase classname="tests.test_validation_audit" name="test_safe_field_errors_json_xml[changes2-fields2-xml]" time="0.036" /><testcase classname="tests.test_validation_audit" name="test_safe_field_errors_json_xml[changes3-fields3-json]" time="0.019" /><testcase classname="tests.test_validation_audit" name="test_safe_field_errors_json_xml[changes3-fields3-xml]" time="0.044" /><testcase classname="tests.test_validation_audit" name="test_safe_field_errors_json_xml[changes4-fields4-json]" time="0.024" /><testcase classname="tests.test_validation_audit" name="test_safe_field_errors_json_xml[changes4-fields4-xml]" time="0.049" /><testcase classname="tests.test_validation_audit" name="test_safe_field_errors_json_xml[changes5-fields5-json]" time="0.026" /><testcase classname="tests.test_validation_audit" name="test_safe_field_errors_json_xml[changes5-fields5-xml]" time="0.053" /><testcase classname="tests.test_validation_audit" name="test_safe_field_errors_json_xml[changes6-fields6-json]" time="0.029" /><testcase classname="tests.test_validation_audit" name="test_safe_field_errors_json_xml[changes6-fields6-xml]" time="0.049" /><testcase classname="tests.test_validation_audit" name="test_exact_text_limits_and_empty_optionals[6]" time="0.029" /><testcase classname="tests.test_validation_audit" name="test_exact_text_limits_and_empty_optionals[1000]" time="0.026" /><testcase classname="tests.test_validation_audit" name="test_numeric_and_source_limits_keep_field[distance_km--1]" time="0.018" /><testcase classname="tests.test_validation_audit" name="test_numeric_and_source_limits_keep_field[distance_km-20001]" time="0.019" /><testcase classname="tests.test_validation_audit" name="test_numeric_and_source_limits_keep_field[travel_minutes-10081]" time="0.019" /><testcase classname="tests.test_validation_audit" name="test_numeric_and_source_limits_keep_field[travel_minutes-0.5]" time="0.022" /><testcase classname="tests.test_validation_audit" name="test_numeric_and_source_limits_keep_field[source-corto]" time="0.019" /><testcase classname="tests.test_validation_audit" name="test_web_preserves_fields_marks_errors_and_retries_atomically[web]" time="0.002"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_validation_audit" name="test_web_preserves_fields_marks_errors_and_retries_atomically[autonomous]" time="0.003"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_validation_audit" name="test_web_login_does_not_echo_password" time="0.003"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_validation_audit" name="test_selector_retains_value_from_later_page_on_failed_submit" time="0.003"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_validation_audit" name="test_file_form_marks_reselection_without_creating_records" time="0.003"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_validation_audit" name="test_audit_default_categories_filters_exports_and_scope" time="0.003"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_validation_audit" name="test_audit_related_uses_documented_links_and_never_invents_history" time="0.003"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_validation_audit" name="test_new_events_capture_actor_without_clinical_fields" time="0.003"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_validation_audit" name="test_finding_lifecycle_permissions_idempotency_and_history" time="0.003"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_validation_audit" name="test_web_audit_preserves_filters_and_csv_escapes_formulas" time="0.004"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_validation_audit" name="test_findings_without_http_services" time="0.003"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_validation_audit" name="test_finding_xml_contract_and_foreign_links" time="0.003"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_validation_audit" name="test_audit_export_limit_and_date_window" time="0.003"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_validation_audit" name="test_browser_validation_and_finding_workflow" time="0.003"><skipped type="pytest.skip" message="Recorrido de navegador explícito: REDHOUSE_BROWSER_TESTS=1, Node y Playwright.">/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/tests/test_validation_audit.py:632: Recorrido de navegador explícito: REDHOUSE_BROWSER_TESTS=1, Node y Playwright.</skipped></testcase><testcase classname="tests.test_web_integration" name="test_roles_can_render_authorized_pages_through_http[admin1-paths0]" time="0.004"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_web_integration" name="test_roles_can_render_authorized_pages_through_http[operator1-paths1]" time="0.003"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_web_integration" name="test_roles_can_render_authorized_pages_through_http[medical1-paths2]" time="0.004"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_web_integration" name="test_roles_can_render_authorized_pages_through_http[coordinator1-paths3]" time="0.004"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_web_integration" name="test_roles_can_render_authorized_pages_through_http[transport1-paths4]" time="0.003"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_web_integration" name="test_roles_can_render_authorized_pages_through_http[auditor1-paths5]" time="0.003"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_web_integration" name="test_roles_can_render_authorized_pages_through_http[donor1-paths6]" time="0.002"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_web_integration" name="test_full_reservation_transport_receipt_from_web_and_xml[BLOOD-RBC-A+]" time="0.005"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_web_integration" name="test_full_reservation_transport_receipt_from_web_and_xml[ORGAN-KIDNEY-O+]" time="0.004"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_web_integration" name="test_full_reservation_transport_receipt_from_web_and_xml[ORGAN-LIVER-O+]" time="0.003"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_web_integration" name="test_full_reservation_transport_receipt_from_web_and_xml[ORGAN-HEART-O+]" time="0.004"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_web_integration" name="test_forms_keep_values_and_same_idempotency_after_error" time="0.003"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_web_integration" name="test_web_rejects_csrf_wrong_role_and_cross_institution" time="0.002"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_web_integration" name="test_filtered_pagination_counts_and_minimized_recipient_search" time="0.003"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_web_integration" name="test_identity_outage_reports_503_without_legacy_fallback" time="0.005"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_web_integration" name="test_renewal_and_logout_revoke_backend_session_without_exposing_tokens" time="0.004"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_web_integration" name="test_donor_campaign_appointment_processing_and_inventory_source_from_web" time="0.002"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_web_integration" name="test_matching_proposal_from_web_does_not_reserve" time="0.003"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_web_integration" name="test_admin_web_creation_deactivation_revokes_new_user" time="0.002"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_web_sessions" name="test_logout_failure_clears_credentials_and_queues_encrypted_revocation" time="0.003"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_web_sessions" name="test_network_renewal_does_not_lock_other_sessions_and_rejects_same_session" time="0.012"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_web_sessions" name="test_logout_during_refresh_never_recreates_session" time="0.003"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_web_sessions" name="test_redis_outage_logout_is_durable_and_revokes_after_recovery" time="0.004"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_web_sessions" name="test_postgres_outage_fails_closed_and_logout_removes_browser_cookie" time="0.002"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_web_sessions" name="test_encrypted_session_is_shared_between_web_instances_and_expires" time="0.003"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_web_sessions" name="test_portal_credentials_cannot_read_identity_keys_or_domain_tables" time="0.002"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_web_sessions" name="test_storage_upgrade_is_repeatable_preserves_secret_and_pending_rows" time="0.004"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase><testcase classname="tests.test_web_sessions" name="test_undecipherable_revocation_remains_pending_until_key_is_restored" time="0.004"><error message="failed on setup with &quot;RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:141: in init
+    self.mongo_bin = resolve_binary(
+apps/services/scripts/dependencies.py:83: in resolve_binary
+    raise RuntimeError(
+E   RuntimeError: No se encontró mongod compatible (MongoDB 8.0). Ejecuta bash install.sh para preparar las dependencias.</error></testcase></testsuite></testsuites>

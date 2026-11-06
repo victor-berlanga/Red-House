@@ -120,7 +120,7 @@ def test_gcs_web_upload_private_download_validation_expiry_and_recovery(
 ):
     from google.cloud import storage
 
-    app = p.apps["transporte"]
+    app = p.apps["documentos"]
     monkeypatch.setitem(
         app.config, "GCS_BUCKET", os.environ["REDHOUSE_GCS_TEST_BUCKET"]
     )
@@ -131,7 +131,7 @@ def test_gcs_web_upload_private_download_validation_expiry_and_recovery(
         os.environ["REDHOUSE_GCS_TEST_BUCKET"]
     )
     assert (
-        p.request("transporte", "GET", "/health/storage", user=None).status_code == 200
+        p.request("documentos", "GET", "/health/storage", user=None).status_code == 200
     )
     shipment = planned(p)
     client = login(web, p, "operator1")
@@ -157,7 +157,7 @@ def test_gcs_web_upload_private_download_validation_expiry_and_recovery(
             row["status"] == "VERIFIED"
             and row["sha256"] == hashlib.sha256(payload).hexdigest()
         )
-        with p.owner("transporte") as conn:
+        with p.owner("documentos") as conn:
             assert conn.execute(
                 "SELECT status,generation FROM files WHERE id=%s", (row["id"],)
             ).fetchone() == ("VERIFIED", row["generation"])
@@ -244,11 +244,11 @@ def test_gcs_web_upload_private_download_validation_expiry_and_recovery(
         with monkeypatch.context() as outage:
             outage.setitem(app.config, "GCS_BUCKET", "redhouse-missing-" + uuid4().hex)
             assert (
-                p.request("transporte", "GET", "/health/storage", user=None).status_code
+                p.request("documentos", "GET", "/health/storage", user=None).status_code
                 == 503
             )
         assert (
-            p.request("transporte", "GET", "/health/storage", user=None).status_code
+            p.request("documentos", "GET", "/health/storage", user=None).status_code
             == 200
         )
         artifact(

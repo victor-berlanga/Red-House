@@ -40,7 +40,7 @@ def shipment_files(identifier):
             digest = hashlib.sha256(content).hexdigest()
             upload_key = hashlib.sha256((idem + digest + mime).encode()).hexdigest()
             prepared = call(
-                "transporte",
+                "documentos",
                 path + "/files",
                 "POST",
                 {
@@ -77,7 +77,7 @@ def shipment_files(identifier):
                     503,
                 ) from None
             call(
-                "transporte",
+                "documentos",
                 "/api/v1/files/" + prepared["file"]["id"] + "/verify",
                 "POST",
                 idem=upload_key + "-verify",
@@ -97,7 +97,7 @@ def shipment_files(identifier):
                     )
                 ]
     files = call(
-        "transporte",
+        "documentos",
         path + "/files",
         params={"page": request.args.get("page", 1), "page_size": 20},
     )
@@ -118,7 +118,7 @@ def shipment_files(identifier):
 @regional.post("/archivos/<uuid:identifier>/verificar")
 def verify_file(identifier):
     row = call(
-        "transporte",
+        "documentos",
         "/api/v1/files/" + str(identifier) + "/verify",
         "POST",
         idem=request.form.get("idempotency_key") or uuid4().hex,
@@ -131,5 +131,5 @@ def verify_file(identifier):
 
 @regional.get("/archivos/<uuid:identifier>/descargar")
 def download_file(identifier):
-    data = call("transporte", "/api/v1/files/" + str(identifier) + "/download")
+    data = call("documentos", "/api/v1/files/" + str(identifier) + "/download")
     return redirect(data["download_url"], code=303)

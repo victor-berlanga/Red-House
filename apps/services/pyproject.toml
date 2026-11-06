@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "red-house-services"
-version = "0.3.0"
+version = "0.4.4"
 requires-python = ">=3.12"
 dynamic = ["dependencies"]
 
@@ -15,7 +15,7 @@ dependencies = {file = ["requirements.txt"]}
 include = ["redhouse*", "ms_*", "servicio_monitoreo*"]
 
 [tool.setuptools.package-data]
-redhouse = ["*.xsd", "shared_migrations/*.sql"]
+redhouse = ["*.xsd", "document_routes.json", "shared_migrations/*.sql", "reference_data/*.json", "reference_data/roads/*.json"]
 "*" = ["outputs.json", "migrations/*.sql", "contracts/*.json", "contracts/*.xml", "contracts/*.xsd"]
 
 [tool.pytest.ini_options]

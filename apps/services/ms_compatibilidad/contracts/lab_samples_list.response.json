@@ -1,0 +1,182 @@
+{
+  "type": "object",
+  "required": [
+    "data",
+    "meta"
+  ],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": [
+        "correlation_id",
+        "service",
+        "version"
+      ],
+      "properties": {
+        "correlation_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "service": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "required": [
+        "items",
+        "page",
+        "page_size",
+        "total"
+      ],
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "resource_id": {
+                "anyOf": [
+                  {
+                    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Resource Id"
+              },
+              "recipient_id": {
+                "anyOf": [
+                  {
+                    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Recipient Id"
+              },
+              "donation_id": {
+                "anyOf": [
+                  {
+                    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Donation Id"
+              },
+              "profile_id": {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "title": "Profile Id",
+                "type": "string"
+              },
+              "request_id": {
+                "anyOf": [
+                  {
+                    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Request Id"
+              },
+              "identifier": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Identifier",
+                "type": "string"
+              },
+              "collected_at": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Collected At",
+                "type": "string"
+              },
+              "id": {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "title": "Id",
+                "type": "string"
+              },
+              "tenant_id": {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "title": "Tenant Id",
+                "type": "string"
+              },
+              "received_at": {
+                "anyOf": [
+                  {
+                    "maxLength": 200,
+                    "minLength": 1,
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Received At"
+              },
+              "status": {
+                "title": "Status",
+                "type": "string"
+              },
+              "version": {
+                "title": "Version",
+                "type": "integer"
+              },
+              "author_id": {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "title": "Author Id",
+                "type": "string"
+              },
+              "created_at": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Created At",
+                "type": "string"
+              }
+            },
+            "required": [
+              "profile_id",
+              "identifier",
+              "collected_at",
+              "id",
+              "tenant_id",
+              "received_at",
+              "status",
+              "version",
+              "author_id",
+              "created_at"
+            ],
+            "title": "Sample",
+            "type": "object"
+          }
+        },
+        "page": {
+          "type": "integer"
+        },
+        "page_size": {
+          "type": "integer"
+        },
+        "total": {
+          "type": "integer"
+        }
+      }
+    }
+  }
+}

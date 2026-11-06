@@ -1,0 +1,102 @@
+{
+  "passed": true,
+  "scope": "ACADEMIC with MFA/reauth/laboratory/organ checks explicitly enabled",
+  "apiListeners": "ALL_STOPPED",
+  "checks": [
+    {
+      "name": "MFA y cookie Secure, backend modular sin API",
+      "result": "PASS"
+    },
+    {
+      "name": "Cuatro niveles y límites visibles",
+      "result": "PASS"
+    },
+    {
+      "name": "Registro de perfil por formulario y conservación",
+      "result": "PASS"
+    },
+    {
+      "name": "Muestra recibida y resultado no realizado persistidos sin dictamen",
+      "result": "PASS"
+    },
+    {
+      "name": "Completitud técnica separada de registro, evaluación y dictamen",
+      "result": "PASS"
+    },
+    {
+      "name": "Liberación académica con perfil y reautenticación persistida",
+      "result": "PASS"
+    },
+    {
+      "name": "Evaluación de perfil y dictamen humano separados",
+      "result": "PASS"
+    },
+    {
+      "name": "ALG-01 por formulario, persistencia y reproducción",
+      "result": "PASS"
+    },
+    {
+      "name": "ALG-02 por formulario, persistencia y reproducción",
+      "result": "PASS"
+    },
+    {
+      "name": "ALG-02-GEO por formulario, persistencia y reproducción",
+      "result": "PASS"
+    },
+    {
+      "name": "ALG-03 por formulario, persistencia y reproducción",
+      "result": "PASS"
+    },
+    {
+      "name": "ALG-04 por formulario, persistencia y reproducción",
+      "result": "PASS"
+    },
+    {
+      "name": "ALG-05 por formulario, persistencia y reproducción",
+      "result": "PASS"
+    },
+    {
+      "name": "Anomalía recibida por outbox visible en Auditoría",
+      "result": "PASS"
+    },
+    {
+      "name": "Corrección invalida consulta de dictamen sin alterar historia",
+      "result": "PASS"
+    },
+    {
+      "name": "Reserva obsoleta rechazada desde navegador",
+      "result": "PASS"
+    },
+    {
+      "name": "Nueva evaluación y dictamen permiten reserva académica",
+      "result": "PASS"
+    },
+    {
+      "name": "Operador sin acceso a dictamen",
+      "result": "PASS"
+    },
+    {
+      "name": "Médico de otra institución sin acceso a evaluación",
+      "result": "PASS"
+    },
+    {
+      "name": "Auditor resuelve revisión con MFA y reautenticación, conserva historial",
+      "result": "PASS"
+    }
+  ],
+  "runs": [
+    "6190a705-ff59-4ea2-b567-81d29086f976",
+    "03d43993-1ec3-4ae9-88cc-e654af243def",
+    "9384eb1e-a3a3-4602-82e5-3663b6bd7980",
+    "d79d6537-61e4-4746-8ea0-85f42ea4c5b6",
+    "e434937a-c45d-4f85-ba85-7b8030052605",
+    "2985fbac-705d-4005-99c2-60da7aaf664a"
+  ],
+  "consoleErrors": [],
+  "networkErrors": [
+    {
+      "path": "/evaluaciones/080f0226-d2dd-4b3a-a1a7-e450b3c80c31/reservar/19a7eb30-d329-46c3-bf9a-22cc31cd4746",
+      "status": 409
+    }
+  ]
+}

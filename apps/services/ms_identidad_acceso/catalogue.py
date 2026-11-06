@@ -50,12 +50,29 @@ class Location(Model):
     description: Text
 
 
+class Responsible(Model):
+    name: Text
+    parent_id: ID
+    user_id: ID
+    function: Text
+    authorization_reference: Text
+
+
+class InstitutionalService(Model):
+    name: Text
+    parent_id: ID
+    description: Text
+    capability_reference: Text
+
+
 MODELS = {
     "sites": Site,
     "contacts": Contact,
     "schedules": Schedule,
     "capacities": Capacity,
     "locations": Location,
+    "responsibles": Responsible,
+    "services": InstitutionalService,
 }
 
 
@@ -72,6 +89,11 @@ def authorized(conn, identifier, kind=None, lock=False):
 
 
 def values(conn, kind, data):
+    if kind == "responsibles":
+        responsible = get(conn, "users", data["user_id"])
+        own(responsible["tenant_id"])
+        if not responsible["active"]:
+            raise APIError("conflict", "Responsable institucional inactivo.", 409)
     if data.get("parent_id"):
         site = authorized(conn, data["parent_id"], "sites", True)
         if not site["active"]:
@@ -218,12 +240,32 @@ def install(app):
 
         for fn in (list_rows, detail, create, edit):
             fn.__name__ = kind + "_" + fn.__name__
+        output, paged = None, None
+        if kind in ("responsibles", "services"):
+            from typing import Any
+            from redhouse.extension_contracts import schema, page_schema
+
+            output_model = create_model(
+                "Institutional" + kind,
+                __base__=model,
+                id=(ID, ...),
+                tenant_id=(ID, ...),
+                kind=(Text, ...),
+                parent_id=(ID | None, None),
+                active=(bool, ...),
+                version=(int, ...),
+                created_at=(Text, ...),
+                details=(dict[str, Any], ...),
+                decisions=(list[dict[str, Any]], []),
+            )
+            output, paged = schema(output_model), page_schema(output_model)
         base = "/api/v1/catalogues/" + kind
         endpoint(
             app,
             base,
             roles=("ADMIN", "OPERATOR", "MEDICAL"),
             paginated=True,
+            result=paged,
             query=("q", "active"),
             summary="Consultar " + kind,
         )(list_rows)
@@ -231,6 +273,7 @@ def install(app):
             app,
             base + "/<identifier>",
             roles=("ADMIN", "OPERATOR", "MEDICAL"),
+            result=output,
             summary="Detalle de " + kind,
         )(detail)
         endpoint(
@@ -239,6 +282,7 @@ def install(app):
             "POST",
             model=model,
             roles=("ADMIN",),
+            result=output,
             status=201,
             summary="Registrar " + kind,
         )(create)
@@ -248,6 +292,7 @@ def install(app):
             "PATCH",
             model=edit_model,
             roles=("ADMIN",),
+            result=output,
             summary="Editar o desactivar " + kind,
         )(edit)
 

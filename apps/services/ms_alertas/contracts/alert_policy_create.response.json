@@ -1,0 +1,144 @@
+{
+  "type": "object",
+  "required": [
+    "data",
+    "meta"
+  ],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": [
+        "correlation_id",
+        "service",
+        "version"
+      ],
+      "properties": {
+        "correlation_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "service": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      }
+    },
+    "data": {
+      "additionalProperties": false,
+      "properties": {
+        "message_code": {
+          "pattern": "^[A-Z0-9_]{1,80}$",
+          "title": "Message Code",
+          "type": "string"
+        },
+        "severity": {
+          "enum": [
+            "INFO",
+            "WARNING",
+            "CRITICAL"
+          ],
+          "title": "Severity",
+          "type": "string"
+        },
+        "reminder_seconds": {
+          "maximum": 604800,
+          "minimum": 1,
+          "title": "Reminder Seconds",
+          "type": "integer"
+        },
+        "escalate_seconds": {
+          "maximum": 2592000,
+          "minimum": 2,
+          "title": "Escalate Seconds",
+          "type": "integer"
+        },
+        "escalation_role": {
+          "enum": [
+            "ADMIN",
+            "OPERATOR",
+            "MEDICAL",
+            "COORDINATOR",
+            "TRANSPORT",
+            "AUDITOR",
+            "DONOR"
+          ],
+          "title": "Escalation Role",
+          "type": "string"
+        },
+        "source": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Source",
+          "type": "string"
+        },
+        "effective_at": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Effective At",
+          "type": "string"
+        },
+        "supersedes": {
+          "anyOf": [
+            {
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Supersedes"
+        },
+        "version": {
+          "title": "Version",
+          "type": "integer"
+        },
+        "id": {
+          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "tenant_id": {
+          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+          "title": "Tenant Id",
+          "type": "string"
+        },
+        "active": {
+          "title": "Active",
+          "type": "boolean"
+        },
+        "created_at": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Created At",
+          "type": "string"
+        },
+        "author_id": {
+          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+          "title": "Author Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "message_code",
+        "severity",
+        "reminder_seconds",
+        "escalate_seconds",
+        "escalation_role",
+        "source",
+        "effective_at",
+        "version",
+        "id",
+        "tenant_id",
+        "active",
+        "created_at",
+        "author_id"
+      ],
+      "title": "Policy",
+      "type": "object"
+    }
+  }
+}

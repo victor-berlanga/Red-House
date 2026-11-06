@@ -1,0 +1,127 @@
+{
+  "type": "object",
+  "required": [
+    "data",
+    "meta"
+  ],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": [
+        "correlation_id",
+        "service",
+        "version"
+      ],
+      "properties": {
+        "correlation_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "service": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      }
+    },
+    "data": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "tenant_id": {
+          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+          "title": "Tenant Id",
+          "type": "string"
+        },
+        "category": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Category",
+          "type": "string"
+        },
+        "subject_kind": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Subject Kind",
+          "type": "string"
+        },
+        "subject_id": {
+          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+          "title": "Subject Id",
+          "type": "string"
+        },
+        "version": {
+          "title": "Version",
+          "type": "integer"
+        },
+        "supersedes": {
+          "anyOf": [
+            {
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Supersedes"
+        },
+        "privacy": {
+          "const": "PRIVATE",
+          "title": "Privacy",
+          "type": "string"
+        },
+        "retention_until": {
+          "anyOf": [
+            {
+              "maxLength": 200,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Retention Until"
+        },
+        "legal_hold": {
+          "title": "Legal Hold",
+          "type": "boolean"
+        },
+        "policy_reference": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Policy Reference",
+          "type": "string"
+        },
+        "created_at": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Created At",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "tenant_id",
+        "category",
+        "subject_kind",
+        "subject_id",
+        "version",
+        "supersedes",
+        "privacy",
+        "retention_until",
+        "legal_hold",
+        "policy_reference",
+        "created_at"
+      ],
+      "title": "Metadata",
+      "type": "object"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "python": "3.12.6",
+  "platform": "macOS-15.7.9-x86_64-i386-64bit",
+  "logical_cpus": 8,
+  "packages": {
+    "Flask": "3.1.3",
+    "pydantic": "2.13.5",
+    "psycopg": "3.3.5",
+    "redis": "7.4.1",
+    "pymongo": "4.18.2",
+    "google-cloud-storage": "3.17.1",
+    "pytest": "9.1.1"
+  },
+  "scope": "Real temporary PostgreSQL/Redis/MongoDB; runtime owner roles; synthetic institutional data; no deployment",
+  "pg_config": [
+    "PostgreSQL 14.23 (Homebrew)"
+  ],
+  "redis-server": [
+    "Redis server v=8.10.2 sha=00000000:1 malloc=libc bits=64 build=d55c07a371931d8d"
+  ],
+  "node": [
+    "v22.13.0"
+  ]
+}

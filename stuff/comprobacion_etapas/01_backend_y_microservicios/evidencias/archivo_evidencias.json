@@ -1,0 +1,64 @@
+{
+  "kind": "archivo_de_evidencias_originales",
+  "archived_at": "2026-10-28T16:24:08.865196+00:00",
+  "audit_date": "2026-10-28",
+  "audit_head": "8909baf8458dff797d40d15541c57c66c14ef964",
+  "audit_source_tree_sha256": "d7f5ec0024d6ce058616fee97973f28895c312a9c8d59e98db7a1eec63370184",
+  "audit_source_files": 3105,
+  "audit_sources_unchanged_before_archiving": true,
+  "copy_method": "byte-for-byte; original artifacts not edited",
+  "subsequent_documentation_changes": [
+    "stuff/comprobacion_etapas/",
+    "PROJECT_STATUS.md: referencia posterior al expediente y veredicto"
+  ],
+  "artifacts": [
+    {
+      "original_path": "/tmp/redhouse-audit-01-manifest.json",
+      "archived_path": "redhouse-audit-01-manifest.json",
+      "bytes": 452439,
+      "sha256": "c6ca9f83f009907f3c305508e524dbb788ab7340cfdf5062c403d0680a6b5a73"
+    },
+    {
+      "original_path": "/tmp/redhouse-audit-01-current.xml",
+      "archived_path": "redhouse-audit-01-current.xml",
+      "bytes": 151417,
+      "sha256": "f97cf54e36a1c22b3fd2a030aeb39df9056f7f3f69b864106d3128b91c88349f"
+    },
+    {
+      "original_path": "/tmp/redhouse-audit-01-startup.xml",
+      "archived_path": "redhouse-audit-01-startup.xml",
+      "bytes": 1348,
+      "sha256": "d9caf084a4c5434c796ed01961162a979c040432f10145b51d2e84deb847eb1f"
+    },
+    {
+      "original_path": "/tmp/redhouse-audit-01-backend.xml",
+      "archived_path": "redhouse-audit-01-backend.xml",
+      "bytes": 22128,
+      "sha256": "cf2f34d08cf446aad69ba963b0e828ae0986d8490b04756f825e20771980dbfd"
+    },
+    {
+      "original_path": "/tmp/redhouse-audit-01-withdrawal.xml",
+      "archived_path": "redhouse-audit-01-withdrawal.xml",
+      "bytes": 2962,
+      "sha256": "43b79e3220f9805b63112565882c17487d65f5751b6945129ff178b894ec58f2"
+    },
+    {
+      "original_path": "/tmp/redhouse-audit-01-remaining.xml",
+      "archived_path": "redhouse-audit-01-remaining.xml",
+      "bytes": 11811,
+      "sha256": "295a5b6bc13d22fd4f1805dbef74134da20c6b7519137db4e84092bec987c90f"
+    },
+    {
+      "original_path": "/tmp/redhouse-audit-01-schema.json",
+      "archived_path": "redhouse-audit-01-schema.json",
+      "bytes": 3715,
+      "sha256": "5de7716bd1891a3f25876eb79df235d3f5f4d4bd4971bdbb46a0959ec9550b28"
+    },
+    {
+      "original_path": "/tmp/redhouse-audit-01-reconciliacion.json",
+      "archived_path": "redhouse-audit-01-reconciliacion.json",
+      "bytes": 33284,
+      "sha256": "2b7e4035602558e7373208fb4ebc6abd33e977f66ea0e8d81695eef203082024"
+    }
+  ]
+}

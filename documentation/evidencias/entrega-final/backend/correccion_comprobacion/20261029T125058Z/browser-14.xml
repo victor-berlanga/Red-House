@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="193.146" timestamp="2026-10-29T08:22:10.384030-06:00" hostname="Victors-MacBook-Air.local"><testcase classname="tests.test_correction_browser" name="test_operational_browser_corrections" time="189.849"><failure message="AssertionError: {&quot;passed&quot;:false,&quot;checks&quot;:3,&quot;failure&quot;:&quot;page.waitForURL: Timeout 30000ms exceeded.\n=========================== logs ===========================\nwaiting for navigation until \&quot;domcontentloaded\&quot;\n  navigated to \&quot;https://localhost:64578/inventario/c35506fd-2cc7-4fc2-8dd7-f8e9e6443b25\&quot;\n============================================================&quot;}&#10;  node:internal/process/promises:394&#10;      triggerUncaughtException(err, true /* fromPromise */);&#10;      ^&#10;  &#10;  page.screenshot: Timeout 30000ms exceeded.&#10;  Call log:&#10;  #x1B[2m  - taking page screenshot#x1B[22m&#10;  #x1B[2m  - waiting for fonts to load...#x1B[22m&#10;  #x1B[2m  - fonts loaded#x1B[22m&#10;  &#10;      at shot (/Users/victorberlanga/Programacion/integracion/Red-House/scripts/verify_backend_corrections.cjs:29:41)&#10;      at /Users/victorberlanga/Programacion/integracion/Red-House/scripts/verify_backend_corrections.cjs:71:102 {&#10;    log: [&#10;      '  - taking page screenshot',&#10;      '  - waiting for fonts to load...',&#10;      '  - fonts loaded'&#10;    ],&#10;    name: 'TimeoutError'&#10;  }&#10;  &#10;  Node.js v22.13.0&#10;  &#10;assert 1 == 0&#10; +  where 1 = CompletedProcess(args=['node', '/Users/victorberlanga/Programacion/integracion/Red-House/scripts/verify_backend_correc...   '  - waiting for fonts to load...',\n    '  - fonts loaded'\n  ],\n  name: 'TimeoutError'\n}\n\nNode.js v22.13.0\n&quot;).returncode">apps/services/tests/test_correction_browser.py:224: in test_operational_browser_corrections
+    assert completed.returncode == 0, completed.stdout + completed.stderr
+E   AssertionError: {"passed":false,"checks":3,"failure":"page.waitForURL: Timeout 30000ms exceeded.\n=========================== logs ===========================\nwaiting for navigation until \"domcontentloaded\"\n  navigated to \"https://localhost:64578/inventario/c35506fd-2cc7-4fc2-8dd7-f8e9e6443b25\"\n============================================================"}
+E     node:internal/process/promises:394
+E         triggerUncaughtException(err, true /* fromPromise */);
+E         ^
+E     
+E     page.screenshot: Timeout 30000ms exceeded.
+E     Call log:
+E     #x1B[2m  - taking page screenshot#x1B[22m
+E     #x1B[2m  - waiting for fonts to load...#x1B[22m
+E     #x1B[2m  - fonts loaded#x1B[22m
+E     
+E         at shot (/Users/victorberlanga/Programacion/integracion/Red-House/scripts/verify_backend_corrections.cjs:29:41)
+E         at /Users/victorberlanga/Programacion/integracion/Red-House/scripts/verify_backend_corrections.cjs:71:102 {
+E       log: [
+E         '  - taking page screenshot',
+E         '  - waiting for fonts to load...',
+E         '  - fonts loaded'
+E       ],
+E       name: 'TimeoutError'
+E     }
+E     
+E     Node.js v22.13.0
+E     
+E   assert 1 == 0
+E    +  where 1 = CompletedProcess(args=['node', '/Users/victorberlanga/Programacion/integracion/Red-House/scripts/verify_backend_correc...   '  - waiting for fonts to load...',\n    '  - fonts loaded'\n  ],\n  name: 'TimeoutError'\n}\n\nNode.js v22.13.0\n").returncode</failure></testcase></testsuite></testsuites>

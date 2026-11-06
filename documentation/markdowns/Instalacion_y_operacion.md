@@ -113,3 +113,23 @@ apps/services/.venv/bin/python scripts/migrate_web_sessions.py --directory .loca
 La actualización conserva datos del dominio, claves de la web y configuración ajena a las sesiones. Las cookies previas dejan de servir: los usuarios deben iniciar sesión nuevamente. Los archivos privados del almacén anterior se conservan como respaldo y ya no se montan ni consultan. Los pendientes antiguos aún vigentes requieren exportación controlada antes del cambio; no deben eliminarse junto al respaldo.
 
 El worker reintenta cada 30 segundos. Si Redis falla al cerrar sesión, PostgreSQL conserva la marca y el worker revoca después de la recuperación. Si PostgreSQL falla, las rutas protegidas responden 503; logout elimina la cookie y devuelve 503 porque no puede confirmar el cierre global. Los respaldos deben incluir el esquema `web_runtime`, la persistencia/ACL Redis y `SECRET_KEY`; la clave cifra los tokens.
+
+## Actualización correctiva del 29 de octubre: 0.4.1 / esquema 13
+
+Antes de reiniciar instalaciones existentes, seguir el [plan de respaldo, migración y rollback](../entrega-final/backend/correccion/Despliegue_y_rollback.md). La actualización añade la configuración `documentos.json`, sus credenciales PostgreSQL/Redis y clave de servicio; conserva las existentes. El puerto predeterminado nuevo es 5112 (gateway Compose local 6112). No usar el aprovisionamiento de instalación vacía sobre datos existentes.
+
+El portal modular incorpora Documentos con las mismas reglas del servicio independiente. La web HTTP envía archivos/reportes al propietario nuevo; los consumidores v1 de Transporte se delegan conservando idempotencia. Custodia exige los datos de entrega de responsabilidad y el ingreso antiguo de telemetría exige ahora el DTO normalizado; actualizar los consumidores antes de publicar.
+
+## HLA y simulaciones: esquema 14
+
+Compatibilidad y Priorización/Geografía pasan a 0.4.2. Requieren la migración global 14 antes de servir tráfico; los demás servicios conservan su versión. Utilizar el procedimiento de actualización anterior y ensayar sobre copia aislada. Esta entrega no actualizó el entorno habitual ni GCP.
+
+Tras reiniciar, consultar `/docs` en los dos servicios afectados. En el portal, `/laboratorio` muestra resultados y correcciones HLA; `/algoritmos` permite consultar ejecuciones y crear estimaciones sintéticas de demanda. Las otras simulaciones se crean mediante `POST /api/v1/algorithm-runs`; el cuerpo de ejemplo está en `apps/services/ms_priorizacion_geografia/contracts/algorithm_run.example.json` y su equivalente XML. Usar JWT propio e `Idempotency-Key`, sin incrustar credenciales en ejemplos.
+
+La prueba aislada completa se ejecuta con:
+
+```sh
+apps/services/.venv/bin/python -m pytest apps/services/tests/test_final_algorithms_hla.py -q
+```
+
+Crea sus propios PostgreSQL, Redis y MongoDB temporales y los detiene al terminar; requiere binarios instalados y permiso para puertos locales. No utiliza el entorno habitual. El ensayo 13→14 crea datos ficticios antes de migrar y comprueba su conservación. No sustituye el respaldo y restauración de una instalación productiva.

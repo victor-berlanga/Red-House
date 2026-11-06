@@ -669,7 +669,7 @@ def test_browser_validation_and_finding_workflow(web, p):
                     "password": p.env.state["password"],
                     "coordinator": p.env.state["accounts"]["coordinator1"]["id"],
                     "output": str(
-                        root / "documentation/evidencias/auditoria-formularios/browser"
+                        Path(os.environ.get("REDHOUSE_BROWSER_RESULTS", str(root / "documentation/evidencias/auditoria-formularios/browser")))
                     ),
                 }
             ),

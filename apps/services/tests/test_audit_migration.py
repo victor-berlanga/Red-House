@@ -5,13 +5,20 @@ from pathlib import Path
 from uuid import uuid4
 
 import psycopg
+import pytest
 from psycopg import sql
 from psycopg.conninfo import conninfo_to_dict
 from psycopg.types.json import Jsonb
-from redhouse.shared_migrations import upgrade
+from redhouse.shared_migrations import upgrade, LATEST_VERSION
 
 
-def test_v6_migration_preserves_records_and_is_repeatable(p):
+@pytest.mark.parametrize(
+    "revision,expected_version",
+    [("e03db262294ac9d143c71132a8c842cb6802c794", 6), ("8909baf", 7)],
+)
+def test_v6_migration_preserves_records_and_is_repeatable(
+    p, revision, expected_version
+):
     root = Path(__file__).resolve().parents[3]
     original = subprocess.check_output(
         [
@@ -19,7 +26,7 @@ def test_v6_migration_preserves_records_and_is_repeatable(p):
             "-C",
             str(root),
             "show",
-            "e03db262294ac9d143c71132a8c842cb6802c794:data/database/schema.sql",
+            revision + ":data/database/schema.sql",
         ],
         text=True,
     )
@@ -39,7 +46,7 @@ def test_v6_migration_preserves_records_and_is_repeatable(p):
                     conn.execute(
                         "SELECT max(version) FROM red_house.schema_migration"
                     ).fetchone()[0]
-                    == 6
+                    == expected_version
                 )
                 tenant, donor, event, region = [str(uuid4()) for _ in range(4)]
                 conn.execute(
@@ -75,7 +82,7 @@ def test_v6_migration_preserves_records_and_is_repeatable(p):
                 before = records()
                 for _ in range(2):
                     with conn.transaction():
-                        assert upgrade(conn) == 7
+                        assert upgrade(conn) == LATEST_VERSION
                     assert records() == before
                 assert (
                     conn.execute(
@@ -124,7 +131,7 @@ def test_backup_inventory_includes_finding_history(p, monkeypatch):
 
     monkeypatch.setattr(module, "command", query)
     rows = module.sql_state([])
-    assert len(rows) == 75
+    assert len(rows) == 108
     assert {
         "audit_findings",
         "audit_finding_actions",

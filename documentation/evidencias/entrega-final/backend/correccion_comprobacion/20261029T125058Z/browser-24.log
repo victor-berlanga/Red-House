@@ -1,0 +1,61 @@
+F
+=================================== FAILURES ===================================
+_____________________ test_operational_browser_corrections _____________________
+apps/services/tests/test_correction_browser.py:224: in test_operational_browser_corrections
+    assert completed.returncode == 0, completed.stdout + completed.stderr
+E   AssertionError: {"passed":false,"checks":15,"failure":"apiRequestContext.post: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - → POST https://localhost:52443/test/run-workers\u001b[22m\n\u001b[2m    - user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36\u001b[22m\n\u001b[2m    - accept: */*\u001b[22m\n\u001b[2m    - accept-encoding: gzip,deflate,br\u001b[22m\n\u001b[2m    - cookie: red_house_cookie=[REDACTED]; red_house_cookie=[REDACTED]\u001b[22m\n"}
+E     
+E   assert 1 == 0
+E    +  where 1 = CompletedProcess(args=['node', '/Users/victorberlanga/Programacion/integracion/Red-House/scripts/verify_backend_correc...5MWU3MTcxMWNjMTMxYTM2OTkzMmY5NmI5NmI3N2VkYzlhZTY3MCJ9.auNnow.PPd5ElSyDqagr3JL9IaHTm1p65A\\u001b[22m\\n"}\n', stderr='').returncode
+------------------------------ Captured log call -------------------------------
+WARNING  identidad_acceso:strong_auth.py:85 mfa_verification_rejected
+---------------------------- Captured log teardown -----------------------------
+WARNING  redhouse.database:db.py:82 database_unavailable service=transporte type=OperationalError sqlstate=None
+ERROR    werkzeug:_internal.py:97 Error on request:
+Traceback (most recent call last):
+  File "/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/.venv/lib/python3.12/site-packages/werkzeug/serving.py", line 374, in run_wsgi
+    execute(self.server.app)
+  File "/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/.venv/lib/python3.12/site-packages/werkzeug/serving.py", line 335, in execute
+    application_iter = app(environ, start_response)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/.venv/lib/python3.12/site-packages/flask/app.py", line 1536, in __call__
+    return self.wsgi_app(environ, start_response)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/.venv/lib/python3.12/site-packages/flask/app.py", line 1514, in wsgi_app
+    response = self.handle_exception(e)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/.venv/lib/python3.12/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/.venv/lib/python3.12/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/.venv/lib/python3.12/site-packages/flask/app.py", line 809, in handle_user_exception
+    return self.ensure_sync(handler)(e)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victorberlanga/Programacion/integracion/Red-House/apps/web/src/integration/__init__.py", line 491, in unexpected
+    raise exc
+  File "/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/.venv/lib/python3.12/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/.venv/lib/python3.12/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/tests/test_correction_browser.py", line 130, in workers
+    p.drain()
+  File "/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/tests/conftest.py", line 70, in drain
+    result = dispatch(200)
+             ^^^^^^^^^^^^^
+  File "/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/redhouse/events.py", line 125, in dispatch
+    with transaction() as conn:
+         ^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/contextlib.py", line 137, in __enter__
+    return next(self.gen)
+           ^^^^^^^^^^^^^^
+  File "/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/redhouse/db.py", line 88, in transaction
+    raise APIError(
+redhouse.errors.APIError: Almacenamiento temporalmente inaccesible.
+=========================== short test summary info ============================
+FAILED apps/services/tests/test_correction_browser.py::test_operational_browser_corrections
+!!!!!!!!!!!!!!!!!!!!!!!!!! stopping after 1 failures !!!!!!!!!!!!!!!!!!!!!!!!!!!
+1 failed in 494.94s (0:08:14)

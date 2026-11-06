@@ -1,0 +1,149 @@
+{
+  "type": "object",
+  "required": [
+    "data",
+    "meta"
+  ],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": [
+        "correlation_id",
+        "service",
+        "version"
+      ],
+      "properties": {
+        "correlation_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "service": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      }
+    },
+    "data": {
+      "additionalProperties": false,
+      "properties": {
+        "mapping": {
+          "additionalProperties": false,
+          "properties": {
+            "id": {
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+              "title": "Id",
+              "type": "string"
+            },
+            "tenant_id": {
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+              "title": "Tenant Id",
+              "type": "string"
+            },
+            "system": {
+              "maxLength": 200,
+              "minLength": 1,
+              "title": "System",
+              "type": "string"
+            },
+            "external_id": {
+              "maxLength": 200,
+              "minLength": 1,
+              "title": "External Id",
+              "type": "string"
+            },
+            "resource_id": {
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+              "title": "Resource Id",
+              "type": "string"
+            },
+            "author_id": {
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+              "title": "Author Id",
+              "type": "string"
+            },
+            "created_at": {
+              "maxLength": 200,
+              "minLength": 1,
+              "title": "Created At",
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "tenant_id",
+            "system",
+            "external_id",
+            "resource_id",
+            "author_id",
+            "created_at"
+          ],
+          "title": "Mapping",
+          "type": "object"
+        },
+        "resource_id": {
+          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+          "title": "Resource Id",
+          "type": "string"
+        },
+        "version": {
+          "title": "Version",
+          "type": "integer"
+        },
+        "folio": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Folio",
+          "type": "string"
+        },
+        "kind": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Kind",
+          "type": "string"
+        },
+        "component": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Component",
+          "type": "string"
+        },
+        "status": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Status",
+          "type": "string"
+        },
+        "expires_at": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Expires At",
+          "type": "string"
+        },
+        "schema_version": {
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "clinical_authorization": {
+          "title": "Clinical Authorization",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "mapping",
+        "resource_id",
+        "version",
+        "folio",
+        "kind",
+        "component",
+        "status",
+        "expires_at",
+        "schema_version",
+        "clinical_authorization"
+      ],
+      "title": "Export",
+      "type": "object"
+    }
+  }
+}

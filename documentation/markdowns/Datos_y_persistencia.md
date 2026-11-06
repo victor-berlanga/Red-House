@@ -1,5 +1,8 @@
 # Datos y persistencia
 
+> Incremento backend del 28 de octubre de 2026: consultar el [expediente de entrega final](../entrega-final/backend/README.md), la [matriz BE-01 a BE-24](../entrega-final/backend/Matriz_BE.md) y sus [evidencias](../evidencias/entrega-final/backend/RESULTADOS.md). Conserva once servicios y base compartida; esquema 11 con 107 tablas de dominio. Las cifras y alcances de entregas anteriores en este documento conservan su contexto histórico.
+
+
 ## Almacenamiento
 
 - PostgreSQL: una base compartida `red_house`. Las 71 tablas físicas están en el esquema `red_house`. Cada servicio usa credenciales propias y vistas de acceso; no hay una copia física por servicio.
@@ -35,3 +38,11 @@ La colección mutable `rh_transporte.shipment_tracking` mantiene estado y secuen
 Docker usa volúmenes PostgreSQL, MongoDB y Redis propios y configuraciones en `.local/compose`; no monta archivos físicos de `.local/runtime`. `bootstrap` instala el esquema compartido v6 y cuentas ficticias una sola vez. Una repetición verifica la versión y conserva registros. [Modelo físico de 71 tablas](../segundo-parcial/Modelo_fisico.md) · [Operación y respaldo](../../deployment/README.md).
 
 Una revocación cuyo contenido no puede descifrarse permanece pendiente hasta recuperar la clave o alcanzar su expiración; no se confirma ni se descarta como exitosa.
+
+## Esquema 14: HLA y simulaciones académicas
+
+Migración aditiva `apps/services/redhouse/shared_migrations/014.sql`. Añade metadatos a perfiles y resultados de laboratorio, hace nullable el valor para distinguir pendiente/no realizado, conserva valores previos como informados sin inventar tipificación ni emisión. `document_id` referencia `stored_file`; se autoriza por Documentos y por muestra. La corrección mantiene `supersedes`, versiones e historial. Los permisos de Compatibilidad permiten modificar únicamente el estado de revisión existente; el trigger protege los demás campos.
+
+`algorithm_runs` pertenece exclusivamente a Priorización/Geografía. Guarda la entrada tipada, resultado, versión, fuente, autor/institución, fingerprint, fecha y duración. Solo SELECT/INSERT por credencial de servicio; trigger rechaza UPDATE/DELETE incluso desde el propietario ordinario del objeto. Las simulaciones son institucionales y sintéticas. No duplica reglas clínicas ni crea reservas. El administrador de infraestructura puede alterar triggers: no equivale a un almacén inviolable ante superusuario.
+
+Los datos de ubicación de la instantánea se separan entre observación y recorrido recibido, con fechas, fuente, precisión y simulador. El resultado conserva ruta y ETA calculada desde origen del grafo. No sustituye las tablas de rastreo ni demuestra GPS físico.

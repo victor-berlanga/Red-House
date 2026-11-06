@@ -21,12 +21,12 @@ def configure(directory, adc, bucket, project):
         target.chmod(
             0o644
         )  # Host parent is 0700; bind secret must be readable by UID 10001.
-    config_path = directory / "apps/transporte.json"
+    config_path = directory / "apps/documentos.json"
     config = json.loads(config_path.read_text())
     config.update(GCS_BUCKET=bucket, GCS_PROJECT=project)
     config_path.write_text(json.dumps(config, indent=2) + "\n")
     override = {"services": {}, "secrets": {"gcs_adc": {"file": str(target)}}}
-    for name in ("web", "transporte-a", "transporte-b"):
+    for name in ("web", "documentos-a", "documentos-b"):
         override["services"][name] = {
             "environment": {
                 "GOOGLE_APPLICATION_CREDENTIALS": "/run/secrets/gcs_adc",

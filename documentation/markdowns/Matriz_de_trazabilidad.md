@@ -1,5 +1,8 @@
 # Matriz de trazabilidad integral
 
+> Incremento backend del 28 de octubre de 2026: consultar el [expediente de entrega final](../entrega-final/backend/README.md), la [matriz BE-01 a BE-24](../entrega-final/backend/Matriz_BE.md) y sus [evidencias](../evidencias/entrega-final/backend/RESULTADOS.md). Conserva once servicios y base compartida; esquema 11 con 107 tablas de dominio. Las cifras y alcances de entregas anteriores en este documento conservan su contexto histórico.
+
+
 > Revisión documental — 14 de octubre de 2026: documento de referencia para el alcance y la planificación del semestre. Las fases y fechas originales expresan la secuencia prevista, no el estado de implementación. El portal integrado, los microservicios, PostgreSQL, MongoDB y Redis ya tienen operación local; Android, escritorio, Docker y GCP siguen pendientes. [PROJECT_STATUS.md](../../PROJECT_STATUS.md) registra el avance comprobado. La arquitectura ejecutable se describe en [Arquitectura.md](Arquitectura.md) y la persistencia en [Datos_y_persistencia.md](Datos_y_persistencia.md). El reporte integral de septiembre conserva una entrega anterior.
 
 > **Proyecto:** Red regional de bancos de sangre y donación de órganos — Equipo 01.  
@@ -218,3 +221,27 @@ Cuando cambie un elemento se deberán revisar sus relaciones en ambos sentidos:
 3. Un caso de uso modificado deberá mantener consistencia con actores, permisos, arquitectura y criterios de aceptación.
 4. La evidencia de una versión ejecutada no se sobrescribirá cuando cambie posteriormente una regla, contrato o algoritmo.
 5. Los identificadores eliminados o sustituidos deberán conservarse en el historial de cambios para no crear referencias silenciosamente inválidas.
+
+## Ampliación HLA / algoritmos — 31/10/2026
+
+Origen: `stuff/prompts/entrega-final/02_reglas_clinicas_y_algoritmos.md`. Evidencia específica: [expediente](../evidencias/entrega-final/algoritmos/RESULTADOS.md). Las verificaciones históricas anteriores no se atribuyen a esta ampliación.
+
+| ID | Propietario | Estado / criterio verificable | Prueba / dependencia |
+|---|---|---|---|
+| HLA-01 | Compatibilidad | Ampliación: loci/alelos declarados, ambigüedad, muestra, emisión, método, fuente y correcciones conservadas | `test_hla_structured_history_missing_and_corrected`, JSON/XML; sin inferencia clínica |
+| HLA-02 | Compatibilidad | Ampliación: pendiente/no realizado/indeterminado no equivalen a negativo; completitud separada del dictamen | Prueba anterior y `test_missing_hla_ambiguity_and_states` |
+| RULE-01 | Compatibilidad | Registro técnico versionado en borrador/en revisión/retirado; habilitación clínica bloqueada | Protocolo, aprobación y mecanismo institucional de activación pendientes; [fuentes](Reglas_y_fuentes_clinicas.md) |
+| ALG-01 | Compatibilidad + Priorización | Motor sintético de motivos por candidato; motor operativo RBC/órganos preservado | Falta sustituir exclusiones agregadas del motor operativo por trazas completas en una versión nueva |
+| ALG-02 | Priorización/Geografía | Simulación de urgencia/espera, Dijkstra y separación GPS/recorrido/ruta/ETA | Oráculo de caminos simples, prueba de edad GPS; grafo vial real y conexión directa al rastreo pendientes |
+| ALG-03 | Priorización/Inventario | Existente: Hopcroft–Karp, versiones, no doble recurso, reserva separada | Oráculo exhaustivo 3×3 y regresión de reservas/dictámenes; no optimiza coste |
+| ALG-04 | Priorización | SES sintético con entrenamiento temporal, MAE frente a persistencia y riesgo por lote | `test_forecast_no_future_leakage_and_reproduction`, `test_expiry_estimate_does_not_double_count_demand`; extracción de consumo real pendiente |
+| ALG-05 | Priorización/Auditoría | Detector sintético de siete clases de inconsistencia; motivos persistidos | `test_urgency_simulation_missing_factors_and_anomalies`; conexión a extracción autoritativa y expediente de revisión pendiente |
+| ALG-SEC | Servicios | JSON/XML/XSD, rol, institución, historial SQL inmutable | `test_persistent_algorithm_contract_and_tenant`, pruebas HLA; vínculo nuevo a documento privado sin nueva prueba GCS real |
+| ALG-WEB | Web modular | Formulario de demanda, consulta de simulaciones y corrección HLA | `test_web_simulation_view_and_form`; Flask HTTP real con API/almacenes; navegador visual y monolito detenido no repetidos |
+| ALG-MIG | Persistencia | Nueva instalación y migración aditiva 13→14 | `test_migration_13_to_14_preserves_rows_and_is_repeatable`; datos de prueba aislados, no copia productiva |
+
+No se declara cerrado el prompt completo: las conexiones operativas y la aprobación profesional indicadas tienen criterios pendientes separados de los mecanismos sintéticos probados.
+
+## Corrección de etapa 02 — esquema 15
+
+La [matriz de 21 criterios](../entrega-final/algoritmos/correccion/Matriz_cierre.md) cubre requisito, defecto, propietario, código, contrato, migración, acción, aceptación, prueba, estado y dependencia. Sustituye el alcance técnico limitado de la ampliación 0.4.2, preservada como historia; sus números no se atribuyen a esta ejecución. [Resultados nuevos](../evidencias/entrega-final/algoritmos/correccion_comprobacion/20261101T042648Z/RESULTADOS.md).

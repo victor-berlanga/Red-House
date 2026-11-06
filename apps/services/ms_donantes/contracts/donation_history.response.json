@@ -1,0 +1,79 @@
+{
+  "type": "object",
+  "required": [
+    "data",
+    "meta"
+  ],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": [
+        "correlation_id",
+        "service",
+        "version"
+      ],
+      "properties": {
+        "correlation_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "service": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      }
+    },
+    "data": {
+      "additionalProperties": false,
+      "properties": {
+        "events": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "title": "Id",
+                "type": "string"
+              },
+              "source": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Source",
+                "type": "string"
+              },
+              "action": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Action",
+                "type": "string"
+              },
+              "occurred_at": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Occurred At",
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "source",
+              "action",
+              "occurred_at"
+            ],
+            "title": "TraceEvent",
+            "type": "object"
+          },
+          "title": "Events",
+          "type": "array"
+        }
+      },
+      "required": [
+        "events"
+      ],
+      "title": "DonationHistory",
+      "type": "object"
+    }
+  }
+}

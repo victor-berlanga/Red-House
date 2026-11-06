@@ -119,7 +119,7 @@
       }
     },
     "identidad-acceso-a": {
-      "image": "redhouse/identidad_acceso:${REDHOUSE_TAG:-0.3.0}",
+      "image": "redhouse/identidad_acceso:${REDHOUSE_TAG:-0.4.4}",
       "secrets": [
         {
           "source": "identidad_acceso_config",
@@ -160,7 +160,7 @@
       }
     },
     "identidad-acceso-b": {
-      "image": "redhouse/identidad_acceso:${REDHOUSE_TAG:-0.3.0}",
+      "image": "redhouse/identidad_acceso:${REDHOUSE_TAG:-0.4.4}",
       "secrets": [
         {
           "source": "identidad_acceso_config",
@@ -197,7 +197,7 @@
       }
     },
     "donantes-a": {
-      "image": "redhouse/donantes:${REDHOUSE_TAG:-0.3.0}",
+      "image": "redhouse/donantes:${REDHOUSE_TAG:-0.4.4}",
       "secrets": [
         {
           "source": "donantes_config",
@@ -238,7 +238,7 @@
       }
     },
     "donantes-b": {
-      "image": "redhouse/donantes:${REDHOUSE_TAG:-0.3.0}",
+      "image": "redhouse/donantes:${REDHOUSE_TAG:-0.4.4}",
       "secrets": [
         {
           "source": "donantes_config",
@@ -275,7 +275,7 @@
       }
     },
     "receptores-a": {
-      "image": "redhouse/receptores:${REDHOUSE_TAG:-0.3.0}",
+      "image": "redhouse/receptores:${REDHOUSE_TAG:-0.4.4}",
       "secrets": [
         {
           "source": "receptores_config",
@@ -316,7 +316,7 @@
       }
     },
     "receptores-b": {
-      "image": "redhouse/receptores:${REDHOUSE_TAG:-0.3.0}",
+      "image": "redhouse/receptores:${REDHOUSE_TAG:-0.4.4}",
       "secrets": [
         {
           "source": "receptores_config",
@@ -353,7 +353,7 @@
       }
     },
     "inventario-a": {
-      "image": "redhouse/inventario:${REDHOUSE_TAG:-0.3.0}",
+      "image": "redhouse/inventario:${REDHOUSE_TAG:-0.4.4}",
       "secrets": [
         {
           "source": "inventario_config",
@@ -394,7 +394,7 @@
       }
     },
     "inventario-b": {
-      "image": "redhouse/inventario:${REDHOUSE_TAG:-0.3.0}",
+      "image": "redhouse/inventario:${REDHOUSE_TAG:-0.4.4}",
       "secrets": [
         {
           "source": "inventario_config",
@@ -431,7 +431,7 @@
       }
     },
     "compatibilidad-a": {
-      "image": "redhouse/compatibilidad:${REDHOUSE_TAG:-0.3.0}",
+      "image": "redhouse/compatibilidad:${REDHOUSE_TAG:-0.4.4}",
       "secrets": [
         {
           "source": "compatibilidad_config",
@@ -472,7 +472,7 @@
       }
     },
     "compatibilidad-b": {
-      "image": "redhouse/compatibilidad:${REDHOUSE_TAG:-0.3.0}",
+      "image": "redhouse/compatibilidad:${REDHOUSE_TAG:-0.4.4}",
       "secrets": [
         {
           "source": "compatibilidad_config",
@@ -509,7 +509,7 @@
       }
     },
     "priorizacion-geografia-a": {
-      "image": "redhouse/priorizacion_geografia:${REDHOUSE_TAG:-0.3.0}",
+      "image": "redhouse/priorizacion_geografia:${REDHOUSE_TAG:-0.4.4}",
       "secrets": [
         {
           "source": "priorizacion_geografia_config",
@@ -550,7 +550,7 @@
       }
     },
     "priorizacion-geografia-b": {
-      "image": "redhouse/priorizacion_geografia:${REDHOUSE_TAG:-0.3.0}",
+      "image": "redhouse/priorizacion_geografia:${REDHOUSE_TAG:-0.4.4}",
       "secrets": [
         {
           "source": "priorizacion_geografia_config",
@@ -587,7 +587,7 @@
       }
     },
     "transporte-a": {
-      "image": "redhouse/transporte:${REDHOUSE_TAG:-0.3.0}",
+      "image": "redhouse/transporte:${REDHOUSE_TAG:-0.4.4}",
       "secrets": [
         {
           "source": "transporte_config",
@@ -629,7 +629,7 @@
       }
     },
     "transporte-b": {
-      "image": "redhouse/transporte:${REDHOUSE_TAG:-0.3.0}",
+      "image": "redhouse/transporte:${REDHOUSE_TAG:-0.4.4}",
       "secrets": [
         {
           "source": "transporte_config",
@@ -667,7 +667,7 @@
       }
     },
     "custodia-a": {
-      "image": "redhouse/custodia:${REDHOUSE_TAG:-0.3.0}",
+      "image": "redhouse/custodia:${REDHOUSE_TAG:-0.4.4}",
       "secrets": [
         {
           "source": "custodia_config",
@@ -708,7 +708,7 @@
       }
     },
     "custodia-b": {
-      "image": "redhouse/custodia:${REDHOUSE_TAG:-0.3.0}",
+      "image": "redhouse/custodia:${REDHOUSE_TAG:-0.4.4}",
       "secrets": [
         {
           "source": "custodia_config",
@@ -745,7 +745,7 @@
       }
     },
     "alertas-a": {
-      "image": "redhouse/alertas:${REDHOUSE_TAG:-0.3.0}",
+      "image": "redhouse/alertas:${REDHOUSE_TAG:-0.4.4}",
       "secrets": [
         {
           "source": "alertas_config",
@@ -786,7 +786,7 @@
       }
     },
     "alertas-b": {
-      "image": "redhouse/alertas:${REDHOUSE_TAG:-0.3.0}",
+      "image": "redhouse/alertas:${REDHOUSE_TAG:-0.4.4}",
       "secrets": [
         {
           "source": "alertas_config",
@@ -823,7 +823,7 @@
       }
     },
     "auditoria-a": {
-      "image": "redhouse/auditoria:${REDHOUSE_TAG:-0.3.0}",
+      "image": "redhouse/auditoria:${REDHOUSE_TAG:-0.4.4}",
       "secrets": [
         {
           "source": "auditoria_config",
@@ -864,7 +864,7 @@
       }
     },
     "auditoria-b": {
-      "image": "redhouse/auditoria:${REDHOUSE_TAG:-0.3.0}",
+      "image": "redhouse/auditoria:${REDHOUSE_TAG:-0.4.4}",
       "secrets": [
         {
           "source": "auditoria_config",
@@ -901,7 +901,7 @@
       }
     },
     "monitoreo-a": {
-      "image": "redhouse/monitoreo:${REDHOUSE_TAG:-0.3.0}",
+      "image": "redhouse/monitoreo:${REDHOUSE_TAG:-0.4.4}",
       "secrets": [
         {
           "source": "monitoreo_config",
@@ -942,7 +942,7 @@
       }
     },
     "monitoreo-b": {
-      "image": "redhouse/monitoreo:${REDHOUSE_TAG:-0.3.0}",
+      "image": "redhouse/monitoreo:${REDHOUSE_TAG:-0.4.4}",
       "secrets": [
         {
           "source": "monitoreo_config",
@@ -983,7 +983,7 @@
         "context": ".",
         "dockerfile": "apps/web/Dockerfile"
       },
-      "image": "redhouse/web:${REDHOUSE_TAG:-0.3.0}",
+      "image": "redhouse/web:${REDHOUSE_TAG:-0.4.4}",
       "secrets": [
         {
           "source": "web_config",
@@ -1048,7 +1048,8 @@
         "127.0.0.1:6108:5108",
         "127.0.0.1:6109:5109",
         "127.0.0.1:6110:5110",
-        "127.0.0.1:6111:5111"
+        "127.0.0.1:6111:5111",
+        "127.0.0.1:6112:5112"
       ],
       "networks": [
         "data",
@@ -1074,6 +1075,86 @@
         ],
         "interval": "10s",
         "timeout": "3s",
+        "retries": 5
+      }
+    },
+    "documentos-a": {
+      "image": "redhouse/documentos:${REDHOUSE_TAG:-0.4.4}",
+      "secrets": [
+        {
+          "source": "documentos_config",
+          "target": "config"
+        }
+      ],
+      "networks": [
+        "data",
+        "edge"
+      ],
+      "read_only": true,
+      "tmpfs": [
+        "/tmp"
+      ],
+      "security_opt": [
+        "no-new-privileges:true"
+      ],
+      "cap_drop": [
+        "ALL"
+      ],
+      "init": true,
+      "restart": "unless-stopped",
+      "stop_grace_period": "20s",
+      "healthcheck": {
+        "test": [
+          "CMD",
+          "python",
+          "-S",
+          "/app/deployment/healthcheck.py"
+        ],
+        "interval": "15s",
+        "timeout": "8s",
+        "start_period": "30s",
+        "retries": 5
+      },
+      "build": {
+        "context": ".",
+        "dockerfile": "apps/services/ms_documentos/Dockerfile"
+      }
+    },
+    "documentos-b": {
+      "image": "redhouse/documentos:${REDHOUSE_TAG:-0.4.4}",
+      "secrets": [
+        {
+          "source": "documentos_config",
+          "target": "config"
+        }
+      ],
+      "networks": [
+        "data",
+        "edge"
+      ],
+      "read_only": true,
+      "tmpfs": [
+        "/tmp"
+      ],
+      "security_opt": [
+        "no-new-privileges:true"
+      ],
+      "cap_drop": [
+        "ALL"
+      ],
+      "init": true,
+      "restart": "unless-stopped",
+      "stop_grace_period": "20s",
+      "healthcheck": {
+        "test": [
+          "CMD",
+          "python",
+          "-S",
+          "/app/deployment/healthcheck.py"
+        ],
+        "interval": "15s",
+        "timeout": "8s",
+        "start_period": "30s",
         "retries": 5
       }
     }
@@ -1137,6 +1218,9 @@
     },
     "web_config": {
       "file": "${REDHOUSE_COMPOSE_DIR:-./.local/compose}/web.json"
+    },
+    "documentos_config": {
+      "file": "${REDHOUSE_COMPOSE_DIR:-./.local/compose}/apps/documentos.json"
     }
   }
 }

@@ -1,5 +1,17 @@
 {
-  "latitude": 1.0,
-  "longitude": 1.0,
-  "captured_at": "2026-10-01T15:00:00+00:00"
+  "schema_version": 1,
+  "event_id": "00000000-0000-4000-8000-000000000001",
+  "shipment_id": "00000000-0000-4000-8000-000000000001",
+  "device_id": "00000000-0000-4000-8000-000000000001",
+  "source": "SIMULATOR",
+  "sequence": 1,
+  "captured_at": "2026-10-01T15:00:00+00:00",
+  "latitude": null,
+  "longitude": null,
+  "fix_valid": true,
+  "accuracy_m": null,
+  "speed_m_s": null,
+  "heading_deg": null,
+  "altitude_m": null,
+  "battery_percent": null
 }

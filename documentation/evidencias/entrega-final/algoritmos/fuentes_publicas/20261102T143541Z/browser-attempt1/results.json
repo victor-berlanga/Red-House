@@ -1,0 +1,29 @@
+{
+  "passed": false,
+  "scope": "ACADEMIC with MFA/reauth/laboratory/organ checks explicitly enabled",
+  "apiListeners": "ALL_STOPPED",
+  "checks": [
+    {
+      "name": "MFA y cookie Secure, backend modular sin API",
+      "result": "PASS"
+    },
+    {
+      "name": "Cuatro niveles y límites visibles",
+      "result": "PASS"
+    },
+    {
+      "name": "Fuentes primarias, catálogo HLA y licencia vial visibles sin APIs",
+      "result": "PASS"
+    },
+    {
+      "name": "Importación vial real, ruta modelada y reproducción persistida sin GPS",
+      "result": "PASS"
+    }
+  ],
+  "runs": [],
+  "consoleErrors": [],
+  "networkErrors": [],
+  "publicRoadRun": "54701de5-a7e6-40af-b349-5e372af3511a",
+  "failure": "false == true",
+  "location": "    at /Users/victorberlanga/Programacion/integracion/Red-House/scripts/verify_stage02.cjs:25:524"
+}

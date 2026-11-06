@@ -2,7 +2,7 @@
 
 Actualización de auditoría y validación: [contratos, permisos, exportación y migración 6→7](../../documentation/markdowns/Auditoria_y_formularios.md). [Resultados y estado de despliegue del incremento](../../documentation/evidencias/auditoria-formularios/RESULTADOS.md).
 
-Diez servicios Flask y un componente de monitoreo, independientes del portal. API REST v1 en JSON y XML, Swagger local, PostgreSQL real, Redis real y MongoDB real para los propietarios que lo necesitan. El [portal web admite HTTP y ejecución autónoma](../../documentation/markdowns/Integracion_web.md). [Despliegue Docker](../../deployment/README.md); móvil y escritorio siguen pendientes.
+Once servicios Flask y un componente de monitoreo, independientes del portal. API REST v1 en JSON y XML, Swagger local, PostgreSQL real, Redis real y MongoDB real para los propietarios que lo necesitan. El [portal web admite HTTP y ejecución autónoma](../../documentation/markdowns/Integracion_web.md). [Despliegue Docker](../../deployment/README.md); móvil y escritorio siguen pendientes.
 
 | Unidad | Puerto predeterminado | Propietario |
 | --- | --- | --- |
@@ -12,11 +12,12 @@ Diez servicios Flask y un componente de monitoreo, independientes del portal. AP
 | ms_inventario | 5104 | Recursos, movimientos, reservas, operaciones |
 | ms_compatibilidad | 5105 | Evaluaciones, candidatos y dictámenes |
 | ms_priorizacion_geografia | 5106 | Rutas, rankings y propuestas de matching |
-| ms_transporte | 5107 | Traslados, incidencias, telemetría, referencias de evidencia |
+| ms_transporte | 5107 | Traslados, incidencias y telemetría; Documentos valida evidencia |
 | ms_custodia | 5108 | Secuencia y registro de custodia |
 | ms_alertas | 5109 | Bandejas y acuses de alertas |
 | ms_auditoria | 5110 | Registro central y proyección documental |
 | servicio_monitoreo | 5111 | Sondeos y estadísticas técnicas |
+| ms_documentos | 5112 | Archivos privados, documentos, análisis y reportes |
 
 Cada unidad tiene fábrica Flask, entrada ejecutable, requisitos, OpenAPI, XSD y ejemplos. `redhouse/` contiene infraestructura común; los módulos de dominio no importan las reglas, tablas ni vistas de otros servicios. Su comunicación se realiza por HTTP autenticado. Los flujos de llamadas no recursan: los contratos de consulta y los comandos de coordinación tienen responsabilidades distintas.
 
@@ -45,6 +46,22 @@ python3 -m venv .venv
 El directorio privado tiene permiso 0700; las configuraciones y credenciales generadas tienen 0600. `state.json` incluye las cuentas y su contraseña aleatoria; leerlo localmente, sin pegarlo en logs, Git ni presentaciones. Cada proceso recibe una configuración propia: solo Identidad conserva la clave privada RS256; cada servicio recibe su propia clave Ed25519 y las públicas de los demás.
 
 Abrir `URL_DEL_SERVICIO/docs` para Swagger, `/openapi.json` para el contrato y `/schemas/OPERACION.xsd` para entrada XML. Los contratos estáticos se encuentran en cada carpeta `contracts/`; sus ejemplos contienen identificadores ficticios que deben sustituirse por los recibidos de operaciones previas.
+
+OpenAPI permanece versionado y legible. Las respuestas de error se comparten en
+`components.responses`; los esquemas de salida se declaran una sola vez en
+`components.schemas`, mediante referencias locales `$ref`. Los ejemplos JSON/XML,
+códigos HTTP y restricciones se conservan. No editar los OpenAPI exportados a mano.
+Desde la raíz, con las dependencias de servicios instaladas:
+
+```bash
+python apps/services/scripts/document.py --openapi-only
+python apps/services/scripts/document.py --check-openapi
+python -m pytest apps/services/tests/test_openapi_documentation.py -q
+```
+
+El primer comando regenera únicamente los doce `contracts/openapi.json`. El segundo
+comprueba que coincidan con el generador, sin escribir archivos; CI ejecuta esa
+comprobación. Ambos funcionan sin arrancar bases de datos ni leer secretos.
 
 ```sh
 .venv/bin/python scripts/local.py stop --directory /private/tmp/red-house-ms-local
@@ -134,3 +151,7 @@ Catálogos institucionales, primer administrador, ediciones permitidas y límite
 CI definida en `.github/workflows/services.yml`, con bases locales sin Docker. Su ejecución remota solo puede afirmarse después de recibir un resultado de GitHub; las pruebas locales se documentan por separado.
 
 El esquema vigente y la conversión desde bases separadas están en [Base compartida](../../documentation/markdowns/Esquema_compartido.md). Las migraciones por servicio se conservan como especificación de origen; no deben ejecutarse directamente sobre las vistas.
+
+## Corrección 0.4.1 / esquema 13
+
+[Decisiones arquitectónicas y doce propietarios](../../documentation/entrega-final/backend/correccion/Arquitectura_y_decisiones.md). [Migración, respaldo y rollback](../../documentation/entrega-final/backend/correccion/Despliegue_y_rollback.md). Transporte conserva adaptadores v1 para archivos/documentos/reportes; propagan JWT, idempotencia y reautenticación a Documentos sin acceso SQL ajeno. Los puertos anteriores se conservan; Documentos usa 5112 y el gateway local 6112.

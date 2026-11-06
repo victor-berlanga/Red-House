@@ -1,0 +1,181 @@
+{
+  "base_commit": "44eeaf90c445b4d9564c2f0ab2dd3167f0296418",
+  "baseline_tables": 45,
+  "shared_tables": 107,
+  "added_tables": [
+    "accreditations",
+    "alert_actions",
+    "alert_deliveries",
+    "alert_policies",
+    "alert_subscriptions",
+    "algorithm_run",
+    "allocation_operation",
+    "appointment",
+    "appointment_reminders",
+    "appointment_slots",
+    "audit_finding_actions",
+    "audit_finding_links",
+    "audit_findings",
+    "balance_proposal",
+    "blood_review",
+    "cache_revision",
+    "campaign",
+    "campaign_slots",
+    "catalogue_entry",
+    "cold_equipment",
+    "cold_profiles",
+    "cold_readings",
+    "cold_reviews",
+    "consent_versions",
+    "custody_chain",
+    "devices",
+    "document_metadata",
+    "export_jobs",
+    "external_authorizations",
+    "external_mappings",
+    "file_scans",
+    "identity_deliveries",
+    "lab_actions",
+    "lab_profiles",
+    "lab_results",
+    "lab_samples",
+    "notification",
+    "ranking_run",
+    "recovery_tokens",
+    "request_hold",
+    "resource_controls",
+    "resource_destinations",
+    "resource_lineage",
+    "resource_review",
+    "schema_migration",
+    "security_contacts",
+    "security_factors",
+    "service_activity_events",
+    "service_decisions",
+    "service_health_check",
+    "service_idempotency",
+    "service_inbox",
+    "service_outbox",
+    "service_schema_version",
+    "service_worker_health",
+    "shipment_transition",
+    "site_schedule",
+    "stored_file",
+    "sync_commands",
+    "tracking_assignments",
+    "tracking_points",
+    "transport_telemetry"
+  ],
+  "changed_columns": {
+    "audit_event": [
+      "event",
+      "metadata",
+      "region_id",
+      "source_service"
+    ],
+    "blood_allocation": [
+      "evaluation_id",
+      "hold_id",
+      "operation_id",
+      "recipient_id",
+      "region_id",
+      "review_id",
+      "route_id",
+      "route_version",
+      "shipment_id",
+      "shipment_sequence"
+    ],
+    "blood_movement": [
+      "action"
+    ],
+    "blood_request": [
+      "component",
+      "kind",
+      "priority_level",
+      "tenant_id"
+    ],
+    "blood_status_transition": [
+      "is_illustrative"
+    ],
+    "candidate_evaluation": [
+      "candidates",
+      "kind",
+      "snapshot",
+      "tenant_id"
+    ],
+    "custody_event": [
+      "event",
+      "event_hash",
+      "previous_hash"
+    ],
+    "donation": [
+      "blood_group",
+      "component",
+      "kind",
+      "tenant_id"
+    ],
+    "donor": [
+      "account_id",
+      "consent"
+    ],
+    "institution": [
+      "active",
+      "created_by",
+      "region_id"
+    ],
+    "organ_custody_event": [
+      "event_hash",
+      "previous_hash"
+    ],
+    "parameter_version": [
+      "is_illustrative"
+    ],
+    "recipient": [
+      "kind",
+      "organ_type"
+    ],
+    "regional_route": [
+      "region_id"
+    ],
+    "resource": [
+      "blood_group",
+      "collected_at",
+      "component",
+      "created_at",
+      "current_institution_id",
+      "donation_id",
+      "expires_at",
+      "folio",
+      "location_id",
+      "region_id",
+      "status",
+      "tenant_id",
+      "version"
+    ],
+    "shipment": [
+      "destination_id",
+      "expires_at",
+      "inventory_pending",
+      "organ_allocation_id",
+      "origin_id",
+      "region_id",
+      "sequence"
+    ],
+    "user_account": [
+      "active",
+      "role",
+      "tenant_id",
+      "username"
+    ]
+  },
+  "checks": [
+    "all baseline tables retained",
+    "baseline columns retained except two explicit renames",
+    "restore structure identical",
+    "migration catalogue and seven roles",
+    "orphan FK rejected",
+    "immutable history enforced",
+    "cache revision trigger",
+    "no redundant labels"
+  ]
+}

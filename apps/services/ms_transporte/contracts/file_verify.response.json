@@ -33,7 +33,10 @@
           "format": "uuid"
         },
         "shipment_id": {
-          "type": "string",
+          "type": [
+            "string",
+            "null"
+          ],
           "format": "uuid"
         },
         "owner_id": {

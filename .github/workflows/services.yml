@@ -32,10 +32,14 @@ jobs:
           sudo apt-get install -y postgresql redis-server mongodb-org-server
           pg_config --bindir >> "$GITHUB_PATH"
           python -m pip install -r apps/services/requirements-dev.txt
+      - name: Catálogo HLA público fijado por versión y SHA-256
+        run: python apps/services/scripts/fetch_public_references.py hla --version 3.66.0 --directory .local/reference-data/hla
       - name: Análisis estático y formato
         run: |
           ruff check --select E9,F63,F7,F82 apps/services apps/web/src/integration
           ruff format --check apps/services apps/web/src/integration
+      - name: OpenAPI versionado reproducible
+        run: python apps/services/scripts/document.py --check-openapi
       - name: Contratos, seguridad, datos y portal HTTP
         run: >-
           python -m pytest apps/services/tests -q

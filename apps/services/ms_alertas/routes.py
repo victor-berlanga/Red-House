@@ -48,12 +48,16 @@ def register(app):
                 (metadata.get("origin_id", data["tenant_id"]), "OPERATOR", None),
                 (metadata.get("destination_id", data["tenant_id"]), "OPERATOR", None),
             ]
-        elif action in ("APPOINTMENT_BOOKED", "DONOR_REVIEWED") and metadata.get(
-            "recipient_user_id"
-        ):
+        elif action in (
+            "APPOINTMENT_BOOKED",
+            "APPOINTMENT_REMINDER",
+            "DONOR_REVIEWED",
+        ) and metadata.get("recipient_user_id"):
             recipients.append(
                 (data["tenant_id"], "DONOR", metadata["recipient_user_id"])
             )
+        elif data["source"] == "monitoreo":
+            recipients = [(data["tenant_id"], "ADMIN", None)]
         with transaction() as conn:
             if not consume(conn, data):
                 return {"duplicate": True}
@@ -79,6 +83,7 @@ def register(app):
         "/api/v1/alerts",
         paginated=True,
         summary="Bandeja autorizada: institución, rol y usuario",
+        query=("q", "from_at", "until_at", "date_field", "sort"),
     )
     def alerts_list():
         with transaction() as conn:
@@ -87,6 +92,7 @@ def register(app):
                 "alerts",
                 "tenant_id=%s AND target_role=%s AND (target_user_id IS NULL OR target_user_id=%s)",
                 (g.actor["tenant_id"], g.actor["role"], g.actor["id"]),
+                columns="alerts.*, (SELECT severity FROM alert_severity s WHERE s.id=alerts.id) AS severity",
             )
 
     @endpoint(
@@ -107,6 +113,8 @@ def register(app):
                 )
             ):
                 raise APIError("forbidden", "Alerta de otro destinatario.", 403)
+            if row["status"] == "CLOSED":
+                raise APIError("conflict", "La alerta está cerrada.", 409)
             result = update(
                 conn,
                 "alerts",

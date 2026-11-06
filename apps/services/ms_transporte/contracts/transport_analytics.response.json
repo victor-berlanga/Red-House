@@ -1,0 +1,88 @@
+{
+  "type": "object",
+  "required": [
+    "data",
+    "meta"
+  ],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": [
+        "correlation_id",
+        "service",
+        "version"
+      ],
+      "properties": {
+        "correlation_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "service": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      }
+    },
+    "data": {
+      "additionalProperties": false,
+      "properties": {
+        "from_at": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "From At",
+          "type": "string"
+        },
+        "until_at": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Until At",
+          "type": "string"
+        },
+        "completed": {
+          "title": "Completed",
+          "type": "integer"
+        },
+        "mean_seconds": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Mean Seconds"
+        },
+        "p95_seconds": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "P95 Seconds"
+        },
+        "interpretation": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Interpretation",
+          "type": "string"
+        }
+      },
+      "required": [
+        "from_at",
+        "until_at",
+        "completed",
+        "mean_seconds",
+        "p95_seconds",
+        "interpretation"
+      ],
+      "title": "Durations",
+      "type": "object"
+    }
+  }
+}

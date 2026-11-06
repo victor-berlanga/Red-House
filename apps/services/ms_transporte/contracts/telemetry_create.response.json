@@ -26,38 +26,176 @@
       }
     },
     "data": {
-      "type": "object",
+      "additionalProperties": false,
       "properties": {
-        "id": {
-          "type": "string",
-          "format": "uuid"
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "event_id": {
+          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+          "title": "Event Id",
+          "type": "string"
         },
         "shipment_id": {
-          "type": "string",
-          "format": "uuid"
+          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+          "title": "Shipment Id",
+          "type": "string"
         },
-        "actor_id": {
-          "type": "string",
-          "format": "uuid"
+        "device_id": {
+          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+          "title": "Device Id",
+          "type": "string"
         },
-        "latitude": {
-          "type": "number"
+        "source": {
+          "enum": [
+            "SIMULATOR",
+            "GPS_BRIDGE",
+            "ANDROID"
+          ],
+          "title": "Source",
+          "type": "string"
         },
-        "longitude": {
-          "type": "number"
+        "sequence": {
+          "maximum": 9007199254740991,
+          "minimum": 0,
+          "title": "Sequence",
+          "type": "integer"
         },
         "captured_at": {
-          "type": "string",
-          "format": "date-time"
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Captured At",
+          "type": "string"
         },
-        "created_at": {
-          "type": "string",
-          "format": "date-time"
+        "latitude": {
+          "anyOf": [
+            {
+              "maximum": 90,
+              "minimum": -90,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Latitude"
+        },
+        "longitude": {
+          "anyOf": [
+            {
+              "maximum": 180,
+              "minimum": -180,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Longitude"
+        },
+        "fix_valid": {
+          "title": "Fix Valid",
+          "type": "boolean"
+        },
+        "accuracy_m": {
+          "anyOf": [
+            {
+              "maximum": 100000,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Accuracy M"
+        },
+        "speed_m_s": {
+          "anyOf": [
+            {
+              "maximum": 1000,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Speed M S"
+        },
+        "heading_deg": {
+          "anyOf": [
+            {
+              "exclusiveMaximum": 360,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Heading Deg"
+        },
+        "altitude_m": {
+          "anyOf": [
+            {
+              "maximum": 100000,
+              "minimum": -12000,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Altitude M"
+        },
+        "battery_percent": {
+          "anyOf": [
+            {
+              "maximum": 100,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Battery Percent"
+        },
+        "cursor": {
+          "title": "Cursor",
+          "type": "integer"
+        },
+        "received_at": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Received At",
+          "type": "string"
         }
       },
       "required": [
-        "id"
-      ]
+        "event_id",
+        "shipment_id",
+        "device_id",
+        "source",
+        "sequence",
+        "captured_at",
+        "fix_valid",
+        "cursor",
+        "received_at"
+      ],
+      "title": "StoredPosition",
+      "type": "object"
     }
   }
 }

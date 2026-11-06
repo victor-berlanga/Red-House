@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="4" skipped="0" tests="6" time="301.567" timestamp="2026-10-29T08:28:06.397574-06:00" hostname="Victors-MacBook-Air.local"><testcase classname="tests.test_correction_upgrade" name="test_documents_configuration_upgrade_repeatable_preserves_sessions" time="24.104"><failure message="psycopg.errors.DependentObjectsStillExist: role &quot;rh_documentos&quot; cannot be dropped because some objects depend on it&#10;DETAIL:  13 objects in database red_house">apps/services/tests/test_correction_upgrade.py:27: in test_documents_configuration_upgrade_repeatable_preserves_sessions
+    conn.execute('DROP ROLE rh_documentos')
+apps/services/.venv/lib/python3.12/site-packages/psycopg/connection.py:300: in execute
+    raise ex.with_traceback(None)
+E   psycopg.errors.DependentObjectsStillExist: role "rh_documentos" cannot be dropped because some objects depend on it
+E   DETAIL:  13 objects in database red_house</failure></testcase><testcase classname="tests.test_correction_policies" name="test_combined_operational_organ_policies[json]" time="118.489"><failure message="AssertionError: (404, '{&quot;error&quot;: {&quot;code&quot;: &quot;not_found&quot;, &quot;message&quot;: &quot;Recurso ajeno a esta evaluación.&quot;, &quot;details&quot;: []}, &quot;meta&quot;: {&quot;correlation_id&quot;: &quot;b8294b8e-6ddd-4f49-9b11-df83ad50785c&quot;, &quot;service&quot;: &quot;compatibilidad&quot;, &quot;version&quot;: &quot;0.4.1&quot;}}')&#10;assert 404 &lt; 300&#10; +  where 404 = &lt;Response [404]&gt;.status_code">apps/services/tests/test_correction_policies.py:92: in test_combined_operational_organ_policies
+    api(p,'compatibilidad',f"/api/v1/evaluations/{evaluation['id']}/reviews",dict(CONFIRM,resource_id=unit['id'],decision='FAVORABLE'),destination,fmt)
+apps/services/tests/test_final_quality.py:13: in api
+    result = p.ok(service, method, path, user=user, data=data)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+apps/services/tests/conftest.py:57: in ok
+    assert response.status_code &lt; 300, (response.status_code, response.text)
+E   AssertionError: (404, '{"error": {"code": "not_found", "message": "Recurso ajeno a esta evaluación.", "details": []}, "meta": {"correlation_id": "b8294b8e-6ddd-4f49-9b11-df83ad50785c", "service": "compatibilidad", "version": "0.4.1"}}')
+E   assert 404 &lt; 300
+E    +  where 404 = &lt;Response [404]&gt;.status_code</failure></testcase><testcase classname="tests.test_correction_policies" name="test_combined_operational_organ_policies[xml]" time="89.923"><failure message="AssertionError: &lt;?xml version='1.0' encoding='UTF-8'?&gt;&#10;  &lt;response type=&quot;object&quot;&gt;&lt;field name=&quot;error&quot; type=&quot;object&quot;&gt;&lt;field name=&quot;code&quot; type=&quot;string&quot;&gt;not_found&lt;/field&gt;&lt;field name=&quot;message&quot; type=&quot;string&quot;&gt;Recurso ajeno a esta evaluación.&lt;/field&gt;&lt;field name=&quot;details&quot; type=&quot;array&quot;/&gt;&lt;/field&gt;&lt;field name=&quot;meta&quot; type=&quot;object&quot;&gt;&lt;field name=&quot;correlation_id&quot; type=&quot;string&quot;&gt;6cd256d4-1594-45b3-b893-1e3b8c0a23ef&lt;/field&gt;&lt;field name=&quot;service&quot; type=&quot;string&quot;&gt;compatibilidad&lt;/field&gt;&lt;field name=&quot;version&quot; type=&quot;string&quot;&gt;0.4.1&lt;/field&gt;&lt;/field&gt;&lt;/response&gt;&#10;assert 404 &lt; 300&#10; +  where 404 = &lt;Response [404]&gt;.status_code">apps/services/tests/test_correction_policies.py:92: in test_combined_operational_organ_policies
+    dict(username=account["name"], password=password, otp=code(index)),
+apps/services/tests/test_final_quality.py:43: in api
+    assert response.status_code &lt; 300, response.text
+E   AssertionError: &lt;?xml version='1.0' encoding='UTF-8'?&gt;
+E     &lt;response type="object"&gt;&lt;field name="error" type="object"&gt;&lt;field name="code" type="string"&gt;not_found&lt;/field&gt;&lt;field name="message" type="string"&gt;Recurso ajeno a esta evaluación.&lt;/field&gt;&lt;field name="details" type="array"/&gt;&lt;/field&gt;&lt;field name="meta" type="object"&gt;&lt;field name="correlation_id" type="string"&gt;6cd256d4-1594-45b3-b893-1e3b8c0a23ef&lt;/field&gt;&lt;field name="service" type="string"&gt;compatibilidad&lt;/field&gt;&lt;field name="version" type="string"&gt;0.4.1&lt;/field&gt;&lt;/field&gt;&lt;/response&gt;
+E   assert 404 &lt; 300
+E    +  where 404 = &lt;Response [404]&gt;.status_code</failure></testcase><testcase classname="tests.test_correction_backend" name="test_received_quarantine_new_use_and_documentary_correction[json]" time="40.709" /><testcase classname="tests.test_correction_backend" name="test_received_quarantine_new_use_and_documentary_correction[xml]" time="18.076" /><testcase classname="tests.test_correction_backend" name="test_new_event_classification_visibility_and_export" time="7.629"><failure message="KeyError: 'event'">apps/services/tests/test_correction_backend.py:838: in test_new_event_classification_visibility_and_export
+    assert all(item["action"] == action and item["result_label"] != "No registrado" for item in rows["items"])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+apps/services/tests/test_correction_backend.py:838: in &lt;genexpr&gt;
+    assert all(item["action"] == action and item["result_label"] != "No registrado" for item in rows["items"])
+                        ^^^^^^^^^^^^^
+E   KeyError: 'event'</failure></testcase></testsuite></testsuites>

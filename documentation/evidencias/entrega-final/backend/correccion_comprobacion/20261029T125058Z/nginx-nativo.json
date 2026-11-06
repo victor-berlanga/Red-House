@@ -1,0 +1,8 @@
+{
+  "source": "https://github.com/nginx/nginx/archive/refs/tags/release-1.28.0.tar.gz",
+  "tls_verified": true,
+  "source_sha256": "c6e2d307b6ba41080136bbea1ebf0cb6836e20e06655d0550e31ad070bc5eecd",
+  "binary_sha256": "6129304f358328e36664e6396cc5c2f93b7dc9b9ba4acace41c019db4f34c87d",
+  "version": "nginx version: nginx/1.28.0\nbuilt by clang 17.0.0 (clang-1700.6.4.2)\nbuilt with OpenSSL 3.6.3 9 Jun 2026\nTLS SNI support enabled\nconfigure arguments: --prefix=/tmp/redhouse-nginx --with-http_ssl_module --with-cc-opt=-I/usr/local/opt/openssl@3/include --with-ld-opt=-L/usr/local/opt/openssl@3/lib --without-http_rewrite_module --without-http_gzip_module\n",
+  "scope": "Gateway TLS/WSS aislado; compilación temporal, no instalación permanente. Sin módulos rewrite/gzip porque esta configuración no los usa. No equivale a desplegar la imagen de producción."
+}

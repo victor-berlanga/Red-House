@@ -21,6 +21,7 @@ from redhouse.security import access_token, key, own, redis_call
 
 
 class Login(Model):
+    otp: Annotated[str, Field(pattern=r"^[0-9]{6}$")] | None = None
     model_config = ConfigDict(
         extra="forbid", strict=True, str_strip_whitespace=False, allow_inf_nan=False
     )
@@ -52,6 +53,11 @@ class InstitutionEdit(Confirm):
 
 class InstitutionAdministrator(Login, Confirm):
     pass
+
+
+class UserRole(Confirm):
+    role: Role
+    version: Annotated[int, Field(ge=1)]
 
 
 class UserState(Model):
@@ -112,7 +118,7 @@ def register(app):
         "/api/v1/audit-assignees",
         roles=("AUDITOR",),
         paginated=True,
-        query=("q",),
+        query=("q", "from_at", "until_at", "date_field", "sort"),
         summary="Coordinadores habilitados de la región para atención de hallazgos",
     )
     def audit_assignees():
@@ -193,6 +199,9 @@ def register(app):
                 failed = True
             else:
                 failed = False
+                from .strong_auth import enforce_login
+
+                enforce_login(conn, row, data.get("otp"))
                 user = public_user(row)
                 g.actor = user
                 sid = str(uuid4())
@@ -371,6 +380,7 @@ def register(app):
         "/api/v1/institutions",
         summary="Instituciones de la región; sin datos clínicos",
         paginated=True,
+        query=("q", "from_at", "until_at", "date_field", "sort"),
     )
     def institutions():
         with transaction() as conn:
@@ -616,6 +626,88 @@ def register(app):
                 "region_id"
             ]
         permissions(public_user(latest))
+        return result
+
+    @endpoint(
+        app,
+        "/api/v1/users/<identifier>/role",
+        "POST",
+        model=UserRole,
+        roles=("ADMIN",),
+        result={
+            "type": "object",
+            "required": ["id", "role", "version"],
+            "properties": {
+                "id": {"type": "string"},
+                "role": {"type": "string"},
+                "version": {"type": "integer"},
+            },
+        },
+    )
+    def user_role(identifier, data):
+        validate_id(identifier)
+
+        def work(conn):
+            row = get(conn, "users", identifier, True)
+            own(row["tenant_id"])
+            if (
+                identifier == g.actor["id"]
+                or row["role"] in ("ADMIN", "AUDITOR", "COORDINATOR")
+                or data["role"] in ("ADMIN", "AUDITOR", "COORDINATOR")
+            ):
+                raise APIError(
+                    "forbidden",
+                    "Administración institucional solo cambia perfiles operativos ajenos; perfiles regionales requieren provisión autorizada.",
+                    403,
+                )
+            if row["version"] != data["version"]:
+                raise APIError("stale_version", "Versión obsoleta.", 412)
+            redis_call(
+                lambda r: r.eval(
+                    "redis.call('SET',KEYS[1],ARGV[1]); redis.call('DEL',KEYS[2]); return 1",
+                    2,
+                    key("permission_version:" + identifier),
+                    key("permissions:" + identifier),
+                    row["version"] + 1,
+                )
+            )
+            sessions = conn.execute(
+                "SELECT id FROM sessions WHERE user_id=%s AND revoked_at IS NULL",
+                (identifier,),
+            ).fetchall()
+            if sessions:
+                redis_call(
+                    lambda r: r.delete(
+                        *(key("session:" + str(v["id"])) for v in sessions)
+                    )
+                )
+            conn.execute(
+                "UPDATE sessions SET revoked_at=now() WHERE user_id=%s AND revoked_at IS NULL",
+                (identifier,),
+            )
+            updated = update(
+                conn,
+                "users",
+                identifier,
+                {"role": data["role"], "version": row["version"] + 1},
+            )
+            updated["region_id"] = get(conn, "institutions", str(row["tenant_id"]))[
+                "region_id"
+            ]
+            record(
+                conn, identifier, row["tenant_id"], "USER_ROLE_CHANGED", data["reason"]
+            )
+            emit(
+                conn,
+                "USER_ROLE_CHANGED",
+                identifier,
+                row["tenant_id"],
+                metadata={"previous_role": row["role"], "role": data["role"]},
+            )
+            return public_user(updated)
+
+        result = atomic("user_role:" + identifier, data, work)
+        permissions(result)
         return result
 
     @endpoint(

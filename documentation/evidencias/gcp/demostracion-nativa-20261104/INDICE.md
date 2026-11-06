@@ -1,0 +1,66 @@
+# Índice del video
+
+Tiempos del montaje final. Las credenciales y los cambios de sesión privados están omitidos.
+
+- 00:00 — Portal público · Presentación de la red, servicios y acceso institucional.
+- 00:08 — Acceso seguro · Inicio de sesión con MFA. Datos ficticios en GCP.
+- 00:12 — Panorama de la plataforma · Estamos en Red House, versión cero punto cuatro punto cuatro, publicada en Google Cloud. Esta demostración usa datos ficticios y conserva el modo académico.
+- 00:33 — Fuentes públicas y alcance · Las fuentes tienen versión y alcance. El catálogo HLA tres punto sesenta y seis verifica que un alelo existe. Esto no determina compatibilidad ni autoriza un trasplante.
+- 00:47 — Laboratorio HLA · Alelo registrado y reconocido no significa aprobación clínica.
+- 01:11 — Registro, completitud y dictamen · Registrado, completo, evaluado y autorizado son cuatro estados distintos. Los resultados pendientes o indeterminados no cuentan como negativos. Las correcciones conservan el antecedente.
+- 01:25 — Perfiles y versiones · Requisitos, fuentes e historia separados del dictamen.
+- 01:44 — Ruta planificada · Dijkstra sobre una fuente vial versionada.
+- 02:19 — Ruta, GPS y ETA · Dijkstra calcula una ruta sobre datos versionados de OpenStreetMap y OSRM. La posición GPS, el recorrido recibido, la ruta y la hora estimada son conceptos separados. No estamos midiendo tráfico.
+- 02:33 — Pronóstico de caducidad · Consumo histórico y límites de datos.
+- 03:06 — Límites del pronóstico · El pronóstico usa consumo histórico por producto y ventana. Compara el error frente a una referencia sencilla. Si faltan observaciones, informa insuficiencia; no inventa demanda.
+- 03:15 — Inconsistencias · Hallazgos técnicos pendientes de revisión.
+- 03:50 — Hallazgos e investigación · El detector busca inconsistencias técnicas desde los propietarios de los datos. Un hallazgo abre revisión: no confirma un incidente ni modifica la historia automáticamente.
+- 03:58 — Liberación de inventario · Ahora recorremos una solicitud de sangre hasta su destino final. La liberación requiere laboratorio, revisión y reautenticación.
+- 04:22 — Solicitud y evaluación · Preselección y dictamen humano son pasos separados.
+- 05:05 — Evaluación y dictamen · Consultar la evaluación guardada y registrar revisión académica.
+- 05:31 — Corrección e invalidación · Una corrección crítica invalida el dictamen anterior. La historia permanece y el servidor debe rechazar una reserva basada en datos obsoletos.
+- 06:19 — Revisión de la corrección · Nueva versión de laboratorio, conservando el resultado anterior.
+- 07:48 — Compatibilidad explicable · Motivos y entradas conservados.
+- 08:24 — La evaluación conserva entradas, versión y motivos de admisión o exclusión. Eritrocitos, plasma, plaquetas y órganos no comparten automáticamente las mismas reglas.
+- 08:31 — Priorización académica · Política y factores explícitos.
+- 09:12 — Esta comparación académica considera urgencia, espera, caducidad, tiempo y distancia, con desempates estables. No es una lista clínica oficial de receptores.
+- 09:19 — Matching regional · Propuesta sin reserva automática.
+- 10:00 — Hopcroft Karp maximiza la cantidad de correspondencias permitidas. No optimiza urgencia ni coste. Esta propuesta no reserva unidades: la reserva requiere revisión vigente y confirmación aparte.
+- 10:08 — Reserva de recurso · Después de revisar los candidatos, confirmamos la reserva vigente. El sistema controla concurrencia y evita el uso duplicado del recurso.
+- 10:36 — Planeación del traslado · El coordinador asigna el traslado. Recolección, entrega y recepción exigen escaneo, responsables y aceptación electrónica. Llegar a una ubicación no confirma custodia.
+- 11:07 — Traslado asignado · Consultar el plan y documentar la cadena de custodia con cada responsable.
+- 11:24 — Cadena de custodia · Paso de preparación en origen con el perfil responsable.
+- 12:00 — Recolección y custodia · Identificador, sello, contraparte y aceptación del caso ficticio. No se prueba un escáner físico.
+- 13:19 — Cadena de custodia · Paso de salida en tránsito con el perfil responsable.
+- 13:49 — Cadena de custodia · Paso de entrega con el perfil responsable.
+- 14:33 — Cadena de custodia · Paso de recepción en destino con el perfil responsable.
+- 15:31 — Destino y correcciones · Registrar el uso académico y conservar el historial documental.
+- 15:59 — Historial del destino · Consultar recursos retirados y registrar una corrección documental académica.
+- 16:52 — Reportes privados · Exportación de custodia y descarga autorizada desde GCS.
+- 17:36 — Auditoría · Trazabilidad de cambios y responsables.
+- 17:51 — Acceso por perfil · Reportes, auditoría y módulos disponibles según los permisos de cada cuenta.
+- 17:55 — Módulo Panel principal · Perfil de personal médico de origen. Consulta de funciones disponibles.
+- 18:03 — Módulo Donantes · Perfil de personal médico de origen. Consulta de funciones disponibles.
+- 18:20 — Módulo Donaciones y procesamiento · Perfil de personal médico de origen. Consulta de funciones disponibles.
+- 18:35 — Módulo Receptores · Perfil de personal médico de origen. Consulta de funciones disponibles.
+- 18:51 — Módulo Disponibilidad regional · Perfil de personal médico de origen. Consulta de funciones disponibles.
+- 19:06 — Módulo Propuestas de cobertura · Perfil de personal médico de origen. Consulta de funciones disponibles.
+- 19:21 — Módulo Campañas · Perfil de personal médico de origen. Consulta de funciones disponibles.
+- 19:37 — Módulo Órganos y HLA · Perfil de personal médico de origen. Consulta de funciones disponibles.
+- 19:55 — Módulo Notificaciones · Perfil de personal médico de origen. Consulta de funciones disponibles.
+- 20:08 — Módulo Panel principal · Perfil de coordinación regional. Consulta de funciones disponibles.
+- 20:15 — Módulo Hallazgos · Perfil de coordinación regional. Consulta de funciones disponibles.
+- 20:31 — Módulo Estado de la plataforma · Perfil de coordinación regional. Consulta de funciones disponibles.
+- 20:44 — Módulo Panel principal · Perfil de administración. Consulta de funciones disponibles.
+- 20:51 — Módulo Instituciones · Perfil de administración. Consulta de funciones disponibles.
+- 21:06 — Módulo Usuarios · Perfil de administración. Consulta de funciones disponibles.
+- 21:22 — Módulo Catálogos · Perfil de administración. Consulta de funciones disponibles.
+- 21:32 — Módulo Panel principal · Perfil de donante. Consulta de funciones disponibles.
+- 21:38 — Módulo Reportes privados · Perfil de donante. Consulta de funciones disponibles.
+- 21:53 — Módulo Donantes · Perfil de donante. Consulta de funciones disponibles.
+- 22:08 — Módulo Campañas · Perfil de donante. Consulta de funciones disponibles.
+- 22:22 — Módulo Inscripciones · Perfil de donante. Consulta de funciones disponibles.
+- 22:37 — Módulo Notificaciones · Perfil de donante. Consulta de funciones disponibles.
+- 22:52 — Completitud técnica · Registrar una muestra académica y consultar qué datos faltan.
+- 23:38 — Detalle HLA · Catálogo, resolución y resultado registrado se conservan separados del dictamen.
+- 24:07 — Sitio público · Alcance de la red, participantes y acceso a la plataforma.

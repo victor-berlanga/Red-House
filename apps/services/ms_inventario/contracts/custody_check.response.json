@@ -1,0 +1,49 @@
+{
+  "type": "object",
+  "required": [
+    "data",
+    "meta"
+  ],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": [
+        "correlation_id",
+        "service",
+        "version"
+      ],
+      "properties": {
+        "correlation_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "service": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      }
+    },
+    "data": {
+      "additionalProperties": false,
+      "properties": {
+        "resource_id": {
+          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+          "title": "Resource Id",
+          "type": "string"
+        },
+        "authorized": {
+          "title": "Authorized",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "resource_id",
+        "authorized"
+      ],
+      "title": "CustodyResource",
+      "type": "object"
+    }
+  }
+}

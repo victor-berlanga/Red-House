@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="27.325" timestamp="2026-10-29T08:24:06.586353-06:00" hostname="Victors-MacBook-Air.local"><testcase classname="tests.test_correction_upgrade" name="test_documents_configuration_upgrade_repeatable_preserves_sessions" time="24.609"><failure message="RuntimeError: Un proceso de infraestructura terminó; revisa los logs privados.">apps/services/tests/test_correction_upgrade.py:18: in test_documents_configuration_upgrade_repeatable_preserves_sessions
+    env.init(seed=False)
+apps/services/scripts/local.py:194: in init
+    self.wait(lambda: psycopg.connect(admin_url).close())
+apps/services/scripts/local.py:134: in wait
+    raise RuntimeError(
+E   RuntimeError: Un proceso de infraestructura terminó; revisa los logs privados.</failure></testcase></testsuite></testsuites>

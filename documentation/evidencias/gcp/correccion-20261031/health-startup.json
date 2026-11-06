@@ -1,0 +1,288 @@
+{
+  "identidad-acceso": {
+    "http": 200,
+    "data": {
+      "state": "up",
+      "dependencies": {
+        "database": {
+          "state": "up"
+        },
+        "redis": {
+          "state": "up"
+        },
+        "mongodb": {
+          "state": "not_applicable"
+        },
+        "storage": {
+          "state": "not_applicable"
+        },
+        "worker": {
+          "state": "up",
+          "error": null,
+          "pending": 0,
+          "oldest_seconds": 0.0
+        }
+      },
+      "service": "identidad_acceso",
+      "version": "0.4.1"
+    }
+  },
+  "donantes": {
+    "http": 200,
+    "data": {
+      "state": "up",
+      "dependencies": {
+        "database": {
+          "state": "up"
+        },
+        "redis": {
+          "state": "up"
+        },
+        "mongodb": {
+          "state": "not_applicable"
+        },
+        "storage": {
+          "state": "not_applicable"
+        },
+        "worker": {
+          "state": "up",
+          "error": null,
+          "pending": 0,
+          "oldest_seconds": 0.0
+        }
+      },
+      "service": "donantes",
+      "version": "0.4.1"
+    }
+  },
+  "receptores": {
+    "http": 200,
+    "data": {
+      "state": "up",
+      "dependencies": {
+        "database": {
+          "state": "up"
+        },
+        "redis": {
+          "state": "up"
+        },
+        "mongodb": {
+          "state": "not_applicable"
+        },
+        "storage": {
+          "state": "not_applicable"
+        },
+        "worker": {
+          "state": "up",
+          "error": null,
+          "pending": 0,
+          "oldest_seconds": 0.0
+        }
+      },
+      "service": "receptores",
+      "version": "0.4.1"
+    }
+  },
+  "inventario": {
+    "http": 200,
+    "data": {
+      "state": "up",
+      "dependencies": {
+        "database": {
+          "state": "up"
+        },
+        "redis": {
+          "state": "up"
+        },
+        "mongodb": {
+          "state": "not_applicable"
+        },
+        "storage": {
+          "state": "not_applicable"
+        },
+        "worker": {
+          "state": "up",
+          "error": null,
+          "pending": 0,
+          "oldest_seconds": 0.0
+        }
+      },
+      "service": "inventario",
+      "version": "0.4.1"
+    }
+  },
+  "compatibilidad": {
+    "http": 200,
+    "data": {
+      "state": "up",
+      "dependencies": {
+        "database": {
+          "state": "up"
+        },
+        "redis": {
+          "state": "up"
+        },
+        "mongodb": {
+          "state": "not_applicable"
+        },
+        "storage": {
+          "state": "not_applicable"
+        },
+        "worker": {
+          "state": "up",
+          "error": null,
+          "pending": 0,
+          "oldest_seconds": 0.0
+        }
+      },
+      "service": "compatibilidad",
+      "version": "0.4.1"
+    }
+  },
+  "priorizacion-geografia": {
+    "http": 200,
+    "data": {
+      "state": "up",
+      "dependencies": {
+        "database": {
+          "state": "up"
+        },
+        "redis": {
+          "state": "up"
+        },
+        "mongodb": {
+          "state": "not_applicable"
+        },
+        "storage": {
+          "state": "not_applicable"
+        },
+        "worker": {
+          "state": "up",
+          "error": null,
+          "pending": 0,
+          "oldest_seconds": 0.0
+        }
+      },
+      "service": "priorizacion_geografia",
+      "version": "0.4.1"
+    }
+  },
+  "transporte": {
+    "http": 200,
+    "data": {
+      "state": "up",
+      "dependencies": {
+        "database": {
+          "state": "up"
+        },
+        "redis": {
+          "state": "up"
+        },
+        "mongodb": {
+          "state": "up"
+        },
+        "storage": {
+          "state": "not_applicable"
+        },
+        "worker": {
+          "state": "up",
+          "error": null,
+          "pending": 0,
+          "oldest_seconds": 0.0
+        }
+      },
+      "service": "transporte",
+      "version": "0.4.1"
+    }
+  },
+  "custodia": {
+    "http": 200,
+    "data": {
+      "state": "up",
+      "dependencies": {
+        "database": {
+          "state": "up"
+        },
+        "redis": {
+          "state": "up"
+        },
+        "mongodb": {
+          "state": "up"
+        },
+        "storage": {
+          "state": "not_applicable"
+        },
+        "worker": {
+          "state": "up",
+          "error": null,
+          "pending": 0,
+          "oldest_seconds": 0.0
+        }
+      },
+      "service": "custodia",
+      "version": "0.4.1"
+    }
+  },
+  "alertas": {
+    "http": 200,
+    "data": {
+      "state": "up",
+      "dependencies": {
+        "database": {
+          "state": "up"
+        },
+        "redis": {
+          "state": "up"
+        },
+        "mongodb": {
+          "state": "not_applicable"
+        },
+        "storage": {
+          "state": "not_applicable"
+        },
+        "worker": {
+          "state": "up",
+          "error": null,
+          "pending": 0,
+          "oldest_seconds": 0.0
+        }
+      },
+      "service": "alertas",
+      "version": "0.4.1"
+    }
+  },
+  "auditoria": {
+    "http": 200,
+    "data": {
+      "state": "up",
+      "dependencies": {
+        "database": {
+          "state": "up"
+        },
+        "redis": {
+          "state": "up"
+        },
+        "mongodb": {
+          "state": "up"
+        },
+        "storage": {
+          "state": "not_applicable"
+        },
+        "worker": {
+          "state": "up",
+          "error": null,
+          "pending": 0,
+          "oldest_seconds": 0.0
+        }
+      },
+      "service": "auditoria",
+      "version": "0.4.1"
+    }
+  },
+  "monitoreo": {
+    "error": "JSONDecodeError"
+  },
+  "documentos": {
+    "error": "JSONDecodeError"
+  }
+}

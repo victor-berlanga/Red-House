@@ -121,7 +121,7 @@ def save(sid, value):
     )
 
 
-def login(username, password):
+def login(username, password, otp=None):
     # Comprobar ambos almacenes antes de emitir nuevas credenciales.
     with database() as conn:
         conn.execute("SELECT 1 FROM web_runtime.session_revocations LIMIT 1")
@@ -130,7 +130,7 @@ def login(username, password):
         "identidad_acceso",
         "/api/v1/auth/login",
         "POST",
-        {"username": username, "password": password},
+        {"username": username, "password": password, "otp": otp},
     )
     value.update(
         expires_at=time.time() + value["expires_in"],

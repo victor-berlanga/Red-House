@@ -8,7 +8,7 @@ from flask import current_app, g
 from redhouse.api import endpoint, listing
 from redhouse.config import SERVICES
 from redhouse.db import insert, transaction
-from redhouse.events import queue, deliver_mongo, mongodb
+from redhouse.events import queue, deliver_mongo, mongodb, emit
 from redhouse.errors import APIError
 from pymongo.errors import PyMongoError
 
@@ -78,9 +78,39 @@ def poll():
         )
         try:
             with transaction() as conn:
+                conn.execute(
+                    "SELECT pg_advisory_xact_lock(hashtextextended(%s,74))", (service,)
+                )
+                previous = conn.execute(
+                    "SELECT state FROM checks WHERE service=%s ORDER BY created_at DESC,id LIMIT 1",
+                    (service,),
+                ).fetchone()
                 row = insert(conn, "checks", row)
                 if not mongo_saved:
                     queue(conn, event, "mongodb")
+                if previous and previous["state"] != state:
+                    for destination in current_app.config.get(
+                        "MONITOR_ALERT_TARGETS", []
+                    ):
+                        g.actor = {
+                            "id": None,
+                            "tenant_id": destination["tenant_id"],
+                            "region_id": destination["region_id"],
+                        }
+                        emit(
+                            conn,
+                            "SERVICE_RECOVERED"
+                            if state == "up"
+                            else "SERVICE_DEGRADED",
+                            identifier,
+                            destination["tenant_id"],
+                            targets=("auditoria", "alertas"),
+                            metadata={
+                                "service": service,
+                                "state": state,
+                                "dependency": dependency,
+                            },
+                        )
         except APIError as exc:
             if exc.code != "database_unavailable":
                 raise
@@ -154,6 +184,36 @@ def documentary_status():
 
 
 def register(app):
+    from redhouse.extension_contracts import schema
+    from redhouse.models import Model, Text
+
+    class SampleStatistics(Model):
+        service: Text
+        samples: int
+        average_ms: float
+        p95_ms: float
+        p99_ms: float
+
+    class Statistics(Model):
+        items: list[SampleStatistics]
+        window_hours: int
+
+    @endpoint(
+        app,
+        "/api/v1/status/percentiles",
+        roles=("ADMIN", "COORDINATOR", "AUDITOR"),
+        result=schema(Statistics),
+    )
+    def status_percentiles():
+        with transaction() as conn:
+            rows = conn.execute(
+                "SELECT service,count(*) AS samples,avg(elapsed_ms)::double precision AS average_ms,"
+                "percentile_cont(0.95) WITHIN GROUP(ORDER BY elapsed_ms) AS p95_ms,"
+                "percentile_cont(0.99) WITHIN GROUP(ORDER BY elapsed_ms) AS p99_ms "
+                "FROM checks WHERE created_at>now()-interval '24 hours' GROUP BY service ORDER BY service"
+            ).fetchall()
+            return {"items": rows, "window_hours": 24}
+
     @endpoint(
         app,
         "/api/v1/status",

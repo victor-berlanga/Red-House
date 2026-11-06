@@ -137,7 +137,7 @@ def register(app):
         "/api/v1/findings",
         roles=("AUDITOR", "COORDINATOR"),
         paginated=True,
-        query=("status", "priority", "q"),
+        query=("status", "priority", "q", "from_at", "until_at", "date_field", "sort"),
         summary="Hallazgos regionales para auditor o asignados al responsable",
     )
     def finding_list():
@@ -210,7 +210,11 @@ def register(app):
                 insert(
                     conn,
                     "audit_finding_links",
-                    {"id": str(uuid4()), "finding_id": row["id"], "event_id": identifier},
+                    {
+                        "id": str(uuid4()),
+                        "finding_id": row["id"],
+                        "event_id": identifier,
+                    },
                 )
             history(
                 conn,

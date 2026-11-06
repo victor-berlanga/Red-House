@@ -1,0 +1,33 @@
+{
+  "issuer": [
+    [
+      [
+        "countryName",
+        "US"
+      ]
+    ],
+    [
+      [
+        "organizationName",
+        "Let's Encrypt"
+      ]
+    ],
+    [
+      [
+        "commonName",
+        "YE1"
+      ]
+    ]
+  ],
+  "notBefore": "Nov  1 02:26:39 2026 GMT",
+  "notAfter": "Nov  7 18:26:38 2026 GMT",
+  "subjectAltName": [
+    [
+      "IP Address",
+      "34.18.186.116"
+    ]
+  ],
+  "protocol": "TLSv1.3",
+  "validated": true,
+  "trust_store": "certifi"
+}

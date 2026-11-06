@@ -1,0 +1,116 @@
+{
+  "type": "object",
+  "required": [
+    "data",
+    "meta"
+  ],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": [
+        "correlation_id",
+        "service",
+        "version"
+      ],
+      "properties": {
+        "correlation_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "service": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      }
+    },
+    "data": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "tenant_id": {
+          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+          "title": "Tenant Id",
+          "type": "string"
+        },
+        "region_id": {
+          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+          "title": "Region Id",
+          "type": "string"
+        },
+        "source": {
+          "const": "priorizacion_geografia",
+          "title": "Source",
+          "type": "string"
+        },
+        "source_run_id": {
+          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+          "title": "Source Run Id",
+          "type": "string"
+        },
+        "deduplication_key": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Deduplication Key",
+          "type": "string"
+        },
+        "evidence": {
+          "additionalProperties": true,
+          "title": "Evidence",
+          "type": "object"
+        },
+        "correlation_id": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Correlation Id",
+          "type": "string"
+        },
+        "responsible_id": {
+          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+          "title": "Responsible Id",
+          "type": "string"
+        },
+        "state": {
+          "enum": [
+            "OPEN",
+            "CONFIRMED",
+            "DISMISSED"
+          ],
+          "title": "State",
+          "type": "string"
+        },
+        "version": {
+          "title": "Version",
+          "type": "integer"
+        },
+        "created_at": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Created At",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "tenant_id",
+        "region_id",
+        "source",
+        "source_run_id",
+        "deduplication_key",
+        "evidence",
+        "correlation_id",
+        "responsible_id",
+        "state",
+        "version",
+        "created_at"
+      ],
+      "title": "Review",
+      "type": "object"
+    }
+  }
+}

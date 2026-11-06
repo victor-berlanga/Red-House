@@ -1,0 +1,12 @@
+F
+=================================== FAILURES ===================================
+______ test_documents_configuration_upgrade_repeatable_preserves_sessions ______
+apps/services/tests/test_correction_upgrade.py:60: in test_documents_configuration_upgrade_repeatable_preserves_sessions
+    assert not conn.execute(
+apps/services/.venv/lib/python3.12/site-packages/psycopg/connection.py:300: in execute
+    raise ex.with_traceback(None)
+E   psycopg.errors.InsufficientPrivilege: permission denied for schema access_transporte
+=========================== short test summary info ============================
+FAILED apps/services/tests/test_correction_upgrade.py::test_documents_configuration_upgrade_repeatable_preserves_sessions
+!!!!!!!!!!!!!!!!!!!!!!!!!! stopping after 1 failures !!!!!!!!!!!!!!!!!!!!!!!!!!!
+1 failed, 32 deselected in 20.42s

@@ -59,6 +59,8 @@ def prepare_fields(fields, service, path, method):
             "integer-select",
         ):
             attrs = {k: v for k, v in attrs.items() if k in ("min", "max")}
+        if typ == "datetime-local":
+            attrs["step"] = "any"
         if typ in ("number", "decimal"):
             attrs["step"] = "1" if typ == "number" else "any"
         # HTML usa expresiones Unicode v; escapar el guion dentro de la clase.
@@ -93,7 +95,8 @@ def attach_errors(fields, error):
     for detail in details[:100]:
         if not isinstance(detail, dict):
             continue
-        item = visible.get(str(detail.get("field", "")).split(".")[0])
+        path = str(detail.get("field", "")).split(".")
+        item = visible.get(path[-1] if path[0] == "custody" else path[0])
         if item is None:
             continue
         message = detail.get("message")

@@ -2,6 +2,10 @@
 
 Los documentos se organizan por su función y formato. Haber sido elaborados en el primer parcial no vuelve obsoletos el análisis, los requisitos ni la planificación del semestre. El [estado del proyecto](../PROJECT_STATUS.md) distingue lo implementado de lo pendiente.
 
+## Backend de entrega final
+
+El [expediente backend](entrega-final/backend/README.md) documenta las 24 responsabilidades agrupadas en doce servicios independientes (once de dominio y Monitoreo), migraciones aditivas, estados, contratos JSON/XML, adaptadores, rastreo WSS y simulador. Incluye [matriz BE](entrega-final/backend/Matriz_BE.md), [GPS/recuperación y matriz TRACK](entrega-final/backend/Rastreo.md) y [resultados correctivos locales](evidencias/entrega-final/backend/correccion_comprobacion/20261029T125058Z/RESULTADOS.md) y [resultados anteriores](evidencias/entrega-final/backend/RESULTADOS.md). Separa software verificado de hardware, clientes, aprobación clínica y nuevo despliegue pendientes.
+
 ## Análisis y planificación del semestre
 
 Estas fuentes permanecen activas como referencia de alcance. Sus fases son las del plan original; no certifican que cada requisito esté implementado. Las reglas clínicas y las hipótesis institucionales conservan sus condiciones de validación.
@@ -51,8 +55,35 @@ El reporte reutiliza la portada y los estilos del primer parcial. Presenta conte
 
 ## Entregas anteriores
 
+### Consulta de evidencias voluminosas
+
+Los resultados finales, JUnit, incidencias y resúmenes permanecen visibles en sus
+expedientes. Los detalles extensos de las etapas 01/02 —manifiestos, estados Git,
+muestras HTTP e inventarios de imágenes/datos— están agrupados en
+[detalles-20261104.tar.gz](evidencias/archivo/detalles-20261104.tar.gz), con un
+[índice de rutas originales y SHA-256](evidencias/archivo/detalles-20261104.json).
+El archivo incluye dos capturas duplicadas; el índice señala sus copias canónicas
+que siguen visibles. Ningún resultado fallido se ha reclasificado ni eliminado.
+
+Desde la raíz del repositorio, listar o consultar un detalle sin restaurarlo:
+
+```bash
+tar -tzf documentation/evidencias/archivo/detalles-20261104.tar.gz
+tar -xOzf documentation/evidencias/archivo/detalles-20261104.tar.gz documentation/evidencias/gcp/etapa02-20261102/source-manifest-final.json
+```
+
+Para ejecutar verificadores históricos que esperan las rutas originales, extraer
+con `tar -xzf documentation/evidencias/archivo/detalles-20261104.tar.gz` desde la
+raíz. Para consultar o cotejar un corte sin escribir en el repositorio, extraer en
+una carpeta temporal mediante `tar -xzf RUTA_ABSOLUTA_DEL_ARCHIVO -C CARPETA_TEMPORAL`.
+Los miembros conservan sus bytes originales: los hashes históricos no se
+regeneraron para aparentar correspondencia con cambios posteriores del código o
+la documentación. El índice registra además el SHA-256 del archivo comprimido.
+
 La [revisión del segundo parcial](markdowns/Revision_segundo_parcial.md) conserva el diagnóstico del 14/10/2026 y enlaza la matriz vigente. Sus faltantes originales no describen el cierre actual.
 
 El [historial](historial/README.md) conserva resultados fechados y documentos de implementaciones anteriores. Las fuentes de planificación del semestre mantienen su fecha de corte; el informe integral 0.3.0 y sus evidencias describen el incremento actual.
 
 Actualizar el documento correspondiente a cada tema; no crear un documento nuevo por conversación. Un cambio de implementación puede requerir revisar una sección sin retirar todo el documento de planificación.
+
+- [Reglas, perfiles HLA y fuentes clínicas](markdowns/Reglas_y_fuentes_clinicas.md): vigencia normativa, perfiles sintéticos y aprobación pendiente.

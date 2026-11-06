@@ -52,6 +52,18 @@ def sample(schema, root=None, name="", depth=0):
         return EXAMPLE_ID
     if name == "sha256":
         return "0" * 64
+    if schema.get("pattern") == r"^[0-9]{6}$":
+        return "123456"
+    if name in ("test_code", "required_tests"):
+        return "ABO"
+    if name == "message_code":
+        return "RESOURCE_CREATED"
+    if name == "operation":
+        return "resource_release"
+    if name == "system":
+        return "TEST_LIS"
+    if name == "email":
+        return "persona@example.invalid"
     if name == "password":
         return "CAMBIAR_CREDENCIAL_PRIVADA"
     if name == "refresh_token":
@@ -61,14 +73,26 @@ def sample(schema, root=None, name="", depth=0):
         or schema.get("format") == "date-time"
     ):
         return "2030-01-01T15:00:00+00:00"
-    if name in ("captured_at", "collected_at", "occurred_at"):
+    if name in (
+        "captured_at",
+        "collected_at",
+        "occurred_at",
+        "effective_at",
+        "measured_at",
+        "from_at",
+        "valid_from",
+    ):
         return "2026-10-01T15:00:00+00:00"
+    if name in ("until_at", "valid_until"):
+        return "2030-01-01T15:00:00+00:00"
     if name == "component":
         return "RBC"
     if name in ("opens_at", "closes_at"):
         return "08:00" if name == "opens_at" else "17:00"
     if name == "folio":
         return "PRUEBA-000001"
+    if schema.get("minLength", 0) > 28:
+        return "X" * schema["minLength"]
     return "Dato ficticio para reemplazar"
 
 

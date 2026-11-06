@@ -74,6 +74,7 @@ def register(app):
         roles=("COORDINATOR", "MEDICAL", "OPERATOR", "TRANSPORT"),
         paginated=True,
         summary="Rutas autorizadas de la región",
+        query=("q", "from_at", "until_at", "date_field", "sort"),
     )
     def routes_list():
         with transaction() as conn:
@@ -245,10 +246,11 @@ def register(app):
         graph, slots, details = {}, {}, {}
         for evaluation in evaluations:
             own(evaluation["tenant_id"])
+            valid_ids={c["resource_id"] for c in evaluation.get("validity",{}).get("candidates",[]) if c["current"]}
             favorable = {
                 r["resource_id"]
                 for r in evaluation["reviews"]
-                if r["decision"] == "FAVORABLE"
+                if r["decision"] == "FAVORABLE" and r["resource_id"] in valid_ids
             }
             candidates = [
                 c for c in evaluation["candidates"] if c["resource_id"] in favorable

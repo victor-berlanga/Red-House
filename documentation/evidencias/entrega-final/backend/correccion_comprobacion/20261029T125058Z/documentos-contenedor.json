@@ -1,0 +1,30 @@
+{
+  "date": "2026-10-29T16:44:27.652979+00:00",
+  "image": "redhouse/documentos:0.4.1",
+  "scope": "Entrypoint, API y worker reales con almacenes aislados; TESTING=True. No acredita producción ni readiness GCS.",
+  "health": {
+    "live": 200,
+    "database": 200,
+    "redis": 200,
+    "worker": 200
+  },
+  "authenticated_reads": [
+    {
+      "representation": "application/json",
+      "status": 200
+    },
+    {
+      "representation": "application/xml",
+      "status": 200
+    }
+  ],
+  "worker_last_success": "2026-10-29T10:44:44.036545-06:00",
+  "image_id": "sha256:7ca593214fec6a887151a4b17552caa349675b2bedf514284d9c1ef2b31e9979",
+  "entrypoint": [
+    "python",
+    "/app/deployment/container.py",
+    "documentos"
+  ],
+  "fixture_document_api_stopped": true,
+  "passed": true
+}

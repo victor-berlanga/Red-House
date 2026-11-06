@@ -1,0 +1,101 @@
+{
+  "version": "0.4.1",
+  "checks": [
+    {
+      "name": "MFA ausente rechazado sin iniciar sesión",
+      "role": "origin",
+      "at": "2026-10-29T15:44:07.644Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Inicio de sesión y cookies Secure sobre TLS",
+      "role": "origin",
+      "at": "2026-10-29T15:44:10.079Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Liberación sin reautenticación rechazada",
+      "role": "origin",
+      "at": "2026-10-29T15:44:11.844Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Liberación con MFA, perfil completo y reautenticación; persiste al recargar",
+      "role": "origin",
+      "at": "2026-10-29T15:44:33.897Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Inicio de sesión y cookies Secure sobre TLS",
+      "role": "destination",
+      "at": "2026-10-29T15:44:38.879Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Solicitud, evaluación y revisión humana",
+      "role": "destination",
+      "at": "2026-10-29T15:44:46.936Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Nueva versión de laboratorio autorizada con MFA y reautenticación",
+      "role": "origin",
+      "at": "2026-10-29T15:45:02.499Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Reserva con dictamen anterior rechazada visiblemente",
+      "role": "destination",
+      "at": "2026-10-29T15:45:06.381Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Nueva evaluación y revisión permiten reservar una sola vez",
+      "role": "destination",
+      "at": "2026-10-29T15:45:32.760Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Inicio de sesión y cookies Secure sobre TLS",
+      "role": "coordinator",
+      "at": "2026-10-29T15:45:37.000Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Inicio de sesión y cookies Secure sobre TLS",
+      "role": "operator1",
+      "at": "2026-10-29T15:45:44.362Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Inicio de sesión y cookies Secure sobre TLS",
+      "role": "transport1",
+      "at": "2026-10-29T15:45:50.439Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Custodia incompleta no avanza; mensaje visible en móvil",
+      "role": "transport1",
+      "at": "2026-10-29T15:45:51.944Z",
+      "result": "PASS"
+    },
+    {
+      "name": "WSS real por Nginx; publicación, recepción y reconexión por cursor",
+      "role": "transport1",
+      "at": "2026-10-29T15:45:55.638Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Inicio de sesión y cookies Secure sobre TLS",
+      "role": "operator2",
+      "at": "2026-10-29T15:46:05.384Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Traslado completo, custodia y aceptación persistente",
+      "role": "operator2",
+      "at": "2026-10-29T15:55:18.673Z",
+      "result": "PASS"
+    }
+  ]
+}

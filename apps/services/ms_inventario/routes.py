@@ -2,23 +2,23 @@ import hashlib
 import json
 import re
 from datetime import datetime, timedelta, timezone
-from typing import Annotated, Literal
+from typing import Annotated
 from uuid import uuid4
 
-from flask import current_app, g, request
+from flask import g, request
 from pydantic import Field
-
 from redhouse.api import atomic, endpoint, listing
+from redhouse.cache import cached_read
 from redhouse.client import call
 from redhouse.codec import plain
 from redhouse.db import get, insert, transaction, update
+from redhouse.decisions import history, record
 from redhouse.errors import APIError
-from redhouse.validation import invalid
-from redhouse.decisions import record, history
 from redhouse.events import consume, emit
-from redhouse.models import Confirm, Group, ID, Kind, Model, Text, utc_date, validate_id
-from redhouse.security import key, own, redis_call
-from redhouse.cache import cached_read
+from redhouse.models import ID, Confirm, Group, Kind, Model, Text, utc_date
+from redhouse.security import own
+from redhouse.validation import invalid
+
 from .states import RESOURCE_FILTER
 
 
@@ -127,7 +127,7 @@ def recover_operations(limit=100):
         try:
             # Tras una interrupción, el grant puede existir aunque su respuesta se perdiera.
             with transaction() as conn:
-                operation = get(conn, "operations", str(row["id"]))
+                get(conn, "operations", str(row["id"]))
                 update(
                     conn,
                     "operations",
@@ -148,7 +148,7 @@ def recover_operations(limit=100):
                 )["hold"]
                 if hold:
                     with transaction() as conn:
-                        locked = get(conn, "operations", str(row["id"]), True)
+                        get(conn, "operations", str(row["id"]), True)
                         if not conn.execute(
                             "SELECT 1 FROM reservations WHERE operation_id=%s",
                             (row["id"],),
@@ -197,14 +197,14 @@ def reserve(data):
             op = insert(
                 conn,
                 "operations",
-                dict(
-                    id=str(uuid4()),
-                    user_id=g.actor["id"],
-                    tenant_id=g.actor["tenant_id"],
-                    key=idem,
-                    fingerprint=fingerprint,
-                    input=data,
-                ),
+                {
+                    "id": str(uuid4()),
+                    "user_id": g.actor["id"],
+                    "tenant_id": g.actor["tenant_id"],
+                    "key": idem,
+                    "fingerprint": fingerprint,
+                    "input": data,
+                },
             )
     identifier = str(op["id"])
     existing = operation_result(identifier)
@@ -246,6 +246,9 @@ def reserve(data):
             "Candidato y dictamen médico favorable obligatorios.",
             409,
         )
+    from redhouse.operational import require_execution_scope
+
+    require_execution_scope(evaluation["snapshot"], review)
     route = call(
         "priorizacion_geografia", "GET", "/internal/v1/routes/" + candidate["route_id"]
     )
@@ -278,6 +281,62 @@ def reserve(data):
                         "operation_conflict", "Operación sin retención vigente.", 409
                     )
                 resource = get(conn, "resources", data["resource_id"], True)
+                from .quality import guard
+
+                # Freeze laboratory and critical versions through the local reservation commit.
+                keys = [
+                    "laboratory:" + str(resource["id"]),
+                    "laboratory:" + evaluation["snapshot"]["recipient_id"],
+                    "critical:requests:" + evaluation["request_id"],
+                    "critical:recipients:" + evaluation["snapshot"]["recipient_id"],
+                    "critical:routes:" + candidate["route_id"],
+                ]
+                keys += [
+                    "profile:" + x
+                    for x in evaluation["snapshot"]
+                    .get("recipient_laboratory", {})
+                    .get("profile_ids", [])
+                ]
+                if candidate.get("laboratory"):
+                    keys.append("profile:" + candidate["laboratory"]["profile_id"])
+                if evaluation["snapshot"].get("execution_profile"):
+                    keys.append(
+                        "profile:" + evaluation["snapshot"]["execution_profile"]["id"]
+                    )
+                for lock_key in sorted(set(keys)):
+                    conn.execute(
+                        "SELECT pg_advisory_xact_lock(hashtextextended(%s,0))",
+                        (lock_key,),
+                    )
+                fresh = call(
+                    "compatibilidad",
+                    "GET",
+                    "/internal/v1/evaluations/" + data["evaluation_id"],
+                )
+                candidate_validity = next(
+                    (
+                        c
+                        for c in fresh.get("validity", {}).get("candidates", [])
+                        if c["resource_id"] == data["resource_id"]
+                    ),
+                    None,
+                )
+                if not candidate_validity or not candidate_validity["current"]:
+                    raise APIError(
+                        "stale_evaluation",
+                        "Dictamen obsoleto; se requiere nueva evaluación.",
+                        409,
+                    )
+                laboratory = guard(conn, resource)
+                if (
+                    "laboratory" not in candidate
+                    or candidate["laboratory"] != laboratory
+                ):
+                    raise APIError(
+                        "stale_laboratory",
+                        "Laboratorio modificado; requiere nueva evaluación y dictamen.",
+                        409,
+                    )
                 if (
                     resource["status"] != "AVAILABLE"
                     or resource["version"] != candidate["resource_version"]
@@ -296,20 +355,20 @@ def reserve(data):
                 row = insert(
                     conn,
                     "reservations",
-                    dict(
-                        id=str(uuid4()),
-                        operation_id=identifier,
-                        resource_id=resource["id"],
-                        request_id=evaluation["request_id"],
-                        recipient_id=evaluation["snapshot"]["recipient_id"],
-                        origin_id=resource["tenant_id"],
-                        destination_id=g.actor["tenant_id"],
-                        region_id=g.actor["region_id"],
-                        hold_id=hold["id"],
-                        evaluation_id=data["evaluation_id"],
-                        route_id=route["id"],
-                        route_version=route["version"],
-                    ),
+                    {
+                        "id": str(uuid4()),
+                        "operation_id": identifier,
+                        "resource_id": resource["id"],
+                        "request_id": evaluation["request_id"],
+                        "recipient_id": evaluation["snapshot"]["recipient_id"],
+                        "origin_id": resource["tenant_id"],
+                        "destination_id": g.actor["tenant_id"],
+                        "region_id": g.actor["region_id"],
+                        "hold_id": hold["id"],
+                        "evaluation_id": data["evaluation_id"],
+                        "route_id": route["id"],
+                        "route_version": route["version"],
+                    },
                 )
                 update(
                     conn,
@@ -458,6 +517,9 @@ def register(app):
         def work(conn):
             row = get(conn, "resources", identifier, True)
             own(row["tenant_id"])
+            from .quality import guard
+
+            guard(conn, row, release=True)
             if (
                 row["version"] != data["version"]
                 or row["status"] != "QUARANTINE"
@@ -467,13 +529,13 @@ def register(app):
             insert(
                 conn,
                 "resource_reviews",
-                dict(
-                    id=str(uuid4()),
-                    resource_id=identifier,
-                    actor_id=g.actor["id"],
-                    decision="RELEASED",
-                    reason=data["reason"],
-                ),
+                {
+                    "id": str(uuid4()),
+                    "resource_id": identifier,
+                    "actor_id": g.actor["id"],
+                    "decision": "RELEASED",
+                    "reason": data["reason"],
+                },
             )
             result = update(
                 conn,
@@ -509,6 +571,10 @@ def register(app):
             "component",
             "current_institution_id",
             "expiry",
+            "from_at",
+            "until_at",
+            "date_field",
+            "sort",
         ),
         summary="Inventario propio; coordinador recibe disponibilidad regional mínima",
     )
@@ -590,7 +656,44 @@ def register(app):
     )
     def resources_internal():
         with transaction() as conn:
-            return {"items": available(conn)}
+            items = available(conn)
+            for item in items:
+                control = conn.execute(
+                    "SELECT lab_profile_id FROM resource_controls WHERE id=%s",
+                    (item["id"],),
+                ).fetchone()
+                item["lab_profile_id"] = control["lab_profile_id"] if control else None
+            return {"items": items}
+
+    @endpoint(
+        app,
+        "/internal/v1/resources/<identifier>/laboratory-context",
+        internal=("compatibilidad",),
+        delegate=False,
+        result={
+            "type": "object",
+            "properties": {
+                "tenant_id": {"type": "string"},
+                "profile_id": {"type": ["string", "null"]},
+            },
+        },
+    )
+    def resource_laboratory_context(identifier):
+        with transaction() as conn:
+            row = get(conn, "resources", identifier)
+            control = conn.execute(
+                "SELECT lab_profile_id FROM resource_controls WHERE id=%s",
+                (identifier,),
+            ).fetchone()
+            return {
+                "tenant_id": str(row["tenant_id"]),
+                "version": row["version"],
+                "status": row["status"],
+                "expires_at": row["expires_at"],
+                "profile_id": str(control["lab_profile_id"])
+                if control and control["lab_profile_id"]
+                else None,
+            }
 
     @endpoint(
         app,

@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% from 'integration/values.html' import value_view with context %}
+{% block content %}
+<div class="page-heading"><div><a href="{{ url_for('regional.decision_history') }}">← Historial</a><h1>{{ title }}</h1></div></div>
+<p class="context-note">{{ note }}</p>
+<section class="card record-section"><h2>Resultado explicable · {{ record.algorithm_version }}</h2>
+<p>Fuente: {{ record.source }} · Fecha: {{ record.created_at|portal_html }} · Duración: {{ record.elapsed_ms|round(2) }} ms</p>
+<p>Ámbito: {{ record.snapshot.operation_scope }}. {{ 'Ejecución académica' if record.synthetic else 'Apoyo sujeto a revisión' }}.</p>
+{{ value_view(record.result) }}</section>
+<section class="card record-section"><h2>Reproducción histórica</h2>{{ value_view(reproduction) }}</section>
+<details class="card record-section"><summary>Entradas, versiones, fuentes y calidad conservadas</summary>{{ value_view(record.snapshot) }}</details>
+{% endblock %}

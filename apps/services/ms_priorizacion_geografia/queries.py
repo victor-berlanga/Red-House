@@ -14,6 +14,7 @@ def install(app):
         roles=("MEDICAL",),
         paginated=True,
         summary="Historial institucional de propuestas de cobertura, sin reservas automáticas",
+        query=("q", "from_at", "until_at", "date_field", "sort"),
     )
     def proposal_list():
         with transaction() as conn:
@@ -30,7 +31,7 @@ def install(app):
         "/api/v1/rankings",
         roles=("MEDICAL",),
         paginated=True,
-        query=("evaluation_id",),
+        query=("evaluation_id", "q", "from_at", "until_at", "date_field", "sort"),
         summary="Historial propio de rankings operativos",
     )
     def ranking_list():

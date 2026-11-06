@@ -63,6 +63,7 @@ class CampaignCreate(Model):
 
 
 class AppointmentCreate(Model):
+    slot_id: ID | None = None
     donor_id: ID
     campaign_id: ID
 
@@ -117,7 +118,7 @@ def register(app):
         "/api/v1/donors",
         roles=("DONOR", "OPERATOR", "MEDICAL"),
         paginated=True,
-        query=("q", "status"),
+        query=("q", "status", "from_at", "until_at", "date_field", "sort"),
         summary="Expedientes autorizados",
     )
     def donors():
@@ -172,6 +173,10 @@ def register(app):
             donor = get(conn, "donors", identifier, True)
             own(donor["tenant_id"])
             require_active(donor)
+            if data["decision"] == "ELIGIBLE":
+                from .agenda import require_consent
+
+                require_consent(conn, donor)
             if donor["version"] != data["version"]:
                 raise APIError(
                     "stale_version", "Expediente actualizado; vuelve a revisarlo.", 409
@@ -255,7 +260,7 @@ def register(app):
         "/api/v1/campaigns",
         roles=("DONOR", "OPERATOR", "MEDICAL"),
         paginated=True,
-        query=("q",),
+        query=("q", "from_at", "until_at", "date_field", "sort"),
         summary="Campañas institucionales vigentes",
     )
     def campaigns():
@@ -279,40 +284,10 @@ def register(app):
         summary="Reservar cita sin exceder capacidad",
     )
     def appointment_create(data):
+        from .agenda import book
+
         def work(conn):
-            donor = get(conn, "donors", data["donor_id"], True)
-            donor_access(donor)
-            require_active(donor)
-            campaign = get(conn, "campaigns", data["campaign_id"], True)
-            own(campaign["tenant_id"])
-            count = conn.execute(
-                "SELECT count(*) AS n FROM appointments WHERE campaign_id=%s AND status='BOOKED'",
-                (campaign["id"],),
-            ).fetchone()["n"]
-            if (
-                campaign["status"] != "OPEN"
-                or campaign["ends_at"] <= datetime.now(timezone.utc)
-                or count >= campaign["capacity"]
-            ):
-                raise APIError("campaign_full", "Campaña cerrada o sin cupo.", 409)
-            row = insert(
-                conn,
-                "appointments",
-                dict(id=str(uuid4()), tenant_id=g.actor["tenant_id"], **data),
-            )
-            emit(
-                conn,
-                "APPOINTMENT_BOOKED",
-                row["id"],
-                row["tenant_id"],
-                targets=("auditoria", "alertas"),
-                metadata={
-                    "recipient_user_id": str(donor["user_id"])
-                    if donor["user_id"]
-                    else None
-                },
-            )
-            return row
+            return book(conn, data)
 
         return atomic("appointment_create", data, work)
 
@@ -322,6 +297,7 @@ def register(app):
         roles=("DONOR", "OPERATOR"),
         paginated=True,
         summary="Citas propias o institucionales",
+        query=("q", "from_at", "until_at", "date_field", "sort"),
     )
     def appointments():
         with transaction() as conn:
@@ -386,6 +362,9 @@ def register(app):
             donor = get(conn, "donors", data["donor_id"], True)
             own(donor["tenant_id"])
             require_active(donor)
+            from .agenda import require_consent
+
+            require_consent(conn, donor)
             if donor["status"] != "ELIGIBLE":
                 raise APIError(
                     "human_review_required",
@@ -426,7 +405,7 @@ def register(app):
         "/api/v1/donations",
         roles=("MEDICAL", "OPERATOR"),
         paginated=True,
-        query=("q", "kind", "status"),
+        query=("q", "kind", "status", "from_at", "until_at", "date_field", "sort"),
         summary="Donaciones de la institución sin expediente personal",
     )
     def donations_list():

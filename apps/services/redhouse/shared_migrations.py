@@ -4,7 +4,7 @@ from pathlib import Path
 
 from psycopg import sql
 
-LATEST_VERSION = 7
+LATEST_VERSION = 16
 
 
 def upgrade(conn):
@@ -17,6 +17,17 @@ def upgrade(conn):
     if 7 not in installed:
         path = Path(__file__).resolve().parent / "shared_migrations/007.sql"
         conn.execute(path.read_text())
+    for version in range(8, LATEST_VERSION + 1):
+        if version not in installed:
+            path = (
+                Path(__file__).resolve().parent / f"shared_migrations/{version:03}.sql"
+            )
+            conn.execute(path.read_text())
+    # Repetible después de crear cuentas en una instalación nueva.
+    from .extension_schema import grants, views
+
+    views(conn)
+    grants(conn)
     # También se aplica después de crear las credenciales en instalaciones nuevas.
     if conn.execute("SELECT 1 FROM pg_roles WHERE rolname='rh_auditoria'").fetchone():
         for table in ("audit_findings", "audit_finding_links", "audit_finding_actions"):

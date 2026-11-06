@@ -1,0 +1,108 @@
+{
+  "passed": false,
+  "scope": "ACADEMIC with MFA/reauth/laboratory/organ checks explicitly enabled",
+  "apiListeners": "ALL_STOPPED",
+  "checks": [
+    {
+      "name": "MFA y cookie Secure, backend modular sin API",
+      "result": "PASS"
+    },
+    {
+      "name": "Cuatro niveles y límites visibles",
+      "result": "PASS"
+    },
+    {
+      "name": "Liberación académica con perfil y reautenticación persistida",
+      "result": "PASS"
+    },
+    {
+      "name": "Evaluación de perfil y dictamen humano separados",
+      "result": "PASS"
+    },
+    {
+      "name": "ALG-01 por formulario, persistencia y reproducción",
+      "result": "PASS"
+    },
+    {
+      "name": "ALG-02 por formulario, persistencia y reproducción",
+      "result": "PASS"
+    },
+    {
+      "name": "ALG-02-GEO por formulario, persistencia y reproducción",
+      "result": "PASS"
+    },
+    {
+      "name": "ALG-03 por formulario, persistencia y reproducción",
+      "result": "PASS"
+    },
+    {
+      "name": "ALG-04 por formulario, persistencia y reproducción",
+      "result": "PASS"
+    },
+    {
+      "name": "ALG-05 por formulario, persistencia y reproducción",
+      "result": "PASS"
+    }
+  ],
+  "runs": [
+    "2c5d5b59-13e0-4406-a453-7d44ec18a39a",
+    "0ab3ecf6-6567-4144-8fdc-515ab8995031",
+    "32e36213-b189-4918-83b6-0b11ecdee306",
+    "5abf1a26-a9ec-41ce-8913-068bf4372b95",
+    "448d08ac-95d5-40df-a9ab-40a082ae8984",
+    "91b5929e-35dd-4b93-b0c1-197f29ef435f"
+  ],
+  "consoleErrors": [],
+  "networkErrors": [
+    {
+      "path": "/apoyo-decisiones/2c5d5b59-13e0-4406-a453-7d44ec18a39a",
+      "status": 500
+    },
+    {
+      "path": "/apoyo-decisiones/2c5d5b59-13e0-4406-a453-7d44ec18a39a",
+      "status": 500
+    },
+    {
+      "path": "/apoyo-decisiones/0ab3ecf6-6567-4144-8fdc-515ab8995031",
+      "status": 500
+    },
+    {
+      "path": "/apoyo-decisiones/0ab3ecf6-6567-4144-8fdc-515ab8995031",
+      "status": 500
+    },
+    {
+      "path": "/apoyo-decisiones/32e36213-b189-4918-83b6-0b11ecdee306",
+      "status": 500
+    },
+    {
+      "path": "/apoyo-decisiones/32e36213-b189-4918-83b6-0b11ecdee306",
+      "status": 500
+    },
+    {
+      "path": "/apoyo-decisiones/5abf1a26-a9ec-41ce-8913-068bf4372b95",
+      "status": 500
+    },
+    {
+      "path": "/apoyo-decisiones/5abf1a26-a9ec-41ce-8913-068bf4372b95",
+      "status": 500
+    },
+    {
+      "path": "/apoyo-decisiones/448d08ac-95d5-40df-a9ab-40a082ae8984",
+      "status": 500
+    },
+    {
+      "path": "/apoyo-decisiones/448d08ac-95d5-40df-a9ab-40a082ae8984",
+      "status": 500
+    },
+    {
+      "path": "/apoyo-decisiones/91b5929e-35dd-4b93-b0c1-197f29ef435f",
+      "status": 500
+    },
+    {
+      "path": "/apoyo-decisiones/91b5929e-35dd-4b93-b0c1-197f29ef435f",
+      "status": 500
+    }
+  ],
+  "failure": "false == true",
+  "location": "    at /Users/victorberlanga/Programacion/integracion/Red-House/scripts/verify_stage02.cjs:26:43"
+}

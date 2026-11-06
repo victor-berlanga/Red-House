@@ -150,6 +150,13 @@ def resource_detail(identifier):
         actions.append(
             ("Liberación médica", url_for("inventory.release", identifier=identifier))
         )
+    if g.principal.role_code == "MEDICAL":
+        actions.append(
+            (
+                "Registrar o corregir destino",
+                url_for("inventory.destination", identifier=identifier),
+            )
+        )
     return detail(
         row["folio"],
         "inventory" if row["kind"] == "BLOOD" else "organos",

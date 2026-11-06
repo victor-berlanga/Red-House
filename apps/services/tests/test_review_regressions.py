@@ -11,6 +11,7 @@ from lxml import etree as E
 from ms_donantes.routes import DonorCreate
 from ms_transporte.routes import Transition
 from redhouse.codec import parse, request_xsd
+from redhouse.examples import request_xml
 from redhouse.errors import APIError
 
 from .helpers import (
@@ -32,9 +33,19 @@ def test_nested_evidence_json_xml_parity():
     app = Flask(__name__)
     identifier = str(uuid4())
     body = dict(
-        CONFIRM, state="DELIVERED", version=1, evidence={"object_id": identifier}
+        CONFIRM,
+        state="DELIVERED",
+        version=1,
+        evidence={"object_id": identifier},
+        custody={
+            "scanned_resource_id": identifier,
+            "seal": "SYNTHETIC-SEAL",
+            "reported_handover_user_id": identifier,
+            "captured_at": iso(),
+            "electronic_acceptance": True,
+        },
     )
-    xml = f"<request><human_confirmation>true</human_confirmation><reason>{CONFIRM['reason']}</reason><state>DELIVERED</state><version>1</version><evidence><object_id>{identifier}</object_id></evidence></request>"
+    xml = request_xml(body)
     with app.test_request_context(
         "/", method="POST", data=json.dumps(body), content_type="application/json"
     ):
@@ -69,6 +80,19 @@ def test_expired_shipment_cannot_advance_or_fulfill(p, previous, target, user):
         conn.execute(
             "UPDATE shipments SET status=%s WHERE id=%s", (previous, shipment["id"])
         )
+    custody = (
+        {
+            "scanned_resource_id": unit["id"],
+            "seal": "SYNTHETIC-SEAL",
+            "reported_handover_user_id": p.env.state["accounts"][
+                "operator1" if target == "COLLECTED" else "transport1"
+            ]["id"],
+            "captured_at": iso(),
+            "electronic_acceptance": True,
+        }
+        if target in ("COLLECTED", "ACCEPTED")
+        else None
+    )
     future = datetime.now(timezone.utc) + timedelta(days=10)
     with patch("ms_transporte.routes.datetime") as clock:
         clock.now.return_value = future
@@ -77,7 +101,9 @@ def test_expired_shipment_cannot_advance_or_fulfill(p, previous, target, user):
             "POST",
             f"/api/v1/shipments/{shipment['id']}/transitions",
             user=user,
-            data=dict(CONFIRM, state=target, version=shipment["version"]),
+            data=dict(
+                CONFIRM, state=target, version=shipment["version"], custody=custody
+            ),
         )
     assert response.status_code == 409
     assert response.json()["error"]["code"] == "expired_resource"
@@ -216,7 +242,7 @@ def test_catalogues_scope_version_and_dependencies(p):
             "address": "Dirección ficticia",
         },
     )
-    location = p.ok(
+    _location = p.ok(
         "identidad_acceso",
         "POST",
         "/api/v1/catalogues/locations",
@@ -359,18 +385,18 @@ def test_configured_storage_health_does_not_report_unconfigured(p, monkeypatch):
     from unittest.mock import Mock
 
     monkeypatch.setitem(
-        p.apps["transporte"].config, "GCS_BUCKET", "isolated-test-bucket"
+        p.apps["documentos"].config, "GCS_BUCKET", "isolated-test-bucket"
     )
     target = Mock()
     with patch("redhouse.storage.bucket", return_value=target):
         target.list_blobs.side_effect = RuntimeError("storage_unavailable")
         assert (
-            p.request("transporte", "GET", "/health/storage", user=None).status_code
+            p.request("documentos", "GET", "/health/storage", user=None).status_code
             == 503
         )
         target.list_blobs.side_effect = None
         target.list_blobs.return_value = []
-        assert p.request("transporte", "GET", "/health/storage", user=None).json()[
+        assert p.request("documentos", "GET", "/health/storage", user=None).json()[
             "data"
         ] == {"state": "up", "required": True}
 

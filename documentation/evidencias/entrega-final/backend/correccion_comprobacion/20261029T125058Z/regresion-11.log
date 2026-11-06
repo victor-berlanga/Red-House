@@ -1,0 +1,42 @@
+.................................................FFF.
+=================================== FAILURES ===================================
+______ test_received_quarantine_new_use_and_documentary_correction[json] _______
+apps/services/tests/test_correction_backend.py:704: in test_received_quarantine_new_use_and_documentary_correction
+    unit = p.ok("inventario", "GET", f"/api/v1/resources/{unit['id']}", user="medical2")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+apps/services/tests/conftest.py:57: in ok
+    assert response.status_code < 300, (response.status_code, response.text)
+E   AssertionError: (403, '{"error": {"code": "forbidden", "message": "Recurso de otra institución.", "details": []}, "meta": {"correlation_id": "3deca2b1-9823-4169-89d4-0c632c4360db", "service": "inventario", "version": "0.4.1"}}')
+E   assert 403 < 300
+E    +  where 403 = <Response [403]>.status_code
+_______ test_received_quarantine_new_use_and_documentary_correction[xml] _______
+apps/services/tests/test_correction_backend.py:704: in test_received_quarantine_new_use_and_documentary_correction
+    unit = p.ok("inventario", "GET", f"/api/v1/resources/{unit['id']}", user="medical2")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+apps/services/tests/conftest.py:57: in ok
+    assert response.status_code < 300, (response.status_code, response.text)
+E   AssertionError: (403, '{"error": {"code": "forbidden", "message": "Recurso de otra institución.", "details": []}, "meta": {"correlation_id": "b763a145-b107-4856-a766-5804c9fae78f", "service": "inventario", "version": "0.4.1"}}')
+E   assert 403 < 300
+E    +  where 403 = <Response [403]>.status_code
+_____________ test_new_event_classification_visibility_and_export ______________
+apps/services/tests/test_correction_backend.py:837: in test_new_event_classification_visibility_and_export
+    assert all(item["category"] != "UNKNOWN" for item in rows["items"])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+apps/services/tests/test_correction_backend.py:837: in <genexpr>
+    assert all(item["category"] != "UNKNOWN" for item in rows["items"])
+               ^^^^^^^^^^^^^^^^
+E   KeyError: 'category'
+=============================== warnings summary ===============================
+tests/test_correction_backend.py::test_empirical_forecast_positive_independent_oracle
+  tests/test_correction_backend.py:605: PytestWarning: record_property is incompatible with junit_family 'xunit2' (use 'legacy' or 'xunit1')
+    def test_empirical_forecast_positive_independent_oracle(p, record_property):
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED apps/services/tests/test_correction_backend.py::test_received_quarantine_new_use_and_documentary_correction[json]
+FAILED apps/services/tests/test_correction_backend.py::test_received_quarantine_new_use_and_documentary_correction[xml]
+FAILED apps/services/tests/test_correction_backend.py::test_new_event_classification_visibility_and_export
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! KeyboardInterrupt !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/socket.py:720: KeyboardInterrupt
+(to show a full traceback on KeyboardInterrupt use --full-trace)
+3 failed, 50 passed, 1 deselected, 1 warning in 1257.86s (0:20:57)

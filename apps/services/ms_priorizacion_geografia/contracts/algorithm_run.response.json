@@ -1,0 +1,775 @@
+{
+  "type": "object",
+  "required": [
+    "data",
+    "meta"
+  ],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": [
+        "correlation_id",
+        "service",
+        "version"
+      ],
+      "properties": {
+        "correlation_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "service": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      }
+    },
+    "data": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "tenant_id": {
+          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+          "title": "Tenant Id",
+          "type": "string"
+        },
+        "author_id": {
+          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+          "title": "Author Id",
+          "type": "string"
+        },
+        "algorithm_version": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Algorithm Version",
+          "type": "string"
+        },
+        "source": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Source",
+          "type": "string"
+        },
+        "snapshot": {
+          "additionalProperties": false,
+          "properties": {
+            "algorithm_version": {
+              "enum": [
+                "EXPLAIN-ACADEMIC-1.0",
+                "LOGISTICS-SIM-2.0",
+                "ROUTE-DIJKSTRA-1.0",
+                "DEMAND-SES-1.0",
+                "CONSISTENCY-1.0"
+              ],
+              "title": "Algorithm Version",
+              "type": "string"
+            },
+            "synthetic": {
+              "const": true,
+              "title": "Synthetic",
+              "type": "boolean"
+            },
+            "source": {
+              "maxLength": 200,
+              "minLength": 1,
+              "title": "Source",
+              "type": "string"
+            },
+            "as_of": {
+              "maxLength": 200,
+              "minLength": 1,
+              "title": "As Of",
+              "type": "string"
+            },
+            "component": {
+              "maxLength": 200,
+              "minLength": 1,
+              "title": "Component",
+              "type": "string"
+            },
+            "profile_version": {
+              "maxLength": 200,
+              "minLength": 1,
+              "title": "Profile Version",
+              "type": "string"
+            },
+            "required_tests": {
+              "items": {
+                "maxLength": 200,
+                "minLength": 1,
+                "type": "string"
+              },
+              "maxItems": 80,
+              "title": "Required Tests",
+              "type": "array"
+            },
+            "candidates": {
+              "items": {
+                "additionalProperties": false,
+                "properties": {
+                  "identifier": {
+                    "maxLength": 200,
+                    "minLength": 1,
+                    "title": "Identifier",
+                    "type": "string"
+                  },
+                  "component": {
+                    "maxLength": 200,
+                    "minLength": 1,
+                    "title": "Component",
+                    "type": "string"
+                  },
+                  "available": {
+                    "title": "Available",
+                    "type": "boolean"
+                  },
+                  "expired": {
+                    "title": "Expired",
+                    "type": "boolean"
+                  },
+                  "thermal_incident": {
+                    "title": "Thermal Incident",
+                    "type": "boolean"
+                  },
+                  "tests": {
+                    "items": {
+                      "maxLength": 200,
+                      "minLength": 1,
+                      "type": "string"
+                    },
+                    "maxItems": 80,
+                    "title": "Tests",
+                    "type": "array"
+                  },
+                  "urgency": {
+                    "anyOf": [
+                      {
+                        "minimum": 0,
+                        "type": "number"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "default": null,
+                    "title": "Urgency"
+                  },
+                  "urgency_source": {
+                    "anyOf": [
+                      {
+                        "maxLength": 200,
+                        "minLength": 1,
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "default": null,
+                    "title": "Urgency Source"
+                  },
+                  "waiting_minutes": {
+                    "anyOf": [
+                      {
+                        "minimum": 0,
+                        "type": "number"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "default": null,
+                    "title": "Waiting Minutes"
+                  },
+                  "expiry_minutes": {
+                    "anyOf": [
+                      {
+                        "minimum": 0,
+                        "type": "number"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "default": null,
+                    "title": "Expiry Minutes"
+                  },
+                  "travel_minutes": {
+                    "anyOf": [
+                      {
+                        "minimum": 0,
+                        "type": "number"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "default": null,
+                    "title": "Travel Minutes"
+                  },
+                  "distance_km": {
+                    "anyOf": [
+                      {
+                        "minimum": 0,
+                        "type": "number"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "default": null,
+                    "title": "Distance Km"
+                  }
+                },
+                "required": [
+                  "identifier",
+                  "component",
+                  "available",
+                  "expired",
+                  "thermal_incident"
+                ],
+                "title": "Candidate",
+                "type": "object"
+              },
+              "maxItems": 2000,
+              "title": "Candidates",
+              "type": "array"
+            },
+            "edges": {
+              "items": {
+                "additionalProperties": false,
+                "properties": {
+                  "origin": {
+                    "maxLength": 200,
+                    "minLength": 1,
+                    "title": "Origin",
+                    "type": "string"
+                  },
+                  "destination": {
+                    "maxLength": 200,
+                    "minLength": 1,
+                    "title": "Destination",
+                    "type": "string"
+                  },
+                  "minutes": {
+                    "minimum": 0,
+                    "title": "Minutes",
+                    "type": "number"
+                  },
+                  "distance_km": {
+                    "minimum": 0,
+                    "title": "Distance Km",
+                    "type": "number"
+                  },
+                  "blocked": {
+                    "default": false,
+                    "title": "Blocked",
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "origin",
+                  "destination",
+                  "minutes",
+                  "distance_km"
+                ],
+                "title": "Edge",
+                "type": "object"
+              },
+              "maxItems": 10000,
+              "title": "Edges",
+              "type": "array"
+            },
+            "origin": {
+              "anyOf": [
+                {
+                  "maxLength": 200,
+                  "minLength": 1,
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Origin"
+            },
+            "destination": {
+              "anyOf": [
+                {
+                  "maxLength": 200,
+                  "minLength": 1,
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Destination"
+            },
+            "graph_observed_at": {
+              "anyOf": [
+                {
+                  "maxLength": 200,
+                  "minLength": 1,
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Graph Observed At"
+            },
+            "observation": {
+              "anyOf": [
+                {
+                  "additionalProperties": false,
+                  "properties": {
+                    "latitude": {
+                      "maximum": 90,
+                      "minimum": -90,
+                      "title": "Latitude",
+                      "type": "number"
+                    },
+                    "longitude": {
+                      "maximum": 180,
+                      "minimum": -180,
+                      "title": "Longitude",
+                      "type": "number"
+                    },
+                    "captured_at": {
+                      "maxLength": 200,
+                      "minLength": 1,
+                      "title": "Captured At",
+                      "type": "string"
+                    },
+                    "received_at": {
+                      "maxLength": 200,
+                      "minLength": 1,
+                      "title": "Received At",
+                      "type": "string"
+                    },
+                    "source": {
+                      "maxLength": 200,
+                      "minLength": 1,
+                      "title": "Source",
+                      "type": "string"
+                    },
+                    "accuracy_m": {
+                      "minimum": 0,
+                      "title": "Accuracy M",
+                      "type": "number"
+                    },
+                    "simulated": {
+                      "title": "Simulated",
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "latitude",
+                    "longitude",
+                    "captured_at",
+                    "received_at",
+                    "source",
+                    "accuracy_m",
+                    "simulated"
+                  ],
+                  "title": "Observation",
+                  "type": "object"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null
+            },
+            "websocket_track": {
+              "items": {
+                "additionalProperties": false,
+                "properties": {
+                  "latitude": {
+                    "maximum": 90,
+                    "minimum": -90,
+                    "title": "Latitude",
+                    "type": "number"
+                  },
+                  "longitude": {
+                    "maximum": 180,
+                    "minimum": -180,
+                    "title": "Longitude",
+                    "type": "number"
+                  },
+                  "captured_at": {
+                    "maxLength": 200,
+                    "minLength": 1,
+                    "title": "Captured At",
+                    "type": "string"
+                  },
+                  "received_at": {
+                    "maxLength": 200,
+                    "minLength": 1,
+                    "title": "Received At",
+                    "type": "string"
+                  },
+                  "source": {
+                    "maxLength": 200,
+                    "minLength": 1,
+                    "title": "Source",
+                    "type": "string"
+                  },
+                  "accuracy_m": {
+                    "minimum": 0,
+                    "title": "Accuracy M",
+                    "type": "number"
+                  },
+                  "simulated": {
+                    "title": "Simulated",
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "latitude",
+                  "longitude",
+                  "captured_at",
+                  "received_at",
+                  "source",
+                  "accuracy_m",
+                  "simulated"
+                ],
+                "title": "Observation",
+                "type": "object"
+              },
+              "maxItems": 2000,
+              "title": "Websocket Track",
+              "type": "array"
+            },
+            "history": {
+              "items": {
+                "minimum": 0,
+                "type": "number"
+              },
+              "maxItems": 10000,
+              "title": "History",
+              "type": "array"
+            },
+            "window_days": {
+              "default": 1,
+              "maximum": 365,
+              "minimum": 1,
+              "title": "Window Days",
+              "type": "integer"
+            },
+            "stock": {
+              "default": 0,
+              "minimum": 0,
+              "title": "Stock",
+              "type": "number"
+            },
+            "lots": {
+              "items": {
+                "additionalProperties": false,
+                "properties": {
+                  "identifier": {
+                    "maxLength": 200,
+                    "minLength": 1,
+                    "title": "Identifier",
+                    "type": "string"
+                  },
+                  "quantity": {
+                    "minimum": 0,
+                    "title": "Quantity",
+                    "type": "number"
+                  },
+                  "expires_at": {
+                    "maxLength": 200,
+                    "minLength": 1,
+                    "title": "Expires At",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "identifier",
+                  "quantity",
+                  "expires_at"
+                ],
+                "title": "Lot",
+                "type": "object"
+              },
+              "maxItems": 2000,
+              "title": "Lots",
+              "type": "array"
+            },
+            "records": {
+              "items": {
+                "additionalProperties": false,
+                "properties": {
+                  "identifier": {
+                    "maxLength": 200,
+                    "minLength": 1,
+                    "title": "Identifier",
+                    "type": "string"
+                  },
+                  "resource_id": {
+                    "maxLength": 200,
+                    "minLength": 1,
+                    "title": "Resource Id",
+                    "type": "string"
+                  },
+                  "reserved": {
+                    "default": false,
+                    "title": "Reserved",
+                    "type": "boolean"
+                  },
+                  "quantity": {
+                    "default": 1,
+                    "minimum": 0,
+                    "title": "Quantity",
+                    "type": "number"
+                  },
+                  "available_quantity": {
+                    "default": 1,
+                    "minimum": 0,
+                    "title": "Available Quantity",
+                    "type": "number"
+                  },
+                  "sequence": {
+                    "default": 1,
+                    "minimum": 1,
+                    "title": "Sequence",
+                    "type": "integer"
+                  },
+                  "provenance": {
+                    "anyOf": [
+                      {
+                        "maxLength": 200,
+                        "minLength": 1,
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "default": null,
+                    "title": "Provenance"
+                  },
+                  "sample_subject": {
+                    "anyOf": [
+                      {
+                        "maxLength": 200,
+                        "minLength": 1,
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "default": null,
+                    "title": "Sample Subject"
+                  },
+                  "subject": {
+                    "anyOf": [
+                      {
+                        "maxLength": 200,
+                        "minLength": 1,
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "default": null,
+                    "title": "Subject"
+                  },
+                  "thermal_incoherent": {
+                    "default": false,
+                    "title": "Thermal Incoherent",
+                    "type": "boolean"
+                  },
+                  "projection_version": {
+                    "default": 1,
+                    "title": "Projection Version",
+                    "type": "integer"
+                  },
+                  "source_version": {
+                    "default": 1,
+                    "title": "Source Version",
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "identifier",
+                  "resource_id"
+                ],
+                "title": "Record",
+                "type": "object"
+              },
+              "maxItems": 10000,
+              "title": "Records",
+              "type": "array"
+            }
+          },
+          "required": [
+            "algorithm_version",
+            "synthetic",
+            "source",
+            "as_of",
+            "component",
+            "profile_version"
+          ],
+          "title": "Experiment",
+          "type": "object"
+        },
+        "result": {
+          "additionalProperties": false,
+          "properties": {
+            "findings": {
+              "items": {
+                "additionalProperties": false,
+                "properties": {
+                  "identifier": {
+                    "title": "Identifier",
+                    "type": "string"
+                  },
+                  "outcome": {
+                    "title": "Outcome",
+                    "type": "string"
+                  },
+                  "reasons": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "title": "Reasons",
+                    "type": "array"
+                  }
+                },
+                "required": [
+                  "identifier",
+                  "outcome",
+                  "reasons"
+                ],
+                "title": "Finding",
+                "type": "object"
+              },
+              "title": "Findings",
+              "type": "array"
+            },
+            "path": {
+              "items": {
+                "type": "string"
+              },
+              "title": "Path",
+              "type": "array"
+            },
+            "metrics": {
+              "items": {
+                "additionalProperties": false,
+                "properties": {
+                  "name": {
+                    "title": "Name",
+                    "type": "string"
+                  },
+                  "value": {
+                    "title": "Value",
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "name",
+                  "value"
+                ],
+                "title": "Metric",
+                "type": "object"
+              },
+              "title": "Metrics",
+              "type": "array"
+            },
+            "clinical_approval": {
+              "const": false,
+              "default": false,
+              "title": "Clinical Approval",
+              "type": "boolean"
+            },
+            "estimated_arrival_at": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Estimated Arrival At"
+            },
+            "eta_basis": {
+              "default": "UNAVAILABLE",
+              "title": "Eta Basis",
+              "type": "string"
+            },
+            "professional_verdict": {
+              "const": "NOT_ISSUED",
+              "default": "NOT_ISSUED",
+              "title": "Professional Verdict",
+              "type": "string"
+            },
+            "limitations": {
+              "items": {
+                "type": "string"
+              },
+              "title": "Limitations",
+              "type": "array"
+            }
+          },
+          "required": [
+            "limitations"
+          ],
+          "title": "Output",
+          "type": "object"
+        },
+        "fingerprint": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Fingerprint",
+          "type": "string"
+        },
+        "elapsed_ms": {
+          "title": "Elapsed Ms",
+          "type": "number"
+        },
+        "synthetic": {
+          "const": true,
+          "title": "Synthetic",
+          "type": "boolean"
+        },
+        "created_at": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Created At",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "tenant_id",
+        "author_id",
+        "algorithm_version",
+        "source",
+        "snapshot",
+        "result",
+        "fingerprint",
+        "elapsed_ms",
+        "synthetic",
+        "created_at"
+      ],
+      "title": "Run",
+      "type": "object"
+    }
+  }
+}

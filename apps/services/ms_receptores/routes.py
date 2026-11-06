@@ -163,7 +163,7 @@ def register(app):
         "/api/v1/recipients",
         roles=("MEDICAL", "OPERATOR"),
         paginated=True,
-        query=("q", "kind"),
+        query=("q", "kind", "from_at", "until_at", "date_field", "sort"),
         summary="Expedientes de la propia institución",
     )
     def recipients():
@@ -255,7 +255,7 @@ def register(app):
         "/api/v1/requests",
         roles=("MEDICAL", "OPERATOR"),
         paginated=True,
-        query=("kind", "status"),
+        query=("kind", "status", "from_at", "until_at", "date_field", "sort", "q"),
         summary="Solicitudes institucionales y cobertura",
     )
     def requests_list():
@@ -375,6 +375,9 @@ def register(app):
                         "operation_conflict", "Operación vinculada a otra reserva.", 409
                     )
                 return old
+            from .authorizations import require_authorization
+
+            require_authorization(conn, req)
             count = conn.execute(
                 "SELECT count(*) AS n FROM holds WHERE request_id=%s AND status<>'RELEASED'",
                 (req["id"],),

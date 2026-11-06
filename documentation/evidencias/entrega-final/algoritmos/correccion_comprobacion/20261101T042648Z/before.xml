@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="2" failures="1" skipped="0" tests="3" time="13.367" timestamp="2026-10-31T22:27:06.862046-06:00" hostname="Victors-MacBook-Air.local"><testcase classname="tests.test_stage02_corrections" name="test_hla_one_field_is_not_reported_allele" time="0.729"><failure message="Failed: DID NOT RAISE ValidationError">apps/services/tests/test_stage02_corrections.py:21: in test_hla_one_field_is_not_reported_allele
+    with pytest.raises(ValidationError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValidationError</failure></testcase><testcase classname="tests.test_stage02_corrections" name="test_recipient_organ_profile_mismatch_rejected" time="9.861"><error message="failed on setup with &quot;PermissionError: [Errno 1] Operation not permitted&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:153: in init
+    pgport, redisport, mongoport = free_port(), free_port(), free_port()
+                                   ^^^^^^^^^^^
+apps/services/scripts/local.py:35: in free_port
+    sock.bind(("127.0.0.1", 0))
+E   PermissionError: [Errno 1] Operation not permitted</error></testcase><testcase classname="tests.test_stage02_corrections" name="test_future_profile_cannot_collect_sample" time="0.004"><error message="failed on setup with &quot;PermissionError: [Errno 1] Operation not permitted&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:153: in init
+    pgport, redisport, mongoport = free_port(), free_port(), free_port()
+                                   ^^^^^^^^^^^
+apps/services/scripts/local.py:35: in free_port
+    sock.bind(("127.0.0.1", 0))
+E   PermissionError: [Errno 1] Operation not permitted</error></testcase></testsuite></testsuites>

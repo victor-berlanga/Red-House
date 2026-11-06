@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="112.473" timestamp="2026-10-29T09:39:56.960792-06:00" hostname="Victors-MacBook-Air.local"><testcase classname="tests.test_correction_deploy_verifier" name="test_compose_verifier_uses_current_custody_contract[BLOOD-RBC]" time="111.617"><failure message="AssertionError: ('documentos', 404, '{&quot;error&quot;: {&quot;code&quot;: &quot;http_error&quot;, &quot;message&quot;: &quot;Petición no disponible o inválida.&quot;, &quot;details&quot;: []}, &quot;meta&quot;: {&quot;correlation_id&quot;: &quot;9b65a53f-06a3-4d11-8d52-8541ef00623a&quot;, &quot;service&quot;: &quot;documentos&quot;, &quot;version&quot;: &quot;0.4.1&quot;}}')">apps/services/tests/test_correction_deploy_verifier.py:35: in test_compose_verifier_uses_current_custody_contract
+    verifier.business_reads()
+deployment/verify.py:234: in business_reads
+    assert response.status_code == 200, (
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   AssertionError: ('documentos', 404, '{"error": {"code": "http_error", "message": "Petición no disponible o inválida.", "details": []}, "meta": {"correlation_id": "9b65a53f-06a3-4d11-8d52-8541ef00623a", "service": "documentos", "version": "0.4.1"}}')</failure></testcase></testsuite></testsuites>

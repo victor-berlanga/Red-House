@@ -1,5 +1,7 @@
 # Red House en Google Compute Engine
 
+> Estado comprobado el 02/11/2026: portal **https://34.18.186.116**, release **0.4.4 / esquema 16**, 30 contenedores sanos. Compatibilidad/Geografía 0.4.4; otros módulos conservan su versión propia 0.4.1, con fuentes e imágenes cotejadas. [Publicación, respaldo, comprobaciones y límites](../../documentation/evidencias/gcp/etapa02-20261102/RESULTADOS.md). La evidencia anterior conserva su fecha.
+
 VM `red-house`, proyecto `sistemas-integracion-01`, zona `me-central1-a`. Referencia: `maquina01`, con CentOS Stream 10, tipo `e2-standard-2` (2 vCPU, 8 GB de RAM), disco `pd-standard` de 20 GB, red `default`, OS Login y las mismas opciones de Shielded VM. Se utilizó su imagen de origen `centos-stream-10-v20260609`.
 
 El proyecto reside en `/opt/redhouse` y se ejecuta por completo en la VM: monolito, microservicios, PostgreSQL, MongoDB, Redis y workers. Docker Compose conserva dos instancias por API. Los archivos privados permanecen en Google Cloud Storage. Los datos remotos y locales son copias independientes: los cambios posteriores no se sincronizan.
@@ -25,6 +27,7 @@ Swagger de Inventario: **https://34.18.186.116/services/inventario/docs/**. Cada
 | Alertas | `/services/alertas` |
 | Auditoría | `/services/auditoria` |
 | Monitoreo | `/services/monitoreo` |
+| Documentos y reportes | `/services/documentos` |
 
 Agregar `/docs/`, `/openapi.json`, `/health/live` o la ruta del contrato, por ejemplo `/api/v1/resources`. Las rutas `/internal/` quedan bloqueadas en la entrada pública. PostgreSQL, MongoDB y Redis no tienen puertos publicados. La comunicación interna entre componentes conserva sus direcciones Docker.
 
@@ -137,3 +140,11 @@ La herramienta realiza otro respaldo PostgreSQL privado y aplica la migración a
 [`verify_audit_forms.cjs`](verify_audit_forms.cjs) recibe por stdin `password`, `coordinator` y `output`, usando Chrome/Playwright. Envía cuatro formularios de donante inválidos y conserva un hallazgo ficticio cerrado; no se ejecuta en el arranque. [`verify_audit_forms.py`](verify_audit_forms.py), dentro de la VM, recibe `--finding`, `--resource` y `--output`; consulta JSON/XML, permisos, historial, avisos y detalles seguros de validación. Ambos requieren una verificación autorizada del entorno académico.
 
 Referencias utilizadas: [crear VM con gcloud](https://docs.cloud.google.com/sdk/gcloud/reference/compute/instances/create), [Docker en CentOS](https://docs.docker.com/engine/install/centos/), [firma de URLs de GCS](https://docs.cloud.google.com/storage/docs/access-control/signing-urls-with-helpers), [certificados IP con Certbot](https://letsencrypt.org/2026/03/11/shorter-certs-certbot/) y [Waitress detrás de un proxy](https://docs.pylonsproject.org/projects/waitress/en/stable/reverse-proxy.html).
+
+## Actualización correctiva del 31 de octubre
+
+El migrador `apps/services/scripts/upgrade_compose.py` admite el estado de la instalación v7: conserva la contraseña Redis administrativa existente y limita el permiso CREATE del dueño del esquema a la transacción de actualización. No ejecutar bootstrap de instalación sobre una base poblada. Mantener respaldo verificado y escritores detenidos.
+
+Después de `configure.py`, ejecutar `configure_scanner.py` para incorporar ClamAV privado y sus dependencias al override GCS, antes de `configure_public.py` y `deployment/start.py`. El escáner no publica puertos y conserva firmas en un volumen propio. `deployment/backup.py` incluye los overrides y TLS en el respaldo privado y contempla el escáner al reanudar aplicaciones. Conservar directorios de fuentes con modo 755 y archivos legibles por UID 10001 al transferir; la configuración privada mantiene permisos restringidos.
+
+La demostración usa `deployment/gcp/prepare_correction_demo.py --directory DIRECTORIO_PRIVADO` con una copia local preexistente de las credenciales ficticias. Conserva factores MFA y checkpoint privados, reutiliza registros al reanudar y nunca imprime secretos. `scripts/demonstrate_gcp_corrections.cjs` recibe la entrada por stdin, abre Chrome visible y no captura pantalla ni graba. `deployment/gcp/verify_correction_contracts.py` comprueba lecturas JSON/XML contra DTO/XSD. Ejecutarlos solo bajo autorización de cuentas y datos ficticios; no forman parte del arranque normal.

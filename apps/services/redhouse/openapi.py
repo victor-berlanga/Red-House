@@ -64,6 +64,7 @@ def spec(app):
 
     prefix = app.config.get("PUBLIC_API_PREFIX", "")
     paths, schemas = {}, {"Error": ERROR}
+    responses = {}
     for contract in app.extensions["contracts"]:
         path = re.sub(r"<(?:(?:[^:>]+):)?([^>]+)>", r"{\1}", contract["path"])
         parameters = [
@@ -151,6 +152,16 @@ def spec(app):
                     "schema": {"type": "string", "minLength": 8, "maxLength": 100},
                 }
             )
+        if contract["name"] in app.config.get("REAUTH_REQUIRED_OPERATIONS", ()):
+            parameters.append(
+                {
+                    "name": "X-Reauthentication-Proof",
+                    "in": "header",
+                    "required": True,
+                    "description": "Comprobante de /api/v1/auth/reauthenticate ligado a sesión, operación y recurso; vigencia 120 segundos.",
+                    "schema": {"type": "string", "minLength": 40, "maxLength": 200},
+                }
+            )
         from .output_schemas import result_schema
 
         result = contract["result"] or result_schema(
@@ -161,6 +172,9 @@ def spec(app):
             "required": ["data", "meta"],
             "properties": {"data": result, "meta": META},
         }
+        response_name = "Response_" + contract["name"]
+        schemas[response_name] = schema
+        schema = {"$ref": f"#/components/schemas/{response_name}"}
         example = {
             "data": sample(result),
             "meta": {
@@ -210,7 +224,7 @@ def spec(app):
                 }
             },
         }
-        for status in (400, 401, 403, 404, 406, 409, 413, 415, 422, 429, 500, 503):
+        for status in (400, 401, 403, 404, 406, 409, 412, 413, 415, 422, 429, 500, 503):
             error_example = {
                 "error": {
                     "code": {
@@ -220,6 +234,7 @@ def spec(app):
                         404: "not_found",
                         406: "not_acceptable",
                         409: "conflict",
+                        412: "stale_version",
                         413: "http_error",
                         415: "unsupported_media",
                         422: "validation",
@@ -237,7 +252,8 @@ def spec(app):
                 },
                 "meta": example["meta"],
             }
-            operation["responses"][str(status)] = {
+            response_name = f"Error{status}"
+            responses[response_name] = {
                 "description": {
                     401: "Credencial inválida, expirada o revocada.",
                     403: "Sin permiso institucional o de recurso.",
@@ -254,6 +270,9 @@ def spec(app):
                         "example": response_xml(error_example),
                     },
                 },
+            }
+            operation["responses"][str(status)] = {
+                "$ref": f"#/components/responses/{response_name}"
             }
         if contract["model"]:
             model = contract["model"]
@@ -291,6 +310,7 @@ def spec(app):
         "paths": paths,
         "components": {
             "schemas": schemas,
+            "responses": responses,
             "securitySchemes": {
                 "BearerJWT": {
                     "type": "http",

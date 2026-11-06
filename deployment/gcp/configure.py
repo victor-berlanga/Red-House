@@ -7,14 +7,14 @@ from pathlib import Path
 
 def configure(directory, project, bucket):
     directory = directory.resolve()
-    path = directory / "apps/transporte.json"
+    path = directory / "apps/documentos.json"
     config = json.loads(path.read_text())
     config.update(GCS_BUCKET=bucket, GCS_PROJECT=project)
     path.write_text(json.dumps(config, indent=2) + "\n")
     override = {
         "services": {
             name: {"environment": {"GOOGLE_CLOUD_PROJECT": project}}
-            for name in ("web", "transporte-a", "transporte-b")
+            for name in ("web", "documentos-a", "documentos-b")
         }
     }
     (directory / "gcs.compose.yaml").write_text(json.dumps(override, indent=2) + "\n")

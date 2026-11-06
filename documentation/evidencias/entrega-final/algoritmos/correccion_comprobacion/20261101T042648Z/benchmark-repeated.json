@@ -1,0 +1,669 @@
+{
+  "environment": {
+    "python": "3.12.6",
+    "platform": "macOS-15.7.9-x86_64-i386-64bit"
+  },
+  "limits": "Tiempo algor\u00edtmico y asignaciones Python; sin HTTP, RSS ni carga sostenida. Cinco repeticiones no estiman capacidad productiva.",
+  "runs": [
+    {
+      "algorithm": "EXPLAIN-ACADEMIC-1.0",
+      "size": 10,
+      "shape": "sparse/list",
+      "repetitions": 5,
+      "samples": [
+        {
+          "elapsed_ms": 13.927004998549819,
+          "python_peak_bytes": 27027
+        },
+        {
+          "elapsed_ms": 14.272291009547189,
+          "python_peak_bytes": 22888
+        },
+        {
+          "elapsed_ms": 10.167932021431625,
+          "python_peak_bytes": 22818
+        },
+        {
+          "elapsed_ms": 10.940259002381936,
+          "python_peak_bytes": 22818
+        },
+        {
+          "elapsed_ms": 13.467201992170885,
+          "python_peak_bytes": 23202
+        }
+      ],
+      "median_ms": 13.467201992170885,
+      "p95_nearest_rank_ms": 14.272291009547189
+    },
+    {
+      "algorithm": "LOGISTICS-SIM-2.0",
+      "size": 10,
+      "shape": "sparse/list",
+      "repetitions": 5,
+      "samples": [
+        {
+          "elapsed_ms": 40.83169199293479,
+          "python_peak_bytes": 29032
+        },
+        {
+          "elapsed_ms": 33.050271013053134,
+          "python_peak_bytes": 25231
+        },
+        {
+          "elapsed_ms": 26.872194022871554,
+          "python_peak_bytes": 22399
+        },
+        {
+          "elapsed_ms": 21.45112000289373,
+          "python_peak_bytes": 24175
+        },
+        {
+          "elapsed_ms": 33.47145800944418,
+          "python_peak_bytes": 24175
+        }
+      ],
+      "median_ms": 33.050271013053134,
+      "p95_nearest_rank_ms": 40.83169199293479
+    },
+    {
+      "algorithm": "DEMAND-SES-1.0",
+      "size": 10,
+      "shape": "sparse/list",
+      "repetitions": 5,
+      "samples": [
+        {
+          "elapsed_ms": 5.492563999723643,
+          "python_peak_bytes": 7770
+        },
+        {
+          "elapsed_ms": 3.9435939979739487,
+          "python_peak_bytes": 7398
+        },
+        {
+          "elapsed_ms": 4.8322780057787895,
+          "python_peak_bytes": 7334
+        },
+        {
+          "elapsed_ms": 3.5865439858753234,
+          "python_peak_bytes": 7270
+        },
+        {
+          "elapsed_ms": 3.4400279982946813,
+          "python_peak_bytes": 7262
+        }
+      ],
+      "median_ms": 3.9435939979739487,
+      "p95_nearest_rank_ms": 5.492563999723643
+    },
+    {
+      "algorithm": "CONSISTENCY-1.0",
+      "size": 10,
+      "shape": "sparse/list",
+      "repetitions": 5,
+      "samples": [
+        {
+          "elapsed_ms": 6.200668984092772,
+          "python_peak_bytes": 13414
+        },
+        {
+          "elapsed_ms": 6.46688201231882,
+          "python_peak_bytes": 13414
+        },
+        {
+          "elapsed_ms": 5.731900979299098,
+          "python_peak_bytes": 13414
+        },
+        {
+          "elapsed_ms": 6.820517010055482,
+          "python_peak_bytes": 13414
+        },
+        {
+          "elapsed_ms": 7.596576004289091,
+          "python_peak_bytes": 13414
+        }
+      ],
+      "median_ms": 6.46688201231882,
+      "p95_nearest_rank_ms": 7.596576004289091
+    },
+    {
+      "algorithm": "ROUTE-DIJKSTRA-1.0",
+      "size": 10,
+      "shape": "sparse/list",
+      "repetitions": 5,
+      "samples": [
+        {
+          "elapsed_ms": 10.80198201816529,
+          "python_peak_bytes": 12973
+        },
+        {
+          "elapsed_ms": 7.984312018379569,
+          "python_peak_bytes": 12594
+        },
+        {
+          "elapsed_ms": 9.154688013950363,
+          "python_peak_bytes": 12594
+        },
+        {
+          "elapsed_ms": 9.47206700220704,
+          "python_peak_bytes": 12594
+        },
+        {
+          "elapsed_ms": 8.7042489903979,
+          "python_peak_bytes": 12594
+        }
+      ],
+      "median_ms": 9.154688013950363,
+      "p95_nearest_rank_ms": 10.80198201816529
+    },
+    {
+      "algorithm": "COVERAGE-HK-1.0",
+      "size": 10,
+      "shape": "sparse",
+      "repetitions": 5,
+      "samples": [
+        {
+          "elapsed_ms": 0.7381280011031777,
+          "python_peak_bytes": 2744
+        },
+        {
+          "elapsed_ms": 0.7552489987574518,
+          "python_peak_bytes": 2744
+        },
+        {
+          "elapsed_ms": 0.5736890016123652,
+          "python_peak_bytes": 2744
+        },
+        {
+          "elapsed_ms": 0.5888960149604827,
+          "python_peak_bytes": 2744
+        },
+        {
+          "elapsed_ms": 0.6248010031413287,
+          "python_peak_bytes": 2744
+        }
+      ],
+      "median_ms": 0.6248010031413287,
+      "p95_nearest_rank_ms": 0.7552489987574518
+    },
+    {
+      "algorithm": "EXPLAIN-ACADEMIC-1.0",
+      "size": 100,
+      "shape": "sparse/list",
+      "repetitions": 5,
+      "samples": [
+        {
+          "elapsed_ms": 143.56053600204177,
+          "python_peak_bytes": 216421
+        },
+        {
+          "elapsed_ms": 133.8889609905891,
+          "python_peak_bytes": 210834
+        },
+        {
+          "elapsed_ms": 130.60328201390803,
+          "python_peak_bytes": 210834
+        },
+        {
+          "elapsed_ms": 115.33167300513014,
+          "python_peak_bytes": 210642
+        },
+        {
+          "elapsed_ms": 145.04921998013742,
+          "python_peak_bytes": 210834
+        }
+      ],
+      "median_ms": 133.8889609905891,
+      "p95_nearest_rank_ms": 145.04921998013742
+    },
+    {
+      "algorithm": "LOGISTICS-SIM-2.0",
+      "size": 100,
+      "shape": "sparse/list",
+      "repetitions": 5,
+      "samples": [
+        {
+          "elapsed_ms": 245.62186098773964,
+          "python_peak_bytes": 260854
+        },
+        {
+          "elapsed_ms": 247.80201201792806,
+          "python_peak_bytes": 230934
+        },
+        {
+          "elapsed_ms": 273.16083302139305,
+          "python_peak_bytes": 230934
+        },
+        {
+          "elapsed_ms": 286.9150280021131,
+          "python_peak_bytes": 230934
+        },
+        {
+          "elapsed_ms": 282.031973998528,
+          "python_peak_bytes": 230934
+        }
+      ],
+      "median_ms": 273.16083302139305,
+      "p95_nearest_rank_ms": 286.9150280021131
+    },
+    {
+      "algorithm": "DEMAND-SES-1.0",
+      "size": 100,
+      "shape": "sparse/list",
+      "repetitions": 5,
+      "samples": [
+        {
+          "elapsed_ms": 3.5895369946956635,
+          "python_peak_bytes": 9278
+        },
+        {
+          "elapsed_ms": 3.7263519770931453,
+          "python_peak_bytes": 9278
+        },
+        {
+          "elapsed_ms": 3.018880990566686,
+          "python_peak_bytes": 9278
+        },
+        {
+          "elapsed_ms": 3.0717010085936636,
+          "python_peak_bytes": 9278
+        },
+        {
+          "elapsed_ms": 3.175447025569156,
+          "python_peak_bytes": 9278
+        }
+      ],
+      "median_ms": 3.175447025569156,
+      "p95_nearest_rank_ms": 3.7263519770931453
+    },
+    {
+      "algorithm": "CONSISTENCY-1.0",
+      "size": 100,
+      "shape": "sparse/list",
+      "repetitions": 5,
+      "samples": [
+        {
+          "elapsed_ms": 41.531969007337466,
+          "python_peak_bytes": 107678
+        },
+        {
+          "elapsed_ms": 51.921898004366085,
+          "python_peak_bytes": 94406
+        },
+        {
+          "elapsed_ms": 72.78468698495999,
+          "python_peak_bytes": 107678
+        },
+        {
+          "elapsed_ms": 101.60844499478117,
+          "python_peak_bytes": 107678
+        },
+        {
+          "elapsed_ms": 61.148153006797656,
+          "python_peak_bytes": 93678
+        }
+      ],
+      "median_ms": 61.148153006797656,
+      "p95_nearest_rank_ms": 101.60844499478117
+    },
+    {
+      "algorithm": "ROUTE-DIJKSTRA-1.0",
+      "size": 100,
+      "shape": "sparse/list",
+      "repetitions": 5,
+      "samples": [
+        {
+          "elapsed_ms": 64.35091298772022,
+          "python_peak_bytes": 85382
+        },
+        {
+          "elapsed_ms": 72.64309900347143,
+          "python_peak_bytes": 81384
+        },
+        {
+          "elapsed_ms": 107.80289000831544,
+          "python_peak_bytes": 84202
+        },
+        {
+          "elapsed_ms": 88.35096500115469,
+          "python_peak_bytes": 81384
+        },
+        {
+          "elapsed_ms": 86.23869201983325,
+          "python_peak_bytes": 84202
+        }
+      ],
+      "median_ms": 86.23869201983325,
+      "p95_nearest_rank_ms": 107.80289000831544
+    },
+    {
+      "algorithm": "COVERAGE-HK-1.0",
+      "size": 100,
+      "shape": "sparse",
+      "repetitions": 5,
+      "samples": [
+        {
+          "elapsed_ms": 4.66904800850898,
+          "python_peak_bytes": 32040
+        },
+        {
+          "elapsed_ms": 5.848202999914065,
+          "python_peak_bytes": 32488
+        },
+        {
+          "elapsed_ms": 5.3980609809514135,
+          "python_peak_bytes": 32488
+        },
+        {
+          "elapsed_ms": 4.505285993218422,
+          "python_peak_bytes": 32488
+        },
+        {
+          "elapsed_ms": 4.750077991047874,
+          "python_peak_bytes": 32488
+        }
+      ],
+      "median_ms": 4.750077991047874,
+      "p95_nearest_rank_ms": 5.848202999914065
+    },
+    {
+      "algorithm": "EXPLAIN-ACADEMIC-1.0",
+      "size": 1000,
+      "shape": "sparse/list",
+      "repetitions": 5,
+      "samples": [
+        {
+          "elapsed_ms": 1448.3649159956258,
+          "python_peak_bytes": 2187356
+        },
+        {
+          "elapsed_ms": 1211.5361070027575,
+          "python_peak_bytes": 2123816
+        },
+        {
+          "elapsed_ms": 1153.6867580143735,
+          "python_peak_bytes": 2124816
+        },
+        {
+          "elapsed_ms": 1379.9640559882391,
+          "python_peak_bytes": 2143408
+        },
+        {
+          "elapsed_ms": 1231.043658015551,
+          "python_peak_bytes": 2125832
+        }
+      ],
+      "median_ms": 1231.043658015551,
+      "p95_nearest_rank_ms": 1448.3649159956258
+    },
+    {
+      "algorithm": "LOGISTICS-SIM-2.0",
+      "size": 1000,
+      "shape": "sparse/list",
+      "repetitions": 5,
+      "samples": [
+        {
+          "elapsed_ms": 2388.0409540142864,
+          "python_peak_bytes": 2571970
+        },
+        {
+          "elapsed_ms": 2424.1326880000997,
+          "python_peak_bytes": 2309000
+        },
+        {
+          "elapsed_ms": 2110.1259130227845,
+          "python_peak_bytes": 2308000
+        },
+        {
+          "elapsed_ms": 1707.1347250021063,
+          "python_peak_bytes": 2309000
+        },
+        {
+          "elapsed_ms": 1896.1387839808594,
+          "python_peak_bytes": 2308144
+        }
+      ],
+      "median_ms": 2110.1259130227845,
+      "p95_nearest_rank_ms": 2424.1326880000997
+    },
+    {
+      "algorithm": "DEMAND-SES-1.0",
+      "size": 1000,
+      "shape": "sparse/list",
+      "repetitions": 5,
+      "samples": [
+        {
+          "elapsed_ms": 62.34813597984612,
+          "python_peak_bytes": 42954
+        },
+        {
+          "elapsed_ms": 58.143041998846456,
+          "python_peak_bytes": 42578
+        },
+        {
+          "elapsed_ms": 46.076386992353946,
+          "python_peak_bytes": 42578
+        },
+        {
+          "elapsed_ms": 36.035347991855815,
+          "python_peak_bytes": 42578
+        },
+        {
+          "elapsed_ms": 43.660195980919525,
+          "python_peak_bytes": 42578
+        }
+      ],
+      "median_ms": 46.076386992353946,
+      "p95_nearest_rank_ms": 62.34813597984612
+    },
+    {
+      "algorithm": "CONSISTENCY-1.0",
+      "size": 1000,
+      "shape": "sparse/list",
+      "repetitions": 5,
+      "samples": [
+        {
+          "elapsed_ms": 561.5515050012618,
+          "python_peak_bytes": 839310
+        },
+        {
+          "elapsed_ms": 809.6108680183534,
+          "python_peak_bytes": 847438
+        },
+        {
+          "elapsed_ms": 472.7581870101858,
+          "python_peak_bytes": 835958
+        },
+        {
+          "elapsed_ms": 503.05540300905704,
+          "python_peak_bytes": 832950
+        },
+        {
+          "elapsed_ms": 424.21481799101457,
+          "python_peak_bytes": 832350
+        }
+      ],
+      "median_ms": 503.05540300905704,
+      "p95_nearest_rank_ms": 809.6108680183534
+    },
+    {
+      "algorithm": "ROUTE-DIJKSTRA-1.0",
+      "size": 1000,
+      "shape": "sparse/list",
+      "repetitions": 5,
+      "samples": [
+        {
+          "elapsed_ms": 725.5007619969547,
+          "python_peak_bytes": 818203
+        },
+        {
+          "elapsed_ms": 638.0480169900693,
+          "python_peak_bytes": 750350
+        },
+        {
+          "elapsed_ms": 694.6150369767565,
+          "python_peak_bytes": 749750
+        },
+        {
+          "elapsed_ms": 685.9464580193162,
+          "python_peak_bytes": 748950
+        },
+        {
+          "elapsed_ms": 631.4534670091234,
+          "python_peak_bytes": 750350
+        }
+      ],
+      "median_ms": 685.9464580193162,
+      "p95_nearest_rank_ms": 725.5007619969547
+    },
+    {
+      "algorithm": "COVERAGE-HK-1.0",
+      "size": 500,
+      "shape": "sparse",
+      "repetitions": 5,
+      "samples": [
+        {
+          "elapsed_ms": 21.942872990621254,
+          "python_peak_bytes": 131792
+        },
+        {
+          "elapsed_ms": 24.732447986025363,
+          "python_peak_bytes": 136160
+        },
+        {
+          "elapsed_ms": 24.199561012210324,
+          "python_peak_bytes": 131592
+        },
+        {
+          "elapsed_ms": 29.38109400565736,
+          "python_peak_bytes": 136160
+        },
+        {
+          "elapsed_ms": 26.52191001106985,
+          "python_peak_bytes": 136160
+        }
+      ],
+      "median_ms": 24.732447986025363,
+      "p95_nearest_rank_ms": 29.38109400565736
+    },
+    {
+      "algorithm": "ROUTE-DIJKSTRA-1.0",
+      "size": 90,
+      "shape": "dense",
+      "repetitions": 5,
+      "samples": [
+        {
+          "elapsed_ms": 42.45308900135569,
+          "python_peak_bytes": 68922
+        },
+        {
+          "elapsed_ms": 39.91334498277865,
+          "python_peak_bytes": 56096
+        },
+        {
+          "elapsed_ms": 29.815475980285555,
+          "python_peak_bytes": 58418
+        },
+        {
+          "elapsed_ms": 28.649943007621914,
+          "python_peak_bytes": 58658
+        },
+        {
+          "elapsed_ms": 25.980501988669857,
+          "python_peak_bytes": 49298
+        }
+      ],
+      "median_ms": 29.815475980285555,
+      "p95_nearest_rank_ms": 42.45308900135569
+    },
+    {
+      "algorithm": "ROUTE-DIJKSTRA-1.0",
+      "size": 2450,
+      "shape": "dense",
+      "repetitions": 5,
+      "samples": [
+        {
+          "elapsed_ms": 1022.1464599890169,
+          "python_peak_bytes": 1340338
+        },
+        {
+          "elapsed_ms": 959.3035659927409,
+          "python_peak_bytes": 1325450
+        },
+        {
+          "elapsed_ms": 1031.1336789745837,
+          "python_peak_bytes": 1324738
+        },
+        {
+          "elapsed_ms": 1344.1923960053828,
+          "python_peak_bytes": 1338426
+        },
+        {
+          "elapsed_ms": 1052.713125012815,
+          "python_peak_bytes": 1335330
+        }
+      ],
+      "median_ms": 1031.1336789745837,
+      "p95_nearest_rank_ms": 1344.1923960053828
+    },
+    {
+      "algorithm": "ROUTE-DIJKSTRA-1.0",
+      "size": 9900,
+      "shape": "dense",
+      "repetitions": 5,
+      "samples": [
+        {
+          "elapsed_ms": 4201.4024870004505,
+          "python_peak_bytes": 5348834
+        },
+        {
+          "elapsed_ms": 4318.28702398343,
+          "python_peak_bytes": 5351162
+        },
+        {
+          "elapsed_ms": 3773.002688976703,
+          "python_peak_bytes": 5339298
+        },
+        {
+          "elapsed_ms": 5372.960054985015,
+          "python_peak_bytes": 5352762
+        },
+        {
+          "elapsed_ms": 5395.487564004725,
+          "python_peak_bytes": 5341586
+        }
+      ],
+      "median_ms": 4318.28702398343,
+      "p95_nearest_rank_ms": 5395.487564004725
+    },
+    {
+      "algorithm": "COVERAGE-HK-1.0",
+      "size": 100000,
+      "shape": "dense edge limit",
+      "repetitions": 5,
+      "samples": [
+        {
+          "elapsed_ms": 250.17653501708992,
+          "python_peak_bytes": 842608
+        },
+        {
+          "elapsed_ms": 233.88871201314032,
+          "python_peak_bytes": 846976
+        },
+        {
+          "elapsed_ms": 221.2180350034032,
+          "python_peak_bytes": 846976
+        },
+        {
+          "elapsed_ms": 226.80692697758786,
+          "python_peak_bytes": 846976
+        },
+        {
+          "elapsed_ms": 198.57438901090063,
+          "python_peak_bytes": 846976
+        }
+      ],
+      "median_ms": 226.80692697758786,
+      "p95_nearest_rank_ms": 250.17653501708992
+    }
+  ]
+}

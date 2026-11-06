@@ -24,7 +24,7 @@ def main():
         "label=com.docker.compose.project=redhouse-parcial2",
     ).splitlines()
     containers = json.loads(capture("docker", "inspect", *ids))
-    assert len(containers) == 27
+    assert len(containers) == len(json.loads((ROOT / "compose.yaml").read_text())["services"]) - 1
     public_path = ROOT / ".local/compose/public.json"
     public = json.loads(public_path.read_text()) if public_path.exists() else None
     result = {"date": datetime.now(timezone.utc).isoformat(), "containers": []}

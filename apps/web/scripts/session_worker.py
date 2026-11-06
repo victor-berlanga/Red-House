@@ -28,7 +28,7 @@ def main():
     kernel = app.extensions.get("application_kernel")
     polls = {}
     next_revocation = 0
-    pool = ThreadPoolExecutor(max_workers=11)
+    pool = ThreadPoolExecutor(max_workers=len(kernel.apps) if kernel else 1)
 
     def cycle(name, module):
         from worker import step

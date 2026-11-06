@@ -108,7 +108,7 @@ def evaluate(identifier):
     return submit(
         "compatibilidad",
         "/api/v1/evaluations",
-        [field("request_id", "Solicitud", "hidden", default=str(identifier))],
+        [field("request_id", "Solicitud", "hidden", default=str(identifier)),field("profile_id", "Perfil registrado de datos exigidos", "select", [(r["id"],r["name"]) for r in rows("compatibilidad","/api/v1/laboratory/profiles")], required=False)],
         title="Evaluar candidatos",
         active="solicitudes",
         back=url_for("regional.request_detail", identifier=identifier),

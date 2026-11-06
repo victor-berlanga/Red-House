@@ -1,4 +1,4 @@
-"""Adaptador técnico GCS; las operaciones de evidencia pertenecen a Transporte."""
+"""Adaptador técnico GCS; las operaciones de evidencia pertenecen a Documentos."""
 
 import atexit
 from datetime import timedelta

@@ -1,0 +1,272 @@
+{
+  "type": "object",
+  "required": [
+    "data",
+    "meta"
+  ],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": [
+        "correlation_id",
+        "service",
+        "version"
+      ],
+      "properties": {
+        "correlation_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "service": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      }
+    },
+    "data": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "BLOOD",
+            "ORGAN"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "component": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Component",
+          "type": "string"
+        },
+        "version": {
+          "minimum": 1,
+          "title": "Version",
+          "type": "integer"
+        },
+        "required_tests": {
+          "items": {
+            "maxLength": 60,
+            "minLength": 1,
+            "pattern": "^[A-Z0-9_.-]+$",
+            "type": "string"
+          },
+          "maxItems": 40,
+          "minItems": 1,
+          "title": "Required Tests",
+          "type": "array"
+        },
+        "source": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Source",
+          "type": "string"
+        },
+        "evidence_rules": {
+          "items": {
+            "maxLength": 200,
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxItems": 20,
+          "title": "Evidence Rules",
+          "type": "array"
+        },
+        "synthetic": {
+          "title": "Synthetic",
+          "type": "boolean"
+        },
+        "effective_at": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Effective At",
+          "type": "string"
+        },
+        "supersedes": {
+          "anyOf": [
+            {
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Supersedes"
+        },
+        "valid_until": {
+          "anyOf": [
+            {
+              "maxLength": 200,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Valid Until"
+        },
+        "policy": {
+          "additionalProperties": false,
+          "properties": {
+            "version": {
+              "const": "COMPLETENESS-2.0",
+              "default": "COMPLETENESS-2.0",
+              "title": "Version",
+              "type": "string"
+            },
+            "max_age_seconds": {
+              "anyOf": [
+                {
+                  "maximum": 31536000,
+                  "minimum": 1,
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Max Age Seconds"
+            },
+            "contradictions": {
+              "const": "REVIEW",
+              "default": "REVIEW",
+              "title": "Contradictions",
+              "type": "string"
+            },
+            "require_document": {
+              "default": false,
+              "title": "Require Document",
+              "type": "boolean"
+            },
+            "require_hla_catalogue": {
+              "default": false,
+              "title": "Require Hla Catalogue",
+              "type": "boolean"
+            },
+            "ranking_order": {
+              "anyOf": [
+                {
+                  "const": "URGENCY_WAIT_EXPIRY_TIME_DISTANCE_ID",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Ranking Order"
+            },
+            "urgency_scale": {
+              "anyOf": [
+                {
+                  "const": "CAPTURED_1_3_SYNTHETIC",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Urgency Scale"
+            }
+          },
+          "title": "CompletenessPolicy",
+          "type": "object"
+        },
+        "purpose": {
+          "default": "Completitud académica, sin aplicación clínica",
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Purpose",
+          "type": "string"
+        },
+        "rule_status": {
+          "default": "DRAFT",
+          "enum": [
+            "DRAFT",
+            "IN_REVIEW",
+            "RETIRED"
+          ],
+          "title": "Rule Status",
+          "type": "string"
+        },
+        "required_loci": {
+          "items": {
+            "maxLength": 60,
+            "minLength": 1,
+            "pattern": "^[A-Z0-9_.-]+$",
+            "type": "string"
+          },
+          "maxItems": 80,
+          "title": "Required Loci",
+          "type": "array"
+        },
+        "clinical_enabled": {
+          "const": false,
+          "default": false,
+          "title": "Clinical Enabled",
+          "type": "boolean"
+        },
+        "reference_snapshot": {
+          "items": {
+            "additionalProperties": true,
+            "type": "object"
+          },
+          "title": "Reference Snapshot",
+          "type": "array"
+        },
+        "id": {
+          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "tenant_id": {
+          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+          "title": "Tenant Id",
+          "type": "string"
+        },
+        "author_id": {
+          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+          "title": "Author Id",
+          "type": "string"
+        },
+        "created_at": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Created At",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "kind",
+        "component",
+        "version",
+        "required_tests",
+        "source",
+        "synthetic",
+        "effective_at",
+        "id",
+        "tenant_id",
+        "author_id",
+        "created_at"
+      ],
+      "title": "Profile",
+      "type": "object"
+    }
+  }
+}

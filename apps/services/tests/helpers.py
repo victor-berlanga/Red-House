@@ -145,6 +145,27 @@ def plan(p, allocation):
 
 
 def move(p, shipment, state, user):
+    custody = None
+    if state in ("COLLECTED", "DELIVERED", "ACCEPTED"):
+        with p.owner("inventario") as conn:
+            unit = conn.execute(
+                "SELECT resource_id FROM reservations WHERE id=%s",
+                (shipment["reservation_id"],),
+            ).fetchone()[0]
+        counterpart = (
+            "transport1"
+            if state == "ACCEPTED"
+            else "operator1"
+            if state == "COLLECTED"
+            else "operator2"
+        )
+        custody = {
+            "scanned_resource_id": str(unit),
+            "seal": "Sello sintético",
+            "captured_at": iso(),
+            "reported_handover_user_id": p.env.state["accounts"][counterpart]["id"],
+            "electronic_acceptance": True,
+        }
     return p.ok(
         "transporte",
         "POST",
@@ -152,8 +173,51 @@ def move(p, shipment, state, user):
         user=user,
         data={
             "state": state,
+            "custody": custody,
             "version": shipment["version"],
             "human_confirmation": True,
             "reason": "Confirmación física ficticia del paso logístico",
         },
     )
+
+
+def telemetry_body(p, shipment):
+    device = p.ok(
+        "identidad_acceso",
+        "POST",
+        "/api/v1/devices",
+        user="admin1",
+        data={
+            "id": str(uuid4()),
+            "user_id": p.env.state["accounts"]["transport1"]["id"],
+            "source": "SIMULATOR",
+            "label": "Simulación de prueba",
+            "expires_at": iso(days=1),
+        },
+    )
+    p.ok(
+        "transporte",
+        "POST",
+        f"/api/v1/shipments/{shipment['id']}/tracking/assignments",
+        user="coordinator1",
+        data={
+            "device_id": device["id"],
+            "starts_at": iso(minutes=-1),
+            "ends_at": iso(minutes=60),
+            "version": shipment["version"],
+            "human_confirmation": True,
+            "reason": "Asignación sintética de prueba",
+        },
+    )
+    return {
+        "schema_version": 1,
+        "event_id": str(uuid4()),
+        "shipment_id": shipment["id"],
+        "device_id": device["id"],
+        "source": "SIMULATOR",
+        "sequence": 1,
+        "captured_at": iso(),
+        "fix_valid": True,
+        "latitude": 25.6,
+        "longitude": -100.3,
+    }

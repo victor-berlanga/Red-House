@@ -1,0 +1,88 @@
+........................................................................ [ 19%]
+...............................................................FFFF..... [ 39%]
+......................................................................F. [ 59%]
+.......F.F.F.......F.................................................... [ 78%]
+........................................................................ [ 98%]
+.....                                                                    [100%]
+=================================== FAILURES ===================================
+_ test_numeric_boundaries_and_public_messages[Position-body4-latitude--90.0-90.0-json] _
+apps/services/tests/test_form_limits.py:138: in test_numeric_boundaries_and_public_messages
+    assert parse(model)[field] == value
+           ^^^^^^^^^^^^
+apps/services/redhouse/codec.py:243: in parse
+    raise APIError(
+E   redhouse.errors.APIError: Revisa los datos señalados.
+_ test_numeric_boundaries_and_public_messages[Position-body4-latitude--90.0-90.0-xml] _
+apps/services/tests/test_form_limits.py:138: in test_numeric_boundaries_and_public_messages
+    assert parse(model)[field] == value
+           ^^^^^^^^^^^^
+apps/services/redhouse/codec.py:180: in parse
+    raise APIError(
+E   redhouse.errors.APIError: Revisa los datos señalados.
+_ test_numeric_boundaries_and_public_messages[Position-body5-longitude--180.0-180.0-json] _
+apps/services/tests/test_form_limits.py:138: in test_numeric_boundaries_and_public_messages
+    assert parse(model)[field] == value
+           ^^^^^^^^^^^^
+apps/services/redhouse/codec.py:243: in parse
+    raise APIError(
+E   redhouse.errors.APIError: Revisa los datos señalados.
+_ test_numeric_boundaries_and_public_messages[Position-body5-longitude--180.0-180.0-xml] _
+apps/services/tests/test_form_limits.py:138: in test_numeric_boundaries_and_public_messages
+    assert parse(model)[field] == value
+           ^^^^^^^^^^^^
+apps/services/redhouse/codec.py:180: in parse
+    raise APIError(
+E   redhouse.errors.APIError: Revisa los datos señalados.
+___________ test_location_capture_requires_assigned_active_shipment ____________
+apps/services/tests/test_product_ui.py:212: in test_location_capture_requires_assigned_active_shipment
+    p.ok(
+apps/services/tests/conftest.py:57: in ok
+    assert response.status_code < 300, (response.status_code, response.text)
+E   AssertionError: (422, '{"error": {"code": "validation", "message": "Revisa los datos señalados.", "details": [{"field": "", "code": "v...}]}, "meta": {"correlation_id": "a3a07c4d-45a1-4130-8163-0749a66339cc", "service": "transporte", "version": "0.4.1"}}')
+E   assert 422 < 300
+E    +  where 422 = <Response [422]>.status_code
+_____________________ test_nested_evidence_json_xml_parity _____________________
+apps/services/tests/test_review_regressions.py:41: in test_nested_evidence_json_xml_parity
+    expected = parse(Transition)
+               ^^^^^^^^^^^^^^^^^
+apps/services/redhouse/codec.py:243: in parse
+    raise APIError(
+E   redhouse.errors.APIError: Revisa los datos señalados.
+_ test_expired_shipment_cannot_advance_or_fulfill[PREPARED-COLLECTED-transport1] _
+apps/services/tests/test_review_regressions.py:82: in test_expired_shipment_cannot_advance_or_fulfill
+    assert response.status_code == 409
+E   assert 422 == 409
+E    +  where 422 = <Response [422]>.status_code
+_ test_expired_shipment_cannot_advance_or_fulfill[DELIVERED-ACCEPTED-operator2] _
+apps/services/tests/test_review_regressions.py:82: in test_expired_shipment_cannot_advance_or_fulfill
+    assert response.status_code == 409
+E   assert 422 == 409
+E    +  where 422 = <Response [422]>.status_code
+_________ test_configured_storage_health_does_not_report_unconfigured __________
+apps/services/tests/test_review_regressions.py:367: in test_configured_storage_health_does_not_report_unconfigured
+    assert (
+E   AssertionError: assert 200 == 503
+E    +  where 200 = <Response [200]>.status_code
+E    +    where <Response [200]> = request('transporte', 'GET', '/health/storage', user=None)
+E    +      where request = <tests.conftest.Platform object at 0x10d3d82c0>.request
+=============================== warnings summary ===============================
+tests/test_correction_backend.py::test_empirical_forecast_positive_independent_oracle
+  tests/test_correction_backend.py:605: PytestWarning: record_property is incompatible with junit_family 'xunit2' (use 'legacy' or 'xunit1')
+    def test_empirical_forecast_positive_independent_oracle(p, record_property):
+
+tests/test_final_tracking.py::test_concurrent_emitters_subscribers_and_delayed_consumer
+  tests/test_final_tracking.py:613: PytestWarning: record_property is incompatible with junit_family 'xunit2' (use 'legacy' or 'xunit1')
+    def test_concurrent_emitters_subscribers_and_delayed_consumer(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED apps/services/tests/test_form_limits.py::test_numeric_boundaries_and_public_messages[Position-body4-latitude--90.0-90.0-json]
+FAILED apps/services/tests/test_form_limits.py::test_numeric_boundaries_and_public_messages[Position-body4-latitude--90.0-90.0-xml]
+FAILED apps/services/tests/test_form_limits.py::test_numeric_boundaries_and_public_messages[Position-body5-longitude--180.0-180.0-json]
+FAILED apps/services/tests/test_form_limits.py::test_numeric_boundaries_and_public_messages[Position-body5-longitude--180.0-180.0-xml]
+FAILED apps/services/tests/test_product_ui.py::test_location_capture_requires_assigned_active_shipment
+FAILED apps/services/tests/test_review_regressions.py::test_nested_evidence_json_xml_parity
+FAILED apps/services/tests/test_review_regressions.py::test_expired_shipment_cannot_advance_or_fulfill[PREPARED-COLLECTED-transport1]
+FAILED apps/services/tests/test_review_regressions.py::test_expired_shipment_cannot_advance_or_fulfill[DELIVERED-ACCEPTED-operator2]
+FAILED apps/services/tests/test_review_regressions.py::test_configured_storage_health_does_not_report_unconfigured
+9 failed, 356 passed, 1 deselected, 2 warnings in 2035.97s (0:33:55)

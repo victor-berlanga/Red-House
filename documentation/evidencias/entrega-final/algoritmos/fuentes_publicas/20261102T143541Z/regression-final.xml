@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="109" time="614.577" timestamp="2026-11-02T10:00:44.587533-06:00" hostname="Victors-MacBook-Air.local"><testcase classname="tests.test_public_reference_sources" name="test_pinned_public_hla_membership_and_resolution[A*01:01:01:01-EXACT-1]" time="0.482" /><testcase classname="tests.test_public_reference_sources" name="test_pinned_public_hla_membership_and_resolution[A*01:01-LOW_RESOLUTION-303]" time="0.022" /><testcase classname="tests.test_public_reference_sources" name="test_pinned_public_hla_membership_and_resolution[A*99:99999-NOT_FOUND-0]" time="0.016" /><testcase classname="tests.test_public_reference_sources" name="test_catalogue_unavailable_tampered_unknown_and_partial" time="0.037" /><testcase classname="tests.test_public_reference_sources" name="test_normative_transition_exact_mexican_date[2027-04-10T05:59:59+00:00-old0-new0]" time="0.013" /><testcase classname="tests.test_public_reference_sources" name="test_normative_transition_exact_mexican_date[2027-04-10T06:00:00+00:00-old1-new1]" time="0.003" /><testcase classname="tests.test_public_reference_sources" name="test_cited_profile_scope_future_and_no_clinical_activation[json]" time="39.195" /><testcase classname="tests.test_public_reference_sources" name="test_cited_profile_scope_future_and_no_clinical_activation[xml]" time="0.837" /><testcase classname="tests.test_public_reference_sources" name="test_hla_catalogue_persisted_correction_completeness_without_verdict[HLA-json]" time="1.475" /><testcase classname="tests.test_public_reference_sources" name="test_hla_catalogue_persisted_correction_completeness_without_verdict[HLA-xml]" time="1.136" /><testcase classname="tests.test_public_reference_sources" name="test_hla_catalogue_persisted_correction_completeness_without_verdict[CUSTOM_HLA-json]" time="1.280" /><testcase classname="tests.test_public_reference_sources" name="test_hla_catalogue_persisted_correction_completeness_without_verdict[CUSTOM_HLA-xml]" time="1.084" /><testcase classname="tests.test_public_reference_sources" name="test_real_road_source_import_route_replay_and_no_gps[json]" time="0.676" /><testcase classname="tests.test_public_reference_sources" name="test_real_road_source_import_route_replay_and_no_gps[xml]" time="0.585" /><testcase classname="tests.test_public_reference_sources" name="test_road_integrity_and_unknown_source_fail_closed" time="0.004" /><testcase classname="tests.test_stage02_corrections" name="test_hla_one_field_is_not_reported_allele" time="0.003" /><testcase classname="tests.test_stage02_corrections" name="test_recipient_organ_profile_mismatch_rejected" time="0.370" /><testcase classname="tests.test_stage02_corrections" name="test_future_profile_cannot_collect_sample" time="0.335" /><testcase classname="tests.test_stage02_corrections" name="test_registry_transitions_history_and_disabled_clinical_scope[json]" time="0.784" /><testcase classname="tests.test_stage02_corrections" name="test_registry_transitions_history_and_disabled_clinical_scope[xml]" time="0.719" /><testcase classname="tests.test_stage02_corrections" name="test_partial_hla_and_unknown_version_persist_without_approval[json]" time="0.962" /><testcase classname="tests.test_stage02_corrections" name="test_partial_hla_and_unknown_version_persist_without_approval[xml]" time="0.774" /><testcase classname="tests.test_stage02_corrections" name="test_recipient_lab_change_invalidates_review_detail_and_reserve[json]" time="3.612" /><testcase classname="tests.test_stage02_corrections" name="test_recipient_lab_change_invalidates_review_detail_and_reserve[xml]" time="3.369" /><testcase classname="tests.test_stage02_corrections" name="test_regional_graph_authoritative_runs_and_anomaly_outbox[json]" time="47.549" /><testcase classname="tests.test_stage02_corrections" name="test_regional_graph_authoritative_runs_and_anomaly_outbox[xml]" time="13.738" /><testcase classname="tests.test_stage02_corrections" name="test_each_rank_factor_changes_result_with_prior_factors_tied[urgency-3-b]" time="0.003" /><testcase classname="tests.test_stage02_corrections" name="test_each_rank_factor_changes_result_with_prior_factors_tied[waiting_minutes-20-b]" time="0.005" /><testcase classname="tests.test_stage02_corrections" name="test_each_rank_factor_changes_result_with_prior_factors_tied[expiry_minutes-50-b]" time="0.005" /><testcase classname="tests.test_stage02_corrections" name="test_each_rank_factor_changes_result_with_prior_factors_tied[travel_minutes-5-b]" time="0.003" /><testcase classname="tests.test_stage02_corrections" name="test_each_rank_factor_changes_result_with_prior_factors_tied[distance_km-2-b]" time="0.003" /><testcase classname="tests.test_stage02_corrections" name="test_each_rank_factor_changes_result_with_prior_factors_tied[identifier-0-0]" time="0.004" /><testcase classname="tests.test_stage02_corrections" name="test_temporal_forecast_against_independent_full_oracle" time="0.002" /><testcase classname="tests.test_stage02_corrections" name="test_completeness_conflict_expiry_and_successor[json]" time="3.929" /><testcase classname="tests.test_stage02_corrections" name="test_completeness_conflict_expiry_and_successor[xml]" time="3.187" /><testcase classname="tests.test_stage02_corrections" name="test_profile_execution_manual_products_and_all_candidate_branches[json-RBC]" time="7.361" /><testcase classname="tests.test_stage02_corrections" name="test_profile_execution_manual_products_and_all_candidate_branches[json-PLASMA]" time="7.854" /><testcase classname="tests.test_stage02_corrections" name="test_profile_execution_manual_products_and_all_candidate_branches[json-PLATELETS]" time="8.973"><failure message="AssertionError: (503, '{&quot;error&quot;: {&quot;code&quot;: &quot;redis_unavailable&quot;, &quot;message&quot;: &quot;No se puede verificar la sesión o autorización.&quot;, &quot;details&quot;... &quot;meta&quot;: {&quot;correlation_id&quot;: &quot;5aabb6da-91ea-4e81-a8f3-485c861ac40b&quot;, &quot;service&quot;: &quot;compatibilidad&quot;, &quot;version&quot;: &quot;0.4.4&quot;}}')&#10;assert 503 &lt; 300&#10; +  where 503 = &lt;Response [503]&gt;.status_code">p = &lt;tests.conftest.Platform object at 0x112025790&gt;, component = 'PLATELETS'
+fmt = 'json'
+
+    @pytest.mark.parametrize("component", ["RBC", "PLASMA", "PLATELETS"])
+    @pytest.mark.parametrize("fmt", ["json", "xml"])
+    def test_profile_execution_manual_products_and_all_candidate_branches(
+        p, component, fmt
+    ):
+        from .helpers import recipient_request, route
+        from .test_correction_backend import laboratory
+    
+        # Source owner profile + destination immutable requirement profile, no copied RBC matrix.
+        unit = api(
+            p,
+            "inventario",
+            "/api/v1/resources",
+            {
+                "folio": "PROD-" + uuid4().hex[:10],
+                "kind": "BLOOD",
+                "component": component,
+                "blood_group": "O-",
+                "expires_at": iso(days=2),
+            },
+            user="operator1",
+        )
+        if component == "RBC":
+            prof, _, _ = laboratory(p, unit, "json")
+        else:
+            prof = profile(p, kind="BLOOD", component=component, required_tests=["ABO"])
+            api(
+                p,
+                "inventario",
+                "/api/v1/resources/" + unit["id"] + "/controls",
+                dict(CONFIRM, version=1, lab_profile_id=prof["id"]),
+            )
+            sample = api(
+                p,
+                "compatibilidad",
+                "/api/v1/laboratory/samples",
+                {
+                    "resource_id": unit["id"],
+                    "profile_id": prof["id"],
+                    "identifier": "MANUAL-" + uuid4().hex,
+                    "collected_at": iso(minutes=-5),
+                },
+            )
+            api(
+                p,
+                "compatibilidad",
+                "/api/v1/laboratory/samples/" + sample["id"] + "/receive",
+                dict(CONFIRM, version=1, decision="RECEIVED"),
+            )
+            result = api(
+                p,
+                "compatibilidad",
+                "/api/v1/laboratory/results",
+                {
+                    "sample_id": sample["id"],
+                    "test_code": "ABO",
+                    "value": "Dato informado",
+                    "method": "Ficticio",
+                    "laboratory": "Ficticio",
+                    "reference": "Sintético",
+                    "measured_at": iso(),
+                },
+            )
+            api(
+                p,
+                "compatibilidad",
+                "/api/v1/laboratory/results/" + result["id"] + "/review",
+                dict(CONFIRM, version=1, decision="AUTHORIZED"),
+            )
+        unit = api(
+            p,
+            "inventario",
+            "/api/v1/resources/" + unit["id"] + "/release",
+            dict(CONFIRM, version=2),
+        )
+        route(p)
+        _, req = recipient_request(p, component=component)
+        required = api(
+            p,
+            "compatibilidad",
+            "/api/v1/laboratory/profiles",
+            {
+                "name": "Requisitos de revisión",
+                "kind": "BLOOD",
+                "component": component,
+                "version": 1,
+                "required_tests": ["ABO"],
+                "source": "Política sintética",
+                "synthetic": True,
+                "effective_at": iso(minutes=-60),
+                "policy": {
+                    "version": "COMPLETENESS-2.0",
+                    "ranking_order": "URGENCY_WAIT_EXPIRY_TIME_DISTANCE_ID",
+                    "urgency_scale": "CAPTURED_1_3_SYNTHETIC",
+                },
+            },
+            user="medical2",
+        )
+        ev = api(
+            p,
+            "compatibilidad",
+            "/api/v1/evaluations",
+            {"request_id": req["id"], "profile_id": required["id"]},
+            user="medical2",
+        )
+        assert ev["snapshot"]["manual_review"] == (component != "RBC")
+        assert any(c["resource_id"] == unit["id"] for c in ev["candidates"])
+        api(
+            p,
+            "compatibilidad",
+            "/api/v1/evaluations/" + ev["id"] + "/reviews",
+            dict(CONFIRM, resource_id=unit["id"], decision="FAVORABLE"),
+            user="medical2",
+        )
+        for branch in ("ALG-01", "ALG-02", "ALG-03"):
+            run = api(
+                p,
+                "priorizacion_geografia",
+                "/api/v1/decision-runs",
+                {
+                    "branch": branch,
+                    "evaluation_ids": [ev["id"]],
+                    "component": component,
+                    "policy_id": required["id"],
+                },
+                user="medical2",
+                fmt=fmt,
+            )
+            assert api(
+                p,
+                "priorizacion_geografia",
+                "/api/v1/decision-runs/" + run["id"] + "/reproduce",
+                method="GET",
+                user="medical2",
+                fmt=fmt,
+            )["identical"]
+        with p.owner("inventario") as conn:
+            assert (
+                conn.execute(
+                    "SELECT count(*) FROM reservations WHERE resource_id=%s", (unit["id"],)
+                ).fetchone()[0]
+                == 0
+            )
+        replay = "/api/v1/evaluations/" + ev["id"] + "/reproduce"
+        original = api(p, "compatibilidad", replay, method="GET", user="medical2")
+        assert original["identical"]
+        successor = api(
+            p,
+            "compatibilidad",
+            "/api/v1/laboratory/profiles",
+            {
+                "name": "Changed requirements",
+                "kind": "BLOOD",
+                "component": component,
+                "version": 2,
+                "required_tests": ["ABO", "IMMUNO"],
+                "source": "Synthetic successor",
+                "synthetic": True,
+                "effective_at": iso(),
+                "supersedes": required["id"],
+            },
+            user="medical2",
+        )
+        assert api(p, "compatibilidad", replay, method="GET", user="medical2") == original
+&gt;       assert not api(
+            p,
+            "compatibilidad",
+            "/api/v1/evaluations/" + ev["id"],
+            method="GET",
+            user="medical2",
+        )["validity"]["current"]
+
+apps/services/tests/test_stage02_corrections.py:882: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+apps/services/tests/test_final_quality.py:13: in api
+    result = p.ok(service, method, path, user=user, data=data)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = &lt;tests.conftest.Platform object at 0x112025790&gt;
+service = 'compatibilidad', method = 'GET'
+path = '/api/v1/evaluations/3e9017a1-d45d-4ce8-87c4-ea06b140a9bd'
+kwargs = {'user': 'medical2', 'data': None}
+
+    def ok(self, service, method, path, **kwargs):
+        response = self.request(service, method, path, **kwargs)
+&gt;       assert response.status_code &lt; 300, (response.status_code, response.text)
+E       AssertionError: (503, '{"error": {"code": "redis_unavailable", "message": "No se puede verificar la sesión o autorización.", "details"... "meta": {"correlation_id": "5aabb6da-91ea-4e81-a8f3-485c861ac40b", "service": "compatibilidad", "version": "0.4.4"}}')
+E       assert 503 &lt; 300
+E        +  where 503 = &lt;Response [503]&gt;.status_code
+
+apps/services/tests/conftest.py:57: AssertionError</failure></testcase><testcase classname="tests.test_stage02_corrections" name="test_profile_execution_manual_products_and_all_candidate_branches[xml-RBC]" time="5.287" /><testcase classname="tests.test_stage02_corrections" name="test_profile_execution_manual_products_and_all_candidate_branches[xml-PLASMA]" time="5.053" /><testcase classname="tests.test_stage02_corrections" name="test_profile_execution_manual_products_and_all_candidate_branches[xml-PLATELETS]" time="5.289" /><testcase classname="tests.test_stage02_corrections" name="test_geo_consumes_positions_persisted_by_real_wss_without_measured_eta" time="5.487" /><testcase classname="tests.test_stage02_corrections" name="test_result_private_document_binding_generation_analysis_and_scope[json]" time="4.445" /><testcase classname="tests.test_stage02_corrections" name="test_result_private_document_binding_generation_analysis_and_scope[xml]" time="3.500" /><testcase classname="tests.test_stage02_corrections" name="test_rule_approval_mechanism_scoped_fixture_and_revocation" time="2.321" /><testcase classname="tests.test_stage02_corrections" name="test_crossmatch_associations_and_unperformed_not_negative" time="1.288" /><testcase classname="tests.test_stage02_oracles" name="test_each_missing_rank_factor_excludes_without_default_priority[urgency]" time="0.001" /><testcase classname="tests.test_stage02_oracles" name="test_each_missing_rank_factor_excludes_without_default_priority[urgency_source]" time="0.001" /><testcase classname="tests.test_stage02_oracles" name="test_each_missing_rank_factor_excludes_without_default_priority[waiting_minutes]" time="0.018" /><testcase classname="tests.test_stage02_oracles" name="test_each_missing_rank_factor_excludes_without_default_priority[expiry_minutes]" time="0.002" /><testcase classname="tests.test_stage02_oracles" name="test_each_missing_rank_factor_excludes_without_default_priority[travel_minutes]" time="0.002" /><testcase classname="tests.test_stage02_oracles" name="test_each_missing_rank_factor_excludes_without_default_priority[distance_km]" time="0.001" /><testcase classname="tests.test_stage02_oracles" name="test_forecast_lots_against_constant_rate_capacity_oracle[quantities0-expected0]" time="0.002" /><testcase classname="tests.test_stage02_oracles" name="test_forecast_lots_against_constant_rate_capacity_oracle[quantities1-expected1]" time="0.002" /><testcase classname="tests.test_stage02_oracles" name="test_forecast_lots_against_constant_rate_capacity_oracle[quantities2-expected2]" time="0.002" /><testcase classname="tests.test_stage02_oracles" name="test_authoritative_anomalies_outbox_failure_resolution_and_history" time="165.593" /><testcase classname="tests.test_stage02_oracles" name="test_recipient_correction_serializes_with_reservation_commit" time="14.265" /><testcase classname="tests.test_stage02_oracles" name="test_complete_academic_profile_and_review_never_enable_clinical_operations" time="9.734" /><testcase classname="tests.test_stage02_migration" name="test_schema14_backup_restore_upgrade15_preserves_history_acl[14]" time="39.201" /><testcase classname="tests.test_stage02_migration" name="test_schema14_backup_restore_upgrade15_preserves_history_acl[15]" time="10.524" /><testcase classname="tests.test_final_algorithms_hla" name="test_dijkstra_against_independent_simple_path_oracle" time="0.083" /><testcase classname="tests.test_final_algorithms_hla" name="test_forecast_no_future_leakage_and_reproduction" time="0.003" /><testcase classname="tests.test_final_algorithms_hla" name="test_missing_hla_ambiguity_and_states" time="0.002" /><testcase classname="tests.test_final_algorithms_hla" name="test_urgency_simulation_missing_factors_and_anomalies" time="0.004" /><testcase classname="tests.test_final_algorithms_hla" name="test_persistent_algorithm_contract_and_tenant[json]" time="1.049" /><testcase classname="tests.test_final_algorithms_hla" name="test_persistent_algorithm_contract_and_tenant[xml]" time="0.510" /><testcase classname="tests.test_final_algorithms_hla" name="test_hla_structured_history_missing_and_corrected[json]" time="1.608" /><testcase classname="tests.test_final_algorithms_hla" name="test_hla_structured_history_missing_and_corrected[xml]" time="1.144" /><testcase classname="tests.test_final_algorithms_hla" name="test_limits_empty_graph_and_gps_separation" time="0.459" /><testcase classname="tests.test_final_algorithms_hla" name="test_web_simulation_view_and_form" time="2.186" /><testcase classname="tests.test_final_algorithms_hla" name="test_expiry_estimate_does_not_double_count_demand" time="0.002" /><testcase classname="tests.test_final_algorithms_hla" name="test_migration_13_to_current_preserves_rows_and_is_repeatable" time="23.072" /><testcase classname="tests.test_final_quality" name="test_laboratory_missing_results_correction_quarantine_and_final_destination[json]" time="56.379" /><testcase classname="tests.test_final_quality" name="test_laboratory_missing_results_correction_quarantine_and_final_destination[xml]" time="8.151" /><testcase classname="tests.test_security_contracts" name="test_health_swagger_and_openapi_all_services[identidad_acceso]" time="17.106" /><testcase classname="tests.test_security_contracts" name="test_health_swagger_and_openapi_all_services[donantes]" time="8.864" /><testcase classname="tests.test_security_contracts" name="test_health_swagger_and_openapi_all_services[receptores]" time="7.742" /><testcase classname="tests.test_security_contracts" name="test_health_swagger_and_openapi_all_services[inventario]" time="19.329" /><testcase classname="tests.test_security_contracts" name="test_health_swagger_and_openapi_all_services[compatibilidad]" time="6.649" /><testcase classname="tests.test_security_contracts" name="test_health_swagger_and_openapi_all_services[priorizacion_geografia]" time="7.198" /><testcase classname="tests.test_security_contracts" name="test_health_swagger_and_openapi_all_services[transporte]" time="8.231" /><testcase classname="tests.test_security_contracts" name="test_health_swagger_and_openapi_all_services[custodia]" time="0.695" /><testcase classname="tests.test_security_contracts" name="test_health_swagger_and_openapi_all_services[alertas]" time="2.478" /><testcase classname="tests.test_security_contracts" name="test_health_swagger_and_openapi_all_services[auditoria]" time="3.557" /><testcase classname="tests.test_security_contracts" name="test_health_swagger_and_openapi_all_services[monitoreo]" time="0.975" /><testcase classname="tests.test_security_contracts" name="test_health_swagger_and_openapi_all_services[documentos]" time="3.304" /><testcase classname="tests.test_security_contracts" name="test_jwt_rejects_invalid_variants_before_domain[none]" time="0.034" /><testcase classname="tests.test_security_contracts" name="test_jwt_rejects_invalid_variants_before_domain[hs256]" time="0.029" /><testcase classname="tests.test_security_contracts" name="test_jwt_rejects_invalid_variants_before_domain[expired]" time="0.114" /><testcase classname="tests.test_security_contracts" name="test_jwt_rejects_invalid_variants_before_domain[audience]" time="0.099" /><testcase classname="tests.test_security_contracts" name="test_jwt_rejects_invalid_variants_before_domain[issuer]" time="0.105" /><testcase classname="tests.test_security_contracts" name="test_jwt_rejects_invalid_variants_before_domain[missing]" time="0.101" /><testcase classname="tests.test_security_contracts" name="test_jwt_rejects_invalid_variants_before_domain[refresh_use]" time="0.098" /><testcase classname="tests.test_security_contracts" name="test_jwt_rejects_invalid_variants_before_domain[numeric_sub]" time="0.107" /><testcase classname="tests.test_security_contracts" name="test_session_rotation_replay_and_logout" time="1.195" /><testcase classname="tests.test_security_contracts" name="test_account_deactivation_fences_permissions_and_preserves_password" time="1.127" /><testcase classname="tests.test_security_contracts" name="test_strict_inputs[display_name-None]" time="0.060" /><testcase classname="tests.test_security_contracts" name="test_strict_inputs[display_name-   ]" time="0.057" /><testcase classname="tests.test_security_contracts" name="test_strict_inputs[display_name-Nombre\x00inv\xe1lido]" time="0.057" /><testcase classname="tests.test_security_contracts" name="test_strict_inputs[consent-None]" time="0.054" /><testcase classname="tests.test_security_contracts" name="test_strict_inputs[consent-1]" time="0.054" /><testcase classname="tests.test_security_contracts" name="test_strict_inputs[blood_group-X+]" time="0.054" /><testcase classname="tests.test_security_contracts" name="test_strict_inputs[unknown-injection]" time="0.056" /><testcase classname="tests.test_security_contracts" name="test_xml_schema_json_parity_errors_and_xxe" time="0.260" /><testcase classname="tests.test_security_contracts" name="test_duplicate_json_keys_nonfinite_and_wrong_media" time="0.145" /><testcase classname="tests.test_security_contracts" name="test_institution_role_and_assignment_authorization" time="0.326" /><testcase classname="tests.test_security_contracts" name="test_internal_signature_delegation_replay_and_wrong_caller" time="0.167" /><testcase classname="tests.test_security_contracts" name="test_database_and_redis_privileges_are_separate" time="0.045" /><testcase classname="tests.test_security_contracts" name="test_rate_limit" time="4.052" /></testsuite></testsuites>

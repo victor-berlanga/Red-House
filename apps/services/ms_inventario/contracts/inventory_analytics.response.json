@@ -1,0 +1,239 @@
+{
+  "type": "object",
+  "required": [
+    "data",
+    "meta"
+  ],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": [
+        "correlation_id",
+        "service",
+        "version"
+      ],
+      "properties": {
+        "correlation_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "service": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      }
+    },
+    "data": {
+      "additionalProperties": false,
+      "properties": {
+        "from_at": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "From At",
+          "type": "string"
+        },
+        "until_at": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Until At",
+          "type": "string"
+        },
+        "method": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Method",
+          "type": "string"
+        },
+        "trends": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "day": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Day",
+                "type": "string"
+              },
+              "used": {
+                "title": "Used",
+                "type": "integer"
+              },
+              "discarded": {
+                "title": "Discarded",
+                "type": "integer"
+              }
+            },
+            "required": [
+              "day",
+              "used",
+              "discarded"
+            ],
+            "title": "Trend",
+            "type": "object"
+          },
+          "title": "Trends",
+          "type": "array"
+        },
+        "products": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "kind": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Kind",
+                "type": "string"
+              },
+              "component": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Component",
+                "type": "string"
+              },
+              "available": {
+                "title": "Available",
+                "type": "integer"
+              },
+              "expiring_in_seven_days": {
+                "title": "Expiring In Seven Days",
+                "type": "integer"
+              },
+              "observed_use": {
+                "title": "Observed Use",
+                "type": "integer"
+              },
+              "observed_days": {
+                "title": "Observed Days",
+                "type": "integer"
+              },
+              "empirical_daily_use": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Empirical Daily Use"
+              },
+              "estimated_surplus": {
+                "anyOf": [
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Estimated Surplus"
+              },
+              "proposal": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Proposal",
+                "type": "string"
+              }
+            },
+            "required": [
+              "kind",
+              "component",
+              "available",
+              "expiring_in_seven_days",
+              "observed_use",
+              "observed_days",
+              "empirical_daily_use",
+              "estimated_surplus",
+              "proposal"
+            ],
+            "title": "Forecast",
+            "type": "object"
+          },
+          "title": "Products",
+          "type": "array"
+        },
+        "limitation": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Limitation",
+          "type": "string"
+        },
+        "demand": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "kind": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Kind",
+                "type": "string"
+              },
+              "component": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Component",
+                "type": "string"
+              },
+              "requested_units": {
+                "title": "Requested Units",
+                "type": "integer"
+              },
+              "open_requested_units": {
+                "title": "Open Requested Units",
+                "type": "integer"
+              },
+              "available": {
+                "title": "Available",
+                "type": "integer"
+              },
+              "gross_gap": {
+                "title": "Gross Gap",
+                "type": "integer"
+              }
+            },
+            "required": [
+              "kind",
+              "component",
+              "requested_units",
+              "open_requested_units",
+              "available",
+              "gross_gap"
+            ],
+            "title": "Demand",
+            "type": "object"
+          },
+          "title": "Demand",
+          "type": "array"
+        },
+        "demand_complete": {
+          "title": "Demand Complete",
+          "type": "boolean"
+        },
+        "discarded": {
+          "title": "Discarded",
+          "type": "integer"
+        },
+        "used": {
+          "title": "Used",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "from_at",
+        "until_at",
+        "method",
+        "trends",
+        "products",
+        "limitation",
+        "demand",
+        "demand_complete",
+        "discarded",
+        "used"
+      ],
+      "title": "Analytics",
+      "type": "object"
+    }
+  }
+}

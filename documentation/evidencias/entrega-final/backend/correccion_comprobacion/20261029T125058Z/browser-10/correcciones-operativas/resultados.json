@@ -1,0 +1,117 @@
+{
+  "startedAt": "2026-10-29T14:04:46.018Z",
+  "environment": "https://localhost:63453",
+  "version": "0.4.1",
+  "schema": 13,
+  "policies": {
+    "mfa": true,
+    "reauth": true,
+    "laboratory": true,
+    "organAuthorization": true
+  },
+  "checks": [
+    {
+      "name": "MFA ausente rechazado sin iniciar sesión",
+      "role": "origin",
+      "at": "2026-10-29T14:05:05.415Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Inicio de sesión y cookies Secure sobre TLS",
+      "role": "origin",
+      "at": "2026-10-29T14:05:10.286Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Liberación sin reautenticación rechazada",
+      "role": "origin",
+      "at": "2026-10-29T14:05:13.665Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Liberación con MFA, perfil completo y reautenticación; persiste al recargar",
+      "role": "origin",
+      "at": "2026-10-29T14:05:35.420Z",
+      "result": "PASS"
+    }
+  ],
+  "consoleErrors": [],
+  "networkErrors": [
+    {
+      "status": 401,
+      "path": "/login",
+      "role": "origin"
+    },
+    {
+      "status": 404,
+      "path": "/static/img/icons/file-text.svg",
+      "role": "origin"
+    },
+    {
+      "status": 404,
+      "path": "/static/img/icons/flask-conical.svg",
+      "role": "origin"
+    },
+    {
+      "status": 404,
+      "path": "/static/img/icons/file-text.svg",
+      "role": "origin"
+    },
+    {
+      "status": 404,
+      "path": "/static/img/icons/flask-conical.svg",
+      "role": "origin"
+    },
+    {
+      "status": 403,
+      "path": "/inventario/a87828f1-96c6-4740-b03e-46d9394700b5/liberar",
+      "role": "origin"
+    },
+    {
+      "status": 404,
+      "path": "/static/img/icons/flask-conical.svg",
+      "role": "origin"
+    },
+    {
+      "status": 404,
+      "path": "/static/img/icons/file-text.svg",
+      "role": "origin"
+    },
+    {
+      "status": 404,
+      "path": "/static/img/icons/file-text.svg",
+      "role": "origin"
+    },
+    {
+      "status": 404,
+      "path": "/static/img/icons/flask-conical.svg",
+      "role": "origin"
+    },
+    {
+      "status": 404,
+      "path": "/static/img/icons/flask-conical.svg",
+      "role": "origin"
+    },
+    {
+      "status": 404,
+      "path": "/static/img/icons/file-text.svg",
+      "role": "origin"
+    },
+    {
+      "status": 404,
+      "path": "/static/img/icons/flask-conical.svg",
+      "role": "destination"
+    },
+    {
+      "status": 404,
+      "path": "/static/img/icons/file-text.svg",
+      "role": "destination"
+    }
+  ],
+  "records": {},
+  "privateReportDownloaded": false,
+  "map": "No implementado en esta etapa; WSS por Nginx comprobado con fuente sintética.",
+  "passed": false,
+  "failure": "page.waitForURL: Timeout 30000ms exceeded.\n=========================== logs ===========================\nwaiting for navigation to \"**/panel\" until \"load\"\n  navigated to \"https://localhost:63453/panel\"\n============================================================",
+  "finishedAt": "2026-10-29T14:06:09.703Z"
+}

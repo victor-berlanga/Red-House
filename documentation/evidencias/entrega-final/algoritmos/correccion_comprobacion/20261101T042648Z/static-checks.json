@@ -1,0 +1,44 @@
+[
+  {
+    "command": [
+      "apps/services/.venv/bin/ruff",
+      "check",
+      "apps/services/ms_compatibilidad",
+      "apps/services/ms_priorizacion_geografia/decisions.py",
+      "apps/services/ms_priorizacion_geografia/academic.py",
+      "apps/services/ms_auditoria/anomalies.py",
+      "apps/services/redhouse/operational.py",
+      "apps/services/tests/test_stage02_corrections.py",
+      "apps/services/tests/test_stage02_oracles.py",
+      "apps/services/tests/test_stage02_migration.py",
+      "apps/services/tests/test_stage02_browser.py",
+      "apps/services/tests/test_stage02_gcs.py",
+      "apps/web/src/integration/routes/decision_support.py",
+      "apps/web/src/integration/routes/quality.py"
+    ],
+    "exit_code": 0,
+    "stdout": "All checks passed!\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "apps/services/.venv/bin/ruff",
+      "check",
+      "apps/services/ms_priorizacion_geografia"
+    ],
+    "exit_code": 1,
+    "stdout": "I001 [*] Import block is un-sorted or un-formatted\n --> apps/services/ms_priorizacion_geografia/__init__.py:1:1\n  |\n1 | from redhouse.app import base_app, complete_app\n  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nhelp: Organize imports\n  |\n2 |\n  -\n3 | VERSION = \"0.4.3\"\n  |\n\nI001 [*] Import block is un-sorted or un-formatted\n  --> apps/services/ms_priorizacion_geografia/routes.py:1:1\n   |\n 1 | / from datetime import datetime, timedelta, timezone\n 2 | | from time import perf_counter\n 3 | | from typing import Annotated\n 4 | | from uuid import uuid4\n 5 | |\n 6 | | from flask import g\n 7 | | from pydantic import Field\n 8 | |\n 9 | | from redhouse.api import atomic, endpoint, listing\n10 | | from redhouse.client import call\n11 | | from redhouse.db import get, insert, transaction, update\n12 | | from redhouse.errors import APIError\n13 | | from redhouse.events import emit\n14 | | from redhouse.models import ID, Model, Reason\n15 | | from redhouse.security import own\n   | |_________________________________^\nhelp: Organize imports\n  |\n7 | from pydantic import Field\n  -\n8 | from redhouse.api import atomic, endpoint, listing\n  |\n\nF401 [*] `datetime.timedelta` imported but unused\n --> apps/services/ms_priorizacion_geografia/routes.py:1:32\n  |\n1 | from datetime import datetime, timedelta, timezone\n  |                                ^^^^^^^^^\n2 | from time import perf_counter\n3 | from typing import Annotated\n  |\nhelp: Remove unused import: `datetime.timedelta`\n  |\n  - from datetime import datetime, timedelta, timezone\n1 + from datetime import datetime, timezone\n2 | from time import perf_counter\n  |\n\nC408 Unnecessary `dict()` call (rewrite as a literal)\n   --> apps/services/ms_priorizacion_geografia/routes.py:186:17\n    |\n184 |                   conn,\n185 |                   \"rankings\",\n186 | /                 dict(\n187 | |                     id=str(uuid4()),\n188 | |                     tenant_id=g.actor[\"tenant_id\"],\n189 | |                     evaluation_id=data[\"evaluation_id\"],\n190 | |                     algorithm_version=\"LOGISTICS-1.0\",\n191 | |                     factors={\n192 | |                         \"order\": [\n193 | |                             \"expires_at\",\n194 | |                             \"travel_minutes\",\n195 | |                             \"distance_km\",\n196 | |                             \"resource_id\",\n197 | |                         ],\n198 | |                         \"urgency\": evaluation[\"snapshot\"][\"urgency\"],\n199 | |                         \"request_created_at\": evaluation[\"snapshot\"][\"created_at\"],\n200 | |                     },\n201 | |                     result=result,\n202 | |                     elapsed_ms=elapsed,\n203 | |                 ),\n    | |_________________^\n204 |               )\n205 |               emit(\n    |\nhelp: Rewrite as a literal\n\nC408 Unnecessary `dict()` call (rewrite as a literal)\n   --> apps/services/ms_priorizacion_geografia/routes.py:290:17\n    |\n288 |                   conn,\n289 |                   \"proposals\",\n290 | /                 dict(\n291 | |                     id=str(uuid4()),\n292 | |                     tenant_id=g.actor[\"tenant_id\"],\n293 | |                     algorithm_version=\"COVERAGE-HK-1.0\",\n294 | |                     snapshots=details,\n295 | |                     result=result,\n296 | |                     elapsed_ms=elapsed,\n297 | |                     slot_count=len(graph),\n298 | |                     matched_count=len(result),\n299 | |                 ),\n    | |_________________^\n300 |               )\n301 |               emit(\n    |\nhelp: Rewrite as a literal\n\nI001 [*] Import block is un-sorted or un-formatted\n --> apps/services/ms_priorizacion_geografia/run.py:1:1\n  |\n1 | / from pathlib import Path\n2 | | import sys\n  | |__________^\n3 |\n4 |   sys.path.insert(0, str(Path(__file__).resolve().parents[1]))\n  |\nhelp: Organize imports\n  |\n1 + import sys\n2 | from pathlib import Path\n  - import sys\n3 |\n  |\n\nFound 6 errors.\n[*] 4 fixable with the `--fix` option (2 hidden fixes can be enabled with the `--unsafe-fixes` option).\n",
+    "stderr": "",
+    "scope_note": "Barrido adicional de todo Priorización; seis avisos de estilo/importación. run.py coincide con baseline. No se atribuye Ruff global aprobado; limpieza no necesaria para los flujos comprobados."
+  },
+  {
+    "command": [
+      "git",
+      "diff",
+      "--check"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  }
+]

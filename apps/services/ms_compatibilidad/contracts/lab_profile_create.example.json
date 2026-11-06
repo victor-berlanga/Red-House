@@ -1,0 +1,28 @@
+{
+  "name": "Dato ficticio para reemplazar",
+  "kind": "BLOOD",
+  "component": "RBC",
+  "version": 1,
+  "required_tests": [
+    "ABO"
+  ],
+  "source": "Dato ficticio para reemplazar",
+  "evidence_rules": [],
+  "synthetic": true,
+  "effective_at": "2026-10-01T15:00:00+00:00",
+  "supersedes": null,
+  "valid_until": null,
+  "policy": {
+    "version": "COMPLETENESS-2.0",
+    "max_age_seconds": null,
+    "contradictions": "REVIEW",
+    "require_document": true,
+    "require_hla_catalogue": true,
+    "ranking_order": null,
+    "urgency_scale": null
+  },
+  "purpose": "Dato ficticio para reemplazar",
+  "rule_status": "DRAFT",
+  "required_loci": [],
+  "clinical_enabled": false
+}

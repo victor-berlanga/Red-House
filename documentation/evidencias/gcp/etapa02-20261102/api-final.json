@@ -1,0 +1,156 @@
+{
+  "passed": true,
+  "contracts": [
+    {
+      "operation": "user_list",
+      "format": "json",
+      "status": "passed"
+    },
+    {
+      "operation": "user_list",
+      "format": "xml",
+      "status": "passed"
+    },
+    {
+      "operation": "campaigns",
+      "format": "json",
+      "status": "passed"
+    },
+    {
+      "operation": "campaigns",
+      "format": "xml",
+      "status": "passed"
+    },
+    {
+      "operation": "requests_list",
+      "format": "json",
+      "status": "passed"
+    },
+    {
+      "operation": "requests_list",
+      "format": "xml",
+      "status": "passed"
+    },
+    {
+      "operation": "resources_list",
+      "format": "json",
+      "status": "passed"
+    },
+    {
+      "operation": "resources_list",
+      "format": "xml",
+      "status": "passed"
+    },
+    {
+      "operation": "evaluation_list",
+      "format": "json",
+      "status": "passed"
+    },
+    {
+      "operation": "evaluation_list",
+      "format": "xml",
+      "status": "passed"
+    },
+    {
+      "operation": "routes_list",
+      "format": "json",
+      "status": "passed"
+    },
+    {
+      "operation": "routes_list",
+      "format": "xml",
+      "status": "passed"
+    },
+    {
+      "operation": "shipment_list",
+      "format": "json",
+      "status": "passed"
+    },
+    {
+      "operation": "shipment_list",
+      "format": "xml",
+      "status": "passed"
+    },
+    {
+      "operation": "chain_detail",
+      "format": "json",
+      "status": "passed"
+    },
+    {
+      "operation": "chain_detail",
+      "format": "xml",
+      "status": "passed"
+    },
+    {
+      "operation": "alerts_list",
+      "format": "json",
+      "status": "passed"
+    },
+    {
+      "operation": "alerts_list",
+      "format": "xml",
+      "status": "passed"
+    },
+    {
+      "operation": "audit_list",
+      "format": "json",
+      "status": "passed"
+    },
+    {
+      "operation": "audit_list",
+      "format": "xml",
+      "status": "passed"
+    },
+    {
+      "operation": "status",
+      "format": "json",
+      "status": "passed"
+    },
+    {
+      "operation": "status",
+      "format": "xml",
+      "status": "passed"
+    },
+    {
+      "operation": "export_list",
+      "format": "json",
+      "status": "passed"
+    },
+    {
+      "operation": "export_list",
+      "format": "xml",
+      "status": "passed"
+    },
+    {
+      "operation": "reference_sources",
+      "format": "json",
+      "status": "passed"
+    },
+    {
+      "operation": "reference_sources",
+      "format": "xml",
+      "status": "passed"
+    },
+    {
+      "operation": "regional_graph_sources",
+      "format": "json",
+      "status": "passed"
+    },
+    {
+      "operation": "regional_graph_sources",
+      "format": "xml",
+      "status": "passed"
+    }
+  ],
+  "new_fictitious_records": {
+    "profile": "7bf03011-eb76-4438-9fe8-73d1be0a257a",
+    "recipient": "61c159b0-d915-460e-8db6-7a7a3e20d2bc",
+    "sample": "43e21cd6-711a-47b1-a14c-54acad2c402c",
+    "result": "75bd964b-3ccb-4502-8766-76caa1a148e6",
+    "graph": "602a5b09-4b17-42d0-8716-2a59621785c5",
+    "run": "b8a70bfc-bb8b-47ea-992d-c4a8c594cdd4"
+  },
+  "hla_persisted": true,
+  "clinical_approval": false,
+  "road_reproduced": true
+}

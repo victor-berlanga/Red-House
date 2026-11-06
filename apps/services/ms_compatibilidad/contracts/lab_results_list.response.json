@@ -1,0 +1,310 @@
+{
+  "type": "object",
+  "required": [
+    "data",
+    "meta"
+  ],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": [
+        "correlation_id",
+        "service",
+        "version"
+      ],
+      "properties": {
+        "correlation_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "service": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "required": [
+        "items",
+        "page",
+        "page_size",
+        "total"
+      ],
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "sample_id": {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "title": "Sample Id",
+                "type": "string"
+              },
+              "test_code": {
+                "maxLength": 60,
+                "minLength": 1,
+                "pattern": "^[A-Z0-9_.-]+$",
+                "title": "Test Code",
+                "type": "string"
+              },
+              "value": {
+                "anyOf": [
+                  {
+                    "maxLength": 2000,
+                    "minLength": 1,
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Value"
+              },
+              "result_state": {
+                "default": "REPORTED",
+                "enum": [
+                  "NOT_PERFORMED",
+                  "PENDING",
+                  "INDETERMINATE",
+                  "REPORTED",
+                  "CORRECTED"
+                ],
+                "title": "Result State",
+                "type": "string"
+              },
+              "hla": {
+                "anyOf": [
+                  {
+                    "additionalProperties": true,
+                    "type": "object"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Hla"
+              },
+              "crossmatch": {
+                "anyOf": [
+                  {
+                    "additionalProperties": false,
+                    "properties": {
+                      "donor_sample_id": {
+                        "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                        "title": "Donor Sample Id",
+                        "type": "string"
+                      },
+                      "recipient_sample_id": {
+                        "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                        "title": "Recipient Sample Id",
+                        "type": "string"
+                      },
+                      "request_id": {
+                        "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                        "title": "Request Id",
+                        "type": "string"
+                      },
+                      "technique": {
+                        "maxLength": 200,
+                        "minLength": 1,
+                        "title": "Technique",
+                        "type": "string"
+                      },
+                      "reported_interpretation": {
+                        "enum": [
+                          "POSITIVE",
+                          "NEGATIVE",
+                          "INDETERMINATE",
+                          "PENDING"
+                        ],
+                        "title": "Reported Interpretation",
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "donor_sample_id",
+                      "recipient_sample_id",
+                      "request_id",
+                      "technique",
+                      "reported_interpretation"
+                    ],
+                    "title": "Crossmatch",
+                    "type": "object"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null
+              },
+              "issued_at": {
+                "anyOf": [
+                  {
+                    "maxLength": 200,
+                    "minLength": 1,
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Issued At"
+              },
+              "document_id": {
+                "anyOf": [
+                  {
+                    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Document Id"
+              },
+              "unit": {
+                "anyOf": [
+                  {
+                    "maxLength": 200,
+                    "minLength": 1,
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Unit"
+              },
+              "method": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Method",
+                "type": "string"
+              },
+              "laboratory": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Laboratory",
+                "type": "string"
+              },
+              "reference": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Reference",
+                "type": "string"
+              },
+              "measured_at": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Measured At",
+                "type": "string"
+              },
+              "supersedes": {
+                "anyOf": [
+                  {
+                    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Supersedes"
+              },
+              "id": {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "title": "Id",
+                "type": "string"
+              },
+              "tenant_id": {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "title": "Tenant Id",
+                "type": "string"
+              },
+              "author_id": {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "title": "Author Id",
+                "type": "string"
+              },
+              "version": {
+                "title": "Version",
+                "type": "integer"
+              },
+              "status": {
+                "title": "Status",
+                "type": "string"
+              },
+              "created_at": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Created At",
+                "type": "string"
+              },
+              "document_snapshot": {
+                "anyOf": [
+                  {
+                    "additionalProperties": true,
+                    "type": "object"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Document Snapshot"
+              },
+              "catalogue_check": {
+                "anyOf": [
+                  {
+                    "additionalProperties": true,
+                    "type": "object"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Catalogue Check"
+              }
+            },
+            "required": [
+              "sample_id",
+              "test_code",
+              "method",
+              "laboratory",
+              "reference",
+              "measured_at",
+              "id",
+              "tenant_id",
+              "author_id",
+              "version",
+              "status",
+              "created_at"
+            ],
+            "title": "Result",
+            "type": "object"
+          }
+        },
+        "page": {
+          "type": "integer"
+        },
+        "page_size": {
+          "type": "integer"
+        },
+        "total": {
+          "type": "integer"
+        }
+      }
+    }
+  }
+}

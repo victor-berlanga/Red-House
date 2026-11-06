@@ -48,6 +48,7 @@ def login():
             sid = sessions.login(
                 request.form.get("login_email", "").strip(),
                 request.form.get("password", ""),
+                request.form.get("otp", "").strip() or None,
             )
             session.clear()
             response = redirect(url_for("portal.dashboard"))

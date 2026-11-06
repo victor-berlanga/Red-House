@@ -11,6 +11,8 @@ from . import (
     monitoring,
     audit,
     files,
+    quality,
+    decision_support,
 )
 
 # El módulo inventory comparte nombre con el Blueprint: importar explícitamente.

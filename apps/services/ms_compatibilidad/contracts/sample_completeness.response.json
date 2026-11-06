@@ -1,0 +1,118 @@
+{
+  "type": "object",
+  "required": [
+    "data",
+    "meta"
+  ],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": [
+        "correlation_id",
+        "service",
+        "version"
+      ],
+      "properties": {
+        "correlation_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "service": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      }
+    },
+    "data": {
+      "additionalProperties": false,
+      "properties": {
+        "complete": {
+          "title": "Complete",
+          "type": "boolean"
+        },
+        "missing": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Missing",
+          "type": "array"
+        },
+        "profile_id": {
+          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+          "title": "Profile Id",
+          "type": "string"
+        },
+        "profile_version": {
+          "title": "Profile Version",
+          "type": "integer"
+        },
+        "fingerprint": {
+          "title": "Fingerprint",
+          "type": "string"
+        },
+        "result_ids": {
+          "items": {
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "type": "string"
+          },
+          "title": "Result Ids",
+          "type": "array"
+        },
+        "synthetic": {
+          "title": "Synthetic",
+          "type": "boolean"
+        },
+        "clinical_approval": {
+          "const": false,
+          "default": false,
+          "title": "Clinical Approval",
+          "type": "boolean"
+        },
+        "clinical_enabled": {
+          "default": false,
+          "title": "Clinical Enabled",
+          "type": "boolean"
+        },
+        "conflicts": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Conflicts",
+          "type": "array"
+        },
+        "policy_version": {
+          "default": "COMPLETENESS-2.0",
+          "title": "Policy Version",
+          "type": "string"
+        },
+        "satisfied_tests": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Satisfied Tests",
+          "type": "array"
+        },
+        "satisfied_loci": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Satisfied Loci",
+          "type": "array"
+        }
+      },
+      "required": [
+        "complete",
+        "missing",
+        "profile_id",
+        "profile_version",
+        "fingerprint",
+        "result_ids",
+        "synthetic"
+      ],
+      "title": "Completeness",
+      "type": "object"
+    }
+  }
+}

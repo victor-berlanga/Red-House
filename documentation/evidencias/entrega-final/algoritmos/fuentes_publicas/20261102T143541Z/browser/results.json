@@ -1,0 +1,115 @@
+{
+  "passed": true,
+  "scope": "ACADEMIC with MFA/reauth/laboratory/organ checks explicitly enabled",
+  "apiListeners": "ALL_STOPPED",
+  "checks": [
+    {
+      "name": "MFA y cookie Secure, backend modular sin API",
+      "result": "PASS"
+    },
+    {
+      "name": "Cuatro niveles y límites visibles",
+      "result": "PASS"
+    },
+    {
+      "name": "Fuentes primarias, catálogo HLA y licencia vial visibles sin APIs",
+      "result": "PASS"
+    },
+    {
+      "name": "Importación vial real, ruta modelada y reproducción persistida sin GPS",
+      "result": "PASS"
+    },
+    {
+      "name": "HLA capturado y reconocido contra edición pública sin dictamen",
+      "result": "PASS"
+    },
+    {
+      "name": "Registro de perfil por formulario y conservación",
+      "result": "PASS"
+    },
+    {
+      "name": "Muestra recibida y resultado no realizado persistidos sin dictamen",
+      "result": "PASS"
+    },
+    {
+      "name": "Completitud técnica separada de registro, evaluación y dictamen",
+      "result": "PASS"
+    },
+    {
+      "name": "Liberación académica con perfil y reautenticación persistida",
+      "result": "PASS"
+    },
+    {
+      "name": "Evaluación de perfil y dictamen humano separados",
+      "result": "PASS"
+    },
+    {
+      "name": "ALG-01 por formulario, persistencia y reproducción",
+      "result": "PASS"
+    },
+    {
+      "name": "ALG-02 por formulario, persistencia y reproducción",
+      "result": "PASS"
+    },
+    {
+      "name": "ALG-02-GEO por formulario, persistencia y reproducción",
+      "result": "PASS"
+    },
+    {
+      "name": "ALG-03 por formulario, persistencia y reproducción",
+      "result": "PASS"
+    },
+    {
+      "name": "ALG-04 por formulario, persistencia y reproducción",
+      "result": "PASS"
+    },
+    {
+      "name": "ALG-05 por formulario, persistencia y reproducción",
+      "result": "PASS"
+    },
+    {
+      "name": "Anomalía recibida por outbox visible en Auditoría",
+      "result": "PASS"
+    },
+    {
+      "name": "Corrección invalida consulta de dictamen sin alterar historia",
+      "result": "PASS"
+    },
+    {
+      "name": "Reserva obsoleta rechazada desde navegador",
+      "result": "PASS"
+    },
+    {
+      "name": "Nueva evaluación y dictamen permiten reserva académica",
+      "result": "PASS"
+    },
+    {
+      "name": "Operador sin acceso a dictamen",
+      "result": "PASS"
+    },
+    {
+      "name": "Médico de otra institución sin acceso a evaluación",
+      "result": "PASS"
+    },
+    {
+      "name": "Auditor resuelve revisión con MFA y reautenticación, conserva historial",
+      "result": "PASS"
+    }
+  ],
+  "runs": [
+    "4fe17f93-593e-4ebc-ac72-d48249012209",
+    "f3ea8448-c939-47d8-9fa5-47d4a27b6079",
+    "db46b757-0066-459b-b9ae-7488cdab72ba",
+    "54685086-6a5e-497e-914c-dcf42dc44280",
+    "22febd18-5c98-4b7c-9771-2c944fd12033",
+    "8cf9d901-6148-4d27-b58d-b1c5c5b72b4e"
+  ],
+  "consoleErrors": [],
+  "networkErrors": [
+    {
+      "path": "/evaluaciones/abb62247-a6ac-4e03-b4d1-d1751b80f22a/reservar/6c0fcbda-a988-459a-ab07-d524dbae0562",
+      "status": 409
+    }
+  ],
+  "publicRoadRun": "b0822e42-b192-4b06-88b5-33b91d783536"
+}

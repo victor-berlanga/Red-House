@@ -1,0 +1,11 @@
+F
+=================================== FAILURES ===================================
+______ test_documents_configuration_upgrade_repeatable_preserves_sessions ______
+apps/services/tests/test_correction_upgrade.py:47: in test_documents_configuration_upgrade_repeatable_preserves_sessions
+    (directory / name).write_text(json.dumps(config))
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'SERVICE_PUBLIC_KEYS'
+=========================== short test summary info ============================
+FAILED apps/services/tests/test_correction_upgrade.py::test_documents_configuration_upgrade_repeatable_preserves_sessions
+!!!!!!!!!!!!!!!!!!!!!!!!!! stopping after 1 failures !!!!!!!!!!!!!!!!!!!!!!!!!!!
+1 failed, 32 deselected in 24.84s

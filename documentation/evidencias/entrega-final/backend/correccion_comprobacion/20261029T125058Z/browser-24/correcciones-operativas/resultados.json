@@ -1,0 +1,152 @@
+{
+  "startedAt": "2026-10-29T15:28:49.822Z",
+  "environment": "https://localhost:52443",
+  "version": "0.4.1",
+  "schema": 13,
+  "policies": {
+    "mfa": true,
+    "reauth": true,
+    "laboratory": true,
+    "organAuthorization": true
+  },
+  "checks": [
+    {
+      "name": "MFA ausente rechazado sin iniciar sesión",
+      "role": "origin",
+      "at": "2026-10-29T15:29:04.801Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Inicio de sesión y cookies Secure sobre TLS",
+      "role": "origin",
+      "at": "2026-10-29T15:29:07.652Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Liberación sin reautenticación rechazada",
+      "role": "origin",
+      "at": "2026-10-29T15:29:10.118Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Liberación con MFA, perfil completo y reautenticación; persiste al recargar",
+      "role": "origin",
+      "at": "2026-10-29T15:29:35.651Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Inicio de sesión y cookies Secure sobre TLS",
+      "role": "destination",
+      "at": "2026-10-29T15:30:19.861Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Solicitud, evaluación y revisión humana",
+      "role": "destination",
+      "at": "2026-10-29T15:30:35.137Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Nueva versión de laboratorio autorizada con MFA y reautenticación",
+      "role": "origin",
+      "at": "2026-10-29T15:30:48.522Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Reserva con dictamen anterior rechazada visiblemente",
+      "role": "destination",
+      "at": "2026-10-29T15:30:54.070Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Nueva evaluación y revisión permiten reservar una sola vez",
+      "role": "destination",
+      "at": "2026-10-29T15:32:14.635Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Inicio de sesión y cookies Secure sobre TLS",
+      "role": "coordinator",
+      "at": "2026-10-29T15:32:28.593Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Inicio de sesión y cookies Secure sobre TLS",
+      "role": "operator1",
+      "at": "2026-10-29T15:32:51.090Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Inicio de sesión y cookies Secure sobre TLS",
+      "role": "transport1",
+      "at": "2026-10-29T15:34:12.005Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Custodia incompleta no avanza; mensaje visible en móvil",
+      "role": "transport1",
+      "at": "2026-10-29T15:34:16.477Z",
+      "result": "PASS"
+    },
+    {
+      "name": "WSS real por Nginx; publicación, recepción y reconexión por cursor",
+      "role": "transport1",
+      "at": "2026-10-29T15:34:24.954Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Inicio de sesión y cookies Secure sobre TLS",
+      "role": "operator2",
+      "at": "2026-10-29T15:34:53.512Z",
+      "result": "PASS"
+    }
+  ],
+  "consoleErrors": [],
+  "networkErrors": [
+    {
+      "status": 401,
+      "path": "/login",
+      "role": "origin"
+    },
+    {
+      "status": 403,
+      "path": "/inventario/af1d4710-4260-44ad-9b08-f29a68d5216f/liberar",
+      "role": "origin"
+    },
+    {
+      "status": 409,
+      "path": "/evaluaciones/525885eb-a2a4-4e33-ad56-f79a8d700f8e/reservar/af1d4710-4260-44ad-9b08-f29a68d5216f",
+      "role": "destination"
+    },
+    {
+      "status": 504,
+      "path": "/static/img/icons/inbox.svg",
+      "role": "destination"
+    },
+    {
+      "status": 504,
+      "path": "/static/js/timezone.js",
+      "role": "destination"
+    },
+    {
+      "status": 504,
+      "path": "/static/js/session.js",
+      "role": "destination"
+    },
+    {
+      "status": 504,
+      "path": "/static/js/filters.js",
+      "role": "transport1"
+    }
+  ],
+  "records": {
+    "request": "e4fad3f7-2c96-4518-9c82-b902dd2ef8c5",
+    "correctedResult": "0e0f88a8-4818-4e3b-85da-c02d8b9b2920",
+    "shipment": "58169f64-cd43-4743-9edb-9236411ba6a6"
+  },
+  "privateReportDownloaded": false,
+  "map": "No implementado en esta etapa; validar WSS por Nginx no acredita mapa.",
+  "passed": false,
+  "failure": "apiRequestContext.post: Timeout 30000ms exceeded.",
+  "finishedAt": "2026-10-29T15:35:32.877Z"
+}

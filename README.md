@@ -2,9 +2,11 @@
 
 Red regional de bancos de sangre y donación de órganos · Proyecto 6 · Equipo 01.
 
-Portal Flask/Jinja2 con backend modular autónomo y diez microservicios más Monitoreo. El modo HTTP sigue disponible mediante configuración explícita. PostgreSQL mantiene una base persistente compartida (`red_house`), con permisos por servicio; Redis mantiene sesiones y caché; MongoDB conserva documentos y proyecciones. Los datos locales son ficticios. Las reglas de compatibilidad requieren revisión humana y no sustituyen decisiones clínicas.
+Portal Flask/Jinja2 con backend modular autónomo y once microservicios de dominio más Monitoreo. El modo HTTP sigue disponible mediante configuración explícita. PostgreSQL mantiene una base persistente compartida (`red_house`), con permisos por servicio; Redis mantiene sesiones y caché; MongoDB conserva documentos y proyecciones. Los datos locales son ficticios. Las reglas de compatibilidad requieren revisión humana y no sustituyen decisiones clínicas.
 
-El sistema desplegado está disponible en **https://34.18.186.116**. Todo se ejecuta en GCP; no requiere iniciar nada localmente. [Guía de acceso y administración](deployment/gcp/README.md).
+Portal publicado en GCP: **https://34.18.186.116**. Actualizado y comprobado el 31/10/2026 con **0.4.1 / esquema 13**, treinta contenedores sanos y demostración visible sin grabación. [Resultados y límites](documentation/evidencias/gcp/correccion-20261031/RESULTADOS.md) · [Guía de acceso y administración](deployment/gcp/README.md).
+
+[Corrección backend 0.4.1 / esquema 13: resultados y límites](documentation/evidencias/entrega-final/backend/correccion_comprobacion/20261029T125058Z/RESULTADOS.md) · [Estado del proyecto](PROJECT_STATUS.md).
 
 ## Instalación y ejecución local opcional
 
@@ -53,4 +55,4 @@ La [base compartida basada en main](documentation/markdowns/Esquema_compartido.m
 
 [Reporte integral](documentation/markdowns/Reporte_tecnico_segundo_parcial.md) · [Matriz de cumplimiento](documentation/markdowns/Cierre_segundo_parcial.md) · [Resultados verificables](documentation/evidencias/segundo-parcial/RESULTADOS.md) · [Docker](deployment/README.md) · [Guion de demostración](stuff/presentacion/Guion_segundo_parcial.md).
 
-El Compose usa `.local/compose`, volúmenes propios y puertos 6050/6101–6111. Mantiene dos instancias por API y workers supervisados. No monta los archivos físicos de `.local/runtime`. El portal modular mantiene sus operaciones cuando las API están detenidas, siempre que sus dependencias compartidas estén disponibles.
+El Compose usa `.local/compose`, volúmenes propios y puertos 6050/6101–6112. Mantiene dos instancias por API y workers supervisados. No monta los archivos físicos de `.local/runtime`. El portal modular mantiene sus operaciones cuando las API están detenidas, siempre que sus dependencias compartidas estén disponibles.

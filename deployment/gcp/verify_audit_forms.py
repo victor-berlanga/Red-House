@@ -37,6 +37,7 @@ def main():
         "alertas",
         "auditoria",
         "monitoreo",
+        "documentos",
     )
     tokens = {}
     report = {"checks": [], "resource_id": args.resource, "finding_id": args.finding}

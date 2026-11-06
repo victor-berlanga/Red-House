@@ -135,6 +135,9 @@ def main():
     )
     destination.mkdir(parents=True)
     compose = ["docker", "compose", "-f", str(ROOT / "compose.yaml")]
+    for name in ("gcs.compose.yaml", "public.compose.yaml"):
+        if (directory / name).exists():
+            compose += ["-f", str(directory / name)]
     running = (
         command(compose + ["ps", "--services", "--status", "running"]).decode().split()
     )
@@ -196,9 +199,18 @@ def main():
                 shutil.copytree(source, private / name)
             else:
                 shutil.copy2(source, private / name)
-        for name in ("gcs.compose.yaml", "gcs-adc.json"):
+        for name in (
+            "gcs.compose.yaml",
+            "gcs-adc.json",
+            "public.compose.yaml",
+            "public.nginx.conf",
+            "public.json",
+            "tls",
+        ):
             source = directory / name
-            if source.exists():
+            if source.is_dir():
+                shutil.copytree(source, private / name)
+            elif source.exists():
                 shutil.copy2(source, private / name)
         result = {
             "date": datetime.now(timezone.utc).isoformat(),
@@ -387,7 +399,7 @@ def main():
         if apps and not args.leave_stopped:
             # Keep the existing containers and their mounts, starting event sinks
             # first. Restoring all Python processes at once can starve readiness.
-            groups = [["gateway"]]
+            groups = [["gateway"], ["clamav"]]
             groups += [[name + "-a", name + "-b"] for name in START_ORDER]
             groups += [["web"]]
             assert set(apps) <= {name for group in groups for name in group}

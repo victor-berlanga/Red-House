@@ -1,3 +1,4 @@
+from .helpers import telemetry_body
 from concurrent.futures import ThreadPoolExecutor
 from uuid import uuid4
 
@@ -108,7 +109,7 @@ def test_resource_to_receipt_custody_audit_and_notification(p, kind, component, 
         "POST",
         f"/api/v1/shipments/{shipment['id']}/telemetry",
         user="transport1",
-        data={"latitude": 25.6, "longitude": -100.3, "captured_at": iso()},
+        data=telemetry_body(p, shipment),
     )
     assert location["shipment_id"] == shipment["id"]
     shipment = move(p, shipment, "DELIVERED", "transport1")

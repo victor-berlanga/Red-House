@@ -1,0 +1,756 @@
+[
+  {
+    "chapter": 1,
+    "start_seconds": 0,
+    "text": "Portal público · Presentación de la red, servicios y acceso institucional.",
+    "source": "natural03",
+    "source_intervals": [
+      [
+        5,
+        9.875000000000014
+      ]
+    ]
+  },
+  {
+    "chapter": 2,
+    "start_seconds": 8.88,
+    "text": "Acceso seguro · Inicio de sesión con MFA. Datos ficticios en GCP.",
+    "source": "natural03",
+    "source_intervals": []
+  },
+  {
+    "chapter": 3,
+    "start_seconds": 12.88,
+    "text": "Panorama de la plataforma · Estamos en Red House, versión cero punto cuatro punto cuatro, publicada en Google Cloud. Esta demostración usa datos ficticios y conserva el modo académico.",
+    "source": "natural03",
+    "source_intervals": [
+      [
+        34.003000000000014,
+        46.923000000000016
+      ]
+    ]
+  },
+  {
+    "chapter": 4,
+    "start_seconds": 33.05,
+    "text": "Fuentes públicas y alcance · Las fuentes tienen versión y alcance. El catálogo HLA tres punto sesenta y seis verifica que un alelo existe. Esto no determina compatibilidad ni autoriza un trasplante.",
+    "source": "natural03",
+    "source_intervals": [
+      [
+        46.923000000000016,
+        53.61400000000001
+      ]
+    ]
+  },
+  {
+    "chapter": 5,
+    "start_seconds": 47.74,
+    "text": "Laboratorio HLA · Alelo registrado y reconocido no significa aprobación clínica.",
+    "source": "natural03",
+    "source_intervals": [
+      [
+        53.61400000000001,
+        73.32400000000001
+      ]
+    ]
+  },
+  {
+    "chapter": 6,
+    "start_seconds": 71.45,
+    "text": "Registro, completitud y dictamen · Registrado, completo, evaluado y autorizado son cuatro estados distintos. Los resultados pendientes o indeterminados no cuentan como negativos. Las correcciones conservan el antecedente.",
+    "source": "natural03",
+    "source_intervals": [
+      [
+        73.32400000000001,
+        80.07400000000001
+      ]
+    ]
+  },
+  {
+    "chapter": 7,
+    "start_seconds": 85.2,
+    "text": "Perfiles y versiones · Requisitos, fuentes e historia separados del dictamen.",
+    "source": "natural03",
+    "source_intervals": [
+      [
+        80.07400000000001,
+        95.51600000000002
+      ]
+    ]
+  },
+  {
+    "chapter": 8,
+    "start_seconds": 104.64,
+    "text": "Ruta planificada · Dijkstra sobre una fuente vial versionada.",
+    "source": "natural04",
+    "source_intervals": [
+      [
+        31.751,
+        62.28
+      ]
+    ]
+  },
+  {
+    "chapter": 9,
+    "start_seconds": 139.17,
+    "text": "Ruta, GPS y ETA · Dijkstra calcula una ruta sobre datos versionados de OpenStreetMap y OSRM. La posición GPS, el recorrido recibido, la ruta y la hora estimada son conceptos separados. No estamos midiendo tráfico.",
+    "source": "natural04",
+    "source_intervals": [
+      [
+        62.28,
+        68.859
+      ]
+    ]
+  },
+  {
+    "chapter": 10,
+    "start_seconds": 153.75,
+    "text": "Pronóstico de caducidad · Consumo histórico y límites de datos.",
+    "source": "natural04",
+    "source_intervals": [
+      [
+        68.859,
+        97.759
+      ]
+    ]
+  },
+  {
+    "chapter": 11,
+    "start_seconds": 186.65,
+    "text": "Límites del pronóstico · El pronóstico usa consumo histórico por producto y ventana. Compara el error frente a una referencia sencilla. Si faltan observaciones, informa insuficiencia; no inventa demanda.",
+    "source": "natural04",
+    "source_intervals": [
+      [
+        97.759,
+        99.261
+      ]
+    ]
+  },
+  {
+    "chapter": 12,
+    "start_seconds": 195.4,
+    "text": "Inconsistencias · Hallazgos técnicos pendientes de revisión.",
+    "source": "natural04",
+    "source_intervals": [
+      [
+        99.261,
+        129.907
+      ]
+    ]
+  },
+  {
+    "chapter": 13,
+    "start_seconds": 230.04,
+    "text": "Hallazgos e investigación · El detector busca inconsistencias técnicas desde los propietarios de los datos. Un hallazgo abre revisión: no confirma un incidente ni modifica la historia automáticamente.",
+    "source": "natural04",
+    "source_intervals": [
+      [
+        129.907,
+        131.408
+      ]
+    ]
+  },
+  {
+    "chapter": 14,
+    "start_seconds": 238.55,
+    "text": "Liberación de inventario · Ahora recorremos una solicitud de sangre hasta su destino final. La liberación requiere laboratorio, revisión y reautenticación.",
+    "source": "natural05",
+    "source_intervals": [
+      [
+        27.354000000000013,
+        44.966000000000015
+      ],
+      [
+        65.14100000000002,
+        65.86700000000002
+      ]
+    ]
+  },
+  {
+    "chapter": 15,
+    "start_seconds": 262.13,
+    "text": "Solicitud y evaluación · Preselección y dictamen humano son pasos separados.",
+    "source": "natural05",
+    "source_intervals": [
+      [
+        90.16500000000002,
+        129.33
+      ]
+    ]
+  },
+  {
+    "chapter": 16,
+    "start_seconds": 305.3,
+    "text": "Evaluación y dictamen · Consultar la evaluación guardada y registrar revisión académica.",
+    "source": "natural06",
+    "source_intervals": [
+      [
+        21.107,
+        43.516
+      ]
+    ]
+  },
+  {
+    "chapter": 17,
+    "start_seconds": 331.71,
+    "text": "Corrección e invalidación · Una corrección crítica invalida el dictamen anterior. La historia permanece y el servidor debe rechazar una reserva basada en datos obsoletos.",
+    "source": "natural06",
+    "source_intervals": [
+      [
+        83.058,
+        124.87
+      ]
+    ]
+  },
+  {
+    "chapter": 18,
+    "start_seconds": 379.77,
+    "text": "Revisión de la corrección · Nueva versión de laboratorio, conservando el resultado anterior.",
+    "source": "natural07",
+    "source_intervals": [
+      [
+        26.124,
+        46.201
+      ],
+      [
+        82.329,
+        91.127
+      ],
+      [
+        115.05,
+        130.505
+      ],
+      [
+        148.018,
+        188.09
+      ]
+    ]
+  },
+  {
+    "chapter": 19,
+    "start_seconds": 468.17,
+    "text": "Compatibilidad explicable · Motivos y entradas conservados.",
+    "source": "natural07",
+    "source_intervals": [
+      [
+        207.046,
+        239.181
+      ]
+    ]
+  },
+  {
+    "chapter": 20,
+    "start_seconds": 504.31,
+    "text": "La evaluación conserva entradas, versión y motivos de admisión o exclusión. Eritrocitos, plasma, plaquetas y órganos no comparten automáticamente las mismas reglas.",
+    "source": "natural07",
+    "source_intervals": [
+      [
+        239.181,
+        240.683
+      ]
+    ]
+  },
+  {
+    "chapter": 21,
+    "start_seconds": 511.31,
+    "text": "Priorización académica · Política y factores explícitos.",
+    "source": "natural07",
+    "source_intervals": [
+      [
+        240.683,
+        277.769
+      ]
+    ]
+  },
+  {
+    "chapter": 22,
+    "start_seconds": 552.39,
+    "text": "Esta comparación académica considera urgencia, espera, caducidad, tiempo y distancia, con desempates estables. No es una lista clínica oficial de receptores.",
+    "source": "natural07",
+    "source_intervals": [
+      [
+        277.769,
+        279.27
+      ]
+    ]
+  },
+  {
+    "chapter": 23,
+    "start_seconds": 559.14,
+    "text": "Matching regional · Propuesta sin reserva automática.",
+    "source": "natural07",
+    "source_intervals": [
+      [
+        279.27,
+        316.121
+      ]
+    ]
+  },
+  {
+    "chapter": 24,
+    "start_seconds": 600.0,
+    "text": "Hopcroft Karp maximiza la cantidad de correspondencias permitidas. No optimiza urgencia ni coste. Esta propuesta no reserva unidades: la reserva requiere revisión vigente y confirmación aparte.",
+    "source": "natural07",
+    "source_intervals": [
+      [
+        316.121,
+        317.622
+      ]
+    ]
+  },
+  {
+    "chapter": 25,
+    "start_seconds": 608.0,
+    "text": "Reserva de recurso · Después de revisar los candidatos, confirmamos la reserva vigente. El sistema controla concurrencia y evita el uso duplicado del recurso.",
+    "source": "natural07",
+    "source_intervals": [
+      [
+        317.622,
+        339.835
+      ]
+    ]
+  },
+  {
+    "chapter": 26,
+    "start_seconds": 636.21,
+    "text": "Planeación del traslado · El coordinador asigna el traslado. Recolección, entrega y recepción exigen escaneo, responsables y aceptación electrónica. Llegar a una ubicación no confirma custodia.",
+    "source": "natural07",
+    "source_intervals": [
+      [
+        374.873,
+        399.67
+      ]
+    ]
+  },
+  {
+    "chapter": 27,
+    "start_seconds": 667.51,
+    "text": "Traslado asignado · Consultar el plan y documentar la cadena de custodia con cada responsable.",
+    "source": "natural10",
+    "source_intervals": [
+      [
+        25.571,
+        38.325
+      ]
+    ]
+  },
+  {
+    "chapter": 28,
+    "start_seconds": 684.26,
+    "text": "Cadena de custodia · Paso de preparación en origen con el perfil responsable.",
+    "source": "natural10",
+    "source_intervals": [
+      [
+        60.301,
+        92.973
+      ]
+    ]
+  },
+  {
+    "chapter": 29,
+    "start_seconds": 720.93,
+    "text": "Recolección y custodia · Identificador, sello, contraparte y aceptación del caso ficticio. No se prueba un escáner físico.",
+    "source": "natural10",
+    "source_intervals": [
+      [
+        118.57,
+        192.657
+      ]
+    ]
+  },
+  {
+    "chapter": 30,
+    "start_seconds": 799.52,
+    "text": "Cadena de custodia · Paso de salida en tránsito con el perfil responsable.",
+    "source": "natural10",
+    "source_intervals": [
+      [
+        192.657,
+        218.937
+      ]
+    ]
+  },
+  {
+    "chapter": 31,
+    "start_seconds": 829.8,
+    "text": "Cadena de custodia · Paso de entrega con el perfil responsable.",
+    "source": "natural10",
+    "source_intervals": [
+      [
+        218.937,
+        259.057
+      ]
+    ]
+  },
+  {
+    "chapter": 32,
+    "start_seconds": 873.92,
+    "text": "Cadena de custodia · Paso de recepción en destino con el perfil responsable.",
+    "source": "natural10",
+    "source_intervals": [
+      [
+        284.493,
+        338.31
+      ]
+    ]
+  },
+  {
+    "chapter": 33,
+    "start_seconds": 931.74,
+    "text": "Destino y correcciones · Registrar el uso académico y conservar el historial documental.",
+    "source": "natural11",
+    "source_intervals": [
+      [
+        28.625,
+        52.023
+      ]
+    ]
+  },
+  {
+    "chapter": 34,
+    "start_seconds": 959.14,
+    "text": "Historial del destino · Consultar recursos retirados y registrar una corrección documental académica.",
+    "source": "natural12",
+    "source_intervals": [
+      [
+        25.262,
+        53.722
+      ],
+      [
+        73.57,
+        94.926
+      ]
+    ]
+  },
+  {
+    "chapter": 35,
+    "start_seconds": 1012.95,
+    "text": "Reportes privados · Exportación de custodia y descarga autorizada desde GCS.",
+    "source": "natural12",
+    "source_intervals": [
+      [
+        94.926,
+        134.272
+      ]
+    ]
+  },
+  {
+    "chapter": 36,
+    "start_seconds": 1056.3,
+    "text": "Auditoría · Trazabilidad de cambios y responsables.",
+    "source": "natural12",
+    "source_intervals": [
+      [
+        155.543,
+        166.824
+      ]
+    ]
+  },
+  {
+    "chapter": 37,
+    "start_seconds": 1071.58,
+    "text": "Acceso por perfil · Reportes, auditoría y módulos disponibles según los permisos de cada cuenta.",
+    "source": "natural12",
+    "source_intervals": []
+  },
+  {
+    "chapter": 38,
+    "start_seconds": 1075.58,
+    "text": "Módulo Panel principal · Perfil de personal médico de origen. Consulta de funciones disponibles.",
+    "source": "natural12",
+    "source_intervals": [
+      [
+        195.812,
+        199.243
+      ]
+    ]
+  },
+  {
+    "chapter": 39,
+    "start_seconds": 1083.01,
+    "text": "Módulo Donantes · Perfil de personal médico de origen. Consulta de funciones disponibles.",
+    "source": "natural12",
+    "source_intervals": [
+      [
+        238.255,
+        251.407
+      ]
+    ]
+  },
+  {
+    "chapter": 40,
+    "start_seconds": 1100.16,
+    "text": "Módulo Donaciones y procesamiento · Perfil de personal médico de origen. Consulta de funciones disponibles.",
+    "source": "natural12",
+    "source_intervals": [
+      [
+        251.407,
+        262.702
+      ]
+    ]
+  },
+  {
+    "chapter": 41,
+    "start_seconds": 1115.46,
+    "text": "Módulo Receptores · Perfil de personal médico de origen. Consulta de funciones disponibles.",
+    "source": "natural12",
+    "source_intervals": [
+      [
+        262.702,
+        274.253
+      ]
+    ]
+  },
+  {
+    "chapter": 42,
+    "start_seconds": 1131.01,
+    "text": "Módulo Disponibilidad regional · Perfil de personal médico de origen. Consulta de funciones disponibles.",
+    "source": "natural12",
+    "source_intervals": [
+      [
+        285.34,
+        296.595
+      ]
+    ]
+  },
+  {
+    "chapter": 43,
+    "start_seconds": 1146.26,
+    "text": "Módulo Propuestas de cobertura · Perfil de personal médico de origen. Consulta de funciones disponibles.",
+    "source": "natural12",
+    "source_intervals": [
+      [
+        307.848,
+        319.21
+      ]
+    ]
+  },
+  {
+    "chapter": 44,
+    "start_seconds": 1161.62,
+    "text": "Módulo Campañas · Perfil de personal médico de origen. Consulta de funciones disponibles.",
+    "source": "natural12",
+    "source_intervals": [
+      [
+        319.21,
+        331.405
+      ]
+    ]
+  },
+  {
+    "chapter": 45,
+    "start_seconds": 1177.82,
+    "text": "Módulo Órganos y HLA · Perfil de personal médico de origen. Consulta de funciones disponibles.",
+    "source": "natural12",
+    "source_intervals": [
+      [
+        356.301,
+        370.405
+      ]
+    ]
+  },
+  {
+    "chapter": 46,
+    "start_seconds": 1195.92,
+    "text": "Módulo Notificaciones · Perfil de personal médico de origen. Consulta de funciones disponibles.",
+    "source": "natural12",
+    "source_intervals": [
+      [
+        370.405,
+        379.142
+      ]
+    ]
+  },
+  {
+    "chapter": 47,
+    "start_seconds": 1208.66,
+    "text": "Módulo Panel principal · Perfil de coordinación regional. Consulta de funciones disponibles.",
+    "source": "natural12",
+    "source_intervals": [
+      [
+        403.534,
+        406.052
+      ]
+    ]
+  },
+  {
+    "chapter": 48,
+    "start_seconds": 1215.18,
+    "text": "Módulo Hallazgos · Perfil de coordinación regional. Consulta de funciones disponibles.",
+    "source": "natural12",
+    "source_intervals": [
+      [
+        494.761,
+        507.33
+      ]
+    ]
+  },
+  {
+    "chapter": 49,
+    "start_seconds": 1231.75,
+    "text": "Módulo Estado de la plataforma · Perfil de coordinación regional. Consulta de funciones disponibles.",
+    "source": "natural12",
+    "source_intervals": [
+      [
+        507.33,
+        516.472
+      ]
+    ]
+  },
+  {
+    "chapter": 50,
+    "start_seconds": 1244.89,
+    "text": "Módulo Panel principal · Perfil de administración. Consulta de funciones disponibles.",
+    "source": "natural12",
+    "source_intervals": [
+      [
+        539.745,
+        542.285
+      ]
+    ]
+  },
+  {
+    "chapter": 51,
+    "start_seconds": 1251.43,
+    "text": "Módulo Instituciones · Perfil de administración. Consulta de funciones disponibles.",
+    "source": "natural12",
+    "source_intervals": [
+      [
+        576.226,
+        587.334
+      ]
+    ]
+  },
+  {
+    "chapter": 52,
+    "start_seconds": 1266.54,
+    "text": "Módulo Usuarios · Perfil de administración. Consulta de funciones disponibles.",
+    "source": "natural12",
+    "source_intervals": [
+      [
+        587.334,
+        598.929
+      ]
+    ]
+  },
+  {
+    "chapter": 53,
+    "start_seconds": 1282.13,
+    "text": "Módulo Catálogos · Perfil de administración. Consulta de funciones disponibles.",
+    "source": "natural12",
+    "source_intervals": [
+      [
+        598.929,
+        605.095
+      ]
+    ]
+  },
+  {
+    "chapter": 54,
+    "start_seconds": 1292.3,
+    "text": "Módulo Panel principal · Perfil de donante. Consulta de funciones disponibles.",
+    "source": "natural12",
+    "source_intervals": [
+      [
+        626.303,
+        628.938
+      ]
+    ]
+  },
+  {
+    "chapter": 55,
+    "start_seconds": 1298.93,
+    "text": "Módulo Reportes privados · Perfil de donante. Consulta de funciones disponibles.",
+    "source": "natural12",
+    "source_intervals": [
+      [
+        628.938,
+        639.408
+      ]
+    ]
+  },
+  {
+    "chapter": 56,
+    "start_seconds": 1313.4,
+    "text": "Módulo Donantes · Perfil de donante. Consulta de funciones disponibles.",
+    "source": "natural12",
+    "source_intervals": [
+      [
+        639.408,
+        650.085
+      ]
+    ]
+  },
+  {
+    "chapter": 57,
+    "start_seconds": 1328.08,
+    "text": "Módulo Campañas · Perfil de donante. Consulta de funciones disponibles.",
+    "source": "natural12",
+    "source_intervals": [
+      [
+        650.085,
+        660.88
+      ]
+    ]
+  },
+  {
+    "chapter": 58,
+    "start_seconds": 1342.88,
+    "text": "Módulo Inscripciones · Perfil de donante. Consulta de funciones disponibles.",
+    "source": "natural12",
+    "source_intervals": [
+      [
+        660.88,
+        671.894
+      ]
+    ]
+  },
+  {
+    "chapter": 59,
+    "start_seconds": 1357.89,
+    "text": "Módulo Notificaciones · Perfil de donante. Consulta de funciones disponibles.",
+    "source": "natural12",
+    "source_intervals": [
+      [
+        671.894,
+        682.936
+      ]
+    ]
+  },
+  {
+    "chapter": 60,
+    "start_seconds": 1372.93,
+    "text": "Completitud técnica · Registrar una muestra académica y consultar qué datos faltan.",
+    "source": "natural13",
+    "source_intervals": [
+      [
+        29.913,
+        71.154
+      ]
+    ]
+  },
+  {
+    "chapter": 61,
+    "start_seconds": 1418.17,
+    "text": "Detalle HLA · Catálogo, resolución y resultado registrado se conservan separados del dictamen.",
+    "source": "natural14",
+    "source_intervals": [
+      [
+        30.78,
+        55.876
+      ]
+    ]
+  },
+  {
+    "chapter": 62,
+    "start_seconds": 1447.27,
+    "text": "Sitio público · Alcance de la red, participantes y acceso a la plataforma.",
+    "source": "natural15",
+    "source_intervals": [
+      [
+        5,
+        33.2
+      ]
+    ]
+  }
+]

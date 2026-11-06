@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="18.380" timestamp="2026-10-29T08:34:50.921300-06:00" hostname="Victors-MacBook-Air.local"><testcase classname="tests.test_correction_upgrade" name="test_documents_configuration_upgrade_repeatable_preserves_sessions" time="16.477"><failure message="FileExistsError: [Errno 17] File exists: '/private/tmp/rh-upgrade-rypd_0vb/alertas.json'">apps/services/tests/test_correction_upgrade.py:49: in test_documents_configuration_upgrade_repeatable_preserves_sessions
+    provision_documents(directory, state)
+apps/services/scripts/upgrade_documents.py:143: in provision_documents
+    private_file(path, json.dumps(current, indent=2))
+apps/services/scripts/local.py:40: in private_file
+    fd = os.open(path, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   FileExistsError: [Errno 17] File exists: '/private/tmp/rh-upgrade-rypd_0vb/alertas.json'</failure></testcase></testsuite></testsuites>

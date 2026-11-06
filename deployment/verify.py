@@ -224,6 +224,7 @@ class Deployment:
             "alertas": ("/api/v1/alerts", "operator1"),
             "auditoria": ("/api/v1/events", "auditor1"),
             "monitoreo": ("/api/v1/status", "admin1"),
+            "documentos": ("/api/v1/export-jobs", "medical2"),
         }
         for service, (path, user) in paths.items():
             for mime in ("application/json", "application/xml"):
@@ -245,7 +246,25 @@ class Deployment:
         _, req = helpers.recipient_request(
             self, kind, component, "O+" if kind == "ORGAN" else "A+"
         )
-        ev = helpers.evaluation(self, req, [unit])
+        self.route()
+        ev = self.ok(
+            "compatibilidad",
+            "POST",
+            "/api/v1/evaluations",
+            data={"request_id": req["id"]},
+        )
+        assert any(c["resource_id"] == unit["id"] for c in ev["candidates"])
+        self.ok(
+            "compatibilidad",
+            "POST",
+            f"/api/v1/evaluations/{ev['id']}/reviews",
+            data={
+                "resource_id": unit["id"],
+                "decision": "FAVORABLE",
+                "human_confirmation": True,
+                "reason": "Dictamen sintético Docker",
+            },
+        )
         self.ok(
             "priorizacion_geografia",
             "POST",
@@ -264,7 +283,34 @@ class Deployment:
             ("DELIVERED", "transport1"),
             ("ACCEPTED", "operator2"),
         ]:
-            shipment = helpers.move(self, shipment, state, user)
+            data = {
+                "state": state,
+                "version": shipment["version"],
+                "human_confirmation": True,
+                "reason": "Custodia sintética Docker",
+            }
+            if state in ("COLLECTED", "DELIVERED", "ACCEPTED"):
+                counterpart = {
+                    "COLLECTED": "operator1",
+                    "DELIVERED": "operator2",
+                    "ACCEPTED": "transport1",
+                }[state]
+                data["custody"] = {
+                    "scanned_resource_id": unit["id"],
+                    "seal": "SELLO-DOCKER",
+                    "captured_at": helpers.iso(),
+                    "electronic_acceptance": True,
+                    "reported_handover_user_id": self.env.state["accounts"][
+                        counterpart
+                    ]["id"],
+                }
+            shipment = self.ok(
+                "transporte",
+                "POST",
+                f"/api/v1/shipments/{shipment['id']}/transitions",
+                user=user,
+                data=data,
+            )
         self.wait(
             lambda: (
                 self.query(
@@ -416,7 +462,23 @@ class Deployment:
             ("DELIVERED", "transport1"),
             ("ACCEPTED", "operator2"),
         ]:
-            self.web_post(clients[user], shipment_url + "/paso/" + state, common)
+            data = dict(common)
+            if state in ("COLLECTED", "DELIVERED", "ACCEPTED"):
+                counterpart = {
+                    "COLLECTED": "operator1",
+                    "DELIVERED": "operator2",
+                    "ACCEPTED": "transport1",
+                }[state]
+                data.update(
+                    scanned_resource_id=unit,
+                    seal="SELLO-DOCKER",
+                    captured_at=helpers.iso(),
+                    electronic_acceptance="on",
+                    reported_handover_user_id=self.env.state["accounts"][counterpart][
+                        "id"
+                    ],
+                )
+            self.web_post(clients[user], shipment_url + "/paso/" + state, data)
         request_id, shipment_id = (
             req_url.rsplit("/", 1)[1],
             shipment_url.rsplit("/", 1)[1],

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="20.417" timestamp="2026-10-29T08:35:53.483299-06:00" hostname="Victors-MacBook-Air.local"><testcase classname="tests.test_correction_upgrade" name="test_documents_configuration_upgrade_repeatable_preserves_sessions" time="19.134"><failure message="psycopg.errors.InsufficientPrivilege: permission denied for schema access_transporte">apps/services/tests/test_correction_upgrade.py:60: in test_documents_configuration_upgrade_repeatable_preserves_sessions
+    assert not conn.execute(
+apps/services/.venv/lib/python3.12/site-packages/psycopg/connection.py:300: in execute
+    raise ex.with_traceback(None)
+E   psycopg.errors.InsufficientPrivilege: permission denied for schema access_transporte</failure></testcase></testsuite></testsuites>

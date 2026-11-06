@@ -1,0 +1,763 @@
+{
+  "generated_at": "2026-11-01T05:50:28.459920+00:00",
+  "selection": [
+    {
+      "file": "final-core-v3.xml",
+      "sha256": "d45934b3877e004ec457922a4514b1a1ccf517a84c5a33936ee4873f41ad43db",
+      "tests": 58,
+      "states": {
+        "PASS": 58,
+        "FAIL": 0,
+        "ERROR": 0,
+        "SKIP": 0
+      }
+    },
+    {
+      "file": "final-stage01-regression.xml",
+      "sha256": "c5d518cd6ac6b079db8e35f9f8e6579a70b56a2335cc7c02998daa815c3d272a",
+      "tests": 57,
+      "states": {
+        "PASS": 57,
+        "FAIL": 0,
+        "ERROR": 0,
+        "SKIP": 0
+      }
+    },
+    {
+      "file": "browser-final-v3.xml",
+      "sha256": "8894965289b940e1a2b513a366c721256c888060a6397046b06e04eda70606e8",
+      "tests": 1,
+      "states": {
+        "PASS": 1,
+        "FAIL": 0,
+        "ERROR": 0,
+        "SKIP": 0
+      }
+    },
+    {
+      "file": "gcs-final.xml",
+      "sha256": "72b78e0bbd484f022357c529da959653655908907d5b92b3d369867d6680108f",
+      "tests": 1,
+      "states": {
+        "PASS": 1,
+        "FAIL": 0,
+        "ERROR": 0,
+        "SKIP": 0
+      }
+    }
+  ],
+  "unique_cases": 117,
+  "passed": 117,
+  "failures": 0,
+  "skipped": 0,
+  "source_manifest": "sources-final.json",
+  "manifest_files": 1050,
+  "manifest_mismatches": [],
+  "browser_checks": 20,
+  "historical_cases_added": 0,
+  "cases": [
+    {
+      "identity": "tests.test_algorithms::test_matching_finds_augmenting_path_greedy_misses",
+      "state": "PASS",
+      "seconds": 0.004,
+      "evidence": "final-stage01-regression.xml"
+    },
+    {
+      "identity": "tests.test_algorithms::test_matching_is_maximum_against_exhaustive_small_graphs",
+      "state": "PASS",
+      "seconds": 0.24,
+      "evidence": "final-stage01-regression.xml"
+    },
+    {
+      "identity": "tests.test_algorithms::test_rbc_sample_filter_matches_documented_matrix",
+      "state": "PASS",
+      "seconds": 0.002,
+      "evidence": "final-stage01-regression.xml"
+    },
+    {
+      "identity": "tests.test_correction_backend::test_destination_correction_invariants_and_history[json]",
+      "state": "PASS",
+      "seconds": 1.754,
+      "evidence": "final-stage01-regression.xml"
+    },
+    {
+      "identity": "tests.test_correction_backend::test_destination_correction_invariants_and_history[xml]",
+      "state": "PASS",
+      "seconds": 1.998,
+      "evidence": "final-stage01-regression.xml"
+    },
+    {
+      "identity": "tests.test_correction_backend::test_laboratory_correction_invalidates_review_and_runtime_history[profile-json]",
+      "state": "PASS",
+      "seconds": 20.748,
+      "evidence": "final-stage01-regression.xml"
+    },
+    {
+      "identity": "tests.test_correction_backend::test_laboratory_correction_invalidates_review_and_runtime_history[profile-xml]",
+      "state": "PASS",
+      "seconds": 18.13,
+      "evidence": "final-stage01-regression.xml"
+    },
+    {
+      "identity": "tests.test_correction_backend::test_laboratory_correction_invalidates_review_and_runtime_history[result-json]",
+      "state": "PASS",
+      "seconds": 13.711,
+      "evidence": "final-stage01-regression.xml"
+    },
+    {
+      "identity": "tests.test_correction_backend::test_laboratory_correction_invalidates_review_and_runtime_history[result-xml]",
+      "state": "PASS",
+      "seconds": 14.318,
+      "evidence": "final-stage01-regression.xml"
+    },
+    {
+      "identity": "tests.test_correction_backend::test_normalized_http_wss_and_durable_history[json]",
+      "state": "PASS",
+      "seconds": 10.91,
+      "evidence": "final-stage01-regression.xml"
+    },
+    {
+      "identity": "tests.test_correction_backend::test_normalized_http_wss_and_durable_history[xml]",
+      "state": "PASS",
+      "seconds": 14.932,
+      "evidence": "final-stage01-regression.xml"
+    },
+    {
+      "identity": "tests.test_correction_backend::test_received_quarantine_new_use_and_documentary_correction[json]",
+      "state": "PASS",
+      "seconds": 185.017,
+      "evidence": "final-stage01-regression.xml"
+    },
+    {
+      "identity": "tests.test_correction_backend::test_received_quarantine_new_use_and_documentary_correction[xml]",
+      "state": "PASS",
+      "seconds": 19.675,
+      "evidence": "final-stage01-regression.xml"
+    },
+    {
+      "identity": "tests.test_final_algorithms_hla::test_dijkstra_against_independent_simple_path_oracle",
+      "state": "PASS",
+      "seconds": 0.09,
+      "evidence": "final-core-v3.xml"
+    },
+    {
+      "identity": "tests.test_final_algorithms_hla::test_expiry_estimate_does_not_double_count_demand",
+      "state": "PASS",
+      "seconds": 0.004,
+      "evidence": "final-core-v3.xml"
+    },
+    {
+      "identity": "tests.test_final_algorithms_hla::test_forecast_no_future_leakage_and_reproduction",
+      "state": "PASS",
+      "seconds": 0.003,
+      "evidence": "final-core-v3.xml"
+    },
+    {
+      "identity": "tests.test_final_algorithms_hla::test_hla_structured_history_missing_and_corrected[json]",
+      "state": "PASS",
+      "seconds": 2.121,
+      "evidence": "final-core-v3.xml"
+    },
+    {
+      "identity": "tests.test_final_algorithms_hla::test_hla_structured_history_missing_and_corrected[xml]",
+      "state": "PASS",
+      "seconds": 1.685,
+      "evidence": "final-core-v3.xml"
+    },
+    {
+      "identity": "tests.test_final_algorithms_hla::test_limits_empty_graph_and_gps_separation",
+      "state": "PASS",
+      "seconds": 0.632,
+      "evidence": "final-core-v3.xml"
+    },
+    {
+      "identity": "tests.test_final_algorithms_hla::test_migration_13_to_current_preserves_rows_and_is_repeatable",
+      "state": "PASS",
+      "seconds": 36.006,
+      "evidence": "final-core-v3.xml"
+    },
+    {
+      "identity": "tests.test_final_algorithms_hla::test_missing_hla_ambiguity_and_states",
+      "state": "PASS",
+      "seconds": 0.002,
+      "evidence": "final-core-v3.xml"
+    },
+    {
+      "identity": "tests.test_final_algorithms_hla::test_persistent_algorithm_contract_and_tenant[json]",
+      "state": "PASS",
+      "seconds": 0.934,
+      "evidence": "final-core-v3.xml"
+    },
+    {
+      "identity": "tests.test_final_algorithms_hla::test_persistent_algorithm_contract_and_tenant[xml]",
+      "state": "PASS",
+      "seconds": 0.562,
+      "evidence": "final-core-v3.xml"
+    },
+    {
+      "identity": "tests.test_final_algorithms_hla::test_urgency_simulation_missing_factors_and_anomalies",
+      "state": "PASS",
+      "seconds": 0.004,
+      "evidence": "final-core-v3.xml"
+    },
+    {
+      "identity": "tests.test_final_algorithms_hla::test_web_simulation_view_and_form",
+      "state": "PASS",
+      "seconds": 2.917,
+      "evidence": "final-core-v3.xml"
+    },
+    {
+      "identity": "tests.test_final_quality::test_laboratory_missing_results_correction_quarantine_and_final_destination[json]",
+      "state": "PASS",
+      "seconds": 45.281,
+      "evidence": "final-core-v3.xml"
+    },
+    {
+      "identity": "tests.test_final_quality::test_laboratory_missing_results_correction_quarantine_and_final_destination[xml]",
+      "state": "PASS",
+      "seconds": 18.749,
+      "evidence": "final-core-v3.xml"
+    },
+    {
+      "identity": "tests.test_flows::test_cancellation_before_collection_releases_request",
+      "state": "PASS",
+      "seconds": 23.809,
+      "evidence": "final-stage01-regression.xml"
+    },
+    {
+      "identity": "tests.test_flows::test_donor_campaign_appointment_review_and_alert",
+      "state": "PASS",
+      "seconds": 11.42,
+      "evidence": "final-stage01-regression.xml"
+    },
+    {
+      "identity": "tests.test_flows::test_idempotent_reservation_does_not_duplicate",
+      "state": "PASS",
+      "seconds": 5.197,
+      "evidence": "final-stage01-regression.xml"
+    },
+    {
+      "identity": "tests.test_flows::test_resource_to_receipt_custody_audit_and_notification[BLOOD-RBC-O-]",
+      "state": "PASS",
+      "seconds": 29.895,
+      "evidence": "final-stage01-regression.xml"
+    },
+    {
+      "identity": "tests.test_flows::test_resource_to_receipt_custody_audit_and_notification[ORGAN-HEART-A+]",
+      "state": "PASS",
+      "seconds": 35.699,
+      "evidence": "final-stage01-regression.xml"
+    },
+    {
+      "identity": "tests.test_flows::test_resource_to_receipt_custody_audit_and_notification[ORGAN-KIDNEY-A-]",
+      "state": "PASS",
+      "seconds": 25.079,
+      "evidence": "final-stage01-regression.xml"
+    },
+    {
+      "identity": "tests.test_flows::test_resource_to_receipt_custody_audit_and_notification[ORGAN-LIVER-A+]",
+      "state": "PASS",
+      "seconds": 33.419,
+      "evidence": "final-stage01-regression.xml"
+    },
+    {
+      "identity": "tests.test_flows::test_two_requests_cannot_reserve_same_resource",
+      "state": "PASS",
+      "seconds": 5.078,
+      "evidence": "final-stage01-regression.xml"
+    },
+    {
+      "identity": "tests.test_flows::test_two_units_cannot_overfill_one_unit_request",
+      "state": "PASS",
+      "seconds": 6.285,
+      "evidence": "final-stage01-regression.xml"
+    },
+    {
+      "identity": "tests.test_security_contracts::test_account_deactivation_fences_permissions_and_preserves_password",
+      "state": "PASS",
+      "seconds": 1.984,
+      "evidence": "final-stage01-regression.xml"
+    },
+    {
+      "identity": "tests.test_security_contracts::test_database_and_redis_privileges_are_separate",
+      "state": "PASS",
+      "seconds": 0.094,
+      "evidence": "final-stage01-regression.xml"
+    },
+    {
+      "identity": "tests.test_security_contracts::test_duplicate_json_keys_nonfinite_and_wrong_media",
+      "state": "PASS",
+      "seconds": 0.167,
+      "evidence": "final-stage01-regression.xml"
+    },
+    {
+      "identity": "tests.test_security_contracts::test_health_swagger_and_openapi_all_services[alertas]",
+      "state": "PASS",
+      "seconds": 4.537,
+      "evidence": "final-stage01-regression.xml"
+    },
+    {
+      "identity": "tests.test_security_contracts::test_health_swagger_and_openapi_all_services[auditoria]",
+      "state": "PASS",
+      "seconds": 6.189,
+      "evidence": "final-stage01-regression.xml"
+    },
+    {
+      "identity": "tests.test_security_contracts::test_health_swagger_and_openapi_all_services[compatibilidad]",
+      "state": "PASS",
+      "seconds": 9.983,
+      "evidence": "final-stage01-regression.xml"
+    },
+    {
+      "identity": "tests.test_security_contracts::test_health_swagger_and_openapi_all_services[custodia]",
+      "state": "PASS",
+      "seconds": 1.033,
+      "evidence": "final-stage01-regression.xml"
+    },
+    {
+      "identity": "tests.test_security_contracts::test_health_swagger_and_openapi_all_services[documentos]",
+      "state": "PASS",
+      "seconds": 5.508,
+      "evidence": "final-stage01-regression.xml"
+    },
+    {
+      "identity": "tests.test_security_contracts::test_health_swagger_and_openapi_all_services[donantes]",
+      "state": "PASS",
+      "seconds": 26.585,
+      "evidence": "final-stage01-regression.xml"
+    },
+    {
+      "identity": "tests.test_security_contracts::test_health_swagger_and_openapi_all_services[identidad_acceso]",
+      "state": "PASS",
+      "seconds": 125.173,
+      "evidence": "final-stage01-regression.xml"
+    },
+    {
+      "identity": "tests.test_security_contracts::test_health_swagger_and_openapi_all_services[inventario]",
+      "state": "PASS",
+      "seconds": 25.043,
+      "evidence": "final-stage01-regression.xml"
+    },
+    {
+      "identity": "tests.test_security_contracts::test_health_swagger_and_openapi_all_services[monitoreo]",
+      "state": "PASS",
+      "seconds": 1.382,
+      "evidence": "final-stage01-regression.xml"
+    },
+    {
+      "identity": "tests.test_security_contracts::test_health_swagger_and_openapi_all_services[priorizacion_geografia]",
+      "state": "PASS",
+      "seconds": 10.421,
+      "evidence": "final-stage01-regression.xml"
+    },
+    {
+      "identity": "tests.test_security_contracts::test_health_swagger_and_openapi_all_services[receptores]",
+      "state": "PASS",
+      "seconds": 13.431,
+      "evidence": "final-stage01-regression.xml"
+    },
+    {
+      "identity": "tests.test_security_contracts::test_health_swagger_and_openapi_all_services[transporte]",
+      "state": "PASS",
+      "seconds": 12.683,
+      "evidence": "final-stage01-regression.xml"
+    },
+    {
+      "identity": "tests.test_security_contracts::test_institution_role_and_assignment_authorization",
+      "state": "PASS",
+      "seconds": 0.528,
+      "evidence": "final-stage01-regression.xml"
+    },
+    {
+      "identity": "tests.test_security_contracts::test_internal_signature_delegation_replay_and_wrong_caller",
+      "state": "PASS",
+      "seconds": 0.223,
+      "evidence": "final-stage01-regression.xml"
+    },
+    {
+      "identity": "tests.test_security_contracts::test_jwt_rejects_invalid_variants_before_domain[audience]",
+      "state": "PASS",
+      "seconds": 0.241,
+      "evidence": "final-stage01-regression.xml"
+    },
+    {
+      "identity": "tests.test_security_contracts::test_jwt_rejects_invalid_variants_before_domain[expired]",
+      "state": "PASS",
+      "seconds": 0.173,
+      "evidence": "final-stage01-regression.xml"
+    },
+    {
+      "identity": "tests.test_security_contracts::test_jwt_rejects_invalid_variants_before_domain[hs256]",
+      "state": "PASS",
+      "seconds": 0.038,
+      "evidence": "final-stage01-regression.xml"
+    },
+    {
+      "identity": "tests.test_security_contracts::test_jwt_rejects_invalid_variants_before_domain[issuer]",
+      "state": "PASS",
+      "seconds": 0.169,
+      "evidence": "final-stage01-regression.xml"
+    },
+    {
+      "identity": "tests.test_security_contracts::test_jwt_rejects_invalid_variants_before_domain[missing]",
+      "state": "PASS",
+      "seconds": 0.172,
+      "evidence": "final-stage01-regression.xml"
+    },
+    {
+      "identity": "tests.test_security_contracts::test_jwt_rejects_invalid_variants_before_domain[none]",
+      "state": "PASS",
+      "seconds": 0.041,
+      "evidence": "final-stage01-regression.xml"
+    },
+    {
+      "identity": "tests.test_security_contracts::test_jwt_rejects_invalid_variants_before_domain[numeric_sub]",
+      "state": "PASS",
+      "seconds": 0.186,
+      "evidence": "final-stage01-regression.xml"
+    },
+    {
+      "identity": "tests.test_security_contracts::test_jwt_rejects_invalid_variants_before_domain[refresh_use]",
+      "state": "PASS",
+      "seconds": 0.205,
+      "evidence": "final-stage01-regression.xml"
+    },
+    {
+      "identity": "tests.test_security_contracts::test_rate_limit",
+      "state": "PASS",
+      "seconds": 0.04,
+      "evidence": "final-stage01-regression.xml"
+    },
+    {
+      "identity": "tests.test_security_contracts::test_session_rotation_replay_and_logout",
+      "state": "PASS",
+      "seconds": 1.924,
+      "evidence": "final-stage01-regression.xml"
+    },
+    {
+      "identity": "tests.test_security_contracts::test_strict_inputs[blood_group-X+]",
+      "state": "PASS",
+      "seconds": 0.099,
+      "evidence": "final-stage01-regression.xml"
+    },
+    {
+      "identity": "tests.test_security_contracts::test_strict_inputs[consent-1]",
+      "state": "PASS",
+      "seconds": 0.105,
+      "evidence": "final-stage01-regression.xml"
+    },
+    {
+      "identity": "tests.test_security_contracts::test_strict_inputs[consent-None]",
+      "state": "PASS",
+      "seconds": 0.087,
+      "evidence": "final-stage01-regression.xml"
+    },
+    {
+      "identity": "tests.test_security_contracts::test_strict_inputs[display_name-   ]",
+      "state": "PASS",
+      "seconds": 0.101,
+      "evidence": "final-stage01-regression.xml"
+    },
+    {
+      "identity": "tests.test_security_contracts::test_strict_inputs[display_name-Nombre\\x00inv\\xe1lido]",
+      "state": "PASS",
+      "seconds": 0.086,
+      "evidence": "final-stage01-regression.xml"
+    },
+    {
+      "identity": "tests.test_security_contracts::test_strict_inputs[display_name-None]",
+      "state": "PASS",
+      "seconds": 0.1,
+      "evidence": "final-stage01-regression.xml"
+    },
+    {
+      "identity": "tests.test_security_contracts::test_strict_inputs[unknown-injection]",
+      "state": "PASS",
+      "seconds": 0.091,
+      "evidence": "final-stage01-regression.xml"
+    },
+    {
+      "identity": "tests.test_security_contracts::test_xml_schema_json_parity_errors_and_xxe",
+      "state": "PASS",
+      "seconds": 0.638,
+      "evidence": "final-stage01-regression.xml"
+    },
+    {
+      "identity": "tests.test_stage02_browser::test_stage02_real_browser_autonomous_reinforced",
+      "state": "PASS",
+      "seconds": 434.927,
+      "evidence": "browser-final-v3.xml"
+    },
+    {
+      "identity": "tests.test_stage02_corrections::test_completeness_conflict_expiry_and_successor[json]",
+      "state": "PASS",
+      "seconds": 11.854,
+      "evidence": "final-core-v3.xml"
+    },
+    {
+      "identity": "tests.test_stage02_corrections::test_completeness_conflict_expiry_and_successor[xml]",
+      "state": "PASS",
+      "seconds": 8.4,
+      "evidence": "final-core-v3.xml"
+    },
+    {
+      "identity": "tests.test_stage02_corrections::test_crossmatch_associations_and_unperformed_not_negative",
+      "state": "PASS",
+      "seconds": 3.578,
+      "evidence": "final-core-v3.xml"
+    },
+    {
+      "identity": "tests.test_stage02_corrections::test_each_rank_factor_changes_result_with_prior_factors_tied[distance_km-2-b]",
+      "state": "PASS",
+      "seconds": 0.042,
+      "evidence": "final-core-v3.xml"
+    },
+    {
+      "identity": "tests.test_stage02_corrections::test_each_rank_factor_changes_result_with_prior_factors_tied[expiry_minutes-50-b]",
+      "state": "PASS",
+      "seconds": 0.026,
+      "evidence": "final-core-v3.xml"
+    },
+    {
+      "identity": "tests.test_stage02_corrections::test_each_rank_factor_changes_result_with_prior_factors_tied[identifier-0-0]",
+      "state": "PASS",
+      "seconds": 0.014,
+      "evidence": "final-core-v3.xml"
+    },
+    {
+      "identity": "tests.test_stage02_corrections::test_each_rank_factor_changes_result_with_prior_factors_tied[travel_minutes-5-b]",
+      "state": "PASS",
+      "seconds": 0.013,
+      "evidence": "final-core-v3.xml"
+    },
+    {
+      "identity": "tests.test_stage02_corrections::test_each_rank_factor_changes_result_with_prior_factors_tied[urgency-3-b]",
+      "state": "PASS",
+      "seconds": 0.033,
+      "evidence": "final-core-v3.xml"
+    },
+    {
+      "identity": "tests.test_stage02_corrections::test_each_rank_factor_changes_result_with_prior_factors_tied[waiting_minutes-20-b]",
+      "state": "PASS",
+      "seconds": 0.013,
+      "evidence": "final-core-v3.xml"
+    },
+    {
+      "identity": "tests.test_stage02_corrections::test_future_profile_cannot_collect_sample",
+      "state": "PASS",
+      "seconds": 0.621,
+      "evidence": "final-core-v3.xml"
+    },
+    {
+      "identity": "tests.test_stage02_corrections::test_geo_consumes_positions_persisted_by_real_wss_without_measured_eta",
+      "state": "PASS",
+      "seconds": 17.17,
+      "evidence": "final-core-v3.xml"
+    },
+    {
+      "identity": "tests.test_stage02_corrections::test_hla_one_field_is_not_reported_allele",
+      "state": "PASS",
+      "seconds": 0.011,
+      "evidence": "final-core-v3.xml"
+    },
+    {
+      "identity": "tests.test_stage02_corrections::test_partial_hla_and_unknown_version_persist_without_approval[json]",
+      "state": "PASS",
+      "seconds": 2.95,
+      "evidence": "final-core-v3.xml"
+    },
+    {
+      "identity": "tests.test_stage02_corrections::test_partial_hla_and_unknown_version_persist_without_approval[xml]",
+      "state": "PASS",
+      "seconds": 2.23,
+      "evidence": "final-core-v3.xml"
+    },
+    {
+      "identity": "tests.test_stage02_corrections::test_profile_execution_manual_products_and_all_candidate_branches[json-PLASMA]",
+      "state": "PASS",
+      "seconds": 19.661,
+      "evidence": "final-core-v3.xml"
+    },
+    {
+      "identity": "tests.test_stage02_corrections::test_profile_execution_manual_products_and_all_candidate_branches[json-PLATELETS]",
+      "state": "PASS",
+      "seconds": 17.325,
+      "evidence": "final-core-v3.xml"
+    },
+    {
+      "identity": "tests.test_stage02_corrections::test_profile_execution_manual_products_and_all_candidate_branches[json-RBC]",
+      "state": "PASS",
+      "seconds": 18.053,
+      "evidence": "final-core-v3.xml"
+    },
+    {
+      "identity": "tests.test_stage02_corrections::test_profile_execution_manual_products_and_all_candidate_branches[xml-PLASMA]",
+      "state": "PASS",
+      "seconds": 16.049,
+      "evidence": "final-core-v3.xml"
+    },
+    {
+      "identity": "tests.test_stage02_corrections::test_profile_execution_manual_products_and_all_candidate_branches[xml-PLATELETS]",
+      "state": "PASS",
+      "seconds": 16.063,
+      "evidence": "final-core-v3.xml"
+    },
+    {
+      "identity": "tests.test_stage02_corrections::test_profile_execution_manual_products_and_all_candidate_branches[xml-RBC]",
+      "state": "PASS",
+      "seconds": 13.292,
+      "evidence": "final-core-v3.xml"
+    },
+    {
+      "identity": "tests.test_stage02_corrections::test_recipient_lab_change_invalidates_review_detail_and_reserve[json]",
+      "state": "PASS",
+      "seconds": 7.278,
+      "evidence": "final-core-v3.xml"
+    },
+    {
+      "identity": "tests.test_stage02_corrections::test_recipient_lab_change_invalidates_review_detail_and_reserve[xml]",
+      "state": "PASS",
+      "seconds": 4.368,
+      "evidence": "final-core-v3.xml"
+    },
+    {
+      "identity": "tests.test_stage02_corrections::test_recipient_organ_profile_mismatch_rejected",
+      "state": "PASS",
+      "seconds": 55.685,
+      "evidence": "final-core-v3.xml"
+    },
+    {
+      "identity": "tests.test_stage02_corrections::test_regional_graph_authoritative_runs_and_anomaly_outbox[json]",
+      "state": "PASS",
+      "seconds": 62.235,
+      "evidence": "final-core-v3.xml"
+    },
+    {
+      "identity": "tests.test_stage02_corrections::test_regional_graph_authoritative_runs_and_anomaly_outbox[xml]",
+      "state": "PASS",
+      "seconds": 23.524,
+      "evidence": "final-core-v3.xml"
+    },
+    {
+      "identity": "tests.test_stage02_corrections::test_registry_transitions_history_and_disabled_clinical_scope[json]",
+      "state": "PASS",
+      "seconds": 2.168,
+      "evidence": "final-core-v3.xml"
+    },
+    {
+      "identity": "tests.test_stage02_corrections::test_registry_transitions_history_and_disabled_clinical_scope[xml]",
+      "state": "PASS",
+      "seconds": 1.806,
+      "evidence": "final-core-v3.xml"
+    },
+    {
+      "identity": "tests.test_stage02_corrections::test_result_private_document_binding_generation_analysis_and_scope[json]",
+      "state": "PASS",
+      "seconds": 10.127,
+      "evidence": "final-core-v3.xml"
+    },
+    {
+      "identity": "tests.test_stage02_corrections::test_result_private_document_binding_generation_analysis_and_scope[xml]",
+      "state": "PASS",
+      "seconds": 8.619,
+      "evidence": "final-core-v3.xml"
+    },
+    {
+      "identity": "tests.test_stage02_corrections::test_rule_approval_mechanism_scoped_fixture_and_revocation",
+      "state": "PASS",
+      "seconds": 5.727,
+      "evidence": "final-core-v3.xml"
+    },
+    {
+      "identity": "tests.test_stage02_corrections::test_temporal_forecast_against_independent_full_oracle",
+      "state": "PASS",
+      "seconds": 0.023,
+      "evidence": "final-core-v3.xml"
+    },
+    {
+      "identity": "tests.test_stage02_gcs::test_result_real_gcs_upload_verified_binding_private_download",
+      "state": "PASS",
+      "seconds": 79.869,
+      "evidence": "gcs-final.xml"
+    },
+    {
+      "identity": "tests.test_stage02_migration::test_schema14_backup_restore_upgrade15_preserves_history_acl",
+      "state": "PASS",
+      "seconds": 14.623,
+      "evidence": "final-core-v3.xml"
+    },
+    {
+      "identity": "tests.test_stage02_oracles::test_authoritative_anomalies_outbox_failure_resolution_and_history",
+      "state": "PASS",
+      "seconds": 185.25,
+      "evidence": "final-core-v3.xml"
+    },
+    {
+      "identity": "tests.test_stage02_oracles::test_complete_academic_profile_and_review_never_enable_clinical_operations",
+      "state": "PASS",
+      "seconds": 6.256,
+      "evidence": "final-core-v3.xml"
+    },
+    {
+      "identity": "tests.test_stage02_oracles::test_each_missing_rank_factor_excludes_without_default_priority[distance_km]",
+      "state": "PASS",
+      "seconds": 0.008,
+      "evidence": "final-core-v3.xml"
+    },
+    {
+      "identity": "tests.test_stage02_oracles::test_each_missing_rank_factor_excludes_without_default_priority[expiry_minutes]",
+      "state": "PASS",
+      "seconds": 0.024,
+      "evidence": "final-core-v3.xml"
+    },
+    {
+      "identity": "tests.test_stage02_oracles::test_each_missing_rank_factor_excludes_without_default_priority[travel_minutes]",
+      "state": "PASS",
+      "seconds": 0.026,
+      "evidence": "final-core-v3.xml"
+    },
+    {
+      "identity": "tests.test_stage02_oracles::test_each_missing_rank_factor_excludes_without_default_priority[urgency]",
+      "state": "PASS",
+      "seconds": 0.008,
+      "evidence": "final-core-v3.xml"
+    },
+    {
+      "identity": "tests.test_stage02_oracles::test_each_missing_rank_factor_excludes_without_default_priority[urgency_source]",
+      "state": "PASS",
+      "seconds": 0.008,
+      "evidence": "final-core-v3.xml"
+    },
+    {
+      "identity": "tests.test_stage02_oracles::test_each_missing_rank_factor_excludes_without_default_priority[waiting_minutes]",
+      "state": "PASS",
+      "seconds": 0.006,
+      "evidence": "final-core-v3.xml"
+    },
+    {
+      "identity": "tests.test_stage02_oracles::test_forecast_lots_against_constant_rate_capacity_oracle[quantities0-expected0]",
+      "state": "PASS",
+      "seconds": 0.015,
+      "evidence": "final-core-v3.xml"
+    },
+    {
+      "identity": "tests.test_stage02_oracles::test_forecast_lots_against_constant_rate_capacity_oracle[quantities1-expected1]",
+      "state": "PASS",
+      "seconds": 0.009,
+      "evidence": "final-core-v3.xml"
+    },
+    {
+      "identity": "tests.test_stage02_oracles::test_forecast_lots_against_constant_rate_capacity_oracle[quantities2-expected2]",
+      "state": "PASS",
+      "seconds": 0.015,
+      "evidence": "final-core-v3.xml"
+    },
+    {
+      "identity": "tests.test_stage02_oracles::test_recipient_correction_serializes_with_reservation_commit",
+      "state": "PASS",
+      "seconds": 7.235,
+      "evidence": "final-core-v3.xml"
+    }
+  ],
+  "applicability": "Core-v3 y GCS se iniciaron después del manifiesto final. Navegador-v3 y regresión etapa01 se iniciaron antes del último cambio: reloj age_checked_at del recorrido de Transporte en decisions.py. Sus recorridos no usan shipment_id de geografía. Core-v3 verifica el ramo WSS/antigüedad final; no se presenta toda la consolidación como una única corrida byte a byte."
+}

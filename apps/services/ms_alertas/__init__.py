@@ -1,7 +1,7 @@
 from redhouse.app import base_app, complete_app
 
 
-VERSION = "0.3.0"
+VERSION = "0.4.1"
 
 
 def create_app(config=None):
@@ -10,4 +10,7 @@ def create_app(config=None):
     app = base_app("alertas", config)
     app.config["VERSION"] = VERSION
     register(app)
+    from .delivery import install
+
+    install(app)
     return complete_app(app)

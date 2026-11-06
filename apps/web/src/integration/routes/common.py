@@ -1,12 +1,15 @@
 import csv
 import io
 import math
+import re
 from datetime import datetime, timedelta, timezone
-from urllib.parse import urlsplit
+
+# Public compatibility imports used by the modular route files.
+from urllib.parse import urlsplit  # noqa: F401
 from uuid import uuid4
 from zoneinfo import ZoneInfo
 
-from flask import (
+from flask import (  # noqa: F401
     Blueprint,
     Response,
     current_app,
@@ -20,25 +23,34 @@ from flask import (
     session,
     url_for,
 )
-from flask_wtf.csrf import generate_csrf
+from flask_wtf.csrf import generate_csrf  # noqa: F401
 from markupsafe import Markup, escape
 
-from ...access import BusinessError, require
-from ...presentation.timezones import datefmt, selected_zone, ZONES
-from .. import ROLES, sessions
+from ...access import (
+    BusinessError,
+    require,  # noqa: F401
+)
+from ...presentation.timezones import (
+    ZONES,  # noqa: F401
+    datefmt,
+    selected_zone,
+)
+from .. import (
+    ROLES,
+    sessions,  # noqa: F401
+)
 from ..client import call
-from ..forms import prepare_fields, attach_errors
+from ..forms import attach_errors, prepare_fields
 from ..presentation import (
-    LISTS,
     FIELD_LABELS,
-    TECHNICAL,
-    return_to,
+    LISTS,
+    SERVICE_LABELS,
     contextual,
-    grouped_facts,
-    institution_label,
     edit_action,
     event_label,
-    SERVICE_LABELS,
+    grouped_facts,
+    institution_label,
+    return_to,
 )
 
 public = Blueprint("public", __name__)
@@ -167,14 +179,14 @@ def find_record(service, path, identifier):
 
 
 def field(name, label, type="text", options=None, default="", required=True):
-    return dict(
-        name=name,
-        label=label,
-        type=type,
-        options=options or [],
-        default=default,
-        required=required,
-    )
+    return {
+        "name": name,
+        "label": label,
+        "type": type,
+        "options": options or [],
+        "default": default,
+        "required": required,
+    }
 
 
 def choices(items, label="folio"):
@@ -224,7 +236,38 @@ def submit(
     note=None,
     prompt=None,
     location_capture=False,
+    transform=None,
 ):
+
+    critical = next(
+        (
+            operation
+            for pattern, operation in (
+                (r"/api/v1/resources/[^/]+/release", "resource_release"),
+                (r"/api/v1/resources/[^/]+/destination", "resource_destination"),
+                (r"/api/v1/laboratory/results/[^/]+/review", "lab_result_review"),
+                (r"/api/v1/reservations", "reservation_create"),
+                (r"/api/v1/evaluations/[^/]+/reviews", "evaluation_review"),
+                (r"/api/v1/laboratory/profiles/[^/]+/actions", "rule_transition"),
+                (r"/api/v1/anomaly-reviews/[^/]+/resolve", "anomaly_resolve"),
+            )
+            if re.fullmatch(pattern, path)
+        ),
+        None,
+    )
+    if critical:
+        fields = [
+            *fields,
+            field(
+                "reauth_password", "Confirma tu contraseña", "password", required=False
+            ),
+            field(
+                "reauth_otp",
+                "Código nuevo de segundo factor",
+                "password",
+                required=False,
+            ),
+        ]
     error, status, field_errors = None, 200, []
     fields = prepare_fields(fields, service, path, method)
     destination = return_to(active, back)
@@ -265,18 +308,41 @@ def submit(
                             else "Escribe un número válido."
                         )
                     )
-                    conversion_errors.append(dict(field=item["name"], message=message))
+                    conversion_errors.append(
+                        {"field": item["name"], "message": message}
+                    )
                 data[item["name"]] = value
             if conversion_errors:
                 raise BusinessError(
                     "Revisa los datos señalados.", 422, details=conversion_errors
                 )
+            password = data.pop("reauth_password", None)
+            otp = data.pop("reauth_otp", None)
+            proof = None
+            if critical and password:
+                # Match the API's route identifier before any body resource.
+                route_id = re.search(r"/([0-9a-fA-F-]{36})/[^/]+$", path)
+                resource_id = route_id.group(1) if route_id else data.get("resource_id")
+                proof = call(
+                    "identidad_acceso",
+                    "/api/v1/auth/reauthenticate",
+                    "POST",
+                    {
+                        "operation": critical,
+                        "resource_id": resource_id,
+                        "password": password,
+                        "otp": otp,
+                    },
+                )["proof"]
+            if transform:
+                data = transform(data)
             result = call(
                 service,
                 path,
                 method,
                 data,
                 idem=request.form.get("idempotency_key") or uuid4().hex,
+                proof=proof,
             )
             flash(title + ": operación completada.", "success")
             if request.values.get("return_to"):

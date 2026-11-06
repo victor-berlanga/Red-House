@@ -1,0 +1,115 @@
+{
+  "python": "3.12.6",
+  "platform": "macOS-15.7.9-x86_64-i386-64bit",
+  "synthetic": true,
+  "measurements": [
+    {
+      "algorithm": "DIJKSTRA",
+      "n": 10,
+      "elapsed_ms": 8.224927994888276,
+      "peak_python_bytes": 16502
+    },
+    {
+      "algorithm": "HK",
+      "n": 10,
+      "elapsed_ms": 0.6365420122165233,
+      "peak_python_bytes": 4373
+    },
+    {
+      "algorithm": "EXPLAIN-ACADEMIC-1.0",
+      "n": 10,
+      "elapsed_ms": 10.583816008875147,
+      "peak_python_bytes": 25010
+    },
+    {
+      "algorithm": "LOGISTICS-SIM-2.0",
+      "n": 10,
+      "elapsed_ms": 11.772058991482481,
+      "peak_python_bytes": 27642
+    },
+    {
+      "algorithm": "DEMAND-SES-1.0",
+      "n": 10,
+      "elapsed_ms": 1.8258389900438488,
+      "peak_python_bytes": 7674
+    },
+    {
+      "algorithm": "CONSISTENCY-1.0",
+      "n": 10,
+      "elapsed_ms": 2.8780020074918866,
+      "peak_python_bytes": 13408
+    },
+    {
+      "algorithm": "DIJKSTRA",
+      "n": 100,
+      "elapsed_ms": 37.73620998254046,
+      "peak_python_bytes": 103337
+    },
+    {
+      "algorithm": "HK",
+      "n": 100,
+      "elapsed_ms": 3.670244012027979,
+      "peak_python_bytes": 51400
+    },
+    {
+      "algorithm": "EXPLAIN-ACADEMIC-1.0",
+      "n": 100,
+      "elapsed_ms": 62.95910498010926,
+      "peak_python_bytes": 214078
+    },
+    {
+      "algorithm": "LOGISTICS-SIM-2.0",
+      "n": 100,
+      "elapsed_ms": 89.6509519952815,
+      "peak_python_bytes": 247451
+    },
+    {
+      "algorithm": "DEMAND-SES-1.0",
+      "n": 100,
+      "elapsed_ms": 4.148920997977257,
+      "peak_python_bytes": 9286
+    },
+    {
+      "algorithm": "CONSISTENCY-1.0",
+      "n": 100,
+      "elapsed_ms": 33.24425598839298,
+      "peak_python_bytes": 110134
+    },
+    {
+      "algorithm": "DIJKSTRA",
+      "n": 1000,
+      "elapsed_ms": 441.49246002780274,
+      "peak_python_bytes": 836223
+    },
+    {
+      "algorithm": "HK",
+      "n": 1000,
+      "elapsed_ms": 46.16987900226377,
+      "peak_python_bytes": 496529
+    },
+    {
+      "algorithm": "EXPLAIN-ACADEMIC-1.0",
+      "n": 1000,
+      "elapsed_ms": 682.1583799901418,
+      "peak_python_bytes": 2248524
+    },
+    {
+      "algorithm": "LOGISTICS-SIM-2.0",
+      "n": 1000,
+      "elapsed_ms": 1280.0938920117915,
+      "peak_python_bytes": 2446245
+    },
+    {
+      "algorithm": "DEMAND-SES-1.0",
+      "n": 1000,
+      "elapsed_ms": 20.388784003444016,
+      "peak_python_bytes": 42474
+    },
+    {
+      "algorithm": "CONSISTENCY-1.0",
+      "n": 1000,
+      "elapsed_ms": 187.112657004036,
+      "peak_python_bytes": 832838
+    }
+  ]
+}

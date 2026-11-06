@@ -1,0 +1,25 @@
+{
+  "name": "red-house",
+  "networkInterfaces": [
+    {
+      "accessConfigs": [
+        {
+          "kind": "compute#accessConfig",
+          "name": "external-nat",
+          "natIP": "34.18.186.116",
+          "networkTier": "PREMIUM",
+          "type": "ONE_TO_ONE_NAT"
+        }
+      ],
+      "fingerprint": "59lKoAa5_Ns=",
+      "kind": "compute#networkInterface",
+      "name": "nic0",
+      "network": "https://www.googleapis.com/compute/v1/projects/sistemas-integracion-01/global/networks/default",
+      "networkIP": "10.212.0.3",
+      "stackType": "IPV4_ONLY",
+      "subnetwork": "https://www.googleapis.com/compute/v1/projects/sistemas-integracion-01/regions/me-central1/subnetworks/default"
+    }
+  ],
+  "status": "TERMINATED",
+  "zone": "https://www.googleapis.com/compute/v1/projects/sistemas-integracion-01/zones/me-central1-a"
+}

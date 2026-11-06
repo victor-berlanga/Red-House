@@ -1,0 +1,27 @@
+{
+  "startedAt": "2026-10-29T13:59:34.465Z",
+  "environment": "https://localhost:63143",
+  "version": "0.4.1",
+  "schema": 13,
+  "policies": {
+    "mfa": true,
+    "reauth": true,
+    "laboratory": true,
+    "organAuthorization": true
+  },
+  "checks": [],
+  "consoleErrors": [],
+  "networkErrors": [
+    {
+      "status": 400,
+      "path": "/login",
+      "role": "origin"
+    }
+  ],
+  "records": {},
+  "privateReportDownloaded": false,
+  "map": "No implementado en esta etapa; WSS por Nginx comprobado con fuente sintética.",
+  "passed": false,
+  "failure": "Expected values to be strictly equal:\n\n400 !== 401\n",
+  "finishedAt": "2026-10-29T14:01:32.766Z"
+}

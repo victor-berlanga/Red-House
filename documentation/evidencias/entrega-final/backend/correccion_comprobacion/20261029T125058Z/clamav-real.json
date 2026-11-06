@@ -1,0 +1,12 @@
+{
+  "environment": "real-clamd-official-signatures",
+  "checks": [
+    "clean real engine",
+    "EICAR rejected with real signatures",
+    "TCP timeout fails closed (controlled transport)",
+    "real engine recovers"
+  ],
+  "engine": "ClamAV 1.4.6/28168/Thu Oct 29 00:24:16 2026",
+  "timeout_seconds": 8.003,
+  "passed": true
+}

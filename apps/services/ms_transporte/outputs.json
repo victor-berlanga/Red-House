@@ -110,6 +110,25 @@
             "expires_at": {
               "type": "string",
               "format": "date-time"
+            },
+            "collected_at": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "accepted_at": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "observed_seconds": {
+              "type": [
+                "number",
+                "null"
+              ],
+              "description": "Segundos observados entre recolección y aceptación; null antes de completar ambas."
             }
           },
           "required": [
@@ -471,7 +490,10 @@
         "format": "uuid"
       },
       "shipment_id": {
-        "type": "string",
+        "type": [
+          "string",
+          "null"
+        ],
         "format": "uuid"
       },
       "owner_id": {

@@ -1,6 +1,289 @@
 # Estado vigente de Red House
 
-Actualizado: **27 de octubre de 2026**. Leer junto con `AGENTS.md` y el [índice documental](documentation/README.md). El historial detallado está separado del estado actual.
+Actualizado: **4 de noviembre de 2026**. Leer junto con `AGENTS.md` y el [índice documental](documentation/README.md). El historial detallado está separado del estado actual.
+
+## Comprobación posterior del prompt técnico — 04/11/2026
+
+Se revisaron los nueve archivos de código que cambiaron respecto de la huella
+conservada antes de la revisión, la prueba nueva `test_review_costs.py` y las
+mediciones documentadas. Sin modificar código: gobernanza compartida dentro de
+una misma completitud, eliminación de transacciones vacías, contexto del receptor
+consultado una vez, replay vacío omitido bajo bloqueo, emisión WSS con autorización
+por entrega, separación de cinco algoritmos y liberación de sesiones por hilo.
+El alcance coincide con las mejoras conservadoras solicitadas.
+
+Comprobación propia: **29 pruebas aprobadas en 87,00 s** de `test_review_costs.py`
+y `test_review_unit.py`; **15 pruebas algorítmicas/oráculos aprobadas en 1,03 s**,
+seleccionadas en `test_final_algorithms_hla.py` y `test_stage02_oracles.py` sin
+arrancar almacenes. Total de esta comprobación: **44 casos**, cero fallos.
+`document.py --check-openapi`, Ruff crítico y formato de los diez archivos Python
+afectados aprobados. No se repitieron las 139 pruebas de la entrega anterior,
+integración con almacenes, WSS real ni sus mediciones antes/después.
+
+Aceptación acotada: mejoras y pruebas focalizadas coherentes; no se identificó un
+nuevo defecto bloqueante en los cambios inspeccionados. Persiste costo lineal por
+candidato y por suscripción. El benchmark de rastreo repite lecturas del mismo
+traslado y no mide conexiones completas simultáneas con traslados distintos:
+esa parte del prompt sigue pendiente. La reorganización del socket es parcial
+(helper de entrega), sin demostrar necesidad de una reescritura mayor. Estos
+límites no convierten la revisión en una certificación exhaustiva o productiva.
+
+## Revisión técnica y correcciones locales — 04/11/2026
+
+Se conservaron los cambios preexistentes y archivos sin seguimiento. CodeGraph
+consultado antes de localizar código; sin commits, push, despliegues ni cambios
+en datos/configuración productivos. Pruebas con almacenes temporales aislados.
+
+Corregido: lectura duplicada de gobernanza en completitud y del contexto del
+receptor al comprobar vigencia; transacciones vacías de candidatos sin perfil;
+consulta de replay cuando el cursor ya está en cabecera; retención de sesiones
+HTTP de hilos finalizados en servicios y web. La emisión `position.updated`
+comparte un helper que conserva reautorización por entrega. Las cinco ramas de
+`academic.execute` se separaron dentro del mismo módulo: cuerpos AST idénticos,
+sin cambios de reglas, versiones, resultados, límites ni contratos.
+
+Evidencia de costo: con 400 recursos instrumentados, 200 candidatos y 100 vinculados
+a un perfil, transacciones **201→101** y SQL **603→503**. PostgreSQL real: completitud
+**6→5 consultas/candidato**; 100 candidatos, mediana **2597,74→2521,36 ms**. Replay
+vacío autorizado **5→4 consultas/snapshot**, sin reducir llamadas Redis. Los tiempos
+de rastreo fueron mixtos; no se afirma mejora general de latencia ni saturación.
+
+Criterios: reproducir antes de corregir; preservar aislamiento, vigencia,
+contradicciones, fingerprints, replay, revocación y contratos; demostrar reducción
+por contadores, equivalencia algorítmica y liberación de pools; conservar historia.
+Resultados: línea base **56 aprobadas / 546,03 s**; regresión ampliada **139 aprobadas /
+1011,64 s**; validación adicional de fuentes finales **36 aprobadas / 394,75 s**;
+OpenAPI **12 aprobadas / 65,25 s** y generación reproducible. Cero fallos, errores u
+omisiones en estas ejecuciones. Conteos solapados, no sumables. Los fallos iniciales
+del sandbox por apertura de puertos y los fallos esperados de las pruebas nuevas
+se conservan descritos en la documentación. Ruff, formato y diff aprobados.
+
+[Hallazgos, metodología, tablas antes/después, comandos y límites](documentation/markdowns/Pruebas_y_validacion.md#revisión-técnica-local--4-de-noviembre-de-2026).
+Persiste costo lineal por candidato con perfil y por suscripción. No se introdujo
+caché clínica ni una transacción global; precarga entre candidatos y medición de
+conexiones completas con distintos traslados quedan pendientes justificados.
+La revisión de idempotencia/outbox no justificó retirar sus bloqueos o reintentos.
+No equivale a revisión exhaustiva, validación clínica ni certificación productiva.
+
+
+## Depuración de evidencias y revisión estática — 04/11/2026
+
+Por solicitud del usuario se ordenaron evidencias y se revisó el código sin
+modificarlo. Se archivaron 19 detalles textuales extensos y dos capturas duplicadas
+en un TAR.GZ versionable. Los 21 miembros conservan los bytes originales; el índice
+registra ruta, tamaño, SHA-256 y copia canónica de las capturas. Se preservaron
+resultados finales, JUnit, resúmenes e intentos fallidos. No se alteraron manifiestos
+históricos ni se recalcularon sus hashes. Los verificadores históricos que leen
+detalles archivados requieren restaurarlos antes de su ejecución; el procedimiento
+queda en el [índice documental](documentation/README.md#consulta-de-evidencias-voluminosas).
+
+Volumen seleccionado: **33 652 líneas textuales**, 4 226 691 bytes originales;
+archivo de **1 484 094 bytes**, más índice de 29 líneas y avisos de consulta.
+La reducción proviene de archivar detalles preservados, no de eliminar pruebas ni
+de minificar JSON. Los enlaces Markdown afectados apuntan al archivo o a la captura
+canónica. No se ha borrado código de reproducción, incluidas las fuentes de los
+verificadores históricos.
+
+Revisión estática acotada, sin medición de rendimiento ni certificación funcional:
+
+- **Prioridad media — consultas repetidas por candidato:**
+  `apps/services/ms_compatibilidad/routes.py:165` abre una transacción por recurso
+  que supera los filtros. `completeness` consulta perfil, resultados, vigencia,
+  acciones y contradicciones. Con muchos candidatos se repiten viajes a PostgreSQL
+  y lecturas de perfiles compartidos. Conviene medir consultas/latencia por tamaño
+  y evaluar precarga por lote, preservando consistencia, permisos y trazabilidad.
+- **Prioridad media — sondeo y responsabilidades WebSocket:**
+  `apps/services/ms_transporte/tracking_socket.py:63` reúne 248 líneas de
+  autenticación, cuotas, publicación, suscripción, replay y entrega. El bucle usa
+  recepción con timeout de 0,5 s y consulta snapshots por suscripción incluso sin
+  mensajes nuevos; repite la construcción de `position.updated` en replay y
+  entrega continua. Conviene medir el costo por conexión/suscripción y separar
+  procesamiento de mensajes y entrega; no retirar revalidaciones de permisos.
+- **Prioridad media de mantenimiento — despacho algorítmico extenso:**
+  `apps/services/ms_priorizacion_geografia/academic.py:168` reúne cinco algoritmos
+  en `execute`, con 243 líneas. Son responsabilidades distintas detrás de un
+  contrato común; separar implementaciones puras por versión haría más local la
+  revisión y las pruebas, conservando entradas/salidas y explicaciones. La longitud
+  no demuestra que los algoritmos sean innecesarios ni incorrectos.
+- **Complejidad justificada, no retirar sin análisis:**
+  `redhouse/shared_schema.py:63` y `scripts/migrate_shared.py:45` contienen lógica
+  extensa de transición/preservación de esquemas. Se distinguen construcción de
+  esquema y migración de datos; no se comprobó que sean duplicados prescindibles.
+
+El análisis AST de funciones de al menos 12 líneas no encontró funciones completas
+idénticas entre los archivos Python de servicios/web inspeccionados, excluyendo
+pruebas. Esto no descarta duplicación parcial o con nombres distintos. No se
+detectó base para calificar toda la arquitectura como complejidad absurda ni se
+modificaron código, configuración, contratos o pruebas durante esta revisión.
+
+Criterios de aceptación: recuperar cada original con su mismo hash; mantener
+enlaces documentales de los artefactos movidos; comprobar que ningún archivo de
+código cambió durante esta tarea; documentar hallazgos con ubicaciones y límites.
+Validación: **21 originales restaurados y cotejados por SHA-256**, incluidos los
+JSON parseados y las dos capturas contra sus copias canónicas; SHA-256 del TAR.GZ
+correcto. **1 224 archivos de código/configuración/recursos sin cambios** frente al
+inicio de esta tarea. **21 enlaces Markdown al archivo/índice comprobados**, cero
+enlaces Markdown a las rutas retiradas. La regresión funcional no corresponde a
+este cambio documental y de archivo; no se presenta una nueva ejecución de pruebas
+de aplicación.
+
+## Compactación de contratos OpenAPI — 04/11/2026
+
+Los doce OpenAPI permanecen versionados y legibles. El generador comparte las 13 respuestas de error por servicio en `components.responses` y declara los esquemas de salida una sola vez en `components.schemas`, con referencias locales `$ref`. Se conservaron rutas, métodos, parámetros, restricciones, seguridad, códigos HTTP y ejemplos JSON/XML. Las evidencias históricas permanecen como estaban.
+
+Criterios de aceptación: reducir repetición sin alterar los contratos al resolver referencias; validar OpenAPI 3.1 y la entrega por Flask/Swagger; regeneración reproducible sin bases ni secretos. Los doce archivos bajaron de **204 772 a 86 934 líneas**, reducción de **117 838 (57,55 %)** frente al árbol de trabajo previo a esta tarea. La comparación recursiva de todas las rutas, expandiendo referencias locales antes/después, resultó idéntica en los doce servicios. `document.py --openapi-only` regenera solo OpenAPI; `--check-openapi` verifica sin escribir y queda incorporado a CI. [Comandos](apps/services/README.md).
+
+Validación: generación y comprobación de reproducibilidad aprobadas; Ruff y formato aprobados. La prueba parametrizada `test_openapi_documentation.py` verifica los doce servicios sin levantar dependencias: validez del documento, igualdad con el exportado y con `/openapi.json` y `/docs/swagger.json`, referencias de error y representaciones JSON/XML. **12 pruebas aprobadas en 66,12 s**, cero fallos. No se ejecutó la regresión funcional completa ni se desplegaron cambios; consumidores propios deben resolver `$ref` según OpenAPI. CI remoto pendiente.
+
+## Demostración con controles nativos en GCP — 04/11/2026
+
+Se grabó el portal publicado mediante cursor, teclado y desplazamiento reales de macOS, Chrome a pantalla completa y captura física AVFoundation. Traducción automática desactivada para evitar el aviso que tapaba el acceso. Durante las tomas se navega por menús, enlaces, búsquedas y formularios, sin escribir URLs. Montaje de **24 min 41 s**, 62 capítulos, H.264 1440×944, sin audio; títulos por funcionalidad, notas sobre reglas y cortes de credenciales/MFA. Las tomas y el MP4 permanecen privados en `.local/video-gcp-20261104/`.
+
+Se muestran laboratorio/HLA, fuentes y completitud, seis ramas algorítmicas académicas, solicitud/revisión, corrección e invalidación de evaluación, reserva, traslado completo, custodia, destino con historia, reporte GCS, auditoría y módulos por perfil. El tramo final principal obtuvo **50 comprobaciones**, descarga privada y cero errores de JavaScript/HTTP registrados en ese tramo; no se suman reintentos ni se presenta como certificación de todos los módulos. La consulta de completitud del complemento devolvió `clinical_approval=false`. Portal vivo y Compatibilidad 0.4.4 confirmados por HTTPS al terminar. No se modificó ni desplegó código de la aplicación.
+
+Pendiente observado: el diálogo de detalle del perfil `7bf03011-eb76-4438-9fe8-73d1be0a257a` mostró un fallo de carga desde `/laboratorio/perfiles`; causa sin determinar. Reproducir con el mismo rol y revisar la petición del diálogo. Se documentan además interrupciones del controlador de grabación; los fragmentos interrumpidos no se presentan como exitosos. La demostración no sustituye auditoría independiente, validación clínica, carga ni pruebas exhaustivas. GPS físico/WSS no se ejecutaron; ruta y ETA no representan tráfico ni entrega física.
+
+[Video, índice, comprobaciones e incidencias](documentation/evidencias/gcp/demostracion-nativa-20261104/RESULTADOS.md). Decodificación completa del MP4 sin errores, hash coincidente, cero solapamientos con intervalos privados marcados y textos inferiores sin truncamiento; revisión visual por muestreo. Se conservan las versiones, registros e historia anteriores; no cambia el veredicto clínico ni el alcance de las verificaciones previas.
+
+## Publicación de etapa 02 en GCP — 02/11/2026
+
+Por instrucción expresa «Antes que nada, sube todo a gcp», se encendió y actualizó la VM existente `red-house` (`sistemas-integracion-01`, `me-central1-a`). Portal disponible en **https://34.18.186.116**. Release **0.4.4 / esquema 16**, con imágenes de aplicación etiquetadas 0.4.4. Compatibilidad/Geografía anuncian 0.4.4; los otros diez módulos conservan su versión propia 0.4.1, cotejada contra código. Todos usan las fuentes actuales empaquetadas; no se desplegó el main antiguo.
+
+**Respaldo y restauración aislada PostgreSQL/MongoDB/Redis aprobados antes de migrar.** Código/configuración/imágenes anteriores conservados. Tras 13→16: 106 tablas de dominio idénticas en sus columnas históricas y solo `schema_migration` cambia según lo previsto; 73 campos/archivos sensibles conservados. No se sustituyeron datos remotos por bases locales. Catálogo HLA 3.66.0 montado de solo lectura, integridad comprobada en web y ambas réplicas.
+
+**Comprobado en GCP:** 30 contenedores sanos, 3.565 fuentes cotejadas, imágenes con código coincidente, 24 consultas HTTPS de salud y 28 respuestas JSON/XML validadas. Registro HLA ficticio reconocido/persistido sin dictamen, fuente vial pública importada y ejecución reproducida. GCS real con identidad adjunta: subida/descarga firmadas, rechazo anónimo y eliminación del objeto temporal propio. Chrome público: **8 comprobaciones**, MFA/cookie Secure, fuentes, resultados/completitud/ruta/perfiles, recarga; sin errores de consola/red ni grabaciones/capturas.
+
+La operación sigue **ACADEMIC**, con MFA/reautenticación y controles de laboratorio/órganos. Publicar no habilita clínica. GPS físico, protocolos/aprobaciones clínicas y cobertura vial operativa permanecen pendientes. No se volvió a ejecutar toda la suite local, carga, WSS ni el recorrido documental HLA completo en GCP. La comprobación independiente previa no se atribuye al despliegue nuevo.
+
+[Expediente de publicación, versiones, incidencias y rollback](documentation/evidencias/gcp/etapa02-20261102/RESULTADOS.md). Los apartados siguientes son historia fechada; sus pendientes de publicación 0.4.4 quedan resueltos en el alcance aquí descrito.
+
+## Fuentes públicas y comprobación técnica — 02/11/2026
+
+Código local **0.4.4 / esquema 16**; sin despliegue GCP ni cambios en instalaciones habituales. El usuario dejó el GPS físico para el final y autorizó otro agente auditor, sin edición de archivos. No se inventaron aprobadores, protocolos ni prioridades clínicas.
+
+Implementado: cinco referencias documentales primarias con ID/versión/sección/ámbito/vigencia, snapshot y SHA-256 en perfiles; pertenencia HLA contra IPD-IMGT/HLA 3.66.0 fijada por commit/hash, separada de sintaxis, resolución y dictamen; política opcional de catálogo obligatorio, errores cerrados ante fuente ausente/corrupta y correcciones históricas. El catálogo original se instala mediante descarga explícita, no se redistribuye modificado. Se integraron tres trayectos urbanos reales OSRM/OpenStreetMap mediante manifiesto, licencia, geometría, pesos y procedencia, importación autorizada JSON/XML y formularios web. La antigüedad del mapa sigue desconocida; la descarga tiene fecha. ETA modelada no usa GPS ni tráfico medido.
+
+Validación: **110 casos únicos aprobados** (109 de regresión + un caso de navegador con **23 comprobaciones**), sin sumar reintentos. La ejecución de 109 tuvo 108 aprobados y un 503 de Redis; el caso afectado pasó en entorno aislado posterior, sin cambios de código. Ambos intentos se conservan; causa raíz de esa indisponibilidad puntual no determinada. Chrome verificó MFA/reauth, roles/tenants, seis ramas, HLA/fuentes/ruta real, persistencia y autonomía con APIs detenidas; único error HTTP registrado fue el 409 esperado de reserva obsoleta. El auditor ejecutó **22 pruebas independientes** y verificó el cierre de dos hallazgos: catálogo obligatorio eludible mediante `CUSTOM_HLA`, y disponibilidad vial que omitía integridad. Esas pruebas no se suman al total único. Hubo también un fallo inicial de presentación HLA, corregido antes del navegador final.
+
+Migración/restauración aislada 14/15→16 con repetición y comparación de historia; **1.993 archivos de evidencia anterior intactos**. Manifiesto de **1.117 fuentes** identifica el árbol sin commit. Descarga HLA reproducida con hash exacto y renovación vial real comprobada sin sustituir el paquete instalado. Ruff pasó. CI incorpora adquisición de HLA, pero no se ejecutó CI remoto. No se repitió GCS real ni se verificó producción en este incremento; GCP conocido sigue 0.4.1/esquema 13 según evidencia previa, sin nueva consulta.
+
+[Resultados y comandos](documentation/evidencias/entrega-final/algoritmos/fuentes_publicas/20261102T143541Z/RESULTADOS.md) · [Matriz vigente](documentation/entrega-final/algoritmos/correccion/Matriz_fuentes_publicas.md) · [Instalación de fuentes y límites](documentation/entrega-final/algoritmos/correccion/Operacion_y_reproduccion.md).
+
+Contraste final del auditor: 1.117 hashes coincidentes, 1.993 evidencias conservadas, consolidación de 110 identidades respaldada por JUnit y 23 comprobaciones Chrome coherentes. Sin nuevos bloqueos confirmados: **APTA PARA CONTINUAR para el incremento técnico académico 0.4.4/esquema 16**. No repitió independientemente la suite completa ni el navegador; verificó sus artefactos y mantuvo separados sus 22 casos propios. Recomendó vigilar recurrencias del 503 de Redis, sin afirmar que el reintento elimine su causa.
+
+Alcance: los cambios públicos/técnicos pedidos están completados localmente. La revisión independiente acredita los mecanismos revisados, no toda la plataforma ni certificación médica. Protocolos, política clínica y acreditaciones reales siguen siendo dependencias para operación clínica; no bloquean los perfiles académicos que permite el prompt. Tres trayectos públicos no acreditan cobertura hospitalaria ni actualidad vial operativa. Para cerrar la etapa en entorno publicado, revalidar GCS y versión desplegada y completar la comprobación integral final. GPS físico permanece aplazado expresamente. **CONTINUACIÓN PARCIAL POR DEPENDENCIA DECLARADA** para el cierre completo de etapa 02; no se afirma cierre clínico/productivo.
+
+## Revisión de cierre de prompts 01 y 02 — 02/11/2026
+
+Revisión de alcance y evidencia, sin nueva ejecución funcional ni acceso a GCP. El prompt 01 exige backend y contratos; excluye construir todavía los clientes. Por tanto, Android/escritorio/mapa de consumidores y aceptación del hardware no se contabilizan como defectos del backend por sí solos. La matriz backend del 29/10 conserva pendientes productivos desactualizados: la evidencia GCP del 31/10 documenta despliegue 0.4.1/esquema 13, restauración, 30 contenedores, contratos y recorrido visible. No debe reutilizarse para acreditar 0.4.3/esquema 15. La aceptación independiente completa del backend actual sigue sin constancia; la evidencia de 370 casos corresponde al árbol anterior.
+
+El prompt 02 permite explícitamente perfiles académicos con aplicación clínica desactivada cuando falta aprobación profesional, y simulaciones si falta política aprobada. Esas dependencias no demuestran por sí solas incumplimiento técnico. Existe evidencia local de 117 casos sobre las fuentes finales y los 1.050 hashes continúan coincidiendo. La repetición independiente anterior aprobó 12 oráculos y 44 casos adicionales, pero se interrumpió en PostgreSQL; no acredita la suite completa. La geografía documentada sigue usando un grafo sintético; falta comprobar la fuente vial real para operación real. No hay aprobación clínica ni nueva comprobación productiva de 0.4.3.
+
+Veredicto: no se certifica cumplimiento total de ambos prompts. Backend implementado con evidencia de despliegue anterior; etapa 02 implementada en alcance académico local con límites declarados. Pendientes de cierre verificable: reconciliar matriz backend con evidencia posterior, completar regresión independiente del árbol vigente y verificar integraciones pendientes según alcance; mantener separada la habilitación clínica externa. No se detectó un nuevo defecto funcional mediante esta revisión documental/estática; tampoco se afirma ausencia de defectos. No se modificó código funcional.
+
+## Comprobación independiente de etapa 02 — 01/11/2026
+
+Se contrastó el prompt original con la matriz correctiva, gobierno de perfiles y evidencia final. Los SHA-256 actuales coinciden con los 1.050 archivos de `sources-final.json`; los cuatro JUnit finales contienen 117 casos sin fallos registrados. Esto comprueba correspondencia con la evidencia histórica, no una nueva ejecución de los 117 casos.
+
+Repetición independiente: `test_stage02_oracles.py` aprobó 12 casos en 129,40 s (`/tmp/independent-stage02-oracles.xml`). La suite adicional de correcciones, migración, HLA y calidad aprobó 44 casos antes de interrumpirse tras 474,27 s, esperando en `psycopg/connection.py:300`; salida 2 por KeyboardInterrupt. No se declara aprobada la suite completa ni se atribuye la espera a un defecto funcional confirmado. No se repitieron Chrome, GCS, WSS ni despliegue. No se modificó código funcional.
+
+Veredicto limitado: existe implementación técnica local comprobable; no se acredita cierre total del prompt. Continúan dependencias clínicas/geográficas declaradas y queda pendiente completar la repetición interrumpida y la comprobación productiva.
+
+## Corrección ejecutada de etapa 02 — 01/11/2026 UTC
+
+Código local **0.4.3 / esquema 15**; doce servicios y web modular, sin nuevo despliegue ni cambios en instalaciones habituales. El estado de GCP descrito abajo corresponde al incremento anterior. Se conservaron los cambios locales preexistentes, las evaluaciones y las versiones RBC-1.0, ORGAN-1.0, LOGISTICS-1.0 y COVERAGE-HK-1.0.
+
+Implementado: gobierno de perfiles inmutables con acciones/retiro y segregación; sintaxis HLA por versión soportada y grupos parciales; asociaciones órgano/sujeto/solicitud y pruebas cruzadas estructuradas; documento privado verificado; completitud con vigencia, antigüedad y contradicciones; separación operativa académica/clínica y obsolescencia del laboratorio de ambos sujetos. Inventario bloquea uso clínico de datos académicos y serializa correcciones con el commit de reserva. Plasma/plaquetas tienen flujo manual con perfil, sin heredar RBC.
+
+ALG-01 usa perfiles registrados y reproduce exclusiones desde instantánea. ALG-02 usa política sintética registrada y factores de propietarios; urgencia/espera no se atribuyen a LOGISTICS-1.0. Dijkstra usa grafo regional versionado de Nuevo León, con adaptador/fixture identificado y lectura autorizada de Transporte; distingue observación, recorrido, ruta y ETA estimada. HK conserva cardinalidad máxima sin reservas automáticas. SES consume historia por institución/producto/ventana; anomalías parten de hechos de cinco propietarios y abren revisión deduplicada en Auditoría mediante outbox. Formularios web para las seis ramas, laboratorio, perfiles, completitud y revisión de anomalías.
+
+**Comprobado: 117 casos distintos aprobados, cero fallos/errores pendientes y cero omitidos**, consolidados por identidad entre cuatro ejecuciones finales con aplicabilidad de fuentes documentada. Chrome real: **20 comprobaciones**, MFA/reauth y laboratorio/órganos activos, APIs detenidas, roles/tenants, completitud, seis ramas, obsolescencia, reserva y resolución. GCS real: carga/descarga privada, generación/hash y rechazos; WSS real con SIMULATOR; migración/restauración de copia ficticia 14→15 repetible. Benchmark: 31 combinaciones × cinco repeticiones, tiempo/memoria y HTTP separados; no capacidad productiva. [Expediente, intentos y límites](documentation/evidencias/entrega-final/algoritmos/correccion_comprobacion/20261101T042648Z/RESULTADOS.md). No se suman N1/N2 ni casos históricos. **CONTINUACIÓN PARCIAL POR DEPENDENCIA DECLARADA**: mecanismos técnicos comprobados; etapa sin cierre clínico/geográfico externo. Nueva comprobación independiente requerida.
+
+Dependencias externas: protocolos y aprobadores clínicos institucionales reales, política oficial por producto/órgano, catálogo HLA institucional, fuente vial autorizada y GPS físico; no bloquean el registro/simulación técnica completados. Datos de consumo de prueba no acreditan utilidad clínica real. Pendientes separados: nueva comprobación independiente y autorización/comprobación productiva del incremento 0.4.3; no se reutiliza la publicación 0.4.1 como evidencia actual.
+
+[Matriz correctiva](documentation/entrega-final/algoritmos/correccion/Matriz_cierre.md) · [Operación, contratos, configuración y rollback](documentation/entrega-final/algoritmos/correccion/Operacion_y_reproduccion.md) · [Algoritmos](documentation/markdowns/Algoritmos.md) · [Fuentes](documentation/markdowns/Reglas_y_fuentes_clinicas.md).
+
+## Historial: prompt correctivo de etapa 02 — 31/10/2026
+
+Por solicitud del usuario se creó [el encargo correctivo de reglas y algoritmos](stuff/prompts/correccion_comprobacion/02_corregir_reglas_clinicas_y_algoritmos.md), basado en la auditoría comunicada y en el prompt original. Cubre registro/aprobación de perfiles, HLA, asociaciones, vigencia, separación académica/clínica, obsolescencia de ambos sujetos, productos, ALG-01–05, geografía/Transporte, documentos y API/web. Exige reproducciones, oráculos, configuración operativa reforzada, navegador, migraciones, regresión y evidencia final. Criterio documental: cobertura explícita de las 21 etiquetas de auditoría y referencias locales verificables. Este cambio solo guarda instrucciones: no aplica correcciones, ejecuta pruebas funcionales ni cambia el veredicto de etapa 02 comunicado por el usuario: **NO APTA PARA CONTINUAR**.
+
+## Historial: ampliación local de HLA y algoritmos — 31/10/2026
+
+Compatibilidad y Priorización/Geografía **0.4.2**, esquema aditivo **14**, únicamente en código y entornos temporales de prueba. Se preservaron los cambios locales anteriores y las evaluaciones históricas; `RBC-1.0`, `ORGAN-1.0`, `LOGISTICS-1.0` y `COVERAGE-HK-1.0` mantienen su comportamiento. No se actualizó GCP ni la instalación habitual.
+
+Implementado: HLA declarado por loci/alelos, ambigüedad, nomenclatura/resolución, emisión y documento privado de la misma muestra; estados no realizado/pendiente/indeterminado/informado/corregido. Perfiles académicos versionados con propósito, pruebas/loci exigidos y sustitución; clínica deshabilitada. La completitud no emite dictamen y una corrección conserva el antecedente. SQL protege los valores históricos y las nuevas ejecuciones.
+
+Nuevas simulaciones persistidas: motivos de completitud/exclusión, política operativa con urgencia/espera, Dijkstra contrastado con oráculo, demanda SES con partición temporal/MAE frente a persistencia y estimación de sobrantes por lote, detección técnica de inconsistencias. API JSON/XML/XSD con JWT/Redis y alcance institucional; web con consulta, formulario de demanda y corrección HLA. Se distinguen GPS observado, recorrido recibido, ruta del grafo y ETA calculada desde su origen, con fuente, fecha, precisión y límites; no se presenta tráfico ni GPS físico como comprobados.
+
+**Evidencia: 68 casos distintos aprobados según su última ejecución**, no una corrida única: regresión 63/64, ampliación final 12/12 y repetición correctiva de auditoría 1/1, con solapamientos reconciliados. Nueva instalación y ensayo v13→v14 con unidad/resultado ficticios conservados y migración repetible; formulario HTTP real con almacenes aislados; oráculos de rutas y matching; tiempo/memoria Python en tamaños 10/100/1.000 para seis ejecuciones algorítmicas. Ruff y diff sin errores. El fallo original de clasificación de evento y los intentos de preparación se conservan. [Resultados y límites](documentation/evidencias/entrega-final/algoritmos/RESULTADOS.md), [matriz](documentation/markdowns/Matriz_de_trazabilidad.md), [reglas y fuentes](documentation/markdowns/Reglas_y_fuentes_clinicas.md).
+
+**Prompt 02 todavía incompleto.** Pendientes técnicos: mecanismo institucional de activación de perfiles aprobados; trazas individualizadas en una nueva versión de preselección operativa; conexión de las nuevas simulaciones con extracción autoritativa, rastreo y expedientes de Auditoría. El estimador existente `EMPIRICAL-USE-1` de Inventario permanece operativo; SES todavía usa entradas sintéticas declaradas. Pendientes externos: protocolos por producto/órgano, aprobación competente y catálogo HLA institucional, datos reales de consumo, grafo vial autorizado y GPS físico. Pendientes de verificación: vínculo documental nuevo con GCS real, navegador visual, monolito con APIs detenidas y despliegue. El ensayo de migración no fue sobre respaldo productivo restaurado.
+
+Fuentes oficiales consultadas el 31/10: NOM-253-SSA1-2012 vigente según PLATIICA y norma sucesora NOM-253-SSA1-2025 publicada, con entrada prevista 10/04/2027; reglamento de trasplantes y nomenclatura HLA. Se documenta la transición y el alcance separado sangre/órganos, sin convertir una consulta normativa en aprobación profesional.
+
+## Publicación correctiva y demostración GCP — 31/10/2026
+
+Por autorización expresa del usuario se encendió y actualizó la VM `red-house`, proyecto `sistemas-integracion-01`, zona `me-central1-a`. Portal publicado en **https://34.18.186.116**, código **0.4.1 / esquema 13**. Se desplegaron las fuentes locales conservando todos los cambios previos, sin reemplazarlas por el `main` anterior de GitHub.
+
+Respaldo coordinado y restauración real de PostgreSQL, MongoDB y Redis aprobados antes de migrar desde esquema 7; código, configuración, imágenes anteriores y metadatos GCS conservados. Las 75 tablas originales permanecen; ahora hay 108. Se corrigió compatibilidad del migrador con permisos y configuración Redis de la instalación antigua; prueba aislada repetible aprobada. Un fallo inicial se revirtió completo. Se corrigieron permisos de directorios nuevos en el empaquetado y se reconstruyeron imágenes antes de publicar la web.
+
+**30 contenedores sanos**, incluidos 24 API/worker, web, gateway, tres almacenes y ClamAV. Doce API 0.4.1 y web respondieron por HTTPS con dependencias disponibles. Certificado renovado y timer habilitado. ClamAV privado real acepta contenido limpio y rechaza EICAR. GCS utiliza identidad adjunta a la VM; no se transfirieron ADC ni secretos del servidor. La demostración usó la copia local preexistente de credenciales y cuentas ficticias, con MFA y reautenticación activos, sin SMTP/push externos.
+
+**Demostración visible completada, sin vídeo, capturas, HAR ni trazas:** 26 comprobaciones distintas consolidadas entre dos intentos; el segundo terminó aprobado con 24. Incluyó laboratorio corregido, dictamen obsoleto rechazado, reserva, traslado/custodia, WSS y reconexión, destino e historial, revocación por cambio de rol, reporte privado descargado desde GCS y auditoría responsive. El primer intento se detuvo por búsqueda UUID en un selector por nombre; se reanudó con el mismo recurso. Además, 24 respuestas de doce servicios, JSON y XML, validaron sus contratos JSON Schema y XSD/DTO. No se forzó expiración de sesión productiva ni se repitió la regresión completa de 370 casos.
+
+[Evidencia del despliegue, incidencias y límites](documentation/evidencias/gcp/correccion-20261031/RESULTADOS.md). El encendido y publicación ya no están pendientes de autorización. **La aceptación independiente de la etapa permanece pendiente**, junto con mapas/clientes, GPS físico, HLA ampliado y aprobaciones institucionales. La VM única no ofrece alta disponibilidad de infraestructura.
+
+## Corrección backend y arquitectura — 29/10/2026
+
+Implementación local **0.4.1 / esquema 13**. F1–F11 corregidos y comprobados en aislamiento. Documentos/Reportes se extrajo como duodécimo servicio: 11 propietarios de dominio y Monitoreo; 24 réplicas API/worker, 29 contenedores permanentes con web/gateway/almacenes. Conserva puertos anteriores; Documentos usa 5112/6112. Contratos JSON/XML/XSD, SQL/ACL, gateway, workers, configuración local/Docker/GCP y módulos web actualizados. La web conserva autonomía con API detenidas.
+
+**370 casos distintos aprobados, cero fallos pendientes y cero omitidos**, consolidados por identidad entre ejecuciones sobre los cambios finales. No se presenta como una única corrida completa. Navegador Chrome real: **27 comprobaciones** con Nginx/TLS/WSS, cookies Secure, MFA/reauth/perfil/constancia externa activos; flujo completo, rechazo de dictamen obsoleto, custodia/destino, rol revocado, sesión vencida, reporte privado GCS y auditoría responsive. GCS y ClamAV con firmas reales comprobados; errores e intentos previos conservados. Doce paquetes independientes y 14 imágenes construidas; liveness/OpenAPI y hashes de fuentes verificados por imagen; Documentos también ejecutó su entrypoint/API/worker reales contra almacenes temporales. La migración/restauración SQL y la entrada Compose/configuración/ACL se ensayaron; no se repitió la topología completa de 29 contenedores.
+
+[Resultados, límites y evidencia](documentation/evidencias/entrega-final/backend/correccion_comprobacion/20261029T125058Z/RESULTADOS.md) · [Matriz de 50 criterios](documentation/entrega-final/backend/correccion/Matriz_cierre.md) · [Arquitectura y decisiones](documentation/entrega-final/backend/correccion/Arquitectura_y_decisiones.md) · [Despliegue y rollback](documentation/entrega-final/backend/correccion/Despliegue_y_rollback.md).
+
+**Estado histórico al 29/10: etapa NO APTA / aceptación productiva pendiente.** La publicación y su autorización se resolvieron el 31/10, según la sección anterior; la aceptación independiente permanece pendiente. En aquella revisión la VM se observó TERMINATED; navegador HTTPS productivo agotó espera, sin comprobar versión correctiva. No se encendió/desplegó/migró producción ni la instalación habitual. Falta autorizar encendido/coste, publicación/migración y cuentas/datos sintéticos; después comprobar HTTPS y versiones web/API/workers/esquema. También quedan límites de etapas posteriores: mapas/clientes, GPS físico, HLA clínico ampliado, aprobaciones institucionales y rendimiento sostenido. La autoevaluación requiere nueva comprobación independiente.
+
+Se conservaron los cambios locales iniciales, el expediente histórico y los 3.123 archivos de partida; cero archivos iniciales ausentes, respaldo privado y manifiestos disponibles. Las secciones anteriores al 29 de octubre son historial, no sustituyen este estado correctivo.
+
+## Prompt de corrección y revisión arquitectónica (28 de octubre)
+
+Por solicitud del usuario se añadió el [encargo de corrección de etapa 01 y revisión de arquitectura](stuff/prompts/correccion_comprobacion/01_corregir_backend_y_arquitectura.md). Exige corregir F1–F11, completar evidencia pendiente BE-21 y criterios transversales, comparar agrupaciones/extracciones mediante dependencias y fronteras transaccionales, e implementar separaciones justificadas sin conservar once ni imponer veinticuatro como cuota. Incluye navegador real aislado y comprobación HTTPS de la versión correctiva en producción, con cuentas/datos sintéticos autorizados, evidencia y distinción de accesos o despliegue pendientes.
+
+Criterios documentales: referencias existentes, cobertura explícita F1–F11 y BE/TRACK, análisis arquitectónico verificable, conservación de evidencia histórica y aceptación productiva separada de localhost. Verificación: rutas de referencia y cobertura del prompt comprobadas; diff sin errores de espacios. Este cambio solo crea instrucciones y registra su alcance: no corrige código, ejecuta pruebas funcionales, despliega ni cambia el veredicto **NO APTA PARA CONTINUAR** de la comprobación archivada.
+
+## Comprobación independiente de etapa 01 y archivo del informe (28 de octubre)
+
+**Veredicto vigente: NO APTA PARA CONTINUAR.** El [expediente de comprobación](stuff/comprobacion_etapas/01_backend_y_microservicios/README.md) conserva matrices BE-01 a BE-24 y TRACK-01 a TRACK-10, once hallazgos F1–F11, acciones de cierre, dependencias, comandos y ocho evidencias originales. La regresión reconciliada sobre las fuentes locales 0.4.0 terminó con **321 casos distintos aprobados y dos omitidos**, de 323 recolectados mediante varias ejecuciones. Las omisiones son GCS real y navegador. El manifiesto identifica el commit `8909baf` más cambios locales; las fuentes permanecieron intactas durante la auditoría.
+
+Las pruebas existentes no cubren todas las variantes defectuosas: corrección de destino, vigencia de dictamen tras cambiar laboratorio, custodia opcional, autorización GPS durante replay, telemetría paralela, histórico fuera de ventana, eventos/inmutabilidad, gestión de roles y reportes/consultas. Tampoco se acreditó caída total de todas las réplicas de una API; la prueba detiene listeners WSS mientras otra API Transporte sigue activa. El detalle y los criterios de cierre están en el expediente. El pronóstico positivo de BE-21 requiere evidencia adicional.
+
+Este registro y el expediente se añadieron **después de la auditoría, por solicitud de archivado del usuario**. No se aplicaron correcciones, migraciones ni nuevas pruebas funcionales al archivar. La sección siguiente describe la implementación y evidencia previas; no equivale a aceptación de la etapa. Se mantienen separados HLA detallado de etapa 02, clientes/mapas, despliegue, GPS físico y aprobaciones externas. Tras corregir corresponde una nueva comprobación con fuentes y resultados actualizados.
+
+## Backend y microservicios de entrega final (28 de octubre)
+
+Implementados el prompt 01 y el alcance backend del complemento 09. Código local **0.4.0**, API **v1**, esquema compartido **11**. Se conservan los **once servicios independientes** (diez de dominio y Monitoreo), sus puertos 5101–5111 y las autoridades existentes. La [matriz BE-01 a BE-24](documentation/entrega-final/backend/Matriz_BE.md) conserva 24 filas, detalla módulos/propietarios/datos/contratos/consumidores, justifica agrupaciones y señala las dependencias posteriores. No se cuentan réplicas como servicios.
+
+Ampliaciones funcionales: dispositivos revocables, MFA TOTP, comprobantes de reautenticación ligados a operación/recurso y recuperación de contraseña con contacto verificado/token de un uso; responsables/servicios y acreditaciones; consentimiento versionado, agenda por sede, cupo concurrente y recordatorios; laboratorio con muestra, resultados y correcciones autorizadas; perfiles sintéticos de frío, lecturas, cuarentena y detección periódica de caducidad; linaje de componentes, autorización externa de órgano, consulta de trazabilidad y destino final separado de recepción. Alertas incorporan políticas versionadas, severidad, recordatorio/escalamiento/cierre y adaptadores SMTP/push con reintentos. Documentos reutilizan GCS y añaden categorías/versiones, análisis ClamD de generación exacta y descarga privada. Reportes generan jobs PDF/CSV/XLSX; analítica incorpora consumo/descarte/demanda y tiempos; sincronización permite observaciones no clínicas con resultado/cursor; conciliación externa conserva el recurso canónico.
+
+**Rastreo:** receptor normalizado v1, puente JSON/NMEA RMC y simulador ejecutable metropolitano/regional; WSS real JSON y XML/XSD, asignación dispositivo/responsable/traslado con vigencia, reautorización, límites y revocación. PostgreSQL confirma historial/cursor antes del ACK; Redis mantiene caché temporal y permisos; MongoDB recibe proyección recuperable por outbox. Hay replay, deduplicación, orden de captura/recepción, estados de señal/antigüedad y spool local cifrado. Se ejecutaron CLI, caídas de almacenes, dos procesos gevent con TLS y caída de una/todas las réplicas de prueba. [Manual y matriz TRACK](documentation/entrega-final/backend/Rastreo.md).
+
+**Datos conservados:** migraciones 008–011 aditivas, 33 tablas nuevas sobre las 74 existentes: **107 de dominio y una técnica web**. Vistas/credenciales por propietario y ACL Redis ampliadas sin rotar contraseñas ni borrar sesiones. Se probó migración repetible de copias estructurales v6/v7 con registros ficticios conservados, instalación nueva, restauración estructural idéntica y respaldo de 108 tablas. `scripts/upgrade.py` respalda antes de aplicar. **La base habitual, sus datos, la configuración privada y el despliegue GCP no fueron migrados ni modificados en esta intervención.**
+
+**Criterios y evidencia:** [expediente reproducible](documentation/evidencias/entrega-final/backend/RESULTADOS.md), [modelos/estados](documentation/entrega-final/backend/Estados.md), [manual backend](documentation/entrega-final/backend/README.md). La regresión tuvo 280 aprobadas, un fallo de ejemplos MFA corregido y dos omisiones explícitas. La suite de cierre terminó **53/53 aprobadas**. Tras ampliar políticas, se corrigieron dos fallos JSON/XML de bloqueo de lectura sobre perfil inmutable; la reejecución de aceptación terminó **8/8 aprobadas**. Autonomía web con todas las API detenidas, contratos y salud: **8/8 aprobadas**. Los informes conservan intentos y correcciones; no se suman ejecuciones superpuestas ni se afirma una nueva regresión completa posterior. Todos los fallos funcionales observados tienen reejecución aprobada.
+
+Contratos: **238 operaciones HTTP**, **104 pares de ejemplos de entrada JSON/XML** validados contra DTO/XSD y **13 pares de frames WSS**; estos conteos no equivalen a procesos ni a operaciones clínicas aprobadas. Prueba WSS acotada: dos emisores, dos suscriptores JSON/XML con lectura retrasada, 24 puntos y cursores íntegros; media de ACK 304.948 ms, p95 427.112 ms. No mide mapa, hardware ni capacidad sostenida. Ruff crítico, formato de 198 archivos y diff aprobados; corregido el formato pendiente de `ms_auditoria/findings.py`.
+
+**Pendientes reales:** GPS físico y aceptación de su protocolo/conectividad/energía/precisión; mapas y clientes web/Android/PySide6 de las etapas 03/04/05, incluida interfaz MFA y permisos de captura; motor HLA clínico y ampliaciones del prompt 02; perfiles y políticas sanitarias aprobados; retención/eliminación institucional; SMTP/push productivos, ClamAV real con firmas y GCS autorizado para los nuevos flujos; despliegue nuevo, RTO/RPO y estrés sostenido. Las pruebas nuevas de adaptadores usan receptores locales; GCS usa doble de SDK. Se conservan como omisiones GCS real y recorrido opcional de navegador. No se presenta registro de acreditación como certificación, aceptación SMTP como lectura ni recepción como transfusión/trasplante.
+
+Políticas operativas predeterminadas: MFA para ADMIN/MEDICAL/COORDINATOR, reautenticación en operaciones críticas, perfil de laboratorio y autorización externa de órgano obligatorios. El modo académico de pruebas mantiene compatibilidad de los flujos anteriores. Preparar enrolamiento/configuración y consumidores antes de activar el endurecimiento en una instalación existente; los clientes antiguos no incorporan automáticamente los campos/formularios nuevos. Las rutas v1 se conservan y los cambios de política están documentados.
+
+## Verificación de main después del merge (27 de octubre)
+
+Criterios: integración íntegra de `Microservicios`, sincronización con GitHub, ausencia de conflictos y regresión funcional local. El reflog confirma un merge fast-forward desde `44eeaf9` hasta `8909baf`; después de `git fetch origin`, `main`, `Microservicios` y `origin/main` apuntan a `8909baf`, con árbol idéntico `8a1f47998c774311fe9bb4a9de1e1ccb88aaf9fb`. La copia de trabajo estaba limpia, sin entradas de conflicto ni marcadores en código, scripts y despliegue.
+
+La [regresión actual de main](documentation/evidencias/main-regresion.xml) terminó con **281 aprobadas, cero fallos, cero errores y dos omisiones**, de 283 casos, en **1175.92 s**. Usó PostgreSQL, MongoDB y Redis temporales aislados, sin modificar el entorno habitual. El primer intento fue interrumpido por restricciones del sandbox al abrir puertos; la ejecución completa autorizada terminó correctamente. Se omiten explícitamente GCS real por ausencia de bucket/ADC de prueba configurados y el recorrido opcional de navegador por no activar `REDHOUSE_BROWSER_TESTS=1`. La evidencia XML conserva resultados por caso y omite salidas capturadas y nombre del equipo.
+
+Análisis estático crítico Ruff, configuración Docker Compose, sintaxis de diez scripts shell y `git diff --check` aprobados. **Pendiente previo al merge:** `ruff format --check apps/services apps/web/src/integration` falla únicamente en `apps/services/ms_auditoria/findings.py:213`; los otros 162 archivos cumplen. El mismo formato está en el commit anterior `e1d57f5` y ya se documentó el 22 de octubre; haría fallar la etapa de formato de CI. Esta revisión no modifica código funcional ni aplica esa corrección. No se repitieron despliegue Docker, recorridos de navegador, pruebas reales GCS ni validación del servidor GCP; tampoco se certifica aquí CI remoto. Los únicos cambios de esta revisión son este registro y su evidencia.
 
 ## Requisito de rastreo GPS por WebSockets y mapa de Nuevo León 27 de octubre
 

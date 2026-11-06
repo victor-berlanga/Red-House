@@ -1,7 +1,7 @@
 from redhouse.app import base_app, complete_app
 
 
-VERSION = "0.3.0"
+VERSION = "0.4.4"
 
 
 def create_app(config=None):
@@ -13,4 +13,9 @@ def create_app(config=None):
     from .queries import install
 
     install(app)
+    from .academic import install as academic
+
+    academic(app)
+    from .decisions import install as decisions
+    decisions(app)
     return complete_app(app)

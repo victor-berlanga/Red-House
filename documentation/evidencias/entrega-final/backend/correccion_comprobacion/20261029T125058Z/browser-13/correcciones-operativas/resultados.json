@@ -1,0 +1,106 @@
+{
+  "startedAt": "2026-10-29T14:15:04.796Z",
+  "environment": "https://localhost:56679",
+  "version": "0.4.1",
+  "schema": 13,
+  "policies": {
+    "mfa": true,
+    "reauth": true,
+    "laboratory": true,
+    "organAuthorization": true
+  },
+  "checks": [
+    {
+      "name": "MFA ausente rechazado sin iniciar sesión",
+      "role": "origin",
+      "at": "2026-10-29T14:15:20.978Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Inicio de sesión y cookies Secure sobre TLS",
+      "role": "origin",
+      "at": "2026-10-29T14:15:27.723Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Liberación sin reautenticación rechazada",
+      "role": "origin",
+      "at": "2026-10-29T14:15:32.862Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Liberación con MFA, perfil completo y reautenticación; persiste al recargar",
+      "role": "origin",
+      "at": "2026-10-29T14:15:48.255Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Inicio de sesión y cookies Secure sobre TLS",
+      "role": "destination",
+      "at": "2026-10-29T14:15:56.709Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Solicitud, evaluación y revisión humana",
+      "role": "destination",
+      "at": "2026-10-29T14:16:12.901Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Nueva versión de laboratorio autorizada con MFA y reautenticación",
+      "role": "origin",
+      "at": "2026-10-29T14:16:55.968Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Reserva con dictamen anterior rechazada visiblemente",
+      "role": "destination",
+      "at": "2026-10-29T14:17:03.112Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Nueva evaluación y revisión permiten reservar una sola vez",
+      "role": "destination",
+      "at": "2026-10-29T14:17:23.092Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Inicio de sesión y cookies Secure sobre TLS",
+      "role": "coordinator",
+      "at": "2026-10-29T14:17:30.423Z",
+      "result": "PASS"
+    }
+  ],
+  "consoleErrors": [],
+  "networkErrors": [
+    {
+      "status": 401,
+      "path": "/login",
+      "role": "origin"
+    },
+    {
+      "status": 403,
+      "path": "/inventario/a5a5df05-bc27-486e-8b47-9a3e33e48650/liberar",
+      "role": "origin"
+    },
+    {
+      "status": 409,
+      "path": "/evaluaciones/84d9a48a-90e7-4e2c-ba1a-b758717b7a35/reservar/a5a5df05-bc27-486e-8b47-9a3e33e48650",
+      "role": "destination"
+    },
+    {
+      "status": 422,
+      "path": "/traslados/nuevo",
+      "role": "coordinator"
+    }
+  ],
+  "records": {
+    "request": "cb2bfcf4-00bf-4409-a431-0efb9b6acf11",
+    "correctedResult": "9e8c94fb-f8f3-4ca5-aa75-6983b1513bc8"
+  },
+  "privateReportDownloaded": false,
+  "map": "No implementado en esta etapa; WSS por Nginx comprobado con fuente sintética.",
+  "passed": false,
+  "failure": "page.waitForURL: Timeout 30000ms exceeded.\n=========================== logs ===========================\nwaiting for navigation until \"domcontentloaded\"\n  navigated to \"https://localhost:56679/traslados/nuevo?reservation_id=c724765b-0f2b-41a3-b6c5-23bbc5f3e450?return_to=%2Fsolicitudes\"\n============================================================",
+  "finishedAt": "2026-10-29T14:18:03.129Z"
+}

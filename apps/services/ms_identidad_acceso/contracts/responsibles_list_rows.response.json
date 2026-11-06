@@ -1,0 +1,152 @@
+{
+  "type": "object",
+  "required": [
+    "data",
+    "meta"
+  ],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": [
+        "correlation_id",
+        "service",
+        "version"
+      ],
+      "properties": {
+        "correlation_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "service": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "required": [
+        "items",
+        "page",
+        "page_size",
+        "total"
+      ],
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "name": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Name",
+                "type": "string"
+              },
+              "parent_id": {
+                "anyOf": [
+                  {
+                    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Parent Id"
+              },
+              "user_id": {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "title": "User Id",
+                "type": "string"
+              },
+              "function": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Function",
+                "type": "string"
+              },
+              "authorization_reference": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Authorization Reference",
+                "type": "string"
+              },
+              "id": {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "title": "Id",
+                "type": "string"
+              },
+              "tenant_id": {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "title": "Tenant Id",
+                "type": "string"
+              },
+              "kind": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Kind",
+                "type": "string"
+              },
+              "active": {
+                "title": "Active",
+                "type": "boolean"
+              },
+              "version": {
+                "title": "Version",
+                "type": "integer"
+              },
+              "created_at": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Created At",
+                "type": "string"
+              },
+              "details": {
+                "additionalProperties": true,
+                "title": "Details",
+                "type": "object"
+              },
+              "decisions": {
+                "default": [],
+                "items": {
+                  "additionalProperties": true,
+                  "type": "object"
+                },
+                "title": "Decisions",
+                "type": "array"
+              }
+            },
+            "required": [
+              "name",
+              "user_id",
+              "function",
+              "authorization_reference",
+              "id",
+              "tenant_id",
+              "kind",
+              "active",
+              "version",
+              "created_at",
+              "details"
+            ],
+            "title": "Institutionalresponsibles",
+            "type": "object"
+          }
+        },
+        "page": {
+          "type": "integer"
+        },
+        "page_size": {
+          "type": "integer"
+        },
+        "total": {
+          "type": "integer"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "type": "object",
+  "required": [
+    "data",
+    "meta"
+  ],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": [
+        "correlation_id",
+        "service",
+        "version"
+      ],
+      "properties": {
+        "correlation_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "service": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      }
+    },
+    "data": {
+      "additionalProperties": false,
+      "properties": {
+        "challenge": {
+          "title": "Challenge",
+          "type": "string"
+        },
+        "secret": {
+          "title": "Secret",
+          "type": "string"
+        },
+        "expires_in": {
+          "title": "Expires In",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "challenge",
+        "secret",
+        "expires_in"
+      ],
+      "title": "EnrollmentOutput",
+      "type": "object"
+    }
+  }
+}

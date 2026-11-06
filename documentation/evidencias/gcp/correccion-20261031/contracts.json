@@ -1,0 +1,125 @@
+{
+  "checks": [
+    {
+      "service": "identidad_acceso",
+      "representation": "json",
+      "status": "passed"
+    },
+    {
+      "service": "identidad_acceso",
+      "representation": "xml",
+      "status": "passed"
+    },
+    {
+      "service": "donantes",
+      "representation": "json",
+      "status": "passed"
+    },
+    {
+      "service": "donantes",
+      "representation": "xml",
+      "status": "passed"
+    },
+    {
+      "service": "receptores",
+      "representation": "json",
+      "status": "passed"
+    },
+    {
+      "service": "receptores",
+      "representation": "xml",
+      "status": "passed"
+    },
+    {
+      "service": "inventario",
+      "representation": "json",
+      "status": "passed"
+    },
+    {
+      "service": "inventario",
+      "representation": "xml",
+      "status": "passed"
+    },
+    {
+      "service": "compatibilidad",
+      "representation": "json",
+      "status": "passed"
+    },
+    {
+      "service": "compatibilidad",
+      "representation": "xml",
+      "status": "passed"
+    },
+    {
+      "service": "priorizacion_geografia",
+      "representation": "json",
+      "status": "passed"
+    },
+    {
+      "service": "priorizacion_geografia",
+      "representation": "xml",
+      "status": "passed"
+    },
+    {
+      "service": "transporte",
+      "representation": "json",
+      "status": "passed"
+    },
+    {
+      "service": "transporte",
+      "representation": "xml",
+      "status": "passed"
+    },
+    {
+      "service": "custodia",
+      "representation": "json",
+      "status": "passed"
+    },
+    {
+      "service": "custodia",
+      "representation": "xml",
+      "status": "passed"
+    },
+    {
+      "service": "alertas",
+      "representation": "json",
+      "status": "passed"
+    },
+    {
+      "service": "alertas",
+      "representation": "xml",
+      "status": "passed"
+    },
+    {
+      "service": "auditoria",
+      "representation": "json",
+      "status": "passed"
+    },
+    {
+      "service": "auditoria",
+      "representation": "xml",
+      "status": "passed"
+    },
+    {
+      "service": "monitoreo",
+      "representation": "json",
+      "status": "passed"
+    },
+    {
+      "service": "monitoreo",
+      "representation": "xml",
+      "status": "passed"
+    },
+    {
+      "service": "documentos",
+      "representation": "json",
+      "status": "passed"
+    },
+    {
+      "service": "documentos",
+      "representation": "xml",
+      "status": "passed"
+    }
+  ],
+  "passed": true
+}

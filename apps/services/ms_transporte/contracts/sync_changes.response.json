@@ -1,0 +1,90 @@
+{
+  "type": "object",
+  "required": [
+    "data",
+    "meta"
+  ],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": [
+        "correlation_id",
+        "service",
+        "version"
+      ],
+      "properties": {
+        "correlation_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "service": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      }
+    },
+    "data": {
+      "additionalProperties": false,
+      "properties": {
+        "items": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "command_id": {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "title": "Command Id",
+                "type": "string"
+              },
+              "shipment_id": {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "title": "Shipment Id",
+                "type": "string"
+              },
+              "cursor": {
+                "title": "Cursor",
+                "type": "integer"
+              },
+              "status": {
+                "const": "RECORDED",
+                "title": "Status",
+                "type": "string"
+              },
+              "shipment_version": {
+                "title": "Shipment Version",
+                "type": "integer"
+              }
+            },
+            "required": [
+              "command_id",
+              "shipment_id",
+              "cursor",
+              "status",
+              "shipment_version"
+            ],
+            "title": "Result",
+            "type": "object"
+          },
+          "title": "Items",
+          "type": "array"
+        },
+        "cursor": {
+          "title": "Cursor",
+          "type": "integer"
+        },
+        "has_more": {
+          "title": "Has More",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "items",
+        "cursor",
+        "has_more"
+      ],
+      "title": "Changes",
+      "type": "object"
+    }
+  }
+}

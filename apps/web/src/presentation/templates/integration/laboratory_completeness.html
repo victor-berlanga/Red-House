@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+{% from 'integration/values.html' import value_view with context %}
+{% block content %}
+<div class="page-heading"><div><a href="{{ url_for('regional.sample_detail',identifier=identifier) }}">← Muestra registrada</a><h1>{{ title }}</h1></div></div>
+<p class="context-note">Completitud técnica de los datos registrados. No es compatibilidad, preselección ni dictamen profesional.</p>
+<section class="card record-section"><h2>{{ 'Completo según este perfil' if result.complete else 'Datos incompletos o pendientes de revisión' }}</h2>{{ value_view(result) }}</section>
+{% endblock %}

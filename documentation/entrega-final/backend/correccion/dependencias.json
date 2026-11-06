@@ -1,0 +1,333 @@
+{
+  "scope": "aristas de llamadas call; expresiones dinámicas explícitas; outbox descrito en documento",
+  "edges": [
+    {
+      "source": "ms_alertas",
+      "target": "identidad_acceso",
+      "method": "GET",
+      "path": "'/internal/v1/notification-users/' + g.actor['id']",
+      "file": "apps/services/ms_alertas/delivery.py",
+      "line": 335
+    },
+    {
+      "source": "ms_alertas",
+      "target": "identidad_acceso",
+      "method": "GET",
+      "path": "'/internal/v1/notification-users/' + str(subscription['user_id'])",
+      "file": "apps/services/ms_alertas/delivery.py",
+      "line": 196
+    },
+    {
+      "source": "ms_auditoria",
+      "target": "identidad_acceso",
+      "method": "GET",
+      "path": "'/internal/v1/audit-assignees/' + data['assignee_id']",
+      "file": "apps/services/ms_auditoria/findings.py",
+      "line": 171
+    },
+    {
+      "source": "ms_compatibilidad",
+      "target": "inventario",
+      "method": "GET",
+      "path": "'/api/v1/resources/' + identifier",
+      "file": "apps/services/ms_compatibilidad/laboratory.py",
+      "line": 172
+    },
+    {
+      "source": "ms_compatibilidad",
+      "target": "inventario",
+      "method": "GET",
+      "path": "'/api/v1/resources/' + identifier",
+      "file": "apps/services/ms_compatibilidad/laboratory.py",
+      "line": 438
+    },
+    {
+      "source": "ms_compatibilidad",
+      "target": "service",
+      "method": "GET",
+      "path": "f'/api/v1/{route}/' + data[field]",
+      "file": "apps/services/ms_compatibilidad/laboratory.py",
+      "line": 260
+    },
+    {
+      "source": "ms_compatibilidad",
+      "target": "receptores",
+      "method": "GET",
+      "path": "'/internal/v1/requests/' + data['request_id']",
+      "file": "apps/services/ms_compatibilidad/routes.py",
+      "line": 47
+    },
+    {
+      "source": "ms_compatibilidad",
+      "target": "inventario",
+      "method": "GET",
+      "path": "/internal/v1/available-resources",
+      "file": "apps/services/ms_compatibilidad/routes.py",
+      "line": 59
+    },
+    {
+      "source": "ms_compatibilidad",
+      "target": "priorizacion_geografia",
+      "method": "GET",
+      "path": "/internal/v1/route-options",
+      "file": "apps/services/ms_compatibilidad/routes.py",
+      "line": 62
+    },
+    {
+      "source": "ms_compatibilidad",
+      "target": "inventario",
+      "method": "GET",
+      "path": "'/internal/v1/resources/' + data['resource_id'] + '/laboratory-context'",
+      "file": "apps/services/ms_compatibilidad/routes.py",
+      "line": 195
+    },
+    {
+      "source": "ms_custodia",
+      "target": "transporte",
+      "method": "GET",
+      "path": "'/internal/v1/shipments/' + identifier + '/access'",
+      "file": "apps/services/ms_custodia/routes.py",
+      "line": 109
+    },
+    {
+      "source": "ms_documentos",
+      "target": "service",
+      "method": "GET",
+      "path": "path + identifier",
+      "file": "apps/services/ms_documentos/documents.py",
+      "line": 34
+    },
+    {
+      "source": "ms_documentos",
+      "target": "transporte",
+      "method": "GET",
+      "path": "'/api/v1/shipments/' + str(identifier)",
+      "file": "apps/services/ms_documentos/documents.py",
+      "line": 41
+    },
+    {
+      "source": "ms_documentos",
+      "target": "service",
+      "method": "GET",
+      "path": "path + data['subject_id'] + ('/trace' if data['report'] == 'TRACEABILITY' else '')",
+      "file": "apps/services/ms_documentos/reports.py",
+      "line": 227
+    },
+    {
+      "source": "ms_documentos",
+      "target": "service",
+      "method": "GET",
+      "path": "path + '?' + urlencode({'page': page, 'page_size': 100, **filters})",
+      "file": "apps/services/ms_documentos/reports.py",
+      "line": 262
+    },
+    {
+      "source": "ms_donantes",
+      "target": "identidad_acceso",
+      "method": "GET",
+      "path": "'/api/v1/catalogues/sites/' + data['site_id']",
+      "file": "apps/services/ms_donantes/agenda.py",
+      "line": 315
+    },
+    {
+      "source": "ms_inventario",
+      "target": "receptores",
+      "method": "GET",
+      "path": "f'/api/v1/requests?page_size=100&page={page}'",
+      "file": "apps/services/ms_inventario/analytics.py",
+      "line": 124
+    },
+    {
+      "source": "ms_inventario",
+      "target": "identidad_acceso",
+      "method": "GET",
+      "path": "'/internal/v1/locations/' + identifier",
+      "file": "apps/services/ms_inventario/locations.py",
+      "line": 9
+    },
+    {
+      "source": "ms_inventario",
+      "target": "compatibilidad",
+      "method": "POST",
+      "path": "f'/internal/v1/laboratory/resources/{resource['id']}/check'",
+      "file": "apps/services/ms_inventario/quality.py",
+      "line": 185
+    },
+    {
+      "source": "ms_inventario",
+      "target": "compatibilidad",
+      "method": "GET",
+      "path": "'/api/v1/laboratory/profiles/' + data['lab_profile_id']",
+      "file": "apps/services/ms_inventario/quality.py",
+      "line": 400
+    },
+    {
+      "source": "ms_inventario",
+      "target": "compatibilidad",
+      "method": "GET",
+      "path": "'/internal/v1/evaluations/' + data['evaluation_id']",
+      "file": "apps/services/ms_inventario/routes.py",
+      "line": 223
+    },
+    {
+      "source": "ms_inventario",
+      "target": "priorizacion_geografia",
+      "method": "GET",
+      "path": "'/internal/v1/routes/' + candidate['route_id']",
+      "file": "apps/services/ms_inventario/routes.py",
+      "line": 249
+    },
+    {
+      "source": "ms_inventario",
+      "target": "receptores",
+      "method": "POST",
+      "path": "/internal/v1/holds",
+      "file": "apps/services/ms_inventario/routes.py",
+      "line": 254
+    },
+    {
+      "source": "ms_inventario",
+      "target": "receptores",
+      "method": "POST",
+      "path": "'/internal/v1/holds/' + str(row['hold_id'])",
+      "file": "apps/services/ms_inventario/routes.py",
+      "line": 103
+    },
+    {
+      "source": "ms_inventario",
+      "target": "receptores",
+      "method": "POST",
+      "path": "'/internal/v1/holds/' + hold_id",
+      "file": "apps/services/ms_inventario/routes.py",
+      "line": 92
+    },
+    {
+      "source": "ms_inventario",
+      "target": "donantes",
+      "method": "GET",
+      "path": "'/internal/v1/donations/' + data['donation_id']",
+      "file": "apps/services/ms_inventario/routes.py",
+      "line": 422
+    },
+    {
+      "source": "ms_inventario",
+      "target": "receptores",
+      "method": "GET",
+      "path": "'/internal/v1/holds-by-operation/' + str(row['id'])",
+      "file": "apps/services/ms_inventario/routes.py",
+      "line": 143
+    },
+    {
+      "source": "ms_inventario",
+      "target": "custodia",
+      "method": "GET",
+      "path": "'/api/v1/chains/' + shipment_id",
+      "file": "apps/services/ms_inventario/traceability.py",
+      "line": 81
+    },
+    {
+      "source": "ms_inventario",
+      "target": "service",
+      "method": "GET",
+      "path": "path",
+      "file": "apps/services/ms_inventario/traceability.py",
+      "line": 72
+    },
+    {
+      "source": "ms_priorizacion_geografia",
+      "target": "compatibilidad",
+      "method": "GET",
+      "path": "'/internal/v1/evaluations/' + data['evaluation_id']",
+      "file": "apps/services/ms_priorizacion_geografia/routes.py",
+      "line": 156
+    },
+    {
+      "source": "ms_priorizacion_geografia",
+      "target": "identidad_acceso",
+      "method": "GET",
+      "path": "'/internal/v1/institutions/' + identifier",
+      "file": "apps/services/ms_priorizacion_geografia/routes.py",
+      "line": 58
+    },
+    {
+      "source": "ms_priorizacion_geografia",
+      "target": "compatibilidad",
+      "method": "GET",
+      "path": "'/internal/v1/evaluations/' + identifier",
+      "file": "apps/services/ms_priorizacion_geografia/routes.py",
+      "line": 241
+    },
+    {
+      "source": "ms_transporte",
+      "target": "documentos",
+      "method": "method",
+      "path": "path",
+      "file": "apps/services/ms_transporte/legacy_documents.py",
+      "line": 39
+    },
+    {
+      "source": "ms_transporte",
+      "target": "inventario",
+      "method": "POST",
+      "path": "'/internal/v1/reservations/' + str(row['reservation_id']) + '/claim'",
+      "file": "apps/services/ms_transporte/routes.py",
+      "line": 121
+    },
+    {
+      "source": "ms_transporte",
+      "target": "inventario",
+      "method": "GET",
+      "path": "'/internal/v1/reservations/' + data['reservation_id']",
+      "file": "apps/services/ms_transporte/routes.py",
+      "line": 195
+    },
+    {
+      "source": "ms_transporte",
+      "target": "identidad_acceso",
+      "method": "GET",
+      "path": "'/internal/v1/users/' + data['transport_user_id']",
+      "file": "apps/services/ms_transporte/routes.py",
+      "line": 200
+    },
+    {
+      "source": "ms_transporte",
+      "target": "priorizacion_geografia",
+      "method": "GET",
+      "path": "'/internal/v1/routes/' + reservation['route_id']",
+      "file": "apps/services/ms_transporte/routes.py",
+      "line": 209
+    },
+    {
+      "source": "ms_transporte",
+      "target": "identidad_acceso",
+      "method": "GET",
+      "path": "'/internal/v1/locations/' + data['destination_location_id']",
+      "file": "apps/services/ms_transporte/routes.py",
+      "line": 363
+    },
+    {
+      "source": "ms_transporte",
+      "target": "documentos",
+      "method": "POST",
+      "path": "'/internal/v1/files/' + data['evidence']['object_id'] + '/transport-check'",
+      "file": "apps/services/ms_transporte/routes.py",
+      "line": 430
+    },
+    {
+      "source": "ms_transporte",
+      "target": "inventario",
+      "method": "POST",
+      "path": "f'/internal/v1/reservations/{row['reservation_id']}/custody-check'",
+      "file": "apps/services/ms_transporte/routes.py",
+      "line": 440
+    },
+    {
+      "source": "ms_transporte",
+      "target": "identidad_acceso",
+      "method": "GET",
+      "path": "'/internal/v1/custody-users/' + data['custody']['reported_handover_user_id']",
+      "file": "apps/services/ms_transporte/routes.py",
+      "line": 449
+    }
+  ]
+}

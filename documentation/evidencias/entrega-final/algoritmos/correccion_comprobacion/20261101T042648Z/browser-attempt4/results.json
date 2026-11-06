@@ -1,0 +1,86 @@
+{
+  "passed": true,
+  "scope": "ACADEMIC with MFA/reauth/laboratory/organ checks explicitly enabled",
+  "apiListeners": "ALL_STOPPED",
+  "checks": [
+    {
+      "name": "MFA y cookie Secure, backend modular sin API",
+      "result": "PASS"
+    },
+    {
+      "name": "Cuatro niveles y límites visibles",
+      "result": "PASS"
+    },
+    {
+      "name": "Registro de perfil por formulario y conservación",
+      "result": "PASS"
+    },
+    {
+      "name": "Muestra recibida y resultado no realizado persistidos sin dictamen",
+      "result": "PASS"
+    },
+    {
+      "name": "Liberación académica con perfil y reautenticación persistida",
+      "result": "PASS"
+    },
+    {
+      "name": "Evaluación de perfil y dictamen humano separados",
+      "result": "PASS"
+    },
+    {
+      "name": "ALG-01 por formulario, persistencia y reproducción",
+      "result": "PASS"
+    },
+    {
+      "name": "ALG-02 por formulario, persistencia y reproducción",
+      "result": "PASS"
+    },
+    {
+      "name": "ALG-02-GEO por formulario, persistencia y reproducción",
+      "result": "PASS"
+    },
+    {
+      "name": "ALG-03 por formulario, persistencia y reproducción",
+      "result": "PASS"
+    },
+    {
+      "name": "ALG-04 por formulario, persistencia y reproducción",
+      "result": "PASS"
+    },
+    {
+      "name": "ALG-05 por formulario, persistencia y reproducción",
+      "result": "PASS"
+    },
+    {
+      "name": "Anomalía recibida por outbox visible en Auditoría",
+      "result": "PASS"
+    },
+    {
+      "name": "Corrección invalida consulta de dictamen sin alterar historia",
+      "result": "PASS"
+    },
+    {
+      "name": "Reserva obsoleta rechazada desde navegador",
+      "result": "PASS"
+    },
+    {
+      "name": "Nueva evaluación y dictamen permiten reserva académica",
+      "result": "PASS"
+    }
+  ],
+  "runs": [
+    "6dd8e564-bd24-4a19-b323-84e3796c078c",
+    "903ba331-6998-402d-ba24-2895a53adf58",
+    "ef197124-a9b5-46e1-b6f7-ea471a0ac76c",
+    "a341002a-3610-4189-a2d3-cd77fdd73cc6",
+    "0340d716-cd35-45f4-a9b4-5787275bba35",
+    "9049f604-a7db-4b66-afc1-e736584dead5"
+  ],
+  "consoleErrors": [],
+  "networkErrors": [
+    {
+      "path": "/evaluaciones/5ef4e66d-b253-42bd-b3bf-f983e896362e/reservar/5cbf7871-3405-4e7e-b9ed-6d91727ffd84",
+      "status": 409
+    }
+  ]
+}

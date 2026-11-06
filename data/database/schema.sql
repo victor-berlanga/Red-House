@@ -50,6 +50,13 @@ CREATE SCHEMA access_custodia;
 
 
 --
+-- Name: access_documentos; Type: SCHEMA; Schema: -; Owner: -
+--
+
+CREATE SCHEMA access_documentos;
+
+
+--
 -- Name: access_donantes; Type: SCHEMA; Schema: -; Owner: -
 --
 
@@ -508,6 +515,104 @@ CREATE FUNCTION access_custodia.insert_worker_health() RETURNS trigger
     AS $$
                   DECLARE stored record; BEGIN
                     INSERT INTO red_house."service_worker_health"(service,"id", "checked_at", "last_success", "last_error") VALUES ('custodia',NEW."id", NEW."checked_at", NEW."last_success", NEW."last_error") RETURNING "id", "checked_at", "last_success", "last_error" INTO stored;
+                    NEW:=stored; RETURN NEW;
+                  END $$;
+
+
+--
+-- Name: insert_activity_events(); Type: FUNCTION; Schema: access_documentos; Owner: -
+--
+
+CREATE FUNCTION access_documentos.insert_activity_events() RETURNS trigger
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'pg_catalog'
+    AS $$
+                  DECLARE stored record; BEGIN
+                    INSERT INTO red_house."service_activity_events"(service,"id", "tenant_id", "event", "created_at") VALUES ('documentos',NEW."id", NEW."tenant_id", NEW."event", NEW."created_at") RETURNING "id", "tenant_id", "event", "created_at" INTO stored;
+                    NEW:=stored; RETURN NEW;
+                  END $$;
+
+
+--
+-- Name: insert_decisions(); Type: FUNCTION; Schema: access_documentos; Owner: -
+--
+
+CREATE FUNCTION access_documentos.insert_decisions() RETURNS trigger
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'pg_catalog'
+    AS $$
+                  DECLARE stored record; BEGIN
+                    INSERT INTO red_house."service_decisions"(service,"id", "resource_id", "tenant_id", "actor_id", "action", "reason", "changes", "created_at") VALUES ('documentos',NEW."id", NEW."resource_id", NEW."tenant_id", NEW."actor_id", NEW."action", NEW."reason", NEW."changes", NEW."created_at") RETURNING "id", "resource_id", "tenant_id", "actor_id", "action", "reason", "changes", "created_at" INTO stored;
+                    NEW:=stored; RETURN NEW;
+                  END $$;
+
+
+--
+-- Name: insert_idempotency(); Type: FUNCTION; Schema: access_documentos; Owner: -
+--
+
+CREATE FUNCTION access_documentos.insert_idempotency() RETURNS trigger
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'pg_catalog'
+    AS $$
+                  DECLARE stored record; BEGIN
+                    INSERT INTO red_house."service_idempotency"(service,"id", "user_id", "key", "operation", "fingerprint", "result", "created_at") VALUES ('documentos',NEW."id", NEW."user_id", NEW."key", NEW."operation", NEW."fingerprint", NEW."result", NEW."created_at") RETURNING "id", "user_id", "key", "operation", "fingerprint", "result", "created_at" INTO stored;
+                    NEW:=stored; RETURN NEW;
+                  END $$;
+
+
+--
+-- Name: insert_inbox(); Type: FUNCTION; Schema: access_documentos; Owner: -
+--
+
+CREATE FUNCTION access_documentos.insert_inbox() RETURNS trigger
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'pg_catalog'
+    AS $$
+                  DECLARE stored record; BEGIN
+                    INSERT INTO red_house."service_inbox"(service,"event_id", "fingerprint", "created_at") VALUES ('documentos',NEW."event_id", NEW."fingerprint", NEW."created_at") RETURNING "event_id", "fingerprint", "created_at" INTO stored;
+                    NEW:=stored; RETURN NEW;
+                  END $$;
+
+
+--
+-- Name: insert_outbox(); Type: FUNCTION; Schema: access_documentos; Owner: -
+--
+
+CREATE FUNCTION access_documentos.insert_outbox() RETURNS trigger
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'pg_catalog'
+    AS $$
+                  DECLARE stored record; BEGIN
+                    INSERT INTO red_house."service_outbox"(service,"id", "event_id", "target", "event", "created_at", "delivered_at", "attempts", "next_attempt", "last_error") VALUES ('documentos',NEW."id", NEW."event_id", NEW."target", NEW."event", NEW."created_at", NEW."delivered_at", NEW."attempts", NEW."next_attempt", NEW."last_error") RETURNING "id", "event_id", "target", "event", "created_at", "delivered_at", "attempts", "next_attempt", "last_error" INTO stored;
+                    NEW:=stored; RETURN NEW;
+                  END $$;
+
+
+--
+-- Name: insert_schema_version(); Type: FUNCTION; Schema: access_documentos; Owner: -
+--
+
+CREATE FUNCTION access_documentos.insert_schema_version() RETURNS trigger
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'pg_catalog'
+    AS $$
+                  DECLARE stored record; BEGIN
+                    INSERT INTO red_house."service_schema_version"(service,"version", "installed_at") VALUES ('documentos',NEW."version", NEW."installed_at") RETURNING "version", "installed_at" INTO stored;
+                    NEW:=stored; RETURN NEW;
+                  END $$;
+
+
+--
+-- Name: insert_worker_health(); Type: FUNCTION; Schema: access_documentos; Owner: -
+--
+
+CREATE FUNCTION access_documentos.insert_worker_health() RETURNS trigger
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'pg_catalog'
+    AS $$
+                  DECLARE stored record; BEGIN
+                    INSERT INTO red_house."service_worker_health"(service,"id", "checked_at", "last_success", "last_error") VALUES ('documentos',NEW."id", NEW."checked_at", NEW."last_success", NEW."last_error") RETURNING "id", "checked_at", "last_success", "last_error" INTO stored;
                     NEW:=stored; RETURN NEW;
                   END $$;
 
@@ -1224,6 +1329,22 @@ END; $$;
 
 
 --
+-- Name: protect_lab_result(); Type: FUNCTION; Schema: red_house; Owner: -
+--
+
+CREATE FUNCTION red_house.protect_lab_result() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+BEGIN
+ IF (to_jsonb(NEW)-'status') IS DISTINCT FROM (to_jsonb(OLD)-'status')
+    OR OLD.status <> 'CAPTURED' OR NEW.status NOT IN ('AUTHORIZED','REJECTED') THEN
+  RAISE EXCEPTION 'Resultado histórico inmutable; registrar corrección' USING ERRCODE='42501';
+ END IF;
+ RETURN NEW;
+END $$;
+
+
+--
 -- Name: reject_history_mutation(); Type: FUNCTION; Schema: red_house; Owner: -
 --
 
@@ -1268,6 +1389,121 @@ CREATE VIEW access_alertas.activity_events AS
 
 
 --
+-- Name: alert_actions; Type: TABLE; Schema: red_house; Owner: -
+--
+
+CREATE TABLE red_house.alert_actions (
+    id uuid NOT NULL,
+    alert_id uuid NOT NULL,
+    tenant_id uuid NOT NULL,
+    actor_id uuid,
+    action text NOT NULL,
+    reason text NOT NULL,
+    created_at timestamp with time zone DEFAULT now() NOT NULL
+);
+
+
+--
+-- Name: alert_actions; Type: VIEW; Schema: access_alertas; Owner: -
+--
+
+CREATE VIEW access_alertas.alert_actions AS
+ SELECT alert_actions.id,
+    alert_actions.alert_id,
+    alert_actions.tenant_id,
+    alert_actions.actor_id,
+    alert_actions.action,
+    alert_actions.reason,
+    alert_actions.created_at
+   FROM red_house.alert_actions;
+
+
+--
+-- Name: alert_deliveries; Type: TABLE; Schema: red_house; Owner: -
+--
+
+CREATE TABLE red_house.alert_deliveries (
+    id uuid NOT NULL,
+    alert_id uuid NOT NULL,
+    subscription_id uuid NOT NULL,
+    tenant_id uuid NOT NULL,
+    stage text NOT NULL,
+    status text DEFAULT 'PENDING'::text NOT NULL,
+    attempts integer DEFAULT 0 NOT NULL,
+    next_attempt timestamp with time zone DEFAULT now() NOT NULL,
+    accepted_at timestamp with time zone,
+    last_error text,
+    created_at timestamp with time zone DEFAULT now() NOT NULL,
+    CONSTRAINT alert_deliveries_stage_check CHECK ((stage = ANY (ARRAY['INITIAL'::text, 'REMINDER'::text, 'ESCALATED'::text])))
+);
+
+
+--
+-- Name: alert_deliveries; Type: VIEW; Schema: access_alertas; Owner: -
+--
+
+CREATE VIEW access_alertas.alert_deliveries AS
+ SELECT alert_deliveries.id,
+    alert_deliveries.alert_id,
+    alert_deliveries.subscription_id,
+    alert_deliveries.tenant_id,
+    alert_deliveries.stage,
+    alert_deliveries.status,
+    alert_deliveries.attempts,
+    alert_deliveries.next_attempt,
+    alert_deliveries.accepted_at,
+    alert_deliveries.last_error,
+    alert_deliveries.created_at
+   FROM red_house.alert_deliveries;
+
+
+--
+-- Name: alert_policies; Type: TABLE; Schema: red_house; Owner: -
+--
+
+CREATE TABLE red_house.alert_policies (
+    id uuid NOT NULL,
+    tenant_id uuid NOT NULL,
+    message_code text NOT NULL,
+    severity text NOT NULL,
+    reminder_seconds integer NOT NULL,
+    escalate_seconds integer NOT NULL,
+    escalation_role text NOT NULL,
+    author_id uuid NOT NULL,
+    source text NOT NULL,
+    effective_at timestamp with time zone NOT NULL,
+    supersedes uuid,
+    active boolean DEFAULT true NOT NULL,
+    version integer DEFAULT 1 NOT NULL,
+    created_at timestamp with time zone DEFAULT now() NOT NULL,
+    CONSTRAINT alert_policies_check CHECK ((escalate_seconds > reminder_seconds)),
+    CONSTRAINT alert_policies_reminder_seconds_check CHECK ((reminder_seconds > 0))
+);
+
+
+--
+-- Name: alert_policies; Type: VIEW; Schema: access_alertas; Owner: -
+--
+
+CREATE VIEW access_alertas.alert_policies AS
+ SELECT alert_policies.id,
+    alert_policies.tenant_id,
+    alert_policies.message_code,
+    alert_policies.severity,
+    alert_policies.reminder_seconds,
+    alert_policies.escalate_seconds,
+    alert_policies.escalation_role,
+    alert_policies.author_id,
+    alert_policies.source,
+    alert_policies.effective_at,
+    alert_policies.supersedes,
+    alert_policies.active,
+    alert_policies.version,
+    alert_policies.created_at
+   FROM red_house.alert_policies;
+
+
+--
 -- Name: notification; Type: TABLE; Schema: red_house; Owner: -
 --
 
@@ -1282,8 +1518,56 @@ CREATE TABLE red_house.notification (
     current_status text DEFAULT 'OPEN'::text NOT NULL,
     acknowledged_by uuid,
     created_at timestamp with time zone DEFAULT now() NOT NULL,
-    region_id uuid NOT NULL
+    region_id uuid NOT NULL,
+    severity text DEFAULT 'INFO'::text NOT NULL,
+    delivery_checked_at timestamp with time zone
 );
+
+
+--
+-- Name: alert_severity; Type: VIEW; Schema: access_alertas; Owner: -
+--
+
+CREATE VIEW access_alertas.alert_severity AS
+ SELECT notification.notification_id AS id,
+    notification.severity,
+    notification.delivery_checked_at
+   FROM red_house.notification;
+
+
+--
+-- Name: alert_subscriptions; Type: TABLE; Schema: red_house; Owner: -
+--
+
+CREATE TABLE red_house.alert_subscriptions (
+    id uuid NOT NULL,
+    tenant_id uuid NOT NULL,
+    user_id uuid NOT NULL,
+    role text NOT NULL,
+    channel text NOT NULL,
+    destination text NOT NULL,
+    active boolean DEFAULT true NOT NULL,
+    version integer DEFAULT 1 NOT NULL,
+    created_at timestamp with time zone DEFAULT now() NOT NULL,
+    CONSTRAINT alert_subscriptions_channel_check CHECK ((channel = ANY (ARRAY['EMAIL'::text, 'PUSH'::text])))
+);
+
+
+--
+-- Name: alert_subscriptions; Type: VIEW; Schema: access_alertas; Owner: -
+--
+
+CREATE VIEW access_alertas.alert_subscriptions AS
+ SELECT alert_subscriptions.id,
+    alert_subscriptions.tenant_id,
+    alert_subscriptions.user_id,
+    alert_subscriptions.role,
+    alert_subscriptions.channel,
+    alert_subscriptions.destination,
+    alert_subscriptions.active,
+    alert_subscriptions.version,
+    alert_subscriptions.created_at
+   FROM red_house.alert_subscriptions;
 
 
 --
@@ -1456,6 +1740,26 @@ CREATE VIEW access_alertas.schema_version AS
    FROM red_house.service_schema_version
   WHERE (service_schema_version.service = 'alertas'::text)
   WITH LOCAL CHECK OPTION;
+
+
+--
+-- Name: schema_migration; Type: TABLE; Schema: red_house; Owner: -
+--
+
+CREATE TABLE red_house.schema_migration (
+    version integer NOT NULL,
+    description text NOT NULL,
+    installed_at timestamp with time zone DEFAULT now() NOT NULL
+);
+
+
+--
+-- Name: shared_schema_version; Type: VIEW; Schema: access_alertas; Owner: -
+--
+
+CREATE VIEW access_alertas.shared_schema_version AS
+ SELECT max(schema_migration.version) AS version
+   FROM red_house.schema_migration;
 
 
 --
@@ -1736,6 +2040,15 @@ CREATE VIEW access_auditoria.schema_version AS
 
 
 --
+-- Name: shared_schema_version; Type: VIEW; Schema: access_auditoria; Owner: -
+--
+
+CREATE VIEW access_auditoria.shared_schema_version AS
+ SELECT max(schema_migration.version) AS version
+   FROM red_house.schema_migration;
+
+
+--
 -- Name: worker_health; Type: VIEW; Schema: access_auditoria; Owner: -
 --
 
@@ -1851,6 +2164,170 @@ CREATE VIEW access_compatibilidad.inbox AS
 
 
 --
+-- Name: lab_actions; Type: TABLE; Schema: red_house; Owner: -
+--
+
+CREATE TABLE red_house.lab_actions (
+    id uuid NOT NULL,
+    result_id uuid NOT NULL,
+    author_id uuid NOT NULL,
+    decision text NOT NULL,
+    reason text NOT NULL,
+    created_at timestamp with time zone DEFAULT now() NOT NULL
+);
+
+
+--
+-- Name: lab_actions; Type: VIEW; Schema: access_compatibilidad; Owner: -
+--
+
+CREATE VIEW access_compatibilidad.lab_actions AS
+ SELECT lab_actions.id,
+    lab_actions.result_id,
+    lab_actions.author_id,
+    lab_actions.decision,
+    lab_actions.reason,
+    lab_actions.created_at
+   FROM red_house.lab_actions;
+
+
+--
+-- Name: lab_profiles; Type: TABLE; Schema: red_house; Owner: -
+--
+
+CREATE TABLE red_house.lab_profiles (
+    id uuid NOT NULL,
+    tenant_id uuid NOT NULL,
+    name text NOT NULL,
+    kind text NOT NULL,
+    component text NOT NULL,
+    version integer NOT NULL,
+    required_tests jsonb NOT NULL,
+    source text NOT NULL,
+    synthetic boolean NOT NULL,
+    author_id uuid NOT NULL,
+    effective_at timestamp with time zone NOT NULL,
+    supersedes uuid,
+    created_at timestamp with time zone DEFAULT now() NOT NULL,
+    CONSTRAINT lab_profiles_kind_check CHECK ((kind = ANY (ARRAY['BLOOD'::text, 'ORGAN'::text]))),
+    CONSTRAINT lab_profiles_required_tests_check CHECK ((jsonb_typeof(required_tests) = 'array'::text)),
+    CONSTRAINT lab_profiles_synthetic_check CHECK (synthetic)
+);
+
+
+--
+-- Name: lab_profiles; Type: VIEW; Schema: access_compatibilidad; Owner: -
+--
+
+CREATE VIEW access_compatibilidad.lab_profiles AS
+ SELECT lab_profiles.id,
+    lab_profiles.tenant_id,
+    lab_profiles.name,
+    lab_profiles.kind,
+    lab_profiles.component,
+    lab_profiles.version,
+    lab_profiles.required_tests,
+    lab_profiles.source,
+    lab_profiles.synthetic,
+    lab_profiles.author_id,
+    lab_profiles.effective_at,
+    lab_profiles.supersedes,
+    lab_profiles.created_at
+   FROM red_house.lab_profiles;
+
+
+--
+-- Name: lab_results; Type: TABLE; Schema: red_house; Owner: -
+--
+
+CREATE TABLE red_house.lab_results (
+    id uuid NOT NULL,
+    sample_id uuid NOT NULL,
+    tenant_id uuid NOT NULL,
+    test_code text NOT NULL,
+    value text NOT NULL,
+    unit text,
+    method text NOT NULL,
+    laboratory text NOT NULL,
+    reference text NOT NULL,
+    measured_at timestamp with time zone NOT NULL,
+    author_id uuid NOT NULL,
+    version integer NOT NULL,
+    supersedes uuid,
+    status text DEFAULT 'CAPTURED'::text NOT NULL,
+    created_at timestamp with time zone DEFAULT now() NOT NULL,
+    CONSTRAINT lab_results_status_check CHECK ((status = ANY (ARRAY['CAPTURED'::text, 'AUTHORIZED'::text, 'REJECTED'::text])))
+);
+
+
+--
+-- Name: lab_results; Type: VIEW; Schema: access_compatibilidad; Owner: -
+--
+
+CREATE VIEW access_compatibilidad.lab_results AS
+ SELECT lab_results.id,
+    lab_results.sample_id,
+    lab_results.tenant_id,
+    lab_results.test_code,
+    lab_results.value,
+    lab_results.unit,
+    lab_results.method,
+    lab_results.laboratory,
+    lab_results.reference,
+    lab_results.measured_at,
+    lab_results.author_id,
+    lab_results.version,
+    lab_results.supersedes,
+    lab_results.status,
+    lab_results.created_at
+   FROM red_house.lab_results;
+
+
+--
+-- Name: lab_samples; Type: TABLE; Schema: red_house; Owner: -
+--
+
+CREATE TABLE red_house.lab_samples (
+    id uuid NOT NULL,
+    tenant_id uuid NOT NULL,
+    resource_id uuid,
+    recipient_id uuid,
+    donation_id uuid,
+    profile_id uuid NOT NULL,
+    identifier text NOT NULL,
+    collected_at timestamp with time zone NOT NULL,
+    received_at timestamp with time zone,
+    status text DEFAULT 'REQUESTED'::text NOT NULL,
+    version integer DEFAULT 1 NOT NULL,
+    author_id uuid NOT NULL,
+    created_at timestamp with time zone DEFAULT now() NOT NULL,
+    CONSTRAINT lab_samples_check CHECK ((num_nonnulls(resource_id, recipient_id, donation_id) = 1)),
+    CONSTRAINT lab_samples_status_check CHECK ((status = ANY (ARRAY['REQUESTED'::text, 'RECEIVED'::text, 'REJECTED'::text])))
+);
+
+
+--
+-- Name: lab_samples; Type: VIEW; Schema: access_compatibilidad; Owner: -
+--
+
+CREATE VIEW access_compatibilidad.lab_samples AS
+ SELECT lab_samples.id,
+    lab_samples.tenant_id,
+    lab_samples.resource_id,
+    lab_samples.recipient_id,
+    lab_samples.donation_id,
+    lab_samples.profile_id,
+    lab_samples.identifier,
+    lab_samples.collected_at,
+    lab_samples.received_at,
+    lab_samples.status,
+    lab_samples.version,
+    lab_samples.author_id,
+    lab_samples.created_at
+   FROM red_house.lab_samples;
+
+
+--
 -- Name: outbox; Type: VIEW; Schema: access_compatibilidad; Owner: -
 --
 
@@ -1912,6 +2389,15 @@ CREATE VIEW access_compatibilidad.schema_version AS
    FROM red_house.service_schema_version
   WHERE (service_schema_version.service = 'compatibilidad'::text)
   WITH LOCAL CHECK OPTION;
+
+
+--
+-- Name: shared_schema_version; Type: VIEW; Schema: access_compatibilidad; Owner: -
+--
+
+CREATE VIEW access_compatibilidad.shared_schema_version AS
+ SELECT max(schema_migration.version) AS version
+   FROM red_house.schema_migration;
 
 
 --
@@ -2085,6 +2571,15 @@ CREATE VIEW access_custodia.schema_version AS
 
 
 --
+-- Name: shared_schema_version; Type: VIEW; Schema: access_custodia; Owner: -
+--
+
+CREATE VIEW access_custodia.shared_schema_version AS
+ SELECT max(schema_migration.version) AS version
+   FROM red_house.schema_migration;
+
+
+--
 -- Name: worker_health; Type: VIEW; Schema: access_custodia; Owner: -
 --
 
@@ -2095,6 +2590,272 @@ CREATE VIEW access_custodia.worker_health AS
     service_worker_health.last_error
    FROM red_house.service_worker_health
   WHERE (service_worker_health.service = 'custodia'::text)
+  WITH LOCAL CHECK OPTION;
+
+
+--
+-- Name: activity_events; Type: VIEW; Schema: access_documentos; Owner: -
+--
+
+CREATE VIEW access_documentos.activity_events AS
+ SELECT service_activity_events.id,
+    service_activity_events.tenant_id,
+    service_activity_events.event,
+    service_activity_events.created_at
+   FROM red_house.service_activity_events
+  WHERE (service_activity_events.service = 'documentos'::text)
+  WITH LOCAL CHECK OPTION;
+
+
+--
+-- Name: decisions; Type: VIEW; Schema: access_documentos; Owner: -
+--
+
+CREATE VIEW access_documentos.decisions AS
+ SELECT service_decisions.id,
+    service_decisions.resource_id,
+    service_decisions.tenant_id,
+    service_decisions.actor_id,
+    service_decisions.action,
+    service_decisions.reason,
+    service_decisions.changes,
+    service_decisions.created_at
+   FROM red_house.service_decisions
+  WHERE (service_decisions.service = 'documentos'::text)
+  WITH LOCAL CHECK OPTION;
+
+
+--
+-- Name: document_metadata; Type: TABLE; Schema: red_house; Owner: -
+--
+
+CREATE TABLE red_house.document_metadata (
+    id uuid NOT NULL,
+    tenant_id uuid NOT NULL,
+    category text NOT NULL,
+    subject_kind text NOT NULL,
+    subject_id uuid NOT NULL,
+    version integer NOT NULL,
+    supersedes uuid,
+    privacy text DEFAULT 'PRIVATE'::text NOT NULL,
+    retention_until timestamp with time zone,
+    legal_hold boolean DEFAULT true NOT NULL,
+    policy_reference text NOT NULL,
+    created_at timestamp with time zone DEFAULT now() NOT NULL,
+    CONSTRAINT document_metadata_privacy_check CHECK ((privacy = 'PRIVATE'::text))
+);
+
+
+--
+-- Name: document_metadata; Type: VIEW; Schema: access_documentos; Owner: -
+--
+
+CREATE VIEW access_documentos.document_metadata AS
+ SELECT document_metadata.id,
+    document_metadata.tenant_id,
+    document_metadata.category,
+    document_metadata.subject_kind,
+    document_metadata.subject_id,
+    document_metadata.version,
+    document_metadata.supersedes,
+    document_metadata.privacy,
+    document_metadata.retention_until,
+    document_metadata.legal_hold,
+    document_metadata.policy_reference,
+    document_metadata.created_at
+   FROM red_house.document_metadata;
+
+
+--
+-- Name: export_jobs; Type: TABLE; Schema: red_house; Owner: -
+--
+
+CREATE TABLE red_house.export_jobs (
+    id uuid NOT NULL,
+    tenant_id uuid NOT NULL,
+    user_id uuid NOT NULL,
+    report text NOT NULL,
+    format text NOT NULL,
+    status text DEFAULT 'PENDING'::text NOT NULL,
+    rows jsonb NOT NULL,
+    file_id uuid,
+    last_error text,
+    attempts integer DEFAULT 0 NOT NULL,
+    created_at timestamp with time zone DEFAULT now() NOT NULL,
+    region_id uuid,
+    CONSTRAINT export_jobs_format_check CHECK ((format = ANY (ARRAY['CSV'::text, 'PDF'::text, 'XLSX'::text])))
+);
+
+
+--
+-- Name: export_jobs; Type: VIEW; Schema: access_documentos; Owner: -
+--
+
+CREATE VIEW access_documentos.export_jobs AS
+ SELECT export_jobs.id,
+    export_jobs.tenant_id,
+    export_jobs.user_id,
+    export_jobs.report,
+    export_jobs.format,
+    export_jobs.status,
+    export_jobs.rows,
+    export_jobs.file_id,
+    export_jobs.last_error,
+    export_jobs.attempts,
+    export_jobs.created_at,
+    export_jobs.region_id
+   FROM red_house.export_jobs;
+
+
+--
+-- Name: file_scans; Type: TABLE; Schema: red_house; Owner: -
+--
+
+CREATE TABLE red_house.file_scans (
+    id uuid NOT NULL,
+    file_id uuid NOT NULL,
+    generation text NOT NULL,
+    sha256 text NOT NULL,
+    status text NOT NULL,
+    engine text NOT NULL,
+    created_at timestamp with time zone DEFAULT now() NOT NULL,
+    CONSTRAINT file_scans_status_check CHECK ((status = ANY (ARRAY['CLEAN'::text, 'INFECTED'::text, 'ERROR'::text])))
+);
+
+
+--
+-- Name: file_scans; Type: VIEW; Schema: access_documentos; Owner: -
+--
+
+CREATE VIEW access_documentos.file_scans AS
+ SELECT file_scans.id,
+    file_scans.file_id,
+    file_scans.generation,
+    file_scans.sha256,
+    file_scans.status,
+    file_scans.engine,
+    file_scans.created_at
+   FROM red_house.file_scans;
+
+
+--
+-- Name: stored_file; Type: TABLE; Schema: red_house; Owner: -
+--
+
+CREATE TABLE red_house.stored_file (
+    file_id uuid NOT NULL,
+    shipment_id uuid,
+    owner_id uuid NOT NULL,
+    object_path text NOT NULL,
+    mime_type text NOT NULL,
+    size_bytes integer NOT NULL,
+    sha256 text NOT NULL,
+    current_status text DEFAULT 'PENDING'::text NOT NULL,
+    generation text,
+    created_at timestamp with time zone DEFAULT now() NOT NULL,
+    CONSTRAINT api_files_size_check CHECK (((size_bytes >= 1) AND (size_bytes <= 10485760)))
+);
+
+
+--
+-- Name: files; Type: VIEW; Schema: access_documentos; Owner: -
+--
+
+CREATE VIEW access_documentos.files AS
+ SELECT stored_file.file_id AS id,
+    stored_file.shipment_id,
+    stored_file.owner_id,
+    stored_file.object_path,
+    stored_file.mime_type,
+    stored_file.size_bytes AS size,
+    stored_file.sha256,
+    stored_file.current_status AS status,
+    stored_file.generation,
+    stored_file.created_at
+   FROM red_house.stored_file;
+
+
+--
+-- Name: idempotency; Type: VIEW; Schema: access_documentos; Owner: -
+--
+
+CREATE VIEW access_documentos.idempotency AS
+ SELECT service_idempotency.id,
+    service_idempotency.user_id,
+    service_idempotency.key,
+    service_idempotency.operation,
+    service_idempotency.fingerprint,
+    service_idempotency.result,
+    service_idempotency.created_at
+   FROM red_house.service_idempotency
+  WHERE (service_idempotency.service = 'documentos'::text)
+  WITH LOCAL CHECK OPTION;
+
+
+--
+-- Name: inbox; Type: VIEW; Schema: access_documentos; Owner: -
+--
+
+CREATE VIEW access_documentos.inbox AS
+ SELECT service_inbox.event_id,
+    service_inbox.fingerprint,
+    service_inbox.created_at
+   FROM red_house.service_inbox
+  WHERE (service_inbox.service = 'documentos'::text)
+  WITH LOCAL CHECK OPTION;
+
+
+--
+-- Name: outbox; Type: VIEW; Schema: access_documentos; Owner: -
+--
+
+CREATE VIEW access_documentos.outbox AS
+ SELECT service_outbox.id,
+    service_outbox.event_id,
+    service_outbox.target,
+    service_outbox.event,
+    service_outbox.created_at,
+    service_outbox.delivered_at,
+    service_outbox.attempts,
+    service_outbox.next_attempt,
+    service_outbox.last_error
+   FROM red_house.service_outbox
+  WHERE (service_outbox.service = 'documentos'::text)
+  WITH LOCAL CHECK OPTION;
+
+
+--
+-- Name: schema_version; Type: VIEW; Schema: access_documentos; Owner: -
+--
+
+CREATE VIEW access_documentos.schema_version AS
+ SELECT service_schema_version.version,
+    service_schema_version.installed_at
+   FROM red_house.service_schema_version
+  WHERE (service_schema_version.service = 'documentos'::text)
+  WITH LOCAL CHECK OPTION;
+
+
+--
+-- Name: shared_schema_version; Type: VIEW; Schema: access_documentos; Owner: -
+--
+
+CREATE VIEW access_documentos.shared_schema_version AS
+ SELECT max(schema_migration.version) AS version
+   FROM red_house.schema_migration;
+
+
+--
+-- Name: worker_health; Type: VIEW; Schema: access_documentos; Owner: -
+--
+
+CREATE VIEW access_documentos.worker_health AS
+ SELECT service_worker_health.id,
+    service_worker_health.checked_at,
+    service_worker_health.last_success,
+    service_worker_health.last_error
+   FROM red_house.service_worker_health
+  WHERE (service_worker_health.service = 'documentos'::text)
   WITH LOCAL CHECK OPTION;
 
 
@@ -2110,6 +2871,56 @@ CREATE VIEW access_donantes.activity_events AS
    FROM red_house.service_activity_events
   WHERE (service_activity_events.service = 'donantes'::text)
   WITH LOCAL CHECK OPTION;
+
+
+--
+-- Name: appointment_reminders; Type: TABLE; Schema: red_house; Owner: -
+--
+
+CREATE TABLE red_house.appointment_reminders (
+    id uuid NOT NULL,
+    version integer NOT NULL,
+    sent_at timestamp with time zone DEFAULT now() NOT NULL
+);
+
+
+--
+-- Name: appointment_reminders; Type: VIEW; Schema: access_donantes; Owner: -
+--
+
+CREATE VIEW access_donantes.appointment_reminders AS
+ SELECT appointment_reminders.id,
+    appointment_reminders.version,
+    appointment_reminders.sent_at
+   FROM red_house.appointment_reminders;
+
+
+--
+-- Name: appointment_slots; Type: TABLE; Schema: red_house; Owner: -
+--
+
+CREATE TABLE red_house.appointment_slots (
+    id uuid NOT NULL,
+    slot_id uuid NOT NULL,
+    tenant_id uuid NOT NULL,
+    status text DEFAULT 'BOOKED'::text NOT NULL,
+    version integer DEFAULT 1 NOT NULL,
+    created_at timestamp with time zone DEFAULT now() NOT NULL
+);
+
+
+--
+-- Name: appointment_slots; Type: VIEW; Schema: access_donantes; Owner: -
+--
+
+CREATE VIEW access_donantes.appointment_slots AS
+ SELECT appointment_slots.id,
+    appointment_slots.slot_id,
+    appointment_slots.tenant_id,
+    appointment_slots.status,
+    appointment_slots.version,
+    appointment_slots.created_at
+   FROM red_house.appointment_slots;
 
 
 --
@@ -2138,6 +2949,44 @@ CREATE VIEW access_donantes.appointments AS
     appointment.current_status AS status,
     appointment.created_at
    FROM red_house.appointment;
+
+
+--
+-- Name: campaign_slots; Type: TABLE; Schema: red_house; Owner: -
+--
+
+CREATE TABLE red_house.campaign_slots (
+    id uuid NOT NULL,
+    campaign_id uuid NOT NULL,
+    tenant_id uuid NOT NULL,
+    site_id uuid NOT NULL,
+    starts_at timestamp with time zone NOT NULL,
+    ends_at timestamp with time zone NOT NULL,
+    capacity integer NOT NULL,
+    active boolean DEFAULT true NOT NULL,
+    version integer DEFAULT 1 NOT NULL,
+    created_at timestamp with time zone DEFAULT now() NOT NULL,
+    CONSTRAINT campaign_slots_capacity_check CHECK ((capacity > 0)),
+    CONSTRAINT campaign_slots_check CHECK ((ends_at > starts_at))
+);
+
+
+--
+-- Name: campaign_slots; Type: VIEW; Schema: access_donantes; Owner: -
+--
+
+CREATE VIEW access_donantes.campaign_slots AS
+ SELECT campaign_slots.id,
+    campaign_slots.campaign_id,
+    campaign_slots.tenant_id,
+    campaign_slots.site_id,
+    campaign_slots.starts_at,
+    campaign_slots.ends_at,
+    campaign_slots.capacity,
+    campaign_slots.active,
+    campaign_slots.version,
+    campaign_slots.created_at
+   FROM red_house.campaign_slots;
 
 
 --
@@ -2172,6 +3021,44 @@ CREATE VIEW access_donantes.campaigns AS
     campaign.current_status AS status,
     campaign.version_no AS version
    FROM red_house.campaign;
+
+
+--
+-- Name: consent_versions; Type: TABLE; Schema: red_house; Owner: -
+--
+
+CREATE TABLE red_house.consent_versions (
+    id uuid NOT NULL,
+    donor_id uuid NOT NULL,
+    tenant_id uuid NOT NULL,
+    author_id uuid NOT NULL,
+    version integer NOT NULL,
+    policy_version text NOT NULL,
+    reference text NOT NULL,
+    effective_at timestamp with time zone NOT NULL,
+    granted boolean NOT NULL,
+    supersedes uuid,
+    created_at timestamp with time zone DEFAULT now() NOT NULL
+);
+
+
+--
+-- Name: consent_versions; Type: VIEW; Schema: access_donantes; Owner: -
+--
+
+CREATE VIEW access_donantes.consent_versions AS
+ SELECT consent_versions.id,
+    consent_versions.donor_id,
+    consent_versions.tenant_id,
+    consent_versions.author_id,
+    consent_versions.version,
+    consent_versions.policy_version,
+    consent_versions.reference,
+    consent_versions.effective_at,
+    consent_versions.granted,
+    consent_versions.supersedes,
+    consent_versions.created_at
+   FROM red_house.consent_versions;
 
 
 --
@@ -2400,6 +3287,15 @@ CREATE VIEW access_donantes.schema_version AS
 
 
 --
+-- Name: shared_schema_version; Type: VIEW; Schema: access_donantes; Owner: -
+--
+
+CREATE VIEW access_donantes.shared_schema_version AS
+ SELECT max(schema_migration.version) AS version
+   FROM red_house.schema_migration;
+
+
+--
 -- Name: worker_health; Type: VIEW; Schema: access_donantes; Owner: -
 --
 
@@ -2411,6 +3307,45 @@ CREATE VIEW access_donantes.worker_health AS
    FROM red_house.service_worker_health
   WHERE (service_worker_health.service = 'donantes'::text)
   WITH LOCAL CHECK OPTION;
+
+
+--
+-- Name: accreditations; Type: TABLE; Schema: red_house; Owner: -
+--
+
+CREATE TABLE red_house.accreditations (
+    id uuid NOT NULL,
+    tenant_id uuid NOT NULL,
+    issuer text NOT NULL,
+    category text NOT NULL,
+    reference text NOT NULL,
+    valid_from timestamp with time zone NOT NULL,
+    valid_until timestamp with time zone NOT NULL,
+    author_id uuid NOT NULL,
+    supersedes uuid,
+    version integer NOT NULL,
+    created_at timestamp with time zone DEFAULT now() NOT NULL,
+    CONSTRAINT accreditations_check CHECK ((valid_until > valid_from))
+);
+
+
+--
+-- Name: accreditations; Type: VIEW; Schema: access_identidad_acceso; Owner: -
+--
+
+CREATE VIEW access_identidad_acceso.accreditations AS
+ SELECT accreditations.id,
+    accreditations.tenant_id,
+    accreditations.issuer,
+    accreditations.category,
+    accreditations.reference,
+    accreditations.valid_from,
+    accreditations.valid_until,
+    accreditations.author_id,
+    accreditations.supersedes,
+    accreditations.version,
+    accreditations.created_at
+   FROM red_house.accreditations;
 
 
 --
@@ -2463,7 +3398,7 @@ CREATE TABLE red_house.catalogue_entry (
     active boolean DEFAULT true NOT NULL,
     version integer DEFAULT 1 NOT NULL,
     created_at timestamp with time zone DEFAULT now() NOT NULL,
-    CONSTRAINT api_catalogue_kind_check CHECK ((kind = ANY (ARRAY['sites'::text, 'contacts'::text, 'schedules'::text, 'capacities'::text, 'locations'::text])))
+    CONSTRAINT api_catalogue_kind_check CHECK ((kind = ANY (ARRAY['sites'::text, 'contacts'::text, 'schedules'::text, 'capacities'::text, 'locations'::text, 'responsibles'::text, 'services'::text])))
 );
 
 
@@ -2503,6 +3438,43 @@ CREATE VIEW access_identidad_acceso.decisions AS
 
 
 --
+-- Name: devices; Type: TABLE; Schema: red_house; Owner: -
+--
+
+CREATE TABLE red_house.devices (
+    id uuid NOT NULL,
+    tenant_id uuid NOT NULL,
+    user_id uuid NOT NULL,
+    source text NOT NULL,
+    label text NOT NULL,
+    token_hash text NOT NULL,
+    expires_at timestamp with time zone NOT NULL,
+    active boolean DEFAULT true NOT NULL,
+    version integer DEFAULT 1 NOT NULL,
+    created_at timestamp with time zone DEFAULT now() NOT NULL,
+    CONSTRAINT devices_source_check CHECK ((source = ANY (ARRAY['SIMULATOR'::text, 'GPS_BRIDGE'::text, 'ANDROID'::text])))
+);
+
+
+--
+-- Name: devices; Type: VIEW; Schema: access_identidad_acceso; Owner: -
+--
+
+CREATE VIEW access_identidad_acceso.devices AS
+ SELECT devices.id,
+    devices.tenant_id,
+    devices.user_id,
+    devices.source,
+    devices.label,
+    devices.token_hash,
+    devices.expires_at,
+    devices.active,
+    devices.version,
+    devices.created_at
+   FROM red_house.devices;
+
+
+--
 -- Name: idempotency; Type: VIEW; Schema: access_identidad_acceso; Owner: -
 --
 
@@ -2517,6 +3489,40 @@ CREATE VIEW access_identidad_acceso.idempotency AS
    FROM red_house.service_idempotency
   WHERE (service_idempotency.service = 'identidad_acceso'::text)
   WITH LOCAL CHECK OPTION;
+
+
+--
+-- Name: identity_deliveries; Type: TABLE; Schema: red_house; Owner: -
+--
+
+CREATE TABLE red_house.identity_deliveries (
+    id uuid NOT NULL,
+    recipient text NOT NULL,
+    payload_ciphertext text NOT NULL,
+    status text DEFAULT 'PENDING'::text NOT NULL,
+    attempts integer DEFAULT 0 NOT NULL,
+    next_attempt timestamp with time zone DEFAULT now() NOT NULL,
+    delivered_at timestamp with time zone,
+    last_error text,
+    created_at timestamp with time zone DEFAULT now() NOT NULL
+);
+
+
+--
+-- Name: identity_deliveries; Type: VIEW; Schema: access_identidad_acceso; Owner: -
+--
+
+CREATE VIEW access_identidad_acceso.identity_deliveries AS
+ SELECT identity_deliveries.id,
+    identity_deliveries.recipient,
+    identity_deliveries.payload_ciphertext,
+    identity_deliveries.status,
+    identity_deliveries.attempts,
+    identity_deliveries.next_attempt,
+    identity_deliveries.delivered_at,
+    identity_deliveries.last_error,
+    identity_deliveries.created_at
+   FROM red_house.identity_deliveries;
 
 
 --
@@ -2590,6 +3596,34 @@ CREATE VIEW access_identidad_acceso.outbox AS
 
 
 --
+-- Name: recovery_tokens; Type: TABLE; Schema: red_house; Owner: -
+--
+
+CREATE TABLE red_house.recovery_tokens (
+    id uuid NOT NULL,
+    user_id uuid NOT NULL,
+    token_hash text NOT NULL,
+    expires_at timestamp with time zone NOT NULL,
+    used_at timestamp with time zone,
+    created_at timestamp with time zone DEFAULT now() NOT NULL
+);
+
+
+--
+-- Name: recovery_tokens; Type: VIEW; Schema: access_identidad_acceso; Owner: -
+--
+
+CREATE VIEW access_identidad_acceso.recovery_tokens AS
+ SELECT recovery_tokens.id,
+    recovery_tokens.user_id,
+    recovery_tokens.token_hash,
+    recovery_tokens.expires_at,
+    recovery_tokens.used_at,
+    recovery_tokens.created_at
+   FROM red_house.recovery_tokens;
+
+
+--
 -- Name: schema_version; Type: VIEW; Schema: access_identidad_acceso; Owner: -
 --
 
@@ -2599,6 +3633,64 @@ CREATE VIEW access_identidad_acceso.schema_version AS
    FROM red_house.service_schema_version
   WHERE (service_schema_version.service = 'identidad_acceso'::text)
   WITH LOCAL CHECK OPTION;
+
+
+--
+-- Name: security_contacts; Type: TABLE; Schema: red_house; Owner: -
+--
+
+CREATE TABLE red_house.security_contacts (
+    id uuid NOT NULL,
+    tenant_id uuid NOT NULL,
+    email text NOT NULL,
+    verified boolean DEFAULT false NOT NULL,
+    verification_hash text NOT NULL,
+    expires_at timestamp with time zone NOT NULL,
+    version integer DEFAULT 1 NOT NULL
+);
+
+
+--
+-- Name: security_contacts; Type: VIEW; Schema: access_identidad_acceso; Owner: -
+--
+
+CREATE VIEW access_identidad_acceso.security_contacts AS
+ SELECT security_contacts.id,
+    security_contacts.tenant_id,
+    security_contacts.email,
+    security_contacts.verified,
+    security_contacts.verification_hash,
+    security_contacts.expires_at,
+    security_contacts.version
+   FROM red_house.security_contacts;
+
+
+--
+-- Name: security_factors; Type: TABLE; Schema: red_house; Owner: -
+--
+
+CREATE TABLE red_house.security_factors (
+    id uuid NOT NULL,
+    tenant_id uuid NOT NULL,
+    secret_ciphertext text NOT NULL,
+    last_counter bigint DEFAULT '-1'::integer NOT NULL,
+    active boolean DEFAULT true NOT NULL,
+    created_at timestamp with time zone DEFAULT now() NOT NULL
+);
+
+
+--
+-- Name: security_factors; Type: VIEW; Schema: access_identidad_acceso; Owner: -
+--
+
+CREATE VIEW access_identidad_acceso.security_factors AS
+ SELECT security_factors.id,
+    security_factors.tenant_id,
+    security_factors.secret_ciphertext,
+    security_factors.last_counter,
+    security_factors.active,
+    security_factors.created_at
+   FROM red_house.security_factors;
 
 
 --
@@ -2624,6 +3716,15 @@ CREATE VIEW access_identidad_acceso.sessions AS
     web_session.expires_at,
     web_session.revoked_at
    FROM red_house.web_session;
+
+
+--
+-- Name: shared_schema_version; Type: VIEW; Schema: access_identidad_acceso; Owner: -
+--
+
+CREATE VIEW access_identidad_acceso.shared_schema_version AS
+ SELECT max(schema_migration.version) AS version
+   FROM red_house.schema_migration;
 
 
 --
@@ -2704,6 +3805,158 @@ CREATE VIEW access_inventario.cache_revision AS
 
 
 --
+-- Name: cold_equipment; Type: TABLE; Schema: red_house; Owner: -
+--
+
+CREATE TABLE red_house.cold_equipment (
+    id uuid NOT NULL,
+    tenant_id uuid NOT NULL,
+    label text NOT NULL,
+    location text NOT NULL,
+    calibration_reference text,
+    active boolean DEFAULT true NOT NULL,
+    version integer DEFAULT 1 NOT NULL,
+    created_at timestamp with time zone DEFAULT now() NOT NULL
+);
+
+
+--
+-- Name: cold_equipment; Type: VIEW; Schema: access_inventario; Owner: -
+--
+
+CREATE VIEW access_inventario.cold_equipment AS
+ SELECT cold_equipment.id,
+    cold_equipment.tenant_id,
+    cold_equipment.label,
+    cold_equipment.location,
+    cold_equipment.calibration_reference,
+    cold_equipment.active,
+    cold_equipment.version,
+    cold_equipment.created_at
+   FROM red_house.cold_equipment;
+
+
+--
+-- Name: cold_profiles; Type: TABLE; Schema: red_house; Owner: -
+--
+
+CREATE TABLE red_house.cold_profiles (
+    id uuid NOT NULL,
+    tenant_id uuid NOT NULL,
+    kind text NOT NULL,
+    component text NOT NULL,
+    minimum_c double precision NOT NULL,
+    maximum_c double precision NOT NULL,
+    max_gap_seconds integer NOT NULL,
+    source text NOT NULL,
+    synthetic boolean NOT NULL,
+    version integer NOT NULL,
+    author_id uuid NOT NULL,
+    effective_at timestamp with time zone NOT NULL,
+    supersedes uuid,
+    created_at timestamp with time zone DEFAULT now() NOT NULL,
+    CONSTRAINT cold_profiles_check CHECK ((maximum_c > minimum_c)),
+    CONSTRAINT cold_profiles_kind_check CHECK ((kind = ANY (ARRAY['BLOOD'::text, 'ORGAN'::text]))),
+    CONSTRAINT cold_profiles_max_gap_seconds_check CHECK ((max_gap_seconds > 0)),
+    CONSTRAINT cold_profiles_synthetic_check CHECK (synthetic)
+);
+
+
+--
+-- Name: cold_profiles; Type: VIEW; Schema: access_inventario; Owner: -
+--
+
+CREATE VIEW access_inventario.cold_profiles AS
+ SELECT cold_profiles.id,
+    cold_profiles.tenant_id,
+    cold_profiles.kind,
+    cold_profiles.component,
+    cold_profiles.minimum_c,
+    cold_profiles.maximum_c,
+    cold_profiles.max_gap_seconds,
+    cold_profiles.source,
+    cold_profiles.synthetic,
+    cold_profiles.version,
+    cold_profiles.author_id,
+    cold_profiles.effective_at,
+    cold_profiles.supersedes,
+    cold_profiles.created_at
+   FROM red_house.cold_profiles;
+
+
+--
+-- Name: cold_readings; Type: TABLE; Schema: red_house; Owner: -
+--
+
+CREATE TABLE red_house.cold_readings (
+    id uuid NOT NULL,
+    resource_id uuid NOT NULL,
+    equipment_id uuid NOT NULL,
+    profile_id uuid NOT NULL,
+    tenant_id uuid NOT NULL,
+    temperature_c double precision NOT NULL,
+    captured_at timestamp with time zone NOT NULL,
+    received_at timestamp with time zone DEFAULT now() NOT NULL,
+    source text NOT NULL,
+    calibration_reference text,
+    excursion boolean NOT NULL,
+    gap boolean NOT NULL,
+    author_id uuid NOT NULL
+);
+
+
+--
+-- Name: cold_readings; Type: VIEW; Schema: access_inventario; Owner: -
+--
+
+CREATE VIEW access_inventario.cold_readings AS
+ SELECT cold_readings.id,
+    cold_readings.resource_id,
+    cold_readings.equipment_id,
+    cold_readings.profile_id,
+    cold_readings.tenant_id,
+    cold_readings.temperature_c,
+    cold_readings.captured_at,
+    cold_readings.received_at,
+    cold_readings.source,
+    cold_readings.calibration_reference,
+    cold_readings.excursion,
+    cold_readings.gap,
+    cold_readings.author_id
+   FROM red_house.cold_readings;
+
+
+--
+-- Name: cold_reviews; Type: TABLE; Schema: red_house; Owner: -
+--
+
+CREATE TABLE red_house.cold_reviews (
+    id uuid NOT NULL,
+    resource_id uuid NOT NULL,
+    tenant_id uuid NOT NULL,
+    author_id uuid NOT NULL,
+    reason text NOT NULL,
+    decision text NOT NULL,
+    created_at timestamp with time zone DEFAULT now() NOT NULL
+);
+
+
+--
+-- Name: cold_reviews; Type: VIEW; Schema: access_inventario; Owner: -
+--
+
+CREATE VIEW access_inventario.cold_reviews AS
+ SELECT cold_reviews.id,
+    cold_reviews.resource_id,
+    cold_reviews.tenant_id,
+    cold_reviews.author_id,
+    cold_reviews.reason,
+    cold_reviews.decision,
+    cold_reviews.created_at
+   FROM red_house.cold_reviews;
+
+
+--
 -- Name: decisions; Type: VIEW; Schema: access_inventario; Owner: -
 --
 
@@ -2719,6 +3972,36 @@ CREATE VIEW access_inventario.decisions AS
    FROM red_house.service_decisions
   WHERE (service_decisions.service = 'inventario'::text)
   WITH LOCAL CHECK OPTION;
+
+
+--
+-- Name: external_mappings; Type: TABLE; Schema: red_house; Owner: -
+--
+
+CREATE TABLE red_house.external_mappings (
+    id uuid NOT NULL,
+    tenant_id uuid NOT NULL,
+    system text NOT NULL,
+    external_id text NOT NULL,
+    resource_id uuid NOT NULL,
+    author_id uuid NOT NULL,
+    created_at timestamp with time zone DEFAULT now() NOT NULL
+);
+
+
+--
+-- Name: external_mappings; Type: VIEW; Schema: access_inventario; Owner: -
+--
+
+CREATE VIEW access_inventario.external_mappings AS
+ SELECT external_mappings.id,
+    external_mappings.tenant_id,
+    external_mappings.system,
+    external_mappings.external_id,
+    external_mappings.resource_id,
+    external_mappings.author_id,
+    external_mappings.created_at
+   FROM red_house.external_mappings;
 
 
 --
@@ -2895,6 +4178,108 @@ CREATE VIEW access_inventario.reservations AS
 
 
 --
+-- Name: resource_controls; Type: TABLE; Schema: red_house; Owner: -
+--
+
+CREATE TABLE red_house.resource_controls (
+    id uuid NOT NULL,
+    lab_profile_id uuid,
+    cold_equipment_id uuid,
+    cold_profile_id uuid,
+    blocked boolean DEFAULT false NOT NULL,
+    version integer DEFAULT 1 NOT NULL,
+    created_at timestamp with time zone DEFAULT now() NOT NULL
+);
+
+
+--
+-- Name: resource_controls; Type: VIEW; Schema: access_inventario; Owner: -
+--
+
+CREATE VIEW access_inventario.resource_controls AS
+ SELECT resource_controls.id,
+    resource_controls.lab_profile_id,
+    resource_controls.cold_equipment_id,
+    resource_controls.cold_profile_id,
+    resource_controls.blocked,
+    resource_controls.version,
+    resource_controls.created_at
+   FROM red_house.resource_controls;
+
+
+--
+-- Name: resource_destinations; Type: TABLE; Schema: red_house; Owner: -
+--
+
+CREATE TABLE red_house.resource_destinations (
+    id uuid NOT NULL,
+    resource_id uuid NOT NULL,
+    tenant_id uuid NOT NULL,
+    destination text NOT NULL,
+    reference text NOT NULL,
+    occurred_at timestamp with time zone NOT NULL,
+    reason text NOT NULL,
+    author_id uuid NOT NULL,
+    version integer NOT NULL,
+    supersedes uuid,
+    created_at timestamp with time zone DEFAULT now() NOT NULL,
+    CONSTRAINT resource_destinations_destination_check CHECK ((destination = ANY (ARRAY['TRANSFUSED'::text, 'TRANSPLANTED'::text, 'DISCARDED'::text, 'RETURNED'::text, 'RESEARCH'::text])))
+);
+
+
+--
+-- Name: resource_destinations; Type: VIEW; Schema: access_inventario; Owner: -
+--
+
+CREATE VIEW access_inventario.resource_destinations AS
+ SELECT resource_destinations.id,
+    resource_destinations.resource_id,
+    resource_destinations.tenant_id,
+    resource_destinations.destination,
+    resource_destinations.reference,
+    resource_destinations.occurred_at,
+    resource_destinations.reason,
+    resource_destinations.author_id,
+    resource_destinations.version,
+    resource_destinations.supersedes,
+    resource_destinations.created_at
+   FROM red_house.resource_destinations;
+
+
+--
+-- Name: resource_lineage; Type: TABLE; Schema: red_house; Owner: -
+--
+
+CREATE TABLE red_house.resource_lineage (
+    id uuid NOT NULL,
+    parent_id uuid NOT NULL,
+    child_id uuid NOT NULL,
+    donation_id uuid NOT NULL,
+    tenant_id uuid NOT NULL,
+    author_id uuid NOT NULL,
+    reason text NOT NULL,
+    created_at timestamp with time zone DEFAULT now() NOT NULL,
+    CONSTRAINT resource_lineage_check CHECK ((parent_id <> child_id))
+);
+
+
+--
+-- Name: resource_lineage; Type: VIEW; Schema: access_inventario; Owner: -
+--
+
+CREATE VIEW access_inventario.resource_lineage AS
+ SELECT resource_lineage.id,
+    resource_lineage.parent_id,
+    resource_lineage.child_id,
+    resource_lineage.donation_id,
+    resource_lineage.tenant_id,
+    resource_lineage.author_id,
+    resource_lineage.reason,
+    resource_lineage.created_at
+   FROM red_house.resource_lineage;
+
+
+--
 -- Name: resource_review; Type: TABLE; Schema: red_house; Owner: -
 --
 
@@ -2980,6 +4365,15 @@ CREATE VIEW access_inventario.schema_version AS
    FROM red_house.service_schema_version
   WHERE (service_schema_version.service = 'inventario'::text)
   WITH LOCAL CHECK OPTION;
+
+
+--
+-- Name: shared_schema_version; Type: VIEW; Schema: access_inventario; Owner: -
+--
+
+CREATE VIEW access_inventario.shared_schema_version AS
+ SELECT max(schema_migration.version) AS version
+   FROM red_house.schema_migration;
 
 
 --
@@ -3119,6 +4513,15 @@ CREATE VIEW access_monitoreo.schema_version AS
    FROM red_house.service_schema_version
   WHERE (service_schema_version.service = 'monitoreo'::text)
   WITH LOCAL CHECK OPTION;
+
+
+--
+-- Name: shared_schema_version; Type: VIEW; Schema: access_monitoreo; Owner: -
+--
+
+CREATE VIEW access_monitoreo.shared_schema_version AS
+ SELECT max(schema_migration.version) AS version
+   FROM red_house.schema_migration;
 
 
 --
@@ -3332,6 +4735,15 @@ CREATE VIEW access_priorizacion_geografia.schema_version AS
 
 
 --
+-- Name: shared_schema_version; Type: VIEW; Schema: access_priorizacion_geografia; Owner: -
+--
+
+CREATE VIEW access_priorizacion_geografia.shared_schema_version AS
+ SELECT max(schema_migration.version) AS version
+   FROM red_house.schema_migration;
+
+
+--
 -- Name: worker_health; Type: VIEW; Schema: access_priorizacion_geografia; Owner: -
 --
 
@@ -3375,6 +4787,50 @@ CREATE VIEW access_receptores.decisions AS
    FROM red_house.service_decisions
   WHERE (service_decisions.service = 'receptores'::text)
   WITH LOCAL CHECK OPTION;
+
+
+--
+-- Name: external_authorizations; Type: TABLE; Schema: red_house; Owner: -
+--
+
+CREATE TABLE red_house.external_authorizations (
+    id uuid NOT NULL,
+    request_id uuid NOT NULL,
+    tenant_id uuid NOT NULL,
+    authority text NOT NULL,
+    reference text NOT NULL,
+    valid_from timestamp with time zone NOT NULL,
+    valid_until timestamp with time zone NOT NULL,
+    effective_at timestamp with time zone NOT NULL,
+    author_id uuid NOT NULL,
+    version integer NOT NULL,
+    supersedes uuid,
+    decision text NOT NULL,
+    created_at timestamp with time zone DEFAULT now() NOT NULL,
+    CONSTRAINT external_authorizations_check CHECK ((valid_until > valid_from)),
+    CONSTRAINT external_authorizations_decision_check CHECK ((decision = ANY (ARRAY['RECORDED'::text, 'WITHDRAWN'::text])))
+);
+
+
+--
+-- Name: external_authorizations; Type: VIEW; Schema: access_receptores; Owner: -
+--
+
+CREATE VIEW access_receptores.external_authorizations AS
+ SELECT external_authorizations.id,
+    external_authorizations.request_id,
+    external_authorizations.tenant_id,
+    external_authorizations.authority,
+    external_authorizations.reference,
+    external_authorizations.valid_from,
+    external_authorizations.valid_until,
+    external_authorizations.effective_at,
+    external_authorizations.author_id,
+    external_authorizations.version,
+    external_authorizations.supersedes,
+    external_authorizations.decision,
+    external_authorizations.created_at
+   FROM red_house.external_authorizations;
 
 
 --
@@ -3574,6 +5030,15 @@ CREATE VIEW access_receptores.schema_version AS
 
 
 --
+-- Name: shared_schema_version; Type: VIEW; Schema: access_receptores; Owner: -
+--
+
+CREATE VIEW access_receptores.shared_schema_version AS
+ SELECT max(schema_migration.version) AS version
+   FROM red_house.schema_migration;
+
+
+--
 -- Name: worker_health; Type: VIEW; Schema: access_receptores; Owner: -
 --
 
@@ -3617,25 +5082,6 @@ CREATE VIEW access_transporte.decisions AS
    FROM red_house.service_decisions
   WHERE (service_decisions.service = 'transporte'::text)
   WITH LOCAL CHECK OPTION;
-
-
---
--- Name: stored_file; Type: TABLE; Schema: red_house; Owner: -
---
-
-CREATE TABLE red_house.stored_file (
-    file_id uuid NOT NULL,
-    shipment_id uuid NOT NULL,
-    owner_id uuid NOT NULL,
-    object_path text NOT NULL,
-    mime_type text NOT NULL,
-    size_bytes integer NOT NULL,
-    sha256 text NOT NULL,
-    current_status text DEFAULT 'PENDING'::text NOT NULL,
-    generation text,
-    created_at timestamp with time zone DEFAULT now() NOT NULL,
-    CONSTRAINT api_files_size_check CHECK (((size_bytes >= 1) AND (size_bytes <= 10485760)))
-);
 
 
 --
@@ -3718,6 +5164,15 @@ CREATE VIEW access_transporte.schema_version AS
 
 
 --
+-- Name: shared_schema_version; Type: VIEW; Schema: access_transporte; Owner: -
+--
+
+CREATE VIEW access_transporte.shared_schema_version AS
+ SELECT max(schema_migration.version) AS version
+   FROM red_house.schema_migration;
+
+
+--
 -- Name: shipment; Type: TABLE; Schema: red_house; Owner: -
 --
 
@@ -3764,6 +5219,46 @@ CREATE VIEW access_transporte.shipments AS
 
 
 --
+-- Name: sync_commands; Type: TABLE; Schema: red_house; Owner: -
+--
+
+CREATE TABLE red_house.sync_commands (
+    id uuid NOT NULL,
+    tenant_id uuid NOT NULL,
+    user_id uuid NOT NULL,
+    shipment_id uuid NOT NULL,
+    device_id uuid NOT NULL,
+    cursor bigint NOT NULL,
+    expected_version integer NOT NULL,
+    body jsonb NOT NULL,
+    fingerprint text NOT NULL,
+    result jsonb NOT NULL,
+    captured_at timestamp with time zone NOT NULL,
+    created_at timestamp with time zone DEFAULT now() NOT NULL
+);
+
+
+--
+-- Name: sync_commands; Type: VIEW; Schema: access_transporte; Owner: -
+--
+
+CREATE VIEW access_transporte.sync_commands AS
+ SELECT sync_commands.id,
+    sync_commands.tenant_id,
+    sync_commands.user_id,
+    sync_commands.shipment_id,
+    sync_commands.device_id,
+    sync_commands.cursor,
+    sync_commands.expected_version,
+    sync_commands.body,
+    sync_commands.fingerprint,
+    sync_commands.result,
+    sync_commands.captured_at,
+    sync_commands.created_at
+   FROM red_house.sync_commands;
+
+
+--
 -- Name: transport_telemetry; Type: TABLE; Schema: red_house; Owner: -
 --
 
@@ -3791,6 +5286,102 @@ CREATE VIEW access_transporte.telemetry AS
     transport_telemetry.captured_at,
     transport_telemetry.created_at
    FROM red_house.transport_telemetry;
+
+
+--
+-- Name: tracking_assignments; Type: TABLE; Schema: red_house; Owner: -
+--
+
+CREATE TABLE red_house.tracking_assignments (
+    id uuid NOT NULL,
+    shipment_id uuid NOT NULL,
+    device_id uuid NOT NULL,
+    responsible_id uuid NOT NULL,
+    starts_at timestamp with time zone NOT NULL,
+    ends_at timestamp with time zone NOT NULL,
+    active boolean DEFAULT true NOT NULL,
+    version integer DEFAULT 1 NOT NULL,
+    actor_id uuid NOT NULL,
+    created_at timestamp with time zone DEFAULT now() NOT NULL,
+    CONSTRAINT tracking_assignments_check CHECK ((ends_at > starts_at))
+);
+
+
+--
+-- Name: tracking_assignments; Type: VIEW; Schema: access_transporte; Owner: -
+--
+
+CREATE VIEW access_transporte.tracking_assignments AS
+ SELECT tracking_assignments.id,
+    tracking_assignments.shipment_id,
+    tracking_assignments.device_id,
+    tracking_assignments.responsible_id,
+    tracking_assignments.starts_at,
+    tracking_assignments.ends_at,
+    tracking_assignments.active,
+    tracking_assignments.version,
+    tracking_assignments.actor_id,
+    tracking_assignments.created_at
+   FROM red_house.tracking_assignments;
+
+
+--
+-- Name: tracking_devices; Type: VIEW; Schema: access_transporte; Owner: -
+--
+
+CREATE VIEW access_transporte.tracking_devices AS
+ SELECT d.id,
+    d.tenant_id,
+    d.user_id,
+    d.source,
+    d.token_hash,
+    d.expires_at,
+    d.active,
+    d.version,
+    u.active AS user_active,
+    i.active AS institution_active,
+    u.role AS user_role
+   FROM ((red_house.devices d
+     JOIN red_house.user_account u ON ((u.account_id = d.user_id)))
+     JOIN red_house.institution i ON ((i.institution_id = d.tenant_id)));
+
+
+--
+-- Name: tracking_points; Type: TABLE; Schema: red_house; Owner: -
+--
+
+CREATE TABLE red_house.tracking_points (
+    id uuid NOT NULL,
+    shipment_id uuid NOT NULL,
+    assignment_id uuid NOT NULL,
+    device_id uuid NOT NULL,
+    cursor bigint NOT NULL,
+    sequence bigint NOT NULL,
+    captured_at timestamp with time zone NOT NULL,
+    received_at timestamp with time zone DEFAULT clock_timestamp() NOT NULL,
+    fingerprint text NOT NULL,
+    "position" jsonb NOT NULL,
+    CONSTRAINT tracking_points_cursor_check CHECK ((cursor > 0)),
+    CONSTRAINT tracking_points_sequence_check CHECK ((sequence >= 0))
+);
+
+
+--
+-- Name: tracking_points; Type: VIEW; Schema: access_transporte; Owner: -
+--
+
+CREATE VIEW access_transporte.tracking_points AS
+ SELECT tracking_points.id,
+    tracking_points.shipment_id,
+    tracking_points.assignment_id,
+    tracking_points.device_id,
+    tracking_points.cursor,
+    tracking_points.sequence,
+    tracking_points.captured_at,
+    tracking_points.received_at,
+    tracking_points.fingerprint,
+    tracking_points."position"
+   FROM red_house.tracking_points;
 
 
 --
@@ -4292,17 +5883,6 @@ CREATE TABLE red_house.role (
 
 
 --
--- Name: schema_migration; Type: TABLE; Schema: red_house; Owner: -
---
-
-CREATE TABLE red_house.schema_migration (
-    version integer NOT NULL,
-    description text NOT NULL,
-    installed_at timestamp with time zone DEFAULT now() NOT NULL
-);
-
-
---
 -- Name: site; Type: TABLE; Schema: red_house; Owner: -
 --
 
@@ -4353,6 +5933,83 @@ CREATE TABLE red_house.storage_location (
 --
 
 ALTER TABLE ONLY access_alertas.activity_events ALTER COLUMN created_at SET DEFAULT now();
+
+
+--
+-- Name: alert_actions created_at; Type: DEFAULT; Schema: access_alertas; Owner: -
+--
+
+ALTER TABLE ONLY access_alertas.alert_actions ALTER COLUMN created_at SET DEFAULT now();
+
+
+--
+-- Name: alert_deliveries status; Type: DEFAULT; Schema: access_alertas; Owner: -
+--
+
+ALTER TABLE ONLY access_alertas.alert_deliveries ALTER COLUMN status SET DEFAULT 'PENDING'::text;
+
+
+--
+-- Name: alert_deliveries attempts; Type: DEFAULT; Schema: access_alertas; Owner: -
+--
+
+ALTER TABLE ONLY access_alertas.alert_deliveries ALTER COLUMN attempts SET DEFAULT 0;
+
+
+--
+-- Name: alert_deliveries next_attempt; Type: DEFAULT; Schema: access_alertas; Owner: -
+--
+
+ALTER TABLE ONLY access_alertas.alert_deliveries ALTER COLUMN next_attempt SET DEFAULT now();
+
+
+--
+-- Name: alert_deliveries created_at; Type: DEFAULT; Schema: access_alertas; Owner: -
+--
+
+ALTER TABLE ONLY access_alertas.alert_deliveries ALTER COLUMN created_at SET DEFAULT now();
+
+
+--
+-- Name: alert_policies active; Type: DEFAULT; Schema: access_alertas; Owner: -
+--
+
+ALTER TABLE ONLY access_alertas.alert_policies ALTER COLUMN active SET DEFAULT true;
+
+
+--
+-- Name: alert_policies version; Type: DEFAULT; Schema: access_alertas; Owner: -
+--
+
+ALTER TABLE ONLY access_alertas.alert_policies ALTER COLUMN version SET DEFAULT 1;
+
+
+--
+-- Name: alert_policies created_at; Type: DEFAULT; Schema: access_alertas; Owner: -
+--
+
+ALTER TABLE ONLY access_alertas.alert_policies ALTER COLUMN created_at SET DEFAULT now();
+
+
+--
+-- Name: alert_subscriptions active; Type: DEFAULT; Schema: access_alertas; Owner: -
+--
+
+ALTER TABLE ONLY access_alertas.alert_subscriptions ALTER COLUMN active SET DEFAULT true;
+
+
+--
+-- Name: alert_subscriptions version; Type: DEFAULT; Schema: access_alertas; Owner: -
+--
+
+ALTER TABLE ONLY access_alertas.alert_subscriptions ALTER COLUMN version SET DEFAULT 1;
+
+
+--
+-- Name: alert_subscriptions created_at; Type: DEFAULT; Schema: access_alertas; Owner: -
+--
+
+ALTER TABLE ONLY access_alertas.alert_subscriptions ALTER COLUMN created_at SET DEFAULT now();
 
 
 --
@@ -4573,6 +6230,55 @@ ALTER TABLE ONLY access_compatibilidad.inbox ALTER COLUMN created_at SET DEFAULT
 
 
 --
+-- Name: lab_actions created_at; Type: DEFAULT; Schema: access_compatibilidad; Owner: -
+--
+
+ALTER TABLE ONLY access_compatibilidad.lab_actions ALTER COLUMN created_at SET DEFAULT now();
+
+
+--
+-- Name: lab_profiles created_at; Type: DEFAULT; Schema: access_compatibilidad; Owner: -
+--
+
+ALTER TABLE ONLY access_compatibilidad.lab_profiles ALTER COLUMN created_at SET DEFAULT now();
+
+
+--
+-- Name: lab_results status; Type: DEFAULT; Schema: access_compatibilidad; Owner: -
+--
+
+ALTER TABLE ONLY access_compatibilidad.lab_results ALTER COLUMN status SET DEFAULT 'CAPTURED'::text;
+
+
+--
+-- Name: lab_results created_at; Type: DEFAULT; Schema: access_compatibilidad; Owner: -
+--
+
+ALTER TABLE ONLY access_compatibilidad.lab_results ALTER COLUMN created_at SET DEFAULT now();
+
+
+--
+-- Name: lab_samples status; Type: DEFAULT; Schema: access_compatibilidad; Owner: -
+--
+
+ALTER TABLE ONLY access_compatibilidad.lab_samples ALTER COLUMN status SET DEFAULT 'REQUESTED'::text;
+
+
+--
+-- Name: lab_samples version; Type: DEFAULT; Schema: access_compatibilidad; Owner: -
+--
+
+ALTER TABLE ONLY access_compatibilidad.lab_samples ALTER COLUMN version SET DEFAULT 1;
+
+
+--
+-- Name: lab_samples created_at; Type: DEFAULT; Schema: access_compatibilidad; Owner: -
+--
+
+ALTER TABLE ONLY access_compatibilidad.lab_samples ALTER COLUMN created_at SET DEFAULT now();
+
+
+--
 -- Name: outbox created_at; Type: DEFAULT; Schema: access_compatibilidad; Owner: -
 --
 
@@ -4692,10 +6398,164 @@ ALTER TABLE ONLY access_custodia.schema_version ALTER COLUMN installed_at SET DE
 
 
 --
+-- Name: activity_events created_at; Type: DEFAULT; Schema: access_documentos; Owner: -
+--
+
+ALTER TABLE ONLY access_documentos.activity_events ALTER COLUMN created_at SET DEFAULT now();
+
+
+--
+-- Name: decisions changes; Type: DEFAULT; Schema: access_documentos; Owner: -
+--
+
+ALTER TABLE ONLY access_documentos.decisions ALTER COLUMN changes SET DEFAULT '{}'::jsonb;
+
+
+--
+-- Name: decisions created_at; Type: DEFAULT; Schema: access_documentos; Owner: -
+--
+
+ALTER TABLE ONLY access_documentos.decisions ALTER COLUMN created_at SET DEFAULT now();
+
+
+--
+-- Name: document_metadata privacy; Type: DEFAULT; Schema: access_documentos; Owner: -
+--
+
+ALTER TABLE ONLY access_documentos.document_metadata ALTER COLUMN privacy SET DEFAULT 'PRIVATE'::text;
+
+
+--
+-- Name: document_metadata legal_hold; Type: DEFAULT; Schema: access_documentos; Owner: -
+--
+
+ALTER TABLE ONLY access_documentos.document_metadata ALTER COLUMN legal_hold SET DEFAULT true;
+
+
+--
+-- Name: document_metadata created_at; Type: DEFAULT; Schema: access_documentos; Owner: -
+--
+
+ALTER TABLE ONLY access_documentos.document_metadata ALTER COLUMN created_at SET DEFAULT now();
+
+
+--
+-- Name: export_jobs status; Type: DEFAULT; Schema: access_documentos; Owner: -
+--
+
+ALTER TABLE ONLY access_documentos.export_jobs ALTER COLUMN status SET DEFAULT 'PENDING'::text;
+
+
+--
+-- Name: export_jobs attempts; Type: DEFAULT; Schema: access_documentos; Owner: -
+--
+
+ALTER TABLE ONLY access_documentos.export_jobs ALTER COLUMN attempts SET DEFAULT 0;
+
+
+--
+-- Name: export_jobs created_at; Type: DEFAULT; Schema: access_documentos; Owner: -
+--
+
+ALTER TABLE ONLY access_documentos.export_jobs ALTER COLUMN created_at SET DEFAULT now();
+
+
+--
+-- Name: file_scans created_at; Type: DEFAULT; Schema: access_documentos; Owner: -
+--
+
+ALTER TABLE ONLY access_documentos.file_scans ALTER COLUMN created_at SET DEFAULT now();
+
+
+--
+-- Name: files status; Type: DEFAULT; Schema: access_documentos; Owner: -
+--
+
+ALTER TABLE ONLY access_documentos.files ALTER COLUMN status SET DEFAULT 'PENDING'::text;
+
+
+--
+-- Name: files created_at; Type: DEFAULT; Schema: access_documentos; Owner: -
+--
+
+ALTER TABLE ONLY access_documentos.files ALTER COLUMN created_at SET DEFAULT now();
+
+
+--
+-- Name: idempotency created_at; Type: DEFAULT; Schema: access_documentos; Owner: -
+--
+
+ALTER TABLE ONLY access_documentos.idempotency ALTER COLUMN created_at SET DEFAULT now();
+
+
+--
+-- Name: inbox created_at; Type: DEFAULT; Schema: access_documentos; Owner: -
+--
+
+ALTER TABLE ONLY access_documentos.inbox ALTER COLUMN created_at SET DEFAULT now();
+
+
+--
+-- Name: outbox created_at; Type: DEFAULT; Schema: access_documentos; Owner: -
+--
+
+ALTER TABLE ONLY access_documentos.outbox ALTER COLUMN created_at SET DEFAULT now();
+
+
+--
+-- Name: outbox attempts; Type: DEFAULT; Schema: access_documentos; Owner: -
+--
+
+ALTER TABLE ONLY access_documentos.outbox ALTER COLUMN attempts SET DEFAULT 0;
+
+
+--
+-- Name: outbox next_attempt; Type: DEFAULT; Schema: access_documentos; Owner: -
+--
+
+ALTER TABLE ONLY access_documentos.outbox ALTER COLUMN next_attempt SET DEFAULT now();
+
+
+--
+-- Name: schema_version installed_at; Type: DEFAULT; Schema: access_documentos; Owner: -
+--
+
+ALTER TABLE ONLY access_documentos.schema_version ALTER COLUMN installed_at SET DEFAULT now();
+
+
+--
 -- Name: activity_events created_at; Type: DEFAULT; Schema: access_donantes; Owner: -
 --
 
 ALTER TABLE ONLY access_donantes.activity_events ALTER COLUMN created_at SET DEFAULT now();
+
+
+--
+-- Name: appointment_reminders sent_at; Type: DEFAULT; Schema: access_donantes; Owner: -
+--
+
+ALTER TABLE ONLY access_donantes.appointment_reminders ALTER COLUMN sent_at SET DEFAULT now();
+
+
+--
+-- Name: appointment_slots status; Type: DEFAULT; Schema: access_donantes; Owner: -
+--
+
+ALTER TABLE ONLY access_donantes.appointment_slots ALTER COLUMN status SET DEFAULT 'BOOKED'::text;
+
+
+--
+-- Name: appointment_slots version; Type: DEFAULT; Schema: access_donantes; Owner: -
+--
+
+ALTER TABLE ONLY access_donantes.appointment_slots ALTER COLUMN version SET DEFAULT 1;
+
+
+--
+-- Name: appointment_slots created_at; Type: DEFAULT; Schema: access_donantes; Owner: -
+--
+
+ALTER TABLE ONLY access_donantes.appointment_slots ALTER COLUMN created_at SET DEFAULT now();
 
 
 --
@@ -4713,6 +6573,27 @@ ALTER TABLE ONLY access_donantes.appointments ALTER COLUMN created_at SET DEFAUL
 
 
 --
+-- Name: campaign_slots active; Type: DEFAULT; Schema: access_donantes; Owner: -
+--
+
+ALTER TABLE ONLY access_donantes.campaign_slots ALTER COLUMN active SET DEFAULT true;
+
+
+--
+-- Name: campaign_slots version; Type: DEFAULT; Schema: access_donantes; Owner: -
+--
+
+ALTER TABLE ONLY access_donantes.campaign_slots ALTER COLUMN version SET DEFAULT 1;
+
+
+--
+-- Name: campaign_slots created_at; Type: DEFAULT; Schema: access_donantes; Owner: -
+--
+
+ALTER TABLE ONLY access_donantes.campaign_slots ALTER COLUMN created_at SET DEFAULT now();
+
+
+--
 -- Name: campaigns status; Type: DEFAULT; Schema: access_donantes; Owner: -
 --
 
@@ -4724,6 +6605,13 @@ ALTER TABLE ONLY access_donantes.campaigns ALTER COLUMN status SET DEFAULT 'OPEN
 --
 
 ALTER TABLE ONLY access_donantes.campaigns ALTER COLUMN version SET DEFAULT 1;
+
+
+--
+-- Name: consent_versions created_at; Type: DEFAULT; Schema: access_donantes; Owner: -
+--
+
+ALTER TABLE ONLY access_donantes.consent_versions ALTER COLUMN created_at SET DEFAULT now();
 
 
 --
@@ -4839,6 +6727,13 @@ ALTER TABLE ONLY access_donantes.schema_version ALTER COLUMN installed_at SET DE
 
 
 --
+-- Name: accreditations created_at; Type: DEFAULT; Schema: access_identidad_acceso; Owner: -
+--
+
+ALTER TABLE ONLY access_identidad_acceso.accreditations ALTER COLUMN created_at SET DEFAULT now();
+
+
+--
 -- Name: activity_events created_at; Type: DEFAULT; Schema: access_identidad_acceso; Owner: -
 --
 
@@ -4888,10 +6783,59 @@ ALTER TABLE ONLY access_identidad_acceso.decisions ALTER COLUMN created_at SET D
 
 
 --
+-- Name: devices active; Type: DEFAULT; Schema: access_identidad_acceso; Owner: -
+--
+
+ALTER TABLE ONLY access_identidad_acceso.devices ALTER COLUMN active SET DEFAULT true;
+
+
+--
+-- Name: devices version; Type: DEFAULT; Schema: access_identidad_acceso; Owner: -
+--
+
+ALTER TABLE ONLY access_identidad_acceso.devices ALTER COLUMN version SET DEFAULT 1;
+
+
+--
+-- Name: devices created_at; Type: DEFAULT; Schema: access_identidad_acceso; Owner: -
+--
+
+ALTER TABLE ONLY access_identidad_acceso.devices ALTER COLUMN created_at SET DEFAULT now();
+
+
+--
 -- Name: idempotency created_at; Type: DEFAULT; Schema: access_identidad_acceso; Owner: -
 --
 
 ALTER TABLE ONLY access_identidad_acceso.idempotency ALTER COLUMN created_at SET DEFAULT now();
+
+
+--
+-- Name: identity_deliveries status; Type: DEFAULT; Schema: access_identidad_acceso; Owner: -
+--
+
+ALTER TABLE ONLY access_identidad_acceso.identity_deliveries ALTER COLUMN status SET DEFAULT 'PENDING'::text;
+
+
+--
+-- Name: identity_deliveries attempts; Type: DEFAULT; Schema: access_identidad_acceso; Owner: -
+--
+
+ALTER TABLE ONLY access_identidad_acceso.identity_deliveries ALTER COLUMN attempts SET DEFAULT 0;
+
+
+--
+-- Name: identity_deliveries next_attempt; Type: DEFAULT; Schema: access_identidad_acceso; Owner: -
+--
+
+ALTER TABLE ONLY access_identidad_acceso.identity_deliveries ALTER COLUMN next_attempt SET DEFAULT now();
+
+
+--
+-- Name: identity_deliveries created_at; Type: DEFAULT; Schema: access_identidad_acceso; Owner: -
+--
+
+ALTER TABLE ONLY access_identidad_acceso.identity_deliveries ALTER COLUMN created_at SET DEFAULT now();
 
 
 --
@@ -4937,10 +6881,52 @@ ALTER TABLE ONLY access_identidad_acceso.outbox ALTER COLUMN next_attempt SET DE
 
 
 --
+-- Name: recovery_tokens created_at; Type: DEFAULT; Schema: access_identidad_acceso; Owner: -
+--
+
+ALTER TABLE ONLY access_identidad_acceso.recovery_tokens ALTER COLUMN created_at SET DEFAULT now();
+
+
+--
 -- Name: schema_version installed_at; Type: DEFAULT; Schema: access_identidad_acceso; Owner: -
 --
 
 ALTER TABLE ONLY access_identidad_acceso.schema_version ALTER COLUMN installed_at SET DEFAULT now();
+
+
+--
+-- Name: security_contacts verified; Type: DEFAULT; Schema: access_identidad_acceso; Owner: -
+--
+
+ALTER TABLE ONLY access_identidad_acceso.security_contacts ALTER COLUMN verified SET DEFAULT false;
+
+
+--
+-- Name: security_contacts version; Type: DEFAULT; Schema: access_identidad_acceso; Owner: -
+--
+
+ALTER TABLE ONLY access_identidad_acceso.security_contacts ALTER COLUMN version SET DEFAULT 1;
+
+
+--
+-- Name: security_factors last_counter; Type: DEFAULT; Schema: access_identidad_acceso; Owner: -
+--
+
+ALTER TABLE ONLY access_identidad_acceso.security_factors ALTER COLUMN last_counter SET DEFAULT '-1'::integer;
+
+
+--
+-- Name: security_factors active; Type: DEFAULT; Schema: access_identidad_acceso; Owner: -
+--
+
+ALTER TABLE ONLY access_identidad_acceso.security_factors ALTER COLUMN active SET DEFAULT true;
+
+
+--
+-- Name: security_factors created_at; Type: DEFAULT; Schema: access_identidad_acceso; Owner: -
+--
+
+ALTER TABLE ONLY access_identidad_acceso.security_factors ALTER COLUMN created_at SET DEFAULT now();
 
 
 --
@@ -4972,6 +6958,48 @@ ALTER TABLE ONLY access_inventario.cache_revision ALTER COLUMN revision SET DEFA
 
 
 --
+-- Name: cold_equipment active; Type: DEFAULT; Schema: access_inventario; Owner: -
+--
+
+ALTER TABLE ONLY access_inventario.cold_equipment ALTER COLUMN active SET DEFAULT true;
+
+
+--
+-- Name: cold_equipment version; Type: DEFAULT; Schema: access_inventario; Owner: -
+--
+
+ALTER TABLE ONLY access_inventario.cold_equipment ALTER COLUMN version SET DEFAULT 1;
+
+
+--
+-- Name: cold_equipment created_at; Type: DEFAULT; Schema: access_inventario; Owner: -
+--
+
+ALTER TABLE ONLY access_inventario.cold_equipment ALTER COLUMN created_at SET DEFAULT now();
+
+
+--
+-- Name: cold_profiles created_at; Type: DEFAULT; Schema: access_inventario; Owner: -
+--
+
+ALTER TABLE ONLY access_inventario.cold_profiles ALTER COLUMN created_at SET DEFAULT now();
+
+
+--
+-- Name: cold_readings received_at; Type: DEFAULT; Schema: access_inventario; Owner: -
+--
+
+ALTER TABLE ONLY access_inventario.cold_readings ALTER COLUMN received_at SET DEFAULT now();
+
+
+--
+-- Name: cold_reviews created_at; Type: DEFAULT; Schema: access_inventario; Owner: -
+--
+
+ALTER TABLE ONLY access_inventario.cold_reviews ALTER COLUMN created_at SET DEFAULT now();
+
+
+--
 -- Name: decisions changes; Type: DEFAULT; Schema: access_inventario; Owner: -
 --
 
@@ -4983,6 +7011,13 @@ ALTER TABLE ONLY access_inventario.decisions ALTER COLUMN changes SET DEFAULT '{
 --
 
 ALTER TABLE ONLY access_inventario.decisions ALTER COLUMN created_at SET DEFAULT now();
+
+
+--
+-- Name: external_mappings created_at; Type: DEFAULT; Schema: access_inventario; Owner: -
+--
+
+ALTER TABLE ONLY access_inventario.external_mappings ALTER COLUMN created_at SET DEFAULT now();
 
 
 --
@@ -5060,6 +7095,41 @@ ALTER TABLE ONLY access_inventario.reservations ALTER COLUMN shipment_sequence S
 --
 
 ALTER TABLE ONLY access_inventario.reservations ALTER COLUMN created_at SET DEFAULT now();
+
+
+--
+-- Name: resource_controls blocked; Type: DEFAULT; Schema: access_inventario; Owner: -
+--
+
+ALTER TABLE ONLY access_inventario.resource_controls ALTER COLUMN blocked SET DEFAULT false;
+
+
+--
+-- Name: resource_controls version; Type: DEFAULT; Schema: access_inventario; Owner: -
+--
+
+ALTER TABLE ONLY access_inventario.resource_controls ALTER COLUMN version SET DEFAULT 1;
+
+
+--
+-- Name: resource_controls created_at; Type: DEFAULT; Schema: access_inventario; Owner: -
+--
+
+ALTER TABLE ONLY access_inventario.resource_controls ALTER COLUMN created_at SET DEFAULT now();
+
+
+--
+-- Name: resource_destinations created_at; Type: DEFAULT; Schema: access_inventario; Owner: -
+--
+
+ALTER TABLE ONLY access_inventario.resource_destinations ALTER COLUMN created_at SET DEFAULT now();
+
+
+--
+-- Name: resource_lineage created_at; Type: DEFAULT; Schema: access_inventario; Owner: -
+--
+
+ALTER TABLE ONLY access_inventario.resource_lineage ALTER COLUMN created_at SET DEFAULT now();
 
 
 --
@@ -5280,6 +7350,13 @@ ALTER TABLE ONLY access_receptores.decisions ALTER COLUMN created_at SET DEFAULT
 
 
 --
+-- Name: external_authorizations created_at; Type: DEFAULT; Schema: access_receptores; Owner: -
+--
+
+ALTER TABLE ONLY access_receptores.external_authorizations ALTER COLUMN created_at SET DEFAULT now();
+
+
+--
 -- Name: holds status; Type: DEFAULT; Schema: access_receptores; Owner: -
 --
 
@@ -5476,10 +7553,45 @@ ALTER TABLE ONLY access_transporte.shipments ALTER COLUMN inventory_pending SET 
 
 
 --
+-- Name: sync_commands created_at; Type: DEFAULT; Schema: access_transporte; Owner: -
+--
+
+ALTER TABLE ONLY access_transporte.sync_commands ALTER COLUMN created_at SET DEFAULT now();
+
+
+--
 -- Name: telemetry created_at; Type: DEFAULT; Schema: access_transporte; Owner: -
 --
 
 ALTER TABLE ONLY access_transporte.telemetry ALTER COLUMN created_at SET DEFAULT now();
+
+
+--
+-- Name: tracking_assignments active; Type: DEFAULT; Schema: access_transporte; Owner: -
+--
+
+ALTER TABLE ONLY access_transporte.tracking_assignments ALTER COLUMN active SET DEFAULT true;
+
+
+--
+-- Name: tracking_assignments version; Type: DEFAULT; Schema: access_transporte; Owner: -
+--
+
+ALTER TABLE ONLY access_transporte.tracking_assignments ALTER COLUMN version SET DEFAULT 1;
+
+
+--
+-- Name: tracking_assignments created_at; Type: DEFAULT; Schema: access_transporte; Owner: -
+--
+
+ALTER TABLE ONLY access_transporte.tracking_assignments ALTER COLUMN created_at SET DEFAULT now();
+
+
+--
+-- Name: tracking_points received_at; Type: DEFAULT; Schema: access_transporte; Owner: -
+--
+
+ALTER TABLE ONLY access_transporte.tracking_points ALTER COLUMN received_at SET DEFAULT clock_timestamp();
 
 
 --
@@ -5495,6 +7607,86 @@ ALTER TABLE ONLY access_transporte.transitions ALTER COLUMN created_at SET DEFAU
 
 ALTER TABLE ONLY red_house.account_role
     ADD CONSTRAINT account_role_pkey PRIMARY KEY (account_id);
+
+
+--
+-- Name: accreditations accreditations_pkey; Type: CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.accreditations
+    ADD CONSTRAINT accreditations_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: alert_actions alert_actions_alert_id_action_key; Type: CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.alert_actions
+    ADD CONSTRAINT alert_actions_alert_id_action_key UNIQUE (alert_id, action);
+
+
+--
+-- Name: alert_actions alert_actions_pkey; Type: CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.alert_actions
+    ADD CONSTRAINT alert_actions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: alert_deliveries alert_deliveries_alert_id_subscription_id_stage_key; Type: CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.alert_deliveries
+    ADD CONSTRAINT alert_deliveries_alert_id_subscription_id_stage_key UNIQUE (alert_id, subscription_id, stage);
+
+
+--
+-- Name: alert_deliveries alert_deliveries_pkey; Type: CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.alert_deliveries
+    ADD CONSTRAINT alert_deliveries_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: alert_policies alert_policies_pkey; Type: CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.alert_policies
+    ADD CONSTRAINT alert_policies_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: alert_policies alert_policies_supersedes_key; Type: CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.alert_policies
+    ADD CONSTRAINT alert_policies_supersedes_key UNIQUE (supersedes);
+
+
+--
+-- Name: alert_policies alert_policies_tenant_id_message_code_version_key; Type: CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.alert_policies
+    ADD CONSTRAINT alert_policies_tenant_id_message_code_version_key UNIQUE (tenant_id, message_code, version);
+
+
+--
+-- Name: alert_subscriptions alert_subscriptions_pkey; Type: CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.alert_subscriptions
+    ADD CONSTRAINT alert_subscriptions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: alert_subscriptions alert_subscriptions_user_id_channel_key; Type: CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.alert_subscriptions
+    ADD CONSTRAINT alert_subscriptions_user_id_channel_key UNIQUE (user_id, channel);
 
 
 --
@@ -5738,6 +7930,22 @@ ALTER TABLE ONLY red_house.appointment
 
 
 --
+-- Name: appointment_reminders appointment_reminders_pkey; Type: CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.appointment_reminders
+    ADD CONSTRAINT appointment_reminders_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: appointment_slots appointment_slots_pkey; Type: CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.appointment_slots
+    ADD CONSTRAINT appointment_slots_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: audit_change audit_change_pkey; Type: CONSTRAINT; Schema: red_house; Owner: -
 --
 
@@ -5882,6 +8090,14 @@ ALTER TABLE ONLY red_house.campaign
 
 
 --
+-- Name: campaign_slots campaign_slots_pkey; Type: CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.campaign_slots
+    ADD CONSTRAINT campaign_slots_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: candidate_evaluation candidate_evaluation_pkey; Type: CONSTRAINT; Schema: red_house; Owner: -
 --
 
@@ -5895,6 +8111,62 @@ ALTER TABLE ONLY red_house.candidate_evaluation
 
 ALTER TABLE ONLY red_house.capability
     ADD CONSTRAINT capability_pkey PRIMARY KEY (capability_code);
+
+
+--
+-- Name: cold_equipment cold_equipment_pkey; Type: CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.cold_equipment
+    ADD CONSTRAINT cold_equipment_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: cold_profiles cold_profiles_pkey; Type: CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.cold_profiles
+    ADD CONSTRAINT cold_profiles_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: cold_profiles cold_profiles_supersedes_key; Type: CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.cold_profiles
+    ADD CONSTRAINT cold_profiles_supersedes_key UNIQUE (supersedes);
+
+
+--
+-- Name: cold_readings cold_readings_pkey; Type: CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.cold_readings
+    ADD CONSTRAINT cold_readings_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: cold_reviews cold_reviews_pkey; Type: CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.cold_reviews
+    ADD CONSTRAINT cold_reviews_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: consent_versions consent_versions_donor_id_version_key; Type: CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.consent_versions
+    ADD CONSTRAINT consent_versions_donor_id_version_key UNIQUE (donor_id, version);
+
+
+--
+-- Name: consent_versions consent_versions_pkey; Type: CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.consent_versions
+    ADD CONSTRAINT consent_versions_pkey PRIMARY KEY (id);
 
 
 --
@@ -5919,6 +8191,22 @@ ALTER TABLE ONLY red_house.contact
 
 ALTER TABLE ONLY red_house.custody_event
     ADD CONSTRAINT custody_event_pkey PRIMARY KEY (event_id);
+
+
+--
+-- Name: devices devices_pkey; Type: CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.devices
+    ADD CONSTRAINT devices_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: document_metadata document_metadata_pkey; Type: CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.document_metadata
+    ADD CONSTRAINT document_metadata_pkey PRIMARY KEY (id);
 
 
 --
@@ -5970,6 +8258,62 @@ ALTER TABLE ONLY red_house.donor_review
 
 
 --
+-- Name: export_jobs export_jobs_pkey; Type: CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.export_jobs
+    ADD CONSTRAINT export_jobs_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: external_authorizations external_authorizations_pkey; Type: CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.external_authorizations
+    ADD CONSTRAINT external_authorizations_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: external_authorizations external_authorizations_request_id_version_key; Type: CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.external_authorizations
+    ADD CONSTRAINT external_authorizations_request_id_version_key UNIQUE (request_id, version);
+
+
+--
+-- Name: external_mappings external_mappings_pkey; Type: CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.external_mappings
+    ADD CONSTRAINT external_mappings_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: external_mappings external_mappings_tenant_id_system_external_id_key; Type: CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.external_mappings
+    ADD CONSTRAINT external_mappings_tenant_id_system_external_id_key UNIQUE (tenant_id, system, external_id);
+
+
+--
+-- Name: file_scans file_scans_pkey; Type: CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.file_scans
+    ADD CONSTRAINT file_scans_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: identity_deliveries identity_deliveries_pkey; Type: CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.identity_deliveries
+    ADD CONSTRAINT identity_deliveries_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: institution_capability institution_capability_pkey; Type: CONSTRAINT; Schema: red_house; Owner: -
 --
 
@@ -6007,6 +8351,54 @@ ALTER TABLE ONLY red_house.institution
 
 ALTER TABLE ONLY red_house.institution
     ADD CONSTRAINT institution_pkey PRIMARY KEY (institution_id);
+
+
+--
+-- Name: lab_actions lab_actions_pkey; Type: CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.lab_actions
+    ADD CONSTRAINT lab_actions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: lab_profiles lab_profiles_pkey; Type: CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.lab_profiles
+    ADD CONSTRAINT lab_profiles_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: lab_results lab_results_pkey; Type: CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.lab_results
+    ADD CONSTRAINT lab_results_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: lab_results lab_results_sample_id_test_code_version_key; Type: CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.lab_results
+    ADD CONSTRAINT lab_results_sample_id_test_code_version_key UNIQUE (sample_id, test_code, version);
+
+
+--
+-- Name: lab_samples lab_samples_pkey; Type: CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.lab_samples
+    ADD CONSTRAINT lab_samples_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: lab_samples lab_samples_tenant_id_identifier_key; Type: CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.lab_samples
+    ADD CONSTRAINT lab_samples_tenant_id_identifier_key UNIQUE (tenant_id, identifier);
 
 
 --
@@ -6154,6 +8546,22 @@ ALTER TABLE ONLY red_house.recipient
 
 
 --
+-- Name: recovery_tokens recovery_tokens_pkey; Type: CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.recovery_tokens
+    ADD CONSTRAINT recovery_tokens_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: recovery_tokens recovery_tokens_token_hash_key; Type: CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.recovery_tokens
+    ADD CONSTRAINT recovery_tokens_token_hash_key UNIQUE (token_hash);
+
+
+--
 -- Name: regional_route regional_route_pkey; Type: CONSTRAINT; Schema: red_house; Owner: -
 --
 
@@ -6167,6 +8575,46 @@ ALTER TABLE ONLY red_house.regional_route
 
 ALTER TABLE ONLY red_house.request_event
     ADD CONSTRAINT request_event_pkey PRIMARY KEY (event_id);
+
+
+--
+-- Name: resource_controls resource_controls_pkey; Type: CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.resource_controls
+    ADD CONSTRAINT resource_controls_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: resource_destinations resource_destinations_pkey; Type: CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.resource_destinations
+    ADD CONSTRAINT resource_destinations_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: resource_destinations resource_destinations_resource_id_version_key; Type: CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.resource_destinations
+    ADD CONSTRAINT resource_destinations_resource_id_version_key UNIQUE (resource_id, version);
+
+
+--
+-- Name: resource_lineage resource_lineage_child_id_key; Type: CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.resource_lineage
+    ADD CONSTRAINT resource_lineage_child_id_key UNIQUE (child_id);
+
+
+--
+-- Name: resource_lineage resource_lineage_pkey; Type: CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.resource_lineage
+    ADD CONSTRAINT resource_lineage_pkey PRIMARY KEY (id);
 
 
 --
@@ -6199,6 +8647,22 @@ ALTER TABLE ONLY red_house.role
 
 ALTER TABLE ONLY red_house.schema_migration
     ADD CONSTRAINT schema_migration_pkey PRIMARY KEY (version);
+
+
+--
+-- Name: security_contacts security_contacts_pkey; Type: CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.security_contacts
+    ADD CONSTRAINT security_contacts_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: security_factors security_factors_pkey; Type: CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.security_factors
+    ADD CONSTRAINT security_factors_pkey PRIMARY KEY (id);
 
 
 --
@@ -6351,6 +8815,54 @@ ALTER TABLE ONLY red_house.storage_location
 
 ALTER TABLE ONLY red_house.stored_file
     ADD CONSTRAINT stored_file_pkey PRIMARY KEY (file_id);
+
+
+--
+-- Name: sync_commands sync_commands_pkey; Type: CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.sync_commands
+    ADD CONSTRAINT sync_commands_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: sync_commands sync_commands_user_id_cursor_key; Type: CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.sync_commands
+    ADD CONSTRAINT sync_commands_user_id_cursor_key UNIQUE (user_id, cursor);
+
+
+--
+-- Name: tracking_assignments tracking_assignments_pkey; Type: CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.tracking_assignments
+    ADD CONSTRAINT tracking_assignments_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: tracking_points tracking_points_assignment_id_sequence_key; Type: CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.tracking_points
+    ADD CONSTRAINT tracking_points_assignment_id_sequence_key UNIQUE (assignment_id, sequence);
+
+
+--
+-- Name: tracking_points tracking_points_pkey; Type: CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.tracking_points
+    ADD CONSTRAINT tracking_points_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: tracking_points tracking_points_shipment_id_cursor_key; Type: CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.tracking_points
+    ADD CONSTRAINT tracking_points_shipment_id_cursor_key UNIQUE (shipment_id, cursor);
 
 
 --
@@ -6583,10 +9095,24 @@ CREATE INDEX blood_unit_location_idx ON red_house.blood_unit USING btree (locati
 
 
 --
+-- Name: cold_history; Type: INDEX; Schema: red_house; Owner: -
+--
+
+CREATE INDEX cold_history ON red_house.cold_readings USING btree (resource_id, captured_at DESC);
+
+
+--
 -- Name: donor_institution_idx; Type: INDEX; Schema: red_house; Owner: -
 --
 
 CREATE INDEX donor_institution_idx ON red_house.donor USING btree (institution_id);
+
+
+--
+-- Name: file_scan_latest; Type: INDEX; Schema: red_house; Owner: -
+--
+
+CREATE INDEX file_scan_latest ON red_house.file_scans USING btree (file_id, created_at DESC);
 
 
 --
@@ -6692,6 +9218,20 @@ CREATE INDEX storage_site_idx ON red_house.storage_location USING btree (site_id
 --
 
 CREATE INDEX telemetry_shipment_time ON red_house.transport_telemetry USING btree (shipment_id, captured_at);
+
+
+--
+-- Name: tracking_capture; Type: INDEX; Schema: red_house; Owner: -
+--
+
+CREATE INDEX tracking_capture ON red_house.tracking_points USING btree (shipment_id, captured_at DESC, cursor DESC);
+
+
+--
+-- Name: tracking_device_active; Type: INDEX; Schema: red_house; Owner: -
+--
+
+CREATE UNIQUE INDEX tracking_device_active ON red_house.tracking_assignments USING btree (device_id) WHERE active;
 
 
 --
@@ -6895,6 +9435,55 @@ CREATE TRIGGER scoped_insert INSTEAD OF INSERT ON access_custodia.schema_version
 --
 
 CREATE TRIGGER scoped_insert INSTEAD OF INSERT ON access_custodia.worker_health FOR EACH ROW EXECUTE FUNCTION access_custodia.insert_worker_health();
+
+
+--
+-- Name: activity_events scoped_insert; Type: TRIGGER; Schema: access_documentos; Owner: -
+--
+
+CREATE TRIGGER scoped_insert INSTEAD OF INSERT ON access_documentos.activity_events FOR EACH ROW EXECUTE FUNCTION access_documentos.insert_activity_events();
+
+
+--
+-- Name: decisions scoped_insert; Type: TRIGGER; Schema: access_documentos; Owner: -
+--
+
+CREATE TRIGGER scoped_insert INSTEAD OF INSERT ON access_documentos.decisions FOR EACH ROW EXECUTE FUNCTION access_documentos.insert_decisions();
+
+
+--
+-- Name: idempotency scoped_insert; Type: TRIGGER; Schema: access_documentos; Owner: -
+--
+
+CREATE TRIGGER scoped_insert INSTEAD OF INSERT ON access_documentos.idempotency FOR EACH ROW EXECUTE FUNCTION access_documentos.insert_idempotency();
+
+
+--
+-- Name: inbox scoped_insert; Type: TRIGGER; Schema: access_documentos; Owner: -
+--
+
+CREATE TRIGGER scoped_insert INSTEAD OF INSERT ON access_documentos.inbox FOR EACH ROW EXECUTE FUNCTION access_documentos.insert_inbox();
+
+
+--
+-- Name: outbox scoped_insert; Type: TRIGGER; Schema: access_documentos; Owner: -
+--
+
+CREATE TRIGGER scoped_insert INSTEAD OF INSERT ON access_documentos.outbox FOR EACH ROW EXECUTE FUNCTION access_documentos.insert_outbox();
+
+
+--
+-- Name: schema_version scoped_insert; Type: TRIGGER; Schema: access_documentos; Owner: -
+--
+
+CREATE TRIGGER scoped_insert INSTEAD OF INSERT ON access_documentos.schema_version FOR EACH ROW EXECUTE FUNCTION access_documentos.insert_schema_version();
+
+
+--
+-- Name: worker_health scoped_insert; Type: TRIGGER; Schema: access_documentos; Owner: -
+--
+
+CREATE TRIGGER scoped_insert INSTEAD OF INSERT ON access_documentos.worker_health FOR EACH ROW EXECUTE FUNCTION access_documentos.insert_worker_health();
 
 
 --
@@ -7416,6 +10005,111 @@ CREATE TRIGGER health_check_history BEFORE DELETE OR UPDATE ON red_house.service
 
 
 --
+-- Name: accreditations history_immutable; Type: TRIGGER; Schema: red_house; Owner: -
+--
+
+CREATE TRIGGER history_immutable BEFORE DELETE OR UPDATE ON red_house.accreditations FOR EACH ROW EXECUTE FUNCTION red_house.reject_history_mutation();
+
+
+--
+-- Name: alert_actions history_immutable; Type: TRIGGER; Schema: red_house; Owner: -
+--
+
+CREATE TRIGGER history_immutable BEFORE DELETE OR UPDATE ON red_house.alert_actions FOR EACH ROW EXECUTE FUNCTION red_house.reject_history_mutation();
+
+
+--
+-- Name: alert_policies history_immutable; Type: TRIGGER; Schema: red_house; Owner: -
+--
+
+CREATE TRIGGER history_immutable BEFORE DELETE OR UPDATE ON red_house.alert_policies FOR EACH ROW EXECUTE FUNCTION red_house.reject_history_mutation();
+
+
+--
+-- Name: cold_profiles history_immutable; Type: TRIGGER; Schema: red_house; Owner: -
+--
+
+CREATE TRIGGER history_immutable BEFORE DELETE OR UPDATE ON red_house.cold_profiles FOR EACH ROW EXECUTE FUNCTION red_house.reject_history_mutation();
+
+
+--
+-- Name: cold_readings history_immutable; Type: TRIGGER; Schema: red_house; Owner: -
+--
+
+CREATE TRIGGER history_immutable BEFORE DELETE OR UPDATE ON red_house.cold_readings FOR EACH ROW EXECUTE FUNCTION red_house.reject_history_mutation();
+
+
+--
+-- Name: cold_reviews history_immutable; Type: TRIGGER; Schema: red_house; Owner: -
+--
+
+CREATE TRIGGER history_immutable BEFORE DELETE OR UPDATE ON red_house.cold_reviews FOR EACH ROW EXECUTE FUNCTION red_house.reject_history_mutation();
+
+
+--
+-- Name: consent_versions history_immutable; Type: TRIGGER; Schema: red_house; Owner: -
+--
+
+CREATE TRIGGER history_immutable BEFORE DELETE OR UPDATE ON red_house.consent_versions FOR EACH ROW EXECUTE FUNCTION red_house.reject_history_mutation();
+
+
+--
+-- Name: external_authorizations history_immutable; Type: TRIGGER; Schema: red_house; Owner: -
+--
+
+CREATE TRIGGER history_immutable BEFORE DELETE OR UPDATE ON red_house.external_authorizations FOR EACH ROW EXECUTE FUNCTION red_house.reject_history_mutation();
+
+
+--
+-- Name: external_mappings history_immutable; Type: TRIGGER; Schema: red_house; Owner: -
+--
+
+CREATE TRIGGER history_immutable BEFORE DELETE OR UPDATE ON red_house.external_mappings FOR EACH ROW EXECUTE FUNCTION red_house.reject_history_mutation();
+
+
+--
+-- Name: file_scans history_immutable; Type: TRIGGER; Schema: red_house; Owner: -
+--
+
+CREATE TRIGGER history_immutable BEFORE DELETE OR UPDATE ON red_house.file_scans FOR EACH ROW EXECUTE FUNCTION red_house.reject_history_mutation();
+
+
+--
+-- Name: lab_actions history_immutable; Type: TRIGGER; Schema: red_house; Owner: -
+--
+
+CREATE TRIGGER history_immutable BEFORE DELETE OR UPDATE ON red_house.lab_actions FOR EACH ROW EXECUTE FUNCTION red_house.reject_history_mutation();
+
+
+--
+-- Name: lab_profiles history_immutable; Type: TRIGGER; Schema: red_house; Owner: -
+--
+
+CREATE TRIGGER history_immutable BEFORE DELETE OR UPDATE ON red_house.lab_profiles FOR EACH ROW EXECUTE FUNCTION red_house.reject_history_mutation();
+
+
+--
+-- Name: resource_destinations history_immutable; Type: TRIGGER; Schema: red_house; Owner: -
+--
+
+CREATE TRIGGER history_immutable BEFORE DELETE OR UPDATE ON red_house.resource_destinations FOR EACH ROW EXECUTE FUNCTION red_house.reject_history_mutation();
+
+
+--
+-- Name: resource_lineage history_immutable; Type: TRIGGER; Schema: red_house; Owner: -
+--
+
+CREATE TRIGGER history_immutable BEFORE DELETE OR UPDATE ON red_house.resource_lineage FOR EACH ROW EXECUTE FUNCTION red_house.reject_history_mutation();
+
+
+--
+-- Name: sync_commands history_immutable; Type: TRIGGER; Schema: red_house; Owner: -
+--
+
+CREATE TRIGGER history_immutable BEFORE DELETE OR UPDATE ON red_house.sync_commands FOR EACH ROW EXECUTE FUNCTION red_house.reject_history_mutation();
+
+
+--
 -- Name: service_activity_events immutable; Type: TRIGGER; Schema: red_house; Owner: -
 --
 
@@ -7427,6 +10121,20 @@ CREATE TRIGGER immutable BEFORE DELETE OR UPDATE ON red_house.service_activity_e
 --
 
 CREATE TRIGGER immutable BEFORE DELETE OR UPDATE ON red_house.service_decisions FOR EACH ROW EXECUTE FUNCTION red_house.reject_history_mutation();
+
+
+--
+-- Name: lab_results lab_result_immutable; Type: TRIGGER; Schema: red_house; Owner: -
+--
+
+CREATE TRIGGER lab_result_immutable BEFORE UPDATE ON red_house.lab_results FOR EACH ROW EXECUTE FUNCTION red_house.protect_lab_result();
+
+
+--
+-- Name: lab_results lab_result_no_delete; Type: TRIGGER; Schema: red_house; Owner: -
+--
+
+CREATE TRIGGER lab_result_no_delete BEFORE DELETE ON red_house.lab_results FOR EACH ROW EXECUTE FUNCTION red_house.reject_history_mutation();
 
 
 --
@@ -7493,6 +10201,13 @@ CREATE TRIGGER telemetry_history BEFORE DELETE OR UPDATE ON red_house.transport_
 
 
 --
+-- Name: tracking_points tracking_history_immutable; Type: TRIGGER; Schema: red_house; Owner: -
+--
+
+CREATE TRIGGER tracking_history_immutable BEFORE DELETE OR UPDATE ON red_house.tracking_points FOR EACH ROW EXECUTE FUNCTION red_house.reject_history_mutation();
+
+
+--
 -- Name: account_role account_role_account_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
 --
 
@@ -7514,6 +10229,118 @@ ALTER TABLE ONLY red_house.account_role
 
 ALTER TABLE ONLY red_house.account_role
     ADD CONSTRAINT account_role_role_code_fkey FOREIGN KEY (role_code) REFERENCES red_house.role(role_code) DEFERRABLE;
+
+
+--
+-- Name: accreditations accreditations_author_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.accreditations
+    ADD CONSTRAINT accreditations_author_id_fkey FOREIGN KEY (author_id) REFERENCES red_house.user_account(account_id);
+
+
+--
+-- Name: accreditations accreditations_supersedes_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.accreditations
+    ADD CONSTRAINT accreditations_supersedes_fkey FOREIGN KEY (supersedes) REFERENCES red_house.accreditations(id);
+
+
+--
+-- Name: accreditations accreditations_tenant_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.accreditations
+    ADD CONSTRAINT accreditations_tenant_id_fkey FOREIGN KEY (tenant_id) REFERENCES red_house.institution(institution_id);
+
+
+--
+-- Name: alert_actions alert_actions_actor_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.alert_actions
+    ADD CONSTRAINT alert_actions_actor_id_fkey FOREIGN KEY (actor_id) REFERENCES red_house.user_account(account_id);
+
+
+--
+-- Name: alert_actions alert_actions_alert_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.alert_actions
+    ADD CONSTRAINT alert_actions_alert_id_fkey FOREIGN KEY (alert_id) REFERENCES red_house.notification(notification_id);
+
+
+--
+-- Name: alert_actions alert_actions_tenant_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.alert_actions
+    ADD CONSTRAINT alert_actions_tenant_id_fkey FOREIGN KEY (tenant_id) REFERENCES red_house.institution(institution_id);
+
+
+--
+-- Name: alert_deliveries alert_deliveries_alert_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.alert_deliveries
+    ADD CONSTRAINT alert_deliveries_alert_id_fkey FOREIGN KEY (alert_id) REFERENCES red_house.notification(notification_id);
+
+
+--
+-- Name: alert_deliveries alert_deliveries_subscription_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.alert_deliveries
+    ADD CONSTRAINT alert_deliveries_subscription_id_fkey FOREIGN KEY (subscription_id) REFERENCES red_house.alert_subscriptions(id);
+
+
+--
+-- Name: alert_deliveries alert_deliveries_tenant_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.alert_deliveries
+    ADD CONSTRAINT alert_deliveries_tenant_id_fkey FOREIGN KEY (tenant_id) REFERENCES red_house.institution(institution_id);
+
+
+--
+-- Name: alert_policies alert_policies_author_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.alert_policies
+    ADD CONSTRAINT alert_policies_author_id_fkey FOREIGN KEY (author_id) REFERENCES red_house.user_account(account_id);
+
+
+--
+-- Name: alert_policies alert_policies_supersedes_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.alert_policies
+    ADD CONSTRAINT alert_policies_supersedes_fkey FOREIGN KEY (supersedes) REFERENCES red_house.alert_policies(id);
+
+
+--
+-- Name: alert_policies alert_policies_tenant_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.alert_policies
+    ADD CONSTRAINT alert_policies_tenant_id_fkey FOREIGN KEY (tenant_id) REFERENCES red_house.institution(institution_id);
+
+
+--
+-- Name: alert_subscriptions alert_subscriptions_tenant_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.alert_subscriptions
+    ADD CONSTRAINT alert_subscriptions_tenant_id_fkey FOREIGN KEY (tenant_id) REFERENCES red_house.institution(institution_id);
+
+
+--
+-- Name: alert_subscriptions alert_subscriptions_user_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.alert_subscriptions
+    ADD CONSTRAINT alert_subscriptions_user_id_fkey FOREIGN KEY (user_id) REFERENCES red_house.user_account(account_id);
 
 
 --
@@ -7749,6 +10576,38 @@ ALTER TABLE ONLY red_house.user_account
 
 
 --
+-- Name: appointment_reminders appointment_reminders_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.appointment_reminders
+    ADD CONSTRAINT appointment_reminders_id_fkey FOREIGN KEY (id) REFERENCES red_house.appointment(appointment_id);
+
+
+--
+-- Name: appointment_slots appointment_slots_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.appointment_slots
+    ADD CONSTRAINT appointment_slots_id_fkey FOREIGN KEY (id) REFERENCES red_house.appointment(appointment_id);
+
+
+--
+-- Name: appointment_slots appointment_slots_slot_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.appointment_slots
+    ADD CONSTRAINT appointment_slots_slot_id_fkey FOREIGN KEY (slot_id) REFERENCES red_house.campaign_slots(id);
+
+
+--
+-- Name: appointment_slots appointment_slots_tenant_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.appointment_slots
+    ADD CONSTRAINT appointment_slots_tenant_id_fkey FOREIGN KEY (tenant_id) REFERENCES red_house.institution(institution_id);
+
+
+--
 -- Name: audit_change audit_change_event_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
 --
 
@@ -7869,11 +10728,163 @@ ALTER TABLE ONLY red_house.blood_unit
 
 
 --
+-- Name: campaign_slots campaign_slots_campaign_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.campaign_slots
+    ADD CONSTRAINT campaign_slots_campaign_id_fkey FOREIGN KEY (campaign_id) REFERENCES red_house.campaign(campaign_id);
+
+
+--
+-- Name: campaign_slots campaign_slots_site_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.campaign_slots
+    ADD CONSTRAINT campaign_slots_site_id_fkey FOREIGN KEY (site_id) REFERENCES red_house.catalogue_entry(id);
+
+
+--
+-- Name: campaign_slots campaign_slots_tenant_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.campaign_slots
+    ADD CONSTRAINT campaign_slots_tenant_id_fkey FOREIGN KEY (tenant_id) REFERENCES red_house.institution(institution_id);
+
+
+--
 -- Name: candidate_evaluation candidate_evaluation_actor_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
 --
 
 ALTER TABLE ONLY red_house.candidate_evaluation
     ADD CONSTRAINT candidate_evaluation_actor_id_fkey FOREIGN KEY (actor_id) REFERENCES red_house.user_account(account_id) DEFERRABLE;
+
+
+--
+-- Name: cold_equipment cold_equipment_tenant_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.cold_equipment
+    ADD CONSTRAINT cold_equipment_tenant_id_fkey FOREIGN KEY (tenant_id) REFERENCES red_house.institution(institution_id);
+
+
+--
+-- Name: cold_profiles cold_profiles_author_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.cold_profiles
+    ADD CONSTRAINT cold_profiles_author_id_fkey FOREIGN KEY (author_id) REFERENCES red_house.user_account(account_id);
+
+
+--
+-- Name: cold_profiles cold_profiles_supersedes_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.cold_profiles
+    ADD CONSTRAINT cold_profiles_supersedes_fkey FOREIGN KEY (supersedes) REFERENCES red_house.cold_profiles(id);
+
+
+--
+-- Name: cold_profiles cold_profiles_tenant_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.cold_profiles
+    ADD CONSTRAINT cold_profiles_tenant_id_fkey FOREIGN KEY (tenant_id) REFERENCES red_house.institution(institution_id);
+
+
+--
+-- Name: cold_readings cold_readings_author_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.cold_readings
+    ADD CONSTRAINT cold_readings_author_id_fkey FOREIGN KEY (author_id) REFERENCES red_house.user_account(account_id);
+
+
+--
+-- Name: cold_readings cold_readings_equipment_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.cold_readings
+    ADD CONSTRAINT cold_readings_equipment_id_fkey FOREIGN KEY (equipment_id) REFERENCES red_house.cold_equipment(id);
+
+
+--
+-- Name: cold_readings cold_readings_profile_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.cold_readings
+    ADD CONSTRAINT cold_readings_profile_id_fkey FOREIGN KEY (profile_id) REFERENCES red_house.cold_profiles(id);
+
+
+--
+-- Name: cold_readings cold_readings_resource_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.cold_readings
+    ADD CONSTRAINT cold_readings_resource_id_fkey FOREIGN KEY (resource_id) REFERENCES red_house.resource(resource_id);
+
+
+--
+-- Name: cold_readings cold_readings_tenant_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.cold_readings
+    ADD CONSTRAINT cold_readings_tenant_id_fkey FOREIGN KEY (tenant_id) REFERENCES red_house.institution(institution_id);
+
+
+--
+-- Name: cold_reviews cold_reviews_author_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.cold_reviews
+    ADD CONSTRAINT cold_reviews_author_id_fkey FOREIGN KEY (author_id) REFERENCES red_house.user_account(account_id);
+
+
+--
+-- Name: cold_reviews cold_reviews_resource_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.cold_reviews
+    ADD CONSTRAINT cold_reviews_resource_id_fkey FOREIGN KEY (resource_id) REFERENCES red_house.resource(resource_id);
+
+
+--
+-- Name: cold_reviews cold_reviews_tenant_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.cold_reviews
+    ADD CONSTRAINT cold_reviews_tenant_id_fkey FOREIGN KEY (tenant_id) REFERENCES red_house.institution(institution_id);
+
+
+--
+-- Name: consent_versions consent_versions_author_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.consent_versions
+    ADD CONSTRAINT consent_versions_author_id_fkey FOREIGN KEY (author_id) REFERENCES red_house.user_account(account_id);
+
+
+--
+-- Name: consent_versions consent_versions_donor_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.consent_versions
+    ADD CONSTRAINT consent_versions_donor_id_fkey FOREIGN KEY (donor_id) REFERENCES red_house.donor(donor_id);
+
+
+--
+-- Name: consent_versions consent_versions_supersedes_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.consent_versions
+    ADD CONSTRAINT consent_versions_supersedes_fkey FOREIGN KEY (supersedes) REFERENCES red_house.consent_versions(id);
+
+
+--
+-- Name: consent_versions consent_versions_tenant_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.consent_versions
+    ADD CONSTRAINT consent_versions_tenant_id_fkey FOREIGN KEY (tenant_id) REFERENCES red_house.institution(institution_id);
 
 
 --
@@ -7890,6 +10901,46 @@ ALTER TABLE ONLY red_house.contact_method
 
 ALTER TABLE ONLY red_house.custody_event
     ADD CONSTRAINT custody_event_actor_id_fkey FOREIGN KEY (actor_id) REFERENCES red_house.user_account(account_id) DEFERRABLE;
+
+
+--
+-- Name: devices devices_tenant_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.devices
+    ADD CONSTRAINT devices_tenant_id_fkey FOREIGN KEY (tenant_id) REFERENCES red_house.institution(institution_id);
+
+
+--
+-- Name: devices devices_user_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.devices
+    ADD CONSTRAINT devices_user_id_fkey FOREIGN KEY (user_id) REFERENCES red_house.user_account(account_id);
+
+
+--
+-- Name: document_metadata document_metadata_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.document_metadata
+    ADD CONSTRAINT document_metadata_id_fkey FOREIGN KEY (id) REFERENCES red_house.stored_file(file_id);
+
+
+--
+-- Name: document_metadata document_metadata_supersedes_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.document_metadata
+    ADD CONSTRAINT document_metadata_supersedes_fkey FOREIGN KEY (supersedes) REFERENCES red_house.document_metadata(id);
+
+
+--
+-- Name: document_metadata document_metadata_tenant_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.document_metadata
+    ADD CONSTRAINT document_metadata_tenant_id_fkey FOREIGN KEY (tenant_id) REFERENCES red_house.institution(institution_id);
 
 
 --
@@ -7941,6 +10992,94 @@ ALTER TABLE ONLY red_house.donor
 
 
 --
+-- Name: export_jobs export_jobs_file_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.export_jobs
+    ADD CONSTRAINT export_jobs_file_id_fkey FOREIGN KEY (file_id) REFERENCES red_house.stored_file(file_id);
+
+
+--
+-- Name: export_jobs export_jobs_tenant_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.export_jobs
+    ADD CONSTRAINT export_jobs_tenant_id_fkey FOREIGN KEY (tenant_id) REFERENCES red_house.institution(institution_id);
+
+
+--
+-- Name: export_jobs export_jobs_user_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.export_jobs
+    ADD CONSTRAINT export_jobs_user_id_fkey FOREIGN KEY (user_id) REFERENCES red_house.user_account(account_id);
+
+
+--
+-- Name: external_authorizations external_authorizations_author_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.external_authorizations
+    ADD CONSTRAINT external_authorizations_author_id_fkey FOREIGN KEY (author_id) REFERENCES red_house.user_account(account_id);
+
+
+--
+-- Name: external_authorizations external_authorizations_request_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.external_authorizations
+    ADD CONSTRAINT external_authorizations_request_id_fkey FOREIGN KEY (request_id) REFERENCES red_house.blood_request(request_id);
+
+
+--
+-- Name: external_authorizations external_authorizations_supersedes_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.external_authorizations
+    ADD CONSTRAINT external_authorizations_supersedes_fkey FOREIGN KEY (supersedes) REFERENCES red_house.external_authorizations(id);
+
+
+--
+-- Name: external_authorizations external_authorizations_tenant_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.external_authorizations
+    ADD CONSTRAINT external_authorizations_tenant_id_fkey FOREIGN KEY (tenant_id) REFERENCES red_house.institution(institution_id);
+
+
+--
+-- Name: external_mappings external_mappings_author_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.external_mappings
+    ADD CONSTRAINT external_mappings_author_id_fkey FOREIGN KEY (author_id) REFERENCES red_house.user_account(account_id);
+
+
+--
+-- Name: external_mappings external_mappings_resource_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.external_mappings
+    ADD CONSTRAINT external_mappings_resource_id_fkey FOREIGN KEY (resource_id) REFERENCES red_house.resource(resource_id);
+
+
+--
+-- Name: external_mappings external_mappings_tenant_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.external_mappings
+    ADD CONSTRAINT external_mappings_tenant_id_fkey FOREIGN KEY (tenant_id) REFERENCES red_house.institution(institution_id);
+
+
+--
+-- Name: file_scans file_scans_file_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.file_scans
+    ADD CONSTRAINT file_scans_file_id_fkey FOREIGN KEY (file_id) REFERENCES red_house.stored_file(file_id);
+
+
+--
 -- Name: institution_capability institution_capability_capability_code_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
 --
 
@@ -7970,6 +11109,126 @@ ALTER TABLE ONLY red_house.institution_contact
 
 ALTER TABLE ONLY red_house.institution_contact
     ADD CONSTRAINT institution_contact_institution_id_fkey FOREIGN KEY (institution_id) REFERENCES red_house.institution(institution_id) DEFERRABLE;
+
+
+--
+-- Name: lab_actions lab_actions_author_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.lab_actions
+    ADD CONSTRAINT lab_actions_author_id_fkey FOREIGN KEY (author_id) REFERENCES red_house.user_account(account_id);
+
+
+--
+-- Name: lab_actions lab_actions_result_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.lab_actions
+    ADD CONSTRAINT lab_actions_result_id_fkey FOREIGN KEY (result_id) REFERENCES red_house.lab_results(id);
+
+
+--
+-- Name: lab_profiles lab_profiles_author_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.lab_profiles
+    ADD CONSTRAINT lab_profiles_author_id_fkey FOREIGN KEY (author_id) REFERENCES red_house.user_account(account_id);
+
+
+--
+-- Name: lab_profiles lab_profiles_supersedes_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.lab_profiles
+    ADD CONSTRAINT lab_profiles_supersedes_fkey FOREIGN KEY (supersedes) REFERENCES red_house.lab_profiles(id);
+
+
+--
+-- Name: lab_profiles lab_profiles_tenant_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.lab_profiles
+    ADD CONSTRAINT lab_profiles_tenant_id_fkey FOREIGN KEY (tenant_id) REFERENCES red_house.institution(institution_id);
+
+
+--
+-- Name: lab_results lab_results_author_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.lab_results
+    ADD CONSTRAINT lab_results_author_id_fkey FOREIGN KEY (author_id) REFERENCES red_house.user_account(account_id);
+
+
+--
+-- Name: lab_results lab_results_sample_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.lab_results
+    ADD CONSTRAINT lab_results_sample_id_fkey FOREIGN KEY (sample_id) REFERENCES red_house.lab_samples(id);
+
+
+--
+-- Name: lab_results lab_results_supersedes_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.lab_results
+    ADD CONSTRAINT lab_results_supersedes_fkey FOREIGN KEY (supersedes) REFERENCES red_house.lab_results(id);
+
+
+--
+-- Name: lab_results lab_results_tenant_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.lab_results
+    ADD CONSTRAINT lab_results_tenant_id_fkey FOREIGN KEY (tenant_id) REFERENCES red_house.institution(institution_id);
+
+
+--
+-- Name: lab_samples lab_samples_author_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.lab_samples
+    ADD CONSTRAINT lab_samples_author_id_fkey FOREIGN KEY (author_id) REFERENCES red_house.user_account(account_id);
+
+
+--
+-- Name: lab_samples lab_samples_donation_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.lab_samples
+    ADD CONSTRAINT lab_samples_donation_id_fkey FOREIGN KEY (donation_id) REFERENCES red_house.donation(donation_id);
+
+
+--
+-- Name: lab_samples lab_samples_profile_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.lab_samples
+    ADD CONSTRAINT lab_samples_profile_id_fkey FOREIGN KEY (profile_id) REFERENCES red_house.lab_profiles(id);
+
+
+--
+-- Name: lab_samples lab_samples_recipient_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.lab_samples
+    ADD CONSTRAINT lab_samples_recipient_id_fkey FOREIGN KEY (recipient_id) REFERENCES red_house.recipient(recipient_id);
+
+
+--
+-- Name: lab_samples lab_samples_resource_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.lab_samples
+    ADD CONSTRAINT lab_samples_resource_id_fkey FOREIGN KEY (resource_id) REFERENCES red_house.resource(resource_id);
+
+
+--
+-- Name: lab_samples lab_samples_tenant_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.lab_samples
+    ADD CONSTRAINT lab_samples_tenant_id_fkey FOREIGN KEY (tenant_id) REFERENCES red_house.institution(institution_id);
 
 
 --
@@ -8165,6 +11424,14 @@ ALTER TABLE ONLY red_house.recipient
 
 
 --
+-- Name: recovery_tokens recovery_tokens_user_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.recovery_tokens
+    ADD CONSTRAINT recovery_tokens_user_id_fkey FOREIGN KEY (user_id) REFERENCES red_house.user_account(account_id);
+
+
+--
 -- Name: regional_route regional_route_recorded_by_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
 --
 
@@ -8186,6 +11453,142 @@ ALTER TABLE ONLY red_house.request_event
 
 ALTER TABLE ONLY red_house.request_event
     ADD CONSTRAINT request_event_request_id_fkey FOREIGN KEY (request_id) REFERENCES red_house.blood_request(request_id) DEFERRABLE;
+
+
+--
+-- Name: resource_controls resource_controls_cold_equipment_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.resource_controls
+    ADD CONSTRAINT resource_controls_cold_equipment_id_fkey FOREIGN KEY (cold_equipment_id) REFERENCES red_house.cold_equipment(id);
+
+
+--
+-- Name: resource_controls resource_controls_cold_profile_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.resource_controls
+    ADD CONSTRAINT resource_controls_cold_profile_id_fkey FOREIGN KEY (cold_profile_id) REFERENCES red_house.cold_profiles(id);
+
+
+--
+-- Name: resource_controls resource_controls_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.resource_controls
+    ADD CONSTRAINT resource_controls_id_fkey FOREIGN KEY (id) REFERENCES red_house.resource(resource_id);
+
+
+--
+-- Name: resource_controls resource_controls_lab_profile_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.resource_controls
+    ADD CONSTRAINT resource_controls_lab_profile_id_fkey FOREIGN KEY (lab_profile_id) REFERENCES red_house.lab_profiles(id);
+
+
+--
+-- Name: resource_destinations resource_destinations_author_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.resource_destinations
+    ADD CONSTRAINT resource_destinations_author_id_fkey FOREIGN KEY (author_id) REFERENCES red_house.user_account(account_id);
+
+
+--
+-- Name: resource_destinations resource_destinations_resource_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.resource_destinations
+    ADD CONSTRAINT resource_destinations_resource_id_fkey FOREIGN KEY (resource_id) REFERENCES red_house.resource(resource_id);
+
+
+--
+-- Name: resource_destinations resource_destinations_supersedes_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.resource_destinations
+    ADD CONSTRAINT resource_destinations_supersedes_fkey FOREIGN KEY (supersedes) REFERENCES red_house.resource_destinations(id);
+
+
+--
+-- Name: resource_destinations resource_destinations_tenant_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.resource_destinations
+    ADD CONSTRAINT resource_destinations_tenant_id_fkey FOREIGN KEY (tenant_id) REFERENCES red_house.institution(institution_id);
+
+
+--
+-- Name: resource_lineage resource_lineage_author_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.resource_lineage
+    ADD CONSTRAINT resource_lineage_author_id_fkey FOREIGN KEY (author_id) REFERENCES red_house.user_account(account_id);
+
+
+--
+-- Name: resource_lineage resource_lineage_child_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.resource_lineage
+    ADD CONSTRAINT resource_lineage_child_id_fkey FOREIGN KEY (child_id) REFERENCES red_house.resource(resource_id);
+
+
+--
+-- Name: resource_lineage resource_lineage_donation_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.resource_lineage
+    ADD CONSTRAINT resource_lineage_donation_id_fkey FOREIGN KEY (donation_id) REFERENCES red_house.donation(donation_id);
+
+
+--
+-- Name: resource_lineage resource_lineage_parent_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.resource_lineage
+    ADD CONSTRAINT resource_lineage_parent_id_fkey FOREIGN KEY (parent_id) REFERENCES red_house.resource(resource_id);
+
+
+--
+-- Name: resource_lineage resource_lineage_tenant_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.resource_lineage
+    ADD CONSTRAINT resource_lineage_tenant_id_fkey FOREIGN KEY (tenant_id) REFERENCES red_house.institution(institution_id);
+
+
+--
+-- Name: security_contacts security_contacts_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.security_contacts
+    ADD CONSTRAINT security_contacts_id_fkey FOREIGN KEY (id) REFERENCES red_house.user_account(account_id);
+
+
+--
+-- Name: security_contacts security_contacts_tenant_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.security_contacts
+    ADD CONSTRAINT security_contacts_tenant_id_fkey FOREIGN KEY (tenant_id) REFERENCES red_house.institution(institution_id);
+
+
+--
+-- Name: security_factors security_factors_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.security_factors
+    ADD CONSTRAINT security_factors_id_fkey FOREIGN KEY (id) REFERENCES red_house.user_account(account_id);
+
+
+--
+-- Name: security_factors security_factors_tenant_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.security_factors
+    ADD CONSTRAINT security_factors_tenant_id_fkey FOREIGN KEY (tenant_id) REFERENCES red_house.institution(institution_id);
 
 
 --
@@ -8661,6 +12064,94 @@ ALTER TABLE ONLY red_house.storage_location
 
 
 --
+-- Name: sync_commands sync_commands_device_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.sync_commands
+    ADD CONSTRAINT sync_commands_device_id_fkey FOREIGN KEY (device_id) REFERENCES red_house.devices(id);
+
+
+--
+-- Name: sync_commands sync_commands_shipment_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.sync_commands
+    ADD CONSTRAINT sync_commands_shipment_id_fkey FOREIGN KEY (shipment_id) REFERENCES red_house.shipment(shipment_id);
+
+
+--
+-- Name: sync_commands sync_commands_tenant_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.sync_commands
+    ADD CONSTRAINT sync_commands_tenant_id_fkey FOREIGN KEY (tenant_id) REFERENCES red_house.institution(institution_id);
+
+
+--
+-- Name: sync_commands sync_commands_user_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.sync_commands
+    ADD CONSTRAINT sync_commands_user_id_fkey FOREIGN KEY (user_id) REFERENCES red_house.user_account(account_id);
+
+
+--
+-- Name: tracking_assignments tracking_assignments_actor_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.tracking_assignments
+    ADD CONSTRAINT tracking_assignments_actor_id_fkey FOREIGN KEY (actor_id) REFERENCES red_house.user_account(account_id);
+
+
+--
+-- Name: tracking_assignments tracking_assignments_device_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.tracking_assignments
+    ADD CONSTRAINT tracking_assignments_device_id_fkey FOREIGN KEY (device_id) REFERENCES red_house.devices(id);
+
+
+--
+-- Name: tracking_assignments tracking_assignments_responsible_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.tracking_assignments
+    ADD CONSTRAINT tracking_assignments_responsible_id_fkey FOREIGN KEY (responsible_id) REFERENCES red_house.user_account(account_id);
+
+
+--
+-- Name: tracking_assignments tracking_assignments_shipment_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.tracking_assignments
+    ADD CONSTRAINT tracking_assignments_shipment_id_fkey FOREIGN KEY (shipment_id) REFERENCES red_house.shipment(shipment_id);
+
+
+--
+-- Name: tracking_points tracking_points_assignment_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.tracking_points
+    ADD CONSTRAINT tracking_points_assignment_id_fkey FOREIGN KEY (assignment_id) REFERENCES red_house.tracking_assignments(id);
+
+
+--
+-- Name: tracking_points tracking_points_device_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.tracking_points
+    ADD CONSTRAINT tracking_points_device_id_fkey FOREIGN KEY (device_id) REFERENCES red_house.devices(id);
+
+
+--
+-- Name: tracking_points tracking_points_shipment_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.tracking_points
+    ADD CONSTRAINT tracking_points_shipment_id_fkey FOREIGN KEY (shipment_id) REFERENCES red_house.shipment(shipment_id);
+
+
+--
 -- Name: user_account user_account_party_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
 --
 
@@ -8695,6 +12186,12 @@ INSERT INTO red_house."schema_migration" ("version","description") VALUES (4,'Fl
 INSERT INTO red_house."schema_migration" ("version","description") VALUES (5,'Base compartida para microservicios');
 INSERT INTO red_house."schema_migration" ("version","description") VALUES (6,'Adaptación ejecutable de servicios y relaciones compartidas');
 INSERT INTO red_house."schema_migration" ("version","description") VALUES (7,'Investigación de auditoría e historial de hallazgos');
+INSERT INTO red_house."schema_migration" ("version","description") VALUES (8,'Identidades de dispositivo y rastreo durable con cursor');
+INSERT INTO red_house."schema_migration" ("version","description") VALUES (9,'Consentimiento, agenda, laboratorio, linaje, frío, destino e identidad reforzada');
+INSERT INTO red_house."schema_migration" ("version","description") VALUES (10,'Entrega de alertas, documentos, exportaciones, sincronización e identificadores externos');
+INSERT INTO red_house."schema_migration" ("version","description") VALUES (11,'Autorizaciones externas versionadas, recordatorios y seguimiento de entrega');
+INSERT INTO red_house."schema_migration" ("version","description") VALUES (12,'Protección de valores históricos de laboratorio');
+INSERT INTO red_house."schema_migration" ("version","description") VALUES (13,'Propietario Documentos y Reportes; referencias e idempotencia conservadas');
 INSERT INTO red_house."service_schema_version" ("service","version") VALUES ('alertas',1);
 INSERT INTO red_house."service_schema_version" ("service","version") VALUES ('alertas',2);
 INSERT INTO red_house."service_schema_version" ("service","version") VALUES ('auditoria',1);
@@ -8704,6 +12201,8 @@ INSERT INTO red_house."service_schema_version" ("service","version") VALUES ('co
 INSERT INTO red_house."service_schema_version" ("service","version") VALUES ('compatibilidad',2);
 INSERT INTO red_house."service_schema_version" ("service","version") VALUES ('custodia',1);
 INSERT INTO red_house."service_schema_version" ("service","version") VALUES ('custodia',2);
+INSERT INTO red_house."service_schema_version" ("service","version") VALUES ('documentos',1);
+INSERT INTO red_house."service_schema_version" ("service","version") VALUES ('documentos',2);
 INSERT INTO red_house."service_schema_version" ("service","version") VALUES ('donantes',1);
 INSERT INTO red_house."service_schema_version" ("service","version") VALUES ('donantes',2);
 INSERT INTO red_house."service_schema_version" ("service","version") VALUES ('donantes',3);

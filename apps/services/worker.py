@@ -36,14 +36,33 @@ def step(app, next_poll=0):
     """Un ciclo reutilizado por workers de API y del backend web autónomo."""
     with app.app_context():
         service = app.config["SERVICE"]
+        if service == "donantes":
+            from ms_donantes.agenda import reminders
+
+            reminders()
+        if service == "identidad_acceso":
+            from ms_identidad_acceso.strong_auth import deliver_pending
+
+            deliver_pending()
+        if service == "alertas":
+            from ms_alertas.delivery import process
+
+            process()
         if service == "inventario":
             from ms_inventario.routes import recover_operations
 
             recover_operations()
+            from ms_inventario.quality import scan_quality
+
+            scan_quality()
         if service == "transporte":
             from ms_transporte.routes import recover_shipments
 
             recover_shipments()
+        if service == "documentos":
+            from ms_documentos.reports import process as exports
+
+            exports()
         if service == "monitoreo" and time.monotonic() >= next_poll:
             from servicio_monitoreo.routes import poll
 

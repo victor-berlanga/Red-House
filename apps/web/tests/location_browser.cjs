@@ -26,6 +26,7 @@ const state=JSON.parse(fs.readFileSync(process.argv[2],'utf8')),output=process.a
   await page.getByText('Permiso de ubicación denegado.',{exact:false}).waitFor();
   assert.equal(await page.locator('#latitude').inputValue(),'25.686600');assert.equal(writes,0);
   report.checks.push('Denegación conserva datos, edición manual y controles disponibles');
+  await page.locator('#device_id').fill(state.device_id);await page.locator('#source').selectOption('SIMULATOR');await page.locator('#sequence').fill('1');await page.locator('#fix_valid').check();
   await Promise.all([page.waitForURL(state.url+state.path.replace('/ubicacion','')),page.locator('.record-form button[type=submit]').click()]);
   assert.equal(writes,1);report.checks.push('Guardar envía una sola operación real al traslado temporal autorizado');
   assert.deepEqual(report.errors,[]);report.result='passed';

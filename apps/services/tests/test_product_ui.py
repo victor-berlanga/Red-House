@@ -5,7 +5,8 @@ from uuid import uuid4
 from lxml import etree
 
 from .helpers import iso
-from .test_web_integration import web, login, form, post
+from .test_web_integration import web as web
+from .test_web_integration import login, form, post
 
 
 def test_admin_redirects_and_weekday_roundtrip(web, p):
@@ -194,7 +195,14 @@ def test_personal_dashboards_timezone_and_help(web, p):
 
 
 def test_location_capture_requires_assigned_active_shipment(web, p):
-    from .helpers import resource, recipient_request, evaluation, reservation, plan
+    from .helpers import (
+        resource,
+        recipient_request,
+        evaluation,
+        reservation,
+        plan,
+        move,
+    )
 
     unit = resource(p)
     _, req = recipient_request(p)
@@ -206,21 +214,7 @@ def test_location_capture_requires_assigned_active_shipment(web, p):
     url = f"/traslados/{trip['id']}/ubicacion"
     assert transport.get(url).status_code == 403
     for state, actor in [("PREPARED", "operator1"), ("COLLECTED", "transport1")]:
-        current = p.ok(
-            "transporte", "GET", "/api/v1/shipments/" + trip["id"], user=actor
-        )
-        p.ok(
-            "transporte",
-            "POST",
-            f"/api/v1/shipments/{trip['id']}/transitions",
-            user=actor,
-            data={
-                "state": state,
-                "version": current["version"],
-                "human_confirmation": True,
-                "reason": "Confirmación física de prueba",
-            },
-        )
+        trip = move(p, trip, state, actor)
         p.drain()
     response = transport.get(url)
     assert response.status_code == 200 and b"data-capture-location" in response.data
@@ -242,14 +236,45 @@ def test_location_capture_requires_assigned_active_shipment(web, p):
     from .conftest import QuietHandler
 
     if os.environ.get("REDHOUSE_BROWSER_MODULES"):
+        device = p.ok(
+            "identidad_acceso",
+            "POST",
+            "/api/v1/devices",
+            user="admin1",
+            data={
+                "id": str(uuid4()),
+                "user_id": p.env.state["accounts"]["transport1"]["id"],
+                "source": "SIMULATOR",
+                "label": "Captura sintética navegador",
+                "expires_at": iso(days=1),
+            },
+        )
+        p.ok(
+            "transporte",
+            "POST",
+            f"/api/v1/shipments/{trip['id']}/tracking/assignments",
+            user="coordinator1",
+            data={
+                "device_id": device["id"],
+                "starts_at": iso(minutes=-1),
+                "ends_at": iso(minutes=30),
+                "version": trip["version"],
+                "human_confirmation": True,
+                "reason": "Captura sintética autorizada del navegador",
+            },
+        )
         server = make_server(
             "127.0.0.1", 0, web, threaded=True, request_handler=QuietHandler
         )
         threading.Thread(target=server.serve_forever, daemon=True).start()
         state = p.env.directory / "location-browser.json"
         output = (
-            Path(__file__).resolve().parents[1]
-            / "../../documentation/historial/integracion/resultados/product-ui"
+            Path(
+                os.environ.get(
+                    "REDHOUSE_BROWSER_RESULTS", str(p.env.directory / "browser")
+                )
+            )
+            / "ubicacion"
         )
         output.mkdir(parents=True, exist_ok=True)
         state.touch(mode=0o600)
@@ -258,6 +283,7 @@ def test_location_capture_requires_assigned_active_shipment(web, p):
                 {
                     "url": f"http://127.0.0.1:{server.server_port}",
                     "path": url,
+                    "device_id": device["id"],
                     "cookie_name": web.config["JWT_COOKIE_NAME"],
                     "cookie_value": transport.get_cookie(
                         web.config["JWT_COOKIE_NAME"]
@@ -275,6 +301,14 @@ def test_location_capture_requires_assigned_active_shipment(web, p):
                 timeout=90,
                 env={**os.environ, "NODE_PATH": os.environ["REDHOUSE_BROWSER_MODULES"]},
             )
+            with p.owner("transporte") as conn:
+                assert (
+                    conn.execute(
+                        "SELECT count(*) FROM tracking_points WHERE shipment_id=%s AND device_id=%s",
+                        (trip["id"], device["id"]),
+                    ).fetchone()[0]
+                    == 1
+                )
         finally:
             state.unlink(missing_ok=True)
             server.shutdown()

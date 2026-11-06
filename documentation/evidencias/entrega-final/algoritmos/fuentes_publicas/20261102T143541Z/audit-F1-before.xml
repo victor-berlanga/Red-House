@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="2" time="78.822" timestamp="2026-11-02T09:04:27.653164-06:00" hostname="Victors-MacBook-Air.local"><testcase classname="tests.test_public_reference_sources" name="test_hla_catalogue_persisted_correction_completeness_without_verdict[CUSTOM_HLA-json]" time="68.807"><failure message="AssertionError: assert 'HLA:CATALOGUE_UNVERIFIED' in []">p = &lt;tests.conftest.Platform object at 0x11464f380&gt;, fmt = 'json'
+test_code = 'CUSTOM_HLA'
+
+    @pytest.mark.parametrize("fmt", ["json", "xml"])
+    @pytest.mark.parametrize("test_code", ["HLA", "CUSTOM_HLA"])
+    def test_hla_catalogue_persisted_correction_completeness_without_verdict(p, fmt, test_code):
+        prof = profile(
+            p,
+            evidence_rules=["HLA-NAMING-2010-SYNTAX2"],
+            required_tests=[test_code],
+            required_loci=["A"],
+            policy={"require_hla_catalogue": True},
+        )
+        rec = recipient(p, "KIDNEY")
+        sample = api(
+            p,
+            "compatibilidad",
+            "/api/v1/laboratory/samples",
+            {
+                "recipient_id": rec["id"],
+                "profile_id": prof["id"],
+                "identifier": "REF-" + uuid4().hex,
+                "collected_at": iso(minutes=-5),
+            },
+            fmt=fmt,
+        )
+        api(
+            p,
+            "compatibilidad",
+            "/api/v1/laboratory/samples/" + sample["id"] + "/receive",
+            dict(CONFIRM, version=1, decision="RECEIVED"),
+            fmt=fmt,
+        )
+        body = {
+            "sample_id": sample["id"],
+            "test_code": test_code,
+            "result_state": "REPORTED",
+            "method": "Declaración ficticia",
+            "laboratory": "Laboratorio de prueba",
+            "reference": "Catálogo público, sujeto ficticio",
+            "measured_at": iso(minutes=-2),
+            "issued_at": iso(minutes=-1),
+            "hla": typing(version="unknown"),
+        }
+        assert (
+            p.request(
+                "compatibilidad",
+                "POST",
+                "/api/v1/laboratory/results",
+                user="medical1",
+                data=body,
+            ).status_code
+            == 422
+        )
+        body["hla"] = typing("A*99:99999")
+        first = api(p, "compatibilidad", "/api/v1/laboratory/results", body, fmt=fmt)
+        assert first["catalogue_check"]["entries"][0]["status"] == "NOT_FOUND"
+        api(
+            p,
+            "compatibilidad",
+            "/api/v1/laboratory/results/" + first["id"] + "/review",
+            dict(CONFIRM, version=1, decision="AUTHORIZED"),
+            fmt=fmt,
+        )
+        missing = api(
+            p,
+            "compatibilidad",
+            "/api/v1/laboratory/samples/" + sample["id"] + "/completeness",
+            method="GET",
+            fmt=fmt,
+        )
+&gt;       assert "HLA:CATALOGUE_UNVERIFIED" in missing["missing"]
+E       AssertionError: assert 'HLA:CATALOGUE_UNVERIFIED' in []
+
+apps/services/tests/test_public_reference_sources.py:236: AssertionError</failure></testcase><testcase classname="tests.test_public_reference_sources" name="test_hla_catalogue_persisted_correction_completeness_without_verdict[CUSTOM_HLA-xml]" time="7.327"><failure message="AssertionError: assert 'HLA:CATALOGUE_UNVERIFIED' in []">p = &lt;tests.conftest.Platform object at 0x11464f380&gt;, fmt = 'xml'
+test_code = 'CUSTOM_HLA'
+
+    @pytest.mark.parametrize("fmt", ["json", "xml"])
+    @pytest.mark.parametrize("test_code", ["HLA", "CUSTOM_HLA"])
+    def test_hla_catalogue_persisted_correction_completeness_without_verdict(p, fmt, test_code):
+        prof = profile(
+            p,
+            evidence_rules=["HLA-NAMING-2010-SYNTAX2"],
+            required_tests=[test_code],
+            required_loci=["A"],
+            policy={"require_hla_catalogue": True},
+        )
+        rec = recipient(p, "KIDNEY")
+        sample = api(
+            p,
+            "compatibilidad",
+            "/api/v1/laboratory/samples",
+            {
+                "recipient_id": rec["id"],
+                "profile_id": prof["id"],
+                "identifier": "REF-" + uuid4().hex,
+                "collected_at": iso(minutes=-5),
+            },
+            fmt=fmt,
+        )
+        api(
+            p,
+            "compatibilidad",
+            "/api/v1/laboratory/samples/" + sample["id"] + "/receive",
+            dict(CONFIRM, version=1, decision="RECEIVED"),
+            fmt=fmt,
+        )
+        body = {
+            "sample_id": sample["id"],
+            "test_code": test_code,
+            "result_state": "REPORTED",
+            "method": "Declaración ficticia",
+            "laboratory": "Laboratorio de prueba",
+            "reference": "Catálogo público, sujeto ficticio",
+            "measured_at": iso(minutes=-2),
+            "issued_at": iso(minutes=-1),
+            "hla": typing(version="unknown"),
+        }
+        assert (
+            p.request(
+                "compatibilidad",
+                "POST",
+                "/api/v1/laboratory/results",
+                user="medical1",
+                data=body,
+            ).status_code
+            == 422
+        )
+        body["hla"] = typing("A*99:99999")
+        first = api(p, "compatibilidad", "/api/v1/laboratory/results", body, fmt=fmt)
+        assert first["catalogue_check"]["entries"][0]["status"] == "NOT_FOUND"
+        api(
+            p,
+            "compatibilidad",
+            "/api/v1/laboratory/results/" + first["id"] + "/review",
+            dict(CONFIRM, version=1, decision="AUTHORIZED"),
+            fmt=fmt,
+        )
+        missing = api(
+            p,
+            "compatibilidad",
+            "/api/v1/laboratory/samples/" + sample["id"] + "/completeness",
+            method="GET",
+            fmt=fmt,
+        )
+&gt;       assert "HLA:CATALOGUE_UNVERIFIED" in missing["missing"]
+E       AssertionError: assert 'HLA:CATALOGUE_UNVERIFIED' in []
+
+apps/services/tests/test_public_reference_sources.py:236: AssertionError</failure></testcase></testsuite></testsuites>

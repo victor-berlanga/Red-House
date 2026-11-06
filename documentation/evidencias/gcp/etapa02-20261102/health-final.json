@@ -1,0 +1,603 @@
+[
+  {
+    "service": "identidad_acceso",
+    "endpoint": "live",
+    "status": 200,
+    "response": {
+      "data": {
+        "state": "up",
+        "service": "identidad_acceso",
+        "version": "0.4.1"
+      },
+      "meta": {
+        "correlation_id": "d8cdada3-de9e-453c-bbd1-3382c3dddad1"
+      }
+    }
+  },
+  {
+    "service": "identidad_acceso",
+    "endpoint": "ready",
+    "status": 200,
+    "response": {
+      "data": {
+        "state": "up",
+        "dependencies": {
+          "database": {
+            "state": "up"
+          },
+          "redis": {
+            "state": "up"
+          },
+          "mongodb": {
+            "state": "not_applicable"
+          },
+          "storage": {
+            "state": "not_applicable"
+          },
+          "worker": {
+            "state": "up",
+            "error": null,
+            "pending": 0,
+            "oldest_seconds": 0.0
+          }
+        },
+        "service": "identidad_acceso",
+        "version": "0.4.1"
+      },
+      "meta": {
+        "correlation_id": "b2211394-499c-4867-854d-b4fc40eee615"
+      }
+    }
+  },
+  {
+    "service": "donantes",
+    "endpoint": "live",
+    "status": 200,
+    "response": {
+      "data": {
+        "state": "up",
+        "service": "donantes",
+        "version": "0.4.1"
+      },
+      "meta": {
+        "correlation_id": "2b7f4118-af13-4e64-9d5f-907a6f94a5ba"
+      }
+    }
+  },
+  {
+    "service": "donantes",
+    "endpoint": "ready",
+    "status": 200,
+    "response": {
+      "data": {
+        "state": "up",
+        "dependencies": {
+          "database": {
+            "state": "up"
+          },
+          "redis": {
+            "state": "up"
+          },
+          "mongodb": {
+            "state": "not_applicable"
+          },
+          "storage": {
+            "state": "not_applicable"
+          },
+          "worker": {
+            "state": "up",
+            "error": null,
+            "pending": 0,
+            "oldest_seconds": 0.0
+          }
+        },
+        "service": "donantes",
+        "version": "0.4.1"
+      },
+      "meta": {
+        "correlation_id": "66d7fa0b-f9c0-47c4-9537-249c071daca0"
+      }
+    }
+  },
+  {
+    "service": "receptores",
+    "endpoint": "live",
+    "status": 200,
+    "response": {
+      "data": {
+        "state": "up",
+        "service": "receptores",
+        "version": "0.4.1"
+      },
+      "meta": {
+        "correlation_id": "a175bad0-94f1-46a9-8399-82efb54e4191"
+      }
+    }
+  },
+  {
+    "service": "receptores",
+    "endpoint": "ready",
+    "status": 200,
+    "response": {
+      "data": {
+        "state": "up",
+        "dependencies": {
+          "database": {
+            "state": "up"
+          },
+          "redis": {
+            "state": "up"
+          },
+          "mongodb": {
+            "state": "not_applicable"
+          },
+          "storage": {
+            "state": "not_applicable"
+          },
+          "worker": {
+            "state": "up",
+            "error": null,
+            "pending": 0,
+            "oldest_seconds": 0.0
+          }
+        },
+        "service": "receptores",
+        "version": "0.4.1"
+      },
+      "meta": {
+        "correlation_id": "e09e77f3-4192-4d93-ab26-b6a03f84c1d7"
+      }
+    }
+  },
+  {
+    "service": "inventario",
+    "endpoint": "live",
+    "status": 200,
+    "response": {
+      "data": {
+        "state": "up",
+        "service": "inventario",
+        "version": "0.4.1"
+      },
+      "meta": {
+        "correlation_id": "fced3870-64bf-4fbf-b8a1-832574e868cd"
+      }
+    }
+  },
+  {
+    "service": "inventario",
+    "endpoint": "ready",
+    "status": 200,
+    "response": {
+      "data": {
+        "state": "up",
+        "dependencies": {
+          "database": {
+            "state": "up"
+          },
+          "redis": {
+            "state": "up"
+          },
+          "mongodb": {
+            "state": "not_applicable"
+          },
+          "storage": {
+            "state": "not_applicable"
+          },
+          "worker": {
+            "state": "up",
+            "error": null,
+            "pending": 0,
+            "oldest_seconds": 0.0
+          }
+        },
+        "service": "inventario",
+        "version": "0.4.1"
+      },
+      "meta": {
+        "correlation_id": "e6942552-e0b7-4965-8941-ab18dfbea82c"
+      }
+    }
+  },
+  {
+    "service": "compatibilidad",
+    "endpoint": "live",
+    "status": 200,
+    "response": {
+      "data": {
+        "state": "up",
+        "service": "compatibilidad",
+        "version": "0.4.4"
+      },
+      "meta": {
+        "correlation_id": "01d3fb34-056d-4bd0-8b81-e28a7a8ce037"
+      }
+    }
+  },
+  {
+    "service": "compatibilidad",
+    "endpoint": "ready",
+    "status": 200,
+    "response": {
+      "data": {
+        "state": "up",
+        "dependencies": {
+          "database": {
+            "state": "up"
+          },
+          "redis": {
+            "state": "up"
+          },
+          "mongodb": {
+            "state": "not_applicable"
+          },
+          "storage": {
+            "state": "not_applicable"
+          },
+          "worker": {
+            "state": "up",
+            "error": null,
+            "pending": 0,
+            "oldest_seconds": 0.0
+          }
+        },
+        "service": "compatibilidad",
+        "version": "0.4.4"
+      },
+      "meta": {
+        "correlation_id": "4c1b5fce-6b03-4690-bb6b-e3852c8f53a7"
+      }
+    }
+  },
+  {
+    "service": "priorizacion_geografia",
+    "endpoint": "live",
+    "status": 200,
+    "response": {
+      "data": {
+        "state": "up",
+        "service": "priorizacion_geografia",
+        "version": "0.4.4"
+      },
+      "meta": {
+        "correlation_id": "64a51fff-6b71-4644-8fe5-2d8cbc365875"
+      }
+    }
+  },
+  {
+    "service": "priorizacion_geografia",
+    "endpoint": "ready",
+    "status": 200,
+    "response": {
+      "data": {
+        "state": "up",
+        "dependencies": {
+          "database": {
+            "state": "up"
+          },
+          "redis": {
+            "state": "up"
+          },
+          "mongodb": {
+            "state": "not_applicable"
+          },
+          "storage": {
+            "state": "not_applicable"
+          },
+          "worker": {
+            "state": "up",
+            "error": null,
+            "pending": 0,
+            "oldest_seconds": 0.0
+          }
+        },
+        "service": "priorizacion_geografia",
+        "version": "0.4.4"
+      },
+      "meta": {
+        "correlation_id": "6cb03983-b45f-4749-8312-8cb44afd64c3"
+      }
+    }
+  },
+  {
+    "service": "transporte",
+    "endpoint": "live",
+    "status": 200,
+    "response": {
+      "data": {
+        "state": "up",
+        "service": "transporte",
+        "version": "0.4.1"
+      },
+      "meta": {
+        "correlation_id": "50ef09c3-ff6e-4364-ab57-462ccd915e12"
+      }
+    }
+  },
+  {
+    "service": "transporte",
+    "endpoint": "ready",
+    "status": 200,
+    "response": {
+      "data": {
+        "state": "up",
+        "dependencies": {
+          "database": {
+            "state": "up"
+          },
+          "redis": {
+            "state": "up"
+          },
+          "mongodb": {
+            "state": "up"
+          },
+          "storage": {
+            "state": "not_applicable"
+          },
+          "worker": {
+            "state": "up",
+            "error": null,
+            "pending": 0,
+            "oldest_seconds": 0.0
+          }
+        },
+        "service": "transporte",
+        "version": "0.4.1"
+      },
+      "meta": {
+        "correlation_id": "3bdb8cd5-4730-4e77-be06-e21821ec5d37"
+      }
+    }
+  },
+  {
+    "service": "custodia",
+    "endpoint": "live",
+    "status": 200,
+    "response": {
+      "data": {
+        "state": "up",
+        "service": "custodia",
+        "version": "0.4.1"
+      },
+      "meta": {
+        "correlation_id": "d054c1c8-b1d5-4f97-a9a8-c4c1e0060f99"
+      }
+    }
+  },
+  {
+    "service": "custodia",
+    "endpoint": "ready",
+    "status": 200,
+    "response": {
+      "data": {
+        "state": "up",
+        "dependencies": {
+          "database": {
+            "state": "up"
+          },
+          "redis": {
+            "state": "up"
+          },
+          "mongodb": {
+            "state": "up"
+          },
+          "storage": {
+            "state": "not_applicable"
+          },
+          "worker": {
+            "state": "up",
+            "error": null,
+            "pending": 0,
+            "oldest_seconds": 0.0
+          }
+        },
+        "service": "custodia",
+        "version": "0.4.1"
+      },
+      "meta": {
+        "correlation_id": "1dba2804-5b96-4794-969f-df81e5ac28c8"
+      }
+    }
+  },
+  {
+    "service": "alertas",
+    "endpoint": "live",
+    "status": 200,
+    "response": {
+      "data": {
+        "state": "up",
+        "service": "alertas",
+        "version": "0.4.1"
+      },
+      "meta": {
+        "correlation_id": "48b60c58-4ec7-4aa0-b990-5c084f1e6dd0"
+      }
+    }
+  },
+  {
+    "service": "alertas",
+    "endpoint": "ready",
+    "status": 200,
+    "response": {
+      "data": {
+        "state": "up",
+        "dependencies": {
+          "database": {
+            "state": "up"
+          },
+          "redis": {
+            "state": "up"
+          },
+          "mongodb": {
+            "state": "not_applicable"
+          },
+          "storage": {
+            "state": "not_applicable"
+          },
+          "worker": {
+            "state": "up",
+            "error": null,
+            "pending": 0,
+            "oldest_seconds": 0.0
+          }
+        },
+        "service": "alertas",
+        "version": "0.4.1"
+      },
+      "meta": {
+        "correlation_id": "151b8c1f-74c0-4688-a71f-6c1752a6cfac"
+      }
+    }
+  },
+  {
+    "service": "auditoria",
+    "endpoint": "live",
+    "status": 200,
+    "response": {
+      "data": {
+        "state": "up",
+        "service": "auditoria",
+        "version": "0.4.1"
+      },
+      "meta": {
+        "correlation_id": "dab311ce-9539-4b1a-aeb6-42d8a4ad0d6b"
+      }
+    }
+  },
+  {
+    "service": "auditoria",
+    "endpoint": "ready",
+    "status": 200,
+    "response": {
+      "data": {
+        "state": "up",
+        "dependencies": {
+          "database": {
+            "state": "up"
+          },
+          "redis": {
+            "state": "up"
+          },
+          "mongodb": {
+            "state": "up"
+          },
+          "storage": {
+            "state": "not_applicable"
+          },
+          "worker": {
+            "state": "up",
+            "error": null,
+            "pending": 0,
+            "oldest_seconds": 0.0
+          }
+        },
+        "service": "auditoria",
+        "version": "0.4.1"
+      },
+      "meta": {
+        "correlation_id": "f1ce6e3b-ec8b-43b6-85ab-6289b1e2d5d5"
+      }
+    }
+  },
+  {
+    "service": "monitoreo",
+    "endpoint": "live",
+    "status": 200,
+    "response": {
+      "data": {
+        "state": "up",
+        "service": "monitoreo",
+        "version": "0.4.1"
+      },
+      "meta": {
+        "correlation_id": "d602ce6b-797a-421c-8add-fc1f515ef91a"
+      }
+    }
+  },
+  {
+    "service": "monitoreo",
+    "endpoint": "ready",
+    "status": 200,
+    "response": {
+      "data": {
+        "state": "up",
+        "dependencies": {
+          "database": {
+            "state": "up"
+          },
+          "redis": {
+            "state": "up"
+          },
+          "mongodb": {
+            "state": "up"
+          },
+          "storage": {
+            "state": "not_applicable"
+          },
+          "worker": {
+            "state": "up",
+            "error": null,
+            "pending": 0,
+            "oldest_seconds": 0.0
+          }
+        },
+        "service": "monitoreo",
+        "version": "0.4.1"
+      },
+      "meta": {
+        "correlation_id": "acae77df-837b-4aea-96b4-df62424eb9e0"
+      }
+    }
+  },
+  {
+    "service": "documentos",
+    "endpoint": "live",
+    "status": 200,
+    "response": {
+      "data": {
+        "state": "up",
+        "service": "documentos",
+        "version": "0.4.1"
+      },
+      "meta": {
+        "correlation_id": "e861e59a-7398-4a48-a4d4-1041aa65b624"
+      }
+    }
+  },
+  {
+    "service": "documentos",
+    "endpoint": "ready",
+    "status": 200,
+    "response": {
+      "data": {
+        "state": "up",
+        "dependencies": {
+          "database": {
+            "state": "up"
+          },
+          "redis": {
+            "state": "up"
+          },
+          "mongodb": {
+            "state": "not_applicable"
+          },
+          "storage": {
+            "state": "up",
+            "required": true
+          },
+          "worker": {
+            "state": "up",
+            "error": null,
+            "pending": 0,
+            "oldest_seconds": 0.0
+          }
+        },
+        "service": "documentos",
+        "version": "0.4.1"
+      },
+      "meta": {
+        "correlation_id": "3010ef0b-e498-425c-a477-f1ca2ecb4239"
+      }
+    }
+  }
+]

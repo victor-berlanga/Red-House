@@ -1,0 +1,20 @@
+{
+  "passed": false,
+  "scope": "ACADEMIC with MFA/reauth/laboratory/organ checks explicitly enabled",
+  "apiListeners": "ALL_STOPPED",
+  "checks": [
+    {
+      "name": "MFA y cookie Secure, backend modular sin API",
+      "result": "PASS"
+    },
+    {
+      "name": "Cuatro niveles y límites visibles",
+      "result": "PASS"
+    }
+  ],
+  "runs": [],
+  "consoleErrors": [],
+  "networkErrors": [],
+  "failure": "page.waitForURL: Timeout 60000ms exceeded.",
+  "location": "    at save (/Users/victorberlanga/Programacion/integracion/Red-House/scripts/verify_stage02.cjs:12:54)"
+}

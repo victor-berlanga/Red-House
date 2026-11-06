@@ -1,0 +1,84 @@
+{
+  "type": "object",
+  "required": [
+    "data",
+    "meta"
+  ],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": [
+        "correlation_id",
+        "service",
+        "version"
+      ],
+      "properties": {
+        "correlation_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "service": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      }
+    },
+    "data": {
+      "additionalProperties": false,
+      "properties": {
+        "items": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "service": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Service",
+                "type": "string"
+              },
+              "samples": {
+                "title": "Samples",
+                "type": "integer"
+              },
+              "average_ms": {
+                "title": "Average Ms",
+                "type": "number"
+              },
+              "p95_ms": {
+                "title": "P95 Ms",
+                "type": "number"
+              },
+              "p99_ms": {
+                "title": "P99 Ms",
+                "type": "number"
+              }
+            },
+            "required": [
+              "service",
+              "samples",
+              "average_ms",
+              "p95_ms",
+              "p99_ms"
+            ],
+            "title": "SampleStatistics",
+            "type": "object"
+          },
+          "title": "Items",
+          "type": "array"
+        },
+        "window_hours": {
+          "title": "Window Hours",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "items",
+        "window_hours"
+      ],
+      "title": "Statistics",
+      "type": "object"
+    }
+  }
+}

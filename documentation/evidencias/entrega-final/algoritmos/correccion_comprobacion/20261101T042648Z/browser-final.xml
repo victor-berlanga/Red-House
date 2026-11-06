@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="94.537" timestamp="2026-10-31T23:14:22.195573-06:00" hostname="Victors-MacBook-Air.local"><testcase classname="tests.test_stage02_browser" name="test_stage02_real_browser_autonomous_reinforced" time="91.145"><failure message="ImportError: cannot import name 'ZONES' from 'src.integration.routes.common' (/Users/victorberlanga/Programacion/integracion/Red-House/apps/web/src/integration/routes/common.py)">p = &lt;tests.conftest.Platform object at 0x11583cb90&gt;
+tmp_path = PosixPath('/private/var/folders/rk/m94gy0rj2h74sfwqknl61bzm0000gn/T/pytest-of-victorberlanga/pytest-75/test_stage02_real_browser_auto0')
+
+    def test_stage02_real_browser_autonomous_reinforced(p, tmp_path):
+        from ms_identidad_acceso.strong_auth import totp
+    
+        unit = api(
+            p,
+            "inventario",
+            "/api/v1/resources",
+            {
+                "folio": "BR02-" + uuid4().hex[:10],
+                "kind": "BLOOD",
+                "component": "RBC",
+                "blood_group": "O-",
+                "expires_at": iso(days=2),
+            },
+            user="operator1",
+        )
+        _profile, _body, result = laboratory(p, unit, "json")
+        policy = api(
+            p,
+            "compatibilidad",
+            "/api/v1/laboratory/profiles",
+            {
+                "name": "Política sintética navegador",
+                "kind": "BLOOD",
+                "component": "RBC",
+                "version": 1,
+                "required_tests": ["ABO"],
+                "source": "Ensayo sintético navegador",
+                "synthetic": True,
+                "effective_at": iso(minutes=-60),
+                "policy": {
+                    "version": "COMPLETENESS-2.0",
+                    "ranking_order": "URGENCY_WAIT_EXPIRY_TIME_DISTANCE_ID",
+                    "urgency_scale": "CAPTURED_1_3_SYNTHETIC",
+                },
+            },
+        )
+        rec = api(
+            p,
+            "receptores",
+            "/api/v1/recipients",
+            {
+                "folio": "BR02-P-" + uuid4().hex[:8],
+                "display_name": "Receptor ficticio navegador",
+                "kind": "BLOOD",
+                "blood_group": "O+",
+                "studies": "Datos ficticios",
+            },
+        )
+        req = api(
+            p,
+            "receptores",
+            "/api/v1/requests",
+            {"recipient_id": rec["id"], "component": "RBC", "quantity": 1, "urgency": 2},
+        )
+        api(
+            p,
+            "priorizacion_geografia",
+            "/api/v1/routes",
+            {
+                "origin_id": p.env.state["tenants"][0],
+                "destination_id": p.env.state["tenants"][0],
+                "distance_km": 2.0,
+                "travel_minutes": 5,
+                "source": "Ruta sintética interna",
+            },
+            user="coordinator1",
+        )
+        graph = api(p, "priorizacion_geografia", "/api/v1/regional-graphs", graph_body())
+        enrollment = api(
+            p,
+            "identidad_acceso",
+            "/api/v1/auth/mfa/enrollment",
+            {"username": "medical1", "password": p.env.state["password"]},
+            user=None,
+        )
+        counter = int(time.time()) // 30 - 1
+        api(
+            p,
+            "identidad_acceso",
+            "/api/v1/auth/mfa/confirm",
+            {
+                "challenge": enrollment["challenge"],
+                "code": totp(enrollment["secret"], counter),
+            },
+            user=None,
+        )
+        other_secrets = {}
+        for username in ("medical2", "auditor1"):
+            enrolled = api(
+                p,
+                "identidad_acceso",
+                "/api/v1/auth/mfa/enrollment",
+                {"username": username, "password": p.env.state["password"]},
+                user=None,
+            )
+            api(
+                p,
+                "identidad_acceso",
+                "/api/v1/auth/mfa/confirm",
+                {
+                    "challenge": enrolled["challenge"],
+                    "code": totp(enrolled["secret"], int(time.time()) // 30 - 1),
+                },
+                user=None,
+            )
+            other_secrets[username] = enrolled["secret"]
+        configs = {
+            name: dict(
+                app.config,
+                OPERATION_SCOPE="ACADEMIC",
+                MFA_REQUIRED_ROLES=["MEDICAL", "AUDITOR"],
+                REAUTH_REQUIRED_OPERATIONS=[
+                    "resource_release",
+                    "lab_result_review",
+                    "evaluation_review",
+                    "reservation_create",
+                    "rule_transition",
+                    "anomaly_resolve",
+                ],
+                REQUIRE_LAB_PROFILE=True,
+                REQUIRE_ORGAN_AUTHORIZATION=True,
+            )
+            for name, app in p.apps.items()
+        }
+&gt;       web = create_app(
+            {
+                "SECRET_KEY": secrets.token_hex(32),
+                "JWT_SECRET_KEY": secrets.token_hex(32),
+                "BACKEND_MODE": "monolith",
+                "TESTING": True,
+                "PRODUCTION": True,
+                "SESSION_COOKIE_SECURE": True,
+                "HIGHCHARTS_ENABLED": False,
+                "MICROSERVICES_CONFIG": dict(
+                    SERVICE_URLS=p.urls,
+                    DOMAIN_CONFIGS=configs,
+                    **p.env.state["web_sessions"],
+                ),
+            }
+        )
+
+apps/services/tests/test_stage02_browser.py:148: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+apps/web/src/__init__.py:40: in create_app
+    return configure(app)
+           ^^^^^^^^^^^^^^
+apps/web/src/integration/__init__.py:389: in configure
+    from .routes import blueprints
+apps/web/src/integration/routes/__init__.py:4: in &lt;module&gt;
+    from . import (
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    """Rutas web: auth. Las reglas residen en las API propietarias."""
+    
+    from zoneinfo import ZoneInfo
+    from ..forms import prepare_fields, attach_errors
+    
+&gt;   from .common import (
+        BusinessError,
+        ZONES,
+        current_app,
+        datetime,
+        g,
+        generate_csrf,
+        jsonify,
+        make_response,
+        portal,
+        public,
+        redirect,
+        render_template,
+        request,
+        session,
+        sessions,
+        timezone,
+        url_for,
+        urlsplit,
+        field,
+    )
+E   ImportError: cannot import name 'ZONES' from 'src.integration.routes.common' (/Users/victorberlanga/Programacion/integracion/Red-House/apps/web/src/integration/routes/common.py)
+
+apps/web/src/integration/routes/auth.py:6: ImportError</failure></testcase></testsuite></testsuites>

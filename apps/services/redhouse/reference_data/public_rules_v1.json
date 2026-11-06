@@ -1,0 +1,120 @@
+[
+  {
+    "id": "MX-NOM253-2012-9.5.1",
+    "version": 1,
+    "issuer": "Secretaría de Salud / DOF",
+    "url": "https://dof.gob.mx/normasOficiales/4917/salud3a/salud3a.html",
+    "section": "9.5.1.1–9.5.1.3 y 9.5.1.11",
+    "jurisdiction": "México federal",
+    "kind": "BLOOD",
+    "consulted_at": "2026-11-02",
+    "valid_from": "2012-12-25T00:00:00-06:00",
+    "valid_until": "2027-04-10T00:00:00-06:00",
+    "summary": "Pruebas según componente y conservación de sus registros.",
+    "conditions": [
+      "Transfusión alogénica; responsabilidad del establecimiento competente."
+    ],
+    "exceptions": [
+      "Las excepciones de realización local de 9.5.1.1 no eliminan la responsabilidad de garantizar estudios.",
+      "No se universaliza el mismo conjunto de pruebas a todos los componentes."
+    ],
+    "technical_mechanism": "Registro de muestras/resultados, perfil explícito, procedencia documental y revisión; no interpreta resultados.",
+    "clinical_approval": false,
+    "implementation_status": "DOCUMENTARY_SUPPORT",
+    "limitation": "La referencia no certifica equivalencia clínica del software ni sustituye protocolo, laboratorio o autoridad competente."
+  },
+  {
+    "id": "MX-NOM253-2012-10.1",
+    "version": 1,
+    "issuer": "Secretaría de Salud / DOF",
+    "url": "https://dof.gob.mx/normasOficiales/4917/salud3a/salud3a.html",
+    "section": "10.1–10.2",
+    "jurisdiction": "México federal",
+    "kind": "BLOOD",
+    "consulted_at": "2026-11-02",
+    "valid_from": "2012-12-25T00:00:00-06:00",
+    "valid_until": "2027-04-10T00:00:00-06:00",
+    "summary": "Identificación y etiquetado de unidades y muestras.",
+    "conditions": [
+      "Unidad, componente, mezcla o muestra bajo el alcance de la norma."
+    ],
+    "exceptions": [
+      "El identificador electrónico no demuestra adherencia física ni legibilidad de la etiqueta."
+    ],
+    "technical_mechanism": "Identificadores y asociaciones auditables; verificación física externa.",
+    "clinical_approval": false,
+    "implementation_status": "DOCUMENTARY_SUPPORT",
+    "limitation": "La referencia no certifica equivalencia clínica del software ni sustituye protocolo, laboratorio o autoridad competente."
+  },
+  {
+    "id": "MX-NOM253-2025-TRANSICION",
+    "version": 1,
+    "issuer": "Secretaría de Salud / DOF",
+    "url": "https://dof.gob.mx/nota_detalle.php?codigo=5800942&fecha=12/10/2026",
+    "section": "25 Vigencia y transitorios",
+    "jurisdiction": "México federal",
+    "kind": "BLOOD",
+    "consulted_at": "2026-11-02",
+    "valid_from": "2027-04-10T00:00:00-06:00",
+    "valid_until": null,
+    "summary": "Edición sucesora publicada, sin activación anticipada.",
+    "conditions": [
+      "Entrada en vigor publicada: 10/04/2027 según PLATIICA."
+    ],
+    "exceptions": [
+      "No se trasladan automáticamente parámetros ni autorizaciones de 2012."
+    ],
+    "technical_mechanism": "Bloqueo de vigencia antes de fecha; revisión documental de una nueva versión antes de aplicarla.",
+    "clinical_approval": false,
+    "implementation_status": "DOCUMENTARY_SUPPORT",
+    "limitation": "La referencia no certifica equivalencia clínica del software ni sustituye protocolo, laboratorio o autoridad competente."
+  },
+  {
+    "id": "MX-TRASPLANTES-2014-33",
+    "version": 1,
+    "issuer": "Presidencia de la República / Cámara de Diputados",
+    "url": "https://www.diputados.gob.mx/LeyesBiblio/regley/Reg_LGS_MT.pdf",
+    "section": "1; 2 fracción VIII; 33 fracciones I, IV, VI, VIII",
+    "jurisdiction": "México federal",
+    "kind": "ORGAN",
+    "consulted_at": "2026-11-02",
+    "valid_from": "2014-03-27T00:00:00-06:00",
+    "valid_until": null,
+    "summary": "Intervención del comité y laboratorio competente en selección y asignación.",
+    "conditions": [
+      "Órganos/tejidos/células dentro del ámbito del reglamento."
+    ],
+    "exceptions": [
+      "Excluye sangre/componentes y células progenitoras o troncales.",
+      "No define aquí una suma de ponderaciones ni igualdad HLA como autorización."
+    ],
+    "technical_mechanism": "Perfil, datos, autorizaciones externas y revisión humana separada; no decide asignación oficial.",
+    "clinical_approval": false,
+    "implementation_status": "DOCUMENTARY_SUPPORT",
+    "limitation": "La referencia no certifica equivalencia clínica del software ni sustituye protocolo, laboratorio o autoridad competente."
+  },
+  {
+    "id": "HLA-NAMING-2010-SYNTAX2",
+    "version": 1,
+    "issuer": "WHO Nomenclature Committee / HLA Informatics Group",
+    "url": "https://hla.alleles.org/pages/nomenclature/naming_alleles/",
+    "section": "Naming Alleles; campos, grupos y sufijos",
+    "jurisdiction": "Referencia internacional",
+    "kind": "REFERENCE",
+    "consulted_at": "2026-11-02",
+    "valid_from": "2010-04-01T00:00:00Z",
+    "valid_until": null,
+    "summary": "Nomenclatura de alelos y grupos HLA declarados.",
+    "conditions": [
+      "Nomenclatura con dos puntos; versión de sintaxis soportada."
+    ],
+    "exceptions": [
+      "Un grupo de un campo no es un alelo específico.",
+      "Coincidencia de nomenclatura/catálogo no implica histocompatibilidad."
+    ],
+    "technical_mechanism": "Validador de sintaxis y consulta de edición IPD fijada por hash; resolución y ambigüedad explícitas.",
+    "clinical_approval": false,
+    "implementation_status": "DOCUMENTARY_SUPPORT",
+    "limitation": "La referencia no certifica equivalencia clínica del software ni sustituye protocolo, laboratorio o autoridad competente."
+  }
+]

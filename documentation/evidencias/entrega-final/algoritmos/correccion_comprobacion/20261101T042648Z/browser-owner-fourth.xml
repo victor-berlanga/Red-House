@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="11" time="334.771" timestamp="2026-10-31T23:04:05.309776-06:00" hostname="Victors-MacBook-Air.local"><testcase classname="tests.test_stage02_browser" name="test_stage02_real_browser_autonomous_reinforced" time="327.867" /><testcase classname="tests.test_stage02_oracles" name="test_each_missing_rank_factor_excludes_without_default_priority[urgency]" time="0.015" /><testcase classname="tests.test_stage02_oracles" name="test_each_missing_rank_factor_excludes_without_default_priority[urgency_source]" time="0.008" /><testcase classname="tests.test_stage02_oracles" name="test_each_missing_rank_factor_excludes_without_default_priority[waiting_minutes]" time="0.008" /><testcase classname="tests.test_stage02_oracles" name="test_each_missing_rank_factor_excludes_without_default_priority[expiry_minutes]" time="0.011" /><testcase classname="tests.test_stage02_oracles" name="test_each_missing_rank_factor_excludes_without_default_priority[travel_minutes]" time="0.011" /><testcase classname="tests.test_stage02_oracles" name="test_each_missing_rank_factor_excludes_without_default_priority[distance_km]" time="0.029" /><testcase classname="tests.test_stage02_oracles" name="test_forecast_lots_against_constant_rate_capacity_oracle[quantities0-expected0]" time="0.018" /><testcase classname="tests.test_stage02_oracles" name="test_forecast_lots_against_constant_rate_capacity_oracle[quantities1-expected1]" time="0.012" /><testcase classname="tests.test_stage02_oracles" name="test_forecast_lots_against_constant_rate_capacity_oracle[quantities2-expected2]" time="0.012" /><testcase classname="tests.test_stage02_oracles" name="test_authoritative_anomalies_outbox_failure_resolution_and_history" time="4.127"><failure message="AssertionError: (401, '{&quot;error&quot;: {&quot;code&quot;: &quot;unauthorized&quot;, &quot;message&quot;: &quot;Sesión revocada o permisos inexistentes.&quot;, &quot;details&quot;: []}, &quot;meta&quot;: {&quot;correlation_id&quot;: &quot;4e1b3556-626f-4c35-bfac-137dd8aac026&quot;, &quot;service&quot;: &quot;inventario&quot;, &quot;version&quot;: &quot;0.4.1&quot;}}')&#10;assert 401 &lt; 300&#10; +  where 401 = &lt;Response [401]&gt;.status_code">p = &lt;tests.conftest.Platform object at 0x109731d90&gt;
+monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x10a6fac90&gt;
+
+        "thermal_incident": False,
+        "urgency": 1,
+        "urgency_source": "SYNTHETIC",
+&gt;       "waiting_minutes": 1,
+          ^^^^^^^^^^^
+        "expiry_minutes": 60,
+        "travel_minutes": 5,
+        "distance_km": 2,
+    }
+
+apps/services/tests/test_stage02_oracles.py:38: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+apps/services/tests/helpers.py:25: in resource
+    return p.ok(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = &lt;tests.conftest.Platform object at 0x109731d90&gt;, service = 'inventario'
+method = 'POST'
+path = '/api/v1/resources/91ad232f-f427-44ee-9dfd-67f4995912a1/release'
+kwargs = {'user': 'medical1', 'data': {'human_confirmation': True, 'reason': 'Liberación humana con datos ficticios', 'version': 1}}
+
+    def ok(self, service, method, path, **kwargs):
+        response = self.request(service, method, path, **kwargs)
+&gt;       assert response.status_code &lt; 300, (response.status_code, response.text)
+E       AssertionError: (401, '{"error": {"code": "unauthorized", "message": "Sesión revocada o permisos inexistentes.", "details": []}, "meta": {"correlation_id": "4e1b3556-626f-4c35-bfac-137dd8aac026", "service": "inventario", "version": "0.4.1"}}')
+E       assert 401 &lt; 300
+E        +  where 401 = &lt;Response [401]&gt;.status_code
+
+apps/services/tests/conftest.py:57: AssertionError</failure></testcase></testsuite></testsuites>

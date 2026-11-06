@@ -1,0 +1,247 @@
+{
+  "type": "object",
+  "required": [
+    "data",
+    "meta"
+  ],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": [
+        "correlation_id",
+        "service",
+        "version"
+      ],
+      "properties": {
+        "correlation_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "service": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "required": [
+        "items",
+        "page",
+        "page_size",
+        "total"
+      ],
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "name": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Name",
+                "type": "string"
+              },
+              "version": {
+                "default": 1,
+                "minimum": 1,
+                "title": "Version",
+                "type": "integer"
+              },
+              "supersedes": {
+                "anyOf": [
+                  {
+                    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Supersedes"
+              },
+              "source": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Source",
+                "type": "string"
+              },
+              "observed_at": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Observed At",
+                "type": "string"
+              },
+              "valid_until": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Valid Until",
+                "type": "string"
+              },
+              "synthetic": {
+                "title": "Synthetic",
+                "type": "boolean"
+              },
+              "region": {
+                "const": "Nuevo León",
+                "default": "Nuevo León",
+                "title": "Region",
+                "type": "string"
+              },
+              "quality": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Quality",
+                "type": "string"
+              },
+              "nodes": {
+                "items": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "id": {
+                      "maxLength": 200,
+                      "minLength": 1,
+                      "title": "Id",
+                      "type": "string"
+                    },
+                    "latitude": {
+                      "maximum": 90,
+                      "minimum": -90,
+                      "title": "Latitude",
+                      "type": "number"
+                    },
+                    "longitude": {
+                      "maximum": 180,
+                      "minimum": -180,
+                      "title": "Longitude",
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "latitude",
+                    "longitude"
+                  ],
+                  "title": "Node",
+                  "type": "object"
+                },
+                "maxItems": 2000,
+                "minItems": 1,
+                "title": "Nodes",
+                "type": "array"
+              },
+              "edges": {
+                "items": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "origin": {
+                      "maxLength": 200,
+                      "minLength": 1,
+                      "title": "Origin",
+                      "type": "string"
+                    },
+                    "destination": {
+                      "maxLength": 200,
+                      "minLength": 1,
+                      "title": "Destination",
+                      "type": "string"
+                    },
+                    "minutes": {
+                      "minimum": 0,
+                      "title": "Minutes",
+                      "type": "number"
+                    },
+                    "distance_km": {
+                      "minimum": 0,
+                      "title": "Distance Km",
+                      "type": "number"
+                    },
+                    "blocked": {
+                      "default": false,
+                      "title": "Blocked",
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "origin",
+                    "destination",
+                    "minutes",
+                    "distance_km"
+                  ],
+                  "title": "Edge",
+                  "type": "object"
+                },
+                "maxItems": 10000,
+                "title": "Edges",
+                "type": "array"
+              },
+              "provenance": {
+                "anyOf": [
+                  {
+                    "additionalProperties": true,
+                    "type": "object"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Provenance"
+              },
+              "id": {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "title": "Id",
+                "type": "string"
+              },
+              "tenant_id": {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "title": "Tenant Id",
+                "type": "string"
+              },
+              "author_id": {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "title": "Author Id",
+                "type": "string"
+              },
+              "created_at": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Created At",
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "source",
+              "observed_at",
+              "valid_until",
+              "synthetic",
+              "quality",
+              "nodes",
+              "edges",
+              "id",
+              "tenant_id",
+              "author_id",
+              "created_at"
+            ],
+            "title": "Graph",
+            "type": "object"
+          }
+        },
+        "page": {
+          "type": "integer"
+        },
+        "page_size": {
+          "type": "integer"
+        },
+        "total": {
+          "type": "integer"
+        }
+      }
+    }
+  }
+}

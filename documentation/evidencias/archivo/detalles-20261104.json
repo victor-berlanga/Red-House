@@ -1,0 +1,29 @@
+{
+  "date": "2026-11-04",
+  "archive": "documentation/evidencias/archivo/detalles-20261104.tar.gz",
+  "archive_sha256": "2f2fcfe030b3774ccdedac67fe6e65d4c26c1cc2d3952b1e01c7c53b5f2621af",
+  "scope": "Detalles históricos archivados sin modificar bytes; resultados finales y fallos siguen en sus expedientes. Restaurar las rutas originales antes de repetir verificadores históricos.",
+  "files": [
+    {"path": "documentation/evidencias/entrega-final/algoritmos/correccion_comprobacion/20261101T042648Z/baseline.json", "sha256": "1b2624e29692eca2e727fb2cd17dfdf16b37ad4f601abbcf4276a1d03354860d", "bytes": 193771, "text_lines": 1466},
+    {"path": "documentation/evidencias/entrega-final/algoritmos/correccion_comprobacion/20261101T042648Z/git-status-after.txt", "sha256": "ef26825984c3a1315fb272b087558717ffb1c54da12c46eebf6fdeb5689ce113", "bytes": 31559, "text_lines": 515},
+    {"path": "documentation/evidencias/entrega-final/algoritmos/correccion_comprobacion/20261101T042648Z/git-status-before.txt", "sha256": "a398d36c08e59189be060bf4ab3eedfda2ee3704281cd0073f9b928d8270448a", "bytes": 27339, "text_lines": 450},
+    {"path": "documentation/evidencias/entrega-final/algoritmos/correccion_comprobacion/20261101T042648Z/http-latencies.json", "sha256": "a2bf3d3f69df478d97991fe01fabf9d6bc55c206d32ea9603b018c4eaab38860", "bytes": 58977, "text_lines": 2275},
+    {"path": "documentation/evidencias/entrega-final/algoritmos/correccion_comprobacion/20261101T042648Z/sources-final-start.json", "sha256": "173ea863c104b14c57e2969af3e3535b2bf498d1e89a5e30c0b3e7ae8ca52d35", "bytes": 141330, "text_lines": 1054},
+    {"path": "documentation/evidencias/entrega-final/algoritmos/correccion_comprobacion/20261101T042648Z/sources-final.json", "sha256": "c1b148985bbc230a68979c076f6f77f9b31bf764956299e5f008e506365db118", "bytes": 141769, "text_lines": 1062},
+    {"path": "documentation/evidencias/entrega-final/algoritmos/fuentes_publicas/20261102T143541Z/baseline.json", "sha256": "e1ccb1d9268d3932a67dae19fe21753d73c13d8065c84b4741c8155f455affb6", "bytes": 503641, "text_lines": 3374},
+    {"path": "documentation/evidencias/entrega-final/algoritmos/fuentes_publicas/20261102T143541Z/git-status-before.txt", "sha256": "ef26825984c3a1315fb272b087558717ffb1c54da12c46eebf6fdeb5689ce113", "bytes": 31559, "text_lines": 515},
+    {"path": "documentation/evidencias/entrega-final/algoritmos/fuentes_publicas/20261102T143541Z/http-latencies.json", "sha256": "76e3c338f272bb2ae1f4cd226a75cd5f2da3fa49a84160feb3fa0af2050207e2", "bytes": 8379, "text_lines": 301},
+    {"path": "documentation/evidencias/entrega-final/algoritmos/fuentes_publicas/20261102T143541Z/sources-final.json", "sha256": "5b071de66cd474d6cd762f6871c030c3d149678a312ecb3d5b3b11f5d063eadf", "bytes": 149740, "text_lines": 1125},
+    {"path": "documentation/evidencias/entrega-final/backend/correccion_comprobacion/20261029T125058Z/browser-28/correcciones-operativas/dictamen-obsoleto.png", "sha256": "eff9c03ccbfd3457005bfd5f9201521b44b7a078275d91dd16ead604c9b750ae", "bytes": 111182, "text_lines": 0, "duplicate_of": "documentation/evidencias/entrega-final/backend/correccion_comprobacion/20261029T125058Z/browser-26/correcciones-operativas/dictamen-obsoleto.png"},
+    {"path": "documentation/evidencias/entrega-final/backend/correccion_comprobacion/20261029T125058Z/browser-29/correcciones-operativas/fallo.png", "sha256": "29c6a5d26f98939d3bc502e7226d40437bdbafb913e50e98d9411f3938c2bf08", "bytes": 284411, "text_lines": 0, "duplicate_of": "documentation/evidencias/entrega-final/backend/correccion_comprobacion/20261029T125058Z/browser-29/correcciones-operativas/auditoria-movil.png"},
+    {"path": "documentation/evidencias/entrega-final/backend/correccion_comprobacion/20261029T125058Z/fuentes-finales.json", "sha256": "d479a58cf17ce849d91d3d48e3c0f28eddd3fb870827450b426babd083d677f2", "bytes": 182053, "text_lines": 1385},
+    {"path": "documentation/evidencias/entrega-final/backend/correccion_comprobacion/20261029T125058Z/fuentes-iniciales.json", "sha256": "de40e0272ea52c08adaa3fccd82f8d8eebfbeec43b62959b0ad8d9a55f7d4090", "bytes": 478330, "text_lines": 3131},
+    {"path": "documentation/evidencias/entrega-final/backend/correccion_comprobacion/20261029T125058Z/imagenes.json", "sha256": "db5f28539c6176b358e8a8d8a3e9e47129dcdf67edf9ee06a575b68f2346f87f", "bytes": 290545, "text_lines": 2388},
+    {"path": "documentation/evidencias/gcp/etapa02-20261102/backup-report.json", "sha256": "0dbfd824d598a32623485128c813a7bc2cf8fbf1648b355e992bf8f886b1e538", "bytes": 29537, "text_lines": 1171},
+    {"path": "documentation/evidencias/gcp/etapa02-20261102/data-after.json", "sha256": "9fe093b8f16f84626871304f46918def6ea564d8348c0180f371ec00a5ca2b10", "bytes": 32719, "text_lines": 1597},
+    {"path": "documentation/evidencias/gcp/etapa02-20261102/data-before.json", "sha256": "ec2c866c666bc1a0806cd981d505fc14ff06dde52c101cb0f3c9a637b5a7b18e", "bytes": 32719, "text_lines": 1597},
+    {"path": "documentation/evidencias/gcp/etapa02-20261102/source-manifest-final.json", "sha256": "cd774d5561adebafffb02440d420d9b60ea28e35b2b50062f8dd10ba58c50092", "bytes": 522346, "text_lines": 3567},
+    {"path": "documentation/evidencias/gcp/etapa02-20261102/source-manifest.json", "sha256": "d8fb773378d54e2abf89b60502ab0c10eb5c69483fb7a93fee996f901672491c", "bytes": 522346, "text_lines": 3567},
+    {"path": "stuff/comprobacion_etapas/01_backend_y_microservicios/evidencias/redhouse-audit-01-manifest.json", "sha256": "c6ca9f83f009907f3c305508e524dbb788ab7340cfdf5062c403d0680a6b5a73", "bytes": 452439, "text_lines": 3112}
+  ]
+}

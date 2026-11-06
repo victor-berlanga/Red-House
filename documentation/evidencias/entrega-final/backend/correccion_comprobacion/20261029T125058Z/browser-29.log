@@ -1,0 +1,24 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.6, pytest-9.1.1, pluggy-1.6.0 -- /Users/victorberlanga/Programacion/integracion/Red-House/apps/services/.venv/bin/python
+rootdir: /Users/victorberlanga/Programacion/integracion/Red-House/apps/services
+configfile: pyproject.toml
+plugins: locust-2.46.7
+collecting ... collected 1 item
+
+apps/services/tests/test_correction_browser.py::test_operational_browser_corrections FAILED [100%]
+
+=================================== FAILURES ===================================
+_____________________ test_operational_browser_corrections _____________________
+apps/services/tests/test_correction_browser.py:283: in test_operational_browser_corrections
+    assert completed.returncode == 0, completed.stdout + completed.stderr
+E   AssertionError: {"passed":false,"checks":26,"failure":"locator.click: Error: strict mode violation: locator('form[action=\"/logout\"] button') resolved to 2 elements:"}
+E     
+E   assert 1 == 0
+E    +  where 1 = CompletedProcess(args=['node', '/Users/victorberlanga/Programacion/integracion/Red-House/scripts/verify_backend_corrections.cjs'], returncode=1, stdout='{"passed":false,"checks":26,"failure":"locator.click: Error: strict mode violation: locator(\'form[action=\\"/logout\\"] button\') resolved to 2 elements:"}\n', stderr='').returncode
+------------------------------ Captured log call -------------------------------
+WARNING  identidad_acceso:strong_auth.py:85 mfa_verification_rejected
+- generated xml file: /Users/victorberlanga/Programacion/integracion/Red-House/documentation/evidencias/entrega-final/backend/correccion_comprobacion/20261029T125058Z/browser-29.xml -
+=========================== short test summary info ============================
+FAILED apps/services/tests/test_correction_browser.py::test_operational_browser_corrections
+!!!!!!!!!!!!!!!!!!!!!!!!!! stopping after 1 failures !!!!!!!!!!!!!!!!!!!!!!!!!!!
+======================== 1 failed in 406.23s (0:06:46) =========================

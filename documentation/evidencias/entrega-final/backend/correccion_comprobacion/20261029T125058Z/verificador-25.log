@@ -1,0 +1,13 @@
+F
+=================================== FAILURES ===================================
+________ test_compose_verifier_uses_current_custody_contract[BLOOD-RBC] ________
+apps/services/tests/test_correction_deploy_verifier.py:35: in test_compose_verifier_uses_current_custody_contract
+    verifier.business_reads()
+deployment/verify.py:234: in business_reads
+    assert response.status_code == 200, (
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   AssertionError: ('documentos', 404, '{"error": {"code": "http_error", "message": "Petición no disponible o inválida.", "details": []}, "meta": {"correlation_id": "9b65a53f-06a3-4d11-8d52-8541ef00623a", "service": "documentos", "version": "0.4.1"}}')
+=========================== short test summary info ============================
+FAILED apps/services/tests/test_correction_deploy_verifier.py::test_compose_verifier_uses_current_custody_contract[BLOOD-RBC]
+!!!!!!!!!!!!!!!!!!!!!!!!!! stopping after 1 failures !!!!!!!!!!!!!!!!!!!!!!!!!!!
+1 failed in 112.43s (0:01:52)

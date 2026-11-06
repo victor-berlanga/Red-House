@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="1" failures="1" skipped="0" tests="54" time="581.753" timestamp="2026-10-31T23:06:34.936207-06:00" hostname="Victors-MacBook-Air.local"><testcase classname="tests.test_stage02_corrections" name="test_hla_one_field_is_not_reported_allele" time="0.114" /><testcase classname="tests.test_stage02_corrections" name="test_recipient_organ_profile_mismatch_rejected" time="131.140" /><testcase classname="tests.test_stage02_corrections" name="test_future_profile_cannot_collect_sample" time="2.101" /><testcase classname="tests.test_stage02_corrections" name="test_registry_transitions_history_and_disabled_clinical_scope[json]" time="4.957" /><testcase classname="tests.test_stage02_corrections" name="test_registry_transitions_history_and_disabled_clinical_scope[xml]" time="4.037" /><testcase classname="tests.test_stage02_corrections" name="test_partial_hla_and_unknown_version_persist_without_approval[json]" time="4.697" /><testcase classname="tests.test_stage02_corrections" name="test_partial_hla_and_unknown_version_persist_without_approval[xml]" time="3.657" /><testcase classname="tests.test_stage02_corrections" name="test_recipient_lab_change_invalidates_review_detail_and_reserve[json]" time="14.887" /><testcase classname="tests.test_stage02_corrections" name="test_recipient_lab_change_invalidates_review_detail_and_reserve[xml]" time="11.640" /><testcase classname="tests.test_stage02_corrections" name="test_regional_graph_authoritative_runs_and_anomaly_outbox[json]" time="69.562" /><testcase classname="tests.test_stage02_corrections" name="test_regional_graph_authoritative_runs_and_anomaly_outbox[xml]" time="11.533" /><testcase classname="tests.test_stage02_corrections" name="test_each_rank_factor_changes_result_with_prior_factors_tied[urgency-3-b]" time="0.002" /><testcase classname="tests.test_stage02_corrections" name="test_each_rank_factor_changes_result_with_prior_factors_tied[waiting_minutes-20-b]" time="0.002" /><testcase classname="tests.test_stage02_corrections" name="test_each_rank_factor_changes_result_with_prior_factors_tied[expiry_minutes-50-b]" time="0.002" /><testcase classname="tests.test_stage02_corrections" name="test_each_rank_factor_changes_result_with_prior_factors_tied[travel_minutes-5-b]" time="0.002" /><testcase classname="tests.test_stage02_corrections" name="test_each_rank_factor_changes_result_with_prior_factors_tied[distance_km-2-b]" time="0.002" /><testcase classname="tests.test_stage02_corrections" name="test_each_rank_factor_changes_result_with_prior_factors_tied[identifier-0-0]" time="0.002" /><testcase classname="tests.test_stage02_corrections" name="test_temporal_forecast_against_independent_full_oracle" time="0.002" /><testcase classname="tests.test_stage02_corrections" name="test_completeness_conflict_expiry_and_successor[json]" time="1.932" /><testcase classname="tests.test_stage02_corrections" name="test_completeness_conflict_expiry_and_successor[xml]" time="1.766" /><testcase classname="tests.test_stage02_corrections" name="test_profile_execution_manual_products_and_all_candidate_branches[RBC]" time="4.923" /><testcase classname="tests.test_stage02_corrections" name="test_profile_execution_manual_products_and_all_candidate_branches[PLASMA]" time="4.859" /><testcase classname="tests.test_stage02_corrections" name="test_profile_execution_manual_products_and_all_candidate_branches[PLATELETS]" time="5.091" /><testcase classname="tests.test_stage02_corrections" name="test_geo_consumes_positions_persisted_by_real_wss_without_measured_eta" time="0.004"><error message="failed on setup with &quot;file /Users/victorberlanga/Programacion/integracion/Red-House/apps/services/tests/test_stage02_corrections.py, line 813&#10;  def test_geo_consumes_positions_persisted_by_real_wss_without_measured_eta(&#10;E       fixture 'tracking' not found&#10;&gt;       available fixtures: cache, capfd, capfdbinary, caplog, capsys, capsysbinary, capteesys, doctest_namespace, fastsession, monkeypatch, p, platform, pytestconfig, record_http_distribution, record_property, record_testsuite_property, record_xml_attribute, recwarn, session, subtests, tmp_path, tmp_path_factory, tmpdir, tmpdir_factory&#10;&gt;       use 'pytest --fixtures [testpath]' for help on them.&#10;&#10;/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/tests/test_stage02_corrections.py:813&quot;">file /Users/victorberlanga/Programacion/integracion/Red-House/apps/services/tests/test_stage02_corrections.py, line 813
+  def test_geo_consumes_positions_persisted_by_real_wss_without_measured_eta(
+E       fixture 'tracking' not found
+&gt;       available fixtures: cache, capfd, capfdbinary, caplog, capsys, capsysbinary, capteesys, doctest_namespace, fastsession, monkeypatch, p, platform, pytestconfig, record_http_distribution, record_property, record_testsuite_property, record_xml_attribute, recwarn, session, subtests, tmp_path, tmp_path_factory, tmpdir, tmpdir_factory
+&gt;       use 'pytest --fixtures [testpath]' for help on them.
+
+/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/tests/test_stage02_corrections.py:813</error></testcase><testcase classname="tests.test_stage02_corrections" name="test_result_private_document_binding_generation_analysis_and_scope[json]" time="3.599" /><testcase classname="tests.test_stage02_corrections" name="test_result_private_document_binding_generation_analysis_and_scope[xml]" time="2.868" /><testcase classname="tests.test_stage02_corrections" name="test_rule_approval_mechanism_scoped_fixture_and_revocation" time="3.095" /><testcase classname="tests.test_stage02_corrections" name="test_crossmatch_associations_and_unperformed_not_negative" time="1.632" /><testcase classname="tests.test_stage02_oracles" name="test_each_missing_rank_factor_excludes_without_default_priority[urgency]" time="0.002" /><testcase classname="tests.test_stage02_oracles" name="test_each_missing_rank_factor_excludes_without_default_priority[urgency_source]" time="0.003" /><testcase classname="tests.test_stage02_oracles" name="test_each_missing_rank_factor_excludes_without_default_priority[waiting_minutes]" time="0.002" /><testcase classname="tests.test_stage02_oracles" name="test_each_missing_rank_factor_excludes_without_default_priority[expiry_minutes]" time="0.002" /><testcase classname="tests.test_stage02_oracles" name="test_each_missing_rank_factor_excludes_without_default_priority[travel_minutes]" time="0.002" /><testcase classname="tests.test_stage02_oracles" name="test_each_missing_rank_factor_excludes_without_default_priority[distance_km]" time="0.002" /><testcase classname="tests.test_stage02_oracles" name="test_forecast_lots_against_constant_rate_capacity_oracle[quantities0-expected0]" time="0.004" /><testcase classname="tests.test_stage02_oracles" name="test_forecast_lots_against_constant_rate_capacity_oracle[quantities1-expected1]" time="0.005" /><testcase classname="tests.test_stage02_oracles" name="test_forecast_lots_against_constant_rate_capacity_oracle[quantities2-expected2]" time="0.004" /><testcase classname="tests.test_stage02_oracles" name="test_authoritative_anomalies_outbox_failure_resolution_and_history" time="113.326" /><testcase classname="tests.test_stage02_oracles" name="test_recipient_correction_serializes_with_reservation_commit" time="12.889" /><testcase classname="tests.test_stage02_migration" name="test_schema14_backup_restore_upgrade15_preserves_history_acl" time="28.558" /><testcase classname="tests.test_final_algorithms_hla" name="test_dijkstra_against_independent_simple_path_oracle" time="0.307" /><testcase classname="tests.test_final_algorithms_hla" name="test_forecast_no_future_leakage_and_reproduction" time="0.008" /><testcase classname="tests.test_final_algorithms_hla" name="test_missing_hla_ambiguity_and_states" time="0.011" /><testcase classname="tests.test_final_algorithms_hla" name="test_urgency_simulation_missing_factors_and_anomalies" time="0.012" /><testcase classname="tests.test_final_algorithms_hla" name="test_persistent_algorithm_contract_and_tenant[json]" time="2.698" /><testcase classname="tests.test_final_algorithms_hla" name="test_persistent_algorithm_contract_and_tenant[xml]" time="1.076" /><testcase classname="tests.test_final_algorithms_hla" name="test_hla_structured_history_missing_and_corrected[json]" time="4.494" /><testcase classname="tests.test_final_algorithms_hla" name="test_hla_structured_history_missing_and_corrected[xml]" time="3.714" /><testcase classname="tests.test_final_algorithms_hla" name="test_limits_empty_graph_and_gps_separation" time="2.731" /><testcase classname="tests.test_final_algorithms_hla" name="test_web_simulation_view_and_form" time="0.439"><failure message="ImportError: cannot import name 'ZONES' from 'src.integration.routes.common' (/Users/victorberlanga/Programacion/integracion/Red-House/apps/web/src/integration/routes/common.py)">p = &lt;tests.conftest.Platform object at 0x10cbad490&gt;
+monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x10db738c0&gt;
+
+    def test_web_simulation_view_and_form(p, monkeypatch):
+        from .test_web_integration import login, post
+        from .test_web_integration import web as web_fixture
+    
+&gt;       app = web_fixture.__wrapped__(p, monkeypatch)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+apps/services/tests/test_final_algorithms_hla.py:394: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+apps/services/tests/test_web_integration.py:27: in web
+    app = create_app(
+apps/web/src/__init__.py:40: in create_app
+    return configure(app)
+           ^^^^^^^^^^^^^^
+apps/web/src/integration/__init__.py:389: in configure
+    from .routes import blueprints
+apps/web/src/integration/routes/__init__.py:4: in &lt;module&gt;
+    from . import (
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    """Rutas web: auth. Las reglas residen en las API propietarias."""
+    
+    from zoneinfo import ZoneInfo
+    from ..forms import prepare_fields, attach_errors
+    
+&gt;   from .common import (
+        BusinessError,
+        ZONES,
+        current_app,
+        datetime,
+        g,
+        generate_csrf,
+        jsonify,
+        make_response,
+        portal,
+        public,
+        redirect,
+        render_template,
+        request,
+        session,
+        sessions,
+        timezone,
+        url_for,
+        urlsplit,
+        field,
+    )
+E   ImportError: cannot import name 'ZONES' from 'src.integration.routes.common' (/Users/victorberlanga/Programacion/integracion/Red-House/apps/web/src/integration/routes/common.py)
+
+apps/web/src/integration/routes/auth.py:6: ImportError</failure></testcase><testcase classname="tests.test_final_algorithms_hla" name="test_expiry_estimate_does_not_double_count_demand" time="0.032" /><testcase classname="tests.test_final_algorithms_hla" name="test_migration_13_to_current_preserves_rows_and_is_repeatable" time="59.650" /><testcase classname="tests.test_final_quality" name="test_laboratory_missing_results_correction_quarantine_and_final_destination[json]" time="37.357" /><testcase classname="tests.test_final_quality" name="test_laboratory_missing_results_correction_quarantine_and_final_destination[xml]" time="18.970" /></testsuite></testsuites>

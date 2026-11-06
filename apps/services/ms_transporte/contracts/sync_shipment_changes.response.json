@@ -1,0 +1,97 @@
+{
+  "type": "object",
+  "required": [
+    "data",
+    "meta"
+  ],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": [
+        "correlation_id",
+        "service",
+        "version"
+      ],
+      "properties": {
+        "correlation_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "service": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      }
+    },
+    "data": {
+      "additionalProperties": false,
+      "properties": {
+        "items": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "title": "Id",
+                "type": "string"
+              },
+              "cursor": {
+                "title": "Cursor",
+                "type": "integer"
+              },
+              "state": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "State",
+                "type": "string"
+              },
+              "received_at": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Received At",
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "cursor",
+              "state",
+              "received_at"
+            ],
+            "title": "ShipmentChange",
+            "type": "object"
+          },
+          "title": "Items",
+          "type": "array"
+        },
+        "cursor": {
+          "title": "Cursor",
+          "type": "integer"
+        },
+        "version": {
+          "title": "Version",
+          "type": "integer"
+        },
+        "active": {
+          "title": "Active",
+          "type": "boolean"
+        },
+        "has_more": {
+          "title": "Has More",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "items",
+        "cursor",
+        "version",
+        "active",
+        "has_more"
+      ],
+      "title": "ShipmentChanges",
+      "type": "object"
+    }
+  }
+}

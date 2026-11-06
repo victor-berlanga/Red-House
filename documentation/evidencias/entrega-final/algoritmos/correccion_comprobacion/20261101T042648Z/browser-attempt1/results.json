@@ -1,0 +1,65 @@
+{
+  "passed": false,
+  "scope": "ACADEMIC with MFA/reauth/laboratory/organ checks explicitly enabled",
+  "apiListeners": "ALL_STOPPED",
+  "checks": [
+    {
+      "name": "MFA y cookie Secure, backend modular sin API",
+      "result": "PASS"
+    },
+    {
+      "name": "Cuatro niveles y límites visibles",
+      "result": "PASS"
+    },
+    {
+      "name": "Liberación académica con perfil y reautenticación persistida",
+      "result": "PASS"
+    }
+  ],
+  "runs": [],
+  "consoleErrors": [],
+  "networkErrors": [
+    {
+      "path": "/static/img/icons/chart-line.svg",
+      "status": 404
+    },
+    {
+      "path": "/static/img/icons/chart-line.svg",
+      "status": 404
+    },
+    {
+      "path": "/static/img/icons/chart-line.svg",
+      "status": 404
+    },
+    {
+      "path": "/static/img/icons/chart-line.svg",
+      "status": 404
+    },
+    {
+      "path": "/static/img/icons/chart-line.svg",
+      "status": 404
+    },
+    {
+      "path": "/static/img/icons/chart-line.svg",
+      "status": 404
+    },
+    {
+      "path": "/static/img/icons/chart-line.svg",
+      "status": 404
+    },
+    {
+      "path": "/static/img/icons/chart-line.svg",
+      "status": 404
+    },
+    {
+      "path": "/evaluaciones/6271f904-77b8-4f47-b61f-2057127849bb/dictamen/ded83637-2b30-4eea-b5ae-e939f748c471",
+      "status": 403
+    },
+    {
+      "path": "/static/img/icons/chart-line.svg",
+      "status": 404
+    }
+  ],
+  "failure": "page.waitForURL: Timeout 60000ms exceeded.",
+  "location": "    at save (/Users/victorberlanga/Programacion/integracion/Red-House/scripts/verify_stage02.cjs:12:54)"
+}

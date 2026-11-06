@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="3" time="48.342" timestamp="2026-10-29T06:59:54.039821-06:00" hostname="Victors-MacBook-Air.local"><testcase classname="tests.test_correction_backend" name="test_destination_correction_invariants_and_history[json]" time="41.047" /><testcase classname="tests.test_correction_backend" name="test_destination_correction_invariants_and_history[xml]" time="0.758" /><testcase classname="tests.test_correction_backend" name="test_laboratory_correction_invalidates_review_and_runtime_history[json]" time="4.933"><failure message="AssertionError: (409, '{&quot;error&quot;: {&quot;code&quot;: &quot;conflict&quot;, &quot;message&quot;: &quot;Recurso o perfil incompatibles.&quot;, &quot;details&quot;: []}, &quot;meta&quot;: {&quot;correlation_id&quot;: &quot;c5c55468-f5d0-4938-be3a-a1663423760b&quot;, &quot;service&quot;: &quot;inventario&quot;, &quot;version&quot;: &quot;0.4.0&quot;}}')&#10;assert 409 &lt; 300&#10; +  where 409 = &lt;Response [409]&gt;.status_code">apps/services/tests/test_correction_backend.py:182: in test_laboratory_correction_invalidates_review_and_runtime_history
+    profile, body, original = laboratory(p, unit, fmt)
+                              ^^^^^^^^^^^^^^^^^^^^^^^^
+apps/services/tests/test_correction_backend.py:124: in laboratory
+    api(
+apps/services/tests/test_final_quality.py:13: in api
+    result = p.ok(service, method, path, user=user, data=data)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+apps/services/tests/conftest.py:57: in ok
+    assert response.status_code &lt; 300, (response.status_code, response.text)
+E   AssertionError: (409, '{"error": {"code": "conflict", "message": "Recurso o perfil incompatibles.", "details": []}, "meta": {"correlation_id": "c5c55468-f5d0-4938-be3a-a1663423760b", "service": "inventario", "version": "0.4.0"}}')
+E   assert 409 &lt; 300
+E    +  where 409 = &lt;Response [409]&gt;.status_code</failure></testcase></testsuite></testsuites>

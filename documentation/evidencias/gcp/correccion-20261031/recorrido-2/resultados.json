@@ -1,0 +1,192 @@
+{
+  "startedAt": "2026-11-01T03:37:44.498Z",
+  "environment": "https://34.18.186.116",
+  "gateway": "GCP Nginx HTTPS/WSS",
+  "version": "0.4.1",
+  "schema": 13,
+  "policies": {
+    "mfa": true,
+    "reauth": true,
+    "laboratory": true,
+    "organAuthorization": true
+  },
+  "checks": [
+    {
+      "name": "MFA ausente rechazado sin iniciar sesión",
+      "role": "origin",
+      "at": "2026-11-01T03:37:56.288Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Inicio de sesión y cookies Secure sobre TLS",
+      "role": "origin",
+      "at": "2026-11-01T03:38:01.249Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Inicio de sesión y cookies Secure sobre TLS",
+      "role": "destination",
+      "at": "2026-11-01T03:38:10.680Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Solicitud, evaluación y revisión humana",
+      "role": "destination",
+      "at": "2026-11-01T03:38:26.118Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Nueva versión de laboratorio autorizada con MFA y reautenticación",
+      "role": "origin",
+      "at": "2026-11-01T03:38:39.986Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Reserva con dictamen anterior rechazada visiblemente",
+      "role": "destination",
+      "at": "2026-11-01T03:38:45.972Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Nueva evaluación y revisión permiten reservar una sola vez",
+      "role": "destination",
+      "at": "2026-11-01T03:39:03.319Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Inicio de sesión y cookies Secure sobre TLS",
+      "role": "coordinator",
+      "at": "2026-11-01T03:39:12.076Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Inicio de sesión y cookies Secure sobre TLS",
+      "role": "operator1",
+      "at": "2026-11-01T03:39:26.325Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Inicio de sesión y cookies Secure sobre TLS",
+      "role": "transport1",
+      "at": "2026-11-01T03:39:40.326Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Custodia incompleta no avanza; mensaje visible en móvil",
+      "role": "transport1",
+      "at": "2026-11-01T03:39:46.670Z",
+      "result": "PASS"
+    },
+    {
+      "name": "WSS real por Nginx; publicación, recepción y reconexión por cursor",
+      "role": "transport1",
+      "at": "2026-11-01T03:39:56.706Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Inicio de sesión y cookies Secure sobre TLS",
+      "role": "operator2",
+      "at": "2026-11-01T03:40:15.035Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Traslado completo, custodia y aceptación persistente",
+      "role": "operator2",
+      "at": "2026-11-01T03:40:26.082Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Tipo incompatible rechazado; uso y corrección documental conservan historia",
+      "role": "destination",
+      "at": "2026-11-01T03:41:07.170Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Institución anterior no accede al recurso recibido por otra",
+      "role": "origin",
+      "at": "2026-11-01T03:41:09.561Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Inicio de sesión y cookies Secure sobre TLS",
+      "role": "limited",
+      "at": "2026-11-01T03:41:19.812Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Inicio de sesión y cookies Secure sobre TLS",
+      "role": "admin",
+      "at": "2026-11-01T03:41:31.108Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Cambio institucional de rol retira la sesión anterior",
+      "role": "admin",
+      "at": "2026-11-01T03:41:37.564Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Reporte privado rechaza institución ajena",
+      "role": "origin",
+      "at": "2026-11-01T03:41:53.683Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Filtros y reporte privado del propietario extraído",
+      "role": "destination",
+      "at": "2026-11-01T03:41:53.684Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Inicio de sesión y cookies Secure sobre TLS",
+      "role": "auditor1",
+      "at": "2026-11-01T03:42:02.213Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Auditoría visible y responsive sin errores JavaScript",
+      "role": "auditor1",
+      "at": "2026-11-01T03:42:08.651Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Cierre de sesión",
+      "role": "auditor1",
+      "at": "2026-11-01T03:42:10.949Z",
+      "result": "PASS"
+    }
+  ],
+  "consoleErrors": [],
+  "networkErrors": [
+    {
+      "status": 401,
+      "path": "/login",
+      "role": "origin"
+    },
+    {
+      "status": 409,
+      "path": "/evaluaciones/9aef856f-b282-4ebb-b6dd-5c005b5b531d/reservar/02fcb402-06a3-4554-ac5e-b78b90aaf6b8",
+      "role": "destination"
+    },
+    {
+      "status": 409,
+      "path": "/inventario/02fcb402-06a3-4554-ac5e-b78b90aaf6b8/destino",
+      "role": "destination"
+    },
+    {
+      "status": 403,
+      "path": "/inventario/02fcb402-06a3-4554-ac5e-b78b90aaf6b8",
+      "role": "origin"
+    }
+  ],
+  "records": {
+    "request": "87d14949-f7c0-48b9-a5b1-de18255e3a6d",
+    "correctedResult": "4411c5ca-113c-4ed6-a0a3-614c143a6283",
+    "shipment": "e46ce3d7-6d4d-41b8-8a37-95ad5f727412",
+    "report": "09630afe-38b1-414a-8a5b-92e3dd3d5143"
+  },
+  "privateReportDownloaded": true,
+  "map": "No implementado en esta etapa; validar WSS por Nginx no acredita mapa.",
+  "passed": true,
+  "finishedAt": "2026-11-01T03:42:10.974Z"
+}

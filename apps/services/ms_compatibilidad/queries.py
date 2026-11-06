@@ -12,7 +12,7 @@ def install(app):
         "/api/v1/evaluations",
         roles=("MEDICAL",),
         paginated=True,
-        query=("request_id",),
+        query=("request_id", "q", "from_at", "until_at", "date_field", "sort"),
         summary="Historial institucional de evaluaciones y versiones",
     )
     def evaluation_list():

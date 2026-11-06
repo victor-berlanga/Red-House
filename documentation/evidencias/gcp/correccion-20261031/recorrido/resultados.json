@@ -1,0 +1,65 @@
+{
+  "startedAt": "2026-11-01T03:33:32.354Z",
+  "environment": "https://34.18.186.116",
+  "gateway": "GCP Nginx HTTPS/WSS",
+  "version": "0.4.1",
+  "schema": 13,
+  "policies": {
+    "mfa": true,
+    "reauth": true,
+    "laboratory": true,
+    "organAuthorization": true
+  },
+  "checks": [
+    {
+      "name": "MFA ausente rechazado sin iniciar sesión",
+      "role": "origin",
+      "at": "2026-11-01T03:34:31.132Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Inicio de sesión y cookies Secure sobre TLS",
+      "role": "origin",
+      "at": "2026-11-01T03:34:36.706Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Liberación sin reautenticación rechazada",
+      "role": "origin",
+      "at": "2026-11-01T03:34:40.351Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Liberación con MFA, perfil completo y reautenticación; persiste al recargar",
+      "role": "origin",
+      "at": "2026-11-01T03:35:05.959Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Inicio de sesión y cookies Secure sobre TLS",
+      "role": "destination",
+      "at": "2026-11-01T03:35:16.768Z",
+      "result": "PASS"
+    }
+  ],
+  "consoleErrors": [],
+  "networkErrors": [
+    {
+      "status": 401,
+      "path": "/login",
+      "role": "origin"
+    },
+    {
+      "status": 403,
+      "path": "/inventario/02fcb402-06a3-4554-ac5e-b78b90aaf6b8/liberar",
+      "role": "origin"
+    }
+  ],
+  "records": {},
+  "privateReportDownloaded": false,
+  "map": "No implementado en esta etapa; validar WSS por Nginx no acredita mapa.",
+  "passed": false,
+  "failure": "locator.waitFor: Timeout 60000ms exceeded.",
+  "failureLocation": "    at fill (/Users/victorberlanga/Programacion/integracion/Red-House/scripts/demonstrate_gcp_corrections.cjs:24:512)",
+  "finishedAt": "2026-11-01T03:36:19.344Z"
+}

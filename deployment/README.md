@@ -29,7 +29,7 @@ credenciales a ciegas. Las cuentas iniciales y su contraseña aleatoria están e
 
 Portal: `http://127.0.0.1:6050`. API por gateway: 6101 Identidad, 6102 Donantes,
 6103 Receptores, 6104 Inventario, 6105 Compatibilidad, 6106 Priorización/geografía,
-6107 Transporte, 6108 Custodia, 6109 Alertas, 6110 Auditoría y 6111 Monitoreo.
+6107 Transporte, 6108 Custodia, 6109 Alertas, 6110 Auditoría, 6111 Monitoreo y 6112 Documentos.
 Swagger está en `/docs/` de cada puerto. Bases sin puertos publicados.
 
 `start.py` espera salud por pares antes de iniciar el siguiente dominio. Inicia los consumidores de eventos antes que sus productores para drenar las colas conservadas. Esto limita el coste de arranque simultáneo de API y workers; conserva los mismos deadlines de salud. El arranque masivo puede saturar un equipo de desarrollo.
@@ -174,3 +174,7 @@ Comprueba login, renovación, cierre, rechazo de cookie cerrada, TTL y cifrado R
 El incremento de auditoría agrega tres tablas de seguimiento: 74 tablas de dominio y 75 contando las revocaciones del portal. Las instalaciones con esquema 6 requieren respaldo y migración aditiva antes de arrancar el código nuevo. `python3 deployment/migrate_audit.py --directory /ruta/privada/de/compose` respalda PostgreSQL/roles y aplica la migración; no recrea la base ni modifica eventos históricos. Repetirlo sobre versión 7 no vuelve a migrar.
 
 Consultar [procedimiento y permisos](../documentation/markdowns/Auditoria_y_formularios.md#actualización-conservando-datos) y [evidencia del incremento](../documentation/evidencias/auditoria-formularios/RESULTADOS.md) antes de atribuir estos cambios al despliegue público.
+
+## Actualización correctiva 0.4.1
+
+No usar bootstrap de instalación sobre datos existentes. Seguir el [procedimiento de migración 11→13, configuración de Documentos y rollback](../documentation/entrega-final/backend/correccion/Despliegue_y_rollback.md). Doce servicios, dos réplicas por servicio en Compose; cada réplica supervisa API y worker. La web añade sus módulos/worker propios y no cuenta como otra API independiente.

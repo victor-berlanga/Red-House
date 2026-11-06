@@ -1,3 +1,5 @@
+from .helpers import telemetry_body
+
 """Expediente HTTP: contratos de infraestructura, errores y ediciones de negocio."""
 
 import re
@@ -104,6 +106,9 @@ def test_all_registered_routes_expose_real_http_contracts_and_controlled_errors(
                 )
             if contract["method"] == "GET" and not contract.get("internal"):
                 user = USERS[(contract.get("roles") or ("MEDICAL",))[0]]
+                if contract["name"] == "document_list":
+                    # La lista documental exige propietario concreto, antes de paginar.
+                    path += "?subject_kind=ACCREDITATION&subject_id=" + str(uuid4())
                 response = p.request(service, "GET", path, user=user)
                 assert response.status_code in (200, 404), (
                     service,
@@ -316,7 +321,7 @@ def test_edits_details_and_recovery_have_http_and_committed_evidence(p):
         "POST",
         "/api/v1/shipments/" + shipment["id"] + "/telemetry",
         user="transport1",
-        data={"latitude": 25.6, "longitude": -100.3, "captured_at": iso()},
+        data=telemetry_body(p, shipment),
     )
     p.ok(
         "transporte",

@@ -1,0 +1,38 @@
+{
+  "authorization": "Usuario: Antes que nada, sube todo a gcp",
+  "target": {
+    "project": "sistemas-integracion-01",
+    "zone": "me-central1-a",
+    "instance": "red-house",
+    "url": "https://34.18.186.116"
+  },
+  "previous_version": "0.4.1",
+  "target_version": "0.4.4",
+  "schema_before": 13,
+  "schema_after": 16,
+  "initial_instance_state": "TERMINATED",
+  "temporary_ssh_key_ttl": "2h",
+  "incidents": [
+    {
+      "stage": "SSH",
+      "reason": "Existing private key accepted by server but requires interactive passphrase; no ssh-agent identity",
+      "resolution": "Temporary OS Login key with bounded expiry; existing private key unchanged"
+    },
+    {
+      "stage": "migration-check",
+      "reason": "Verifier expected schema_migrations; actual historical table is schema_migration",
+      "resolution": "Corrected deployment verifier; migration16 already committed. Business table digests unchanged; repeated migrator idempotently."
+    },
+    {
+      "stage": "status",
+      "reason": "systemctl is-active returns3 during activating",
+      "resolution": "Read systemctl ActiveState/SubState instead; not treated as readiness failure"
+    },
+    {
+      "stage": "HTTPS-version-check",
+      "reason": "Probe assumed all microservices use release version0.4.4; unchanged modules retain their own version0.4.1",
+      "resolution": "Compare each public version against its exact local module VERSION; require matching images and source digests separately. No business code changed."
+    }
+  ],
+  "connectivity_test_deleted": true
+}

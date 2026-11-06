@@ -1,0 +1,952 @@
+[
+  {
+    "path": "/api/v1/shipments/<identifier>/files",
+    "method": "POST",
+    "model": "Upload",
+    "roles": [
+      "TRANSPORT",
+      "OPERATOR",
+      "COORDINATOR"
+    ],
+    "internal": [],
+    "delegate": true,
+    "public": false,
+    "summary": "Preparar carga privada con URL firmada de cinco minutos",
+    "status": 201,
+    "result": null,
+    "paginated": false,
+    "query": [],
+    "name": "file_prepare"
+  },
+  {
+    "path": "/api/v1/files/<identifier>/verify",
+    "method": "POST",
+    "model": null,
+    "roles": [
+      "TRANSPORT",
+      "OPERATOR",
+      "COORDINATOR",
+      "MEDICAL",
+      "ADMIN",
+      "DONOR",
+      "AUDITOR"
+    ],
+    "internal": [],
+    "delegate": true,
+    "public": false,
+    "summary": "Verificar tamaño, MIME, firma de archivo y SHA-256 del objeto real",
+    "status": 200,
+    "result": null,
+    "paginated": false,
+    "query": [],
+    "name": "file_verify"
+  },
+  {
+    "path": "/api/v1/files/<identifier>/download",
+    "method": "GET",
+    "model": null,
+    "roles": [
+      "TRANSPORT",
+      "OPERATOR",
+      "COORDINATOR",
+      "MEDICAL",
+      "ADMIN",
+      "DONOR",
+      "AUDITOR"
+    ],
+    "internal": [],
+    "delegate": true,
+    "public": false,
+    "summary": "Descargar evidencia verificada mediante acceso temporal privado",
+    "status": 200,
+    "result": null,
+    "paginated": false,
+    "query": [],
+    "name": "file_download"
+  },
+  {
+    "path": "/api/v1/shipments/<identifier>/files",
+    "method": "GET",
+    "model": null,
+    "roles": [
+      "TRANSPORT",
+      "OPERATOR",
+      "COORDINATOR"
+    ],
+    "internal": [],
+    "delegate": true,
+    "public": false,
+    "summary": "Evidencias del traslado y estado persistente de validación",
+    "status": 200,
+    "result": null,
+    "paginated": true,
+    "query": [
+      "q",
+      "from_at",
+      "until_at",
+      "date_field",
+      "sort"
+    ],
+    "name": "file_list"
+  },
+  {
+    "path": "/api/v1/documents",
+    "method": "POST",
+    "model": "DocumentCreate",
+    "roles": [
+      "ADMIN",
+      "MEDICAL",
+      "OPERATOR",
+      "COORDINATOR",
+      "TRANSPORT",
+      "DONOR"
+    ],
+    "internal": [],
+    "delegate": true,
+    "public": false,
+    "summary": "document_prepare",
+    "status": 201,
+    "result": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "metadata": {
+          "additionalProperties": false,
+          "properties": {
+            "id": {
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+              "title": "Id",
+              "type": "string"
+            },
+            "tenant_id": {
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+              "title": "Tenant Id",
+              "type": "string"
+            },
+            "category": {
+              "maxLength": 200,
+              "minLength": 1,
+              "title": "Category",
+              "type": "string"
+            },
+            "subject_kind": {
+              "maxLength": 200,
+              "minLength": 1,
+              "title": "Subject Kind",
+              "type": "string"
+            },
+            "subject_id": {
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+              "title": "Subject Id",
+              "type": "string"
+            },
+            "version": {
+              "title": "Version",
+              "type": "integer"
+            },
+            "supersedes": {
+              "anyOf": [
+                {
+                  "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Supersedes"
+            },
+            "privacy": {
+              "const": "PRIVATE",
+              "title": "Privacy",
+              "type": "string"
+            },
+            "retention_until": {
+              "anyOf": [
+                {
+                  "maxLength": 200,
+                  "minLength": 1,
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Retention Until"
+            },
+            "legal_hold": {
+              "title": "Legal Hold",
+              "type": "boolean"
+            },
+            "policy_reference": {
+              "maxLength": 200,
+              "minLength": 1,
+              "title": "Policy Reference",
+              "type": "string"
+            },
+            "created_at": {
+              "maxLength": 200,
+              "minLength": 1,
+              "title": "Created At",
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "tenant_id",
+            "category",
+            "subject_kind",
+            "subject_id",
+            "version",
+            "supersedes",
+            "privacy",
+            "retention_until",
+            "legal_hold",
+            "policy_reference",
+            "created_at"
+          ],
+          "title": "Metadata",
+          "type": "object"
+        },
+        "upload_url": {
+          "title": "Upload Url",
+          "type": "string"
+        },
+        "expires_in": {
+          "title": "Expires In",
+          "type": "integer"
+        },
+        "upload_headers": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "title": "Upload Headers",
+          "type": "object"
+        }
+      },
+      "required": [
+        "id",
+        "metadata",
+        "upload_url",
+        "expires_in",
+        "upload_headers"
+      ],
+      "title": "Prepared",
+      "type": "object"
+    },
+    "paginated": false,
+    "query": [],
+    "name": "document_prepare"
+  },
+  {
+    "path": "/api/v1/documents/<identifier>",
+    "method": "GET",
+    "model": null,
+    "roles": [
+      "ADMIN",
+      "MEDICAL",
+      "OPERATOR",
+      "COORDINATOR",
+      "TRANSPORT",
+      "DONOR"
+    ],
+    "internal": [],
+    "delegate": true,
+    "public": false,
+    "summary": "document_detail",
+    "status": 200,
+    "result": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "tenant_id": {
+          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+          "title": "Tenant Id",
+          "type": "string"
+        },
+        "category": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Category",
+          "type": "string"
+        },
+        "subject_kind": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Subject Kind",
+          "type": "string"
+        },
+        "subject_id": {
+          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+          "title": "Subject Id",
+          "type": "string"
+        },
+        "version": {
+          "title": "Version",
+          "type": "integer"
+        },
+        "supersedes": {
+          "anyOf": [
+            {
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Supersedes"
+        },
+        "privacy": {
+          "const": "PRIVATE",
+          "title": "Privacy",
+          "type": "string"
+        },
+        "retention_until": {
+          "anyOf": [
+            {
+              "maxLength": 200,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Retention Until"
+        },
+        "legal_hold": {
+          "title": "Legal Hold",
+          "type": "boolean"
+        },
+        "policy_reference": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Policy Reference",
+          "type": "string"
+        },
+        "created_at": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Created At",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "tenant_id",
+        "category",
+        "subject_kind",
+        "subject_id",
+        "version",
+        "supersedes",
+        "privacy",
+        "retention_until",
+        "legal_hold",
+        "policy_reference",
+        "created_at"
+      ],
+      "title": "Metadata",
+      "type": "object"
+    },
+    "paginated": false,
+    "query": [],
+    "name": "document_detail"
+  },
+  {
+    "path": "/api/v1/documents",
+    "method": "GET",
+    "model": null,
+    "roles": [
+      "ADMIN",
+      "MEDICAL",
+      "OPERATOR",
+      "COORDINATOR",
+      "TRANSPORT",
+      "DONOR"
+    ],
+    "internal": [],
+    "delegate": true,
+    "public": false,
+    "summary": "document_list",
+    "status": 200,
+    "result": {
+      "type": "object",
+      "required": [
+        "items",
+        "page",
+        "page_size",
+        "total"
+      ],
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "title": "Id",
+                "type": "string"
+              },
+              "tenant_id": {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "title": "Tenant Id",
+                "type": "string"
+              },
+              "category": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Category",
+                "type": "string"
+              },
+              "subject_kind": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Subject Kind",
+                "type": "string"
+              },
+              "subject_id": {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "title": "Subject Id",
+                "type": "string"
+              },
+              "version": {
+                "title": "Version",
+                "type": "integer"
+              },
+              "supersedes": {
+                "anyOf": [
+                  {
+                    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Supersedes"
+              },
+              "privacy": {
+                "const": "PRIVATE",
+                "title": "Privacy",
+                "type": "string"
+              },
+              "retention_until": {
+                "anyOf": [
+                  {
+                    "maxLength": 200,
+                    "minLength": 1,
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Retention Until"
+              },
+              "legal_hold": {
+                "title": "Legal Hold",
+                "type": "boolean"
+              },
+              "policy_reference": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Policy Reference",
+                "type": "string"
+              },
+              "created_at": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Created At",
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "tenant_id",
+              "category",
+              "subject_kind",
+              "subject_id",
+              "version",
+              "supersedes",
+              "privacy",
+              "retention_until",
+              "legal_hold",
+              "policy_reference",
+              "created_at"
+            ],
+            "title": "Metadata",
+            "type": "object"
+          }
+        },
+        "page": {
+          "type": "integer"
+        },
+        "page_size": {
+          "type": "integer"
+        },
+        "total": {
+          "type": "integer"
+        }
+      }
+    },
+    "paginated": true,
+    "query": [
+      "subject_kind",
+      "subject_id",
+      "category",
+      "legal_hold",
+      "q",
+      "from_at",
+      "until_at",
+      "date_field",
+      "sort"
+    ],
+    "name": "document_list"
+  },
+  {
+    "path": "/api/v1/export-jobs",
+    "method": "POST",
+    "model": "ReportCreate",
+    "roles": [],
+    "internal": [],
+    "delegate": true,
+    "public": false,
+    "summary": "export_create",
+    "status": 202,
+    "result": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "tenant_id": {
+          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+          "title": "Tenant Id",
+          "type": "string"
+        },
+        "user_id": {
+          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+          "title": "User Id",
+          "type": "string"
+        },
+        "report": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Report",
+          "type": "string"
+        },
+        "format": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Format",
+          "type": "string"
+        },
+        "status": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Status",
+          "type": "string"
+        },
+        "file_id": {
+          "anyOf": [
+            {
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "File Id"
+        },
+        "last_error": {
+          "anyOf": [
+            {
+              "maxLength": 200,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Last Error"
+        },
+        "attempts": {
+          "title": "Attempts",
+          "type": "integer"
+        },
+        "created_at": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Created At",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "tenant_id",
+        "user_id",
+        "report",
+        "format",
+        "status",
+        "file_id",
+        "last_error",
+        "attempts",
+        "created_at"
+      ],
+      "title": "Job",
+      "type": "object"
+    },
+    "paginated": false,
+    "query": [],
+    "name": "export_create"
+  },
+  {
+    "path": "/api/v1/export-jobs",
+    "method": "GET",
+    "model": null,
+    "roles": [],
+    "internal": [],
+    "delegate": true,
+    "public": false,
+    "summary": "export_list",
+    "status": 200,
+    "result": {
+      "type": "object",
+      "required": [
+        "items",
+        "page",
+        "page_size",
+        "total"
+      ],
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "title": "Id",
+                "type": "string"
+              },
+              "tenant_id": {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "title": "Tenant Id",
+                "type": "string"
+              },
+              "user_id": {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "title": "User Id",
+                "type": "string"
+              },
+              "report": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Report",
+                "type": "string"
+              },
+              "format": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Format",
+                "type": "string"
+              },
+              "status": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Status",
+                "type": "string"
+              },
+              "file_id": {
+                "anyOf": [
+                  {
+                    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "File Id"
+              },
+              "last_error": {
+                "anyOf": [
+                  {
+                    "maxLength": 200,
+                    "minLength": 1,
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Last Error"
+              },
+              "attempts": {
+                "title": "Attempts",
+                "type": "integer"
+              },
+              "created_at": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Created At",
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "tenant_id",
+              "user_id",
+              "report",
+              "format",
+              "status",
+              "file_id",
+              "last_error",
+              "attempts",
+              "created_at"
+            ],
+            "title": "Job",
+            "type": "object"
+          }
+        },
+        "page": {
+          "type": "integer"
+        },
+        "page_size": {
+          "type": "integer"
+        },
+        "total": {
+          "type": "integer"
+        }
+      }
+    },
+    "paginated": true,
+    "query": [
+      "q",
+      "report",
+      "format",
+      "status",
+      "from_at",
+      "until_at",
+      "date_field",
+      "sort"
+    ],
+    "name": "export_list"
+  },
+  {
+    "path": "/api/v1/export-jobs/<identifier>",
+    "method": "GET",
+    "model": null,
+    "roles": [],
+    "internal": [],
+    "delegate": true,
+    "public": false,
+    "summary": "export_detail",
+    "status": 200,
+    "result": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "tenant_id": {
+          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+          "title": "Tenant Id",
+          "type": "string"
+        },
+        "user_id": {
+          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+          "title": "User Id",
+          "type": "string"
+        },
+        "report": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Report",
+          "type": "string"
+        },
+        "format": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Format",
+          "type": "string"
+        },
+        "status": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Status",
+          "type": "string"
+        },
+        "file_id": {
+          "anyOf": [
+            {
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "File Id"
+        },
+        "last_error": {
+          "anyOf": [
+            {
+              "maxLength": 200,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Last Error"
+        },
+        "attempts": {
+          "title": "Attempts",
+          "type": "integer"
+        },
+        "created_at": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Created At",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "tenant_id",
+        "user_id",
+        "report",
+        "format",
+        "status",
+        "file_id",
+        "last_error",
+        "attempts",
+        "created_at"
+      ],
+      "title": "Job",
+      "type": "object"
+    },
+    "paginated": false,
+    "query": [],
+    "name": "export_detail"
+  },
+  {
+    "path": "/api/v1/export-jobs/<identifier>/retry",
+    "method": "POST",
+    "model": "Confirm",
+    "roles": [],
+    "internal": [],
+    "delegate": true,
+    "public": false,
+    "summary": "export_retry",
+    "status": 202,
+    "result": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "tenant_id": {
+          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+          "title": "Tenant Id",
+          "type": "string"
+        },
+        "user_id": {
+          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+          "title": "User Id",
+          "type": "string"
+        },
+        "report": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Report",
+          "type": "string"
+        },
+        "format": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Format",
+          "type": "string"
+        },
+        "status": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Status",
+          "type": "string"
+        },
+        "file_id": {
+          "anyOf": [
+            {
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "File Id"
+        },
+        "last_error": {
+          "anyOf": [
+            {
+              "maxLength": 200,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Last Error"
+        },
+        "attempts": {
+          "title": "Attempts",
+          "type": "integer"
+        },
+        "created_at": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Created At",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "tenant_id",
+        "user_id",
+        "report",
+        "format",
+        "status",
+        "file_id",
+        "last_error",
+        "attempts",
+        "created_at"
+      ],
+      "title": "Job",
+      "type": "object"
+    },
+    "paginated": false,
+    "query": [],
+    "name": "export_retry"
+  }
+]

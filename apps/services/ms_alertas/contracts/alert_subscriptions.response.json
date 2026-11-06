@@ -1,0 +1,120 @@
+{
+  "type": "object",
+  "required": [
+    "data",
+    "meta"
+  ],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": [
+        "correlation_id",
+        "service",
+        "version"
+      ],
+      "properties": {
+        "correlation_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "service": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "required": [
+        "items",
+        "page",
+        "page_size",
+        "total"
+      ],
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "title": "Id",
+                "type": "string"
+              },
+              "tenant_id": {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "title": "Tenant Id",
+                "type": "string"
+              },
+              "user_id": {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "title": "User Id",
+                "type": "string"
+              },
+              "role": {
+                "enum": [
+                  "ADMIN",
+                  "OPERATOR",
+                  "MEDICAL",
+                  "COORDINATOR",
+                  "TRANSPORT",
+                  "AUDITOR",
+                  "DONOR"
+                ],
+                "title": "Role",
+                "type": "string"
+              },
+              "channel": {
+                "title": "Channel",
+                "type": "string"
+              },
+              "destination": {
+                "title": "Destination",
+                "type": "string"
+              },
+              "active": {
+                "title": "Active",
+                "type": "boolean"
+              },
+              "version": {
+                "title": "Version",
+                "type": "integer"
+              },
+              "created_at": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Created At",
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "tenant_id",
+              "user_id",
+              "role",
+              "channel",
+              "destination",
+              "active",
+              "version",
+              "created_at"
+            ],
+            "title": "Subscription",
+            "type": "object"
+          }
+        },
+        "page": {
+          "type": "integer"
+        },
+        "page_size": {
+          "type": "integer"
+        },
+        "total": {
+          "type": "integer"
+        }
+      }
+    }
+  }
+}

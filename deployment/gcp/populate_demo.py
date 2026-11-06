@@ -35,6 +35,7 @@ SERVICES = (
     "alertas",
     "auditoria",
     "monitoreo",
+    "documentos",
 )
 REASON = "Revisión de la información registrada para coordinación regional."
 CONFIRM = {"human_confirmation": True, "reason": REASON}

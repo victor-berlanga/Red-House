@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% from 'integration/values.html' import value_view with context %}
+{% block content %}
+<div class="page-heading"><div><a href="{{ url_for('regional.decision_support') }}">← Apoyo a decisiones</a><h1>{{ title }}</h1></div></div>
+<p class="context-note">La evidencia académica y la aprobación clínica son distintas. Una norma citada o un alelo reconocido no emiten dictamen. La prioridad logística demostrada sigue siendo sintética.</p>
+<section class="card record-section"><h2>Reglas documentadas y alcance</h2>
+{% for rule in sources.rules %}<article><h3>{{ rule.id }} · versión {{ rule.version }}</h3>
+<p>{{ rule.summary }} <a href="{{ rule.url }}" rel="noopener noreferrer" target="_blank">Fuente primaria · {{ rule.section }}</a></p>
+{{ value_view(rule) }}</article>{% endfor %}</section>
+<section class="card record-section"><h2>Catálogo público HLA</h2>
+<p>Coincidencia exacta, coincidencia a menor resolución y ausencia en esta edición se informan por separado. No se deduce compatibilidad.</p>
+{{ value_view(sources.catalogues) }}</section>
+<section class="card record-section"><h2>Rutas viales y procedencia</h2>
+<p>© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors · ODbL</a>. OSRM aporta rutas y tiempos modelados; no tráfico en vivo. La fecha de descarga no sustituye la fecha del mapa. Los nodos son referencias urbanas, no accesos hospitalarios verificados.</p>
+{{ value_view(roads['items']) }}<a class="button" href="{{ url_for('regional.import_reference_roads') }}">Registrar fuente vial</a></section>
+{% endblock %}

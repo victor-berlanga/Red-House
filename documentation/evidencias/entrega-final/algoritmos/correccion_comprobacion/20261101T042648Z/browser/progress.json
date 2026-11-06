@@ -1,0 +1,84 @@
+{
+  "checks": [
+    {
+      "name": "MFA y cookie Secure, backend modular sin API",
+      "result": "PASS"
+    },
+    {
+      "name": "Cuatro niveles y límites visibles",
+      "result": "PASS"
+    },
+    {
+      "name": "Registro de perfil por formulario y conservación",
+      "result": "PASS"
+    },
+    {
+      "name": "Muestra recibida y resultado no realizado persistidos sin dictamen",
+      "result": "PASS"
+    },
+    {
+      "name": "Completitud técnica separada de registro, evaluación y dictamen",
+      "result": "PASS"
+    },
+    {
+      "name": "Liberación académica con perfil y reautenticación persistida",
+      "result": "PASS"
+    },
+    {
+      "name": "Evaluación de perfil y dictamen humano separados",
+      "result": "PASS"
+    },
+    {
+      "name": "ALG-01 por formulario, persistencia y reproducción",
+      "result": "PASS"
+    },
+    {
+      "name": "ALG-02 por formulario, persistencia y reproducción",
+      "result": "PASS"
+    },
+    {
+      "name": "ALG-02-GEO por formulario, persistencia y reproducción",
+      "result": "PASS"
+    },
+    {
+      "name": "ALG-03 por formulario, persistencia y reproducción",
+      "result": "PASS"
+    },
+    {
+      "name": "ALG-04 por formulario, persistencia y reproducción",
+      "result": "PASS"
+    },
+    {
+      "name": "ALG-05 por formulario, persistencia y reproducción",
+      "result": "PASS"
+    },
+    {
+      "name": "Anomalía recibida por outbox visible en Auditoría",
+      "result": "PASS"
+    },
+    {
+      "name": "Corrección invalida consulta de dictamen sin alterar historia",
+      "result": "PASS"
+    },
+    {
+      "name": "Reserva obsoleta rechazada desde navegador",
+      "result": "PASS"
+    },
+    {
+      "name": "Nueva evaluación y dictamen permiten reserva académica",
+      "result": "PASS"
+    },
+    {
+      "name": "Operador sin acceso a dictamen",
+      "result": "PASS"
+    },
+    {
+      "name": "Médico de otra institución sin acceso a evaluación",
+      "result": "PASS"
+    },
+    {
+      "name": "Auditor resuelve revisión con MFA y reautenticación, conserva historial",
+      "result": "PASS"
+    }
+  ]
+}

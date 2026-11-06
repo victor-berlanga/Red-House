@@ -1,0 +1,147 @@
+{
+  "type": "object",
+  "required": [
+    "data",
+    "meta"
+  ],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": [
+        "correlation_id",
+        "service",
+        "version"
+      ],
+      "properties": {
+        "correlation_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "service": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      }
+    },
+    "data": {
+      "additionalProperties": false,
+      "properties": {
+        "resource_id": {
+          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+          "title": "Resource Id",
+          "type": "string"
+        },
+        "donation_id": {
+          "anyOf": [
+            {
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Donation Id"
+        },
+        "parent_ids": {
+          "items": {
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "type": "string"
+          },
+          "title": "Parent Ids",
+          "type": "array"
+        },
+        "child_ids": {
+          "items": {
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "type": "string"
+          },
+          "title": "Child Ids",
+          "type": "array"
+        },
+        "shipment_ids": {
+          "items": {
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "type": "string"
+          },
+          "title": "Shipment Ids",
+          "type": "array"
+        },
+        "events": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "title": "Id",
+                "type": "string"
+              },
+              "source": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Source",
+                "type": "string"
+              },
+              "action": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Action",
+                "type": "string"
+              },
+              "occurred_at": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Occurred At",
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "source",
+              "action",
+              "occurred_at"
+            ],
+            "title": "TraceEvent",
+            "type": "object"
+          },
+          "title": "Events",
+          "type": "array"
+        },
+        "restricted_or_unavailable_sources": {
+          "items": {
+            "maxLength": 200,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Restricted Or Unavailable Sources",
+          "type": "array"
+        },
+        "final_destination_recorded": {
+          "title": "Final Destination Recorded",
+          "type": "boolean"
+        },
+        "notice": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Notice",
+          "type": "string"
+        }
+      },
+      "required": [
+        "resource_id",
+        "donation_id",
+        "parent_ids",
+        "child_ids",
+        "shipment_ids",
+        "events",
+        "restricted_or_unavailable_sources",
+        "final_destination_recorded",
+        "notice"
+      ],
+      "title": "Trace",
+      "type": "object"
+    }
+  }
+}

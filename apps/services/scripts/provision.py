@@ -139,6 +139,7 @@ def provision(
             f"%R~{prefix}permissions:*",
             f"%R~{prefix}permission_version:*",
             f"%R~{prefix}revoked:*",
+            f"%R~{prefix}reauth:*",
             f"~{prefix}limit:{service}:*",
             f"~{prefix}nonce:{service}:*",
             f"~{prefix}cache:{service}:*",
@@ -154,10 +155,19 @@ def provision(
                     "refresh",
                     "used_refresh",
                     "login_fail",
+                    "device",
+                    "mfa",
+                    "recovery",
+                    "reauth",
                 )
             ]
         if service == "transporte":
             key_rules.append(f"~{prefix}transporte:location:*")
+            key_rules += [
+                f"%R~{prefix}device:*",
+                f"~{prefix}tracking:*",
+                f"&{prefix}tracking:channel:*",
+            ]
         redisadmin.execute_command(
             "ACL",
             "SETUSER",
@@ -179,6 +189,11 @@ def provision(
             "+eval",
             "+multi",
             "+exec",
+            *(
+                ["+zadd", "+zrem", "+zremrangebyscore", "+zscore", "+zcard", "+publish"]
+                if service == "transporte"
+                else []
+            ),
         )
         config = {
             "SERVICE": service,
@@ -273,6 +288,10 @@ def provision(
         f"redis://{redis_host}:{redisport}/0",
         prefix,
     )
+    # Aplicar después de crear todas las credenciales, incluido el propietario nuevo.
+    with psycopg.connect(owner_url) as conn:
+        from redhouse.shared_migrations import upgrade
+        upgrade(conn)
     return {
         "configs": configs,
         "web_sessions": web_sessions,

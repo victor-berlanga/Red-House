@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% from 'integration/values.html' import value_view with context %}
+{% block content %}
+<div class="page-heading"><div><a href="{{ url_for('regional.rule_profiles') }}">← Perfiles</a><h1>{{ title }}</h1></div></div>
+<p class="context-note">{{ note }}</p>
+<section class="card record-section"><h2>{{ record.name }} · versión {{ record.version }}</h2><p>Estado actual: {{ governance.state }}. Aplicación clínica habilitada: {{ 'Sí' if governance.clinical_enabled else 'No' }}. Ámbito: {{ governance.scope }}.</p>
+{{ value_view(governance) }}<a class="button" href="{{ url_for('regional.rule_action', identifier=record.id) }}">Registrar transición</a></section>
+<section class="card record-section"><h2>Especificación inmutable, datos exigidos y fuentes</h2>{{ value_view(record) }}</section>
+{% endblock %}

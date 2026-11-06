@@ -1,0 +1,77 @@
+{
+  "version": "0.4.1",
+  "packages": [
+    {
+      "service": "identidad_acceso",
+      "directory": ".local/correccion-0.4.1-20261029T153200Z/identidad_acceso",
+      "manifest_sha256": "32f7d1210861f85c46b33ff5412a8a5ad2337269c38e92a55a5c8ad9d9789a26",
+      "files": 237
+    },
+    {
+      "service": "donantes",
+      "directory": ".local/correccion-0.4.1-20261029T153200Z/donantes",
+      "manifest_sha256": "db7984808d0ee3a1d190f498da90019eee1f5a6ef268853d5e9b33bdc71333e9",
+      "files": 136
+    },
+    {
+      "service": "receptores",
+      "directory": ".local/correccion-0.4.1-20261029T153200Z/receptores",
+      "manifest_sha256": "accf0bf6722072d397a2cafbaea23c193bc896f1de8ce6a69952a37c0ed5de17",
+      "files": 111
+    },
+    {
+      "service": "inventario",
+      "directory": ".local/correccion-0.4.1-20261029T153200Z/inventario",
+      "manifest_sha256": "917ae40b69607a6cf279aae07ee2342534b9ef5a87d6a4df8d5fd57c8d45e515",
+      "files": 167
+    },
+    {
+      "service": "compatibilidad",
+      "directory": ".local/correccion-0.4.1-20261029T153200Z/compatibilidad",
+      "manifest_sha256": "a55100b0d6313e4f00c32a0e11e16a6c8903a0b52d5b712d6b45c3667b883e4c",
+      "files": 110
+    },
+    {
+      "service": "priorizacion_geografia",
+      "directory": ".local/correccion-0.4.1-20261029T153200Z/priorizacion_geografia",
+      "manifest_sha256": "2e375d70d9be92ae107976d4daa21b0ac0c3e36cf3762e3d4d09780065717aeb",
+      "files": 89
+    },
+    {
+      "service": "transporte",
+      "directory": ".local/correccion-0.4.1-20261029T153200Z/transporte",
+      "manifest_sha256": "72efbbba2be472445f962f5f40cf82872a03df9da00db8bb07d08f11b776541d",
+      "files": 169
+    },
+    {
+      "service": "custodia",
+      "directory": ".local/correccion-0.4.1-20261029T153200Z/custodia",
+      "manifest_sha256": "9ed645d64bba0374f15ce27640719d524f583172faa0a9910923743d4b72c42a",
+      "files": 67
+    },
+    {
+      "service": "alertas",
+      "directory": ".local/correccion-0.4.1-20261029T153200Z/alertas",
+      "manifest_sha256": "76bdd0a10dc4b9a2e9ad8af267964eb1c266e29a4a015c544424fbdcaa0c6d68",
+      "files": 89
+    },
+    {
+      "service": "auditoria",
+      "directory": ".local/correccion-0.4.1-20261029T153200Z/auditoria",
+      "manifest_sha256": "84e7c36a2fcc2d9106f31d5b4f53af29e3738db37a1ac70894cef86149867011",
+      "files": 85
+    },
+    {
+      "service": "monitoreo",
+      "directory": ".local/correccion-0.4.1-20261029T153200Z/monitoreo",
+      "manifest_sha256": "7a0a3172e90bf0ecddc7778922b4d16c6cf4492d4883e9f3a8548417abc6f83e",
+      "files": 65
+    },
+    {
+      "service": "documentos",
+      "directory": ".local/correccion-0.4.1-20261029T153200Z/documentos",
+      "manifest_sha256": "f02fe253922c60683ef0707a7319d972d929bbaafe8316d5992928902eebc702",
+      "files": 90
+    }
+  ]
+}

@@ -1,0 +1,557 @@
+{
+  "unique_cases": 110,
+  "passed": 110,
+  "cases": {
+    "tests.test_public_reference_sources::test_pinned_public_hla_membership_and_resolution[A*01:01:01:01-EXACT-1]": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "0.482"
+    },
+    "tests.test_public_reference_sources::test_pinned_public_hla_membership_and_resolution[A*01:01-LOW_RESOLUTION-303]": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "0.022"
+    },
+    "tests.test_public_reference_sources::test_pinned_public_hla_membership_and_resolution[A*99:99999-NOT_FOUND-0]": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "0.016"
+    },
+    "tests.test_public_reference_sources::test_catalogue_unavailable_tampered_unknown_and_partial": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "0.037"
+    },
+    "tests.test_public_reference_sources::test_normative_transition_exact_mexican_date[2027-04-10T05:59:59+00:00-old0-new0]": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "0.013"
+    },
+    "tests.test_public_reference_sources::test_normative_transition_exact_mexican_date[2027-04-10T06:00:00+00:00-old1-new1]": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "0.003"
+    },
+    "tests.test_public_reference_sources::test_cited_profile_scope_future_and_no_clinical_activation[json]": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "39.195"
+    },
+    "tests.test_public_reference_sources::test_cited_profile_scope_future_and_no_clinical_activation[xml]": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "0.837"
+    },
+    "tests.test_public_reference_sources::test_hla_catalogue_persisted_correction_completeness_without_verdict[HLA-json]": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "1.475"
+    },
+    "tests.test_public_reference_sources::test_hla_catalogue_persisted_correction_completeness_without_verdict[HLA-xml]": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "1.136"
+    },
+    "tests.test_public_reference_sources::test_hla_catalogue_persisted_correction_completeness_without_verdict[CUSTOM_HLA-json]": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "1.280"
+    },
+    "tests.test_public_reference_sources::test_hla_catalogue_persisted_correction_completeness_without_verdict[CUSTOM_HLA-xml]": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "1.084"
+    },
+    "tests.test_public_reference_sources::test_real_road_source_import_route_replay_and_no_gps[json]": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "0.676"
+    },
+    "tests.test_public_reference_sources::test_real_road_source_import_route_replay_and_no_gps[xml]": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "0.585"
+    },
+    "tests.test_public_reference_sources::test_road_integrity_and_unknown_source_fail_closed": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "0.004"
+    },
+    "tests.test_stage02_corrections::test_hla_one_field_is_not_reported_allele": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "0.003"
+    },
+    "tests.test_stage02_corrections::test_recipient_organ_profile_mismatch_rejected": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "0.370"
+    },
+    "tests.test_stage02_corrections::test_future_profile_cannot_collect_sample": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "0.335"
+    },
+    "tests.test_stage02_corrections::test_registry_transitions_history_and_disabled_clinical_scope[json]": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "0.784"
+    },
+    "tests.test_stage02_corrections::test_registry_transitions_history_and_disabled_clinical_scope[xml]": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "0.719"
+    },
+    "tests.test_stage02_corrections::test_partial_hla_and_unknown_version_persist_without_approval[json]": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "0.962"
+    },
+    "tests.test_stage02_corrections::test_partial_hla_and_unknown_version_persist_without_approval[xml]": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "0.774"
+    },
+    "tests.test_stage02_corrections::test_recipient_lab_change_invalidates_review_detail_and_reserve[json]": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "3.612"
+    },
+    "tests.test_stage02_corrections::test_recipient_lab_change_invalidates_review_detail_and_reserve[xml]": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "3.369"
+    },
+    "tests.test_stage02_corrections::test_regional_graph_authoritative_runs_and_anomaly_outbox[json]": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "47.549"
+    },
+    "tests.test_stage02_corrections::test_regional_graph_authoritative_runs_and_anomaly_outbox[xml]": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "13.738"
+    },
+    "tests.test_stage02_corrections::test_each_rank_factor_changes_result_with_prior_factors_tied[urgency-3-b]": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "0.003"
+    },
+    "tests.test_stage02_corrections::test_each_rank_factor_changes_result_with_prior_factors_tied[waiting_minutes-20-b]": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "0.005"
+    },
+    "tests.test_stage02_corrections::test_each_rank_factor_changes_result_with_prior_factors_tied[expiry_minutes-50-b]": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "0.005"
+    },
+    "tests.test_stage02_corrections::test_each_rank_factor_changes_result_with_prior_factors_tied[travel_minutes-5-b]": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "0.003"
+    },
+    "tests.test_stage02_corrections::test_each_rank_factor_changes_result_with_prior_factors_tied[distance_km-2-b]": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "0.003"
+    },
+    "tests.test_stage02_corrections::test_each_rank_factor_changes_result_with_prior_factors_tied[identifier-0-0]": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "0.004"
+    },
+    "tests.test_stage02_corrections::test_temporal_forecast_against_independent_full_oracle": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "0.002"
+    },
+    "tests.test_stage02_corrections::test_completeness_conflict_expiry_and_successor[json]": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "3.929"
+    },
+    "tests.test_stage02_corrections::test_completeness_conflict_expiry_and_successor[xml]": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "3.187"
+    },
+    "tests.test_stage02_corrections::test_profile_execution_manual_products_and_all_candidate_branches[json-RBC]": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "7.361"
+    },
+    "tests.test_stage02_corrections::test_profile_execution_manual_products_and_all_candidate_branches[json-PLASMA]": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "7.854"
+    },
+    "tests.test_stage02_corrections::test_profile_execution_manual_products_and_all_candidate_branches[json-PLATELETS]": {
+      "evidence": "regression-retry.xml",
+      "status": "PASSED",
+      "seconds": "90.362"
+    },
+    "tests.test_stage02_corrections::test_profile_execution_manual_products_and_all_candidate_branches[xml-RBC]": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "5.287"
+    },
+    "tests.test_stage02_corrections::test_profile_execution_manual_products_and_all_candidate_branches[xml-PLASMA]": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "5.053"
+    },
+    "tests.test_stage02_corrections::test_profile_execution_manual_products_and_all_candidate_branches[xml-PLATELETS]": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "5.289"
+    },
+    "tests.test_stage02_corrections::test_geo_consumes_positions_persisted_by_real_wss_without_measured_eta": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "5.487"
+    },
+    "tests.test_stage02_corrections::test_result_private_document_binding_generation_analysis_and_scope[json]": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "4.445"
+    },
+    "tests.test_stage02_corrections::test_result_private_document_binding_generation_analysis_and_scope[xml]": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "3.500"
+    },
+    "tests.test_stage02_corrections::test_rule_approval_mechanism_scoped_fixture_and_revocation": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "2.321"
+    },
+    "tests.test_stage02_corrections::test_crossmatch_associations_and_unperformed_not_negative": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "1.288"
+    },
+    "tests.test_stage02_oracles::test_each_missing_rank_factor_excludes_without_default_priority[urgency]": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "0.001"
+    },
+    "tests.test_stage02_oracles::test_each_missing_rank_factor_excludes_without_default_priority[urgency_source]": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "0.001"
+    },
+    "tests.test_stage02_oracles::test_each_missing_rank_factor_excludes_without_default_priority[waiting_minutes]": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "0.018"
+    },
+    "tests.test_stage02_oracles::test_each_missing_rank_factor_excludes_without_default_priority[expiry_minutes]": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "0.002"
+    },
+    "tests.test_stage02_oracles::test_each_missing_rank_factor_excludes_without_default_priority[travel_minutes]": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "0.002"
+    },
+    "tests.test_stage02_oracles::test_each_missing_rank_factor_excludes_without_default_priority[distance_km]": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "0.001"
+    },
+    "tests.test_stage02_oracles::test_forecast_lots_against_constant_rate_capacity_oracle[quantities0-expected0]": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "0.002"
+    },
+    "tests.test_stage02_oracles::test_forecast_lots_against_constant_rate_capacity_oracle[quantities1-expected1]": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "0.002"
+    },
+    "tests.test_stage02_oracles::test_forecast_lots_against_constant_rate_capacity_oracle[quantities2-expected2]": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "0.002"
+    },
+    "tests.test_stage02_oracles::test_authoritative_anomalies_outbox_failure_resolution_and_history": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "165.593"
+    },
+    "tests.test_stage02_oracles::test_recipient_correction_serializes_with_reservation_commit": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "14.265"
+    },
+    "tests.test_stage02_oracles::test_complete_academic_profile_and_review_never_enable_clinical_operations": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "9.734"
+    },
+    "tests.test_stage02_migration::test_schema14_backup_restore_upgrade15_preserves_history_acl[14]": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "39.201"
+    },
+    "tests.test_stage02_migration::test_schema14_backup_restore_upgrade15_preserves_history_acl[15]": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "10.524"
+    },
+    "tests.test_final_algorithms_hla::test_dijkstra_against_independent_simple_path_oracle": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "0.083"
+    },
+    "tests.test_final_algorithms_hla::test_forecast_no_future_leakage_and_reproduction": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "0.003"
+    },
+    "tests.test_final_algorithms_hla::test_missing_hla_ambiguity_and_states": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "0.002"
+    },
+    "tests.test_final_algorithms_hla::test_urgency_simulation_missing_factors_and_anomalies": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "0.004"
+    },
+    "tests.test_final_algorithms_hla::test_persistent_algorithm_contract_and_tenant[json]": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "1.049"
+    },
+    "tests.test_final_algorithms_hla::test_persistent_algorithm_contract_and_tenant[xml]": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "0.510"
+    },
+    "tests.test_final_algorithms_hla::test_hla_structured_history_missing_and_corrected[json]": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "1.608"
+    },
+    "tests.test_final_algorithms_hla::test_hla_structured_history_missing_and_corrected[xml]": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "1.144"
+    },
+    "tests.test_final_algorithms_hla::test_limits_empty_graph_and_gps_separation": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "0.459"
+    },
+    "tests.test_final_algorithms_hla::test_web_simulation_view_and_form": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "2.186"
+    },
+    "tests.test_final_algorithms_hla::test_expiry_estimate_does_not_double_count_demand": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "0.002"
+    },
+    "tests.test_final_algorithms_hla::test_migration_13_to_current_preserves_rows_and_is_repeatable": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "23.072"
+    },
+    "tests.test_final_quality::test_laboratory_missing_results_correction_quarantine_and_final_destination[json]": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "56.379"
+    },
+    "tests.test_final_quality::test_laboratory_missing_results_correction_quarantine_and_final_destination[xml]": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "8.151"
+    },
+    "tests.test_security_contracts::test_health_swagger_and_openapi_all_services[identidad_acceso]": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "17.106"
+    },
+    "tests.test_security_contracts::test_health_swagger_and_openapi_all_services[donantes]": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "8.864"
+    },
+    "tests.test_security_contracts::test_health_swagger_and_openapi_all_services[receptores]": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "7.742"
+    },
+    "tests.test_security_contracts::test_health_swagger_and_openapi_all_services[inventario]": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "19.329"
+    },
+    "tests.test_security_contracts::test_health_swagger_and_openapi_all_services[compatibilidad]": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "6.649"
+    },
+    "tests.test_security_contracts::test_health_swagger_and_openapi_all_services[priorizacion_geografia]": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "7.198"
+    },
+    "tests.test_security_contracts::test_health_swagger_and_openapi_all_services[transporte]": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "8.231"
+    },
+    "tests.test_security_contracts::test_health_swagger_and_openapi_all_services[custodia]": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "0.695"
+    },
+    "tests.test_security_contracts::test_health_swagger_and_openapi_all_services[alertas]": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "2.478"
+    },
+    "tests.test_security_contracts::test_health_swagger_and_openapi_all_services[auditoria]": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "3.557"
+    },
+    "tests.test_security_contracts::test_health_swagger_and_openapi_all_services[monitoreo]": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "0.975"
+    },
+    "tests.test_security_contracts::test_health_swagger_and_openapi_all_services[documentos]": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "3.304"
+    },
+    "tests.test_security_contracts::test_jwt_rejects_invalid_variants_before_domain[none]": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "0.034"
+    },
+    "tests.test_security_contracts::test_jwt_rejects_invalid_variants_before_domain[hs256]": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "0.029"
+    },
+    "tests.test_security_contracts::test_jwt_rejects_invalid_variants_before_domain[expired]": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "0.114"
+    },
+    "tests.test_security_contracts::test_jwt_rejects_invalid_variants_before_domain[audience]": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "0.099"
+    },
+    "tests.test_security_contracts::test_jwt_rejects_invalid_variants_before_domain[issuer]": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "0.105"
+    },
+    "tests.test_security_contracts::test_jwt_rejects_invalid_variants_before_domain[missing]": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "0.101"
+    },
+    "tests.test_security_contracts::test_jwt_rejects_invalid_variants_before_domain[refresh_use]": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "0.098"
+    },
+    "tests.test_security_contracts::test_jwt_rejects_invalid_variants_before_domain[numeric_sub]": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "0.107"
+    },
+    "tests.test_security_contracts::test_session_rotation_replay_and_logout": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "1.195"
+    },
+    "tests.test_security_contracts::test_account_deactivation_fences_permissions_and_preserves_password": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "1.127"
+    },
+    "tests.test_security_contracts::test_strict_inputs[display_name-None]": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "0.060"
+    },
+    "tests.test_security_contracts::test_strict_inputs[display_name-   ]": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "0.057"
+    },
+    "tests.test_security_contracts::test_strict_inputs[display_name-Nombre\\x00inv\\xe1lido]": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "0.057"
+    },
+    "tests.test_security_contracts::test_strict_inputs[consent-None]": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "0.054"
+    },
+    "tests.test_security_contracts::test_strict_inputs[consent-1]": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "0.054"
+    },
+    "tests.test_security_contracts::test_strict_inputs[blood_group-X+]": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "0.054"
+    },
+    "tests.test_security_contracts::test_strict_inputs[unknown-injection]": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "0.056"
+    },
+    "tests.test_security_contracts::test_xml_schema_json_parity_errors_and_xxe": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "0.260"
+    },
+    "tests.test_security_contracts::test_duplicate_json_keys_nonfinite_and_wrong_media": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "0.145"
+    },
+    "tests.test_security_contracts::test_institution_role_and_assignment_authorization": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "0.326"
+    },
+    "tests.test_security_contracts::test_internal_signature_delegation_replay_and_wrong_caller": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "0.167"
+    },
+    "tests.test_security_contracts::test_database_and_redis_privileges_are_separate": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "0.045"
+    },
+    "tests.test_security_contracts::test_rate_limit": {
+      "evidence": "regression-final.xml",
+      "status": "PASSED",
+      "seconds": "4.052"
+    },
+    "tests.test_stage02_browser::test_stage02_real_browser_autonomous_reinforced": {
+      "evidence": "browser-final.xml",
+      "status": "PASSED",
+      "seconds": "262.647"
+    }
+  },
+  "note": "Later retry replaces outcome by identity; failed attempts retained. Browser checks are not separate pytest cases."
+}

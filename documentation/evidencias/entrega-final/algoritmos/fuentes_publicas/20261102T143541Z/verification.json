@@ -1,0 +1,14 @@
+{
+  "checked_at": "2026-11-02T16:29:59.051589+00:00",
+  "platform": "macOS-15.7.9-x86_64-i386-64bit",
+  "python_evidence": "apps/services/.venv/bin/python",
+  "ruff_check": "ruff check --select E9,F63,F7,F82 apps/services apps/web/src/integration",
+  "ruff_check_passed": true,
+  "ruff_format_checked_files": 9,
+  "ruff_format_passed": true,
+  "runtime_manifest_matches": 1117,
+  "new_local_links_valid": true,
+  "deployment_performed": false,
+  "physical_gps_tested": false,
+  "remote_ci_executed": false
+}

@@ -1,0 +1,51 @@
+{
+  "startedAt": "2026-10-29T14:23:23.894Z",
+  "environment": "https://localhost:64578",
+  "version": "0.4.1",
+  "schema": 13,
+  "policies": {
+    "mfa": true,
+    "reauth": true,
+    "laboratory": true,
+    "organAuthorization": true
+  },
+  "checks": [
+    {
+      "name": "MFA ausente rechazado sin iniciar sesión",
+      "role": "origin",
+      "at": "2026-10-29T14:23:44.179Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Inicio de sesión y cookies Secure sobre TLS",
+      "role": "origin",
+      "at": "2026-10-29T14:23:50.433Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Liberación sin reautenticación rechazada",
+      "role": "origin",
+      "at": "2026-10-29T14:23:54.910Z",
+      "result": "PASS"
+    }
+  ],
+  "consoleErrors": [],
+  "networkErrors": [
+    {
+      "status": 401,
+      "path": "/login",
+      "role": "origin"
+    },
+    {
+      "status": 403,
+      "path": "/inventario/c35506fd-2cc7-4fc2-8dd7-f8e9e6443b25/liberar",
+      "role": "origin"
+    }
+  ],
+  "records": {},
+  "privateReportDownloaded": false,
+  "map": "No implementado en esta etapa; validar WSS por Nginx no acredita mapa.",
+  "passed": false,
+  "failure": "page.waitForURL: Timeout 30000ms exceeded.\n=========================== logs ===========================\nwaiting for navigation until \"domcontentloaded\"\n  navigated to \"https://localhost:64578/inventario/c35506fd-2cc7-4fc2-8dd7-f8e9e6443b25\"\n============================================================",
+  "finishedAt": "2026-10-29T14:25:00.580Z"
+}

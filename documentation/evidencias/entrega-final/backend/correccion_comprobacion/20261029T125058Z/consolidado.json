@@ -1,0 +1,2240 @@
+{
+  "date": "2026-10-29T16:33:07.218158+00:00",
+  "version": "0.4.1",
+  "schema": 13,
+  "selected_reports": [
+    "regresion-21.xml",
+    "limites-22.xml",
+    "focalizadas-23.xml",
+    "browser-verificador-26.xml",
+    "browser-30.xml"
+  ],
+  "expected": 370,
+  "passed": 370,
+  "failed": [],
+  "skipped": [],
+  "pending": [],
+  "cases": [
+    {
+      "id": "tests.test_algorithms::test_matching_finds_augmenting_path_greedy_misses",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.002
+    },
+    {
+      "id": "tests.test_algorithms::test_matching_is_maximum_against_exhaustive_small_graphs",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.096
+    },
+    {
+      "id": "tests.test_algorithms::test_rbc_sample_filter_matches_documented_matrix",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.001
+    },
+    {
+      "id": "tests.test_audit_migration::test_v6_migration_preserves_records_and_is_repeatable[e03db262294ac9d143c71132a8c842cb6802c794-6]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 37.76
+    },
+    {
+      "id": "tests.test_audit_migration::test_v6_migration_preserves_records_and_is_repeatable[8909baf-7]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 5.686
+    },
+    {
+      "id": "tests.test_audit_migration::test_backup_inventory_includes_finding_history",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.466
+    },
+    {
+      "id": "tests.test_catalogue::test_donation_provenance_and_processed_intake",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 1.048
+    },
+    {
+      "id": "tests.test_catalogue::test_campaign_capacity_serializes_different_donors",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.586
+    },
+    {
+      "id": "tests.test_catalogue::test_proposal_persists_maximum_matching_without_reservations",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 3.187
+    },
+    {
+      "id": "tests.test_catalogue::test_stale_route_blocks_reservation",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 1.165
+    },
+    {
+      "id": "tests.test_catalogue::test_reception_expiry_does_not_republish_resource",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.228
+    },
+    {
+      "id": "tests.test_continuity::test_complete_web_flow_without_apis[BLOOD-RBC-O+]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 42.859
+    },
+    {
+      "id": "tests.test_continuity::test_complete_web_flow_without_apis[ORGAN-KIDNEY-O+]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 27.829
+    },
+    {
+      "id": "tests.test_continuity::test_donation_processing_without_apis",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 6.757
+    },
+    {
+      "id": "tests.test_continuity::test_monolith_redis_failure_fails_closed_and_recovers",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 4.043
+    },
+    {
+      "id": "tests.test_correction_architecture::test_document_owner_permissions_and_outage_isolation",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.866
+    },
+    {
+      "id": "tests.test_correction_architecture::test_all_report_families_formats_private_jobs_and_retries[json]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 37.652
+    },
+    {
+      "id": "tests.test_correction_architecture::test_all_report_families_formats_private_jobs_and_retries[xml]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 75.761
+    },
+    {
+      "id": "tests.test_correction_architecture::test_schema_11_extraction_backup_restore_and_idempotency",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 8.998
+    },
+    {
+      "id": "tests.test_correction_backend::test_destination_correction_invariants_and_history[json]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.745
+    },
+    {
+      "id": "tests.test_correction_backend::test_destination_correction_invariants_and_history[xml]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.576
+    },
+    {
+      "id": "tests.test_correction_backend::test_laboratory_correction_invalidates_review_and_runtime_history[result-json]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 4.118
+    },
+    {
+      "id": "tests.test_correction_backend::test_laboratory_correction_invalidates_review_and_runtime_history[result-xml]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 4.495
+    },
+    {
+      "id": "tests.test_correction_backend::test_laboratory_correction_invalidates_review_and_runtime_history[profile-json]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 5.292
+    },
+    {
+      "id": "tests.test_correction_backend::test_laboratory_correction_invalidates_review_and_runtime_history[profile-xml]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 6.209
+    },
+    {
+      "id": "tests.test_correction_backend::test_handover_fields_required_without_state_change[COLLECTED-json]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 71.85
+    },
+    {
+      "id": "tests.test_correction_backend::test_handover_fields_required_without_state_change[COLLECTED-xml]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 9.544
+    },
+    {
+      "id": "tests.test_correction_backend::test_handover_fields_required_without_state_change[DELIVERED-json]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 10.912
+    },
+    {
+      "id": "tests.test_correction_backend::test_handover_fields_required_without_state_change[DELIVERED-xml]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 11.612
+    },
+    {
+      "id": "tests.test_correction_backend::test_handover_fields_required_without_state_change[ACCEPTED-json]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 13.063
+    },
+    {
+      "id": "tests.test_correction_backend::test_handover_fields_required_without_state_change[ACCEPTED-xml]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 12.601
+    },
+    {
+      "id": "tests.test_correction_backend::test_role_change_revokes_tokens_and_is_idempotent[json]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 1.08
+    },
+    {
+      "id": "tests.test_correction_backend::test_role_change_revokes_tokens_and_is_idempotent[xml]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 1.11
+    },
+    {
+      "id": "tests.test_correction_backend::test_normalized_http_wss_and_durable_history[json]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 5.615
+    },
+    {
+      "id": "tests.test_correction_backend::test_normalized_http_wss_and_durable_history[xml]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 5.306
+    },
+    {
+      "id": "tests.test_correction_backend::test_replay_reauthorizes_after_each_send[assignment-json]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 3.396
+    },
+    {
+      "id": "tests.test_correction_backend::test_replay_reauthorizes_after_each_send[assignment-xml]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 3.235
+    },
+    {
+      "id": "tests.test_correction_backend::test_replay_reauthorizes_after_each_send[device-json]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 3.099
+    },
+    {
+      "id": "tests.test_correction_backend::test_replay_reauthorizes_after_each_send[device-xml]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 3.253
+    },
+    {
+      "id": "tests.test_correction_backend::test_replay_reauthorizes_after_each_send[finalized-json]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 3.994
+    },
+    {
+      "id": "tests.test_correction_backend::test_replay_reauthorizes_after_each_send[finalized-xml]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 4.287
+    },
+    {
+      "id": "tests.test_correction_backend::test_replay_reauthorizes_after_each_send[expired-json]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 6.894
+    },
+    {
+      "id": "tests.test_correction_backend::test_replay_reauthorizes_after_each_send[expired-xml]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 7.368
+    },
+    {
+      "id": "tests.test_correction_backend::test_replay_reauthorizes_after_each_send[redis-json]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 3.287
+    },
+    {
+      "id": "tests.test_correction_backend::test_replay_reauthorizes_after_each_send[redis-xml]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 3.124
+    },
+    {
+      "id": "tests.test_correction_backend::test_extension_search_time_sort_and_tenant[json]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 95.691
+    },
+    {
+      "id": "tests.test_correction_backend::test_extension_search_time_sort_and_tenant[xml]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 3.271
+    },
+    {
+      "id": "tests.test_correction_backend::test_report_window_applies_before_limit",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.451
+    },
+    {
+      "id": "tests.test_correction_backend::test_empirical_forecast_positive_independent_oracle",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.721
+    },
+    {
+      "id": "tests.test_correction_backend::test_received_quarantine_new_use_and_documentary_correction[json]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 14.66
+    },
+    {
+      "id": "tests.test_correction_backend::test_received_quarantine_new_use_and_documentary_correction[xml]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 12.162
+    },
+    {
+      "id": "tests.test_correction_backend::test_new_event_classification_visibility_and_export",
+      "status": "passed",
+      "evidence": "focalizadas-23.xml",
+      "seconds": 4.674
+    },
+    {
+      "id": "tests.test_correction_policies::test_combined_operational_organ_policies[json]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 117.346
+    },
+    {
+      "id": "tests.test_correction_policies::test_combined_operational_organ_policies[xml]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 119.906
+    },
+    {
+      "id": "tests.test_correction_upgrade::test_documents_configuration_upgrade_repeatable_preserves_sessions",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 14.179
+    },
+    {
+      "id": "tests.test_documents_storage::test_projection_updates_order_dedup_rebuild_indexes_and_permissions",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 25.383
+    },
+    {
+      "id": "tests.test_documents_storage::test_gcs_web_upload_private_download_validation_expiry_and_recovery",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 18.575
+    },
+    {
+      "id": "tests.test_donor_withdrawal::test_empty_donor_is_deleted_with_idempotency_and_audit",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 10.138
+    },
+    {
+      "id": "tests.test_donor_withdrawal::test_withdrawal_requires_same_institution_medical_role[operator1]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.143
+    },
+    {
+      "id": "tests.test_donor_withdrawal::test_withdrawal_requires_same_institution_medical_role[admin1]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.156
+    },
+    {
+      "id": "tests.test_donor_withdrawal::test_withdrawal_requires_same_institution_medical_role[donor1]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.15
+    },
+    {
+      "id": "tests.test_donor_withdrawal::test_withdrawal_requires_same_institution_medical_role[medical2]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.186
+    },
+    {
+      "id": "tests.test_donor_withdrawal::test_withdrawal_requires_same_institution_medical_role[None]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.173
+    },
+    {
+      "id": "tests.test_donor_withdrawal::test_withdrawal_rejects_stale_or_invalid_confirmation[change0-409]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.223
+    },
+    {
+      "id": "tests.test_donor_withdrawal::test_withdrawal_rejects_stale_or_invalid_confirmation[change1-422]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.2
+    },
+    {
+      "id": "tests.test_donor_withdrawal::test_withdrawal_rejects_stale_or_invalid_confirmation[change2-422]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.199
+    },
+    {
+      "id": "tests.test_donor_withdrawal::test_withdrawal_rejects_stale_or_invalid_confirmation[change3-422]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.2
+    },
+    {
+      "id": "tests.test_donor_withdrawal::test_donor_with_history_is_inactive_and_cannot_start_new_operations[review]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 1.202
+    },
+    {
+      "id": "tests.test_donor_withdrawal::test_donor_with_history_is_inactive_and_cannot_start_new_operations[donation]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 1.176
+    },
+    {
+      "id": "tests.test_donor_withdrawal::test_donor_with_history_is_inactive_and_cannot_start_new_operations[appointment]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 1.1
+    },
+    {
+      "id": "tests.test_donor_withdrawal::test_donor_with_history_is_inactive_and_cannot_start_new_operations[cancelled_appointment]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 1.104
+    },
+    {
+      "id": "tests.test_donor_withdrawal::test_donor_with_history_is_inactive_and_cannot_start_new_operations[edit]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 1.159
+    },
+    {
+      "id": "tests.test_donor_withdrawal::test_appointment_racing_with_withdrawal_has_no_orphan_or_active_booking",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.225
+    },
+    {
+      "id": "tests.test_donor_withdrawal::test_web_withdrawal_requires_csrf_and_preserves_inactive_history[microservices]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 2.865
+    },
+    {
+      "id": "tests.test_donor_withdrawal::test_web_withdrawal_requires_csrf_and_preserves_inactive_history[monolith]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 6.286
+    },
+    {
+      "id": "tests.test_donor_withdrawal::test_withdrawal_accepts_xml_and_validates_response_contract",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.142
+    },
+    {
+      "id": "tests.test_evidence_catalog::test_all_registered_routes_expose_real_http_contracts_and_controlled_errors",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 27.056
+    },
+    {
+      "id": "tests.test_evidence_catalog::test_edits_details_and_recovery_have_http_and_committed_evidence",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 54.427
+    },
+    {
+      "id": "tests.test_evidence_catalog::test_pooled_transactions_preserve_rollback_credentials_and_recover",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 2.392
+    },
+    {
+      "id": "tests.test_final_acceptance::test_institution_services_responsibles_and_current_scope[json]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 1.432
+    },
+    {
+      "id": "tests.test_final_acceptance::test_institution_services_responsibles_and_current_scope[xml]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 1.301
+    },
+    {
+      "id": "tests.test_final_acceptance::test_operational_release_cannot_omit_laboratory_profile",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.278
+    },
+    {
+      "id": "tests.test_final_acceptance::test_published_websocket_examples_validate_both_encodings",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.338
+    },
+    {
+      "id": "tests.test_final_acceptance::test_acl_upgrade_preserves_accounts_passwords_and_sessions",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.234
+    },
+    {
+      "id": "tests.test_final_acceptance::test_policy_corrections_keep_author_source_effectivity_and_history[json]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.631
+    },
+    {
+      "id": "tests.test_final_acceptance::test_policy_corrections_keep_author_source_effectivity_and_history[xml]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.516
+    },
+    {
+      "id": "tests.test_final_acceptance::test_expiry_worker_quarantines_without_deleting_and_is_repeatable",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.429
+    },
+    {
+      "id": "tests.test_final_delivery_documents::test_smtp_push_retry_escalation_dedup_and_close[json]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 29.846
+    },
+    {
+      "id": "tests.test_final_delivery_documents::test_smtp_push_retry_escalation_dedup_and_close[xml]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 12.482
+    },
+    {
+      "id": "tests.test_final_delivery_documents::test_documents_scan_private_access_and_export_formats[json]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 6.006
+    },
+    {
+      "id": "tests.test_final_delivery_documents::test_documents_scan_private_access_and_export_formats[xml]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 6.917
+    },
+    {
+      "id": "tests.test_final_delivery_documents::test_clamd_infected_unavailable_and_formula_injection",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.508
+    },
+    {
+      "id": "tests.test_final_identity::test_mfa_reauth_contact_recovery_and_revocation[json]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 3.015
+    },
+    {
+      "id": "tests.test_final_identity::test_mfa_reauth_contact_recovery_and_revocation[xml]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 2.799
+    },
+    {
+      "id": "tests.test_final_identity::test_totp_rfc_vector_and_policy_requirement",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.172
+    },
+    {
+      "id": "tests.test_final_operations::test_consent_agenda_capacity_reminders_processing_and_lineage[json]",
+      "status": "passed",
+      "evidence": "focalizadas-23.xml",
+      "seconds": 28.26
+    },
+    {
+      "id": "tests.test_final_operations::test_consent_agenda_capacity_reminders_processing_and_lineage[xml]",
+      "status": "passed",
+      "evidence": "focalizadas-23.xml",
+      "seconds": 8.465
+    },
+    {
+      "id": "tests.test_final_operations::test_interoperability_accreditations_analytics_and_external_authorizations[json]",
+      "status": "passed",
+      "evidence": "focalizadas-23.xml",
+      "seconds": 1.428
+    },
+    {
+      "id": "tests.test_final_operations::test_interoperability_accreditations_analytics_and_external_authorizations[xml]",
+      "status": "passed",
+      "evidence": "focalizadas-23.xml",
+      "seconds": 1.181
+    },
+    {
+      "id": "tests.test_final_quality::test_laboratory_missing_results_correction_quarantine_and_final_destination[json]",
+      "status": "passed",
+      "evidence": "focalizadas-23.xml",
+      "seconds": 11.717
+    },
+    {
+      "id": "tests.test_final_quality::test_laboratory_missing_results_correction_quarantine_and_final_destination[xml]",
+      "status": "passed",
+      "evidence": "focalizadas-23.xml",
+      "seconds": 6.241
+    },
+    {
+      "id": "tests.test_final_tracking::test_wss_json_xml_durable_replay_order_and_revocation",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 64.741
+    },
+    {
+      "id": "tests.test_final_tracking::test_wss_rejects_donor_device_read_invalid_and_conflicting_events[json]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 3.682
+    },
+    {
+      "id": "tests.test_final_tracking::test_wss_rejects_donor_device_read_invalid_and_conflicting_events[xml]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 3.222
+    },
+    {
+      "id": "tests.test_final_tracking::test_tracking_rejects_xxe_nonfinite_and_unknown_fields",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.011
+    },
+    {
+      "id": "tests.test_final_tracking::test_sync_commands_idempotency_scope_versions_and_cursor[json]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 4.116
+    },
+    {
+      "id": "tests.test_final_tracking::test_sync_commands_idempotency_scope_versions_and_cursor[xml]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 4.354
+    },
+    {
+      "id": "tests.test_final_tracking::test_executable_simulator_offline_reconnect_and_dedup[json]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 11.085
+    },
+    {
+      "id": "tests.test_final_tracking::test_executable_simulator_offline_reconnect_and_dedup[xml]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 11.647
+    },
+    {
+      "id": "tests.test_final_tracking::test_tracking_dependency_failure_preserves_durable_cursor[redis]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 52.209
+    },
+    {
+      "id": "tests.test_final_tracking::test_tracking_dependency_failure_preserves_durable_cursor[postgres]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 13.952
+    },
+    {
+      "id": "tests.test_final_tracking::test_tracking_dependency_failure_preserves_durable_cursor[mongodb]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 16.951
+    },
+    {
+      "id": "tests.test_final_tracking::test_tracking_scope_origin_cursor_limits_and_device_revocation",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 4.323
+    },
+    {
+      "id": "tests.test_final_tracking::test_nmea_adapter_checksum_units_and_no_fix",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.01
+    },
+    {
+      "id": "tests.test_final_tracking::test_custody_scans_receipt_sync_and_distinct_final_use[json]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 25.474
+    },
+    {
+      "id": "tests.test_final_tracking::test_custody_scans_receipt_sync_and_distinct_final_use[xml]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 17.91
+    },
+    {
+      "id": "tests.test_final_tracking::test_concurrent_emitters_subscribers_and_delayed_consumer",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 7.758
+    },
+    {
+      "id": "tests.test_final_tracking::test_two_production_wss_processes_single_and_total_outage",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 7.422
+    },
+    {
+      "id": "tests.test_flows::test_donor_campaign_appointment_review_and_alert",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 22.447
+    },
+    {
+      "id": "tests.test_flows::test_resource_to_receipt_custody_audit_and_notification[BLOOD-RBC-O-]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 20.052
+    },
+    {
+      "id": "tests.test_flows::test_resource_to_receipt_custody_audit_and_notification[ORGAN-KIDNEY-A-]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 20.178
+    },
+    {
+      "id": "tests.test_flows::test_resource_to_receipt_custody_audit_and_notification[ORGAN-LIVER-A+]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 24.736
+    },
+    {
+      "id": "tests.test_flows::test_resource_to_receipt_custody_audit_and_notification[ORGAN-HEART-A+]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 29.078
+    },
+    {
+      "id": "tests.test_flows::test_cancellation_before_collection_releases_request",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 18.557
+    },
+    {
+      "id": "tests.test_flows::test_two_requests_cannot_reserve_same_resource",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 3.639
+    },
+    {
+      "id": "tests.test_flows::test_two_units_cannot_overfill_one_unit_request",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 3.14
+    },
+    {
+      "id": "tests.test_flows::test_idempotent_reservation_does_not_duplicate",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 1.793
+    },
+    {
+      "id": "tests.test_form_limits::test_numeric_boundaries_and_public_messages[CampaignCreate-body0-capacity-1-10000-json]",
+      "status": "passed",
+      "evidence": "limites-22.xml",
+      "seconds": 0.028
+    },
+    {
+      "id": "tests.test_form_limits::test_numeric_boundaries_and_public_messages[CampaignCreate-body0-capacity-1-10000-xml]",
+      "status": "passed",
+      "evidence": "limites-22.xml",
+      "seconds": 0.037
+    },
+    {
+      "id": "tests.test_form_limits::test_numeric_boundaries_and_public_messages[RequestCreate-body1-quantity-1-100-json]",
+      "status": "passed",
+      "evidence": "limites-22.xml",
+      "seconds": 0.029
+    },
+    {
+      "id": "tests.test_form_limits::test_numeric_boundaries_and_public_messages[RequestCreate-body1-quantity-1-100-xml]",
+      "status": "passed",
+      "evidence": "limites-22.xml",
+      "seconds": 0.029
+    },
+    {
+      "id": "tests.test_form_limits::test_numeric_boundaries_and_public_messages[RequestCreate-body2-urgency-1-3-json]",
+      "status": "passed",
+      "evidence": "limites-22.xml",
+      "seconds": 0.021
+    },
+    {
+      "id": "tests.test_form_limits::test_numeric_boundaries_and_public_messages[RequestCreate-body2-urgency-1-3-xml]",
+      "status": "passed",
+      "evidence": "limites-22.xml",
+      "seconds": 0.037
+    },
+    {
+      "id": "tests.test_form_limits::test_numeric_boundaries_and_public_messages[Capacity-body3-quantity-0-100000-json]",
+      "status": "passed",
+      "evidence": "limites-22.xml",
+      "seconds": 0.024
+    },
+    {
+      "id": "tests.test_form_limits::test_numeric_boundaries_and_public_messages[Capacity-body3-quantity-0-100000-xml]",
+      "status": "passed",
+      "evidence": "limites-22.xml",
+      "seconds": 0.042
+    },
+    {
+      "id": "tests.test_form_limits::test_numeric_boundaries_and_public_messages[Position-body4-latitude--90.0-90.0-json]",
+      "status": "passed",
+      "evidence": "limites-22.xml",
+      "seconds": 0.035
+    },
+    {
+      "id": "tests.test_form_limits::test_numeric_boundaries_and_public_messages[Position-body4-latitude--90.0-90.0-xml]",
+      "status": "passed",
+      "evidence": "limites-22.xml",
+      "seconds": 0.083
+    },
+    {
+      "id": "tests.test_form_limits::test_numeric_boundaries_and_public_messages[Position-body5-longitude--180.0-180.0-json]",
+      "status": "passed",
+      "evidence": "limites-22.xml",
+      "seconds": 0.033
+    },
+    {
+      "id": "tests.test_form_limits::test_numeric_boundaries_and_public_messages[Position-body5-longitude--180.0-180.0-xml]",
+      "status": "passed",
+      "evidence": "limites-22.xml",
+      "seconds": 0.159
+    },
+    {
+      "id": "tests.test_form_limits::test_numeric_boundaries_and_public_messages[RouteCreate-body6-distance_km-0.0-20000.0-json]",
+      "status": "passed",
+      "evidence": "limites-22.xml",
+      "seconds": 0.036
+    },
+    {
+      "id": "tests.test_form_limits::test_numeric_boundaries_and_public_messages[RouteCreate-body6-distance_km-0.0-20000.0-xml]",
+      "status": "passed",
+      "evidence": "limites-22.xml",
+      "seconds": 0.031
+    },
+    {
+      "id": "tests.test_form_limits::test_numeric_boundaries_and_public_messages[RouteCreate-body7-travel_minutes-0-10080-json]",
+      "status": "passed",
+      "evidence": "limites-22.xml",
+      "seconds": 0.019
+    },
+    {
+      "id": "tests.test_form_limits::test_numeric_boundaries_and_public_messages[RouteCreate-body7-travel_minutes-0-10080-xml]",
+      "status": "passed",
+      "evidence": "limites-22.xml",
+      "seconds": 0.041
+    },
+    {
+      "id": "tests.test_form_limits::test_text_boundaries_json_xml[Login-body0-username-3-80-json]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.018
+    },
+    {
+      "id": "tests.test_form_limits::test_text_boundaries_json_xml[Login-body0-username-3-80-xml]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.03
+    },
+    {
+      "id": "tests.test_form_limits::test_text_boundaries_json_xml[Login-body1-password-12-128-json]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.018
+    },
+    {
+      "id": "tests.test_form_limits::test_text_boundaries_json_xml[Login-body1-password-12-128-xml]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.034
+    },
+    {
+      "id": "tests.test_form_limits::test_text_boundaries_json_xml[Confirm-body2-reason-6-1000-json]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.017
+    },
+    {
+      "id": "tests.test_form_limits::test_text_boundaries_json_xml[Confirm-body2-reason-6-1000-xml]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.026
+    },
+    {
+      "id": "tests.test_form_limits::test_text_boundaries_json_xml[RecipientCreate-body3-studies-6-1000-json]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.023
+    },
+    {
+      "id": "tests.test_form_limits::test_text_boundaries_json_xml[RecipientCreate-body3-studies-6-1000-xml]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.063
+    },
+    {
+      "id": "tests.test_form_limits::test_text_boundaries_json_xml[RecipientCreate-body4-requirement-6-1000-json]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.022
+    },
+    {
+      "id": "tests.test_form_limits::test_text_boundaries_json_xml[RecipientCreate-body4-requirement-6-1000-xml]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.063
+    },
+    {
+      "id": "tests.test_form_limits::test_text_boundaries_json_xml[RecipientCreate-body5-display_name-1-200-json]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.025
+    },
+    {
+      "id": "tests.test_form_limits::test_text_boundaries_json_xml[RecipientCreate-body5-display_name-1-200-xml]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.083
+    },
+    {
+      "id": "tests.test_form_limits::test_text_boundaries_json_xml[RecipientCreate-body6-folio-6-30-json]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.028
+    },
+    {
+      "id": "tests.test_form_limits::test_text_boundaries_json_xml[RecipientCreate-body6-folio-6-30-xml]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.049
+    },
+    {
+      "id": "tests.test_form_limits::test_campaign_dates_capacity_conflict_and_retry",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.654
+    },
+    {
+      "id": "tests.test_form_limits::test_inventory_and_shipment_date_rejections_are_atomic",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 4.748
+    },
+    {
+      "id": "tests.test_form_limits::test_schedule_and_organ_request_dependencies",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.603
+    },
+    {
+      "id": "tests.test_form_limits::test_file_rejections_explain_correction[-image/png-None-vac\\xedo]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.001
+    },
+    {
+      "id": "tests.test_form_limits::test_file_rejections_explain_correction[archivo-image/png-0000000000000000000000000000000000000000000000000000000000000000-cambi\\xf3]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.001
+    },
+    {
+      "id": "tests.test_form_limits::test_file_rejections_explain_correction[archivo-image/png-None-formato]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.001
+    },
+    {
+      "id": "tests.test_form_limits::test_file_rejections_explain_correction[archivo-application/pdf-None-PDF v\\xe1lido]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.001
+    },
+    {
+      "id": "tests.test_health_evidence::test_health_contracts_dependency_failure_and_recovery_for_each_service",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 12.618
+    },
+    {
+      "id": "tests.test_launcher::test_missing_saved_mongodb_falls_back_to_persistent_install",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 1.192
+    },
+    {
+      "id": "tests.test_launcher::test_wrong_postgres_major_rejected_before_opening_data",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.928
+    },
+    {
+      "id": "tests.test_launcher::test_explicit_missing_binary_is_not_silently_replaced",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.003
+    },
+    {
+      "id": "tests.test_launcher::test_start_preserves_apis_and_recovers_only_missing_worker",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.004
+    },
+    {
+      "id": "tests.test_launcher::test_empty_selection_starts_nothing",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.003
+    },
+    {
+      "id": "tests.test_launcher::test_port_conflict_prevents_all_selected_launches",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.004
+    },
+    {
+      "id": "tests.test_launcher::test_missing_dependency_preflight_launches_nothing",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.003
+    },
+    {
+      "id": "tests.test_launcher::test_save_is_private_and_preserves_previous_state_on_replace_failure",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.006
+    },
+    {
+      "id": "tests.test_launcher::test_web_preparation_preserves_existing_config_and_keys",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.006
+    },
+    {
+      "id": "tests.test_launcher::test_corrupt_download_is_not_installed",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.005
+    },
+    {
+      "id": "tests.test_launcher::test_wrong_directory_rejected_before_preparation",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.003
+    },
+    {
+      "id": "tests.test_launcher::test_incomplete_directory_never_reinitialized",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.003
+    },
+    {
+      "id": "tests.test_launcher::test_shell_help_from_another_directory[start.sh]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.062
+    },
+    {
+      "id": "tests.test_launcher::test_shell_help_from_another_directory[components.sh]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.049
+    },
+    {
+      "id": "tests.test_launcher::test_shell_help_from_another_directory[install.sh]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.054
+    },
+    {
+      "id": "tests.test_launcher::test_shell_help_from_another_directory[stop.sh]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.065
+    },
+    {
+      "id": "tests.test_launcher::test_menu_dispatches_selected_service_without_shell_evaluation",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.236
+    },
+    {
+      "id": "tests.test_launcher::test_runtime_never_checks_or_installs_dependencies[todo]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.009
+    },
+    {
+      "id": "tests.test_launcher::test_runtime_never_checks_or_installs_dependencies[ms]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.009
+    },
+    {
+      "id": "tests.test_launcher::test_runtime_never_checks_or_installs_dependencies[web]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.008
+    },
+    {
+      "id": "tests.test_launcher::test_runtime_never_checks_or_installs_dependencies[bases]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.007
+    },
+    {
+      "id": "tests.test_launcher::test_runtime_never_checks_or_installs_dependencies[inventario]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.007
+    },
+    {
+      "id": "tests.test_launcher::test_runtime_never_checks_or_installs_dependencies[estado]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.025
+    },
+    {
+      "id": "tests.test_launcher::test_runtime_never_checks_or_installs_dependencies[detener]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.006
+    },
+    {
+      "id": "tests.test_launcher::test_runtime_never_checks_or_installs_dependencies[reiniciar]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.006
+    },
+    {
+      "id": "tests.test_launcher::test_unprepared_start_does_not_initialize_or_install",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.002
+    },
+    {
+      "id": "tests.test_launcher::test_running_infrastructure_does_not_check_binary_versions",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.004
+    },
+    {
+      "id": "tests.test_launcher::test_missing_venv_support_has_wsl_instructions_before_creation[services]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.003
+    },
+    {
+      "id": "tests.test_launcher::test_missing_venv_support_has_wsl_instructions_before_creation[web]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.004
+    },
+    {
+      "id": "tests.test_launcher::test_venv_creation_failure_identifies_directory_and_permissions[failure0]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.003
+    },
+    {
+      "id": "tests.test_launcher::test_venv_creation_failure_identifies_directory_and_permissions[failure1]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.003
+    },
+    {
+      "id": "tests.test_launcher::test_partial_venv_repairs_pip_without_recreating_it",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.004
+    },
+    {
+      "id": "tests.test_launcher::test_missing_pip_no_install_does_not_repair",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.002
+    },
+    {
+      "id": "tests.test_launcher::test_pip_repair_failure_reports_required_system_package",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.002
+    },
+    {
+      "id": "tests.test_launcher::test_missing_requirements_or_failed_install_has_actionable_error[False]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.003
+    },
+    {
+      "id": "tests.test_launcher::test_missing_requirements_or_failed_install_has_actionable_error[True]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.003
+    },
+    {
+      "id": "tests.test_launcher::test_real_venv_without_pip_can_be_repaired_offline",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 7.289
+    },
+    {
+      "id": "tests.test_launcher::test_homebrew_rejects_linux_before_searching_or_installing",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.521
+    },
+    {
+      "id": "tests.test_launcher::test_default_install_does_not_hide_an_existing_environment",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.006
+    },
+    {
+      "id": "tests.test_launcher::test_start_refuses_unmigrated_layout",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.002
+    },
+    {
+      "id": "tests.test_maintenance_web::test_catalogues_bootstrap_and_edits_through_web",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 4.577
+    },
+    {
+      "id": "tests.test_maintenance_web::test_search_and_pagination_reach_records_after_first_hundred",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 2.026
+    },
+    {
+      "id": "tests.test_maintenance_web::test_location_reference_and_receipt_fields_render",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 3.812
+    },
+    {
+      "id": "tests.test_private_config::test_web_loads_and_validates_mounted_configuration[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-True]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.07
+    },
+    {
+      "id": "tests.test_private_config::test_web_loads_and_validates_mounted_configuration[short-False]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.006
+    },
+    {
+      "id": "tests.test_product_ui::test_admin_redirects_and_weekday_roundtrip",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 2.198
+    },
+    {
+      "id": "tests.test_product_ui::test_notifications_read_post_is_authorized_and_translated",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 42.922
+    },
+    {
+      "id": "tests.test_product_ui::test_campaign_registration_context_and_cancel_modal",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 4.514
+    },
+    {
+      "id": "tests.test_product_ui::test_personal_dashboards_timezone_and_help",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 2.209
+    },
+    {
+      "id": "tests.test_product_ui::test_location_capture_requires_assigned_active_shipment",
+      "status": "passed",
+      "evidence": "focalizadas-23.xml",
+      "seconds": 28.863
+    },
+    {
+      "id": "tests.test_resilience::test_redis_down_fails_closed_and_recovers_sessions",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.508
+    },
+    {
+      "id": "tests.test_resilience::test_postgresql_down_liveness_readiness_and_recovery",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.656
+    },
+    {
+      "id": "tests.test_resilience::test_mongodb_down_keeps_audit_durable_then_replays",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 13.949
+    },
+    {
+      "id": "tests.test_resilience::test_lost_confirmation_response_can_resume_without_duplicate",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 1.846
+    },
+    {
+      "id": "tests.test_resilience::test_local_audit_failure_rolls_back_and_compensates_hold",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 1.746
+    },
+    {
+      "id": "tests.test_resilience::test_custody_service_down_does_not_lose_physical_event",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 15.052
+    },
+    {
+      "id": "tests.test_resilience::test_receipt_closes_multiunit_request_once",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 19.956
+    },
+    {
+      "id": "tests.test_resilience::test_monitoring_records_degraded_down_and_recovery",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 5.656
+    },
+    {
+      "id": "tests.test_review_regressions::test_nested_evidence_json_xml_parity",
+      "status": "passed",
+      "evidence": "focalizadas-23.xml",
+      "seconds": 0.078
+    },
+    {
+      "id": "tests.test_review_regressions::test_expired_shipment_cannot_advance_or_fulfill[PLANNED-PREPARED-operator1]",
+      "status": "passed",
+      "evidence": "focalizadas-23.xml",
+      "seconds": 2.105
+    },
+    {
+      "id": "tests.test_review_regressions::test_expired_shipment_cannot_advance_or_fulfill[PREPARED-COLLECTED-transport1]",
+      "status": "passed",
+      "evidence": "focalizadas-23.xml",
+      "seconds": 1.973
+    },
+    {
+      "id": "tests.test_review_regressions::test_expired_shipment_cannot_advance_or_fulfill[COLLECTED-IN_TRANSIT-transport1]",
+      "status": "passed",
+      "evidence": "focalizadas-23.xml",
+      "seconds": 2.003
+    },
+    {
+      "id": "tests.test_review_regressions::test_expired_shipment_cannot_advance_or_fulfill[DELIVERED-ACCEPTED-operator2]",
+      "status": "passed",
+      "evidence": "focalizadas-23.xml",
+      "seconds": 1.976
+    },
+    {
+      "id": "tests.test_review_regressions::test_rate_limits_separate_users_behind_same_web_ip",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.203
+    },
+    {
+      "id": "tests.test_review_regressions::test_permission_publication_recovers_after_sql_rollback",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.574
+    },
+    {
+      "id": "tests.test_review_regressions::test_onboarding_cannot_take_over_existing_or_other_institution",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.687
+    },
+    {
+      "id": "tests.test_review_regressions::test_catalogues_scope_version_and_dependencies",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.498
+    },
+    {
+      "id": "tests.test_review_regressions::test_request_cancellation_preserves_private_reason",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.498
+    },
+    {
+      "id": "tests.test_review_regressions::test_edit_and_withdraw_preserve_history_and_version",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.53
+    },
+    {
+      "id": "tests.test_review_regressions::test_worker_health_exposes_stopped_worker_and_recovery",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.164
+    },
+    {
+      "id": "tests.test_review_regressions::test_configured_storage_health_does_not_report_unconfigured",
+      "status": "passed",
+      "evidence": "focalizadas-23.xml",
+      "seconds": 3.795
+    },
+    {
+      "id": "tests.test_review_regressions::test_additive_migration_preserves_v1_data_and_is_repeatable",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.235
+    },
+    {
+      "id": "tests.test_review_regressions::test_revoke_with_refresh_removes_session_even_after_access_expired",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.69
+    },
+    {
+      "id": "tests.test_review_regressions::test_xml_output_matches_published_operation_dto",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.18
+    },
+    {
+      "id": "tests.test_review_unit::test_xml_response_rejects_invalid_types_duplicates_and_missing_fields",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.003
+    },
+    {
+      "id": "tests.test_review_unit::test_legacy_rows_helper_does_not_truncate_after_first_hundred",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.006
+    },
+    {
+      "id": "tests.test_review_unit::test_service_artifact_loads_without_other_domain_packages[identidad_acceso]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 2.938
+    },
+    {
+      "id": "tests.test_review_unit::test_service_artifact_loads_without_other_domain_packages[donantes]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 1.462
+    },
+    {
+      "id": "tests.test_review_unit::test_service_artifact_loads_without_other_domain_packages[receptores]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 1.468
+    },
+    {
+      "id": "tests.test_review_unit::test_service_artifact_loads_without_other_domain_packages[inventario]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 1.951
+    },
+    {
+      "id": "tests.test_review_unit::test_service_artifact_loads_without_other_domain_packages[compatibilidad]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 1.55
+    },
+    {
+      "id": "tests.test_review_unit::test_service_artifact_loads_without_other_domain_packages[priorizacion_geografia]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 1.34
+    },
+    {
+      "id": "tests.test_review_unit::test_service_artifact_loads_without_other_domain_packages[transporte]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 2.061
+    },
+    {
+      "id": "tests.test_review_unit::test_service_artifact_loads_without_other_domain_packages[custodia]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 1.265
+    },
+    {
+      "id": "tests.test_review_unit::test_service_artifact_loads_without_other_domain_packages[alertas]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 1.391
+    },
+    {
+      "id": "tests.test_review_unit::test_service_artifact_loads_without_other_domain_packages[auditoria]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 1.336
+    },
+    {
+      "id": "tests.test_review_unit::test_service_artifact_loads_without_other_domain_packages[monitoreo]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 1.261
+    },
+    {
+      "id": "tests.test_review_unit::test_service_artifact_loads_without_other_domain_packages[documentos]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 2.122
+    },
+    {
+      "id": "tests.test_review_unit::test_catalogue_schemas_and_examples_compile_without_dependencies",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 1.031
+    },
+    {
+      "id": "tests.test_security_contracts::test_health_swagger_and_openapi_all_services[identidad_acceso]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 11.096
+    },
+    {
+      "id": "tests.test_security_contracts::test_health_swagger_and_openapi_all_services[donantes]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 4.978
+    },
+    {
+      "id": "tests.test_security_contracts::test_health_swagger_and_openapi_all_services[receptores]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 2.93
+    },
+    {
+      "id": "tests.test_security_contracts::test_health_swagger_and_openapi_all_services[inventario]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 7.742
+    },
+    {
+      "id": "tests.test_security_contracts::test_health_swagger_and_openapi_all_services[compatibilidad]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 3.428
+    },
+    {
+      "id": "tests.test_security_contracts::test_health_swagger_and_openapi_all_services[priorizacion_geografia]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 1.706
+    },
+    {
+      "id": "tests.test_security_contracts::test_health_swagger_and_openapi_all_services[transporte]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 4.995
+    },
+    {
+      "id": "tests.test_security_contracts::test_health_swagger_and_openapi_all_services[custodia]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.379
+    },
+    {
+      "id": "tests.test_security_contracts::test_health_swagger_and_openapi_all_services[alertas]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 2.56
+    },
+    {
+      "id": "tests.test_security_contracts::test_health_swagger_and_openapi_all_services[auditoria]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 1.807
+    },
+    {
+      "id": "tests.test_security_contracts::test_health_swagger_and_openapi_all_services[monitoreo]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.472
+    },
+    {
+      "id": "tests.test_security_contracts::test_health_swagger_and_openapi_all_services[documentos]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 1.823
+    },
+    {
+      "id": "tests.test_security_contracts::test_jwt_rejects_invalid_variants_before_domain[none]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.025
+    },
+    {
+      "id": "tests.test_security_contracts::test_jwt_rejects_invalid_variants_before_domain[hs256]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.025
+    },
+    {
+      "id": "tests.test_security_contracts::test_jwt_rejects_invalid_variants_before_domain[expired]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.087
+    },
+    {
+      "id": "tests.test_security_contracts::test_jwt_rejects_invalid_variants_before_domain[audience]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.088
+    },
+    {
+      "id": "tests.test_security_contracts::test_jwt_rejects_invalid_variants_before_domain[issuer]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.101
+    },
+    {
+      "id": "tests.test_security_contracts::test_jwt_rejects_invalid_variants_before_domain[missing]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.103
+    },
+    {
+      "id": "tests.test_security_contracts::test_jwt_rejects_invalid_variants_before_domain[refresh_use]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.103
+    },
+    {
+      "id": "tests.test_security_contracts::test_jwt_rejects_invalid_variants_before_domain[numeric_sub]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.088
+    },
+    {
+      "id": "tests.test_security_contracts::test_session_rotation_replay_and_logout",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.993
+    },
+    {
+      "id": "tests.test_security_contracts::test_account_deactivation_fences_permissions_and_preserves_password",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 1.079
+    },
+    {
+      "id": "tests.test_security_contracts::test_strict_inputs[display_name-None]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.066
+    },
+    {
+      "id": "tests.test_security_contracts::test_strict_inputs[display_name-   ]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.062
+    },
+    {
+      "id": "tests.test_security_contracts::test_strict_inputs[display_name-Nombre\\x00inv\\xe1lido]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.063
+    },
+    {
+      "id": "tests.test_security_contracts::test_strict_inputs[consent-None]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.06
+    },
+    {
+      "id": "tests.test_security_contracts::test_strict_inputs[consent-1]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.062
+    },
+    {
+      "id": "tests.test_security_contracts::test_strict_inputs[blood_group-X+]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.063
+    },
+    {
+      "id": "tests.test_security_contracts::test_strict_inputs[unknown-injection]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.063
+    },
+    {
+      "id": "tests.test_security_contracts::test_xml_schema_json_parity_errors_and_xxe",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.28
+    },
+    {
+      "id": "tests.test_security_contracts::test_duplicate_json_keys_nonfinite_and_wrong_media",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.146
+    },
+    {
+      "id": "tests.test_security_contracts::test_institution_role_and_assignment_authorization",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.311
+    },
+    {
+      "id": "tests.test_security_contracts::test_internal_signature_delegation_replay_and_wrong_caller",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.201
+    },
+    {
+      "id": "tests.test_security_contracts::test_database_and_redis_privileges_are_separate",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.056
+    },
+    {
+      "id": "tests.test_security_contracts::test_rate_limit",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.028
+    },
+    {
+      "id": "tests.test_shared_database::test_all_services_use_same_database_and_physical_tables",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.055
+    },
+    {
+      "id": "tests.test_shared_database::test_service_credentials_cannot_read_other_service_or_base_tables",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.07
+    },
+    {
+      "id": "tests.test_shared_database::test_shared_fk_rejects_orphan_and_rolls_back_other_module_write",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.029
+    },
+    {
+      "id": "tests.test_shared_database::test_common_inbox_is_scoped_by_service",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.041
+    },
+    {
+      "id": "tests.test_shared_database::test_monitor_records_and_serves_status_when_postgres_unavailable",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.478
+    },
+    {
+      "id": "tests.test_shared_database::test_migration_preserves_rows_and_repoints_all_services",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 20.894
+    },
+    {
+      "id": "tests.test_ui_cache::test_inventory_cache_scope_filters_commit_rollback_and_xml",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 1.056
+    },
+    {
+      "id": "tests.test_ui_cache::test_cache_late_fill_cannot_restore_previous_generation",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.4
+    },
+    {
+      "id": "tests.test_ui_cache::test_catalogue_cache_invalidation_and_revocation",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.776
+    },
+    {
+      "id": "tests.test_ui_cache::test_jinja_fragments_readonly_modal_and_return_after_edit",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 2.453
+    },
+    {
+      "id": "tests.test_ui_cache::test_history_disables_edit_and_account_view_is_not_deactivation",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 1.658
+    },
+    {
+      "id": "tests.test_ui_cache::test_pagination_controls_preserve_filters_and_recover_last_page",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 1.597
+    },
+    {
+      "id": "tests.test_ui_cache::test_timezone_async_converts_form_dates_and_persists_without_redirect",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 1.117
+    },
+    {
+      "id": "tests.test_validation_audit::test_safe_field_errors_json_xml[changes0-fields0-json]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.005
+    },
+    {
+      "id": "tests.test_validation_audit::test_safe_field_errors_json_xml[changes0-fields0-xml]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.011
+    },
+    {
+      "id": "tests.test_validation_audit::test_safe_field_errors_json_xml[changes1-fields1-json]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.006
+    },
+    {
+      "id": "tests.test_validation_audit::test_safe_field_errors_json_xml[changes1-fields1-xml]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.011
+    },
+    {
+      "id": "tests.test_validation_audit::test_safe_field_errors_json_xml[changes2-fields2-json]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.006
+    },
+    {
+      "id": "tests.test_validation_audit::test_safe_field_errors_json_xml[changes2-fields2-xml]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.009
+    },
+    {
+      "id": "tests.test_validation_audit::test_safe_field_errors_json_xml[changes3-fields3-json]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.004
+    },
+    {
+      "id": "tests.test_validation_audit::test_safe_field_errors_json_xml[changes3-fields3-xml]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.009
+    },
+    {
+      "id": "tests.test_validation_audit::test_safe_field_errors_json_xml[changes4-fields4-json]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.004
+    },
+    {
+      "id": "tests.test_validation_audit::test_safe_field_errors_json_xml[changes4-fields4-xml]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.007
+    },
+    {
+      "id": "tests.test_validation_audit::test_safe_field_errors_json_xml[changes5-fields5-json]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.004
+    },
+    {
+      "id": "tests.test_validation_audit::test_safe_field_errors_json_xml[changes5-fields5-xml]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.007
+    },
+    {
+      "id": "tests.test_validation_audit::test_safe_field_errors_json_xml[changes6-fields6-json]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.004
+    },
+    {
+      "id": "tests.test_validation_audit::test_safe_field_errors_json_xml[changes6-fields6-xml]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.007
+    },
+    {
+      "id": "tests.test_validation_audit::test_exact_text_limits_and_empty_optionals[6]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.003
+    },
+    {
+      "id": "tests.test_validation_audit::test_exact_text_limits_and_empty_optionals[1000]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.004
+    },
+    {
+      "id": "tests.test_validation_audit::test_numeric_and_source_limits_keep_field[distance_km--1]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.005
+    },
+    {
+      "id": "tests.test_validation_audit::test_numeric_and_source_limits_keep_field[distance_km-20001]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.004
+    },
+    {
+      "id": "tests.test_validation_audit::test_numeric_and_source_limits_keep_field[travel_minutes-10081]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.003
+    },
+    {
+      "id": "tests.test_validation_audit::test_numeric_and_source_limits_keep_field[travel_minutes-0.5]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.003
+    },
+    {
+      "id": "tests.test_validation_audit::test_numeric_and_source_limits_keep_field[source-corto]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.003
+    },
+    {
+      "id": "tests.test_validation_audit::test_web_preserves_fields_marks_errors_and_retries_atomically[web]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 1.134
+    },
+    {
+      "id": "tests.test_validation_audit::test_web_preserves_fields_marks_errors_and_retries_atomically[autonomous]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 5.837
+    },
+    {
+      "id": "tests.test_validation_audit::test_web_login_does_not_echo_password",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.305
+    },
+    {
+      "id": "tests.test_validation_audit::test_selector_retains_value_from_later_page_on_failed_submit",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 1.204
+    },
+    {
+      "id": "tests.test_validation_audit::test_file_form_marks_reselection_without_creating_records",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 3.437
+    },
+    {
+      "id": "tests.test_validation_audit::test_audit_default_categories_filters_exports_and_scope",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 1.717
+    },
+    {
+      "id": "tests.test_validation_audit::test_audit_related_uses_documented_links_and_never_invents_history",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.4
+    },
+    {
+      "id": "tests.test_validation_audit::test_new_events_capture_actor_without_clinical_fields",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 43.396
+    },
+    {
+      "id": "tests.test_validation_audit::test_finding_lifecycle_permissions_idempotency_and_history",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 3.676
+    },
+    {
+      "id": "tests.test_validation_audit::test_web_audit_preserves_filters_and_csv_escapes_formulas",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 1.331
+    },
+    {
+      "id": "tests.test_validation_audit::test_findings_without_http_services",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 10.327
+    },
+    {
+      "id": "tests.test_validation_audit::test_finding_xml_contract_and_foreign_links",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.512
+    },
+    {
+      "id": "tests.test_validation_audit::test_audit_export_limit_and_date_window",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 1.729
+    },
+    {
+      "id": "tests.test_validation_audit::test_browser_validation_and_finding_workflow",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 29.233
+    },
+    {
+      "id": "tests.test_web_integration::test_roles_can_render_authorized_pages_through_http[admin1-paths0]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 2.309
+    },
+    {
+      "id": "tests.test_web_integration::test_roles_can_render_authorized_pages_through_http[operator1-paths1]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 5.003
+    },
+    {
+      "id": "tests.test_web_integration::test_roles_can_render_authorized_pages_through_http[medical1-paths2]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 2.713
+    },
+    {
+      "id": "tests.test_web_integration::test_roles_can_render_authorized_pages_through_http[coordinator1-paths3]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 2.081
+    },
+    {
+      "id": "tests.test_web_integration::test_roles_can_render_authorized_pages_through_http[transport1-paths4]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 1.308
+    },
+    {
+      "id": "tests.test_web_integration::test_roles_can_render_authorized_pages_through_http[auditor1-paths5]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 1.695
+    },
+    {
+      "id": "tests.test_web_integration::test_roles_can_render_authorized_pages_through_http[donor1-paths6]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 1.636
+    },
+    {
+      "id": "tests.test_web_integration::test_full_reservation_transport_receipt_from_web_and_xml[BLOOD-RBC-A+]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 56.9
+    },
+    {
+      "id": "tests.test_web_integration::test_full_reservation_transport_receipt_from_web_and_xml[ORGAN-KIDNEY-O+]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 26.566
+    },
+    {
+      "id": "tests.test_web_integration::test_full_reservation_transport_receipt_from_web_and_xml[ORGAN-LIVER-O+]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 26.554
+    },
+    {
+      "id": "tests.test_web_integration::test_full_reservation_transport_receipt_from_web_and_xml[ORGAN-HEART-O+]",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 26.415
+    },
+    {
+      "id": "tests.test_web_integration::test_forms_keep_values_and_same_idempotency_after_error",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 1.119
+    },
+    {
+      "id": "tests.test_web_integration::test_web_rejects_csrf_wrong_role_and_cross_institution",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 2.373
+    },
+    {
+      "id": "tests.test_web_integration::test_filtered_pagination_counts_and_minimized_recipient_search",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 2.068
+    },
+    {
+      "id": "tests.test_web_integration::test_identity_outage_reports_503_without_legacy_fallback",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 1.084
+    },
+    {
+      "id": "tests.test_web_integration::test_renewal_and_logout_revoke_backend_session_without_exposing_tokens",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 1.258
+    },
+    {
+      "id": "tests.test_web_integration::test_donor_campaign_appointment_processing_and_inventory_source_from_web",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 3.884
+    },
+    {
+      "id": "tests.test_web_integration::test_matching_proposal_from_web_does_not_reserve",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 2.585
+    },
+    {
+      "id": "tests.test_web_integration::test_admin_web_creation_deactivation_revokes_new_user",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 2.094
+    },
+    {
+      "id": "tests.test_web_sessions::test_logout_failure_clears_credentials_and_queues_encrypted_revocation",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.298
+    },
+    {
+      "id": "tests.test_web_sessions::test_network_renewal_does_not_lock_other_sessions_and_rejects_same_session",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.288
+    },
+    {
+      "id": "tests.test_web_sessions::test_logout_during_refresh_never_recreates_session",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.259
+    },
+    {
+      "id": "tests.test_web_sessions::test_redis_outage_logout_is_durable_and_revokes_after_recovery",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.986
+    },
+    {
+      "id": "tests.test_web_sessions::test_postgres_outage_fails_closed_and_logout_removes_browser_cookie",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.808
+    },
+    {
+      "id": "tests.test_web_sessions::test_encrypted_session_is_shared_between_web_instances_and_expires",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.697
+    },
+    {
+      "id": "tests.test_web_sessions::test_portal_credentials_cannot_read_identity_keys_or_domain_tables",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.085
+    },
+    {
+      "id": "tests.test_web_sessions::test_storage_upgrade_is_repeatable_preserves_secret_and_pending_rows",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 0.421
+    },
+    {
+      "id": "tests.test_web_sessions::test_undecipherable_revocation_remains_pending_until_key_is_restored",
+      "status": "passed",
+      "evidence": "regresion-21.xml",
+      "seconds": 4.12
+    },
+    {
+      "id": "tests.test_correction_backend::test_replay_reauthorizes_after_each_send[reassigned-json]",
+      "status": "passed",
+      "evidence": "focalizadas-23.xml",
+      "seconds": 3.626
+    },
+    {
+      "id": "tests.test_correction_backend::test_replay_reauthorizes_after_each_send[reassigned-xml]",
+      "status": "passed",
+      "evidence": "focalizadas-23.xml",
+      "seconds": 3.635
+    },
+    {
+      "id": "tests.test_correction_deploy_verifier::test_compose_verifier_uses_current_custody_contract[BLOOD-RBC]",
+      "status": "passed",
+      "evidence": "browser-verificador-26.xml",
+      "seconds": 52.627
+    },
+    {
+      "id": "tests.test_correction_deploy_verifier::test_compose_verifier_uses_current_custody_contract[ORGAN-KIDNEY]",
+      "status": "passed",
+      "evidence": "browser-verificador-26.xml",
+      "seconds": 25.552
+    },
+    {
+      "id": "tests.test_correction_browser::test_operational_browser_corrections",
+      "status": "passed",
+      "evidence": "browser-30.xml",
+      "seconds": 353.289
+    }
+  ],
+  "note": "Último resultado por classname::name. Conserva fallos anteriores; no suma ejecuciones superpuestas. Producción e independencia de auditoría no se infieren de estas pruebas."
+}

@@ -1,0 +1,865 @@
+ Image redhouse/donantes:0.4.1 Building 
+ Image redhouse/receptores:0.4.1 Building 
+ Image redhouse-parcial2-bootstrap Building 
+ Image redhouse/transporte:0.4.1 Building 
+ Image redhouse/web:0.4.1 Building 
+ Image redhouse/inventario:0.4.1 Building 
+ Image redhouse/priorizacion_geografia:0.4.1 Building 
+ Image redhouse/monitoreo:0.4.1 Building 
+ Image redhouse/auditoria:0.4.1 Building 
+ Image redhouse/compatibilidad:0.4.1 Building 
+ Image redhouse/custodia:0.4.1 Building 
+ Image redhouse/documentos:0.4.1 Building 
+ Image redhouse/alertas:0.4.1 Building 
+ Image redhouse/identidad_acceso:0.4.1 Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 8.21kB 0.0s done
+#1 DONE 0.0s
+
+#2 [receptores-a internal] load build definition from Dockerfile
+#2 ...
+
+#3 [identidad-acceso-a internal] load build definition from Dockerfile
+#3 transferring dockerfile: 890B 0.1s done
+#3 DONE 0.2s
+
+#4 [custodia-a internal] load build definition from Dockerfile
+#4 transferring dockerfile: 866B 0.0s done
+#4 DONE 0.2s
+
+#5 [auditoria-a internal] load build definition from Dockerfile
+#5 transferring dockerfile: 869B 0.0s done
+#5 DONE 0.2s
+
+#6 [alertas-a internal] load build definition from Dockerfile
+#6 transferring dockerfile: 863B 0.0s done
+#6 DONE 0.2s
+
+#7 [compatibilidad-a internal] load build definition from Dockerfile
+#7 transferring dockerfile: 884B 0.0s done
+#7 DONE 0.2s
+
+#8 [donantes-a internal] load build definition from Dockerfile
+#8 transferring dockerfile: 866B 0.0s done
+#8 DONE 0.2s
+
+#9 [custodia-a internal] load metadata for docker.io/library/python:3.13-slim-bookworm
+#9 DONE 0.3s
+
+#10 [inventario-a internal] load build definition from Dockerfile
+#10 transferring dockerfile: 872B 0.0s done
+#10 DONE 0.4s
+
+#11 [identidad-acceso-a internal] load .dockerignore
+#11 DONE 0.0s
+
+#2 [receptores-a internal] load build definition from Dockerfile
+#2 transferring dockerfile: 872B 0.0s done
+#2 DONE 0.5s
+
+#12 [priorizacion-geografia-a internal] load build definition from Dockerfile
+#12 transferring dockerfile: 908B 0.0s done
+#12 DONE 0.5s
+
+#13 [documentos-a internal] load build definition from Dockerfile
+#13 transferring dockerfile: 872B 0.0s done
+#13 DONE 0.5s
+
+#11 [auditoria-a internal] load .dockerignore
+#11 transferring context: 33B 0.0s
+#11 transferring context: 193B 0.0s done
+#11 transferring context: 193B 0.0s done
+#11 DONE 0.4s
+
+#14 [bootstrap internal] load build definition from Dockerfile.bootstrap
+#14 transferring dockerfile: 1.02kB 0.0s done
+#14 DONE 0.7s
+
+#15 [transporte-a internal] load build definition from Dockerfile
+#15 transferring dockerfile: 872B 0.0s done
+#15 DONE 0.8s
+
+#9 [bootstrap internal] load metadata for docker.io/library/python:3.13-slim-bookworm
+#9 ...
+
+#16 [monitoreo-a internal] load build definition from Dockerfile
+#16 transferring dockerfile: 881B 0.0s done
+#16 DONE 0.8s
+
+#17 [web internal] load build definition from Dockerfile
+#17 transferring dockerfile: 865B 0.0s done
+#17 DONE 0.9s
+
+#18 [inventario-a internal] load build context
+#18 DONE 0.0s
+
+#19 [documentos-a internal] load build context
+#19 ...
+
+#11 [bootstrap internal] load .dockerignore
+#11 transferring context: 193B 0.0s done
+#11 DONE 0.4s
+
+#9 [bootstrap internal] load metadata for docker.io/library/python:3.13-slim-bookworm
+#9 DONE 1.0s
+
+#20 [alertas-a  1/10] FROM docker.io/library/python:3.13-slim-bookworm@sha256:a1165e272e578941b84abc79e4ab38a0305cd12803a5c4247979ac7655f4d641
+#20 resolve docker.io/library/python:3.13-slim-bookworm@sha256:a1165e272e578941b84abc79e4ab38a0305cd12803a5c4247979ac7655f4d641
+#20 resolve docker.io/library/python:3.13-slim-bookworm@sha256:a1165e272e578941b84abc79e4ab38a0305cd12803a5c4247979ac7655f4d641 0.5s done
+#20 DONE 0.6s
+
+#21 [monitoreo-a internal] load build context
+#21 DONE 0.0s
+
+#19 [documentos-a internal] load build context
+#19 ...
+
+#22 [compatibilidad-a internal] load build context
+#22 transferring context: 801.94kB 0.9s done
+#22 DONE 1.0s
+
+#23 [compatibilidad-a  4/10] COPY apps/web/requirements.txt /deps/web.txt
+#23 CACHED
+
+#24 [compatibilidad-a  2/10] WORKDIR /app
+#24 CACHED
+
+#25 [compatibilidad-a  3/10] COPY apps/services/requirements.txt apps/services/requirements-storage.txt /deps/
+#25 CACHED
+
+#26 [compatibilidad-a  5/10] COPY apps/services/requirements-verified.txt /deps/constraints.txt
+#26 CACHED
+
+#27 [compatibilidad-a  6/10] RUN pip install --no-cache-dir -c /deps/constraints.txt -r /deps/requirements-storage.txt -r /deps/web.txt && useradd --uid 10001 --create-home redhouse
+#27 CACHED
+
+#19 [documentos-a internal] load build context
+#19 ...
+
+#28 [priorizacion-geografia-a internal] load build context
+#28 transferring context: 438.26kB 1.2s done
+#28 DONE 1.6s
+
+#19 [documentos-a internal] load build context
+#19 ...
+
+#27 [priorizacion-geografia-a  6/10] RUN pip install --no-cache-dir -c /deps/constraints.txt -r /deps/requirements-storage.txt -r /deps/web.txt && useradd --uid 10001 --create-home redhouse
+#27 CACHED
+
+#19 [documentos-a internal] load build context
+#19 ...
+
+#29 [alertas-a internal] load build context
+#29 transferring context: 665.84kB 1.6s done
+#29 DONE 1.7s
+
+#18 [inventario-a internal] load build context
+#18 transferring context: 1.71MB 1.8s done
+#18 DONE 1.9s
+
+#30 [custodia-a internal] load build context
+#30 transferring context: 338.82kB 1.4s done
+#30 DONE 2.0s
+
+#31 [web internal] load build context
+#31 ...
+
+#21 [monitoreo-a internal] load build context
+#21 transferring context: 355.88kB 1.2s done
+#21 DONE 1.5s
+
+#32 [auditoria-a internal] load build context
+#32 transferring context: 715.01kB 1.5s done
+#32 DONE 2.1s
+
+#19 [documentos-a internal] load build context
+#19 transferring context: 708.71kB 1.5s done
+#19 DONE 2.2s
+
+#31 [web internal] load build context
+#31 ...
+
+#33 [receptores-a internal] load build context
+#33 transferring context: 892.18kB 1.9s done
+#33 DONE 2.2s
+
+#31 [web internal] load build context
+#31 ...
+
+#34 [bootstrap internal] load build context
+#34 transferring context: 825.09kB 1.5s done
+#34 DONE 2.1s
+
+#31 [web internal] load build context
+#31 ...
+
+#35 [priorizacion-geografia-a  7/10] COPY apps/services/redhouse /app/apps/services/redhouse
+#35 DONE 1.3s
+
+#31 [web internal] load build context
+#31 ...
+
+#36 [donantes-a internal] load build context
+#36 transferring context: 1.26MB 1.9s done
+#36 DONE 2.6s
+
+#37 [transporte-a internal] load build context
+#37 transferring context: 1.56MB 1.8s done
+#37 DONE 2.3s
+
+#31 [web internal] load build context
+#31 ...
+
+#27 [alertas-a  6/10] RUN pip install --no-cache-dir -c /deps/constraints.txt -r /deps/requirements-storage.txt -r /deps/web.txt && useradd --uid 10001 --create-home redhouse
+#27 CACHED
+
+#38 [identidad-acceso-a internal] load build context
+#38 transferring context: 2.46MB 2.2s done
+#38 DONE 2.7s
+
+#31 [web internal] load build context
+#31 ...
+
+#27 [auditoria-a  6/10] RUN pip install --no-cache-dir -c /deps/constraints.txt -r /deps/requirements-storage.txt -r /deps/web.txt && useradd --uid 10001 --create-home redhouse
+#27 CACHED
+
+#35 [inventario-a  7/10] COPY apps/services/redhouse /app/apps/services/redhouse
+#35 DONE 1.4s
+
+#35 [custodia-a  7/10] COPY apps/services/redhouse /app/apps/services/redhouse
+#35 DONE 1.4s
+
+#39 [alertas-a  8/10] COPY apps/services/run.py apps/services/worker.py /app/apps/services/
+#39 ...
+
+#27 [monitoreo-a  6/10] RUN pip install --no-cache-dir -c /deps/constraints.txt -r /deps/requirements-storage.txt -r /deps/web.txt && useradd --uid 10001 --create-home redhouse
+#27 CACHED
+
+#35 [bootstrap  7/10] COPY apps/services/redhouse /app/apps/services/redhouse
+#35 DONE 1.4s
+
+#39 [auditoria-a  8/10] COPY apps/services/run.py apps/services/worker.py /app/apps/services/
+#39 ...
+
+#27 [identidad-acceso-a  6/10] RUN pip install --no-cache-dir -c /deps/constraints.txt -r /deps/requirements-storage.txt -r /deps/web.txt && useradd --uid 10001 --create-home redhouse
+#27 CACHED
+
+#35 [identidad-acceso-a  7/10] COPY apps/services/redhouse /app/apps/services/redhouse
+#35 DONE 1.4s
+
+#39 [monitoreo-a  8/10] COPY apps/services/run.py apps/services/worker.py /app/apps/services/
+#39 DONE 0.8s
+
+#40 [bootstrap  9/10] COPY deployment/container.py deployment/healthcheck.py /app/deployment/
+#40 DONE 0.5s
+
+#31 [web internal] load build context
+#31 transferring context: 11.37MB 3.5s done
+#31 DONE 3.7s
+
+#41 [bootstrap  6/13] RUN pip install --no-cache-dir -c /deps/constraints.txt -r /deps/requirements-storage.txt -r /deps/web.txt && useradd --uid 10001 --create-home redhouse
+#41 CACHED
+
+#42 [bootstrap  3/13] COPY apps/services/requirements.txt apps/services/requirements-storage.txt /deps/
+#42 CACHED
+
+#43 [bootstrap  8/13] COPY apps/services/run.py apps/services/worker.py /app/apps/services/
+#43 CACHED
+
+#44 [bootstrap  9/13] COPY deployment/container.py deployment/healthcheck.py /app/deployment/
+#44 CACHED
+
+#45 [bootstrap  7/13] COPY apps/services/redhouse /app/apps/services/redhouse
+#45 CACHED
+
+#46 [bootstrap  5/13] COPY apps/services/requirements-verified.txt /deps/constraints.txt
+#46 CACHED
+
+#47 [bootstrap  4/13] COPY apps/web/requirements.txt /deps/web.txt
+#47 CACHED
+
+#48 [custodia-a  3/10] COPY apps/services/requirements.txt apps/services/requirements-storage.txt /deps/
+#48 CACHED
+
+#49 [custodia-a  4/10] COPY apps/web/requirements.txt /deps/web.txt
+#49 CACHED
+
+#50 [custodia-a  6/10] RUN pip install --no-cache-dir -c /deps/constraints.txt -r /deps/requirements-storage.txt -r /deps/web.txt && useradd --uid 10001 --create-home redhouse
+#50 CACHED
+
+#51 [custodia-a  5/10] COPY apps/services/requirements-verified.txt /deps/constraints.txt
+#51 CACHED
+
+#52 [custodia-a  9/10] COPY deployment/container.py deployment/healthcheck.py /app/deployment/
+#52 CACHED
+
+#53 [custodia-a  7/10] COPY apps/services/redhouse /app/apps/services/redhouse
+#53 CACHED
+
+#54 [custodia-a  8/10] COPY apps/services/run.py apps/services/worker.py /app/apps/services/
+#54 CACHED
+
+#55 [receptores-a  6/10] RUN pip install --no-cache-dir -c /deps/constraints.txt -r /deps/requirements-storage.txt -r /deps/web.txt && useradd --uid 10001 --create-home redhouse
+#55 CACHED
+
+#56 [receptores-a  4/10] COPY apps/web/requirements.txt /deps/web.txt
+#56 CACHED
+
+#57 [receptores-a  9/10] COPY deployment/container.py deployment/healthcheck.py /app/deployment/
+#57 CACHED
+
+#58 [receptores-a  8/10] COPY apps/services/run.py apps/services/worker.py /app/apps/services/
+#58 CACHED
+
+#59 [receptores-a  7/10] COPY apps/services/redhouse /app/apps/services/redhouse
+#59 CACHED
+
+#60 [receptores-a  3/10] COPY apps/services/requirements.txt apps/services/requirements-storage.txt /deps/
+#60 CACHED
+
+#61 [receptores-a  5/10] COPY apps/services/requirements-verified.txt /deps/constraints.txt
+#61 CACHED
+
+#62 [monitoreo-a  8/10] COPY apps/services/run.py apps/services/worker.py /app/apps/services/
+#62 CACHED
+
+#63 [monitoreo-a  5/10] COPY apps/services/requirements-verified.txt /deps/constraints.txt
+#63 CACHED
+
+#64 [monitoreo-a  3/10] COPY apps/services/requirements.txt apps/services/requirements-storage.txt /deps/
+#64 CACHED
+
+#65 [monitoreo-a  7/10] COPY apps/services/redhouse /app/apps/services/redhouse
+#65 CACHED
+
+#66 [monitoreo-a  4/10] COPY apps/web/requirements.txt /deps/web.txt
+#66 CACHED
+
+#67 [monitoreo-a  9/10] COPY deployment/container.py deployment/healthcheck.py /app/deployment/
+#67 CACHED
+
+#68 [monitoreo-a  6/10] RUN pip install --no-cache-dir -c /deps/constraints.txt -r /deps/requirements-storage.txt -r /deps/web.txt && useradd --uid 10001 --create-home redhouse
+#68 CACHED
+
+#69 [priorizacion-geografia-a  6/10] RUN pip install --no-cache-dir -c /deps/constraints.txt -r /deps/requirements-storage.txt -r /deps/web.txt && useradd --uid 10001 --create-home redhouse
+#69 CACHED
+
+#70 [priorizacion-geografia-a  7/10] COPY apps/services/redhouse /app/apps/services/redhouse
+#70 CACHED
+
+#71 [priorizacion-geografia-a  9/10] COPY deployment/container.py deployment/healthcheck.py /app/deployment/
+#71 CACHED
+
+#72 [priorizacion-geografia-a  8/10] COPY apps/services/run.py apps/services/worker.py /app/apps/services/
+#72 CACHED
+
+#73 [priorizacion-geografia-a  5/10] COPY apps/services/requirements-verified.txt /deps/constraints.txt
+#73 CACHED
+
+#74 [priorizacion-geografia-a  4/10] COPY apps/web/requirements.txt /deps/web.txt
+#74 CACHED
+
+#75 [priorizacion-geografia-a  3/10] COPY apps/services/requirements.txt apps/services/requirements-storage.txt /deps/
+#75 CACHED
+
+#76 [documentos-a  3/10] COPY apps/services/requirements.txt apps/services/requirements-storage.txt /deps/
+#76 CACHED
+
+#77 [documentos-a  7/10] COPY apps/services/redhouse /app/apps/services/redhouse
+#77 CACHED
+
+#78 [documentos-a  5/10] COPY apps/services/requirements-verified.txt /deps/constraints.txt
+#78 CACHED
+
+#79 [documentos-a  8/10] COPY apps/services/run.py apps/services/worker.py /app/apps/services/
+#79 CACHED
+
+#80 [documentos-a  4/10] COPY apps/web/requirements.txt /deps/web.txt
+#80 CACHED
+
+#81 [documentos-a  6/10] RUN pip install --no-cache-dir -c /deps/constraints.txt -r /deps/requirements-storage.txt -r /deps/web.txt && useradd --uid 10001 --create-home redhouse
+#81 CACHED
+
+#82 [documentos-a  9/10] COPY deployment/container.py deployment/healthcheck.py /app/deployment/
+#82 CACHED
+
+#83 [alertas-a  4/10] COPY apps/web/requirements.txt /deps/web.txt
+#83 CACHED
+
+#84 [alertas-a  9/10] COPY deployment/container.py deployment/healthcheck.py /app/deployment/
+#84 CACHED
+
+#85 [alertas-a  8/10] COPY apps/services/run.py apps/services/worker.py /app/apps/services/
+#85 CACHED
+
+#86 [alertas-a  5/10] COPY apps/services/requirements-verified.txt /deps/constraints.txt
+#86 CACHED
+
+#87 [alertas-a  6/10] RUN pip install --no-cache-dir -c /deps/constraints.txt -r /deps/requirements-storage.txt -r /deps/web.txt && useradd --uid 10001 --create-home redhouse
+#87 CACHED
+
+#88 [alertas-a  3/10] COPY apps/services/requirements.txt apps/services/requirements-storage.txt /deps/
+#88 CACHED
+
+#89 [alertas-a  7/10] COPY apps/services/redhouse /app/apps/services/redhouse
+#89 CACHED
+
+#90 [transporte-a  5/10] COPY apps/services/requirements-verified.txt /deps/constraints.txt
+#90 CACHED
+
+#91 [transporte-a  7/10] COPY apps/services/redhouse /app/apps/services/redhouse
+#91 CACHED
+
+#92 [transporte-a  4/10] COPY apps/web/requirements.txt /deps/web.txt
+#92 CACHED
+
+#93 [transporte-a  6/10] RUN pip install --no-cache-dir -c /deps/constraints.txt -r /deps/requirements-storage.txt -r /deps/web.txt && useradd --uid 10001 --create-home redhouse
+#93 CACHED
+
+#94 [transporte-a  8/10] COPY apps/services/run.py apps/services/worker.py /app/apps/services/
+#94 CACHED
+
+#95 [transporte-a  9/10] COPY deployment/container.py deployment/healthcheck.py /app/deployment/
+#95 CACHED
+
+#96 [transporte-a  3/10] COPY apps/services/requirements.txt apps/services/requirements-storage.txt /deps/
+#96 CACHED
+
+#97 [donantes-a  6/10] RUN pip install --no-cache-dir -c /deps/constraints.txt -r /deps/requirements-storage.txt -r /deps/web.txt && useradd --uid 10001 --create-home redhouse
+#97 CACHED
+
+#98 [donantes-a  5/10] COPY apps/services/requirements-verified.txt /deps/constraints.txt
+#98 CACHED
+
+#99 [donantes-a  8/10] COPY apps/services/run.py apps/services/worker.py /app/apps/services/
+#99 CACHED
+
+#100 [donantes-a  9/10] COPY deployment/container.py deployment/healthcheck.py /app/deployment/
+#100 CACHED
+
+#101 [donantes-a  3/10] COPY apps/services/requirements.txt apps/services/requirements-storage.txt /deps/
+#101 CACHED
+
+#102 [donantes-a  7/10] COPY apps/services/redhouse /app/apps/services/redhouse
+#102 CACHED
+
+#103 [donantes-a  4/10] COPY apps/web/requirements.txt /deps/web.txt
+#103 CACHED
+
+#104 [inventario-a  8/10] COPY apps/services/run.py apps/services/worker.py /app/apps/services/
+#104 CACHED
+
+#105 [inventario-a  6/10] RUN pip install --no-cache-dir -c /deps/constraints.txt -r /deps/requirements-storage.txt -r /deps/web.txt && useradd --uid 10001 --create-home redhouse
+#105 CACHED
+
+#106 [inventario-a  9/10] COPY deployment/container.py deployment/healthcheck.py /app/deployment/
+#106 CACHED
+
+#107 [inventario-a  5/10] COPY apps/services/requirements-verified.txt /deps/constraints.txt
+#107 CACHED
+
+#108 [inventario-a  7/10] COPY apps/services/redhouse /app/apps/services/redhouse
+#108 CACHED
+
+#109 [inventario-a  3/10] COPY apps/services/requirements.txt apps/services/requirements-storage.txt /deps/
+#109 CACHED
+
+#110 [inventario-a  4/10] COPY apps/web/requirements.txt /deps/web.txt
+#110 CACHED
+
+#111 [auditoria-a  3/10] COPY apps/services/requirements.txt apps/services/requirements-storage.txt /deps/
+#111 CACHED
+
+#112 [auditoria-a  6/10] RUN pip install --no-cache-dir -c /deps/constraints.txt -r /deps/requirements-storage.txt -r /deps/web.txt && useradd --uid 10001 --create-home redhouse
+#112 CACHED
+
+#113 [auditoria-a  5/10] COPY apps/services/requirements-verified.txt /deps/constraints.txt
+#113 CACHED
+
+#114 [auditoria-a  9/10] COPY deployment/container.py deployment/healthcheck.py /app/deployment/
+#114 CACHED
+
+#115 [auditoria-a  4/10] COPY apps/web/requirements.txt /deps/web.txt
+#115 CACHED
+
+#116 [auditoria-a  7/10] COPY apps/services/redhouse /app/apps/services/redhouse
+#116 CACHED
+
+#117 [auditoria-a  8/10] COPY apps/services/run.py apps/services/worker.py /app/apps/services/
+#117 CACHED
+
+#24 [donantes-a  2/10] WORKDIR /app
+#24 CACHED
+
+#118 [identidad-acceso-a  6/10] RUN pip install --no-cache-dir -c /deps/constraints.txt -r /deps/requirements-storage.txt -r /deps/web.txt && useradd --uid 10001 --create-home redhouse
+#118 CACHED
+
+#119 [identidad-acceso-a  3/10] COPY apps/services/requirements.txt apps/services/requirements-storage.txt /deps/
+#119 CACHED
+
+#120 [identidad-acceso-a  9/10] COPY deployment/container.py deployment/healthcheck.py /app/deployment/
+#120 CACHED
+
+#121 [identidad-acceso-a  5/10] COPY apps/services/requirements-verified.txt /deps/constraints.txt
+#121 CACHED
+
+#122 [identidad-acceso-a  4/10] COPY apps/web/requirements.txt /deps/web.txt
+#122 CACHED
+
+#123 [identidad-acceso-a  8/10] COPY apps/services/run.py apps/services/worker.py /app/apps/services/
+#123 CACHED
+
+#124 [identidad-acceso-a  7/10] COPY apps/services/redhouse /app/apps/services/redhouse
+#124 CACHED
+
+#125 [donantes-a 10/10] COPY apps/services/ms_donantes /app/apps/services/ms_donantes
+#125 ...
+
+#27 [web  6/10] RUN pip install --no-cache-dir -c /deps/constraints.txt -r /deps/requirements-storage.txt -r /deps/web.txt && useradd --uid 10001 --create-home redhouse
+#27 CACHED
+
+#35 [web  7/10] COPY apps/services/redhouse /app/apps/services/redhouse
+#35 DONE 1.4s
+
+#39 [web  8/10] COPY apps/services/run.py apps/services/worker.py /app/apps/services/
+#39 DONE 0.8s
+
+#40 [web  9/10] COPY deployment/container.py deployment/healthcheck.py /app/deployment/
+#40 DONE 0.5s
+
+#126 [web  6/11] RUN pip install --no-cache-dir -c /deps/constraints.txt -r /deps/requirements-storage.txt -r /deps/web.txt && useradd --uid 10001 --create-home redhouse
+#126 CACHED
+
+#127 [web  4/11] COPY apps/web/requirements.txt /deps/web.txt
+#127 CACHED
+
+#128 [web  8/11] COPY apps/services/run.py apps/services/worker.py /app/apps/services/
+#128 CACHED
+
+#129 [web  7/11] COPY apps/services/redhouse /app/apps/services/redhouse
+#129 CACHED
+
+#130 [web  5/11] COPY apps/services/requirements-verified.txt /deps/constraints.txt
+#130 CACHED
+
+#24 [web  2/10] WORKDIR /app
+#24 CACHED
+
+#131 [web  3/11] COPY apps/services/requirements.txt apps/services/requirements-storage.txt /deps/
+#131 CACHED
+
+#132 [web  9/11] COPY deployment/container.py deployment/healthcheck.py /app/deployment/
+#132 CACHED
+
+#133 [web 10/11] COPY apps/services /app/apps/services
+#133 ...
+
+#134 [receptores-a 10/10] COPY apps/services/ms_receptores /app/apps/services/ms_receptores
+#134 DONE 0.8s
+
+#135 [alertas-a 10/10] COPY apps/services/ms_alertas /app/apps/services/ms_alertas
+#135 DONE 1.0s
+
+#136 [receptores-a] exporting to image
+#136 exporting layers
+#136 ...
+
+#125 [donantes-a 10/10] COPY apps/services/ms_donantes /app/apps/services/ms_donantes
+#125 DONE 1.0s
+
+#137 [compatibilidad-a 10/10] COPY apps/services/ms_compatibilidad /app/apps/services/ms_compatibilidad
+#137 DONE 1.1s
+
+#138 [compatibilidad-a] exporting to image
+#138 ...
+
+#139 [documentos-a 10/10] COPY apps/services/ms_documentos /app/apps/services/ms_documentos
+#139 DONE 1.4s
+
+#140 [monitoreo-a 10/10] COPY apps/services/servicio_monitoreo /app/apps/services/servicio_monitoreo
+#140 DONE 1.5s
+
+#141 [priorizacion-geografia-a 10/10] COPY apps/services/ms_priorizacion_geografia /app/apps/services/ms_priorizacion_geografia
+#141 DONE 1.5s
+
+#142 [custodia-a 10/10] COPY apps/services/ms_custodia /app/apps/services/ms_custodia
+#142 DONE 1.5s
+
+#143 [donantes-a] exporting to image
+#143 ...
+
+#144 [bootstrap 10/13] COPY apps/services/scripts /app/apps/services/scripts
+#144 DONE 1.9s
+
+#145 [transporte-a 10/10] COPY apps/services/ms_transporte /app/apps/services/ms_transporte
+#145 DONE 1.9s
+
+#146 [auditoria-a 10/10] COPY apps/services/ms_auditoria /app/apps/services/ms_auditoria
+#146 DONE 2.0s
+
+#147 [bootstrap 11/13] COPY data/database/schema.sql /app/data/database/schema.sql
+#147 ...
+
+#148 [inventario-a 10/10] COPY apps/services/ms_inventario /app/apps/services/ms_inventario
+#148 DONE 2.4s
+
+#149 [auditoria-a] exporting to image
+#149 ...
+
+#150 [identidad-acceso-a 10/10] COPY apps/services/ms_identidad_acceso /app/apps/services/ms_identidad_acceso
+#150 DONE 3.1s
+
+#151 [inventario-a] exporting to image
+#151 ...
+
+#133 [web 10/11] COPY apps/services /app/apps/services
+#133 DONE 4.3s
+
+#151 [inventario-a] exporting to image
+#151 exporting layers 2.0s done
+#151 ...
+
+#147 [bootstrap 11/13] COPY data/database/schema.sql /app/data/database/schema.sql
+#147 DONE 2.9s
+
+#151 [inventario-a] exporting to image
+#151 exporting manifest sha256:74cf3b5b292fb4bdd4cba0e5e52b156d6e99975a9426e81dfe7c5de53d15a1cd
+#151 ...
+
+#152 [web 11/11] COPY apps/web /app/apps/web
+#152 DONE 0.7s
+
+#153 [bootstrap 12/13] COPY data/database/web_sessions.sql /app/data/database/web_sessions.sql
+#153 DONE 2.5s
+
+#151 [inventario-a] exporting to image
+#151 exporting manifest sha256:74cf3b5b292fb4bdd4cba0e5e52b156d6e99975a9426e81dfe7c5de53d15a1cd 0.5s done
+#151 exporting config sha256:a3a53d6e1b14eb3a4d2e4fb219498c2e34188baa9e8bcbab39ce56611779193f 0.6s done
+#151 exporting attestation manifest sha256:79dd3400eae9a82e1a67d4cff418db4e305085014075b49f233df1c1c5739986 0.7s done
+#151 exporting manifest list sha256:5de271fc788b7ded09d2676edeaddaa3d7665f6d43ce57f33887f566e2130dc7
+#151 exporting manifest list sha256:5de271fc788b7ded09d2676edeaddaa3d7665f6d43ce57f33887f566e2130dc7 0.5s done
+#151 naming to docker.io/redhouse/inventario:0.4.1
+#151 naming to docker.io/redhouse/inventario:0.4.1 0.3s done
+#151 unpacking to docker.io/redhouse/inventario:0.4.1
+#151 ...
+
+#154 [bootstrap 13/13] COPY deployment/bootstrap.py /app/deployment/
+#154 DONE 1.0s
+
+#155 [bootstrap] exporting to image
+#155 ...
+
+#156 [alertas-a] exporting to image
+#156 exporting layers 2.8s done
+#156 exporting manifest sha256:f7451724a6e194f89a0066dd89d7b587bd99854eae3f9610b0701043e2922520 0.6s done
+#156 exporting config sha256:1fee60583ef80ab78e3adc412071a5e9a8a16f20f47cf00c5b9756a08a4c3fa6 0.5s done
+#156 exporting attestation manifest sha256:544cc01428cecf7661cdf8eda71d60a8d92bed85fce3308866a6c3a815eb9b18 0.6s done
+#156 exporting manifest list sha256:87b3252b9518c11a319843a843b9b41f57432c85499b1a94a4f970a12fa8b8e9 0.6s done
+#156 naming to docker.io/redhouse/alertas:0.4.1 0.2s done
+#156 unpacking to docker.io/redhouse/alertas:0.4.1 2.8s done
+#156 ...
+
+#157 [identidad-acceso-a] exporting to image
+#157 exporting layers 1.7s done
+#157 exporting manifest sha256:6782f793956735cf4f35f06648970e6033a74db7f9b244de2556d80e0730cc7b 0.7s done
+#157 exporting config sha256:2b5a6a9f31c46f7ff00209efbd074f73ab31ec986eb280304ce06d7f28d819bf 0.5s done
+#157 exporting attestation manifest sha256:2b741f5b7124da4bed92b030deb8ac3f3e343d0e9adb5e9c96e6dd9484141a81 0.6s done
+#157 exporting manifest list sha256:1272497078928e0a86aa639bd5ab4754f781bf7c57656c53971312bca68eec81 0.6s done
+#157 naming to docker.io/redhouse/identidad_acceso:0.4.1 0.1s done
+#157 unpacking to docker.io/redhouse/identidad_acceso:0.4.1 2.4s done
+#157 DONE 8.0s
+
+#151 [inventario-a] exporting to image
+#151 unpacking to docker.io/redhouse/inventario:0.4.1 2.8s done
+#151 ...
+
+#149 [auditoria-a] exporting to image
+#149 exporting layers 2.3s done
+#149 exporting manifest sha256:fda8f3a866cfcbf23ab78232eee4224d89070264adf07078e9277fdfeae62cd7 0.5s done
+#149 exporting config sha256:97f8cba813c175569bbc065445d4deaa1c969ace60142a5c52831a62a24b8e29 0.6s done
+#149 exporting attestation manifest sha256:ef1ff6ee05a60997bc51b9ea3d02e7e5147a2b0f78bc6d6d50c327f776d14aba 0.7s done
+#149 exporting manifest list sha256:802e6ceaa0120fa6ef07d4abe0a90250c452575b245e3dfb69a6692489587c80 0.5s done
+#149 naming to docker.io/redhouse/auditoria:0.4.1 0.3s done
+#149 unpacking to docker.io/redhouse/auditoria:0.4.1 2.5s done
+#149 DONE 9.0s
+
+#138 [compatibilidad-a] exporting to image
+#138 exporting layers 2.8s done
+#138 exporting manifest sha256:78c197f1851bdb388c0466b3ab0058f5391309beea2d299bd11944b109552c96 0.6s done
+#138 exporting config sha256:43ed3f343faf7ae088a6c6474ef0bfd170d5711ded8bfa3e6aa3a4a26c78732c 0.5s done
+#138 exporting attestation manifest sha256:e19b544b755812e3f4a1dab90c8a6dbdf850ba1ffe57edea8b1fd8282ee3c27c 0.6s done
+#138 exporting manifest list sha256:9c01ac37290e52c028221d73894ae43dbd42be20584e8e20f9d4d8509f656a97 0.6s done
+#138 naming to docker.io/redhouse/compatibilidad:0.4.1 0.3s done
+#138 unpacking to docker.io/redhouse/compatibilidad:0.4.1 2.8s done
+#138 ...
+
+#158 [transporte-a] exporting to image
+#158 exporting layers 2.4s done
+#158 exporting manifest sha256:2d35ceb00436e0feabec0276dc0e1a7d0debf38a7cc5999a10475e19a0b1a9d5 0.4s done
+#158 exporting config sha256:9007eeab78084a4f0fb045f88e8fa9ec054388c25d20b6046ccdeddc6545e953 0.6s done
+#158 exporting attestation manifest sha256:0ef75a6ba2c72740cd89b4e9ce254f831eec644dedfff98cfc52ef29688d1be2 0.7s done
+#158 exporting manifest list sha256:9050b5cb0a0dff13628084f5bde0ff74890e8199ae8fe46e12ae508c3f10cec6 0.4s done
+#158 naming to docker.io/redhouse/transporte:0.4.1 0.3s done
+#158 unpacking to docker.io/redhouse/transporte:0.4.1 2.6s done
+#158 DONE 9.4s
+
+#159 [documentos-a] exporting to image
+#159 exporting layers 2.7s done
+#159 exporting manifest sha256:54ae2049d9082a5fd0da6a9e641c48b1e856268d8c04df8701fd2b275e238d18 0.5s done
+#159 exporting config sha256:359a27ee3c03659ab3235c6c9f22cd43be818a6aab96ccc68d417e1cbd5fa093 0.6s done
+#159 exporting attestation manifest sha256:fbfdf524dfc0796da78f0d80a513eda7c5905f8ec962602affecbb9acf3f0cbc 0.7s done
+#159 exporting manifest list sha256:7ca593214fec6a887151a4b17552caa349675b2bedf514284d9c1ef2b31e9979 0.4s done
+#159 naming to docker.io/redhouse/documentos:0.4.1 0.3s done
+#159 unpacking to docker.io/redhouse/documentos:0.4.1 2.7s done
+#159 ...
+
+#160 [custodia-a] exporting to image
+#160 exporting layers 2.8s done
+#160 exporting manifest sha256:57efb827d672975cc0b5326141288c7da0a98fe07c0f2e0d24b649ea1cb46fe1 0.6s done
+#160 exporting config sha256:f9cd3feb32b4d368ec5210b39daef3be77551d5590a0f5cedc10b5d52f938e82 0.6s done
+#160 exporting attestation manifest sha256:d0ff89e039f2f4ee4d3215ed871f7b82fd9cab6043ed2bfdc6781eef349eee8d 0.7s done
+#160 exporting manifest list sha256:e043155a7630a5afaa499a0f9c7fce658ac25fff8d411c249658179bd910a32e 0.5s done
+#160 naming to docker.io/redhouse/custodia:0.4.1 0.3s done
+#160 unpacking to docker.io/redhouse/custodia:0.4.1 2.6s done
+#160 DONE 10.2s
+
+#136 [receptores-a] exporting to image
+#136 exporting layers 3.0s done
+#136 exporting manifest sha256:ab5fcef5849361c5de5d4613f8becdd2f8c6a91e5fb3249b93ba57c93f1fa4f8 0.6s done
+#136 exporting config sha256:6a342009c5801d4221962cb7f64db70975a7624a07cc30d4256eda692e29f806 0.6s done
+#136 exporting attestation manifest sha256:8f7dc96bd513fa16799f813a7db5b3370ec740cc8386ba953117a7a03482237a 0.7s done
+#136 exporting manifest list sha256:deea35469662e413f2a3e052ab0881181853c7106940464244c57281f3dabf0d 0.5s done
+#136 naming to docker.io/redhouse/receptores:0.4.1 0.3s done
+#136 unpacking to docker.io/redhouse/receptores:0.4.1 2.7s done
+#136 DONE 10.9s
+
+#159 [documentos-a] exporting to image
+#159 DONE 10.2s
+
+#151 [inventario-a] exporting to image
+#151 DONE 9.2s
+
+#161 [priorizacion-geografia-a] exporting to image
+#161 exporting layers 2.9s done
+#161 exporting manifest sha256:2b06105a5470b5d8e061b584d4dc6258926fae93699fb21a414f3723b0c15561 0.7s done
+#161 exporting config sha256:0beeea3f668c3e97527cbcf5a08f12970d8d273a8241cf4aea176be8ecde5acb 0.5s done
+#161 exporting attestation manifest sha256:9b6ecad66c11e4b4923e9104b1776c59300f9e7aabec4aab4cc743012ce8ad3f 0.6s done
+#161 exporting manifest list sha256:b6fc13d64618ab30ba45bd5c4b959c691f4ef108a8a6ef8c99c3a098097a1b0c 0.6s done
+#161 naming to docker.io/redhouse/priorizacion_geografia:0.4.1 0.2s done
+#161 unpacking to docker.io/redhouse/priorizacion_geografia:0.4.1 2.7s done
+#161 ...
+
+#156 [alertas-a] exporting to image
+#156 DONE 10.9s
+
+#138 [compatibilidad-a] exporting to image
+#138 DONE 10.8s
+
+#162 [monitoreo-a] exporting to image
+#162 exporting layers 2.8s done
+#162 exporting manifest sha256:711232b90f46a2acc088d79be077d6477f15a405ff7ed479099e6f468508afec 0.7s done
+#162 exporting config sha256:ba9d23871a7aeb25a6854a0fad717de2b10f69e77da65a433ea7a946f0a9aec6 0.5s done
+#162 exporting attestation manifest sha256:b6e9264f811e76881f682642ca22e644ab1d5ebdfaf6108c4d1aa6702e974c16 0.6s done
+#162 exporting manifest list sha256:f32183c842b48890837d67bd3ce1721f8eccdfb6d5ae4dcbcbc0d4a2ef20cb86 0.6s done
+#162 naming to docker.io/redhouse/monitoreo:0.4.1 0.2s done
+#162 unpacking to docker.io/redhouse/monitoreo:0.4.1 2.8s done
+#162 DONE 10.4s
+
+#161 [priorizacion-geografia-a] exporting to image
+#161 DONE 10.4s
+
+#143 [donantes-a] exporting to image
+#143 exporting layers 2.8s done
+#143 exporting manifest sha256:973ebf7b9a6c02b9da5e1c79774c338e60cdaf133a0d5c45fc79e20d05e26b64 0.6s done
+#143 exporting config sha256:0d0db08978161082f91559c8a3c278646eb32221457a9d2ad32d7366bae805ca 0.5s done
+#143 exporting attestation manifest sha256:5466e7b09ef5bb4c5a3d0dcde80442e9b2d317d66fddae0487986417b4101728 0.6s done
+#143 exporting manifest list sha256:8cc310d04ec4e873d35aa0ea0eb17d094dedbdbe668985b620fac645d3c995d3 0.5s done
+#143 naming to docker.io/redhouse/donantes:0.4.1 0.3s done
+#143 unpacking to docker.io/redhouse/donantes:0.4.1 2.9s done
+#143 DONE 11.1s
+
+#155 [bootstrap] exporting to image
+#155 exporting layers 3.1s done
+#155 exporting manifest sha256:c5ff697f4fad2e9b807052563747d69e46f2aee7c0b22f77f3a2b755390242a8 0.3s done
+#155 exporting config sha256:385be4bf6ab202486605a06940f7231cb42801648ac18b5bba3aa9cd660eb7a2
+#155 exporting config sha256:385be4bf6ab202486605a06940f7231cb42801648ac18b5bba3aa9cd660eb7a2 0.4s done
+#155 exporting attestation manifest sha256:54d343969437544438999039305c6025f29c8a31fd87c6239f8e7e7f724def33
+#155 exporting attestation manifest sha256:54d343969437544438999039305c6025f29c8a31fd87c6239f8e7e7f724def33 0.1s done
+#155 exporting manifest list sha256:6c957206bd1f36ad7ecbf5fa89618246eccd5a0d12878f6eca0525dec7863fd9
+#155 exporting manifest list sha256:6c957206bd1f36ad7ecbf5fa89618246eccd5a0d12878f6eca0525dec7863fd9 0.2s done
+#155 naming to docker.io/library/redhouse-parcial2-bootstrap:latest
+#155 naming to docker.io/library/redhouse-parcial2-bootstrap:latest 0.0s done
+#155 unpacking to docker.io/library/redhouse-parcial2-bootstrap:latest
+#155 unpacking to docker.io/library/redhouse-parcial2-bootstrap:latest 0.8s done
+#155 DONE 5.9s
+
+#163 [web] exporting to image
+#163 exporting layers 5.6s done
+#163 exporting manifest sha256:3f2a4c20f44843f142b3bd28b6ec907069fde6d1a42951a45c84cbe5c775f889 0.1s done
+#163 exporting config sha256:0fcf17f75dc75f0a2fd7f799e027b137ead36e036586c6a3b3cb2e1327f182d5 0.2s done
+#163 exporting attestation manifest sha256:6d06a2a0027e6891c1eb67d079e255300141b5ce65f654c65bb4b0efef3c63f0 0.2s done
+#163 exporting manifest list sha256:3559c90978bd21e2d4d7ccf9318433a865d9b22c9e34e160dfe6a5ddcb4a8923 0.1s done
+#163 naming to docker.io/redhouse/web:0.4.1 0.4s done
+#163 unpacking to docker.io/redhouse/web:0.4.1
+#163 unpacking to docker.io/redhouse/web:0.4.1 2.7s done
+#163 DONE 10.5s
+
+#164 [custodia-a] resolving provenance for metadata file
+#164 ...
+
+#165 [auditoria-a] resolving provenance for metadata file
+#165 DONE 1.2s
+
+#164 [custodia-a] resolving provenance for metadata file
+#164 DONE 1.2s
+
+#166 [monitoreo-a] resolving provenance for metadata file
+#166 DONE 1.2s
+
+#167 [receptores-a] resolving provenance for metadata file
+#167 DONE 1.2s
+
+#168 [transporte-a] resolving provenance for metadata file
+#168 DONE 1.2s
+
+#169 [donantes-a] resolving provenance for metadata file
+#169 DONE 1.2s
+
+#170 [documentos-a] resolving provenance for metadata file
+#170 DONE 1.3s
+
+#171 [priorizacion-geografia-a] resolving provenance for metadata file
+#171 DONE 1.3s
+
+#172 [identidad-acceso-a] resolving provenance for metadata file
+#172 DONE 1.2s
+
+#173 [compatibilidad-a] resolving provenance for metadata file
+#173 DONE 1.2s
+
+#174 [inventario-a] resolving provenance for metadata file
+#174 DONE 1.3s
+
+#175 [web] resolving provenance for metadata file
+#175 DONE 0.4s
+
+#176 [alertas-a] resolving provenance for metadata file
+#176 DONE 1.3s
+
+#177 [bootstrap] resolving provenance for metadata file
+#177 DONE 0.9s
+ Image redhouse/receptores:0.4.1 Built 
+ Image redhouse/priorizacion_geografia:0.4.1 Built 
+ Image redhouse/web:0.4.1 Built 
+ Image redhouse/custodia:0.4.1 Built 
+ Image redhouse/auditoria:0.4.1 Built 
+ Image redhouse/monitoreo:0.4.1 Built 
+ Image redhouse/identidad_acceso:0.4.1 Built 
+ Image redhouse/alertas:0.4.1 Built 
+ Image redhouse/inventario:0.4.1 Built 
+ Image redhouse/transporte:0.4.1 Built 
+ Image redhouse/compatibilidad:0.4.1 Built 
+ Image redhouse/documentos:0.4.1 Built 
+ Image redhouse-parcial2-bootstrap Built 
+ Image redhouse/donantes:0.4.1 Built 
+Imágenes construidas: 14

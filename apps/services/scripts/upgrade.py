@@ -32,7 +32,7 @@ def upgrade(directory, services):
             version = conn.execute(
                 "SELECT max(version) FROM red_house.schema_migration"
             ).fetchone()[0]
-        if version not in (6, LATEST_VERSION):
+        if not 6 <= version <= LATEST_VERSION:
             raise RuntimeError(
                 "Versión compartida inesperada; requiere una migración global revisada."
             )
@@ -74,6 +74,12 @@ def upgrade(directory, services):
         with psycopg.connect(dsn) as conn:
             conn.execute("SET ROLE rh_shared_owner")
             current = upgrade_shared(conn)
+        from scripts.upgrade_documents import provision_documents
+
+        provision_documents(directory, state)
+        from scripts.upgrade_final_acl import upgrade_acl
+
+        upgrade_acl(directory, state)
         report = {
             "before": version,
             "shared_version": current,

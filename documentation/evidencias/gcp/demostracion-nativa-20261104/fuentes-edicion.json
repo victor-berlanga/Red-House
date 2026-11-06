@@ -1,0 +1,73 @@
+[
+  {
+    "take": "natural03",
+    "stop_chapter": 7,
+    "trim_start": 5
+  },
+  {
+    "take": "natural04",
+    "start_chapter": 2,
+    "stop_chapter": 8
+  },
+  {
+    "take": "natural05",
+    "start_chapter": 2
+  },
+  {
+    "take": "natural06",
+    "after_login": true
+  },
+  {
+    "take": "natural07",
+    "after_login": true
+  },
+  {
+    "take": "natural10",
+    "after_login": true,
+    "stop_chapter": 6
+  },
+  {
+    "take": "natural11",
+    "after_login": true,
+    "trim_end_wall_ms": 72000
+  },
+  {
+    "take": "natural12",
+    "after_login": true,
+    "skip_chapters": [
+      5,
+      6,
+      7,
+      11,
+      13,
+      16,
+      17,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      32,
+      33,
+      34
+    ],
+    "stop_chapter": 44
+  },
+  {
+    "take": "natural13",
+    "after_login": true,
+    "stop_chapter": 1
+  },
+  {
+    "take": "natural14",
+    "after_login": true,
+    "stop_chapter": 1
+  },
+  {
+    "take": "natural15",
+    "trim_start": 5
+  }
+]

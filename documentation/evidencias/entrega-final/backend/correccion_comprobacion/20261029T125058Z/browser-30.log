@@ -1,0 +1,11 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.6, pytest-9.1.1, pluggy-1.6.0 -- /Users/victorberlanga/Programacion/integracion/Red-House/apps/services/.venv/bin/python
+rootdir: /Users/victorberlanga/Programacion/integracion/Red-House/apps/services
+configfile: pyproject.toml
+plugins: locust-2.46.7
+collecting ... collected 1 item
+
+apps/services/tests/test_correction_browser.py::test_operational_browser_corrections PASSED [100%]
+
+- generated xml file: /Users/victorberlanga/Programacion/integracion/Red-House/documentation/evidencias/entrega-final/backend/correccion_comprobacion/20261029T125058Z/browser-30.xml -
+======================== 1 passed in 354.07s (0:05:54) =========================

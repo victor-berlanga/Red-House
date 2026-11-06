@@ -1,6 +1,16 @@
 """Semántica explícita de eventos existentes; los desconocidos no se reinterpretan."""
 
 ACTIONS = {
+    "RULE_GOVERNANCE_RECORDED": ("Transición de perfil registrada", "DECISION", "RECORDED"),
+    "REGIONAL_GRAPH_RECORDED": ("Grafo regional registrado", "BUSINESS", "RECORDED"),
+    "OWNER_ALGORITHM_EXECUTED": ("Análisis de fuentes autorizadas", "BUSINESS", "RECORDED"),
+    "ANOMALY_REVIEW_REQUESTED": ("Anomalía potencial para revisión", "BUSINESS", "PENDING"),
+    "ANOMALY_REVIEW_RESOLVED": ("Revisión técnica resuelta", "DECISION", "RECORDED"),
+    "ACADEMIC_ALGORITHM_EXECUTED": (
+        "Simulación académica ejecutada",
+        "BUSINESS",
+        "RECORDED",
+    ),
     "ALERT_ACKNOWLEDGED": ("Notificación leída", "BUSINESS", "RECORDED"),
     "ALLOCATION_PROPOSAL_CREATED": (
         "Propuesta de cobertura generada",
@@ -114,6 +124,168 @@ ACTIONS = {
     "USER_CREATED": ("Cuenta creada", "BUSINESS", "RECORDED"),
     "USER_STATE_CHANGED": ("Acceso de cuenta actualizado", "BUSINESS", "RECORDED"),
 }
+
+ACTIONS.update(
+    {
+        "DONOR_CONSENT_RECORDED": (
+            "Consentimiento del donante registrado",
+            "DECISION",
+            "RECORDED",
+        ),
+        "DONOR_CONSENT_WITHDRAWN": (
+            "Consentimiento del donante retirado",
+            "DECISION",
+            "RECORDED",
+        ),
+        "APPOINTMENT_CONFIRM": ("Cita confirmada", "BUSINESS", "RECORDED"),
+        "APPOINTMENT_RESCHEDULE": ("Cita reprogramada", "BUSINESS", "RECORDED"),
+        "APPOINTMENT_ATTEND": ("Asistencia a cita registrada", "BUSINESS", "RECORDED"),
+        "APPOINTMENT_CANCEL": ("Cita cancelada", "BUSINESS", "RECORDED"),
+        "LAB_SAMPLE_RECEIVED": (
+            "Muestra de laboratorio recibida",
+            "BUSINESS",
+            "RECORDED",
+        ),
+        "LAB_SAMPLE_REJECTED": (
+            "Muestra de laboratorio rechazada",
+            "DECISION",
+            "RECORDED",
+        ),
+        "RESOURCE_COLD_QUARANTINE": (
+            "Recurso en cuarentena por temperatura",
+            "DECISION",
+            "RECORDED",
+        ),
+        "RESOURCE_COLD_GAP": (
+            "Recurso bloqueado por brecha de medición",
+            "DECISION",
+            "RECORDED",
+        ),
+        "RESOURCE_EXPIRED": ("Recurso vencido bloqueado", "DECISION", "RECORDED"),
+        "ACCREDITATION_DOCUMENT_RECORDED": (
+            "Constancia de acreditación registrada",
+            "BUSINESS",
+            "RECORDED",
+        ),
+        "ALERT_CLOSED": ("Alerta cerrada", "BUSINESS", "RECORDED"),
+        "ALERT_POLICY_CREATED": ("Política de alertas creada", "BUSINESS", "RECORDED"),
+        "ALERT_SUBSCRIPTION_CREATED": (
+            "Suscripción de alertas creada",
+            "BUSINESS",
+            "RECORDED",
+        ),
+        "ALERT_SUBSCRIPTION_REVOKED": (
+            "Suscripción de alertas revocada",
+            "BUSINESS",
+            "RECORDED",
+        ),
+        "APPOINTMENT_REMINDER": ("Recordatorio de cita", "BUSINESS", "RECORDED"),
+        "CAMPAIGN_SLOT_CREATED": ("Cupo de campaña creado", "BUSINESS", "RECORDED"),
+        "COLD_EQUIPMENT_CREATED": ("Equipo de frío registrado", "BUSINESS", "RECORDED"),
+        "COLD_PROFILE_CREATED": (
+            "Perfil de conservación creado",
+            "BUSINESS",
+            "RECORDED",
+        ),
+        "COLD_READING_RECORDED": (
+            "Lectura de temperatura registrada",
+            "BUSINESS",
+            "RECORDED",
+        ),
+        "CONTACT_VERIFICATION_REQUESTED": (
+            "Verificación de contacto solicitada",
+            "SECURITY",
+            "RECORDED",
+        ),
+        "CONTACT_VERIFIED": ("Contacto verificado", "SECURITY", "RECORDED"),
+        "DEVICE_CREDENTIAL_ROTATED": (
+            "Credencial de dispositivo renovada",
+            "SECURITY",
+            "RECORDED",
+        ),
+        "DEVICE_REGISTERED": ("Dispositivo registrado", "SECURITY", "RECORDED"),
+        "DEVICE_REVOKED": ("Dispositivo revocado", "SECURITY", "RECORDED"),
+        "DOCUMENT_PREPARED": ("Documento preparado", "BUSINESS", "RECORDED"),
+        "EXPORT_COMPLETED": ("Exportación completada", "BUSINESS", "RECORDED"),
+        "EXPORT_REQUESTED": ("Exportación solicitada", "BUSINESS", "RECORDED"),
+        "EXPORT_RETRY_REQUESTED": (
+            "Reintento de exportación solicitado",
+            "BUSINESS",
+            "RECORDED",
+        ),
+        "EXTERNAL_AUTHORIZATION_RECORDED": (
+            "Constancia de autorización externa registrada",
+            "DECISION",
+            "RECORDED",
+        ),
+        "EXTERNAL_IDENTIFIER_RECONCILED": (
+            "Identificador externo conciliado",
+            "BUSINESS",
+            "RECORDED",
+        ),
+        "LAB_PROFILE_RECORDED": (
+            "Perfil de laboratorio registrado",
+            "BUSINESS",
+            "RECORDED",
+        ),
+        "LAB_RESULT_AUTHORIZED": (
+            "Resultado de laboratorio autorizado",
+            "DECISION",
+            "RECORDED",
+        ),
+        "LAB_RESULT_RECORDED": (
+            "Resultado de laboratorio registrado",
+            "BUSINESS",
+            "RECORDED",
+        ),
+        "LAB_RESULT_REJECTED": (
+            "Resultado de laboratorio rechazado",
+            "DECISION",
+            "RECORDED",
+        ),
+        "LAB_SAMPLE_REQUESTED": (
+            "Muestra de laboratorio registrada",
+            "BUSINESS",
+            "RECORDED",
+        ),
+        "MFA_ENROLLED": ("Segundo factor configurado", "SECURITY", "RECORDED"),
+        "PASSWORD_RECOVERED": ("Contraseña recuperada", "SECURITY", "RECORDED"),
+        "QUALITY_INCIDENT_REVIEWED": (
+            "Incidente de calidad revisado",
+            "DECISION",
+            "RECORDED",
+        ),
+        "REAUTHENTICATED": ("Reautenticación confirmada", "SECURITY", "RECORDED"),
+        "RESOURCE_CONTROLS_BOUND": (
+            "Controles del recurso vinculados",
+            "BUSINESS",
+            "RECORDED",
+        ),
+        "RESOURCE_DESTINATION_RECORDED": (
+            "Destino del recurso registrado",
+            "DECISION",
+            "RECORDED",
+        ),
+        "RESOURCE_FRACTIONATED": ("Recurso fraccionado", "BUSINESS", "RECORDED"),
+        "TRACKING_ASSIGNED": ("Rastreo asignado", "BUSINESS", "RECORDED"),
+        "TRACKING_ASSIGNMENT_REVOKED": (
+            "Asignación de rastreo revocada",
+            "BUSINESS",
+            "RECORDED",
+        ),
+        "TRACKING_POSITION_PERSISTED": (
+            "Posición de rastreo almacenada",
+            "TECHNICAL",
+            "RECORDED",
+        ),
+        "TRANSPORT_OBSERVATION_RECORDED": (
+            "Observación de traslado registrada",
+            "BUSINESS",
+            "RECORDED",
+        ),
+        "USER_ROLE_CHANGED": ("Perfil de usuario cambiado", "SECURITY", "RECORDED"),
+    }
+)
 
 CATEGORIES = {
     "BUSINESS": "Operaciones de negocio",

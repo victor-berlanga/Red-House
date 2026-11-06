@@ -66,6 +66,24 @@ def base_app(service, config=None):
     @app.errorhandler(APIError)
     def expected(exc):
         g.error_code = exc.code
+        if getattr(g, "actor", None) and exc.status in (403, 409, 412, 422):
+            try:
+                from .events import emit
+
+                with transaction() as conn:
+                    emit(
+                        conn,
+                        "REJECTED",
+                        str((request.view_args or {}).get("identifier", "collection")),
+                        g.actor["tenant_id"],
+                        metadata={"code": exc.code, "operation": request.endpoint},
+                    )
+            except Exception:  # noqa: BLE001 - preserve the original rejection on audit dependency failure
+                logger.warning(
+                    "rejection_audit_unavailable service=%s correlation_id=%s",
+                    service,
+                    g.correlation_id,
+                )
         return respond(
             {
                 "error": {
@@ -107,6 +125,15 @@ def base_app(service, config=None):
             if name == "database":
                 with transaction() as conn:
                     from .schema import service_path
+                    from .shared_migrations import LATEST_VERSION
+
+                    if (
+                        conn.execute(
+                            "SELECT version FROM shared_schema_version"
+                        ).fetchone()["version"]
+                        < LATEST_VERSION
+                    ):
+                        raise RuntimeError("shared_schema_not_ready")
 
                     required = max(
                         2,
@@ -130,7 +157,7 @@ def base_app(service, config=None):
                 with mongodb() as client:
                     client.admin.command("ping")
             elif name == "storage":
-                if service != "transporte":
+                if service != "documentos":
                     return {"state": "not_applicable"}
                 if not app.config.get("GCS_BUCKET"):
                     return {"state": "not_configured", "required": False}

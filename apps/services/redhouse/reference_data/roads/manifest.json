@@ -1,0 +1,64 @@
+{
+  "id": "NL-OSRM-20261102",
+  "name": "Nuevo León: Monterrey, San Nicolás y Guadalupe (referencias urbanas)",
+  "retrieved_at": "2026-11-02T14:43:51.976800+00:00",
+  "valid_until": "2026-12-02T00:00:00Z",
+  "region": "Nuevo León",
+  "provider": "OSRM demonstration service / FOSSGIS",
+  "map_source": "OpenStreetMap contributors",
+  "license": "ODbL-1.0",
+  "license_url": "https://www.openstreetmap.org/copyright",
+  "terms_url": "https://github.com/Project-OSRM/osrm-backend/wiki/Demo-server",
+  "attribution": "© OpenStreetMap contributors",
+  "travel_time": "MODEL_ESTIMATE_NO_LIVE_TRAFFIC",
+  "data_age": "UNKNOWN_PROVIDER_DID_NOT_REPORT_DATE",
+  "coverage": "Tres trayectos dirigidos entre referencias urbanas; no cobertura vial completa de Nuevo León ni accesos de hospitales.",
+  "restrictions": [
+    "Perfil driving del proveedor; no se certifican restricciones de ambulancias ni cierres actuales.",
+    "Sin garantía de actualización, disponibilidad ni tráfico en vivo.",
+    "Vigencia de 30 días como política técnica de esta demostración; no certificación de vigencia vial."
+  ],
+  "nodes": [
+    {
+      "id": "MONTERREY",
+      "latitude": 25.6694,
+      "longitude": -100.3161
+    },
+    {
+      "id": "SAN_NICOLAS",
+      "latitude": 25.75,
+      "longitude": -100.297
+    },
+    {
+      "id": "GUADALUPE",
+      "latitude": 25.677,
+      "longitude": -100.258
+    }
+  ],
+  "segments": [
+    {
+      "origin": "MONTERREY",
+      "destination": "SAN_NICOLAS",
+      "file": "monterrey-san-nicolas.json",
+      "sha256": "fd411a0fae143307002ede1563fe9f9dac85c83847d52b39711643571b594bde",
+      "url": "https://router.project-osrm.org/route/v1/driving/-100.3161,25.6694;-100.297,25.75?overview=full&geometries=geojson&steps=false&generate_hints=false",
+      "data_version": null
+    },
+    {
+      "origin": "SAN_NICOLAS",
+      "destination": "GUADALUPE",
+      "file": "san-nicolas-guadalupe.json",
+      "sha256": "d3bb809be57b8040370543855cd7c6f2749b6569b01d8b7d859071eeb6fd5c85",
+      "url": "https://router.project-osrm.org/route/v1/driving/-100.297,25.75;-100.258,25.677?overview=full&geometries=geojson&steps=false&generate_hints=false",
+      "data_version": null
+    },
+    {
+      "origin": "MONTERREY",
+      "destination": "GUADALUPE",
+      "file": "monterrey-guadalupe.json",
+      "sha256": "94d5df0323320fa2295caace9a8c7ec5411c8101f55e16dec466a5406c0a6114",
+      "url": "https://router.project-osrm.org/route/v1/driving/-100.3161,25.6694;-100.258,25.677?overview=full&geometries=geojson&steps=false&generate_hints=false",
+      "data_version": null
+    }
+  ]
+}

@@ -1,5 +1,8 @@
 # Decisiones de arquitectura — servicios 0.3.0
 
+> Corrección del 29 de octubre de 2026: doce servicios, código 0.4.1 y esquema 13. [Decisiones, alternativas, grafo y transacciones](../entrega-final/backend/correccion/Arquitectura_y_decisiones.md); [matriz BE/F/TRACK y resultados](../entrega-final/backend/correccion/Matriz_cierre.md). Documentos/Reportes se extraen de Transporte. Las cifras de entregas anteriores en el cuerpo conservan su contexto histórico; producción correctiva está pendiente.
+
+
 La versión 0.3.0 incorpora un monolito modular autónomo y dos instancias Docker por API, incluyendo Identidad y Monitoreo. El backend web se selecciona explícitamente: `monolith` ejecuta módulos WSGI sin listeners internos; `microservices` consume HTTP. Ambas modalidades conservan JWT, Redis, permisos, contratos, transacciones y las mismas reglas versionadas. No se cambia de backend después de una escritura fallida. [Despliegue reproducible](../../deployment/README.md) · [Informe integral](Reporte_tecnico_segundo_parcial.md).
 
 | Decisión | Implementación y efecto |
@@ -90,3 +93,7 @@ Desde el 15 de octubre, [el esquema compartido](Esquema_compartido.md) sustituye
 `shipment_tracking` es una proyección mutable de Transporte: usa el UUID del traslado como `_id`, versión de esquema y secuencia de evento. Solo aplica secuencias posteriores; rechaza contenido conflictivo y se reconstruye desde eventos inmutables. El rol de ejecución puede actualizar esta colección, pero no los eventos. Las consultas regionales y las agregaciones emplean índices comprobados mediante `explain`.
 
 Los archivos se validan por tamaño, firma de formato, MIME, estructura y SHA-256 antes y después de subirlos. PostgreSQL conserva estados y generación del objeto. El bucket privado exige URLs firmadas de cinco minutos. El reporte de resultados distingue estas pruebas de un futuro despliegue productivo en GCE.
+
+### Ampliación académica de algoritmos y HLA
+
+Compatibilidad es propietaria de tipificación y perfiles de laboratorio. Priorización/Geografía ejecuta simulaciones y conserva sus instantáneas en el esquema 14. La web modular presenta esas respuestas sin recalcular algoritmos. Continúan las fronteras JSON/XML, JWT/Redis y la credencial SQL por servicio. No se añadieron contenedores ni conectividad directa desde clientes. Las versiones previas de preselección, ranking y matching permanecen disponibles; no se migra ni recalcula su historia. Véanse [algoritmos](Algoritmos.md) y [fuentes](Reglas_y_fuentes_clinicas.md) para alcance sintético y conexiones operativas pendientes.

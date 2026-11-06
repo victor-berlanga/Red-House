@@ -1,3 +1,4 @@
+from uuid import uuid4
 from ..selectors import selection
 
 """Rutas web: logistics. Las reglas residen en las API propietarias."""
@@ -5,7 +6,6 @@ from .common import (
     location_field,
     BusinessError,
     call,
-    choices,
     confirmations,
     detail,
     display,
@@ -14,7 +14,6 @@ from .common import (
     organs,
     regional,
     request,
-    rows,
     soon,
     submit,
     table,
@@ -289,6 +288,31 @@ def shipment_transition(identifier, state):
     ):
         raise BusinessError("Paso inválido.", 422)
     row = call("transporte", "/api/v1/shipments/" + str(identifier))
+    custody_fields = (
+        [
+            field("scanned_resource_id", "Identificador escaneado del recurso"),
+            field("seal", "Sello verificado"),
+            field(
+                "captured_at", "Fecha del intercambio", "datetime-local", default=soon()
+            ),
+            field("reported_handover_user_id", "Identificador de la contraparte"),
+            field(
+                "electronic_acceptance",
+                "Confirmo la entrega de responsabilidad",
+                "checkbox",
+            ),
+        ]
+        if state in ("COLLECTED", "DELIVERED", "ACCEPTED")
+        else []
+    )
+
+    def payload(data):
+        if custody_fields:
+            data["custody"] = {
+                item["name"]: data.pop(item["name"], None) for item in custody_fields
+            }
+        return data
+
     return submit(
         "transporte",
         "/api/v1/shipments/" + str(identifier) + "/transitions",
@@ -297,7 +321,9 @@ def shipment_transition(identifier, state):
             field("version", "Versión", "hidden", default=row["version"]),
         ]
         + ([location_field("destination_location_id")] if state == "ACCEPTED" else [])
+        + custody_fields
         + confirmations(),
+        transform=payload,
         title="Documentar: " + display(state),
         active="traslados",
         back=url_for("regional.shipment_detail", identifier=identifier),
@@ -320,6 +346,26 @@ def telemetry(identifier):
         "transporte",
         "/api/v1/shipments/" + str(identifier) + "/telemetry",
         [
+            field(
+                "event_id",
+                "Identificador del evento",
+                "hidden",
+                default=str(uuid4()),
+            ),
+            field("shipment_id", "Traslado", "hidden", default=str(identifier)),
+            field("device_id", "Dispositivo asignado"),
+            field(
+                "source",
+                "Fuente",
+                "select",
+                [
+                    ("SIMULATOR", "Simulador"),
+                    ("GPS_BRIDGE", "Puente GPS"),
+                    ("ANDROID", "Android"),
+                ],
+            ),
+            field("sequence", "Secuencia del dispositivo", "number"),
+            field("fix_valid", "Fijación GPS válida", "checkbox"),
             field("latitude", "Latitud capturada", "decimal"),
             field("longitude", "Longitud capturada", "decimal"),
             field("captured_at", "Fecha de captura", "datetime-local", default=soon()),
@@ -327,7 +373,7 @@ def telemetry(identifier):
         title="Registrar ubicación",
         active="traslados",
         back=url_for("regional.shipment_detail", identifier=identifier),
-        note="Captura únicamente la ubicación autorizada del proceso. La muestra debe corresponder a los últimos cinco minutos.",
+        note="Captura únicamente la ubicación autorizada del proceso. Selecciona el dispositivo asignado y conserva su secuencia de captura.",
         location_capture=True,
     )
 

@@ -64,6 +64,20 @@ def configure(directory, address, bootstrap=False):
         for name in names:
             upstream = name.replace("-", "_")
             prefix = "/services/" + name
+            if name == "transporte":
+                blocks.append(f"""
+    location {prefix}/ws/v1/tracking/ {{
+      proxy_pass http://transporte/ws/v1/tracking/;
+      proxy_http_version 1.1;
+      proxy_set_header Upgrade $http_upgrade;
+      proxy_set_header Connection "upgrade";
+      proxy_set_header Host {address};
+      proxy_set_header X-Forwarded-Proto https;
+      proxy_read_timeout 75s;
+      proxy_send_timeout 10s;
+      proxy_buffering off;
+    }}
+""")
             # Swagger genera enlaces absolutos a sus recursos: conservar el
             # prefijo solo para /docs; las rutas de negocio mantienen /api/v1.
             blocks.append(
@@ -114,6 +128,9 @@ def configure(directory, address, bootstrap=False):
             path = directory / "apps" / (name.replace("-", "_") + ".json")
             config = json.loads(path.read_text())
             config["PUBLIC_API_PREFIX"] = "/services/" + name
+            if name == "transporte":
+                config["TRACKING_TRUST_PROXY"] = True
+                config["TRACKING_ALLOWED_ORIGINS"] = ["https://" + address]
             path.write_text(json.dumps(config, indent=2) + "\n")
         (directory / "public.json").write_text(
             json.dumps({"address": address, "origin": "https://" + address}) + "\n"

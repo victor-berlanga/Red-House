@@ -76,10 +76,10 @@ def test_monitor_records_and_serves_status_when_postgres_unavailable(p):
     try:
         with app.app_context():
             result = poll()
-            assert len(result["items"]) == 11
+            assert len(result["items"]) == len(p.apps)
         response = p.request("monitoreo", "GET", "/api/v1/status", user="auditor1")
         assert response.status_code == 200, response.text
-        assert len(response.json()["data"]["latest"]) == 11
+        assert len(response.json()["data"]["latest"]) == len(p.apps)
     finally:
         app.config["DATABASE_URL"] = original
 

@@ -1,0 +1,84 @@
+[
+  {
+    "junit": "final-core-v3.xml",
+    "cwd": "repository root",
+    "argv": [
+      "apps/services/.venv/bin/python",
+      "-m",
+      "pytest",
+      "apps/services/tests/test_stage02_corrections.py",
+      "apps/services/tests/test_stage02_oracles.py",
+      "apps/services/tests/test_stage02_migration.py",
+      "apps/services/tests/test_final_algorithms_hla.py",
+      "apps/services/tests/test_final_quality.py",
+      "-q",
+      "--junitxml=documentation/evidencias/entrega-final/algoritmos/correccion_comprobacion/20261101T042648Z/final-core-v3.xml"
+    ],
+    "environment": {
+      "REDHOUSE_STAGE02_EVIDENCE": "documentation/evidencias/entrega-final/algoritmos/correccion_comprobacion/20261101T042648Z"
+    },
+    "additional_environment_required": [],
+    "execution": "isolated real PostgreSQL/Redis/MongoDB; local sockets allowed; browser/GCS separately"
+  },
+  {
+    "junit": "final-stage01-regression.xml",
+    "cwd": "repository root",
+    "argv": [
+      "apps/services/.venv/bin/python",
+      "-m",
+      "pytest",
+      "apps/services/tests/test_security_contracts.py",
+      "apps/services/tests/test_flows.py",
+      "apps/services/tests/test_algorithms.py",
+      "apps/services/tests/test_correction_backend.py::test_laboratory_correction_invalidates_review_and_runtime_history",
+      "apps/services/tests/test_correction_backend.py::test_destination_correction_invariants_and_history",
+      "apps/services/tests/test_correction_backend.py::test_received_quarantine_new_use_and_documentary_correction",
+      "apps/services/tests/test_correction_backend.py::test_normalized_http_wss_and_durable_history",
+      "-q",
+      "--junitxml=documentation/evidencias/entrega-final/algoritmos/correccion_comprobacion/20261101T042648Z/final-stage01-regression.xml"
+    ],
+    "environment": {
+      "REDHOUSE_STAGE02_EVIDENCE": "documentation/evidencias/entrega-final/algoritmos/correccion_comprobacion/20261101T042648Z"
+    },
+    "additional_environment_required": [],
+    "execution": "isolated real PostgreSQL/Redis/MongoDB; local sockets allowed; browser/GCS separately"
+  },
+  {
+    "junit": "browser-final-v3.xml",
+    "cwd": "repository root",
+    "argv": [
+      "apps/services/.venv/bin/python",
+      "-m",
+      "pytest",
+      "apps/services/tests/test_stage02_browser.py",
+      "-q",
+      "--junitxml=documentation/evidencias/entrega-final/algoritmos/correccion_comprobacion/20261101T042648Z/browser-final-v3.xml"
+    ],
+    "environment": {
+      "REDHOUSE_STAGE02_EVIDENCE": "documentation/evidencias/entrega-final/algoritmos/correccion_comprobacion/20261101T042648Z"
+    },
+    "additional_environment_required": [],
+    "execution": "isolated real PostgreSQL/Redis/MongoDB; local sockets allowed; browser/GCS separately"
+  },
+  {
+    "junit": "gcs-final.xml",
+    "cwd": "repository root",
+    "argv": [
+      "apps/services/.venv/bin/python",
+      "-m",
+      "pytest",
+      "apps/services/tests/test_stage02_gcs.py",
+      "-q",
+      "--junitxml=documentation/evidencias/entrega-final/algoritmos/correccion_comprobacion/20261101T042648Z/gcs-final.xml"
+    ],
+    "environment": {
+      "REDHOUSE_STAGE02_EVIDENCE": "documentation/evidencias/entrega-final/algoritmos/correccion_comprobacion/20261101T042648Z"
+    },
+    "additional_environment_required": [
+      "GOOGLE_APPLICATION_CREDENTIALS (authorized ADC; value omitted)",
+      "GOOGLE_CLOUD_PROJECT (authorized project)",
+      "REDHOUSE_GCS_TEST_BUCKET (existing authorized bucket)"
+    ],
+    "execution": "isolated real PostgreSQL/Redis/MongoDB; local sockets allowed; browser/GCS separately"
+  }
+]

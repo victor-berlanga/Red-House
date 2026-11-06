@@ -15,6 +15,13 @@ from redhouse.openapi import META, spec
 from redhouse.output_schemas import result_schema
 
 DESCRIPTIONS = {
+    "documentos": (
+        "Documentos y reportes",
+        "Gestiona archivos privados y exportaciones minimizadas.",
+        "PostgreSQL conserva metadatos y trabajos; GCS objetos privados; ClamAV valida cada generación. Redis valida permisos.",
+        "Prepara, verifica y entrega URL temporal. El worker genera PDF, CSV o XLSX con ruta determinista.",
+        "¿Por qué separado? Una falla de almacenamiento o análisis no bloquea el worker logístico. ¿Dónde se autoriza el sujeto? En su propietario mediante contrato firmado y JWT delegado. ¿Rutas antiguas? Transporte conserva un adaptador v1 sin acceso SQL a archivos.",
+    ),
     "identidad_acceso": (
         "Identidad y acceso",
         "Identifica a cada persona y limita qué puede hacer y en qué institución.",
@@ -97,12 +104,43 @@ DESCRIPTIONS = {
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
+    mode = parser.add_mutually_exclusive_group()
+    mode.add_argument(
+        "--openapi-only", action="store_true", help="Regenerar solo OpenAPI."
+    )
+    mode.add_argument(
+        "--check-openapi",
+        action="store_true",
+        help="Comprobar OpenAPI versionado sin escribir archivos ni usar bases de datos.",
+    )
     parser.add_argument(
         "--contracts-only",
         action="store_true",
         help="Actualizar contratos sin reescribir documentación editorial.",
     )
     args = parser.parse_args()
+    if args.openapi_only or args.check_openapi:
+        outdated = []
+        for service in SERVICES:
+            module = "servicio_monitoreo" if service == "monitoreo" else "ms_" + service
+            app = importlib.import_module(module).create_app(
+                {
+                    "DATABASE_URL": "postgresql://UNCONFIGURED",
+                    "JWT_PUBLIC_KEY": "UNCONFIGURED",
+                    "JWT_PRIVATE_KEY": "UNCONFIGURED",
+                    "SERVICE_PRIVATE_KEY": "UNCONFIGURED",
+                }
+            )
+            target = ROOT / module / "contracts/openapi.json"
+            content = json.dumps(spec(app), indent=2, ensure_ascii=False) + "\n"
+            if args.check_openapi:
+                if not target.exists() or target.read_text() != content:
+                    outdated.append(str(target.relative_to(ROOT)))
+            else:
+                target.write_text(content)
+        if outdated:
+            parser.exit(1, "OpenAPI desactualizado:\n" + "\n".join(outdated) + "\n")
+        return
     notes = ROOT.parents[1] / "stuff" / "presentacion"
     if not args.contracts_only:
         notes.mkdir(parents=True, exist_ok=True)
@@ -110,12 +148,34 @@ def main():
         "RED HOUSE — APUNTES PARA PRESENTACIÓN",
         "Fecha: 2026-10-08",
         "",
-        "Diez microservicios y un componente de monitoreo.",
-        "Los puertos 5101–5111 son los valores por defecto; el entorno de prueba utiliza puertos libres y los registra en state.json.",
+        "Once microservicios de dominio y un componente de monitoreo.",
+        "Los puertos 5101–5112 son los valores por defecto; el entorno de prueba utiliza puertos libres y los registra en state.json.",
         "El portal Flask/Jinja2 ya consume las API de los servicios. Móvil, escritorio y contenedores siguen pendientes.",
         "Los apuntes deben leerse junto a documentation/markdowns/Pruebas_y_validacion.md para conocer exactamente qué se comprobó.",
         "",
     ]
+    # Regenerar el adaptador desde el propietario antes de cargar Transporte.
+    # El registro compartido solo contiene DTO/rutas; no importa módulos de dominio.
+    registry_path = ROOT / "redhouse/document_routes.json"
+    legacy_names = {item["name"] for item in json.loads(registry_path.read_text())}
+    document_app = importlib.import_module("ms_documentos").create_app(
+        {
+            "DATABASE_URL": "postgresql://UNCONFIGURED",
+            "JWT_PUBLIC_KEY": "UNCONFIGURED",
+            "JWT_PRIVATE_KEY": "UNCONFIGURED",
+            "SERVICE_PRIVATE_KEY": "UNCONFIGURED",
+        }
+    )
+    registry = []
+    for contract in document_app.extensions["contracts"]:
+        if contract["name"] in legacy_names:
+            registry.append(
+                {
+                    **contract,
+                    "model": contract["model"].__name__ if contract["model"] else None,
+                }
+            )
+    registry_path.write_text(json.dumps(registry, indent=2, ensure_ascii=False) + "\n")
     for number, (service, port) in enumerate(SERVICES.items(), 1):
         module = "servicio_monitoreo" if service == "monitoreo" else "ms_" + service
         app = importlib.import_module(module).create_app(
@@ -150,6 +210,24 @@ def main():
             if c["model"]:
                 (contracts / (c["name"] + ".xsd")).write_bytes(request_xsd(c["model"]))
                 value = sample(c["model"].model_json_schema())
+                if c["name"] == "lab_result_create":
+                    value["value"] = "Resultado declarado sintético"
+                    value["result_state"] = "REPORTED"
+                if c["name"] == "algorithm_run":
+                    value = dict(
+                        algorithm_version="DEMAND-SES-1.0",
+                        synthetic=True,
+                        source="Consumo ficticio por ventanas diarias",
+                        as_of="2026-10-31T12:00:00Z",
+                        component="RBC",
+                        profile_version="SYNTHETIC-1",
+                        history=[2, 3, 2, 4, 2, 3],
+                        stock=10,
+                    )
+                if c["name"] == "lab_sample_create":
+                    from redhouse.examples import EXAMPLE_ID
+
+                    value["resource_id"] = EXAMPLE_ID
                 (contracts / (c["name"] + ".example.json")).write_text(
                     json.dumps(value, indent=2, ensure_ascii=False) + "\n"
                 )
@@ -231,12 +309,15 @@ La web integrada tiene pruebas HTTP con dependencias reales y recorridos de nave
             env_lines.append(
                 f"{service.upper()}_MONGODB_URL=mongodb://{service}:CAMBIAR@127.0.0.1:27017/rh_{service}?authSource=rh_{service}"
             )
-        if service == "transporte":
-            env_lines.append("GCS_BUCKET=")
+        if service == "documentos":
+            env_lines += ["GCS_BUCKET=", "CLAMD_HOST=127.0.0.1", "CLAMD_PORT=3310"]
         (folder / ".env.example").write_text("\n".join(env_lines) + "\n")
         (folder / "run.py").write_text(
             f'from pathlib import Path\nimport sys\n\nsys.path.insert(0, str(Path(__file__).resolve().parents[1]))\nfrom run import main\n\nif __name__ == "__main__":\n    sys.argv.insert(1, "{service}")\n    main()\n'
         )
+    from scripts.document_tracking import generate
+
+    generate(ROOT / "ms_transporte/contracts/websocket")
     if not args.contracts_only:
         (notes / "00-LEER-PRIMERO.txt").write_text("\n".join(index) + "\n")
     print("Contratos generados sin leer configuración privada.")

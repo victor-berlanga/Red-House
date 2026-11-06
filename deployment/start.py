@@ -18,6 +18,7 @@ START_ORDER = (
     "priorizacion-geografia",
     "inventario",
     "transporte",
+    "documentos",
     "monitoreo",
 )
 
