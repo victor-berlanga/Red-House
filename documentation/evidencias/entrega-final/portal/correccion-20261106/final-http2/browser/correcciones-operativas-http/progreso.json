@@ -1,0 +1,47 @@
+{
+  "version": "working-tree/schema-17",
+  "checks": [
+    {
+      "name": "Inicio de sesión y cookies Secure sobre TLS",
+      "role": "admin",
+      "at": "2026-11-07T01:02:14.247Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Publicación institucional explícita, sin coordenadas privadas en sitio público",
+      "role": "admin",
+      "at": "2026-11-07T01:02:18.860Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Administrador registra emisor, rota credencial y revoca dispositivo",
+      "role": "admin",
+      "at": "2026-11-07T01:02:25.349Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Inicio de sesión y cookies Secure sobre TLS",
+      "role": "donor",
+      "at": "2026-11-07T01:02:28.768Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Donante registra expediente y consentimiento versionado persistente",
+      "role": "donor1",
+      "at": "2026-11-07T01:02:35.417Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Donante rechazado por URL de inventario ajeno",
+      "role": "donor1",
+      "at": "2026-11-07T01:02:36.154Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Inicio de sesión y cookies Secure sobre TLS",
+      "role": "operator1",
+      "at": "2026-11-07T01:02:41.269Z",
+      "result": "PASS"
+    }
+  ]
+}

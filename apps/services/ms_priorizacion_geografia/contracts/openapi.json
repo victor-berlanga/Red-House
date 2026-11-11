@@ -663,7 +663,7 @@
             }
           }
         ],
-        "description": "Roles: MEDICAL, COORDINATOR. Contrato interno firmado; consumidores: inventario, compatibilidad, transporte",
+        "description": "Roles: MEDICAL, COORDINATOR, TRANSPORT, OPERATOR. Contrato interno firmado; consumidores: inventario, compatibilidad, transporte",
         "security": [
           {
             "ServiceSignature": [],
@@ -1555,7 +1555,7 @@
             }
           }
         ],
-        "description": "Roles: MEDICAL. Contrato público de API.",
+        "description": "Roles: MEDICAL, COORDINATOR. Contrato público de API.",
         "security": [
           {
             "BearerJWT": []
@@ -1672,7 +1672,7 @@
             }
           }
         ],
-        "description": "Roles: MEDICAL. Contrato público de API.",
+        "description": "Roles: MEDICAL, COORDINATOR. Contrato público de API.",
         "security": [
           {
             "BearerJWT": []

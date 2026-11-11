@@ -1,0 +1,29 @@
+{
+  "source_manifest_files_verified": 1234,
+  "source_hash_mismatches": [],
+  "protected_files_verified": 19,
+  "markdown_links_checked": 151,
+  "broken_links": [],
+  "published_credentials_pattern_matches": [],
+  "unique_junit_cases": {
+    "PASSED": 90
+  },
+  "count_map_verified": true,
+  "limits": "Comprobación documental y patrones de credenciales; no sustituye la aceptación externa ni una auditoría completa de secretos.",
+  "ruff_critical_checks": {
+    "files": 52,
+    "passed": true,
+    "selection": [
+      "E9",
+      "F821",
+      "F822",
+      "F823"
+    ]
+  },
+  "node_syntax": {
+    "files": 10,
+    "passed": true
+  },
+  "bash_syntax": true,
+  "git_diff_check": true
+}

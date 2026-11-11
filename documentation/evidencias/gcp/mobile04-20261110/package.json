@@ -1,0 +1,17 @@
+{
+  "scope": "backend-only delta",
+  "files": 75,
+  "added": 29,
+  "updated": 46,
+  "migration": {
+    "from": 17,
+    "to": 18,
+    "change": "devices source constraint accepts IOS; historical rows unchanged"
+  },
+  "monolith_sources_in_package": false,
+  "private_configuration_in_package": false,
+  "expected_previous_release": "portal03-20261106",
+  "release": "mobile04-20261110",
+  "archive_bytes": 120572,
+  "archive_sha256": "a4da95715c060936f8b4cb5b7d820829932d8515a97282529fd105eab9569223"
+}

@@ -1,0 +1,1553 @@
+{
+  "scope": "Fuentes m\u00f3viles y propietarios backend modificados; no acredita ejecuci\u00f3n de todas las funciones",
+  "files": [
+    {
+      "path": "apps/mobile/.gitignore",
+      "sha256": "28bf6f97a59069c6bbb4e40286aefb27aecd7bd2e1ce98c4492fed7c342c6100"
+    },
+    {
+      "path": "apps/mobile/README.md",
+      "sha256": "18cb22ecf84fba236636ed4713b4152a9fb7eafe0bb2abfab69c880e88e4e197"
+    },
+    {
+      "path": "apps/mobile/build.gradle.kts",
+      "sha256": "cc107717694f0eef0eefcbc85c656e647c0bd034a4a6594af25875bab5a38e23"
+    },
+    {
+      "path": "apps/mobile/composeApp/build.gradle.kts",
+      "sha256": "8951519a4bd29fe36d7e7935c2ae48fc4898b75ea8cba52c2d67d3455d930491"
+    },
+    {
+      "path": "apps/mobile/composeApp/src/androidInstrumentedTest/kotlin/org/redhouse/mobile/CameraPermissionTest.kt",
+      "sha256": "9418a1b7a96112f60d9adfe4670e019a1ea8e06bd53441c7c4ab1e5ac29e3f5a"
+    },
+    {
+      "path": "apps/mobile/composeApp/src/androidInstrumentedTest/kotlin/org/redhouse/mobile/DeviceJourneyTest.kt",
+      "sha256": "2eff5ba4e5003f6e7c6d16f8481e6f44ed1cb3d8deaff0f43ee70bbdd577a212"
+    },
+    {
+      "path": "apps/mobile/composeApp/src/androidInstrumentedTest/kotlin/org/redhouse/mobile/DonorJourneyTest.kt",
+      "sha256": "3aa0a4689e9c9c74b633a7b3457a582f6cc518e719f82142e556a995e9888a2f"
+    },
+    {
+      "path": "apps/mobile/composeApp/src/androidInstrumentedTest/kotlin/org/redhouse/mobile/PermissionDenialTest.kt",
+      "sha256": "f2e2eebc756eb654eebed48bb134521f09dbc4a3166464bb96ad6a578e6d472f"
+    },
+    {
+      "path": "apps/mobile/composeApp/src/androidInstrumentedTest/kotlin/org/redhouse/mobile/ProcessRecoveryTest.kt",
+      "sha256": "941c83ef9d26ae4fdce489e8c3e53af3512ddb90a4a18604e124d8c85044a83d"
+    },
+    {
+      "path": "apps/mobile/composeApp/src/androidInstrumentedTest/kotlin/org/redhouse/mobile/ProfileQueriesTest.kt",
+      "sha256": "fd863e1108d1af556bca0853d8ba29ccc6dd4b517afdd4ec403b961adf58ddf4"
+    },
+    {
+      "path": "apps/mobile/composeApp/src/androidMain/AndroidManifest.xml",
+      "sha256": "1d4ffeec6053f4870fbaff7c73c2cc5f0c86db208953872481c5a4ef0e891add"
+    },
+    {
+      "path": "apps/mobile/composeApp/src/androidMain/kotlin/org/redhouse/mobile/AndroidDeviceAccess.kt",
+      "sha256": "deb01788328995bd03b78e421d2502a6ba887375fd137f6d9c8fe3cc8c91bb57"
+    },
+    {
+      "path": "apps/mobile/composeApp/src/androidMain/kotlin/org/redhouse/mobile/MainActivity.kt",
+      "sha256": "1de3e8a5549198e717058d9137880e0244f9bfd07778e6852603932277c603c4"
+    },
+    {
+      "path": "apps/mobile/composeApp/src/androidMain/kotlin/org/redhouse/mobile/ObservationWorker.kt",
+      "sha256": "6c8fe4def503d88abbdb3576b3f9a68157d88c38d3cd8f50799288fd84519ad3"
+    },
+    {
+      "path": "apps/mobile/composeApp/src/androidMain/kotlin/org/redhouse/mobile/Platform.kt",
+      "sha256": "1541f26b613cdaf7cf3b0d1e09769b30529c9d3aa10bedbd2d7c6806da192b4f"
+    },
+    {
+      "path": "apps/mobile/composeApp/src/androidMain/kotlin/org/redhouse/mobile/RedHouseMessagingService.kt",
+      "sha256": "89fcd58916d89435174024f6af800a8cb90edff1a6a49b6378eee45d296a93f7"
+    },
+    {
+      "path": "apps/mobile/composeApp/src/androidMain/kotlin/org/redhouse/mobile/RegionalMap.kt",
+      "sha256": "88dd87c2c971f5dd6f97d400da3536279c8d69f88ffe794a33e852020a998bb7"
+    },
+    {
+      "path": "apps/mobile/composeApp/src/androidMain/res/drawable/ic_redhouse.xml",
+      "sha256": "68e22a261f54c648b867cbebd5ab0050489ff3ddf866731a6c7de7710baec455"
+    },
+    {
+      "path": "apps/mobile/composeApp/src/androidMain/res/xml/capture_paths.xml",
+      "sha256": "4a6df0575f75b25aa0ab5cd87f2e0964a341238e6b10e0e1797a7c27723a4378"
+    },
+    {
+      "path": "apps/mobile/composeApp/src/androidUnitTest/kotlin/org/redhouse/mobile/RealServicesTest.kt",
+      "sha256": "8095eaf194d4d16be5dc42ddbead59eac26fec88289ec62f8fabb661562c08cd"
+    },
+    {
+      "path": "apps/mobile/composeApp/src/androidUnitTest/kotlin/org/redhouse/mobile/ResponseContractsTest.kt",
+      "sha256": "2db5c9eba1489ad632aa334b13ffbbf0a36746e9ad7bf977aa022bd7781a0b61"
+    },
+    {
+      "path": "apps/mobile/composeApp/src/commonMain/kotlin/org/redhouse/mobile/Api.kt",
+      "sha256": "e169ee742166489428319af99419fa65f2c9f1f08247a877a0aec2279771a90e"
+    },
+    {
+      "path": "apps/mobile/composeApp/src/commonMain/kotlin/org/redhouse/mobile/App.kt",
+      "sha256": "e81940b40341d58c3a989614f36641ba80fcdca8f4da1242fa81bbf68f2c5df2"
+    },
+    {
+      "path": "apps/mobile/composeApp/src/commonMain/kotlin/org/redhouse/mobile/DeviceAccess.kt",
+      "sha256": "e8c59cc184abc446c9c3a7990f8b73ea9d410241bedefd0cb0706e6c7a1e15f1"
+    },
+    {
+      "path": "apps/mobile/composeApp/src/commonMain/kotlin/org/redhouse/mobile/DonorScreen.kt",
+      "sha256": "4ba137ae93f11094d31efb654193d3567b608dbd364bd2c0094cb1bb96dcc7af"
+    },
+    {
+      "path": "apps/mobile/composeApp/src/commonMain/kotlin/org/redhouse/mobile/MobileRepository.kt",
+      "sha256": "f1f35e2ccb66b72442b2d9c3537ea4da53093f84183bc9277bf1b0599cc8ce86"
+    },
+    {
+      "path": "apps/mobile/composeApp/src/commonMain/kotlin/org/redhouse/mobile/ObservationQueue.kt",
+      "sha256": "1c3e035d2e0f587d70d0edfbeb4da2c501ed0c0c7ad99cb3f3f9de5969bf6c75"
+    },
+    {
+      "path": "apps/mobile/composeApp/src/commonMain/kotlin/org/redhouse/mobile/OperationalScreens.kt",
+      "sha256": "2bb7f46dee0f2c82424698085efdb7d2ad882dc4dffd144836bbe06c3e02f5e6"
+    },
+    {
+      "path": "apps/mobile/composeApp/src/commonMain/kotlin/org/redhouse/mobile/ResponseContracts.kt",
+      "sha256": "3c61275c08383ea8b3b19c78477785cfefcc22cfc94095a71ca7db43a604e3e1"
+    },
+    {
+      "path": "apps/mobile/composeApp/src/commonMain/kotlin/org/redhouse/mobile/SyncScreen.kt",
+      "sha256": "03014756bfe21c8c9f634a6b763028aa8d8eaaa4c31bf9f73d004f0ea5af0a1e"
+    },
+    {
+      "path": "apps/mobile/composeApp/src/commonMain/kotlin/org/redhouse/mobile/Tracking.kt",
+      "sha256": "9e22759e7316c966811dfbdcf0c3af9c43c059ad9aebccb645b4bad4282f553f"
+    },
+    {
+      "path": "apps/mobile/composeApp/src/commonMain/kotlin/org/redhouse/mobile/TransportScreen.kt",
+      "sha256": "e9ffb30564f864210ac18aac5252202b5c3cc484c6219b8c3a09e30bd22776a1"
+    },
+    {
+      "path": "apps/mobile/composeApp/src/commonTest/kotlin/org/redhouse/mobile/ObservationQueueTest.kt",
+      "sha256": "b2f6936dfca7f368fc6d72e0ffa735559f909516f0b61c898217aacd8a40aee0"
+    },
+    {
+      "path": "apps/mobile/composeApp/src/commonTest/kotlin/org/redhouse/mobile/SessionTest.kt",
+      "sha256": "0f0040eb256485a2d7377990b0a5f19c083d9bcb9c932977d4988b1ac573c837"
+    },
+    {
+      "path": "apps/mobile/composeApp/src/commonTest/kotlin/org/redhouse/mobile/TrackingRecoveryTest.kt",
+      "sha256": "caced3aa122a03a599b3de4e36eb5f260575c4efb3b6a57e2980a06837ff9e3e"
+    },
+    {
+      "path": "apps/mobile/composeApp/src/iosMain/kotlin/org/redhouse/mobile/BackgroundSync.kt",
+      "sha256": "3f9931b0d552b0625ba21845cbd2add2a3d8287562cb64bfe058463016483cb5"
+    },
+    {
+      "path": "apps/mobile/composeApp/src/iosMain/kotlin/org/redhouse/mobile/Platform.kt",
+      "sha256": "2462c6a985114f3f3d776cc6caa10341cb13f9d59c989492ab88726406858b32"
+    },
+    {
+      "path": "apps/mobile/composeApp/src/iosMain/kotlin/org/redhouse/mobile/RegionalMap.kt",
+      "sha256": "9757bc97f4381b1743ee55ab5b1ec9ba8021919414bd28f07d1ccd5304f04862"
+    },
+    {
+      "path": "apps/mobile/gradle/wrapper/gradle-wrapper.jar",
+      "sha256": "2db75c40782f5e8ba1fc278a5574bab070adccb2d21ca5a6e5ed840888448046"
+    },
+    {
+      "path": "apps/mobile/gradle/wrapper/gradle-wrapper.properties",
+      "sha256": "b85b918bbe3368572ff501b9c37bfbd77e1976b215620ffcf875345015dd1421"
+    },
+    {
+      "path": "apps/mobile/gradle.properties",
+      "sha256": "e43a00491832254a35cf5a979ef6de17f78c4e159d446be39319d2e3d3e46325"
+    },
+    {
+      "path": "apps/mobile/gradlew",
+      "sha256": "a3648413b47ef77af21d5ebc36c687c7d103aaef3e17f33de7d4f080a6f300a3"
+    },
+    {
+      "path": "apps/mobile/gradlew.bat",
+      "sha256": "57931b17dd228e5c24dac90e815d0bf82477e831a4618dfab4136f5446b42a9f"
+    },
+    {
+      "path": "apps/mobile/iosApp/AppDelegate.swift",
+      "sha256": "f1b28fcc8400fdef8a9a0678b157fb6573e2be955a4d58783e57e1cf6c0aa349"
+    },
+    {
+      "path": "apps/mobile/iosApp/IOSDeviceAccess.swift",
+      "sha256": "dfa0f19c18bed8784e56214ed49f893171444eab47f8ebc41ab1e8eee8bb1281"
+    },
+    {
+      "path": "apps/mobile/iosApp/Info.plist",
+      "sha256": "bd22286feee4e13ae51a3be4ccf99bcf91a4450a18fbd412ce4bf58395000ae2"
+    },
+    {
+      "path": "apps/mobile/iosApp/project.yml",
+      "sha256": "62ff25287bb9dea64e31f5a8abfe4dca180fffd9d6e8ae9b462635f3679ad4ef"
+    },
+    {
+      "path": "apps/mobile/settings.gradle.kts",
+      "sha256": "dac567dcc05387af76c016af23c06852eb6e1b625fcfcd65f17dcff85eb3bc93"
+    },
+    {
+      "path": "apps/mobile/tests/prepare_android_lab.py",
+      "sha256": "32ad06504273e503bd017154615077fa7747443b01f11ba737de2877d71f9d6b"
+    },
+    {
+      "path": "apps/mobile/tests/real_backend.py",
+      "sha256": "891a4ed1a84e32ff44e4422122ad768cb4f8fb8317c55d7078f008f96c08b057"
+    },
+    {
+      "path": "apps/mobile/tests/seed_transport.py",
+      "sha256": "44c704076b83e08d3cb6144fde5fa38c61622624c87ae2b251f6afea5db1859a"
+    },
+    {
+      "path": "apps/services/ms_alertas/contracts/alert_ack.response.json",
+      "sha256": "ac3aa013da0f7081079e3bd2bfa9deb4ee65e59c6a98210036c034e7a4d1528d"
+    },
+    {
+      "path": "apps/services/ms_alertas/contracts/alert_close.example.json",
+      "sha256": "84f30faa26b4d05df28d79c2bcb09664b75d89007a4a8150f2f68d0c4f5019ae"
+    },
+    {
+      "path": "apps/services/ms_alertas/contracts/alert_close.example.xml",
+      "sha256": "c8133fb4edbb677fea091c1095325e9fe50143389358e1a9515873fff40a3314"
+    },
+    {
+      "path": "apps/services/ms_alertas/contracts/alert_close.response.json",
+      "sha256": "e2b98d27ffe6af70631e4cc02bc1e144327b712e1222a1f51ee32f758a006524"
+    },
+    {
+      "path": "apps/services/ms_alertas/contracts/alert_close.xsd",
+      "sha256": "5776f12d9103c5d0f4e71b50861d0b93c4bf0283407d07d3b354675df79fbc74"
+    },
+    {
+      "path": "apps/services/ms_alertas/contracts/alert_deliveries.response.json",
+      "sha256": "a0c96f883d208ef476d625326f288ed278137dfe156d747d155d5a3da1269d86"
+    },
+    {
+      "path": "apps/services/ms_alertas/contracts/alert_ingest.example.json",
+      "sha256": "2da57b5727843f2cb13475482637cce2572789aec093668459212965c270ddd2"
+    },
+    {
+      "path": "apps/services/ms_alertas/contracts/alert_ingest.example.xml",
+      "sha256": "80104ef0311371679e2b365499b56a92e0c4a9a82ea62c6cb8b28b823c840ef0"
+    },
+    {
+      "path": "apps/services/ms_alertas/contracts/alert_ingest.response.json",
+      "sha256": "c46039883fbaf3f1baa28ad1b6b52e63ffd3b125a9f7c19bea2f06268d27e062"
+    },
+    {
+      "path": "apps/services/ms_alertas/contracts/alert_ingest.xsd",
+      "sha256": "2552790dbdf5c770a53fbb45dc9b63c3a756471f8215787dd38ad76a38c6258d"
+    },
+    {
+      "path": "apps/services/ms_alertas/contracts/alert_policies_detail.response.json",
+      "sha256": "88dba9b41016b2a9dde1065367a114c67ebd0c0c30996d41e983aa0a4486440a"
+    },
+    {
+      "path": "apps/services/ms_alertas/contracts/alert_policies_list.response.json",
+      "sha256": "7c588ba831d18816ee8cf08ba12794774f2e51110760d28303d70e7084c876d5"
+    },
+    {
+      "path": "apps/services/ms_alertas/contracts/alert_policy_create.example.json",
+      "sha256": "99b02ab2e07696c1b858b70412dee219ec343e3a6ce6254ebfc3641e645cb0de"
+    },
+    {
+      "path": "apps/services/ms_alertas/contracts/alert_policy_create.example.xml",
+      "sha256": "4cf4408b847ccaa825a47eef6fd656e92f14a257a92e67beec70b6c82e7beef6"
+    },
+    {
+      "path": "apps/services/ms_alertas/contracts/alert_policy_create.response.json",
+      "sha256": "88dba9b41016b2a9dde1065367a114c67ebd0c0c30996d41e983aa0a4486440a"
+    },
+    {
+      "path": "apps/services/ms_alertas/contracts/alert_policy_create.xsd",
+      "sha256": "67fd6fe269e9a3ff4bad246d9ae820a5d4e16e1e19d009be1e99c54a76ec2312"
+    },
+    {
+      "path": "apps/services/ms_alertas/contracts/alert_subscription_create.example.json",
+      "sha256": "6977057f5930be1936b0225adb2aaae51ce5739e46e2f4730bbe23f7627ca7cb"
+    },
+    {
+      "path": "apps/services/ms_alertas/contracts/alert_subscription_create.example.xml",
+      "sha256": "6452fbc35e296929fea5e3d61bf05f504ac86d0f49247e8519b1893d2749a9b1"
+    },
+    {
+      "path": "apps/services/ms_alertas/contracts/alert_subscription_create.response.json",
+      "sha256": "7b269850e9e7150fce7e12db8c5fc995fd7fdba3e937f821f3e32aa192ba09e1"
+    },
+    {
+      "path": "apps/services/ms_alertas/contracts/alert_subscription_create.xsd",
+      "sha256": "f0f05c1758ef3c0b21658515f962278c5546fd8592a35efb50718734e7a4a351"
+    },
+    {
+      "path": "apps/services/ms_alertas/contracts/alert_subscription_revoke.example.json",
+      "sha256": "84f30faa26b4d05df28d79c2bcb09664b75d89007a4a8150f2f68d0c4f5019ae"
+    },
+    {
+      "path": "apps/services/ms_alertas/contracts/alert_subscription_revoke.example.xml",
+      "sha256": "c8133fb4edbb677fea091c1095325e9fe50143389358e1a9515873fff40a3314"
+    },
+    {
+      "path": "apps/services/ms_alertas/contracts/alert_subscription_revoke.response.json",
+      "sha256": "7b269850e9e7150fce7e12db8c5fc995fd7fdba3e937f821f3e32aa192ba09e1"
+    },
+    {
+      "path": "apps/services/ms_alertas/contracts/alert_subscription_revoke.xsd",
+      "sha256": "5776f12d9103c5d0f4e71b50861d0b93c4bf0283407d07d3b354675df79fbc74"
+    },
+    {
+      "path": "apps/services/ms_alertas/contracts/alert_subscriptions.response.json",
+      "sha256": "26a5b4655853ae4e3fc4d58e760b04a1dc61aacc14e32cdbe3144555a4dde589"
+    },
+    {
+      "path": "apps/services/ms_alertas/contracts/alerts_list.response.json",
+      "sha256": "54f5d94d843ea6ab8d11feb42eb42bc2a17d0d512fffd496d6897ebb22a637dc"
+    },
+    {
+      "path": "apps/services/ms_alertas/contracts/openapi.json",
+      "sha256": "9f8a6f4b877fbb68122ea90a44579c2381804498a0c58972a6e27be5b39ea4ab"
+    },
+    {
+      "path": "apps/services/ms_alertas/delivery.py",
+      "sha256": "25b689b344811f20c1a4646cc1dce293ba0b692e33358afe9dc33934d0ada742"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/accreditation_create.example.json",
+      "sha256": "92c49216830a822e5e75ce4ef28748c7b15ab53f82adc9fbfe2bb7d573446125"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/accreditation_create.example.xml",
+      "sha256": "523cdfa3b636e23dcfa8630680d17d9bf036d0fdf8f18cb69ecb0bf85eb409b2"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/accreditation_create.response.json",
+      "sha256": "a74dc961f07551030763e7e8246216a37dfd312b8f37fc4b70bc9043bea9bba8"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/accreditation_create.xsd",
+      "sha256": "31faf19b89c6ffb0e638cb407f54e7c6539e42983035f349beab49bcd06d3f8d"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/accreditations_detail.response.json",
+      "sha256": "a74dc961f07551030763e7e8246216a37dfd312b8f37fc4b70bc9043bea9bba8"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/accreditations_list.response.json",
+      "sha256": "66b226f84ac509da9387683487d7ec8fa5f2b7eb9c1101e83d5e433d620f8ec7"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/appointment_sites.response.json",
+      "sha256": "893a973333b9b77d0421aa509ff98f93f0fe00c83b675220b812f71afcd11961"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/audit_assignee.response.json",
+      "sha256": "b9d00e7542525148f660f71f3d8fa65ef900b3893a70db6800712d0f46800033"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/audit_assignees.response.json",
+      "sha256": "db24253b5b54e86f0485a500a7c9737991db94f5ddf874e10f80884692b6f745"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/capacities_create.example.json",
+      "sha256": "1abe363320a2c2525862736053ce821f0266f0f1849ebc6c02f8d45e0b477578"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/capacities_create.example.xml",
+      "sha256": "bb186e2894277fc9299ad48ac7fff2ca9c2bbdfd3a76f2f5e67fde4d6117680c"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/capacities_create.response.json",
+      "sha256": "6865a8cb3e739d5d9588a3510ba19d0ca1699915515bdb1789f1e1a97286424e"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/capacities_create.xsd",
+      "sha256": "20d7eb8b440e4a05e212552f823c8f789de21704511124af10137cb744520fa8"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/capacities_detail.response.json",
+      "sha256": "7e6d24697743133477c23ef25a052d53872d920e7c00f8e035f5c419181e20a8"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/capacities_edit.example.json",
+      "sha256": "51bf7543720f36ed15d238e6016b86ba7a62934852d2480cbf6ddd1121cfc146"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/capacities_edit.example.xml",
+      "sha256": "06e739270a669fd8626ff70a6874b1967248560410c9a231465f2c62caf9e27d"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/capacities_edit.response.json",
+      "sha256": "6865a8cb3e739d5d9588a3510ba19d0ca1699915515bdb1789f1e1a97286424e"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/capacities_edit.xsd",
+      "sha256": "246321363675a5a75ed5c2167f1db34de6fccc92bfacd53037d6c22e36bc9e0c"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/capacities_list_rows.response.json",
+      "sha256": "e0e58b12e54b20d63bdb6ead5a170834693acfab1bc8fdf4fed997d665091d2e"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/contacts_create.example.json",
+      "sha256": "1e6eca6d0d374225b461a0761d076fe091f71ea9919eb47d4df57b13efd4ba40"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/contacts_create.example.xml",
+      "sha256": "cd967a0456efb95b8d7d7da9ecc8e4cef7ea4aa2b65e473a26a14eca7647495e"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/contacts_create.response.json",
+      "sha256": "05d75f916566cd9d694402bb0872f4f6943f2ff2d949c4361496bb6b8783ae60"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/contacts_create.xsd",
+      "sha256": "930975f007ea47f59f44fd196d2ae8862bf5fae928f7d2a7279ade5512f0a7f0"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/contacts_detail.response.json",
+      "sha256": "ca68a8435881cb51f8370dfe85a31846d502643a0c5ded8b2301b33938ff505e"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/contacts_edit.example.json",
+      "sha256": "1e241ff2fdde8c9b05c1468e93659588bb93fc06ecefdea347ee731ec65e06f3"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/contacts_edit.example.xml",
+      "sha256": "5d32b605fe65b1b7b98afb76f054743fc9576939fc68bc4707f52e79dd530262"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/contacts_edit.response.json",
+      "sha256": "05d75f916566cd9d694402bb0872f4f6943f2ff2d949c4361496bb6b8783ae60"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/contacts_edit.xsd",
+      "sha256": "7d8f32a688492df91902a93a94046c771967e0e8d8710256f14c4079677fd404"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/contacts_list_rows.response.json",
+      "sha256": "72fda2490e92ca5d938aade6c56e83c6d85b7f1a5fcfda1364bf442b6d5a98a5"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/custody_user.response.json",
+      "sha256": "3423d12a0e6e1a87a13283a04c37b0ecc5d94a90c73ce581b1393b074dc118a9"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/device_create.example.json",
+      "sha256": "57f19c1696860d951fb578b14ec840eb780db2e3ad8f1810b19cda30d780b87f"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/device_create.example.xml",
+      "sha256": "1aa431f3d66e07c049dba20d9e7952bf075942ded849b7513c891cfeeb1eb020"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/device_create.response.json",
+      "sha256": "5aa8e3d09e089beafbe6ff0f9c9803e5bd6235aeb2b0d14093e18c6912312633"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/device_create.xsd",
+      "sha256": "52c497ab4e802467009b4cedcdb4ad13f356cdcde17fe249337b97d107558625"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/device_credentials.example.json",
+      "sha256": "a63eaecf32030a45c06ee5b61bc7f9ce994650c8dda0742edbedebaf9145bb1e"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/device_credentials.example.xml",
+      "sha256": "26945f360e3075dc9dfa4ab81f91d1281631ebf712094a9a534b7f0feac31065"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/device_credentials.response.json",
+      "sha256": "e54a6f1cd7a406dd630abf5594dc2504bba573405b449ab3dd41878fca11402e"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/device_credentials.xsd",
+      "sha256": "91b1ae6987a4697910884165b8fa52a279a3eaca370c488e910c3eb24abc369f"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/device_detail.response.json",
+      "sha256": "5aa8e3d09e089beafbe6ff0f9c9803e5bd6235aeb2b0d14093e18c6912312633"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/device_list.response.json",
+      "sha256": "2a4362c7ced48ca44c5bd43833cbdb38b4391665a963e488f0173ad13b96b65d"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/device_revoke.example.json",
+      "sha256": "a63eaecf32030a45c06ee5b61bc7f9ce994650c8dda0742edbedebaf9145bb1e"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/device_revoke.example.xml",
+      "sha256": "26945f360e3075dc9dfa4ab81f91d1281631ebf712094a9a534b7f0feac31065"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/device_revoke.response.json",
+      "sha256": "5aa8e3d09e089beafbe6ff0f9c9803e5bd6235aeb2b0d14093e18c6912312633"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/device_revoke.xsd",
+      "sha256": "91b1ae6987a4697910884165b8fa52a279a3eaca370c488e910c3eb24abc369f"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/institution_administrator.example.json",
+      "sha256": "bfeaf0e39419c3aec5f478e2418ab7f812980a238564425d462106c41abe7b4c"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/institution_administrator.example.xml",
+      "sha256": "894f590ee69caad6a82313d885dd6157c003799345be093ab87f802d987ac1da"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/institution_administrator.response.json",
+      "sha256": "c04f543fbb458c88f4dd6f6c946fed1690c31c88b3f00eaf67f0360c86675b0d"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/institution_administrator.xsd",
+      "sha256": "8f7315ca1b5b50cb7642e07ab7cea63858e331ffa359e879fabb05b540742a18"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/institution_create.example.json",
+      "sha256": "044c2f23e6a99fb9a2b48629d9155909fe9a0ed7e793560593018082f7338822"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/institution_create.example.xml",
+      "sha256": "acbae2bc6aeacd2572967b1729fe48f5065213caf734b41f4d9559172ca7e8fe"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/institution_create.response.json",
+      "sha256": "e81cfc4f7f66bdfa200158544c72298f2c64438b540de12ad17eabdfcbaae518"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/institution_create.xsd",
+      "sha256": "8436b0a8b92697107a047b5e0f7fb49bc585874cea6accbf3e90f7407a0ae05a"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/institution_detail.response.json",
+      "sha256": "3b450363027be2a51769b0183d24b20e4e5ed9bae2d8a63f6d0280649616a4c2"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/institution_edit.example.json",
+      "sha256": "1bde057d819bf63d286d40a98debc0485abf08decaf0f6b5213f268868294a9e"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/institution_edit.example.xml",
+      "sha256": "0f77b55da1497f6df1d9f0e8cb02bd8afd81e4595edc2fa1ac4f34daad49e29e"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/institution_edit.response.json",
+      "sha256": "e81cfc4f7f66bdfa200158544c72298f2c64438b540de12ad17eabdfcbaae518"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/institution_edit.xsd",
+      "sha256": "9bc5abe2666e968ca237d8ed6b6feecc14a3f8274868fc54af71927c4e689a4e"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/institution_internal.response.json",
+      "sha256": "e81cfc4f7f66bdfa200158544c72298f2c64438b540de12ad17eabdfcbaae518"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/institution_presentation.response.json",
+      "sha256": "cda1104d94d2bd3cca951f0ccba2cf39c5c307f30c04cd2de1fc75941680181c"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/institution_presentation_change.example.json",
+      "sha256": "53093ca5a1899cbd5db86959c728165e8239ae2b9b1ad0f5d6c9f44483603e2d"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/institution_presentation_change.example.xml",
+      "sha256": "8a2ae2ab93eba25ee0cf790e7d92a62ff53c7b3a8bf8f419291689cb9d26aa29"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/institution_presentation_change.response.json",
+      "sha256": "cda1104d94d2bd3cca951f0ccba2cf39c5c307f30c04cd2de1fc75941680181c"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/institution_presentation_change.xsd",
+      "sha256": "6383356d77d2ad375e014a63527326c1a8a03430e27488bce652542c9436296c"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/institutions.response.json",
+      "sha256": "b9f2ede1127d673a63d11f2dbd25896d7bf34f3ab049f818be48c3e0b6cf8252"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/location_internal.response.json",
+      "sha256": "75b09a2d7c05f67706e36725f907112000e307152d1d86ac04136d60a23e8f5e"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/locations_create.example.json",
+      "sha256": "96eea1a7a21c28cdb01f9746307552746dd2f4d4137c56cb5e67ae73a4271b5c"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/locations_create.example.xml",
+      "sha256": "b8544a3de572e79bfe207e1579bf353b451336fe2dbd0238b7f220ca0f46d299"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/locations_create.response.json",
+      "sha256": "78bf8702a964ab3f8edbf632c497e019b9d6f1fb238bac5dfbcfa21b4a6ac920"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/locations_create.xsd",
+      "sha256": "e06d279b1c52a6f6b6d724086cb402a606489e3bbed0426b38bd0ae6fe614e44"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/locations_detail.response.json",
+      "sha256": "3e2db17268b7474ea473cc1d0eabc257bc52ace12d90245e7fb12f47c62ebc4e"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/locations_edit.example.json",
+      "sha256": "d6ed305472fc5c5a209a834f508cd69a4939953d3b9e9bcb5a048d6d6483b0ae"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/locations_edit.example.xml",
+      "sha256": "51f23111bd53e3806747217ff6827c05fecca9062726c543615c150fead7d0e4"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/locations_edit.response.json",
+      "sha256": "78bf8702a964ab3f8edbf632c497e019b9d6f1fb238bac5dfbcfa21b4a6ac920"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/locations_edit.xsd",
+      "sha256": "5f9bb2580e29543da4fb06e48a8e8ed589608009a3ddbab3f8229bf32a709afd"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/locations_list_rows.response.json",
+      "sha256": "03cccb326904af7367c2dcb90687afd46e30f1a4255cae8567e6cb31c1412b6a"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/login.example.json",
+      "sha256": "0d26411e9cea19948904fa3d29fe731eabbddc91e04324a87b8307ec0f30c71d"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/login.example.xml",
+      "sha256": "8e277934b57362c66a2686d5dce37d388a9124da6033a36ac64f5d74b7536423"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/login.response.json",
+      "sha256": "040188d9a0827a54f685f1a253428ffc3b05b9deb7ca62c5e398d621411aab6f"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/login.xsd",
+      "sha256": "c1e2c57731a0635b342f9a5cf9c43073840bb917769265bc45854dad95ca542f"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/logout.response.json",
+      "sha256": "e0314e424308ffcfa17724f7811ab314a158615f6dc174a9ddc6310730422a7c"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/me.response.json",
+      "sha256": "c04f543fbb458c88f4dd6f6c946fed1690c31c88b3f00eaf67f0360c86675b0d"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/mfa_confirm.example.json",
+      "sha256": "29189b9f50a2a7cc1cf8da15f4e3af6307e5cb44a4223fa6a0ad196e9a1b5be9"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/mfa_confirm.example.xml",
+      "sha256": "efd16f71c050e493bf1528f7fd2d38ce1de26ae4ab447c67c493e42e6021e7d5"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/mfa_confirm.response.json",
+      "sha256": "99ecd013d23061f5f8a6f4d05a3be608ea0596a8abf2e31887eba417a319a292"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/mfa_confirm.xsd",
+      "sha256": "bbe38019a529a05bf659b9060259a251e2cecc5dc21b5f62a7b9661ba08d7e86"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/mfa_enrollment.example.json",
+      "sha256": "0d26411e9cea19948904fa3d29fe731eabbddc91e04324a87b8307ec0f30c71d"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/mfa_enrollment.example.xml",
+      "sha256": "8e277934b57362c66a2686d5dce37d388a9124da6033a36ac64f5d74b7536423"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/mfa_enrollment.response.json",
+      "sha256": "425cf4323c2830e4876ca4959b8565ca3d03d9470464d9b35dfdfd14c7f4b420"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/mfa_enrollment.xsd",
+      "sha256": "c1e2c57731a0635b342f9a5cf9c43073840bb917769265bc45854dad95ca542f"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/mobile_device_register.example.json",
+      "sha256": "a16ec0658d3f6c06b7556fd318feb91ee4c76e64ed66a46dea4e4e009700a651"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/mobile_device_register.example.xml",
+      "sha256": "3ab9b93e94eb010a3d3b1dc2aab0df07c4c9273912aa736cdc63e2eff17c3216"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/mobile_device_register.response.json",
+      "sha256": "5aa8e3d09e089beafbe6ff0f9c9803e5bd6235aeb2b0d14093e18c6912312633"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/mobile_device_register.xsd",
+      "sha256": "67d3af4c657eebb074c2995c6cef17d234f044ccecc70017fe820bb9bbccc87c"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/mobile_device_revoke.example.json",
+      "sha256": "a63eaecf32030a45c06ee5b61bc7f9ce994650c8dda0742edbedebaf9145bb1e"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/mobile_device_revoke.example.xml",
+      "sha256": "26945f360e3075dc9dfa4ab81f91d1281631ebf712094a9a534b7f0feac31065"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/mobile_device_revoke.response.json",
+      "sha256": "5aa8e3d09e089beafbe6ff0f9c9803e5bd6235aeb2b0d14093e18c6912312633"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/mobile_device_revoke.xsd",
+      "sha256": "91b1ae6987a4697910884165b8fa52a279a3eaca370c488e910c3eb24abc369f"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/notification_user.response.json",
+      "sha256": "89a0cca29a41b4252a3caf7118d56a1ec8dadb930b60ad1af2451efc5faf8739"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/openapi.json",
+      "sha256": "dcc5a2991e4e65aa791087218031008fa376d27f93559dbc519c5d1456101313"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/portal_policy.response.json",
+      "sha256": "eae1db36ccc199f163eeb6a3e4d9bb7e00c4c8143715bb844a1aac51d7a94c24"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/portal_policy_change.example.json",
+      "sha256": "be438d9148a72043a66220eab73e05b4a34deef1eab49ae847695fff664e435b"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/portal_policy_change.example.xml",
+      "sha256": "6c7b337847928a41384507e296cf931716368e2b5cb9c07d42fd2133107aabc2"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/portal_policy_change.response.json",
+      "sha256": "eae1db36ccc199f163eeb6a3e4d9bb7e00c4c8143715bb844a1aac51d7a94c24"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/portal_policy_change.xsd",
+      "sha256": "539ac4dd06f5a77ecf58c1882a176a8dea91fd9cb75b4429b4c173ef338f34ab"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/public_institutions.response.json",
+      "sha256": "b9d930e1280d6a11b51fc631b99464663f2788ade152bc961876e415e8656888"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/reauthenticate.example.json",
+      "sha256": "836697431077c4d2363c8daf8650cc728a256215a8b5025383119c659cf1a492"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/reauthenticate.example.xml",
+      "sha256": "9f6cb9f52f45dd9cbf7d3d5789192b00112284d85a255c6eea5c39d7d81c7275"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/reauthenticate.response.json",
+      "sha256": "a44712264971e22082328535579d7d8569f2fe7a8cca1b382f78ee61a8b7db7e"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/reauthenticate.xsd",
+      "sha256": "0617fbef95b76fd3eed384bcc1e9042e23be3700438426c38479bfaeb02db080"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/recovery_complete.example.json",
+      "sha256": "234f8fc82b0eafcc48e998d3536f5e6b71ae54a7163472945d0a71cfa8fcb496"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/recovery_complete.example.xml",
+      "sha256": "a0ea36c8268f6fd231e4fcfe4580fcfe268f9dcd75e2d76d0c3e2db81c27bf83"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/recovery_complete.response.json",
+      "sha256": "99ecd013d23061f5f8a6f4d05a3be608ea0596a8abf2e31887eba417a319a292"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/recovery_complete.xsd",
+      "sha256": "c8d2e1391371f6e6fa59f4dd244589e5a3a05cd578404dae89e68072c2be4df8"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/recovery_request.example.json",
+      "sha256": "72ee5376b1d43ebb63291121a55cd87a8becbf99255d71e2010d74a5a19e81dc"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/recovery_request.example.xml",
+      "sha256": "972e1e439716af42f66a91d346a2ee1e7a65b4ba72ee2c56927e689d1a22c5bf"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/recovery_request.response.json",
+      "sha256": "99ecd013d23061f5f8a6f4d05a3be608ea0596a8abf2e31887eba417a319a292"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/recovery_request.xsd",
+      "sha256": "ffdc275ea39722ddc1a84e03c35fc859fc159ab00000c061a2550fa07979b4a1"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/refresh.example.json",
+      "sha256": "5312a6b495bffcfb5f74855adcf8e6549cce248caed2129f9ba9e1eba90c9cf3"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/refresh.example.xml",
+      "sha256": "4aabcede60150caef20e0c0730f9675b81e0bbfb0425efa9a798dc5e4644b09c"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/refresh.response.json",
+      "sha256": "e2020fccf14d24f53560721093f3bc103422d48264ac8a8c0ac12a2b698b585e"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/refresh.xsd",
+      "sha256": "dcdd8899f7536479237d8139c3b86d42eb4d4bca270761c2ed4887e964c15108"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/responsibles_create.example.json",
+      "sha256": "8abd8f5c4950dfa0e6c7e0b5755d7925b3ea8e955a9384acd848a6452fa83d10"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/responsibles_create.example.xml",
+      "sha256": "af7bab9a2128c010c60257d42651bcc37256319e67de2bf3703af46df8027ba3"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/responsibles_create.response.json",
+      "sha256": "32bf6b058bbd0fdc3eb5741d99a1a975d151f68fa323d43b0a5c123303e928ef"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/responsibles_create.xsd",
+      "sha256": "8319138618842184f6a2a77ddc286874443cab508bc4bb6160f3c9af58c5fc63"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/responsibles_detail.response.json",
+      "sha256": "32bf6b058bbd0fdc3eb5741d99a1a975d151f68fa323d43b0a5c123303e928ef"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/responsibles_edit.example.json",
+      "sha256": "30fc201f50c00576913755558e35f691d799e733feb7edfa58c6066481611555"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/responsibles_edit.example.xml",
+      "sha256": "7a6f5c6cc02aa6580b9a9bd089163bbd9460ece8ae4d2b5548f30ae756dc7ba1"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/responsibles_edit.response.json",
+      "sha256": "32bf6b058bbd0fdc3eb5741d99a1a975d151f68fa323d43b0a5c123303e928ef"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/responsibles_edit.xsd",
+      "sha256": "563e5a075903fa6163302b6f069b84660a5f6957a59e037048f4e43bdbc87e85"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/responsibles_list_rows.response.json",
+      "sha256": "2507e43d71657d4e1063dea98cdfeb0ca2da847b4680e71376bfd089ae26e44d"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/revoke.example.json",
+      "sha256": "5312a6b495bffcfb5f74855adcf8e6549cce248caed2129f9ba9e1eba90c9cf3"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/revoke.example.xml",
+      "sha256": "4aabcede60150caef20e0c0730f9675b81e0bbfb0425efa9a798dc5e4644b09c"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/revoke.response.json",
+      "sha256": "c7691ac60ab01f7637f7411b79f7bc9aa36ae4437da650a7b680a6b36320e6f2"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/revoke.xsd",
+      "sha256": "dcdd8899f7536479237d8139c3b86d42eb4d4bca270761c2ed4887e964c15108"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/schedules_create.example.json",
+      "sha256": "47a2b53478871758a365f839a598d35be8c321c181682fb650c6b1e7a34f7d55"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/schedules_create.example.xml",
+      "sha256": "f00060da8eeaae22c59aaecdc261eed48eab517ba2e5a4153c57c7eaaf318a5a"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/schedules_create.response.json",
+      "sha256": "65eeb1a26f71faf4cca4c241346eedc124fdf4868e58b04b8dfb028f47307170"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/schedules_create.xsd",
+      "sha256": "afcee9ed3503e1342d2956b5d8b05ded505dce8542116ad2783fd9888e605bb9"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/schedules_detail.response.json",
+      "sha256": "ae625bee9d2743d6e65d46cf90f61dac45388b28a9bb5030541b56d936a2c154"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/schedules_edit.example.json",
+      "sha256": "9134759ee56644375963b3df8e9a1f5ba57a706cb5a8cf0e69a3ffeffccad1b4"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/schedules_edit.example.xml",
+      "sha256": "c5e28ccafe4da800f4683cfca5226ce9f56ec0c6e5c1fe0a27545c14880e3ba1"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/schedules_edit.response.json",
+      "sha256": "65eeb1a26f71faf4cca4c241346eedc124fdf4868e58b04b8dfb028f47307170"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/schedules_edit.xsd",
+      "sha256": "18172d211a49cfd76e609bd46e487b72b577455a9767f2f173f29d04024b40a3"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/schedules_list_rows.response.json",
+      "sha256": "fc2eda384be21c6a4d0debca41e7e135bfa26aef4f3bef03e42435ebb23ff312"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/security_contact.example.json",
+      "sha256": "906782a30e821f44f47d82b5eb70f488e4daa1121a91b61a0fd9dfa3760f239a"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/security_contact.example.xml",
+      "sha256": "2041b11e03752c9848c833487cf6f403ce7e45d4ede986818dff446f7aeb7e9e"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/security_contact.response.json",
+      "sha256": "99ecd013d23061f5f8a6f4d05a3be608ea0596a8abf2e31887eba417a319a292"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/security_contact.xsd",
+      "sha256": "cbc64c9bd1496cab8f7831f849148e3c67e446ab506878a6367e3ff60efd87c9"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/security_contact_verify.example.json",
+      "sha256": "2c87b9347fc4bda73e31d4f8e57d227186cb6c261a471a2b854e813644bc3fec"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/security_contact_verify.example.xml",
+      "sha256": "a7bf5a361b9fdd94dbfead9174ad826ddf656d2c3980d27e0b1d3a693454f808"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/security_contact_verify.response.json",
+      "sha256": "99ecd013d23061f5f8a6f4d05a3be608ea0596a8abf2e31887eba417a319a292"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/security_contact_verify.xsd",
+      "sha256": "6e619ed68c1d922daeaac2a70386991a0b5e9eb57040bdaf27cce4f0da0e8c8e"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/services_create.example.json",
+      "sha256": "74db0e33f5fc5e2a26e8fc0cb3fce8a1c1861d2c48d5db831d147fb9e26427f6"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/services_create.example.xml",
+      "sha256": "01f8824f190806d9b8eb5b88286e09f352e3d824afb409dc69e022b63444aedb"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/services_create.response.json",
+      "sha256": "667e4bf89876211395a9c38a64800a79be8dfbcb608d2cc97550e30b788ec8eb"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/services_create.xsd",
+      "sha256": "5fdc143c1aeb8ebffffdb88985d2040719183c4f0bb48a3707a7edcd2f7a21fa"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/services_detail.response.json",
+      "sha256": "667e4bf89876211395a9c38a64800a79be8dfbcb608d2cc97550e30b788ec8eb"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/services_edit.example.json",
+      "sha256": "c5772b481789f773c2d29351059086fffd3869570cf288110365ce638902c305"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/services_edit.example.xml",
+      "sha256": "15fced595ec2730a2593bd78d5721e89384f6979c69f4dacb956e19388a548b1"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/services_edit.response.json",
+      "sha256": "667e4bf89876211395a9c38a64800a79be8dfbcb608d2cc97550e30b788ec8eb"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/services_edit.xsd",
+      "sha256": "f3d57acce8fa0d7f5cf2f7d085e664a3018144bb768eacf698a5133e55ee8987"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/services_list_rows.response.json",
+      "sha256": "f1368132ac592c3e9a0379fca32b27ec713af27a313ec4607f4bb774933b120d"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/sites_create.example.json",
+      "sha256": "3b43afc1d627315e731b0f32e880e8ef71211d51234d2aecd36fb4ef26556cbf"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/sites_create.example.xml",
+      "sha256": "5c0ecce33765e6c943939a9557c284b266f6eef92109cd4d47da74095dca9c2b"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/sites_create.response.json",
+      "sha256": "fe62158a2e0ea8db83beac908f8dacd29f23338c2f5c1bf44a32a6876adf0cc1"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/sites_create.xsd",
+      "sha256": "ed049f0e8c859a881057c95fcd3cfa6aad40841384826f745eb50a23fcc29060"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/sites_detail.response.json",
+      "sha256": "0a189c1caf204c94a24184678b22d9e6fce05c619791248ce9c57fcdd9a8d8a2"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/sites_edit.example.json",
+      "sha256": "ff481d61ea4b9ad3be9ade361e44f09e966478c06173a610b9db140e27514928"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/sites_edit.example.xml",
+      "sha256": "d3c0704784555722cbc3ae5969c35ab21cc16eec12b349bf4eca34f534553671"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/sites_edit.response.json",
+      "sha256": "fe62158a2e0ea8db83beac908f8dacd29f23338c2f5c1bf44a32a6876adf0cc1"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/sites_edit.xsd",
+      "sha256": "d55522d4a9bfafcb22736b0b888c0e94524484c3347639923bd393e5a5efe6cd"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/sites_list_rows.response.json",
+      "sha256": "0f8d2e06ef40afbe3e49ed5791c7fcad9343099f7911afe0697cf3c975502211"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/user_create.example.json",
+      "sha256": "dc2234d3502c6a9435352249c2b09ed49db45212a86bf971c9eeddc23cd2d810"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/user_create.example.xml",
+      "sha256": "21e0e199509a2c4f46a02c19f2dd0c4ad1c71d365529d6d5572fd549d627ca6b"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/user_create.response.json",
+      "sha256": "c04f543fbb458c88f4dd6f6c946fed1690c31c88b3f00eaf67f0360c86675b0d"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/user_create.xsd",
+      "sha256": "41db4a926a86eebe3920e1812815593859a7b2c04bc1f7bf5de494b976ec62c6"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/user_internal.response.json",
+      "sha256": "c04f543fbb458c88f4dd6f6c946fed1690c31c88b3f00eaf67f0360c86675b0d"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/user_list.response.json",
+      "sha256": "fe09eee64125bbf107381102983f839242cf6dd5a0568fab04aec8e85fbe9fb7"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/user_role.example.json",
+      "sha256": "d24b0db5c1d94f4bfc37b7fb8ba1d6665a5adb2f4218c40d027e52393ca30abe"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/user_role.example.xml",
+      "sha256": "0f9b6bb42ca8664a3339425f669bf92168a66d34a13ed4b4a407cea34326aabe"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/user_role.response.json",
+      "sha256": "80fa1cfbd7b50eab00a777ddf2e8a913c2a81c73b43ae20a77e91dcaf4ab4d42"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/user_role.xsd",
+      "sha256": "b0816a68cbfefd207b751bba80a48858e78dc5de8be1be6264bce80d358c2059"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/user_state.example.json",
+      "sha256": "af53da605290a737cf37a9a7c8330dac836a40d453990ed9820449ebba64551a"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/user_state.example.xml",
+      "sha256": "7bdee57ee6f2252bdc500f1e910b54a2a6a08a6b3e95667769e5b79f435ae1c4"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/user_state.response.json",
+      "sha256": "c04f543fbb458c88f4dd6f6c946fed1690c31c88b3f00eaf67f0360c86675b0d"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/contracts/user_state.xsd",
+      "sha256": "0b9db7e8541671cf00853b594351758179c78f478ad5b058bd5a0d56d5827801"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/devices.py",
+      "sha256": "d5f6129e467df28efe3f0731995e00666a5a659222ee508bce5a2fd326d8c532"
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/mobile.py",
+      "sha256": "761a34061c1af2ff982ece8d68b725a0315aea66ef6ae1ff8f93ada10c84df8a"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/document_detail.response.json",
+      "sha256": "5ee9955ece5fcd6e9eb873731609f7011493aba12ffbf566a4927a85cfb83690"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/document_list.response.json",
+      "sha256": "a7c6ce2e85e378eae132871dc67c31a3fd6c0b47a1168c356b376e5827514e26"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/document_prepare.example.json",
+      "sha256": "57f3918fbcd7abafe3d16f3e41371e9d1645ee4ba1cb658010fbbd81cc39784e"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/document_prepare.example.xml",
+      "sha256": "c808cf39f45bfe91b798ed72e969c2b6da650b1c0a1cffaf1a110f2ea89d0c52"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/document_prepare.response.json",
+      "sha256": "266f3ed9dfe0e05c9bb883c9d37ffad9a7902eb9b8d20e585893c620062f6dfa"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/document_prepare.xsd",
+      "sha256": "36945181c5fedd1c98027250432e84d148d0e9115ceb26eec9fd048033f74a0e"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/export_create.example.json",
+      "sha256": "e7adc0dc286d4d0fa5f59bc316ed02acabc5f1fff1882f13da95a607fd7ad330"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/export_create.example.xml",
+      "sha256": "1250f18400c5c756701efd7782065e853a87ba60d52b51849860d1285f2667b7"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/export_create.response.json",
+      "sha256": "e515433b96f86405f072a6b8c52142848ec33668c76cb9a022e731ee7c41ef02"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/export_create.xsd",
+      "sha256": "f9c43778988985b4a8af299765128ebeadf536f11f7ca4e06f0c164bb7f1cf30"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/export_detail.response.json",
+      "sha256": "e515433b96f86405f072a6b8c52142848ec33668c76cb9a022e731ee7c41ef02"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/export_list.response.json",
+      "sha256": "3b125cef056708cb69d91330052a9f52c31897824a2d06308066bd32f2c1d6d3"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/export_retry.example.json",
+      "sha256": "84f30faa26b4d05df28d79c2bcb09664b75d89007a4a8150f2f68d0c4f5019ae"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/export_retry.example.xml",
+      "sha256": "c8133fb4edbb677fea091c1095325e9fe50143389358e1a9515873fff40a3314"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/export_retry.response.json",
+      "sha256": "e515433b96f86405f072a6b8c52142848ec33668c76cb9a022e731ee7c41ef02"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/export_retry.xsd",
+      "sha256": "5776f12d9103c5d0f4e71b50861d0b93c4bf0283407d07d3b354675df79fbc74"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/file_download.response.json",
+      "sha256": "74f92044cca9cae2dfe23a514568c4f56e0508f262bf08f6078367470bd4edc1"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/file_list.response.json",
+      "sha256": "6a8e8892a8a9a0adec156b02f3612b0e3d8ffc4475bef20f6d4026f64b782aab"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/file_prepare.example.json",
+      "sha256": "c2131538a14dd34d5da417080a22daf008812b748ec0598faaa856b995e878ff"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/file_prepare.example.xml",
+      "sha256": "b75b6d4b64ea2fb0fb8112330210f493d25f1d3f879b1486264a0a1deeba62b1"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/file_prepare.response.json",
+      "sha256": "0e4de07e982e1a838769cda5877c42f584e6c4ebf832125f04aa7f38e8e392c9"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/file_prepare.xsd",
+      "sha256": "014c0256895e0693fd1b5573a9288e3eb80f052dc23c649a4dbb09981969fd2c"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/file_verify.response.json",
+      "sha256": "d1bb43936bba7e52f652adc6e78f70cc69f47faaf747672d5545e6c9443c159b"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/mobile_tracking_start.example.json",
+      "sha256": "58a4cb22ead83a3e6575a7c9373b23e0f62510c1f53508bdf936270eb5801e08"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/mobile_tracking_start.example.xml",
+      "sha256": "931d5e0023bfe185e0c446413866562d5de94b5abecc73b1dd821d7444992116"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/mobile_tracking_start.response.json",
+      "sha256": "426f50374bd2aa39f3bd906a4e777f6915ef81766f697f1c4e92a90cf9621634"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/mobile_tracking_start.xsd",
+      "sha256": "0095ec10cdefdb02e509927caee076e262bec55bf35f33b278ddfffea2eaf19f"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/mobile_tracking_stop.example.json",
+      "sha256": "58a4cb22ead83a3e6575a7c9373b23e0f62510c1f53508bdf936270eb5801e08"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/mobile_tracking_stop.example.xml",
+      "sha256": "931d5e0023bfe185e0c446413866562d5de94b5abecc73b1dd821d7444992116"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/mobile_tracking_stop.response.json",
+      "sha256": "9753a3433659d593f09b0e9d6f234c8d6af1d90d52be62c240f4765554dff7b0"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/mobile_tracking_stop.xsd",
+      "sha256": "0095ec10cdefdb02e509927caee076e262bec55bf35f33b278ddfffea2eaf19f"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/openapi.json",
+      "sha256": "77adbe73abe613fce7a3848f80306d979eba7c879cef504bf8692489a5e76845"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/portal_metrics.response.json",
+      "sha256": "9dd527a8313ed1d1d00be1f64dbbb66137b8bbbf12c8fa60fbd7b62cd24afb14"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/portal_summary.response.json",
+      "sha256": "dfbe06cd37e6d3843b8f799b8614626d54e3a0c545208e49214d687a67f15ed2"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/shipment_create.example.json",
+      "sha256": "3a8e356e30505f0759326b49e5f562855748a0d9b1246a32e0ef4876573ca5a3"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/shipment_create.example.xml",
+      "sha256": "0c37e00e8deb704d75814809b0a2defde8a3bbf3ee403a5b43cb57e57dce5778"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/shipment_create.response.json",
+      "sha256": "4c7d0a89840ab62ab89101f3181a2fc559c299287941dbc7a3ee821ef0e50648"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/shipment_create.xsd",
+      "sha256": "f0279c505fb4138e99b0498e32a20fe503f4239357384f2ff11cd6d5e6037224"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/shipment_detail.response.json",
+      "sha256": "b1bc48c54b7bd8e86efe1bebf39e3d0fd8c27b0ca770b9cea1f7e2692288fea8"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/shipment_internal.response.json",
+      "sha256": "93a7b289b09ceeafe9d086c7f20a07390725ad5bb9d8c0f6190aca205d38dde4"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/shipment_list.response.json",
+      "sha256": "1ca2139e55062d849867fc4cf00798737392af3c8057cd3bb5e5ba88414b4f30"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/shipment_scan.example.json",
+      "sha256": "f513d7ea757be59c766d9f7a21453977ffba8eda23db0a267ecdb0e46fba3280"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/shipment_scan.example.xml",
+      "sha256": "9a131775408dd5cfa8d5e77fcd72ab705917500b16e4221bcaeb71b92f6a28dc"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/shipment_scan.response.json",
+      "sha256": "2b53acef0bb16a9367a28c4dc520d7996e985ab21bce806fe288b93c29f57c1e"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/shipment_scan.xsd",
+      "sha256": "e8c6713607500351ca28eeae3e18ab9905327b034f3cca5d5f28eaf03b57c4d0"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/shipment_statistics.response.json",
+      "sha256": "4079a197cc2af2deb1161886da6c231314624453a2c605bd8024dda4e04e66a8"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/shipment_tracking.response.json",
+      "sha256": "142bfc67a22bf5cfa14cdf4a9cddf56e31a7eba4ae25ea8aef8e83acb3d961a2"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/shipment_transition.example.json",
+      "sha256": "68270744305cca2698e5bdbb2e1809322984654e33f5ffc1d2ff3d2f362ea74f"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/shipment_transition.example.xml",
+      "sha256": "fd56193085ef369d8bbda09f8d9045c39b8d84db72d0aefc91d4d82a0c969ca9"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/shipment_transition.response.json",
+      "sha256": "4c7d0a89840ab62ab89101f3181a2fc559c299287941dbc7a3ee821ef0e50648"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/shipment_transition.xsd",
+      "sha256": "b09cffbc94a9cf12ea7dd52974c4c89ecd698c161668862e77e636737994f3fe"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/sync_changes.response.json",
+      "sha256": "9111c21c68ac417d79ba8b14b7657b1b45d4b0bdaefa17ad920edb2098b31373"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/sync_command.example.json",
+      "sha256": "51dc44542eefbfc660de7ccd8520e702b7e67e78220b47519205c344c04c4582"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/sync_command.example.xml",
+      "sha256": "10cfd5971494162b886c493b49ae9e1ac72d8d6c6d96ac911e468de17034dae8"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/sync_command.response.json",
+      "sha256": "f68e917d13221a2c5f2dbe807c6b1853a5aba86d9b67efd9c523becba51bafa4"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/sync_command.xsd",
+      "sha256": "4c6d304d16e44cc284a21f8c295c4e00feb174821bc5c1b96b5620ddf5bf1539"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/sync_result.response.json",
+      "sha256": "f68e917d13221a2c5f2dbe807c6b1853a5aba86d9b67efd9c523becba51bafa4"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/sync_shipment_changes.response.json",
+      "sha256": "419b5616cfd72bb64df45c51ec788e15dd1dab7db9e08cebdbcf771b5cb5425f"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/telemetry_create.example.json",
+      "sha256": "cb61b8cb9cb5c230a897a44fadf5ec370b908cad6d7ce5dda9c7926bf6db9dd1"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/telemetry_create.example.xml",
+      "sha256": "40a90febe3f7e9a0c36a0120b38e4987ab4c3aee4796d7925b90bf94267a3ef7"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/telemetry_create.response.json",
+      "sha256": "c2b035c88715b00363e3c6d452c21847abb23c5ec6bf4ecaf89dd9de75a03ce6"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/telemetry_create.xsd",
+      "sha256": "081c155f3c2ac41b3af8c1a9f23f39c9e5299af01441cb5be90153022ee63b6f"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/telemetry_list.response.json",
+      "sha256": "fdbc6fa215e83773ecd2b8e74c0dd717362fe79b36d2c7aad3c584a384644e0d"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/tracking_assign.example.json",
+      "sha256": "0eaf91e39f17feec54eb783884a936cfd8223678a9ff01b5ce0e6705f12e39e3"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/tracking_assign.example.xml",
+      "sha256": "1c9c6326e233c7f067429dc7598841c31876e1edb9226f277e5035c06a6458fa"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/tracking_assign.response.json",
+      "sha256": "426f50374bd2aa39f3bd906a4e777f6915ef81766f697f1c4e92a90cf9621634"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/tracking_assign.xsd",
+      "sha256": "c0ea95ad5a890e8d6210f03358933481af69818c210d487a1af6fd7f7a9bd057"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/tracking_assignments.response.json",
+      "sha256": "bf82fa840d3a3d1d503a82b1863e39d447f9f79d1715bf92b4f34dd23af40107"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/tracking_devices_for_shipment.response.json",
+      "sha256": "6d67425a71f8ef8c25529c7443da1a95c283ac872f8aaa6cb184ded7f7d1ac79"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/tracking_history.response.json",
+      "sha256": "98045763615433a57ffa1ba3679bdad040f19bebb253360c2bfa166716b2c20f"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/tracking_metrics.response.json",
+      "sha256": "4c642c27eeacd557e98ec6b34ad418425a945d64e687622e9a5493ff8432d354"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/tracking_revoke.example.json",
+      "sha256": "a63eaecf32030a45c06ee5b61bc7f9ce994650c8dda0742edbedebaf9145bb1e"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/tracking_revoke.example.xml",
+      "sha256": "26945f360e3075dc9dfa4ab81f91d1281631ebf712094a9a534b7f0feac31065"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/tracking_revoke.response.json",
+      "sha256": "426f50374bd2aa39f3bd906a4e777f6915ef81766f697f1c4e92a90cf9621634"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/tracking_revoke.xsd",
+      "sha256": "91b1ae6987a4697910884165b8fa52a279a3eaca370c488e910c3eb24abc369f"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/tracking_snapshot.response.json",
+      "sha256": "430d7c499bb90eb4b9589dbb054d074369aa79e1e64e09c0e8905c611fd9c18b"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/tracking_ticket.response.json",
+      "sha256": "c849de27384e9e97184fca8d6beb82c1834951fe410ffb458cd4825d48cabcb4"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/transport_analytics.response.json",
+      "sha256": "904b447df31bb3e4eb718508ee537ef42606f3d00980077dcdfefb12fc628c39"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/transport_decision_data.response.json",
+      "sha256": "255afa0c6650e5059722610b6bde0f78226d3435a856d9340c7fca273cd2309f"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/websocket/client-authenticate.json",
+      "sha256": "579e659765cadd78725957a1de2d219b831aad8e045f1a939fda74422ebc76e5"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/websocket/client-authenticate.xml",
+      "sha256": "2f80ec16df6d9b0572fa5e33b643bc2ed451563a65c64e5a50fb65d55c9ed592"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/websocket/client-heartbeat.json",
+      "sha256": "33ca91687bed63b12e862bcb1bedc17f92cec857e8ceed95d262bb70c9301e0b"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/websocket/client-heartbeat.xml",
+      "sha256": "ecb136a484dc5e0bb0d9d601f77b23fb825d9ed3df1ed2a9638133e06c65258f"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/websocket/client-position-publish.json",
+      "sha256": "ffdef21752de787c79d47f534408fbfaf464a67149562c3a1a46dd530c1957fc"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/websocket/client-position-publish.xml",
+      "sha256": "2da91e63440af7cadf92a5be641f10fc17d16084c9d2be9109cf608a35959c35"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/websocket/client-subscribe.json",
+      "sha256": "4799281156c2c5cee7e5c91f4aaccffda7e858a9e377f5d5899a73cd134ca7ea"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/websocket/client-subscribe.xml",
+      "sha256": "83a02cac4862aff0d28c112e3a75ac51e81a96639d9b999d9699b4c79671b175"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/websocket/client-unsubscribe.json",
+      "sha256": "f11a384c792b24ebc84be04ebd670af76d346f5cf8d339ec3dff9cc7628d1caf"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/websocket/client-unsubscribe.xml",
+      "sha256": "b1ed6f5698afda97b5d27d5571f3b3e8268bd2924b0a99761eba6616836e8c96"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/websocket/event.schema.json",
+      "sha256": "d2af77007d46b3926259e6672cb21d5f15037fc949fd0b40e26cf46ce8da6de7"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/websocket/event.xsd",
+      "sha256": "e354243e519e7db70d1e0b8b1d5dc9c774c82358b7827fcdfd5f697b4cfe94e6"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/websocket/message.schema.json",
+      "sha256": "938e85f3a71e6a8153500e6962f23696f354d435ced8cd098e90a5df3d919924"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/websocket/message.xsd",
+      "sha256": "ea8c755e1d25c2a3f60adc76f7474d5e49161e5a1b3633c9248a19c09a76d700"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/websocket/position.schema.json",
+      "sha256": "2aad3ddefce170b55c391ccae418c310910aa2d0bbeba37bc78567fb22fe5980"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/websocket/position.xsd",
+      "sha256": "081c155f3c2ac41b3af8c1a9f23f39c9e5299af01441cb5be90153022ee63b6f"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/websocket/server-authenticated.json",
+      "sha256": "b602478bc199589704c423b389a2d4a6aa15794f9c171def3bc659827ac380be"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/websocket/server-authenticated.xml",
+      "sha256": "3cef8a8f4b64512d5f1e1f4ad63279293c7a51bcc9d4c707bce875cf22a2aeb8"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/websocket/server-error.json",
+      "sha256": "dd181bf3be193ee75a00ada0648e27875ce0149ab29da14001bf492967d76d9d"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/websocket/server-error.xml",
+      "sha256": "00146c242bb0163b757cb7afe06107d30136ac8a8486e5806ea0c3959ec2e697"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/websocket/server-position-ack.json",
+      "sha256": "72b0269f6372312f3234e1692f2da8d6bed123e814975133238059f419481569"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/websocket/server-position-ack.xml",
+      "sha256": "0ad5a714eebce74a00d9deefe7b74df6bbe58bf40eac9d417c99b8d3b8a2e8ef"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/websocket/server-position-updated.json",
+      "sha256": "f5959ed4a778ad188589fa494407ffb9607a4c1ce808651ced20c006335e0b5e"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/websocket/server-position-updated.xml",
+      "sha256": "66754cf21a5c371b49887ca6702212d0b08cb6fc534ba618772f3df630ddd518"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/websocket/server-resync-required.json",
+      "sha256": "dcef1775f76d52b887ce1b5a25b3f313e6ea34c1528699fc8dcefe776dbb0528"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/websocket/server-resync-required.xml",
+      "sha256": "a494d9dbe75dd53456304a90169ac282f7430aaf4eb9bed80cb716b8510ed113"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/websocket/server-subscribed.json",
+      "sha256": "c2938066597266b3f382281d9e6e38ef0890f67d4ed1d9de22b4bc67fa147091"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/websocket/server-subscribed.xml",
+      "sha256": "6f83b371001e0823c922e3ba9adfad0f3f6ab94fdaa6be937484c543ec440884"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/websocket/server-tracking-status.json",
+      "sha256": "1948a440481034795487d9ef44b7b5b0265e3fbf16807b0092cf5d49b36689e7"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/websocket/server-tracking-status.xml",
+      "sha256": "47f5af47a2a30129f4916db46df307e592b9e96be831d908ba2372bdb559e623"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/websocket/server-unsubscribed.json",
+      "sha256": "867657b8f5f906e47d5364479e6c6dc9d9f8d7b2d46b9019807ed237807353d0"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/websocket/server-unsubscribed.xml",
+      "sha256": "a7e58df5faf239110bf69b7598d01c8c0293e2de6dcb3d6685768ae80f097953"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/websocket/stored-position.schema.json",
+      "sha256": "fd29de0d0dbbf3531d29b261a75422302bb5863128c230be57f6c93b1a6fefc9"
+    },
+    {
+      "path": "apps/services/ms_transporte/contracts/websocket/stored-position.xsd",
+      "sha256": "8376f7c833bafd05d1041b04d6b121cf063248ebffb3bb107ad86a5e91143aff"
+    },
+    {
+      "path": "apps/services/ms_transporte/mobile.py",
+      "sha256": "b8a85c976ab90733136165853579c6be39a53ac9771530378870290f3d631eae"
+    },
+    {
+      "path": "apps/services/ms_transporte/tracking.py",
+      "sha256": "6ee7b940aa38355e6c335ea9240fd5a1c510621eb79dba31fdad2aaaa77a1df9"
+    },
+    {
+      "path": "apps/services/redhouse/delivery.py",
+      "sha256": "46ff9aee1f9c07ec48c6ababee251bb06edca3a223efc84bfe0a3e9825c8509c"
+    },
+    {
+      "path": "apps/services/redhouse/shared_migrations/018.sql",
+      "sha256": "3262e34656d80b819f05ca09b1c43bb736ac5277e46e478825f23d174a27133a"
+    },
+    {
+      "path": "apps/services/tests/test_final_tracking.py",
+      "sha256": "507010fabaa3eca2c8da85d1aa46ec2ed7fb4ad02792a0381f372b12e6d6f748"
+    },
+    {
+      "path": "apps/services/tests/test_mobile_transport.py",
+      "sha256": "0019160a83a8425c889c2aa2f329cd8dab0241757583c969ba895dad51b02bfc"
+    }
+  ]
+}

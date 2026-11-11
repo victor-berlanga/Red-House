@@ -1,0 +1,50 @@
+{
+  "type": "object",
+  "required": [
+    "data",
+    "meta"
+  ],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": [
+        "correlation_id",
+        "service",
+        "version"
+      ],
+      "properties": {
+        "correlation_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "service": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      }
+    },
+    "data": {
+      "additionalProperties": false,
+      "properties": {
+        "credential": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Credential",
+          "type": "string"
+        },
+        "expires_in": {
+          "title": "Expires In",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "credential",
+        "expires_in"
+      ],
+      "title": "BrowserTicket",
+      "type": "object"
+    }
+  }
+}

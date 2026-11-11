@@ -1,0 +1,74 @@
+{
+  "startedAt": "2026-11-07T00:57:14.907Z",
+  "environment": "https://localhost:63549",
+  "gateway": "WSGI TLS aislado; no acredita proxy productivo",
+  "backend": "http",
+  "version": "working-tree/schema-17",
+  "commit": "cbe3503b39a60b6b0a995f1284b2f5b1c3405cae",
+  "sourceManifest": "sources-before.json",
+  "schema": 17,
+  "policies": {
+    "mfa": true,
+    "reauth": true,
+    "laboratory": true,
+    "organAuthorization": true
+  },
+  "checks": [
+    {
+      "name": "Inicio de sesión y cookies Secure sobre TLS",
+      "role": "admin",
+      "at": "2026-11-07T00:57:30.947Z",
+      "result": "PASS"
+    }
+  ],
+  "consoleErrors": [],
+  "networkErrors": [],
+  "records": {},
+  "privateReportDownloaded": false,
+  "map": "Pendiente de ejecutar",
+  "runtime": {
+    "browser": "157.0.8103.39",
+    "node": "v22.13.0",
+    "os": "darwin",
+    "arch": "x64"
+  },
+  "charts": [
+    {
+      "role": "admin",
+      "charts": []
+    }
+  ],
+  "accessibility": [
+    {
+      "role": "admin",
+      "page": "/panel",
+      "width": 390,
+      "focus": {
+        "tag": "A",
+        "visible": true,
+        "label": "Saltar al contenido",
+        "outline": "solid"
+      },
+      "violations": [
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "targets": [
+            [
+              "#main > p"
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "passed": false,
+  "failure": "Accesibilidad admin 390",
+  "failureLocation": [
+    "    at module.exports (/Users/victorberlanga/Programacion/integracion/Red-House/scripts/portal_accessibility.cjs:13:412)",
+    "    at async login (/Users/victorberlanga/Programacion/integracion/Red-House/scripts/verify_backend_corrections.cjs:22:153)",
+    "    at async module.exports (/Users/victorberlanga/Programacion/integracion/Red-House/scripts/portal_profile_journeys.cjs:9:2)",
+    "    at async /Users/victorberlanga/Programacion/integracion/Red-House/scripts/verify_backend_corrections.cjs:33:57"
+  ],
+  "finishedAt": "2026-11-07T00:57:32.528Z"
+}

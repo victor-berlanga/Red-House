@@ -245,3 +245,37 @@ No se declara cerrado el prompt completo: las conexiones operativas y la aprobac
 ## Corrección de etapa 02 — esquema 15
 
 La [matriz de 21 criterios](../entrega-final/algoritmos/correccion/Matriz_cierre.md) cubre requisito, defecto, propietario, código, contrato, migración, acción, aceptación, prueba, estado y dependencia. Sustituye el alcance técnico limitado de la ampliación 0.4.2, preservada como historia; sus números no se atribuyen a esta ejecución. [Resultados nuevos](../evidencias/entrega-final/algoritmos/correccion_comprobacion/20261101T042648Z/RESULTADOS.md).
+
+## Portal — 6 de noviembre de 2026
+
+Ampliación local del prompt 03: [matriz de alcance](../entrega-final/portal/Matriz.md),
+[guía por perfil y contratos](../entrega-final/portal/Operacion.md) y
+[evidencia](../evidencias/entrega-final/portal/RESULTADOS.md).
+La etapa permanece abierta; no se atribuyen nuevas pruebas a resultados históricos.
+
+### Corrección y comprobación del portal — esquema 17
+
+El encargo posterior implementa y revalida la etapa 03. La
+[matriz vigente de 34 criterios](../entrega-final/portal/Matriz.md) enlaza código,
+prueba, entorno, resultado y acción de cierre. El
+[expediente de corrección](../evidencias/entrega-final/portal/correccion-20261106/RESULTADOS.md)
+separa ejecuciones nuevas, intentos fallidos y antecedentes. No modifica la aceptación
+previa de 01/02 por la ampliación móvil, ni acredita infraestructura o captura física
+con dobles/simulador. El veredicto de esta corrección se consulta en ese expediente.
+
+### Revisión vigente de aceptación local e integrada de 03
+
+**APTA LOCALMENTE PARA CONTINUAR A 04** según el encargo posterior del 6 de noviembre.
+WEB-12/15/19/21/24 y TRACK-09/10 siguen PARCIALES en aceptación integrada; el usuario
+confirmó mantener sus ensayos externos pendientes de 06. [Revisión e inventario real](../evidencias/entrega-final/portal/aceptacion-20261106/RESULTADOS.md):
+90 casos históricos preservados, cuatro nuevos locales y ninguna ejecución nueva de
+navegador/GCS/ClamAV/gateway reales. [Ensayo con responsables y criterios de cierre](../entrega-final/portal/Aceptacion_integrada_06.md).
+Este veredicto permite avanzar localmente y no sustituye la aceptación integral.
+
+## Móvil iOS/Android — incremento inicial del 09/11/2026
+
+El alcance vigente usa Kotlin Multiplatform y Compose Multiplatform. La [matriz MOV-01 a MOV-16](../entrega-final/mobile/Matriz.md) registra pantallas, perfiles, propietarios, implementación y criterios pendientes. Etapa 04 incompleta: las clases de sesión, WSS y cola no acreditan capacidades nativas ni recorridos integrados. [Resultados y límites](../evidencias/entrega-final/mobile/RESULTADOS.md).
+
+## Móvil — continuación funcional del 09/11/2026
+
+La [matriz MOV vigente](../entrega-final/mobile/Matriz.md) sustituye el diagnóstico inicial: dispositivos IOS/ANDROID, operaciones por perfil, QR verificado, GPS/WSS, mapa y sincronización cifrada están conectados en fuente. [Evidencias separadas por entorno](../evidencias/entrega-final/mobile/continuacion-20261109/RESULTADOS.md) registran recorridos Kotlin contra cinco servicios reales y regresión backend. Las pruebas nativas, iOS, push y evidencia GCS conservan sus propios criterios pendientes; no se deducen de un test JVM ni se reabren 01/02.

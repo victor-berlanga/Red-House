@@ -1,0 +1,62 @@
+> Task :composeApp:checkSandboxAndWriteProtection
+> Task :composeApp:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :composeApp:convertXmlValueResourcesForAppleMain NO-SOURCE
+> Task :composeApp:copyNonXmlValueResourcesForAppleMain NO-SOURCE
+> Task :composeApp:prepareComposeResourcesTaskForAppleMain NO-SOURCE
+> Task :composeApp:generateResourceAccessorsForAppleMain SKIPPED
+> Task :composeApp:convertXmlValueResourcesForCommonMain NO-SOURCE
+> Task :composeApp:copyNonXmlValueResourcesForCommonMain NO-SOURCE
+> Task :composeApp:prepareComposeResourcesTaskForCommonMain NO-SOURCE
+> Task :composeApp:generateResourceAccessorsForCommonMain SKIPPED
+> Task :composeApp:convertXmlValueResourcesForIosArm64Main NO-SOURCE
+> Task :composeApp:copyNonXmlValueResourcesForIosArm64Main NO-SOURCE
+> Task :composeApp:prepareComposeResourcesTaskForIosArm64Main NO-SOURCE
+> Task :composeApp:generateResourceAccessorsForIosArm64Main SKIPPED
+> Task :composeApp:convertXmlValueResourcesForIosMain NO-SOURCE
+> Task :composeApp:copyNonXmlValueResourcesForIosMain NO-SOURCE
+> Task :composeApp:prepareComposeResourcesTaskForIosMain NO-SOURCE
+> Task :composeApp:generateResourceAccessorsForIosMain SKIPPED
+> Task :composeApp:convertXmlValueResourcesForNativeMain NO-SOURCE
+> Task :composeApp:copyNonXmlValueResourcesForNativeMain NO-SOURCE
+> Task :composeApp:prepareComposeResourcesTaskForNativeMain NO-SOURCE
+> Task :composeApp:generateResourceAccessorsForNativeMain SKIPPED
+> Task :composeApp:generateActualResourceCollectorsForIosArm64Main SKIPPED
+> Task :composeApp:generateComposeResClass SKIPPED
+> Task :composeApp:generateExpectResourceCollectorsForCommonMain SKIPPED
+> Task :composeApp:generateMobileEnvironment UP-TO-DATE
+> Task :composeApp:compileKotlinIosArm64
+> Task :composeApp:linkDebugFrameworkIosArm64
+> Task :composeApp:assembleDebugAppleFrameworkForXcodeIosArm64
+> Task :composeApp:createBuildSystemDirectory
+> Task :composeApp:symbolicLinkToAssembleDebugAppleFrameworkForXcodeIosArm64
+> Task :composeApp:copyDsymForEmbedAndSignAppleFrameworkForXcode SKIPPED
+> Task :composeApp:checkCanSyncComposeResourcesForIos
+> Task :composeApp:iosArm64ResolveResourcesFromDependencies UP-TO-DATE
+> Task :composeApp:assembleIosArm64MainResources UP-TO-DATE
+> Task :composeApp:iosArm64ResolveSelfResourcesCopyHierarchicalMultiplatformResources UP-TO-DATE
+> Task :composeApp:iosArm64AggregateResources UP-TO-DATE
+> Task :composeApp:iosSimulatorArm64ResolveResourcesFromDependencies UP-TO-DATE
+> Task :composeApp:convertXmlValueResourcesForIosSimulatorArm64Main NO-SOURCE
+> Task :composeApp:copyNonXmlValueResourcesForIosSimulatorArm64Main NO-SOURCE
+> Task :composeApp:prepareComposeResourcesTaskForIosSimulatorArm64Main NO-SOURCE
+> Task :composeApp:assembleIosSimulatorArm64MainResources UP-TO-DATE
+> Task :composeApp:iosSimulatorArm64ResolveSelfResourcesCopyHierarchicalMultiplatformResources UP-TO-DATE
+> Task :composeApp:iosSimulatorArm64AggregateResources UP-TO-DATE
+> Task :composeApp:iosX64ResolveResourcesFromDependencies UP-TO-DATE
+> Task :composeApp:convertXmlValueResourcesForIosX64Main NO-SOURCE
+> Task :composeApp:copyNonXmlValueResourcesForIosX64Main NO-SOURCE
+> Task :composeApp:prepareComposeResourcesTaskForIosX64Main NO-SOURCE
+> Task :composeApp:assembleIosX64MainResources UP-TO-DATE
+> Task :composeApp:iosX64ResolveSelfResourcesCopyHierarchicalMultiplatformResources UP-TO-DATE
+> Task :composeApp:iosX64AggregateResources UP-TO-DATE
+> Task :composeApp:syncComposeResourcesForIos
+> Task :composeApp:embedAndSignAppleFrameworkForXcode SKIPPED
+BUILD SUCCESSFUL in 11m 50s
+SwiftCompile normal arm64 Compiling\ AppDelegate.swift /Users/victorberlanga/Programacion/integracion/Red-House/apps/mobile/iosApp/AppDelegate.swift (in target 'RedHouse' from project 'RedHouse')
+SwiftCompile normal arm64 /Users/victorberlanga/Programacion/integracion/Red-House/apps/mobile/iosApp/AppDelegate.swift (in target 'RedHouse' from project 'RedHouse')
+SwiftEmitModule normal arm64 Emitting\ module\ for\ RedHouseHost (in target 'RedHouse' from project 'RedHouse')
+SwiftCompile normal arm64 Compiling\ IOSDeviceAccess.swift /Users/victorberlanga/Programacion/integracion/Red-House/apps/mobile/iosApp/IOSDeviceAccess.swift (in target 'RedHouse' from project 'RedHouse')
+SwiftCompile normal arm64 /Users/victorberlanga/Programacion/integracion/Red-House/apps/mobile/iosApp/IOSDeviceAccess.swift (in target 'RedHouse' from project 'RedHouse')
+Ld /tmp/redhouse-ios-products-031/Debug-iphoneos/RedHouse.app/RedHouse normal (in target 'RedHouse' from project 'RedHouse')
+2026-11-10 18:04:10.148 appintentsmetadataprocessor[2474:6890156] warning: Metadata extraction skipped. No AppIntents.framework dependency found.
+** BUILD SUCCEEDED **

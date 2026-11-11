@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<testsuites name="pytest tests">
+  <testsuite name="pytest" errors="0" failures="0" skipped="0" tests="6" time="53.219" timestamp="2026-11-06T16:13:05.392536-06:00" hostname="Victors-MacBook-Air.local">
+    <testcase classname="tests.test_portal_corrections" name="test_publication_without_api_listeners" time="32.383" />
+    <testcase classname="tests.test_portal_corrections" name="test_configuration_publication_privacy_versions_and_metrics" time="2.721" />
+    <testcase classname="tests.test_portal_corrections" name="test_paginated_export_over_thousand_filters_context_and_foreign_denial" time="2.148" />
+    <testcase classname="tests.test_portal_corrections" name="test_pending_confirmation_web_recovers_same_command_without_false_success" time="5.881" />
+    <testcase classname="tests.test_portal_corrections" name="test_export_worker_rechecks_revoked_session_before_extraction" time="1.073" />
+    <testcase classname="tests.test_portal_corrections" name="test_web_lost_entire_write_response_queries_result_without_second_post" time="8.744" />
+  </testsuite>
+</testsuites>

@@ -1,0 +1,11 @@
+{
+  "environment": "Android API 30 emulator, real GCP demo accounts, read-only UI journeys; login/device registration/logout as existing app behavior",
+  "profiles": [
+    {
+      "account": "donor1",
+      "first": "Citas",
+      "status": "running"
+    }
+  ],
+  "error": "Authentication rejected; MFA/password unchanged"
+}

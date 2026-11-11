@@ -2,7 +2,11 @@
 
 import csv
 import io
+import json
 import math
+from datetime import datetime, timezone
+
+from ...presentation.timezones import selected_zone
 
 from .common import (
     FIELD_LABELS,
@@ -12,6 +16,7 @@ from .common import (
     call,
     confirmations,
     contextual,
+    display,
     field,
     g,
     local_date,
@@ -74,7 +79,7 @@ def audit_filters():
     return params, api, selected
 
 
-def csv_response(items):
+def csv_response(items, filters, total, page, all_results):
     columns = [
         ("action_label", "Acción"),
         ("actor_display", "Responsable"),
@@ -85,13 +90,35 @@ def csv_response(items):
     ]
     stream = io.StringIO()
     writer = csv.writer(stream)
-    writer.writerow([label for _, label in columns])
+    context = [
+        json.dumps(filters, ensure_ascii=False, sort_keys=True),
+        g.principal.region_name,
+        selected_zone(),
+        datetime.now(timezone.utc).isoformat(),
+        "Todos los resultados" if all_results else str(page),
+        str(total),
+        str(len(items)),
+    ]
+    writer.writerow(
+        [label for _, label in columns]
+        + [
+            "Filtros",
+            "Ámbito regional autorizado",
+            "Zona",
+            "Generado UTC",
+            "Página o alcance",
+            "Total filtrado",
+            "Filas exportadas",
+        ]
+    )
     for row in items:
         cells = []
         for key, _ in columns:
             value = row.get(key)
             if key == "tenant_id":
                 value = g.institutions.get(str(value), value)
+            elif key == "executed_at" and value is not None:
+                value = display(value)
             value = str(value) if value is not None else "No registrado"
             # También bloquea fórmulas precedidas por espacio, tabulador o salto.
             cells.append(
@@ -100,7 +127,16 @@ def csv_response(items):
                 or value.startswith(("\t", "\r", "\n"))
                 else value
             )
-        writer.writerow(cells)
+        writer.writerow(
+            cells
+            + [
+                "'" + value
+                if value.lstrip().startswith(("=", "+", "-", "@"))
+                or value.startswith(("\t", "\r", "\n"))
+                else value
+                for value in context
+            ]
+        )
     return Response(
         "\ufeff" + stream.getvalue(),
         mimetype="text/csv",
@@ -131,7 +167,7 @@ def audit():
         page = pages
         data = call("auditoria", path, params={**api, "page": page, "page_size": 20})
     if exporting:
-        return csv_response(data["items"])
+        return csv_response(data["items"], params, data["total"], page, all_results)
     target = url_for("portal.audit", **params, applied="1", page=page)
     for row in data["items"]:
         row["href"] = contextual(

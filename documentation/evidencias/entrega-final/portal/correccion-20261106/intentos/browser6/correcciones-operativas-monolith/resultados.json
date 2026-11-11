@@ -1,0 +1,445 @@
+{
+  "startedAt": "2026-11-06T22:34:49.490Z",
+  "environment": "https://localhost:65518",
+  "gateway": "WSGI TLS aislado; no acredita proxy productivo",
+  "backend": "monolith",
+  "version": "0.4.1",
+  "schema": 17,
+  "policies": {
+    "mfa": true,
+    "reauth": true,
+    "laboratory": true,
+    "organAuthorization": true
+  },
+  "checks": [
+    {
+      "name": "Inicio de sesión y cookies Secure sobre TLS",
+      "role": "admin",
+      "at": "2026-11-06T22:35:00.576Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Publicación institucional explícita, sin coordenadas privadas en sitio público",
+      "role": "admin",
+      "at": "2026-11-06T22:35:07.530Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Administrador registra emisor, rota credencial y revoca dispositivo",
+      "role": "admin",
+      "at": "2026-11-06T22:35:20.290Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Inicio de sesión y cookies Secure sobre TLS",
+      "role": "donor",
+      "at": "2026-11-06T22:35:28.152Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Donante registra expediente y consentimiento versionado persistente",
+      "role": "donor1",
+      "at": "2026-11-06T22:35:42.265Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Donante rechazado por URL de inventario ajeno",
+      "role": "donor1",
+      "at": "2026-11-06T22:35:43.671Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Inicio de sesión y cookies Secure sobre TLS",
+      "role": "operator1",
+      "at": "2026-11-06T22:35:54.323Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Agenda con sede/horario: reservar, confirmar, reprogramar y cancelar",
+      "role": "donor1",
+      "at": "2026-11-06T22:36:52.908Z",
+      "result": "PASS"
+    },
+    {
+      "name": "MFA ausente rechazado sin iniciar sesión",
+      "role": "origin",
+      "at": "2026-11-06T22:36:58.209Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Inicio de sesión y cookies Secure sobre TLS",
+      "role": "origin",
+      "at": "2026-11-06T22:37:06.204Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Donación, evaluación médica, procesamiento, fraccionamiento, linaje y etiqueta",
+      "role": "operator1",
+      "at": "2026-11-06T22:37:38.008Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Equipo de conservación registrado mediante formulario",
+      "role": "operator1",
+      "at": "2026-11-06T22:37:41.937Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Retirada de consentimiento conserva historial",
+      "role": "donor1",
+      "at": "2026-11-06T22:37:47.278Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Recuperación por SMTP real local, token de un uso y nuevo login",
+      "role": "donor",
+      "at": "2026-11-06T22:37:59.326Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Liberación sin reautenticación rechazada",
+      "role": "origin",
+      "at": "2026-11-06T22:38:01.623Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Liberación con MFA, perfil completo y reautenticación; persiste al recargar",
+      "role": "origin",
+      "at": "2026-11-06T22:38:04.382Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Inicio de sesión y cookies Secure sobre TLS",
+      "role": "destination",
+      "at": "2026-11-06T22:38:07.853Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Solicitud, evaluación y revisión humana",
+      "role": "destination",
+      "at": "2026-11-06T22:38:15.566Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Nueva versión de laboratorio autorizada con MFA y reautenticación",
+      "role": "origin",
+      "at": "2026-11-06T22:38:32.970Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Reserva con dictamen anterior rechazada visiblemente",
+      "role": "destination",
+      "at": "2026-11-06T22:38:36.959Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Respuesta perdida tras escritura: pendiente visible y recuperación del mismo comando",
+      "role": "destination",
+      "at": "2026-11-06T22:39:07.326Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Nueva evaluación y revisión permiten reservar una sola vez",
+      "role": "destination",
+      "at": "2026-11-06T22:39:07.340Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Inicio de sesión y cookies Secure sobre TLS",
+      "role": "coordinator",
+      "at": "2026-11-06T22:39:12.360Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Inicio de sesión y cookies Secure sobre TLS",
+      "role": "transport1",
+      "at": "2026-11-06T22:39:26.665Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Custodia incompleta no avanza; mensaje visible en móvil",
+      "role": "transport1",
+      "at": "2026-11-06T22:39:30.042Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Mapa con WSS real: multipunto, sin fijación, antigüedad, corte, replay y recuperación sin recarga",
+      "role": "transport1",
+      "at": "2026-11-06T22:39:57.599Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Inicio de sesión y cookies Secure sobre TLS",
+      "role": "operator2",
+      "at": "2026-11-06T22:40:14.824Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Traslado completo, custodia y aceptación persistente",
+      "role": "operator2",
+      "at": "2026-11-06T22:41:59.135Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Tipo incompatible rechazado; uso y corrección documental conservan historia",
+      "role": "destination",
+      "at": "2026-11-06T22:43:09.611Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Institución anterior no accede al recurso recibido por otra",
+      "role": "origin",
+      "at": "2026-11-06T22:43:11.916Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Inicio de sesión y cookies Secure sobre TLS",
+      "role": "limited",
+      "at": "2026-11-06T22:43:25.146Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Sesión vencida en servidor redirige al inicio de sesión",
+      "role": "admin",
+      "at": "2026-11-06T22:43:41.681Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Cambio institucional de rol retira la sesión anterior",
+      "role": "admin",
+      "at": "2026-11-06T22:43:43.085Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Reporte privado rechaza institución ajena",
+      "role": "origin",
+      "at": "2026-11-06T22:44:32.500Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Filtros y reporte privado del propietario extraído",
+      "role": "destination",
+      "at": "2026-11-06T22:44:32.543Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Inicio de sesión y cookies Secure sobre TLS",
+      "role": "auditor1",
+      "at": "2026-11-06T22:44:50.514Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Auditoría visible y responsive sin errores JavaScript",
+      "role": "auditor1",
+      "at": "2026-11-06T22:45:12.146Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Cierre de sesión",
+      "role": "auditor1",
+      "at": "2026-11-06T22:45:20.333Z",
+      "result": "PASS"
+    }
+  ],
+  "consoleErrors": [],
+  "networkErrors": [
+    {
+      "status": 403,
+      "path": "/inventario/e6a24fa5-2cd8-49c4-9601-69a66e2005c3",
+      "role": "donor"
+    },
+    {
+      "status": 401,
+      "path": "/login",
+      "role": "origin"
+    },
+    {
+      "status": 401,
+      "path": "/recuperar-acceso/confirmar",
+      "role": "donor"
+    },
+    {
+      "status": 403,
+      "path": "/inventario/e6a24fa5-2cd8-49c4-9601-69a66e2005c3/liberar",
+      "role": "origin"
+    },
+    {
+      "status": 409,
+      "path": "/evaluaciones/8d2a9ab5-f707-414f-b9ef-6f95164fbb2a/reservar/e6a24fa5-2cd8-49c4-9601-69a66e2005c3",
+      "role": "destination"
+    },
+    {
+      "status": 409,
+      "path": "/inventario/e6a24fa5-2cd8-49c4-9601-69a66e2005c3/destino",
+      "role": "destination"
+    },
+    {
+      "status": 403,
+      "path": "/inventario/e6a24fa5-2cd8-49c4-9601-69a66e2005c3",
+      "role": "origin"
+    }
+  ],
+  "records": {
+    "profileJourneys": {
+      "donor": "710352f2-8b16-49d9-8320-bc1f6aed09d9",
+      "donation": "41bde163-473c-466c-96b9-98242699a523",
+      "resource": "e8992609-e1c7-4e35-ad6a-6ad2373e8dd2",
+      "appointment": "7e5dbfaa-fe2a-4223-a35e-113c4413b561",
+      "campaign": "0b699d61-1986-4fd9-be9a-713b5dc32363"
+    },
+    "request": "7ac6ebd1-0122-4b7f-ace0-05a6e9fad828",
+    "correctedResult": "50ccfb11-1179-4dce-b39a-1a300f877db2",
+    "operation": "f5f723af-cef8-42f7-ab35-218de0fcac30",
+    "shipment": "fe14209e-f187-4739-ae59-64802bf36bc3",
+    "report": "08efafd6-c9f3-42ba-a692-de84a424f576"
+  },
+  "privateReportDownloaded": false,
+  "map": {
+    "transport": "WSS real sin sustitución de URL",
+    "cartography": "Mosaicos en línea del proveedor con atribución",
+    "events": [
+      {
+        "cursor": 1,
+        "ack": true,
+        "event": "002e5292-0f64-42bc-b1ce-abb401ed655f"
+      },
+      {
+        "cursor": 2,
+        "ack": true,
+        "event": "1c8e6751-0811-4f9c-ae44-7e57e49384f9"
+      },
+      {
+        "cursor": 3,
+        "ack": true,
+        "event": "3110ff61-7d1a-4d25-bc15-8b5cb72ba38f"
+      },
+      {
+        "cursor": 4,
+        "ack": true,
+        "event": "42808ab7-8c89-40d4-b8a8-cfeac225d70e"
+      },
+      {
+        "cursor": 5,
+        "ack": true,
+        "event": "bc291e8b-019b-428e-b899-53bbba93dc7d"
+      },
+      {
+        "cursor": 6,
+        "ack": true,
+        "event": "1e5cee97-48c4-4d48-b2cd-ca22a6f1d969"
+      }
+    ],
+    "receiptToMap": [
+      {
+        "event_id": "002e5292-0f64-42bc-b1ce-abb401ed655f",
+        "shipment_id": "fe14209e-f187-4739-ae59-64802bf36bc3",
+        "cursor": 1,
+        "received_at": "2026-11-06T22:39:37.946941+00:00",
+        "rendered_at": "2026-11-06T22:39:38.198Z",
+        "receive_to_map_ms": 252
+      },
+      {
+        "event_id": "1c8e6751-0811-4f9c-ae44-7e57e49384f9",
+        "shipment_id": "fe14209e-f187-4739-ae59-64802bf36bc3",
+        "cursor": 2,
+        "received_at": "2026-11-06T22:39:38.916819+00:00",
+        "rendered_at": "2026-11-06T22:39:39.483Z",
+        "receive_to_map_ms": 567
+      },
+      {
+        "event_id": "3110ff61-7d1a-4d25-bc15-8b5cb72ba38f",
+        "shipment_id": "fe14209e-f187-4739-ae59-64802bf36bc3",
+        "cursor": 3,
+        "received_at": "2026-11-06T22:39:51.879092+00:00",
+        "rendered_at": "2026-11-06T22:39:52.949Z",
+        "receive_to_map_ms": 1070
+      },
+      {
+        "event_id": "3110ff61-7d1a-4d25-bc15-8b5cb72ba38f",
+        "shipment_id": "fe14209e-f187-4739-ae59-64802bf36bc3",
+        "cursor": 3,
+        "received_at": "2026-11-06T22:39:51.879092+00:00",
+        "rendered_at": "2026-11-06T22:39:53.052Z",
+        "receive_to_map_ms": 1173
+      },
+      {
+        "event_id": "42808ab7-8c89-40d4-b8a8-cfeac225d70e",
+        "shipment_id": "fe14209e-f187-4739-ae59-64802bf36bc3",
+        "cursor": 4,
+        "received_at": "2026-11-06T22:39:53.541942+00:00",
+        "rendered_at": "2026-11-06T22:39:53.932Z",
+        "receive_to_map_ms": 391
+      },
+      {
+        "event_id": "bc291e8b-019b-428e-b899-53bbba93dc7d",
+        "shipment_id": "fe14209e-f187-4739-ae59-64802bf36bc3",
+        "cursor": 5,
+        "received_at": "2026-11-06T22:39:54.515676+00:00",
+        "rendered_at": "2026-11-06T22:39:54.655Z",
+        "receive_to_map_ms": 140
+      },
+      {
+        "event_id": "1e5cee97-48c4-4d48-b2cd-ca22a6f1d969",
+        "shipment_id": "fe14209e-f187-4739-ae59-64802bf36bc3",
+        "cursor": 6,
+        "received_at": "2026-11-06T22:39:55.502042+00:00",
+        "rendered_at": "2026-11-06T22:39:55.999Z",
+        "receive_to_map_ms": 497
+      }
+    ]
+  },
+  "accessibility": [
+    {
+      "role": "admin",
+      "page": "/panel",
+      "violations": []
+    },
+    {
+      "role": "donor",
+      "page": "/panel",
+      "violations": []
+    },
+    {
+      "role": "operator1",
+      "page": "/panel",
+      "violations": []
+    },
+    {
+      "role": "origin",
+      "page": "/panel",
+      "violations": []
+    },
+    {
+      "role": "destination",
+      "page": "/panel",
+      "violations": []
+    },
+    {
+      "role": "coordinator",
+      "page": "/panel",
+      "violations": []
+    },
+    {
+      "role": "transport1",
+      "page": "/panel",
+      "violations": []
+    },
+    {
+      "role": "operator2",
+      "page": "/panel",
+      "violations": []
+    },
+    {
+      "role": "limited",
+      "page": "/panel",
+      "violations": []
+    },
+    {
+      "role": "auditor1",
+      "page": "/panel",
+      "violations": []
+    }
+  ],
+  "passed": true,
+  "finishedAt": "2026-11-06T22:45:20.343Z"
+}

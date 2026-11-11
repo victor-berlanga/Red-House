@@ -1,0 +1,55 @@
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 149B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/redhouse/web:uiux-before-20261110
+#2 DONE 0.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [1/2] FROM docker.io/redhouse/web:uiux-before-20261110@sha256:5c9a9d980f2e2c087bd74999156f86969fa0eb8bff74484c69cca6f8c94d3399
+#4 resolve docker.io/redhouse/web:uiux-before-20261110@sha256:5c9a9d980f2e2c087bd74999156f86969fa0eb8bff74484c69cca6f8c94d3399 0.0s done
+#4 DONE 0.1s
+
+#5 [internal] load build context
+#5 transferring context: 81.83kB 0.0s done
+#5 DONE 0.1s
+
+#4 [1/2] FROM docker.io/redhouse/web:uiux-before-20261110@sha256:5c9a9d980f2e2c087bd74999156f86969fa0eb8bff74484c69cca6f8c94d3399
+#4 DONE 0.1s
+
+#6 [2/2] COPY payload/ /app/
+#6 DONE 0.1s
+
+#7 exporting to image
+#7 exporting layers 0.1s done
+#7 exporting manifest sha256:37ba525feccb00c70ff8fe71fbf228633df54c5cddf7d00c8ce069e8ac7ada0d 0.0s done
+#7 exporting config sha256:3f0692bb2147dd2ead7d77acc08419e7395aef78b7c5bf8a846a85d0d0d7c0fd 0.0s done
+#7 exporting attestation manifest sha256:67ef430040302421a824ef5479635ae4398309b602910d6b3169b336068bac6b 0.0s done
+#7 exporting manifest list sha256:5d3e719ec1077cf6f3cc4b8bc05cd78e08d651ed64ff7fdf059378338405e064 0.0s done
+#7 naming to docker.io/redhouse/web:uiux-20261110 done
+#7 unpacking to docker.io/redhouse/web:uiux-20261110 0.1s done
+#7 DONE 0.4s
+Image payload verified
+ Container redhouse-parcial2-web-1 Recreate 
+ Container redhouse-parcial2-web-1 Recreated 
+ Container redhouse-parcial2-web-1 Starting 
+ Container redhouse-parcial2-web-1 Started 
+ Container redhouse-parcial2-web-1 Waiting 
+ Container redhouse-parcial2-web-1 Healthy 
+{
+  "tag": "redhouse/web:uiux-20261110",
+  "files": 9,
+  "containers": 30,
+  "unchanged_other_containers": 29,
+  "healthy": true,
+  "database_migrations": false,
+  "backup": "/opt/redhouse/.local/deploy-uiux-20261110",
+  "old_image": "sha256:5c9a9d980f2e2c087bd74999156f86969fa0eb8bff74484c69cca6f8c94d3399",
+  "new_image": "sha256:5d3e719ec1077cf6f3cc4b8bc05cd78e08d651ed64ff7fdf059378338405e064"
+}
+

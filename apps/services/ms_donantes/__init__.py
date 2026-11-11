@@ -24,4 +24,9 @@ def create_app(config=None):
     agenda(app)
     from .decision_data import install as decision_data
     decision_data(app)
+    from .publication import install as publication
+
+    publication(app)
+    from redhouse.portal_metrics import install as portal_metrics
+    portal_metrics(app, "donantes")
     return complete_app(app)

@@ -17,7 +17,8 @@ class Position(Model):
     event_id: ID
     shipment_id: ID
     device_id: ID
-    source: Literal["SIMULATOR", "GPS_BRIDGE", "ANDROID"]
+    source: Literal["SIMULATOR", "GPS_BRIDGE", "ANDROID", "IOS"]
+    simulated: bool = False
     sequence: Annotated[int, Field(ge=0, le=9007199254740991)]
     captured_at: Text
     latitude: Annotated[float, Field(ge=-90, le=90)] | None = None
@@ -48,7 +49,7 @@ class Message(Model):
     type: Literal[
         "authenticate", "subscribe", "unsubscribe", "position.publish", "heartbeat"
     ]
-    credential_kind: Literal["user", "device"] | None = None
+    credential_kind: Literal["user", "device", "browser"] | None = None
     credential: Annotated[str, Field(min_length=40, max_length=8192)] | None = None
     shipment_id: ID | None = None
     cursor: Annotated[int, Field(ge=0, le=9007199254740991)] | None = None

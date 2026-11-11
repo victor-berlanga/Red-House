@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='utf-8'?>
+<testsuites name="pytest tests">
+  <testsuite name="pytest" errors="0" failures="0" skipped="0" tests="22" time="158.040" timestamp="2026-11-06T18:53:22.176843-06:00" hostname="Victors-MacBook-Air.local">
+    <testcase classname="tests.test_portal_corrections" name="test_publication_without_api_listeners" time="62.546" />
+    <testcase classname="tests.test_portal_corrections" name="test_configuration_publication_privacy_versions_and_metrics" time="7.561" />
+    <testcase classname="tests.test_portal_corrections" name="test_paginated_export_over_thousand_filters_context_and_foreign_denial" time="3.577" />
+    <testcase classname="tests.test_portal_corrections" name="test_pending_confirmation_web_recovers_same_command_without_false_success" time="7.294" />
+    <testcase classname="tests.test_portal_corrections" name="test_export_worker_rechecks_revoked_session_before_extraction" time="1.937" />
+    <testcase classname="tests.test_portal_corrections" name="test_web_lost_entire_write_response_queries_result_without_second_post" time="5.400" />
+    <testcase classname="tests.test_portal_corrections" name="test_coordinator_reads_regional_proposal_without_clinical_authority" time="2.781" />
+    <testcase classname="tests.test_portal_corrections" name="test_organ_authorization_form_keeps_history" time="2.203" />
+    <testcase classname="tests.test_portal_documents" name="test_document_conservation_form_pending_and_foreign_download" time="3.600" />
+    <testcase classname="tests.test_portal_documents" name="test_report_formats_preserve_scope_timezone_unknown_and_formula" time="0.013" />
+    <testcase classname="tests.test_openapi_documentation" name="test_shared_openapi_matches_export_and_preserves_representations[identidad_acceso]" time="6.356" />
+    <testcase classname="tests.test_openapi_documentation" name="test_shared_openapi_matches_export_and_preserves_representations[donantes]" time="5.078" />
+    <testcase classname="tests.test_openapi_documentation" name="test_shared_openapi_matches_export_and_preserves_representations[receptores]" time="3.447" />
+    <testcase classname="tests.test_openapi_documentation" name="test_shared_openapi_matches_export_and_preserves_representations[inventario]" time="8.011" />
+    <testcase classname="tests.test_openapi_documentation" name="test_shared_openapi_matches_export_and_preserves_representations[compatibilidad]" time="5.535" />
+    <testcase classname="tests.test_openapi_documentation" name="test_shared_openapi_matches_export_and_preserves_representations[priorizacion_geografia]" time="6.214" />
+    <testcase classname="tests.test_openapi_documentation" name="test_shared_openapi_matches_export_and_preserves_representations[transporte]" time="7.005" />
+    <testcase classname="tests.test_openapi_documentation" name="test_shared_openapi_matches_export_and_preserves_representations[custodia]" time="0.845" />
+    <testcase classname="tests.test_openapi_documentation" name="test_shared_openapi_matches_export_and_preserves_representations[alertas]" time="2.664" />
+    <testcase classname="tests.test_openapi_documentation" name="test_shared_openapi_matches_export_and_preserves_representations[auditoria]" time="3.283" />
+    <testcase classname="tests.test_openapi_documentation" name="test_shared_openapi_matches_export_and_preserves_representations[monitoreo]" time="0.751" />
+    <testcase classname="tests.test_openapi_documentation" name="test_shared_openapi_matches_export_and_preserves_representations[documentos]" time="9.485" />
+  </testsuite>
+</testsuites>

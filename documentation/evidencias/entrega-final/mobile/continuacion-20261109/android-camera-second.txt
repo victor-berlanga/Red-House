@@ -1,0 +1,21 @@
+
+org.redhouse.mobile.CameraPermissionTest:.
+Error in systemCameraReturnsRealJpeg(org.redhouse.mobile.CameraPermissionTest):
+java.lang.AssertionError: Camera did not return
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.redhouse.mobile.CameraPermissionTest.systemCameraReturnsRealJpeg(CameraPermissionTest.kt:38)
+
+
+Time: 69.159
+There was 1 failure:
+1) systemCameraReturnsRealJpeg(org.redhouse.mobile.CameraPermissionTest)
+java.lang.AssertionError: Camera did not return
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.redhouse.mobile.CameraPermissionTest.systemCameraReturnsRealJpeg(CameraPermissionTest.kt:38)
+
+FAILURES!!!
+Tests run: 2,  Failures: 1
+
+

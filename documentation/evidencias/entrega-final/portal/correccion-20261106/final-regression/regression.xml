@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='utf-8'?>
+<testsuites name="pytest tests">
+  <testsuite name="pytest" errors="0" failures="1" skipped="1" tests="63" time="915.656" timestamp="2026-11-06T21:34:55.735651-06:00" hostname="Victors-MacBook-Air.local">
+    <testcase classname="tests.test_web_integration" name="test_roles_can_render_authorized_pages_through_http[admin1-paths0]" time="42.478" />
+    <testcase classname="tests.test_web_integration" name="test_roles_can_render_authorized_pages_through_http[operator1-paths1]" time="5.543" />
+    <testcase classname="tests.test_web_integration" name="test_roles_can_render_authorized_pages_through_http[medical1-paths2]" time="5.356" />
+    <testcase classname="tests.test_web_integration" name="test_roles_can_render_authorized_pages_through_http[coordinator1-paths3]" time="4.679" />
+    <testcase classname="tests.test_web_integration" name="test_roles_can_render_authorized_pages_through_http[transport1-paths4]" time="3.032" />
+    <testcase classname="tests.test_web_integration" name="test_roles_can_render_authorized_pages_through_http[auditor1-paths5]" time="3.022" />
+    <testcase classname="tests.test_web_integration" name="test_roles_can_render_authorized_pages_through_http[donor1-paths6]" time="2.905" />
+    <testcase classname="tests.test_web_integration" name="test_full_reservation_transport_receipt_from_web_and_xml[BLOOD-RBC-A+]" time="83.913" />
+    <testcase classname="tests.test_web_integration" name="test_full_reservation_transport_receipt_from_web_and_xml[ORGAN-KIDNEY-O+]" time="49.856" />
+    <testcase classname="tests.test_web_integration" name="test_full_reservation_transport_receipt_from_web_and_xml[ORGAN-LIVER-O+]" time="43.435" />
+    <testcase classname="tests.test_web_integration" name="test_full_reservation_transport_receipt_from_web_and_xml[ORGAN-HEART-O+]" time="47.502" />
+    <testcase classname="tests.test_web_integration" name="test_forms_keep_values_and_same_idempotency_after_error" time="2.197" />
+    <testcase classname="tests.test_web_integration" name="test_web_rejects_csrf_wrong_role_and_cross_institution" time="4.263" />
+    <testcase classname="tests.test_web_integration" name="test_filtered_pagination_counts_and_minimized_recipient_search" time="3.205" />
+    <testcase classname="tests.test_web_integration" name="test_identity_outage_reports_503_without_legacy_fallback" time="2.279" />
+    <testcase classname="tests.test_web_integration" name="test_renewal_and_logout_revoke_backend_session_without_exposing_tokens" time="2.561" />
+    <testcase classname="tests.test_web_integration" name="test_donor_campaign_appointment_processing_and_inventory_source_from_web" time="9.786" />
+    <testcase classname="tests.test_web_integration" name="test_matching_proposal_from_web_does_not_reserve" time="6.628" />
+    <testcase classname="tests.test_web_integration" name="test_admin_web_creation_deactivation_revokes_new_user" time="3.337" />
+    <testcase classname="tests.test_continuity" name="test_complete_web_flow_without_apis[BLOOD-RBC-O+]" time="77.444" />
+    <testcase classname="tests.test_continuity" name="test_complete_web_flow_without_apis[ORGAN-KIDNEY-O+]" time="56.867" />
+    <testcase classname="tests.test_continuity" name="test_donation_processing_without_apis" time="12.111" />
+    <testcase classname="tests.test_continuity" name="test_monolith_redis_failure_fails_closed_and_recovers" time="9.195" />
+    <testcase classname="tests.test_final_tracking" name="test_wss_json_xml_durable_replay_order_and_revocation" time="31.943" />
+    <testcase classname="tests.test_final_tracking" name="test_wss_rejects_donor_device_read_invalid_and_conflicting_events[json]" time="6.051" />
+    <testcase classname="tests.test_final_tracking" name="test_wss_rejects_donor_device_read_invalid_and_conflicting_events[xml]" time="6.185" />
+    <testcase classname="tests.test_final_tracking" name="test_tracking_rejects_xxe_nonfinite_and_unknown_fields" time="0.010" />
+    <testcase classname="tests.test_final_tracking" name="test_sync_commands_idempotency_scope_versions_and_cursor[json]" time="6.305" />
+    <testcase classname="tests.test_final_tracking" name="test_sync_commands_idempotency_scope_versions_and_cursor[xml]" time="6.807" />
+    <testcase classname="tests.test_final_tracking" name="test_executable_simulator_offline_reconnect_and_dedup[json]" time="16.913" />
+    <testcase classname="tests.test_final_tracking" name="test_executable_simulator_offline_reconnect_and_dedup[xml]" time="14.908" />
+    <testcase classname="tests.test_final_tracking" name="test_tracking_dependency_failure_preserves_durable_cursor[redis]" time="86.590" />
+    <testcase classname="tests.test_final_tracking" name="test_tracking_dependency_failure_preserves_durable_cursor[postgres]" time="16.425" />
+    <testcase classname="tests.test_final_tracking" name="test_tracking_dependency_failure_preserves_durable_cursor[mongodb]" time="19.309" />
+    <testcase classname="tests.test_final_tracking" name="test_tracking_scope_origin_cursor_limits_and_device_revocation" time="5.943" />
+    <testcase classname="tests.test_final_tracking" name="test_nmea_adapter_checksum_units_and_no_fix" time="0.010" />
+    <testcase classname="tests.test_final_tracking" name="test_custody_scans_receipt_sync_and_distinct_final_use[json]" time="32.213" />
+    <testcase classname="tests.test_final_tracking" name="test_custody_scans_receipt_sync_and_distinct_final_use[xml]" time="27.699" />
+    <testcase classname="tests.test_final_tracking" name="test_concurrent_emitters_subscribers_and_delayed_consumer" time="10.521">
+      <properties>
+        <property name="publishers" value="2" />
+        <property name="delayed_subscribers" value="2" />
+        <property name="points" value="24" />
+        <property name="ack_mean_ms" value="354.376" />
+        <property name="ack_p95_ms" value="409.693" />
+      </properties>
+    </testcase>
+    <testcase classname="tests.test_final_tracking" name="test_two_production_wss_processes_single_and_total_outage" time="13.120" />
+    <testcase classname="tests.test_final_quality" name="test_laboratory_missing_results_correction_quarantine_and_final_destination[json]" time="32.566" />
+    <testcase classname="tests.test_final_quality" name="test_laboratory_missing_results_correction_quarantine_and_final_destination[xml]" time="17.526" />
+    <testcase classname="tests.test_final_delivery_documents" name="test_smtp_push_retry_escalation_dedup_and_close[json]" time="10.602" />
+    <testcase classname="tests.test_final_delivery_documents" name="test_smtp_push_retry_escalation_dedup_and_close[xml]" time="11.164" />
+    <testcase classname="tests.test_final_delivery_documents" name="test_documents_scan_private_access_and_export_formats[json]" time="6.482" />
+    <testcase classname="tests.test_final_delivery_documents" name="test_documents_scan_private_access_and_export_formats[xml]" time="6.295" />
+    <testcase classname="tests.test_final_delivery_documents" name="test_clamd_infected_unavailable_and_formula_injection" time="0.505" />
+    <testcase classname="tests.test_final_algorithms_hla" name="test_dijkstra_against_independent_simple_path_oracle" time="0.053" />
+    <testcase classname="tests.test_final_algorithms_hla" name="test_forecast_no_future_leakage_and_reproduction" time="0.002" />
+    <testcase classname="tests.test_final_algorithms_hla" name="test_missing_hla_ambiguity_and_states" time="0.003" />
+    <testcase classname="tests.test_final_algorithms_hla" name="test_urgency_simulation_missing_factors_and_anomalies" time="0.003" />
+    <testcase classname="tests.test_final_algorithms_hla" name="test_persistent_algorithm_contract_and_tenant[json]" time="0.849" />
+    <testcase classname="tests.test_final_algorithms_hla" name="test_persistent_algorithm_contract_and_tenant[xml]" time="0.417" />
+    <testcase classname="tests.test_final_algorithms_hla" name="test_hla_structured_history_missing_and_corrected[json]" time="1.633" />
+    <testcase classname="tests.test_final_algorithms_hla" name="test_hla_structured_history_missing_and_corrected[xml]" time="1.361" />
+    <testcase classname="tests.test_final_algorithms_hla" name="test_limits_empty_graph_and_gps_separation" time="0.683" />
+    <testcase classname="tests.test_final_algorithms_hla" name="test_web_simulation_view_and_form" time="1.984" />
+    <testcase classname="tests.test_final_algorithms_hla" name="test_expiry_estimate_does_not_double_count_demand" time="0.020" />
+    <testcase classname="tests.test_final_algorithms_hla" name="test_migration_13_to_current_preserves_rows_and_is_repeatable" time="14.944">
+      <failure message="Traza saneada; consultar RESULTADOS.md y resultados.json del intento.">Original temporal identificado por SHA-256; se omiten credenciales de formularios.</failure>
+    </testcase>
+    <testcase classname="tests.test_portal_tracking" name="test_browser_ticket_scope_publish_expiry_and_web_csrf" time="9.174" />
+    <testcase classname="tests.test_portal_tracking" name="test_portal_browser_profiles_and_live_map" time="0.001">
+      <skipped type="pytest.skip" message="Requiere Chrome y Playwright; activar REDHOUSE_BROWSER_TESTS=1.">/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/tests/test_portal_tracking.py:64: Requiere Chrome y Playwright; activar REDHOUSE_BROWSER_TESTS=1.</skipped>
+    </testcase>
+    <testcase classname="tests.test_portal_tracking" name="test_web_password_recovery_real_smtp_single_use" time="2.552" />
+    <testcase classname="tests.test_portal_tracking" name="test_web_consent_and_hourly_agenda_persist" time="10.961" />
+  </testsuite>
+</testsuites>

@@ -1,0 +1,38 @@
+> Task :composeApp:checkSandboxAndWriteProtection
+> Task :composeApp:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :composeApp:convertXmlValueResourcesForAppleMain NO-SOURCE
+> Task :composeApp:copyNonXmlValueResourcesForAppleMain NO-SOURCE
+> Task :composeApp:prepareComposeResourcesTaskForAppleMain NO-SOURCE
+> Task :composeApp:generateResourceAccessorsForAppleMain SKIPPED
+> Task :composeApp:convertXmlValueResourcesForCommonMain NO-SOURCE
+> Task :composeApp:copyNonXmlValueResourcesForCommonMain NO-SOURCE
+> Task :composeApp:prepareComposeResourcesTaskForCommonMain NO-SOURCE
+> Task :composeApp:generateResourceAccessorsForCommonMain SKIPPED
+> Task :composeApp:convertXmlValueResourcesForIosArm64Main NO-SOURCE
+> Task :composeApp:copyNonXmlValueResourcesForIosArm64Main NO-SOURCE
+> Task :composeApp:prepareComposeResourcesTaskForIosArm64Main NO-SOURCE
+> Task :composeApp:generateResourceAccessorsForIosArm64Main SKIPPED
+> Task :composeApp:convertXmlValueResourcesForIosMain NO-SOURCE
+> Task :composeApp:copyNonXmlValueResourcesForIosMain NO-SOURCE
+> Task :composeApp:prepareComposeResourcesTaskForIosMain NO-SOURCE
+> Task :composeApp:generateResourceAccessorsForIosMain SKIPPED
+> Task :composeApp:convertXmlValueResourcesForNativeMain NO-SOURCE
+> Task :composeApp:copyNonXmlValueResourcesForNativeMain NO-SOURCE
+> Task :composeApp:prepareComposeResourcesTaskForNativeMain NO-SOURCE
+> Task :composeApp:generateResourceAccessorsForNativeMain SKIPPED
+> Task :composeApp:generateActualResourceCollectorsForIosArm64Main SKIPPED
+> Task :composeApp:generateComposeResClass SKIPPED
+> Task :composeApp:generateExpectResourceCollectorsForCommonMain SKIPPED
+> Task :composeApp:compileKotlinIosArm64
+/Users/victorberlanga/Programacion/integracion/Red-House/apps/mobile/composeApp/src/iosMain/kotlin/org/redhouse/mobile/RegionalMap.kt:15:17: error: Unresolved reference 'CommonCrypto'.
+/Users/victorberlanga/Programacion/integracion/Red-House/apps/mobile/composeApp/src/iosMain/kotlin/org/redhouse/mobile/RegionalMap.kt:16:17: error: Unresolved reference 'CommonCrypto'.
+/Users/victorberlanga/Programacion/integracion/Red-House/apps/mobile/composeApp/src/iosMain/kotlin/org/redhouse/mobile/RegionalMap.kt:20:27: error: Unresolved reference 'CC_SHA256_DIGEST_LENGTH'.
+/Users/victorberlanga/Programacion/integracion/Red-House/apps/mobile/composeApp/src/iosMain/kotlin/org/redhouse/mobile/RegionalMap.kt:21:11: error: Cannot infer type for this parameter. Specify it explicitly.
+/Users/victorberlanga/Programacion/integracion/Red-House/apps/mobile/composeApp/src/iosMain/kotlin/org/redhouse/mobile/RegionalMap.kt:21:11: error: Not enough information to infer type argument for 'R'.
+/Users/victorberlanga/Programacion/integracion/Red-House/apps/mobile/composeApp/src/iosMain/kotlin/org/redhouse/mobile/RegionalMap.kt:21:36: error: Cannot infer type for this parameter. Specify it explicitly.
+/Users/victorberlanga/Programacion/integracion/Red-House/apps/mobile/composeApp/src/iosMain/kotlin/org/redhouse/mobile/RegionalMap.kt:21:36: error: Not enough information to infer type argument for 'R'.
+/Users/victorberlanga/Programacion/integracion/Red-House/apps/mobile/composeApp/src/iosMain/kotlin/org/redhouse/mobile/RegionalMap.kt:21:55: error: Unresolved reference 'CC_SHA256'.
+/Users/victorberlanga/Programacion/integracion/Red-House/apps/mobile/composeApp/src/iosMain/kotlin/org/redhouse/mobile/RegionalMap.kt:29:13: error: Unresolved reference 'accessibilityLabel'.
+> Task :composeApp:compileKotlinIosArm64 FAILED
+BUILD FAILED in 4m 35s
+** BUILD FAILED **

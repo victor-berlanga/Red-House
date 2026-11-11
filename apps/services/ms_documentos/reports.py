@@ -1,10 +1,12 @@
 """Exportación de instantáneas minimizadas. Propietarios conservan las consultas."""
 
 import hashlib
+from datetime import datetime, timezone
+from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 from urllib.parse import urlencode
 from uuid import NAMESPACE_URL, uuid4, uuid5
 
-from flask import g
+from flask import g, current_app, request
 from redhouse.api import atomic, endpoint, listing
 from redhouse.client import call
 from redhouse.db import get, insert, transaction, update
@@ -66,8 +68,66 @@ def report_authorized(report):
 
 def public(row):
     return {
-        key: value for key, value in row.items() if key not in ("rows", "region_id")
+        key: value
+        for key, value in row.items()
+        if key not in ("rows", "region_id", "sealed_authorization")
     }
+
+
+def authorization_cipher():
+    import base64
+    from cryptography.fernet import Fernet
+
+    secret = current_app.config["SERVICE_PRIVATE_KEY"]
+    return Fernet(
+        base64.urlsafe_b64encode(
+            hashlib.sha256(("export-job:" + secret).encode()).digest()
+        )
+    )
+
+
+def seal_authorization():
+    return (
+        authorization_cipher()
+        .encrypt(request.headers["Authorization"].encode())
+        .decode()
+    )
+
+
+def hydrate(conn, job):
+    """Extracción paginada en worker, con sesión vigente y credencial cifrada."""
+    if job["context"] and job["context"].get("row_count") is None:
+        try:
+            g.worker_authorization = (
+                authorization_cipher()
+                .decrypt(job["sealed_authorization"].encode())
+                .decode()
+            )
+            actor = call("identidad_acceso", "GET", "/api/v1/auth/me")
+            g.actor = actor
+            if (
+                str(job["user_id"]) != actor["id"]
+                or str(job["tenant_id"]) != actor["tenant_id"]
+            ):
+                raise APIError(
+                    "forbidden", "El ámbito cambió; solicite otro reporte.", 403
+                )
+            report_authorized(job["report"])
+            rows = collect(job["context"])
+            context = dict(
+                job["context"],
+                row_count=len(rows),
+                extracted_at=datetime.now(timezone.utc).isoformat(),
+            )
+            job = update(
+                conn,
+                "export_jobs",
+                job["id"],
+                {"rows": rows, "context": context, "sealed_authorization": None},
+            )
+        finally:
+            g.worker_authorization = None
+    return job
 
 
 def process(limit=3):
@@ -88,7 +148,8 @@ def process(limit=3):
                 "region_id": str(job["region_id"]) if job["region_id"] else None,
             }
             try:
-                content = render(job["rows"], job["format"])
+                job = hydrate(conn, job)
+                content = render(job["rows"], job["format"], job["context"])
                 digest = hashlib.sha256(content).hexdigest()
                 file_id = str(uuid5(NAMESPACE_URL, "redhouse:export:" + str(job["id"])))
                 path = f"reports/{job['tenant_id']}/{file_id}"
@@ -195,6 +256,111 @@ def process(limit=3):
                 )
 
 
+def collect(data):
+    start, end = utc_date(data["from_at"]), utc_date(data["until_at"])
+    service, path, _ = SOURCES[data["report"]]
+    rows = []
+    date_key = (
+        "expires_at"
+        if data["report"] == "EXPIRY"
+        else "departure_at"
+        if data["report"] == "SHIPMENTS"
+        else "created_at"
+    )
+    # Consultas de los propietarios: mismas reglas de visibilidad que JSON/XML.
+    if data["report"] in ("CUSTODY", "TRACEABILITY"):
+        if not data["subject_id"]:
+            raise APIError(
+                "validation", "Identificador de cadena o recurso requerido.", 422
+            )
+        result = call(
+            service,
+            "GET",
+            path
+            + data["subject_id"]
+            + ("/trace" if data["report"] == "TRACEABILITY" else ""),
+        )
+        for item in result["events"]:
+            event = item.get("event", item)
+            rows.append(
+                {
+                    "id": item["id"],
+                    "source": event["source"],
+                    "action": event["action"],
+                    "created_at": event["occurred_at"],
+                }
+            )
+    else:
+        if data["subject_id"]:
+            raise APIError(
+                "validation",
+                "Este reporte no admite identificador individual.",
+                422,
+            )
+        filters = (
+            {"from": data["from_at"], "to": data["until_at"]}
+            if data["report"] == "ACTIVITY"
+            else {
+                "from_at": data["from_at"],
+                "until_at": data["until_at"],
+                "date_field": date_key,
+                "sort": data["order"],
+            }
+        )
+        filters.update(data["filters"])
+        total = None
+        for page in range(1, 501):
+            result = call(
+                service,
+                "GET",
+                path + "?" + urlencode({"page": page, "page_size": 100, **filters}),
+            )
+            if result["total"] > 50000:
+                raise APIError(
+                    "report_limit",
+                    "Consulta supera 50000 registros; reduzca el periodo. No se generó un reporte parcial.",
+                    422,
+                )
+            if total is not None and total != result["total"]:
+                raise APIError(
+                    "conflict",
+                    "La población cambió durante la extracción; repita la consulta.",
+                    409,
+                )
+            total = result["total"]
+            rows.extend(result["items"])
+            if len(rows) >= result["total"]:
+                break
+        if len(rows) != total or len({r["id"] for r in rows}) != len(rows):
+            raise APIError(
+                "conflict",
+                "Extracción inconsistente; no se generó un reporte parcial.",
+                409,
+            )
+    if data["report"] == "ACTIVITY":
+        rows = [{**row, "created_at": row["event"]["occurred_at"]} for row in rows]
+    date_key = (
+        "expires_at"
+        if data["report"] == "EXPIRY"
+        else "departure_at"
+        if data["report"] == "SHIPMENTS"
+        else "created_at"
+    )
+    rows = [
+        {k: str(r[k]) for k in FIELDS if k in r and r[k] is not None}
+        for r in rows
+        if r.get(date_key) and start <= utc_date(r[date_key]) < end
+    ]
+    rows.sort(
+        key=lambda r: (
+            r.get("id", "") if data["order"] == "ID_ASC" else r.get(date_key, "")
+        ),
+        reverse=data["order"] == "DATE_DESC",
+    )
+
+    return rows
+
+
 def install(app):
     @endpoint(
         app,
@@ -206,93 +372,45 @@ def install(app):
     )
     def export_create(data):
         report_authorized(data["report"])
+        try:
+            ZoneInfo(data["timezone"])
+        except (ValueError, ZoneInfoNotFoundError):
+            raise APIError("validation", "Zona horaria desconocida.", 422)
+        allowed_filters = {
+            "INVENTORY": {"q", "status", "kind", "component"},
+            "EXPIRY": {"q", "status", "kind", "component"},
+            "REQUESTS": {"q", "status", "kind"},
+            "SHIPMENTS": {"q", "status"},
+            "ACTIVITY": {"source", "action"},
+        }.get(data["report"], set())
+        if set(data["filters"]) - allowed_filters:
+            raise APIError("validation", "Filtro no admitido por este reporte.", 422)
         start, end = utc_date(data["from_at"]), utc_date(data["until_at"])
         if start >= end or (end - start).days > 366:
             raise APIError("validation", "Ventana inválida o mayor de un año.", 422)
         service, path, _ = SOURCES[data["report"]]
-        rows = []
-        date_key = (
-            "expires_at"
-            if data["report"] == "EXPIRY"
-            else "departure_at"
-            if data["report"] == "SHIPMENTS"
-            else "created_at"
-        )
-        # Consultas de los propietarios: mismas reglas de visibilidad que JSON/XML.
         if data["report"] in ("CUSTODY", "TRACEABILITY"):
             if not data["subject_id"]:
                 raise APIError(
                     "validation", "Identificador de cadena o recurso requerido.", 422
                 )
-            result = call(
+            call(
                 service,
                 "GET",
                 path
                 + data["subject_id"]
                 + ("/trace" if data["report"] == "TRACEABILITY" else ""),
             )
-            for item in result["events"]:
-                event = item.get("event", item)
-                rows.append(
-                    {
-                        "id": item["id"],
-                        "source": event["source"],
-                        "action": event["action"],
-                        "created_at": event["occurred_at"],
-                    }
-                )
         else:
             if data["subject_id"]:
                 raise APIError(
-                    "validation",
-                    "Este reporte no admite identificador individual.",
-                    422,
+                    "validation", "Este reporte no admite sujeto individual.", 422
                 )
-            filters = (
-                {"from": data["from_at"], "to": data["until_at"]}
-                if data["report"] == "ACTIVITY"
-                else {
-                    "from_at": data["from_at"],
-                    "until_at": data["until_at"],
-                    "date_field": date_key,
-                    "sort": data["order"],
-                }
+            call(
+                service,
+                "GET",
+                path + "?" + urlencode({"page_size": 1, **data["filters"]}),
             )
-            for page in range(1, 11):
-                result = call(
-                    service,
-                    "GET",
-                    path + "?" + urlencode({"page": page, "page_size": 100, **filters}),
-                )
-                if result["total"] > 1000:
-                    raise APIError(
-                        "report_limit",
-                        "Consulta supera 1000 registros; exportación masiva requiere proceso autorizado.",
-                        422,
-                    )
-                rows.extend(result["items"])
-                if len(rows) >= result["total"]:
-                    break
-        if data["report"] == "ACTIVITY":
-            rows = [{**row, "created_at": row["event"]["occurred_at"]} for row in rows]
-        date_key = (
-            "expires_at"
-            if data["report"] == "EXPIRY"
-            else "departure_at"
-            if data["report"] == "SHIPMENTS"
-            else "created_at"
-        )
-        rows = [
-            {k: str(r[k]) for k in FIELDS if k in r and r[k] is not None}
-            for r in rows
-            if r.get(date_key) and start <= utc_date(r[date_key]) < end
-        ]
-        rows.sort(
-            key=lambda r: (
-                r.get("id", "") if data["order"] == "ID_ASC" else r.get(date_key, "")
-            ),
-            reverse=data["order"] == "DATE_DESC",
-        )
 
         def work(conn):
             row = insert(
@@ -305,7 +423,27 @@ def install(app):
                     "region_id": g.actor["region_id"],
                     "report": data["report"],
                     "format": data["format"],
-                    "rows": rows,
+                    "rows": [],
+                    "sealed_authorization": seal_authorization(),
+                    "context": {
+                        "report": data["report"],
+                        "filters": data["filters"],
+                        "subject_id": data["subject_id"],
+                        "order": data["order"],
+                        "from_at": data["from_at"],
+                        "until_at": data["until_at"],
+                        "timezone": data["timezone"],
+                        "tenant_id": g.actor["tenant_id"],
+                        "region_id": g.actor["region_id"],
+                        "role": g.actor["role"],
+                        "extracted_at": datetime.now(timezone.utc).isoformat(),
+                        "row_count": None,
+                        "date_field": "expires_at"
+                        if data["report"] == "EXPIRY"
+                        else "departure_at"
+                        if data["report"] == "SHIPMENTS"
+                        else "created_at",
+                    },
                 },
             )
             emit(
@@ -314,7 +452,7 @@ def install(app):
                 row["id"],
                 row["tenant_id"],
                 metadata={
-                    "rows": len(rows),
+                    "rows": None,
                     "format": data["format"],
                     "regulatory_certification": False,
                 },
@@ -387,7 +525,12 @@ def install(app):
                 raise APIError("conflict", "El trabajo no requiere reintento.", 409)
             emit(conn, "EXPORT_RETRY_REQUESTED", identifier, row["tenant_id"])
             return public(
-                update(conn, "export_jobs", identifier, {"status": "PENDING"})
+                update(
+                    conn,
+                    "export_jobs",
+                    identifier,
+                    {"status": "PENDING", "sealed_authorization": seal_authorization()},
+                )
             )
 
         return atomic("export_retry:" + identifier, data, work)

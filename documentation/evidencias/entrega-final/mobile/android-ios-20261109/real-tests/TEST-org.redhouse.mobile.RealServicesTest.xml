@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.redhouse.mobile.RealServicesTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-11-09T19:10:14" hostname="Victors-MacBook-Air.local" time="27.024">
+  <properties/>
+  <testcase name="donorBookingRescheduleCancelAndScope" classname="org.redhouse.mobile.RealServicesTest" time="11.192"/>
+  <testcase name="transportJourneyAgainstRealServices" classname="org.redhouse.mobile.RealServicesTest" time="15.832"/>
+  <system-out><![CDATA[POST /services/identidad-acceso/api/v1/auth/login: 200
+POST /services/identidad-acceso/api/v1/auth/login: 200
+POST /services/identidad-acceso/api/v1/auth/login: 200
+GET /services/donantes/api/v1/public/campaigns: 200
+POST /services/identidad-acceso/api/v1/catalogues/sites: 201
+POST /services/donantes/api/v1/campaigns: 201
+POST /services/donantes/api/v1/campaign-slots: 201
+POST /services/donantes/api/v1/campaign-slots: 201
+GET /services/donantes/api/v1/donors: 200
+POST /services/donantes/api/v1/donors/14a4a5d5-09f9-4aa9-8501-4d9ba00493a6/consents: 201
+POST /services/donantes/api/v1/appointments: 201
+GET /services/donantes/api/v1/appointments/b641120d-0a74-4d1c-b1f3-685014bca95f/schedule: 200
+POST /services/donantes/api/v1/appointments/b641120d-0a74-4d1c-b1f3-685014bca95f/commands: 200
+POST /services/donantes/api/v1/appointments/b641120d-0a74-4d1c-b1f3-685014bca95f/cancel: 200
+POST /services/identidad-acceso/api/v1/auth/login: 200
+GET /services/donantes/api/v1/donors/14a4a5d5-09f9-4aa9-8501-4d9ba00493a6: 403
+GET /services/inventario/api/v1/resources: 403
+POST /services/identidad-acceso/api/v1/auth/revoke: 200
+POST /services/identidad-acceso/api/v1/auth/revoke: 200
+POST /services/identidad-acceso/api/v1/auth/revoke: 200
+POST /services/identidad-acceso/api/v1/auth/revoke: 200
+POST /services/identidad-acceso/api/v1/auth/login: 200
+GET /services/identidad-acceso/api/v1/auth/me: 200
+GET /services/transporte/api/v1/shipments/5c4cd8b5-8efa-4390-acb0-636b24757c4a: 200
+GET /services/identidad-acceso/api/v1/institutions: 200
+GET /services/priorizacion-geografia/api/v1/routes: 200
+GET /services/transporte/api/v1/shipments/5c4cd8b5-8efa-4390-acb0-636b24757c4a/operational-context: 200
+POST /services/identidad-acceso/api/v1/mobile/devices: 200
+POST /services/identidad-acceso/api/v1/mobile/devices: 200
+POST /services/transporte/api/v1/shipments/5c4cd8b5-8efa-4390-acb0-636b24757c4a/tracking/mobile-session: 200
+POST /services/transporte/api/v1/shipments/5c4cd8b5-8efa-4390-acb0-636b24757c4a/scan: 409
+POST /services/transporte/api/v1/shipments/5c4cd8b5-8efa-4390-acb0-636b24757c4a/scan: 200
+GET /services/identidad-acceso/api/v1/auth/me: 200
+GET /services/transporte/ws/v1/tracking/json: 101
+GET /services/transporte/api/v1/sync/commands/1db47faf-c756-45d8-99cf-3d706be1c861: 404
+POST /services/transporte/api/v1/sync/commands: 201
+POST /services/transporte/api/v1/shipments/5c4cd8b5-8efa-4390-acb0-636b24757c4a/transitions: 200
+POST /services/transporte/api/v1/shipments/5c4cd8b5-8efa-4390-acb0-636b24757c4a/transitions: 200
+POST /services/transporte/api/v1/shipments/5c4cd8b5-8efa-4390-acb0-636b24757c4a/scan: 200
+POST /services/transporte/api/v1/shipments/5c4cd8b5-8efa-4390-acb0-636b24757c4a/transitions: 200
+POST /services/identidad-acceso/api/v1/auth/login: 200
+POST /services/transporte/api/v1/shipments/5c4cd8b5-8efa-4390-acb0-636b24757c4a/scan: 200
+POST /services/transporte/api/v1/shipments/5c4cd8b5-8efa-4390-acb0-636b24757c4a/transitions: 200
+GET /services/inventario/api/v1/resources: 200
+POST /services/identidad-acceso/api/v1/auth/login: 200
+GET /services/transporte/api/v1/shipments/5c4cd8b5-8efa-4390-acb0-636b24757c4a: 200
+GET /services/alertas/api/v1/alerts: 200
+POST /services/identidad-acceso/api/v1/auth/login: 200
+GET /services/donantes/api/v1/campaigns: 200
+GET /services/transporte/api/v1/shipments/5c4cd8b5-8efa-4390-acb0-636b24757c4a: 403
+GET /services/donantes/api/v1/donors: 403
+POST /services/identidad-acceso/api/v1/mobile/devices/594316a6-f46c-4fdd-b2ce-3a3500919c79/revoke: 200
+POST /services/identidad-acceso/api/v1/auth/revoke: 200
+POST /services/identidad-acceso/api/v1/auth/revoke: 200
+POST /services/identidad-acceso/api/v1/auth/revoke: 200
+POST /services/identidad-acceso/api/v1/auth/revoke: 200
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

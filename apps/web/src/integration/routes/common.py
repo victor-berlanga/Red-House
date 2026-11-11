@@ -1,5 +1,6 @@
 import csv
 import io
+import json
 import math
 import re
 from datetime import datetime, timedelta, timezone
@@ -40,6 +41,7 @@ from .. import (
     sessions,  # noqa: F401
 )
 from ..client import call
+from ..outcomes import notice, reservation_status
 from ..forms import attach_errors, prepare_fields
 from ..presentation import (
     FIELD_LABELS,
@@ -93,6 +95,8 @@ LABELS = {
     "CANCELLED": "Cancelado",
     "ACTIVE": "Activo",
     "BOOKED": "Inscrita",
+    "CONFIRMED": "Confirmada",
+    "ATTENDED": "Asistencia registrada",
     "PROCESSED": "Procesado",
     "REJECTED": "Rechazado",
     "PLANNED": "Programado",
@@ -237,6 +241,7 @@ def submit(
     prompt=None,
     location_capture=False,
     transform=None,
+    result_view=None,
 ):
 
     critical = next(
@@ -318,8 +323,13 @@ def submit(
                 )
             password = data.pop("reauth_password", None)
             otp = data.pop("reauth_otp", None)
+            if transform:
+                data = transform(data)
+            command_key = request.form.get("idempotency_key") or uuid4().hex
+            is_reservation = service == "inventario" and path == "/api/v1/reservations"
+            result = reservation_status(data, command_key) if is_reservation else None
             proof = None
-            if critical and password:
+            if result is None and critical and password:
                 # Match the API's route identifier before any body resource.
                 route_id = re.search(r"/([0-9a-fA-F-]{36})/[^/]+$", path)
                 resource_id = route_id.group(1) if route_id else data.get("resource_id")
@@ -334,18 +344,23 @@ def submit(
                         "otp": otp,
                     },
                 )["proof"]
-            if transform:
-                data = transform(data)
-            result = call(
-                service,
-                path,
-                method,
-                data,
-                idem=request.form.get("idempotency_key") or uuid4().hex,
-                proof=proof,
-            )
-            flash(title + ": operación completada.", "success")
-            if request.values.get("return_to"):
+            if result is None:
+                try:
+                    result = call(
+                        service, path, method, data, idem=command_key, proof=proof
+                    )
+                except BusinessError as exc:
+                    if not is_reservation or exc.status != 503:
+                        raise
+                    # Solo consulta: una respuesta perdida nunca dispara otra escritura.
+                    result = reservation_status(data, command_key)
+                    if result is None:
+                        raise exc
+            message, category, pending = notice(path, result)
+            flash(message, category)
+            if result_view:
+                return result_view(result)
+            if request.values.get("return_to") and not pending:
                 return redirect(destination)
             if success:
                 return redirect(success(result))
@@ -437,7 +452,15 @@ def table(
     if request.args.get("format") == "csv":
         stream = io.StringIO()
         writer = csv.writer(stream)
-        writer.writerow([label for name, label in columns])
+        scope = json.dumps({
+            "perfil": g.principal.role_code,
+            "institucion_de_cuenta": g.principal.institution_name,
+            "region": g.principal.region_name,
+            "criterio": "Recursos autorizados por el propietario según perfil y ámbito",
+        }, ensure_ascii=False, sort_keys=True)
+        context = [json.dumps(params, ensure_ascii=False, sort_keys=True), scope,
+            selected_zone(), datetime.now(timezone.utc).isoformat(), str(page), str(data["total"])]
+        writer.writerow([label for name, label in columns] + ["Filtros", "Ámbito", "Zona", "Generado UTC", "Página", "Total filtrado"])
         for row in items:
             cells = []
             for name, label in columns:
@@ -448,9 +471,9 @@ def table(
                     value = SERVICE_LABELS.get(value, "Servicio de la plataforma")
                 value = str(display(value))
                 cells.append(
-                    "'" + value if value.startswith(("=", "+", "-", "@")) else value
+                    "'" + value if value.lstrip().startswith(("=", "+", "-", "@")) else value
                 )
-            writer.writerow(cells)
+            writer.writerow(cells + ["'"+value if value.lstrip().startswith(("=", "+", "-", "@")) else value for value in context])
         return Response(
             "\ufeff" + stream.getvalue(),
             mimetype="text/csv",

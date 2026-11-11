@@ -1,0 +1,21 @@
+
+org.redhouse.mobile.DeviceJourneyTest:
+Error in loginNavigationAndNativeLocation(org.redhouse.mobile.DeviceJourneyTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 120000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:504)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:339)
+	at org.redhouse.mobile.DeviceJourneyTest.loginNavigationAndNativeLocation(DeviceJourneyTest.kt:29)
+
+
+Time: 126.556
+There was 1 failure:
+1) loginNavigationAndNativeLocation(org.redhouse.mobile.DeviceJourneyTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 120000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:504)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:339)
+	at org.redhouse.mobile.DeviceJourneyTest.loginNavigationAndNativeLocation(DeviceJourneyTest.kt:29)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+

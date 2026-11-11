@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="86.096" timestamp="2026-11-06T14:41:06.378262-06:00" hostname="Victors-MacBook-Air.local"><testcase classname="tests.test_portal_tracking" name="test_browser_ticket_scope_publish_expiry_and_web_csrf" time="85.044"><failure message="assert 401 == 302&#10; +  where 401 = &lt;WrapperTestResponse streamed [401 UNAUTHORIZED]&gt;.status_code">p = &lt;tests.conftest.Platform object at 0x110dac5f0&gt;
+tracking = {'shipment': {'id': 'a429d0a0-da72-447c-b6f7-9f4f9675254c', 'reservation_id': '9e7b1d59-b10b-4337-94e6-93dabbc2ec50', ...evice_id': '82a4a125-834b-4450-950b-e67cb673b0dc', 'responsible_id': '699d31cd-8a67-4534-b337-febbdc87e224', ...}, ...}
+web = &lt;Flask 'src'&gt;
+
+    def test_browser_ticket_scope_publish_expiry_and_web_csrf(p, tracking, web):
+        identifier = tracking["shipment"]["id"]
+        path = f"/api/v1/shipments/{identifier}/tracking/ticket"
+        client = login(web, p, "coordinator1")
+        page = client.get(f"/traslados/{identifier}/mapa")
+        assert page.status_code == 200
+        assert b"tracking-map" in page.data
+        assert p.tokens["coordinator1"].encode() not in page.data
+        assert client.post(f"/traslados/{identifier}/mapa/acceso").status_code == 400
+        assert (
+            login(web, p, "donor1").get(f"/traslados/{identifier}/mapa").status_code == 403
+        )
+        assert (
+&gt;           login(web, p, "transport2").get(f"/traslados/{identifier}/mapa").status_code
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+            == 403
+        )
+
+apps/services/tests/test_portal_tracking.py:24: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+web = &lt;Flask 'src'&gt;, p = &lt;tests.conftest.Platform object at 0x110dac5f0&gt;
+user = 'operator3'
+
+    def login(web, p, user):
+        client = web.test_client()
+        values = form(client, "/login")
+        values.update(login_email=user, password=p.env.state["password"])
+        result = client.post("/login", data=values)
+&gt;       assert result.status_code == 302
+E       assert 401 == 302
+E        +  where 401 = &lt;WrapperTestResponse streamed [401 UNAUTHORIZED]&gt;.status_code
+
+apps/services/tests/test_web_integration.py:68: AssertionError</failure></testcase></testsuite></testsuites>

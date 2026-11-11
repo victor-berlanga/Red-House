@@ -1,0 +1,295 @@
+{
+  "type": "object",
+  "required": [
+    "data",
+    "meta"
+  ],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": [
+        "correlation_id",
+        "service",
+        "version"
+      ],
+      "properties": {
+        "correlation_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "service": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      }
+    },
+    "data": {
+      "additionalProperties": false,
+      "properties": {
+        "shipment_id": {
+          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+          "title": "Shipment Id",
+          "type": "string"
+        },
+        "shipment_version": {
+          "title": "Shipment Version",
+          "type": "integer"
+        },
+        "origin": {
+          "additionalProperties": false,
+          "properties": {
+            "id": {
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+              "title": "Id",
+              "type": "string"
+            },
+            "name": {
+              "maxLength": 200,
+              "minLength": 1,
+              "title": "Name",
+              "type": "string"
+            },
+            "contacts": {
+              "items": {
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                    "title": "Id",
+                    "type": "string"
+                  },
+                  "name": {
+                    "maxLength": 200,
+                    "minLength": 1,
+                    "title": "Name",
+                    "type": "string"
+                  },
+                  "value": {
+                    "maxLength": 200,
+                    "minLength": 1,
+                    "title": "Value",
+                    "type": "string"
+                  },
+                  "version": {
+                    "title": "Version",
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "id",
+                  "name",
+                  "value",
+                  "version"
+                ],
+                "title": "OperationalContact",
+                "type": "object"
+              },
+              "title": "Contacts",
+              "type": "array"
+            },
+            "operators": {
+              "items": {
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                    "title": "Id",
+                    "type": "string"
+                  },
+                  "name": {
+                    "maxLength": 200,
+                    "minLength": 1,
+                    "title": "Name",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "id",
+                  "name"
+                ],
+                "title": "HandoverPerson",
+                "type": "object"
+              },
+              "title": "Operators",
+              "type": "array"
+            }
+          },
+          "required": [
+            "id",
+            "name",
+            "contacts",
+            "operators"
+          ],
+          "title": "OperationalInstitution",
+          "type": "object"
+        },
+        "destination": {
+          "additionalProperties": false,
+          "properties": {
+            "id": {
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+              "title": "Id",
+              "type": "string"
+            },
+            "name": {
+              "maxLength": 200,
+              "minLength": 1,
+              "title": "Name",
+              "type": "string"
+            },
+            "contacts": {
+              "items": {
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                    "title": "Id",
+                    "type": "string"
+                  },
+                  "name": {
+                    "maxLength": 200,
+                    "minLength": 1,
+                    "title": "Name",
+                    "type": "string"
+                  },
+                  "value": {
+                    "maxLength": 200,
+                    "minLength": 1,
+                    "title": "Value",
+                    "type": "string"
+                  },
+                  "version": {
+                    "title": "Version",
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "id",
+                  "name",
+                  "value",
+                  "version"
+                ],
+                "title": "OperationalContact",
+                "type": "object"
+              },
+              "title": "Contacts",
+              "type": "array"
+            },
+            "operators": {
+              "items": {
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                    "title": "Id",
+                    "type": "string"
+                  },
+                  "name": {
+                    "maxLength": 200,
+                    "minLength": 1,
+                    "title": "Name",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "id",
+                  "name"
+                ],
+                "title": "HandoverPerson",
+                "type": "object"
+              },
+              "title": "Operators",
+              "type": "array"
+            }
+          },
+          "required": [
+            "id",
+            "name",
+            "contacts",
+            "operators"
+          ],
+          "title": "OperationalInstitution",
+          "type": "object"
+        },
+        "route": {
+          "additionalProperties": false,
+          "properties": {
+            "id": {
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+              "title": "Id",
+              "type": "string"
+            },
+            "reserved_version": {
+              "title": "Reserved Version",
+              "type": "integer"
+            },
+            "current_version": {
+              "title": "Current Version",
+              "type": "integer"
+            },
+            "changed": {
+              "title": "Changed",
+              "type": "boolean"
+            },
+            "distance_km": {
+              "title": "Distance Km",
+              "type": "number"
+            },
+            "travel_minutes": {
+              "title": "Travel Minutes",
+              "type": "integer"
+            },
+            "source": {
+              "maxLength": 200,
+              "minLength": 1,
+              "title": "Source",
+              "type": "string"
+            },
+            "updated_at": {
+              "maxLength": 200,
+              "minLength": 1,
+              "title": "Updated At",
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "reserved_version",
+            "current_version",
+            "changed",
+            "distance_km",
+            "travel_minutes",
+            "source",
+            "updated_at"
+          ],
+          "title": "PlannedRoute",
+          "type": "object"
+        },
+        "transport_user_id": {
+          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+          "title": "Transport User Id",
+          "type": "string"
+        },
+        "consulted_at": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Consulted At",
+          "type": "string"
+        }
+      },
+      "required": [
+        "shipment_id",
+        "shipment_version",
+        "origin",
+        "destination",
+        "route",
+        "transport_user_id",
+        "consulted_at"
+      ],
+      "title": "OperationalContext",
+      "type": "object"
+    }
+  }
+}

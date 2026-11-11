@@ -72,6 +72,7 @@ NAV = [
         "recipient.write",
         False,
     ),
+    ("BANCO DE SANGRE", "muestras", "Muestras", "heart-pulse", "regional.samples", {}, "recipient.write", False),
     (
         "GENERAL",
         "reportes",
@@ -285,6 +286,14 @@ NAV = [
 ]
 
 
+PERMISSIONS["conservation"] = {"OPERATOR", "MEDICAL"}
+NAV.extend([
+    ("GENERAL", "documentos", "Documentos privados", "file-clock", "regional.document_center", {}, "dashboard", False),
+    ("BANCO DE SANGRE", "conservacion", "Conservación", "shield-check", "regional.conservation", {}, "conservation", False),
+    ("ADMINISTRACIÓN", "configuracion", "Configuración y seguridad", "settings-2", "admin.settings", {}, "administration", False),
+])
+
+
 class RemotePrincipal(Principal):
     def can(self, action):
         return self.role_code in PERMISSIONS.get(action, set())
@@ -307,13 +316,14 @@ def configure(app):
 
     @app.before_request
     def identify():
-        if request.endpoint == "regional.shipment_files":
+        if request.endpoint in ("regional.shipment_files", "regional.document_new"):
             request.max_content_length = 11 * 1024 * 1024
         g.correlation_id, g.principal, g.access_token = uuid4(), None, None
         public = {
             "public.index",
             "public.login",
             "public.recovery",
+            "public.recovery_complete",
             "public.live",
             "public.logout",
             "public.renew_session",
@@ -456,6 +466,18 @@ def configure(app):
         response.headers["Content-Security-Policy"] = (
             "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'"
         )
+        if request.endpoint == "regional.shipment_tracking":
+            response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
+            response.headers["Content-Security-Policy"] = (
+                response.headers["Content-Security-Policy"]
+                .replace(
+                    "img-src 'self' data:",
+                    "img-src 'self' data: " + getattr(g, "map_tile_origin", "https://tile.openstreetmap.org"),
+                )
+                .replace(
+                    "connect-src 'self'", "connect-src 'self' wss://" + request.host
+                )
+            )
         if request.endpoint != "static":
             response.headers["Cache-Control"] = "no-store"
         if app.config["PRODUCTION"]:

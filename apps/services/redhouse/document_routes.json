@@ -193,6 +193,11 @@
               "minLength": 1,
               "title": "Created At",
               "type": "string"
+            },
+            "policy_version": {
+              "default": 1,
+              "title": "Policy Version",
+              "type": "integer"
             }
           },
           "required": [
@@ -338,6 +343,11 @@
           "minLength": 1,
           "title": "Created At",
           "type": "string"
+        },
+        "policy_version": {
+          "default": 1,
+          "title": "Policy Version",
+          "type": "integer"
         }
       },
       "required": [
@@ -468,6 +478,11 @@
                 "minLength": 1,
                 "title": "Created At",
                 "type": "string"
+              },
+              "policy_version": {
+                "default": 1,
+                "title": "Policy Version",
+                "type": "integer"
               }
             },
             "required": [
@@ -593,6 +608,11 @@
           "minLength": 1,
           "title": "Created At",
           "type": "string"
+        },
+        "context": {
+          "additionalProperties": true,
+          "title": "Context",
+          "type": "object"
         }
       },
       "required": [
@@ -705,6 +725,11 @@
                 "minLength": 1,
                 "title": "Created At",
                 "type": "string"
+              },
+              "context": {
+                "additionalProperties": true,
+                "title": "Context",
+                "type": "object"
               }
             },
             "required": [
@@ -827,6 +852,11 @@
           "minLength": 1,
           "title": "Created At",
           "type": "string"
+        },
+        "context": {
+          "additionalProperties": true,
+          "title": "Context",
+          "type": "object"
         }
       },
       "required": [
@@ -928,6 +958,11 @@
           "minLength": 1,
           "title": "Created At",
           "type": "string"
+        },
+        "context": {
+          "additionalProperties": true,
+          "title": "Context",
+          "type": "object"
         }
       },
       "required": [

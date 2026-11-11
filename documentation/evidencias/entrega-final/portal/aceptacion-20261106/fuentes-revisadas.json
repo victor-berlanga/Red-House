@@ -1,0 +1,16 @@
+{
+  "base_manifest": "../correccion-20261106/sources-final.json",
+  "base_files_unchanged": 1234,
+  "additional_files": {
+    "apps/services/tests/test_portal_document_acceptance.py": "f5f6aaabaa85eafcb3b5a0e095e7f2b854df2da7f6696dacfd9b31cffb051e2d",
+    "deployment/nginx.conf": "036a989c60d129ecc15f14e4bd95fb9b75bdf8a4c2cbd572a83be760dc31fed2",
+    "deployment/gcp/configure_public.py": "b9499614bdc8177161abf0e409abb9372fe9aacf4b913046b07996d62ca6c304",
+    "deployment/gcp/configure_scanner.py": "070cf2355728768a935668a8be50f14d62532cafd53ded3a5fe7e6b1f961e4ac",
+    "deployment/gcp/README.md": "644d6f646cbd30adfa20f8c10b4342e919cbb882e4cec3c6ef55f0b8337e0427",
+    "compose.yaml": "fa9b73e2c72683400d249f431d1b1e96f10525990a61b9004cc09fa25ea88a85"
+  },
+  "application_changes": [],
+  "test_change_after_initial_run": "Solo expectativa legal_hold de segunda versión: False → True, conforme migración 010 y schema.sql; repetido ese caso.",
+  "test_sha256_at_targeted_repeat": "7598053ad2147e9792b12e618905fbdafc9e9e23065d92845deff2a984a0ada6",
+  "test_style_after_repeat": "Tres dict(...) con claves constantes se expresan como literales para Ruff C408; sin cambio de valores, control ni producto. No se repitieron tests por este ajuste de estilo."
+}

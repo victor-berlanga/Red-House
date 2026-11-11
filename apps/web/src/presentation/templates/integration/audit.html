@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %}{% from 'integration/row_actions.html' import record_actions, control with context %}
 {% block content %}
 <div class="page-heading"><div><span class="eyebrow">SEGUIMIENTO REGIONAL</span><h1>Bitácora de auditoría</h1><p>Investiga operaciones dentro de tu ámbito autorizado.</p></div><a class="button secondary" href="{{ url_for('portal.findings') }}">Hallazgos</a></div>
 <section class="card records-card">
@@ -19,7 +19,7 @@
 <div class="results-toolbar"><p><strong>{{ data.total }}</strong> {{ 'resultado' if data.total == 1 else 'resultados' }}</p><div class="audit-exports"><a href="{{ export_page }}">Exportar página CSV</a><a href="{{ export_all }}">Exportar resultados filtrados</a></div></div>
 <p class="context-note">La exportación completa admite hasta {{ options.export_limit }} resultados. Reduce los filtros si excedes el límite.</p>
 <div class="table-scroll" tabindex="0" role="region" aria-label="Eventos de auditoría"><table class="records-table audit-table"><thead><tr>{% for label in ['Acción','Responsable','Institución','Recurso o folio','Fecha de ejecución','Resultado','Acciones'] %}<th scope="col">{{ label }}</th>{% endfor %}</tr></thead><tbody>
-{% for row in data['items'] %}<tr><td>{{ row.action_label }}</td><td>{{ row.actor_display }}</td><td>{{ row.tenant_id|portal_html }}</td><td>{{ row.resource_display }}</td><td>{{ row.executed_at|portal_html if row.executed_at else 'No registrada' }}</td><td>{{ row.result_label }}</td><td><a href="{{ row.href }}">Investigar</a></td></tr>{% else %}<tr><td colspan="7">No hay eventos con estos filtros.</td></tr>{% endfor %}
+{% for row in data['items'] %}<tr><td data-label="Acción"><a class="record-link" href="{{ row.href }}">{{ row.action_label }}</a></td><td data-label="Responsable">{{ row.actor_display }}</td><td data-label="Institución">{{ row.tenant_id|portal_html }}</td><td data-label="Recurso o folio">{{ row.resource_display }}</td><td data-label="Fecha de ejecución">{{ row.executed_at|portal_html if row.executed_at else 'No registrada' }}</td><td data-label="Resultado">{{ row.result_label }}</td><td class="record-actions" data-label="Acciones">{{ record_actions({'_href':row.href},row.action_label) }}</td></tr>{% else %}<tr><td colspan="7">No hay eventos con estos filtros.</td></tr>{% endfor %}
 </tbody></table></div>
 <nav class="form-actions" aria-label="Páginas de auditoría">{% if previous %}<a href="{{ previous }}">Anterior</a>{% endif %}<span>Página {{ page }} de {{ pages }}</span>{% if next %}<a href="{{ next }}">Siguiente</a>{% endif %}</nav>
 </section>

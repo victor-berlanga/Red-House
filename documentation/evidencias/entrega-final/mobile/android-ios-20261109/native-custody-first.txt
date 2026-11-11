@@ -1,0 +1,68 @@
+INSTRUMENTATION_STATUS: class=org.redhouse.mobile.CustodyJourneyTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+org.redhouse.mobile.CustodyJourneyTest:
+INSTRUMENTATION_STATUS: test=opticalScanCollectionDeliveryAcceptanceAndCoordinatorRead
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=org.redhouse.mobile.CustodyJourneyTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.IllegalStateException: No compose hierarchies found in the app. Possible reasons include: (1) the Activity that calls setContent did not launch; (2) setContent was not called; (3) setContent was called before the ComposeTestRule ran. If setContent is called by the Activity, make sure the Activity is launched after the ComposeTestRule runs
+	at androidx.compose.ui.test.TestOwnerKt.getAllSemanticsNodes(TestOwner.kt:82)
+	at androidx.compose.ui.test.TestOwnerKt.getAllSemanticsNodes$default(TestOwner.kt:74)
+	at androidx.compose.ui.test.SemanticsNodeInteractionCollection.fetchSemanticsNodes(SemanticsNodeInteraction.kt:249)
+	at androidx.compose.ui.test.SemanticsNodeInteractionCollection.fetchSemanticsNodes$default(SemanticsNodeInteraction.kt:245)
+	at org.redhouse.mobile.CustodyJourneyTest.enabled$lambda$2(CustodyJourneyTest.kt:18)
+	at org.redhouse.mobile.CustodyJourneyTest.$r8$lambda$35yPTJI9OjUUW5RU96dh6KKkRbU(Unknown Source:0)
+	at org.redhouse.mobile.CustodyJourneyTest$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:497)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:339)
+	at org.redhouse.mobile.CustodyJourneyTest.enabled(CustodyJourneyTest.kt:18)
+	at org.redhouse.mobile.CustodyJourneyTest.login(CustodyJourneyTest.kt:23)
+	at org.redhouse.mobile.CustodyJourneyTest.opticalScanCollectionDeliveryAcceptanceAndCoordinatorRead(CustodyJourneyTest.kt:39)
+
+INSTRUMENTATION_STATUS: stream=
+Error in opticalScanCollectionDeliveryAcceptanceAndCoordinatorRead(org.redhouse.mobile.CustodyJourneyTest):
+java.lang.IllegalStateException: No compose hierarchies found in the app. Possible reasons include: (1) the Activity that calls setContent did not launch; (2) setContent was not called; (3) setContent was called before the ComposeTestRule ran. If setContent is called by the Activity, make sure the Activity is launched after the ComposeTestRule runs
+	at androidx.compose.ui.test.TestOwnerKt.getAllSemanticsNodes(TestOwner.kt:82)
+	at androidx.compose.ui.test.TestOwnerKt.getAllSemanticsNodes$default(TestOwner.kt:74)
+	at androidx.compose.ui.test.SemanticsNodeInteractionCollection.fetchSemanticsNodes(SemanticsNodeInteraction.kt:249)
+	at androidx.compose.ui.test.SemanticsNodeInteractionCollection.fetchSemanticsNodes$default(SemanticsNodeInteraction.kt:245)
+	at org.redhouse.mobile.CustodyJourneyTest.enabled$lambda$2(CustodyJourneyTest.kt:18)
+	at org.redhouse.mobile.CustodyJourneyTest.$r8$lambda$35yPTJI9OjUUW5RU96dh6KKkRbU(Unknown Source:0)
+	at org.redhouse.mobile.CustodyJourneyTest$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:497)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:339)
+	at org.redhouse.mobile.CustodyJourneyTest.enabled(CustodyJourneyTest.kt:18)
+	at org.redhouse.mobile.CustodyJourneyTest.login(CustodyJourneyTest.kt:23)
+	at org.redhouse.mobile.CustodyJourneyTest.opticalScanCollectionDeliveryAcceptanceAndCoordinatorRead(CustodyJourneyTest.kt:39)
+
+INSTRUMENTATION_STATUS: test=opticalScanCollectionDeliveryAcceptanceAndCoordinatorRead
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 39.169
+There was 1 failure:
+1) opticalScanCollectionDeliveryAcceptanceAndCoordinatorRead(org.redhouse.mobile.CustodyJourneyTest)
+java.lang.IllegalStateException: No compose hierarchies found in the app. Possible reasons include: (1) the Activity that calls setContent did not launch; (2) setContent was not called; (3) setContent was called before the ComposeTestRule ran. If setContent is called by the Activity, make sure the Activity is launched after the ComposeTestRule runs
+	at androidx.compose.ui.test.TestOwnerKt.getAllSemanticsNodes(TestOwner.kt:82)
+	at androidx.compose.ui.test.TestOwnerKt.getAllSemanticsNodes$default(TestOwner.kt:74)
+	at androidx.compose.ui.test.SemanticsNodeInteractionCollection.fetchSemanticsNodes(SemanticsNodeInteraction.kt:249)
+	at androidx.compose.ui.test.SemanticsNodeInteractionCollection.fetchSemanticsNodes$default(SemanticsNodeInteraction.kt:245)
+	at org.redhouse.mobile.CustodyJourneyTest.enabled$lambda$2(CustodyJourneyTest.kt:18)
+	at org.redhouse.mobile.CustodyJourneyTest.$r8$lambda$35yPTJI9OjUUW5RU96dh6KKkRbU(Unknown Source:0)
+	at org.redhouse.mobile.CustodyJourneyTest$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:497)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:339)
+	at org.redhouse.mobile.CustodyJourneyTest.enabled(CustodyJourneyTest.kt:18)
+	at org.redhouse.mobile.CustodyJourneyTest.login(CustodyJourneyTest.kt:23)
+	at org.redhouse.mobile.CustodyJourneyTest.opticalScanCollectionDeliveryAcceptanceAndCoordinatorRead(CustodyJourneyTest.kt:39)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

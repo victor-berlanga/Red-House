@@ -1,0 +1,29 @@
+{
+  "sources-final.json": {
+    "checked": 1234,
+    "mismatches": []
+  },
+  "artefactos-sha256.json": {
+    "checked": 205,
+    "mismatches": []
+  },
+  "historic_cases": {
+    "statuses": {
+      "PASSED": 90
+    },
+    "rerun": false,
+    "selection": [
+      "final-features2",
+      "final-http7",
+      "final-monolith3",
+      "final-agenda3",
+      "final-regression",
+      "final-degraded",
+      "final-migration"
+    ]
+  },
+  "captured_at_utc": "2026-11-07T04:46:25.206539+00:00",
+  "head": "cbe3503b39a60b6b0a995f1284b2f5b1c3405cae",
+  "historical_report_sha256": "874993d6c4dec1540c05baf580f188642e048a800aa2c3225288e21870dfafdd",
+  "scope": "Integridad y aplicabilidad; no nueva ejecución de los 90 tests."
+}

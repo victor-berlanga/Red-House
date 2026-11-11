@@ -1,0 +1,93 @@
+{
+  "startedAt": "2026-11-07T02:20:14.451Z",
+  "environment": "https://localhost:55553",
+  "gateway": "WSGI TLS aislado; no acredita proxy productivo",
+  "backend": "http",
+  "version": "working-tree/schema-17",
+  "commit": "cbe3503b39a60b6b0a995f1284b2f5b1c3405cae",
+  "sourceManifest": "sources-before.json",
+  "schema": 17,
+  "policies": {
+    "mfa": true,
+    "reauth": true,
+    "laboratory": true,
+    "organAuthorization": true
+  },
+  "checks": [
+    {
+      "name": "Inicio de sesión y cookies Secure sobre TLS",
+      "role": "admin",
+      "at": "2026-11-07T02:20:22.702Z",
+      "result": "PASS"
+    }
+  ],
+  "consoleErrors": [],
+  "networkErrors": [
+    {
+      "status": 503,
+      "path": "/configuracion/institucion",
+      "role": "admin"
+    }
+  ],
+  "records": {},
+  "privateReportDownloaded": false,
+  "map": "Pendiente de ejecutar",
+  "runtime": {
+    "browser": "157.0.8103.39",
+    "node": "v22.13.0",
+    "os": "darwin",
+    "arch": "x64"
+  },
+  "charts": [
+    {
+      "role": "admin",
+      "charts": []
+    }
+  ],
+  "accessibility": [
+    {
+      "role": "admin",
+      "page": "/panel",
+      "width": 390,
+      "focus": {
+        "tag": "A",
+        "visible": true,
+        "label": "Saltar al contenido",
+        "outline": "solid"
+      },
+      "violations": []
+    },
+    {
+      "role": "admin",
+      "page": "/panel",
+      "width": 768,
+      "focus": {
+        "tag": "BUTTON",
+        "visible": true,
+        "label": "",
+        "outline": "solid"
+      },
+      "violations": []
+    },
+    {
+      "role": "admin",
+      "page": "/panel",
+      "width": 1440,
+      "focus": {
+        "tag": "SUMMARY",
+        "visible": true,
+        "label": "Horario: Monterrey",
+        "outline": "solid"
+      },
+      "violations": []
+    }
+  ],
+  "passed": false,
+  "failure": "/configuracion/institucion: HTTP 503",
+  "failureLocation": [
+    "    at goto (/Users/victorberlanga/Programacion/integracion/Red-House/scripts/verify_backend_corrections.cjs:23:419)",
+    "    at async module.exports (/Users/victorberlanga/Programacion/integracion/Red-House/scripts/portal_profile_journeys.cjs:9:23)",
+    "    at async /Users/victorberlanga/Programacion/integracion/Red-House/scripts/verify_backend_corrections.cjs:33:57"
+  ],
+  "finishedAt": "2026-11-07T02:20:28.044Z"
+}

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.redhouse.mobile.RealServicesTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-11-09T14:37:45" hostname="Victors-MacBook-Air.local" time="5.205">
+  <properties/>
+  <testcase name="donorBookingRescheduleCancelAndScope" classname="org.redhouse.mobile.RealServicesTest" time="5.205"/>
+  <system-out><![CDATA[POST /services/identidad-acceso/api/v1/auth/login: 200
+POST /services/identidad-acceso/api/v1/auth/login: 200
+POST /services/identidad-acceso/api/v1/auth/login: 200
+POST /services/identidad-acceso/api/v1/catalogues/sites: 201
+POST /services/donantes/api/v1/campaigns: 201
+POST /services/donantes/api/v1/campaign-slots: 201
+POST /services/donantes/api/v1/campaign-slots: 201
+GET /services/donantes/api/v1/donors: 200
+POST /services/donantes/api/v1/donors/3c51b0ec-9b4b-455d-bf6f-222c7f89cb64/consents: 201
+POST /services/donantes/api/v1/appointments: 201
+GET /services/donantes/api/v1/appointments/f7bd9c3d-bb73-4c9d-bb12-aaa5c3b4ad17/schedule: 200
+POST /services/donantes/api/v1/appointments/f7bd9c3d-bb73-4c9d-bb12-aaa5c3b4ad17/commands: 200
+POST /services/donantes/api/v1/appointments/f7bd9c3d-bb73-4c9d-bb12-aaa5c3b4ad17/cancel: 200
+POST /services/identidad-acceso/api/v1/auth/login: 200
+GET /services/donantes/api/v1/donors/3c51b0ec-9b4b-455d-bf6f-222c7f89cb64: 403
+GET /services/inventario/api/v1/resources: 403
+POST /services/identidad-acceso/api/v1/auth/revoke: 200
+POST /services/identidad-acceso/api/v1/auth/revoke: 200
+POST /services/identidad-acceso/api/v1/auth/revoke: 200
+POST /services/identidad-acceso/api/v1/auth/revoke: 200
+]]></system-out>
+  <system-err><![CDATA[SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+]]></system-err>
+</testsuite>

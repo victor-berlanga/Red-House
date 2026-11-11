@@ -4,11 +4,11 @@ Usa esta guía para encargar cada etapa de la entrega final y revisar si realmen
 
 Los bloques son encargos listos para copiar. Los requisitos completos permanecen en los archivos 01 a 08 y en el complemento transversal 09; estas listas los ayudan a comprobar y no sustituyen ni reducen su alcance. Este documento no indica que las etapas ya estén implementadas o aprobadas.
 
-Incluye como requisito transversal el [complemento 09 de rastreo GPS por WebSockets y mapa de Nuevo León](09_rastreo_gps_websockets.md), que se lee y aplica **desde el prompt 01**, no después de terminar el 08. El software se prueba con simulador identificado y conexiones WSS reales mientras no esté disponible el GPS físico; la integración del equipo real queda abierta. Esta dependencia no justifica entregar solo un diseño, polling o puntos animados sin backend.
+Incluye como requisito transversal el [complemento 09 de rastreo GPS por WebSockets y mapa de Nuevo León](09_rastreo_gps_websockets.md), que se lee y aplica **desde el prompt 01**, no después de terminar el 08. El software se prueba con simulador identificado y conexiones WSS reales hasta comprobar captura desde la aplicación móvil; GPS externo queda opcional. Esta dependencia no justifica entregar solo un diseño, polling o puntos animados sin backend.
 
 ## Cómo usar la guía
 
-1. Abre el proyecto Red House y una conversación para la etapa 01. Pega su prompt inicial.
+1. Abre el proyecto Red House y una conversación para la etapa que corresponda al estado vigente. No reinicies 01/02 si ya están implementadas; para la continuación revisada el 11/11/2026 aplica el bloque siguiente.
 2. El archivo `00_contexto_y_reglas.md` se lee en todas las etapas. No requiere una ejecución separada.
    Lee también `09_rastreo_gps_websockets.md` desde la etapa 01; las siguientes ya lo referencian. Si aún no has empezado, basta seguir los prompts 01 a 08 con ese complemento. Si ya avanzaste sin rastreo, usa el encargo específico de la sección 09 antes de cerrar 07 y 08.
 3. Cuando el agente termine, pega el prompt de comprobación de esa misma etapa. Puedes usar el mismo chat o un chat de revisión separado dentro del mismo proyecto para contrastar de manera independiente.
@@ -18,12 +18,21 @@ Incluye como requisito transversal el [complemento 09 de rastreo GPS por WebSock
 
 La ubicación del proyecto es `/Users/victorberlanga/Programacion/integracion/Red-House`. Los prompts siguientes usan rutas relativas a esa raíz.
 
+## Continuación autorizada desde el cierre de 04 — 11/11/2026
+
+Conserva los archivos de prompts 00–04. Las correcciones y verificaciones heredadas se encargan mediante [Continuidad obligatoria de las etapas 01 a 04](07_integracion_pruebas_y_rendimiento.md#continuidad-obligatoria-de-las-etapas-01-a-04), con diez criterios CONT y registro único en `documentation/entrega-final/continuidad/Matriz.md` al ejecutar. 05 registra/resuelve dependencias de escritorio; 06 completa controles, proveedores y ensayos compartidos; 07 corrige clientes y comprueba integración; 08 recibe los resultados y entrega los artefactos. Leer ese bloque desde 05/06 no requiere ejecutar antes toda la etapa 07.
+
+Este traslado fue solicitado para continuar en etapas posteriores; no acredita cierre de 03/04 ni permite omitir sus defectos. Continúa tareas independientes y conserva cada criterio abierto con su dueño y aceptación. Reutiliza evidencia aplicable y repite solo lo afectado o no comprobado. Las decisiones posteriores prevalecen sobre instrucciones históricas de esta guía: iOS se prueba en el iPhone autorizado, sin descargar runtime Simulator mientras esa decisión siga vigente. Compilar, firmar, instalar y ejecutar son comprobaciones distintas.
+
+Para diseño en 05 y correcciones de UI en 07, lee [instrucciones UI/UX](../instrucciones_diseno_ui_ux.md) y [corrección de calidad visual](../corregir_calidad_visual_web_movil.md). Exige criterios previos y recorridos por familia/rol; una captura o compilación no acredita experiencia terminada.
+
 ## Protocolo de comprobación
 
 Todos los prompts de comprobación de esta guía deben aplicar este protocolo:
 
 - Lee `AGENTS.md`, `PROJECT_STATUS.md`, `stuff/prompts/entrega-final/00_contexto_y_reglas.md` y el archivo de la etapa completo. Consulta CodeGraph antes de localizar o leer código cuando exista el índice.
-- Revisa también `stuff/prompts/entrega-final/09_rastreo_gps_websockets.md` y sus criterios TRACK-01 a TRACK-10 según la etapa. Distingue mapa actual, conexiones WSS reales, origen simulado/teléfono y GPS físico pendiente; mantén JSON en Android y XML/XSD en escritorio.
+- Desde 05, contrasta también CONT-01…CONT-10 de 07 y su registro de continuidad cuando exista. Si aún no existe, informa esa brecha sin crearlo durante una auditoría de solo lectura. Aplica las decisiones vigentes de plataforma y los criterios de diseño; no reinicies encargos históricos para sustituir el traspaso.
+- Revisa también `stuff/prompts/entrega-final/09_rastreo_gps_websockets.md` y sus criterios TRACK-01 a TRACK-10 según la etapa. Distingue mapa actual, conexiones WSS reales, origen simulado/teléfono y resultados de integración móvil; GPS externo opcional; mantén JSON en Android/iOS y XML/XSD en escritorio.
 - Realiza una auditoría del estado real. No implementes correcciones, cambies requisitos ni edites código, contratos, documentación o `PROJECT_STATUS.md` durante la comprobación. Entrega el informe en el chat; el usuario podrá encargar después las correcciones.
 - Puedes ejecutar pruebas existentes únicamente con datos ficticios en un entorno temporal aislado, sin modificar los datos habituales, detener servicios activos ajenos, desplegar o publicar. Si ese entorno no está disponible, revisa la evidencia existente e identifica expresamente qué no pudo verificarse. No uses producción como entorno de prueba.
 - Contrasta cada requisito con implementación, contrato, prueba y resultado. Comprueba fecha, versión/commit o manifiesto/hash de fuentes de la evidencia; los cambios sin commit también deben quedar identificados. Un resultado histórico no demuestra que el código modificado siga funcionando.
@@ -62,7 +71,7 @@ Lee y ejecuta stuff/prompts/entrega-final/01_backend_y_microservicios.md.
 Lee también AGENTS.md, PROJECT_STATUS.md y stuff/prompts/entrega-final/00_contexto_y_reglas.md.
 Completa implementación, integración, pruebas y documentación. No te limites a un plan.
 Conserva la base compartida y los datos existentes. Cubre las 24 responsabilidades recomendadas, justificando agrupaciones o separaciones sin imponer 24 procesos ni duplicar reglas.
-Incluye el receptor/adaptador GPS futuro, simulador, contratos WSS JSON/XML, persistencia y recuperación definidos en la especificación de rastreo.
+Incluye el receptor/adaptador GPS móvil, simulador, contratos WSS JSON/XML, persistencia y recuperación definidos en la especificación de rastreo.
 Actualiza PROJECT_STATUS.md con criterios cumplidos, evidencias y pendientes reales.
 ```
 
@@ -73,7 +82,7 @@ Audita la etapa 01 contra stuff/prompts/entrega-final/01_backend_y_microservicio
 Aplica el Protocolo de comprobación de stuff/prompts/entrega-final/GUIA_EJECUCION_Y_COMPROBACION.md. Revisa, no implementes correcciones.
 Comprueba BE-01 a BE-24, la evolución desde los once servicios iniciales, límites y propietarios, contratos JSON/XML/XSD, persistencia, migraciones, permisos, eventos e idempotencia.
 Verifica reservas y cupos concurrentes, rechazo institucional, revisión humana y recuperación de escrituras inciertas. No cuentes réplicas como servicios ni capacidades futuras como implementadas.
-Comprueba ingreso GPS simulado, asignación del emisor, canal WSS real, persistencia, formatos JSON/XML, cursor y reconexión; el hardware físico sigue pendiente.
+Comprueba ingreso GPS simulado, asignación del emisor, canal WSS real, persistencia, formatos JSON/XML, cursor y reconexión; la captura física móvil se acepta en 04/07; GPS externo es opcional.
 Distingue la infraestructura técnica de HLA de la evaluación detallada de la etapa 02 y de cualquier aprobación clínica externa.
 Entrega la matriz de requisitos, evidencia aplicable al código actual, brechas y acciones de cierre. Termina con el veredicto definido en el protocolo.
 ```
@@ -171,17 +180,17 @@ Entrega la matriz de requisitos, evidencia aplicable al código actual, brechas 
 
 Señales de etapa incompleta: formularios sin guardar, reportes ficticios, recuperación de contraseña limitada a ayuda, acceso clínico por ser administrador o web que pierde todas sus funciones al detener las API.
 
-## 04 Aplicación Android
+## 04 Aplicación móvil Android/iOS
 
-Requisito completo: [Android con Kotlin y Jetpack Compose](04_aplicacion_android.md).
+Requisito completo: [Móvil iOS y Android con Kotlin Multiplatform y Compose Multiplatform](04_aplicacion_android.md).
 
 ### Prompt inicial
 
 ```text
 Lee y ejecuta stuff/prompts/entrega-final/04_aplicacion_android.md.
 Lee también AGENTS.md, PROJECT_STATUS.md y stuff/prompts/entrega-final/00_contexto_y_reglas.md.
-Construye una sola aplicación Kotlin con Jetpack Compose, con vistas y operaciones por perfil, conectada a microservicios reales exclusivamente mediante JSON.
-Completa sesión segura, QR, cámara, GPS, push, sincronización restringida, pruebas y APK instalable. No uses una WebView del portal.
+Construye una sola aplicación Kotlin Multiplatform con Compose Multiplatform, con vistas y operaciones por perfil, conectada a microservicios reales exclusivamente mediante JSON.
+Completa sesión segura, QR, cámara, GPS, push, sincronización restringida, pruebas, APK instalable y compilación/arranque iOS en simulador, con firma física cuando exista acceso autorizado. No uses una WebView del portal.
 Integra seguimiento WSS JSON y mapa de Nuevo León, diferenciando GPS del teléfono, simulador y adaptador para el GPS externo futuro.
 Actualiza documentación y PROJECT_STATUS.md con resultados, plataformas verificadas y pendientes reales.
 ```
@@ -191,9 +200,9 @@ Actualiza documentación y PROJECT_STATUS.md con resultados, plataformas verific
 ```text
 Audita la etapa 04 contra stuff/prompts/entrega-final/04_aplicacion_android.md completo.
 Aplica el Protocolo de comprobación de stuff/prompts/entrega-final/GUIA_EJECUCION_Y_COMPROBACION.md. Revisa, no implementes correcciones.
-Comprueba compilación/APK, aplicación nativa única con vistas por perfil, consumo JSON real de al menos cuatro servicios y ausencia de conexión a bases/Redis o sesiones internas web.
+Comprueba compilación/APK Android y compilación/arranque iOS, aplicación multiplataforma con vistas por perfil, consumo JSON real de al menos cuatro servicios y ausencia de conexión a bases/Redis o sesiones internas web.
 Verifica donante/citas, transportista/tareas, operador/recepción y vistas autorizadas; QR, cámara, fuente GPS y push con su alcance real, almacenamiento protegido, renovación/logout y privacidad.
-Comprueba mapa de Nuevo León y WSS JSON real con reconexión y permisos. Los datos del simulador deben identificarse; no equivalen a una prueba del GPS físico pendiente.
+Comprueba mapa de Nuevo León y WSS JSON real con reconexión y permisos. Los datos del simulador deben identificarse; no equivalen a captura física de un teléfono. Registra resultados móviles por plataforma; GPS externo opcional.
 Audita pérdida de conexión/respuesta, reinicio, cambio de cuenta, revocación y conflictos: ningún evento pendiente confirma offline una reserva, liberación o cierre de custodia.
 Distingue emulador, dispositivo físico, proveedor externo y dependencias de escritorio aún no construido. No declares probada una capacidad simulada.
 Entrega la matriz de requisitos, evidencia aplicable al código actual, brechas y acciones de cierre. Termina con el veredicto definido en el protocolo.
@@ -201,16 +210,16 @@ Entrega la matriz de requisitos, evidencia aplicable al código actual, brechas 
 
 ### Qué debes obtener de la comprobación
 
-- Comando de compilación, resultado, APK identificable y prueba de instalación/arranque en un entorno Android identificado.
+- Comando de compilación, resultado, APK identificable y prueba de instalación/arranque en un entorno Android identificado; añade comando y evidencia de compilación/arranque iOS en simulador o dispositivo identificado.
 - Una app con vistas por perfil y evidencia JSON de al menos cuatro microservicios, sin credenciales o conexiones directas a almacenes.
 - Recorridos reales de cita y traslado, con verificación QR, evidencia de cámara, ubicación y recepción/resultado autorizado.
 - Prueba de push y apertura autorizada del recurso; si falta proveedor o dispositivo, pendiente explícito con alcance y efecto.
 - Verificación de almacenamiento cifrado, renovación coordinada, limpieza al salir y separación entre cuentas.
 - Evidencia offline/reconexión sin duplicación, conflicto visible, tarea pendiente y rechazo de acciones críticas sin validación central.
-- Seguimiento JSON por WSS sobre mapa actual de Nuevo León, fuente distinguible, datos atrasados identificados y aceptación física del GPS registrada como pendiente hasta tener el equipo.
+- Seguimiento JSON por WSS sobre mapa actual de Nuevo León, fuente distinguible, datos atrasados identificados y resultados físicos separados por teléfono; conserva pendientes los no comprobados. GPS externo opcional.
 - Lista de pruebas que requieren el escritorio de la etapa 05 o integración de la 07; quedan abiertas hasta su ejecución, no se marcan aprobadas.
 
-Señales de etapa incompleta: APK no generado, pantallas con listas fijas, cámara/push no verificados, puntos animados sin WSS/backend, simulador presentado como GPS físico probado, tokens en texto plano o marca de entrega confirmada sin respuesta del servidor.
+Señales de etapa incompleta: APK o compilación iOS no generados, pantallas con listas fijas, cámara/push no verificados, puntos animados sin WSS/backend, simulador presentado como GPS físico probado, tokens en texto plano o marca de entrega confirmada sin respuesta del servidor.
 
 ## 05 Aplicación de escritorio
 
@@ -221,6 +230,8 @@ Requisito completo: [Escritorio con PySide6 y Python](05_aplicacion_escritorio.m
 ```text
 Lee y ejecuta stuff/prompts/entrega-final/05_aplicacion_escritorio.md.
 Lee también AGENTS.md, PROJECT_STATUS.md y stuff/prompts/entrega-final/00_contexto_y_reglas.md.
+Lee instrucciones_diseno_ui_ux.md y corregir_calidad_visual_web_movil.md en stuff/prompts, y la continuidad de 01–04 definida en 07. Adapta las reglas visuales a Qt sin ejecutar otro rediseño global.
+Identifica contratos/roles por módulo y plataforma/arquitectura de entrega. Resuelve la sincronización de borradores con su propietario; no reutilices permisos TRANSPORT ni registres escritorio como GPS.
 Construye una sola aplicación nativa PySide6 con Python, con módulos y operaciones por perfil, conectada a microservicios reales mediante XML/XSD.
 Completa captura interna, inventario, evaluación autorizada, logística, impresión, reportes, sincronización permitida, pruebas y paquete ejecutable. No copies el portal en una WebView.
 Incluye mapa actual de Nuevo León y seguimiento WSS XML/XSD, con acceso por traslado, recuperación y distinción entre datos simulados y GPS físico.
@@ -232,9 +243,10 @@ Actualiza documentación y PROJECT_STATUS.md con evidencias, plataformas probada
 ```text
 Audita la etapa 05 contra stuff/prompts/entrega-final/05_aplicacion_escritorio.md completo.
 Aplica el Protocolo de comprobación de stuff/prompts/entrega-final/GUIA_EJECUCION_Y_COMPROBACION.md. Revisa, no implementes correcciones.
+Comprueba reglas de diseño por familia y rol, tareas, teclado, foco, escalado y estados de error/conflicto/incertidumbre. Revisa la matriz inicial de contratos y el permiso real de cada borrador sincronizable.
 Comprueba DESK-01 a DESK-14, aplicación nativa PySide6 por perfiles, uso XML de al menos cuatro servicios y validación XSD/DTO también para login, refresh, MFA y errores.
 Verifica que no usa bases/Redis ni lógica clínica backend local; exige pruebas GUI reales, persistencia, permisos, concurrencia, tablas, exportaciones, etiquetas, recuperación y protección de credenciales.
-Comprueba rechazo de XXE, XML inválido y JSON inesperado. Revisa offline/cambio de cuenta y coherencia con Android JSON y web.
+Comprueba rechazo de XXE, XML inválido y JSON inesperado. Revisa offline/cambio de cuenta y coherencia con móvil Android/iOS JSON y web.
 Verifica el mapa actual de Nuevo León actualizado por WSS XML/XSD, sin consumo JSON oculto de microservicios dentro del componente de mapa, con permisos/reconexión y antigüedad visibles.
 Distingue generación de PDF de impresión física y paquete construido de plataforma realmente probada.
 Entrega la matriz de requisitos, evidencia aplicable al código actual, brechas y acciones de cierre. Termina con el veredicto definido en el protocolo.
@@ -243,12 +255,13 @@ Entrega la matriz de requisitos, evidencia aplicable al código actual, brechas 
 ### Qué debes obtener de la comprobación
 
 - Matriz de los **14 módulos DESK-01 a DESK-14**, con pantalla, rol, permiso, operación XML y prueba.
+- Criterios y resultados visuales por familia/rol, con tareas, teclado, escalado y estados; dependencias CONT identificadas sin aceptación ficticia.
 - Evidencia XML/XSD/DTO de al menos cuatro servicios, incluidos autenticación, comandos y errores; rechazo de XXE y formato inesperado.
 - Recorridos GUI de captura/inventario, revisión/reserva, programación/recepción y auditoría, según las facultades de cada perfil.
 - Resultado de búsqueda/filtros/paginación, exportaciones PDF/CSV/XLSX, etiquetas escaneables y vista previa; impresión física identificada o pendiente explícito.
 - Pruebas de conflicto de versión, escritura incierta, renovación/logout, credenciales protegidas y borradores permitidos sin confirmación crítica offline.
 - Un paquete ejecutable e instrucciones de instalación/arranque, con sistemas operativos realmente verificados y dependencias declaradas.
-- Un caso relacionado con Android JSON y web, conservando identificadores, estado y ámbito, o una dependencia de integración documentada que no se presenta como prueba aprobada.
+- Un caso relacionado con móvil Android/iOS JSON y web, conservando identificadores, estado y ámbito, o una dependencia de integración documentada que no se presenta como prueba aprobada.
 - Mapa y trayecto en vivo por WSS XML/XSD con mismos eventos que web/Android, diferenciando datos simulados, desconexión y cartografía caída, sin convertir la consola en copia del portal.
 
 Señales de etapa incompleta: login en JSON aunque las consultas usen XML, interfaz bloqueada durante red, módulos vacíos, reglas de compatibilidad copiadas al cliente o afirmación de soporte Windows sin haberlo comprobado.
@@ -262,6 +275,8 @@ Requisito completo: [Seguridad e infraestructura](06_seguridad_infraestructura_y
 ```text
 Lee y ejecuta stuff/prompts/entrega-final/06_seguridad_infraestructura_y_continuidad.md.
 Lee también AGENTS.md, PROJECT_STATUS.md y stuff/prompts/entrega-final/00_contexto_y_reglas.md.
+Lee la continuidad de 01–04 definida en 07 y documentation/entrega-final/portal/Aceptacion_integrada_06.md. Comprueba entorno vigente y resuelve I06-01…09 y CONT aplicables, sin asumir ausencias o esquemas históricos.
+Completa la integración autorizada GCS/ClamAV y proveedor FCM/APNs con sus propietarios. Separa implementación, configuración y entrega física; un 2xx del adaptador no acredita recepción.
 Completa y verifica seguridad, MFA/reautenticación, privacidad, análisis de archivos, infraestructura, monitoreo, respaldos y recuperación con RTO/RPO.
 Configura y prueba WSS/gateway, autorización continua del rastreo GPS, reconexión entre réplicas, retención de ubicación y fallo de cartografía.
 Conserva datos y autorizaciones vigentes. Ensaya fallos/restauraciones en entornos aislados; no publiques cambios productivos sin autorización vigente.
@@ -273,6 +288,7 @@ Actualiza evidencias, documentación y PROJECT_STATUS.md distinguiendo implement
 ```text
 Audita la etapa 06 contra stuff/prompts/entrega-final/06_seguridad_infraestructura_y_continuidad.md completo.
 Aplica el Protocolo de comprobación de stuff/prompts/entrega-final/GUIA_EJECUCION_Y_COMPROBACION.md. Revisa, no implementes correcciones.
+Comprueba I06-01…09 y CONT aplicables con entorno/versión actuales. Exige ciclo documental real y separa proveedor push implementado/configurado de recepción y apertura comprobadas desde los clientes.
 Comprueba SEC-01 a SEC-03 e INF-01 a INF-04 con evidencia: MFA, reautenticación, JWT/Redis, aislamiento institucional, documentos privados/antimalware, contenedores, HTTPS, workers y CI.
 Verifica caída de una réplica, servicio completo y PostgreSQL/Redis/MongoDB/GCS; confirma rechazo seguro, operaciones pendientes y recuperación sin duplicados. No confundas redundancia de API con tolerancia a pérdida de host.
 Audita WSS, orígenes web, identidad de GPS/puente, suscripción por traslado, revocación con socket abierto, reconexión/cursor y límites; Redis inaccesible no autoriza continuar entregando posiciones protegidas.
@@ -284,6 +300,7 @@ Entrega la matriz de requisitos, evidencia aplicable al código actual, brechas 
 ### Qué debes obtener de la comprobación
 
 - Matriz de seguridad con intentos rechazados por rol, institución, asignación, sesión/dispositivo revocado y reautenticación reutilizada.
+- Resultado de I06-01…09 y criterios CONT a cargo de 06; proveedor push, ciclo GCS y pendientes de prueba cliente entregados expresamente a 07.
 - Evidencia de que archivos pendientes/rechazados no se descargan como limpios, del motor antimalware y de la recuperación cuando falla el análisis o GCS.
 - Inventario desplegable de imágenes, procesos, workers, puertos, secretos y redes, conservando PostgreSQL compartido y mínimo privilegio.
 - Matriz de fallos con esperado/obtenido: réplica, servicio completo, almacenes, gateway, worker y host, señalando lo probado frente a lo diseñado.
@@ -303,9 +320,11 @@ Requisito completo: [Integración y pruebas](07_integracion_pruebas_y_rendimient
 ```text
 Lee y ejecuta stuff/prompts/entrega-final/07_integracion_pruebas_y_rendimiento.md.
 Lee también AGENTS.md, PROJECT_STATUS.md y stuff/prompts/entrega-final/00_contexto_y_reglas.md.
-Ejecuta los procesos completos entre web, Android JSON y escritorio XML, con persistencia y permisos reales. Corrige los defectos técnicos encontrados.
+Resuelve CONT-01…CONT-10 de la sección Continuidad obligatoria de las etapas 01 a 04; conserva sus prompts y evidencia, corrige brechas concretas y actualiza documentation/entrega-final/continuidad/Matriz.md.
+Aplica las reglas de diseño compartidas y verifica tareas de todos los roles, edición personal autorizada del donante, paginación superior a 100, MFA/accesibilidad, archivos, push y capacidades físicas. iOS se acepta en el iPhone autorizado; no descargues Simulator por una instrucción histórica.
+Ejecuta los procesos completos entre web, móvil Android/iOS JSON y escritorio XML, con persistencia y permisos reales. Corrige los defectos técnicos encontrados.
 Completa contratos, concurrencia, sincronización, fallos, restauración, volumen, Locust y usabilidad, conservando resultados actuales y reproducibles.
-Demuestra GPS simulado a través del backend y WSS reales hasta los mapas de Nuevo León de web, Android JSON y escritorio XML/XSD, con pruebas de seguridad, retrasos y recuperación.
+Demuestra GPS simulado a través del backend y WSS reales hasta los mapas de Nuevo León de web, móvil Android/iOS JSON y escritorio XML/XSD, con pruebas de seguridad, retrasos y recuperación.
 Actualiza la matriz de cumplimiento, documentación y PROJECT_STATUS.md; no sumes ejecuciones repetidas como casos diferentes.
 ```
 
@@ -314,7 +333,9 @@ Actualiza la matriz de cumplimiento, documentación y PROJECT_STATUS.md; no sume
 ```text
 Audita la etapa 07 contra stuff/prompts/entrega-final/07_integracion_pruebas_y_rendimiento.md completo.
 Aplica el Protocolo de comprobación de stuff/prompts/entrega-final/GUIA_EJECUCION_Y_COMPROBACION.md. Revisa, no implementes correcciones.
-Comprueba E2E-A, E2E-B y E2E-C completos, consulta entre productos con mismos IDs/estados/versiones, cuatro servicios por cliente y tareas reales en navegador/Android/PySide6.
+Comprueba CONT-01…CONT-10, origen de cada brecha, propietario, criterio y evidencia actual. Una reducción de alcance requiere decisión explícita; no confundas aprobación clínica externa con defecto del mecanismo académico.
+Comprueba E2E-A, E2E-B y E2E-C completos por Android e iOS, consulta entre productos con mismos IDs/estados/versiones, cuatro servicios por cliente y tareas reales en navegador/Android/iOS/PySide6.
+Verifica criterios de usabilidad definidos antes de medir, todos los roles/familias, formatos comprensibles, accesibilidad y paginación sin truncamiento. Distingue lectura de código, fixtures y ejecución nativa/física.
 Verifica contratos, roles/privacidad, concurrencia, offline/revocación, recuperación de fallos y ausencia de confirmaciones falsas o efectos duplicados.
 Comprueba TRACK-01 a TRACK-10: fuente simulada, ingreso/persistencia, WSS, mapa actual de Nuevo León, JSON/XML, orden/cursor, permisos y latencia extremo a extremo. No aceptes polling como WebSockets ni simulación como prueba física.
 Audita dataset, condiciones y datos brutos de Locust: perfiles, usuarios, tasa, media/p95/p99, errores, recursos, saturación y recuperación. La comparación sin caché debe mantener seguridad Redis.
@@ -324,14 +345,14 @@ Entrega la matriz de requisitos, evidencia aplicable al código actual, brechas 
 
 ### Qué debes obtener de la comprobación
 
-- Tres expedientes integrales: sangre hasta uso/destino, coordinación de órgano con autorizaciones registradas y donación desde Android hasta procesamiento/inventario.
-- Al menos un caso que cruce Android JSON, escritorio XML y web, con IDs, versiones, permisos y persistencia relacionados.
+- Tres expedientes integrales: sangre hasta uso/destino, coordinación de órgano con autorizaciones registradas y donación desde Android o iOS hasta procesamiento/inventario.
+- Al menos un caso que cruce móvil Android/iOS JSON, escritorio XML y web, con IDs, versiones, permisos y persistencia relacionados.
 - Informe de regresión actual y matrices de contratos, seguridad, concurrencia y fallos, conservando errores/repeticiones sin inflar resultados.
 - Demostración de sincronización tras desconexión sin duplicación ni confirmación crítica offline y de recuperación segura ante caída de servicio/almacenes.
 - Dataset reproducible, configuración Locust y resultados brutos con concurrencia, peticiones/s, latencias media/p95/p99, errores, recursos y recuperación.
 - Recorridos de interfaz y usabilidad con alcance identificado: automatización o participantes reales, dispositivos y plataformas efectivamente probados.
-- Expediente completo del rastreo con simulador, mensajes WSS reales, mapas de Nuevo León, seguridad/recuperación y métricas de emisores/suscriptores; hardware físico explícitamente pendiente si sigue sin estar disponible.
-- Resolución o lista abierta de los pendientes heredados, separando fallos técnicos y verificaciones externas; sin un aprobado global que oculte etapas incompletas.
+- Expediente completo del rastreo con simulador, mensajes WSS reales, mapas de Nuevo León, seguridad/recuperación y métricas de emisores/suscriptores; aceptación móvil física diferenciada; GPS externo opcional.
+- Matriz CONT-01…CONT-10 con resolución o pendientes heredados, separando fallos técnicos, decisiones de alcance y verificaciones externas; sin un aprobado global que oculte etapas incompletas.
 
 Señales de etapa incompleta: solo pruebas de endpoints aislados, carga contra un único health check, p95/p99 sin datos brutos, apagar Redis para medir sin caché o E2E que nunca utiliza los clientes reales.
 
@@ -344,10 +365,12 @@ Requisito completo: [Documentación y entrega](08_documentacion_y_entrega.md).
 ```text
 Lee y ejecuta stuff/prompts/entrega-final/08_documentacion_y_entrega.md.
 Lee también AGENTS.md, PROJECT_STATUS.md y stuff/prompts/entrega-final/00_contexto_y_reglas.md.
+Recibe la matriz CONT-01…CONT-10 y resultados de 06/07; conserva los prompts 01–04. No cierres pendientes mediante cambios de redacción ni reiteres toda prueba vigente sin causa.
 Consolida la entrega comprobada: informe editable/Word/PDF, manuales, modelos, diagramas, contratos, instalables, evidencias y guion de demostración.
+Completa video final verificable, registro consolidado de incidencias, participación y reflexiones auténticas de cada integrante. Registra la aclaración de ubiquitous sin inventar plataforma o dispensa. Respeta la ruta autorizada de iOS físico.
 Contrasta todo con código y resultados actuales; corrige defectos técnicos antes de describirlos como entregados. No inventes aprobaciones, participación, plataformas probadas ni enlaces de publicación.
 Verifica los artefactos e instalaciones y actualiza PROJECT_STATUS.md con lo entregado y las brechas reales.
-Incluye contratos WSS JSON/XML, manual del simulador/adaptador GPS, evidencia del mapa actual de Nuevo León y pruebas de aceptación del equipo físico futuro.
+Incluye contratos WSS JSON/XML, manual del simulador/adaptador GPS, evidencia del mapa actual de Nuevo León y pruebas Android/iOS y aceptación de equipo externo solo si se incorpora.
 ```
 
 ### Prompt de comprobación
@@ -355,8 +378,9 @@ Incluye contratos WSS JSON/XML, manual del simulador/adaptador GPS, evidencia de
 ```text
 Audita la etapa 08 y el cierre global contra stuff/prompts/entrega-final/08_documentacion_y_entrega.md completo y los criterios obligatorios de las etapas 01 a 07.
 Aplica el Protocolo de comprobación de stuff/prompts/entrega-final/GUIA_EJECUCION_Y_COMPROBACION.md. Revisa, no implementes correcciones.
+Comprueba disposición final de CONT-01…CONT-10, incidencias, reflexiones individuales, checklist y artefacto del video final, y resolución o pendiente explícito de ubiquitous. No atribuyas al equipo testimonios ni autorizaciones inexistentes.
 Comprueba que informe, manuales, modelos, diagramas, contratos, instalables y evidencia corresponden a la misma versión y describen lo realmente implementado.
-Verifica matriz de las 24 responsabilidades sin imponer 24 procesos, instalación limpia, actualización/restauración, APK, escritorio y demostración integrada. Revisa visualmente PDF y artefactos cuando sea posible, además de enlaces/índice/tablas.
+Verifica matriz de las 24 responsabilidades sin imponer 24 procesos, instalación limpia, actualización/restauración, APK y compilación iOS, escritorio y demostración integrada. Revisa visualmente PDF y artefactos cuando sea posible, además de enlaces/índice/tablas.
 Comprueba la documentación del GPS futuro, contratos/eventos WSS, permisos, mapa actual de Nuevo León con proveedor/actualización/atribución y evidencia del software con simulador, sin afirmar integración física inexistente.
 Contrasta fuentes, límites clínicos, continuidad, RTO/RPO, contribuciones y publicación; no aceptes datos inventados ni cierre por existir documentos.
 Lista todo criterio obligatorio pendiente. No declares completa la entrega final mientras falte implementación o verificación requerida.
@@ -367,12 +391,13 @@ Entrega la matriz de requisitos, evidencias aplicables, brechas y acciones de ci
 
 - Índice navegable de archivos/artefactos y matriz final requisito/componente/permiso/prueba/evidencia/resultado, incluyendo los pendientes anteriores.
 - Informe fuente, Word y PDF íntegros y coherentes, con portada real, referencias, índice, tablas/figuras y revisión visual documentada.
-- Manuales ejecutables de instalación/operación, usuario por perfil, Android, escritorio, técnico y recuperación; sin secretos ni rutas privadas imprescindibles.
+- Manuales ejecutables de instalación/operación, usuario por perfil, Android/iOS, escritorio, técnico y recuperación; sin secretos ni rutas privadas imprescindibles.
 - Modelos y diagramas correspondientes al esquema/contratos y despliegue final, diferenciando infraestructura futura de la realmente desplegada.
-- APK y paquete de escritorio identificados con versión y plataformas verificadas; evidencia de clon limpio, actualización y restauración del conjunto final.
-- Guion y material de demostración, registro de participación respaldado y enlaces reales solo cuando existan; sin reutilizar el video del parcial como prueba automática de la entrega final.
+- APK, artefacto iOS y paquete de escritorio identificados con versión, firma/instalación/ejecución diferenciadas y plataformas verificadas; evidencia de clon limpio, actualización y restauración del conjunto final. No exigir Simulator contra la decisión vigente.
+- Video final con cobertura y segmentos verificables, presentación, registro de participación, incidencias consolidadas y reflexiones aportadas por sus autores; enlaces reales solo cuando existan. El video del parcial no acredita la entrega final.
+- Trazabilidad del requisito «ubiquitous», con aclaración/decisión respaldada o pendiente explícito; ninguna plataforma ni dispensa inferida.
 - Veredicto global con pendientes obligatorios enumerados. La entrega no está completa si faltan funciones o pruebas requeridas, aunque los documentos estén terminados.
-- Alcance de rastreo documentado y demostrado: WSS real, mapa con procedencia/actualización, simulador/adaptador y aceptación física pendiente; no debe declararse probado un GPS todavía no disponible.
+- Alcance de rastreo documentado y demostrado: WSS real, mapa con procedencia/actualización, simulador y resultados físicos separados por teléfono; GPS externo solo si se encargó esa extensión. No atribuir evidencia a equipo no probado.
 
 Señales de etapa incompleta: PDF con cifras antiguas, manuales que no permiten instalar, enlaces rotos, instalables ausentes, secretos en el paquete o reporte que afirma aprobación clínica/alta disponibilidad no demostradas.
 
@@ -400,7 +425,7 @@ Si empiezas desde cero, no necesitas ejecutar este encargo aparte: el 01 y las e
 ```text
 Lee y aplica stuff/prompts/entrega-final/09_rastreo_gps_websockets.md junto con AGENTS.md, PROJECT_STATUS.md y stuff/prompts/entrega-final/00_contexto_y_reglas.md.
 Revisa qué partes del rastreo ya existen e implementa las brechas sobre los componentes actuales, sin duplicar servicios, datos, contratos ni reglas.
-Completa receptor/adaptador GPS futuro, simulador, WSS seguro, mensajes JSON para Android y XML/XSD para escritorio, mapa actual de Nuevo León, permisos, persistencia y recuperación.
+Completa receptor/adaptador GPS móvil, simulador, WSS seguro, mensajes JSON para Android y XML/XSD para escritorio, mapa actual de Nuevo León, permisos, persistencia y recuperación.
 Integra lo correspondiente a cada etapa implementada y registra las dependencias de clientes aún no construidos para completarlas cuando existan, antes de cerrar 07 y 08.
 Prueba el recorrido completo disponible y actualiza evidencia, documentación y PROJECT_STATUS.md. No declares probado el GPS físico mientras no esté disponible.
 ```
@@ -412,7 +437,7 @@ Audita TRACK-01 a TRACK-10 de stuff/prompts/entrega-final/09_rastreo_gps_websock
 Aplica el Protocolo de comprobación de stuff/prompts/entrega-final/GUIA_EJECUCION_Y_COMPROBACION.md. Revisa, no implementes correcciones.
 Comprueba ingreso/asignación del GPS simulado, persistencia, WSS real, mensajes JSON/XML, mapa actual de Nuevo León, privacidad por traslado, reconexión/cursor y datos antiguos.
 Contrasta la implementación con las etapas 01 a 08 afectadas; no apruebes integraciones de clientes inexistentes ni cuentes polling como WebSockets.
-Entrega matriz por TRACK, evidencia aplicable al código actual, brechas y acciones de cierre. Distingue software probado con simulador de GPS físico pendiente.
+Entrega matriz por TRACK, evidencia aplicable al código actual, brechas y acciones de cierre. Distingue software probado con simulador de resultados nativos y físicos por plataforma; GPS externo opcional.
 Termina con el veredicto definido en el protocolo y señala qué bloquea el cierre de 07 y 08.
 ```
 
@@ -422,6 +447,10 @@ Termina con el veredicto definido en el protocolo y señala qué bloquea el cier
 - Recorrido comprobado desde simulador/adaptador a ingreso, validación, persistencia y distribución WSS real; sin duplicar la autoridad de Transporte.
 - Mapas interactivos actuales de Nuevo León en los clientes implementados, con formatos JSON/XML correctos y misma identidad de evento/traslado.
 - Pruebas de autorización continua, revocación, señal perdida, dato antiguo, reconexión y recuperación desde cursor.
-- Separación clara entre integraciones de software aprobadas, clientes todavía pendientes y prueba física del GPS futuro.
+- Separación clara entre integraciones de software aprobadas, resultados físicos por teléfono y pendientes reales; prueba de GPS externo solo si se incorpora esa extensión.
 
 Señales de complemento incompleto: mapa estático, marcador animado sin backend, polling como único transporte, mensajes JSON en escritorio, suscripciones ajenas o simulador presentado como GPS físico probado.
+
+## Alcance móvil actualizado — 6 de noviembre de 2026
+
+Las etapas 01/02 tienen implementación previa: no reejecutarlas por ampliar móvil. Kotlin Multiplatform/Compose Multiplatform, JSON y ambos destinos siguen vigentes. Para la continuación autorizada del 11/11/2026, los pendientes de 01–04 se resuelven mediante CONT-01…CONT-10 en 05–07 y se consolidan en 08. La ruta iOS vigente es Xcode e iPhone físico autorizado, sin descargar runtime Simulator; APK ni compilación arm64 acreditan ejecución iOS. En 07 verifica los flujos y captura/publicación GPS WSS desde ambos sistemas con evidencia aplicable. La fuente principal es el teléfono; GPS externo es opcional. Mantén separadas aceptación del portal, simulación, ejecución nativa y prueba física.

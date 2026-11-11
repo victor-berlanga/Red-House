@@ -1,0 +1,81 @@
+{
+  "type": "object",
+  "required": [
+    "data",
+    "meta"
+  ],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": [
+        "correlation_id",
+        "service",
+        "version"
+      ],
+      "properties": {
+        "correlation_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "service": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      }
+    },
+    "data": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "version": {
+          "title": "Version",
+          "type": "integer"
+        },
+        "timezone": {
+          "enum": [
+            "America/Monterrey",
+            "America/Mexico_City",
+            "America/Tijuana",
+            "UTC"
+          ],
+          "title": "Timezone",
+          "type": "string"
+        },
+        "tracking_interval_seconds": {
+          "maximum": 300,
+          "minimum": 1,
+          "title": "Tracking Interval Seconds",
+          "type": "integer"
+        },
+        "tracking_stale_seconds": {
+          "maximum": 3600,
+          "minimum": 5,
+          "title": "Tracking Stale Seconds",
+          "type": "integer"
+        },
+        "reference": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Reference",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "version",
+        "timezone",
+        "tracking_interval_seconds",
+        "tracking_stale_seconds",
+        "reference"
+      ],
+      "title": "Policy",
+      "type": "object"
+    }
+  }
+}

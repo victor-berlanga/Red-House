@@ -226,6 +226,7 @@ def process(limit=100):
                         subscription["destination"],
                         alert["message_code"],
                         str(delivery["id"]),
+                        alert_id=str(alert["id"]),
                     )
                 update(
                     conn,
@@ -329,6 +330,7 @@ def install(app):
         model=SubscriptionCreate,
         status=201,
         result=schema(Subscription),
+        summary="Registrar, rotar o reactivar destino propio; una suscripción por cuenta y canal",
     )
     def alert_subscription_create(data):
         if data["channel"] == "EMAIL":
@@ -349,6 +351,24 @@ def install(app):
             destination = data["push_destination"]
 
         def work(conn):
+            # One destination per account/channel is the existing schema contract.
+            # Rotation/reactivation must replace that row, not collide with its unique key.
+            conn.execute(
+                "SELECT pg_advisory_xact_lock(hashtextextended(%s, 84))",
+                (g.actor["id"] + data["channel"],),
+            )
+            existing = conn.execute(
+                "SELECT * FROM alert_subscriptions WHERE user_id=%s AND channel=%s FOR UPDATE",
+                (g.actor["id"], data["channel"]),
+            ).fetchone()
+            if existing:
+                row = update(conn, "alert_subscriptions", existing["id"], {
+                    "tenant_id": g.actor["tenant_id"], "role": g.actor["role"],
+                    "destination": destination, "active": True,
+                    "version": existing["version"] + 1,
+                })
+                emit(conn, "ALERT_SUBSCRIPTION_ROTATED", row["id"], row["tenant_id"])
+                return row
             row = insert(
                 conn,
                 "alert_subscriptions",

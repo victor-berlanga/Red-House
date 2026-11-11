@@ -12,6 +12,7 @@
   <script src="{{ url_for('static', filename='js/app.js') }}" defer></script>
   <script src="{{ url_for('static', filename='js/filters.js') }}" defer></script>
   <script src="{{ url_for('static', filename='js/details.js') }}" defer></script>
+  <script src="{{ url_for('static', filename='js/row-actions.js') }}" defer></script>
   {% if integration_mode %}<script src="{{ url_for('static',filename='js/timezone.js') }}" defer></script><script src="{{ url_for('static',filename='js/actions.js') }}" defer></script><link rel="stylesheet" href="{{ url_for('static',filename='css/integration.css') }}">{% endif %}
   {% block head %}{% endblock %}
 </head>
@@ -24,14 +25,19 @@
       <button class="icon-button sidebar-close" id="sidebar-close" type="button" aria-label="Cerrar menú">{{ icon('x') }}</button>
     </div>
     <nav class="sidebar-nav">
+      {% set ordered_navigation = (navigation|selectattr('1','equalto','dashboard')|list) + (navigation|rejectattr('1','equalto','dashboard')|list) %}
+      {% set groups = namespace(seen=[]) %}
+      {% for entry in ordered_navigation if entry[0] not in groups.seen %}
+      {% set groups.seen = groups.seen + [entry[0]] %}
       {% set ns = namespace(group='') %}
-      {% for group, id, label, glyph, endpoint, args, permission, planned in navigation %}
+      {% for group, id, label, glyph, endpoint, args, permission, planned in ordered_navigation if group == entry[0] %}
         {% if principal.can(permission) and not (id == 'trazabilidad' and principal.can('logistics')) and not (not integration_mode and id == 'dashboard' and principal.role_code in ('MEDICAL','COORDINATOR','TRANSPORT')) %}
           {% if group != ns.group %}<div class="nav-group">{{ group }}</div>{% set ns.group = group %}{% endif %}
           <a class="nav-link {{ 'active' if active|default('') == id else '' }}" href="{{ url_for(endpoint, **args) }}" {% if active|default('') == id %}aria-current="page"{% endif %} title="{{ label }}{{ ' · Próximamente' if planned else '' }}">
             {{ icon(glyph) }}<span class="nav-label">{{ label }}</span>{% if planned %}<span class="planned-label" aria-label="Próximamente">Próx.</span>{% endif %}
           </a>
         {% endif %}
+      {% endfor %}
       {% endfor %}
     </nav>
     <div class="sidebar-footer">
@@ -51,7 +57,7 @@
   {% block public_nav %}<header class="public-nav"><a class="brand" href="{{ url_for('public.index') }}"><span class="brand-symbol">{{ icon('droplet') }}</span><span class="brand-words">Red House<small>RED REGIONAL</small></span></a><nav aria-label="Navegación pública"><a href="{{ url_for('public.index') }}#proyecto">La plataforma</a><a class="button" href="{{ url_for('public.login') }}">Acceso institucional {{ icon('arrow-up-right') }}</a></nav></header>{% endblock %}
 {% endif %}
 <main id="main" class="{{ 'page-content' if principal else '' }}" tabindex="-1">
-  {% for category, message in get_flashed_messages(with_categories=true) %}<div class="notice {{ category }}" role="status">{{ icon('circle-check') }}<span>{{ message }}</span></div>{% endfor %}
+  {% for category, message in get_flashed_messages(with_categories=true) %}<div class="notice {{ category }}" role="{{ 'alert' if category in ['error','danger'] else 'status' }}">{{ icon({'success':'circle-check','warning':'triangle-alert','error':'triangle-alert','danger':'triangle-alert'}.get(category,'info')) }}<span>{{ message }}</span></div>{% endfor %}
   {% if principal and not integration_mode %}<div class="page-timezone"><form class="timezone-picker" method="post" action="{{ url_for('portal.timezone_preference') }}">{{ csrf() }}<input type="hidden" name="next" value="{{ request.full_path }}"><label for="display-timezone">Horario de las fechas</label><select id="display-timezone" name="timezone">{% for value,label in timezone_choices.items() %}<option value="{{ value }}" {% if value==display_timezone %}selected{% endif %}>{{ label }}</option>{% endfor %}</select><button class="button secondary small" type="submit">Aplicar horario</button></form></div>{% endif %}
   {% block content %}{% endblock %}
 </main>

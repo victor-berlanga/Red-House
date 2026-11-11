@@ -6,11 +6,17 @@ Trabaja en `/Users/victorberlanga/Programacion/integracion/Red-House`. Lee `AGEN
 
 Contrasta requisitos originales, retroalimentación, código, contratos, migraciones, instalaciones, pruebas y resultados actuales. La matriz final incluye ID, componente, implementación, permiso, criterio de aceptación, caso, resultado, evidencia y límite externo.
 
+Consulta también `../stuff/entregas.txt`, especialmente «TERCER PARCIAL» y «ENTREGA FINAL», y `../stuff/retroalimentacionSegundoParcial.txt` cuando estén disponibles. Los entregables académicos que se explicitan abajo deben conservarse aunque esos archivos externos no acompañen al repositorio. La exclusión de móvil/escritorio en el segundo parcial y la confirmación de su presentación anterior permanecen como antecedentes; no conviertas requisitos finales en incumplimientos retroactivos.
+
 Clasifica con precisión: implementado y probado, implementado pendiente de prueba externa, diseñado, pendiente de implementación y pendiente de aprobación clínica/normativa. No cierres una función por aparecer en un diagrama ni conviertas una dependencia clínica en una aprobación inventada.
+
+Recibe de 05–07 el registro `documentation/entrega-final/continuidad/Matriz.md`, con los criterios CONT-01 a CONT-10 definidos en [Continuidad obligatoria de las etapas 01 a 04](07_integracion_pruebas_y_rendimiento.md#continuidad-obligatoria-de-las-etapas-01-a-04), y el resultado de integración de 07, incluidos los ensayos de continuidad operativa de [06](06_seguridad_infraestructura_y_continuidad.md). Para cada pendiente conserva origen, responsable, dependencia, acción, evidencia vigente y disposición final: resuelto y verificado, fallo técnico abierto, verificación pendiente o cambio de alcance autorizado por quien define el requisito. Identifica la decisión y su fecha; una excepción no acredita funcionamiento. Conserva los archivos de prompts 01–04 y sus resultados históricos. No los reejecutes ni reescribas para hacer coincidir el cierre; las brechas reales se atienden y verifican en las etapas posteriores correspondientes. Reutiliza la evidencia aplicable consolidada por 07; repite comprobaciones cuando haya cambios, fallos o dudas que invaliden su vigencia.
 
 Si encuentras un defecto técnico que impide una función comprometida, corrígelo en el componente correspondiente y repite sus pruebas antes de describirlo como entregado. No ocultes la brecha modificando el requisito o el informe. Registra la cantidad real de servicios y la cobertura de las 24 responsabilidades; no fuerces una coincidencia numérica.
 
 Explica expresamente que el profesor recomendó una arquitectura objetivo de 24 microservicios y presenta la matriz de evolución desde los once actuales. Conserva los 24 elementos recomendados como referencias funcionales, con su implementación y evidencia, aunque algunos se agrupen. Justifica cada agrupación o extracción y distingue cantidad real de servicios independientes, módulos y réplicas. No presentes 24 procesos como obligación ni una lista de 24 carpetas como cobertura funcional; demuestra que no hay duplicación de responsabilidades, reglas o autoridades.
+
+Registra además el requisito textual «Sistema desplegado en la nube y en ubiquitous» de `../stuff/entregas.txt`. No se ha establecido aquí qué significa «ubiquitous». Solicita la aclaración concreta al equipo para confirmarla con quien emitió la consigna y conserva respuesta, alcance y criterio de aceptación. Mientras falte, queda pendiente de aclaración; no lo declares cumplido por tener GCE ni no aplicable por desconocimiento. No inventes una plataforma, equivalencia, despliegue adicional o gasto. Continúa los entregables independientes.
 
 ## Documento técnico final
 
@@ -29,7 +35,7 @@ Incluye al menos:
 7. Contratos JSON, XML/XSD, API internas, autenticación, correlación, idempotencia, paginación, errores y sincronización.
 8. Registro de pruebas/HLA y perfiles, fuentes/versiones, datos faltantes, evaluación, límites y dictamen profesional, sin presentar el filtro ABO como compatibilidad clínica.
 9. Algoritmos con problema, entradas/salidas, variables, restricciones, pseudocódigo, complejidad, ejemplos, métricas y explicaciones.
-10. Android Kotlin/Compose: arquitectura, pantallas por perfil, JSON, cámara/QR/GPS/push, datos locales, permisos y offline.
+10. móvil Android/iOS con Kotlin Multiplatform y Compose Multiplatform: arquitectura, pantallas por perfil, JSON, cámara/QR/GPS/push, datos locales, permisos y offline.
 11. Escritorio PySide6/Python: arquitectura, XML/XSD, módulos internos, captura, tablas, reportes, etiquetas e impresión.
 12. Seguridad, MFA/reautenticación, dispositivos, autorización institucional, auditoría, antimalware, privacidad y políticas documentales.
 13. Docker/GCE, red, HTTPS, secretos, monitoreo, despliegue/migraciones, respaldos, recuperación y objetivos/resultados RTO-RPO.
@@ -51,12 +57,12 @@ Cada ficha de servicio debe tener propósito, propietario, límites, consumidore
 
 Consolida TRACK-01 a TRACK-10 de la [especificación de rastreo GPS por WebSockets y mapa de Nuevo León](09_rastreo_gps_websockets.md). Incluye contrato de ingreso/eventos JSON y XML/XSD, asignaciones de dispositivo, permisos, WSS/gateway, almacenamiento/cursor, reconexión, diagrama de datos y manual del simulador/adaptador. Documenta proveedor, cobertura, atribución y procedencia/actualización del mapa, separando cartografía, posición observada, ruta planificada y ETA.
 
-Entrega evidencia del recorrido completo con puntos simulados y mapas actualizados por sockets reales, con privacidad y fallos. Registra modelo/protocolo/conectividad aún desconocidos del GPS físico, requisitos de integración y pruebas de aceptación para cuando esté disponible. No describas como probado un equipo inexistente ni cierres el seguimiento con una imagen estática o una simulación que evite el backend. Incorpora el alcance real en la matriz y en el guion de demostración.
+Entrega evidencia del recorrido completo con puntos simulados y mapas actualizados por sockets reales, con privacidad y fallos. Documenta captura Android/iOS y las pruebas físicas ejecutadas o todavía pendientes, con evidencia por plataforma; registra modelo/protocolo y aceptación del GPS externo solo si se incorpora esa extensión opcional. No describas como probado un equipo inexistente ni cierres el seguimiento con una imagen estática o una simulación que evite el backend. Incorpora el alcance real en la matriz y en el guion de demostración.
 
 ## Manuales obligatorios
 
 - **Instalación y despliegue:** requisitos/versiones, variables sin valores reales, secretos, PostgreSQL/MongoDB/Redis, Compose, arranque/parada, salud, migración, actualización por réplica, respaldo/restauración, rollback y diagnóstico. Incluir GCE/HTTPS y límites de autorización para modificar infraestructura.
-- **Android:** Android Studio/SDK, Gradle, configuración HTTPS, compilación/APK, instalación, permisos de cámara/QR/GPS/push, cuentas ficticias obtenidas de forma privada, sincronización y cierre. Diferenciar claves de prueba y firma de entrega.
+- **Móvil Android/iOS:** Android Studio/SDK, Gradle, macOS/Xcode, configuración HTTPS, compilación/APK Android y compilación/arranque iOS, firma e instalación por plataforma, permisos de cámara/QR/GPS/push, cuentas ficticias obtenidas de forma privada, sincronización y cierre. Diferenciar claves de prueba y firma de entrega.
 - **Escritorio:** entorno o instalable por plataforma verificada, configuración, almacén de credenciales, XML/XSD, actualización, lector, impresora, exportaciones y recuperación.
 - **Usuario:** tareas por perfil y componente con capturas reales, errores frecuentes, permisos, incidentes, operaciones pendientes y límites clínicos. Las credenciales no se imprimen en el manual.
 - **Técnico:** estructura, decisiones de arquitectura, propietarios de datos, contratos, estados, reglas/algoritmos, eventos, consistencia, seguridad, pipeline y extensión de módulos.
@@ -64,7 +70,9 @@ Entrega evidencia del recorrido completo con puntos simulados y mapas actualizad
 
 ## Paquete liberable y reproducibilidad
 
-Prepara una versión identificada con manifiesto de fuentes y hashes, dependencias fijadas, scripts y configuración de ejemplo sin secretos. Incluye APK de demostración, ejecutable/instalable de escritorio para plataformas verificadas, imágenes o instrucciones reproducibles, contratos/XSD, esquemas, datos ficticios y procedimientos de prueba.
+Prepara una versión identificada con manifiesto de fuentes y hashes, dependencias fijadas, scripts y configuración de ejemplo sin secretos. Incluye APK de demostración, artefacto iOS para el destino autorizado, ejecutable/instalable de escritorio para plataformas verificadas, imágenes o instrucciones reproducibles, contratos/XSD, esquemas, datos ficticios y procedimientos de prueba.
+
+En iOS respeta la decisión vigente de probar con iPhone físico y no descargar un runtime Simulator como condición de cierre. Separa evidencia de compilación, firma/provisioning, instalación, arranque y recorridos funcionales del dispositivo identificado. Una `.app` arm64 sin firma solo acredita compilación; no equivale a paquete instalable ni ejecución. Si firma o acceso físico siguen pendientes, entrega fuentes, artefacto compilado e instrucciones, y mantén abiertas las verificaciones correspondientes. El simulador puede ser una alternativa cuando esté disponible y autorizada, con sus límites explícitos; sus resultados no acreditan por sí solos captura GPS/cámara, recepción push ni comportamiento en un teléfono físico.
 
 Revisa licencias de dependencias, mapas, iconos y bibliotecas necesarias para distribución, con fuentes oficiales. No incluyas credenciales, ADC, claves de firma privadas, `.env` real, backups privados ni datos clínicos reales en repositorio/ZIP/imágenes/instalables.
 
@@ -74,9 +82,21 @@ Verifica que instrucciones y rutas funcionan desde la raíz, que se pueden ejecu
 
 ## Demostración y participación del equipo
 
-Prepara guion presencial y de video con datos ficticios: donación Android, procesamiento/escritorio, solicitud/evaluación/reserva, traslado con QR/GPS/evidencia, recepción XML, uso/destino, auditoría y panel web. Incluye rechazo institucional, escritura concurrente y caída de una réplica con recuperación. Nunca proyectes archivos privados o tokens completos.
+Prepara guion presencial y de video con datos ficticios: donación desde Android o iOS, procesamiento/escritorio, solicitud/evaluación/reserva, traslado con QR/GPS/evidencia, recepción XML, uso/destino, auditoría y panel web. Incluye rechazo institucional, escritura concurrente y caída de una réplica con recuperación. Nunca proyectes archivos privados o tokens completos.
 
 Genera material de apoyo y capturas/grabaciones reales cuando el entorno lo permita. Prepara una alternativa honesta para dependencias externas caídas, mostrando estado y evidencia fechada sin sustituir ejecución por simulación oculta.
+
+El video final es un entregable propio. Prepara y comprueba esta lista, con segmentos o marcas de tiempo que permitan localizar la evidencia:
+
+- Problema, usuarios, alcance y arquitectura real de la solución.
+- Sistema web, aplicación Android, aplicación iOS y escritorio, identificando las plataformas realmente ejecutadas y sus pendientes.
+- Microservicios, Swagger/OpenAPI y una comunicación real JSON/XML con autenticación y datos sensibles ocultos.
+- Monitoreo, despliegue GCP y dependencias de datos/archivos, mostrando la versión presentada.
+- Algoritmo: problema, entradas, resultado explicable, restricciones y revisión humana.
+- Pruebas de carga: entorno, perfiles, volumen, resultados de Locust y sus límites; no es necesario saturar la instalación durante la grabación.
+- Integración de los procesos demostrados, autorización, rechazo y recuperación ante fallos conforme al guion.
+
+Conserva archivo reproducible, duración, fecha, versión de fuentes/artefactos y ubicación de la grabación final. Un guion, capturas sueltas o el video del segundo parcial no cumplen este entregable. Si no se puede grabar un segmento requerido, registra la causa y la evidencia faltante sin marcarlo aprobado. La presentación presencial se prepara con el mismo alcance; distingue material preparado, ensayo y presentación efectivamente realizada.
 
 Conserva la confirmación de que presentación y video del segundo parcial ya se realizaron. La demostración final ampliada requiere su propia evidencia; no reutilices esa confirmación como prueba de una presentación final inexistente. La publicación/envío de videos requiere autorización vigente y una URL comprobable; no inventes el enlace.
 
@@ -84,10 +104,22 @@ Construye un registro de responsabilidades y contribuciones sustentado en acuerd
 
 Incluye guía de defensa técnica por componente: explicar arquitectura/contratos/migraciones, localizar y corregir un error pequeño en una rama o entorno de prueba, ejecutar pruebas y justificar decisiones. No introduzcas errores deliberados en la instalación entregada.
 
+Entrega una **reflexión individual auténtica de cada integrante**, con autoría identificada, contribución propia, decisiones que puede explicar, una dificultad y su resolución, aprendizaje y limitaciones pendientes, vinculando evidencias cuando corresponda. La persona debe aportar y confirmar su contenido; no inventes experiencias, dominio técnico ni opiniones personales. Si falta su aportación, prepara preguntas o plantilla y registra ese entregable pendiente, continuando el trabajo independiente.
+
+Consolida un **registro de incidencias** de la entrega final. Cada entrada debe incluir ID, fecha, componente/versión, entorno, síntoma e impacto, reproducción o evidencia, responsable, acción, estado y comprobación de resolución. Enlaza incidentes históricos pertinentes y fallos/repeticiones de 05–07 sin borrarlos, duplicarlos ni presentarlos como casos nuevos. Diferencia defecto técnico, fallo del arnés y dependencia externa; una incidencia cerrada requiere evidencia aplicable. Vincula las incidencias abiertas con el registro de pendientes y la matriz final.
+
 ## Verificación de documentos y cierre
 
 Comprueba enlaces locales y referencias, títulos/índice y páginas, tablas/figuras, consistencia de números/versiones, ausencia de texto fuera de página, integridad Word/PDF y correspondencia con código/artefactos. Inspecciona visualmente el PDF y los diagramas relevantes; un archivo generado sin esa revisión no basta para declarar calidad editorial.
 
-Entrega índice navegable de la versión final, matriz de cumplimiento, informes de pruebas, artefactos y manuales, con brechas explícitas. Actualiza `PROJECT_STATUS.md` y los índices vigentes conservando la historia.
+Entrega índice navegable de la versión final, matriz de cumplimiento, registro de pendientes con disposición, informes de pruebas, artefactos, manuales, video, material de presentación, participación, incidencias y reflexiones individuales, con brechas explícitas. Comprueba que el inventario académico contiene cada pieza y su estado. Actualiza `PROJECT_STATUS.md` y los índices vigentes conservando la historia.
+
+El cierre depende de la evidencia vigente de 07 y de continuidad de 06: resultados por plataforma, procesos completos, contratos, permisos, recuperación, objetivos/mediciones RTO-RPO y pendientes heredados. No declares completa la entrega mientras falte un criterio obligatorio o un entregable académico requerido. Firma, proveedor push, ensayo GCS, prueba física, aclaración de la consigna o aprobación externa pendientes conservan ese estado; enumerarlos no los convierte en aprobados. Puedes entregar un paquete parcial identificado con precisión, sin atribuirle aceptación integral.
+
+La aprobación clínica institucional limita la operación clínica real; su ausencia no invalida por sí sola los mecanismos académicos que 02 y 07 permiten verificar con datos y perfiles sintéticos. Distingue ese límite de una función técnica o prueba académica obligatoria faltante. No conviertas el cierre académico en certificación médica ni presentes una dependencia clínica como resuelta mediante simulación.
 
 La respuesta final debe indicar qué se entrega, cómo instalar/demostrar, qué verificaciones pasaron y qué aprobación externa o plataforma sigue pendiente. No declares sistema clínicamente certificado, alta disponibilidad multizona, publicación en tienda o aceptación académica si no existe evidencia verificable.
+
+## Alcance móvil y aceptación por destino
+
+Conserva el alcance Android/iOS de Kotlin Multiplatform/Compose Multiplatform establecido el 6 de noviembre de 2026 y la decisión posterior de prueba en iPhone físico. Documenta código compartido y adaptadores, permisos, segundo plano, seguridad, push y pruebas por destino. Entrega APK, artefacto iOS e instrucciones macOS/Xcode conforme al apartado de reproducibilidad, separando compilación, firma, instalación y ejecución. No impongas descargar Simulator ni declares probado un teléfono o publicadas tiendas sin evidencia. Muestra el recorrido aplicación móvil → Transporte → WSS → mapas; GPS externo queda opcional.

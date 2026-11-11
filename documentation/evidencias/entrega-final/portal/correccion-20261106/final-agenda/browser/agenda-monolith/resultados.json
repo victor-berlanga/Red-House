@@ -1,0 +1,17 @@
+{
+  "backend": "monolith",
+  "checks": [
+    "Renovación automática real y token rotado; aviso cercano forzado solo en fixture"
+  ],
+  "accessibility": [],
+  "charts": [],
+  "setup": "Sede, campaña, horario y reserva mediante API real; asistencia y lectura en Chrome",
+  "passed": false,
+  "failure": "The input did not match the regular expression /recordatorio/i. Input:\n\n'MI ESPACIO\\n' +\n  'Notificaciones\\n' +\n  '\\n' +\n  'Hospital 1\\n' +\n  '\\n' +\n  'Actualizar\\n' +\n  'Actualizar cada 30 s\\n' +\n  '\\n' +\n  '2 registros\\n' +\n  '\\n' +\n  'Exportar página CSV\\n' +\n  'Página 1 de 1\\n' +\n  '← Anterior\\n' +\n  '1\\n' +\n  'Siguiente →\\n' +\n  'Notificaciones dentro de tu ámbito autorizado\\n' +\n  'EVENTO\\tESTADO\\tFECHA\\tACCIONES\\n' +\n  'Evento sin clasificación: APPOINTMENT_REMINDER\\tAbierta\\t06/11/2026 · 21:25\\t\\n' +\n  'Marcar como leída\\n' +\n  '\\n' +\n  'Inscripción en campaña confirmada\\tAbierta\\t06/11/2026 · 21:25\\t\\n' +\n  'Marcar como leída\\n' +\n  'Página 1 de 1\\n' +\n  '← Anterior\\n' +\n  '1\\n' +\n  'Siguiente →'\n",
+  "stack": [
+    "",
+    "'MI ESPACIO\\n' +",
+    "  'Notificaciones\\n' +"
+  ],
+  "finishedAt": "2026-11-07T03:25:42.257Z"
+}

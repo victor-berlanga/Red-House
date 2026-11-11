@@ -1,0 +1,5 @@
+const {chromium}=require(process.cwd()+'/.local/gcp-public/browser/node_modules/playwright'),fs=require('fs');
+(async()=>{const b=await chromium.launch({channel:'chrome',headless:true}),p=await b.newPage({viewport:{width:1440,height:1000}}),r=[];try{
+for(const path of ['/','/login','/recuperar-acceso']){const res=await p.goto('http://127.0.0.1:15054'+path,{waitUntil:'networkidle'});r.push({path,status:res.status()});if(res.status()===200)await p.screenshot({path:'documentation/evidencias/uiux/20261110-calidad/runtime-'+(path==='/'?'public':path.slice(1))+'.png'});}
+await p.goto('http://127.0.0.1:15054/login');const s=JSON.parse(fs.readFileSync('.local/compose/state.json'));await p.locator('#login_email').fill('donor1');await p.locator('#password').fill(s.password);await p.locator('button[type=submit]').click();await p.waitForLoadState('networkidle');r.push({loginUrl:p.url(),message:(await p.locator('#form-error').allTextContents()).join(' ')});
+}catch(e){r.push({error:e.message})}finally{fs.writeFileSync('documentation/evidencias/uiux/20261110-calidad/runtime-web.json',JSON.stringify(r,null,2));await b.close()}})();

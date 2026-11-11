@@ -192,7 +192,13 @@ def shipment_detail(identifier):
                 ],
             )
         )
-    actions = []
+    actions = [
+        (
+            "Mapa y seguimiento",
+            url_for("regional.shipment_tracking", identifier=identifier),
+        )
+    ]
+    actions.append(("Asignaciones de rastreo", url_for("regional.tracking_assignments", identifier=identifier)))
     role = g.principal.role_code
     if role in ("TRANSPORT", "OPERATOR", "COORDINATOR"):
         actions.append(

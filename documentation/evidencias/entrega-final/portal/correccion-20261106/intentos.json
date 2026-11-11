@@ -1,0 +1,1126 @@
+[
+  {
+    "file": "intentos/browser.xml",
+    "source_sha256": "ae8b690686845954571214dcdf1a36facb1c30727101be45951e44cfe8efe79e",
+    "redacted": true,
+    "cases": [
+      {
+        "id": "tests.test_correction_browser::test_operational_browser_corrections[http]",
+        "status": "FAILED",
+        "seconds": 197.414
+      },
+      {
+        "id": "tests.test_correction_browser::test_operational_browser_corrections[monolith]",
+        "status": "FAILED",
+        "seconds": 136.708
+      }
+    ]
+  },
+  {
+    "file": "intentos/browser2.xml",
+    "source_sha256": "4bb6e47974301f1562f3db31cd9375620089d0bb430470011e05eb667287e84e",
+    "redacted": true,
+    "cases": [
+      {
+        "id": "tests.test_correction_browser::test_operational_browser_corrections[http]",
+        "status": "FAILED",
+        "seconds": 170.189
+      },
+      {
+        "id": "tests.test_correction_browser::test_operational_browser_corrections[monolith]",
+        "status": "FAILED",
+        "seconds": 142.007
+      }
+    ]
+  },
+  {
+    "file": "intentos/browser3.xml",
+    "source_sha256": "a8949e2d43be6b823afe7f493d1ec82ec70fa88ea0e3086a56645e6e38d02333",
+    "redacted": true,
+    "cases": [
+      {
+        "id": "tests.test_correction_browser::test_operational_browser_corrections[http]",
+        "status": "FAILED",
+        "seconds": 150.802
+      },
+      {
+        "id": "tests.test_correction_browser::test_operational_browser_corrections[monolith]",
+        "status": "FAILED",
+        "seconds": 19.639
+      }
+    ]
+  },
+  {
+    "file": "intentos/browser4.xml",
+    "source_sha256": "c55161c5e14f8f488f0e14680e24cc5ec654b5bc35c89f4b0c83acd3704e123c",
+    "redacted": true,
+    "cases": [
+      {
+        "id": "tests.test_correction_browser::test_operational_browser_corrections[http]",
+        "status": "FAILED",
+        "seconds": 99.751
+      }
+    ]
+  },
+  {
+    "file": "intentos/browser5.xml",
+    "source_sha256": "d05739b7e1d7845c2a74d22eb4796a04a6cf25b36aca7eb958288b46e80cdb6f",
+    "redacted": true,
+    "cases": [
+      {
+        "id": "tests.test_correction_browser::test_operational_browser_corrections[http]",
+        "status": "FAILED",
+        "seconds": 353.642
+      },
+      {
+        "id": "tests.test_correction_browser::test_operational_browser_corrections[monolith]",
+        "status": "FAILED",
+        "seconds": 62.639
+      }
+    ]
+  },
+  {
+    "file": "intentos/browser6.xml",
+    "source_sha256": "a876cf2bfde43847b7d537eea922af1c4bf35827912782faa512d7b6073909c8",
+    "redacted": true,
+    "cases": [
+      {
+        "id": "tests.test_correction_browser::test_operational_browser_corrections[http]",
+        "status": "FAILED",
+        "seconds": 440.93
+      },
+      {
+        "id": "tests.test_correction_browser::test_operational_browser_corrections[monolith]",
+        "status": "PASSED",
+        "seconds": 687.233
+      }
+    ]
+  },
+  {
+    "file": "intentos/browser7.xml",
+    "source_sha256": "e1ff10d256e4e733a60bc6fcb2642cbcac1838f2d52426a582acbf0484ad972a",
+    "redacted": true,
+    "cases": [
+      {
+        "id": "tests.test_correction_browser::test_operational_browser_corrections[http]",
+        "status": "FAILED",
+        "seconds": 834.258
+      },
+      {
+        "id": "tests.test_correction_browser::test_operational_browser_corrections[monolith]",
+        "status": "ERROR",
+        "seconds": 12.706
+      }
+    ]
+  },
+  {
+    "file": "intentos/features.xml",
+    "source_sha256": "7e5238e3c1c3b1ec091918b0ccb33a62b4896f0189a7813041606afcd00ad809",
+    "redacted": true,
+    "cases": [
+      {
+        "id": "tests.test_portal_corrections::test_configuration_publication_privacy_versions_and_metrics",
+        "status": "FAILED",
+        "seconds": 34.744
+      },
+      {
+        "id": "tests.test_portal_corrections::test_paginated_export_over_thousand_filters_context_and_foreign_denial",
+        "status": "PASSED",
+        "seconds": 2.233
+      },
+      {
+        "id": "tests.test_portal_corrections::test_pending_confirmation_web_recovers_same_command_without_false_success",
+        "status": "PASSED",
+        "seconds": 6.985
+      },
+      {
+        "id": "tests.test_portal_corrections::test_web_lost_entire_write_response_queries_result_without_second_post",
+        "status": "PASSED",
+        "seconds": 10.754
+      }
+    ]
+  },
+  {
+    "file": "intentos/features2.xml",
+    "source_sha256": "3a6df14d61cff3be5977fd36657a4d2c057e1f743a9c9f98ddd9d2a8c26cb644",
+    "redacted": true,
+    "cases": [
+      {
+        "id": "tests.test_portal_corrections::test_configuration_publication_privacy_versions_and_metrics",
+        "status": "PASSED",
+        "seconds": 32.022
+      },
+      {
+        "id": "tests.test_portal_corrections::test_paginated_export_over_thousand_filters_context_and_foreign_denial",
+        "status": "PASSED",
+        "seconds": 4.729
+      },
+      {
+        "id": "tests.test_portal_corrections::test_pending_confirmation_web_recovers_same_command_without_false_success",
+        "status": "PASSED",
+        "seconds": 7.983
+      },
+      {
+        "id": "tests.test_portal_corrections::test_web_lost_entire_write_response_queries_result_without_second_post",
+        "status": "PASSED",
+        "seconds": 8.552
+      },
+      {
+        "id": "tests.test_final_delivery_documents::test_smtp_push_retry_escalation_dedup_and_close[json]",
+        "status": "PASSED",
+        "seconds": 42.096
+      },
+      {
+        "id": "tests.test_final_delivery_documents::test_smtp_push_retry_escalation_dedup_and_close[xml]",
+        "status": "PASSED",
+        "seconds": 12.513
+      },
+      {
+        "id": "tests.test_final_delivery_documents::test_documents_scan_private_access_and_export_formats[json]",
+        "status": "FAILED",
+        "seconds": 15.699
+      },
+      {
+        "id": "tests.test_final_delivery_documents::test_documents_scan_private_access_and_export_formats[xml]",
+        "status": "FAILED",
+        "seconds": 6.113
+      },
+      {
+        "id": "tests.test_final_delivery_documents::test_clamd_infected_unavailable_and_formula_injection",
+        "status": "PASSED",
+        "seconds": 3.859
+      }
+    ]
+  },
+  {
+    "file": "intentos/features3.xml",
+    "source_sha256": "eff5cf841997fb83fc52ddb86fd1128b5de2b788bb24e7c373a1a044017e0377",
+    "redacted": true,
+    "cases": [
+      {
+        "id": "tests.test_portal_corrections::test_configuration_publication_privacy_versions_and_metrics",
+        "status": "PASSED",
+        "seconds": 20.19
+      },
+      {
+        "id": "tests.test_portal_corrections::test_paginated_export_over_thousand_filters_context_and_foreign_denial",
+        "status": "PASSED",
+        "seconds": 2.332
+      },
+      {
+        "id": "tests.test_portal_corrections::test_pending_confirmation_web_recovers_same_command_without_false_success",
+        "status": "PASSED",
+        "seconds": 5.259
+      },
+      {
+        "id": "tests.test_portal_corrections::test_web_lost_entire_write_response_queries_result_without_second_post",
+        "status": "PASSED",
+        "seconds": 4.55
+      },
+      {
+        "id": "tests.test_final_delivery_documents::test_smtp_push_retry_escalation_dedup_and_close[json]",
+        "status": "PASSED",
+        "seconds": 38.724
+      },
+      {
+        "id": "tests.test_final_delivery_documents::test_smtp_push_retry_escalation_dedup_and_close[xml]",
+        "status": "PASSED",
+        "seconds": 10.104
+      },
+      {
+        "id": "tests.test_final_delivery_documents::test_documents_scan_private_access_and_export_formats[json]",
+        "status": "PASSED",
+        "seconds": 11.264
+      },
+      {
+        "id": "tests.test_final_delivery_documents::test_documents_scan_private_access_and_export_formats[xml]",
+        "status": "PASSED",
+        "seconds": 10.922
+      },
+      {
+        "id": "tests.test_final_delivery_documents::test_clamd_infected_unavailable_and_formula_injection",
+        "status": "PASSED",
+        "seconds": 4.591
+      }
+    ]
+  },
+  {
+    "file": "intentos/features4.xml",
+    "source_sha256": "7f2424cfd8d3ced63c08c3655a2fbf83681d1c518a3c67dae9a1fb7e7c6dcba4",
+    "redacted": true,
+    "cases": [
+      {
+        "id": "tests.test_portal_corrections::test_publication_without_api_listeners",
+        "status": "PASSED",
+        "seconds": 32.383
+      },
+      {
+        "id": "tests.test_portal_corrections::test_configuration_publication_privacy_versions_and_metrics",
+        "status": "PASSED",
+        "seconds": 2.721
+      },
+      {
+        "id": "tests.test_portal_corrections::test_paginated_export_over_thousand_filters_context_and_foreign_denial",
+        "status": "PASSED",
+        "seconds": 2.148
+      },
+      {
+        "id": "tests.test_portal_corrections::test_pending_confirmation_web_recovers_same_command_without_false_success",
+        "status": "PASSED",
+        "seconds": 5.881
+      },
+      {
+        "id": "tests.test_portal_corrections::test_export_worker_rechecks_revoked_session_before_extraction",
+        "status": "PASSED",
+        "seconds": 1.073
+      },
+      {
+        "id": "tests.test_portal_corrections::test_web_lost_entire_write_response_queries_result_without_second_post",
+        "status": "PASSED",
+        "seconds": 8.744
+      }
+    ]
+  },
+  {
+    "file": "intentos/features5.xml",
+    "source_sha256": "4d48aadad3448d092888e757cacf77f8e844d35f0cb8c940c90a34641eddea1c",
+    "redacted": true,
+    "cases": [
+      {
+        "id": "tests.test_portal_corrections::test_publication_without_api_listeners",
+        "status": "PASSED",
+        "seconds": 56.243
+      },
+      {
+        "id": "tests.test_portal_corrections::test_configuration_publication_privacy_versions_and_metrics",
+        "status": "PASSED",
+        "seconds": 6.693
+      },
+      {
+        "id": "tests.test_portal_corrections::test_paginated_export_over_thousand_filters_context_and_foreign_denial",
+        "status": "PASSED",
+        "seconds": 4.998
+      },
+      {
+        "id": "tests.test_portal_corrections::test_pending_confirmation_web_recovers_same_command_without_false_success",
+        "status": "PASSED",
+        "seconds": 14.451
+      },
+      {
+        "id": "tests.test_portal_corrections::test_export_worker_rechecks_revoked_session_before_extraction",
+        "status": "PASSED",
+        "seconds": 4.869
+      },
+      {
+        "id": "tests.test_portal_corrections::test_web_lost_entire_write_response_queries_result_without_second_post",
+        "status": "PASSED",
+        "seconds": 12.532
+      }
+    ]
+  },
+  {
+    "file": "intentos/features6.xml",
+    "source_sha256": "338786c782747bb3fe3d8e8cc9002762c17af323d3d8e0cefbdc0ff18b3ae8d4",
+    "redacted": true,
+    "cases": [
+      {
+        "id": "tests.test_portal_corrections::test_publication_without_api_listeners",
+        "status": "PASSED",
+        "seconds": 39.481
+      },
+      {
+        "id": "tests.test_portal_corrections::test_configuration_publication_privacy_versions_and_metrics",
+        "status": "PASSED",
+        "seconds": 5.125
+      },
+      {
+        "id": "tests.test_portal_corrections::test_paginated_export_over_thousand_filters_context_and_foreign_denial",
+        "status": "PASSED",
+        "seconds": 4.316
+      },
+      {
+        "id": "tests.test_portal_corrections::test_pending_confirmation_web_recovers_same_command_without_false_success",
+        "status": "PASSED",
+        "seconds": 7.537
+      },
+      {
+        "id": "tests.test_portal_corrections::test_export_worker_rechecks_revoked_session_before_extraction",
+        "status": "PASSED",
+        "seconds": 1.754
+      },
+      {
+        "id": "tests.test_portal_corrections::test_web_lost_entire_write_response_queries_result_without_second_post",
+        "status": "PASSED",
+        "seconds": 5.49
+      },
+      {
+        "id": "tests.test_portal_corrections::test_coordinator_reads_regional_proposal_without_clinical_authority",
+        "status": "PASSED",
+        "seconds": 2.847
+      },
+      {
+        "id": "tests.test_portal_corrections::test_organ_authorization_form_keeps_history",
+        "status": "PASSED",
+        "seconds": 2.307
+      },
+      {
+        "id": "tests.test_portal_documents::test_document_conservation_form_pending_and_foreign_download",
+        "status": "FAILED",
+        "seconds": 5.116
+      },
+      {
+        "id": "tests.test_portal_documents::test_report_formats_preserve_scope_timezone_unknown_and_formula",
+        "status": "PASSED",
+        "seconds": 4.905
+      }
+    ]
+  },
+  {
+    "file": "intentos/formats.xml",
+    "source_sha256": "87dd1f690e8b329bd6fa40752f4d843f9cb8a2b77b2785d4f84b7ceca7b504ce",
+    "redacted": true,
+    "cases": [
+      {
+        "id": "tests.test_portal_documents::test_report_formats_preserve_scope_timezone_unknown_and_formula",
+        "status": "PASSED",
+        "seconds": 0.073
+      }
+    ]
+  },
+  {
+    "file": "intentos/priority.xml",
+    "source_sha256": "5b0d9f607f99080548a882f48d118277df443de8bad7b3cd1083475c44c06977",
+    "redacted": true,
+    "cases": [
+      {
+        "id": "tests.test_portal_corrections::test_pending_confirmation_web_recovers_same_command_without_false_success",
+        "status": "FAILED",
+        "seconds": 39.966
+      },
+      {
+        "id": "tests.test_portal_corrections::test_web_lost_entire_write_response_queries_result_without_second_post",
+        "status": "PASSED",
+        "seconds": 4.727
+      },
+      {
+        "id": "tests.test_portal_tracking::test_web_consent_and_hourly_agenda_persist",
+        "status": "FAILED",
+        "seconds": 8.754
+      }
+    ]
+  },
+  {
+    "file": "intentos/priority2.xml",
+    "source_sha256": "f451e417f9e9724435c604e40093d98e3282274111585ba350467b96a938a004",
+    "redacted": true,
+    "cases": [
+      {
+        "id": "tests.test_portal_corrections::test_pending_confirmation_web_recovers_same_command_without_false_success",
+        "status": "PASSED",
+        "seconds": 27.405
+      },
+      {
+        "id": "tests.test_portal_corrections::test_web_lost_entire_write_response_queries_result_without_second_post",
+        "status": "PASSED",
+        "seconds": 4.946
+      },
+      {
+        "id": "tests.test_portal_tracking::test_web_consent_and_hourly_agenda_persist",
+        "status": "PASSED",
+        "seconds": 9.621
+      }
+    ]
+  },
+  {
+    "file": "intentos/regression.xml",
+    "source_sha256": "53fbe2ad728ca39020e509cd46eb7df4938f5e133ed284a82b7ad600897cc9b0",
+    "redacted": true,
+    "cases": []
+  },
+  {
+    "file": "intentos/regression2.xml",
+    "source_sha256": "d3f1f80d68af08d41dd79b3400a1a2c5defb47647ca6033bb50c65e18ecb7b4c",
+    "redacted": true,
+    "cases": [
+      {
+        "id": "tests.test_portal_corrections::test_pending_confirmation_web_recovers_same_command_without_false_success",
+        "status": "PASSED",
+        "seconds": 27.982
+      },
+      {
+        "id": "tests.test_portal_corrections::test_web_lost_entire_write_response_queries_result_without_second_post",
+        "status": "PASSED",
+        "seconds": 4.205
+      },
+      {
+        "id": "tests.test_web_integration::test_roles_can_render_authorized_pages_through_http[admin1-paths0]",
+        "status": "PASSED",
+        "seconds": 2.566
+      },
+      {
+        "id": "tests.test_web_integration::test_roles_can_render_authorized_pages_through_http[operator1-paths1]",
+        "status": "PASSED",
+        "seconds": 3.677
+      },
+      {
+        "id": "tests.test_web_integration::test_roles_can_render_authorized_pages_through_http[medical1-paths2]",
+        "status": "PASSED",
+        "seconds": 4.489
+      },
+      {
+        "id": "tests.test_web_integration::test_roles_can_render_authorized_pages_through_http[coordinator1-paths3]",
+        "status": "PASSED",
+        "seconds": 4.661
+      },
+      {
+        "id": "tests.test_web_integration::test_roles_can_render_authorized_pages_through_http[transport1-paths4]",
+        "status": "PASSED",
+        "seconds": 2.529
+      },
+      {
+        "id": "tests.test_web_integration::test_roles_can_render_authorized_pages_through_http[auditor1-paths5]",
+        "status": "PASSED",
+        "seconds": 2.293
+      },
+      {
+        "id": "tests.test_web_integration::test_roles_can_render_authorized_pages_through_http[donor1-paths6]",
+        "status": "PASSED",
+        "seconds": 1.963
+      },
+      {
+        "id": "tests.test_web_integration::test_full_reservation_transport_receipt_from_web_and_xml[BLOOD-RBC-A+]",
+        "status": "PASSED",
+        "seconds": 78.842
+      },
+      {
+        "id": "tests.test_web_integration::test_full_reservation_transport_receipt_from_web_and_xml[ORGAN-KIDNEY-O+]",
+        "status": "PASSED",
+        "seconds": 35.639
+      },
+      {
+        "id": "tests.test_web_integration::test_full_reservation_transport_receipt_from_web_and_xml[ORGAN-LIVER-O+]",
+        "status": "PASSED",
+        "seconds": 33.498
+      },
+      {
+        "id": "tests.test_web_integration::test_full_reservation_transport_receipt_from_web_and_xml[ORGAN-HEART-O+]",
+        "status": "PASSED",
+        "seconds": 49.802
+      },
+      {
+        "id": "tests.test_web_integration::test_forms_keep_values_and_same_idempotency_after_error",
+        "status": "PASSED",
+        "seconds": 1.789
+      },
+      {
+        "id": "tests.test_web_integration::test_web_rejects_csrf_wrong_role_and_cross_institution",
+        "status": "PASSED",
+        "seconds": 3.316
+      },
+      {
+        "id": "tests.test_web_integration::test_filtered_pagination_counts_and_minimized_recipient_search",
+        "status": "PASSED",
+        "seconds": 1.78
+      },
+      {
+        "id": "tests.test_web_integration::test_identity_outage_reports_503_without_legacy_fallback",
+        "status": "PASSED",
+        "seconds": 1.149
+      },
+      {
+        "id": "tests.test_web_integration::test_renewal_and_logout_revoke_backend_session_without_exposing_tokens",
+        "status": "PASSED",
+        "seconds": 1.398
+      },
+      {
+        "id": "tests.test_web_integration::test_donor_campaign_appointment_processing_and_inventory_source_from_web",
+        "status": "PASSED",
+        "seconds": 4.153
+      },
+      {
+        "id": "tests.test_web_integration::test_matching_proposal_from_web_does_not_reserve",
+        "status": "PASSED",
+        "seconds": 3.048
+      },
+      {
+        "id": "tests.test_web_integration::test_admin_web_creation_deactivation_revokes_new_user",
+        "status": "PASSED",
+        "seconds": 2.153
+      },
+      {
+        "id": "tests.test_portal_tracking::test_browser_ticket_scope_publish_expiry_and_web_csrf",
+        "status": "PASSED",
+        "seconds": 7.786
+      },
+      {
+        "id": "tests.test_portal_tracking::test_portal_browser_profiles_and_live_map",
+        "status": "SKIPPED",
+        "seconds": 0.018
+      },
+      {
+        "id": "tests.test_portal_tracking::test_web_password_recovery_real_smtp_single_use",
+        "status": "PASSED",
+        "seconds": 2.24
+      },
+      {
+        "id": "tests.test_portal_tracking::test_web_consent_and_hourly_agenda_persist",
+        "status": "PASSED",
+        "seconds": 5.279
+      },
+      {
+        "id": "tests.test_final_quality::test_laboratory_missing_results_correction_quarantine_and_final_destination[json]",
+        "status": "PASSED",
+        "seconds": 47.795
+      },
+      {
+        "id": "tests.test_final_quality::test_laboratory_missing_results_correction_quarantine_and_final_destination[xml]",
+        "status": "PASSED",
+        "seconds": 7.534
+      },
+      {
+        "id": "tests.test_final_delivery_documents::test_smtp_push_retry_escalation_dedup_and_close[json]",
+        "status": "PASSED",
+        "seconds": 7.754
+      },
+      {
+        "id": "tests.test_final_delivery_documents::test_smtp_push_retry_escalation_dedup_and_close[xml]",
+        "status": "PASSED",
+        "seconds": 8.772
+      },
+      {
+        "id": "tests.test_final_delivery_documents::test_documents_scan_private_access_and_export_formats[json]",
+        "status": "FAILED",
+        "seconds": 0.601
+      },
+      {
+        "id": "tests.test_final_delivery_documents::test_documents_scan_private_access_and_export_formats[xml]",
+        "status": "FAILED",
+        "seconds": 0.247
+      },
+      {
+        "id": "tests.test_final_delivery_documents::test_clamd_infected_unavailable_and_formula_injection",
+        "status": "PASSED",
+        "seconds": 0.51
+      },
+      {
+        "id": "tests.test_continuity::test_complete_web_flow_without_apis[BLOOD-RBC-O+]",
+        "status": "PASSED",
+        "seconds": 47.055
+      },
+      {
+        "id": "tests.test_continuity::test_complete_web_flow_without_apis[ORGAN-KIDNEY-O+]",
+        "status": "PASSED",
+        "seconds": 76.082
+      },
+      {
+        "id": "tests.test_continuity::test_donation_processing_without_apis",
+        "status": "PASSED",
+        "seconds": 21.56
+      },
+      {
+        "id": "tests.test_continuity::test_monolith_redis_failure_fails_closed_and_recovers",
+        "status": "PASSED",
+        "seconds": 15.211
+      }
+    ]
+  },
+  {
+    "file": "intentos/regression3.xml",
+    "source_sha256": "ab42e583626c1466ec4a91f17829f02c24dd70fab1c168ad5ea614a81d25a33a",
+    "redacted": true,
+    "cases": [
+      {
+        "id": "tests.test_portal_corrections::test_publication_without_api_listeners",
+        "status": "PASSED",
+        "seconds": 64.437
+      },
+      {
+        "id": "tests.test_portal_corrections::test_configuration_publication_privacy_versions_and_metrics",
+        "status": "PASSED",
+        "seconds": 13.682
+      },
+      {
+        "id": "tests.test_portal_corrections::test_paginated_export_over_thousand_filters_context_and_foreign_denial",
+        "status": "PASSED",
+        "seconds": 7.197
+      },
+      {
+        "id": "tests.test_portal_corrections::test_pending_confirmation_web_recovers_same_command_without_false_success",
+        "status": "FAILED",
+        "seconds": 22.357
+      },
+      {
+        "id": "tests.test_portal_corrections::test_export_worker_rechecks_revoked_session_before_extraction",
+        "status": "PASSED",
+        "seconds": 5.108
+      },
+      {
+        "id": "tests.test_portal_corrections::test_web_lost_entire_write_response_queries_result_without_second_post",
+        "status": "FAILED",
+        "seconds": 22.471
+      },
+      {
+        "id": "tests.test_web_integration::test_roles_can_render_authorized_pages_through_http[admin1-paths0]",
+        "status": "PASSED",
+        "seconds": 10.612
+      },
+      {
+        "id": "tests.test_web_integration::test_roles_can_render_authorized_pages_through_http[operator1-paths1]",
+        "status": "PASSED",
+        "seconds": 9.612
+      },
+      {
+        "id": "tests.test_web_integration::test_roles_can_render_authorized_pages_through_http[medical1-paths2]",
+        "status": "PASSED",
+        "seconds": 11.152
+      },
+      {
+        "id": "tests.test_web_integration::test_roles_can_render_authorized_pages_through_http[coordinator1-paths3]",
+        "status": "PASSED",
+        "seconds": 5.566
+      },
+      {
+        "id": "tests.test_web_integration::test_roles_can_render_authorized_pages_through_http[transport1-paths4]",
+        "status": "PASSED",
+        "seconds": 3.884
+      },
+      {
+        "id": "tests.test_web_integration::test_roles_can_render_authorized_pages_through_http[auditor1-paths5]",
+        "status": "PASSED",
+        "seconds": 5.495
+      },
+      {
+        "id": "tests.test_web_integration::test_roles_can_render_authorized_pages_through_http[donor1-paths6]",
+        "status": "PASSED",
+        "seconds": 6.128
+      },
+      {
+        "id": "tests.test_web_integration::test_full_reservation_transport_receipt_from_web_and_xml[BLOOD-RBC-A+]",
+        "status": "FAILED",
+        "seconds": 34.365
+      },
+      {
+        "id": "tests.test_web_integration::test_full_reservation_transport_receipt_from_web_and_xml[ORGAN-KIDNEY-O+]",
+        "status": "PASSED",
+        "seconds": 213.84
+      },
+      {
+        "id": "tests.test_web_integration::test_full_reservation_transport_receipt_from_web_and_xml[ORGAN-LIVER-O+]",
+        "status": "FAILED",
+        "seconds": 29.961
+      },
+      {
+        "id": "tests.test_web_integration::test_full_reservation_transport_receipt_from_web_and_xml[ORGAN-HEART-O+]",
+        "status": "FAILED",
+        "seconds": 33.193
+      },
+      {
+        "id": "tests.test_web_integration::test_forms_keep_values_and_same_idempotency_after_error",
+        "status": "PASSED",
+        "seconds": 6.215
+      },
+      {
+        "id": "tests.test_web_integration::test_web_rejects_csrf_wrong_role_and_cross_institution",
+        "status": "PASSED",
+        "seconds": 10.433
+      },
+      {
+        "id": "tests.test_web_integration::test_filtered_pagination_counts_and_minimized_recipient_search",
+        "status": "PASSED",
+        "seconds": 6.852
+      },
+      {
+        "id": "tests.test_web_integration::test_identity_outage_reports_503_without_legacy_fallback",
+        "status": "PASSED",
+        "seconds": 5.411
+      },
+      {
+        "id": "tests.test_web_integration::test_renewal_and_logout_revoke_backend_session_without_exposing_tokens",
+        "status": "PASSED",
+        "seconds": 5.584
+      },
+      {
+        "id": "tests.test_web_integration::test_donor_campaign_appointment_processing_and_inventory_source_from_web",
+        "status": "PASSED",
+        "seconds": 17.587
+      },
+      {
+        "id": "tests.test_web_integration::test_matching_proposal_from_web_does_not_reserve",
+        "status": "FAILED",
+        "seconds": 19.503
+      },
+      {
+        "id": "tests.test_web_integration::test_admin_web_creation_deactivation_revokes_new_user",
+        "status": "PASSED",
+        "seconds": 10.867
+      },
+      {
+        "id": "::",
+        "status": "INCOMPLETE",
+        "seconds": 14.499
+      }
+    ]
+  },
+  {
+    "file": "intentos/regression4.xml",
+    "source_sha256": "dcb578ac8d70033c005ab4a911689d64cb9b9d4e25a2c041880f357e98368303",
+    "redacted": true,
+    "cases": [
+      {
+        "id": "tests.test_web_integration::test_roles_can_render_authorized_pages_through_http[admin1-paths0]",
+        "status": "PASSED",
+        "seconds": 140.727
+      },
+      {
+        "id": "tests.test_web_integration::test_roles_can_render_authorized_pages_through_http[operator1-paths1]",
+        "status": "PASSED",
+        "seconds": 28.914
+      },
+      {
+        "id": "tests.test_web_integration::test_roles_can_render_authorized_pages_through_http[medical1-paths2]",
+        "status": "PASSED",
+        "seconds": 24.268
+      },
+      {
+        "id": "tests.test_web_integration::test_roles_can_render_authorized_pages_through_http[coordinator1-paths3]",
+        "status": "PASSED",
+        "seconds": 18.68
+      },
+      {
+        "id": "tests.test_web_integration::test_roles_can_render_authorized_pages_through_http[transport1-paths4]",
+        "status": "PASSED",
+        "seconds": 15.124
+      },
+      {
+        "id": "tests.test_web_integration::test_roles_can_render_authorized_pages_through_http[auditor1-paths5]",
+        "status": "PASSED",
+        "seconds": 13.232
+      },
+      {
+        "id": "tests.test_web_integration::test_roles_can_render_authorized_pages_through_http[donor1-paths6]",
+        "status": "PASSED",
+        "seconds": 14.826
+      },
+      {
+        "id": "tests.test_web_integration::test_full_reservation_transport_receipt_from_web_and_xml[BLOOD-RBC-A+]",
+        "status": "PASSED",
+        "seconds": 247.535
+      },
+      {
+        "id": "tests.test_web_integration::test_full_reservation_transport_receipt_from_web_and_xml[ORGAN-KIDNEY-O+]",
+        "status": "PASSED",
+        "seconds": 96.571
+      },
+      {
+        "id": "tests.test_web_integration::test_full_reservation_transport_receipt_from_web_and_xml[ORGAN-LIVER-O+]",
+        "status": "PASSED",
+        "seconds": 80.784
+      },
+      {
+        "id": "tests.test_web_integration::test_full_reservation_transport_receipt_from_web_and_xml[ORGAN-HEART-O+]",
+        "status": "PASSED",
+        "seconds": 54.735
+      },
+      {
+        "id": "tests.test_web_integration::test_forms_keep_values_and_same_idempotency_after_error",
+        "status": "PASSED",
+        "seconds": 1.988
+      },
+      {
+        "id": "tests.test_web_integration::test_web_rejects_csrf_wrong_role_and_cross_institution",
+        "status": "PASSED",
+        "seconds": 3.473
+      },
+      {
+        "id": "tests.test_web_integration::test_filtered_pagination_counts_and_minimized_recipient_search",
+        "status": "PASSED",
+        "seconds": 2.75
+      },
+      {
+        "id": "tests.test_web_integration::test_identity_outage_reports_503_without_legacy_fallback",
+        "status": "PASSED",
+        "seconds": 1.663
+      },
+      {
+        "id": "tests.test_web_integration::test_renewal_and_logout_revoke_backend_session_without_exposing_tokens",
+        "status": "PASSED",
+        "seconds": 2.145
+      },
+      {
+        "id": "tests.test_web_integration::test_donor_campaign_appointment_processing_and_inventory_source_from_web",
+        "status": "PASSED",
+        "seconds": 6.284
+      },
+      {
+        "id": "tests.test_web_integration::test_matching_proposal_from_web_does_not_reserve",
+        "status": "PASSED",
+        "seconds": 4.371
+      },
+      {
+        "id": "tests.test_web_integration::test_admin_web_creation_deactivation_revokes_new_user",
+        "status": "PASSED",
+        "seconds": 3.389
+      },
+      {
+        "id": "tests.test_continuity::test_complete_web_flow_without_apis[BLOOD-RBC-O+]",
+        "status": "PASSED",
+        "seconds": 72.998
+      },
+      {
+        "id": "tests.test_continuity::test_complete_web_flow_without_apis[ORGAN-KIDNEY-O+]",
+        "status": "PASSED",
+        "seconds": 46.801
+      },
+      {
+        "id": "tests.test_continuity::test_donation_processing_without_apis",
+        "status": "PASSED",
+        "seconds": 10.019
+      },
+      {
+        "id": "tests.test_continuity::test_monolith_redis_failure_fails_closed_and_recovers",
+        "status": "PASSED",
+        "seconds": 9.381
+      },
+      {
+        "id": "tests.test_final_tracking::test_wss_json_xml_durable_replay_order_and_revocation",
+        "status": "PASSED",
+        "seconds": 29.323
+      },
+      {
+        "id": "tests.test_final_tracking::test_wss_rejects_donor_device_read_invalid_and_conflicting_events[json]",
+        "status": "PASSED",
+        "seconds": 5.496
+      },
+      {
+        "id": "tests.test_final_tracking::test_wss_rejects_donor_device_read_invalid_and_conflicting_events[xml]",
+        "status": "PASSED",
+        "seconds": 4.867
+      },
+      {
+        "id": "tests.test_final_tracking::test_tracking_rejects_xxe_nonfinite_and_unknown_fields",
+        "status": "PASSED",
+        "seconds": 0.006
+      },
+      {
+        "id": "tests.test_final_tracking::test_sync_commands_idempotency_scope_versions_and_cursor[json]",
+        "status": "PASSED",
+        "seconds": 4.869
+      },
+      {
+        "id": "tests.test_final_tracking::test_sync_commands_idempotency_scope_versions_and_cursor[xml]",
+        "status": "PASSED",
+        "seconds": 4.666
+      },
+      {
+        "id": "tests.test_final_tracking::test_executable_simulator_offline_reconnect_and_dedup[json]",
+        "status": "PASSED",
+        "seconds": 11.439
+      },
+      {
+        "id": "tests.test_final_tracking::test_executable_simulator_offline_reconnect_and_dedup[xml]",
+        "status": "PASSED",
+        "seconds": 12.188
+      },
+      {
+        "id": "tests.test_final_tracking::test_tracking_dependency_failure_preserves_durable_cursor[redis]",
+        "status": "PASSED",
+        "seconds": 61.61
+      },
+      {
+        "id": "tests.test_final_tracking::test_tracking_dependency_failure_preserves_durable_cursor[postgres]",
+        "status": "PASSED",
+        "seconds": 12.11
+      },
+      {
+        "id": "tests.test_final_tracking::test_tracking_dependency_failure_preserves_durable_cursor[mongodb]",
+        "status": "FAILED",
+        "seconds": 16.633
+      },
+      {
+        "id": "tests.test_final_tracking::test_tracking_scope_origin_cursor_limits_and_device_revocation",
+        "status": "PASSED",
+        "seconds": 17.761
+      },
+      {
+        "id": "tests.test_final_tracking::test_nmea_adapter_checksum_units_and_no_fix",
+        "status": "PASSED",
+        "seconds": 0.017
+      },
+      {
+        "id": "tests.test_final_tracking::test_custody_scans_receipt_sync_and_distinct_final_use[json]",
+        "status": "PASSED",
+        "seconds": 36.357
+      },
+      {
+        "id": "tests.test_final_tracking::test_custody_scans_receipt_sync_and_distinct_final_use[xml]",
+        "status": "FAILED",
+        "seconds": 37.649
+      },
+      {
+        "id": "tests.test_final_tracking::test_concurrent_emitters_subscribers_and_delayed_consumer",
+        "status": "PASSED",
+        "seconds": 19.985
+      },
+      {
+        "id": "tests.test_final_tracking::test_two_production_wss_processes_single_and_total_outage",
+        "status": "PASSED",
+        "seconds": 20.165
+      },
+      {
+        "id": "tests.test_final_quality::test_laboratory_missing_results_correction_quarantine_and_final_destination[json]",
+        "status": "PASSED",
+        "seconds": 109.778
+      },
+      {
+        "id": "tests.test_final_quality::test_laboratory_missing_results_correction_quarantine_and_final_destination[xml]",
+        "status": "PASSED",
+        "seconds": 42.584
+      },
+      {
+        "id": "tests.test_final_delivery_documents::test_smtp_push_retry_escalation_dedup_and_close[json]",
+        "status": "PASSED",
+        "seconds": 43.074
+      },
+      {
+        "id": "tests.test_final_delivery_documents::test_smtp_push_retry_escalation_dedup_and_close[xml]",
+        "status": "PASSED",
+        "seconds": 46.777
+      },
+      {
+        "id": "tests.test_final_delivery_documents::test_documents_scan_private_access_and_export_formats[json]",
+        "status": "PASSED",
+        "seconds": 31.02
+      },
+      {
+        "id": "tests.test_final_delivery_documents::test_documents_scan_private_access_and_export_formats[xml]",
+        "status": "PASSED",
+        "seconds": 28.627
+      },
+      {
+        "id": "tests.test_final_delivery_documents::test_clamd_infected_unavailable_and_formula_injection",
+        "status": "PASSED",
+        "seconds": 0.531
+      },
+      {
+        "id": "tests.test_final_algorithms_hla::test_dijkstra_against_independent_simple_path_oracle",
+        "status": "PASSED",
+        "seconds": 0.418
+      },
+      {
+        "id": "tests.test_final_algorithms_hla::test_forecast_no_future_leakage_and_reproduction",
+        "status": "PASSED",
+        "seconds": 0.014
+      },
+      {
+        "id": "tests.test_final_algorithms_hla::test_missing_hla_ambiguity_and_states",
+        "status": "PASSED",
+        "seconds": 0.018
+      },
+      {
+        "id": "tests.test_final_algorithms_hla::test_urgency_simulation_missing_factors_and_anomalies",
+        "status": "PASSED",
+        "seconds": 0.019
+      },
+      {
+        "id": "tests.test_final_algorithms_hla::test_persistent_algorithm_contract_and_tenant[json]",
+        "status": "PASSED",
+        "seconds": 4.106
+      },
+      {
+        "id": "tests.test_final_algorithms_hla::test_persistent_algorithm_contract_and_tenant[xml]",
+        "status": "PASSED",
+        "seconds": 2.204
+      },
+      {
+        "id": "tests.test_final_algorithms_hla::test_hla_structured_history_missing_and_corrected[json]",
+        "status": "PASSED",
+        "seconds": 8.548
+      },
+      {
+        "id": "tests.test_final_algorithms_hla::test_hla_structured_history_missing_and_corrected[xml]",
+        "status": "PASSED",
+        "seconds": 6.681
+      },
+      {
+        "id": "tests.test_final_algorithms_hla::test_limits_empty_graph_and_gps_separation",
+        "status": "PASSED",
+        "seconds": 4.58
+      },
+      {
+        "id": "tests.test_final_algorithms_hla::test_web_simulation_view_and_form",
+        "status": "PASSED",
+        "seconds": 11.199
+      },
+      {
+        "id": "tests.test_final_algorithms_hla::test_expiry_estimate_does_not_double_count_demand",
+        "status": "PASSED",
+        "seconds": 0.018
+      },
+      {
+        "id": "tests.test_final_algorithms_hla::test_migration_13_to_current_preserves_rows_and_is_repeatable",
+        "status": "FAILED",
+        "seconds": 52.259
+      },
+      {
+        "id": "tests.test_openapi_documentation::test_shared_openapi_matches_export_and_preserves_representations[identidad_acceso]",
+        "status": "PASSED",
+        "seconds": 58.711
+      },
+      {
+        "id": "tests.test_openapi_documentation::test_shared_openapi_matches_export_and_preserves_representations[donantes]",
+        "status": "PASSED",
+        "seconds": 30.088
+      },
+      {
+        "id": "tests.test_openapi_documentation::test_shared_openapi_matches_export_and_preserves_representations[receptores]",
+        "status": "PASSED",
+        "seconds": 19.284
+      },
+      {
+        "id": "tests.test_openapi_documentation::test_shared_openapi_matches_export_and_preserves_representations[inventario]",
+        "status": "PASSED",
+        "seconds": 43.833
+      },
+      {
+        "id": "tests.test_openapi_documentation::test_shared_openapi_matches_export_and_preserves_representations[compatibilidad]",
+        "status": "PASSED",
+        "seconds": 29.999
+      },
+      {
+        "id": "tests.test_openapi_documentation::test_shared_openapi_matches_export_and_preserves_representations[priorizacion_geografia]",
+        "status": "FAILED",
+        "seconds": 33.362
+      },
+      {
+        "id": "tests.test_openapi_documentation::test_shared_openapi_matches_export_and_preserves_representations[transporte]",
+        "status": "PASSED",
+        "seconds": 34.747
+      },
+      {
+        "id": "tests.test_openapi_documentation::test_shared_openapi_matches_export_and_preserves_representations[custodia]",
+        "status": "PASSED",
+        "seconds": 3.865
+      },
+      {
+        "id": "tests.test_openapi_documentation::test_shared_openapi_matches_export_and_preserves_representations[alertas]",
+        "status": "PASSED",
+        "seconds": 12.515
+      },
+      {
+        "id": "tests.test_openapi_documentation::test_shared_openapi_matches_export_and_preserves_representations[auditoria]",
+        "status": "PASSED",
+        "seconds": 15.774
+      },
+      {
+        "id": "tests.test_openapi_documentation::test_shared_openapi_matches_export_and_preserves_representations[monitoreo]",
+        "status": "PASSED",
+        "seconds": 3.754
+      },
+      {
+        "id": "tests.test_openapi_documentation::test_shared_openapi_matches_export_and_preserves_representations[documentos]",
+        "status": "PASSED",
+        "seconds": 20.432
+      }
+    ]
+  }
+]

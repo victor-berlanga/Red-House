@@ -1,0 +1,45 @@
+name: RedHouse
+options:
+  bundleIdPrefix: org.redhouse
+  deploymentTarget:
+    iOS: '15.0'
+targets:
+  RedHouse:
+    type: application
+    platform: iOS
+    sources: [AppDelegate.swift, IOSDeviceAccess.swift, Icons]
+    info:
+      path: Info.plist
+      properties:
+        CFBundleShortVersionString: '0.3.1'
+        CFBundleVersion: '3'
+        CFBundleDisplayName: 'Red House'
+        CADisableMinimumFrameDurationOnPhone: true
+        NSCameraUsageDescription: 'Escanear la unidad y capturar evidencia del traslado autorizado.'
+        NSLocationWhenInUseUsageDescription: 'Compartir la ubicación durante el traslado asignado y autorizado.'
+        CFBundleIcons:
+          CFBundlePrimaryIcon:
+            CFBundleIconFiles: [AppIcon60x60]
+        CFBundleIcons~ipad:
+          CFBundlePrimaryIcon:
+            CFBundleIconFiles: [AppIcon60x60, AppIcon76x76, AppIcon83.5x83.5]
+        UILaunchScreen: {}
+        UIBackgroundModes: [fetch]
+        BGTaskSchedulerPermittedIdentifiers: [org.redhouse.mobile.observations]
+        UISupportedInterfaceOrientations: [UIInterfaceOrientationPortrait, UIInterfaceOrientationLandscapeLeft, UIInterfaceOrientationLandscapeRight]
+        UISupportedInterfaceOrientations~ipad: [UIInterfaceOrientationPortrait, UIInterfaceOrientationPortraitUpsideDown, UIInterfaceOrientationLandscapeLeft, UIInterfaceOrientationLandscapeRight]
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: org.redhouse.mobile
+        PRODUCT_MODULE_NAME: RedHouseHost
+        SWIFT_VERSION: '5.0'
+        FRAMEWORK_SEARCH_PATHS: '$(SRCROOT)/../composeApp/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)'
+        OTHER_LDFLAGS: '$(inherited) -framework RedHouse'
+        ENABLE_USER_SCRIPT_SANDBOXING: NO
+    preBuildScripts:
+      - name: Build shared framework
+        script: |
+          set -o pipefail
+          cd "$SRCROOT/.."
+          ./gradlew :composeApp:embedAndSignAppleFrameworkForXcode --console=plain 2>&1 | tee "$TARGET_TEMP_DIR/shared-framework.log"
+        basedOnDependencyAnalysis: false

@@ -1,0 +1,36 @@
+
+org.redhouse.mobile.DonorJourneyTest:
+Process crashed while executing donorBooksAndCancelsUsingComposeAndRealServices(org.redhouse.mobile.DonorJourneyTest):
+java.lang.ArrayIndexOutOfBoundsException: length=5120; index=-1296
+	at androidx.compose.runtime.SlotWriter.moveSlotGapTo(SlotTable.kt:4209)
+	at androidx.compose.runtime.SlotWriter.removeSlots(SlotTable.kt:2904)
+	at androidx.compose.runtime.SlotWriter.removeGroup(SlotTable.kt:2021)
+	at androidx.compose.runtime.ComposerKt.removeCurrentGroup(Composer.kt:4337)
+	at androidx.compose.runtime.CompositionImpl.dispose(Composition.kt:840)
+	at androidx.compose.ui.platform.WrappedComposition.dispose(Wrapper.android.kt:154)
+	at androidx.compose.ui.platform.WrappedComposition.onStateChanged(Wrapper.android.kt:165)
+	at androidx.lifecycle.LifecycleRegistry$ObserverWithState.dispatchEvent(LifecycleRegistry.jvm.kt:320)
+	at androidx.lifecycle.LifecycleRegistry.backwardPass(LifecycleRegistry.jvm.kt:272)
+	at androidx.lifecycle.LifecycleRegistry.sync(LifecycleRegistry.jvm.kt:289)
+	at androidx.lifecycle.LifecycleRegistry.moveToState(LifecycleRegistry.jvm.kt:142)
+	at androidx.lifecycle.LifecycleRegistry.handleLifecycleEvent(LifecycleRegistry.jvm.kt:124)
+	at androidx.lifecycle.ReportFragment$Companion.dispatch$lifecycle_runtime_release(ReportFragment.android.kt:190)
+	at androidx.lifecycle.ReportFragment$LifecycleCallbacks.onActivityPreDestroyed(ReportFragment.android.kt:146)
+	at android.app.Activity.dispatchActivityPreDestroyed(Activity.java:1498)
+	at android.app.Activity.performDestroy(Activity.java:8235)
+	at android.app.Instrumentation.callActivityOnDestroy(Instrumentation.java:1344)
+	at androidx.test.runner.MonitoringInstrumentation.callActivityOnDestroy(MonitoringInstrumentation.java:753)
+	at android.app.ActivityThread.performDestroyActivity(ActivityThread.java:5096)
+	at android.app.ActivityThread.handleDestroyActivity(ActivityThread.java:5140)
+	at android.app.servertransaction.DestroyActivityItem.execute(DestroyActivityItem.java:44)
+	at android.app.servertransaction.TransactionExecutor.executeLifecycleState(TransactionExecutor.java:176)
+	at android.app.servertransaction.TransactionExecutor.execute(TransactionExecutor.java:97)
+	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:2066)
+	at android.os.Handler.dispatchMessage(Handler.java:106)
+	at android.os.Looper.loop(Looper.java:223)
+	at android.app.ActivityThread.main(ActivityThread.java:7656)
+	at java.lang.reflect.Method.invoke(Native Method)
+	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:592)
+	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:947)
+INSTRUMENTATION_RESULT: shortMsg=Process crashed.
+INSTRUMENTATION_CODE: 0

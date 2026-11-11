@@ -24,4 +24,6 @@ def create_app(config=None):
     from .public_sources import install as public_sources
 
     public_sources(app)
+    from redhouse.portal_metrics import install as portal_metrics
+    portal_metrics(app, "compatibilidad")
     return complete_app(app)

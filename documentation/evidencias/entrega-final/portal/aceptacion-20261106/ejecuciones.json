@@ -1,0 +1,29 @@
+{
+  "runs": [
+    {
+      "run": "documents",
+      "tests": 4,
+      "failures": 1,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 68.752,
+      "original_sha256": "dc664b51b69119572ca2b38f56ac367dbd30f9bda4a91bdf95b64549e81e5306"
+    },
+    {
+      "run": "versions-repeat",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 45.324,
+      "original_sha256": "615839801547b672bcc552c5e9b4eab3492dddc72cf50730cf80c0caaf20c374"
+    }
+  ],
+  "unique_cases": {
+    "tests.test_portal_document_acceptance::test_document_versions_conflict_and_hold_are_persistent": "PASSED",
+    "tests.test_portal_document_acceptance::test_document_exact_analysis_generation_and_revoked_download": "PASSED",
+    "tests.test_portal_document_acceptance::test_document_dependency_failure_blocks_download_then_recovers[scanner]": "PASSED",
+    "tests.test_portal_document_acceptance::test_document_dependency_failure_blocks_download_then_recovers[storage]": "PASSED"
+  },
+  "note": "Cuatro casos nuevos; el fallo inicial fue expectativa del test sobre legal_hold por defecto, repetido aisladamente. Los 90 históricos no se ejecutaron de nuevo. GCS y ClamD son dobles."
+}

@@ -4,7 +4,7 @@ from typing import Annotated, Literal
 
 from pydantic import Field
 
-from redhouse.models import ID, Model, Text
+from redhouse.models import ID, Model, Text, Confirm
 
 
 class Upload(Model):
@@ -37,6 +37,7 @@ class Metadata(Model):
     legal_hold: bool
     policy_reference: Text
     created_at: Text
+    policy_version: int = 1
 
 
 class Prepared(Model):
@@ -54,6 +55,19 @@ class VerifiedMetadata(Metadata):
     file_status: Literal["VERIFIED"]
 
 
+class DocumentStatus(Metadata):
+    file_status: str
+    analysis: str
+    policy_version: int
+
+
+class ConservationChange(Confirm):
+    policy_version: Annotated[int, Field(ge=1)]
+    retention_until: Text | None = None
+    legal_hold: bool
+    policy_reference: Text
+
+
 class ReportCreate(Model):
     report: Literal[
         "INVENTORY",
@@ -69,6 +83,8 @@ class ReportCreate(Model):
     from_at: Text
     until_at: Text
     order: Literal["ID_ASC", "DATE_DESC"] = "DATE_DESC"
+    filters: dict[str, Text] = Field(default_factory=dict)
+    timezone: Text = "UTC"
 
 
 class Job(Model):
@@ -82,3 +98,4 @@ class Job(Model):
     last_error: Text | None
     attempts: int
     created_at: Text
+    context: dict = Field(default_factory=dict)

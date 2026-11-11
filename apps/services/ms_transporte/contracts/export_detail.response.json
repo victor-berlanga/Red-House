@@ -95,6 +95,11 @@
           "minLength": 1,
           "title": "Created At",
           "type": "string"
+        },
+        "context": {
+          "additionalProperties": true,
+          "title": "Context",
+          "type": "object"
         }
       },
       "required": [

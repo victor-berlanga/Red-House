@@ -1,0 +1,99 @@
+[
+  {
+    "route": "/",
+    "width": 1440,
+    "status": 200,
+    "overflow": false
+  },
+  {
+    "route": "/login",
+    "width": 1440,
+    "status": 200,
+    "overflow": false
+  },
+  {
+    "route": "/",
+    "width": 768,
+    "status": 200,
+    "overflow": false
+  },
+  {
+    "route": "/login",
+    "width": 768,
+    "status": 200,
+    "overflow": false
+  },
+  {
+    "route": "/",
+    "width": 390,
+    "status": 200,
+    "overflow": false
+  },
+  {
+    "route": "/login",
+    "width": 390,
+    "status": 200,
+    "overflow": false
+  },
+  {
+    "route": "/",
+    "width": 320,
+    "status": 200,
+    "overflow": false
+  },
+  {
+    "route": "/login",
+    "width": 320,
+    "status": 200,
+    "overflow": false
+  },
+  {
+    "role": "admin1",
+    "path": "/login",
+    "groups": [],
+    "unique": true,
+    "error": "\nNo se puede verificar el cierre de sesión. Reintenta más tarde."
+  },
+  {
+    "role": "operator1",
+    "path": "/login",
+    "groups": [],
+    "unique": true,
+    "error": "\nNo se puede verificar el cierre de sesión. Reintenta más tarde."
+  },
+  {
+    "role": "medical1",
+    "path": "/login",
+    "groups": [],
+    "unique": true,
+    "error": "\nNo se puede verificar el cierre de sesión. Reintenta más tarde."
+  },
+  {
+    "role": "coordinator1",
+    "path": "/login",
+    "groups": [],
+    "unique": true,
+    "error": "\nNo se puede verificar el cierre de sesión. Reintenta más tarde."
+  },
+  {
+    "role": "transport1",
+    "path": "/login",
+    "groups": [],
+    "unique": true,
+    "error": "\nNo se puede verificar el cierre de sesión. Reintenta más tarde."
+  },
+  {
+    "role": "auditor1",
+    "path": "/login",
+    "groups": [],
+    "unique": true,
+    "error": "\nNo se puede verificar el cierre de sesión. Reintenta más tarde."
+  },
+  {
+    "role": "donor1",
+    "path": "/login",
+    "groups": [],
+    "unique": true,
+    "error": "\nNo se puede verificar el cierre de sesión. Reintenta más tarde."
+  }
+]

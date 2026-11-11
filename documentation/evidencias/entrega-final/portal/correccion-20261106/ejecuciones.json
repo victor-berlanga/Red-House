@@ -1,0 +1,758 @@
+[
+  {
+    "suite": "final-agenda",
+    "file": "final-agenda/agenda-browser.xml",
+    "original_sha256": "f74a479d909aaeedf0d9ef60e236dc338689a3e62076280c93a073d2fd522b9a",
+    "cases": [
+      {
+        "id": "tests.test_portal_agenda_browser::test_attendance_reminder_browser[http]",
+        "status": "FAILED",
+        "seconds": 77.103
+      },
+      {
+        "id": "tests.test_portal_agenda_browser::test_attendance_reminder_browser[monolith]",
+        "status": "FAILED",
+        "seconds": 31.76
+      }
+    ]
+  },
+  {
+    "suite": "final-agenda2",
+    "file": "final-agenda2/agenda-browser.xml",
+    "original_sha256": "68f851426f13a219a5cd01856a7440ad751a06707111e599e3229b67732dda7e",
+    "cases": [
+      {
+        "id": "tests.test_portal_agenda_browser::test_attendance_reminder_browser[http]",
+        "status": "FAILED",
+        "seconds": 139.323
+      },
+      {
+        "id": "tests.test_portal_agenda_browser::test_attendance_reminder_browser[monolith]",
+        "status": "FAILED",
+        "seconds": 121.956
+      }
+    ]
+  },
+  {
+    "suite": "final-agenda3",
+    "file": "final-agenda3/agenda-browser.xml",
+    "original_sha256": "018620a0f7b3c0261cbfe80e06039c192ed4d2ac5261e138d25895d1e27c6a72",
+    "cases": [
+      {
+        "id": "tests.test_portal_agenda_browser::test_attendance_reminder_browser[http]",
+        "status": "PASSED",
+        "seconds": 102.021
+      },
+      {
+        "id": "tests.test_portal_agenda_browser::test_attendance_reminder_browser[monolith]",
+        "status": "PASSED",
+        "seconds": 103.4
+      }
+    ]
+  },
+  {
+    "suite": "final-degraded",
+    "file": "final-degraded/browser-degraded.xml",
+    "original_sha256": "f388cdaa1fa4dbf19f5c358529d1203fc9830c730ca51b4976010f44472a900b",
+    "cases": [
+      {
+        "id": "tests.test_portal_tracking::test_portal_browser_profiles_and_live_map",
+        "status": "PASSED",
+        "seconds": 102.468
+      }
+    ]
+  },
+  {
+    "suite": "final-features",
+    "file": "final-features/features.xml",
+    "original_sha256": "ec38d942c468fc63c23be8f05fba4e51f6cb11e31ba17384c790ce9ce28882c7",
+    "cases": [
+      {
+        "id": "tests.test_portal_corrections::test_publication_without_api_listeners",
+        "status": "PASSED",
+        "seconds": 62.546
+      },
+      {
+        "id": "tests.test_portal_corrections::test_configuration_publication_privacy_versions_and_metrics",
+        "status": "PASSED",
+        "seconds": 7.561
+      },
+      {
+        "id": "tests.test_portal_corrections::test_paginated_export_over_thousand_filters_context_and_foreign_denial",
+        "status": "PASSED",
+        "seconds": 3.577
+      },
+      {
+        "id": "tests.test_portal_corrections::test_pending_confirmation_web_recovers_same_command_without_false_success",
+        "status": "PASSED",
+        "seconds": 7.294
+      },
+      {
+        "id": "tests.test_portal_corrections::test_export_worker_rechecks_revoked_session_before_extraction",
+        "status": "PASSED",
+        "seconds": 1.937
+      },
+      {
+        "id": "tests.test_portal_corrections::test_web_lost_entire_write_response_queries_result_without_second_post",
+        "status": "PASSED",
+        "seconds": 5.4
+      },
+      {
+        "id": "tests.test_portal_corrections::test_coordinator_reads_regional_proposal_without_clinical_authority",
+        "status": "PASSED",
+        "seconds": 2.781
+      },
+      {
+        "id": "tests.test_portal_corrections::test_organ_authorization_form_keeps_history",
+        "status": "PASSED",
+        "seconds": 2.203
+      },
+      {
+        "id": "tests.test_portal_documents::test_document_conservation_form_pending_and_foreign_download",
+        "status": "PASSED",
+        "seconds": 3.6
+      },
+      {
+        "id": "tests.test_portal_documents::test_report_formats_preserve_scope_timezone_unknown_and_formula",
+        "status": "PASSED",
+        "seconds": 0.013
+      },
+      {
+        "id": "tests.test_openapi_documentation::test_shared_openapi_matches_export_and_preserves_representations[identidad_acceso]",
+        "status": "PASSED",
+        "seconds": 6.356
+      },
+      {
+        "id": "tests.test_openapi_documentation::test_shared_openapi_matches_export_and_preserves_representations[donantes]",
+        "status": "PASSED",
+        "seconds": 5.078
+      },
+      {
+        "id": "tests.test_openapi_documentation::test_shared_openapi_matches_export_and_preserves_representations[receptores]",
+        "status": "PASSED",
+        "seconds": 3.447
+      },
+      {
+        "id": "tests.test_openapi_documentation::test_shared_openapi_matches_export_and_preserves_representations[inventario]",
+        "status": "PASSED",
+        "seconds": 8.011
+      },
+      {
+        "id": "tests.test_openapi_documentation::test_shared_openapi_matches_export_and_preserves_representations[compatibilidad]",
+        "status": "PASSED",
+        "seconds": 5.535
+      },
+      {
+        "id": "tests.test_openapi_documentation::test_shared_openapi_matches_export_and_preserves_representations[priorizacion_geografia]",
+        "status": "PASSED",
+        "seconds": 6.214
+      },
+      {
+        "id": "tests.test_openapi_documentation::test_shared_openapi_matches_export_and_preserves_representations[transporte]",
+        "status": "PASSED",
+        "seconds": 7.005
+      },
+      {
+        "id": "tests.test_openapi_documentation::test_shared_openapi_matches_export_and_preserves_representations[custodia]",
+        "status": "PASSED",
+        "seconds": 0.845
+      },
+      {
+        "id": "tests.test_openapi_documentation::test_shared_openapi_matches_export_and_preserves_representations[alertas]",
+        "status": "PASSED",
+        "seconds": 2.664
+      },
+      {
+        "id": "tests.test_openapi_documentation::test_shared_openapi_matches_export_and_preserves_representations[auditoria]",
+        "status": "PASSED",
+        "seconds": 3.283
+      },
+      {
+        "id": "tests.test_openapi_documentation::test_shared_openapi_matches_export_and_preserves_representations[monitoreo]",
+        "status": "PASSED",
+        "seconds": 0.751
+      },
+      {
+        "id": "tests.test_openapi_documentation::test_shared_openapi_matches_export_and_preserves_representations[documentos]",
+        "status": "PASSED",
+        "seconds": 9.485
+      }
+    ]
+  },
+  {
+    "suite": "final-features2",
+    "file": "final-features2/features.xml",
+    "original_sha256": "b0330048f0ee6ca9d51dac8ffbb2ab638eb2295d7981cff1a844dee0ba9314ba",
+    "cases": [
+      {
+        "id": "tests.test_portal_corrections::test_publication_without_api_listeners",
+        "status": "PASSED",
+        "seconds": 43.248
+      },
+      {
+        "id": "tests.test_portal_corrections::test_configuration_publication_privacy_versions_and_metrics",
+        "status": "PASSED",
+        "seconds": 6.419
+      },
+      {
+        "id": "tests.test_portal_corrections::test_paginated_export_over_thousand_filters_context_and_foreign_denial",
+        "status": "PASSED",
+        "seconds": 3.55
+      },
+      {
+        "id": "tests.test_portal_corrections::test_pending_confirmation_web_recovers_same_command_without_false_success",
+        "status": "PASSED",
+        "seconds": 8.193
+      },
+      {
+        "id": "tests.test_portal_corrections::test_export_worker_rechecks_revoked_session_before_extraction",
+        "status": "PASSED",
+        "seconds": 1.884
+      },
+      {
+        "id": "tests.test_portal_corrections::test_web_lost_entire_write_response_queries_result_without_second_post",
+        "status": "PASSED",
+        "seconds": 5.732
+      },
+      {
+        "id": "tests.test_portal_corrections::test_coordinator_reads_regional_proposal_without_clinical_authority",
+        "status": "PASSED",
+        "seconds": 2.978
+      },
+      {
+        "id": "tests.test_portal_corrections::test_organ_authorization_form_keeps_history",
+        "status": "PASSED",
+        "seconds": 2.71
+      },
+      {
+        "id": "tests.test_portal_corrections::test_page_csv_distinguishes_account_institution_from_authorized_scope",
+        "status": "PASSED",
+        "seconds": 3.761
+      },
+      {
+        "id": "tests.test_portal_documents::test_document_conservation_form_pending_and_foreign_download",
+        "status": "PASSED",
+        "seconds": 5.797
+      },
+      {
+        "id": "tests.test_portal_documents::test_report_formats_preserve_scope_timezone_unknown_and_formula",
+        "status": "PASSED",
+        "seconds": 0.027
+      },
+      {
+        "id": "tests.test_openapi_documentation::test_shared_openapi_matches_export_and_preserves_representations[identidad_acceso]",
+        "status": "PASSED",
+        "seconds": 17.806
+      },
+      {
+        "id": "tests.test_openapi_documentation::test_shared_openapi_matches_export_and_preserves_representations[donantes]",
+        "status": "PASSED",
+        "seconds": 6.427
+      },
+      {
+        "id": "tests.test_openapi_documentation::test_shared_openapi_matches_export_and_preserves_representations[receptores]",
+        "status": "PASSED",
+        "seconds": 3.807
+      },
+      {
+        "id": "tests.test_openapi_documentation::test_shared_openapi_matches_export_and_preserves_representations[inventario]",
+        "status": "PASSED",
+        "seconds": 8.816
+      },
+      {
+        "id": "tests.test_openapi_documentation::test_shared_openapi_matches_export_and_preserves_representations[compatibilidad]",
+        "status": "PASSED",
+        "seconds": 5.648
+      },
+      {
+        "id": "tests.test_openapi_documentation::test_shared_openapi_matches_export_and_preserves_representations[priorizacion_geografia]",
+        "status": "PASSED",
+        "seconds": 6.402
+      },
+      {
+        "id": "tests.test_openapi_documentation::test_shared_openapi_matches_export_and_preserves_representations[transporte]",
+        "status": "PASSED",
+        "seconds": 6.278
+      },
+      {
+        "id": "tests.test_openapi_documentation::test_shared_openapi_matches_export_and_preserves_representations[custodia]",
+        "status": "PASSED",
+        "seconds": 0.666
+      },
+      {
+        "id": "tests.test_openapi_documentation::test_shared_openapi_matches_export_and_preserves_representations[alertas]",
+        "status": "PASSED",
+        "seconds": 2.224
+      },
+      {
+        "id": "tests.test_openapi_documentation::test_shared_openapi_matches_export_and_preserves_representations[auditoria]",
+        "status": "PASSED",
+        "seconds": 3.05
+      },
+      {
+        "id": "tests.test_openapi_documentation::test_shared_openapi_matches_export_and_preserves_representations[monitoreo]",
+        "status": "PASSED",
+        "seconds": 1.025
+      },
+      {
+        "id": "tests.test_openapi_documentation::test_shared_openapi_matches_export_and_preserves_representations[documentos]",
+        "status": "PASSED",
+        "seconds": 7.128
+      }
+    ]
+  },
+  {
+    "suite": "final-http",
+    "file": "final-http/browser-http.xml",
+    "original_sha256": "093efc49b0849dec2229e038406bc9093ba2bd1df47a4353aeb1d9ae6aec30ac",
+    "cases": [
+      {
+        "id": "tests.test_correction_browser::test_operational_browser_corrections[http]",
+        "status": "FAILED",
+        "seconds": 89.331
+      }
+    ]
+  },
+  {
+    "suite": "final-http2",
+    "file": "final-http2/browser-http.xml",
+    "original_sha256": "26c719eded7e3b20af8b05449b29d3b7bb5259978c0a803a81ca0bc70ed43cf9",
+    "cases": [
+      {
+        "id": "tests.test_correction_browser::test_operational_browser_corrections[http]",
+        "status": "FAILED",
+        "seconds": 147.249
+      }
+    ]
+  },
+  {
+    "suite": "final-http3",
+    "file": "final-http3/browser-http.xml",
+    "original_sha256": "0d7530d19ce24e1d4aa761bbd2c2832595da59448575ad1f85042c8f60ed5eb1",
+    "cases": [
+      {
+        "id": "tests.test_correction_browser::test_operational_browser_corrections[http]",
+        "status": "FAILED",
+        "seconds": 212.291
+      }
+    ]
+  },
+  {
+    "suite": "final-http4",
+    "file": "final-http4/browser-http.xml",
+    "original_sha256": "ff6fa21a85e4fdfd59bc0d1c9a9a66b8f77ef93b751e946e0ea1a6303c2015c7",
+    "cases": [
+      {
+        "id": "tests.test_correction_browser::test_operational_browser_corrections[http]",
+        "status": "FAILED",
+        "seconds": 66.931
+      }
+    ]
+  },
+  {
+    "suite": "final-http5",
+    "file": "final-http5/browser-http.xml",
+    "original_sha256": "774ee86fa547d4599a39020dc630a4dd55fd66c1301bebaa222be7f2031fbd1a",
+    "cases": [
+      {
+        "id": "tests.test_correction_browser::test_operational_browser_corrections[http]",
+        "status": "FAILED",
+        "seconds": 343.832
+      }
+    ]
+  },
+  {
+    "suite": "final-http6",
+    "file": "final-http6/browser-http.xml",
+    "original_sha256": "39e6a70a6c9c27892f913c8dee678125e9d78208bc1e162491cb7c10e87e1d2e",
+    "cases": [
+      {
+        "id": "tests.test_correction_browser::test_operational_browser_corrections[http]",
+        "status": "FAILED",
+        "seconds": 460.424
+      }
+    ]
+  },
+  {
+    "suite": "final-http7",
+    "file": "final-http7/browser-http.xml",
+    "original_sha256": "3447144a3c787cae162a17752c287951d1202f4ee364677c0e81d6bd86a87c4f",
+    "cases": [
+      {
+        "id": "tests.test_correction_browser::test_operational_browser_corrections[http]",
+        "status": "PASSED",
+        "seconds": 830.074
+      }
+    ]
+  },
+  {
+    "suite": "final-migration",
+    "file": "final-migration/migration.xml",
+    "original_sha256": "7754544a2f789f2cd8d1b8d69fe1ae2d86f4d334b98a382af30d2d46fe22c92e",
+    "cases": [
+      {
+        "id": "tests.test_final_algorithms_hla::test_migration_13_to_current_preserves_rows_and_is_repeatable",
+        "status": "PASSED",
+        "seconds": 37.09
+      }
+    ]
+  },
+  {
+    "suite": "final-monolith",
+    "file": "final-monolith/browser-monolith.xml",
+    "original_sha256": "f29c037633c6b1fc9820bb7059cec9cbf21b271579026524fce4645139e7cd26",
+    "cases": [
+      {
+        "id": "tests.test_correction_browser::test_operational_browser_corrections[monolith]",
+        "status": "FAILED",
+        "seconds": 497.752
+      }
+    ]
+  },
+  {
+    "suite": "final-monolith2",
+    "file": "final-monolith2/browser-monolith.xml",
+    "original_sha256": "f31e79890afcdd7619f29099b2370687a4779569e08e3188091b6083176a688b",
+    "cases": [
+      {
+        "id": "tests.test_correction_browser::test_operational_browser_corrections[monolith]",
+        "status": "FAILED",
+        "seconds": 582.636
+      }
+    ]
+  },
+  {
+    "suite": "final-monolith3",
+    "file": "final-monolith3/browser-monolith.xml",
+    "original_sha256": "8d60f7e2e8b44d65b27b1b799051a62af091416418be4b8c7a2c31c19f2d8a09",
+    "cases": [
+      {
+        "id": "tests.test_correction_browser::test_operational_browser_corrections[monolith]",
+        "status": "PASSED",
+        "seconds": 767.777
+      }
+    ]
+  },
+  {
+    "suite": "final-regression",
+    "file": "final-regression/regression.xml",
+    "original_sha256": "fc54f9f5ec5b94eb56081c7c327b22b8285887d834e3368d855f922daa2bb2d3",
+    "cases": [
+      {
+        "id": "tests.test_web_integration::test_roles_can_render_authorized_pages_through_http[admin1-paths0]",
+        "status": "PASSED",
+        "seconds": 42.478
+      },
+      {
+        "id": "tests.test_web_integration::test_roles_can_render_authorized_pages_through_http[operator1-paths1]",
+        "status": "PASSED",
+        "seconds": 5.543
+      },
+      {
+        "id": "tests.test_web_integration::test_roles_can_render_authorized_pages_through_http[medical1-paths2]",
+        "status": "PASSED",
+        "seconds": 5.356
+      },
+      {
+        "id": "tests.test_web_integration::test_roles_can_render_authorized_pages_through_http[coordinator1-paths3]",
+        "status": "PASSED",
+        "seconds": 4.679
+      },
+      {
+        "id": "tests.test_web_integration::test_roles_can_render_authorized_pages_through_http[transport1-paths4]",
+        "status": "PASSED",
+        "seconds": 3.032
+      },
+      {
+        "id": "tests.test_web_integration::test_roles_can_render_authorized_pages_through_http[auditor1-paths5]",
+        "status": "PASSED",
+        "seconds": 3.022
+      },
+      {
+        "id": "tests.test_web_integration::test_roles_can_render_authorized_pages_through_http[donor1-paths6]",
+        "status": "PASSED",
+        "seconds": 2.905
+      },
+      {
+        "id": "tests.test_web_integration::test_full_reservation_transport_receipt_from_web_and_xml[BLOOD-RBC-A+]",
+        "status": "PASSED",
+        "seconds": 83.913
+      },
+      {
+        "id": "tests.test_web_integration::test_full_reservation_transport_receipt_from_web_and_xml[ORGAN-KIDNEY-O+]",
+        "status": "PASSED",
+        "seconds": 49.856
+      },
+      {
+        "id": "tests.test_web_integration::test_full_reservation_transport_receipt_from_web_and_xml[ORGAN-LIVER-O+]",
+        "status": "PASSED",
+        "seconds": 43.435
+      },
+      {
+        "id": "tests.test_web_integration::test_full_reservation_transport_receipt_from_web_and_xml[ORGAN-HEART-O+]",
+        "status": "PASSED",
+        "seconds": 47.502
+      },
+      {
+        "id": "tests.test_web_integration::test_forms_keep_values_and_same_idempotency_after_error",
+        "status": "PASSED",
+        "seconds": 2.197
+      },
+      {
+        "id": "tests.test_web_integration::test_web_rejects_csrf_wrong_role_and_cross_institution",
+        "status": "PASSED",
+        "seconds": 4.263
+      },
+      {
+        "id": "tests.test_web_integration::test_filtered_pagination_counts_and_minimized_recipient_search",
+        "status": "PASSED",
+        "seconds": 3.205
+      },
+      {
+        "id": "tests.test_web_integration::test_identity_outage_reports_503_without_legacy_fallback",
+        "status": "PASSED",
+        "seconds": 2.279
+      },
+      {
+        "id": "tests.test_web_integration::test_renewal_and_logout_revoke_backend_session_without_exposing_tokens",
+        "status": "PASSED",
+        "seconds": 2.561
+      },
+      {
+        "id": "tests.test_web_integration::test_donor_campaign_appointment_processing_and_inventory_source_from_web",
+        "status": "PASSED",
+        "seconds": 9.786
+      },
+      {
+        "id": "tests.test_web_integration::test_matching_proposal_from_web_does_not_reserve",
+        "status": "PASSED",
+        "seconds": 6.628
+      },
+      {
+        "id": "tests.test_web_integration::test_admin_web_creation_deactivation_revokes_new_user",
+        "status": "PASSED",
+        "seconds": 3.337
+      },
+      {
+        "id": "tests.test_continuity::test_complete_web_flow_without_apis[BLOOD-RBC-O+]",
+        "status": "PASSED",
+        "seconds": 77.444
+      },
+      {
+        "id": "tests.test_continuity::test_complete_web_flow_without_apis[ORGAN-KIDNEY-O+]",
+        "status": "PASSED",
+        "seconds": 56.867
+      },
+      {
+        "id": "tests.test_continuity::test_donation_processing_without_apis",
+        "status": "PASSED",
+        "seconds": 12.111
+      },
+      {
+        "id": "tests.test_continuity::test_monolith_redis_failure_fails_closed_and_recovers",
+        "status": "PASSED",
+        "seconds": 9.195
+      },
+      {
+        "id": "tests.test_final_tracking::test_wss_json_xml_durable_replay_order_and_revocation",
+        "status": "PASSED",
+        "seconds": 31.943
+      },
+      {
+        "id": "tests.test_final_tracking::test_wss_rejects_donor_device_read_invalid_and_conflicting_events[json]",
+        "status": "PASSED",
+        "seconds": 6.051
+      },
+      {
+        "id": "tests.test_final_tracking::test_wss_rejects_donor_device_read_invalid_and_conflicting_events[xml]",
+        "status": "PASSED",
+        "seconds": 6.185
+      },
+      {
+        "id": "tests.test_final_tracking::test_tracking_rejects_xxe_nonfinite_and_unknown_fields",
+        "status": "PASSED",
+        "seconds": 0.01
+      },
+      {
+        "id": "tests.test_final_tracking::test_sync_commands_idempotency_scope_versions_and_cursor[json]",
+        "status": "PASSED",
+        "seconds": 6.305
+      },
+      {
+        "id": "tests.test_final_tracking::test_sync_commands_idempotency_scope_versions_and_cursor[xml]",
+        "status": "PASSED",
+        "seconds": 6.807
+      },
+      {
+        "id": "tests.test_final_tracking::test_executable_simulator_offline_reconnect_and_dedup[json]",
+        "status": "PASSED",
+        "seconds": 16.913
+      },
+      {
+        "id": "tests.test_final_tracking::test_executable_simulator_offline_reconnect_and_dedup[xml]",
+        "status": "PASSED",
+        "seconds": 14.908
+      },
+      {
+        "id": "tests.test_final_tracking::test_tracking_dependency_failure_preserves_durable_cursor[redis]",
+        "status": "PASSED",
+        "seconds": 86.59
+      },
+      {
+        "id": "tests.test_final_tracking::test_tracking_dependency_failure_preserves_durable_cursor[postgres]",
+        "status": "PASSED",
+        "seconds": 16.425
+      },
+      {
+        "id": "tests.test_final_tracking::test_tracking_dependency_failure_preserves_durable_cursor[mongodb]",
+        "status": "PASSED",
+        "seconds": 19.309
+      },
+      {
+        "id": "tests.test_final_tracking::test_tracking_scope_origin_cursor_limits_and_device_revocation",
+        "status": "PASSED",
+        "seconds": 5.943
+      },
+      {
+        "id": "tests.test_final_tracking::test_nmea_adapter_checksum_units_and_no_fix",
+        "status": "PASSED",
+        "seconds": 0.01
+      },
+      {
+        "id": "tests.test_final_tracking::test_custody_scans_receipt_sync_and_distinct_final_use[json]",
+        "status": "PASSED",
+        "seconds": 32.213
+      },
+      {
+        "id": "tests.test_final_tracking::test_custody_scans_receipt_sync_and_distinct_final_use[xml]",
+        "status": "PASSED",
+        "seconds": 27.699
+      },
+      {
+        "id": "tests.test_final_tracking::test_concurrent_emitters_subscribers_and_delayed_consumer",
+        "status": "PASSED",
+        "seconds": 10.521
+      },
+      {
+        "id": "tests.test_final_tracking::test_two_production_wss_processes_single_and_total_outage",
+        "status": "PASSED",
+        "seconds": 13.12
+      },
+      {
+        "id": "tests.test_final_quality::test_laboratory_missing_results_correction_quarantine_and_final_destination[json]",
+        "status": "PASSED",
+        "seconds": 32.566
+      },
+      {
+        "id": "tests.test_final_quality::test_laboratory_missing_results_correction_quarantine_and_final_destination[xml]",
+        "status": "PASSED",
+        "seconds": 17.526
+      },
+      {
+        "id": "tests.test_final_delivery_documents::test_smtp_push_retry_escalation_dedup_and_close[json]",
+        "status": "PASSED",
+        "seconds": 10.602
+      },
+      {
+        "id": "tests.test_final_delivery_documents::test_smtp_push_retry_escalation_dedup_and_close[xml]",
+        "status": "PASSED",
+        "seconds": 11.164
+      },
+      {
+        "id": "tests.test_final_delivery_documents::test_documents_scan_private_access_and_export_formats[json]",
+        "status": "PASSED",
+        "seconds": 6.482
+      },
+      {
+        "id": "tests.test_final_delivery_documents::test_documents_scan_private_access_and_export_formats[xml]",
+        "status": "PASSED",
+        "seconds": 6.295
+      },
+      {
+        "id": "tests.test_final_delivery_documents::test_clamd_infected_unavailable_and_formula_injection",
+        "status": "PASSED",
+        "seconds": 0.505
+      },
+      {
+        "id": "tests.test_final_algorithms_hla::test_dijkstra_against_independent_simple_path_oracle",
+        "status": "PASSED",
+        "seconds": 0.053
+      },
+      {
+        "id": "tests.test_final_algorithms_hla::test_forecast_no_future_leakage_and_reproduction",
+        "status": "PASSED",
+        "seconds": 0.002
+      },
+      {
+        "id": "tests.test_final_algorithms_hla::test_missing_hla_ambiguity_and_states",
+        "status": "PASSED",
+        "seconds": 0.003
+      },
+      {
+        "id": "tests.test_final_algorithms_hla::test_urgency_simulation_missing_factors_and_anomalies",
+        "status": "PASSED",
+        "seconds": 0.003
+      },
+      {
+        "id": "tests.test_final_algorithms_hla::test_persistent_algorithm_contract_and_tenant[json]",
+        "status": "PASSED",
+        "seconds": 0.849
+      },
+      {
+        "id": "tests.test_final_algorithms_hla::test_persistent_algorithm_contract_and_tenant[xml]",
+        "status": "PASSED",
+        "seconds": 0.417
+      },
+      {
+        "id": "tests.test_final_algorithms_hla::test_hla_structured_history_missing_and_corrected[json]",
+        "status": "PASSED",
+        "seconds": 1.633
+      },
+      {
+        "id": "tests.test_final_algorithms_hla::test_hla_structured_history_missing_and_corrected[xml]",
+        "status": "PASSED",
+        "seconds": 1.361
+      },
+      {
+        "id": "tests.test_final_algorithms_hla::test_limits_empty_graph_and_gps_separation",
+        "status": "PASSED",
+        "seconds": 0.683
+      },
+      {
+        "id": "tests.test_final_algorithms_hla::test_web_simulation_view_and_form",
+        "status": "PASSED",
+        "seconds": 1.984
+      },
+      {
+        "id": "tests.test_final_algorithms_hla::test_expiry_estimate_does_not_double_count_demand",
+        "status": "PASSED",
+        "seconds": 0.02
+      },
+      {
+        "id": "tests.test_final_algorithms_hla::test_migration_13_to_current_preserves_rows_and_is_repeatable",
+        "status": "FAILED",
+        "seconds": 14.944
+      },
+      {
+        "id": "tests.test_portal_tracking::test_browser_ticket_scope_publish_expiry_and_web_csrf",
+        "status": "PASSED",
+        "seconds": 9.174
+      },
+      {
+        "id": "tests.test_portal_tracking::test_portal_browser_profiles_and_live_map",
+        "status": "SKIPPED",
+        "seconds": 0.001
+      },
+      {
+        "id": "tests.test_portal_tracking::test_web_password_recovery_real_smtp_single_use",
+        "status": "PASSED",
+        "seconds": 2.552
+      },
+      {
+        "id": "tests.test_portal_tracking::test_web_consent_and_hourly_agenda_persist",
+        "status": "PASSED",
+        "seconds": 10.961
+      }
+    ]
+  }
+]

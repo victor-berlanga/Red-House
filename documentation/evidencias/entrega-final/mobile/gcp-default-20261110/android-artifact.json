@@ -1,0 +1,26 @@
+{
+  "artifact": ".local/artifacts/mobile/RedHouse-0.3.1-debug.apk",
+  "bytes": 13775569,
+  "sha256": "1ba932816d18af5b4fbaf255691c1047b10967077c1292e159cbad86a427c851",
+  "version": "0.3.1",
+  "version_code": 3,
+  "gateway": "https://34.18.186.116",
+  "gateway_field_in_normal_ui": false,
+  "signature_v2": true,
+  "signers": 1,
+  "installed": "AOSP API 30 x86_64 emulator",
+  "native_test": "PASS: GcpGatewayTest; no credentials, four services HTTPS readiness",
+  "forbidden_assets": [],
+  "junit": {
+    "total": 21,
+    "passed": 19,
+    "skipped": 2,
+    "failed": 0,
+    "note": "Two isolated RealServicesTest journeys explicitly skipped; previous runs remain historical."
+  },
+  "launch": {
+    "state": "COLD",
+    "status": "ok",
+    "total_ms": 1781
+  }
+}

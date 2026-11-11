@@ -29,4 +29,6 @@ def create_app(config=None):
     traceability(app)
     from .decision_data import install as decision_data
     decision_data(app)
+    from redhouse.portal_metrics import install as portal_metrics
+    portal_metrics(app, "inventario")
     return complete_app(app)

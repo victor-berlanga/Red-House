@@ -957,7 +957,7 @@
     "/api/v1/alert-subscriptions": {
       "post": {
         "operationId": "alert_subscription_create",
-        "summary": "alert_subscription_create",
+        "summary": "Registrar, rotar o reactivar destino propio; una suscripción por cuenta y canal",
         "parameters": [
           {
             "name": "X-Correlation-ID",

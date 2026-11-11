@@ -1,0 +1,20 @@
+{
+  "source": "real-tests/TEST-org.redhouse.mobile.RealServicesTest.xml",
+  "http_service_counts": {
+    "identidad-acceso": 23,
+    "donantes": 13,
+    "inventario": 2,
+    "transporte": 15,
+    "priorizacion-geografia": 1,
+    "alertas": 1
+  },
+  "distinct_http_services": 6,
+  "wss_101": 1,
+  "real_datastores": [
+    "PostgreSQL",
+    "Redis",
+    "MongoDB"
+  ],
+  "isolated": true,
+  "separate_containers_verified": false
+}

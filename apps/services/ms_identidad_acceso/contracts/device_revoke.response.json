@@ -47,7 +47,8 @@
           "enum": [
             "SIMULATOR",
             "GPS_BRIDGE",
-            "ANDROID"
+            "ANDROID",
+            "IOS"
           ],
           "title": "Source",
           "type": "string"

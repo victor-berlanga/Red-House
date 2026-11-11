@@ -2599,6 +2599,287 @@
         }
       }
     },
+    "/internal/v1/institutions/{identifier}/operational-contacts": {
+      "get": {
+        "operationId": "operational_contacts",
+        "summary": "Contactos explícitamente operativos; solo proyección de tarea por Transporte",
+        "parameters": [
+          {
+            "name": "identifier",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-Correlation-ID",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "application/json",
+                "application/xml"
+              ]
+            }
+          },
+          {
+            "name": "X-Service",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "transporte"
+              ]
+            }
+          },
+          {
+            "name": "X-Service-Time",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Service-Nonce",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "description": "Roles: TRANSPORT, OPERATOR, COORDINATOR. Contrato interno firmado; consumidores: transporte",
+        "security": [
+          {
+            "ServiceSignature": [],
+            "BearerJWT": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resultado confirmado o estado pendiente documentado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_operational_contacts"
+                },
+                "example": {
+                  "data": {
+                    "id": "00000000-0000-4000-8000-000000000001",
+                    "name": "Dato ficticio para reemplazar",
+                    "contacts": [],
+                    "operators": []
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "identidad_acceso",
+                    "version": "0.4.1"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"name\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"contacts\" type=\"array\"/><field name=\"operators\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">identidad_acceso</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
+                "x-json-equivalent-schema": {
+                  "$ref": "#/components/schemas/Response_operational_contacts"
+                },
+                "x-xsd": "/schemas/response.xsd",
+                "x-response-schema": "/schemas/operational_contacts.response.json"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "406": {
+            "$ref": "#/components/responses/Error406"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "412": {
+            "$ref": "#/components/responses/Error412"
+          },
+          "413": {
+            "$ref": "#/components/responses/Error413"
+          },
+          "415": {
+            "$ref": "#/components/responses/Error415"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
+          }
+        }
+      }
+    },
+    "/api/v1/appointment-sites": {
+      "get": {
+        "operationId": "appointment_sites",
+        "summary": "appointment_sites",
+        "parameters": [
+          {
+            "name": "X-Correlation-ID",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "application/json",
+                "application/xml"
+              ]
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
+            }
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20
+            }
+          },
+          {
+            "name": "q",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          }
+        ],
+        "description": "Roles: DONOR, OPERATOR. Contrato público de API.",
+        "security": [
+          {
+            "BearerJWT": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resultado confirmado o estado pendiente documentado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_appointment_sites"
+                },
+                "example": {
+                  "data": {
+                    "items": [],
+                    "page": 1,
+                    "page_size": 1,
+                    "total": 1
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "identidad_acceso",
+                    "version": "0.4.1"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"items\" type=\"array\"/><field name=\"page\" type=\"integer\">1</field><field name=\"page_size\" type=\"integer\">1</field><field name=\"total\" type=\"integer\">1</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">identidad_acceso</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
+                "x-json-equivalent-schema": {
+                  "$ref": "#/components/schemas/Response_appointment_sites"
+                },
+                "x-xsd": "/schemas/response.xsd",
+                "x-response-schema": "/schemas/appointment_sites.response.json"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "406": {
+            "$ref": "#/components/responses/Error406"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "412": {
+            "$ref": "#/components/responses/Error412"
+          },
+          "413": {
+            "$ref": "#/components/responses/Error413"
+          },
+          "415": {
+            "$ref": "#/components/responses/Error415"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
+          }
+        }
+      }
+    },
     "/api/v1/catalogues/sites": {
       "get": {
         "operationId": "sites_list_rows",
@@ -3444,14 +3725,15 @@
               },
               "example": {
                 "name": "Dato ficticio para reemplazar",
-                "value": "Dato ficticio para reemplazar"
+                "value": "Dato ficticio para reemplazar",
+                "operational": true
               }
             },
             "application/xml": {
               "schema": {
                 "type": "string"
               },
-              "example": "<?xml version='1.0' encoding='UTF-8'?>\n<request xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><name>Dato ficticio para reemplazar</name><value>Dato ficticio para reemplazar</value></request>",
+              "example": "<?xml version='1.0' encoding='UTF-8'?>\n<request xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><name>Dato ficticio para reemplazar</name><value>Dato ficticio para reemplazar</value><operational>true</operational></request>",
               "x-xsd": "/schemas/contacts_create.xsd",
               "x-json-equivalent-schema": {
                 "$ref": "#/components/schemas/Contact"
@@ -3724,6 +4006,7 @@
                 "reason": "Dato ficticio para reemplazar",
                 "name": "Dato ficticio para reemplazar",
                 "value": "Dato ficticio para reemplazar",
+                "operational": true,
                 "active": true,
                 "version": 1
               }
@@ -3732,7 +4015,7 @@
               "schema": {
                 "type": "string"
               },
-              "example": "<?xml version='1.0' encoding='UTF-8'?>\n<request xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><human_confirmation>true</human_confirmation><reason>Dato ficticio para reemplazar</reason><name>Dato ficticio para reemplazar</name><value>Dato ficticio para reemplazar</value><active>true</active><version>1</version></request>",
+              "example": "<?xml version='1.0' encoding='UTF-8'?>\n<request xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><human_confirmation>true</human_confirmation><reason>Dato ficticio para reemplazar</reason><name>Dato ficticio para reemplazar</name><value>Dato ficticio para reemplazar</value><operational>true</operational><active>true</active><version>1</version></request>",
               "x-xsd": "/schemas/contacts_edit.xsd",
               "x-json-equivalent-schema": {
                 "$ref": "#/components/schemas/ContactEdit"
@@ -6783,6 +7066,311 @@
         }
       }
     },
+    "/api/v1/mobile/devices": {
+      "post": {
+        "operationId": "mobile_device_register",
+        "summary": "Registrar teléfono propio, sin credencial de emisor autónomo",
+        "parameters": [
+          {
+            "name": "X-Correlation-ID",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "application/json",
+                "application/xml"
+              ]
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 8,
+              "maxLength": 100
+            }
+          }
+        ],
+        "description": "Roles: según sesión. Contrato público de API.",
+        "security": [
+          {
+            "BearerJWT": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resultado confirmado o estado pendiente documentado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_mobile_device_register"
+                },
+                "example": {
+                  "data": {
+                    "id": "00000000-0000-4000-8000-000000000001",
+                    "tenant_id": "00000000-0000-4000-8000-000000000001",
+                    "user_id": "00000000-0000-4000-8000-000000000001",
+                    "source": "SIMULATOR",
+                    "label": "Dato ficticio para reemplazar",
+                    "expires_at": "2030-01-01T15:00:00+00:00",
+                    "active": true,
+                    "version": 1,
+                    "created_at": "Dato ficticio para reemplazar"
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "identidad_acceso",
+                    "version": "0.4.1"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"tenant_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"user_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"source\" type=\"string\">SIMULATOR</field><field name=\"label\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"expires_at\" type=\"string\">2030-01-01T15:00:00+00:00</field><field name=\"active\" type=\"boolean\">true</field><field name=\"version\" type=\"integer\">1</field><field name=\"created_at\" type=\"string\">Dato ficticio para reemplazar</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">identidad_acceso</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
+                "x-json-equivalent-schema": {
+                  "$ref": "#/components/schemas/Response_mobile_device_register"
+                },
+                "x-xsd": "/schemas/response.xsd",
+                "x-response-schema": "/schemas/mobile_device_register.response.json"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "406": {
+            "$ref": "#/components/responses/Error406"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "412": {
+            "$ref": "#/components/responses/Error412"
+          },
+          "413": {
+            "$ref": "#/components/responses/Error413"
+          },
+          "415": {
+            "$ref": "#/components/responses/Error415"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MobileDevice"
+              },
+              "example": {
+                "id": "00000000-0000-4000-8000-000000000001",
+                "source": "ANDROID",
+                "label": "Dato ficticio para reemplazar"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "type": "string"
+              },
+              "example": "<?xml version='1.0' encoding='UTF-8'?>\n<request xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><id>00000000-0000-4000-8000-000000000001</id><source>ANDROID</source><label>Dato ficticio para reemplazar</label></request>",
+              "x-xsd": "/schemas/mobile_device_register.xsd",
+              "x-json-equivalent-schema": {
+                "$ref": "#/components/schemas/MobileDevice"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/mobile/devices/{identifier}/revoke": {
+      "post": {
+        "operationId": "mobile_device_revoke",
+        "summary": "mobile_device_revoke",
+        "parameters": [
+          {
+            "name": "identifier",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-Correlation-ID",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "application/json",
+                "application/xml"
+              ]
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 8,
+              "maxLength": 100
+            }
+          }
+        ],
+        "description": "Roles: según sesión. Contrato público de API.",
+        "security": [
+          {
+            "BearerJWT": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resultado confirmado o estado pendiente documentado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_mobile_device_revoke"
+                },
+                "example": {
+                  "data": {
+                    "id": "00000000-0000-4000-8000-000000000001",
+                    "tenant_id": "00000000-0000-4000-8000-000000000001",
+                    "user_id": "00000000-0000-4000-8000-000000000001",
+                    "source": "SIMULATOR",
+                    "label": "Dato ficticio para reemplazar",
+                    "expires_at": "2030-01-01T15:00:00+00:00",
+                    "active": true,
+                    "version": 1,
+                    "created_at": "Dato ficticio para reemplazar"
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "identidad_acceso",
+                    "version": "0.4.1"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"tenant_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"user_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"source\" type=\"string\">SIMULATOR</field><field name=\"label\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"expires_at\" type=\"string\">2030-01-01T15:00:00+00:00</field><field name=\"active\" type=\"boolean\">true</field><field name=\"version\" type=\"integer\">1</field><field name=\"created_at\" type=\"string\">Dato ficticio para reemplazar</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">identidad_acceso</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
+                "x-json-equivalent-schema": {
+                  "$ref": "#/components/schemas/Response_mobile_device_revoke"
+                },
+                "x-xsd": "/schemas/response.xsd",
+                "x-response-schema": "/schemas/mobile_device_revoke.response.json"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "406": {
+            "$ref": "#/components/responses/Error406"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "412": {
+            "$ref": "#/components/responses/Error412"
+          },
+          "413": {
+            "$ref": "#/components/responses/Error413"
+          },
+          "415": {
+            "$ref": "#/components/responses/Error415"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeviceChange"
+              },
+              "example": {
+                "human_confirmation": true,
+                "reason": "Dato ficticio para reemplazar",
+                "version": 1
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "type": "string"
+              },
+              "example": "<?xml version='1.0' encoding='UTF-8'?>\n<request xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><human_confirmation>true</human_confirmation><reason>Dato ficticio para reemplazar</reason><version>1</version></request>",
+              "x-xsd": "/schemas/mobile_device_revoke.xsd",
+              "x-json-equivalent-schema": {
+                "$ref": "#/components/schemas/DeviceChange"
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/devices": {
       "post": {
         "operationId": "device_create",
@@ -9186,6 +9774,648 @@
           }
         }
       }
+    },
+    "/api/v1/public/institutions": {
+      "get": {
+        "operationId": "public_institutions",
+        "summary": "public_institutions",
+        "parameters": [
+          {
+            "name": "X-Correlation-ID",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "application/json",
+                "application/xml"
+              ]
+            }
+          }
+        ],
+        "description": "Roles: según sesión. Contrato público de API.",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Resultado confirmado o estado pendiente documentado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_public_institutions"
+                },
+                "example": {
+                  "data": {
+                    "items": []
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "identidad_acceso",
+                    "version": "0.4.1"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"items\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">identidad_acceso</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
+                "x-json-equivalent-schema": {
+                  "$ref": "#/components/schemas/Response_public_institutions"
+                },
+                "x-xsd": "/schemas/response.xsd",
+                "x-response-schema": "/schemas/public_institutions.response.json"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "406": {
+            "$ref": "#/components/responses/Error406"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "412": {
+            "$ref": "#/components/responses/Error412"
+          },
+          "413": {
+            "$ref": "#/components/responses/Error413"
+          },
+          "415": {
+            "$ref": "#/components/responses/Error415"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
+          }
+        }
+      }
+    },
+    "/api/v1/institutions/{identifier}/presentation": {
+      "get": {
+        "operationId": "institution_presentation",
+        "summary": "institution_presentation",
+        "parameters": [
+          {
+            "name": "identifier",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-Correlation-ID",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "application/json",
+                "application/xml"
+              ]
+            }
+          }
+        ],
+        "description": "Roles: ADMIN, OPERATOR, MEDICAL, COORDINATOR, TRANSPORT. Contrato público de API.",
+        "security": [
+          {
+            "BearerJWT": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resultado confirmado o estado pendiente documentado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_institution_presentation"
+                },
+                "example": {
+                  "data": {
+                    "id": "00000000-0000-4000-8000-000000000001",
+                    "version": 1,
+                    "published": true,
+                    "description": "Dato ficticio para reemplazar",
+                    "latitude": null,
+                    "longitude": null,
+                    "coordinate_source": null,
+                    "coordinate_recorded_at": null,
+                    "synthetic": true
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "identidad_acceso",
+                    "version": "0.4.1"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"version\" type=\"integer\">1</field><field name=\"published\" type=\"boolean\">true</field><field name=\"description\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"latitude\" type=\"null\"/><field name=\"longitude\" type=\"null\"/><field name=\"coordinate_source\" type=\"null\"/><field name=\"coordinate_recorded_at\" type=\"null\"/><field name=\"synthetic\" type=\"boolean\">true</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">identidad_acceso</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
+                "x-json-equivalent-schema": {
+                  "$ref": "#/components/schemas/Response_institution_presentation"
+                },
+                "x-xsd": "/schemas/response.xsd",
+                "x-response-schema": "/schemas/institution_presentation.response.json"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "406": {
+            "$ref": "#/components/responses/Error406"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "412": {
+            "$ref": "#/components/responses/Error412"
+          },
+          "413": {
+            "$ref": "#/components/responses/Error413"
+          },
+          "415": {
+            "$ref": "#/components/responses/Error415"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
+          }
+        }
+      },
+      "post": {
+        "operationId": "institution_presentation_change",
+        "summary": "institution_presentation_change",
+        "parameters": [
+          {
+            "name": "identifier",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-Correlation-ID",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "application/json",
+                "application/xml"
+              ]
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 8,
+              "maxLength": 100
+            }
+          }
+        ],
+        "description": "Roles: ADMIN. Contrato público de API.",
+        "security": [
+          {
+            "BearerJWT": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resultado confirmado o estado pendiente documentado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_institution_presentation_change"
+                },
+                "example": {
+                  "data": {
+                    "id": "00000000-0000-4000-8000-000000000001",
+                    "version": 1,
+                    "published": true,
+                    "description": "Dato ficticio para reemplazar",
+                    "latitude": null,
+                    "longitude": null,
+                    "coordinate_source": null,
+                    "coordinate_recorded_at": null,
+                    "synthetic": true
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "identidad_acceso",
+                    "version": "0.4.1"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"version\" type=\"integer\">1</field><field name=\"published\" type=\"boolean\">true</field><field name=\"description\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"latitude\" type=\"null\"/><field name=\"longitude\" type=\"null\"/><field name=\"coordinate_source\" type=\"null\"/><field name=\"coordinate_recorded_at\" type=\"null\"/><field name=\"synthetic\" type=\"boolean\">true</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">identidad_acceso</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
+                "x-json-equivalent-schema": {
+                  "$ref": "#/components/schemas/Response_institution_presentation_change"
+                },
+                "x-xsd": "/schemas/response.xsd",
+                "x-response-schema": "/schemas/institution_presentation_change.response.json"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "406": {
+            "$ref": "#/components/responses/Error406"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "412": {
+            "$ref": "#/components/responses/Error412"
+          },
+          "413": {
+            "$ref": "#/components/responses/Error413"
+          },
+          "415": {
+            "$ref": "#/components/responses/Error415"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PresentationChange"
+              },
+              "example": {
+                "human_confirmation": true,
+                "reason": "Dato ficticio para reemplazar",
+                "version": 1,
+                "published": true,
+                "description": "Dato ficticio para reemplazar",
+                "latitude": null,
+                "longitude": null,
+                "coordinate_source": null,
+                "coordinate_recorded_at": null,
+                "synthetic": true
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "type": "string"
+              },
+              "example": "<?xml version='1.0' encoding='UTF-8'?>\n<request xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><human_confirmation>true</human_confirmation><reason>Dato ficticio para reemplazar</reason><version>1</version><published>true</published><description>Dato ficticio para reemplazar</description><latitude xsi:nil=\"true\"/><longitude xsi:nil=\"true\"/><coordinate_source xsi:nil=\"true\"/><coordinate_recorded_at xsi:nil=\"true\"/><synthetic>true</synthetic></request>",
+              "x-xsd": "/schemas/institution_presentation_change.xsd",
+              "x-json-equivalent-schema": {
+                "$ref": "#/components/schemas/PresentationChange"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/portal-policy": {
+      "get": {
+        "operationId": "portal_policy",
+        "summary": "portal_policy",
+        "parameters": [
+          {
+            "name": "X-Correlation-ID",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "application/json",
+                "application/xml"
+              ]
+            }
+          }
+        ],
+        "description": "Roles: ADMIN, OPERATOR, MEDICAL, COORDINATOR, TRANSPORT, DONOR, AUDITOR. Contrato público de API.",
+        "security": [
+          {
+            "BearerJWT": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resultado confirmado o estado pendiente documentado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_portal_policy"
+                },
+                "example": {
+                  "data": {
+                    "id": "00000000-0000-4000-8000-000000000001",
+                    "version": 1,
+                    "timezone": "America/Monterrey",
+                    "tracking_interval_seconds": 1,
+                    "tracking_stale_seconds": 5,
+                    "reference": "Dato ficticio para reemplazar"
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "identidad_acceso",
+                    "version": "0.4.1"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"version\" type=\"integer\">1</field><field name=\"timezone\" type=\"string\">America/Monterrey</field><field name=\"tracking_interval_seconds\" type=\"integer\">1</field><field name=\"tracking_stale_seconds\" type=\"integer\">5</field><field name=\"reference\" type=\"string\">Dato ficticio para reemplazar</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">identidad_acceso</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
+                "x-json-equivalent-schema": {
+                  "$ref": "#/components/schemas/Response_portal_policy"
+                },
+                "x-xsd": "/schemas/response.xsd",
+                "x-response-schema": "/schemas/portal_policy.response.json"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "406": {
+            "$ref": "#/components/responses/Error406"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "412": {
+            "$ref": "#/components/responses/Error412"
+          },
+          "413": {
+            "$ref": "#/components/responses/Error413"
+          },
+          "415": {
+            "$ref": "#/components/responses/Error415"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
+          }
+        }
+      },
+      "post": {
+        "operationId": "portal_policy_change",
+        "summary": "portal_policy_change",
+        "parameters": [
+          {
+            "name": "X-Correlation-ID",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "application/json",
+                "application/xml"
+              ]
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 8,
+              "maxLength": 100
+            }
+          }
+        ],
+        "description": "Roles: ADMIN. Contrato público de API.",
+        "security": [
+          {
+            "BearerJWT": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resultado confirmado o estado pendiente documentado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_portal_policy_change"
+                },
+                "example": {
+                  "data": {
+                    "id": "00000000-0000-4000-8000-000000000001",
+                    "version": 1,
+                    "timezone": "America/Monterrey",
+                    "tracking_interval_seconds": 1,
+                    "tracking_stale_seconds": 5,
+                    "reference": "Dato ficticio para reemplazar"
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "identidad_acceso",
+                    "version": "0.4.1"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"version\" type=\"integer\">1</field><field name=\"timezone\" type=\"string\">America/Monterrey</field><field name=\"tracking_interval_seconds\" type=\"integer\">1</field><field name=\"tracking_stale_seconds\" type=\"integer\">5</field><field name=\"reference\" type=\"string\">Dato ficticio para reemplazar</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">identidad_acceso</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
+                "x-json-equivalent-schema": {
+                  "$ref": "#/components/schemas/Response_portal_policy_change"
+                },
+                "x-xsd": "/schemas/response.xsd",
+                "x-response-schema": "/schemas/portal_policy_change.response.json"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "406": {
+            "$ref": "#/components/responses/Error406"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "412": {
+            "$ref": "#/components/responses/Error412"
+          },
+          "413": {
+            "$ref": "#/components/responses/Error413"
+          },
+          "415": {
+            "$ref": "#/components/responses/Error415"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PolicyChange"
+              },
+              "example": {
+                "human_confirmation": true,
+                "reason": "Dato ficticio para reemplazar",
+                "version": 1,
+                "timezone": "America/Monterrey",
+                "tracking_interval_seconds": 1,
+                "tracking_stale_seconds": 5,
+                "reference": "Dato ficticio para reemplazar"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "type": "string"
+              },
+              "example": "<?xml version='1.0' encoding='UTF-8'?>\n<request xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><human_confirmation>true</human_confirmation><reason>Dato ficticio para reemplazar</reason><version>1</version><timezone>America/Monterrey</timezone><tracking_interval_seconds>1</tracking_interval_seconds><tracking_stale_seconds>5</tracking_stale_seconds><reference>Dato ficticio para reemplazar</reference></request>",
+              "x-xsd": "/schemas/portal_policy_change.xsd",
+              "x-json-equivalent-schema": {
+                "$ref": "#/components/schemas/PolicyChange"
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -10731,6 +11961,165 @@
           }
         }
       },
+      "Response_operational_contacts": {
+        "type": "object",
+        "required": [
+          "data",
+          "meta"
+        ],
+        "properties": {
+          "data": {
+            "type": "object",
+            "required": [
+              "id",
+              "name",
+              "contacts",
+              "operators"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "name": {
+                "type": "string"
+              },
+              "contacts": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "id",
+                    "name",
+                    "value",
+                    "version"
+                  ],
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "value": {
+                      "type": "string"
+                    },
+                    "version": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              },
+              "operators": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "id",
+                    "name"
+                  ],
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "meta": {
+            "type": "object",
+            "required": [
+              "correlation_id",
+              "service",
+              "version"
+            ],
+            "properties": {
+              "correlation_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "service": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "Response_appointment_sites": {
+        "type": "object",
+        "required": [
+          "data",
+          "meta"
+        ],
+        "properties": {
+          "data": {
+            "type": "object",
+            "required": [
+              "items",
+              "page",
+              "page_size",
+              "total"
+            ],
+            "properties": {
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "id",
+                    "name"
+                  ],
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "page": {
+                "type": "integer"
+              },
+              "page_size": {
+                "type": "integer"
+              },
+              "total": {
+                "type": "integer"
+              }
+            }
+          },
+          "meta": {
+            "type": "object",
+            "required": [
+              "correlation_id",
+              "service",
+              "version"
+            ],
+            "properties": {
+              "correlation_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "service": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
       "Response_sites_list_rows": {
         "type": "object",
         "required": [
@@ -11669,6 +13058,11 @@
             "minLength": 1,
             "title": "Value",
             "type": "string"
+          },
+          "operational": {
+            "default": false,
+            "title": "Operational",
+            "type": "boolean"
           },
           "active": {
             "title": "Active",
@@ -14499,6 +15893,261 @@
           }
         }
       },
+      "Response_mobile_device_register": {
+        "type": "object",
+        "required": [
+          "data",
+          "meta"
+        ],
+        "properties": {
+          "data": {
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "title": "Id",
+                "type": "string"
+              },
+              "tenant_id": {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "title": "Tenant Id",
+                "type": "string"
+              },
+              "user_id": {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "title": "User Id",
+                "type": "string"
+              },
+              "source": {
+                "enum": [
+                  "SIMULATOR",
+                  "GPS_BRIDGE",
+                  "ANDROID",
+                  "IOS"
+                ],
+                "title": "Source",
+                "type": "string"
+              },
+              "label": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Label",
+                "type": "string"
+              },
+              "expires_at": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Expires At",
+                "type": "string"
+              },
+              "active": {
+                "title": "Active",
+                "type": "boolean"
+              },
+              "version": {
+                "title": "Version",
+                "type": "integer"
+              },
+              "created_at": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Created At",
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "tenant_id",
+              "user_id",
+              "source",
+              "label",
+              "expires_at",
+              "active",
+              "version",
+              "created_at"
+            ],
+            "title": "Device",
+            "type": "object"
+          },
+          "meta": {
+            "type": "object",
+            "required": [
+              "correlation_id",
+              "service",
+              "version"
+            ],
+            "properties": {
+              "correlation_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "service": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "MobileDevice": {
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "title": "Id",
+            "type": "string"
+          },
+          "source": {
+            "enum": [
+              "ANDROID",
+              "IOS"
+            ],
+            "title": "Source",
+            "type": "string"
+          },
+          "label": {
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Label",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "source",
+          "label"
+        ],
+        "title": "MobileDevice",
+        "type": "object"
+      },
+      "Response_mobile_device_revoke": {
+        "type": "object",
+        "required": [
+          "data",
+          "meta"
+        ],
+        "properties": {
+          "data": {
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "title": "Id",
+                "type": "string"
+              },
+              "tenant_id": {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "title": "Tenant Id",
+                "type": "string"
+              },
+              "user_id": {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "title": "User Id",
+                "type": "string"
+              },
+              "source": {
+                "enum": [
+                  "SIMULATOR",
+                  "GPS_BRIDGE",
+                  "ANDROID",
+                  "IOS"
+                ],
+                "title": "Source",
+                "type": "string"
+              },
+              "label": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Label",
+                "type": "string"
+              },
+              "expires_at": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Expires At",
+                "type": "string"
+              },
+              "active": {
+                "title": "Active",
+                "type": "boolean"
+              },
+              "version": {
+                "title": "Version",
+                "type": "integer"
+              },
+              "created_at": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Created At",
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "tenant_id",
+              "user_id",
+              "source",
+              "label",
+              "expires_at",
+              "active",
+              "version",
+              "created_at"
+            ],
+            "title": "Device",
+            "type": "object"
+          },
+          "meta": {
+            "type": "object",
+            "required": [
+              "correlation_id",
+              "service",
+              "version"
+            ],
+            "properties": {
+              "correlation_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "service": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "DeviceChange": {
+        "additionalProperties": false,
+        "properties": {
+          "human_confirmation": {
+            "const": true,
+            "title": "Human Confirmation",
+            "type": "boolean"
+          },
+          "reason": {
+            "maxLength": 1000,
+            "minLength": 6,
+            "title": "Reason",
+            "type": "string"
+          },
+          "version": {
+            "minimum": 1,
+            "title": "Version",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "human_confirmation",
+          "reason",
+          "version"
+        ],
+        "title": "DeviceChange",
+        "type": "object"
+      },
       "Response_device_create": {
         "type": "object",
         "required": [
@@ -14528,7 +16177,8 @@
                 "enum": [
                   "SIMULATOR",
                   "GPS_BRIDGE",
-                  "ANDROID"
+                  "ANDROID",
+                  "IOS"
                 ],
                 "title": "Source",
                 "type": "string"
@@ -14613,7 +16263,8 @@
             "enum": [
               "SIMULATOR",
               "GPS_BRIDGE",
-              "ANDROID"
+              "ANDROID",
+              "IOS"
             ],
             "title": "Source",
             "type": "string"
@@ -14675,7 +16326,8 @@
                       "enum": [
                         "SIMULATOR",
                         "GPS_BRIDGE",
-                        "ANDROID"
+                        "ANDROID",
+                        "IOS"
                       ],
                       "title": "Source",
                       "type": "string"
@@ -14784,7 +16436,8 @@
                 "enum": [
                   "SIMULATOR",
                   "GPS_BRIDGE",
-                  "ANDROID"
+                  "ANDROID",
+                  "IOS"
                 ],
                 "title": "Source",
                 "type": "string"
@@ -14906,34 +16559,6 @@
           }
         }
       },
-      "DeviceChange": {
-        "additionalProperties": false,
-        "properties": {
-          "human_confirmation": {
-            "const": true,
-            "title": "Human Confirmation",
-            "type": "boolean"
-          },
-          "reason": {
-            "maxLength": 1000,
-            "minLength": 6,
-            "title": "Reason",
-            "type": "string"
-          },
-          "version": {
-            "minimum": 1,
-            "title": "Version",
-            "type": "integer"
-          }
-        },
-        "required": [
-          "human_confirmation",
-          "reason",
-          "version"
-        ],
-        "title": "DeviceChange",
-        "type": "object"
-      },
       "Response_device_revoke": {
         "type": "object",
         "required": [
@@ -14963,7 +16588,8 @@
                 "enum": [
                   "SIMULATOR",
                   "GPS_BRIDGE",
-                  "ANDROID"
+                  "ANDROID",
+                  "IOS"
                 ],
                 "title": "Source",
                 "type": "string"
@@ -16015,6 +17641,610 @@
           "valid_until"
         ],
         "title": "AccreditationCreate",
+        "type": "object"
+      },
+      "Response_public_institutions": {
+        "type": "object",
+        "required": [
+          "data",
+          "meta"
+        ],
+        "properties": {
+          "data": {
+            "type": "object",
+            "required": [
+              "items"
+            ],
+            "properties": {
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "description"
+                  ],
+                  "additionalProperties": false,
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "meta": {
+            "type": "object",
+            "required": [
+              "correlation_id",
+              "service",
+              "version"
+            ],
+            "properties": {
+              "correlation_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "service": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "Response_institution_presentation": {
+        "type": "object",
+        "required": [
+          "data",
+          "meta"
+        ],
+        "properties": {
+          "data": {
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "title": "Id",
+                "type": "string"
+              },
+              "version": {
+                "title": "Version",
+                "type": "integer"
+              },
+              "published": {
+                "title": "Published",
+                "type": "boolean"
+              },
+              "description": {
+                "maxLength": 1000,
+                "title": "Description",
+                "type": "string"
+              },
+              "latitude": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Latitude"
+              },
+              "longitude": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Longitude"
+              },
+              "coordinate_source": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Coordinate Source"
+              },
+              "coordinate_recorded_at": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Coordinate Recorded At"
+              },
+              "synthetic": {
+                "title": "Synthetic",
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id",
+              "version",
+              "published",
+              "description",
+              "latitude",
+              "longitude",
+              "coordinate_source",
+              "coordinate_recorded_at",
+              "synthetic"
+            ],
+            "title": "Presentation",
+            "type": "object"
+          },
+          "meta": {
+            "type": "object",
+            "required": [
+              "correlation_id",
+              "service",
+              "version"
+            ],
+            "properties": {
+              "correlation_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "service": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "Response_institution_presentation_change": {
+        "type": "object",
+        "required": [
+          "data",
+          "meta"
+        ],
+        "properties": {
+          "data": {
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "title": "Id",
+                "type": "string"
+              },
+              "version": {
+                "title": "Version",
+                "type": "integer"
+              },
+              "published": {
+                "title": "Published",
+                "type": "boolean"
+              },
+              "description": {
+                "maxLength": 1000,
+                "title": "Description",
+                "type": "string"
+              },
+              "latitude": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Latitude"
+              },
+              "longitude": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Longitude"
+              },
+              "coordinate_source": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Coordinate Source"
+              },
+              "coordinate_recorded_at": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Coordinate Recorded At"
+              },
+              "synthetic": {
+                "title": "Synthetic",
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id",
+              "version",
+              "published",
+              "description",
+              "latitude",
+              "longitude",
+              "coordinate_source",
+              "coordinate_recorded_at",
+              "synthetic"
+            ],
+            "title": "Presentation",
+            "type": "object"
+          },
+          "meta": {
+            "type": "object",
+            "required": [
+              "correlation_id",
+              "service",
+              "version"
+            ],
+            "properties": {
+              "correlation_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "service": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "PresentationChange": {
+        "additionalProperties": false,
+        "properties": {
+          "human_confirmation": {
+            "const": true,
+            "title": "Human Confirmation",
+            "type": "boolean"
+          },
+          "reason": {
+            "maxLength": 1000,
+            "minLength": 6,
+            "title": "Reason",
+            "type": "string"
+          },
+          "version": {
+            "minimum": 0,
+            "title": "Version",
+            "type": "integer"
+          },
+          "published": {
+            "title": "Published",
+            "type": "boolean"
+          },
+          "description": {
+            "default": "",
+            "maxLength": 1000,
+            "title": "Description",
+            "type": "string"
+          },
+          "latitude": {
+            "anyOf": [
+              {
+                "maximum": 90,
+                "minimum": -90,
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Latitude"
+          },
+          "longitude": {
+            "anyOf": [
+              {
+                "maximum": 180,
+                "minimum": -180,
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Longitude"
+          },
+          "coordinate_source": {
+            "anyOf": [
+              {
+                "maxLength": 200,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Coordinate Source"
+          },
+          "coordinate_recorded_at": {
+            "anyOf": [
+              {
+                "maxLength": 200,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Coordinate Recorded At"
+          },
+          "synthetic": {
+            "title": "Synthetic",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "human_confirmation",
+          "reason",
+          "version",
+          "published",
+          "synthetic"
+        ],
+        "title": "PresentationChange",
+        "type": "object"
+      },
+      "Response_portal_policy": {
+        "type": "object",
+        "required": [
+          "data",
+          "meta"
+        ],
+        "properties": {
+          "data": {
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "title": "Id",
+                "type": "string"
+              },
+              "version": {
+                "title": "Version",
+                "type": "integer"
+              },
+              "timezone": {
+                "enum": [
+                  "America/Monterrey",
+                  "America/Mexico_City",
+                  "America/Tijuana",
+                  "UTC"
+                ],
+                "title": "Timezone",
+                "type": "string"
+              },
+              "tracking_interval_seconds": {
+                "maximum": 300,
+                "minimum": 1,
+                "title": "Tracking Interval Seconds",
+                "type": "integer"
+              },
+              "tracking_stale_seconds": {
+                "maximum": 3600,
+                "minimum": 5,
+                "title": "Tracking Stale Seconds",
+                "type": "integer"
+              },
+              "reference": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Reference",
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "version",
+              "timezone",
+              "tracking_interval_seconds",
+              "tracking_stale_seconds",
+              "reference"
+            ],
+            "title": "Policy",
+            "type": "object"
+          },
+          "meta": {
+            "type": "object",
+            "required": [
+              "correlation_id",
+              "service",
+              "version"
+            ],
+            "properties": {
+              "correlation_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "service": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "Response_portal_policy_change": {
+        "type": "object",
+        "required": [
+          "data",
+          "meta"
+        ],
+        "properties": {
+          "data": {
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "title": "Id",
+                "type": "string"
+              },
+              "version": {
+                "title": "Version",
+                "type": "integer"
+              },
+              "timezone": {
+                "enum": [
+                  "America/Monterrey",
+                  "America/Mexico_City",
+                  "America/Tijuana",
+                  "UTC"
+                ],
+                "title": "Timezone",
+                "type": "string"
+              },
+              "tracking_interval_seconds": {
+                "maximum": 300,
+                "minimum": 1,
+                "title": "Tracking Interval Seconds",
+                "type": "integer"
+              },
+              "tracking_stale_seconds": {
+                "maximum": 3600,
+                "minimum": 5,
+                "title": "Tracking Stale Seconds",
+                "type": "integer"
+              },
+              "reference": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Reference",
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "version",
+              "timezone",
+              "tracking_interval_seconds",
+              "tracking_stale_seconds",
+              "reference"
+            ],
+            "title": "Policy",
+            "type": "object"
+          },
+          "meta": {
+            "type": "object",
+            "required": [
+              "correlation_id",
+              "service",
+              "version"
+            ],
+            "properties": {
+              "correlation_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "service": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "PolicyChange": {
+        "additionalProperties": false,
+        "properties": {
+          "human_confirmation": {
+            "const": true,
+            "title": "Human Confirmation",
+            "type": "boolean"
+          },
+          "reason": {
+            "maxLength": 1000,
+            "minLength": 6,
+            "title": "Reason",
+            "type": "string"
+          },
+          "version": {
+            "minimum": 0,
+            "title": "Version",
+            "type": "integer"
+          },
+          "timezone": {
+            "enum": [
+              "America/Monterrey",
+              "America/Mexico_City",
+              "America/Tijuana",
+              "UTC"
+            ],
+            "title": "Timezone",
+            "type": "string"
+          },
+          "tracking_interval_seconds": {
+            "maximum": 300,
+            "minimum": 1,
+            "title": "Tracking Interval Seconds",
+            "type": "integer"
+          },
+          "tracking_stale_seconds": {
+            "maximum": 3600,
+            "minimum": 5,
+            "title": "Tracking Stale Seconds",
+            "type": "integer"
+          },
+          "reference": {
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Reference",
+            "type": "string"
+          }
+        },
+        "required": [
+          "human_confirmation",
+          "reason",
+          "version",
+          "timezone",
+          "tracking_interval_seconds",
+          "tracking_stale_seconds",
+          "reference"
+        ],
+        "title": "PolicyChange",
         "type": "object"
       }
     },

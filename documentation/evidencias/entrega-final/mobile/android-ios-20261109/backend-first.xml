@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="6" time="130.945" timestamp="2026-11-09T10:44:04.712058-06:00" hostname="Victors-MacBook-Air.local"><testcase classname="tests.test_mobile_transport" name="test_mobile_registration_is_owner_scoped_and_revocable[ANDROID]" time="90.834" /><testcase classname="tests.test_mobile_transport" name="test_mobile_registration_is_owner_scoped_and_revocable[IOS]" time="1.029" /><testcase classname="tests.test_mobile_transport" name="test_phone_ios_wss_and_scan_use_real_owners" time="14.166" /><testcase classname="tests.test_mobile_transport" name="test_push_rotation_reuses_own_subscription" time="0.775" /><testcase classname="tests.test_mobile_transport" name="test_operational_context_hides_private_contacts_and_checks_assignment[json]" time="7.260"><failure message="TypeError: Platform.request() got an unexpected keyword argument 'fmt'">p = &lt;tests.conftest.Platform object at 0x110aa4440&gt;
+tracking = {'shipment': {'id': 'd997ca7e-a39f-4c6b-af4f-ec470e11d2bb', 'reservation_id': '89a920b6-e5c2-4553-968d-c40b0042254d', ...evice_id': '8658eb0e-9f6f-419d-b1a5-be759dc5d1d5', 'responsible_id': 'f4de2c58-6fb1-48c2-976b-c889d5fd8353', ...}, ...}
+fmt = 'json'
+
+    @pytest.mark.parametrize("fmt", ["json", "xml"])
+    def test_operational_context_hides_private_contacts_and_checks_assignment(p, tracking, fmt):
+        shipment=tracking["shipment"]
+        private=p.ok("identidad_acceso","POST","/api/v1/catalogues/contacts",user="admin1",data={"name":"Contacto privado sintético","value":"NO-EXPOSE"})
+        public=p.ok("identidad_acceso","POST","/api/v1/catalogues/contacts",user="admin1",data={"name":"Mesa logística sintética","value":"555-0100","operational":True})
+        path=f"/api/v1/shipments/{shipment['id']}/operational-context"
+&gt;       result=p.ok("transporte","GET",path,user="transport1",fmt=fmt)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+apps/services/tests/test_mobile_transport.py:69: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = &lt;tests.conftest.Platform object at 0x110aa4440&gt;, service = 'transporte'
+method = 'GET'
+path = '/api/v1/shipments/d997ca7e-a39f-4c6b-af4f-ec470e11d2bb/operational-context'
+kwargs = {'user': 'transport1', 'fmt': 'json'}
+
+    def ok(self, service, method, path, **kwargs):
+&gt;       response = self.request(service, method, path, **kwargs)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: Platform.request() got an unexpected keyword argument 'fmt'
+
+apps/services/tests/conftest.py:56: TypeError</failure></testcase><testcase classname="tests.test_mobile_transport" name="test_operational_context_hides_private_contacts_and_checks_assignment[xml]" time="13.413"><failure message="AssertionError: (409, '{&quot;error&quot;: {&quot;code&quot;: &quot;conflict&quot;, &quot;message&quot;: &quot;El registro u operación ya existe.&quot;, &quot;details&quot;: []}, &quot;meta&quot;: {&quot;correlation_id&quot;: &quot;668d684d-2bef-4a32-8acc-5dcac325b226&quot;, &quot;service&quot;: &quot;identidad_acceso&quot;, &quot;version&quot;: &quot;0.4.1&quot;}}')&#10;assert 409 &lt; 300&#10; +  where 409 = &lt;Response [409]&gt;.status_code">p = &lt;tests.conftest.Platform object at 0x110aa4440&gt;
+tracking = {'shipment': {'id': '180fed29-f902-42a8-ad4e-d9bb022c87d2', 'reservation_id': '4b8e0a8c-de3b-4be5-b5b9-c9161b856a13', ...evice_id': '4956fb1f-df23-445a-a841-bda92751b0a4', 'responsible_id': 'f4de2c58-6fb1-48c2-976b-c889d5fd8353', ...}, ...}
+fmt = 'xml'
+
+    @pytest.mark.parametrize("fmt", ["json", "xml"])
+    def test_operational_context_hides_private_contacts_and_checks_assignment(p, tracking, fmt):
+        shipment=tracking["shipment"]
+&gt;       private=p.ok("identidad_acceso","POST","/api/v1/catalogues/contacts",user="admin1",data={"name":"Contacto privado sintético","value":"NO-EXPOSE"})
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+apps/services/tests/test_mobile_transport.py:66: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = &lt;tests.conftest.Platform object at 0x110aa4440&gt;
+service = 'identidad_acceso', method = 'POST'
+path = '/api/v1/catalogues/contacts'
+kwargs = {'user': 'admin1', 'data': {'name': 'Contacto privado sintético', 'value': 'NO-EXPOSE'}}
+
+    def ok(self, service, method, path, **kwargs):
+        response = self.request(service, method, path, **kwargs)
+&gt;       assert response.status_code &lt; 300, (response.status_code, response.text)
+E       AssertionError: (409, '{"error": {"code": "conflict", "message": "El registro u operación ya existe.", "details": []}, "meta": {"correlation_id": "668d684d-2bef-4a32-8acc-5dcac325b226", "service": "identidad_acceso", "version": "0.4.1"}}')
+E       assert 409 &lt; 300
+E        +  where 409 = &lt;Response [409]&gt;.status_code
+
+apps/services/tests/conftest.py:57: AssertionError</failure></testcase></testsuite></testsuites>

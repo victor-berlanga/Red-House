@@ -1,0 +1,115 @@
+{
+  "backend": "http",
+  "checks": [
+    "Renovación automática real y token rotado; aviso cercano forzado solo en fixture",
+    "Recordatorio propio visible después de worker real; doble ejecución no duplica",
+    "Diálogo real: Enter abre, Tab/Shift+Tab conservan foco, Escape cierra y devuelve foco; axe en tres anchos",
+    "Donante fuerza ATTEND y servidor rechaza 403; menú oculto no es la prueba",
+    "Resumen de error recibe foco, conserva operación y enlace por teclado enfoca campo inválido",
+    "Operador registra asistencia mediante formulario, visible al recargar",
+    "Otra institución rechazada por URL y exportación sin cita ajena",
+    "CSV de auditoría descargado en Chrome: filtro único, ámbito, conteo y fechas Monterrey/UTC; operador rechazado 403"
+  ],
+  "accessibility": [
+    {
+      "role": "donor-dialog",
+      "width": 390,
+      "violations": []
+    },
+    {
+      "role": "donor-dialog",
+      "width": 768,
+      "violations": []
+    },
+    {
+      "role": "donor-dialog",
+      "width": 1440,
+      "violations": []
+    },
+    {
+      "role": "agenda-form-error",
+      "page": "/citas/a65e9ccf-9a08-45bc-b289-eedade062f13/horario",
+      "width": 390,
+      "focus": {
+        "tag": "INPUT",
+        "visible": true,
+        "label": "",
+        "outline": "solid"
+      },
+      "violations": []
+    },
+    {
+      "role": "agenda-form-error",
+      "page": "/citas/a65e9ccf-9a08-45bc-b289-eedade062f13/horario",
+      "width": 768,
+      "focus": {
+        "tag": "BUTTON",
+        "visible": true,
+        "label": "Gestionar horario de cita",
+        "outline": "solid"
+      },
+      "violations": []
+    },
+    {
+      "role": "agenda-form-error",
+      "page": "/citas/a65e9ccf-9a08-45bc-b289-eedade062f13/horario",
+      "width": 1440,
+      "focus": {
+        "tag": "A",
+        "visible": true,
+        "label": "Cancelar",
+        "outline": "solid"
+      },
+      "violations": []
+    },
+    {
+      "role": "agenda-asistencia",
+      "page": "/citas/a65e9ccf-9a08-45bc-b289-eedade062f13",
+      "width": 390,
+      "focus": {
+        "tag": "A",
+        "visible": true,
+        "label": "Saltar al contenido",
+        "outline": "solid"
+      },
+      "violations": []
+    },
+    {
+      "role": "agenda-asistencia",
+      "page": "/citas/a65e9ccf-9a08-45bc-b289-eedade062f13",
+      "width": 768,
+      "focus": {
+        "tag": "BUTTON",
+        "visible": true,
+        "label": "",
+        "outline": "solid"
+      },
+      "violations": []
+    },
+    {
+      "role": "agenda-asistencia",
+      "page": "/citas/a65e9ccf-9a08-45bc-b289-eedade062f13",
+      "width": 1440,
+      "focus": {
+        "tag": "SUMMARY",
+        "visible": true,
+        "label": "Horario: Monterrey",
+        "outline": "solid"
+      },
+      "violations": []
+    }
+  ],
+  "charts": [
+    {
+      "role": "agenda-form-error",
+      "charts": []
+    },
+    {
+      "role": "agenda-asistencia",
+      "charts": []
+    }
+  ],
+  "setup": "Sede, campaña, horario y reserva mediante API real; asistencia y lectura en Chrome",
+  "passed": true,
+  "finishedAt": "2026-11-07T03:32:44.593Z"
+}

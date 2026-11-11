@@ -1,0 +1,17 @@
+{
+  "checks": [
+    "admin1 dashboard, three widths",
+    "operator1 dashboard, three widths",
+    "medical1 dashboard, three widths",
+    "coordinator1 dashboard, three widths",
+    "transport1 dashboard, three widths",
+    "WSS simulator to marker; reconnect; tile failure; map three widths",
+    "Cartografía caída: listado y detalle privado del traslado persistido siguen disponibles",
+    "donor1 dashboard, three widths",
+    "auditor1 dashboard, three widths"
+  ],
+  "errors": [],
+  "cartography": "Tiles blocked during automated tests; no bulk requests to OSM",
+  "gateway": "Direct TLS test server, not production proxy",
+  "passed": true
+}

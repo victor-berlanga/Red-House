@@ -1,0 +1,5 @@
+package org.redhouse.mobile
+internal object MobileEnvironment {
+    const val gateway = "https://34.18.186.116"
+    const val editableGateway = false
+}

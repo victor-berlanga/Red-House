@@ -78,6 +78,79 @@ class TransportCheck(Model):
 
 
 def install(app):
+    from redhouse.document_contracts import DocumentStatus, ConservationChange
+    from redhouse.db import update
+    from redhouse.decisions import record
+
+    @endpoint(
+        app,
+        "/api/v1/documents/<identifier>/status",
+        roles=ROLES,
+        result=schema(DocumentStatus),
+    )
+    def document_status(identifier):
+        with transaction() as conn:
+            file = get(conn, "files", identifier)
+            file_access(conn, file, shipment_access)
+            metadata = get(conn, "document_metadata", identifier)
+            scan = conn.execute(
+                "SELECT status FROM file_scans WHERE file_id=%s AND generation=%s AND sha256=%s ORDER BY created_at DESC,id DESC LIMIT 1",
+                (identifier, file["generation"], file["sha256"]),
+            ).fetchone()
+            return dict(
+                metadata,
+                file_status=file["status"],
+                analysis=scan["status"] if scan else "PENDING",
+            )
+
+    @endpoint(
+        app,
+        "/api/v1/documents/<identifier>/conservation",
+        "POST",
+        roles=("ADMIN", "MEDICAL"),
+        model=ConservationChange,
+        result=schema(Metadata),
+    )
+    def document_conservation(identifier, data):
+        until = utc_date(data["retention_until"]) if data["retention_until"] else None
+        if until and until < datetime.now(timezone.utc):
+            raise APIError("validation", "La conservación debe ser futura.", 422)
+
+        def work(conn):
+            file_access(conn, get(conn, "files", identifier), shipment_access)
+            meta = get(conn, "document_metadata", identifier, True)
+            if meta["policy_version"] != data["policy_version"]:
+                raise APIError(
+                    "stale_version", "Política de conservación modificada.", 412
+                )
+            if (
+                meta["legal_hold"]
+                and meta["retention_until"]
+                and (until is None or until < meta["retention_until"])
+            ):
+                raise APIError(
+                    "legal_hold", "El bloqueo vigente impide reducir conservación.", 409
+                )
+            values = dict(
+                retention_until=until,
+                legal_hold=data["legal_hold"],
+                policy_reference=data["policy_reference"],
+                policy_version=meta["policy_version"] + 1,
+            )
+            row = update(conn, "document_metadata", identifier, values)
+            record(
+                conn,
+                identifier,
+                meta["tenant_id"],
+                "DOCUMENT_CONSERVATION_CHANGED",
+                data["reason"],
+                {**values, "retention_until": until.isoformat() if until else None},
+            )
+            emit(conn, "DOCUMENT_CONSERVATION_CHANGED", identifier, meta["tenant_id"])
+            return row
+
+        return atomic("document_conservation:" + identifier, data, work)
+
     @endpoint(
         app,
         "/internal/v1/files/<identifier>/transport-check",

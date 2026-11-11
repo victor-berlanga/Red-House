@@ -1,0 +1,74 @@
+{
+  "type": "object",
+  "required": [
+    "data",
+    "meta"
+  ],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": [
+        "correlation_id",
+        "service",
+        "version"
+      ],
+      "properties": {
+        "correlation_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "service": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "required": [
+        "items"
+      ],
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "title": {
+                "title": "Title",
+                "type": "string"
+              },
+              "starts_at": {
+                "title": "Starts At",
+                "type": "string"
+              },
+              "ends_at": {
+                "title": "Ends At",
+                "type": "string"
+              },
+              "venue": {
+                "title": "Venue",
+                "type": "string"
+              },
+              "information": {
+                "title": "Information",
+                "type": "string"
+              }
+            },
+            "required": [
+              "title",
+              "starts_at",
+              "ends_at",
+              "venue",
+              "information"
+            ],
+            "title": "PublicCampaign",
+            "type": "object"
+          }
+        }
+      }
+    }
+  }
+}

@@ -4,6 +4,8 @@ from psycopg import sql
 
 TABLES = {
     "identidad_acceso": {
+        "institution_presentations": True,
+        "portal_policies": True,
         "devices": True,
         "security_factors": True,
         "recovery_tokens": True,
@@ -18,6 +20,7 @@ TABLES = {
     },
     "documentos": {"document_metadata": True, "file_scans": False, "export_jobs": True},
     "donantes": {
+        "campaign_publications": True,
         "consent_versions": False,
         "campaign_slots": True,
         "appointment_slots": True,

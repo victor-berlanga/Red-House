@@ -1,0 +1,23 @@
+
+org.redhouse.mobile.DonorJourneyTest:
+Error in donorBooksAndCancelsUsingComposeAndRealServices(org.redhouse.mobile.DonorJourneyTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 60000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:504)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:339)
+	at org.redhouse.mobile.DonorJourneyTest.shown(DonorJourneyTest.kt:25)
+	at org.redhouse.mobile.DonorJourneyTest.donorBooksAndCancelsUsingComposeAndRealServices(DonorJourneyTest.kt:36)
+
+
+Time: 66.694
+There was 1 failure:
+1) donorBooksAndCancelsUsingComposeAndRealServices(org.redhouse.mobile.DonorJourneyTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 60000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:504)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:339)
+	at org.redhouse.mobile.DonorJourneyTest.shown(DonorJourneyTest.kt:25)
+	at org.redhouse.mobile.DonorJourneyTest.donorBooksAndCancelsUsingComposeAndRealServices(DonorJourneyTest.kt:36)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+

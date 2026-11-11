@@ -1,0 +1,55 @@
+{
+  "method": "Compose instrumented UI on API 30; host window capture; 360 dp, font 130%; real existing GCP demo accounts; no business writes",
+  "profiles": [
+    {
+      "user": "donor1",
+      "first": "Citas",
+      "status": "failed",
+      "captures": []
+    },
+    {
+      "user": "transport1",
+      "first": "Traslados",
+      "status": "passed",
+      "captures": [
+        "transport1-work-360-130.png",
+        "transport1-account-360-130.png",
+        "transport1-privacy-360-130.png",
+        "transport1-notices-360-130.png"
+      ]
+    },
+    {
+      "user": "operator1",
+      "first": "Inventario",
+      "status": "passed",
+      "captures": [
+        "operator1-work-360-130.png",
+        "operator1-account-360-130.png",
+        "operator1-privacy-360-130.png",
+        "operator1-notices-360-130.png"
+      ]
+    },
+    {
+      "user": "coordinator1",
+      "first": "Traslados",
+      "status": "passed",
+      "captures": [
+        "coordinator1-work-360-130.png",
+        "coordinator1-account-360-130.png",
+        "coordinator1-privacy-360-130.png",
+        "coordinator1-notices-360-130.png"
+      ]
+    },
+    {
+      "user": "medical1",
+      "first": "Solicitudes",
+      "status": "passed",
+      "captures": [
+        "medical1-work-360-130.png",
+        "medical1-account-360-130.png",
+        "medical1-privacy-360-130.png",
+        "medical1-notices-360-130.png"
+      ]
+    }
+  ]
+}

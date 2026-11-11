@@ -295,6 +295,14 @@ def rule_action(identifier):
     )
 
 
+@regional.get("/laboratorio/muestras")
+def samples():
+    return table("Muestras de laboratorio", "laboratorio", "compatibilidad", "/api/v1/laboratory/samples",
+        [("identifier", "Muestra"), ("status", "Estado"), ("collected_at", "Toma"), ("received_at", "Recepción")],
+        filters=("q", "status", "from_at", "until_at", "sort"), new=url_for("regional.sample_new"),
+        links=lambda row: url_for("regional.sample_detail", identifier=row["id"]))
+
+
 @regional.route("/laboratorio/muestras/nueva", methods=["GET", "POST"])
 def sample_new():
     def transform(data):
@@ -347,6 +355,7 @@ def sample_detail(identifier):
         "laboratorio",
         row,
         actions=[
+            ("Resultados e historia", url_for("regional.laboratory", sample_id=identifier)),
             (
                 "Consultar completitud",
                 url_for("regional.sample_completeness", identifier=identifier),

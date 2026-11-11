@@ -1,0 +1,325 @@
+{
+  "startedAt": "2026-11-07T05:20:09.919Z",
+  "passed": false,
+  "checks": [
+    {
+      "profile": "admin1",
+      "login": true,
+      "mfa": true,
+      "chartsCompared": 0
+    },
+    {
+      "profile": "operator1",
+      "login": true,
+      "mfa": false,
+      "chartsCompared": 18
+    },
+    {
+      "profile": "medical1",
+      "login": true,
+      "mfa": true,
+      "chartsCompared": 18
+    },
+    {
+      "profile": "coordinator1",
+      "login": true,
+      "mfa": true,
+      "chartsCompared": 10
+    },
+    {
+      "profile": "transport1",
+      "login": true,
+      "mfa": false,
+      "chartsCompared": 4
+    },
+    {
+      "profile": "auditor1",
+      "login": true,
+      "mfa": false,
+      "chartsCompared": 0
+    },
+    {
+      "profile": "donor1",
+      "login": true,
+      "mfa": false,
+      "chartsCompared": 0
+    }
+  ],
+  "pages": [
+    {
+      "user": "admin1",
+      "path": "/configuracion",
+      "status": 200
+    },
+    {
+      "user": "admin1",
+      "path": "/configuracion/politica",
+      "status": 200
+    },
+    {
+      "user": "admin1",
+      "path": "/administracion/dispositivos",
+      "status": 200
+    },
+    {
+      "user": "admin1",
+      "path": "/documentos",
+      "status": 200
+    },
+    {
+      "user": "operator1",
+      "path": "/campanas",
+      "status": 200
+    },
+    {
+      "user": "operator1",
+      "path": "/citas",
+      "status": 200
+    },
+    {
+      "user": "operator1",
+      "path": "/laboratorio/muestras",
+      "status": 200
+    },
+    {
+      "user": "operator1",
+      "path": "/inventario",
+      "status": 200
+    },
+    {
+      "user": "medical1",
+      "path": "/solicitudes",
+      "status": 200
+    },
+    {
+      "user": "medical1",
+      "path": "/laboratorio",
+      "status": 200
+    },
+    {
+      "user": "medical1",
+      "path": "/documentos",
+      "status": 200
+    },
+    {
+      "user": "medical1",
+      "path": "/reportes",
+      "status": 200
+    },
+    {
+      "user": "coordinator1",
+      "path": "/traslados",
+      "status": 200
+    },
+    {
+      "user": "coordinator1",
+      "path": "/disponibilidad",
+      "status": 200
+    },
+    {
+      "user": "transport1",
+      "path": "/traslados",
+      "status": 200
+    },
+    {
+      "user": "auditor1",
+      "path": "/auditoria",
+      "status": 200
+    },
+    {
+      "user": "auditor1",
+      "path": "/hallazgos",
+      "status": 200
+    },
+    {
+      "user": "auditor1",
+      "path": "/reportes",
+      "status": 200
+    },
+    {
+      "user": "donor1",
+      "path": "/campanas",
+      "status": 200
+    },
+    {
+      "user": "donor1",
+      "path": "/citas",
+      "status": 200
+    },
+    {
+      "user": "donor1",
+      "path": "/donantes/donor",
+      "status": 200
+    },
+    {
+      "user": "operator1",
+      "path": "/campanas/nueva",
+      "status": 200
+    },
+    {
+      "user": "operator1",
+      "path": "/campanas?q=Comprobaci%C3%B3n%20ficticia%20GCP%20portal03%2010ca0035",
+      "status": 200
+    }
+  ],
+  "records": {},
+  "consoleErrors": [],
+  "negative": [],
+  "wss": [],
+  "limits": [
+    "Prueba dirigida del despliegue, no repetición de los 90 casos locales",
+    "Sin ensayo de caída total, GCS/antivirus o GPS físico"
+  ],
+  "publicHttp": [
+    {
+      "path": "/services/identidad-acceso/health/live",
+      "status": 200
+    },
+    {
+      "path": "/services/identidad-acceso/health/ready",
+      "status": 200
+    },
+    {
+      "path": "/services/identidad-acceso/internal/v1/institutions",
+      "status": 404
+    },
+    {
+      "path": "/services/donantes/health/live",
+      "status": 200
+    },
+    {
+      "path": "/services/donantes/health/ready",
+      "status": 200
+    },
+    {
+      "path": "/services/donantes/internal/v1/institutions",
+      "status": 404
+    },
+    {
+      "path": "/services/receptores/health/live",
+      "status": 200
+    },
+    {
+      "path": "/services/receptores/health/ready",
+      "status": 200
+    },
+    {
+      "path": "/services/receptores/internal/v1/institutions",
+      "status": 404
+    },
+    {
+      "path": "/services/inventario/health/live",
+      "status": 200
+    },
+    {
+      "path": "/services/inventario/health/ready",
+      "status": 200
+    },
+    {
+      "path": "/services/inventario/internal/v1/institutions",
+      "status": 404
+    },
+    {
+      "path": "/services/compatibilidad/health/live",
+      "status": 200
+    },
+    {
+      "path": "/services/compatibilidad/health/ready",
+      "status": 200
+    },
+    {
+      "path": "/services/compatibilidad/internal/v1/institutions",
+      "status": 404
+    },
+    {
+      "path": "/services/priorizacion-geografia/health/live",
+      "status": 200
+    },
+    {
+      "path": "/services/priorizacion-geografia/health/ready",
+      "status": 200
+    },
+    {
+      "path": "/services/priorizacion-geografia/internal/v1/institutions",
+      "status": 404
+    },
+    {
+      "path": "/services/transporte/health/live",
+      "status": 200
+    },
+    {
+      "path": "/services/transporte/health/ready",
+      "status": 200
+    },
+    {
+      "path": "/services/transporte/internal/v1/institutions",
+      "status": 404
+    },
+    {
+      "path": "/services/custodia/health/live",
+      "status": 200
+    },
+    {
+      "path": "/services/custodia/health/ready",
+      "status": 200
+    },
+    {
+      "path": "/services/custodia/internal/v1/institutions",
+      "status": 404
+    },
+    {
+      "path": "/services/alertas/health/live",
+      "status": 200
+    },
+    {
+      "path": "/services/alertas/health/ready",
+      "status": 200
+    },
+    {
+      "path": "/services/alertas/internal/v1/institutions",
+      "status": 404
+    },
+    {
+      "path": "/services/auditoria/health/live",
+      "status": 200
+    },
+    {
+      "path": "/services/auditoria/health/ready",
+      "status": 200
+    },
+    {
+      "path": "/services/auditoria/internal/v1/institutions",
+      "status": 404
+    },
+    {
+      "path": "/services/monitoreo/health/live",
+      "status": 200
+    },
+    {
+      "path": "/services/monitoreo/health/ready",
+      "status": 200
+    },
+    {
+      "path": "/services/monitoreo/internal/v1/institutions",
+      "status": 404
+    },
+    {
+      "path": "/services/documentos/health/live",
+      "status": 200
+    },
+    {
+      "path": "/services/documentos/health/ready",
+      "status": 200
+    },
+    {
+      "path": "/services/documentos/internal/v1/institutions",
+      "status": 404
+    },
+    {
+      "path": "/services/inventario/api/v1/resources",
+      "status": 401
+    }
+  ],
+  "failure": "locator.getAttribute: Timeout 45000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('main a[href^=\"/campanas/\"]').filter({ hasText: 'Comprobación ficticia GCP portal03 10ca0035' }).first()\u001b[22m\n",
+  "completedAt": "2026-11-07T05:24:28.115Z"
+}

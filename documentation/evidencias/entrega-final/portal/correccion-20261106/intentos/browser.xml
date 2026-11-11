@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<testsuites name="pytest tests">
+  <testsuite name="pytest" errors="0" failures="2" skipped="0" tests="2" time="334.990" timestamp="2026-11-06T15:54:35.506723-06:00" hostname="Victors-MacBook-Air.local">
+    <testcase classname="tests.test_correction_browser" name="test_operational_browser_corrections[http]" time="197.414">
+      <failure message="Detalle saneado; diagnóstico conservado en INTENTOS.md. No es prueba aprobada.">Se omite la traza que puede contener credenciales temporales de formularios. El hash del original se conserva en intentos.json.</failure>
+    </testcase>
+    <testcase classname="tests.test_correction_browser" name="test_operational_browser_corrections[monolith]" time="136.708">
+      <failure message="Detalle saneado; diagnóstico conservado en INTENTOS.md. No es prueba aprobada.">Se omite la traza que puede contener credenciales temporales de formularios. El hash del original se conserva en intentos.json.</failure>
+    </testcase>
+  </testsuite>
+</testsuites>

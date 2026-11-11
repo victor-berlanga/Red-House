@@ -1,0 +1,311 @@
+[
+  {
+    "suite": "final-http7",
+    "scenario": "correcciones-operativas-http",
+    "frozen_during_execution": true,
+    "changed_since_execution": [
+      {
+        "file": "apps/services/tests/fixtures/README.md",
+        "tested_sha256": null,
+        "current_sha256": "e29d0c20b957866c1e90cdad78626049e39b7279b98eb5c0376cf7b455479536"
+      },
+      {
+        "file": "apps/services/tests/fixtures/schema-v13.sql.gz",
+        "tested_sha256": null,
+        "current_sha256": "f27838ff377fddf7c045abf3c5d2a0c87f83d4c28bcba8aad594bb5c09ade340"
+      },
+      {
+        "file": "apps/services/tests/test_final_algorithms_hla.py",
+        "tested_sha256": "517af4c16322ae2ed821e746cb804766246887df69887f64240bc036f4e8c62e",
+        "current_sha256": "eedc7021ad9adc7128614f40723a853e36efc640264f61cae2c8441c00ac3a9b"
+      },
+      {
+        "file": "apps/services/tests/test_portal_agenda_browser.py",
+        "tested_sha256": null,
+        "current_sha256": "80b1bc8b06b92334dd027776ea17ba482b69e0f555000be2a41c41ae34293d63"
+      },
+      {
+        "file": "apps/services/tests/test_portal_corrections.py",
+        "tested_sha256": "56772cbb0115b05aa80406b8f63e6b45e5cbb5dce571bf85880fa4cd9222c08e",
+        "current_sha256": "4bfffc876b180bb13bae3303a05e288cfba1c73c1dcbf892db34228ae6a03378"
+      },
+      {
+        "file": "apps/services/tests/test_portal_tracking.py",
+        "tested_sha256": "9b2bc139e21c60ec9043b3a19d8c031af12340179c8660fe75f0bec547bd69c1",
+        "current_sha256": "f3c050a6f34745cee199fff2bf370f5681499f63e4495c847093a5307df75714"
+      },
+      {
+        "file": "apps/web/src/integration/appointments.py",
+        "tested_sha256": "d4d7cd8645fd08449e42f32c8243bb50930cf3219c8d64ee2a352760354543c0",
+        "current_sha256": "b3988588d8a00d60ad8ca756017d774d983c43938b8bcebbdb3e147e49e11185"
+      },
+      {
+        "file": "apps/web/src/integration/presentation.py",
+        "tested_sha256": "1a5e81246f303273dbc44103c23e96fe984a2aed1e6ce57ede5d9ee9fd06134c",
+        "current_sha256": "8a41f08e3db285257879c16bd4aa116aba78c2f011067d199930c5d20eb42f3d"
+      },
+      {
+        "file": "apps/web/src/integration/routes/audit.py",
+        "tested_sha256": "f418dd040a58394814186d11101da6574c8d4bfe6c86a06a0fde24623d0ba0ce",
+        "current_sha256": "455ca6752dc61b94e540c5081753ca19af91bcdc275f5f86f354cab2e94a10ec"
+      },
+      {
+        "file": "apps/web/src/integration/routes/common.py",
+        "tested_sha256": "f6605b111f3bf5a7417ad6840981a096246de31498600761e630a364ee9be400",
+        "current_sha256": "2669c2aaddb51b40c12b1dab3f377cbf5aeff3b6ed8e2b3364c1d415e8585c17"
+      },
+      {
+        "file": "apps/web/src/integration/routes/people.py",
+        "tested_sha256": "438fb50f4db79bc7b8eadc53b0733e2b88fc07aee9cc2df7f1cdefda8e84ec50",
+        "current_sha256": "260d0d4e24f094531a55e13a374d7516c9462df80f259b4401a7c6f2676d3d66"
+      },
+      {
+        "file": "scripts/accept_portal.sh",
+        "tested_sha256": "7b97abb44762ce85e37bfe68f97ea76ffff733f3e9080bded7abee1bc1f9d4bc",
+        "current_sha256": "723e42cce01c133100a46f3dddff906ce2541631147d3d8f522dc0ee28d5bb84"
+      },
+      {
+        "file": "scripts/verify_portal_agenda.cjs",
+        "tested_sha256": null,
+        "current_sha256": "fd1eef9380c050635ffcc4341e8708f83bf7467b9a93dfaf262796bd0aac695e"
+      },
+      {
+        "file": "scripts/verify_portal_tracking.cjs",
+        "tested_sha256": "9f9046187462113749beca60295f7dddad6b6671ecf5f83217082457d9f70fae",
+        "current_sha256": "9e0b7b2fd2f79b349b0ff72fb36543ca46feff334394fffde97dd2496f6c5d74"
+      }
+    ]
+  },
+  {
+    "suite": "final-monolith3",
+    "scenario": "correcciones-operativas-monolith",
+    "frozen_during_execution": true,
+    "changed_since_execution": [
+      {
+        "file": "apps/services/tests/fixtures/README.md",
+        "tested_sha256": null,
+        "current_sha256": "e29d0c20b957866c1e90cdad78626049e39b7279b98eb5c0376cf7b455479536"
+      },
+      {
+        "file": "apps/services/tests/fixtures/schema-v13.sql.gz",
+        "tested_sha256": null,
+        "current_sha256": "f27838ff377fddf7c045abf3c5d2a0c87f83d4c28bcba8aad594bb5c09ade340"
+      },
+      {
+        "file": "apps/services/tests/test_final_algorithms_hla.py",
+        "tested_sha256": "517af4c16322ae2ed821e746cb804766246887df69887f64240bc036f4e8c62e",
+        "current_sha256": "eedc7021ad9adc7128614f40723a853e36efc640264f61cae2c8441c00ac3a9b"
+      },
+      {
+        "file": "apps/services/tests/test_portal_agenda_browser.py",
+        "tested_sha256": null,
+        "current_sha256": "80b1bc8b06b92334dd027776ea17ba482b69e0f555000be2a41c41ae34293d63"
+      },
+      {
+        "file": "apps/services/tests/test_portal_corrections.py",
+        "tested_sha256": "56772cbb0115b05aa80406b8f63e6b45e5cbb5dce571bf85880fa4cd9222c08e",
+        "current_sha256": "4bfffc876b180bb13bae3303a05e288cfba1c73c1dcbf892db34228ae6a03378"
+      },
+      {
+        "file": "apps/services/tests/test_portal_tracking.py",
+        "tested_sha256": "9b2bc139e21c60ec9043b3a19d8c031af12340179c8660fe75f0bec547bd69c1",
+        "current_sha256": "f3c050a6f34745cee199fff2bf370f5681499f63e4495c847093a5307df75714"
+      },
+      {
+        "file": "apps/web/src/integration/appointments.py",
+        "tested_sha256": "d4d7cd8645fd08449e42f32c8243bb50930cf3219c8d64ee2a352760354543c0",
+        "current_sha256": "b3988588d8a00d60ad8ca756017d774d983c43938b8bcebbdb3e147e49e11185"
+      },
+      {
+        "file": "apps/web/src/integration/presentation.py",
+        "tested_sha256": "1a5e81246f303273dbc44103c23e96fe984a2aed1e6ce57ede5d9ee9fd06134c",
+        "current_sha256": "8a41f08e3db285257879c16bd4aa116aba78c2f011067d199930c5d20eb42f3d"
+      },
+      {
+        "file": "apps/web/src/integration/routes/audit.py",
+        "tested_sha256": "f418dd040a58394814186d11101da6574c8d4bfe6c86a06a0fde24623d0ba0ce",
+        "current_sha256": "455ca6752dc61b94e540c5081753ca19af91bcdc275f5f86f354cab2e94a10ec"
+      },
+      {
+        "file": "apps/web/src/integration/routes/common.py",
+        "tested_sha256": "f6605b111f3bf5a7417ad6840981a096246de31498600761e630a364ee9be400",
+        "current_sha256": "2669c2aaddb51b40c12b1dab3f377cbf5aeff3b6ed8e2b3364c1d415e8585c17"
+      },
+      {
+        "file": "apps/web/src/integration/routes/people.py",
+        "tested_sha256": "438fb50f4db79bc7b8eadc53b0733e2b88fc07aee9cc2df7f1cdefda8e84ec50",
+        "current_sha256": "260d0d4e24f094531a55e13a374d7516c9462df80f259b4401a7c6f2676d3d66"
+      },
+      {
+        "file": "scripts/accept_portal.sh",
+        "tested_sha256": "7b97abb44762ce85e37bfe68f97ea76ffff733f3e9080bded7abee1bc1f9d4bc",
+        "current_sha256": "723e42cce01c133100a46f3dddff906ce2541631147d3d8f522dc0ee28d5bb84"
+      },
+      {
+        "file": "scripts/verify_portal_agenda.cjs",
+        "tested_sha256": null,
+        "current_sha256": "fd1eef9380c050635ffcc4341e8708f83bf7467b9a93dfaf262796bd0aac695e"
+      },
+      {
+        "file": "scripts/verify_portal_tracking.cjs",
+        "tested_sha256": "9f9046187462113749beca60295f7dddad6b6671ecf5f83217082457d9f70fae",
+        "current_sha256": "9e0b7b2fd2f79b349b0ff72fb36543ca46feff334394fffde97dd2496f6c5d74"
+      }
+    ]
+  },
+  {
+    "suite": "final-agenda3",
+    "scenario": "agenda-monolith",
+    "frozen_during_execution": true,
+    "changed_since_execution": [
+      {
+        "file": "apps/services/tests/fixtures/README.md",
+        "tested_sha256": null,
+        "current_sha256": "e29d0c20b957866c1e90cdad78626049e39b7279b98eb5c0376cf7b455479536"
+      },
+      {
+        "file": "apps/services/tests/fixtures/schema-v13.sql.gz",
+        "tested_sha256": null,
+        "current_sha256": "f27838ff377fddf7c045abf3c5d2a0c87f83d4c28bcba8aad594bb5c09ade340"
+      },
+      {
+        "file": "apps/services/tests/test_final_algorithms_hla.py",
+        "tested_sha256": "517af4c16322ae2ed821e746cb804766246887df69887f64240bc036f4e8c62e",
+        "current_sha256": "eedc7021ad9adc7128614f40723a853e36efc640264f61cae2c8441c00ac3a9b"
+      },
+      {
+        "file": "apps/services/tests/test_portal_corrections.py",
+        "tested_sha256": "56772cbb0115b05aa80406b8f63e6b45e5cbb5dce571bf85880fa4cd9222c08e",
+        "current_sha256": "4bfffc876b180bb13bae3303a05e288cfba1c73c1dcbf892db34228ae6a03378"
+      },
+      {
+        "file": "apps/services/tests/test_portal_tracking.py",
+        "tested_sha256": "9b2bc139e21c60ec9043b3a19d8c031af12340179c8660fe75f0bec547bd69c1",
+        "current_sha256": "f3c050a6f34745cee199fff2bf370f5681499f63e4495c847093a5307df75714"
+      },
+      {
+        "file": "apps/web/src/integration/routes/common.py",
+        "tested_sha256": "9ffe8a4e104604634e82adfdd4f2f36330f246f34e56edb9a2d11a4bf0bc257d",
+        "current_sha256": "2669c2aaddb51b40c12b1dab3f377cbf5aeff3b6ed8e2b3364c1d415e8585c17"
+      },
+      {
+        "file": "scripts/accept_portal.sh",
+        "tested_sha256": "6a34a2c4e899cbd5e3b57e706330bdb58a4f559cf421581fceb9739d53bf59ea",
+        "current_sha256": "723e42cce01c133100a46f3dddff906ce2541631147d3d8f522dc0ee28d5bb84"
+      },
+      {
+        "file": "scripts/verify_portal_tracking.cjs",
+        "tested_sha256": "9f9046187462113749beca60295f7dddad6b6671ecf5f83217082457d9f70fae",
+        "current_sha256": "9e0b7b2fd2f79b349b0ff72fb36543ca46feff334394fffde97dd2496f6c5d74"
+      }
+    ]
+  },
+  {
+    "suite": "final-agenda3",
+    "scenario": "agenda-http",
+    "frozen_during_execution": true,
+    "changed_since_execution": [
+      {
+        "file": "apps/services/tests/fixtures/README.md",
+        "tested_sha256": null,
+        "current_sha256": "e29d0c20b957866c1e90cdad78626049e39b7279b98eb5c0376cf7b455479536"
+      },
+      {
+        "file": "apps/services/tests/fixtures/schema-v13.sql.gz",
+        "tested_sha256": null,
+        "current_sha256": "f27838ff377fddf7c045abf3c5d2a0c87f83d4c28bcba8aad594bb5c09ade340"
+      },
+      {
+        "file": "apps/services/tests/test_final_algorithms_hla.py",
+        "tested_sha256": "517af4c16322ae2ed821e746cb804766246887df69887f64240bc036f4e8c62e",
+        "current_sha256": "eedc7021ad9adc7128614f40723a853e36efc640264f61cae2c8441c00ac3a9b"
+      },
+      {
+        "file": "apps/services/tests/test_portal_corrections.py",
+        "tested_sha256": "56772cbb0115b05aa80406b8f63e6b45e5cbb5dce571bf85880fa4cd9222c08e",
+        "current_sha256": "4bfffc876b180bb13bae3303a05e288cfba1c73c1dcbf892db34228ae6a03378"
+      },
+      {
+        "file": "apps/services/tests/test_portal_tracking.py",
+        "tested_sha256": "9b2bc139e21c60ec9043b3a19d8c031af12340179c8660fe75f0bec547bd69c1",
+        "current_sha256": "f3c050a6f34745cee199fff2bf370f5681499f63e4495c847093a5307df75714"
+      },
+      {
+        "file": "apps/web/src/integration/routes/common.py",
+        "tested_sha256": "9ffe8a4e104604634e82adfdd4f2f36330f246f34e56edb9a2d11a4bf0bc257d",
+        "current_sha256": "2669c2aaddb51b40c12b1dab3f377cbf5aeff3b6ed8e2b3364c1d415e8585c17"
+      },
+      {
+        "file": "scripts/accept_portal.sh",
+        "tested_sha256": "6a34a2c4e899cbd5e3b57e706330bdb58a4f559cf421581fceb9739d53bf59ea",
+        "current_sha256": "723e42cce01c133100a46f3dddff906ce2541631147d3d8f522dc0ee28d5bb84"
+      },
+      {
+        "file": "scripts/verify_portal_tracking.cjs",
+        "tested_sha256": "9f9046187462113749beca60295f7dddad6b6671ecf5f83217082457d9f70fae",
+        "current_sha256": "9e0b7b2fd2f79b349b0ff72fb36543ca46feff334394fffde97dd2496f6c5d74"
+      }
+    ]
+  },
+  {
+    "suite": "final-regression",
+    "frozen_during_execution": true,
+    "changed_since_execution": [
+      {
+        "file": "apps/services/tests/fixtures/README.md",
+        "tested_sha256": null,
+        "current_sha256": "e29d0c20b957866c1e90cdad78626049e39b7279b98eb5c0376cf7b455479536"
+      },
+      {
+        "file": "apps/services/tests/fixtures/schema-v13.sql.gz",
+        "tested_sha256": null,
+        "current_sha256": "f27838ff377fddf7c045abf3c5d2a0c87f83d4c28bcba8aad594bb5c09ade340"
+      },
+      {
+        "file": "apps/services/tests/test_final_algorithms_hla.py",
+        "tested_sha256": "517af4c16322ae2ed821e746cb804766246887df69887f64240bc036f4e8c62e",
+        "current_sha256": "eedc7021ad9adc7128614f40723a853e36efc640264f61cae2c8441c00ac3a9b"
+      },
+      {
+        "file": "apps/services/tests/test_portal_corrections.py",
+        "tested_sha256": "56772cbb0115b05aa80406b8f63e6b45e5cbb5dce571bf85880fa4cd9222c08e",
+        "current_sha256": "4bfffc876b180bb13bae3303a05e288cfba1c73c1dcbf892db34228ae6a03378"
+      },
+      {
+        "file": "apps/services/tests/test_portal_tracking.py",
+        "tested_sha256": "9b2bc139e21c60ec9043b3a19d8c031af12340179c8660fe75f0bec547bd69c1",
+        "current_sha256": "f3c050a6f34745cee199fff2bf370f5681499f63e4495c847093a5307df75714"
+      },
+      {
+        "file": "apps/web/src/integration/routes/common.py",
+        "tested_sha256": "9ffe8a4e104604634e82adfdd4f2f36330f246f34e56edb9a2d11a4bf0bc257d",
+        "current_sha256": "2669c2aaddb51b40c12b1dab3f377cbf5aeff3b6ed8e2b3364c1d415e8585c17"
+      },
+      {
+        "file": "scripts/accept_portal.sh",
+        "tested_sha256": "229a99823cf6d65e1ae9ef6bbc8c9dc21def45a60b178a07e5a2ef5b5f847b41",
+        "current_sha256": "723e42cce01c133100a46f3dddff906ce2541631147d3d8f522dc0ee28d5bb84"
+      },
+      {
+        "file": "scripts/verify_portal_tracking.cjs",
+        "tested_sha256": "9f9046187462113749beca60295f7dddad6b6671ecf5f83217082457d9f70fae",
+        "current_sha256": "9e0b7b2fd2f79b349b0ff72fb36543ca46feff334394fffde97dd2496f6c5d74"
+      }
+    ]
+  },
+  {
+    "suite": "final-features2",
+    "frozen_during_execution": true,
+    "changed_since_execution": []
+  },
+  {
+    "suite": "final-degraded",
+    "frozen_during_execution": true,
+    "changed_since_execution": []
+  },
+  {
+    "suite": "final-migration",
+    "frozen_during_execution": true,
+    "changed_since_execution": []
+  }
+]

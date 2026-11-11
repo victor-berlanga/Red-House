@@ -2,6 +2,8 @@
 
 from .common import BusinessError, call, display, g, portal, regional, render_template
 from ..appointments import enrich_appointments
+from flask import request
+from datetime import datetime, timedelta, timezone
 
 
 @portal.get("/panel")
@@ -9,6 +11,8 @@ from ..appointments import enrich_appointments
 def dashboard():
     role = g.principal.role_code
     stats, charts, failures = [], [], []
+    end = request.args.get("until_at") or datetime.now(timezone.utc).isoformat()
+    start = request.args.get("from_at") or (datetime.now(timezone.utc)-timedelta(days=30)).isoformat()
 
     def fetch(service, path="/api/v1/summary", params=None):
         try:
@@ -92,6 +96,16 @@ def dashboard():
             ("Instituciones de la región", len(g.institutions)),
             ("Notificaciones autorizadas", alerts["total"]),
         ]
+    metrics = []
+    for owner, roles in {
+        "donantes": ("OPERATOR", "MEDICAL"), "inventario": ("OPERATOR", "MEDICAL", "COORDINATOR"),
+        "receptores": ("OPERATOR", "MEDICAL"), "compatibilidad": ("OPERATOR", "MEDICAL"),
+        "transporte": ("OPERATOR", "MEDICAL", "COORDINATOR", "TRANSPORT"),
+    }.items():
+        if role in roles:
+            result = fetch(owner, "/api/v1/portal-metrics", {"from_at": start, "until_at": end})
+            if result:
+                metrics.append(result)
     return render_template(
         "integration/dashboard.html",
         title="Panel principal",
@@ -102,4 +116,5 @@ def dashboard():
         alerts=alerts["items"],
         appointments=appointments,
         audit_events=audit_events,
+        metrics=metrics, metric_start=start, metric_end=end,
     )

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.redhouse.mobile.SessionTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2026-11-09T13:11:43" hostname="Victors-MacBook-Air.local" time="2.92">
+  <properties/>
+  <testcase name="insecureConfigurationRejected" classname="org.redhouse.mobile.SessionTest" time="0.848"/>
+  <testcase name="offlineLogoutDestroysLocalCredentials" classname="org.redhouse.mobile.SessionTest" time="1.638"/>
+  <testcase name="donorNavigationHasNoOperationalInventory" classname="org.redhouse.mobile.SessionTest" time="0.015"/>
+  <testcase name="htmlRejectedAsContractFailure" classname="org.redhouse.mobile.SessionTest" time="0.028"/>
+  <testcase name="loginUsesJsonAndDoesNotStorePassword" classname="org.redhouse.mobile.SessionTest" time="0.032"/>
+  <testcase name="simultaneousUnauthorizedRequestsRotateOnce" classname="org.redhouse.mobile.SessionTest" time="0.296"/>
+  <testcase name="lostRefreshClearsCredentials" classname="org.redhouse.mobile.SessionTest" time="0.054"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+]]></system-err>
+</testsuite>

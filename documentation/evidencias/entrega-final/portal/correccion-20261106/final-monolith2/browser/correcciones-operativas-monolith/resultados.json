@@ -1,0 +1,2198 @@
+{
+  "startedAt": "2026-11-07T02:46:27.801Z",
+  "environment": "https://localhost:53974",
+  "gateway": "WSGI TLS aislado; no acredita proxy productivo",
+  "backend": "monolith",
+  "version": "working-tree/schema-17",
+  "commit": "cbe3503b39a60b6b0a995f1284b2f5b1c3405cae",
+  "sourceManifest": "sources-before.json",
+  "schema": 17,
+  "policies": {
+    "mfa": true,
+    "reauth": true,
+    "laboratory": true,
+    "organAuthorization": true
+  },
+  "checks": [
+    {
+      "name": "Inicio de sesión y cookies Secure sobre TLS",
+      "role": "admin",
+      "at": "2026-11-07T02:46:35.617Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Publicación institucional explícita, sin coordenadas privadas en sitio público",
+      "role": "admin",
+      "at": "2026-11-07T02:46:40.921Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Administrador registra emisor, rota credencial y revoca dispositivo",
+      "role": "admin",
+      "at": "2026-11-07T02:46:49.841Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Inicio de sesión y cookies Secure sobre TLS",
+      "role": "donor",
+      "at": "2026-11-07T02:46:54.779Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Donante registra expediente y consentimiento versionado persistente",
+      "role": "donor1",
+      "at": "2026-11-07T02:47:04.867Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Donante rechazado por URL de inventario ajeno",
+      "role": "donor1",
+      "at": "2026-11-07T02:47:06.259Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Inicio de sesión y cookies Secure sobre TLS",
+      "role": "operator1",
+      "at": "2026-11-07T02:47:12.919Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Cambio Monterrey/UTC conserva instante capturado y almacenamiento UTC",
+      "role": "operator1",
+      "at": "2026-11-07T02:47:22.629Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Agenda con sede/horario: reservar, confirmar, reprogramar y cancelar",
+      "role": "donor1",
+      "at": "2026-11-07T02:48:01.694Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Inicio de sesión y cookies Secure sobre TLS",
+      "role": "donor_race",
+      "at": "2026-11-07T02:48:06.653Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Dos cuentas compiten en navegador por último cupo: una reserva; rechazo conserva valores",
+      "role": "donor",
+      "at": "2026-11-07T02:48:18.490Z",
+      "result": "PASS"
+    },
+    {
+      "name": "MFA ausente rechazado sin iniciar sesión",
+      "role": "origin",
+      "at": "2026-11-07T02:48:22.278Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Inicio de sesión y cookies Secure sobre TLS",
+      "role": "origin",
+      "at": "2026-11-07T02:48:27.982Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Donación, evaluación médica, procesamiento, fraccionamiento, linaje y etiqueta",
+      "role": "operator1",
+      "at": "2026-11-07T02:48:56.447Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Equipo de conservación registrado mediante formulario",
+      "role": "operator1",
+      "at": "2026-11-07T02:48:59.771Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Perfil térmico sintético, controles, excursión y revisión documentada por médico",
+      "role": "origin",
+      "at": "2026-11-07T02:49:20.061Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Retirada de consentimiento conserva historial",
+      "role": "donor1",
+      "at": "2026-11-07T02:49:23.558Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Recuperación por SMTP real local, token de un uso y nuevo login",
+      "role": "donor",
+      "at": "2026-11-07T02:49:38.127Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Liberación sin reautenticación rechazada",
+      "role": "origin",
+      "at": "2026-11-07T02:49:47.449Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Liberación con MFA, perfil completo y reautenticación; persiste al recargar",
+      "role": "origin",
+      "at": "2026-11-07T02:49:55.726Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Inicio de sesión y cookies Secure sobre TLS",
+      "role": "destination",
+      "at": "2026-11-07T02:50:08.322Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Solicitud, evaluación y revisión humana",
+      "role": "destination",
+      "at": "2026-11-07T02:50:42.320Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Nueva versión de laboratorio autorizada con MFA y reautenticación",
+      "role": "origin",
+      "at": "2026-11-07T02:50:59.014Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Reserva con dictamen anterior rechazada visiblemente",
+      "role": "destination",
+      "at": "2026-11-07T02:51:07.730Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Inicio de sesión y cookies Secure sobre TLS",
+      "role": "coordinator",
+      "at": "2026-11-07T02:51:32.171Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Coordinador consulta propuesta logística regional sin facultad de dictamen ni creación clínica",
+      "role": "coordinator",
+      "at": "2026-11-07T02:51:38.965Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Respuesta perdida tras escritura: pendiente visible y recuperación del mismo comando",
+      "role": "destination",
+      "at": "2026-11-07T02:51:49.782Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Nueva evaluación y revisión permiten reservar una sola vez",
+      "role": "destination",
+      "at": "2026-11-07T02:51:49.810Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Inicio de sesión y cookies Secure sobre TLS",
+      "role": "transport1",
+      "at": "2026-11-07T02:52:05.381Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Custodia incompleta no avanza; mensaje visible en móvil",
+      "role": "transport1",
+      "at": "2026-11-07T02:52:11.372Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Coordinador asigna emisor autorizado al traslado mediante formulario",
+      "role": "coordinator",
+      "at": "2026-11-07T02:52:19.865Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Mapa con WSS real: multipunto, sin fijación, antigüedad, corte, replay y recuperación sin recarga",
+      "role": "transport1",
+      "at": "2026-11-07T02:52:57.119Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Mapa abierto cesa entrega y borra posición al cambiar responsable en fixture",
+      "role": "transport1",
+      "at": "2026-11-07T02:53:01.490Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Inicio de sesión y cookies Secure sobre TLS",
+      "role": "map_viewer",
+      "at": "2026-11-07T02:53:07.822Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Mapa abierto: expire retira acceso y datos sin recarga manual (acceso terminado)",
+      "role": "map_viewer",
+      "at": "2026-11-07T02:53:19.667Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Inicio de sesión y cookies Secure sobre TLS",
+      "role": "map_viewer",
+      "at": "2026-11-07T02:53:33.943Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Mapa abierto: revoke retira acceso y datos sin recarga manual (redirige a login)",
+      "role": "map_viewer",
+      "at": "2026-11-07T02:53:41.786Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Inicio de sesión y cookies Secure sobre TLS",
+      "role": "map_viewer",
+      "at": "2026-11-07T02:54:03.427Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Mapa abierto: logout retira acceso y datos sin recarga manual (redirige a login)",
+      "role": "map_viewer",
+      "at": "2026-11-07T02:54:15.523Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Inicio de sesión y cookies Secure sobre TLS",
+      "role": "map_viewer",
+      "at": "2026-11-07T02:54:33.659Z",
+      "result": "PASS"
+    }
+  ],
+  "consoleErrors": [],
+  "networkErrors": [
+    {
+      "status": 403,
+      "path": "/inventario/9f79ebc5-3ae4-4f0d-bd53-66178ae2bf38",
+      "role": "donor"
+    },
+    {
+      "status": 409,
+      "path": "/citas/nueva",
+      "role": "donor_race"
+    },
+    {
+      "status": 401,
+      "path": "/login",
+      "role": "origin"
+    },
+    {
+      "status": 401,
+      "path": "/recuperar-acceso/confirmar",
+      "role": "donor"
+    },
+    {
+      "status": 403,
+      "path": "/inventario/9f79ebc5-3ae4-4f0d-bd53-66178ae2bf38/liberar",
+      "role": "origin"
+    },
+    {
+      "status": 409,
+      "path": "/evaluaciones/b1aa76b3-b125-4b8c-9f98-2520295e2bb2/reservar/9f79ebc5-3ae4-4f0d-bd53-66178ae2bf38",
+      "role": "destination"
+    },
+    {
+      "status": 401,
+      "path": "/sesion/estado",
+      "role": "map_viewer"
+    }
+  ],
+  "records": {
+    "profileJourneys": {
+      "donor": "cb97f9d5-a7ee-4739-984f-942758f1bcc3",
+      "donation": "c4b5799f-24f2-4b28-8642-226354601f2a",
+      "resource": "50f4b78a-7c7f-4167-8d7a-a6a0a9aad42c",
+      "appointment": "ac5bedf1-195b-4f93-a700-e9c024206465",
+      "campaign": "892a4b68-eb9c-4380-9c8a-70b41d629249"
+    },
+    "request": "dc02a390-d26b-46f2-b68d-c467425eb9c1",
+    "correctedResult": "57450be4-cc8f-4f5b-a451-0b6aee1f32d6",
+    "proposal": "020d9d29-7c55-4706-be9c-4fb5398b4b63",
+    "operation": "67430042-67a5-4942-bda5-f3bb7e504246",
+    "shipment": "319ba6e2-6cbe-422b-a427-db5920434a39"
+  },
+  "privateReportDownloaded": false,
+  "map": {
+    "transport": "WSS real sin sustitución de URL",
+    "cartography": "Mosaicos en línea del proveedor con atribución",
+    "expiredCursor": "resync.required y nueva instantánea; puntos ausentes no inventados",
+    "events": [
+      {
+        "cursor": 1,
+        "ack": true,
+        "event": "84463d49-afaf-482c-9bdd-c35e307de949"
+      },
+      {
+        "cursor": 2,
+        "ack": true,
+        "event": "2dced8de-24ac-4819-8f78-8990a1396689"
+      },
+      {
+        "cursor": 3,
+        "ack": true,
+        "event": "3c2c189e-1e81-4907-b1b4-61ab2da3d9ef"
+      },
+      {
+        "cursor": 4,
+        "ack": true,
+        "event": "df0cffc8-ef6e-4253-8fc9-ace67d74c72a"
+      },
+      {
+        "cursor": 5,
+        "ack": true,
+        "event": "3e12a77c-3b6d-4b62-aa33-eebf995f09b6"
+      },
+      {
+        "cursor": 6,
+        "ack": true,
+        "event": "48276317-231d-492d-bd66-2f3740b42ffc"
+      },
+      {
+        "cursor": 7,
+        "ack": true,
+        "event": "9b809a3d-7e0a-4fdb-99ca-ae1599cde73c"
+      },
+      {
+        "cursor": 8,
+        "ack": true,
+        "event": "114046c9-39fb-4781-892e-02d977b7776a"
+      }
+    ],
+    "receiptToMap": [
+      {
+        "event_id": "84463d49-afaf-482c-9bdd-c35e307de949",
+        "shipment_id": "319ba6e2-6cbe-422b-a427-db5920434a39",
+        "cursor": 1,
+        "received_at": "2026-11-07T02:52:25.318841+00:00",
+        "rendered_at": "2026-11-07T02:52:26.150Z",
+        "receive_to_map_ms": 832
+      },
+      {
+        "event_id": "2dced8de-24ac-4819-8f78-8990a1396689",
+        "shipment_id": "319ba6e2-6cbe-422b-a427-db5920434a39",
+        "cursor": 2,
+        "received_at": "2026-11-07T02:52:26.892762+00:00",
+        "rendered_at": "2026-11-07T02:52:27.547Z",
+        "receive_to_map_ms": 655
+      },
+      {
+        "event_id": "3c2c189e-1e81-4907-b1b4-61ab2da3d9ef",
+        "shipment_id": "319ba6e2-6cbe-422b-a427-db5920434a39",
+        "cursor": 3,
+        "received_at": "2026-11-07T02:52:39.748043+00:00",
+        "rendered_at": "2026-11-07T02:52:40.995Z",
+        "receive_to_map_ms": 1247
+      },
+      {
+        "event_id": "3c2c189e-1e81-4907-b1b4-61ab2da3d9ef",
+        "shipment_id": "319ba6e2-6cbe-422b-a427-db5920434a39",
+        "cursor": 3,
+        "received_at": "2026-11-07T02:52:39.748043+00:00",
+        "rendered_at": "2026-11-07T02:52:41.156Z",
+        "receive_to_map_ms": 1408
+      },
+      {
+        "event_id": "df0cffc8-ef6e-4253-8fc9-ace67d74c72a",
+        "shipment_id": "319ba6e2-6cbe-422b-a427-db5920434a39",
+        "cursor": 4,
+        "received_at": "2026-11-07T02:52:41.905638+00:00",
+        "rendered_at": "2026-11-07T02:52:42.212Z",
+        "receive_to_map_ms": 307
+      },
+      {
+        "event_id": "3e12a77c-3b6d-4b62-aa33-eebf995f09b6",
+        "shipment_id": "319ba6e2-6cbe-422b-a427-db5920434a39",
+        "cursor": 5,
+        "received_at": "2026-11-07T02:52:43.262007+00:00",
+        "rendered_at": "2026-11-07T02:52:43.789Z",
+        "receive_to_map_ms": 527
+      },
+      {
+        "event_id": "48276317-231d-492d-bd66-2f3740b42ffc",
+        "shipment_id": "319ba6e2-6cbe-422b-a427-db5920434a39",
+        "cursor": 6,
+        "received_at": "2026-11-07T02:52:44.496715+00:00",
+        "rendered_at": "2026-11-07T02:52:45.259Z",
+        "receive_to_map_ms": 763
+      },
+      {
+        "event_id": "114046c9-39fb-4781-892e-02d977b7776a",
+        "shipment_id": "319ba6e2-6cbe-422b-a427-db5920434a39",
+        "cursor": 8,
+        "received_at": "2026-11-07T02:52:48.712452+00:00",
+        "rendered_at": "2026-11-07T02:52:50.119Z",
+        "receive_to_map_ms": 1407
+      }
+    ]
+  },
+  "runtime": {
+    "browser": "157.0.8103.39",
+    "node": "v22.13.0",
+    "os": "darwin",
+    "arch": "x64"
+  },
+  "charts": [
+    {
+      "role": "admin",
+      "charts": []
+    },
+    {
+      "role": "donor",
+      "charts": []
+    },
+    {
+      "role": "operator1",
+      "charts": [
+        {
+          "expected": [],
+          "rendered": false,
+          "table": true
+        },
+        {
+          "expected": [
+            {
+              "label": "QUARANTINE",
+              "value": 2
+            }
+          ],
+          "actual": [
+            2
+          ],
+          "rendered": true,
+          "table": true
+        },
+        {
+          "expected": [
+            {
+              "label": "KIDNEY",
+              "value": 1
+            },
+            {
+              "label": "RBC",
+              "value": 1
+            }
+          ],
+          "actual": [
+            1,
+            1
+          ],
+          "rendered": true,
+          "table": true
+        },
+        {
+          "expected": [],
+          "rendered": false,
+          "table": true
+        },
+        {
+          "expected": [],
+          "rendered": false,
+          "table": true
+        },
+        {
+          "expected": [],
+          "rendered": false,
+          "table": true
+        },
+        {
+          "expected": [],
+          "rendered": false,
+          "table": true
+        },
+        {
+          "expected": [
+            {
+              "label": "Mínima",
+              "value": null
+            },
+            {
+              "label": "Media",
+              "value": null
+            },
+            {
+              "label": "Máxima",
+              "value": null
+            }
+          ],
+          "actual": [
+            null,
+            null,
+            null
+          ],
+          "rendered": true,
+          "table": true
+        },
+        {
+          "expected": [],
+          "rendered": false,
+          "table": true
+        },
+        {
+          "expected": [
+            {
+              "label": "Media",
+              "value": null
+            }
+          ],
+          "actual": [
+            null
+          ],
+          "rendered": true,
+          "table": true
+        },
+        {
+          "expected": [
+            {
+              "label": "AUTHORIZED",
+              "value": 1
+            },
+            {
+              "label": "CAPTURED",
+              "value": 1
+            }
+          ],
+          "actual": [
+            1,
+            1
+          ],
+          "rendered": true,
+          "table": true
+        },
+        {
+          "expected": [],
+          "rendered": false,
+          "table": true
+        },
+        {
+          "expected": [],
+          "rendered": false,
+          "table": true
+        },
+        {
+          "expected": [
+            {
+              "label": "Media observada",
+              "value": null
+            }
+          ],
+          "actual": [
+            null
+          ],
+          "rendered": true,
+          "table": true
+        },
+        {
+          "expected": [],
+          "rendered": false,
+          "table": true
+        },
+        {
+          "expected": [
+            {
+              "label": "Cuarentena",
+              "value": 2
+            }
+          ],
+          "actual": [
+            2
+          ],
+          "rendered": true,
+          "table": true
+        },
+        {
+          "expected": [],
+          "rendered": false,
+          "table": true
+        },
+        {
+          "expected": [],
+          "rendered": false,
+          "table": true
+        }
+      ]
+    },
+    {
+      "role": "donor_race",
+      "charts": []
+    },
+    {
+      "role": "origin",
+      "charts": [
+        {
+          "expected": [],
+          "rendered": false,
+          "table": true
+        },
+        {
+          "expected": [
+            {
+              "label": "QUARANTINE",
+              "value": 2
+            }
+          ],
+          "actual": [
+            2
+          ],
+          "rendered": true,
+          "table": true
+        },
+        {
+          "expected": [
+            {
+              "label": "KIDNEY",
+              "value": 1
+            },
+            {
+              "label": "RBC",
+              "value": 1
+            }
+          ],
+          "actual": [
+            1,
+            1
+          ],
+          "rendered": true,
+          "table": true
+        },
+        {
+          "expected": [],
+          "rendered": false,
+          "table": true
+        },
+        {
+          "expected": [],
+          "rendered": false,
+          "table": true
+        },
+        {
+          "expected": [],
+          "rendered": false,
+          "table": true
+        },
+        {
+          "expected": [],
+          "rendered": false,
+          "table": true
+        },
+        {
+          "expected": [
+            {
+              "label": "Mínima",
+              "value": null
+            },
+            {
+              "label": "Media",
+              "value": null
+            },
+            {
+              "label": "Máxima",
+              "value": null
+            }
+          ],
+          "actual": [
+            null,
+            null,
+            null
+          ],
+          "rendered": true,
+          "table": true
+        },
+        {
+          "expected": [],
+          "rendered": false,
+          "table": true
+        },
+        {
+          "expected": [
+            {
+              "label": "Media",
+              "value": null
+            }
+          ],
+          "actual": [
+            null
+          ],
+          "rendered": true,
+          "table": true
+        },
+        {
+          "expected": [
+            {
+              "label": "AUTHORIZED",
+              "value": 1
+            },
+            {
+              "label": "CAPTURED",
+              "value": 1
+            }
+          ],
+          "actual": [
+            1,
+            1
+          ],
+          "rendered": true,
+          "table": true
+        },
+        {
+          "expected": [],
+          "rendered": false,
+          "table": true
+        },
+        {
+          "expected": [],
+          "rendered": false,
+          "table": true
+        },
+        {
+          "expected": [
+            {
+              "label": "Media observada",
+              "value": null
+            }
+          ],
+          "actual": [
+            null
+          ],
+          "rendered": true,
+          "table": true
+        },
+        {
+          "expected": [],
+          "rendered": false,
+          "table": true
+        },
+        {
+          "expected": [
+            {
+              "label": "Cuarentena",
+              "value": 2
+            }
+          ],
+          "actual": [
+            2
+          ],
+          "rendered": true,
+          "table": true
+        },
+        {
+          "expected": [],
+          "rendered": false,
+          "table": true
+        },
+        {
+          "expected": [],
+          "rendered": false,
+          "table": true
+        }
+      ]
+    },
+    {
+      "role": "origin-form-error",
+      "charts": []
+    },
+    {
+      "role": "destination",
+      "charts": [
+        {
+          "expected": [],
+          "rendered": false,
+          "table": true
+        },
+        {
+          "expected": [],
+          "rendered": false,
+          "table": true
+        },
+        {
+          "expected": [],
+          "rendered": false,
+          "table": true
+        },
+        {
+          "expected": [],
+          "rendered": false,
+          "table": true
+        },
+        {
+          "expected": [],
+          "rendered": false,
+          "table": true
+        },
+        {
+          "expected": [],
+          "rendered": false,
+          "table": true
+        },
+        {
+          "expected": [],
+          "rendered": false,
+          "table": true
+        },
+        {
+          "expected": [
+            {
+              "label": "Mínima",
+              "value": null
+            },
+            {
+              "label": "Media",
+              "value": null
+            },
+            {
+              "label": "Máxima",
+              "value": null
+            }
+          ],
+          "actual": [
+            null,
+            null,
+            null
+          ],
+          "rendered": true,
+          "table": true
+        },
+        {
+          "expected": [],
+          "rendered": false,
+          "table": true
+        },
+        {
+          "expected": [
+            {
+              "label": "Media",
+              "value": null
+            }
+          ],
+          "actual": [
+            null
+          ],
+          "rendered": true,
+          "table": true
+        },
+        {
+          "expected": [],
+          "rendered": false,
+          "table": true
+        },
+        {
+          "expected": [],
+          "rendered": false,
+          "table": true
+        },
+        {
+          "expected": [],
+          "rendered": false,
+          "table": true
+        },
+        {
+          "expected": [
+            {
+              "label": "Media observada",
+              "value": null
+            }
+          ],
+          "actual": [
+            null
+          ],
+          "rendered": true,
+          "table": true
+        },
+        {
+          "expected": [],
+          "rendered": false,
+          "table": true
+        },
+        {
+          "expected": [],
+          "rendered": false,
+          "table": true
+        },
+        {
+          "expected": [],
+          "rendered": false,
+          "table": true
+        },
+        {
+          "expected": [],
+          "rendered": false,
+          "table": true
+        }
+      ]
+    },
+    {
+      "role": "coordinator",
+      "charts": [
+        {
+          "expected": [
+            {
+              "label": "AVAILABLE",
+              "value": 1
+            },
+            {
+              "label": "QUARANTINE",
+              "value": 2
+            },
+            {
+              "label": "WITHDRAWN",
+              "value": 1
+            }
+          ],
+          "actual": [
+            1,
+            2,
+            1
+          ],
+          "rendered": true,
+          "table": true
+        },
+        {
+          "expected": [
+            {
+              "label": "KIDNEY",
+              "value": 1
+            },
+            {
+              "label": "RBC",
+              "value": 3
+            }
+          ],
+          "actual": [
+            1,
+            3
+          ],
+          "rendered": true,
+          "table": true
+        },
+        {
+          "expected": [],
+          "rendered": false,
+          "table": true
+        },
+        {
+          "expected": [],
+          "rendered": false,
+          "table": true
+        },
+        {
+          "expected": [],
+          "rendered": false,
+          "table": true
+        },
+        {
+          "expected": [
+            {
+              "label": "Media observada",
+              "value": null
+            }
+          ],
+          "actual": [
+            null
+          ],
+          "rendered": true,
+          "table": true
+        },
+        {
+          "expected": [
+            {
+              "label": "O-",
+              "value": 1
+            }
+          ],
+          "actual": [
+            1
+          ],
+          "rendered": true,
+          "table": true
+        },
+        {
+          "expected": [
+            {
+              "label": "Disponible",
+              "value": 1
+            },
+            {
+              "label": "Cuarentena",
+              "value": 2
+            },
+            {
+              "label": "Retirado",
+              "value": 1
+            }
+          ],
+          "actual": [
+            1,
+            2,
+            1
+          ],
+          "rendered": true,
+          "table": true
+        },
+        {
+          "expected": [
+            {
+              "label": "Hospital 1",
+              "value": 4
+            }
+          ],
+          "actual": [
+            4
+          ],
+          "rendered": true,
+          "table": true
+        },
+        {
+          "expected": [],
+          "rendered": false,
+          "table": true
+        }
+      ]
+    },
+    {
+      "role": "transport1",
+      "charts": [
+        {
+          "expected": [
+            {
+              "label": "PREPARED",
+              "value": 1
+            }
+          ],
+          "actual": [
+            1
+          ],
+          "rendered": true,
+          "table": true
+        },
+        {
+          "expected": [
+            {
+              "label": "a64acf4e-bea5-4796-bc49-e57227d50d5f",
+              "value": 1
+            }
+          ],
+          "actual": [
+            1
+          ],
+          "rendered": true,
+          "table": true
+        },
+        {
+          "expected": [
+            {
+              "label": "Media observada",
+              "value": null
+            }
+          ],
+          "actual": [
+            null
+          ],
+          "rendered": true,
+          "table": true
+        },
+        {
+          "expected": [
+            {
+              "label": "Preparado",
+              "value": 1
+            }
+          ],
+          "actual": [
+            1
+          ],
+          "rendered": true,
+          "table": true
+        }
+      ]
+    },
+    {
+      "role": "transport-map",
+      "charts": []
+    },
+    {
+      "role": "map_viewer",
+      "charts": [
+        {
+          "expected": [
+            {
+              "label": "IN_TRANSIT",
+              "value": 1
+            },
+            {
+              "label": "QUARANTINE",
+              "value": 2
+            },
+            {
+              "label": "WITHDRAWN",
+              "value": 1
+            }
+          ],
+          "actual": [
+            1,
+            2,
+            1
+          ],
+          "rendered": true,
+          "table": true
+        },
+        {
+          "expected": [
+            {
+              "label": "KIDNEY",
+              "value": 1
+            },
+            {
+              "label": "RBC",
+              "value": 3
+            }
+          ],
+          "actual": [
+            1,
+            3
+          ],
+          "rendered": true,
+          "table": true
+        },
+        {
+          "expected": [],
+          "rendered": false,
+          "table": true
+        },
+        {
+          "expected": [
+            {
+              "label": "COLLECTED",
+              "value": 1
+            }
+          ],
+          "actual": [
+            1
+          ],
+          "rendered": true,
+          "table": true
+        },
+        {
+          "expected": [
+            {
+              "label": "a64acf4e-bea5-4796-bc49-e57227d50d5f",
+              "value": 1
+            }
+          ],
+          "actual": [
+            1
+          ],
+          "rendered": true,
+          "table": true
+        },
+        {
+          "expected": [
+            {
+              "label": "Media observada",
+              "value": null
+            }
+          ],
+          "actual": [
+            null
+          ],
+          "rendered": true,
+          "table": true
+        },
+        {
+          "expected": [],
+          "rendered": false,
+          "table": true
+        },
+        {
+          "expected": [
+            {
+              "label": "En tránsito",
+              "value": 1
+            },
+            {
+              "label": "Cuarentena",
+              "value": 2
+            },
+            {
+              "label": "Retirado",
+              "value": 1
+            }
+          ],
+          "actual": [
+            1,
+            2,
+            1
+          ],
+          "rendered": true,
+          "table": true
+        },
+        {
+          "expected": [
+            {
+              "label": "Hospital 1",
+              "value": 4
+            }
+          ],
+          "actual": [
+            4
+          ],
+          "rendered": true,
+          "table": true
+        },
+        {
+          "expected": [
+            {
+              "label": "Recolectado",
+              "value": 1
+            }
+          ],
+          "actual": [
+            1
+          ],
+          "rendered": true,
+          "table": true
+        }
+      ]
+    },
+    {
+      "role": "map_viewer",
+      "charts": [
+        {
+          "expected": [
+            {
+              "label": "IN_TRANSIT",
+              "value": 1
+            },
+            {
+              "label": "QUARANTINE",
+              "value": 2
+            },
+            {
+              "label": "WITHDRAWN",
+              "value": 1
+            }
+          ],
+          "actual": [
+            1,
+            2,
+            1
+          ],
+          "rendered": true,
+          "table": true
+        },
+        {
+          "expected": [
+            {
+              "label": "KIDNEY",
+              "value": 1
+            },
+            {
+              "label": "RBC",
+              "value": 3
+            }
+          ],
+          "actual": [
+            1,
+            3
+          ],
+          "rendered": true,
+          "table": true
+        },
+        {
+          "expected": [],
+          "rendered": false,
+          "table": true
+        },
+        {
+          "expected": [
+            {
+              "label": "COLLECTED",
+              "value": 1
+            }
+          ],
+          "actual": [
+            1
+          ],
+          "rendered": true,
+          "table": true
+        },
+        {
+          "expected": [
+            {
+              "label": "a64acf4e-bea5-4796-bc49-e57227d50d5f",
+              "value": 1
+            }
+          ],
+          "actual": [
+            1
+          ],
+          "rendered": true,
+          "table": true
+        },
+        {
+          "expected": [
+            {
+              "label": "Media observada",
+              "value": null
+            }
+          ],
+          "actual": [
+            null
+          ],
+          "rendered": true,
+          "table": true
+        },
+        {
+          "expected": [],
+          "rendered": false,
+          "table": true
+        },
+        {
+          "expected": [
+            {
+              "label": "En tránsito",
+              "value": 1
+            },
+            {
+              "label": "Cuarentena",
+              "value": 2
+            },
+            {
+              "label": "Retirado",
+              "value": 1
+            }
+          ],
+          "actual": [
+            1,
+            2,
+            1
+          ],
+          "rendered": true,
+          "table": true
+        },
+        {
+          "expected": [
+            {
+              "label": "Hospital 1",
+              "value": 4
+            }
+          ],
+          "actual": [
+            4
+          ],
+          "rendered": true,
+          "table": true
+        },
+        {
+          "expected": [
+            {
+              "label": "Recolectado",
+              "value": 1
+            }
+          ],
+          "actual": [
+            1
+          ],
+          "rendered": true,
+          "table": true
+        }
+      ]
+    },
+    {
+      "role": "map_viewer",
+      "charts": [
+        {
+          "expected": [
+            {
+              "label": "IN_TRANSIT",
+              "value": 1
+            },
+            {
+              "label": "QUARANTINE",
+              "value": 2
+            },
+            {
+              "label": "WITHDRAWN",
+              "value": 1
+            }
+          ],
+          "actual": [
+            1,
+            2,
+            1
+          ],
+          "rendered": true,
+          "table": true
+        },
+        {
+          "expected": [
+            {
+              "label": "KIDNEY",
+              "value": 1
+            },
+            {
+              "label": "RBC",
+              "value": 3
+            }
+          ],
+          "actual": [
+            1,
+            3
+          ],
+          "rendered": true,
+          "table": true
+        },
+        {
+          "expected": [],
+          "rendered": false,
+          "table": true
+        },
+        {
+          "expected": [
+            {
+              "label": "COLLECTED",
+              "value": 1
+            }
+          ],
+          "actual": [
+            1
+          ],
+          "rendered": true,
+          "table": true
+        },
+        {
+          "expected": [
+            {
+              "label": "a64acf4e-bea5-4796-bc49-e57227d50d5f",
+              "value": 1
+            }
+          ],
+          "actual": [
+            1
+          ],
+          "rendered": true,
+          "table": true
+        },
+        {
+          "expected": [
+            {
+              "label": "Media observada",
+              "value": null
+            }
+          ],
+          "actual": [
+            null
+          ],
+          "rendered": true,
+          "table": true
+        },
+        {
+          "expected": [],
+          "rendered": false,
+          "table": true
+        },
+        {
+          "expected": [
+            {
+              "label": "En tránsito",
+              "value": 1
+            },
+            {
+              "label": "Cuarentena",
+              "value": 2
+            },
+            {
+              "label": "Retirado",
+              "value": 1
+            }
+          ],
+          "actual": [
+            1,
+            2,
+            1
+          ],
+          "rendered": true,
+          "table": true
+        },
+        {
+          "expected": [
+            {
+              "label": "Hospital 1",
+              "value": 4
+            }
+          ],
+          "actual": [
+            4
+          ],
+          "rendered": true,
+          "table": true
+        },
+        {
+          "expected": [
+            {
+              "label": "Recolectado",
+              "value": 1
+            }
+          ],
+          "actual": [
+            1
+          ],
+          "rendered": true,
+          "table": true
+        }
+      ]
+    },
+    {
+      "role": "map_viewer",
+      "charts": [
+        {
+          "expected": [
+            {
+              "label": "IN_TRANSIT",
+              "value": 1
+            },
+            {
+              "label": "QUARANTINE",
+              "value": 2
+            },
+            {
+              "label": "WITHDRAWN",
+              "value": 1
+            }
+          ],
+          "actual": [
+            1,
+            2,
+            1
+          ],
+          "rendered": true,
+          "table": true
+        },
+        {
+          "expected": [
+            {
+              "label": "KIDNEY",
+              "value": 1
+            },
+            {
+              "label": "RBC",
+              "value": 3
+            }
+          ],
+          "actual": [
+            1,
+            3
+          ],
+          "rendered": true,
+          "table": true
+        },
+        {
+          "expected": [],
+          "rendered": false,
+          "table": true
+        },
+        {
+          "expected": [
+            {
+              "label": "COLLECTED",
+              "value": 1
+            }
+          ],
+          "actual": [
+            1
+          ],
+          "rendered": true,
+          "table": true
+        },
+        {
+          "expected": [
+            {
+              "label": "a64acf4e-bea5-4796-bc49-e57227d50d5f",
+              "value": 1
+            }
+          ],
+          "actual": [
+            1
+          ],
+          "rendered": true,
+          "table": true
+        },
+        {
+          "expected": [
+            {
+              "label": "Media observada",
+              "value": null
+            }
+          ],
+          "actual": [
+            null
+          ],
+          "rendered": true,
+          "table": true
+        },
+        {
+          "expected": [],
+          "rendered": false,
+          "table": true
+        },
+        {
+          "expected": [
+            {
+              "label": "En tránsito",
+              "value": 1
+            },
+            {
+              "label": "Cuarentena",
+              "value": 2
+            },
+            {
+              "label": "Retirado",
+              "value": 1
+            }
+          ],
+          "actual": [
+            1,
+            2,
+            1
+          ],
+          "rendered": true,
+          "table": true
+        },
+        {
+          "expected": [
+            {
+              "label": "Hospital 1",
+              "value": 4
+            }
+          ],
+          "actual": [
+            4
+          ],
+          "rendered": true,
+          "table": true
+        },
+        {
+          "expected": [
+            {
+              "label": "Recolectado",
+              "value": 1
+            }
+          ],
+          "actual": [
+            1
+          ],
+          "rendered": true,
+          "table": true
+        }
+      ]
+    }
+  ],
+  "accessibility": [
+    {
+      "role": "admin",
+      "page": "/panel",
+      "width": 390,
+      "focus": {
+        "tag": "A",
+        "visible": true,
+        "label": "Saltar al contenido",
+        "outline": "solid"
+      },
+      "violations": []
+    },
+    {
+      "role": "admin",
+      "page": "/panel",
+      "width": 768,
+      "focus": {
+        "tag": "BUTTON",
+        "visible": true,
+        "label": "",
+        "outline": "solid"
+      },
+      "violations": []
+    },
+    {
+      "role": "admin",
+      "page": "/panel",
+      "width": 1440,
+      "focus": {
+        "tag": "SUMMARY",
+        "visible": true,
+        "label": "Horario: Monterrey",
+        "outline": "solid"
+      },
+      "violations": []
+    },
+    {
+      "role": "donor",
+      "page": "/panel",
+      "width": 390,
+      "focus": {
+        "tag": "A",
+        "visible": true,
+        "label": "Saltar al contenido",
+        "outline": "solid"
+      },
+      "violations": []
+    },
+    {
+      "role": "donor",
+      "page": "/panel",
+      "width": 768,
+      "focus": {
+        "tag": "BUTTON",
+        "visible": true,
+        "label": "",
+        "outline": "solid"
+      },
+      "violations": []
+    },
+    {
+      "role": "donor",
+      "page": "/panel",
+      "width": 1440,
+      "focus": {
+        "tag": "SUMMARY",
+        "visible": true,
+        "label": "Horario: Monterrey",
+        "outline": "solid"
+      },
+      "violations": []
+    },
+    {
+      "role": "operator1",
+      "page": "/panel",
+      "width": 390,
+      "focus": {
+        "tag": "A",
+        "visible": true,
+        "label": "Saltar al contenido",
+        "outline": "solid"
+      },
+      "violations": []
+    },
+    {
+      "role": "operator1",
+      "page": "/panel",
+      "width": 768,
+      "focus": {
+        "tag": "BUTTON",
+        "visible": true,
+        "label": "",
+        "outline": "solid"
+      },
+      "violations": []
+    },
+    {
+      "role": "operator1",
+      "page": "/panel",
+      "width": 1440,
+      "focus": {
+        "tag": "SUMMARY",
+        "visible": true,
+        "label": "Horario: Monterrey",
+        "outline": "solid"
+      },
+      "violations": []
+    },
+    {
+      "role": "donor_race",
+      "page": "/panel",
+      "width": 390,
+      "focus": {
+        "tag": "A",
+        "visible": true,
+        "label": "Saltar al contenido",
+        "outline": "solid"
+      },
+      "violations": []
+    },
+    {
+      "role": "donor_race",
+      "page": "/panel",
+      "width": 768,
+      "focus": {
+        "tag": "BUTTON",
+        "visible": true,
+        "label": "",
+        "outline": "solid"
+      },
+      "violations": []
+    },
+    {
+      "role": "donor_race",
+      "page": "/panel",
+      "width": 1440,
+      "focus": {
+        "tag": "SUMMARY",
+        "visible": true,
+        "label": "Horario: Monterrey",
+        "outline": "solid"
+      },
+      "violations": []
+    },
+    {
+      "role": "origin",
+      "page": "/panel",
+      "width": 390,
+      "focus": {
+        "tag": "A",
+        "visible": true,
+        "label": "Saltar al contenido",
+        "outline": "solid"
+      },
+      "violations": []
+    },
+    {
+      "role": "origin",
+      "page": "/panel",
+      "width": 768,
+      "focus": {
+        "tag": "BUTTON",
+        "visible": true,
+        "label": "",
+        "outline": "solid"
+      },
+      "violations": []
+    },
+    {
+      "role": "origin",
+      "page": "/panel",
+      "width": 1440,
+      "focus": {
+        "tag": "SUMMARY",
+        "visible": true,
+        "label": "Horario: Monterrey",
+        "outline": "solid"
+      },
+      "violations": []
+    },
+    {
+      "role": "origin-form-error",
+      "page": "/inventario/9f79ebc5-3ae4-4f0d-bd53-66178ae2bf38/liberar",
+      "width": 390,
+      "focus": {
+        "tag": "A",
+        "visible": true,
+        "label": "Saltar al contenido",
+        "outline": "solid"
+      },
+      "violations": []
+    },
+    {
+      "role": "origin-form-error",
+      "page": "/inventario/9f79ebc5-3ae4-4f0d-bd53-66178ae2bf38/liberar",
+      "width": 768,
+      "focus": {
+        "tag": "TEXTAREA",
+        "visible": true,
+        "label": "Verificación sintética autorizada del navegador",
+        "outline": "solid"
+      },
+      "violations": []
+    },
+    {
+      "role": "origin-form-error",
+      "page": "/inventario/9f79ebc5-3ae4-4f0d-bd53-66178ae2bf38/liberar",
+      "width": 1440,
+      "focus": {
+        "tag": "INPUT",
+        "visible": true,
+        "label": "",
+        "outline": "solid"
+      },
+      "violations": []
+    },
+    {
+      "role": "destination",
+      "page": "/panel",
+      "width": 390,
+      "focus": {
+        "tag": "A",
+        "visible": true,
+        "label": "Saltar al contenido",
+        "outline": "solid"
+      },
+      "violations": []
+    },
+    {
+      "role": "destination",
+      "page": "/panel",
+      "width": 768,
+      "focus": {
+        "tag": "BUTTON",
+        "visible": true,
+        "label": "",
+        "outline": "solid"
+      },
+      "violations": []
+    },
+    {
+      "role": "destination",
+      "page": "/panel",
+      "width": 1440,
+      "focus": {
+        "tag": "SUMMARY",
+        "visible": true,
+        "label": "Horario: Monterrey",
+        "outline": "solid"
+      },
+      "violations": []
+    },
+    {
+      "role": "coordinator",
+      "page": "/panel",
+      "width": 390,
+      "focus": {
+        "tag": "A",
+        "visible": true,
+        "label": "Saltar al contenido",
+        "outline": "solid"
+      },
+      "violations": []
+    },
+    {
+      "role": "coordinator",
+      "page": "/panel",
+      "width": 768,
+      "focus": {
+        "tag": "BUTTON",
+        "visible": true,
+        "label": "",
+        "outline": "solid"
+      },
+      "violations": []
+    },
+    {
+      "role": "coordinator",
+      "page": "/panel",
+      "width": 1440,
+      "focus": {
+        "tag": "SUMMARY",
+        "visible": true,
+        "label": "Horario: Monterrey",
+        "outline": "solid"
+      },
+      "violations": []
+    },
+    {
+      "role": "transport1",
+      "page": "/panel",
+      "width": 390,
+      "focus": {
+        "tag": "A",
+        "visible": true,
+        "label": "Saltar al contenido",
+        "outline": "solid"
+      },
+      "violations": []
+    },
+    {
+      "role": "transport1",
+      "page": "/panel",
+      "width": 768,
+      "focus": {
+        "tag": "BUTTON",
+        "visible": true,
+        "label": "",
+        "outline": "solid"
+      },
+      "violations": []
+    },
+    {
+      "role": "transport1",
+      "page": "/panel",
+      "width": 1440,
+      "focus": {
+        "tag": "SUMMARY",
+        "visible": true,
+        "label": "Horario: Monterrey",
+        "outline": "solid"
+      },
+      "violations": []
+    },
+    {
+      "role": "transport-map",
+      "page": "/traslados/319ba6e2-6cbe-422b-a427-db5920434a39/mapa",
+      "width": 390,
+      "focus": {
+        "tag": "DIV",
+        "visible": true,
+        "label": "Origen: Hospital 1 · SINTÉTICODestino: Hospital 2 · SINTÉTICO+− Leaflet | © OpenStreetMap contributo",
+        "outline": "solid"
+      },
+      "violations": []
+    },
+    {
+      "role": "transport-map",
+      "page": "/traslados/319ba6e2-6cbe-422b-a427-db5920434a39/mapa",
+      "width": 768,
+      "focus": {
+        "tag": "A",
+        "visible": true,
+        "label": "+",
+        "outline": "solid"
+      },
+      "violations": []
+    },
+    {
+      "role": "transport-map",
+      "page": "/traslados/319ba6e2-6cbe-422b-a427-db5920434a39/mapa",
+      "width": 1440,
+      "focus": {
+        "tag": "A",
+        "visible": true,
+        "label": "−",
+        "outline": "solid"
+      },
+      "violations": []
+    },
+    {
+      "role": "map_viewer",
+      "page": "/panel",
+      "width": 390,
+      "focus": {
+        "tag": "A",
+        "visible": true,
+        "label": "Saltar al contenido",
+        "outline": "solid"
+      },
+      "violations": []
+    },
+    {
+      "role": "map_viewer",
+      "page": "/panel",
+      "width": 768,
+      "focus": {
+        "tag": "BUTTON",
+        "visible": true,
+        "label": "",
+        "outline": "solid"
+      },
+      "violations": []
+    },
+    {
+      "role": "map_viewer",
+      "page": "/panel",
+      "width": 1440,
+      "focus": {
+        "tag": "SUMMARY",
+        "visible": true,
+        "label": "Horario: Monterrey",
+        "outline": "solid"
+      },
+      "violations": []
+    },
+    {
+      "role": "map_viewer",
+      "page": "/panel",
+      "width": 390,
+      "focus": {
+        "tag": "A",
+        "visible": true,
+        "label": "Saltar al contenido",
+        "outline": "solid"
+      },
+      "violations": []
+    },
+    {
+      "role": "map_viewer",
+      "page": "/panel",
+      "width": 768,
+      "focus": {
+        "tag": "BUTTON",
+        "visible": true,
+        "label": "",
+        "outline": "solid"
+      },
+      "violations": []
+    },
+    {
+      "role": "map_viewer",
+      "page": "/panel",
+      "width": 1440,
+      "focus": {
+        "tag": "SUMMARY",
+        "visible": true,
+        "label": "Horario: Monterrey",
+        "outline": "solid"
+      },
+      "violations": []
+    },
+    {
+      "role": "map_viewer",
+      "page": "/panel",
+      "width": 390,
+      "focus": {
+        "tag": "A",
+        "visible": true,
+        "label": "Saltar al contenido",
+        "outline": "solid"
+      },
+      "violations": []
+    },
+    {
+      "role": "map_viewer",
+      "page": "/panel",
+      "width": 768,
+      "focus": {
+        "tag": "BUTTON",
+        "visible": true,
+        "label": "",
+        "outline": "solid"
+      },
+      "violations": []
+    },
+    {
+      "role": "map_viewer",
+      "page": "/panel",
+      "width": 1440,
+      "focus": {
+        "tag": "SUMMARY",
+        "visible": true,
+        "label": "Horario: Monterrey",
+        "outline": "solid"
+      },
+      "violations": []
+    },
+    {
+      "role": "map_viewer",
+      "page": "/panel",
+      "width": 390,
+      "focus": {
+        "tag": "A",
+        "visible": true,
+        "label": "Saltar al contenido",
+        "outline": "solid"
+      },
+      "violations": []
+    },
+    {
+      "role": "map_viewer",
+      "page": "/panel",
+      "width": 768,
+      "focus": {
+        "tag": "BUTTON",
+        "visible": true,
+        "label": "",
+        "outline": "solid"
+      },
+      "violations": []
+    },
+    {
+      "role": "map_viewer",
+      "page": "/panel",
+      "width": 1440,
+      "focus": {
+        "tag": "SUMMARY",
+        "visible": true,
+        "label": "Horario: Monterrey",
+        "outline": "solid"
+      },
+      "violations": []
+    }
+  ],
+  "passed": false,
+  "failure": "POST identidad_acceso/api/v1/users/7324140f-00e8-4201-98ee-cec2e89ee20f/role: HTTP 403 forbidden",
+  "failureLocation": [
+    "    at api (/Users/victorberlanga/Programacion/integracion/Red-House/scripts/verify_backend_corrections.cjs:13:282)",
+    "    at async module.exports (/Users/victorberlanga/Programacion/integracion/Red-House/scripts/portal_map_permissions.cjs:16:233)",
+    "    at async /Users/victorberlanga/Programacion/integracion/Red-House/scripts/verify_backend_corrections.cjs:83:33"
+  ],
+  "finishedAt": "2026-11-07T02:54:42.055Z"
+}

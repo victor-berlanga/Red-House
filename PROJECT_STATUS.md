@@ -1,6 +1,377 @@
 # Estado vigente de Red House
 
-Actualizado: **4 de noviembre de 2026**. Leer junto con `AGENTS.md` y el [índice documental](documentation/README.md). El historial detallado está separado del estado actual.
+## Prompts de continuación y cierre corregidos — 11/11/2026
+
+Por solicitud del usuario, actualizados los encargos 05–09, README y guía de ejecución; los archivos 00–04 se conservan idénticos a la copia previa de esta intervención. Cambio documental: no se modificaron aplicaciones, contratos, datos ni infraestructura, ni se ejecutaron sus encargos de implementación.
+
+[07 incorpora CONT-01…CONT-10](stuff/prompts/entrega-final/07_integracion_pruebas_y_rendimiento.md#continuidad-obligatoria-de-las-etapas-01-a-04) para corregir y verificar posteriormente los pendientes de 01–04: integración HLA, aceptación del portal, autenticación móvil, experiencia por roles, edición personal autorizada del donante, paginación, push, ciclo documental, iOS y capacidades físicas. El registro `documentation/entrega-final/continuidad/Matriz.md` se abrirá al ejecutar los encargos; no se creó una matriz ficticia ni se cerró ningún pendiente funcional. 05 puede continuar sus partes independientes; 06 asume controles/proveedores y I06-01…09; 07 corrige clientes y verifica el conjunto; 08 recibe evidencia y disposición de pendientes.
+
+05 incorpora reglas UI/UX, aceptación por familia/rol, destino de empaquetado y comprobación del contrato de sincronización antes de reutilizarlo para escritorio. 08 incorpora video final verificable, incidencias consolidadas, reflexiones auténticas y aclaración del requisito «ubiquitous». 06–09 y la guía respetan iPhone físico autorizado sin descargar Simulator, distinguen compilación de ejecución y conservan GPS externo opcional. Se mantienen PySide6, JSON móvil, XML/XSD/DTO escritorio y separación entre aceptación académica y autorización clínica. [Índice y uso de los prompts](stuff/prompts/entrega-final/README.md).
+
+Criterios documentales comprobados: diez IDs CONT únicos, catorce módulos DESK conservados, 52 enlaces locales y anclas válidos en los siete documentos modificados, bloques de código equilibrados y `git diff --check` sin incidencias. Comparación con copia previa confirma conservación de 00–04. Revisión cruzada de dependencias y criterios de cierre completada. No se ejecutaron aplicaciones ni pruebas funcionales; permanecen abiertos los pendientes de producto documentados abajo y los que identifique la comprobación vigente al implementar.
+
+## Corrección de calidad visual publicada en GCP — 10/11/2026
+
+Por autorización explícita **«Publicala»**, publicada la versión web **`redhouse/web:uiux-quality-20261110`** en **https://34.18.186.116**. Veinte archivos de presentación (catorce modificados, seis nuevos), con hashes previos comprobados y capa sobre la imagen vigente. Respaldo y reversión en `/opt/redhouse/.local/deploy-uiux-quality-20261110`; imagen anterior conservada. Solo se recreó web: treinta contenedores activos sanos y otros veintinueve con ID/imagen/estado intactos. Sin migraciones, cambios de servicios, dependencias o datos de negocio.
+
+Chrome HTTPS real: login/logout donante y operador; siete rutas a 1440/320 px, catorce vistas HTTP 200 sin desbordamientos ni errores JavaScript. Vista rápida/foco, detalle enlazado, CSRF/idempotencia presentes y ocho recursos estáticos con SHA idéntico al local. Capturas GCP comparables: Campañas pasa de 5 a 11 filas completas; Notificaciones de 3 a 11, a igual tamaño y zoom. Documentos muestra selectores de 44 px. La revisión privada GCP complementa los fixtures anteriores; no resuelve el bloqueo del entorno local ni acredita todos los roles.
+
+La publicación corresponde a web; Android/iOS requieren instalar sus compilaciones. Persisten los límites visuales/nativos y la aceptación integral pendiente. [Publicación, capturas, comprobación y reversión](documentation/evidencias/gcp/uiux-quality-20261110/RESULTADOS.md).
+
+## Segunda corrección de calidad visual — 10/11/2026
+
+**Presentación corregida; aceptación integral pendiente. La publicación posterior figura arriba.** Acciones web reutilizables por iconos, nombre enlazado al detalle, vista rápida diferenciada, menú accesible, filas y herramientas compactas. Documentos conserva dos GET dentro de una secuencia con cuerpo y ancho contenido; variantes de evaluación, conservación, linaje, auditoría, etiquetas e historial comparten los patrones. Acceso sin ayudas redundantes. Safari real detectó selectores demasiado bajos: apariencia corregida manteniendo el select HTML y controles de 44 px.
+
+Compose incorpora navegación inferior por los cinco roles existentes, entrada al trabajo, Cuenta agrupada con logout secundario y resúmenes por recurso. Citas/reserva/expediente separados; transporte agrupa referencias/contactos/evidencia/historial. Regreso contextual y del sistema; mapa y efectos de rastreo conservados. No se modificaron contratos, microservicios, adaptadores, seguridad, validaciones, sincronización, GPS, cámara, QR, datos de negocio ni infraestructura durante esta intervención. Se conservan los cambios previos del repositorio.
+
+Evidencia web: Chrome con 280 combinaciones de fixtures de familia/rol/ancho, 24 variantes propias y 4 simulaciones de texto al 200 %; Safari macOS real en cinco familias × cinco anchos CSS medidos, conservando su zoom previo 85 %. No son sesiones privadas ni certifican permisos. A 1440×1000 y misma escala, Campañas pasa de 5 a 11 filas completas; Avisos de 3 a 11. Flask público responde 200 en portada/acceso/recuperación. **El acceso privado local continúa bloqueado por verificación de cierre de sesión**; no se alteró el backend para evitarla.
+
+Evidencia nativa: consultas autenticadas y navegación por roles con cuentas de demostración existentes, MFA intacto; capturas comparables de Cuenta/Citas antes/después a 360 dp y fuente 130 %. Acceso ensayado a 360/412 dp y fuente 100/130/200 %: cinco recorridos con teclado/rotación aprobados; 412 dp/200 % agotó 140 s antes de completar rotación. Una sesión autenticada donante a 412 dp/200 % sí pasó. Se conservaron fallos y repeticiones del arnés, incluida la captura de capas gráficas incompletas del emulador; FLAG_SECURE sigue activo. Android e instrumentación compilan; Kotlin iOS arm64 compila; **21 JVM aprobadas, 2 omitidas** por laboratorio ausente. No se atribuye ejecución física iOS ni regresión de escrituras a estas pruebas.
+
+Pendientes: matriz completa de autorización por recurso y ejecución de todas las rutas privadas, estados de conflicto/incertidumbre, regresión de operaciones en laboratorio aislado, accesibilidad asistida y prueba iOS del usuario. Algunas capturas de tarea/contactos de transporte omiten visualmente Avisos aunque el recorrido puede pulsarlo; queda pendiente aislar captura/composición frente a renderizado, sin atribuir el fallo a dispositivos físicos. Inventario de 207 filas de ruta/rol y 28 plantillas, con sus límites explícitos. Criterios C01–C10/V01–V14, capturas, informes de cada repetición, comandos, SHA del APK y comprobación de alcance en [resultados de calidad visual](documentation/evidencias/uiux/20261110-calidad/RESULTADOS.md). Las etapas 03/04/06 siguen abiertas; 05 conserva PySide6 y XML/XSD. GCP utiliza ahora `redhouse/web:uiux-quality-20261110`, según la publicación posterior documentada arriba.
+
+## Rediseño web publicado en GCP — 10/11/2026
+
+Por autorización explícita «Subelo», publicado **redhouse/web:uiux-20261110** en **https://34.18.186.116**. Nueve archivos de presentación; imagen derivada de la vigente, sin actualizar dependencias, microservicios ni esquema 18. Treinta contenedores activos sanos; los otros 29 conservan ID/imagen/estado. Respaldo de fuentes/override e imagen anterior conservados en `/opt/redhouse/.local/deploy-uiux-20261110`, con reversión manual preparada.
+
+Chrome HTTPS/TLS 1.3: CSS idéntico al local, login/logout donante y operador, paneles, grupos únicos, campañas/citas/inventario/traslados y expediente directo; cero errores JavaScript. Nuevas capturas reales del portal privado. No se enviaron operaciones de negocio ni cargas de datos. El primer control previo se detuvo por contar restauraciones históricas terminadas; corregido antes de aplicar. Clave temporal OS Login retirada según expediente. Móvil sigue requiriendo compilación/instalación; este despliegue no cierra los pendientes de UI/UX ni 03/04/06.
+
+[Publicación, pruebas, capturas y reversión](documentation/evidencias/gcp/uiux-20261110/RESULTADOS.md).
+
+## Capturas de revisión del rediseño — 10/11/2026
+
+Cuatro capturas nuevas de Chrome local a 1440×1000: portada, acceso, ayuda y recuperación. Android API 30: APK instalado y Activity abierta; screencap devuelve cero bytes con protección de pantalla activa. Se conserva jerarquía accesible, sin desactivar FLAG_SECURE ni atribuir captura de launcher a la app. No hay nueva sesión privada comprobada. iOS queda para prueba del usuario. Sin cambios funcionales ni despliegue. [Capturas y límites](documentation/evidencias/uiux/20261110/capturas/README.md).
+
+## UI/UX: incremento de presentación, aceptación pendiente — 10/11/2026
+
+Ejecutado el prompt de rediseño sobre web y Compose existente. Navegación web agrupada con mismos destinos/permisos; avisos inciertos diferenciados; acceso directo al expediente; paginación proporcionada; tareas antes de gráficas; ayuda institucional y contraste de acceso corregidos. Móvil con navegación persistente, cuenta separada, paleta institucional y gota existente, etiquetas y fechas visibles con zona/precisión conservadas. Referencias de operaciones pendientes consultables. Sin cambios de servicios, contratos, validadores, datos productivos, infraestructura o escritorio; sin despliegue. Cambios previos conservados.
+
+Evidencia: regresión Jinja de siete perfiles y todos los templates; Chrome público a 320/390/768/1440 px, ayuda/teclado y texto al 200 %; comparación visual de panel con fixtures identificados. Seis pares de contraste entre 5,88:1 y 10,49:1. Android APK y Kotlin/iOS arm64 compilan; **21 pruebas JVM aprobadas, 2 omitidas** por laboratorio ausente. Instrumentación con selectores actualizados compilada. Un caso nativo de acceso aprobado en emulador API 30 con fuente al 130 %, controles visibles, sin credenciales enviadas y con FLAG_SECURE intacto; no acredita recorridos autenticados.
+
+**No se declara completo el rediseño.** Siete intentos de login local quedaron bloqueados por verificación de cierre de sesión/dependencias inaccesibles; no se modificó infraestructura para sortearlo. Pendientes: recorridos privados/nativos por perfil, medición antes/después de negocio, selectores nativos de fecha, formatos exhaustivos por recurso, accesibilidad manual/TalkBack/VoiceOver y ejecución física iOS. Los pendientes funcionales 03/04/06 permanecen abiertos. Las reglas compartidas siguen aplicables a 05 con PySide6 y XML/XSD.
+
+[Implementación, archivos, pruebas, intentos y pendientes](documentation/evidencias/uiux/20261110/RESULTADOS.md).
+
+## Gateway GCP predeterminado y publicación móvil — 10/11/2026
+
+Publicado el delta móvil en la VM existente `red-house`, IP reservada **https://34.18.186.116**; queda encendida. Tag `mobile04-20261110`, esquema **18**, treinta contenedores sanos. Respaldo y restauración de PostgreSQL/MongoDB/Redis aprobados antes de migrar; 116 tablas comparadas, 115 intactas y solo `schema_migration` con cambio esperado. Ochenta y seis campos/archivos sensibles conservados. Las 153 fuentes archivadas del monolito permanecen idénticas; su imagen se reconstruyó para incorporar bibliotecas de backend actualizadas. Sin copiar bases locales, crear infraestructura o escribir objetos GCS.
+
+HTTPS TLS 1.3 válido para la IP, portal 200. Recorrido final: 46 respuestas JSON comprobadas, doce API con live/ready, login/me/logout por tres perfiles, registro/revocación ANDROID/IOS, rechazo de propietario ajeno, consultas de contactos/ruta, inventario, campañas y avisos. WSS auténtico con autenticación/heartbeat; la suscripción devolvió correctamente `tracking_closed` por ausencia de rastreo vigente. No se publicaron posiciones ni se cambió custodia. Cuatro dispositivos ficticios quedaron revocados entre los dos intentos; se conservan los fallos del arnés y su repetición. Clave SSH temporal retirada, claves anteriores preservadas.
+
+**Cliente 0.3.1 (3):** gateway incorporado en Android/iOS; no se solicita dirección al usuario. Solo la compilación explícita de laboratorio permite editarla. El cambio de servidor elimina sesión/diario/cola anteriores y los workers rechazan un gateway distinto. Android compilado, firma v2, instalado y arrancado en API 30 x86_64; prueba nativa sin credenciales aprobó interfaz sin campo gateway y HTTPS JSON de cuatro servicios. **19 Kotlin/JVM aprobadas, 2 omitidas** por laboratorio aislado no iniciado; las dos pruebas nuevas comprueban separación y conservación de sesión/cola por servidor. El primer intento Gradle falló por un import, corregido y conservado. APK `.local/artifacts/mobile/RedHouse-0.3.1-debug.apk`, SHA-256 `1ba932816d18af5b4fbaf255691c1047b10967077c1292e159cbad86a427c851`.
+
+**iOS 0.3.1 arm64 compilado** con Xcode 16.3/SDK 18.4: Kotlin/Native, Swift y enlace final. Gateway incorporado verificado en el binario; conserva `CADisableMinimumFrameDurationOnPhone=true`. ZIP `.local/artifacts/mobile/ios/RedHouse-0.3.1-ios-arm64-unsigned.zip`, SHA-256 `071c8143ca5382d52bac4ec0fe6b378600559e46cf9e279d41bc73529e41d3ef`. Sin firma/provisioning, no instalable ni ejecutado físicamente en este encargo. El usuario debe recompilar/instalar desde Xcode para actualizar el iPhone; no se descargó Simulator. Permanecen pendientes pruebas físicas, demás criterios técnicos de aceptación, FCM/APNs y ensayo GCS autorizado; no se cierra 04/06.
+
+[Publicación GCP](documentation/evidencias/gcp/mobile04-20261110/RESULTADOS.md), [cliente y artefactos](documentation/evidencias/entrega-final/mobile/gcp-default-20261110/RESULTADOS.md), [matriz](documentation/entrega-final/mobile/Matriz.md).
+
+## Primer arranque en iPhone — 10/11/2026
+
+El usuario compiló, instaló y lanzó RedHouse desde Xcode en su iPhone 16 Pro con
+iOS 27.0.1. El depurador se detuvo durante el arranque en
+`androidx.compose.ui.uikit.PlistSanityCheck`. El plist del paquete compilado no
+contenía `CADisableMinimumFrameDurationOnPhone`. Se agregó como booleano
+`true` tanto al plist fuente como a la especificación de XcodeGen. La
+validación local comprueba sintaxis, tipo y persistencia al regenerar el
+proyecto en una copia temporal. Falta recompilar y confirmar que el nuevo
+paquete abre la pantalla de acceso en el iPhone. La aceptación de 04 sigue abierta.
+
+## Etapa 04: incremento Android/iOS comprobado parcialmente — 09/11/2026
+
+Se continúa `apps/mobile/` sin reconstrucción, cambios productivos ni reapertura de 01/02. **No se declara cierre total de 04 ni aceptación integral iOS.** Los estados históricos inferiores se conservan como historial.
+
+Implementados contactos operativos/ruta de reserva y contraparte autorizada, validación de formularios, identificación de muestras/resultados, etiquetas accesibles y ajustes nativos de privacidad/permisos. Contratos aditivos en sus propietarios; contactos privados por defecto. No se añaden reglas clínicas. ClamD real vuelve a aprobar CLEAN/EICAR; sin ensayo GCS.
+
+**Android 0.3.0 (2)**: APK normal compilado, firma v2 y ausencia de credenciales/CA del laboratorio comprobadas; instalado y arrancado en AOSP API 30 x86_64. Artefacto `.local/artifacts/mobile/RedHouse-0.3.0-debug.apk`, SHA-256 `26c96cd77986997e1ea995f2e9bfa73d45eab24b85f5d3d08eab32fd8b3d121e`. **19 casos nativos únicos aprobados**: custodia completa con tres lecturas ópticas, contactos/ruta, GPS inyectado → WSS → marcador, cámara/JPEG/limpieza, permisos denegados/GPS apagado, cola durable tras cierre forzado, WorkManager, agenda, lectura térmica, completitud médica, programación/cancelación, rotación y fuente 130 %. Posiciones y cámara de emulador explícitas, sin atribuir precisión/lente físicas. Fallos ANR y del arnés se conservan junto con repeticiones aprobadas.
+
+**19 pruebas Kotlin/JVM aprobadas**, cero omisiones: 15 comunes, 2 contratos y 2 recorridos reales; seis microservicios HTTPS y WSS con PostgreSQL/Redis/MongoDB temporales. **6 casos únicos de servidor aprobados** para ampliaciones/seguridad, con fallos iniciales del arnés documentados. No se confunden mocks con integración real ni el montaje de laboratorio con contenedores separados.
+
+**iOS arm64 compilado** con Xcode 16.3 (16E140), SDK iPhoneOS 18.4 y XcodeGen 2.46.0: Kotlin/Native, Swift y ejecutable. Corregidos errores reales de compilador, puente de avisos, módulo y permisos. Pruebas compartidas compiladas para arm64, **no ejecutadas en iOS**. Artefacto `.local/artifacts/mobile/ios/RedHouse-0.3.0-ios-arm64-unsigned.zip`, SHA-256 `81a9bce4d2e222b8c02a3c95b407f255554d0b6d07ce9454640d156626ca6207`. **Sin firma/provisioning; no instalable ni arrancado.** No se descargó Simulator. El SDK anterior no establece incompatibilidad de ejecución con el iPhone 16 Pro/iOS 27.0.1; firma, instalación y depuración son verificaciones distintas.
+
+Pendientes externos: cuenta/Team/provisioning/firma Apple y pruebas del iPhone; gateway HTTPS aislado accesible desde él; proyecto/proveedor FCM/APNs; autorización GCS aislada. Pendientes técnicos de aceptación: MFA/reautenticación y cupo concurrente desde interfaz, lectores de pantalla, ensayos físicos y suspensión/ahorro de batería; todos los recorridos iOS reales. Se distinguen de implementación ausente y no se ocultan detrás de accesos externos.
+
+[Resultados y artefactos](documentation/evidencias/entrega-final/mobile/android-ios-20261109/RESULTADOS.md), [matriz](documentation/entrega-final/mobile/Matriz.md), [instalación y pruebas físicas iPhone](documentation/entrega-final/mobile/Prueba_fisica_iPhone.md), [dependencias exactas](documentation/entrega-final/mobile/Dependencias_externas.md).
+
+## Preparación de dependencias móviles — 09/11/2026
+
+Por solicitud del usuario se instaló XcodeGen **2.46.0** (versión y lectura del proyecto comprobadas) y se preparó ClamAV **1.5.4** real con firmas verificadas (`daily` 28178, `main` 63, `bytecode` 339). Motor local en **127.0.0.1:13310**; `redhouse.malware.scan` devuelve CLEAN con contenido inocuo e INFECTED con EICAR. Configuración y comandos en `documentation/entrega-final/mobile/Dependencias_externas.md`; binarios/configuración privados bajo `.local/`, enlace `/usr/local/clamav` instalado con autorización administrativa. Sin configuración automática de propietarios, ciclos GCS, cambios productivos ni servicio al iniciar macOS. Prueba inicial bloqueada por sandbox TCP; repetida con permiso y aprobada. Se conservan las incidencias de firma de paquete y validación PGP separada en la guía.
+
+Xcode **16.3 (16E140)** suministrado por el usuario quedó instalado en `/Applications/Xcode.app`, seleccionado, con licencia aceptada por autorización expresa y configuración inicial completada. Firma validada y Gatekeeper `accepted/source=Apple System`; SDK iPhoneOS **18.4** comprobado. Todavía no se afirma compilación de la aplicación iOS. No se descarga Simulator: el usuario prefiere su **iPhone 16 Pro/iOS 27.0.1**. La conexión/preparación y depuración del teléfono siguen sin comprobarse; el SDK anterior no determina por sí solo incompatibilidad de ejecución. Pendientes: definir firma/instalación compatible para el teléfono, FCM/APNs y autorización del ensayo GCS. Android e iOS siguen exigidos; esta instalación no cierra 04 ni sustituye pruebas de la aplicación.
+
+## Móvil: continuación funcional de etapa 04 — 09/11/2026
+
+Se continúa el mismo proyecto Kotlin/Compose Multiplatform de `apps/mobile/`, sin
+reconstruirlo ni modificar producción. La sección inicial inferior queda como
+historial, sustituida por este estado. Etapa **todavía no aceptada integralmente**.
+
+Conectados: registro/revocación segura del dispositivo propio; tareas y transiciones
+con QR verificado por Transporte/Inventario; cámara/preview; GPS autorizado en primer
+plano; WSS JSON con ACK durable; mapa nativo de Nuevo León; observaciones cifradas con
+centro de sincronización y WorkManager; agenda/consentimiento del donante; recepción
+operativa, planificación del coordinador y consultas médicas de resultados/completitud.
+Sesión compartida UI/worker coordina renovación y rechaza cambio de identidad. La recuperación GPS permite descartar explícitamente una lectura sin
+confirmar, sin fabricar ACK y conservando las transferencias. Las
+transferencias críticas no se reintentan automáticamente desde la cola de observaciones.
+
+Backend ampliado solo para carencias concretas: fuente IOS, registro propio sin
+secreto emisor autónomo, autorización temporal de rastreo de la tarea asignada y
+verificación del QR. Migración aditiva 18 y contratos JSON/XML/XSD/WSS regenerados.
+Esquema compartido generado y restaurado en temporal: 116 tablas. No se migró GCP.
+
+Integración comprobada con PostgreSQL, Redis, MongoDB y servicios reales aislados:
+cliente Kotlin completa recolección → tránsito → entrega → aceptación por operador;
+coordinador consulta el resultado. Consume Identidad, Transporte, Inventario, Alertas
+y Donantes por JSON, con verificación de custodia por backend. WSS real conserva
+fuente, evento e idempotencia. Posiciones sintéticas explícitas; no GPS físico.
+La agenda donante pasó también su repetición tras respetar la unicidad real del
+expediente por cuenta. Resultados y fallos conservados en el expediente enlazado.
+
+La regresión de backend ejecutó 20 casos únicos: 19 aprobados inicialmente; un caso
+de arranque de réplicas WSS agotó su plazo y pasó al repetirse sin cambios de producto
+ni ampliación de timeout. No se suman repeticiones como casos nuevos. Tres casos adicionales de Alertas
+aprobaron rotación/reactivación propia y envío de `alert_id`, con JSON/XML y
+receptores SMTP/push locales identificados; no acreditan FCM/APNs. Android compila: 15 pruebas Kotlin finales aprobadas (13 unitarias y dos recorridos
+reales, sin omisiones). API 30 arrancó tras fallos de API 35. Pasaron permiso GPS
+denegado, apertura/cancelación QR y captura JPEG con eliminación de temporales;
+la prueba detectó y permitió corregir una carrera de limpieza. También pasaron
+GPS inyectado → WSS real → marcador MapView, privacidad local/logout, recuperación
+tras cierre forzado con el mismo ID, WorkManager sin interfaz activa y consultas
+nativas de operador/coordinador/médico. Donante reservó y canceló desde Compose,
+con logout y eliminación local de sesión. Se bloquean acciones durante la carga
+inicial del expediente; los intentos fallidos previos se conservan.
+No se equiparan pruebas Kotlin/JVM con recorridos en dispositivo.
+
+APK normal: `.local/artifacts/mobile/RedHouse-0.2.0-debug.apk`, firmado para
+desarrollo, sin CA/contraseña del laboratorio. SHA-256 y metadatos en `apk.json`
+del expediente. Instalación y pantalla de acceso del APK normal comprobadas;
+se conservan timeouts del comando de arranque, sin prometer rendimiento. Android verificado en emulador AOSP API 30 x86_64; no hardware
+físico, recepción push ni iOS.
+
+Dependencias exactas: Xcode completo/SDK/runtime Simulator y XcodeGen ausentes;
+Team/provisioning para firma física; proyecto/configuración FCM y proveedor autorizado
+FCM/APNs; autorización del prefijo GCS propuesto y ClamD real para ciclo de evidencia.
+Bucket `red-house-evidencias-sistemas-integracion-01` consultado solo por metadatos.
+Sin escrituras/borrados GCS ni recursos facturables creados. Los adaptadores iOS están
+en fuente: no compilados ni arrancados, y pueden necesitar correcciones del compilador.
+
+Pendientes técnicos separados de esos accesos: recorridos nativos completos por
+perfil, decodificación óptica QR, revocación de permisos, accesibilidad/rotación,
+red intermitente nativa y detalle de rutas/contactos operativos.
+No se declara terminada una capacidad por la existencia de su botón o adaptador.
+
+[Matriz vigente](documentation/entrega-final/mobile/Matriz.md),
+[evidencias de continuación](documentation/evidencias/entrega-final/mobile/continuacion-20261109/RESULTADOS.md),
+[dependencias exactas](documentation/entrega-final/mobile/Dependencias_externas.md),
+[aislamiento GCS propuesto](documentation/entrega-final/mobile/Aislamiento_GCS_propuesto.md).
+
+## Móvil multiplataforma: incremento inicial, etapa 04 incompleta — 09/11/2026
+
+Creado `apps/mobile/` con Kotlin Multiplatform 2.1.21, Compose Multiplatform
+1.8.2, destinos Android/iOS y Gradle Wrapper 8.11.1 con checksum oficial. Se
+preservaron los cambios previos de portal/servicios/documentos. Sin despliegue,
+migración, datos productivos ni cambios de reglas clínicas.
+
+Código inicial: sesión JSON HTTPS/MFA/renovación coordinada/revocación; almacenamiento
+Android AES-GCM con Keystore y host Swift con Keychain todavía sin compilar; navegación
+y consultas por cinco perfiles, agenda inicial y avisos. Cliente WSS JSON y cola exclusiva
+de observaciones implementados como clases, **todavía sin conectar a captura, mapa,
+centro de sincronización ni trabajo de plataforma**. No hay WebView ni acceso directo
+móvil a PostgreSQL, MongoDB o Redis.
+
+Android SDK instalado temporalmente tras aceptación explícita de licencia. Xcode
+completo y `simctl` ausentes: iOS no compilado ni arrancado. No se comprobó firma
+física, APNs/FCM ni hardware. Los contratos actuales de dispositivos/posiciones no
+admiten IOS y el registro de emisores exige ADMIN; no se amplían permisos ni se
+falsea la fuente Android para ocultarlo.
+
+**No completa el encargo 04.** Faltan capacidades nativas QR/cámara/GPS/push, mapa
+Nuevo León, operaciones completas por perfil, DTO completos, integración durable
+de sincronización, pruebas instrumentadas y contra cuatro servicios reales,
+compilación/arranque iOS y pruebas físicas pertinentes. Estos son pendientes
+reales de implementación/verificación; no todos dependen de credenciales externas.
+
+Verificado: APK debug compilado, firma v2 válida, instalado y arrancado en
+emulador Android API 35 x86_64 (pantalla inicial Compose, sin WebView); nueve pruebas unitarias con
+MockEngine aprobadas (siete de sesión, dos de cola), sin fallos/omisiones. No son
+pruebas de backend real ni instrumentación.
+
+Criterios de este incremento: construir proyecto Android, probar coordinación de
+renovación y rechazos básicos, conservar artefactos/fuentes y distinguir código
+fuente de ejecución real. Resultados finales de build/pruebas en el
+[expediente móvil](documentation/evidencias/entrega-final/mobile/RESULTADOS.md).
+[Matriz por requisito y dependencias](documentation/entrega-final/mobile/Matriz.md).
+[Instalación y operación](apps/mobile/README.md). Etapa **no aceptada**.
+
+
+Actualizado: **6 de noviembre de 2026**. Leer junto con `AGENTS.md` y el [índice documental](documentation/README.md). El historial detallado está separado del estado actual.
+
+## Portal 03 publicado en GCP para continuar a 04 — 06/11/2026
+
+Por encargo posterior del usuario, se encendió y actualizó la VM existente `red-house`.
+Portal **https://34.18.186.116**, tag **`portal03-20261106`**, esquema **17**, **30
+contenedores sanos**. Respaldo/restauración de prueba aprobados antes de migrar;
+112 de 113 tablas anteriores intactas, única variación esperada en `schema_migration`;
+86 campos/archivos sensibles conservados. Host: 3.895 archivos cotejados. Fuentes
+dentro de 25 contenedores de aplicación verificadas; backend `monolith` con doce
+propietarios, API HTTP explícitas y gateway público conservados. Sin cambios de producto.
+
+Comprobación nueva de publicación con Chrome: siete perfiles, MFA en tres, 50
+instancias Highcharts contrastadas, 37 checks HTTP de salud/protección; campaña,
+publicación privada y horario persistidos, lectura del mismo registro por JSON/XML,
+cuatro rechazos 403 por URL y logout. Responsive estable a 390/768/1440. WSS real por
+gateway: autenticación/suscripción al mapa y revocación de un dispositivo temporal
+creado/asignado por formularios; `tracking_closed` termina el acceso con mapa abierto.
+No se publicaron posiciones nuevas ni se simularon caídas. Las coordenadas de las
+instituciones siguen pendientes donde no están registradas; no se inventaron.
+
+**APTA LOCALMENTE PARA CONTINUAR A 04**, con esa base técnica publicada en GCP.
+Aceptación integrada pendiente de 06: WEB-12, WEB-15, WEB-19, WEB-21, WEB-24,
+TRACK-09 y TRACK-10 siguen **PARCIALES**. No se probaron ahora ciclos GCS/ClamAV,
+EICAR, retención real ni caída total/replay/continuidad por gateway. La publicación
+habitual no autoriza esos ensayos. Se conservan los **90 casos históricos**, sin
+reejecutarlos: 1.234 fuentes y 205 artefactos coinciden. Las cuatro pruebas locales
+de la revisión anterior tampoco se presentan como ejecutadas en GCP.
+
+Los intentos fallidos del comprobador y sus correcciones están conservados; no se
+cambió el producto para hacerlos pasar. La revisión automática rechazó descargar
+logs brutos mediante comodín; se mantuvieron privados y se usaron informes sanitizados.
+[Resultados, capturas, hashes, alcance y pendientes](documentation/evidencias/gcp/portal03-20261106/RESULTADOS.md).
+
+## Aceptación local de 03 y separación de infraestructura 06 — 06/11/2026
+
+**Veredicto vigente: APTA LOCALMENTE PARA CONTINUAR A 04.** El usuario confirmó mantener
+la aceptación integrada pendiente de 06. WEB-12, WEB-15, WEB-19, WEB-21, WEB-24,
+TRACK-09 y TRACK-10 conservan estado **PARCIAL**; matriz total: 27 APROBADOS/7 PARCIALES.
+El nuevo encargo distingue avance local de aceptación integral: no se alteran los
+veredictos/evidencias históricos ni se reabren etapas 01/02.
+
+Inspección previa a la publicación GCP indicada arriba, de solo lectura: Docker local sin socket, Nginx/ClamAV no encontrados
+en PATH, configuración GCS local histórica sin propietario Documentos. GCP devuelve
+las tres VM del proyecto detenidas y un único bucket histórico con prevención de
+acceso público y acceso uniforme. No hay un entorno aislado operativo confirmado;
+ninguno de esos metadatos acredita carga, análisis o descarga. No se encendió/desplegó,
+escribió en GCS, cambió IAM/red ni detuvo recurso habitual alguno.
+
+Los **90 casos históricos no se reejecutaron**. SHA-256 confirma sus 1.234 fuentes y
+205 artefactos intactos. Revisión focalizada encontró cobertura poco explícita de
+versiones/análisis exacto: se añadió `test_portal_document_acceptance.py`, sin cambiar
+producto/contratos/migraciones. **Cuatro casos nuevos aprobados**: sucesión documental,
+conflictos/bloqueo, generación/hash, ámbito/revocación y fallos/recuperación. Usan
+PostgreSQL/Redis/MongoDB temporales, GCS doble y receptor ClamD doble; no navegador nuevo.
+El intento inicial tuvo 3 aprobados y 1 fallo por esperar bloqueo desactivado por
+defecto; el esquema exige activado. Se corrigió solo el test y se repitió ese caso
+(1 aprobado). Fallo y repetición conservados, sin sumar cinco ejecuciones como cinco casos.
+
+Pendientes integrados: Chrome con GCS privado/ClamAV reales, EICAR, conservación y
+objeto/generación exactos, revocación entre creación/descarga, caída/restauración de
+almacenamiento/motor y de todas las réplicas WSS por gateway real con mapa abierto,
+cursor/permisos y escritura web autónoma simultánea. Responsables funcionales de
+Equipo 01 (Infraestructura/Seguridad 06, QA 03, Documentos, Transporte/Identidad),
+prerrequisitos y casos I06-01 a I06-09 quedan asignados en el ensayo. No se aprueban
+objetos en cuarentena ni acciones ajenas; URL ya firmada conserva ventana temporal
+de cinco minutos, sin prometer revocación instantánea fuera de la aplicación.
+
+[Resultados actuales](documentation/evidencias/entrega-final/portal/aceptacion-20261106/RESULTADOS.md),
+[matriz vigente](documentation/entrega-final/portal/Matriz.md),
+[ensayo de cierre en 06](documentation/entrega-final/portal/Aceptacion_integrada_06.md).
+La captura móvil física sigue en 04/07 y escritorio en 05/07; GPS externo opcional.
+La aceptación local permite avanzar a 04 sin declarar infraestructura ni integración completas.
+
+## Corrección local del portal 03: aceptación parcial — 06/11/2026
+
+Ejecutado el encargo posterior `stuff/prompts/correccion_comprobacion/03_correccion_y_comprobacion.md`.
+Base `cbe3503b39a60b6b0a995f1284b2f5b1c3405cae` y cambios locales preservados. Sin commit,
+despliegue ni modificación de datos habituales. Se mantienen los históricos de 58/63 casos
+y los cambios previos de prompts móviles; no se suman como pruebas nuevas.
+
+Corregido: resultado pendiente de reserva y recuperación por clave/huella sin segundo efecto;
+publicación institucional/campañas; agenda por sede/hora, asistencia y recordatorios;
+fraccionamiento, linaje/etiquetas; conservación térmica con políticas sintéticas;
+muestras/correcciones/HLA, constancias externas versionadas y destino final;
+configuración/dispositivos; documentos generales y conservación; propuestas regionales
+minimizadas; Highcharts con periodo/población; reportes paginados/reautorizados y contexto
+PDF/CSV/XLSX. CSV inmediato de auditoría convierte zona y conserva filtros/conteos; CSV
+genérico distingue institución de la cuenta y ámbito autorizado. Migración aditiva 017,
+contratos regenerados, propietarios autónomos y HTTP explícito sin fallback tras escritura.
+
+Rastreo: proveedor configurable, mosaicos reales en línea, anclas con fuente/fecha/marca
+sintética, WSS real, trayecto, sin fijación, antigüedad, desconexión/reconexión y cursor.
+Cinco pérdidas de permiso con mapa abierto: asignación, expiración, revocación, logout y rol.
+Los ocho eventos publicados no se presentan como ocho renderizados: el hueco inducido del
+séptimo queda explícito. Medición recepción backend–mapa, nunca captura física–mapa.
+
+Aceptación nueva consolidada: **90 casos únicos aprobados, sin omisiones pendientes en la selección final**,
+con identidades y repeticiones en el expediente. La regresión conjunta tuvo 61 aprobadas,
+un fallo de preparación del esquema histórico y una omisión del navegador anterior;
+ambos casos se reejecutaron por separado y sus resultados se conservan. Cinco casos Chrome: dos recorridos completos
+(sangre/órgano/donación, uno con las doce API detenidas) y dos complementos de agenda,
+teclado y CSV, más cartografía caída con traslado privado accesible. MFA obligatorio en los
+recorridos principales, SMTP temporal real, reautenticación, persistencia SQL,
+rechazos por URL/exportación y Highcharts activo. Anchos 390/768/1440; axe y revisión visual
+con alcance documentado. Exportación de 1.003 filas comprobada. Los pasos internos y las
+instancias repetidas de gráficas no se cuentan como tests. Fuentes antes/después y comparación
+de cambios posteriores identifican la aplicabilidad; no se afirma una repetición completa
+posterior a cada ajuste de presentación cuando hubo revalidación dirigida.
+
+**Pendientes obligatorios de aceptación:** ciclo general navegador–GCS privado–ClamAV real–
+descarga y pérdida de permiso; caída total/recuperación con mapa abierto a través del gateway
+de destino. Los dobles TestBucket/ClamD y TLS WSGI local no acreditan esos servicios; no se
+habilitan descargas alternativas ni se aprueba infraestructura. SMTP institucional queda en 06.
+Captura física iOS/Android se acepta en 04/07; GPS externo es opcional. La validación clínica
+y las coordenadas institucionales reales conservan estado externo. Estos pendientes móviles
+no reabren 01/02 ni bloquean por sí solos el alcance web con simulador.
+
+Evidencia: [resultados, intentos y cierre](documentation/evidencias/entrega-final/portal/correccion-20261106/RESULTADOS.md),
+[matriz de 34 criterios](documentation/entrega-final/portal/Matriz.md),
+[pantallas/permisos](documentation/entrega-final/portal/Pantallas_y_permisos.md),
+[guía de operación](documentation/entrega-final/portal/Operacion.md).
+**Veredicto de etapa: NO APTA PARA CONTINUAR.** Las comprobaciones
+externas indicadas deben retomarse en entorno autorizado; pueden avanzar tareas independientes.
+
+## Actualización de encargos móviles y corrección del portal — 06/11/2026
+
+Por solicitud del usuario se actualizaron los prompts pendientes de entrega final para móvil **iOS y Android**, usando Kotlin Multiplatform con Compose Multiplatform como base del encargo. La aplicación móvil será la fuente principal de ubicación; GPS externo queda opcional. Se conservan JSON móvil, XML/XSD escritorio, backend/WSS existentes y las etapas 01/02 realizadas. La 03 sigue abierta: nuevo encargo en `stuff/prompts/correccion_comprobacion/03_correccion_y_comprobacion.md`, basado en los hallazgos comunicados de la auditoría del 6 de noviembre, con criterios y pruebas requeridas.
+
+Alcance de este cambio: instrucciones/documentación; sin implementación móvil, cambios de contratos ni ejecución de flujos de negocio. Los prompts 04 a 08, complemento 09, reglas/README y guía distinguen pruebas Android/iOS, captura en segundo plano, compilación/firma y aceptación del portal con simulador frente a integración móvil futura. El nombre histórico `04_aplicacion_android.md` se conserva por compatibilidad de enlaces; su contenido exige ambos sistemas y propone `apps/mobile/`. Criterios de comprobación: referencias locales válidas, ausencia de requisitos exclusivos Android contradictorios y etapas 01/02 sin cambios. Compilación, firma, pruebas físicas y corrección funcional de 03 quedan pendientes de ejecutar sus encargos. Verificación documental realizada: enlaces Markdown locales de ambos directorios válidos; `git diff --check` aprobado; prompts originales 01, 02 y 03 sin diferencias. No se ejecutaron pruebas de aplicación: este incremento solo modifica encargos.
+
+## Portal web: incremento local del prompt 03 — 06/11/2026
+
+Implementado: mapa Leaflet de Nuevo León con última observación autorizada,
+marcador/trayecto WSS, fuente SIMULATOR explícita, hora en zona elegida, edad,
+precisión, señal retrasada/desconectada y reconexión por cursor. Acceso opaco de
+90 segundos emitido por Transporte, solo lectura de un traslado; revalida sesión,
+rol y ámbito Redis, sin entregar JWT al navegador. Conserva WSS JSON/XML y la
+ruta del gateway existente. Fallo cartográfico conserva último dato y navegación.
+
+Añadidos formularios persistentes de recuperación de contraseña (SMTP, token de
+un uso, revocación), consentimiento versionado e historial, horarios por sede,
+reserva y gestión de cita. Se corrigió el fragmento del diálogo de perfiles de
+laboratorio. No se modificó el adaptador modular/HTTP ni su política de no hacer
+fallback tras una escritura; tampoco se migraron datos o desplegó GCP.
+
+Evidencia nueva: **17 pruebas previas de WSS aprobadas**, **15 unitarias aprobadas**
+y **cuatro casos nuevos aprobados**. Regresión HTTP/autonomía/operaciones: **27
+aprobadas en 479,77 s**, incluidos sangre, órganos y donación con API detenidas.
+Total: **63 identidades únicas aprobadas**, entre ejecuciones identificadas en el
+[expediente](documentation/evidencias/entrega-final/portal/RESULTADOS.md).
+Chrome verificó siete paneles a 390/768/1440 px; mapa con publicación WSS real de
+simulador, nuevo socket al reconectar, marcador y caída cartográfica. Cero errores
+JavaScript. SMTP temporal real comprobó recuperación, token consumido y login nuevo.
+Consentimiento/reserva/confirmación/cancelación persistieron mediante formularios.
+Los intentos fallidos se conservan: sandbox sin MongoDB accesible, cuenta de prueba
+inexistente, CSP del servidor TLS de prueba y argumento incorrecto del verificador.
+No se ocultan ni se suman duplicados como casos nuevos.
+
+**Etapa 03 abierta.** Faltan coordenadas institucionales autorizadas para marcadores
+de origen/destino, comprobación cartográfica visual en línea y gateway publicado,
+pantallas restantes de frío/dispositivos/documentos y procesamiento, indicadores
+y reportes completos por periodo/denominador, publicación autorizada de campañas,
+y recorridos exhaustivos/accesibilidad de todos los formularios. GPS físico,
+SMTP institucional y validación clínica externa siguen pendientes separados.
+Chrome bloqueó mosaicos OSM por política de uso automatizado; las capturas muestran
+la degradación, no cartografía descargada. No se acredita cierre total ni producción.
+
+[Guía y contratos](documentation/entrega-final/portal/Operacion.md) ·
+[Matriz por requisito](documentation/entrega-final/portal/Matriz.md).
 
 ## Comprobación posterior del prompt técnico — 04/11/2026
 

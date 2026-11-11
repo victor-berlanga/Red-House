@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<testsuites name="pytest tests">
+  <testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="499.321" timestamp="2026-11-06T20:35:58.457131-06:00" hostname="Victors-MacBook-Air.local">
+    <testcase classname="tests.test_correction_browser" name="test_operational_browser_corrections[monolith]" time="497.752">
+      <failure message="Traza saneada; consultar RESULTADOS.md y resultados.json del intento.">Original temporal identificado por SHA-256; se omiten credenciales de formularios.</failure>
+    </testcase>
+  </testsuite>
+</testsuites>

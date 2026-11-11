@@ -1,0 +1,29 @@
+{
+  "origin": "https://34.18.186.116",
+  "date": "2026-11-11T01:27:14.828Z",
+  "checks": [
+    "HTTPS y acceso actualizado",
+    "CSS público coincide con SHA-256 local",
+    "donor1: sesión y grupos únicos",
+    "donor1: expediente directo desde /campanas",
+    "donor1: /campanas HTTP 200",
+    "donor1: expediente directo desde /citas",
+    "donor1: /citas HTTP 200",
+    "donor1: cierre de sesión",
+    "operator1: sesión y grupos únicos",
+    "operator1: expediente directo desde /inventario",
+    "operator1: /inventario HTTP 200",
+    "operator1: expediente directo desde /traslados",
+    "operator1: /traslados HTTP 200",
+    "operator1: cierre de sesión"
+  ],
+  "errors": [],
+  "tls": {
+    "issuer": "YE1",
+    "protocol": "TLS 1.3",
+    "subjectName": "",
+    "validFrom": 1794093274,
+    "validTo": 1794669273
+  },
+  "result": "passed"
+}

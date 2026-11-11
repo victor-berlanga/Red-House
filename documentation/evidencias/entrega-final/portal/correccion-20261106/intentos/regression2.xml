@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='utf-8'?>
+<testsuites name="pytest tests">
+  <testsuite name="pytest" errors="0" failures="2" skipped="1" tests="36" time="520.458" timestamp="2026-11-06T15:51:27.799196-06:00" hostname="Victors-MacBook-Air.local">
+    <testcase classname="tests.test_portal_corrections" name="test_pending_confirmation_web_recovers_same_command_without_false_success" time="27.982" />
+    <testcase classname="tests.test_portal_corrections" name="test_web_lost_entire_write_response_queries_result_without_second_post" time="4.205" />
+    <testcase classname="tests.test_web_integration" name="test_roles_can_render_authorized_pages_through_http[admin1-paths0]" time="2.566" />
+    <testcase classname="tests.test_web_integration" name="test_roles_can_render_authorized_pages_through_http[operator1-paths1]" time="3.677" />
+    <testcase classname="tests.test_web_integration" name="test_roles_can_render_authorized_pages_through_http[medical1-paths2]" time="4.489" />
+    <testcase classname="tests.test_web_integration" name="test_roles_can_render_authorized_pages_through_http[coordinator1-paths3]" time="4.661" />
+    <testcase classname="tests.test_web_integration" name="test_roles_can_render_authorized_pages_through_http[transport1-paths4]" time="2.529" />
+    <testcase classname="tests.test_web_integration" name="test_roles_can_render_authorized_pages_through_http[auditor1-paths5]" time="2.293" />
+    <testcase classname="tests.test_web_integration" name="test_roles_can_render_authorized_pages_through_http[donor1-paths6]" time="1.963" />
+    <testcase classname="tests.test_web_integration" name="test_full_reservation_transport_receipt_from_web_and_xml[BLOOD-RBC-A+]" time="78.842" />
+    <testcase classname="tests.test_web_integration" name="test_full_reservation_transport_receipt_from_web_and_xml[ORGAN-KIDNEY-O+]" time="35.639" />
+    <testcase classname="tests.test_web_integration" name="test_full_reservation_transport_receipt_from_web_and_xml[ORGAN-LIVER-O+]" time="33.498" />
+    <testcase classname="tests.test_web_integration" name="test_full_reservation_transport_receipt_from_web_and_xml[ORGAN-HEART-O+]" time="49.802" />
+    <testcase classname="tests.test_web_integration" name="test_forms_keep_values_and_same_idempotency_after_error" time="1.789" />
+    <testcase classname="tests.test_web_integration" name="test_web_rejects_csrf_wrong_role_and_cross_institution" time="3.316" />
+    <testcase classname="tests.test_web_integration" name="test_filtered_pagination_counts_and_minimized_recipient_search" time="1.780" />
+    <testcase classname="tests.test_web_integration" name="test_identity_outage_reports_503_without_legacy_fallback" time="1.149" />
+    <testcase classname="tests.test_web_integration" name="test_renewal_and_logout_revoke_backend_session_without_exposing_tokens" time="1.398" />
+    <testcase classname="tests.test_web_integration" name="test_donor_campaign_appointment_processing_and_inventory_source_from_web" time="4.153" />
+    <testcase classname="tests.test_web_integration" name="test_matching_proposal_from_web_does_not_reserve" time="3.048" />
+    <testcase classname="tests.test_web_integration" name="test_admin_web_creation_deactivation_revokes_new_user" time="2.153" />
+    <testcase classname="tests.test_portal_tracking" name="test_browser_ticket_scope_publish_expiry_and_web_csrf" time="7.786" />
+    <testcase classname="tests.test_portal_tracking" name="test_portal_browser_profiles_and_live_map" time="0.018">
+      <skipped type="pytest.skip" message="Requiere Chrome y Playwright; activar REDHOUSE_BROWSER_TESTS=1.">/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/tests/test_portal_tracking.py:64: Requiere Chrome y Playwright; activar REDHOUSE_BROWSER_TESTS=1.</skipped>
+    </testcase>
+    <testcase classname="tests.test_portal_tracking" name="test_web_password_recovery_real_smtp_single_use" time="2.240" />
+    <testcase classname="tests.test_portal_tracking" name="test_web_consent_and_hourly_agenda_persist" time="5.279" />
+    <testcase classname="tests.test_final_quality" name="test_laboratory_missing_results_correction_quarantine_and_final_destination[json]" time="47.795" />
+    <testcase classname="tests.test_final_quality" name="test_laboratory_missing_results_correction_quarantine_and_final_destination[xml]" time="7.534" />
+    <testcase classname="tests.test_final_delivery_documents" name="test_smtp_push_retry_escalation_dedup_and_close[json]" time="7.754" />
+    <testcase classname="tests.test_final_delivery_documents" name="test_smtp_push_retry_escalation_dedup_and_close[xml]" time="8.772" />
+    <testcase classname="tests.test_final_delivery_documents" name="test_documents_scan_private_access_and_export_formats[json]" time="0.601">
+      <failure message="Detalle saneado; diagnóstico conservado en INTENTOS.md. No es prueba aprobada.">Se omite la traza que puede contener credenciales temporales de formularios. El hash del original se conserva en intentos.json.</failure>
+    </testcase>
+    <testcase classname="tests.test_final_delivery_documents" name="test_documents_scan_private_access_and_export_formats[xml]" time="0.247">
+      <failure message="Detalle saneado; diagnóstico conservado en INTENTOS.md. No es prueba aprobada.">Se omite la traza que puede contener credenciales temporales de formularios. El hash del original se conserva en intentos.json.</failure>
+    </testcase>
+    <testcase classname="tests.test_final_delivery_documents" name="test_clamd_infected_unavailable_and_formula_injection" time="0.510" />
+    <testcase classname="tests.test_continuity" name="test_complete_web_flow_without_apis[BLOOD-RBC-O+]" time="47.055" />
+    <testcase classname="tests.test_continuity" name="test_complete_web_flow_without_apis[ORGAN-KIDNEY-O+]" time="76.082" />
+    <testcase classname="tests.test_continuity" name="test_donation_processing_without_apis" time="21.560" />
+    <testcase classname="tests.test_continuity" name="test_monolith_redis_failure_fails_closed_and_recovers" time="15.211" />
+  </testsuite>
+</testsuites>

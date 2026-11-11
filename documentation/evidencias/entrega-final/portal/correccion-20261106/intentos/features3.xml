@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<testsuites name="pytest tests">
+  <testsuite name="pytest" errors="0" failures="0" skipped="0" tests="9" time="108.493" timestamp="2026-11-06T16:07:37.417423-06:00" hostname="Victors-MacBook-Air.local">
+    <testcase classname="tests.test_portal_corrections" name="test_configuration_publication_privacy_versions_and_metrics" time="20.190" />
+    <testcase classname="tests.test_portal_corrections" name="test_paginated_export_over_thousand_filters_context_and_foreign_denial" time="2.332" />
+    <testcase classname="tests.test_portal_corrections" name="test_pending_confirmation_web_recovers_same_command_without_false_success" time="5.259" />
+    <testcase classname="tests.test_portal_corrections" name="test_web_lost_entire_write_response_queries_result_without_second_post" time="4.550" />
+    <testcase classname="tests.test_final_delivery_documents" name="test_smtp_push_retry_escalation_dedup_and_close[json]" time="38.724" />
+    <testcase classname="tests.test_final_delivery_documents" name="test_smtp_push_retry_escalation_dedup_and_close[xml]" time="10.104" />
+    <testcase classname="tests.test_final_delivery_documents" name="test_documents_scan_private_access_and_export_formats[json]" time="11.264" />
+    <testcase classname="tests.test_final_delivery_documents" name="test_documents_scan_private_access_and_export_formats[xml]" time="10.922" />
+    <testcase classname="tests.test_final_delivery_documents" name="test_clamd_infected_unavailable_and_formula_injection" time="4.591" />
+  </testsuite>
+</testsuites>

@@ -1,0 +1,742 @@
+{
+  "startedAt": "2026-11-07T02:14:25.699Z",
+  "environment": "https://localhost:54543",
+  "gateway": "WSGI TLS aislado; no acredita proxy productivo",
+  "backend": "http",
+  "version": "working-tree/schema-17",
+  "commit": "cbe3503b39a60b6b0a995f1284b2f5b1c3405cae",
+  "sourceManifest": "sources-before.json",
+  "schema": 17,
+  "policies": {
+    "mfa": true,
+    "reauth": true,
+    "laboratory": true,
+    "organAuthorization": true
+  },
+  "checks": [
+    {
+      "name": "Inicio de sesión y cookies Secure sobre TLS",
+      "role": "admin",
+      "at": "2026-11-07T02:14:34.779Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Publicación institucional explícita, sin coordenadas privadas en sitio público",
+      "role": "admin",
+      "at": "2026-11-07T02:14:39.734Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Administrador registra emisor, rota credencial y revoca dispositivo",
+      "role": "admin",
+      "at": "2026-11-07T02:14:47.464Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Inicio de sesión y cookies Secure sobre TLS",
+      "role": "donor",
+      "at": "2026-11-07T02:14:51.899Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Donante registra expediente y consentimiento versionado persistente",
+      "role": "donor1",
+      "at": "2026-11-07T02:14:59.956Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Donante rechazado por URL de inventario ajeno",
+      "role": "donor1",
+      "at": "2026-11-07T02:15:00.685Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Inicio de sesión y cookies Secure sobre TLS",
+      "role": "operator1",
+      "at": "2026-11-07T02:15:06.661Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Cambio Monterrey/UTC conserva instante capturado y almacenamiento UTC",
+      "role": "operator1",
+      "at": "2026-11-07T02:15:15.043Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Agenda con sede/horario: reservar, confirmar, reprogramar y cancelar",
+      "role": "donor1",
+      "at": "2026-11-07T02:15:46.069Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Inicio de sesión y cookies Secure sobre TLS",
+      "role": "donor_race",
+      "at": "2026-11-07T02:15:50.363Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Dos cuentas compiten en navegador por último cupo: una reserva; rechazo conserva valores",
+      "role": "donor",
+      "at": "2026-11-07T02:16:00.768Z",
+      "result": "PASS"
+    },
+    {
+      "name": "MFA ausente rechazado sin iniciar sesión",
+      "role": "origin",
+      "at": "2026-11-07T02:16:03.659Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Inicio de sesión y cookies Secure sobre TLS",
+      "role": "origin",
+      "at": "2026-11-07T02:16:08.151Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Donación, evaluación médica, procesamiento, fraccionamiento, linaje y etiqueta",
+      "role": "operator1",
+      "at": "2026-11-07T02:16:33.751Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Equipo de conservación registrado mediante formulario",
+      "role": "operator1",
+      "at": "2026-11-07T02:16:36.696Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Perfil térmico sintético, controles, excursión y revisión documentada por médico",
+      "role": "origin",
+      "at": "2026-11-07T02:16:54.514Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Retirada de consentimiento conserva historial",
+      "role": "donor1",
+      "at": "2026-11-07T02:16:57.823Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Recuperación por SMTP real local, token de un uso y nuevo login",
+      "role": "donor",
+      "at": "2026-11-07T02:17:06.806Z",
+      "result": "PASS"
+    }
+  ],
+  "consoleErrors": [],
+  "networkErrors": [
+    {
+      "status": 403,
+      "path": "/inventario/bb21166a-35e9-459c-9330-cb691e9d3ccf",
+      "role": "donor"
+    },
+    {
+      "status": 409,
+      "path": "/citas/nueva",
+      "role": "donor"
+    },
+    {
+      "status": 401,
+      "path": "/login",
+      "role": "origin"
+    },
+    {
+      "status": 401,
+      "path": "/recuperar-acceso/confirmar",
+      "role": "donor"
+    },
+    {
+      "status": 403,
+      "path": "/inventario/bb21166a-35e9-459c-9330-cb691e9d3ccf/liberar",
+      "role": "origin"
+    }
+  ],
+  "records": {
+    "profileJourneys": {
+      "donor": "85fa818c-58bc-419a-a341-486a1b14fc09",
+      "donation": "f7e9b159-7fae-4daa-9e3c-ce292c727c6c",
+      "resource": "df60f0c2-e5cd-45c4-a2c2-5e0a470f9b84",
+      "appointment": "70d1c606-bcc5-4f7c-bfd9-8343c32ebffc",
+      "campaign": "28f9e06f-cb8c-452f-b5e8-464145b188b0"
+    }
+  },
+  "privateReportDownloaded": false,
+  "map": "Pendiente de ejecutar",
+  "runtime": {
+    "browser": "157.0.8103.39",
+    "node": "v22.13.0",
+    "os": "darwin",
+    "arch": "x64"
+  },
+  "charts": [
+    {
+      "role": "admin",
+      "charts": []
+    },
+    {
+      "role": "donor",
+      "charts": []
+    },
+    {
+      "role": "operator1",
+      "charts": [
+        {
+          "expected": [],
+          "rendered": false,
+          "table": true
+        },
+        {
+          "expected": [
+            {
+              "label": "QUARANTINE",
+              "value": 2
+            }
+          ],
+          "actual": [
+            2
+          ],
+          "rendered": true,
+          "table": true
+        },
+        {
+          "expected": [
+            {
+              "label": "KIDNEY",
+              "value": 1
+            },
+            {
+              "label": "RBC",
+              "value": 1
+            }
+          ],
+          "actual": [
+            1,
+            1
+          ],
+          "rendered": true,
+          "table": true
+        },
+        {
+          "expected": [],
+          "rendered": false,
+          "table": true
+        },
+        {
+          "expected": [],
+          "rendered": false,
+          "table": true
+        },
+        {
+          "expected": [],
+          "rendered": false,
+          "table": true
+        },
+        {
+          "expected": [],
+          "rendered": false,
+          "table": true
+        },
+        {
+          "expected": [
+            {
+              "label": "Mínima",
+              "value": null
+            },
+            {
+              "label": "Media",
+              "value": null
+            },
+            {
+              "label": "Máxima",
+              "value": null
+            }
+          ],
+          "actual": [
+            null,
+            null,
+            null
+          ],
+          "rendered": true,
+          "table": true
+        },
+        {
+          "expected": [],
+          "rendered": false,
+          "table": true
+        },
+        {
+          "expected": [
+            {
+              "label": "Media",
+              "value": null
+            }
+          ],
+          "actual": [
+            null
+          ],
+          "rendered": true,
+          "table": true
+        },
+        {
+          "expected": [
+            {
+              "label": "AUTHORIZED",
+              "value": 1
+            },
+            {
+              "label": "CAPTURED",
+              "value": 1
+            }
+          ],
+          "actual": [
+            1,
+            1
+          ],
+          "rendered": true,
+          "table": true
+        },
+        {
+          "expected": [],
+          "rendered": false,
+          "table": true
+        },
+        {
+          "expected": [],
+          "rendered": false,
+          "table": true
+        },
+        {
+          "expected": [
+            {
+              "label": "Media observada",
+              "value": null
+            }
+          ],
+          "actual": [
+            null
+          ],
+          "rendered": true,
+          "table": true
+        },
+        {
+          "expected": [],
+          "rendered": false,
+          "table": true
+        },
+        {
+          "expected": [
+            {
+              "label": "Cuarentena",
+              "value": 2
+            }
+          ],
+          "actual": [
+            2
+          ],
+          "rendered": true,
+          "table": true
+        },
+        {
+          "expected": [],
+          "rendered": false,
+          "table": true
+        },
+        {
+          "expected": [],
+          "rendered": false,
+          "table": true
+        }
+      ]
+    },
+    {
+      "role": "donor_race",
+      "charts": []
+    },
+    {
+      "role": "origin",
+      "charts": [
+        {
+          "expected": [],
+          "rendered": false,
+          "table": true
+        },
+        {
+          "expected": [
+            {
+              "label": "QUARANTINE",
+              "value": 2
+            }
+          ],
+          "actual": [
+            2
+          ],
+          "rendered": true,
+          "table": true
+        },
+        {
+          "expected": [
+            {
+              "label": "KIDNEY",
+              "value": 1
+            },
+            {
+              "label": "RBC",
+              "value": 1
+            }
+          ],
+          "actual": [
+            1,
+            1
+          ],
+          "rendered": true,
+          "table": true
+        },
+        {
+          "expected": [],
+          "rendered": false,
+          "table": true
+        },
+        {
+          "expected": [],
+          "rendered": false,
+          "table": true
+        },
+        {
+          "expected": [],
+          "rendered": false,
+          "table": true
+        },
+        {
+          "expected": [],
+          "rendered": false,
+          "table": true
+        },
+        {
+          "expected": [
+            {
+              "label": "Mínima",
+              "value": null
+            },
+            {
+              "label": "Media",
+              "value": null
+            },
+            {
+              "label": "Máxima",
+              "value": null
+            }
+          ],
+          "actual": [
+            null,
+            null,
+            null
+          ],
+          "rendered": true,
+          "table": true
+        },
+        {
+          "expected": [],
+          "rendered": false,
+          "table": true
+        },
+        {
+          "expected": [
+            {
+              "label": "Media",
+              "value": null
+            }
+          ],
+          "actual": [
+            null
+          ],
+          "rendered": true,
+          "table": true
+        },
+        {
+          "expected": [
+            {
+              "label": "AUTHORIZED",
+              "value": 1
+            },
+            {
+              "label": "CAPTURED",
+              "value": 1
+            }
+          ],
+          "actual": [
+            1,
+            1
+          ],
+          "rendered": true,
+          "table": true
+        },
+        {
+          "expected": [],
+          "rendered": false,
+          "table": true
+        },
+        {
+          "expected": [],
+          "rendered": false,
+          "table": true
+        },
+        {
+          "expected": [
+            {
+              "label": "Media observada",
+              "value": null
+            }
+          ],
+          "actual": [
+            null
+          ],
+          "rendered": true,
+          "table": true
+        },
+        {
+          "expected": [],
+          "rendered": false,
+          "table": true
+        },
+        {
+          "expected": [
+            {
+              "label": "Cuarentena",
+              "value": 2
+            }
+          ],
+          "actual": [
+            2
+          ],
+          "rendered": true,
+          "table": true
+        },
+        {
+          "expected": [],
+          "rendered": false,
+          "table": true
+        },
+        {
+          "expected": [],
+          "rendered": false,
+          "table": true
+        }
+      ]
+    },
+    {
+      "role": "origin-form-error",
+      "charts": []
+    }
+  ],
+  "accessibility": [
+    {
+      "role": "admin",
+      "page": "/panel",
+      "width": 390,
+      "focus": {
+        "tag": "A",
+        "visible": true,
+        "label": "Saltar al contenido",
+        "outline": "solid"
+      },
+      "violations": []
+    },
+    {
+      "role": "admin",
+      "page": "/panel",
+      "width": 768,
+      "focus": {
+        "tag": "BUTTON",
+        "visible": true,
+        "label": "",
+        "outline": "solid"
+      },
+      "violations": []
+    },
+    {
+      "role": "admin",
+      "page": "/panel",
+      "width": 1440,
+      "focus": {
+        "tag": "SUMMARY",
+        "visible": true,
+        "label": "Horario: Monterrey",
+        "outline": "solid"
+      },
+      "violations": []
+    },
+    {
+      "role": "donor",
+      "page": "/panel",
+      "width": 390,
+      "focus": {
+        "tag": "A",
+        "visible": true,
+        "label": "Saltar al contenido",
+        "outline": "solid"
+      },
+      "violations": []
+    },
+    {
+      "role": "donor",
+      "page": "/panel",
+      "width": 768,
+      "focus": {
+        "tag": "BUTTON",
+        "visible": true,
+        "label": "",
+        "outline": "solid"
+      },
+      "violations": []
+    },
+    {
+      "role": "donor",
+      "page": "/panel",
+      "width": 1440,
+      "focus": {
+        "tag": "SUMMARY",
+        "visible": true,
+        "label": "Horario: Monterrey",
+        "outline": "solid"
+      },
+      "violations": []
+    },
+    {
+      "role": "operator1",
+      "page": "/panel",
+      "width": 390,
+      "focus": {
+        "tag": "A",
+        "visible": true,
+        "label": "Saltar al contenido",
+        "outline": "solid"
+      },
+      "violations": []
+    },
+    {
+      "role": "operator1",
+      "page": "/panel",
+      "width": 768,
+      "focus": {
+        "tag": "BUTTON",
+        "visible": true,
+        "label": "",
+        "outline": "solid"
+      },
+      "violations": []
+    },
+    {
+      "role": "operator1",
+      "page": "/panel",
+      "width": 1440,
+      "focus": {
+        "tag": "SUMMARY",
+        "visible": true,
+        "label": "Horario: Monterrey",
+        "outline": "solid"
+      },
+      "violations": []
+    },
+    {
+      "role": "donor_race",
+      "page": "/panel",
+      "width": 390,
+      "focus": {
+        "tag": "A",
+        "visible": true,
+        "label": "Saltar al contenido",
+        "outline": "solid"
+      },
+      "violations": []
+    },
+    {
+      "role": "donor_race",
+      "page": "/panel",
+      "width": 768,
+      "focus": {
+        "tag": "BUTTON",
+        "visible": true,
+        "label": "",
+        "outline": "solid"
+      },
+      "violations": []
+    },
+    {
+      "role": "donor_race",
+      "page": "/panel",
+      "width": 1440,
+      "focus": {
+        "tag": "SUMMARY",
+        "visible": true,
+        "label": "Horario: Monterrey",
+        "outline": "solid"
+      },
+      "violations": []
+    },
+    {
+      "role": "origin",
+      "page": "/panel",
+      "width": 390,
+      "focus": {
+        "tag": "A",
+        "visible": true,
+        "label": "Saltar al contenido",
+        "outline": "solid"
+      },
+      "violations": []
+    },
+    {
+      "role": "origin",
+      "page": "/panel",
+      "width": 768,
+      "focus": {
+        "tag": "BUTTON",
+        "visible": true,
+        "label": "",
+        "outline": "solid"
+      },
+      "violations": []
+    },
+    {
+      "role": "origin",
+      "page": "/panel",
+      "width": 1440,
+      "focus": {
+        "tag": "SUMMARY",
+        "visible": true,
+        "label": "Horario: Monterrey",
+        "outline": "solid"
+      },
+      "violations": []
+    },
+    {
+      "role": "origin-form-error",
+      "page": "/inventario/bb21166a-35e9-459c-9330-cb691e9d3ccf/liberar",
+      "width": 390,
+      "focus": {
+        "tag": "A",
+        "visible": true,
+        "label": "Saltar al contenido",
+        "outline": "solid"
+      },
+      "violations": [
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "targets": [
+            [
+              "#form-error > p"
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "passed": false,
+  "failure": "Accesibilidad origin-form-error 390",
+  "failureLocation": [
+    "    at module.exports (/Users/victorberlanga/Programacion/integracion/Red-House/scripts/portal_accessibility.cjs:13:412)",
+    "    at async /Users/victorberlanga/Programacion/integracion/Red-House/scripts/verify_backend_corrections.cjs:34:110"
+  ],
+  "finishedAt": "2026-11-07T02:17:11.098Z"
+}

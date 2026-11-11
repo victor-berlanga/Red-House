@@ -1,0 +1,191 @@
+
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Red House: plataforma de coordinación regional de bancos de sangre y donación de órganos.">
+  <meta name="color-scheme" content="light">
+  <title>Panel principal · Red House</title>
+  <link rel="icon" href="/static/img/icons/droplet.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/static/css/app.css">
+  <script src="/static/js/form-validation.js" defer></script>
+  <script src="/static/js/app.js" defer></script>
+  <script src="/static/js/filters.js" defer></script>
+  <script src="/static/js/details.js" defer></script>
+  <script src="/static/js/timezone.js" defer></script><script src="/static/js/actions.js" defer></script><link rel="stylesheet" href="/static/css/integration.css">
+  
+</head>
+<body class="portal-body integrated-ui ">
+<a class="skip-link" href="#main">Saltar al contenido</a>
+
+  <aside class="sidebar" id="sidebar" aria-label="Menú principal">
+    <div class="sidebar-brand">
+      <a class="brand" href="/panel" aria-label="Red House, panel principal"><span class="brand-symbol"><img class="icon " src="/static/img/icons/droplet.svg" alt="" width="20" height="20"></span><span class="brand-words">Red House<small>RED REGIONAL</small></span></a>
+      <button class="icon-button sidebar-close" id="sidebar-close" type="button" aria-label="Cerrar menú"><img class="icon " src="/static/img/icons/x.svg" alt="" width="20" height="20"></button>
+    </div>
+    <nav class="sidebar-nav">
+      
+      
+      
+      
+      
+      
+        
+          <div class="nav-group">GENERAL</div>
+          <a class="nav-link active" href="/panel" aria-current="page" title="Panel principal">
+            <img class="icon " src="/static/img/icons/layout-grid.svg" alt="" width="20" height="20"><span class="nav-label">Panel principal</span>
+          </a>
+        
+      
+        
+          
+          <a class="nav-link " href="/reportes"  title="Reportes privados">
+            <img class="icon " src="/static/img/icons/scroll-text.svg" alt="" width="20" height="20"><span class="nav-label">Reportes privados</span>
+          </a>
+        
+      
+        
+          
+          <a class="nav-link " href="/documentos"  title="Documentos privados">
+            <img class="icon " src="/static/img/icons/file-clock.svg" alt="" width="20" height="20"><span class="nav-label">Documentos privados</span>
+          </a>
+        
+      
+      
+      
+      
+      
+        
+      
+        
+      
+        
+      
+      
+      
+      
+      
+        
+      
+        
+      
+        
+          <div class="nav-group">BANCO DE SANGRE</div>
+          <a class="nav-link " href="/donantes/donor"  title="Donantes">
+            <img class="icon " src="/static/img/icons/droplet.svg" alt="" width="20" height="20"><span class="nav-label">Donantes</span>
+          </a>
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+          
+          <a class="nav-link " href="/campanas"  title="Campañas">
+            <img class="icon " src="/static/img/icons/calendar-days.svg" alt="" width="20" height="20"><span class="nav-label">Campañas</span>
+          </a>
+        
+      
+        
+          
+          <a class="nav-link " href="/citas"  title="Inscripciones">
+            <img class="icon " src="/static/img/icons/calendar-days.svg" alt="" width="20" height="20"><span class="nav-label">Inscripciones</span>
+          </a>
+        
+      
+        
+      
+      
+      
+      
+      
+        
+      
+      
+      
+      
+      
+        
+          <div class="nav-group">SEGUIMIENTO</div>
+          <a class="nav-link " href="/notificaciones"  title="Notificaciones">
+            <img class="icon " src="/static/img/icons/inbox.svg" alt="" width="20" height="20"><span class="nav-label">Notificaciones</span>
+          </a>
+        
+      
+        
+      
+        
+      
+        
+      
+      
+      
+      
+      
+        
+      
+        
+      
+        
+      
+        
+      
+      
+    </nav>
+    <div class="sidebar-footer">
+      <div class="user-block"><span class="avatar">CU</span><div><strong>Cuenta sintética</strong><small>Donante</small></div>
+      <form method="post" action="/logout"><input type="hidden" name="_timezone" value="America/Monterrey"><input type="hidden" name="csrf_token" value="REDACTED"><button class="icon-button" title="Cerrar sesión" aria-label="Cerrar sesión"><img class="icon " src="/static/img/icons/log-out.svg" alt="" width="20" height="20"></button></form></div>
+    </div>
+  </aside>
+  <button class="menu-backdrop" id="menu-backdrop" type="button" aria-label="Cerrar menú"></button>
+  <div class="workspace" id="workspace">
+    <header class="topbar"><div class="topbar-left"><button class="icon-button mobile-toggle" id="menu-toggle" type="button" aria-controls="sidebar" aria-expanded="false" aria-label="Abrir menú"><img class="icon " src="/static/img/icons/panel-left.svg" alt="" width="20" height="20"></button><span class="breadcrumb">Portal institucional <span>/</span> <strong>Panel principal</strong></span></div>
+      <div class="topbar-right">
+      <details class="timezone-menu"><summary>Horario: <span data-timezone-label>Monterrey</span></summary><div class="timezone-popover"><form class="timezone-picker" method="post" action="/preferencias/horario"><input type="hidden" name="_timezone" value="America/Monterrey"><input type="hidden" name="csrf_token" value="REDACTED"><input type="hidden" name="next" value="/panel?"><label for="display-timezone">Mostrar fechas en</label><select id="display-timezone" name="timezone"><option value="UTC" >UTC</option><option value="America/Monterrey" selected>Monterrey</option></select><button class="button secondary small" type="submit">Aplicar horario</button></form><span data-timezone-feedback role="status" aria-live="polite"></span></div></details>
+      
+      <span class="scope-label">Institución de prueba</span><span class="avatar small-avatar">CU</span></div>
+    </header>
+
+<main id="main" class="page-content" tabindex="-1">
+  <div class="notice warning" role="status"><img class="icon " src="/static/img/icons/triangle-alert.svg" alt="" width="20" height="20"><span>Operación pendiente de confirmación</span></div>
+  
+  
+<div class="page-heading"><div><span class="eyebrow">RED REGIONAL · NUEVO LEÓN</span><h1>Panel principal</h1><p>Institución de prueba</p></div></div>
+
+<section class="task-grid" aria-label="Tu espacio de trabajo"><a class="card task-card" href="/donantes/donor"><strong>Mi expediente <span aria-hidden="true">→</span></strong><p>Consultar registro y evaluaciones</p></a><a class="card task-card" href="/campanas"><strong>Campañas <span aria-hidden="true">→</span></strong><p>Consultar jornadas de donación</p></a><a class="card task-card" href="/citas"><strong>Mis inscripciones <span aria-hidden="true">→</span></strong><p>Reservar cupo en una campaña</p></a></section>
+
+
+
+<div class="dashboard-grid"></div>
+<section class="card form-card regional-section"><h2>Mis inscripciones recientes</h2><ul class="compact-events"><li>No hay inscripciones para mostrar.</li></ul><a class="text-link" href="/campanas">Consultar campañas →</a></section>
+
+<section class="card form-card regional-section"><h2>Notificaciones recientes</h2><ul class="compact-events"><li>Sin notificaciones.</li></ul><a class="text-link" href="/notificaciones">Ver todas las notificaciones →</a></section>
+
+
+</main>
+</div>
+
+<dialog id="session-dialog" class="record-dialog session-dialog" aria-labelledby="session-title">
+<div class="record-dialog-body"><h2 id="session-title">Tu sesión</h2><p data-session-message role="status"></p>
+<div class="button-row"><button type="button" class="button" data-session-renew>Continuar sesión</button>
+<form method="post" action="/logout" data-session-control><input type="hidden" name="_timezone" value="America/Monterrey"><input type="hidden" name="csrf_token" value="REDACTED"><button class="button secondary" type="submit">Cerrar sesión</button></form>
+</div></div></dialog>
+<script src="/static/js/session.js" defer></script>
+
+<script src="/static/vendor/highcharts/highcharts.js" defer></script><script src="/static/vendor/highcharts/accessibility.js" defer></script><script src="/static/js/charts.js" defer></script>
+<dialog id="action-dialog" class="record-dialog" aria-label="Confirmar operación"><div class="record-dialog-header"><strong>Confirmar operación</strong><button type="button" class="icon-button" data-action-close aria-label="Cerrar confirmación"><img class="icon " src="/static/img/icons/x.svg" alt="" width="20" height="20"></button></div><div class="record-dialog-body" data-action-body aria-live="polite"></div></dialog>
+<dialog id="record-dialog" class="record-dialog" aria-labelledby="record-dialog-title">
+  <div class="record-dialog-header"><h2 id="record-dialog-title">Detalle del registro</h2><button type="button" class="icon-button" data-dialog-close aria-label="Cerrar detalle"><img class="icon " src="/static/img/icons/x.svg" alt="" width="20" height="20"></button></div>
+  <div id="record-dialog-body" class="record-dialog-body" aria-live="polite"></div>
+</dialog>
+</body>
+</html>

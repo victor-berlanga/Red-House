@@ -39,7 +39,7 @@ def email(recipient, subject, body, identifier):
         ) from None
 
 
-def push(recipient, code, identifier):
+def push(recipient, code, identifier, *, alert_id=None):
     cfg = current_app.config
     url = cfg.get("PUSH_ADAPTER_URL", "")
     parsed = urlparse(url)
@@ -50,7 +50,8 @@ def push(recipient, code, identifier):
     try:
         response = requests.post(
             url,
-            json={"recipient": recipient, "message_code": code, "event_id": identifier},
+            json={"recipient": recipient, "message_code": code, "event_id": identifier,
+                  **({"alert_id": alert_id} if alert_id else {})},
             headers={
                 "Authorization": "Bearer " + cfg.get("PUSH_ADAPTER_TOKEN", ""),
                 "Idempotency-Key": identifier,

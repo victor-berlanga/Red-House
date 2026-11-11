@@ -1,0 +1,1231 @@
+{
+  "date": "2026-11-07T05:04:57.371132+00:00",
+  "backup": "passed",
+  "private_path": "/opt/redhouse/.local/compose/backups/20261107T050345Z",
+  "before": {
+    "postgres": [
+      {
+        "name": "account_role",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "accreditations",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "alert_actions",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "alert_deliveries",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "alert_policies",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "alert_subscriptions",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "algorithm_run",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "algorithm_runs",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "allocation_operation",
+        "rows": 59,
+        "digest": "17160ed5ebf08ea50de34a09da78c1bb"
+      },
+      {
+        "name": "anomaly_actions",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "anomaly_reviews",
+        "rows": 96,
+        "digest": "887096818a266547410b7b3410cb910c"
+      },
+      {
+        "name": "appointment",
+        "rows": 119,
+        "digest": "c4033d5940d5d2c03cc0e3277d198aa9"
+      },
+      {
+        "name": "appointment_reminders",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "appointment_slots",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "audit_change",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "audit_event",
+        "rows": 13562,
+        "digest": "88200f1f0af560d8190cb4c7ad223dcf"
+      },
+      {
+        "name": "audit_finding_actions",
+        "rows": 8,
+        "digest": "d40a9e0fd77e669c91ebfa077172e747"
+      },
+      {
+        "name": "audit_finding_links",
+        "rows": 2,
+        "digest": "66a2d7bb2a80fe932c6f8bf66f7ecc42"
+      },
+      {
+        "name": "audit_findings",
+        "rows": 2,
+        "digest": "7c61222131af7c6b90a5c0d9275146cd"
+      },
+      {
+        "name": "balance_proposal",
+        "rows": 31,
+        "digest": "ce82e73c251b14152e6c8d5ab1311004"
+      },
+      {
+        "name": "blood_allocation",
+        "rows": 55,
+        "digest": "119e94b88d1b2a21b386c513795e962b"
+      },
+      {
+        "name": "blood_candidate",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "blood_classification",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "blood_component",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "blood_movement",
+        "rows": 429,
+        "digest": "0ad6678ad61a72034b6e0ef67f756ec6"
+      },
+      {
+        "name": "blood_request",
+        "rows": 147,
+        "digest": "2d88fda14665b0779a67155925f2d3f7"
+      },
+      {
+        "name": "blood_review",
+        "rows": 90,
+        "digest": "f4be1ff40464b4f2d9c9151a33c5d686"
+      },
+      {
+        "name": "blood_status_transition",
+        "rows": 4,
+        "digest": "83dfefd5986caa23b3cfa17188c22069"
+      },
+      {
+        "name": "blood_unit",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "cache_revision",
+        "rows": 2,
+        "digest": "f5b016e6bf28aff4a350ceab05b0f5ff"
+      },
+      {
+        "name": "campaign",
+        "rows": 61,
+        "digest": "5865bc2d67bb4460d1d5268ce5c8dacd"
+      },
+      {
+        "name": "campaign_slots",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "candidate_evaluation",
+        "rows": 93,
+        "digest": "9075f17089d1abf85f09baa7ba0d76b9"
+      },
+      {
+        "name": "capability",
+        "rows": 3,
+        "digest": "7ee8eaf3ebedeb22d1da901211e02b48"
+      },
+      {
+        "name": "catalogue_entry",
+        "rows": 305,
+        "digest": "dd97724f590e1f0088f8a4202baca3c2"
+      },
+      {
+        "name": "cold_equipment",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "cold_profiles",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "cold_readings",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "cold_reviews",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "consent_versions",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "contact",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "contact_method",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "custody_chain",
+        "rows": 54,
+        "digest": "93b46cf59f8221283db9cf235d199889"
+      },
+      {
+        "name": "custody_event",
+        "rows": 249,
+        "digest": "47a7e8e52a4ad3b0ad14bb7d2754253c"
+      },
+      {
+        "name": "decision_runs",
+        "rows": 10,
+        "digest": "aea67a7cb43f76a86c1e5cc476bc4ebd"
+      },
+      {
+        "name": "devices",
+        "rows": 2,
+        "digest": "40299edc5271ace082d23dd3e456b901"
+      },
+      {
+        "name": "document_metadata",
+        "rows": 3,
+        "digest": "3cc755b3c24db31b8d9877d7f1f0ca72"
+      },
+      {
+        "name": "donation",
+        "rows": 61,
+        "digest": "c2afb5aa5ebed9f15ab5ac75f1eab146"
+      },
+      {
+        "name": "donation_event",
+        "rows": 122,
+        "digest": "f11de87d58c115303141cc80e37418b4"
+      },
+      {
+        "name": "donation_unit",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "donor",
+        "rows": 72,
+        "digest": "93def8d8352cb3e393ebb71bc0db9bf9"
+      },
+      {
+        "name": "donor_review",
+        "rows": 66,
+        "digest": "1a93bde19290dd74b3913b660b616beb"
+      },
+      {
+        "name": "export_jobs",
+        "rows": 3,
+        "digest": "06cd0001d46190258d5e4fa88a1a8180"
+      },
+      {
+        "name": "external_authorizations",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "external_mappings",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "file_scans",
+        "rows": 3,
+        "digest": "a6837422de8438e736ec4dce98e3bd50"
+      },
+      {
+        "name": "identity_deliveries",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "institution",
+        "rows": 31,
+        "digest": "bf2201319c02df2c70492e18cad18b17"
+      },
+      {
+        "name": "institution_capability",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "institution_contact",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "lab_actions",
+        "rows": 9,
+        "digest": "b862c4f0159dc711e3b5f27aa8ed56dd"
+      },
+      {
+        "name": "lab_profiles",
+        "rows": 12,
+        "digest": "9326a8892834378faa119b453dfabe4c"
+      },
+      {
+        "name": "lab_results",
+        "rows": 10,
+        "digest": "0096eedc91b41ea03cf16c7ab24eb610"
+      },
+      {
+        "name": "lab_samples",
+        "rows": 7,
+        "digest": "653bb145e79bfe7958bddb47eca2e15c"
+      },
+      {
+        "name": "login_attempt",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "notification",
+        "rows": 1260,
+        "digest": "0837100b16dbb41eb93b8e9ebe0c16ac"
+      },
+      {
+        "name": "organ_allocation",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "organ_candidate",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "organ_custody_event",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "organ_donor",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "organ_evaluation",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "organ_offer",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "organ_recipient",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "organ_review",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "parameter_version",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "party",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "ranking_run",
+        "rows": 78,
+        "digest": "55156e0c248360b8aca9a99d57fc1db5"
+      },
+      {
+        "name": "recipient",
+        "rows": 148,
+        "digest": "f2dc2df7c8080d4e87fdc07a9d4fb0bf"
+      },
+      {
+        "name": "recovery_tokens",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "regional_graphs",
+        "rows": 1,
+        "digest": "2c6610920f872cf59aa0922deca99eb8"
+      },
+      {
+        "name": "regional_route",
+        "rows": 33,
+        "digest": "889e80d4003e764611a0116698a1bee1"
+      },
+      {
+        "name": "request_event",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "request_hold",
+        "rows": 59,
+        "digest": "0f9b5689d96b52202c3e5ba53d883ab6"
+      },
+      {
+        "name": "resource",
+        "rows": 150,
+        "digest": "fc4965565466922ec9a7e70fa6b60454"
+      },
+      {
+        "name": "resource_controls",
+        "rows": 148,
+        "digest": "e4e4cbc5caac4d3e4baffde7a6754412"
+      },
+      {
+        "name": "resource_destinations",
+        "rows": 6,
+        "digest": "07e86bfd8ea8e31388624986f2ab0c87"
+      },
+      {
+        "name": "resource_lineage",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "resource_review",
+        "rows": 145,
+        "digest": "66c25d839bdfb5d3e0bf3aa8654583c4"
+      },
+      {
+        "name": "role",
+        "rows": 7,
+        "digest": "bf3cabdf76c84281c6470123b4aa9d28"
+      },
+      {
+        "name": "rule_actions",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "schema_migration",
+        "rows": 16,
+        "digest": "d76784263e14cbd7331fb9831db63350"
+      },
+      {
+        "name": "security_contacts",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "security_factors",
+        "rows": 4,
+        "digest": "b9d7cfa6a4fbe40e1fef117cdebdcb01"
+      },
+      {
+        "name": "service_activity_events",
+        "rows": 13562,
+        "digest": "f3a66c2598555b26634802e2e5b774d1"
+      },
+      {
+        "name": "service_decisions",
+        "rows": 825,
+        "digest": "f773ac2e0c1f4b60f7a0c4b15197fb1d"
+      },
+      {
+        "name": "service_health_check",
+        "rows": 528819,
+        "digest": "b87058e4dc8db9a81965638c9d465dd6"
+      },
+      {
+        "name": "service_idempotency",
+        "rows": 2278,
+        "digest": "f7159c8b85a9f942a0ad9d5679cc9684"
+      },
+      {
+        "name": "service_inbox",
+        "rows": 14954,
+        "digest": "2664b75aefa5daa9de274c2e1a637bdb"
+      },
+      {
+        "name": "service_outbox",
+        "rows": 29075,
+        "digest": "f28528d4905cd6fdbc35423b7b884631"
+      },
+      {
+        "name": "service_schema_version",
+        "rows": 36,
+        "digest": "5c4ddfa26e4ce2689007030fe36edaac"
+      },
+      {
+        "name": "service_worker_health",
+        "rows": 12,
+        "digest": "302c845ca6136224dfe018bcb8149b57"
+      },
+      {
+        "name": "shipment",
+        "rows": 54,
+        "digest": "7103e4c1c185ba17752ab9adb9fc0a06"
+      },
+      {
+        "name": "shipment_transition",
+        "rows": 195,
+        "digest": "0b8a32992327a7e9e9fc0f2d5dfc5a4a"
+      },
+      {
+        "name": "site",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "site_schedule",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "storage_location",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "stored_file",
+        "rows": 37,
+        "digest": "e35d96321e017db4c3a48af3f7880e7d"
+      },
+      {
+        "name": "sync_commands",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "tracking_assignments",
+        "rows": 2,
+        "digest": "d4c6a3872a805a2304ebaccc5e1f1a72"
+      },
+      {
+        "name": "tracking_points",
+        "rows": 4,
+        "digest": "424635e4d082409c97da50d699a2f4f7"
+      },
+      {
+        "name": "transport_telemetry",
+        "rows": 52,
+        "digest": "0eb496fa326d84994a61ed2df29a1804"
+      },
+      {
+        "name": "user_account",
+        "rows": 37,
+        "digest": "64048bed29b9a0fc76527436d1412aa4"
+      },
+      {
+        "name": "web_runtime.session_revocations",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "web_session",
+        "rows": 596,
+        "digest": "327b05a96ecfc360ad5622740259c8fa"
+      }
+    ],
+    "mongo": {
+      "rh_auditoria.events": {
+        "rows": 13562,
+        "sha256": "1ce68193076b512ee46765e5f61d5a72c641b210d2a39b1c6f825da6e3b9c808"
+      },
+      "rh_custodia.events": {
+        "rows": 249,
+        "sha256": "f2dee2de4ef25ae65697f77c37ada936c7303eb35689f427b0a2e43ec3e6536f"
+      },
+      "rh_monitoreo.events": {
+        "rows": 528993,
+        "sha256": "b9df22ba7b009a8571e04134456d6c727593fe029819bb88882d632bde3780cb"
+      },
+      "rh_transporte.events": {
+        "rows": 305,
+        "sha256": "2bd84f3c16120d50c06ecbac2a6196951be10f19b5a89d43b70da1b450f1ca11"
+      },
+      "rh_transporte.shipment_tracking": {
+        "rows": 54,
+        "sha256": "c16c6d62fdde7f316c356d0d72191e93f75537f9fa749fcca0cf782990afbaee"
+      },
+      "admin.system.users": {
+        "rows": 5,
+        "sha256": "66d7727d2e6453c9738d8e0a899a3e542460a942c92756b86115232bea7b5bed"
+      },
+      "admin.system.roles": {
+        "rows": 4,
+        "sha256": "664d578f3270c69b398097817e1472d1f4054b8908fad971619efef3348ce7e0"
+      }
+    }
+  },
+  "restore": "passed",
+  "after": {
+    "postgres": [
+      {
+        "name": "account_role",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "accreditations",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "alert_actions",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "alert_deliveries",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "alert_policies",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "alert_subscriptions",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "algorithm_run",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "algorithm_runs",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "allocation_operation",
+        "rows": 59,
+        "digest": "17160ed5ebf08ea50de34a09da78c1bb"
+      },
+      {
+        "name": "anomaly_actions",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "anomaly_reviews",
+        "rows": 96,
+        "digest": "887096818a266547410b7b3410cb910c"
+      },
+      {
+        "name": "appointment",
+        "rows": 119,
+        "digest": "c4033d5940d5d2c03cc0e3277d198aa9"
+      },
+      {
+        "name": "appointment_reminders",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "appointment_slots",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "audit_change",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "audit_event",
+        "rows": 13562,
+        "digest": "88200f1f0af560d8190cb4c7ad223dcf"
+      },
+      {
+        "name": "audit_finding_actions",
+        "rows": 8,
+        "digest": "d40a9e0fd77e669c91ebfa077172e747"
+      },
+      {
+        "name": "audit_finding_links",
+        "rows": 2,
+        "digest": "66a2d7bb2a80fe932c6f8bf66f7ecc42"
+      },
+      {
+        "name": "audit_findings",
+        "rows": 2,
+        "digest": "7c61222131af7c6b90a5c0d9275146cd"
+      },
+      {
+        "name": "balance_proposal",
+        "rows": 31,
+        "digest": "ce82e73c251b14152e6c8d5ab1311004"
+      },
+      {
+        "name": "blood_allocation",
+        "rows": 55,
+        "digest": "119e94b88d1b2a21b386c513795e962b"
+      },
+      {
+        "name": "blood_candidate",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "blood_classification",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "blood_component",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "blood_movement",
+        "rows": 429,
+        "digest": "0ad6678ad61a72034b6e0ef67f756ec6"
+      },
+      {
+        "name": "blood_request",
+        "rows": 147,
+        "digest": "2d88fda14665b0779a67155925f2d3f7"
+      },
+      {
+        "name": "blood_review",
+        "rows": 90,
+        "digest": "f4be1ff40464b4f2d9c9151a33c5d686"
+      },
+      {
+        "name": "blood_status_transition",
+        "rows": 4,
+        "digest": "83dfefd5986caa23b3cfa17188c22069"
+      },
+      {
+        "name": "blood_unit",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "cache_revision",
+        "rows": 2,
+        "digest": "f5b016e6bf28aff4a350ceab05b0f5ff"
+      },
+      {
+        "name": "campaign",
+        "rows": 61,
+        "digest": "5865bc2d67bb4460d1d5268ce5c8dacd"
+      },
+      {
+        "name": "campaign_slots",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "candidate_evaluation",
+        "rows": 93,
+        "digest": "9075f17089d1abf85f09baa7ba0d76b9"
+      },
+      {
+        "name": "capability",
+        "rows": 3,
+        "digest": "7ee8eaf3ebedeb22d1da901211e02b48"
+      },
+      {
+        "name": "catalogue_entry",
+        "rows": 305,
+        "digest": "dd97724f590e1f0088f8a4202baca3c2"
+      },
+      {
+        "name": "cold_equipment",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "cold_profiles",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "cold_readings",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "cold_reviews",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "consent_versions",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "contact",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "contact_method",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "custody_chain",
+        "rows": 54,
+        "digest": "93b46cf59f8221283db9cf235d199889"
+      },
+      {
+        "name": "custody_event",
+        "rows": 249,
+        "digest": "47a7e8e52a4ad3b0ad14bb7d2754253c"
+      },
+      {
+        "name": "decision_runs",
+        "rows": 10,
+        "digest": "aea67a7cb43f76a86c1e5cc476bc4ebd"
+      },
+      {
+        "name": "devices",
+        "rows": 2,
+        "digest": "40299edc5271ace082d23dd3e456b901"
+      },
+      {
+        "name": "document_metadata",
+        "rows": 3,
+        "digest": "3cc755b3c24db31b8d9877d7f1f0ca72"
+      },
+      {
+        "name": "donation",
+        "rows": 61,
+        "digest": "c2afb5aa5ebed9f15ab5ac75f1eab146"
+      },
+      {
+        "name": "donation_event",
+        "rows": 122,
+        "digest": "f11de87d58c115303141cc80e37418b4"
+      },
+      {
+        "name": "donation_unit",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "donor",
+        "rows": 72,
+        "digest": "93def8d8352cb3e393ebb71bc0db9bf9"
+      },
+      {
+        "name": "donor_review",
+        "rows": 66,
+        "digest": "1a93bde19290dd74b3913b660b616beb"
+      },
+      {
+        "name": "export_jobs",
+        "rows": 3,
+        "digest": "06cd0001d46190258d5e4fa88a1a8180"
+      },
+      {
+        "name": "external_authorizations",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "external_mappings",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "file_scans",
+        "rows": 3,
+        "digest": "a6837422de8438e736ec4dce98e3bd50"
+      },
+      {
+        "name": "identity_deliveries",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "institution",
+        "rows": 31,
+        "digest": "bf2201319c02df2c70492e18cad18b17"
+      },
+      {
+        "name": "institution_capability",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "institution_contact",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "lab_actions",
+        "rows": 9,
+        "digest": "b862c4f0159dc711e3b5f27aa8ed56dd"
+      },
+      {
+        "name": "lab_profiles",
+        "rows": 12,
+        "digest": "9326a8892834378faa119b453dfabe4c"
+      },
+      {
+        "name": "lab_results",
+        "rows": 10,
+        "digest": "0096eedc91b41ea03cf16c7ab24eb610"
+      },
+      {
+        "name": "lab_samples",
+        "rows": 7,
+        "digest": "653bb145e79bfe7958bddb47eca2e15c"
+      },
+      {
+        "name": "login_attempt",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "notification",
+        "rows": 1260,
+        "digest": "0837100b16dbb41eb93b8e9ebe0c16ac"
+      },
+      {
+        "name": "organ_allocation",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "organ_candidate",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "organ_custody_event",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "organ_donor",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "organ_evaluation",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "organ_offer",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "organ_recipient",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "organ_review",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "parameter_version",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "party",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "ranking_run",
+        "rows": 78,
+        "digest": "55156e0c248360b8aca9a99d57fc1db5"
+      },
+      {
+        "name": "recipient",
+        "rows": 148,
+        "digest": "f2dc2df7c8080d4e87fdc07a9d4fb0bf"
+      },
+      {
+        "name": "recovery_tokens",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "regional_graphs",
+        "rows": 1,
+        "digest": "2c6610920f872cf59aa0922deca99eb8"
+      },
+      {
+        "name": "regional_route",
+        "rows": 33,
+        "digest": "889e80d4003e764611a0116698a1bee1"
+      },
+      {
+        "name": "request_event",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "request_hold",
+        "rows": 59,
+        "digest": "0f9b5689d96b52202c3e5ba53d883ab6"
+      },
+      {
+        "name": "resource",
+        "rows": 150,
+        "digest": "fc4965565466922ec9a7e70fa6b60454"
+      },
+      {
+        "name": "resource_controls",
+        "rows": 148,
+        "digest": "e4e4cbc5caac4d3e4baffde7a6754412"
+      },
+      {
+        "name": "resource_destinations",
+        "rows": 6,
+        "digest": "07e86bfd8ea8e31388624986f2ab0c87"
+      },
+      {
+        "name": "resource_lineage",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "resource_review",
+        "rows": 145,
+        "digest": "66c25d839bdfb5d3e0bf3aa8654583c4"
+      },
+      {
+        "name": "role",
+        "rows": 7,
+        "digest": "bf3cabdf76c84281c6470123b4aa9d28"
+      },
+      {
+        "name": "rule_actions",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "schema_migration",
+        "rows": 16,
+        "digest": "d76784263e14cbd7331fb9831db63350"
+      },
+      {
+        "name": "security_contacts",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "security_factors",
+        "rows": 4,
+        "digest": "b9d7cfa6a4fbe40e1fef117cdebdcb01"
+      },
+      {
+        "name": "service_activity_events",
+        "rows": 13562,
+        "digest": "f3a66c2598555b26634802e2e5b774d1"
+      },
+      {
+        "name": "service_decisions",
+        "rows": 825,
+        "digest": "f773ac2e0c1f4b60f7a0c4b15197fb1d"
+      },
+      {
+        "name": "service_health_check",
+        "rows": 528819,
+        "digest": "b87058e4dc8db9a81965638c9d465dd6"
+      },
+      {
+        "name": "service_idempotency",
+        "rows": 2278,
+        "digest": "f7159c8b85a9f942a0ad9d5679cc9684"
+      },
+      {
+        "name": "service_inbox",
+        "rows": 14954,
+        "digest": "2664b75aefa5daa9de274c2e1a637bdb"
+      },
+      {
+        "name": "service_outbox",
+        "rows": 29075,
+        "digest": "f28528d4905cd6fdbc35423b7b884631"
+      },
+      {
+        "name": "service_schema_version",
+        "rows": 36,
+        "digest": "5c4ddfa26e4ce2689007030fe36edaac"
+      },
+      {
+        "name": "service_worker_health",
+        "rows": 12,
+        "digest": "302c845ca6136224dfe018bcb8149b57"
+      },
+      {
+        "name": "shipment",
+        "rows": 54,
+        "digest": "7103e4c1c185ba17752ab9adb9fc0a06"
+      },
+      {
+        "name": "shipment_transition",
+        "rows": 195,
+        "digest": "0b8a32992327a7e9e9fc0f2d5dfc5a4a"
+      },
+      {
+        "name": "site",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "site_schedule",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "storage_location",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "stored_file",
+        "rows": 37,
+        "digest": "e35d96321e017db4c3a48af3f7880e7d"
+      },
+      {
+        "name": "sync_commands",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "tracking_assignments",
+        "rows": 2,
+        "digest": "d4c6a3872a805a2304ebaccc5e1f1a72"
+      },
+      {
+        "name": "tracking_points",
+        "rows": 4,
+        "digest": "424635e4d082409c97da50d699a2f4f7"
+      },
+      {
+        "name": "transport_telemetry",
+        "rows": 52,
+        "digest": "0eb496fa326d84994a61ed2df29a1804"
+      },
+      {
+        "name": "user_account",
+        "rows": 37,
+        "digest": "64048bed29b9a0fc76527436d1412aa4"
+      },
+      {
+        "name": "web_runtime.session_revocations",
+        "rows": 0,
+        "digest": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "name": "web_session",
+        "rows": 596,
+        "digest": "327b05a96ecfc360ad5622740259c8fa"
+      }
+    ],
+    "mongo": {
+      "rh_auditoria.events": {
+        "rows": 13562,
+        "sha256": "1ce68193076b512ee46765e5f61d5a72c641b210d2a39b1c6f825da6e3b9c808"
+      },
+      "rh_custodia.events": {
+        "rows": 249,
+        "sha256": "f2dee2de4ef25ae65697f77c37ada936c7303eb35689f427b0a2e43ec3e6536f"
+      },
+      "rh_monitoreo.events": {
+        "rows": 528993,
+        "sha256": "b9df22ba7b009a8571e04134456d6c727593fe029819bb88882d632bde3780cb"
+      },
+      "rh_transporte.events": {
+        "rows": 305,
+        "sha256": "2bd84f3c16120d50c06ecbac2a6196951be10f19b5a89d43b70da1b450f1ca11"
+      },
+      "rh_transporte.shipment_tracking": {
+        "rows": 54,
+        "sha256": "c16c6d62fdde7f316c356d0d72191e93f75537f9fa749fcca0cf782990afbaee"
+      },
+      "admin.system.users": {
+        "rows": 5,
+        "sha256": "66d7727d2e6453c9738d8e0a899a3e542460a942c92756b86115232bea7b5bed"
+      },
+      "admin.system.roles": {
+        "rows": 4,
+        "sha256": "664d578f3270c69b398097817e1472d1f4054b8908fad971619efef3348ce7e0"
+      }
+    }
+  },
+  "redis": {
+    "restored": true,
+    "ttl": 3499
+  },
+  "isolated_containers": [
+    "redhouse-restore-pg-9039eaaeca",
+    "redhouse-restore-mongo-9039eaaeca",
+    "redhouse-restore-redis-9039eaaeca"
+  ],
+  "web_permissions": {
+    "technical_table": true,
+    "domain_schema": false
+  },
+  "applications_restored": [],
+  "applications_left_stopped": [
+    "clamav"
+  ]
+}

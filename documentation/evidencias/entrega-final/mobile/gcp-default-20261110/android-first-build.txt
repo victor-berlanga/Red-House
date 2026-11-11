@@ -1,0 +1,41 @@
+Starting a Gradle Daemon (subsequent builds will be faster)
+
+> Configure project :composeApp
+e: file:///Users/victorberlanga/Programacion/integracion/Red-House/apps/mobile/composeApp/build.gradle.kts:17:27: Unresolved reference: net
+w: ⚠️ Missing `androidTarget()` in Kotlin Multiplatform Project
+Missing `androidTarget()` Kotlin target in multiplatform project 'composeApp (:composeApp)'.
+The Android Gradle plugin was applied without creating a corresponding `android()` Kotlin Target
+```
+plugins {
+    id("com.android.application")
+    kotlin("multiplatform")
+}
+
+kotlin {
+    androidTarget() // <-- please register this Android target
+}
+```
+Please register the Android target.
+
+
+
+FAILURE: Build failed with an exception.
+
+* Where:
+Build file '/Users/victorberlanga/Programacion/integracion/Red-House/apps/mobile/composeApp/build.gradle.kts' line: 17
+
+* What went wrong:
+Script compilation error:
+
+  Line 17:         val origin = java.net.URI(mobileGateway.get())
+                                     ^ Unresolved reference: net
+
+1 error
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to get full insights.
+> Get more help at https://help.gradle.org.
+
+BUILD FAILED in 48s

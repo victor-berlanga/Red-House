@@ -1,0 +1,362 @@
+{
+  "startedAt": "2026-11-06T22:27:22.620Z",
+  "environment": "https://localhost:59879",
+  "gateway": "WSGI TLS aislado; no acredita proxy productivo",
+  "backend": "http",
+  "version": "0.4.1",
+  "schema": 17,
+  "policies": {
+    "mfa": true,
+    "reauth": true,
+    "laboratory": true,
+    "organAuthorization": true
+  },
+  "checks": [
+    {
+      "name": "Inicio de sesión y cookies Secure sobre TLS",
+      "role": "admin",
+      "at": "2026-11-06T22:27:25.411Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Publicación institucional explícita, sin coordenadas privadas en sitio público",
+      "role": "admin",
+      "at": "2026-11-06T22:27:27.138Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Administrador registra emisor, rota credencial y revoca dispositivo",
+      "role": "admin",
+      "at": "2026-11-06T22:27:30.382Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Inicio de sesión y cookies Secure sobre TLS",
+      "role": "donor",
+      "at": "2026-11-06T22:27:32.444Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Donante registra expediente y consentimiento versionado persistente",
+      "role": "donor1",
+      "at": "2026-11-06T22:27:37.005Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Donante rechazado por URL de inventario ajeno",
+      "role": "donor1",
+      "at": "2026-11-06T22:27:37.508Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Inicio de sesión y cookies Secure sobre TLS",
+      "role": "operator1",
+      "at": "2026-11-06T22:27:41.289Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Agenda con sede/horario: reservar, confirmar, reprogramar y cancelar",
+      "role": "donor1",
+      "at": "2026-11-06T22:28:11.196Z",
+      "result": "PASS"
+    },
+    {
+      "name": "MFA ausente rechazado sin iniciar sesión",
+      "role": "origin",
+      "at": "2026-11-06T22:28:14.324Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Inicio de sesión y cookies Secure sobre TLS",
+      "role": "origin",
+      "at": "2026-11-06T22:28:19.090Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Donación, evaluación médica, procesamiento, fraccionamiento, linaje y etiqueta",
+      "role": "operator1",
+      "at": "2026-11-06T22:28:47.980Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Equipo de conservación registrado mediante formulario",
+      "role": "operator1",
+      "at": "2026-11-06T22:28:51.429Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Retirada de consentimiento conserva historial",
+      "role": "donor1",
+      "at": "2026-11-06T22:28:55.078Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Recuperación por SMTP real local, token de un uso y nuevo login",
+      "role": "donor",
+      "at": "2026-11-06T22:29:05.188Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Liberación sin reautenticación rechazada",
+      "role": "origin",
+      "at": "2026-11-06T22:29:08.853Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Liberación con MFA, perfil completo y reautenticación; persiste al recargar",
+      "role": "origin",
+      "at": "2026-11-06T22:29:15.360Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Inicio de sesión y cookies Secure sobre TLS",
+      "role": "destination",
+      "at": "2026-11-06T22:29:24.894Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Solicitud, evaluación y revisión humana",
+      "role": "destination",
+      "at": "2026-11-06T22:29:52.166Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Nueva versión de laboratorio autorizada con MFA y reautenticación",
+      "role": "origin",
+      "at": "2026-11-06T22:30:06.579Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Reserva con dictamen anterior rechazada visiblemente",
+      "role": "destination",
+      "at": "2026-11-06T22:30:12.725Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Respuesta perdida tras escritura: pendiente visible y recuperación del mismo comando",
+      "role": "destination",
+      "at": "2026-11-06T22:30:40.921Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Nueva evaluación y revisión permiten reservar una sola vez",
+      "role": "destination",
+      "at": "2026-11-06T22:30:40.947Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Inicio de sesión y cookies Secure sobre TLS",
+      "role": "coordinator",
+      "at": "2026-11-06T22:30:49.576Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Inicio de sesión y cookies Secure sobre TLS",
+      "role": "transport1",
+      "at": "2026-11-06T22:31:12.095Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Custodia incompleta no avanza; mensaje visible en móvil",
+      "role": "transport1",
+      "at": "2026-11-06T22:31:16.979Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Mapa con WSS real: multipunto, sin fijación, antigüedad, corte, replay y recuperación sin recarga",
+      "role": "transport1",
+      "at": "2026-11-06T22:31:47.269Z",
+      "result": "PASS"
+    },
+    {
+      "name": "Inicio de sesión y cookies Secure sobre TLS",
+      "role": "operator2",
+      "at": "2026-11-06T22:32:05.910Z",
+      "result": "PASS"
+    }
+  ],
+  "consoleErrors": [],
+  "networkErrors": [
+    {
+      "status": 403,
+      "path": "/inventario/34bbed6f-4b32-47c2-9ffe-5a09362417e4",
+      "role": "donor"
+    },
+    {
+      "status": 401,
+      "path": "/login",
+      "role": "origin"
+    },
+    {
+      "status": 401,
+      "path": "/recuperar-acceso/confirmar",
+      "role": "donor"
+    },
+    {
+      "status": 403,
+      "path": "/inventario/34bbed6f-4b32-47c2-9ffe-5a09362417e4/liberar",
+      "role": "origin"
+    },
+    {
+      "status": 409,
+      "path": "/evaluaciones/dbe265fa-0717-4bd4-87f8-8b2413009e99/reservar/34bbed6f-4b32-47c2-9ffe-5a09362417e4",
+      "role": "destination"
+    }
+  ],
+  "records": {
+    "profileJourneys": {
+      "donor": "77d0669a-f2a8-4b91-86e5-f839df696112",
+      "donation": "59680b20-c808-48a4-8f0a-0e344fa03ddc",
+      "resource": "dd7c2c47-8e7f-4777-80a3-3d21de079fe4",
+      "appointment": "a5ca7b1b-5d6f-499b-8174-1d2500012513",
+      "campaign": "71bc1de6-4fa1-433c-9dd3-23b3b92c30cd"
+    },
+    "request": "ed1376d7-1971-4ea2-9e15-3601fe7f9906",
+    "correctedResult": "983bbff9-a53c-4e58-8b16-1796ae6de128",
+    "operation": "5511a3d2-0f24-4bfb-a6c9-e45882c8e6ff",
+    "shipment": "2e9c499d-49a3-4329-8556-b017f1f11bad"
+  },
+  "privateReportDownloaded": false,
+  "map": {
+    "transport": "WSS real sin sustitución de URL",
+    "cartography": "Mosaicos en línea del proveedor con atribución",
+    "events": [
+      {
+        "cursor": 1,
+        "ack": true,
+        "event": "bf5dd218-8740-480a-a7aa-8a66e895c32f"
+      },
+      {
+        "cursor": 2,
+        "ack": true,
+        "event": "3ab99ab4-456e-4986-9e67-c4008046f92b"
+      },
+      {
+        "cursor": 3,
+        "ack": true,
+        "event": "1d5cd399-bca1-4ca2-89de-70d74b1abc04"
+      },
+      {
+        "cursor": 4,
+        "ack": true,
+        "event": "fa54f730-484e-4636-a5d2-ad0416646ac4"
+      },
+      {
+        "cursor": 5,
+        "ack": true,
+        "event": "fed48016-7a95-407e-810b-48d341a5e6ea"
+      },
+      {
+        "cursor": 6,
+        "ack": true,
+        "event": "0e94acc0-048c-4bb5-b2eb-3dc38b65760a"
+      }
+    ],
+    "receiptToMap": [
+      {
+        "event_id": "bf5dd218-8740-480a-a7aa-8a66e895c32f",
+        "shipment_id": "2e9c499d-49a3-4329-8556-b017f1f11bad",
+        "cursor": 1,
+        "received_at": "2026-11-06T22:31:26.046429+00:00",
+        "rendered_at": "2026-11-06T22:31:26.394Z",
+        "receive_to_map_ms": 348
+      },
+      {
+        "event_id": "3ab99ab4-456e-4986-9e67-c4008046f92b",
+        "shipment_id": "2e9c499d-49a3-4329-8556-b017f1f11bad",
+        "cursor": 2,
+        "received_at": "2026-11-06T22:31:26.991744+00:00",
+        "rendered_at": "2026-11-06T22:31:27.138Z",
+        "receive_to_map_ms": 147
+      },
+      {
+        "event_id": "1d5cd399-bca1-4ca2-89de-70d74b1abc04",
+        "shipment_id": "2e9c499d-49a3-4329-8556-b017f1f11bad",
+        "cursor": 3,
+        "received_at": "2026-11-06T22:31:39.610098+00:00",
+        "rendered_at": "2026-11-06T22:31:40.910Z",
+        "receive_to_map_ms": 1300
+      },
+      {
+        "event_id": "1d5cd399-bca1-4ca2-89de-70d74b1abc04",
+        "shipment_id": "2e9c499d-49a3-4329-8556-b017f1f11bad",
+        "cursor": 3,
+        "received_at": "2026-11-06T22:31:39.610098+00:00",
+        "rendered_at": "2026-11-06T22:31:41.028Z",
+        "receive_to_map_ms": 1418
+      },
+      {
+        "event_id": "fa54f730-484e-4636-a5d2-ad0416646ac4",
+        "shipment_id": "2e9c499d-49a3-4329-8556-b017f1f11bad",
+        "cursor": 4,
+        "received_at": "2026-11-06T22:31:41.684124+00:00",
+        "rendered_at": "2026-11-06T22:31:42.014Z",
+        "receive_to_map_ms": 330
+      },
+      {
+        "event_id": "fed48016-7a95-407e-810b-48d341a5e6ea",
+        "shipment_id": "2e9c499d-49a3-4329-8556-b017f1f11bad",
+        "cursor": 5,
+        "received_at": "2026-11-06T22:31:42.768607+00:00",
+        "rendered_at": "2026-11-06T22:31:43.443Z",
+        "receive_to_map_ms": 675
+      },
+      {
+        "event_id": "0e94acc0-048c-4bb5-b2eb-3dc38b65760a",
+        "shipment_id": "2e9c499d-49a3-4329-8556-b017f1f11bad",
+        "cursor": 6,
+        "received_at": "2026-11-06T22:31:44.247965+00:00",
+        "rendered_at": "2026-11-06T22:31:44.862Z",
+        "receive_to_map_ms": 615
+      }
+    ]
+  },
+  "accessibility": [
+    {
+      "role": "admin",
+      "page": "/panel",
+      "violations": []
+    },
+    {
+      "role": "donor",
+      "page": "/panel",
+      "violations": []
+    },
+    {
+      "role": "operator1",
+      "page": "/panel",
+      "violations": []
+    },
+    {
+      "role": "origin",
+      "page": "/panel",
+      "violations": []
+    },
+    {
+      "role": "destination",
+      "page": "/panel",
+      "violations": []
+    },
+    {
+      "role": "coordinator",
+      "page": "/panel",
+      "violations": []
+    },
+    {
+      "role": "transport1",
+      "page": "/panel",
+      "violations": []
+    },
+    {
+      "role": "operator2",
+      "page": "/panel",
+      "violations": []
+    }
+  ],
+  "passed": false,
+  "failure": "apiRequestContext.post: Timeout 120000ms exceeded.",
+  "failureLocation": [
+    "    at /Users/victorberlanga/Programacion/integracion/Red-House/scripts/verify_backend_corrections.cjs:80:24"
+  ],
+  "finishedAt": "2026-11-06T22:34:17.767Z"
+}

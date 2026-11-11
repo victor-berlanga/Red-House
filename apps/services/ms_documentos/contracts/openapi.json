@@ -592,6 +592,298 @@
         }
       }
     },
+    "/api/v1/documents/{identifier}/status": {
+      "get": {
+        "operationId": "document_status",
+        "summary": "document_status",
+        "parameters": [
+          {
+            "name": "identifier",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-Correlation-ID",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "application/json",
+                "application/xml"
+              ]
+            }
+          }
+        ],
+        "description": "Roles: ADMIN, MEDICAL, OPERATOR, COORDINATOR, TRANSPORT, DONOR. Contrato público de API.",
+        "security": [
+          {
+            "BearerJWT": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resultado confirmado o estado pendiente documentado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_document_status"
+                },
+                "example": {
+                  "data": {
+                    "id": "00000000-0000-4000-8000-000000000001",
+                    "tenant_id": "00000000-0000-4000-8000-000000000001",
+                    "category": "Dato ficticio para reemplazar",
+                    "subject_kind": "Dato ficticio para reemplazar",
+                    "subject_id": "00000000-0000-4000-8000-000000000001",
+                    "version": 1,
+                    "supersedes": null,
+                    "privacy": "PRIVATE",
+                    "retention_until": null,
+                    "legal_hold": true,
+                    "policy_reference": "Dato ficticio para reemplazar",
+                    "created_at": "Dato ficticio para reemplazar",
+                    "policy_version": 1,
+                    "file_status": "Dato ficticio para reemplazar",
+                    "analysis": "Dato ficticio para reemplazar"
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "documentos",
+                    "version": "0.4.1"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"tenant_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"category\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"subject_kind\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"subject_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"version\" type=\"integer\">1</field><field name=\"supersedes\" type=\"null\"/><field name=\"privacy\" type=\"string\">PRIVATE</field><field name=\"retention_until\" type=\"null\"/><field name=\"legal_hold\" type=\"boolean\">true</field><field name=\"policy_reference\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"created_at\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"policy_version\" type=\"integer\">1</field><field name=\"file_status\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"analysis\" type=\"string\">Dato ficticio para reemplazar</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">documentos</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
+                "x-json-equivalent-schema": {
+                  "$ref": "#/components/schemas/Response_document_status"
+                },
+                "x-xsd": "/schemas/response.xsd",
+                "x-response-schema": "/schemas/document_status.response.json"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "406": {
+            "$ref": "#/components/responses/Error406"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "412": {
+            "$ref": "#/components/responses/Error412"
+          },
+          "413": {
+            "$ref": "#/components/responses/Error413"
+          },
+          "415": {
+            "$ref": "#/components/responses/Error415"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
+          }
+        }
+      }
+    },
+    "/api/v1/documents/{identifier}/conservation": {
+      "post": {
+        "operationId": "document_conservation",
+        "summary": "document_conservation",
+        "parameters": [
+          {
+            "name": "identifier",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-Correlation-ID",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "application/json",
+                "application/xml"
+              ]
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 8,
+              "maxLength": 100
+            }
+          }
+        ],
+        "description": "Roles: ADMIN, MEDICAL. Contrato público de API.",
+        "security": [
+          {
+            "BearerJWT": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resultado confirmado o estado pendiente documentado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_document_conservation"
+                },
+                "example": {
+                  "data": {
+                    "id": "00000000-0000-4000-8000-000000000001",
+                    "tenant_id": "00000000-0000-4000-8000-000000000001",
+                    "category": "Dato ficticio para reemplazar",
+                    "subject_kind": "Dato ficticio para reemplazar",
+                    "subject_id": "00000000-0000-4000-8000-000000000001",
+                    "version": 1,
+                    "supersedes": null,
+                    "privacy": "PRIVATE",
+                    "retention_until": null,
+                    "legal_hold": true,
+                    "policy_reference": "Dato ficticio para reemplazar",
+                    "created_at": "Dato ficticio para reemplazar",
+                    "policy_version": 1
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "documentos",
+                    "version": "0.4.1"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"tenant_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"category\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"subject_kind\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"subject_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"version\" type=\"integer\">1</field><field name=\"supersedes\" type=\"null\"/><field name=\"privacy\" type=\"string\">PRIVATE</field><field name=\"retention_until\" type=\"null\"/><field name=\"legal_hold\" type=\"boolean\">true</field><field name=\"policy_reference\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"created_at\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"policy_version\" type=\"integer\">1</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">documentos</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
+                "x-json-equivalent-schema": {
+                  "$ref": "#/components/schemas/Response_document_conservation"
+                },
+                "x-xsd": "/schemas/response.xsd",
+                "x-response-schema": "/schemas/document_conservation.response.json"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "406": {
+            "$ref": "#/components/responses/Error406"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "412": {
+            "$ref": "#/components/responses/Error412"
+          },
+          "413": {
+            "$ref": "#/components/responses/Error413"
+          },
+          "415": {
+            "$ref": "#/components/responses/Error415"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConservationChange"
+              },
+              "example": {
+                "human_confirmation": true,
+                "reason": "Dato ficticio para reemplazar",
+                "policy_version": 1,
+                "retention_until": null,
+                "legal_hold": true,
+                "policy_reference": "Dato ficticio para reemplazar"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "type": "string"
+              },
+              "example": "<?xml version='1.0' encoding='UTF-8'?>\n<request xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><human_confirmation>true</human_confirmation><reason>Dato ficticio para reemplazar</reason><policy_version>1</policy_version><retention_until xsi:nil=\"true\"/><legal_hold>true</legal_hold><policy_reference>Dato ficticio para reemplazar</policy_reference></request>",
+              "x-xsd": "/schemas/document_conservation.xsd",
+              "x-json-equivalent-schema": {
+                "$ref": "#/components/schemas/ConservationChange"
+              }
+            }
+          }
+        }
+      }
+    },
     "/internal/v1/files/{identifier}/transport-check": {
       "post": {
         "operationId": "file_transport_check",
@@ -821,7 +1113,8 @@
                       "retention_until": null,
                       "legal_hold": true,
                       "policy_reference": "Dato ficticio para reemplazar",
-                      "created_at": "Dato ficticio para reemplazar"
+                      "created_at": "Dato ficticio para reemplazar",
+                      "policy_version": 1
                     },
                     "upload_url": "Dato ficticio para reemplazar",
                     "expires_in": 1,
@@ -838,7 +1131,7 @@
                 "schema": {
                   "type": "string"
                 },
-                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"metadata\" type=\"object\"><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"tenant_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"category\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"subject_kind\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"subject_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"version\" type=\"integer\">1</field><field name=\"supersedes\" type=\"null\"/><field name=\"privacy\" type=\"string\">PRIVATE</field><field name=\"retention_until\" type=\"null\"/><field name=\"legal_hold\" type=\"boolean\">true</field><field name=\"policy_reference\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"created_at\" type=\"string\">Dato ficticio para reemplazar</field></field><field name=\"upload_url\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"expires_in\" type=\"integer\">1</field><field name=\"upload_headers\" type=\"object\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">documentos</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"metadata\" type=\"object\"><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"tenant_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"category\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"subject_kind\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"subject_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"version\" type=\"integer\">1</field><field name=\"supersedes\" type=\"null\"/><field name=\"privacy\" type=\"string\">PRIVATE</field><field name=\"retention_until\" type=\"null\"/><field name=\"legal_hold\" type=\"boolean\">true</field><field name=\"policy_reference\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"created_at\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"policy_version\" type=\"integer\">1</field></field><field name=\"upload_url\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"expires_in\" type=\"integer\">1</field><field name=\"upload_headers\" type=\"object\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">documentos</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
                 "x-json-equivalent-schema": {
                   "$ref": "#/components/schemas/Response_document_prepare"
                 },
@@ -1179,6 +1472,7 @@
                     "legal_hold": true,
                     "policy_reference": "Dato ficticio para reemplazar",
                     "created_at": "Dato ficticio para reemplazar",
+                    "policy_version": 1,
                     "generation": "Dato ficticio para reemplazar",
                     "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
                     "analysis": "CLEAN",
@@ -1195,7 +1489,7 @@
                 "schema": {
                   "type": "string"
                 },
-                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"tenant_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"category\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"subject_kind\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"subject_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"version\" type=\"integer\">1</field><field name=\"supersedes\" type=\"null\"/><field name=\"privacy\" type=\"string\">PRIVATE</field><field name=\"retention_until\" type=\"null\"/><field name=\"legal_hold\" type=\"boolean\">true</field><field name=\"policy_reference\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"created_at\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"generation\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"sha256\" type=\"string\">0000000000000000000000000000000000000000000000000000000000000000</field><field name=\"analysis\" type=\"string\">CLEAN</field><field name=\"file_status\" type=\"string\">VERIFIED</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">documentos</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"tenant_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"category\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"subject_kind\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"subject_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"version\" type=\"integer\">1</field><field name=\"supersedes\" type=\"null\"/><field name=\"privacy\" type=\"string\">PRIVATE</field><field name=\"retention_until\" type=\"null\"/><field name=\"legal_hold\" type=\"boolean\">true</field><field name=\"policy_reference\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"created_at\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"policy_version\" type=\"integer\">1</field><field name=\"generation\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"sha256\" type=\"string\">0000000000000000000000000000000000000000000000000000000000000000</field><field name=\"analysis\" type=\"string\">CLEAN</field><field name=\"file_status\" type=\"string\">VERIFIED</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">documentos</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
                 "x-json-equivalent-schema": {
                   "$ref": "#/components/schemas/Response_document_verified"
                 },
@@ -1307,7 +1601,8 @@
                     "retention_until": null,
                     "legal_hold": true,
                     "policy_reference": "Dato ficticio para reemplazar",
-                    "created_at": "Dato ficticio para reemplazar"
+                    "created_at": "Dato ficticio para reemplazar",
+                    "policy_version": 1
                   },
                   "meta": {
                     "correlation_id": "00000000-0000-4000-8000-000000000001",
@@ -1320,7 +1615,7 @@
                 "schema": {
                   "type": "string"
                 },
-                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"tenant_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"category\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"subject_kind\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"subject_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"version\" type=\"integer\">1</field><field name=\"supersedes\" type=\"null\"/><field name=\"privacy\" type=\"string\">PRIVATE</field><field name=\"retention_until\" type=\"null\"/><field name=\"legal_hold\" type=\"boolean\">true</field><field name=\"policy_reference\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"created_at\" type=\"string\">Dato ficticio para reemplazar</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">documentos</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"tenant_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"category\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"subject_kind\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"subject_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"version\" type=\"integer\">1</field><field name=\"supersedes\" type=\"null\"/><field name=\"privacy\" type=\"string\">PRIVATE</field><field name=\"retention_until\" type=\"null\"/><field name=\"legal_hold\" type=\"boolean\">true</field><field name=\"policy_reference\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"created_at\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"policy_version\" type=\"integer\">1</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">documentos</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
                 "x-json-equivalent-schema": {
                   "$ref": "#/components/schemas/Response_document_detail"
                 },
@@ -1431,7 +1726,8 @@
                     "file_id": null,
                     "last_error": null,
                     "attempts": 1,
-                    "created_at": "Dato ficticio para reemplazar"
+                    "created_at": "Dato ficticio para reemplazar",
+                    "context": {}
                   },
                   "meta": {
                     "correlation_id": "00000000-0000-4000-8000-000000000001",
@@ -1444,7 +1740,7 @@
                 "schema": {
                   "type": "string"
                 },
-                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"tenant_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"user_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"report\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"format\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"status\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"file_id\" type=\"null\"/><field name=\"last_error\" type=\"null\"/><field name=\"attempts\" type=\"integer\">1</field><field name=\"created_at\" type=\"string\">Dato ficticio para reemplazar</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">documentos</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"tenant_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"user_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"report\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"format\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"status\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"file_id\" type=\"null\"/><field name=\"last_error\" type=\"null\"/><field name=\"attempts\" type=\"integer\">1</field><field name=\"created_at\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"context\" type=\"object\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">documentos</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
                 "x-json-equivalent-schema": {
                   "$ref": "#/components/schemas/Response_export_create"
                 },
@@ -1506,14 +1802,16 @@
                 "format": "CSV",
                 "from_at": "2026-10-01T15:00:00+00:00",
                 "until_at": "2030-01-01T15:00:00+00:00",
-                "order": "ID_ASC"
+                "order": "ID_ASC",
+                "filters": {},
+                "timezone": "Dato ficticio para reemplazar"
               }
             },
             "application/xml": {
               "schema": {
                 "type": "string"
               },
-              "example": "<?xml version='1.0' encoding='UTF-8'?>\n<request xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><report>INVENTORY</report><subject_id xsi:nil=\"true\"/><format>CSV</format><from_at>2026-10-01T15:00:00+00:00</from_at><until_at>2030-01-01T15:00:00+00:00</until_at><order>ID_ASC</order></request>",
+              "example": "<?xml version='1.0' encoding='UTF-8'?>\n<request xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><report>INVENTORY</report><subject_id xsi:nil=\"true\"/><format>CSV</format><from_at>2026-10-01T15:00:00+00:00</from_at><until_at>2030-01-01T15:00:00+00:00</until_at><order>ID_ASC</order><filters/><timezone>Dato ficticio para reemplazar</timezone></request>",
               "x-xsd": "/schemas/export_create.xsd",
               "x-json-equivalent-schema": {
                 "$ref": "#/components/schemas/ReportCreate"
@@ -1771,7 +2069,8 @@
                     "file_id": null,
                     "last_error": null,
                     "attempts": 1,
-                    "created_at": "Dato ficticio para reemplazar"
+                    "created_at": "Dato ficticio para reemplazar",
+                    "context": {}
                   },
                   "meta": {
                     "correlation_id": "00000000-0000-4000-8000-000000000001",
@@ -1784,7 +2083,7 @@
                 "schema": {
                   "type": "string"
                 },
-                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"tenant_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"user_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"report\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"format\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"status\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"file_id\" type=\"null\"/><field name=\"last_error\" type=\"null\"/><field name=\"attempts\" type=\"integer\">1</field><field name=\"created_at\" type=\"string\">Dato ficticio para reemplazar</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">documentos</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"tenant_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"user_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"report\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"format\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"status\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"file_id\" type=\"null\"/><field name=\"last_error\" type=\"null\"/><field name=\"attempts\" type=\"integer\">1</field><field name=\"created_at\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"context\" type=\"object\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">documentos</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
                 "x-json-equivalent-schema": {
                   "$ref": "#/components/schemas/Response_export_detail"
                 },
@@ -1904,7 +2203,8 @@
                     "file_id": null,
                     "last_error": null,
                     "attempts": 1,
-                    "created_at": "Dato ficticio para reemplazar"
+                    "created_at": "Dato ficticio para reemplazar",
+                    "context": {}
                   },
                   "meta": {
                     "correlation_id": "00000000-0000-4000-8000-000000000001",
@@ -1917,7 +2217,7 @@
                 "schema": {
                   "type": "string"
                 },
-                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"tenant_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"user_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"report\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"format\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"status\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"file_id\" type=\"null\"/><field name=\"last_error\" type=\"null\"/><field name=\"attempts\" type=\"integer\">1</field><field name=\"created_at\" type=\"string\">Dato ficticio para reemplazar</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">documentos</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"tenant_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"user_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"report\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"format\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"status\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"file_id\" type=\"null\"/><field name=\"last_error\" type=\"null\"/><field name=\"attempts\" type=\"integer\">1</field><field name=\"created_at\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"context\" type=\"object\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">documentos</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
                 "x-json-equivalent-schema": {
                   "$ref": "#/components/schemas/Response_export_retry"
                 },
@@ -2423,6 +2723,334 @@
           }
         }
       },
+      "Response_document_status": {
+        "type": "object",
+        "required": [
+          "data",
+          "meta"
+        ],
+        "properties": {
+          "data": {
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "title": "Id",
+                "type": "string"
+              },
+              "tenant_id": {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "title": "Tenant Id",
+                "type": "string"
+              },
+              "category": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Category",
+                "type": "string"
+              },
+              "subject_kind": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Subject Kind",
+                "type": "string"
+              },
+              "subject_id": {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "title": "Subject Id",
+                "type": "string"
+              },
+              "version": {
+                "title": "Version",
+                "type": "integer"
+              },
+              "supersedes": {
+                "anyOf": [
+                  {
+                    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Supersedes"
+              },
+              "privacy": {
+                "const": "PRIVATE",
+                "title": "Privacy",
+                "type": "string"
+              },
+              "retention_until": {
+                "anyOf": [
+                  {
+                    "maxLength": 200,
+                    "minLength": 1,
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Retention Until"
+              },
+              "legal_hold": {
+                "title": "Legal Hold",
+                "type": "boolean"
+              },
+              "policy_reference": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Policy Reference",
+                "type": "string"
+              },
+              "created_at": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Created At",
+                "type": "string"
+              },
+              "policy_version": {
+                "title": "Policy Version",
+                "type": "integer"
+              },
+              "file_status": {
+                "title": "File Status",
+                "type": "string"
+              },
+              "analysis": {
+                "title": "Analysis",
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "tenant_id",
+              "category",
+              "subject_kind",
+              "subject_id",
+              "version",
+              "supersedes",
+              "privacy",
+              "retention_until",
+              "legal_hold",
+              "policy_reference",
+              "created_at",
+              "policy_version",
+              "file_status",
+              "analysis"
+            ],
+            "title": "DocumentStatus",
+            "type": "object"
+          },
+          "meta": {
+            "type": "object",
+            "required": [
+              "correlation_id",
+              "service",
+              "version"
+            ],
+            "properties": {
+              "correlation_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "service": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "Response_document_conservation": {
+        "type": "object",
+        "required": [
+          "data",
+          "meta"
+        ],
+        "properties": {
+          "data": {
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "title": "Id",
+                "type": "string"
+              },
+              "tenant_id": {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "title": "Tenant Id",
+                "type": "string"
+              },
+              "category": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Category",
+                "type": "string"
+              },
+              "subject_kind": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Subject Kind",
+                "type": "string"
+              },
+              "subject_id": {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "title": "Subject Id",
+                "type": "string"
+              },
+              "version": {
+                "title": "Version",
+                "type": "integer"
+              },
+              "supersedes": {
+                "anyOf": [
+                  {
+                    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Supersedes"
+              },
+              "privacy": {
+                "const": "PRIVATE",
+                "title": "Privacy",
+                "type": "string"
+              },
+              "retention_until": {
+                "anyOf": [
+                  {
+                    "maxLength": 200,
+                    "minLength": 1,
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Retention Until"
+              },
+              "legal_hold": {
+                "title": "Legal Hold",
+                "type": "boolean"
+              },
+              "policy_reference": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Policy Reference",
+                "type": "string"
+              },
+              "created_at": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Created At",
+                "type": "string"
+              },
+              "policy_version": {
+                "default": 1,
+                "title": "Policy Version",
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id",
+              "tenant_id",
+              "category",
+              "subject_kind",
+              "subject_id",
+              "version",
+              "supersedes",
+              "privacy",
+              "retention_until",
+              "legal_hold",
+              "policy_reference",
+              "created_at"
+            ],
+            "title": "Metadata",
+            "type": "object"
+          },
+          "meta": {
+            "type": "object",
+            "required": [
+              "correlation_id",
+              "service",
+              "version"
+            ],
+            "properties": {
+              "correlation_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "service": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "ConservationChange": {
+        "additionalProperties": false,
+        "properties": {
+          "human_confirmation": {
+            "const": true,
+            "title": "Human Confirmation",
+            "type": "boolean"
+          },
+          "reason": {
+            "maxLength": 1000,
+            "minLength": 6,
+            "title": "Reason",
+            "type": "string"
+          },
+          "policy_version": {
+            "minimum": 1,
+            "title": "Policy Version",
+            "type": "integer"
+          },
+          "retention_until": {
+            "anyOf": [
+              {
+                "maxLength": 200,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Retention Until"
+          },
+          "legal_hold": {
+            "title": "Legal Hold",
+            "type": "boolean"
+          },
+          "policy_reference": {
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Policy Reference",
+            "type": "string"
+          }
+        },
+        "required": [
+          "human_confirmation",
+          "reason",
+          "policy_version",
+          "legal_hold",
+          "policy_reference"
+        ],
+        "title": "ConservationChange",
+        "type": "object"
+      },
       "Response_file_transport_check": {
         "type": "object",
         "required": [
@@ -2572,6 +3200,11 @@
                     "minLength": 1,
                     "title": "Created At",
                     "type": "string"
+                  },
+                  "policy_version": {
+                    "default": 1,
+                    "title": "Policy Version",
+                    "type": "integer"
                   }
                 },
                 "required": [
@@ -2822,6 +3455,11 @@
                 "title": "Created At",
                 "type": "string"
               },
+              "policy_version": {
+                "default": 1,
+                "title": "Policy Version",
+                "type": "integer"
+              },
               "generation": {
                 "maxLength": 200,
                 "minLength": 1,
@@ -2973,6 +3611,11 @@
                 "minLength": 1,
                 "title": "Created At",
                 "type": "string"
+              },
+              "policy_version": {
+                "default": 1,
+                "title": "Policy Version",
+                "type": "integer"
               }
             },
             "required": [
@@ -3111,6 +3754,11 @@
                       "minLength": 1,
                       "title": "Created At",
                       "type": "string"
+                    },
+                    "policy_version": {
+                      "default": 1,
+                      "title": "Policy Version",
+                      "type": "integer"
                     }
                   },
                   "required": [
@@ -3241,6 +3889,11 @@
                 "minLength": 1,
                 "title": "Created At",
                 "type": "string"
+              },
+              "context": {
+                "additionalProperties": true,
+                "title": "Context",
+                "type": "object"
               }
             },
             "required": [
@@ -3337,6 +3990,22 @@
               "DATE_DESC"
             ],
             "title": "Order",
+            "type": "string"
+          },
+          "filters": {
+            "additionalProperties": {
+              "maxLength": 200,
+              "minLength": 1,
+              "type": "string"
+            },
+            "title": "Filters",
+            "type": "object"
+          },
+          "timezone": {
+            "default": "UTC",
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Timezone",
             "type": "string"
           }
         },
@@ -3437,6 +4106,11 @@
                       "minLength": 1,
                       "title": "Created At",
                       "type": "string"
+                    },
+                    "context": {
+                      "additionalProperties": true,
+                      "title": "Context",
+                      "type": "object"
                     }
                   },
                   "required": [
@@ -3565,6 +4239,11 @@
                 "minLength": 1,
                 "title": "Created At",
                 "type": "string"
+              },
+              "context": {
+                "additionalProperties": true,
+                "title": "Context",
+                "type": "object"
               }
             },
             "required": [
@@ -3681,6 +4360,11 @@
                 "minLength": 1,
                 "title": "Created At",
                 "type": "string"
+              },
+              "context": {
+                "additionalProperties": true,
+                "title": "Context",
+                "type": "object"
               }
             },
             "required": [

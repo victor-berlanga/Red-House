@@ -22,6 +22,10 @@
     <article class="card feature-card">{{ icon('scroll-text') }}<span class="feature-number">03</span><h3>Trazabilidad desde el inicio</h3><p>Historial de cambios administrativos, asignaciones y entregas entre instituciones.</p></article>
   </div>
 </section>
+<section class="public-section" aria-labelledby="public-institutions"><h2 id="public-institutions">Instituciones participantes</h2>
+{% if 'institutions' in unavailable %}<p role="status">La consulta de instituciones no está disponible. Intenta nuevamente más tarde.</p>{% else %}<ul class="publication-grid">{% for institution in publications.institutions %}<li><strong>{{ institution.name }}</strong> · {{ institution.description }}</li>{% else %}<li>No hay instituciones publicadas.</li>{% endfor %}</ul>{% endif %}
+<h2>Campañas publicadas</h2>{% if 'campaigns' in unavailable %}<p role="status">La consulta de campañas no está disponible.</p>{% else %}<div class="feature-grid">{% for campaign in publications.campaigns %}<article class="card feature-card"><h3>{{ campaign.title }}</h3><p>{{ campaign.venue }}</p><p>{{ campaign.starts_at|portal_html }} – {{ campaign.ends_at|portal_html }}</p><p>{{ campaign.information }}</p><a href="{{ url_for('public.login') }}">Consultar agenda en mi portal</a></article>{% else %}<p>No hay campañas vigentes publicadas.</p>{% endfor %}</div>{% endif %}
+<p>La institución confirma requisitos y evaluación. Esta información no sustituye orientación médica.</p></section>
 <section class="public-contact"><div><span class="eyebrow">CONTACTO Y ACCESO</span><h2>¿Tu institución participa en la red?</h2><p>Solicita una cuenta al administrador de tu institución para acceder a las operaciones de la red.</p></div><a class="button secondary" href="{{ url_for('public.login') }}">Acceso institucional {{ icon('arrow-right') }}</a></section>
 <footer class="public-footer"><span>Red House · Red regional</span><span>Coordinación institucional de sangre y donación de órganos.</span></footer>
 {% endblock %}

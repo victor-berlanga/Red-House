@@ -4,6 +4,14 @@ Trabaja en `/Users/victorberlanga/Programacion/integracion/Red-House`. Lee `AGEN
 
 Los prompts 01 a 05 son responsables de sus funciones y controles desde el desarrollo. Esta etapa revisa su cobertura conjunta y corrige brechas, no pospone autenticación o permisos hasta el final.
 
+## Entrada y pendientes heredados
+
+Lee la [continuidad obligatoria de 01–04 definida en 07](07_integracion_pruebas_y_rendimiento.md#continuidad-obligatoria-de-las-etapas-01-a-04), la [matriz del portal](../../../documentation/entrega-final/portal/Matriz.md), su [plan de aceptación integrada I06-01…09](../../../documentation/entrega-final/portal/Aceptacion_integrada_06.md), la [matriz móvil](../../../documentation/entrega-final/mobile/Matriz.md) y sus [dependencias externas](../../../documentation/entrega-final/mobile/Dependencias_externas.md). Abre o actualiza `documentation/entrega-final/continuidad/Matriz.md` al ejecutar, sin exigir que 07 haya terminado. Registra qué criterios CONT resuelve 06 y qué recorrido de cliente corresponde verificar después en 07.
+
+Comprueba el entorno vigente antes de seguir instrucciones históricas: esquema, imágenes, gateway, permisos de ensayo, ClamAV y accesos a proveedores. La revisión del 11/11/2026 encontró referencias antiguas al esquema 17 y a dependencias ausentes; el estado posterior ya documenta esquema 18, gateway publicado y ClamAV preparado. No fijes esas versiones para siempre, no reviertas el entorno ni marques una dependencia como resuelta sin comprobar su alcance actual. Las autorizaciones de despliegue anteriores no autorizan nuevas pruebas destructivas sobre producción.
+
+Resuelve I06-01…09 con evidencia aplicable: ciclo GCS/ClamAV desde navegador; documentos HLA y evidencia de traslado; versiones, conservación y bloqueos; EICAR aislado; fallos/recuperación; reportes CSV/PDF/XLSX de más de 1000 filas con filtros, conteos y ámbito coherentes; WSS con una y todas las réplicas detenidas, autonomía web, recuperación/revocación y manifiestos. Reutiliza los casos que ya acrediten el código y entorno actuales; repite los afectados por cambios o brechas demostradas. Conserva identificadores WEB/TRACK/CONT y evita contar el mismo ensayo varias veces.
+
 ## SEC-01 Identidad sesiones y operaciones críticas
 
 Verifica hash de contraseña y parámetros vigentes con fuentes oficiales, JWT con algoritmo/emisor/audiencia/claims/expiración definidos, rotación de renovación, detección de reutilización, revocación, permisos versionados Redis y límites compartidos entre réplicas.
@@ -37,6 +45,14 @@ Define políticas versionadas de categoría, privacidad, retención, bloqueo leg
 Demuestra archivo limpio, contenido inválido, archivo de prueba antimalware estándar en entorno aislado, motor caído, firma antigua, timeout, objeto sustituido/ausente, URL expirada y acceso de otra institución. No uses malware real ni mezcles archivos de prueba con expedientes reales.
 
 Ante GCS caído durante un traslado, registra la incidencia y evidencia pendiente sin afirmar carga/verificación. Permite solo las transiciones que el protocolo autoriza sin ese documento; bloquea las que lo exigen. Prueba recuperación sin duplicar objetos ni cerrar falsamente custodia.
+
+Completa la dependencia CONT-08 con un objeto real en un prefijo de prueba autorizado y un motor real. Comprueba preparación, carga, análisis, generación/hash, consulta/descarga y vínculo documental HLA o de traslado. El ensayo local CLEAN/EICAR solo acredita el motor. Prueba revocación entre creación y descarga de reportes/documentos: impedir nuevas autorizaciones o firmas según el contrato, y documentar la vigencia residual real de URLs ya emitidas sin prometer revocación inmediata inexistente. Entrega a 07 las condiciones reproducibles para acreditar el recorrido desde Android e iOS.
+
+## Entrega push pendiente de 04
+
+Asume CONT-07 con el propietario Alertas. Inspecciona su adaptador HTTP y los adaptadores nativos antes de completar la integración HTTPS autorizada con FCM/APNs; no presupongas que existe un proveedor operativo ni crees un microservicio adicional por defecto. Separa implementación/adaptación, configuración, firma/entitlements/permisos y recepción en el dispositivo. Si faltan accesos, completa y prueba el trabajo independiente con un receptor identificado de laboratorio, conservando la entrega física como no verificada.
+
+Preserva `event_id` como referencia de entrega/idempotencia y `alert_id` como referencia opaca para abrir la alerta. Verifica destinatario autorizado, consentimiento, permisos, rotación, reintentos, deduplicación, expiración/revocación y payload mínimo sin datos clínicos. Mantén el límite de destinos por cuenta/canal que realmente soporte el contrato; no prometas entrega multidispositivo sin implementarla. La prueba conjunta con 07 debe mostrar recepción y apertura reautorizada en Android e iOS; un 2xx del proveedor, un token registrado o un outbox vacío no bastan. No habilites proyectos facturables, cuentas o publicaciones externas sin autorización vigente.
 
 ## INF-01 Contenedores y despliegue
 
@@ -84,6 +100,12 @@ Ejecuta CI remoto si hay acceso autorizado y conserva resultado real; una defini
 
 ## Aceptación y entregables
 
-Entrega matriz de seguridad negativa, políticas de archivos, ensayo antimalware, matriz de fallos, objetivos/mediciones RTO-RPO, respaldos restaurados, diagramas de red/despliegue, runbooks y pipeline con evidencia. Demuestra que un usuario no autorizado recibe rechazo en acciones críticas y que una caída no confirma una operación incompleta.
+Entrega matriz de seguridad negativa, políticas de archivos, ensayo antimalware, matriz de fallos, objetivos/mediciones RTO-RPO, respaldos restaurados, diagramas de red/despliegue, runbooks y pipeline con evidencia. Incluye el resultado de I06-01…09, CONT aplicables y el estado separado de implementación/configuración/recepción push. Demuestra que un usuario no autorizado recibe rechazo en acciones críticas y que una caída no confirma una operación incompleta.
 
 Las pruebas destructivas y de saturación se ejecutan solo en entornos aislados autorizados. Publica cambios en la VM únicamente cuando exista autorización vigente y después de preparar un resultado concreto revisable. Actualiza documentación y `PROJECT_STATUS.md`, distinguiendo lo implementado, probado, diseñado y pendiente externo.
+
+## Alcance móvil actualizado — 6 de noviembre de 2026
+
+Incluye Android e iOS en CI con runners apropiados (macOS/Xcode para iOS), firma protegida y artefactos diferenciados. Verifica permisos de ubicación, almacenamiento seguro y push por plataforma. Ensaya bloqueo, suspensión, cierre forzado, ahorro de batería y revocación: ningún socket se presume permanente. La aplicación móvil es fuente principal; no exijas GPS externo opcional como condición de cierre.
+
+Para la continuación del 11/11/2026 rige la prueba en iPhone físico autorizada y la decisión de no descargar runtime Simulator. Distingue compilación CI, firma, instalación y ejecución; declara lo no ejecutado. Un cambio futuro de destino requiere decisión registrada, sin reducir los recorridos de aceptación de 07.

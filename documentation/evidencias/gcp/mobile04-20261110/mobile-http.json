@@ -1,0 +1,261 @@
+{
+  "at": "2026-11-10T23:52:35.195485+00:00",
+  "gateway": "https://34.18.186.116",
+  "result": "passed",
+  "tls": {
+    "validated": true,
+    "version": "TLSv1.3",
+    "expires": "Nov 14 15:14:33 2026 GMT",
+    "subject_alt_names": [
+      [
+        "IP Address",
+        "34.18.186.116"
+      ]
+    ]
+  },
+  "portal_http": 200,
+  "wss": {
+    "authenticated": true,
+    "heartbeat": true,
+    "subscribed": false,
+    "subscription_rejection": "tracking_closed",
+    "published_positions": 0
+  },
+  "device_sources_verified": [
+    "ANDROID",
+    "IOS"
+  ],
+  "checks": [
+    {
+      "service": "identidad-acceso",
+      "path": "/health/live",
+      "status": 200
+    },
+    {
+      "service": "identidad-acceso",
+      "path": "/health/ready",
+      "status": 200
+    },
+    {
+      "service": "donantes",
+      "path": "/health/live",
+      "status": 200
+    },
+    {
+      "service": "donantes",
+      "path": "/health/ready",
+      "status": 200
+    },
+    {
+      "service": "receptores",
+      "path": "/health/live",
+      "status": 200
+    },
+    {
+      "service": "receptores",
+      "path": "/health/ready",
+      "status": 200
+    },
+    {
+      "service": "inventario",
+      "path": "/health/live",
+      "status": 200
+    },
+    {
+      "service": "inventario",
+      "path": "/health/ready",
+      "status": 200
+    },
+    {
+      "service": "compatibilidad",
+      "path": "/health/live",
+      "status": 200
+    },
+    {
+      "service": "compatibilidad",
+      "path": "/health/ready",
+      "status": 200
+    },
+    {
+      "service": "priorizacion-geografia",
+      "path": "/health/live",
+      "status": 200
+    },
+    {
+      "service": "priorizacion-geografia",
+      "path": "/health/ready",
+      "status": 200
+    },
+    {
+      "service": "transporte",
+      "path": "/health/live",
+      "status": 200
+    },
+    {
+      "service": "transporte",
+      "path": "/health/ready",
+      "status": 200
+    },
+    {
+      "service": "custodia",
+      "path": "/health/live",
+      "status": 200
+    },
+    {
+      "service": "custodia",
+      "path": "/health/ready",
+      "status": 200
+    },
+    {
+      "service": "alertas",
+      "path": "/health/live",
+      "status": 200
+    },
+    {
+      "service": "alertas",
+      "path": "/health/ready",
+      "status": 200
+    },
+    {
+      "service": "auditoria",
+      "path": "/health/live",
+      "status": 200
+    },
+    {
+      "service": "auditoria",
+      "path": "/health/ready",
+      "status": 200
+    },
+    {
+      "service": "monitoreo",
+      "path": "/health/live",
+      "status": 200
+    },
+    {
+      "service": "monitoreo",
+      "path": "/health/ready",
+      "status": 200
+    },
+    {
+      "service": "documentos",
+      "path": "/health/live",
+      "status": 200
+    },
+    {
+      "service": "documentos",
+      "path": "/health/ready",
+      "status": 200
+    },
+    {
+      "service": "identidad-acceso",
+      "path": "/api/v1/auth/login",
+      "status": 200
+    },
+    {
+      "service": "identidad-acceso",
+      "path": "/api/v1/auth/me",
+      "status": 200
+    },
+    {
+      "service": "identidad-acceso",
+      "path": "/api/v1/auth/login",
+      "status": 200
+    },
+    {
+      "service": "identidad-acceso",
+      "path": "/api/v1/auth/me",
+      "status": 200
+    },
+    {
+      "service": "identidad-acceso",
+      "path": "/api/v1/auth/login",
+      "status": 200
+    },
+    {
+      "service": "identidad-acceso",
+      "path": "/api/v1/auth/me",
+      "status": 200
+    },
+    {
+      "service": "identidad-acceso",
+      "path": "/api/v1/mobile/devices",
+      "status": 200
+    },
+    {
+      "service": "identidad-acceso",
+      "path": "/api/v1/mobile/devices",
+      "status": 403
+    },
+    {
+      "service": "identidad-acceso",
+      "path": "/api/v1/mobile/devices",
+      "status": 200
+    },
+    {
+      "service": "identidad-acceso",
+      "path": "/api/v1/mobile/devices",
+      "status": 403
+    },
+    {
+      "service": "transporte",
+      "path": "/api/v1/shipments?page_size=20",
+      "status": 200
+    },
+    {
+      "service": "transporte",
+      "path": "/api/v1/shipments/e68b36e1-fb65-4e0e-b5eb-8e9c6d671401/operational-context",
+      "status": 200
+    },
+    {
+      "service": "transporte",
+      "path": "/api/v1/shipments/e68b36e1-fb65-4e0e-b5eb-8e9c6d671401/operational-context",
+      "status": 403
+    },
+    {
+      "service": "transporte",
+      "path": "/api/v1/shipments/e68b36e1-fb65-4e0e-b5eb-8e9c6d671401/scan",
+      "status": 409
+    },
+    {
+      "service": "inventario",
+      "path": "/api/v1/resources?page_size=2",
+      "status": 200
+    },
+    {
+      "service": "donantes",
+      "path": "/api/v1/campaigns?page_size=2",
+      "status": 200
+    },
+    {
+      "service": "alertas",
+      "path": "/api/v1/alerts?page_size=2",
+      "status": 200
+    },
+    {
+      "service": "identidad-acceso",
+      "path": "/api/v1/mobile/devices/86b3360e-4858-47e7-9fcc-a25430be8b42/revoke",
+      "status": 200
+    },
+    {
+      "service": "identidad-acceso",
+      "path": "/api/v1/mobile/devices/c86e5854-5cb1-4793-b772-359051ff9f81/revoke",
+      "status": 200
+    },
+    {
+      "service": "identidad-acceso",
+      "path": "/api/v1/auth/logout",
+      "status": 200
+    },
+    {
+      "service": "identidad-acceso",
+      "path": "/api/v1/auth/logout",
+      "status": 200
+    },
+    {
+      "service": "identidad-acceso",
+      "path": "/api/v1/auth/logout",
+      "status": 200
+    }
+  ],
+  "test_devices_revoked": 2
+}

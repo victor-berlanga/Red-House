@@ -1,0 +1,15 @@
+{% from 'macros.html' import icon, csrf with context %}
+{% macro control(label, link, glyph, resource, key=none, menu=false) -%}
+{% set image = {'read':'mail-open','cancel':'x','view':'eye'}.get(glyph, glyph if glyph in ['pencil','trash','plus','arrow-right','arrow-up-right','calendar-days','file-clock','scroll-text','package'] else 'arrow-right') %}
+{% if glyph=='read' %}<form method="post" action="{{ link }}" class="inline-action">{{ csrf() }}<input type="hidden" name="idempotency_key" value="{{ key }}"><button type="submit" class="{{ 'action-menu-item' if menu else 'icon-button' }}" aria-label="{{ label }} · {{ resource }}" {% if not menu %}data-tooltip="{{ label }} · {{ resource }}"{% endif %}>{{ icon(image) }}{% if menu %}{{ label }}{% endif %}</button></form>
+{% else %}<a class="{{ 'action-menu-item' if menu else 'icon-button' }}" href="{{ link }}" {% if glyph=='cancel' %}data-action-dialog{% elif glyph=='view' %}data-record-view="{{ link }}"{% endif %} aria-label="{{ label }} · {{ resource }}" {% if not menu %}data-tooltip="{{ label }} · {{ resource }}"{% endif %}>{{ icon(image) }}{% if menu %}{{ label }}{% endif %}</a>{% endif %}
+{%- endmacro %}
+{% macro record_actions(row, resource='registro', open_full=false) -%}
+{% set state=namespace(direct=[],more=[]) %}
+{% if row._href %}{% set state.direct=([('Abrir detalle',row._href,'arrow-up-right')] if open_full else [])+[('Vista rápida',row._href,'view')] %}{% endif %}
+{% for action in row._actions|default([]) %}{% if action[2] in ['read','pencil'] and state.direct|length<2 %}{% set state.direct=state.direct+[action] %}{% else %}{% set state.more=state.more+[action] %}{% endif %}{% endfor %}
+<div class="row-actions">
+{% for label,link,glyph in state.direct %}{{ control(label,link,glyph,resource,row._action_key) }}{% endfor %}
+{% if state.more %}<details class="row-action-menu"><summary class="icon-button" aria-label="Más acciones · {{ resource }}" data-tooltip="Más acciones · {{ resource }}">{{ icon('more-horizontal') }}</summary><div class="action-menu-panel" aria-label="Acciones de {{ resource }}">{% for label,link,glyph in state.more %}{{ control(label,link,glyph,resource,row._action_key,true) }}{% endfor %}</div></details>{% endif %}
+</div>
+{%- endmacro %}

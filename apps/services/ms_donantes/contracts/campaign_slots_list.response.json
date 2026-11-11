@@ -90,6 +90,18 @@
                 "minLength": 1,
                 "title": "Created At",
                 "type": "string"
+              },
+              "occupied": {
+                "title": "Occupied",
+                "type": "integer"
+              },
+              "available": {
+                "title": "Available",
+                "type": "integer"
+              },
+              "attended": {
+                "title": "Attended",
+                "type": "integer"
               }
             },
             "required": [
@@ -102,9 +114,12 @@
               "tenant_id",
               "active",
               "version",
-              "created_at"
+              "created_at",
+              "occupied",
+              "available",
+              "attended"
             ],
-            "title": "Slot",
+            "title": "SlotAvailability",
             "type": "object"
           }
         },

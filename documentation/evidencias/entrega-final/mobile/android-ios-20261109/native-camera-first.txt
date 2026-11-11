@@ -1,0 +1,58 @@
+INSTRUMENTATION_STATUS: class=org.redhouse.mobile.CameraPermissionTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+org.redhouse.mobile.CameraPermissionTest:
+INSTRUMENTATION_STATUS: test=qrOpensCameraAndCancellationReturnsToApp
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=org.redhouse.mobile.CameraPermissionTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=qrOpensCameraAndCancellationReturnsToApp
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=org.redhouse.mobile.CameraPermissionTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=systemCameraReturnsRealJpeg
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=org.redhouse.mobile.CameraPermissionTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Camera never entered capture review
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertNotNull(Assert.java:713)
+	at org.redhouse.mobile.CameraPermissionTest.systemCameraReturnsRealJpeg(CameraPermissionTest.kt:44)
+
+INSTRUMENTATION_STATUS: stream=
+Error in systemCameraReturnsRealJpeg(org.redhouse.mobile.CameraPermissionTest):
+java.lang.AssertionError: Camera never entered capture review
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertNotNull(Assert.java:713)
+	at org.redhouse.mobile.CameraPermissionTest.systemCameraReturnsRealJpeg(CameraPermissionTest.kt:44)
+
+INSTRUMENTATION_STATUS: test=systemCameraReturnsRealJpeg
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 78.784
+There was 1 failure:
+1) systemCameraReturnsRealJpeg(org.redhouse.mobile.CameraPermissionTest)
+java.lang.AssertionError: Camera never entered capture review
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertNotNull(Assert.java:713)
+	at org.redhouse.mobile.CameraPermissionTest.systemCameraReturnsRealJpeg(CameraPermissionTest.kt:44)
+
+FAILURES!!!
+Tests run: 2,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

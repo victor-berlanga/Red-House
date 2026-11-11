@@ -66,17 +66,17 @@
       const headers=Array.from(table.querySelectorAll('thead th'));
       if (!headers.length || headers.some(h => h.textContent.trim()==='Acciones')) return;
       table.dataset.previewReady='true';
-      const heading=document.createElement('th'); heading.scope='col'; heading.textContent='Acciones'; headers[0].parentElement.append(heading);
+      const heading=document.createElement('th'); heading.scope='col'; heading.className='actions-heading'; heading.textContent='Acciones'; headers[0].parentElement.append(heading);
       table.querySelectorAll('tbody > tr').forEach(row => {
         const cells=Array.from(row.cells);
         if(cells.length===1 && cells[0].colSpan>1) {cells[0].colSpan++; return;}
-        const td=document.createElement('td');td.dataset.label='Acciones';const button=document.createElement('button'), template=document.createElement('template');
+        const td=document.createElement('td');td.dataset.label='Acciones';td.className='record-actions';const button=document.createElement('button'), template=document.createElement('template');
         button.type='button'; button.className='icon-button'; button.dataset.rowPreview='';
-        button.setAttribute('aria-label','Ver '+(cells[0]?.textContent.trim() || 'registro')); button.title='Ver detalle';
+        button.setAttribute('aria-label','Ver '+(cells[0]?.textContent.trim() || 'registro')); button.dataset.tooltip='Vista rápida · '+(cells[0]?.textContent.trim() || 'registro');
         const icon=document.createElement('img'); icon.src='/static/img/icons/eye.svg'; icon.className='icon'; icon.alt=''; icon.width=20; icon.height=20; button.append(icon);
         const dl=document.createElement('dl'); dl.className='regional-facts';
         headers.forEach((header,i) => {const div=document.createElement('div'),dt=document.createElement('dt'),dd=document.createElement('dd'); dt.textContent=header.textContent; dd.textContent=cells[i]?.textContent.trim() || '—'; div.append(dt,dd);dl.append(div);});
-        template.content.append(dl); td.append(button,template);row.append(td);
+        template.content.append(dl); const actions=document.createElement('div');actions.className='row-actions';actions.append(button,template);td.append(actions);row.append(td);
       });
     });
   }

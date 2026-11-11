@@ -1,12 +1,12 @@
-# Construir la aplicación Android con Kotlin y Jetpack Compose
+# Construir la aplicación Móvil iOS y Android con Kotlin Multiplatform y Compose Multiplatform
 
-Trabaja en `/Users/victorberlanga/Programacion/integracion/Red-House`. Lee `AGENTS.md`, `PROJECT_STATUS.md` y `stuff/prompts/entrega-final/00_contexto_y_reglas.md`. Construye una aplicación Android nativa completa en `apps/android/`, usando **Kotlin con Jetpack Compose**, decisión confirmada por el usuario. Debe funcionar con los microservicios reales y datos persistidos; no entregues una WebView del portal ni una demostración con respuestas fijas.
+Trabaja en `/Users/victorberlanga/Programacion/integracion/Red-House`. Lee `AGENTS.md`, `PROJECT_STATUS.md` y `stuff/prompts/entrega-final/00_contexto_y_reglas.md`. Construye una aplicación móvil para **iOS y Android** en `apps/mobile/`, usando **Kotlin Multiplatform con Compose Multiplatform**. Este alcance actualizado sustituye el encargo exclusivamente Android. Debe funcionar con los microservicios reales y datos persistidos; no entregues una WebView del portal ni una demostración con respuestas fijas.
 
 ## Arquitectura y preparación
 
 Inspecciona los contratos JSON, autenticación y funcionalidades de los prompts 01 y 02. Define una matriz pantalla/perfil/permiso/servicio/operación/capacidad del dispositivo. La aplicación consumirá al menos cuatro microservicios reales; demuestra, como mínimo, uso de Identidad, Donantes/citas, Transporte y Alertas, más Inventario/Custodia según las tareas.
 
-Separa presentación Compose, estado/ViewModel, casos de uso de cliente, repositorios, cliente HTTP y persistencia local. El cliente controla navegación, captura y sincronización; no replica compatibilidad, prioridad, elegibilidad, reservas ni autorización del servidor.
+Separa presentación Compose Multiplatform, estado/ViewModel, casos de uso de cliente, repositorios, cliente HTTP y persistencia local. El cliente controla navegación, captura y sincronización; no replica compatibilidad, prioridad, elegibilidad, reservas ni autorización del servidor.
 
 Incluye Gradle Wrapper, versiones compatibles verificadas con documentación oficial, dependencias reproducibles, variantes de desarrollo/entrega, configuración de URL HTTPS sin secretos, icono y nombre Red House. Justifica minSdk/targetSdk y permisos según el entorno de entrega. No permitas HTTP ni omitas validación TLS en la compilación de entrega.
 
@@ -15,7 +15,7 @@ Si una capacidad backend falta, complétala en su propietario y actualiza JSON/X
 ## Sesión y protección de datos
 
 - Inicio de sesión JSON, MFA cuando se requiera, consulta de perfil/permisos y registro del dispositivo. No uses cookies ni sesión del portal.
-- Guarda credenciales mediante almacenamiento cifrado y claves protegidas por Android Keystore usando mecanismos vigentes. No guardes tokens en preferencias sin cifrar, logs, backups o código.
+- Guarda credenciales mediante almacenamiento cifrado y claves protegidas por Android Keystore y mecanismos Keychain de iOS según plataforma usando mecanismos vigentes. No guardes tokens en preferencias sin cifrar, logs, backups o código.
 - Renovación rotativa coordinada: una sola renovación simultánea, tratamiento de reutilización/revocación y actualización atómica. Cierre revoca servidor cuando esté disponible, destruye credenciales locales y cancela tareas de esa identidad.
 - Si no se puede confirmar revocación remota, informa el estado y utiliza el mecanismo seguro del backend sin conservar tokens indefinidamente en una cola genérica. Cambiar de usuario no recupera borradores ni notificaciones del anterior.
 - Biometría puede desbloquear almacenamiento local, pero no sustituye permisos del servidor ni reautenticación exigida por una operación.
@@ -71,9 +71,9 @@ Implementa **QR/código de barras, cámara, GPS y notificaciones push**. No bast
 - Push mediante proveedor configurado, por ejemplo FCM si se dispone del proyecto autorizado, registro/rotación/revocación de token y autorización del deep link al abrir. Una notificación contiene referencia opaca y texto mínimo. Bandeja interna funciona aunque el usuario deniegue push.
 - Mapa real con proveedor autorizado o alternativa documentada; informa ausencia de red/cartografía. No inventes una ruta ni sustituyas tiempo estimado por medición actual.
 
-## GPS externo y seguimiento por WebSockets
+## GPS del teléfono y seguimiento por WebSockets
 
-Implementa la [especificación de rastreo GPS y mapa de Nuevo León](09_rastreo_gps_websockets.md). El GPS físico se incorporará después: no asumas marca ni protocolo y prepara un adaptador/puente compatible con Transporte. El GPS Android es otra fuente autorizable, no una sustitución oculta del equipo externo. Identifica la fuente por tarea y usa contratos JSON sobre **WSS** para publicar/consultar el seguimiento permitido, con autenticación, revocación, reconexión y recuperación sin duplicados.
+Implementa la [especificación de rastreo GPS y mapa de Nuevo León](09_rastreo_gps_websockets.md). La aplicación del transportista es la fuente principal prevista de ubicación: captura en el teléfono Android/iOS, publicación JSON autenticada por **WSS**, validación y persistencia en Transporte, y distribución WSS a los mapas autorizados. Identifica fuente, dispositivo, tarea y evento; no conectes teléfonos directamente entre sí ni a bases de datos. Conserva el receptor y simulador existentes. Un GPS externo es una extensión opcional, no un requisito de compra ni un bloqueo de cierre móvil.
 
 Muestra mapa interactivo actual de Nuevo León y última posición con hora/antigüedad/calidad, diferenciando simulador, teléfono y futuro hardware. Prueba actualización real del mapa por socket y fallos de señal/red. Detén la captura del teléfono al finalizar/logout según política; para el equipo externo aplica el cierre de autorización del backend, sin prometer que logout apaga un GPS autónomo. Las lecturas offline recuperadas no se presentan como ubicación actual ni confirman custodia.
 
@@ -83,7 +83,7 @@ Implementa almacenamiento local cifrado para la mínima información y borradore
 
 Cada comando conserva ID/idempotencia estable, usuario, institución, tipo permitido, recurso, versión base, instante de captura y estado. El servidor agrega hora de recepción y revalida permisos, vigencia y secuencia. Define contrato para consultar resultado después de respuesta perdida, reintentos acotados con espera progresiva y conflictos visibles.
 
-Utiliza trabajo persistente compatible con Android para reintentos permitidos. Prueba cierre/reinicio del proceso, red intermitente, expiración de sesión, cambio de cuenta y revocación del dispositivo. Una tarea pendiente no se envía bajo otra identidad.
+Utiliza mecanismos de trabajo y reintento compatibles con cada sistema para reintentos permitidos. Prueba cierre/reinicio del proceso, red intermitente, expiración de sesión, cambio de cuenta y revocación del dispositivo. Una tarea pendiente no se envía bajo otra identidad.
 
 Se pueden guardar borradores, observaciones y evidencia pendiente cuando la política lo permita. Las transferencias físicas capturadas offline permanecen pendientes de verificación; no finalizan custodia, no consumen una reserva ni crean aprobación. No ordenes automáticamente eventos contradictorios ni resuelvas conflictos críticos con último escritor. Muestra antigüedad de datos offline y evita acciones que exigen estado central vigente.
 
@@ -91,8 +91,16 @@ Se pueden guardar borradores, observaciones y evidencia pendiente cuando la pol�
 
 Incluye pruebas unitarias relevantes, contratos JSON, repositorios/sincronización, instrumentación Compose y recorridos contra backend real aislado. Verifica accesibilidad, tamaños de pantalla, rotación, recreación del proceso, cancelación de permisos y ausencia de secretos en logs/almacenamiento inspeccionable.
 
-Demuestra en emulador Android: donante agenda y cancela una cita; transportista recoge y entrega su tarea con QR, ubicación y evidencia; operador confirma recepción; coordinador consulta resultado. Comprueba que datos creados desde móvil aparecen coherentemente en web y escritorio autorizado y que un cambio de institución es rechazado.
+Demuestra por separado en Android y en simulador/dispositivo iOS: donante agenda y cancela una cita; transportista recoge y entrega su tarea con QR, ubicación y evidencia; operador confirma recepción; coordinador consulta resultado. Comprueba que datos creados desde móvil aparecen coherentemente en web y escritorio autorizado y que un cambio de institución es rechazado.
 
 Prueba reserva/cupo en conflicto, doble toque, timeout tras escritura, desconexión/reconexión sin duplicación, token revocado y push que intenta abrir recurso ajeno. Comprueba uso JSON de al menos cuatro servicios y ningún acceso a bases/Redis/XML de negocio.
 
-Entrega proyecto compilable, APK instalable de demostración, procedimiento para compilación de entrega con claves fuera del repositorio, instrucciones de Android Studio/SDK, configuración y manual por perfil. Conserva evidencia real de cámara/QR/GPS/push; las capacidades verificadas únicamente en emulador se identifican y las pendientes de dispositivo físico no se presentan como probadas. No publiques en tienda ni distribuyas claves de firma sin autorización vigente. Actualiza `PROJECT_STATUS.md`.
+Entrega proyecto compilable para ambos destinos, APK instalable de demostración y compilación iOS ejecutable en simulador; prepara archivo/IPA para dispositivo cuando haya firma y acceso autorizados, procedimiento para compilación de entrega con claves fuera del repositorio, instrucciones de Android Studio/SDK y macOS/Xcode, configuración y manual por perfil. Conserva evidencia real de cámara/QR/GPS/push; las capacidades verificadas únicamente en emulador se identifican y las pendientes de dispositivo físico no se presentan como probadas. No publiques en tienda ni distribuyas claves de firma sin autorización vigente. Actualiza `PROJECT_STATUS.md`.
+
+## Criterios adicionales para ambos sistemas
+
+- Comparte contratos, modelos, sesión y sincronización cuando sea apropiado. Encapsula ubicación, cámara/QR, almacenamiento seguro, push y ciclo de vida mediante implementaciones por plataforma; verifica bibliotecas/versiones con fuentes oficiales antes de fijarlas.
+- Configura mínimos Android/iOS justificados, Gradle y proyecto Xcode reproducibles. No presentes un APK como aplicación instalable en iPhone. Firma y publicación requieren sus accesos/autorización; una compilación de simulador no acredita instalación física.
+- Implementa permisos y captura mediante APIs de ubicación de cada sistema. Prueba pantalla bloqueada, segundo plano, suspensión, cierre forzado, ahorro de batería, permiso revocado y red interrumpida. No prometas GPS ni socket permanentemente activos cuando el sistema suspende el proceso; muestra interrupción, conserva lotes permitidos y recupera sin falsear la hora.
+- Push debe contemplar Android e iOS, incluido APNs/configuración Apple cuando corresponda, sin secretos en el cliente. La bandeja interna sigue funcionando con push denegado.
+- Ejecuta los mismos casos funcionales, negativos, accesibilidad y contratos en ambos destinos. Distingue simulador, ubicación inyectada y medición física. Mide captura–recepción–mapa por evento desde cada plataforma; no cierres iOS con pruebas realizadas solo en Android.

@@ -1,0 +1,49 @@
+{
+  "modifiedExistingPresentationFiles": [
+    "apps/web/src/presentation/templates/base.html",
+    "apps/web/src/presentation/templates/login.html",
+    "apps/web/src/presentation/static/css/app.css",
+    "apps/web/src/presentation/static/css/integration.css",
+    "apps/web/src/presentation/static/js/details.js",
+    "apps/web/src/presentation/templates/integration/evaluation.html",
+    "apps/web/src/presentation/templates/integration/label.html",
+    "apps/web/src/presentation/templates/integration/lineage.html",
+    "apps/web/src/presentation/templates/integration/list.html",
+    "apps/web/src/presentation/templates/integration/documents.html",
+    "apps/web/src/presentation/templates/integration/conservation.html",
+    "apps/web/src/presentation/templates/integration/audit.html",
+    "apps/web/src/presentation/templates/integration/workspace.html",
+    "apps/web/src/presentation/templates/integration/decision_support.html",
+    "apps/mobile/composeApp/src/commonMain/kotlin/org/redhouse/mobile/App.kt",
+    "apps/mobile/composeApp/src/commonMain/kotlin/org/redhouse/mobile/Presentation.kt",
+    "apps/mobile/composeApp/src/commonMain/kotlin/org/redhouse/mobile/TransportScreen.kt",
+    "apps/mobile/composeApp/src/commonMain/kotlin/org/redhouse/mobile/DonorScreen.kt",
+    "apps/mobile/composeApp/src/androidInstrumentedTest/kotlin/org/redhouse/mobile/PlanningJourneyTest.kt",
+    "apps/mobile/composeApp/src/androidInstrumentedTest/kotlin/org/redhouse/mobile/DonorJourneyTest.kt",
+    "apps/mobile/composeApp/src/androidInstrumentedTest/kotlin/org/redhouse/mobile/FormAndRecreationTest.kt",
+    "apps/mobile/composeApp/src/androidInstrumentedTest/kotlin/org/redhouse/mobile/PresentationNavigation.kt",
+    "apps/mobile/composeApp/src/androidInstrumentedTest/kotlin/org/redhouse/mobile/OperationalJourneyTest.kt",
+    "apps/mobile/composeApp/src/androidInstrumentedTest/kotlin/org/redhouse/mobile/CustodyJourneyTest.kt",
+    "apps/mobile/composeApp/src/androidInstrumentedTest/kotlin/org/redhouse/mobile/ProfileQueriesTest.kt"
+  ],
+  "protectedChangesSincePromptPreparation": [],
+  "mobile": {
+    "App.kt": {
+      "sameLiteralApiPaths": true
+    },
+    "DonorScreen.kt": {
+      "sameLiteralApiPaths": true
+    },
+    "TransportScreen.kt": {
+      "sameLiteralApiPaths": true,
+      "sameTopLevelEffects": true
+    }
+  },
+  "jvm": {
+    "tests": 23,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 2
+  },
+  "apkSha256": "e76ef73d46e349ad4666d66e4e6464c0c606f3d97a8d098ccf5cc4bf3924ff85"
+}

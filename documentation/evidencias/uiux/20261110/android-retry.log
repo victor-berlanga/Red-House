@@ -1,0 +1,205 @@
+> Task :composeApp:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :composeApp:convertXmlValueResourcesForAndroidMain NO-SOURCE
+> Task :composeApp:copyNonXmlValueResourcesForAndroidMain NO-SOURCE
+> Task :composeApp:prepareComposeResourcesTaskForAndroidMain NO-SOURCE
+> Task :composeApp:generateResourceAccessorsForAndroidMain SKIPPED
+> Task :composeApp:convertXmlValueResourcesForCommonMain NO-SOURCE
+> Task :composeApp:copyNonXmlValueResourcesForCommonMain NO-SOURCE
+> Task :composeApp:prepareComposeResourcesTaskForCommonMain NO-SOURCE
+> Task :composeApp:generateResourceAccessorsForCommonMain SKIPPED
+> Task :composeApp:generateActualResourceCollectorsForAndroidMain SKIPPED
+> Task :composeApp:generateComposeResClass SKIPPED
+> Task :composeApp:generateExpectResourceCollectorsForCommonMain SKIPPED
+> Task :composeApp:generateMobileEnvironment UP-TO-DATE
+> Task :composeApp:convertXmlValueResourcesForAndroidDebug NO-SOURCE
+> Task :composeApp:copyNonXmlValueResourcesForAndroidDebug NO-SOURCE
+> Task :composeApp:prepareComposeResourcesTaskForAndroidDebug NO-SOURCE
+> Task :composeApp:generateResourceAccessorsForAndroidDebug SKIPPED
+> Task :composeApp:preBuild UP-TO-DATE
+> Task :composeApp:preDebugBuild UP-TO-DATE
+> Task :composeApp:checkDebugAarMetadata FAILED
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':composeApp:checkDebugAarMetadata'.
+> Could not resolve all files for configuration ':composeApp:debugRuntimeClasspath'.
+   > Could not resolve androidx.activity:activity-compose:1.10.1.
+     Required by:
+         project :composeApp
+      > No cached version of androidx.activity:activity-compose:1.10.1 available for offline mode.
+      > No cached version of androidx.activity:activity-compose:1.10.1 available for offline mode.
+   > Could not resolve com.journeyapps:zxing-android-embedded:4.3.0.
+     Required by:
+         project :composeApp
+      > No cached version of com.journeyapps:zxing-android-embedded:4.3.0 available for offline mode.
+      > No cached version of com.journeyapps:zxing-android-embedded:4.3.0 available for offline mode.
+   > Could not resolve org.osmdroid:osmdroid-android:6.1.20.
+     Required by:
+         project :composeApp
+      > No cached version of org.osmdroid:osmdroid-android:6.1.20 available for offline mode.
+      > No cached version of org.osmdroid:osmdroid-android:6.1.20 available for offline mode.
+   > Could not resolve androidx.exifinterface:exifinterface:1.3.7.
+     Required by:
+         project :composeApp
+      > No cached version of androidx.exifinterface:exifinterface:1.3.7 available for offline mode.
+      > No cached version of androidx.exifinterface:exifinterface:1.3.7 available for offline mode.
+   > Could not resolve androidx.work:work-runtime-ktx:2.10.1.
+     Required by:
+         project :composeApp
+      > No cached version of androidx.work:work-runtime-ktx:2.10.1 available for offline mode.
+      > No cached version of androidx.work:work-runtime-ktx:2.10.1 available for offline mode.
+   > Could not resolve com.google.firebase:firebase-messaging:24.1.2.
+     Required by:
+         project :composeApp
+      > No cached version of com.google.firebase:firebase-messaging:24.1.2 available for offline mode.
+      > No cached version of com.google.firebase:firebase-messaging:24.1.2 available for offline mode.
+   > Could not resolve io.ktor:ktor-client-okhttp:2.3.13.
+     Required by:
+         project :composeApp
+      > No cached version of io.ktor:ktor-client-okhttp:2.3.13 available for offline mode.
+      > No cached version of io.ktor:ktor-client-okhttp:2.3.13 available for offline mode.
+   > Could not resolve androidx.compose.runtime:runtime:1.8.2.
+     Required by:
+         project :composeApp > org.jetbrains.compose.runtime:runtime:1.8.2
+      > No cached version of androidx.compose.runtime:runtime:1.8.2 available for offline mode.
+      > No cached version of androidx.compose.runtime:runtime:1.8.2 available for offline mode.
+   > Could not resolve androidx.compose.foundation:foundation:1.8.2.
+     Required by:
+         project :composeApp > org.jetbrains.compose.foundation:foundation:1.8.2
+      > No cached version of androidx.compose.foundation:foundation:1.8.2 available for offline mode.
+      > No cached version of androidx.compose.foundation:foundation:1.8.2 available for offline mode.
+   > Could not resolve androidx.compose.material3:material3:1.3.2.
+     Required by:
+         project :composeApp > org.jetbrains.compose.material3:material3:1.8.2
+      > No cached version of androidx.compose.material3:material3:1.3.2 available for offline mode.
+      > No cached version of androidx.compose.material3:material3:1.3.2 available for offline mode.
+   > Could not resolve androidx.compose.ui:ui:1.8.2.
+     Required by:
+         project :composeApp > org.jetbrains.compose.ui:ui:1.8.2
+      > No cached version of androidx.compose.ui:ui:1.8.2 available for offline mode.
+      > No cached version of androidx.compose.ui:ui:1.8.2 available for offline mode.
+   > Could not resolve org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.10.2.
+     Required by:
+         project :composeApp > org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2
+      > No cached version of org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.10.2 available for offline mode.
+      > No cached version of org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.10.2 available for offline mode.
+   > Could not resolve org.jetbrains.kotlinx:kotlinx-serialization-json-jvm:1.8.1.
+     Required by:
+         project :composeApp > org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.1
+      > No cached version of org.jetbrains.kotlinx:kotlinx-serialization-json-jvm:1.8.1 available for offline mode.
+      > No cached version of org.jetbrains.kotlinx:kotlinx-serialization-json-jvm:1.8.1 available for offline mode.
+   > Could not resolve org.jetbrains.kotlinx:kotlinx-datetime-jvm:0.6.2.
+     Required by:
+         project :composeApp > org.jetbrains.kotlinx:kotlinx-datetime:0.6.2
+      > No cached version of org.jetbrains.kotlinx:kotlinx-datetime-jvm:0.6.2 available for offline mode.
+      > No cached version of org.jetbrains.kotlinx:kotlinx-datetime-jvm:0.6.2 available for offline mode.
+   > Could not resolve io.ktor:ktor-client-core-jvm:2.3.13.
+     Required by:
+         project :composeApp > io.ktor:ktor-client-core:2.3.13
+      > No cached version of io.ktor:ktor-client-core-jvm:2.3.13 available for offline mode.
+      > No cached version of io.ktor:ktor-client-core-jvm:2.3.13 available for offline mode.
+   > Could not resolve io.ktor:ktor-client-websockets-jvm:2.3.13.
+     Required by:
+         project :composeApp > io.ktor:ktor-client-websockets:2.3.13
+      > No cached version of io.ktor:ktor-client-websockets-jvm:2.3.13 available for offline mode.
+      > No cached version of io.ktor:ktor-client-websockets-jvm:2.3.13 available for offline mode.
+   > Could not resolve androidx.compose.animation:animation:1.8.2.
+     Required by:
+         project :composeApp > org.jetbrains.compose.foundation:foundation:1.8.2 > org.jetbrains.compose.animation:animation:1.8.2
+      > No cached version of androidx.compose.animation:animation:1.8.2 available for offline mode.
+      > No cached version of androidx.compose.animation:animation:1.8.2 available for offline mode.
+   > Could not resolve androidx.compose.foundation:foundation-layout:1.8.2.
+     Required by:
+         project :composeApp > org.jetbrains.compose.foundation:foundation:1.8.2 > org.jetbrains.compose.foundation:foundation-layout:1.8.2
+      > No cached version of androidx.compose.foundation:foundation-layout:1.8.2 available for offline mode.
+      > No cached version of androidx.compose.foundation:foundation-layout:1.8.2 available for offline mode.
+   > Could not resolve androidx.compose.ui:ui-text:1.8.2.
+     Required by:
+         project :composeApp > org.jetbrains.compose.foundation:foundation:1.8.2 > org.jetbrains.compose.ui:ui-text:1.8.2
+      > No cached version of androidx.compose.ui:ui-text:1.8.2 available for offline mode.
+      > No cached version of androidx.compose.ui:ui-text:1.8.2 available for offline mode.
+   > Could not resolve androidx.compose.ui:ui-util:1.8.2.
+     Required by:
+         project :composeApp > org.jetbrains.compose.foundation:foundation:1.8.2 > org.jetbrains.compose.ui:ui-util:1.8.2
+      > No cached version of androidx.compose.ui:ui-util:1.8.2 available for offline mode.
+      > No cached version of androidx.compose.ui:ui-util:1.8.2 available for offline mode.
+   > Could not resolve androidx.compose.animation:animation-core:1.8.2.
+     Required by:
+         project :composeApp > org.jetbrains.compose.material3:material3:1.8.2 > org.jetbrains.compose.animation:animation-core:1.8.2
+      > No cached version of androidx.compose.animation:animation-core:1.8.2 available for offline mode.
+      > No cached version of androidx.compose.animation:animation-core:1.8.2 available for offline mode.
+   > Could not resolve androidx.compose.material:material-ripple:1.8.2.
+     Required by:
+         project :composeApp > org.jetbrains.compose.material3:material3:1.8.2 > org.jetbrains.compose.material:material-ripple:1.8.2
+      > No cached version of androidx.compose.material:material-ripple:1.8.2 available for offline mode.
+      > No cached version of androidx.compose.material:material-ripple:1.8.2 available for offline mode.
+   > Could not resolve org.jetbrains.compose.ui:ui-backhandler-android-debug:1.8.2.
+     Required by:
+         project :composeApp > org.jetbrains.compose.material3:material3:1.8.2 > org.jetbrains.compose.ui:ui-backhandler:1.8.2
+      > No cached version of org.jetbrains.compose.ui:ui-backhandler-android-debug:1.8.2 available for offline mode.
+      > No cached version of org.jetbrains.compose.ui:ui-backhandler-android-debug:1.8.2 available for offline mode.
+   > Could not resolve androidx.compose.ui:ui-graphics:1.8.2.
+     Required by:
+         project :composeApp > org.jetbrains.compose.material3:material3:1.8.2 > org.jetbrains.compose.ui:ui-graphics:1.8.2
+      > No cached version of androidx.compose.ui:ui-graphics:1.8.2 available for offline mode.
+      > No cached version of androidx.compose.ui:ui-graphics:1.8.2 available for offline mode.
+   > Could not resolve androidx.arch.core:core-common:2.2.0.
+     Required by:
+         project :composeApp > org.jetbrains.compose.ui:ui:1.8.2 > org.jetbrains.androidx.lifecycle:lifecycle-runtime:2.8.4
+      > No cached version of androidx.arch.core:core-common:2.2.0 available for offline mode.
+      > No cached version of androidx.arch.core:core-common:2.2.0 available for offline mode.
+   > Could not resolve androidx.lifecycle:lifecycle-runtime-compose:2.8.5.
+     Required by:
+         project :composeApp > org.jetbrains.compose.ui:ui:1.8.2 > org.jetbrains.androidx.lifecycle:lifecycle-runtime-compose:2.8.4
+      > No cached version of androidx.lifecycle:lifecycle-runtime-compose:2.8.5 available for offline mode.
+      > No cached version of androidx.lifecycle:lifecycle-runtime-compose:2.8.5 available for offline mode.
+   > Could not resolve androidx.compose.runtime:runtime-saveable:1.8.2.
+     Required by:
+         project :composeApp > org.jetbrains.compose.ui:ui:1.8.2 > org.jetbrains.compose.runtime:runtime-saveable:1.8.2
+      > No cached version of androidx.compose.runtime:runtime-saveable:1.8.2 available for offline mode.
+      > No cached version of androidx.compose.runtime:runtime-saveable:1.8.2 available for offline mode.
+   > Could not resolve androidx.compose.ui:ui-geometry:1.8.2.
+     Required by:
+         project :composeApp > org.jetbrains.compose.ui:ui:1.8.2 > org.jetbrains.compose.ui:ui-geometry:1.8.2
+      > No cached version of androidx.compose.ui:ui-geometry:1.8.2 available for offline mode.
+      > No cached version of androidx.compose.ui:ui-geometry:1.8.2 available for offline mode.
+   > Could not resolve androidx.compose.ui:ui-unit:1.8.2.
+     Required by:
+         project :composeApp > org.jetbrains.compose.ui:ui:1.8.2 > org.jetbrains.compose.ui:ui-unit:1.8.2
+      > No cached version of androidx.compose.ui:ui-unit:1.8.2 available for offline mode.
+      > No cached version of androidx.compose.ui:ui-unit:1.8.2 available for offline mode.
+   > Could not resolve androidx.annotation:annotation-jvm:1.9.1.
+     Required by:
+         project :composeApp > org.jetbrains.compose.runtime:runtime:1.8.2 > org.jetbrains.compose.annotation-internal:annotation:1.8.2 > androidx.annotation:annotation:1.9.1
+      > No cached version of androidx.annotation:annotation-jvm:1.9.1 available for offline mode.
+      > No cached version of androidx.annotation:annotation-jvm:1.9.1 available for offline mode.
+   > Could not resolve androidx.collection:collection-jvm:1.5.0.
+     Required by:
+         project :composeApp > org.jetbrains.compose.runtime:runtime:1.8.2 > org.jetbrains.compose.collection-internal:collection:1.8.2 > androidx.collection:collection:1.5.0
+      > No cached version of androidx.collection:collection-jvm:1.5.0 available for offline mode.
+      > No cached version of androidx.collection:collection-jvm:1.5.0 available for offline mode.
+   > Could not resolve androidx.lifecycle:lifecycle-common-jvm:2.8.5.
+     Required by:
+         project :composeApp > org.jetbrains.compose.ui:ui:1.8.2 > org.jetbrains.androidx.lifecycle:lifecycle-common:2.8.4 > androidx.lifecycle:lifecycle-common:2.8.5
+      > No cached version of androidx.lifecycle:lifecycle-common-jvm:2.8.5 available for offline mode.
+      > No cached version of androidx.lifecycle:lifecycle-common-jvm:2.8.5 available for offline mode.
+   > Could not resolve androidx.lifecycle:lifecycle-runtime-android:2.8.5.
+     Required by:
+         project :composeApp > org.jetbrains.compose.ui:ui:1.8.2 > org.jetbrains.androidx.lifecycle:lifecycle-runtime:2.8.4 > androidx.lifecycle:lifecycle-runtime:2.8.5
+      > No cached version of androidx.lifecycle:lifecycle-runtime-android:2.8.5 available for offline mode.
+      > No cached version of androidx.lifecycle:lifecycle-runtime-android:2.8.5 available for offline mode.
+   > Could not resolve androidx.lifecycle:lifecycle-viewmodel-android:2.8.5.
+     Required by:
+         project :composeApp > org.jetbrains.compose.ui:ui:1.8.2 > org.jetbrains.androidx.lifecycle:lifecycle-viewmodel:2.8.4 > androidx.lifecycle:lifecycle-viewmodel:2.8.5
+      > No cached version of androidx.lifecycle:lifecycle-viewmodel-android:2.8.5 available for offline mode.
+      > No cached version of androidx.lifecycle:lifecycle-viewmodel-android:2.8.5 available for offline mode.
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to get full insights.
+> Get more help at https://help.gradle.org.
+
+BUILD FAILED in 7s
+2 actionable tasks: 1 executed, 1 up-to-date

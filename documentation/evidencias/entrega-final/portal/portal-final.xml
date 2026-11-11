@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="2" time="123.491" timestamp="2026-11-06T14:44:05.907941-06:00" hostname="Victors-MacBook-Air.local"><testcase classname="tests.test_portal_tracking" name="test_browser_ticket_scope_publish_expiry_and_web_csrf" time="42.644" /><testcase classname="tests.test_portal_tracking" name="test_portal_browser_profiles_and_live_map" time="79.529"><failure message="AssertionError: ('', '', '{&#10;    &quot;checks&quot;: [&#10;      &quot;admin1 dashboard, three widths&quot;,&#10;      &quot;operator1 dashboard, three widths&quot;,&#10;      &quot;medi...&quot;: &quot;Direct TLS test server, not production proxy&quot;,&#10;    &quot;failure&quot;: &quot;page.waitForFunction: Timeout 30000ms exceeded.&quot;&#10;  }')&#10;assert 1 == 0&#10; +  where 1 = CompletedProcess(args=['node', 'scripts/verify_portal_tracking.cjs'], returncode=1, stdout='', stderr='').returncode">p = &lt;tests.conftest.Platform object at 0x116e17e30&gt;
+tracking = {'shipment': {'id': '2d932400-e92c-4a9f-9198-2c71bd57ace5', 'reservation_id': '7ba4cb77-c3ae-4b90-be8b-037270471067', ...evice_id': 'b9c8be3f-0908-4fb7-b422-24056180d59a', 'responsible_id': '32b9f218-b997-463b-9de2-b641d4e18290', ...}, ...}
+web = &lt;Flask 'src'&gt;
+tmp_path = PosixPath('/private/var/folders/rk/m94gy0rj2h74sfwqknl61bzm0000gn/T/pytest-of-victorberlanga/pytest-98/test_portal_browser_profiles_a0')
+
+    def test_portal_browser_profiles_and_live_map(p, tracking, web, tmp_path):
+        import json
+        import subprocess
+        import threading
+        from pathlib import Path
+    
+        from werkzeug.serving import make_server
+    
+        output = Path("documentation/evidencias/entrega-final/portal/browser").resolve()
+        output.mkdir(parents=True, exist_ok=True)
+        socket_origin = tracking["url"].split("/ws/")[0]
+    
+        @web.after_request
+        def test_socket_policy(response):
+            response.headers["Content-Security-Policy"] = response.headers.get(
+                "Content-Security-Policy", ""
+            ).replace("connect-src 'self'", "connect-src 'self' " + socket_origin)
+            return response
+    
+        server = make_server(
+            "127.0.0.1",
+            0,
+            web,
+            threaded=True,
+            ssl_context=(tracking["cert"], str(Path(tracking["cert"]).with_suffix(".key"))),
+        )
+        threading.Thread(target=server.serve_forever, daemon=True).start()
+        base = f"https://localhost:{server.server_port}"
+        p.apps["transporte"].config["TRACKING_ALLOWED_ORIGINS"] = [base]
+        try:
+            result = subprocess.run(
+                ["node", "scripts/verify_portal_tracking.cjs"],
+                input=json.dumps(
+                    {
+                        "base": base,
+                        "socket": tracking["url"] + "json",
+                        "password": p.env.state["password"],
+                        "shipment": tracking["shipment"]["id"],
+                        "deviceToken": tracking["credential"]["credential"],
+                        "position": point(tracking),
+                        "output": str(output),
+                    }
+                ),
+                capture_output=True,
+                text=True,
+                timeout=240,
+            )
+&gt;           assert result.returncode == 0, (
+                result.stdout,
+                result.stderr,
+                (output / "browser.json").read_text(),
+            )
+E           AssertionError: ('', '', '{
+E               "checks": [
+E                 "admin1 dashboard, three widths",
+E                 "operator1 dashboard, three widths",
+E                 "medi...": "Direct TLS test server, not production proxy",
+E               "failure": "page.waitForFunction: Timeout 30000ms exceeded."
+E             }')
+E           assert 1 == 0
+E            +  where 1 = CompletedProcess(args=['node', 'scripts/verify_portal_tracking.cjs'], returncode=1, stdout='', stderr='').returncode
+
+apps/services/tests/test_portal_tracking.py:108: AssertionError</failure></testcase></testsuite></testsuites>

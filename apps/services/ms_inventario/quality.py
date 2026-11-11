@@ -277,6 +277,16 @@ def scan_quality():
 
 
 def install(app):
+    @endpoint(app,"/internal/v1/reservations/<identifier>/logistics","POST",model=CustodyValidation,
+              internal=("transporte",),delegate=False,
+              result={"type":"object","required":["route_id","route_version"],"properties":{"route_id":{"type":"string","format":"uuid"},"route_version":{"type":"integer"}}})
+    def reservation_logistics(identifier,data):
+        with transaction() as conn:
+            allocation=get(conn,"reservations",identifier)
+            if str(allocation["shipment_id"])!=data["shipment_id"]:
+                raise APIError("forbidden","Traslado ajeno a la reserva.",403)
+            return {"route_id":allocation["route_id"],"route_version":allocation["route_version"]}
+
     @endpoint(
         app,
         "/internal/v1/reservations/<identifier>/custody-check",

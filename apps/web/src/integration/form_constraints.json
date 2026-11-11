@@ -578,21 +578,6 @@
   },
   {
     "service": "donantes",
-    "path": "/api/v1/appointments",
-    "method": "POST",
-    "fields": {
-      "donor_id": {
-        "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
-        "type": "string"
-      },
-      "campaign_id": {
-        "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
-        "type": "string"
-      }
-    }
-  },
-  {
-    "service": "donantes",
     "path": "/api/v1/donations",
     "method": "POST",
     "fields": {
@@ -1558,6 +1543,126 @@
       "evidence": {
         "maxLength": 1000,
         "minLength": 6,
+        "type": "string"
+      }
+    }
+  },
+  {
+    "service": "donantes",
+    "path": "/api/v1/appointments",
+    "method": "POST",
+    "fields": {
+      "slot_id": {
+        "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+        "type": "string"
+      },
+      "donor_id": {
+        "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+        "type": "string"
+      },
+      "campaign_id": {
+        "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+        "type": "string"
+      }
+    }
+  },
+  {
+    "service": "donantes",
+    "path": "/api/v1/donors/<identifier>/consents",
+    "method": "POST",
+    "fields": {
+      "human_confirmation": {
+        "const": true,
+        "type": "boolean"
+      },
+      "reason": {
+        "maxLength": 1000,
+        "minLength": 6,
+        "type": "string"
+      },
+      "version": {
+        "minimum": 1,
+        "type": "integer"
+      },
+      "policy_version": {
+        "maxLength": 200,
+        "minLength": 1,
+        "type": "string"
+      },
+      "reference": {
+        "maxLength": 200,
+        "minLength": 1,
+        "type": "string"
+      },
+      "effective_at": {
+        "maxLength": 200,
+        "minLength": 1,
+        "type": "string"
+      },
+      "granted": {
+        "type": "boolean"
+      }
+    }
+  },
+  {
+    "service": "donantes",
+    "path": "/api/v1/campaign-slots",
+    "method": "POST",
+    "fields": {
+      "campaign_id": {
+        "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+        "type": "string"
+      },
+      "site_id": {
+        "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+        "type": "string"
+      },
+      "starts_at": {
+        "maxLength": 200,
+        "minLength": 1,
+        "type": "string"
+      },
+      "ends_at": {
+        "maxLength": 200,
+        "minLength": 1,
+        "type": "string"
+      },
+      "capacity": {
+        "maximum": 10000,
+        "minimum": 1,
+        "type": "integer"
+      }
+    }
+  },
+  {
+    "service": "donantes",
+    "path": "/api/v1/appointments/<identifier>/commands",
+    "method": "POST",
+    "fields": {
+      "human_confirmation": {
+        "const": true,
+        "type": "boolean"
+      },
+      "reason": {
+        "maxLength": 1000,
+        "minLength": 6,
+        "type": "string"
+      },
+      "version": {
+        "minimum": 1,
+        "type": "integer"
+      },
+      "action": {
+        "enum": [
+          "CONFIRM",
+          "RESCHEDULE",
+          "ATTEND",
+          "CANCEL"
+        ],
+        "type": "string"
+      },
+      "slot_id": {
+        "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
         "type": "string"
       }
     }

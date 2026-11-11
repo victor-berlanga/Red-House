@@ -1,0 +1,66 @@
+{
+  "at": "2026-11-07T05:37:27.089917+00:00",
+  "deployment": "passed",
+  "browser_directed_journey": "passed after targeted continuations",
+  "historical_90_cases_rerun": false,
+  "profiles": 7,
+  "profiles_with_mfa": 3,
+  "chart_instances_compared": 50,
+  "public_http_checks": 37,
+  "negative_url_403": 4,
+  "wss_received_types": [
+    "authenticated",
+    "subscribed",
+    "tracking.status",
+    "error"
+  ],
+  "new_positions_published": 0,
+  "database_persistence": "passed",
+  "attempts": [
+    {
+      "artifact": "browser-attempt1/browser.json",
+      "passed": false,
+      "started": "2026-11-07T05:20:09.919Z",
+      "completed": "2026-11-07T05:24:28.115Z",
+      "failure": "locator.getAttribute: Timeout 45000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('main a[href^=\"/campanas/\"]').filter({ hasText: 'Comprobación ficticia GCP portal03 10ca0035' }).first()\u001b[22m\n"
+    },
+    {
+      "artifact": "browser-resume/browser.json",
+      "passed": false,
+      "started": "2026-11-07T05:25:43.712Z",
+      "completed": "2026-11-07T05:26:44.719Z",
+      "failure": "false == true"
+    },
+    {
+      "artifact": "browser-final/browser.json",
+      "passed": false,
+      "started": "2026-11-07T05:27:21.535Z",
+      "completed": "2026-11-07T05:28:15.550Z",
+      "failure": "Expected values to be strictly equal:\n\n400 !== 200\n"
+    },
+    {
+      "artifact": "browser-final2/browser.json",
+      "passed": false,
+      "started": "2026-11-07T05:28:51.533Z",
+      "completed": "2026-11-07T05:29:52.031Z",
+      "failure": "false == true"
+    },
+    {
+      "artifact": "browser-final3/browser.json",
+      "passed": true,
+      "started": "2026-11-07T05:31:56.597Z",
+      "completed": "2026-11-07T05:33:40.743Z",
+      "failure": null
+    }
+  ],
+  "integrated_partial": [
+    "WEB-12",
+    "WEB-15",
+    "WEB-19",
+    "WEB-21",
+    "WEB-24",
+    "TRACK-09",
+    "TRACK-10"
+  ],
+  "verdict": "APTA LOCALMENTE PARA CONTINUAR A 04"
+}

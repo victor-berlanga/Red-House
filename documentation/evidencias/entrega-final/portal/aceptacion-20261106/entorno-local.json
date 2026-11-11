@@ -1,0 +1,68 @@
+{
+  "captured_at_utc": "2026-11-07T04:46:25.998400+00:00",
+  "tools": {
+    "docker": "/Users/victorberlanga/.docker/bin/docker",
+    "gcloud": "/Users/victorberlanga/Downloads/google-cloud-sdk/bin/gcloud",
+    "nginx": null,
+    "clamd": null,
+    "clamdscan": null,
+    "clamscan": null,
+    "freshclam": null
+  },
+  "env_present": {
+    "GCS_BUCKET": false,
+    "GCS_PROJECT": false,
+    "GOOGLE_APPLICATION_CREDENTIALS": false,
+    "CLAMD_HOST": false,
+    "CLAMD_PORT": false,
+    "REDHOUSE_GCS_TEST_BUCKET": false,
+    "REDHOUSE_TEST_ORIGIN": false
+  },
+  "docker_probes": [
+    {
+      "command": [
+        "docker",
+        "context",
+        "show"
+      ],
+      "returncode": 0,
+      "stdout": "desktop-linux\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "docker",
+        "ps",
+        "--format",
+        "{{.Names}}\t{{.Image}}\t{{.Status}}"
+      ],
+      "returncode": 1,
+      "stdout": "",
+      "stderr": "failed to connect to the docker API at unix:///Users/victorberlanga/.docker/run/docker.sock; check if the path is correct and if the daemon is running: dial unix /Users/victorberlanga/.docker/run/docker.sock: connect: no such file or directory\n"
+    },
+    {
+      "command": [
+        "docker",
+        "image",
+        "ls",
+        "--format",
+        "{{.Repository}}:{{.Tag}}"
+      ],
+      "returncode": 1,
+      "stdout": "",
+      "stderr": "failed to connect to the docker API at unix:///Users/victorberlanga/.docker/run/docker.sock; check if the path is correct and if the daemon is running: dial unix /Users/victorberlanga/.docker/run/docker.sock: connect: no such file or directory\n"
+    }
+  ],
+  "local_credentials_exist": {
+    "adc": true,
+    "compose_adc": true
+  },
+  "limits": "Solo presencia; no se publican credenciales ni se presume vigencia/alcance. Ausencia de binario en PATH no descarta instalación en otra máquina. No se inició Docker.",
+  "local_installation_schema": 1,
+  "local_gcs_override_services": [
+    "web",
+    "transporte-a",
+    "transporte-b"
+  ],
+  "document_owner_local_config_exists": false
+}

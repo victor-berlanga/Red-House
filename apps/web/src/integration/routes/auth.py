@@ -23,12 +23,20 @@ from .common import (
     url_for,
     urlsplit,
     field,
+    call,
 )
 
 
 @public.get("/")
 def index():
-    return render_template("public.html", title="Una red que conecta vidas")
+    content, unavailable = {}, []
+    for service, kind in (("identidad_acceso", "institutions"), ("donantes", "campaigns")):
+        try:
+            content[kind] = call(service, "/api/v1/public/" + kind, token="")["items"]
+        except BusinessError:
+            content[kind] = []
+            unavailable.append(kind)
+    return render_template("public.html", title="Una red que conecta vidas", publications=content, unavailable=unavailable)
 
 
 @public.route("/login", methods=["GET", "POST"])
@@ -101,9 +109,57 @@ def logout():
     return response
 
 
-@public.get("/recuperar-acceso")
+@public.route("/recuperar-acceso", methods=["GET", "POST"])
 def recovery():
-    return redirect(url_for("public.login", help="access", _anchor="access-help"))
+    error, message, status = None, None, 200
+    if request.method == "POST":
+        try:
+            call(
+                "identidad_acceso",
+                "/api/v1/auth/recovery",
+                "POST",
+                data={"username": request.form.get("username", "").strip()},
+                token="",
+            )
+            message = "Si la cuenta tiene correo verificado, recibirá un token de un uso. Revisa tu correo; vence en 15 minutos."
+        except BusinessError as exc:
+            error, status = exc.message, exc.status
+    return render_template(
+        "integration/recovery.html",
+        title="Recuperar acceso",
+        error=error,
+        message=message,
+        complete=False,
+    ), status
+
+
+@public.route("/recuperar-acceso/confirmar", methods=["GET", "POST"])
+def recovery_complete():
+    error, message, status = None, None, 200
+    if request.method == "POST":
+        try:
+            if request.form.get("password") != request.form.get("confirmation"):
+                raise BusinessError("Las contraseñas no coinciden.", 422)
+            call(
+                "identidad_acceso",
+                "/api/v1/auth/recovery/complete",
+                "POST",
+                data={
+                    "token": request.form.get("token", ""),
+                    "password": request.form.get("password", ""),
+                },
+                token="",
+            )
+            message = "Contraseña actualizada. Las sesiones anteriores se han revocado. Inicia sesión con la contraseña nueva."
+        except BusinessError as exc:
+            error, status = exc.message, exc.status
+    return render_template(
+        "integration/recovery.html",
+        title="Confirmar recuperación",
+        error=error,
+        message=message,
+        complete=True,
+    ), status
 
 
 @public.get("/health/live")

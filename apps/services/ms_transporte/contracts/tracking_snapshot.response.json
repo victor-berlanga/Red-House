@@ -71,10 +71,16 @@
                   "enum": [
                     "SIMULATOR",
                     "GPS_BRIDGE",
-                    "ANDROID"
+                    "ANDROID",
+                    "IOS"
                   ],
                   "title": "Source",
                   "type": "string"
+                },
+                "simulated": {
+                  "default": false,
+                  "title": "Simulated",
+                  "type": "boolean"
                 },
                 "sequence": {
                   "maximum": 9007199254740991,
@@ -249,10 +255,16 @@
                 "enum": [
                   "SIMULATOR",
                   "GPS_BRIDGE",
-                  "ANDROID"
+                  "ANDROID",
+                  "IOS"
                 ],
                 "title": "Source",
                 "type": "string"
+              },
+              "simulated": {
+                "default": false,
+                "title": "Simulated",
+                "type": "boolean"
               },
               "sequence": {
                 "maximum": 9007199254740991,

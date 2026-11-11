@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="18" time="349.527" timestamp="2026-11-06T14:38:33.764178-06:00" hostname="Victors-MacBook-Air.local"><testcase classname="tests.test_portal_tracking" name="test_browser_ticket_scope_publish_expiry_and_web_csrf" time="28.504"><failure message="assert 401 == 302&#10; +  where 401 = &lt;WrapperTestResponse streamed [401 UNAUTHORIZED]&gt;.status_code">p = &lt;tests.conftest.Platform object at 0x107281bb0&gt;
+tracking = {'shipment': {'id': '3ea22a1f-4163-4409-a3e4-a6ab31101527', 'reservation_id': '38dc4eb1-6161-4bba-a8ff-882fe76441dd', ...evice_id': 'd0b1f174-fbb6-4536-b0f5-648d1c08a965', 'responsible_id': '7b147951-ce08-4e64-b404-7276a078c60c', ...}, ...}
+web = &lt;Flask 'src'&gt;
+
+    def test_browser_ticket_scope_publish_expiry_and_web_csrf(p, tracking, web):
+        identifier = tracking["shipment"]["id"]
+        path = f"/api/v1/shipments/{identifier}/tracking/ticket"
+        client = login(web, p, "coordinator1")
+        page = client.get(f"/traslados/{identifier}/mapa")
+        assert page.status_code == 200
+        assert b"tracking-map" in page.data
+        assert p.tokens["coordinator1"].encode() not in page.data
+        assert client.post(f"/traslados/{identifier}/mapa/acceso").status_code == 400
+        assert (
+            login(web, p, "donor1").get(f"/traslados/{identifier}/mapa").status_code == 403
+        )
+        assert (
+&gt;           login(web, p, "operator3").get(f"/traslados/{identifier}/mapa").status_code
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+            == 403
+        )
+
+apps/services/tests/test_portal_tracking.py:24: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+web = &lt;Flask 'src'&gt;, p = &lt;tests.conftest.Platform object at 0x107281bb0&gt;
+user = 'operator3'
+
+    def login(web, p, user):
+        client = web.test_client()
+        values = form(client, "/login")
+        values.update(login_email=user, password=p.env.state["password"])
+        result = client.post("/login", data=values)
+&gt;       assert result.status_code == 302
+E       assert 401 == 302
+E        +  where 401 = &lt;WrapperTestResponse streamed [401 UNAUTHORIZED]&gt;.status_code
+
+apps/services/tests/test_web_integration.py:68: AssertionError</failure></testcase><testcase classname="tests.test_final_tracking" name="test_wss_json_xml_durable_replay_order_and_revocation" time="26.904" /><testcase classname="tests.test_final_tracking" name="test_wss_rejects_donor_device_read_invalid_and_conflicting_events[json]" time="4.442" /><testcase classname="tests.test_final_tracking" name="test_wss_rejects_donor_device_read_invalid_and_conflicting_events[xml]" time="3.885" /><testcase classname="tests.test_final_tracking" name="test_tracking_rejects_xxe_nonfinite_and_unknown_fields" time="0.002" /><testcase classname="tests.test_final_tracking" name="test_sync_commands_idempotency_scope_versions_and_cursor[json]" time="4.869" /><testcase classname="tests.test_final_tracking" name="test_sync_commands_idempotency_scope_versions_and_cursor[xml]" time="4.937" /><testcase classname="tests.test_final_tracking" name="test_executable_simulator_offline_reconnect_and_dedup[json]" time="13.256" /><testcase classname="tests.test_final_tracking" name="test_executable_simulator_offline_reconnect_and_dedup[xml]" time="13.089" /><testcase classname="tests.test_final_tracking" name="test_tracking_dependency_failure_preserves_durable_cursor[redis]" time="86.814" /><testcase classname="tests.test_final_tracking" name="test_tracking_dependency_failure_preserves_durable_cursor[postgres]" time="32.323" /><testcase classname="tests.test_final_tracking" name="test_tracking_dependency_failure_preserves_durable_cursor[mongodb]" time="35.070" /><testcase classname="tests.test_final_tracking" name="test_tracking_scope_origin_cursor_limits_and_device_revocation" time="8.455" /><testcase classname="tests.test_final_tracking" name="test_nmea_adapter_checksum_units_and_no_fix" time="0.013" /><testcase classname="tests.test_final_tracking" name="test_custody_scans_receipt_sync_and_distinct_final_use[json]" time="36.909" /><testcase classname="tests.test_final_tracking" name="test_custody_scans_receipt_sync_and_distinct_final_use[xml]" time="19.324" /><testcase classname="tests.test_final_tracking" name="test_concurrent_emitters_subscribers_and_delayed_consumer" time="7.625"><properties><property name="publishers" value="2" /><property name="delayed_subscribers" value="2" /><property name="points" value="24" /><property name="ack_mean_ms" value="240.241" /><property name="ack_p95_ms" value="279.033" /></properties></testcase><testcase classname="tests.test_final_tracking" name="test_two_production_wss_processes_single_and_total_outage" time="22.490" /></testsuite></testsuites>

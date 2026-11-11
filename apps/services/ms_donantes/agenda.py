@@ -12,7 +12,7 @@ from redhouse.client import call
 from redhouse.db import transaction, get, insert, update
 from redhouse.errors import APIError
 from redhouse.events import emit
-from redhouse.extension_contracts import schema, install_reads, page_schema, version
+from redhouse.extension_contracts import schema, page_schema, version
 from redhouse.models import ID, Model, Text, Confirm, utc_date
 from redhouse.security import own
 from .routes import donor_access
@@ -55,6 +55,22 @@ class Slot(SlotCreate):
     active: bool
     version: int
     created_at: Text
+
+
+class SlotAvailability(Slot):
+    occupied: int
+    available: int
+    attended: int
+
+
+def slot_availability(conn, row):
+    counts = conn.execute(
+        "SELECT count(*) FILTER (WHERE a.status='BOOKED') AS occupied, "
+        "count(*) FILTER (WHERE s.status='ATTENDED') AS attended "
+        "FROM appointment_slots s JOIN appointments a ON a.id=s.id WHERE s.slot_id=%s",
+        (row["id"],),
+    ).fetchone()
+    return dict(row, **counts, available=max(0, row["capacity"] - counts["occupied"]))
 
 
 class AppointmentCommand(Confirm):
@@ -219,14 +235,53 @@ def install(app):
             ).fetchall()
         return {"events": events}
 
-    install_reads(
+    @endpoint(
         app,
         "/api/v1/campaign-slots",
-        "campaign_slots",
-        Slot,
-        ("DONOR", "OPERATOR"),
-        {"campaign_id": ("campaign_id", ())},
+        roles=("DONOR", "OPERATOR"),
+        paginated=True,
+        result=page_schema(SlotAvailability),
+        query=(
+            "campaign_id",
+            "site_id",
+            "active",
+            "from_at",
+            "until_at",
+            "date_field",
+            "sort",
+            "q",
+        ),
     )
+    def campaign_slots_list():
+        with transaction() as conn:
+            result = listing(
+                conn,
+                "campaign_slots",
+                "tenant_id=%s",
+                (g.actor["tenant_id"],),
+                filters={
+                    "campaign_id": ("campaign_id", ()),
+                    "site_id": ("site_id", ()),
+                    "active": ("active", {"true": True, "false": False}),
+                    "q": ("id::text",),
+                },
+                date_columns=("starts_at", "ends_at", "created_at"),
+                order="starts_at,id",
+            )
+            result["items"] = [slot_availability(conn, row) for row in result["items"]]
+            return result
+
+    @endpoint(
+        app,
+        "/api/v1/campaign-slots/<identifier>",
+        roles=("DONOR", "OPERATOR"),
+        result=schema(SlotAvailability),
+    )
+    def campaign_slots_detail(identifier):
+        with transaction() as conn:
+            row = get(conn, "campaign_slots", identifier)
+            own(row["tenant_id"])
+            return slot_availability(conn, row)
 
     @endpoint(
         app,

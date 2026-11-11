@@ -5,14 +5,19 @@ from . import (
     auth,
     dashboard,
     people,
+    agenda,
     requests,
     logistics,
+    tracking,
     administration,
     monitoring,
     audit,
     files,
     quality,
     decision_support,
+    conservation,
+    configuration,
+    documents,
 )
 
 # El módulo inventory comparte nombre con el Blueprint: importar explícitamente.

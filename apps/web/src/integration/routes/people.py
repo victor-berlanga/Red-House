@@ -157,6 +157,13 @@ def person_detail(kind, identifier):
     )
     if kind == "donor":
         actions.extend(withdrawal_action(row))
+        if g.principal.role_code in ("DONOR", "MEDICAL"):
+            actions.append(
+                (
+                    "Consentimiento e historial",
+                    url_for("regional.consents", identifier=identifier),
+                )
+            )
     return detail(
         row["folio"],
         "donantes" if kind == "donor" else "receptores",
@@ -393,13 +400,15 @@ def appointments():
                 if g.principal.role_code == "OPERATOR"
                 else []
             ),
-            ("campaign_start", "Inicio de campaña"),
-            ("campaign_end", "Fin de campaña"),
+            ("site_name", "Sede"),
+            ("appointment_start", "Inicio de cita"),
+            ("appointment_end", "Fin de cita"),
+            ("schedule_status", "Horario"),
             ("status", "Estado"),
         ],
         prepare=enrich_appointments,
         links=lambda row: url_for("regional.appointment_detail", identifier=row["id"]),
-        note="La inscripción reserva un cupo en la campaña. Confirma con tu institución el lugar y la hora de atención.",
+        note="La sede y el horario corresponden a la reserva registrada. Sin horario asignado requiere coordinación con la institución.",
         new=url_for("regional.appointment_new"),
         actions=lambda row: (
             [
@@ -417,17 +426,35 @@ def appointments():
 
 @regional.route("/citas/nueva", methods=["GET", "POST"])
 def appointment_new():
+    from .agenda import schedule_options
+
     return submit(
         "donantes",
         "/api/v1/appointments",
         [
             selection("donor_id", "Donante", "donors"),
-            selection("campaign_id", "Campaña", "campaigns"),
+            selection(
+                "campaign_id",
+                "Campaña",
+                "campaigns",
+                default=request.args.get("campaign_id", ""),
+            ),
+            field(
+                "slot_id",
+                "Horario seleccionado",
+                "select",
+                schedule_options(request.values.get("campaign_id") or None),
+                default=request.args.get("slot_id", ""),
+                required=False,
+            ),
         ],
         title="Reservar cupo en campaña",
         active="citas",
         back=url_for("regional.appointments"),
-        note="Reserva un cupo; la institución confirmará el lugar y la hora de atención.",
+        success=lambda row: url_for(
+            "regional.appointment_detail", identifier=row["id"]
+        ),
+        note="Selecciona campaña, sede y horario. La disponibilidad se confirma al guardar; un cupo ocupado por otra persona se informa sin duplicar reservas.",
     )
 
 
@@ -469,12 +496,19 @@ def appointment_detail(identifier):
                 url_for("regional.appointment_cancel", identifier=identifier),
             )
         )
+    if row.get("schedule") and row["status"] == "BOOKED":
+        actions.append(
+            (
+                "Gestionar horario",
+                url_for("regional.appointment_schedule", identifier=identifier),
+            )
+        )
     return detail(
         "Inscripción a campaña",
         "citas",
         row,
         actions,
-        note="El periodo corresponde a la campaña. Confirma el lugar y la hora de atención con tu institución.",
+        note="Consulta la sede y el horario de tu cita. El periodo de campaña se muestra por separado.",
     )
 
 
@@ -491,4 +525,15 @@ def campaign_detail(identifier):
         if g.principal.role_code == "OPERATOR"
         else []
     )
+    if g.principal.role_code == "OPERATOR":
+        actions.append(
+            (
+                "Publicación autorizada",
+                url_for("regional.campaign_publication", identifier=identifier),
+            )
+        )
+    if g.principal.role_code in ("DONOR", "OPERATOR"):
+        actions.append(
+            ("Horarios por sede", url_for("regional.slots", identifier=identifier))
+        )
     return detail(row["title"], "campanas", row, actions)

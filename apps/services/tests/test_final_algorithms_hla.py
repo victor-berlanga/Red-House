@@ -293,7 +293,10 @@ def test_hla_structured_history_missing_and_corrected(p, fmt):
         user="operator1",
         fmt=fmt,
     )
-    assert corrected["version"] == 2 and corrected["hla"] == Typing.model_validate(typing).model_dump()
+    assert (
+        corrected["version"] == 2
+        and corrected["hla"] == Typing.model_validate(typing).model_dump()
+    )
     prior = api(
         p,
         "compatibilidad",
@@ -436,27 +439,59 @@ def test_expiry_estimate_does_not_double_count_demand():
     assert "estimated_unused_at_expiry:3.0" in result["findings"][1]["reasons"]
 
 
-def test_migration_13_to_current_preserves_rows_and_is_repeatable(tmp_path, monkeypatch):
+def test_migration_13_to_current_preserves_rows_and_is_repeatable(
+    tmp_path, monkeypatch
+):
     import os
     import tempfile
 
     from redhouse import extension_schema, shared_migrations
     from scripts.local import Environment
+    import scripts.provision as provisioning
+    import gzip
+    import hashlib
+    import re
+    from pathlib import Path
+    from functools import partial
+
+    historical_sql = gzip.decompress(
+        (Path(__file__).parent / "fixtures/schema-v13.sql.gz").read_bytes()
+    )
+    assert (
+        hashlib.sha256(historical_sql).hexdigest()
+        == "d3c8f8a74181c1ce79317a91f8762001e6cff4acaa5d0c66e87265d7aeca515d"
+    )
+    historical_path = tmp_path / "schema-v13.sql"
+    historical_path.write_bytes(historical_sql)
+    historical_tables = set(
+        re.findall(r'CREATE TABLE red_house\."?(\w+)"? \(', historical_sql.decode())
+    )
+    original_provision = provisioning.provision
+
+    def historical_provision(*args, **kwargs):
+        kwargs["schema_path"] = historical_path
+        return original_provision(*args, **kwargs)
 
     env = Environment(
         tempfile.mkdtemp(prefix="rh-alg-migration-", dir="/tmp"),
         os.environ.get("REDHOUSE_TEST_MONGOD"),
     )
+    if os.environ.get("REDHOUSE_TEST_STARTUP_TIMEOUT"):
+        env.wait = partial(
+            env.wait, seconds=int(os.environ["REDHOUSE_TEST_STARTUP_TIMEOUT"])
+        )
     try:
         with monkeypatch.context() as m:
+            m.setattr(provisioning, "provision", historical_provision)
             m.setattr(shared_migrations, "LATEST_VERSION", 13)
             m.setattr(
                 extension_schema,
                 "TABLES",
                 {
-                    k: {t: mutable for t,mutable in v.items() if t not in ("rule_actions","anomaly_reviews","anomaly_actions")}
+                    k: {
+                        t: mutable for t, mutable in v.items() if t in historical_tables
+                    }
                     for k, v in extension_schema.TABLES.items()
-                    if k != "priorizacion_geografia"
                 },
             )
             env.init()

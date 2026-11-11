@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="20" time="713.407" timestamp="2026-11-09T07:50:07.854575-06:00" hostname="Victors-MacBook-Air.local"><testcase classname="tests.test_mobile_transport" name="test_mobile_registration_is_owner_scoped_and_revocable[ANDROID]" time="92.482" /><testcase classname="tests.test_mobile_transport" name="test_mobile_registration_is_owner_scoped_and_revocable[IOS]" time="1.120" /><testcase classname="tests.test_mobile_transport" name="test_phone_ios_wss_and_scan_use_real_owners" time="16.321" /><testcase classname="tests.test_final_tracking" name="test_wss_json_xml_durable_replay_order_and_revocation" time="72.205" /><testcase classname="tests.test_final_tracking" name="test_wss_rejects_donor_device_read_invalid_and_conflicting_events[json]" time="11.980" /><testcase classname="tests.test_final_tracking" name="test_wss_rejects_donor_device_read_invalid_and_conflicting_events[xml]" time="11.423" /><testcase classname="tests.test_final_tracking" name="test_tracking_rejects_xxe_nonfinite_and_unknown_fields" time="0.013" /><testcase classname="tests.test_final_tracking" name="test_sync_commands_idempotency_scope_versions_and_cursor[json]" time="19.812" /><testcase classname="tests.test_final_tracking" name="test_sync_commands_idempotency_scope_versions_and_cursor[xml]" time="10.385" /><testcase classname="tests.test_final_tracking" name="test_executable_simulator_offline_reconnect_and_dedup[json]" time="36.220" /><testcase classname="tests.test_final_tracking" name="test_executable_simulator_offline_reconnect_and_dedup[xml]" time="34.841" /><testcase classname="tests.test_final_tracking" name="test_tracking_dependency_failure_preserves_durable_cursor[redis]" time="137.979" /><testcase classname="tests.test_final_tracking" name="test_tracking_dependency_failure_preserves_durable_cursor[postgres]" time="38.426" /><testcase classname="tests.test_final_tracking" name="test_tracking_dependency_failure_preserves_durable_cursor[mongodb]" time="50.307" /><testcase classname="tests.test_final_tracking" name="test_tracking_scope_origin_cursor_limits_and_device_revocation" time="9.415" /><testcase classname="tests.test_final_tracking" name="test_nmea_adapter_checksum_units_and_no_fix" time="0.080" /><testcase classname="tests.test_final_tracking" name="test_custody_scans_receipt_sync_and_distinct_final_use[json]" time="63.391" /><testcase classname="tests.test_final_tracking" name="test_custody_scans_receipt_sync_and_distinct_final_use[xml]" time="55.571" /><testcase classname="tests.test_final_tracking" name="test_concurrent_emitters_subscribers_and_delayed_consumer" time="21.705"><properties><property name="publishers" value="2" /><property name="delayed_subscribers" value="2" /><property name="points" value="24" /><property name="ack_mean_ms" value="547.397" /><property name="ack_p95_ms" value="698.101" /></properties></testcase><testcase classname="tests.test_final_tracking" name="test_two_production_wss_processes_single_and_total_outage" time="24.776"><failure message="Failed: Réplica WSS no inició">p = &lt;tests.conftest.Platform object at 0x10ebbb650&gt;
+tracking = {'shipment': {'id': '33b4737d-e6c3-453a-ad99-143b578f0aa9', 'reservation_id': '800c900e-00d0-4298-93ee-0e22c7819cac', ...evice_id': '65bb140f-4ef9-42ef-86fc-17726760b3c2', 'responsible_id': 'c8e2a23c-a9fa-4a92-961f-38f25f4841b8', ...}, ...}
+tmp_path = PosixPath('/private/var/folders/rk/m94gy0rj2h74sfwqknl61bzm0000gn/T/pytest-of-victorberlanga/pytest-136/test_two_production_wss_proces0')
+
+    def test_two_production_wss_processes_single_and_total_outage(p, tracking, tmp_path):
+        import subprocess
+        import sys
+        import time
+        from pathlib import Path
+        import requests
+        from scripts.local import free_port
+    
+        t = tracking
+        processes, replicas = [], []
+        original_server = p.servers["transporte"]
+        original_port = original_server.server_port
+        original_server.shutdown()
+        original_server.server_close()
+        t["server"].shutdown()
+        t["server"].server_close()
+        try:
+            for index in range(2):
+                port = free_port()
+                config = dict(
+                    p.env.configs["transporte"],
+                    TESTING=True,
+                    SERVICE_URLS=p.urls,
+                    WORKER_REQUIRED=False,
+                    TRACKING_TLS_CERT=t["cert"],
+                    TRACKING_TLS_KEY=str(Path(t["cert"]).with_suffix(".key")),
+                )
+                path = tmp_path / f"replica-{index}.json"
+                path.write_text(json.dumps(config))
+                path.chmod(0o600)
+                log = tmp_path / f"replica-{index}.log"
+                with log.open("wb") as output:
+                    process = subprocess.Popen(
+                        [
+                            sys.executable,
+                            str(Path(__file__).resolve().parents[1] / "run.py"),
+                            "transporte",
+                            "--config",
+                            str(path),
+                            "--port",
+                            str(port),
+                        ],
+                        stdout=output,
+                        stderr=subprocess.STDOUT,
+                    )
+                processes.append(process)
+                for _ in range(100):
+                    assert process.poll() is None, log.read_text()
+                    try:
+                        response = requests.get(
+                            f"https://localhost:{port}/health/live",
+                            verify=t["cert"],
+                            timeout=0.3,
+                        )
+                        if response.status_code == 200:
+                            break
+                    except requests.RequestException:
+                        time.sleep(0.1)
+                else:
+&gt;                   pytest.fail("Réplica WSS no inició")
+E                   Failed: Réplica WSS no inició
+
+apps/services/tests/test_final_tracking.py:720: Failed</failure></testcase></testsuite></testsuites>

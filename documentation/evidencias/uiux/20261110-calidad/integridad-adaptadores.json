@@ -1,0 +1,15 @@
+{
+  "existingNonPresentationChanges": [],
+  "apkChecks": [
+    {
+      "artifact": "debug/composeApp-debug.apk",
+      "knownDemoSecretsFound": false
+    },
+    {
+      "artifact": "androidTest/debug/composeApp-debug-androidTest.apk",
+      "knownDemoSecretsFound": false
+    }
+  ],
+  "evidenceFilesWithKnownDemoSecrets": [],
+  "labAssetsInApplicationAndInstrumentationApk": []
+}

@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'detail_fragment.html' if detail_modal else 'base.html' %}
 {% from 'integration/values.html' import value_view with context %}
 {% block content %}
 <div class="page-heading"><div><a href="{{ url_for('regional.rule_profiles') }}">← Perfiles</a><h1>{{ title }}</h1></div></div>

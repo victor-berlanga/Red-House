@@ -3,6 +3,7 @@
 import hashlib
 import hmac
 import json
+import secrets
 from datetime import datetime, timezone, timedelta
 from typing import Annotated
 from uuid import uuid4
@@ -50,6 +51,16 @@ class Assignment(Model):
 
 
 def authorize(credential_kind, credential):
+    g.tracking_scope = None
+    if credential_kind == "browser":
+        digest = hashlib.sha256(credential.encode()).hexdigest()
+        raw = redis_call(lambda r: r.get(key("tracking:ticket:" + digest)))
+        if not raw:
+            raise APIError("unauthorized", "Acceso de rastreo vencido.", 401)
+        ticket = json.loads(raw)
+        g.tracking_scope = ticket["shipment_id"]
+        request.environ["HTTP_AUTHORIZATION"] = "Bearer " + ticket["token"]
+        return authenticate(ROLES)
     if credential_kind == "user":
         request.environ["HTTP_AUTHORIZATION"] = "Bearer " + credential
         # Flask Headers reads the same request environ; never write the token to logs.
@@ -83,6 +94,8 @@ def authorize(credential_kind, credential):
 
 
 def access(conn, shipment_id, *, live=False, lock=False):
+    if getattr(g, "tracking_scope", None) not in (None, shipment_id):
+        raise APIError("forbidden", "Acceso limitado al traslado autorizado.", 403)
     row = get(conn, "shipments", shipment_id, lock)
     shipment_access(row)
     if live and row["status"] not in ACTIVE:
@@ -105,7 +118,12 @@ def access(conn, shipment_id, *, live=False, lock=False):
 
 
 def publish(data, credential_kind, credential):
+    if credential_kind == "browser":
+        raise APIError("forbidden", "El acceso del mapa es de solo lectura.", 403)
     data = Position.model_validate(data).model_dump()
+    # Mantener la huella histórica para emisores que no envían el campo opcional.
+    if not data["simulated"]:
+        data.pop("simulated")
     actor = authorize(credential_kind, credential)
     now = datetime.now(timezone.utc)
     captured = utc_date(data["captured_at"], "captured_at")
@@ -318,7 +336,49 @@ class TrackingMetrics(Model):
     active_connections_global: int
 
 
+class BrowserTicket(Model):
+    credential: Text
+    expires_in: int
+
+
 def install(app):
+    @endpoint(app, "/api/v1/shipments/<identifier>/tracking/devices", roles=("COORDINATOR",), result={
+        "type": "object", "required": ["items"], "properties": {"items": {"type": "array", "items": {
+            "type": "object", "required": ["id", "label", "source"], "additionalProperties": False,
+            "properties": {"id": {"type": "string", "format": "uuid"}, "label": {"type": "string"}, "source": {"type": "string"}}}}}})
+    def tracking_devices_for_shipment(identifier):
+        with transaction() as conn:
+            shipment = access(conn, identifier)
+            return {"items": conn.execute("SELECT id,label,source FROM tracking_devices WHERE user_id=%s AND tenant_id=%s AND active AND user_active AND institution_active AND user_role='TRANSPORT' AND expires_at>now() ORDER BY label,id",
+                (shipment["transport_user_id"], shipment["origin_id"])).fetchall()}
+
+    @endpoint(
+        app,
+        "/api/v1/shipments/<identifier>/tracking/ticket",
+        "POST",
+        roles=ROLES,
+        result=schema(BrowserTicket),
+    )
+    def tracking_ticket(identifier):
+        with transaction() as conn:
+            access(conn, identifier, live=True)
+        credential = secrets.token_urlsafe(48)
+        digest = hashlib.sha256(credential.encode()).hexdigest()
+        token = request.headers.get("Authorization", "").removeprefix("Bearer ")
+        redis_call(
+            lambda r: r.set(
+                key("tracking:ticket:" + digest),
+                json.dumps(
+                    {
+                        "token": token,
+                        "shipment_id": identifier,
+                    }
+                ),
+                ex=90,
+            )
+        )
+        return {"credential": credential, "expires_in": 90}
+
     @endpoint(
         app,
         "/api/v1/shipments/<identifier>/tracking/metrics",

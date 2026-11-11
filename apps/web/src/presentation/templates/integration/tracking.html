@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static',filename='vendor/leaflet/leaflet.css') }}">
+<link rel="stylesheet" href="{{ url_for('static',filename='css/tracking.css') }}">
+<script defer src="{{ url_for('static',filename='vendor/leaflet/leaflet.js') }}"></script>
+<script defer src="{{ url_for('static',filename='js/tracking.js') }}"></script>
+{% endblock %}
+{% block content %}
+<a href="{{ url_for('regional.shipment_detail',identifier=identifier) }}">← Volver al traslado</a>
+<h1>{{ title }}</h1>
+<section id="tracking" data-timezone="{{ display_timezone }}" data-shipment="{{ identifier }}" data-access="{{ url_for('regional.tracking_access',identifier=identifier) }}" data-policy='{{ policy|tojson }}' data-provider='{{ provider|tojson }}' data-anchors='{{ anchors|tojson }}' data-snapshot='{{ snapshot|tojson }}' data-csrf="{{ csrf_token() }}">
+<p id="tracking-status" role="status" aria-live="polite">Consultando seguimiento…</p>
+<div class="button-row"><button class="button secondary" id="tracking-state" type="button">Ver Nuevo León</button><button class="button secondary" id="tracking-focus" type="button">Ver última posición</button><button class="button" id="tracking-retry" type="button">Reconectar</button></div>
+<dl class="regional-facts"><div><dt>Fuente</dt><dd id="tracking-source">Pendiente</dd></div><div><dt>Capturada</dt><dd id="tracking-time">Pendiente</dd></div><div><dt>Antigüedad</dt><dd id="tracking-age">Pendiente</dd></div><div><dt>Precisión</dt><dd id="tracking-accuracy">No informada</dd></div><div><dt>Última coordenada válida</dt><dd id="tracking-coordinate">Sin datos</dd></div></dl>
+<div id="tracking-map" aria-label="Mapa interactivo de Nuevo León; usar flechas y teclas más y menos" tabindex="0"></div>
+<p id="tracking-tiles" role="status">Cartografía: {{ provider.name }}. {{ provider.updated_at }}. Consultada al abrir esta vista.</p>
+<p>La línea une puntos recibidos; no representa una ruta vial ni tráfico. Posiciones simuladas se identifican explícitamente.</p>
+<ul>{% for anchor in anchors %}<li>{{ anchor.label }}: {{ anchor.name }}. {% if anchor.latitude is not none %}{{ 'Coordenadas SINTÉTICAS' if anchor.synthetic else 'Coordenadas documentadas' }} · {{ anchor.coordinate_source }} · {{ anchor.coordinate_recorded_at|portal_html }}{% else %}Coordenadas pendientes; no se estiman desde el nombre.{% endif %}</li>{% endfor %}</ul>
+<p>Intervalo esperado: {{ policy.tracking_interval_seconds }} s. Dato antiguo tras {{ policy.tracking_stale_seconds }} s. {{ policy.reference }}</p>
+<p id="tracking-recovery" role="status"></p><p id="tracking-outside" role="status"></p>
+
+<p>Fecha de la última coordenada válida: <span id="tracking-coordinate-time">Sin datos</span>.</p>
+<details><summary>Historial accesible de observaciones recibidas (hasta 1000)</summary><div class="table-scroll"><table><caption>Observaciones autorizadas; una interrupción no se rellena con posiciones inventadas</caption><thead><tr><th>Captura</th><th>Fuente</th><th>Fijación</th><th>Latitud</th><th>Longitud</th><th>Precisión</th></tr></thead><tbody id="tracking-history"></tbody></table></div></details>
+<p><a href="https://www.openstreetmap.org/fixthemap" rel="noreferrer">Informar un problema cartográfico</a></p>
+</section>
+{% endblock %}

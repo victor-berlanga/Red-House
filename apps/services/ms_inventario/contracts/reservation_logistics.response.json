@@ -1,0 +1,45 @@
+{
+  "type": "object",
+  "required": [
+    "data",
+    "meta"
+  ],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": [
+        "correlation_id",
+        "service",
+        "version"
+      ],
+      "properties": {
+        "correlation_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "service": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "required": [
+        "route_id",
+        "route_version"
+      ],
+      "properties": {
+        "route_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "route_version": {
+          "type": "integer"
+        }
+      }
+    }
+  }
+}

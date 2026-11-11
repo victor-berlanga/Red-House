@@ -206,6 +206,7 @@ def test_smtp_push_retry_escalation_dedup_and_close(p, monkeypatch, fmt):
         matching = [v for v in pushes if v["message_code"] == code]
         assert len(matching) == 3
         assert len({v["event_id"] for v in matching}) == 3
+        assert all(v["alert_id"] == alert_id for v in matching)
         api(p, "alertas", f"/api/v1/alerts/{alert_id}/acknowledge", user=name, fmt=fmt)
         api(p, "alertas", f"/api/v1/alerts/{alert_id}/close", CONFIRM, name, fmt)
         api(

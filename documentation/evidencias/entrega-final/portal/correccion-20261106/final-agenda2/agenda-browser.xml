@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<testsuites name="pytest tests">
+  <testsuite name="pytest" errors="0" failures="2" skipped="0" tests="2" time="262.071" timestamp="2026-11-06T21:26:04.723347-06:00" hostname="Victors-MacBook-Air.local">
+    <testcase classname="tests.test_portal_agenda_browser" name="test_attendance_reminder_browser[http]" time="139.323">
+      <failure message="Traza saneada; consultar RESULTADOS.md y resultados.json del intento.">Original temporal identificado por SHA-256; se omiten credenciales de formularios.</failure>
+    </testcase>
+    <testcase classname="tests.test_portal_agenda_browser" name="test_attendance_reminder_browser[monolith]" time="121.956">
+      <failure message="Traza saneada; consultar RESULTADOS.md y resultados.json del intento.">Original temporal identificado por SHA-256; se omiten credenciales de formularios.</failure>
+    </testcase>
+  </testsuite>
+</testsuites>

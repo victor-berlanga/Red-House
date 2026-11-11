@@ -104,6 +104,11 @@
           "minLength": 1,
           "title": "Created At",
           "type": "string"
+        },
+        "policy_version": {
+          "default": 1,
+          "title": "Policy Version",
+          "type": "integer"
         }
       },
       "required": [

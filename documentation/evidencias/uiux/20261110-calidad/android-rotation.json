@@ -1,0 +1,19 @@
+{
+  "environment": "temporary API 30 emulator; no credentials or authentication requests",
+  "checks": [
+    {
+      "widthDp": 360,
+      "fontScale": 1.3,
+      "captures": [
+        "android-access-360-130.png",
+        "android-keyboard-360-130.png",
+        "android-landscape-360-130.png"
+      ],
+      "status": "passed"
+    }
+  ],
+  "original": {
+    "size": "Physical size: 360x720",
+    "fontScale": "1.3"
+  }
+}

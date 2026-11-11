@@ -20,7 +20,7 @@ from redhouse.security import own, redis_call, key
 class DeviceCreate(Model):
     id: ID
     user_id: ID
-    source: Literal["SIMULATOR", "GPS_BRIDGE", "ANDROID"]
+    source: Literal["SIMULATOR", "GPS_BRIDGE", "ANDROID", "IOS"]
     label: Text
     expires_at: Text
 
@@ -33,7 +33,7 @@ class Device(Model):
     id: ID
     tenant_id: ID
     user_id: ID
-    source: Literal["SIMULATOR", "GPS_BRIDGE", "ANDROID"]
+    source: Literal["SIMULATOR", "GPS_BRIDGE", "ANDROID", "IOS"]
     label: Text
     expires_at: Text
     active: bool
@@ -52,6 +52,9 @@ def public(row):
 
 
 def install(app):
+    from .mobile import install as mobile
+    mobile(app)
+
     @endpoint(
         app,
         "/api/v1/devices",

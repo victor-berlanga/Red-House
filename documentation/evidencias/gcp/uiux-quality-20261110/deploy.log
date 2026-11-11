@@ -1,0 +1,53 @@
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 157B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/redhouse/web:uiux-quality-before-20261110
+#2 DONE 0.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 110.58kB 0.0s done
+#4 DONE 0.0s
+
+#5 [1/2] FROM docker.io/redhouse/web:uiux-quality-before-20261110@sha256:5d3e719ec1077cf6f3cc4b8bc05cd78e08d651ed64ff7fdf059378338405e064
+#5 resolve docker.io/redhouse/web:uiux-quality-before-20261110@sha256:5d3e719ec1077cf6f3cc4b8bc05cd78e08d651ed64ff7fdf059378338405e064 0.0s done
+#5 DONE 0.1s
+
+#6 [2/2] COPY payload/ /app/
+#6 DONE 0.1s
+
+#7 exporting to image
+#7 exporting layers
+#7 exporting layers 0.2s done
+#7 exporting manifest sha256:28b36ae51fd93f95802e96d7822728cc46e385f4bfc0a62d3097f6361daa42cd 0.0s done
+#7 exporting config sha256:2eeb4526a79310a0899a05b13cafa447489e3a5f49b90ed3166c2ac01296c74c 0.0s done
+#7 exporting attestation manifest sha256:fb9f87a20eeaa066497bd820e079cba5b9b7340051c5fee042d7625cdf165889 0.0s done
+#7 exporting manifest list sha256:6c84aabf40495db2b2feb5864bfb62bf64d58bb7982169107d5ffe23e9efced7 0.0s done
+#7 naming to docker.io/redhouse/web:uiux-quality-20261110 done
+#7 unpacking to docker.io/redhouse/web:uiux-quality-20261110 0.0s done
+#7 DONE 0.4s
+Image hashes and Jinja syntax verified
+ Container redhouse-parcial2-web-1 Recreate 
+ Container redhouse-parcial2-web-1 Recreated 
+ Container redhouse-parcial2-web-1 Starting 
+ Container redhouse-parcial2-web-1 Started 
+ Container redhouse-parcial2-web-1 Waiting 
+ Container redhouse-parcial2-web-1 Healthy 
+{
+  "tag": "redhouse/web:uiux-quality-20261110",
+  "files": 20,
+  "new_files": 6,
+  "running_containers": 30,
+  "unchanged_other_running_containers": 29,
+  "healthy": true,
+  "database_migrations": false,
+  "backup": "/opt/redhouse/.local/deploy-uiux-quality-20261110",
+  "old_image": "sha256:5d3e719ec1077cf6f3cc4b8bc05cd78e08d651ed64ff7fdf059378338405e064",
+  "new_image": "sha256:6c84aabf40495db2b2feb5864bfb62bf64d58bb7982169107d5ffe23e9efced7"
+}

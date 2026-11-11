@@ -1,6 +1,8 @@
 # Red House en Google Compute Engine
 
-> Estado comprobado el 02/11/2026: portal **https://34.18.186.116**, release **0.4.4 / esquema 16**, 30 contenedores sanos. Compatibilidad/Geografía 0.4.4; otros módulos conservan su versión propia 0.4.1, con fuentes e imágenes cotejadas. [Publicación, respaldo, comprobaciones y límites](../../documentation/evidencias/gcp/etapa02-20261102/RESULTADOS.md). La evidencia anterior conserva su fecha.
+> UI web publicada el **10/11/2026**: `redhouse/web:uiux-20261110`. Backend mantiene `mobile04-20261110` / esquema 18. Solo nueve archivos de presentación; 30 contenedores activos sanos. [Verificación y reversión](../../documentation/evidencias/gcp/uiux-20261110/RESULTADOS.md).
+
+> Estado comprobado el **10/11/2026**: **https://34.18.186.116**, tag **`mobile04-20261110` / esquema 18**, 30 contenedores sanos. Ampliaciones móviles publicadas; código del monolito y configuración conservados. [Respaldo, migración y verificación HTTPS/WSS](../../documentation/evidencias/gcp/mobile04-20261110/RESULTADOS.md). El cliente 0.3.1 incorpora esta dirección. Aceptación integral 04/06 pendiente.
 
 VM `red-house`, proyecto `sistemas-integracion-01`, zona `me-central1-a`. Referencia: `maquina01`, con CentOS Stream 10, tipo `e2-standard-2` (2 vCPU, 8 GB de RAM), disco `pd-standard` de 20 GB, red `default`, OS Login y las mismas opciones de Shielded VM. Se utilizó su imagen de origen `centos-stream-10-v20260609`.
 
@@ -99,7 +101,7 @@ La VM reutiliza el bucket privado autorizado; los registros conservan referencia
 
 [`verify.py`](verify.py) ejecuta sangre de principio a fin, consultas JSON/XML de once servicios y carga/descarga web con GCS real. Con `public.json` configurado usa la dirección HTTPS e incluye un flujo web completo. Comprueba persistencia, contenido, rechazo anónimo y autorización por recurso. Deja registros ficticios para demostración. [`verify_public.cjs`](verify_public.cjs) comprueba el navegador cliente, siete perfiles, gráficas, sesiones y Swagger contra la IP pública; no inicia servicios locales. Requiere Playwright y Chrome en el equipo que ejecute esa prueba.
 
-El despliegue tiene una VM y una instancia de cada almacén. Las réplicas API permiten ensayar fallos de aplicación; la infraestructura completa no tiene redundancia. El acceso público utiliza HTTPS, sin dominio. Android, escritorio, validación clínica y operación productiva siguen fuera de este despliegue. [Resultados y límites verificados](../../documentation/evidencias/gcp/RESULTADOS.md).
+El despliegue tiene una VM y una instancia de cada almacén. Las réplicas API permiten ensayar fallos de aplicación; la infraestructura completa no tiene redundancia. El acceso público utiliza HTTPS, sin dominio. El cliente Android 0.3.1 apunta a este gateway; su aceptación integral, escritorio, validación clínica y operación productiva siguen pendientes. [Resultados y límites verificados](../../documentation/evidencias/gcp/RESULTADOS.md).
 
 ## Datos para la demostración
 

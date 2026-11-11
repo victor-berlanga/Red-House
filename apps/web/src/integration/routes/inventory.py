@@ -129,6 +129,12 @@ def resource_new():
 def resource_detail(identifier):
     row = call("inventario", "/api/v1/resources/" + str(identifier))
     actions = []
+    if g.principal.role_code in ("OPERATOR", "MEDICAL"):
+        actions += [("Conservación", url_for("inventory.resource_conservation", identifier=identifier)),
+                    ("Linaje", url_for("inventory.lineage", identifier=identifier)),
+                    ("Etiqueta", url_for("inventory.label", identifier=identifier))]
+    if g.principal.role_code == "OPERATOR" and row.get("donation_id") and row["status"] == "QUARANTINE":
+        actions.append(("Fraccionar componentes", url_for("inventory.fractionate", identifier=identifier)))
     if g.principal.role_code == "OPERATOR":
         if row["status"] == "QUARANTINE":
             actions.append(

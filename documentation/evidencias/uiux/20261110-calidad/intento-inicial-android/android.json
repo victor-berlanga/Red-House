@@ -1,0 +1,52 @@
+{
+  "environment": "Android API 30 emulator, real GCP demo accounts, read-only UI journeys; login/device registration/logout as existing app behavior",
+  "profiles": [
+    {
+      "account": "donor1",
+      "first": "Citas",
+      "status": "passed",
+      "destinations": [
+        "Citas",
+        "Citas",
+        "Campa\u00f1as",
+        "Avisos",
+        "Cuenta"
+      ],
+      "systemBack": true
+    },
+    {
+      "account": "transport1",
+      "first": "Traslados",
+      "status": "passed",
+      "destinations": [
+        "Traslados",
+        "Traslados",
+        "Traslados",
+        "Pendientes",
+        "Avisos",
+        "Cuenta"
+      ],
+      "systemBack": true
+    },
+    {
+      "account": "operator1",
+      "first": "Inventario",
+      "status": "passed",
+      "destinations": [
+        "Inventario",
+        "Inventario",
+        "Inventario",
+        "Traslados",
+        "Avisos",
+        "Cuenta"
+      ],
+      "systemBack": true
+    },
+    {
+      "account": "coordinator1",
+      "first": "Traslados",
+      "status": "blocked_mfa"
+    }
+  ],
+  "error": "Screen did not reach Cuenta"
+}

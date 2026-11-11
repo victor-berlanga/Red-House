@@ -119,7 +119,7 @@ def register(app):
         app,
         "/internal/v1/routes/<identifier>",
         internal=("inventario", "compatibilidad", "transporte"),
-        roles=("MEDICAL", "COORDINATOR"),
+        roles=("MEDICAL", "COORDINATOR", "TRANSPORT", "OPERATOR"),
         summary="Revalidar una ruta conocida",
     )
     def route_internal(identifier):
@@ -312,11 +312,16 @@ def register(app):
     @endpoint(
         app,
         "/api/v1/allocation-proposals/<identifier>",
-        roles=("MEDICAL",),
+        roles=("MEDICAL", "COORDINATOR"),
         summary="Consultar propuesta, límites y versiones originales",
     )
     def proposal_detail(identifier):
+        from .queries import proposal_scope
+        scope = proposal_scope()
         with transaction() as conn:
             row = get(conn, "proposals", identifier)
-            own(row["tenant_id"])
+            if str(row["tenant_id"]) not in scope:
+                raise APIError("forbidden", "Propuesta fuera del ámbito autorizado.", 403)
+            if g.actor["role"] == "COORDINATOR":
+                row["snapshots"] = {}  # Solo propuesta logística; sin instantáneas de evaluación.
             return row

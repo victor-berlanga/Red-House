@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='utf-8'?>
+<testsuites name="pytest tests">
+  <testsuite name="pytest" errors="0" failures="1" skipped="0" tests="10" time="79.979" timestamp="2026-11-06T18:45:27.972818-06:00" hostname="Victors-MacBook-Air.local">
+    <testcase classname="tests.test_portal_corrections" name="test_publication_without_api_listeners" time="39.481" />
+    <testcase classname="tests.test_portal_corrections" name="test_configuration_publication_privacy_versions_and_metrics" time="5.125" />
+    <testcase classname="tests.test_portal_corrections" name="test_paginated_export_over_thousand_filters_context_and_foreign_denial" time="4.316" />
+    <testcase classname="tests.test_portal_corrections" name="test_pending_confirmation_web_recovers_same_command_without_false_success" time="7.537" />
+    <testcase classname="tests.test_portal_corrections" name="test_export_worker_rechecks_revoked_session_before_extraction" time="1.754" />
+    <testcase classname="tests.test_portal_corrections" name="test_web_lost_entire_write_response_queries_result_without_second_post" time="5.490" />
+    <testcase classname="tests.test_portal_corrections" name="test_coordinator_reads_regional_proposal_without_clinical_authority" time="2.847" />
+    <testcase classname="tests.test_portal_corrections" name="test_organ_authorization_form_keeps_history" time="2.307" />
+    <testcase classname="tests.test_portal_documents" name="test_document_conservation_form_pending_and_foreign_download" time="5.116">
+      <failure message="Detalle saneado; diagnóstico conservado en INTENTOS.md. No es prueba aprobada.">Se omite la traza que puede contener credenciales temporales de formularios. El hash del original se conserva en intentos.json.</failure>
+    </testcase>
+    <testcase classname="tests.test_portal_documents" name="test_report_formats_preserve_scope_timezone_unknown_and_formula" time="4.905" />
+  </testsuite>
+</testsuites>

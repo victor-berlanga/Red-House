@@ -691,6 +691,7 @@
                     "shipment_id": "00000000-0000-4000-8000-000000000001",
                     "device_id": "00000000-0000-4000-8000-000000000001",
                     "source": "SIMULATOR",
+                    "simulated": true,
                     "sequence": 1,
                     "captured_at": "2026-10-01T15:00:00+00:00",
                     "latitude": null,
@@ -715,7 +716,7 @@
                 "schema": {
                   "type": "string"
                 },
-                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"schema_version\" type=\"integer\">1</field><field name=\"event_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"shipment_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"device_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"source\" type=\"string\">SIMULATOR</field><field name=\"sequence\" type=\"integer\">1</field><field name=\"captured_at\" type=\"string\">2026-10-01T15:00:00+00:00</field><field name=\"latitude\" type=\"null\"/><field name=\"longitude\" type=\"null\"/><field name=\"fix_valid\" type=\"boolean\">true</field><field name=\"accuracy_m\" type=\"null\"/><field name=\"speed_m_s\" type=\"null\"/><field name=\"heading_deg\" type=\"null\"/><field name=\"altitude_m\" type=\"null\"/><field name=\"battery_percent\" type=\"null\"/><field name=\"cursor\" type=\"integer\">1</field><field name=\"received_at\" type=\"string\">Dato ficticio para reemplazar</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">transporte</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"schema_version\" type=\"integer\">1</field><field name=\"event_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"shipment_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"device_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"source\" type=\"string\">SIMULATOR</field><field name=\"simulated\" type=\"boolean\">true</field><field name=\"sequence\" type=\"integer\">1</field><field name=\"captured_at\" type=\"string\">2026-10-01T15:00:00+00:00</field><field name=\"latitude\" type=\"null\"/><field name=\"longitude\" type=\"null\"/><field name=\"fix_valid\" type=\"boolean\">true</field><field name=\"accuracy_m\" type=\"null\"/><field name=\"speed_m_s\" type=\"null\"/><field name=\"heading_deg\" type=\"null\"/><field name=\"altitude_m\" type=\"null\"/><field name=\"battery_percent\" type=\"null\"/><field name=\"cursor\" type=\"integer\">1</field><field name=\"received_at\" type=\"string\">Dato ficticio para reemplazar</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">transporte</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
                 "x-json-equivalent-schema": {
                   "$ref": "#/components/schemas/Response_telemetry_create"
                 },
@@ -777,6 +778,7 @@
                 "shipment_id": "00000000-0000-4000-8000-000000000001",
                 "device_id": "00000000-0000-4000-8000-000000000001",
                 "source": "SIMULATOR",
+                "simulated": true,
                 "sequence": 1,
                 "captured_at": "2026-10-01T15:00:00+00:00",
                 "latitude": null,
@@ -793,7 +795,7 @@
               "schema": {
                 "type": "string"
               },
-              "example": "<?xml version='1.0' encoding='UTF-8'?>\n<request xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><schema_version>1</schema_version><event_id>00000000-0000-4000-8000-000000000001</event_id><shipment_id>00000000-0000-4000-8000-000000000001</shipment_id><device_id>00000000-0000-4000-8000-000000000001</device_id><source>SIMULATOR</source><sequence>1</sequence><captured_at>2026-10-01T15:00:00+00:00</captured_at><latitude xsi:nil=\"true\"/><longitude xsi:nil=\"true\"/><fix_valid>true</fix_valid><accuracy_m xsi:nil=\"true\"/><speed_m_s xsi:nil=\"true\"/><heading_deg xsi:nil=\"true\"/><altitude_m xsi:nil=\"true\"/><battery_percent xsi:nil=\"true\"/></request>",
+              "example": "<?xml version='1.0' encoding='UTF-8'?>\n<request xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><schema_version>1</schema_version><event_id>00000000-0000-4000-8000-000000000001</event_id><shipment_id>00000000-0000-4000-8000-000000000001</shipment_id><device_id>00000000-0000-4000-8000-000000000001</device_id><source>SIMULATOR</source><simulated>true</simulated><sequence>1</sequence><captured_at>2026-10-01T15:00:00+00:00</captured_at><latitude xsi:nil=\"true\"/><longitude xsi:nil=\"true\"/><fix_valid>true</fix_valid><accuracy_m xsi:nil=\"true\"/><speed_m_s xsi:nil=\"true\"/><heading_deg xsi:nil=\"true\"/><altitude_m xsi:nil=\"true\"/><battery_percent xsi:nil=\"true\"/></request>",
               "x-xsd": "/schemas/telemetry_create.xsd",
               "x-json-equivalent-schema": {
                 "$ref": "#/components/schemas/Position"
@@ -1420,6 +1422,245 @@
                 },
                 "x-xsd": "/schemas/response.xsd",
                 "x-response-schema": "/schemas/shipment_statistics.response.json"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "406": {
+            "$ref": "#/components/responses/Error406"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "412": {
+            "$ref": "#/components/responses/Error412"
+          },
+          "413": {
+            "$ref": "#/components/responses/Error413"
+          },
+          "415": {
+            "$ref": "#/components/responses/Error415"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
+          }
+        }
+      }
+    },
+    "/api/v1/shipments/{identifier}/tracking/devices": {
+      "get": {
+        "operationId": "tracking_devices_for_shipment",
+        "summary": "tracking_devices_for_shipment",
+        "parameters": [
+          {
+            "name": "identifier",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-Correlation-ID",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "application/json",
+                "application/xml"
+              ]
+            }
+          }
+        ],
+        "description": "Roles: COORDINATOR. Contrato público de API.",
+        "security": [
+          {
+            "BearerJWT": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resultado confirmado o estado pendiente documentado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_tracking_devices_for_shipment"
+                },
+                "example": {
+                  "data": {
+                    "items": []
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "transporte",
+                    "version": "0.4.1"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"items\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">transporte</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
+                "x-json-equivalent-schema": {
+                  "$ref": "#/components/schemas/Response_tracking_devices_for_shipment"
+                },
+                "x-xsd": "/schemas/response.xsd",
+                "x-response-schema": "/schemas/tracking_devices_for_shipment.response.json"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "406": {
+            "$ref": "#/components/responses/Error406"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "412": {
+            "$ref": "#/components/responses/Error412"
+          },
+          "413": {
+            "$ref": "#/components/responses/Error413"
+          },
+          "415": {
+            "$ref": "#/components/responses/Error415"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
+          }
+        }
+      }
+    },
+    "/api/v1/shipments/{identifier}/tracking/ticket": {
+      "post": {
+        "operationId": "tracking_ticket",
+        "summary": "tracking_ticket",
+        "parameters": [
+          {
+            "name": "identifier",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-Correlation-ID",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "application/json",
+                "application/xml"
+              ]
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 8,
+              "maxLength": 100
+            }
+          }
+        ],
+        "description": "Roles: COORDINATOR, TRANSPORT, OPERATOR, MEDICAL. Contrato público de API.",
+        "security": [
+          {
+            "BearerJWT": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resultado confirmado o estado pendiente documentado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_tracking_ticket"
+                },
+                "example": {
+                  "data": {
+                    "credential": "Dato ficticio para reemplazar",
+                    "expires_in": 1
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "transporte",
+                    "version": "0.4.1"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"credential\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"expires_in\" type=\"integer\">1</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">transporte</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
+                "x-json-equivalent-schema": {
+                  "$ref": "#/components/schemas/Response_tracking_ticket"
+                },
+                "x-xsd": "/schemas/response.xsd",
+                "x-response-schema": "/schemas/tracking_ticket.response.json"
               }
             }
           },
@@ -2342,6 +2583,607 @@
           },
           "503": {
             "$ref": "#/components/responses/Error503"
+          }
+        }
+      }
+    },
+    "/api/v1/shipments/{identifier}/operational-context": {
+      "get": {
+        "operationId": "operational_context",
+        "summary": "Contactos operativos y ruta vinculada a la tarea autorizada; sin expediente clínico",
+        "parameters": [
+          {
+            "name": "identifier",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-Correlation-ID",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "application/json",
+                "application/xml"
+              ]
+            }
+          }
+        ],
+        "description": "Roles: TRANSPORT, OPERATOR, COORDINATOR. Contrato público de API.",
+        "security": [
+          {
+            "BearerJWT": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resultado confirmado o estado pendiente documentado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_operational_context"
+                },
+                "example": {
+                  "data": {
+                    "shipment_id": "00000000-0000-4000-8000-000000000001",
+                    "shipment_version": 1,
+                    "origin": {
+                      "id": "00000000-0000-4000-8000-000000000001",
+                      "name": "Dato ficticio para reemplazar",
+                      "contacts": [],
+                      "operators": []
+                    },
+                    "destination": {
+                      "id": "00000000-0000-4000-8000-000000000001",
+                      "name": "Dato ficticio para reemplazar",
+                      "contacts": [],
+                      "operators": []
+                    },
+                    "route": {
+                      "id": "00000000-0000-4000-8000-000000000001",
+                      "reserved_version": 1,
+                      "current_version": 1,
+                      "changed": true,
+                      "distance_km": 1.0,
+                      "travel_minutes": 1,
+                      "source": "Dato ficticio para reemplazar",
+                      "updated_at": "Dato ficticio para reemplazar"
+                    },
+                    "transport_user_id": "00000000-0000-4000-8000-000000000001",
+                    "consulted_at": "Dato ficticio para reemplazar"
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "transporte",
+                    "version": "0.4.1"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"shipment_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"shipment_version\" type=\"integer\">1</field><field name=\"origin\" type=\"object\"><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"name\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"contacts\" type=\"array\"/><field name=\"operators\" type=\"array\"/></field><field name=\"destination\" type=\"object\"><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"name\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"contacts\" type=\"array\"/><field name=\"operators\" type=\"array\"/></field><field name=\"route\" type=\"object\"><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"reserved_version\" type=\"integer\">1</field><field name=\"current_version\" type=\"integer\">1</field><field name=\"changed\" type=\"boolean\">true</field><field name=\"distance_km\" type=\"number\">1.0</field><field name=\"travel_minutes\" type=\"integer\">1</field><field name=\"source\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"updated_at\" type=\"string\">Dato ficticio para reemplazar</field></field><field name=\"transport_user_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"consulted_at\" type=\"string\">Dato ficticio para reemplazar</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">transporte</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
+                "x-json-equivalent-schema": {
+                  "$ref": "#/components/schemas/Response_operational_context"
+                },
+                "x-xsd": "/schemas/response.xsd",
+                "x-response-schema": "/schemas/operational_context.response.json"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "406": {
+            "$ref": "#/components/responses/Error406"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "412": {
+            "$ref": "#/components/responses/Error412"
+          },
+          "413": {
+            "$ref": "#/components/responses/Error413"
+          },
+          "415": {
+            "$ref": "#/components/responses/Error415"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
+          }
+        }
+      }
+    },
+    "/api/v1/shipments/{identifier}/scan": {
+      "post": {
+        "operationId": "shipment_scan",
+        "summary": "shipment_scan",
+        "parameters": [
+          {
+            "name": "identifier",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-Correlation-ID",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "application/json",
+                "application/xml"
+              ]
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 8,
+              "maxLength": 100
+            }
+          }
+        ],
+        "description": "Roles: TRANSPORT, OPERATOR. Contrato público de API.",
+        "security": [
+          {
+            "BearerJWT": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resultado confirmado o estado pendiente documentado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_shipment_scan"
+                },
+                "example": {
+                  "data": {
+                    "shipment_id": "00000000-0000-4000-8000-000000000001",
+                    "resource_id": "00000000-0000-4000-8000-000000000001",
+                    "origin_id": "00000000-0000-4000-8000-000000000001",
+                    "destination_id": "00000000-0000-4000-8000-000000000001",
+                    "version": 1,
+                    "status": "Dato ficticio para reemplazar",
+                    "verified": true
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "transporte",
+                    "version": "0.4.1"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"shipment_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"resource_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"origin_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"destination_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"version\" type=\"integer\">1</field><field name=\"status\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"verified\" type=\"boolean\">true</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">transporte</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
+                "x-json-equivalent-schema": {
+                  "$ref": "#/components/schemas/Response_shipment_scan"
+                },
+                "x-xsd": "/schemas/response.xsd",
+                "x-response-schema": "/schemas/shipment_scan.response.json"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "406": {
+            "$ref": "#/components/responses/Error406"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "412": {
+            "$ref": "#/components/responses/Error412"
+          },
+          "413": {
+            "$ref": "#/components/responses/Error413"
+          },
+          "415": {
+            "$ref": "#/components/responses/Error415"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Scan"
+              },
+              "example": {
+                "scanned_resource_id": "00000000-0000-4000-8000-000000000001"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "type": "string"
+              },
+              "example": "<?xml version='1.0' encoding='UTF-8'?>\n<request xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><scanned_resource_id>00000000-0000-4000-8000-000000000001</scanned_resource_id></request>",
+              "x-xsd": "/schemas/shipment_scan.xsd",
+              "x-json-equivalent-schema": {
+                "$ref": "#/components/schemas/Scan"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/shipments/{identifier}/tracking/mobile-session": {
+      "post": {
+        "operationId": "mobile_tracking_start",
+        "summary": "mobile_tracking_start",
+        "parameters": [
+          {
+            "name": "identifier",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-Correlation-ID",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "application/json",
+                "application/xml"
+              ]
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 8,
+              "maxLength": 100
+            }
+          }
+        ],
+        "description": "Roles: TRANSPORT. Contrato público de API.",
+        "security": [
+          {
+            "BearerJWT": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resultado confirmado o estado pendiente documentado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_mobile_tracking_start"
+                },
+                "example": {
+                  "data": {
+                    "id": "00000000-0000-4000-8000-000000000001",
+                    "shipment_id": "00000000-0000-4000-8000-000000000001",
+                    "device_id": "00000000-0000-4000-8000-000000000001",
+                    "responsible_id": "00000000-0000-4000-8000-000000000001",
+                    "starts_at": "2030-01-01T15:00:00+00:00",
+                    "ends_at": "2030-01-01T15:00:00+00:00",
+                    "active": true,
+                    "version": 1,
+                    "actor_id": "00000000-0000-4000-8000-000000000001",
+                    "created_at": "Dato ficticio para reemplazar"
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "transporte",
+                    "version": "0.4.1"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"shipment_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"device_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"responsible_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"starts_at\" type=\"string\">2030-01-01T15:00:00+00:00</field><field name=\"ends_at\" type=\"string\">2030-01-01T15:00:00+00:00</field><field name=\"active\" type=\"boolean\">true</field><field name=\"version\" type=\"integer\">1</field><field name=\"actor_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"created_at\" type=\"string\">Dato ficticio para reemplazar</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">transporte</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
+                "x-json-equivalent-schema": {
+                  "$ref": "#/components/schemas/Response_mobile_tracking_start"
+                },
+                "x-xsd": "/schemas/response.xsd",
+                "x-response-schema": "/schemas/mobile_tracking_start.response.json"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "406": {
+            "$ref": "#/components/responses/Error406"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "412": {
+            "$ref": "#/components/responses/Error412"
+          },
+          "413": {
+            "$ref": "#/components/responses/Error413"
+          },
+          "415": {
+            "$ref": "#/components/responses/Error415"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PhoneTracking"
+              },
+              "example": {
+                "human_confirmation": true,
+                "reason": "Dato ficticio para reemplazar",
+                "version": 1,
+                "device_id": "00000000-0000-4000-8000-000000000001"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "type": "string"
+              },
+              "example": "<?xml version='1.0' encoding='UTF-8'?>\n<request xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><human_confirmation>true</human_confirmation><reason>Dato ficticio para reemplazar</reason><version>1</version><device_id>00000000-0000-4000-8000-000000000001</device_id></request>",
+              "x-xsd": "/schemas/mobile_tracking_start.xsd",
+              "x-json-equivalent-schema": {
+                "$ref": "#/components/schemas/PhoneTracking"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/shipments/{identifier}/tracking/mobile-session/stop": {
+      "post": {
+        "operationId": "mobile_tracking_stop",
+        "summary": "mobile_tracking_stop",
+        "parameters": [
+          {
+            "name": "identifier",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-Correlation-ID",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "application/json",
+                "application/xml"
+              ]
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 8,
+              "maxLength": 100
+            }
+          }
+        ],
+        "description": "Roles: TRANSPORT. Contrato público de API.",
+        "security": [
+          {
+            "BearerJWT": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resultado confirmado o estado pendiente documentado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_mobile_tracking_stop"
+                },
+                "example": {
+                  "data": {
+                    "stopped": true
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "transporte",
+                    "version": "0.4.1"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"stopped\" type=\"boolean\">true</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">transporte</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
+                "x-json-equivalent-schema": {
+                  "$ref": "#/components/schemas/Response_mobile_tracking_stop"
+                },
+                "x-xsd": "/schemas/response.xsd",
+                "x-response-schema": "/schemas/mobile_tracking_stop.response.json"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "406": {
+            "$ref": "#/components/responses/Error406"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "412": {
+            "$ref": "#/components/responses/Error412"
+          },
+          "413": {
+            "$ref": "#/components/responses/Error413"
+          },
+          "415": {
+            "$ref": "#/components/responses/Error415"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PhoneTracking"
+              },
+              "example": {
+                "human_confirmation": true,
+                "reason": "Dato ficticio para reemplazar",
+                "version": 1,
+                "device_id": "00000000-0000-4000-8000-000000000001"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "type": "string"
+              },
+              "example": "<?xml version='1.0' encoding='UTF-8'?>\n<request xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><human_confirmation>true</human_confirmation><reason>Dato ficticio para reemplazar</reason><version>1</version><device_id>00000000-0000-4000-8000-000000000001</device_id></request>",
+              "x-xsd": "/schemas/mobile_tracking_stop.xsd",
+              "x-json-equivalent-schema": {
+                "$ref": "#/components/schemas/PhoneTracking"
+              }
+            }
           }
         }
       }
@@ -3505,7 +4347,8 @@
                       "retention_until": null,
                       "legal_hold": true,
                       "policy_reference": "Dato ficticio para reemplazar",
-                      "created_at": "Dato ficticio para reemplazar"
+                      "created_at": "Dato ficticio para reemplazar",
+                      "policy_version": 1
                     },
                     "upload_url": "Dato ficticio para reemplazar",
                     "expires_in": 1,
@@ -3522,7 +4365,7 @@
                 "schema": {
                   "type": "string"
                 },
-                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"metadata\" type=\"object\"><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"tenant_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"category\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"subject_kind\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"subject_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"version\" type=\"integer\">1</field><field name=\"supersedes\" type=\"null\"/><field name=\"privacy\" type=\"string\">PRIVATE</field><field name=\"retention_until\" type=\"null\"/><field name=\"legal_hold\" type=\"boolean\">true</field><field name=\"policy_reference\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"created_at\" type=\"string\">Dato ficticio para reemplazar</field></field><field name=\"upload_url\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"expires_in\" type=\"integer\">1</field><field name=\"upload_headers\" type=\"object\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">transporte</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"metadata\" type=\"object\"><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"tenant_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"category\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"subject_kind\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"subject_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"version\" type=\"integer\">1</field><field name=\"supersedes\" type=\"null\"/><field name=\"privacy\" type=\"string\">PRIVATE</field><field name=\"retention_until\" type=\"null\"/><field name=\"legal_hold\" type=\"boolean\">true</field><field name=\"policy_reference\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"created_at\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"policy_version\" type=\"integer\">1</field></field><field name=\"upload_url\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"expires_in\" type=\"integer\">1</field><field name=\"upload_headers\" type=\"object\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">transporte</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
                 "x-json-equivalent-schema": {
                   "$ref": "#/components/schemas/Response_document_prepare"
                 },
@@ -3862,7 +4705,8 @@
                     "retention_until": null,
                     "legal_hold": true,
                     "policy_reference": "Dato ficticio para reemplazar",
-                    "created_at": "Dato ficticio para reemplazar"
+                    "created_at": "Dato ficticio para reemplazar",
+                    "policy_version": 1
                   },
                   "meta": {
                     "correlation_id": "00000000-0000-4000-8000-000000000001",
@@ -3875,7 +4719,7 @@
                 "schema": {
                   "type": "string"
                 },
-                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"tenant_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"category\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"subject_kind\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"subject_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"version\" type=\"integer\">1</field><field name=\"supersedes\" type=\"null\"/><field name=\"privacy\" type=\"string\">PRIVATE</field><field name=\"retention_until\" type=\"null\"/><field name=\"legal_hold\" type=\"boolean\">true</field><field name=\"policy_reference\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"created_at\" type=\"string\">Dato ficticio para reemplazar</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">transporte</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"tenant_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"category\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"subject_kind\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"subject_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"version\" type=\"integer\">1</field><field name=\"supersedes\" type=\"null\"/><field name=\"privacy\" type=\"string\">PRIVATE</field><field name=\"retention_until\" type=\"null\"/><field name=\"legal_hold\" type=\"boolean\">true</field><field name=\"policy_reference\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"created_at\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"policy_version\" type=\"integer\">1</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">transporte</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
                 "x-json-equivalent-schema": {
                   "$ref": "#/components/schemas/Response_document_detail"
                 },
@@ -3986,7 +4830,8 @@
                     "file_id": null,
                     "last_error": null,
                     "attempts": 1,
-                    "created_at": "Dato ficticio para reemplazar"
+                    "created_at": "Dato ficticio para reemplazar",
+                    "context": {}
                   },
                   "meta": {
                     "correlation_id": "00000000-0000-4000-8000-000000000001",
@@ -3999,7 +4844,7 @@
                 "schema": {
                   "type": "string"
                 },
-                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"tenant_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"user_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"report\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"format\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"status\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"file_id\" type=\"null\"/><field name=\"last_error\" type=\"null\"/><field name=\"attempts\" type=\"integer\">1</field><field name=\"created_at\" type=\"string\">Dato ficticio para reemplazar</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">transporte</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"tenant_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"user_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"report\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"format\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"status\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"file_id\" type=\"null\"/><field name=\"last_error\" type=\"null\"/><field name=\"attempts\" type=\"integer\">1</field><field name=\"created_at\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"context\" type=\"object\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">transporte</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
                 "x-json-equivalent-schema": {
                   "$ref": "#/components/schemas/Response_export_create"
                 },
@@ -4061,14 +4906,16 @@
                 "format": "CSV",
                 "from_at": "2026-10-01T15:00:00+00:00",
                 "until_at": "2030-01-01T15:00:00+00:00",
-                "order": "ID_ASC"
+                "order": "ID_ASC",
+                "filters": {},
+                "timezone": "Dato ficticio para reemplazar"
               }
             },
             "application/xml": {
               "schema": {
                 "type": "string"
               },
-              "example": "<?xml version='1.0' encoding='UTF-8'?>\n<request xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><report>INVENTORY</report><subject_id xsi:nil=\"true\"/><format>CSV</format><from_at>2026-10-01T15:00:00+00:00</from_at><until_at>2030-01-01T15:00:00+00:00</until_at><order>ID_ASC</order></request>",
+              "example": "<?xml version='1.0' encoding='UTF-8'?>\n<request xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><report>INVENTORY</report><subject_id xsi:nil=\"true\"/><format>CSV</format><from_at>2026-10-01T15:00:00+00:00</from_at><until_at>2030-01-01T15:00:00+00:00</until_at><order>ID_ASC</order><filters/><timezone>Dato ficticio para reemplazar</timezone></request>",
               "x-xsd": "/schemas/export_create.xsd",
               "x-json-equivalent-schema": {
                 "$ref": "#/components/schemas/ReportCreate"
@@ -4326,7 +5173,8 @@
                     "file_id": null,
                     "last_error": null,
                     "attempts": 1,
-                    "created_at": "Dato ficticio para reemplazar"
+                    "created_at": "Dato ficticio para reemplazar",
+                    "context": {}
                   },
                   "meta": {
                     "correlation_id": "00000000-0000-4000-8000-000000000001",
@@ -4339,7 +5187,7 @@
                 "schema": {
                   "type": "string"
                 },
-                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"tenant_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"user_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"report\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"format\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"status\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"file_id\" type=\"null\"/><field name=\"last_error\" type=\"null\"/><field name=\"attempts\" type=\"integer\">1</field><field name=\"created_at\" type=\"string\">Dato ficticio para reemplazar</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">transporte</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"tenant_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"user_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"report\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"format\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"status\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"file_id\" type=\"null\"/><field name=\"last_error\" type=\"null\"/><field name=\"attempts\" type=\"integer\">1</field><field name=\"created_at\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"context\" type=\"object\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">transporte</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
                 "x-json-equivalent-schema": {
                   "$ref": "#/components/schemas/Response_export_detail"
                 },
@@ -4459,7 +5307,8 @@
                     "file_id": null,
                     "last_error": null,
                     "attempts": 1,
-                    "created_at": "Dato ficticio para reemplazar"
+                    "created_at": "Dato ficticio para reemplazar",
+                    "context": {}
                   },
                   "meta": {
                     "correlation_id": "00000000-0000-4000-8000-000000000001",
@@ -4472,7 +5321,7 @@
                 "schema": {
                   "type": "string"
                 },
-                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"tenant_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"user_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"report\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"format\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"status\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"file_id\" type=\"null\"/><field name=\"last_error\" type=\"null\"/><field name=\"attempts\" type=\"integer\">1</field><field name=\"created_at\" type=\"string\">Dato ficticio para reemplazar</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">transporte</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"tenant_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"user_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"report\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"format\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"status\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"file_id\" type=\"null\"/><field name=\"last_error\" type=\"null\"/><field name=\"attempts\" type=\"integer\">1</field><field name=\"created_at\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"context\" type=\"object\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">transporte</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
                 "x-json-equivalent-schema": {
                   "$ref": "#/components/schemas/Response_export_retry"
                 },
@@ -4723,6 +5572,131 @@
                 },
                 "x-xsd": "/schemas/response.xsd",
                 "x-response-schema": "/schemas/transport_decision_data.response.json"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "406": {
+            "$ref": "#/components/responses/Error406"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "412": {
+            "$ref": "#/components/responses/Error412"
+          },
+          "413": {
+            "$ref": "#/components/responses/Error413"
+          },
+          "415": {
+            "$ref": "#/components/responses/Error415"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
+          }
+        }
+      }
+    },
+    "/api/v1/portal-metrics": {
+      "get": {
+        "operationId": "portal_metrics",
+        "summary": "portal_metrics",
+        "parameters": [
+          {
+            "name": "X-Correlation-ID",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "application/json",
+                "application/xml"
+              ]
+            }
+          },
+          {
+            "name": "from_at",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          },
+          {
+            "name": "until_at",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          }
+        ],
+        "description": "Roles: OPERATOR, MEDICAL, COORDINATOR, TRANSPORT. Contrato público de API.",
+        "security": [
+          {
+            "BearerJWT": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resultado confirmado o estado pendiente documentado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_portal_metrics"
+                },
+                "example": {
+                  "data": {
+                    "from_at": "2026-10-01T15:00:00+00:00",
+                    "until_at": "2030-01-01T15:00:00+00:00",
+                    "updated_at": "Dato ficticio para reemplazar",
+                    "scope": "Dato ficticio para reemplazar",
+                    "series": []
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "transporte",
+                    "version": "0.4.1"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"from_at\" type=\"string\">2026-10-01T15:00:00+00:00</field><field name=\"until_at\" type=\"string\">2030-01-01T15:00:00+00:00</field><field name=\"updated_at\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"scope\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"series\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">transporte</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
+                "x-json-equivalent-schema": {
+                  "$ref": "#/components/schemas/Response_portal_metrics"
+                },
+                "x-xsd": "/schemas/response.xsd",
+                "x-response-schema": "/schemas/portal_metrics.response.json"
               }
             }
           },
@@ -5488,10 +6462,16 @@
                 "enum": [
                   "SIMULATOR",
                   "GPS_BRIDGE",
-                  "ANDROID"
+                  "ANDROID",
+                  "IOS"
                 ],
                 "title": "Source",
                 "type": "string"
+              },
+              "simulated": {
+                "default": false,
+                "title": "Simulated",
+                "type": "boolean"
               },
               "sequence": {
                 "maximum": 9007199254740991,
@@ -5682,10 +6662,16 @@
             "enum": [
               "SIMULATOR",
               "GPS_BRIDGE",
-              "ANDROID"
+              "ANDROID",
+              "IOS"
             ],
             "title": "Source",
             "type": "string"
+          },
+          "simulated": {
+            "default": false,
+            "title": "Simulated",
+            "type": "boolean"
           },
           "sequence": {
             "maximum": 9007199254740991,
@@ -6249,6 +7235,117 @@
           }
         }
       },
+      "Response_tracking_devices_for_shipment": {
+        "type": "object",
+        "required": [
+          "data",
+          "meta"
+        ],
+        "properties": {
+          "data": {
+            "type": "object",
+            "required": [
+              "items"
+            ],
+            "properties": {
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "id",
+                    "label",
+                    "source"
+                  ],
+                  "additionalProperties": false,
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "label": {
+                      "type": "string"
+                    },
+                    "source": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "meta": {
+            "type": "object",
+            "required": [
+              "correlation_id",
+              "service",
+              "version"
+            ],
+            "properties": {
+              "correlation_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "service": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "Response_tracking_ticket": {
+        "type": "object",
+        "required": [
+          "data",
+          "meta"
+        ],
+        "properties": {
+          "data": {
+            "additionalProperties": false,
+            "properties": {
+              "credential": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Credential",
+                "type": "string"
+              },
+              "expires_in": {
+                "title": "Expires In",
+                "type": "integer"
+              }
+            },
+            "required": [
+              "credential",
+              "expires_in"
+            ],
+            "title": "BrowserTicket",
+            "type": "object"
+          },
+          "meta": {
+            "type": "object",
+            "required": [
+              "correlation_id",
+              "service",
+              "version"
+            ],
+            "properties": {
+              "correlation_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "service": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
       "Response_tracking_metrics": {
         "type": "object",
         "required": [
@@ -6782,10 +7879,16 @@
                         "enum": [
                           "SIMULATOR",
                           "GPS_BRIDGE",
-                          "ANDROID"
+                          "ANDROID",
+                          "IOS"
                         ],
                         "title": "Source",
                         "type": "string"
+                      },
+                      "simulated": {
+                        "default": false,
+                        "title": "Simulated",
+                        "type": "boolean"
                       },
                       "sequence": {
                         "maximum": 9007199254740991,
@@ -6960,10 +8063,16 @@
                       "enum": [
                         "SIMULATOR",
                         "GPS_BRIDGE",
-                        "ANDROID"
+                        "ANDROID",
+                        "IOS"
                       ],
                       "title": "Source",
                       "type": "string"
+                    },
+                    "simulated": {
+                      "default": false,
+                      "title": "Simulated",
+                      "type": "boolean"
                     },
                     "sequence": {
                       "maximum": 9007199254740991,
@@ -7191,10 +8300,16 @@
                       "enum": [
                         "SIMULATOR",
                         "GPS_BRIDGE",
-                        "ANDROID"
+                        "ANDROID",
+                        "IOS"
                       ],
                       "title": "Source",
                       "type": "string"
+                    },
+                    "simulated": {
+                      "default": false,
+                      "title": "Simulated",
+                      "type": "boolean"
                     },
                     "sequence": {
                       "maximum": 9007199254740991,
@@ -7343,6 +8458,566 @@
                 "type": "integer"
               },
               "has_more": {
+                "type": "boolean"
+              }
+            }
+          },
+          "meta": {
+            "type": "object",
+            "required": [
+              "correlation_id",
+              "service",
+              "version"
+            ],
+            "properties": {
+              "correlation_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "service": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "Response_operational_context": {
+        "type": "object",
+        "required": [
+          "data",
+          "meta"
+        ],
+        "properties": {
+          "data": {
+            "additionalProperties": false,
+            "properties": {
+              "shipment_id": {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "title": "Shipment Id",
+                "type": "string"
+              },
+              "shipment_version": {
+                "title": "Shipment Version",
+                "type": "integer"
+              },
+              "origin": {
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                    "title": "Id",
+                    "type": "string"
+                  },
+                  "name": {
+                    "maxLength": 200,
+                    "minLength": 1,
+                    "title": "Name",
+                    "type": "string"
+                  },
+                  "contacts": {
+                    "items": {
+                      "additionalProperties": false,
+                      "properties": {
+                        "id": {
+                          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                          "title": "Id",
+                          "type": "string"
+                        },
+                        "name": {
+                          "maxLength": 200,
+                          "minLength": 1,
+                          "title": "Name",
+                          "type": "string"
+                        },
+                        "value": {
+                          "maxLength": 200,
+                          "minLength": 1,
+                          "title": "Value",
+                          "type": "string"
+                        },
+                        "version": {
+                          "title": "Version",
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "name",
+                        "value",
+                        "version"
+                      ],
+                      "title": "OperationalContact",
+                      "type": "object"
+                    },
+                    "title": "Contacts",
+                    "type": "array"
+                  },
+                  "operators": {
+                    "items": {
+                      "additionalProperties": false,
+                      "properties": {
+                        "id": {
+                          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                          "title": "Id",
+                          "type": "string"
+                        },
+                        "name": {
+                          "maxLength": 200,
+                          "minLength": 1,
+                          "title": "Name",
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "name"
+                      ],
+                      "title": "HandoverPerson",
+                      "type": "object"
+                    },
+                    "title": "Operators",
+                    "type": "array"
+                  }
+                },
+                "required": [
+                  "id",
+                  "name",
+                  "contacts",
+                  "operators"
+                ],
+                "title": "OperationalInstitution",
+                "type": "object"
+              },
+              "destination": {
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                    "title": "Id",
+                    "type": "string"
+                  },
+                  "name": {
+                    "maxLength": 200,
+                    "minLength": 1,
+                    "title": "Name",
+                    "type": "string"
+                  },
+                  "contacts": {
+                    "items": {
+                      "additionalProperties": false,
+                      "properties": {
+                        "id": {
+                          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                          "title": "Id",
+                          "type": "string"
+                        },
+                        "name": {
+                          "maxLength": 200,
+                          "minLength": 1,
+                          "title": "Name",
+                          "type": "string"
+                        },
+                        "value": {
+                          "maxLength": 200,
+                          "minLength": 1,
+                          "title": "Value",
+                          "type": "string"
+                        },
+                        "version": {
+                          "title": "Version",
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "name",
+                        "value",
+                        "version"
+                      ],
+                      "title": "OperationalContact",
+                      "type": "object"
+                    },
+                    "title": "Contacts",
+                    "type": "array"
+                  },
+                  "operators": {
+                    "items": {
+                      "additionalProperties": false,
+                      "properties": {
+                        "id": {
+                          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                          "title": "Id",
+                          "type": "string"
+                        },
+                        "name": {
+                          "maxLength": 200,
+                          "minLength": 1,
+                          "title": "Name",
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "name"
+                      ],
+                      "title": "HandoverPerson",
+                      "type": "object"
+                    },
+                    "title": "Operators",
+                    "type": "array"
+                  }
+                },
+                "required": [
+                  "id",
+                  "name",
+                  "contacts",
+                  "operators"
+                ],
+                "title": "OperationalInstitution",
+                "type": "object"
+              },
+              "route": {
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                    "title": "Id",
+                    "type": "string"
+                  },
+                  "reserved_version": {
+                    "title": "Reserved Version",
+                    "type": "integer"
+                  },
+                  "current_version": {
+                    "title": "Current Version",
+                    "type": "integer"
+                  },
+                  "changed": {
+                    "title": "Changed",
+                    "type": "boolean"
+                  },
+                  "distance_km": {
+                    "title": "Distance Km",
+                    "type": "number"
+                  },
+                  "travel_minutes": {
+                    "title": "Travel Minutes",
+                    "type": "integer"
+                  },
+                  "source": {
+                    "maxLength": 200,
+                    "minLength": 1,
+                    "title": "Source",
+                    "type": "string"
+                  },
+                  "updated_at": {
+                    "maxLength": 200,
+                    "minLength": 1,
+                    "title": "Updated At",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "id",
+                  "reserved_version",
+                  "current_version",
+                  "changed",
+                  "distance_km",
+                  "travel_minutes",
+                  "source",
+                  "updated_at"
+                ],
+                "title": "PlannedRoute",
+                "type": "object"
+              },
+              "transport_user_id": {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "title": "Transport User Id",
+                "type": "string"
+              },
+              "consulted_at": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Consulted At",
+                "type": "string"
+              }
+            },
+            "required": [
+              "shipment_id",
+              "shipment_version",
+              "origin",
+              "destination",
+              "route",
+              "transport_user_id",
+              "consulted_at"
+            ],
+            "title": "OperationalContext",
+            "type": "object"
+          },
+          "meta": {
+            "type": "object",
+            "required": [
+              "correlation_id",
+              "service",
+              "version"
+            ],
+            "properties": {
+              "correlation_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "service": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "Response_shipment_scan": {
+        "type": "object",
+        "required": [
+          "data",
+          "meta"
+        ],
+        "properties": {
+          "data": {
+            "additionalProperties": false,
+            "properties": {
+              "shipment_id": {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "title": "Shipment Id",
+                "type": "string"
+              },
+              "resource_id": {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "title": "Resource Id",
+                "type": "string"
+              },
+              "origin_id": {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "title": "Origin Id",
+                "type": "string"
+              },
+              "destination_id": {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "title": "Destination Id",
+                "type": "string"
+              },
+              "version": {
+                "title": "Version",
+                "type": "integer"
+              },
+              "status": {
+                "title": "Status",
+                "type": "string"
+              },
+              "verified": {
+                "title": "Verified",
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "shipment_id",
+              "resource_id",
+              "origin_id",
+              "destination_id",
+              "version",
+              "status",
+              "verified"
+            ],
+            "title": "ScanResult",
+            "type": "object"
+          },
+          "meta": {
+            "type": "object",
+            "required": [
+              "correlation_id",
+              "service",
+              "version"
+            ],
+            "properties": {
+              "correlation_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "service": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "Scan": {
+        "additionalProperties": false,
+        "properties": {
+          "scanned_resource_id": {
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "title": "Scanned Resource Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "scanned_resource_id"
+        ],
+        "title": "Scan",
+        "type": "object"
+      },
+      "Response_mobile_tracking_start": {
+        "type": "object",
+        "required": [
+          "data",
+          "meta"
+        ],
+        "properties": {
+          "data": {
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "title": "Id",
+                "type": "string"
+              },
+              "shipment_id": {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "title": "Shipment Id",
+                "type": "string"
+              },
+              "device_id": {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "title": "Device Id",
+                "type": "string"
+              },
+              "responsible_id": {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "title": "Responsible Id",
+                "type": "string"
+              },
+              "starts_at": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Starts At",
+                "type": "string"
+              },
+              "ends_at": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Ends At",
+                "type": "string"
+              },
+              "active": {
+                "title": "Active",
+                "type": "boolean"
+              },
+              "version": {
+                "title": "Version",
+                "type": "integer"
+              },
+              "actor_id": {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "title": "Actor Id",
+                "type": "string"
+              },
+              "created_at": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Created At",
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "shipment_id",
+              "device_id",
+              "responsible_id",
+              "starts_at",
+              "ends_at",
+              "active",
+              "version",
+              "actor_id",
+              "created_at"
+            ],
+            "title": "Assignment",
+            "type": "object"
+          },
+          "meta": {
+            "type": "object",
+            "required": [
+              "correlation_id",
+              "service",
+              "version"
+            ],
+            "properties": {
+              "correlation_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "service": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "PhoneTracking": {
+        "additionalProperties": false,
+        "properties": {
+          "human_confirmation": {
+            "const": true,
+            "title": "Human Confirmation",
+            "type": "boolean"
+          },
+          "reason": {
+            "maxLength": 1000,
+            "minLength": 6,
+            "title": "Reason",
+            "type": "string"
+          },
+          "version": {
+            "minimum": 1,
+            "title": "Version",
+            "type": "integer"
+          },
+          "device_id": {
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "title": "Device Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "human_confirmation",
+          "reason",
+          "version",
+          "device_id"
+        ],
+        "title": "PhoneTracking",
+        "type": "object"
+      },
+      "Response_mobile_tracking_stop": {
+        "type": "object",
+        "required": [
+          "data",
+          "meta"
+        ],
+        "properties": {
+          "data": {
+            "type": "object",
+            "required": [
+              "stopped"
+            ],
+            "properties": {
+              "stopped": {
                 "type": "boolean"
               }
             }
@@ -8194,6 +9869,11 @@
                     "minLength": 1,
                     "title": "Created At",
                     "type": "string"
+                  },
+                  "policy_version": {
+                    "default": 1,
+                    "title": "Policy Version",
+                    "type": "integer"
                   }
                 },
                 "required": [
@@ -8443,6 +10123,11 @@
                 "minLength": 1,
                 "title": "Created At",
                 "type": "string"
+              },
+              "policy_version": {
+                "default": 1,
+                "title": "Policy Version",
+                "type": "integer"
               }
             },
             "required": [
@@ -8581,6 +10266,11 @@
                       "minLength": 1,
                       "title": "Created At",
                       "type": "string"
+                    },
+                    "policy_version": {
+                      "default": 1,
+                      "title": "Policy Version",
+                      "type": "integer"
                     }
                   },
                   "required": [
@@ -8711,6 +10401,11 @@
                 "minLength": 1,
                 "title": "Created At",
                 "type": "string"
+              },
+              "context": {
+                "additionalProperties": true,
+                "title": "Context",
+                "type": "object"
               }
             },
             "required": [
@@ -8807,6 +10502,22 @@
               "DATE_DESC"
             ],
             "title": "Order",
+            "type": "string"
+          },
+          "filters": {
+            "additionalProperties": {
+              "maxLength": 200,
+              "minLength": 1,
+              "type": "string"
+            },
+            "title": "Filters",
+            "type": "object"
+          },
+          "timezone": {
+            "default": "UTC",
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Timezone",
             "type": "string"
           }
         },
@@ -8907,6 +10618,11 @@
                       "minLength": 1,
                       "title": "Created At",
                       "type": "string"
+                    },
+                    "context": {
+                      "additionalProperties": true,
+                      "title": "Context",
+                      "type": "object"
                     }
                   },
                   "required": [
@@ -9035,6 +10751,11 @@
                 "minLength": 1,
                 "title": "Created At",
                 "type": "string"
+              },
+              "context": {
+                "additionalProperties": true,
+                "title": "Context",
+                "type": "object"
               }
             },
             "required": [
@@ -9151,6 +10872,11 @@
                 "minLength": 1,
                 "title": "Created At",
                 "type": "string"
+              },
+              "context": {
+                "additionalProperties": true,
+                "title": "Context",
+                "type": "object"
               }
             },
             "required": [
@@ -9308,6 +11034,144 @@
         ],
         "properties": {
           "data": {
+            "type": "object"
+          },
+          "meta": {
+            "type": "object",
+            "required": [
+              "correlation_id",
+              "service",
+              "version"
+            ],
+            "properties": {
+              "correlation_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "service": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "Response_portal_metrics": {
+        "type": "object",
+        "required": [
+          "data",
+          "meta"
+        ],
+        "properties": {
+          "data": {
+            "additionalProperties": false,
+            "properties": {
+              "from_at": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "From At",
+                "type": "string"
+              },
+              "until_at": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Until At",
+                "type": "string"
+              },
+              "updated_at": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Updated At",
+                "type": "string"
+              },
+              "scope": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Scope",
+                "type": "string"
+              },
+              "series": {
+                "items": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "title": {
+                      "maxLength": 200,
+                      "minLength": 1,
+                      "title": "Title",
+                      "type": "string"
+                    },
+                    "population": {
+                      "maxLength": 200,
+                      "minLength": 1,
+                      "title": "Population",
+                      "type": "string"
+                    },
+                    "denominator": {
+                      "title": "Denominator",
+                      "type": "integer"
+                    },
+                    "unit": {
+                      "default": "registros",
+                      "maxLength": 200,
+                      "minLength": 1,
+                      "title": "Unit",
+                      "type": "string"
+                    },
+                    "values": {
+                      "items": {
+                        "additionalProperties": false,
+                        "properties": {
+                          "label": {
+                            "maxLength": 200,
+                            "minLength": 1,
+                            "title": "Label",
+                            "type": "string"
+                          },
+                          "value": {
+                            "anyOf": [
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ],
+                            "title": "Value"
+                          }
+                        },
+                        "required": [
+                          "label",
+                          "value"
+                        ],
+                        "title": "Point",
+                        "type": "object"
+                      },
+                      "title": "Values",
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "title",
+                    "population",
+                    "denominator"
+                  ],
+                  "title": "Series",
+                  "type": "object"
+                },
+                "title": "Series",
+                "type": "array"
+              }
+            },
+            "required": [
+              "from_at",
+              "until_at",
+              "updated_at",
+              "scope",
+              "series"
+            ],
+            "title": "Metrics",
             "type": "object"
           },
           "meta": {

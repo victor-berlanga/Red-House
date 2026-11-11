@@ -287,6 +287,13 @@ ACTIONS.update(
     }
 )
 
+ACTIONS.update({
+    "INSTITUTION_PRESENTATION_CHANGED": ("Publicación y coordenadas institucionales actualizadas", "BUSINESS", "RECORDED"),
+    "PORTAL_POLICY_CHANGED": ("Política operativa institucional actualizada", "BUSINESS", "RECORDED"),
+    "CAMPAIGN_PUBLICATION_CHANGED": ("Publicación de campaña actualizada", "BUSINESS", "RECORDED"),
+    "DOCUMENT_CONSERVATION_CHANGED": ("Conservación y bloqueo documental actualizados", "BUSINESS", "RECORDED"),
+})
+
 CATEGORIES = {
     "BUSINESS": "Operaciones de negocio",
     "DECISION": "Decisiones y autorizaciones",

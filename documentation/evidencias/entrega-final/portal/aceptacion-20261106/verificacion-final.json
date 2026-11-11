@@ -1,0 +1,17 @@
+{
+  "historic_source_files_unchanged": 1234,
+  "historic_artifacts_unchanged": 205,
+  "requirements": 34,
+  "states": {
+    "APROBADO": 27,
+    "PARCIAL": 7
+  },
+  "seven_criteria_remain_partial": true,
+  "local_markdown_links_checked": 141,
+  "broken_links": [],
+  "credential_patterns_found": [],
+  "ruff_check": true,
+  "ruff_format_check": true,
+  "git_diff_check": true,
+  "limits": "Verificación documental/estática; no navegador nuevo, GCS/ClamAV reales ni gateway en ejecución. Los patrones de secretos no son una auditoría exhaustiva."
+}

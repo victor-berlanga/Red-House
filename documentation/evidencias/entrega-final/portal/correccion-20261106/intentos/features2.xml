@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='utf-8'?>
+<testsuites name="pytest tests">
+  <testsuite name="pytest" errors="0" failures="2" skipped="0" tests="9" time="135.002" timestamp="2026-11-06T16:01:11.558463-06:00" hostname="Victors-MacBook-Air.local">
+    <testcase classname="tests.test_portal_corrections" name="test_configuration_publication_privacy_versions_and_metrics" time="32.022" />
+    <testcase classname="tests.test_portal_corrections" name="test_paginated_export_over_thousand_filters_context_and_foreign_denial" time="4.729" />
+    <testcase classname="tests.test_portal_corrections" name="test_pending_confirmation_web_recovers_same_command_without_false_success" time="7.983" />
+    <testcase classname="tests.test_portal_corrections" name="test_web_lost_entire_write_response_queries_result_without_second_post" time="8.552" />
+    <testcase classname="tests.test_final_delivery_documents" name="test_smtp_push_retry_escalation_dedup_and_close[json]" time="42.096" />
+    <testcase classname="tests.test_final_delivery_documents" name="test_smtp_push_retry_escalation_dedup_and_close[xml]" time="12.513" />
+    <testcase classname="tests.test_final_delivery_documents" name="test_documents_scan_private_access_and_export_formats[json]" time="15.699">
+      <failure message="Detalle saneado; diagnóstico conservado en INTENTOS.md. No es prueba aprobada.">Se omite la traza que puede contener credenciales temporales de formularios. El hash del original se conserva en intentos.json.</failure>
+    </testcase>
+    <testcase classname="tests.test_final_delivery_documents" name="test_documents_scan_private_access_and_export_formats[xml]" time="6.113">
+      <failure message="Detalle saneado; diagnóstico conservado en INTENTOS.md. No es prueba aprobada.">Se omite la traza que puede contener credenciales temporales de formularios. El hash del original se conserva en intentos.json.</failure>
+    </testcase>
+    <testcase classname="tests.test_final_delivery_documents" name="test_clamd_infected_unavailable_and_formula_injection" time="3.859" />
+  </testsuite>
+</testsuites>

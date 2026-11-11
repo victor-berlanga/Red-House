@@ -59,6 +59,8 @@ def call(service, method, path, data=None, delegate=True, forward_headers=False)
     }
     if delegate and has_request_context():
         headers["Authorization"] = request.headers.get("Authorization", "")
+    if delegate and getattr(g, "worker_authorization", None):
+        headers["Authorization"] = g.worker_authorization
     if forward_headers and delegate and has_request_context():
         for name in ("Idempotency-Key", "X-Reauthentication-Proof"):
             if name in request.headers:

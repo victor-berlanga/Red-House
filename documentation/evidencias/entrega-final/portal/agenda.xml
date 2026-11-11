@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="33.939" timestamp="2026-11-06T14:46:23.300229-06:00" hostname="Victors-MacBook-Air.local"><testcase classname="tests.test_portal_tracking" name="test_web_consent_and_hourly_agenda_persist" time="32.301"><failure message="TypeError: Platform.request() got an unexpected keyword argument 'params'">p = &lt;tests.conftest.Platform object at 0x10a2bc440&gt;, web = &lt;Flask 'src'&gt;
+
+    
+    
+    def test_web_consent_and_hourly_agenda_persist(p, web):
+        from uuid import uuid4
+        from .helpers import iso
+        from .test_web_integration import post
+    
+        donor = p.ok(
+            "donantes",
+            "POST",
+            "/api/v1/donors",
+            user="donor1",
+            data={
+                "folio": "PORTAL-" + uuid4().hex[:10],
+                "display_name": "Persona sintética",
+                "blood_group": "O-",
+                "consent": True,
+            },
+        )
+        client = login(web, p, "donor1")
+        post(
+            client,
+            f"/donantes/donor/{donor['id']}/consentimientos/nuevo",
+            {
+                "policy_version": "SYNTHETIC-PORTAL-1",
+                "reference": "Consentimiento de prueba",
+                "effective_at": iso(minutes=-5),
+                "granted": "on",
+                "human_confirmation": "on",
+                "reason": "Prueba de consentimiento informado",
+            },
+        )
+        assert (
+            p.ok(
+                "donantes", "GET", f"/api/v1/donors/{donor['id']}/consents", user="donor1"
+            )["total"]
+            == 1
+        )
+        site = p.ok(
+            "identidad_acceso",
+            "POST",
+            "/api/v1/catalogues/sites",
+            user="admin1",
+            data={
+                "name": "Sede " + uuid4().hex[:8],
+                "municipality": "Monterrey",
+                "address": "Domicilio sintético",
+            },
+        )
+        campaign = p.ok(
+            "donantes",
+            "POST",
+            "/api/v1/campaigns",
+            user="operator1",
+            data={
+                "title": "Campaña " + uuid4().hex[:8],
+                "starts_at": iso(minutes=5),
+                "ends_at": iso(minutes=120),
+                "capacity": 10,
+            },
+        )
+        operator = login(web, p, "operator1")
+        post(
+            operator,
+            f"/campanas/{campaign['id']}/horarios/nuevo",
+            {
+                "site_id": site["id"],
+                "starts_at": iso(minutes=10),
+                "ends_at": iso(minutes=20),
+                "capacity": "1",
+&gt;           },
+        )
+
+apps/services/tests/test_portal_tracking.py:273: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = &lt;tests.conftest.Platform object at 0x10a2bc440&gt;, service = 'donantes'
+method = 'GET', path = '/api/v1/campaign-slots'
+kwargs = {'user': 'donor1', 'params': {'campaign_id': '28437b82-d42e-4dbe-8601-11bf69751276'}}
+
+    def ok(self, service, method, path, **kwargs):
+&gt;       response = self.request(service, method, path, **kwargs)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: Platform.request() got an unexpected keyword argument 'params'
+
+apps/services/tests/conftest.py:56: TypeError</failure></testcase></testsuite></testsuites>

@@ -1,0 +1,24 @@
+{
+  "path": ".local/artifacts/mobile/RedHouse-0.3.0-debug.apk",
+  "bytes": 14369997,
+  "sha256": "26c96cd77986997e1ea995f2e9bfa73d45eab24b85f5d3d08eab32fd8b3d121e",
+  "lab_assets": [],
+  "lab_password_present": false,
+  "version": "0.3.0",
+  "version_code": 2,
+  "installation": "PASS: adb install --no-streaming -r; emulator API 30 x86_64",
+  "lab_ca_present": false,
+  "signature_v2_verified": true,
+  "signers": 1,
+  "min_sdk": 26,
+  "target_sdk": 35,
+  "launch": "PASS: MainActivity COLD, Status ok",
+  "launch_total_ms": 7764,
+  "login_controls_verified": [
+    "Contrase\u00f1a",
+    "Iniciar sesi\u00f3n",
+    "Red House",
+    "Usuario"
+  ],
+  "resumed_activity": "org.redhouse.mobile/.MainActivity"
+}

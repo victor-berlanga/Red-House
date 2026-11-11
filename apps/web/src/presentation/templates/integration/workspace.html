@@ -1,0 +1,5 @@
+{% extends 'base.html' %}
+{% block content %}<div class="page-heading"><h1>{{ title }}</h1></div>
+{% if note %}<p class="notice">{{ note }}</p>{% endif %}
+<nav aria-label="Operaciones disponibles" class="card content-body"><ul class="workspace-links">{% for label, href in links %}<li><a href="{{ href }}">{{ label }}</a></li>{% endfor %}</ul></nav>
+{% endblock %}

@@ -1,0 +1,26 @@
+{
+  "version": "0.3.0",
+  "build": "2",
+  "minimum_os": "15.0",
+  "sdk": "iphoneos18.4",
+  "platform": [
+    "iPhoneOS"
+  ],
+  "binary": ".local/artifacts/mobile/ios/RedHouse-0.3.0-unsigned.app/RedHouse: Mach-O 64-bit executable arm64",
+  "binary_sha256": "6d7bbf9db401e8b3a28d31b25f01782ce412f7742e42bbc6673b06df375a4809",
+  "provisioning_present": false,
+  "camera_usage_present": true,
+  "location_usage_present": true,
+  "bg_tasks": [
+    "org.redhouse.mobile.observations"
+  ],
+  "installed": false,
+  "executed": false,
+  "signed": false,
+  "codesign_exit": 1,
+  "codesign_result": ".local/artifacts/mobile/ios/RedHouse-0.3.0-unsigned.app: code object is not signed at all",
+  "dynamic_dependencies_system_only": true,
+  "archive": ".local/artifacts/mobile/ios/RedHouse-0.3.0-ios-arm64-unsigned.zip",
+  "archive_bytes": 16474318,
+  "archive_sha256": "81a9bce4d2e222b8c02a3c95b407f255554d0b6d07ce9454640d156626ca6207"
+}

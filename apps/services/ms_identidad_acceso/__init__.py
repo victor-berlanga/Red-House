@@ -25,4 +25,7 @@ def create_app(config=None):
     from .accreditations import install as accreditations
 
     accreditations(app)
+    from .portal import install as portal
+
+    portal(app)
     return complete_app(app)

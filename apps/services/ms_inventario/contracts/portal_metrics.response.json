@@ -1,0 +1,138 @@
+{
+  "type": "object",
+  "required": [
+    "data",
+    "meta"
+  ],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": [
+        "correlation_id",
+        "service",
+        "version"
+      ],
+      "properties": {
+        "correlation_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "service": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      }
+    },
+    "data": {
+      "additionalProperties": false,
+      "properties": {
+        "from_at": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "From At",
+          "type": "string"
+        },
+        "until_at": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Until At",
+          "type": "string"
+        },
+        "updated_at": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Updated At",
+          "type": "string"
+        },
+        "scope": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Scope",
+          "type": "string"
+        },
+        "series": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "title": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Title",
+                "type": "string"
+              },
+              "population": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Population",
+                "type": "string"
+              },
+              "denominator": {
+                "title": "Denominator",
+                "type": "integer"
+              },
+              "unit": {
+                "default": "registros",
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Unit",
+                "type": "string"
+              },
+              "values": {
+                "items": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "label": {
+                      "maxLength": 200,
+                      "minLength": 1,
+                      "title": "Label",
+                      "type": "string"
+                    },
+                    "value": {
+                      "anyOf": [
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ],
+                      "title": "Value"
+                    }
+                  },
+                  "required": [
+                    "label",
+                    "value"
+                  ],
+                  "title": "Point",
+                  "type": "object"
+                },
+                "title": "Values",
+                "type": "array"
+              }
+            },
+            "required": [
+              "title",
+              "population",
+              "denominator"
+            ],
+            "title": "Series",
+            "type": "object"
+          },
+          "title": "Series",
+          "type": "array"
+        }
+      },
+      "required": [
+        "from_at",
+        "until_at",
+        "updated_at",
+        "scope",
+        "series"
+      ],
+      "title": "Metrics",
+      "type": "object"
+    }
+  }
+}

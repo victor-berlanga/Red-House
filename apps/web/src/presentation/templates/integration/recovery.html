@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% from 'integration/form_errors.html' import summary %}
+{% block content %}
+<section class="login-card"><h1>{{ title }}</h1>
+{{ summary(error, []) }}
+{% if message %}<p role="status">{{ message }}</p>{% endif %}
+{% if not (complete and message) %}
+<form method="post" class="stack">{{ csrf() }}
+{% if complete %}
+<label for="token">Token recibido por correo</label><input id="token" name="token" type="password" required maxlength="200" autocomplete="one-time-code">
+<label for="password">Contraseña nueva (12 a 128 caracteres)</label><input id="password" name="password" type="password" required minlength="12" maxlength="128" autocomplete="new-password">
+<label for="confirmation">Repetir contraseña</label><input id="confirmation" name="confirmation" type="password" required minlength="12" maxlength="128" autocomplete="new-password">
+{% else %}
+<label for="username">Cuenta institucional</label><input id="username" name="username" required minlength="3" maxlength="80" autocomplete="username" value="{{ request.form.get('username','') }}">
+{% endif %}
+<button class="button" type="submit">{{ 'Actualizar contraseña' if complete else 'Solicitar recuperación' }}</button>
+</form>{% endif %}
+{% if not complete %}<p><a href="{{ url_for('public.recovery_complete') }}">Ya tengo el token</a></p>{% endif %}
+<a href="{{ url_for('public.login') }}">Volver al inicio de sesión</a>
+</section>
+{% endblock %}

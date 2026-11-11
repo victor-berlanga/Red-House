@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/tmp/redhouse-uiux-20261110/deploy.py", line 59, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/tmp/redhouse-uiux-20261110/deploy.py", line 28, in main
+    before=containers();assert len(before)==30 and all(v['health']=='healthy' for v in before.values())
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

@@ -1,0 +1,63 @@
+> Task :composeApp:checkSandboxAndWriteProtection
+> Task :composeApp:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :composeApp:convertXmlValueResourcesForAppleMain NO-SOURCE
+> Task :composeApp:copyNonXmlValueResourcesForAppleMain NO-SOURCE
+> Task :composeApp:prepareComposeResourcesTaskForAppleMain NO-SOURCE
+> Task :composeApp:generateResourceAccessorsForAppleMain SKIPPED
+> Task :composeApp:convertXmlValueResourcesForCommonMain NO-SOURCE
+> Task :composeApp:copyNonXmlValueResourcesForCommonMain NO-SOURCE
+> Task :composeApp:prepareComposeResourcesTaskForCommonMain NO-SOURCE
+> Task :composeApp:generateResourceAccessorsForCommonMain SKIPPED
+> Task :composeApp:convertXmlValueResourcesForIosArm64Main NO-SOURCE
+> Task :composeApp:copyNonXmlValueResourcesForIosArm64Main NO-SOURCE
+> Task :composeApp:prepareComposeResourcesTaskForIosArm64Main NO-SOURCE
+> Task :composeApp:generateResourceAccessorsForIosArm64Main SKIPPED
+> Task :composeApp:convertXmlValueResourcesForIosMain NO-SOURCE
+> Task :composeApp:copyNonXmlValueResourcesForIosMain NO-SOURCE
+> Task :composeApp:prepareComposeResourcesTaskForIosMain NO-SOURCE
+> Task :composeApp:generateResourceAccessorsForIosMain SKIPPED
+> Task :composeApp:convertXmlValueResourcesForNativeMain NO-SOURCE
+> Task :composeApp:copyNonXmlValueResourcesForNativeMain NO-SOURCE
+> Task :composeApp:prepareComposeResourcesTaskForNativeMain NO-SOURCE
+> Task :composeApp:generateResourceAccessorsForNativeMain SKIPPED
+> Task :composeApp:generateActualResourceCollectorsForIosArm64Main SKIPPED
+> Task :composeApp:generateComposeResClass SKIPPED
+> Task :composeApp:generateExpectResourceCollectorsForCommonMain SKIPPED
+> Task :composeApp:compileKotlinIosArm64
+> Task :composeApp:linkDebugFrameworkIosArm64
+> Task :composeApp:assembleDebugAppleFrameworkForXcodeIosArm64
+> Task :composeApp:createBuildSystemDirectory
+> Task :composeApp:symbolicLinkToAssembleDebugAppleFrameworkForXcodeIosArm64
+> Task :composeApp:copyDsymForEmbedAndSignAppleFrameworkForXcode SKIPPED
+> Task :composeApp:checkCanSyncComposeResourcesForIos
+> Task :composeApp:iosArm64ResolveResourcesFromDependencies
+> Task :composeApp:assembleIosArm64MainResources
+> Task :composeApp:iosArm64ResolveSelfResourcesCopyHierarchicalMultiplatformResources
+> Task :composeApp:iosArm64AggregateResources
+> Task :composeApp:iosSimulatorArm64ResolveResourcesFromDependencies
+> Task :composeApp:convertXmlValueResourcesForIosSimulatorArm64Main NO-SOURCE
+> Task :composeApp:copyNonXmlValueResourcesForIosSimulatorArm64Main NO-SOURCE
+> Task :composeApp:prepareComposeResourcesTaskForIosSimulatorArm64Main NO-SOURCE
+> Task :composeApp:assembleIosSimulatorArm64MainResources
+> Task :composeApp:iosSimulatorArm64ResolveSelfResourcesCopyHierarchicalMultiplatformResources
+> Task :composeApp:iosSimulatorArm64AggregateResources
+> Task :composeApp:iosX64ResolveResourcesFromDependencies
+> Task :composeApp:convertXmlValueResourcesForIosX64Main NO-SOURCE
+> Task :composeApp:copyNonXmlValueResourcesForIosX64Main NO-SOURCE
+> Task :composeApp:prepareComposeResourcesTaskForIosX64Main NO-SOURCE
+> Task :composeApp:assembleIosX64MainResources
+> Task :composeApp:iosX64ResolveSelfResourcesCopyHierarchicalMultiplatformResources
+> Task :composeApp:iosX64AggregateResources
+> Task :composeApp:syncComposeResourcesForIos
+> Task :composeApp:embedAndSignAppleFrameworkForXcode SKIPPED
+BUILD SUCCESSFUL in 52m 53s
+/Users/victorberlanga/Programacion/integracion/Red-House/apps/mobile/iosApp/AppDelegate.swift:3:8: warning: file 'AppDelegate.swift' is part of module 'RedHouse'; ignoring import
+/Users/victorberlanga/Programacion/integracion/Red-House/apps/mobile/iosApp/IOSDeviceAccess.swift:4:8: warning: file 'IOSDeviceAccess.swift' is part of module 'RedHouse'; ignoring import
+/Users/victorberlanga/Programacion/integracion/Red-House/apps/mobile/iosApp/AppDelegate.swift:7:38: error: cannot find type 'SecureStore' in scope
+/Users/victorberlanga/Programacion/integracion/Red-House/apps/mobile/iosApp/IOSDeviceAccess.swift:9:40: error: cannot find type 'DeviceAccess' in scope
+/Users/victorberlanga/Programacion/integracion/Red-House/apps/mobile/iosApp/IOSDeviceAccess.swift:28:29: error: cannot find type 'PhonePosition' in scope
+/Users/victorberlanga/Programacion/integracion/Red-House/apps/mobile/iosApp/IOSDeviceAccess.swift:29:26: error: cannot find type 'KotlinByteArray' in scope
+/Users/victorberlanga/Programacion/integracion/Red-House/apps/mobile/iosApp/IOSDeviceAccess.swift:46:38: error: cannot find type 'KotlinByteArray' in scope
+/Users/victorberlanga/Programacion/integracion/Red-House/apps/mobile/iosApp/IOSDeviceAccess.swift:74:34: error: cannot find type 'PhonePosition' in scope
+/Users/victorberlanga/Programacion/integracion/Red-House/apps/mobile/iosApp/IOSDeviceAccess.swift:103:33: error: cannot find type 'PhonePosition' in scope
+** BUILD FAILED **

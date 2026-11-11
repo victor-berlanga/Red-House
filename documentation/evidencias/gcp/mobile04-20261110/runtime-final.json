@@ -1,0 +1,196 @@
+{
+  "at": "2026-11-10T23:48:53.341109+00:00",
+  "containers": [
+    {
+      "name": "redhouse-parcial2-web-1",
+      "image": "sha256:5c9a9d980f2e2c087bd74999156f86969fa0eb8bff74484c69cca6f8c94d3399",
+      "health": "healthy"
+    },
+    {
+      "name": "redhouse-parcial2-monitoreo-b-1",
+      "image": "sha256:316780a5b51afb46e7d8bfe39cfb8180d7dda9eeffc90a3be91c430785c0e161",
+      "health": "healthy"
+    },
+    {
+      "name": "redhouse-parcial2-monitoreo-a-1",
+      "image": "sha256:316780a5b51afb46e7d8bfe39cfb8180d7dda9eeffc90a3be91c430785c0e161",
+      "health": "healthy"
+    },
+    {
+      "name": "redhouse-parcial2-documentos-a-1",
+      "image": "sha256:97311cf08a60ce776892ab7010f65402d05c9118e608ad1a2271d1a694d10d09",
+      "health": "healthy"
+    },
+    {
+      "name": "redhouse-parcial2-documentos-b-1",
+      "image": "sha256:97311cf08a60ce776892ab7010f65402d05c9118e608ad1a2271d1a694d10d09",
+      "health": "healthy"
+    },
+    {
+      "name": "redhouse-parcial2-transporte-b-1",
+      "image": "sha256:9e4662b3877a97de2f5bf69fc691de1f9e8bca18983ca994ffef9712f250f22b",
+      "health": "healthy"
+    },
+    {
+      "name": "redhouse-parcial2-transporte-a-1",
+      "image": "sha256:9e4662b3877a97de2f5bf69fc691de1f9e8bca18983ca994ffef9712f250f22b",
+      "health": "healthy"
+    },
+    {
+      "name": "redhouse-parcial2-inventario-b-1",
+      "image": "sha256:4236dba0aa827f8c2351db08c897d2130876293ad49fe0feae7e09405a607f07",
+      "health": "healthy"
+    },
+    {
+      "name": "redhouse-parcial2-inventario-a-1",
+      "image": "sha256:4236dba0aa827f8c2351db08c897d2130876293ad49fe0feae7e09405a607f07",
+      "health": "healthy"
+    },
+    {
+      "name": "redhouse-parcial2-priorizacion-geografia-a-1",
+      "image": "sha256:a4313f3ba55dbb88d5c95c2a844251b7ceecbb4203cd5552fbb9863923fb0ac1",
+      "health": "healthy"
+    },
+    {
+      "name": "redhouse-parcial2-priorizacion-geografia-b-1",
+      "image": "sha256:a4313f3ba55dbb88d5c95c2a844251b7ceecbb4203cd5552fbb9863923fb0ac1",
+      "health": "healthy"
+    },
+    {
+      "name": "redhouse-parcial2-compatibilidad-a-1",
+      "image": "sha256:2de5d8604bdaf06e9ce1dc1c835532dfc23ceee9b76b3ad4232735414d519960",
+      "health": "healthy"
+    },
+    {
+      "name": "redhouse-parcial2-compatibilidad-b-1",
+      "image": "sha256:2de5d8604bdaf06e9ce1dc1c835532dfc23ceee9b76b3ad4232735414d519960",
+      "health": "healthy"
+    },
+    {
+      "name": "redhouse-parcial2-receptores-b-1",
+      "image": "sha256:87fdb5f44344c0835d608f4112dbc7494b3a8192fd785a4baf4daf39641741fd",
+      "health": "healthy"
+    },
+    {
+      "name": "redhouse-parcial2-receptores-a-1",
+      "image": "sha256:87fdb5f44344c0835d608f4112dbc7494b3a8192fd785a4baf4daf39641741fd",
+      "health": "healthy"
+    },
+    {
+      "name": "redhouse-parcial2-donantes-a-1",
+      "image": "sha256:9972f7e4b595a7231ab022eb81a2fa0b7ca78f6f3c4ff2b184508b540da8e280",
+      "health": "healthy"
+    },
+    {
+      "name": "redhouse-parcial2-donantes-b-1",
+      "image": "sha256:9972f7e4b595a7231ab022eb81a2fa0b7ca78f6f3c4ff2b184508b540da8e280",
+      "health": "healthy"
+    },
+    {
+      "name": "redhouse-parcial2-identidad-acceso-a-1",
+      "image": "sha256:6d6b3d804c3b833926a5bea9becb479de35307504b33dfe432957766949c269b",
+      "health": "healthy"
+    },
+    {
+      "name": "redhouse-parcial2-identidad-acceso-b-1",
+      "image": "sha256:6d6b3d804c3b833926a5bea9becb479de35307504b33dfe432957766949c269b",
+      "health": "healthy"
+    },
+    {
+      "name": "redhouse-parcial2-custodia-b-1",
+      "image": "sha256:794480756624a8c70fd478090cff1c9e49a2517d5c84a098349aba529ef59198",
+      "health": "healthy"
+    },
+    {
+      "name": "redhouse-parcial2-custodia-a-1",
+      "image": "sha256:794480756624a8c70fd478090cff1c9e49a2517d5c84a098349aba529ef59198",
+      "health": "healthy"
+    },
+    {
+      "name": "redhouse-parcial2-alertas-a-1",
+      "image": "sha256:5f03cd4895ab1d445bc217b8c34a28571567794c9b7f3099bac9fe2de3782c4d",
+      "health": "healthy"
+    },
+    {
+      "name": "redhouse-parcial2-alertas-b-1",
+      "image": "sha256:5f03cd4895ab1d445bc217b8c34a28571567794c9b7f3099bac9fe2de3782c4d",
+      "health": "healthy"
+    },
+    {
+      "name": "redhouse-parcial2-auditoria-b-1",
+      "image": "sha256:a198eada38fd376b0cc13fa5abdcdcdba30e26e01b913bb7f9208dec912e10a5",
+      "health": "healthy"
+    },
+    {
+      "name": "redhouse-parcial2-auditoria-a-1",
+      "image": "sha256:a198eada38fd376b0cc13fa5abdcdcdba30e26e01b913bb7f9208dec912e10a5",
+      "health": "healthy"
+    },
+    {
+      "name": "redhouse-parcial2-clamav-1",
+      "image": "sha256:982e28f90061d0e66eb03276419f589a47c9fa601e985e472fc2f6c64b497ca0",
+      "health": "healthy"
+    },
+    {
+      "name": "redhouse-parcial2-gateway-1",
+      "image": "sha256:a8b39bd9cf0f83869a2162827a0caf6137ddf759d50a171451b335cecc87d236",
+      "health": "healthy"
+    },
+    {
+      "name": "redhouse-parcial2-mongodb-1",
+      "image": "sha256:27c0bc271b3c2fe8e18d5aa32c6aa5d891e5b9aceda5258e261ce59b2c343ef4",
+      "health": "healthy"
+    },
+    {
+      "name": "redhouse-parcial2-redis-1",
+      "image": "sha256:4fa24486b8bcca8eec45ee0eb166edc674795e53a2b53d1a9ef263eecebaac85",
+      "health": "healthy"
+    },
+    {
+      "name": "redhouse-parcial2-postgres-1",
+      "image": "sha256:5a05f61a534e50e679d27fb45953afec7821f2ffc2aa6c738b94515ca0891ac2",
+      "health": "healthy"
+    }
+  ],
+  "tag": "mobile04-20261110",
+  "schema": 18,
+  "image_sources": {
+    "web": 75,
+    "monitoreo-b": 3,
+    "monitoreo-a": 3,
+    "documentos-a": 3,
+    "documentos-b": 3,
+    "transporte-b": 41,
+    "transporte-a": 41,
+    "inventario-b": 9,
+    "inventario-a": 9,
+    "priorizacion-geografia-a": 5,
+    "priorizacion-geografia-b": 5,
+    "compatibilidad-a": 3,
+    "compatibilidad-b": 3,
+    "receptores-b": 3,
+    "receptores-a": 3,
+    "donantes-a": 3,
+    "donantes-b": 3,
+    "identidad-acceso-a": 27,
+    "identidad-acceso-b": 27,
+    "custodia-b": 3,
+    "custodia-a": 3,
+    "alertas-a": 5,
+    "alertas-b": 5,
+    "auditoria-b": 3,
+    "auditoria-a": 3
+  },
+  "systemd": {
+    "redhouse": "active",
+    "redhouse-certbot.timer": "active"
+  },
+  "host_manifest_matches": 75,
+  "hla_catalogue_matches": true,
+  "web_backend_mode": "monolith",
+  "domain_owners": 12,
+  "nginx_config_valid": true,
+  "database_ports_published": false,
+  "monolith_source_files_unchanged": 153,
+  "result": "passed"
+}

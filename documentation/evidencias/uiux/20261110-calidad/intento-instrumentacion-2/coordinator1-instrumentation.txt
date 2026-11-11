@@ -1,0 +1,95 @@
+INSTRUMENTATION_STATUS: class=org.redhouse.mobile.VisualProfileTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+org.redhouse.mobile.VisualProfileTest:
+INSTRUMENTATION_STATUS: test=authenticatedNavigationAndAccount
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=org.redhouse.mobile.VisualProfileTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed to perform SetText action.
+The node is no longer in the tree, last known semantics:
+Node #9 at (l=16.0, t=135.0, r=344.0, b=208.0)px
+ContentDataType = 'AndroidContentDataType(androidAutofillType=1)'
+EditableText = ''
+Focused = 'false'
+ImeAction = 'Default'
+InputText = ''
+IsEditable = 'true'
+Text = '[Cuenta institucional]'
+TextSelectionRange = 'TextRange(0, 0)'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, InsertTextAtCursor, OnAutofillText, OnClick, OnLongClick, PasteText, PerformImeAction, RequestFocus, SetSelection, SetText, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 5 siblings
+Original selector: Text + InputText + EditableText contains 'Cuenta institucional' (ignoreCase: false)
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:165)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.ActionsKt.performSemanticsAction(Actions.kt:578)
+	at androidx.compose.ui.test.TextActionsKt.performTextReplacement(TextActions.kt:69)
+	at org.redhouse.mobile.VisualProfileTest.authenticatedNavigationAndAccount(VisualProfileTest.kt:28)
+
+INSTRUMENTATION_STATUS: stream=
+Error in authenticatedNavigationAndAccount(org.redhouse.mobile.VisualProfileTest):
+java.lang.AssertionError: Failed to perform SetText action.
+The node is no longer in the tree, last known semantics:
+Node #9 at (l=16.0, t=135.0, r=344.0, b=208.0)px
+ContentDataType = 'AndroidContentDataType(androidAutofillType=1)'
+EditableText = ''
+Focused = 'false'
+ImeAction = 'Default'
+InputText = ''
+IsEditable = 'true'
+Text = '[Cuenta institucional]'
+TextSelectionRange = 'TextRange(0, 0)'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, InsertTextAtCursor, OnAutofillText, OnClick, OnLongClick, PasteText, PerformImeAction, RequestFocus, SetSelection, SetText, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 5 siblings
+Original selector: Text + InputText + EditableText contains 'Cuenta institucional' (ignoreCase: false)
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:165)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.ActionsKt.performSemanticsAction(Actions.kt:578)
+	at androidx.compose.ui.test.TextActionsKt.performTextReplacement(TextActions.kt:69)
+	at org.redhouse.mobile.VisualProfileTest.authenticatedNavigationAndAccount(VisualProfileTest.kt:28)
+
+INSTRUMENTATION_STATUS: test=authenticatedNavigationAndAccount
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 14.103
+There was 1 failure:
+1) authenticatedNavigationAndAccount(org.redhouse.mobile.VisualProfileTest)
+java.lang.AssertionError: Failed to perform SetText action.
+The node is no longer in the tree, last known semantics:
+Node #9 at (l=16.0, t=135.0, r=344.0, b=208.0)px
+ContentDataType = 'AndroidContentDataType(androidAutofillType=1)'
+EditableText = ''
+Focused = 'false'
+ImeAction = 'Default'
+InputText = ''
+IsEditable = 'true'
+Text = '[Cuenta institucional]'
+TextSelectionRange = 'TextRange(0, 0)'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, InsertTextAtCursor, OnAutofillText, OnClick, OnLongClick, PasteText, PerformImeAction, RequestFocus, SetSelection, SetText, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 5 siblings
+Original selector: Text + InputText + EditableText contains 'Cuenta institucional' (ignoreCase: false)
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:165)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.ActionsKt.performSemanticsAction(Actions.kt:578)
+	at androidx.compose.ui.test.TextActionsKt.performTextReplacement(TextActions.kt:69)
+	at org.redhouse.mobile.VisualProfileTest.authenticatedNavigationAndAccount(VisualProfileTest.kt:28)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

@@ -1,0 +1,46 @@
+{
+  "startedAt": "2026-11-07T05:25:43.712Z",
+  "passed": false,
+  "checks": [
+    {
+      "campaignPublicationPersisted": true,
+      "published": false
+    },
+    {
+      "publicApiRead": "json",
+      "sameBrowserCampaign": true
+    }
+  ],
+  "pages": [
+    {
+      "user": "operator1",
+      "path": "/campanas/1d626159-b312-4e54-b935-89fbad1ef455",
+      "status": 200
+    },
+    {
+      "user": "operator1",
+      "path": "/campanas/1d626159-b312-4e54-b935-89fbad1ef455/publicacion",
+      "status": 200
+    },
+    {
+      "user": "operator1",
+      "path": "/campanas/1d626159-b312-4e54-b935-89fbad1ef455/publicacion",
+      "status": 200
+    }
+  ],
+  "records": {
+    "title": "Comprobación ficticia GCP portal03 10ca0035",
+    "campaign": "1d626159-b312-4e54-b935-89fbad1ef455"
+  },
+  "consoleErrors": [],
+  "negative": [],
+  "wss": [],
+  "limits": [
+    "Prueba dirigida del despliegue, no repetición de los 90 casos locales",
+    "Sin ensayo de caída total, GCS/antivirus o GPS físico"
+  ],
+  "publicHttp": [],
+  "resumedCampaign": true,
+  "failure": "false == true",
+  "completedAt": "2026-11-07T05:26:44.719Z"
+}

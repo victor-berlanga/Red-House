@@ -2,6 +2,16 @@
 
 Trabaja en `/Users/victorberlanga/Programacion/integracion/Red-House`. Lee `AGENTS.md`, `PROJECT_STATUS.md` y `stuff/prompts/entrega-final/00_contexto_y_reglas.md`. Implementa una aplicación nativa en `apps/desktop/` con **PySide6 y Python**, decisión confirmada por el usuario. Su función es la operación interna de banco y coordinación regional. No entregues una WebView, un navegador empaquetado ni una copia de las pantallas web.
 
+Lee también las [instrucciones compartidas de diseño UI/UX](../instrucciones_diseno_ui_ux.md), especialmente su sección de etapa 05, y la [corrección de calidad visual web/móvil](../corregir_calidad_visual_web_movil.md). Aplica sus reglas de identidad, vocabulario, componentes y estados a la consola nativa. Esta lectura no encarga otro rediseño de web/móvil ni traslada su navegación a Qt.
+
+## Preparación y continuidad
+
+Antes de construir pantallas, completa la matriz DESK-01 a DESK-14 con rol/ámbito, tarea, servicio propietario, operación, contrato XML/XSD/DTO vigente, prueba disponible y dependencia pendiente. Distingue contrato existente comprobado, extensión necesaria y comprobación externa. Si falta una capacidad, documenta la carencia y completa la extensión mínima en su propietario antes de conectar la interfaz; conserva compatibilidad, permisos y regresión proporcional. No deduzcas disponibilidad por existir una pantalla web o una respuesta de ejemplo.
+
+Consulta la [continuidad de las etapas 01–04](07_integracion_pruebas_y_rendimiento.md#continuidad-obligatoria-de-las-etapas-01-a-04). Al ejecutar, abre o actualiza `documentation/entrega-final/continuidad/Matriz.md` con las dependencias CONT que afecten a DESK. Conserva sus evidencias y atribuye cada dependencia a los módulos afectados; no reejecutes etapas completas ni declares resueltos sus pendientes por construir escritorio. La falta de una prueba móvil física, proveedor o periférico no impide desarrollar y comprobar las partes independientes de 05. Registra lo que falta y conserva abierto el criterio afectado hasta verificarlo.
+
+Identifica al inicio el sistema operativo y arquitectura de la demostración, su forma de instalación y los periféricos disponibles: lector e impresora, si aplican. Usa las decisiones vigentes del proyecto. Si falta una decisión, prepara una propuesta concreta con el entorno disponible, artefacto previsto, alcance comprobable y decisión pendiente; continúa el trabajo independiente sin atribuir soporte a plataformas no verificadas. Registra las condiciones de la prueba visual y del empaquetado antes de realizarlas.
+
 ## Arquitectura y contratos XML
 
 Inspecciona API v1, ejemplos XML, XSD y DTO por operación de los prompts 01 y 02. La aplicación usa exclusivamente XML para autenticación, MFA, renovación, negocio, sincronización y errores, mediante HTTPS y JWT. Consume al menos cuatro microservicios reales y documenta una matriz módulo/servicio/operación/permiso.
@@ -47,9 +57,11 @@ Las gráficas de escritorio pueden usar componentes nativos compatibles con PySi
 
 Implementa la [especificación de rastreo GPS y mapa de Nuevo León](09_rastreo_gps_websockets.md) dentro del módulo DESK-09 y las vistas autorizadas de coordinación. Muestra mapa interactivo actual de Nuevo León, traslados permitidos, origen/destino, última posición y recorrido por **WSS**, con estados de señal/antigüedad y recuperación desde cursor. Autenticación, suscripción, posiciones, estados y errores del socket conservan **XML/XSD**; no abras un consumidor JSON de microservicios dentro de la capa cartográfica.
 
-El componente de mapa puede emplear un SDK o renderizador embebido justificado, sin convertir la aplicación en copia del portal. La interfaz continúa nativa y el módulo XML valida/autoriza los datos antes de pasarlos al renderizador local. Verifica permisos por traslado, revocación, caída del socket/proveedor y actualización sin recarga. Prueba con el simulador del backend y registra aparte la integración física pendiente.
+El componente de mapa puede emplear un SDK o renderizador embebido justificado, sin convertir la aplicación en copia del portal. La interfaz continúa nativa y el módulo XML valida/autoriza los datos antes de pasarlos al renderizador local. Verifica permisos por traslado, revocación, caída del socket/proveedor y actualización sin recarga. Prueba con el simulador del backend y registra aparte la integración física comprobada y la que permanezca pendiente.
 
 ## Operación intensiva y experiencia
+
+Define componentes nativos comunes antes de extender los catorce módulos: navegación por tarea y rol, tabla y acciones de fila, filtros, formulario, detalle, mensajes y progreso. Conserva la marca y los colores semánticos compartidos. Adapta densidad y jerarquía al trabajo de escritorio; evita una pantalla genérica que imprima todos los campos del contrato, UUID dominantes o cadenas de diálogos para consultar información relacionada. Distingue selección, apertura de detalle y escritura de negocio. Las acciones por icono deben tener nombre accesible, ayuda y operación por teclado; aplica un patrón consistente a todas las tablas.
 
 - Ventana principal con institución/rol/sesión, navegación por módulos y área de trabajo; tablas Qt apropiadas para volumen, selección y atajos de teclado.
 - Formularios con validación, errores por campo, datos conservados y confirmación contextual de operaciones irreversibles. Evita mostrar códigos internos al personal operativo cuando no ayuden a corregir un problema.
@@ -66,6 +78,8 @@ Indica conectividad y antigüedad de datos. Permite borradores/observaciones exp
 
 Utiliza el protocolo de sincronización del backend para comandos permitidos: ID e idempotencia persistentes, versión base, estado pendiente y resultado consultable. Prueba reinicio de la aplicación, pérdida de respuesta, reintentos, conflicto, sesión expirada y cambio de usuario. Los comandos se reautorizan antes de aplicar; no se envían bajo la siguiente cuenta que inicia sesión.
 
+Comprueba primero qué permite ese protocolo. En la base revisada el 11/11/2026, `apps/services/ms_transporte/synchronization.py` admite `TRANSPORT_OBSERVATION` vinculada a traslado/dispositivo y restringe sus comandos/resultados a `TRANSPORT`; el registro de dispositivos existente identifica fuentes GPS. Esto no acredita sincronización para borradores de operador, médico o coordinador. Revalida el código vigente y define por cada borrador permitido su contenido, rol, propietario, operación y reglas de conflicto/retención. Si necesita ampliación, impleméntala de forma compatible y con permisos de servidor explícitos para esa operación; no amplíes permisos de transporte indiscriminadamente ni registres una consola como Android/GPS para sortear el contrato. Un borrador guardado localmente debe seguir identificado como local hasta confirmar su operación real; no demuestra sincronización terminada.
+
 ## Instalación y entrega
 
 Entrega entorno/dependencias reproducibles, punto de entrada, configuración HTTPS sin secretos, icono, versión, manual y paquete ejecutable para la plataforma de demostración identificada. Incluye scripts/CI de empaquetado para los sistemas objetivo documentados y las condiciones de firma/distribución; no afirmes compatibilidad Windows/macOS/Linux sin prueba en cada uno.
@@ -78,4 +92,16 @@ Prueba validación XSD de login/refresh/MFA, consultas, comandos y errores; rech
 
 Ejecuta recorridos GUI reales con PySide6: operador registra/localiza unidad y muestra etiqueta, médico revisa y reserva, coordinador programa traslado, operador recibe, auditor reconstruye historia. Comprueba filtros/paginación, exportaciones, conflictos concurrentes y recuperación de escritura incierta.
 
-Integra un flujo iniciado por Android JSON y consultado/continuado por escritorio XML con mismos IDs, estado/versiones y permisos, visible también en web. Captura evidencia de interfaz y persistencia, pruebas automáticas relevantes y procedimiento reproducible. Actualiza matriz DESK-01 a DESK-14, manuales y `PROJECT_STATUS.md`.
+Antes de implementar cada familia de pantallas, registra sus tareas y criterios visuales de aceptación. Cubre todos los módulos y roles aplicables, incluida administración; una captura del panel o una tabla reutilizada no verifica sus variantes. Comprueba:
+
+- Jerarquía, términos y acciones coherentes entre tablas, formularios, detalles, paneles, trazabilidad, mapa y etiquetas; sin ayudas técnicas redundantes ni controles pegados a los bordes.
+- Recorridos autenticados por teclado, foco visible y orden lógico; selección y apertura nunca ejecutan una operación de negocio. Documenta pasos, retrocesos y cambios de contexto para las tareas elegidas, sin imponer un número universal de clics.
+- Redimensionado y escalado normal/ampliado del sistema realmente probado, con valores registrados: contenido legible, controles alcanzables y formularios sin recortes ni pérdida de datos.
+- Carga, vacío, error por campo, falta de permiso, desconexión, conflicto y resultado incierto con mensajes y recuperación correspondientes al estado real. Las tareas largas mantienen la ventana utilizable; no muestran porcentajes o cancelaciones no confirmados.
+- Evidencia visual y funcional por familia/rol, con entorno, tarea, esperado, obtenido y pendientes. No declares aceptada una variante solo porque compila, responde la API o se ejecutó otra pantalla del mismo componente.
+
+Integra un flujo iniciado por móvil Android/iOS JSON y consultado/continuado por escritorio XML con mismos IDs, estado/versiones y permisos, visible también en web. Captura evidencia de interfaz y persistencia, pruebas automáticas relevantes y procedimiento reproducible. Actualiza matriz DESK-01 a DESK-14, manuales y `PROJECT_STATUS.md`.
+
+## Alcance móvil actualizado — 6 de noviembre de 2026
+
+Comprueba el mismo contrato de seguimiento XML/XSD con posiciones producidas por el móvil Android y por iOS. La integración con esos clientes se acepta en 07; conserva backend y simulador existentes.

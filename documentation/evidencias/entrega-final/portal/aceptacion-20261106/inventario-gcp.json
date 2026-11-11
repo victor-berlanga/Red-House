@@ -1,0 +1,62 @@
+[
+  {
+    "captured_at_utc": "2026-11-07T04:46:47.451435+00:00",
+    "command": [
+      "gcloud",
+      "compute",
+      "instances",
+      "list",
+      "--project=sistemas-integracion-01",
+      "--format=json(name,status,labels,zone)"
+    ],
+    "returncode": 0,
+    "data": [
+      {
+        "labels": {
+          "course": "integracion",
+          "exercise": "02",
+          "scope": "isolated"
+        },
+        "name": "library-eg02",
+        "status": "TERMINATED",
+        "zone": "https://www.googleapis.com/compute/v1/projects/sistemas-integracion-01/zones/me-central1-a"
+      },
+      {
+        "name": "maquina01",
+        "status": "TERMINATED",
+        "zone": "https://www.googleapis.com/compute/v1/projects/sistemas-integracion-01/zones/me-central1-a"
+      },
+      {
+        "labels": {
+          "app": "red-house",
+          "environment": "academic"
+        },
+        "name": "red-house",
+        "status": "TERMINATED",
+        "zone": "https://www.googleapis.com/compute/v1/projects/sistemas-integracion-01/zones/me-central1-a"
+      }
+    ],
+    "error": null
+  },
+  {
+    "captured_at_utc": "2026-11-07T04:46:52.440864+00:00",
+    "command": [
+      "gcloud",
+      "storage",
+      "buckets",
+      "list",
+      "--project=sistemas-integracion-01",
+      "--format=json(name,location,public_access_prevention,uniform_bucket_level_access,labels)"
+    ],
+    "returncode": 0,
+    "data": [
+      {
+        "location": "US-CENTRAL1",
+        "name": "red-house-evidencias-sistemas-integracion-01",
+        "public_access_prevention": "enforced",
+        "uniform_bucket_level_access": true
+      }
+    ],
+    "error": null
+  }
+]

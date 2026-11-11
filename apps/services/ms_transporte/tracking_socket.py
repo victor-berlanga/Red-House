@@ -161,7 +161,7 @@ def install(app):
                             )
                         )
                     elif typ == "subscribe":
-                        if kind != "user":
+                        if kind not in ("user", "browser"):
                             raise APIError(
                                 "forbidden", "Dispositivos solo publican.", 403
                             )

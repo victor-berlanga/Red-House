@@ -1,0 +1,6 @@
+#tracking-map { height: min(58vh, 560px); min-height: 280px; width: 100%; margin: 1rem 0; border: 1px solid #667085; border-radius: 8px; z-index: 0; }
+#tracking .button-row { display: flex; flex-wrap: wrap; gap: .6rem; }
+#tracking-map:focus-visible { outline: 3px solid #b42318; outline-offset: 3px; }
+#tracking .regional-facts dd { overflow-wrap: anywhere; }
+#tracking p, #tracking .regional-facts dt { color: #475569; }
+#tracking > p > a { color: #1e3a5f; text-decoration: underline; }

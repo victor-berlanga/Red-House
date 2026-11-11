@@ -1805,6 +1805,77 @@ CREATE VIEW access_auditoria.activity_events AS
 
 
 --
+-- Name: anomaly_actions; Type: TABLE; Schema: red_house; Owner: -
+--
+
+CREATE TABLE red_house.anomaly_actions (
+    id uuid NOT NULL,
+    review_id uuid NOT NULL,
+    tenant_id uuid NOT NULL,
+    author_id uuid NOT NULL,
+    state text NOT NULL,
+    reason text NOT NULL,
+    created_at timestamp with time zone DEFAULT now() NOT NULL
+);
+
+
+--
+-- Name: anomaly_actions; Type: VIEW; Schema: access_auditoria; Owner: -
+--
+
+CREATE VIEW access_auditoria.anomaly_actions AS
+ SELECT anomaly_actions.id,
+    anomaly_actions.review_id,
+    anomaly_actions.tenant_id,
+    anomaly_actions.author_id,
+    anomaly_actions.state,
+    anomaly_actions.reason,
+    anomaly_actions.created_at
+   FROM red_house.anomaly_actions;
+
+
+--
+-- Name: anomaly_reviews; Type: TABLE; Schema: red_house; Owner: -
+--
+
+CREATE TABLE red_house.anomaly_reviews (
+    id uuid NOT NULL,
+    tenant_id uuid NOT NULL,
+    region_id uuid NOT NULL,
+    source text NOT NULL,
+    source_run_id uuid NOT NULL,
+    deduplication_key text NOT NULL,
+    evidence jsonb NOT NULL,
+    correlation_id text NOT NULL,
+    responsible_id uuid NOT NULL,
+    state text DEFAULT 'OPEN'::text NOT NULL,
+    version integer DEFAULT 1 NOT NULL,
+    created_at timestamp with time zone DEFAULT now() NOT NULL,
+    CONSTRAINT anomaly_reviews_state_check CHECK ((state = ANY (ARRAY['OPEN'::text, 'CONFIRMED'::text, 'DISMISSED'::text])))
+);
+
+
+--
+-- Name: anomaly_reviews; Type: VIEW; Schema: access_auditoria; Owner: -
+--
+
+CREATE VIEW access_auditoria.anomaly_reviews AS
+ SELECT anomaly_reviews.id,
+    anomaly_reviews.tenant_id,
+    anomaly_reviews.region_id,
+    anomaly_reviews.source,
+    anomaly_reviews.source_run_id,
+    anomaly_reviews.deduplication_key,
+    anomaly_reviews.evidence,
+    anomaly_reviews.correlation_id,
+    anomaly_reviews.responsible_id,
+    anomaly_reviews.state,
+    anomaly_reviews.version,
+    anomaly_reviews.created_at
+   FROM red_house.anomaly_reviews;
+
+
+--
 -- Name: audit_event; Type: TABLE; Schema: red_house; Owner: -
 --
 
@@ -2209,9 +2280,19 @@ CREATE TABLE red_house.lab_profiles (
     effective_at timestamp with time zone NOT NULL,
     supersedes uuid,
     created_at timestamp with time zone DEFAULT now() NOT NULL,
+    purpose text DEFAULT 'Completitud académica, sin aplicación clínica'::text NOT NULL,
+    rule_status text DEFAULT 'DRAFT'::text NOT NULL,
+    required_loci jsonb DEFAULT '[]'::jsonb NOT NULL,
+    clinical_enabled boolean DEFAULT false NOT NULL,
+    valid_until timestamp with time zone,
+    policy jsonb DEFAULT '{"version": "COMPLETENESS-2.0", "contradictions": "REVIEW", "max_age_seconds": null, "require_document": false}'::jsonb NOT NULL,
+    evidence_rules jsonb DEFAULT '[]'::jsonb NOT NULL,
+    reference_snapshot jsonb DEFAULT '[]'::jsonb NOT NULL,
+    CONSTRAINT lab_profiles_clinical_enabled_check CHECK ((NOT clinical_enabled)),
     CONSTRAINT lab_profiles_kind_check CHECK ((kind = ANY (ARRAY['BLOOD'::text, 'ORGAN'::text]))),
     CONSTRAINT lab_profiles_required_tests_check CHECK ((jsonb_typeof(required_tests) = 'array'::text)),
-    CONSTRAINT lab_profiles_synthetic_check CHECK (synthetic)
+    CONSTRAINT lab_profiles_rule_status_check CHECK ((rule_status = ANY (ARRAY['DRAFT'::text, 'IN_REVIEW'::text, 'RETIRED'::text]))),
+    CONSTRAINT profile_interval CHECK (((valid_until IS NULL) OR (valid_until > effective_at)))
 );
 
 
@@ -2232,7 +2313,15 @@ CREATE VIEW access_compatibilidad.lab_profiles AS
     lab_profiles.author_id,
     lab_profiles.effective_at,
     lab_profiles.supersedes,
-    lab_profiles.created_at
+    lab_profiles.created_at,
+    lab_profiles.purpose,
+    lab_profiles.rule_status,
+    lab_profiles.required_loci,
+    lab_profiles.clinical_enabled,
+    lab_profiles.valid_until,
+    lab_profiles.policy,
+    lab_profiles.evidence_rules,
+    lab_profiles.reference_snapshot
    FROM red_house.lab_profiles;
 
 
@@ -2245,7 +2334,7 @@ CREATE TABLE red_house.lab_results (
     sample_id uuid NOT NULL,
     tenant_id uuid NOT NULL,
     test_code text NOT NULL,
-    value text NOT NULL,
+    value text,
     unit text,
     method text NOT NULL,
     laboratory text NOT NULL,
@@ -2256,6 +2345,14 @@ CREATE TABLE red_house.lab_results (
     supersedes uuid,
     status text DEFAULT 'CAPTURED'::text NOT NULL,
     created_at timestamp with time zone DEFAULT now() NOT NULL,
+    result_state text DEFAULT 'REPORTED'::text NOT NULL,
+    hla jsonb,
+    issued_at timestamp with time zone,
+    document_id uuid,
+    crossmatch jsonb,
+    document_snapshot jsonb,
+    catalogue_check jsonb,
+    CONSTRAINT lab_results_result_state_check CHECK ((result_state = ANY (ARRAY['NOT_PERFORMED'::text, 'PENDING'::text, 'INDETERMINATE'::text, 'REPORTED'::text, 'CORRECTED'::text]))),
     CONSTRAINT lab_results_status_check CHECK ((status = ANY (ARRAY['CAPTURED'::text, 'AUTHORIZED'::text, 'REJECTED'::text])))
 );
 
@@ -2279,7 +2376,14 @@ CREATE VIEW access_compatibilidad.lab_results AS
     lab_results.version,
     lab_results.supersedes,
     lab_results.status,
-    lab_results.created_at
+    lab_results.created_at,
+    lab_results.result_state,
+    lab_results.hla,
+    lab_results.issued_at,
+    lab_results.document_id,
+    lab_results.crossmatch,
+    lab_results.document_snapshot,
+    lab_results.catalogue_check
    FROM red_house.lab_results;
 
 
@@ -2301,6 +2405,7 @@ CREATE TABLE red_house.lab_samples (
     version integer DEFAULT 1 NOT NULL,
     author_id uuid NOT NULL,
     created_at timestamp with time zone DEFAULT now() NOT NULL,
+    request_id uuid,
     CONSTRAINT lab_samples_check CHECK ((num_nonnulls(resource_id, recipient_id, donation_id) = 1)),
     CONSTRAINT lab_samples_status_check CHECK ((status = ANY (ARRAY['REQUESTED'::text, 'RECEIVED'::text, 'REJECTED'::text])))
 );
@@ -2323,7 +2428,8 @@ CREATE VIEW access_compatibilidad.lab_samples AS
     lab_samples.status,
     lab_samples.version,
     lab_samples.author_id,
-    lab_samples.created_at
+    lab_samples.created_at,
+    lab_samples.request_id
    FROM red_house.lab_samples;
 
 
@@ -2359,7 +2465,9 @@ CREATE TABLE red_house.blood_review (
     occurred_at timestamp with time zone DEFAULT now() NOT NULL,
     evaluation_id uuid NOT NULL,
     resource_id uuid NOT NULL,
-    tenant_id uuid NOT NULL
+    tenant_id uuid NOT NULL,
+    operation_scope text DEFAULT 'LEGACY'::text NOT NULL,
+    CONSTRAINT blood_review_operation_scope_check CHECK ((operation_scope = ANY (ARRAY['LEGACY'::text, 'ACADEMIC'::text, 'CLINICAL'::text])))
 );
 
 
@@ -2375,8 +2483,46 @@ CREATE VIEW access_compatibilidad.reviews AS
     blood_review.actor_id,
     blood_review.decision,
     blood_review.reason,
-    blood_review.occurred_at AS created_at
+    blood_review.occurred_at AS created_at,
+    blood_review.operation_scope
    FROM red_house.blood_review;
+
+
+--
+-- Name: rule_actions; Type: TABLE; Schema: red_house; Owner: -
+--
+
+CREATE TABLE red_house.rule_actions (
+    id uuid NOT NULL,
+    profile_id uuid NOT NULL,
+    tenant_id uuid NOT NULL,
+    actor_id uuid NOT NULL,
+    sequence integer NOT NULL,
+    state text NOT NULL,
+    reason text NOT NULL,
+    competency_reference text,
+    evidence jsonb,
+    created_at timestamp with time zone DEFAULT now() NOT NULL,
+    CONSTRAINT rule_actions_state_check CHECK ((state = ANY (ARRAY['IN_REVIEW'::text, 'APPROVED'::text, 'RETIRED'::text])))
+);
+
+
+--
+-- Name: rule_actions; Type: VIEW; Schema: access_compatibilidad; Owner: -
+--
+
+CREATE VIEW access_compatibilidad.rule_actions AS
+ SELECT rule_actions.id,
+    rule_actions.profile_id,
+    rule_actions.tenant_id,
+    rule_actions.actor_id,
+    rule_actions.sequence,
+    rule_actions.state,
+    rule_actions.reason,
+    rule_actions.competency_reference,
+    rule_actions.evidence,
+    rule_actions.created_at
+   FROM red_house.rule_actions;
 
 
 --
@@ -2642,6 +2788,7 @@ CREATE TABLE red_house.document_metadata (
     legal_hold boolean DEFAULT true NOT NULL,
     policy_reference text NOT NULL,
     created_at timestamp with time zone DEFAULT now() NOT NULL,
+    policy_version integer DEFAULT 1 NOT NULL,
     CONSTRAINT document_metadata_privacy_check CHECK ((privacy = 'PRIVATE'::text))
 );
 
@@ -2662,7 +2809,8 @@ CREATE VIEW access_documentos.document_metadata AS
     document_metadata.retention_until,
     document_metadata.legal_hold,
     document_metadata.policy_reference,
-    document_metadata.created_at
+    document_metadata.created_at,
+    document_metadata.policy_version
    FROM red_house.document_metadata;
 
 
@@ -2683,6 +2831,8 @@ CREATE TABLE red_house.export_jobs (
     attempts integer DEFAULT 0 NOT NULL,
     created_at timestamp with time zone DEFAULT now() NOT NULL,
     region_id uuid,
+    context jsonb DEFAULT '{}'::jsonb NOT NULL,
+    sealed_authorization text,
     CONSTRAINT export_jobs_format_check CHECK ((format = ANY (ARRAY['CSV'::text, 'PDF'::text, 'XLSX'::text])))
 );
 
@@ -2703,7 +2853,9 @@ CREATE VIEW access_documentos.export_jobs AS
     export_jobs.last_error,
     export_jobs.attempts,
     export_jobs.created_at,
-    export_jobs.region_id
+    export_jobs.region_id,
+    export_jobs.context,
+    export_jobs.sealed_authorization
    FROM red_house.export_jobs;
 
 
@@ -2949,6 +3101,34 @@ CREATE VIEW access_donantes.appointments AS
     appointment.current_status AS status,
     appointment.created_at
    FROM red_house.appointment;
+
+
+--
+-- Name: campaign_publications; Type: TABLE; Schema: red_house; Owner: -
+--
+
+CREATE TABLE red_house.campaign_publications (
+    id uuid NOT NULL,
+    tenant_id uuid NOT NULL,
+    published boolean DEFAULT false NOT NULL,
+    venue text NOT NULL,
+    information text NOT NULL,
+    version integer DEFAULT 1 NOT NULL
+);
+
+
+--
+-- Name: campaign_publications; Type: VIEW; Schema: access_donantes; Owner: -
+--
+
+CREATE VIEW access_donantes.campaign_publications AS
+ SELECT campaign_publications.id,
+    campaign_publications.tenant_id,
+    campaign_publications.published,
+    campaign_publications.venue,
+    campaign_publications.information,
+    campaign_publications.version
+   FROM red_house.campaign_publications;
 
 
 --
@@ -3452,7 +3632,7 @@ CREATE TABLE red_house.devices (
     active boolean DEFAULT true NOT NULL,
     version integer DEFAULT 1 NOT NULL,
     created_at timestamp with time zone DEFAULT now() NOT NULL,
-    CONSTRAINT devices_source_check CHECK ((source = ANY (ARRAY['SIMULATOR'::text, 'GPS_BRIDGE'::text, 'ANDROID'::text])))
+    CONSTRAINT devices_source_check CHECK ((source = ANY (ARRAY['SIMULATOR'::text, 'GPS_BRIDGE'::text, 'ANDROID'::text, 'IOS'::text])))
 );
 
 
@@ -3539,6 +3719,43 @@ CREATE VIEW access_identidad_acceso.inbox AS
 
 
 --
+-- Name: institution_presentations; Type: TABLE; Schema: red_house; Owner: -
+--
+
+CREATE TABLE red_house.institution_presentations (
+    id uuid NOT NULL,
+    version integer DEFAULT 1 NOT NULL,
+    published boolean DEFAULT false NOT NULL,
+    description text DEFAULT ''::text NOT NULL,
+    latitude double precision,
+    longitude double precision,
+    coordinate_source text,
+    coordinate_recorded_at timestamp with time zone,
+    synthetic boolean DEFAULT true NOT NULL,
+    CONSTRAINT institution_presentations_check CHECK (((latitude IS NULL) = (longitude IS NULL))),
+    CONSTRAINT institution_presentations_latitude_check CHECK (((latitude >= ('-90'::integer)::double precision) AND (latitude <= (90)::double precision))),
+    CONSTRAINT institution_presentations_longitude_check CHECK (((longitude >= ('-180'::integer)::double precision) AND (longitude <= (180)::double precision)))
+);
+
+
+--
+-- Name: institution_presentations; Type: VIEW; Schema: access_identidad_acceso; Owner: -
+--
+
+CREATE VIEW access_identidad_acceso.institution_presentations AS
+ SELECT institution_presentations.id,
+    institution_presentations.version,
+    institution_presentations.published,
+    institution_presentations.description,
+    institution_presentations.latitude,
+    institution_presentations.longitude,
+    institution_presentations.coordinate_source,
+    institution_presentations.coordinate_recorded_at,
+    institution_presentations.synthetic
+   FROM red_house.institution_presentations;
+
+
+--
 -- Name: institution; Type: TABLE; Schema: red_house; Owner: -
 --
 
@@ -3593,6 +3810,37 @@ CREATE VIEW access_identidad_acceso.outbox AS
    FROM red_house.service_outbox
   WHERE (service_outbox.service = 'identidad_acceso'::text)
   WITH LOCAL CHECK OPTION;
+
+
+--
+-- Name: portal_policies; Type: TABLE; Schema: red_house; Owner: -
+--
+
+CREATE TABLE red_house.portal_policies (
+    id uuid NOT NULL,
+    version integer DEFAULT 1 NOT NULL,
+    timezone text NOT NULL,
+    tracking_interval_seconds integer NOT NULL,
+    tracking_stale_seconds integer NOT NULL,
+    reference text NOT NULL,
+    CONSTRAINT portal_policies_check CHECK ((tracking_stale_seconds >= tracking_interval_seconds)),
+    CONSTRAINT portal_policies_tracking_interval_seconds_check CHECK (((tracking_interval_seconds >= 1) AND (tracking_interval_seconds <= 300))),
+    CONSTRAINT portal_policies_tracking_stale_seconds_check CHECK (((tracking_stale_seconds >= 5) AND (tracking_stale_seconds <= 3600)))
+);
+
+
+--
+-- Name: portal_policies; Type: VIEW; Schema: access_identidad_acceso; Owner: -
+--
+
+CREATE VIEW access_identidad_acceso.portal_policies AS
+ SELECT portal_policies.id,
+    portal_policies.version,
+    portal_policies.timezone,
+    portal_policies.tracking_interval_seconds,
+    portal_policies.tracking_stale_seconds,
+    portal_policies.reference
+   FROM red_house.portal_policies;
 
 
 --
@@ -4553,6 +4801,83 @@ CREATE VIEW access_priorizacion_geografia.activity_events AS
 
 
 --
+-- Name: algorithm_runs; Type: TABLE; Schema: red_house; Owner: -
+--
+
+CREATE TABLE red_house.algorithm_runs (
+    id uuid NOT NULL,
+    tenant_id uuid NOT NULL,
+    author_id uuid NOT NULL,
+    algorithm_version text NOT NULL,
+    source text NOT NULL,
+    snapshot jsonb NOT NULL,
+    result jsonb NOT NULL,
+    fingerprint text NOT NULL,
+    elapsed_ms double precision NOT NULL,
+    synthetic boolean DEFAULT true NOT NULL,
+    created_at timestamp with time zone DEFAULT now() NOT NULL,
+    CONSTRAINT algorithm_runs_synthetic_check CHECK (synthetic)
+);
+
+
+--
+-- Name: algorithm_runs; Type: VIEW; Schema: access_priorizacion_geografia; Owner: -
+--
+
+CREATE VIEW access_priorizacion_geografia.algorithm_runs AS
+ SELECT algorithm_runs.id,
+    algorithm_runs.tenant_id,
+    algorithm_runs.author_id,
+    algorithm_runs.algorithm_version,
+    algorithm_runs.source,
+    algorithm_runs.snapshot,
+    algorithm_runs.result,
+    algorithm_runs.fingerprint,
+    algorithm_runs.elapsed_ms,
+    algorithm_runs.synthetic,
+    algorithm_runs.created_at
+   FROM red_house.algorithm_runs;
+
+
+--
+-- Name: decision_runs; Type: TABLE; Schema: red_house; Owner: -
+--
+
+CREATE TABLE red_house.decision_runs (
+    id uuid NOT NULL,
+    tenant_id uuid NOT NULL,
+    author_id uuid NOT NULL,
+    algorithm_version text NOT NULL,
+    source text NOT NULL,
+    snapshot jsonb NOT NULL,
+    result jsonb NOT NULL,
+    fingerprint text NOT NULL,
+    elapsed_ms double precision NOT NULL,
+    synthetic boolean NOT NULL,
+    created_at timestamp with time zone DEFAULT now() NOT NULL
+);
+
+
+--
+-- Name: decision_runs; Type: VIEW; Schema: access_priorizacion_geografia; Owner: -
+--
+
+CREATE VIEW access_priorizacion_geografia.decision_runs AS
+ SELECT decision_runs.id,
+    decision_runs.tenant_id,
+    decision_runs.author_id,
+    decision_runs.algorithm_version,
+    decision_runs.source,
+    decision_runs.snapshot,
+    decision_runs.result,
+    decision_runs.fingerprint,
+    decision_runs.elapsed_ms,
+    decision_runs.synthetic,
+    decision_runs.created_at
+   FROM red_house.decision_runs;
+
+
+--
 -- Name: decisions; Type: VIEW; Schema: access_priorizacion_geografia; Owner: -
 --
 
@@ -4683,6 +5008,56 @@ CREATE VIEW access_priorizacion_geografia.rankings AS
     ranking_run.elapsed_ms,
     ranking_run.created_at
    FROM red_house.ranking_run;
+
+
+--
+-- Name: regional_graphs; Type: TABLE; Schema: red_house; Owner: -
+--
+
+CREATE TABLE red_house.regional_graphs (
+    id uuid NOT NULL,
+    tenant_id uuid NOT NULL,
+    author_id uuid NOT NULL,
+    name text NOT NULL,
+    version integer NOT NULL,
+    supersedes uuid,
+    source text NOT NULL,
+    observed_at timestamp with time zone NOT NULL,
+    valid_until timestamp with time zone NOT NULL,
+    synthetic boolean NOT NULL,
+    region text NOT NULL,
+    quality text NOT NULL,
+    nodes jsonb NOT NULL,
+    edges jsonb NOT NULL,
+    created_at timestamp with time zone DEFAULT now() NOT NULL,
+    provenance jsonb,
+    CONSTRAINT regional_graphs_check CHECK ((valid_until > observed_at)),
+    CONSTRAINT regional_graphs_region_check CHECK ((region = 'Nuevo León'::text))
+);
+
+
+--
+-- Name: regional_graphs; Type: VIEW; Schema: access_priorizacion_geografia; Owner: -
+--
+
+CREATE VIEW access_priorizacion_geografia.regional_graphs AS
+ SELECT regional_graphs.id,
+    regional_graphs.tenant_id,
+    regional_graphs.author_id,
+    regional_graphs.name,
+    regional_graphs.version,
+    regional_graphs.supersedes,
+    regional_graphs.source,
+    regional_graphs.observed_at,
+    regional_graphs.valid_until,
+    regional_graphs.synthetic,
+    regional_graphs.region,
+    regional_graphs.quality,
+    regional_graphs.nodes,
+    regional_graphs.edges,
+    regional_graphs.created_at,
+    regional_graphs.provenance
+   FROM red_house.regional_graphs;
 
 
 --
@@ -5340,7 +5715,8 @@ CREATE VIEW access_transporte.tracking_devices AS
     d.version,
     u.active AS user_active,
     i.active AS institution_active,
-    u.role AS user_role
+    u.role AS user_role,
+    d.label
    FROM ((red_house.devices d
      JOIN red_house.user_account u ON ((u.account_id = d.user_id)))
      JOIN red_house.institution i ON ((i.institution_id = d.tenant_id)));
@@ -6090,6 +6466,34 @@ ALTER TABLE ONLY access_auditoria.activity_events ALTER COLUMN created_at SET DE
 
 
 --
+-- Name: anomaly_actions created_at; Type: DEFAULT; Schema: access_auditoria; Owner: -
+--
+
+ALTER TABLE ONLY access_auditoria.anomaly_actions ALTER COLUMN created_at SET DEFAULT now();
+
+
+--
+-- Name: anomaly_reviews state; Type: DEFAULT; Schema: access_auditoria; Owner: -
+--
+
+ALTER TABLE ONLY access_auditoria.anomaly_reviews ALTER COLUMN state SET DEFAULT 'OPEN'::text;
+
+
+--
+-- Name: anomaly_reviews version; Type: DEFAULT; Schema: access_auditoria; Owner: -
+--
+
+ALTER TABLE ONLY access_auditoria.anomaly_reviews ALTER COLUMN version SET DEFAULT 1;
+
+
+--
+-- Name: anomaly_reviews created_at; Type: DEFAULT; Schema: access_auditoria; Owner: -
+--
+
+ALTER TABLE ONLY access_auditoria.anomaly_reviews ALTER COLUMN created_at SET DEFAULT now();
+
+
+--
 -- Name: audit_events created_at; Type: DEFAULT; Schema: access_auditoria; Owner: -
 --
 
@@ -6244,6 +6648,55 @@ ALTER TABLE ONLY access_compatibilidad.lab_profiles ALTER COLUMN created_at SET 
 
 
 --
+-- Name: lab_profiles purpose; Type: DEFAULT; Schema: access_compatibilidad; Owner: -
+--
+
+ALTER TABLE ONLY access_compatibilidad.lab_profiles ALTER COLUMN purpose SET DEFAULT 'Completitud académica, sin aplicación clínica'::text;
+
+
+--
+-- Name: lab_profiles rule_status; Type: DEFAULT; Schema: access_compatibilidad; Owner: -
+--
+
+ALTER TABLE ONLY access_compatibilidad.lab_profiles ALTER COLUMN rule_status SET DEFAULT 'DRAFT'::text;
+
+
+--
+-- Name: lab_profiles required_loci; Type: DEFAULT; Schema: access_compatibilidad; Owner: -
+--
+
+ALTER TABLE ONLY access_compatibilidad.lab_profiles ALTER COLUMN required_loci SET DEFAULT '[]'::jsonb;
+
+
+--
+-- Name: lab_profiles clinical_enabled; Type: DEFAULT; Schema: access_compatibilidad; Owner: -
+--
+
+ALTER TABLE ONLY access_compatibilidad.lab_profiles ALTER COLUMN clinical_enabled SET DEFAULT false;
+
+
+--
+-- Name: lab_profiles policy; Type: DEFAULT; Schema: access_compatibilidad; Owner: -
+--
+
+ALTER TABLE ONLY access_compatibilidad.lab_profiles ALTER COLUMN policy SET DEFAULT '{"version": "COMPLETENESS-2.0", "contradictions": "REVIEW", "max_age_seconds": null, "require_document": false}'::jsonb;
+
+
+--
+-- Name: lab_profiles evidence_rules; Type: DEFAULT; Schema: access_compatibilidad; Owner: -
+--
+
+ALTER TABLE ONLY access_compatibilidad.lab_profiles ALTER COLUMN evidence_rules SET DEFAULT '[]'::jsonb;
+
+
+--
+-- Name: lab_profiles reference_snapshot; Type: DEFAULT; Schema: access_compatibilidad; Owner: -
+--
+
+ALTER TABLE ONLY access_compatibilidad.lab_profiles ALTER COLUMN reference_snapshot SET DEFAULT '[]'::jsonb;
+
+
+--
 -- Name: lab_results status; Type: DEFAULT; Schema: access_compatibilidad; Owner: -
 --
 
@@ -6255,6 +6708,13 @@ ALTER TABLE ONLY access_compatibilidad.lab_results ALTER COLUMN status SET DEFAU
 --
 
 ALTER TABLE ONLY access_compatibilidad.lab_results ALTER COLUMN created_at SET DEFAULT now();
+
+
+--
+-- Name: lab_results result_state; Type: DEFAULT; Schema: access_compatibilidad; Owner: -
+--
+
+ALTER TABLE ONLY access_compatibilidad.lab_results ALTER COLUMN result_state SET DEFAULT 'REPORTED'::text;
 
 
 --
@@ -6304,6 +6764,13 @@ ALTER TABLE ONLY access_compatibilidad.outbox ALTER COLUMN next_attempt SET DEFA
 --
 
 ALTER TABLE ONLY access_compatibilidad.reviews ALTER COLUMN created_at SET DEFAULT now();
+
+
+--
+-- Name: rule_actions created_at; Type: DEFAULT; Schema: access_compatibilidad; Owner: -
+--
+
+ALTER TABLE ONLY access_compatibilidad.rule_actions ALTER COLUMN created_at SET DEFAULT now();
 
 
 --
@@ -6440,6 +6907,13 @@ ALTER TABLE ONLY access_documentos.document_metadata ALTER COLUMN created_at SET
 
 
 --
+-- Name: document_metadata policy_version; Type: DEFAULT; Schema: access_documentos; Owner: -
+--
+
+ALTER TABLE ONLY access_documentos.document_metadata ALTER COLUMN policy_version SET DEFAULT 1;
+
+
+--
 -- Name: export_jobs status; Type: DEFAULT; Schema: access_documentos; Owner: -
 --
 
@@ -6458,6 +6932,13 @@ ALTER TABLE ONLY access_documentos.export_jobs ALTER COLUMN attempts SET DEFAULT
 --
 
 ALTER TABLE ONLY access_documentos.export_jobs ALTER COLUMN created_at SET DEFAULT now();
+
+
+--
+-- Name: export_jobs context; Type: DEFAULT; Schema: access_documentos; Owner: -
+--
+
+ALTER TABLE ONLY access_documentos.export_jobs ALTER COLUMN context SET DEFAULT '{}'::jsonb;
 
 
 --
@@ -6570,6 +7051,20 @@ ALTER TABLE ONLY access_donantes.appointments ALTER COLUMN status SET DEFAULT 'B
 --
 
 ALTER TABLE ONLY access_donantes.appointments ALTER COLUMN created_at SET DEFAULT now();
+
+
+--
+-- Name: campaign_publications published; Type: DEFAULT; Schema: access_donantes; Owner: -
+--
+
+ALTER TABLE ONLY access_donantes.campaign_publications ALTER COLUMN published SET DEFAULT false;
+
+
+--
+-- Name: campaign_publications version; Type: DEFAULT; Schema: access_donantes; Owner: -
+--
+
+ALTER TABLE ONLY access_donantes.campaign_publications ALTER COLUMN version SET DEFAULT 1;
 
 
 --
@@ -6846,6 +7341,34 @@ ALTER TABLE ONLY access_identidad_acceso.inbox ALTER COLUMN created_at SET DEFAU
 
 
 --
+-- Name: institution_presentations version; Type: DEFAULT; Schema: access_identidad_acceso; Owner: -
+--
+
+ALTER TABLE ONLY access_identidad_acceso.institution_presentations ALTER COLUMN version SET DEFAULT 1;
+
+
+--
+-- Name: institution_presentations published; Type: DEFAULT; Schema: access_identidad_acceso; Owner: -
+--
+
+ALTER TABLE ONLY access_identidad_acceso.institution_presentations ALTER COLUMN published SET DEFAULT false;
+
+
+--
+-- Name: institution_presentations description; Type: DEFAULT; Schema: access_identidad_acceso; Owner: -
+--
+
+ALTER TABLE ONLY access_identidad_acceso.institution_presentations ALTER COLUMN description SET DEFAULT ''::text;
+
+
+--
+-- Name: institution_presentations synthetic; Type: DEFAULT; Schema: access_identidad_acceso; Owner: -
+--
+
+ALTER TABLE ONLY access_identidad_acceso.institution_presentations ALTER COLUMN synthetic SET DEFAULT true;
+
+
+--
 -- Name: institutions active; Type: DEFAULT; Schema: access_identidad_acceso; Owner: -
 --
 
@@ -6878,6 +7401,13 @@ ALTER TABLE ONLY access_identidad_acceso.outbox ALTER COLUMN attempts SET DEFAUL
 --
 
 ALTER TABLE ONLY access_identidad_acceso.outbox ALTER COLUMN next_attempt SET DEFAULT now();
+
+
+--
+-- Name: portal_policies version; Type: DEFAULT; Schema: access_identidad_acceso; Owner: -
+--
+
+ALTER TABLE ONLY access_identidad_acceso.portal_policies ALTER COLUMN version SET DEFAULT 1;
 
 
 --
@@ -7245,6 +7775,27 @@ ALTER TABLE ONLY access_priorizacion_geografia.activity_events ALTER COLUMN crea
 
 
 --
+-- Name: algorithm_runs synthetic; Type: DEFAULT; Schema: access_priorizacion_geografia; Owner: -
+--
+
+ALTER TABLE ONLY access_priorizacion_geografia.algorithm_runs ALTER COLUMN synthetic SET DEFAULT true;
+
+
+--
+-- Name: algorithm_runs created_at; Type: DEFAULT; Schema: access_priorizacion_geografia; Owner: -
+--
+
+ALTER TABLE ONLY access_priorizacion_geografia.algorithm_runs ALTER COLUMN created_at SET DEFAULT now();
+
+
+--
+-- Name: decision_runs created_at; Type: DEFAULT; Schema: access_priorizacion_geografia; Owner: -
+--
+
+ALTER TABLE ONLY access_priorizacion_geografia.decision_runs ALTER COLUMN created_at SET DEFAULT now();
+
+
+--
 -- Name: decisions changes; Type: DEFAULT; Schema: access_priorizacion_geografia; Owner: -
 --
 
@@ -7305,6 +7856,13 @@ ALTER TABLE ONLY access_priorizacion_geografia.proposals ALTER COLUMN created_at
 --
 
 ALTER TABLE ONLY access_priorizacion_geografia.rankings ALTER COLUMN created_at SET DEFAULT now();
+
+
+--
+-- Name: regional_graphs created_at; Type: DEFAULT; Schema: access_priorizacion_geografia; Owner: -
+--
+
+ALTER TABLE ONLY access_priorizacion_geografia.regional_graphs ALTER COLUMN created_at SET DEFAULT now();
 
 
 --
@@ -7695,6 +8253,38 @@ ALTER TABLE ONLY red_house.alert_subscriptions
 
 ALTER TABLE ONLY red_house.algorithm_run
     ADD CONSTRAINT algorithm_run_pkey PRIMARY KEY (run_id);
+
+
+--
+-- Name: algorithm_runs algorithm_runs_pkey; Type: CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.algorithm_runs
+    ADD CONSTRAINT algorithm_runs_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: anomaly_actions anomaly_actions_pkey; Type: CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.anomaly_actions
+    ADD CONSTRAINT anomaly_actions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: anomaly_reviews anomaly_reviews_deduplication_key_key; Type: CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.anomaly_reviews
+    ADD CONSTRAINT anomaly_reviews_deduplication_key_key UNIQUE (deduplication_key);
+
+
+--
+-- Name: anomaly_reviews anomaly_reviews_pkey; Type: CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.anomaly_reviews
+    ADD CONSTRAINT anomaly_reviews_pkey PRIMARY KEY (id);
 
 
 --
@@ -8090,6 +8680,14 @@ ALTER TABLE ONLY red_house.campaign
 
 
 --
+-- Name: campaign_publications campaign_publications_pkey; Type: CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.campaign_publications
+    ADD CONSTRAINT campaign_publications_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: campaign_slots campaign_slots_pkey; Type: CONSTRAINT; Schema: red_house; Owner: -
 --
 
@@ -8191,6 +8789,14 @@ ALTER TABLE ONLY red_house.contact
 
 ALTER TABLE ONLY red_house.custody_event
     ADD CONSTRAINT custody_event_pkey PRIMARY KEY (event_id);
+
+
+--
+-- Name: decision_runs decision_runs_pkey; Type: CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.decision_runs
+    ADD CONSTRAINT decision_runs_pkey PRIMARY KEY (id);
 
 
 --
@@ -8351,6 +8957,14 @@ ALTER TABLE ONLY red_house.institution
 
 ALTER TABLE ONLY red_house.institution
     ADD CONSTRAINT institution_pkey PRIMARY KEY (institution_id);
+
+
+--
+-- Name: institution_presentations institution_presentations_pkey; Type: CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.institution_presentations
+    ADD CONSTRAINT institution_presentations_pkey PRIMARY KEY (id);
 
 
 --
@@ -8538,6 +9152,14 @@ ALTER TABLE ONLY red_house.party
 
 
 --
+-- Name: portal_policies portal_policies_pkey; Type: CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.portal_policies
+    ADD CONSTRAINT portal_policies_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: recipient recipient_pkey; Type: CONSTRAINT; Schema: red_house; Owner: -
 --
 
@@ -8559,6 +9181,14 @@ ALTER TABLE ONLY red_house.recovery_tokens
 
 ALTER TABLE ONLY red_house.recovery_tokens
     ADD CONSTRAINT recovery_tokens_token_hash_key UNIQUE (token_hash);
+
+
+--
+-- Name: regional_graphs regional_graphs_pkey; Type: CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.regional_graphs
+    ADD CONSTRAINT regional_graphs_pkey PRIMARY KEY (id);
 
 
 --
@@ -8639,6 +9269,22 @@ ALTER TABLE ONLY red_house.resource
 
 ALTER TABLE ONLY red_house.role
     ADD CONSTRAINT role_pkey PRIMARY KEY (role_code);
+
+
+--
+-- Name: rule_actions rule_actions_pkey; Type: CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.rule_actions
+    ADD CONSTRAINT rule_actions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: rule_actions rule_actions_profile_id_sequence_key; Type: CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.rule_actions
+    ADD CONSTRAINT rule_actions_profile_id_sequence_key UNIQUE (profile_id, sequence);
 
 
 --
@@ -8910,6 +9556,13 @@ ALTER TABLE ONLY red_house.web_session
 --
 
 CREATE INDEX account_role_scope_idx ON red_house.account_role USING btree (institution_id);
+
+
+--
+-- Name: algorithm_runs_tenant_time; Type: INDEX; Schema: red_house; Owner: -
+--
+
+CREATE INDEX algorithm_runs_tenant_time ON red_house.algorithm_runs USING btree (tenant_id, created_at DESC, id);
 
 
 --
@@ -10026,6 +10679,20 @@ CREATE TRIGGER history_immutable BEFORE DELETE OR UPDATE ON red_house.alert_poli
 
 
 --
+-- Name: algorithm_runs history_immutable; Type: TRIGGER; Schema: red_house; Owner: -
+--
+
+CREATE TRIGGER history_immutable BEFORE DELETE OR UPDATE ON red_house.algorithm_runs FOR EACH ROW EXECUTE FUNCTION red_house.reject_history_mutation();
+
+
+--
+-- Name: anomaly_actions history_immutable; Type: TRIGGER; Schema: red_house; Owner: -
+--
+
+CREATE TRIGGER history_immutable BEFORE DELETE OR UPDATE ON red_house.anomaly_actions FOR EACH ROW EXECUTE FUNCTION red_house.reject_history_mutation();
+
+
+--
 -- Name: cold_profiles history_immutable; Type: TRIGGER; Schema: red_house; Owner: -
 --
 
@@ -10051,6 +10718,13 @@ CREATE TRIGGER history_immutable BEFORE DELETE OR UPDATE ON red_house.cold_revie
 --
 
 CREATE TRIGGER history_immutable BEFORE DELETE OR UPDATE ON red_house.consent_versions FOR EACH ROW EXECUTE FUNCTION red_house.reject_history_mutation();
+
+
+--
+-- Name: decision_runs history_immutable; Type: TRIGGER; Schema: red_house; Owner: -
+--
+
+CREATE TRIGGER history_immutable BEFORE DELETE OR UPDATE ON red_house.decision_runs FOR EACH ROW EXECUTE FUNCTION red_house.reject_history_mutation();
 
 
 --
@@ -10089,6 +10763,13 @@ CREATE TRIGGER history_immutable BEFORE DELETE OR UPDATE ON red_house.lab_profil
 
 
 --
+-- Name: regional_graphs history_immutable; Type: TRIGGER; Schema: red_house; Owner: -
+--
+
+CREATE TRIGGER history_immutable BEFORE DELETE OR UPDATE ON red_house.regional_graphs FOR EACH ROW EXECUTE FUNCTION red_house.reject_history_mutation();
+
+
+--
 -- Name: resource_destinations history_immutable; Type: TRIGGER; Schema: red_house; Owner: -
 --
 
@@ -10100,6 +10781,13 @@ CREATE TRIGGER history_immutable BEFORE DELETE OR UPDATE ON red_house.resource_d
 --
 
 CREATE TRIGGER history_immutable BEFORE DELETE OR UPDATE ON red_house.resource_lineage FOR EACH ROW EXECUTE FUNCTION red_house.reject_history_mutation();
+
+
+--
+-- Name: rule_actions history_immutable; Type: TRIGGER; Schema: red_house; Owner: -
+--
+
+CREATE TRIGGER history_immutable BEFORE DELETE OR UPDATE ON red_house.rule_actions FOR EACH ROW EXECUTE FUNCTION red_house.reject_history_mutation();
 
 
 --
@@ -10373,6 +11061,62 @@ ALTER TABLE ONLY red_house.algorithm_run
 
 ALTER TABLE ONLY red_house.algorithm_run
     ADD CONSTRAINT algorithm_run_organ_evaluation_id_fkey FOREIGN KEY (organ_evaluation_id) REFERENCES red_house.organ_evaluation(evaluation_id) DEFERRABLE;
+
+
+--
+-- Name: algorithm_runs algorithm_runs_author_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.algorithm_runs
+    ADD CONSTRAINT algorithm_runs_author_id_fkey FOREIGN KEY (author_id) REFERENCES red_house.user_account(account_id);
+
+
+--
+-- Name: algorithm_runs algorithm_runs_tenant_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.algorithm_runs
+    ADD CONSTRAINT algorithm_runs_tenant_id_fkey FOREIGN KEY (tenant_id) REFERENCES red_house.institution(institution_id);
+
+
+--
+-- Name: anomaly_actions anomaly_actions_author_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.anomaly_actions
+    ADD CONSTRAINT anomaly_actions_author_id_fkey FOREIGN KEY (author_id) REFERENCES red_house.user_account(account_id);
+
+
+--
+-- Name: anomaly_actions anomaly_actions_review_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.anomaly_actions
+    ADD CONSTRAINT anomaly_actions_review_id_fkey FOREIGN KEY (review_id) REFERENCES red_house.anomaly_reviews(id);
+
+
+--
+-- Name: anomaly_actions anomaly_actions_tenant_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.anomaly_actions
+    ADD CONSTRAINT anomaly_actions_tenant_id_fkey FOREIGN KEY (tenant_id) REFERENCES red_house.institution(institution_id);
+
+
+--
+-- Name: anomaly_reviews anomaly_reviews_responsible_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.anomaly_reviews
+    ADD CONSTRAINT anomaly_reviews_responsible_id_fkey FOREIGN KEY (responsible_id) REFERENCES red_house.user_account(account_id);
+
+
+--
+-- Name: anomaly_reviews anomaly_reviews_tenant_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.anomaly_reviews
+    ADD CONSTRAINT anomaly_reviews_tenant_id_fkey FOREIGN KEY (tenant_id) REFERENCES red_house.institution(institution_id);
 
 
 --
@@ -10728,6 +11472,22 @@ ALTER TABLE ONLY red_house.blood_unit
 
 
 --
+-- Name: campaign_publications campaign_publications_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.campaign_publications
+    ADD CONSTRAINT campaign_publications_id_fkey FOREIGN KEY (id) REFERENCES red_house.campaign(campaign_id);
+
+
+--
+-- Name: campaign_publications campaign_publications_tenant_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.campaign_publications
+    ADD CONSTRAINT campaign_publications_tenant_id_fkey FOREIGN KEY (tenant_id) REFERENCES red_house.institution(institution_id);
+
+
+--
 -- Name: campaign_slots campaign_slots_campaign_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
 --
 
@@ -10901,6 +11661,22 @@ ALTER TABLE ONLY red_house.contact_method
 
 ALTER TABLE ONLY red_house.custody_event
     ADD CONSTRAINT custody_event_actor_id_fkey FOREIGN KEY (actor_id) REFERENCES red_house.user_account(account_id) DEFERRABLE;
+
+
+--
+-- Name: decision_runs decision_runs_author_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.decision_runs
+    ADD CONSTRAINT decision_runs_author_id_fkey FOREIGN KEY (author_id) REFERENCES red_house.user_account(account_id);
+
+
+--
+-- Name: decision_runs decision_runs_tenant_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.decision_runs
+    ADD CONSTRAINT decision_runs_tenant_id_fkey FOREIGN KEY (tenant_id) REFERENCES red_house.institution(institution_id);
 
 
 --
@@ -11112,6 +11888,14 @@ ALTER TABLE ONLY red_house.institution_contact
 
 
 --
+-- Name: institution_presentations institution_presentations_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.institution_presentations
+    ADD CONSTRAINT institution_presentations_id_fkey FOREIGN KEY (id) REFERENCES red_house.institution(institution_id);
+
+
+--
 -- Name: lab_actions lab_actions_author_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
 --
 
@@ -11157,6 +11941,14 @@ ALTER TABLE ONLY red_house.lab_profiles
 
 ALTER TABLE ONLY red_house.lab_results
     ADD CONSTRAINT lab_results_author_id_fkey FOREIGN KEY (author_id) REFERENCES red_house.user_account(account_id);
+
+
+--
+-- Name: lab_results lab_results_document_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.lab_results
+    ADD CONSTRAINT lab_results_document_id_fkey FOREIGN KEY (document_id) REFERENCES red_house.stored_file(file_id);
 
 
 --
@@ -11213,6 +12005,14 @@ ALTER TABLE ONLY red_house.lab_samples
 
 ALTER TABLE ONLY red_house.lab_samples
     ADD CONSTRAINT lab_samples_recipient_id_fkey FOREIGN KEY (recipient_id) REFERENCES red_house.recipient(recipient_id);
+
+
+--
+-- Name: lab_samples lab_samples_request_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.lab_samples
+    ADD CONSTRAINT lab_samples_request_id_fkey FOREIGN KEY (request_id) REFERENCES red_house.blood_request(request_id);
 
 
 --
@@ -11416,6 +12216,14 @@ ALTER TABLE ONLY red_house.parameter_version
 
 
 --
+-- Name: portal_policies portal_policies_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.portal_policies
+    ADD CONSTRAINT portal_policies_id_fkey FOREIGN KEY (id) REFERENCES red_house.institution(institution_id);
+
+
+--
 -- Name: recipient recipient_responsible_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
 --
 
@@ -11429,6 +12237,30 @@ ALTER TABLE ONLY red_house.recipient
 
 ALTER TABLE ONLY red_house.recovery_tokens
     ADD CONSTRAINT recovery_tokens_user_id_fkey FOREIGN KEY (user_id) REFERENCES red_house.user_account(account_id);
+
+
+--
+-- Name: regional_graphs regional_graphs_author_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.regional_graphs
+    ADD CONSTRAINT regional_graphs_author_id_fkey FOREIGN KEY (author_id) REFERENCES red_house.user_account(account_id);
+
+
+--
+-- Name: regional_graphs regional_graphs_supersedes_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.regional_graphs
+    ADD CONSTRAINT regional_graphs_supersedes_fkey FOREIGN KEY (supersedes) REFERENCES red_house.regional_graphs(id);
+
+
+--
+-- Name: regional_graphs regional_graphs_tenant_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.regional_graphs
+    ADD CONSTRAINT regional_graphs_tenant_id_fkey FOREIGN KEY (tenant_id) REFERENCES red_house.institution(institution_id);
 
 
 --
@@ -11557,6 +12389,30 @@ ALTER TABLE ONLY red_house.resource_lineage
 
 ALTER TABLE ONLY red_house.resource_lineage
     ADD CONSTRAINT resource_lineage_tenant_id_fkey FOREIGN KEY (tenant_id) REFERENCES red_house.institution(institution_id);
+
+
+--
+-- Name: rule_actions rule_actions_actor_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.rule_actions
+    ADD CONSTRAINT rule_actions_actor_id_fkey FOREIGN KEY (actor_id) REFERENCES red_house.user_account(account_id);
+
+
+--
+-- Name: rule_actions rule_actions_profile_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.rule_actions
+    ADD CONSTRAINT rule_actions_profile_id_fkey FOREIGN KEY (profile_id) REFERENCES red_house.lab_profiles(id);
+
+
+--
+-- Name: rule_actions rule_actions_tenant_id_fkey; Type: FK CONSTRAINT; Schema: red_house; Owner: -
+--
+
+ALTER TABLE ONLY red_house.rule_actions
+    ADD CONSTRAINT rule_actions_tenant_id_fkey FOREIGN KEY (tenant_id) REFERENCES red_house.institution(institution_id);
 
 
 --
@@ -12192,6 +13048,11 @@ INSERT INTO red_house."schema_migration" ("version","description") VALUES (10,'E
 INSERT INTO red_house."schema_migration" ("version","description") VALUES (11,'Autorizaciones externas versionadas, recordatorios y seguimiento de entrega');
 INSERT INTO red_house."schema_migration" ("version","description") VALUES (12,'Protección de valores históricos de laboratorio');
 INSERT INTO red_house."schema_migration" ("version","description") VALUES (13,'Propietario Documentos y Reportes; referencias e idempotencia conservadas');
+INSERT INTO red_house."schema_migration" ("version","description") VALUES (14,'HLA declarado y ejecuciones académicas reproducibles');
+INSERT INTO red_house."schema_migration" ("version","description") VALUES (15,'Reglas verificables, asociaciones, ejecuciones autoritativas y revisión de anomalías');
+INSERT INTO red_house."schema_migration" ("version","description") VALUES (16,'Public source traceability, HLA membership snapshots and road provenance');
+INSERT INTO red_house."schema_migration" ("version","description") VALUES (17,'Portal: publicación autorizada, georreferencias, política operativa y conservación documental');
+INSERT INTO red_house."schema_migration" ("version","description") VALUES (18,'Fuente IOS y registro móvil propio compatible');
 INSERT INTO red_house."service_schema_version" ("service","version") VALUES ('alertas',1);
 INSERT INTO red_house."service_schema_version" ("service","version") VALUES ('alertas',2);
 INSERT INTO red_house."service_schema_version" ("service","version") VALUES ('auditoria',1);

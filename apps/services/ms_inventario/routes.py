@@ -419,6 +419,36 @@ def reserve(data):
 
 
 def register(app):
+    from redhouse.output_schemas import result_schema
+
+    @endpoint(
+        app,
+        "/api/v1/operations/by-key/<command_key>",
+        roles=("MEDICAL",),
+        query=("fingerprint",),
+        result=result_schema("inventario", "operation_detail"),
+        summary="Consultar el comando propio antes de reintentar una reserva incierta",
+    )
+    def operation_by_key(command_key):
+        fingerprint = request.args.get("fingerprint", "")
+        if not re.fullmatch(r"[A-Za-z0-9_-]{8,100}", command_key) or not re.fullmatch(
+            r"[a-f0-9]{64}", fingerprint
+        ):
+            raise APIError("validation", "Clave y huella de comando requeridas.", 422)
+        with transaction() as conn:
+            row = conn.execute(
+                "SELECT id,tenant_id,fingerprint FROM operations WHERE user_id=%s AND key=%s",
+                (g.actor["id"], command_key),
+            ).fetchone()
+            if not row:
+                raise APIError("not_found", "Comando aún no registrado.", 404)
+            own(row["tenant_id"])
+            if row["fingerprint"] != fingerprint:
+                raise APIError(
+                    "idempotency_conflict", "Clave utilizada para otro contenido.", 409
+                )
+        return operation_result(str(row["id"]))
+
     @endpoint(
         app,
         "/api/v1/resources",

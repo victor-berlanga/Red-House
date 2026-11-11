@@ -1,0 +1,110 @@
+{
+  "phase": "before",
+  "origin": "https://34.18.186.116",
+  "date": "2026-11-11T03:53:10.249Z",
+  "checks": [
+    {
+      "user": "donor1",
+      "login": true
+    },
+    {
+      "user": "donor1",
+      "logout": true
+    },
+    {
+      "user": "operator1",
+      "login": true
+    },
+    {
+      "user": "operator1",
+      "logout": true
+    }
+  ],
+  "pages": [
+    {
+      "user": "donor1",
+      "route": "/campanas",
+      "width": 1440,
+      "status": 200,
+      "capture": "before-donor1-campanas-1440.png",
+      "overflow": false,
+      "visibleRows": 5,
+      "rowHeight": 93.890625,
+      "rows": 20
+    },
+    {
+      "user": "donor1",
+      "route": "/notificaciones",
+      "width": 1440,
+      "status": 200,
+      "capture": "before-donor1-notificaciones-1440.png",
+      "overflow": false,
+      "visibleRows": 3,
+      "rowHeight": 128.734375,
+      "rows": 20
+    },
+    {
+      "user": "donor1",
+      "route": "/documentos",
+      "width": 1440,
+      "status": 200,
+      "capture": "before-donor1-documentos-1440.png",
+      "overflow": false,
+      "visibleRows": 0,
+      "rows": 0
+    },
+    {
+      "user": "donor1",
+      "route": "/citas",
+      "width": 1440,
+      "status": 200,
+      "capture": "before-donor1-citas-1440.png",
+      "overflow": false,
+      "visibleRows": 4,
+      "rowHeight": 119.28125,
+      "rows": 20
+    },
+    {
+      "user": "operator1",
+      "route": "/inventario",
+      "width": 1440,
+      "status": 200,
+      "capture": "before-operator1-inventario-1440.png",
+      "overflow": false,
+      "visibleRows": 5,
+      "rowHeight": 93.890625,
+      "rows": 20
+    },
+    {
+      "user": "operator1",
+      "route": "/traslados",
+      "width": 1440,
+      "status": 200,
+      "capture": "before-operator1-traslados-1440.png",
+      "overflow": false,
+      "visibleRows": 4,
+      "rowHeight": 93.890625,
+      "rows": 20
+    },
+    {
+      "user": "operator1",
+      "route": "/conservacion",
+      "width": 1440,
+      "status": 200,
+      "capture": "before-operator1-conservacion-1440.png",
+      "overflow": false,
+      "visibleRows": 0,
+      "rows": 0
+    }
+  ],
+  "errors": [],
+  "businessWrites": false,
+  "tls": {
+    "issuer": "YE1",
+    "protocol": "TLS 1.3",
+    "subjectName": "",
+    "validFrom": 1794093274,
+    "validTo": 1794669273
+  },
+  "result": "passed"
+}

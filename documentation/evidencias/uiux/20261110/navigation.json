@@ -1,0 +1,336 @@
+[
+  {
+    "phase": "before",
+    "role": "ADMIN",
+    "links": [
+      "/reportes",
+      "/panel",
+      "/notificaciones",
+      "/monitoreo",
+      "/administracion/institutions",
+      "/administracion/users",
+      "/catalogos/sites",
+      "/documentos",
+      "/configuracion"
+    ],
+    "groups": [
+      "GENERAL",
+      "SEGUIMIENTO",
+      "ADMINISTRACIÓN",
+      "GENERAL",
+      "ADMINISTRACIÓN"
+    ]
+  },
+  {
+    "phase": "before",
+    "role": "OPERATOR",
+    "links": [
+      "/laboratorio",
+      "/laboratorio/muestras",
+      "/reportes",
+      "/panel",
+      "/donantes/donor",
+      "/donaciones",
+      "/donantes/recipient",
+      "/inventario",
+      "/disponibilidad",
+      "/solicitudes",
+      "/campanas",
+      "/citas",
+      "/rutas",
+      "/traslados",
+      "/organos",
+      "/notificaciones",
+      "/documentos",
+      "/conservacion"
+    ],
+    "groups": [
+      "BANCO DE SANGRE",
+      "GENERAL",
+      "BANCO DE SANGRE",
+      "LOGÍSTICA",
+      "DONACIÓN / TRASPLANTE DE ÓRGANOS",
+      "SEGUIMIENTO",
+      "GENERAL",
+      "BANCO DE SANGRE"
+    ]
+  },
+  {
+    "phase": "before",
+    "role": "MEDICAL",
+    "links": [
+      "/apoyo-decisiones",
+      "/laboratorio",
+      "/laboratorio/muestras",
+      "/reportes",
+      "/panel",
+      "/donantes/donor",
+      "/donaciones",
+      "/donantes/recipient",
+      "/inventario",
+      "/disponibilidad",
+      "/solicitudes",
+      "/propuestas",
+      "/campanas",
+      "/rutas",
+      "/traslados",
+      "/organos",
+      "/notificaciones",
+      "/documentos",
+      "/conservacion"
+    ],
+    "groups": [
+      "LOGÍSTICA",
+      "BANCO DE SANGRE",
+      "GENERAL",
+      "BANCO DE SANGRE",
+      "LOGÍSTICA",
+      "DONACIÓN / TRASPLANTE DE ÓRGANOS",
+      "SEGUIMIENTO",
+      "GENERAL",
+      "BANCO DE SANGRE"
+    ]
+  },
+  {
+    "phase": "before",
+    "role": "COORDINATOR",
+    "links": [
+      "/apoyo-decisiones",
+      "/reportes",
+      "/panel",
+      "/inventario",
+      "/disponibilidad",
+      "/rutas",
+      "/traslados",
+      "/organos",
+      "/notificaciones",
+      "/hallazgos",
+      "/monitoreo",
+      "/documentos"
+    ],
+    "groups": [
+      "LOGÍSTICA",
+      "GENERAL",
+      "BANCO DE SANGRE",
+      "LOGÍSTICA",
+      "DONACIÓN / TRASPLANTE DE ÓRGANOS",
+      "SEGUIMIENTO",
+      "GENERAL"
+    ]
+  },
+  {
+    "phase": "before",
+    "role": "TRANSPORT",
+    "links": [
+      "/reportes",
+      "/panel",
+      "/rutas",
+      "/traslados",
+      "/notificaciones",
+      "/documentos"
+    ],
+    "groups": [
+      "GENERAL",
+      "LOGÍSTICA",
+      "SEGUIMIENTO",
+      "GENERAL"
+    ]
+  },
+  {
+    "phase": "before",
+    "role": "AUDITOR",
+    "links": [
+      "/reportes",
+      "/panel",
+      "/notificaciones",
+      "/auditoria",
+      "/hallazgos",
+      "/monitoreo",
+      "/documentos"
+    ],
+    "groups": [
+      "GENERAL",
+      "SEGUIMIENTO",
+      "GENERAL"
+    ]
+  },
+  {
+    "phase": "before",
+    "role": "DONOR",
+    "links": [
+      "/reportes",
+      "/panel",
+      "/donantes/donor",
+      "/campanas",
+      "/citas",
+      "/notificaciones",
+      "/documentos"
+    ],
+    "groups": [
+      "GENERAL",
+      "BANCO DE SANGRE",
+      "SEGUIMIENTO",
+      "GENERAL"
+    ]
+  },
+  {
+    "phase": "after",
+    "role": "ADMIN",
+    "links": [
+      "/panel",
+      "/reportes",
+      "/documentos",
+      "/notificaciones",
+      "/monitoreo",
+      "/administracion/institutions",
+      "/administracion/users",
+      "/catalogos/sites",
+      "/configuracion"
+    ],
+    "groups": [
+      "GENERAL",
+      "SEGUIMIENTO",
+      "ADMINISTRACIÓN"
+    ]
+  },
+  {
+    "phase": "after",
+    "role": "OPERATOR",
+    "links": [
+      "/panel",
+      "/reportes",
+      "/documentos",
+      "/rutas",
+      "/traslados",
+      "/laboratorio",
+      "/laboratorio/muestras",
+      "/donantes/donor",
+      "/donaciones",
+      "/donantes/recipient",
+      "/inventario",
+      "/disponibilidad",
+      "/solicitudes",
+      "/campanas",
+      "/citas",
+      "/conservacion",
+      "/organos",
+      "/notificaciones"
+    ],
+    "groups": [
+      "GENERAL",
+      "LOGÍSTICA",
+      "BANCO DE SANGRE",
+      "DONACIÓN / TRASPLANTE DE ÓRGANOS",
+      "SEGUIMIENTO"
+    ]
+  },
+  {
+    "phase": "after",
+    "role": "MEDICAL",
+    "links": [
+      "/panel",
+      "/reportes",
+      "/documentos",
+      "/apoyo-decisiones",
+      "/rutas",
+      "/traslados",
+      "/laboratorio",
+      "/laboratorio/muestras",
+      "/donantes/donor",
+      "/donaciones",
+      "/donantes/recipient",
+      "/inventario",
+      "/disponibilidad",
+      "/solicitudes",
+      "/propuestas",
+      "/campanas",
+      "/conservacion",
+      "/organos",
+      "/notificaciones"
+    ],
+    "groups": [
+      "GENERAL",
+      "LOGÍSTICA",
+      "BANCO DE SANGRE",
+      "DONACIÓN / TRASPLANTE DE ÓRGANOS",
+      "SEGUIMIENTO"
+    ]
+  },
+  {
+    "phase": "after",
+    "role": "COORDINATOR",
+    "links": [
+      "/panel",
+      "/reportes",
+      "/documentos",
+      "/apoyo-decisiones",
+      "/rutas",
+      "/traslados",
+      "/inventario",
+      "/disponibilidad",
+      "/organos",
+      "/notificaciones",
+      "/hallazgos",
+      "/monitoreo"
+    ],
+    "groups": [
+      "GENERAL",
+      "LOGÍSTICA",
+      "BANCO DE SANGRE",
+      "DONACIÓN / TRASPLANTE DE ÓRGANOS",
+      "SEGUIMIENTO"
+    ]
+  },
+  {
+    "phase": "after",
+    "role": "TRANSPORT",
+    "links": [
+      "/panel",
+      "/reportes",
+      "/documentos",
+      "/rutas",
+      "/traslados",
+      "/notificaciones"
+    ],
+    "groups": [
+      "GENERAL",
+      "LOGÍSTICA",
+      "SEGUIMIENTO"
+    ]
+  },
+  {
+    "phase": "after",
+    "role": "AUDITOR",
+    "links": [
+      "/panel",
+      "/reportes",
+      "/documentos",
+      "/notificaciones",
+      "/auditoria",
+      "/hallazgos",
+      "/monitoreo"
+    ],
+    "groups": [
+      "GENERAL",
+      "SEGUIMIENTO"
+    ]
+  },
+  {
+    "phase": "after",
+    "role": "DONOR",
+    "links": [
+      "/panel",
+      "/reportes",
+      "/documentos",
+      "/donantes/donor",
+      "/campanas",
+      "/citas",
+      "/notificaciones"
+    ],
+    "groups": [
+      "GENERAL",
+      "BANCO DE SANGRE",
+      "SEGUIMIENTO"
+    ]
+  }
+]
