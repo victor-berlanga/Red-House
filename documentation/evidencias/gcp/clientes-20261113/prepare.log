@@ -1,0 +1,145 @@
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 170B 0.0s done
+#1 DONE 0.1s
+
+#2 [internal] load metadata for docker.io/redhouse/auditoria:before-clients-20261113
+#2 DONE 1.1s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 14.43kB 0.0s done
+#4 DONE 0.0s
+
+#5 [1/2] FROM docker.io/redhouse/auditoria:before-clients-20261113@sha256:659e1f635a85ff4e0e7455a21714805337ee82f10779c07852ae8d44034f69ef
+#5 resolve docker.io/redhouse/auditoria:before-clients-20261113@sha256:659e1f635a85ff4e0e7455a21714805337ee82f10779c07852ae8d44034f69ef 0.1s done
+#5 DONE 0.2s
+
+#5 [1/2] FROM docker.io/redhouse/auditoria:before-clients-20261113@sha256:659e1f635a85ff4e0e7455a21714805337ee82f10779c07852ae8d44034f69ef
+#5 DONE 0.4s
+
+#6 [2/2] COPY --chmod=755 payload/ /app/
+#6 DONE 0.1s
+
+#7 exporting to image
+#7 exporting layers
+#7 exporting layers 0.2s done
+#7 exporting manifest sha256:8d8933f29140d52d4ed02310b18c029d6c41488af31e73a948369d987c7ac59e 0.0s done
+#7 exporting config sha256:1601834b9c0a8a5e02aea53926dcac33ad6ca9319ba911bc2f620563c1886695 0.0s done
+#7 exporting attestation manifest sha256:e8d7202f1cc6bff3d0e096882e4995207e3ff67bbf833e5e609b9da89ee77cc5
+#7 exporting attestation manifest sha256:e8d7202f1cc6bff3d0e096882e4995207e3ff67bbf833e5e609b9da89ee77cc5 0.0s done
+#7 exporting manifest list sha256:c418e07d53aa6759b3ec36b5f20847d352929a444aabf451af5428144f31e33c 0.0s done
+#7 naming to docker.io/redhouse/auditoria:clients-20261113 done
+#7 unpacking to docker.io/redhouse/auditoria:clients-20261113 0.1s done
+#7 DONE 0.6s
+Payload verified
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 175B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/redhouse/compatibilidad:before-clients-20261113
+#2 DONE 0.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 43.09kB done
+#4 DONE 0.0s
+
+#5 [1/2] FROM docker.io/redhouse/compatibilidad:before-clients-20261113@sha256:3a5aae0ebc44626c155dcedaab67735db0e4fb74fc4bff1185c9095732a55b44
+#5 resolve docker.io/redhouse/compatibilidad:before-clients-20261113@sha256:3a5aae0ebc44626c155dcedaab67735db0e4fb74fc4bff1185c9095732a55b44 0.1s done
+#5 DONE 0.2s
+
+#6 [2/2] COPY --chmod=755 payload/ /app/
+#6 DONE 0.1s
+
+#7 exporting to image
+#7 exporting layers 0.1s done
+#7 exporting manifest sha256:bc9f43b29df04f43293926e0a143df958b2f5d2bacc9cbf5561e926fbfe55763 0.0s done
+#7 exporting config sha256:a311f61061c5fda4bbbcfa5bd54abe90173c2c919c9833e3f101128a209821c4 0.0s done
+#7 exporting attestation manifest sha256:b480584258149b39a481b9d528836e661c89d80bd42263d286b4362e06ab8df9 0.0s done
+#7 exporting manifest list sha256:68915e466d29affc3baaf2ec04c0d2b82b6298d7f56a0dcf000a681204f7c59f 0.0s done
+#7 naming to docker.io/redhouse/compatibilidad:clients-20261113 done
+#7 unpacking to docker.io/redhouse/compatibilidad:clients-20261113 0.0s done
+#7 DONE 0.3s
+Payload verified
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 169B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/redhouse/donantes:before-clients-20261113
+#2 DONE 0.1s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 360.11kB 0.1s done
+#4 DONE 0.1s
+
+#5 [1/2] FROM docker.io/redhouse/donantes:before-clients-20261113@sha256:a14e48275cc64086b16689f547968076d12e04e0d21aa99ebc2c7aa3284aae7d
+#5 resolve docker.io/redhouse/donantes:before-clients-20261113@sha256:a14e48275cc64086b16689f547968076d12e04e0d21aa99ebc2c7aa3284aae7d 0.1s done
+#5 DONE 0.2s
+
+#6 [2/2] COPY --chmod=755 payload/ /app/
+#6 DONE 0.1s
+
+#7 exporting to image
+#7 exporting layers 0.1s done
+#7 exporting manifest sha256:103d8f194e4801fecf9f457e95dd36f1ae9959c8259e0532c0943a89475f426e 0.0s done
+#7 exporting config sha256:3f0031a771254be91224993d28bff1f60a3cb0858ba8005f516c8771a9109527 0.0s done
+#7 exporting attestation manifest sha256:164b142d3d5ff91736c26d2b8285bfa9af59494ff67143ad9e28d7d95e9814d6 0.0s done
+#7 exporting manifest list sha256:dc5026989d8ebd9aed41c2cc38778a3339d1fbabb9d25cf126f7e51a214e221b
+#7 exporting manifest list sha256:dc5026989d8ebd9aed41c2cc38778a3339d1fbabb9d25cf126f7e51a214e221b 0.0s done
+#7 naming to docker.io/redhouse/donantes:clients-20261113 done
+#7 unpacking to docker.io/redhouse/donantes:clients-20261113 0.1s done
+#7 DONE 0.4s
+Payload verified
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 164B 0.0s done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/redhouse/web:before-clients-20261113
+#2 DONE 0.2s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 509.47kB 0.1s done
+#4 DONE 0.1s
+
+#5 [1/2] FROM docker.io/redhouse/web:before-clients-20261113@sha256:7b4edb3e814363608f19eb72b793e4a37d1c9cbe04137f3bc8547d549fdc7ec3
+#5 resolve docker.io/redhouse/web:before-clients-20261113@sha256:7b4edb3e814363608f19eb72b793e4a37d1c9cbe04137f3bc8547d549fdc7ec3 0.1s done
+#5 DONE 0.2s
+
+#6 [2/2] COPY --chmod=755 payload/ /app/
+#6 DONE 0.1s
+
+#7 exporting to image
+#7 exporting layers
+#7 exporting layers 0.4s done
+#7 exporting manifest sha256:853a5bc5c0b4cf9ff3ffed82d8c89e46373918351b89d89675beae4c5c76e779 0.1s done
+#7 exporting config sha256:44480f304268a9c886d11b8548dc2c537249776cfd1de9bba4debc12f0075ae1 0.1s done
+#7 exporting attestation manifest sha256:158af5ff091a4ed160ada96d3e23f08f50c171c6cf6bccc9e2e2a4eb16a434a1 0.1s done
+#7 exporting manifest list sha256:c09829bfca142e7b005a36f436ad41e01bb3889358c20c0f931119fb5311896e 0.1s done
+#7 naming to docker.io/redhouse/web:clients-20261113 done
+#7 unpacking to docker.io/redhouse/web:clients-20261113
+#7 unpacking to docker.io/redhouse/web:clients-20261113 0.2s done
+#7 DONE 1.2s
+Payload verified
+{"images": 4, "files": 14}

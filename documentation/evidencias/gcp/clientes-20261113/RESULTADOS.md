@@ -1,0 +1,25 @@
+# Publicación de donantes y vínculo HLA — 13/11/2026
+
+Estado: **publicado y comprobado**. Las escrituras HTTP están habilitadas. Destino comprobado: proyecto `sistemas-integracion-01`, VM `red-house`, ID `2861822465669755197`, zona `me-central1-a`, HTTPS `34.18.186.116`.
+
+Paquete de 14 fuentes Git del corte `9648bf4c0cb857498566e2f3a68c253887deb13f`, sobre servidor `1f02c0cc7e3e13c9d7593e659fbd407165ef9823`: feed público paginado, edición personal del donante y vínculo documental a la prueba correspondiente. No incluye fuentes de los clientes nativos en trabajo. Cuatro imágenes derivadas de sus imágenes desplegadas, sin red durante el build; actualización de siete contenedores (dos réplicas de Donantes, Compatibilidad y Auditoría, más web). Las otras 23 unidades de ejecución se conservan.
+
+Preflight: 30 contenedores sanos, 14 fuentes coincidentes con la base, esquema 19 y almacenamiento local en web/Documentos. La configuración efectiva solo puede cambiar las siete imágenes previstas. Se conserva la configuración de proxy y se restituye por hash tras la pausa temporal de mutaciones HTTP. La espera de 125 segundos no detiene workers ni conexiones WSS existentes; no se afirma quietud transaccional global.
+
+Respaldo PostgreSQL privado: 40 445 292 bytes, SHA-256 `65c3faedd278f8b42f133f78b174b2348e8c6260feba07caa65d3252d2cadad1`. `pg_restore --list` validó el catálogo; no se restauró esta copia. Se preservan también las fuentes, imágenes y configuraciones previas. No hay migración, cambio de proveedor, borrado de objetos ni modificación de datos de negocio en el procedimiento.
+
+Antes de publicar: [feed público](../../entrega-final/feed-publico-20261113/RESULTADOS.md), [edición personal API/portal](../../entrega-final/edicion-personal-20261113/RESULTADOS.md), [vínculo HLA documental](../../entrega-final/cont01-documentos-20261113/RESULTADOS.md) y [regresión documental existente](../../entrega-final/cont01-regresion-20261113/RESULTADOS.md) conservan sus entornos/resultados separados. En main pasaron Ruff de errores y formato de 294 archivos, sincronía OpenAPI y restricciones generadas. No se declara una repetición completa de la suite.
+
+Validación interna: **48 comprobaciones aprobadas**, ambas réplicas de los doce servicios listas, feed público JSON/XML con paginación/proyección mínima y rechazo de NUL, contrato de edición personal, protocolo de autenticación y lecturas autorizadas. Sesiones temporales propias revocadas; ninguna escritura de negocio. No equivale a editar un nombre mediante la red privada ni a probar un documento clínico en producción.
+
+Primer intento HTTPS: 24 respuestas con códigos esperados; fallo del selector que buscaba `mis-datos` sin aceptar el parámetro `return_to`. El diagnóstico de lectura comprobó acción presente, enlace con query y formulario 200 con campo de nombre/CSRF. Se corrigió solo el arnés y se repitió la familia donante junto con las comprobaciones que faltaban: **26 comprobaciones aprobadas**, más autenticación/heartbeat WSS JSON y XML con TLS verificado. No se suman como una única suite. Ambos intentos y el diagnóstico se conservan; el primero no es una ejecución íntegramente aprobada.
+
+La comprobación final registró 30 contenedores sanos, esquema 19 y 39 referencias de archivos con huella `6a03374bac2c2e6b9caa9588f74035d9`, idéntica antes/después. El proxy recuperó exactamente su hash anterior y conservó rutas separadas API/portal. Nginx recargó la pausa a las 22:26:07 UTC y la configuración original a las 22:33:03 UTC. `publication.json` conserva el momento intermedio con escrituras cerradas; `writes-opened.json` y `post-public-check.json` acreditan la apertura posterior.
+
+No se editaron expedientes, crearon campañas ni reanalizaron archivos históricos en esta publicación. La sesión física del iPhone se conserva. No acredita aceptación del nuevo binario móvil/escritorio, volumen nativo en GCP, pruebas clínicas, restauración del respaldo ni cierre integral I06.
+
+## Procedimiento y artefactos
+
+Los scripts en `procedimiento/` son copias exactas del procedimiento utilizado, preparados para ejecutarse desde `.local/deploy-clientes-20261113` en la raíz, con el acceso privado ya autorizado; no desde esta carpeta de evidencia. El paquete se obtuvo exclusivamente de Git. En la VM se ejecutaron `preflight`, `prepare`, `backup`, `close-writes`, `publish`, `validate_internal.py` y `open-writes` en ese orden. Después se ejecutaron `verify_http.py clients-final`, diagnóstico y `verify_http.py remaining`; la segunda variante omite las familias ya verificadas anteriores al fallo, manteniendo la repetición donante.
+
+No se copian credenciales, configuraciones privadas, perfiles OS Login, claves ni respaldo de base de datos al repositorio. Los logs originales de Compose conservan espacios finales y una regla `.gitattributes` acotada evita tratarlos como cambios de código. `artifacts.sha256` identifica los artefactos públicos. Se retiró la clave temporal OS Login, se conservaron las dos claves previas y se eliminó la clave privada local: `access-cleanup.json`.

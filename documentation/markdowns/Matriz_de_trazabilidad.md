@@ -279,3 +279,7 @@ El alcance vigente usa Kotlin Multiplatform y Compose Multiplatform. La [matriz 
 ## Móvil — continuación funcional del 09/11/2026
 
 La [matriz MOV vigente](../entrega-final/mobile/Matriz.md) sustituye el diagnóstico inicial: dispositivos IOS/ANDROID, operaciones por perfil, QR verificado, GPS/WSS, mapa y sincronización cifrada están conectados en fuente. [Evidencias separadas por entorno](../evidencias/entrega-final/mobile/continuacion-20261109/RESULTADOS.md) registran recorridos Kotlin contra cinco servicios reales y regresión backend. Las pruebas nativas, iOS, push y evidencia GCS conservan sus propios criterios pendientes; no se deducen de un test JVM ni se reabren 01/02.
+
+## Consentimiento móvil — continuidad del 13/11/2026
+
+RNF-SEC-008 mantiene validación institucional externa. La búsqueda del repositorio y material de `integracion/stuff` no encontró una política aprobada legible para aceptación autónoma. El cliente no pide al donante códigos internos de versión o referencia ni inventa un texto de autorización. El lote móvil permite consultar historial paginado y retirar el consentimiento vigente con confirmación; su recorrido nativo sigue en verificación. Alta y renovación autónomas requieren un catálogo técnico de política vigente y contenido aprobado. La existencia de registros sintéticos o una API de consentimiento no acredita ese requisito ni sustituye revisión legal/ética. Estado vigente y evidencia: [continuidad](../entrega-final/continuidad/Matriz.md) y [móvil](../evidencias/entrega-final/mobile/RESULTADOS.md).

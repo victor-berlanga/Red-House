@@ -1,0 +1,8 @@
+{"phase": "clients-final", "result": "failed", "checks": 24}
+Traceback (most recent call last):
+  File "/Users/victorberlanga/Programacion/integracion/Red-House/.local/deploy-clientes-20261113/verify_http.py", line 139, in <module>
+    web('donor1',['/panel','/citas','/campanas','/donantes/donor','/sesion/estado'])
+  File "/Users/victorberlanga/Programacion/integracion/Red-House/.local/deploy-clientes-20261113/verify_http.py", line 47, in web
+    assert links, 'Own personal edit action missing'
+           ^^^^^
+AssertionError: Own personal edit action missing

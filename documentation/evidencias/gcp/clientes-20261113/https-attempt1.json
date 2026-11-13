@@ -1,0 +1,129 @@
+{
+  "phase": "clients-final",
+  "checks": [
+    {
+      "label": "identidad-acceso:ready",
+      "http": 200,
+      "milliseconds": 1029.676
+    },
+    {
+      "label": "donantes:ready",
+      "http": 200,
+      "milliseconds": 848.079
+    },
+    {
+      "label": "receptores:ready",
+      "http": 200,
+      "milliseconds": 888.113
+    },
+    {
+      "label": "inventario:ready",
+      "http": 200,
+      "milliseconds": 902.719
+    },
+    {
+      "label": "compatibilidad:ready",
+      "http": 200,
+      "milliseconds": 937.721
+    },
+    {
+      "label": "priorizacion-geografia:ready",
+      "http": 200,
+      "milliseconds": 1206.039
+    },
+    {
+      "label": "transporte:ready",
+      "http": 200,
+      "milliseconds": 1087.239
+    },
+    {
+      "label": "custodia:ready",
+      "http": 200,
+      "milliseconds": 982.948
+    },
+    {
+      "label": "alertas:ready",
+      "http": 200,
+      "milliseconds": 1024.066
+    },
+    {
+      "label": "auditoria:ready",
+      "http": 200,
+      "milliseconds": 1076.548
+    },
+    {
+      "label": "monitoreo:ready",
+      "http": 200,
+      "milliseconds": 1189.51
+    },
+    {
+      "label": "documentos:ready",
+      "http": 200,
+      "milliseconds": 1175.661
+    },
+    {
+      "label": "public-campaign-feed:?page=1&page_size=20:application/json",
+      "http": 200,
+      "milliseconds": 952.522
+    },
+    {
+      "label": "public-campaign-feed:?q=%00:application/json",
+      "http": 400,
+      "milliseconds": 958.306
+    },
+    {
+      "label": "public-campaign-feed:?page=1&page_size=20:application/xml",
+      "http": 200,
+      "milliseconds": 943.021
+    },
+    {
+      "label": "public-campaign-feed:?q=%00:application/xml",
+      "http": 400,
+      "milliseconds": 1100.949
+    },
+    {
+      "label": "auditor1:/monitoreo",
+      "http": 200,
+      "milliseconds": 837.789
+    },
+    {
+      "label": "auditor1:/monitoreo",
+      "http": 200,
+      "milliseconds": 483.4
+    },
+    {
+      "label": "auditor1:/sesion/estado",
+      "http": 200,
+      "milliseconds": 308.476
+    },
+    {
+      "label": "donor1:/panel",
+      "http": 200,
+      "milliseconds": 567.543
+    },
+    {
+      "label": "donor1:/citas",
+      "http": 200,
+      "milliseconds": 1216.35
+    },
+    {
+      "label": "donor1:/campanas",
+      "http": 200,
+      "milliseconds": 419.2
+    },
+    {
+      "label": "donor1:/donantes/donor",
+      "http": 200,
+      "milliseconds": 518.228
+    },
+    {
+      "label": "donor1:/sesion/estado",
+      "http": 200,
+      "milliseconds": 283.766
+    }
+  ],
+  "tls_verification": true,
+  "donor_chart_scripts": [],
+  "result": "failed",
+  "error_type": "AssertionError"
+}

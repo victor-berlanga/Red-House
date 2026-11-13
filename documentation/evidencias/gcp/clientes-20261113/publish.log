@@ -1,0 +1,53 @@
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+2026/11/13 22:29:07 [notice] 7120#7120: signal process started
+ROLLOUT auditoria-a
+ Container redhouse-parcial2-auditoria-a-1 Recreate 
+ Container redhouse-parcial2-auditoria-a-1 Recreated 
+ Container redhouse-parcial2-auditoria-a-1 Starting 
+ Container redhouse-parcial2-auditoria-a-1 Started 
+ Container redhouse-parcial2-auditoria-a-1 Waiting 
+ Container redhouse-parcial2-auditoria-a-1 Healthy 
+ROLLOUT auditoria-b
+ Container redhouse-parcial2-auditoria-b-1 Recreate 
+ Container redhouse-parcial2-auditoria-b-1 Recreated 
+ Container redhouse-parcial2-auditoria-b-1 Starting 
+ Container redhouse-parcial2-auditoria-b-1 Started 
+ Container redhouse-parcial2-auditoria-b-1 Waiting 
+ Container redhouse-parcial2-auditoria-b-1 Healthy 
+ROLLOUT compatibilidad-a
+ Container redhouse-parcial2-compatibilidad-a-1 Recreate 
+ Container redhouse-parcial2-compatibilidad-a-1 Recreated 
+ Container redhouse-parcial2-compatibilidad-a-1 Starting 
+ Container redhouse-parcial2-compatibilidad-a-1 Started 
+ Container redhouse-parcial2-compatibilidad-a-1 Waiting 
+ Container redhouse-parcial2-compatibilidad-a-1 Healthy 
+ROLLOUT compatibilidad-b
+ Container redhouse-parcial2-compatibilidad-b-1 Recreate 
+ Container redhouse-parcial2-compatibilidad-b-1 Recreated 
+ Container redhouse-parcial2-compatibilidad-b-1 Starting 
+ Container redhouse-parcial2-compatibilidad-b-1 Started 
+ Container redhouse-parcial2-compatibilidad-b-1 Waiting 
+ Container redhouse-parcial2-compatibilidad-b-1 Healthy 
+ROLLOUT donantes-a
+ Container redhouse-parcial2-donantes-a-1 Recreate 
+ Container redhouse-parcial2-donantes-a-1 Recreated 
+ Container redhouse-parcial2-donantes-a-1 Starting 
+ Container redhouse-parcial2-donantes-a-1 Started 
+ Container redhouse-parcial2-donantes-a-1 Waiting 
+ Container redhouse-parcial2-donantes-a-1 Healthy 
+ROLLOUT donantes-b
+ Container redhouse-parcial2-donantes-b-1 Recreate 
+ Container redhouse-parcial2-donantes-b-1 Recreated 
+ Container redhouse-parcial2-donantes-b-1 Starting 
+ Container redhouse-parcial2-donantes-b-1 Started 
+ Container redhouse-parcial2-donantes-b-1 Waiting 
+ Container redhouse-parcial2-donantes-b-1 Healthy 
+ROLLOUT web
+ Container redhouse-parcial2-web-1 Recreate 
+ Container redhouse-parcial2-web-1 Recreated 
+ Container redhouse-parcial2-web-1 Starting 
+ Container redhouse-parcial2-web-1 Started 
+ Container redhouse-parcial2-web-1 Waiting 
+ Container redhouse-parcial2-web-1 Healthy 
+{"healthy": 30, "schema": 19, "files": 14, "storage_before": {"schema": 19, "files": 39, "digest": "6a03374bac2c2e6b9caa9588f74035d9"}, "storage_after": {"schema": 19, "files": 39, "digest": "6a03374bac2c2e6b9caa9588f74035d9"}, "public_validation_pending": true, "writes_closed": true}
