@@ -7,6 +7,10 @@ Proxy: Nginx sanea encabezados de dirección/protocolo en HTTP y WSS, también e
 
 Donantes añade `GET /api/v1/appointments/next`, exclusivo del donante y de sus expedientes, ordenado por el horario futuro vigente. Evita inferir la próxima cita desde la primera página o la fecha de creación. **Dos casos JSON/XML-XSD aprobados con PostgreSQL/Redis/MongoDB reales temporales**, incluyendo 105 canceladas, reprogramación, confirmación, cancelación y separación por cuenta/institución. OpenAPI y esquema de respuesta regenerados. [Evidencia](documentation/evidencias/entrega-final/mobile/next-appointment-20261113/RESULTADOS.md). La aceptación visual y nativa de este contrato sigue en trabajo; no se cierra 04.
 
+## Organización de archivos de construcción — 13/11/2026
+
+Ampliadas exclusiones Docker de cachés Gradle/Kotlin, build/dist, Xcode y PyInstaller para evitar copiarlas a imágenes. Caché PyInstaller también excluida de Git. Se conservan estructura actual, contratos, datos, herramientas y evidencia histórica; no hubo borrado indiscriminado. Revisados Dockerfiles y patrones, `git diff --check` aprobado. Sin build Docker medido ni afirmación de ahorro concreto. [Criterio de organización](documentation/entrega-final/continuidad/Organizacion.md).
+
 ## Inicio del plan de cierre — 13/11/2026
 
 El usuario autorizó ejecutar el plan, usar subagentes según riesgo y mantener commits revisables. Tres frentes concurrentes: móvil Kotlin/Compose (modelo Terra, revisión fuerte), escritorio PySide6 (Terra) y alineación documental (Luna); al terminar documentación su plaza se dedica a almacenamiento (Terra). La dirección conserva integración, proxies, revisión y commits. Fecha de entrega indicada: día 23; terminar la parte técnica cuanto antes, sin prometer aceptación antes de verificarla.
