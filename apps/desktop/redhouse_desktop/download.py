@@ -4,7 +4,7 @@ import os
 from pathlib import Path
 import re
 import tempfile
-from urllib.parse import urlsplit
+from urllib.parse import unquote, urlsplit
 import requests
 
 MAX_DOWNLOAD=100*1024*1024
@@ -12,15 +12,28 @@ class DownloadError(Exception):
     pass
 
 def approved_url(url,base):
-    target=urlsplit(url); origin=urlsplit(base)
+    try: target=urlsplit(url); origin=urlsplit(base)
+    except ValueError as exc: raise DownloadError('La dirección de descarga no es válida.') from exc
     if target.scheme!='https' or not target.hostname or target.username or target.password or target.fragment:
         raise DownloadError('La dirección de descarga no es válida.')
+    try: target_port=target.port or 443; origin_port=origin.port or 443
+    except ValueError as exc: raise DownloadError('La dirección de descarga no es válida.') from exc
     local_capability=bool(re.fullmatch(r'/storage/v1/objects/[A-Za-z0-9_-]+=*',target.path)) and not target.query and '?' not in url
-    same_origin=(target.hostname==origin.hostname and (target.port or 443)==(origin.port or 443) and local_capability)
+    same_origin=(target.hostname==origin.hostname and target_port==origin_port and local_capability)
     configured=os.environ.get('REDHOUSE_STORAGE_ORIGIN','')
-    storage_origin=urlsplit(configured.rstrip('/')) if configured else None
-    additional=bool(storage_origin and storage_origin.scheme=='https' and storage_origin.hostname and not storage_origin.username and not storage_origin.password and not storage_origin.path and not storage_origin.query and not storage_origin.fragment and target.hostname==storage_origin.hostname and (target.port or 443)==(storage_origin.port or 443) and local_capability)
-    gcs=(target.hostname=='storage.googleapis.com' and (target.port or 443)==443)
+    try: storage_origin=urlsplit(configured.rstrip('/')) if configured else None
+    except ValueError as exc: raise DownloadError('La configuración de almacenamiento no es válida.') from exc
+    try: storage_port=(storage_origin.port or 443) if storage_origin else None
+    except ValueError as exc: raise DownloadError('La configuración de almacenamiento no es válida.') from exc
+    additional=bool(storage_origin and storage_origin.scheme=='https' and storage_origin.hostname and not storage_origin.username and not storage_origin.password and not storage_origin.path and not storage_origin.query and not storage_origin.fragment and target.hostname==storage_origin.hostname and target_port==storage_port and local_capability)
+    bucket=os.environ.get('REDHOUSE_GCS_BUCKET','')
+    bucket_valid=bool(re.fullmatch(r'[a-z0-9][a-z0-9._-]{1,220}[a-z0-9]',bucket)) and '..' not in bucket
+    decoded=unquote(target.path)
+    parts=decoded.split('/')
+    safe_object=(len(parts)>2 and all(part not in ('','.','..') for part in parts[2:])
+                 and '\\' not in decoded and '%' not in decoded and not any(ord(c)<32 for c in decoded))
+    gcs=(bucket_valid and target.hostname=='storage.googleapis.com' and target_port==443
+         and target.path.startswith('/'+bucket+'/') and safe_object and parts[1]==bucket)
     if not (same_origin or additional or gcs): raise DownloadError('El origen del archivo no está autorizado.')
 
 def download(url,base,expected_sha256,destination,*,overwrite=False):

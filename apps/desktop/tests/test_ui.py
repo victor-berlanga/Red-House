@@ -132,18 +132,25 @@ def test_request_picker_reports_selected_recipient(tmp_path,monkeypatch):
     class Client:
         user={'role':'MEDICAL'}; access=None
         def authorized(self,*args,**kwargs):
-            return {'items':[{'id':'00000000-0000-4000-8000-000000000001','folio':'PACIENTE-FICTICIO','display_name':'Paciente ficticio','status':'ACTIVE','kind':'BLOOD'}],'page':1,'total':1}
-    window=Window(); window.client=Client(); seen=[]
+            return {'items':[{'id':'00000000-0000-4000-8000-000000000001','folio':'PACIENTE-FICTICIO','display_name':'Paciente ficticio','status':'ACTIVE','kind':'BLOOD'},
+                             {'id':'00000000-0000-4000-8000-000000000002','folio':'ORGANO-FICTICIO','display_name':'Paciente ficticio','status':'ACTIVE','kind':'ORGAN','organ_type':'KIDNEY'}],'page':1,'total':2}
+    window=Window(); window.client=Client(); seen=[]; limits=[]
     def inspect():
         modal=QApplication.activeModalWidget()
         table=modal.findChild(QTableWidget) if modal else None
         if not table or not table.rowCount(): QTimer.singleShot(50,inspect); return
         table.selectRow(0); app.processEvents()
-        seen.extend(label.text() for label in modal.findChildren(QLabel))
+        from PySide6.QtWidgets import QSpinBox
+        quantity=modal.findChild(QSpinBox); quantity.setValue(5)
+        table.selectRow(1); app.processEvents(); limits.append((quantity.maximum(),quantity.value()))
         output=Path(os.environ.get('DESKTOP_CAPTURE_DIR',str(tmp_path))); output.mkdir(parents=True,exist_ok=True)
+        modal.grab().save(str(output/'solicitud-organo.png'))
+        table.selectRow(0); app.processEvents(); limits.append((quantity.maximum(),quantity.value()))
+        seen.extend(label.text() for label in modal.findChildren(QLabel))
         modal.grab().save(str(output/'solicitud-aviso-corregido.png')); modal.reject()
     QTimer.singleShot(50,inspect); window.request_form()
     assert 'Receptor seleccionado: PACIENTE-FICTICIO' in seen
+    assert limits==[(1,1),(100,1)]
     window.close()
 
 

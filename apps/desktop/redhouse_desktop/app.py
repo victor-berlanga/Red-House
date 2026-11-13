@@ -814,6 +814,7 @@ class Window(QMainWindow):
         state={'page':1,'total':0,'rows':[],'alive':True,'busy':False,'body':None}
         def choose_recipient():
             component.clear(); component.addItem('Selecciona un recurso','')
+            quantity.setMaximum(100)
             index=table.currentRow()
             if not 0<=index<len(state['rows']): return
             person=state['rows'][index]
@@ -821,6 +822,7 @@ class Window(QMainWindow):
             if person.get('kind')=='BLOOD':
                 for title,code in (('Eritrocitos','RBC'),('Plasma','PLASMA'),('Plaquetas','PLATELETS')): component.addItem(title,code)
             elif person.get('kind')=='ORGAN' and person.get('organ_type') in ('KIDNEY','LIVER','HEART'):
+                quantity.setMaximum(1)
                 component.addItem(label(person['organ_type']),person['organ_type'])
         def show(data):
             if not state['alive']: return

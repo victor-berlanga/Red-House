@@ -9,6 +9,7 @@ class Response:
     def iter_content(self,size): yield b'reporte ficticio'
 
 def test_download_checks_origin_hash_and_overwrite(tmp_path,monkeypatch):
+    monkeypatch.setenv('REDHOUSE_GCS_BUCKET','bucket')
     monkeypatch.setattr('redhouse_desktop.download.requests.get',lambda *args,**kwargs:Response())
     expected=hashlib.sha256(b'reporte ficticio').hexdigest(); path=tmp_path/'reporte.pdf'
     download('https://storage.googleapis.com/bucket/obj?signature=x','https://lab',expected,path)
@@ -38,3 +39,20 @@ def test_local_capability_rejects_extra_path_and_query(path,monkeypatch):
     monkeypatch.setenv('REDHOUSE_STORAGE_ORIGIN','https://store.example')
     for host in ('lab','store.example'):
         with pytest.raises(DownloadError): approved_url('https://'+host+path,'https://lab')
+
+
+def test_gcs_requires_exact_configured_bucket_and_safe_object(monkeypatch):
+    monkeypatch.delenv('REDHOUSE_GCS_BUCKET',raising=False)
+    signed='https://storage.googleapis.com/private-bucket/reports/report.pdf?X-Goog-Signature=example'
+    with pytest.raises(DownloadError): approved_url(signed,'https://lab')
+    monkeypatch.setenv('REDHOUSE_GCS_BUCKET','private-bucket')
+    approved_url(signed,'https://lab')
+    for url in (
+        'https://storage.googleapis.com/other-bucket/report.pdf?X-Goog-Signature=example',
+        'https://storage.googleapis.com/private-bucket/../other-bucket/report.pdf?X-Goog-Signature=example',
+        'https://storage.googleapis.com/private-bucket/%2e%2e/other-bucket/report.pdf?X-Goog-Signature=example',
+        'https://storage.googleapis.com/private-bucket/%252e%252e/report.pdf?X-Goog-Signature=example',
+        'https://storage.googleapis.com/private-bucket/',
+        'https://storage.googleapis.com:invalid/private-bucket/report.pdf',
+    ):
+        with pytest.raises(DownloadError): approved_url(url,'https://lab')
