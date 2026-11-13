@@ -13,6 +13,8 @@ Los seis casos funcionales probaron respuesta y contrato JSON/XML, conservación
 
 La fuente de la API personal no cambió entre esos intentos; los cambios posteriores afectaron la acción y presentación del expediente y el arnés visual. Los manifiestos comprimidos conservan los hashes exactos de 1107 archivos de servicios/contratos y código del portal, más el recorrido JavaScript, antes y después de cada ejecución. Cada pareja coincide; los cambios entre intentos permanecen identificables. El worktree partió de `acda00e`. Los manifiestos se comprimen sin pérdida; no contienen bases de datos ni credenciales.
 
+La regeneración de `apps/web/src/integration/form_constraints.json` sincronizó restricciones derivadas de los modelos existentes: 54 rutas pasaron a 116, con 62 nuevas entradas, ninguna retirada y ocho entradas anteriores actualizadas. El archivo previo estaba desactualizado. Los ensayos de esta entrega usaron el archivo regenerado; su comprobación `scripts/export_form_constraints.py --check` pasó después de integrar el lote. Esto amplía la superficie de presentación afectada y no representa pruebas visuales de los 116 formularios.
+
 Se inspeccionaron realmente las tres capturas del intento 4: campo y botones completos a 390 px, formulario de escritorio a 1280 px y expediente recargado con el nuevo nombre e historial, sin UUID de cuenta. Las capturas anteriores se conservan como evidencia del defecto, no como aceptación final. Se comprobó la escritura por teclado a 1280 px; 390 px acredita presentación, no un recorrido nativo. No se utilizaron métricas de píxeles como sustituto de inspección visual.
 
 ## Reproducción
