@@ -205,9 +205,9 @@ class RegionMap(QWidget):
             x,y=world(lat,lon,self.zoom); return QPointF(x-cx+self.width()/2,y-cy+self.height()/2)
         painter.setRenderHint(QPainter.Antialiasing); painter.setPen(QPen(QColor('#a32035'),3))
         for first,second in zip(self.points,self.points[1:]): painter.drawLine(point(first['latitude'],first['longitude']),point(second['latitude'],second['longitude']))
-        for anchor in self.anchors:
+        for index,anchor in enumerate(self.anchors):
             at=point(anchor['latitude'],anchor['longitude']); painter.setBrush(QColor('#176338' if anchor.get('label')=='Origen' else '#285b8c')); painter.drawEllipse(at,6,6)
-            painter.drawText(at+QPointF(8,-5),anchor.get('label','Institución')+(' · sintético' if anchor.get('synthetic') else ''))
+            painter.drawText(at+QPointF(8,-10 if index%2==0 else 20),anchor.get('label','Institución')+(' · sintético' if anchor.get('synthetic') else ''))
         if self.points:
             at=point(self.points[-1]['latitude'],self.points[-1]['longitude']); painter.setBrush(QColor('#a32035')); painter.drawEllipse(at,8,8)
         if not self.available or self.unavailable:

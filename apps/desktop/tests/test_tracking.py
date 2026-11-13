@@ -1,7 +1,7 @@
 """Contratos de seguimiento sintéticos; no abre conexiones."""
 import pytest
 from redhouse_desktop.client import ContractError, request_xml
-from redhouse_desktop.tracking import event_xml, validate_snapshot_point
+from redhouse_desktop.tracking import event_xml, latest_position, validate_snapshot_point
 from redhouse_desktop.native_map import world, coordinates
 
 SHIPMENT='00000000-0000-4000-8000-000000000001'
@@ -31,6 +31,32 @@ def test_tracking_status_allows_server_cursor():
 def test_map_projection_roundtrip():
     x,y=world(25.7,-100.3,7); lat,lon=coordinates(x,y,7)
     assert abs(lat-25.7)<1e-8 and abs(lon+100.3)<1e-8
+
+
+def test_replay_keeps_most_recent_capture():
+    recent = dict(point(), captured_at='2030-01-01T00:00:02+00:00', fix_valid=False)
+    older = dict(point(), captured_at='2030-01-01T00:00:01+00:00')
+    assert latest_position(None, recent) is recent
+    assert latest_position(recent, older) is recent
+    assert latest_position(older, recent) is recent
+
+
+@pytest.mark.parametrize('failure', ['tls_failure', 'protocol_failure'])
+def test_tracking_failure_terminates_and_clears_credentials(failure):
+    from PySide6.QtCore import QCoreApplication
+    from redhouse_desktop.tracking import TrackingSocket
+
+    app = QCoreApplication.instance() or QCoreApplication([])
+    tracker = TrackingSocket('https://localhost', SHIPMENT)
+    tracker.stopped = False
+    tracker.token = 'synthetic-token'
+    terminated = []
+    tracker.terminated.connect(lambda: terminated.append(True))
+    getattr(tracker, failure)()
+    assert terminated == [True]
+    assert tracker.stopped and tracker.token is None
+    assert not tracker.retry.isActive()
+    assert app is not None
 
 
 def test_tile_cache_prunes_expired_then_lru_only_owned_files(tmp_path):

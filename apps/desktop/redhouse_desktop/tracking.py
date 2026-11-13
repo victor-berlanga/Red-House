@@ -134,11 +134,24 @@ class TrackingSocket(QObject):
         elif not self.stopped: self.state.emit('Sin conexión. Intenta nuevamente.')
 
     def tls_failure(self):
-        self.state.emit('No se pudo verificar la conexión segura.'); self.stop()
+        self.state.emit('No se pudo verificar la conexión segura.')
+        self.stop()
+        self.terminated.emit()
     def protocol_failure(self):
-        self.state.emit('No se pudo validar la información recibida.'); self.stop()
+        self.state.emit('No se pudo validar la información recibida.')
+        self.stop()
+        self.terminated.emit()
     def stop(self):
         self.stopped=True; self.timer.stop(); self.retry.stop(); self.token=None; self.socket.abort()
+
+
+def latest_position(previous, point):
+    """Conserva la observación de captura más reciente, incluso tras replay."""
+    if previous is None:
+        return point
+    captured = datetime.fromisoformat(point['captured_at'].replace('Z', '+00:00'))
+    old = datetime.fromisoformat(previous['captured_at'].replace('Z', '+00:00'))
+    return point if captured >= old else previous
 
 
 def validate_snapshot_point(point,shipment):

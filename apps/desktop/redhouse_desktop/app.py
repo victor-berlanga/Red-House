@@ -20,7 +20,7 @@ from .label_issuance import prepare_label, submit_label
 from .label_output import draw_label, write_pdf
 from .download import download, DownloadError
 from .native_map import RegionMap
-from .tracking import TrackingSocket, validate_snapshot_point
+from .tracking import TrackingSocket, latest_position, validate_snapshot_point
 from PySide6.QtPrintSupport import QPrinter, QPrintDialog
 
 # La emisión se autoriza en el servicio antes de producir la salida local.
@@ -741,9 +741,8 @@ class Window(QMainWindow):
             latest.setText('Última observación: '+displayed+' · Hace '+str(age)+' s · '+source+coordinate+freshness+(' · Simulada' if point['source']=='SIMULATOR' or point.get('simulated') else '')+(' · Sin señal' if not point['fix_valid'] else '')+(' · Fuera del encuadre regional inicial' if outside else ''))
         def receive(point):
             map_view.add_position(point)
-            previous=last['point']; captured=datetime.fromisoformat(point['captured_at'].replace('Z','+00:00'))
-            if not previous or captured>=datetime.fromisoformat(previous['captured_at'].replace('Z','+00:00')):
-                last['point']=point; update_age()
+            previous=last['point']; last['point']=latest_position(previous,point)
+            if last['point'] is point: update_age()
         def clear_tracking():
             map_view.clear_positions(); map_view.set_anchors([]); last['point']=None; latest.setText('Seguimiento sin autorización activa.')
         def reset_history():
