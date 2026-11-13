@@ -97,26 +97,42 @@ def test_combined_operational_organ_policies(p, monkeypatch, fmt):
 
     def protected(service, path, body, index, operation, resource_id, expected=200):
         user = accounts[index]["name"]
-        proof = api(
-            p,
-            "identidad_acceso",
-            "/api/v1/auth/reauthenticate",
-            dict(
-                password=password,
-                otp=code(index),
-                operation=operation,
-                resource_id=resource_id,
-            ),
-            user,
-            fmt,
-        )
+        command_key = uuid4().hex
         headers = {
             "Authorization": "Bearer " + p.tokens[user],
             "Accept": "application/" + fmt,
             "Content-Type": "application/" + fmt,
-            "Idempotency-Key": uuid4().hex,
-            "X-Reauthentication-Proof": proof["proof"],
+            "Idempotency-Key": command_key,
         }
+        encoded = (
+            request_xml(body).encode()
+            if fmt == "xml"
+            else __import__("json").dumps(body)
+        )
+        initial = requests.post(
+            p.urls[service] + path, headers=headers, data=encoded, timeout=20
+        )
+        assert initial.status_code == 403, initial.text
+        error = (
+            validate_response(initial.content, {"type": "object"})
+            if fmt == "xml"
+            else initial.json()
+        )["error"]
+        challenge = next(
+            item["challenge"]
+            for item in error["details"]
+            if item["code"] == "challenge"
+        )
+        proof = api(
+            p,
+            "identidad_acceso",
+            "/api/v1/auth/reauthentication-proofs",
+            dict(password=password, otp=code(index), challenge=challenge),
+            user,
+            fmt,
+        )
+        assert proof["operation"] == operation and proof["resource_id"] == resource_id
+        headers["X-Reauthentication-Proof"] = proof["proof"]
         response = requests.post(
             p.urls[service] + path,
             headers=headers,
@@ -128,6 +144,19 @@ def test_combined_operational_organ_policies(p, monkeypatch, fmt):
         assert response.status_code == expected, response.text
         if expected >= 400:
             return
+        if operation == "reservation_create":
+            headers.pop("X-Reauthentication-Proof")
+            replay = requests.post(
+                p.urls[service] + path, headers=headers, data=encoded, timeout=20
+            )
+            assert replay.status_code == 202, replay.text
+            def result(item):
+                return (
+                    validate_response(item.content, {"type": "object"})
+                    if fmt == "xml"
+                    else item.json()
+                )["data"]
+            assert result(replay)["operation_id"] == result(response)["operation_id"]
         name, _ = p.apps[service].url_map.bind("localhost").match(path, method="POST")
         contract = next(
             c for c in p.apps[service].extensions["contracts"] if c["name"] == name

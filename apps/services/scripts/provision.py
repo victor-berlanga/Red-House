@@ -89,6 +89,13 @@ def provision(
                     "GRANT SELECT,INSERT,UPDATE,DELETE ON ALL TABLES IN SCHEMA {} TO {}"
                 ).format(sql.Identifier(access), sql.Identifier(username))
             )
+            if service == "inventario":
+                # La saga conserva su identidad de comando incluso tras un fallo.
+                conn.execute(
+                    sql.SQL("REVOKE DELETE ON {}.operations FROM {}").format(
+                        sql.Identifier(access), sql.Identifier(username)
+                    )
+                )
             for table in (
                 "activity_events",
                 "schema_version",

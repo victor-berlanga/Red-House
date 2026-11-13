@@ -185,14 +185,21 @@ def reserve(data):
             signed=True,
         )
         conn.execute("SELECT pg_advisory_xact_lock(%s)", (lock,))
+        from redhouse.reauth import recheck
+
+        recheck(conn)
         op = conn.execute(
-            "SELECT * FROM operations WHERE user_id=%s AND key=%s",
+            "SELECT * FROM operations WHERE user_id=%s AND key=%s FOR UPDATE",
             (g.actor["id"], idem),
         ).fetchone()
+        if op and str(op["tenant_id"]) != g.actor["tenant_id"]:
+            raise APIError("forbidden", "Operación fuera del ámbito vigente.", 403)
         if op and op["fingerprint"] != fingerprint:
             raise APIError(
                 "idempotency_conflict", "Clave utilizada para otro contenido.", 409
             )
+        if not op and getattr(g, "reauth_replay_only", False):
+            raise APIError("reauthentication_required", "La operación ya no está disponible; solicita un nuevo reto.", 403)
         if not op:
             op = insert(
                 conn,
@@ -207,6 +214,8 @@ def reserve(data):
                 },
             )
     identifier = str(op["id"])
+    if getattr(g, "reauth_replay_only", False):
+        return operation_result(identifier)
     existing = operation_result(identifier)
     if existing["reservation"] or op["status"] in (
         "ROLLBACK_PENDING",

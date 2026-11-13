@@ -255,6 +255,12 @@ def submit(
                 (r"/api/v1/evaluations/[^/]+/reviews", "evaluation_review"),
                 (r"/api/v1/laboratory/profiles/[^/]+/actions", "rule_transition"),
                 (r"/api/v1/anomaly-reviews/[^/]+/resolve", "anomaly_resolve"),
+                (r"/api/v1/users/[^/]+/role", "user_role"),
+                *(
+                    [(r"/api/v1/users/[^/]+", "user_state")]
+                    if method == "PATCH"
+                    else []
+                ),
             )
             if re.fullmatch(pattern, path)
         ),
@@ -328,27 +334,63 @@ def submit(
             command_key = request.form.get("idempotency_key") or uuid4().hex
             is_reservation = service == "inventario" and path == "/api/v1/reservations"
             result = reservation_status(data, command_key) if is_reservation else None
-            proof = None
-            if result is None and critical and password:
-                # Match the API's route identifier before any body resource.
-                route_id = re.search(r"/([0-9a-fA-F-]{36})/[^/]+$", path)
-                resource_id = route_id.group(1) if route_id else data.get("resource_id")
-                proof = call(
-                    "identidad_acceso",
-                    "/api/v1/auth/reauthenticate",
-                    "POST",
-                    {
-                        "operation": critical,
-                        "resource_id": resource_id,
-                        "password": password,
-                        "otp": otp,
-                    },
-                )["proof"]
             if result is None:
                 try:
-                    result = call(
-                        service, path, method, data, idem=command_key, proof=proof
-                    )
+                    try:
+                        # Una respuesta ya confirmada puede recuperarse sin pedir OTP.
+                        result = call(service, path, method, data, idem=command_key)
+                    except BusinessError as exc:
+                        if (
+                            not critical
+                            or exc.code != "reauthentication_required"
+                            or not password
+                        ):
+                            raise
+                        challenge = next(
+                            (
+                                entry.get("challenge")
+                                for entry in exc.details
+                                if isinstance(entry, dict)
+                                and entry.get("code") == "challenge"
+                                and isinstance(entry.get("challenge"), str)
+                            ),
+                            None,
+                        )
+                        if (
+                            not challenge
+                            or len(challenge) > 4096
+                            or not re.fullmatch(r"[A-Za-z0-9_.-]+", challenge)
+                        ):
+                            raise BusinessError(
+                                "No fue posible confirmar la operación. Vuelve a intentarlo.",
+                                503,
+                            ) from None
+                        route_id = re.search(r"/([0-9a-f-]{36})(?:/[^/]+)?$", path)
+                        resource_id = (
+                            route_id.group(1) if route_id else data.get("resource_id")
+                        )
+                        identity = call(
+                            "identidad_acceso",
+                            "/api/v1/auth/reauthentication-proofs",
+                            "POST",
+                            {"challenge": challenge, "password": password, "otp": otp},
+                        )
+                        proof = identity.get("proof")
+                        if (
+                            identity.get("operation") != critical
+                            or identity.get("resource_id") != resource_id
+                            or not isinstance(proof, str)
+                            or not 40 <= len(proof) <= 200
+                            or type(identity.get("expires_in")) is not int
+                            or not 1 <= identity["expires_in"] <= 120
+                        ):
+                            raise BusinessError(
+                                "No fue posible confirmar la operación. Vuelve a intentarlo.",
+                                503,
+                            )
+                        result = call(
+                            service, path, method, data, idem=command_key, proof=proof
+                        )
                 except BusinessError as exc:
                     if not is_reservation or exc.status != 503:
                         raise
@@ -452,15 +494,28 @@ def table(
     if request.args.get("format") == "csv":
         stream = io.StringIO()
         writer = csv.writer(stream)
-        scope = json.dumps({
-            "perfil": g.principal.role_code,
-            "institucion_de_cuenta": g.principal.institution_name,
-            "region": g.principal.region_name,
-            "criterio": "Recursos autorizados por el propietario según perfil y ámbito",
-        }, ensure_ascii=False, sort_keys=True)
-        context = [json.dumps(params, ensure_ascii=False, sort_keys=True), scope,
-            selected_zone(), datetime.now(timezone.utc).isoformat(), str(page), str(data["total"])]
-        writer.writerow([label for name, label in columns] + ["Filtros", "Ámbito", "Zona", "Generado UTC", "Página", "Total filtrado"])
+        scope = json.dumps(
+            {
+                "perfil": g.principal.role_code,
+                "institucion_de_cuenta": g.principal.institution_name,
+                "region": g.principal.region_name,
+                "criterio": "Recursos autorizados por el propietario según perfil y ámbito",
+            },
+            ensure_ascii=False,
+            sort_keys=True,
+        )
+        context = [
+            json.dumps(params, ensure_ascii=False, sort_keys=True),
+            scope,
+            selected_zone(),
+            datetime.now(timezone.utc).isoformat(),
+            str(page),
+            str(data["total"]),
+        ]
+        writer.writerow(
+            [label for name, label in columns]
+            + ["Filtros", "Ámbito", "Zona", "Generado UTC", "Página", "Total filtrado"]
+        )
         for row in items:
             cells = []
             for name, label in columns:
@@ -471,9 +526,19 @@ def table(
                     value = SERVICE_LABELS.get(value, "Servicio de la plataforma")
                 value = str(display(value))
                 cells.append(
-                    "'" + value if value.lstrip().startswith(("=", "+", "-", "@")) else value
+                    "'" + value
+                    if value.lstrip().startswith(("=", "+", "-", "@"))
+                    else value
                 )
-            writer.writerow(cells + ["'"+value if value.lstrip().startswith(("=", "+", "-", "@")) else value for value in context])
+            writer.writerow(
+                cells
+                + [
+                    "'" + value
+                    if value.lstrip().startswith(("=", "+", "-", "@"))
+                    else value
+                    for value in context
+                ]
+            )
         return Response(
             "\ufeff" + stream.getvalue(),
             mimetype="text/csv",

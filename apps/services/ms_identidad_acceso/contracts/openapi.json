@@ -2035,6 +2035,17 @@
               "minLength": 8,
               "maxLength": 100
             }
+          },
+          {
+            "name": "X-Reauthentication-Proof",
+            "in": "header",
+            "required": true,
+            "description": "Comprobante de /api/v1/auth/reauthenticate ligado a sesión, operación y recurso; vigencia 120 segundos.",
+            "schema": {
+              "type": "string",
+              "minLength": 40,
+              "maxLength": 200
+            }
           }
         ],
         "description": "Roles: ADMIN. Contrato público de API.",
@@ -2188,6 +2199,17 @@
               "type": "string",
               "minLength": 8,
               "maxLength": 100
+            }
+          },
+          {
+            "name": "X-Reauthentication-Proof",
+            "in": "header",
+            "required": true,
+            "description": "Comprobante de /api/v1/auth/reauthenticate ligado a sesión, operación y recurso; vigencia 120 segundos.",
+            "schema": {
+              "type": "string",
+              "minLength": 40,
+              "maxLength": 200
             }
           }
         ],
@@ -8806,6 +8828,105 @@
     },
     "/api/v1/auth/reauthenticate": {
       "post": {
+        "operationId": "obsolete_reauthentication",
+        "summary": "obsolete_reauthentication",
+        "parameters": [
+          {
+            "name": "X-Correlation-ID",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "application/json",
+                "application/xml"
+              ]
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 8,
+              "maxLength": 100
+            }
+          }
+        ],
+        "description": "Roles: según sesión. Contrato público de API.",
+        "security": [
+          {
+            "BearerJWT": []
+          }
+        ],
+        "responses": {
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "406": {
+            "$ref": "#/components/responses/Error406"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "412": {
+            "$ref": "#/components/responses/Error412"
+          },
+          "413": {
+            "$ref": "#/components/responses/Error413"
+          },
+          "415": {
+            "$ref": "#/components/responses/Error415"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
+          },
+          "410": {
+            "description": "Protocolo anterior retirado; usar /api/v1/auth/reauthentication-proofs.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/auth/reauthentication-proofs": {
+      "post": {
         "operationId": "reauthenticate",
         "summary": "reauthenticate",
         "parameters": [
@@ -8930,15 +9051,14 @@
               "example": {
                 "password": "CAMBIAR_CREDENCIAL_PRIVADA",
                 "otp": null,
-                "operation": "resource_release",
-                "resource_id": "00000000-0000-4000-8000-000000000001"
+                "challenge": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
               }
             },
             "application/xml": {
               "schema": {
                 "type": "string"
               },
-              "example": "<?xml version='1.0' encoding='UTF-8'?>\n<request xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><password>CAMBIAR_CREDENCIAL_PRIVADA</password><otp xsi:nil=\"true\"/><operation>resource_release</operation><resource_id>00000000-0000-4000-8000-000000000001</resource_id></request>",
+              "example": "<?xml version='1.0' encoding='UTF-8'?>\n<request xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><password>CAMBIAR_CREDENCIAL_PRIVADA</password><otp xsi:nil=\"true\"/><challenge>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</challenge></request>",
               "x-xsd": "/schemas/reauthenticate.xsd",
               "x-json-equivalent-schema": {
                 "$ref": "#/components/schemas/Reauthentication"
@@ -10616,6 +10736,11 @@
                     },
                     "code": {
                       "type": "string"
+                    },
+                    "challenge": {
+                      "type": "string",
+                      "maxLength": 4096,
+                      "description": "Reto opaco de reautenticación; no registrar ni compartir."
                     },
                     "message": {
                       "type": "string",
@@ -17062,6 +17187,39 @@
         "title": "Enrollment",
         "type": "object"
       },
+      "Response_obsolete_reauthentication": {
+        "type": "object",
+        "required": [
+          "data",
+          "meta"
+        ],
+        "properties": {
+          "data": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "meta": {
+            "type": "object",
+            "required": [
+              "correlation_id",
+              "service",
+              "version"
+            ],
+            "properties": {
+              "correlation_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "service": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
       "Response_reauthenticate": {
         "type": "object",
         "required": [
@@ -17143,23 +17301,16 @@
             "default": null,
             "title": "Otp"
           },
-          "operation": {
-            "maxLength": 100,
-            "minLength": 1,
-            "pattern": "^[a-z_.-]+$",
-            "title": "Operation",
-            "type": "string"
-          },
-          "resource_id": {
-            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
-            "title": "Resource Id",
+          "challenge": {
+            "maxLength": 4096,
+            "minLength": 40,
+            "title": "Challenge",
             "type": "string"
           }
         },
         "required": [
           "password",
-          "operation",
-          "resource_id"
+          "challenge"
         ],
         "title": "Reauthentication",
         "type": "object"

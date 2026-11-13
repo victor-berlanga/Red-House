@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="2" time="43.963" timestamp="2026-11-13T14:08:10.394215-06:00" hostname="Victors-MacBook-Air.local"><testcase classname="tests.test_reauthentication_families" name="test_protected_family_challenge_scope_and_replay[rule_transition-json]" time="38.486"><failure message="psycopg.errors.CheckViolation: Historical records are append-only&#10;CONTEXT:  PL/pgSQL function red_house.reject_history_mutation() line 3 at RAISE">p = &lt;tests.conftest.Platform object at 0x108ccac90&gt;
+monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x10886f710&gt;
+family = 'rule_transition', fmt = 'json'
+
+    @pytest.mark.parametrize("fmt", ["json", "xml"])
+    @pytest.mark.parametrize("family", ["resource_destination", "evaluation_review", "rule_transition", "anomaly_resolve"])
+    def test_protected_family_challenge_scope_and_replay(p, monkeypatch, family, fmt):
+        user = "medical1"
+        other = "medical2"
+        if family == "resource_destination":
+            unit = resource(p)
+            service, identifier = "inventario", unit["id"]
+            path = f"/api/v1/resources/{identifier}/destination"
+            body = dict(CONFIRM, version=unit["version"], destination="DISCARDED", reference="Acta sintética", occurred_at=iso())
+            table, column = "resource_destinations", "resource_id"
+        elif family == "evaluation_review":
+            unit = resource(p)
+            _, request = recipient_request(p)
+            route(p)
+            ev = p.ok("compatibilidad", "POST", "/api/v1/evaluations", data={"request_id": request["id"]})
+            assert any(c["resource_id"] == unit["id"] for c in ev["candidates"])
+            user, other = "medical2", "medical1"
+            service, identifier = "compatibilidad", ev["id"]
+            path = f"/api/v1/evaluations/{identifier}/reviews"
+            body = dict(CONFIRM, resource_id=unit["id"], decision="FAVORABLE")
+            table, column = "reviews", "evaluation_id"
+        elif family == "rule_transition":
+            profile = p.ok("compatibilidad", "POST", "/api/v1/laboratory/profiles", user="medical1", data={
+                "name": "Perfil sintético", "kind": "BLOOD", "component": "RBC", "version": 1,
+                "required_tests": ["ABO"], "source": "Prueba sintética", "synthetic": True, "effective_at": iso()})
+            service, identifier = "compatibilidad", profile["id"]
+            with psycopg.connect(p.apps[service].config["DATABASE_URL"]) as runtime:
+                with pytest.raises(psycopg.errors.InsufficientPrivilege):
+                    runtime.execute("SELECT * FROM lab_profiles WHERE id=%s FOR UPDATE", (identifier,))
+                runtime.rollback()
+            with p.owner(service) as owner:
+                with pytest.raises(psycopg.errors.RaiseException):
+&gt;                   owner.execute("UPDATE lab_profiles SET name=name WHERE id=%s", (identifier,))
+
+apps/services/tests/test_reauthentication_families.py:55: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = &lt;psycopg.Connection [BAD] at 0x10796f140&gt;
+query = 'UPDATE lab_profiles SET name=name WHERE id=%s'
+params = ('c54ee156-71ee-4353-8fff-09563b0d81be',), prepare = None
+binary = False
+
+    def execute(
+        self,
+        query: Query,
+        params: Params | None = None,
+        *,
+        prepare: bool | None = None,
+        binary: bool = False,
+    ) -&gt; Cursor[Row]:
+        """Execute a query and return a cursor to read its results."""
+        try:
+            cur = self.cursor()
+            if binary:
+                cur.format = BINARY
+    
+            if isinstance(query, Template):
+                if params is not None:
+                    raise TypeError(
+                        "'execute()' with string template query doesn't support parameters"
+                    )
+                return cur.execute(query, prepare=prepare)
+            else:
+                return cur.execute(query, params, prepare=prepare)
+        except e._NO_TRACEBACK as ex:
+&gt;           raise ex.with_traceback(None)
+E           psycopg.errors.CheckViolation: Historical records are append-only
+E           CONTEXT:  PL/pgSQL function red_house.reject_history_mutation() line 3 at RAISE
+
+/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/.venv/lib/python3.12/site-packages/psycopg/connection.py:300: CheckViolation</failure></testcase><testcase classname="tests.test_reauthentication_families" name="test_protected_family_challenge_scope_and_replay[rule_transition-xml]" time="4.755"><failure message="psycopg.errors.CheckViolation: Historical records are append-only&#10;CONTEXT:  PL/pgSQL function red_house.reject_history_mutation() line 3 at RAISE">p = &lt;tests.conftest.Platform object at 0x108ccac90&gt;
+monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x108d126c0&gt;
+family = 'rule_transition', fmt = 'xml'
+
+    @pytest.mark.parametrize("fmt", ["json", "xml"])
+    @pytest.mark.parametrize("family", ["resource_destination", "evaluation_review", "rule_transition", "anomaly_resolve"])
+    def test_protected_family_challenge_scope_and_replay(p, monkeypatch, family, fmt):
+        user = "medical1"
+        other = "medical2"
+        if family == "resource_destination":
+            unit = resource(p)
+            service, identifier = "inventario", unit["id"]
+            path = f"/api/v1/resources/{identifier}/destination"
+            body = dict(CONFIRM, version=unit["version"], destination="DISCARDED", reference="Acta sintética", occurred_at=iso())
+            table, column = "resource_destinations", "resource_id"
+        elif family == "evaluation_review":
+            unit = resource(p)
+            _, request = recipient_request(p)
+            route(p)
+            ev = p.ok("compatibilidad", "POST", "/api/v1/evaluations", data={"request_id": request["id"]})
+            assert any(c["resource_id"] == unit["id"] for c in ev["candidates"])
+            user, other = "medical2", "medical1"
+            service, identifier = "compatibilidad", ev["id"]
+            path = f"/api/v1/evaluations/{identifier}/reviews"
+            body = dict(CONFIRM, resource_id=unit["id"], decision="FAVORABLE")
+            table, column = "reviews", "evaluation_id"
+        elif family == "rule_transition":
+            profile = p.ok("compatibilidad", "POST", "/api/v1/laboratory/profiles", user="medical1", data={
+                "name": "Perfil sintético", "kind": "BLOOD", "component": "RBC", "version": 1,
+                "required_tests": ["ABO"], "source": "Prueba sintética", "synthetic": True, "effective_at": iso()})
+            service, identifier = "compatibilidad", profile["id"]
+            with psycopg.connect(p.apps[service].config["DATABASE_URL"]) as runtime:
+                with pytest.raises(psycopg.errors.InsufficientPrivilege):
+                    runtime.execute("SELECT * FROM lab_profiles WHERE id=%s FOR UPDATE", (identifier,))
+                runtime.rollback()
+            with p.owner(service) as owner:
+                with pytest.raises(psycopg.errors.RaiseException):
+&gt;                   owner.execute("UPDATE lab_profiles SET name=name WHERE id=%s", (identifier,))
+
+apps/services/tests/test_reauthentication_families.py:55: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = &lt;psycopg.Connection [BAD] at 0x108d13b30&gt;
+query = 'UPDATE lab_profiles SET name=name WHERE id=%s'
+params = ('99c0b418-7dfe-492a-8297-175d3b2d989e',), prepare = None
+binary = False
+
+    def execute(
+        self,
+        query: Query,
+        params: Params | None = None,
+        *,
+        prepare: bool | None = None,
+        binary: bool = False,
+    ) -&gt; Cursor[Row]:
+        """Execute a query and return a cursor to read its results."""
+        try:
+            cur = self.cursor()
+            if binary:
+                cur.format = BINARY
+    
+            if isinstance(query, Template):
+                if params is not None:
+                    raise TypeError(
+                        "'execute()' with string template query doesn't support parameters"
+                    )
+                return cur.execute(query, prepare=prepare)
+            else:
+                return cur.execute(query, params, prepare=prepare)
+        except e._NO_TRACEBACK as ex:
+&gt;           raise ex.with_traceback(None)
+E           psycopg.errors.CheckViolation: Historical records are append-only
+E           CONTEXT:  PL/pgSQL function red_house.reject_history_mutation() line 3 at RAISE
+
+/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/.venv/lib/python3.12/site-packages/psycopg/connection.py:300: CheckViolation</failure></testcase></testsuite></testsuites>

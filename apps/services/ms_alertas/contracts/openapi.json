@@ -1803,6 +1803,11 @@
                     "code": {
                       "type": "string"
                     },
+                    "challenge": {
+                      "type": "string",
+                      "maxLength": 4096,
+                      "description": "Reto opaco de reautenticación; no registrar ni compartir."
+                    },
                     "message": {
                       "type": "string",
                       "description": "Corrección segura en español."

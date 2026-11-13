@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="13" failures="0" skipped="0" tests="18" time="12.988" timestamp="2026-11-13T13:30:59.905682-06:00" hostname="Victors-MacBook-Air.local"><testcase classname="tests.test_reauthentication_single_use" name="test_reservation_ledger_delete_revoked_for_runtime" time="3.515"><error message="failed on setup with &quot;PermissionError: [Errno 1] Operation not permitted&quot;">@pytest.fixture(scope="session")
+    def platform():
+        import os
+        import shutil
+    
+        mongo_bin = os.environ.get("REDHOUSE_TEST_MONGOD") or shutil.which("mongod")
+        directory = tempfile.mkdtemp(
+            prefix="red-house-ms-tests-", dir=os.environ.get("REDHOUSE_TEST_ROOT", "/tmp")
+        )
+        env = Environment(directory, mongo_bin)
+        # Arranques fríos de MongoDB en equipos de desarrollo/CI lentos.
+        # Solo cambia la espera del entorno de prueba, nunca las reglas o dependencias.
+        if os.environ.get("REDHOUSE_TEST_STARTUP_TIMEOUT"):
+            from functools import partial
+    
+            env.wait = partial(
+                env.wait, seconds=int(os.environ["REDHOUSE_TEST_STARTUP_TIMEOUT"])
+            )
+        apps, servers, threads = {}, {}, []
+        try:
+&gt;           env.init()
+
+apps/services/tests/conftest.py:96: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+apps/services/scripts/local.py:153: in init
+    pgport, redisport, mongoport = free_port(), free_port(), free_port()
+                                   ^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def free_port():
+        with socket.socket() as sock:
+&gt;           sock.bind(("127.0.0.1", 0))
+E           PermissionError: [Errno 1] Operation not permitted
+
+apps/services/scripts/local.py:35: PermissionError</error></testcase><testcase classname="tests.test_reauthentication_single_use" name="test_user_role_challenge_and_proofless_replay[json]" time="0.003"><error message="failed on setup with &quot;PermissionError: [Errno 1] Operation not permitted&quot;">@pytest.fixture(scope="session")
+    def platform():
+        import os
+        import shutil
+    
+        mongo_bin = os.environ.get("REDHOUSE_TEST_MONGOD") or shutil.which("mongod")
+        directory = tempfile.mkdtemp(
+            prefix="red-house-ms-tests-", dir=os.environ.get("REDHOUSE_TEST_ROOT", "/tmp")
+        )
+        env = Environment(directory, mongo_bin)
+        # Arranques fríos de MongoDB en equipos de desarrollo/CI lentos.
+        # Solo cambia la espera del entorno de prueba, nunca las reglas o dependencias.
+        if os.environ.get("REDHOUSE_TEST_STARTUP_TIMEOUT"):
+            from functools import partial
+    
+            env.wait = partial(
+                env.wait, seconds=int(os.environ["REDHOUSE_TEST_STARTUP_TIMEOUT"])
+            )
+        apps, servers, threads = {}, {}, []
+        try:
+&gt;           env.init()
+
+apps/services/tests/conftest.py:96: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+apps/services/scripts/local.py:153: in init
+    pgport, redisport, mongoport = free_port(), free_port(), free_port()
+                                   ^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def free_port():
+        with socket.socket() as sock:
+&gt;           sock.bind(("127.0.0.1", 0))
+E           PermissionError: [Errno 1] Operation not permitted
+
+apps/services/scripts/local.py:35: PermissionError</error></testcase><testcase classname="tests.test_reauthentication_single_use" name="test_user_role_challenge_and_proofless_replay[xml]" time="0.002"><error message="failed on setup with &quot;PermissionError: [Errno 1] Operation not permitted&quot;">@pytest.fixture(scope="session")
+    def platform():
+        import os
+        import shutil
+    
+        mongo_bin = os.environ.get("REDHOUSE_TEST_MONGOD") or shutil.which("mongod")
+        directory = tempfile.mkdtemp(
+            prefix="red-house-ms-tests-", dir=os.environ.get("REDHOUSE_TEST_ROOT", "/tmp")
+        )
+        env = Environment(directory, mongo_bin)
+        # Arranques fríos de MongoDB en equipos de desarrollo/CI lentos.
+        # Solo cambia la espera del entorno de prueba, nunca las reglas o dependencias.
+        if os.environ.get("REDHOUSE_TEST_STARTUP_TIMEOUT"):
+            from functools import partial
+    
+            env.wait = partial(
+                env.wait, seconds=int(os.environ["REDHOUSE_TEST_STARTUP_TIMEOUT"])
+            )
+        apps, servers, threads = {}, {}, []
+        try:
+&gt;           env.init()
+
+apps/services/tests/conftest.py:96: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+apps/services/scripts/local.py:153: in init
+    pgport, redisport, mongoport = free_port(), free_port(), free_port()
+                                   ^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def free_port():
+        with socket.socket() as sock:
+&gt;           sock.bind(("127.0.0.1", 0))
+E           PermissionError: [Errno 1] Operation not permitted
+
+apps/services/scripts/local.py:35: PermissionError</error></testcase><testcase classname="tests.test_reauthentication_single_use" name="test_bound_proof_replay_and_scope[json]" time="0.002"><error message="failed on setup with &quot;PermissionError: [Errno 1] Operation not permitted&quot;">@pytest.fixture(scope="session")
+    def platform():
+        import os
+        import shutil
+    
+        mongo_bin = os.environ.get("REDHOUSE_TEST_MONGOD") or shutil.which("mongod")
+        directory = tempfile.mkdtemp(
+            prefix="red-house-ms-tests-", dir=os.environ.get("REDHOUSE_TEST_ROOT", "/tmp")
+        )
+        env = Environment(directory, mongo_bin)
+        # Arranques fríos de MongoDB en equipos de desarrollo/CI lentos.
+        # Solo cambia la espera del entorno de prueba, nunca las reglas o dependencias.
+        if os.environ.get("REDHOUSE_TEST_STARTUP_TIMEOUT"):
+            from functools import partial
+    
+            env.wait = partial(
+                env.wait, seconds=int(os.environ["REDHOUSE_TEST_STARTUP_TIMEOUT"])
+            )
+        apps, servers, threads = {}, {}, []
+        try:
+&gt;           env.init()
+
+apps/services/tests/conftest.py:96: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+apps/services/scripts/local.py:153: in init
+    pgport, redisport, mongoport = free_port(), free_port(), free_port()
+                                   ^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def free_port():
+        with socket.socket() as sock:
+&gt;           sock.bind(("127.0.0.1", 0))
+E           PermissionError: [Errno 1] Operation not permitted
+
+apps/services/scripts/local.py:35: PermissionError</error></testcase><testcase classname="tests.test_reauthentication_single_use" name="test_bound_proof_replay_and_scope[xml]" time="0.002"><error message="failed on setup with &quot;PermissionError: [Errno 1] Operation not permitted&quot;">@pytest.fixture(scope="session")
+    def platform():
+        import os
+        import shutil
+    
+        mongo_bin = os.environ.get("REDHOUSE_TEST_MONGOD") or shutil.which("mongod")
+        directory = tempfile.mkdtemp(
+            prefix="red-house-ms-tests-", dir=os.environ.get("REDHOUSE_TEST_ROOT", "/tmp")
+        )
+        env = Environment(directory, mongo_bin)
+        # Arranques fríos de MongoDB en equipos de desarrollo/CI lentos.
+        # Solo cambia la espera del entorno de prueba, nunca las reglas o dependencias.
+        if os.environ.get("REDHOUSE_TEST_STARTUP_TIMEOUT"):
+            from functools import partial
+    
+            env.wait = partial(
+                env.wait, seconds=int(os.environ["REDHOUSE_TEST_STARTUP_TIMEOUT"])
+            )
+        apps, servers, threads = {}, {}, []
+        try:
+&gt;           env.init()
+
+apps/services/tests/conftest.py:96: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+apps/services/scripts/local.py:153: in init
+    pgport, redisport, mongoport = free_port(), free_port(), free_port()
+                                   ^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def free_port():
+        with socket.socket() as sock:
+&gt;           sock.bind(("127.0.0.1", 0))
+E           PermissionError: [Errno 1] Operation not permitted
+
+apps/services/scripts/local.py:35: PermissionError</error></testcase><testcase classname="tests.test_reauthentication_single_use" name="test_same_proof_concurrent_keys_one_intention" time="0.003"><error message="failed on setup with &quot;PermissionError: [Errno 1] Operation not permitted&quot;">@pytest.fixture(scope="session")
+    def platform():
+        import os
+        import shutil
+    
+        mongo_bin = os.environ.get("REDHOUSE_TEST_MONGOD") or shutil.which("mongod")
+        directory = tempfile.mkdtemp(
+            prefix="red-house-ms-tests-", dir=os.environ.get("REDHOUSE_TEST_ROOT", "/tmp")
+        )
+        env = Environment(directory, mongo_bin)
+        # Arranques fríos de MongoDB en equipos de desarrollo/CI lentos.
+        # Solo cambia la espera del entorno de prueba, nunca las reglas o dependencias.
+        if os.environ.get("REDHOUSE_TEST_STARTUP_TIMEOUT"):
+            from functools import partial
+    
+            env.wait = partial(
+                env.wait, seconds=int(os.environ["REDHOUSE_TEST_STARTUP_TIMEOUT"])
+            )
+        apps, servers, threads = {}, {}, []
+        try:
+&gt;           env.init()
+
+apps/services/tests/conftest.py:96: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+apps/services/scripts/local.py:153: in init
+    pgport, redisport, mongoport = free_port(), free_port(), free_port()
+                                   ^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def free_port():
+        with socket.socket() as sock:
+&gt;           sock.bind(("127.0.0.1", 0))
+E           PermissionError: [Errno 1] Operation not permitted
+
+apps/services/scripts/local.py:35: PermissionError</error></testcase><testcase classname="tests.test_reauthentication_single_use" name="test_signed_challenge_binds_actor_session_and_normalized_body" time="0.073" /><testcase classname="tests.test_reauthentication_single_use" name="test_critical_operations_cannot_be_disabled_in_production" time="0.005" /><testcase classname="tests.test_reauthentication_single_use" name="test_old_unbound_reauthentication_payload_is_rejected" time="0.002"><error message="failed on setup with &quot;PermissionError: [Errno 1] Operation not permitted&quot;">@pytest.fixture(scope="session")
+    def platform():
+        import os
+        import shutil
+    
+        mongo_bin = os.environ.get("REDHOUSE_TEST_MONGOD") or shutil.which("mongod")
+        directory = tempfile.mkdtemp(
+            prefix="red-house-ms-tests-", dir=os.environ.get("REDHOUSE_TEST_ROOT", "/tmp")
+        )
+        env = Environment(directory, mongo_bin)
+        # Arranques fríos de MongoDB en equipos de desarrollo/CI lentos.
+        # Solo cambia la espera del entorno de prueba, nunca las reglas o dependencias.
+        if os.environ.get("REDHOUSE_TEST_STARTUP_TIMEOUT"):
+            from functools import partial
+    
+            env.wait = partial(
+                env.wait, seconds=int(os.environ["REDHOUSE_TEST_STARTUP_TIMEOUT"])
+            )
+        apps, servers, threads = {}, {}, []
+        try:
+&gt;           env.init()
+
+apps/services/tests/conftest.py:96: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+apps/services/scripts/local.py:153: in init
+    pgport, redisport, mongoport = free_port(), free_port(), free_port()
+                                   ^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def free_port():
+        with socket.socket() as sock:
+&gt;           sock.bind(("127.0.0.1", 0))
+E           PermissionError: [Errno 1] Operation not permitted
+
+apps/services/scripts/local.py:35: PermissionError</error></testcase><testcase classname="tests.test_reauthentication_single_use" name="test_proof_binding_rejects_new_key_or_changed_body_without_consuming" time="0.015" /><testcase classname="tests.test_reauthentication_single_use" name="test_all_nine_critical_routes_have_explicit_owner_and_roles" time="3.659" /><testcase classname="tests.test_reauthentication_single_use" name="test_json_xml_normalize_to_same_bound_digest" time="0.049" /><testcase classname="tests.test_web_reauthentication_challenge" name="test_web_user_state_reauth_and_replay_without_otp" time="0.004"><error message="failed on setup with &quot;PermissionError: [Errno 1] Operation not permitted&quot;">@pytest.fixture(scope="session")
+    def platform():
+        import os
+        import shutil
+    
+        mongo_bin = os.environ.get("REDHOUSE_TEST_MONGOD") or shutil.which("mongod")
+        directory = tempfile.mkdtemp(
+            prefix="red-house-ms-tests-", dir=os.environ.get("REDHOUSE_TEST_ROOT", "/tmp")
+        )
+        env = Environment(directory, mongo_bin)
+        # Arranques fríos de MongoDB en equipos de desarrollo/CI lentos.
+        # Solo cambia la espera del entorno de prueba, nunca las reglas o dependencias.
+        if os.environ.get("REDHOUSE_TEST_STARTUP_TIMEOUT"):
+            from functools import partial
+    
+            env.wait = partial(
+                env.wait, seconds=int(os.environ["REDHOUSE_TEST_STARTUP_TIMEOUT"])
+            )
+        apps, servers, threads = {}, {}, []
+        try:
+&gt;           env.init()
+
+apps/services/tests/conftest.py:96: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+apps/services/scripts/local.py:153: in init
+    pgport, redisport, mongoport = free_port(), free_port(), free_port()
+                                   ^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def free_port():
+        with socket.socket() as sock:
+&gt;           sock.bind(("127.0.0.1", 0))
+E           PermissionError: [Errno 1] Operation not permitted
+
+apps/services/scripts/local.py:35: PermissionError</error></testcase><testcase classname="tests.test_final_identity" name="test_mfa_reauth_contact_recovery_and_revocation[json]" time="0.003"><error message="failed on setup with &quot;PermissionError: [Errno 1] Operation not permitted&quot;">@pytest.fixture(scope="session")
+    def platform():
+        import os
+        import shutil
+    
+        mongo_bin = os.environ.get("REDHOUSE_TEST_MONGOD") or shutil.which("mongod")
+        directory = tempfile.mkdtemp(
+            prefix="red-house-ms-tests-", dir=os.environ.get("REDHOUSE_TEST_ROOT", "/tmp")
+        )
+        env = Environment(directory, mongo_bin)
+        # Arranques fríos de MongoDB en equipos de desarrollo/CI lentos.
+        # Solo cambia la espera del entorno de prueba, nunca las reglas o dependencias.
+        if os.environ.get("REDHOUSE_TEST_STARTUP_TIMEOUT"):
+            from functools import partial
+    
+            env.wait = partial(
+                env.wait, seconds=int(os.environ["REDHOUSE_TEST_STARTUP_TIMEOUT"])
+            )
+        apps, servers, threads = {}, {}, []
+        try:
+&gt;           env.init()
+
+apps/services/tests/conftest.py:96: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+apps/services/scripts/local.py:153: in init
+    pgport, redisport, mongoport = free_port(), free_port(), free_port()
+                                   ^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def free_port():
+        with socket.socket() as sock:
+&gt;           sock.bind(("127.0.0.1", 0))
+E           PermissionError: [Errno 1] Operation not permitted
+
+apps/services/scripts/local.py:35: PermissionError</error></testcase><testcase classname="tests.test_final_identity" name="test_mfa_reauth_contact_recovery_and_revocation[xml]" time="0.003"><error message="failed on setup with &quot;PermissionError: [Errno 1] Operation not permitted&quot;">@pytest.fixture(scope="session")
+    def platform():
+        import os
+        import shutil
+    
+        mongo_bin = os.environ.get("REDHOUSE_TEST_MONGOD") or shutil.which("mongod")
+        directory = tempfile.mkdtemp(
+            prefix="red-house-ms-tests-", dir=os.environ.get("REDHOUSE_TEST_ROOT", "/tmp")
+        )
+        env = Environment(directory, mongo_bin)
+        # Arranques fríos de MongoDB en equipos de desarrollo/CI lentos.
+        # Solo cambia la espera del entorno de prueba, nunca las reglas o dependencias.
+        if os.environ.get("REDHOUSE_TEST_STARTUP_TIMEOUT"):
+            from functools import partial
+    
+            env.wait = partial(
+                env.wait, seconds=int(os.environ["REDHOUSE_TEST_STARTUP_TIMEOUT"])
+            )
+        apps, servers, threads = {}, {}, []
+        try:
+&gt;           env.init()
+
+apps/services/tests/conftest.py:96: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+apps/services/scripts/local.py:153: in init
+    pgport, redisport, mongoport = free_port(), free_port(), free_port()
+                                   ^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def free_port():
+        with socket.socket() as sock:
+&gt;           sock.bind(("127.0.0.1", 0))
+E           PermissionError: [Errno 1] Operation not permitted
+
+apps/services/scripts/local.py:35: PermissionError</error></testcase><testcase classname="tests.test_final_identity" name="test_totp_rfc_vector_and_policy_requirement" time="0.002"><error message="failed on setup with &quot;PermissionError: [Errno 1] Operation not permitted&quot;">@pytest.fixture(scope="session")
+    def platform():
+        import os
+        import shutil
+    
+        mongo_bin = os.environ.get("REDHOUSE_TEST_MONGOD") or shutil.which("mongod")
+        directory = tempfile.mkdtemp(
+            prefix="red-house-ms-tests-", dir=os.environ.get("REDHOUSE_TEST_ROOT", "/tmp")
+        )
+        env = Environment(directory, mongo_bin)
+        # Arranques fríos de MongoDB en equipos de desarrollo/CI lentos.
+        # Solo cambia la espera del entorno de prueba, nunca las reglas o dependencias.
+        if os.environ.get("REDHOUSE_TEST_STARTUP_TIMEOUT"):
+            from functools import partial
+    
+            env.wait = partial(
+                env.wait, seconds=int(os.environ["REDHOUSE_TEST_STARTUP_TIMEOUT"])
+            )
+        apps, servers, threads = {}, {}, []
+        try:
+&gt;           env.init()
+
+apps/services/tests/conftest.py:96: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+apps/services/scripts/local.py:153: in init
+    pgport, redisport, mongoport = free_port(), free_port(), free_port()
+                                   ^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def free_port():
+        with socket.socket() as sock:
+&gt;           sock.bind(("127.0.0.1", 0))
+E           PermissionError: [Errno 1] Operation not permitted
+
+apps/services/scripts/local.py:35: PermissionError</error></testcase><testcase classname="tests.test_correction_policies" name="test_combined_operational_organ_policies[json]" time="0.002"><error message="failed on setup with &quot;PermissionError: [Errno 1] Operation not permitted&quot;">@pytest.fixture(scope="session")
+    def platform():
+        import os
+        import shutil
+    
+        mongo_bin = os.environ.get("REDHOUSE_TEST_MONGOD") or shutil.which("mongod")
+        directory = tempfile.mkdtemp(
+            prefix="red-house-ms-tests-", dir=os.environ.get("REDHOUSE_TEST_ROOT", "/tmp")
+        )
+        env = Environment(directory, mongo_bin)
+        # Arranques fríos de MongoDB en equipos de desarrollo/CI lentos.
+        # Solo cambia la espera del entorno de prueba, nunca las reglas o dependencias.
+        if os.environ.get("REDHOUSE_TEST_STARTUP_TIMEOUT"):
+            from functools import partial
+    
+            env.wait = partial(
+                env.wait, seconds=int(os.environ["REDHOUSE_TEST_STARTUP_TIMEOUT"])
+            )
+        apps, servers, threads = {}, {}, []
+        try:
+&gt;           env.init()
+
+apps/services/tests/conftest.py:96: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+apps/services/scripts/local.py:153: in init
+    pgport, redisport, mongoport = free_port(), free_port(), free_port()
+                                   ^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def free_port():
+        with socket.socket() as sock:
+&gt;           sock.bind(("127.0.0.1", 0))
+E           PermissionError: [Errno 1] Operation not permitted
+
+apps/services/scripts/local.py:35: PermissionError</error></testcase><testcase classname="tests.test_correction_policies" name="test_combined_operational_organ_policies[xml]" time="0.003"><error message="failed on setup with &quot;PermissionError: [Errno 1] Operation not permitted&quot;">@pytest.fixture(scope="session")
+    def platform():
+        import os
+        import shutil
+    
+        mongo_bin = os.environ.get("REDHOUSE_TEST_MONGOD") or shutil.which("mongod")
+        directory = tempfile.mkdtemp(
+            prefix="red-house-ms-tests-", dir=os.environ.get("REDHOUSE_TEST_ROOT", "/tmp")
+        )
+        env = Environment(directory, mongo_bin)
+        # Arranques fríos de MongoDB en equipos de desarrollo/CI lentos.
+        # Solo cambia la espera del entorno de prueba, nunca las reglas o dependencias.
+        if os.environ.get("REDHOUSE_TEST_STARTUP_TIMEOUT"):
+            from functools import partial
+    
+            env.wait = partial(
+                env.wait, seconds=int(os.environ["REDHOUSE_TEST_STARTUP_TIMEOUT"])
+            )
+        apps, servers, threads = {}, {}, []
+        try:
+&gt;           env.init()
+
+apps/services/tests/conftest.py:96: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+apps/services/scripts/local.py:153: in init
+    pgport, redisport, mongoport = free_port(), free_port(), free_port()
+                                   ^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def free_port():
+        with socket.socket() as sock:
+&gt;           sock.bind(("127.0.0.1", 0))
+E           PermissionError: [Errno 1] Operation not permitted
+
+apps/services/scripts/local.py:35: PermissionError</error></testcase></testsuite></testsuites>

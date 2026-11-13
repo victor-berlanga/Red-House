@@ -35,6 +35,11 @@ ERROR = {
                                 "description": "Ruta del campo en la entrada; no incluye su valor.",
                             },
                             "code": {"type": "string"},
+                            "challenge": {
+                                "type": "string",
+                                "maxLength": 4096,
+                                "description": "Reto opaco de reautenticación; no registrar ni compartir.",
+                            },
                             "message": {
                                 "type": "string",
                                 "description": "Corrección segura en español.",
@@ -297,6 +302,15 @@ def spec(app):
                             "$ref": f"#/components/schemas/{model.__name__}"
                         },
                     },
+                },
+            }
+        if contract["name"] == "obsolete_reauthentication":
+            operation["responses"].pop("200", None)
+            operation["responses"]["410"] = {
+                "description": "Protocolo anterior retirado; usar /api/v1/auth/reauthentication-proofs.",
+                "content": {
+                    "application/json": {"schema": {"$ref": "#/components/schemas/Error"}},
+                    "application/xml": {"schema": {"type": "string"}},
                 },
             }
         paths.setdefault(path, {})[contract["method"].lower()] = operation

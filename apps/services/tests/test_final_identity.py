@@ -146,19 +146,6 @@ def test_mfa_reauth_contact_recovery_and_revocation(p, monkeypatch, fmt):
             "operator1",
             fmt,
         )
-        proof = api(
-            p,
-            "identidad_acceso",
-            "/api/v1/auth/reauthenticate",
-            {
-                "password": password,
-                "otp": totp(enrollment["secret"], counter + 1),
-                "operation": "resource_release",
-                "resource_id": unit["id"],
-            },
-            name,
-            fmt,
-        )
         monkeypatch.setitem(
             p.apps["inventario"].config,
             "REAUTH_REQUIRED_OPERATIONS",
@@ -170,9 +157,23 @@ def test_mfa_reauth_contact_recovery_and_revocation(p, monkeypatch, fmt):
             "reason": "Dictamen de prueba con segundo factor",
         }
         path = f"/api/v1/resources/{unit['id']}/release"
-        assert (
-            p.request("inventario", "POST", path, data=body, user=name).status_code
-            == 403
+        command_key = uuid4().hex
+        initial = p.request(
+            "inventario", "POST", path, data=body, user=name, key=command_key
+        )
+        assert initial.status_code == 403
+        challenge = initial.json()["error"]["details"][0]["challenge"]
+        proof = api(
+            p,
+            "identidad_acceso",
+            "/api/v1/auth/reauthentication-proofs",
+            {
+                "password": password,
+                "otp": totp(enrollment["secret"], counter + 1),
+                "challenge": challenge,
+            },
+            name,
+            fmt,
         )
         assert (
             p.request(
@@ -181,6 +182,7 @@ def test_mfa_reauth_contact_recovery_and_revocation(p, monkeypatch, fmt):
                 path,
                 data=body,
                 user="medical1",
+                key=command_key,
                 headers={"X-Reauthentication-Proof": proof["proof"]},
             ).status_code
             == 403
@@ -192,6 +194,7 @@ def test_mfa_reauth_contact_recovery_and_revocation(p, monkeypatch, fmt):
                 path,
                 data=body,
                 user=name,
+                key=command_key,
                 headers={"X-Reauthentication-Proof": proof["proof"]},
             ).status_code
             == 200

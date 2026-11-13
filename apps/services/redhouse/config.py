@@ -51,7 +51,10 @@ def settings(service, overrides=None):
         "MAX_CONTENT_LENGTH": 262144,
         "CACHE_TTL": 15,
         "STORAGE_ENABLED": False,
-        "HLA_REFERENCE_DIR": env.get("HLA_REFERENCE_DIR", str(Path(__file__).resolve().parents[3] / ".local/reference-data/hla")),
+        "HLA_REFERENCE_DIR": env.get(
+            "HLA_REFERENCE_DIR",
+            str(Path(__file__).resolve().parents[3] / ".local/reference-data/hla"),
+        ),
         "TESTING": False,
         "GCS_BUCKET": env.get("GCS_BUCKET", ""),
         "STORAGE_PROVIDER": env.get("STORAGE_PROVIDER", ""),
@@ -79,12 +82,18 @@ def settings(service, overrides=None):
             "anomaly_resolve",
             "reservation_create",
             "resource_destination",
+            "user_state",
+            "user_role",
         ]
     )
     cfg.setdefault(
         "REAUTH_REQUIRED_OPERATIONS",
         json.loads(env.get("REAUTH_REQUIRED_OPERATIONS", json.dumps(critical))),
     )
+    if not cfg["TESTING"]:
+        cfg["REAUTH_REQUIRED_OPERATIONS"] = sorted(
+            set(cfg["REAUTH_REQUIRED_OPERATIONS"]) | set(critical)
+        )
     cfg.setdefault(
         "REQUIRE_ORGAN_AUTHORIZATION",
         env.get(
@@ -97,8 +106,13 @@ def settings(service, overrides=None):
         env.get("REQUIRE_LAB_PROFILE", "false" if cfg["TESTING"] else "true").lower()
         == "true",
     )
-    cfg.setdefault("OPERATION_SCOPE", env.get("OPERATION_SCOPE", "ACADEMIC" if cfg["TESTING"] else "CLINICAL"))
-    cfg.setdefault("CLINICAL_APPROVERS", json.loads(env.get("CLINICAL_APPROVERS", "{}")))
+    cfg.setdefault(
+        "OPERATION_SCOPE",
+        env.get("OPERATION_SCOPE", "ACADEMIC" if cfg["TESTING"] else "CLINICAL"),
+    )
+    cfg.setdefault(
+        "CLINICAL_APPROVERS", json.loads(env.get("CLINICAL_APPROVERS", "{}"))
+    )
     for name in (
         "SMTP_HOST",
         "SMTP_USERNAME",

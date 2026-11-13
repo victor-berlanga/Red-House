@@ -68,6 +68,8 @@ def endpoint(
                 require(
                     fn.__name__,
                     params.get("identifier") or (data or {}).get("resource_id"),
+                    data,
+                    roles,
                 )
             output = fn(data=data, **params) if model else fn(**params)
             return respond(
@@ -129,6 +131,9 @@ def atomic(operation, data, fn):
             signed=True,
         )
         conn.execute("SELECT pg_advisory_xact_lock(%s)", (lock,))
+        from .reauth import recheck
+
+        scope = recheck(conn)
         old = conn.execute(
             "SELECT * FROM idempotency WHERE user_id=%s AND key=%s", (user, idem)
         ).fetchone()
@@ -139,7 +144,24 @@ def atomic(operation, data, fn):
                     "Clave utilizada para otra operación o contenido.",
                     409,
                 )
+            if scope:
+                scope = recheck(conn, lock=True)
+                old_tenant = (
+                    old["result"].get("tenant_id")
+                    if isinstance(old["result"], dict)
+                    else None
+                )
+                if old_tenant is None or str(old_tenant) != scope["tenant_id"]:
+                    raise APIError(
+                        "forbidden", "Resultado fuera del ámbito vigente.", 403
+                    )
             return old["result"]
+        if getattr(g, "reauth_replay_only", False):
+            raise APIError(
+                "reauthentication_required",
+                "El resultado ya no está disponible; solicita un nuevo reto.",
+                403,
+            )
         result = plain(fn(conn))
         conn.execute(
             "INSERT INTO idempotency(id,user_id,key,operation,fingerprint,result) VALUES(%s,%s,%s,%s,%s,%s)",

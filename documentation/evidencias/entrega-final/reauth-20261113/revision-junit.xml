@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="39" time="339.675" timestamp="2026-11-13T13:56:16.364338-06:00" hostname="Victors-MacBook-Air.local"><testcase classname="tests.test_reauthentication_single_use" name="test_reservation_ledger_delete_revoked_for_runtime" time="36.260" /><testcase classname="tests.test_reauthentication_single_use" name="test_user_role_challenge_and_proofless_replay[json]" time="1.381" /><testcase classname="tests.test_reauthentication_single_use" name="test_user_role_challenge_and_proofless_replay[xml]" time="1.690" /><testcase classname="tests.test_reauthentication_single_use" name="test_bound_proof_replay_and_scope[json]" time="3.017" /><testcase classname="tests.test_reauthentication_single_use" name="test_bound_proof_replay_and_scope[xml]" time="2.939" /><testcase classname="tests.test_reauthentication_single_use" name="test_same_proof_concurrent_keys_one_intention" time="1.302" /><testcase classname="tests.test_reauthentication_single_use" name="test_signed_challenge_binds_actor_session_and_normalized_body" time="0.013" /><testcase classname="tests.test_reauthentication_single_use" name="test_critical_operations_cannot_be_disabled_in_production" time="0.004" /><testcase classname="tests.test_reauthentication_single_use" name="test_old_unbound_reauthentication_payload_is_rejected" time="0.132" /><testcase classname="tests.test_reauthentication_single_use" name="test_proof_binding_rejects_new_key_or_changed_body_without_consuming" time="0.011" /><testcase classname="tests.test_reauthentication_single_use" name="test_all_nine_critical_routes_have_explicit_owner_and_roles" time="1.943" /><testcase classname="tests.test_reauthentication_single_use" name="test_json_xml_normalize_to_same_bound_digest" time="0.017" /><testcase classname="tests.test_reauthentication_families" name="test_protected_family_challenge_scope_and_replay[resource_destination-json]" time="1.326" /><testcase classname="tests.test_reauthentication_families" name="test_protected_family_challenge_scope_and_replay[resource_destination-xml]" time="1.279" /><testcase classname="tests.test_reauthentication_families" name="test_protected_family_challenge_scope_and_replay[evaluation_review-json]" time="2.922" /><testcase classname="tests.test_reauthentication_families" name="test_protected_family_challenge_scope_and_replay[evaluation_review-xml]" time="2.731" /><testcase classname="tests.test_reauthentication_families" name="test_protected_family_challenge_scope_and_replay[rule_transition-json]" time="1.253"><failure message="AssertionError: {&quot;error&quot;: {&quot;code&quot;: &quot;internal_error&quot;, &quot;message&quot;: &quot;No se pudo completar la operación.&quot;, &quot;details&quot;: []}, &quot;meta&quot;: {&quot;correlation_id&quot;: &quot;cdf57372-48b4-4b97-960e-0640ded3c712&quot;, &quot;service&quot;: &quot;compatibilidad&quot;, &quot;version&quot;: &quot;0.4.4&quot;}}&#10;assert 500 in (200, 201)&#10; +  where 500 = &lt;Response [500]&gt;.status_code">p = &lt;tests.conftest.Platform object at 0x112551670&gt;
+monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x112577050&gt;
+family = 'rule_transition', fmt = 'json'
+
+    @pytest.mark.parametrize("fmt", ["json", "xml"])
+    @pytest.mark.parametrize("family", ["resource_destination", "evaluation_review", "rule_transition", "anomaly_resolve"])
+    def test_protected_family_challenge_scope_and_replay(p, monkeypatch, family, fmt):
+        user = "medical1"
+        other = "medical2"
+        if family == "resource_destination":
+            unit = resource(p)
+            service, identifier = "inventario", unit["id"]
+            path = f"/api/v1/resources/{identifier}/destination"
+            body = dict(CONFIRM, version=unit["version"], destination="DISCARDED", reference="Acta sintética", occurred_at=iso())
+            table, column = "resource_destinations", "resource_id"
+        elif family == "evaluation_review":
+            unit = resource(p)
+            _, request = recipient_request(p)
+            route(p)
+            ev = p.ok("compatibilidad", "POST", "/api/v1/evaluations", data={"request_id": request["id"]})
+            assert any(c["resource_id"] == unit["id"] for c in ev["candidates"])
+            user, other = "medical2", "medical1"
+            service, identifier = "compatibilidad", ev["id"]
+            path = f"/api/v1/evaluations/{identifier}/reviews"
+            body = dict(CONFIRM, resource_id=unit["id"], decision="FAVORABLE")
+            table, column = "reviews", "evaluation_id"
+        elif family == "rule_transition":
+            profile = p.ok("compatibilidad", "POST", "/api/v1/laboratory/profiles", user="medical1", data={
+                "name": "Perfil sintético", "kind": "BLOOD", "component": "RBC", "version": 1,
+                "required_tests": ["ABO"], "source": "Prueba sintética", "synthetic": True, "effective_at": iso()})
+            service, identifier = "compatibilidad", profile["id"]
+            path = f"/api/v1/laboratory/profiles/{identifier}/actions"
+            body = dict(CONFIRM, sequence=1, state="IN_REVIEW")
+            table, column = "rule_actions", "profile_id"
+        else:
+            service, identifier, user, other = "auditoria", str(uuid4()), "auditor1", "medical1"
+            tenant = p.env.state["tenants"][0]
+            with p.owner("identidad_acceso") as conn:
+                region = conn.execute("SELECT region_id FROM institutions WHERE id=%s", (tenant,)).fetchone()[0]
+            with p.owner("auditoria") as conn:
+                conn.execute("INSERT INTO anomaly_reviews(id,tenant_id,region_id,source,source_run_id,deduplication_key,evidence,correlation_id,responsible_id) VALUES(%s,%s,%s,'priorizacion_geografia',%s,%s,%s,%s,%s)",
+                             (identifier, tenant, region, str(uuid4()), uuid4().hex, Jsonb({}), uuid4().hex, p.env.state["accounts"][user]["id"]))
+            path = f"/api/v1/anomaly-reviews/{identifier}/resolve"
+            body = dict(CONFIRM, version=1, state="DISMISSED")
+            table, column = "anomaly_actions", "review_id"
+        monkeypatch.setitem(p.apps[service].config, "REAUTH_REQUIRED_OPERATIONS", [family])
+        headers = {"Accept": "application/" + fmt, "Content-Type": "application/" + fmt,
+                   "Authorization": "Bearer " + p.tokens[user], "Idempotency-Key": uuid4().hex}
+        encoded = json.dumps(body) if fmt == "json" else request_xml(body).encode()
+        def send(hdr):
+            return requests.post(p.urls[service] + path, data=encoded, headers=hdr, timeout=20)
+        denied = send(dict(headers, Authorization="Bearer " + p.tokens[other]))
+        assert denied.status_code == 403, denied.text
+        first = send(headers)
+        assert first.status_code == 403, first.text
+        error = payload(first, fmt)["error"]
+        assert error["code"] == "reauthentication_required"
+        challenge = next(item["challenge"] for item in error["details"] if item["code"] == "challenge")
+        with p.owner(service) as conn:
+            assert conn.execute(f"SELECT count(*) FROM {table} WHERE {column}=%s", (identifier,)).fetchone()[0] == 0
+        auth = p.ok("identidad_acceso", "POST", "/api/v1/auth/reauthentication-proofs", user=user,
+                    data={"password": p.env.state["password"], "challenge": challenge})
+        assert auth["operation"] == family and auth["resource_id"] == identifier
+        done = send(dict(headers, **{"X-Reauthentication-Proof": auth["proof"]}))
+        replay = send(headers)
+&gt;       assert done.status_code in (200, 201), done.text
+E       AssertionError: {"error": {"code": "internal_error", "message": "No se pudo completar la operación.", "details": []}, "meta": {"correlation_id": "cdf57372-48b4-4b97-960e-0640ded3c712", "service": "compatibilidad", "version": "0.4.4"}}
+E       assert 500 in (200, 201)
+E        +  where 500 = &lt;Response [500]&gt;.status_code
+
+apps/services/tests/test_reauthentication_families.py:82: AssertionError</failure></testcase><testcase classname="tests.test_reauthentication_families" name="test_protected_family_challenge_scope_and_replay[rule_transition-xml]" time="1.285"><failure message="AssertionError: &lt;?xml version='1.0' encoding='UTF-8'?&gt;&#10;  &lt;response type=&quot;object&quot;&gt;&lt;field name=&quot;error&quot; type=&quot;object&quot;&gt;&lt;field name=&quot;code&quot; type=&quot;string&quot;&gt;internal_error&lt;/field&gt;&lt;field name=&quot;message&quot; type=&quot;string&quot;&gt;No se pudo completar la operación.&lt;/field&gt;&lt;field name=&quot;details&quot; type=&quot;array&quot;/&gt;&lt;/field&gt;&lt;field name=&quot;meta&quot; type=&quot;object&quot;&gt;&lt;field name=&quot;correlation_id&quot; type=&quot;string&quot;&gt;4b01179f-57ed-404d-85a0-b1ec66e37e23&lt;/field&gt;&lt;field name=&quot;service&quot; type=&quot;string&quot;&gt;compatibilidad&lt;/field&gt;&lt;field name=&quot;version&quot; type=&quot;string&quot;&gt;0.4.4&lt;/field&gt;&lt;/field&gt;&lt;/response&gt;&#10;assert 500 in (200, 201)&#10; +  where 500 = &lt;Response [500]&gt;.status_code">p = &lt;tests.conftest.Platform object at 0x112551670&gt;
+monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x112a0f680&gt;
+family = 'rule_transition', fmt = 'xml'
+
+    @pytest.mark.parametrize("fmt", ["json", "xml"])
+    @pytest.mark.parametrize("family", ["resource_destination", "evaluation_review", "rule_transition", "anomaly_resolve"])
+    def test_protected_family_challenge_scope_and_replay(p, monkeypatch, family, fmt):
+        user = "medical1"
+        other = "medical2"
+        if family == "resource_destination":
+            unit = resource(p)
+            service, identifier = "inventario", unit["id"]
+            path = f"/api/v1/resources/{identifier}/destination"
+            body = dict(CONFIRM, version=unit["version"], destination="DISCARDED", reference="Acta sintética", occurred_at=iso())
+            table, column = "resource_destinations", "resource_id"
+        elif family == "evaluation_review":
+            unit = resource(p)
+            _, request = recipient_request(p)
+            route(p)
+            ev = p.ok("compatibilidad", "POST", "/api/v1/evaluations", data={"request_id": request["id"]})
+            assert any(c["resource_id"] == unit["id"] for c in ev["candidates"])
+            user, other = "medical2", "medical1"
+            service, identifier = "compatibilidad", ev["id"]
+            path = f"/api/v1/evaluations/{identifier}/reviews"
+            body = dict(CONFIRM, resource_id=unit["id"], decision="FAVORABLE")
+            table, column = "reviews", "evaluation_id"
+        elif family == "rule_transition":
+            profile = p.ok("compatibilidad", "POST", "/api/v1/laboratory/profiles", user="medical1", data={
+                "name": "Perfil sintético", "kind": "BLOOD", "component": "RBC", "version": 1,
+                "required_tests": ["ABO"], "source": "Prueba sintética", "synthetic": True, "effective_at": iso()})
+            service, identifier = "compatibilidad", profile["id"]
+            path = f"/api/v1/laboratory/profiles/{identifier}/actions"
+            body = dict(CONFIRM, sequence=1, state="IN_REVIEW")
+            table, column = "rule_actions", "profile_id"
+        else:
+            service, identifier, user, other = "auditoria", str(uuid4()), "auditor1", "medical1"
+            tenant = p.env.state["tenants"][0]
+            with p.owner("identidad_acceso") as conn:
+                region = conn.execute("SELECT region_id FROM institutions WHERE id=%s", (tenant,)).fetchone()[0]
+            with p.owner("auditoria") as conn:
+                conn.execute("INSERT INTO anomaly_reviews(id,tenant_id,region_id,source,source_run_id,deduplication_key,evidence,correlation_id,responsible_id) VALUES(%s,%s,%s,'priorizacion_geografia',%s,%s,%s,%s,%s)",
+                             (identifier, tenant, region, str(uuid4()), uuid4().hex, Jsonb({}), uuid4().hex, p.env.state["accounts"][user]["id"]))
+            path = f"/api/v1/anomaly-reviews/{identifier}/resolve"
+            body = dict(CONFIRM, version=1, state="DISMISSED")
+            table, column = "anomaly_actions", "review_id"
+        monkeypatch.setitem(p.apps[service].config, "REAUTH_REQUIRED_OPERATIONS", [family])
+        headers = {"Accept": "application/" + fmt, "Content-Type": "application/" + fmt,
+                   "Authorization": "Bearer " + p.tokens[user], "Idempotency-Key": uuid4().hex}
+        encoded = json.dumps(body) if fmt == "json" else request_xml(body).encode()
+        def send(hdr):
+            return requests.post(p.urls[service] + path, data=encoded, headers=hdr, timeout=20)
+        denied = send(dict(headers, Authorization="Bearer " + p.tokens[other]))
+        assert denied.status_code == 403, denied.text
+        first = send(headers)
+        assert first.status_code == 403, first.text
+        error = payload(first, fmt)["error"]
+        assert error["code"] == "reauthentication_required"
+        challenge = next(item["challenge"] for item in error["details"] if item["code"] == "challenge")
+        with p.owner(service) as conn:
+            assert conn.execute(f"SELECT count(*) FROM {table} WHERE {column}=%s", (identifier,)).fetchone()[0] == 0
+        auth = p.ok("identidad_acceso", "POST", "/api/v1/auth/reauthentication-proofs", user=user,
+                    data={"password": p.env.state["password"], "challenge": challenge})
+        assert auth["operation"] == family and auth["resource_id"] == identifier
+        done = send(dict(headers, **{"X-Reauthentication-Proof": auth["proof"]}))
+        replay = send(headers)
+&gt;       assert done.status_code in (200, 201), done.text
+E       AssertionError: &lt;?xml version='1.0' encoding='UTF-8'?&gt;
+E         &lt;response type="object"&gt;&lt;field name="error" type="object"&gt;&lt;field name="code" type="string"&gt;internal_error&lt;/field&gt;&lt;field name="message" type="string"&gt;No se pudo completar la operación.&lt;/field&gt;&lt;field name="details" type="array"/&gt;&lt;/field&gt;&lt;field name="meta" type="object"&gt;&lt;field name="correlation_id" type="string"&gt;4b01179f-57ed-404d-85a0-b1ec66e37e23&lt;/field&gt;&lt;field name="service" type="string"&gt;compatibilidad&lt;/field&gt;&lt;field name="version" type="string"&gt;0.4.4&lt;/field&gt;&lt;/field&gt;&lt;/response&gt;
+E       assert 500 in (200, 201)
+E        +  where 500 = &lt;Response [500]&gt;.status_code
+
+apps/services/tests/test_reauthentication_families.py:82: AssertionError</failure></testcase><testcase classname="tests.test_reauthentication_families" name="test_protected_family_challenge_scope_and_replay[anomaly_resolve-json]" time="1.064" /><testcase classname="tests.test_reauthentication_families" name="test_protected_family_challenge_scope_and_replay[anomaly_resolve-xml]" time="1.145" /><testcase classname="tests.test_web_reauthentication_challenge" name="test_web_user_state_reauth_and_replay_without_otp" time="4.332" /><testcase classname="tests.test_final_identity" name="test_mfa_reauth_contact_recovery_and_revocation[json]" time="7.363" /><testcase classname="tests.test_final_identity" name="test_mfa_reauth_contact_recovery_and_revocation[xml]" time="5.931" /><testcase classname="tests.test_final_identity" name="test_totp_rfc_vector_and_policy_requirement" time="0.361" /><testcase classname="tests.test_correction_policies" name="test_combined_operational_organ_policies[json]" time="117.195" /><testcase classname="tests.test_correction_policies" name="test_combined_operational_organ_policies[xml]" time="119.988" /><testcase classname="tests.test_portal_storage_targets" name="test_storage_url_rejects_other_origins_and_paths[http://redhouse.test/storage/v1/objects/token]" time="0.009" /><testcase classname="tests.test_portal_storage_targets" name="test_storage_url_rejects_other_origins_and_paths[https://redhouse.test.attacker.invalid/storage/v1/objects/token]" time="0.009" /><testcase classname="tests.test_portal_storage_targets" name="test_storage_url_rejects_other_origins_and_paths[https://redhouse.test:444/storage/v1/objects/token]" time="0.007" /><testcase classname="tests.test_portal_storage_targets" name="test_storage_url_rejects_other_origins_and_paths[https://attacker.invalid@redhouse.test/storage/v1/objects/token]" time="0.005" /><testcase classname="tests.test_portal_storage_targets" name="test_storage_url_rejects_other_origins_and_paths[https://redhouse.test/services/identidad-acceso/api/v1/users]" time="0.006" /><testcase classname="tests.test_portal_storage_targets" name="test_storage_url_rejects_other_origins_and_paths[https://redhouse.test/storage/v1/objects/token?next=attacker]" time="0.007" /><testcase classname="tests.test_portal_storage_targets" name="test_storage_url_rejects_other_origins_and_paths[https://redhouse.test/storage/v1/objects/token#fragment]" time="0.007" /><testcase classname="tests.test_portal_storage_targets" name="test_storage_url_rejects_other_origins_and_paths[https://redhouse.test/storage/v1/objects/../token]" time="0.007" /><testcase classname="tests.test_portal_storage_targets" name="test_storage_url_rejects_other_origins_and_paths[https://storage.googleapis.com.attacker.invalid/bucket/file]" time="0.010" /><testcase classname="tests.test_portal_storage_targets" name="test_storage_url_rejects_other_origins_and_paths[https://storage.googleapis.com:444/bucket/file]" time="0.007" /><testcase classname="tests.test_portal_storage_targets" name="test_local_upload_uses_modular_owner_without_network" time="0.008" /><testcase classname="tests.test_local_storage_autonomous" name="test_document_web_upload_without_api_listeners" time="9.780" /><testcase classname="tests.test_local_storage_https" name="test_local_storage_https_large_body_and_revocation" time="10.266" /></testsuite></testsuites>

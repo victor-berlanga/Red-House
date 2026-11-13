@@ -213,10 +213,7 @@ class PasswordCheck(Model):
 
 
 class Reauthentication(PasswordCheck):
-    operation: Annotated[
-        str, Field(min_length=1, max_length=100, pattern=r"^[a-z_.-]+$")
-    ]
-    resource_id: ID
+    challenge: Annotated[str, Field(min_length=40, max_length=4096)]
 
 
 class Contact(PasswordCheck):
@@ -432,39 +429,61 @@ def install(app):
         redis_call(lambda r: r.delete(cache_key))
         return {"accepted": True}
 
+    @endpoint(app, "/api/v1/auth/reauthenticate", "POST")
+    def obsolete_reauthentication():
+        raise APIError(
+            "reauthentication_protocol_obsolete",
+            "Actualiza el cliente para confirmar operaciones protegidas.",
+            410,
+        )
+
     @endpoint(
         app,
-        "/api/v1/auth/reauthenticate",
+        "/api/v1/auth/reauthentication-proofs",
         "POST",
         model=Reauthentication,
         result=schema(Proof),
     )
     def reauthenticate(data):
+        from redhouse.reauth import verify_challenge
+
+        bound = verify_challenge(data["challenge"])
         with transaction() as conn:
             user = password_user(conn, g.actor["username"], data["password"])
+            if (
+                str(user["id"]) != g.actor["id"]
+                or str(user["tenant_id"]) != g.actor["tenant_id"]
+                or user["version"] != g.actor["version"]
+            ):
+                raise APIError(
+                    "unauthorized", "La identidad o sus permisos cambiaron.", 401
+                )
             enforce_login(conn, user, data["otp"])
-            emit(conn, "REAUTHENTICATED", data["resource_id"], user["tenant_id"])
+            emit(conn, "REAUTHENTICATED", bound["resource_id"], user["tenant_id"])
+        from redhouse.security import authenticate
+
+        authenticate()
+        bound = verify_challenge(data["challenge"])
+        remaining = bound["issued_at"] + 120 - int(time.time())
+        if remaining <= 0:
+            raise APIError(
+                "reauthentication_required",
+                "El desafío venció; solicítalo nuevamente.",
+                403,
+            )
         token = secrets.token_urlsafe(48)
-        value = {
-            "user_id": g.actor["id"],
-            "session_id": g.claims["sid"],
-            "tenant_id": g.actor["tenant_id"],
-            "operation": data["operation"],
-            "resource_id": data["resource_id"],
-            "version": g.actor["version"],
-        }
         redis_call(
             lambda r: r.set(
-                key("reauth:" + hashlib.sha256(token.encode()).hexdigest()),
-                json.dumps(value),
-                ex=120,
+                key("reauth:v1:" + hashlib.sha256(token.encode()).hexdigest()),
+                json.dumps(bound),
+                ex=remaining,
             )
         )
         return {
             "proof": token,
-            "expires_in": 120,
-            "operation": data["operation"],
-            "resource_id": data["resource_id"],
+            "expires_in": remaining,
+            "operation": bound["operation"],
+            "resource_id": bound["resource_id"],
         }
 
     @endpoint(
