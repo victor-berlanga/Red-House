@@ -1,5 +1,13 @@
 # Estado vigente de Red House
 
+## Seguridad y autonomía integradas; publicación pendiente — 13/11/2026
+
+Integrados `25fed4a` (reautenticación ligada a intención/clave/cuerpo/sesión y recuperación idempotente) y `9b04a90` (API de archivos independiente del proceso web y ruta propia del portal). Se conservan las 37 pruebas aprobadas y dos fallos iniciales, más dos repeticiones dirigidas aprobadas del worktree; no se suman como una suite nueva. [Resultados, comandos y límites](documentation/evidencias/entrega-final/reauth-20261113/RESULTADOS.md). OpenAPI combinado con transporte nominal pasó su comprobación reproducible.
+
+La integración principal obtuvo cinco de seis casos aprobados y detectó base64url no canónica en el reto firmado. Se exige recodificación idéntica: dos unitarias deterministas y dos casos JSON/XML dirigidos pasaron. La variante conservaba los mismos bytes firmados; no permitía cambiar el contenido o ámbito. [Evidencia integrada](documentation/evidencias/entrega-final/reauth-20261113/integracion/README.md). GCP todavía conserva el servidor anterior; se prepara publicación con pausa de mutaciones HTTP, comprobación de configuración/respaldos y validación de ambas réplicas antes de reabrir.
+
+`a8e54d3` normaliza el formato de backend exigido por CI: 56 archivos cambiados, 274 árboles sintácticos idénticos y hashes previos contrastados con Git. [Verificación](documentation/evidencias/entrega-final/infraestructura/formato-20261113/README.md). No representa una regresión funcional nueva ni ejecución remota del workflow.
+
 ## Identidad operativa integrada y aceptación nativa en curso — 13/11/2026
 
 Integrado `6d84bd6`: Transporte ofrece una proyección mínima del nombre de cuenta operativa del transportista asignado. La ruta anterior conserva su contrato. Identidad solo responde al servicio Transporte firmado con actor delegado; Transporte verifica ámbito, identidad y versión del traslado después de la consulta remota. **Cuatro pruebas JSON/XML, permisos y reasignación concurrente aprobadas en 69,48 s**, con JUnit y ocho hashes comprobados. [Evidencia](documentation/evidencias/entrega-final/transporte-nominal-20261113/README.md). No equivale a identidad legal ni recepción física, y todavía no está publicado en GCP.

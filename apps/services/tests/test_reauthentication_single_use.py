@@ -336,6 +336,14 @@ def test_signed_challenge_binds_actor_session_and_normalized_body(monkeypatch):
         assert first == same and first["body_hash"] != changed["body_hash"]
         token = challenge(first)
         assert verify_challenge(token)["body_hash"] == first["body_hash"]
+        # Ed25519's 64-byte signature has four unused base64 bits. Changing
+        # only those bits must not create another accepted token spelling.
+        alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_"
+        altered = token[:-1] + alphabet[alphabet.index(token[-1]) | 1]
+        with pytest.raises(APIError):
+            verify_challenge(altered)
+        with pytest.raises(APIError):
+            verify_challenge(token[:-1])
         g.claims = {"sid": str(uuid4())}
         with pytest.raises(APIError):
             verify_challenge(token)
@@ -343,6 +351,16 @@ def test_signed_challenge_binds_actor_session_and_normalized_body(monkeypatch):
         monkeypatch.setattr("redhouse.reauth.time.time", lambda: 10_000_000_000)
         with pytest.raises(APIError):
             verify_challenge(token)
+
+
+def test_challenge_encoding_requires_canonical_base64url():
+    from redhouse.reauth import _decode, _encode
+
+    for content in (b"\0", b"\0\0", bytes(range(64))):
+        assert _decode(_encode(content)) == content
+    for encoded in ("AB", "AAB", "A", "AA=", "+A", ""):
+        with pytest.raises(ValueError):
+            _decode(encoded)
 
 
 def test_critical_operations_cannot_be_disabled_in_production():

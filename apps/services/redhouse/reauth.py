@@ -66,7 +66,10 @@ def _encode(value):
 def _decode(value):
     if not re.fullmatch(r"[A-Za-z0-9_-]+", value):
         raise ValueError("invalid encoding")
-    return base64.urlsafe_b64decode(value + "=" * (-len(value) % 4))
+    decoded = base64.urlsafe_b64decode(value + "=" * (-len(value) % 4))
+    if _encode(decoded) != value:
+        raise ValueError("noncanonical encoding")
+    return decoded
 
 
 def authorize(operation, resource_id, data, conn=None, *, lock=False):
