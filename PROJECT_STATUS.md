@@ -1,6 +1,12 @@
 # Estado vigente de Red House
 
 
+## Proxy y próxima cita: incrementos locales — 13/11/2026
+
+Proxy: Nginx sanea encabezados de dirección/protocolo en HTTP y WSS, también en sus trece entradas internas. Waitress y gevent solo aceptan información reenviada del gateway explícito, un salto; se retira el booleano de confianza de Transporte. El generador configura dirección por nombre privado y falla si resuelve ambiguamente. La configuración anterior debe regenerarse y, si cambia la IP del gateway, reiniciar consumidores. **Siete casos aprobados**, incluidos sockets reales Waitress; cuotas usan un contador de prueba. Nginx se revisó como configuración generada, sin daemon disponible ni despliegue. WORK-PROXY permanece parcial. [Pruebas, incidencias y límites](documentation/evidencias/entrega-final/infraestructura/PROXY.md).
+
+Donantes añade `GET /api/v1/appointments/next`, exclusivo del donante y de sus expedientes, ordenado por el horario futuro vigente. Evita inferir la próxima cita desde la primera página o la fecha de creación. **Dos casos JSON/XML-XSD aprobados con PostgreSQL/Redis/MongoDB reales temporales**, incluyendo 105 canceladas, reprogramación, confirmación, cancelación y separación por cuenta/institución. OpenAPI y esquema de respuesta regenerados. [Evidencia](documentation/evidencias/entrega-final/mobile/next-appointment-20261113/RESULTADOS.md). La aceptación visual y nativa de este contrato sigue en trabajo; no se cierra 04.
+
 ## Inicio del plan de cierre — 13/11/2026
 
 El usuario autorizó ejecutar el plan, usar subagentes según riesgo y mantener commits revisables. Tres frentes concurrentes: móvil Kotlin/Compose (modelo Terra, revisión fuerte), escritorio PySide6 (Terra) y alineación documental (Luna); al terminar documentación su plaza se dedica a almacenamiento (Terra). La dirección conserva integración, proxies, revisión y commits. Fecha de entrega indicada: día 23; terminar la parte técnica cuanto antes, sin prometer aceptación antes de verificarla.

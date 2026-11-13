@@ -115,6 +115,23 @@ class AppointmentSchedule(Model):
     created_at: Text
 
 
+class NextAppointment(Model):
+    id: ID
+    campaign_id: ID
+    title: Text
+    slot_id: ID
+    site_id: ID
+    starts_at: Text
+    ends_at: Text
+    status: str
+    schedule_status: str
+    schedule_version: int
+
+
+class NextAppointmentResult(Model):
+    appointment: NextAppointment | None
+
+
 def require_consent(conn, donor):
     latest = conn.execute(
         "SELECT granted FROM consent_versions WHERE donor_id=%s ORDER BY version DESC LIMIT 1",
@@ -241,6 +258,31 @@ def reminders(limit=100):
 
 def install(app):
     from redhouse.trace_contract import TraceEvent
+
+    @endpoint(
+        app,
+        "/api/v1/appointments/next",
+        roles=("DONOR",),
+        result=schema(NextAppointmentResult),
+    )
+    def next_appointment():
+        """Read the nearest owned booking independently of list pagination."""
+        with transaction() as conn:
+            row = conn.execute(
+                "SELECT a.id,a.campaign_id,c.title,s.slot_id,t.site_id,"
+                "t.starts_at,t.ends_at,a.status,s.status AS schedule_status,"
+                "s.version AS schedule_version FROM appointments a "
+                "JOIN donors d ON d.id=a.donor_id AND d.tenant_id=a.tenant_id "
+                "JOIN appointment_slots s ON s.id=a.id AND s.tenant_id=a.tenant_id "
+                "JOIN campaign_slots t ON t.id=s.slot_id AND t.tenant_id=a.tenant_id "
+                "AND t.campaign_id=a.campaign_id "
+                "JOIN campaigns c ON c.id=a.campaign_id AND c.tenant_id=a.tenant_id "
+                "WHERE a.tenant_id=%s AND d.user_id=%s AND a.status='BOOKED' "
+                "AND s.status IN ('BOOKED','CONFIRMED') AND t.starts_at>now() "
+                "ORDER BY t.starts_at,a.id LIMIT 1",
+                (g.actor["tenant_id"], g.actor["id"]),
+            ).fetchone()
+            return {"appointment": row}
 
     class DonationHistory(Model):
         events: list[TraceEvent]

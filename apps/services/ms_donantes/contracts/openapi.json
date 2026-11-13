@@ -3013,6 +3013,111 @@
         }
       }
     },
+    "/api/v1/appointments/next": {
+      "get": {
+        "operationId": "next_appointment",
+        "summary": "next_appointment",
+        "parameters": [
+          {
+            "name": "X-Correlation-ID",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "application/json",
+                "application/xml"
+              ]
+            }
+          }
+        ],
+        "description": "Roles: DONOR. Contrato público de API.",
+        "security": [
+          {
+            "BearerJWT": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resultado confirmado o estado pendiente documentado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_next_appointment"
+                },
+                "example": {
+                  "data": {
+                    "appointment": null
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "donantes",
+                    "version": "0.4.1"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"appointment\" type=\"null\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">donantes</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
+                "x-json-equivalent-schema": {
+                  "$ref": "#/components/schemas/Response_next_appointment"
+                },
+                "x-xsd": "/schemas/response.xsd",
+                "x-response-schema": "/schemas/next_appointment.response.json"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "406": {
+            "$ref": "#/components/responses/Error406"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "412": {
+            "$ref": "#/components/responses/Error412"
+          },
+          "413": {
+            "$ref": "#/components/responses/Error413"
+          },
+          "415": {
+            "$ref": "#/components/responses/Error415"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
+          }
+        }
+      }
+    },
     "/api/v1/donations/{identifier}/history": {
       "get": {
         "operationId": "donation_history",
@@ -7212,6 +7317,121 @@
         ],
         "title": "DonorWithdrawal",
         "type": "object"
+      },
+      "Response_next_appointment": {
+        "type": "object",
+        "required": [
+          "data",
+          "meta"
+        ],
+        "properties": {
+          "data": {
+            "additionalProperties": false,
+            "properties": {
+              "appointment": {
+                "anyOf": [
+                  {
+                    "additionalProperties": false,
+                    "properties": {
+                      "id": {
+                        "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                        "title": "Id",
+                        "type": "string"
+                      },
+                      "campaign_id": {
+                        "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                        "title": "Campaign Id",
+                        "type": "string"
+                      },
+                      "title": {
+                        "maxLength": 200,
+                        "minLength": 1,
+                        "title": "Title",
+                        "type": "string"
+                      },
+                      "slot_id": {
+                        "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                        "title": "Slot Id",
+                        "type": "string"
+                      },
+                      "site_id": {
+                        "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                        "title": "Site Id",
+                        "type": "string"
+                      },
+                      "starts_at": {
+                        "maxLength": 200,
+                        "minLength": 1,
+                        "title": "Starts At",
+                        "type": "string"
+                      },
+                      "ends_at": {
+                        "maxLength": 200,
+                        "minLength": 1,
+                        "title": "Ends At",
+                        "type": "string"
+                      },
+                      "status": {
+                        "title": "Status",
+                        "type": "string"
+                      },
+                      "schedule_status": {
+                        "title": "Schedule Status",
+                        "type": "string"
+                      },
+                      "schedule_version": {
+                        "title": "Schedule Version",
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "campaign_id",
+                      "title",
+                      "slot_id",
+                      "site_id",
+                      "starts_at",
+                      "ends_at",
+                      "status",
+                      "schedule_status",
+                      "schedule_version"
+                    ],
+                    "title": "NextAppointment",
+                    "type": "object"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "appointment"
+            ],
+            "title": "NextAppointmentResult",
+            "type": "object"
+          },
+          "meta": {
+            "type": "object",
+            "required": [
+              "correlation_id",
+              "service",
+              "version"
+            ],
+            "properties": {
+              "correlation_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "service": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              }
+            }
+          }
+        }
       },
       "Response_donation_history": {
         "type": "object",

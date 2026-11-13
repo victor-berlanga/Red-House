@@ -1,0 +1,115 @@
+{
+  "type": "object",
+  "required": [
+    "data",
+    "meta"
+  ],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": [
+        "correlation_id",
+        "service",
+        "version"
+      ],
+      "properties": {
+        "correlation_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "service": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      }
+    },
+    "data": {
+      "additionalProperties": false,
+      "properties": {
+        "appointment": {
+          "anyOf": [
+            {
+              "additionalProperties": false,
+              "properties": {
+                "id": {
+                  "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                  "title": "Id",
+                  "type": "string"
+                },
+                "campaign_id": {
+                  "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                  "title": "Campaign Id",
+                  "type": "string"
+                },
+                "title": {
+                  "maxLength": 200,
+                  "minLength": 1,
+                  "title": "Title",
+                  "type": "string"
+                },
+                "slot_id": {
+                  "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                  "title": "Slot Id",
+                  "type": "string"
+                },
+                "site_id": {
+                  "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                  "title": "Site Id",
+                  "type": "string"
+                },
+                "starts_at": {
+                  "maxLength": 200,
+                  "minLength": 1,
+                  "title": "Starts At",
+                  "type": "string"
+                },
+                "ends_at": {
+                  "maxLength": 200,
+                  "minLength": 1,
+                  "title": "Ends At",
+                  "type": "string"
+                },
+                "status": {
+                  "title": "Status",
+                  "type": "string"
+                },
+                "schedule_status": {
+                  "title": "Schedule Status",
+                  "type": "string"
+                },
+                "schedule_version": {
+                  "title": "Schedule Version",
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "id",
+                "campaign_id",
+                "title",
+                "slot_id",
+                "site_id",
+                "starts_at",
+                "ends_at",
+                "status",
+                "schedule_status",
+                "schedule_version"
+              ],
+              "title": "NextAppointment",
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "appointment"
+      ],
+      "title": "NextAppointmentResult",
+      "type": "object"
+    }
+  }
+}
