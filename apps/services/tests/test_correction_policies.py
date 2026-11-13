@@ -150,12 +150,14 @@ def test_combined_operational_organ_policies(p, monkeypatch, fmt):
                 p.urls[service] + path, headers=headers, data=encoded, timeout=20
             )
             assert replay.status_code == 202, replay.text
+
             def result(item):
                 return (
                     validate_response(item.content, {"type": "object"})
                     if fmt == "xml"
                     else item.json()
                 )["data"]
+
             assert result(replay)["operation_id"] == result(response)["operation_id"]
         name, _ = p.apps[service].url_map.bind("localhost").match(path, method="POST")
         contract = next(

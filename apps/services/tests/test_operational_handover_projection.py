@@ -1,4 +1,5 @@
 """Identidad operativa mínima de un traslado; sin datos de contacto."""
+
 import json
 from pathlib import Path
 
@@ -17,14 +18,25 @@ def test_projection_is_limited_to_authorized_shipment(p, tracking, fmt):
         name = conn.execute(
             "SELECT username FROM users WHERE id=%s", (expected,)
         ).fetchone()[0]
-    contract_path = Path(__file__).parents[1] / "ms_transporte/contracts/operational_handover.response.json"
+    contract_path = (
+        Path(__file__).parents[1]
+        / "ms_transporte/contracts/operational_handover.response.json"
+    )
     contract = json.loads(contract_path.read_text())
     for actor in ("operator1", "operator2", "transport1", "coordinator1"):
         response = p.request(
-            "transporte", "GET", path, user=actor, headers={"Accept": "application/" + fmt}
+            "transporte",
+            "GET",
+            path,
+            user=actor,
+            headers={"Accept": "application/" + fmt},
         )
         assert response.status_code == 200, response.text
-        envelope = response.json() if fmt == "json" else validate_response(response.content, contract)
+        envelope = (
+            response.json()
+            if fmt == "json"
+            else validate_response(response.content, contract)
+        )
         validate(envelope, contract)
         assert envelope["data"] == {
             "shipment_id": shipment["id"],
@@ -33,11 +45,17 @@ def test_projection_is_limited_to_authorized_shipment(p, tracking, fmt):
         }
     for actor in ("donor1", "transport2"):
         response = p.request(
-            "transporte", "GET", path, user=actor, headers={"Accept": "application/" + fmt}
+            "transporte",
+            "GET",
+            path,
+            user=actor,
+            headers={"Accept": "application/" + fmt},
         )
         assert response.status_code == 403
     direct = f"/internal/v1/transport-users/{expected}/operational-name"
-    assert p.request("identidad_acceso", "GET", direct, user="operator2").status_code in (401, 403)
+    assert p.request(
+        "identidad_acceso", "GET", direct, user="operator2"
+    ).status_code in (401, 403)
 
 
 def test_reassignment_during_identity_read_is_reauthorized(p, tracking, monkeypatch):

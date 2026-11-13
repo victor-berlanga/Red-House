@@ -53,6 +53,7 @@ def public(row):
 
 def install(app):
     from .mobile import install as mobile
+
     mobile(app)
 
     @endpoint(

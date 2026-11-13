@@ -58,7 +58,14 @@ def test_local_storage_https_large_body_and_revocation(p, tmp_path, monkeypatch)
     )
     # Un listener web real se detiene antes de emitir o usar capacidades API.
     from flask import Flask
-    web = make_server("127.0.0.1", 0, Flask("stopped_web"), threaded=True, request_handler=QuietHandler)
+
+    web = make_server(
+        "127.0.0.1",
+        0,
+        Flask("stopped_web"),
+        threaded=True,
+        request_handler=QuietHandler,
+    )
     thread = threading.Thread(target=web.serve_forever, daemon=True)
     thread.start()
     web_port = web.server_port
@@ -82,10 +89,16 @@ def test_local_storage_https_large_body_and_revocation(p, tmp_path, monkeypatch)
         module.configure(config_root, "127.0.0.1")
         certificate(config_root / "tls")
         config = (config_root / "public.nginx.conf").read_text()
+
         def upstream(match):
             name = match.group(1)
-            port = p.servers["documentos"].server_port if name.startswith("documentos-") else web_port
+            port = (
+                p.servers["documentos"].server_port
+                if name.startswith("documentos-")
+                else web_port
+            )
             return f"server 127.0.0.1:{port} resolve"
+
         config = re.sub(r"server ([a-z-]+):8080 resolve", upstream, config)
         ports = {}
 

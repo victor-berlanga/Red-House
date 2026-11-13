@@ -72,7 +72,16 @@ NAV = [
         "recipient.write",
         False,
     ),
-    ("BANCO DE SANGRE", "muestras", "Muestras", "heart-pulse", "regional.samples", {}, "recipient.write", False),
+    (
+        "BANCO DE SANGRE",
+        "muestras",
+        "Muestras",
+        "heart-pulse",
+        "regional.samples",
+        {},
+        "recipient.write",
+        False,
+    ),
     (
         "GENERAL",
         "reportes",
@@ -287,11 +296,40 @@ NAV = [
 
 
 PERMISSIONS["conservation"] = {"OPERATOR", "MEDICAL"}
-NAV.extend([
-    ("GENERAL", "documentos", "Documentos privados", "file-clock", "regional.document_center", {}, "dashboard", False),
-    ("BANCO DE SANGRE", "conservacion", "Conservación", "shield-check", "regional.conservation", {}, "conservation", False),
-    ("ADMINISTRACIÓN", "configuracion", "Configuración y seguridad", "settings-2", "admin.settings", {}, "administration", False),
-])
+NAV.extend(
+    [
+        (
+            "GENERAL",
+            "documentos",
+            "Documentos privados",
+            "file-clock",
+            "regional.document_center",
+            {},
+            "dashboard",
+            False,
+        ),
+        (
+            "BANCO DE SANGRE",
+            "conservacion",
+            "Conservación",
+            "shield-check",
+            "regional.conservation",
+            {},
+            "conservation",
+            False,
+        ),
+        (
+            "ADMINISTRACIÓN",
+            "configuracion",
+            "Configuración y seguridad",
+            "settings-2",
+            "admin.settings",
+            {},
+            "administration",
+            False,
+        ),
+    ]
+)
 
 
 class RemotePrincipal(Principal):
@@ -479,7 +517,8 @@ def configure(app):
                 response.headers["Content-Security-Policy"]
                 .replace(
                     "img-src 'self' data:",
-                    "img-src 'self' data: " + getattr(g, "map_tile_origin", "https://tile.openstreetmap.org"),
+                    "img-src 'self' data: "
+                    + getattr(g, "map_tile_origin", "https://tile.openstreetmap.org"),
                 )
                 .replace(
                     "connect-src 'self'", "connect-src 'self' wss://" + request.host

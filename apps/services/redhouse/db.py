@@ -121,8 +121,12 @@ def insert(conn, table, fields):
 
 def update(conn, table, identifier, fields):
     from psycopg import sql
-    if table in ('recipients','requests','routes'):
-        conn.execute('SELECT pg_advisory_xact_lock(hashtextextended(%s,0))',('critical:'+table+':'+str(identifier),))
+
+    if table in ("recipients", "requests", "routes"):
+        conn.execute(
+            "SELECT pg_advisory_xact_lock(hashtextextended(%s,0))",
+            ("critical:" + table + ":" + str(identifier),),
+        )
 
     query = sql.SQL("UPDATE {} SET {} WHERE id=%s RETURNING *").format(
         sql.Identifier(table),

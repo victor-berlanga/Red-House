@@ -50,8 +50,12 @@ def push(recipient, code, identifier, *, alert_id=None):
     try:
         response = requests.post(
             url,
-            json={"recipient": recipient, "message_code": code, "event_id": identifier,
-                  **({"alert_id": alert_id} if alert_id else {})},
+            json={
+                "recipient": recipient,
+                "message_code": code,
+                "event_id": identifier,
+                **({"alert_id": alert_id} if alert_id else {}),
+            },
             headers={
                 "Authorization": "Bearer " + cfg.get("PUSH_ADAPTER_TOKEN", ""),
                 "Idempotency-Key": identifier,

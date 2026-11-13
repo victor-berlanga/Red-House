@@ -13,7 +13,9 @@ from redhouse.xml_response import validate_response
 
 
 def test_reservation_ledger_delete_revoked_for_runtime(p):
-    script = (Path(__file__).resolve().parents[1] / "scripts/reauth_operations_retention.sql").read_text()
+    script = (
+        Path(__file__).resolve().parents[1] / "scripts/reauth_operations_retention.sql"
+    ).read_text()
     with p.owner("inventario") as owner:
         owner.execute(script)
         owner.execute(script)
@@ -39,31 +41,73 @@ def body_response(response, fmt):
 @pytest.mark.parametrize("fmt", ["json", "xml"])
 def test_user_role_challenge_and_proofless_replay(p, monkeypatch, fmt):
     target = p.ok(
-        "identidad_acceso", "POST", "/api/v1/users", user="admin1",
-        data={"username": "role_" + uuid4().hex[:12], "password": p.env.state["password"],
-              "role": "OPERATOR", "tenant_id": p.env.state["tenants"][0]},
+        "identidad_acceso",
+        "POST",
+        "/api/v1/users",
+        user="admin1",
+        data={
+            "username": "role_" + uuid4().hex[:12],
+            "password": p.env.state["password"],
+            "role": "OPERATOR",
+            "tenant_id": p.env.state["tenants"][0],
+        },
     )
-    monkeypatch.setitem(p.apps["identidad_acceso"].config, "REAUTH_REQUIRED_OPERATIONS", ["user_role"])
+    monkeypatch.setitem(
+        p.apps["identidad_acceso"].config, "REAUTH_REQUIRED_OPERATIONS", ["user_role"]
+    )
     path = "/api/v1/users/" + target["id"] + "/role"
-    body = {"role": "MEDICAL", "version": target["version"], "reason": "Cambio autorizado", "human_confirmation": True}
-    headers = {"Authorization": "Bearer " + p.tokens["admin1"], "Accept": "application/" + fmt,
-               "Content-Type": "application/" + fmt, "Idempotency-Key": uuid4().hex}
+    body = {
+        "role": "MEDICAL",
+        "version": target["version"],
+        "reason": "Cambio autorizado",
+        "human_confirmation": True,
+    }
+    headers = {
+        "Authorization": "Bearer " + p.tokens["admin1"],
+        "Accept": "application/" + fmt,
+        "Content-Type": "application/" + fmt,
+        "Idempotency-Key": uuid4().hex,
+    }
+
     def send(route, payload, hdr):
-        encoded = request_xml(payload).encode() if fmt == "xml" else __import__("json").dumps(payload)
-        return requests.post(p.urls["identidad_acceso"] + route, headers=hdr, data=encoded, timeout=20)
+        encoded = (
+            request_xml(payload).encode()
+            if fmt == "xml"
+            else __import__("json").dumps(payload)
+        )
+        return requests.post(
+            p.urls["identidad_acceso"] + route, headers=hdr, data=encoded, timeout=20
+        )
+
     initial = send(path, body, headers)
     assert initial.status_code == 403, initial.text
-    challenge = next(item["challenge"] for item in body_response(initial, fmt)["error"]["details"] if item["code"] == "challenge")
-    proof_response = send("/api/v1/auth/reauthentication-proofs", {"password": p.env.state["password"], "challenge": challenge}, headers)
+    challenge = next(
+        item["challenge"]
+        for item in body_response(initial, fmt)["error"]["details"]
+        if item["code"] == "challenge"
+    )
+    proof_response = send(
+        "/api/v1/auth/reauthentication-proofs",
+        {"password": p.env.state["password"], "challenge": challenge},
+        headers,
+    )
     assert proof_response.status_code == 200, proof_response.text
     proof = body_response(proof_response, fmt)["data"]
     assert proof["operation"] == "user_role" and proof["resource_id"] == target["id"]
-    first = send(path, body, dict(headers, **{"X-Reauthentication-Proof": proof["proof"]}))
+    first = send(
+        path, body, dict(headers, **{"X-Reauthentication-Proof": proof["proof"]})
+    )
     replay = send(path, body, headers)
     assert first.status_code == replay.status_code == 200, (first.text, replay.text)
     assert body_response(first, fmt)["data"] == body_response(replay, fmt)["data"]
     with p.owner("identidad_acceso") as conn:
-        assert conn.execute("SELECT count(*) FROM activity_events WHERE event->>'action'='USER_ROLE_CHANGED' AND event->>'resource_id'=%s", (target["id"],)).fetchone()[0] == 1
+        assert (
+            conn.execute(
+                "SELECT count(*) FROM activity_events WHERE event->>'action'='USER_ROLE_CHANGED' AND event->>'resource_id'=%s",
+                (target["id"],),
+            ).fetchone()[0]
+            == 1
+        )
 
 
 @pytest.mark.parametrize("fmt", ["json", "xml"])
@@ -333,8 +377,15 @@ def test_old_unbound_reauthentication_payload_is_rejected(p):
     assert response.status_code == 410
     assert response.json()["error"]["code"] == "reauthentication_protocol_obsolete"
     unsupported = p.request(
-        "identidad_acceso", "POST", "/api/v1/auth/reauthentication-proofs", user="admin1",
-        data={"password": p.env.state["password"], "operation": "user_state", "resource_id": str(uuid4())},
+        "identidad_acceso",
+        "POST",
+        "/api/v1/auth/reauthentication-proofs",
+        user="admin1",
+        data={
+            "password": p.env.state["password"],
+            "operation": "user_state",
+            "resource_id": str(uuid4()),
+        },
     )
     assert unsupported.status_code in (400, 422)
 

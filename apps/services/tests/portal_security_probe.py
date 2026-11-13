@@ -1,5 +1,6 @@
 """Inyección de fallos exclusiva del servidor TLS temporal de aceptación."""
 
+
 def install(web, p, accounts):
     from flask import request
     from src.integration import sessions

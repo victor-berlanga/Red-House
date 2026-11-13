@@ -75,15 +75,35 @@ def test_document_web_upload_without_api_listeners(
     assert status["analysis"] == "CLEAN"
     kernel = autonomous.extensions["application_kernel"]
     downloaded = kernel.request(
-        "documentos", "GET", "/api/v1/files/" + identifier + "/download",
-        headers={"Authorization": "Bearer " + p.tokens["admin1"], "Accept": "application/json"},
+        "documentos",
+        "GET",
+        "/api/v1/files/" + identifier + "/download",
+        headers={
+            "Authorization": "Bearer " + p.tokens["admin1"],
+            "Accept": "application/json",
+        },
     ).json()["data"]
     download_path = urlsplit(downloaded["download_url"]).path
     assert download_path.startswith("/portal-storage/v1/objects/")
     assert client.get(download_path).data == content
-    assert client.put(download_path, data=content, content_type="application/pdf").status_code == 401
-    assert p.request("identidad_acceso", "POST", "/api/v1/auth/logout", user="admin1").status_code == 200
+    assert (
+        client.put(
+            download_path, data=content, content_type="application/pdf"
+        ).status_code
+        == 401
+    )
+    assert (
+        p.request(
+            "identidad_acceso", "POST", "/api/v1/auth/logout", user="admin1"
+        ).status_code
+        == 200
+    )
     assert client.get(download_path).status_code == 401
-    renewed = p.ok("identidad_acceso", "POST", "/api/v1/auth/login", user=None,
-                   data={"username": "admin1", "password": p.env.state["password"]})
+    renewed = p.ok(
+        "identidad_acceso",
+        "POST",
+        "/api/v1/auth/login",
+        user=None,
+        data={"username": "admin1", "password": p.env.state["password"]},
+    )
     p.tokens["admin1"] = renewed["access_token"]

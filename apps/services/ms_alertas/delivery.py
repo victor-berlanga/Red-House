@@ -362,11 +362,18 @@ def install(app):
                 (g.actor["id"], data["channel"]),
             ).fetchone()
             if existing:
-                row = update(conn, "alert_subscriptions", existing["id"], {
-                    "tenant_id": g.actor["tenant_id"], "role": g.actor["role"],
-                    "destination": destination, "active": True,
-                    "version": existing["version"] + 1,
-                })
+                row = update(
+                    conn,
+                    "alert_subscriptions",
+                    existing["id"],
+                    {
+                        "tenant_id": g.actor["tenant_id"],
+                        "role": g.actor["role"],
+                        "destination": destination,
+                        "active": True,
+                        "version": existing["version"] + 1,
+                    },
+                )
                 emit(conn, "ALERT_SUBSCRIPTION_ROTATED", row["id"], row["tenant_id"])
                 return row
             row = insert(

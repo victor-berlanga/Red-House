@@ -13,11 +13,15 @@ def proposal_scope():
         return [g.actor["tenant_id"]]
     identifiers = []
     for page in range(1, 51):
-        result = call("identidad_acceso", "GET", f"/api/v1/institutions?page={page}&page_size=100")
+        result = call(
+            "identidad_acceso", "GET", f"/api/v1/institutions?page={page}&page_size=100"
+        )
         identifiers.extend(row["id"] for row in result["items"])
         if len(identifiers) >= result["total"]:
             return identifiers
-    raise APIError("volume_limit", "Ámbito institucional supera el límite de consulta.", 422)
+    raise APIError(
+        "volume_limit", "Ámbito institucional supera el límite de consulta.", 422
+    )
 
 
 def install(app):

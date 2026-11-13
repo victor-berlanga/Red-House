@@ -1,0 +1,344 @@
+{
+  "files_checked": 274,
+  "files_changed": [
+    {
+      "path": "apps/services/ms_alertas/delivery.py",
+      "before": "25b689b344811f20c1a4646cc1dce293ba0b692e33358afe9dc33934d0ada742",
+      "after": "d86ce88984432997cd76b80ccfe8f98401286393068feb03edf94e67efc27988",
+      "ast_equal": true
+    },
+    {
+      "path": "apps/services/ms_auditoria/__init__.py",
+      "before": "0b3e70f659eda568fc92811728d6fc9ed360431c7214a635e7337c747d16cc04",
+      "after": "b0865d1a013c3ee4a41a9307d45de63d9b39625ae0ce028e39c64fed991352c6",
+      "ast_equal": true
+    },
+    {
+      "path": "apps/services/ms_auditoria/routes.py",
+      "before": "806c0e6ae2ba6c06b01e71510029aceb375b2ab03fcfeccdd98a27e7665be99b",
+      "after": "f17ba7c695f432d2454c83d44b1698883d92c3726e44896bbeb27576e136478d",
+      "ast_equal": true
+    },
+    {
+      "path": "apps/services/ms_compatibilidad/__init__.py",
+      "before": "efc95917a460bfbe177ef1f45725598c76d6a8cf097e9c3175cd13e05ad1acc1",
+      "after": "a982d29efba747090181e4b4edc866143483851ba907a5aac4ecc7ab1f5a52dc",
+      "ast_equal": true
+    },
+    {
+      "path": "apps/services/ms_donantes/__init__.py",
+      "before": "a7c9055bb46625ffb26ac73ee9a2f2f38bd8e7eefb4bc6d2682fc81a9d9261ec",
+      "after": "6d8fc22f235708c7dbd600709dab43b679ac21239abfc834479ed24a77a5a7e0",
+      "ast_equal": true
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/catalogue.py",
+      "before": "590ea43fc29141de5ac842682c08ac9b5f6a959aea10d6f2229a8de4ef71fab8",
+      "after": "f96073cd3308f1f19d257f87b9407c332b6ea5a2bcd1e63818243401226fb4bb",
+      "ast_equal": true
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/devices.py",
+      "before": "d5f6129e467df28efe3f0731995e00666a5a659222ee508bce5a2fd326d8c532",
+      "after": "186d4fc168a53e9520cd2fe0646afa82226a7c1172cfd3af8e961c74453068dc",
+      "ast_equal": true
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/mobile.py",
+      "before": "761a34061c1af2ff982ece8d68b725a0315aea66ef6ae1ff8f93ada10c84df8a",
+      "after": "38d7af904d53ca61f2d445b60f42801238b6da1943d52ef5690bff1c6f68c3f3",
+      "ast_equal": true
+    },
+    {
+      "path": "apps/services/ms_identidad_acceso/strong_auth.py",
+      "before": "ea45dedea3ccfe4f247d62ad1a0fc581b5e549cd84fc4706e20528e52a344d0c",
+      "after": "093e13f6565f7974f9f9e23b43721ed132c5528de231ce7f743bf8dd1e8c82de",
+      "ast_equal": true
+    },
+    {
+      "path": "apps/services/ms_inventario/__init__.py",
+      "before": "30d63b81614ca3645ea3d274f40691f53edcaca38bd07ea1839379fa173a3719",
+      "after": "303c9b6f44809b3d7e862679069cebdb09ce0a7701cc6255ab88dcbe24f9a138",
+      "ast_equal": true
+    },
+    {
+      "path": "apps/services/ms_inventario/quality.py",
+      "before": "65d0943794e38b3090aa3e31711bd50f8192378105a15361c20d33b4acb8462d",
+      "after": "1d43cd88b0cb0fcd44aab3318198b82437a2979f91a433c7265f203fba1514a4",
+      "ast_equal": true
+    },
+    {
+      "path": "apps/services/ms_inventario/routes.py",
+      "before": "6fcab736bdbf4d640019cf6a889bf8f94c988c2a68640f9f845027967919427e",
+      "after": "4bd431c084dc92e30d8168a69bdd1ba204dcf6291ed19578c2ed737613ba2a29",
+      "ast_equal": true
+    },
+    {
+      "path": "apps/services/ms_priorizacion_geografia/__init__.py",
+      "before": "6889471a536cfeb1fc07fb28994d61c17ca79773294091fe8d4e56578a39007b",
+      "after": "802708bc8b6a7c1436884c90d6d28c009b12d168b579962bd0528fe9c5b4888c",
+      "ast_equal": true
+    },
+    {
+      "path": "apps/services/ms_priorizacion_geografia/queries.py",
+      "before": "a3ce5fa3d4c8e1840c89153a1f4d928a3f304b27e088fa1eaaee291ec8e31b4a",
+      "after": "bfd433bd553c0c64744708db42d7eff8bb3e84255839d0c484704f03fe0e3dc0",
+      "ast_equal": true
+    },
+    {
+      "path": "apps/services/ms_priorizacion_geografia/routes.py",
+      "before": "43c4acf3336d170d24adf254ce9270a7a294cce0bb47688c6a9ebc3a5fae999a",
+      "after": "4947cf87bb2d4d27fb5e8c3d6571c8e732adbfeb68c1713928c7649cfe8f5d7c",
+      "ast_equal": true
+    },
+    {
+      "path": "apps/services/ms_receptores/__init__.py",
+      "before": "758b583d4bb3c36c3b34f5886afd9dbf119a5495fcda239b7ab074fc54125e65",
+      "after": "a58383066956bc70de1973043b54d032e13dc5a6a50385358698a6e11168dff9",
+      "ast_equal": true
+    },
+    {
+      "path": "apps/services/ms_transporte/__init__.py",
+      "before": "80d9bebc126c327dee12edd396201c2811ca5a70f5b923b095fddbf200a9ea49",
+      "after": "8e78d0bebfb4a9e7cdf747c598265d5188aa45d12dbd52aaf1a638c7a48e30d8",
+      "ast_equal": true
+    },
+    {
+      "path": "apps/services/ms_transporte/mobile.py",
+      "before": "28f86cfacdf7bc9dd56a749e3cbe88b5b8522fec71c57f7ec8efaa52f97146d6",
+      "after": "001cb311e9a87251baba6959ea15b475f30918b368a84e33021af2bad6b4b8db",
+      "ast_equal": true
+    },
+    {
+      "path": "apps/services/ms_transporte/tracking.py",
+      "before": "6ee7b940aa38355e6c335ea9240fd5a1c510621eb79dba31fdad2aaaa77a1df9",
+      "after": "a98be2faf547b23db7b9aeb7fccea7dbd00d5bee0559daeffc75665818bbd9a1",
+      "ast_equal": true
+    },
+    {
+      "path": "apps/services/redhouse/audit_catalog.py",
+      "before": "e98f2543372bb75869385f5c4c58d9cf6e0c7481806c9a5ed18ce488b5a43064",
+      "after": "f749e63c3fc2cb4e3ecf990a3e75f56e8c85d5613f0577bd31b439640d924295",
+      "ast_equal": true
+    },
+    {
+      "path": "apps/services/redhouse/db.py",
+      "before": "1137f5bb600a4ff9b52ce2bcc59716aca76f01331515a4aef659d64f314e352f",
+      "after": "c9c74f85cf6c06ee7ad9f08c53f91ef0ecc1457005b5a91e84e860866ad63749",
+      "ast_equal": true
+    },
+    {
+      "path": "apps/services/redhouse/delivery.py",
+      "before": "46ff9aee1f9c07ec48c6ababee251bb06edca3a223efc84bfe0a3e9825c8509c",
+      "after": "f30b9a3a372301b6303038f0342e4041f8376dcea46ac99abe63109aa039ad31",
+      "ast_equal": true
+    },
+    {
+      "path": "apps/services/redhouse/openapi.py",
+      "before": "83d98c6c2f7ccfa10412f8dd09f2d123d47e89e25836183236d61756da8f7fcc",
+      "after": "b696367635690fc78422b79fd928da8b4fb1cdfc6fc14102a12b8592b9ee435a",
+      "ast_equal": true
+    },
+    {
+      "path": "apps/services/redhouse/report_formats.py",
+      "before": "1b96ca61823594c9e4d631d834d65b714c16222d0d0b24bd79437595a1ed259b",
+      "after": "e45feca632d3b247b33eb3c4ccf856cc40689ef60efed4d7015df0943d021494",
+      "ast_equal": true
+    },
+    {
+      "path": "apps/services/run.py",
+      "before": "1b27e341360a81a03cac39de20874588c19de23f4f52e931846f4f3ec6fb5849",
+      "after": "11c1715afa55bfb38687439ff3cfdb30a8b071c5893a340ebe00a1d9bcd24793",
+      "ast_equal": true
+    },
+    {
+      "path": "apps/services/scripts/check_real_scanner.py",
+      "before": "5d947af0562ca07c5e68ae4891ddb1e4a2409bea43f38f5b58b982c2c00abf6e",
+      "after": "2b6e5aa27bab8e6517f62bf2fe9736f37dd6ce08224d6da2a72b6a5c5650a652",
+      "ast_equal": true
+    },
+    {
+      "path": "apps/services/scripts/migrate_documents.py",
+      "before": "28ace1400f0e8f5decb5c69c8c554bd6bd42cbd5de3f7c47ae685a8e17875807",
+      "after": "f3c9efc85435834c58ce0bfb4bb010fccbcd84512848ce3d6e91da5e59e7e187",
+      "ast_equal": true
+    },
+    {
+      "path": "apps/services/scripts/provision.py",
+      "before": "b6bf11d3fca38b132d6e1a19ceb840c63317cd8f3ed4ce0ee7292b40d2aa5932",
+      "after": "28c17fa42c7388276f8e67be5f15f99248b7526da2c652cead0fa42bfa216ea9",
+      "ast_equal": true
+    },
+    {
+      "path": "apps/services/servicio_monitoreo/routes.py",
+      "before": "4f8e31e71e661145bc97378918bac99e9982516b2a52fe05c36efb7442f7e03f",
+      "after": "61797764331544d02ff03f5ed57dee592fca33db4faecda2b2a91f496ddf2147",
+      "ast_equal": true
+    },
+    {
+      "path": "apps/services/tests/portal_security_probe.py",
+      "before": "d494e2b3094c90b89700067cf5e1563b978753af5e140afd59a9e6f87f02158e",
+      "after": "3a4a73831eb36ccb155121fa89d5eb6318ee007d1bdd803a7c1b47004c358b7d",
+      "ast_equal": true
+    },
+    {
+      "path": "apps/services/tests/test_correction_browser.py",
+      "before": "765bdfdd6df6355b8102263f55cc8be8681d8a23901f3e0cd2b26cc63d9d3462",
+      "after": "5058b8e5c577e2bd478c0a2c92faaf9be6149943769cd994d285bd121b3e7103",
+      "ast_equal": true
+    },
+    {
+      "path": "apps/services/tests/test_correction_policies.py",
+      "before": "7ec7ff4f437e25a6e9e995a337341611574c6af03b8d30923f38709184fc5519",
+      "after": "a854a7004122e160c154ad21957d3b46216f68d794aa2cb14f90de7636c68154",
+      "ast_equal": true
+    },
+    {
+      "path": "apps/services/tests/test_local_storage_autonomous.py",
+      "before": "1c6e6757b6e58a2fc65116ad6bcd69f6357ee1c10397c22821e3b66f837d059d",
+      "after": "06671fa8b43f5d9e2b2fe5918f8df80d3fcc3013901a740687d4a228b6251f54",
+      "ast_equal": true
+    },
+    {
+      "path": "apps/services/tests/test_local_storage_https.py",
+      "before": "e574f071b7e05a4d6ad517e0fd02303b29ccd929d73b24346993dbab537beae9",
+      "after": "1e5f4d42eb7252f53470311d38512a918ea3e6e329c215177be54be961917a93",
+      "ast_equal": true
+    },
+    {
+      "path": "apps/services/tests/test_mobile_transport.py",
+      "before": "86312cc8e5d9c218853b5381b5fa747df49460575070a99579d197496ed180a6",
+      "after": "804c983a4f896d3338d79dedc5ae58f7688139ef991eb64e3cb87e43b7009bb1",
+      "ast_equal": true
+    },
+    {
+      "path": "apps/services/tests/test_operational_handover_projection.py",
+      "before": "75799c0f90b5c533c8147eb4194f6a6510ef4e3fcd00d240bd37a056a63519ce",
+      "after": "7af8764c6b6c3a678a9380c737930e18ab0d35bfeb824bc582f84e86583ec8ae",
+      "ast_equal": true
+    },
+    {
+      "path": "apps/services/tests/test_portal_tracking.py",
+      "before": "f3c050a6f34745cee199fff2bf370f5681499f63e4495c847093a5307df75714",
+      "after": "125dc120436d26e571d893a32727a6ea44be0bec8f488a6d8f4fdd82b368c4b0",
+      "ast_equal": true
+    },
+    {
+      "path": "apps/services/tests/test_proxy_boundaries.py",
+      "before": "75cfb6c14e7d85e8b667f6f43f4fe5d7f42def977168dd8402436ed0f7fcc10f",
+      "after": "247d38c2cddf6b140381f5ff0d73c901b80fff0cb57747a5d13134d918306af2",
+      "ast_equal": true
+    },
+    {
+      "path": "apps/services/tests/test_reauthentication_families.py",
+      "before": "cf8df706cad363f727aff54881ba0540c8c5df79c4a0f3c6a49a4b11ac9fbcde",
+      "after": "c6fd56fb9749e650e7c96942a43e598967da623095a9576030faca9210d1e60a",
+      "ast_equal": true
+    },
+    {
+      "path": "apps/services/tests/test_reauthentication_single_use.py",
+      "before": "e45f5a058907dc13c708d0b505403ac911d9660214e8c38d54e66f1e764b49e4",
+      "after": "85fca1653c4fcfb1c9b7e3ac5c0f0ba7076410c8cb33a22b92cd95fbeaff4d69",
+      "ast_equal": true
+    },
+    {
+      "path": "apps/services/tests/test_ui_cache.py",
+      "before": "b01a0f25e824aa679ba81ff023cdfaf5e5d68e754feb23d51e2d5e218a73c7a7",
+      "after": "2724001517e8e925bcda412f86b1e56f7530e364e9e6f7d070cf618a62359c19",
+      "ast_equal": true
+    },
+    {
+      "path": "apps/services/tests/test_validation_audit.py",
+      "before": "368f5c359a526459d8d15ef6bf481f114377ce25015e1ec25c562735b91917bf",
+      "after": "37411c1a953fbc8e3e2ddac876fe2d56d4a1d416bffb40bb3fc51e60c0cd2d46",
+      "ast_equal": true
+    },
+    {
+      "path": "apps/services/tests/test_web_integration.py",
+      "before": "0d14d4e17cec99d7f3bb60192b457f9d148a0e4ff337ddadbee4ce9254ac4d54",
+      "after": "be1733851ecfab0fc54c26363ab33c966f0be2fcc1ed321f47ce8c07eca483ba",
+      "ast_equal": true
+    },
+    {
+      "path": "apps/web/src/integration/__init__.py",
+      "before": "1e15c1b43d4b34a3e5b02ffacc0e0c9e67ba695a0edde7dd89152b9622ee881f",
+      "after": "b143d3ef5e83544096feb11171d89d3c27228bcc4648cfdedb1fa08307429e27",
+      "ast_equal": true
+    },
+    {
+      "path": "apps/web/src/integration/presentation.py",
+      "before": "8a41f08e3db285257879c16bd4aa116aba78c2f011067d199930c5d20eb42f3d",
+      "after": "e3a8906595300c4d6685cf88b86286e1cc320980c74b29e3fb8b4fb681b7d31c",
+      "ast_equal": true
+    },
+    {
+      "path": "apps/web/src/integration/routes/administration.py",
+      "before": "b72484b2fc8481593180674793f16bac6ab533bdcf7a1741ec45d1582bef84bd",
+      "after": "291a6086aba633d79b93541fedcb56346a3c43a01deb66bebcbc3afaf4975c9c",
+      "ast_equal": true
+    },
+    {
+      "path": "apps/web/src/integration/routes/agenda.py",
+      "before": "056b79fa072ea10ff1aee8237ee0e42cad1873073c09c355de58e67d7f3ca8da",
+      "after": "f19676daed6ff6971ca14b04b93c42752691908520325a5bbf298b31ae4e4f61",
+      "ast_equal": true
+    },
+    {
+      "path": "apps/web/src/integration/routes/auth.py",
+      "before": "d02370e5f1e29f193dd9627a73f56a805caa4815022a69a6c98fc1f97fc31a47",
+      "after": "9b2b87a987cd0e977a149cbca3ebc757453a9b10679edd2afc6bf430b53e3842",
+      "ast_equal": true
+    },
+    {
+      "path": "apps/web/src/integration/routes/dashboard.py",
+      "before": "42a060cf6508bf0d793b157c0c72367397af24ed8b6c41929ef6577bbf7f2c00",
+      "after": "939cdc14f1adbba078b6b1d7f6a97d6d7526940ea9a86a1d292198d5a2491ea1",
+      "ast_equal": true
+    },
+    {
+      "path": "apps/web/src/integration/routes/decision_support.py",
+      "before": "1e0bdbcaf81158857b1e0b10da2c0cb3e7870358d3d4b37a6913ec6b64ac4083",
+      "after": "88605a63c23860f1ebd120063478041ac1a47a6cd9d91f62e5c4654fcc6c63d5",
+      "ast_equal": true
+    },
+    {
+      "path": "apps/web/src/integration/routes/inventory.py",
+      "before": "db6e69f74d0d1e9c2815e4cd547464e9bc629574d9809f4c1b8ddd528235d3cd",
+      "after": "b734b8341fcd445691f74084d01a9178c613c391ca6165c6eeda6221271d09e3",
+      "ast_equal": true
+    },
+    {
+      "path": "apps/web/src/integration/routes/logistics.py",
+      "before": "013f12b2a03a0bd4baa192788dbbbb98dea88a0279ad1d7b9e1042baec80a025",
+      "after": "19b3ee0cf83f21ec8c92d3407243392ebc12a1a32f35abe495cba9f2a4c086ca",
+      "ast_equal": true
+    },
+    {
+      "path": "apps/web/src/integration/routes/quality.py",
+      "before": "15dd745a81d1927809c1c137d9e64ad472ecb46bba3a13dd254a18356a641c7a",
+      "after": "2f173f83d9ed6199c1896fa359b9baf4de9ffb43ab17f51f07d97c58c11c29dd",
+      "ast_equal": true
+    },
+    {
+      "path": "apps/web/src/integration/routes/requests.py",
+      "before": "c732d29cc4941e613fea104e0035421a7150b26fa161875a588c18684f6fc742",
+      "after": "6faed81463ab4b2a86fdbdd23c589ff1fa07048e8488e61f3b5dab8e67c5205f",
+      "ast_equal": true
+    },
+    {
+      "path": "apps/web/src/integration/storage_client.py",
+      "before": "a3ca379d892ab7c0f7ac7e9193c7882cab2ce76a447b110748dbecd3993467e1",
+      "after": "9f8263797d52786a7a2877c313c231365c6f2d5c19d786a178f79a30d0d1231d",
+      "ast_equal": true
+    },
+    {
+      "path": "apps/web/src/integration/storage_gateway.py",
+      "before": "527b7022ee855c44a8c403a36757b3058a2dc94a9690c0e7c080c3229a0b1c08",
+      "after": "f96a55af6eed147d0867fe4ff7d45a86c05e2bb7b4d0116afdd130fdf0713dac",
+      "ast_equal": true
+    }
+  ],
+  "tool": "ruff 0.16.10",
+  "base_commit": "9b04a90",
+  "scope": "Formatting only; AST checked without source locations"
+}

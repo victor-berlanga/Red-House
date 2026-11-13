@@ -342,15 +342,39 @@ class BrowserTicket(Model):
 
 
 def install(app):
-    @endpoint(app, "/api/v1/shipments/<identifier>/tracking/devices", roles=("COORDINATOR",), result={
-        "type": "object", "required": ["items"], "properties": {"items": {"type": "array", "items": {
-            "type": "object", "required": ["id", "label", "source"], "additionalProperties": False,
-            "properties": {"id": {"type": "string", "format": "uuid"}, "label": {"type": "string"}, "source": {"type": "string"}}}}}})
+    @endpoint(
+        app,
+        "/api/v1/shipments/<identifier>/tracking/devices",
+        roles=("COORDINATOR",),
+        result={
+            "type": "object",
+            "required": ["items"],
+            "properties": {
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "required": ["id", "label", "source"],
+                        "additionalProperties": False,
+                        "properties": {
+                            "id": {"type": "string", "format": "uuid"},
+                            "label": {"type": "string"},
+                            "source": {"type": "string"},
+                        },
+                    },
+                }
+            },
+        },
+    )
     def tracking_devices_for_shipment(identifier):
         with transaction() as conn:
             shipment = access(conn, identifier)
-            return {"items": conn.execute("SELECT id,label,source FROM tracking_devices WHERE user_id=%s AND tenant_id=%s AND active AND user_active AND institution_active AND user_role='TRANSPORT' AND expires_at>now() ORDER BY label,id",
-                (shipment["transport_user_id"], shipment["origin_id"])).fetchall()}
+            return {
+                "items": conn.execute(
+                    "SELECT id,label,source FROM tracking_devices WHERE user_id=%s AND tenant_id=%s AND active AND user_active AND institution_active AND user_role='TRANSPORT' AND expires_at>now() ORDER BY label,id",
+                    (shipment["transport_user_id"], shipment["origin_id"]),
+                ).fetchall()
+            }
 
     @endpoint(
         app,

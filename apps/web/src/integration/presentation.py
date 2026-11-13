@@ -400,12 +400,15 @@ SERVICE_LABELS = {
 }
 
 
-EVENT_LABELS.update({
-    "INSTITUTION_PRESENTATION_CHANGED": "Publicación y coordenadas institucionales actualizadas",
-    "PORTAL_POLICY_CHANGED": "Política operativa institucional actualizada",
-    "CAMPAIGN_PUBLICATION_CHANGED": "Publicación de campaña actualizada",
-    "DOCUMENT_CONSERVATION_CHANGED": "Conservación y bloqueo documental actualizados",
-})
+EVENT_LABELS.update(
+    {
+        "INSTITUTION_PRESENTATION_CHANGED": "Publicación y coordenadas institucionales actualizadas",
+        "PORTAL_POLICY_CHANGED": "Política operativa institucional actualizada",
+        "CAMPAIGN_PUBLICATION_CHANGED": "Publicación de campaña actualizada",
+        "DOCUMENT_CONSERVATION_CHANGED": "Conservación y bloqueo documental actualizados",
+    }
+)
+
 
 def event_label(code):
     return EVENT_LABELS.get(code, "Evento sin clasificación: " + str(code))
@@ -458,15 +461,33 @@ def related_alert(row):
     return None
 
 
-FIELD_LABELS.update({
-    "label": "Nombre", "location": "Ubicación", "calibration_reference": "Referencia de calibración",
-    "minimum_c": "Temperatura mínima °C", "maximum_c": "Temperatura máxima °C",
-    "max_gap_seconds": "Intervalo máximo sin lectura (s)", "effective_at": "Fecha efectiva",
-    "synthetic": "Datos sintéticos", "supersedes": "Versión anterior", "blocked": "Bloqueado",
-    "latitude": "Latitud", "longitude": "Longitud", "coordinate_source": "Fuente de coordenadas",
-    "coordinate_recorded_at": "Fecha de consulta de coordenadas", "published": "Publicación autorizada",
-    "description": "Descripción", "retention_until": "Conservación hasta", "legal_hold": "Bloqueo de eliminación",
-    "policy_reference": "Referencia de política", "file_status": "Estado del archivo", "analysis": "Análisis",
-    "venue": "Lugar de atención", "information": "Información pública", "timezone": "Zona horaria",
-    "tracking_interval_seconds": "Intervalo esperado (s)", "tracking_stale_seconds": "Antigüedad máxima (s)",
-})
+FIELD_LABELS.update(
+    {
+        "label": "Nombre",
+        "location": "Ubicación",
+        "calibration_reference": "Referencia de calibración",
+        "minimum_c": "Temperatura mínima °C",
+        "maximum_c": "Temperatura máxima °C",
+        "max_gap_seconds": "Intervalo máximo sin lectura (s)",
+        "effective_at": "Fecha efectiva",
+        "synthetic": "Datos sintéticos",
+        "supersedes": "Versión anterior",
+        "blocked": "Bloqueado",
+        "latitude": "Latitud",
+        "longitude": "Longitud",
+        "coordinate_source": "Fuente de coordenadas",
+        "coordinate_recorded_at": "Fecha de consulta de coordenadas",
+        "published": "Publicación autorizada",
+        "description": "Descripción",
+        "retention_until": "Conservación hasta",
+        "legal_hold": "Bloqueo de eliminación",
+        "policy_reference": "Referencia de política",
+        "file_status": "Estado del archivo",
+        "analysis": "Análisis",
+        "venue": "Lugar de atención",
+        "information": "Información pública",
+        "timezone": "Zona horaria",
+        "tracking_interval_seconds": "Intervalo esperado (s)",
+        "tracking_stale_seconds": "Antigüedad máxima (s)",
+    }
+)

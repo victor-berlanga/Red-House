@@ -11,5 +11,6 @@ def create_app(config=None):
     app.config["VERSION"] = VERSION
     register(app)
     from .anomalies import install as anomalies
+
     anomalies(app)
     return complete_app(app)

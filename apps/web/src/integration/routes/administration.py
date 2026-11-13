@@ -149,14 +149,26 @@ def user_state(identifier):
 @admin.get("/configuracion")
 def settings():
     require(g.principal, "administration")
-    return render_template("integration/workspace.html", title="Configuración institucional", active="users",
+    return render_template(
+        "integration/workspace.html",
+        title="Configuración institucional",
+        active="users",
         note="Cambios versionados y auditados. La administración no concede facultades clínicas propias.",
-        links=[("Política operativa", url_for("admin.policy_edit")),
-               ("Publicación y coordenadas institucionales", url_for("admin.institution_presentation_edit")),
-               ("Dispositivos y credenciales", url_for("admin.devices")),
-               ("Usuarios y permisos", url_for("admin.index", entity="users")),
-               ("Sedes y capacidades", url_for("maintenance.catalogue_list", kind="sites")),
-               ("Salud de la plataforma", url_for("portal.monitor"))])
+        links=[
+            ("Política operativa", url_for("admin.policy_edit")),
+            (
+                "Publicación y coordenadas institucionales",
+                url_for("admin.institution_presentation_edit"),
+            ),
+            ("Dispositivos y credenciales", url_for("admin.devices")),
+            ("Usuarios y permisos", url_for("admin.index", entity="users")),
+            (
+                "Sedes y capacidades",
+                url_for("maintenance.catalogue_list", kind="sites"),
+            ),
+            ("Salud de la plataforma", url_for("portal.monitor")),
+        ],
+    )
 
 
 @admin.get("/administracion/usuarios/<uuid:identifier>")

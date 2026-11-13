@@ -41,7 +41,10 @@ def migrate(client):
     client.rh_monitoreo.events.create_index(
         [("service", 1), ("checked_at", -1), ("event_id", 1)],
         name="monitor_latest",
-        partialFilterExpression={"source": "monitoreo", "checked_at": {"$exists": True}},
+        partialFilterExpression={
+            "source": "monitoreo",
+            "checked_at": {"$exists": True},
+        },
     )
 
 

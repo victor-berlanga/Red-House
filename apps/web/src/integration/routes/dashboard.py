@@ -12,7 +12,10 @@ def dashboard():
     role = g.principal.role_code
     stats, charts, failures = [], [], []
     end = request.args.get("until_at") or datetime.now(timezone.utc).isoformat()
-    start = request.args.get("from_at") or (datetime.now(timezone.utc)-timedelta(days=30)).isoformat()
+    start = (
+        request.args.get("from_at")
+        or (datetime.now(timezone.utc) - timedelta(days=30)).isoformat()
+    )
 
     def fetch(service, path="/api/v1/summary", params=None):
         try:
@@ -98,12 +101,16 @@ def dashboard():
         ]
     metrics = []
     for owner, roles in {
-        "donantes": ("OPERATOR", "MEDICAL"), "inventario": ("OPERATOR", "MEDICAL", "COORDINATOR"),
-        "receptores": ("OPERATOR", "MEDICAL"), "compatibilidad": ("OPERATOR", "MEDICAL"),
+        "donantes": ("OPERATOR", "MEDICAL"),
+        "inventario": ("OPERATOR", "MEDICAL", "COORDINATOR"),
+        "receptores": ("OPERATOR", "MEDICAL"),
+        "compatibilidad": ("OPERATOR", "MEDICAL"),
         "transporte": ("OPERATOR", "MEDICAL", "COORDINATOR", "TRANSPORT"),
     }.items():
         if role in roles:
-            result = fetch(owner, "/api/v1/portal-metrics", {"from_at": start, "until_at": end})
+            result = fetch(
+                owner, "/api/v1/portal-metrics", {"from_at": start, "until_at": end}
+            )
             if result:
                 metrics.append(result)
     return render_template(
@@ -116,5 +123,7 @@ def dashboard():
         alerts=alerts["items"],
         appointments=appointments,
         audit_events=audit_events,
-        metrics=metrics, metric_start=start, metric_end=end,
+        metrics=metrics,
+        metric_start=start,
+        metric_end=end,
     )

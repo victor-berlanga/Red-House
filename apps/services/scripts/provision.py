@@ -298,6 +298,7 @@ def provision(
     # Aplicar después de crear todas las credenciales, incluido el propietario nuevo.
     with psycopg.connect(owner_url) as conn:
         from redhouse.shared_migrations import upgrade
+
         upgrade(conn)
     return {
         "configs": configs,

@@ -1,10 +1,22 @@
 """Semántica explícita de eventos existentes; los desconocidos no se reinterpretan."""
 
 ACTIONS = {
-    "RULE_GOVERNANCE_RECORDED": ("Transición de perfil registrada", "DECISION", "RECORDED"),
+    "RULE_GOVERNANCE_RECORDED": (
+        "Transición de perfil registrada",
+        "DECISION",
+        "RECORDED",
+    ),
     "REGIONAL_GRAPH_RECORDED": ("Grafo regional registrado", "BUSINESS", "RECORDED"),
-    "OWNER_ALGORITHM_EXECUTED": ("Análisis de fuentes autorizadas", "BUSINESS", "RECORDED"),
-    "ANOMALY_REVIEW_REQUESTED": ("Anomalía potencial para revisión", "BUSINESS", "PENDING"),
+    "OWNER_ALGORITHM_EXECUTED": (
+        "Análisis de fuentes autorizadas",
+        "BUSINESS",
+        "RECORDED",
+    ),
+    "ANOMALY_REVIEW_REQUESTED": (
+        "Anomalía potencial para revisión",
+        "BUSINESS",
+        "PENDING",
+    ),
     "ANOMALY_REVIEW_RESOLVED": ("Revisión técnica resuelta", "DECISION", "RECORDED"),
     "ACADEMIC_ALGORITHM_EXECUTED": (
         "Simulación académica ejecutada",
@@ -287,12 +299,30 @@ ACTIONS.update(
     }
 )
 
-ACTIONS.update({
-    "INSTITUTION_PRESENTATION_CHANGED": ("Publicación y coordenadas institucionales actualizadas", "BUSINESS", "RECORDED"),
-    "PORTAL_POLICY_CHANGED": ("Política operativa institucional actualizada", "BUSINESS", "RECORDED"),
-    "CAMPAIGN_PUBLICATION_CHANGED": ("Publicación de campaña actualizada", "BUSINESS", "RECORDED"),
-    "DOCUMENT_CONSERVATION_CHANGED": ("Conservación y bloqueo documental actualizados", "BUSINESS", "RECORDED"),
-})
+ACTIONS.update(
+    {
+        "INSTITUTION_PRESENTATION_CHANGED": (
+            "Publicación y coordenadas institucionales actualizadas",
+            "BUSINESS",
+            "RECORDED",
+        ),
+        "PORTAL_POLICY_CHANGED": (
+            "Política operativa institucional actualizada",
+            "BUSINESS",
+            "RECORDED",
+        ),
+        "CAMPAIGN_PUBLICATION_CHANGED": (
+            "Publicación de campaña actualizada",
+            "BUSINESS",
+            "RECORDED",
+        ),
+        "DOCUMENT_CONSERVATION_CHANGED": (
+            "Conservación y bloqueo documental actualizados",
+            "BUSINESS",
+            "RECORDED",
+        ),
+    }
+)
 
 CATEGORIES = {
     "BUSINESS": "Operaciones de negocio",

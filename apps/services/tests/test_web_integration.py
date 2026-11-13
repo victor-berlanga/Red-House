@@ -276,13 +276,23 @@ def test_full_reservation_transport_receipt_from_web_and_xml(
             {
                 "human_confirmation": "on",
                 "reason": "Confirmación física ficticia desde el portal",
-                **({
-                    "scanned_resource_id": unit_id,
-                    "seal": "SELLO-SINTETICO-001",
-                    "captured_at": iso(),
-                    "reported_handover_user_id": p.env.state["accounts"][{"COLLECTED": "operator1", "DELIVERED": "operator2", "ACCEPTED": "transport1"}[state]]["id"],
-                    "electronic_acceptance": "on",
-                } if state in ("COLLECTED", "DELIVERED", "ACCEPTED") else {}),
+                **(
+                    {
+                        "scanned_resource_id": unit_id,
+                        "seal": "SELLO-SINTETICO-001",
+                        "captured_at": iso(),
+                        "reported_handover_user_id": p.env.state["accounts"][
+                            {
+                                "COLLECTED": "operator1",
+                                "DELIVERED": "operator2",
+                                "ACCEPTED": "transport1",
+                            }[state]
+                        ]["id"],
+                        "electronic_acceptance": "on",
+                    }
+                    if state in ("COLLECTED", "DELIVERED", "ACCEPTED")
+                    else {}
+                ),
             },
         )
     p.drain()

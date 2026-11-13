@@ -132,23 +132,69 @@ def values(conn, kind, data):
 
 
 def install(app):
-    @endpoint(app, "/internal/v1/institutions/<identifier>/operational-contacts",
-              internal=("transporte",), roles=("TRANSPORT", "OPERATOR", "COORDINATOR"),
-              summary="Contactos explícitamente operativos; solo proyección de tarea por Transporte",
-              result={"type":"object","required":["id","name","contacts","operators"],"properties":{
-                  "id":{"type":"string","format":"uuid"},"name":{"type":"string"},
-                  "contacts":{"type":"array","items":{"type":"object","required":["id","name","value","version"],"properties":{"id":{"type":"string"},"name":{"type":"string"},"value":{"type":"string"},"version":{"type":"integer"}}}},
-                  "operators":{"type":"array","items":{"type":"object","required":["id","name"],"properties":{"id":{"type":"string"},"name":{"type":"string"}}}}}})
+    @endpoint(
+        app,
+        "/internal/v1/institutions/<identifier>/operational-contacts",
+        internal=("transporte",),
+        roles=("TRANSPORT", "OPERATOR", "COORDINATOR"),
+        summary="Contactos explícitamente operativos; solo proyección de tarea por Transporte",
+        result={
+            "type": "object",
+            "required": ["id", "name", "contacts", "operators"],
+            "properties": {
+                "id": {"type": "string", "format": "uuid"},
+                "name": {"type": "string"},
+                "contacts": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "required": ["id", "name", "value", "version"],
+                        "properties": {
+                            "id": {"type": "string"},
+                            "name": {"type": "string"},
+                            "value": {"type": "string"},
+                            "version": {"type": "integer"},
+                        },
+                    },
+                },
+                "operators": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "required": ["id", "name"],
+                        "properties": {
+                            "id": {"type": "string"},
+                            "name": {"type": "string"},
+                        },
+                    },
+                },
+            },
+        },
+    )
     def operational_contacts(identifier):
         with transaction() as conn:
-            institution=get(conn,"institutions",identifier)
-            if str(institution["region_id"])!=g.actor["region_id"] or not institution["active"]:
-                raise APIError("forbidden","Institución operativa no disponible.",403)
-            contacts=conn.execute("SELECT id,name,details->>'value' AS value,version FROM catalogue WHERE tenant_id=%s AND kind='contacts' AND active AND details->'operational'='true'::jsonb ORDER BY name,id",(identifier,)).fetchall()
+            institution = get(conn, "institutions", identifier)
+            if (
+                str(institution["region_id"]) != g.actor["region_id"]
+                or not institution["active"]
+            ):
+                raise APIError("forbidden", "Institución operativa no disponible.", 403)
+            contacts = conn.execute(
+                "SELECT id,name,details->>'value' AS value,version FROM catalogue WHERE tenant_id=%s AND kind='contacts' AND active AND details->'operational'='true'::jsonb ORDER BY name,id",
+                (identifier,),
+            ).fetchall()
             # A task needs a handover identity, never general user/contact/clinical data.
-            operators=conn.execute("SELECT id,username AS name FROM users WHERE tenant_id=%s AND role='OPERATOR' AND active ORDER BY username,id",(identifier,)).fetchall()
-            emit(conn,"OPERATIONAL_CONTACTS_READ",identifier,identifier)
-            return dict(id=identifier,name=institution["name"],contacts=contacts,operators=operators)
+            operators = conn.execute(
+                "SELECT id,username AS name FROM users WHERE tenant_id=%s AND role='OPERATOR' AND active ORDER BY username,id",
+                (identifier,),
+            ).fetchall()
+            emit(conn, "OPERATIONAL_CONTACTS_READ", identifier, identifier)
+            return dict(
+                id=identifier,
+                name=institution["name"],
+                contacts=contacts,
+                operators=operators,
+            )
 
     @endpoint(
         app,

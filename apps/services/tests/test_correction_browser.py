@@ -89,26 +89,60 @@ def test_operational_browser_corrections(
             account.update(secret=enrollment["secret"], lastCounter=counter)
         accounts[alias] = account
     from .portal_security_probe import install as install_security_probe
+
     install_security_probe(web, p, accounts)
     smtp = smtp_receiver()
     smtp_port, messages = smtp.__enter__()
     identity = p.apps["identidad_acceso"]
-    for key, value in {"SMTP_HOST":"127.0.0.1", "SMTP_PORT":smtp_port, "SMTP_TEST_RECEIVER":True, "SMTP_FROM":"portal@redhouse.invalid"}.items():
-        monkeypatch.setitem(identity.config,key,value)
+    for key, value in {
+        "SMTP_HOST": "127.0.0.1",
+        "SMTP_PORT": smtp_port,
+        "SMTP_TEST_RECEIVER": True,
+        "SMTP_FROM": "portal@redhouse.invalid",
+    }.items():
+        monkeypatch.setitem(identity.config, key, value)
     donor_account = accounts["donor"]
-    auth = p.ok("identidad_acceso","POST","/api/v1/auth/login",user=None,data={"username":donor_account["username"],"password":password})
+    auth = p.ok(
+        "identidad_acceso",
+        "POST",
+        "/api/v1/auth/login",
+        user=None,
+        data={"username": donor_account["username"], "password": password},
+    )
     p.tokens[donor_account["username"]] = auth["access_token"]
-    p.ok("identidad_acceso","POST","/api/v1/auth/contact",user=donor_account["username"],data={"email":donor_account["username"]+"@example.invalid", "password":password})
+    p.ok(
+        "identidad_acceso",
+        "POST",
+        "/api/v1/auth/contact",
+        user=donor_account["username"],
+        data={
+            "email": donor_account["username"] + "@example.invalid",
+            "password": password,
+        },
+    )
     with identity.app_context():
         deliver_pending()
-    p.ok("identidad_acceso","POST","/api/v1/auth/contact/verify",user=donor_account["username"],data={"token":email_token(messages[-1])})
+    p.ok(
+        "identidad_acceso",
+        "POST",
+        "/api/v1/auth/contact/verify",
+        user=donor_account["username"],
+        data={"token": email_token(messages[-1])},
+    )
     p.tokens.pop(donor_account["username"])
     messages.clear()
+
     def mailbox():
         with identity.app_context():
             deliver_pending()
-        return {"token":email_token(messages[-1]) if messages else None}
-    web.add_url_rule("/test/mailbox", "test_mailbox", web.extensions["csrf"].exempt(mailbox), methods=["POST"])
+        return {"token": email_token(messages[-1]) if messages else None}
+
+    web.add_url_rule(
+        "/test/mailbox",
+        "test_mailbox",
+        web.extensions["csrf"].exempt(mailbox),
+        methods=["POST"],
+    )
     unit = p.ok(
         "inventario",
         "POST",
@@ -124,6 +158,7 @@ def test_operational_browser_corrections(
     )
     profile, body, result = laboratory(p, unit, "json")
     from .portal_organ_seed import prepare
+
     organ = prepare(p)
     recipient = p.ok(
         "receptores",
@@ -242,6 +277,7 @@ def test_operational_browser_corrections(
 
     def drain_owner(name):
         from redhouse.events import dispatch
+
         with p.apps[name].app_context():
             return dispatch(25)
 
@@ -430,11 +466,34 @@ location / {{ proxy_pass https://{upstream}:{server.server_port}; proxy_set_head
         os.environ.get("REDHOUSE_BROWSER_RESULTS", str(tmp_path / "browser"))
     ) / ("correcciones-operativas-" + backend)
     output.mkdir(parents=True, exist_ok=True)
+
     def source_manifest():
-        names = subprocess.check_output(["git", "ls-files", "--cached", "--others", "--exclude-standard", "--", "apps/services", "apps/web", "scripts", "data/database"], cwd=root, text=True).splitlines()
-        return {name: hashlib.sha256((root/name).read_bytes()).hexdigest() for name in sorted(set(names)) if (root/name).is_file()}
+        names = subprocess.check_output(
+            [
+                "git",
+                "ls-files",
+                "--cached",
+                "--others",
+                "--exclude-standard",
+                "--",
+                "apps/services",
+                "apps/web",
+                "scripts",
+                "data/database",
+            ],
+            cwd=root,
+            text=True,
+        ).splitlines()
+        return {
+            name: hashlib.sha256((root / name).read_bytes()).hexdigest()
+            for name in sorted(set(names))
+            if (root / name).is_file()
+        }
+
     sources_before = source_manifest()
-    (output/"sources-before.json").write_text(json.dumps(sources_before,indent=2)+"\n")
+    (output / "sources-before.json").write_text(
+        json.dumps(sources_before, indent=2) + "\n"
+    )
     worker_thread.start()
     try:
         completed = subprocess.run(
@@ -442,7 +501,9 @@ location / {{ proxy_pass https://{upstream}:{server.server_port}; proxy_set_head
             input=json.dumps(
                 {
                     "base": base,
-                    "commit": subprocess.check_output(["git","rev-parse","HEAD"],cwd=root,text=True).strip(),
+                    "commit": subprocess.check_output(
+                        ["git", "rev-parse", "HEAD"], cwd=root, text=True
+                    ).strip(),
                     "gateway": "WSGI TLS aislado; no acredita proxy productivo"
                     if embedded_gateway
                     else "Nginx 1.28.0 nativo"
@@ -474,7 +535,9 @@ location / {{ proxy_pass https://{upstream}:{server.server_port}; proxy_set_head
         assert completed.returncode == 0, completed.stdout + completed.stderr
         report = json.loads((output / "resultados.json").read_text())
         assert report["passed"] and not report["consoleErrors"]
-        assert source_manifest() == sources_before, "El código cambió durante la aceptación; repetir con fuentes congeladas."
+        assert source_manifest() == sources_before, (
+            "El código cambió durante la aceptación; repetir con fuentes congeladas."
+        )
         assert not worker_errors, worker_errors
         identifiers = report["records"]
         with p.owner("inventario") as conn:
@@ -485,9 +548,27 @@ location / {{ proxy_pass https://{upstream}:{server.server_port}; proxy_set_head
                 ).fetchone()[0]
                 == 2
             )
-            assert conn.execute("SELECT count(*) FROM reservations WHERE resource_id=%s",(unit["id"],)).fetchone()[0] == 1
-            assert conn.execute("SELECT destination FROM resource_destinations WHERE resource_id=%s",(organ["unit"]["id"],)).fetchone()[0] == "TRANSPLANTED"
-            assert conn.execute("SELECT count(*) FROM reservations WHERE resource_id=%s",(organ["unit"]["id"],)).fetchone()[0] == 1
+            assert (
+                conn.execute(
+                    "SELECT count(*) FROM reservations WHERE resource_id=%s",
+                    (unit["id"],),
+                ).fetchone()[0]
+                == 1
+            )
+            assert (
+                conn.execute(
+                    "SELECT destination FROM resource_destinations WHERE resource_id=%s",
+                    (organ["unit"]["id"],),
+                ).fetchone()[0]
+                == "TRANSPLANTED"
+            )
+            assert (
+                conn.execute(
+                    "SELECT count(*) FROM reservations WHERE resource_id=%s",
+                    (organ["unit"]["id"],),
+                ).fetchone()[0]
+                == 1
+            )
         with p.owner("compatibilidad") as conn:
             assert (
                 conn.execute(
@@ -508,10 +589,31 @@ location / {{ proxy_pass https://{upstream}:{server.server_port}; proxy_set_head
             os.environ.get("REDHOUSE_GCS_TEST_BUCKET")
         )
         with p.owner("auditoria") as conn:
-            assert conn.execute("SELECT status FROM audit_findings WHERE id=%s",(identifiers["finding"],)).fetchone()[0] == "CLOSED"
-        (output/"persistencia.json").write_text(json.dumps({"blood_destinations":2,"blood_reservations":1,"organ_destination":"TRANSPLANTED","organ_reservations":1,"finding":"CLOSED","identifiers":identifiers},indent=2)+"\n")
+            assert (
+                conn.execute(
+                    "SELECT status FROM audit_findings WHERE id=%s",
+                    (identifiers["finding"],),
+                ).fetchone()[0]
+                == "CLOSED"
+            )
+        (output / "persistencia.json").write_text(
+            json.dumps(
+                {
+                    "blood_destinations": 2,
+                    "blood_reservations": 1,
+                    "organ_destination": "TRANSPLANTED",
+                    "organ_reservations": 1,
+                    "finding": "CLOSED",
+                    "identifiers": identifiers,
+                },
+                indent=2,
+            )
+            + "\n"
+        )
     finally:
-        (output/"sources-after.json").write_text(json.dumps(source_manifest(),indent=2)+"\n")
+        (output / "sources-after.json").write_text(
+            json.dumps(source_manifest(), indent=2) + "\n"
+        )
         worker_stop.set()
         worker_thread.join(timeout=60)
         smtp.__exit__(None, None, None)

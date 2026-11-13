@@ -309,7 +309,9 @@ def spec(app):
             operation["responses"]["410"] = {
                 "description": "Protocolo anterior retirado; usar /api/v1/auth/reauthentication-proofs.",
                 "content": {
-                    "application/json": {"schema": {"$ref": "#/components/schemas/Error"}},
+                    "application/json": {
+                        "schema": {"$ref": "#/components/schemas/Error"}
+                    },
                     "application/xml": {"schema": {"type": "string"}},
                 },
             }

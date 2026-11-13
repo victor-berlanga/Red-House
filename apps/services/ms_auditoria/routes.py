@@ -55,7 +55,8 @@ def register(app):
                 ),
             )
             from .anomalies import ingest
-            ingest(conn,data)
+
+            ingest(conn, data)
             queue(conn, data, "mongodb")
         return {"stored": True}
 

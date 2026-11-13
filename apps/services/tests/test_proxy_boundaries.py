@@ -234,7 +234,8 @@ def test_proxy_and_upstreams_use_aliases_on_only_the_private_network():
         )
     upstreams = set(
         re.findall(
-            r"server ([a-z-]+):8080 resolve", (root / "deployment/nginx.conf").read_text()
+            r"server ([a-z-]+):8080 resolve",
+            (root / "deployment/nginx.conf").read_text(),
         )
     )
     assert upstreams == expected - {"web-private", "gateway-private"}

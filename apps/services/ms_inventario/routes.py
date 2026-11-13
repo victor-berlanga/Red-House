@@ -199,7 +199,11 @@ def reserve(data):
                 "idempotency_conflict", "Clave utilizada para otro contenido.", 409
             )
         if not op and getattr(g, "reauth_replay_only", False):
-            raise APIError("reauthentication_required", "La operación ya no está disponible; solicita un nuevo reto.", 403)
+            raise APIError(
+                "reauthentication_required",
+                "La operación ya no está disponible; solicita un nuevo reto.",
+                403,
+            )
         if not op:
             op = insert(
                 conn,

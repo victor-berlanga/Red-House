@@ -17,7 +17,8 @@ from .common import (
 
 def schedule_options(campaign_id):
     sites = {
-        r["id"]: r["name"] for r in rows("identidad_acceso", "/api/v1/appointment-sites")
+        r["id"]: r["name"]
+        for r in rows("identidad_acceso", "/api/v1/appointment-sites")
     }
     return [
         (
@@ -74,7 +75,8 @@ def consent_new(identifier):
 @regional.get("/campanas/<uuid:identifier>/horarios")
 def slots(identifier):
     sites = {
-        r["id"]: r["name"] for r in rows("identidad_acceso", "/api/v1/appointment-sites")
+        r["id"]: r["name"]
+        for r in rows("identidad_acceso", "/api/v1/appointment-sites")
     }
 
     def prepare(items):

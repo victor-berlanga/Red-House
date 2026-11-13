@@ -42,12 +42,21 @@ def render(rows, format, context=None):
             for key, value in row.items():
                 if key.endswith("_at") or key == "eta":
                     try:
-                        row[key] = datetime.fromisoformat(value.replace("Z", "+00:00")).astimezone(zone).isoformat()
+                        row[key] = (
+                            datetime.fromisoformat(value.replace("Z", "+00:00"))
+                            .astimezone(zone)
+                            .isoformat()
+                        )
                     except (ValueError, AttributeError):
                         pass
             converted.append(row)
         # Columnas de contexto mantienen CSV/XLSX tabulares, incluso sin resultados.
-        metadata = {"reporte_" + k: json.dumps(v, ensure_ascii=False) if isinstance(v, (dict, list)) else str(v) for k, v in context.items()}
+        metadata = {
+            "reporte_" + k: json.dumps(v, ensure_ascii=False)
+            if isinstance(v, (dict, list))
+            else str(v)
+            for k, v in context.items()
+        }
         rows = [{**row, **metadata} for row in converted] or [metadata]
     table = cells(rows)
     if format == "CSV":

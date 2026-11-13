@@ -74,7 +74,10 @@ def test_portal_browser_profiles_and_live_map(p, tracking, web, tmp_path):
     from werkzeug.serving import make_server
 
     web.config["HIGHCHARTS_ENABLED"] = True
-    output = Path(os.environ.get("REDHOUSE_BROWSER_RESULTS", str(tmp_path))) / "cartografia-degradada"
+    output = (
+        Path(os.environ.get("REDHOUSE_BROWSER_RESULTS", str(tmp_path)))
+        / "cartografia-degradada"
+    )
     output.mkdir(parents=True, exist_ok=True)
     socket_origin = tracking["url"].split("/ws/")[0]
 

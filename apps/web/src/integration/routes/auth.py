@@ -30,13 +30,21 @@ from .common import (
 @public.get("/")
 def index():
     content, unavailable = {}, []
-    for service, kind in (("identidad_acceso", "institutions"), ("donantes", "campaigns")):
+    for service, kind in (
+        ("identidad_acceso", "institutions"),
+        ("donantes", "campaigns"),
+    ):
         try:
             content[kind] = call(service, "/api/v1/public/" + kind, token="")["items"]
         except BusinessError:
             content[kind] = []
             unavailable.append(kind)
-    return render_template("public.html", title="Una red que conecta vidas", publications=content, unavailable=unavailable)
+    return render_template(
+        "public.html",
+        title="Una red que conecta vidas",
+        publications=content,
+        unavailable=unavailable,
+    )
 
 
 @public.route("/login", methods=["GET", "POST"])

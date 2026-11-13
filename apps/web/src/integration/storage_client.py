@@ -41,7 +41,9 @@ def storage_target(url):
             or (target.hostname, target.port or 443)
             != (base.hostname, base.port or 443)
             or target.query
-            or not re.fullmatch(r"/(?:portal-)?storage/v1/objects/[A-Za-z0-9_-]+=*", target.path)
+            or not re.fullmatch(
+                r"/(?:portal-)?storage/v1/objects/[A-Za-z0-9_-]+=*", target.path
+            )
         ):
             raise ValueError()
         return True
@@ -55,7 +57,9 @@ def upload_object(url, content, headers):
     if local and kernel is not None:
         path = urlsplit(url).path
         if path.startswith("/portal-storage/v1/objects/"):
-            path = "/storage/v1/objects/" + path.removeprefix("/portal-storage/v1/objects/")
+            path = "/storage/v1/objects/" + path.removeprefix(
+                "/portal-storage/v1/objects/"
+            )
         response = kernel.request(
             "documentos", "PUT", path, data=content, headers=headers
         )

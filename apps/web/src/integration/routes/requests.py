@@ -94,7 +94,12 @@ def request_detail(identifier):
         )
     sections.append(("Decisiones registradas", row.get("decisions", [])))
     if row["kind"] == "ORGAN" and g.principal.role_code == "MEDICAL":
-        actions.append(("Constancias externas", url_for("regional.external_authorizations", identifier=identifier)))
+        actions.append(
+            (
+                "Constancias externas",
+                url_for("regional.external_authorizations", identifier=identifier),
+            )
+        )
     return detail(
         "Solicitud " + str(identifier)[:8].upper(),
         "solicitudes",
@@ -107,30 +112,72 @@ def request_detail(identifier):
 
 @regional.get("/solicitudes/<uuid:identifier>/constancias")
 def external_authorizations(identifier):
-    return table("Constancias externas registradas", "solicitudes", "receptores",
+    return table(
+        "Constancias externas registradas",
+        "solicitudes",
+        "receptores",
         f"/api/v1/requests/{identifier}/external-authorizations",
-        [("authority","Autoridad emisora"),("reference","Referencia"),("decision","Estado"),("valid_until","Vigencia"),("version","Versión")],
+        [
+            ("authority", "Autoridad emisora"),
+            ("reference", "Referencia"),
+            ("decision", "Estado"),
+            ("valid_until", "Vigencia"),
+            ("version", "Versión"),
+        ],
         new=url_for("regional.external_authorization_new", identifier=identifier),
-        note="El portal conserva la constancia; no emite autorizaciones clínicas ni oficiales.")
+        note="El portal conserva la constancia; no emite autorizaciones clínicas ni oficiales.",
+    )
 
 
-@regional.route("/solicitudes/<uuid:identifier>/constancias/nueva", methods=["GET","POST"])
+@regional.route(
+    "/solicitudes/<uuid:identifier>/constancias/nueva", methods=["GET", "POST"]
+)
 def external_authorization_new(identifier):
     from .conservation import permit
+
     permit("MEDICAL")
     call("receptores", f"/api/v1/requests/{identifier}")
-    history = rows("receptores", f"/api/v1/requests/{identifier}/external-authorizations")
-    previous = max(history,key=lambda r:r["version"]) if history else None
-    return submit("receptores", f"/api/v1/requests/{identifier}/external-authorizations", [
-        field("authority","Autoridad emisora"), field("reference","Referencia de la constancia"),
-        field("decision","Registro","select",[("RECORDED","Constancia recibida"),("WITHDRAWN","Retirada documentada")]),
-        field("valid_from","Vigente desde","datetime-local",default=soon(-1)),
-        field("valid_until","Vigente hasta","datetime-local",default=soon(24)),
-        field("effective_at","Fecha de documentación","datetime-local",default=soon(-1)),
-        field("supersedes","Versión anterior","hidden",default=previous["id"] if previous else "",required=False),
-    ] + confirmations(), title="Documentar constancia externa",active="solicitudes",
+    history = rows(
+        "receptores", f"/api/v1/requests/{identifier}/external-authorizations"
+    )
+    previous = max(history, key=lambda r: r["version"]) if history else None
+    return submit(
+        "receptores",
+        f"/api/v1/requests/{identifier}/external-authorizations",
+        [
+            field("authority", "Autoridad emisora"),
+            field("reference", "Referencia de la constancia"),
+            field(
+                "decision",
+                "Registro",
+                "select",
+                [
+                    ("RECORDED", "Constancia recibida"),
+                    ("WITHDRAWN", "Retirada documentada"),
+                ],
+            ),
+            field("valid_from", "Vigente desde", "datetime-local", default=soon(-1)),
+            field("valid_until", "Vigente hasta", "datetime-local", default=soon(24)),
+            field(
+                "effective_at",
+                "Fecha de documentación",
+                "datetime-local",
+                default=soon(-1),
+            ),
+            field(
+                "supersedes",
+                "Versión anterior",
+                "hidden",
+                default=previous["id"] if previous else "",
+                required=False,
+            ),
+        ]
+        + confirmations(),
+        title="Documentar constancia externa",
+        active="solicitudes",
         back=url_for("regional.external_authorizations", identifier=identifier),
-        note="Identifica las pruebas como sintéticas. Registrar una referencia no certifica su validez normativa.")
+        note="Identifica las pruebas como sintéticas. Registrar una referencia no certifica su validez normativa.",
+    )
 
 
 @regional.route("/solicitudes/<uuid:identifier>/evaluar", methods=["GET", "POST"])
@@ -138,7 +185,19 @@ def evaluate(identifier):
     return submit(
         "compatibilidad",
         "/api/v1/evaluations",
-        [field("request_id", "Solicitud", "hidden", default=str(identifier)),field("profile_id", "Perfil registrado de datos exigidos", "select", [(r["id"],r["name"]) for r in rows("compatibilidad","/api/v1/laboratory/profiles")], required=False)],
+        [
+            field("request_id", "Solicitud", "hidden", default=str(identifier)),
+            field(
+                "profile_id",
+                "Perfil registrado de datos exigidos",
+                "select",
+                [
+                    (r["id"], r["name"])
+                    for r in rows("compatibilidad", "/api/v1/laboratory/profiles")
+                ],
+                required=False,
+            ),
+        ],
         title="Evaluar candidatos",
         active="solicitudes",
         back=url_for("regional.request_detail", identifier=identifier),
@@ -373,7 +432,9 @@ def proposals():
             ("matched_count", "Cobertura propuesta"),
             ("created_at", "Registro"),
         ],
-        new=url_for("regional.proposal_new") if g.principal.role_code == "MEDICAL" else None,
+        new=url_for("regional.proposal_new")
+        if g.principal.role_code == "MEDICAL"
+        else None,
         links=lambda row: url_for("regional.proposal_detail", identifier=row["id"]),
         note="Propone cómo cubrir solicitudes con candidatos de dictamen favorable, evitando asignar el mismo recurso dos veces. Requiere autorización médica para reservar.",
     )

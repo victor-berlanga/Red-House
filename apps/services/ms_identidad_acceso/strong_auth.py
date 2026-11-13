@@ -277,7 +277,9 @@ def install(app):
                 or not institution["active"]
                 or str(institution["region_id"]) != g.actor["region_id"]
             ):
-                raise APIError("forbidden", "Transportista no disponible para esta tarea.", 403)
+                raise APIError(
+                    "forbidden", "Transportista no disponible para esta tarea.", 403
+                )
             return {"id": identifier, "name": user["username"]}
 
     @endpoint(

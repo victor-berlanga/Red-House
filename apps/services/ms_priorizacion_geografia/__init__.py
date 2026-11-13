@@ -17,5 +17,6 @@ def create_app(config=None):
 
     academic(app)
     from .decisions import install as decisions
+
     decisions(app)
     return complete_app(app)

@@ -26,6 +26,7 @@ def create_app(config=None):
 
     tracking(app)
     from .mobile import install as mobile
+
     mobile(app)
     from .synchronization import install as synchronization
 
@@ -37,7 +38,9 @@ def create_app(config=None):
 
     analytics(app)
     from .decision_data import install as decision_data
+
     decision_data(app)
     from redhouse.portal_metrics import install as portal_metrics
+
     portal_metrics(app, "transporte")
     return complete_app(app)

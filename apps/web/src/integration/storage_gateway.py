@@ -12,7 +12,7 @@ def install(app):
         prefix = "/portal-storage/v1/objects/"
         if not path.startswith(prefix):
             return downstream(environ, start_response)
-        path = "/storage/v1/objects/" + path[len(prefix):]
+        path = "/storage/v1/objects/" + path[len(prefix) :]
         if kernel is not None:
             forwarded = dict(environ, PATH_INFO=path)
             return kernel.apps["documentos"].wsgi_app(forwarded, start_response)

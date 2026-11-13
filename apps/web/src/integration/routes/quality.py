@@ -32,7 +32,15 @@ def laboratory():
             ("measured_at", "Medición"),
             ("version", "Versión"),
         ],
-        filters=("sample_id", "status", "q", "from_at", "until_at", "date_field", "sort"),
+        filters=(
+            "sample_id",
+            "status",
+            "q",
+            "from_at",
+            "until_at",
+            "date_field",
+            "sort",
+        ),
         links=lambda row: url_for("regional.lab_result", identifier=row["id"]),
     )
 
@@ -41,9 +49,20 @@ def laboratory():
 def lab_result(identifier):
     row = call("compatibilidad", "/api/v1/laboratory/results/" + str(identifier))
     actions = [
-        ("Registrar corrección", url_for("regional.lab_correct", identifier=identifier)),
-        ("Documentos privados", url_for("regional.document_center", subject_kind="RESULT", subject_id=identifier)),
-        ("Historia de la muestra", url_for("regional.laboratory", sample_id=row["sample_id"])),
+        (
+            "Registrar corrección",
+            url_for("regional.lab_correct", identifier=identifier),
+        ),
+        (
+            "Documentos privados",
+            url_for(
+                "regional.document_center", subject_kind="RESULT", subject_id=identifier
+            ),
+        ),
+        (
+            "Historia de la muestra",
+            url_for("regional.laboratory", sample_id=row["sample_id"]),
+        ),
     ]
     if g.principal.role_code == "MEDICAL" and row["status"] == "CAPTURED":
         actions.append(
@@ -278,7 +297,11 @@ def reports():
 @regional.route("/reportes/nuevo", methods=["GET", "POST"])
 def report_new():
     def report_filters(data):
-        data["filters"] = {key: data.pop("filter_" + key) for key in ("q", "status", "kind", "component", "source", "action") if data.get("filter_" + key)}
+        data["filters"] = {
+            key: data.pop("filter_" + key)
+            for key in ("q", "status", "kind", "component", "source", "action")
+            if data.get("filter_" + key)
+        }
         for key in ("q", "status", "kind", "component", "source", "action"):
             data.pop("filter_" + key, None)
         return data
@@ -294,8 +317,20 @@ def report_new():
             field("subject_id", "Identificador del traslado o recurso", required=False),
             field("from_at", "Desde", "datetime-local", default=soon(-24)),
             field("until_at", "Hasta, sin incluir", "datetime-local", default=soon(1)),
-            field("timezone", "Zona de presentación", "hidden", default=selected_zone()),
-            *[field("filter_" + key, label, required=False) for key, label in (("q", "Búsqueda"), ("status", "Estado"), ("kind", "Tipo"), ("component", "Componente"), ("source", "Fuente de auditoría"), ("action", "Acción de auditoría"))],
+            field(
+                "timezone", "Zona de presentación", "hidden", default=selected_zone()
+            ),
+            *[
+                field("filter_" + key, label, required=False)
+                for key, label in (
+                    ("q", "Búsqueda"),
+                    ("status", "Estado"),
+                    ("kind", "Tipo"),
+                    ("component", "Componente"),
+                    ("source", "Fuente de auditoría"),
+                    ("action", "Acción de auditoría"),
+                )
+            ],
             field(
                 "order",
                 "Orden",
@@ -320,7 +355,12 @@ def report_detail(identifier):
     row = call("documentos", "/api/v1/export-jobs/" + str(identifier))
     actions = []
     if row["status"] == "RETRYABLE":
-        actions.append(("Reintentar con permisos vigentes", url_for("regional.report_retry", identifier=identifier)))
+        actions.append(
+            (
+                "Reintentar con permisos vigentes",
+                url_for("regional.report_retry", identifier=identifier),
+            )
+        )
     if row["status"] == "COMPLETE":
         actions.append(
             (
@@ -336,9 +376,15 @@ def report_detail(identifier):
 @regional.route("/reportes/<uuid:identifier>/reintentar", methods=["GET", "POST"])
 def report_retry(identifier):
     call("documentos", "/api/v1/export-jobs/" + str(identifier))
-    return submit("documentos", f"/api/v1/export-jobs/{identifier}/retry", confirmations(),
-        title="Reintentar reporte", active="reportes", back=url_for("regional.report_detail", identifier=identifier),
-        note="Se verifica tu autorización actual. Una sesión vencida durante la extracción exige un nuevo intento autorizado.")
+    return submit(
+        "documentos",
+        f"/api/v1/export-jobs/{identifier}/retry",
+        confirmations(),
+        title="Reintentar reporte",
+        active="reportes",
+        back=url_for("regional.report_detail", identifier=identifier),
+        note="Se verifica tu autorización actual. Una sesión vencida durante la extracción exige un nuevo intento autorizado.",
+    )
 
 
 def hla_form(data):

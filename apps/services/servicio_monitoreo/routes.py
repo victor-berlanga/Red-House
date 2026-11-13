@@ -251,9 +251,7 @@ def register(app):
     def status():
         try:
             with transaction() as conn:
-                latest = conn.execute(
-                    LATEST_CHECKS_SQL
-                ).fetchall()
+                latest = conn.execute(LATEST_CHECKS_SQL).fetchall()
                 totals = conn.execute(
                     "SELECT service,count(*) AS checks,count(*) FILTER(WHERE state<>'up') AS errors,"
                     "avg(elapsed_ms) AS average_ms,100.0*count(*) FILTER(WHERE state='up')/count(*) AS availability_percent "
