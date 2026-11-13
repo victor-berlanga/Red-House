@@ -1,0 +1,72 @@
+{
+  "type": "object",
+  "required": [
+    "data",
+    "meta"
+  ],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": [
+        "correlation_id",
+        "service",
+        "version"
+      ],
+      "properties": {
+        "correlation_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "service": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      }
+    },
+    "data": {
+      "additionalProperties": false,
+      "properties": {
+        "shipment_id": {
+          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+          "title": "Shipment Id",
+          "type": "string"
+        },
+        "shipment_version": {
+          "title": "Shipment Version",
+          "type": "integer"
+        },
+        "transport_user": {
+          "additionalProperties": false,
+          "properties": {
+            "id": {
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+              "title": "Id",
+              "type": "string"
+            },
+            "name": {
+              "maxLength": 200,
+              "minLength": 1,
+              "title": "Name",
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "name"
+          ],
+          "title": "HandoverPerson",
+          "type": "object"
+        }
+      },
+      "required": [
+        "shipment_id",
+        "shipment_version",
+        "transport_user"
+      ],
+      "title": "OperationalHandover",
+      "type": "object"
+    }
+  }
+}

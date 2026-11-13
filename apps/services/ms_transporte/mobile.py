@@ -71,7 +71,43 @@ class OperationalContext(Model):
     consulted_at: Text
 
 
+class OperationalHandover(Model):
+    shipment_id: ID
+    shipment_version: int
+    transport_user: HandoverPerson
+
+
 def install(app):
+    @endpoint(
+        app,
+        "/api/v1/shipments/<identifier>/operational-handover",
+        roles=("TRANSPORT", "OPERATOR", "COORDINATOR"),
+        result=schema(OperationalHandover),
+        summary="Identidad operativa mínima del transportista de la tarea autorizada",
+    )
+    def operational_handover(identifier):
+        with transaction() as conn:
+            row = get(conn, "shipments", identifier)
+            shipment_access(row)
+        person = call(
+            "identidad_acceso", "GET",
+            f"/internal/v1/transport-users/{row['transport_user_id']}/operational-name",
+        )
+        if person["id"] != str(row["transport_user_id"]):
+            raise APIError("conflict", "La identidad operativa no corresponde a la tarea.", 409)
+        with transaction() as conn:
+            current = get(conn, "shipments", identifier)
+            shipment_access(current)
+            fields = ("version", "transport_user_id", "origin_id", "destination_id", "region_id")
+            if any(current[field] != row[field] for field in fields):
+                raise APIError("stale_version", "La tarea cambió; vuelve a consultar.", 409)
+            emit(conn, "SHIPMENT_OPERATIONAL_HANDOVER_READ", identifier, row["origin_id"])
+        return {
+            "shipment_id": identifier,
+            "shipment_version": row["version"],
+            "transport_user": person,
+        }
+
     @endpoint(app,"/api/v1/shipments/<identifier>/operational-context",
               roles=("TRANSPORT","OPERATOR","COORDINATOR"),result=schema(OperationalContext),
               summary="Contactos operativos y ruta vinculada a la tarea autorizada; sin expediente clínico")

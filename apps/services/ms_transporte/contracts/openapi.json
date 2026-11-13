@@ -2587,6 +2587,125 @@
         }
       }
     },
+    "/api/v1/shipments/{identifier}/operational-handover": {
+      "get": {
+        "operationId": "operational_handover",
+        "summary": "Identidad operativa mínima del transportista de la tarea autorizada",
+        "parameters": [
+          {
+            "name": "identifier",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-Correlation-ID",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "application/json",
+                "application/xml"
+              ]
+            }
+          }
+        ],
+        "description": "Roles: TRANSPORT, OPERATOR, COORDINATOR. Contrato público de API.",
+        "security": [
+          {
+            "BearerJWT": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resultado confirmado o estado pendiente documentado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_operational_handover"
+                },
+                "example": {
+                  "data": {
+                    "shipment_id": "00000000-0000-4000-8000-000000000001",
+                    "shipment_version": 1,
+                    "transport_user": {
+                      "id": "00000000-0000-4000-8000-000000000001",
+                      "name": "Dato ficticio para reemplazar"
+                    }
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "transporte",
+                    "version": "0.4.1"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"shipment_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"shipment_version\" type=\"integer\">1</field><field name=\"transport_user\" type=\"object\"><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"name\" type=\"string\">Dato ficticio para reemplazar</field></field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">transporte</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
+                "x-json-equivalent-schema": {
+                  "$ref": "#/components/schemas/Response_operational_handover"
+                },
+                "x-xsd": "/schemas/response.xsd",
+                "x-response-schema": "/schemas/operational_handover.response.json"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "406": {
+            "$ref": "#/components/responses/Error406"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "412": {
+            "$ref": "#/components/responses/Error412"
+          },
+          "413": {
+            "$ref": "#/components/responses/Error413"
+          },
+          "415": {
+            "$ref": "#/components/responses/Error415"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
+          }
+        }
+      }
+    },
     "/api/v1/shipments/{identifier}/operational-context": {
       "get": {
         "operationId": "operational_context",
@@ -8461,6 +8580,78 @@
                 "type": "boolean"
               }
             }
+          },
+          "meta": {
+            "type": "object",
+            "required": [
+              "correlation_id",
+              "service",
+              "version"
+            ],
+            "properties": {
+              "correlation_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "service": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "Response_operational_handover": {
+        "type": "object",
+        "required": [
+          "data",
+          "meta"
+        ],
+        "properties": {
+          "data": {
+            "additionalProperties": false,
+            "properties": {
+              "shipment_id": {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "title": "Shipment Id",
+                "type": "string"
+              },
+              "shipment_version": {
+                "title": "Shipment Version",
+                "type": "integer"
+              },
+              "transport_user": {
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                    "title": "Id",
+                    "type": "string"
+                  },
+                  "name": {
+                    "maxLength": 200,
+                    "minLength": 1,
+                    "title": "Name",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "id",
+                  "name"
+                ],
+                "title": "HandoverPerson",
+                "type": "object"
+              }
+            },
+            "required": [
+              "shipment_id",
+              "shipment_version",
+              "transport_user"
+            ],
+            "title": "OperationalHandover",
+            "type": "object"
           },
           "meta": {
             "type": "object",

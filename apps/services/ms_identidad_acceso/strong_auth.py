@@ -257,6 +257,34 @@ class Proof(Model):
 def install(app):
     @endpoint(
         app,
+        "/internal/v1/transport-users/<identifier>/operational-name",
+        internal=("transporte",),
+        roles=("TRANSPORT", "OPERATOR", "COORDINATOR"),
+        result={
+            "type": "object",
+            "required": ["id", "name"],
+            "properties": {
+                "id": {"type": "string", "format": "uuid"},
+                "name": {"type": "string"},
+            },
+        },
+        summary="Nombre operativo mínimo para una tarea autorizada por Transporte",
+    )
+    def transport_operational_name(identifier):
+        with transaction() as conn:
+            user = get(conn, "users", identifier)
+            institution = get(conn, "institutions", str(user["tenant_id"]))
+            if (
+                not user["active"]
+                or user["role"] != "TRANSPORT"
+                or not institution["active"]
+                or str(institution["region_id"]) != g.actor["region_id"]
+            ):
+                raise APIError("forbidden", "Transportista no disponible para esta tarea.", 403)
+            return {"id": identifier, "name": user["username"]}
+
+    @endpoint(
+        app,
         "/internal/v1/custody-users/<identifier>",
         internal=("transporte",),
         delegate=False,
