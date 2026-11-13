@@ -119,6 +119,53 @@ def test_next_appointment_is_owned_future_and_not_limited_by_list_page(p, fmt):
     assert result["slot_id"] == slots[1]["id"]
     assert result["title"] == campaign["title"]
     assert result["schedule_version"] == 1
+    agenda = api(
+        p,
+        "donantes",
+        "/api/v1/appointments/agenda?status=BOOKED",
+        user=username,
+        fmt=fmt,
+        method="GET",
+    )
+    assert agenda["total"] == 1
+    assert agenda["items"][0]["title"] == campaign["title"]
+    assert agenda["items"][0]["starts_at"] == slots[1]["starts_at"]
+    last_page = api(
+        p,
+        "donantes",
+        "/api/v1/appointments/agenda?page=6&page_size=20",
+        user=username,
+        fmt=fmt,
+        method="GET",
+    )
+    assert last_page["total"] == 106
+    assert len(last_page["items"]) == 6
+    assert all(
+        item["starts_at"] is None and item["title"] == campaign["title"]
+        for item in last_page["items"]
+    )
+    assert (
+        api(
+            p,
+            "donantes",
+            "/api/v1/appointments/agenda?q=NoExiste",
+            user=username,
+            fmt=fmt,
+            method="GET",
+        )["total"]
+        == 0
+    )
+    assert (
+        api(
+            p,
+            "donantes",
+            "/api/v1/appointments/agenda",
+            user="donor1",
+            fmt=fmt,
+            method="GET",
+        )["total"]
+        == 0
+    )
     # Seed donor1 is another account in the same institution.
     assert upcoming("donor1") is None
     assert upcoming("donor2") is None
@@ -168,3 +215,14 @@ def test_next_appointment_is_owned_future_and_not_limited_by_list_page(p, fmt):
         username,
     )
     assert upcoming() is None
+    assert (
+        api(
+            p,
+            "donantes",
+            "/api/v1/appointments/agenda?status=BOOKED",
+            user=username,
+            fmt=fmt,
+            method="GET",
+        )["total"]
+        == 0
+    )
