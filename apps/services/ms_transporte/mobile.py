@@ -97,18 +97,45 @@ def install(app):
     @endpoint(app, "/api/v1/shipments/<identifier>/scan", "POST", model=Scan,
               roles=("TRANSPORT", "OPERATOR"), result=schema(ScanResult))
     def shipment_scan(identifier, data):
-        with transaction() as conn:
-            row = get(conn,"shipments",identifier)
+        from flask import request
+        from redhouse.codec import representation
+
+        def authorized(conn, *, lock=False):
+            row = get(conn, "shipments", identifier, lock)
             shipment_access(row)
-            if row["status"] in ("ACCEPTED","CANCELLED","REJECTED"):
-                raise APIError("conflict","Traslado finalizado.",409)
-            check = call("inventario","POST",f"/internal/v1/reservations/{row['reservation_id']}/custody-check",
-                         {"shipment_id":identifier,"check_quality":False},delegate=False)
-            if check["resource_id"] != data["scanned_resource_id"]:
-                raise APIError("custody_mismatch","El código no pertenece a la tarea.",409)
-            emit(conn,"MOBILE_RESOURCE_SCANNED",identifier,row["origin_id"])
-            return dict(shipment_id=identifier,resource_id=check["resource_id"],origin_id=row["origin_id"],
-                        destination_id=row["destination_id"],version=row["version"],status=row["status"],verified=True)
+            if row["status"] in ("ACCEPTED", "CANCELLED", "REJECTED"):
+                raise APIError("conflict", "Traslado finalizado.", 409)
+            return row
+
+        with transaction() as conn:
+            observed = authorized(conn)
+        check = call("inventario", "POST", f"/internal/v1/reservations/{observed['reservation_id']}/custody-check",
+                     {"shipment_id": identifier, "check_quality": False}, delegate=False)
+        if check["resource_id"] != data["scanned_resource_id"]:
+            raise APIError("custody_mismatch", "El código no pertenece a la tarea.", 409)
+
+        def current(conn):
+            row = authorized(conn, lock=True)
+            fields = ("version", "status", "reservation_id", "origin_id", "destination_id", "region_id", "transport_user_id")
+            if any(row[field] != observed[field] for field in fields):
+                raise APIError("stale_version", "El traslado cambió; vuelve a consultar.", 409)
+            return row
+
+        def work(conn):
+            row = current(conn)
+            emit(conn, "SHIPMENT_RESOURCE_IDENTIFIER_VERIFIED", identifier, row["origin_id"],
+                 metadata={"request_representation": "xml" if request.mimetype in ("application/xml", "text/xml") else "json",
+                           "response_representation": representation()})
+            return dict(shipment_id=identifier, resource_id=check["resource_id"], origin_id=row["origin_id"],
+                        destination_id=row["destination_id"], version=row["version"], status=row["status"], verified=True)
+
+        result = atomic("shipment_scan:" + identifier, data, work)
+        # La respuesta guardada puede preceder cambios de autorización o estado.
+        with transaction() as conn:
+            row = current(conn)
+            if row["version"] != result["version"] or row["status"] != result["status"] or result["resource_id"] != check["resource_id"]:
+                raise APIError("stale_version", "La verificación previa quedó obsoleta.", 409)
+        return result
 
     @endpoint(app,"/api/v1/shipments/<identifier>/tracking/mobile-session","POST",model=PhoneTracking,
               roles=("TRANSPORT",),result=schema(Assignment))
