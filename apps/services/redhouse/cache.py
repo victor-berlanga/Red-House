@@ -8,6 +8,7 @@ from flask import current_app, g, request
 
 from .codec import plain
 from .db import transaction
+from .errors import APIError
 from .security import key, redis_call
 
 
@@ -48,13 +49,26 @@ def cached_read(namespace, ttl=15):
             cache_key = key(
                 "cache:" + current_app.config["SERVICE"] + ":read:" + digest
             )
-            raw = redis_call(lambda r: r.get(cache_key))
+            try:
+                raw = redis_call(lambda r: r.get(cache_key))
+            except APIError as exc:
+                if exc.code != "redis_unavailable":
+                    raise
+                # Only the optional cache operation failed. @endpoint already
+                # authenticated this request; never catch its authorization errors.
+                g.cache_status = "BYPASS"
+                return fn(*args, **kwargs)
             if raw is not None:
                 g.cache_hit, g.cache_status = True, "HIT"
                 return json.loads(raw)
             g.cache_status = "MISS"
             result = plain(fn(*args, **kwargs))
-            redis_call(lambda r: r.set(cache_key, json.dumps(result), ex=ttl))
+            try:
+                redis_call(lambda r: r.set(cache_key, json.dumps(result), ex=ttl))
+            except APIError as exc:
+                if exc.code != "redis_unavailable":
+                    raise
+                g.cache_status = "BYPASS"
             return result
 
         return wrapped

@@ -73,6 +73,33 @@ def slot_availability(conn, row):
     return dict(row, **counts, available=max(0, row["capacity"] - counts["occupied"]))
 
 
+def slots_availability(conn, rows):
+    """Enrich only the already authorized page; reservation locking is unchanged."""
+    if not rows:
+        return []
+    counts = conn.execute(
+        "SELECT s.slot_id,count(*) FILTER (WHERE a.status='BOOKED') AS occupied, "
+        "count(*) FILTER (WHERE s.status='ATTENDED') AS attended "
+        "FROM appointment_slots s JOIN appointments a ON a.id=s.id "
+        "WHERE s.slot_id=ANY(%s::uuid[]) GROUP BY s.slot_id",
+        ([row["id"] for row in rows],),
+    ).fetchall()
+    by_slot = {str(row["slot_id"]): row for row in counts}
+    result = []
+    for row in rows:
+        count = by_slot.get(str(row["id"]), {})
+        occupied = count.get("occupied", 0)
+        result.append(
+            dict(
+                row,
+                occupied=occupied,
+                attended=count.get("attended", 0),
+                available=max(0, row["capacity"] - occupied),
+            )
+        )
+    return result
+
+
 class AppointmentCommand(Confirm):
     version: Annotated[int, Field(ge=1)]
     action: Literal["CONFIRM", "RESCHEDULE", "ATTEND", "CANCEL"]
@@ -268,7 +295,7 @@ def install(app):
                 date_columns=("starts_at", "ends_at", "created_at"),
                 order="starts_at,id",
             )
-            result["items"] = [slot_availability(conn, row) for row in result["items"]]
+            result["items"] = slots_availability(conn, result["items"])
             return result
 
     @endpoint(

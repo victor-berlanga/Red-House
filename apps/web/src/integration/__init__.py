@@ -346,6 +346,10 @@ def configure(app):
             response = redirect(url_for("public.login"))
             response.delete_cookie(app.config["JWT_COOKIE_NAME"])
             return response
+        # Authentication above still checks the durable session, Redis and revocation.
+        # This JSON endpoint consumes no principal labels or institution catalogue.
+        if request.endpoint == "public.session_status":
+            return
         cache = app.extensions.setdefault("institution_names", {})
         cached = cache.get(user["region_id"])
         if cached and cached["until"] > time.monotonic():

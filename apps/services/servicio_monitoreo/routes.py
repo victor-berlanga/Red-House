@@ -13,6 +13,23 @@ from redhouse.errors import APIError
 from pymongo.errors import PyMongoError
 
 
+# Enumerate actual service keys through the existing B-tree, including retired services.
+# Each lateral lookup keeps the historical created_at DESC, id ASC tie-break.
+LATEST_CHECKS_SQL = """WITH RECURSIVE services(service) AS (
+    (SELECT service FROM checks ORDER BY service LIMIT 1)
+    UNION ALL
+    SELECT next.service FROM services previous
+    CROSS JOIN LATERAL (
+        SELECT service FROM checks WHERE service > previous.service ORDER BY service LIMIT 1
+    ) next
+)
+SELECT sample.* FROM services
+CROSS JOIN LATERAL (
+    SELECT * FROM checks WHERE service=services.service ORDER BY created_at DESC,id LIMIT 1
+) sample ORDER BY sample.service
+"""
+
+
 def poll():
     checked = []
     for service in SERVICES:
@@ -126,19 +143,30 @@ def poll():
     return {"items": checked}
 
 
+def latest_documents(collection):
+    """Seek one latest document per actual service using monitor_latest.
+
+    Advancing the service key avoids a global group/fetch of the immutable journal.
+    Keep old services and samples outside the statistics window.
+    """
+    query = {"source": "monitoreo", "checked_at": {"$exists": True}}
+    while True:
+        sample = collection.find_one(
+            query, sort=[("service", 1), ("checked_at", -1), ("event_id", 1)]
+        )
+        if sample is None:
+            return
+        yield sample
+        query["service"] = {"$gt": sample["service"]}
+
+
 def documentary_status():
     cutoff = (datetime.now(timezone.utc) - timedelta(hours=24)).isoformat()
     try:
         with mongodb() as client:
             collection = client[current_app.config["MONGODB_DATABASE"]].events
-            pipeline = [
-                {"$match": {"source": "monitoreo", "checked_at": {"$exists": True}}},
-                {"$sort": {"checked_at": -1}},
-                {"$group": {"_id": "$service", "sample": {"$first": "$$ROOT"}}},
-            ]
             latest = []
-            for item in collection.aggregate(pipeline):
-                e = item["sample"]
+            for e in latest_documents(collection):
                 latest.append(
                     dict(
                         id=e["event_id"],
@@ -224,7 +252,7 @@ def register(app):
         try:
             with transaction() as conn:
                 latest = conn.execute(
-                    "SELECT DISTINCT ON (service) * FROM checks ORDER BY service,created_at DESC,id"
+                    LATEST_CHECKS_SQL
                 ).fetchall()
                 totals = conn.execute(
                     "SELECT service,count(*) AS checks,count(*) FILTER(WHERE state<>'up') AS errors,"

@@ -283,3 +283,42 @@ def test_timezone_async_converts_form_dates_and_persists_without_redirect(web, p
         ).status_code
         == 302
     )
+
+
+def test_optional_cache_failure_preserves_authorization(p, monkeypatch):
+    """Cache-only fault is injected; authorization still uses real Redis."""
+    from redhouse import cache, security
+    from redhouse.errors import APIError
+    unit = resource(p)
+    path = '/api/v1/resources?q=' + unit['folio']
+    def unavailable(_):
+        raise APIError('redis_unavailable', 'Injected cache-only fault', 503)
+    with monkeypatch.context() as patch:
+        patch.setattr(cache, 'redis_call', unavailable)
+        response = p.request('inventario', 'GET', path, user='operator1')
+        assert response.status_code == 200
+        assert response.headers['X-Cache'] == 'BYPASS'
+        assert response.json()['data']['items'][0]['id'] == unit['id']
+        assert p.request('inventario', 'GET', path, user='operator2').json()['data']['total'] == 0
+        assert p.request('inventario', 'GET', path, user='admin1').status_code == 403
+    with monkeypatch.context() as patch:
+        patch.setattr(security, 'redis_call', unavailable)
+        assert p.request('inventario', 'GET', path, user='operator1').status_code == 503
+
+    real_call = cache.redis_call
+    class WriteFailure:
+        def __init__(self, client):
+            self.client = client
+
+        def get(self, key):
+            return self.client.get(key)
+
+        def set(self, *args, **kwargs):
+            from redis.exceptions import ConnectionError
+            raise ConnectionError('Injected optional cache write fault')
+
+    with monkeypatch.context() as patch:
+        patch.setattr(cache, 'redis_call', lambda fn: real_call(lambda client: fn(WriteFailure(client))))
+        response = p.request('inventario', 'GET', path, user='operator1')
+        assert response.status_code == 200 and response.headers['X-Cache'] == 'BYPASS'
+        assert response.json()['data']['items'][0]['id'] == unit['id']

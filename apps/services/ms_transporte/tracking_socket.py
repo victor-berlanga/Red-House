@@ -121,16 +121,21 @@ def install(app):
             ws.send(encode({"type": "authenticated"}, representation))
             subscriptions = {}
             last_input, last_status = time.monotonic(), 0.0
+            last_lease = time.monotonic()
             while ws.connected:
                 authorize(kind, credential)
-                for scope_name in scopes:
-                    lease(
-                        scope_name,
-                        identifier,
-                        app.config.get("TRACKING_MAX_CONNECTIONS", 64)
-                        if scope_name == "global"
-                        else app.config.get("TRACKING_CONNECTIONS_PER_ACTOR", 4),
-                    )
+                # Connection capacity leases last 40 s (key TTL 45 s). Renew well
+                # before expiry, independently of authorization on every iteration.
+                if time.monotonic() - last_lease >= 10:
+                    for scope_name in scopes:
+                        lease(
+                            scope_name,
+                            identifier,
+                            app.config.get("TRACKING_MAX_CONNECTIONS", 64)
+                            if scope_name == "global"
+                            else app.config.get("TRACKING_CONNECTIONS_PER_ACTOR", 4),
+                        )
+                    last_lease = time.monotonic()
                 raw = ws.receive(timeout=0.5)
                 if raw is not None:
                     last_input = time.monotonic()
