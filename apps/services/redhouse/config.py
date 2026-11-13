@@ -54,6 +54,9 @@ def settings(service, overrides=None):
         "HLA_REFERENCE_DIR": env.get("HLA_REFERENCE_DIR", str(Path(__file__).resolve().parents[3] / ".local/reference-data/hla")),
         "TESTING": False,
         "GCS_BUCKET": env.get("GCS_BUCKET", ""),
+        "STORAGE_PROVIDER": env.get("STORAGE_PROVIDER", ""),
+        "STORAGE_LOCAL_ROOT": env.get("STORAGE_LOCAL_ROOT", ""),
+        "STORAGE_PUBLIC_BASE_URL": env.get("STORAGE_PUBLIC_BASE_URL", ""),
         "TRUSTED_PROXY_ADDRESS": env.get("TRUSTED_PROXY_ADDRESS", ""),
         "TRUSTED_PROXY_HOST": env.get("TRUSTED_PROXY_HOST", ""),
     }

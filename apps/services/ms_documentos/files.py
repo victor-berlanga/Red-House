@@ -8,7 +8,11 @@ from redhouse.db import get, insert, transaction, update
 from redhouse.errors import APIError
 from redhouse.events import emit
 from redhouse.file_validation import inspect_content
-from redhouse.storage import bucket, signed_url
+from redhouse.storage import access_url, object_bucket, provider, upload_headers
+
+
+def public_file(row):
+    return {key: value for key, value in row.items() if key != "storage_provider"}
 
 
 def register_files(app, access):
@@ -22,7 +26,8 @@ def register_files(app, access):
         summary="Preparar carga privada con URL firmada de cinco minutos",
     )
     def file_prepare(identifier, data):
-        target = bucket()
+        selected = provider()
+        object_bucket(selected)
         access(identifier)
 
         def work(conn):
@@ -50,6 +55,7 @@ def register_files(app, access):
                     shipment_id=identifier,
                     owner_id=g.actor["id"],
                     object_path=object_path,
+                    storage_provider=selected,
                     mime_type=data["mime_type"],
                     size=data["size"],
                     sha256=data["sha256"],
@@ -59,16 +65,14 @@ def register_files(app, access):
             return row
 
         row = atomic("file_prepare:" + identifier, data, work)
+        # Idempotencias anteriores a la migración no incluyen el proveedor.
+        with transaction() as conn:
+            row = get(conn, "files", row["id"])
         return {
-            "file": row,
-            "upload_url": signed_url(
-                target.blob(row["object_path"]), "PUT", row["mime_type"]
-            ),
+            "file": public_file(row),
+            "upload_url": access_url(row, "PUT"),
             "expires_in": 300,
-            "upload_headers": {
-                "Content-Type": row["mime_type"],
-                "x-goog-if-generation-match": "0",
-            },
+            "upload_headers": upload_headers(row),
         }
 
     @endpoint(
@@ -95,10 +99,10 @@ def register_files(app, access):
             if row["status"] == "VERIFIED":
                 try:
                     require_clean(conn, row)
-                    return row
+                    return public_file(row)
                 except APIError:
                     pass  # Un archivo histórico se analiza antes de habilitar descarga.
-        target = bucket()
+        target = object_bucket(row["storage_provider"])
         try:
             blob = target.blob(row["object_path"])
             blob.reload(timeout=8, retry=None)
@@ -136,7 +140,12 @@ def register_files(app, access):
                     "malware_detected", "El análisis rechazó el documento.", 422
                 )
         except APIError as exc:
-            file_failure(identifier, shipment, "REJECTED", exc.code)
+            file_failure(
+                identifier,
+                shipment,
+                "ERROR" if exc.status >= 500 else "REJECTED",
+                exc.code,
+            )
             raise
         except Exception as exc:
             from google.api_core.exceptions import NotFound
@@ -167,7 +176,7 @@ def register_files(app, access):
             emit(conn, "FILE_VERIFIED", identifier, shipment["origin_id"])
             return result
 
-        return atomic("file_verify:" + identifier, {}, work)
+        return public_file(atomic("file_verify:" + identifier, {}, work))
 
     @endpoint(
         app,
@@ -192,8 +201,7 @@ def register_files(app, access):
             if row["status"] != "VERIFIED":
                 raise APIError("conflict", "Archivo pendiente de verificación.", 409)
             require_clean(conn, row)
-        blob = bucket().blob(row["object_path"], generation=int(row["generation"]))
-        return {"download_url": signed_url(blob, "GET"), "expires_in": 300}
+        return {"download_url": access_url(row, "GET"), "expires_in": 300}
 
     @endpoint(
         app,
@@ -208,7 +216,9 @@ def register_files(app, access):
 
         with transaction() as conn:
             access(identifier)
-            return listing(conn, "files", "shipment_id=%s", (identifier,))
+            result = listing(conn, "files", "shipment_id=%s", (identifier,))
+            result["items"] = [public_file(row) for row in result["items"]]
+            return result
 
 
 def file_failure(identifier, shipment, state, code):

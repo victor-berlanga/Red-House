@@ -159,16 +159,26 @@ def base_app(service, config=None):
             elif name == "storage":
                 if service != "documentos":
                     return {"state": "not_applicable"}
+                from .storage import bucket, local_health, provider
+
+                selected = provider()
+                if selected == "local":
+                    local_health()
+                    return {"state": "up", "required": True, "provider": "local"}
                 if not app.config.get("GCS_BUCKET"):
-                    return {"state": "not_configured", "required": False}
-                from .storage import bucket
+                    return {
+                        "state": "down",
+                        "required": True,
+                        "provider": "gcs",
+                        "error": "storage_unconfigured",
+                    }
 
                 # Object-level runtime permissions suffice; no bucket-admin role.
                 next(
                     iter(bucket().list_blobs(max_results=1, timeout=2, retry=None)),
                     None,
                 )
-                return {"state": "up", "required": True}
+                return {"state": "up", "required": True, "provider": "gcs"}
             elif name == "worker":
                 if not app.config.get("WORKER_REQUIRED", False):
                     return {"state": "not_configured", "required": False}

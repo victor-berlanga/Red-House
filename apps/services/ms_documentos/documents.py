@@ -12,7 +12,7 @@ from redhouse.events import emit
 from redhouse.extension_contracts import page_schema, schema
 from redhouse.models import ID, Model, utc_date
 from redhouse.security import own
-from redhouse.storage import bucket, signed_url
+from redhouse.storage import access_url, object_bucket, provider, upload_headers
 
 ROLES = ("ADMIN", "MEDICAL", "OPERATOR", "COORDINATOR", "TRANSPORT", "DONOR")
 SUBJECTS = {
@@ -200,7 +200,8 @@ def install(app):
             raise APIError(
                 "validation", "Retención no puede ser anterior a la preparación.", 422
             )
-        target = bucket()
+        selected = provider()
+        object_bucket(selected)
 
         def work(conn):
             conn.execute(
@@ -236,6 +237,7 @@ def install(app):
                     "owner_id": g.actor["id"],
                     "shipment_id": None,
                     "object_path": f"documents/{g.actor['tenant_id']}/{identifier}",
+                    "storage_provider": selected,
                     **{k: data[k] for k in ("mime_type", "size", "sha256")},
                 },
             )
@@ -263,17 +265,15 @@ def install(app):
             return {"row": row, "metadata": meta}
 
         result = atomic("document_prepare", data, work)
+        # Resultados idempotentes históricos preceden al campo de proveedor.
+        with transaction() as conn:
+            result["row"] = get(conn, "files", result["row"]["id"])
         return {
             "id": result["row"]["id"],
             "metadata": result["metadata"],
-            "upload_url": signed_url(
-                target.blob(result["row"]["object_path"]), "PUT", data["mime_type"]
-            ),
+            "upload_url": access_url(result["row"], "PUT"),
             "expires_in": 300,
-            "upload_headers": {
-                "Content-Type": data["mime_type"],
-                "x-goog-if-generation-match": "0",
-            },
+            "upload_headers": upload_headers(result["row"]),
         }
 
     @endpoint(

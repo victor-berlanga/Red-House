@@ -126,9 +126,13 @@
           "target": "config"
         }
       ],
-      "networks": [
-        "data"
-      ],
+      "networks": {
+        "data": {
+          "aliases": [
+            "identidad-acceso-a-private"
+          ]
+        }
+      },
       "read_only": true,
       "tmpfs": [
         "/tmp"
@@ -167,9 +171,13 @@
           "target": "config"
         }
       ],
-      "networks": [
-        "data"
-      ],
+      "networks": {
+        "data": {
+          "aliases": [
+            "identidad-acceso-b-private"
+          ]
+        }
+      },
       "read_only": true,
       "tmpfs": [
         "/tmp"
@@ -204,9 +212,13 @@
           "target": "config"
         }
       ],
-      "networks": [
-        "data"
-      ],
+      "networks": {
+        "data": {
+          "aliases": [
+            "donantes-a-private"
+          ]
+        }
+      },
       "read_only": true,
       "tmpfs": [
         "/tmp"
@@ -245,9 +257,13 @@
           "target": "config"
         }
       ],
-      "networks": [
-        "data"
-      ],
+      "networks": {
+        "data": {
+          "aliases": [
+            "donantes-b-private"
+          ]
+        }
+      },
       "read_only": true,
       "tmpfs": [
         "/tmp"
@@ -282,9 +298,13 @@
           "target": "config"
         }
       ],
-      "networks": [
-        "data"
-      ],
+      "networks": {
+        "data": {
+          "aliases": [
+            "receptores-a-private"
+          ]
+        }
+      },
       "read_only": true,
       "tmpfs": [
         "/tmp"
@@ -323,9 +343,13 @@
           "target": "config"
         }
       ],
-      "networks": [
-        "data"
-      ],
+      "networks": {
+        "data": {
+          "aliases": [
+            "receptores-b-private"
+          ]
+        }
+      },
       "read_only": true,
       "tmpfs": [
         "/tmp"
@@ -360,9 +384,13 @@
           "target": "config"
         }
       ],
-      "networks": [
-        "data"
-      ],
+      "networks": {
+        "data": {
+          "aliases": [
+            "inventario-a-private"
+          ]
+        }
+      },
       "read_only": true,
       "tmpfs": [
         "/tmp"
@@ -401,9 +429,13 @@
           "target": "config"
         }
       ],
-      "networks": [
-        "data"
-      ],
+      "networks": {
+        "data": {
+          "aliases": [
+            "inventario-b-private"
+          ]
+        }
+      },
       "read_only": true,
       "tmpfs": [
         "/tmp"
@@ -438,9 +470,13 @@
           "target": "config"
         }
       ],
-      "networks": [
-        "data"
-      ],
+      "networks": {
+        "data": {
+          "aliases": [
+            "compatibilidad-a-private"
+          ]
+        }
+      },
       "read_only": true,
       "tmpfs": [
         "/tmp"
@@ -479,9 +515,13 @@
           "target": "config"
         }
       ],
-      "networks": [
-        "data"
-      ],
+      "networks": {
+        "data": {
+          "aliases": [
+            "compatibilidad-b-private"
+          ]
+        }
+      },
       "read_only": true,
       "tmpfs": [
         "/tmp"
@@ -516,9 +556,13 @@
           "target": "config"
         }
       ],
-      "networks": [
-        "data"
-      ],
+      "networks": {
+        "data": {
+          "aliases": [
+            "priorizacion-geografia-a-private"
+          ]
+        }
+      },
       "read_only": true,
       "tmpfs": [
         "/tmp"
@@ -557,9 +601,13 @@
           "target": "config"
         }
       ],
-      "networks": [
-        "data"
-      ],
+      "networks": {
+        "data": {
+          "aliases": [
+            "priorizacion-geografia-b-private"
+          ]
+        }
+      },
       "read_only": true,
       "tmpfs": [
         "/tmp"
@@ -594,10 +642,14 @@
           "target": "config"
         }
       ],
-      "networks": [
-        "data",
-        "edge"
-      ],
+      "networks": {
+        "data": {
+          "aliases": [
+            "transporte-a-private"
+          ]
+        },
+        "edge": {}
+      },
       "read_only": true,
       "tmpfs": [
         "/tmp"
@@ -636,10 +688,14 @@
           "target": "config"
         }
       ],
-      "networks": [
-        "data",
-        "edge"
-      ],
+      "networks": {
+        "data": {
+          "aliases": [
+            "transporte-b-private"
+          ]
+        },
+        "edge": {}
+      },
       "read_only": true,
       "tmpfs": [
         "/tmp"
@@ -674,9 +730,13 @@
           "target": "config"
         }
       ],
-      "networks": [
-        "data"
-      ],
+      "networks": {
+        "data": {
+          "aliases": [
+            "custodia-a-private"
+          ]
+        }
+      },
       "read_only": true,
       "tmpfs": [
         "/tmp"
@@ -715,9 +775,13 @@
           "target": "config"
         }
       ],
-      "networks": [
-        "data"
-      ],
+      "networks": {
+        "data": {
+          "aliases": [
+            "custodia-b-private"
+          ]
+        }
+      },
       "read_only": true,
       "tmpfs": [
         "/tmp"
@@ -752,9 +816,13 @@
           "target": "config"
         }
       ],
-      "networks": [
-        "data"
-      ],
+      "networks": {
+        "data": {
+          "aliases": [
+            "alertas-a-private"
+          ]
+        }
+      },
       "read_only": true,
       "tmpfs": [
         "/tmp"
@@ -793,9 +861,13 @@
           "target": "config"
         }
       ],
-      "networks": [
-        "data"
-      ],
+      "networks": {
+        "data": {
+          "aliases": [
+            "alertas-b-private"
+          ]
+        }
+      },
       "read_only": true,
       "tmpfs": [
         "/tmp"
@@ -830,9 +902,13 @@
           "target": "config"
         }
       ],
-      "networks": [
-        "data"
-      ],
+      "networks": {
+        "data": {
+          "aliases": [
+            "auditoria-a-private"
+          ]
+        }
+      },
       "read_only": true,
       "tmpfs": [
         "/tmp"
@@ -871,9 +947,13 @@
           "target": "config"
         }
       ],
-      "networks": [
-        "data"
-      ],
+      "networks": {
+        "data": {
+          "aliases": [
+            "auditoria-b-private"
+          ]
+        }
+      },
       "read_only": true,
       "tmpfs": [
         "/tmp"
@@ -908,9 +988,13 @@
           "target": "config"
         }
       ],
-      "networks": [
-        "data"
-      ],
+      "networks": {
+        "data": {
+          "aliases": [
+            "monitoreo-a-private"
+          ]
+        }
+      },
       "read_only": true,
       "tmpfs": [
         "/tmp"
@@ -949,9 +1033,13 @@
           "target": "config"
         }
       ],
-      "networks": [
-        "data"
-      ],
+      "networks": {
+        "data": {
+          "aliases": [
+            "monitoreo-b-private"
+          ]
+        }
+      },
       "read_only": true,
       "tmpfs": [
         "/tmp"
@@ -991,15 +1079,20 @@
         }
       ],
       "volumes": [
-        "${REDHOUSE_COMPOSE_DIR:-./.local/compose}/apps:/run/redhouse:ro"
+        "${REDHOUSE_COMPOSE_DIR:-./.local/compose}/apps:/run/redhouse:ro",
+        "private-files:/var/lib/redhouse-private"
       ],
       "ports": [
         "127.0.0.1:${REDHOUSE_WEB_PORT:-6050}:8080"
       ],
-      "networks": [
-        "data",
-        "edge"
-      ],
+      "networks": {
+        "data": {
+          "aliases": [
+            "web-private"
+          ]
+        },
+        "edge": {}
+      },
       "read_only": true,
       "tmpfs": [
         "/tmp"
@@ -1024,6 +1117,11 @@
         "timeout": "8s",
         "start_period": "40s",
         "retries": 5
+      },
+      "depends_on": {
+        "storage-init": {
+          "condition": "service_completed_successfully"
+        }
       }
     },
     "gateway": {
@@ -1051,10 +1149,14 @@
         "127.0.0.1:6111:5111",
         "127.0.0.1:6112:5112"
       ],
-      "networks": [
-        "data",
-        "edge"
-      ],
+      "networks": {
+        "data": {
+          "aliases": [
+            "gateway-private"
+          ]
+        },
+        "edge": {}
+      },
       "read_only": true,
       "tmpfs": [
         "/tmp"
@@ -1086,10 +1188,14 @@
           "target": "config"
         }
       ],
-      "networks": [
-        "data",
-        "edge"
-      ],
+      "networks": {
+        "data": {
+          "aliases": [
+            "documentos-a-private"
+          ]
+        },
+        "edge": {}
+      },
       "read_only": true,
       "tmpfs": [
         "/tmp"
@@ -1118,6 +1224,14 @@
       "build": {
         "context": ".",
         "dockerfile": "apps/services/ms_documentos/Dockerfile"
+      },
+      "volumes": [
+        "private-files:/var/lib/redhouse-private"
+      ],
+      "depends_on": {
+        "storage-init": {
+          "condition": "service_completed_successfully"
+        }
       }
     },
     "documentos-b": {
@@ -1128,10 +1242,14 @@
           "target": "config"
         }
       ],
-      "networks": [
-        "data",
-        "edge"
-      ],
+      "networks": {
+        "data": {
+          "aliases": [
+            "documentos-b-private"
+          ]
+        },
+        "edge": {}
+      },
       "read_only": true,
       "tmpfs": [
         "/tmp"
@@ -1156,7 +1274,37 @@
         "timeout": "8s",
         "start_period": "30s",
         "retries": 5
+      },
+      "volumes": [
+        "private-files:/var/lib/redhouse-private"
+      ],
+      "depends_on": {
+        "storage-init": {
+          "condition": "service_completed_successfully"
+        }
       }
+    },
+    "storage-init": {
+      "image": "redhouse/documentos:${REDHOUSE_TAG:-0.4.4}",
+      "user": "0:0",
+      "entrypoint": [
+        "python",
+        "-c",
+        "import os; p='/var/lib/redhouse-private'; s=os.stat(p); assert s.st_uid in (0,10001); os.chown(p,10001,10001); os.chmod(p,0o700)"
+      ],
+      "network_mode": "none",
+      "volumes": [
+        "private-files:/var/lib/redhouse-private"
+      ],
+      "read_only": true,
+      "restart": "no",
+      "cap_drop": [
+        "ALL"
+      ],
+      "cap_add": [
+        "CHOWN",
+        "FOWNER"
+      ]
     }
   },
   "networks": {
@@ -1168,7 +1316,8 @@
   "volumes": {
     "postgres": {},
     "mongodb": {},
-    "redis": {}
+    "redis": {},
+    "private-files": {}
   },
   "secrets": {
     "postgres_password": {

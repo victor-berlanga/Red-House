@@ -28,7 +28,7 @@ def configure(directory, address, bootstrap=False):
             f"""
   upstream public_web {{
     zone public_web 64k;
-    server web:8080 resolve;
+    server web-private:8080 resolve;
     keepalive 8;
   }}
   server {{
@@ -56,6 +56,12 @@ def configure(directory, address, bootstrap=False):
     proxy_read_timeout 15s;
     proxy_hide_header X-Backend;
     proxy_redirect off;
+    location /storage/v1/objects/ {{
+      client_max_body_size 10m;
+      access_log off;
+      error_log /dev/null crit;
+      proxy_pass http://public_web;
+    }}
     location / {{
       client_max_body_size 11m;
       proxy_pass http://public_web;
@@ -130,7 +136,8 @@ def configure(directory, address, bootstrap=False):
             PRODUCTION=True,
             PREFERRED_URL_SCHEME="https",
             TRUSTED_HOSTS=[address, "127.0.0.1", "localhost"],
-            TRUSTED_PROXY_HOST="gateway",
+            TRUSTED_PROXY_HOST="gateway-private",
+            STORAGE_PUBLIC_BASE_URL="https://" + address,
         )
         config.pop("TRUSTED_PROXY_ADDRESS", None)
         path.write_text(json.dumps(config, indent=2) + "\n")
@@ -138,8 +145,10 @@ def configure(directory, address, bootstrap=False):
             path = directory / "apps" / (name.replace("-", "_") + ".json")
             config = json.loads(path.read_text())
             config["PUBLIC_API_PREFIX"] = "/services/" + name
-            config["TRUSTED_PROXY_HOST"] = "gateway"
+            config["TRUSTED_PROXY_HOST"] = "gateway-private"
             config.pop("TRUSTED_PROXY_ADDRESS", None)
+            if name == "documentos":
+                config["STORAGE_PUBLIC_BASE_URL"] = "https://" + address
             if name == "transporte":
                 config.pop("TRACKING_TRUST_PROXY", None)
                 config["TRACKING_ALLOWED_ORIGINS"] = ["https://" + address]

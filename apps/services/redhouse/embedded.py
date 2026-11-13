@@ -36,9 +36,10 @@ class ApplicationKernel:
             self.apps[name] = importlib.import_module(module).create_app(config)
 
     def request(self, service, method, path, *, data=None, headers=None):
-        if service not in self.apps or not path.startswith(
-            ("/api/v1/", "/internal/v1/", "/health/")
-        ):
+        permitted = path.startswith(("/api/v1/", "/internal/v1/", "/health/")) or (
+            service == "documentos" and path.startswith("/storage/v1/objects/")
+        )
+        if service not in self.apps or not permitted:
             raise ValueError("Operación interna no registrada.")
         builder = EnvironBuilder(
             path=path,

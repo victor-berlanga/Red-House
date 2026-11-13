@@ -1,0 +1,408 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="4" skipped="0" tests="44" time="204.552" timestamp="2026-11-13T12:18:57.707763-06:00" hostname="Victors-MacBook-Air.local"><testcase classname="tests.test_next_appointment" name="test_next_appointment_is_owned_future_and_not_limited_by_list_page[json]" time="52.405" /><testcase classname="tests.test_next_appointment" name="test_next_appointment_is_owned_future_and_not_limited_by_list_page[xml]" time="4.733" /><testcase classname="tests.test_label_issuance" name="test_label_contract_scope_versions_reissue_and_concurrency[json]" time="2.909" /><testcase classname="tests.test_label_issuance" name="test_label_contract_scope_versions_reissue_and_concurrency[xml]" time="3.282" /><testcase classname="tests.test_proxy_boundaries" name="test_untrusted_peer_cannot_change_address_scheme_or_host" time="0.032" /><testcase classname="tests.test_proxy_boundaries" name="test_gevent_policy_uses_one_proxy_hop_and_separates_client_quotas" time="0.022" /><testcase classname="tests.test_proxy_boundaries" name="test_real_waitress_boundary_drops_untrusted_headers[True]" time="0.039" /><testcase classname="tests.test_proxy_boundaries" name="test_real_waitress_boundary_drops_untrusted_headers[False]" time="0.099" /><testcase classname="tests.test_proxy_boundaries" name="test_proxy_configuration_fails_closed_on_wildcard_or_ambiguous_dns" time="0.006" /><testcase classname="tests.test_proxy_boundaries" name="test_public_generator_applies_same_sanitization_to_http_and_wss" time="0.134" /><testcase classname="tests.test_proxy_boundaries" name="test_every_internal_gateway_location_overwrites_forwarded_headers" time="0.006" /><testcase classname="tests.test_proxy_boundaries" name="test_proxy_and_upstreams_use_aliases_on_only_the_private_network" time="0.011" /><testcase classname="tests.test_portal_storage_targets" name="test_storage_url_rejects_other_origins_and_paths[http://redhouse.test/storage/v1/objects/token]" time="0.012" /><testcase classname="tests.test_portal_storage_targets" name="test_storage_url_rejects_other_origins_and_paths[https://redhouse.test.attacker.invalid/storage/v1/objects/token]" time="0.010" /><testcase classname="tests.test_portal_storage_targets" name="test_storage_url_rejects_other_origins_and_paths[https://redhouse.test:444/storage/v1/objects/token]" time="0.010" /><testcase classname="tests.test_portal_storage_targets" name="test_storage_url_rejects_other_origins_and_paths[https://attacker.invalid@redhouse.test/storage/v1/objects/token]" time="0.012" /><testcase classname="tests.test_portal_storage_targets" name="test_storage_url_rejects_other_origins_and_paths[https://redhouse.test/services/identidad-acceso/api/v1/users]" time="0.011" /><testcase classname="tests.test_portal_storage_targets" name="test_storage_url_rejects_other_origins_and_paths[https://redhouse.test/storage/v1/objects/token?next=attacker]" time="0.010" /><testcase classname="tests.test_portal_storage_targets" name="test_storage_url_rejects_other_origins_and_paths[https://redhouse.test/storage/v1/objects/token#fragment]" time="0.020" /><testcase classname="tests.test_portal_storage_targets" name="test_storage_url_rejects_other_origins_and_paths[https://redhouse.test/storage/v1/objects/../token]" time="0.013" /><testcase classname="tests.test_portal_storage_targets" name="test_storage_url_rejects_other_origins_and_paths[https://storage.googleapis.com.attacker.invalid/bucket/file]" time="0.008" /><testcase classname="tests.test_portal_storage_targets" name="test_storage_url_rejects_other_origins_and_paths[https://storage.googleapis.com:444/bucket/file]" time="0.008" /><testcase classname="tests.test_portal_storage_targets" name="test_local_upload_uses_modular_owner_without_network" time="0.011" /><testcase classname="tests.test_private_storage_local" name="test_local_document_session_integrity_and_replay" time="6.040" /><testcase classname="tests.test_private_storage_local" name="test_local_immutable_object_and_symlink" time="0.025" /><testcase classname="tests.test_private_storage_local" name="test_gateway_rejects_unsafe_binary_requests" time="0.031" /><testcase classname="tests.test_private_storage_local" name="test_upgrade_v18_preserves_historical_gcs" time="3.998" /><testcase classname="tests.test_private_storage_local" name="test_local_disk_write_failure_is_sanitized" time="0.012" /><testcase classname="tests.test_private_storage_local" name="test_health_checks_active_local_provider" time="0.041" /><testcase classname="tests.test_private_storage_local" name="test_interrupted_after_link_keeps_object_readable" time="0.017" /><testcase classname="tests.test_private_storage_local" name="test_local_document_xml_contract" time="2.076" /><testcase classname="tests.test_private_storage_local" name="test_configure_local_preserves_existing_gcs" time="0.017" /><testcase classname="tests.test_local_storage_reports" name="test_local_report_provider_survives_retry[CSV]" time="1.648" /><testcase classname="tests.test_local_storage_reports" name="test_local_report_provider_survives_retry[PDF]" time="1.889" /><testcase classname="tests.test_local_storage_reports" name="test_local_report_provider_survives_retry[XLSX]" time="2.184" /><testcase classname="tests.test_local_storage_reports" name="test_shipment_file_published_contract[json]" time="7.807"><failure message="jsonschema.exceptions.ValidationError: 'x-goog-if-generation-match' is a required property&#10;&#10;Failed validating 'required' in schema['properties']['upload_headers']:&#10;    {'type': 'object',&#10;     'properties': {'Content-Type': {'type': 'string'},&#10;                    'x-goog-if-generation-match': {'type': 'string'}},&#10;     'required': ['Content-Type', 'x-goog-if-generation-match']}&#10;&#10;On instance['upload_headers']:&#10;    {'Content-Type': 'image/png'}">p = &lt;tests.conftest.Platform object at 0x10e172e10&gt;
+tmp_path = PosixPath('/private/var/folders/rk/m94gy0rj2h74sfwqknl61bzm0000gn/T/pytest-of-victorberlanga/pytest-174/test_shipment_file_published_c0')
+monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x10e243230&gt;
+fmt = 'json'
+
+    @pytest.mark.parametrize("fmt", ["json", "xml"])
+    def test_shipment_file_published_contract(p, tmp_path, monkeypatch, fmt):
+        import hashlib
+        from urllib.parse import urlsplit
+    
+        from PIL import Image
+    
+        from .test_documents_storage import planned
+        from .test_final_quality import api
+    
+        app = p.apps["documentos"]
+        monkeypatch.setitem(app.config, "STORAGE_PROVIDER", "local")
+        monkeypatch.setitem(app.config, "STORAGE_LOCAL_ROOT", str(tmp_path))
+        monkeypatch.setitem(app.config, "STORAGE_PUBLIC_BASE_URL", "https://example.test")
+        shipment = planned(p)
+        content = BytesIO()
+        Image.new("RGB", (4, 4), "red").save(content, format="PNG")
+        content = content.getvalue()
+        path = "/api/v1/shipments/" + shipment["id"] + "/files"
+&gt;       item = api(
+            p,
+            "documentos",
+            path,
+            {
+                "mime_type": "image/png",
+                "size": len(content),
+                "sha256": hashlib.sha256(content).hexdigest(),
+            },
+            user="operator1",
+            fmt=fmt,
+        )
+
+apps/services/tests/test_local_storage_reports.py:114: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+apps/services/tests/test_final_quality.py:25: in api
+    jsonschema.validate(result, contract["result"] or result_schema(service, name))
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+instance = {'file': {'id': 'd9766b29-1c21-4381-8080-f1f55282a7bb', 'shipment_id': 'b136fa7c-4576-48b1-8d00-973c46f1e9e6', 'owner_...eomt8MYRNi-i2alTqGi5OvN6qi5U_12SLujjpJcnO2Sxn4Q==', 'expires_in': 300, 'upload_headers': {'Content-Type': 'image/png'}}
+schema = {'type': 'object', 'properties': {'file': {'type': 'object', 'properties': {'id': {'type': 'string', 'format': 'uuid'}...ing'}}, 'required': ['Content-Type', 'x-goog-if-generation-match']}}, 'required': ['file', 'upload_url', 'expires_in']}
+cls = &lt;class 'jsonschema.validators.Draft202012Validator'&gt;, args = ()
+kwargs = {}
+
+    def validate(instance, schema, cls=None, *args, **kwargs):  # noqa: D417
+        """
+        Validate an instance under the given schema.
+    
+            &gt;&gt;&gt; validate([2, 3, 4], {"maxItems": 2})
+            Traceback (most recent call last):
+                ...
+            ValidationError: [2, 3, 4] is too long
+    
+        :func:`~jsonschema.validators.validate` will first verify that the
+        provided schema is itself valid, since not doing so can lead to less
+        obvious error messages and fail in less obvious or consistent ways.
+    
+        If you know you have a valid schema already, especially
+        if you intend to validate multiple instances with
+        the same schema, you likely would prefer using the
+        `jsonschema.protocols.Validator.validate` method directly on a
+        specific validator (e.g. ``Draft202012Validator.validate``).
+    
+    
+        Arguments:
+    
+            instance:
+    
+                The instance to validate
+    
+            schema:
+    
+                The schema to validate with
+    
+            cls (jsonschema.protocols.Validator):
+    
+                The class that will be used to validate the instance.
+    
+        If the ``cls`` argument is not provided, two things will happen
+        in accordance with the specification. First, if the schema has a
+        :kw:`$schema` keyword containing a known meta-schema [#]_ then the
+        proper validator will be used. The specification recommends that
+        all schemas contain :kw:`$schema` properties for this reason. If no
+        :kw:`$schema` property is found, the default validator class is the
+        latest released draft.
+    
+        Any other provided positional and keyword arguments will be passed
+        on when instantiating the ``cls``.
+    
+        Raises:
+    
+            `jsonschema.exceptions.ValidationError`:
+    
+                if the instance is invalid
+    
+            `jsonschema.exceptions.SchemaError`:
+    
+                if the schema itself is invalid
+    
+        .. rubric:: Footnotes
+        .. [#] known by a validator registered with
+            `jsonschema.validators.validates`
+    
+        """
+        if cls is None:
+            cls = validator_for(schema)
+    
+        cls.check_schema(schema)
+        validator = cls(schema, *args, **kwargs)
+        error = exceptions.best_match(validator.iter_errors(instance))
+        if error is not None:
+&gt;           raise error
+E           jsonschema.exceptions.ValidationError: 'x-goog-if-generation-match' is a required property
+E           
+E           Failed validating 'required' in schema['properties']['upload_headers']:
+E               {'type': 'object',
+E                'properties': {'Content-Type': {'type': 'string'},
+E                               'x-goog-if-generation-match': {'type': 'string'}},
+E                'required': ['Content-Type', 'x-goog-if-generation-match']}
+E           
+E           On instance['upload_headers']:
+E               {'Content-Type': 'image/png'}
+
+apps/services/.venv/lib/python3.12/site-packages/jsonschema/validators.py:1332: ValidationError</failure></testcase><testcase classname="tests.test_local_storage_reports" name="test_shipment_file_published_contract[xml]" time="6.336"><failure message="ValueError: XML contrario al contrato">content = b'&lt;?xml version=\'1.0\' encoding=\'UTF-8\'?&gt;\n&lt;response type="object"&gt;&lt;field name="data" type="object"&gt;&lt;field name="fi...ld name="service" type="string"&gt;documentos&lt;/field&gt;&lt;field name="version" type="string"&gt;0.4.1&lt;/field&gt;&lt;/field&gt;&lt;/response&gt;'
+schema = {'type': 'object', 'properties': {'data': {'type': 'object', 'properties': {'file': {'type': 'object', 'properties': {.....}}, 'required': ['Content-Type', 'x-goog-if-generation-match']}}, 'required': ['file', 'upload_url', 'expires_in']}}}
+
+    def validate_response(content, schema):
+        """Devuelve el equivalente JSON validado o ValueError; no hace consultas de red."""
+        if len(content) &gt; 8 * 1024 * 1024:
+            raise ValueError("Respuesta demasiado grande")
+        try:
+            root = E.fromstring(
+                content,
+                E.XMLParser(resolve_entities=False, load_dtd=False, no_network=True),
+            )
+            if root.getroottree().docinfo.doctype:
+                raise ValueError("DTD prohibido")
+            envelope().assertValid(root)
+    
+            def decode(node):
+                kind = node.get("type")
+                text = node.text or ""
+                if kind in ("object", "array"):
+                    if text.strip() or any((child.tail or "").strip() for child in node):
+                        raise ValueError("Contenido mixto inesperado")
+                    if kind == "object":
+                        result = {}
+                        for child in node:
+                            name = child.get("name")
+                            if child.tag != "field" or name in result:
+                                raise ValueError("Campo duplicado o inválido")
+                            result[name] = decode(child)
+                        return result
+                    if any(child.tag != "item" for child in node):
+                        raise ValueError("Lista inválida")
+                    return [decode(child) for child in node]
+                if len(node):
+                    raise ValueError("Un escalar no admite elementos hijos")
+                if kind == "string":
+                    return text
+                if kind == "null":
+                    if text.strip():
+                        raise ValueError("Nulo con contenido")
+                    return None
+                if kind == "boolean":
+                    if text not in ("true", "false"):
+                        raise ValueError("Booleano inválido")
+                    return text == "true"
+                if kind == "integer":
+                    if not re.fullmatch(r"-?[0-9]+", text):
+                        raise ValueError("Entero inválido")
+                    return int(text)
+                if kind == "number":
+                    result = float(text)
+                    if not math.isfinite(result):
+                        raise ValueError("Número no finito")
+                    return result
+                raise ValueError("Tipo no admitido")
+    
+            value = decode(root)
+&gt;           Draft202012Validator(schema, format_checker=FormatChecker()).validate(value)
+
+apps/services/redhouse/xml_response.py:71: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = Draft202012Validator(schema={'properties': {'data': {'properties': {'expires_in': {'type': 'integer'}, 'file': {'prope...Checker checkers=['date', 'date-time', 'email', 'idn-email', 'idn-hostname', 'ipv4', 'ipv6', 'regex', 'time', 'uuid']&gt;)
+args = ({'data': {'file': {'id': '646b7f69-26ed-4dc3-a4ab-9270ef6c99d5', 'shipment_id': '307a4bfe-d960-4b6c-a3c8-1ae54bbf28ce...'}}, 'meta': {'correlation_id': 'f63ea865-fd85-46d9-86b2-f6d74487edf3', 'service': 'documentos', 'version': '0.4.1'}},)
+kwargs = {}
+
+    def validate(self, *args, **kwargs):
+        for error in self.iter_errors(*args, **kwargs):
+&gt;           raise error
+E           jsonschema.exceptions.ValidationError: 'x-goog-if-generation-match' is a required property
+E           
+E           Failed validating 'required' in schema['properties']['data']['properties']['upload_headers']:
+E               {'type': 'object',
+E                'properties': {'Content-Type': {'type': 'string'},
+E                               'x-goog-if-generation-match': {'type': 'string'}},
+E                'required': ['Content-Type', 'x-goog-if-generation-match']}
+E           
+E           On instance['data']['upload_headers']:
+E               {'Content-Type': 'image/png'}
+
+apps/services/.venv/lib/python3.12/site-packages/jsonschema/validators.py:450: ValidationError
+
+The above exception was the direct cause of the following exception:
+
+p = &lt;tests.conftest.Platform object at 0x10e172e10&gt;
+tmp_path = PosixPath('/private/var/folders/rk/m94gy0rj2h74sfwqknl61bzm0000gn/T/pytest-of-victorberlanga/pytest-174/test_shipment_file_published_c1')
+monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x10e2a6e70&gt;
+fmt = 'xml'
+
+    @pytest.mark.parametrize("fmt", ["json", "xml"])
+    def test_shipment_file_published_contract(p, tmp_path, monkeypatch, fmt):
+        import hashlib
+        from urllib.parse import urlsplit
+    
+        from PIL import Image
+    
+        from .test_documents_storage import planned
+        from .test_final_quality import api
+    
+        app = p.apps["documentos"]
+        monkeypatch.setitem(app.config, "STORAGE_PROVIDER", "local")
+        monkeypatch.setitem(app.config, "STORAGE_LOCAL_ROOT", str(tmp_path))
+        monkeypatch.setitem(app.config, "STORAGE_PUBLIC_BASE_URL", "https://example.test")
+        shipment = planned(p)
+        content = BytesIO()
+        Image.new("RGB", (4, 4), "red").save(content, format="PNG")
+        content = content.getvalue()
+        path = "/api/v1/shipments/" + shipment["id"] + "/files"
+&gt;       item = api(
+            p,
+            "documentos",
+            path,
+            {
+                "mime_type": "image/png",
+                "size": len(content),
+                "sha256": hashlib.sha256(content).hexdigest(),
+            },
+            user="operator1",
+            fmt=fmt,
+        )
+
+apps/services/tests/test_local_storage_reports.py:114: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+apps/services/tests/test_final_quality.py:56: in api
+    return validate_response(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+content = b'&lt;?xml version=\'1.0\' encoding=\'UTF-8\'?&gt;\n&lt;response type="object"&gt;&lt;field name="data" type="object"&gt;&lt;field name="fi...ld name="service" type="string"&gt;documentos&lt;/field&gt;&lt;field name="version" type="string"&gt;0.4.1&lt;/field&gt;&lt;/field&gt;&lt;/response&gt;'
+schema = {'type': 'object', 'properties': {'data': {'type': 'object', 'properties': {'file': {'type': 'object', 'properties': {.....}}, 'required': ['Content-Type', 'x-goog-if-generation-match']}}, 'required': ['file', 'upload_url', 'expires_in']}}}
+
+    def validate_response(content, schema):
+        """Devuelve el equivalente JSON validado o ValueError; no hace consultas de red."""
+        if len(content) &gt; 8 * 1024 * 1024:
+            raise ValueError("Respuesta demasiado grande")
+        try:
+            root = E.fromstring(
+                content,
+                E.XMLParser(resolve_entities=False, load_dtd=False, no_network=True),
+            )
+            if root.getroottree().docinfo.doctype:
+                raise ValueError("DTD prohibido")
+            envelope().assertValid(root)
+    
+            def decode(node):
+                kind = node.get("type")
+                text = node.text or ""
+                if kind in ("object", "array"):
+                    if text.strip() or any((child.tail or "").strip() for child in node):
+                        raise ValueError("Contenido mixto inesperado")
+                    if kind == "object":
+                        result = {}
+                        for child in node:
+                            name = child.get("name")
+                            if child.tag != "field" or name in result:
+                                raise ValueError("Campo duplicado o inválido")
+                            result[name] = decode(child)
+                        return result
+                    if any(child.tag != "item" for child in node):
+                        raise ValueError("Lista inválida")
+                    return [decode(child) for child in node]
+                if len(node):
+                    raise ValueError("Un escalar no admite elementos hijos")
+                if kind == "string":
+                    return text
+                if kind == "null":
+                    if text.strip():
+                        raise ValueError("Nulo con contenido")
+                    return None
+                if kind == "boolean":
+                    if text not in ("true", "false"):
+                        raise ValueError("Booleano inválido")
+                    return text == "true"
+                if kind == "integer":
+                    if not re.fullmatch(r"-?[0-9]+", text):
+                        raise ValueError("Entero inválido")
+                    return int(text)
+                if kind == "number":
+                    result = float(text)
+                    if not math.isfinite(result):
+                        raise ValueError("Número no finito")
+                    return result
+                raise ValueError("Tipo no admitido")
+    
+            value = decode(root)
+            Draft202012Validator(schema, format_checker=FormatChecker()).validate(value)
+            return value
+        except (
+            E.XMLSyntaxError,
+            E.DocumentInvalid,
+            ArithmeticError,
+            ValidationError,
+        ) as exc:
+&gt;           raise ValueError("XML contrario al contrato") from exc
+E           ValueError: XML contrario al contrato
+
+apps/services/redhouse/xml_response.py:79: ValueError</failure></testcase><testcase classname="tests.test_local_storage_autonomous" name="test_document_web_upload_without_api_listeners" time="12.883" /><testcase classname="tests.test_local_storage_https" name="test_local_storage_https_large_body_and_revocation" time="12.326" /><testcase classname="tests.test_scan_idempotency" name="test_scan_scoped_idempotent_and_representation[json]" time="7.343"><failure message="AssertionError: ('{&quot;error&quot;: {&quot;code&quot;: &quot;internal_error&quot;, &quot;message&quot;: &quot;No se pudo completar la operación.&quot;, &quot;details&quot;: []}, &quot;meta&quot;: {&quot;corr...[]}, &quot;meta&quot;: {&quot;correlation_id&quot;: &quot;abf5d3c7-9955-495e-a27b-17dbfc490d6f&quot;, &quot;service&quot;: &quot;transporte&quot;, &quot;version&quot;: &quot;0.4.1&quot;}}')&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500]&gt;.status_code">p = &lt;tests.conftest.Platform object at 0x10e172e10&gt;, fmt = 'json'
+
+    @pytest.mark.parametrize("fmt", ["json", "xml"])
+    def test_scan_scoped_idempotent_and_representation(p, fmt):
+        shipment = planned(p)
+        with p.owner("inventario") as conn:
+            resource_id = str(
+                conn.execute(
+                    "SELECT resource_id FROM reservations WHERE id=%s",
+                    (shipment["reservation_id"],),
+                ).fetchone()[0]
+            )
+        path = "/api/v1/shipments/" + shipment["id"] + "/scan"
+        body = {"scanned_resource_id": resource_id}
+        key = uuid4().hex
+    
+        def send(user, data=body, idem=key):
+            headers = {
+                "Authorization": "Bearer " + p.tokens[user],
+                "Idempotency-Key": idem,
+                "Accept": "application/xml" if fmt == "xml" else "application/json",
+            }
+            if fmt == "xml":
+                headers["Content-Type"] = "application/xml"
+                return requests.post(
+                    p.urls["transporte"] + path,
+                    data=request_xml(data).encode(),
+                    headers=headers,
+                    timeout=20,
+                )
+            return requests.post(
+                p.urls["transporte"] + path, json=data, headers=headers, timeout=20
+            )
+    
+        assert send("donor1").status_code == 403
+        assert send("transport2").status_code == 403
+        first, replay = send("transport1"), send("transport1")
+&gt;       assert first.status_code == replay.status_code == 200, (first.text, replay.text)
+E       AssertionError: ('{"error": {"code": "internal_error", "message": "No se pudo completar la operación.", "details": []}, "meta": {"corr...[]}, "meta": {"correlation_id": "abf5d3c7-9955-495e-a27b-17dbfc490d6f", "service": "transporte", "version": "0.4.1"}}')
+E       assert 500 == 200
+E        +  where 500 = &lt;Response [500]&gt;.status_code
+
+apps/services/tests/test_scan_idempotency.py:49: AssertionError</failure></testcase><testcase classname="tests.test_scan_idempotency" name="test_scan_scoped_idempotent_and_representation[xml]" time="7.050"><failure message="AssertionError: ('&lt;?xml version=\'1.0\' encoding=\'UTF-8\'?&gt;&#10;  &lt;response type=&quot;object&quot;&gt;&lt;field name=&quot;error&quot; type=&quot;object&quot;&gt;&lt;field name=&quot;c...d name=&quot;service&quot; type=&quot;string&quot;&gt;transporte&lt;/field&gt;&lt;field name=&quot;version&quot; type=&quot;string&quot;&gt;0.4.1&lt;/field&gt;&lt;/field&gt;&lt;/response&gt;')&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500]&gt;.status_code">p = &lt;tests.conftest.Platform object at 0x10e172e10&gt;, fmt = 'xml'
+
+    @pytest.mark.parametrize("fmt", ["json", "xml"])
+    def test_scan_scoped_idempotent_and_representation(p, fmt):
+        shipment = planned(p)
+        with p.owner("inventario") as conn:
+            resource_id = str(
+                conn.execute(
+                    "SELECT resource_id FROM reservations WHERE id=%s",
+                    (shipment["reservation_id"],),
+                ).fetchone()[0]
+            )
+        path = "/api/v1/shipments/" + shipment["id"] + "/scan"
+        body = {"scanned_resource_id": resource_id}
+        key = uuid4().hex
+    
+        def send(user, data=body, idem=key):
+            headers = {
+                "Authorization": "Bearer " + p.tokens[user],
+                "Idempotency-Key": idem,
+                "Accept": "application/xml" if fmt == "xml" else "application/json",
+            }
+            if fmt == "xml":
+                headers["Content-Type"] = "application/xml"
+                return requests.post(
+                    p.urls["transporte"] + path,
+                    data=request_xml(data).encode(),
+                    headers=headers,
+                    timeout=20,
+                )
+            return requests.post(
+                p.urls["transporte"] + path, json=data, headers=headers, timeout=20
+            )
+    
+        assert send("donor1").status_code == 403
+        assert send("transport2").status_code == 403
+        first, replay = send("transport1"), send("transport1")
+&gt;       assert first.status_code == replay.status_code == 200, (first.text, replay.text)
+E       AssertionError: ('&lt;?xml version=\'1.0\' encoding=\'UTF-8\'?&gt;
+E         &lt;response type="object"&gt;&lt;field name="error" type="object"&gt;&lt;field name="c...d name="service" type="string"&gt;transporte&lt;/field&gt;&lt;field name="version" type="string"&gt;0.4.1&lt;/field&gt;&lt;/field&gt;&lt;/response&gt;')
+E       assert 500 == 200
+E        +  where 500 = &lt;Response [500]&gt;.status_code
+
+apps/services/tests/test_scan_idempotency.py:49: AssertionError</failure></testcase><testcase classname="tests.test_final_delivery_documents" name="test_documents_scan_private_access_and_export_formats[json]" time="10.463" /><testcase classname="tests.test_final_delivery_documents" name="test_documents_scan_private_access_and_export_formats[xml]" time="10.075" /><testcase classname="tests.test_nginx_runtime" name="test_generated_nginx_https_wss_scope_and_replica_recovery" time="42.802" /></testsuite></testsuites>

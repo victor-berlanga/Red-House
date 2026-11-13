@@ -16,7 +16,7 @@ from redhouse.extension_contracts import page_schema, schema
 from redhouse.models import Confirm, utc_date
 from redhouse.report_formats import MIMES, render
 from redhouse.security import own
-from redhouse.storage import bucket
+from redhouse.storage import object_bucket, provider
 
 SOURCES = {
     "INVENTORY": (
@@ -70,7 +70,7 @@ def public(row):
     return {
         key: value
         for key, value in row.items()
-        if key not in ("rows", "region_id", "sealed_authorization")
+        if key not in ("rows", "region_id", "sealed_authorization", "storage_provider")
     }
 
 
@@ -153,7 +153,8 @@ def process(limit=3):
                 digest = hashlib.sha256(content).hexdigest()
                 file_id = str(uuid5(NAMESPACE_URL, "redhouse:export:" + str(job["id"])))
                 path = f"reports/{job['tenant_id']}/{file_id}"
-                blob = bucket().blob(path)
+                selected = job["storage_provider"]
+                blob = object_bucket(selected).blob(path)
                 try:
                     blob.upload_from_string(
                         content,
@@ -192,6 +193,7 @@ def process(limit=3):
                         "shipment_id": None,
                         "owner_id": job["user_id"],
                         "object_path": path,
+                        "storage_provider": selected,
                         "mime_type": MIMES[job["format"]],
                         "size": len(content),
                         "sha256": digest,
@@ -423,6 +425,7 @@ def install(app):
                     "region_id": g.actor["region_id"],
                     "report": data["report"],
                     "format": data["format"],
+                    "storage_provider": provider(),
                     "rows": [],
                     "sealed_authorization": seal_authorization(),
                     "context": {

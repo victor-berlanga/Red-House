@@ -2,13 +2,13 @@
 
 import hashlib
 from uuid import uuid4
-from urllib.parse import urlsplit
 
 import requests
 from flask import flash, g, redirect, render_template, request, url_for
 
 from ...access import BusinessError
-from ..client import call, http_client
+from ..client import call
+from ..storage_client import storage_target, upload_object
 from .common import regional
 
 LIMIT = 10 * 1024 * 1024
@@ -50,26 +50,13 @@ def shipment_files(identifier):
                 },
                 idem=upload_key,
             )
-            target = urlsplit(prepared["upload_url"])
-            if (
-                target.scheme != "https"
-                or target.hostname != "storage.googleapis.com"
-                or target.username
-                or target.password
-            ):
-                raise BusinessError(
-                    "No pudimos cargar el archivo. Vuelve a intentarlo en unos momentos.",
-                    503,
-                )
             try:
-                response = http_client().put(
+                upload_status = upload_object(
                     prepared["upload_url"],
-                    data=content,
+                    content=content,
                     headers=prepared["upload_headers"],
-                    timeout=(2, 15),
-                    allow_redirects=False,
                 )
-                if response.status_code not in (200, 201, 412):
+                if upload_status not in (200, 201, 412):
                     raise requests.RequestException()
             except requests.RequestException:
                 raise BusinessError(
@@ -132,4 +119,5 @@ def verify_file(identifier):
 @regional.get("/archivos/<uuid:identifier>/descargar")
 def download_file(identifier):
     data = call("documentos", "/api/v1/files/" + str(identifier) + "/download")
+    storage_target(data["download_url"])
     return redirect(data["download_url"], code=303)

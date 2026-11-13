@@ -1,5 +1,23 @@
 # Estado vigente de Red House
 
+## Verificación conjunta local y ajustes pendientes — 13/11/2026
+
+**Actualización:** corregidos los cuatro fallos de la pasada inicial. Siete casos dirigidos aprobados en 112,44 s: evidencia de traslado JSON/XML, verificación idempotente de identificador JSON/XML, reasignación concurrente y regresión GCS mediante doble. Fuentes registradas sin cambios durante la repetición; se conservan ambas pasadas sin sumarlas como una suite nueva. [Resultados y evidencia](documentation/evidencias/entrega-final/almacenamiento-local-20261113/RESULTADOS.md).
+
+Suite conjunta inicial: **40 casos aprobados de 44; cuatro fallos, cero errores/omisiones, 204,62 s**. Los 1286 archivos de fuentes/pruebas/configuración registrados tienen hashes iguales antes y después. Fallaron carga local de evidencia por contrato que todavía exigía un encabezado exclusivo de GCS (JSON/XML) y nuevo evento de escaneo que dirigía auditoría a una tabla incorrecta (JSON/XML). Los resultados originales se conservan; la repetición correctiva figura arriba.
+
+Compatibilidad de publicación: tres casos aprobados en 76,69 s con los módulos GCS anteriores de Documentos, parcheados únicamente para ocultar el proveedor interno, sobre esquema 19. Verifica JSON/XML y filtro con/sin la columna; GCS/ClamD son dobles y no equivale a probar la imagen completa. El generador queda versionado en `deployment/gcp/storage19_compatibility.py`; su traslado conservó bytes y pasó una comprobación unitaria. GCP comprobó treinta contenedores sanos, esquema 18 y coincidencia de las 42 fuentes esperadas. PostgreSQL ocupa 342.584.667 B y el disco tiene aproximadamente 3,11 GB libres; no se eliminan imágenes ni volúmenes.
+
+En esa misma pasada se verificaron agenda próxima y paginada Donantes (dos casos), emisión autorizada de etiquetas (dos), límites/configuración de proxy (ocho), Nginx HTTPS/WSS con recuperación de réplicas (uno) y almacenamiento HTTPS con portal autónomo y ClamAV real, entre otros. No son conteos adicionales. Nuevos alias exclusivos de la red privada evitan resolver gateway/web/Transporte/Documentos por dos redes. Docker DNS y GCP aún requieren comprobación en destino. [Alcance, reproducción y límites](documentation/evidencias/entrega-final/infraestructura/NGINX_REAL_20261113.md).
+
+La inspección visual del APK de laboratorio confirmó ausencia del campo gateway, pero rechazó fechas con microsegundos/UTC, tarjeta de cita excesiva y transporte sin siguiente acción visible. El lote siguiente corrige navegación, fechas, agenda, MFA condicional y composición mapa/tarea; todavía requiere recompilación y aceptación visual. En escritorio se inspeccionó el acceso sin configuración de servidor y tablas nativas; no acredita aún recorrido integral, empaquetado ni Windows.
+
+
+## Ajustes expresos durante la ejecución — 13/11/2026
+
+El usuario reiteró que la pantalla móvil es para personas sin experiencia técnica: no debe mostrar campo, botón ni configuración de gateway. Se elimina el control también de la variante de laboratorio; el destino se define internamente al compilar. La variante normal conserva la dirección del servidor del producto. La modificación está en curso de recompilación y aceptación visual, sin afirmar todavía instalación del artefacto final.
+
+El usuario reiteró publicar los cambios en la GCP correspondiente a Red House. Destino comprobado por lectura con `gcloud compute instances describe`: proyecto `sistemas-integracion-01`, VM `red-house`, ID `2861822465669755197`, zona `me-central1-a`, etiquetas `app=red-house` y `environment=academic`; estaba `TERMINATED`. Tras las pruebas locales se arrancó esa VM existente, conservando IP privada `10.212.0.3` y pública `34.18.186.116`. Se transfirió un paquete limitado de 42 fuentes y procedimiento a un directorio temporal privado; las aplicaciones y el esquema aún no se sustituyeron. Comprobación previa en curso. La publicación exige respaldo, compatibilidad anterior/posterior a 019 y verificación pública; no se crean recursos Compute Engine ni cuentas adicionales. Acceso SSH mediante clave temporal OS Login de dos horas, pendiente de retirar al terminar.
 
 ## Proxy y próxima cita: incrementos locales — 13/11/2026
 

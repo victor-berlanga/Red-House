@@ -6,9 +6,10 @@ import threading
 import pytest
 import requests
 from flask import Flask, request
+from waitress import create_server
+
 from redhouse.proxy import TrustedProxy, trusted_peer, waitress_proxy_options
 from redhouse.security import rate_limit
-from waitress import create_server
 
 
 def application(monkeypatch):
@@ -181,11 +182,11 @@ def test_public_generator_applies_same_sanitization_to_http_and_wss(tmp_path):
         assert f"proxy_set_header {header};" in wss
     assert (
         json.loads((tmp_path / "apps/donantes.json").read_text())["TRUSTED_PROXY_HOST"]
-        == "gateway"
+        == "gateway-private"
     )
     assert (
         json.loads((tmp_path / "web.json").read_text())["TRUSTED_PROXY_HOST"]
-        == "gateway"
+        == "gateway-private"
     )
 
 
@@ -207,3 +208,33 @@ def test_every_internal_gateway_location_overwrites_forwarded_headers():
             "X-Forwarded-By",
         ):
             assert f'proxy_set_header {header} "";' in body
+
+
+def test_proxy_and_upstreams_use_aliases_on_only_the_private_network():
+    """Dual-network containers must never make the trusted peer ambiguous."""
+    import re
+    from pathlib import Path
+
+    root = Path(__file__).resolve().parents[3]
+    services = json.loads((root / "compose.yaml").read_text())["services"]
+    expected = {
+        name + "-private"
+        for name in services
+        if name.endswith(("-a", "-b")) or name in ("web", "gateway")
+    }
+    for name, service in services.items():
+        if name + "-private" not in expected:
+            continue
+        networks = service["networks"]
+        assert networks["data"]["aliases"] == [name + "-private"]
+        assert all(
+            name + "-private" not in (options or {}).get("aliases", [])
+            for network, options in networks.items()
+            if network != "data"
+        )
+    upstreams = set(
+        re.findall(
+            r"server ([a-z-]+):8080 resolve", (root / "deployment/nginx.conf").read_text()
+        )
+    )
+    assert upstreams == expected - {"web-private", "gateway-private"}

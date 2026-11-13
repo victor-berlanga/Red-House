@@ -2,7 +2,6 @@
 
 import hashlib
 from uuid import uuid4
-from urllib.parse import urlsplit
 import requests
 from .common import (
     BusinessError,
@@ -21,7 +20,7 @@ from .common import (
     url_for,
     flash,
 )
-from ..client import http_client
+from ..storage_client import upload_object
 from .files import LIMIT
 
 SUBJECTS = {
@@ -143,23 +142,13 @@ def document_new():
             )
             prepared = call("documentos", "/api/v1/documents", "POST", data, idem=idem)
             prepared_id = prepared["id"]
-            target = urlsplit(prepared["upload_url"])
-            if (
-                target.scheme != "https"
-                or target.hostname != "storage.googleapis.com"
-                or target.username
-                or target.password
-            ):
-                raise BusinessError("Destino de almacenamiento no autorizado.", 503)
             try:
-                response = http_client().put(
+                upload_status = upload_object(
                     prepared["upload_url"],
-                    data=content,
+                    content=content,
                     headers=prepared["upload_headers"],
-                    timeout=(2, 15),
-                    allow_redirects=False,
                 )
-                if response.status_code not in (200, 201, 412):
+                if upload_status not in (200, 201, 412):
                     raise requests.RequestException()
             except requests.RequestException:
                 raise BusinessError(

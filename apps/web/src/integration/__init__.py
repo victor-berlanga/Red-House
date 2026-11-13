@@ -306,6 +306,9 @@ def configure(app):
         app.extensions["application_kernel"] = ApplicationKernel(
             app.config["DOMAIN_CONFIGS"]
         )
+    from .storage_gateway import install as install_storage_gateway
+
+    install_storage_gateway(app)
     app.config["DEFAULT_DISPLAY_TIMEZONE"] = "America/Monterrey"
     validate_urls(app.config.get("SERVICE_URLS"))
     for key in ("WEB_REDIS_URL", "WEB_REDIS_PREFIX", "WEB_DATABASE_URL"):

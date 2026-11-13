@@ -57,12 +57,12 @@
             "type": "string"
           },
           "x-goog-if-generation-match": {
-            "type": "string"
+            "type": "string",
+            "const": "0"
           }
         },
         "required": [
-          "Content-Type",
-          "x-goog-if-generation-match"
+          "Content-Type"
         ]
       }
     },

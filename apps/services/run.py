@@ -59,7 +59,8 @@ def main():
         host=args.host,
         port=args.port or app.config["PORT"],
         threads=8,
-        max_request_body_size=262144,
+        # Documentos acepta binarios; Flask mantiene el límite de metadatos.
+        max_request_body_size=10 * 1024 * 1024 if args.service == "documentos" else 262144,
         **waitress_proxy_options(app.config),
     )
 
