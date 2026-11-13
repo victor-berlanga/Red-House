@@ -18,6 +18,8 @@ COMMANDS={
     'shipment_scan':('transporte','/api/v1/shipments/{id}/scan','shipment_scan.xsd',True),
     'user_state':('identidad-acceso','/api/v1/users/{id}','user_state.xsd',True),
     'user_role':('identidad-acceso','/api/v1/users/{id}/role','user_role.xsd',True),
+    'device_create':('identidad-acceso','/api/v1/devices','device_create.xsd',False),
+    'device_revoke':('identidad-acceso','/api/v1/devices/{id}/revoke','device_revoke.xsd',True),
 }
 
 def command_path(operation,identifier):
@@ -59,5 +61,9 @@ def submit_command(client,journal,record,*,fresh=False,proof=None):
         raise ContractError('La solicitud confirmada no corresponde al intento registrado.')
     if operation=='resource_create' and any(result.get(field)!=record['body'][field] for field in ('folio','kind','component','blood_group')):
         raise ContractError('La unidad confirmada no corresponde al intento registrado.')
+    if operation=='device_create' and any(result.get(field)!=record['body'][field] for field in ('id','user_id','source')):
+        raise ContractError('El dispositivo confirmado no corresponde al intento registrado.')
+    if operation=='device_revoke' and (result.get('id')!=target['identifier'] or result.get('active') is not False):
+        raise ContractError('La revocación confirmada no corresponde al dispositivo solicitado.')
     journal.update(record['key'],{'operation_id':result.get('id'),'status':'COMPLETED'})
     return result

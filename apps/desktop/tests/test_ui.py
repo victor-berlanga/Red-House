@@ -42,6 +42,19 @@ def test_only_medical_can_review_result():
     w.close()
 
 
+def test_device_actions_restricted_to_administrator():
+    w=Window(); w.client=FakeClient(); w.stack.setCurrentIndex(1); w.mode='devices'; w.show()
+    data={'items':[{'id':'device','label':'Unidad móvil','source':'ANDROID','active':True,'expires_at':'2030-01-01T00:00:00+00:00','version':1}], 'page':1,'page_size':20,'total':1}
+    w.show_rows(data); app.processEvents()
+    assert w.device_revoke_button.isVisible() and not w.device_revoke_button.isEnabled()
+    assert w.table.item(0,1).text()=='Teléfono Android'
+    w.client.user={'username':'administradora','role':'ADMIN'}; w.set_controls(True)
+    assert w.device_revoke_button.isEnabled()
+    w.mode='users'; w.show_rows({'items':[],'page':1,'page_size':20,'total':0})
+    assert w.device_create_button.isVisible() and w.device_create_button.isEnabled()
+    w.close()
+
+
 def test_recovery_reuses_original_key_and_body(tmp_path,monkeypatch):
     from cryptography.fernet import Fernet
     from PySide6.QtWidgets import QMessageBox

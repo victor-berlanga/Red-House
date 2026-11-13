@@ -13,7 +13,7 @@ OWNERS = {
     )},
 }
 SCHEMAS = {
-    'ms_identidad_acceso': ('login', 'refresh', 'reauthenticate', 'user_role', 'user_state'),
+    'ms_identidad_acceso': ('login', 'refresh', 'reauthenticate', 'user_role', 'user_state', 'device_create', 'device_revoke'),
     'ms_inventario': ('cold_reading_create', 'label_issue', 'reservation_create', 'resource_create'),
     'ms_compatibilidad': ('evaluation_create', 'evaluation_review', 'lab_result_create', 'lab_result_review', 'lab_sample_receive'),
     'ms_documentos': ('export_create',),

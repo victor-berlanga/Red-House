@@ -29,6 +29,22 @@ def test_restart_preserves_idempotency_and_isolates_accounts(tmp_path):
     restarted.prepare(dict(record(),key='next-key'))
 
 
+def test_device_registration_recovery_keeps_identity_and_rejects_wrong_response(tmp_path):
+    from uuid import uuid4
+    from redhouse_desktop.client import ContractError
+    from redhouse_desktop.durable_commands import prepare_command, submit_command
+    keys=Keys(); journal=Journal(tmp_path,'https://lab','user','tenant',keys)
+    body={'id':str(uuid4()),'user_id':str(uuid4()),'source':'ANDROID','label':'Equipo de prueba','expires_at':'2030-01-01T00:00:00+00:00'}
+    original=prepare_command(journal,'device_create',None,body)
+    restored=Journal(tmp_path,'https://lab','user','tenant',keys)
+    class API:
+        def authorized(self,*args,**kwargs):
+            assert kwargs['key']==original['key'] and kwargs['body']==body
+            return dict(body,id=str(uuid4()))
+    with pytest.raises(ContractError): submit_command(API(),restored,restored.list()[0])
+    assert restored.list()[0]['state']=='PREPARED'
+
+
 def test_tamper_and_lock_fail_closed(tmp_path):
     keys=Keys(); journal=Journal(tmp_path,'https://lab','user','tenant',keys); journal.prepare(record())
     journal.file.write_bytes(b'tampered')
