@@ -1,15 +1,15 @@
 """Solo contenido de campaña expresamente autorizado para el sitio público."""
 
 from typing import Annotated
-from flask import g
+from flask import g, request
 from pydantic import Field
-from redhouse.api import endpoint, atomic
+from redhouse.api import endpoint, atomic, pagination
 from redhouse.db import transaction, get, insert, update
 from redhouse.errors import APIError
 from redhouse.events import emit
 from redhouse.decisions import record
-from redhouse.models import Confirm, Model, ID, Text
-from redhouse.extension_contracts import schema
+from redhouse.models import Confirm, Model, ID, Text, utc_date
+from redhouse.extension_contracts import schema, page_schema
 from redhouse.security import own
 
 
@@ -55,6 +55,55 @@ def install(app):
                     "SELECT c.title,c.starts_at,c.ends_at,p.venue,p.information FROM campaigns c JOIN campaign_publications p ON p.id=c.id WHERE p.published AND c.status='OPEN' AND c.ends_at>now() ORDER BY c.starts_at,c.id"
                 ).fetchall()
             }
+
+    @endpoint(
+        app,
+        "/api/v1/public/campaign-feed",
+        public=True,
+        paginated=True,
+        query=("q", "from_at", "until_at"),
+        result=page_schema(PublicCampaign),
+        summary="Campañas públicas paginadas, con búsqueda y fechas de inicio",
+    )
+    def public_campaign_feed():
+        page, size, offset = pagination(("q", "from_at", "until_at"))
+        condition = "p.published AND c.status='OPEN' AND c.ends_at>now()"
+        values = []
+        raw_query = request.args.get("q", "")
+        if any(ord(char) < 32 or 127 <= ord(char) <= 159 for char in raw_query):
+            raise APIError("validation", "El filtro contiene caracteres no admitidos.")
+        query = raw_query.strip()
+        if len(query) > 100:
+            raise APIError("validation", "Filtro demasiado largo.")
+        if query:
+            escaped = (
+                query.replace("\\", "\\\\").replace("%", "\\%").replace("_", "\\_")
+            )
+            condition += " AND (c.title ILIKE %s OR p.venue ILIKE %s)"
+            values.extend(["%" + escaped + "%"] * 2)
+        bounds = {}
+        for parameter, operator in (("from_at", ">="), ("until_at", "<")):
+            if parameter in request.args:
+                bounds[parameter] = utc_date(request.args[parameter], parameter)
+                condition += " AND c.starts_at" + operator + "%s"
+                values.append(bounds[parameter])
+        if len(bounds) == 2 and bounds["from_at"] >= bounds["until_at"]:
+            raise APIError("validation", "Ventana temporal inválida.", 422)
+        with transaction() as conn:
+            # One statement: the count and rows share a PostgreSQL snapshot.
+            row = conn.execute(
+                "WITH visible AS ("
+                "SELECT c.id,c.title,c.starts_at,c.ends_at,p.venue,p.information "
+                "FROM campaigns c JOIN campaign_publications p ON p.id=c.id "
+                "WHERE " + condition + "), selected AS ("
+                "SELECT id,title,starts_at,ends_at,venue,information FROM visible "
+                "ORDER BY starts_at,id LIMIT %s OFFSET %s) "
+                "SELECT (SELECT count(*) FROM visible) AS total, "
+                "COALESCE((SELECT jsonb_agg(to_jsonb(selected)-'id' "
+                "ORDER BY starts_at,id) FROM selected),'[]'::jsonb) AS items",
+                (*values, size, offset),
+            ).fetchone()
+            return dict(row, page=page, page_size=size)
 
     @endpoint(
         app,
