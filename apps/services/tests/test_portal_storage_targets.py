@@ -72,7 +72,7 @@ def test_local_upload_uses_modular_owner_without_network(monkeypatch):
         )
         assert (
             upload_object(
-                "https://redhouse.test/storage/v1/objects/token==",
+                "https://redhouse.test/portal-storage/v1/objects/token==",
                 b"synthetic",
                 {"Content-Type": "application/pdf"},
             )

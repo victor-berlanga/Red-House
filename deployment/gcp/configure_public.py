@@ -60,6 +60,14 @@ def configure(directory, address, bootstrap=False):
       client_max_body_size 10m;
       access_log off;
       error_log /dev/null crit;
+      proxy_next_upstream off;
+      proxy_pass http://documentos;
+    }}
+    location /portal-storage/v1/objects/ {{
+      client_max_body_size 10m;
+      access_log off;
+      error_log /dev/null crit;
+      proxy_next_upstream off;
       proxy_pass http://public_web;
     }}
     location / {{

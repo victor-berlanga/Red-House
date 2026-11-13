@@ -33,6 +33,8 @@ class ApplicationKernel:
         for name in SERVICES:
             module = "servicio_monitoreo" if name == "monitoreo" else "ms_" + name
             config = dict(configs[name], LOCAL_DISPATCH=self.request)
+            if name == "documentos":
+                config["STORAGE_OBJECT_PREFIX"] = "/portal-storage/v1/objects/"
             self.apps[name] = importlib.import_module(module).create_app(config)
 
     def request(self, service, method, path, *, data=None, headers=None):

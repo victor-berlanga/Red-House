@@ -414,7 +414,10 @@ def access_url(row, method):
             separators=(",", ":"),
         ).encode()
     ).decode()
-    return base + "/storage/v1/objects/" + token
+    prefix = current_app.config.get("STORAGE_OBJECT_PREFIX", "/storage/v1/objects/")
+    if prefix not in ("/storage/v1/objects/", "/portal-storage/v1/objects/"):
+        raise APIError("storage_unconfigured", "Ruta del almacén no configurada.", 503)
+    return base + prefix + token
 
 
 def upload_headers(row):

@@ -9,10 +9,13 @@ def install(app):
 
     def gateway(environ, start_response):
         path = environ.get("PATH_INFO", "")
-        if not path.startswith("/storage/v1/objects/"):
+        prefix = "/portal-storage/v1/objects/"
+        if not path.startswith(prefix):
             return downstream(environ, start_response)
+        path = "/storage/v1/objects/" + path[len(prefix):]
         if kernel is not None:
-            return kernel.apps["documentos"].wsgi_app(environ, start_response)
+            forwarded = dict(environ, PATH_INFO=path)
+            return kernel.apps["documentos"].wsgi_app(forwarded, start_response)
         # El destino se toma solo de configuración privada, nunca del cliente.
         import requests
 

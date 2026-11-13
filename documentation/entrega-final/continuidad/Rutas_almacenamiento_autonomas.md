@@ -1,0 +1,9 @@
+# Rutas autónomas de almacenamiento privado
+
+Estado: implementación en worktree aislado; sin despliegue. Los casos de autonomía pasaron en la suite `revision-junit.xml` del incremento SEC: Nginx HTTPS con listener web detenido y Documentos activo, y portal modular con listeners de API detenidos. Se verificaron transferencia, descarga, revocación y ClamAV real; la muestra EICAR fue detectada. La suite conjunta registró 37 aprobados y dos fallos ajenos al almacenamiento en transición de regla; los hashes de su árbol coincidieron antes y después.
+
+El gateway público dirige `/storage/v1/objects/<capacidad>` al servicio Documentos. Es la ruta existente de las capacidades entregadas por su API, por lo que móvil y escritorio no necesitan un cambio de contrato ni dependen del proceso web. El dominio Documentos integrado en el portal emite `/portal-storage/v1/objects/<capacidad>`; el gateway la dirige al bridge web, que entrega la petición al mismo controlador de Documentos dentro del kernel. El portal puede servir sus capacidades con los listeners de API detenidos.
+
+Ambos caminos usan el mismo volumen privado persistente, base de datos, Redis y propietario lógico. No replican objetos ni reintentan escrituras contra otro backend. Los dos límites HTTP son de 10 MiB y las ubicaciones evitan registrar la capacidad. Los objetos históricos GCS mantienen sus URL firmadas y su proveedor. La semántica de autorización, duración, generación, MIME y hash continúa bajo Documentos.
+
+La instalación requiere que web y Documentos tengan acceso al mismo volumen con propietario y permisos privados compatibles, y que sus configuraciones de Documentos compartan la clave de servicio y el origen HTTPS. Al cambiar el gateway, desplegar conjuntamente las imágenes que emiten y aceptan el prefijo del portal. Las pruebas enlazadas no acreditan alta disponibilidad multihost ni despliegue.

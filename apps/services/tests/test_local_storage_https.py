@@ -32,10 +32,8 @@ ROOT = Path(__file__).resolve().parents[3]
     or not os.environ.get("REDHOUSE_TEST_CLAMD_PORT"),
     reason="Requiere Nginx y ClamD reales para TLS y análisis",
 )
-def test_local_storage_https_large_body_and_revocation(
-    autonomous, p, tmp_path, monkeypatch
-):
-    document = autonomous.extensions["application_kernel"].apps["documentos"]
+def test_local_storage_https_large_body_and_revocation(p, tmp_path, monkeypatch):
+    document = p.apps["documentos"]
     directory = tmp_path / "files"
     directory.mkdir(mode=0o700)
     monkeypatch.setitem(document.config, "STORAGE_PROVIDER", "local")
@@ -58,11 +56,16 @@ def test_local_storage_https_large_body_and_revocation(
             valid_until=iso(days=2),
         ),
     )
-    web = make_server(
-        "127.0.0.1", 0, autonomous, threaded=True, request_handler=QuietHandler
-    )
+    # Un listener web real se detiene antes de emitir o usar capacidades API.
+    from flask import Flask
+    web = make_server("127.0.0.1", 0, Flask("stopped_web"), threaded=True, request_handler=QuietHandler)
     thread = threading.Thread(target=web.serve_forever, daemon=True)
     thread.start()
+    web_port = web.server_port
+    web.shutdown()
+    web.server_close()
+    thread.join(timeout=5)
+    assert not thread.is_alive()
     nginx = None
     try:
         spec = importlib.util.spec_from_file_location(
@@ -79,11 +82,11 @@ def test_local_storage_https_large_body_and_revocation(
         module.configure(config_root, "127.0.0.1")
         certificate(config_root / "tls")
         config = (config_root / "public.nginx.conf").read_text()
-        config = re.sub(
-            r"server ([a-z-]+):8080 resolve",
-            f"server 127.0.0.1:{web.server_port} resolve",
-            config,
-        )
+        def upstream(match):
+            name = match.group(1)
+            port = p.servers["documentos"].server_port if name.startswith("documentos-") else web_port
+            return f"server 127.0.0.1:{port} resolve"
+        config = re.sub(r"server ([a-z-]+):8080 resolve", upstream, config)
         ports = {}
 
         def listener(match):
@@ -141,6 +144,7 @@ def test_local_storage_https_large_body_and_revocation(
                 "policy_reference": "TLS sintético",
             },
         )
+        assert urlsplit(item["upload_url"]).path.startswith("/storage/v1/objects/")
         ca = str(config_root / "tls/fullchain.pem")
         session = requests.Session()
         session.trust_env = False
@@ -209,6 +213,3 @@ def test_local_storage_https_large_body_and_revocation(
         if nginx is not None and nginx.poll() is None:
             nginx.terminate()
             nginx.wait(timeout=10)
-        web.shutdown()
-        web.server_close()
-        thread.join(timeout=5)
