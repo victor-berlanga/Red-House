@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="3" time="75.868" timestamp="2026-11-13T16:07:18.935849-06:00" hostname="Victors-MacBook-Air.local"><testcase classname="apps.desktop.tests.test_real_lab" name="test_real_local_report_download_with_verified_tls" time="40.522"><failure message="AssertionError: assert ('RETRYABLE' == 'COMPLETE'&#10;  &#10;  - COMPLETE&#10;  + RETRYABLE)">apps/desktop/tests/test_real_lab.py:169: in test_real_local_report_download_with_verified_tls
+    assert ready['status']=='COMPLETE' and ready['file_id']
+E   AssertionError: assert ('RETRYABLE' == 'COMPLETE'
+E
+E     - COMPLETE
+E     + RETRYABLE)</failure></testcase><testcase classname="apps.desktop.tests.test_real_lab" name="test_operator_creates_organ_through_qt" time="24.765" /><testcase classname="apps.desktop.tests.test_real_lab" name="test_blood_components_are_registered_in_quarantine_over_xml" time="6.463" /></testsuite></testsuites>

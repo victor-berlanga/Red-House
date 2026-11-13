@@ -33,7 +33,7 @@ def test_explicit_storage_origin_is_required_for_alternate_host(monkeypatch):
 @pytest.mark.parametrize('path',[
     '/storage/v1/objects/../private', '/storage/v1/objects/%2e%2e/private',
     '/storage/v1/objects/token/extra', '/storage/v1/objects/token?x=1',
-    '/storage/v1/objects/token?', '/storage/v1/objects/',
+    '/storage/v1/objects/token?', '/storage/v1/objects/', '/storage/v1/objects/token===',
 ])
 def test_local_capability_rejects_extra_path_and_query(path,monkeypatch):
     monkeypatch.setenv('REDHOUSE_STORAGE_ORIGIN','https://store.example')

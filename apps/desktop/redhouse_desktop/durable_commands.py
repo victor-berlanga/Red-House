@@ -57,5 +57,7 @@ def submit_command(client,journal,record,*,fresh=False,proof=None):
         raise
     if operation=='request_create' and any(result.get(field)!=record['body'][field] for field in ('recipient_id','component','quantity','urgency')):
         raise ContractError('La solicitud confirmada no corresponde al intento registrado.')
+    if operation=='resource_create' and any(result.get(field)!=record['body'][field] for field in ('folio','kind','component','blood_group')):
+        raise ContractError('La unidad confirmada no corresponde al intento registrado.')
     journal.update(record['key'],{'operation_id':result.get('id'),'status':'COMPLETED'})
     return result

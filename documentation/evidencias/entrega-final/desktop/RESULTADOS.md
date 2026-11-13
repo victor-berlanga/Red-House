@@ -2,6 +2,12 @@
 
 Estado actual: laboratorio HTTPS/XML validó inventario, laboratorio, solicitud/evaluación/reserva, emisión de etiqueta, recepción de custodia y solicitud de reporte. Qt autenticado mostró inventario, detalle, recepción y resumen; las capturas se inspeccionaron. MFA con contrato SEC definitivo pasó 2/2. En GCP pasaron lecturas autenticadas de operador y donante sin escritura de negocio. El paquete macOS x86_64 del incremento anterior pasó smoke; falta reconstruirlo con el resumen. Firma de distribución, Windows, periféricos y varias familias DESK siguen pendientes. Ver la [matriz vigente](MATRIZ.md) para el alcance de cada módulo.
 
+En una iteración posterior se probó Qt autenticado de alta de órgano y XML de plasma/plaquetas en cuarentena. Una descarga de reporte CSV pasó contra almacenamiento local HTTPS y ClamAV real, incluido SHA-256 y revocación; el primer intento había fallado por modo incorrecto de un directorio del fixture. [Comandos, JUnit, capturas y hashes](iteracion-inventario-reportes/EJECUCION.md) distinguen las tres ejecuciones. El paquete anterior tampoco incluye esta iteración; GCS real, dispositivos y reglas clínicas siguen sin acreditarse.
+
+Después se añadió confirmación explícita de la caducidad documentada. La prueba Qt afectada pasó **1/1** (7,43 s) y verificó que no se envía sin la casilla; [captura y alcance](iteracion-unidad-confirmacion/EJECUCION.md). Las fechas +1/−1 días son solo datos sintéticos de esa prueba; la aplicación no calcula vida útil.
+
+Después de añadir la comprobación de coincidencia en la respuesta de alta de unidad, se repitió `cd apps/desktop && PYTHONPATH=. .venv/bin/python tests/native_keychain_probe.py` con acceso autorizado al llavero. Salió 0 y la herramienta mostró `native_keychain=ok abrupt_restart=ok same_key=ok account_isolation=ok missing_key_fails_closed=ok`; se eliminaron las entradas sintéticas. No se guardó log ni JUnit de esta repetición. El servidor era un doble, mientras que la recuperación real de etiqueta sigue documentada en la iteración anterior.
+
 ## Antecedentes e iteraciones
 
 13/11/2026. macOS Darwin x86_64, Python 3.12.6, PySide6 6.10.1 en `.venv` aislado. No se usaron servidores ni datos reales para estas pruebas. Instalación inicial del sandbox falló por DNS; la instalación en entorno local aislado con red autorizada terminó correctamente.

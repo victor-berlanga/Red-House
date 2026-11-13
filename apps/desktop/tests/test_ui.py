@@ -154,6 +154,39 @@ def test_request_picker_reports_selected_recipient(tmp_path,monkeypatch):
     window.close()
 
 
+def test_resource_form_captures_organ_and_optional_collection(tmp_path,monkeypatch):
+    from pathlib import Path
+    from PySide6.QtCore import QDateTime, QTimer
+    from PySide6.QtWidgets import QCheckBox, QComboBox, QDateTimeEdit, QLineEdit, QMessageBox, QPushButton
+    window=Window(); window.client=FakeClient(); submitted=[]; warnings=[]
+    monkeypatch.setattr(window,'durable',lambda operation,identifier,body:submitted.append((operation,body)))
+    monkeypatch.setattr(window,'received',lambda:None)
+    monkeypatch.setattr(QMessageBox,'warning',lambda *args:warnings.append(True))
+    def fill():
+        modal=QApplication.activeModalWidget()
+        if not modal: QTimer.singleShot(50,fill); return
+        modal.findChild(QLineEdit).setText('UNIDAD-FICTICIA')
+        boxes=modal.findChildren(QComboBox); boxes[0].setCurrentIndex(boxes[0].findData('ORGAN'))
+        boxes[1].setCurrentIndex(boxes[1].findData('KIDNEY')); boxes[2].setCurrentIndex(boxes[2].findData('O+'))
+        checks=modal.findChildren(QCheckBox); checks[0].setChecked(True); dates=modal.findChildren(QDateTimeEdit)
+        dates[0].setDateTime(QDateTime.currentDateTime().addDays(-1)); dates[1].setDateTime(QDateTime.currentDateTime().addDays(1))
+        def confirm_date():
+            checks[1].setChecked(True); app.processEvents()
+            output=Path(os.environ.get('DESKTOP_CAPTURE_DIR',str(tmp_path))); output.mkdir(parents=True,exist_ok=True)
+            modal.grab().save(str(output/'unidad-organo-sintetica.png'))
+            next(button for button in modal.findChildren(QPushButton) if button.text()=='Registrar unidad').click()
+        QTimer.singleShot(50,confirm_date)
+        next(button for button in modal.findChildren(QPushButton) if button.text()=='Registrar unidad').click()
+    QTimer.singleShot(50,fill); window.create_resource()
+    for _ in range(500):
+        QTest.qWait(20)
+        if submitted and not window.busy: break
+    assert warnings==[True] and submitted and submitted[0][0]=='resource_create'
+    body=submitted[0][1]
+    assert body['kind']=='ORGAN' and body['component']=='KIDNEY' and body['blood_group']=='O+' and body['collected_at']
+    window.close()
+
+
 def test_login_prompts_verification_only_when_required():
     from redhouse_desktop.client import ApiError
     w=Window(); w.show(); app.processEvents()

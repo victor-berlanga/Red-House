@@ -54,7 +54,7 @@ def main():
             class Replay:
                 def authorized(self, *args, **kwargs):
                     assert kwargs['key'] == pending[0]['key'] and kwargs['body'] == BODY
-                    return {'id':'00000000-0000-4000-8000-000000000001'}
+                    return dict(BODY,id='00000000-0000-4000-8000-000000000001')
             submit_command(Replay(), store, pending[0])
             assert store.list()[0]['state'] == 'DONE'
             keyring.delete_password('RedHouse desktop journal', store.identifier)

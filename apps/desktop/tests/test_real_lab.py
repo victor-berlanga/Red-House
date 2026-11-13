@@ -13,7 +13,7 @@ from cryptography.hazmat.primitives.asymmetric import rsa
 from cryptography.x509.oid import NameOID
 from flask import Flask, Response, request
 from werkzeug.serving import make_server
-from tests.conftest import platform
+from tests.conftest import platform, QuietHandler
 from redhouse_desktop.client import ApiError, Client
 
 @pytest.fixture
@@ -39,7 +39,11 @@ def gateway(platform, tmp_path, monkeypatch):
         upstream=requests.request(request.method,platform.urls[service]+'/'+path,params=request.args,
                                   data=request.get_data(),headers=headers,timeout=20)
         return Response(upstream.content,status=upstream.status_code,content_type=upstream.headers.get('Content-Type'))
-    server=make_server('127.0.0.1',0,app,threaded=True,ssl_context=(str(certpath),str(keypath)))
+    @app.route('/storage/v1/objects/<token>',methods=['GET'])
+    def storage_proxy(token):
+        upstream=requests.get(platform.urls['documentos']+'/storage/v1/objects/'+token,timeout=20,allow_redirects=False)
+        return Response(upstream.content,status=upstream.status_code,content_type=upstream.headers.get('Content-Type'))
+    server=make_server('127.0.0.1',0,app,threaded=True,request_handler=QuietHandler,ssl_context=(str(certpath),str(keypath)))
     thread=threading.Thread(target=server.serve_forever,daemon=True); thread.start()
     try: yield 'https://127.0.0.1:'+str(server.server_port)
     finally: server.shutdown(); thread.join(); server.server_close()
@@ -144,6 +148,36 @@ def test_report_request_and_owner_scope_over_xml(platform,gateway):
     other.logout(); c.logout()
 
 
+def test_real_local_report_download_with_verified_tls(platform,gateway,tmp_path,monkeypatch):
+    import os
+    from ms_documentos.reports import process
+    from redhouse_desktop.download import DownloadError, download
+    port=os.environ.get('REDHOUSE_TEST_CLAMD_PORT')
+    if not port: pytest.skip('Requiere ClamAV local real en un puerto de laboratorio.')
+    p=platform; document=p.apps['documentos']; root=tmp_path/'objects'; root.mkdir(mode=0o700)
+    monkeypatch.setitem(document.config,'STORAGE_PROVIDER','local')
+    monkeypatch.setitem(document.config,'STORAGE_LOCAL_ROOT',str(root))
+    monkeypatch.setitem(document.config,'STORAGE_PUBLIC_BASE_URL',gateway)
+    now=datetime.datetime.now(datetime.timezone.utc)
+    unit=p.ok('inventario','POST','/api/v1/resources',user='operator1',data={'folio':'REPORT-'+uuid.uuid4().hex[:12],'kind':'BLOOD','component':'RBC','blood_group':'O-','expires_at':(now+datetime.timedelta(days=2)).isoformat()})
+    c=Client(gateway); c.login('operator1',p.env.state['password'],'')
+    body={'report':'INVENTORY','format':'CSV','from_at':(now-datetime.timedelta(days=1)).isoformat(),'until_at':(now+datetime.timedelta(days=1)).isoformat(),'timezone':'America/Monterrey'}
+    job=c.authorized('documentos','/api/v1/export-jobs','export_create',method='POST',body=body,request_schema='export_create.xsd',key=str(uuid.uuid4()))
+    monkeypatch.setitem(document.config,'CLAMD_HOST','127.0.0.1'); monkeypatch.setitem(document.config,'CLAMD_PORT',int(port))
+    with document.app_context(): process(limit=1)
+    ready=c.authorized('documentos','/api/v1/export-jobs/'+job['id'],'export_detail')
+    assert ready['status']=='COMPLETE' and ready['file_id'], (ready['status'],ready.get('last_error'))
+    verified=c.authorized('documentos','/api/v1/documents/'+ready['file_id']+'/verified','document_verified')
+    assert verified['analysis']=='CLEAN' and verified['file_status']=='VERIFIED'
+    access=c.authorized('documentos','/api/v1/files/'+ready['file_id']+'/download','file_download')
+    destination=tmp_path/'reporte.csv'
+    download(access['download_url'],gateway,verified['sha256'],destination)
+    assert unit['folio'] in destination.read_text(encoding='utf-8-sig')
+    c.logout()
+    with pytest.raises(DownloadError): download(access['download_url'],gateway,verified['sha256'],tmp_path/'revocado.csv')
+    assert not (tmp_path/'revocado.csv').exists()
+
+
 def test_summary_projections_over_xml(platform,gateway):
     for actor in ('operator1','coordinator1'):
         c=Client(gateway); c.login(actor,platform.env.state['password'],'')
@@ -213,6 +247,64 @@ def test_medical_creates_request_through_qt(platform,gateway,monkeypatch,tmp_pat
     state['alive']=False
     assert captured and any(row.get('recipient_id')==person['id'] and row.get('quantity')==2 for row in window.rows)
     window.close()
+
+
+def test_operator_creates_organ_through_qt(platform,gateway,monkeypatch,tmp_path):
+    import os
+    from cryptography.fernet import Fernet
+    from PySide6.QtCore import QDateTime, QTimer
+    from PySide6.QtTest import QTest
+    from PySide6.QtWidgets import QApplication, QCheckBox, QComboBox, QDateTimeEdit, QLineEdit, QPushButton
+    import redhouse_desktop.app as desktop
+    from redhouse_desktop.journal import Journal
+    class Keys:
+        def __init__(self): self.key=Fernet.generate_key()
+        def get(self,identifier,exists): return self.key
+    keys=Keys()
+    monkeypatch.setattr(desktop,'Journal',lambda _root,base,user,tenant:Journal(tmp_path,base,user,tenant,keys))
+    monkeypatch.setenv('REDHOUSE_BASE_URL',gateway)
+    app=QApplication.instance() or QApplication([]); app.setStyleSheet(desktop.STYLE)
+    window=desktop.Window(); window.show(); window.username.setText('operator1'); window.password.setText(platform.env.state['password']); window.login()
+    for _ in range(1500):
+        QTest.qWait(20)
+        if window.stack.currentIndex()==1 and not window.busy: break
+    assert window.stack.currentIndex()==1
+    folio='GUI-ORG-'+uuid.uuid4().hex[:8]; captured=[]
+    def fill():
+        modal=QApplication.activeModalWidget()
+        if not modal: QTimer.singleShot(50,fill); return
+        modal.findChild(QLineEdit).setText(folio)
+        boxes=modal.findChildren(QComboBox); boxes[0].setCurrentIndex(boxes[0].findData('ORGAN'))
+        boxes[1].setCurrentIndex(boxes[1].findData('KIDNEY')); boxes[2].setCurrentIndex(boxes[2].findData('O+'))
+        checks=modal.findChildren(QCheckBox); checks[0].setChecked(True); checks[1].setChecked(True); dates=modal.findChildren(QDateTimeEdit)
+        dates[0].setDateTime(QDateTime.currentDateTime().addDays(-1)); dates[1].setDateTime(QDateTime.currentDateTime().addDays(1))
+        app.processEvents(); out=Path(os.environ['DESKTOP_CAPTURE_DIR']); out.mkdir(parents=True,exist_ok=True)
+        modal.grab().save(str(out/'laboratorio-unidad-organo.png')); captured.append(True)
+        next(button for button in modal.findChildren(QPushButton) if button.text()=='Registrar unidad').click()
+    QTimer.singleShot(50,fill); window.create_resource()
+    for _ in range(2000):
+        QTest.qWait(20)
+        if captured and not window.busy and any(row.get('folio')==folio for row in window.rows): break
+    assert captured and any(row.get('folio')==folio and row.get('kind')=='ORGAN' and row.get('component')=='KIDNEY' and row.get('status')=='QUARANTINE' for row in window.rows)
+    window.close()
+
+
+def test_blood_components_are_registered_in_quarantine_over_xml(platform,gateway,tmp_path):
+    from cryptography.fernet import Fernet
+    from redhouse_desktop.durable_commands import prepare_command, submit_command
+    from redhouse_desktop.journal import Journal
+    class Keys:
+        def __init__(self): self.key=Fernet.generate_key()
+        def get(self,identifier,exists): return self.key
+    client=Client(gateway); user=client.login('operator1',platform.env.state['password'],'')
+    journal=Journal(tmp_path,gateway,user['id'],user['tenant_id'],Keys())
+    now=datetime.datetime.now(datetime.timezone.utc)
+    for component in ('PLASMA','PLATELETS'):
+        body={'folio':'GUI-'+uuid.uuid4().hex[:12],'kind':'BLOOD','component':component,'blood_group':'O-',
+              'collected_at':(now-datetime.timedelta(hours=1)).isoformat(),'expires_at':(now+datetime.timedelta(days=1)).isoformat()}
+        result=submit_command(client,journal,prepare_command(journal,'resource_create',None,body),fresh=True)
+        assert result['component']==component and result['status']=='QUARANTINE'
+    client.logout()
 
 
 def test_destination_accepts_verified_handover_over_xml(platform,gateway,tmp_path):

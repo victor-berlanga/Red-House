@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="57.832" timestamp="2026-11-13T16:10:06.416131-06:00" hostname="Victors-MacBook-Air.local"><testcase classname="apps.desktop.tests.test_real_lab" name="test_real_local_report_download_with_verified_tls" time="52.261"><failure message="AssertionError: ('RETRYABLE', 'storage_unavailable')&#10;assert ('RETRYABLE' == 'COMPLETE'&#10;  &#10;  - COMPLETE&#10;  + RETRYABLE)">apps/desktop/tests/test_real_lab.py:169: in test_real_local_report_download_with_verified_tls
+    assert ready['status']=='COMPLETE' and ready['file_id'], (ready['status'],ready.get('last_error'))
+E   AssertionError: ('RETRYABLE', 'storage_unavailable')
+E   assert ('RETRYABLE' == 'COMPLETE'
+E
+E     - COMPLETE
+E     + RETRYABLE)</failure></testcase></testsuite></testsuites>

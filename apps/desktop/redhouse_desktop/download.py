@@ -18,7 +18,7 @@ def approved_url(url,base):
         raise DownloadError('La dirección de descarga no es válida.')
     try: target_port=target.port or 443; origin_port=origin.port or 443
     except ValueError as exc: raise DownloadError('La dirección de descarga no es válida.') from exc
-    local_capability=bool(re.fullmatch(r'/storage/v1/objects/[A-Za-z0-9_-]+=*',target.path)) and not target.query and '?' not in url
+    local_capability=bool(re.fullmatch(r'/storage/v1/objects/[A-Za-z0-9_-]+={0,2}',target.path)) and not target.query and '?' not in url
     same_origin=(target.hostname==origin.hostname and target_port==origin_port and local_capability)
     configured=os.environ.get('REDHOUSE_STORAGE_ORIGIN','')
     try: storage_origin=urlsplit(configured.rstrip('/')) if configured else None

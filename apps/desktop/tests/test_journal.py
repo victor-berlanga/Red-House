@@ -70,7 +70,7 @@ def test_critical_command_retries_same_key_after_restart(tmp_path):
         def authorized(self,*args,**kwargs):
             sent.append(kwargs['key'])
             if len(sent)==1: raise ConnectionError('respuesta perdida')
-            return {'id':'00000000-0000-4000-8000-000000000001'}
+            return dict(body,id='00000000-0000-4000-8000-000000000001')
     api=API()
     with pytest.raises(ConnectionError): submit_command(api,journal,record)
     restored=Journal(tmp_path,'https://lab','user','tenant',keys)

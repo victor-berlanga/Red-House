@@ -975,20 +975,30 @@ class Window(QMainWindow):
 
     def create_resource(self):
         if self.uncertain: self.status.setText('Actualiza y verifica el estado antes de continuar.'); return
-        dialog=QDialog(self); dialog.setWindowTitle('Registrar unidad de sangre'); form=QFormLayout(dialog)
+        dialog=QDialog(self); dialog.setWindowTitle('Registrar unidad u oferta'); dialog.resize(620,420); form=QFormLayout(dialog)
         folio=QLineEdit(); folio.setMaxLength(30); form.addRow('Folio de unidad',folio)
-        component=QComboBox(); component.addItem('Selecciona un producto',''); component.addItem('Eritrocitos','RBC'); form.addRow('Producto',component)
+        kind=QComboBox(); kind.addItem('Selecciona un tipo',''); kind.addItem('Sangre','BLOOD'); kind.addItem('Órgano','ORGAN'); form.addRow('Tipo de recurso',kind)
+        component=QComboBox(); component.addItem('Selecciona un tipo primero',''); form.addRow('Producto u órgano',component)
+        def choose_kind():
+            component.clear(); component.addItem('Selecciona una opción','')
+            choices=(('Eritrocitos','RBC'),('Plasma','PLASMA'),('Plaquetas','PLATELETS')) if kind.currentData()=='BLOOD' else (('Riñón','KIDNEY'),('Hígado','LIVER'),('Corazón','HEART')) if kind.currentData()=='ORGAN' else ()
+            for name,code in choices: component.addItem(name,code)
+        kind.currentIndexChanged.connect(choose_kind)
         group=QComboBox(); group.addItem('Selecciona un grupo', '');
         for blood_group in ('O-','O+','A-','A+','B-','B+','AB-','AB+'): group.addItem(blood_group,blood_group)
         form.addRow('Grupo sanguíneo',group)
+        has_collection=QCheckBox('Registrar fecha documentada de obtención o colecta'); form.addRow(has_collection)
+        collected=QDateTimeEdit(QDateTime.currentDateTime()); collected.setCalendarPopup(True); collected.setDisplayFormat('dd/MM/yyyy HH:mm'); collected.setEnabled(False); has_collection.toggled.connect(collected.setEnabled); form.addRow('Obtención o colecta',collected)
         expiry=QDateTimeEdit(QDateTime.currentDateTime()); expiry.setCalendarPopup(True); expiry.setDisplayFormat('dd/MM/yyyy HH:mm'); form.addRow('Caducidad',expiry)
-        note=QLabel('Confirma la fecha documentada para la unidad. Ingresará en cuarentena.'); note.setWordWrap(True); form.addRow(note)
+        confirm_expiry=QCheckBox('Confirmo que la caducidad coincide con el documento de la unidad.'); form.addRow(confirm_expiry)
+        note=QLabel('La unidad ingresará en cuarentena.'); note.setWordWrap(True); form.addRow(note)
         confirm=QPushButton('Registrar unidad'); confirm.clicked.connect(dialog.accept); form.addRow(confirm)
         while dialog.exec()==QDialog.Accepted:
-            if re.fullmatch(r'[A-Za-z0-9_-]{6,30}',folio.text().strip()) and component.currentData() and group.currentData(): break
-            QMessageBox.warning(self,'Datos incompletos','Indica un folio de 6 a 30 letras, números, guiones o guiones bajos; elige producto y grupo.')
+            if re.fullmatch(r'[A-Za-z0-9_-]{6,30}',folio.text().strip()) and kind.currentData() and component.currentData() and group.currentData() and confirm_expiry.isChecked(): break
+            QMessageBox.warning(self,'Datos incompletos','Indica folio, tipo, producto y grupo; confirma la caducidad documentada.')
         else: return
-        body={'folio':folio.text().strip(),'kind':'BLOOD','component':component.currentData(),'blood_group':group.currentData(),'expires_at':expiry.dateTime().toUTC().toString(Qt.ISODate)}; key=str(uuid.uuid4())
+        body={'folio':folio.text().strip(),'kind':kind.currentData(),'component':component.currentData(),'blood_group':group.currentData(),'expires_at':expiry.dateTime().toUTC().toString(Qt.ISODate)}
+        if has_collection.isChecked(): body['collected_at']=collected.dateTime().toUTC().toString(Qt.ISODate)
         self.run(lambda:self.durable('resource_create',None,body),lambda _:self.received(),'Registrando unidad…')
 
     def capture_result(self):
