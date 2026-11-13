@@ -35,6 +35,8 @@ La clave temporal OS Login se retiró; se comprobó igualdad de las dos claves p
 
 Los JSON y logs registran el resultado; `artifacts.sha256` identifica los archivos copiados. `procedimiento/` conserva los scripts exactos ejecutados. Los scripts públicos se ejecutaron desde `.local/deploy-sec-20261113/`, con la raíz del repositorio dos niveles arriba; no deben ejecutarse directamente desde esta carpeta documental. Requieren la configuración privada existente. El despliegue está fijado a esta VM y esta versión; no es un instalador genérico ni debe repetirse sobre otro estado sin preparar un nuevo preflight.
 
+`publish.log` conserva los espacios al final de línea emitidos por Docker Compose. `git diff --check` los señaló durante el commit documental; no se alteraron los bytes ni el hash del log. Una excepción de atributo limitada a ese archivo omite únicamente esa comprobación de espacios.
+
 Comandos locales de lectura utilizados:
 
 ```sh

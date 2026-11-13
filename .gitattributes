@@ -2,3 +2,6 @@
 *.sh text eol=lf
 *.bat text eol=crlf
 *.cmd text eol=crlf
+
+# Conservar la salida original de Docker Compose y su hash de evidencia.
+documentation/evidencias/gcp/seguridad-20261113/publish.log whitespace=-blank-at-eol
