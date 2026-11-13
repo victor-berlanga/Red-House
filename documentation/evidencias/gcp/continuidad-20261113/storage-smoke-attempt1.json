@@ -1,0 +1,64 @@
+{
+  "tls_verified": true,
+  "checks": [
+    {
+      "label": "storage-local-health",
+      "http": 200
+    },
+    {
+      "label": "login:transport1",
+      "http": 200
+    },
+    {
+      "label": "authorized-shipments",
+      "http": 200
+    },
+    {
+      "label": "historical-files",
+      "http": 200
+    },
+    {
+      "label": "historical-files",
+      "http": 200
+    },
+    {
+      "label": "historical-files",
+      "http": 200
+    },
+    {
+      "label": "historical-files",
+      "http": 200
+    },
+    {
+      "label": "historical-files",
+      "http": 200
+    },
+    {
+      "label": "historical-files",
+      "http": 200
+    },
+    {
+      "label": "historical-files",
+      "http": 200
+    },
+    {
+      "label": "historical-files",
+      "http": 200
+    },
+    {
+      "label": "historical-files",
+      "http": 200
+    },
+    {
+      "label": "historical-files",
+      "http": 200
+    },
+    {
+      "label": "revoke",
+      "http": 200
+    }
+  ],
+  "scope": "Synthetic PDF evidence only; no custody or clinical transition",
+  "result": "failed",
+  "error_type": "AssertionError"
+}

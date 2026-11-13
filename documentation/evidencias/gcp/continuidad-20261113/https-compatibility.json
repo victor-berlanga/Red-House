@@ -1,0 +1,200 @@
+{
+  "phase": "compatibility",
+  "checks": [
+    {
+      "label": "identidad-acceso:ready",
+      "http": 200,
+      "milliseconds": 990.336
+    },
+    {
+      "label": "donantes:ready",
+      "http": 200,
+      "milliseconds": 977.752
+    },
+    {
+      "label": "receptores:ready",
+      "http": 200,
+      "milliseconds": 1021.069
+    },
+    {
+      "label": "inventario:ready",
+      "http": 200,
+      "milliseconds": 938.782
+    },
+    {
+      "label": "compatibilidad:ready",
+      "http": 200,
+      "milliseconds": 969.498
+    },
+    {
+      "label": "priorizacion-geografia:ready",
+      "http": 200,
+      "milliseconds": 1043.654
+    },
+    {
+      "label": "transporte:ready",
+      "http": 200,
+      "milliseconds": 989.451
+    },
+    {
+      "label": "custodia:ready",
+      "http": 200,
+      "milliseconds": 1013.527
+    },
+    {
+      "label": "alertas:ready",
+      "http": 200,
+      "milliseconds": 967.417
+    },
+    {
+      "label": "auditoria:ready",
+      "http": 200,
+      "milliseconds": 1020.04
+    },
+    {
+      "label": "monitoreo:ready",
+      "http": 200,
+      "milliseconds": 1075.588
+    },
+    {
+      "label": "documentos:ready",
+      "http": 200,
+      "milliseconds": 1266.11
+    },
+    {
+      "label": "auditor1:/monitoreo",
+      "http": 200,
+      "milliseconds": 2162.882
+    },
+    {
+      "label": "auditor1:/monitoreo",
+      "http": 200,
+      "milliseconds": 856.303
+    },
+    {
+      "label": "auditor1:/sesion/estado",
+      "http": 200,
+      "milliseconds": 272.774
+    },
+    {
+      "label": "donor1:/panel",
+      "http": 200,
+      "milliseconds": 1370.113
+    },
+    {
+      "label": "donor1:/citas",
+      "http": 200,
+      "milliseconds": 1954.628
+    },
+    {
+      "label": "donor1:/campanas",
+      "http": 200,
+      "milliseconds": 327.832
+    },
+    {
+      "label": "donor1:/sesion/estado",
+      "http": 200,
+      "milliseconds": 279.286
+    },
+    {
+      "label": "operator1:/panel",
+      "http": 200,
+      "milliseconds": 1230.164
+    },
+    {
+      "label": "operator1:/inventario",
+      "http": 200,
+      "milliseconds": 314.778
+    },
+    {
+      "label": "operator1:/traslados",
+      "http": 200,
+      "milliseconds": 330.689
+    },
+    {
+      "label": "auditor1:monitoreo/api/v1/status:application/json",
+      "http": 200,
+      "milliseconds": 434.933
+    },
+    {
+      "label": "auditor1:monitoreo/api/v1/status:application/xml",
+      "http": 200,
+      "milliseconds": 507.468
+    },
+    {
+      "label": "donor1:donantes/api/v1/campaign-slots?page_size=20:application/json",
+      "http": 200,
+      "milliseconds": 315.246
+    },
+    {
+      "label": "donor1:inventario/api/v1/resources:application/json",
+      "http": 403,
+      "milliseconds": 241.429
+    },
+    {
+      "label": "operator1:inventario/api/v1/resources?page_size=20:application/json",
+      "http": 200,
+      "milliseconds": 294.902
+    },
+    {
+      "label": "operator1:inventario/api/v1/resources?page_size=20:application/xml",
+      "http": 200,
+      "milliseconds": 446.913
+    },
+    {
+      "label": "transport1:transporte/api/v1/shipments?page_size=20:application/json",
+      "http": 200,
+      "milliseconds": 271.519
+    },
+    {
+      "label": "transport1:shipment-files:application/json",
+      "http": 200,
+      "milliseconds": 430.708
+    },
+    {
+      "label": "transport1:shipment-files:application/xml",
+      "http": 200,
+      "milliseconds": 385.053
+    },
+    {
+      "label": "transport1:shipment-files:application/json",
+      "http": 200,
+      "milliseconds": 264.261
+    },
+    {
+      "label": "transport1:shipment-files:application/xml",
+      "http": 200,
+      "milliseconds": 387.715
+    },
+    {
+      "label": "transport1:shipment-files:application/json",
+      "http": 200,
+      "milliseconds": 313.369
+    },
+    {
+      "label": "transport1:shipment-files:application/xml",
+      "http": 200,
+      "milliseconds": 265.604
+    }
+  ],
+  "tls_verification": true,
+  "donor_chart_scripts": [],
+  "shipment_file_checks": 6,
+  "wss": [
+    {
+      "format": "json",
+      "tls_verified": true,
+      "authenticated": true,
+      "heartbeat": true,
+      "position_published": false
+    },
+    {
+      "format": "xml",
+      "tls_verified": true,
+      "authenticated": true,
+      "heartbeat": true,
+      "position_published": false
+    }
+  ],
+  "result": "passed"
+}

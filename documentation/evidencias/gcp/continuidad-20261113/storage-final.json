@@ -1,0 +1,24 @@
+{
+  "by_provider": [
+    {
+      "storage_provider": "local",
+      "count": 2
+    },
+    {
+      "storage_provider": "gcs",
+      "count": 37
+    }
+  ],
+  "local_scans": [
+    {
+      "status": "VERIFIED",
+      "analysis": "CLEAN",
+      "count": 2
+    }
+  ],
+  "historical_gcs_fingerprint": {
+    "files": 37,
+    "digest": "1677ae1fba3f7008e0d31381ee30a3f1"
+  },
+  "comparison_available": false
+}

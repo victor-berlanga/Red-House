@@ -1,0 +1,15 @@
+{
+  "json_and_python_parse": "passed",
+  "relative_markdown_links": "passed",
+  "sensitive_marker_scan": "passed; bounded pattern check, not exhaustive audit",
+  "diff_check_except_raw_output": "passed",
+  "raw_outputs_preserved": {
+    "compatibility-rollout.log": "bb0a808a908729548ddbba0e3ad39c3d737d00642d1729b28a966ebcf4a72141",
+    "enable-local-retry.log": "c85f9289d6d5a1bafaa63268fce6328e056589faca47888e5210009a0a8b5250",
+    "enable-local.log": "31ff59ded5da1588516ffe4794e6bf4ff9749ef9d21cfd3edd43d0332db42760",
+    "historical-file-summary-retry.json": "4f8b12eab9bc531d7008663bc670350b085c60c2bce105b62c0966c87c97d3aa",
+    "prepare.log": "ae0912eb64f56894d7b6a5e8d864c87b30eb7f8b9723ba41ee39d5512d8a4b6a",
+    "rehearsal-retry.log": "ae77c61189b3d164fe5d6ed3b0d8e1ebf458dc6f0bd7f5b7356e9e25ebf0c216",
+    "rollout.log": "593512de00d23b78afb2a98be1ced9eaadb58cfcc081fec90f6867f16998789e"
+  }
+}

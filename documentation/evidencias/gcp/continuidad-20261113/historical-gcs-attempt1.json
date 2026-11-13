@@ -1,0 +1,20 @@
+{
+  "scope": "Read-only historical GCS report; no new bucket object",
+  "tls_verified": true,
+  "result": "failed",
+  "error_type": "AssertionError",
+  "checks": [
+    {
+      "label": "login:operator1",
+      "http": 200
+    },
+    {
+      "label": "existing-report-jobs",
+      "http": 200
+    },
+    {
+      "label": "revoke",
+      "http": 200
+    }
+  ]
+}

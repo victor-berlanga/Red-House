@@ -1,0 +1,71 @@
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 175B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/redhouse/documentos:before-continuidad-20261113
+#2 DONE 0.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 616B done
+#4 DONE 0.0s
+
+#5 [1/2] FROM docker.io/redhouse/documentos:before-continuidad-20261113@sha256:97311cf08a60ce776892ab7010f65402d05c9118e608ad1a2271d1a694d10d09
+#5 resolve docker.io/redhouse/documentos:before-continuidad-20261113@sha256:97311cf08a60ce776892ab7010f65402d05c9118e608ad1a2271d1a694d10d09
+#5 resolve docker.io/redhouse/documentos:before-continuidad-20261113@sha256:97311cf08a60ce776892ab7010f65402d05c9118e608ad1a2271d1a694d10d09 0.0s done
+#5 CACHED
+
+#6 [2/2] COPY --chmod=755 payload/ /app/
+#6 DONE 0.1s
+
+#7 exporting to image
+#7 exporting layers 0.1s done
+#7 exporting manifest sha256:4858f7b5ec0d09e6750abf7825e4bbc62a7a360e6256c4e5c317e1ba8f34364b 0.0s done
+#7 exporting config sha256:01920dba1e17c1a9e2a241e85c274c7cf6817cecf03d7e7fa968496890a686fd 0.0s done
+#7 exporting attestation manifest sha256:f795e28847840d5a7be62ad4541d2c9cfb60a7a0773a5c39e99a4aa55feab550 0.0s done
+#7 exporting manifest list sha256:3ad569662db32adaf2ccde0f3a870257157da0f80440ed608b5729f3dbeba4d8 0.0s done
+#7 naming to docker.io/redhouse/documentos:compatibility-continuidad-20261113 0.0s done
+#7 unpacking to docker.io/redhouse/documentos:compatibility-continuidad-20261113
+#7 unpacking to docker.io/redhouse/documentos:compatibility-continuidad-20261113 0.0s done
+#7 DONE 0.3s
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 168B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/redhouse/web:before-continuidad-20261113
+#2 DONE 0.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context:
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 27.88kB 0.0s done
+#4 DONE 0.1s
+
+#5 [1/2] FROM docker.io/redhouse/web:before-continuidad-20261113@sha256:e9b2fb40561ff3c0a4dd28e877bf227a5d967dd0097ee7ddc6d23c9a6c001f71
+#5 resolve docker.io/redhouse/web:before-continuidad-20261113@sha256:e9b2fb40561ff3c0a4dd28e877bf227a5d967dd0097ee7ddc6d23c9a6c001f71 0.1s done
+#5 CACHED
+
+#6 [2/2] COPY --chmod=755 payload/ /app/
+#6 DONE 0.0s
+
+#7 exporting to image
+#7 exporting layers 0.1s done
+#7 exporting manifest sha256:2729d31808927b6a21e89a9e858d32ca2041c6dbda46727477c3ee0768855d30 0.0s done
+#7 exporting config sha256:3e2291e5f9897981390a7365ef49987527f4e1ebbd89b0814ce1a794886c8ecd 0.0s done
+#7 exporting attestation manifest sha256:982e389e5acfec7e862d6089c6688e793116e1a094f1a6f788018e4cc853db2c 0.0s done
+#7 exporting manifest list sha256:5056d91ad26e2935646c2fea26771a5f1cfea7cca7eb81f9f2554d87deab45ed 0.0s done
+#7 naming to docker.io/redhouse/web:compatibility-continuidad-20261113
+#7 naming to docker.io/redhouse/web:compatibility-continuidad-20261113 done
+#7 unpacking to docker.io/redhouse/web:compatibility-continuidad-20261113 0.0s done
+#7 DONE 0.3s
+Compatibility image preparation completed; running applications unchanged

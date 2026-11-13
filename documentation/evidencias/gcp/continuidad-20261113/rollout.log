@@ -1,0 +1,200 @@
+ Volume redhouse-parcial2_private-files Creating 
+ Volume redhouse-parcial2_private-files Creating 
+ Volume redhouse-parcial2_private-files Created 
+ Volume redhouse-parcial2_private-files Created 
+ Container redhouse-parcial2-storage-init-run-756819ea8eaa Creating 
+ Container redhouse-parcial2-storage-init-run-756819ea8eaa Created 
+Entrada pública generada: HTTPS
+ROLLOUT gateway
+ Container redhouse-parcial2-gateway-1 Recreate 
+ Container redhouse-parcial2-gateway-1 Recreated 
+ Container redhouse-parcial2-gateway-1 Starting 
+ Container redhouse-parcial2-gateway-1 Started 
+ Container redhouse-parcial2-gateway-1 Waiting 
+ Container redhouse-parcial2-gateway-1 Healthy 
+ROLLOUT monitoreo-b
+ Container redhouse-parcial2-monitoreo-b-1 Recreate 
+ Container redhouse-parcial2-monitoreo-b-1 Recreated 
+ Container redhouse-parcial2-monitoreo-b-1 Starting 
+ Container redhouse-parcial2-monitoreo-b-1 Started 
+ Container redhouse-parcial2-monitoreo-b-1 Waiting 
+ Container redhouse-parcial2-monitoreo-b-1 Healthy 
+ROLLOUT monitoreo-a
+ Container redhouse-parcial2-monitoreo-a-1 Recreate 
+ Container redhouse-parcial2-monitoreo-a-1 Recreated 
+ Container redhouse-parcial2-monitoreo-a-1 Starting 
+ Container redhouse-parcial2-monitoreo-a-1 Started 
+ Container redhouse-parcial2-monitoreo-a-1 Waiting 
+ Container redhouse-parcial2-monitoreo-a-1 Healthy 
+ROLLOUT transporte-b
+ Container redhouse-parcial2-transporte-b-1 Recreate 
+ Container redhouse-parcial2-transporte-b-1 Recreated 
+ Container redhouse-parcial2-transporte-b-1 Starting 
+ Container redhouse-parcial2-transporte-b-1 Started 
+ Container redhouse-parcial2-transporte-b-1 Waiting 
+ Container redhouse-parcial2-transporte-b-1 Healthy 
+ROLLOUT transporte-a
+ Container redhouse-parcial2-transporte-a-1 Recreate 
+ Container redhouse-parcial2-transporte-a-1 Recreated 
+ Container redhouse-parcial2-transporte-a-1 Starting 
+ Container redhouse-parcial2-transporte-a-1 Started 
+ Container redhouse-parcial2-transporte-a-1 Waiting 
+ Container redhouse-parcial2-transporte-a-1 Healthy 
+ROLLOUT inventario-b
+ Container redhouse-parcial2-inventario-b-1 Recreate 
+ Container redhouse-parcial2-inventario-b-1 Recreated 
+ Container redhouse-parcial2-inventario-b-1 Starting 
+ Container redhouse-parcial2-inventario-b-1 Started 
+ Container redhouse-parcial2-inventario-b-1 Waiting 
+ROLLOUT inventario-a
+ Container redhouse-parcial2-inventario-b-1 Healthy 
+ Container redhouse-parcial2-inventario-a-1 Recreate 
+ Container redhouse-parcial2-inventario-a-1 Recreated 
+ Container redhouse-parcial2-inventario-a-1 Starting 
+ Container redhouse-parcial2-inventario-a-1 Started 
+ Container redhouse-parcial2-inventario-a-1 Waiting 
+ Container redhouse-parcial2-inventario-a-1 Healthy 
+ROLLOUT donantes-b
+ Container redhouse-parcial2-donantes-b-1 Recreate 
+ Container redhouse-parcial2-donantes-b-1 Recreated 
+ Container redhouse-parcial2-donantes-b-1 Starting 
+ Container redhouse-parcial2-donantes-b-1 Started 
+ Container redhouse-parcial2-donantes-b-1 Waiting 
+ Container redhouse-parcial2-donantes-b-1 Healthy 
+ROLLOUT donantes-a
+ Container redhouse-parcial2-donantes-a-1 Recreate 
+ Container redhouse-parcial2-donantes-a-1 Recreated 
+ Container redhouse-parcial2-donantes-a-1 Starting 
+ Container redhouse-parcial2-donantes-a-1 Started 
+ Container redhouse-parcial2-donantes-a-1 Waiting 
+ Container redhouse-parcial2-donantes-a-1 Healthy 
+ROLLOUT identidad-acceso-b
+ Container redhouse-parcial2-identidad-acceso-b-1 Recreate 
+ Container redhouse-parcial2-identidad-acceso-b-1 Recreated 
+ Container redhouse-parcial2-identidad-acceso-b-1 Starting 
+ Container redhouse-parcial2-identidad-acceso-b-1 Started 
+ Container redhouse-parcial2-identidad-acceso-b-1 Waiting 
+ Container redhouse-parcial2-identidad-acceso-b-1 Healthy 
+ROLLOUT identidad-acceso-a
+ Container redhouse-parcial2-identidad-acceso-a-1 Recreate 
+ Container redhouse-parcial2-identidad-acceso-a-1 Recreated 
+ Container redhouse-parcial2-identidad-acceso-a-1 Starting 
+ Container redhouse-parcial2-identidad-acceso-a-1 Started 
+ Container redhouse-parcial2-identidad-acceso-a-1 Waiting 
+ Container redhouse-parcial2-identidad-acceso-a-1 Healthy 
+ROLLOUT documentos-a
+ Container redhouse-parcial2-documentos-a-1 Recreate 
+ Container redhouse-parcial2-documentos-a-1 Recreated 
+ Container redhouse-parcial2-documentos-a-1 Starting 
+ Container redhouse-parcial2-documentos-a-1 Started 
+ Container redhouse-parcial2-documentos-a-1 Waiting 
+ Container redhouse-parcial2-documentos-a-1 Healthy 
+ROLLOUT documentos-b
+ Container redhouse-parcial2-documentos-b-1 Recreate 
+ Container redhouse-parcial2-documentos-b-1 Recreated 
+ Container redhouse-parcial2-documentos-b-1 Starting 
+ Container redhouse-parcial2-documentos-b-1 Started 
+ Container redhouse-parcial2-documentos-b-1 Waiting 
+ Container redhouse-parcial2-documentos-b-1 Healthy 
+ROLLOUT priorizacion-geografia-a
+ Container redhouse-parcial2-priorizacion-geografia-a-1 Recreate 
+ Container redhouse-parcial2-priorizacion-geografia-a-1 Recreated 
+ Container redhouse-parcial2-priorizacion-geografia-a-1 Starting 
+ Container redhouse-parcial2-priorizacion-geografia-a-1 Started 
+ Container redhouse-parcial2-priorizacion-geografia-a-1 Waiting 
+ROLLOUT priorizacion-geografia-b
+ Container redhouse-parcial2-priorizacion-geografia-a-1 Healthy 
+ Container redhouse-parcial2-priorizacion-geografia-b-1 Recreate 
+ Container redhouse-parcial2-priorizacion-geografia-b-1 Recreated 
+ Container redhouse-parcial2-priorizacion-geografia-b-1 Starting 
+ Container redhouse-parcial2-priorizacion-geografia-b-1 Started 
+ Container redhouse-parcial2-priorizacion-geografia-b-1 Waiting 
+ Container redhouse-parcial2-priorizacion-geografia-b-1 Healthy 
+ROLLOUT compatibilidad-a
+ Container redhouse-parcial2-compatibilidad-a-1 Recreate 
+ Container redhouse-parcial2-compatibilidad-a-1 Recreated 
+ Container redhouse-parcial2-compatibilidad-a-1 Starting 
+ Container redhouse-parcial2-compatibilidad-a-1 Started 
+ Container redhouse-parcial2-compatibilidad-a-1 Waiting 
+ Container redhouse-parcial2-compatibilidad-a-1 Healthy 
+ROLLOUT compatibilidad-b
+ Container redhouse-parcial2-compatibilidad-b-1 Recreate 
+ Container redhouse-parcial2-compatibilidad-b-1 Recreated 
+ Container redhouse-parcial2-compatibilidad-b-1 Starting 
+ Container redhouse-parcial2-compatibilidad-b-1 Started 
+ Container redhouse-parcial2-compatibilidad-b-1 Waiting 
+ Container redhouse-parcial2-compatibilidad-b-1 Healthy 
+ROLLOUT receptores-b
+ Container redhouse-parcial2-receptores-b-1 Recreate 
+ Container redhouse-parcial2-receptores-b-1 Recreated 
+ Container redhouse-parcial2-receptores-b-1 Starting 
+ Container redhouse-parcial2-receptores-b-1 Started 
+ Container redhouse-parcial2-receptores-b-1 Waiting 
+ Container redhouse-parcial2-receptores-b-1 Healthy 
+ROLLOUT receptores-a
+ Container redhouse-parcial2-receptores-a-1 Recreate 
+ Container redhouse-parcial2-receptores-a-1 Recreated 
+ Container redhouse-parcial2-receptores-a-1 Starting 
+ Container redhouse-parcial2-receptores-a-1 Started 
+ Container redhouse-parcial2-receptores-a-1 Waiting 
+ Container redhouse-parcial2-receptores-a-1 Healthy 
+ROLLOUT custodia-b
+ Container redhouse-parcial2-custodia-b-1 Recreate 
+ Container redhouse-parcial2-custodia-b-1 Recreated 
+ Container redhouse-parcial2-custodia-b-1 Starting 
+ Container redhouse-parcial2-custodia-b-1 Started 
+ Container redhouse-parcial2-custodia-b-1 Waiting 
+ Container redhouse-parcial2-custodia-b-1 Healthy 
+ROLLOUT custodia-a
+ Container redhouse-parcial2-custodia-a-1 Recreate 
+ Container redhouse-parcial2-custodia-a-1 Recreated 
+ Container redhouse-parcial2-custodia-a-1 Starting 
+ Container redhouse-parcial2-custodia-a-1 Started 
+ Container redhouse-parcial2-custodia-a-1 Waiting 
+ Container redhouse-parcial2-custodia-a-1 Healthy 
+ROLLOUT alertas-a
+ Container redhouse-parcial2-alertas-a-1 Recreate 
+ Container redhouse-parcial2-alertas-a-1 Recreated 
+ Container redhouse-parcial2-alertas-a-1 Starting 
+ Container redhouse-parcial2-alertas-a-1 Started 
+ Container redhouse-parcial2-alertas-a-1 Waiting 
+ Container redhouse-parcial2-alertas-a-1 Healthy 
+ROLLOUT alertas-b
+ Container redhouse-parcial2-alertas-b-1 Recreate 
+ Container redhouse-parcial2-alertas-b-1 Recreated 
+ Container redhouse-parcial2-alertas-b-1 Starting 
+ Container redhouse-parcial2-alertas-b-1 Started 
+ Container redhouse-parcial2-alertas-b-1 Waiting 
+ Container redhouse-parcial2-alertas-b-1 Healthy 
+ROLLOUT auditoria-b
+ Container redhouse-parcial2-auditoria-b-1 Recreate 
+ Container redhouse-parcial2-auditoria-b-1 Recreated 
+ Container redhouse-parcial2-auditoria-b-1 Starting 
+ Container redhouse-parcial2-auditoria-b-1 Started 
+ Container redhouse-parcial2-auditoria-b-1 Waiting 
+ Container redhouse-parcial2-auditoria-b-1 Healthy 
+ROLLOUT auditoria-a
+ Container redhouse-parcial2-auditoria-a-1 Recreate 
+ Container redhouse-parcial2-auditoria-a-1 Recreated 
+ Container redhouse-parcial2-auditoria-a-1 Starting 
+ Container redhouse-parcial2-auditoria-a-1 Started 
+ Container redhouse-parcial2-auditoria-a-1 Waiting 
+ Container redhouse-parcial2-auditoria-a-1 Healthy 
+ROLLOUT web
+ Container redhouse-parcial2-web-1 Recreate 
+ Container redhouse-parcial2-web-1 Recreated 
+ Container redhouse-parcial2-web-1 Starting 
+ Container redhouse-parcial2-web-1 Started 
+ Container redhouse-parcial2-web-1 Waiting 
+ Container redhouse-parcial2-web-1 Healthy 
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+2026/11/13 19:22:12 [notice] 274#274: signal process started
+{
+  "healthy": 30,
+  "schema": 19,
+  "gateway_private_ip": "172.18.0.6",
+  "write_provider": "gcs",
+  "ready_for_public_smoke": true
+}
+

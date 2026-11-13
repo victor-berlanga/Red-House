@@ -1,0 +1,20 @@
+{
+  "documentos": {
+    "tag": "redhouse/documentos:compatibility-continuidad-20261113",
+    "id": "sha256:3ad569662db32adaf2ccde0f3a870257157da0f80440ed608b5729f3dbeba4d8",
+    "base": "sha256:97311cf08a60ce776892ab7010f65402d05c9118e608ad1a2271d1a694d10d09",
+    "files": {
+      "apps/services/ms_documentos/files.py": "6ece3290b69b53fd5aeb83be7f3b17484b05599739c5fcd81d5f22055c2577fa",
+      "apps/services/ms_documentos/reports.py": "6b44c6c15af1521babaf908956bf61ae48071284a0618b7d8df14947eb3efcc9"
+    }
+  },
+  "web": {
+    "tag": "redhouse/web:compatibility-continuidad-20261113",
+    "id": "sha256:5056d91ad26e2935646c2fea26771a5f1cfea7cca7eb81f9f2554d87deab45ed",
+    "base": "sha256:e9b2fb40561ff3c0a4dd28e877bf227a5d967dd0097ee7ddc6d23c9a6c001f71",
+    "files": {
+      "apps/services/ms_documentos/files.py": "6ece3290b69b53fd5aeb83be7f3b17484b05599739c5fcd81d5f22055c2577fa",
+      "apps/services/ms_documentos/reports.py": "6b44c6c15af1521babaf908956bf61ae48071284a0618b7d8df14947eb3efcc9"
+    }
+  }
+}

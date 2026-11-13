@@ -1,0 +1,13 @@
+ROLLOUT documentos-a
+ Container redhouse-parcial2-documentos-a-1 Running 
+ Container redhouse-parcial2-documentos-a-1 Waiting 
+ Container redhouse-parcial2-documentos-a-1 Healthy 
+ROLLOUT documentos-b
+ Container redhouse-parcial2-documentos-b-1 Running 
+ Container redhouse-parcial2-documentos-b-1 Waiting 
+ Container redhouse-parcial2-documentos-b-1 Healthy 
+ROLLOUT web
+ Container redhouse-parcial2-web-1 Running 
+ Container redhouse-parcial2-web-1 Waiting 
+ Container redhouse-parcial2-web-1 Healthy 
+{"phase": "local_enabled", "healthy": 30, "verification_pending": true}

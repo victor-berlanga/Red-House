@@ -1,0 +1,22 @@
+ROLLOUT documentos-a
+ Container redhouse-parcial2-documentos-a-1 Recreate 
+ Container redhouse-parcial2-documentos-a-1 Recreated 
+ Container redhouse-parcial2-documentos-a-1 Starting 
+ Container redhouse-parcial2-documentos-a-1 Started 
+ Container redhouse-parcial2-documentos-a-1 Waiting 
+ Container redhouse-parcial2-documentos-a-1 Healthy 
+ROLLOUT documentos-b
+ Container redhouse-parcial2-documentos-b-1 Recreate 
+ Container redhouse-parcial2-documentos-b-1 Recreated 
+ Container redhouse-parcial2-documentos-b-1 Starting 
+ Container redhouse-parcial2-documentos-b-1 Started 
+ Container redhouse-parcial2-documentos-b-1 Waiting 
+ Container redhouse-parcial2-documentos-b-1 Healthy 
+ROLLOUT web
+ Container redhouse-parcial2-web-1 Recreate 
+ Container redhouse-parcial2-web-1 Recreated 
+ Container redhouse-parcial2-web-1 Starting 
+ Container redhouse-parcial2-web-1 Started 
+ Container redhouse-parcial2-web-1 Waiting 
+ Container redhouse-parcial2-web-1 Healthy 
+GCS-only compatibility images active; schema remains 18

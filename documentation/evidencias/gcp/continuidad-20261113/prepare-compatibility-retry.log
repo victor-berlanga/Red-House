@@ -1,0 +1,62 @@
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 163B 0.1s done
+#1 DONE 0.1s
+
+#2 [internal] load metadata for docker.io/redhouse/documentos:before-continuidad-20261113
+#2 DONE 0.1s
+
+#3 [internal] load .dockerignore
+#3 transferring context:
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 27.88kB done
+#4 DONE 0.1s
+
+#5 [1/2] FROM docker.io/redhouse/documentos:before-continuidad-20261113@sha256:97311cf08a60ce776892ab7010f65402d05c9118e608ad1a2271d1a694d10d09
+#5 resolve docker.io/redhouse/documentos:before-continuidad-20261113@sha256:97311cf08a60ce776892ab7010f65402d05c9118e608ad1a2271d1a694d10d09 0.1s done
+#5 CACHED
+
+#6 [2/2] COPY payload/ /app/
+#6 DONE 0.1s
+
+#7 exporting to image
+#7 exporting layers 0.1s done
+#7 exporting manifest sha256:f3d65ffc19cffd0ab96016416fa675d5c498b0c4c81dd9e9c55bff61001790cf
+#7 exporting manifest sha256:f3d65ffc19cffd0ab96016416fa675d5c498b0c4c81dd9e9c55bff61001790cf 0.0s done
+#7 exporting config sha256:e0267457dbe36dd161e9f05f1b82313327e28ea2e495a41d003bcd4f8e5c8eaa 0.0s done
+#7 exporting attestation manifest sha256:2baa68408f2a621773957a53e49a6130794204bf9c39b833111db5083092518a 0.1s done
+#7 exporting manifest list sha256:d21fa4c40d2641436043cf07ac6df05873ab515cc774bf691a5aee26bf176cdb
+#7 exporting manifest list sha256:d21fa4c40d2641436043cf07ac6df05873ab515cc774bf691a5aee26bf176cdb 0.0s done
+#7 naming to docker.io/redhouse/documentos:compatibility-continuidad-20261113 done
+#7 unpacking to docker.io/redhouse/documentos:compatibility-continuidad-20261113 0.0s done
+#7 DONE 0.4s
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+    import hashlib;from pathlib import Path;expected={'apps/services/ms_documentos/files.py': '6ece3290b69b53fd5aeb83be7f3b17484b05599739c5fcd81d5f22055c2577fa', 'apps/services/ms_documentos/reports.py': '6b44c6c15af1521babaf908956bf61ae48071284a0618b7d8df14947eb3efcc9'};assert all(hashlib.sha256((Path("/app")/n).read_bytes()).hexdigest()==h for n,h in expected.items())
+                                                                                                                                                                                                                                                                                       ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 1, in <genexpr>
+    import hashlib;from pathlib import Path;expected={'apps/services/ms_documentos/files.py': '6ece3290b69b53fd5aeb83be7f3b17484b05599739c5fcd81d5f22055c2577fa', 'apps/services/ms_documentos/reports.py': '6b44c6c15af1521babaf908956bf61ae48071284a0618b7d8df14947eb3efcc9'};assert all(hashlib.sha256((Path("/app")/n).read_bytes()).hexdigest()==h for n,h in expected.items())
+                                                                                                                                                                                                                                                                                                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/local/lib/python3.13/pathlib/_abc.py", line 625, in read_bytes
+    with self.open(mode='rb') as f:
+         ~~~~~~~~~^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/pathlib/_local.py", line 537, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 13] Permission denied: '/app/apps/services/ms_documentos/files.py'
+Traceback (most recent call last):
+  File "/tmp/redhouse-continuidad-20261113/deploy.py", line 528, in <module>
+    {'preflight': preflight, 'capacity': capacity, 'prepare': prepare,
+  File "/tmp/redhouse-continuidad-20261113/deploy.py", line 249, in resume_compatibility_build
+    prepare_compatibility(before)
+  File "/tmp/redhouse-continuidad-20261113/deploy.py", line 236, in prepare_compatibility
+    run(['docker', 'run', '--rm', '--network=none', '--entrypoint', 'python', tag, '-c', verify])
+  File "/tmp/redhouse-continuidad-20261113/deploy.py", line 39, in run
+    subprocess.run(args, cwd=ROOT, check=True, timeout=900)
+  File "/usr/lib64/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['docker', 'run', '--rm', '--network=none', '--entrypoint', 'python', 'redhouse/documentos:compatibility-continuidad-20261113', '-c', 'import hashlib;from pathlib import Path;expected={\'apps/services/ms_documentos/files.py\': \'6ece3290b69b53fd5aeb83be7f3b17484b05599739c5fcd81d5f22055c2577fa\', \'apps/services/ms_documentos/reports.py\': \'6b44c6c15af1521babaf908956bf61ae48071284a0618b7d8df14947eb3efcc9\'};assert all(hashlib.sha256((Path("/app")/n).read_bytes()).hexdigest()==h for n,h in expected.items())']' returned non-zero exit status 1.

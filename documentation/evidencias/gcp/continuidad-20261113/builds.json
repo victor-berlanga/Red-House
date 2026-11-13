@@ -1,0 +1,251 @@
+{
+  "alertas": {
+    "tag": "redhouse/alertas:continuidad-20261113",
+    "id": "sha256:95ae7ffe824e0f61e05799ead26b37852234d5ad450ae22c88f838abab9ccbdc",
+    "base": "sha256:5f03cd4895ab1d445bc217b8c34a28571567794c9b7f3099bac9fe2de3782c4d",
+    "files": {
+      "apps/services/redhouse/app.py": "4f73716eeffe8c56be4187cba145a76e778d4e65fecded33b9fade6335a6414e",
+      "apps/services/redhouse/config.py": "7bbefc58d5a78a253e8dacc379b1275bf06daf229af55c67f49933946ce107a5",
+      "apps/services/redhouse/embedded.py": "db97ae2de8fbd9ef9ac8a696d13f1487fd9b2a7222713c014f9899c8770a3efd",
+      "apps/services/redhouse/proxy.py": "5b68d6e493b37ebb26753bfc596cf1c16b264ff9459fd04d07142ef5c8f04dda",
+      "apps/services/redhouse/shared_migrations.py": "09e1691160097fcac579218d970a8b517f96496f687ff51d2305694d47eacfff",
+      "apps/services/redhouse/shared_migrations/019.sql": "7eb1cd6c4665ae052c77a00fd08b48ace07d67f1cd299391d1b8663e77c2e741",
+      "apps/services/redhouse/storage.py": "ccfc8a8b021c4b9086904f18b16f785f5b39d308d4be0d012678cfe2b53cff87",
+      "apps/services/run.py": "1b27e341360a81a03cac39de20874588c19de23f4f52e931846f4f3ec6fb5849"
+    }
+  },
+  "auditoria": {
+    "tag": "redhouse/auditoria:continuidad-20261113",
+    "id": "sha256:33c6d4e3591fbaf805a38977c38a8cf2e84837e80756ce807f57cf55f7842059",
+    "base": "sha256:a198eada38fd376b0cc13fa5abdcdcdba30e26e01b913bb7f9208dec912e10a5",
+    "files": {
+      "apps/services/redhouse/app.py": "4f73716eeffe8c56be4187cba145a76e778d4e65fecded33b9fade6335a6414e",
+      "apps/services/redhouse/config.py": "7bbefc58d5a78a253e8dacc379b1275bf06daf229af55c67f49933946ce107a5",
+      "apps/services/redhouse/embedded.py": "db97ae2de8fbd9ef9ac8a696d13f1487fd9b2a7222713c014f9899c8770a3efd",
+      "apps/services/redhouse/proxy.py": "5b68d6e493b37ebb26753bfc596cf1c16b264ff9459fd04d07142ef5c8f04dda",
+      "apps/services/redhouse/shared_migrations.py": "09e1691160097fcac579218d970a8b517f96496f687ff51d2305694d47eacfff",
+      "apps/services/redhouse/shared_migrations/019.sql": "7eb1cd6c4665ae052c77a00fd08b48ace07d67f1cd299391d1b8663e77c2e741",
+      "apps/services/redhouse/storage.py": "ccfc8a8b021c4b9086904f18b16f785f5b39d308d4be0d012678cfe2b53cff87",
+      "apps/services/run.py": "1b27e341360a81a03cac39de20874588c19de23f4f52e931846f4f3ec6fb5849"
+    }
+  },
+  "compatibilidad": {
+    "tag": "redhouse/compatibilidad:continuidad-20261113",
+    "id": "sha256:c244be7d21a44d209bea08899ba7887b033808edebcff8ccd277b3093809a062",
+    "base": "sha256:2de5d8604bdaf06e9ce1dc1c835532dfc23ceee9b76b3ad4232735414d519960",
+    "files": {
+      "apps/services/redhouse/app.py": "4f73716eeffe8c56be4187cba145a76e778d4e65fecded33b9fade6335a6414e",
+      "apps/services/redhouse/config.py": "7bbefc58d5a78a253e8dacc379b1275bf06daf229af55c67f49933946ce107a5",
+      "apps/services/redhouse/embedded.py": "db97ae2de8fbd9ef9ac8a696d13f1487fd9b2a7222713c014f9899c8770a3efd",
+      "apps/services/redhouse/proxy.py": "5b68d6e493b37ebb26753bfc596cf1c16b264ff9459fd04d07142ef5c8f04dda",
+      "apps/services/redhouse/shared_migrations.py": "09e1691160097fcac579218d970a8b517f96496f687ff51d2305694d47eacfff",
+      "apps/services/redhouse/shared_migrations/019.sql": "7eb1cd6c4665ae052c77a00fd08b48ace07d67f1cd299391d1b8663e77c2e741",
+      "apps/services/redhouse/storage.py": "ccfc8a8b021c4b9086904f18b16f785f5b39d308d4be0d012678cfe2b53cff87",
+      "apps/services/run.py": "1b27e341360a81a03cac39de20874588c19de23f4f52e931846f4f3ec6fb5849"
+    }
+  },
+  "custodia": {
+    "tag": "redhouse/custodia:continuidad-20261113",
+    "id": "sha256:353c3dae10f70181efa030e2053b629dee71463e6c92c16e1f761d9bd87e1166",
+    "base": "sha256:794480756624a8c70fd478090cff1c9e49a2517d5c84a098349aba529ef59198",
+    "files": {
+      "apps/services/redhouse/app.py": "4f73716eeffe8c56be4187cba145a76e778d4e65fecded33b9fade6335a6414e",
+      "apps/services/redhouse/config.py": "7bbefc58d5a78a253e8dacc379b1275bf06daf229af55c67f49933946ce107a5",
+      "apps/services/redhouse/embedded.py": "db97ae2de8fbd9ef9ac8a696d13f1487fd9b2a7222713c014f9899c8770a3efd",
+      "apps/services/redhouse/proxy.py": "5b68d6e493b37ebb26753bfc596cf1c16b264ff9459fd04d07142ef5c8f04dda",
+      "apps/services/redhouse/shared_migrations.py": "09e1691160097fcac579218d970a8b517f96496f687ff51d2305694d47eacfff",
+      "apps/services/redhouse/shared_migrations/019.sql": "7eb1cd6c4665ae052c77a00fd08b48ace07d67f1cd299391d1b8663e77c2e741",
+      "apps/services/redhouse/storage.py": "ccfc8a8b021c4b9086904f18b16f785f5b39d308d4be0d012678cfe2b53cff87",
+      "apps/services/run.py": "1b27e341360a81a03cac39de20874588c19de23f4f52e931846f4f3ec6fb5849"
+    }
+  },
+  "documentos": {
+    "tag": "redhouse/documentos:continuidad-20261113",
+    "id": "sha256:5ac4fdeac48a0864e76137586342569b3eb15acde7358d62fe882b062fdaa211",
+    "base": "sha256:97311cf08a60ce776892ab7010f65402d05c9118e608ad1a2271d1a694d10d09",
+    "files": {
+      "apps/services/ms_documentos/__init__.py": "e9ad05e8842037b58c27bd1ffa689301b36d5f5b00ff52dc55c34fb55e4877cc",
+      "apps/services/ms_documentos/contracts/file_prepare.response.json": "b776434d41b822f76716041b4d8cc4973e9e889af9b80539cdf4a49d672741ec",
+      "apps/services/ms_documentos/contracts/openapi.json": "842866d87a1663daa80d7ab34f7e875fab775d66293217505f10d8962b15a6c3",
+      "apps/services/ms_documentos/documents.py": "2cb73deb4dc01186ede06987bd6a5a46612da5e92aa2cf9c560afa7991fa6702",
+      "apps/services/ms_documentos/files.py": "a39701f681ba926c9e28775472cbfad3efb220dccb3c1d0a6b249b76dff21341",
+      "apps/services/ms_documentos/local_objects.py": "491e61a040c9cf5683014f884322a56229e0410522b2134628fa98f963f09d48",
+      "apps/services/ms_documentos/outputs.json": "f80a502d1b9dcee656a5a3c5db51a26e60aada65f440002668ce3219de1761c7",
+      "apps/services/ms_documentos/reports.py": "b75ca5f3baccbb08c9259bb412686bb415092d04b118d39c8dc21499fd8030a2",
+      "apps/services/redhouse/app.py": "4f73716eeffe8c56be4187cba145a76e778d4e65fecded33b9fade6335a6414e",
+      "apps/services/redhouse/config.py": "7bbefc58d5a78a253e8dacc379b1275bf06daf229af55c67f49933946ce107a5",
+      "apps/services/redhouse/embedded.py": "db97ae2de8fbd9ef9ac8a696d13f1487fd9b2a7222713c014f9899c8770a3efd",
+      "apps/services/redhouse/proxy.py": "5b68d6e493b37ebb26753bfc596cf1c16b264ff9459fd04d07142ef5c8f04dda",
+      "apps/services/redhouse/shared_migrations.py": "09e1691160097fcac579218d970a8b517f96496f687ff51d2305694d47eacfff",
+      "apps/services/redhouse/shared_migrations/019.sql": "7eb1cd6c4665ae052c77a00fd08b48ace07d67f1cd299391d1b8663e77c2e741",
+      "apps/services/redhouse/storage.py": "ccfc8a8b021c4b9086904f18b16f785f5b39d308d4be0d012678cfe2b53cff87",
+      "apps/services/run.py": "1b27e341360a81a03cac39de20874588c19de23f4f52e931846f4f3ec6fb5849"
+    }
+  },
+  "donantes": {
+    "tag": "redhouse/donantes:continuidad-20261113",
+    "id": "sha256:42b36cfdbc14d2f8af5244bbf7a0496dbbf41e99583f8325b83c59cecc054df8",
+    "base": "sha256:31628dd5798e8c501e2b2bde4e545c5271a4451577aa41b289ce03c36938494a",
+    "files": {
+      "apps/services/ms_donantes/agenda.py": "141254905ddb531d6d15997e50409840d1768540107ceaf5d8c71a4c6d529764",
+      "apps/services/ms_donantes/contracts/appointment_agenda.response.json": "f8e68e6658a10166f5e9b63e70edb9599f885cb2776131c24f14e013e6ecb106",
+      "apps/services/ms_donantes/contracts/next_appointment.response.json": "ff3989f78add04fb5fe92eee17768773ab40c3ab67a3a41724633f45d83c6726",
+      "apps/services/ms_donantes/contracts/openapi.json": "d80914983229520fb237253777f8a71911b95b2ab105aafe7e6e9b23d0933b74",
+      "apps/services/redhouse/app.py": "4f73716eeffe8c56be4187cba145a76e778d4e65fecded33b9fade6335a6414e",
+      "apps/services/redhouse/config.py": "7bbefc58d5a78a253e8dacc379b1275bf06daf229af55c67f49933946ce107a5",
+      "apps/services/redhouse/embedded.py": "db97ae2de8fbd9ef9ac8a696d13f1487fd9b2a7222713c014f9899c8770a3efd",
+      "apps/services/redhouse/proxy.py": "5b68d6e493b37ebb26753bfc596cf1c16b264ff9459fd04d07142ef5c8f04dda",
+      "apps/services/redhouse/shared_migrations.py": "09e1691160097fcac579218d970a8b517f96496f687ff51d2305694d47eacfff",
+      "apps/services/redhouse/shared_migrations/019.sql": "7eb1cd6c4665ae052c77a00fd08b48ace07d67f1cd299391d1b8663e77c2e741",
+      "apps/services/redhouse/storage.py": "ccfc8a8b021c4b9086904f18b16f785f5b39d308d4be0d012678cfe2b53cff87",
+      "apps/services/run.py": "1b27e341360a81a03cac39de20874588c19de23f4f52e931846f4f3ec6fb5849"
+    }
+  },
+  "identidad-acceso": {
+    "tag": "redhouse/identidad_acceso:continuidad-20261113",
+    "id": "sha256:b11c0c43bebd5a1d6bec3f8a0eb175a991495be24bbc2402dc984eb02d1aef82",
+    "base": "sha256:28bfc47da3281d41f7fac4f020be2af00c291a9f72d0404f956751f3c760b375",
+    "files": {
+      "apps/services/redhouse/app.py": "4f73716eeffe8c56be4187cba145a76e778d4e65fecded33b9fade6335a6414e",
+      "apps/services/redhouse/config.py": "7bbefc58d5a78a253e8dacc379b1275bf06daf229af55c67f49933946ce107a5",
+      "apps/services/redhouse/embedded.py": "db97ae2de8fbd9ef9ac8a696d13f1487fd9b2a7222713c014f9899c8770a3efd",
+      "apps/services/redhouse/proxy.py": "5b68d6e493b37ebb26753bfc596cf1c16b264ff9459fd04d07142ef5c8f04dda",
+      "apps/services/redhouse/shared_migrations.py": "09e1691160097fcac579218d970a8b517f96496f687ff51d2305694d47eacfff",
+      "apps/services/redhouse/shared_migrations/019.sql": "7eb1cd6c4665ae052c77a00fd08b48ace07d67f1cd299391d1b8663e77c2e741",
+      "apps/services/redhouse/storage.py": "ccfc8a8b021c4b9086904f18b16f785f5b39d308d4be0d012678cfe2b53cff87",
+      "apps/services/run.py": "1b27e341360a81a03cac39de20874588c19de23f4f52e931846f4f3ec6fb5849"
+    }
+  },
+  "inventario": {
+    "tag": "redhouse/inventario:continuidad-20261113",
+    "id": "sha256:a6da5fb39bdaa0fa86394df754271e61f827ef3d227d91772391400ace213bd6",
+    "base": "sha256:47b210bad7988755ad39847764d35417198cdf9a1a5d36ce2cbe7ef249fd3418",
+    "files": {
+      "apps/services/ms_inventario/__init__.py": "30d63b81614ca3645ea3d274f40691f53edcaca38bd07ea1839379fa173a3719",
+      "apps/services/ms_inventario/contracts/label_issue.example.json": "90472f39d589d1cdce206cf9c8d797190cb766a365e00d5e8510d2c8983c4702",
+      "apps/services/ms_inventario/contracts/label_issue.example.xml": "8510663da804af424097eace2292a7196bbd9b7a3f5674af8b128735c248b95a",
+      "apps/services/ms_inventario/contracts/label_issue.response.json": "d8cb61ab9fa1a73154e2d97ddadc263fe3f0fa56680ab6256f342b5ac275e7b9",
+      "apps/services/ms_inventario/contracts/label_issue.xsd": "64a02b5be46ff1fd1a3696a4bf1547a139bf967c24150365e2b196c87a0321f5",
+      "apps/services/ms_inventario/contracts/openapi.json": "81e44360ebd7523a6a56e208acbe55168f07010c99544b526584eb0cfe9095ff",
+      "apps/services/ms_inventario/labels.py": "78a1153efb287a3d7168d96e9c9c85aee9704101dae3354cdaa10102e5c7ab7c",
+      "apps/services/redhouse/app.py": "4f73716eeffe8c56be4187cba145a76e778d4e65fecded33b9fade6335a6414e",
+      "apps/services/redhouse/config.py": "7bbefc58d5a78a253e8dacc379b1275bf06daf229af55c67f49933946ce107a5",
+      "apps/services/redhouse/embedded.py": "db97ae2de8fbd9ef9ac8a696d13f1487fd9b2a7222713c014f9899c8770a3efd",
+      "apps/services/redhouse/proxy.py": "5b68d6e493b37ebb26753bfc596cf1c16b264ff9459fd04d07142ef5c8f04dda",
+      "apps/services/redhouse/shared_migrations.py": "09e1691160097fcac579218d970a8b517f96496f687ff51d2305694d47eacfff",
+      "apps/services/redhouse/shared_migrations/019.sql": "7eb1cd6c4665ae052c77a00fd08b48ace07d67f1cd299391d1b8663e77c2e741",
+      "apps/services/redhouse/storage.py": "ccfc8a8b021c4b9086904f18b16f785f5b39d308d4be0d012678cfe2b53cff87",
+      "apps/services/run.py": "1b27e341360a81a03cac39de20874588c19de23f4f52e931846f4f3ec6fb5849"
+    }
+  },
+  "monitoreo": {
+    "tag": "redhouse/monitoreo:continuidad-20261113",
+    "id": "sha256:8e443bf8605153a777fa4904217acaaa56894f47e66296d3ca91f7c8a870b34e",
+    "base": "sha256:e61a99669e6a59e3fece583e9172bf62b04c82e09c547c3c7d74c5b62ca23ea5",
+    "files": {
+      "apps/services/redhouse/app.py": "4f73716eeffe8c56be4187cba145a76e778d4e65fecded33b9fade6335a6414e",
+      "apps/services/redhouse/config.py": "7bbefc58d5a78a253e8dacc379b1275bf06daf229af55c67f49933946ce107a5",
+      "apps/services/redhouse/embedded.py": "db97ae2de8fbd9ef9ac8a696d13f1487fd9b2a7222713c014f9899c8770a3efd",
+      "apps/services/redhouse/proxy.py": "5b68d6e493b37ebb26753bfc596cf1c16b264ff9459fd04d07142ef5c8f04dda",
+      "apps/services/redhouse/shared_migrations.py": "09e1691160097fcac579218d970a8b517f96496f687ff51d2305694d47eacfff",
+      "apps/services/redhouse/shared_migrations/019.sql": "7eb1cd6c4665ae052c77a00fd08b48ace07d67f1cd299391d1b8663e77c2e741",
+      "apps/services/redhouse/storage.py": "ccfc8a8b021c4b9086904f18b16f785f5b39d308d4be0d012678cfe2b53cff87",
+      "apps/services/run.py": "1b27e341360a81a03cac39de20874588c19de23f4f52e931846f4f3ec6fb5849"
+    }
+  },
+  "priorizacion-geografia": {
+    "tag": "redhouse/priorizacion_geografia:continuidad-20261113",
+    "id": "sha256:3bc35ac6d9a5f3b0bfc430c1ee58bae66a28bf45347f62fde190b82aad558955",
+    "base": "sha256:a4313f3ba55dbb88d5c95c2a844251b7ceecbb4203cd5552fbb9863923fb0ac1",
+    "files": {
+      "apps/services/redhouse/app.py": "4f73716eeffe8c56be4187cba145a76e778d4e65fecded33b9fade6335a6414e",
+      "apps/services/redhouse/config.py": "7bbefc58d5a78a253e8dacc379b1275bf06daf229af55c67f49933946ce107a5",
+      "apps/services/redhouse/embedded.py": "db97ae2de8fbd9ef9ac8a696d13f1487fd9b2a7222713c014f9899c8770a3efd",
+      "apps/services/redhouse/proxy.py": "5b68d6e493b37ebb26753bfc596cf1c16b264ff9459fd04d07142ef5c8f04dda",
+      "apps/services/redhouse/shared_migrations.py": "09e1691160097fcac579218d970a8b517f96496f687ff51d2305694d47eacfff",
+      "apps/services/redhouse/shared_migrations/019.sql": "7eb1cd6c4665ae052c77a00fd08b48ace07d67f1cd299391d1b8663e77c2e741",
+      "apps/services/redhouse/storage.py": "ccfc8a8b021c4b9086904f18b16f785f5b39d308d4be0d012678cfe2b53cff87",
+      "apps/services/run.py": "1b27e341360a81a03cac39de20874588c19de23f4f52e931846f4f3ec6fb5849"
+    }
+  },
+  "receptores": {
+    "tag": "redhouse/receptores:continuidad-20261113",
+    "id": "sha256:2bde232ade5aa6951e65e9b900748c31b78640ffe2192a9536c980e9b683242e",
+    "base": "sha256:87fdb5f44344c0835d608f4112dbc7494b3a8192fd785a4baf4daf39641741fd",
+    "files": {
+      "apps/services/redhouse/app.py": "4f73716eeffe8c56be4187cba145a76e778d4e65fecded33b9fade6335a6414e",
+      "apps/services/redhouse/config.py": "7bbefc58d5a78a253e8dacc379b1275bf06daf229af55c67f49933946ce107a5",
+      "apps/services/redhouse/embedded.py": "db97ae2de8fbd9ef9ac8a696d13f1487fd9b2a7222713c014f9899c8770a3efd",
+      "apps/services/redhouse/proxy.py": "5b68d6e493b37ebb26753bfc596cf1c16b264ff9459fd04d07142ef5c8f04dda",
+      "apps/services/redhouse/shared_migrations.py": "09e1691160097fcac579218d970a8b517f96496f687ff51d2305694d47eacfff",
+      "apps/services/redhouse/shared_migrations/019.sql": "7eb1cd6c4665ae052c77a00fd08b48ace07d67f1cd299391d1b8663e77c2e741",
+      "apps/services/redhouse/storage.py": "ccfc8a8b021c4b9086904f18b16f785f5b39d308d4be0d012678cfe2b53cff87",
+      "apps/services/run.py": "1b27e341360a81a03cac39de20874588c19de23f4f52e931846f4f3ec6fb5849"
+    }
+  },
+  "transporte": {
+    "tag": "redhouse/transporte:continuidad-20261113",
+    "id": "sha256:fa767e6eaec7f7feed1c367fb7ef94f008723a1db463f0fc5c76419cc890e1f8",
+    "base": "sha256:570d4fbda4882e975190f43650747a888bf05db300c02ccadc4a42fb6fc4ef01",
+    "files": {
+      "apps/services/ms_transporte/__init__.py": "80d9bebc126c327dee12edd396201c2811ca5a70f5b923b095fddbf200a9ea49",
+      "apps/services/ms_transporte/contracts/file_prepare.response.json": "b776434d41b822f76716041b4d8cc4973e9e889af9b80539cdf4a49d672741ec",
+      "apps/services/ms_transporte/contracts/openapi.json": "c1605e1d308e11c2a939c6e5f5565c1f596c3a29706efd351904180b7654d043",
+      "apps/services/ms_transporte/mobile.py": "4f561f62810ee45861711b06ee683d3f0c945067a19a7abbae3a2bcc4565525e",
+      "apps/services/ms_transporte/outputs.json": "6b01be9d35a3353a6a66836e524851f9347f1c4f3a0f60540f754a728cfed83c",
+      "apps/services/redhouse/app.py": "4f73716eeffe8c56be4187cba145a76e778d4e65fecded33b9fade6335a6414e",
+      "apps/services/redhouse/config.py": "7bbefc58d5a78a253e8dacc379b1275bf06daf229af55c67f49933946ce107a5",
+      "apps/services/redhouse/embedded.py": "db97ae2de8fbd9ef9ac8a696d13f1487fd9b2a7222713c014f9899c8770a3efd",
+      "apps/services/redhouse/proxy.py": "5b68d6e493b37ebb26753bfc596cf1c16b264ff9459fd04d07142ef5c8f04dda",
+      "apps/services/redhouse/shared_migrations.py": "09e1691160097fcac579218d970a8b517f96496f687ff51d2305694d47eacfff",
+      "apps/services/redhouse/shared_migrations/019.sql": "7eb1cd6c4665ae052c77a00fd08b48ace07d67f1cd299391d1b8663e77c2e741",
+      "apps/services/redhouse/storage.py": "ccfc8a8b021c4b9086904f18b16f785f5b39d308d4be0d012678cfe2b53cff87",
+      "apps/services/run.py": "1b27e341360a81a03cac39de20874588c19de23f4f52e931846f4f3ec6fb5849"
+    }
+  },
+  "web": {
+    "tag": "redhouse/web:continuidad-20261113",
+    "id": "sha256:02720e3c4ed71430af5aa9d4437d87787c5401d64c8319a5cb2f3043ac614807",
+    "base": "sha256:e9b2fb40561ff3c0a4dd28e877bf227a5d967dd0097ee7ddc6d23c9a6c001f71",
+    "files": {
+      "apps/services/ms_documentos/__init__.py": "e9ad05e8842037b58c27bd1ffa689301b36d5f5b00ff52dc55c34fb55e4877cc",
+      "apps/services/ms_documentos/contracts/file_prepare.response.json": "b776434d41b822f76716041b4d8cc4973e9e889af9b80539cdf4a49d672741ec",
+      "apps/services/ms_documentos/contracts/openapi.json": "842866d87a1663daa80d7ab34f7e875fab775d66293217505f10d8962b15a6c3",
+      "apps/services/ms_documentos/documents.py": "2cb73deb4dc01186ede06987bd6a5a46612da5e92aa2cf9c560afa7991fa6702",
+      "apps/services/ms_documentos/files.py": "a39701f681ba926c9e28775472cbfad3efb220dccb3c1d0a6b249b76dff21341",
+      "apps/services/ms_documentos/local_objects.py": "491e61a040c9cf5683014f884322a56229e0410522b2134628fa98f963f09d48",
+      "apps/services/ms_documentos/outputs.json": "f80a502d1b9dcee656a5a3c5db51a26e60aada65f440002668ce3219de1761c7",
+      "apps/services/ms_documentos/reports.py": "b75ca5f3baccbb08c9259bb412686bb415092d04b118d39c8dc21499fd8030a2",
+      "apps/services/ms_donantes/agenda.py": "141254905ddb531d6d15997e50409840d1768540107ceaf5d8c71a4c6d529764",
+      "apps/services/ms_donantes/contracts/appointment_agenda.response.json": "f8e68e6658a10166f5e9b63e70edb9599f885cb2776131c24f14e013e6ecb106",
+      "apps/services/ms_donantes/contracts/next_appointment.response.json": "ff3989f78add04fb5fe92eee17768773ab40c3ab67a3a41724633f45d83c6726",
+      "apps/services/ms_donantes/contracts/openapi.json": "d80914983229520fb237253777f8a71911b95b2ab105aafe7e6e9b23d0933b74",
+      "apps/services/ms_inventario/__init__.py": "30d63b81614ca3645ea3d274f40691f53edcaca38bd07ea1839379fa173a3719",
+      "apps/services/ms_inventario/contracts/label_issue.example.json": "90472f39d589d1cdce206cf9c8d797190cb766a365e00d5e8510d2c8983c4702",
+      "apps/services/ms_inventario/contracts/label_issue.example.xml": "8510663da804af424097eace2292a7196bbd9b7a3f5674af8b128735c248b95a",
+      "apps/services/ms_inventario/contracts/label_issue.response.json": "d8cb61ab9fa1a73154e2d97ddadc263fe3f0fa56680ab6256f342b5ac275e7b9",
+      "apps/services/ms_inventario/contracts/label_issue.xsd": "64a02b5be46ff1fd1a3696a4bf1547a139bf967c24150365e2b196c87a0321f5",
+      "apps/services/ms_inventario/contracts/openapi.json": "81e44360ebd7523a6a56e208acbe55168f07010c99544b526584eb0cfe9095ff",
+      "apps/services/ms_inventario/labels.py": "78a1153efb287a3d7168d96e9c9c85aee9704101dae3354cdaa10102e5c7ab7c",
+      "apps/services/ms_transporte/__init__.py": "80d9bebc126c327dee12edd396201c2811ca5a70f5b923b095fddbf200a9ea49",
+      "apps/services/ms_transporte/contracts/file_prepare.response.json": "b776434d41b822f76716041b4d8cc4973e9e889af9b80539cdf4a49d672741ec",
+      "apps/services/ms_transporte/contracts/openapi.json": "c1605e1d308e11c2a939c6e5f5565c1f596c3a29706efd351904180b7654d043",
+      "apps/services/ms_transporte/mobile.py": "4f561f62810ee45861711b06ee683d3f0c945067a19a7abbae3a2bcc4565525e",
+      "apps/services/ms_transporte/outputs.json": "6b01be9d35a3353a6a66836e524851f9347f1c4f3a0f60540f754a728cfed83c",
+      "apps/services/redhouse/app.py": "4f73716eeffe8c56be4187cba145a76e778d4e65fecded33b9fade6335a6414e",
+      "apps/services/redhouse/config.py": "7bbefc58d5a78a253e8dacc379b1275bf06daf229af55c67f49933946ce107a5",
+      "apps/services/redhouse/embedded.py": "db97ae2de8fbd9ef9ac8a696d13f1487fd9b2a7222713c014f9899c8770a3efd",
+      "apps/services/redhouse/proxy.py": "5b68d6e493b37ebb26753bfc596cf1c16b264ff9459fd04d07142ef5c8f04dda",
+      "apps/services/redhouse/shared_migrations.py": "09e1691160097fcac579218d970a8b517f96496f687ff51d2305694d47eacfff",
+      "apps/services/redhouse/shared_migrations/019.sql": "7eb1cd6c4665ae052c77a00fd08b48ace07d67f1cd299391d1b8663e77c2e741",
+      "apps/services/redhouse/storage.py": "ccfc8a8b021c4b9086904f18b16f785f5b39d308d4be0d012678cfe2b53cff87",
+      "apps/services/run.py": "1b27e341360a81a03cac39de20874588c19de23f4f52e931846f4f3ec6fb5849",
+      "apps/web/scripts/run_web.py": "eea83dbb4aed6ec1a30faf81627c4c2ea5784ae4873e24a6060b2d8cbceee5df",
+      "apps/web/src/integration/__init__.py": "1e15c1b43d4b34a3e5b02ffacc0e0c9e67ba695a0edde7dd89152b9622ee881f",
+      "apps/web/src/integration/routes/documents.py": "31fb65b1d58768c1358aa189a4090c2e2224b93fefc50d75372162d98ba418fd",
+      "apps/web/src/integration/routes/files.py": "c13990259ea306349eab983b42724bc05d202cdb0a5e08886c172c18f7793df3",
+      "apps/web/src/integration/storage_client.py": "c1edf6373b0b518d171b94ee4ff2f6c482cd843b4b660d57881902f8c2a3bcde",
+      "apps/web/src/integration/storage_gateway.py": "401138df04c11d57166458cb80518d71cab07c5a4a47d419c023fbe36f191cc0"
+    }
+  }
+}

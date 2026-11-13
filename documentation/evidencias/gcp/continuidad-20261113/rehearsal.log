@@ -1,0 +1,9 @@
+Traceback (most recent call last):
+  File "/tmp/redhouse-continuidad-20261113/deploy.py", line 529, in <module>
+    {'preflight': preflight, 'capacity': capacity, 'prepare': prepare,
+  File "/tmp/redhouse-continuidad-20261113/deploy.py", line 366, in rehearse
+    migrated = capture(['docker', 'run', '--rm', '--user', '0:0', '--read-only',
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/redhouse-continuidad-20261113/deploy.py", line 34, in capture
+    raise RuntimeError(f'Command failed ({result.returncode}): {args[:4]}')
+RuntimeError: Command failed (1): ['docker', 'run', '--rm', '--user']

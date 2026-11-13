@@ -1,0 +1,501 @@
+{
+  "web": {
+    "id": "da1d202d017e89f1b353cc48936706359ca8495eb43be7490a19ff663853b7db",
+    "image": "sha256:e9b2fb40561ff3c0a4dd28e877bf227a5d967dd0097ee7ddc6d23c9a6c001f71",
+    "tag": "redhouse/web:optimization-20261112",
+    "health": "healthy",
+    "networks": {
+      "redhouse-parcial2_data": {
+        "ip": "172.18.0.31",
+        "aliases": [
+          "redhouse-parcial2-web-1",
+          "web"
+        ]
+      },
+      "redhouse-parcial2_edge": {
+        "ip": "172.19.0.8",
+        "aliases": [
+          "redhouse-parcial2-web-1",
+          "web"
+        ]
+      }
+    }
+  },
+  "monitoreo-b": {
+    "id": "48081b5776ebe9088bf090eae3337583d2700ef63a21525a48abf45c4ce5dbd6",
+    "image": "sha256:e61a99669e6a59e3fece583e9172bf62b04c82e09c547c3c7d74c5b62ca23ea5",
+    "tag": "redhouse/monitoreo:optimization-20261112",
+    "health": "healthy",
+    "networks": {
+      "redhouse-parcial2_data": {
+        "ip": "172.18.0.29",
+        "aliases": [
+          "redhouse-parcial2-monitoreo-b-1",
+          "monitoreo-b"
+        ]
+      }
+    }
+  },
+  "monitoreo-a": {
+    "id": "fa484d8df962f45aa71d46440918ced3fbe3cde77c8ea85519146d5df9625a47",
+    "image": "sha256:e61a99669e6a59e3fece583e9172bf62b04c82e09c547c3c7d74c5b62ca23ea5",
+    "tag": "redhouse/monitoreo:optimization-20261112",
+    "health": "healthy",
+    "networks": {
+      "redhouse-parcial2_data": {
+        "ip": "172.18.0.30",
+        "aliases": [
+          "redhouse-parcial2-monitoreo-a-1",
+          "monitoreo-a"
+        ]
+      }
+    }
+  },
+  "transporte-b": {
+    "id": "c1cc2a3b65e87752f01a757b365ee3df9e48d3e013c47a7b84f5e71f93faab40",
+    "image": "sha256:570d4fbda4882e975190f43650747a888bf05db300c02ccadc4a42fb6fc4ef01",
+    "tag": "redhouse/transporte:optimization-20261112",
+    "health": "healthy",
+    "networks": {
+      "redhouse-parcial2_data": {
+        "ip": "172.18.0.26",
+        "aliases": [
+          "redhouse-parcial2-transporte-b-1",
+          "transporte-b"
+        ]
+      },
+      "redhouse-parcial2_edge": {
+        "ip": "172.19.0.5",
+        "aliases": [
+          "redhouse-parcial2-transporte-b-1",
+          "transporte-b"
+        ]
+      }
+    }
+  },
+  "transporte-a": {
+    "id": "ea77bbbdc1e5fe626759ebfb282343ea7212bfa322bacfb4ffe52eb83d3212de",
+    "image": "sha256:570d4fbda4882e975190f43650747a888bf05db300c02ccadc4a42fb6fc4ef01",
+    "tag": "redhouse/transporte:optimization-20261112",
+    "health": "healthy",
+    "networks": {
+      "redhouse-parcial2_data": {
+        "ip": "172.18.0.25",
+        "aliases": [
+          "redhouse-parcial2-transporte-a-1",
+          "transporte-a"
+        ]
+      },
+      "redhouse-parcial2_edge": {
+        "ip": "172.19.0.4",
+        "aliases": [
+          "redhouse-parcial2-transporte-a-1",
+          "transporte-a"
+        ]
+      }
+    }
+  },
+  "inventario-b": {
+    "id": "c2630942500fa98f6b7f425a12b56881cdd8e9a65d5cf4014d35055a6cbfce32",
+    "image": "sha256:47b210bad7988755ad39847764d35417198cdf9a1a5d36ce2cbe7ef249fd3418",
+    "tag": "redhouse/inventario:optimization-20261112",
+    "health": "healthy",
+    "networks": {
+      "redhouse-parcial2_data": {
+        "ip": "172.18.0.24",
+        "aliases": [
+          "redhouse-parcial2-inventario-b-1",
+          "inventario-b"
+        ]
+      }
+    }
+  },
+  "inventario-a": {
+    "id": "2ec70c87a4b5833e28402a09bb526c36e54b0b4123b2ab804b42b78486594b63",
+    "image": "sha256:47b210bad7988755ad39847764d35417198cdf9a1a5d36ce2cbe7ef249fd3418",
+    "tag": "redhouse/inventario:optimization-20261112",
+    "health": "healthy",
+    "networks": {
+      "redhouse-parcial2_data": {
+        "ip": "172.18.0.23",
+        "aliases": [
+          "redhouse-parcial2-inventario-a-1",
+          "inventario-a"
+        ]
+      }
+    }
+  },
+  "donantes-b": {
+    "id": "7dd57bd975754d5bc0557dc0d39136e191d4bed8d5c408befdea07c077df1d64",
+    "image": "sha256:31628dd5798e8c501e2b2bde4e545c5271a4451577aa41b289ce03c36938494a",
+    "tag": "redhouse/donantes:optimization-20261112",
+    "health": "healthy",
+    "networks": {
+      "redhouse-parcial2_data": {
+        "ip": "172.18.0.16",
+        "aliases": [
+          "redhouse-parcial2-donantes-b-1",
+          "donantes-b"
+        ]
+      }
+    }
+  },
+  "donantes-a": {
+    "id": "43943ad10195edb25ce26448c4627ca54e0ffbd7e70d4b7722ac9768aa8b1b4e",
+    "image": "sha256:31628dd5798e8c501e2b2bde4e545c5271a4451577aa41b289ce03c36938494a",
+    "tag": "redhouse/donantes:optimization-20261112",
+    "health": "healthy",
+    "networks": {
+      "redhouse-parcial2_data": {
+        "ip": "172.18.0.15",
+        "aliases": [
+          "redhouse-parcial2-donantes-a-1",
+          "donantes-a"
+        ]
+      }
+    }
+  },
+  "identidad-acceso-b": {
+    "id": "b0c091d972fa0e446ced36cc97b3dfdbc11abc153840a477b9dc3fdb2781554b",
+    "image": "sha256:28bfc47da3281d41f7fac4f020be2af00c291a9f72d0404f956751f3c760b375",
+    "tag": "redhouse/identidad_acceso:optimization-20261112",
+    "health": "healthy",
+    "networks": {
+      "redhouse-parcial2_data": {
+        "ip": "172.18.0.14",
+        "aliases": [
+          "redhouse-parcial2-identidad-acceso-b-1",
+          "identidad-acceso-b"
+        ]
+      }
+    }
+  },
+  "identidad-acceso-a": {
+    "id": "4390bd1f66db122fefab93356aad8282292bbd3f1b5edcac385435908408a910",
+    "image": "sha256:28bfc47da3281d41f7fac4f020be2af00c291a9f72d0404f956751f3c760b375",
+    "tag": "redhouse/identidad_acceso:optimization-20261112",
+    "health": "healthy",
+    "networks": {
+      "redhouse-parcial2_data": {
+        "ip": "172.18.0.13",
+        "aliases": [
+          "redhouse-parcial2-identidad-acceso-a-1",
+          "identidad-acceso-a"
+        ]
+      }
+    }
+  },
+  "documentos-a": {
+    "id": "70a98541618d627a301f3d471efb4b506f8179c49a22237644b7c90131c990d9",
+    "image": "sha256:97311cf08a60ce776892ab7010f65402d05c9118e608ad1a2271d1a694d10d09",
+    "tag": "redhouse/documentos:mobile04-20261110",
+    "health": "healthy",
+    "networks": {
+      "redhouse-parcial2_data": {
+        "ip": "172.18.0.27",
+        "aliases": [
+          "redhouse-parcial2-documentos-a-1",
+          "documentos-a"
+        ]
+      },
+      "redhouse-parcial2_edge": {
+        "ip": "172.19.0.6",
+        "aliases": [
+          "redhouse-parcial2-documentos-a-1",
+          "documentos-a"
+        ]
+      }
+    }
+  },
+  "documentos-b": {
+    "id": "8100589fe32a2155255221e4be02487503e2f82be41ba3a9c40713d2dff3695d",
+    "image": "sha256:97311cf08a60ce776892ab7010f65402d05c9118e608ad1a2271d1a694d10d09",
+    "tag": "redhouse/documentos:mobile04-20261110",
+    "health": "healthy",
+    "networks": {
+      "redhouse-parcial2_data": {
+        "ip": "172.18.0.28",
+        "aliases": [
+          "redhouse-parcial2-documentos-b-1",
+          "documentos-b"
+        ]
+      },
+      "redhouse-parcial2_edge": {
+        "ip": "172.19.0.7",
+        "aliases": [
+          "redhouse-parcial2-documentos-b-1",
+          "documentos-b"
+        ]
+      }
+    }
+  },
+  "priorizacion-geografia-a": {
+    "id": "c6ade9f5fe60b8760c2d451b0a4c1438ee04d139c09432ca6ee8bd8fd9da95bf",
+    "image": "sha256:a4313f3ba55dbb88d5c95c2a844251b7ceecbb4203cd5552fbb9863923fb0ac1",
+    "tag": "redhouse/priorizacion_geografia:mobile04-20261110",
+    "health": "healthy",
+    "networks": {
+      "redhouse-parcial2_data": {
+        "ip": "172.18.0.21",
+        "aliases": [
+          "redhouse-parcial2-priorizacion-geografia-a-1",
+          "priorizacion-geografia-a"
+        ]
+      }
+    }
+  },
+  "priorizacion-geografia-b": {
+    "id": "2fb49d2537e6e55bbc1f181292313545ebb3dd5e78f999a27051606031b889e8",
+    "image": "sha256:a4313f3ba55dbb88d5c95c2a844251b7ceecbb4203cd5552fbb9863923fb0ac1",
+    "tag": "redhouse/priorizacion_geografia:mobile04-20261110",
+    "health": "healthy",
+    "networks": {
+      "redhouse-parcial2_data": {
+        "ip": "172.18.0.22",
+        "aliases": [
+          "redhouse-parcial2-priorizacion-geografia-b-1",
+          "priorizacion-geografia-b"
+        ]
+      }
+    }
+  },
+  "compatibilidad-a": {
+    "id": "9667c9a6395f085f07d1f08276066f121b8f1daf4da36e674c9ed4a2ed7583d9",
+    "image": "sha256:2de5d8604bdaf06e9ce1dc1c835532dfc23ceee9b76b3ad4232735414d519960",
+    "tag": "redhouse/compatibilidad:mobile04-20261110",
+    "health": "healthy",
+    "networks": {
+      "redhouse-parcial2_data": {
+        "ip": "172.18.0.20",
+        "aliases": [
+          "redhouse-parcial2-compatibilidad-a-1",
+          "compatibilidad-a"
+        ]
+      }
+    }
+  },
+  "compatibilidad-b": {
+    "id": "4d9f9b369586525202f2471f68733a17d58806e1c24960d4d0c5349d3090038b",
+    "image": "sha256:2de5d8604bdaf06e9ce1dc1c835532dfc23ceee9b76b3ad4232735414d519960",
+    "tag": "redhouse/compatibilidad:mobile04-20261110",
+    "health": "healthy",
+    "networks": {
+      "redhouse-parcial2_data": {
+        "ip": "172.18.0.19",
+        "aliases": [
+          "redhouse-parcial2-compatibilidad-b-1",
+          "compatibilidad-b"
+        ]
+      }
+    }
+  },
+  "receptores-b": {
+    "id": "4cca157b795c0cd0036b3b38d9c2a2fbee8d01826fc27219e49598781885a604",
+    "image": "sha256:87fdb5f44344c0835d608f4112dbc7494b3a8192fd785a4baf4daf39641741fd",
+    "tag": "redhouse/receptores:mobile04-20261110",
+    "health": "healthy",
+    "networks": {
+      "redhouse-parcial2_data": {
+        "ip": "172.18.0.17",
+        "aliases": [
+          "redhouse-parcial2-receptores-b-1",
+          "receptores-b"
+        ]
+      }
+    }
+  },
+  "receptores-a": {
+    "id": "9d8bd387d2659b2e535f50b7c9323135c045d71c07216fe8a7bc5e3ccbf2d436",
+    "image": "sha256:87fdb5f44344c0835d608f4112dbc7494b3a8192fd785a4baf4daf39641741fd",
+    "tag": "redhouse/receptores:mobile04-20261110",
+    "health": "healthy",
+    "networks": {
+      "redhouse-parcial2_data": {
+        "ip": "172.18.0.18",
+        "aliases": [
+          "redhouse-parcial2-receptores-a-1",
+          "receptores-a"
+        ]
+      }
+    }
+  },
+  "custodia-b": {
+    "id": "ddca44e958a4ca306d19fe6655f45b82271f278a7cc11770b456f3811d9843c9",
+    "image": "sha256:794480756624a8c70fd478090cff1c9e49a2517d5c84a098349aba529ef59198",
+    "tag": "redhouse/custodia:mobile04-20261110",
+    "health": "healthy",
+    "networks": {
+      "redhouse-parcial2_data": {
+        "ip": "172.18.0.11",
+        "aliases": [
+          "redhouse-parcial2-custodia-b-1",
+          "custodia-b"
+        ]
+      }
+    }
+  },
+  "custodia-a": {
+    "id": "29941a257ef029f57c9f443e2c6ab649f2531d910276630eb62a19e3c2e3626f",
+    "image": "sha256:794480756624a8c70fd478090cff1c9e49a2517d5c84a098349aba529ef59198",
+    "tag": "redhouse/custodia:mobile04-20261110",
+    "health": "healthy",
+    "networks": {
+      "redhouse-parcial2_data": {
+        "ip": "172.18.0.12",
+        "aliases": [
+          "redhouse-parcial2-custodia-a-1",
+          "custodia-a"
+        ]
+      }
+    }
+  },
+  "alertas-a": {
+    "id": "e2fdee0dfc4cdf271e07856e91735522c1e79a1c988d33a8c0b1a4fbda6c7db4",
+    "image": "sha256:5f03cd4895ab1d445bc217b8c34a28571567794c9b7f3099bac9fe2de3782c4d",
+    "tag": "redhouse/alertas:mobile04-20261110",
+    "health": "healthy",
+    "networks": {
+      "redhouse-parcial2_data": {
+        "ip": "172.18.0.9",
+        "aliases": [
+          "redhouse-parcial2-alertas-a-1",
+          "alertas-a"
+        ]
+      }
+    }
+  },
+  "alertas-b": {
+    "id": "6c2685e08a6c598651b02986d29043e0438651c8f74e89f035527ecec4a424b7",
+    "image": "sha256:5f03cd4895ab1d445bc217b8c34a28571567794c9b7f3099bac9fe2de3782c4d",
+    "tag": "redhouse/alertas:mobile04-20261110",
+    "health": "healthy",
+    "networks": {
+      "redhouse-parcial2_data": {
+        "ip": "172.18.0.10",
+        "aliases": [
+          "redhouse-parcial2-alertas-b-1",
+          "alertas-b"
+        ]
+      }
+    }
+  },
+  "auditoria-b": {
+    "id": "54c3eb1fb16fcead0555279333b1d2d7f4b57954018ee9bfd80e24f038cb35d5",
+    "image": "sha256:a198eada38fd376b0cc13fa5abdcdcdba30e26e01b913bb7f9208dec912e10a5",
+    "tag": "redhouse/auditoria:mobile04-20261110",
+    "health": "healthy",
+    "networks": {
+      "redhouse-parcial2_data": {
+        "ip": "172.18.0.7",
+        "aliases": [
+          "redhouse-parcial2-auditoria-b-1",
+          "auditoria-b"
+        ]
+      }
+    }
+  },
+  "auditoria-a": {
+    "id": "7b3dbc6f6af5a1990fb25f93a29a1ff7c201ba7385d0eb02af4f5c72e7a0edc7",
+    "image": "sha256:a198eada38fd376b0cc13fa5abdcdcdba30e26e01b913bb7f9208dec912e10a5",
+    "tag": "redhouse/auditoria:mobile04-20261110",
+    "health": "healthy",
+    "networks": {
+      "redhouse-parcial2_data": {
+        "ip": "172.18.0.8",
+        "aliases": [
+          "redhouse-parcial2-auditoria-a-1",
+          "auditoria-a"
+        ]
+      }
+    }
+  },
+  "clamav": {
+    "id": "11a4e9a2c22c773bcc8b996fd44c450fddb42009269c9fbdf5000462f98e509d",
+    "image": "sha256:982e28f90061d0e66eb03276419f589a47c9fa601e985e472fc2f6c64b497ca0",
+    "tag": "clamav/clamav@sha256:982e28f90061d0e66eb03276419f589a47c9fa601e985e472fc2f6c64b497ca0",
+    "health": "healthy",
+    "networks": {
+      "redhouse-parcial2_data": {
+        "ip": "172.18.0.2",
+        "aliases": [
+          "redhouse-parcial2-clamav-1",
+          "clamav"
+        ]
+      },
+      "redhouse-parcial2_edge": {
+        "ip": "172.19.0.2",
+        "aliases": [
+          "redhouse-parcial2-clamav-1",
+          "clamav"
+        ]
+      }
+    }
+  },
+  "gateway": {
+    "id": "6aed5d66b48d9f4d261d7e82e893ef7d1185a49469d5045804bc107da525d592",
+    "image": "sha256:a8b39bd9cf0f83869a2162827a0caf6137ddf759d50a171451b335cecc87d236",
+    "tag": "nginx:1.28-alpine",
+    "health": "healthy",
+    "networks": {
+      "redhouse-parcial2_data": {
+        "ip": "172.18.0.6",
+        "aliases": [
+          "redhouse-parcial2-gateway-1",
+          "gateway"
+        ]
+      },
+      "redhouse-parcial2_edge": {
+        "ip": "172.19.0.3",
+        "aliases": [
+          "redhouse-parcial2-gateway-1",
+          "gateway"
+        ]
+      }
+    }
+  },
+  "mongodb": {
+    "id": "fc9b64fad1e885c6fce371ffc7f916f478326d6143a8ecd999c8c837de9e6325",
+    "image": "sha256:27c0bc271b3c2fe8e18d5aa32c6aa5d891e5b9aceda5258e261ce59b2c343ef4",
+    "tag": "redhouse/mongodb-health:8.0",
+    "health": "healthy",
+    "networks": {
+      "redhouse-parcial2_data": {
+        "ip": "172.18.0.5",
+        "aliases": [
+          "redhouse-parcial2-mongodb-1",
+          "mongodb"
+        ]
+      }
+    }
+  },
+  "redis": {
+    "id": "cf78afde0881d10a8c7d6e23a3eb7155fc32b7dea1a665b8ce01bea875ba904a",
+    "image": "sha256:4fa24486b8bcca8eec45ee0eb166edc674795e53a2b53d1a9ef263eecebaac85",
+    "tag": "redis:7.4-bookworm",
+    "health": "healthy",
+    "networks": {
+      "redhouse-parcial2_data": {
+        "ip": "172.18.0.4",
+        "aliases": [
+          "redhouse-parcial2-redis-1",
+          "redis"
+        ]
+      }
+    }
+  },
+  "postgres": {
+    "id": "3b79ea1f9e1853f16d1e28b53f3e9363e0de0d20f9c74be213db2bf2498e65e2",
+    "image": "sha256:5a05f61a534e50e679d27fb45953afec7821f2ffc2aa6c738b94515ca0891ac2",
+    "tag": "postgres:14-bookworm",
+    "health": "healthy",
+    "networks": {
+      "redhouse-parcial2_data": {
+        "ip": "172.18.0.3",
+        "aliases": [
+          "redhouse-parcial2-postgres-1",
+          "postgres"
+        ]
+      }
+    }
+  }
+}

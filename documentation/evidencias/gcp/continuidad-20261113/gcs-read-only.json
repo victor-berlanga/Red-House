@@ -1,0 +1,12 @@
+{
+  "result": "passed",
+  "default_provider": "local",
+  "existing_object_provider": "gcs",
+  "bytes": 635,
+  "sha256_matches": true,
+  "generation_precondition": true,
+  "database_read_only": true,
+  "existing_clean_analysis": true,
+  "no_post_or_state_change": true,
+  "scope": "Read-only provider adapter using existing Documentos runtime permissions; not a user API/MFA journey"
+}

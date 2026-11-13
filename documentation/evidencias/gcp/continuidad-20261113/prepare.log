@@ -1,0 +1,522 @@
+BUILD alertas
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile:
+#1 transferring dockerfile: 160B done
+#1 DONE 0.1s
+
+#2 [internal] load metadata for docker.io/redhouse/alertas:before-continuidad-20261113
+#2 DONE 0.1s
+
+#3 [internal] load .dockerignore
+#3 transferring context:
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 41.20kB 0.1s done
+#4 DONE 0.2s
+
+#5 [1/2] FROM docker.io/redhouse/alertas:before-continuidad-20261113@sha256:5f03cd4895ab1d445bc217b8c34a28571567794c9b7f3099bac9fe2de3782c4d
+#5 resolve docker.io/redhouse/alertas:before-continuidad-20261113@sha256:5f03cd4895ab1d445bc217b8c34a28571567794c9b7f3099bac9fe2de3782c4d 0.1s done
+#5 DONE 0.3s
+
+#6 [2/2] COPY payload/ /app/
+#6 DONE 2.3s
+
+#7 exporting to image
+#7 exporting layers
+#7 exporting layers 0.3s done
+#7 exporting manifest sha256:8c2fc526b4cfed4e20dfcaa4ae713515ce0955d88b33f9225337617621b8bea8 0.0s done
+#7 exporting config sha256:3f812eb0c99a4f8e822c1aa33c031f6696fffdb4810c3c4371bc1cc117718a66 0.0s done
+#7 exporting attestation manifest sha256:f95439d6c2a3f0c1d2f21ae2bd6528109f7ab92660fc5fc90119b7da22acb0c2 0.0s done
+#7 exporting manifest list sha256:95ae7ffe824e0f61e05799ead26b37852234d5ad450ae22c88f838abab9ccbdc 0.0s done
+#7 naming to docker.io/redhouse/alertas:continuidad-20261113
+#7 naming to docker.io/redhouse/alertas:continuidad-20261113 done
+#7 unpacking to docker.io/redhouse/alertas:continuidad-20261113 0.1s done
+#7 DONE 0.5s
+Payload verified
+BUILD auditoria
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 162B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/redhouse/auditoria:before-continuidad-20261113
+#2 DONE 0.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context:
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 41.20kB 0.0s done
+#4 DONE 0.1s
+
+#5 [1/2] FROM docker.io/redhouse/auditoria:before-continuidad-20261113@sha256:a198eada38fd376b0cc13fa5abdcdcdba30e26e01b913bb7f9208dec912e10a5
+#5 resolve docker.io/redhouse/auditoria:before-continuidad-20261113@sha256:a198eada38fd376b0cc13fa5abdcdcdba30e26e01b913bb7f9208dec912e10a5
+#5 resolve docker.io/redhouse/auditoria:before-continuidad-20261113@sha256:a198eada38fd376b0cc13fa5abdcdcdba30e26e01b913bb7f9208dec912e10a5 0.1s done
+#5 DONE 0.1s
+
+#6 [2/2] COPY payload/ /app/
+#6 DONE 0.1s
+
+#7 exporting to image
+#7 exporting layers
+#7 exporting layers 0.2s done
+#7 exporting manifest sha256:0ea1ec6b15493e405534cda8aa322925b51a07a461c0c710a5f21ee05095ad5c
+#7 exporting manifest sha256:0ea1ec6b15493e405534cda8aa322925b51a07a461c0c710a5f21ee05095ad5c 0.0s done
+#7 exporting config sha256:ba0bf2b607a36552fee498edf5076db0f044f1e90593f1c5d129865d0e7f72b3 0.0s done
+#7 exporting attestation manifest sha256:7b1338e0acb7cb1acc06cce4d194642ef55a38f4c71064ab01245ef0904d3e97 0.0s done
+#7 exporting manifest list sha256:33c6d4e3591fbaf805a38977c38a8cf2e84837e80756ce807f57cf55f7842059 0.0s done
+#7 naming to docker.io/redhouse/auditoria:continuidad-20261113 done
+#7 unpacking to docker.io/redhouse/auditoria:continuidad-20261113
+#7 unpacking to docker.io/redhouse/auditoria:continuidad-20261113 0.1s done
+#7 DONE 0.5s
+Payload verified
+BUILD compatibilidad
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 167B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/redhouse/compatibilidad:before-continuidad-20261113
+#2 DONE 0.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context:
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 41.20kB done
+#4 DONE 0.0s
+
+#5 [1/2] FROM docker.io/redhouse/compatibilidad:before-continuidad-20261113@sha256:2de5d8604bdaf06e9ce1dc1c835532dfc23ceee9b76b3ad4232735414d519960
+#5 resolve docker.io/redhouse/compatibilidad:before-continuidad-20261113@sha256:2de5d8604bdaf06e9ce1dc1c835532dfc23ceee9b76b3ad4232735414d519960 0.0s done
+#5 DONE 0.1s
+
+#6 [2/2] COPY payload/ /app/
+#6 DONE 0.1s
+
+#7 exporting to image
+#7 exporting layers
+#7 exporting layers 0.2s done
+#7 exporting manifest sha256:46757886f1408671978179bf5dd2381489161e43c9f5be64f1227f9588f065a6 0.0s done
+#7 exporting config sha256:f5a9bf78c03e2d50930773d3847f28d79d64224f75ea9018da6736c1c7018a60 0.0s done
+#7 exporting attestation manifest sha256:dc1575bb33ec36849a654a9d5ea0c311ecd70506ae3c89c3489939705aa693b0 0.0s done
+#7 exporting manifest list sha256:c244be7d21a44d209bea08899ba7887b033808edebcff8ccd277b3093809a062 0.0s done
+#7 naming to docker.io/redhouse/compatibilidad:continuidad-20261113 done
+#7 unpacking to docker.io/redhouse/compatibilidad:continuidad-20261113 0.0s done
+#7 DONE 0.5s
+Payload verified
+BUILD custodia
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 161B 0.0s done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/redhouse/custodia:before-continuidad-20261113
+#2 DONE 0.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context:
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 41.20kB 0.0s done
+#4 DONE 0.1s
+
+#5 [1/2] FROM docker.io/redhouse/custodia:before-continuidad-20261113@sha256:794480756624a8c70fd478090cff1c9e49a2517d5c84a098349aba529ef59198
+#5 resolve docker.io/redhouse/custodia:before-continuidad-20261113@sha256:794480756624a8c70fd478090cff1c9e49a2517d5c84a098349aba529ef59198 0.0s done
+#5 DONE 0.1s
+
+#6 [2/2] COPY payload/ /app/
+#6 DONE 0.1s
+
+#7 exporting to image
+#7 exporting layers
+#7 exporting layers 0.2s done
+#7 exporting manifest sha256:8e962481916f12bee89a0a1748aa2824065c77822050a4b14b0dbc29a3a5a98f
+#7 exporting manifest sha256:8e962481916f12bee89a0a1748aa2824065c77822050a4b14b0dbc29a3a5a98f 0.0s done
+#7 exporting config sha256:581a2df56121f30e99fd930f99d5139eb60d0d2d02d8874ebd682d3671547782 0.0s done
+#7 exporting attestation manifest sha256:9e3f9d067b2bd6cd19aa02817ec087d4c5ab9e29a03315a0b5faf3fd8ed2fa6f 0.0s done
+#7 exporting manifest list sha256:353c3dae10f70181efa030e2053b629dee71463e6c92c16e1f761d9bd87e1166 0.0s done
+#7 naming to docker.io/redhouse/custodia:continuidad-20261113
+#7 naming to docker.io/redhouse/custodia:continuidad-20261113 done
+#7 unpacking to docker.io/redhouse/custodia:continuidad-20261113 0.0s done
+#7 DONE 0.5s
+Payload verified
+BUILD documentos
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 163B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/redhouse/documentos:before-continuidad-20261113
+#2 DONE 0.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 260.14kB 0.0s done
+#4 DONE 0.1s
+
+#5 [1/2] FROM docker.io/redhouse/documentos:before-continuidad-20261113@sha256:97311cf08a60ce776892ab7010f65402d05c9118e608ad1a2271d1a694d10d09
+#5 resolve docker.io/redhouse/documentos:before-continuidad-20261113@sha256:97311cf08a60ce776892ab7010f65402d05c9118e608ad1a2271d1a694d10d09 0.1s done
+#5 DONE 0.2s
+
+#6 [2/2] COPY payload/ /app/
+#6 DONE 0.1s
+
+#7 exporting to image
+#7 exporting layers
+#7 exporting layers 0.3s done
+#7 exporting manifest sha256:e80e41cf2ab908b49773842c90cd2e579aa3d842087d22eb2c39ebb1e484df66 0.0s done
+#7 exporting config sha256:1144c476675b47e07805231f4c4560326376772b8df271a7d2ec2767eb78588d 0.0s done
+#7 exporting attestation manifest sha256:ada72c661318c7336d250ff246ae98b74dea3967cd87a6ad53c44e08ca075149 0.0s done
+#7 exporting manifest list sha256:5ac4fdeac48a0864e76137586342569b3eb15acde7358d62fe882b062fdaa211 0.0s done
+#7 naming to docker.io/redhouse/documentos:continuidad-20261113
+#7 naming to docker.io/redhouse/documentos:continuidad-20261113 done
+#7 unpacking to docker.io/redhouse/documentos:continuidad-20261113 0.1s done
+#7 DONE 0.6s
+Payload verified
+BUILD donantes
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 161B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/redhouse/donantes:before-continuidad-20261113
+#2 DONE 0.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 386.16kB 0.1s done
+#4 DONE 0.1s
+
+#5 [1/2] FROM docker.io/redhouse/donantes:before-continuidad-20261113@sha256:31628dd5798e8c501e2b2bde4e545c5271a4451577aa41b289ce03c36938494a
+#5 resolve docker.io/redhouse/donantes:before-continuidad-20261113@sha256:31628dd5798e8c501e2b2bde4e545c5271a4451577aa41b289ce03c36938494a 0.1s done
+#5 DONE 0.1s
+
+#6 [2/2] COPY payload/ /app/
+#6 DONE 0.1s
+
+#7 exporting to image
+#7 exporting layers
+#7 exporting layers 0.1s done
+#7 exporting manifest sha256:c41de6761dc106be0d468a9a56972f58075d50bac036fa092fe07f5bf6e0f1b6 0.0s done
+#7 exporting config sha256:73c6110ff64a4fed5b3a171bdb9f467ec13e9f8c44b12c89be68b7a2b025b730 0.0s done
+#7 exporting attestation manifest sha256:d40c99f4fc611adf786e8e9c798cdbc93aff0f61d4ae9e716a09229aae701bd2 0.0s done
+#7 exporting manifest list sha256:42b36cfdbc14d2f8af5244bbf7a0496dbbf41e99583f8325b83c59cecc054df8 0.0s done
+#7 naming to docker.io/redhouse/donantes:continuidad-20261113 done
+#7 unpacking to docker.io/redhouse/donantes:continuidad-20261113 0.0s done
+#7 DONE 0.3s
+Payload verified
+BUILD identidad-acceso
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 169B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/redhouse/identidad_acceso:before-continuidad-20261113
+#2 DONE 0.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 41.20kB done
+#4 DONE 0.0s
+
+#5 [1/2] FROM docker.io/redhouse/identidad_acceso:before-continuidad-20261113@sha256:28bfc47da3281d41f7fac4f020be2af00c291a9f72d0404f956751f3c760b375
+#5 resolve docker.io/redhouse/identidad_acceso:before-continuidad-20261113@sha256:28bfc47da3281d41f7fac4f020be2af00c291a9f72d0404f956751f3c760b375
+#5 resolve docker.io/redhouse/identidad_acceso:before-continuidad-20261113@sha256:28bfc47da3281d41f7fac4f020be2af00c291a9f72d0404f956751f3c760b375 0.0s done
+#5 DONE 0.1s
+
+#6 [2/2] COPY payload/ /app/
+#6 DONE 0.1s
+
+#7 exporting to image
+#7 exporting layers 0.1s done
+#7 exporting manifest sha256:0a8b91d74448501b0aefdb798613a9ed0d27dd8b5a8a3c3c510afccdda8ecec2
+#7 exporting manifest sha256:0a8b91d74448501b0aefdb798613a9ed0d27dd8b5a8a3c3c510afccdda8ecec2 0.0s done
+#7 exporting config sha256:6ead2edf975accd5683a9c34695c59c97f0767ba62055d266d74214668e3a241 0.0s done
+#7 exporting attestation manifest sha256:8649d74977c36e8292cb246cf98ad52c38cb001459ab56f1148f07c641fe6a50 0.0s done
+#7 exporting manifest list sha256:b11c0c43bebd5a1d6bec3f8a0eb175a991495be24bbc2402dc984eb02d1aef82 0.0s done
+#7 naming to docker.io/redhouse/identidad_acceso:continuidad-20261113 done
+#7 unpacking to docker.io/redhouse/identidad_acceso:continuidad-20261113 0.0s done
+#7 DONE 0.3s
+Payload verified
+BUILD inventario
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 163B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/redhouse/inventario:before-continuidad-20261113
+#2 DONE 0.1s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 508.73kB 0.2s done
+#4 DONE 0.3s
+
+#5 [1/2] FROM docker.io/redhouse/inventario:before-continuidad-20261113@sha256:47b210bad7988755ad39847764d35417198cdf9a1a5d36ce2cbe7ef249fd3418
+#5 resolve docker.io/redhouse/inventario:before-continuidad-20261113@sha256:47b210bad7988755ad39847764d35417198cdf9a1a5d36ce2cbe7ef249fd3418 0.3s done
+#5 DONE 0.3s
+
+#5 [1/2] FROM docker.io/redhouse/inventario:before-continuidad-20261113@sha256:47b210bad7988755ad39847764d35417198cdf9a1a5d36ce2cbe7ef249fd3418
+#5 DONE 0.4s
+
+#6 [2/2] COPY payload/ /app/
+#6 DONE 0.2s
+
+#7 exporting to image
+#7 exporting layers
+#7 exporting layers 0.2s done
+#7 exporting manifest sha256:b247583d354b641aacbb4ec6bd7c694533b771fb0df8f9d66ccc5e6052daa6ec 0.0s done
+#7 exporting config sha256:f735d9e7dfbe44dbb3060115d16a4b28c9aaf1d0f03d67c75732b02418a12ae3 0.0s done
+#7 exporting attestation manifest sha256:57391b78ddf8ffbb3987bbbff82039a58758f55282e28af7a701888c489cedf5 0.0s done
+#7 exporting manifest list sha256:a6da5fb39bdaa0fa86394df754271e61f827ef3d227d91772391400ace213bd6 0.0s done
+#7 naming to docker.io/redhouse/inventario:continuidad-20261113
+#7 naming to docker.io/redhouse/inventario:continuidad-20261113 done
+#7 unpacking to docker.io/redhouse/inventario:continuidad-20261113 0.1s done
+#7 DONE 0.5s
+Payload verified
+BUILD monitoreo
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 162B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/redhouse/monitoreo:before-continuidad-20261113
+#2 DONE 0.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 41.20kB 0.0s done
+#4 DONE 0.0s
+
+#5 [1/2] FROM docker.io/redhouse/monitoreo:before-continuidad-20261113@sha256:e61a99669e6a59e3fece583e9172bf62b04c82e09c547c3c7d74c5b62ca23ea5
+#5 resolve docker.io/redhouse/monitoreo:before-continuidad-20261113@sha256:e61a99669e6a59e3fece583e9172bf62b04c82e09c547c3c7d74c5b62ca23ea5 0.0s done
+#5 DONE 0.1s
+
+#6 [2/2] COPY payload/ /app/
+#6 DONE 0.0s
+
+#7 exporting to image
+#7 exporting layers
+#7 exporting layers 0.2s done
+#7 exporting manifest sha256:e850a389e98c7de43aee16bd0c885bf9af49f8913fbdf4f99d9f9eea00d417e5 0.0s done
+#7 exporting config sha256:a9688dfec32f2dcfc66b60e12e00d278a9a7eea6521876c7e822b483e2dc1c28 0.0s done
+#7 exporting attestation manifest sha256:11a554fdf419bd75175f2afa688db63d42096f950d6d1f6c091363c1e2a6e804 0.0s done
+#7 exporting manifest list sha256:8e443bf8605153a777fa4904217acaaa56894f47e66296d3ca91f7c8a870b34e 0.0s done
+#7 naming to docker.io/redhouse/monitoreo:continuidad-20261113 0.0s done
+#7 unpacking to docker.io/redhouse/monitoreo:continuidad-20261113
+#7 unpacking to docker.io/redhouse/monitoreo:continuidad-20261113 0.2s done
+#7 DONE 0.6s
+Payload verified
+BUILD priorizacion-geografia
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 175B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/redhouse/priorizacion_geografia:before-continuidad-20261113
+#2 DONE 0.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context:
+#3 transferring context: 2B done
+#3 DONE 0.1s
+
+#4 [internal] load build context
+#4 transferring context: 41.20kB done
+#4 DONE 0.1s
+
+#5 [1/2] FROM docker.io/redhouse/priorizacion_geografia:before-continuidad-20261113@sha256:a4313f3ba55dbb88d5c95c2a844251b7ceecbb4203cd5552fbb9863923fb0ac1
+#5 resolve docker.io/redhouse/priorizacion_geografia:before-continuidad-20261113@sha256:a4313f3ba55dbb88d5c95c2a844251b7ceecbb4203cd5552fbb9863923fb0ac1 0.1s done
+#5 DONE 0.2s
+
+#6 [2/2] COPY payload/ /app/
+#6 DONE 0.1s
+
+#7 exporting to image
+#7 exporting layers
+#7 exporting layers 0.2s done
+#7 exporting manifest sha256:63b7c08b8bd6366191b862aace92f009c73db7ff138e2f796d71917c0f89080c
+#7 exporting manifest sha256:63b7c08b8bd6366191b862aace92f009c73db7ff138e2f796d71917c0f89080c 0.0s done
+#7 exporting config sha256:300cb2124de025c432ae8bed8c653a4fe7579d259c9eff28ab3f6bbd4a861231 0.0s done
+#7 exporting attestation manifest sha256:5543d53512a888a54459cf10aff96b0a834be75645e5708b0e5544e473cd095d 0.0s done
+#7 exporting manifest list sha256:3bc35ac6d9a5f3b0bfc430c1ee58bae66a28bf45347f62fde190b82aad558955 0.0s done
+#7 naming to docker.io/redhouse/priorizacion_geografia:continuidad-20261113
+#7 naming to docker.io/redhouse/priorizacion_geografia:continuidad-20261113 0.0s done
+#7 unpacking to docker.io/redhouse/priorizacion_geografia:continuidad-20261113 0.1s done
+#7 DONE 0.5s
+Payload verified
+BUILD receptores
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 163B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/redhouse/receptores:before-continuidad-20261113
+#2 DONE 0.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 41.20kB done
+#4 DONE 0.0s
+
+#5 [1/2] FROM docker.io/redhouse/receptores:before-continuidad-20261113@sha256:87fdb5f44344c0835d608f4112dbc7494b3a8192fd785a4baf4daf39641741fd
+#5 resolve docker.io/redhouse/receptores:before-continuidad-20261113@sha256:87fdb5f44344c0835d608f4112dbc7494b3a8192fd785a4baf4daf39641741fd 0.0s done
+#5 DONE 0.1s
+
+#6 [2/2] COPY payload/ /app/
+#6 DONE 0.1s
+
+#7 exporting to image
+#7 exporting layers
+#7 exporting layers 0.2s done
+#7 exporting manifest sha256:c2083874b0c4501e7f0bb652e4c2b40cea66556fb8c338aa175ec97346e1e56c 0.0s done
+#7 exporting config sha256:dcd886323a2c037bae578b81109267f825e03c008c3bbd2c408fc6172492c508 0.0s done
+#7 exporting attestation manifest sha256:08f204db7b3c1d7490f78d493fe1ca2ca634901850c02cddefaf4a1e14d7a89a 0.0s done
+#7 exporting manifest list sha256:2bde232ade5aa6951e65e9b900748c31b78640ffe2192a9536c980e9b683242e 0.0s done
+#7 naming to docker.io/redhouse/receptores:continuidad-20261113
+#7 naming to docker.io/redhouse/receptores:continuidad-20261113 done
+#7 unpacking to docker.io/redhouse/receptores:continuidad-20261113 0.0s done
+#7 DONE 0.4s
+Payload verified
+BUILD transporte
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 163B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/redhouse/transporte:before-continuidad-20261113
+#2 DONE 0.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 459.87kB 0.0s done
+#4 DONE 0.0s
+
+#5 [1/2] FROM docker.io/redhouse/transporte:before-continuidad-20261113@sha256:570d4fbda4882e975190f43650747a888bf05db300c02ccadc4a42fb6fc4ef01
+#5 resolve docker.io/redhouse/transporte:before-continuidad-20261113@sha256:570d4fbda4882e975190f43650747a888bf05db300c02ccadc4a42fb6fc4ef01 0.1s done
+#5 DONE 0.1s
+
+#6 [2/2] COPY payload/ /app/
+#6 DONE 0.1s
+
+#7 exporting to image
+#7 exporting layers
+#7 exporting layers 0.2s done
+#7 exporting manifest sha256:33f26c52aa8ca470a4e9bb4236b6128eeac91bc57ba86193db0781d1dce58b2c 0.0s done
+#7 exporting config sha256:b2dcd99d4504434430ec72201b0c8549c97ad0ca8e87c6ebc8228193f2ebda5f 0.0s done
+#7 exporting attestation manifest sha256:bf45b8997b839045e0186fe1a6040ca4a9d485fbd98a0af27699120e7ddd16ae
+#7 exporting attestation manifest sha256:bf45b8997b839045e0186fe1a6040ca4a9d485fbd98a0af27699120e7ddd16ae 0.0s done
+#7 exporting manifest list sha256:fa767e6eaec7f7feed1c367fb7ef94f008723a1db463f0fc5c76419cc890e1f8 0.0s done
+#7 naming to docker.io/redhouse/transporte:continuidad-20261113 0.0s done
+#7 unpacking to docker.io/redhouse/transporte:continuidad-20261113 0.1s done
+#7 DONE 0.5s
+Payload verified
+BUILD web
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 156B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/redhouse/web:before-continuidad-20261113
+#2 DONE 0.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 1.53MB 0.1s done
+#4 DONE 0.1s
+
+#5 [1/2] FROM docker.io/redhouse/web:before-continuidad-20261113@sha256:e9b2fb40561ff3c0a4dd28e877bf227a5d967dd0097ee7ddc6d23c9a6c001f71
+#5 resolve docker.io/redhouse/web:before-continuidad-20261113@sha256:e9b2fb40561ff3c0a4dd28e877bf227a5d967dd0097ee7ddc6d23c9a6c001f71 0.1s done
+#5 DONE 0.2s
+
+#6 [2/2] COPY payload/ /app/
+#6 DONE 0.2s
+
+#7 exporting to image
+#7 exporting layers
+#7 exporting layers 0.2s done
+#7 exporting manifest sha256:f3cdd92a364cf90a00d99b7e16dd5a4555acaad0794bb6b091ad050a0f16150c 0.0s done
+#7 exporting config sha256:2d796ff8b1b269f3f86f63947e666e87272952f00504040be1d4c57ffe719b30 0.0s done
+#7 exporting attestation manifest sha256:a2ae63a3feceb628c113cb430b98191d470c2e5d921fb051b44cd755fa7020a4 0.0s done
+#7 exporting manifest list sha256:02720e3c4ed71430af5aa9d4437d87787c5401d64c8319a5cb2f3043ac614807
+#7 exporting manifest list sha256:02720e3c4ed71430af5aa9d4437d87787c5401d64c8319a5cb2f3043ac614807 0.0s done
+#7 naming to docker.io/redhouse/web:continuidad-20261113 done
+#7 unpacking to docker.io/redhouse/web:continuidad-20261113 0.1s done
+#7 DONE 0.6s
+Payload verified
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 187B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/sha256:97311cf08a60ce776892ab7010f65402d05c9118e608ad1a2271d1a694d10d09
+#2 ERROR: pull access denied, repository does not exist or may require authorization: server message: insufficient_scope: authorization failed
+------
+ > [internal] load metadata for docker.io/library/sha256:97311cf08a60ce776892ab7010f65402d05c9118e608ad1a2271d1a694d10d09:
+------
+Dockerfile:1
+--------------------
+   1 | >>> FROM sha256:97311cf08a60ce776892ab7010f65402d05c9118e608ad1a2271d1a694d10d09
+   2 |     COPY payload/ /app/
+   3 |     
+--------------------
+ERROR: failed to build: failed to solve: sha256:97311cf08a60ce776892ab7010f65402d05c9118e608ad1a2271d1a694d10d09: failed to resolve source metadata for docker.io/library/sha256:97311cf08a60ce776892ab7010f65402d05c9118e608ad1a2271d1a694d10d09: pull access denied, repository does not exist or may require authorization: server message: insufficient_scope: authorization failed
+Traceback (most recent call last):
+  File "/tmp/redhouse-continuidad-20261113/deploy.py", line 500, in <module>
+    {'preflight': preflight, 'capacity': capacity, 'prepare': prepare, 'backup': backup_database, 'compatibility': compatibility,
+  File "/tmp/redhouse-continuidad-20261113/deploy.py", line 194, in prepare
+    prepare_compatibility(before)
+  File "/tmp/redhouse-continuidad-20261113/deploy.py", line 225, in prepare_compatibility
+    run(['docker', 'build', '--network=none', '--pull=false', '-t', tag, str(build)])
+  File "/tmp/redhouse-continuidad-20261113/deploy.py", line 39, in run
+    subprocess.run(args, cwd=ROOT, check=True, timeout=900)
+  File "/usr/lib64/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['docker', 'build', '--network=none', '--pull=false', '-t', 'redhouse/documentos:compatibility-continuidad-20261113', '/opt/redhouse/.local/deploy-continuidad-20261113/build/documentos-compatibility']' returned non-zero exit status 1.

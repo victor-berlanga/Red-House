@@ -1,0 +1,18 @@
+{
+  "database": "redhouse_rehearsal_20261113",
+  "restored_from_schema": 18,
+  "migration": {
+    "version": 19,
+    "historical_rows_preserved": true,
+    "historical_provider": "gcs",
+    "counts": {
+      "stored_file": 37,
+      "export_jobs": 3
+    }
+  },
+  "elapsed_seconds": 41.60610621200021,
+  "production_schema": 18,
+  "runtime_unchanged": true,
+  "scope": "Private database restore and schema migration, not application RTO or platform failover"
+}
+

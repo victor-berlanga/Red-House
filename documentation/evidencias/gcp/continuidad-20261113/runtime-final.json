@@ -1,0 +1,41 @@
+{
+  "healthy": 30,
+  "source_files_verified": 42,
+  "schema": 19,
+  "gateway_private_ip": "172.18.0.6",
+  "volumes": {
+    "documentos-a": {
+      "uid": 10001,
+      "mode": "0o700",
+      "runtime_uid": 10001,
+      "symlink": false
+    },
+    "documentos-b": {
+      "uid": 10001,
+      "mode": "0o700",
+      "runtime_uid": 10001,
+      "symlink": false
+    },
+    "web": {
+      "uid": 10001,
+      "mode": "0o700",
+      "runtime_uid": 10001,
+      "symlink": false
+    }
+  },
+  "providers": {
+    "documentos-a": {
+      "state": "up",
+      "required": true,
+      "provider": "local"
+    },
+    "documentos-b": {
+      "state": "up",
+      "required": true,
+      "provider": "local"
+    }
+  },
+  "clamav": "ClamAV 1.4.6/28181/Thu Nov 12 06:27:14 2026",
+  "disk_free_bytes": 2851729408,
+  "systemd": "active"
+}

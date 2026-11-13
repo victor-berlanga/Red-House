@@ -1,0 +1,222 @@
+{
+  "tls_verified": true,
+  "checks": [
+    {
+      "label": "storage-local-health",
+      "http": 200
+    },
+    {
+      "label": "login:transport1",
+      "http": 200
+    },
+    {
+      "label": "authorized-shipments",
+      "http": 200
+    },
+    {
+      "label": "historical-files",
+      "http": 200
+    },
+    {
+      "label": "historical-files",
+      "http": 200
+    },
+    {
+      "label": "historical-files",
+      "http": 200
+    },
+    {
+      "label": "historical-files",
+      "http": 200
+    },
+    {
+      "label": "historical-files",
+      "http": 200
+    },
+    {
+      "label": "historical-files",
+      "http": 200
+    },
+    {
+      "label": "historical-files",
+      "http": 200
+    },
+    {
+      "label": "historical-files",
+      "http": 200
+    },
+    {
+      "label": "historical-files",
+      "http": 200
+    },
+    {
+      "label": "historical-files",
+      "http": 200
+    },
+    {
+      "label": "historical-files",
+      "http": 200
+    },
+    {
+      "label": "historical-files",
+      "http": 200
+    },
+    {
+      "label": "historical-files",
+      "http": 200
+    },
+    {
+      "label": "historical-files",
+      "http": 200
+    },
+    {
+      "label": "historical-files",
+      "http": 200
+    },
+    {
+      "label": "historical-files",
+      "http": 200
+    },
+    {
+      "label": "historical-files",
+      "http": 200
+    },
+    {
+      "label": "historical-files",
+      "http": 200
+    },
+    {
+      "label": "historical-files",
+      "http": 200
+    },
+    {
+      "label": "historical-files",
+      "http": 200
+    },
+    {
+      "label": "historical-files",
+      "http": 200
+    },
+    {
+      "label": "historical-files",
+      "http": 200
+    },
+    {
+      "label": "historical-files",
+      "http": 200
+    },
+    {
+      "label": "historical-files",
+      "http": 200
+    },
+    {
+      "label": "historical-files",
+      "http": 200
+    },
+    {
+      "label": "historical-files",
+      "http": 200
+    },
+    {
+      "label": "historical-files",
+      "http": 200
+    },
+    {
+      "label": "historical-files",
+      "http": 200
+    },
+    {
+      "label": "historical-files",
+      "http": 200
+    },
+    {
+      "label": "historical-files",
+      "http": 200
+    },
+    {
+      "label": "historical-files",
+      "http": 200
+    },
+    {
+      "label": "historical-files",
+      "http": 200
+    },
+    {
+      "label": "historical-files",
+      "http": 200
+    },
+    {
+      "label": "historical-files",
+      "http": 200
+    },
+    {
+      "label": "historical-files",
+      "http": 200
+    },
+    {
+      "label": "historical-files",
+      "http": 200
+    },
+    {
+      "label": "historical-files",
+      "http": 200
+    },
+    {
+      "label": "historical-files",
+      "http": 200
+    },
+    {
+      "label": "historical-files",
+      "http": 200
+    },
+    {
+      "label": "login:donor1",
+      "http": 200
+    },
+    {
+      "label": "prepare:json",
+      "http": 201
+    },
+    {
+      "label": "upload:json",
+      "http": 201
+    },
+    {
+      "label": "immutable-upload:json",
+      "http": 412
+    },
+    {
+      "label": "verify-clamav:json",
+      "http": 200
+    },
+    {
+      "label": "donor-denied:json",
+      "http": 403
+    },
+    {
+      "label": "download-authorized:json",
+      "http": 200
+    },
+    {
+      "label": "download:json",
+      "http": 200
+    },
+    {
+      "label": "prepare:xml",
+      "http": 201
+    },
+    {
+      "label": "revoke",
+      "http": 200
+    },
+    {
+      "label": "revoke",
+      "http": 200
+    }
+  ],
+  "scope": "Synthetic PDF evidence only; no custody or clinical transition",
+  "historical_gcs_candidates": 19,
+  "historical_gcs_checked": false,
+  "result": "failed",
+  "error_type": "AssertionError"
+}

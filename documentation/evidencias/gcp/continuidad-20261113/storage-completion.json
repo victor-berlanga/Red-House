@@ -1,0 +1,77 @@
+{
+  "scope": "Completion of original JSON/XML commands; GCS tested separately",
+  "tls_verified": true,
+  "result": "passed",
+  "original_commands": 2,
+  "replacement_files_created": 0,
+  "checks": [
+    {
+      "label": "login:transport1",
+      "http": 200
+    },
+    {
+      "label": "login:donor1",
+      "http": 200
+    },
+    {
+      "label": "original-prepare-replay:json",
+      "http": 201
+    },
+    {
+      "label": "donor-denied:json",
+      "http": 403
+    },
+    {
+      "label": "download-authorized:json",
+      "http": 200
+    },
+    {
+      "label": "download:json",
+      "http": 200
+    },
+    {
+      "label": "original-prepare-replay:xml",
+      "http": 201
+    },
+    {
+      "label": "upload:xml",
+      "http": 201
+    },
+    {
+      "label": "immutable-upload:xml",
+      "http": 412
+    },
+    {
+      "label": "verify-clamav:xml",
+      "http": 200
+    },
+    {
+      "label": "donor-denied:xml",
+      "http": 403
+    },
+    {
+      "label": "download-authorized:xml",
+      "http": 200
+    },
+    {
+      "label": "download:xml",
+      "http": 200
+    },
+    {
+      "label": "revoke",
+      "http": 200
+    },
+    {
+      "label": "revoked-capability",
+      "http": 401
+    },
+    {
+      "label": "revoked-capability",
+      "http": 401
+    },
+    {
+      "label": "revoke",
+      "http": 200
+    }
+  ]
+}

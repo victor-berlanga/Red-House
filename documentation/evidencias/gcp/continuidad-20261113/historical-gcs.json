@@ -1,0 +1,12 @@
+{
+  "scope": "Read-only historical GCS report; no new bucket object",
+  "tls_verified": true,
+  "result": "failed",
+  "error_type": "AssertionError",
+  "checks": [
+    {
+      "label": "login:medical2",
+      "http": 401
+    }
+  ]
+}
