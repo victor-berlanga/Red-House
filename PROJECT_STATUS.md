@@ -1,5 +1,11 @@
 # Estado vigente de Red House
 
+## Vigencia del antivirus y recuperación de altas — 13/11/2026
+
+Integrado `62f66ea`: el análisis exige versión y fecha de firmas válidas, zona UTC declarada y antigüedad máxima configurable (48 horas por defecto). La migración aditiva 020 conserva las filas históricas sin inventar versiones del antivirus. Ensayos separados con ClamD real verificaron firmas actuales, rechazo de firmas antiguas, PDF de prueba EICAR y descarga de una imagen limpia; los intentos fallidos y sus correcciones permanecen documentados. Compatibilidad del código anterior de Documentos sobre esquema 020: 2/2 en 66,50 s, con escáner doble. [Ejecuciones, firmas y límites](documentation/evidencias/entrega-final/antivirus-vigencia-20261113/RESULTADOS.md). La VM mantiene esquema 19 y servidor `9648bf4`; este incremento todavía no se publica.
+
+Integrado `bac46ba`: recibo mínimo de alta de usuario, limitado al administrador que inició el comando y a su institución, con revalidación de sesión y permisos. Ensayo inicial 7/8; el fallo de preparación del cambio de rol se corrigió y su repetición dirigida pasó 1/1. Ausencia de recibo no demuestra que el alta haya fallado. [Pruebas JSON/XML, concurrencia y límites](documentation/evidencias/entrega-final/recibo-usuario-20261113/RESULTADOS.md). El cliente de escritorio conserva solo el intento sin contraseña; su recorrido de recuperación real sigue en desarrollo. No está publicado en GCP.
+
 ## Dispositivos de escritorio y arnés de carga — 13/11/2026
 
 Integrados `8dc5892` y `307437b`: registro/revocación XML de dispositivos, búsqueda por nombre/ID dentro de la institución y acceso visible al registro desde el listado. Qt real: alta/revocación 1/1 en 76,93 s; búsqueda/detalle/selección de cuenta 1/1 en 65,44 s, en ejecuciones separadas. Búsqueda API JSON/XML 2/2 dentro de una corrida que también tuvo un fallo independiente del arnés Locust. Capturas reales inspeccionadas; formulario ampliado y navegación ADMIN sin pestañas clínicas. [Dispositivos](documentation/evidencias/entrega-final/desktop/iteracion-dispositivos/RESULTADOS.md), [búsqueda y límites](documentation/evidencias/entrega-final/desktop/iteracion-busqueda-dispositivos/RESULTADOS.md). Falta el paquete actualizado y Windows; búsqueda aún no publicada en GCP.
