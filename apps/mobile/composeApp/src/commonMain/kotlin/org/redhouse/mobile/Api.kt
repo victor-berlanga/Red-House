@@ -9,6 +9,9 @@ import kotlinx.serialization.json.*
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 val codec = Json { ignoreUnknownKeys = true }
 fun JsonObject.text(key: String) = this[key]?.jsonPrimitive?.contentOrNull.orEmpty()
@@ -27,7 +30,7 @@ class ApiFailure(val status: Int, val code: String) : Exception(when (status) {
     503 -> "Dependencia no disponible."
     else -> "Respuesta no válida del servicio."
 })
-class Api(val client: HttpClient, val bases: Map<String, String>) {
+class Api(val client: HttpClient, val bases: Map<String, String>, private val parsingDispatcher: CoroutineDispatcher = Dispatchers.Default) {
     init { require(bases.isNotEmpty()); bases.values.forEach(::requireHttps) }
     suspend fun call(service: String, path: String, method: HttpMethod = HttpMethod.Get,
                      body: JsonObject? = null, token: String? = null, key: String? = null): JsonObject {
@@ -43,10 +46,12 @@ class Api(val client: HttpClient, val bases: Map<String, String>) {
         if (response.contentType()?.withoutParameters() != ContentType.Application.Json) throw ApiFailure(502, "contract")
         val raw = response.bodyAsText()
         if (raw.length > 2_000_000) throw ApiFailure(502, "size")
-        val value = try { codec.parseToJsonElement(raw).jsonObject } catch (_: Exception) { throw ApiFailure(502, "contract") }
-        if (!response.status.isSuccess()) throw ApiFailure(response.status.value, value["error"]?.jsonObject?.text("code").orEmpty())
-        if (value["meta"] !is JsonObject || value["data"] !is JsonObject) throw ApiFailure(502, "envelope")
-        return value.getValue("data").jsonObject.also{validateResponse(service,path,it)}
+        return withContext(parsingDispatcher) {
+            val value = try { codec.parseToJsonElement(raw).jsonObject } catch (_: Exception) { throw ApiFailure(502, "contract") }
+            if (!response.status.isSuccess()) throw ApiFailure(response.status.value, value["error"]?.jsonObject?.text("code").orEmpty())
+            if (value["meta"] !is JsonObject || value["data"] !is JsonObject) throw ApiFailure(502, "envelope")
+            value.getValue("data").jsonObject.also{validateResponse(service,path,it)}
+        }
     }
 }
 fun requireHttps(value: String) {

@@ -42,6 +42,10 @@ fun RedHouseApp(store: SecureStore, localStore: SecureStore, queueStore: SecureS
     MaterialTheme(colorScheme = redHouseColors) {
         var gateway by remember { mutableStateOf(if (MobileEnvironment.editableGateway) configStore.read().orEmpty() else MobileEnvironment.gateway) }
         var session by remember { mutableStateOf<Session?>(null) }
+        DisposableEffect(session) {
+            val owned = session
+            onDispose { owned?.api?.client?.close() }
+        }
         var user by remember { mutableStateOf<JsonObject?>(null) }
         var username by remember { mutableStateOf("") }
         var password by remember { mutableStateOf("") }
@@ -88,13 +92,17 @@ fun RedHouseApp(store: SecureStore, localStore: SecureStore, queueStore: SecureS
         LaunchedEffect(Unit) {
             gateway = GatewayConfiguration.prepare(configStore, store, localStore, queueStore) { devices.clearWork() }
             if(gateway.isNotBlank()) {
+                val http = platformClient()
                 try {
-                    val active=Session(Api(platformClient(),gatewayBases(gateway)),store)
+                    val active=Session(Api(http,gatewayBases(gateway)),store)
                     val restored=active.restore()
                     journal.bind(gateway+":"+restored.text("id")+":"+restored.text("tenant_id"))
-                    session=active;user=restored;repository=MobileRepository(active,journal,devices.source);queue=ObservationQueue(queueStore,active)
+                    val restoredRepository=MobileRepository(active,journal,devices.source)
+                    val restoredQueue=ObservationQueue(queueStore,active)
+                    session=active;user=restored;repository=restoredRepository;queue=restoredQueue
                     status=""
-                } catch(_:Exception) {status="Inicia sesión para continuar."}
+                } catch(e:CancellationException) {http.close();throw e}
+                catch(_:Exception) {http.close();status="Inicia sesión para continuar."}
             }
         }
         fun run(action: suspend () -> Unit) {
@@ -169,8 +177,11 @@ fun RedHouseApp(store: SecureStore, localStore: SecureStore, queueStore: SecureS
                         requireHttps(gateway)
                         val bases = gatewayBases(gateway)
                         devices.clearWork();ObservationQueue.clearStore(queueStore);journal.clear()
-                        val active = Session(Api(platformClient(), bases), store)
-                        try { active.login(username.trim(), password, otp.trim()) } finally { password = ""; otp = "" }
+                        val http = platformClient()
+                        val active = try {
+                            Session(Api(http, bases), store).also { it.login(username.trim(), password, otp.trim()) }
+                        } catch(e:Exception) { http.close(); throw e }
+                        finally { password = ""; otp = "" }
                         commandKeys.clear(); session = active; user = active.user; rows = emptyList(); selected = null
                         destination="";accountSection=null;accountView=false;taskId=null;detail=null;planning=false;donorView=false;syncView=false
                         configStore.write(gateway)

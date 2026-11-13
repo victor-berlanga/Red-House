@@ -31,7 +31,8 @@ fun TransportScreen(id:String,repository:MobileRepository,queue:ObservationQueue
     var automaticLocation by remember {mutableStateOf(false)}
     var pendingAction by remember {mutableStateOf<String?>(null)}
     var discardPosition by remember {mutableStateOf(false)}
-    var entries by remember {mutableStateOf(queue.entries())}
+    var entries by remember(queue) {mutableStateOf(queue.entries())}
+    val queueRevision by queue.changes.collectAsState()
     var operational by remember(id) {mutableStateOf<JsonObject?>(null)}
     val foreground by MobileLifecycle.foreground.collectAsState()
     val tracking=remember(id) {Tracking(session.api.client,session,session.api.bases.getValue("transporte"),repository.journal)}
@@ -39,7 +40,7 @@ fun TransportScreen(id:String,repository:MobileRepository,queue:ObservationQueue
     fun run(action:suspend ()->Unit) {if(busy)return;busy=true;scope.launch {try{action()} catch(e:CancellationException){throw e} catch(e:Exception){error=if(e is ApiFailure || e is IllegalArgumentException)e.message.orEmpty() else "Sin confirmación. Revisa pendientes antes de repetir."}finally{busy=false}}}
     LaunchedEffect(id) {try{row=repository.shipment(id)}catch(e:Exception){error=e.message.orEmpty()}}
     LaunchedEffect(trackingEnabled,foreground) {if(trackingEnabled && foreground) tracking.follow(id)}
-    LaunchedEffect(foreground) {if(foreground) {while(isActive) {try{queue.synchronize();entries=queue.entries()}catch(_:Exception){};delay(30000)}}}
+    LaunchedEffect(queue,queueRevision,foreground) {entries=queue.entries()}
     LaunchedEffect(automaticLocation,trackingEnabled,foreground,live.connected) {
         if(automaticLocation && trackingEnabled && foreground && live.connected)while(isActive){
             try {
@@ -104,7 +105,7 @@ fun TransportScreen(id:String,repository:MobileRepository,queue:ObservationQueue
             if(evidenceView) {
             Button(enabled=!busy,onClick={devices.photograph {bytes,failure->photograph=bytes;evidence=null;error=failure.orEmpty()}}){Text("Capturar evidencia")}
             photograph?.let {bytes ->
-                Image(imageBitmap(bytes),"Vista previa de evidencia",Modifier.fillMaxWidth().height(180.dp))
+                Image(remember(bytes) { imageBitmap(bytes) },"Vista previa de evidencia",Modifier.fillMaxWidth().height(180.dp))
                 Row {
                     Button(enabled=!busy,onClick={run{evidence=repository.uploadPhoto(id,bytes);photograph=null;error="Archivo: ${evidence?.text("status")}"}}){Text("Cargar y verificar")}
                     TextButton(onClick={photograph=null}){Text("Eliminar foto")}
