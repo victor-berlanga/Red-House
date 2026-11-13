@@ -24,6 +24,21 @@ La evidencia anterior incluye 182 pruebas de una regresión del 19 de octubre y 
 
 ## Decisiones de producto y arquitectura
 
+### Aclaraciones vigentes para cierre y aceptación
+
+Estas decisiones posteriores prevalecen sobre instrucciones heredadas incompatibles de los prompts y la retroalimentación, sin borrar su contexto histórico:
+
+- **Archivos:** el modo operativo principal usa almacenamiento privado en el servidor. Google Cloud Storage (GCS) es opcional para el producto y no condiciona sus flujos; se conserva como requisito académico independiente, con su propia prueba/evidencia y estado. No declares verificada una integración GCS por documentación, variables configuradas o un ensayo del almacenamiento local.
+- **Conectividad móvil:** no se exige funcionamiento offline universal. Define cada operación que pueda conservar borrador o caché local; el servidor sigue siendo autoridad. No confirmes en local decisiones, reservas, asignaciones ni custodia.
+- **Push:** la entrega física mediante FCM/APNs es una dependencia externa pendiente. No configures cuentas, proyectos, certificados, claves ni dispositivos de proveedor. Sí implementa y verifica la bandeja interna y los adaptadores/contratos de forma aislada, identificando cualquier receptor de laboratorio; no presentes eso como recepción push real.
+- **Plataformas de aceptación:** prueba Android en emulador, sin exigir teléfono Android. Prueba iOS en iPhone físico autorizado y no descargues ni exijas Simulator. macOS y Windows 11 son plataformas de trabajo; Linux es objetivo adicional cuyo alcance y evidencia se deben verificar, no presumir.
+- **Donante:** la entrada es un feed/inicio de campañas y citas; su agenda existente requiere completar las brechas y verificar su aceptación. Compartir información pública se limita al texto mediante selector nativo del sistema. No agregues cuentas sociales, chat, likes ni feed social.
+- **Transportista:** el mapa es la pantalla protagonista durante el traslado. La tarea asignada y su siguiente acción deben quedar visibles y priorizadas.
+- **Presentación:** conserva los cinco roles y capacidades ya definidas. Revisa pantallas efectivamente renderizadas y recorridos completos en cada plataforma aplicable; conteos, medidas o análisis de píxeles no sustituyen revisión visual real.
+- **Entregables humanos:** grabación de video final, exposición/presentación, subida a Ubiquitous, reflexiones individuales y entrega individual requieren acciones o aportes humanos. Prepara guiones/plantillas e inventario, pero no inventes autoría, evento, respuesta ni evidencia.
+
+Estas aclaraciones no convierten requisitos pendientes en implementados. Conserva los criterios originales que no contradigan una decisión explícita y registra estado, responsable, dependencia, aceptación y prueba en la matriz de continuidad.
+
 - Actualización de alcance del 6 de noviembre de 2026: aplicación móvil para **iOS y Android**, con **Kotlin Multiplatform y Compose Multiplatform** como base del encargo actualizado. Sustituye el alcance anterior exclusivamente Android; no atribuyas esta ampliación a la decisión del 26 de octubre. Escritorio conserva **PySide6 con Python**.
 - Conserva las etapas 01 y 02 realizadas; no las reejecutes por añadir iOS. La etapa 03 está implementada pero sigue pendiente de corrección y aceptación: usa también `stuff/prompts/correccion_comprobacion/03_correccion_y_comprobacion.md`. Solo amplía contratos/propietarios existentes si una integración demuestra una carencia concreta, con regresión proporcional.
 - Conserva `apps/web/`, `apps/services/`, `data/`, `documentation/` y `stuff/`. Ubica el nuevo proyecto móvil compartido en `apps/mobile/`, con destinos Android e iOS, y escritorio en `apps/desktop/`. Inspecciona ubicaciones existentes antes de crear o mover archivos; no migres una aplicación previa sin necesidad.

@@ -4,6 +4,8 @@ Trabaja en `/Users/victorberlanga/Programacion/integracion/Red-House`. Lee `AGEN
 
 ## Arquitectura y preparación
 
+Aplica las aclaraciones vigentes de `00_contexto_y_reglas.md`: Android se acepta en emulador sin requerir teléfono; iOS se acepta en el iPhone físico autorizado, sin descargar Simulator. macOS y Windows 11 son plataformas de trabajo; Linux es un objetivo adicional que debe verificarse. La revisión visual requiere observar pantallas renderizadas y completar recorridos reales, no basta una métrica de píxeles.
+
 Inspecciona los contratos JSON, autenticación y funcionalidades de los prompts 01 y 02. Define una matriz pantalla/perfil/permiso/servicio/operación/capacidad del dispositivo. La aplicación consumirá al menos cuatro microservicios reales; demuestra, como mínimo, uso de Identidad, Donantes/citas, Transporte y Alertas, más Inventario/Custodia según las tareas.
 
 Separa presentación Compose Multiplatform, estado/ViewModel, casos de uso de cliente, repositorios, cliente HTTP y persistencia local. El cliente controla navegación, captura y sincronización; no replica compatibilidad, prioridad, elegibilidad, reservas ni autorización del servidor.
@@ -26,7 +28,7 @@ Si una capacidad backend falta, complétala en su propietario y actualiza JSON/X
 
 ### Donante
 
-Registro preliminar con datos mínimos y consentimiento versionado; consulta/edición permitida de su expediente; estado de evaluación comunicado por personal autorizado; campañas con filtros de sede/fecha; disponibilidad de horarios/cupos; agendar, reprogramar y cancelar; recordatorios e historial propio. Muestra requisitos generales aprobados y contacto institucional, sin calcular aptitud o elegibilidad en el teléfono.
+Inicio del donante centrado en un feed de campañas y citas, con datos autorizados, estado vacío/carga/error y navegación a la agenda. Registro preliminar con datos mínimos y consentimiento versionado; consulta/edición permitida de su expediente; estado de evaluación comunicado por personal autorizado; campañas con filtros de sede/fecha; disponibilidad de horarios/cupos; agendar, reprogramar y cancelar; recordatorios e historial propio. La agenda y sus operaciones siguen pendientes hasta que se comprueben desde la interfaz contra servicios reales. Compartir campaña pública permite compartir texto mediante el selector nativo; no crear cuentas sociales, chat, likes ni feed social. Muestra requisitos generales aprobados y contacto institucional, sin calcular aptitud o elegibilidad en el teléfono.
 
 El registro de cuenta o vinculación del expediente debe verificar identidad mediante el flujo definido por Identidad; conocer un folio/UUID no permite apropiarse de otro donante. El donante no consulta receptores, HLA ajeno, inventario clínico detallado ni órdenes de transporte.
 
@@ -51,56 +53,56 @@ Consulta de solicitudes asignadas, resultados pertinentes, completitud y estado 
 ## Pantallas obligatorias
 
 1. Login/MFA, recuperación de acceso y cierre de sesión.
-2. Inicio con nombre, rol, institución, tareas, alertas, conectividad y pendientes.
+2. Inicio por perfil. Donante ve primero el feed de campañas y citas. Transportista ve el mapa y la tarea asignada con su siguiente acción; tareas/alertas/conectividad quedan visibles. Conserva inicio y acciones pertinentes para los otros tres roles.
 3. Perfil/expediente propio y consentimiento para donante.
 4. Campañas, detalle, agenda, confirmación, cambio/cancelación e historial de citas.
 5. Escaneo QR/código de barras y verificación de recurso/tarea/estado/origen/destino.
 6. Lista/detalle de traslados, mapa, ruta, ubicación y antigüedad, secuencia y acciones permitidas.
 7. Captura de incidencia, lectura autorizada, cámara/evidencia, revisión previa y estado de carga/análisis.
-8. Bandeja de avisos y detalle autorizado, sin datos clínicos sensibles en el push.
-9. Centro de sincronización con pendientes, enviando, confirmadas, rechazadas, conflicto y acción de recuperación.
+8. Bandeja interna de avisos y detalle autorizado, sin datos clínicos sensibles. Los adaptadores push se prueban aislados; FCM/APNs y recepción física quedan como dependencia externa pendiente, sin configurar cuentas.
+9. Estado de conexión y gestión solo para las operaciones que admitan borrador/caché local. No diseñes un modo offline universal ni un centro de sincronización genérico sin una operación que lo requiera.
 10. Ajustes mínimos de privacidad/permisos, dispositivo y ayuda operativa sin exponer secretos.
 
 ## Capacidades del dispositivo
 
-Implementa **QR/código de barras, cámara, GPS y notificaciones push**. No basta con botones que abran diálogos simulados.
+Implementa **QR/código de barras, cámara y GPS** en los flujos autorizados. Mantén bandeja interna y adaptadores push comprobables sin proveedor. No prepares cuentas FCM/APNs ni afirmes recepción física. No basta con botones que abran diálogos simulados.
 
 - Escaneo por cámara y pruebas con códigos reales que no contengan identidad clínica ni autorizaciones; el identificador se verifica en servidor. Código desconocido, duplicado o de otro traslado produce rechazo seguro.
 - Cámara con permisos mínimos, orientación/tamaño controlados, vista previa y eliminación de temporales. No accedas a toda la galería si la tarea no lo requiere. Carga con hash y estado confirmado por backend; metadatos de ubicación solo cuando se autoricen.
 - GPS solo durante tarea/periodo autorizado, con consentimiento y controles del sistema. Gestiona permiso denegado, ubicación aproximada, GPS apagado y captura antigua. Si se necesita seguimiento en segundo plano, usa el mecanismo Android vigente con indicador visible y justificación; detén seguimiento al terminar o cerrar sesión.
-- Push mediante proveedor configurado, por ejemplo FCM si se dispone del proyecto autorizado, registro/rotación/revocación de token y autorización del deep link al abrir. Una notificación contiene referencia opaca y texto mínimo. Bandeja interna funciona aunque el usuario deniegue push.
+- Conserva adaptadores push y contratos, sin preparar cuentas/proyectos FCM/APNs. Su recepción física queda pendiente externa. La bandeja interna funciona y se verifica sin proveedor; cualquier deep link reautoriza el recurso y el payload contiene referencia opaca/texto mínimo.
 - Mapa real con proveedor autorizado o alternativa documentada; informa ausencia de red/cartografía. No inventes una ruta ni sustituyas tiempo estimado por medición actual.
 
 ## GPS del teléfono y seguimiento por WebSockets
 
 Implementa la [especificación de rastreo GPS y mapa de Nuevo León](09_rastreo_gps_websockets.md). La aplicación del transportista es la fuente principal prevista de ubicación: captura en el teléfono Android/iOS, publicación JSON autenticada por **WSS**, validación y persistencia en Transporte, y distribución WSS a los mapas autorizados. Identifica fuente, dispositivo, tarea y evento; no conectes teléfonos directamente entre sí ni a bases de datos. Conserva el receptor y simulador existentes. Un GPS externo es una extensión opcional, no un requisito de compra ni un bloqueo de cierre móvil.
 
-Muestra mapa interactivo actual de Nuevo León y última posición con hora/antigüedad/calidad, diferenciando simulador, teléfono y futuro hardware. Prueba actualización real del mapa por socket y fallos de señal/red. Detén la captura del teléfono al finalizar/logout según política; para el equipo externo aplica el cierre de autorización del backend, sin prometer que logout apaga un GPS autónomo. Las lecturas offline recuperadas no se presentan como ubicación actual ni confirman custodia.
+Muestra mapa interactivo actual de Nuevo León y última posición con hora/antigüedad/calidad, diferenciando emulador, iPhone y futuro hardware. Prueba actualización real del mapa por socket y fallos de señal/red. Detén la captura al finalizar/logout según política; para equipo externo aplica el cierre de autorización del backend, sin prometer que logout apaga GPS autónomo. Una posición guardada se identifica con su hora y nunca se presenta como actual ni confirma custodia.
 
-## Offline y sincronización
+## Operación con conectividad variable
 
-Implementa almacenamiento local cifrado para la mínima información y borradores permitidos, separado por identidad e institución, con expiración y limpieza. No persistir contraseñas ni datos clínicos extensos para facilitar caché.
+No se exige funcionamiento offline universal. Para cada operación define si permite borrador o caché local; guarda solo la información mínima, cifrada, separada por identidad/institución y con expiración/limpieza. No persistas contraseñas ni datos clínicos extensos.
 
 Cada comando conserva ID/idempotencia estable, usuario, institución, tipo permitido, recurso, versión base, instante de captura y estado. El servidor agrega hora de recepción y revalida permisos, vigencia y secuencia. Define contrato para consultar resultado después de respuesta perdida, reintentos acotados con espera progresiva y conflictos visibles.
 
-Utiliza mecanismos de trabajo y reintento compatibles con cada sistema para reintentos permitidos. Prueba cierre/reinicio del proceso, red intermitente, expiración de sesión, cambio de cuenta y revocación del dispositivo. Una tarea pendiente no se envía bajo otra identidad.
+Usa reintentos solo para operaciones permitidas y con idempotencia. Prueba interrupción y recuperación de conexión donde corresponda. Una tarea pendiente nunca se envía bajo otra identidad.
 
-Se pueden guardar borradores, observaciones y evidencia pendiente cuando la política lo permita. Las transferencias físicas capturadas offline permanecen pendientes de verificación; no finalizan custodia, no consumen una reserva ni crean aprobación. No ordenes automáticamente eventos contradictorios ni resuelvas conflictos críticos con último escritor. Muestra antigüedad de datos offline y evita acciones que exigen estado central vigente.
+Se pueden guardar borradores permitidos. Las acciones que necesitan estado central vigente se bloquean sin conexión. Una captura física pendiente no finaliza custodia, no consume reserva ni crea aprobación. No ordenes eventos contradictorios automáticamente ni resuelvas conflictos críticos con último escritor. Identifica datos en caché y su antigüedad.
 
 ## Pruebas y criterios de aceptación
 
 Incluye pruebas unitarias relevantes, contratos JSON, repositorios/sincronización, instrumentación Compose y recorridos contra backend real aislado. Verifica accesibilidad, tamaños de pantalla, rotación, recreación del proceso, cancelación de permisos y ausencia de secretos en logs/almacenamiento inspeccionable.
 
-Demuestra por separado en Android y en simulador/dispositivo iOS: donante agenda y cancela una cita; transportista recoge y entrega su tarea con QR, ubicación y evidencia; operador confirma recepción; coordinador consulta resultado. Comprueba que datos creados desde móvil aparecen coherentemente en web y escritorio autorizado y que un cambio de institución es rechazado.
+Demuestra por separado en Android (emulador) y en iPhone físico: donante consulta el feed y agenda/cancela una cita; transportista completa una tarea desde el mapa protagonista con QR, ubicación y evidencia; operador confirma recepción; coordinador consulta el resultado; los otros perfiles conservan sus funciones autorizadas. Comprueba que datos creados desde móvil aparecen coherentemente en web y escritorio autorizado y que un cambio de institución es rechazado. No descargues Simulator ni exijas teléfono Android.
 
-Prueba reserva/cupo en conflicto, doble toque, timeout tras escritura, desconexión/reconexión sin duplicación, token revocado y push que intenta abrir recurso ajeno. Comprueba uso JSON de al menos cuatro servicios y ningún acceso a bases/Redis/XML de negocio.
+Prueba reserva/cupo en conflicto, doble toque, timeout tras escritura, interrupción/reconexión para operaciones que permitan borrador, token revocado y deep link que intenta abrir recurso ajeno. Comprueba uso JSON de al menos cuatro servicios y ningún acceso a bases/Redis/XML de negocio.
 
-Entrega proyecto compilable para ambos destinos, APK instalable de demostración y compilación iOS ejecutable en simulador; prepara archivo/IPA para dispositivo cuando haya firma y acceso autorizados, procedimiento para compilación de entrega con claves fuera del repositorio, instrucciones de Android Studio/SDK y macOS/Xcode, configuración y manual por perfil. Conserva evidencia real de cámara/QR/GPS/push; las capacidades verificadas únicamente en emulador se identifican y las pendientes de dispositivo físico no se presentan como probadas. No publiques en tienda ni distribuyas claves de firma sin autorización vigente. Actualiza `PROJECT_STATUS.md`.
+Entrega proyecto compilable para ambos destinos, APK para emulador y compilación iOS; documenta firma, instalación y recorridos del iPhone físico por separado. Incluye instrucciones de Android Studio/SDK, macOS/Xcode, Windows 11 y alcance Linux adicional comprobado. Conserva evidencia real de cámara/QR/GPS en la plataforma ejecutada; push físico permanece pendiente externo. No publiques en tienda ni distribuyas claves de firma sin autorización vigente. Revisa visualmente pantallas renderizadas y recorridos; métricas de píxeles no sustituyen esa revisión. Actualiza `PROJECT_STATUS.md`.
 
 ## Criterios adicionales para ambos sistemas
 
 - Comparte contratos, modelos, sesión y sincronización cuando sea apropiado. Encapsula ubicación, cámara/QR, almacenamiento seguro, push y ciclo de vida mediante implementaciones por plataforma; verifica bibliotecas/versiones con fuentes oficiales antes de fijarlas.
-- Configura mínimos Android/iOS justificados, Gradle y proyecto Xcode reproducibles. No presentes un APK como aplicación instalable en iPhone. Firma y publicación requieren sus accesos/autorización; una compilación de simulador no acredita instalación física.
+- Configura mínimos Android/iOS justificados, Gradle y proyecto Xcode reproducibles. No presentes un APK como aplicación instalable en iPhone. Firma y publicación requieren sus accesos/autorización; compilación no acredita instalación o recorrido físico.
 - Implementa permisos y captura mediante APIs de ubicación de cada sistema. Prueba pantalla bloqueada, segundo plano, suspensión, cierre forzado, ahorro de batería, permiso revocado y red interrumpida. No prometas GPS ni socket permanentemente activos cuando el sistema suspende el proceso; muestra interrupción, conserva lotes permitidos y recupera sin falsear la hora.
-- Push debe contemplar Android e iOS, incluido APNs/configuración Apple cuando corresponda, sin secretos en el cliente. La bandeja interna sigue funcionando con push denegado.
-- Ejecuta los mismos casos funcionales, negativos, accesibilidad y contratos en ambos destinos. Distingue simulador, ubicación inyectada y medición física. Mide captura–recepción–mapa por evento desde cada plataforma; no cierres iOS con pruebas realizadas solo en Android.
+- Mantén contratos/adaptadores push para Android/iOS sin preparar cuentas FCM/APNs. La integración y recepción física quedan pendientes externos. La bandeja interna debe funcionar de forma verificable.
+- Ejecuta casos funcionales, negativos, accesibilidad y contratos en Android emulador y iPhone físico. Distingue emulador, ubicación inyectada y medición física. Revisa las pantallas renderizadas durante recorridos completos; no uses métricas de píxeles como sustituto. No cierres iOS con pruebas Android. No descargues runtime Simulator.

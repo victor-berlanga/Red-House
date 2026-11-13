@@ -1,5 +1,16 @@
 # Estado vigente de Red House
 
+
+## Inicio del plan de cierre — 13/11/2026
+
+El usuario autorizó ejecutar el plan, usar subagentes según riesgo y mantener commits revisables. Tres frentes concurrentes: móvil Kotlin/Compose (modelo Terra, revisión fuerte), escritorio PySide6 (Terra) y alineación documental (Luna); al terminar documentación su plaza se dedica a almacenamiento (Terra). La dirección conserva integración, proxies, revisión y commits. Fecha de entrega indicada: día 23; terminar la parte técnica cuanto antes, sin prometer aceptación antes de verificarla.
+
+Decisiones vigentes: almacenamiento privado local del servidor con GCS opcional, conservando su requisito académico separado; Android en emulador e iOS en iPhone físico, sin descargar Simulator; escritorio macOS y Windows 11, Linux como objetivo verificable. Donante: campañas públicas y próximas citas, compartir texto con selector nativo. Transportista: mapa principal, tarea y siguiente acción. Push FCM/APNs físico queda pendiente externo por decisión de no preparar cuentas. Ubiquitous es la plataforma de subida humana, ya aclarada por el usuario; video, exposición y reflexiones también corresponden al equipo.
+
+Antes de comenzar se preservaron 134 archivos previos, con manifiesto/hash y copia privada bajo `.local/plan-start-20261113/`. Se separaron commits de servidor, móvil y evidencia previa: `6d8b88d`, `6de8eb9`, `0fbafe5`. Verificación de conservación: `git diff --check`, parseo de nueve Python y revisión de patrones de secretos; no acredita regresión de producto ni una auditoría exhaustiva. La evidencia histórica mantiene sus fechas y límites.
+
+Alineados siete documentos de ejecución y creada la [matriz de continuidad](documentation/entrega-final/continuidad/Matriz.md), con CONT-01…10, responsables, dependencias y criterios. Revisados contra las decisiones del usuario y las consignas de `../stuff`, incluida la bandeja de entrega final. Enlaces locales de los documentos revisados sin destinos faltantes; no se marca cerrado ningún criterio funcional por editar documentación. Aplicaciones, almacenamiento y proxies están en desarrollo. La revisión visual exige pantallas renderizadas y recorridos; ninguna estadística de píxeles sustituye la inspección.
+
 ## Optimización de servidor publicada en GCP — 12/11/2026
 
 Por autorización explícita «Subelos», publicados los siete archivos de servidor validados en **https://34.18.186.116**, VM existente `red-house`, proyecto `sistemas-integracion-01`, zona `me-central1-a`. Seis imágenes `optimization-20261112`: identidad/acceso, donantes, inventario, transporte, monitoreo y web. Once contenedores actualizados; treinta sanos y los otros diecinueve conservan ID/imagen. Configuración protegida, credenciales, dependencias, recursos, timeouts, pools y esquema PostgreSQL conservados.

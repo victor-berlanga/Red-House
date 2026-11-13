@@ -8,9 +8,11 @@ Actualización del **11/11/2026**: 01 y 02 tienen implementación y evidencia pr
 
 Los archivos 00–04 se conservan. La [continuidad obligatoria de 01–04](07_integracion_pruebas_y_rendimiento.md#continuidad-obligatoria-de-las-etapas-01-a-04) encarga sus correcciones posteriores mediante CONT-01…CONT-10: 05 desarrolla escritorio y resuelve sus dependencias, 06 completa controles/infraestructura compartidos, 07 corrige clientes y verifica integración, y 08 consolida evidencia y entregables. Ese bloque actualiza criterios antiguos incompatibles con decisiones posteriores sin eliminar requisitos ni reconstruir lo ya probado. Al ejecutar se mantiene un registro único en `documentation/entrega-final/continuidad/Matriz.md`; trasladar un pendiente no lo convierte en aprobado.
 
-El complemento 09 conserva lo construido y amplía la integración móvil pendiente. Los nombres históricos de archivos se conservan para no romper enlaces; `04_aplicacion_android.md` exige Android e iOS. La decisión vigente es probar iOS en el iPhone autorizado, sin descargar runtime Simulator; separa compilación, firma, instalación y ejecución.
+El complemento 09 conserva lo construido y amplía la integración móvil pendiente. Los nombres históricos de archivos se conservan para no romper enlaces; `04_aplicacion_android.md` exige Android e iOS. Android se acepta en emulador, sin teléfono; iOS se comprueba en iPhone físico autorizado, sin descargar runtime Simulator. Separa compilación, firma, instalación y ejecución.
 
-La fuente principal prevista de ubicación es la aplicación móvil; GPS externo queda como extensión opcional. El simulador permite verificar el portal antes de construir el móvil, sin acreditar todavía teléfonos reales.
+La fuente principal prevista de ubicación es la aplicación móvil; GPS externo queda como extensión opcional. Distingue datos de emulador de medición física. No uses una simulación para acreditar uso del iPhone.
+
+Las decisiones vigentes adicionales están en [reglas comunes](00_contexto_y_reglas.md): almacenamiento privado del servidor como modo operativo y GCS opcional con verificación académica independiente; sin modo offline universal; push FCM/APNs externo pendiente, con bandeja/adaptadores verificables; feed de campañas/citas para donante, mapa protagonista para transportista y revisión visual de pantallas/recorridos renderizados. Video, exposición, aclaración de «ubiquitous», reflexión y entrega individual son acciones humanas.
 
 ## Uso y orden de ejecución
 
@@ -27,7 +29,7 @@ Lee también el [complemento 09 de rastreo GPS por WebSockets y mapa de Nuevo Le
 | 1 | [Backend y microservicios](01_backend_y_microservicios.md) | Cubrir las 24 responsabilidades de la retroalimentación mediante servicios y módulos justificados, datos reales y contratos JSON/XML |
 | 2 | [Reglas clínicas y algoritmos](02_reglas_clinicas_y_algoritmos.md) | Registro HLA, evaluaciones explicables, control humano, logística, balanceo, caducidad e inconsistencias |
 | 3 | [Portal web](03_portal_web.md) | Operación empresarial completa y autónoma, formularios, paneles, archivos y reportes |
-| 4 | [Móvil Android/iOS](04_aplicacion_android.md) | Aplicación Kotlin Multiplatform con Compose Multiplatform, JSON, perfiles, QR, cámara, GPS, push y sincronización segura |
+| 4 | [Móvil Android/iOS](04_aplicacion_android.md) | Kotlin Multiplatform/Compose, JSON, cinco roles, QR/cámara/GPS, bandeja interna; Android emulador e iPhone físico |
 | 5 | [Escritorio](05_aplicacion_escritorio.md) | Consola PySide6 con Python, XML/XSD, trabajo institucional, impresión y exportaciones |
 | 6 | [Seguridad e infraestructura](06_seguridad_infraestructura_y_continuidad.md) | Endurecimiento, archivos analizados, GCP, continuidad, respaldos, recuperación y CI |
 | 7 | [Integración y pruebas](07_integracion_pruebas_y_rendimiento.md) | Corregir/verificar CONT-01…CONT-10 heredados; tres procesos completos, coherencia entre clientes, fallos, seguridad, Locust y usabilidad |

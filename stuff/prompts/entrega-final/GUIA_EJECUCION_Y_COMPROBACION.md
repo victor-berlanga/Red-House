@@ -4,7 +4,9 @@ Usa esta guía para encargar cada etapa de la entrega final y revisar si realmen
 
 Los bloques son encargos listos para copiar. Los requisitos completos permanecen en los archivos 01 a 08 y en el complemento transversal 09; estas listas los ayudan a comprobar y no sustituyen ni reducen su alcance. Este documento no indica que las etapas ya estén implementadas o aprobadas.
 
-Incluye como requisito transversal el [complemento 09 de rastreo GPS por WebSockets y mapa de Nuevo León](09_rastreo_gps_websockets.md), que se lee y aplica **desde el prompt 01**, no después de terminar el 08. El software se prueba con simulador identificado y conexiones WSS reales hasta comprobar captura desde la aplicación móvil; GPS externo queda opcional. Esta dependencia no justifica entregar solo un diseño, polling o puntos animados sin backend.
+Incluye como requisito transversal el [complemento 09 de rastreo GPS por WebSockets y mapa de Nuevo León](09_rastreo_gps_websockets.md), aplicado **desde el prompt 01**. Distingue datos simulados de captura móvil: Android se prueba en emulador sin requerir teléfono; iOS en iPhone físico autorizado, sin descargar Simulator. GPS externo queda opcional. Esta dependencia no justifica entregar solo diseño, polling o puntos animados sin backend.
+
+Aplica también las decisiones vigentes de `00_contexto_y_reglas.md`: archivos privados en servidor como modo operativo, GCS opcional para producto con verificación académica separada; sin offline universal; push FCM/APNs externo pendiente sin preparar cuentas, con bandeja/adaptadores verificables. macOS y Windows 11 son plataformas de trabajo; Linux es objetivo adicional por comprobar. Donante inicia en feed de campañas/citas y comparte texto público con selector nativo; transportista tiene mapa protagonista, tarea y siguiente acción. Conserva cinco roles. Revisión visual significa observar pantallas renderizadas y recorridos completos; métricas de píxeles no la sustituyen. Video, exposición, «ubiquitous», reflexiones y entrega individual requieren intervención humana.
 
 ## Cómo usar la guía
 
@@ -22,7 +24,7 @@ La ubicación del proyecto es `/Users/victorberlanga/Programacion/integracion/Re
 
 Conserva los archivos de prompts 00–04. Las correcciones y verificaciones heredadas se encargan mediante [Continuidad obligatoria de las etapas 01 a 04](07_integracion_pruebas_y_rendimiento.md#continuidad-obligatoria-de-las-etapas-01-a-04), con diez criterios CONT y registro único en `documentation/entrega-final/continuidad/Matriz.md` al ejecutar. 05 registra/resuelve dependencias de escritorio; 06 completa controles, proveedores y ensayos compartidos; 07 corrige clientes y comprueba integración; 08 recibe los resultados y entrega los artefactos. Leer ese bloque desde 05/06 no requiere ejecutar antes toda la etapa 07.
 
-Este traslado fue solicitado para continuar en etapas posteriores; no acredita cierre de 03/04 ni permite omitir sus defectos. Continúa tareas independientes y conserva cada criterio abierto con su dueño y aceptación. Reutiliza evidencia aplicable y repite solo lo afectado o no comprobado. Las decisiones posteriores prevalecen sobre instrucciones históricas de esta guía: iOS se prueba en el iPhone autorizado, sin descargar runtime Simulator mientras esa decisión siga vigente. Compilar, firmar, instalar y ejecutar son comprobaciones distintas.
+Este traslado fue solicitado para continuar en etapas posteriores; no acredita cierre de 03/04 ni permite omitir defectos. Conserva criterio abierto con dueño y aceptación. Reutiliza evidencia aplicable y repite solo lo afectado/no comprobado. Android se acepta en emulador; iOS en iPhone autorizado, sin descargar Simulator. Compilar, firmar, instalar y ejecutar son comprobaciones distintas.
 
 Para diseño en 05 y correcciones de UI en 07, lee [instrucciones UI/UX](../instrucciones_diseno_ui_ux.md) y [corrección de calidad visual](../corregir_calidad_visual_web_movil.md). Exige criterios previos y recorridos por familia/rol; una captura o compilación no acredita experiencia terminada.
 
@@ -190,8 +192,8 @@ Requisito completo: [Móvil iOS y Android con Kotlin Multiplatform y Compose Mul
 Lee y ejecuta stuff/prompts/entrega-final/04_aplicacion_android.md.
 Lee también AGENTS.md, PROJECT_STATUS.md y stuff/prompts/entrega-final/00_contexto_y_reglas.md.
 Construye una sola aplicación Kotlin Multiplatform con Compose Multiplatform, con vistas y operaciones por perfil, conectada a microservicios reales exclusivamente mediante JSON.
-Completa sesión segura, QR, cámara, GPS, push, sincronización restringida, pruebas, APK instalable y compilación/arranque iOS en simulador, con firma física cuando exista acceso autorizado. No uses una WebView del portal.
-Integra seguimiento WSS JSON y mapa de Nuevo León, diferenciando GPS del teléfono, simulador y adaptador para el GPS externo futuro.
+Completa sesión segura, QR, cámara, GPS, bandeja y adaptadores push, pruebas, APK para emulador y compilación/arranque en iPhone físico. No prepares cuentas FCM/APNs; su recepción física queda pendiente externa. No uses WebView.
+Integra seguimiento WSS JSON y mapa de Nuevo León, diferenciando GPS de iPhone, emulador y adaptador para GPS externo futuro. Donante inicia en feed de campañas/citas y comparte texto público con selector nativo. Transportista usa mapa protagonista con tarea y siguiente acción.
 Actualiza documentación y PROJECT_STATUS.md con resultados, plataformas verificadas y pendientes reales.
 ```
 
@@ -200,22 +202,22 @@ Actualiza documentación y PROJECT_STATUS.md con resultados, plataformas verific
 ```text
 Audita la etapa 04 contra stuff/prompts/entrega-final/04_aplicacion_android.md completo.
 Aplica el Protocolo de comprobación de stuff/prompts/entrega-final/GUIA_EJECUCION_Y_COMPROBACION.md. Revisa, no implementes correcciones.
-Comprueba compilación/APK Android y compilación/arranque iOS, aplicación multiplataforma con vistas por perfil, consumo JSON real de al menos cuatro servicios y ausencia de conexión a bases/Redis o sesiones internas web.
-Verifica donante/citas, transportista/tareas, operador/recepción y vistas autorizadas; QR, cámara, fuente GPS y push con su alcance real, almacenamiento protegido, renovación/logout y privacidad.
-Comprueba mapa de Nuevo León y WSS JSON real con reconexión y permisos. Los datos del simulador deben identificarse; no equivalen a captura física de un teléfono. Registra resultados móviles por plataforma; GPS externo opcional.
-Audita pérdida de conexión/respuesta, reinicio, cambio de cuenta, revocación y conflictos: ningún evento pendiente confirma offline una reserva, liberación o cierre de custodia.
-Distingue emulador, dispositivo físico, proveedor externo y dependencias de escritorio aún no construido. No declares probada una capacidad simulada.
+Comprueba APK/arranque Android en emulador y compilación/instalación/arranque en iPhone físico, aplicación multiplataforma con los cinco roles, consumo JSON real de al menos cuatro servicios y ausencia de conexión a bases/Redis o sesiones web internas.
+Verifica feed/citas del donante, mapa/tarea/siguiente acción del transportista, operador/recepción y vistas de los otros roles; QR, cámara y GPS con alcance real. Verifica bandeja/adaptadores; FCM/APNs y recepción física quedan pendientes externos. Comprueba almacenamiento protegido, renovación/logout y privacidad.
+Comprueba mapa de Nuevo León y WSS JSON real con reconexión y permisos. Datos de emulador se identifican; no equivalen a captura física iOS. Registra Android emulador e iPhone físico; GPS externo opcional.
+Prueba pérdida de conexión solo para operaciones que admitan borrador/caché. Ninguna tarea local confirma reserva, liberación o cierre de custodia.
+Distingue emulador, iPhone físico, proveedor externo y escritorio. Revisa visualmente pantallas renderizadas y completa recorridos reales; no uses métricas de píxeles como aceptación.
 Entrega la matriz de requisitos, evidencia aplicable al código actual, brechas y acciones de cierre. Termina con el veredicto definido en el protocolo.
 ```
 
 ### Qué debes obtener de la comprobación
 
-- Comando de compilación, resultado, APK identificable y prueba de instalación/arranque en un entorno Android identificado; añade comando y evidencia de compilación/arranque iOS en simulador o dispositivo identificado.
+- Comando de compilación, resultado, APK identificable y prueba en emulador Android; añade evidencia de compilación, firma, instalación, arranque y recorrido en iPhone físico. No descargues Simulator ni exijas teléfono Android.
 - Una app con vistas por perfil y evidencia JSON de al menos cuatro microservicios, sin credenciales o conexiones directas a almacenes.
 - Recorridos reales de cita y traslado, con verificación QR, evidencia de cámara, ubicación y recepción/resultado autorizado.
-- Prueba de push y apertura autorizada del recurso; si falta proveedor o dispositivo, pendiente explícito con alcance y efecto.
+- Prueba de bandeja/adaptadores push y apertura reautorizada; FCM/APNs y recepción física quedan pendientes externas. No prepares cuentas de proveedor.
 - Verificación de almacenamiento cifrado, renovación coordinada, limpieza al salir y separación entre cuentas.
-- Evidencia offline/reconexión sin duplicación, conflicto visible, tarea pendiente y rechazo de acciones críticas sin validación central.
+- Evidencia de borrador/caché solo para operaciones autorizadas, reconexión sin duplicación y rechazo de acciones críticas sin validación central; no exijas modo offline universal.
 - Seguimiento JSON por WSS sobre mapa actual de Nuevo León, fuente distinguible, datos atrasados identificados y resultados físicos separados por teléfono; conserva pendientes los no comprobados. GPS externo opcional.
 - Lista de pruebas que requieren el escritorio de la etapa 05 o integración de la 07; quedan abiertas hasta su ejecución, no se marcan aprobadas.
 
@@ -276,7 +278,7 @@ Requisito completo: [Seguridad e infraestructura](06_seguridad_infraestructura_y
 Lee y ejecuta stuff/prompts/entrega-final/06_seguridad_infraestructura_y_continuidad.md.
 Lee también AGENTS.md, PROJECT_STATUS.md y stuff/prompts/entrega-final/00_contexto_y_reglas.md.
 Lee la continuidad de 01–04 definida en 07 y documentation/entrega-final/portal/Aceptacion_integrada_06.md. Comprueba entorno vigente y resuelve I06-01…09 y CONT aplicables, sin asumir ausencias o esquemas históricos.
-Completa la integración autorizada GCS/ClamAV y proveedor FCM/APNs con sus propietarios. Separa implementación, configuración y entrega física; un 2xx del adaptador no acredita recepción.
+Completa y verifica almacenamiento privado servidor/ClamAV. Verifica GCS como criterio académico independiente si hay acceso autorizado; es opcional en el producto. No prepares cuentas FCM/APNs: comprueba bandeja/adaptadores y marca recepción física pendiente externa.
 Completa y verifica seguridad, MFA/reautenticación, privacidad, análisis de archivos, infraestructura, monitoreo, respaldos y recuperación con RTO/RPO.
 Configura y prueba WSS/gateway, autorización continua del rastreo GPS, reconexión entre réplicas, retención de ubicación y fallo de cartografía.
 Conserva datos y autorizaciones vigentes. Ensaya fallos/restauraciones en entornos aislados; no publiques cambios productivos sin autorización vigente.
@@ -288,9 +290,9 @@ Actualiza evidencias, documentación y PROJECT_STATUS.md distinguiendo implement
 ```text
 Audita la etapa 06 contra stuff/prompts/entrega-final/06_seguridad_infraestructura_y_continuidad.md completo.
 Aplica el Protocolo de comprobación de stuff/prompts/entrega-final/GUIA_EJECUCION_Y_COMPROBACION.md. Revisa, no implementes correcciones.
-Comprueba I06-01…09 y CONT aplicables con entorno/versión actuales. Exige ciclo documental real y separa proveedor push implementado/configurado de recepción y apertura comprobadas desde los clientes.
+Comprueba I06-01…09 y CONT aplicables con entorno/versión actuales. Exige ciclo documental del servidor y prueba GCS académica independiente. Separa bandeja/adaptadores push de recepción física FCM/APNs pendiente.
 Comprueba SEC-01 a SEC-03 e INF-01 a INF-04 con evidencia: MFA, reautenticación, JWT/Redis, aislamiento institucional, documentos privados/antimalware, contenedores, HTTPS, workers y CI.
-Verifica caída de una réplica, servicio completo y PostgreSQL/Redis/MongoDB/GCS; confirma rechazo seguro, operaciones pendientes y recuperación sin duplicados. No confundas redundancia de API con tolerancia a pérdida de host.
+Verifica caída de una réplica, servicio completo, PostgreSQL/Redis/MongoDB y almacenamiento privado. Prueba GCS caído como escenario separado/opcional cuando aplique. Confirma rechazo seguro y recuperación sin duplicados.
 Audita WSS, orígenes web, identidad de GPS/puente, suscripción por traslado, revocación con socket abierto, reconexión/cursor y límites; Redis inaccesible no autoriza continuar entregando posiciones protegidas.
 Exige respaldo restaurado, comparación de datos/permisos/objetos y objetivos frente a RTO/RPO medidos; no aceptes como restauración un archivo de backup existente.
 Identifica lo realmente desplegado, lo probado localmente, lo solo diseñado y las dependencias externas pendientes.
@@ -300,7 +302,7 @@ Entrega la matriz de requisitos, evidencia aplicable al código actual, brechas 
 ### Qué debes obtener de la comprobación
 
 - Matriz de seguridad con intentos rechazados por rol, institución, asignación, sesión/dispositivo revocado y reautenticación reutilizada.
-- Resultado de I06-01…09 y criterios CONT a cargo de 06; proveedor push, ciclo GCS y pendientes de prueba cliente entregados expresamente a 07.
+- Resultado de I06-01…09 y criterios CONT a cargo de 06; bandeja/adaptadores, push físico externo pendiente y prueba académica GCS separados en el registro.
 - Evidencia de que archivos pendientes/rechazados no se descargan como limpios, del motor antimalware y de la recuperación cuando falla el análisis o GCS.
 - Inventario desplegable de imágenes, procesos, workers, puertos, secretos y redes, conservando PostgreSQL compartido y mínimo privilegio.
 - Matriz de fallos con esperado/obtenido: réplica, servicio completo, almacenes, gateway, worker y host, señalando lo probado frente a lo diseñado.
@@ -336,7 +338,7 @@ Aplica el Protocolo de comprobación de stuff/prompts/entrega-final/GUIA_EJECUCI
 Comprueba CONT-01…CONT-10, origen de cada brecha, propietario, criterio y evidencia actual. Una reducción de alcance requiere decisión explícita; no confundas aprobación clínica externa con defecto del mecanismo académico.
 Comprueba E2E-A, E2E-B y E2E-C completos por Android e iOS, consulta entre productos con mismos IDs/estados/versiones, cuatro servicios por cliente y tareas reales en navegador/Android/iOS/PySide6.
 Verifica criterios de usabilidad definidos antes de medir, todos los roles/familias, formatos comprensibles, accesibilidad y paginación sin truncamiento. Distingue lectura de código, fixtures y ejecución nativa/física.
-Verifica contratos, roles/privacidad, concurrencia, offline/revocación, recuperación de fallos y ausencia de confirmaciones falsas o efectos duplicados.
+Verifica contratos, roles/privacidad, concurrencia, borradores/cachés permitidos, revocación, recuperación y ausencia de confirmaciones falsas o efectos duplicados. No presupongas offline universal.
 Comprueba TRACK-01 a TRACK-10: fuente simulada, ingreso/persistencia, WSS, mapa actual de Nuevo León, JSON/XML, orden/cursor, permisos y latencia extremo a extremo. No aceptes polling como WebSockets ni simulación como prueba física.
 Audita dataset, condiciones y datos brutos de Locust: perfiles, usuarios, tasa, media/p95/p99, errores, recursos, saturación y recuperación. La comparación sin caché debe mantener seguridad Redis.
 Vuelve a revisar los pendientes de etapas previas; no los consideres resueltos por haber llegado a integración. Distingue pruebas actuales, históricas, simuladas y no ejecutadas.
@@ -348,7 +350,7 @@ Entrega la matriz de requisitos, evidencia aplicable al código actual, brechas 
 - Tres expedientes integrales: sangre hasta uso/destino, coordinación de órgano con autorizaciones registradas y donación desde Android o iOS hasta procesamiento/inventario.
 - Al menos un caso que cruce móvil Android/iOS JSON, escritorio XML y web, con IDs, versiones, permisos y persistencia relacionados.
 - Informe de regresión actual y matrices de contratos, seguridad, concurrencia y fallos, conservando errores/repeticiones sin inflar resultados.
-- Demostración de sincronización tras desconexión sin duplicación ni confirmación crítica offline y de recuperación segura ante caída de servicio/almacenes.
+- Demostración de recuperación tras desconexión para operaciones que admitan borrador/caché, sin duplicación ni confirmación crítica local, y recuperación segura ante caída de servicio/almacenes.
 - Dataset reproducible, configuración Locust y resultados brutos con concurrencia, peticiones/s, latencias media/p95/p99, errores, recursos y recuperación.
 - Recorridos de interfaz y usabilidad con alcance identificado: automatización o participantes reales, dispositivos y plataformas efectivamente probados.
 - Expediente completo del rastreo con simulador, mensajes WSS reales, mapas de Nuevo León, seguridad/recuperación y métricas de emisores/suscriptores; aceptación móvil física diferenciada; GPS externo opcional.

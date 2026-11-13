@@ -10,7 +10,7 @@ Lee la [continuidad obligatoria de 01–04 definida en 07](07_integracion_prueba
 
 Comprueba el entorno vigente antes de seguir instrucciones históricas: esquema, imágenes, gateway, permisos de ensayo, ClamAV y accesos a proveedores. La revisión del 11/11/2026 encontró referencias antiguas al esquema 17 y a dependencias ausentes; el estado posterior ya documenta esquema 18, gateway publicado y ClamAV preparado. No fijes esas versiones para siempre, no reviertas el entorno ni marques una dependencia como resuelta sin comprobar su alcance actual. Las autorizaciones de despliegue anteriores no autorizan nuevas pruebas destructivas sobre producción.
 
-Resuelve I06-01…09 con evidencia aplicable: ciclo GCS/ClamAV desde navegador; documentos HLA y evidencia de traslado; versiones, conservación y bloqueos; EICAR aislado; fallos/recuperación; reportes CSV/PDF/XLSX de más de 1000 filas con filtros, conteos y ámbito coherentes; WSS con una y todas las réplicas detenidas, autonomía web, recuperación/revocación y manifiestos. Reutiliza los casos que ya acrediten el código y entorno actuales; repite los afectados por cambios o brechas demostradas. Conserva identificadores WEB/TRACK/CONT y evita contar el mismo ensayo varias veces.
+Resuelve I06-01…09 con evidencia aplicable: ciclo de archivos del modo operativo privado en servidor; verificación GCS separada como requisito académico aunque GCS sea opcional para el producto; documentos HLA y evidencia de traslado; versiones, conservación y bloqueos; EICAR aislado; fallos/recuperación; reportes CSV/PDF/XLSX de más de 1000 filas con filtros, conteos y ámbito coherentes; WSS con una y todas las réplicas detenidas, autonomía web, recuperación/revocación y manifiestos. Reutiliza los casos que ya acrediten el código y entorno actuales; repite los afectados por cambios o brechas demostradas. Conserva identificadores WEB/TRACK/CONT y evita contar el mismo ensayo varias veces.
 
 ## SEC-01 Identidad sesiones y operaciones críticas
 
@@ -34,25 +34,27 @@ Revisa inyección SQL, XXE, XML grande, JSON ambiguo, XSS, CSRF, cargas, URLs ex
 
 ## SEC-03 Documentos privados y antimalware
 
-Amplía el flujo GCS existente con clasificación y estados de preparación, carga, validación, análisis pendiente, limpio, rechazado, error, bloqueo y eliminación según política. Un archivo sin análisis válido no se ofrece para descarga operativa ni se considera evidencia verificada.
+Mantén almacenamiento privado del servidor como ruta operativa principal. GCS es opcional para los flujos de producto, pero tiene verificación académica propia: prueba aislada y registra APROBADO/PARCIAL/FALLIDO/NO VERIFICADO por separado. No bloquees el producto cuando GCS no está configurado si el almacenamiento local autorizado funciona; tampoco atribuyas a GCS la evidencia del servidor privado.
+
+Para el flujo de archivos, conserva clasificación y estados de preparación, carga, validación, análisis pendiente, limpio, rechazado, error, bloqueo y eliminación según política. Un archivo sin análisis válido no se ofrece para descarga operativa ni se considera evidencia verificada.
 
 Integra un motor antimalware mantenido, por ejemplo ClamAV si satisface el entorno, con firmas actualizadas, worker aislado, timeout y límites de recursos. Registra motor/versión/firmas, generación/hash analizados, fecha y resultado. Una caída o análisis incompleto conserva cuarentena y reintento; nunca produce limpio por defecto.
 
-Mantén validación estructural/MIME/tamaño/hash, límites de imágenes/PDF y detección de contenido activo; un antivirus no sustituye esos controles. Comprueba creación exclusiva, generación GCS y descarga del objeto exacto. Evita procesar URLs arbitrarias enviadas por cliente y no entregues credenciales del bucket.
+Mantén validación estructural/MIME/tamaño/hash, límites de imágenes/PDF y detección de contenido activo; un antivirus no sustituye esos controles. Comprueba el ciclo del almacenamiento privado. Si existe integración GCS, prueba creación exclusiva, generación y descarga del objeto exacto como criterio separado. Evita procesar URLs arbitrarias enviadas por cliente y no entregues credenciales del bucket.
 
 Define políticas versionadas de categoría, privacidad, retención, bloqueo legal/documental, eliminación lógica y física, recuperación autorizada, registro de borrado y verificación de integridad. Para pruebas usa periodos sintéticos identificados; los plazos clínicos reales requieren fuentes y aprobación competente. No borres registros/objetos existentes al activar una política nueva.
 
 Demuestra archivo limpio, contenido inválido, archivo de prueba antimalware estándar en entorno aislado, motor caído, firma antigua, timeout, objeto sustituido/ausente, URL expirada y acceso de otra institución. No uses malware real ni mezcles archivos de prueba con expedientes reales.
 
-Ante GCS caído durante un traslado, registra la incidencia y evidencia pendiente sin afirmar carga/verificación. Permite solo las transiciones que el protocolo autoriza sin ese documento; bloquea las que lo exigen. Prueba recuperación sin duplicar objetos ni cerrar falsamente custodia.
+Ante caída del almacenamiento usado, registra incidencia y evidencia pendiente sin afirmar carga/verificación. Prueba por separado el comportamiento del servidor privado y, si se configuró para ensayo, GCS. Permite solo transiciones autorizadas sin documento; bloquea las que lo exigen. Prueba recuperación sin duplicar objetos ni cerrar falsamente custodia.
 
-Completa la dependencia CONT-08 con un objeto real en un prefijo de prueba autorizado y un motor real. Comprueba preparación, carga, análisis, generación/hash, consulta/descarga y vínculo documental HLA o de traslado. El ensayo local CLEAN/EICAR solo acredita el motor. Prueba revocación entre creación y descarga de reportes/documentos: impedir nuevas autorizaciones o firmas según el contrato, y documentar la vigencia residual real de URLs ya emitidas sin prometer revocación inmediata inexistente. Entrega a 07 las condiciones reproducibles para acreditar el recorrido desde Android e iOS.
+Completa CONT-08 con un objeto real, almacenamiento privado y motor real en entorno aislado. Comprueba preparación, carga, análisis, hash, consulta/descarga y vínculo documental HLA o de traslado. Ejecuta además una prueba GCS independiente solo en el prefijo aislado autorizado disponible; si no existe acceso, registra dependencia académica externa pendiente sin bloquear flujos locales. El ensayo CLEAN/EICAR solo acredita el motor. Prueba revocación entre creación y descarga de reportes/documentos: impedir nuevas autorizaciones o firmas según contrato y documentar vigencia residual de URLs emitidas. Entrega a 07 condiciones reproducibles para clientes aplicables.
 
 ## Entrega push pendiente de 04
 
-Asume CONT-07 con el propietario Alertas. Inspecciona su adaptador HTTP y los adaptadores nativos antes de completar la integración HTTPS autorizada con FCM/APNs; no presupongas que existe un proveedor operativo ni crees un microservicio adicional por defecto. Separa implementación/adaptación, configuración, firma/entitlements/permisos y recepción en el dispositivo. Si faltan accesos, completa y prueba el trabajo independiente con un receptor identificado de laboratorio, conservando la entrega física como no verificada.
+Asume CONT-07 con el propietario Alertas. Inspecciona su adaptador HTTP y adaptadores nativos. La entrega física FCM/APNs queda pendiente externa por decisión: no prepares cuentas, proyectos, certificados, claves ni dispositivos de proveedor. Completa y prueba lo independiente: bandeja interna, contratos y adaptadores con receptor identificado de laboratorio. Separa código, configuración, permiso y recepción; nunca llames push recibido a un adaptador o outbox verificado.
 
-Preserva `event_id` como referencia de entrega/idempotencia y `alert_id` como referencia opaca para abrir la alerta. Verifica destinatario autorizado, consentimiento, permisos, rotación, reintentos, deduplicación, expiración/revocación y payload mínimo sin datos clínicos. Mantén el límite de destinos por cuenta/canal que realmente soporte el contrato; no prometas entrega multidispositivo sin implementarla. La prueba conjunta con 07 debe mostrar recepción y apertura reautorizada en Android e iOS; un 2xx del proveedor, un token registrado o un outbox vacío no bastan. No habilites proyectos facturables, cuentas o publicaciones externas sin autorización vigente.
+Preserva `event_id` como referencia de entrega/idempotencia y `alert_id` como referencia opaca para abrir la alerta. Verifica bandeja interna, destinatario autorizado, consentimiento, permisos, rotación, reintentos, deduplicación, expiración/revocación y payload mínimo sin datos clínicos. Mantén límite de destinos por cuenta/canal soportado. La recepción física FCM/APNs es NO VERIFICADA y queda pendiente por decisión; no prepares proyectos, cuentas, certificados ni claves de proveedor. Un 2xx, token registrado o outbox vacío no demuestra recepción.
 
 ## INF-01 Contenedores y despliegue
 
@@ -72,7 +74,7 @@ Monitoriza fuente GPS, ingreso, persistencia, canal y proveedor cartográfico po
 
 ## INF-02 Observabilidad y dependencias
 
-Comprueba `/health/live`, `/health/ready`, `/health/database`, `/health/redis`, `/health/mongodb` y `/health/storage` donde apliquen. Distingue no aplicable de disponible; no informes GCS sano solo porque existe una variable.
+Comprueba `/health/live`, `/health/ready`, `/health/database`, `/health/redis`, `/health/mongodb` y `/health/storage` donde apliquen. Distingue no aplicable de disponible; no informes GCS sano solo porque existe una variable. Si GCS no es la ruta operativa seleccionada, márcalo opcional/no aplicable al health operacional y conserva su verificación académica independiente.
 
 Incluye salud del worker de cada réplica, antigüedad/tamaño del outbox, reintentos, conflictos, trabajo antimalware y entregas push/email. Si existe una cola nueva, monitoréala; no añadas un broker solo para cumplir una palabra de la retroalimentación.
 
@@ -80,11 +82,11 @@ Centraliza o prepara centralización de logs/metricas con servicio, versión, co
 
 ## INF-03 Continuidad RTO y RPO
 
-Documenta una matriz por operación y componente para: una réplica caída, todas las réplicas de un propietario, gateway caído, PostgreSQL caído, Redis caído, MongoDB caído, GCS caído, worker detenido, red interrumpida y host perdido.
+Documenta una matriz por operación y componente para: una réplica caída, todas las réplicas de un propietario, gateway caído, PostgreSQL caído, Redis caído, MongoDB caído, almacenamiento privado caído, GCS caído como destino opcional, worker detenido, red interrumpida y host perdido.
 
 Define objetivos numéricos RTO y RPO por tipo de dato/servicio antes de los ensayos, con justificación académica y responsables. Diferencia objetivo propuesto, acuerdo operativo real y tiempo/pérdida medidos. No inventes un SLA clínico ni uses duración con equipo suspendido como RTO.
 
-Conserva respaldo coordinado de PostgreSQL/roles, MongoDB/usuarios, Redis/ACL, configuración, claves, versiones y referencias a objetos GCS. Define frecuencia, cifrado, acceso, retención, copia fuera del host y restauración. El respaldo SQL no incluye el binario del bucket: protege generaciones GCS y prueba su recuperación según el mecanismo realmente configurado.
+Conserva respaldo coordinado de PostgreSQL/roles, MongoDB/usuarios, Redis/ACL, configuración, claves y versiones. Define frecuencia, cifrado, acceso, retención, copia fuera del host y restauración. Incluye objetos GCS solo si se configuró ese destino: un respaldo SQL no contiene binarios externos. Mantén su verificación académica separada.
 
 Restaura en infraestructura aislada sin sobrescribir el sistema activo. Mide desde el inicio del incidente hasta la recuperación funcional, no solo el arranque del proceso. Compara conteos/hashes/relaciones, eventos, permisos, TTL, documentos, objetos y operaciones pendientes. Calcula RPO con últimas transacciones conocidas; diferencia caída con volúmenes intactos de pérdida de disco/host.
 
@@ -108,4 +110,4 @@ Las pruebas destructivas y de saturación se ejecutan solo en entornos aislados 
 
 Incluye Android e iOS en CI con runners apropiados (macOS/Xcode para iOS), firma protegida y artefactos diferenciados. Verifica permisos de ubicación, almacenamiento seguro y push por plataforma. Ensaya bloqueo, suspensión, cierre forzado, ahorro de batería y revocación: ningún socket se presume permanente. La aplicación móvil es fuente principal; no exijas GPS externo opcional como condición de cierre.
 
-Para la continuación del 11/11/2026 rige la prueba en iPhone físico autorizada y la decisión de no descargar runtime Simulator. Distingue compilación CI, firma, instalación y ejecución; declara lo no ejecutado. Un cambio futuro de destino requiere decisión registrada, sin reducir los recorridos de aceptación de 07.
+Para Android usa emulador, sin exigir teléfono. Para iOS rige prueba en iPhone físico autorizada y no descargar runtime Simulator. Distingue compilación CI, firma, instalación y ejecución; declara lo no ejecutado. macOS y Windows 11 son plataformas de trabajo; Linux es objetivo adicional por verificar. No prepares cuentas push externas.
