@@ -1,5 +1,13 @@
 # Estado vigente de Red House
 
+## Identidad operativa integrada y aceptación nativa en curso — 13/11/2026
+
+Integrado `6d84bd6`: Transporte ofrece una proyección mínima del nombre de cuenta operativa del transportista asignado. La ruta anterior conserva su contrato. Identidad solo responde al servicio Transporte firmado con actor delegado; Transporte verifica ámbito, identidad y versión del traslado después de la consulta remota. **Cuatro pruebas JSON/XML, permisos y reasignación concurrente aprobadas en 69,48 s**, con JUnit y ocho hashes comprobados. [Evidencia](documentation/evidencias/entrega-final/transporte-nominal-20261113/README.md). No equivale a identidad legal ni recepción física, y todavía no está publicado en GCP.
+
+iPhone 16 Pro: XCUITest ejecutado contra la app normal instalada, una prueba aprobada. Se inspeccionó la captura real del acceso: Cuenta/Contraseña legibles, sin gateway ni MFA prematuro. La imagen completa contiene actividad ajena del sistema y permanece privada; no se incorpora al repositorio. Recorrido autenticado de lectura en preparación. Esto acredita acceso y renderizado, no el cierre de 04 ni capacidades físicas.
+
+La suite conjunta del worktree SEC/almacenamiento registró 37 aprobados y dos fallos en transición de perfiles JSON/XML. Ambos corresponden a `InsufficientPrivilege` al solicitar bloqueo sobre un perfil inmutable; se corrige conservando privilegios y triggers de inmutabilidad. Autonomía API/portal y transferencia HTTPS con Nginx/ClamAV reales pasaron dentro de esa ejecución. Corrección dirigida, integración y despliegue siguen pendientes; no se presenta como suite íntegramente aprobada.
+
 ## Continuidad publicada en GCP y clientes en verificación — 13/11/2026
 
 Publicado el servidor de `53844ab` y sus incrementos previos en la VM **red-house**, proyecto **sistemas-integracion-01**, zona **me-central1-a**, https://34.18.186.116. Cuarenta y dos fuentes coincidentes, trece imágenes finales y treinta contenedores sanos. Esquema 19 aplicado después de respaldo PostgreSQL y restauración/migración de una copia privada en 41,61 s; 37 referencias históricas GCS y tres trabajos de exportación conservados. El ensayo no acredita restauración coordinada de toda la plataforma ni RTO. Clave temporal OS Login retirada, clave privada local eliminada y dos claves previas conservadas; VM encendida para el equipo. [Publicación, pruebas e incidencias](documentation/evidencias/gcp/continuidad-20261113/RESULTADOS.md).
