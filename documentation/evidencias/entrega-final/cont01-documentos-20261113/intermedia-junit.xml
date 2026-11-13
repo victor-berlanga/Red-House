@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="2" time="59.121" timestamp="2026-11-13T15:59:09.322456-06:00" hostname="Victors-MacBook-Air.local"><testcase classname="tests.test_cont01_hla_documents" name="test_hla_document_cross_test_binding_and_versions[json]" time="47.864"><failure message="assert (False)">apps/services/tests/test_cont01_hla_documents.py:224: in test_hla_document_cross_test_binding_and_versions
+    assert (
+E   assert (False)</failure></testcase><testcase classname="tests.test_cont01_hla_documents" name="test_hla_document_cross_test_binding_and_versions[xml]" time="10.176"><failure message="assert (False)">apps/services/tests/test_cont01_hla_documents.py:224: in test_hla_document_cross_test_binding_and_versions
+    assert (
+E   assert (False)</failure></testcase></testsuite></testsuites>

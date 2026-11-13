@@ -608,6 +608,10 @@ def install(app):
                 own(documented["tenant_id"])
                 if str(documented["sample_id"]) != data["sample_id"]:
                     raise APIError("conflict", "Documento de otra muestra.", 409)
+                if documented["test_code"] != data["test_code"]:
+                    raise APIError(
+                        "evidence_mismatch", "Documento de otra prueba.", 409
+                    )
 
         def work(conn):
             sample = get(conn, "lab_samples", data["sample_id"], True)
