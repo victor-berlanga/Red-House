@@ -28,6 +28,7 @@ LABEL_ISSUANCE_ENABLED = True
 CUSTODY_ACCEPT_ENABLED = True
 
 LABELS = {'OPERATOR':'Operador', 'MEDICAL':'Personal médico', 'COORDINATOR':'Coordinación', 'ADMIN':'Administración', 'AUDITOR':'Auditoría', 'QUARANTINE':'En cuarentena', 'AVAILABLE':'Disponible', 'BLOOD':'Sangre', 'ORGAN':'Órgano', 'OPEN':'Abierta', 'IN_PROGRESS':'En curso', 'RESERVED':'Reservada', 'PREPARED':'Preparado', 'COLLECTED':'Recolectado', 'IN_TRANSIT':'En tránsito', 'DELIVERED':'Entregado', 'ACCEPTED':'Aceptado', 'CANCELLED':'Cancelado', 'INCIDENT':'Incidencia', 'CAPTURED':'Capturado', 'AUTHORIZED':'Autorizado', 'REQUESTED':'Solicitada', 'RECEIVED':'Recibida', 'REJECTED':'Rechazada', 'ACKNOWLEDGED':'Reconocido', 'CLOSED':'Cerrado', 'RBC':'Eritrocitos', 'PLASMA':'Plasma', 'PLATELETS':'Plaquetas', 'RESOURCE_RESERVED':'Unidad reservada', 'SHIPMENT_CREATED':'Traslado registrado', 'REQUEST_CREATED':'Solicitud registrada', 'APPOINTMENT_BOOKED':'Cita programada', 'INVENTORY':'Inventario', 'EXPIRY':'Caducidad', 'REQUESTS':'Solicitudes', 'SHIPMENTS':'Traslados', 'ACTIVITY':'Actividad', 'PENDING':'Pendiente', 'COMPLETE':'Listo', 'FAILED':'No disponible'}
+LABELS.update({'WITHDRAWN':'Retirada','PLANNED':'Planeado'})
 
 def label(value):
     return LABELS.get(str(value), str(value)) if value is not None else '—'
@@ -88,7 +89,7 @@ class Window(QMainWindow):
 
     def build_workspace(self):
         page = QWidget(); outer = QVBoxLayout(page); outer.setContentsMargins(28,20,28,20); outer.setSpacing(14)
-        head = QHBoxLayout(); brand = QLabel('RED HOUSE'); brand.setObjectName('brand'); head.addWidget(brand); head.addStretch(); self.identity = QLabel(); head.addWidget(self.identity)
+        head = QHBoxLayout(); brand = QLabel('RED HOUSE'); brand.setObjectName('brand'); head.addWidget(brand); head.addStretch(); self.summary_button=QPushButton('Resumen'); self.summary_button.clicked.connect(self.open_summary); head.addWidget(self.summary_button); self.identity = QLabel(); head.addWidget(self.identity)
         self.logout_button = QPushButton('Cerrar sesión'); self.logout_button.clicked.connect(self.logout); head.addWidget(self.logout_button); outer.addLayout(head)
         nav = QHBoxLayout(); self.inventory_button = QPushButton('Inventario'); self.inventory_button.clicked.connect(lambda: self.switch('inventory')); nav.addWidget(self.inventory_button)
         self.samples_button = QPushButton('Muestras'); self.samples_button.clicked.connect(lambda: self.switch('samples')); nav.addWidget(self.samples_button); self.results_button = QPushButton('Resultados'); self.results_button.clicked.connect(lambda: self.switch('results')); nav.addWidget(self.results_button); self.alerts_button = QPushButton('Avisos'); self.alerts_button.clicked.connect(lambda: self.switch('alerts')); nav.addWidget(self.alerts_button); nav.addStretch(); outer.addLayout(nav)
@@ -119,13 +120,14 @@ class Window(QMainWindow):
 
     def set_controls(self, enabled):
         self.areas.setEnabled(enabled)
-        for widget in (self.username,self.password,self.otp,self.search,self.table,self.login_button,self.logout_button,self.inventory_button,self.samples_button,self.results_button,self.alerts_button,self.requests_button,self.evaluations_button,self.reservations_button,self.search_button,self.reload_button,self.trace_button,self.cold_button,self.user_state_button,self.user_role_button,self.download_button,self.report_button,self.resume_button,self.label_button,self.operation_button,self.evaluate_button,self.create_button,self.detail_button,self.receive_button,self.capture_button,self.review_button,self.ack_button,self.prev,self.next): widget.setEnabled(enabled)
+        for widget in (self.username,self.password,self.otp,self.search,self.table,self.login_button,self.logout_button,self.summary_button,self.inventory_button,self.samples_button,self.results_button,self.alerts_button,self.requests_button,self.evaluations_button,self.reservations_button,self.search_button,self.reload_button,self.trace_button,self.cold_button,self.user_state_button,self.user_role_button,self.download_button,self.report_button,self.resume_button,self.label_button,self.operation_button,self.evaluate_button,self.create_button,self.detail_button,self.receive_button,self.capture_button,self.review_button,self.ack_button,self.prev,self.next): widget.setEnabled(enabled)
         if enabled and self.mode != 'samples': self.receive_button.setEnabled(False)
         if enabled and self.mode != 'alerts': self.ack_button.setEnabled(False)
         if enabled:
             self.prev.setEnabled(self.page>1); self.next.setEnabled(self.page*20<self.total)
         if enabled and self.client and self.client.user:
             role = self.client.user.get('role'); self.requests_button.setEnabled(role in ('OPERATOR','MEDICAL')); self.evaluations_button.setEnabled(role == 'MEDICAL'); self.reservations_button.setEnabled(role in ('OPERATOR','MEDICAL','COORDINATOR'));
+            self.summary_button.setEnabled(role in ('OPERATOR','MEDICAL','COORDINATOR','TRANSPORT'))
             for index,button in ((1,self.requests_button),(2,self.evaluations_button),(3,self.reservations_button)): self.areas.model().item(index).setEnabled(button.isEnabled())
             self.areas.model().item(4).setEnabled(role in ('OPERATOR','MEDICAL','COORDINATOR','TRANSPORT'))
             self.areas.model().item(5).setEnabled(role == 'AUDITOR'); self.areas.model().item(6).setEnabled(role in ('ADMIN','COORDINATOR')); self.areas.model().item(8).setEnabled(role in ('OPERATOR','MEDICAL','COORDINATOR','TRANSPORT','AUDITOR')); self.areas.model().item(9).setEnabled(role in ('MEDICAL','COORDINATOR'))
@@ -260,6 +262,37 @@ class Window(QMainWindow):
     def selected(self):
         index=self.table.currentRow()
         return self.rows[index] if 0 <= index < len(self.rows) else None
+
+    def open_summary(self):
+        role=self.client.user.get('role')
+        services=['transporte'] if role=='TRANSPORT' else ['inventario','receptores','transporte']
+        def fetch():
+            result={}
+            for service in services:
+                try: result[service]=self.client.authorized(service,'/api/v1/summary','portal_summary')
+                except ApiError as error:
+                    if error.status==401: raise
+                    result[service]=None
+                except (ConnectionError,ContractError): result[service]=None
+            return result
+        self.run(fetch,self.summary_dialog,'Consultando resumen…')
+
+    def summary_dialog(self,data):
+        role=self.client.user.get('role'); regional=role=='COORDINATOR'
+        dialog=QDialog(self); dialog.setWindowTitle('Resumen operativo'); dialog.resize(620,420); layout=QVBoxLayout(dialog)
+        text='Cifras autorizadas al momento de la consulta.'
+        if 'receptores' in data: text+=' Las solicitudes corresponden a tu institución.'
+        note=QLabel(text); note.setWordWrap(True); layout.addWidget(note)
+        for service,title,scope in (('inventario','Inventario','Región' if regional else 'Institución'),('receptores','Solicitudes','Institución'),('transporte','Traslados','Región' if regional else 'Tareas asignadas' if role=='TRANSPORT' else 'Institución')):
+            if service not in data: continue
+            heading=QLabel(title+' · '+scope); heading.setObjectName('title'); layout.addWidget(heading)
+            row=data[service]
+            if row is None: layout.addWidget(QLabel('Información no disponible.')); continue
+            layout.addWidget(QLabel('Total: '+str(row['total'])))
+            if service=='inventario': layout.addWidget(QLabel('Disponibles por vencer en 48 horas: '+str(row['expiring'])))
+            counts=', '.join(label(entry['status'])+': '+str(entry['value']) for entry in row['statuses'])
+            detail=QLabel(counts or 'Sin registros.'); detail.setWordWrap(True); layout.addWidget(detail)
+        layout.addStretch(); close=QPushButton('Cerrar'); close.clicked.connect(dialog.accept); layout.addWidget(close); dialog.exec()
 
     def open_selected(self,*_):
         item=self.selected()

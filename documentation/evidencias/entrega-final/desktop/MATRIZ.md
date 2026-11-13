@@ -1,10 +1,10 @@
 # Escritorio: estado y matriz inicial
 
-Corte 13/11/2026. macOS Darwin x86_64, Python 3.12.6: ejecución desde entorno virtual, capturas Qt y smoke del paquete reconstruido comprobados. Firma de distribución, notarización, lector e impresora pendientes. Windows 11 y Linux sin ejecución. Los contratos locales son copias de OpenAPI/XSD; cada permiso y ámbito debe comprobarse contra servicio real y pruebas de autorización antes de operar.
+Corte 13/11/2026. macOS Darwin x86_64, Python 3.12.6: ejecución desde entorno virtual y capturas Qt comprobadas. El paquete anterior pasó smoke; falta reconstruirlo con el resumen reciente. Firma de distribución, notarización, lector e impresora pendientes. Windows 11 y Linux sin ejecución. Los contratos locales son copias de OpenAPI/XSD; cada permiso y ámbito debe comprobarse contra servicio real y pruebas de autorización antes de operar.
 
 | ID | Módulo y tareas | Propietario/contrato | Estado y dependencia |
 |---|---|---|---|
-| DESK-01 | Panel regional, métricas y filtros | Inventario, solicitudes, transporte, alertas | Pendiente: consultas agregadas y UI por rol. |
+| DESK-01 | Panel regional, métricas y filtros | Inventario, solicitudes, transporte | Resumen agregado XML probado para operador y coordinación; Qt autenticado e inspeccionado para operador, con ámbitos diferenciados. Pendientes filtros, alertas, detalle, fallos parciales en laboratorio y GUI para otros perfiles. |
 | DESK-02 | Instituciones, usuarios, dispositivos | Identidad `user_list`, XML/OpenAPI | Consulta de usuarios y cambio versionado de estado/perfil operativo implementados en fuente con reautenticación; pendientes alta, dispositivos y pruebas reales. |
 | DESK-03 | Inventario, detalle y cambios | Inventario: `resources_list`, `resource_detail`, XSD respuesta y DTO | Alta y lectura XML probadas; inventario y detalle autenticados observados en Qt con laboratorio sintético. Edición y otros perfiles pendientes. OPERATOR/MEDICAL/COORDINATOR. |
 | DESK-04 | Colectas y laboratorio | Compatibilidad: `lab_samples_list`, `lab_sample_receive`, `lab_sample_receive.xsd`, DTO | Consulta/recepción y captura de resultados para OPERATOR/MEDICAL; revisión de resultado para MEDICAL. Flujo XML probado en laboratorio; GUI y resto pendientes. Servidor controla institución y versión. |

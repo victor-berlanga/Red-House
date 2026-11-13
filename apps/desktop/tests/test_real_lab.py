@@ -114,6 +114,17 @@ def test_authenticated_qt_inventory_and_detail(platform,gateway,monkeypatch):
         QTest.qWait(20)
         if captured and not window.busy: break
     assert captured
+    summary=[]
+    def capture_summary():
+        modal=QApplication.activeModalWidget()
+        if modal and modal.windowTitle()=='Resumen operativo':
+            modal.grab().save(str(out/'laboratorio-resumen.png')); summary.append(True); modal.reject()
+        elif not summary: QTimer.singleShot(100,capture_summary)
+    QTimer.singleShot(100,capture_summary); window.open_summary()
+    for _ in range(1000):
+        QTest.qWait(20)
+        if summary and not window.busy: break
+    assert summary
     window.close()
     for _ in range(500):
         QTest.qWait(20)
@@ -131,6 +142,21 @@ def test_report_request_and_owner_scope_over_xml(platform,gateway):
     with pytest.raises(ApiError) as denied: other.authorized('documentos','/api/v1/export-jobs/'+job['id'],'export_detail')
     assert denied.value.status==403
     other.logout(); c.logout()
+
+
+def test_summary_projections_over_xml(platform,gateway):
+    for actor in ('operator1','coordinator1'):
+        c=Client(gateway); c.login(actor,platform.env.state['password'],'')
+        for service in ('inventario','receptores','transporte'):
+            data=c.authorized(service,'/api/v1/summary','portal_summary')
+            assert data['total']==sum(row['value'] for row in data['statuses'])
+            if service=='inventario': assert data['expiring']>=0
+        c.logout()
+    donor=Client(gateway); donor.login('donor1',platform.env.state['password'],'')
+    with pytest.raises(ApiError) as denied:
+        donor.authorized('inventario','/api/v1/summary','portal_summary')
+    assert denied.value.status==403
+    donor.logout()
 
 
 def test_destination_accepts_verified_handover_over_xml(platform,gateway,tmp_path):
@@ -267,6 +293,34 @@ def test_label_authorization_recovery_reuses_idempotency(platform,gateway,tmp_pa
     assert response['issuance_id']==lost.first['issuance_id']
     assert restored.list()[0]['state']=='PENDING' and restored.list()[0]['status']=='AUTHORIZED'
     c.logout()
+
+
+def test_native_keychain_recovers_real_committed_response_after_process_exit(platform,gateway,tmp_path):
+    import json, os, subprocess, sys
+    import keyring
+    from redhouse_desktop.journal import Journal
+    from redhouse_desktop.label_issuance import submit_label
+    if os.environ.get('REDHOUSE_NATIVE_LAB')!='1' or sys.platform!='darwin':
+        pytest.skip('Requiere llavero macOS real autorizado para prueba sintética.')
+    p=platform; now=datetime.datetime.now(datetime.timezone.utc)
+    unit=p.ok('inventario','POST','/api/v1/resources',user='operator1',data={'folio':'KEY-'+uuid.uuid4().hex[:12],'kind':'BLOOD','component':'RBC','blood_group':'O-','expires_at':(now+datetime.timedelta(days=2)).isoformat()})
+    client=Client(gateway); user=client.login('operator1',p.env.state['password'],'')
+    journal=Journal(tmp_path,gateway,user['id'],user['tenant_id'])
+    try:
+        request={'gateway':gateway,'username':'operator1','password':p.env.state['password'],'unit':unit,'directory':str(tmp_path)}
+        worker=Path(__file__).with_name('native_lab_worker.py')
+        subprocess.run([sys.executable,str(worker)],input=json.dumps(request),text=True,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL,check=True,timeout=40)
+        records=journal.list(); assert len(records)==1 and records[0]['state']=='UNCERTAIN'
+        response=submit_label(client,journal,records[0])
+        assert response['resource_id']==unit['id'] and response['reissue'] is False
+        with p.owner('inventario') as conn:
+            count=conn.execute("SELECT count(*) FROM activity_events WHERE event->>'resource_id'=%s AND event->>'action'='LABEL_ISSUANCE_AUTHORIZED'",(unit['id'],)).fetchone()[0]
+        assert count==1 and journal.list()[0]['status']=='AUTHORIZED'
+        client.logout()
+    finally:
+        client.clear()
+        if keyring.get_password('RedHouse desktop journal',journal.identifier) is not None:
+            keyring.delete_password('RedHouse desktop journal',journal.identifier)
 
 
 

@@ -98,6 +98,24 @@ def test_uncertain_print_requires_review_without_sending_again(tmp_path,monkeypa
     window.close()
 
 
+def test_summary_keeps_other_services_when_one_is_unavailable(monkeypatch):
+    from redhouse_desktop.client import ApiError
+    class SummaryClient:
+        user={'role':'OPERATOR'}; access=None
+        def authorized(self,service,*args,**kwargs):
+            if service=='receptores': raise ApiError(503,'dependency_unavailable','No disponible.')
+            return {'total':0,'statuses':[],'expiring':0}
+    window=Window(); window.client=SummaryClient(); received=[]
+    monkeypatch.setattr(window,'summary_dialog',received.append)
+    window.open_summary()
+    for _ in range(500):
+        QTest.qWait(20)
+        if received and not window.busy: break
+    assert received and received[0]['receptores'] is None
+    assert received[0]['inventario']['total']==received[0]['transporte']['total']==0
+    window.close()
+
+
 def test_login_prompts_verification_only_when_required():
     from redhouse_desktop.client import ApiError
     w=Window(); w.show(); app.processEvents()
