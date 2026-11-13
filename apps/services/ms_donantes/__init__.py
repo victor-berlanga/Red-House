@@ -16,6 +16,9 @@ def create_app(config=None):
     from .editing import install as editing
 
     editing(app)
+    from .personal import install as personal
+
+    personal(app)
     from .withdrawal import install as withdrawal
 
     withdrawal(app)

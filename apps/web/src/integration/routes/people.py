@@ -37,6 +37,18 @@ def withdrawal_action(row):
     ]
 
 
+def personal_action(row):
+    if g.principal.role_code != "DONOR" or row["status"] == "INACTIVE":
+        return []
+    return [
+        (
+            "Editar mi nombre",
+            url_for("regional.donor_personal", identifier=row["id"]),
+            "pencil",
+        )
+    ]
+
+
 @regional.get("/donantes/<kind>")
 def people(kind):
     if kind not in ("donor", "recipient"):
@@ -70,7 +82,13 @@ def people(kind):
         new=url_for("regional.person_new", kind=kind)
         if kind == "donor" or g.principal.role_code == "MEDICAL"
         else None,
-        actions=(lambda row: edit_action("donors", row) + withdrawal_action(row))
+        actions=(
+            lambda row: (
+                edit_action("donors", row)
+                + personal_action(row)
+                + withdrawal_action(row)
+            )
+        )
         if kind == "donor"
         else None,
     )
@@ -156,6 +174,7 @@ def person_detail(kind, identifier):
         )
     )
     if kind == "donor":
+        actions.extend((label, link) for label, link, _ in personal_action(row))
         actions.extend(withdrawal_action(row))
         if g.principal.role_code in ("DONOR", "MEDICAL"):
             actions.append(
@@ -164,6 +183,8 @@ def person_detail(kind, identifier):
                     url_for("regional.consents", identifier=identifier),
                 )
             )
+    if kind == "donor" and g.principal.role_code == "DONOR":
+        row = {key: value for key, value in row.items() if key != "user_id"}
     return detail(
         row["folio"],
         "donantes" if kind == "donor" else "receptores",
@@ -177,6 +198,35 @@ def person_detail(kind, identifier):
             if kind == "donor" and row["status"] == "INACTIVE"
             else "La información registrada requiere evaluación humana autorizada."
         ),
+    )
+
+
+@regional.route("/donantes/donor/<uuid:identifier>/mis-datos", methods=["GET", "POST"])
+def donor_personal(identifier):
+    if g.principal.role_code != "DONOR":
+        raise BusinessError("Esta opción corresponde al titular del expediente.", 403)
+    path = "/api/v1/donors/" + str(identifier)
+    row = call("donantes", path)
+    if row["status"] == "INACTIVE":
+        raise BusinessError(
+            "El expediente está inactivo; contacta a tu institución.", 409
+        )
+    return submit(
+        "donantes",
+        path + "/personal",
+        [
+            field(
+                "display_name",
+                "Nombre mostrado en mi expediente",
+                default=row["display_name"],
+            ),
+            field("version", "Versión", "hidden", default=row["version"]),
+        ],
+        method="PATCH",
+        title="Editar mi nombre",
+        active="donantes",
+        back=url_for("regional.person_detail", kind="donor", identifier=identifier),
+        note="Escribe el nombre con el que te presentas a la institución. Para corregir tu folio o información clínica, contacta al personal autorizado.",
     )
 
 

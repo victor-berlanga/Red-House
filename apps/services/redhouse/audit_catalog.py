@@ -67,6 +67,11 @@ ACTIONS = {
     "DONOR_REGISTERED": ("Donante registrado", "BUSINESS", "RECORDED"),
     "DONOR_REVIEWED": ("Evaluación del donante registrada", "DECISION", "RECORDED"),
     "DONOR_UPDATED": ("Expediente del donante actualizado", "BUSINESS", "RECORDED"),
+    "DONOR_PERSONAL_UPDATED": (
+        "Nombre del expediente actualizado por su donante",
+        "BUSINESS",
+        "RECORDED",
+    ),
     "DONOR_WITHDRAWN": ("Donante dado de baja", "BUSINESS", "RECORDED"),
     "EVALUATION_CREATED": ("Evaluación de candidatos generada", "BUSINESS", "RECORDED"),
     "EVALUATION_REVIEWED": ("Dictamen de candidato registrado", "DECISION", "RECORDED"),

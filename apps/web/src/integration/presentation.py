@@ -335,6 +335,7 @@ EVENT_LABELS = {
     "DONOR_REGISTERED": "Donante registrado",
     "DONOR_REVIEWED": "Evaluación del donante registrada",
     "DONOR_UPDATED": "Expediente del donante actualizado",
+    "DONOR_PERSONAL_UPDATED": "Nombre del expediente actualizado por su donante",
     "DONOR_WITHDRAWN": "Donante dado de baja",
     "EVALUATION_CREATED": "Evaluación de candidatos generada",
     "EVALUATION_REVIEWED": "Dictamen de candidato registrado",

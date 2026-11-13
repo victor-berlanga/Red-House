@@ -1,0 +1,76 @@
+.FFFFFF                                                                  [100%]
+=================================== FAILURES ===================================
+_____ test_personal_name_preserves_clinical_history_and_replays_once[xml] ______
+apps/services/tests/test_donor_personal.py:62: in test_personal_name_preserves_clinical_history_and_replays_once
+    row = donor(p)
+          ^^^^^^^^
+apps/services/tests/test_donor_personal.py:25: in donor
+    return p.ok(
+apps/services/tests/conftest.py:57: in ok
+    assert response.status_code < 300, (response.status_code, response.text)
+E   AssertionError: (409, '{"error": {"code": "conflict", "message": "El registro u operación ya existe.", "details": []}, "meta": {"correlation_id": "dedee0a1-d85a-460e-889c-9dc34425ac95", "service": "donantes", "version": "0.4.1"}}')
+E   assert 409 < 300
+E    +  where 409 = <Response [409]>.status_code
+___ test_personal_edit_denies_other_owners_roles_and_protected_fields[json] ____
+apps/services/tests/test_donor_personal.py:125: in test_personal_edit_denies_other_owners_roles_and_protected_fields
+    own = donor(p)
+          ^^^^^^^^
+apps/services/tests/test_donor_personal.py:25: in donor
+    return p.ok(
+apps/services/tests/conftest.py:57: in ok
+    assert response.status_code < 300, (response.status_code, response.text)
+E   AssertionError: (409, '{"error": {"code": "conflict", "message": "El registro u operación ya existe.", "details": []}, "meta": {"correlation_id": "bef8c163-fb48-4639-9221-c76efdc6940a", "service": "donantes", "version": "0.4.1"}}')
+E   assert 409 < 300
+E    +  where 409 = <Response [409]>.status_code
+____ test_personal_edit_denies_other_owners_roles_and_protected_fields[xml] ____
+apps/services/tests/test_donor_personal.py:125: in test_personal_edit_denies_other_owners_roles_and_protected_fields
+    own = donor(p)
+          ^^^^^^^^
+apps/services/tests/test_donor_personal.py:25: in donor
+    return p.ok(
+apps/services/tests/conftest.py:57: in ok
+    assert response.status_code < 300, (response.status_code, response.text)
+E   AssertionError: (409, '{"error": {"code": "conflict", "message": "El registro u operación ya existe.", "details": []}, "meta": {"correlation_id": "a0450e29-ed75-4342-bce8-fb46f33ebc62", "service": "donantes", "version": "0.4.1"}}')
+E   assert 409 < 300
+E    +  where 409 = <Response [409]>.status_code
+____________ test_personal_edit_concurrent_versions_have_one_winner ____________
+apps/services/tests/test_donor_personal.py:156: in test_personal_edit_concurrent_versions_have_one_winner
+    row = donor(p)
+          ^^^^^^^^
+apps/services/tests/test_donor_personal.py:25: in donor
+    return p.ok(
+apps/services/tests/conftest.py:57: in ok
+    assert response.status_code < 300, (response.status_code, response.text)
+E   AssertionError: (409, '{"error": {"code": "conflict", "message": "El registro u operación ya existe.", "details": []}, "meta": {"correlation_id": "08b2de89-e77c-4649-939c-86053d2da355", "service": "donantes", "version": "0.4.1"}}')
+E   assert 409 < 300
+E    +  where 409 = <Response [409]>.status_code
+__ test_personal_portal_form_persists_with_csrf_and_exposes_no_clinical_edit ___
+apps/services/tests/test_donor_personal.py:184: in test_personal_portal_form_persists_with_csrf_and_exposes_no_clinical_edit
+    row = donor(p)
+          ^^^^^^^^
+apps/services/tests/test_donor_personal.py:25: in donor
+    return p.ok(
+apps/services/tests/conftest.py:57: in ok
+    assert response.status_code < 300, (response.status_code, response.text)
+E   AssertionError: (409, '{"error": {"code": "conflict", "message": "El registro u operación ya existe.", "details": []}, "meta": {"correlation_id": "2d52e938-2b8a-4d12-bd48-93e68eaa0c80", "service": "donantes", "version": "0.4.1"}}')
+E   assert 409 < 300
+E    +  where 409 = <Response [409]>.status_code
+______________ test_personal_portal_browser_renders_and_persists _______________
+apps/services/tests/test_donor_personal.py:215: in test_personal_portal_browser_renders_and_persists
+    row = donor(p)
+          ^^^^^^^^
+apps/services/tests/test_donor_personal.py:25: in donor
+    return p.ok(
+apps/services/tests/conftest.py:57: in ok
+    assert response.status_code < 300, (response.status_code, response.text)
+E   AssertionError: (409, '{"error": {"code": "conflict", "message": "El registro u operación ya existe.", "details": []}, "meta": {"correlation_id": "3f9b901f-c5f2-46fe-a50e-d8308fc78b74", "service": "donantes", "version": "0.4.1"}}')
+E   assert 409 < 300
+E    +  where 409 = <Response [409]>.status_code
+=========================== short test summary info ============================
+FAILED apps/services/tests/test_donor_personal.py::test_personal_name_preserves_clinical_history_and_replays_once[xml]
+FAILED apps/services/tests/test_donor_personal.py::test_personal_edit_denies_other_owners_roles_and_protected_fields[json]
+FAILED apps/services/tests/test_donor_personal.py::test_personal_edit_denies_other_owners_roles_and_protected_fields[xml]
+FAILED apps/services/tests/test_donor_personal.py::test_personal_edit_concurrent_versions_have_one_winner
+FAILED apps/services/tests/test_donor_personal.py::test_personal_portal_form_persists_with_csrf_and_exposes_no_clinical_edit
+FAILED apps/services/tests/test_donor_personal.py::test_personal_portal_browser_renders_and_persists
+6 failed, 1 passed in 59.86s

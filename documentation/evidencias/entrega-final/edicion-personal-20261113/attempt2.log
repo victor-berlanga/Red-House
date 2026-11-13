@@ -1,0 +1,11 @@
+......F                                                                  [100%]
+=================================== FAILURES ===================================
+______________ test_personal_portal_browser_renders_and_persists _______________
+apps/services/tests/test_donor_personal.py:286: in test_personal_portal_browser_renders_and_persists
+    assert result.returncode == 0, (
+E   AssertionError: Recorrido Chrome fallido; revisar reporte saneado
+E   assert 1 == 0
+E    +  where 1 = CompletedProcess(args=['node', 'scripts/verify_donor_personal.cjs'], returncode=1, stdout='{"passed":false,"checks":[]...ficate":"self-signed isolated fixture; exception limited to browser context","errorType":"TimeoutError"}\n', stderr='').returncode
+=========================== short test summary info ============================
+FAILED apps/services/tests/test_donor_personal.py::test_personal_portal_browser_renders_and_persists
+1 failed, 6 passed in 163.25s (0:02:43)
