@@ -14,7 +14,7 @@ La repetición final comprobó también documento HLA versión 2, metadatos `sup
 
 La revisión humana y los estados de completitud son controles informáticos. No establecen compatibilidad HLA, asignación clínica, adecuación del contenido del documento ni aprobación sanitaria. No se verificaron firma antigua, indisponibilidad del motor, EICAR incrustado en formato admitido, navegador, GCS real ni todos los permisos o carreras distribuidas. La suficiencia y vigencia del documento y la política de reutilización por versión requieren decisión profesional e institucional; no se impuso igualdad automática con `supersedes`.
 
-Queda pendiente repetir, en una ventana posterior, la regresión existente `test_result_private_document_binding_generation_analysis_and_scope` en JSON/XML; usa dobles de GCS/ClamD y cubre un documento válido y otra muestra. Los dos casos nuevos no sustituyen esa repetición.
+La [regresión existente](../cont01-regresion-20261113/RESULTADOS.md) `test_result_private_document_binding_generation_analysis_and_scope` pasó después en JSON/XML; usa dobles de GCS/ClamD y cubre un documento válido y otra muestra. Su evidencia se conserva por separado de los dos casos nuevos.
 
 ## Reproducción
 
