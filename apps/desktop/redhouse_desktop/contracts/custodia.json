@@ -1,0 +1,1107 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Red House — custodia",
+    "version": "0.4.1",
+    "description": "API independiente JSON/XML. Reglas clínicas ilustrativas; requiere revisión humana. XML de respuesta validable en /schemas/response.xsd."
+  },
+  "paths": {
+    "/internal/v1/events": {
+      "post": {
+        "operationId": "custody_ingest",
+        "summary": "Custodia secuencial, deduplicada e inmutable",
+        "parameters": [
+          {
+            "name": "X-Correlation-ID",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "application/json",
+                "application/xml"
+              ]
+            }
+          },
+          {
+            "name": "X-Service",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "transporte"
+              ]
+            }
+          },
+          {
+            "name": "X-Service-Time",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Service-Nonce",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "description": "Roles: según sesión. Contrato interno firmado; consumidores: transporte",
+        "security": [
+          {
+            "ServiceSignature": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resultado confirmado o estado pendiente documentado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_custody_ingest"
+                },
+                "example": {
+                  "data": {
+                    "duplicate": true,
+                    "stored": true,
+                    "sequence": 1,
+                    "hash": "Dato ficticio para reemplazar"
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "custodia",
+                    "version": "0.4.1"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"duplicate\" type=\"boolean\">true</field><field name=\"stored\" type=\"boolean\">true</field><field name=\"sequence\" type=\"integer\">1</field><field name=\"hash\" type=\"string\">Dato ficticio para reemplazar</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">custodia</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
+                "x-json-equivalent-schema": {
+                  "$ref": "#/components/schemas/Response_custody_ingest"
+                },
+                "x-xsd": "/schemas/response.xsd",
+                "x-response-schema": "/schemas/custody_ingest.response.json"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "406": {
+            "$ref": "#/components/responses/Error406"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "412": {
+            "$ref": "#/components/responses/Error412"
+          },
+          "413": {
+            "$ref": "#/components/responses/Error413"
+          },
+          "415": {
+            "$ref": "#/components/responses/Error415"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Event"
+              },
+              "example": {
+                "event_id": "00000000-0000-4000-8000-000000000001",
+                "source": "Dato ficticio para reemplazar",
+                "action": "Dato ficticio para reemplazar",
+                "resource_id": "00000000-0000-4000-8000-000000000001",
+                "tenant_id": "00000000-0000-4000-8000-000000000001",
+                "region_id": null,
+                "actor_id": null,
+                "correlation_id": "00000000-0000-4000-8000-000000000001",
+                "occurred_at": "2026-10-01T15:00:00+00:00",
+                "metadata": {}
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "type": "string"
+              },
+              "example": "<?xml version='1.0' encoding='UTF-8'?>\n<request xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><event_id>00000000-0000-4000-8000-000000000001</event_id><source>Dato ficticio para reemplazar</source><action>Dato ficticio para reemplazar</action><resource_id>00000000-0000-4000-8000-000000000001</resource_id><tenant_id>00000000-0000-4000-8000-000000000001</tenant_id><region_id xsi:nil=\"true\"/><actor_id xsi:nil=\"true\"/><correlation_id>00000000-0000-4000-8000-000000000001</correlation_id><occurred_at>2026-10-01T15:00:00+00:00</occurred_at><metadata/></request>",
+              "x-xsd": "/schemas/custody_ingest.xsd",
+              "x-json-equivalent-schema": {
+                "$ref": "#/components/schemas/Event"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/chains/{identifier}": {
+      "get": {
+        "operationId": "chain_detail",
+        "summary": "Consultar cadena; hash detecta alteraciones, no certifica veracidad física",
+        "parameters": [
+          {
+            "name": "identifier",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-Correlation-ID",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "application/json",
+                "application/xml"
+              ]
+            }
+          }
+        ],
+        "description": "Roles: TRANSPORT, COORDINATOR, OPERATOR, MEDICAL, AUDITOR. Contrato público de API.",
+        "security": [
+          {
+            "BearerJWT": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resultado confirmado o estado pendiente documentado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_chain_detail"
+                },
+                "example": {
+                  "data": {
+                    "chain": {
+                      "id": "00000000-0000-4000-8000-000000000001",
+                      "region_id": "00000000-0000-4000-8000-000000000001",
+                      "origin_id": "00000000-0000-4000-8000-000000000001",
+                      "destination_id": "00000000-0000-4000-8000-000000000001",
+                      "last_sequence": 1,
+                      "last_hash": "Dato ficticio para reemplazar"
+                    },
+                    "events": [],
+                    "notice": "Dato ficticio para reemplazar"
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "custodia",
+                    "version": "0.4.1"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"chain\" type=\"object\"><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"region_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"origin_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"destination_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"last_sequence\" type=\"integer\">1</field><field name=\"last_hash\" type=\"string\">Dato ficticio para reemplazar</field></field><field name=\"events\" type=\"array\"/><field name=\"notice\" type=\"string\">Dato ficticio para reemplazar</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">custodia</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
+                "x-json-equivalent-schema": {
+                  "$ref": "#/components/schemas/Response_chain_detail"
+                },
+                "x-xsd": "/schemas/response.xsd",
+                "x-response-schema": "/schemas/chain_detail.response.json"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "406": {
+            "$ref": "#/components/responses/Error406"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "412": {
+            "$ref": "#/components/responses/Error412"
+          },
+          "413": {
+            "$ref": "#/components/responses/Error413"
+          },
+          "415": {
+            "$ref": "#/components/responses/Error415"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Error": {
+        "type": "object",
+        "required": [
+          "error",
+          "meta"
+        ],
+        "properties": {
+          "meta": {
+            "type": "object",
+            "required": [
+              "correlation_id",
+              "service",
+              "version"
+            ],
+            "properties": {
+              "correlation_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "service": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              }
+            }
+          },
+          "error": {
+            "type": "object",
+            "required": [
+              "code",
+              "message",
+              "details"
+            ],
+            "properties": {
+              "code": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "details": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "field": {
+                      "type": "string",
+                      "description": "Ruta del campo en la entrada; no incluye su valor."
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "challenge": {
+                      "type": "string",
+                      "maxLength": 4096,
+                      "description": "Reto opaco de reautenticación; no registrar ni compartir."
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "Corrección segura en español."
+                    },
+                    "min_length": {
+                      "type": "number"
+                    },
+                    "max_length": {
+                      "type": "number"
+                    },
+                    "ge": {
+                      "type": "number"
+                    },
+                    "le": {
+                      "type": "number"
+                    },
+                    "gt": {
+                      "type": "number"
+                    },
+                    "lt": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "Response_custody_ingest": {
+        "type": "object",
+        "required": [
+          "data",
+          "meta"
+        ],
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "duplicate": {
+                "type": "boolean"
+              },
+              "stored": {
+                "type": "boolean"
+              },
+              "sequence": {
+                "type": "integer"
+              },
+              "hash": {
+                "type": "string"
+              }
+            },
+            "required": []
+          },
+          "meta": {
+            "type": "object",
+            "required": [
+              "correlation_id",
+              "service",
+              "version"
+            ],
+            "properties": {
+              "correlation_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "service": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "Event": {
+        "additionalProperties": false,
+        "properties": {
+          "event_id": {
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "title": "Event Id",
+            "type": "string"
+          },
+          "source": {
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Source",
+            "type": "string"
+          },
+          "action": {
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Action",
+            "type": "string"
+          },
+          "resource_id": {
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Resource Id",
+            "type": "string"
+          },
+          "tenant_id": {
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "title": "Tenant Id",
+            "type": "string"
+          },
+          "region_id": {
+            "anyOf": [
+              {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Region Id"
+          },
+          "actor_id": {
+            "anyOf": [
+              {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Actor Id"
+          },
+          "correlation_id": {
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "title": "Correlation Id",
+            "type": "string"
+          },
+          "occurred_at": {
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Occurred At",
+            "type": "string"
+          },
+          "metadata": {
+            "additionalProperties": true,
+            "title": "Metadata",
+            "type": "object"
+          }
+        },
+        "required": [
+          "event_id",
+          "source",
+          "action",
+          "resource_id",
+          "tenant_id",
+          "region_id",
+          "actor_id",
+          "correlation_id",
+          "occurred_at",
+          "metadata"
+        ],
+        "title": "Event",
+        "type": "object"
+      },
+      "Response_chain_detail": {
+        "type": "object",
+        "required": [
+          "data",
+          "meta"
+        ],
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "chain": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "region_id": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "origin_id": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "destination_id": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "last_sequence": {
+                    "type": "integer"
+                  },
+                  "last_hash": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "id",
+                  "region_id",
+                  "origin_id",
+                  "destination_id",
+                  "last_sequence",
+                  "last_hash"
+                ]
+              },
+              "events": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "shipment_id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "sequence": {
+                      "type": "integer"
+                    },
+                    "event": {
+                      "additionalProperties": false,
+                      "properties": {
+                        "event_id": {
+                          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                          "title": "Event Id",
+                          "type": "string"
+                        },
+                        "source": {
+                          "maxLength": 200,
+                          "minLength": 1,
+                          "title": "Source",
+                          "type": "string"
+                        },
+                        "action": {
+                          "maxLength": 200,
+                          "minLength": 1,
+                          "title": "Action",
+                          "type": "string"
+                        },
+                        "resource_id": {
+                          "maxLength": 200,
+                          "minLength": 1,
+                          "title": "Resource Id",
+                          "type": "string"
+                        },
+                        "tenant_id": {
+                          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                          "title": "Tenant Id",
+                          "type": "string"
+                        },
+                        "region_id": {
+                          "anyOf": [
+                            {
+                              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                              "type": "string"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ],
+                          "title": "Region Id"
+                        },
+                        "actor_id": {
+                          "anyOf": [
+                            {
+                              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                              "type": "string"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ],
+                          "title": "Actor Id"
+                        },
+                        "correlation_id": {
+                          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                          "title": "Correlation Id",
+                          "type": "string"
+                        },
+                        "occurred_at": {
+                          "maxLength": 200,
+                          "minLength": 1,
+                          "title": "Occurred At",
+                          "type": "string"
+                        },
+                        "metadata": {
+                          "additionalProperties": true,
+                          "title": "Metadata",
+                          "type": "object"
+                        }
+                      },
+                      "required": [
+                        "event_id",
+                        "source",
+                        "action",
+                        "resource_id",
+                        "tenant_id",
+                        "region_id",
+                        "actor_id",
+                        "correlation_id",
+                        "occurred_at",
+                        "metadata"
+                      ],
+                      "title": "Event",
+                      "type": "object"
+                    },
+                    "previous_hash": {
+                      "type": "string"
+                    },
+                    "hash": {
+                      "type": "string"
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "shipment_id",
+                    "sequence",
+                    "event",
+                    "previous_hash",
+                    "hash",
+                    "created_at"
+                  ]
+                }
+              },
+              "notice": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "chain",
+              "events",
+              "notice"
+            ]
+          },
+          "meta": {
+            "type": "object",
+            "required": [
+              "correlation_id",
+              "service",
+              "version"
+            ],
+            "properties": {
+              "correlation_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "service": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "responses": {
+      "Error400": {
+        "description": "Error uniforme.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "error": {
+                "code": "validation",
+                "message": "Petición no disponible o inválida.",
+                "details": []
+              },
+              "meta": {
+                "correlation_id": "00000000-0000-4000-8000-000000000001",
+                "service": "custodia",
+                "version": "0.4.1"
+              }
+            }
+          },
+          "application/xml": {
+            "schema": {
+              "type": "string"
+            },
+            "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">validation</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">custodia</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>"
+          }
+        }
+      },
+      "Error401": {
+        "description": "Credencial inválida, expirada o revocada.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "error": {
+                "code": "unauthorized",
+                "message": "Credencial inválida, expirada o revocada.",
+                "details": []
+              },
+              "meta": {
+                "correlation_id": "00000000-0000-4000-8000-000000000001",
+                "service": "custodia",
+                "version": "0.4.1"
+              }
+            }
+          },
+          "application/xml": {
+            "schema": {
+              "type": "string"
+            },
+            "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">unauthorized</field><field name=\"message\" type=\"string\">Credencial inválida, expirada o revocada.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">custodia</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>"
+          }
+        }
+      },
+      "Error403": {
+        "description": "Sin permiso institucional o de recurso.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "error": {
+                "code": "forbidden",
+                "message": "Sin permiso institucional o de recurso.",
+                "details": []
+              },
+              "meta": {
+                "correlation_id": "00000000-0000-4000-8000-000000000001",
+                "service": "custodia",
+                "version": "0.4.1"
+              }
+            }
+          },
+          "application/xml": {
+            "schema": {
+              "type": "string"
+            },
+            "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">forbidden</field><field name=\"message\" type=\"string\">Sin permiso institucional o de recurso.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">custodia</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>"
+          }
+        }
+      },
+      "Error404": {
+        "description": "Error uniforme.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "error": {
+                "code": "not_found",
+                "message": "Petición no disponible o inválida.",
+                "details": []
+              },
+              "meta": {
+                "correlation_id": "00000000-0000-4000-8000-000000000001",
+                "service": "custodia",
+                "version": "0.4.1"
+              }
+            }
+          },
+          "application/xml": {
+            "schema": {
+              "type": "string"
+            },
+            "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">not_found</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">custodia</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>"
+          }
+        }
+      },
+      "Error406": {
+        "description": "Error uniforme.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "error": {
+                "code": "not_acceptable",
+                "message": "Petición no disponible o inválida.",
+                "details": []
+              },
+              "meta": {
+                "correlation_id": "00000000-0000-4000-8000-000000000001",
+                "service": "custodia",
+                "version": "0.4.1"
+              }
+            }
+          },
+          "application/xml": {
+            "schema": {
+              "type": "string"
+            },
+            "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">not_acceptable</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">custodia</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>"
+          }
+        }
+      },
+      "Error409": {
+        "description": "Conflicto de estado, versión o idempotencia.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "error": {
+                "code": "conflict",
+                "message": "Conflicto de estado, versión o idempotencia.",
+                "details": []
+              },
+              "meta": {
+                "correlation_id": "00000000-0000-4000-8000-000000000001",
+                "service": "custodia",
+                "version": "0.4.1"
+              }
+            }
+          },
+          "application/xml": {
+            "schema": {
+              "type": "string"
+            },
+            "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">conflict</field><field name=\"message\" type=\"string\">Conflicto de estado, versión o idempotencia.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">custodia</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>"
+          }
+        }
+      },
+      "Error412": {
+        "description": "Error uniforme.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "error": {
+                "code": "stale_version",
+                "message": "Petición no disponible o inválida.",
+                "details": []
+              },
+              "meta": {
+                "correlation_id": "00000000-0000-4000-8000-000000000001",
+                "service": "custodia",
+                "version": "0.4.1"
+              }
+            }
+          },
+          "application/xml": {
+            "schema": {
+              "type": "string"
+            },
+            "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">stale_version</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">custodia</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>"
+          }
+        }
+      },
+      "Error413": {
+        "description": "Error uniforme.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "error": {
+                "code": "http_error",
+                "message": "Petición no disponible o inválida.",
+                "details": []
+              },
+              "meta": {
+                "correlation_id": "00000000-0000-4000-8000-000000000001",
+                "service": "custodia",
+                "version": "0.4.1"
+              }
+            }
+          },
+          "application/xml": {
+            "schema": {
+              "type": "string"
+            },
+            "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">http_error</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">custodia</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>"
+          }
+        }
+      },
+      "Error415": {
+        "description": "Error uniforme.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "error": {
+                "code": "unsupported_media",
+                "message": "Petición no disponible o inválida.",
+                "details": []
+              },
+              "meta": {
+                "correlation_id": "00000000-0000-4000-8000-000000000001",
+                "service": "custodia",
+                "version": "0.4.1"
+              }
+            }
+          },
+          "application/xml": {
+            "schema": {
+              "type": "string"
+            },
+            "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">unsupported_media</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">custodia</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>"
+          }
+        }
+      },
+      "Error422": {
+        "description": "Error uniforme.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "error": {
+                "code": "validation",
+                "message": "Petición no disponible o inválida.",
+                "details": []
+              },
+              "meta": {
+                "correlation_id": "00000000-0000-4000-8000-000000000001",
+                "service": "custodia",
+                "version": "0.4.1"
+              }
+            }
+          },
+          "application/xml": {
+            "schema": {
+              "type": "string"
+            },
+            "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">validation</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">custodia</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>"
+          }
+        }
+      },
+      "Error429": {
+        "description": "Error uniforme.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "error": {
+                "code": "rate_limit",
+                "message": "Petición no disponible o inválida.",
+                "details": []
+              },
+              "meta": {
+                "correlation_id": "00000000-0000-4000-8000-000000000001",
+                "service": "custodia",
+                "version": "0.4.1"
+              }
+            }
+          },
+          "application/xml": {
+            "schema": {
+              "type": "string"
+            },
+            "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">rate_limit</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">custodia</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>"
+          }
+        }
+      },
+      "Error500": {
+        "description": "Error uniforme.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "error": {
+                "code": "internal_error",
+                "message": "Petición no disponible o inválida.",
+                "details": []
+              },
+              "meta": {
+                "correlation_id": "00000000-0000-4000-8000-000000000001",
+                "service": "custodia",
+                "version": "0.4.1"
+              }
+            }
+          },
+          "application/xml": {
+            "schema": {
+              "type": "string"
+            },
+            "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">internal_error</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">custodia</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>"
+          }
+        }
+      },
+      "Error503": {
+        "description": "Dependencia inaccesible; consultar estado antes de repetir.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "error": {
+                "code": "dependency_unavailable",
+                "message": "Dependencia inaccesible; consultar estado antes de repetir.",
+                "details": []
+              },
+              "meta": {
+                "correlation_id": "00000000-0000-4000-8000-000000000001",
+                "service": "custodia",
+                "version": "0.4.1"
+              }
+            }
+          },
+          "application/xml": {
+            "schema": {
+              "type": "string"
+            },
+            "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">dependency_unavailable</field><field name=\"message\" type=\"string\">Dependencia inaccesible; consultar estado antes de repetir.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">custodia</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "BearerJWT": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT RS256"
+      },
+      "ServiceSignature": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-Service-Signature",
+        "description": "Ed25519; requiere X-Service, X-Service-Time y X-Service-Nonce. No es un token de usuario."
+      }
+    }
+  }
+}

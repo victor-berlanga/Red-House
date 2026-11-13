@@ -1,0 +1,3640 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Red House — alertas",
+    "version": "0.4.1",
+    "description": "API independiente JSON/XML. Reglas clínicas ilustrativas; requiere revisión humana. XML de respuesta validable en /schemas/response.xsd."
+  },
+  "paths": {
+    "/internal/v1/events": {
+      "post": {
+        "operationId": "alert_ingest",
+        "summary": "Generar alertas por evento con deduplicación y destinatarios explícitos",
+        "parameters": [
+          {
+            "name": "X-Correlation-ID",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "application/json",
+                "application/xml"
+              ]
+            }
+          },
+          {
+            "name": "X-Service",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "donantes",
+                "receptores",
+                "inventario",
+                "transporte",
+                "monitoreo",
+                "auditoria"
+              ]
+            }
+          },
+          {
+            "name": "X-Service-Time",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Service-Nonce",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "description": "Roles: según sesión. Contrato interno firmado; consumidores: donantes, receptores, inventario, transporte, monitoreo, auditoria",
+        "security": [
+          {
+            "ServiceSignature": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resultado confirmado o estado pendiente documentado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_alert_ingest"
+                },
+                "example": {
+                  "data": {
+                    "duplicate": true,
+                    "stored": true,
+                    "applied": true
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "alertas",
+                    "version": "0.4.1"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"duplicate\" type=\"boolean\">true</field><field name=\"stored\" type=\"boolean\">true</field><field name=\"applied\" type=\"boolean\">true</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">alertas</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
+                "x-json-equivalent-schema": {
+                  "$ref": "#/components/schemas/Response_alert_ingest"
+                },
+                "x-xsd": "/schemas/response.xsd",
+                "x-response-schema": "/schemas/alert_ingest.response.json"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "406": {
+            "$ref": "#/components/responses/Error406"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "412": {
+            "$ref": "#/components/responses/Error412"
+          },
+          "413": {
+            "$ref": "#/components/responses/Error413"
+          },
+          "415": {
+            "$ref": "#/components/responses/Error415"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Event"
+              },
+              "example": {
+                "event_id": "00000000-0000-4000-8000-000000000001",
+                "source": "Dato ficticio para reemplazar",
+                "action": "Dato ficticio para reemplazar",
+                "resource_id": "00000000-0000-4000-8000-000000000001",
+                "tenant_id": "00000000-0000-4000-8000-000000000001",
+                "region_id": null,
+                "actor_id": null,
+                "correlation_id": "00000000-0000-4000-8000-000000000001",
+                "occurred_at": "2026-10-01T15:00:00+00:00",
+                "metadata": {}
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "type": "string"
+              },
+              "example": "<?xml version='1.0' encoding='UTF-8'?>\n<request xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><event_id>00000000-0000-4000-8000-000000000001</event_id><source>Dato ficticio para reemplazar</source><action>Dato ficticio para reemplazar</action><resource_id>00000000-0000-4000-8000-000000000001</resource_id><tenant_id>00000000-0000-4000-8000-000000000001</tenant_id><region_id xsi:nil=\"true\"/><actor_id xsi:nil=\"true\"/><correlation_id>00000000-0000-4000-8000-000000000001</correlation_id><occurred_at>2026-10-01T15:00:00+00:00</occurred_at><metadata/></request>",
+              "x-xsd": "/schemas/alert_ingest.xsd",
+              "x-json-equivalent-schema": {
+                "$ref": "#/components/schemas/Event"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/alerts": {
+      "get": {
+        "operationId": "alerts_list",
+        "summary": "Bandeja autorizada: institución, rol y usuario",
+        "parameters": [
+          {
+            "name": "X-Correlation-ID",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "application/json",
+                "application/xml"
+              ]
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
+            }
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20
+            }
+          },
+          {
+            "name": "q",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          },
+          {
+            "name": "from_at",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          },
+          {
+            "name": "until_at",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          },
+          {
+            "name": "date_field",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          }
+        ],
+        "description": "Roles: según sesión. Contrato público de API.",
+        "security": [
+          {
+            "BearerJWT": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resultado confirmado o estado pendiente documentado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_alerts_list"
+                },
+                "example": {
+                  "data": {
+                    "items": [],
+                    "page": 1,
+                    "page_size": 1,
+                    "total": 1
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "alertas",
+                    "version": "0.4.1"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"items\" type=\"array\"/><field name=\"page\" type=\"integer\">1</field><field name=\"page_size\" type=\"integer\">1</field><field name=\"total\" type=\"integer\">1</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">alertas</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
+                "x-json-equivalent-schema": {
+                  "$ref": "#/components/schemas/Response_alerts_list"
+                },
+                "x-xsd": "/schemas/response.xsd",
+                "x-response-schema": "/schemas/alerts_list.response.json"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "406": {
+            "$ref": "#/components/responses/Error406"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "412": {
+            "$ref": "#/components/responses/Error412"
+          },
+          "413": {
+            "$ref": "#/components/responses/Error413"
+          },
+          "415": {
+            "$ref": "#/components/responses/Error415"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
+          }
+        }
+      }
+    },
+    "/api/v1/alerts/{identifier}/acknowledge": {
+      "post": {
+        "operationId": "alert_ack",
+        "summary": "Acusar recibo sin modificar el hecho de origen",
+        "parameters": [
+          {
+            "name": "identifier",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-Correlation-ID",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "application/json",
+                "application/xml"
+              ]
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 8,
+              "maxLength": 100
+            }
+          }
+        ],
+        "description": "Roles: según sesión. Contrato público de API.",
+        "security": [
+          {
+            "BearerJWT": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resultado confirmado o estado pendiente documentado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_alert_ack"
+                },
+                "example": {
+                  "data": {
+                    "id": "00000000-0000-4000-8000-000000000001",
+                    "event_id": "00000000-0000-4000-8000-000000000001",
+                    "tenant_id": "00000000-0000-4000-8000-000000000001",
+                    "region_id": "00000000-0000-4000-8000-000000000001",
+                    "target_role": "Dato ficticio para reemplazar",
+                    "target_user_id": "00000000-0000-4000-8000-000000000001",
+                    "message_code": "RESOURCE_CREATED",
+                    "resource_id": "00000000-0000-4000-8000-000000000001",
+                    "status": "Dato ficticio para reemplazar",
+                    "acknowledged_by": "00000000-0000-4000-8000-000000000001",
+                    "created_at": "2030-01-01T15:00:00+00:00"
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "alertas",
+                    "version": "0.4.1"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"event_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"tenant_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"region_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"target_role\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"target_user_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"message_code\" type=\"string\">RESOURCE_CREATED</field><field name=\"resource_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"status\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"acknowledged_by\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"created_at\" type=\"string\">2030-01-01T15:00:00+00:00</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">alertas</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
+                "x-json-equivalent-schema": {
+                  "$ref": "#/components/schemas/Response_alert_ack"
+                },
+                "x-xsd": "/schemas/response.xsd",
+                "x-response-schema": "/schemas/alert_ack.response.json"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "406": {
+            "$ref": "#/components/responses/Error406"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "412": {
+            "$ref": "#/components/responses/Error412"
+          },
+          "413": {
+            "$ref": "#/components/responses/Error413"
+          },
+          "415": {
+            "$ref": "#/components/responses/Error415"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
+          }
+        }
+      }
+    },
+    "/api/v1/alert-policies": {
+      "get": {
+        "operationId": "alert_policies_list",
+        "summary": "alert_policies_list",
+        "parameters": [
+          {
+            "name": "X-Correlation-ID",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "application/json",
+                "application/xml"
+              ]
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
+            }
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20
+            }
+          },
+          {
+            "name": "q",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          },
+          {
+            "name": "severity",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          },
+          {
+            "name": "escalation_role",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          },
+          {
+            "name": "active",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          },
+          {
+            "name": "from_at",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          },
+          {
+            "name": "until_at",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          },
+          {
+            "name": "date_field",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          }
+        ],
+        "description": "Roles: ADMIN, COORDINATOR. Contrato público de API.",
+        "security": [
+          {
+            "BearerJWT": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resultado confirmado o estado pendiente documentado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_alert_policies_list"
+                },
+                "example": {
+                  "data": {
+                    "items": [],
+                    "page": 1,
+                    "page_size": 1,
+                    "total": 1
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "alertas",
+                    "version": "0.4.1"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"items\" type=\"array\"/><field name=\"page\" type=\"integer\">1</field><field name=\"page_size\" type=\"integer\">1</field><field name=\"total\" type=\"integer\">1</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">alertas</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
+                "x-json-equivalent-schema": {
+                  "$ref": "#/components/schemas/Response_alert_policies_list"
+                },
+                "x-xsd": "/schemas/response.xsd",
+                "x-response-schema": "/schemas/alert_policies_list.response.json"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "406": {
+            "$ref": "#/components/responses/Error406"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "412": {
+            "$ref": "#/components/responses/Error412"
+          },
+          "413": {
+            "$ref": "#/components/responses/Error413"
+          },
+          "415": {
+            "$ref": "#/components/responses/Error415"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
+          }
+        }
+      },
+      "post": {
+        "operationId": "alert_policy_create",
+        "summary": "alert_policy_create",
+        "parameters": [
+          {
+            "name": "X-Correlation-ID",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "application/json",
+                "application/xml"
+              ]
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 8,
+              "maxLength": 100
+            }
+          }
+        ],
+        "description": "Roles: ADMIN, COORDINATOR. Contrato público de API.",
+        "security": [
+          {
+            "BearerJWT": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Resultado confirmado o estado pendiente documentado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_alert_policy_create"
+                },
+                "example": {
+                  "data": {
+                    "message_code": "RESOURCE_CREATED",
+                    "severity": "INFO",
+                    "reminder_seconds": 1,
+                    "escalate_seconds": 2,
+                    "escalation_role": "ADMIN",
+                    "source": "Dato ficticio para reemplazar",
+                    "effective_at": "2026-10-01T15:00:00+00:00",
+                    "supersedes": null,
+                    "version": 1,
+                    "id": "00000000-0000-4000-8000-000000000001",
+                    "tenant_id": "00000000-0000-4000-8000-000000000001",
+                    "active": true,
+                    "created_at": "Dato ficticio para reemplazar",
+                    "author_id": "00000000-0000-4000-8000-000000000001"
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "alertas",
+                    "version": "0.4.1"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"message_code\" type=\"string\">RESOURCE_CREATED</field><field name=\"severity\" type=\"string\">INFO</field><field name=\"reminder_seconds\" type=\"integer\">1</field><field name=\"escalate_seconds\" type=\"integer\">2</field><field name=\"escalation_role\" type=\"string\">ADMIN</field><field name=\"source\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"effective_at\" type=\"string\">2026-10-01T15:00:00+00:00</field><field name=\"supersedes\" type=\"null\"/><field name=\"version\" type=\"integer\">1</field><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"tenant_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"active\" type=\"boolean\">true</field><field name=\"created_at\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"author_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">alertas</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
+                "x-json-equivalent-schema": {
+                  "$ref": "#/components/schemas/Response_alert_policy_create"
+                },
+                "x-xsd": "/schemas/response.xsd",
+                "x-response-schema": "/schemas/alert_policy_create.response.json"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "406": {
+            "$ref": "#/components/responses/Error406"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "412": {
+            "$ref": "#/components/responses/Error412"
+          },
+          "413": {
+            "$ref": "#/components/responses/Error413"
+          },
+          "415": {
+            "$ref": "#/components/responses/Error415"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PolicyCreate"
+              },
+              "example": {
+                "message_code": "RESOURCE_CREATED",
+                "severity": "INFO",
+                "reminder_seconds": 1,
+                "escalate_seconds": 2,
+                "escalation_role": "ADMIN",
+                "source": "Dato ficticio para reemplazar",
+                "effective_at": "2026-10-01T15:00:00+00:00",
+                "supersedes": null,
+                "version": 1
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "type": "string"
+              },
+              "example": "<?xml version='1.0' encoding='UTF-8'?>\n<request xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><message_code>RESOURCE_CREATED</message_code><severity>INFO</severity><reminder_seconds>1</reminder_seconds><escalate_seconds>2</escalate_seconds><escalation_role>ADMIN</escalation_role><source>Dato ficticio para reemplazar</source><effective_at>2026-10-01T15:00:00+00:00</effective_at><supersedes xsi:nil=\"true\"/><version>1</version></request>",
+              "x-xsd": "/schemas/alert_policy_create.xsd",
+              "x-json-equivalent-schema": {
+                "$ref": "#/components/schemas/PolicyCreate"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/alert-policies/{identifier}": {
+      "get": {
+        "operationId": "alert_policies_detail",
+        "summary": "alert_policies_detail",
+        "parameters": [
+          {
+            "name": "identifier",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-Correlation-ID",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "application/json",
+                "application/xml"
+              ]
+            }
+          }
+        ],
+        "description": "Roles: ADMIN, COORDINATOR. Contrato público de API.",
+        "security": [
+          {
+            "BearerJWT": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resultado confirmado o estado pendiente documentado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_alert_policies_detail"
+                },
+                "example": {
+                  "data": {
+                    "message_code": "RESOURCE_CREATED",
+                    "severity": "INFO",
+                    "reminder_seconds": 1,
+                    "escalate_seconds": 2,
+                    "escalation_role": "ADMIN",
+                    "source": "Dato ficticio para reemplazar",
+                    "effective_at": "2026-10-01T15:00:00+00:00",
+                    "supersedes": null,
+                    "version": 1,
+                    "id": "00000000-0000-4000-8000-000000000001",
+                    "tenant_id": "00000000-0000-4000-8000-000000000001",
+                    "active": true,
+                    "created_at": "Dato ficticio para reemplazar",
+                    "author_id": "00000000-0000-4000-8000-000000000001"
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "alertas",
+                    "version": "0.4.1"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"message_code\" type=\"string\">RESOURCE_CREATED</field><field name=\"severity\" type=\"string\">INFO</field><field name=\"reminder_seconds\" type=\"integer\">1</field><field name=\"escalate_seconds\" type=\"integer\">2</field><field name=\"escalation_role\" type=\"string\">ADMIN</field><field name=\"source\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"effective_at\" type=\"string\">2026-10-01T15:00:00+00:00</field><field name=\"supersedes\" type=\"null\"/><field name=\"version\" type=\"integer\">1</field><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"tenant_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"active\" type=\"boolean\">true</field><field name=\"created_at\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"author_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">alertas</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
+                "x-json-equivalent-schema": {
+                  "$ref": "#/components/schemas/Response_alert_policies_detail"
+                },
+                "x-xsd": "/schemas/response.xsd",
+                "x-response-schema": "/schemas/alert_policies_detail.response.json"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "406": {
+            "$ref": "#/components/responses/Error406"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "412": {
+            "$ref": "#/components/responses/Error412"
+          },
+          "413": {
+            "$ref": "#/components/responses/Error413"
+          },
+          "415": {
+            "$ref": "#/components/responses/Error415"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
+          }
+        }
+      }
+    },
+    "/api/v1/alert-subscriptions": {
+      "post": {
+        "operationId": "alert_subscription_create",
+        "summary": "Registrar, rotar o reactivar destino propio; una suscripción por cuenta y canal",
+        "parameters": [
+          {
+            "name": "X-Correlation-ID",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "application/json",
+                "application/xml"
+              ]
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 8,
+              "maxLength": 100
+            }
+          }
+        ],
+        "description": "Roles: según sesión. Contrato público de API.",
+        "security": [
+          {
+            "BearerJWT": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Resultado confirmado o estado pendiente documentado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_alert_subscription_create"
+                },
+                "example": {
+                  "data": {
+                    "id": "00000000-0000-4000-8000-000000000001",
+                    "tenant_id": "00000000-0000-4000-8000-000000000001",
+                    "user_id": "00000000-0000-4000-8000-000000000001",
+                    "role": "ADMIN",
+                    "channel": "Dato ficticio para reemplazar",
+                    "destination": "Dato ficticio para reemplazar",
+                    "active": true,
+                    "version": 1,
+                    "created_at": "Dato ficticio para reemplazar"
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "alertas",
+                    "version": "0.4.1"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"tenant_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"user_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"role\" type=\"string\">ADMIN</field><field name=\"channel\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"destination\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"active\" type=\"boolean\">true</field><field name=\"version\" type=\"integer\">1</field><field name=\"created_at\" type=\"string\">Dato ficticio para reemplazar</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">alertas</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
+                "x-json-equivalent-schema": {
+                  "$ref": "#/components/schemas/Response_alert_subscription_create"
+                },
+                "x-xsd": "/schemas/response.xsd",
+                "x-response-schema": "/schemas/alert_subscription_create.response.json"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "406": {
+            "$ref": "#/components/responses/Error406"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "412": {
+            "$ref": "#/components/responses/Error412"
+          },
+          "413": {
+            "$ref": "#/components/responses/Error413"
+          },
+          "415": {
+            "$ref": "#/components/responses/Error415"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SubscriptionCreate"
+              },
+              "example": {
+                "channel": "EMAIL",
+                "push_destination": null
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "type": "string"
+              },
+              "example": "<?xml version='1.0' encoding='UTF-8'?>\n<request xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><channel>EMAIL</channel><push_destination xsi:nil=\"true\"/></request>",
+              "x-xsd": "/schemas/alert_subscription_create.xsd",
+              "x-json-equivalent-schema": {
+                "$ref": "#/components/schemas/SubscriptionCreate"
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "operationId": "alert_subscriptions",
+        "summary": "alert_subscriptions",
+        "parameters": [
+          {
+            "name": "X-Correlation-ID",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "application/json",
+                "application/xml"
+              ]
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
+            }
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20
+            }
+          },
+          {
+            "name": "q",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          },
+          {
+            "name": "from_at",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          },
+          {
+            "name": "until_at",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          },
+          {
+            "name": "date_field",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          }
+        ],
+        "description": "Roles: según sesión. Contrato público de API.",
+        "security": [
+          {
+            "BearerJWT": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resultado confirmado o estado pendiente documentado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_alert_subscriptions"
+                },
+                "example": {
+                  "data": {
+                    "items": [],
+                    "page": 1,
+                    "page_size": 1,
+                    "total": 1
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "alertas",
+                    "version": "0.4.1"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"items\" type=\"array\"/><field name=\"page\" type=\"integer\">1</field><field name=\"page_size\" type=\"integer\">1</field><field name=\"total\" type=\"integer\">1</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">alertas</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
+                "x-json-equivalent-schema": {
+                  "$ref": "#/components/schemas/Response_alert_subscriptions"
+                },
+                "x-xsd": "/schemas/response.xsd",
+                "x-response-schema": "/schemas/alert_subscriptions.response.json"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "406": {
+            "$ref": "#/components/responses/Error406"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "412": {
+            "$ref": "#/components/responses/Error412"
+          },
+          "413": {
+            "$ref": "#/components/responses/Error413"
+          },
+          "415": {
+            "$ref": "#/components/responses/Error415"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
+          }
+        }
+      }
+    },
+    "/api/v1/alert-subscriptions/{identifier}/revoke": {
+      "post": {
+        "operationId": "alert_subscription_revoke",
+        "summary": "alert_subscription_revoke",
+        "parameters": [
+          {
+            "name": "identifier",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-Correlation-ID",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "application/json",
+                "application/xml"
+              ]
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 8,
+              "maxLength": 100
+            }
+          }
+        ],
+        "description": "Roles: según sesión. Contrato público de API.",
+        "security": [
+          {
+            "BearerJWT": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resultado confirmado o estado pendiente documentado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_alert_subscription_revoke"
+                },
+                "example": {
+                  "data": {
+                    "id": "00000000-0000-4000-8000-000000000001",
+                    "tenant_id": "00000000-0000-4000-8000-000000000001",
+                    "user_id": "00000000-0000-4000-8000-000000000001",
+                    "role": "ADMIN",
+                    "channel": "Dato ficticio para reemplazar",
+                    "destination": "Dato ficticio para reemplazar",
+                    "active": true,
+                    "version": 1,
+                    "created_at": "Dato ficticio para reemplazar"
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "alertas",
+                    "version": "0.4.1"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"tenant_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"user_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"role\" type=\"string\">ADMIN</field><field name=\"channel\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"destination\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"active\" type=\"boolean\">true</field><field name=\"version\" type=\"integer\">1</field><field name=\"created_at\" type=\"string\">Dato ficticio para reemplazar</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">alertas</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
+                "x-json-equivalent-schema": {
+                  "$ref": "#/components/schemas/Response_alert_subscription_revoke"
+                },
+                "x-xsd": "/schemas/response.xsd",
+                "x-response-schema": "/schemas/alert_subscription_revoke.response.json"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "406": {
+            "$ref": "#/components/responses/Error406"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "412": {
+            "$ref": "#/components/responses/Error412"
+          },
+          "413": {
+            "$ref": "#/components/responses/Error413"
+          },
+          "415": {
+            "$ref": "#/components/responses/Error415"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Confirm"
+              },
+              "example": {
+                "human_confirmation": true,
+                "reason": "Dato ficticio para reemplazar"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "type": "string"
+              },
+              "example": "<?xml version='1.0' encoding='UTF-8'?>\n<request xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><human_confirmation>true</human_confirmation><reason>Dato ficticio para reemplazar</reason></request>",
+              "x-xsd": "/schemas/alert_subscription_revoke.xsd",
+              "x-json-equivalent-schema": {
+                "$ref": "#/components/schemas/Confirm"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/alerts/{identifier}/close": {
+      "post": {
+        "operationId": "alert_close",
+        "summary": "alert_close",
+        "parameters": [
+          {
+            "name": "identifier",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-Correlation-ID",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "application/json",
+                "application/xml"
+              ]
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 8,
+              "maxLength": 100
+            }
+          }
+        ],
+        "description": "Roles: según sesión. Contrato público de API.",
+        "security": [
+          {
+            "BearerJWT": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resultado confirmado o estado pendiente documentado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_alert_close"
+                },
+                "example": {
+                  "data": {
+                    "id": "00000000-0000-4000-8000-000000000001",
+                    "status": "CLOSED"
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "alertas",
+                    "version": "0.4.1"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"status\" type=\"string\">CLOSED</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">alertas</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
+                "x-json-equivalent-schema": {
+                  "$ref": "#/components/schemas/Response_alert_close"
+                },
+                "x-xsd": "/schemas/response.xsd",
+                "x-response-schema": "/schemas/alert_close.response.json"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "406": {
+            "$ref": "#/components/responses/Error406"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "412": {
+            "$ref": "#/components/responses/Error412"
+          },
+          "413": {
+            "$ref": "#/components/responses/Error413"
+          },
+          "415": {
+            "$ref": "#/components/responses/Error415"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Confirm"
+              },
+              "example": {
+                "human_confirmation": true,
+                "reason": "Dato ficticio para reemplazar"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "type": "string"
+              },
+              "example": "<?xml version='1.0' encoding='UTF-8'?>\n<request xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><human_confirmation>true</human_confirmation><reason>Dato ficticio para reemplazar</reason></request>",
+              "x-xsd": "/schemas/alert_close.xsd",
+              "x-json-equivalent-schema": {
+                "$ref": "#/components/schemas/Confirm"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/alerts/{identifier}/deliveries": {
+      "get": {
+        "operationId": "alert_deliveries",
+        "summary": "alert_deliveries",
+        "parameters": [
+          {
+            "name": "identifier",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-Correlation-ID",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "application/json",
+                "application/xml"
+              ]
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
+            }
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20
+            }
+          },
+          {
+            "name": "q",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          },
+          {
+            "name": "from_at",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          },
+          {
+            "name": "until_at",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          },
+          {
+            "name": "date_field",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          }
+        ],
+        "description": "Roles: según sesión. Contrato público de API.",
+        "security": [
+          {
+            "BearerJWT": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resultado confirmado o estado pendiente documentado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_alert_deliveries"
+                },
+                "example": {
+                  "data": {
+                    "items": [],
+                    "page": 1,
+                    "page_size": 1,
+                    "total": 1
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "alertas",
+                    "version": "0.4.1"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"items\" type=\"array\"/><field name=\"page\" type=\"integer\">1</field><field name=\"page_size\" type=\"integer\">1</field><field name=\"total\" type=\"integer\">1</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">alertas</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
+                "x-json-equivalent-schema": {
+                  "$ref": "#/components/schemas/Response_alert_deliveries"
+                },
+                "x-xsd": "/schemas/response.xsd",
+                "x-response-schema": "/schemas/alert_deliveries.response.json"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "406": {
+            "$ref": "#/components/responses/Error406"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "412": {
+            "$ref": "#/components/responses/Error412"
+          },
+          "413": {
+            "$ref": "#/components/responses/Error413"
+          },
+          "415": {
+            "$ref": "#/components/responses/Error415"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Error": {
+        "type": "object",
+        "required": [
+          "error",
+          "meta"
+        ],
+        "properties": {
+          "meta": {
+            "type": "object",
+            "required": [
+              "correlation_id",
+              "service",
+              "version"
+            ],
+            "properties": {
+              "correlation_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "service": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              }
+            }
+          },
+          "error": {
+            "type": "object",
+            "required": [
+              "code",
+              "message",
+              "details"
+            ],
+            "properties": {
+              "code": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "details": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "field": {
+                      "type": "string",
+                      "description": "Ruta del campo en la entrada; no incluye su valor."
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "challenge": {
+                      "type": "string",
+                      "maxLength": 4096,
+                      "description": "Reto opaco de reautenticación; no registrar ni compartir."
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "Corrección segura en español."
+                    },
+                    "min_length": {
+                      "type": "number"
+                    },
+                    "max_length": {
+                      "type": "number"
+                    },
+                    "ge": {
+                      "type": "number"
+                    },
+                    "le": {
+                      "type": "number"
+                    },
+                    "gt": {
+                      "type": "number"
+                    },
+                    "lt": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "Response_alert_ingest": {
+        "type": "object",
+        "required": [
+          "data",
+          "meta"
+        ],
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "duplicate": {
+                "type": "boolean"
+              },
+              "stored": {
+                "type": "boolean"
+              },
+              "applied": {
+                "type": "boolean"
+              }
+            },
+            "required": []
+          },
+          "meta": {
+            "type": "object",
+            "required": [
+              "correlation_id",
+              "service",
+              "version"
+            ],
+            "properties": {
+              "correlation_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "service": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "Event": {
+        "additionalProperties": false,
+        "properties": {
+          "event_id": {
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "title": "Event Id",
+            "type": "string"
+          },
+          "source": {
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Source",
+            "type": "string"
+          },
+          "action": {
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Action",
+            "type": "string"
+          },
+          "resource_id": {
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Resource Id",
+            "type": "string"
+          },
+          "tenant_id": {
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "title": "Tenant Id",
+            "type": "string"
+          },
+          "region_id": {
+            "anyOf": [
+              {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Region Id"
+          },
+          "actor_id": {
+            "anyOf": [
+              {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Actor Id"
+          },
+          "correlation_id": {
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "title": "Correlation Id",
+            "type": "string"
+          },
+          "occurred_at": {
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Occurred At",
+            "type": "string"
+          },
+          "metadata": {
+            "additionalProperties": true,
+            "title": "Metadata",
+            "type": "object"
+          }
+        },
+        "required": [
+          "event_id",
+          "source",
+          "action",
+          "resource_id",
+          "tenant_id",
+          "region_id",
+          "actor_id",
+          "correlation_id",
+          "occurred_at",
+          "metadata"
+        ],
+        "title": "Event",
+        "type": "object"
+      },
+      "Response_alerts_list": {
+        "type": "object",
+        "required": [
+          "data",
+          "meta"
+        ],
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "event_id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "tenant_id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "region_id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "target_role": {
+                      "type": "string"
+                    },
+                    "target_user_id": {
+                      "type": [
+                        "string",
+                        "null"
+                      ],
+                      "format": "uuid"
+                    },
+                    "message_code": {
+                      "type": "string"
+                    },
+                    "resource_id": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "acknowledged_by": {
+                      "type": [
+                        "string",
+                        "null"
+                      ],
+                      "format": "uuid"
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    }
+                  },
+                  "required": [
+                    "id"
+                  ]
+                }
+              },
+              "page": {
+                "type": "integer"
+              },
+              "page_size": {
+                "type": "integer"
+              },
+              "total": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "items",
+              "page",
+              "page_size",
+              "total"
+            ]
+          },
+          "meta": {
+            "type": "object",
+            "required": [
+              "correlation_id",
+              "service",
+              "version"
+            ],
+            "properties": {
+              "correlation_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "service": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "Response_alert_ack": {
+        "type": "object",
+        "required": [
+          "data",
+          "meta"
+        ],
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "event_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "tenant_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "region_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "target_role": {
+                "type": "string"
+              },
+              "target_user_id": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "format": "uuid"
+              },
+              "message_code": {
+                "type": "string"
+              },
+              "resource_id": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "acknowledged_by": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "format": "uuid"
+              },
+              "created_at": {
+                "type": "string",
+                "format": "date-time"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          },
+          "meta": {
+            "type": "object",
+            "required": [
+              "correlation_id",
+              "service",
+              "version"
+            ],
+            "properties": {
+              "correlation_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "service": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "Response_alert_policies_list": {
+        "type": "object",
+        "required": [
+          "data",
+          "meta"
+        ],
+        "properties": {
+          "data": {
+            "type": "object",
+            "required": [
+              "items",
+              "page",
+              "page_size",
+              "total"
+            ],
+            "properties": {
+              "items": {
+                "type": "array",
+                "items": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "message_code": {
+                      "pattern": "^[A-Z0-9_]{1,80}$",
+                      "title": "Message Code",
+                      "type": "string"
+                    },
+                    "severity": {
+                      "enum": [
+                        "INFO",
+                        "WARNING",
+                        "CRITICAL"
+                      ],
+                      "title": "Severity",
+                      "type": "string"
+                    },
+                    "reminder_seconds": {
+                      "maximum": 604800,
+                      "minimum": 1,
+                      "title": "Reminder Seconds",
+                      "type": "integer"
+                    },
+                    "escalate_seconds": {
+                      "maximum": 2592000,
+                      "minimum": 2,
+                      "title": "Escalate Seconds",
+                      "type": "integer"
+                    },
+                    "escalation_role": {
+                      "enum": [
+                        "ADMIN",
+                        "OPERATOR",
+                        "MEDICAL",
+                        "COORDINATOR",
+                        "TRANSPORT",
+                        "AUDITOR",
+                        "DONOR"
+                      ],
+                      "title": "Escalation Role",
+                      "type": "string"
+                    },
+                    "source": {
+                      "maxLength": 200,
+                      "minLength": 1,
+                      "title": "Source",
+                      "type": "string"
+                    },
+                    "effective_at": {
+                      "maxLength": 200,
+                      "minLength": 1,
+                      "title": "Effective At",
+                      "type": "string"
+                    },
+                    "supersedes": {
+                      "anyOf": [
+                        {
+                          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                          "type": "string"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ],
+                      "default": null,
+                      "title": "Supersedes"
+                    },
+                    "version": {
+                      "title": "Version",
+                      "type": "integer"
+                    },
+                    "id": {
+                      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                      "title": "Id",
+                      "type": "string"
+                    },
+                    "tenant_id": {
+                      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                      "title": "Tenant Id",
+                      "type": "string"
+                    },
+                    "active": {
+                      "title": "Active",
+                      "type": "boolean"
+                    },
+                    "created_at": {
+                      "maxLength": 200,
+                      "minLength": 1,
+                      "title": "Created At",
+                      "type": "string"
+                    },
+                    "author_id": {
+                      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                      "title": "Author Id",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message_code",
+                    "severity",
+                    "reminder_seconds",
+                    "escalate_seconds",
+                    "escalation_role",
+                    "source",
+                    "effective_at",
+                    "version",
+                    "id",
+                    "tenant_id",
+                    "active",
+                    "created_at",
+                    "author_id"
+                  ],
+                  "title": "Policy",
+                  "type": "object"
+                }
+              },
+              "page": {
+                "type": "integer"
+              },
+              "page_size": {
+                "type": "integer"
+              },
+              "total": {
+                "type": "integer"
+              }
+            }
+          },
+          "meta": {
+            "type": "object",
+            "required": [
+              "correlation_id",
+              "service",
+              "version"
+            ],
+            "properties": {
+              "correlation_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "service": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "Response_alert_policies_detail": {
+        "type": "object",
+        "required": [
+          "data",
+          "meta"
+        ],
+        "properties": {
+          "data": {
+            "additionalProperties": false,
+            "properties": {
+              "message_code": {
+                "pattern": "^[A-Z0-9_]{1,80}$",
+                "title": "Message Code",
+                "type": "string"
+              },
+              "severity": {
+                "enum": [
+                  "INFO",
+                  "WARNING",
+                  "CRITICAL"
+                ],
+                "title": "Severity",
+                "type": "string"
+              },
+              "reminder_seconds": {
+                "maximum": 604800,
+                "minimum": 1,
+                "title": "Reminder Seconds",
+                "type": "integer"
+              },
+              "escalate_seconds": {
+                "maximum": 2592000,
+                "minimum": 2,
+                "title": "Escalate Seconds",
+                "type": "integer"
+              },
+              "escalation_role": {
+                "enum": [
+                  "ADMIN",
+                  "OPERATOR",
+                  "MEDICAL",
+                  "COORDINATOR",
+                  "TRANSPORT",
+                  "AUDITOR",
+                  "DONOR"
+                ],
+                "title": "Escalation Role",
+                "type": "string"
+              },
+              "source": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Source",
+                "type": "string"
+              },
+              "effective_at": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Effective At",
+                "type": "string"
+              },
+              "supersedes": {
+                "anyOf": [
+                  {
+                    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Supersedes"
+              },
+              "version": {
+                "title": "Version",
+                "type": "integer"
+              },
+              "id": {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "title": "Id",
+                "type": "string"
+              },
+              "tenant_id": {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "title": "Tenant Id",
+                "type": "string"
+              },
+              "active": {
+                "title": "Active",
+                "type": "boolean"
+              },
+              "created_at": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Created At",
+                "type": "string"
+              },
+              "author_id": {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "title": "Author Id",
+                "type": "string"
+              }
+            },
+            "required": [
+              "message_code",
+              "severity",
+              "reminder_seconds",
+              "escalate_seconds",
+              "escalation_role",
+              "source",
+              "effective_at",
+              "version",
+              "id",
+              "tenant_id",
+              "active",
+              "created_at",
+              "author_id"
+            ],
+            "title": "Policy",
+            "type": "object"
+          },
+          "meta": {
+            "type": "object",
+            "required": [
+              "correlation_id",
+              "service",
+              "version"
+            ],
+            "properties": {
+              "correlation_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "service": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "Response_alert_policy_create": {
+        "type": "object",
+        "required": [
+          "data",
+          "meta"
+        ],
+        "properties": {
+          "data": {
+            "additionalProperties": false,
+            "properties": {
+              "message_code": {
+                "pattern": "^[A-Z0-9_]{1,80}$",
+                "title": "Message Code",
+                "type": "string"
+              },
+              "severity": {
+                "enum": [
+                  "INFO",
+                  "WARNING",
+                  "CRITICAL"
+                ],
+                "title": "Severity",
+                "type": "string"
+              },
+              "reminder_seconds": {
+                "maximum": 604800,
+                "minimum": 1,
+                "title": "Reminder Seconds",
+                "type": "integer"
+              },
+              "escalate_seconds": {
+                "maximum": 2592000,
+                "minimum": 2,
+                "title": "Escalate Seconds",
+                "type": "integer"
+              },
+              "escalation_role": {
+                "enum": [
+                  "ADMIN",
+                  "OPERATOR",
+                  "MEDICAL",
+                  "COORDINATOR",
+                  "TRANSPORT",
+                  "AUDITOR",
+                  "DONOR"
+                ],
+                "title": "Escalation Role",
+                "type": "string"
+              },
+              "source": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Source",
+                "type": "string"
+              },
+              "effective_at": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Effective At",
+                "type": "string"
+              },
+              "supersedes": {
+                "anyOf": [
+                  {
+                    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Supersedes"
+              },
+              "version": {
+                "title": "Version",
+                "type": "integer"
+              },
+              "id": {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "title": "Id",
+                "type": "string"
+              },
+              "tenant_id": {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "title": "Tenant Id",
+                "type": "string"
+              },
+              "active": {
+                "title": "Active",
+                "type": "boolean"
+              },
+              "created_at": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Created At",
+                "type": "string"
+              },
+              "author_id": {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "title": "Author Id",
+                "type": "string"
+              }
+            },
+            "required": [
+              "message_code",
+              "severity",
+              "reminder_seconds",
+              "escalate_seconds",
+              "escalation_role",
+              "source",
+              "effective_at",
+              "version",
+              "id",
+              "tenant_id",
+              "active",
+              "created_at",
+              "author_id"
+            ],
+            "title": "Policy",
+            "type": "object"
+          },
+          "meta": {
+            "type": "object",
+            "required": [
+              "correlation_id",
+              "service",
+              "version"
+            ],
+            "properties": {
+              "correlation_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "service": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "PolicyCreate": {
+        "additionalProperties": false,
+        "properties": {
+          "message_code": {
+            "pattern": "^[A-Z0-9_]{1,80}$",
+            "title": "Message Code",
+            "type": "string"
+          },
+          "severity": {
+            "enum": [
+              "INFO",
+              "WARNING",
+              "CRITICAL"
+            ],
+            "title": "Severity",
+            "type": "string"
+          },
+          "reminder_seconds": {
+            "maximum": 604800,
+            "minimum": 1,
+            "title": "Reminder Seconds",
+            "type": "integer"
+          },
+          "escalate_seconds": {
+            "maximum": 2592000,
+            "minimum": 2,
+            "title": "Escalate Seconds",
+            "type": "integer"
+          },
+          "escalation_role": {
+            "enum": [
+              "ADMIN",
+              "OPERATOR",
+              "MEDICAL",
+              "COORDINATOR",
+              "TRANSPORT",
+              "AUDITOR",
+              "DONOR"
+            ],
+            "title": "Escalation Role",
+            "type": "string"
+          },
+          "source": {
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Source",
+            "type": "string"
+          },
+          "effective_at": {
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Effective At",
+            "type": "string"
+          },
+          "supersedes": {
+            "anyOf": [
+              {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Supersedes"
+          },
+          "version": {
+            "default": 1,
+            "minimum": 1,
+            "title": "Version",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "message_code",
+          "severity",
+          "reminder_seconds",
+          "escalate_seconds",
+          "escalation_role",
+          "source",
+          "effective_at"
+        ],
+        "title": "PolicyCreate",
+        "type": "object"
+      },
+      "Response_alert_subscription_create": {
+        "type": "object",
+        "required": [
+          "data",
+          "meta"
+        ],
+        "properties": {
+          "data": {
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "title": "Id",
+                "type": "string"
+              },
+              "tenant_id": {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "title": "Tenant Id",
+                "type": "string"
+              },
+              "user_id": {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "title": "User Id",
+                "type": "string"
+              },
+              "role": {
+                "enum": [
+                  "ADMIN",
+                  "OPERATOR",
+                  "MEDICAL",
+                  "COORDINATOR",
+                  "TRANSPORT",
+                  "AUDITOR",
+                  "DONOR"
+                ],
+                "title": "Role",
+                "type": "string"
+              },
+              "channel": {
+                "title": "Channel",
+                "type": "string"
+              },
+              "destination": {
+                "title": "Destination",
+                "type": "string"
+              },
+              "active": {
+                "title": "Active",
+                "type": "boolean"
+              },
+              "version": {
+                "title": "Version",
+                "type": "integer"
+              },
+              "created_at": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Created At",
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "tenant_id",
+              "user_id",
+              "role",
+              "channel",
+              "destination",
+              "active",
+              "version",
+              "created_at"
+            ],
+            "title": "Subscription",
+            "type": "object"
+          },
+          "meta": {
+            "type": "object",
+            "required": [
+              "correlation_id",
+              "service",
+              "version"
+            ],
+            "properties": {
+              "correlation_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "service": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "SubscriptionCreate": {
+        "additionalProperties": false,
+        "properties": {
+          "channel": {
+            "enum": [
+              "EMAIL",
+              "PUSH"
+            ],
+            "title": "Channel",
+            "type": "string"
+          },
+          "push_destination": {
+            "anyOf": [
+              {
+                "maxLength": 1000,
+                "minLength": 10,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Push Destination"
+          }
+        },
+        "required": [
+          "channel"
+        ],
+        "title": "SubscriptionCreate",
+        "type": "object"
+      },
+      "Response_alert_subscriptions": {
+        "type": "object",
+        "required": [
+          "data",
+          "meta"
+        ],
+        "properties": {
+          "data": {
+            "type": "object",
+            "required": [
+              "items",
+              "page",
+              "page_size",
+              "total"
+            ],
+            "properties": {
+              "items": {
+                "type": "array",
+                "items": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "id": {
+                      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                      "title": "Id",
+                      "type": "string"
+                    },
+                    "tenant_id": {
+                      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                      "title": "Tenant Id",
+                      "type": "string"
+                    },
+                    "user_id": {
+                      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                      "title": "User Id",
+                      "type": "string"
+                    },
+                    "role": {
+                      "enum": [
+                        "ADMIN",
+                        "OPERATOR",
+                        "MEDICAL",
+                        "COORDINATOR",
+                        "TRANSPORT",
+                        "AUDITOR",
+                        "DONOR"
+                      ],
+                      "title": "Role",
+                      "type": "string"
+                    },
+                    "channel": {
+                      "title": "Channel",
+                      "type": "string"
+                    },
+                    "destination": {
+                      "title": "Destination",
+                      "type": "string"
+                    },
+                    "active": {
+                      "title": "Active",
+                      "type": "boolean"
+                    },
+                    "version": {
+                      "title": "Version",
+                      "type": "integer"
+                    },
+                    "created_at": {
+                      "maxLength": 200,
+                      "minLength": 1,
+                      "title": "Created At",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "tenant_id",
+                    "user_id",
+                    "role",
+                    "channel",
+                    "destination",
+                    "active",
+                    "version",
+                    "created_at"
+                  ],
+                  "title": "Subscription",
+                  "type": "object"
+                }
+              },
+              "page": {
+                "type": "integer"
+              },
+              "page_size": {
+                "type": "integer"
+              },
+              "total": {
+                "type": "integer"
+              }
+            }
+          },
+          "meta": {
+            "type": "object",
+            "required": [
+              "correlation_id",
+              "service",
+              "version"
+            ],
+            "properties": {
+              "correlation_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "service": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "Response_alert_subscription_revoke": {
+        "type": "object",
+        "required": [
+          "data",
+          "meta"
+        ],
+        "properties": {
+          "data": {
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "title": "Id",
+                "type": "string"
+              },
+              "tenant_id": {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "title": "Tenant Id",
+                "type": "string"
+              },
+              "user_id": {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "title": "User Id",
+                "type": "string"
+              },
+              "role": {
+                "enum": [
+                  "ADMIN",
+                  "OPERATOR",
+                  "MEDICAL",
+                  "COORDINATOR",
+                  "TRANSPORT",
+                  "AUDITOR",
+                  "DONOR"
+                ],
+                "title": "Role",
+                "type": "string"
+              },
+              "channel": {
+                "title": "Channel",
+                "type": "string"
+              },
+              "destination": {
+                "title": "Destination",
+                "type": "string"
+              },
+              "active": {
+                "title": "Active",
+                "type": "boolean"
+              },
+              "version": {
+                "title": "Version",
+                "type": "integer"
+              },
+              "created_at": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Created At",
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "tenant_id",
+              "user_id",
+              "role",
+              "channel",
+              "destination",
+              "active",
+              "version",
+              "created_at"
+            ],
+            "title": "Subscription",
+            "type": "object"
+          },
+          "meta": {
+            "type": "object",
+            "required": [
+              "correlation_id",
+              "service",
+              "version"
+            ],
+            "properties": {
+              "correlation_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "service": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "Confirm": {
+        "additionalProperties": false,
+        "properties": {
+          "human_confirmation": {
+            "const": true,
+            "title": "Human Confirmation",
+            "type": "boolean"
+          },
+          "reason": {
+            "maxLength": 1000,
+            "minLength": 6,
+            "title": "Reason",
+            "type": "string"
+          }
+        },
+        "required": [
+          "human_confirmation",
+          "reason"
+        ],
+        "title": "Confirm",
+        "type": "object"
+      },
+      "Response_alert_close": {
+        "type": "object",
+        "required": [
+          "data",
+          "meta"
+        ],
+        "properties": {
+          "data": {
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "title": "Id",
+                "type": "string"
+              },
+              "status": {
+                "const": "CLOSED",
+                "title": "Status",
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "status"
+            ],
+            "title": "Closed",
+            "type": "object"
+          },
+          "meta": {
+            "type": "object",
+            "required": [
+              "correlation_id",
+              "service",
+              "version"
+            ],
+            "properties": {
+              "correlation_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "service": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "Response_alert_deliveries": {
+        "type": "object",
+        "required": [
+          "data",
+          "meta"
+        ],
+        "properties": {
+          "data": {
+            "type": "object",
+            "required": [
+              "items",
+              "page",
+              "page_size",
+              "total"
+            ],
+            "properties": {
+              "items": {
+                "type": "array",
+                "items": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "id": {
+                      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                      "title": "Id",
+                      "type": "string"
+                    },
+                    "alert_id": {
+                      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                      "title": "Alert Id",
+                      "type": "string"
+                    },
+                    "subscription_id": {
+                      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                      "title": "Subscription Id",
+                      "type": "string"
+                    },
+                    "tenant_id": {
+                      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                      "title": "Tenant Id",
+                      "type": "string"
+                    },
+                    "stage": {
+                      "title": "Stage",
+                      "type": "string"
+                    },
+                    "status": {
+                      "title": "Status",
+                      "type": "string"
+                    },
+                    "attempts": {
+                      "title": "Attempts",
+                      "type": "integer"
+                    },
+                    "next_attempt": {
+                      "maxLength": 200,
+                      "minLength": 1,
+                      "title": "Next Attempt",
+                      "type": "string"
+                    },
+                    "accepted_at": {
+                      "anyOf": [
+                        {
+                          "maxLength": 200,
+                          "minLength": 1,
+                          "type": "string"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ],
+                      "title": "Accepted At"
+                    },
+                    "last_error": {
+                      "anyOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ],
+                      "title": "Last Error"
+                    },
+                    "created_at": {
+                      "maxLength": 200,
+                      "minLength": 1,
+                      "title": "Created At",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "alert_id",
+                    "subscription_id",
+                    "tenant_id",
+                    "stage",
+                    "status",
+                    "attempts",
+                    "next_attempt",
+                    "accepted_at",
+                    "last_error",
+                    "created_at"
+                  ],
+                  "title": "Delivery",
+                  "type": "object"
+                }
+              },
+              "page": {
+                "type": "integer"
+              },
+              "page_size": {
+                "type": "integer"
+              },
+              "total": {
+                "type": "integer"
+              }
+            }
+          },
+          "meta": {
+            "type": "object",
+            "required": [
+              "correlation_id",
+              "service",
+              "version"
+            ],
+            "properties": {
+              "correlation_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "service": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "responses": {
+      "Error400": {
+        "description": "Error uniforme.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "error": {
+                "code": "validation",
+                "message": "Petición no disponible o inválida.",
+                "details": []
+              },
+              "meta": {
+                "correlation_id": "00000000-0000-4000-8000-000000000001",
+                "service": "alertas",
+                "version": "0.4.1"
+              }
+            }
+          },
+          "application/xml": {
+            "schema": {
+              "type": "string"
+            },
+            "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">validation</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">alertas</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>"
+          }
+        }
+      },
+      "Error401": {
+        "description": "Credencial inválida, expirada o revocada.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "error": {
+                "code": "unauthorized",
+                "message": "Credencial inválida, expirada o revocada.",
+                "details": []
+              },
+              "meta": {
+                "correlation_id": "00000000-0000-4000-8000-000000000001",
+                "service": "alertas",
+                "version": "0.4.1"
+              }
+            }
+          },
+          "application/xml": {
+            "schema": {
+              "type": "string"
+            },
+            "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">unauthorized</field><field name=\"message\" type=\"string\">Credencial inválida, expirada o revocada.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">alertas</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>"
+          }
+        }
+      },
+      "Error403": {
+        "description": "Sin permiso institucional o de recurso.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "error": {
+                "code": "forbidden",
+                "message": "Sin permiso institucional o de recurso.",
+                "details": []
+              },
+              "meta": {
+                "correlation_id": "00000000-0000-4000-8000-000000000001",
+                "service": "alertas",
+                "version": "0.4.1"
+              }
+            }
+          },
+          "application/xml": {
+            "schema": {
+              "type": "string"
+            },
+            "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">forbidden</field><field name=\"message\" type=\"string\">Sin permiso institucional o de recurso.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">alertas</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>"
+          }
+        }
+      },
+      "Error404": {
+        "description": "Error uniforme.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "error": {
+                "code": "not_found",
+                "message": "Petición no disponible o inválida.",
+                "details": []
+              },
+              "meta": {
+                "correlation_id": "00000000-0000-4000-8000-000000000001",
+                "service": "alertas",
+                "version": "0.4.1"
+              }
+            }
+          },
+          "application/xml": {
+            "schema": {
+              "type": "string"
+            },
+            "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">not_found</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">alertas</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>"
+          }
+        }
+      },
+      "Error406": {
+        "description": "Error uniforme.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "error": {
+                "code": "not_acceptable",
+                "message": "Petición no disponible o inválida.",
+                "details": []
+              },
+              "meta": {
+                "correlation_id": "00000000-0000-4000-8000-000000000001",
+                "service": "alertas",
+                "version": "0.4.1"
+              }
+            }
+          },
+          "application/xml": {
+            "schema": {
+              "type": "string"
+            },
+            "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">not_acceptable</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">alertas</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>"
+          }
+        }
+      },
+      "Error409": {
+        "description": "Conflicto de estado, versión o idempotencia.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "error": {
+                "code": "conflict",
+                "message": "Conflicto de estado, versión o idempotencia.",
+                "details": []
+              },
+              "meta": {
+                "correlation_id": "00000000-0000-4000-8000-000000000001",
+                "service": "alertas",
+                "version": "0.4.1"
+              }
+            }
+          },
+          "application/xml": {
+            "schema": {
+              "type": "string"
+            },
+            "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">conflict</field><field name=\"message\" type=\"string\">Conflicto de estado, versión o idempotencia.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">alertas</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>"
+          }
+        }
+      },
+      "Error412": {
+        "description": "Error uniforme.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "error": {
+                "code": "stale_version",
+                "message": "Petición no disponible o inválida.",
+                "details": []
+              },
+              "meta": {
+                "correlation_id": "00000000-0000-4000-8000-000000000001",
+                "service": "alertas",
+                "version": "0.4.1"
+              }
+            }
+          },
+          "application/xml": {
+            "schema": {
+              "type": "string"
+            },
+            "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">stale_version</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">alertas</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>"
+          }
+        }
+      },
+      "Error413": {
+        "description": "Error uniforme.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "error": {
+                "code": "http_error",
+                "message": "Petición no disponible o inválida.",
+                "details": []
+              },
+              "meta": {
+                "correlation_id": "00000000-0000-4000-8000-000000000001",
+                "service": "alertas",
+                "version": "0.4.1"
+              }
+            }
+          },
+          "application/xml": {
+            "schema": {
+              "type": "string"
+            },
+            "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">http_error</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">alertas</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>"
+          }
+        }
+      },
+      "Error415": {
+        "description": "Error uniforme.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "error": {
+                "code": "unsupported_media",
+                "message": "Petición no disponible o inválida.",
+                "details": []
+              },
+              "meta": {
+                "correlation_id": "00000000-0000-4000-8000-000000000001",
+                "service": "alertas",
+                "version": "0.4.1"
+              }
+            }
+          },
+          "application/xml": {
+            "schema": {
+              "type": "string"
+            },
+            "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">unsupported_media</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">alertas</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>"
+          }
+        }
+      },
+      "Error422": {
+        "description": "Error uniforme.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "error": {
+                "code": "validation",
+                "message": "Petición no disponible o inválida.",
+                "details": []
+              },
+              "meta": {
+                "correlation_id": "00000000-0000-4000-8000-000000000001",
+                "service": "alertas",
+                "version": "0.4.1"
+              }
+            }
+          },
+          "application/xml": {
+            "schema": {
+              "type": "string"
+            },
+            "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">validation</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">alertas</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>"
+          }
+        }
+      },
+      "Error429": {
+        "description": "Error uniforme.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "error": {
+                "code": "rate_limit",
+                "message": "Petición no disponible o inválida.",
+                "details": []
+              },
+              "meta": {
+                "correlation_id": "00000000-0000-4000-8000-000000000001",
+                "service": "alertas",
+                "version": "0.4.1"
+              }
+            }
+          },
+          "application/xml": {
+            "schema": {
+              "type": "string"
+            },
+            "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">rate_limit</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">alertas</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>"
+          }
+        }
+      },
+      "Error500": {
+        "description": "Error uniforme.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "error": {
+                "code": "internal_error",
+                "message": "Petición no disponible o inválida.",
+                "details": []
+              },
+              "meta": {
+                "correlation_id": "00000000-0000-4000-8000-000000000001",
+                "service": "alertas",
+                "version": "0.4.1"
+              }
+            }
+          },
+          "application/xml": {
+            "schema": {
+              "type": "string"
+            },
+            "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">internal_error</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">alertas</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>"
+          }
+        }
+      },
+      "Error503": {
+        "description": "Dependencia inaccesible; consultar estado antes de repetir.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "error": {
+                "code": "dependency_unavailable",
+                "message": "Dependencia inaccesible; consultar estado antes de repetir.",
+                "details": []
+              },
+              "meta": {
+                "correlation_id": "00000000-0000-4000-8000-000000000001",
+                "service": "alertas",
+                "version": "0.4.1"
+              }
+            }
+          },
+          "application/xml": {
+            "schema": {
+              "type": "string"
+            },
+            "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">dependency_unavailable</field><field name=\"message\" type=\"string\">Dependencia inaccesible; consultar estado antes de repetir.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">alertas</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "BearerJWT": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT RS256"
+      },
+      "ServiceSignature": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-Service-Signature",
+        "description": "Ed25519; requiere X-Service, X-Service-Time y X-Service-Nonce. No es un token de usuario."
+      }
+    }
+  }
+}

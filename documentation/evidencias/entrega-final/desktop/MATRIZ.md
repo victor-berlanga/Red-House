@@ -1,0 +1,24 @@
+# Escritorio: estado y matriz inicial
+
+Corte 13/11/2026. macOS Darwin x86_64, Python 3.12.6: ejecución desde entorno virtual, capturas Qt y smoke del paquete reconstruido comprobados. Firma de distribución, notarización, lector e impresora pendientes. Windows 11 y Linux sin ejecución. Los contratos locales son copias de OpenAPI/XSD; cada permiso y ámbito debe comprobarse contra servicio real y pruebas de autorización antes de operar.
+
+| ID | Módulo y tareas | Propietario/contrato | Estado y dependencia |
+|---|---|---|---|
+| DESK-01 | Panel regional, métricas y filtros | Inventario, solicitudes, transporte, alertas | Pendiente: consultas agregadas y UI por rol. |
+| DESK-02 | Instituciones, usuarios, dispositivos | Identidad `user_list`, XML/OpenAPI | Consulta de usuarios y cambio versionado de estado/perfil operativo implementados en fuente con reautenticación; pendientes alta, dispositivos y pruebas reales. |
+| DESK-03 | Inventario, detalle y cambios | Inventario: `resources_list`, `resource_detail`, XSD respuesta y DTO | Alta y lectura XML probadas; inventario y detalle autenticados observados en Qt con laboratorio sintético. Edición y otros perfiles pendientes. OPERATOR/MEDICAL/COORDINATOR. |
+| DESK-04 | Colectas y laboratorio | Compatibilidad: `lab_samples_list`, `lab_sample_receive`, `lab_sample_receive.xsd`, DTO | Consulta/recepción y captura de resultados para OPERATOR/MEDICAL; revisión de resultado para MEDICAL. Flujo XML probado en laboratorio; GUI y resto pendientes. Servidor controla institución y versión. |
+| DESK-05 | Receptores y solicitudes | Receptores `requests_list`/`request_detail` | Consulta conectada y probada XML. Alta/edición e interfaz autenticada pendientes. |
+| DESK-06 | Compatibilidad y dictamen | Compatibilidad `evaluation_create`/`evaluation_detail`/`evaluation_review`, XSD | Preselección y dictamen conectados y probados XML en laboratorio; UI real, cobertura clínica y otras funciones pendientes. |
+| DESK-07 | Logística y cobertura | Priorización/geografía `proposal_list`/`proposal_detail` | Resumen de propuestas implementado en fuente; pendientes detalle individual, acciones y pruebas. |
+| DESK-08 | Reservas y asignaciones | Inventario `reservation_create`/`operation_detail`, XSD | Inicio y consulta XML probados en laboratorio, incluidos estado y resultado de operación HTTP 202; recuperación real de respuesta perdida y GUI pendientes. Diario cifrado local. |
+| DESK-09 | Transporte, custodia y mapa WSS | Transporte, Identidad, Custodia, WSS XML y XSD | Recepción con cuenta operativa, verificación de código y aceptación probadas por cliente XML y Qt en laboratorio sintético. Seguimiento/mapa y cadena de custodia pendientes de integración real; no se acreditan escáner, GPS ni entrega física. |
+| DESK-10 | Caducidad y frío | Inventario `cold_readings_list`/`cold_reading_create`, XSD | Consulta paginada y captura de lecturas implementadas en fuente; alertas provienen del servidor. Pendientes perfil, equipos, acciones y pruebas reales. |
+| DESK-11 | Uso y trazabilidad | Inventario `resource_trace`, XML/DTO | Consulta de eventos y fuentes restringidas para personal médico implementada en fuente; pendientes pruebas, navegación a expedientes y cierres. |
+| DESK-12 | Reportes y analítica | Documentos `export_create`/`export_list`/`export_detail`/`document_verified`/`file_download` | Solicitud y consulta XML probadas con rechazo de otra institución; descarga con SHA-256 implementada en fuente y pendiente de integración real, igual que cancelación y analítica. |
+| DESK-13 | Etiquetas e impresión | Inventario `resource_detail`/`label_issue`; QR local | Emisión autorizada y recuperación de respuesta perdida probadas XML; PDF y envío a impresión disponibles en fuente. Lectura física e impresión física pendientes. |
+| DESK-14 | Auditoría y alertas | Alertas `alerts_list`; Auditoría `audit_list`/`audit_detail`, XML/XSD/DTO | Bandeja, acuse y consulta de auditoría implementados; lectura de avisos probada en laboratorio. Acuse, auditoría e interfaz real pendientes. |
+
+Sesión: Identidad `login`, `refresh`, `logout`, sus XSD/DTO. Tokens solo en memoria y renovación serializada. MFA usa OTP del login. No hay almacenamiento de credenciales ni dispositivo. La revocación y dos escenarios MFA con contrato SEC definitivo se probaron en laboratorio; faltan carreras y recuperación MFA desde GUI. El laboratorio verificó Identidad, Inventario, Compatibilidad, Alertas, Receptores, Transporte y solicitud de reporte en Documentos. Otros recorridos y permisos siguen sin comprobarse desde escritorio. Sin sincronización offline: el protocolo vigente restringe observaciones a transporte; no se amplían permisos.
+
+La continuidad de etapas 01–04, validación móvil física, proveedor push, fuentes clínicas, GCS, firma y periféricos siguen pendientes. No se cambian sus matrices desde este ámbito. No se ha verificado integración móvil/web/escritorio ni operación sobre datos reales.

@@ -1,0 +1,4769 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Red House — auditoria",
+    "version": "0.4.1",
+    "description": "API independiente JSON/XML. Reglas clínicas ilustrativas; requiere revisión humana. XML de respuesta validable en /schemas/response.xsd."
+  },
+  "paths": {
+    "/api/v1/event-options": {
+      "get": {
+        "operationId": "audit_options",
+        "summary": "Categorías, acciones, resultados y límite de exportación",
+        "parameters": [
+          {
+            "name": "X-Correlation-ID",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "application/json",
+                "application/xml"
+              ]
+            }
+          }
+        ],
+        "description": "Roles: AUDITOR. Contrato público de API.",
+        "security": [
+          {
+            "BearerJWT": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resultado confirmado o estado pendiente documentado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_audit_options"
+                },
+                "example": {
+                  "data": {
+                    "categories": {},
+                    "actions": {},
+                    "results": {},
+                    "export_limit": 1
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "auditoria",
+                    "version": "0.4.1"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"categories\" type=\"object\"/><field name=\"actions\" type=\"object\"/><field name=\"results\" type=\"object\"/><field name=\"export_limit\" type=\"integer\">1</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
+                "x-json-equivalent-schema": {
+                  "$ref": "#/components/schemas/Response_audit_options"
+                },
+                "x-xsd": "/schemas/response.xsd",
+                "x-response-schema": "/schemas/audit_options.response.json"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "406": {
+            "$ref": "#/components/responses/Error406"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "412": {
+            "$ref": "#/components/responses/Error412"
+          },
+          "413": {
+            "$ref": "#/components/responses/Error413"
+          },
+          "415": {
+            "$ref": "#/components/responses/Error415"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
+          }
+        }
+      }
+    },
+    "/internal/v1/events": {
+      "post": {
+        "operationId": "audit_ingest",
+        "summary": "Recibir registro minimizado y conservarlo de forma inmutable",
+        "parameters": [
+          {
+            "name": "X-Correlation-ID",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "application/json",
+                "application/xml"
+              ]
+            }
+          },
+          {
+            "name": "X-Service",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "identidad_acceso",
+                "donantes",
+                "receptores",
+                "inventario",
+                "compatibilidad",
+                "priorizacion_geografia",
+                "transporte",
+                "custodia",
+                "alertas",
+                "auditoria",
+                "monitoreo",
+                "documentos"
+              ]
+            }
+          },
+          {
+            "name": "X-Service-Time",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Service-Nonce",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "description": "Roles: según sesión. Contrato interno firmado; consumidores: identidad_acceso, donantes, receptores, inventario, compatibilidad, priorizacion_geografia, transporte, custodia, alertas, auditoria, monitoreo, documentos",
+        "security": [
+          {
+            "ServiceSignature": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resultado confirmado o estado pendiente documentado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_audit_ingest"
+                },
+                "example": {
+                  "data": {
+                    "duplicate": true,
+                    "stored": true,
+                    "applied": true
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "auditoria",
+                    "version": "0.4.1"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"duplicate\" type=\"boolean\">true</field><field name=\"stored\" type=\"boolean\">true</field><field name=\"applied\" type=\"boolean\">true</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
+                "x-json-equivalent-schema": {
+                  "$ref": "#/components/schemas/Response_audit_ingest"
+                },
+                "x-xsd": "/schemas/response.xsd",
+                "x-response-schema": "/schemas/audit_ingest.response.json"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "406": {
+            "$ref": "#/components/responses/Error406"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "412": {
+            "$ref": "#/components/responses/Error412"
+          },
+          "413": {
+            "$ref": "#/components/responses/Error413"
+          },
+          "415": {
+            "$ref": "#/components/responses/Error415"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Event"
+              },
+              "example": {
+                "event_id": "00000000-0000-4000-8000-000000000001",
+                "source": "Dato ficticio para reemplazar",
+                "action": "Dato ficticio para reemplazar",
+                "resource_id": "00000000-0000-4000-8000-000000000001",
+                "tenant_id": "00000000-0000-4000-8000-000000000001",
+                "region_id": null,
+                "actor_id": null,
+                "correlation_id": "00000000-0000-4000-8000-000000000001",
+                "occurred_at": "2026-10-01T15:00:00+00:00",
+                "metadata": {}
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "type": "string"
+              },
+              "example": "<?xml version='1.0' encoding='UTF-8'?>\n<request xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><event_id>00000000-0000-4000-8000-000000000001</event_id><source>Dato ficticio para reemplazar</source><action>Dato ficticio para reemplazar</action><resource_id>00000000-0000-4000-8000-000000000001</resource_id><tenant_id>00000000-0000-4000-8000-000000000001</tenant_id><region_id xsi:nil=\"true\"/><actor_id xsi:nil=\"true\"/><correlation_id>00000000-0000-4000-8000-000000000001</correlation_id><occurred_at>2026-10-01T15:00:00+00:00</occurred_at><metadata/></request>",
+              "x-xsd": "/schemas/audit_ingest.xsd",
+              "x-json-equivalent-schema": {
+                "$ref": "#/components/schemas/Event"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/events": {
+      "get": {
+        "operationId": "audit_list",
+        "summary": "Bitácora regional de solo lectura; sin credenciales ni contenido clínico",
+        "parameters": [
+          {
+            "name": "X-Correlation-ID",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "application/json",
+                "application/xml"
+              ]
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
+            }
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20
+            }
+          },
+          {
+            "name": "from",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          },
+          {
+            "name": "categories",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          },
+          {
+            "name": "action",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          },
+          {
+            "name": "actor",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          },
+          {
+            "name": "institution_id",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          },
+          {
+            "name": "resource",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          },
+          {
+            "name": "result",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          },
+          {
+            "name": "correlation_id",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          },
+          {
+            "name": "q",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          }
+        ],
+        "description": "Roles: AUDITOR. Contrato público de API.",
+        "security": [
+          {
+            "BearerJWT": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resultado confirmado o estado pendiente documentado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_audit_list"
+                },
+                "example": {
+                  "data": {
+                    "items": [],
+                    "page": 1,
+                    "page_size": 1,
+                    "total": 1
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "auditoria",
+                    "version": "0.4.1"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"items\" type=\"array\"/><field name=\"page\" type=\"integer\">1</field><field name=\"page_size\" type=\"integer\">1</field><field name=\"total\" type=\"integer\">1</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
+                "x-json-equivalent-schema": {
+                  "$ref": "#/components/schemas/Response_audit_list"
+                },
+                "x-xsd": "/schemas/response.xsd",
+                "x-response-schema": "/schemas/audit_list.response.json"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "406": {
+            "$ref": "#/components/responses/Error406"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "412": {
+            "$ref": "#/components/responses/Error412"
+          },
+          "413": {
+            "$ref": "#/components/responses/Error413"
+          },
+          "415": {
+            "$ref": "#/components/responses/Error415"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
+          }
+        }
+      }
+    },
+    "/api/v1/events/export": {
+      "get": {
+        "operationId": "audit_export",
+        "summary": "Exportar hasta 5000 resultados con los mismos filtros y una instantánea consistente",
+        "parameters": [
+          {
+            "name": "X-Correlation-ID",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "application/json",
+                "application/xml"
+              ]
+            }
+          },
+          {
+            "name": "from",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          },
+          {
+            "name": "categories",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          },
+          {
+            "name": "action",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          },
+          {
+            "name": "actor",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          },
+          {
+            "name": "institution_id",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          },
+          {
+            "name": "resource",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          },
+          {
+            "name": "result",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          },
+          {
+            "name": "correlation_id",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          },
+          {
+            "name": "q",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          }
+        ],
+        "description": "Roles: AUDITOR. Contrato público de API.",
+        "security": [
+          {
+            "BearerJWT": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resultado confirmado o estado pendiente documentado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_audit_export"
+                },
+                "example": {
+                  "data": {
+                    "items": [],
+                    "page": 1,
+                    "page_size": 1,
+                    "total": 1
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "auditoria",
+                    "version": "0.4.1"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"items\" type=\"array\"/><field name=\"page\" type=\"integer\">1</field><field name=\"page_size\" type=\"integer\">1</field><field name=\"total\" type=\"integer\">1</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
+                "x-json-equivalent-schema": {
+                  "$ref": "#/components/schemas/Response_audit_export"
+                },
+                "x-xsd": "/schemas/response.xsd",
+                "x-response-schema": "/schemas/audit_export.response.json"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "406": {
+            "$ref": "#/components/responses/Error406"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "412": {
+            "$ref": "#/components/responses/Error412"
+          },
+          "413": {
+            "$ref": "#/components/responses/Error413"
+          },
+          "415": {
+            "$ref": "#/components/responses/Error415"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
+          }
+        }
+      }
+    },
+    "/api/v1/events/{identifier}/related": {
+      "get": {
+        "operationId": "audit_related",
+        "summary": "Secuencia regional relacionada por recursos o correlación; máximo 500 eventos y cuatro saltos",
+        "parameters": [
+          {
+            "name": "identifier",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-Correlation-ID",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "application/json",
+                "application/xml"
+              ]
+            }
+          }
+        ],
+        "description": "Roles: AUDITOR. Contrato público de API.",
+        "security": [
+          {
+            "BearerJWT": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resultado confirmado o estado pendiente documentado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_audit_related"
+                },
+                "example": {
+                  "data": {
+                    "items": [],
+                    "limited": true,
+                    "limit": 1,
+                    "max_hops": 1
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "auditoria",
+                    "version": "0.4.1"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"items\" type=\"array\"/><field name=\"limited\" type=\"boolean\">true</field><field name=\"limit\" type=\"integer\">1</field><field name=\"max_hops\" type=\"integer\">1</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
+                "x-json-equivalent-schema": {
+                  "$ref": "#/components/schemas/Response_audit_related"
+                },
+                "x-xsd": "/schemas/response.xsd",
+                "x-response-schema": "/schemas/audit_related.response.json"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "406": {
+            "$ref": "#/components/responses/Error406"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "412": {
+            "$ref": "#/components/responses/Error412"
+          },
+          "413": {
+            "$ref": "#/components/responses/Error413"
+          },
+          "415": {
+            "$ref": "#/components/responses/Error415"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
+          }
+        }
+      }
+    },
+    "/api/v1/events/{identifier}": {
+      "get": {
+        "operationId": "audit_detail",
+        "summary": "Evento auditable y correlación",
+        "parameters": [
+          {
+            "name": "identifier",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-Correlation-ID",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "application/json",
+                "application/xml"
+              ]
+            }
+          }
+        ],
+        "description": "Roles: AUDITOR. Contrato público de API.",
+        "security": [
+          {
+            "BearerJWT": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resultado confirmado o estado pendiente documentado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_audit_detail"
+                },
+                "example": {
+                  "data": {
+                    "id": "00000000-0000-4000-8000-000000000001",
+                    "tenant_id": "00000000-0000-4000-8000-000000000001",
+                    "region_id": "00000000-0000-4000-8000-000000000001",
+                    "source": "Dato ficticio para reemplazar",
+                    "action": "Dato ficticio para reemplazar",
+                    "actor_id": "00000000-0000-4000-8000-000000000001",
+                    "event": {},
+                    "created_at": "2030-01-01T15:00:00+00:00",
+                    "executed_at": "2030-01-01T15:00:00+00:00",
+                    "actor_name": "Dato ficticio para reemplazar",
+                    "actor_role": "Dato ficticio para reemplazar",
+                    "actor_institution_id": "00000000-0000-4000-8000-000000000001",
+                    "resource_folio": "Dato ficticio para reemplazar",
+                    "reason": "Dato ficticio para reemplazar",
+                    "resource_id": "00000000-0000-4000-8000-000000000001",
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "category": "Dato ficticio para reemplazar",
+                    "result": "Dato ficticio para reemplazar",
+                    "action_label": "Dato ficticio para reemplazar",
+                    "category_label": "Dato ficticio para reemplazar",
+                    "result_label": "Dato ficticio para reemplazar",
+                    "actor_display": "Dato ficticio para reemplazar",
+                    "resource_display": "Dato ficticio para reemplazar",
+                    "changes": {},
+                    "changed_fields": [],
+                    "resource_refs": []
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "auditoria",
+                    "version": "0.4.1"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"tenant_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"region_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"source\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"action\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"actor_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"event\" type=\"object\"/><field name=\"created_at\" type=\"string\">2030-01-01T15:00:00+00:00</field><field name=\"executed_at\" type=\"string\">2030-01-01T15:00:00+00:00</field><field name=\"actor_name\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"actor_role\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"actor_institution_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"resource_folio\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"reason\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"resource_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"category\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"result\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"action_label\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"category_label\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"result_label\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"actor_display\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"resource_display\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"changes\" type=\"object\"/><field name=\"changed_fields\" type=\"array\"/><field name=\"resource_refs\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
+                "x-json-equivalent-schema": {
+                  "$ref": "#/components/schemas/Response_audit_detail"
+                },
+                "x-xsd": "/schemas/response.xsd",
+                "x-response-schema": "/schemas/audit_detail.response.json"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "406": {
+            "$ref": "#/components/responses/Error406"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "412": {
+            "$ref": "#/components/responses/Error412"
+          },
+          "413": {
+            "$ref": "#/components/responses/Error413"
+          },
+          "415": {
+            "$ref": "#/components/responses/Error415"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
+          }
+        }
+      }
+    },
+    "/api/v1/documentary-events": {
+      "get": {
+        "operationId": "documentary_events",
+        "summary": "Proyección documental MongoDB; puede estar pendiente de sincronización",
+        "parameters": [
+          {
+            "name": "X-Correlation-ID",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "application/json",
+                "application/xml"
+              ]
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
+            }
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20
+            }
+          }
+        ],
+        "description": "Roles: AUDITOR. Contrato público de API.",
+        "security": [
+          {
+            "BearerJWT": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resultado confirmado o estado pendiente documentado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_documentary_events"
+                },
+                "example": {
+                  "data": {
+                    "items": [],
+                    "page": 1,
+                    "page_size": 1,
+                    "total": 1
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "auditoria",
+                    "version": "0.4.1"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"items\" type=\"array\"/><field name=\"page\" type=\"integer\">1</field><field name=\"page_size\" type=\"integer\">1</field><field name=\"total\" type=\"integer\">1</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
+                "x-json-equivalent-schema": {
+                  "$ref": "#/components/schemas/Response_documentary_events"
+                },
+                "x-xsd": "/schemas/response.xsd",
+                "x-response-schema": "/schemas/documentary_events.response.json"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "406": {
+            "$ref": "#/components/responses/Error406"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "412": {
+            "$ref": "#/components/responses/Error412"
+          },
+          "413": {
+            "$ref": "#/components/responses/Error413"
+          },
+          "415": {
+            "$ref": "#/components/responses/Error415"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
+          }
+        }
+      }
+    },
+    "/api/v1/findings": {
+      "get": {
+        "operationId": "finding_list",
+        "summary": "Hallazgos regionales para auditor o asignados al responsable",
+        "parameters": [
+          {
+            "name": "X-Correlation-ID",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "application/json",
+                "application/xml"
+              ]
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
+            }
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          },
+          {
+            "name": "priority",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          },
+          {
+            "name": "q",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          },
+          {
+            "name": "from_at",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          },
+          {
+            "name": "until_at",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          },
+          {
+            "name": "date_field",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          }
+        ],
+        "description": "Roles: AUDITOR, COORDINATOR. Contrato público de API.",
+        "security": [
+          {
+            "BearerJWT": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resultado confirmado o estado pendiente documentado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_finding_list"
+                },
+                "example": {
+                  "data": {
+                    "items": [],
+                    "page": 1,
+                    "page_size": 1,
+                    "total": 1
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "auditoria",
+                    "version": "0.4.1"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"items\" type=\"array\"/><field name=\"page\" type=\"integer\">1</field><field name=\"page_size\" type=\"integer\">1</field><field name=\"total\" type=\"integer\">1</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
+                "x-json-equivalent-schema": {
+                  "$ref": "#/components/schemas/Response_finding_list"
+                },
+                "x-xsd": "/schemas/response.xsd",
+                "x-response-schema": "/schemas/finding_list.response.json"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "406": {
+            "$ref": "#/components/responses/Error406"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "412": {
+            "$ref": "#/components/responses/Error412"
+          },
+          "413": {
+            "$ref": "#/components/responses/Error413"
+          },
+          "415": {
+            "$ref": "#/components/responses/Error415"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
+          }
+        }
+      },
+      "post": {
+        "operationId": "finding_create",
+        "summary": "Registrar hallazgo con eventos o recurso autorizado y coordinador responsable",
+        "parameters": [
+          {
+            "name": "X-Correlation-ID",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "application/json",
+                "application/xml"
+              ]
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 8,
+              "maxLength": 100
+            }
+          }
+        ],
+        "description": "Roles: AUDITOR. Contrato público de API.",
+        "security": [
+          {
+            "BearerJWT": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Resultado confirmado o estado pendiente documentado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_finding_create"
+                },
+                "example": {
+                  "data": {
+                    "id": "00000000-0000-4000-8000-000000000001",
+                    "tenant_id": "00000000-0000-4000-8000-000000000001",
+                    "region_id": "00000000-0000-4000-8000-000000000001",
+                    "description": "Dato ficticio para reemplazar",
+                    "priority": "LOW",
+                    "assignee_id": "00000000-0000-4000-8000-000000000001",
+                    "assignee_tenant_id": "00000000-0000-4000-8000-000000000001",
+                    "assignee_name": "Dato ficticio para reemplazar",
+                    "created_by": "00000000-0000-4000-8000-000000000001",
+                    "resource_id": "00000000-0000-4000-8000-000000000001",
+                    "evidence": "Dato ficticio para reemplazar",
+                    "status": "OPEN",
+                    "version": 1,
+                    "created_at": "2030-01-01T15:00:00+00:00",
+                    "updated_at": "2030-01-01T15:00:00+00:00"
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "auditoria",
+                    "version": "0.4.1"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"tenant_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"region_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"description\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"priority\" type=\"string\">LOW</field><field name=\"assignee_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"assignee_tenant_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"assignee_name\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"created_by\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"resource_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"evidence\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"status\" type=\"string\">OPEN</field><field name=\"version\" type=\"integer\">1</field><field name=\"created_at\" type=\"string\">2030-01-01T15:00:00+00:00</field><field name=\"updated_at\" type=\"string\">2030-01-01T15:00:00+00:00</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
+                "x-json-equivalent-schema": {
+                  "$ref": "#/components/schemas/Response_finding_create"
+                },
+                "x-xsd": "/schemas/response.xsd",
+                "x-response-schema": "/schemas/finding_create.response.json"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "406": {
+            "$ref": "#/components/responses/Error406"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "412": {
+            "$ref": "#/components/responses/Error412"
+          },
+          "413": {
+            "$ref": "#/components/responses/Error413"
+          },
+          "415": {
+            "$ref": "#/components/responses/Error415"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FindingCreate"
+              },
+              "example": {
+                "assignee_id": "00000000-0000-4000-8000-000000000001",
+                "description": "Verificar documentación de la operación",
+                "event_ids": [
+                  "00000000-0000-4000-8000-000000000002"
+                ],
+                "evidence": "Referencia documental de prueba",
+                "priority": "MEDIUM",
+                "resource_id": null
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "type": "string"
+              },
+              "example": "<?xml version='1.0' encoding='UTF-8'?>\n<request xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><assignee_id>00000000-0000-4000-8000-000000000001</assignee_id><description>Verificar documentación de la operación</description><event_ids><item>00000000-0000-4000-8000-000000000002</item></event_ids><evidence>Referencia documental de prueba</evidence><priority>MEDIUM</priority><resource_id xsi:nil=\"true\"/></request>",
+              "x-xsd": "/schemas/finding_create.xsd",
+              "x-json-equivalent-schema": {
+                "$ref": "#/components/schemas/FindingCreate"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/findings/{identifier}": {
+      "get": {
+        "operationId": "finding_detail",
+        "summary": "Hallazgo, referencias e historial inmutable de atención",
+        "parameters": [
+          {
+            "name": "identifier",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-Correlation-ID",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "application/json",
+                "application/xml"
+              ]
+            }
+          }
+        ],
+        "description": "Roles: AUDITOR, COORDINATOR. Contrato público de API.",
+        "security": [
+          {
+            "BearerJWT": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resultado confirmado o estado pendiente documentado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_finding_detail"
+                },
+                "example": {
+                  "data": {
+                    "id": "00000000-0000-4000-8000-000000000001",
+                    "tenant_id": "00000000-0000-4000-8000-000000000001",
+                    "region_id": "00000000-0000-4000-8000-000000000001",
+                    "description": "Dato ficticio para reemplazar",
+                    "priority": "LOW",
+                    "assignee_id": "00000000-0000-4000-8000-000000000001",
+                    "assignee_tenant_id": "00000000-0000-4000-8000-000000000001",
+                    "assignee_name": "Dato ficticio para reemplazar",
+                    "created_by": "00000000-0000-4000-8000-000000000001",
+                    "resource_id": "00000000-0000-4000-8000-000000000001",
+                    "evidence": "Dato ficticio para reemplazar",
+                    "status": "OPEN",
+                    "version": 1,
+                    "created_at": "2030-01-01T15:00:00+00:00",
+                    "updated_at": "2030-01-01T15:00:00+00:00",
+                    "events": [],
+                    "history": []
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "auditoria",
+                    "version": "0.4.1"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"tenant_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"region_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"description\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"priority\" type=\"string\">LOW</field><field name=\"assignee_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"assignee_tenant_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"assignee_name\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"created_by\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"resource_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"evidence\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"status\" type=\"string\">OPEN</field><field name=\"version\" type=\"integer\">1</field><field name=\"created_at\" type=\"string\">2030-01-01T15:00:00+00:00</field><field name=\"updated_at\" type=\"string\">2030-01-01T15:00:00+00:00</field><field name=\"events\" type=\"array\"/><field name=\"history\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
+                "x-json-equivalent-schema": {
+                  "$ref": "#/components/schemas/Response_finding_detail"
+                },
+                "x-xsd": "/schemas/response.xsd",
+                "x-response-schema": "/schemas/finding_detail.response.json"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "406": {
+            "$ref": "#/components/responses/Error406"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "412": {
+            "$ref": "#/components/responses/Error412"
+          },
+          "413": {
+            "$ref": "#/components/responses/Error413"
+          },
+          "415": {
+            "$ref": "#/components/responses/Error415"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
+          }
+        }
+      }
+    },
+    "/api/v1/findings/{identifier}/actions": {
+      "post": {
+        "operationId": "finding_action",
+        "summary": "Atención por responsable; cierre o devolución exclusivamente por auditor",
+        "parameters": [
+          {
+            "name": "identifier",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-Correlation-ID",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "application/json",
+                "application/xml"
+              ]
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 8,
+              "maxLength": 100
+            }
+          }
+        ],
+        "description": "Roles: AUDITOR, COORDINATOR. Contrato público de API.",
+        "security": [
+          {
+            "BearerJWT": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resultado confirmado o estado pendiente documentado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_finding_action"
+                },
+                "example": {
+                  "data": {
+                    "id": "00000000-0000-4000-8000-000000000001",
+                    "tenant_id": "00000000-0000-4000-8000-000000000001",
+                    "region_id": "00000000-0000-4000-8000-000000000001",
+                    "description": "Dato ficticio para reemplazar",
+                    "priority": "LOW",
+                    "assignee_id": "00000000-0000-4000-8000-000000000001",
+                    "assignee_tenant_id": "00000000-0000-4000-8000-000000000001",
+                    "assignee_name": "Dato ficticio para reemplazar",
+                    "created_by": "00000000-0000-4000-8000-000000000001",
+                    "resource_id": "00000000-0000-4000-8000-000000000001",
+                    "evidence": "Dato ficticio para reemplazar",
+                    "status": "OPEN",
+                    "version": 1,
+                    "created_at": "2030-01-01T15:00:00+00:00",
+                    "updated_at": "2030-01-01T15:00:00+00:00"
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "auditoria",
+                    "version": "0.4.1"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"tenant_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"region_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"description\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"priority\" type=\"string\">LOW</field><field name=\"assignee_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"assignee_tenant_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"assignee_name\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"created_by\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"resource_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"evidence\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"status\" type=\"string\">OPEN</field><field name=\"version\" type=\"integer\">1</field><field name=\"created_at\" type=\"string\">2030-01-01T15:00:00+00:00</field><field name=\"updated_at\" type=\"string\">2030-01-01T15:00:00+00:00</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
+                "x-json-equivalent-schema": {
+                  "$ref": "#/components/schemas/Response_finding_action"
+                },
+                "x-xsd": "/schemas/response.xsd",
+                "x-response-schema": "/schemas/finding_action.response.json"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "406": {
+            "$ref": "#/components/responses/Error406"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "412": {
+            "$ref": "#/components/responses/Error412"
+          },
+          "413": {
+            "$ref": "#/components/responses/Error413"
+          },
+          "415": {
+            "$ref": "#/components/responses/Error415"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FindingAction"
+              },
+              "example": {
+                "corrective_action": "Contrastar la documentación y registrar el resultado",
+                "evidence": null,
+                "human_confirmation": true,
+                "reason": "Revisión documental iniciada",
+                "status": "IN_PROGRESS",
+                "version": 1
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "type": "string"
+              },
+              "example": "<?xml version='1.0' encoding='UTF-8'?>\n<request xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><corrective_action>Contrastar la documentación y registrar el resultado</corrective_action><evidence xsi:nil=\"true\"/><human_confirmation>true</human_confirmation><reason>Revisión documental iniciada</reason><status>IN_PROGRESS</status><version>1</version></request>",
+              "x-xsd": "/schemas/finding_action.xsd",
+              "x-json-equivalent-schema": {
+                "$ref": "#/components/schemas/FindingAction"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/anomaly-reviews": {
+      "get": {
+        "operationId": "anomaly_list",
+        "summary": "anomaly_list",
+        "parameters": [
+          {
+            "name": "X-Correlation-ID",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "application/json",
+                "application/xml"
+              ]
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
+            }
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20
+            }
+          }
+        ],
+        "description": "Roles: MEDICAL, COORDINATOR, AUDITOR. Contrato público de API.",
+        "security": [
+          {
+            "BearerJWT": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resultado confirmado o estado pendiente documentado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_anomaly_list"
+                },
+                "example": {
+                  "data": {
+                    "items": [],
+                    "page": 1,
+                    "page_size": 1,
+                    "total": 1
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "auditoria",
+                    "version": "0.4.1"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"items\" type=\"array\"/><field name=\"page\" type=\"integer\">1</field><field name=\"page_size\" type=\"integer\">1</field><field name=\"total\" type=\"integer\">1</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
+                "x-json-equivalent-schema": {
+                  "$ref": "#/components/schemas/Response_anomaly_list"
+                },
+                "x-xsd": "/schemas/response.xsd",
+                "x-response-schema": "/schemas/anomaly_list.response.json"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "406": {
+            "$ref": "#/components/responses/Error406"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "412": {
+            "$ref": "#/components/responses/Error412"
+          },
+          "413": {
+            "$ref": "#/components/responses/Error413"
+          },
+          "415": {
+            "$ref": "#/components/responses/Error415"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
+          }
+        }
+      }
+    },
+    "/api/v1/anomaly-reviews/{identifier}": {
+      "get": {
+        "operationId": "anomaly_detail",
+        "summary": "anomaly_detail",
+        "parameters": [
+          {
+            "name": "identifier",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-Correlation-ID",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "application/json",
+                "application/xml"
+              ]
+            }
+          }
+        ],
+        "description": "Roles: MEDICAL, COORDINATOR, AUDITOR. Contrato público de API.",
+        "security": [
+          {
+            "BearerJWT": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resultado confirmado o estado pendiente documentado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_anomaly_detail"
+                },
+                "example": {
+                  "data": {
+                    "id": "00000000-0000-4000-8000-000000000001",
+                    "tenant_id": "00000000-0000-4000-8000-000000000001",
+                    "region_id": "00000000-0000-4000-8000-000000000001",
+                    "source": "priorizacion_geografia",
+                    "source_run_id": "00000000-0000-4000-8000-000000000001",
+                    "deduplication_key": "Dato ficticio para reemplazar",
+                    "evidence": {},
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "responsible_id": "00000000-0000-4000-8000-000000000001",
+                    "state": "OPEN",
+                    "version": 1,
+                    "created_at": "Dato ficticio para reemplazar",
+                    "history": []
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "auditoria",
+                    "version": "0.4.1"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"tenant_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"region_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"source\" type=\"string\">priorizacion_geografia</field><field name=\"source_run_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"deduplication_key\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"evidence\" type=\"object\"/><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"responsible_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"state\" type=\"string\">OPEN</field><field name=\"version\" type=\"integer\">1</field><field name=\"created_at\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"history\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
+                "x-json-equivalent-schema": {
+                  "$ref": "#/components/schemas/Response_anomaly_detail"
+                },
+                "x-xsd": "/schemas/response.xsd",
+                "x-response-schema": "/schemas/anomaly_detail.response.json"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "406": {
+            "$ref": "#/components/responses/Error406"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "412": {
+            "$ref": "#/components/responses/Error412"
+          },
+          "413": {
+            "$ref": "#/components/responses/Error413"
+          },
+          "415": {
+            "$ref": "#/components/responses/Error415"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
+          }
+        }
+      }
+    },
+    "/api/v1/anomaly-reviews/{identifier}/resolve": {
+      "post": {
+        "operationId": "anomaly_resolve",
+        "summary": "anomaly_resolve",
+        "parameters": [
+          {
+            "name": "identifier",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-Correlation-ID",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "application/json",
+                "application/xml"
+              ]
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 8,
+              "maxLength": 100
+            }
+          },
+          {
+            "name": "X-Reauthentication-Proof",
+            "in": "header",
+            "required": true,
+            "description": "Comprobante de /api/v1/auth/reauthenticate ligado a sesión, operación y recurso; vigencia 120 segundos.",
+            "schema": {
+              "type": "string",
+              "minLength": 40,
+              "maxLength": 200
+            }
+          }
+        ],
+        "description": "Roles: AUDITOR. Contrato público de API.",
+        "security": [
+          {
+            "BearerJWT": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resultado confirmado o estado pendiente documentado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_anomaly_resolve"
+                },
+                "example": {
+                  "data": {
+                    "id": "00000000-0000-4000-8000-000000000001",
+                    "tenant_id": "00000000-0000-4000-8000-000000000001",
+                    "region_id": "00000000-0000-4000-8000-000000000001",
+                    "source": "priorizacion_geografia",
+                    "source_run_id": "00000000-0000-4000-8000-000000000001",
+                    "deduplication_key": "Dato ficticio para reemplazar",
+                    "evidence": {},
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "responsible_id": "00000000-0000-4000-8000-000000000001",
+                    "state": "OPEN",
+                    "version": 1,
+                    "created_at": "Dato ficticio para reemplazar"
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "auditoria",
+                    "version": "0.4.1"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"tenant_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"region_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"source\" type=\"string\">priorizacion_geografia</field><field name=\"source_run_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"deduplication_key\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"evidence\" type=\"object\"/><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"responsible_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"state\" type=\"string\">OPEN</field><field name=\"version\" type=\"integer\">1</field><field name=\"created_at\" type=\"string\">Dato ficticio para reemplazar</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
+                "x-json-equivalent-schema": {
+                  "$ref": "#/components/schemas/Response_anomaly_resolve"
+                },
+                "x-xsd": "/schemas/response.xsd",
+                "x-response-schema": "/schemas/anomaly_resolve.response.json"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "406": {
+            "$ref": "#/components/responses/Error406"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "412": {
+            "$ref": "#/components/responses/Error412"
+          },
+          "413": {
+            "$ref": "#/components/responses/Error413"
+          },
+          "415": {
+            "$ref": "#/components/responses/Error415"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Resolution"
+              },
+              "example": {
+                "human_confirmation": true,
+                "reason": "Dato ficticio para reemplazar",
+                "version": 1,
+                "state": "CONFIRMED"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "type": "string"
+              },
+              "example": "<?xml version='1.0' encoding='UTF-8'?>\n<request xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><human_confirmation>true</human_confirmation><reason>Dato ficticio para reemplazar</reason><version>1</version><state>CONFIRMED</state></request>",
+              "x-xsd": "/schemas/anomaly_resolve.xsd",
+              "x-json-equivalent-schema": {
+                "$ref": "#/components/schemas/Resolution"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Error": {
+        "type": "object",
+        "required": [
+          "error",
+          "meta"
+        ],
+        "properties": {
+          "meta": {
+            "type": "object",
+            "required": [
+              "correlation_id",
+              "service",
+              "version"
+            ],
+            "properties": {
+              "correlation_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "service": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              }
+            }
+          },
+          "error": {
+            "type": "object",
+            "required": [
+              "code",
+              "message",
+              "details"
+            ],
+            "properties": {
+              "code": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "details": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "field": {
+                      "type": "string",
+                      "description": "Ruta del campo en la entrada; no incluye su valor."
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "challenge": {
+                      "type": "string",
+                      "maxLength": 4096,
+                      "description": "Reto opaco de reautenticación; no registrar ni compartir."
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "Corrección segura en español."
+                    },
+                    "min_length": {
+                      "type": "number"
+                    },
+                    "max_length": {
+                      "type": "number"
+                    },
+                    "ge": {
+                      "type": "number"
+                    },
+                    "le": {
+                      "type": "number"
+                    },
+                    "gt": {
+                      "type": "number"
+                    },
+                    "lt": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "Response_audit_options": {
+        "type": "object",
+        "required": [
+          "data",
+          "meta"
+        ],
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "categories": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "string"
+                }
+              },
+              "actions": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "string"
+                }
+              },
+              "results": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "string"
+                }
+              },
+              "export_limit": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "categories",
+              "actions",
+              "results",
+              "export_limit"
+            ]
+          },
+          "meta": {
+            "type": "object",
+            "required": [
+              "correlation_id",
+              "service",
+              "version"
+            ],
+            "properties": {
+              "correlation_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "service": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "Response_audit_ingest": {
+        "type": "object",
+        "required": [
+          "data",
+          "meta"
+        ],
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "duplicate": {
+                "type": "boolean"
+              },
+              "stored": {
+                "type": "boolean"
+              },
+              "applied": {
+                "type": "boolean"
+              }
+            },
+            "required": []
+          },
+          "meta": {
+            "type": "object",
+            "required": [
+              "correlation_id",
+              "service",
+              "version"
+            ],
+            "properties": {
+              "correlation_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "service": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "Event": {
+        "additionalProperties": false,
+        "properties": {
+          "event_id": {
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "title": "Event Id",
+            "type": "string"
+          },
+          "source": {
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Source",
+            "type": "string"
+          },
+          "action": {
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Action",
+            "type": "string"
+          },
+          "resource_id": {
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Resource Id",
+            "type": "string"
+          },
+          "tenant_id": {
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "title": "Tenant Id",
+            "type": "string"
+          },
+          "region_id": {
+            "anyOf": [
+              {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Region Id"
+          },
+          "actor_id": {
+            "anyOf": [
+              {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Actor Id"
+          },
+          "correlation_id": {
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "title": "Correlation Id",
+            "type": "string"
+          },
+          "occurred_at": {
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Occurred At",
+            "type": "string"
+          },
+          "metadata": {
+            "additionalProperties": true,
+            "title": "Metadata",
+            "type": "object"
+          }
+        },
+        "required": [
+          "event_id",
+          "source",
+          "action",
+          "resource_id",
+          "tenant_id",
+          "region_id",
+          "actor_id",
+          "correlation_id",
+          "occurred_at",
+          "metadata"
+        ],
+        "title": "Event",
+        "type": "object"
+      },
+      "Response_audit_list": {
+        "type": "object",
+        "required": [
+          "data",
+          "meta"
+        ],
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "tenant_id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "region_id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "source": {
+                      "type": "string"
+                    },
+                    "action": {
+                      "type": "string"
+                    },
+                    "actor_id": {
+                      "type": [
+                        "string",
+                        "null"
+                      ],
+                      "format": "uuid"
+                    },
+                    "event": {},
+                    "created_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "executed_at": {
+                      "type": [
+                        "string",
+                        "null"
+                      ],
+                      "format": "date-time"
+                    },
+                    "actor_name": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "actor_role": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "actor_institution_id": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "resource_folio": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "reason": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "resource_id": {
+                      "type": "string"
+                    },
+                    "correlation_id": {
+                      "type": "string"
+                    },
+                    "category": {
+                      "type": "string"
+                    },
+                    "result": {
+                      "type": "string"
+                    },
+                    "action_label": {
+                      "type": "string"
+                    },
+                    "category_label": {
+                      "type": "string"
+                    },
+                    "result_label": {
+                      "type": "string"
+                    },
+                    "actor_display": {
+                      "type": "string"
+                    },
+                    "resource_display": {
+                      "type": "string"
+                    },
+                    "changes": {
+                      "type": "object"
+                    },
+                    "changed_fields": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "resource_refs": {
+                      "type": "array",
+                      "items": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "id"
+                  ]
+                }
+              },
+              "page": {
+                "type": "integer"
+              },
+              "page_size": {
+                "type": "integer"
+              },
+              "total": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "items",
+              "page",
+              "page_size",
+              "total"
+            ]
+          },
+          "meta": {
+            "type": "object",
+            "required": [
+              "correlation_id",
+              "service",
+              "version"
+            ],
+            "properties": {
+              "correlation_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "service": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "Response_audit_export": {
+        "type": "object",
+        "required": [
+          "data",
+          "meta"
+        ],
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "action": {
+                      "type": "string"
+                    },
+                    "action_label": {
+                      "type": "string"
+                    },
+                    "actor_display": {
+                      "type": "string"
+                    },
+                    "tenant_id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "resource_display": {
+                      "type": "string"
+                    },
+                    "executed_at": {
+                      "type": [
+                        "string",
+                        "null"
+                      ],
+                      "format": "date-time"
+                    },
+                    "result_label": {
+                      "type": "string"
+                    },
+                    "category_label": {
+                      "type": "string"
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "action",
+                    "action_label",
+                    "actor_display",
+                    "tenant_id",
+                    "resource_display",
+                    "executed_at",
+                    "result_label",
+                    "category_label",
+                    "created_at"
+                  ]
+                }
+              },
+              "page": {
+                "type": "integer"
+              },
+              "page_size": {
+                "type": "integer"
+              },
+              "total": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "items",
+              "page",
+              "page_size",
+              "total"
+            ]
+          },
+          "meta": {
+            "type": "object",
+            "required": [
+              "correlation_id",
+              "service",
+              "version"
+            ],
+            "properties": {
+              "correlation_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "service": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "Response_audit_related": {
+        "type": "object",
+        "required": [
+          "data",
+          "meta"
+        ],
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "tenant_id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "region_id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "source": {
+                      "type": "string"
+                    },
+                    "action": {
+                      "type": "string"
+                    },
+                    "actor_id": {
+                      "type": [
+                        "string",
+                        "null"
+                      ],
+                      "format": "uuid"
+                    },
+                    "event": {},
+                    "created_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "executed_at": {
+                      "type": [
+                        "string",
+                        "null"
+                      ],
+                      "format": "date-time"
+                    },
+                    "actor_name": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "actor_role": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "actor_institution_id": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "resource_folio": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "reason": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "resource_id": {
+                      "type": "string"
+                    },
+                    "correlation_id": {
+                      "type": "string"
+                    },
+                    "category": {
+                      "type": "string"
+                    },
+                    "result": {
+                      "type": "string"
+                    },
+                    "action_label": {
+                      "type": "string"
+                    },
+                    "category_label": {
+                      "type": "string"
+                    },
+                    "result_label": {
+                      "type": "string"
+                    },
+                    "actor_display": {
+                      "type": "string"
+                    },
+                    "resource_display": {
+                      "type": "string"
+                    },
+                    "changes": {
+                      "type": "object"
+                    },
+                    "changed_fields": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "resource_refs": {
+                      "type": "array",
+                      "items": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "id"
+                  ]
+                }
+              },
+              "limited": {
+                "type": "boolean"
+              },
+              "limit": {
+                "type": "integer"
+              },
+              "max_hops": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "items",
+              "limited",
+              "limit",
+              "max_hops"
+            ]
+          },
+          "meta": {
+            "type": "object",
+            "required": [
+              "correlation_id",
+              "service",
+              "version"
+            ],
+            "properties": {
+              "correlation_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "service": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "Response_audit_detail": {
+        "type": "object",
+        "required": [
+          "data",
+          "meta"
+        ],
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "tenant_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "region_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "source": {
+                "type": "string"
+              },
+              "action": {
+                "type": "string"
+              },
+              "actor_id": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "format": "uuid"
+              },
+              "event": {},
+              "created_at": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "executed_at": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "format": "date-time"
+              },
+              "actor_name": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "actor_role": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "actor_institution_id": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "resource_folio": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "reason": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "resource_id": {
+                "type": "string"
+              },
+              "correlation_id": {
+                "type": "string"
+              },
+              "category": {
+                "type": "string"
+              },
+              "result": {
+                "type": "string"
+              },
+              "action_label": {
+                "type": "string"
+              },
+              "category_label": {
+                "type": "string"
+              },
+              "result_label": {
+                "type": "string"
+              },
+              "actor_display": {
+                "type": "string"
+              },
+              "resource_display": {
+                "type": "string"
+              },
+              "changes": {
+                "type": "object"
+              },
+              "changed_fields": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "resource_refs": {
+                "type": "array",
+                "items": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "id"
+            ]
+          },
+          "meta": {
+            "type": "object",
+            "required": [
+              "correlation_id",
+              "service",
+              "version"
+            ],
+            "properties": {
+              "correlation_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "service": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "Response_documentary_events": {
+        "type": "object",
+        "required": [
+          "data",
+          "meta"
+        ],
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "items": {
+                "type": "array",
+                "items": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "event_id": {
+                      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                      "title": "Event Id",
+                      "type": "string"
+                    },
+                    "source": {
+                      "maxLength": 200,
+                      "minLength": 1,
+                      "title": "Source",
+                      "type": "string"
+                    },
+                    "action": {
+                      "maxLength": 200,
+                      "minLength": 1,
+                      "title": "Action",
+                      "type": "string"
+                    },
+                    "resource_id": {
+                      "maxLength": 200,
+                      "minLength": 1,
+                      "title": "Resource Id",
+                      "type": "string"
+                    },
+                    "tenant_id": {
+                      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                      "title": "Tenant Id",
+                      "type": "string"
+                    },
+                    "region_id": {
+                      "anyOf": [
+                        {
+                          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                          "type": "string"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ],
+                      "title": "Region Id"
+                    },
+                    "actor_id": {
+                      "anyOf": [
+                        {
+                          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                          "type": "string"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ],
+                      "title": "Actor Id"
+                    },
+                    "correlation_id": {
+                      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                      "title": "Correlation Id",
+                      "type": "string"
+                    },
+                    "occurred_at": {
+                      "maxLength": 200,
+                      "minLength": 1,
+                      "title": "Occurred At",
+                      "type": "string"
+                    },
+                    "metadata": {
+                      "additionalProperties": true,
+                      "title": "Metadata",
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "event_id",
+                    "source",
+                    "action",
+                    "resource_id",
+                    "tenant_id",
+                    "region_id",
+                    "actor_id",
+                    "correlation_id",
+                    "occurred_at",
+                    "metadata"
+                  ],
+                  "title": "Event",
+                  "type": "object"
+                }
+              },
+              "page": {
+                "type": "integer"
+              },
+              "page_size": {
+                "type": "integer"
+              },
+              "total": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "items",
+              "page",
+              "page_size",
+              "total"
+            ]
+          },
+          "meta": {
+            "type": "object",
+            "required": [
+              "correlation_id",
+              "service",
+              "version"
+            ],
+            "properties": {
+              "correlation_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "service": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "Response_finding_list": {
+        "type": "object",
+        "required": [
+          "data",
+          "meta"
+        ],
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "tenant_id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "region_id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "priority": {
+                      "type": "string",
+                      "enum": [
+                        "LOW",
+                        "MEDIUM",
+                        "HIGH",
+                        "CRITICAL"
+                      ]
+                    },
+                    "assignee_id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "assignee_tenant_id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "assignee_name": {
+                      "type": "string"
+                    },
+                    "created_by": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "resource_id": {
+                      "type": [
+                        "string",
+                        "null"
+                      ],
+                      "format": "uuid"
+                    },
+                    "evidence": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "status": {
+                      "type": "string",
+                      "enum": [
+                        "OPEN",
+                        "IN_PROGRESS",
+                        "PENDING_VERIFICATION",
+                        "CLOSED"
+                      ]
+                    },
+                    "version": {
+                      "type": "integer",
+                      "minimum": 1
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "updated_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "tenant_id",
+                    "region_id",
+                    "description",
+                    "priority",
+                    "assignee_id",
+                    "assignee_tenant_id",
+                    "assignee_name",
+                    "created_by",
+                    "resource_id",
+                    "evidence",
+                    "status",
+                    "version",
+                    "created_at",
+                    "updated_at"
+                  ]
+                }
+              },
+              "page": {
+                "type": "integer"
+              },
+              "page_size": {
+                "type": "integer"
+              },
+              "total": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "items",
+              "page",
+              "page_size",
+              "total"
+            ]
+          },
+          "meta": {
+            "type": "object",
+            "required": [
+              "correlation_id",
+              "service",
+              "version"
+            ],
+            "properties": {
+              "correlation_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "service": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "Response_finding_create": {
+        "type": "object",
+        "required": [
+          "data",
+          "meta"
+        ],
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "tenant_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "region_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "description": {
+                "type": "string"
+              },
+              "priority": {
+                "type": "string",
+                "enum": [
+                  "LOW",
+                  "MEDIUM",
+                  "HIGH",
+                  "CRITICAL"
+                ]
+              },
+              "assignee_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "assignee_tenant_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "assignee_name": {
+                "type": "string"
+              },
+              "created_by": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "resource_id": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "format": "uuid"
+              },
+              "evidence": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "status": {
+                "type": "string",
+                "enum": [
+                  "OPEN",
+                  "IN_PROGRESS",
+                  "PENDING_VERIFICATION",
+                  "CLOSED"
+                ]
+              },
+              "version": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "created_at": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "updated_at": {
+                "type": "string",
+                "format": "date-time"
+              }
+            },
+            "required": [
+              "id",
+              "tenant_id",
+              "region_id",
+              "description",
+              "priority",
+              "assignee_id",
+              "assignee_tenant_id",
+              "assignee_name",
+              "created_by",
+              "resource_id",
+              "evidence",
+              "status",
+              "version",
+              "created_at",
+              "updated_at"
+            ]
+          },
+          "meta": {
+            "type": "object",
+            "required": [
+              "correlation_id",
+              "service",
+              "version"
+            ],
+            "properties": {
+              "correlation_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "service": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "FindingCreate": {
+        "additionalProperties": false,
+        "examples": [
+          {
+            "assignee_id": "00000000-0000-4000-8000-000000000001",
+            "description": "Verificar documentación de la operación",
+            "event_ids": [
+              "00000000-0000-4000-8000-000000000002"
+            ],
+            "evidence": "Referencia documental de prueba",
+            "priority": "MEDIUM",
+            "resource_id": null
+          }
+        ],
+        "properties": {
+          "description": {
+            "maxLength": 1000,
+            "minLength": 6,
+            "title": "Description",
+            "type": "string"
+          },
+          "priority": {
+            "enum": [
+              "LOW",
+              "MEDIUM",
+              "HIGH",
+              "CRITICAL"
+            ],
+            "title": "Priority",
+            "type": "string"
+          },
+          "assignee_id": {
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "title": "Assignee Id",
+            "type": "string"
+          },
+          "event_ids": {
+            "items": {
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+              "type": "string"
+            },
+            "maxItems": 20,
+            "title": "Event Ids",
+            "type": "array"
+          },
+          "resource_id": {
+            "anyOf": [
+              {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Resource Id"
+          },
+          "evidence": {
+            "anyOf": [
+              {
+                "maxLength": 1000,
+                "minLength": 6,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Evidence"
+          }
+        },
+        "required": [
+          "description",
+          "priority",
+          "assignee_id"
+        ],
+        "title": "FindingCreate",
+        "type": "object"
+      },
+      "Response_finding_detail": {
+        "type": "object",
+        "required": [
+          "data",
+          "meta"
+        ],
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "tenant_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "region_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "description": {
+                "type": "string"
+              },
+              "priority": {
+                "type": "string",
+                "enum": [
+                  "LOW",
+                  "MEDIUM",
+                  "HIGH",
+                  "CRITICAL"
+                ]
+              },
+              "assignee_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "assignee_tenant_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "assignee_name": {
+                "type": "string"
+              },
+              "created_by": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "resource_id": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "format": "uuid"
+              },
+              "evidence": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "status": {
+                "type": "string",
+                "enum": [
+                  "OPEN",
+                  "IN_PROGRESS",
+                  "PENDING_VERIFICATION",
+                  "CLOSED"
+                ]
+              },
+              "version": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "created_at": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "updated_at": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "events": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "event_id": {
+                      "type": "string",
+                      "format": "uuid"
+                    }
+                  },
+                  "required": [
+                    "event_id"
+                  ]
+                }
+              },
+              "history": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "finding_id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "actor_id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "actor_name": {
+                      "type": "string"
+                    },
+                    "actor_role": {
+                      "type": "string"
+                    },
+                    "previous_status": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "reason": {
+                      "type": "string"
+                    },
+                    "corrective_action": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "evidence": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "correlation_id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "finding_id",
+                    "actor_id",
+                    "actor_name",
+                    "actor_role",
+                    "previous_status",
+                    "status",
+                    "reason",
+                    "corrective_action",
+                    "evidence",
+                    "correlation_id",
+                    "created_at"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "id",
+              "tenant_id",
+              "region_id",
+              "description",
+              "priority",
+              "assignee_id",
+              "assignee_tenant_id",
+              "assignee_name",
+              "created_by",
+              "resource_id",
+              "evidence",
+              "status",
+              "version",
+              "created_at",
+              "updated_at",
+              "events",
+              "history"
+            ]
+          },
+          "meta": {
+            "type": "object",
+            "required": [
+              "correlation_id",
+              "service",
+              "version"
+            ],
+            "properties": {
+              "correlation_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "service": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "Response_finding_action": {
+        "type": "object",
+        "required": [
+          "data",
+          "meta"
+        ],
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "tenant_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "region_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "description": {
+                "type": "string"
+              },
+              "priority": {
+                "type": "string",
+                "enum": [
+                  "LOW",
+                  "MEDIUM",
+                  "HIGH",
+                  "CRITICAL"
+                ]
+              },
+              "assignee_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "assignee_tenant_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "assignee_name": {
+                "type": "string"
+              },
+              "created_by": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "resource_id": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "format": "uuid"
+              },
+              "evidence": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "status": {
+                "type": "string",
+                "enum": [
+                  "OPEN",
+                  "IN_PROGRESS",
+                  "PENDING_VERIFICATION",
+                  "CLOSED"
+                ]
+              },
+              "version": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "created_at": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "updated_at": {
+                "type": "string",
+                "format": "date-time"
+              }
+            },
+            "required": [
+              "id",
+              "tenant_id",
+              "region_id",
+              "description",
+              "priority",
+              "assignee_id",
+              "assignee_tenant_id",
+              "assignee_name",
+              "created_by",
+              "resource_id",
+              "evidence",
+              "status",
+              "version",
+              "created_at",
+              "updated_at"
+            ]
+          },
+          "meta": {
+            "type": "object",
+            "required": [
+              "correlation_id",
+              "service",
+              "version"
+            ],
+            "properties": {
+              "correlation_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "service": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "FindingAction": {
+        "additionalProperties": false,
+        "examples": [
+          {
+            "corrective_action": "Contrastar la documentación y registrar el resultado",
+            "evidence": null,
+            "human_confirmation": true,
+            "reason": "Revisión documental iniciada",
+            "status": "IN_PROGRESS",
+            "version": 1
+          }
+        ],
+        "properties": {
+          "human_confirmation": {
+            "const": true,
+            "title": "Human Confirmation",
+            "type": "boolean"
+          },
+          "reason": {
+            "maxLength": 1000,
+            "minLength": 6,
+            "title": "Reason",
+            "type": "string"
+          },
+          "version": {
+            "minimum": 1,
+            "title": "Version",
+            "type": "integer"
+          },
+          "status": {
+            "enum": [
+              "IN_PROGRESS",
+              "PENDING_VERIFICATION",
+              "CLOSED"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "corrective_action": {
+            "anyOf": [
+              {
+                "maxLength": 1000,
+                "minLength": 6,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Corrective Action"
+          },
+          "evidence": {
+            "anyOf": [
+              {
+                "maxLength": 1000,
+                "minLength": 6,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Evidence"
+          }
+        },
+        "required": [
+          "human_confirmation",
+          "reason",
+          "version",
+          "status"
+        ],
+        "title": "FindingAction",
+        "type": "object"
+      },
+      "Response_anomaly_list": {
+        "type": "object",
+        "required": [
+          "data",
+          "meta"
+        ],
+        "properties": {
+          "data": {
+            "type": "object",
+            "required": [
+              "items",
+              "page",
+              "page_size",
+              "total"
+            ],
+            "properties": {
+              "items": {
+                "type": "array",
+                "items": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "id": {
+                      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                      "title": "Id",
+                      "type": "string"
+                    },
+                    "tenant_id": {
+                      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                      "title": "Tenant Id",
+                      "type": "string"
+                    },
+                    "region_id": {
+                      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                      "title": "Region Id",
+                      "type": "string"
+                    },
+                    "source": {
+                      "const": "priorizacion_geografia",
+                      "title": "Source",
+                      "type": "string"
+                    },
+                    "source_run_id": {
+                      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                      "title": "Source Run Id",
+                      "type": "string"
+                    },
+                    "deduplication_key": {
+                      "maxLength": 200,
+                      "minLength": 1,
+                      "title": "Deduplication Key",
+                      "type": "string"
+                    },
+                    "evidence": {
+                      "additionalProperties": true,
+                      "title": "Evidence",
+                      "type": "object"
+                    },
+                    "correlation_id": {
+                      "maxLength": 200,
+                      "minLength": 1,
+                      "title": "Correlation Id",
+                      "type": "string"
+                    },
+                    "responsible_id": {
+                      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                      "title": "Responsible Id",
+                      "type": "string"
+                    },
+                    "state": {
+                      "enum": [
+                        "OPEN",
+                        "CONFIRMED",
+                        "DISMISSED"
+                      ],
+                      "title": "State",
+                      "type": "string"
+                    },
+                    "version": {
+                      "title": "Version",
+                      "type": "integer"
+                    },
+                    "created_at": {
+                      "maxLength": 200,
+                      "minLength": 1,
+                      "title": "Created At",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "tenant_id",
+                    "region_id",
+                    "source",
+                    "source_run_id",
+                    "deduplication_key",
+                    "evidence",
+                    "correlation_id",
+                    "responsible_id",
+                    "state",
+                    "version",
+                    "created_at"
+                  ],
+                  "title": "Review",
+                  "type": "object"
+                }
+              },
+              "page": {
+                "type": "integer"
+              },
+              "page_size": {
+                "type": "integer"
+              },
+              "total": {
+                "type": "integer"
+              }
+            }
+          },
+          "meta": {
+            "type": "object",
+            "required": [
+              "correlation_id",
+              "service",
+              "version"
+            ],
+            "properties": {
+              "correlation_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "service": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "Response_anomaly_detail": {
+        "type": "object",
+        "required": [
+          "data",
+          "meta"
+        ],
+        "properties": {
+          "data": {
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "title": "Id",
+                "type": "string"
+              },
+              "tenant_id": {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "title": "Tenant Id",
+                "type": "string"
+              },
+              "region_id": {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "title": "Region Id",
+                "type": "string"
+              },
+              "source": {
+                "const": "priorizacion_geografia",
+                "title": "Source",
+                "type": "string"
+              },
+              "source_run_id": {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "title": "Source Run Id",
+                "type": "string"
+              },
+              "deduplication_key": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Deduplication Key",
+                "type": "string"
+              },
+              "evidence": {
+                "additionalProperties": true,
+                "title": "Evidence",
+                "type": "object"
+              },
+              "correlation_id": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Correlation Id",
+                "type": "string"
+              },
+              "responsible_id": {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "title": "Responsible Id",
+                "type": "string"
+              },
+              "state": {
+                "enum": [
+                  "OPEN",
+                  "CONFIRMED",
+                  "DISMISSED"
+                ],
+                "title": "State",
+                "type": "string"
+              },
+              "version": {
+                "title": "Version",
+                "type": "integer"
+              },
+              "created_at": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Created At",
+                "type": "string"
+              },
+              "history": {
+                "items": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "id": {
+                      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                      "title": "Id",
+                      "type": "string"
+                    },
+                    "review_id": {
+                      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                      "title": "Review Id",
+                      "type": "string"
+                    },
+                    "tenant_id": {
+                      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                      "title": "Tenant Id",
+                      "type": "string"
+                    },
+                    "author_id": {
+                      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                      "title": "Author Id",
+                      "type": "string"
+                    },
+                    "state": {
+                      "enum": [
+                        "CONFIRMED",
+                        "DISMISSED"
+                      ],
+                      "title": "State",
+                      "type": "string"
+                    },
+                    "reason": {
+                      "maxLength": 200,
+                      "minLength": 1,
+                      "title": "Reason",
+                      "type": "string"
+                    },
+                    "created_at": {
+                      "maxLength": 200,
+                      "minLength": 1,
+                      "title": "Created At",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "review_id",
+                    "tenant_id",
+                    "author_id",
+                    "state",
+                    "reason",
+                    "created_at"
+                  ],
+                  "title": "Action",
+                  "type": "object"
+                },
+                "title": "History",
+                "type": "array"
+              }
+            },
+            "required": [
+              "id",
+              "tenant_id",
+              "region_id",
+              "source",
+              "source_run_id",
+              "deduplication_key",
+              "evidence",
+              "correlation_id",
+              "responsible_id",
+              "state",
+              "version",
+              "created_at",
+              "history"
+            ],
+            "title": "ReviewDetail",
+            "type": "object"
+          },
+          "meta": {
+            "type": "object",
+            "required": [
+              "correlation_id",
+              "service",
+              "version"
+            ],
+            "properties": {
+              "correlation_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "service": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "Response_anomaly_resolve": {
+        "type": "object",
+        "required": [
+          "data",
+          "meta"
+        ],
+        "properties": {
+          "data": {
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "title": "Id",
+                "type": "string"
+              },
+              "tenant_id": {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "title": "Tenant Id",
+                "type": "string"
+              },
+              "region_id": {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "title": "Region Id",
+                "type": "string"
+              },
+              "source": {
+                "const": "priorizacion_geografia",
+                "title": "Source",
+                "type": "string"
+              },
+              "source_run_id": {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "title": "Source Run Id",
+                "type": "string"
+              },
+              "deduplication_key": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Deduplication Key",
+                "type": "string"
+              },
+              "evidence": {
+                "additionalProperties": true,
+                "title": "Evidence",
+                "type": "object"
+              },
+              "correlation_id": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Correlation Id",
+                "type": "string"
+              },
+              "responsible_id": {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "title": "Responsible Id",
+                "type": "string"
+              },
+              "state": {
+                "enum": [
+                  "OPEN",
+                  "CONFIRMED",
+                  "DISMISSED"
+                ],
+                "title": "State",
+                "type": "string"
+              },
+              "version": {
+                "title": "Version",
+                "type": "integer"
+              },
+              "created_at": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Created At",
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "tenant_id",
+              "region_id",
+              "source",
+              "source_run_id",
+              "deduplication_key",
+              "evidence",
+              "correlation_id",
+              "responsible_id",
+              "state",
+              "version",
+              "created_at"
+            ],
+            "title": "Review",
+            "type": "object"
+          },
+          "meta": {
+            "type": "object",
+            "required": [
+              "correlation_id",
+              "service",
+              "version"
+            ],
+            "properties": {
+              "correlation_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "service": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "Resolution": {
+        "additionalProperties": false,
+        "properties": {
+          "human_confirmation": {
+            "const": true,
+            "title": "Human Confirmation",
+            "type": "boolean"
+          },
+          "reason": {
+            "maxLength": 1000,
+            "minLength": 6,
+            "title": "Reason",
+            "type": "string"
+          },
+          "version": {
+            "minimum": 1,
+            "title": "Version",
+            "type": "integer"
+          },
+          "state": {
+            "enum": [
+              "CONFIRMED",
+              "DISMISSED"
+            ],
+            "title": "State",
+            "type": "string"
+          }
+        },
+        "required": [
+          "human_confirmation",
+          "reason",
+          "version",
+          "state"
+        ],
+        "title": "Resolution",
+        "type": "object"
+      }
+    },
+    "responses": {
+      "Error400": {
+        "description": "Error uniforme.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "error": {
+                "code": "validation",
+                "message": "Petición no disponible o inválida.",
+                "details": []
+              },
+              "meta": {
+                "correlation_id": "00000000-0000-4000-8000-000000000001",
+                "service": "auditoria",
+                "version": "0.4.1"
+              }
+            }
+          },
+          "application/xml": {
+            "schema": {
+              "type": "string"
+            },
+            "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">validation</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>"
+          }
+        }
+      },
+      "Error401": {
+        "description": "Credencial inválida, expirada o revocada.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "error": {
+                "code": "unauthorized",
+                "message": "Credencial inválida, expirada o revocada.",
+                "details": []
+              },
+              "meta": {
+                "correlation_id": "00000000-0000-4000-8000-000000000001",
+                "service": "auditoria",
+                "version": "0.4.1"
+              }
+            }
+          },
+          "application/xml": {
+            "schema": {
+              "type": "string"
+            },
+            "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">unauthorized</field><field name=\"message\" type=\"string\">Credencial inválida, expirada o revocada.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>"
+          }
+        }
+      },
+      "Error403": {
+        "description": "Sin permiso institucional o de recurso.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "error": {
+                "code": "forbidden",
+                "message": "Sin permiso institucional o de recurso.",
+                "details": []
+              },
+              "meta": {
+                "correlation_id": "00000000-0000-4000-8000-000000000001",
+                "service": "auditoria",
+                "version": "0.4.1"
+              }
+            }
+          },
+          "application/xml": {
+            "schema": {
+              "type": "string"
+            },
+            "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">forbidden</field><field name=\"message\" type=\"string\">Sin permiso institucional o de recurso.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>"
+          }
+        }
+      },
+      "Error404": {
+        "description": "Error uniforme.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "error": {
+                "code": "not_found",
+                "message": "Petición no disponible o inválida.",
+                "details": []
+              },
+              "meta": {
+                "correlation_id": "00000000-0000-4000-8000-000000000001",
+                "service": "auditoria",
+                "version": "0.4.1"
+              }
+            }
+          },
+          "application/xml": {
+            "schema": {
+              "type": "string"
+            },
+            "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">not_found</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>"
+          }
+        }
+      },
+      "Error406": {
+        "description": "Error uniforme.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "error": {
+                "code": "not_acceptable",
+                "message": "Petición no disponible o inválida.",
+                "details": []
+              },
+              "meta": {
+                "correlation_id": "00000000-0000-4000-8000-000000000001",
+                "service": "auditoria",
+                "version": "0.4.1"
+              }
+            }
+          },
+          "application/xml": {
+            "schema": {
+              "type": "string"
+            },
+            "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">not_acceptable</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>"
+          }
+        }
+      },
+      "Error409": {
+        "description": "Conflicto de estado, versión o idempotencia.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "error": {
+                "code": "conflict",
+                "message": "Conflicto de estado, versión o idempotencia.",
+                "details": []
+              },
+              "meta": {
+                "correlation_id": "00000000-0000-4000-8000-000000000001",
+                "service": "auditoria",
+                "version": "0.4.1"
+              }
+            }
+          },
+          "application/xml": {
+            "schema": {
+              "type": "string"
+            },
+            "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">conflict</field><field name=\"message\" type=\"string\">Conflicto de estado, versión o idempotencia.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>"
+          }
+        }
+      },
+      "Error412": {
+        "description": "Error uniforme.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "error": {
+                "code": "stale_version",
+                "message": "Petición no disponible o inválida.",
+                "details": []
+              },
+              "meta": {
+                "correlation_id": "00000000-0000-4000-8000-000000000001",
+                "service": "auditoria",
+                "version": "0.4.1"
+              }
+            }
+          },
+          "application/xml": {
+            "schema": {
+              "type": "string"
+            },
+            "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">stale_version</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>"
+          }
+        }
+      },
+      "Error413": {
+        "description": "Error uniforme.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "error": {
+                "code": "http_error",
+                "message": "Petición no disponible o inválida.",
+                "details": []
+              },
+              "meta": {
+                "correlation_id": "00000000-0000-4000-8000-000000000001",
+                "service": "auditoria",
+                "version": "0.4.1"
+              }
+            }
+          },
+          "application/xml": {
+            "schema": {
+              "type": "string"
+            },
+            "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">http_error</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>"
+          }
+        }
+      },
+      "Error415": {
+        "description": "Error uniforme.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "error": {
+                "code": "unsupported_media",
+                "message": "Petición no disponible o inválida.",
+                "details": []
+              },
+              "meta": {
+                "correlation_id": "00000000-0000-4000-8000-000000000001",
+                "service": "auditoria",
+                "version": "0.4.1"
+              }
+            }
+          },
+          "application/xml": {
+            "schema": {
+              "type": "string"
+            },
+            "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">unsupported_media</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>"
+          }
+        }
+      },
+      "Error422": {
+        "description": "Error uniforme.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "error": {
+                "code": "validation",
+                "message": "Petición no disponible o inválida.",
+                "details": []
+              },
+              "meta": {
+                "correlation_id": "00000000-0000-4000-8000-000000000001",
+                "service": "auditoria",
+                "version": "0.4.1"
+              }
+            }
+          },
+          "application/xml": {
+            "schema": {
+              "type": "string"
+            },
+            "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">validation</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>"
+          }
+        }
+      },
+      "Error429": {
+        "description": "Error uniforme.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "error": {
+                "code": "rate_limit",
+                "message": "Petición no disponible o inválida.",
+                "details": []
+              },
+              "meta": {
+                "correlation_id": "00000000-0000-4000-8000-000000000001",
+                "service": "auditoria",
+                "version": "0.4.1"
+              }
+            }
+          },
+          "application/xml": {
+            "schema": {
+              "type": "string"
+            },
+            "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">rate_limit</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>"
+          }
+        }
+      },
+      "Error500": {
+        "description": "Error uniforme.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "error": {
+                "code": "internal_error",
+                "message": "Petición no disponible o inválida.",
+                "details": []
+              },
+              "meta": {
+                "correlation_id": "00000000-0000-4000-8000-000000000001",
+                "service": "auditoria",
+                "version": "0.4.1"
+              }
+            }
+          },
+          "application/xml": {
+            "schema": {
+              "type": "string"
+            },
+            "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">internal_error</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>"
+          }
+        }
+      },
+      "Error503": {
+        "description": "Dependencia inaccesible; consultar estado antes de repetir.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "error": {
+                "code": "dependency_unavailable",
+                "message": "Dependencia inaccesible; consultar estado antes de repetir.",
+                "details": []
+              },
+              "meta": {
+                "correlation_id": "00000000-0000-4000-8000-000000000001",
+                "service": "auditoria",
+                "version": "0.4.1"
+              }
+            }
+          },
+          "application/xml": {
+            "schema": {
+              "type": "string"
+            },
+            "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">dependency_unavailable</field><field name=\"message\" type=\"string\">Dependencia inaccesible; consultar estado antes de repetir.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">auditoria</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "BearerJWT": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT RS256"
+      },
+      "ServiceSignature": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-Service-Signature",
+        "description": "Ed25519; requiere X-Service, X-Service-Time y X-Service-Nonce. No es un token de usuario."
+      }
+    }
+  }
+}

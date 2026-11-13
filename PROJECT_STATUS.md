@@ -1,5 +1,15 @@
 # Estado vigente de Red House
 
+## Consola XML ejecutable y revisión física móvil — 13/11/2026
+
+Primer incremento de escritorio PySide6 listo para continuar: contratos XML/XSD/DTO, sesiones en memoria, diario cifrado por cuenta, inventario/laboratorio, evaluación/reserva, recepción de custodia, etiquetas y solicitud de reportes. La [matriz DESK-01…14](documentation/evidencias/entrega-final/desktop/MATRIZ.md) conserva los módulos y recorridos pendientes. No se cierra 05. Las lecturas de avisos/inventario con TLS pasaron en GCP; las escrituras se probaron en laboratorio sintético.
+
+Últimas verificaciones: dos escenarios MFA/XML contra el protocolo integrado aprobados en 84,50 s; recepción/reporte XML y recepción Qt, tres casos aprobados; repetición visual del formulario de recepción, un caso aprobado. Dos defectos de revisión se corrigieron: descarga local restringida a una capacidad sin query ni traversal y resultado de impresión marcado incierto antes del spooler, sin reenvío automático. Veinte pruebas de diario/descarga y nueve Qt/PDF pasaron. El paquete macOS Intel reconstruido pasó arranque y recursos incluidos; no acredita notarización, impresión física ni las otras plataformas. [Resultados e incidencias](documentation/evidencias/entrega-final/desktop/RESULTADOS.md).
+
+Preparado CI para Windows x64, macOS Intel/Apple Silicon y Ubuntu x64: pruebas locales, paquete, arranque sin red, JUnit y procedencia/hash. Treinta contratos empaquetados coinciden con sus propietarios; un script comprueba su sincronía sin importar backend en ejecución. YAML y bloques Python revisados, sin ejecución remota de Actions. [Distribución y límites](documentation/entrega-final/continuidad/Distribucion_escritorio.md).
+
+iPhone 16 Pro: el usuario abrió una sesión donante y XCUITest conservó esa sesión sin introducir credenciales. Se navegó por Inicio, Mis citas, Campañas y Cuenta, sin escrituras ni logout. La inspección real de capturas privadas confirmó los estados vacíos de próximas citas/campañas y encontró citas heredadas sin horario y separación visual insuficiente. La vista Campañas se volvió a capturar después de terminar la carga; el spinner inicial no se contó como resultado. Ajustes de tarjetas, orientación y colores están en el siguiente lote móvil; todavía requieren aceptación visual del artefacto nuevo. No se publica información de las capturas privadas.
+
 ## Seguridad y autonomía integradas; publicación pendiente — 13/11/2026
 
 Integrados `25fed4a` (reautenticación ligada a intención/clave/cuerpo/sesión y recuperación idempotente) y `9b04a90` (API de archivos independiente del proceso web y ruta propia del portal). Se conservan las 37 pruebas aprobadas y dos fallos iniciales, más dos repeticiones dirigidas aprobadas del worktree; no se suman como una suite nueva. [Resultados, comandos y límites](documentation/evidencias/entrega-final/reauth-20261113/RESULTADOS.md). OpenAPI combinado con transporte nominal pasó su comprobación reproducible.

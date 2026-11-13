@@ -1,0 +1,5767 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Red House — receptores",
+    "version": "0.4.1",
+    "description": "API independiente JSON/XML. Reglas clínicas ilustrativas; requiere revisión humana. XML de respuesta validable en /schemas/response.xsd."
+  },
+  "paths": {
+    "/api/v1/recipients": {
+      "post": {
+        "operationId": "recipient_create",
+        "summary": "Expediente diferenciado de sangre u órgano",
+        "parameters": [
+          {
+            "name": "X-Correlation-ID",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "application/json",
+                "application/xml"
+              ]
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 8,
+              "maxLength": 100
+            }
+          }
+        ],
+        "description": "Roles: MEDICAL. Contrato público de API.",
+        "security": [
+          {
+            "BearerJWT": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Resultado confirmado o estado pendiente documentado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_recipient_create"
+                },
+                "example": {
+                  "data": {
+                    "id": "00000000-0000-4000-8000-000000000001",
+                    "tenant_id": "00000000-0000-4000-8000-000000000001",
+                    "folio": "PRUEBA-000001",
+                    "display_name": "Dato ficticio para reemplazar",
+                    "kind": "Dato ficticio para reemplazar",
+                    "blood_group": "Dato ficticio para reemplazar",
+                    "organ_type": "Dato ficticio para reemplazar",
+                    "studies": "Dato ficticio para reemplazar",
+                    "status": "Dato ficticio para reemplazar",
+                    "version": 1,
+                    "restrictions": "Dato ficticio para reemplazar",
+                    "requirement": "Dato ficticio para reemplazar"
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "receptores",
+                    "version": "0.4.1"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"tenant_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"folio\" type=\"string\">PRUEBA-000001</field><field name=\"display_name\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"kind\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"blood_group\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"organ_type\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"studies\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"status\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"version\" type=\"integer\">1</field><field name=\"restrictions\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"requirement\" type=\"string\">Dato ficticio para reemplazar</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">receptores</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
+                "x-json-equivalent-schema": {
+                  "$ref": "#/components/schemas/Response_recipient_create"
+                },
+                "x-xsd": "/schemas/response.xsd",
+                "x-response-schema": "/schemas/recipient_create.response.json"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "406": {
+            "$ref": "#/components/responses/Error406"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "412": {
+            "$ref": "#/components/responses/Error412"
+          },
+          "413": {
+            "$ref": "#/components/responses/Error413"
+          },
+          "415": {
+            "$ref": "#/components/responses/Error415"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RecipientCreate"
+              },
+              "example": {
+                "restrictions": null,
+                "requirement": null,
+                "status": "ACTIVE",
+                "folio": "PRUEBA-000001",
+                "display_name": "Dato ficticio para reemplazar",
+                "kind": "BLOOD",
+                "blood_group": "O-",
+                "organ_type": null,
+                "studies": "Dato ficticio para reemplazar"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "type": "string"
+              },
+              "example": "<?xml version='1.0' encoding='UTF-8'?>\n<request xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><restrictions xsi:nil=\"true\"/><requirement xsi:nil=\"true\"/><status>ACTIVE</status><folio>PRUEBA-000001</folio><display_name>Dato ficticio para reemplazar</display_name><kind>BLOOD</kind><blood_group>O-</blood_group><organ_type xsi:nil=\"true\"/><studies>Dato ficticio para reemplazar</studies></request>",
+              "x-xsd": "/schemas/recipient_create.xsd",
+              "x-json-equivalent-schema": {
+                "$ref": "#/components/schemas/RecipientCreate"
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "operationId": "recipients",
+        "summary": "Expedientes de la propia institución",
+        "parameters": [
+          {
+            "name": "X-Correlation-ID",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "application/json",
+                "application/xml"
+              ]
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
+            }
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20
+            }
+          },
+          {
+            "name": "q",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          },
+          {
+            "name": "kind",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          },
+          {
+            "name": "from_at",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          },
+          {
+            "name": "until_at",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          },
+          {
+            "name": "date_field",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          }
+        ],
+        "description": "Roles: MEDICAL, OPERATOR. Contrato público de API.",
+        "security": [
+          {
+            "BearerJWT": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resultado confirmado o estado pendiente documentado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_recipients"
+                },
+                "example": {
+                  "data": {
+                    "items": [],
+                    "page": 1,
+                    "page_size": 1,
+                    "total": 1
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "receptores",
+                    "version": "0.4.1"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"items\" type=\"array\"/><field name=\"page\" type=\"integer\">1</field><field name=\"page_size\" type=\"integer\">1</field><field name=\"total\" type=\"integer\">1</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">receptores</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
+                "x-json-equivalent-schema": {
+                  "$ref": "#/components/schemas/Response_recipients"
+                },
+                "x-xsd": "/schemas/response.xsd",
+                "x-response-schema": "/schemas/recipients.response.json"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "406": {
+            "$ref": "#/components/responses/Error406"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "412": {
+            "$ref": "#/components/responses/Error412"
+          },
+          "413": {
+            "$ref": "#/components/responses/Error413"
+          },
+          "415": {
+            "$ref": "#/components/responses/Error415"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
+          }
+        }
+      }
+    },
+    "/api/v1/recipients/{identifier}": {
+      "get": {
+        "operationId": "recipient_detail",
+        "summary": "Consultar expediente clínico autorizado",
+        "parameters": [
+          {
+            "name": "identifier",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-Correlation-ID",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "application/json",
+                "application/xml"
+              ]
+            }
+          }
+        ],
+        "description": "Roles: MEDICAL. Contrato público de API.",
+        "security": [
+          {
+            "BearerJWT": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resultado confirmado o estado pendiente documentado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_recipient_detail"
+                },
+                "example": {
+                  "data": {
+                    "id": "00000000-0000-4000-8000-000000000001",
+                    "tenant_id": "00000000-0000-4000-8000-000000000001",
+                    "folio": "PRUEBA-000001",
+                    "display_name": "Dato ficticio para reemplazar",
+                    "kind": "Dato ficticio para reemplazar",
+                    "blood_group": "Dato ficticio para reemplazar",
+                    "organ_type": "Dato ficticio para reemplazar",
+                    "studies": "Dato ficticio para reemplazar",
+                    "status": "Dato ficticio para reemplazar",
+                    "version": 1,
+                    "restrictions": "Dato ficticio para reemplazar",
+                    "requirement": "Dato ficticio para reemplazar",
+                    "decisions": [],
+                    "can_edit": true
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "receptores",
+                    "version": "0.4.1"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"tenant_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"folio\" type=\"string\">PRUEBA-000001</field><field name=\"display_name\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"kind\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"blood_group\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"organ_type\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"studies\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"status\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"version\" type=\"integer\">1</field><field name=\"restrictions\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"requirement\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"decisions\" type=\"array\"/><field name=\"can_edit\" type=\"boolean\">true</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">receptores</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
+                "x-json-equivalent-schema": {
+                  "$ref": "#/components/schemas/Response_recipient_detail"
+                },
+                "x-xsd": "/schemas/response.xsd",
+                "x-response-schema": "/schemas/recipient_detail.response.json"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "406": {
+            "$ref": "#/components/responses/Error406"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "412": {
+            "$ref": "#/components/responses/Error412"
+          },
+          "413": {
+            "$ref": "#/components/responses/Error413"
+          },
+          "415": {
+            "$ref": "#/components/responses/Error415"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
+          }
+        }
+      },
+      "patch": {
+        "operationId": "recipient_edit",
+        "summary": "Corregir receptor antes de registrar solicitudes",
+        "parameters": [
+          {
+            "name": "identifier",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-Correlation-ID",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "application/json",
+                "application/xml"
+              ]
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 8,
+              "maxLength": 100
+            }
+          }
+        ],
+        "description": "Roles: MEDICAL. Contrato público de API.",
+        "security": [
+          {
+            "BearerJWT": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resultado confirmado o estado pendiente documentado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_recipient_edit"
+                },
+                "example": {
+                  "data": {
+                    "id": "00000000-0000-4000-8000-000000000001",
+                    "tenant_id": "00000000-0000-4000-8000-000000000001",
+                    "folio": "PRUEBA-000001",
+                    "display_name": "Dato ficticio para reemplazar",
+                    "kind": "Dato ficticio para reemplazar",
+                    "blood_group": "Dato ficticio para reemplazar",
+                    "organ_type": "Dato ficticio para reemplazar",
+                    "studies": "Dato ficticio para reemplazar",
+                    "status": "Dato ficticio para reemplazar",
+                    "version": 1,
+                    "restrictions": "Dato ficticio para reemplazar",
+                    "requirement": "Dato ficticio para reemplazar"
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "receptores",
+                    "version": "0.4.1"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"tenant_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"folio\" type=\"string\">PRUEBA-000001</field><field name=\"display_name\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"kind\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"blood_group\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"organ_type\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"studies\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"status\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"version\" type=\"integer\">1</field><field name=\"restrictions\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"requirement\" type=\"string\">Dato ficticio para reemplazar</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">receptores</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
+                "x-json-equivalent-schema": {
+                  "$ref": "#/components/schemas/Response_recipient_edit"
+                },
+                "x-xsd": "/schemas/response.xsd",
+                "x-response-schema": "/schemas/recipient_edit.response.json"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "406": {
+            "$ref": "#/components/responses/Error406"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "412": {
+            "$ref": "#/components/responses/Error412"
+          },
+          "413": {
+            "$ref": "#/components/responses/Error413"
+          },
+          "415": {
+            "$ref": "#/components/responses/Error415"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RecipientEdit"
+              },
+              "example": {
+                "human_confirmation": true,
+                "reason": "Dato ficticio para reemplazar",
+                "restrictions": null,
+                "requirement": null,
+                "status": "ACTIVE",
+                "folio": "PRUEBA-000001",
+                "display_name": "Dato ficticio para reemplazar",
+                "kind": "BLOOD",
+                "blood_group": "O-",
+                "organ_type": null,
+                "studies": "Dato ficticio para reemplazar",
+                "version": 1
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "type": "string"
+              },
+              "example": "<?xml version='1.0' encoding='UTF-8'?>\n<request xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><human_confirmation>true</human_confirmation><reason>Dato ficticio para reemplazar</reason><restrictions xsi:nil=\"true\"/><requirement xsi:nil=\"true\"/><status>ACTIVE</status><folio>PRUEBA-000001</folio><display_name>Dato ficticio para reemplazar</display_name><kind>BLOOD</kind><blood_group>O-</blood_group><organ_type xsi:nil=\"true\"/><studies>Dato ficticio para reemplazar</studies><version>1</version></request>",
+              "x-xsd": "/schemas/recipient_edit.xsd",
+              "x-json-equivalent-schema": {
+                "$ref": "#/components/schemas/RecipientEdit"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/requests": {
+      "post": {
+        "operationId": "request_create",
+        "summary": "Solicitud humana de recursos",
+        "parameters": [
+          {
+            "name": "X-Correlation-ID",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "application/json",
+                "application/xml"
+              ]
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 8,
+              "maxLength": 100
+            }
+          }
+        ],
+        "description": "Roles: MEDICAL. Contrato público de API.",
+        "security": [
+          {
+            "BearerJWT": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Resultado confirmado o estado pendiente documentado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_request_create"
+                },
+                "example": {
+                  "data": {
+                    "id": "00000000-0000-4000-8000-000000000001",
+                    "tenant_id": "00000000-0000-4000-8000-000000000001",
+                    "recipient_id": "00000000-0000-4000-8000-000000000001",
+                    "kind": "Dato ficticio para reemplazar",
+                    "component": "RBC",
+                    "quantity": 1,
+                    "urgency": 1,
+                    "status": "Dato ficticio para reemplazar",
+                    "version": 1,
+                    "created_at": "2030-01-01T15:00:00+00:00"
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "receptores",
+                    "version": "0.4.1"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"tenant_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"recipient_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"kind\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"component\" type=\"string\">RBC</field><field name=\"quantity\" type=\"integer\">1</field><field name=\"urgency\" type=\"integer\">1</field><field name=\"status\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"version\" type=\"integer\">1</field><field name=\"created_at\" type=\"string\">2030-01-01T15:00:00+00:00</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">receptores</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
+                "x-json-equivalent-schema": {
+                  "$ref": "#/components/schemas/Response_request_create"
+                },
+                "x-xsd": "/schemas/response.xsd",
+                "x-response-schema": "/schemas/request_create.response.json"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "406": {
+            "$ref": "#/components/responses/Error406"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "412": {
+            "$ref": "#/components/responses/Error412"
+          },
+          "413": {
+            "$ref": "#/components/responses/Error413"
+          },
+          "415": {
+            "$ref": "#/components/responses/Error415"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RequestCreate"
+              },
+              "example": {
+                "recipient_id": "00000000-0000-4000-8000-000000000001",
+                "component": "RBC",
+                "quantity": 1,
+                "urgency": 1
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "type": "string"
+              },
+              "example": "<?xml version='1.0' encoding='UTF-8'?>\n<request xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><recipient_id>00000000-0000-4000-8000-000000000001</recipient_id><component>RBC</component><quantity>1</quantity><urgency>1</urgency></request>",
+              "x-xsd": "/schemas/request_create.xsd",
+              "x-json-equivalent-schema": {
+                "$ref": "#/components/schemas/RequestCreate"
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "operationId": "requests_list",
+        "summary": "Solicitudes institucionales y cobertura",
+        "parameters": [
+          {
+            "name": "X-Correlation-ID",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "application/json",
+                "application/xml"
+              ]
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
+            }
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20
+            }
+          },
+          {
+            "name": "kind",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          },
+          {
+            "name": "from_at",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          },
+          {
+            "name": "until_at",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          },
+          {
+            "name": "date_field",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          },
+          {
+            "name": "q",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          }
+        ],
+        "description": "Roles: MEDICAL, OPERATOR. Contrato público de API.",
+        "security": [
+          {
+            "BearerJWT": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resultado confirmado o estado pendiente documentado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_requests_list"
+                },
+                "example": {
+                  "data": {
+                    "items": [],
+                    "page": 1,
+                    "page_size": 1,
+                    "total": 1
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "receptores",
+                    "version": "0.4.1"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"items\" type=\"array\"/><field name=\"page\" type=\"integer\">1</field><field name=\"page_size\" type=\"integer\">1</field><field name=\"total\" type=\"integer\">1</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">receptores</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
+                "x-json-equivalent-schema": {
+                  "$ref": "#/components/schemas/Response_requests_list"
+                },
+                "x-xsd": "/schemas/response.xsd",
+                "x-response-schema": "/schemas/requests_list.response.json"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "406": {
+            "$ref": "#/components/responses/Error406"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "412": {
+            "$ref": "#/components/responses/Error412"
+          },
+          "413": {
+            "$ref": "#/components/responses/Error413"
+          },
+          "415": {
+            "$ref": "#/components/responses/Error415"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
+          }
+        }
+      }
+    },
+    "/api/v1/requests/{identifier}": {
+      "get": {
+        "operationId": "request_detail",
+        "summary": "Solicitud y reservas pendientes/confirmadas",
+        "parameters": [
+          {
+            "name": "identifier",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-Correlation-ID",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "application/json",
+                "application/xml"
+              ]
+            }
+          }
+        ],
+        "description": "Roles: MEDICAL, OPERATOR. Contrato público de API.",
+        "security": [
+          {
+            "BearerJWT": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resultado confirmado o estado pendiente documentado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_request_detail"
+                },
+                "example": {
+                  "data": {
+                    "id": "00000000-0000-4000-8000-000000000001",
+                    "tenant_id": "00000000-0000-4000-8000-000000000001",
+                    "recipient_id": "00000000-0000-4000-8000-000000000001",
+                    "kind": "Dato ficticio para reemplazar",
+                    "component": "RBC",
+                    "quantity": 1,
+                    "urgency": 1,
+                    "status": "Dato ficticio para reemplazar",
+                    "version": 1,
+                    "created_at": "2030-01-01T15:00:00+00:00",
+                    "decisions": [],
+                    "can_edit": true
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "receptores",
+                    "version": "0.4.1"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"tenant_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"recipient_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"kind\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"component\" type=\"string\">RBC</field><field name=\"quantity\" type=\"integer\">1</field><field name=\"urgency\" type=\"integer\">1</field><field name=\"status\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"version\" type=\"integer\">1</field><field name=\"created_at\" type=\"string\">2030-01-01T15:00:00+00:00</field><field name=\"decisions\" type=\"array\"/><field name=\"can_edit\" type=\"boolean\">true</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">receptores</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
+                "x-json-equivalent-schema": {
+                  "$ref": "#/components/schemas/Response_request_detail"
+                },
+                "x-xsd": "/schemas/response.xsd",
+                "x-response-schema": "/schemas/request_detail.response.json"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "406": {
+            "$ref": "#/components/responses/Error406"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "412": {
+            "$ref": "#/components/responses/Error412"
+          },
+          "413": {
+            "$ref": "#/components/responses/Error413"
+          },
+          "415": {
+            "$ref": "#/components/responses/Error415"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
+          }
+        }
+      },
+      "patch": {
+        "operationId": "request_edit",
+        "summary": "Editar solicitud abierta sin retenciones, invalidando evaluaciones anteriores",
+        "parameters": [
+          {
+            "name": "identifier",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-Correlation-ID",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "application/json",
+                "application/xml"
+              ]
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 8,
+              "maxLength": 100
+            }
+          }
+        ],
+        "description": "Roles: MEDICAL. Contrato público de API.",
+        "security": [
+          {
+            "BearerJWT": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resultado confirmado o estado pendiente documentado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_request_edit"
+                },
+                "example": {
+                  "data": {
+                    "id": "00000000-0000-4000-8000-000000000001",
+                    "tenant_id": "00000000-0000-4000-8000-000000000001",
+                    "recipient_id": "00000000-0000-4000-8000-000000000001",
+                    "kind": "Dato ficticio para reemplazar",
+                    "component": "RBC",
+                    "quantity": 1,
+                    "urgency": 1,
+                    "status": "Dato ficticio para reemplazar",
+                    "version": 1,
+                    "created_at": "2030-01-01T15:00:00+00:00"
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "receptores",
+                    "version": "0.4.1"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"tenant_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"recipient_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"kind\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"component\" type=\"string\">RBC</field><field name=\"quantity\" type=\"integer\">1</field><field name=\"urgency\" type=\"integer\">1</field><field name=\"status\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"version\" type=\"integer\">1</field><field name=\"created_at\" type=\"string\">2030-01-01T15:00:00+00:00</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">receptores</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
+                "x-json-equivalent-schema": {
+                  "$ref": "#/components/schemas/Response_request_edit"
+                },
+                "x-xsd": "/schemas/response.xsd",
+                "x-response-schema": "/schemas/request_edit.response.json"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "406": {
+            "$ref": "#/components/responses/Error406"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "412": {
+            "$ref": "#/components/responses/Error412"
+          },
+          "413": {
+            "$ref": "#/components/responses/Error413"
+          },
+          "415": {
+            "$ref": "#/components/responses/Error415"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RequestEdit"
+              },
+              "example": {
+                "human_confirmation": true,
+                "reason": "Dato ficticio para reemplazar",
+                "component": "RBC",
+                "quantity": 1,
+                "urgency": 1,
+                "version": 1
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "type": "string"
+              },
+              "example": "<?xml version='1.0' encoding='UTF-8'?>\n<request xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><human_confirmation>true</human_confirmation><reason>Dato ficticio para reemplazar</reason><component>RBC</component><quantity>1</quantity><urgency>1</urgency><version>1</version></request>",
+              "x-xsd": "/schemas/request_edit.xsd",
+              "x-json-equivalent-schema": {
+                "$ref": "#/components/schemas/RequestEdit"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/requests/{identifier}/cancel": {
+      "post": {
+        "operationId": "request_cancel",
+        "summary": "Cancelar únicamente sin reservas pendientes o físicas",
+        "parameters": [
+          {
+            "name": "identifier",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-Correlation-ID",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "application/json",
+                "application/xml"
+              ]
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 8,
+              "maxLength": 100
+            }
+          }
+        ],
+        "description": "Roles: MEDICAL. Contrato público de API.",
+        "security": [
+          {
+            "BearerJWT": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resultado confirmado o estado pendiente documentado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_request_cancel"
+                },
+                "example": {
+                  "data": {
+                    "id": "00000000-0000-4000-8000-000000000001",
+                    "tenant_id": "00000000-0000-4000-8000-000000000001",
+                    "recipient_id": "00000000-0000-4000-8000-000000000001",
+                    "kind": "Dato ficticio para reemplazar",
+                    "component": "RBC",
+                    "quantity": 1,
+                    "urgency": 1,
+                    "status": "Dato ficticio para reemplazar",
+                    "version": 1,
+                    "created_at": "2030-01-01T15:00:00+00:00"
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "receptores",
+                    "version": "0.4.1"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"tenant_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"recipient_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"kind\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"component\" type=\"string\">RBC</field><field name=\"quantity\" type=\"integer\">1</field><field name=\"urgency\" type=\"integer\">1</field><field name=\"status\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"version\" type=\"integer\">1</field><field name=\"created_at\" type=\"string\">2030-01-01T15:00:00+00:00</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">receptores</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
+                "x-json-equivalent-schema": {
+                  "$ref": "#/components/schemas/Response_request_cancel"
+                },
+                "x-xsd": "/schemas/response.xsd",
+                "x-response-schema": "/schemas/request_cancel.response.json"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "406": {
+            "$ref": "#/components/responses/Error406"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "412": {
+            "$ref": "#/components/responses/Error412"
+          },
+          "413": {
+            "$ref": "#/components/responses/Error413"
+          },
+          "415": {
+            "$ref": "#/components/responses/Error415"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Cancel"
+              },
+              "example": {
+                "human_confirmation": true,
+                "reason": "Dato ficticio para reemplazar",
+                "version": 1
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "type": "string"
+              },
+              "example": "<?xml version='1.0' encoding='UTF-8'?>\n<request xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><human_confirmation>true</human_confirmation><reason>Dato ficticio para reemplazar</reason><version>1</version></request>",
+              "x-xsd": "/schemas/request_cancel.xsd",
+              "x-json-equivalent-schema": {
+                "$ref": "#/components/schemas/Cancel"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/internal/v1/requests/{identifier}": {
+      "get": {
+        "operationId": "request_internal",
+        "summary": "Instantánea mínima para compatibilidad y reserva",
+        "parameters": [
+          {
+            "name": "identifier",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-Correlation-ID",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "application/json",
+                "application/xml"
+              ]
+            }
+          },
+          {
+            "name": "X-Service",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "compatibilidad",
+                "inventario"
+              ]
+            }
+          },
+          {
+            "name": "X-Service-Time",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Service-Nonce",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "description": "Roles: MEDICAL. Contrato interno firmado; consumidores: compatibilidad, inventario",
+        "security": [
+          {
+            "ServiceSignature": [],
+            "BearerJWT": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resultado confirmado o estado pendiente documentado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_request_internal"
+                },
+                "example": {
+                  "data": {
+                    "id": "00000000-0000-4000-8000-000000000001",
+                    "tenant_id": "00000000-0000-4000-8000-000000000001",
+                    "recipient_id": "00000000-0000-4000-8000-000000000001",
+                    "kind": "Dato ficticio para reemplazar",
+                    "component": "RBC",
+                    "quantity": 1,
+                    "urgency": 1,
+                    "status": "Dato ficticio para reemplazar",
+                    "version": 1,
+                    "created_at": "2030-01-01T15:00:00+00:00"
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "receptores",
+                    "version": "0.4.1"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"tenant_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"recipient_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"kind\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"component\" type=\"string\">RBC</field><field name=\"quantity\" type=\"integer\">1</field><field name=\"urgency\" type=\"integer\">1</field><field name=\"status\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"version\" type=\"integer\">1</field><field name=\"created_at\" type=\"string\">2030-01-01T15:00:00+00:00</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">receptores</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
+                "x-json-equivalent-schema": {
+                  "$ref": "#/components/schemas/Response_request_internal"
+                },
+                "x-xsd": "/schemas/response.xsd",
+                "x-response-schema": "/schemas/request_internal.response.json"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "406": {
+            "$ref": "#/components/responses/Error406"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "412": {
+            "$ref": "#/components/responses/Error412"
+          },
+          "413": {
+            "$ref": "#/components/responses/Error413"
+          },
+          "415": {
+            "$ref": "#/components/responses/Error415"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
+          }
+        }
+      }
+    },
+    "/internal/v1/holds": {
+      "post": {
+        "operationId": "hold_create",
+        "summary": "Retener capacidad; serializar solicitud y receptor",
+        "parameters": [
+          {
+            "name": "X-Correlation-ID",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "application/json",
+                "application/xml"
+              ]
+            }
+          },
+          {
+            "name": "X-Service",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "inventario"
+              ]
+            }
+          },
+          {
+            "name": "X-Service-Time",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Service-Nonce",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "description": "Roles: MEDICAL. Contrato interno firmado; consumidores: inventario",
+        "security": [
+          {
+            "ServiceSignature": [],
+            "BearerJWT": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resultado confirmado o estado pendiente documentado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_hold_create"
+                },
+                "example": {
+                  "data": {
+                    "id": "00000000-0000-4000-8000-000000000001",
+                    "request_id": "00000000-0000-4000-8000-000000000001",
+                    "recipient_id": "00000000-0000-4000-8000-000000000001",
+                    "operation_id": "00000000-0000-4000-8000-000000000001",
+                    "resource_id": "00000000-0000-4000-8000-000000000001",
+                    "kind": "Dato ficticio para reemplazar",
+                    "request_version": 1,
+                    "region_id": "00000000-0000-4000-8000-000000000001",
+                    "status": "Dato ficticio para reemplazar",
+                    "created_at": "2030-01-01T15:00:00+00:00"
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "receptores",
+                    "version": "0.4.1"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"request_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"recipient_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"operation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"resource_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"kind\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"request_version\" type=\"integer\">1</field><field name=\"region_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"status\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"created_at\" type=\"string\">2030-01-01T15:00:00+00:00</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">receptores</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
+                "x-json-equivalent-schema": {
+                  "$ref": "#/components/schemas/Response_hold_create"
+                },
+                "x-xsd": "/schemas/response.xsd",
+                "x-response-schema": "/schemas/hold_create.response.json"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "406": {
+            "$ref": "#/components/responses/Error406"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "412": {
+            "$ref": "#/components/responses/Error412"
+          },
+          "413": {
+            "$ref": "#/components/responses/Error413"
+          },
+          "415": {
+            "$ref": "#/components/responses/Error415"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/HoldCreate"
+              },
+              "example": {
+                "operation_id": "00000000-0000-4000-8000-000000000001",
+                "request_id": "00000000-0000-4000-8000-000000000001",
+                "resource_id": "00000000-0000-4000-8000-000000000001",
+                "request_version": 1,
+                "recipient_version": 1
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "type": "string"
+              },
+              "example": "<?xml version='1.0' encoding='UTF-8'?>\n<request xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><operation_id>00000000-0000-4000-8000-000000000001</operation_id><request_id>00000000-0000-4000-8000-000000000001</request_id><resource_id>00000000-0000-4000-8000-000000000001</resource_id><request_version>1</request_version><recipient_version>1</recipient_version></request>",
+              "x-xsd": "/schemas/hold_create.xsd",
+              "x-json-equivalent-schema": {
+                "$ref": "#/components/schemas/HoldCreate"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/internal/v1/holds/{identifier}": {
+      "post": {
+        "operationId": "hold_action",
+        "summary": "Confirmar, liberar o recibir retención de forma idempotente",
+        "parameters": [
+          {
+            "name": "identifier",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-Correlation-ID",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "application/json",
+                "application/xml"
+              ]
+            }
+          },
+          {
+            "name": "X-Service",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "inventario"
+              ]
+            }
+          },
+          {
+            "name": "X-Service-Time",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Service-Nonce",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "description": "Roles: según sesión. Contrato interno firmado; consumidores: inventario",
+        "security": [
+          {
+            "ServiceSignature": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resultado confirmado o estado pendiente documentado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_hold_action"
+                },
+                "example": {
+                  "data": {
+                    "id": "00000000-0000-4000-8000-000000000001",
+                    "request_id": "00000000-0000-4000-8000-000000000001",
+                    "recipient_id": "00000000-0000-4000-8000-000000000001",
+                    "operation_id": "00000000-0000-4000-8000-000000000001",
+                    "resource_id": "00000000-0000-4000-8000-000000000001",
+                    "kind": "Dato ficticio para reemplazar",
+                    "request_version": 1,
+                    "region_id": "00000000-0000-4000-8000-000000000001",
+                    "status": "Dato ficticio para reemplazar",
+                    "created_at": "2030-01-01T15:00:00+00:00"
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "receptores",
+                    "version": "0.4.1"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"request_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"recipient_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"operation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"resource_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"kind\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"request_version\" type=\"integer\">1</field><field name=\"region_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"status\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"created_at\" type=\"string\">2030-01-01T15:00:00+00:00</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">receptores</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
+                "x-json-equivalent-schema": {
+                  "$ref": "#/components/schemas/Response_hold_action"
+                },
+                "x-xsd": "/schemas/response.xsd",
+                "x-response-schema": "/schemas/hold_action.response.json"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "406": {
+            "$ref": "#/components/responses/Error406"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "412": {
+            "$ref": "#/components/responses/Error412"
+          },
+          "413": {
+            "$ref": "#/components/responses/Error413"
+          },
+          "415": {
+            "$ref": "#/components/responses/Error415"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/HoldAction"
+              },
+              "example": {
+                "operation_id": "00000000-0000-4000-8000-000000000001",
+                "action": "Dato ficticio para reemplazar"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "type": "string"
+              },
+              "example": "<?xml version='1.0' encoding='UTF-8'?>\n<request xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><operation_id>00000000-0000-4000-8000-000000000001</operation_id><action>Dato ficticio para reemplazar</action></request>",
+              "x-xsd": "/schemas/hold_action.xsd",
+              "x-json-equivalent-schema": {
+                "$ref": "#/components/schemas/HoldAction"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/internal/v1/holds-by-operation/{identifier}": {
+      "get": {
+        "operationId": "hold_lookup",
+        "summary": "Localizar retención tras perder una respuesta",
+        "parameters": [
+          {
+            "name": "identifier",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-Correlation-ID",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "application/json",
+                "application/xml"
+              ]
+            }
+          },
+          {
+            "name": "X-Service",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "inventario"
+              ]
+            }
+          },
+          {
+            "name": "X-Service-Time",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Service-Nonce",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "description": "Roles: según sesión. Contrato interno firmado; consumidores: inventario",
+        "security": [
+          {
+            "ServiceSignature": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resultado confirmado o estado pendiente documentado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_hold_lookup"
+                },
+                "example": {
+                  "data": {
+                    "hold": null
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "receptores",
+                    "version": "0.4.1"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"hold\" type=\"null\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">receptores</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
+                "x-json-equivalent-schema": {
+                  "$ref": "#/components/schemas/Response_hold_lookup"
+                },
+                "x-xsd": "/schemas/response.xsd",
+                "x-response-schema": "/schemas/hold_lookup.response.json"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "406": {
+            "$ref": "#/components/responses/Error406"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "412": {
+            "$ref": "#/components/responses/Error412"
+          },
+          "413": {
+            "$ref": "#/components/responses/Error413"
+          },
+          "415": {
+            "$ref": "#/components/responses/Error415"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
+          }
+        }
+      }
+    },
+    "/internal/v1/events": {
+      "post": {
+        "operationId": "recipient_events",
+        "summary": "Recibir recepción o liberación sin duplicados",
+        "parameters": [
+          {
+            "name": "X-Correlation-ID",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "application/json",
+                "application/xml"
+              ]
+            }
+          },
+          {
+            "name": "X-Service",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "inventario"
+              ]
+            }
+          },
+          {
+            "name": "X-Service-Time",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Service-Nonce",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "description": "Roles: según sesión. Contrato interno firmado; consumidores: inventario",
+        "security": [
+          {
+            "ServiceSignature": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resultado confirmado o estado pendiente documentado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_recipient_events"
+                },
+                "example": {
+                  "data": {
+                    "id": "00000000-0000-4000-8000-000000000001",
+                    "request_id": "00000000-0000-4000-8000-000000000001",
+                    "recipient_id": "00000000-0000-4000-8000-000000000001",
+                    "operation_id": "00000000-0000-4000-8000-000000000001",
+                    "resource_id": "00000000-0000-4000-8000-000000000001",
+                    "kind": "Dato ficticio para reemplazar",
+                    "request_version": 1,
+                    "region_id": "00000000-0000-4000-8000-000000000001",
+                    "status": "Dato ficticio para reemplazar",
+                    "created_at": "2030-01-01T15:00:00+00:00"
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "receptores",
+                    "version": "0.4.1"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"request_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"recipient_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"operation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"resource_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"kind\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"request_version\" type=\"integer\">1</field><field name=\"region_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"status\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"created_at\" type=\"string\">2030-01-01T15:00:00+00:00</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">receptores</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
+                "x-json-equivalent-schema": {
+                  "$ref": "#/components/schemas/Response_recipient_events"
+                },
+                "x-xsd": "/schemas/response.xsd",
+                "x-response-schema": "/schemas/recipient_events.response.json"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "406": {
+            "$ref": "#/components/responses/Error406"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "412": {
+            "$ref": "#/components/responses/Error412"
+          },
+          "413": {
+            "$ref": "#/components/responses/Error413"
+          },
+          "415": {
+            "$ref": "#/components/responses/Error415"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Event"
+              },
+              "example": {
+                "event_id": "00000000-0000-4000-8000-000000000001",
+                "source": "Dato ficticio para reemplazar",
+                "action": "Dato ficticio para reemplazar",
+                "resource_id": "00000000-0000-4000-8000-000000000001",
+                "tenant_id": "00000000-0000-4000-8000-000000000001",
+                "region_id": null,
+                "actor_id": null,
+                "correlation_id": "00000000-0000-4000-8000-000000000001",
+                "occurred_at": "2026-10-01T15:00:00+00:00",
+                "metadata": {}
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "type": "string"
+              },
+              "example": "<?xml version='1.0' encoding='UTF-8'?>\n<request xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><event_id>00000000-0000-4000-8000-000000000001</event_id><source>Dato ficticio para reemplazar</source><action>Dato ficticio para reemplazar</action><resource_id>00000000-0000-4000-8000-000000000001</resource_id><tenant_id>00000000-0000-4000-8000-000000000001</tenant_id><region_id xsi:nil=\"true\"/><actor_id xsi:nil=\"true\"/><correlation_id>00000000-0000-4000-8000-000000000001</correlation_id><occurred_at>2026-10-01T15:00:00+00:00</occurred_at><metadata/></request>",
+              "x-xsd": "/schemas/recipient_events.xsd",
+              "x-json-equivalent-schema": {
+                "$ref": "#/components/schemas/Event"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/summary": {
+      "get": {
+        "operationId": "portal_summary",
+        "summary": "Indicadores agregados autorizados; no expone expedientes",
+        "parameters": [
+          {
+            "name": "X-Correlation-ID",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "application/json",
+                "application/xml"
+              ]
+            }
+          }
+        ],
+        "description": "Roles: OPERATOR, MEDICAL, COORDINATOR. Contrato público de API.",
+        "security": [
+          {
+            "BearerJWT": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resultado confirmado o estado pendiente documentado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_portal_summary"
+                },
+                "example": {
+                  "data": {
+                    "total": 1,
+                    "statuses": [],
+                    "groups": [],
+                    "urgencies": [],
+                    "trend": [],
+                    "institutions": [],
+                    "expiring": 1,
+                    "expired": 1
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "receptores",
+                    "version": "0.4.1"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"total\" type=\"integer\">1</field><field name=\"statuses\" type=\"array\"/><field name=\"groups\" type=\"array\"/><field name=\"urgencies\" type=\"array\"/><field name=\"trend\" type=\"array\"/><field name=\"institutions\" type=\"array\"/><field name=\"expiring\" type=\"integer\">1</field><field name=\"expired\" type=\"integer\">1</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">receptores</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
+                "x-json-equivalent-schema": {
+                  "$ref": "#/components/schemas/Response_portal_summary"
+                },
+                "x-xsd": "/schemas/response.xsd",
+                "x-response-schema": "/schemas/portal_summary.response.json"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "406": {
+            "$ref": "#/components/responses/Error406"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "412": {
+            "$ref": "#/components/responses/Error412"
+          },
+          "413": {
+            "$ref": "#/components/responses/Error413"
+          },
+          "415": {
+            "$ref": "#/components/responses/Error415"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
+          }
+        }
+      }
+    },
+    "/api/v1/requests/{identifier}/external-authorizations": {
+      "post": {
+        "operationId": "external_authorization_create",
+        "summary": "external_authorization_create",
+        "parameters": [
+          {
+            "name": "identifier",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-Correlation-ID",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "application/json",
+                "application/xml"
+              ]
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 8,
+              "maxLength": 100
+            }
+          }
+        ],
+        "description": "Roles: MEDICAL. Contrato público de API.",
+        "security": [
+          {
+            "BearerJWT": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Resultado confirmado o estado pendiente documentado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_external_authorization_create"
+                },
+                "example": {
+                  "data": {
+                    "id": "00000000-0000-4000-8000-000000000001",
+                    "request_id": "00000000-0000-4000-8000-000000000001",
+                    "tenant_id": "00000000-0000-4000-8000-000000000001",
+                    "authority": "Dato ficticio para reemplazar",
+                    "reference": "Dato ficticio para reemplazar",
+                    "valid_from": "2026-10-01T15:00:00+00:00",
+                    "valid_until": "2030-01-01T15:00:00+00:00",
+                    "effective_at": "2026-10-01T15:00:00+00:00",
+                    "supersedes": null,
+                    "decision": "Dato ficticio para reemplazar",
+                    "version": 1,
+                    "author_id": "00000000-0000-4000-8000-000000000001",
+                    "created_at": "Dato ficticio para reemplazar"
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "receptores",
+                    "version": "0.4.1"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"request_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"tenant_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"authority\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"reference\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"valid_from\" type=\"string\">2026-10-01T15:00:00+00:00</field><field name=\"valid_until\" type=\"string\">2030-01-01T15:00:00+00:00</field><field name=\"effective_at\" type=\"string\">2026-10-01T15:00:00+00:00</field><field name=\"supersedes\" type=\"null\"/><field name=\"decision\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"version\" type=\"integer\">1</field><field name=\"author_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"created_at\" type=\"string\">Dato ficticio para reemplazar</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">receptores</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
+                "x-json-equivalent-schema": {
+                  "$ref": "#/components/schemas/Response_external_authorization_create"
+                },
+                "x-xsd": "/schemas/response.xsd",
+                "x-response-schema": "/schemas/external_authorization_create.response.json"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "406": {
+            "$ref": "#/components/responses/Error406"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "412": {
+            "$ref": "#/components/responses/Error412"
+          },
+          "413": {
+            "$ref": "#/components/responses/Error413"
+          },
+          "415": {
+            "$ref": "#/components/responses/Error415"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Create"
+              },
+              "example": {
+                "human_confirmation": true,
+                "reason": "Dato ficticio para reemplazar",
+                "authority": "Dato ficticio para reemplazar",
+                "reference": "Dato ficticio para reemplazar",
+                "valid_from": "2026-10-01T15:00:00+00:00",
+                "valid_until": "2030-01-01T15:00:00+00:00",
+                "effective_at": "2026-10-01T15:00:00+00:00",
+                "supersedes": null,
+                "decision": "RECORDED"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "type": "string"
+              },
+              "example": "<?xml version='1.0' encoding='UTF-8'?>\n<request xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><human_confirmation>true</human_confirmation><reason>Dato ficticio para reemplazar</reason><authority>Dato ficticio para reemplazar</authority><reference>Dato ficticio para reemplazar</reference><valid_from>2026-10-01T15:00:00+00:00</valid_from><valid_until>2030-01-01T15:00:00+00:00</valid_until><effective_at>2026-10-01T15:00:00+00:00</effective_at><supersedes xsi:nil=\"true\"/><decision>RECORDED</decision></request>",
+              "x-xsd": "/schemas/external_authorization_create.xsd",
+              "x-json-equivalent-schema": {
+                "$ref": "#/components/schemas/Create"
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "operationId": "external_authorizations",
+        "summary": "external_authorizations",
+        "parameters": [
+          {
+            "name": "identifier",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-Correlation-ID",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "application/json",
+                "application/xml"
+              ]
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
+            }
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20
+            }
+          },
+          {
+            "name": "q",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          },
+          {
+            "name": "from_at",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          },
+          {
+            "name": "until_at",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          },
+          {
+            "name": "date_field",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          }
+        ],
+        "description": "Roles: MEDICAL. Contrato público de API.",
+        "security": [
+          {
+            "BearerJWT": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resultado confirmado o estado pendiente documentado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_external_authorizations"
+                },
+                "example": {
+                  "data": {
+                    "items": [],
+                    "page": 1,
+                    "page_size": 1,
+                    "total": 1
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "receptores",
+                    "version": "0.4.1"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"items\" type=\"array\"/><field name=\"page\" type=\"integer\">1</field><field name=\"page_size\" type=\"integer\">1</field><field name=\"total\" type=\"integer\">1</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">receptores</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
+                "x-json-equivalent-schema": {
+                  "$ref": "#/components/schemas/Response_external_authorizations"
+                },
+                "x-xsd": "/schemas/response.xsd",
+                "x-response-schema": "/schemas/external_authorizations.response.json"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "406": {
+            "$ref": "#/components/responses/Error406"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "412": {
+            "$ref": "#/components/responses/Error412"
+          },
+          "413": {
+            "$ref": "#/components/responses/Error413"
+          },
+          "415": {
+            "$ref": "#/components/responses/Error415"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
+          }
+        }
+      }
+    },
+    "/api/v1/decision-data": {
+      "get": {
+        "operationId": "request_decision_data",
+        "summary": "request_decision_data",
+        "parameters": [
+          {
+            "name": "X-Correlation-ID",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "application/json",
+                "application/xml"
+              ]
+            }
+          }
+        ],
+        "description": "Roles: MEDICAL. Contrato público de API.",
+        "security": [
+          {
+            "BearerJWT": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resultado confirmado o estado pendiente documentado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_request_decision_data"
+                },
+                "example": {
+                  "data": {},
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "receptores",
+                    "version": "0.4.1"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"/><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">receptores</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
+                "x-json-equivalent-schema": {
+                  "$ref": "#/components/schemas/Response_request_decision_data"
+                },
+                "x-xsd": "/schemas/response.xsd",
+                "x-response-schema": "/schemas/request_decision_data.response.json"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "406": {
+            "$ref": "#/components/responses/Error406"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "412": {
+            "$ref": "#/components/responses/Error412"
+          },
+          "413": {
+            "$ref": "#/components/responses/Error413"
+          },
+          "415": {
+            "$ref": "#/components/responses/Error415"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
+          }
+        }
+      }
+    },
+    "/api/v1/portal-metrics": {
+      "get": {
+        "operationId": "portal_metrics",
+        "summary": "portal_metrics",
+        "parameters": [
+          {
+            "name": "X-Correlation-ID",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "application/json",
+                "application/xml"
+              ]
+            }
+          },
+          {
+            "name": "from_at",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          },
+          {
+            "name": "until_at",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          }
+        ],
+        "description": "Roles: OPERATOR, MEDICAL. Contrato público de API.",
+        "security": [
+          {
+            "BearerJWT": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resultado confirmado o estado pendiente documentado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_portal_metrics"
+                },
+                "example": {
+                  "data": {
+                    "from_at": "2026-10-01T15:00:00+00:00",
+                    "until_at": "2030-01-01T15:00:00+00:00",
+                    "updated_at": "Dato ficticio para reemplazar",
+                    "scope": "Dato ficticio para reemplazar",
+                    "series": []
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "receptores",
+                    "version": "0.4.1"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"from_at\" type=\"string\">2026-10-01T15:00:00+00:00</field><field name=\"until_at\" type=\"string\">2030-01-01T15:00:00+00:00</field><field name=\"updated_at\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"scope\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"series\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">receptores</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
+                "x-json-equivalent-schema": {
+                  "$ref": "#/components/schemas/Response_portal_metrics"
+                },
+                "x-xsd": "/schemas/response.xsd",
+                "x-response-schema": "/schemas/portal_metrics.response.json"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "406": {
+            "$ref": "#/components/responses/Error406"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "412": {
+            "$ref": "#/components/responses/Error412"
+          },
+          "413": {
+            "$ref": "#/components/responses/Error413"
+          },
+          "415": {
+            "$ref": "#/components/responses/Error415"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Error": {
+        "type": "object",
+        "required": [
+          "error",
+          "meta"
+        ],
+        "properties": {
+          "meta": {
+            "type": "object",
+            "required": [
+              "correlation_id",
+              "service",
+              "version"
+            ],
+            "properties": {
+              "correlation_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "service": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              }
+            }
+          },
+          "error": {
+            "type": "object",
+            "required": [
+              "code",
+              "message",
+              "details"
+            ],
+            "properties": {
+              "code": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "details": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "field": {
+                      "type": "string",
+                      "description": "Ruta del campo en la entrada; no incluye su valor."
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "challenge": {
+                      "type": "string",
+                      "maxLength": 4096,
+                      "description": "Reto opaco de reautenticación; no registrar ni compartir."
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "Corrección segura en español."
+                    },
+                    "min_length": {
+                      "type": "number"
+                    },
+                    "max_length": {
+                      "type": "number"
+                    },
+                    "ge": {
+                      "type": "number"
+                    },
+                    "le": {
+                      "type": "number"
+                    },
+                    "gt": {
+                      "type": "number"
+                    },
+                    "lt": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "Response_recipient_create": {
+        "type": "object",
+        "required": [
+          "data",
+          "meta"
+        ],
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "tenant_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "folio": {
+                "type": "string"
+              },
+              "display_name": {
+                "type": "string"
+              },
+              "kind": {
+                "type": "string"
+              },
+              "blood_group": {
+                "type": "string"
+              },
+              "organ_type": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "studies": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "version": {
+                "type": "integer"
+              },
+              "restrictions": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "requirement": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            },
+            "required": [
+              "id"
+            ]
+          },
+          "meta": {
+            "type": "object",
+            "required": [
+              "correlation_id",
+              "service",
+              "version"
+            ],
+            "properties": {
+              "correlation_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "service": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "RecipientCreate": {
+        "additionalProperties": false,
+        "properties": {
+          "restrictions": {
+            "anyOf": [
+              {
+                "maxLength": 1000,
+                "minLength": 6,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Restrictions"
+          },
+          "requirement": {
+            "anyOf": [
+              {
+                "maxLength": 1000,
+                "minLength": 6,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Requirement"
+          },
+          "status": {
+            "default": "ACTIVE",
+            "enum": [
+              "ACTIVE",
+              "INACTIVE"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "folio": {
+            "maxLength": 30,
+            "minLength": 6,
+            "pattern": "^[A-Za-z0-9_-]+$",
+            "title": "Folio",
+            "type": "string"
+          },
+          "display_name": {
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Display Name",
+            "type": "string"
+          },
+          "kind": {
+            "enum": [
+              "BLOOD",
+              "ORGAN"
+            ],
+            "title": "Kind",
+            "type": "string"
+          },
+          "blood_group": {
+            "enum": [
+              "O-",
+              "O+",
+              "A-",
+              "A+",
+              "B-",
+              "B+",
+              "AB-",
+              "AB+"
+            ],
+            "title": "Blood Group",
+            "type": "string"
+          },
+          "organ_type": {
+            "anyOf": [
+              {
+                "enum": [
+                  "KIDNEY",
+                  "LIVER",
+                  "HEART"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Organ Type"
+          },
+          "studies": {
+            "maxLength": 1000,
+            "minLength": 6,
+            "title": "Studies",
+            "type": "string"
+          }
+        },
+        "required": [
+          "folio",
+          "display_name",
+          "kind",
+          "blood_group",
+          "studies"
+        ],
+        "title": "RecipientCreate",
+        "type": "object"
+      },
+      "Response_recipients": {
+        "type": "object",
+        "required": [
+          "data",
+          "meta"
+        ],
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "tenant_id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "folio": {
+                      "type": "string"
+                    },
+                    "display_name": {
+                      "type": "string"
+                    },
+                    "kind": {
+                      "type": "string"
+                    },
+                    "blood_group": {
+                      "type": "string"
+                    },
+                    "organ_type": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "studies": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "version": {
+                      "type": "integer"
+                    },
+                    "restrictions": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "requirement": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "can_edit": {
+                      "type": "boolean",
+                      "description": "Disponibilidad de corrección según el historial; la escritura revalida permisos y versión."
+                    }
+                  },
+                  "required": [
+                    "id"
+                  ]
+                }
+              },
+              "page": {
+                "type": "integer"
+              },
+              "page_size": {
+                "type": "integer"
+              },
+              "total": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "items",
+              "page",
+              "page_size",
+              "total"
+            ]
+          },
+          "meta": {
+            "type": "object",
+            "required": [
+              "correlation_id",
+              "service",
+              "version"
+            ],
+            "properties": {
+              "correlation_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "service": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "Response_recipient_detail": {
+        "type": "object",
+        "required": [
+          "data",
+          "meta"
+        ],
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "tenant_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "folio": {
+                "type": "string"
+              },
+              "display_name": {
+                "type": "string"
+              },
+              "kind": {
+                "type": "string"
+              },
+              "blood_group": {
+                "type": "string"
+              },
+              "organ_type": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "studies": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "version": {
+                "type": "integer"
+              },
+              "restrictions": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "requirement": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "decisions": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "id",
+                    "actor_id",
+                    "action",
+                    "reason",
+                    "changes",
+                    "created_at"
+                  ],
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "actor_id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "action": {
+                      "type": "string"
+                    },
+                    "reason": {
+                      "type": "string"
+                    },
+                    "changes": {
+                      "type": "object"
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    }
+                  }
+                }
+              },
+              "can_edit": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          },
+          "meta": {
+            "type": "object",
+            "required": [
+              "correlation_id",
+              "service",
+              "version"
+            ],
+            "properties": {
+              "correlation_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "service": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "Response_request_create": {
+        "type": "object",
+        "required": [
+          "data",
+          "meta"
+        ],
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "tenant_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "recipient_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "kind": {
+                "type": "string"
+              },
+              "component": {
+                "type": "string"
+              },
+              "quantity": {
+                "type": "integer"
+              },
+              "urgency": {
+                "type": "integer"
+              },
+              "status": {
+                "type": "string"
+              },
+              "version": {
+                "type": "integer"
+              },
+              "created_at": {
+                "type": "string",
+                "format": "date-time"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          },
+          "meta": {
+            "type": "object",
+            "required": [
+              "correlation_id",
+              "service",
+              "version"
+            ],
+            "properties": {
+              "correlation_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "service": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "RequestCreate": {
+        "additionalProperties": false,
+        "properties": {
+          "recipient_id": {
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "title": "Recipient Id",
+            "type": "string"
+          },
+          "component": {
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Component",
+            "type": "string"
+          },
+          "quantity": {
+            "maximum": 100,
+            "minimum": 1,
+            "title": "Quantity",
+            "type": "integer"
+          },
+          "urgency": {
+            "maximum": 3,
+            "minimum": 1,
+            "title": "Urgency",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "recipient_id",
+          "component",
+          "quantity",
+          "urgency"
+        ],
+        "title": "RequestCreate",
+        "type": "object"
+      },
+      "Response_requests_list": {
+        "type": "object",
+        "required": [
+          "data",
+          "meta"
+        ],
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "tenant_id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "recipient_id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "kind": {
+                      "type": "string"
+                    },
+                    "component": {
+                      "type": "string"
+                    },
+                    "quantity": {
+                      "type": "integer"
+                    },
+                    "urgency": {
+                      "type": "integer"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "version": {
+                      "type": "integer"
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "can_edit": {
+                      "type": "boolean",
+                      "description": "Disponibilidad de corrección según el historial; la escritura revalida permisos y versión."
+                    }
+                  },
+                  "required": [
+                    "id"
+                  ]
+                }
+              },
+              "page": {
+                "type": "integer"
+              },
+              "page_size": {
+                "type": "integer"
+              },
+              "total": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "items",
+              "page",
+              "page_size",
+              "total"
+            ]
+          },
+          "meta": {
+            "type": "object",
+            "required": [
+              "correlation_id",
+              "service",
+              "version"
+            ],
+            "properties": {
+              "correlation_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "service": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "Response_request_detail": {
+        "type": "object",
+        "required": [
+          "data",
+          "meta"
+        ],
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "tenant_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "recipient_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "kind": {
+                "type": "string"
+              },
+              "component": {
+                "type": "string"
+              },
+              "quantity": {
+                "type": "integer"
+              },
+              "urgency": {
+                "type": "integer"
+              },
+              "status": {
+                "type": "string"
+              },
+              "version": {
+                "type": "integer"
+              },
+              "created_at": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "decisions": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "id",
+                    "actor_id",
+                    "action",
+                    "reason",
+                    "changes",
+                    "created_at"
+                  ],
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "actor_id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "action": {
+                      "type": "string"
+                    },
+                    "reason": {
+                      "type": "string"
+                    },
+                    "changes": {
+                      "type": "object"
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    }
+                  }
+                }
+              },
+              "can_edit": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          },
+          "meta": {
+            "type": "object",
+            "required": [
+              "correlation_id",
+              "service",
+              "version"
+            ],
+            "properties": {
+              "correlation_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "service": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "Response_request_cancel": {
+        "type": "object",
+        "required": [
+          "data",
+          "meta"
+        ],
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "tenant_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "recipient_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "kind": {
+                "type": "string"
+              },
+              "component": {
+                "type": "string"
+              },
+              "quantity": {
+                "type": "integer"
+              },
+              "urgency": {
+                "type": "integer"
+              },
+              "status": {
+                "type": "string"
+              },
+              "version": {
+                "type": "integer"
+              },
+              "created_at": {
+                "type": "string",
+                "format": "date-time"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          },
+          "meta": {
+            "type": "object",
+            "required": [
+              "correlation_id",
+              "service",
+              "version"
+            ],
+            "properties": {
+              "correlation_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "service": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "Cancel": {
+        "additionalProperties": false,
+        "properties": {
+          "human_confirmation": {
+            "const": true,
+            "title": "Human Confirmation",
+            "type": "boolean"
+          },
+          "reason": {
+            "maxLength": 1000,
+            "minLength": 6,
+            "title": "Reason",
+            "type": "string"
+          },
+          "version": {
+            "minimum": 1,
+            "title": "Version",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "human_confirmation",
+          "reason",
+          "version"
+        ],
+        "title": "Cancel",
+        "type": "object"
+      },
+      "Response_request_internal": {
+        "type": "object",
+        "required": [
+          "data",
+          "meta"
+        ],
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "tenant_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "recipient_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "kind": {
+                "type": "string"
+              },
+              "component": {
+                "type": "string"
+              },
+              "quantity": {
+                "type": "integer"
+              },
+              "urgency": {
+                "type": "integer"
+              },
+              "status": {
+                "type": "string"
+              },
+              "version": {
+                "type": "integer"
+              },
+              "created_at": {
+                "type": "string",
+                "format": "date-time"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          },
+          "meta": {
+            "type": "object",
+            "required": [
+              "correlation_id",
+              "service",
+              "version"
+            ],
+            "properties": {
+              "correlation_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "service": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "Response_hold_create": {
+        "type": "object",
+        "required": [
+          "data",
+          "meta"
+        ],
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "request_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "recipient_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "operation_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "resource_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "kind": {
+                "type": "string"
+              },
+              "request_version": {
+                "type": "integer"
+              },
+              "region_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "status": {
+                "type": "string"
+              },
+              "created_at": {
+                "type": "string",
+                "format": "date-time"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          },
+          "meta": {
+            "type": "object",
+            "required": [
+              "correlation_id",
+              "service",
+              "version"
+            ],
+            "properties": {
+              "correlation_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "service": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "HoldCreate": {
+        "additionalProperties": false,
+        "properties": {
+          "operation_id": {
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "title": "Operation Id",
+            "type": "string"
+          },
+          "request_id": {
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "title": "Request Id",
+            "type": "string"
+          },
+          "resource_id": {
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "title": "Resource Id",
+            "type": "string"
+          },
+          "request_version": {
+            "minimum": 1,
+            "title": "Request Version",
+            "type": "integer"
+          },
+          "recipient_version": {
+            "minimum": 1,
+            "title": "Recipient Version",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "operation_id",
+          "request_id",
+          "resource_id",
+          "request_version",
+          "recipient_version"
+        ],
+        "title": "HoldCreate",
+        "type": "object"
+      },
+      "Response_hold_action": {
+        "type": "object",
+        "required": [
+          "data",
+          "meta"
+        ],
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "request_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "recipient_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "operation_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "resource_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "kind": {
+                "type": "string"
+              },
+              "request_version": {
+                "type": "integer"
+              },
+              "region_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "status": {
+                "type": "string"
+              },
+              "created_at": {
+                "type": "string",
+                "format": "date-time"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          },
+          "meta": {
+            "type": "object",
+            "required": [
+              "correlation_id",
+              "service",
+              "version"
+            ],
+            "properties": {
+              "correlation_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "service": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "HoldAction": {
+        "additionalProperties": false,
+        "properties": {
+          "operation_id": {
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "title": "Operation Id",
+            "type": "string"
+          },
+          "action": {
+            "title": "Action",
+            "type": "string"
+          }
+        },
+        "required": [
+          "operation_id",
+          "action"
+        ],
+        "title": "HoldAction",
+        "type": "object"
+      },
+      "Response_hold_lookup": {
+        "type": "object",
+        "required": [
+          "data",
+          "meta"
+        ],
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "hold": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "request_id": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "recipient_id": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "operation_id": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "resource_id": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "kind": {
+                        "type": "string"
+                      },
+                      "request_version": {
+                        "type": "integer"
+                      },
+                      "region_id": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "status": {
+                        "type": "string"
+                      },
+                      "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                      }
+                    },
+                    "required": [
+                      "id"
+                    ]
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "hold"
+            ]
+          },
+          "meta": {
+            "type": "object",
+            "required": [
+              "correlation_id",
+              "service",
+              "version"
+            ],
+            "properties": {
+              "correlation_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "service": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "Response_recipient_events": {
+        "type": "object",
+        "required": [
+          "data",
+          "meta"
+        ],
+        "properties": {
+          "data": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "request_id": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "recipient_id": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "operation_id": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "resource_id": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "kind": {
+                    "type": "string"
+                  },
+                  "request_version": {
+                    "type": "integer"
+                  },
+                  "region_id": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "status": {
+                    "type": "string"
+                  },
+                  "created_at": {
+                    "type": "string",
+                    "format": "date-time"
+                  }
+                },
+                "required": [
+                  "id"
+                ]
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "duplicate": {
+                    "const": true
+                  }
+                },
+                "required": [
+                  "duplicate"
+                ]
+              }
+            ]
+          },
+          "meta": {
+            "type": "object",
+            "required": [
+              "correlation_id",
+              "service",
+              "version"
+            ],
+            "properties": {
+              "correlation_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "service": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "Event": {
+        "additionalProperties": false,
+        "properties": {
+          "event_id": {
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "title": "Event Id",
+            "type": "string"
+          },
+          "source": {
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Source",
+            "type": "string"
+          },
+          "action": {
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Action",
+            "type": "string"
+          },
+          "resource_id": {
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Resource Id",
+            "type": "string"
+          },
+          "tenant_id": {
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "title": "Tenant Id",
+            "type": "string"
+          },
+          "region_id": {
+            "anyOf": [
+              {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Region Id"
+          },
+          "actor_id": {
+            "anyOf": [
+              {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Actor Id"
+          },
+          "correlation_id": {
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "title": "Correlation Id",
+            "type": "string"
+          },
+          "occurred_at": {
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Occurred At",
+            "type": "string"
+          },
+          "metadata": {
+            "additionalProperties": true,
+            "title": "Metadata",
+            "type": "object"
+          }
+        },
+        "required": [
+          "event_id",
+          "source",
+          "action",
+          "resource_id",
+          "tenant_id",
+          "region_id",
+          "actor_id",
+          "correlation_id",
+          "occurred_at",
+          "metadata"
+        ],
+        "title": "Event",
+        "type": "object"
+      },
+      "Response_portal_summary": {
+        "type": "object",
+        "required": [
+          "data",
+          "meta"
+        ],
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "total": {
+                "type": "integer"
+              },
+              "statuses": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "value": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "value"
+                  ]
+                }
+              },
+              "groups": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "label": {
+                      "type": [
+                        "string",
+                        "integer"
+                      ]
+                    },
+                    "value": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "label",
+                    "value"
+                  ]
+                }
+              },
+              "urgencies": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "label": {
+                      "type": [
+                        "string",
+                        "integer"
+                      ]
+                    },
+                    "value": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "label",
+                    "value"
+                  ]
+                }
+              },
+              "trend": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "label": {
+                      "type": [
+                        "string",
+                        "integer"
+                      ]
+                    },
+                    "value": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "label",
+                    "value"
+                  ]
+                }
+              },
+              "institutions": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "institution_id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "value": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "institution_id",
+                    "value"
+                  ]
+                }
+              },
+              "expiring": {
+                "type": "integer"
+              },
+              "expired": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "total",
+              "statuses"
+            ]
+          },
+          "meta": {
+            "type": "object",
+            "required": [
+              "correlation_id",
+              "service",
+              "version"
+            ],
+            "properties": {
+              "correlation_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "service": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "Response_recipient_edit": {
+        "type": "object",
+        "required": [
+          "data",
+          "meta"
+        ],
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "tenant_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "folio": {
+                "type": "string"
+              },
+              "display_name": {
+                "type": "string"
+              },
+              "kind": {
+                "type": "string"
+              },
+              "blood_group": {
+                "type": "string"
+              },
+              "organ_type": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "studies": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "version": {
+                "type": "integer"
+              },
+              "restrictions": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "requirement": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            },
+            "required": [
+              "id"
+            ]
+          },
+          "meta": {
+            "type": "object",
+            "required": [
+              "correlation_id",
+              "service",
+              "version"
+            ],
+            "properties": {
+              "correlation_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "service": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "RecipientEdit": {
+        "additionalProperties": false,
+        "properties": {
+          "human_confirmation": {
+            "const": true,
+            "title": "Human Confirmation",
+            "type": "boolean"
+          },
+          "reason": {
+            "maxLength": 1000,
+            "minLength": 6,
+            "title": "Reason",
+            "type": "string"
+          },
+          "restrictions": {
+            "anyOf": [
+              {
+                "maxLength": 1000,
+                "minLength": 6,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Restrictions"
+          },
+          "requirement": {
+            "anyOf": [
+              {
+                "maxLength": 1000,
+                "minLength": 6,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Requirement"
+          },
+          "status": {
+            "default": "ACTIVE",
+            "enum": [
+              "ACTIVE",
+              "INACTIVE"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "folio": {
+            "maxLength": 30,
+            "minLength": 6,
+            "pattern": "^[A-Za-z0-9_-]+$",
+            "title": "Folio",
+            "type": "string"
+          },
+          "display_name": {
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Display Name",
+            "type": "string"
+          },
+          "kind": {
+            "enum": [
+              "BLOOD",
+              "ORGAN"
+            ],
+            "title": "Kind",
+            "type": "string"
+          },
+          "blood_group": {
+            "enum": [
+              "O-",
+              "O+",
+              "A-",
+              "A+",
+              "B-",
+              "B+",
+              "AB-",
+              "AB+"
+            ],
+            "title": "Blood Group",
+            "type": "string"
+          },
+          "organ_type": {
+            "anyOf": [
+              {
+                "enum": [
+                  "KIDNEY",
+                  "LIVER",
+                  "HEART"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Organ Type"
+          },
+          "studies": {
+            "maxLength": 1000,
+            "minLength": 6,
+            "title": "Studies",
+            "type": "string"
+          },
+          "version": {
+            "minimum": 1,
+            "title": "Version",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "human_confirmation",
+          "reason",
+          "folio",
+          "display_name",
+          "kind",
+          "blood_group",
+          "studies",
+          "version"
+        ],
+        "title": "RecipientEdit",
+        "type": "object"
+      },
+      "Response_request_edit": {
+        "type": "object",
+        "required": [
+          "data",
+          "meta"
+        ],
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "tenant_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "recipient_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "kind": {
+                "type": "string"
+              },
+              "component": {
+                "type": "string"
+              },
+              "quantity": {
+                "type": "integer"
+              },
+              "urgency": {
+                "type": "integer"
+              },
+              "status": {
+                "type": "string"
+              },
+              "version": {
+                "type": "integer"
+              },
+              "created_at": {
+                "type": "string",
+                "format": "date-time"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          },
+          "meta": {
+            "type": "object",
+            "required": [
+              "correlation_id",
+              "service",
+              "version"
+            ],
+            "properties": {
+              "correlation_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "service": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "RequestEdit": {
+        "additionalProperties": false,
+        "properties": {
+          "human_confirmation": {
+            "const": true,
+            "title": "Human Confirmation",
+            "type": "boolean"
+          },
+          "reason": {
+            "maxLength": 1000,
+            "minLength": 6,
+            "title": "Reason",
+            "type": "string"
+          },
+          "component": {
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Component",
+            "type": "string"
+          },
+          "quantity": {
+            "maximum": 100,
+            "minimum": 1,
+            "title": "Quantity",
+            "type": "integer"
+          },
+          "urgency": {
+            "maximum": 3,
+            "minimum": 1,
+            "title": "Urgency",
+            "type": "integer"
+          },
+          "version": {
+            "minimum": 1,
+            "title": "Version",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "human_confirmation",
+          "reason",
+          "component",
+          "quantity",
+          "urgency",
+          "version"
+        ],
+        "title": "RequestEdit",
+        "type": "object"
+      },
+      "Response_external_authorization_create": {
+        "type": "object",
+        "required": [
+          "data",
+          "meta"
+        ],
+        "properties": {
+          "data": {
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "title": "Id",
+                "type": "string"
+              },
+              "request_id": {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "title": "Request Id",
+                "type": "string"
+              },
+              "tenant_id": {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "title": "Tenant Id",
+                "type": "string"
+              },
+              "authority": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Authority",
+                "type": "string"
+              },
+              "reference": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Reference",
+                "type": "string"
+              },
+              "valid_from": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Valid From",
+                "type": "string"
+              },
+              "valid_until": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Valid Until",
+                "type": "string"
+              },
+              "effective_at": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Effective At",
+                "type": "string"
+              },
+              "supersedes": {
+                "anyOf": [
+                  {
+                    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Supersedes"
+              },
+              "decision": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Decision",
+                "type": "string"
+              },
+              "version": {
+                "title": "Version",
+                "type": "integer"
+              },
+              "author_id": {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "title": "Author Id",
+                "type": "string"
+              },
+              "created_at": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Created At",
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "request_id",
+              "tenant_id",
+              "authority",
+              "reference",
+              "valid_from",
+              "valid_until",
+              "effective_at",
+              "supersedes",
+              "decision",
+              "version",
+              "author_id",
+              "created_at"
+            ],
+            "title": "Authorization",
+            "type": "object"
+          },
+          "meta": {
+            "type": "object",
+            "required": [
+              "correlation_id",
+              "service",
+              "version"
+            ],
+            "properties": {
+              "correlation_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "service": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "Create": {
+        "additionalProperties": false,
+        "properties": {
+          "human_confirmation": {
+            "const": true,
+            "title": "Human Confirmation",
+            "type": "boolean"
+          },
+          "reason": {
+            "maxLength": 1000,
+            "minLength": 6,
+            "title": "Reason",
+            "type": "string"
+          },
+          "authority": {
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Authority",
+            "type": "string"
+          },
+          "reference": {
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Reference",
+            "type": "string"
+          },
+          "valid_from": {
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Valid From",
+            "type": "string"
+          },
+          "valid_until": {
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Valid Until",
+            "type": "string"
+          },
+          "effective_at": {
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Effective At",
+            "type": "string"
+          },
+          "supersedes": {
+            "anyOf": [
+              {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Supersedes"
+          },
+          "decision": {
+            "enum": [
+              "RECORDED",
+              "WITHDRAWN"
+            ],
+            "title": "Decision",
+            "type": "string"
+          }
+        },
+        "required": [
+          "human_confirmation",
+          "reason",
+          "authority",
+          "reference",
+          "valid_from",
+          "valid_until",
+          "effective_at",
+          "decision"
+        ],
+        "title": "Create",
+        "type": "object"
+      },
+      "Response_external_authorizations": {
+        "type": "object",
+        "required": [
+          "data",
+          "meta"
+        ],
+        "properties": {
+          "data": {
+            "type": "object",
+            "required": [
+              "items",
+              "page",
+              "page_size",
+              "total"
+            ],
+            "properties": {
+              "items": {
+                "type": "array",
+                "items": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "id": {
+                      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                      "title": "Id",
+                      "type": "string"
+                    },
+                    "request_id": {
+                      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                      "title": "Request Id",
+                      "type": "string"
+                    },
+                    "tenant_id": {
+                      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                      "title": "Tenant Id",
+                      "type": "string"
+                    },
+                    "authority": {
+                      "maxLength": 200,
+                      "minLength": 1,
+                      "title": "Authority",
+                      "type": "string"
+                    },
+                    "reference": {
+                      "maxLength": 200,
+                      "minLength": 1,
+                      "title": "Reference",
+                      "type": "string"
+                    },
+                    "valid_from": {
+                      "maxLength": 200,
+                      "minLength": 1,
+                      "title": "Valid From",
+                      "type": "string"
+                    },
+                    "valid_until": {
+                      "maxLength": 200,
+                      "minLength": 1,
+                      "title": "Valid Until",
+                      "type": "string"
+                    },
+                    "effective_at": {
+                      "maxLength": 200,
+                      "minLength": 1,
+                      "title": "Effective At",
+                      "type": "string"
+                    },
+                    "supersedes": {
+                      "anyOf": [
+                        {
+                          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                          "type": "string"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ],
+                      "title": "Supersedes"
+                    },
+                    "decision": {
+                      "maxLength": 200,
+                      "minLength": 1,
+                      "title": "Decision",
+                      "type": "string"
+                    },
+                    "version": {
+                      "title": "Version",
+                      "type": "integer"
+                    },
+                    "author_id": {
+                      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                      "title": "Author Id",
+                      "type": "string"
+                    },
+                    "created_at": {
+                      "maxLength": 200,
+                      "minLength": 1,
+                      "title": "Created At",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "request_id",
+                    "tenant_id",
+                    "authority",
+                    "reference",
+                    "valid_from",
+                    "valid_until",
+                    "effective_at",
+                    "supersedes",
+                    "decision",
+                    "version",
+                    "author_id",
+                    "created_at"
+                  ],
+                  "title": "Authorization",
+                  "type": "object"
+                }
+              },
+              "page": {
+                "type": "integer"
+              },
+              "page_size": {
+                "type": "integer"
+              },
+              "total": {
+                "type": "integer"
+              }
+            }
+          },
+          "meta": {
+            "type": "object",
+            "required": [
+              "correlation_id",
+              "service",
+              "version"
+            ],
+            "properties": {
+              "correlation_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "service": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "Response_request_decision_data": {
+        "type": "object",
+        "required": [
+          "data",
+          "meta"
+        ],
+        "properties": {
+          "data": {
+            "type": "object"
+          },
+          "meta": {
+            "type": "object",
+            "required": [
+              "correlation_id",
+              "service",
+              "version"
+            ],
+            "properties": {
+              "correlation_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "service": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "Response_portal_metrics": {
+        "type": "object",
+        "required": [
+          "data",
+          "meta"
+        ],
+        "properties": {
+          "data": {
+            "additionalProperties": false,
+            "properties": {
+              "from_at": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "From At",
+                "type": "string"
+              },
+              "until_at": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Until At",
+                "type": "string"
+              },
+              "updated_at": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Updated At",
+                "type": "string"
+              },
+              "scope": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Scope",
+                "type": "string"
+              },
+              "series": {
+                "items": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "title": {
+                      "maxLength": 200,
+                      "minLength": 1,
+                      "title": "Title",
+                      "type": "string"
+                    },
+                    "population": {
+                      "maxLength": 200,
+                      "minLength": 1,
+                      "title": "Population",
+                      "type": "string"
+                    },
+                    "denominator": {
+                      "title": "Denominator",
+                      "type": "integer"
+                    },
+                    "unit": {
+                      "default": "registros",
+                      "maxLength": 200,
+                      "minLength": 1,
+                      "title": "Unit",
+                      "type": "string"
+                    },
+                    "values": {
+                      "items": {
+                        "additionalProperties": false,
+                        "properties": {
+                          "label": {
+                            "maxLength": 200,
+                            "minLength": 1,
+                            "title": "Label",
+                            "type": "string"
+                          },
+                          "value": {
+                            "anyOf": [
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ],
+                            "title": "Value"
+                          }
+                        },
+                        "required": [
+                          "label",
+                          "value"
+                        ],
+                        "title": "Point",
+                        "type": "object"
+                      },
+                      "title": "Values",
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "title",
+                    "population",
+                    "denominator"
+                  ],
+                  "title": "Series",
+                  "type": "object"
+                },
+                "title": "Series",
+                "type": "array"
+              }
+            },
+            "required": [
+              "from_at",
+              "until_at",
+              "updated_at",
+              "scope",
+              "series"
+            ],
+            "title": "Metrics",
+            "type": "object"
+          },
+          "meta": {
+            "type": "object",
+            "required": [
+              "correlation_id",
+              "service",
+              "version"
+            ],
+            "properties": {
+              "correlation_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "service": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "responses": {
+      "Error400": {
+        "description": "Error uniforme.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "error": {
+                "code": "validation",
+                "message": "Petición no disponible o inválida.",
+                "details": []
+              },
+              "meta": {
+                "correlation_id": "00000000-0000-4000-8000-000000000001",
+                "service": "receptores",
+                "version": "0.4.1"
+              }
+            }
+          },
+          "application/xml": {
+            "schema": {
+              "type": "string"
+            },
+            "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">validation</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">receptores</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>"
+          }
+        }
+      },
+      "Error401": {
+        "description": "Credencial inválida, expirada o revocada.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "error": {
+                "code": "unauthorized",
+                "message": "Credencial inválida, expirada o revocada.",
+                "details": []
+              },
+              "meta": {
+                "correlation_id": "00000000-0000-4000-8000-000000000001",
+                "service": "receptores",
+                "version": "0.4.1"
+              }
+            }
+          },
+          "application/xml": {
+            "schema": {
+              "type": "string"
+            },
+            "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">unauthorized</field><field name=\"message\" type=\"string\">Credencial inválida, expirada o revocada.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">receptores</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>"
+          }
+        }
+      },
+      "Error403": {
+        "description": "Sin permiso institucional o de recurso.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "error": {
+                "code": "forbidden",
+                "message": "Sin permiso institucional o de recurso.",
+                "details": []
+              },
+              "meta": {
+                "correlation_id": "00000000-0000-4000-8000-000000000001",
+                "service": "receptores",
+                "version": "0.4.1"
+              }
+            }
+          },
+          "application/xml": {
+            "schema": {
+              "type": "string"
+            },
+            "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">forbidden</field><field name=\"message\" type=\"string\">Sin permiso institucional o de recurso.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">receptores</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>"
+          }
+        }
+      },
+      "Error404": {
+        "description": "Error uniforme.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "error": {
+                "code": "not_found",
+                "message": "Petición no disponible o inválida.",
+                "details": []
+              },
+              "meta": {
+                "correlation_id": "00000000-0000-4000-8000-000000000001",
+                "service": "receptores",
+                "version": "0.4.1"
+              }
+            }
+          },
+          "application/xml": {
+            "schema": {
+              "type": "string"
+            },
+            "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">not_found</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">receptores</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>"
+          }
+        }
+      },
+      "Error406": {
+        "description": "Error uniforme.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "error": {
+                "code": "not_acceptable",
+                "message": "Petición no disponible o inválida.",
+                "details": []
+              },
+              "meta": {
+                "correlation_id": "00000000-0000-4000-8000-000000000001",
+                "service": "receptores",
+                "version": "0.4.1"
+              }
+            }
+          },
+          "application/xml": {
+            "schema": {
+              "type": "string"
+            },
+            "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">not_acceptable</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">receptores</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>"
+          }
+        }
+      },
+      "Error409": {
+        "description": "Conflicto de estado, versión o idempotencia.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "error": {
+                "code": "conflict",
+                "message": "Conflicto de estado, versión o idempotencia.",
+                "details": []
+              },
+              "meta": {
+                "correlation_id": "00000000-0000-4000-8000-000000000001",
+                "service": "receptores",
+                "version": "0.4.1"
+              }
+            }
+          },
+          "application/xml": {
+            "schema": {
+              "type": "string"
+            },
+            "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">conflict</field><field name=\"message\" type=\"string\">Conflicto de estado, versión o idempotencia.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">receptores</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>"
+          }
+        }
+      },
+      "Error412": {
+        "description": "Error uniforme.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "error": {
+                "code": "stale_version",
+                "message": "Petición no disponible o inválida.",
+                "details": []
+              },
+              "meta": {
+                "correlation_id": "00000000-0000-4000-8000-000000000001",
+                "service": "receptores",
+                "version": "0.4.1"
+              }
+            }
+          },
+          "application/xml": {
+            "schema": {
+              "type": "string"
+            },
+            "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">stale_version</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">receptores</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>"
+          }
+        }
+      },
+      "Error413": {
+        "description": "Error uniforme.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "error": {
+                "code": "http_error",
+                "message": "Petición no disponible o inválida.",
+                "details": []
+              },
+              "meta": {
+                "correlation_id": "00000000-0000-4000-8000-000000000001",
+                "service": "receptores",
+                "version": "0.4.1"
+              }
+            }
+          },
+          "application/xml": {
+            "schema": {
+              "type": "string"
+            },
+            "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">http_error</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">receptores</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>"
+          }
+        }
+      },
+      "Error415": {
+        "description": "Error uniforme.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "error": {
+                "code": "unsupported_media",
+                "message": "Petición no disponible o inválida.",
+                "details": []
+              },
+              "meta": {
+                "correlation_id": "00000000-0000-4000-8000-000000000001",
+                "service": "receptores",
+                "version": "0.4.1"
+              }
+            }
+          },
+          "application/xml": {
+            "schema": {
+              "type": "string"
+            },
+            "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">unsupported_media</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">receptores</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>"
+          }
+        }
+      },
+      "Error422": {
+        "description": "Error uniforme.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "error": {
+                "code": "validation",
+                "message": "Petición no disponible o inválida.",
+                "details": []
+              },
+              "meta": {
+                "correlation_id": "00000000-0000-4000-8000-000000000001",
+                "service": "receptores",
+                "version": "0.4.1"
+              }
+            }
+          },
+          "application/xml": {
+            "schema": {
+              "type": "string"
+            },
+            "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">validation</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">receptores</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>"
+          }
+        }
+      },
+      "Error429": {
+        "description": "Error uniforme.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "error": {
+                "code": "rate_limit",
+                "message": "Petición no disponible o inválida.",
+                "details": []
+              },
+              "meta": {
+                "correlation_id": "00000000-0000-4000-8000-000000000001",
+                "service": "receptores",
+                "version": "0.4.1"
+              }
+            }
+          },
+          "application/xml": {
+            "schema": {
+              "type": "string"
+            },
+            "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">rate_limit</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">receptores</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>"
+          }
+        }
+      },
+      "Error500": {
+        "description": "Error uniforme.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "error": {
+                "code": "internal_error",
+                "message": "Petición no disponible o inválida.",
+                "details": []
+              },
+              "meta": {
+                "correlation_id": "00000000-0000-4000-8000-000000000001",
+                "service": "receptores",
+                "version": "0.4.1"
+              }
+            }
+          },
+          "application/xml": {
+            "schema": {
+              "type": "string"
+            },
+            "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">internal_error</field><field name=\"message\" type=\"string\">Petición no disponible o inválida.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">receptores</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>"
+          }
+        }
+      },
+      "Error503": {
+        "description": "Dependencia inaccesible; consultar estado antes de repetir.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "error": {
+                "code": "dependency_unavailable",
+                "message": "Dependencia inaccesible; consultar estado antes de repetir.",
+                "details": []
+              },
+              "meta": {
+                "correlation_id": "00000000-0000-4000-8000-000000000001",
+                "service": "receptores",
+                "version": "0.4.1"
+              }
+            }
+          },
+          "application/xml": {
+            "schema": {
+              "type": "string"
+            },
+            "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"error\" type=\"object\"><field name=\"code\" type=\"string\">dependency_unavailable</field><field name=\"message\" type=\"string\">Dependencia inaccesible; consultar estado antes de repetir.</field><field name=\"details\" type=\"array\"/></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">receptores</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "BearerJWT": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT RS256"
+      },
+      "ServiceSignature": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-Service-Signature",
+        "description": "Ed25519; requiere X-Service, X-Service-Time y X-Service-Nonce. No es un token de usuario."
+      }
+    }
+  }
+}

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:simpleType name="ValueKind"><xs:restriction base="xs:string">
+    <xs:enumeration value="object"/><xs:enumeration value="array"/><xs:enumeration value="string"/>
+    <xs:enumeration value="integer"/><xs:enumeration value="number"/><xs:enumeration value="boolean"/><xs:enumeration value="null"/>
+  </xs:restriction></xs:simpleType>
+  <xs:complexType name="Value" mixed="true">
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:element name="field"><xs:complexType mixed="true"><xs:complexContent mixed="true"><xs:extension base="Value">
+        <xs:attribute name="name" type="xs:string" use="required"/>
+      </xs:extension></xs:complexContent></xs:complexType></xs:element>
+      <xs:element name="item" type="Value"/>
+    </xs:choice>
+    <xs:attribute name="type" type="ValueKind" use="required"/>
+  </xs:complexType>
+  <xs:element name="response" type="Value"/>
+</xs:schema>
