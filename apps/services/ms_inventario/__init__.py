@@ -16,6 +16,9 @@ def create_app(config=None):
     from .editing import install as editing
 
     editing(app)
+    from .labels import install as labels
+
+    labels(app)
     from .quality import install as quality
 
     quality(app)

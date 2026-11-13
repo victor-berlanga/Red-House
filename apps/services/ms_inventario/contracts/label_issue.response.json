@@ -1,0 +1,76 @@
+{
+  "type": "object",
+  "required": [
+    "data",
+    "meta"
+  ],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": [
+        "correlation_id",
+        "service",
+        "version"
+      ],
+      "properties": {
+        "correlation_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "service": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      }
+    },
+    "data": {
+      "additionalProperties": false,
+      "properties": {
+        "issuance_id": {
+          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+          "title": "Issuance Id",
+          "type": "string"
+        },
+        "resource_id": {
+          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+          "title": "Resource Id",
+          "type": "string"
+        },
+        "resource_version": {
+          "title": "Resource Version",
+          "type": "integer"
+        },
+        "action": {
+          "enum": [
+            "EXPORT_PDF",
+            "PRINT"
+          ],
+          "title": "Action",
+          "type": "string"
+        },
+        "issued_at": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Issued At",
+          "type": "string"
+        },
+        "reissue": {
+          "title": "Reissue",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "issuance_id",
+        "resource_id",
+        "resource_version",
+        "action",
+        "issued_at",
+        "reissue"
+      ],
+      "title": "LabelIssuance",
+      "type": "object"
+    }
+  }
+}
