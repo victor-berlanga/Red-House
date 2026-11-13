@@ -1,0 +1,28 @@
+{
+  "tls_verified": true,
+  "business_writes": false,
+  "checks": [
+    {
+      "check": "api-login",
+      "http": 200
+    },
+    {
+      "check": "shipment",
+      "http": 200
+    },
+    {
+      "check": "operational-handover:json",
+      "http": 200
+    },
+    {
+      "check": "api-capability:json",
+      "http": 200
+    },
+    {
+      "check": "api-revoke",
+      "http": 200
+    }
+  ],
+  "result": "failed",
+  "error_type": "AssertionError"
+}

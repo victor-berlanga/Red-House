@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/tmp/redhouse-sec-20261113/deploy.py", line 373, in <module>
+    {'preflight': preflight, 'prepare': prepare, 'backup': backup_database,
+  File "/tmp/redhouse-sec-20261113/deploy.py", line 157, in preflight
+    state = containers()
+            ^^^^^^^^^^^^
+  File "/tmp/redhouse-sec-20261113/deploy.py", line 125, in containers
+    assert len(names) == len(set(names)), 'Ambiguous runtime service containers'
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Ambiguous runtime service containers

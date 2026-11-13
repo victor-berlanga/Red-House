@@ -1,0 +1,91 @@
+{
+  "tls_verified": true,
+  "business_writes": false,
+  "checks": [
+    {
+      "check": "api-login",
+      "http": 200
+    },
+    {
+      "check": "shipment",
+      "http": 200
+    },
+    {
+      "check": "operational-handover:json",
+      "http": 200
+    },
+    {
+      "check": "api-capability:json",
+      "http": 200
+    },
+    {
+      "check": "api-binary:json",
+      "http": 200
+    },
+    {
+      "check": "operational-handover:xml",
+      "http": 200
+    },
+    {
+      "check": "api-capability:xml",
+      "http": 200
+    },
+    {
+      "check": "api-binary:xml",
+      "http": 200
+    },
+    {
+      "check": "portal-login-form",
+      "http": 200
+    },
+    {
+      "check": "portal-login",
+      "http": 302
+    },
+    {
+      "check": "portal-capability:json",
+      "http": 303
+    },
+    {
+      "check": "portal-binary:json",
+      "http": 200
+    },
+    {
+      "check": "portal-capability:xml",
+      "http": 303
+    },
+    {
+      "check": "portal-binary:xml",
+      "http": 200
+    },
+    {
+      "check": "api-revoke",
+      "http": 200
+    },
+    {
+      "check": "api-capability-revoked",
+      "http": 401
+    },
+    {
+      "check": "api-capability-revoked",
+      "http": 401
+    },
+    {
+      "check": "portal-panel",
+      "http": 200
+    },
+    {
+      "check": "portal-session-revoked",
+      "http": 401
+    },
+    {
+      "check": "portal-capability-revoked",
+      "http": 401
+    },
+    {
+      "check": "portal-capability-revoked",
+      "http": 401
+    }
+  ],
+  "result": "passed"
+}
