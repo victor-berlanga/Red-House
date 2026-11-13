@@ -170,3 +170,33 @@ def test_print_dispatch_survives_restart_without_automatic_reprint(tmp_path):
     with pytest.raises(JournalError): restored.print_transition(record['key'],'issuance-id','start')
     next_record=prepare_label(restored,{'id':'unit','version':2},'PRINT','Nueva emisión documentada')
     assert next_record['key']!=record['key']
+
+
+def test_request_creation_after_lost_response_reuses_saved_command(tmp_path):
+    from redhouse_desktop.durable_commands import prepare_command, submit_command
+    keys=Keys(); journal=Journal(tmp_path,'https://lab','medical','tenant',keys)
+    body={'recipient_id':'00000000-0000-4000-8000-000000000001','component':'RBC','quantity':2,'urgency':2}
+    record=prepare_command(journal,'request_create',None,body); calls=[]
+    class API:
+        def authorized(self,*args,**kwargs):
+            calls.append(kwargs)
+            if len(calls)==1: raise ConnectionError('respuesta perdida')
+            return dict(body,id='00000000-0000-4000-8000-000000000002')
+    with pytest.raises(ConnectionError): submit_command(API(),journal,record,fresh=True)
+    restarted=Journal(tmp_path,'https://lab','medical','tenant',keys); pending=restarted.list()[0]
+    api=API(); api.authorized=lambda *args,**kwargs:(calls.append(kwargs) or dict(body,id='00000000-0000-4000-8000-000000000002'))
+    submit_command(api,restarted,pending)
+    assert calls[0]['key']==calls[1]['key'] and calls[0]['body']==calls[1]['body']==body
+    assert restarted.list()[0]['state']=='DONE'
+
+
+def test_request_response_must_match_original_intent(tmp_path):
+    from redhouse_desktop.client import ContractError
+    from redhouse_desktop.durable_commands import prepare_command, submit_command
+    journal=Journal(tmp_path,'https://lab','medical','tenant',Keys())
+    body={'recipient_id':'00000000-0000-4000-8000-000000000001','component':'RBC','quantity':2,'urgency':2}
+    record=prepare_command(journal,'request_create',None,body)
+    class API:
+        def authorized(self,*args,**kwargs): return dict(body,id='00000000-0000-4000-8000-000000000002',quantity=3)
+    with pytest.raises(ContractError): submit_command(API(),journal,record,fresh=True)
+    assert journal.list()[0]['state']=='PREPARED'

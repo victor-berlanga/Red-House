@@ -116,6 +116,37 @@ def test_summary_keeps_other_services_when_one_is_unavailable(monkeypatch):
     window.close()
 
 
+def test_request_creation_is_only_available_to_medical_role():
+    window=Window(); window.client=FakeClient(); window.stack.setCurrentIndex(1); window.mode='requests'; window.show()
+    window.show_rows({'items':[],'page':1,'total':0}); app.processEvents()
+    assert window.request_create_button.isVisible() and not window.request_create_button.isEnabled()
+    window.client.user={'role':'MEDICAL'}; window.set_controls(True)
+    assert window.request_create_button.isEnabled()
+    window.close()
+
+
+def test_request_picker_reports_selected_recipient(tmp_path,monkeypatch):
+    from pathlib import Path
+    from PySide6.QtCore import QTimer
+    from PySide6.QtWidgets import QLabel, QTableWidget
+    class Client:
+        user={'role':'MEDICAL'}; access=None
+        def authorized(self,*args,**kwargs):
+            return {'items':[{'id':'00000000-0000-4000-8000-000000000001','folio':'PACIENTE-FICTICIO','display_name':'Paciente ficticio','status':'ACTIVE','kind':'BLOOD'}],'page':1,'total':1}
+    window=Window(); window.client=Client(); seen=[]
+    def inspect():
+        modal=QApplication.activeModalWidget()
+        table=modal.findChild(QTableWidget) if modal else None
+        if not table or not table.rowCount(): QTimer.singleShot(50,inspect); return
+        table.selectRow(0); app.processEvents()
+        seen.extend(label.text() for label in modal.findChildren(QLabel))
+        output=Path(os.environ.get('DESKTOP_CAPTURE_DIR',str(tmp_path))); output.mkdir(parents=True,exist_ok=True)
+        modal.grab().save(str(output/'solicitud-aviso-corregido.png')); modal.reject()
+    QTimer.singleShot(50,inspect); window.request_form()
+    assert 'Receptor seleccionado: PACIENTE-FICTICIO' in seen
+    window.close()
+
+
 def test_login_prompts_verification_only_when_required():
     from redhouse_desktop.client import ApiError
     w=Window(); w.show(); app.processEvents()

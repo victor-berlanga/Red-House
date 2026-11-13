@@ -159,6 +159,62 @@ def test_summary_projections_over_xml(platform,gateway):
     donor.logout()
 
 
+def test_medical_creates_request_through_qt(platform,gateway,monkeypatch,tmp_path):
+    import os
+    from cryptography.fernet import Fernet
+    from PySide6.QtCore import QTimer
+    from PySide6.QtTest import QTest
+    from PySide6.QtWidgets import QApplication, QComboBox, QLineEdit, QPushButton, QSpinBox, QTableWidget
+    import redhouse_desktop.app as desktop
+    from redhouse_desktop.journal import Journal
+    from tests.helpers import recipient_request
+    person,_=recipient_request(platform)
+    class Keys:
+        def __init__(self): self.key=Fernet.generate_key()
+        def get(self,identifier,exists): return self.key
+    keys=Keys()
+    monkeypatch.setattr(desktop,'Journal',lambda _root,base,user,tenant:Journal(tmp_path,base,user,tenant,keys))
+    monkeypatch.setenv('REDHOUSE_BASE_URL',gateway)
+    app=QApplication.instance() or QApplication([]); app.setStyleSheet(desktop.STYLE)
+    window=desktop.Window(); window.show(); window.username.setText('medical2'); window.password.setText(platform.env.state['password']); window.login()
+    for _ in range(1500):
+        QTest.qWait(20)
+        if window.stack.currentIndex()==1 and not window.busy: break
+    assert window.stack.currentIndex()==1
+    window.switch('requests')
+    for _ in range(1500):
+        QTest.qWait(20)
+        if not window.busy: break
+    assert window.request_create_button.isVisible() and window.request_create_button.isEnabled()
+    captured=[]; state={'search_started':False,'alive':True}
+    def interact():
+        if not state['alive']: return
+        modal=QApplication.activeModalWidget()
+        if modal and modal.windowTitle()=='Registrar solicitud':
+            table=modal.findChild(QTableWidget)
+            if not state['search_started'] and table.rowCount()>0:
+                field=next(x for x in modal.findChildren(QLineEdit) if x.placeholderText()=='Buscar receptor por folio o nombre')
+                field.setText(person['folio']); state['search_started']=True
+                next(b for b in modal.findChildren(QPushButton) if b.text()=='Buscar').click()
+            elif state['search_started']:
+                row=next((i for i in range(table.rowCount()) if table.item(i,0) and table.item(i,0).text()==person['folio']),None)
+                if row is not None:
+                    table.selectRow(row); choices=modal.findChildren(QComboBox)
+                    choices[0].setCurrentIndex(choices[0].findData('RBC')); choices[1].setCurrentIndex(choices[1].findData(2))
+                    modal.findChild(QSpinBox).setValue(2); app.processEvents()
+                    out=Path(os.environ['DESKTOP_CAPTURE_DIR']); out.mkdir(parents=True,exist_ok=True)
+                    modal.grab().save(str(out/'laboratorio-solicitud.png')); captured.append(True)
+                    next(b for b in modal.findChildren(QPushButton) if b.text()=='Registrar solicitud').click()
+        QTimer.singleShot(100,interact)
+    QTimer.singleShot(100,interact); window.open_request_form()
+    for _ in range(2000):
+        QTest.qWait(20)
+        if captured and not window.busy and any(row.get('recipient_id')==person['id'] and row.get('quantity')==2 for row in window.rows): break
+    state['alive']=False
+    assert captured and any(row.get('recipient_id')==person['id'] and row.get('quantity')==2 for row in window.rows)
+    window.close()
+
+
 def test_destination_accepts_verified_handover_over_xml(platform,gateway,tmp_path):
     from cryptography.fernet import Fernet
     from redhouse_desktop.durable_commands import prepare_command, submit_command

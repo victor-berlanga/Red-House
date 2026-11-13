@@ -11,7 +11,7 @@ from PySide6.QtGui import QImage, QPixmap, QColor, QPainter
 import qrcode
 from PySide6.QtWidgets import (QApplication, QDialog, QFormLayout, QHBoxLayout, QLabel,
     QLineEdit, QMainWindow, QMessageBox, QPushButton, QStackedWidget, QTableWidget, QComboBox, QDateTimeEdit,
-    QTableWidgetItem, QVBoxLayout, QWidget, QHeaderView, QFileDialog, QCheckBox)
+    QTableWidgetItem, QVBoxLayout, QWidget, QHeaderView, QFileDialog, QCheckBox, QSpinBox)
 from .client import ApiError, Client, ContractError
 from .journal import Journal, JournalError
 from .durable_commands import prepare_command, submit_command
@@ -28,7 +28,7 @@ LABEL_ISSUANCE_ENABLED = True
 CUSTODY_ACCEPT_ENABLED = True
 
 LABELS = {'OPERATOR':'Operador', 'MEDICAL':'Personal médico', 'COORDINATOR':'Coordinación', 'ADMIN':'Administración', 'AUDITOR':'Auditoría', 'QUARANTINE':'En cuarentena', 'AVAILABLE':'Disponible', 'BLOOD':'Sangre', 'ORGAN':'Órgano', 'OPEN':'Abierta', 'IN_PROGRESS':'En curso', 'RESERVED':'Reservada', 'PREPARED':'Preparado', 'COLLECTED':'Recolectado', 'IN_TRANSIT':'En tránsito', 'DELIVERED':'Entregado', 'ACCEPTED':'Aceptado', 'CANCELLED':'Cancelado', 'INCIDENT':'Incidencia', 'CAPTURED':'Capturado', 'AUTHORIZED':'Autorizado', 'REQUESTED':'Solicitada', 'RECEIVED':'Recibida', 'REJECTED':'Rechazada', 'ACKNOWLEDGED':'Reconocido', 'CLOSED':'Cerrado', 'RBC':'Eritrocitos', 'PLASMA':'Plasma', 'PLATELETS':'Plaquetas', 'RESOURCE_RESERVED':'Unidad reservada', 'SHIPMENT_CREATED':'Traslado registrado', 'REQUEST_CREATED':'Solicitud registrada', 'APPOINTMENT_BOOKED':'Cita programada', 'INVENTORY':'Inventario', 'EXPIRY':'Caducidad', 'REQUESTS':'Solicitudes', 'SHIPMENTS':'Traslados', 'ACTIVITY':'Actividad', 'PENDING':'Pendiente', 'COMPLETE':'Listo', 'FAILED':'No disponible'}
-LABELS.update({'WITHDRAWN':'Retirada','PLANNED':'Planeado'})
+LABELS.update({'WITHDRAWN':'Retirada','PLANNED':'Planeado','ACTIVE':'Activo','INACTIVE':'Inactivo','KIDNEY':'Riñón','LIVER':'Hígado','HEART':'Corazón'})
 
 def label(value):
     return LABELS.get(str(value), str(value)) if value is not None else '—'
@@ -106,11 +106,12 @@ class Window(QMainWindow):
         self.reload_button = QPushButton('Actualizar'); self.reload_button.clicked.connect(self.load); tools.addWidget(self.reload_button); outer.addLayout(tools)
         self.table = QTableWidget(); self.table.setColumnCount(5); self.table.setSelectionBehavior(QTableWidget.SelectRows); self.table.setSelectionMode(QTableWidget.SingleSelection); self.table.setEditTriggers(QTableWidget.NoEditTriggers); self.table.verticalHeader().hide(); self.table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch); self.table.itemDoubleClicked.connect(self.open_selected); outer.addWidget(self.table,1)
         actions = QHBoxLayout(); self.trace_button=QPushButton('Trazabilidad'); self.trace_button.setToolTip('Disponible para personal médico autorizado. Selecciona una unidad para consultarla.'); self.trace_button.setAccessibleDescription('Disponible para personal médico autorizado. Selecciona una unidad para consultarla.'); self.trace_button.clicked.connect(self.open_trace); actions.addWidget(self.trace_button); self.cold_button=QPushButton('Conservación'); self.cold_button.clicked.connect(self.open_cold); actions.addWidget(self.cold_button); self.user_state_button=QPushButton('Cambiar estado'); self.user_state_button.clicked.connect(self.change_user_state); actions.addWidget(self.user_state_button); self.user_role_button=QPushButton('Cambiar perfil'); self.user_role_button.clicked.connect(self.change_user_role); actions.addWidget(self.user_role_button); self.download_button=QPushButton('Descargar reporte'); self.download_button.clicked.connect(self.download_report); actions.addWidget(self.download_button); self.report_button=QPushButton('Solicitar reporte'); self.report_button.clicked.connect(self.create_report); actions.addWidget(self.report_button); self.resume_button=QPushButton('Reanudar reserva'); self.resume_button.clicked.connect(self.resume_operation); actions.addWidget(self.resume_button); self.label_button=QPushButton('Vista previa de etiqueta'); self.label_button.clicked.connect(self.preview_label); actions.addWidget(self.label_button); self.operation_button=QPushButton('Consultar operación'); self.operation_button.clicked.connect(self.check_operation); actions.addWidget(self.operation_button); self.evaluate_button=QPushButton('Generar evaluación'); self.evaluate_button.clicked.connect(self.evaluate_request); actions.addWidget(self.evaluate_button); self.create_button = QPushButton('Registrar unidad'); self.create_button.clicked.connect(self.create_resource); actions.addWidget(self.create_button); self.detail_button = QPushButton('Ver detalle'); self.detail_button.clicked.connect(self.open_selected); actions.addWidget(self.detail_button)
+        self.request_create_button=QPushButton('Registrar solicitud'); self.request_create_button.setToolTip('El registro corresponde a personal médico autorizado.'); self.request_create_button.setAccessibleDescription('El registro corresponde a personal médico autorizado.'); self.request_create_button.clicked.connect(self.open_request_form); actions.addWidget(self.request_create_button)
         self.receive_button = QPushButton('Registrar recepción'); self.receive_button.setObjectName('primary'); self.receive_button.clicked.connect(self.receive); actions.addWidget(self.receive_button); self.capture_button = QPushButton('Capturar resultado'); self.capture_button.clicked.connect(self.capture_result); actions.addWidget(self.capture_button); self.review_button = QPushButton('Revisar resultado'); self.review_button.setToolTip('La revisión corresponde al personal médico autorizado.'); self.review_button.clicked.connect(self.review_result); actions.addWidget(self.review_button); self.ack_button = QPushButton('Acusar recibo'); self.ack_button.clicked.connect(self.acknowledge); actions.addWidget(self.ack_button); actions.addStretch(); outer.addLayout(actions)
         actions = QHBoxLayout(); actions.addStretch()
         self.prev = QPushButton('Anterior'); self.prev.clicked.connect(lambda:self.turn(-1)); actions.addWidget(self.prev); self.page_label = QLabel(); actions.addWidget(self.page_label); self.next = QPushButton('Siguiente'); self.next.clicked.connect(lambda:self.turn(1)); actions.addWidget(self.next); outer.addLayout(actions)
         self.status = QLabel(''); self.status.setWordWrap(True); self.status.setObjectName('hint'); outer.addWidget(self.status)
-        for button in (self.trace_button,self.cold_button,self.user_state_button,self.user_role_button,self.download_button,self.report_button,self.resume_button,self.label_button,self.operation_button,self.evaluate_button,self.create_button,self.receive_button,self.capture_button,self.review_button,self.ack_button): button.hide()
+        for button in (self.trace_button,self.cold_button,self.user_state_button,self.user_role_button,self.download_button,self.report_button,self.resume_button,self.label_button,self.operation_button,self.evaluate_button,self.create_button,self.request_create_button,self.receive_button,self.capture_button,self.review_button,self.ack_button): button.hide()
         self.stack.addWidget(page)
 
     def run(self, fn, success, label, failure=None):
@@ -120,6 +121,7 @@ class Window(QMainWindow):
 
     def set_controls(self, enabled):
         self.areas.setEnabled(enabled)
+        self.request_create_button.setEnabled(enabled and self.mode=='requests' and bool(self.client and self.client.user and self.client.user.get('role')=='MEDICAL'))
         for widget in (self.username,self.password,self.otp,self.search,self.table,self.login_button,self.logout_button,self.summary_button,self.inventory_button,self.samples_button,self.results_button,self.alerts_button,self.requests_button,self.evaluations_button,self.reservations_button,self.search_button,self.reload_button,self.trace_button,self.cold_button,self.user_state_button,self.user_role_button,self.download_button,self.report_button,self.resume_button,self.label_button,self.operation_button,self.evaluate_button,self.create_button,self.detail_button,self.receive_button,self.capture_button,self.review_button,self.ack_button,self.prev,self.next): widget.setEnabled(enabled)
         if enabled and self.mode != 'samples': self.receive_button.setEnabled(False)
         if enabled and self.mode != 'alerts': self.ack_button.setEnabled(False)
@@ -192,7 +194,7 @@ class Window(QMainWindow):
     def load(self):
         if not self.client or self.busy: return
         self.rows=[]; self.table.setRowCount(0); self.page_label.setText('')
-        for button in (self.trace_button,self.cold_button,self.user_state_button,self.user_role_button,self.download_button,self.report_button,self.resume_button,self.label_button,self.operation_button,self.evaluate_button,self.create_button,self.receive_button,self.capture_button,self.review_button,self.ack_button): button.hide()
+        for button in (self.trace_button,self.cold_button,self.user_state_button,self.user_role_button,self.download_button,self.report_button,self.resume_button,self.label_button,self.operation_button,self.evaluate_button,self.create_button,self.request_create_button,self.receive_button,self.capture_button,self.review_button,self.ack_button): button.hide()
         self.table.setColumnCount(2 if self.mode in ('reservations','pending') else (3 if self.mode == 'shipments' else (4 if self.mode in ('audit','users','alerts','reports','coverage') else 5)))
         if self.mode == 'pending':
             self.heading.setText('Operaciones pendientes'); self.description.setText('Recupera operaciones de esta cuenta sin duplicarlas.'); self.table.setHorizontalHeaderLabels(['Operación','Estado'])
@@ -207,7 +209,7 @@ class Window(QMainWindow):
                    'reports':('Reportes','Solicitudes de reporte de esta cuenta.','documentos','/api/v1/export-jobs','export_list',['Reporte','Formato','Estado','Fecha']),
                    'coverage':('Cobertura','Propuestas de apoyo logístico; requieren autorización humana y nueva verificación.','priorizacion-geografia','/api/v1/allocation-proposals','proposal_list',['Necesidades','Propuestas','Versión','Fecha'])}
             title,description,service,path,operation,headers=specs[self.mode]
-            if self.mode=='requests' and self.client.user.get('role')!='MEDICAL': description += ' La evaluación corresponde al personal médico.'
+            if self.mode=='requests' and self.client.user.get('role')!='MEDICAL': description += ' El registro y la evaluación corresponden al personal médico.'
             self.heading.setText(title); self.description.setText(description); self.table.setHorizontalHeaderLabels(headers)
             params={'page':self.page,'page_size':20}; q=self.search.text().strip()
             if q: params['q']=q
@@ -238,10 +240,12 @@ class Window(QMainWindow):
         pending=[r for r in records if r['state']!='DONE']; self.rows=pending; self.total=len(pending); self.page=1; self.table.setRowCount(len(pending))
         for index,record in enumerate(pending):
             kind=record.get('kind','RESERVATION'); name={'COMMAND':'Operación registrada','RESERVATION':'Reserva','LABEL':'Etiqueta'}.get(kind,'Operación')
+            if kind=='COMMAND' and record.get('target',{}).get('operation')=='request_create': name='Solicitud'
             self.table.setItem(index,0,QTableWidgetItem(name)); self.table.setItem(index,1,QTableWidgetItem('Requiere revisión' if record.get('status')=='CONFLICT' else 'Por confirmar' if record['state'] in ('PREPARED','UNCERTAIN') else 'Pendiente'))
         self.operation_button.show(); self.resume_button.setVisible(self.last_operation_status in ('PENDING','ROLLBACK_PENDING')); self.detail_button.setEnabled(False); self.search.setEnabled(False); self.search_button.setEnabled(False); self.prev.setEnabled(False); self.next.setEnabled(False); self.page_label.setText(''); self.status.setText('Selecciona Consultar operación para recuperar.' if pending else 'No hay operaciones pendientes.')
 
     def show_rows(self,data):
+        self.request_create_button.setVisible(self.mode=='requests')
         self.trace_button.setVisible(self.mode == 'inventory'); self.cold_button.setVisible(self.mode == 'inventory'); self.user_state_button.setVisible(self.mode == 'users'); self.user_role_button.setVisible(self.mode == 'users'); self.download_button.setVisible(self.mode == 'reports'); self.report_button.setVisible(self.mode == 'reports'); self.resume_button.setVisible(self.mode == 'reservations' and self.last_operation_status in ('PENDING','ROLLBACK_PENDING')); self.label_button.setVisible(self.mode == 'inventory'); self.operation_button.setVisible(self.mode in ('reservations','pending')); self.evaluate_button.setVisible(self.mode == 'requests'); self.create_button.setVisible(self.mode == 'inventory'); self.receive_button.setVisible(self.mode == 'samples'); self.capture_button.setVisible(self.mode == 'samples'); self.review_button.setVisible(self.mode == 'results'); self.ack_button.setVisible(self.mode == 'alerts')
         self.uncertain=False; self.rows=data['items']; self.total=data['total']; self.page=data['page']; self.table.setRowCount(len(self.rows))
         if self.mode in ('requests','evaluations','reservations','shipments','audit','users','reports','coverage'):
@@ -783,6 +787,78 @@ class Window(QMainWindow):
         if QMessageBox.question(self,'Generar evaluación','Se generará una preselección para revisión médica. ¿Continuar?') != QMessageBox.Yes: return
         body={'request_id':item['id']}; key=str(uuid.uuid4())
         self.run(lambda:self.durable('evaluation_create',None,body),self.evaluation_detail,'Generando evaluación…')
+
+    def open_request_form(self):
+        if self.uncertain:
+            self.status.setText('Actualiza y verifica las operaciones pendientes antes de continuar.'); return
+        if not self.client or self.client.user.get('role')!='MEDICAL':
+            self.status.setText('El registro corresponde a personal médico autorizado.'); return
+        self.request_form()
+
+    def request_form(self):
+        client=self.client
+        dialog=QDialog(self); dialog.setWindowTitle('Registrar solicitud'); dialog.resize(760,560)
+        layout=QVBoxLayout(dialog)
+        note=QLabel('Busca y selecciona un receptor de tu institución. La solicitud requiere revisión profesional.'); note.setWordWrap(True); layout.addWidget(note)
+        search_row=QHBoxLayout(); search=QLineEdit(); search.setPlaceholderText('Buscar receptor por folio o nombre'); search_row.addWidget(search)
+        find=QPushButton('Buscar'); search_row.addWidget(find); layout.addLayout(search_row)
+        table=QTableWidget(0,3); table.setHorizontalHeaderLabels(['Folio','Nombre','Estado']); table.setSelectionBehavior(QTableWidget.SelectRows); table.setSelectionMode(QTableWidget.SingleSelection); table.setEditTriggers(QTableWidget.NoEditTriggers); table.verticalHeader().hide(); table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch); layout.addWidget(table,1)
+        nav=QHBoxLayout(); previous=QPushButton('Anterior'); following=QPushButton('Siguiente'); page_label=QLabel(); nav.addWidget(previous); nav.addWidget(page_label); nav.addWidget(following); nav.addStretch(); layout.addLayout(nav)
+        fields=QFormLayout(); component=QComboBox(); component.addItem('Selecciona un receptor','')
+        fields.addRow('Recurso solicitado',component); quantity=QSpinBox(); quantity.setRange(1,100); fields.addRow('Cantidad',quantity)
+        urgency=QComboBox(); urgency.addItem('Selecciona urgencia',None)
+        for number in (1,2,3): urgency.addItem(str(number),number)
+        fields.addRow('Urgencia documentada',urgency); layout.addLayout(fields)
+        status=QLabel(''); status.setWordWrap(True); layout.addWidget(status)
+        buttons=QHBoxLayout(); confirm=QPushButton('Registrar solicitud'); cancel=QPushButton('Cancelar'); buttons.addWidget(confirm); buttons.addWidget(cancel); layout.addLayout(buttons)
+        state={'page':1,'total':0,'rows':[],'alive':True,'busy':False,'body':None}
+        def choose_recipient():
+            component.clear(); component.addItem('Selecciona un recurso','')
+            index=table.currentRow()
+            if not 0<=index<len(state['rows']): return
+            person=state['rows'][index]
+            status.setText('Receptor seleccionado: '+label(person.get('folio')) if person.get('status')=='ACTIVE' else 'El receptor seleccionado está inactivo.')
+            if person.get('kind')=='BLOOD':
+                for title,code in (('Eritrocitos','RBC'),('Plasma','PLASMA'),('Plaquetas','PLATELETS')): component.addItem(title,code)
+            elif person.get('kind')=='ORGAN' and person.get('organ_type') in ('KIDNEY','LIVER','HEART'):
+                component.addItem(label(person['organ_type']),person['organ_type'])
+        def show(data):
+            if not state['alive']: return
+            state.update(page=data['page'],total=data['total'],rows=data['items'],busy=False)
+            table.setRowCount(len(state['rows']))
+            for index,row in enumerate(state['rows']):
+                for column,value in enumerate((row.get('folio'),row.get('display_name'),row.get('status'))): table.setItem(index,column,QTableWidgetItem(label(value)))
+            page_label.setText('Página '+str(state['page'])+' · '+str(state['total'])+(' registro' if state['total']==1 else ' registros'))
+            previous.setEnabled(state['page']>1); following.setEnabled(state['page']*20<state['total']); confirm.setEnabled(True)
+            status.setText('Sin receptores para esta búsqueda.' if not state['rows'] else 'Selecciona un receptor activo.')
+        def fetch(page):
+            if state['busy']: return
+            state.update(busy=True,rows=[]); table.setRowCount(0); component.clear(); component.addItem('Selecciona un receptor',''); previous.setEnabled(False); following.setEnabled(False); confirm.setEnabled(False); status.setText('Consultando receptores…')
+            params={'page':page,'page_size':20}; term=search.text().strip()
+            if term: params['q']=term
+            worker=Work(lambda:client.authorized('receptores','/api/v1/recipients','recipients',params=params))
+            if not hasattr(self,'_request_workers'): self._request_workers=[]
+            self._request_workers.append(worker)
+            def completed(data):
+                self._request_workers.remove(worker)
+                show(data)
+            worker.signals.done.connect(completed)
+            def failed(error):
+                self._request_workers.remove(worker)
+                if not state['alive']: return
+                state['busy']=False; confirm.setEnabled(False)
+                status.setText(str(error) if isinstance(error,ApiError) else 'No se pudo consultar receptores.')
+            worker.signals.failed.connect(failed); self.pool.start(worker)
+        def save():
+            index=table.currentRow()
+            if not 0<=index<len(state['rows']) or state['rows'][index].get('status')!='ACTIVE' or not component.currentData() or urgency.currentData() is None:
+                QMessageBox.warning(dialog,'Datos incompletos','Selecciona un receptor activo, el recurso y la urgencia.'); return
+            state['body']={'recipient_id':state['rows'][index]['id'],'component':component.currentData(),'quantity':quantity.value(),'urgency':urgency.currentData()}
+            dialog.accept()
+        table.itemSelectionChanged.connect(choose_recipient); find.clicked.connect(lambda:fetch(1)); search.returnPressed.connect(lambda:fetch(1)); previous.clicked.connect(lambda:fetch(state['page']-1)); following.clicked.connect(lambda:fetch(state['page']+1)); confirm.clicked.connect(save); cancel.clicked.connect(dialog.reject)
+        QTimer.singleShot(0,lambda:fetch(1)); accepted=dialog.exec(); state['alive']=False
+        if accepted==QDialog.Accepted and state['body']:
+            self.run(lambda:self.durable('request_create',None,state['body']),lambda _:self.received(),'Registrando solicitud…')
 
     def evaluation_detail(self,evaluation):
         candidates=evaluation.get('candidates') or []

@@ -1,6 +1,6 @@
 """Comandos idempotentes con diario cifrado; cada ruta se fija aquí."""
 from uuid import UUID, uuid4
-from .client import ApiError, request_xml
+from .client import ApiError, ContractError, request_xml
 from .journal import JournalError
 
 COMMANDS={
@@ -9,6 +9,7 @@ COMMANDS={
     'lab_result_create':('compatibilidad','/api/v1/laboratory/results','lab_result_create.xsd',False),
     'lab_result_review':('compatibilidad','/api/v1/laboratory/results/{id}/review','lab_result_review.xsd',True),
     'evaluation_create':('compatibilidad','/api/v1/evaluations','evaluation_create.xsd',False),
+    'request_create':('receptores','/api/v1/requests','request_create.xsd',False),
     'evaluation_review':('compatibilidad','/api/v1/evaluations/{id}/reviews','evaluation_review.xsd',True),
     'alert_ack':('alertas','/api/v1/alerts/{id}/acknowledge',None,True),
     'cold_reading_create':('inventario','/api/v1/resources/{id}/cold-readings','cold_reading_create.xsd',True),
@@ -54,5 +55,7 @@ def submit_command(client,journal,record,*,fresh=False,proof=None):
         if exc.status in (400,403,404,409,412,413,415,422):
             journal.update(record['key'],{'operation_id':None,'status':'FAILED' if fresh else 'CONFLICT'})
         raise
+    if operation=='request_create' and any(result.get(field)!=record['body'][field] for field in ('recipient_id','component','quantity','urgency')):
+        raise ContractError('La solicitud confirmada no corresponde al intento registrado.')
     journal.update(record['key'],{'operation_id':result.get('id'),'status':'COMPLETED'})
     return result
