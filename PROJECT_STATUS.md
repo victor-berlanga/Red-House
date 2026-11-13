@@ -1,5 +1,11 @@
 # Estado vigente de Red House
 
+## Verificación de escritorio y limpieza acotada — 13/11/2026
+
+Integrado `38697eb`: WSS XML con Qt/TLS real, un caso aprobado en 96,15 s sobre laboratorio sintético; rechazo TLS, reconexión/cursor, snapshot sin señal, replay, vuelta a estado LIVE y revocación. El error TLS/protocolo ahora emite terminación para limpiar observaciones y credenciales del cliente. Siete pruebas ligeras de seguimiento pasaron por separado. La captura real mostró etiquetas superpuestas; tras corregirlas se inspeccionó otra captura Qt legible. [Fuentes por iteración y límites](documentation/evidencias/entrega-final/desktop/iteracion-wss/RESULTADOS.md). Mosaicos desactivados en el ensayo, sin acreditar mapa operativo completo, Nginx ni Windows. Etapa 05 continúa abierta.
+
+Se retiraron dos worktrees temporales limpios cuyos commits ya estaban integrados, sin forzar y conservando ramas, historial y evidencia. [Comprobaciones y alcance de limpieza](documentation/entrega-final/continuidad/Organizacion.md). El worktree de seguridad permanece activo; no se eliminaron SDK, respaldos ni datos.
+
 ## Continuidad de donantes, HLA y clientes — 13/11/2026
 
 Integrado `113aafc`: edición del nombre mostrado del expediente propio, con versión, idempotencia, autorización y auditoría; no modifica identidad de cuenta ni campos clínicos. Seis casos API/formulario aprobados en el segundo intento; Chrome final 1/1 en 77,87 s por separado. Se inspeccionaron las tres capturas finales, incluida la vista de 390 px, sin UUID interno visible. [Intentos, fuentes y límites](documentation/evidencias/entrega-final/edicion-personal-20261113/RESULTADOS.md). El generador de restricciones de formularios sincronizó 116 rutas (antes 54), con ocho rutas existentes actualizadas; no es un cambio aislado del formulario nuevo. OpenAPI y restricciones generadas coinciden con las fuentes integradas.
