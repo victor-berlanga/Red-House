@@ -1,0 +1,470 @@
+diff --git a/apps/mobile/composeApp/src/commonMain/kotlin/org/redhouse/mobile/Api.kt b/apps/mobile/composeApp/src/commonMain/kotlin/org/redhouse/mobile/Api.kt
+index 1386534..84b9013 100644
+--- a/apps/mobile/composeApp/src/commonMain/kotlin/org/redhouse/mobile/Api.kt
++++ b/apps/mobile/composeApp/src/commonMain/kotlin/org/redhouse/mobile/Api.kt
+@@ -9,6 +9,9 @@ import kotlinx.serialization.json.*
+ import kotlinx.coroutines.sync.Mutex
+ import kotlinx.coroutines.sync.withLock
+ import kotlinx.coroutines.CancellationException
++import kotlinx.coroutines.CoroutineDispatcher
++import kotlinx.coroutines.Dispatchers
++import kotlinx.coroutines.withContext
+ 
+ val codec = Json { ignoreUnknownKeys = true }
+ fun JsonObject.text(key: String) = this[key]?.jsonPrimitive?.contentOrNull.orEmpty()
+@@ -27,7 +30,7 @@ class ApiFailure(val status: Int, val code: String) : Exception(when (status) {
+     503 -> "Dependencia no disponible."
+     else -> "Respuesta no válida del servicio."
+ })
+-class Api(val client: HttpClient, val bases: Map<String, String>) {
++class Api(val client: HttpClient, val bases: Map<String, String>, private val parsingDispatcher: CoroutineDispatcher = Dispatchers.Default) {
+     init { require(bases.isNotEmpty()); bases.values.forEach(::requireHttps) }
+     suspend fun call(service: String, path: String, method: HttpMethod = HttpMethod.Get,
+                      body: JsonObject? = null, token: String? = null, key: String? = null): JsonObject {
+@@ -43,10 +46,12 @@ class Api(val client: HttpClient, val bases: Map<String, String>) {
+         if (response.contentType()?.withoutParameters() != ContentType.Application.Json) throw ApiFailure(502, "contract")
+         val raw = response.bodyAsText()
+         if (raw.length > 2_000_000) throw ApiFailure(502, "size")
+-        val value = try { codec.parseToJsonElement(raw).jsonObject } catch (_: Exception) { throw ApiFailure(502, "contract") }
+-        if (!response.status.isSuccess()) throw ApiFailure(response.status.value, value["error"]?.jsonObject?.text("code").orEmpty())
+-        if (value["meta"] !is JsonObject || value["data"] !is JsonObject) throw ApiFailure(502, "envelope")
+-        return value.getValue("data").jsonObject.also{validateResponse(service,path,it)}
++        return withContext(parsingDispatcher) {
++            val value = try { codec.parseToJsonElement(raw).jsonObject } catch (_: Exception) { throw ApiFailure(502, "contract") }
++            if (!response.status.isSuccess()) throw ApiFailure(response.status.value, value["error"]?.jsonObject?.text("code").orEmpty())
++            if (value["meta"] !is JsonObject || value["data"] !is JsonObject) throw ApiFailure(502, "envelope")
++            value.getValue("data").jsonObject.also{validateResponse(service,path,it)}
++        }
+     }
+ }
+ fun requireHttps(value: String) {
+diff --git a/apps/mobile/composeApp/src/commonMain/kotlin/org/redhouse/mobile/App.kt b/apps/mobile/composeApp/src/commonMain/kotlin/org/redhouse/mobile/App.kt
+index ad020ed..3f58fdd 100644
+--- a/apps/mobile/composeApp/src/commonMain/kotlin/org/redhouse/mobile/App.kt
++++ b/apps/mobile/composeApp/src/commonMain/kotlin/org/redhouse/mobile/App.kt
+@@ -42,6 +42,10 @@ fun RedHouseApp(store: SecureStore, localStore: SecureStore, queueStore: SecureS
+     MaterialTheme(colorScheme = redHouseColors) {
+         var gateway by remember { mutableStateOf(if (MobileEnvironment.editableGateway) configStore.read().orEmpty() else MobileEnvironment.gateway) }
+         var session by remember { mutableStateOf<Session?>(null) }
++        DisposableEffect(session) {
++            val owned = session
++            onDispose { owned?.api?.client?.close() }
++        }
+         var user by remember { mutableStateOf<JsonObject?>(null) }
+         var username by remember { mutableStateOf("") }
+         var password by remember { mutableStateOf("") }
+@@ -88,13 +92,17 @@ fun RedHouseApp(store: SecureStore, localStore: SecureStore, queueStore: SecureS
+         LaunchedEffect(Unit) {
+             gateway = GatewayConfiguration.prepare(configStore, store, localStore, queueStore) { devices.clearWork() }
+             if(gateway.isNotBlank()) {
++                val http = platformClient()
+                 try {
+-                    val active=Session(Api(platformClient(),gatewayBases(gateway)),store)
++                    val active=Session(Api(http,gatewayBases(gateway)),store)
+                     val restored=active.restore()
+                     journal.bind(gateway+":"+restored.text("id")+":"+restored.text("tenant_id"))
+-                    session=active;user=restored;repository=MobileRepository(active,journal,devices.source);queue=ObservationQueue(queueStore,active)
++                    val restoredRepository=MobileRepository(active,journal,devices.source)
++                    val restoredQueue=ObservationQueue(queueStore,active)
++                    session=active;user=restored;repository=restoredRepository;queue=restoredQueue
+                     status=""
+-                } catch(_:Exception) {status="Inicia sesión para continuar."}
++                } catch(e:CancellationException) {http.close();throw e}
++                catch(_:Exception) {http.close();status="Inicia sesión para continuar."}
+             }
+         }
+         fun run(action: suspend () -> Unit) {
+@@ -169,8 +177,11 @@ fun RedHouseApp(store: SecureStore, localStore: SecureStore, queueStore: SecureS
+                         requireHttps(gateway)
+                         val bases = gatewayBases(gateway)
+                         devices.clearWork();ObservationQueue.clearStore(queueStore);journal.clear()
+-                        val active = Session(Api(platformClient(), bases), store)
+-                        try { active.login(username.trim(), password, otp.trim()) } finally { password = ""; otp = "" }
++                        val http = platformClient()
++                        val active = try {
++                            Session(Api(http, bases), store).also { it.login(username.trim(), password, otp.trim()) }
++                        } catch(e:Exception) { http.close(); throw e }
++                        finally { password = ""; otp = "" }
+                         commandKeys.clear(); session = active; user = active.user; rows = emptyList(); selected = null
+                         destination="";accountSection=null;accountView=false;taskId=null;detail=null;planning=false;donorView=false;syncView=false
+                         configStore.write(gateway)
+diff --git a/apps/mobile/composeApp/src/commonMain/kotlin/org/redhouse/mobile/ObservationQueue.kt b/apps/mobile/composeApp/src/commonMain/kotlin/org/redhouse/mobile/ObservationQueue.kt
+index 2d04745..1c7279b 100644
+--- a/apps/mobile/composeApp/src/commonMain/kotlin/org/redhouse/mobile/ObservationQueue.kt
++++ b/apps/mobile/composeApp/src/commonMain/kotlin/org/redhouse/mobile/ObservationQueue.kt
+@@ -6,14 +6,28 @@ import kotlinx.datetime.Instant
+ import io.ktor.http.HttpMethod
+ import kotlinx.coroutines.sync.Mutex
+ import kotlinx.coroutines.sync.withLock
++import kotlinx.coroutines.flow.MutableStateFlow
++import kotlinx.coroutines.flow.asStateFlow
+ 
+ /** Only nonclinical observations. No custody, reservation or approval commands enter this queue. */
+ class ObservationQueue(private val store: SecureStore, private val session: Session) {
+-    companion object { private val processLock = Mutex(); suspend fun clearStore(store:SecureStore)=processLock.withLock{store.write(null)} }
++    companion object {
++        private val processLock = Mutex()
++        private val synchronizeLock = Mutex()
++        private val revision = MutableStateFlow(0L)
++        suspend fun clearStore(store:SecureStore)=processLock.withLock {
++            store.write(null)
++            revision.value += 1
++        }
++    }
+     private val lock = processLock
++    val changes = revision.asStateFlow()
+     fun entries(): List<JsonObject> = read().filter { it.text("user")==session.user?.text("id") && it.text("tenant")==session.user?.text("tenant_id") }
+     private fun read(): List<JsonObject> = store.read()?.let { codec.parseToJsonElement(it).jsonArray.map { row -> row.jsonObject } } ?: emptyList()
+-    private fun save(rows: List<JsonObject>) { store.write(if (rows.isEmpty()) null else JsonArray(rows).toString()) }
++    private fun save(rows: List<JsonObject>) {
++        store.write(if (rows.isEmpty()) null else JsonArray(rows).toString())
++        revision.value += 1
++    }
+     suspend fun enqueue(shipment: String, device: String, version: Int, reason: String): String = lock.withLock {
+         require(reason.length in 6..1000 && version > 0)
+         val user = session.user ?: throw ApiFailure(401, "session")
+@@ -28,25 +42,41 @@ class ObservationQueue(private val store: SecureStore, private val session: Sess
+         save(rows + buildJsonObject { put("user", user.text("id")); put("tenant", user.text("tenant_id")); put("command", command); put("state", "PENDING") })
+         id
+     }
+-    suspend fun synchronize(manual: Boolean = false) = lock.withLock {
++    suspend fun synchronize(manual: Boolean = false) = synchronizeLock.withLock {
+         val user = session.user ?: throw ApiFailure(401, "session")
+-        val rows = read().toMutableList()
+-        for (i in rows.indices) {
+-            val row = rows[i]; val command = row.getValue("command").jsonObject
+-            if (row.text("user") != user.text("id") || row.text("tenant") != user.text("tenant_id")) continue
+-            if (row.text("state") !in setOf("PENDING", "UNCERTAIN", "SENDING")) continue
++        fun own(row:JsonObject) = row.text("user")==user.text("id") && row.text("tenant")==user.text("tenant_id")
++        fun sameSession() = session.user?.text("id")==user.text("id") && session.user?.text("tenant_id")==user.text("tenant_id")
++        val identifiers = lock.withLock { read().filter(::own).map {it.getValue("command").jsonObject.text("id")} }
++        for (identifier in identifiers) {
++            if(!sameSession())break
++            // Serialize senders, but hold the storage lock only while persisting.
++            // SENDING survives cancellation/process death and is recovered by GET.
++            val claim = lock.withLock claim@{
++                val rows=read().toMutableList()
++                val i=rows.indexOfFirst {own(it) && it.getValue("command").jsonObject.text("id")==identifier}
++                if(i<0)return@claim null
++                val row=rows[i];val command=row.getValue("command").jsonObject
++                if(row.text("state") !in setOf("PENDING","UNCERTAIN","SENDING"))return@claim null
++                val attempts=row["attempts"]?.jsonPrimitive?.intOrNull?:0
++                val next=row["next_at"]?.jsonPrimitive?.longOrNull?:0L
++                val expired=Clock.System.now()-Instant.parse(command.text("captured_at"))>kotlin.time.Duration.parse("24h")
++                if(!expired && !manual && (attempts>=5 || Clock.System.now().toEpochMilliseconds()<next))return@claim null
++                rows[i]=JsonObject(row+("state" to JsonPrimitive("SENDING")));save(rows)
++                row to expired
++            } ?: continue
++            val (row,expired)=claim
++            val command=row.getValue("command").jsonObject
+             val attempts=row["attempts"]?.jsonPrimitive?.intOrNull?:0
+-            val next=row["next_at"]?.jsonPrimitive?.longOrNull?:0L
+-            
+-            val expired = Clock.System.now() - Instant.parse(command.text("captured_at")) > kotlin.time.Duration.parse("24h")
+-            if(!expired && !manual && (attempts>=5 || Clock.System.now().toEpochMilliseconds()<next)) continue
+             var state = "EXPIRED"
+-            rows[i]=JsonObject(row+("state" to JsonPrimitive("SENDING")));save(rows)
+             if (!expired) {
+                 state = try {
+                     val result = try { session.request("transporte", "/api/v1/sync/commands/${command.text("id")}") }
+                     catch (e: ApiFailure) {
+                         if (e.status != 404) throw e
++                        // Logout/clear may happen during the lookup. Do not start a
++                        // new command after its durable pending record was removed.
++                        val retained=lock.withLock {read().any {own(it) && it["command"]==command && it.text("state")=="SENDING"}}
++                        if(!retained || !sameSession())continue
+                         session.request("transporte", "/api/v1/sync/commands", HttpMethod.Post, command, command.text("id"))
+                     }
+                     if (result.text("status") != "RECORDED" || result.text("command_id") != command.text("id")) throw ApiFailure(502, "sync_contract")
+@@ -55,10 +85,18 @@ class ObservationQueue(private val store: SecureStore, private val session: Sess
+                 catch (e: kotlinx.coroutines.CancellationException) { throw e }
+                 catch (_: Exception) { "UNCERTAIN" }
+             }
+-            rows[i] = JsonObject(row + mapOf("state" to JsonPrimitive(state), "attempts" to JsonPrimitive(attempts+1),
+-                "next_at" to JsonPrimitive(Clock.System.now().toEpochMilliseconds()+(30_000L shl attempts.coerceAtMost(5))))); save(rows)
++            lock.withLock {
++                // Merge into the current file: never overwrite concurrently added
++                // observations or resurrect a queue cleared while HTTP was in flight.
++                val rows=read().toMutableList()
++                val i=rows.indexOfFirst {own(it) && it["command"]==command && it.text("state")=="SENDING"}
++                if(i>=0) {
++                    rows[i] = JsonObject(rows[i] + mapOf("state" to JsonPrimitive(state), "attempts" to JsonPrimitive(attempts+1),
++                        "next_at" to JsonPrimitive(Clock.System.now().toEpochMilliseconds()+(30_000L shl attempts.coerceAtMost(5))))); save(rows)
++                }
++            }
+         }
+     }
+     suspend fun dismissCompleted()=lock.withLock {save(read().filter{it.text("state") !in setOf("RECORDED","EXPIRED","REJECTED")})}
+-    suspend fun clear() = lock.withLock { store.write(null) }
++    suspend fun clear() = clearStore(store)
+ }
+diff --git a/apps/mobile/composeApp/src/commonMain/kotlin/org/redhouse/mobile/TransportScreen.kt b/apps/mobile/composeApp/src/commonMain/kotlin/org/redhouse/mobile/TransportScreen.kt
+index d468fa2..2bafa65 100644
+--- a/apps/mobile/composeApp/src/commonMain/kotlin/org/redhouse/mobile/TransportScreen.kt
++++ b/apps/mobile/composeApp/src/commonMain/kotlin/org/redhouse/mobile/TransportScreen.kt
+@@ -31,7 +31,8 @@ fun TransportScreen(id:String,repository:MobileRepository,queue:ObservationQueue
+     var automaticLocation by remember {mutableStateOf(false)}
+     var pendingAction by remember {mutableStateOf<String?>(null)}
+     var discardPosition by remember {mutableStateOf(false)}
+-    var entries by remember {mutableStateOf(queue.entries())}
++    var entries by remember(queue) {mutableStateOf(queue.entries())}
++    val queueRevision by queue.changes.collectAsState()
+     var operational by remember(id) {mutableStateOf<JsonObject?>(null)}
+     val foreground by MobileLifecycle.foreground.collectAsState()
+     val tracking=remember(id) {Tracking(session.api.client,session,session.api.bases.getValue("transporte"),repository.journal)}
+@@ -39,7 +40,7 @@ fun TransportScreen(id:String,repository:MobileRepository,queue:ObservationQueue
+     fun run(action:suspend ()->Unit) {if(busy)return;busy=true;scope.launch {try{action()} catch(e:CancellationException){throw e} catch(e:Exception){error=if(e is ApiFailure || e is IllegalArgumentException)e.message.orEmpty() else "Sin confirmación. Revisa pendientes antes de repetir."}finally{busy=false}}}
+     LaunchedEffect(id) {try{row=repository.shipment(id)}catch(e:Exception){error=e.message.orEmpty()}}
+     LaunchedEffect(trackingEnabled,foreground) {if(trackingEnabled && foreground) tracking.follow(id)}
+-    LaunchedEffect(foreground) {if(foreground) {while(isActive) {try{queue.synchronize();entries=queue.entries()}catch(_:Exception){};delay(30000)}}}
++    LaunchedEffect(queue,queueRevision,foreground) {entries=queue.entries()}
+     LaunchedEffect(automaticLocation,trackingEnabled,foreground,live.connected) {
+         if(automaticLocation && trackingEnabled && foreground && live.connected)while(isActive){
+             try {
+@@ -104,7 +105,7 @@ fun TransportScreen(id:String,repository:MobileRepository,queue:ObservationQueue
+             if(evidenceView) {
+             Button(enabled=!busy,onClick={devices.photograph {bytes,failure->photograph=bytes;evidence=null;error=failure.orEmpty()}}){Text("Capturar evidencia")}
+             photograph?.let {bytes ->
+-                Image(imageBitmap(bytes),"Vista previa de evidencia",Modifier.fillMaxWidth().height(180.dp))
++                Image(remember(bytes) { imageBitmap(bytes) },"Vista previa de evidencia",Modifier.fillMaxWidth().height(180.dp))
+                 Row {
+                     Button(enabled=!busy,onClick={run{evidence=repository.uploadPhoto(id,bytes);photograph=null;error="Archivo: ${evidence?.text("status")}"}}){Text("Cargar y verificar")}
+                     TextButton(onClick={photograph=null}){Text("Eliminar foto")}
+diff --git a/apps/services/ms_donantes/agenda.py b/apps/services/ms_donantes/agenda.py
+index 6de0c6c..b8a6f55 100644
+--- a/apps/services/ms_donantes/agenda.py
++++ b/apps/services/ms_donantes/agenda.py
+@@ -73,6 +73,33 @@ def slot_availability(conn, row):
+     return dict(row, **counts, available=max(0, row["capacity"] - counts["occupied"]))
+ 
+ 
++def slots_availability(conn, rows):
++    """Enrich only the already authorized page; reservation locking is unchanged."""
++    if not rows:
++        return []
++    counts = conn.execute(
++        "SELECT s.slot_id,count(*) FILTER (WHERE a.status='BOOKED') AS occupied, "
++        "count(*) FILTER (WHERE s.status='ATTENDED') AS attended "
++        "FROM appointment_slots s JOIN appointments a ON a.id=s.id "
++        "WHERE s.slot_id=ANY(%s::uuid[]) GROUP BY s.slot_id",
++        ([row["id"] for row in rows],),
++    ).fetchall()
++    by_slot = {str(row["slot_id"]): row for row in counts}
++    result = []
++    for row in rows:
++        count = by_slot.get(str(row["id"]), {})
++        occupied = count.get("occupied", 0)
++        result.append(
++            dict(
++                row,
++                occupied=occupied,
++                attended=count.get("attended", 0),
++                available=max(0, row["capacity"] - occupied),
++            )
++        )
++    return result
++
++
+ class AppointmentCommand(Confirm):
+     version: Annotated[int, Field(ge=1)]
+     action: Literal["CONFIRM", "RESCHEDULE", "ATTEND", "CANCEL"]
+@@ -268,7 +295,7 @@ def install(app):
+                 date_columns=("starts_at", "ends_at", "created_at"),
+                 order="starts_at,id",
+             )
+-            result["items"] = [slot_availability(conn, row) for row in result["items"]]
++            result["items"] = slots_availability(conn, result["items"])
+             return result
+ 
+     @endpoint(
+diff --git a/apps/services/ms_transporte/tracking_socket.py b/apps/services/ms_transporte/tracking_socket.py
+index cd7db6f..39d5a93 100644
+--- a/apps/services/ms_transporte/tracking_socket.py
++++ b/apps/services/ms_transporte/tracking_socket.py
+@@ -121,16 +121,21 @@ def install(app):
+             ws.send(encode({"type": "authenticated"}, representation))
+             subscriptions = {}
+             last_input, last_status = time.monotonic(), 0.0
++            last_lease = time.monotonic()
+             while ws.connected:
+                 authorize(kind, credential)
+-                for scope_name in scopes:
+-                    lease(
+-                        scope_name,
+-                        identifier,
+-                        app.config.get("TRACKING_MAX_CONNECTIONS", 64)
+-                        if scope_name == "global"
+-                        else app.config.get("TRACKING_CONNECTIONS_PER_ACTOR", 4),
+-                    )
++                # Connection capacity leases last 40 s (key TTL 45 s). Renew well
++                # before expiry, independently of authorization on every iteration.
++                if time.monotonic() - last_lease >= 10:
++                    for scope_name in scopes:
++                        lease(
++                            scope_name,
++                            identifier,
++                            app.config.get("TRACKING_MAX_CONNECTIONS", 64)
++                            if scope_name == "global"
++                            else app.config.get("TRACKING_CONNECTIONS_PER_ACTOR", 4),
++                        )
++                    last_lease = time.monotonic()
+                 raw = ws.receive(timeout=0.5)
+                 if raw is not None:
+                     last_input = time.monotonic()
+diff --git a/apps/services/redhouse/cache.py b/apps/services/redhouse/cache.py
+index ec592b7..8f345e5 100644
+--- a/apps/services/redhouse/cache.py
++++ b/apps/services/redhouse/cache.py
+@@ -8,6 +8,7 @@ from flask import current_app, g, request
+ 
+ from .codec import plain
+ from .db import transaction
++from .errors import APIError
+ from .security import key, redis_call
+ 
+ 
+@@ -48,13 +49,26 @@ def cached_read(namespace, ttl=15):
+             cache_key = key(
+                 "cache:" + current_app.config["SERVICE"] + ":read:" + digest
+             )
+-            raw = redis_call(lambda r: r.get(cache_key))
++            try:
++                raw = redis_call(lambda r: r.get(cache_key))
++            except APIError as exc:
++                if exc.code != "redis_unavailable":
++                    raise
++                # Only the optional cache operation failed. @endpoint already
++                # authenticated this request; never catch its authorization errors.
++                g.cache_status = "BYPASS"
++                return fn(*args, **kwargs)
+             if raw is not None:
+                 g.cache_hit, g.cache_status = True, "HIT"
+                 return json.loads(raw)
+             g.cache_status = "MISS"
+             result = plain(fn(*args, **kwargs))
+-            redis_call(lambda r: r.set(cache_key, json.dumps(result), ex=ttl))
++            try:
++                redis_call(lambda r: r.set(cache_key, json.dumps(result), ex=ttl))
++            except APIError as exc:
++                if exc.code != "redis_unavailable":
++                    raise
++                g.cache_status = "BYPASS"
+             return result
+ 
+         return wrapped
+diff --git a/apps/services/scripts/migrate_documents.py b/apps/services/scripts/migrate_documents.py
+index 3b5c1fc..c46e7cb 100644
+--- a/apps/services/scripts/migrate_documents.py
++++ b/apps/services/scripts/migrate_documents.py
+@@ -38,6 +38,11 @@ def migrate(client):
+     client.rh_monitoreo.events.create_index(
+         [("source", 1), ("checked_at", -1), ("service", 1)], name="monitor_window"
+     )
++    client.rh_monitoreo.events.create_index(
++        [("service", 1), ("checked_at", -1), ("event_id", 1)],
++        name="monitor_latest",
++        partialFilterExpression={"source": "monitoreo", "checked_at": {"$exists": True}},
++    )
+ 
+ 
+ if __name__ == "__main__":
+diff --git a/apps/services/servicio_monitoreo/routes.py b/apps/services/servicio_monitoreo/routes.py
+index 8317061..672b12f 100644
+--- a/apps/services/servicio_monitoreo/routes.py
++++ b/apps/services/servicio_monitoreo/routes.py
+@@ -13,6 +13,23 @@ from redhouse.errors import APIError
+ from pymongo.errors import PyMongoError
+ 
+ 
++# Enumerate actual service keys through the existing B-tree, including retired services.
++# Each lateral lookup keeps the historical created_at DESC, id ASC tie-break.
++LATEST_CHECKS_SQL = """WITH RECURSIVE services(service) AS (
++    (SELECT service FROM checks ORDER BY service LIMIT 1)
++    UNION ALL
++    SELECT next.service FROM services previous
++    CROSS JOIN LATERAL (
++        SELECT service FROM checks WHERE service > previous.service ORDER BY service LIMIT 1
++    ) next
++)
++SELECT sample.* FROM services
++CROSS JOIN LATERAL (
++    SELECT * FROM checks WHERE service=services.service ORDER BY created_at DESC,id LIMIT 1
++) sample ORDER BY sample.service
++"""
++
++
+ def poll():
+     checked = []
+     for service in SERVICES:
+@@ -126,19 +143,30 @@ def poll():
+     return {"items": checked}
+ 
+ 
++def latest_documents(collection):
++    """Seek one latest document per actual service using monitor_latest.
++
++    Advancing the service key avoids a global group/fetch of the immutable journal.
++    Keep old services and samples outside the statistics window.
++    """
++    query = {"source": "monitoreo", "checked_at": {"$exists": True}}
++    while True:
++        sample = collection.find_one(
++            query, sort=[("service", 1), ("checked_at", -1), ("event_id", 1)]
++        )
++        if sample is None:
++            return
++        yield sample
++        query["service"] = {"$gt": sample["service"]}
++
++
+ def documentary_status():
+     cutoff = (datetime.now(timezone.utc) - timedelta(hours=24)).isoformat()
+     try:
+         with mongodb() as client:
+             collection = client[current_app.config["MONGODB_DATABASE"]].events
+-            pipeline = [
+-                {"$match": {"source": "monitoreo", "checked_at": {"$exists": True}}},
+-                {"$sort": {"checked_at": -1}},
+-                {"$group": {"_id": "$service", "sample": {"$first": "$$ROOT"}}},
+-            ]
+             latest = []
+-            for item in collection.aggregate(pipeline):
+-                e = item["sample"]
++            for e in latest_documents(collection):
+                 latest.append(
+                     dict(
+                         id=e["event_id"],
+@@ -224,7 +252,7 @@ def register(app):
+         try:
+             with transaction() as conn:
+                 latest = conn.execute(
+-                    "SELECT DISTINCT ON (service) * FROM checks ORDER BY service,created_at DESC,id"
++                    LATEST_CHECKS_SQL
+                 ).fetchall()
+                 totals = conn.execute(
+                     "SELECT service,count(*) AS checks,count(*) FILTER(WHERE state<>'up') AS errors,"
+diff --git a/apps/web/src/integration/__init__.py b/apps/web/src/integration/__init__.py
+index ca11691..59448f8 100644
+--- a/apps/web/src/integration/__init__.py
++++ b/apps/web/src/integration/__init__.py
+@@ -346,6 +346,10 @@ def configure(app):
+             response = redirect(url_for("public.login"))
+             response.delete_cookie(app.config["JWT_COOKIE_NAME"])
+             return response
++        # Authentication above still checks the durable session, Redis and revocation.
++        # This JSON endpoint consumes no principal labels or institution catalogue.
++        if request.endpoint == "public.session_status":
++            return
+         cache = app.extensions.setdefault("institution_names", {})
+         cached = cache.get(user["region_id"])
+         if cached and cached["until"] > time.monotonic():
+diff --git a/apps/web/src/presentation/templates/integration/dashboard.html b/apps/web/src/presentation/templates/integration/dashboard.html
+index 5041df1..173b311 100644
+--- a/apps/web/src/presentation/templates/integration/dashboard.html
++++ b/apps/web/src/presentation/templates/integration/dashboard.html
+@@ -13,4 +13,4 @@
+ <section class="card form-card regional-section"><h2>Notificaciones recientes</h2><ul class="compact-events">{% for row in alerts %}<li>{% set related=related_alert(row) %}{% if related %}<a class="text-link" href="{{ related }}">{{ row.message_code|event_label }}</a>{% else %}{{ row.message_code|event_label }}{% endif %}<small>{{ row.created_at|portal_html }} · {{ row.status|portal_html }}</small></li>{% else %}<li>Sin notificaciones.</li>{% endfor %}</ul><a class="text-link" href="{{ url_for('portal.alerts') }}">Ver todas las notificaciones →</a></section>
+ {% if principal.role_code in ['OPERATOR','MEDICAL','COORDINATOR'] %}<p><a class="text-link" href="{{ url_for('regional.reservations') }}">Reservas y asignaciones →</a></p>{% endif %}
+ {% endblock %}
+-{% block scripts %}{% if chart_enabled %}<script src="{{ url_for('static',filename='vendor/highcharts/highcharts.js') }}" defer></script><script src="{{ url_for('static',filename='vendor/highcharts/accessibility.js') }}" defer></script><script src="{{ url_for('static',filename='js/charts.js') }}" defer></script>{% endif %}{% endblock %}
++{% block scripts %}{% if chart_enabled and (charts or metrics) %}<script src="{{ url_for('static',filename='vendor/highcharts/highcharts.js') }}" defer></script><script src="{{ url_for('static',filename='vendor/highcharts/accessibility.js') }}" defer></script><script src="{{ url_for('static',filename='js/charts.js') }}" defer></script>{% endif %}{% endblock %}

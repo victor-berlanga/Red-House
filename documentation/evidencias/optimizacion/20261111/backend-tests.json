@@ -1,0 +1,190 @@
+{
+  "unique_cases": 46,
+  "passed": 46,
+  "cases": {
+    "tests.test_optimization::test_slot_batch_cost_and_results": {
+      "last_report": "optimization.xml",
+      "state": "passed"
+    },
+    "tests.test_optimization::test_session_poll_cost_and_security": {
+      "last_report": "optimization.xml",
+      "state": "passed"
+    },
+    "tests.test_optimization::test_dashboard_assets_without_charts": {
+      "last_report": "optimization.xml",
+      "state": "passed"
+    },
+    "tests.test_final_operations::test_consent_agenda_capacity_reminders_processing_and_lineage[json]": {
+      "last_report": "regression.xml",
+      "state": "passed"
+    },
+    "tests.test_final_operations::test_consent_agenda_capacity_reminders_processing_and_lineage[xml]": {
+      "last_report": "regression.xml",
+      "state": "passed"
+    },
+    "tests.test_final_operations::test_interoperability_accreditations_analytics_and_external_authorizations[json]": {
+      "last_report": "regression.xml",
+      "state": "passed"
+    },
+    "tests.test_final_operations::test_interoperability_accreditations_analytics_and_external_authorizations[xml]": {
+      "last_report": "regression.xml",
+      "state": "passed"
+    },
+    "tests.test_web_sessions::test_logout_failure_clears_credentials_and_queues_encrypted_revocation": {
+      "last_report": "regression.xml",
+      "state": "passed"
+    },
+    "tests.test_web_sessions::test_network_renewal_does_not_lock_other_sessions_and_rejects_same_session": {
+      "last_report": "regression.xml",
+      "state": "passed"
+    },
+    "tests.test_web_sessions::test_logout_during_refresh_never_recreates_session": {
+      "last_report": "regression.xml",
+      "state": "passed"
+    },
+    "tests.test_web_sessions::test_redis_outage_logout_is_durable_and_revokes_after_recovery": {
+      "last_report": "regression.xml",
+      "state": "passed"
+    },
+    "tests.test_web_sessions::test_postgres_outage_fails_closed_and_logout_removes_browser_cookie": {
+      "last_report": "regression.xml",
+      "state": "passed"
+    },
+    "tests.test_web_sessions::test_encrypted_session_is_shared_between_web_instances_and_expires": {
+      "last_report": "regression.xml",
+      "state": "passed"
+    },
+    "tests.test_web_sessions::test_portal_credentials_cannot_read_identity_keys_or_domain_tables": {
+      "last_report": "regression.xml",
+      "state": "passed"
+    },
+    "tests.test_web_sessions::test_storage_upgrade_is_repeatable_preserves_secret_and_pending_rows": {
+      "last_report": "regression.xml",
+      "state": "passed"
+    },
+    "tests.test_web_sessions::test_undecipherable_revocation_remains_pending_until_key_is_restored": {
+      "last_report": "regression.xml",
+      "state": "passed"
+    },
+    "tests.test_ui_cache::test_inventory_cache_scope_filters_commit_rollback_and_xml": {
+      "last_report": "regression.xml",
+      "state": "passed"
+    },
+    "tests.test_ui_cache::test_cache_late_fill_cannot_restore_previous_generation": {
+      "last_report": "regression.xml",
+      "state": "passed"
+    },
+    "tests.test_ui_cache::test_catalogue_cache_invalidation_and_revocation": {
+      "last_report": "regression.xml",
+      "state": "passed"
+    },
+    "tests.test_ui_cache::test_jinja_fragments_readonly_modal_and_return_after_edit": {
+      "last_report": "regression.xml",
+      "state": "passed"
+    },
+    "tests.test_ui_cache::test_history_disables_edit_and_account_view_is_not_deactivation": {
+      "last_report": "regression.xml",
+      "state": "passed"
+    },
+    "tests.test_ui_cache::test_pagination_controls_preserve_filters_and_recover_last_page": {
+      "last_report": "regression.xml",
+      "state": "passed"
+    },
+    "tests.test_ui_cache::test_timezone_async_converts_form_dates_and_persists_without_redirect": {
+      "last_report": "regression.xml",
+      "state": "passed"
+    },
+    "tests.test_ui_cache::test_optional_cache_failure_preserves_authorization": {
+      "last_report": "tracking-attempt1.xml",
+      "state": "passed"
+    },
+    "tests.test_optimization::test_monitor_history_cost_and_equivalence": {
+      "last_report": "optimization.xml",
+      "state": "passed"
+    },
+    "tests.test_optimization::test_documentary_monitor_cost": {
+      "last_report": "optimization.xml",
+      "state": "passed"
+    },
+    "tests.test_optimization::test_monitor_real_storage_outages_and_recovery": {
+      "last_report": "optimization.xml",
+      "state": "passed"
+    },
+    "tests.test_optimization::test_monolith_monitor_and_session_without_api_listeners": {
+      "last_report": "optimization.xml",
+      "state": "passed"
+    },
+    "tests.test_optimization_tracking::test_connection_leases_do_not_repeat_for_every_heartbeat": {
+      "last_report": "tracking-recheck.xml",
+      "state": "passed"
+    },
+    "tests.test_final_tracking::test_wss_json_xml_durable_replay_order_and_revocation": {
+      "last_report": "tracking-attempt1.xml",
+      "state": "passed"
+    },
+    "tests.test_final_tracking::test_wss_rejects_donor_device_read_invalid_and_conflicting_events[json]": {
+      "last_report": "tracking-attempt1.xml",
+      "state": "passed"
+    },
+    "tests.test_final_tracking::test_wss_rejects_donor_device_read_invalid_and_conflicting_events[xml]": {
+      "last_report": "tracking-attempt1.xml",
+      "state": "passed"
+    },
+    "tests.test_final_tracking::test_tracking_rejects_xxe_nonfinite_and_unknown_fields": {
+      "last_report": "tracking-attempt1.xml",
+      "state": "passed"
+    },
+    "tests.test_final_tracking::test_sync_commands_idempotency_scope_versions_and_cursor[json]": {
+      "last_report": "tracking-attempt1.xml",
+      "state": "passed"
+    },
+    "tests.test_final_tracking::test_sync_commands_idempotency_scope_versions_and_cursor[xml]": {
+      "last_report": "tracking-recheck.xml",
+      "state": "passed"
+    },
+    "tests.test_final_tracking::test_executable_simulator_offline_reconnect_and_dedup[json]": {
+      "last_report": "tracking-attempt1.xml",
+      "state": "passed"
+    },
+    "tests.test_final_tracking::test_executable_simulator_offline_reconnect_and_dedup[xml]": {
+      "last_report": "tracking-attempt1.xml",
+      "state": "passed"
+    },
+    "tests.test_final_tracking::test_tracking_dependency_failure_preserves_durable_cursor[redis]": {
+      "last_report": "tracking-recheck.xml",
+      "state": "passed"
+    },
+    "tests.test_final_tracking::test_tracking_dependency_failure_preserves_durable_cursor[postgres]": {
+      "last_report": "tracking-attempt1.xml",
+      "state": "passed"
+    },
+    "tests.test_final_tracking::test_tracking_dependency_failure_preserves_durable_cursor[mongodb]": {
+      "last_report": "tracking-attempt1.xml",
+      "state": "passed"
+    },
+    "tests.test_final_tracking::test_tracking_scope_origin_cursor_limits_and_device_revocation": {
+      "last_report": "tracking-attempt1.xml",
+      "state": "passed"
+    },
+    "tests.test_final_tracking::test_nmea_adapter_checksum_units_and_no_fix": {
+      "last_report": "tracking-attempt1.xml",
+      "state": "passed"
+    },
+    "tests.test_final_tracking::test_custody_scans_receipt_sync_and_distinct_final_use[json]": {
+      "last_report": "tracking-recheck.xml",
+      "state": "passed"
+    },
+    "tests.test_final_tracking::test_custody_scans_receipt_sync_and_distinct_final_use[xml]": {
+      "last_report": "tracking-attempt1.xml",
+      "state": "passed"
+    },
+    "tests.test_final_tracking::test_concurrent_emitters_subscribers_and_delayed_consumer": {
+      "last_report": "tracking-attempt1.xml",
+      "state": "passed"
+    },
+    "tests.test_final_tracking::test_two_production_wss_processes_single_and_total_outage": {
+      "last_report": "tracking-attempt1.xml",
+      "state": "passed"
+    }
+  }
+}

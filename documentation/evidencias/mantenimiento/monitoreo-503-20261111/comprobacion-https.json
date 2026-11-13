@@ -1,0 +1,438 @@
+{
+  "health": [
+    {
+      "service": "identidad-acceso",
+      "http": 200,
+      "data": {
+        "state": "up",
+        "dependencies": {
+          "database": {
+            "state": "up"
+          },
+          "redis": {
+            "state": "up"
+          },
+          "mongodb": {
+            "state": "not_applicable"
+          },
+          "storage": {
+            "state": "not_applicable"
+          },
+          "worker": {
+            "state": "up",
+            "error": null,
+            "pending": 0,
+            "oldest_seconds": 0.0
+          }
+        },
+        "service": "identidad_acceso",
+        "version": "0.4.1"
+      }
+    },
+    {
+      "service": "donantes",
+      "http": 200,
+      "data": {
+        "state": "up",
+        "dependencies": {
+          "database": {
+            "state": "up"
+          },
+          "redis": {
+            "state": "up"
+          },
+          "mongodb": {
+            "state": "not_applicable"
+          },
+          "storage": {
+            "state": "not_applicable"
+          },
+          "worker": {
+            "state": "up",
+            "error": null,
+            "pending": 0,
+            "oldest_seconds": 0.0
+          }
+        },
+        "service": "donantes",
+        "version": "0.4.1"
+      }
+    },
+    {
+      "service": "receptores",
+      "http": 200,
+      "data": {
+        "state": "up",
+        "dependencies": {
+          "database": {
+            "state": "up"
+          },
+          "redis": {
+            "state": "up"
+          },
+          "mongodb": {
+            "state": "not_applicable"
+          },
+          "storage": {
+            "state": "not_applicable"
+          },
+          "worker": {
+            "state": "up",
+            "error": null,
+            "pending": 0,
+            "oldest_seconds": 0.0
+          }
+        },
+        "service": "receptores",
+        "version": "0.4.1"
+      }
+    },
+    {
+      "service": "inventario",
+      "http": 200,
+      "data": {
+        "state": "up",
+        "dependencies": {
+          "database": {
+            "state": "up"
+          },
+          "redis": {
+            "state": "up"
+          },
+          "mongodb": {
+            "state": "not_applicable"
+          },
+          "storage": {
+            "state": "not_applicable"
+          },
+          "worker": {
+            "state": "up",
+            "error": null,
+            "pending": 0,
+            "oldest_seconds": 0.0
+          }
+        },
+        "service": "inventario",
+        "version": "0.4.1"
+      }
+    },
+    {
+      "service": "compatibilidad",
+      "http": 200,
+      "data": {
+        "state": "up",
+        "dependencies": {
+          "database": {
+            "state": "up"
+          },
+          "redis": {
+            "state": "up"
+          },
+          "mongodb": {
+            "state": "not_applicable"
+          },
+          "storage": {
+            "state": "not_applicable"
+          },
+          "worker": {
+            "state": "up",
+            "error": null,
+            "pending": 0,
+            "oldest_seconds": 0.0
+          }
+        },
+        "service": "compatibilidad",
+        "version": "0.4.4"
+      }
+    },
+    {
+      "service": "priorizacion-geografia",
+      "http": 200,
+      "data": {
+        "state": "up",
+        "dependencies": {
+          "database": {
+            "state": "up"
+          },
+          "redis": {
+            "state": "up"
+          },
+          "mongodb": {
+            "state": "not_applicable"
+          },
+          "storage": {
+            "state": "not_applicable"
+          },
+          "worker": {
+            "state": "up",
+            "error": null,
+            "pending": 0,
+            "oldest_seconds": 0.0
+          }
+        },
+        "service": "priorizacion_geografia",
+        "version": "0.4.4"
+      }
+    },
+    {
+      "service": "transporte",
+      "http": 200,
+      "data": {
+        "state": "up",
+        "dependencies": {
+          "database": {
+            "state": "up"
+          },
+          "redis": {
+            "state": "up"
+          },
+          "mongodb": {
+            "state": "up"
+          },
+          "storage": {
+            "state": "not_applicable"
+          },
+          "worker": {
+            "state": "up",
+            "error": null,
+            "pending": 0,
+            "oldest_seconds": 0.0
+          }
+        },
+        "service": "transporte",
+        "version": "0.4.1"
+      }
+    },
+    {
+      "service": "custodia",
+      "http": 200,
+      "data": {
+        "state": "up",
+        "dependencies": {
+          "database": {
+            "state": "up"
+          },
+          "redis": {
+            "state": "up"
+          },
+          "mongodb": {
+            "state": "up"
+          },
+          "storage": {
+            "state": "not_applicable"
+          },
+          "worker": {
+            "state": "up",
+            "error": null,
+            "pending": 0,
+            "oldest_seconds": 0.0
+          }
+        },
+        "service": "custodia",
+        "version": "0.4.1"
+      }
+    },
+    {
+      "service": "alertas",
+      "http": 200,
+      "data": {
+        "state": "up",
+        "dependencies": {
+          "database": {
+            "state": "up"
+          },
+          "redis": {
+            "state": "up"
+          },
+          "mongodb": {
+            "state": "not_applicable"
+          },
+          "storage": {
+            "state": "not_applicable"
+          },
+          "worker": {
+            "state": "up",
+            "error": null,
+            "pending": 0,
+            "oldest_seconds": 0.0
+          }
+        },
+        "service": "alertas",
+        "version": "0.4.1"
+      }
+    },
+    {
+      "service": "auditoria",
+      "http": 200,
+      "data": {
+        "state": "up",
+        "dependencies": {
+          "database": {
+            "state": "up"
+          },
+          "redis": {
+            "state": "up"
+          },
+          "mongodb": {
+            "state": "up"
+          },
+          "storage": {
+            "state": "not_applicable"
+          },
+          "worker": {
+            "state": "up",
+            "error": null,
+            "pending": 0,
+            "oldest_seconds": 0.0
+          }
+        },
+        "service": "auditoria",
+        "version": "0.4.1"
+      }
+    },
+    {
+      "service": "monitoreo",
+      "http": 200,
+      "data": {
+        "state": "up",
+        "dependencies": {
+          "database": {
+            "state": "up"
+          },
+          "redis": {
+            "state": "up"
+          },
+          "mongodb": {
+            "state": "up"
+          },
+          "storage": {
+            "state": "not_applicable"
+          },
+          "worker": {
+            "state": "up",
+            "error": null,
+            "pending": 0,
+            "oldest_seconds": 0.0
+          }
+        },
+        "service": "monitoreo",
+        "version": "0.4.1"
+      }
+    },
+    {
+      "service": "documentos",
+      "http": 200,
+      "data": {
+        "state": "up",
+        "dependencies": {
+          "database": {
+            "state": "up"
+          },
+          "redis": {
+            "state": "up"
+          },
+          "mongodb": {
+            "state": "not_applicable"
+          },
+          "storage": {
+            "state": "up",
+            "required": true
+          },
+          "worker": {
+            "state": "up",
+            "error": null,
+            "pending": 0,
+            "oldest_seconds": 0.0
+          }
+        },
+        "service": "documentos",
+        "version": "0.4.1"
+      }
+    }
+  ],
+  "web_login": {
+    "http": 302,
+    "location": "/panel"
+  },
+  "web": [
+    {
+      "path": "/panel",
+      "http": 200,
+      "messages": [
+        "Panel principal",
+        "Hospital 1",
+        "Investigar y verificar acciones correctivas",
+        "Consultar eventos de la regi\u00f3n",
+        "Disponibilidad y fallas de dependencias",
+        "Resumen del estado actual; los indicadores por periodo se muestran arriba.",
+        "Actividad reciente de la red",
+        "Notificaciones recientes"
+      ]
+    },
+    {
+      "path": "/monitoreo",
+      "http": 503,
+      "messages": [
+        "No fue posible completar la operaci\u00f3n",
+        "Los almacenes de monitoreo no est\u00e1n disponibles.",
+        "Referencia: b24748f5-a876-4d03-b340-d20652418e89",
+        "Tu sesi\u00f3n",
+        "",
+        "Detalle del registro"
+      ]
+    },
+    {
+      "path": "/notificaciones",
+      "http": 200,
+      "messages": [
+        "Notificaciones",
+        "Hospital 1",
+        "2 registros",
+        "Tu sesi\u00f3n",
+        "",
+        "Detalle del registro"
+      ]
+    },
+    {
+      "path": "/auditoria",
+      "http": 200,
+      "messages": [
+        "Bit\u00e1cora de auditor\u00eda",
+        "Investiga operaciones dentro de tu \u00e1mbito autorizado.",
+        "Consultar \u00fanicamente eventos t\u00e9cnicos",
+        "2861 resultados",
+        "La exportaci\u00f3n completa admite hasta 5000 resultados. Reduce los filtros si excedes el l\u00edmite.",
+        "Tu sesi\u00f3n",
+        "",
+        "Detalle del registro"
+      ]
+    },
+    {
+      "path": "/documentos",
+      "http": 200,
+      "messages": [
+        "Documentos privados",
+        "Consulta los documentos de un expediente.",
+        "Este perfil consulta documentos mediante sus \u00f3rdenes o reportes autorizados.",
+        "Tu sesi\u00f3n",
+        "",
+        "Detalle del registro"
+      ]
+    },
+    {
+      "path": "/reportes",
+      "http": 200,
+      "messages": [
+        "Reportes privados",
+        "Hospital 1",
+        "0 registros",
+        "A\u00fan no hay registros",
+        "Los registros aparecer\u00e1n aqu\u00ed cuando est\u00e9n disponibles.",
+        "Tu sesi\u00f3n",
+        "",
+        "Detalle del registro"
+      ]
+    }
+  ],
+  "logout": 302
+}

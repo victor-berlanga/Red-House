@@ -1,0 +1,25 @@
+{
+  "python": "3.12.6",
+  "os": "macOS-15.7.9-x86_64-i386-64bit",
+  "machine": "x86_64",
+  "packages": {
+    "Flask": "3.1.3",
+    "psycopg": "3.3.5",
+    "pymongo": "4.18.2",
+    "redis": "7.4.1",
+    "requests": "2.34.2",
+    "pytest": "9.1.1",
+    "psycopg-pool": "3.3.3"
+  },
+  "postgres": "postgres (PostgreSQL) 14.23 (Homebrew)",
+  "redis": "Redis server v=8.10.2 sha=00000000:1 malloc=libc bits=64 build=d55c07a371931d8d",
+  "limits": {
+    "statement_timeout_ms": 5000,
+    "lock_timeout_ms": 3000,
+    "database_pool_size": 0,
+    "redis_policy": "noeviction",
+    "redis_appendfsync": "always"
+  },
+  "data": "synthetic disposable lab",
+  "production_configuration": "not queried or changed"
+}

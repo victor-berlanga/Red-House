@@ -1,0 +1,92 @@
+ROLLOUT identidad-acceso-a
+ Container redhouse-parcial2-identidad-acceso-a-1 Recreate 
+ Container redhouse-parcial2-identidad-acceso-a-1 Recreated 
+ Container redhouse-parcial2-identidad-acceso-a-1 Starting 
+ Container redhouse-parcial2-identidad-acceso-a-1 Started 
+ Container redhouse-parcial2-identidad-acceso-a-1 Waiting 
+ Container redhouse-parcial2-identidad-acceso-a-1 Healthy 
+ROLLOUT identidad-acceso-b
+ Container redhouse-parcial2-identidad-acceso-b-1 Recreate 
+ Container redhouse-parcial2-identidad-acceso-b-1 Recreated 
+ Container redhouse-parcial2-identidad-acceso-b-1 Starting 
+ Container redhouse-parcial2-identidad-acceso-b-1 Started 
+ Container redhouse-parcial2-identidad-acceso-b-1 Waiting 
+ Container redhouse-parcial2-identidad-acceso-b-1 Healthy 
+ROLLOUT donantes-a
+ Container redhouse-parcial2-donantes-a-1 Recreate 
+ Container redhouse-parcial2-donantes-a-1 Recreated 
+ Container redhouse-parcial2-donantes-a-1 Starting 
+ Container redhouse-parcial2-donantes-a-1 Started 
+ Container redhouse-parcial2-donantes-a-1 Waiting 
+ROLLOUT donantes-b
+ Container redhouse-parcial2-donantes-a-1 Healthy 
+ Container redhouse-parcial2-donantes-b-1 Recreate 
+ Container redhouse-parcial2-donantes-b-1 Recreated 
+ Container redhouse-parcial2-donantes-b-1 Starting 
+ Container redhouse-parcial2-donantes-b-1 Started 
+ Container redhouse-parcial2-donantes-b-1 Waiting 
+ROLLOUT inventario-a
+ Container redhouse-parcial2-donantes-b-1 Healthy 
+ Container redhouse-parcial2-inventario-a-1 Recreate 
+ Container redhouse-parcial2-inventario-a-1 Recreated 
+ Container redhouse-parcial2-inventario-a-1 Starting 
+ Container redhouse-parcial2-inventario-a-1 Started 
+ Container redhouse-parcial2-inventario-a-1 Waiting 
+ROLLOUT inventario-b
+ Container redhouse-parcial2-inventario-a-1 Healthy 
+ Container redhouse-parcial2-inventario-b-1 Recreate 
+ Container redhouse-parcial2-inventario-b-1 Recreated 
+ Container redhouse-parcial2-inventario-b-1 Starting 
+ Container redhouse-parcial2-inventario-b-1 Started 
+ Container redhouse-parcial2-inventario-b-1 Waiting 
+ROLLOUT transporte-a
+ Container redhouse-parcial2-inventario-b-1 Healthy 
+ Container redhouse-parcial2-transporte-a-1 Recreate 
+ Container redhouse-parcial2-transporte-a-1 Recreated 
+ Container redhouse-parcial2-transporte-a-1 Starting 
+ Container redhouse-parcial2-transporte-a-1 Started 
+ Container redhouse-parcial2-transporte-a-1 Waiting 
+ROLLOUT transporte-b
+ Container redhouse-parcial2-transporte-a-1 Healthy 
+ Container redhouse-parcial2-transporte-b-1 Recreate 
+ Container redhouse-parcial2-transporte-b-1 Recreated 
+ Container redhouse-parcial2-transporte-b-1 Starting 
+ Container redhouse-parcial2-transporte-b-1 Started 
+ Container redhouse-parcial2-transporte-b-1 Waiting 
+ROLLOUT monitoreo-a
+ Container redhouse-parcial2-transporte-b-1 Healthy 
+ Container redhouse-parcial2-monitoreo-a-1 Recreate 
+ Container redhouse-parcial2-monitoreo-a-1 Recreated 
+ Container redhouse-parcial2-monitoreo-a-1 Starting 
+ Container redhouse-parcial2-monitoreo-a-1 Started 
+ Container redhouse-parcial2-monitoreo-a-1 Waiting 
+ Container redhouse-parcial2-monitoreo-a-1 Healthy 
+ROLLOUT monitoreo-b
+ Container redhouse-parcial2-monitoreo-b-1 Recreate 
+ Container redhouse-parcial2-monitoreo-b-1 Recreated 
+ Container redhouse-parcial2-monitoreo-b-1 Starting 
+ Container redhouse-parcial2-monitoreo-b-1 Started 
+ Container redhouse-parcial2-monitoreo-b-1 Waiting 
+ Container redhouse-parcial2-monitoreo-b-1 Healthy 
+ROLLOUT web
+ Container redhouse-parcial2-web-1 Recreate 
+ Container redhouse-parcial2-web-1 Recreated 
+ Container redhouse-parcial2-web-1 Starting 
+ Container redhouse-parcial2-web-1 Started 
+ Container redhouse-parcial2-web-1 Waiting 
+ Container redhouse-parcial2-web-1 Healthy 
+{
+  "tag": "optimization-20261112",
+  "healthy_containers": 30,
+  "updated_containers": 11,
+  "unchanged_containers": 19,
+  "images": 6,
+  "files": 7,
+  "protected_configuration_preserved": true,
+  "postgres_schema_changed": false,
+  "backup": "/opt/redhouse/.local/deploy-optimization-20261112",
+  "rollback_prepared": true
+}
+
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful

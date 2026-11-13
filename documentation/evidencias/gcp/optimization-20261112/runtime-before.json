@@ -1,0 +1,212 @@
+{
+  "web": {
+    "id": "88cf8e6393c9f541fd49e4eb4fdabbedef56ccd039ba53614cce0545df3353ca",
+    "image": "sha256:6c84aabf40495db2b2feb5864bfb62bf64d58bb7982169107d5ffe23e9efced7",
+    "tag": "redhouse/web:uiux-quality-20261110",
+    "health": "healthy",
+    "name": "redhouse-parcial2-web-1"
+  },
+  "monitoreo-b": {
+    "id": "e923bbe3b7662143b5aaf933b204031ecde6426961d0c81a79f34c8e495ee555",
+    "image": "sha256:316780a5b51afb46e7d8bfe39cfb8180d7dda9eeffc90a3be91c430785c0e161",
+    "tag": "redhouse/monitoreo:mobile04-20261110",
+    "health": "healthy",
+    "name": "redhouse-parcial2-monitoreo-b-1"
+  },
+  "monitoreo-a": {
+    "id": "a4638d3425e3774c30fb775bd7436e287bb9e1820f8156c2107b4f4093f441bb",
+    "image": "sha256:316780a5b51afb46e7d8bfe39cfb8180d7dda9eeffc90a3be91c430785c0e161",
+    "tag": "redhouse/monitoreo:mobile04-20261110",
+    "health": "healthy",
+    "name": "redhouse-parcial2-monitoreo-a-1"
+  },
+  "documentos-a": {
+    "id": "70a98541618d627a301f3d471efb4b506f8179c49a22237644b7c90131c990d9",
+    "image": "sha256:97311cf08a60ce776892ab7010f65402d05c9118e608ad1a2271d1a694d10d09",
+    "tag": "redhouse/documentos:mobile04-20261110",
+    "health": "healthy",
+    "name": "redhouse-parcial2-documentos-a-1"
+  },
+  "documentos-b": {
+    "id": "8100589fe32a2155255221e4be02487503e2f82be41ba3a9c40713d2dff3695d",
+    "image": "sha256:97311cf08a60ce776892ab7010f65402d05c9118e608ad1a2271d1a694d10d09",
+    "tag": "redhouse/documentos:mobile04-20261110",
+    "health": "healthy",
+    "name": "redhouse-parcial2-documentos-b-1"
+  },
+  "transporte-b": {
+    "id": "463cd49e17b8749586df16e1c64004481a00aa3f6fc9dbfaeb46b9853a326ac3",
+    "image": "sha256:9e4662b3877a97de2f5bf69fc691de1f9e8bca18983ca994ffef9712f250f22b",
+    "tag": "redhouse/transporte:mobile04-20261110",
+    "health": "healthy",
+    "name": "redhouse-parcial2-transporte-b-1"
+  },
+  "transporte-a": {
+    "id": "b17f515a1cdfffed512ebf577cf0102d2c6f17648ac8ddf03c782c9e8fe723ea",
+    "image": "sha256:9e4662b3877a97de2f5bf69fc691de1f9e8bca18983ca994ffef9712f250f22b",
+    "tag": "redhouse/transporte:mobile04-20261110",
+    "health": "healthy",
+    "name": "redhouse-parcial2-transporte-a-1"
+  },
+  "inventario-b": {
+    "id": "592b1f77019749f48c3b02214c931dbb9f1a548276c2c9834cdc761f3ad54e3d",
+    "image": "sha256:4236dba0aa827f8c2351db08c897d2130876293ad49fe0feae7e09405a607f07",
+    "tag": "redhouse/inventario:mobile04-20261110",
+    "health": "healthy",
+    "name": "redhouse-parcial2-inventario-b-1"
+  },
+  "inventario-a": {
+    "id": "b665b8496b7d18eeaa4898437bc414e7a8c0897f512f448a66de8f0c40cb1aaa",
+    "image": "sha256:4236dba0aa827f8c2351db08c897d2130876293ad49fe0feae7e09405a607f07",
+    "tag": "redhouse/inventario:mobile04-20261110",
+    "health": "healthy",
+    "name": "redhouse-parcial2-inventario-a-1"
+  },
+  "priorizacion-geografia-a": {
+    "id": "c6ade9f5fe60b8760c2d451b0a4c1438ee04d139c09432ca6ee8bd8fd9da95bf",
+    "image": "sha256:a4313f3ba55dbb88d5c95c2a844251b7ceecbb4203cd5552fbb9863923fb0ac1",
+    "tag": "redhouse/priorizacion_geografia:mobile04-20261110",
+    "health": "healthy",
+    "name": "redhouse-parcial2-priorizacion-geografia-a-1"
+  },
+  "priorizacion-geografia-b": {
+    "id": "2fb49d2537e6e55bbc1f181292313545ebb3dd5e78f999a27051606031b889e8",
+    "image": "sha256:a4313f3ba55dbb88d5c95c2a844251b7ceecbb4203cd5552fbb9863923fb0ac1",
+    "tag": "redhouse/priorizacion_geografia:mobile04-20261110",
+    "health": "healthy",
+    "name": "redhouse-parcial2-priorizacion-geografia-b-1"
+  },
+  "compatibilidad-a": {
+    "id": "9667c9a6395f085f07d1f08276066f121b8f1daf4da36e674c9ed4a2ed7583d9",
+    "image": "sha256:2de5d8604bdaf06e9ce1dc1c835532dfc23ceee9b76b3ad4232735414d519960",
+    "tag": "redhouse/compatibilidad:mobile04-20261110",
+    "health": "healthy",
+    "name": "redhouse-parcial2-compatibilidad-a-1"
+  },
+  "compatibilidad-b": {
+    "id": "4d9f9b369586525202f2471f68733a17d58806e1c24960d4d0c5349d3090038b",
+    "image": "sha256:2de5d8604bdaf06e9ce1dc1c835532dfc23ceee9b76b3ad4232735414d519960",
+    "tag": "redhouse/compatibilidad:mobile04-20261110",
+    "health": "healthy",
+    "name": "redhouse-parcial2-compatibilidad-b-1"
+  },
+  "receptores-b": {
+    "id": "4cca157b795c0cd0036b3b38d9c2a2fbee8d01826fc27219e49598781885a604",
+    "image": "sha256:87fdb5f44344c0835d608f4112dbc7494b3a8192fd785a4baf4daf39641741fd",
+    "tag": "redhouse/receptores:mobile04-20261110",
+    "health": "healthy",
+    "name": "redhouse-parcial2-receptores-b-1"
+  },
+  "receptores-a": {
+    "id": "9d8bd387d2659b2e535f50b7c9323135c045d71c07216fe8a7bc5e3ccbf2d436",
+    "image": "sha256:87fdb5f44344c0835d608f4112dbc7494b3a8192fd785a4baf4daf39641741fd",
+    "tag": "redhouse/receptores:mobile04-20261110",
+    "health": "healthy",
+    "name": "redhouse-parcial2-receptores-a-1"
+  },
+  "donantes-a": {
+    "id": "9d95a9bb5d73024ebcb8a85b55e207b1e22b9fe7d49d1c07269fc477354a3ada",
+    "image": "sha256:9972f7e4b595a7231ab022eb81a2fa0b7ca78f6f3c4ff2b184508b540da8e280",
+    "tag": "redhouse/donantes:mobile04-20261110",
+    "health": "healthy",
+    "name": "redhouse-parcial2-donantes-a-1"
+  },
+  "donantes-b": {
+    "id": "8e20001ee3d8c682e10d3e861a51a06d836b58aa27c0d914598cbc741ffe23b9",
+    "image": "sha256:9972f7e4b595a7231ab022eb81a2fa0b7ca78f6f3c4ff2b184508b540da8e280",
+    "tag": "redhouse/donantes:mobile04-20261110",
+    "health": "healthy",
+    "name": "redhouse-parcial2-donantes-b-1"
+  },
+  "identidad-acceso-a": {
+    "id": "627e7b9f9c387bd00e51690104a81af19d929dfc3ac2f381412c292eab89d5e2",
+    "image": "sha256:6d6b3d804c3b833926a5bea9becb479de35307504b33dfe432957766949c269b",
+    "tag": "redhouse/identidad_acceso:mobile04-20261110",
+    "health": "healthy",
+    "name": "redhouse-parcial2-identidad-acceso-a-1"
+  },
+  "identidad-acceso-b": {
+    "id": "92d434dee44b45a33684aea9715b1cb13e9fe47af85da5d54045a4c4e0d8b365",
+    "image": "sha256:6d6b3d804c3b833926a5bea9becb479de35307504b33dfe432957766949c269b",
+    "tag": "redhouse/identidad_acceso:mobile04-20261110",
+    "health": "healthy",
+    "name": "redhouse-parcial2-identidad-acceso-b-1"
+  },
+  "custodia-b": {
+    "id": "ddca44e958a4ca306d19fe6655f45b82271f278a7cc11770b456f3811d9843c9",
+    "image": "sha256:794480756624a8c70fd478090cff1c9e49a2517d5c84a098349aba529ef59198",
+    "tag": "redhouse/custodia:mobile04-20261110",
+    "health": "healthy",
+    "name": "redhouse-parcial2-custodia-b-1"
+  },
+  "custodia-a": {
+    "id": "29941a257ef029f57c9f443e2c6ab649f2531d910276630eb62a19e3c2e3626f",
+    "image": "sha256:794480756624a8c70fd478090cff1c9e49a2517d5c84a098349aba529ef59198",
+    "tag": "redhouse/custodia:mobile04-20261110",
+    "health": "healthy",
+    "name": "redhouse-parcial2-custodia-a-1"
+  },
+  "alertas-a": {
+    "id": "e2fdee0dfc4cdf271e07856e91735522c1e79a1c988d33a8c0b1a4fbda6c7db4",
+    "image": "sha256:5f03cd4895ab1d445bc217b8c34a28571567794c9b7f3099bac9fe2de3782c4d",
+    "tag": "redhouse/alertas:mobile04-20261110",
+    "health": "healthy",
+    "name": "redhouse-parcial2-alertas-a-1"
+  },
+  "alertas-b": {
+    "id": "6c2685e08a6c598651b02986d29043e0438651c8f74e89f035527ecec4a424b7",
+    "image": "sha256:5f03cd4895ab1d445bc217b8c34a28571567794c9b7f3099bac9fe2de3782c4d",
+    "tag": "redhouse/alertas:mobile04-20261110",
+    "health": "healthy",
+    "name": "redhouse-parcial2-alertas-b-1"
+  },
+  "auditoria-b": {
+    "id": "54c3eb1fb16fcead0555279333b1d2d7f4b57954018ee9bfd80e24f038cb35d5",
+    "image": "sha256:a198eada38fd376b0cc13fa5abdcdcdba30e26e01b913bb7f9208dec912e10a5",
+    "tag": "redhouse/auditoria:mobile04-20261110",
+    "health": "healthy",
+    "name": "redhouse-parcial2-auditoria-b-1"
+  },
+  "auditoria-a": {
+    "id": "7b3dbc6f6af5a1990fb25f93a29a1ff7c201ba7385d0eb02af4f5c72e7a0edc7",
+    "image": "sha256:a198eada38fd376b0cc13fa5abdcdcdba30e26e01b913bb7f9208dec912e10a5",
+    "tag": "redhouse/auditoria:mobile04-20261110",
+    "health": "healthy",
+    "name": "redhouse-parcial2-auditoria-a-1"
+  },
+  "clamav": {
+    "id": "11a4e9a2c22c773bcc8b996fd44c450fddb42009269c9fbdf5000462f98e509d",
+    "image": "sha256:982e28f90061d0e66eb03276419f589a47c9fa601e985e472fc2f6c64b497ca0",
+    "tag": "clamav/clamav@sha256:982e28f90061d0e66eb03276419f589a47c9fa601e985e472fc2f6c64b497ca0",
+    "health": "healthy",
+    "name": "redhouse-parcial2-clamav-1"
+  },
+  "gateway": {
+    "id": "6aed5d66b48d9f4d261d7e82e893ef7d1185a49469d5045804bc107da525d592",
+    "image": "sha256:a8b39bd9cf0f83869a2162827a0caf6137ddf759d50a171451b335cecc87d236",
+    "tag": "nginx:1.28-alpine",
+    "health": "healthy",
+    "name": "redhouse-parcial2-gateway-1"
+  },
+  "mongodb": {
+    "id": "fc9b64fad1e885c6fce371ffc7f916f478326d6143a8ecd999c8c837de9e6325",
+    "image": "sha256:27c0bc271b3c2fe8e18d5aa32c6aa5d891e5b9aceda5258e261ce59b2c343ef4",
+    "tag": "redhouse/mongodb-health:8.0",
+    "health": "healthy",
+    "name": "redhouse-parcial2-mongodb-1"
+  },
+  "redis": {
+    "id": "cf78afde0881d10a8c7d6e23a3eb7155fc32b7dea1a665b8ce01bea875ba904a",
+    "image": "sha256:4fa24486b8bcca8eec45ee0eb166edc674795e53a2b53d1a9ef263eecebaac85",
+    "tag": "redis:7.4-bookworm",
+    "health": "healthy",
+    "name": "redhouse-parcial2-redis-1"
+  },
+  "postgres": {
+    "id": "3b79ea1f9e1853f16d1e28b53f3e9363e0de0d20f9c74be213db2bf2498e65e2",
+    "image": "sha256:5a05f61a534e50e679d27fb45953afec7821f2ffc2aa6c738b94515ca0891ac2",
+    "tag": "postgres:14-bookworm",
+    "health": "healthy",
+    "name": "redhouse-parcial2-postgres-1"
+  }
+}

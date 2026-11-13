@@ -1,0 +1,51 @@
+......F..F....F....                                                      [100%]
+=================================== FAILURES ===================================
+________ test_sync_commands_idempotency_scope_versions_and_cursor[xml] _________
+apps/services/tests/test_final_tracking.py:261: in test_sync_commands_idempotency_scope_versions_and_cursor
+    assert (
+E   AssertionError: assert 503 == 409
+E    +  where 503 = <Response [503]>.status_code
+E    +    where <Response [503]> = request('transporte', 'POST', '/api/v1/sync/commands', user='transport1', data={'id': 'b4e04221-e73b-410e-b3b9-ae98eb10f2cb', 'shipment_id': 'cf3e729b-3826-4d88-b798-c903572cbcf8', 'device_id': '570abe91-7be8-4040-9857-64351df6ec7e', 'expected_version': 2, ...})
+E    +      where request = <tests.conftest.Platform object at 0x10aed33e0>.request
+E    +      and   {'id': 'b4e04221-e73b-410e-b3b9-ae98eb10f2cb', 'shipment_id': 'cf3e729b-3826-4d88-b798-c903572cbcf8', 'device_id': '570abe91-7be8-4040-9857-64351df6ec7e', 'expected_version': 2, ...} = dict({'id': 'b4e04221-e73b-410e-b3b9-ae98eb10f2cb', 'shipment_id': 'cf3e729b-3826-4d88-b798-c903572cbcf8', 'device_id': '570abe91-7be8-4040-9857-64351df6ec7e', 'expected_version': 2, ...}, captured_at='2026-11-12T05:26:34.077618+00:00')
+E    +        where '2026-11-12T05:26:34.077618+00:00' = iso(minutes=-1)
+------------------------------ Captured log call -------------------------------
+WARNING  redhouse.database:db.py:82 database_unavailable service=transporte type=ConnectionTimeout sqlstate=None
+_______ test_tracking_dependency_failure_preserves_durable_cursor[redis] _______
+apps/services/tests/test_final_tracking.py:444: in test_tracking_dependency_failure_preserves_durable_cursor
+    p.drain()
+apps/services/tests/conftest.py:70: in drain
+    result = dispatch(200)
+             ^^^^^^^^^^^^^
+apps/services/redhouse/events.py:125: in dispatch
+    with transaction() as conn:
+         ^^^^^^^^^^^^^
+/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/contextlib.py:137: in __enter__
+    return next(self.gen)
+           ^^^^^^^^^^^^^^
+apps/services/redhouse/db.py:88: in transaction
+    raise APIError(
+E   redhouse.errors.APIError: Almacenamiento temporalmente inaccesible.
+------------------------------ Captured log call -------------------------------
+INFO     werkzeug:_internal.py:97 127.0.0.1 - - [12/Nov/2026 02:58:26] "GET /ws/v1/tracking/json HTTP/1.1" 200 -
+ERROR    websocket:_logging.py:92 close status: 1013
+INFO     werkzeug:_internal.py:97 127.0.0.1 - - [12/Nov/2026 02:58:26] "GET /ws/v1/tracking/json HTTP/1.1" 200 -
+WARNING  redhouse.database:db.py:82 database_unavailable service=auditoria type=ConnectionTimeout sqlstate=None
+_________ test_custody_scans_receipt_sync_and_distinct_final_use[json] _________
+apps/services/tests/test_final_tracking.py:544: in test_custody_scans_receipt_sync_and_distinct_final_use
+    assert (
+E   AssertionError: assert 401 == 409
+E    +  where 401 = <Response [401]>.status_code
+E    +    where <Response [401]> = request('transporte', 'POST', '/api/v1/shipments/2675f9ff-09da-430d-9a00-a958e962c7e7/transitions', user='operator2', data={'human_confirmation': True, 'reason': 'Verificación autorizada con datos sintéticos', 'version': 5, 'state': 'ACCEPTED', ...})
+E    +      where request = <tests.conftest.Platform object at 0x10aed33e0>.request
+=============================== warnings summary ===============================
+tests/test_final_tracking.py::test_concurrent_emitters_subscribers_and_delayed_consumer
+  tests/test_final_tracking.py:613: PytestWarning: record_property is incompatible with junit_family 'xunit2' (use 'legacy' or 'xunit1')
+    def test_concurrent_emitters_subscribers_and_delayed_consumer(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED apps/services/tests/test_final_tracking.py::test_sync_commands_idempotency_scope_versions_and_cursor[xml]
+FAILED apps/services/tests/test_final_tracking.py::test_tracking_dependency_failure_preserves_durable_cursor[redis]
+FAILED apps/services/tests/test_final_tracking.py::test_custody_scans_receipt_sync_and_distinct_final_use[json]
+3 failed, 16 passed, 1 warning in 247.71s (0:04:07)

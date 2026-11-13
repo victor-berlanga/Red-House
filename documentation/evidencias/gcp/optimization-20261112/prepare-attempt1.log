@@ -1,0 +1,50 @@
+BUILD identidad-acceso
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 DONE 0.0s
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile:
+#1 transferring dockerfile: 170B done
+#1 DONE 0.2s
+
+#2 [internal] load metadata for docker.io/redhouse/identidad_acceso:optimization-before-20261112
+#2 DONE 0.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [1/2] FROM docker.io/redhouse/identidad_acceso:optimization-before-20261112@sha256:6d6b3d804c3b833926a5bea9becb479de35307504b33dfe432957766949c269b
+#4 resolve docker.io/redhouse/identidad_acceso:optimization-before-20261112@sha256:6d6b3d804c3b833926a5bea9becb479de35307504b33dfe432957766949c269b 0.0s done
+#4 DONE 0.1s
+
+#5 [internal] load build context
+#5 transferring context: 3.26kB 0.0s done
+#5 DONE 0.0s
+
+#6 [2/2] COPY payload/ /app/
+#6 DONE 0.4s
+
+#7 exporting to image
+#7 exporting layers 0.1s done
+#7 exporting manifest sha256:edd448d618fa697e18b2c3960ebf587891d47258bec528d2b5a40d254038255e 0.0s done
+#7 exporting config sha256:8a1c4122b47339440e3759e60c1419de3dbead5640a0541b40b95dfc9891c803 0.0s done
+#7 exporting attestation manifest sha256:bc42eba26810415483b413622f4f872fb1152b514a36f13fe1d9f98aea4f2f90 0.1s done
+#7 exporting manifest list sha256:b2473980687fc1d4c04813ea1f86f315a512c73463a414ad8595293d14d0b202
+#7 exporting manifest list sha256:b2473980687fc1d4c04813ea1f86f315a512c73463a414ad8595293d14d0b202 0.0s done
+#7 naming to docker.io/redhouse/identidad_acceso:optimization-20261112 done
+#7 unpacking to docker.io/redhouse/identidad_acceso:optimization-20261112 0.0s done
+#7 DONE 0.4s
+Verified image payload
+Traceback (most recent call last):
+  File "/tmp/redhouse-optimization-20261112/deploy.py", line 231, in <module>
+    {'prepare': prepare, 'index': index, 'rollout': rollout, 'rollback': rollback}[sys.argv[1]]()
+  File "/tmp/redhouse-optimization-20261112/deploy.py", line 126, in prepare
+    assert all(image['Config'][key] == old['Config'][key]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/redhouse-optimization-20261112/deploy.py", line 126, in <genexpr>
+    assert all(image['Config'][key] == old['Config'][key]
+               ~~~~~~~~~~~~~~~^^^^^
+KeyError: 'Cmd'

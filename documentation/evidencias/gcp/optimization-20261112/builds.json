@@ -1,0 +1,59 @@
+{
+  "identidad-acceso": {
+    "tag": "redhouse/identidad_acceso:optimization-20261112",
+    "id": "sha256:28bfc47da3281d41f7fac4f020be2af00c291a9f72d0404f956751f3c760b375",
+    "base": "sha256:6d6b3d804c3b833926a5bea9becb479de35307504b33dfe432957766949c269b",
+    "files": {
+      "apps/services/redhouse/cache.py": "e450aa4c3cc4579d00a58a88a5580b28f1e62c0a4f8ff2a1036e91ba0b72b7b3"
+    }
+  },
+  "donantes": {
+    "tag": "redhouse/donantes:optimization-20261112",
+    "id": "sha256:31628dd5798e8c501e2b2bde4e545c5271a4451577aa41b289ce03c36938494a",
+    "base": "sha256:9972f7e4b595a7231ab022eb81a2fa0b7ca78f6f3c4ff2b184508b540da8e280",
+    "files": {
+      "apps/services/redhouse/cache.py": "e450aa4c3cc4579d00a58a88a5580b28f1e62c0a4f8ff2a1036e91ba0b72b7b3",
+      "apps/services/ms_donantes/agenda.py": "475062f7c120eecef359f854df7f749c80d7525bf36c5391f6db76aed3a0ac64"
+    }
+  },
+  "inventario": {
+    "tag": "redhouse/inventario:optimization-20261112",
+    "id": "sha256:47b210bad7988755ad39847764d35417198cdf9a1a5d36ce2cbe7ef249fd3418",
+    "base": "sha256:4236dba0aa827f8c2351db08c897d2130876293ad49fe0feae7e09405a607f07",
+    "files": {
+      "apps/services/redhouse/cache.py": "e450aa4c3cc4579d00a58a88a5580b28f1e62c0a4f8ff2a1036e91ba0b72b7b3"
+    }
+  },
+  "transporte": {
+    "tag": "redhouse/transporte:optimization-20261112",
+    "id": "sha256:570d4fbda4882e975190f43650747a888bf05db300c02ccadc4a42fb6fc4ef01",
+    "base": "sha256:9e4662b3877a97de2f5bf69fc691de1f9e8bca18983ca994ffef9712f250f22b",
+    "files": {
+      "apps/services/redhouse/cache.py": "e450aa4c3cc4579d00a58a88a5580b28f1e62c0a4f8ff2a1036e91ba0b72b7b3",
+      "apps/services/ms_transporte/tracking_socket.py": "9b5d5b6c83039c502b913b1641502d345acde493467c71de4df4f10ff8046841"
+    }
+  },
+  "monitoreo": {
+    "tag": "redhouse/monitoreo:optimization-20261112",
+    "id": "sha256:e61a99669e6a59e3fece583e9172bf62b04c82e09c547c3c7d74c5b62ca23ea5",
+    "base": "sha256:316780a5b51afb46e7d8bfe39cfb8180d7dda9eeffc90a3be91c430785c0e161",
+    "files": {
+      "apps/services/redhouse/cache.py": "e450aa4c3cc4579d00a58a88a5580b28f1e62c0a4f8ff2a1036e91ba0b72b7b3",
+      "apps/services/servicio_monitoreo/routes.py": "4f8e31e71e661145bc97378918bac99e9982516b2a52fe05c36efb7442f7e03f"
+    }
+  },
+  "web": {
+    "tag": "redhouse/web:optimization-20261112",
+    "id": "sha256:e9b2fb40561ff3c0a4dd28e877bf227a5d967dd0097ee7ddc6d23c9a6c001f71",
+    "base": "sha256:6c84aabf40495db2b2feb5864bfb62bf64d58bb7982169107d5ffe23e9efced7",
+    "files": {
+      "apps/services/ms_donantes/agenda.py": "475062f7c120eecef359f854df7f749c80d7525bf36c5391f6db76aed3a0ac64",
+      "apps/services/ms_transporte/tracking_socket.py": "9b5d5b6c83039c502b913b1641502d345acde493467c71de4df4f10ff8046841",
+      "apps/services/redhouse/cache.py": "e450aa4c3cc4579d00a58a88a5580b28f1e62c0a4f8ff2a1036e91ba0b72b7b3",
+      "apps/services/scripts/migrate_documents.py": "28ace1400f0e8f5decb5c69c8c554bd6bd42cbd5de3f7c47ae685a8e17875807",
+      "apps/services/servicio_monitoreo/routes.py": "4f8e31e71e661145bc97378918bac99e9982516b2a52fe05c36efb7442f7e03f",
+      "apps/web/src/integration/__init__.py": "cb0d8e00c94404fa8a3208450bd84bd937a0dd459ec2b80c24646ca21f7de4fc",
+      "apps/web/src/presentation/templates/integration/dashboard.html": "99fa99104fc01c5d9c59447a6fc2142e79eef2e010e83a8473770e812f06bbfe"
+    }
+  }
+}

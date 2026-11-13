@@ -1,0 +1,14 @@
+{
+  "checked": "2026-11-12",
+  "ios": {
+    "model": "iPhone 16 Pro (iPhone17,1)",
+    "state": "unavailable",
+    "command": "xcrun devicectl list devices"
+  },
+  "android": {
+    "attached_devices": 0,
+    "command": "/tmp/redhouse-sdk/platform-tools/adb devices"
+  },
+  "device_tests_executed": false,
+  "simulator_runtime_downloaded": false
+}

@@ -1,0 +1,56 @@
+{
+  "local": {
+    "changed": 50,
+    "password_hashes_verified": 50,
+    "audit_events": 50,
+    "sessions_revoked": 244,
+    "active_sessions_remaining": 0,
+    "batch": "898af281-0ec8-41b8-a5ac-1d6afbd05740"
+  },
+  "remote": {
+    "changed": 37,
+    "password_hashes_verified": 37,
+    "audit_events": 37,
+    "sessions_revoked": 336,
+    "active_sessions_remaining": 0,
+    "batch": "21875a4a-1ed9-43d5-944e-8791aad77918"
+  },
+  "https": [
+    {
+      "username": "donor1",
+      "login": 200,
+      "profile": 200,
+      "logout": 200
+    },
+    {
+      "username": "transport1",
+      "login": 200,
+      "profile": 200,
+      "logout": 200
+    },
+    {
+      "username": "operator1",
+      "login": 200,
+      "profile": 200,
+      "logout": 200
+    },
+    {
+      "username": "admin1",
+      "status": 401,
+      "code": "mfa_required",
+      "mfa_preserved": true
+    }
+  ],
+  "date": "2026-11-11",
+  "local_verification": "Persistencia SQL, hash, version, rol, institucion, estado, auditoria y revocacion Redis comprobados.",
+  "incidents": [
+    "Rechazo SSH inicial resuelto mediante clave temporal nueva.",
+    "Base local detenida: dependencias existentes iniciadas conservando datos.",
+    "Primer intento local revertido por ausencia de recovery_tokens en esquema antiguo; repeticion compatible aprobada.",
+    "Docker cp rechazado por rootfs de solo lectura; operacion ejecutada en memoria mediante docker exec."
+  ],
+  "ssh_cleanup": {
+    "temporary_key_removed": true,
+    "other_keys_unchanged": true
+  }
+}

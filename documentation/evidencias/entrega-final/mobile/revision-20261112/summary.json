@@ -1,0 +1,141 @@
+{
+  "reviewed_at_utc": "2026-11-12T16:13:59.101748+00:00",
+  "base_commit": "9ab04c45699bac945601902694eb76f906f6fcd1",
+  "dirty_worktree_preserved": true,
+  "status": "PARTIAL_NOT_CLOSED",
+  "command": "GRADLE_USER_HOME=/private/tmp/redhouse-gradle-home JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk-17.jdk/Contents/Home ./apps/mobile/gradlew -p apps/mobile :composeApp:testDebugUnitTest :composeApp:assembleDebug :composeApp:compileKotlinIosArm64 --offline --max-workers=2 --rerun-tasks",
+  "build_exit_code": 0,
+  "build_log": "build.log",
+  "sandbox_attempt": "sandbox-attempt.log",
+  "totals": {
+    "tests": 29,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 2
+  },
+  "passed": 27,
+  "suites": [
+    {
+      "file": "junit/TEST-org.redhouse.mobile.FormValidationTest.xml",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "skipped_cases": []
+    },
+    {
+      "file": "junit/TEST-org.redhouse.mobile.GatewayConfigurationTest.xml",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "skipped_cases": []
+    },
+    {
+      "file": "junit/TEST-org.redhouse.mobile.ObservationQueueTest.xml",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "skipped_cases": []
+    },
+    {
+      "file": "junit/TEST-org.redhouse.mobile.OperationalContextTest.xml",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "skipped_cases": []
+    },
+    {
+      "file": "junit/TEST-org.redhouse.mobile.ParsingCostTest.xml",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "skipped_cases": []
+    },
+    {
+      "file": "junit/TEST-org.redhouse.mobile.PhotoHashTest.xml",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "skipped_cases": []
+    },
+    {
+      "file": "junit/TEST-org.redhouse.mobile.PresentationTest.xml",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "skipped_cases": []
+    },
+    {
+      "file": "junit/TEST-org.redhouse.mobile.QueueConcurrencyTest.xml",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "skipped_cases": []
+    },
+    {
+      "file": "junit/TEST-org.redhouse.mobile.QueueCostTest.xml",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "skipped_cases": []
+    },
+    {
+      "file": "junit/TEST-org.redhouse.mobile.RealServicesTest.xml",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 2,
+      "skipped_cases": [
+        "donorBookingRescheduleCancelAndScope",
+        "transportJourneyAgainstRealServices"
+      ]
+    },
+    {
+      "file": "junit/TEST-org.redhouse.mobile.ResponseContractsTest.xml",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "skipped_cases": []
+    },
+    {
+      "file": "junit/TEST-org.redhouse.mobile.SessionTest.xml",
+      "tests": 8,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "skipped_cases": []
+    },
+    {
+      "file": "junit/TEST-org.redhouse.mobile.TrackingRecoveryTest.xml",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "skipped_cases": []
+    }
+  ],
+  "apk": {
+    "path": "apps/mobile/composeApp/build/outputs/apk/debug/composeApp-debug.apk",
+    "bytes": 13824721,
+    "sha256": "b074249616f03463078bccf67963940dc819891fc3fe8568c9c68e5106616e19"
+  },
+  "ios_scope": "Kotlin iosArm64 compilation only; no new Swift linking, signing, installation or execution",
+  "devices": {
+    "android": "adb devices -l: zero devices",
+    "ios": "iPhone 16 Pro: unavailable; device identifiers omitted"
+  },
+  "real_services_integration": "Two tests skipped: REDHOUSE_MOBILE_LAB unavailable. Historical real-service runs were inspected, not repeated.",
+  "desktop_directory_present": false,
+  "native_instrumentation_executed": false,
+  "production_or_external_storage_modified": false,
+  "implementation_files_modified_by_review": false
+}

@@ -1,0 +1,1134 @@
+{
+  "rows": 786084,
+  "warmup": 1,
+  "repetitions": 5,
+  "before": {
+    "milliseconds": [
+      1179.8027430195361,
+      1099.0192930330522,
+      1188.907436968293,
+      1142.3592090141028,
+      1235.5535789974965
+    ],
+    "median_ms": 1179.8027430195361
+  },
+  "after": {
+    "milliseconds": [
+      6.6904930281452835,
+      6.008347030729055,
+      7.099348993506283,
+      7.551111048087478,
+      8.363236032892019
+    ],
+    "median_ms": 7.099348993506283
+  },
+  "plans": {
+    "before": {
+      "explainVersion": "2",
+      "queryPlanner": {
+        "namespace": "rh_monitoreo.events",
+        "parsedQuery": {
+          "$and": [
+            {
+              "source": {
+                "$eq": "monitoreo"
+              }
+            },
+            {
+              "checked_at": {
+                "$exists": true
+              }
+            }
+          ]
+        },
+        "indexFilterSet": false,
+        "queryHash": "8C926A85",
+        "planCacheShapeHash": "8C926A85",
+        "planCacheKey": "437C2358",
+        "optimizationTimeMillis": 0,
+        "optimizedPipeline": true,
+        "maxIndexedOrSolutionsReached": false,
+        "maxIndexedAndSolutionsReached": false,
+        "maxScansToExplodeReached": false,
+        "prunedSimilarIndexes": false,
+        "winningPlan": {
+          "isCached": false,
+          "queryPlan": {
+            "stage": "GROUP",
+            "planNodeId": 3,
+            "inputStage": {
+              "stage": "FETCH",
+              "planNodeId": 2,
+              "filter": {
+                "checked_at": {
+                  "$exists": true
+                }
+              },
+              "inputStage": {
+                "stage": "IXSCAN",
+                "planNodeId": 1,
+                "keyPattern": {
+                  "source": 1,
+                  "checked_at": -1,
+                  "service": 1
+                },
+                "indexName": "monitor_window",
+                "isMultiKey": false,
+                "multiKeyPaths": {
+                  "source": [],
+                  "checked_at": [],
+                  "service": []
+                },
+                "isUnique": false,
+                "isSparse": false,
+                "isPartial": false,
+                "indexVersion": 2,
+                "direction": "forward",
+                "indexBounds": {
+                  "source": [
+                    "[\"monitoreo\", \"monitoreo\"]"
+                  ],
+                  "checked_at": [
+                    "[MaxKey, MinKey]"
+                  ],
+                  "service": [
+                    "[MinKey, MaxKey]"
+                  ]
+                }
+              }
+            }
+          },
+          "slotBasedPlan": {
+            "slots": "$$RESULT=s13 env: { s5 = {\"source\" : 1, \"checked_at\" : -1, \"service\" : 1} }",
+            "stages": "[3] project [s13 = newBsonObj(\"_id\", s11, \"sample\", s12)] \n[3] group [s11] [s12 = first((s6 ?: null))] spillSlots[s10] mergingExprs[first((s10 ?: null))] \n[3] project [s11 = (s8 ?: null)] \n[2] filter {exists(s9)} \n[2] nlj inner [] [s1, s2, s3, s4, s5] \n    left \n        [1] ixseek KS(3C6D6F6E69746F72656F000F0A0104) KS(3C6D6F6E69746F72656F00F5F0FE04) s4 s1 s2 s3 [] @\"408b5ab9-fb5e-470d-b891-1f410bf1b06b\" @\"monitor_window\" true \n    right \n        [2] limit 1ll \n        [2] seek s1 s6 s7 s2 s3 s4 s5 none none [s8 = service, s9 = checked_at] @\"408b5ab9-fb5e-470d-b891-1f410bf1b06b\" true false \n"
+          }
+        },
+        "rejectedPlans": []
+      },
+      "executionStats": {
+        "executionSuccess": true,
+        "nReturned": 12,
+        "executionTimeMillis": 1261,
+        "totalKeysExamined": 786084,
+        "totalDocsExamined": 786084,
+        "executionStages": {
+          "stage": "project",
+          "planNodeId": 3,
+          "nReturned": 12,
+          "executionTimeMillisEstimate": 1251,
+          "opens": 1,
+          "closes": 1,
+          "saveState": 79,
+          "restoreState": 79,
+          "isEOF": 1,
+          "projections": {
+            "13": "newBsonObj(\"_id\", s11, \"sample\", s12) "
+          },
+          "inputStage": {
+            "stage": "group",
+            "planNodeId": 3,
+            "nReturned": 12,
+            "executionTimeMillisEstimate": 1251,
+            "opens": 1,
+            "closes": 1,
+            "saveState": 79,
+            "restoreState": 79,
+            "isEOF": 1,
+            "groupBySlots": [
+              11
+            ],
+            "expressions": {
+              "12": "first((s6 ?: null)) ",
+              "initExprs": {
+                "12": null
+              }
+            },
+            "mergingExprs": {
+              "10": "first((s10 ?: null)) "
+            },
+            "usedDisk": false,
+            "spills": 0,
+            "spilledBytes": 0,
+            "spilledRecords": 0,
+            "spilledDataStorageSize": 0,
+            "inputStage": {
+              "stage": "project",
+              "planNodeId": 3,
+              "nReturned": 786084,
+              "executionTimeMillisEstimate": 1074,
+              "opens": 1,
+              "closes": 1,
+              "saveState": 79,
+              "restoreState": 79,
+              "isEOF": 1,
+              "projections": {
+                "11": "(s8 ?: null) "
+              },
+              "inputStage": {
+                "stage": "filter",
+                "planNodeId": 2,
+                "nReturned": 786084,
+                "executionTimeMillisEstimate": 1063,
+                "opens": 1,
+                "closes": 1,
+                "saveState": 79,
+                "restoreState": 79,
+                "isEOF": 1,
+                "numTested": 786084,
+                "filter": "exists(s9) ",
+                "inputStage": {
+                  "stage": "nlj",
+                  "planNodeId": 2,
+                  "nReturned": 786084,
+                  "executionTimeMillisEstimate": 1011,
+                  "opens": 1,
+                  "closes": 1,
+                  "saveState": 79,
+                  "restoreState": 79,
+                  "isEOF": 1,
+                  "totalDocsExamined": 786084,
+                  "totalKeysExamined": 786084,
+                  "collectionScans": 0,
+                  "collectionSeeks": 786084,
+                  "indexScans": 0,
+                  "indexSeeks": 1,
+                  "indexesUsed": [
+                    "monitor_window"
+                  ],
+                  "innerOpens": 786084,
+                  "innerCloses": 1,
+                  "outerProjects": [],
+                  "outerCorrelated": [
+                    1,
+                    2,
+                    3,
+                    4,
+                    5
+                  ],
+                  "outerStage": {
+                    "stage": "ixseek",
+                    "planNodeId": 1,
+                    "nReturned": 786084,
+                    "executionTimeMillisEstimate": 209,
+                    "opens": 1,
+                    "closes": 1,
+                    "saveState": 79,
+                    "restoreState": 79,
+                    "isEOF": 1,
+                    "indexName": "monitor_window",
+                    "keysExamined": 786084,
+                    "seeks": 1,
+                    "numReads": 786085,
+                    "indexKeySlot": 4,
+                    "recordIdSlot": 1,
+                    "snapshotIdSlot": 2,
+                    "indexIdentSlot": 3,
+                    "outputSlots": [],
+                    "indexKeysToInclude": "00000000000000000000000000000000",
+                    "seekKeyLow": "KS(3C6D6F6E69746F72656F000F0A0104) ",
+                    "seekKeyHigh": "KS(3C6D6F6E69746F72656F00F5F0FE04) "
+                  },
+                  "innerStage": {
+                    "stage": "limit",
+                    "planNodeId": 2,
+                    "nReturned": 786084,
+                    "executionTimeMillisEstimate": 763,
+                    "opens": 786084,
+                    "closes": 1,
+                    "saveState": 79,
+                    "restoreState": 79,
+                    "isEOF": 1,
+                    "limit": 1,
+                    "inputStage": {
+                      "stage": "seek",
+                      "planNodeId": 2,
+                      "nReturned": 786084,
+                      "executionTimeMillisEstimate": 702,
+                      "opens": 786084,
+                      "closes": 1,
+                      "saveState": 79,
+                      "restoreState": 79,
+                      "isEOF": 0,
+                      "numReads": 786084,
+                      "recordSlot": 6,
+                      "recordIdSlot": 7,
+                      "seekRecordIdSlot": 1,
+                      "snapshotIdSlot": 2,
+                      "indexIdentSlot": 3,
+                      "indexKeySlot": 4,
+                      "indexKeyPatternSlot": 5,
+                      "scanFieldNames": [
+                        "service",
+                        "checked_at"
+                      ],
+                      "scanFieldSlots": [
+                        8,
+                        9
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "queryShapeHash": "A01C2745815AB7E5E2DB591BA562A8D2E0B5850AB40EFFECC8EBF5FCD506EB75",
+      "command": {
+        "aggregate": "events",
+        "pipeline": [
+          {
+            "$match": {
+              "source": "monitoreo",
+              "checked_at": {
+                "$exists": true
+              }
+            }
+          },
+          {
+            "$sort": {
+              "checked_at": -1
+            }
+          },
+          {
+            "$group": {
+              "_id": "$service",
+              "sample": {
+                "$first": "$$ROOT"
+              }
+            }
+          }
+        ],
+        "cursor": {},
+        "$db": "rh_monitoreo"
+      },
+      "serverInfo": {
+        "host": "Victors-MacBook-Air.local",
+        "port": 64462,
+        "version": "8.0.17",
+        "gitVersion": "b20e43625b72f4bb43cc15107f80ac966ae13b6d"
+      },
+      "serverParameters": {
+        "internalQueryFacetBufferSizeBytes": 104857600,
+        "internalQueryFacetMaxOutputDocSizeBytes": 104857600,
+        "internalLookupStageIntermediateDocumentMaxSizeBytes": 104857600,
+        "internalDocumentSourceGroupMaxMemoryBytes": 104857600,
+        "internalQueryMaxBlockingSortMemoryUsageBytes": 104857600,
+        "internalQueryProhibitBlockingMergeOnMongoS": 0,
+        "internalQueryMaxAddToSetBytes": 104857600,
+        "internalDocumentSourceSetWindowFieldsMaxMemoryBytes": 104857600,
+        "internalQueryFrameworkControl": "trySbeRestricted",
+        "internalQueryPlannerIgnoreIndexWithCollationForRegex": 1
+      },
+      "ok": 1.0
+    },
+    "rejected_group": {
+      "explainVersion": "2",
+      "queryPlanner": {
+        "namespace": "rh_monitoreo.events",
+        "parsedQuery": {
+          "$and": [
+            {
+              "source": {
+                "$eq": "monitoreo"
+              }
+            },
+            {
+              "checked_at": {
+                "$exists": true
+              }
+            }
+          ]
+        },
+        "indexFilterSet": false,
+        "queryHash": "756489E3",
+        "planCacheShapeHash": "756489E3",
+        "planCacheKey": "23E5284D",
+        "optimizationTimeMillis": 3,
+        "optimizedPipeline": true,
+        "maxIndexedOrSolutionsReached": false,
+        "maxIndexedAndSolutionsReached": false,
+        "maxScansToExplodeReached": false,
+        "prunedSimilarIndexes": false,
+        "winningPlan": {
+          "isCached": false,
+          "queryPlan": {
+            "stage": "GROUP",
+            "planNodeId": 3,
+            "inputStage": {
+              "stage": "FETCH",
+              "planNodeId": 2,
+              "filter": {
+                "$and": [
+                  {
+                    "source": {
+                      "$eq": "monitoreo"
+                    }
+                  },
+                  {
+                    "checked_at": {
+                      "$exists": true
+                    }
+                  }
+                ]
+              },
+              "inputStage": {
+                "stage": "IXSCAN",
+                "planNodeId": 1,
+                "keyPattern": {
+                  "service": 1,
+                  "checked_at": -1,
+                  "event_id": 1
+                },
+                "indexName": "monitor_latest",
+                "isMultiKey": false,
+                "multiKeyPaths": {
+                  "service": [],
+                  "checked_at": [],
+                  "event_id": []
+                },
+                "isUnique": false,
+                "isSparse": false,
+                "isPartial": true,
+                "indexVersion": 2,
+                "direction": "forward",
+                "indexBounds": {
+                  "service": [
+                    "[MinKey, MaxKey]"
+                  ],
+                  "checked_at": [
+                    "[MaxKey, MinKey]"
+                  ],
+                  "event_id": [
+                    "[MinKey, MaxKey]"
+                  ]
+                }
+              }
+            }
+          },
+          "slotBasedPlan": {
+            "slots": "$$RESULT=s14 env: { s5 = {\"service\" : 1, \"checked_at\" : -1, \"event_id\" : 1} }",
+            "stages": "[3] project [s14 = newBsonObj(\"_id\", s12, \"sample\", s13)] \n[3] group [s12] [s13 = first((s6 ?: null))] spillSlots[s11] mergingExprs[first((s11 ?: null))] \n[3] project [s12 = (s8 ?: null)] \n[2] filter {(traverseF(s10, lambda(l3.0) { ((move(l3.0) == \"monitoreo\") ?: false) }, false) && exists(s9))} \n[2] nlj inner [] [s1, s2, s3, s4, s5] \n    left \n        [1] ixseek KS(0A0F0A0104) KS(F0F5F0FE04) s4 s1 s2 s3 lowPriority [] @\"408b5ab9-fb5e-470d-b891-1f410bf1b06b\" @\"monitor_latest\" true \n    right \n        [2] limit 1ll \n        [2] seek s1 s6 s7 s2 s3 s4 s5 none none [s8 = service, s9 = checked_at, s10 = source] @\"408b5ab9-fb5e-470d-b891-1f410bf1b06b\" true false \n"
+          }
+        },
+        "rejectedPlans": [
+          {
+            "isCached": false,
+            "stage": "SORT",
+            "sortPattern": {
+              "service": 1,
+              "checked_at": -1,
+              "event_id": 1
+            },
+            "memLimit": 104857600,
+            "type": "simple",
+            "inputStage": {
+              "stage": "FETCH",
+              "filter": {
+                "checked_at": {
+                  "$exists": true
+                }
+              },
+              "inputStage": {
+                "stage": "IXSCAN",
+                "keyPattern": {
+                  "source": 1,
+                  "checked_at": -1,
+                  "service": 1
+                },
+                "indexName": "monitor_window",
+                "isMultiKey": false,
+                "multiKeyPaths": {
+                  "source": [],
+                  "checked_at": [],
+                  "service": []
+                },
+                "isUnique": false,
+                "isSparse": false,
+                "isPartial": false,
+                "indexVersion": 2,
+                "direction": "forward",
+                "indexBounds": {
+                  "source": [
+                    "[\"monitoreo\", \"monitoreo\"]"
+                  ],
+                  "checked_at": [
+                    "[MaxKey, MinKey]"
+                  ],
+                  "service": [
+                    "[MinKey, MaxKey]"
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      },
+      "executionStats": {
+        "executionSuccess": true,
+        "nReturned": 12,
+        "executionTimeMillis": 1618,
+        "totalKeysExamined": 786084,
+        "totalDocsExamined": 786084,
+        "executionStages": {
+          "stage": "project",
+          "planNodeId": 3,
+          "nReturned": 12,
+          "executionTimeMillisEstimate": 1610,
+          "opens": 1,
+          "closes": 1,
+          "saveState": 103,
+          "restoreState": 103,
+          "isEOF": 1,
+          "projections": {
+            "14": "newBsonObj(\"_id\", s12, \"sample\", s13) "
+          },
+          "inputStage": {
+            "stage": "group",
+            "planNodeId": 3,
+            "nReturned": 12,
+            "executionTimeMillisEstimate": 1610,
+            "opens": 1,
+            "closes": 1,
+            "saveState": 103,
+            "restoreState": 103,
+            "isEOF": 1,
+            "groupBySlots": [
+              12
+            ],
+            "expressions": {
+              "13": "first((s6 ?: null)) ",
+              "initExprs": {
+                "13": null
+              }
+            },
+            "mergingExprs": {
+              "11": "first((s11 ?: null)) "
+            },
+            "usedDisk": false,
+            "spills": 0,
+            "spilledBytes": 0,
+            "spilledRecords": 0,
+            "spilledDataStorageSize": 0,
+            "inputStage": {
+              "stage": "project",
+              "planNodeId": 3,
+              "nReturned": 786084,
+              "executionTimeMillisEstimate": 1442,
+              "opens": 1,
+              "closes": 1,
+              "saveState": 103,
+              "restoreState": 103,
+              "isEOF": 1,
+              "projections": {
+                "12": "(s8 ?: null) "
+              },
+              "inputStage": {
+                "stage": "filter",
+                "planNodeId": 2,
+                "nReturned": 786084,
+                "executionTimeMillisEstimate": 1418,
+                "opens": 1,
+                "closes": 1,
+                "saveState": 103,
+                "restoreState": 103,
+                "isEOF": 1,
+                "numTested": 786084,
+                "filter": "(traverseF(s10, lambda(l3.0) { ((move(l3.0) == \"monitoreo\") ?: false) }, false) && exists(s9)) ",
+                "inputStage": {
+                  "stage": "nlj",
+                  "planNodeId": 2,
+                  "nReturned": 786084,
+                  "executionTimeMillisEstimate": 1335,
+                  "opens": 1,
+                  "closes": 1,
+                  "saveState": 103,
+                  "restoreState": 103,
+                  "isEOF": 1,
+                  "totalDocsExamined": 786084,
+                  "totalKeysExamined": 786084,
+                  "collectionScans": 0,
+                  "collectionSeeks": 786084,
+                  "indexScans": 0,
+                  "indexSeeks": 1,
+                  "indexesUsed": [
+                    "monitor_latest"
+                  ],
+                  "innerOpens": 786084,
+                  "innerCloses": 1,
+                  "outerProjects": [],
+                  "outerCorrelated": [
+                    1,
+                    2,
+                    3,
+                    4,
+                    5
+                  ],
+                  "outerStage": {
+                    "stage": "ixseek",
+                    "planNodeId": 1,
+                    "nReturned": 786084,
+                    "executionTimeMillisEstimate": 309,
+                    "opens": 1,
+                    "closes": 1,
+                    "saveState": 103,
+                    "restoreState": 103,
+                    "isEOF": 1,
+                    "indexName": "monitor_latest",
+                    "keysExamined": 786084,
+                    "seeks": 1,
+                    "numReads": 786085,
+                    "indexKeySlot": 4,
+                    "recordIdSlot": 1,
+                    "snapshotIdSlot": 2,
+                    "indexIdentSlot": 3,
+                    "outputSlots": [],
+                    "indexKeysToInclude": "00000000000000000000000000000000",
+                    "seekKeyLow": "KS(0A0F0A0104) ",
+                    "seekKeyHigh": "KS(F0F5F0FE04) "
+                  },
+                  "innerStage": {
+                    "stage": "limit",
+                    "planNodeId": 2,
+                    "nReturned": 786084,
+                    "executionTimeMillisEstimate": 974,
+                    "opens": 786084,
+                    "closes": 1,
+                    "saveState": 103,
+                    "restoreState": 103,
+                    "isEOF": 1,
+                    "limit": 1,
+                    "inputStage": {
+                      "stage": "seek",
+                      "planNodeId": 2,
+                      "nReturned": 786084,
+                      "executionTimeMillisEstimate": 901,
+                      "opens": 786084,
+                      "closes": 1,
+                      "saveState": 103,
+                      "restoreState": 103,
+                      "isEOF": 0,
+                      "numReads": 786084,
+                      "recordSlot": 6,
+                      "recordIdSlot": 7,
+                      "seekRecordIdSlot": 1,
+                      "snapshotIdSlot": 2,
+                      "indexIdentSlot": 3,
+                      "indexKeySlot": 4,
+                      "indexKeyPatternSlot": 5,
+                      "scanFieldNames": [
+                        "service",
+                        "checked_at",
+                        "source"
+                      ],
+                      "scanFieldSlots": [
+                        8,
+                        9,
+                        10
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "queryShapeHash": "36D856BC05F0BB07ADD268E08A90C07FA97373B3ACAF3726DAF082751A332FF4",
+      "command": {
+        "aggregate": "events",
+        "pipeline": [
+          {
+            "$match": {
+              "source": "monitoreo",
+              "checked_at": {
+                "$exists": true
+              }
+            }
+          },
+          {
+            "$sort": {
+              "service": 1,
+              "checked_at": -1,
+              "event_id": 1
+            }
+          },
+          {
+            "$group": {
+              "_id": "$service",
+              "sample": {
+                "$first": "$$ROOT"
+              }
+            }
+          }
+        ],
+        "cursor": {},
+        "$db": "rh_monitoreo"
+      },
+      "serverInfo": {
+        "host": "Victors-MacBook-Air.local",
+        "port": 64462,
+        "version": "8.0.17",
+        "gitVersion": "b20e43625b72f4bb43cc15107f80ac966ae13b6d"
+      },
+      "serverParameters": {
+        "internalQueryFacetBufferSizeBytes": 104857600,
+        "internalQueryFacetMaxOutputDocSizeBytes": 104857600,
+        "internalLookupStageIntermediateDocumentMaxSizeBytes": 104857600,
+        "internalDocumentSourceGroupMaxMemoryBytes": 104857600,
+        "internalQueryMaxBlockingSortMemoryUsageBytes": 104857600,
+        "internalQueryProhibitBlockingMergeOnMongoS": 0,
+        "internalQueryMaxAddToSetBytes": 104857600,
+        "internalDocumentSourceSetWindowFieldsMaxMemoryBytes": 104857600,
+        "internalQueryFrameworkControl": "trySbeRestricted",
+        "internalQueryPlannerIgnoreIndexWithCollationForRegex": 1
+      },
+      "ok": 1.0
+    }
+  },
+  "index_build_ms": 3320.3088919981383,
+  "seek_plan": {
+    "explainVersion": "1",
+    "queryPlanner": {
+      "namespace": "rh_monitoreo.events",
+      "parsedQuery": {
+        "$and": [
+          {
+            "source": {
+              "$eq": "monitoreo"
+            }
+          },
+          {
+            "service": {
+              "$gt": "opt-1"
+            }
+          },
+          {
+            "checked_at": {
+              "$exists": true
+            }
+          }
+        ]
+      },
+      "indexFilterSet": false,
+      "queryHash": "7A2F8E87",
+      "planCacheShapeHash": "7A2F8E87",
+      "planCacheKey": "059DAC57",
+      "optimizationTimeMillis": 0,
+      "maxIndexedOrSolutionsReached": false,
+      "maxIndexedAndSolutionsReached": false,
+      "maxScansToExplodeReached": false,
+      "prunedSimilarIndexes": false,
+      "winningPlan": {
+        "isCached": true,
+        "stage": "LIMIT",
+        "limitAmount": 1,
+        "inputStage": {
+          "stage": "FETCH",
+          "filter": {
+            "checked_at": {
+              "$exists": true
+            }
+          },
+          "inputStage": {
+            "stage": "IXSCAN",
+            "keyPattern": {
+              "service": 1,
+              "checked_at": -1,
+              "event_id": 1
+            },
+            "indexName": "monitor_latest",
+            "isMultiKey": false,
+            "multiKeyPaths": {
+              "service": [],
+              "checked_at": [],
+              "event_id": []
+            },
+            "isUnique": false,
+            "isSparse": false,
+            "isPartial": true,
+            "indexVersion": 2,
+            "direction": "forward",
+            "indexBounds": {
+              "service": [
+                "(\"opt-1\", {})"
+              ],
+              "checked_at": [
+                "[MaxKey, MinKey]"
+              ],
+              "event_id": [
+                "[MinKey, MaxKey]"
+              ]
+            }
+          }
+        }
+      },
+      "rejectedPlans": [
+        {
+          "isCached": false,
+          "stage": "SORT",
+          "sortPattern": {
+            "service": 1,
+            "checked_at": -1,
+            "event_id": 1
+          },
+          "memLimit": 104857600,
+          "limitAmount": 1,
+          "type": "simple",
+          "inputStage": {
+            "stage": "FETCH",
+            "filter": {
+              "checked_at": {
+                "$exists": true
+              }
+            },
+            "inputStage": {
+              "stage": "IXSCAN",
+              "keyPattern": {
+                "source": 1,
+                "checked_at": -1,
+                "service": 1
+              },
+              "indexName": "monitor_window",
+              "isMultiKey": false,
+              "multiKeyPaths": {
+                "source": [],
+                "checked_at": [],
+                "service": []
+              },
+              "isUnique": false,
+              "isSparse": false,
+              "isPartial": false,
+              "indexVersion": 2,
+              "direction": "forward",
+              "indexBounds": {
+                "source": [
+                  "[\"monitoreo\", \"monitoreo\"]"
+                ],
+                "checked_at": [
+                  "[MaxKey, MinKey]"
+                ],
+                "service": [
+                  "(\"opt-1\", {})"
+                ]
+              }
+            }
+          }
+        }
+      ]
+    },
+    "executionStats": {
+      "executionSuccess": true,
+      "nReturned": 1,
+      "executionTimeMillis": 0,
+      "totalKeysExamined": 1,
+      "totalDocsExamined": 1,
+      "executionStages": {
+        "isCached": true,
+        "stage": "LIMIT",
+        "nReturned": 1,
+        "executionTimeMillisEstimate": 0,
+        "works": 2,
+        "advanced": 1,
+        "needTime": 0,
+        "needYield": 0,
+        "saveState": 0,
+        "restoreState": 0,
+        "isEOF": 1,
+        "limitAmount": 1,
+        "inputStage": {
+          "stage": "FETCH",
+          "filter": {
+            "checked_at": {
+              "$exists": true
+            }
+          },
+          "nReturned": 1,
+          "executionTimeMillisEstimate": 0,
+          "works": 1,
+          "advanced": 1,
+          "needTime": 0,
+          "needYield": 0,
+          "saveState": 0,
+          "restoreState": 0,
+          "isEOF": 0,
+          "docsExamined": 1,
+          "alreadyHasObj": 0,
+          "inputStage": {
+            "stage": "IXSCAN",
+            "nReturned": 1,
+            "executionTimeMillisEstimate": 0,
+            "works": 1,
+            "advanced": 1,
+            "needTime": 0,
+            "needYield": 0,
+            "saveState": 0,
+            "restoreState": 0,
+            "isEOF": 0,
+            "keyPattern": {
+              "service": 1,
+              "checked_at": -1,
+              "event_id": 1
+            },
+            "indexName": "monitor_latest",
+            "isMultiKey": false,
+            "multiKeyPaths": {
+              "service": [],
+              "checked_at": [],
+              "event_id": []
+            },
+            "isUnique": false,
+            "isSparse": false,
+            "isPartial": true,
+            "indexVersion": 2,
+            "direction": "forward",
+            "indexBounds": {
+              "service": [
+                "(\"opt-1\", {})"
+              ],
+              "checked_at": [
+                "[MaxKey, MinKey]"
+              ],
+              "event_id": [
+                "[MinKey, MaxKey]"
+              ]
+            },
+            "keysExamined": 1,
+            "seeks": 1,
+            "dupsTested": 0,
+            "dupsDropped": 0
+          }
+        }
+      },
+      "allPlansExecution": [
+        {
+          "nReturned": 1,
+          "executionTimeMillisEstimate": 0,
+          "totalKeysExamined": 1,
+          "totalDocsExamined": 1,
+          "score": 3.0002,
+          "executionStages": {
+            "isCached": true,
+            "stage": "LIMIT",
+            "nReturned": 1,
+            "executionTimeMillisEstimate": 0,
+            "works": 1,
+            "advanced": 1,
+            "needTime": 0,
+            "needYield": 0,
+            "saveState": 0,
+            "restoreState": 0,
+            "isEOF": 1,
+            "limitAmount": 1,
+            "inputStage": {
+              "stage": "FETCH",
+              "filter": {
+                "checked_at": {
+                  "$exists": true
+                }
+              },
+              "nReturned": 1,
+              "executionTimeMillisEstimate": 0,
+              "works": 1,
+              "advanced": 1,
+              "needTime": 0,
+              "needYield": 0,
+              "saveState": 0,
+              "restoreState": 0,
+              "isEOF": 0,
+              "docsExamined": 1,
+              "alreadyHasObj": 0,
+              "inputStage": {
+                "stage": "IXSCAN",
+                "nReturned": 1,
+                "executionTimeMillisEstimate": 0,
+                "works": 1,
+                "advanced": 1,
+                "needTime": 0,
+                "needYield": 0,
+                "saveState": 0,
+                "restoreState": 0,
+                "isEOF": 0,
+                "keyPattern": {
+                  "service": 1,
+                  "checked_at": -1,
+                  "event_id": 1
+                },
+                "indexName": "monitor_latest",
+                "isMultiKey": false,
+                "multiKeyPaths": {
+                  "service": [],
+                  "checked_at": [],
+                  "event_id": []
+                },
+                "isUnique": false,
+                "isSparse": false,
+                "isPartial": true,
+                "indexVersion": 2,
+                "direction": "forward",
+                "indexBounds": {
+                  "service": [
+                    "(\"opt-1\", {})"
+                  ],
+                  "checked_at": [
+                    "[MaxKey, MinKey]"
+                  ],
+                  "event_id": [
+                    "[MinKey, MaxKey]"
+                  ]
+                },
+                "keysExamined": 1,
+                "seeks": 1,
+                "dupsTested": 0,
+                "dupsDropped": 0
+              }
+            }
+          }
+        },
+        {
+          "nReturned": 0,
+          "executionTimeMillisEstimate": 0,
+          "totalKeysExamined": 1,
+          "totalDocsExamined": 0,
+          "score": 1.0001,
+          "executionStages": {
+            "isCached": false,
+            "stage": "SORT",
+            "nReturned": 0,
+            "executionTimeMillisEstimate": 0,
+            "works": 1,
+            "advanced": 0,
+            "needTime": 1,
+            "needYield": 0,
+            "saveState": 1,
+            "restoreState": 0,
+            "isEOF": 0,
+            "sortPattern": {
+              "service": 1,
+              "checked_at": -1,
+              "event_id": 1
+            },
+            "memLimit": 104857600,
+            "limitAmount": 1,
+            "type": "simple",
+            "totalDataSizeSorted": 0,
+            "usedDisk": false,
+            "spills": 0,
+            "spilledDataStorageSize": 0,
+            "inputStage": {
+              "stage": "FETCH",
+              "filter": {
+                "checked_at": {
+                  "$exists": true
+                }
+              },
+              "nReturned": 0,
+              "executionTimeMillisEstimate": 0,
+              "works": 1,
+              "advanced": 0,
+              "needTime": 1,
+              "needYield": 0,
+              "saveState": 1,
+              "restoreState": 0,
+              "isEOF": 0,
+              "docsExamined": 0,
+              "alreadyHasObj": 0,
+              "inputStage": {
+                "stage": "IXSCAN",
+                "nReturned": 0,
+                "executionTimeMillisEstimate": 0,
+                "works": 1,
+                "advanced": 0,
+                "needTime": 1,
+                "needYield": 0,
+                "saveState": 1,
+                "restoreState": 0,
+                "isEOF": 0,
+                "keyPattern": {
+                  "source": 1,
+                  "checked_at": -1,
+                  "service": 1
+                },
+                "indexName": "monitor_window",
+                "isMultiKey": false,
+                "multiKeyPaths": {
+                  "source": [],
+                  "checked_at": [],
+                  "service": []
+                },
+                "isUnique": false,
+                "isSparse": false,
+                "isPartial": false,
+                "indexVersion": 2,
+                "direction": "forward",
+                "indexBounds": {
+                  "source": [
+                    "[\"monitoreo\", \"monitoreo\"]"
+                  ],
+                  "checked_at": [
+                    "[MaxKey, MinKey]"
+                  ],
+                  "service": [
+                    "(\"opt-1\", {})"
+                  ]
+                },
+                "keysExamined": 1,
+                "seeks": 1,
+                "dupsTested": 0,
+                "dupsDropped": 0
+              }
+            }
+          }
+        }
+      ]
+    },
+    "queryShapeHash": "3F77F4DE9E1BD035A69FFE9A5AC78B009A834EF9EF7A5472514EA4BC0F59D795",
+    "command": {
+      "find": "events",
+      "filter": {
+        "source": "monitoreo",
+        "checked_at": {
+          "$exists": true
+        },
+        "service": {
+          "$gt": "opt-1"
+        }
+      },
+      "sort": {
+        "service": 1,
+        "checked_at": -1,
+        "event_id": 1
+      },
+      "limit": 1,
+      "singleBatch": true,
+      "$db": "rh_monitoreo"
+    },
+    "serverInfo": {
+      "host": "Victors-MacBook-Air.local",
+      "port": 64462,
+      "version": "8.0.17",
+      "gitVersion": "b20e43625b72f4bb43cc15107f80ac966ae13b6d"
+    },
+    "serverParameters": {
+      "internalQueryFacetBufferSizeBytes": 104857600,
+      "internalQueryFacetMaxOutputDocSizeBytes": 104857600,
+      "internalLookupStageIntermediateDocumentMaxSizeBytes": 104857600,
+      "internalDocumentSourceGroupMaxMemoryBytes": 104857600,
+      "internalQueryMaxBlockingSortMemoryUsageBytes": 104857600,
+      "internalQueryProhibitBlockingMergeOnMongoS": 0,
+      "internalQueryMaxAddToSetBytes": 104857600,
+      "internalDocumentSourceSetWindowFieldsMaxMemoryBytes": 104857600,
+      "internalQueryFrameworkControl": "trySbeRestricted",
+      "internalQueryPlannerIgnoreIndexWithCollationForRegex": 1
+    },
+    "ok": 1.0
+  },
+  "index_sizes": {
+    "_id_": 10448896,
+    "region_id_1_source_1": 3633152,
+    "monitor_window": 9183232,
+    "monitor_latest": 51466240
+  },
+  "version": "8.0.17",
+  "plan_label_note": "Relabeled plans.after to plans.rejected_group; timing samples unchanged. The implemented lookup plan is seek_plan."
+}

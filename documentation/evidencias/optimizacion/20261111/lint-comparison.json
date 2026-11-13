@@ -1,0 +1,339 @@
+[
+  {
+    "file": "apps/services/ms_donantes/agenda.py",
+    "config": [
+      "--config",
+      "apps/services/pyproject.toml"
+    ],
+    "before": [
+      {
+        "code": "I001",
+        "message": "Import block is un-sorted or un-formatted"
+      },
+      {
+        "code": "UP017",
+        "message": "Use `datetime.UTC` alias"
+      },
+      {
+        "code": "UP017",
+        "message": "Use `datetime.UTC` alias"
+      },
+      {
+        "code": "UP017",
+        "message": "Use `datetime.UTC` alias"
+      },
+      {
+        "code": "UP017",
+        "message": "Use `datetime.UTC` alias"
+      }
+    ],
+    "after": [
+      {
+        "code": "I001",
+        "message": "Import block is un-sorted or un-formatted"
+      },
+      {
+        "code": "UP017",
+        "message": "Use `datetime.UTC` alias"
+      },
+      {
+        "code": "UP017",
+        "message": "Use `datetime.UTC` alias"
+      },
+      {
+        "code": "UP017",
+        "message": "Use `datetime.UTC` alias"
+      },
+      {
+        "code": "UP017",
+        "message": "Use `datetime.UTC` alias"
+      }
+    ],
+    "introduced": []
+  },
+  {
+    "file": "apps/services/ms_transporte/tracking_socket.py",
+    "config": [
+      "--config",
+      "apps/services/pyproject.toml"
+    ],
+    "before": [
+      {
+        "code": "I001",
+        "message": "Import block is un-sorted or un-formatted"
+      },
+      {
+        "code": "B023",
+        "message": "Function definition does not bind loop variable `limit_key`"
+      },
+      {
+        "code": "B023",
+        "message": "Function definition does not bind loop variable `scope`"
+      }
+    ],
+    "after": [
+      {
+        "code": "I001",
+        "message": "Import block is un-sorted or un-formatted"
+      },
+      {
+        "code": "B023",
+        "message": "Function definition does not bind loop variable `limit_key`"
+      },
+      {
+        "code": "B023",
+        "message": "Function definition does not bind loop variable `scope`"
+      }
+    ],
+    "introduced": []
+  },
+  {
+    "file": "apps/services/redhouse/cache.py",
+    "config": [
+      "--config",
+      "apps/services/pyproject.toml"
+    ],
+    "before": [],
+    "after": [],
+    "introduced": []
+  },
+  {
+    "file": "apps/services/scripts/migrate_documents.py",
+    "config": [
+      "--config",
+      "apps/services/pyproject.toml"
+    ],
+    "before": [],
+    "after": [],
+    "introduced": []
+  },
+  {
+    "file": "apps/services/servicio_monitoreo/routes.py",
+    "config": [
+      "--config",
+      "apps/services/pyproject.toml"
+    ],
+    "before": [
+      {
+        "code": "I001",
+        "message": "Import block is un-sorted or un-formatted"
+      },
+      {
+        "code": "UP017",
+        "message": "Use `datetime.UTC` alias"
+      },
+      {
+        "code": "C408",
+        "message": "Unnecessary `dict()` call (rewrite as a literal)"
+      },
+      {
+        "code": "UP017",
+        "message": "Use `datetime.UTC` alias"
+      },
+      {
+        "code": "C408",
+        "message": "Unnecessary `dict()` call (rewrite as a literal)"
+      },
+      {
+        "code": "UP017",
+        "message": "Use `datetime.UTC` alias"
+      }
+    ],
+    "after": [
+      {
+        "code": "I001",
+        "message": "Import block is un-sorted or un-formatted"
+      },
+      {
+        "code": "UP017",
+        "message": "Use `datetime.UTC` alias"
+      },
+      {
+        "code": "C408",
+        "message": "Unnecessary `dict()` call (rewrite as a literal)"
+      },
+      {
+        "code": "UP017",
+        "message": "Use `datetime.UTC` alias"
+      },
+      {
+        "code": "C408",
+        "message": "Unnecessary `dict()` call (rewrite as a literal)"
+      },
+      {
+        "code": "UP017",
+        "message": "Use `datetime.UTC` alias"
+      }
+    ],
+    "introduced": []
+  },
+  {
+    "file": "apps/services/tests/test_ui_cache.py",
+    "config": [
+      "--config",
+      "apps/services/pyproject.toml"
+    ],
+    "before": [
+      {
+        "code": "I001",
+        "message": "Import block is un-sorted or un-formatted"
+      },
+      {
+        "code": "F401",
+        "message": "`.test_web_integration.web` imported but unused"
+      },
+      {
+        "code": "PLR0402",
+        "message": "Use `from ms_inventario import routes` in lieu of alias"
+      },
+      {
+        "code": "F811",
+        "message": "Redefinition of unused `web` from line 11: `web` redefined here"
+      },
+      {
+        "code": "F811",
+        "message": "Redefinition of unused `web` from line 11: `web` redefined here"
+      },
+      {
+        "code": "RUF059",
+        "message": "Unpacked variable `req` is never used"
+      },
+      {
+        "code": "F811",
+        "message": "Redefinition of unused `web` from line 11: `web` redefined here"
+      },
+      {
+        "code": "SIM117",
+        "message": "Use a single `with` statement with multiple contexts instead of nested `with` statements"
+      },
+      {
+        "code": "F811",
+        "message": "Redefinition of unused `web` from line 11: `web` redefined here"
+      }
+    ],
+    "after": [
+      {
+        "code": "I001",
+        "message": "Import block is un-sorted or un-formatted"
+      },
+      {
+        "code": "F401",
+        "message": "`.test_web_integration.web` imported but unused"
+      },
+      {
+        "code": "PLR0402",
+        "message": "Use `from ms_inventario import routes` in lieu of alias"
+      },
+      {
+        "code": "F811",
+        "message": "Redefinition of unused `web` from line 11: `web` redefined here"
+      },
+      {
+        "code": "F811",
+        "message": "Redefinition of unused `web` from line 11: `web` redefined here"
+      },
+      {
+        "code": "RUF059",
+        "message": "Unpacked variable `req` is never used"
+      },
+      {
+        "code": "F811",
+        "message": "Redefinition of unused `web` from line 11: `web` redefined here"
+      },
+      {
+        "code": "SIM117",
+        "message": "Use a single `with` statement with multiple contexts instead of nested `with` statements"
+      },
+      {
+        "code": "F811",
+        "message": "Redefinition of unused `web` from line 11: `web` redefined here"
+      }
+    ],
+    "introduced": []
+  },
+  {
+    "file": "apps/web/src/integration/__init__.py",
+    "config": [],
+    "before": [
+      {
+        "code": "I001",
+        "message": "Import block is un-sorted or un-formatted"
+      },
+      {
+        "code": "F401",
+        "message": "`json` imported but unused"
+      },
+      {
+        "code": "F401",
+        "message": "`pathlib.Path` imported but unused"
+      },
+      {
+        "code": "I001",
+        "message": "Import block is un-sorted or un-formatted"
+      },
+      {
+        "code": "I001",
+        "message": "Import block is un-sorted or un-formatted"
+      },
+      {
+        "code": "I001",
+        "message": "Import block is un-sorted or un-formatted"
+      },
+      {
+        "code": "C408",
+        "message": "Unnecessary `dict()` call (rewrite as a literal)"
+      }
+    ],
+    "after": [
+      {
+        "code": "I001",
+        "message": "Import block is un-sorted or un-formatted"
+      },
+      {
+        "code": "F401",
+        "message": "`json` imported but unused"
+      },
+      {
+        "code": "F401",
+        "message": "`pathlib.Path` imported but unused"
+      },
+      {
+        "code": "I001",
+        "message": "Import block is un-sorted or un-formatted"
+      },
+      {
+        "code": "I001",
+        "message": "Import block is un-sorted or un-formatted"
+      },
+      {
+        "code": "I001",
+        "message": "Import block is un-sorted or un-formatted"
+      },
+      {
+        "code": "C408",
+        "message": "Unnecessary `dict()` call (rewrite as a literal)"
+      }
+    ],
+    "introduced": []
+  },
+  {
+    "file": "apps/services/tests/test_optimization.py",
+    "config": [
+      "--config",
+      "apps/services/pyproject.toml"
+    ],
+    "before": [],
+    "after": [],
+    "introduced": []
+  },
+  {
+    "file": "apps/services/tests/test_optimization_tracking.py",
+    "config": [
+      "--config",
+      "apps/services/pyproject.toml"
+    ],
+    "before": [],
+    "after": [],
+    "introduced": []
+  }
+]

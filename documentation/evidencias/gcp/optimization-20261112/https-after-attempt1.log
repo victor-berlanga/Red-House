@@ -1,0 +1,29 @@
+{"phase": "after", "result": "failed", "checks": 29}
+Traceback (most recent call last):
+  File "/Users/victorberlanga/Programacion/integracion/Red-House/.local/deploy-optimization-20261112/verify_http.py", line 106, in <module>
+    api('transport1',[('transporte','/api/v1/shipments?page_size=20','application/json',200)])
+  File "/Users/victorberlanga/Programacion/integracion/Red-House/.local/deploy-optimization-20261112/verify_http.py", line 76, in api
+    ws = websocket.create_connection(BASE.replace('https:', 'wss:') + '/services/transporte/ws/v1/tracking/' + fmt,
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/.venv/lib/python3.12/site-packages/websocket/_core.py", line 734, in create_connection
+    websock.connect(url, **options)
+  File "/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/.venv/lib/python3.12/site-packages/websocket/_core.py", line 279, in connect
+    self.sock, addrs = connect(
+                       ^^^^^^^^
+  File "/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/.venv/lib/python3.12/site-packages/websocket/_http.py", line 164, in connect
+    sock = _ssl_socket(sock, options.sslopt, hostname)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/.venv/lib/python3.12/site-packages/websocket/_http.py", line 368, in _ssl_socket
+    sock = _wrap_sni_socket(sock, sslopt, hostname, check_hostname)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/.venv/lib/python3.12/site-packages/websocket/_http.py", line 338, in _wrap_sni_socket
+    return context.wrap_socket(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/ssl.py", line 455, in wrap_socket
+    return self.sslsocket_class._create(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/ssl.py", line 1041, in _create
+    self.do_handshake()
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/ssl.py", line 1319, in do_handshake
+    self._sslobj.do_handshake()
+ssl.SSLCertVerificationError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1000)

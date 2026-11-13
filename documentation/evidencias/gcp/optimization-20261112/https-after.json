@@ -1,0 +1,169 @@
+{
+  "phase": "after",
+  "checks": [
+    {
+      "label": "identidad-acceso:ready",
+      "http": 200,
+      "milliseconds": 1042.394
+    },
+    {
+      "label": "donantes:ready",
+      "http": 200,
+      "milliseconds": 931.032
+    },
+    {
+      "label": "receptores:ready",
+      "http": 200,
+      "milliseconds": 1066.817
+    },
+    {
+      "label": "inventario:ready",
+      "http": 200,
+      "milliseconds": 1066.86
+    },
+    {
+      "label": "compatibilidad:ready",
+      "http": 200,
+      "milliseconds": 965.273
+    },
+    {
+      "label": "priorizacion-geografia:ready",
+      "http": 200,
+      "milliseconds": 1100.725
+    },
+    {
+      "label": "transporte:ready",
+      "http": 200,
+      "milliseconds": 1102.542
+    },
+    {
+      "label": "custodia:ready",
+      "http": 200,
+      "milliseconds": 1003.011
+    },
+    {
+      "label": "alertas:ready",
+      "http": 200,
+      "milliseconds": 1015.444
+    },
+    {
+      "label": "auditoria:ready",
+      "http": 200,
+      "milliseconds": 1113.58
+    },
+    {
+      "label": "monitoreo:ready",
+      "http": 200,
+      "milliseconds": 1128.781
+    },
+    {
+      "label": "documentos:ready",
+      "http": 200,
+      "milliseconds": 1441.165
+    },
+    {
+      "label": "auditor1:/monitoreo",
+      "http": 200,
+      "milliseconds": 992.827
+    },
+    {
+      "label": "auditor1:/monitoreo",
+      "http": 200,
+      "milliseconds": 823.331
+    },
+    {
+      "label": "auditor1:/sesion/estado",
+      "http": 200,
+      "milliseconds": 340.652
+    },
+    {
+      "label": "donor1:/panel",
+      "http": 200,
+      "milliseconds": 820.427
+    },
+    {
+      "label": "donor1:/citas",
+      "http": 200,
+      "milliseconds": 1232.4
+    },
+    {
+      "label": "donor1:/campanas",
+      "http": 200,
+      "milliseconds": 428.142
+    },
+    {
+      "label": "donor1:/sesion/estado",
+      "http": 200,
+      "milliseconds": 360.785
+    },
+    {
+      "label": "operator1:/panel",
+      "http": 200,
+      "milliseconds": 764.269
+    },
+    {
+      "label": "operator1:/inventario",
+      "http": 200,
+      "milliseconds": 667.507
+    },
+    {
+      "label": "operator1:/traslados",
+      "http": 200,
+      "milliseconds": 400.122
+    },
+    {
+      "label": "auditor1:monitoreo/api/v1/status:application/json",
+      "http": 200,
+      "milliseconds": 428.52
+    },
+    {
+      "label": "auditor1:monitoreo/api/v1/status:application/xml",
+      "http": 200,
+      "milliseconds": 475.657
+    },
+    {
+      "label": "donor1:donantes/api/v1/campaign-slots?page_size=20:application/json",
+      "http": 200,
+      "milliseconds": 309.783
+    },
+    {
+      "label": "donor1:inventario/api/v1/resources:application/json",
+      "http": 403,
+      "milliseconds": 248.764
+    },
+    {
+      "label": "operator1:inventario/api/v1/resources?page_size=20:application/json",
+      "http": 200,
+      "milliseconds": 269.357
+    },
+    {
+      "label": "operator1:inventario/api/v1/resources?page_size=20:application/xml",
+      "http": 200,
+      "milliseconds": 266.399
+    },
+    {
+      "label": "transport1:transporte/api/v1/shipments?page_size=20:application/json",
+      "http": 200,
+      "milliseconds": 614.992
+    }
+  ],
+  "tls_verification": true,
+  "donor_chart_scripts": [],
+  "wss": [
+    {
+      "format": "json",
+      "tls_verified": true,
+      "authenticated": true,
+      "heartbeat": true,
+      "position_published": false
+    },
+    {
+      "format": "xml",
+      "tls_verified": true,
+      "authenticated": true,
+      "heartbeat": true,
+      "position_published": false
+    }
+  ],
+  "result": "passed"
+}

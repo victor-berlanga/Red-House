@@ -1,0 +1,8 @@
+backend_mode monolith
+schema access_monitoreo
+estimated_rows (-1,)
+physical_indexes [('CREATE UNIQUE INDEX service_health_check_pkey ON red_house.service_health_check USING btree (check_id)',), ('CREATE INDEX api_checks_latest ON red_house.service_health_check USING btree (service, checked_at DESC)',), ('CREATE INDEX health_service_time ON red_house.service_health_check USING btree (service, checked_at DESC)',)]
+latest error QueryCanceled sqlstate 57014 seconds 5.172
+totals ok seconds 0.306 rows 12 plan [('Finalize GroupAggregate  (cost=15258.94..15262.13 rows=12 width=36)',), ('  Group Key: service_health_check.service',), ('  ->  Gather Merge  (cost=15258.94..15261.74 rows=24 width=60)',), ('        Workers Planned: 2',), ('        ->  Sort  (cost=14258.91..14258.94 rows=12 width=60)',), ('              Sort Key: service_health_check.service',), ('              ->  Partial HashAggregate  (cost=14258.58..14258.70 rows=12 width=60)',), ('                    Group Key: service_health_check.service',), ('                    ->  Parallel Seq Scan on service_health_check  (cost=0.00..14126.89 rows=10535 width=23)',), ("                          Filter: (checked_at > (now() - '24:00:00'::interval))",)]
+mongo_find_ok
+mongo_latest_error NetworkTimeout code None seconds 3.008

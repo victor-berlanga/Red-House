@@ -1,0 +1,26 @@
+.....FF                                                                  [100%]
+=================================== FAILURES ===================================
+________________ test_monitor_real_storage_outages_and_recovery ________________
+apps/services/tests/test_optimization.py:413: in test_monitor_real_storage_outages_and_recovery
+    p.env.wait(lambda: psycopg.connect(p.env.state["database_admin"]).close())
+apps/services/scripts/local.py:134: in wait
+    raise RuntimeError(
+E   RuntimeError: Un proceso de infraestructura terminó; revisa los logs privados.
+------------------------------ Captured log call -------------------------------
+WARNING  redhouse.database:db.py:82 database_unavailable service=monitoreo type=OperationalError sqlstate=None
+WARNING  monitoreo:api.py:59 monitor_status_read_sql_audit_unavailable
+WARNING  redhouse.database:db.py:82 database_unavailable service=monitoreo type=OperationalError sqlstate=None
+WARNING  redhouse.database:db.py:82 database_unavailable service=monitoreo type=OperationalError sqlstate=None
+WARNING  monitoreo:api.py:59 monitor_status_read_sql_audit_unavailable
+WARNING  redhouse.database:db.py:82 database_unavailable service=monitoreo type=OperationalError sqlstate=None
+___________ test_monolith_monitor_and_session_without_api_listeners ____________
+apps/services/tests/test_optimization.py:436: in test_monolith_monitor_and_session_without_api_listeners
+    assert response.status_code == 200
+E   assert 302 == 200
+E    +  where 302 = <WrapperTestResponse streamed [302 FOUND]>.status_code
+------------------------------ Captured log call -------------------------------
+WARNING  redhouse.database:db.py:82 database_unavailable service=identidad_acceso type=QueryCanceled sqlstate=57014
+=========================== short test summary info ============================
+FAILED apps/services/tests/test_optimization.py::test_monitor_real_storage_outages_and_recovery
+FAILED apps/services/tests/test_optimization.py::test_monolith_monitor_and_session_without_api_listeners
+2 failed, 5 passed in 127.52s (0:02:07)

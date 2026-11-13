@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.redhouse.mobile.SessionTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2026-11-12T14:46:02" hostname="Victors-MacBook-Air.local" time="0.355">
+  <properties/>
+  <testcase name="insecureConfigurationRejected" classname="org.redhouse.mobile.SessionTest" time="0.002"/>
+  <testcase name="offlineLogoutDestroysLocalCredentials" classname="org.redhouse.mobile.SessionTest" time="0.051"/>
+  <testcase name="donorNavigationHasNoOperationalInventory" classname="org.redhouse.mobile.SessionTest" time="0.006"/>
+  <testcase name="staleSessionCannotSendAfterAccountSwitch" classname="org.redhouse.mobile.SessionTest" time="0.049"/>
+  <testcase name="htmlRejectedAsContractFailure" classname="org.redhouse.mobile.SessionTest" time="0.02"/>
+  <testcase name="loginUsesJsonAndDoesNotStorePassword" classname="org.redhouse.mobile.SessionTest" time="0.03"/>
+  <testcase name="simultaneousUnauthorizedRequestsRotateOnce" classname="org.redhouse.mobile.SessionTest" time="0.154"/>
+  <testcase name="lostRefreshClearsCredentials" classname="org.redhouse.mobile.SessionTest" time="0.036"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

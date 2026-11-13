@@ -1,0 +1,14 @@
+E                                                                        [100%]
+==================================== ERRORS ====================================
+_________ ERROR at setup of test_monitor_history_cost_and_equivalence __________
+apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:153: in init
+    pgport, redisport, mongoport = free_port(), free_port(), free_port()
+                                   ^^^^^^^^^^^
+apps/services/scripts/local.py:35: in free_port
+    sock.bind(("127.0.0.1", 0))
+E   PermissionError: [Errno 1] Operation not permitted
+=========================== short test summary info ============================
+ERROR apps/services/tests/test_optimization.py::test_monitor_history_cost_and_equivalence
+1 error in 6.69s

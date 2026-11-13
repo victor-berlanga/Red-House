@@ -1,0 +1,12 @@
+{
+  "phase": "before",
+  "checks": [
+    {
+      "label": "auditor1:/monitoreo",
+      "http": 503,
+      "milliseconds": 8466.384
+    }
+  ],
+  "tls_verification": true,
+  "result": "passed"
+}

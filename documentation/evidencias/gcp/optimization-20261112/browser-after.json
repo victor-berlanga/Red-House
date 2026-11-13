@@ -1,0 +1,105 @@
+{
+  "at": "2026-11-12T18:18:15.827Z",
+  "origin": "https://34.18.186.116",
+  "pages": [
+    {
+      "user": "auditor1",
+      "route": "/monitoreo",
+      "width": 1440,
+      "status": 200,
+      "navigationMs": 3375,
+      "overflow": false,
+      "chartScripts": [],
+      "chartRequests": 0,
+      "charts": 0
+    },
+    {
+      "user": "auditor1",
+      "route": "/monitoreo",
+      "width": 390,
+      "status": 200,
+      "navigationMs": 3315,
+      "overflow": false,
+      "chartScripts": [],
+      "chartRequests": 0,
+      "charts": 0
+    },
+    {
+      "user": "auditor1",
+      "logout": true,
+      "sessionHttp": 401
+    },
+    {
+      "user": "donor1",
+      "route": "/panel",
+      "width": 1440,
+      "status": 200,
+      "navigationMs": 2868,
+      "overflow": false,
+      "chartScripts": [],
+      "chartRequests": 0,
+      "charts": 0
+    },
+    {
+      "user": "donor1",
+      "route": "/panel",
+      "width": 390,
+      "status": 200,
+      "navigationMs": 3326,
+      "overflow": false,
+      "chartScripts": [],
+      "chartRequests": 0,
+      "charts": 0
+    },
+    {
+      "user": "donor1",
+      "logout": true,
+      "sessionHttp": 401
+    },
+    {
+      "user": "operator1",
+      "route": "/panel",
+      "width": 1440,
+      "status": 200,
+      "navigationMs": 4802,
+      "overflow": false,
+      "chartScripts": [
+        "https://34.18.186.116/static/vendor/highcharts/highcharts.js",
+        "https://34.18.186.116/static/vendor/highcharts/accessibility.js",
+        "https://34.18.186.116/static/js/charts.js"
+      ],
+      "chartRequests": 3,
+      "charts": 14
+    },
+    {
+      "user": "operator1",
+      "route": "/panel",
+      "width": 390,
+      "status": 200,
+      "navigationMs": 3936,
+      "overflow": false,
+      "chartScripts": [
+        "https://34.18.186.116/static/vendor/highcharts/highcharts.js",
+        "https://34.18.186.116/static/vendor/highcharts/accessibility.js",
+        "https://34.18.186.116/static/js/charts.js"
+      ],
+      "chartRequests": 3,
+      "charts": 14
+    },
+    {
+      "user": "operator1",
+      "logout": true,
+      "sessionHttp": 401
+    }
+  ],
+  "errors": [],
+  "businessWrites": false,
+  "tls": {
+    "issuer": "YE1",
+    "protocol": "TLS 1.3",
+    "subjectName": "",
+    "validFrom": 1794404045,
+    "validTo": 1794980044
+  },
+  "result": "passed"
+}

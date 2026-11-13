@@ -1,0 +1,10 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+________________________ test_documentary_monitor_cost _________________________
+apps/services/tests/test_optimization.py:109: in test_documentary_monitor_cost
+    conn.execute('CREATE TEMP TABLE appointments(id uuid PRIMARY KEY,status text)')
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   assert 4877.943700004835 < 2986.153472040314
+=========================== short test summary info ============================
+FAILED apps/services/tests/test_optimization.py::test_documentary_monitor_cost
+1 failed, 1 deselected in 133.45s (0:02:13)
