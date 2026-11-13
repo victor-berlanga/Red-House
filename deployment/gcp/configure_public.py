@@ -49,6 +49,8 @@ def configure(directory, address, bootstrap=False):
     proxy_set_header X-Forwarded-For $remote_addr;
     proxy_set_header X-Forwarded-Host "";
     proxy_set_header X-Forwarded-Prefix "";
+    proxy_set_header X-Forwarded-Port "";
+    proxy_set_header X-Forwarded-By "";
     proxy_set_header Forwarded "";
     proxy_connect_timeout 1s;
     proxy_read_timeout 15s;
@@ -73,6 +75,12 @@ def configure(directory, address, bootstrap=False):
       proxy_set_header Connection "upgrade";
       proxy_set_header Host {address};
       proxy_set_header X-Forwarded-Proto https;
+      proxy_set_header X-Forwarded-For $remote_addr;
+      proxy_set_header X-Forwarded-Host "";
+      proxy_set_header X-Forwarded-Prefix "";
+      proxy_set_header X-Forwarded-Port "";
+      proxy_set_header X-Forwarded-By "";
+      proxy_set_header Forwarded "";
       proxy_read_timeout 75s;
       proxy_send_timeout 10s;
       proxy_buffering off;
@@ -122,14 +130,18 @@ def configure(directory, address, bootstrap=False):
             PRODUCTION=True,
             PREFERRED_URL_SCHEME="https",
             TRUSTED_HOSTS=[address, "127.0.0.1", "localhost"],
+            TRUSTED_PROXY_HOST="gateway",
         )
+        config.pop("TRUSTED_PROXY_ADDRESS", None)
         path.write_text(json.dumps(config, indent=2) + "\n")
         for name in names:
             path = directory / "apps" / (name.replace("-", "_") + ".json")
             config = json.loads(path.read_text())
             config["PUBLIC_API_PREFIX"] = "/services/" + name
+            config["TRUSTED_PROXY_HOST"] = "gateway"
+            config.pop("TRUSTED_PROXY_ADDRESS", None)
             if name == "transporte":
-                config["TRACKING_TRUST_PROXY"] = True
+                config.pop("TRACKING_TRUST_PROXY", None)
                 config["TRACKING_ALLOWED_ORIGINS"] = ["https://" + address]
             path.write_text(json.dumps(config, indent=2) + "\n")
         (directory / "public.json").write_text(

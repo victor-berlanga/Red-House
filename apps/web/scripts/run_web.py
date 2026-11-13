@@ -8,6 +8,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "services"))
 from src import create_app
 from waitress import serve
+from redhouse.proxy import waitress_proxy_options
 
 
 def main():
@@ -23,11 +24,11 @@ def main():
         app,
         host=args.host,
         port=args.port,
-        # El despliegue público recibe exclusivamente HTTPS desde Nginx.
-        # Configuración explícita: no aceptar cabeceras de proxy del cliente.
+        # Solo el gateway configurado puede declarar dirección y protocolo.
         url_scheme=app.config.get("PREFERRED_URL_SCHEME", "http"),
         threads=8,
         max_request_body_size=11 * 1024 * 1024,
+        **waitress_proxy_options(app.config),
     )
 
 

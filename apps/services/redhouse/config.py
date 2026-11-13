@@ -54,6 +54,8 @@ def settings(service, overrides=None):
         "HLA_REFERENCE_DIR": env.get("HLA_REFERENCE_DIR", str(Path(__file__).resolve().parents[3] / ".local/reference-data/hla")),
         "TESTING": False,
         "GCS_BUCKET": env.get("GCS_BUCKET", ""),
+        "TRUSTED_PROXY_ADDRESS": env.get("TRUSTED_PROXY_ADDRESS", ""),
+        "TRUSTED_PROXY_HOST": env.get("TRUSTED_PROXY_HOST", ""),
     }
     cfg.update(overrides or {})
     # Las suites heredadas explicitan TESTING; la instalación operativa arranca

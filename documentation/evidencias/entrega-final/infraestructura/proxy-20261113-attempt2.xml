@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="6" time="5.121" timestamp="2026-11-13T11:23:15.233249-06:00" hostname="Victors-MacBook-Air.local"><testcase classname="tests.test_proxy_boundaries" name="test_untrusted_peer_cannot_change_address_scheme_or_host" time="0.102" /><testcase classname="tests.test_proxy_boundaries" name="test_gevent_policy_uses_one_proxy_hop_and_separates_client_quotas" time="0.034" /><testcase classname="tests.test_proxy_boundaries" name="test_real_waitress_boundary_drops_untrusted_headers[True]" time="0.113" /><testcase classname="tests.test_proxy_boundaries" name="test_real_waitress_boundary_drops_untrusted_headers[False]" time="0.032" /><testcase classname="tests.test_proxy_boundaries" name="test_proxy_configuration_fails_closed_on_wildcard_or_ambiguous_dns" time="0.004" /><testcase classname="tests.test_proxy_boundaries" name="test_public_generator_applies_same_sanitization_to_http_and_wss" time="0.262"><failure message="pytest.PytestUnraisableExceptionWarning: Exception ignored in: &lt;socket.socket fd=17, family=2, type=1, proto=0, laddr=('127.0.0.1', 49967), raddr=('127.0.0.1', 49968)&gt;&#10;Enable tracemalloc to get traceback where the object was allocated.&#10;See https://docs.pytest.org/en/stable/how-to/capture-warnings.html#resource-warnings for more info.">/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/json/decoder.py:353: in raw_decode
+    obj, end = self.scan_once(s, idx)
+               ^^^^^^^^^^^^^^^^^^^^^^
+E   ResourceWarning: unclosed &lt;socket.socket fd=17, family=2, type=1, proto=0, laddr=('127.0.0.1', 49967), raddr=('127.0.0.1', 49968)&gt;
+
+The above exception was the direct cause of the following exception:
+apps/services/.venv/lib/python3.12/site-packages/_pytest/runner.py:361: in from_call
+    result: TResult | None = func()
+                             ^^^^^^
+apps/services/.venv/lib/python3.12/site-packages/_pytest/runner.py:250: in &lt;lambda&gt;
+    lambda: runtest_hook(item=item, **kwds),
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+apps/services/.venv/lib/python3.12/site-packages/pluggy/_hooks.py:512: in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+apps/services/.venv/lib/python3.12/site-packages/pluggy/_manager.py:120: in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+apps/services/.venv/lib/python3.12/site-packages/_pytest/logging.py:865: in pytest_runtest_call
+    yield
+apps/services/.venv/lib/python3.12/site-packages/_pytest/capture.py:900: in pytest_runtest_call
+    return (yield)
+            ^^^^^
+apps/services/.venv/lib/python3.12/site-packages/_pytest/skipping.py:268: in pytest_runtest_call
+    return (yield)
+            ^^^^^
+apps/services/.venv/lib/python3.12/site-packages/_pytest/unraisableexception.py:183: in pytest_runtest_call
+    collect_unraisable(item.config)
+apps/services/.venv/lib/python3.12/site-packages/_pytest/unraisableexception.py:79: in collect_unraisable
+    raise errors[0]
+apps/services/.venv/lib/python3.12/site-packages/_pytest/unraisableexception.py:67: in collect_unraisable
+    warnings.warn(pytest.PytestUnraisableExceptionWarning(msg))
+E   pytest.PytestUnraisableExceptionWarning: Exception ignored in: &lt;socket.socket fd=17, family=2, type=1, proto=0, laddr=('127.0.0.1', 49967), raddr=('127.0.0.1', 49968)&gt;
+E   Enable tracemalloc to get traceback where the object was allocated.
+E   See https://docs.pytest.org/en/stable/how-to/capture-warnings.html#resource-warnings for more info.</failure></testcase></testsuite></testsuites>

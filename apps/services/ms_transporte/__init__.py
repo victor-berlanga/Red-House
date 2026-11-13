@@ -9,10 +9,11 @@ def create_app(config=None):
 
     app = base_app("transporte", config)
     app.config["VERSION"] = VERSION
-    if app.config.get("TRACKING_TRUST_PROXY", False):
-        from werkzeug.middleware.proxy_fix import ProxyFix
+    from redhouse.proxy import TrustedProxy, trusted_peer
 
-        app.wsgi_app = ProxyFix(app.wsgi_app, x_for=0, x_proto=1, x_host=0)
+    peer = trusted_peer(app.config)
+    if peer:
+        app.wsgi_app = TrustedProxy(app.wsgi_app, peer)
     register(app)
     from .queries import install
 

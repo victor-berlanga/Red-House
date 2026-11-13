@@ -17,6 +17,7 @@ from pathlib import Path
 from waitress import serve
 
 from redhouse.config import SERVICES
+from redhouse.proxy import waitress_proxy_options
 
 
 def load_app(service, config=None):
@@ -59,6 +60,7 @@ def main():
         port=args.port or app.config["PORT"],
         threads=8,
         max_request_body_size=262144,
+        **waitress_proxy_options(app.config),
     )
 
 
