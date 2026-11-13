@@ -11,7 +11,7 @@ from urllib.parse import urlsplit, urlunsplit
 from flask import current_app, g, request
 
 PRIVATE = re.compile(
-    r"password|secret|token|authorization|cookie|signature|private.key|upload_url|download_url",
+    r"password|secret|token|authorization|cookie|signature|private.key|idempotency.key|upload_url|download_url",
     re.IGNORECASE,
 )
 

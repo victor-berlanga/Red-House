@@ -1,13 +1,14 @@
 import hashlib
 import hmac
 import json
+import re
 import secrets
 import time
 from datetime import datetime, timedelta, timezone
 from typing import Annotated
 from uuid import uuid4
 
-from flask import current_app, g
+from flask import current_app, g, request
 from pydantic import ConfigDict, Field, StringConstraints
 from werkzeug.security import check_password_hash, generate_password_hash
 
@@ -17,7 +18,8 @@ from redhouse.errors import APIError
 from redhouse.events import emit
 from redhouse.models import Confirm, ID, Model, Role, Text, validate_id
 from redhouse.decisions import record, history
-from redhouse.security import access_token, key, own, redis_call
+from redhouse.security import access_token, authenticate, key, own, redis_call
+from redhouse.extension_contracts import schema
 
 
 class Login(Model):
@@ -43,6 +45,12 @@ class NewInstitution(Model):
 
 class NewUser(Login):
     tenant_id: ID
+    role: Role
+
+
+class UserCreationReceipt(Model):
+    id: ID
+    username: Text
     role: Role
 
 
@@ -113,6 +121,56 @@ def refresh_key(token):
 
 
 def register(app):
+    @endpoint(
+        app,
+        "/api/v1/user-creation-receipt",
+        roles=("ADMIN",),
+        result=schema(UserCreationReceipt),
+        summary="Consultar resultado de un alta propia",
+    )
+    def user_creation_receipt():
+        idem = request.headers.get("Idempotency-Key", "")
+        if not re.fullmatch(r"[A-Za-z0-9_-]{8,100}", idem):
+            raise APIError(
+                "idempotency_required",
+                "Idempotency-Key de 8–100 caracteres requerido.",
+                400,
+            )
+        actor_id = g.actor["id"]
+        session_id = g.claims["sid"]
+        with transaction() as conn:
+            actor = conn.execute(
+                "SELECT tenant_id,role,active,version FROM users WHERE id=%s FOR SHARE",
+                (actor_id,),
+            ).fetchone()
+            session = conn.execute(
+                "SELECT id FROM sessions WHERE id=%s AND user_id=%s AND revoked_at IS NULL AND expires_at>now() FOR SHARE",
+                (session_id, actor_id),
+            ).fetchone()
+            current = authenticate(("ADMIN",))
+            if (
+                not actor
+                or not session
+                or not actor["active"]
+                or actor["role"] != "ADMIN"
+                or str(actor["tenant_id"]) != current["tenant_id"]
+                or actor["version"] != current["version"]
+                or current["id"] != actor_id
+                or g.claims["sid"] != session_id
+            ):
+                raise APIError("unauthorized", "Sesión o permisos modificados.", 401)
+            row = conn.execute(
+                "SELECT result FROM idempotency WHERE user_id=%s AND key=%s AND operation='user_create'",
+                (actor_id, idem),
+            ).fetchone()
+            result = row["result"] if row else None
+            if (
+                not isinstance(result, dict)
+                or str(result.get("tenant_id")) != current["tenant_id"]
+            ):
+                raise APIError("not_found", "No se encontró un recibo autorizado.", 404)
+            return {name: result[name] for name in ("id", "username", "role")}
+
     @endpoint(
         app,
         "/api/v1/audit-assignees",

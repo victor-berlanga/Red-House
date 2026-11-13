@@ -1,0 +1,65 @@
+{
+  "type": "object",
+  "required": [
+    "data",
+    "meta"
+  ],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": [
+        "correlation_id",
+        "service",
+        "version"
+      ],
+      "properties": {
+        "correlation_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "service": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      }
+    },
+    "data": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "username": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Username",
+          "type": "string"
+        },
+        "role": {
+          "enum": [
+            "ADMIN",
+            "OPERATOR",
+            "MEDICAL",
+            "COORDINATOR",
+            "TRANSPORT",
+            "AUDITOR",
+            "DONOR"
+          ],
+          "title": "Role",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "username",
+        "role"
+      ],
+      "title": "UserCreationReceipt",
+      "type": "object"
+    }
+  }
+}

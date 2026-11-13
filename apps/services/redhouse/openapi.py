@@ -144,7 +144,10 @@ def spec(app):
                 },
             ]
         if (
-            contract["method"] in ("POST", "PATCH", "PUT")
+            (
+                contract["method"] in ("POST", "PATCH", "PUT")
+                or contract["name"] == "user_creation_receipt"
+            )
             and not contract["internal"]
             and not contract["public"]
             and contract["name"] != "operation_resume"
