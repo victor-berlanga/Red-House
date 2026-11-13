@@ -49,7 +49,9 @@ def test_device_actions_restricted_to_administrator():
     assert w.device_revoke_button.isVisible() and not w.device_revoke_button.isEnabled()
     assert w.table.item(0,1).text()=='Teléfono Android'
     w.client.user={'username':'administradora','role':'ADMIN'}; w.set_controls(True)
-    assert w.device_revoke_button.isEnabled()
+    assert w.device_revoke_button.isEnabled() and w.device_create_button.isEnabled()
+    assert not w.inventory_button.isVisible() and not w.samples_button.isVisible() and not w.results_button.isVisible()
+    assert w.search.isEnabled() and w.search_button.isEnabled()
     w.mode='users'; w.show_rows({'items':[],'page':1,'page_size':20,'total':0})
     assert w.device_create_button.isVisible() and w.device_create_button.isEnabled()
     w.close()

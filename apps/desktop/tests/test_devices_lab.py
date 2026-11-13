@@ -60,3 +60,43 @@ def test_admin_registers_and_revokes_device(platform,gateway,monkeypatch,tmp_pat
     QTimer.singleShot(50,fill_revoke); window.revoke_device()
     assert wait_until(lambda:not window.busy and any(row['label']==title and not row['active'] for row in window.rows))
     window.close()
+
+
+def test_admin_searches_device_and_starts_registration(platform,gateway,monkeypatch,tmp_path):
+    from datetime import datetime, timedelta, timezone
+    principal=platform.ok('identidad_acceso','GET','/api/v1/auth/me',user='admin1')
+    username='admin-search-'+uuid.uuid4().hex[:10]
+    platform.ok('identidad_acceso','POST','/api/v1/users',user='admin1',data={
+        'username':username,'password':platform.env.state['password'],
+        'tenant_id':principal['tenant_id'],'role':'ADMIN',
+    })
+    marker='EquipoBuscar'+uuid.uuid4().hex[:8]
+    platform.ok('identidad_acceso','POST','/api/v1/devices',user='admin1',data={
+        'id':str(uuid.uuid4()),'user_id':platform.env.state['accounts']['transport1']['id'],
+        'source':'SIMULATOR','label':marker,'expires_at':(datetime.now(timezone.utc)+timedelta(days=1)).isoformat(),
+    })
+    class Keys:
+        def __init__(self): self.key=Fernet.generate_key()
+        def get(self,identifier,exists): return self.key
+    keys=Keys()
+    monkeypatch.setattr(desktop,'Journal',lambda _root,base,user,tenant:Journal(tmp_path,base,user,tenant,keys))
+    monkeypatch.setenv('REDHOUSE_BASE_URL',gateway)
+    app=QApplication.instance() or QApplication([]); app.setStyleSheet(desktop.STYLE)
+    window=desktop.Window(); window.show(); window.username.setText(username); window.password.setText(platform.env.state['password']); window.login()
+    assert wait_until(lambda:window.stack.currentIndex()==1 and not window.busy)
+    window.switch('devices'); assert wait_until(lambda:not window.busy)
+    window.search.setText(marker); window.search_now()
+    assert wait_until(lambda:not window.busy and len(window.rows)==1 and window.rows[0]['label']==marker)
+    out=Path(os.environ['DESKTOP_CAPTURE_DIR']); out.mkdir(parents=True,exist_ok=True)
+    app.processEvents(); assert window.grab().save(str(out/'busqueda-qt.png'))
+    window.table.selectRow(0); opened=[]
+    def close_detail():
+        modal=QApplication.activeModalWidget()
+        if not modal: QTimer.singleShot(50,close_detail); return
+        opened.append(modal.windowTitle()); modal.accept()
+    QTimer.singleShot(50,close_detail); window.open_selected()
+    assert opened==['Dispositivo de traslado']
+    window.device_create_button.click()
+    assert wait_until(lambda:not window.busy and window.mode=='users')
+    assert 'Selecciona una cuenta de traslado' in window.status.text()
+    window.close()

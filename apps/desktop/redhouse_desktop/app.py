@@ -67,7 +67,7 @@ class Work(QRunnable):
 
 class Window(QMainWindow):
     def __init__(self):
-        super().__init__(); self.client = None; self.busy = False; self.rows = []; self.page = 1; self.mode = 'inventory'; self.total = 0; self.uncertain = False; self.reservation_uncertain = False; self.last_operation = None; self.last_operation_status = None; self.journal = None; self.tracking = None; self.closing = False
+        super().__init__(); self.client = None; self.busy = False; self.rows = []; self.page = 1; self.mode = 'inventory'; self.total = 0; self.uncertain = False; self.reservation_uncertain = False; self.last_operation = None; self.last_operation_status = None; self.journal = None; self.tracking = None; self.closing = False; self.select_transport = False
         self.setWindowTitle('Red House | Consola institucional'); self.resize(1150, 720)
         self.pool = QThreadPool(self); self.pool.setMaxThreadCount(1)
         self.stack = QStackedWidget(); self.setCentralWidget(self.stack)
@@ -107,7 +107,7 @@ class Window(QMainWindow):
         self.table = QTableWidget(); self.table.setColumnCount(5); self.table.setSelectionBehavior(QTableWidget.SelectRows); self.table.setSelectionMode(QTableWidget.SingleSelection); self.table.setEditTriggers(QTableWidget.NoEditTriggers); self.table.verticalHeader().hide(); self.table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch); self.table.itemDoubleClicked.connect(self.open_selected); outer.addWidget(self.table,1)
         actions = QHBoxLayout(); self.trace_button=QPushButton('Trazabilidad'); self.trace_button.setToolTip('Disponible para personal médico autorizado. Selecciona una unidad para consultarla.'); self.trace_button.setAccessibleDescription('Disponible para personal médico autorizado. Selecciona una unidad para consultarla.'); self.trace_button.clicked.connect(self.open_trace); actions.addWidget(self.trace_button); self.cold_button=QPushButton('Conservación'); self.cold_button.clicked.connect(self.open_cold); actions.addWidget(self.cold_button); self.user_state_button=QPushButton('Cambiar estado'); self.user_state_button.clicked.connect(self.change_user_state); actions.addWidget(self.user_state_button); self.user_role_button=QPushButton('Cambiar perfil'); self.user_role_button.clicked.connect(self.change_user_role); actions.addWidget(self.user_role_button); self.download_button=QPushButton('Descargar reporte'); self.download_button.clicked.connect(self.download_report); actions.addWidget(self.download_button); self.report_button=QPushButton('Solicitar reporte'); self.report_button.clicked.connect(self.create_report); actions.addWidget(self.report_button); self.resume_button=QPushButton('Reanudar reserva'); self.resume_button.clicked.connect(self.resume_operation); actions.addWidget(self.resume_button); self.label_button=QPushButton('Vista previa de etiqueta'); self.label_button.clicked.connect(self.preview_label); actions.addWidget(self.label_button); self.operation_button=QPushButton('Consultar operación'); self.operation_button.clicked.connect(self.check_operation); actions.addWidget(self.operation_button); self.evaluate_button=QPushButton('Generar evaluación'); self.evaluate_button.clicked.connect(self.evaluate_request); actions.addWidget(self.evaluate_button); self.create_button = QPushButton('Registrar unidad'); self.create_button.clicked.connect(self.create_resource); actions.addWidget(self.create_button); self.detail_button = QPushButton('Ver detalle'); self.detail_button.clicked.connect(self.open_selected); actions.addWidget(self.detail_button)
         self.request_create_button=QPushButton('Registrar solicitud'); self.request_create_button.setToolTip('El registro corresponde a personal médico autorizado.'); self.request_create_button.setAccessibleDescription('El registro corresponde a personal médico autorizado.'); self.request_create_button.clicked.connect(self.open_request_form); actions.addWidget(self.request_create_button)
-        self.device_create_button=QPushButton('Registrar dispositivo'); self.device_create_button.clicked.connect(self.create_device); actions.addWidget(self.device_create_button)
+        self.device_create_button=QPushButton('Registrar dispositivo'); self.device_create_button.clicked.connect(self.begin_device_create); actions.addWidget(self.device_create_button)
         self.device_revoke_button=QPushButton('Revocar dispositivo'); self.device_revoke_button.clicked.connect(self.revoke_device); actions.addWidget(self.device_revoke_button)
         self.receive_button = QPushButton('Registrar recepción'); self.receive_button.setObjectName('primary'); self.receive_button.clicked.connect(self.receive); actions.addWidget(self.receive_button); self.capture_button = QPushButton('Capturar resultado'); self.capture_button.clicked.connect(self.capture_result); actions.addWidget(self.capture_button); self.review_button = QPushButton('Revisar resultado'); self.review_button.setToolTip('La revisión corresponde al personal médico autorizado.'); self.review_button.clicked.connect(self.review_result); actions.addWidget(self.review_button); self.ack_button = QPushButton('Acusar recibo'); self.ack_button.clicked.connect(self.acknowledge); actions.addWidget(self.ack_button); actions.addStretch(); outer.addLayout(actions)
         actions = QHBoxLayout(); actions.addStretch()
@@ -125,7 +125,7 @@ class Window(QMainWindow):
     def set_controls(self, enabled):
         self.areas.setEnabled(enabled)
         is_admin=bool(enabled and self.client and self.client.user and self.client.user.get('role')=='ADMIN')
-        self.device_create_button.setEnabled(is_admin and self.mode=='users')
+        self.device_create_button.setEnabled(is_admin and self.mode in ('users','devices'))
         self.device_revoke_button.setEnabled(is_admin and self.mode=='devices')
         self.request_create_button.setEnabled(enabled and self.mode=='requests' and bool(self.client and self.client.user and self.client.user.get('role')=='MEDICAL'))
         for widget in (self.username,self.password,self.otp,self.search,self.table,self.login_button,self.logout_button,self.summary_button,self.inventory_button,self.samples_button,self.results_button,self.alerts_button,self.requests_button,self.evaluations_button,self.reservations_button,self.search_button,self.reload_button,self.trace_button,self.cold_button,self.user_state_button,self.user_role_button,self.download_button,self.report_button,self.resume_button,self.label_button,self.operation_button,self.evaluate_button,self.create_button,self.detail_button,self.receive_button,self.capture_button,self.review_button,self.ack_button,self.prev,self.next): widget.setEnabled(enabled)
@@ -135,6 +135,7 @@ class Window(QMainWindow):
             self.prev.setEnabled(self.page>1); self.next.setEnabled(self.page*20<self.total)
         if enabled and self.client and self.client.user:
             role = self.client.user.get('role'); self.requests_button.setEnabled(role in ('OPERATOR','MEDICAL')); self.evaluations_button.setEnabled(role == 'MEDICAL'); self.reservations_button.setEnabled(role in ('OPERATOR','MEDICAL','COORDINATOR'));
+            for button in (self.inventory_button,self.samples_button,self.results_button): button.setVisible(role!='ADMIN')
             self.summary_button.setEnabled(role in ('OPERATOR','MEDICAL','COORDINATOR','TRANSPORT'))
             for index,button in ((1,self.requests_button),(2,self.evaluations_button),(3,self.reservations_button)): self.areas.model().item(index).setEnabled(button.isEnabled())
             self.areas.model().item(4).setEnabled(role in ('OPERATOR','MEDICAL','COORDINATOR','TRANSPORT'))
@@ -142,7 +143,6 @@ class Window(QMainWindow):
             self.areas.model().item(10).setEnabled(role=='ADMIN')
             self.inventory_button.setEnabled(role in ('OPERATOR','MEDICAL','COORDINATOR'))
             self.trace_button.setEnabled(role=='MEDICAL' and self.mode=='inventory'); self.cold_button.setEnabled(role in ('OPERATOR','MEDICAL') and self.mode=='inventory'); self.user_state_button.setEnabled(role=='ADMIN' and self.mode=='users'); self.user_role_button.setEnabled(role=='ADMIN' and self.mode=='users'); self.operation_button.setEnabled(self.mode == 'pending' or (role == 'MEDICAL' and self.mode == 'reservations')); self.resume_button.setEnabled(role == 'MEDICAL' and self.last_operation_status in ('PENDING','ROLLBACK_PENDING')); self.evaluate_button.setEnabled(role == 'MEDICAL' and self.mode == 'requests'); self.create_button.setEnabled(role == 'OPERATOR' and self.mode == 'inventory'); self.review_button.setEnabled(role == 'MEDICAL' and self.mode == 'results'); self.samples_button.setEnabled(role in ('OPERATOR','MEDICAL')); self.results_button.setEnabled(role in ('OPERATOR','MEDICAL')); self.receive_button.setEnabled(role in ('OPERATOR','MEDICAL') and self.mode == 'samples')
-        if self.mode=='devices': self.search.setEnabled(False); self.search_button.setEnabled(False)
 
     def finished(self, callback, result):
         self.busy = False; self._worker=None; self.set_controls(True); callback(result)
@@ -223,7 +223,7 @@ class Window(QMainWindow):
             self.heading.setText(title); self.description.setText(description); self.table.setHorizontalHeaderLabels(headers)
             params={'page':self.page,'page_size':20}; q=self.search.text().strip()
             if q: params['q']=q
-            self.search.setPlaceholderText('Búsqueda no disponible en dispositivos' if self.mode=='devices' else 'Buscar en '+title.lower())
+            self.search.setPlaceholderText('Buscar por nombre de dispositivo' if self.mode=='devices' else 'Buscar en '+title.lower())
             self.run(lambda:self.client.authorized(service,path,operation,params=params),self.show_rows,'Consultando '+title.lower()+'…'); return
         self.search.setPlaceholderText('Buscar en avisos' if self.mode == 'alerts' else 'Buscar resultados' if self.mode == 'results' else 'Buscar por folio o identificador')
         if self.mode == 'results':
@@ -255,7 +255,7 @@ class Window(QMainWindow):
         self.operation_button.show(); self.resume_button.setVisible(self.last_operation_status in ('PENDING','ROLLBACK_PENDING')); self.detail_button.setEnabled(False); self.search.setEnabled(False); self.search_button.setEnabled(False); self.prev.setEnabled(False); self.next.setEnabled(False); self.page_label.setText(''); self.status.setText('Selecciona Consultar operación para recuperar.' if pending else 'No hay operaciones pendientes.')
 
     def show_rows(self,data):
-        self.device_create_button.setVisible(self.mode=='users'); self.device_revoke_button.setVisible(self.mode=='devices')
+        self.device_create_button.setVisible(self.mode in ('users','devices')); self.device_revoke_button.setVisible(self.mode=='devices')
         self.request_create_button.setVisible(self.mode=='requests')
         self.trace_button.setVisible(self.mode == 'inventory'); self.cold_button.setVisible(self.mode == 'inventory'); self.user_state_button.setVisible(self.mode == 'users'); self.user_role_button.setVisible(self.mode == 'users'); self.download_button.setVisible(self.mode == 'reports'); self.report_button.setVisible(self.mode == 'reports'); self.resume_button.setVisible(self.mode == 'reservations' and self.last_operation_status in ('PENDING','ROLLBACK_PENDING')); self.label_button.setVisible(self.mode == 'inventory'); self.operation_button.setVisible(self.mode in ('reservations','pending')); self.evaluate_button.setVisible(self.mode == 'requests'); self.create_button.setVisible(self.mode == 'inventory'); self.receive_button.setVisible(self.mode == 'samples'); self.capture_button.setVisible(self.mode == 'samples'); self.review_button.setVisible(self.mode == 'results'); self.ack_button.setVisible(self.mode == 'alerts')
         self.uncertain=False; self.rows=data['items']; self.total=data['total']; self.page=data['page']; self.table.setRowCount(len(self.rows))
@@ -267,7 +267,7 @@ class Window(QMainWindow):
                     if self.mode=='devices' and key=='source': v={'ANDROID':'Teléfono Android','IOS':'Teléfono iOS','GPS_BRIDGE':'Equipo GPS','SIMULATOR':'Simulador'}.get(v,'Otra fuente')
                     if self.mode=='devices' and key=='user_state': v='Activo' if item.get('active') else 'Revocado'
                     self.table.setItem(row,column,QTableWidgetItem(display_value(key,v)))
-            self.page_label.setText(f'Página {self.page} · {self.total} '+('registro' if self.total==1 else 'registros')); self.status.setText('Sin resultados.' if not self.rows else 'Selecciona una fila para consultar su detalle.'); self.set_controls(True); return
+            self.page_label.setText(f'Página {self.page} · {self.total} '+('registro' if self.total==1 else 'registros')); self.status.setText('Selecciona una cuenta de traslado activa y pulsa Registrar dispositivo.' if self.mode=='users' and self.select_transport else 'Sin resultados.' if not self.rows else 'Selecciona una fila para consultar su detalle.'); self.select_transport=False; self.set_controls(True); return
         keys = ('test_code','value','status','laboratory','version') if self.mode=='results' else (('message_code','status','severity','created_at') if self.mode=='alerts' else (('identifier','status','collected_at','received_at','version') if self.mode=='samples' else ('folio','component','blood_group','status','expires_at')))
         for row,item in enumerate(self.rows):
             for column,key in enumerate(keys): self.table.setItem(row,column,QTableWidgetItem(display_value(key,item.get(key))))
@@ -489,6 +489,11 @@ class Window(QMainWindow):
         if item['id']==self.client.user['id']:
             self.status.setText('No puedes cambiar tu propia cuenta desde esta acción.'); return None
         return item
+
+    def begin_device_create(self):
+        if self.mode=='devices':
+            self.select_transport=True; self.switch('users'); return
+        self.create_device()
 
     def create_device(self):
         item=self.selected()

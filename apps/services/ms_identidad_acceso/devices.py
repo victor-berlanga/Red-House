@@ -114,7 +114,13 @@ def install(app):
     )
     def device_list():
         with transaction() as conn:
-            result = listing(conn, "devices", "tenant_id=%s", (g.actor["tenant_id"],))
+            result = listing(
+                conn,
+                "devices",
+                "tenant_id=%s",
+                (g.actor["tenant_id"],),
+                filters={"q": ("label", "id::text")},
+            )
             result["items"] = [public(r) for r in result["items"]]
             return result
 

@@ -1,0 +1,15 @@
+# Búsqueda de dispositivos y navegación
+
+El 13/11/2026, los dos casos de `test_device_search_scope.py` pasaron para JSON y XML. Comprobaron búsqueda por nombre e identificador, paginación, aislamiento entre instituciones y rechazo de OPERATOR. Se ejecutaron junto con un smoke Locust independiente que falló; `junit-filtros-extraido.xml` contiene exclusivamente los dos casos de búsqueda extraídos del JUnit original, no representa una suite íntegra exitosa. El SHA-256 del JUnit original fue `dc14587e6cf54e0a13806a2c177def2ca630d54c35c9add8609b67951f1ca044`. Los 963 archivos de fuente y contratos fijados en ese ensayo tenían el mismo manifiesto antes y después: `d7aab62af23444f65312d6f732b4086f7b22da23944e8c445225fe1bed39f103`.
+
+El comando conjunto invocó `apps/services/.venv/bin/python -m pytest apps/services/tests/test_load_probe.py apps/services/tests/test_device_search_scope.py -q --tb=short --show-capture=no`, con `REDHOUSE_TEST_MONGOD` apuntando al binario local MongoDB 8.0.17, `REDHOUSE_TEST_STARTUP_TIMEOUT=120`, `REDHOUSE_TEST_ROOT` y `--basetemp` en un directorio temporal privado y `REDHOUSE_LOAD_OUTPUT` y `--junitxml` en `.local/load-smoke-20261113`. La versión original del arnés Locust y su hash se conservan en la evidencia de carga; el filtro no depende del resultado de ese smoke.
+
+El ensayo Qt autenticado `test_admin_searches_device_and_starts_registration` pasó 1/1 en 65,44 s sobre servicios aislados y XML. Una administradora sintética buscó por nombre, abrió el detalle y usó el acceso de registro que conduce a seleccionar una cuenta de traslado. `busqueda-qt.png` es su captura real; `lista-doble.png` corresponde a la revisión anterior con cliente doble. Ambas fueron inspeccionadas visualmente. Los botones clínicos están ocultos para ADMIN.
+
+```sh
+PYTHONPATH=apps/services:apps/desktop:apps/desktop/.venv/lib/python3.12/site-packages QT_QPA_PLATFORM=offscreen REDHOUSE_TEST_MONGOD="$PWD/.local/tools/mongodb-8.0.17/bin/mongod" DESKTOP_CAPTURE_DIR="$PWD/documentation/evidencias/entrega-final/desktop/iteracion-busqueda-dispositivos" apps/services/.venv/bin/python -m pytest apps/desktop/tests/test_devices_lab.py::test_admin_searches_device_and_starts_registration -q --tb=short --show-capture=no --junitxml=/private/tmp/redhouse-device-search-junit.xml
+```
+
+SHA-256 del ensayo Qt, sin cambios al finalizar: `app.py` `4f181640438ebb7817771333f61b209a093143bc94cb0c233f92b403e396e9a5`; `test_devices_lab.py` `52914e34a12ab037bc8b63834cfb2f440c1989212fd64be8b6269413288483ea`; Identidad `devices.py` `15b76c3f8bf46eaae904a8240e8b20d7eac7e7898c9dbc60f19de1930098bd40`. Prueba de filtros `test_device_search_scope.py` `7f9ecb53eb512e91bcd3b28c91fa949d08e2555946494e458cd5061d94f9f706`. No se acredita despliegue, paquete reconstruido ni otros perfiles.
+
+Después se formateó `test_device_search_scope.py` con Ruff. Su AST sin atributos conservó el SHA-256 `f918467dbdfb82b2c750bc3ac7ab9b79d1aa37bcd9c89ce0b77cb1d504817146`; el archivo ejecutado antes del formato se identifica por el hash anterior.
