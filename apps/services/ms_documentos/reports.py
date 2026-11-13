@@ -222,8 +222,9 @@ def process(limit=3):
                         "file_id": file_id,
                         "generation": str(blob.generation),
                         "sha256": digest,
-                        "status": status,
+                        "status": str(status),
                         "engine": "CLAMD_INSTREAM",
+                        **status.metadata,
                     },
                 )
                 update(

@@ -5,6 +5,7 @@ import socketserver
 import struct
 import threading
 from contextlib import contextmanager
+from datetime import datetime, timezone
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
 
@@ -44,10 +45,24 @@ def smtp_receiver():
 @contextmanager
 def clamd_receiver():
     received = []
+    identity = (
+        b"ClamAV test/1/"
+        + datetime.now(timezone.utc).strftime("%a %b %d %H:%M:%S %Y").encode("ascii")
+        + b"\0"
+    )
 
     class Handler(socketserver.StreamRequestHandler):
         def handle(self):
-            assert self.rfile.read(10) == b"zINSTREAM\0"
+            command = self.rfile.read(1)
+            while not command.endswith(b"\0") and len(command) < 32:
+                part = self.rfile.read(1)
+                if not part:
+                    return
+                command += part
+            if command == b"zVERSION\0":
+                self.wfile.write(identity)
+                return
+            assert command == b"zINSTREAM\0"
             body = b""
             while size := struct.unpack("!I", self.rfile.read(4))[0]:
                 body += self.rfile.read(size)

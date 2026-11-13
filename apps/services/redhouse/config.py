@@ -121,9 +121,14 @@ def settings(service, overrides=None):
         "PUSH_ADAPTER_URL",
         "PUSH_ADAPTER_TOKEN",
         "CLAMD_HOST",
+        "CLAMD_VERSION_TIMEZONE",
     ):
         cfg.setdefault(name, env.get(name, ""))
-    for name, default in (("SMTP_PORT", 587), ("CLAMD_PORT", 3310)):
+    for name, default in (
+        ("SMTP_PORT", 587),
+        ("CLAMD_PORT", 3310),
+        ("CLAMD_SIGNATURE_MAX_AGE_SECONDS", 172800),
+    ):
         cfg.setdefault(name, int(env.get(name, default)))
     if not cfg["DATABASE_URL"] or not cfg["JWT_PUBLIC_KEY"]:
         raise ValueError(

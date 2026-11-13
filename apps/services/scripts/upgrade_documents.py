@@ -61,6 +61,8 @@ def provision_documents(directory, state):
             "GCS_SIGNER",
             "CLAMD_HOST",
             "CLAMD_PORT",
+            "CLAMD_VERSION_TIMEZONE",
+            "CLAMD_SIGNATURE_MAX_AGE_SECONDS",
         ):
             if key in transport:
                 config[key] = transport[key]

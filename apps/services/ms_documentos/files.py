@@ -119,8 +119,11 @@ def register_files(app, access):
             from redhouse.malware import scan
 
             scan_status = "ERROR"
+            scan_metadata = {}
             try:
-                scan_status = scan(content)
+                result = scan(content)
+                scan_metadata = result.metadata
+                scan_status = result
             finally:
                 with transaction() as conn:
                     insert(
@@ -131,8 +134,9 @@ def register_files(app, access):
                             "file_id": identifier,
                             "generation": str(blob.generation),
                             "sha256": row["sha256"],
-                            "status": scan_status,
+                            "status": str(scan_status),
                             "engine": "CLAMD_INSTREAM",
+                            **scan_metadata,
                         },
                     )
             if scan_status != "CLEAN":

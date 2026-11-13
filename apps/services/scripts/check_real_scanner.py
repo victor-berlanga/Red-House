@@ -16,6 +16,8 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--host", default="127.0.0.1")
     parser.add_argument("--port", type=int, default=33310)
+    parser.add_argument("--signature-timezone", choices=("UTC",), required=True)
+    parser.add_argument("--max-signature-age", type=int, default=172800)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     result = {"environment": "real-clamd-official-signatures", "checks": []}
@@ -23,7 +25,12 @@ def main():
         connection.sendall(b"zVERSION\0")
         result["engine"] = connection.recv(1024).decode().strip("\0\n")
     app = Flask(__name__)
-    app.config.update(CLAMD_HOST=args.host, CLAMD_PORT=args.port)
+    app.config.update(
+        CLAMD_HOST=args.host,
+        CLAMD_PORT=args.port,
+        CLAMD_VERSION_TIMEZONE=args.signature_timezone,
+        CLAMD_SIGNATURE_MAX_AGE_SECONDS=args.max_signature_age,
+    )
     with app.app_context():
         assert scan(b"Synthetic clean file for Red House") == "CLEAN"
         assert (

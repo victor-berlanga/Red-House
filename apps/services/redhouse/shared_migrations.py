@@ -4,7 +4,7 @@ from pathlib import Path
 
 from psycopg import sql
 
-LATEST_VERSION = 19
+LATEST_VERSION = 20
 
 
 def upgrade(conn):

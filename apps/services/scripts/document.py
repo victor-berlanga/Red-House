@@ -310,7 +310,14 @@ La web integrada tiene pruebas HTTP con dependencias reales y recorridos de nave
                 f"{service.upper()}_MONGODB_URL=mongodb://{service}:CAMBIAR@127.0.0.1:27017/rh_{service}?authSource=rh_{service}"
             )
         if service == "documentos":
-            env_lines += ["GCS_BUCKET=", "CLAMD_HOST=127.0.0.1", "CLAMD_PORT=3310"]
+            env_lines += [
+                "GCS_BUCKET=",
+                "CLAMD_HOST=127.0.0.1",
+                "CLAMD_PORT=3310",
+                "# Iniciar el daemon con TZ=UTC; la declaración no comprueba su zona.",
+                "CLAMD_VERSION_TIMEZONE=UTC",
+                "CLAMD_SIGNATURE_MAX_AGE_SECONDS=172800",
+            ]
         (folder / ".env.example").write_text("\n".join(env_lines) + "\n")
         (folder / "run.py").write_text(
             f'from pathlib import Path\nimport sys\n\nsys.path.insert(0, str(Path(__file__).resolve().parents[1]))\nfrom run import main\n\nif __name__ == "__main__":\n    sys.argv.insert(1, "{service}")\n    main()\n'

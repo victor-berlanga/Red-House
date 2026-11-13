@@ -99,6 +99,7 @@ def platform():
             config = dict(
                 env.configs[service],
                 TESTING=True,
+                CLAMD_VERSION_TIMEZONE="UTC",
                 RATE_LIMIT=100000,
                 INTERNAL_RATE_LIMIT=100000,
                 WORKER_REQUIRED=False,
