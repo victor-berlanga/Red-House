@@ -434,6 +434,11 @@ def main():
     selection = parser.add_mutually_exclusive_group()
     selection.add_argument("--physical", action="store_true")
     selection.add_argument(
+        "--final-physical",
+        action="store_true",
+        help="Exporta el catálogo físico final a Word; PDF mediante LibreOffice por separado.",
+    )
+    selection.add_argument(
         "--final",
         action="store_true",
         help="Exporta el reporte final con corte propio, sin anexos históricos del segundo parcial.",
@@ -444,8 +449,14 @@ def main():
         help="Genera PDF e índice con páginas verificadas; requiere LibreOffice y PyMuPDF.",
     )
     args = parser.parse_args()
+    if args.final_physical and args.pdf:
+        parser.error(
+            "--final-physical genera Word; convertir ese archivo con soffice según modelos/README.md"
+        )
     sources = (
-        [ROOT / "documentation/markdowns/Reporte_tecnico_final.md"]
+        [ROOT / "documentation/entrega-final/modelos/Modelo_fisico.md"]
+        if args.final_physical
+        else [ROOT / "documentation/markdowns/Reporte_tecnico_final.md"]
         if args.final
         else (
             [ROOT / "documentation/segundo-parcial/Modelo_fisico.md"]
@@ -458,7 +469,9 @@ def main():
         )
     )
     name = (
-        "Reporte_tecnico_final"
+        "Modelo_fisico_PostgreSQL_final"
+        if args.final_physical
+        else "Reporte_tecnico_final"
         if args.final
         else (
             "Modelo_fisico_PostgreSQL"
@@ -476,8 +489,8 @@ def main():
     export(
         sources,
         ROOT / "documentation/docx" / (name + ".docx"),
-        report_design=not args.physical,
-        final_report=args.final,
+        report_design=not (args.physical or args.final_physical),
+        final_report=args.final or args.final_physical,
     )
     print(name + ".docx")
 

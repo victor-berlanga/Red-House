@@ -1,0 +1,256 @@
+erDiagram
+  direction LR
+  red_house__blood_candidate {
+    uuid candidate_id
+    uuid evaluation_id
+    uuid resource_id
+    int4 rank_no
+  }
+  red_house__blood_request {
+    uuid request_id
+    varchar request_code
+    uuid recipient_id
+    uuid component_id
+    uuid responsible_id
+    uuid tenant_id
+  }
+  red_house__blood_review {
+    uuid review_id
+    uuid candidate_id
+    uuid actor_id
+    text decision
+    text reason
+    timestamptz occurred_at
+    uuid evaluation_id
+    uuid resource_id
+    uuid tenant_id
+    text operation_scope
+  }
+  red_house__candidate_evaluation {
+    uuid evaluation_id
+    uuid request_id
+    text algorithm_version
+    int4 request_version
+    int4 recipient_version
+    uuid actor_id
+    timestamptz occurred_at
+    float8 elapsed_ms
+    uuid tenant_id
+    text kind
+    jsonb snapshot
+    jsonb candidates
+  }
+  red_house__donation {
+    uuid donation_id
+    uuid donor_id
+    uuid review_id
+    varchar donation_code
+    uuid created_by
+    uuid tenant_id
+  }
+  red_house__institution {
+    uuid institution_id
+    varchar institution_code
+    uuid created_by
+  }
+  red_house__lab_actions {
+    uuid id
+    uuid result_id
+    uuid author_id
+    text decision
+    text reason
+    timestamptz created_at
+  }
+  red_house__lab_profiles {
+    uuid id
+    uuid tenant_id
+    text name
+    text kind
+    text component
+    int4 version
+    jsonb required_tests
+    text source
+    bool synthetic
+    uuid author_id
+    timestamptz effective_at
+    uuid supersedes
+    timestamptz created_at
+    text purpose
+    text rule_status
+    jsonb required_loci
+    bool clinical_enabled
+    timestamptz valid_until
+    jsonb policy
+    jsonb evidence_rules
+    jsonb reference_snapshot
+  }
+  red_house__lab_results {
+    uuid id
+    uuid sample_id
+    uuid tenant_id
+    text test_code
+    text value
+    text unit
+    text method
+    text laboratory
+    text reference
+    timestamptz measured_at
+    uuid author_id
+    int4 version
+    uuid supersedes
+    text status
+    timestamptz created_at
+    text result_state
+    jsonb hla
+    timestamptz issued_at
+    uuid document_id
+    jsonb crossmatch
+    jsonb document_snapshot
+    jsonb catalogue_check
+  }
+  red_house__lab_samples {
+    uuid id
+    uuid tenant_id
+    uuid resource_id
+    uuid recipient_id
+    uuid donation_id
+    uuid profile_id
+    text identifier
+    timestamptz collected_at
+    timestamptz received_at
+    text status
+    int4 version
+    uuid author_id
+    timestamptz created_at
+    uuid request_id
+  }
+  red_house__recipient {
+    uuid recipient_id
+    uuid institution_id
+    text record_code
+    uuid responsible_id
+  }
+  red_house__resource {
+    uuid resource_id
+    varchar traceability_code
+    uuid tenant_id
+    text folio
+    uuid current_institution_id
+    uuid donation_id
+  }
+  red_house__rule_actions {
+    uuid id
+    uuid profile_id
+    uuid tenant_id
+    uuid actor_id
+    int4 sequence
+    text state
+    text reason
+    text competency_reference
+    jsonb evidence
+    timestamptz created_at
+  }
+  red_house__schema_migration {
+    int4 version
+    text description
+    timestamptz installed_at
+  }
+  red_house__service_activity_events {
+    text service
+    uuid id
+    uuid tenant_id
+    jsonb event
+    timestamptz created_at
+  }
+  red_house__service_decisions {
+    text service
+    uuid id
+    uuid resource_id
+    uuid tenant_id
+    uuid actor_id
+    text action
+    text reason
+    jsonb changes
+    timestamptz created_at
+  }
+  red_house__service_idempotency {
+    text service
+    uuid id
+    uuid user_id
+    text key
+    text operation
+    text fingerprint
+    jsonb result
+    timestamptz created_at
+  }
+  red_house__service_inbox {
+    text service
+    uuid event_id
+    text fingerprint
+    timestamptz created_at
+  }
+  red_house__service_outbox {
+    text service
+    uuid id
+    uuid event_id
+    text target
+    jsonb event
+    timestamptz created_at
+    timestamptz delivered_at
+    int4 attempts
+    timestamptz next_attempt
+    text last_error
+  }
+  red_house__service_schema_version {
+    text service
+    int4 version
+    timestamptz installed_at
+  }
+  red_house__service_worker_health {
+    text service
+    int4 id
+    timestamptz checked_at
+    timestamptz last_success
+    text last_error
+  }
+  red_house__stored_file {
+    uuid file_id
+    uuid shipment_id
+    uuid owner_id
+    text object_path
+  }
+  red_house__user_account {
+    uuid account_id
+    uuid party_id
+    varchar login_email
+    text username
+    uuid tenant_id
+  }
+  red_house__candidate_evaluation ||..o{ red_house__blood_review : api_reviews_evaluation_id_fkey
+  red_house__blood_candidate |o..o{ red_house__blood_review : blood_review_candidate_id_fkey
+  red_house__user_account ||..o{ red_house__blood_review : shared_reviews_actor_id
+  red_house__resource ||..o{ red_house__blood_review : shared_reviews_resource_id
+  red_house__institution ||..o{ red_house__blood_review : shared_reviews_tenant_id
+  red_house__user_account |o..o{ red_house__candidate_evaluation : candidate_evaluation_actor_id_fkey
+  red_house__blood_request ||..o{ red_house__candidate_evaluation : shared_evaluations_request_id
+  red_house__institution ||..o{ red_house__candidate_evaluation : shared_evaluations_tenant_id
+  red_house__user_account ||..o{ red_house__lab_actions : lab_actions_author_id_fkey
+  red_house__lab_results ||..o{ red_house__lab_actions : lab_actions_result_id_fkey
+  red_house__user_account ||..o{ red_house__lab_profiles : lab_profiles_author_id_fkey
+  red_house__lab_profiles |o..o{ red_house__lab_profiles : lab_profiles_supersedes_fkey
+  red_house__institution ||..o{ red_house__lab_profiles : lab_profiles_tenant_id_fkey
+  red_house__user_account ||..o{ red_house__lab_results : lab_results_author_id_fkey
+  red_house__stored_file |o..o{ red_house__lab_results : lab_results_document_id_fkey
+  red_house__lab_samples ||..o{ red_house__lab_results : lab_results_sample_id_fkey
+  red_house__lab_results |o..o{ red_house__lab_results : lab_results_supersedes_fkey
+  red_house__institution ||..o{ red_house__lab_results : lab_results_tenant_id_fkey
+  red_house__user_account ||..o{ red_house__lab_samples : lab_samples_author_id_fkey
+  red_house__donation |o..o{ red_house__lab_samples : lab_samples_donation_id_fkey
+  red_house__lab_profiles ||..o{ red_house__lab_samples : lab_samples_profile_id_fkey
+  red_house__recipient |o..o{ red_house__lab_samples : lab_samples_recipient_id_fkey
+  red_house__blood_request |o..o{ red_house__lab_samples : lab_samples_request_id_fkey
+  red_house__resource |o..o{ red_house__lab_samples : lab_samples_resource_id_fkey
+  red_house__institution ||..o{ red_house__lab_samples : lab_samples_tenant_id_fkey
+  red_house__user_account ||..o{ red_house__rule_actions : rule_actions_actor_id_fkey
+  red_house__lab_profiles ||..o{ red_house__rule_actions : rule_actions_profile_id_fkey
+  red_house__institution ||..o{ red_house__rule_actions : rule_actions_tenant_id_fkey

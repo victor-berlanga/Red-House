@@ -1,0 +1,15 @@
+flowchart TB
+ N[Persona autorizada y navegador] --> W[Portal Flask y Jinja2]
+ W --> K[Backend modular propio y workers fijados]
+ A[Android e iOS: JSON] --> G[Gateway HTTPS y WSS]
+ E[Escritorio PySide6: XML y XSD] --> G
+ G --> API[Doce propietarios API con dos réplicas cada uno]
+ K --> R[Autorización y reglas versionadas]
+ API --> R
+ R --> PG[(PostgreSQL compartido: esquema 20)]
+ R --> RD[(Redis: sesiones, revocación y permisos)]
+ PG --> MO[(MongoDB: eventos y proyecciones desde outbox)]
+ R --> DOC[Documentos: autorización y análisis]
+ DOC --> VOL[Archivos LOCAL privados del servidor]
+ DOC --> AV[ClamD y vigilancia de firmas]
+ DOC -.-> GC[GCS opcional: prueba académica separada]

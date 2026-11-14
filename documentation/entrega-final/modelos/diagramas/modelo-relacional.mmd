@@ -1,0 +1,927 @@
+erDiagram
+  direction LR
+  red_house__account_role {
+    uuid account_id
+    varchar role_code
+    uuid institution_id
+  }
+  red_house__accreditations {
+    uuid id
+    uuid tenant_id
+    uuid author_id
+    uuid supersedes
+  }
+  red_house__alert_actions {
+    uuid id
+    uuid alert_id
+    uuid tenant_id
+    uuid actor_id
+    text action
+  }
+  red_house__alert_deliveries {
+    uuid id
+    uuid alert_id
+    uuid subscription_id
+    uuid tenant_id
+    text stage
+  }
+  red_house__alert_policies {
+    uuid id
+    uuid tenant_id
+    text message_code
+    uuid author_id
+    uuid supersedes
+    int4 version
+  }
+  red_house__alert_subscriptions {
+    uuid id
+    uuid tenant_id
+    uuid user_id
+    text channel
+  }
+  red_house__algorithm_run {
+    uuid run_id
+    uuid institution_id
+    uuid actor_id
+    uuid blood_evaluation_id
+    uuid organ_evaluation_id
+  }
+  red_house__algorithm_runs {
+    uuid id
+    uuid tenant_id
+    uuid author_id
+  }
+  red_house__allocation_operation {
+    uuid id
+    uuid user_id
+    uuid tenant_id
+    text key
+  }
+  red_house__anomaly_actions {
+    uuid id
+    uuid review_id
+    uuid tenant_id
+    uuid author_id
+  }
+  red_house__anomaly_reviews {
+    uuid id
+    uuid tenant_id
+    text deduplication_key
+    uuid responsible_id
+  }
+  red_house__appointment {
+    uuid appointment_id
+    uuid donor_id
+    uuid campaign_id
+    uuid tenant_id
+  }
+  red_house__appointment_reminders {
+    uuid id
+  }
+  red_house__appointment_slots {
+    uuid id
+    uuid slot_id
+    uuid tenant_id
+  }
+  red_house__audit_change {
+    uuid event_id
+    varchar field_name
+  }
+  red_house__audit_event {
+    uuid event_id
+    uuid actor_id
+    uuid institution_id
+  }
+  red_house__audit_finding_actions {
+    uuid id
+    uuid finding_id
+    uuid actor_id
+  }
+  red_house__audit_finding_links {
+    uuid id
+    uuid finding_id
+    uuid event_id
+  }
+  red_house__audit_findings {
+    uuid id
+    uuid tenant_id
+    uuid assignee_id
+    uuid assignee_tenant_id
+    uuid created_by
+  }
+  red_house__balance_proposal {
+    uuid id
+    uuid tenant_id
+  }
+  red_house__blood_allocation {
+    uuid allocation_id
+    uuid request_id
+    uuid candidate_id
+    uuid resource_id
+    uuid origin_id
+    uuid destination_id
+    uuid authorized_by
+    uuid review_id
+    uuid operation_id
+    uuid recipient_id
+    uuid hold_id
+    uuid evaluation_id
+    uuid route_id
+  }
+  red_house__blood_candidate {
+    uuid candidate_id
+    uuid evaluation_id
+    uuid resource_id
+    int4 rank_no
+  }
+  red_house__blood_classification {
+    uuid resource_id
+  }
+  red_house__blood_component {
+    uuid component_id
+    varchar component_code
+  }
+  red_house__blood_movement {
+    uuid movement_id
+    uuid resource_id
+    uuid origin_location_id
+    uuid destination_location_id
+    uuid actor_id
+  }
+  red_house__blood_request {
+    uuid request_id
+    varchar request_code
+    uuid recipient_id
+    uuid component_id
+    uuid responsible_id
+    uuid tenant_id
+  }
+  red_house__blood_review {
+    uuid review_id
+    uuid candidate_id
+    uuid actor_id
+    uuid evaluation_id
+    uuid resource_id
+    uuid tenant_id
+  }
+  red_house__blood_status_transition {
+    varchar previous_status
+    varchar new_status
+  }
+  red_house__blood_unit {
+    uuid resource_id
+    uuid component_id
+    uuid location_id
+  }
+  red_house__cache_revision {
+    text name
+  }
+  red_house__campaign {
+    uuid campaign_id
+    uuid institution_id
+  }
+  red_house__campaign_publications {
+    uuid id
+    uuid tenant_id
+  }
+  red_house__campaign_slots {
+    uuid id
+    uuid campaign_id
+    uuid tenant_id
+    uuid site_id
+  }
+  red_house__candidate_evaluation {
+    uuid evaluation_id
+    uuid request_id
+    uuid actor_id
+    uuid tenant_id
+  }
+  red_house__capability {
+    varchar capability_code
+  }
+  red_house__catalogue_entry {
+    uuid id
+    uuid tenant_id
+    text kind
+    text name
+    uuid parent_id
+  }
+  red_house__cold_equipment {
+    uuid id
+    uuid tenant_id
+  }
+  red_house__cold_profiles {
+    uuid id
+    uuid tenant_id
+    uuid author_id
+    uuid supersedes
+  }
+  red_house__cold_readings {
+    uuid id
+    uuid resource_id
+    uuid equipment_id
+    uuid profile_id
+    uuid tenant_id
+    uuid author_id
+  }
+  red_house__cold_reviews {
+    uuid id
+    uuid resource_id
+    uuid tenant_id
+    uuid author_id
+  }
+  red_house__consent_versions {
+    uuid id
+    uuid donor_id
+    uuid tenant_id
+    uuid author_id
+    int4 version
+    uuid supersedes
+  }
+  red_house__contact {
+    uuid contact_id
+  }
+  red_house__contact_method {
+    uuid contact_id
+    varchar method_kind
+  }
+  red_house__custody_chain {
+    uuid id
+    uuid origin_id
+    uuid destination_id
+  }
+  red_house__custody_event {
+    uuid event_id
+    uuid shipment_id
+    int4 sequence
+    uuid actor_id
+  }
+  red_house__decision_runs {
+    uuid id
+    uuid tenant_id
+    uuid author_id
+  }
+  red_house__devices {
+    uuid id
+    uuid tenant_id
+    uuid user_id
+  }
+  red_house__document_metadata {
+    uuid id
+    uuid tenant_id
+    uuid supersedes
+  }
+  red_house__donation {
+    uuid donation_id
+    uuid donor_id
+    uuid review_id
+    varchar donation_code
+    uuid created_by
+    uuid tenant_id
+  }
+  red_house__donation_event {
+    uuid event_id
+    uuid donation_id
+    uuid actor_id
+  }
+  red_house__donation_unit {
+    uuid resource_id
+    uuid donation_id
+    uuid released_by
+  }
+  red_house__donor {
+    uuid donor_id
+    uuid institution_id
+    text record_code
+    uuid created_by
+    uuid account_id
+  }
+  red_house__donor_review {
+    uuid review_id
+    uuid donor_id
+    uuid actor_id
+  }
+  red_house__export_jobs {
+    uuid id
+    uuid tenant_id
+    uuid user_id
+    uuid file_id
+  }
+  red_house__external_authorizations {
+    uuid id
+    uuid request_id
+    uuid tenant_id
+    uuid author_id
+    int4 version
+    uuid supersedes
+  }
+  red_house__external_mappings {
+    uuid id
+    uuid tenant_id
+    text system
+    text external_id
+    uuid resource_id
+    uuid author_id
+  }
+  red_house__file_scans {
+    uuid id
+    uuid file_id
+  }
+  red_house__identity_deliveries {
+    uuid id
+  }
+  red_house__institution {
+    uuid institution_id
+    varchar institution_code
+    uuid created_by
+  }
+  red_house__institution_capability {
+    uuid institution_id
+    varchar capability_code
+  }
+  red_house__institution_contact {
+    uuid institution_id
+    uuid contact_id
+  }
+  red_house__institution_presentations {
+    uuid id
+  }
+  red_house__lab_actions {
+    uuid id
+    uuid result_id
+    uuid author_id
+  }
+  red_house__lab_profiles {
+    uuid id
+    uuid tenant_id
+    uuid author_id
+    uuid supersedes
+  }
+  red_house__lab_results {
+    uuid id
+    uuid sample_id
+    uuid tenant_id
+    text test_code
+    uuid author_id
+    int4 version
+    uuid supersedes
+    uuid document_id
+  }
+  red_house__lab_samples {
+    uuid id
+    uuid tenant_id
+    uuid resource_id
+    uuid recipient_id
+    uuid donation_id
+    uuid profile_id
+    text identifier
+    uuid author_id
+    uuid request_id
+  }
+  red_house__login_attempt {
+    int8 attempt_id
+  }
+  red_house__notification {
+    uuid notification_id
+    uuid event_id
+    uuid institution_id
+    text target_role
+    uuid target_account_id
+    uuid acknowledged_by
+  }
+  red_house__organ_allocation {
+    uuid allocation_id
+    uuid candidate_id
+    uuid review_id
+    uuid offer_id
+    uuid recipient_id
+    uuid authorized_by
+    uuid transport_id
+  }
+  red_house__organ_candidate {
+    uuid candidate_id
+    uuid evaluation_id
+    uuid offer_id
+    uuid recipient_id
+    uuid evaluated_by
+  }
+  red_house__organ_custody_event {
+    uuid event_id
+    uuid allocation_id
+    uuid actor_id
+  }
+  red_house__organ_donor {
+    uuid donor_id
+    uuid institution_id
+    varchar record_code
+    uuid reviewed_by
+  }
+  red_house__organ_evaluation {
+    uuid evaluation_id
+    uuid offer_id
+    uuid evaluated_by
+  }
+  red_house__organ_offer {
+    uuid offer_id
+    uuid donor_id
+    varchar record_code
+    uuid released_by
+  }
+  red_house__organ_recipient {
+    uuid recipient_id
+    uuid institution_id
+    varchar record_code
+    uuid responsible_id
+  }
+  red_house__organ_review {
+    uuid review_id
+    uuid candidate_id
+    uuid reviewed_by
+  }
+  red_house__parameter_version {
+    uuid parameter_version_id
+    varchar parameter_code
+    varchar region_name
+    int4 version_no
+    uuid approved_by
+  }
+  red_house__party {
+    uuid party_id
+  }
+  red_house__portal_policies {
+    uuid id
+  }
+  red_house__ranking_run {
+    uuid id
+    uuid tenant_id
+    uuid evaluation_id
+  }
+  red_house__recipient {
+    uuid recipient_id
+    uuid institution_id
+    text record_code
+    uuid responsible_id
+  }
+  red_house__recovery_tokens {
+    uuid id
+    uuid user_id
+    text token_hash
+  }
+  red_house__regional_graphs {
+    uuid id
+    uuid tenant_id
+    uuid author_id
+    uuid supersedes
+  }
+  red_house__regional_route {
+    uuid route_id
+    uuid origin_id
+    uuid destination_id
+    uuid recorded_by
+  }
+  red_house__request_event {
+    uuid event_id
+    uuid request_id
+    uuid actor_id
+  }
+  red_house__request_hold {
+    uuid id
+    uuid request_id
+    uuid recipient_id
+    uuid operation_id
+    uuid resource_id
+  }
+  red_house__resource {
+    uuid resource_id
+    varchar traceability_code
+    uuid tenant_id
+    text folio
+    uuid current_institution_id
+    uuid donation_id
+  }
+  red_house__resource_controls {
+    uuid id
+    uuid lab_profile_id
+    uuid cold_equipment_id
+    uuid cold_profile_id
+  }
+  red_house__resource_destinations {
+    uuid id
+    uuid resource_id
+    uuid tenant_id
+    uuid author_id
+    int4 version
+    uuid supersedes
+  }
+  red_house__resource_lineage {
+    uuid id
+    uuid parent_id
+    uuid child_id
+    uuid donation_id
+    uuid tenant_id
+    uuid author_id
+  }
+  red_house__resource_review {
+    uuid id
+    uuid resource_id
+    uuid actor_id
+  }
+  red_house__role {
+    varchar role_code
+  }
+  red_house__rule_actions {
+    uuid id
+    uuid profile_id
+    uuid tenant_id
+    uuid actor_id
+    int4 sequence
+  }
+  red_house__schema_migration {
+    int4 version
+  }
+  red_house__security_contacts {
+    uuid id
+    uuid tenant_id
+  }
+  red_house__security_factors {
+    uuid id
+    uuid tenant_id
+  }
+  red_house__service_activity_events {
+    text service
+    uuid id
+  }
+  red_house__service_decisions {
+    text service
+    uuid id
+  }
+  red_house__service_health_check {
+    uuid check_id
+  }
+  red_house__service_idempotency {
+    text service
+    uuid id
+    uuid user_id
+    text key
+  }
+  red_house__service_inbox {
+    text service
+    uuid event_id
+  }
+  red_house__service_outbox {
+    text service
+    uuid id
+    uuid event_id
+    text target
+  }
+  red_house__service_schema_version {
+    text service
+    int4 version
+  }
+  red_house__service_worker_health {
+    text service
+    int4 id
+  }
+  red_house__shipment {
+    uuid shipment_id
+    uuid allocation_id
+    uuid transport_id
+    uuid organ_allocation_id
+    uuid origin_id
+    uuid destination_id
+  }
+  red_house__shipment_transition {
+    uuid id
+    uuid shipment_id
+    int4 sequence
+    uuid actor_id
+  }
+  red_house__site {
+    uuid site_id
+    uuid institution_id
+    varchar site_code
+  }
+  red_house__site_schedule {
+    uuid schedule_id
+    uuid site_id
+    int2 weekday
+    time opens_at
+  }
+  red_house__storage_location {
+    uuid location_id
+    uuid site_id
+    varchar location_code
+  }
+  red_house__stored_file {
+    uuid file_id
+    uuid shipment_id
+    uuid owner_id
+    text object_path
+  }
+  red_house__sync_commands {
+    uuid id
+    uuid tenant_id
+    uuid user_id
+    uuid shipment_id
+    uuid device_id
+    int8 cursor
+  }
+  red_house__tracking_assignments {
+    uuid id
+    uuid shipment_id
+    uuid device_id
+    uuid responsible_id
+    uuid actor_id
+  }
+  red_house__tracking_points {
+    uuid id
+    uuid shipment_id
+    uuid assignment_id
+    uuid device_id
+    int8 cursor
+    int8 sequence
+  }
+  red_house__transport_telemetry {
+    uuid telemetry_id
+    uuid shipment_id
+    uuid actor_id
+  }
+  red_house__user_account {
+    uuid account_id
+    uuid party_id
+    varchar login_email
+    text username
+    uuid tenant_id
+  }
+  red_house__web_session {
+    uuid session_id
+    uuid account_id
+  }
+  web_runtime__session_revocations {
+    text id
+  }
+  red_house__user_account ||..o| red_house__account_role : account_role_account_id_fkey
+  red_house__institution |o..o{ red_house__account_role : account_role_institution_id_fkey
+  red_house__role ||..o{ red_house__account_role : account_role_role_code_fkey
+  red_house__user_account ||..o{ red_house__accreditations : accreditations_author_id_fkey
+  red_house__accreditations |o..o{ red_house__accreditations : accreditations_supersedes_fkey
+  red_house__institution ||..o{ red_house__accreditations : accreditations_tenant_id_fkey
+  red_house__user_account |o..o{ red_house__alert_actions : alert_actions_actor_id_fkey
+  red_house__notification ||..o{ red_house__alert_actions : alert_actions_alert_id_fkey
+  red_house__institution ||..o{ red_house__alert_actions : alert_actions_tenant_id_fkey
+  red_house__notification ||..o{ red_house__alert_deliveries : alert_deliveries_alert_id_fkey
+  red_house__alert_subscriptions ||..o{ red_house__alert_deliveries : alert_deliveries_subscription_id_fkey
+  red_house__institution ||..o{ red_house__alert_deliveries : alert_deliveries_tenant_id_fkey
+  red_house__user_account ||..o{ red_house__alert_policies : alert_policies_author_id_fkey
+  red_house__alert_policies |o..o| red_house__alert_policies : alert_policies_supersedes_fkey
+  red_house__institution ||..o{ red_house__alert_policies : alert_policies_tenant_id_fkey
+  red_house__institution ||..o{ red_house__alert_subscriptions : alert_subscriptions_tenant_id_fkey
+  red_house__user_account ||..o{ red_house__alert_subscriptions : alert_subscriptions_user_id_fkey
+  red_house__user_account |o..o{ red_house__algorithm_run : algorithm_run_actor_id_fkey
+  red_house__candidate_evaluation |o..o{ red_house__algorithm_run : algorithm_run_blood_evaluation_id_fkey
+  red_house__institution ||..o{ red_house__algorithm_run : algorithm_run_institution_id_fkey
+  red_house__organ_evaluation |o..o{ red_house__algorithm_run : algorithm_run_organ_evaluation_id_fkey
+  red_house__user_account ||..o{ red_house__algorithm_runs : algorithm_runs_author_id_fkey
+  red_house__institution ||..o{ red_house__algorithm_runs : algorithm_runs_tenant_id_fkey
+  red_house__institution ||..o{ red_house__allocation_operation : shared_operations_tenant_id
+  red_house__user_account ||..o{ red_house__allocation_operation : shared_operations_user_id
+  red_house__user_account ||..o{ red_house__anomaly_actions : anomaly_actions_author_id_fkey
+  red_house__anomaly_reviews ||..o{ red_house__anomaly_actions : anomaly_actions_review_id_fkey
+  red_house__institution ||..o{ red_house__anomaly_actions : anomaly_actions_tenant_id_fkey
+  red_house__user_account ||..o{ red_house__anomaly_reviews : anomaly_reviews_responsible_id_fkey
+  red_house__institution ||..o{ red_house__anomaly_reviews : anomaly_reviews_tenant_id_fkey
+  red_house__campaign ||..o{ red_house__appointment : api_appointments_campaign_id_fkey
+  red_house__donor ||..o{ red_house__appointment : api_appointments_donor_id_fkey
+  red_house__institution ||..o{ red_house__appointment : shared_appointments_tenant_id
+  red_house__appointment ||..o| red_house__appointment_reminders : appointment_reminders_id_fkey
+  red_house__appointment ||..o| red_house__appointment_slots : appointment_slots_id_fkey
+  red_house__campaign_slots ||..o{ red_house__appointment_slots : appointment_slots_slot_id_fkey
+  red_house__institution ||..o{ red_house__appointment_slots : appointment_slots_tenant_id_fkey
+  red_house__audit_event ||..o{ red_house__audit_change : audit_change_event_id_fkey
+  red_house__user_account |o..o{ red_house__audit_event : shared_audit_events_actor_id
+  red_house__institution ||..o{ red_house__audit_event : shared_audit_events_tenant_id
+  red_house__audit_findings ||..o{ red_house__audit_finding_actions : api_audit_finding_actions_finding_id_fkey
+  red_house__user_account ||..o{ red_house__audit_finding_actions : shared_audit_finding_actions_actor_id
+  red_house__audit_event ||..o{ red_house__audit_finding_links : api_audit_finding_links_event_id_fkey
+  red_house__audit_findings ||..o{ red_house__audit_finding_links : api_audit_finding_links_finding_id_fkey
+  red_house__user_account ||..o{ red_house__audit_findings : shared_audit_findings_assignee_id
+  red_house__institution ||..o{ red_house__audit_findings : shared_audit_findings_assignee_tenant_id
+  red_house__user_account ||..o{ red_house__audit_findings : shared_audit_findings_created_by
+  red_house__institution ||..o{ red_house__audit_findings : shared_audit_findings_tenant_id
+  red_house__institution ||..o{ red_house__balance_proposal : shared_proposals_tenant_id
+  red_house__allocation_operation ||..o| red_house__blood_allocation : api_reservations_operation_id_fkey
+  red_house__resource ||..o{ red_house__blood_allocation : api_reservations_resource_id_fkey
+  red_house__user_account |o..o{ red_house__blood_allocation : blood_allocation_authorized_by_fkey
+  red_house__blood_candidate |o..o| red_house__blood_allocation : blood_allocation_candidate_id_fkey
+  red_house__blood_review |o..o{ red_house__blood_allocation : blood_allocation_review_id_fkey
+  red_house__institution ||..o{ red_house__blood_allocation : shared_reservations_destination_id
+  red_house__candidate_evaluation ||..o{ red_house__blood_allocation : shared_reservations_evaluation_id
+  red_house__request_hold ||..o| red_house__blood_allocation : shared_reservations_hold_id
+  red_house__institution ||..o{ red_house__blood_allocation : shared_reservations_origin_id
+  red_house__recipient ||..o{ red_house__blood_allocation : shared_reservations_recipient_id
+  red_house__blood_request ||..o{ red_house__blood_allocation : shared_reservations_request_id
+  red_house__regional_route ||..o{ red_house__blood_allocation : shared_reservations_route_id
+  red_house__candidate_evaluation ||..o{ red_house__blood_candidate : blood_candidate_evaluation_id_fkey
+  red_house__blood_unit ||..o{ red_house__blood_candidate : blood_candidate_resource_id_fkey
+  red_house__blood_unit ||..o| red_house__blood_classification : blood_classification_resource_id_fkey
+  red_house__resource ||..o{ red_house__blood_movement : api_movements_resource_id_fkey
+  red_house__storage_location |o..o{ red_house__blood_movement : blood_movement_destination_location_id_fkey
+  red_house__storage_location |o..o{ red_house__blood_movement : blood_movement_origin_location_id_fkey
+  red_house__user_account ||..o{ red_house__blood_movement : shared_movements_actor_id
+  red_house__recipient ||..o{ red_house__blood_request : api_requests_recipient_id_fkey
+  red_house__blood_component |o..o{ red_house__blood_request : blood_request_component_id_fkey
+  red_house__user_account |o..o{ red_house__blood_request : blood_request_responsible_id_fkey
+  red_house__institution ||..o{ red_house__blood_request : shared_requests_tenant_id
+  red_house__candidate_evaluation ||..o{ red_house__blood_review : api_reviews_evaluation_id_fkey
+  red_house__blood_candidate |o..o{ red_house__blood_review : blood_review_candidate_id_fkey
+  red_house__user_account ||..o{ red_house__blood_review : shared_reviews_actor_id
+  red_house__resource ||..o{ red_house__blood_review : shared_reviews_resource_id
+  red_house__institution ||..o{ red_house__blood_review : shared_reviews_tenant_id
+  red_house__blood_component ||..o{ red_house__blood_unit : blood_unit_component_id_fkey
+  red_house__storage_location ||..o{ red_house__blood_unit : blood_unit_location_id_fkey
+  red_house__resource ||..o| red_house__blood_unit : blood_unit_resource_id_fkey
+  red_house__institution ||..o{ red_house__campaign : shared_campaigns_tenant_id
+  red_house__campaign ||..o| red_house__campaign_publications : campaign_publications_id_fkey
+  red_house__institution ||..o{ red_house__campaign_publications : campaign_publications_tenant_id_fkey
+  red_house__campaign ||..o{ red_house__campaign_slots : campaign_slots_campaign_id_fkey
+  red_house__catalogue_entry ||..o{ red_house__campaign_slots : campaign_slots_site_id_fkey
+  red_house__institution ||..o{ red_house__campaign_slots : campaign_slots_tenant_id_fkey
+  red_house__user_account |o..o{ red_house__candidate_evaluation : candidate_evaluation_actor_id_fkey
+  red_house__blood_request ||..o{ red_house__candidate_evaluation : shared_evaluations_request_id
+  red_house__institution ||..o{ red_house__candidate_evaluation : shared_evaluations_tenant_id
+  red_house__catalogue_entry |o..o{ red_house__catalogue_entry : api_catalogue_parent_id_fkey
+  red_house__institution ||..o{ red_house__catalogue_entry : api_catalogue_tenant_id_fkey
+  red_house__institution ||..o{ red_house__cold_equipment : cold_equipment_tenant_id_fkey
+  red_house__user_account ||..o{ red_house__cold_profiles : cold_profiles_author_id_fkey
+  red_house__cold_profiles |o..o| red_house__cold_profiles : cold_profiles_supersedes_fkey
+  red_house__institution ||..o{ red_house__cold_profiles : cold_profiles_tenant_id_fkey
+  red_house__user_account ||..o{ red_house__cold_readings : cold_readings_author_id_fkey
+  red_house__cold_equipment ||..o{ red_house__cold_readings : cold_readings_equipment_id_fkey
+  red_house__cold_profiles ||..o{ red_house__cold_readings : cold_readings_profile_id_fkey
+  red_house__resource ||..o{ red_house__cold_readings : cold_readings_resource_id_fkey
+  red_house__institution ||..o{ red_house__cold_readings : cold_readings_tenant_id_fkey
+  red_house__user_account ||..o{ red_house__cold_reviews : cold_reviews_author_id_fkey
+  red_house__resource ||..o{ red_house__cold_reviews : cold_reviews_resource_id_fkey
+  red_house__institution ||..o{ red_house__cold_reviews : cold_reviews_tenant_id_fkey
+  red_house__user_account ||..o{ red_house__consent_versions : consent_versions_author_id_fkey
+  red_house__donor ||..o{ red_house__consent_versions : consent_versions_donor_id_fkey
+  red_house__consent_versions |o..o{ red_house__consent_versions : consent_versions_supersedes_fkey
+  red_house__institution ||..o{ red_house__consent_versions : consent_versions_tenant_id_fkey
+  red_house__contact ||..o{ red_house__contact_method : contact_method_contact_id_fkey
+  red_house__institution ||..o{ red_house__custody_chain : shared_chains_destination_id
+  red_house__shipment ||..o| red_house__custody_chain : shared_chains_id
+  red_house__institution ||..o{ red_house__custody_chain : shared_chains_origin_id
+  red_house__custody_chain ||..o{ red_house__custody_event : api_custody_events_shipment_id_fkey
+  red_house__user_account |o..o{ red_house__custody_event : custody_event_actor_id_fkey
+  red_house__user_account ||..o{ red_house__decision_runs : decision_runs_author_id_fkey
+  red_house__institution ||..o{ red_house__decision_runs : decision_runs_tenant_id_fkey
+  red_house__institution ||..o{ red_house__devices : devices_tenant_id_fkey
+  red_house__user_account ||..o{ red_house__devices : devices_user_id_fkey
+  red_house__stored_file ||..o| red_house__document_metadata : document_metadata_id_fkey
+  red_house__document_metadata |o..o{ red_house__document_metadata : document_metadata_supersedes_fkey
+  red_house__institution ||..o{ red_house__document_metadata : document_metadata_tenant_id_fkey
+  red_house__donor ||..o{ red_house__donation : api_donations_donor_id_fkey
+  red_house__user_account |o..o{ red_house__donation : donation_created_by_fkey
+  red_house__donor_review |o..o{ red_house__donation : donation_review_id_fkey
+  red_house__institution ||..o{ red_house__donation : shared_donations_tenant_id
+  red_house__donation ||..o{ red_house__donation_event : api_donation_steps_donation_id_fkey
+  red_house__user_account ||..o{ red_house__donation_event : shared_donation_steps_actor_id
+  red_house__donation ||..o{ red_house__donation_unit : donation_unit_donation_id_fkey
+  red_house__user_account ||..o{ red_house__donation_unit : donation_unit_released_by_fkey
+  red_house__blood_unit ||..o| red_house__donation_unit : donation_unit_resource_id_fkey
+  red_house__user_account |o..o{ red_house__donor : donor_created_by_fkey
+  red_house__institution ||..o{ red_house__donor : shared_donors_tenant_id
+  red_house__user_account |o..o{ red_house__donor : shared_donors_user_id
+  red_house__donor ||..o{ red_house__donor_review : api_donor_reviews_donor_id_fkey
+  red_house__user_account ||..o{ red_house__donor_review : shared_donor_reviews_actor_id
+  red_house__stored_file |o..o{ red_house__export_jobs : export_jobs_file_id_fkey
+  red_house__institution ||..o{ red_house__export_jobs : export_jobs_tenant_id_fkey
+  red_house__user_account ||..o{ red_house__export_jobs : export_jobs_user_id_fkey
+  red_house__user_account ||..o{ red_house__external_authorizations : external_authorizations_author_id_fkey
+  red_house__blood_request ||..o{ red_house__external_authorizations : external_authorizations_request_id_fkey
+  red_house__external_authorizations |o..o{ red_house__external_authorizations : external_authorizations_supersedes_fkey
+  red_house__institution ||..o{ red_house__external_authorizations : external_authorizations_tenant_id_fkey
+  red_house__user_account ||..o{ red_house__external_mappings : external_mappings_author_id_fkey
+  red_house__resource ||..o{ red_house__external_mappings : external_mappings_resource_id_fkey
+  red_house__institution ||..o{ red_house__external_mappings : external_mappings_tenant_id_fkey
+  red_house__stored_file ||..o{ red_house__file_scans : file_scans_file_id_fkey
+  red_house__user_account |o..o{ red_house__institution : api_institutions_created_by_fkey
+  red_house__capability ||..o{ red_house__institution_capability : institution_capability_capability_code_fkey
+  red_house__institution ||..o{ red_house__institution_capability : institution_capability_institution_id_fkey
+  red_house__contact ||..o| red_house__institution_contact : institution_contact_contact_id_fkey
+  red_house__institution ||..o{ red_house__institution_contact : institution_contact_institution_id_fkey
+  red_house__institution ||..o| red_house__institution_presentations : institution_presentations_id_fkey
+  red_house__user_account ||..o{ red_house__lab_actions : lab_actions_author_id_fkey
+  red_house__lab_results ||..o{ red_house__lab_actions : lab_actions_result_id_fkey
+  red_house__user_account ||..o{ red_house__lab_profiles : lab_profiles_author_id_fkey
+  red_house__lab_profiles |o..o{ red_house__lab_profiles : lab_profiles_supersedes_fkey
+  red_house__institution ||..o{ red_house__lab_profiles : lab_profiles_tenant_id_fkey
+  red_house__user_account ||..o{ red_house__lab_results : lab_results_author_id_fkey
+  red_house__stored_file |o..o{ red_house__lab_results : lab_results_document_id_fkey
+  red_house__lab_samples ||..o{ red_house__lab_results : lab_results_sample_id_fkey
+  red_house__lab_results |o..o{ red_house__lab_results : lab_results_supersedes_fkey
+  red_house__institution ||..o{ red_house__lab_results : lab_results_tenant_id_fkey
+  red_house__user_account ||..o{ red_house__lab_samples : lab_samples_author_id_fkey
+  red_house__donation |o..o{ red_house__lab_samples : lab_samples_donation_id_fkey
+  red_house__lab_profiles ||..o{ red_house__lab_samples : lab_samples_profile_id_fkey
+  red_house__recipient |o..o{ red_house__lab_samples : lab_samples_recipient_id_fkey
+  red_house__blood_request |o..o{ red_house__lab_samples : lab_samples_request_id_fkey
+  red_house__resource |o..o{ red_house__lab_samples : lab_samples_resource_id_fkey
+  red_house__institution ||..o{ red_house__lab_samples : lab_samples_tenant_id_fkey
+  red_house__user_account |o..o{ red_house__notification : shared_alerts_acknowledged_by
+  red_house__user_account |o..o{ red_house__notification : shared_alerts_target_user_id
+  red_house__institution ||..o{ red_house__notification : shared_alerts_tenant_id
+  red_house__user_account ||..o{ red_house__organ_allocation : organ_allocation_authorized_by_fkey
+  red_house__organ_candidate ||..o{ red_house__organ_allocation : organ_allocation_candidate_id_fkey
+  red_house__organ_offer ||..o{ red_house__organ_allocation : organ_allocation_offer_id_fkey
+  red_house__organ_recipient ||..o{ red_house__organ_allocation : organ_allocation_recipient_id_fkey
+  red_house__organ_review ||..o{ red_house__organ_allocation : organ_allocation_review_id_fkey
+  red_house__user_account |o..o{ red_house__organ_allocation : organ_allocation_transport_id_fkey
+  red_house__user_account ||..o{ red_house__organ_candidate : organ_candidate_evaluated_by_fkey
+  red_house__organ_evaluation ||..o{ red_house__organ_candidate : organ_candidate_evaluation_id_fkey
+  red_house__organ_offer ||..o{ red_house__organ_candidate : organ_candidate_offer_id_fkey
+  red_house__organ_recipient ||..o{ red_house__organ_candidate : organ_candidate_recipient_id_fkey
+  red_house__user_account ||..o{ red_house__organ_custody_event : organ_custody_event_actor_id_fkey
+  red_house__organ_allocation ||..o{ red_house__organ_custody_event : organ_custody_event_allocation_id_fkey
+  red_house__institution ||..o{ red_house__organ_donor : organ_donor_institution_id_fkey
+  red_house__user_account ||..o{ red_house__organ_donor : organ_donor_reviewed_by_fkey
+  red_house__user_account ||..o{ red_house__organ_evaluation : organ_evaluation_evaluated_by_fkey
+  red_house__organ_offer ||..o{ red_house__organ_evaluation : organ_evaluation_offer_id_fkey
+  red_house__organ_donor ||..o{ red_house__organ_offer : organ_offer_donor_id_fkey
+  red_house__user_account ||..o{ red_house__organ_offer : organ_offer_released_by_fkey
+  red_house__institution ||..o{ red_house__organ_recipient : organ_recipient_institution_id_fkey
+  red_house__user_account ||..o{ red_house__organ_recipient : organ_recipient_responsible_id_fkey
+  red_house__organ_candidate ||..o{ red_house__organ_review : organ_review_candidate_id_fkey
+  red_house__user_account ||..o{ red_house__organ_review : organ_review_reviewed_by_fkey
+  red_house__user_account |o..o{ red_house__parameter_version : parameter_version_approved_by_fkey
+  red_house__institution ||..o| red_house__portal_policies : portal_policies_id_fkey
+  red_house__candidate_evaluation ||..o{ red_house__ranking_run : shared_rankings_evaluation_id
+  red_house__institution ||..o{ red_house__ranking_run : shared_rankings_tenant_id
+  red_house__user_account |o..o{ red_house__recipient : recipient_responsible_id_fkey
+  red_house__institution ||..o{ red_house__recipient : shared_recipients_tenant_id
+  red_house__user_account ||..o{ red_house__recovery_tokens : recovery_tokens_user_id_fkey
+  red_house__user_account ||..o{ red_house__regional_graphs : regional_graphs_author_id_fkey
+  red_house__regional_graphs |o..o{ red_house__regional_graphs : regional_graphs_supersedes_fkey
+  red_house__institution ||..o{ red_house__regional_graphs : regional_graphs_tenant_id_fkey
+  red_house__user_account |o..o{ red_house__regional_route : regional_route_recorded_by_fkey
+  red_house__institution ||..o{ red_house__regional_route : shared_routes_destination_id
+  red_house__institution ||..o{ red_house__regional_route : shared_routes_origin_id
+  red_house__user_account ||..o{ red_house__request_event : request_event_actor_id_fkey
+  red_house__blood_request ||..o{ red_house__request_event : request_event_request_id_fkey
+  red_house__recipient ||..o{ red_house__request_hold : api_holds_recipient_id_fkey
+  red_house__blood_request ||..o{ red_house__request_hold : api_holds_request_id_fkey
+  red_house__resource ||..o{ red_house__request_hold : shared_holds_resource_id
+  red_house__institution ||..o{ red_house__resource : shared_resources_current_institution_id
+  red_house__donation |o..o{ red_house__resource : shared_resources_donation_id
+  red_house__institution ||..o{ red_house__resource : shared_resources_tenant_id
+  red_house__cold_equipment |o..o{ red_house__resource_controls : resource_controls_cold_equipment_id_fkey
+  red_house__cold_profiles |o..o{ red_house__resource_controls : resource_controls_cold_profile_id_fkey
+  red_house__resource ||..o| red_house__resource_controls : resource_controls_id_fkey
+  red_house__lab_profiles |o..o{ red_house__resource_controls : resource_controls_lab_profile_id_fkey
+  red_house__user_account ||..o{ red_house__resource_destinations : resource_destinations_author_id_fkey
+  red_house__resource ||..o{ red_house__resource_destinations : resource_destinations_resource_id_fkey
+  red_house__resource_destinations |o..o{ red_house__resource_destinations : resource_destinations_supersedes_fkey
+  red_house__institution ||..o{ red_house__resource_destinations : resource_destinations_tenant_id_fkey
+  red_house__user_account ||..o{ red_house__resource_lineage : resource_lineage_author_id_fkey
+  red_house__resource ||..o| red_house__resource_lineage : resource_lineage_child_id_fkey
+  red_house__donation ||..o{ red_house__resource_lineage : resource_lineage_donation_id_fkey
+  red_house__resource ||..o{ red_house__resource_lineage : resource_lineage_parent_id_fkey
+  red_house__institution ||..o{ red_house__resource_lineage : resource_lineage_tenant_id_fkey
+  red_house__resource ||..o{ red_house__resource_review : api_resource_reviews_resource_id_fkey
+  red_house__user_account ||..o{ red_house__resource_review : shared_resource_reviews_actor_id
+  red_house__user_account ||..o{ red_house__rule_actions : rule_actions_actor_id_fkey
+  red_house__lab_profiles ||..o{ red_house__rule_actions : rule_actions_profile_id_fkey
+  red_house__institution ||..o{ red_house__rule_actions : rule_actions_tenant_id_fkey
+  red_house__user_account ||..o| red_house__security_contacts : security_contacts_id_fkey
+  red_house__institution ||..o{ red_house__security_contacts : security_contacts_tenant_id_fkey
+  red_house__user_account ||..o| red_house__security_factors : security_factors_id_fkey
+  red_house__institution ||..o{ red_house__security_factors : security_factors_tenant_id_fkey
+  red_house__institution ||..o{ red_house__shipment : shared_shipments_destination_id
+  red_house__institution ||..o{ red_house__shipment : shared_shipments_origin_id
+  red_house__blood_allocation ||..o| red_house__shipment : shared_shipments_reservation_id
+  red_house__user_account ||..o{ red_house__shipment : shared_shipments_transport_user_id
+  red_house__organ_allocation |o..o| red_house__shipment : shipment_organ_allocation_id_fkey
+  red_house__shipment ||..o{ red_house__shipment_transition : api_transitions_shipment_id_fkey
+  red_house__user_account ||..o{ red_house__shipment_transition : shared_transitions_actor_id
+  red_house__institution ||..o{ red_house__site : site_institution_id_fkey
+  red_house__site ||..o{ red_house__site_schedule : site_schedule_site_id_fkey
+  red_house__site ||..o{ red_house__storage_location : storage_location_site_id_fkey
+  red_house__shipment |o..o{ red_house__stored_file : api_files_shipment_id_fkey
+  red_house__user_account ||..o{ red_house__stored_file : shared_files_owner_id
+  red_house__devices ||..o{ red_house__sync_commands : sync_commands_device_id_fkey
+  red_house__shipment ||..o{ red_house__sync_commands : sync_commands_shipment_id_fkey
+  red_house__institution ||..o{ red_house__sync_commands : sync_commands_tenant_id_fkey
+  red_house__user_account ||..o{ red_house__sync_commands : sync_commands_user_id_fkey
+  red_house__user_account ||..o{ red_house__tracking_assignments : tracking_assignments_actor_id_fkey
+  red_house__devices ||..o{ red_house__tracking_assignments : tracking_assignments_device_id_fkey
+  red_house__user_account ||..o{ red_house__tracking_assignments : tracking_assignments_responsible_id_fkey
+  red_house__shipment ||..o{ red_house__tracking_assignments : tracking_assignments_shipment_id_fkey
+  red_house__tracking_assignments ||..o{ red_house__tracking_points : tracking_points_assignment_id_fkey
+  red_house__devices ||..o{ red_house__tracking_points : tracking_points_device_id_fkey
+  red_house__shipment ||..o{ red_house__tracking_points : tracking_points_shipment_id_fkey
+  red_house__shipment ||..o{ red_house__transport_telemetry : api_telemetry_shipment_id_fkey
+  red_house__user_account ||..o{ red_house__transport_telemetry : shared_telemetry_actor_id
+  red_house__institution ||..o{ red_house__user_account : api_users_tenant_id_fkey
+  red_house__institution ||..o{ red_house__user_account : shared_users_tenant_id
+  red_house__party |o..o| red_house__user_account : user_account_party_id_fkey
+  red_house__user_account ||..o{ red_house__web_session : api_sessions_user_id_fkey

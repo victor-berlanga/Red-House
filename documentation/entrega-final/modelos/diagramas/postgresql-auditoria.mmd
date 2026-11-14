@@ -1,0 +1,168 @@
+erDiagram
+  direction LR
+  red_house__anomaly_actions {
+    uuid id
+    uuid review_id
+    uuid tenant_id
+    uuid author_id
+    text state
+    text reason
+    timestamptz created_at
+  }
+  red_house__anomaly_reviews {
+    uuid id
+    uuid tenant_id
+    uuid region_id
+    text source
+    uuid source_run_id
+    text deduplication_key
+    jsonb evidence
+    text correlation_id
+    uuid responsible_id
+    text state
+    int4 version
+    timestamptz created_at
+  }
+  red_house__audit_event {
+    uuid event_id
+    uuid actor_id
+    uuid institution_id
+    varchar region_name
+    timestamptz occurred_at
+    text action
+    varchar entity_type
+    varchar entity_reference
+    varchar outcome
+    uuid correlation_id
+    varchar reason
+    text source_service
+    jsonb metadata
+    uuid region_id
+    jsonb event
+  }
+  red_house__audit_finding_actions {
+    uuid id
+    uuid finding_id
+    uuid actor_id
+    text actor_name
+    text actor_role
+    text previous_status
+    text status
+    text reason
+    text corrective_action
+    text evidence
+    uuid correlation_id
+    timestamptz created_at
+  }
+  red_house__audit_finding_links {
+    uuid id
+    uuid finding_id
+    uuid event_id
+  }
+  red_house__audit_findings {
+    uuid id
+    uuid tenant_id
+    uuid region_id
+    text description
+    text priority
+    uuid assignee_id
+    uuid assignee_tenant_id
+    text assignee_name
+    uuid created_by
+    uuid resource_id
+    text evidence
+    text status
+    int4 version
+    timestamptz created_at
+    timestamptz updated_at
+  }
+  red_house__institution {
+    uuid institution_id
+    varchar institution_code
+    uuid created_by
+  }
+  red_house__schema_migration {
+    int4 version
+    text description
+    timestamptz installed_at
+  }
+  red_house__service_activity_events {
+    text service
+    uuid id
+    uuid tenant_id
+    jsonb event
+    timestamptz created_at
+  }
+  red_house__service_decisions {
+    text service
+    uuid id
+    uuid resource_id
+    uuid tenant_id
+    uuid actor_id
+    text action
+    text reason
+    jsonb changes
+    timestamptz created_at
+  }
+  red_house__service_idempotency {
+    text service
+    uuid id
+    uuid user_id
+    text key
+    text operation
+    text fingerprint
+    jsonb result
+    timestamptz created_at
+  }
+  red_house__service_inbox {
+    text service
+    uuid event_id
+    text fingerprint
+    timestamptz created_at
+  }
+  red_house__service_outbox {
+    text service
+    uuid id
+    uuid event_id
+    text target
+    jsonb event
+    timestamptz created_at
+    timestamptz delivered_at
+    int4 attempts
+    timestamptz next_attempt
+    text last_error
+  }
+  red_house__service_schema_version {
+    text service
+    int4 version
+    timestamptz installed_at
+  }
+  red_house__service_worker_health {
+    text service
+    int4 id
+    timestamptz checked_at
+    timestamptz last_success
+    text last_error
+  }
+  red_house__user_account {
+    uuid account_id
+    uuid party_id
+    varchar login_email
+    text username
+    uuid tenant_id
+  }
+  red_house__user_account ||..o{ red_house__anomaly_actions : anomaly_actions_author_id_fkey
+  red_house__anomaly_reviews ||..o{ red_house__anomaly_actions : anomaly_actions_review_id_fkey
+  red_house__institution ||..o{ red_house__anomaly_actions : anomaly_actions_tenant_id_fkey
+  red_house__user_account ||..o{ red_house__anomaly_reviews : anomaly_reviews_responsible_id_fkey
+  red_house__institution ||..o{ red_house__anomaly_reviews : anomaly_reviews_tenant_id_fkey
+  red_house__user_account |o..o{ red_house__audit_event : shared_audit_events_actor_id
+  red_house__institution ||..o{ red_house__audit_event : shared_audit_events_tenant_id
+  red_house__audit_findings ||..o{ red_house__audit_finding_actions : api_audit_finding_actions_finding_id_fkey
+  red_house__user_account ||..o{ red_house__audit_finding_actions : shared_audit_finding_actions_actor_id
+  red_house__audit_event ||..o{ red_house__audit_finding_links : api_audit_finding_links_event_id_fkey
+  red_house__audit_findings ||..o{ red_house__audit_finding_links : api_audit_finding_links_finding_id_fkey
+  red_house__user_account ||..o{ red_house__audit_findings : shared_audit_findings_assignee_id
+  red_house__institution ||..o{ red_house__audit_findings : shared_audit_findings_assignee_tenant_id
+  red_house__user_account ||..o{ red_house__audit_findings : shared_audit_findings_created_by
+  red_house__institution ||..o{ red_house__audit_findings : shared_audit_findings_tenant_id

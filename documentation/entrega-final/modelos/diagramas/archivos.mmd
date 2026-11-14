@@ -1,0 +1,24 @@
+sequenceDiagram
+ actor Persona
+ participant Cliente as Portal o cliente JSON/XML
+ participant Doc as Propietario Documentos
+ participant SQL as PostgreSQL
+ participant Vol as Archivos LOCAL privados
+ participant AV as ClamD real
+ Persona->>Cliente: Archivo autorizado y referencia documental
+ Cliente->>Doc: Preparar con tipo, tamaño, hash e idempotencia
+ Doc->>Doc: Reautorizar sujeto, versión y ámbito
+ Doc->>SQL: Reservar metadatos y referencia
+ Doc-->>Cliente: Capacidad temporal de carga
+ Cliente->>Vol: Crear objeto sin sobrescribir generación existente
+ Cliente->>Doc: Verificar misma operación y archivo
+ Doc->>Vol: Leer generación exacta y comprobar bytes
+ Doc->>AV: Analizar con firmas vigentes
+ AV-->>Doc: Resultado y metadatos de análisis
+ Doc->>SQL: Estado y evento durable
+ Persona->>Cliente: Solicitar descarga
+ Cliente->>Doc: Autorización actual por sujeto y archivo
+ Doc->>SQL: Exigir estado verificado y análisis limpio de esa generación
+ Doc-->>Cliente: Capacidad temporal de lectura
+ Note over Doc,Vol: GCS es proveedor opcional, con evidencia académica independiente
+ Note over Persona,Doc: Un error o timeout no confirma carga, limpieza ni autorización

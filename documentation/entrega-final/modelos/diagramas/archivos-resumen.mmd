@@ -1,0 +1,8 @@
+flowchart TB
+ U[Persona y sujeto documental autorizados] --> P[Preparar metadatos, tamaño y hash]
+ P --> C[Cargar en volumen privado LOCAL]
+ C --> V[Verificar bytes y generación exacta]
+ V --> A[Exigir análisis limpio con firmas vigentes]
+ A --> D[Reautorizar y entregar capacidad temporal de lectura]
+ A -.-> F[Pendiente, error o amenaza: descarga bloqueada]
+ P -.-> G[GCS opcional, con prueba académica separada]

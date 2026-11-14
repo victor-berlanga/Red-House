@@ -2,6 +2,10 @@
 
 Las entradas están ordenadas de reciente a histórico; un pendiente de un corte anterior puede quedar sustituido explícitamente por una entrada posterior.
 
+## Modelos y Word/PDF finales generados y revisados — 14/11/2026
+
+[Corte editorial](documentation/evidencias/entrega-final/modelos-20261114/validacion-final.json) cerrado: informe técnico de24páginas y catálogo físico de74, Word/PDF íntegros en carta e índice enlazado. Extracción READ ONLY del esquema20:117tablas,226índices,265FK; doce fichas y21SVG ampliables.206enlaces locales sin destino ausente y controles de texto fuera de página limpios. Dirección inspeccionó páginas concretas de portada/índice/flujo/gráfica/tablas/límites; revisión muestral registrada, sin atribuir inspección a todas las páginas/relaciones. Fallos iniciales de sandbox y render Mermaid conservados, corregidos solo en sus ámbitos.78huellas verificadas. El reporte conserva pendientes técnicos/humanos del corte; no declara cierre integral. No se regenerará por cada cambio intermedio: actualización final al consolidar resultados restantes.
+
 ## Carga transaccional preparada sobre población conservada — 14/11/2026
 
 [Plan previo](documentation/evidencias/entrega-final/carga-20261114/transacciones-plan.md): doce identidades sintéticas independientes, citas JSON y unidades/muestras XML, diario previo al envío, replay idempotente y conciliación SQL/auditoría/avisos de todos los intentos. Reutiliza el dataset sin repoblar y mantiene cuotas/usuarios runtime. Se separan HTTP/s de recorridos/s, calentamiento/drenado y validez de objetivos p95 (<2 s lecturas/<5 s recorridos). Dirección detectó y corrigió la omisión inicial de umbrales; pruebas puras dirigidas finales 40/40 en 2,42 s, con comprobaciones anteriores separadas. Todavía sin corrida real; espera ventana móvil. No acredita escrituras sostenidas ni cierra etapa07.

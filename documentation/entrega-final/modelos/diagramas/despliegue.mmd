@@ -1,0 +1,16 @@
+flowchart TB
+ U[Navegador y clientes JSON o XML] -->|HTTPS y WSS| G
+ subgraph Host[VM GCE]
+  G[Gateway Nginx] --> W[Web modular y workers propios]
+  G --> API[Doce API con dos réplicas y workers por instancia]
+  W --> P[(PostgreSQL)]
+  W --> M[(MongoDB)]
+  W --> R[(Redis)]
+  API --> P & M & R
+  W --> V[Volumen privado LOCAL]
+  API -->|Documentos| V
+  W --> C[ClamD y firmas]
+  API -->|Documentos| C
+ end
+ API -.->|Documentos opcional| O[GCS privado]
+ S[Secretos fuera de las imágenes] -.-> Host

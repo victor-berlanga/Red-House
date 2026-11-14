@@ -1,0 +1,8 @@
+flowchart TB
+ S[Solicitud y evaluación con versiones vigentes] --> H[Revisión profesional y autorización humana]
+ H --> O[Operación idempotente y retención de capacidad]
+ O --> I[Inventario bloquea recurso y revalida]
+ I --> R[Reserva confirmada o estado pendiente explícito]
+ R --> T[Traslado autorizado con cadena de custodia]
+ T --> D[Recepción y registro de uso o destino]
+ O -.-> E[Ante timeout, consultar operación antes de repetir]

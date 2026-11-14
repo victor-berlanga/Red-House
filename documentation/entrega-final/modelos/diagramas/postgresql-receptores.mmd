@@ -1,0 +1,164 @@
+erDiagram
+  direction LR
+  red_house__blood_component {
+    uuid component_id
+    varchar component_code
+  }
+  red_house__blood_request {
+    uuid request_id
+    varchar request_code
+    uuid recipient_id
+    uuid component_id
+    int4 quantity
+    varchar urgency
+    varchar justification
+    text current_status
+    uuid responsible_id
+    timestamptz requested_at
+    timestamptz closed_at
+    int4 version_no
+    uuid tenant_id
+    text kind
+    text component
+    int4 priority_level
+  }
+  red_house__external_authorizations {
+    uuid id
+    uuid request_id
+    uuid tenant_id
+    text authority
+    text reference
+    timestamptz valid_from
+    timestamptz valid_until
+    timestamptz effective_at
+    uuid author_id
+    int4 version
+    uuid supersedes
+    text decision
+    timestamptz created_at
+  }
+  red_house__institution {
+    uuid institution_id
+    varchar institution_code
+    uuid created_by
+  }
+  red_house__recipient {
+    uuid recipient_id
+    uuid institution_id
+    text record_code
+    text display_name
+    text blood_group
+    text requirement
+    varchar legacy_urgency
+    text studies
+    text restrictions
+    text current_status
+    uuid responsible_id
+    timestamptz registered_at
+    int4 version_no
+    text kind
+    text organ_type
+  }
+  red_house__request_hold {
+    uuid id
+    uuid request_id
+    uuid recipient_id
+    uuid operation_id
+    uuid resource_id
+    text kind
+    int4 request_version
+    uuid region_id
+    text status
+    timestamptz created_at
+  }
+  red_house__resource {
+    uuid resource_id
+    varchar traceability_code
+    uuid tenant_id
+    text folio
+    uuid current_institution_id
+    uuid donation_id
+  }
+  red_house__schema_migration {
+    int4 version
+    text description
+    timestamptz installed_at
+  }
+  red_house__service_activity_events {
+    text service
+    uuid id
+    uuid tenant_id
+    jsonb event
+    timestamptz created_at
+  }
+  red_house__service_decisions {
+    text service
+    uuid id
+    uuid resource_id
+    uuid tenant_id
+    uuid actor_id
+    text action
+    text reason
+    jsonb changes
+    timestamptz created_at
+  }
+  red_house__service_idempotency {
+    text service
+    uuid id
+    uuid user_id
+    text key
+    text operation
+    text fingerprint
+    jsonb result
+    timestamptz created_at
+  }
+  red_house__service_inbox {
+    text service
+    uuid event_id
+    text fingerprint
+    timestamptz created_at
+  }
+  red_house__service_outbox {
+    text service
+    uuid id
+    uuid event_id
+    text target
+    jsonb event
+    timestamptz created_at
+    timestamptz delivered_at
+    int4 attempts
+    timestamptz next_attempt
+    text last_error
+  }
+  red_house__service_schema_version {
+    text service
+    int4 version
+    timestamptz installed_at
+  }
+  red_house__service_worker_health {
+    text service
+    int4 id
+    timestamptz checked_at
+    timestamptz last_success
+    text last_error
+  }
+  red_house__user_account {
+    uuid account_id
+    uuid party_id
+    varchar login_email
+    text username
+    uuid tenant_id
+  }
+  red_house__recipient ||..o{ red_house__blood_request : api_requests_recipient_id_fkey
+  red_house__blood_component |o..o{ red_house__blood_request : blood_request_component_id_fkey
+  red_house__user_account |o..o{ red_house__blood_request : blood_request_responsible_id_fkey
+  red_house__institution ||..o{ red_house__blood_request : shared_requests_tenant_id
+  red_house__user_account ||..o{ red_house__external_authorizations : external_authorizations_author_id_fkey
+  red_house__blood_request ||..o{ red_house__external_authorizations : external_authorizations_request_id_fkey
+  red_house__external_authorizations |o..o{ red_house__external_authorizations : external_authorizations_supersedes_fkey
+  red_house__institution ||..o{ red_house__external_authorizations : external_authorizations_tenant_id_fkey
+  red_house__user_account |o..o{ red_house__recipient : recipient_responsible_id_fkey
+  red_house__institution ||..o{ red_house__recipient : shared_recipients_tenant_id
+  red_house__recipient ||..o{ red_house__request_hold : api_holds_recipient_id_fkey
+  red_house__blood_request ||..o{ red_house__request_hold : api_holds_request_id_fkey
+  red_house__resource ||..o{ red_house__request_hold : shared_holds_resource_id

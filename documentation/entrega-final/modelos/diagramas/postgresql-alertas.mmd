@@ -1,0 +1,155 @@
+erDiagram
+  direction LR
+  red_house__alert_actions {
+    uuid id
+    uuid alert_id
+    uuid tenant_id
+    uuid actor_id
+    text action
+    text reason
+    timestamptz created_at
+  }
+  red_house__alert_deliveries {
+    uuid id
+    uuid alert_id
+    uuid subscription_id
+    uuid tenant_id
+    text stage
+    text status
+    int4 attempts
+    timestamptz next_attempt
+    timestamptz accepted_at
+    text last_error
+    timestamptz created_at
+  }
+  red_house__alert_policies {
+    uuid id
+    uuid tenant_id
+    text message_code
+    text severity
+    int4 reminder_seconds
+    int4 escalate_seconds
+    text escalation_role
+    uuid author_id
+    text source
+    timestamptz effective_at
+    uuid supersedes
+    bool active
+    int4 version
+    timestamptz created_at
+  }
+  red_house__alert_subscriptions {
+    uuid id
+    uuid tenant_id
+    uuid user_id
+    text role
+    text channel
+    text destination
+    bool active
+    int4 version
+    timestamptz created_at
+  }
+  red_house__institution {
+    uuid institution_id
+    varchar institution_code
+    uuid created_by
+  }
+  red_house__notification {
+    uuid notification_id
+    uuid event_id
+    uuid institution_id
+    text target_role
+    uuid target_account_id
+    text message_code
+    text entity_reference
+    text current_status
+    uuid acknowledged_by
+    timestamptz created_at
+    uuid region_id
+    text severity
+    timestamptz delivery_checked_at
+  }
+  red_house__schema_migration {
+    int4 version
+    text description
+    timestamptz installed_at
+  }
+  red_house__service_activity_events {
+    text service
+    uuid id
+    uuid tenant_id
+    jsonb event
+    timestamptz created_at
+  }
+  red_house__service_decisions {
+    text service
+    uuid id
+    uuid resource_id
+    uuid tenant_id
+    uuid actor_id
+    text action
+    text reason
+    jsonb changes
+    timestamptz created_at
+  }
+  red_house__service_idempotency {
+    text service
+    uuid id
+    uuid user_id
+    text key
+    text operation
+    text fingerprint
+    jsonb result
+    timestamptz created_at
+  }
+  red_house__service_inbox {
+    text service
+    uuid event_id
+    text fingerprint
+    timestamptz created_at
+  }
+  red_house__service_outbox {
+    text service
+    uuid id
+    uuid event_id
+    text target
+    jsonb event
+    timestamptz created_at
+    timestamptz delivered_at
+    int4 attempts
+    timestamptz next_attempt
+    text last_error
+  }
+  red_house__service_schema_version {
+    text service
+    int4 version
+    timestamptz installed_at
+  }
+  red_house__service_worker_health {
+    text service
+    int4 id
+    timestamptz checked_at
+    timestamptz last_success
+    text last_error
+  }
+  red_house__user_account {
+    uuid account_id
+    uuid party_id
+    varchar login_email
+    text username
+    uuid tenant_id
+  }
+  red_house__user_account |o..o{ red_house__alert_actions : alert_actions_actor_id_fkey
+  red_house__notification ||..o{ red_house__alert_actions : alert_actions_alert_id_fkey
+  red_house__institution ||..o{ red_house__alert_actions : alert_actions_tenant_id_fkey
+  red_house__notification ||..o{ red_house__alert_deliveries : alert_deliveries_alert_id_fkey
+  red_house__alert_subscriptions ||..o{ red_house__alert_deliveries : alert_deliveries_subscription_id_fkey
+  red_house__institution ||..o{ red_house__alert_deliveries : alert_deliveries_tenant_id_fkey
+  red_house__user_account ||..o{ red_house__alert_policies : alert_policies_author_id_fkey
+  red_house__alert_policies |o..o| red_house__alert_policies : alert_policies_supersedes_fkey
+  red_house__institution ||..o{ red_house__alert_policies : alert_policies_tenant_id_fkey
+  red_house__institution ||..o{ red_house__alert_subscriptions : alert_subscriptions_tenant_id_fkey
+  red_house__user_account ||..o{ red_house__alert_subscriptions : alert_subscriptions_user_id_fkey
+  red_house__user_account |o..o{ red_house__notification : shared_alerts_acknowledged_by
+  red_house__user_account |o..o{ red_house__notification : shared_alerts_target_user_id
+  red_house__institution ||..o{ red_house__notification : shared_alerts_tenant_id

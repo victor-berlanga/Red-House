@@ -1,0 +1,218 @@
+erDiagram
+  direction LR
+  red_house__accreditations {
+    uuid id
+    uuid tenant_id
+    text issuer
+    text category
+    text reference
+    timestamptz valid_from
+    timestamptz valid_until
+    uuid author_id
+    uuid supersedes
+    int4 version
+    timestamptz created_at
+  }
+  red_house__cache_revision {
+    text name
+    int8 revision
+  }
+  red_house__catalogue_entry {
+    uuid id
+    uuid tenant_id
+    text kind
+    text name
+    uuid parent_id
+    jsonb details
+    bool active
+    int4 version
+    timestamptz created_at
+  }
+  red_house__devices {
+    uuid id
+    uuid tenant_id
+    uuid user_id
+    text source
+    text label
+    text token_hash
+    timestamptz expires_at
+    bool active
+    int4 version
+    timestamptz created_at
+  }
+  red_house__identity_deliveries {
+    uuid id
+    text recipient
+    text payload_ciphertext
+    text status
+    int4 attempts
+    timestamptz next_attempt
+    timestamptz delivered_at
+    text last_error
+    timestamptz created_at
+  }
+  red_house__institution {
+    uuid institution_id
+    varchar institution_code
+    text institution_name
+    varchar institution_type
+    varchar region_name
+    varchar city
+    varchar street
+    varchar participation_status
+    int4 version_no
+    timestamptz registered_at
+    varchar operating_hours
+    uuid region_id
+    bool active
+    uuid created_by
+  }
+  red_house__institution_presentations {
+    uuid id
+    int4 version
+    bool published
+    text description
+    float8 latitude
+    float8 longitude
+    text coordinate_source
+    timestamptz coordinate_recorded_at
+    bool synthetic
+  }
+  red_house__party {
+    uuid party_id
+  }
+  red_house__portal_policies {
+    uuid id
+    int4 version
+    text timezone
+    int4 tracking_interval_seconds
+    int4 tracking_stale_seconds
+    text reference
+  }
+  red_house__recovery_tokens {
+    uuid id
+    uuid user_id
+    text token_hash
+    timestamptz expires_at
+    timestamptz used_at
+    timestamptz created_at
+  }
+  red_house__schema_migration {
+    int4 version
+    text description
+    timestamptz installed_at
+  }
+  red_house__security_contacts {
+    uuid id
+    uuid tenant_id
+    text email
+    bool verified
+    text verification_hash
+    timestamptz expires_at
+    int4 version
+  }
+  red_house__security_factors {
+    uuid id
+    uuid tenant_id
+    text secret_ciphertext
+    int8 last_counter
+    bool active
+    timestamptz created_at
+  }
+  red_house__service_activity_events {
+    text service
+    uuid id
+    uuid tenant_id
+    jsonb event
+    timestamptz created_at
+  }
+  red_house__service_decisions {
+    text service
+    uuid id
+    uuid resource_id
+    uuid tenant_id
+    uuid actor_id
+    text action
+    text reason
+    jsonb changes
+    timestamptz created_at
+  }
+  red_house__service_idempotency {
+    text service
+    uuid id
+    uuid user_id
+    text key
+    text operation
+    text fingerprint
+    jsonb result
+    timestamptz created_at
+  }
+  red_house__service_inbox {
+    text service
+    uuid event_id
+    text fingerprint
+    timestamptz created_at
+  }
+  red_house__service_outbox {
+    text service
+    uuid id
+    uuid event_id
+    text target
+    jsonb event
+    timestamptz created_at
+    timestamptz delivered_at
+    int4 attempts
+    timestamptz next_attempt
+    text last_error
+  }
+  red_house__service_schema_version {
+    text service
+    int4 version
+    timestamptz installed_at
+  }
+  red_house__service_worker_health {
+    text service
+    int4 id
+    timestamptz checked_at
+    timestamptz last_success
+    text last_error
+  }
+  red_house__user_account {
+    uuid account_id
+    uuid party_id
+    varchar login_email
+    text password_hash
+    varchar account_status
+    int4 version_no
+    timestamptz registered_at
+    text username
+    uuid tenant_id
+    text role
+    bool active
+  }
+  red_house__web_session {
+    uuid session_id
+    uuid account_id
+    timestamptz expires_at
+    timestamptz revoked_at
+    timestamptz created_at
+  }
+  red_house__user_account ||..o{ red_house__accreditations : accreditations_author_id_fkey
+  red_house__accreditations |o..o{ red_house__accreditations : accreditations_supersedes_fkey
+  red_house__institution ||..o{ red_house__accreditations : accreditations_tenant_id_fkey
+  red_house__catalogue_entry |o..o{ red_house__catalogue_entry : api_catalogue_parent_id_fkey
+  red_house__institution ||..o{ red_house__catalogue_entry : api_catalogue_tenant_id_fkey
+  red_house__institution ||..o{ red_house__devices : devices_tenant_id_fkey
+  red_house__user_account ||..o{ red_house__devices : devices_user_id_fkey
+  red_house__user_account |o..o{ red_house__institution : api_institutions_created_by_fkey
+  red_house__institution ||..o| red_house__institution_presentations : institution_presentations_id_fkey
+  red_house__institution ||..o| red_house__portal_policies : portal_policies_id_fkey
+  red_house__user_account ||..o{ red_house__recovery_tokens : recovery_tokens_user_id_fkey
+  red_house__user_account ||..o| red_house__security_contacts : security_contacts_id_fkey
+  red_house__institution ||..o{ red_house__security_contacts : security_contacts_tenant_id_fkey
+  red_house__user_account ||..o| red_house__security_factors : security_factors_id_fkey
+  red_house__institution ||..o{ red_house__security_factors : security_factors_tenant_id_fkey
+  red_house__institution ||..o{ red_house__user_account : api_users_tenant_id_fkey
+  red_house__institution ||..o{ red_house__user_account : shared_users_tenant_id
+  red_house__party |o..o| red_house__user_account : user_account_party_id_fkey
+  red_house__user_account ||..o{ red_house__web_session : api_sessions_user_id_fkey

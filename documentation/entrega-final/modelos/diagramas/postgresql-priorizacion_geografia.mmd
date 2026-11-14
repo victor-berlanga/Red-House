@@ -1,0 +1,173 @@
+erDiagram
+  direction LR
+  red_house__algorithm_runs {
+    uuid id
+    uuid tenant_id
+    uuid author_id
+    text algorithm_version
+    text source
+    jsonb snapshot
+    jsonb result
+    text fingerprint
+    float8 elapsed_ms
+    bool synthetic
+    timestamptz created_at
+  }
+  red_house__balance_proposal {
+    uuid id
+    uuid tenant_id
+    text algorithm_version
+    jsonb snapshots
+    jsonb result
+    float8 elapsed_ms
+    int4 slot_count
+    int4 matched_count
+    timestamptz created_at
+  }
+  red_house__candidate_evaluation {
+    uuid evaluation_id
+    uuid request_id
+    uuid actor_id
+    uuid tenant_id
+  }
+  red_house__decision_runs {
+    uuid id
+    uuid tenant_id
+    uuid author_id
+    text algorithm_version
+    text source
+    jsonb snapshot
+    jsonb result
+    text fingerprint
+    float8 elapsed_ms
+    bool synthetic
+    timestamptz created_at
+  }
+  red_house__institution {
+    uuid institution_id
+    varchar institution_code
+    uuid created_by
+  }
+  red_house__ranking_run {
+    uuid id
+    uuid tenant_id
+    uuid evaluation_id
+    text algorithm_version
+    jsonb factors
+    jsonb result
+    float8 elapsed_ms
+    timestamptz created_at
+  }
+  red_house__regional_graphs {
+    uuid id
+    uuid tenant_id
+    uuid author_id
+    text name
+    int4 version
+    uuid supersedes
+    text source
+    timestamptz observed_at
+    timestamptz valid_until
+    bool synthetic
+    text region
+    text quality
+    jsonb nodes
+    jsonb edges
+    timestamptz created_at
+    jsonb provenance
+  }
+  red_house__regional_route {
+    uuid route_id
+    uuid origin_id
+    uuid destination_id
+    float8 distance_km
+    int4 travel_minutes
+    text source_reference
+    uuid recorded_by
+    timestamptz recorded_at
+    int4 version_no
+    uuid region_id
+  }
+  red_house__schema_migration {
+    int4 version
+    text description
+    timestamptz installed_at
+  }
+  red_house__service_activity_events {
+    text service
+    uuid id
+    uuid tenant_id
+    jsonb event
+    timestamptz created_at
+  }
+  red_house__service_decisions {
+    text service
+    uuid id
+    uuid resource_id
+    uuid tenant_id
+    uuid actor_id
+    text action
+    text reason
+    jsonb changes
+    timestamptz created_at
+  }
+  red_house__service_idempotency {
+    text service
+    uuid id
+    uuid user_id
+    text key
+    text operation
+    text fingerprint
+    jsonb result
+    timestamptz created_at
+  }
+  red_house__service_inbox {
+    text service
+    uuid event_id
+    text fingerprint
+    timestamptz created_at
+  }
+  red_house__service_outbox {
+    text service
+    uuid id
+    uuid event_id
+    text target
+    jsonb event
+    timestamptz created_at
+    timestamptz delivered_at
+    int4 attempts
+    timestamptz next_attempt
+    text last_error
+  }
+  red_house__service_schema_version {
+    text service
+    int4 version
+    timestamptz installed_at
+  }
+  red_house__service_worker_health {
+    text service
+    int4 id
+    timestamptz checked_at
+    timestamptz last_success
+    text last_error
+  }
+  red_house__user_account {
+    uuid account_id
+    uuid party_id
+    varchar login_email
+    text username
+    uuid tenant_id
+  }
+  red_house__user_account ||..o{ red_house__algorithm_runs : algorithm_runs_author_id_fkey
+  red_house__institution ||..o{ red_house__algorithm_runs : algorithm_runs_tenant_id_fkey
+  red_house__institution ||..o{ red_house__balance_proposal : shared_proposals_tenant_id
+  red_house__user_account ||..o{ red_house__decision_runs : decision_runs_author_id_fkey
+  red_house__institution ||..o{ red_house__decision_runs : decision_runs_tenant_id_fkey
+  red_house__candidate_evaluation ||..o{ red_house__ranking_run : shared_rankings_evaluation_id
+  red_house__institution ||..o{ red_house__ranking_run : shared_rankings_tenant_id
+  red_house__user_account ||..o{ red_house__regional_graphs : regional_graphs_author_id_fkey
+  red_house__regional_graphs |o..o{ red_house__regional_graphs : regional_graphs_supersedes_fkey
+  red_house__institution ||..o{ red_house__regional_graphs : regional_graphs_tenant_id_fkey
+  red_house__user_account |o..o{ red_house__regional_route : regional_route_recorded_by_fkey
+  red_house__institution ||..o{ red_house__regional_route : shared_routes_destination_id
+  red_house__institution ||..o{ red_house__regional_route : shared_routes_origin_id

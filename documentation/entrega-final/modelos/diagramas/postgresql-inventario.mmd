@@ -1,0 +1,365 @@
+erDiagram
+  direction LR
+  red_house__allocation_operation {
+    uuid id
+    uuid user_id
+    uuid tenant_id
+    text key
+    text fingerprint
+    jsonb input
+    text status
+    uuid hold_id
+    text error
+    timestamptz last_recovery_at
+    timestamptz created_at
+  }
+  red_house__blood_allocation {
+    uuid allocation_id
+    uuid request_id
+    uuid candidate_id
+    uuid resource_id
+    uuid origin_id
+    uuid destination_id
+    uuid authorized_by
+    varchar authorization_reason
+    text current_status
+    timestamptz reserved_at
+    timestamptz received_at
+    int4 version_no
+    uuid review_id
+    uuid operation_id
+    uuid recipient_id
+    uuid region_id
+    uuid hold_id
+    uuid evaluation_id
+    uuid route_id
+    int4 route_version
+    uuid shipment_id
+    int4 shipment_sequence
+  }
+  red_house__blood_candidate {
+    uuid candidate_id
+    uuid evaluation_id
+    uuid resource_id
+    int4 rank_no
+  }
+  red_house__blood_movement {
+    uuid movement_id
+    uuid resource_id
+    int4 sequence
+    varchar previous_status
+    varchar new_status
+    uuid origin_location_id
+    uuid destination_location_id
+    timestamptz occurred_at
+    uuid actor_id
+    varchar reason
+    text action
+  }
+  red_house__blood_request {
+    uuid request_id
+    varchar request_code
+    uuid recipient_id
+    uuid component_id
+    uuid responsible_id
+    uuid tenant_id
+  }
+  red_house__blood_review {
+    uuid review_id
+    uuid candidate_id
+    uuid actor_id
+    uuid evaluation_id
+    uuid resource_id
+    uuid tenant_id
+  }
+  red_house__cache_revision {
+    text name
+    int8 revision
+  }
+  red_house__candidate_evaluation {
+    uuid evaluation_id
+    uuid request_id
+    uuid actor_id
+    uuid tenant_id
+  }
+  red_house__cold_equipment {
+    uuid id
+    uuid tenant_id
+    text label
+    text location
+    text calibration_reference
+    bool active
+    int4 version
+    timestamptz created_at
+  }
+  red_house__cold_profiles {
+    uuid id
+    uuid tenant_id
+    text kind
+    text component
+    float8 minimum_c
+    float8 maximum_c
+    int4 max_gap_seconds
+    text source
+    bool synthetic
+    int4 version
+    uuid author_id
+    timestamptz effective_at
+    uuid supersedes
+    timestamptz created_at
+  }
+  red_house__cold_readings {
+    uuid id
+    uuid resource_id
+    uuid equipment_id
+    uuid profile_id
+    uuid tenant_id
+    float8 temperature_c
+    timestamptz captured_at
+    timestamptz received_at
+    text source
+    text calibration_reference
+    bool excursion
+    bool gap
+    uuid author_id
+  }
+  red_house__cold_reviews {
+    uuid id
+    uuid resource_id
+    uuid tenant_id
+    uuid author_id
+    text reason
+    text decision
+    timestamptz created_at
+  }
+  red_house__donation {
+    uuid donation_id
+    uuid donor_id
+    uuid review_id
+    varchar donation_code
+    uuid created_by
+    uuid tenant_id
+  }
+  red_house__external_mappings {
+    uuid id
+    uuid tenant_id
+    text system
+    text external_id
+    uuid resource_id
+    uuid author_id
+    timestamptz created_at
+  }
+  red_house__institution {
+    uuid institution_id
+    varchar institution_code
+    uuid created_by
+  }
+  red_house__lab_profiles {
+    uuid id
+    uuid tenant_id
+    uuid author_id
+    uuid supersedes
+  }
+  red_house__recipient {
+    uuid recipient_id
+    uuid institution_id
+    text record_code
+    uuid responsible_id
+  }
+  red_house__regional_route {
+    uuid route_id
+    uuid origin_id
+    uuid destination_id
+    uuid recorded_by
+  }
+  red_house__request_hold {
+    uuid id
+    uuid request_id
+    uuid recipient_id
+    uuid operation_id
+    uuid resource_id
+  }
+  red_house__resource {
+    uuid resource_id
+    varchar traceability_code
+    text resource_kind
+    uuid tenant_id
+    uuid region_id
+    text folio
+    uuid current_institution_id
+    uuid donation_id
+    text component
+    text blood_group
+    timestamptz expires_at
+    text status
+    int4 version
+    timestamptz created_at
+    uuid location_id
+    timestamptz collected_at
+  }
+  red_house__resource_controls {
+    uuid id
+    uuid lab_profile_id
+    uuid cold_equipment_id
+    uuid cold_profile_id
+    bool blocked
+    int4 version
+    timestamptz created_at
+  }
+  red_house__resource_destinations {
+    uuid id
+    uuid resource_id
+    uuid tenant_id
+    text destination
+    text reference
+    timestamptz occurred_at
+    text reason
+    uuid author_id
+    int4 version
+    uuid supersedes
+    timestamptz created_at
+  }
+  red_house__resource_lineage {
+    uuid id
+    uuid parent_id
+    uuid child_id
+    uuid donation_id
+    uuid tenant_id
+    uuid author_id
+    text reason
+    timestamptz created_at
+  }
+  red_house__resource_review {
+    uuid id
+    uuid resource_id
+    uuid actor_id
+    text decision
+    text reason
+    timestamptz created_at
+  }
+  red_house__schema_migration {
+    int4 version
+    text description
+    timestamptz installed_at
+  }
+  red_house__service_activity_events {
+    text service
+    uuid id
+    uuid tenant_id
+    jsonb event
+    timestamptz created_at
+  }
+  red_house__service_decisions {
+    text service
+    uuid id
+    uuid resource_id
+    uuid tenant_id
+    uuid actor_id
+    text action
+    text reason
+    jsonb changes
+    timestamptz created_at
+  }
+  red_house__service_idempotency {
+    text service
+    uuid id
+    uuid user_id
+    text key
+    text operation
+    text fingerprint
+    jsonb result
+    timestamptz created_at
+  }
+  red_house__service_inbox {
+    text service
+    uuid event_id
+    text fingerprint
+    timestamptz created_at
+  }
+  red_house__service_outbox {
+    text service
+    uuid id
+    uuid event_id
+    text target
+    jsonb event
+    timestamptz created_at
+    timestamptz delivered_at
+    int4 attempts
+    timestamptz next_attempt
+    text last_error
+  }
+  red_house__service_schema_version {
+    text service
+    int4 version
+    timestamptz installed_at
+  }
+  red_house__service_worker_health {
+    text service
+    int4 id
+    timestamptz checked_at
+    timestamptz last_success
+    text last_error
+  }
+  red_house__storage_location {
+    uuid location_id
+    uuid site_id
+    varchar location_code
+  }
+  red_house__user_account {
+    uuid account_id
+    uuid party_id
+    varchar login_email
+    text username
+    uuid tenant_id
+  }
+  red_house__institution ||..o{ red_house__allocation_operation : shared_operations_tenant_id
+  red_house__user_account ||..o{ red_house__allocation_operation : shared_operations_user_id
+  red_house__allocation_operation ||..o| red_house__blood_allocation : api_reservations_operation_id_fkey
+  red_house__resource ||..o{ red_house__blood_allocation : api_reservations_resource_id_fkey
+  red_house__user_account |o..o{ red_house__blood_allocation : blood_allocation_authorized_by_fkey
+  red_house__blood_candidate |o..o| red_house__blood_allocation : blood_allocation_candidate_id_fkey
+  red_house__blood_review |o..o{ red_house__blood_allocation : blood_allocation_review_id_fkey
+  red_house__institution ||..o{ red_house__blood_allocation : shared_reservations_destination_id
+  red_house__candidate_evaluation ||..o{ red_house__blood_allocation : shared_reservations_evaluation_id
+  red_house__request_hold ||..o| red_house__blood_allocation : shared_reservations_hold_id
+  red_house__institution ||..o{ red_house__blood_allocation : shared_reservations_origin_id
+  red_house__recipient ||..o{ red_house__blood_allocation : shared_reservations_recipient_id
+  red_house__blood_request ||..o{ red_house__blood_allocation : shared_reservations_request_id
+  red_house__regional_route ||..o{ red_house__blood_allocation : shared_reservations_route_id
+  red_house__resource ||..o{ red_house__blood_movement : api_movements_resource_id_fkey
+  red_house__storage_location |o..o{ red_house__blood_movement : blood_movement_destination_location_id_fkey
+  red_house__storage_location |o..o{ red_house__blood_movement : blood_movement_origin_location_id_fkey
+  red_house__user_account ||..o{ red_house__blood_movement : shared_movements_actor_id
+  red_house__institution ||..o{ red_house__cold_equipment : cold_equipment_tenant_id_fkey
+  red_house__user_account ||..o{ red_house__cold_profiles : cold_profiles_author_id_fkey
+  red_house__cold_profiles |o..o| red_house__cold_profiles : cold_profiles_supersedes_fkey
+  red_house__institution ||..o{ red_house__cold_profiles : cold_profiles_tenant_id_fkey
+  red_house__user_account ||..o{ red_house__cold_readings : cold_readings_author_id_fkey
+  red_house__cold_equipment ||..o{ red_house__cold_readings : cold_readings_equipment_id_fkey
+  red_house__cold_profiles ||..o{ red_house__cold_readings : cold_readings_profile_id_fkey
+  red_house__resource ||..o{ red_house__cold_readings : cold_readings_resource_id_fkey
+  red_house__institution ||..o{ red_house__cold_readings : cold_readings_tenant_id_fkey
+  red_house__user_account ||..o{ red_house__cold_reviews : cold_reviews_author_id_fkey
+  red_house__resource ||..o{ red_house__cold_reviews : cold_reviews_resource_id_fkey
+  red_house__institution ||..o{ red_house__cold_reviews : cold_reviews_tenant_id_fkey
+  red_house__user_account ||..o{ red_house__external_mappings : external_mappings_author_id_fkey
+  red_house__resource ||..o{ red_house__external_mappings : external_mappings_resource_id_fkey
+  red_house__institution ||..o{ red_house__external_mappings : external_mappings_tenant_id_fkey
+  red_house__institution ||..o{ red_house__resource : shared_resources_current_institution_id
+  red_house__donation |o..o{ red_house__resource : shared_resources_donation_id
+  red_house__institution ||..o{ red_house__resource : shared_resources_tenant_id
+  red_house__cold_equipment |o..o{ red_house__resource_controls : resource_controls_cold_equipment_id_fkey
+  red_house__cold_profiles |o..o{ red_house__resource_controls : resource_controls_cold_profile_id_fkey
+  red_house__resource ||..o| red_house__resource_controls : resource_controls_id_fkey
+  red_house__lab_profiles |o..o{ red_house__resource_controls : resource_controls_lab_profile_id_fkey
+  red_house__user_account ||..o{ red_house__resource_destinations : resource_destinations_author_id_fkey
+  red_house__resource ||..o{ red_house__resource_destinations : resource_destinations_resource_id_fkey
+  red_house__resource_destinations |o..o{ red_house__resource_destinations : resource_destinations_supersedes_fkey
+  red_house__institution ||..o{ red_house__resource_destinations : resource_destinations_tenant_id_fkey
+  red_house__user_account ||..o{ red_house__resource_lineage : resource_lineage_author_id_fkey
+  red_house__resource ||..o| red_house__resource_lineage : resource_lineage_child_id_fkey
+  red_house__donation ||..o{ red_house__resource_lineage : resource_lineage_donation_id_fkey
+  red_house__resource ||..o{ red_house__resource_lineage : resource_lineage_parent_id_fkey
+  red_house__institution ||..o{ red_house__resource_lineage : resource_lineage_tenant_id_fkey
+  red_house__resource ||..o{ red_house__resource_review : api_resource_reviews_resource_id_fkey
+  red_house__user_account ||..o{ red_house__resource_review : shared_resource_reviews_actor_id

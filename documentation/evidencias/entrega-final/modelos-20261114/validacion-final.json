@@ -1,0 +1,100 @@
+{
+  "status": "DOCUMENTAL_CHECKS_APPROVED",
+  "artifacts": {
+    "Reporte_tecnico_final": {
+      "pages": 24,
+      "word_sha256": "465d008298fc0d02917ea45d3f238cd137c2994d5b0ad730dff5b177bb699e69",
+      "pdf_sha256": "a2e6cd68c0231d2ff5a2b5e2d7e9890871419b109b4331285bcc70cfc476c6f1",
+      "word_bytes": 265698,
+      "pdf_bytes": 747588,
+      "zip_integrity": true,
+      "page_size_letter": true,
+      "producer": "LibreOffice 26.8.0.3 (X86_64)"
+    },
+    "Modelo_fisico_PostgreSQL_final": {
+      "pages": 74,
+      "word_sha256": "21d850fd1c36ba3614ea9dd4bdcce3cb323aae14faf647d3b6c0aa690b2191bd",
+      "pdf_sha256": "4fbaaec43ea496fb5113bc539a76e78836bb863c77390395010766d6fdf26a94",
+      "word_bytes": 70522,
+      "pdf_bytes": 2817428,
+      "zip_integrity": true,
+      "page_size_letter": true,
+      "producer": "LibreOffice 26.8.0.3 (X86_64)"
+    }
+  },
+  "markdown_sources": 6,
+  "local_links": 206,
+  "missing_targets": [],
+  "text_outside_page": [],
+  "physical_tables": 117,
+  "indexes": 226,
+  "foreign_keys": 265,
+  "services": 12,
+  "svg_files": 21,
+  "image_pages": {
+    "Reporte_tecnico_final": [
+      1,
+      7,
+      10,
+      18
+    ],
+    "Modelo_fisico_PostgreSQL_final": []
+  },
+  "contact_sheets": [
+    ".local/artifacts/reporte-final-20261114/revision/Reporte_tecnico_final-hoja-1.jpg",
+    ".local/artifacts/reporte-final-20261114/revision/Reporte_tecnico_final-hoja-2.jpg",
+    ".local/artifacts/reporte-final-20261114/revision/Modelo_fisico_PostgreSQL_final-hoja-1.jpg"
+  ],
+  "manual_review": {
+    "reviewer": "Agente de documentación",
+    "report_layout_contact_sheets": "24 páginas inspeccionadas",
+    "report_full_pages": [
+      2,
+      7,
+      10,
+      12,
+      18
+    ],
+    "physical_catalog_layout_samples": [
+      1,
+      2,
+      3,
+      37,
+      74
+    ],
+    "physical_catalog_full_pages": [
+      1,
+      37,
+      74
+    ],
+    "findings": "Sin texto fuera de página; índice, tablas y figuras legibles en las páginas revisadas. Diagramas amplios se entregan como SVG ampliable, sin comprimirlos en carta.",
+    "root_review": {
+      "reviewer": "Dirección (root)",
+      "report_full_pages": [
+        1,
+        2,
+        7,
+        18,
+        21
+      ],
+      "physical_catalog_full_pages": [
+        37,
+        74
+      ],
+      "findings": "Texto, índice, flujo, gráfica y tablas legibles; límites claros. Catálogo página74 conserva una pequeña continuación de cabecera/fila vacía al inicio, sin pérdida obvia de datos ni bloqueo material; no se repite conversión por ese detalle.",
+      "scope": "Revisión muestral exacta; no afirma inspección de todas las74 páginas ni de cada relación de los21SVG."
+    },
+    "limit": "No se afirma inspección visual de cada celda/relación de los 21 SVG ni de cada página del catálogo; controles estructurales cubren todos los artefactos."
+  },
+  "scope": "Verificación documental; no ejecución funcional ni aceptación clínica/integral",
+  "linked_internal_destinations": 20,
+  "report_source_sha256": "6cbaa6da62d73b48690e3eca24cd0e2ed8620aa5f3c0a6681eee5781fb83a9b1",
+  "physical_source_sha256": "9c46a3fa9ba10ea4fbbf2f76c17e880c2207ef9624905ca1f517dc549320fdd2",
+  "metadata_sha256": "40587df7ebf4cc93323471de78879d6b035599fd9ac47430bbac4fc14cefec11",
+  "generator_sha256": {
+    "scripts/capture_final_schema.py": "b21c3caf466ac33b8ec4786895c0255969dc6b8a0d586636fd629e69348a3f3c",
+    "scripts/build_partial_docs.py": "c26f28ae7c0e4fabbabc06b295c53b488ac84fc5c907970e6bfe7c3c1e7af372",
+    "scripts/export_partial_report.py": "76105f3b6078e5ad9cf97b6f40619f6b01febb5f6559c4023e66935f28a4025e",
+    "scripts/render_final_diagrams.cjs": "53e2a4beb00d57020e2aac1bfa0e383985612e996eb83a7d1ec628c9dee9f567"
+  }
+}

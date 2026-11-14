@@ -1,0 +1,19 @@
+flowchart LR
+ I[Institución y ámbito] --> D[Donante y consentimiento]
+ D --> Don[Donación y procesamiento]
+ Don --> U[Recurso sanguíneo y derivados]
+ I --> O[Recurso de órgano autorizado]
+ I --> R[Receptor y solicitud]
+ U --> L[Muestra y resultados versionados]
+ O --> L
+ R --> L
+ L --> E[Evaluación explicable y dictamen humano]
+ E --> Res[Retención y reserva autorizada]
+ U --> Res
+ O --> Res
+ Res --> T[Traslado y responsables]
+ T --> C[Custodia y recepción]
+ C --> F[Uso o destino documentado]
+ Doc[Documentos privados y análisis] -.-> L & T & D
+ A[Auditoría y eventos minimizados] -.-> Don & Res & T & F
+ N[Vista conceptual: las flechas expresan relaciones de negocio, no cardinalidades SQL] -.-> I

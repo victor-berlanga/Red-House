@@ -1,0 +1,226 @@
+erDiagram
+  direction LR
+  red_house__appointment {
+    uuid appointment_id
+    uuid donor_id
+    uuid campaign_id
+    text current_status
+    timestamptz created_at
+    uuid tenant_id
+  }
+  red_house__appointment_reminders {
+    uuid id
+    int4 version
+    timestamptz sent_at
+  }
+  red_house__appointment_slots {
+    uuid id
+    uuid slot_id
+    uuid tenant_id
+    text status
+    int4 version
+    timestamptz created_at
+  }
+  red_house__campaign {
+    uuid campaign_id
+    uuid institution_id
+    text title
+    timestamptz starts_at
+    timestamptz ends_at
+    int4 capacity
+    text current_status
+    int4 version_no
+  }
+  red_house__campaign_publications {
+    uuid id
+    uuid tenant_id
+    bool published
+    text venue
+    text information
+    int4 version
+  }
+  red_house__campaign_slots {
+    uuid id
+    uuid campaign_id
+    uuid tenant_id
+    uuid site_id
+    timestamptz starts_at
+    timestamptz ends_at
+    int4 capacity
+    bool active
+    int4 version
+    timestamptz created_at
+  }
+  red_house__catalogue_entry {
+    uuid id
+    uuid tenant_id
+    text kind
+    text name
+    uuid parent_id
+  }
+  red_house__consent_versions {
+    uuid id
+    uuid donor_id
+    uuid tenant_id
+    uuid author_id
+    int4 version
+    text policy_version
+    text reference
+    timestamptz effective_at
+    bool granted
+    uuid supersedes
+    timestamptz created_at
+  }
+  red_house__donation {
+    uuid donation_id
+    uuid donor_id
+    uuid review_id
+    varchar donation_code
+    text current_status
+    timestamptz collected_at
+    timestamptz processed_at
+    uuid created_by
+    timestamptz registered_at
+    int4 version_no
+    uuid tenant_id
+    text kind
+    text component
+    text blood_group
+  }
+  red_house__donation_event {
+    uuid event_id
+    uuid donation_id
+    text status
+    uuid actor_id
+    timestamptz occurred_at
+    text observation
+  }
+  red_house__donor {
+    uuid donor_id
+    uuid institution_id
+    text record_code
+    text display_name
+    text blood_group
+    text donation_kind
+    text background
+    text restrictions
+    text consent_reference
+    text consent_at
+    text current_status
+    uuid created_by
+    timestamptz registered_at
+    int4 version_no
+    uuid account_id
+    bool consent
+  }
+  red_house__donor_review {
+    uuid review_id
+    uuid donor_id
+    text decision
+    text reason
+    uuid actor_id
+    timestamptz occurred_at
+  }
+  red_house__institution {
+    uuid institution_id
+    varchar institution_code
+    uuid created_by
+  }
+  red_house__schema_migration {
+    int4 version
+    text description
+    timestamptz installed_at
+  }
+  red_house__service_activity_events {
+    text service
+    uuid id
+    uuid tenant_id
+    jsonb event
+    timestamptz created_at
+  }
+  red_house__service_decisions {
+    text service
+    uuid id
+    uuid resource_id
+    uuid tenant_id
+    uuid actor_id
+    text action
+    text reason
+    jsonb changes
+    timestamptz created_at
+  }
+  red_house__service_idempotency {
+    text service
+    uuid id
+    uuid user_id
+    text key
+    text operation
+    text fingerprint
+    jsonb result
+    timestamptz created_at
+  }
+  red_house__service_inbox {
+    text service
+    uuid event_id
+    text fingerprint
+    timestamptz created_at
+  }
+  red_house__service_outbox {
+    text service
+    uuid id
+    uuid event_id
+    text target
+    jsonb event
+    timestamptz created_at
+    timestamptz delivered_at
+    int4 attempts
+    timestamptz next_attempt
+    text last_error
+  }
+  red_house__service_schema_version {
+    text service
+    int4 version
+    timestamptz installed_at
+  }
+  red_house__service_worker_health {
+    text service
+    int4 id
+    timestamptz checked_at
+    timestamptz last_success
+    text last_error
+  }
+  red_house__user_account {
+    uuid account_id
+    uuid party_id
+    varchar login_email
+    text username
+    uuid tenant_id
+  }
+  red_house__campaign ||..o{ red_house__appointment : api_appointments_campaign_id_fkey
+  red_house__donor ||..o{ red_house__appointment : api_appointments_donor_id_fkey
+  red_house__institution ||..o{ red_house__appointment : shared_appointments_tenant_id
+  red_house__appointment ||..o| red_house__appointment_reminders : appointment_reminders_id_fkey
+  red_house__appointment ||..o| red_house__appointment_slots : appointment_slots_id_fkey
+  red_house__campaign_slots ||..o{ red_house__appointment_slots : appointment_slots_slot_id_fkey
+  red_house__institution ||..o{ red_house__appointment_slots : appointment_slots_tenant_id_fkey
+  red_house__institution ||..o{ red_house__campaign : shared_campaigns_tenant_id
+  red_house__campaign ||..o| red_house__campaign_publications : campaign_publications_id_fkey
+  red_house__institution ||..o{ red_house__campaign_publications : campaign_publications_tenant_id_fkey
+  red_house__campaign ||..o{ red_house__campaign_slots : campaign_slots_campaign_id_fkey
+  red_house__catalogue_entry ||..o{ red_house__campaign_slots : campaign_slots_site_id_fkey
+  red_house__institution ||..o{ red_house__campaign_slots : campaign_slots_tenant_id_fkey
+  red_house__user_account ||..o{ red_house__consent_versions : consent_versions_author_id_fkey
+  red_house__donor ||..o{ red_house__consent_versions : consent_versions_donor_id_fkey
+  red_house__consent_versions |o..o{ red_house__consent_versions : consent_versions_supersedes_fkey
+  red_house__institution ||..o{ red_house__consent_versions : consent_versions_tenant_id_fkey
+  red_house__donor ||..o{ red_house__donation : api_donations_donor_id_fkey
+  red_house__user_account |o..o{ red_house__donation : donation_created_by_fkey
+  red_house__donor_review |o..o{ red_house__donation : donation_review_id_fkey
+  red_house__institution ||..o{ red_house__donation : shared_donations_tenant_id
+  red_house__donation ||..o{ red_house__donation_event : api_donation_steps_donation_id_fkey
+  red_house__user_account ||..o{ red_house__donation_event : shared_donation_steps_actor_id
+  red_house__user_account |o..o{ red_house__donor : donor_created_by_fkey
+  red_house__institution ||..o{ red_house__donor : shared_donors_tenant_id
+  red_house__user_account |o..o{ red_house__donor : shared_donors_user_id
+  red_house__donor ||..o{ red_house__donor_review : api_donor_reviews_donor_id_fkey
+  red_house__user_account ||..o{ red_house__donor_review : shared_donor_reviews_actor_id

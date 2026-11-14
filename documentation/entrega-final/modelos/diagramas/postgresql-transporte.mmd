@@ -1,0 +1,248 @@
+erDiagram
+  direction LR
+  red_house__blood_allocation {
+    uuid allocation_id
+    uuid request_id
+    uuid candidate_id
+    uuid resource_id
+    uuid origin_id
+    uuid destination_id
+    uuid authorized_by
+    uuid review_id
+    uuid operation_id
+    uuid recipient_id
+    uuid hold_id
+    uuid evaluation_id
+    uuid route_id
+  }
+  red_house__devices {
+    uuid id
+    uuid tenant_id
+    uuid user_id
+    text source
+    text label
+    text token_hash
+    timestamptz expires_at
+    bool active
+    int4 version
+    timestamptz created_at
+  }
+  red_house__institution {
+    uuid institution_id
+    varchar institution_code
+    text institution_name
+    varchar institution_type
+    varchar region_name
+    varchar city
+    varchar street
+    varchar participation_status
+    int4 version_no
+    timestamptz registered_at
+    varchar operating_hours
+    uuid region_id
+    bool active
+    uuid created_by
+  }
+  red_house__organ_allocation {
+    uuid allocation_id
+    uuid candidate_id
+    uuid review_id
+    uuid offer_id
+    uuid recipient_id
+    uuid authorized_by
+    uuid transport_id
+  }
+  red_house__party {
+    uuid party_id
+  }
+  red_house__schema_migration {
+    int4 version
+    text description
+    timestamptz installed_at
+  }
+  red_house__service_activity_events {
+    text service
+    uuid id
+    uuid tenant_id
+    jsonb event
+    timestamptz created_at
+  }
+  red_house__service_decisions {
+    text service
+    uuid id
+    uuid resource_id
+    uuid tenant_id
+    uuid actor_id
+    text action
+    text reason
+    jsonb changes
+    timestamptz created_at
+  }
+  red_house__service_idempotency {
+    text service
+    uuid id
+    uuid user_id
+    text key
+    text operation
+    text fingerprint
+    jsonb result
+    timestamptz created_at
+  }
+  red_house__service_inbox {
+    text service
+    uuid event_id
+    text fingerprint
+    timestamptz created_at
+  }
+  red_house__service_outbox {
+    text service
+    uuid id
+    uuid event_id
+    text target
+    jsonb event
+    timestamptz created_at
+    timestamptz delivered_at
+    int4 attempts
+    timestamptz next_attempt
+    text last_error
+  }
+  red_house__service_schema_version {
+    text service
+    int4 version
+    timestamptz installed_at
+  }
+  red_house__service_worker_health {
+    text service
+    int4 id
+    timestamptz checked_at
+    timestamptz last_success
+    text last_error
+  }
+  red_house__shipment {
+    uuid shipment_id
+    uuid allocation_id
+    uuid transport_id
+    varchar vehicle
+    timestamptz departure_at
+    timestamptz eta
+    text current_status
+    int4 version_no
+    uuid organ_allocation_id
+    uuid origin_id
+    uuid destination_id
+    uuid region_id
+    int4 sequence
+    bool inventory_pending
+    timestamptz expires_at
+  }
+  red_house__shipment_transition {
+    uuid id
+    uuid shipment_id
+    int4 sequence
+    text state
+    uuid actor_id
+    text reason
+    jsonb evidence
+    timestamptz created_at
+  }
+  red_house__stored_file {
+    uuid file_id
+    uuid shipment_id
+    uuid owner_id
+    text object_path
+    text mime_type
+    int4 size_bytes
+    text sha256
+    text current_status
+    text generation
+    timestamptz created_at
+    text storage_provider
+  }
+  red_house__sync_commands {
+    uuid id
+    uuid tenant_id
+    uuid user_id
+    uuid shipment_id
+    uuid device_id
+    int8 cursor
+    int4 expected_version
+    jsonb body
+    text fingerprint
+    jsonb result
+    timestamptz captured_at
+    timestamptz created_at
+  }
+  red_house__tracking_assignments {
+    uuid id
+    uuid shipment_id
+    uuid device_id
+    uuid responsible_id
+    timestamptz starts_at
+    timestamptz ends_at
+    bool active
+    int4 version
+    uuid actor_id
+    timestamptz created_at
+  }
+  red_house__tracking_points {
+    uuid id
+    uuid shipment_id
+    uuid assignment_id
+    uuid device_id
+    int8 cursor
+    int8 sequence
+    timestamptz captured_at
+    timestamptz received_at
+    text fingerprint
+    jsonb position
+  }
+  red_house__transport_telemetry {
+    uuid telemetry_id
+    uuid shipment_id
+    uuid actor_id
+    float8 latitude
+    float8 longitude
+    timestamptz captured_at
+    timestamptz created_at
+  }
+  red_house__user_account {
+    uuid account_id
+    uuid party_id
+    varchar login_email
+    text password_hash
+    varchar account_status
+    int4 version_no
+    timestamptz registered_at
+    text username
+    uuid tenant_id
+    text role
+    bool active
+  }
+  red_house__institution ||..o{ red_house__devices : devices_tenant_id_fkey
+  red_house__user_account ||..o{ red_house__devices : devices_user_id_fkey
+  red_house__user_account |o..o{ red_house__institution : api_institutions_created_by_fkey
+  red_house__institution ||..o{ red_house__shipment : shared_shipments_destination_id
+  red_house__institution ||..o{ red_house__shipment : shared_shipments_origin_id
+  red_house__blood_allocation ||..o| red_house__shipment : shared_shipments_reservation_id
+  red_house__user_account ||..o{ red_house__shipment : shared_shipments_transport_user_id
+  red_house__organ_allocation |o..o| red_house__shipment : shipment_organ_allocation_id_fkey
+  red_house__shipment ||..o{ red_house__shipment_transition : api_transitions_shipment_id_fkey
+  red_house__user_account ||..o{ red_house__shipment_transition : shared_transitions_actor_id
+  red_house__shipment |o..o{ red_house__stored_file : api_files_shipment_id_fkey
+  red_house__user_account ||..o{ red_house__stored_file : shared_files_owner_id
+  red_house__devices ||..o{ red_house__sync_commands : sync_commands_device_id_fkey
+  red_house__shipment ||..o{ red_house__sync_commands : sync_commands_shipment_id_fkey
+  red_house__institution ||..o{ red_house__sync_commands : sync_commands_tenant_id_fkey
+  red_house__user_account ||..o{ red_house__sync_commands : sync_commands_user_id_fkey
+  red_house__user_account ||..o{ red_house__tracking_assignments : tracking_assignments_actor_id_fkey
+  red_house__devices ||..o{ red_house__tracking_assignments : tracking_assignments_device_id_fkey
+  red_house__user_account ||..o{ red_house__tracking_assignments : tracking_assignments_responsible_id_fkey
+  red_house__shipment ||..o{ red_house__tracking_assignments : tracking_assignments_shipment_id_fkey
+  red_house__tracking_assignments ||..o{ red_house__tracking_points : tracking_points_assignment_id_fkey
+  red_house__devices ||..o{ red_house__tracking_points : tracking_points_device_id_fkey
+  red_house__shipment ||..o{ red_house__tracking_points : tracking_points_shipment_id_fkey
+  red_house__shipment ||..o{ red_house__transport_telemetry : api_telemetry_shipment_id_fkey
+  red_house__user_account ||..o{ red_house__transport_telemetry : shared_telemetry_actor_id
+  red_house__institution ||..o{ red_house__user_account : api_users_tenant_id_fkey
+  red_house__institution ||..o{ red_house__user_account : shared_users_tenant_id
+  red_house__party |o..o| red_house__user_account : user_account_party_id_fkey

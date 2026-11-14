@@ -1,0 +1,27 @@
+sequenceDiagram
+ actor Medico as Médico autorizado
+ participant App as Portal o cliente autorizado
+ participant Comp as Compatibilidad y laboratorio
+ participant Inv as Inventario
+ participant Rec as Receptores
+ participant Tra as Transporte
+ participant Out as Outbox SQL
+ participant Dest as Custodia, Alertas y Auditoría
+ Medico->>App: Revisar evaluación y dictamen humano
+ App->>Comp: Consultar versiones, faltantes y vigencia
+ Comp-->>App: Explicación y revisión registrada
+ App->>Inv: Reservar con clave idempotente y versión
+ Inv->>Rec: Solicitar retención de capacidad
+ Rec-->>Inv: Identidad y estado durable de retención
+ Inv->>Inv: Bloquear recurso y revalidar versiones antes de commit
+ Inv->>Rec: Confirmar retención
+ Inv-->>App: Operación confirmada o pendiente explícita
+ App->>Tra: Programar y registrar pasos físicos autorizados
+ Tra->>Out: Estado, secuencia y evento en transacción
+ Out->>Dest: Entrega firmada con deduplicación
+ Dest-->>Out: Acuse
+ Out->>Inv: Recepción aceptada por destinatario
+ Out->>Rec: Actualizar cobertura
+ App->>Rec: Consultar resultado autorizado
+ Note over App,Inv: Timeout implica consultar estado, nunca repetir con otra clave a ciegas
+ Note over Medico,Tra: Recepción no equivale a transfusión, trasplante o destino final
