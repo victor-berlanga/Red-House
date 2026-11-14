@@ -1,0 +1,36 @@
+{
+  "state": "PREPARED_LOCALLY_NOT_DEPLOYED",
+  "target": {
+    "project": "sistemas-integracion-01",
+    "instance": "red-house",
+    "zone": "me-central1-a",
+    "id": "2861822465669755197",
+    "ip": "34.18.186.116"
+  },
+  "baseline_ref": "982d592^",
+  "baseline_commit": "82c554dfa06a3ab15dd69ea47f7b064559d2961e",
+  "source_hashes": {
+    "apps/web/src/integration/routes/common.py": "d2e0198684c8aa62cc3ee8d7b7924eafca734cd42596a69120fe3e157c21883d",
+    "apps/web/src/integration/routes/documents.py": "8462426585f0b0dab0fcd1263bfb7c5dc8e577a20beb79c57ec11fa64a304d6d",
+    "apps/web/src/presentation/templates/integration/document_upload.html": "8cbfcb9b6e0eaad44ef7c696910d2e96e3b02e21767347d133e13f1a56959c42"
+  },
+  "procedure_sha256": "f9b8a6baf207e51e7365135175bcc4d530d558f4fa3eed4947cf94053163d1b3",
+  "checks": [
+    "three_python_scripts_parse",
+    "manifest_exactly_three_sources",
+    "payload_matches_current_worktree",
+    "baseline_matches_git_show",
+    "packaged_procedure_matches_reviewed_source",
+    "private_package_mode_0700",
+    "private_package_gitignored"
+  ],
+  "remote_actions": 0,
+  "builds": 0,
+  "pending": [
+    "remote_preflight_and_tls_timer_evidence",
+    "derived_image_build",
+    "web_only_release",
+    "30_healthy_and_29_unchanged",
+    "validated_receipt_and_temporary_key_removal"
+  ]
+}

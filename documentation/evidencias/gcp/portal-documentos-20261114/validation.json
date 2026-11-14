@@ -1,0 +1,54 @@
+{
+  "status": "passed",
+  "action": "publication",
+  "target": {
+    "project": "sistemas-integracion-01",
+    "instance": "red-house",
+    "zone": "me-central1-a",
+    "id": "2861822465669755197",
+    "ip": "34.18.186.116"
+  },
+  "healthy": 30,
+  "other_containers_unchanged": 29,
+  "image": "sha256:98f27169bc43704d11627adde2a5f0c7528fe73aac5411f94824641e6a10329a",
+  "source_hashes": {
+    "apps/web/src/integration/routes/common.py": "d2e0198684c8aa62cc3ee8d7b7924eafca734cd42596a69120fe3e157c21883d",
+    "apps/web/src/integration/routes/documents.py": "8462426585f0b0dab0fcd1263bfb7c5dc8e577a20beb79c57ec11fa64a304d6d",
+    "apps/web/src/presentation/templates/integration/document_upload.html": "8cbfcb9b6e0eaad44ef7c696910d2e96e3b02e21767347d133e13f1a56959c42"
+  },
+  "schema": 20,
+  "base_image": "sha256:3cb7e602427c2fc125f025caf52dd9361bbf31cf16f59108612544e220904179",
+  "candidate_head": "19a8a97fbebf2356fa00cd44372bd8caa5a2e097",
+  "image_runtime_configuration_preserved": true,
+  "storage_provider": "local",
+  "public_health": {
+    "backend": "microservices",
+    "component": "red-house-web",
+    "status": "alive"
+  },
+  "tls": {
+    "checked_at": "2026-11-14T20:07:27.935209+00:00",
+    "not_after": "2026-11-18T05:34:04+00:00",
+    "certificate_sha256": "e35aa2c9b5881ecbd1d61aa686e98f44ba17d23b73bc9b36bf81f698b967aa2d",
+    "tls_trust_and_ip_validated": true,
+    "delivery_day_end_utc": "2026-11-24T06:00:00+00:00",
+    "covers_delivery_day_end": false,
+    "renewal_timer": {
+      "NextElapseUSecRealtime": "Sun 2026-11-15 00:10:16 UTC",
+      "LastTriggerUSec": "Sat 2026-11-14 18:14:17 UTC",
+      "LoadState": "loaded",
+      "ActiveState": "active",
+      "UnitFileState": "enabled"
+    },
+    "timer_query_exit_code": 0,
+    "renewal_service": {
+      "Result": "success",
+      "ExecMainExitTimestamp": "Sat 2026-11-14 18:14:19 UTC",
+      "ExecMainStatus": "0",
+      "LoadState": "loaded"
+    },
+    "service_query_exit_code": 0,
+    "renewal_performed": false
+  },
+  "private_document_flow": "validated_locally_not_repeated_on_production"
+}

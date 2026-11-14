@@ -2,6 +2,10 @@
 
 Las entradas están ordenadas de reciente a histórico; un pendiente de un corte anterior puede quedar sustituido explícitamente por una entrada posterior.
 
+## Recuperación documental publicada en GCP — 14/11/2026
+
+[Publicación web](documentation/evidencias/gcp/portal-documentos-20261114/RESULTADOS.md) aprobada en sistemas-integracion-01/red-house/me-central1-a: tres fuentes, solo web recreado, treinta saludables y otros veintinueve intactos; esquema20/LOCAL/configuración conservados. Primer build falló al resolver el ID como repositorio; reintento con etiqueta local cotejada aprobó, sin cambiar web antes ni repetir preflight. Respaldo/rollback retenidos y clave temporal retirada, dos previas conservadas. HTTPS válido; certificado observado vence el18 y timer de renovación activo, por lo que no acredita vigencia para el23. Configuración real mantiene monolito; etiqueta constante equivocada de health/live corregida en fuente después, pendiente de próxima publicación. No se repitió el recorrido privado en producción ni se cerró etapa06.
+
 ## Caché, concurrencia y recuperación medidas — 14/11/2026
 
 [Serie local](documentation/evidencias/entrega-final/carga-20261114/serie-12-24/RESULTADOS.md) completada con seis fases válidas y cero errores. Cuatro corridas de 12 usuarios cumplieron p95 inferior a 2 s; la de 24 no cumplió (Traslados 2.100 ms, Tareas propias 2.000 ms). Se omitió estrés de 36 conforme al plan. Recuperación con seis: 471 lecturas/60,005 s, p95 máximo 840 ms. Las 78 familias nuevas quedaron revocadas en SQL/Redis; 945 fuentes y 20 huellas de runtime/configuración estables, procesos propios cerrados. Dataset único 2.000 donantes/10.000 recursos/100.000 eventos SQL. Se conservan CSV, medianas/percentiles por endpoint, métricas de recursos y gráfica inspeccionada. No se concluye beneficio general de caché ni capacidad GCP; quedan transacciones y otros ensayos de etapa 07.

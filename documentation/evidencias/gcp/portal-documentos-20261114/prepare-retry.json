@@ -1,0 +1,30 @@
+{
+  "reason": "BuildKit treated the image ID as a registry name",
+  "retained_base": "redhouse-web:before-portal-documentos-20261114",
+  "base_image": "sha256:3cb7e602427c2fc125f025caf52dd9361bbf31cf16f59108612544e220904179",
+  "deploy_sha256": "c5ea69d7b74cacc9ababa4ed4c2502421ff66af8e6efff35ebe0447ced7a369c",
+  "package_source": {
+    "head": "756ea86d2a0ca6e933e2b315c68a3ea5e0a5a94b",
+    "target": {
+      "project": "sistemas-integracion-01",
+      "instance": "red-house",
+      "zone": "me-central1-a",
+      "id": "2861822465669755197",
+      "ip": "34.18.186.116"
+    },
+    "state": "PREPARED_LOCALLY_NOT_DEPLOYED",
+    "baseline_ref": "982d592^",
+    "baseline_commit": "82c554dfa06a3ab15dd69ea47f7b064559d2961e",
+    "baseline_hashes": {
+      "apps/web/src/integration/routes/common.py": "67c5f5e3aa1ad05f69121b9fedec1093a8e7ca1907ab8e038970c994b3ed022b",
+      "apps/web/src/integration/routes/documents.py": "31fb65b1d58768c1358aa189a4090c2e2224b93fefc50d75372162d98ba418fd",
+      "apps/web/src/presentation/templates/integration/document_upload.html": "ee1d658da57ec7a2f1f24ac91937daa824883c47d09e2ef72f232d3fa90fe759"
+    },
+    "files": {
+      "apps/web/src/integration/routes/common.py": "d2e0198684c8aa62cc3ee8d7b7924eafca734cd42596a69120fe3e157c21883d",
+      "apps/web/src/integration/routes/documents.py": "8462426585f0b0dab0fcd1263bfb7c5dc8e577a20beb79c57ec11fa64a304d6d",
+      "apps/web/src/presentation/templates/integration/document_upload.html": "8cbfcb9b6e0eaad44ef7c696910d2e96e3b02e21767347d133e13f1a56959c42"
+    },
+    "deploy_sha256": "c5ea69d7b74cacc9ababa4ed4c2502421ff66af8e6efff35ebe0447ced7a369c"
+  }
+}
