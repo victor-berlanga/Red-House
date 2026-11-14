@@ -1,7 +1,7 @@
 {% extends 'base.html' %}{% from 'macros.html' import csrf with context %}
 {% block content %}<h1>{{ title }}</h1><p><a href="{{ url_for('regional.document_center',subject_kind=kind,subject_id=identifier) }}">Volver a documentos</a></p>
 {% set version_conflict = error_status == 412 and previous and not prepared_id %}
-{% if error %}<div class="notice error" id="document-error" role="alert" tabindex="-1">{% if version_conflict %}Esta versión ya fue reemplazada. Consulta las versiones del expediente y abre la más reciente antes de crear otra. <a href="{{ url_for('regional.document_center',subject_kind=kind,subject_id=identifier) }}">Consultar versiones de este expediente</a>{% else %}{{ error }}{% if not prepared_id %} Selecciona nuevamente el archivo.{% endif %}{% endif %}</div>{% endif %}
+{% if error %}<div class="notice error" id="document-error" role="alert" tabindex="-1">{% if version_conflict %}Esta versión ya fue reemplazada. Consulta las versiones del expediente y abre la más reciente antes de crear otra. <a class="text-link" style="text-decoration: underline" href="{{ url_for('regional.document_center',subject_kind=kind,subject_id=identifier) }}">Consultar versiones de este expediente</a>{% else %}{{ error }}{% if not prepared_id %} Selecciona nuevamente el archivo.{% endif %}{% endif %}</div>{% endif %}
 {% if prepared_id %}<p><a href="{{ url_for('regional.document_detail',identifier=prepared_id) }}">Consultar el documento preparado y recuperar su verificación</a></p>{% endif %}
 {% if not version_conflict %}
 <form method="post" enctype="multipart/form-data" class="card form-card record-form">{{ csrf() }}

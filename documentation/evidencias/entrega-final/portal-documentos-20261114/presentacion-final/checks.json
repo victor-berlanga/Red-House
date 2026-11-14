@@ -1,0 +1,25 @@
+{
+  "date": "2026-11-14",
+  "scope": "Cinco comprobaciones de presentación Jinja con base/datos dobles; una captura Chrome local, sin backend o motores. No repite el recorrido funcional del portal.",
+  "checks": {
+    "obsolete_upload_hidden": true,
+    "same_subject_visible_recovery_link": true,
+    "validation_422_keeps_form": true,
+    "prepared_503_does_not_request_upload": true,
+    "spanish_labels_and_neutral_error": true
+  },
+  "sources_sha256": {
+    "apps/web/src/integration/routes/common.py": "d2e0198684c8aa62cc3ee8d7b7924eafca734cd42596a69120fe3e157c21883d",
+    "apps/web/src/integration/routes/documents.py": "8462426585f0b0dab0fcd1263bfb7c5dc8e577a20beb79c57ec11fa64a304d6d",
+    "apps/web/src/presentation/templates/integration/document_upload.html": "8cbfcb9b6e0eaad44ef7c696910d2e96e3b02e21767347d133e13f1a56959c42",
+    "apps/web/src/presentation/templates/integration/values.html": "c87a0c8e65235a079db06e11195bf033e00ab0d0793ef40730a15941327dcfff",
+    "apps/web/src/presentation/static/css/app.css": "c9564c6c166a2c250668585056045ad4fd9a67945c587ff79fd2a7113bff0bf3"
+  },
+  "visual_review": {
+    "reviewer": "root",
+    "date": "2026-11-14",
+    "result": "Enlace subrayado visible, mensaje completo y formulario obsoleto oculto; captura Chrome con base sintética, sin repetir backend."
+  },
+  "image_sha256": "0fd73aadf6ca2b3b9c6b381af5ec60a8c93d37a9eae54a22a1ecaefb891a7f4e",
+  "browser_capture": "COMPLETED"
+}

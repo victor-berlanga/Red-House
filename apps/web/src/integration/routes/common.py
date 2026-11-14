@@ -108,7 +108,7 @@ LABELS = {
     "VERIFIED": "Verificado",
     "CLEAN": "Sin amenazas detectadas",
     "INFECTED": "Amenaza detectada",
-    "ERROR": "Error de verificación",
+    "ERROR": "Error",
     "MISSING": "Archivo no disponible",
     "COMPLETED": "Completado",
     "FAILED": "Fallido",
