@@ -1,5 +1,7 @@
 # Portal 03: ensayo pendiente de aceptación integrada en 06
 
+Estado consolidado al 14/11/2026: **I06-07 aceptado localmente; I06-08 PARCIAL con cobertura compuesta**. El [informe único de cobertura](../../evidencias/entrega-final/portal-security-20261114/RESULTADOS.md#cobertura-compuesta-i06-08--revisión-documental-del-14112026) reúne A/C/D, B03 aprobado, rol JSON/XML y mapa, asignación WSS y cambio de responsable, y publicación del proxy. Rol por el mismo Nginx y asignación durante caída total siguen sin ensayo exacto; no equivalen a controles ausentes. Es consolidación documental, no nueva ejecución. Las entradas cronológicas inferiores conservan los estados que existían en cada momento.
+
 ## Actualización de continuidad — 13/11/2026
 
 El plan histórico inferior se conserva como lista de recorridos pendientes. Sus referencias al esquema 17, a ausencia de herramientas locales y a permisos por obtener describen la inspección del 6 de noviembre; no son el estado vigente ni obligan a pedir otra confirmación para las pruebas aisladas ya incluidas en el plan autorizado por el usuario.

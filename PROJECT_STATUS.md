@@ -2,6 +2,12 @@
 
 Las entradas están ordenadas de reciente a histórico; un pendiente de un corte anterior puede quedar sustituido explícitamente por una entrada posterior.
 
+## Consolidación del avance y pruebas por impacto — 14/11/2026
+
+La [matriz de continuidad](documentation/entrega-final/continuidad/Matriz.md) refleja ahora los resultados comprobados de móvil, escritorio, almacenamiento y proxy, distinguiéndolos de los recorridos pendientes. Se conserva la cobertura de funciones no afectadas por cambios posteriores: un ajuste visual no obliga a repetir autenticación, custodia y sincronización completas. Cada resultado mantiene su versión y entorno; no se presenta como una ejecución nueva.
+
+La [cobertura compuesta I06-08](documentation/evidencias/entrega-final/portal-security-20261114/RESULTADOS.md) reúne controles históricos de rol/asignación y los ensayos A/C/D/B03. Los controles existen y tienen evidencia; las combinaciones exactas de cambio de rol por Nginx y reasignación durante caída total siguen sin ensayo. Consolidación documental, sin nuevas pruebas ni cierre integral de etapa.
+
 ## Recuperación WSS comprobada y publicada en Red House — 14/11/2026
 
 B03 aprobó 1/1 en 249,836 s: cierre de una sesión durante la caída, recuperación de la sesión autorizada y tres eventos iguales en ACK/SQL/Mongo; la sesión revocada quedó sin datos privados. Dirección revisó las dos capturas finales. Publicado el fix `3cd5a1b` en `sistemas-integracion-01 / red-house / me-central1-a`, con Nginx efectivo 1.28.3: validación y reload sin recrear contenedores, HTTPS 200, WSS nuevo 101/autenticado y token cerrado rechazado 401. Treinta contenedores, veinte JSON/overrides y almacenamiento LOCAL conservados. Backup guardado; clave temporal retirada y dos previas intactas. [Evidencia y límites](documentation/evidencias/gcp/proxy-wss-20261114/RESULTADOS.md). No se repitió I06-07 ni se provocaron caídas en GCP; revocación de rol/asignación y aceptación integral de 06 siguen pendientes.
