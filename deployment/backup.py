@@ -50,6 +50,23 @@ with MongoClient('mongodb://127.0.0.1',username='rh_bootstrap',password=password
 """
 
 
+def copy_optional_configuration(directory, private):
+    for name in (
+        "gcs.compose.yaml",
+        "clamav-readiness.sh",
+        "gcs-adc.json",
+        "public.compose.yaml",
+        "public.nginx.conf",
+        "public.json",
+        "tls",
+    ):
+        source = directory / name
+        if source.is_dir():
+            shutil.copytree(source, private / name)
+        elif source.exists():
+            shutil.copy2(source, private / name)
+
+
 def command(args, *, data=None, output=None):
     result = subprocess.run(
         args,
@@ -199,19 +216,7 @@ def main():
                 shutil.copytree(source, private / name)
             else:
                 shutil.copy2(source, private / name)
-        for name in (
-            "gcs.compose.yaml",
-            "gcs-adc.json",
-            "public.compose.yaml",
-            "public.nginx.conf",
-            "public.json",
-            "tls",
-        ):
-            source = directory / name
-            if source.is_dir():
-                shutil.copytree(source, private / name)
-            elif source.exists():
-                shutil.copy2(source, private / name)
+        copy_optional_configuration(directory, private)
         result = {
             "date": datetime.now(timezone.utc).isoformat(),
             "backup": "passed",
