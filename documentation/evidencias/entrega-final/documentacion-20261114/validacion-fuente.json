@@ -1,0 +1,42 @@
+{
+  "date": "2026-11-14",
+  "scope": "Fuente, CLI, DOCX temporal y conservación del exportador histórico; sin LibreOffice/PDF, infraestructura o pruebas funcionales nuevas",
+  "report_sha256": "c129611a9452cfccb4ba1b9e54ffc8135074cc71a2e6cf42400ac77d1d4d8a12",
+  "generator_sha256": "b0089e3f11e9c604580d877e166b6943ce981a10ae7df5e64f5ae2d70d0c4553",
+  "checks": {
+    "headings_20": true,
+    "cutoff_current": true,
+    "old_date_removed": true,
+    "personal_names_removed": true,
+    "oath_not_attributed": true,
+    "no_historical_catalogue": true,
+    "team_once": true,
+    "letter_width": true,
+    "letter_height": true,
+    "word_zip_integrity": true,
+    "linked_toc_20": true,
+    "local_targets": true,
+    "cli_final": true,
+    "cli_rejects_combined_modes": true
+  },
+  "historical_export_identical_entries": true,
+  "historical_comparison": "Exportación del mismo Reporte_tecnico_segundo_parcial.md mediante versión HEAD y generador actual: todas las entradas ZIP idénticas; comprobación anterior al ensayo final. Un assert del arnés sobre tabs de la portada falló después y se corrigió usando strip(), sin cambiar el generador.",
+  "word_export": "APROBADO en directorio temporal; artefacto oficial no generado",
+  "linked_toc_entries": 20,
+  "markdown_links": 119,
+  "local_links": 107,
+  "missing_local_targets": 0,
+  "pdf_rendered": false,
+  "visual_review": false,
+  "environment": {
+    "python": "3.12.6",
+    "platform": "macOS x86_64",
+    "requirements": "scripts/requirements-docs.txt"
+  },
+  "observations": [
+    "Advertencia heredada de python-docx: style lookup by style_id is deprecated; no falló la exportación.",
+    "Primer intento pip eligió fuente PyMuPDF 2.1 y falló en metadata; interrumpido. Instalación posterior exclusivamente con ruedas binarias, sin instalar paquetes del sistema."
+  ],
+  "historical_generator_blob": "ec870c4f18fa1c9b27b03033898d7ff952d3e576",
+  "requirements_sha256": "2bdbf46f37394add32bff26b2a5b78d681499430d4d1dfd163e5c277d5dbd200"
+}

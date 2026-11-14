@@ -28,7 +28,7 @@ REPORT_TEMPLATE = (
 )
 
 
-def apply_report_design(document):
+def apply_report_design(document, *, final_report=False):
     """Traslada estilos y portada sin importar capítulos del reporte histórico."""
     template = Document(REPORT_TEMPLATE)
     for name in (
@@ -124,8 +124,28 @@ def apply_report_design(document):
     # La portada termina en el primer salto de página explícito. Se conservan
     # sus párrafos y posiciones originales, incluida la imagen anclada de UDEM.
     cover = []
+    team_identified = False
     for paragraph in template.paragraphs:
         copied = deepcopy(paragraph._p)
+        if final_report:
+            # El corte final conserva el diseño, sin atribuir una declaración
+            # de integridad ni arrastrar datos personales de la entrega anterior.
+            text_nodes = copied.xpath(".//w:t")
+            cover_text = "".join(node.text or "" for node in text_nodes).strip()
+            replacement = None
+            if cover_text == "Reporte Técnico Integral - Red House":
+                replacement = "Reporte técnico final - Red House"
+            elif cover_text.startswith("San Pedro Garza García, Nuevo León"):
+                replacement = "Corte documental: 14 de noviembre de 2026."
+            elif cover_text.startswith("Nombre:"):
+                replacement = "" if team_identified else "Proyecto 6 · Equipo 01"
+                team_identified = True
+            elif cover_text == "Profesor" or cover_text.startswith(("Dr.", "“Damos")):
+                replacement = ""
+            if replacement is not None and text_nodes:
+                text_nodes[0].text = replacement
+                for node in text_nodes[1:]:
+                    node.text = ""
         for element in copied.iter():
             for attribute in (qn("r:embed"), qn("r:link"), qn("r:id")):
                 identifier = element.get(attribute)
@@ -232,7 +252,9 @@ def insert_contents(document, entries, pages, cover_paragraphs):
         anchor.addprevious(paragraph._p)
 
 
-def export(paths, destination, *, report_design=False, toc_pages=None):
+def export(
+    paths, destination, *, report_design=False, toc_pages=None, final_report=False
+):
     document = Document()
     section = document.sections[0]
     section.top_margin = section.bottom_margin = Inches(0.7)
@@ -244,7 +266,9 @@ def export(paths, destination, *, report_design=False, toc_pages=None):
     for name in ("Title", "Heading 1", "Heading 2", "Heading 3", "Heading 4"):
         document.styles[name].font.color.rgb = RGBColor.from_string("8E2434")
     footer = section.footer.paragraphs[0]
-    footer.text = "Red House · Segundo parcial · "
+    footer.text = "Red House · " + (
+        "Entrega final · " if final_report else "Segundo parcial · "
+    )
     field = OxmlElement("w:fldSimple")
     field.set(qn("w:instr"), "PAGE")
     footer._p.append(field)
@@ -339,14 +363,14 @@ def export(paths, destination, *, report_design=False, toc_pages=None):
                 " / ".join(sorted(labels)) + ": " + href, style="Caption"
             )
     if report_design:
-        cover_paragraphs = apply_report_design(document)
+        cover_paragraphs = apply_report_design(document, final_report=final_report)
         insert_contents(document, contents, toc_pages or {}, cover_paragraphs)
     destination.parent.mkdir(parents=True, exist_ok=True)
     document.save(destination)
     return [paragraph.text for paragraph, _ in contents]
 
 
-def export_pdf(paths, destination):
+def export_pdf(paths, destination, *, final_report=False):
     """Repite la paginación hasta estabilizar las páginas del índice enlazado."""
     import pymupdf
 
@@ -354,7 +378,13 @@ def export_pdf(paths, destination):
     with tempfile.TemporaryDirectory(prefix="redhouse-report-") as folder:
         temporary = Path(folder)
         for attempt in range(3):
-            headings = export(paths, destination, report_design=True, toc_pages=pages)
+            headings = export(
+                paths,
+                destination,
+                report_design=True,
+                toc_pages=pages,
+                final_report=final_report,
+            )
             subprocess.run(
                 [
                     "soffice",
@@ -401,7 +431,13 @@ def export_pdf(paths, destination):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--physical", action="store_true")
+    selection = parser.add_mutually_exclusive_group()
+    selection.add_argument("--physical", action="store_true")
+    selection.add_argument(
+        "--final",
+        action="store_true",
+        help="Exporta el reporte final con corte propio, sin anexos históricos del segundo parcial.",
+    )
     parser.add_argument(
         "--pdf",
         action="store_true",
@@ -409,26 +445,39 @@ def main():
     )
     args = parser.parse_args()
     sources = (
-        [ROOT / "documentation/segundo-parcial/Modelo_fisico.md"]
-        if args.physical
-        else [
-            ROOT / "documentation/markdowns/Reporte_tecnico_segundo_parcial.md",
-            ROOT / "documentation/segundo-parcial/Fichas_microservicios.md",
-            ROOT / "documentation/segundo-parcial/Referencias.md",
-        ]
+        [ROOT / "documentation/markdowns/Reporte_tecnico_final.md"]
+        if args.final
+        else (
+            [ROOT / "documentation/segundo-parcial/Modelo_fisico.md"]
+            if args.physical
+            else [
+                ROOT / "documentation/markdowns/Reporte_tecnico_segundo_parcial.md",
+                ROOT / "documentation/segundo-parcial/Fichas_microservicios.md",
+                ROOT / "documentation/segundo-parcial/Referencias.md",
+            ]
+        )
     )
     name = (
-        "Modelo_fisico_PostgreSQL"
-        if args.physical
-        else "Reporte_tecnico_segundo_parcial"
+        "Reporte_tecnico_final"
+        if args.final
+        else (
+            "Modelo_fisico_PostgreSQL"
+            if args.physical
+            else "Reporte_tecnico_segundo_parcial"
+        )
     )
     if args.pdf and not args.physical:
-        export_pdf(sources, ROOT / "documentation/docx" / (name + ".docx"))
+        export_pdf(
+            sources,
+            ROOT / "documentation/docx" / (name + ".docx"),
+            final_report=args.final,
+        )
         return
     export(
         sources,
         ROOT / "documentation/docx" / (name + ".docx"),
         report_design=not args.physical,
+        final_report=args.final,
     )
     print(name + ".docx")
 
