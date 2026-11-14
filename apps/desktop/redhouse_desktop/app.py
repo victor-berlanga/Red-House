@@ -897,7 +897,9 @@ class Window(QMainWindow):
         if not item: self.status.setText('Selecciona una solicitud.'); return
         if QMessageBox.question(self,'Generar evaluación','Se generará una preselección para revisión médica. ¿Continuar?') != QMessageBox.Yes: return
         body={'request_id':item['id']}; key=str(uuid.uuid4())
-        self.run(lambda:self.durable('evaluation_create',None,body),self.evaluation_detail,'Generando evaluación…')
+        def created(evaluation):
+            self.run(lambda:self.client.authorized('compatibilidad','/api/v1/evaluations/'+evaluation['id'],'evaluation_detail'),self.evaluation_detail,'Comprobando vigencia…')
+        self.run(lambda:self.durable('evaluation_create',None,body),created,'Generando evaluación…')
 
     def open_request_form(self):
         if self.uncertain:
@@ -975,20 +977,38 @@ class Window(QMainWindow):
 
     def evaluation_detail(self,evaluation):
         candidates=evaluation.get('candidates') or []
-        dialog=QDialog(self); dialog.setWindowTitle('Candidatos para revisión'); dialog.resize(660,400); layout=QVBoxLayout(dialog)
-        notice=QLabel('Preselección de apoyo: requiere evaluación y decisión del profesional autorizado.'); notice.setWordWrap(True); layout.addWidget(notice)
+        dialog=QDialog(self); dialog.setWindowTitle('Candidatos para revisión'); dialog.resize(760,540); layout=QVBoxLayout(dialog)
+        notice=QLabel(evaluation.get('snapshot',{}).get('clinical_notice') or 'Preselección de apoyo: requiere evaluación y decisión del profesional autorizado.'); notice.setWordWrap(True); layout.addWidget(notice)
         if not candidates:
             layout.addWidget(QLabel('No hay candidatos en esta evaluación.')); close=QPushButton('Cerrar'); close.clicked.connect(dialog.reject); layout.addWidget(close); dialog.exec(); return
         table=QTableWidget(len(candidates),4); table.setHorizontalHeaderLabels(['Unidad','Distancia','Tiempo estimado','Caducidad']); table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch); table.setSelectionBehavior(QTableWidget.SelectRows); table.setSelectionMode(QTableWidget.SingleSelection); table.setEditTriggers(QTableWidget.NoEditTriggers)
         for row,candidate in enumerate(candidates):
-            for col,key in enumerate(('resource_folio','distance_km','travel_minutes','expires_at')): table.setItem(row,col,QTableWidgetItem(label(candidate.get(key))))
-        layout.addWidget(table); explanation=QLabel('Selecciona un candidato para consultar su explicación.'); explanation.setWordWrap(True); layout.addWidget(explanation)
-        table.itemSelectionChanged.connect(lambda:explanation.setText(str(candidates[table.currentRow()].get('explanation','')) if table.currentRow()>=0 else 'Selecciona un candidato.'))
+            values=(label(candidate.get('resource_folio')),label(candidate.get('distance_km'))+' km',label(candidate.get('travel_minutes'))+' min',display_value('expires_at',candidate.get('expires_at')))
+            for col,value in enumerate(values): table.setItem(row,col,QTableWidgetItem(value))
+        layout.addWidget(table); explanation=QLabel('Selecciona un candidato para consultar su explicación.'); explanation.setWordWrap(True); explanation.setMinimumHeight(76); layout.addWidget(explanation)
         reason=QLineEdit(); reason.setMaxLength(1000); reason.setPlaceholderText('Motivo documentado de la decisión'); layout.addWidget(reason)
         buttons=QHBoxLayout(); favorable=QPushButton('Dictamen favorable'); unfavorable=QPushButton('Dictamen desfavorable'); reserve=QPushButton('Reservar unidad')
+        reserve.setToolTip('Requiere un dictamen favorable registrado; el servicio comprobará nuevamente la reserva.')
+        reserve.setAccessibleDescription('Requiere un dictamen favorable registrado; el servicio comprobará nuevamente la reserva.')
+        validity=evaluation.get('validity') or {}; candidate_validity={entry.get('resource_id'):entry for entry in validity.get('candidates',[]) if isinstance(entry,dict)}
+        def selection_changed():
+            index=table.currentRow(); candidate=candidates[index] if index>=0 else None
+            check=candidate_validity.get(candidate.get('resource_id')) if candidate else None
+            current=bool(check and check.get('current') is True)
+            if candidate:
+                text=str(candidate.get('explanation') or 'No hay explicación disponible.')
+                text+='\nVigencia comprobada al consultar; el servicio la verificará nuevamente.' if current else '\nLa vigencia no está confirmada. Genera una nueva evaluación antes de decidir.'
+                explanation.setText(text)
+            else: explanation.setText('Selecciona un candidato para consultar su explicación.')
+            for button in (favorable,unfavorable): button.setEnabled(current)
+            reviewed=bool(candidate and any(isinstance(item,dict) and item.get('resource_id')==candidate['resource_id'] and item.get('decision')=='FAVORABLE' for item in (evaluation.get('reviews') or [])))
+            reserve.setEnabled(current and reviewed)
+        table.itemSelectionChanged.connect(selection_changed); selection_changed()
         for button,code in ((favorable,1),(unfavorable,2),(reserve,3)):
             button.clicked.connect(lambda _checked=False,c=code:dialog.done(c)); buttons.addWidget(button)
+        close=QPushButton('Cerrar'); close.clicked.connect(dialog.reject); buttons.addWidget(close)
         layout.addLayout(buttons)
+        hint=QLabel('Para reservar, primero registra un dictamen favorable.'); hint.setWordWrap(True); layout.addWidget(hint)
         while True:
             choice=dialog.exec()
             if not choice: return

@@ -1,0 +1,13 @@
+# Evaluación y dictamen desde escritorio
+
+El 13/11/2026 el ensayo autenticado Qt/XML pasó 1/1 en 117,72 s con solicitud, unidad y ruta sintéticas. El médico generó una evaluación, seleccionó la unidad por folio y registró un dictamen favorable con motivo. El fixture comprobó la solicitud, el ID exacto del candidato y el actor en Compatibilidad; tras drenar eventos, comprobó creación y dictamen en Auditoría. El operador recibió 403 al consultar la evaluación. Tras retirar la unidad sintética, el servicio devolvió vigencia negativa, la ventana deshabilitó el dictamen y un intento XML directo recibió 409. Las consultas SQL pertenecen solo al fixture, no a la aplicación.
+
+`ensayo-real/junit.xml` y las dos capturas de esa carpeta corresponden a la ejecución. En `candidato-qt.png` el aviso de vigencia quedó parcialmente oculto por la explicación extensa. Luego se amplió el espacio de texto: `candidato-texto-ajustado-doble.png` es la inspección Qt posterior con datos sintéticos y cliente doble; no constituye una segunda ejecución real. La captura `candidato-doble.png` es una iteración anterior que aún mostraba reserva habilitada sin dictamen; se conserva como antecedente. `candidato-sin-dictamen-doble.png` muestra el requisito corregido. La reserva solo se habilita con candidato vigente y dictamen favorable de la proyección; el servidor vuelve a autorizar y comprobar la operación.
+
+Tras el ajuste visual se ejecutaron 3/3 pruebas locales Qt sobre carga de vigencia, selección de candidato y requisito de dictamen. No se probó reserva en este ensayo ni se acredita SEC/MFA, rechazo real de dictamen, despliegue o aplicación clínica. El filtro permanece ilustrativo y la decisión corresponde a personal autorizado.
+
+```sh
+PYTHONPATH=apps/services:apps/desktop:apps/desktop/.venv/lib/python3.12/site-packages QT_QPA_PLATFORM=offscreen REDHOUSE_TEST_MONGOD="$PWD/.local/tools/mongodb-8.0.17/bin/mongod" DESKTOP_CAPTURE_DIR="$PWD/documentation/evidencias/entrega-final/desktop/iteracion-evaluacion/ensayo-real" apps/services/.venv/bin/python -m pytest apps/desktop/tests/test_evaluation_lab.py -q --tb=short --show-capture=no --junitxml=/private/tmp/redhouse-evaluation-junit.xml
+```
+
+SHA-256 antes y después del ensayo real: `app.py` `bbca363489918bbfb12a8d9f32d2d552ad08e3a56b59d0d5e29a2faf330e552c`; prueba `67ad56fbec5646f7734c3a156f96993de026d4702b7ff97d1596c56beb6ff68d`; Compatibilidad `routes.py` `e1429a5fc35b17bbede77071859b8f12ccf5849ea8fd1569cb1edf203d6c2aa8` y `freshness.py` `14f45acb39687418693ae816a814cf698293f50b6840e208e60961e63e93142e`. El ajuste posterior de espacio cambió `app.py` a `82e8fb04b3541fe4422d72bf39f6b4f0d3764841ce0cf96da0aed120b50a7fa6`.
