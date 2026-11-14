@@ -2,6 +2,10 @@
 
 Las entradas están ordenadas de reciente a histórico; un pendiente de un corte anterior puede quedar sustituido explícitamente por una entrada posterior.
 
+## Paquete de escritorio actualizado para Mac — 14/11/2026
+
+Reconstruido el paquete macOS x86_64 con los incrementos de laboratorio, evaluación, reserva recuperable y cobertura ya comprobados. El acceso comunica errores de configuración con un mensaje dirigido a soporte. Arranque y 34 contratos comprobados; dirección abrió y revisó visualmente la pantalla de acceso del bundle, sin iniciar sesión. App y ZIP conservados en `.local/artifacts/desktop/`, junto al paquete anterior. [Artefactos y límites](documentation/evidencias/entrega-final/desktop/paquete-mac-20261114/RESULTADOS.md). Windows y los recorridos pendientes de 05 permanecen abiertos; no se repitieron ensayos funcionales por el cambio de texto.
+
 ## Custodia Android completa y actualización entregada al iPhone — 14/11/2026
 
 Custodia sintética Android aprobada 1/1 en 103,581 s: lectura QR por cámara emulada, recolección, tránsito, entrega y aceptación por el destinatario. El oráculo independiente confirmó cuatro transiciones, tres escaneos y siete eventos coherentes SQL/Mongo. No acredita cámara física, fotografía ni GPS. El lote posterior incluye centrado inicial y retorno al punto, marcador rojo Android y campañas como acción principal cuando no hay citas. Android/iOS compilan; JVM 46 aprobadas y dos omitidas. Su prueba de mapa falló antes de abrir la Activity, por lo que la nueva presentación sigue pendiente de inspección; no se atribuye al nuevo APK el recorrido de custodia anterior.

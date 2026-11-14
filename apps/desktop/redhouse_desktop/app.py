@@ -171,7 +171,7 @@ class Window(QMainWindow):
 
     def login(self):
         try: client = Client(self.server_url.strip())
-        except ValueError as exc: self.login_status.setText(str(exc)); return
+        except ValueError: self.login_status.setText('El acceso no está disponible. Contacta a soporte institucional.'); return
         username,password,otp = self.username.text().strip(),self.password.text(),self.otp.text().strip()
         self.client = client
         self.run(lambda:client.login(username,password,otp),self.logged_in,'Validando acceso…')
