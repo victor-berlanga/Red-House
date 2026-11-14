@@ -2,6 +2,14 @@
 
 Las entradas están ordenadas de reciente a histórico; un pendiente de un corte anterior puede quedar sustituido explícitamente por una entrada posterior.
 
+## Capacidades físicas y cuenta donante iOS verificadas — 14/11/2026
+
+Integrado `4203c01`: [Red House Lab separado](documentation/evidencias/entrega-final/mobile/ios-lab-20261114/RESULTADOS.md), con bundle, Keychain, tareas y compilación aislados; CA de laboratorio fijada al origen y exclusiva de la variante Debug. Compilaciones normal/Lab y siete comprobaciones de identidad aprobadas; rechazo TLS con CA ajena/hostname incorrecto todavía sin ensayo. El nuevo normal compilado no se instaló: permanece la actualización normal anterior, conservada durante el laboratorio.
+
+En iPhone 16 Pro, el usuario completó QR, fotografía, publicación y detención de ubicación, logout y edición del nombre sintético. Oráculos comprobaron dos escaneos con correlación agregada SQL/Mongo, una foto VERIFIED/CLEAN con bytes/metadatos coherentes, dos puntos SQL/Mongo/Redis y una familia de sesión revocada. La foto iOS conserva etiquetas EXIF técnicas, sin GPS observado; no se generaliza el EXIF vacío de Android. Nombre propio: versión 2 y un evento con actor correcto. Búsqueda física encontró la campaña 105; página 6 aún no recorrida. Dirección inspeccionó las pantallas; originales privados, fixture/ClamD cerrados.
+
+CONT-05 queda comprobado para el nombre propio mediante cobertura de servidor, portal, Android e iOS. No se cierra toda la etapa 04: quedan recorridos/negativos nativos, accesibilidad y firma para el día 23; push real continúa pendiente externo por decisión del usuario. Los perfiles observados normal/Lab vencen el 17/21 de noviembre, respectivamente.
+
 ## Serie de rendimiento preparada — 14/11/2026
 
 Integrado `d6e7fb3`: [serie de lectura](documentation/evidencias/entrega-final/carga-20261114/serie-plan.md) con una población, comparación alternada de caché, niveles de 12/24 usuarios, estrés condicional de 36 y recuperación con seis. Se mantienen las cuotas del producto, la autorización mediante Redis y las guardas de recursos. La preparación obtuvo 29 pruebas puras y un caso dirigido posterior de error durante el drenado; resultados observados en herramienta, sin JUnit archivado. La serie real aún no se ha ejecutado y no amplía los resultados de capacidad de la línea base. Espera la ventana local ocupada por el recorrido físico iOS.

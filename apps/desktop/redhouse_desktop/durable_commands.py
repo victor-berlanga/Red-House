@@ -1,15 +1,21 @@
 """Comandos idempotentes con diario cifrado; cada ruta se fija aquí."""
 from uuid import UUID, uuid4
+from datetime import datetime
 from .client import ApiError, ContractError, request_xml
 from .journal import JournalError
 
 COMMANDS={
     'resource_create':('inventario','/api/v1/resources','resource_create.xsd',False),
+    'lab_sample_create':('compatibilidad','/api/v1/laboratory/samples','lab_sample_create.xsd',False),
     'lab_sample_receive':('compatibilidad','/api/v1/laboratory/samples/{id}/receive','lab_sample_receive.xsd',True),
     'lab_result_create':('compatibilidad','/api/v1/laboratory/results','lab_result_create.xsd',False),
     'lab_result_review':('compatibilidad','/api/v1/laboratory/results/{id}/review','lab_result_review.xsd',True),
     'evaluation_create':('compatibilidad','/api/v1/evaluations','evaluation_create.xsd',False),
     'request_create':('receptores','/api/v1/requests','request_create.xsd',False),
+    'recipient_create':('receptores','/api/v1/recipients','recipient_create.xsd',False),
+    'recipient_edit':('receptores','/api/v1/recipients/{id}','recipient_edit.xsd',True),
+    'request_edit':('receptores','/api/v1/requests/{id}','request_edit.xsd',True),
+    'request_cancel':('receptores','/api/v1/requests/{id}/cancel','request_cancel.xsd',True),
     'evaluation_review':('compatibilidad','/api/v1/evaluations/{id}/reviews','evaluation_review.xsd',True),
     'alert_ack':('alertas','/api/v1/alerts/{id}/acknowledge',None,True),
     'cold_reading_create':('inventario','/api/v1/resources/{id}/cold-readings','cold_reading_create.xsd',True),
@@ -37,7 +43,7 @@ def prepare_command(journal, operation, identifier, body):
     service,path,schema=command_path(operation,identifier)
     if schema: request_xml(body,schema)
     elif body is not None: raise JournalError('Esta operación no admite cuerpo.')
-    method='PATCH' if operation=='user_state' else 'POST'
+    method='PATCH' if operation in ('user_state','recipient_edit','request_edit') else 'POST'
     record={'key':str(uuid4()),'kind':'COMMAND','target':{'operation':operation,'identifier':identifier,'service':service,'path':path,'method':method,'schema':schema},
             'body':body,'state':'PREPARED','operation_id':None,'status':None}
     journal.prepare(record)
@@ -46,7 +52,7 @@ def prepare_command(journal, operation, identifier, body):
 def submit_command(client,journal,record,*,fresh=False,proof=None):
     if record.get('kind')!='COMMAND' or record.get('state') not in ('PREPARED','UNCERTAIN'): raise JournalError('No hay comando pendiente.')
     target=record['target']; operation=target['operation']; service,path,schema=command_path(operation,target['identifier'])
-    method='PATCH' if operation=='user_state' else 'POST'
+    method='PATCH' if operation in ('user_state','recipient_edit','request_edit') else 'POST'
     if 'path' in target and any(target.get(k)!=v for k,v in {'service':service,'path':path,'method':method,'schema':schema}.items()): raise JournalError('El contrato de la operación pendiente cambió; solicita revisión.')
     try:
         result=client.authorized(service,path,operation,method=method,body=record['body'],request_schema=schema,key=record['key'],proof=proof)
@@ -61,6 +67,27 @@ def submit_command(client,journal,record,*,fresh=False,proof=None):
         raise ContractError('La solicitud confirmada no corresponde al intento registrado.')
     if operation=='resource_create' and any(result.get(field)!=record['body'][field] for field in ('folio','kind','component','blood_group')):
         raise ContractError('La unidad confirmada no corresponde al intento registrado.')
+    if operation=='lab_sample_create' and any(result.get(field)!=record['body'][field] for field in ('resource_id','profile_id','identifier')):
+        raise ContractError('La muestra confirmada no corresponde al intento registrado.')
+    if operation=='lab_sample_create':
+        try:
+            expected=datetime.fromisoformat(record['body']['collected_at'].replace('Z','+00:00'))
+            received=datetime.fromisoformat(result['collected_at'].replace('Z','+00:00'))
+            if expected.tzinfo is None or received.tzinfo is None or expected!=received: raise ValueError()
+        except (KeyError,TypeError,ValueError,AttributeError) as exc:
+            raise ContractError('La fecha de la muestra confirmada no corresponde al intento.') from exc
+    if operation=='recipient_create' and any(result.get(field)!=record['body'][field] for field in ('folio','kind','blood_group')):
+        raise ContractError('El receptor confirmado no corresponde al intento registrado.')
+    if operation in ('recipient_edit','request_edit','request_cancel') and result.get('id')!=target['identifier']:
+        raise ContractError('El resultado no corresponde al registro solicitado.')
+    if operation in ('recipient_edit','request_edit','request_cancel') and result.get('version')!=record['body']['version']+1:
+        raise ContractError('La versión confirmada no corresponde a la operación.')
+    if operation=='recipient_edit' and any(result.get(field)!=record['body'][field] for field in ('folio','display_name','kind','blood_group','studies','status')):
+        raise ContractError('El receptor confirmado no corresponde a la corrección.')
+    if operation=='request_edit' and any(result.get(field)!=record['body'][field] for field in ('component','quantity','urgency')):
+        raise ContractError('La solicitud confirmada no corresponde a la corrección.')
+    if operation=='request_cancel' and result.get('status')!='CANCELLED':
+        raise ContractError('La solicitud no aparece cancelada.')
     if operation=='device_create' and any(result.get(field)!=record['body'][field] for field in ('id','user_id','source')):
         raise ContractError('El dispositivo confirmado no corresponde al intento registrado.')
     if operation=='device_revoke' and (result.get('id')!=target['identifier'] or result.get('active') is not False):

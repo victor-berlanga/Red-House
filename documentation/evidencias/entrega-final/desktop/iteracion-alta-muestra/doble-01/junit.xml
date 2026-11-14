@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="8.337" timestamp="2026-11-14T13:15:17.292492-06:00" hostname="Victors-MacBook-Air.local"><testcase classname="apps.desktop.tests.test_sample_create_ui" name="test_sample_form_uses_selected_unit_profile_and_documented_time" time="5.720"><failure message="AssertionError: assert not ['Consulta no terminó']">def test_sample_form_uses_selected_unit_profile_and_documented_time():
+        window = Window()
+        calls = []
+        errors = []
+
+        class Client:
+            access = None
+            user = {"role": "OPERATOR"}
+
+            def authorized(self, service, path, operation, **kwargs):
+                if operation == "resources_list":
+                    rows = [
+                        {
+                            "id": "00000000-0000-4000-8000-000000000001",
+                            "folio": "UNIDAD-01",
+                            "component": "RBC",
+                            "status": "QUARANTINE",
+                        }
+                    ]
+                elif operation == "lab_profiles_list":
+                    rows = [
+                        {
+                            "id": "00000000-0000-4000-8000-000000000002",
+                            "name": "Perfil documentado",
+                            "component": "RBC",
+                            "version": 1,
+                        }
+                    ]
+                else:
+                    raise AssertionError(operation)
+                return {"items": rows, "page": 1, "page_size": 20, "total": 1}
+
+        window.client = Client()
+        window.secure_command = lambda operation, identifier, body: calls.append(
+            (operation, identifier, body)
+        )
+        attempts = [0]
+
+        def inspect():
+            dialog = app.activeModalWidget()
+            tables = dialog.findChildren(QTableWidget)
+            if any(table.rowCount() != 1 for table in tables):
+                attempts[0] += 1
+                if attempts[0] &lt; 200:
+                    QTimer.singleShot(20, inspect)
+                    return
+                errors.append("Consulta no terminó")
+                dialog.reject()
+                return
+            try:
+                for table in tables:
+                    table.selectRow(0)
+                app.processEvents()
+                inputs = dialog.findChildren(QLineEdit)
+                next(field for field in inputs if field.maxLength() == 200).setText(
+                    "MUESTRA-01"
+                )
+                dialog.findChild(QCheckBox).setChecked(True)
+                if os.environ.get("DESKTOP_CAPTURE_DIR"):
+                    assert dialog.grab().save(
+                        str(Path(os.environ["DESKTOP_CAPTURE_DIR"]) / "muestra-doble.png")
+                    )
+                next(
+                    button
+                    for button in dialog.findChildren(QPushButton)
+                    if button.text() == "Registrar muestra"
+                ).click()
+            except Exception as exc:
+                errors.append(type(exc).__name__)
+                dialog.reject()
+
+        QTimer.singleShot(0, inspect)
+        window.create_sample()
+&gt;       assert not errors
+E       AssertionError: assert not ['Consulta no terminó']
+
+apps/desktop/tests/test_sample_create_ui.py:94: AssertionError</failure></testcase></testsuite></testsuites>
