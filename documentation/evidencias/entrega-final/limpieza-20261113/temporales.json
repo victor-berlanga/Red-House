@@ -1,5 +1,5 @@
 {
-  "scope": "Tres bases sintéticas propias detenidas; logs conservados privados",
+  "scope": "Siete bases sintéticas propias detenidas; logs conservados privados; B01/B02 fallidos se conservan",
   "reports": [
     {
       "fixture": "red-house-ms-tests-t5ovotxh",
@@ -48,8 +48,72 @@
       ],
       "archive": "redhouse-i0607-logs-cu80gr5l",
       "deleted": true
+    },
+    {
+      "fixture": "red-house-ms-tests-vny70pfv",
+      "mode": "delete",
+      "checked_at_utc": "2026-11-14T05:03:13.795787+00:00",
+      "files": 1850,
+      "bytes": 272362744,
+      "criteria": [
+        "ruta_y_estado",
+        "propietario_y_permisos",
+        "pids_sin_procesos",
+        "sin_archivos_abiertos",
+        "evento_sintetico_de_ensayo_aprobado"
+      ],
+      "archive": "redhouse-i0608-logs-vl0wqk1d",
+      "deleted": true
+    },
+    {
+      "fixture": "red-house-ms-tests-puwezwt4",
+      "mode": "delete",
+      "checked_at_utc": "2026-11-14T05:03:25.071548+00:00",
+      "files": 1851,
+      "bytes": 272435543,
+      "criteria": [
+        "ruta_y_estado",
+        "propietario_y_permisos",
+        "pids_sin_procesos",
+        "sin_archivos_abiertos",
+        "evento_sintetico_de_ensayo_aprobado"
+      ],
+      "archive": "redhouse-i0608-logs-1e6kdkbp",
+      "deleted": true
+    },
+    {
+      "fixture": "red-house-ms-tests-_jvn67qv",
+      "mode": "delete",
+      "checked_at_utc": "2026-11-14T05:03:36.011743+00:00",
+      "files": 1850,
+      "bytes": 272363158,
+      "criteria": [
+        "ruta_y_estado",
+        "propietario_y_permisos",
+        "pids_sin_procesos",
+        "sin_archivos_abiertos",
+        "evento_sintetico_de_ensayo_aprobado"
+      ],
+      "archive": "redhouse-i0608-logs-pwhln_7g",
+      "deleted": true
+    },
+    {
+      "fixture": "red-house-ms-tests-ioc74_x1",
+      "mode": "delete",
+      "checked_at_utc": "2026-11-14T05:03:47.145239+00:00",
+      "files": 1851,
+      "bytes": 272738083,
+      "criteria": [
+        "ruta_y_estado",
+        "propietario_y_permisos",
+        "pids_sin_procesos",
+        "sin_archivos_abiertos",
+        "evento_sintetico_de_ensayo_aprobado"
+      ],
+      "archive": "redhouse-i0608-logs-sigapjcn",
+      "deleted": true
     }
   ],
-  "logical_bytes_removed": 833149625,
-  "files_removed": 5549
+  "logical_bytes_removed": 1923049153,
+  "files_removed": 12951
 }
