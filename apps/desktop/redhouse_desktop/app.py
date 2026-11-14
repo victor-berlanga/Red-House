@@ -991,6 +991,7 @@ class Window(QMainWindow):
         reserve.setToolTip('Requiere un dictamen favorable registrado; el servicio comprobará nuevamente la reserva.')
         reserve.setAccessibleDescription('Requiere un dictamen favorable registrado; el servicio comprobará nuevamente la reserva.')
         validity=evaluation.get('validity') or {}; candidate_validity={entry.get('resource_id'):entry for entry in validity.get('candidates',[]) if isinstance(entry,dict)}
+        hint=QLabel(); hint.setWordWrap(True)
         def selection_changed():
             index=table.currentRow(); candidate=candidates[index] if index>=0 else None
             check=candidate_validity.get(candidate.get('resource_id')) if candidate else None
@@ -1000,15 +1001,20 @@ class Window(QMainWindow):
                 text+='\nVigencia comprobada al consultar; el servicio la verificará nuevamente.' if current else '\nLa vigencia no está confirmada. Genera una nueva evaluación antes de decidir.'
                 explanation.setText(text)
             else: explanation.setText('Selecciona un candidato para consultar su explicación.')
-            for button in (favorable,unfavorable): button.setEnabled(current)
-            reviewed=bool(candidate and any(isinstance(item,dict) and item.get('resource_id')==candidate['resource_id'] and item.get('decision')=='FAVORABLE' for item in (evaluation.get('reviews') or [])))
-            reserve.setEnabled(current and reviewed)
+            review=next((item for item in (evaluation.get('reviews') or []) if candidate and isinstance(item,dict) and item.get('resource_id')==candidate['resource_id']),None)
+            for button in (favorable,unfavorable): button.setEnabled(current and review is None)
+            reserve.setEnabled(current and bool(review and review.get('decision')=='FAVORABLE'))
+            if not candidate: hint.setText('Selecciona un candidato para consultar su dictamen.')
+            elif not current: hint.setText('La vigencia no está confirmada. Genera una nueva evaluación antes de decidir.')
+            elif review and review.get('decision')=='FAVORABLE': hint.setText('Dictamen favorable registrado. El servicio comprobará la reserva.')
+            elif review: hint.setText('Dictamen desfavorable registrado. Esta unidad no puede reservarse con esta evaluación.')
+            else: hint.setText('Para reservar, primero registra un dictamen favorable.')
         table.itemSelectionChanged.connect(selection_changed); selection_changed()
         for button,code in ((favorable,1),(unfavorable,2),(reserve,3)):
             button.clicked.connect(lambda _checked=False,c=code:dialog.done(c)); buttons.addWidget(button)
         close=QPushButton('Cerrar'); close.clicked.connect(dialog.reject); buttons.addWidget(close)
         layout.addLayout(buttons)
-        hint=QLabel('Para reservar, primero registra un dictamen favorable.'); hint.setWordWrap(True); layout.addWidget(hint)
+        layout.addWidget(hint)
         while True:
             choice=dialog.exec()
             if not choice: return

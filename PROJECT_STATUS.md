@@ -2,6 +2,12 @@
 
 Las entradas están ordenadas de reciente a histórico; un pendiente de un corte anterior puede quedar sustituido explícitamente por una entrada posterior.
 
+## Reserva recuperable de escritorio — 13/11/2026
+
+DESK-08: recorrido Qt/XML sintético aprobado, **1/1 en 67,04 s**. Una excepción inyectada en el cliente tras parsear el primer HTTP 202 dejó resultado incierto; al reabrir el diario y recuperar con la misma clave se comprobó una operación COMPLETED, una reserva RESERVED, estados de solicitud/recurso/retención, sesión Redis y auditoría única. El proveedor de clave es un doble; no acredita corte de red, reinicio del proceso ni llavero nativo. Los intentos fallidos anteriores se conservan. La espera del arnés ahora cede ejecución a los servidores Python del mismo proceso; no se ampliaron tiempos de espera del producto.
+
+La inspección de tres capturas detectó un aviso que pedía registrar un dictamen ya existente. La corrección muestra su estado y deshabilita un segundo dictamen; cinco pruebas Qt con dobles pasaron por separado. Sus dos capturas finales se revisaron con tema del fixture y acreditan texto/estados, no una nueva ejecución conectada. [Resultados, comandos y límites](documentation/evidencias/entrega-final/desktop/iteracion-reserva/RESULTADOS.md). Paquete actualizado, Windows y demás recorridos de la matriz siguen pendientes; etapa 05 abierta.
+
 ## Skills de diseño y revisión física — 13/11/2026
 
 Por solicitud del usuario se instalaron `ui-ux-pro-max` y `frontend-design` desde versiones fijas de sus repositorios originales. Se revisaron instrucciones y buscador, se cotejaron los archivos instalados y se comunicó su uso a móvil/escritorio. No agregan dependencias al producto. Se descartó una propuesta automática de landing genérica y se mantienen los flujos diferenciados por rol y la identidad de Red House. [Fuentes, huellas, alcance y criterios de aplicación](documentation/entrega-final/continuidad/Organizacion.md#guías-de-diseño-incorporadas--13112026-monterrey).

@@ -1,0 +1,50 @@
+[
+  {
+    "mode": "qwait",
+    "elapsed_s": 2.008,
+    "worker_ticks": 90,
+    "ticks_per_second": 44.8,
+    "gap_median_ms": 22.34,
+    "gap_max_ms": 28.62
+  },
+  {
+    "mode": "events_sleep",
+    "elapsed_s": 2.011,
+    "worker_ticks": 1280,
+    "ticks_per_second": 636.4,
+    "gap_median_ms": 1.55,
+    "gap_max_ms": 14.37
+  },
+  {
+    "mode": "events_sleep",
+    "elapsed_s": 2.017,
+    "worker_ticks": 1354,
+    "ticks_per_second": 671.2,
+    "gap_median_ms": 1.54,
+    "gap_max_ms": 11.92
+  },
+  {
+    "mode": "qwait",
+    "elapsed_s": 2.008,
+    "worker_ticks": 89,
+    "ticks_per_second": 44.3,
+    "gap_median_ms": 22.96,
+    "gap_max_ms": 27.17
+  },
+  {
+    "mode": "qwait",
+    "elapsed_s": 2.003,
+    "worker_ticks": 89,
+    "ticks_per_second": 44.4,
+    "gap_median_ms": 22.49,
+    "gap_max_ms": 27.31
+  },
+  {
+    "mode": "events_sleep",
+    "elapsed_s": 2.014,
+    "worker_ticks": 1320,
+    "ticks_per_second": 655.5,
+    "gap_median_ms": 1.56,
+    "gap_max_ms": 7.64
+  }
+]

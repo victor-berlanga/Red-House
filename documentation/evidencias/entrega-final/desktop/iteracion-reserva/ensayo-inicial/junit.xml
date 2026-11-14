@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="125.896" timestamp="2026-11-13T19:40:25.756284-06:00" hostname="Victors-MacBook-Air.local"><testcase classname="apps.desktop.tests.test_reservation_lab" name="test_reservation_recovers_same_attempt_and_unique_review" time="117.623"><failure message="assert False&#10; +  where False = wait_until(&lt;function test_reservation_recovers_same_attempt_and_unique_review.&lt;locals&gt;.&lt;lambda&gt; at 0x115c3f2e0&gt;)">apps/desktop/tests/test_reservation_lab.py:159: in test_reservation_recovers_same_attempt_and_unique_review
+    assert wait_until(lambda: dropped and not doctor.busy)
+E   assert False
+E    +  where False = wait_until(&lt;function test_reservation_recovers_same_attempt_and_unique_review.&lt;locals&gt;.&lt;lambda&gt; at 0x115c3f2e0&gt;)</failure></testcase></testsuite></testsuites>

@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="84.600" timestamp="2026-11-13T20:13:50.166242-06:00" hostname="Victors-MacBook-Air.local"><testcase classname="apps.desktop.tests.test_reservation_lab" name="test_reservation_recovers_same_attempt_and_unique_review" time="78.666"><failure message="Failed: Reserva sin respuesta válida; ver diagnóstico saneado.">apps/desktop/tests/test_reservation_lab.py:262: in test_reservation_recovers_same_attempt_and_unique_review
+    pytest.fail("Reserva sin respuesta válida; ver diagnóstico saneado.")
+E   Failed: Reserva sin respuesta válida; ver diagnóstico saneado.</failure></testcase></testsuite></testsuites>

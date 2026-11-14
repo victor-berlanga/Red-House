@@ -1,5 +1,8 @@
 """Interacción de evaluación con proyecciones sintéticas del contrato."""
 
+import os
+from pathlib import Path
+
 from PySide6.QtCore import QTimer
 from PySide6.QtWidgets import (
     QApplication,
@@ -57,6 +60,14 @@ def test_candidate_actions_follow_server_validity():
         app.processEvents()
         observed.append(buttons["Dictamen favorable"].isEnabled())
         assert not buttons["Reservar unidad"].isEnabled()
+        assert any(
+            "primero registra un dictamen favorable" in label.text()
+            for label in modal.findChildren(QLabel)
+        )
+        if os.environ.get("DESKTOP_CAPTURE_DIR"):
+            modal.grab().save(
+                str(Path(os.environ["DESKTOP_CAPTURE_DIR"]) / "sin-dictamen-doble.png")
+            )
         table.selectRow(1)
         app.processEvents()
         observed.append(buttons["Dictamen favorable"].isEnabled())
@@ -95,6 +106,20 @@ def test_reservation_requires_prior_favorable_review():
         assert modal
         modal.findChild(QTableWidget).selectRow(0)
         app.processEvents()
+        buttons = {button.text(): button for button in modal.findChildren(QPushButton)}
+        assert not buttons["Dictamen favorable"].isEnabled()
+        assert not buttons["Dictamen desfavorable"].isEnabled()
+        assert any(
+            "Dictamen favorable registrado" in label.text()
+            for label in modal.findChildren(QLabel)
+        )
+        if os.environ.get("DESKTOP_CAPTURE_DIR"):
+            modal.grab().save(
+                str(
+                    Path(os.environ["DESKTOP_CAPTURE_DIR"])
+                    / "dictamen-favorable-doble.png"
+                )
+            )
         observed.append(
             next(
                 button
@@ -107,6 +132,39 @@ def test_reservation_requires_prior_favorable_review():
     QTimer.singleShot(0, inspect)
     window.evaluation_detail(evaluation)
     assert observed == [True]
+    window.close()
+
+
+def test_recorded_unfavorable_review_cannot_be_changed_or_reserved():
+    window = Window()
+    evaluation = {
+        "id": "evaluacion",
+        "candidates": [{"resource_id": "recurso-a", "resource_folio": "UNIDAD-A"}],
+        "validity": {"candidates": [{"resource_id": "recurso-a", "current": True}]},
+        "reviews": [{"resource_id": "recurso-a", "decision": "UNFAVORABLE"}],
+    }
+
+    def inspect():
+        modal = app.activeModalWidget()
+        modal.findChild(QTableWidget).selectRow(0)
+        app.processEvents()
+        buttons = {button.text(): button for button in modal.findChildren(QPushButton)}
+        assert all(
+            not buttons[name].isEnabled()
+            for name in (
+                "Dictamen favorable",
+                "Dictamen desfavorable",
+                "Reservar unidad",
+            )
+        )
+        assert any(
+            "Dictamen desfavorable registrado" in label.text()
+            for label in modal.findChildren(QLabel)
+        )
+        modal.reject()
+
+    QTimer.singleShot(0, inspect)
+    window.evaluation_detail(evaluation)
     window.close()
 
 
