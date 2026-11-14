@@ -1,0 +1,62 @@
+{
+  "infected": {
+    "status": "REJECTED",
+    "scans": [
+      "INFECTED"
+    ],
+    "generation": "1082518112384912471427895659789106797"
+  },
+  "recovered": {
+    "status": "VERIFIED",
+    "scans": [
+      "ERROR",
+      "CLEAN"
+    ],
+    "generation": "420897903256512121703615646539636268"
+  },
+  "same_document_recovered": true,
+  "unique_prepared_events": true,
+  "real_scanner_restarted": true,
+  "scanner_identity": {
+    "engine_version": "1.5.4",
+    "signature_version": "28182",
+    "signature_at": "2026-11-13 06:24:28+00:00",
+    "signature_max_age_seconds": 172800
+  },
+  "conservation": {
+    "policy": [
+      2,
+      "2026-11-21 15:56:00-06:00",
+      true,
+      "I06-03-sintetica-8d413461a11a43d6b4bbef4819af4e54"
+    ],
+    "decisions": [
+      [
+        "a83f6089-8696-4e5d-8ec4-a1cc97602b11",
+        "6435efb3-7eba-4fd3-b57b-b176e59bddc6",
+        "Ensayo sint\u00e9tico I06-03: conservaci\u00f3n autorizada; sin plazo normativo real.",
+        {
+          "legal_hold": true,
+          "policy_version": 2,
+          "retention_until": "2026-11-21T21:56:00+00:00",
+          "policy_reference": "I06-03-sintetica-8d413461a11a43d6b4bbef4819af4e54"
+        }
+      ]
+    ],
+    "events": [
+      [
+        "1db680a6-3b6c-4583-b953-c34726c49621",
+        "documentos",
+        "6435efb3-7eba-4fd3-b57b-b176e59bddc6",
+        "Ensayo sint\u00e9tico I06-03: conservaci\u00f3n autorizada; sin plazo normativo real."
+      ]
+    ]
+  },
+  "display_timezone": "America/Monterrey",
+  "scope": [
+    "I06-03",
+    "I06-04",
+    "I06-05"
+  ],
+  "backend": "monolith_without_api_listeners"
+}

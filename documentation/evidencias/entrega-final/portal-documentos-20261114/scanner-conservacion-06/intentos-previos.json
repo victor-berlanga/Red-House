@@ -1,0 +1,64 @@
+[
+  {
+    "attempt": 3,
+    "outcome": "preparation_failed",
+    "reason": "Sandbox: psutil sysctl denegado; antes de fixture/ClamD/Chrome.",
+    "runner": {
+      "forced_cleanup": [],
+      "owned_processes_observed": 0,
+      "owned_processes_remaining": [],
+      "pytest_exit": null,
+      "seconds": 0.421,
+      "source_count": 1307,
+      "sources_unchanged": true
+    },
+    "private_artifact_sha256": {
+      "fuentes-despues.json": "a5e8a66a90cc2975284efe4ccf87a6283af26b68a924f2f0013e1918f23d39d5",
+      "fuentes-antes.json": "a5e8a66a90cc2975284efe4ccf87a6283af26b68a924f2f0013e1918f23d39d5",
+      "pytest.private.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "runner.json": "e3de4c1805ab6257193f58bc9dfac2a9c32a44aaea6b13338426dbde2d231e87"
+    }
+  },
+  {
+    "attempt": 4,
+    "outcome": "preparation_failed",
+    "reason": "Preparación: ruta de socket Unix PostgreSQL demasiado larga; antes de ClamD/Chrome.",
+    "runner": {
+      "forced_cleanup": [],
+      "owned_processes_observed": 6,
+      "owned_processes_remaining": [],
+      "pytest_exit": 1,
+      "seconds": 11.192,
+      "source_count": 1307,
+      "sources_unchanged": true
+    },
+    "private_artifact_sha256": {
+      "fuentes-despues.json": "a5e8a66a90cc2975284efe4ccf87a6283af26b68a924f2f0013e1918f23d39d5",
+      "fuentes-antes.json": "a5e8a66a90cc2975284efe4ccf87a6283af26b68a924f2f0013e1918f23d39d5",
+      "pytest.private.log": "4d43917d090d5acc98595fdb83b4c1cfb9c39fb57137fc3382b5546fa41b54f4",
+      "runner.json": "05b16f13fbaac3c853fe853bc32186a853d36cd57a04add2dfc64c1bace3846e",
+      "junit.xml": "7a896fbba27c0ce33bc82d3a6d3ca0e6d062775af1a6b4921e1cc4381c533374"
+    }
+  },
+  {
+    "attempt": 5,
+    "outcome": "preparation_failed",
+    "reason": "Control real previo: muestra PNG admitida resultó CLEAN; no se abrió Chrome. Se sustituyó por el PDF sintético ya validado en test_malware_documents_pdf_real.py, sin modificar antivirus ni MIME.",
+    "runner": {
+      "forced_cleanup": [],
+      "owned_processes_observed": 21,
+      "owned_processes_remaining": [],
+      "pytest_exit": 1,
+      "seconds": 69.377,
+      "source_count": 1307,
+      "sources_unchanged": true
+    },
+    "private_artifact_sha256": {
+      "fuentes-despues.json": "a5e8a66a90cc2975284efe4ccf87a6283af26b68a924f2f0013e1918f23d39d5",
+      "fuentes-antes.json": "a5e8a66a90cc2975284efe4ccf87a6283af26b68a924f2f0013e1918f23d39d5",
+      "pytest.private.log": "611190768f2125604e8d561a4c785314f73f15adb5b12723d89d767660b4c6b3",
+      "runner.json": "4ad655f6b73643122fda91c04df75d4b4bb1235a33bf47ead3b2b1817e01abc8",
+      "junit.xml": "a45639f903aea35a21c076fed44ae74fa978ec638478ba403f6252d7489294da"
+    }
+  }
+]

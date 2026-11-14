@@ -40,3 +40,7 @@ apps/services/.venv/bin/python -m pytest \
 ```
 
 Chrome/Playwright debe estar disponible según las guías del laboratorio. No usar un escáner o almacén de terceros. Ruff, formato del test y `node --check` aprobaron; la comprobación final del cambio de expectativa fue estática y el oráculo separado descrito arriba.
+
+## Incremento posterior: conservación y recuperación del escáner
+
+El [caso integrado I06-03/04/05](scanner-conservacion-06/RESULTADOS.md) aprobó 1/1 con PDF infectado admitido, caída/reinicio de ClamD, recuperación del mismo PNG y conservación/hold con rechazos 412/409. Es una ejecución distinta: no convierte el pytest de versiones anterior en aprobado. Conserva tres fallos de preparación previos y la limitación visual «Análisis Pendiente» en ERROR/REJECTED. No acredita caída GCS ni retención nativa del bucket.

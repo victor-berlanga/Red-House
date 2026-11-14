@@ -1,0 +1,29 @@
+{
+  "passed": true,
+  "documents": [
+    "03239c68-795f-434d-bf4d-a3f84583cae7",
+    "2ab82088-22fc-47c2-9896-b8dc49b8ddbc"
+  ],
+  "checks": [
+    "Admitted infected PDF rejects verification and download",
+    "Stopped real scanner leaves document unavailable for download",
+    "Same prepared document verified after restart; exact download; infected file remains blocked",
+    "I06-03: retention saved, stale form 412 and hold reduction 409; policy remains unchanged"
+  ],
+  "scenario": "scanner-failure",
+  "scope": [
+    "I06-03",
+    "I06-04",
+    "I06-05"
+  ],
+  "mutations": {
+    "prepare": 2,
+    "verify": 1
+  },
+  "scanner_passed": true,
+  "conservation": {
+    "passed": true,
+    "stale_status": 412,
+    "hold_status": 409
+  }
+}

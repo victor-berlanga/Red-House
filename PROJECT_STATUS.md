@@ -2,6 +2,10 @@
 
 Las entradas están ordenadas de reciente a histórico; un pendiente de un corte anterior puede quedar sustituido explícitamente por una entrada posterior.
 
+## Conservación documental y recuperación del antivirus comprobadas — 14/11/2026
+
+[Ensayo Chrome del monolito](documentation/evidencias/entrega-final/portal-documentos-20261114/scanner-conservacion-06/RESULTADOS.md): 1/1 en 138,13 s. PDF de control rechazado y no descargable; caída del ClamD propio bloqueó un PNG, y su reinicio recuperó el mismo UUID con descarga exacta. Conservación/hold con versión, razón y actor comprobados; formularios obsoletos y reducción del plazo rechazados sin alterar política. Dirección inspeccionó cuatro capturas. 1.308 fuentes estables y 45 procesos propios cerrados; tres intentos previos fallidos conservados. Una corrección posterior de texto aclara ausencia de análisis vigente en ERROR/REJECTED; sintaxis válida y cero hallazgos nuevos de Ruff, sin nueva captura ni repetición funcional. I06-04 aceptado localmente; I06-03/05 conservan pendientes GCS. Almacén LOCAL, certificado efímero del ensayo, sin publicación de este incremento ni cierre integral de etapa 06.
+
 ## Cola histórica identificada y conteos de carga corregidos — 14/11/2026
 
 [Diagnóstico READ ONLY](documentation/evidencias/entrega-final/carga-20261114/diagnostico-cola/RESULTADOS.md): Auditoría conserva 6993 entregas Mongo pendientes, 5615 anteriores a la carga transaccional, y 565 hacia sí misma; Donantes conserva 460 hacia Auditoría y 175 hacia Alertas. El primer payload Mongo es BSON válido; eso no demuestra entrega ni causa del atraso. Se conserva el intento inicial con DSN administrativo equivocado y la consulta corregida; PostgreSQL propio cerrado, sin nuevas cargas ni cambios de cadencia. El resumen Locust ahora distingue HTTP, TRANSACTION y DRAIN; tres pruebas dirigidas aprobaron y el cálculo sobre la medición histórica conserva 1291 HTTP/199 recorridos. Resultados originales intactos; fallo integral de propagación y etapa 07 siguen abiertos.

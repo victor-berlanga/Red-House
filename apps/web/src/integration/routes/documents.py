@@ -213,10 +213,13 @@ def document_detail(identifier):
                 url_for("regional.document_conservation", identifier=identifier),
             )
         )
+    presented = dict(row)
+    if row["analysis"] == "PENDING" and row["file_status"] in ("ERROR", "REJECTED"):
+        presented["analysis"] = "Sin análisis vigente; la descarga permanece bloqueada."
     return detail(
         "Documento privado",
         "documentos",
-        row,
+        presented,
         actions,
         note="La descarga revalida permisos y el análisis de la generación actual. Un archivo pendiente o rechazado permanece bloqueado.",
     )
