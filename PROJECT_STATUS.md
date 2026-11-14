@@ -2,6 +2,10 @@
 
 Las entradas están ordenadas de reciente a histórico; un pendiente de un corte anterior puede quedar sustituido explícitamente por una entrada posterior.
 
+## PAUSA explícita y continuidad guardada — 14/11/2026, 16:40 Monterrey
+
+Usuario solicitó detenerse y conservar el estado. [Punto exacto de reanudación](documentation/entrega-final/continuidad/Pausa_20261114.md) actualizado, con commits, artefactos, candidatos no aplicados y fallos abiertos. Laboratorio compartido iOS cerrado con código 0 y sin procesos propios supervivientes; no se crearon campañas, citas, consentimientos ni aprobaciones. Donor1 sigue PRELIMINARY v2, con cero consentimientos documentados/citas en el baseline. Apps, sesiones y lab.json preservados. Copias frías privadas de ambos fixtures y borradores temporales verificadas por hash en `.local/checkpoints/20261114-2240/`, excluidas de Git. I06-06 está preparado pero no ejecutado; pool del worker permanece como candidato privado. No continuar trabajo hasta nueva instrucción del usuario.
+
 ## Colecta y procesamiento de escritorio implementados, aceptación real pendiente — 14/11/2026
 
 [Incremento de consola](documentation/evidencias/entrega-final/desktop/iteracion-colecta/RESULTADOS.md): personal médico selecciona donante y documenta colecta; operador registra procesamiento o rechazo explícito. XML/XSD, confirmación, versiones, guardas de cuenta y diario idempotente conservados; 49 contratos coinciden con sus propietarios. Dobles Qt y dos pruebas puras aprobados en ejecuciones separadas; Dirección inspeccionó los formularios finales. El recorrido Qt/XML compartido con iOS está preparado pero NO ejecutado; no se declara E2E-C completo. Falta además ofrecer o verificar vinculación de perfil y liberación desde GUI para cerrar su paso de laboratorio; los derivados del tramo preparado quedarían en cuarentena. No se construyó todavía un paquete Mac con este incremento.
