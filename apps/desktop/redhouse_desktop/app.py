@@ -148,6 +148,7 @@ class Window(QMainWindow):
             self.areas.model().item(10).setEnabled(role=='ADMIN')
             self.inventory_button.setEnabled(role in ('OPERATOR','MEDICAL','COORDINATOR'))
             self.trace_button.setEnabled(role=='MEDICAL' and self.mode=='inventory'); self.cold_button.setEnabled(role in ('OPERATOR','MEDICAL') and self.mode=='inventory'); self.user_state_button.setEnabled(role=='ADMIN' and self.mode=='users'); self.user_role_button.setEnabled(role=='ADMIN' and self.mode=='users'); self.operation_button.setEnabled(self.mode == 'pending' or (role == 'MEDICAL' and self.mode == 'reservations')); self.resume_button.setEnabled(role == 'MEDICAL' and self.last_operation_status in ('PENDING','ROLLBACK_PENDING')); self.evaluate_button.setEnabled(role == 'MEDICAL' and self.mode == 'requests'); self.create_button.setEnabled(role == 'OPERATOR' and self.mode == 'inventory'); self.review_button.setEnabled(role == 'MEDICAL' and self.mode == 'results'); self.samples_button.setEnabled(role in ('OPERATOR','MEDICAL')); self.results_button.setEnabled(role in ('OPERATOR','MEDICAL')); self.receive_button.setEnabled(role in ('OPERATOR','MEDICAL') and self.mode == 'samples')
+            self.capture_button.setEnabled(role in ('OPERATOR','MEDICAL') and self.mode=='samples')
 
     def finished(self, callback, result):
         self.busy = False; self._worker=None; self.set_controls(True); callback(result)
@@ -412,7 +413,7 @@ class Window(QMainWindow):
         item=self.selected()
         if not item: self.status.setText('Selecciona una muestra.'); return
         if item.get('status')!='REQUESTED': self.status.setText('La muestra ya fue atendida. Actualiza para consultar su estado.'); return
-        dialog=QDialog(self); dialog.setWindowTitle('Recepción de muestra'); form=QFormLayout(dialog)
+        dialog=QDialog(self); dialog.setWindowTitle('Recepción de muestra'); dialog.resize(520,160); form=QFormLayout(dialog)
         form.addRow('Muestra',QLabel(item['identifier'])); reason=QLineEdit(); reason.setMaxLength(1000); reason.setPlaceholderText('Describe la recepción (mínimo 6 caracteres)'); form.addRow('Motivo',reason)
         confirm=QPushButton('Confirmar recepción'); confirm.setObjectName('primary'); confirm.clicked.connect(dialog.accept); form.addRow(confirm)
         while dialog.exec()==QDialog.Accepted:
@@ -1115,33 +1116,43 @@ class Window(QMainWindow):
     def capture_result(self):
         item=self.selected()
         if self.uncertain: self.status.setText('Actualiza y verifica el estado antes de continuar.'); return
+        if not self.client or not self.client.user or self.client.user.get('role') not in ('OPERATOR','MEDICAL'): self.status.setText('La captura requiere personal autorizado.'); return
         if not item: self.status.setText('Selecciona una muestra.'); return
-        dialog=QDialog(self); dialog.setWindowTitle('Capturar resultado'); form=QFormLayout(dialog)
+        if item.get('status')!='RECEIVED': self.status.setText('Selecciona una muestra recibida antes de capturar el resultado.'); return
+        dialog=QDialog(self); dialog.setWindowTitle('Capturar resultado'); dialog.resize(540,380); form=QFormLayout(dialog)
         form.addRow('Muestra',QLabel(item['identifier'])); fields={}
         for key,title in [('test_code','Código de prueba'),('value','Resultado'),('method','Método'),('laboratory','Laboratorio'),('reference','Referencia')]:
             fields[key]=QLineEdit(); fields[key].setMaxLength(60 if key=='test_code' else 2000 if key=='value' else 200); form.addRow(title,fields[key])
+        measured=QDateTimeEdit(QDateTime.currentDateTime()); measured.setCalendarPopup(True); measured.setDisplayFormat('dd/MM/yyyy HH:mm:ss'); form.addRow('Medición documentada (hora local)',measured)
+        verified=QCheckBox('Confirmo la fecha de medición documentada.'); form.addRow(verified)
         confirm=QPushButton('Registrar resultado'); confirm.clicked.connect(dialog.accept); form.addRow(confirm)
         while dialog.exec()==QDialog.Accepted:
             values={k:v.text().strip() for k,v in fields.items()}
-            if all(values.values()) and re.fullmatch(r'[A-Z0-9_.-]{1,60}',values['test_code']): break
-            QMessageBox.warning(self,'Datos incompletos','Completa los campos. El código de prueba usa letras mayúsculas, números, punto, guion o guion bajo.')
+            if all(values.values()) and verified.isChecked() and re.fullmatch(r'[A-Z0-9_.-]{1,60}',values['test_code']): break
+            QMessageBox.warning(self,'Datos incompletos','Completa los campos y confirma la fecha documentada. El código de prueba usa letras mayúsculas, números, punto, guion o guion bajo.')
         else: return
-        body=dict(values,sample_id=item['id'],measured_at=QDateTime.currentDateTimeUtc().toString(Qt.ISODate)); key=str(uuid.uuid4())
+        body=dict(values,sample_id=item['id'],measured_at=measured.dateTime().toUTC().toString(Qt.ISODate)); key=str(uuid.uuid4())
         self.run(lambda:self.durable('lab_result_create',None,body),lambda _:self.received(),'Registrando resultado…')
 
     def review_result(self):
         item=self.selected()
         if self.uncertain: self.status.setText('Actualiza y verifica el estado antes de continuar.'); return
         if not item: self.status.setText('Selecciona un resultado.'); return
-        dialog=QDialog(self); dialog.setWindowTitle('Revisión profesional'); form=QFormLayout(dialog)
-        form.addRow('Prueba',QLabel(label(item.get('test_code')))); form.addRow('Resultado',QLabel(label(item.get('value'))))
-        reason=QLineEdit(); reason.setMaxLength(1000); form.addRow('Motivo de autorización',reason)
-        confirm=QPushButton('Autorizar resultado'); confirm.clicked.connect(dialog.accept); form.addRow(confirm)
+        if not self.client or not self.client.user or self.client.user.get('role')!='MEDICAL': self.status.setText('La revisión corresponde al personal médico autorizado.'); return
+        if item.get('status')!='CAPTURED': self.status.setText('El resultado ya fue revisado o no está disponible para revisión.'); return
+        dialog=QDialog(self); dialog.setWindowTitle('Revisión profesional'); dialog.resize(540,300); form=QFormLayout(dialog)
+        form.addRow('Prueba',QLabel(label(item.get('test_code')))); result_label=QLabel(label(item.get('value'))); result_label.setWordWrap(True); form.addRow('Resultado',result_label)
+        for key,title in (('method','Método'),('laboratory','Laboratorio'),('reference','Referencia')):
+            if item.get(key):
+                detail=QLabel(label(item[key])); detail.setWordWrap(True); form.addRow(title,detail)
+        decision=QComboBox(); decision.addItem('Selecciona una decisión',''); decision.addItem('Autorizar','AUTHORIZED'); decision.addItem('Rechazar','REJECTED'); form.addRow('Decisión',decision)
+        reason=QLineEdit(); reason.setMaxLength(1000); form.addRow('Motivo de revisión',reason)
+        confirm=QPushButton('Registrar revisión'); confirm.clicked.connect(dialog.accept); form.addRow(confirm)
         while dialog.exec()==QDialog.Accepted:
-            if len(reason.text().strip())>=6: break
-            QMessageBox.warning(self,'Motivo incompleto','Escribe al menos seis caracteres.')
+            if decision.currentData() and len(reason.text().strip())>=6: break
+            QMessageBox.warning(self,'Datos incompletos','Selecciona una decisión y escribe un motivo de al menos seis caracteres.')
         else: return
-        body={'human_confirmation':'true','reason':reason.text().strip(),'version':item['version'],'decision':'AUTHORIZED'}; key=str(uuid.uuid4())
+        body={'human_confirmation':'true','reason':reason.text().strip(),'version':item['version'],'decision':decision.currentData()}; key=str(uuid.uuid4())
         self.secure_command('lab_result_review',item['id'],body)
 
     def acknowledge(self):
