@@ -2,6 +2,14 @@
 
 Las entradas están ordenadas de reciente a histórico; un pendiente de un corte anterior puede quedar sustituido explícitamente por una entrada posterior.
 
+## Reanudación y paquetes móviles — 14/11/2026
+
+El usuario autorizó continuar el plan y precisó que la prioridad es cumplir los requisitos técnicos completos —seguridad, monolito, clientes e integración—, sin exigir entregables visuales intermedios. Se conserva la cobertura de código no afectado y una sola ejecución pesada local a la vez.
+
+El arreglo de fotografías `d735668` ya está en los [paquetes normales Android/iOS](documentation/evidencias/entrega-final/mobile/seguimiento-20261114/paquetes.md). Android es debug. iOS pasó validación de firma y se instaló y abrió como actualización en el iPhone, sin borrar datos ni introducir credenciales; no se inspeccionó continuidad de sesión. Ambos usan el origen normal de GCP y carecen de la CA de laboratorio. El perfil iOS vence el 17 de noviembre; falta renovarlo para la entrega del 23. La pausa histórica inferior queda superada por esta reanudación; no se declara ninguna etapa integral terminada.
+
+La [comprobación intercliente de fotografía](documentation/evidencias/entrega-final/mobile/seguimiento-20261114/foto-intercliente/RESULTADOS.md) pasó sobre una copia aislada del fixture conservado: VERIFIED/CLEAN, generación/hash/tamaño/bytes coherentes, JPEG sin EXIF y eventos FILE_PREPARED/FILE_VERIFIED coincidentes en SQL/Mongo. El cliente real XML/XSD descargó los mismos bytes; transportista no asignado recibió 403 y ambas sesiones nuevas se revocaron. Procesos propios cerrados. No se repitió la captura Android ni se ejecutó la GUI de escritorio. La carga sostenida comienza después de este cierre, en su propio laboratorio.
+
 ## Pausa solicitada para apagar el equipo — 14/11/2026
 
 Continuar desde [el punto de reanudación](documentation/entrega-final/continuidad/Pausa_20261114.md), sin reiniciar el análisis ni repetir comprobaciones de funcionalidades no afectadas. El último arreglo móvil separa las claves idempotentes de carga/verificación y permite reintentar la verificación de fotos sin cargar otra vez un objeto VERIFIED/ERROR. JVM: 48 aprobadas y dos omitidas; recorrido Android final: 1/1 en 80,982 s con imagen emulada, respuesta sustituida por 503 y reintento verificado, captura final inspeccionada. El fallo previo del escáner por firmas antiguas permanece separado.
