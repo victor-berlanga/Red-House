@@ -99,6 +99,15 @@ private fun TransportTask(id:String,repository:MobileRepository,queue:Observatio
     var historyView by remember(id) {mutableStateOf(false)}
     var locationView by remember(id) {mutableStateOf(false)}
     var observationsView by remember(id) {mutableStateOf(false)}
+    var observationDialog by remember(id) {mutableStateOf(false)}
+    var observationDraft by remember(id) {mutableStateOf("")}
+    fun saveObservation(task:JsonObject,value:String) = run {
+        val note=value.trim()
+        require(note.length in 6..1000) {"Escribe una observación de entre 6 y 1000 caracteres."}
+        queue.enqueue(id,repository.journal.deviceId(),task.getValue("version").jsonPrimitive.int,note)
+        entries=queue.entries();devices.scheduleSync();observationsView=true
+        observationDialog=false;observationDraft="";error="Observación guardada en Pendientes."
+    }
     var transferView by remember(id) {mutableStateOf(false)}
     var transferStage by remember(id) {mutableIntStateOf(1)}
     var locationPage by remember(id) {mutableIntStateOf(1)}
@@ -213,7 +222,7 @@ private fun TransportTask(id:String,repository:MobileRepository,queue:Observatio
                     Row {TextButton(onClick={transferStage=1}){Text("Atrás")}
                         Button(enabled=!busy && reason.length>=6 && (!handover || (counterpart.isNotBlank() && (transport || counterpart==handoverPerson?.text("id")))),onClick={transferStage=3}){Text("Revisar")}}
                     OutlinedButton(enabled=!busy && reason.length>=6,onClick={pendingAction="INCIDENT"}){Text("Registrar incidencia")}
-                    if(transport) TextButton(enabled=!busy && reason.length>=6,onClick={run{queue.enqueue(id,repository.journal.deviceId(),task.getValue("version").jsonPrimitive.int,reason);entries=queue.entries();devices.scheduleSync();error="Observación pendiente; no confirma custodia."}}){Text("Guardar observación para sincronizar")}
+                    if(transport) TextButton(enabled=!busy && reason.trim().length in 6..1000,onClick={saveObservation(task,reason)}){Text("Guardar observación para sincronizar")}
                 }
                 if(transferStage==3) {
                     Text("Revisa los datos antes de confirmar. La entrega física no equivale a aceptación clínica.")
@@ -326,9 +335,31 @@ private fun TransportTask(id:String,repository:MobileRepository,queue:Observatio
             if(age>30 || !live.connected)Text("Última observación; no se considera ubicación actual.")
         }
     }
-    SettingRow("Observaciones por sincronizar (${entries.size})") {observationsView=!observationsView}
+    val pendingObservations=entries.count {it.text("state") in setOf("PENDING","SENDING","UNCERTAIN")}
+    val recordedObservations=entries.count {it.text("state")=="RECORDED"}
+    val reviewObservations=entries.size-pendingObservations-recordedObservations
+    val observationSummary="$pendingObservations pendientes · $recordedObservations enviadas · $reviewObservations para revisar"
+    SettingRow("Observaciones",observationSummary) {observationsView=!observationsView}
+    row?.let {task ->
+        val transport=session.user?.text("role")=="TRANSPORT"
+        val action=transportAction(session.user?.text("role").orEmpty(),session.user?.text("tenant_id").orEmpty(),task.text("origin_id"),task.text("destination_id"),task.text("status"))
+        if(transport && action!=null) {
+            OutlinedButton(enabled=!busy,onClick={error="";observationDialog=true}) {Text("Añadir observación")}
+            if(observationDialog) AlertDialog(
+                onDismissRequest={if(!busy)observationDialog=false},
+                title={Text("Añadir observación")},
+                text={Column(verticalArrangement=Arrangement.spacedBy(8.dp)) {
+                    Text("La observación no cambia el estado del traslado. Se guardará en Pendientes para enviarla después.")
+                    OutlinedTextField(observationDraft,{observationDraft=it},label={Text("Observación")},
+                        supportingText={Text("${observationDraft.trim().length} / 1000 caracteres · mínimo 6")},minLines=3,maxLines=6)
+                    if(error.isNotBlank()) Text(error)
+                }},
+                confirmButton={Button(enabled=!busy && observationDraft.trim().length in 6..1000,onClick={saveObservation(task,observationDraft)}) {Text("Guardar observación")}},
+                dismissButton={TextButton(enabled=!busy,onClick={observationDialog=false}) {Text("Cancelar")}})
+        }
+    }
     if(observationsView) {
-    Text("Sincronización: solo observaciones; nunca custodia ni decisiones clínicas")
+    Text("Sincroniza tus observaciones cuando tengas conexión. Las enviadas permanecen en el historial.")
     entries.forEach {Text("${displayBriefDate(it.getValue("command").jsonObject.text("captured_at"))} · ${displayValue("state",it.text("state"))}")}
     OutlinedButton(enabled=!busy,onClick={run{queue.synchronize(manual=true);entries=queue.entries()}}){Text("Sincronizar y consultar resultados")}
     }

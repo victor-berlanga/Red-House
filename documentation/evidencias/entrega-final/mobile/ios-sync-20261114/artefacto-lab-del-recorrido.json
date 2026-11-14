@@ -1,0 +1,22 @@
+{
+  "variant": "lab",
+  "bundle_identifier": "org.redhouse.mobile.lab",
+  "gateway": "https://10.0.0.20:18443",
+  "background_task": "org.redhouse.mobile.lab.observations",
+  "configuration": "DebugLab",
+  "ca_sha256": "c44bfe4e5968db9ace131615c48419abeed90e154455a1713199e83fded4c9ca",
+  "tls": "lab_pinned_ca",
+  "framework_sha256": "0b863de5a9eddccc5a766934629db3dc379c357024a7d71e72b050dedfff6e86",
+  "generated_environment_sha256": "b467639df5d6a398c031b510a0b69b7bd194cd67901aa93b45cac2229294b146",
+  "sdk": "iphoneos18.4",
+  "state": "PHYSICALLY_USED_LAB_BEFORE_COUNTER_CHANGE",
+  "executable_sha256": "46af5bead645b424e2f292140413120736083938e5875207daed5ab92dd148f4",
+  "info_plist_sha256": "51ceacaab459336ea2f649ccf26552ccaaaeac0891f9ebc3765f550f0685376a",
+  "signature_verified": true,
+  "provision_expires": "2026-11-21T18:32:33Z",
+  "source_transport_sha256": "3db3e9129ac2406178f8deedf210a68a838972c300f993334d5dd27f0ea4c972",
+  "installed": true,
+  "build_identity_state": "PREPARED_NOT_INSTALLED_NOT_PHYSICALLY_VERIFIED",
+  "physical_journey_evidence": "RESULTADOS.md",
+  "direct_keychain_read_performed": false
+}
