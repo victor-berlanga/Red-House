@@ -19,24 +19,37 @@ class DonorVolumeJourneyTest {
         Thread.sleep(4000) // Host captures the visible emulator after the asserted state.
     }
     private fun shown(text:String) = compose.waitUntil(90000) {compose.onAllNodesWithText(text).fetchSemanticsNodes().isNotEmpty()}
-    private fun nextPage(page:Int) {
-        presentationClick(compose,"Siguiente")
+    private fun nextPage(page:Int,campaigns:Boolean=false) {
+        if(campaigns) {
+            val next=hasContentDescription("Página siguiente de campañas, al inicio") and isEnabled()
+            compose.waitUntil(90000) {compose.onAllNodes(next).fetchSemanticsNodes().isNotEmpty()}
+            compose.onNode(next).performScrollTo().performClick()
+        }
+        else presentationClick(compose,"Siguiente")
         shown("$page / 6")
     }
-    @Test fun publicFeedPersonalNameAndConsentHistory() {
+    private fun openCampaigns() {
         val args=InstrumentationRegistry.getArguments()
-        assumeTrue(args.containsKey("demoUser") && args.containsKey("demoPassword"))
+        assumeTrue(args.containsKey("demoUser"))
+        val password=args.getString("demoPassword") ?: readMobileLabFixture().text("password")
         compose.waitUntil(90000) {compose.onAllNodesWithText("Iniciar sesión").fetchSemanticsNodes().isNotEmpty() || compose.onAllNodesWithText("Cuenta").fetchSemanticsNodes().isNotEmpty()}
         if(compose.onAllNodesWithText("Iniciar sesión").fetchSemanticsNodes().isEmpty()) presentationClick(compose,"Cerrar sesión")
         shown("Cuenta")
         compose.onNodeWithText("Cuenta").performTextReplacement(requireNotNull(args.getString("demoUser")))
-        compose.onNodeWithText("Contraseña").performTextReplacement(requireNotNull(args.getString("demoPassword")))
+        compose.onNodeWithText("Contraseña").performTextReplacement(password)
         presentationClick(compose,"Iniciar sesión")
         shown("Ver mis citas")
         presentationClick(compose,"Campañas")
         shown("1 / 6")
-        for(page in 2..6) nextPage(page)
-        compose.onNodeWithText("6 / 6").assertExists();capture("feed-page6")
+    }
+    @Test fun campaignPagination() {
+        openCampaigns()
+        for(page in 2..6) nextPage(page,campaigns=true)
+        compose.onAllNodesWithText("6 / 6").onFirst().assertIsDisplayed()
+        capture("feed-page6")
+    }
+    @Test fun publicFeedPersonalNameAndConsentHistory() {
+        campaignPagination()
         presentationClick(compose,"Cuenta")
         presentationClick(compose,"Mi expediente")
         shown("Editar nombre")

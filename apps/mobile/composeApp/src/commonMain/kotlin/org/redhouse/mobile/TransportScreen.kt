@@ -218,17 +218,16 @@ private fun TransportTask(id:String,repository:MobileRepository,queue:Observatio
                 if(transferStage==3) {
                     Text("Revisa los datos antes de confirmar. La entrega física no equivale a aceptación clínica.")
                     Text("Observación: $reason")
-                    SettingRow("Evidencia",if(photograph!=null) "Fotografía pendiente de cargar" else evidence?.text("status")) {evidenceView=!evidenceView}
+                    SettingRow("Evidencia",if(photograph!=null) "Fotografía pendiente de cargar" else evidence?.let { if(it.text("status")=="VERIFIED") "Foto verificada" else "No se confirmó la verificación" }) {evidenceView=!evidenceView}
                     if(evidenceView) {
                         Button(enabled=!busy,onClick={devices.photograph {bytes,failure->photograph=bytes;evidence=null;error=failure.orEmpty()}}){Text("Capturar evidencia")}
                         photograph?.let {bytes ->
                             Image(remember(bytes) { imageBitmap(bytes) },"Vista previa de evidencia",Modifier.fillMaxWidth().height(180.dp))
                             Row {
-                                Button(enabled=!busy,onClick={run{evidence=repository.uploadPhoto(id,bytes);photograph=null;error="Archivo: ${evidence?.text("status")}"}}){Text("Cargar y verificar")}
+                                Button(enabled=!busy,onClick={run{evidence=repository.uploadPhoto(id,bytes);photograph=null;error=""}}){Text("Cargar y verificar")}
                                 TextButton(onClick={photograph=null}){Text("Eliminar foto")}
                             }
                         }
-                        evidence?.let{Text("Evidencia · ${it.text("status")}")}
                     }
                     Row {TextButton(onClick={transferStage=2}){Text("Atrás")}
                         action?.let {Button(enabled=!busy && (it!="ACCEPTED" || (handoverPerson!=null && counterpart==handoverPerson?.text("id"))),onClick={pendingAction=it}){Text(when(it){"COLLECTED"->"Confirmar recolección";"IN_TRANSIT"->"Iniciar traslado";"DELIVERED"->"Confirmar entrega física";"ACCEPTED"->"Aceptar recepción logística";else->"Preparar unidad"})}}}

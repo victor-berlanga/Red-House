@@ -1,0 +1,21 @@
+
+org.redhouse.mobile.DonorVolumeJourneyTest:
+Error in campaignPagination(org.redhouse.mobile.DonorVolumeJourneyTest):
+java.lang.IllegalStateException: Falta el fixture privado del ensayo.
+	at org.redhouse.mobile.MobileLabFixtureKt.readMobileLabFixture(MobileLabFixture.kt:12)
+	at org.redhouse.mobile.DonorVolumeJourneyTest.openCampaigns(DonorVolumeJourneyTest.kt:30)
+	at org.redhouse.mobile.DonorVolumeJourneyTest.campaignPagination(DonorVolumeJourneyTest.kt:42)
+
+
+Time: 9.579
+There was 1 failure:
+1) campaignPagination(org.redhouse.mobile.DonorVolumeJourneyTest)
+java.lang.IllegalStateException: Falta el fixture privado del ensayo.
+	at org.redhouse.mobile.MobileLabFixtureKt.readMobileLabFixture(MobileLabFixture.kt:12)
+	at org.redhouse.mobile.DonorVolumeJourneyTest.openCampaigns(DonorVolumeJourneyTest.kt:30)
+	at org.redhouse.mobile.DonorVolumeJourneyTest.campaignPagination(DonorVolumeJourneyTest.kt:42)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+

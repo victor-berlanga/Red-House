@@ -2,6 +2,10 @@
 
 Las entradas están ordenadas de reciente a histórico; un pendiente de un corte anterior puede quedar sustituido explícitamente por una entrada posterior.
 
+## Paginación móvil y paquetes del lote visual — 14/11/2026
+
+[Lote móvil](documentation/evidencias/entrega-final/mobile/ui-lote-20261114/RESULTADOS.md): controles de campañas al inicio/final, salida del teclado al buscar y etiqueta única «Foto verificada». Android normal e iOS normal firmado compilaron; el nuevo iOS no se instaló y conserva como límite el vencimiento del perfil el 17 de noviembre. Recorrido Android dirigido de seis páginas aprobado, 1/1 en 50,953 s; dirección inspeccionó la captura real de página 6. Los fallos previos de preparación, sistema y sincronización del test permanecen separados. Se corrigió la espera del botón habilitado sin ampliar tiempos ni recompilar el producto. No se repitieron capacidades físicas, cuenta ni consentimiento; la cobertura anterior permanece en su alcance. AVD, fixture y Gradle cerrados. Etapa 04 continúa abierta para los pendientes ya identificados.
+
 ## Modelos y Word/PDF finales generados y revisados — 14/11/2026
 
 [Corte editorial](documentation/evidencias/entrega-final/modelos-20261114/validacion-final.json) cerrado: informe técnico de 24 páginas y catálogo físico de 74, Word/PDF íntegros en carta e índice enlazado. Extracción READ ONLY del esquema 20: 117 tablas, 226 índices y 265 FK; doce fichas y 21 SVG ampliables.206 enlaces locales sin destino ausente y controles de texto fuera de página limpios. Dirección inspeccionó páginas concretas de portada/índice/flujo/gráfica/tablas/límites; revisión muestral registrada, sin atribuir inspección a todas las páginas/relaciones. Fallos iniciales de sandbox y render Mermaid conservados, corregidos solo en sus ámbitos.78 huellas verificadas. El reporte conserva pendientes técnicos/humanos del corte; no declara cierre integral. No se regenerará por cada cambio intermedio: actualización final al consolidar resultados restantes.

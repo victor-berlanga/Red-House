@@ -6,6 +6,9 @@ import kotlinx.datetime.TimeZone
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.*
 import kotlinx.serialization.json.*
@@ -16,6 +19,7 @@ import io.ktor.http.HttpMethod
 @Composable fun DonorScreen(repository:MobileRepository,initialSection:String="Citas",showBack:Boolean=true,onExploreCampaigns:()->Unit={},onBack:()->Unit) {
     var section by remember(initialSection) {mutableStateOf(initialSection)}
     val share = rememberPublicShare()
+    val focusManager = LocalFocusManager.current
     var appointmentId by remember {mutableStateOf<String?>(null)}
     val session=repository.session;val scope=rememberCoroutineScope()
     var donor by remember {mutableStateOf<JsonObject?>(null)}
@@ -108,6 +112,7 @@ import io.ktor.http.HttpMethod
                 DateFilterField("Desde",fromDraft,{fromDraft=it})
                 DateFilterField("Hasta",untilDraft,{untilDraft=it})
                 Button(enabled=!busy,onClick={
+                    focusManager.clearFocus()
                     if(fromDraft!=null && untilDraft!=null && fromDraft!!>untilDraft!!) status="La fecha final debe ser igual o posterior a la inicial."
                     else {val (start,end)=dayFilterBounds(fromDraft,untilDraft,TimeZone.currentSystemDefault());status="";run{loadPublications(1,queryDraft.trim(),start,end)}}
                 }) {Text("Buscar campañas")}
@@ -115,6 +120,7 @@ import io.ktor.http.HttpMethod
         }
         if(!busy && !publicationsLoaded) Text("No fue posible consultar las campañas públicas. Actualiza para intentar de nuevo.")
         if(!busy && publicationsLoaded && publications.isEmpty()) Text(if(publicQuery.isNotBlank() || publicFrom.isNotBlank() || publicUntil.isNotBlank()) "No encontramos campañas con estos filtros." else "No hay campañas publicadas en este momento.")
+        if(section=="Campañas") PageControls(publicPage,publicTotal,!busy,{run{loadPublications(publicPage-1)}},{run{loadPublications(publicPage+1)}},"al inicio")
         publications.forEach { publication ->
             Card(Modifier.fillMaxWidth()) { Column(Modifier.padding(16.dp),verticalArrangement=Arrangement.spacedBy(6.dp)) {
                 Text(publication.text("title"),style=MaterialTheme.typography.titleMedium)
@@ -123,7 +129,7 @@ import io.ktor.http.HttpMethod
                 TextButton(onClick={share(publicCampaignText(publication))}) {Text("Compartir campaña")}
             } }
         }
-        PageControls(publicPage,publicTotal,!busy,{run{loadPublications(publicPage-1)}},{run{loadPublications(publicPage+1)}})
+        PageControls(publicPage,publicTotal,!busy,{run{loadPublications(publicPage-1)}},{run{loadPublications(publicPage+1)}},"al final")
         if(section=="Campañas") Button(onClick={section="Reservar"}) {Text("Buscar horarios disponibles")}
     }
     if(section=="Citas") SettingRow("Buscar horarios") {section="Reservar"}
@@ -264,10 +270,10 @@ internal fun publicCampaignText(row:JsonObject):String = listOf(
 
 @Composable expect fun rememberPublicShare(): (String) -> Unit
 
-@Composable private fun PageControls(page:Int,total:Int,enabled:Boolean,previous:()->Unit,next:()->Unit) {
+@Composable private fun PageControls(page:Int,total:Int,enabled:Boolean,previous:()->Unit,next:()->Unit,position:String="") {
     if(total>20) Row(horizontalArrangement=Arrangement.spacedBy(8.dp)) {
-        OutlinedButton(enabled=enabled && page>1,onClick=previous) {Text("Anterior")}
+        OutlinedButton(enabled=enabled && page>1,onClick=previous,modifier=if(position.isNotBlank()) Modifier.semantics { contentDescription="Página anterior de campañas, $position" } else Modifier) {Text("Anterior")}
         Text("$page / ${(total+19)/20}",modifier=Modifier.padding(top=12.dp))
-        OutlinedButton(enabled=enabled && page*20<total,onClick=next) {Text("Siguiente")}
+        OutlinedButton(enabled=enabled && page*20<total,onClick=next,modifier=if(position.isNotBlank()) Modifier.semantics { contentDescription="Página siguiente de campañas, $position" } else Modifier) {Text("Siguiente")}
     }
 }

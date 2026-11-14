@@ -1,0 +1,81 @@
+{
+  "acceptance": "One directed Android campaign pagination journey, plus normal Android and signed iOS builds",
+  "junit": {
+    "passed": 1,
+    "failed": 0,
+    "seconds": 50.953
+  },
+  "prior_attempts": [
+    {
+      "kind": "fixture argument missing",
+      "seconds": 9.579
+    },
+    {
+      "kind": "System UI dialog observed; timeout in nextPage",
+      "seconds": 116.609
+    },
+    {
+      "kind": "stable OS, disabled initial click in test",
+      "seconds": 124.065
+    }
+  ],
+  "normal_android": {
+    "apk": ".local/artifacts/mobile/ui-lote-20261114/RedHouse-android-normal-ui.apk",
+    "sha256": "51edf9a47884b7e7f7c824bb6546eda8a3c90a91fb47e04014349ebac62fca2c",
+    "lab_trust_or_fixture_assets": false,
+    "build": "Debug normal",
+    "installed": false
+  },
+  "normal_ios": {
+    "variant": "normal",
+    "bundle_identifier": "org.redhouse.mobile",
+    "gateway": "https://34.18.186.116",
+    "background_task": "org.redhouse.mobile.observations",
+    "configuration": "Debug",
+    "ca_sha256": "",
+    "tls": "system_default_only",
+    "framework_sha256": "b360979ad25f9847366e72301d0cc182087bc26b2021c8e32321eb80bb3df2c2",
+    "generated_environment_sha256": "ba1d8b18b38c512281c97fb1b1514769c180f79befd2912cda0dbf273f9a713a",
+    "sdk": "iphoneos18.4",
+    "state": "PREPARED_NOT_INSTALLED_NOT_PHYSICALLY_VERIFIED",
+    "executable_sha256": "6f88bf287618622ff2a1efd5b212eda067ae00e41b420a5b21d5ac20f83bf2ce",
+    "info_plist_sha256": "daa9475f895a69e0dc0f97c668a061bbadb72d5a580f20ee1b1a5e399b59e8ef",
+    "provision_expires": "2026-11-17T22:39:00Z",
+    "signature_check": "",
+    "installed": false,
+    "signed_verified": true
+  },
+  "private_lab_apk_sha256": {
+    "android-lab-ui.apk": "4d52d36d0e85d56af1d9d85d94161ffe3b77d316fe5bf28e55e732a9ad97249a",
+    "android-lab-test-private.apk": "1baeafb95c4b39f1e7b8c1ec3e005dc799b735827c03fc8a1eb8351aa620fe2f",
+    "android-lab-test-enabled-private.apk": "b040b85517023eaf31d3bee89dc9c0809496746618ed4e93bd29cf76255112bb"
+  },
+  "build_results": {
+    "android-normal-build-retry.log": [
+      "BUILD SUCCESSFUL in 3m 16s",
+      "37 actionable tasks: 5 executed, 32 up-to-date"
+    ],
+    "android-lab-build.log": [
+      "BUILD SUCCESSFUL in 1m 49s",
+      "65 actionable tasks: 21 executed, 44 up-to-date"
+    ],
+    "android-test-enabled-build.log": [
+      "BUILD SUCCESSFUL in 1m 38s",
+      "46 actionable tasks: 4 executed, 42 up-to-date"
+    ]
+  },
+  "cleanup": {
+    "avd_exit": 0,
+    "fixture_exit": 0,
+    "gradle_daemons_stopped": true,
+    "iphone_touched": false
+  },
+  "not_run": [
+    "photo flow",
+    "QR",
+    "GPS",
+    "name/consent",
+    "iOS installation",
+    "iOS physical journey"
+  ]
+}

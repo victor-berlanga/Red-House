@@ -59,7 +59,7 @@ class PhotoEvidenceJourneyTest {
         // The fixture stores the first PUT, then deliberately returns 503. Retrying
         // the still-visible photo must reuse the key and accept the object's 412.
         click("Cargar y verificar");shown("El servicio no está disponible")
-        click("Cargar y verificar");shown("Evidencia · VERIFIED")
+        click("Cargar y verificar");shown("Foto verificada")
         android.util.Log.i("PhotoJourney","photo-verified")
         Thread.sleep(8000)
         assertFalse(java.io.File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,"capture").listFiles().orEmpty().any())
