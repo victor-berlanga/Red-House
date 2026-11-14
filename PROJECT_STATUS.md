@@ -2,6 +2,10 @@
 
 Las entradas están ordenadas de reciente a histórico; un pendiente de un corte anterior puede quedar sustituido explícitamente por una entrada posterior.
 
+## Limpieza de dos laboratorios concluidos — 13/11/2026
+
+Retiradas únicamente las bases efímeras propias de DESK-07 y de la lectura QR Android, tras identificar datos sintéticos, confirmar motores cerrados y repetir guardas de ruta/propietario/archivos abiertos. Logs privados y evidencia de cada resultado conservados, incluido el fallo de custodia. Total: 3.698 archivos y 560.417.641 bytes lógicos; no es ahorro físico neto medido ni resuelve por sí solo el presupuesto de carga sostenida. [Alcance y registro](documentation/entrega-final/continuidad/Organizacion.md#retiro-de-bases-temporales-comprobadas--13112026-monterrey). Datos del proyecto, respaldos, SDK y laboratorios de carga fallidos conservados.
+
 ## Filtros por día y escaneo Android comprobados parcialmente — 13/11/2026
 
 Android incorpora filtros de días completos en zona local, incluido un mismo día inicial/final; conserva el selector preciso para operaciones que requieren hora. Estado de carga de la próxima cita independiente y mensajes de búsqueda vacía acordes a los filtros aplicados. Mapa reducido con texto ampliado, ubicación inválida sin marcador y estados explícitos de consulta/acceso a origen y destino. Lote Android normal, laboratorio e instrumentación compilados; JVM **46 aprobadas y dos omitidas**. Donante instrumentado **1/1 en 88,881 s**: inicio cargado, calendario español del producto y consulta del mismo día. La dirección inspeccionó esas pantallas y la tarea sin GPS: mapa, atribución y siguiente acción completos a escala 1,3. Ochenta y tres fuentes y las tres huellas APK cotejadas antes de registrar el incremento.

@@ -1,0 +1,39 @@
+{
+  "scope": "Dos bases sintéticas propias detenidas; logs conservados privados",
+  "reports": [
+    {
+      "fixture": "red-house-ms-tests-t5ovotxh",
+      "mode": "delete",
+      "checked_at_utc": "2026-11-14T04:29:37.222518+00:00",
+      "files": 1847,
+      "bytes": 271121290,
+      "criteria": [
+        "ruta_y_estado",
+        "propietario_y_permisos",
+        "pids_sin_procesos",
+        "sin_archivos_abiertos",
+        "folio_sintetico"
+      ],
+      "archive": "redhouse-desk07-logs-mtu_81m6",
+      "deleted": true
+    },
+    {
+      "fixture": "red-house-ms-tests-lzbrdzpu",
+      "mode": "delete",
+      "checked_at_utc": "2026-11-14T04:31:57.215537+00:00",
+      "files": 1851,
+      "bytes": 289296351,
+      "criteria": [
+        "ruta_y_estado",
+        "propietario_y_permisos",
+        "pids_sin_procesos",
+        "sin_archivos_abiertos",
+        "recurso_sintetico"
+      ],
+      "archive": "redhouse-mobile-qr-logs-wz__7qx1",
+      "deleted": true
+    }
+  ],
+  "logical_bytes_removed": 560417641,
+  "files_removed": 3698
+}

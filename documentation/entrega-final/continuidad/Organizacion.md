@@ -16,6 +16,14 @@ El 13 de noviembre, tras finalizar las compilaciones móviles, se identificó co
 
 Se retiraron cinco cachés iOS temporales reconstruibles de `/private/tmp`: `redhouse-ios-current-module-cache`, `redhouse-ios-e1f0957-module-cache`, `redhouse-ios-final-module-cache`, `redhouse-ios-module-cache` y `redhouse-ios-native-calendar-module-cache`. Se comprobó propietario, directorio real, ausencia de enlaces y contenido exclusivamente `.swiftmodule`, `.pcm` y `.timestamp`: 1.231 archivos, 286.268.130 bytes lógicos. El agente móvil confirmó que estaban inactivos y que el siguiente enlace usa otro caché. Se conservaron las aplicaciones firmadas, logs, xcresult, capturas, SDK, AVD, perfiles y datos. No se equipara el tamaño lógico con ahorro físico medido.
 
+## Retiro de bases temporales comprobadas — 13/11/2026, Monterrey
+
+Se identificaron y retiraron exclusivamente dos directorios del fixture `platform`, que crea datos/cuentas sintéticos y detiene los motores al cerrar, pero conserva sus archivos. El de DESK-07 se vinculó al ensayo Qt/XML aprobado por el folio aleatorio visible en sus capturas y localizado en PostgreSQL. El del QR móvil fue creado en esta sesión y su identidad se comprobó mediante proceso generador, cuenta, recurso y consulta independiente de recibo/auditoría. La prueba completa de custodia falló por encuadre; se conserva ese resultado junto a la lectura manual posterior y no se presenta como aprobada por esta limpieza.
+
+Antes de cada retiro se comprobó ruta exacta sin enlace, propietario/permisos, correspondencia del estado y ausencia de procesos/archivos abiertos. La simulación no borró; la ejecución archivó los logs en directorios privados y repitió todas las guardas antes de retirar únicamente el directorio fijado. Se conservaron capturas, APK, QR, resultados, herramientas, datos del proyecto y los laboratorios de carga fallidos. Otros temporales inactivos no se retiraron al carecer de vínculo individual suficiente con sus ensayos.
+
+Resultado: **3.698 archivos y 560.417.641 bytes lógicos** retirados. No equivale a ahorro físico neto: continuaban otras actividades locales. Los logs privados permanecen en los directorios indicados en el [registro mínimo de limpieza](../../evidencias/entrega-final/limpieza-20261113/temporales.json). No se tocaron entornos GCP ni se declara resuelta la restricción de espacio para carga sostenida.
+
 ## Guías de diseño incorporadas — 13/11/2026, Monterrey
 
 A petición del usuario se instalaron dos skills en `~/.codex/skills`, fuera del producto y de sus dependencias:
