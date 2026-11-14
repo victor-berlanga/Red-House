@@ -2,6 +2,10 @@
 
 Las entradas están ordenadas de reciente a histórico; un pendiente de un corte anterior puede quedar sustituido explícitamente por una entrada posterior.
 
+## Guías operativas alineadas con el despliegue vigente — 14/11/2026
+
+Actualizadas instalación/operación, guía GCE y vigencia de ClamD: esquema 20, HTTPS, vigilancia de firmas y proveedor LOCAL publicados, con enlaces a la evidencia y cortes anteriores identificados como históricos. Se distingue el BAT de servidor/WSL del empaquetado nativo de escritorio. El [índice de demostración](documentation/entrega-final/continuidad/Demostracion_final.md) ordena ensayos existentes sin presentarlos como tres flujos integrales ya aceptados. Enlaces comprobados; sin ejecución de infraestructura. El reporte técnico final y la demostración integrada aún deben consolidarse. `create.sh` conserva su aprovisionamiento histórico de GCS; no se presenta como requisito de operación local.
+
 ## Escritorio recupera consulta tras caída de servicio — 14/11/2026
 
 [Ensayo Qt/XML](documentation/evidencias/entrega-final/desktop/iteracion-recuperacion-servicio/RESULTADOS.md) aprobado, 1/1 en 42,087 s: médico consulta propuesta, se detiene el listener propio de Priorización, la GUI limpia resultados y muestra error; tras restaurarlo, Actualizar recupera la propuesta y se comprueba su persistencia única en SQL. Sesión revocada y motores cerrados. Diario temporal con clave efímera; fixture TESTING/WSGI y Qt offscreen, sin fallo productivo ni comprobación de llavero por este caso.

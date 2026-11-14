@@ -1,4 +1,8 @@
-# Vigencia de ClamD: incremento en preparación
+# Vigencia de ClamD: diseño y estado publicado
+
+> Estado vigente al **14/11/2026**: esquema 20 y ClamAV real están publicados en `sistemas-integracion-01 / red-house / me-central1-a`. El control periódico compara VERSION con la base de firmas y Docker lo ejecuta cada 30 segundos. El proveedor de archivos sigue `LOCAL`; GCS no es requisito operativo. Evidencia: [publicación de esquema 20 y análisis](../../evidencias/gcp/scanner20-20261113/RESULTADOS.md), [control periódico publicado](../../evidencias/gcp/scanner-health-20261113/RESULTADOS.md) y [proxy/WSS vigente, con LOCAL conservado](../../evidencias/gcp/proxy-wss-20261114/RESULTADOS.md).
+
+El contenido siguiente conserva el diseño y el expediente del corte previo a publicación del 13/11. Las frases «en preparación», «borrador no desplegable» y «aún no se ha publicado» describen ese corte histórico; no son instrucciones ni estado vigente.
 
 La migración 020 agrega metadatos anulables a `file_scans`; no rellena ni cambia análisis históricos. Debe aplicarse mediante `redhouse.shared_migrations.upgrade`, que además actualiza la vista y reaplica sus permisos; ejecutar solo el SQL no actualiza la vista. Los CLEAN anteriores conservan la autorización vigente y su identidad de firmas permanece desconocida. Esta compatibilidad no acredita que sus firmas fueran recientes. No se programa ningún reanálisis histórico de GCS: una transición posterior requiere un procedimiento concreto y revisado. No se cambian ni borran objetos.
 
@@ -10,7 +14,9 @@ VERSION no incluye zona horaria. El daemon debe ejecutarse con `TZ=UTC`, y Docum
 
 En una instalación Compose nueva, `deployment/gcp/configure_scanner.py` prepara `TZ=UTC` en ClamD y escribe la zona y el límite en `apps/documentos.json`; conserva un umbral ya configurado. El proceso independiente Documentos y el kernel web leen esa misma configuración. En local hay que iniciar ClamD expresamente con `TZ=UTC` y declarar ambos valores al proceso propietario; los ejemplos no arrancan ni comprueban el daemon. El verificador `apps/services/scripts/check_real_scanner.py` exige `--signature-timezone UTC` y admite `--max-signature-age` en segundos. Aplicar o modificar una configuración existente requiere su procedimiento de despliegue y comprobar fecha y zona reales; aún no se ha publicado este incremento.
 
-Estado: **borrador no desplegable**. Hay evidencia aislada de ClamD real con firmas recientes y antiguas, migración desde 019, exportación y descarga; las pruebas con dobles se identifican por separado. La lectura de un proceso Documentos anterior sobre 020 pasó en JSON/XML, sin probar imagen Docker ni escritura antigua. Faltan recarga real durante un análisis, transición de históricos GCS y procedimiento coordinado de despliegue. No se ha cambiado producción ni ejecutado nube.
+## Corte previo a publicación — 13/11/2026
+
+Estado de ese corte: **borrador no desplegable**. Hay evidencia aislada de ClamD real con firmas recientes y antiguas, migración desde 019, exportación y descarga; las pruebas con dobles se identifican por separado. La lectura de un proceso Documentos anterior sobre 020 pasó en JSON/XML, sin probar imagen Docker ni escritura antigua. En ese corte faltaban recarga real durante un análisis, transición de históricos GCS y procedimiento coordinado de despliegue. No se había cambiado producción ni ejecutado nube.
 
 El despliegue futuro requiere coordinar los procesos administrativos que ejecutan el gestor de migraciones: el código anterior fija la última versión compartida en 19 y su `upgrade` rechaza una base con versión 20. La comprobación de salud de servicios anteriores solo rechaza versiones inferiores, por lo que no es equivalente al gestor. Preparar imágenes y herramientas compatibles con 20, vista, permisos y configuración del scanner antes de abrir escrituras. Conservar columnas y datos durante recuperación; no se ha ensayado todavía ninguna secuencia de despliegue o reversión.
 

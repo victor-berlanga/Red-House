@@ -1,12 +1,18 @@
 # Red House en Google Compute Engine
 
-> UI web publicada el **10/11/2026**: `redhouse/web:uiux-20261110`. Backend mantiene `mobile04-20261110` / esquema 18. Solo nueve archivos de presentación; 30 contenedores activos sanos. [Verificación y reversión](../../documentation/evidencias/gcp/uiux-20261110/RESULTADOS.md).
+## Estado vigente — 14/11/2026
 
-> Estado comprobado el **10/11/2026**: **https://34.18.186.116**, tag **`mobile04-20261110` / esquema 18**, 30 contenedores sanos. Ampliaciones móviles publicadas; código del monolito y configuración conservados. [Respaldo, migración y verificación HTTPS/WSS](../../documentation/evidencias/gcp/mobile04-20261110/RESULTADOS.md). El cliente 0.3.1 incorpora esta dirección. Aceptación integral 04/06 pendiente.
+Destino vigente: VM `red-house`, proyecto `sistemas-integracion-01`, zona `me-central1-a`, instancia `2861822465669755197`, acceso HTTPS `https://34.18.186.116`. El corte actual conserva esquema 20, ClamAV con control periódico de vigencia y almacenamiento privado `LOCAL`; GCS es opcional y tiene verificación académica separada. Véanse [publicación del esquema 20 y escáner](../../documentation/evidencias/gcp/scanner20-20261113/RESULTADOS.md), [control periódico de firmas](../../documentation/evidencias/gcp/scanner-health-20261113/RESULTADOS.md) y [proxy WSS vigente](../../documentation/evidencias/gcp/proxy-wss-20261114/RESULTADOS.md).
+
+Los siguientes registros del 10/11 conservan un corte histórico de esquema 18; no describen la versión actualmente publicada.
+
+> Corte histórico del **10/11/2026**: UI web `redhouse/web:uiux-20261110`; backend `mobile04-20261110` / esquema 18. [Verificación y reversión de ese corte](../../documentation/evidencias/gcp/uiux-20261110/RESULTADOS.md).
+
+> Corte histórico del **10/11/2026**: **https://34.18.186.116**, tag **`mobile04-20261110` / esquema 18**, 30 contenedores sanos. [Respaldo, migración y verificación HTTPS/WSS de ese corte](../../documentation/evidencias/gcp/mobile04-20261110/RESULTADOS.md).
 
 VM `red-house`, proyecto `sistemas-integracion-01`, zona `me-central1-a`. Referencia: `maquina01`, con CentOS Stream 10, tipo `e2-standard-2` (2 vCPU, 8 GB de RAM), disco `pd-standard` de 20 GB, red `default`, OS Login y las mismas opciones de Shielded VM. Se utilizó su imagen de origen `centos-stream-10-v20260609`.
 
-El proyecto reside en `/opt/redhouse` y se ejecuta por completo en la VM: monolito, microservicios, PostgreSQL, MongoDB, Redis y workers. Docker Compose conserva dos instancias por API. Los archivos privados permanecen en Google Cloud Storage. Los datos remotos y locales son copias independientes: los cambios posteriores no se sincronizan.
+El proyecto reside en `/opt/redhouse` y se ejecuta por completo en la VM: monolito, microservicios, PostgreSQL, MongoDB, Redis y workers. Docker Compose conserva dos instancias por API. El corte vigente usa almacenamiento privado `LOCAL`; no se debe asumir que archivos de producción estén en GCS. Las referencias a GCS más abajo describen la ruta opcional explícita.
 
 ## Abrir el portal
 
@@ -82,7 +88,7 @@ La web usa cookies `Secure`, `HttpOnly` y `SameSite=Lax`. Waitress recibe explí
 REDHOUSE_GCP_INSTANCE=red-house-otra bash deployment/gcp/create.sh
 ```
 
-La cuenta `red-house-archivos` y su acceso al bucket deben existir. El script concede firma sobre esa misma cuenta, sin claves descargadas ni permiso de firma sobre otras cuentas. El scope `cloud-platform` permite invocar GCS e IAM; los permisos IAM mantienen el acceso a objetos limitado al bucket autorizado.
+El script histórico `create.sh` está preparado para la variante GCS: exige la cuenta `red-house-archivos` y concede firma sobre esa misma cuenta, sin claves descargadas ni permiso de firma sobre otras cuentas. No es un requisito para operar una instalación `LOCAL` existente ni un aprovisionador neutral respecto al almacenamiento. El scope `cloud-platform` permite invocar GCS e IAM; los permisos IAM mantienen el acceso a objetos limitado al bucket autorizado.
 
 Procedimiento de copia:
 
@@ -95,9 +101,9 @@ Procedimiento de copia:
 
 El respaldo contiene secretos y debe permanecer privado. El restaurador rechaza destinos existentes; no sirve para sobrescribir una instalación en uso. `docker compose down -v` elimina los volúmenes y sus datos.
 
-## GCS y verificación
+## GCS opcional y verificación específica
 
-La VM reutiliza el bucket privado autorizado; los registros conservan referencias a los objetos existentes. [`configure.py`](configure.py) configura Transporte y web para utilizar la cuenta adjunta a la VM mediante metadatos. La firma de URLs usa IAM con esperas acotadas. No se transfieren ADC personales ni claves privadas de cuentas de servicio.
+Esta sección aplica solo si una instalación autorizada opta por GCS; no describe el proveedor activo de la VM vigente. [`configure.py`](configure.py) escribe bucket/proyecto y un override GCS para web y Documentos, usando la identidad adjunta a la VM. [`configure_local_storage.py`](../configure_local_storage.py) conserva la ruta existente `LOCAL` mediante un directorio absoluto privado. No cambiar el proveedor de una instalación activa sin procedimiento y autorización propios; nunca transferir ADC personales ni claves privadas de cuentas de servicio.
 
 [`verify.py`](verify.py) ejecuta sangre de principio a fin, consultas JSON/XML de once servicios y carga/descarga web con GCS real. Con `public.json` configurado usa la dirección HTTPS e incluye un flujo web completo. Comprueba persistencia, contenido, rechazo anónimo y autorización por recurso. Deja registros ficticios para demostración. [`verify_public.cjs`](verify_public.cjs) comprueba el navegador cliente, siete perfiles, gráficas, sesiones y Swagger contra la IP pública; no inicia servicios locales. Requiere Playwright y Chrome en el equipo que ejecute esa prueba.
 
@@ -143,7 +149,9 @@ La herramienta realiza otro respaldo PostgreSQL privado y aplica la migración a
 
 Referencias utilizadas: [crear VM con gcloud](https://docs.cloud.google.com/sdk/gcloud/reference/compute/instances/create), [Docker en CentOS](https://docs.docker.com/engine/install/centos/), [firma de URLs de GCS](https://docs.cloud.google.com/storage/docs/access-control/signing-urls-with-helpers), [certificados IP con Certbot](https://letsencrypt.org/2026/03/11/shorter-certs-certbot/) y [Waitress detrás de un proxy](https://docs.pylonsproject.org/projects/waitress/en/stable/reverse-proxy.html).
 
-## Actualización correctiva del 31 de octubre
+## Referencia histórica: configuración GCS y actualización correctiva del 31 de octubre
+
+Este procedimiento conserva el corte GCS de esa fecha. No es requisito para la ruta privada `LOCAL` vigente ni una indicación para modificar la VM actual.
 
 El migrador `apps/services/scripts/upgrade_compose.py` admite el estado de la instalación v7: conserva la contraseña Redis administrativa existente y limita el permiso CREATE del dueño del esquema a la transacción de actualización. No ejecutar bootstrap de instalación sobre una base poblada. Mantener respaldo verificado y escritores detenidos.
 

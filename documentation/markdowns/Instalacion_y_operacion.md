@@ -2,7 +2,7 @@
 
 ## Requisitos
 
-Python 3.12+ con `venv` y `ensurepip`, PostgreSQL 14 para un entorno nuevo, Redis 7+ y MongoDB 8.0. Para un entorno existente se conserva el major de PostgreSQL registrado en sus datos. Esta modalidad local no requiere Docker. El segundo parcial incluye además un entorno Docker independiente, descrito en [deployment/README.md](../../deployment/README.md).
+Python 3.12+ con `venv` y `ensurepip`, PostgreSQL 14 para un entorno nuevo, Redis 7+ y MongoDB 8.0. Para un entorno existente se conserva el major de PostgreSQL registrado en sus datos. El entorno local predeterminado usa almacenamiento privado del servidor en `.local/runtime/` y no requiere Docker ni Google Cloud Storage. Docker Compose sirve para el despliegue reproducible de [deployment/README.md](../../deployment/README.md); la VM de GCE tiene su procedimiento separado.
 
 En Ubuntu, instala los paquetes del sistema antes de ejecutar el instalador, con un usuario normal. Los binarios deben estar en el PATH o configurados mediante `REDHOUSE_POSTGRES`, `REDHOUSE_INITDB`, `REDHOUSE_REDIS` y `REDHOUSE_MONGOD`. Se busca PostgreSQL también en `/usr/lib/postgresql/<major>/bin/`.
 
@@ -91,11 +91,25 @@ Los logs están en el directorio privado: `<servicio>.log`, `<servicio>-worker.l
 - Si un servicio no está listo, revisar su log y `components.sh estado`; no borrar datos para corregir un fallo de proceso.
 - Las operaciones por Bash usan un bloqueo compartido. Las llamadas Python directas no toman ese bloqueo.
 
-Este lanzador no es un supervisor de producción. HTTPS, arranque automático del servidor y despliegue en GCE siguen pendientes. El bucket GCS privado del segundo parcial sí está configurado y probado.
+Este lanzador no es un supervisor de producción. En el entorno local, `start.sh` y `stop.sh` administran los procesos de desarrollo descritos arriba. El despliegue vigente en GCE usa Docker Compose, systemd y HTTPS; consulta [el procedimiento de la VM](../../deployment/gcp/README.md) y [la última publicación verificada](../evidencias/gcp/proxy-wss-20261114/RESULTADOS.md).
+
+## Entorno publicado y artefactos actuales
+
+La VM vigente es `red-house`, proyecto `sistemas-integracion-01`, zona `me-central1-a`, IP `34.18.186.116`. La aplicación se publica por HTTPS; no hace falta iniciar servicios locales para acceder al portal. La guía de [GCE](../../deployment/gcp/README.md) contiene administración, actualización, respaldo y rollback. La evidencia del 14/11 confirma el proxy publicado, treinta contenedores sanos y almacenamiento `LOCAL` conservado; no acredita redundancia de host ni una caída productiva.
+
+El almacenamiento privado local es la opción predeterminada del producto. GCS es opcional para la operación y conserva una comprobación académica independiente: [resultado GCS sintético](../evidencias/entrega-final/gcs-sintetico-20261113/RESULTADOS.md). Esa prueba aislada no significa que la VM actual dependa de GCS ni que sus objetos de producción se hayan migrado.
+
+Artefactos comprobados disponibles en el entorno privado del proyecto:
+
+- Android normal debug: `.local/artifacts/mobile/redhouse-android-normal-foto-d735668.apk`. Incluye una Activity de prueba no exportada; no es un release. [Registro, hash y límites](../evidencias/entrega-final/mobile/seguimiento-20261114/paquetes.md).
+- iOS normal: `.local/artifacts/mobile/ios-foto-d735668/Debug-iphoneos/RedHouse.app`. Se firmó, instaló y abrió en iPhone; el perfil vigente vence el **17/11/2026** y no cubre la entrega del día 23. [Registro, hash y límites](../evidencias/entrega-final/mobile/seguimiento-20261114/paquetes.md).
+- Escritorio macOS Intel: `.local/artifacts/desktop/RedHouse-macOS-20261114.zip`. Arranque y carga de contratos pasaron; no se verificaron firma/notarización ni servicios desde el bundle. [Resultado y hash](../evidencias/entrega-final/desktop/paquete-mac-20261114/RESULTADOS.md).
+
+Windows 11 no está verificado. Los lanzadores BAT del entorno de servidor usan WSL; no deben confundirse con `apps/desktop/build.bat`, que prepara el cliente nativo en Windows. La recepción física de push FCM/APNs sigue pendiente externa por decisión del equipo; no se configuraron cuentas de esos proveedores. Video final, exposición, reflexiones individuales y subida a Ubiquitous requieren acción y confirmación humanas.
 
 ## Docker y archivos privados
 
-La guía [Docker del segundo parcial](../../deployment/README.md) contiene instalación desde cero, imágenes por servicio, dos réplicas, variables, redes, puertos, GCS y recuperación. Usa `.local/compose` y volúmenes independientes; no sustituye `.local/runtime` ni sus datos. El portal Docker escucha en 6050 y las API en 6101–6111, solo loopback.
+La guía [Docker Compose](../../deployment/README.md) contiene instalación local aislada, imágenes por servicio, redes, puertos y recuperación. Usa `.local/compose` y volúmenes independientes; no sustituye `.local/runtime` ni sus datos. El portal Compose local escucha en 6050 y las API en 6101–6112, solo loopback. El override GCS es opcional y requiere autorización propia; no se activa para usar el almacenamiento local predeterminado.
 
 Para ensayar continuidad sobre ese entorno: `apps/services/.venv/bin/python deployment/verify.py --phase all`. Para respaldo y restauración en contenedores nuevos: `apps/services/.venv/bin/python deployment/backup.py --verify`. Los dos comandos escriben únicamente datos ficticios y evidencia en el entorno de ensayo; el segundo pausa sus aplicaciones para obtener un corte coherente.
 
