@@ -2,6 +2,10 @@
 
 Las entradas están ordenadas de reciente a histórico; un pendiente de un corte anterior puede quedar sustituido explícitamente por una entrada posterior.
 
+## Serie de rendimiento preparada — 14/11/2026
+
+Integrado `d6e7fb3`: [serie de lectura](documentation/evidencias/entrega-final/carga-20261114/serie-plan.md) con una población, comparación alternada de caché, niveles de 12/24 usuarios, estrés condicional de 36 y recuperación con seis. Se mantienen las cuotas del producto, la autorización mediante Redis y las guardas de recursos. La preparación obtuvo 29 pruebas puras y un caso dirigido posterior de error durante el drenado; resultados observados en herramienta, sin JUnit archivado. La serie real aún no se ha ejecutado y no amplía los resultados de capacidad de la línea base. Espera la ventana local ocupada por el recorrido físico iOS.
+
 ## Guías operativas alineadas con el despliegue vigente — 14/11/2026
 
 Actualizadas instalación/operación, guía GCE y vigencia de ClamD: esquema 20, HTTPS, vigilancia de firmas y proveedor LOCAL publicados, con enlaces a la evidencia y cortes anteriores identificados como históricos. Se distingue el BAT de servidor/WSL del empaquetado nativo de escritorio. El [índice de demostración](documentation/entrega-final/continuidad/Demostracion_final.md) ordena ensayos existentes sin presentarlos como tres flujos integrales ya aceptados. Enlaces comprobados; sin ejecución de infraestructura. El reporte técnico final y la demostración integrada aún deben consolidarse. `create.sh` conserva su aprovisionamiento histórico de GCS; no se presenta como requisito de operación local.
