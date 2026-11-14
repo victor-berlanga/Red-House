@@ -1,0 +1,65 @@
+{
+  "result": "Passed B03 independently on 3cd5a1b plus S2 harness",
+  "junit_seconds": "249.836",
+  "sources_equal": true,
+  "source_files": 1395,
+  "candidate_processes_remaining": [],
+  "visual_review": [
+    "Authorized account final map: En vivo/SIMULADO, previous document retained, OSM unavailable expected",
+    "Revoked account final page: login only, no private map or history"
+  ],
+  "shipment_id": "8cbb13e6-cbae-4b48-9a07-8ba583e58781",
+  "correlated_points": [
+    {
+      "event_id": "eb91914a-0a0e-4313-878c-fd826007de77",
+      "cursor": 1
+    },
+    {
+      "event_id": "874d1d5d-bff0-4025-a4b4-c59a2e28b370",
+      "cursor": 2
+    },
+    {
+      "event_id": "2e1db87d-f2cc-4054-a4fb-f8714fb4ef0b",
+      "cursor": 3
+    }
+  ],
+  "mongo_projection": {
+    "collection": "events",
+    "position_field": "metadata.position",
+    "points": [
+      {
+        "cursor": 1,
+        "event_id": "eb91914a-0a0e-4313-878c-fd826007de77"
+      },
+      {
+        "cursor": 2,
+        "event_id": "874d1d5d-bff0-4025-a4b4-c59a2e28b370"
+      },
+      {
+        "cursor": 3,
+        "event_id": "2e1db87d-f2cc-4054-a4fb-f8714fb4ef0b"
+      }
+    ],
+    "pending_outbox_positions": 0
+  },
+  "acks": [
+    {
+      "event_id": "eb91914a-0a0e-4313-878c-fd826007de77",
+      "cursor": 1,
+      "state": "PERSISTED_SQL"
+    },
+    {
+      "event_id": "874d1d5d-bff0-4025-a4b4-c59a2e28b370",
+      "cursor": 2,
+      "state": "PERSISTED_SQL"
+    },
+    {
+      "event_id": "2e1db87d-f2cc-4054-a4fb-f8714fb4ef0b",
+      "cursor": 3,
+      "state": "PERSISTED_SQL"
+    }
+  ],
+  "regression07_repeated": false,
+  "heavy_window_returned_to_root": true,
+  "root_visual_acceptance": "Root inspected both final screenshots and accepted bounded B03; I06-08 overall remains open"
+}

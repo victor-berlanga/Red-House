@@ -1,5 +1,7 @@
 # Seguridad y recuperación del portal — 13/14 de noviembre de 2026
 
+Actualización del 14 de noviembre: [B03 sobre el fix `3cd5a1b`](logout-disconnected/intento-03/RESULTADOS.md) aprobó 1/1 en 249,836 s. B01/B02 y las versiones del lote inicial se conservan abajo. No hubo nueva regresión 07 ni publicación remota; cambio de rol/asignación e I06-08 integral siguen abiertos.
+
 I06-08 queda **PARCIAL**. A (cursor fuera de ventana), C (logout conectado) y D (expiración natural de familia) aprobaron individualmente. B (logout durante caída y recuperación de otra sesión autorizada) falló en ambos intentos. La regresión dirigida I06-07 aprobó por separado. No se cierra la etapa 06 ni se suman estos procesos como una suite de cinco casos aprobados.
 
 La dirección inspeccionó las capturas de A, C, D y la recuperación de 07. También revisó los estados parciales de B. Las ejecuciones fueron locales, con bases sintéticas nuevas y procesos propios. La ventana pesada se devolvió a dirección después de cerrar esos procesos; no hubo pruebas adicionales tras B02.

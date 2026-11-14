@@ -1,0 +1,20 @@
+{
+  "phase": "preflight_passed",
+  "protected_mutated": false,
+  "target_id": "2861822465669755197",
+  "nginx_version": "nginx version: nginx/1.28.3",
+  "container_count": 30,
+  "healthy_count": 30,
+  "gateway_image": "nginx:1.28-alpine",
+  "gateway_id": "913aa4f8b43a0fa704a791f2adb27920ecb9e41028f23b8727563f395c7a9708",
+  "storage_providers": {
+    "web": "local",
+    "documentos": "local"
+  },
+  "protected_file_count": 20,
+  "candidate_syntax_passed": true,
+  "candidate_sha256": "26095c0a74fe1babad9e7d7f682fa9451c0e93a4fb7819460d8ba37d4a1dccca",
+  "active_sha256": "f2854b08fbbe9b0d843d84a94dffe6c775cb62a57db97503c45f70719a211b2f",
+  "backup_directory": "/opt/redhouse/.local/proxy-wss-3cd5a1b-7vzfho9n/backup",
+  "container_temporary_config": "/tmp/redhouse-proxy-wss-3cd5a1b-7vzfho9n.conf"
+}

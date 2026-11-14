@@ -1,0 +1,26 @@
+{
+  "target": {
+    "project": "sistemas-integracion-01",
+    "instance": "red-house",
+    "zone": "me-central1-a",
+    "numeric_id": "2861822465669755197"
+  },
+  "storage": "LOCAL",
+  "source_commit": "3cd5a1b",
+  "source_files": {
+    "deployment/nginx.conf": "b066b3afcda97dd28c7c8a9e7b3b70eb83b43c7b3d4fab5b3da152810429fa9d",
+    "deployment/gcp/configure_public.py": "3d700acc467e36a7b5bf089a8d77984fbe28ac2a7655a30f0d6485d89aa06701"
+  },
+  "remote_access_performed": true,
+  "remote_mutation_performed": true,
+  "publication_authorized": true,
+  "effective_nginx_remote_version": "1.28.3",
+  "public_address": "34.18.186.116",
+  "no_app_or_storage_JSON_payload": true,
+  "result": "published",
+  "container_candidate_removed": true,
+  "procedure_hashes": {
+    "remote_preflight.py": "ec8c9d87ac338f9a97be29463e56c9b9815b31802169414129bd7ee003137991",
+    "remote_publish.py": "fcaecc217ecb3a488c6b6f73d116708cf8ab5dfc2ae53347de6fbfef3fc8c465"
+  }
+}

@@ -28,6 +28,14 @@ Regresión I06-07 independiente sobre S1: 1/1 en 155,397 s, cancelación autóno
 
 El cambio separa grupo/zona WSS con los mismos peers `max_fails=0`, failover de handshake `error timeout`/dos intentos y conexión TCP de un segundo; HTTP queda intacto. Son peers echo sintéticos, sin autenticación ni persistencia. Un segundo no limita todo el Upgrade; lectura de 75 s y ausencia de replay después de 101 conservan sus límites. Nginx local 1.30.6, sin validar la imagen Compose 1.28 ni GCP. **B03 completo, regresión I06-07 y publicación siguen pendientes**. B01/B02 permanecen fallidos; este incremento no amplía la aceptación de I06-08 ni cierra la etapa 06.
 
+## B03: recuperación autorizada tras logout aceptada localmente — 14/11/2026
+
+[B03](../../evidencias/entrega-final/portal-security-20261114/logout-disconnected/intento-03/RESULTADOS.md) aprobó 1/1 en 249,836 s sobre `3cd5a1b` y arnés S2. Tras logout durante caída total, la sesión revocada permaneció en login sin datos privados y la otra recuperó por un socket nativo nuevo/suscrito del mismo documento. Tres IDs/cursores iguales en ACK PERSISTED_SQL, SQL, Mongo y mapa, sin duplicados; ambas réplicas restauradas y sanas. Dirección inspeccionó y aceptó las dos capturas finales. 1395 huellas iguales y procesos cerrados. B01/B02 fallidos se conservan. No se repitió I06-07 por este cambio de política WSS; HTTP quedó igual. Publicación GCP pendiente, sin acceso remoto aún. Cambio de rol/asignación e I06-08 integral continúan abiertos.
+
+## Proxy WSS publicado — 14/11/2026
+
+[Publicación limitada de `3cd5a1b`](../../evidencias/gcp/proxy-wss-20261114/RESULTADOS.md) en la VM exacta Red House: Nginx efectivo 1.28.3, candidato/activo válidos, backup e inode conservado y reload sin recreación. Treinta contenedores mismos ID/imagen y healthy; veinte JSON/overrides iguales y storage LOCAL. HTTPS 200 y nuevo WSS JSON 101/autenticado; sesión técnica cerrada con token rechazado 401. Clave temporal propia retirada preservando dos previas. No hubo caídas productivas ni nueva aceptación integral I06; límites de TCP/Upgrade y casos restantes se conservan.
+
 ## Plan original del 6 de noviembre
 
 Preparado el 6 de noviembre de 2026. **Plan revisable, no ejecución ni autorización.**

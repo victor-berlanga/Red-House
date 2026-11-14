@@ -1,0 +1,43 @@
+{
+  "phase": "complete",
+  "protected_mutated": true,
+  "rollback_performed": false,
+  "backup": "/opt/redhouse/.local/proxy-wss-3cd5a1b-7vzfho9n/backup",
+  "before_hashes": {
+    "deployment/nginx.conf": "63e8175541283adbc223777d1977ced522c790cec54ed07aef9d018842eaf9bf",
+    "deployment/gcp/configure_public.py": "b3341bc856668e3956b27e4c7652a1497172e6cb0b927274a3e34db73d5c872d",
+    ".local/compose/public.nginx.conf": "f2854b08fbbe9b0d843d84a94dffe6c775cb62a57db97503c45f70719a211b2f"
+  },
+  "active_inode_before": 35537734,
+  "active_syntax_passed": true,
+  "reload_signaled": true,
+  "smoke": {
+    "phase": "new_native_wss",
+    "login_page": 200,
+    "transporte_live": 200,
+    "api_login": 200,
+    "wss_upgrade": 101,
+    "authenticated": true,
+    "passed": true,
+    "own_logout": 200,
+    "own_token_replay": 401,
+    "own_session_closed": true
+  },
+  "result": "published",
+  "after_hashes": {
+    "deployment/nginx.conf": "b066b3afcda97dd28c7c8a9e7b3b70eb83b43c7b3d4fab5b3da152810429fa9d",
+    "deployment/gcp/configure_public.py": "3d700acc467e36a7b5bf089a8d77984fbe28ac2a7655a30f0d6485d89aa06701",
+    ".local/compose/public.nginx.conf": "26095c0a74fe1babad9e7d7f682fa9451c0e93a4fb7819460d8ba37d4a1dccca"
+  },
+  "active_inode_after": 35537734,
+  "containers_unchanged": true,
+  "healthy_count": 30,
+  "protected_json_overrides_unchanged": true,
+  "protected_file_count": 20,
+  "storage_providers": {
+    "web": "local",
+    "documentos": "local"
+  },
+  "nginx_version": "nginx version: nginx/1.28.3",
+  "gateway_image": "nginx:1.28-alpine"
+}

@@ -1,0 +1,30 @@
+{
+  "case": "B03",
+  "executed": true,
+  "requires_new_root_heavy_window": true,
+  "environment": {
+    "REDHOUSE_BROWSER_TESTS": "1",
+    "REDHOUSE_TEST_NGINX": "/Users/victorberlanga/Programacion/integracion/Red-House/.local/tools/nginx-1.30.6/sbin/nginx",
+    "REDHOUSE_TEST_MONGOD": "/Users/victorberlanga/Programacion/integracion/Red-House/.local/tools/mongodb-8.0.17/bin/mongod",
+    "REDHOUSE_BROWSER_RESULTS": "/Users/victorberlanga/Programacion/integracion/Red-House/documentation/evidencias/entrega-final/portal-security-20261114/logout-disconnected/intento-03"
+  },
+  "argv": [
+    "apps/services/.venv/bin/python",
+    "-m",
+    "pytest",
+    "apps/services/tests/test_portal_gateway_tracking.py::test_portal_gateway_security_states[logout_disconnected]",
+    "-q",
+    "--tb=short",
+    "--basetemp=/Users/victorberlanga/Programacion/integracion/Red-House/.local/portal-security-20261114/logout-disconnected-intento-03-pytest",
+    "--junitxml=/Users/victorberlanga/Programacion/integracion/Red-House/documentation/evidencias/entrega-final/portal-security-20261114/logout-disconnected/intento-03/junit.xml"
+  ],
+  "source_hashes": {
+    "deployment/nginx.conf": "b066b3afcda97dd28c7c8a9e7b3b70eb83b43c7b3d4fab5b3da152810429fa9d",
+    "deployment/gcp/configure_public.py": "3d700acc467e36a7b5bf089a8d77984fbe28ac2a7655a30f0d6485d89aa06701",
+    "apps/services/tests/test_nginx_wss_selection.py": "655444ece66ef72fea3f0aba1dd434b4ca9016443142c5522a9063d6d6d12a02",
+    "apps/services/tests/test_portal_gateway_tracking.py": "a8cbd562cadcf064279052a668454fba4a29f7bcc8849a912a4b662424d75f77",
+    "scripts/verify_portal_gateway_tracking.cjs": "d32ccc1e582e99d26413fd8348287dd975d89b9f8b59d249512740099cb59712"
+  },
+  "scope": "Same Nginx1.30.6/candidate config and S2 browser harness, fresh fixture per process; testing quotas/SPKI/OSM/WSGI limits retained",
+  "source_commit": "3cd5a1b36083fcb354d9194ea04c704331f63246"
+}
