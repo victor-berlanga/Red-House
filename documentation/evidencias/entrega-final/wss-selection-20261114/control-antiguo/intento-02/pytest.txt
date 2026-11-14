@@ -1,0 +1,108 @@
+FFFF                                                                     [100%]
+=================================== FAILURES ===================================
+______ test_two_immediate_websockets_after_restoring_one_peer[private-a] _______
+apps/services/tests/test_nginx_wss_selection.py:274: in test_two_immediate_websockets_after_restoring_one_peer
+    second = connect_once("second_upgrade")
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+apps/services/tests/test_nginx_wss_selection.py:246: in connect_once
+    client = websocket.create_connection(
+apps/services/.venv/lib/python3.12/site-packages/websocket/_core.py:734: in create_connection
+    websock.connect(url, **options)
+apps/services/.venv/lib/python3.12/site-packages/websocket/_core.py:284: in connect
+    self.handshake_response = handshake(self.sock, url, *addrs, **options)
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+apps/services/.venv/lib/python3.12/site-packages/websocket/_handshake.py:73: in handshake
+    status, resp = _get_resp_headers(sock)
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+apps/services/.venv/lib/python3.12/site-packages/websocket/_handshake.py:173: in _get_resp_headers
+    raise WebSocketBadStatusException(
+E   websocket._exceptions.WebSocketBadStatusException: Handshake status 502 Bad Gateway -+-+- {'server': 'nginx/1.30.6', 'date': 'Sat, 14 Nov 2026 05:38:54 GMT', 'content-type': 'text/html', 'content-length': '157', 'connection': 'keep-alive'} -+-+- <html>
+E   <head><title>502 Bad Gateway</title></head>
+E   <body>
+E   <center><h1>502 Bad Gateway</h1></center>
+E   <hr><center>nginx/1.30.6</center>
+E   </body>
+E   </html>
+----------------------------- Captured stdout call -----------------------------
+Entrada pública generada: HTTPS
+______ test_two_immediate_websockets_after_restoring_one_peer[private-b] _______
+apps/services/tests/test_nginx_wss_selection.py:274: in test_two_immediate_websockets_after_restoring_one_peer
+    second = connect_once("second_upgrade")
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+apps/services/tests/test_nginx_wss_selection.py:246: in connect_once
+    client = websocket.create_connection(
+apps/services/.venv/lib/python3.12/site-packages/websocket/_core.py:734: in create_connection
+    websock.connect(url, **options)
+apps/services/.venv/lib/python3.12/site-packages/websocket/_core.py:284: in connect
+    self.handshake_response = handshake(self.sock, url, *addrs, **options)
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+apps/services/.venv/lib/python3.12/site-packages/websocket/_handshake.py:73: in handshake
+    status, resp = _get_resp_headers(sock)
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+apps/services/.venv/lib/python3.12/site-packages/websocket/_handshake.py:173: in _get_resp_headers
+    raise WebSocketBadStatusException(
+E   websocket._exceptions.WebSocketBadStatusException: Handshake status 502 Bad Gateway -+-+- {'server': 'nginx/1.30.6', 'date': 'Sat, 14 Nov 2026 05:38:58 GMT', 'content-type': 'text/html', 'content-length': '157', 'connection': 'keep-alive'} -+-+- <html>
+E   <head><title>502 Bad Gateway</title></head>
+E   <body>
+E   <center><h1>502 Bad Gateway</h1></center>
+E   <hr><center>nginx/1.30.6</center>
+E   </body>
+E   </html>
+----------------------------- Captured stdout call -----------------------------
+Entrada pública generada: HTTPS
+_______ test_two_immediate_websockets_after_restoring_one_peer[public-a] _______
+apps/services/tests/test_nginx_wss_selection.py:274: in test_two_immediate_websockets_after_restoring_one_peer
+    second = connect_once("second_upgrade")
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+apps/services/tests/test_nginx_wss_selection.py:246: in connect_once
+    client = websocket.create_connection(
+apps/services/.venv/lib/python3.12/site-packages/websocket/_core.py:734: in create_connection
+    websock.connect(url, **options)
+apps/services/.venv/lib/python3.12/site-packages/websocket/_core.py:284: in connect
+    self.handshake_response = handshake(self.sock, url, *addrs, **options)
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+apps/services/.venv/lib/python3.12/site-packages/websocket/_handshake.py:73: in handshake
+    status, resp = _get_resp_headers(sock)
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+apps/services/.venv/lib/python3.12/site-packages/websocket/_handshake.py:173: in _get_resp_headers
+    raise WebSocketBadStatusException(
+E   websocket._exceptions.WebSocketBadStatusException: Handshake status 502 Bad Gateway -+-+- {'server': 'nginx', 'date': 'Sat, 14 Nov 2026 05:39:02 GMT', 'content-type': 'text/html', 'content-length': '150', 'connection': 'keep-alive', 'strict-transport-security': 'max-age=31536000'} -+-+- <html>
+E   <head><title>502 Bad Gateway</title></head>
+E   <body>
+E   <center><h1>502 Bad Gateway</h1></center>
+E   <hr><center>nginx</center>
+E   </body>
+E   </html>
+----------------------------- Captured stdout call -----------------------------
+Entrada pública generada: HTTPS
+_______ test_two_immediate_websockets_after_restoring_one_peer[public-b] _______
+apps/services/tests/test_nginx_wss_selection.py:274: in test_two_immediate_websockets_after_restoring_one_peer
+    second = connect_once("second_upgrade")
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+apps/services/tests/test_nginx_wss_selection.py:246: in connect_once
+    client = websocket.create_connection(
+apps/services/.venv/lib/python3.12/site-packages/websocket/_core.py:734: in create_connection
+    websock.connect(url, **options)
+apps/services/.venv/lib/python3.12/site-packages/websocket/_core.py:284: in connect
+    self.handshake_response = handshake(self.sock, url, *addrs, **options)
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+apps/services/.venv/lib/python3.12/site-packages/websocket/_handshake.py:73: in handshake
+    status, resp = _get_resp_headers(sock)
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+apps/services/.venv/lib/python3.12/site-packages/websocket/_handshake.py:173: in _get_resp_headers
+    raise WebSocketBadStatusException(
+E   websocket._exceptions.WebSocketBadStatusException: Handshake status 502 Bad Gateway -+-+- {'server': 'nginx', 'date': 'Sat, 14 Nov 2026 05:39:06 GMT', 'content-type': 'text/html', 'content-length': '150', 'connection': 'keep-alive', 'strict-transport-security': 'max-age=31536000'} -+-+- <html>
+E   <head><title>502 Bad Gateway</title></head>
+E   <body>
+E   <center><h1>502 Bad Gateway</h1></center>
+E   <hr><center>nginx</center>
+E   </body>
+E   </html>
+----------------------------- Captured stdout call -----------------------------
+Entrada pública generada: HTTPS
+=========================== short test summary info ============================
+FAILED apps/services/tests/test_nginx_wss_selection.py::test_two_immediate_websockets_after_restoring_one_peer[private-a]
+FAILED apps/services/tests/test_nginx_wss_selection.py::test_two_immediate_websockets_after_restoring_one_peer[private-b]
+FAILED apps/services/tests/test_nginx_wss_selection.py::test_two_immediate_websockets_after_restoring_one_peer[public-a]
+FAILED apps/services/tests/test_nginx_wss_selection.py::test_two_immediate_websockets_after_restoring_one_peer[public-b]
+4 failed in 16.67s

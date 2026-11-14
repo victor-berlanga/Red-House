@@ -1,0 +1,27 @@
+{
+  "base_commit": "ccac9242ddcdb8931f9604cbe73cd868cf6fb716",
+  "candidate_hashes": {
+    "deployment/nginx.conf": "b066b3afcda97dd28c7c8a9e7b3b70eb83b43c7b3d4fab5b3da152810429fa9d",
+    "deployment/gcp/configure_public.py": "3d700acc467e36a7b5bf089a8d77984fbe28ac2a7655a30f0d6485d89aa06701",
+    "apps/services/tests/test_nginx_wss_selection.py": "655444ece66ef72fea3f0aba1dd434b4ca9016443142c5522a9063d6d6d12a02"
+  },
+  "nginx_binary": {
+    "version": "nginx version: nginx/1.30.6",
+    "sha256": "a77a9c3e7b625f2df5ba8e070a36172dc1ae461c1e8b5ca37bdf9ce7c5cd991c"
+  },
+  "independent_runs": true,
+  "no_full_B_or_I06_07_executed": true,
+  "scope": "Nginx selection/Upgrade using echo doubles, not application security/persistence",
+  "control_source_hashes": {
+    "deployment/nginx.conf": "63e8175541283adbc223777d1977ced522c790cec54ed07aef9d018842eaf9bf",
+    "deployment/gcp/configure_public.py": "b3341bc856668e3956b27e4c7652a1497172e6cb0b927274a3e34db73d5c872d"
+  },
+  "candidate_source_hashes": {
+    "deployment/nginx.conf": "b066b3afcda97dd28c7c8a9e7b3b70eb83b43c7b3d4fab5b3da152810429fa9d",
+    "deployment/gcp/configure_public.py": "3d700acc467e36a7b5bf089a8d77984fbe28ac2a7655a30f0d6485d89aa06701"
+  },
+  "browser_harness_hashes": {
+    "apps/services/tests/test_portal_gateway_tracking.py": "a8cbd562cadcf064279052a668454fba4a29f7bcc8849a912a4b662424d75f77",
+    "scripts/verify_portal_gateway_tracking.cjs": "d32ccc1e582e99d26413fd8348287dd975d89b9f8b59d249512740099cb59712"
+  }
+}

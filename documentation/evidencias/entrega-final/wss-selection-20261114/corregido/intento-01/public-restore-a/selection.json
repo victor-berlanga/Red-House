@@ -1,0 +1,80 @@
+{
+  "restored_peer": "a",
+  "route": "public",
+  "peers": {
+    "a": 49988,
+    "b": 49989
+  },
+  "source_hashes": {
+    "deployment/nginx.conf": "b066b3afcda97dd28c7c8a9e7b3b70eb83b43c7b3d4fab5b3da152810429fa9d",
+    "deployment/gcp/configure_public.py": "3d700acc467e36a7b5bf089a8d77984fbe28ac2a7655a30f0d6485d89aa06701"
+  },
+  "steps": [
+    {
+      "event": "both_down_upgrade_requested",
+      "utc": "2026-11-14T05:39:38.332024+00:00",
+      "monotonic": 444224.379538715
+    },
+    {
+      "event": "both_down_upgrade_rejected",
+      "utc": "2026-11-14T05:39:38.384573+00:00",
+      "monotonic": 444224.432044533,
+      "status": 502
+    },
+    {
+      "event": "both_down_handshake",
+      "utc": "2026-11-14T05:39:38.384735+00:00",
+      "monotonic": 444224.432178017,
+      "status": 502
+    },
+    {
+      "event": "one_peer_listening",
+      "utc": "2026-11-14T05:39:41.500269+00:00",
+      "monotonic": 444227.547845671
+    },
+    {
+      "event": "first_upgrade_requested",
+      "utc": "2026-11-14T05:39:41.500323+00:00",
+      "monotonic": 444227.54786677
+    },
+    {
+      "event": "first_open",
+      "utc": "2026-11-14T05:39:41.521489+00:00",
+      "monotonic": 444227.569065444,
+      "status": 101,
+      "peer": "a"
+    },
+    {
+      "event": "second_upgrade_requested",
+      "utc": "2026-11-14T05:39:41.521540+00:00",
+      "monotonic": 444227.569085496
+    },
+    {
+      "event": "second_open",
+      "utc": "2026-11-14T05:39:41.539709+00:00",
+      "monotonic": 444227.587283937,
+      "status": 101,
+      "peer": "a"
+    },
+    {
+      "event": "both_still_open_after_second",
+      "utc": "2026-11-14T05:39:41.543181+00:00",
+      "monotonic": 444227.590760236
+    }
+  ],
+  "phase": "both_open_echo",
+  "handshake_statuses": {
+    "both_down_upgrade": 502,
+    "first_upgrade": 101,
+    "second_upgrade": 101
+  },
+  "scope": "Selection and Upgrade only; synthetic echo peers, no app auth or persistence",
+  "nginx_binary": {
+    "version": "nginx version: nginx/1.30.6",
+    "sha256": "a77a9c3e7b625f2df5ba8e070a36172dc1ae461c1e8b5ca37bdf9ce7c5cd991c"
+  },
+  "passed": true,
+  "first_101_then_second_http_failure": false,
+  "nginx_closed": true,
+  "cleanup_errors": []
+}

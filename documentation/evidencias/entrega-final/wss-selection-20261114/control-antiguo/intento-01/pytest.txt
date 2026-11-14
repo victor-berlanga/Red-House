@@ -1,0 +1,24 @@
+EEEE                                                                     [100%]
+==================================== ERRORS ====================================
+_ ERROR at setup of test_two_immediate_websockets_after_restoring_one_peer[private-a] _
+/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [Errno 2] No such file or directory: '/Users/victorberlanga/Programacion/integracion/Red-House/.local/wss-selection-20261114/control-antiguo-intento-01'
+_ ERROR at setup of test_two_immediate_websockets_after_restoring_one_peer[private-b] _
+/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [Errno 2] No such file or directory: '/Users/victorberlanga/Programacion/integracion/Red-House/.local/wss-selection-20261114/control-antiguo-intento-01'
+_ ERROR at setup of test_two_immediate_websockets_after_restoring_one_peer[public-a] _
+/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [Errno 2] No such file or directory: '/Users/victorberlanga/Programacion/integracion/Red-House/.local/wss-selection-20261114/control-antiguo-intento-01'
+_ ERROR at setup of test_two_immediate_websockets_after_restoring_one_peer[public-b] _
+/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [Errno 2] No such file or directory: '/Users/victorberlanga/Programacion/integracion/Red-House/.local/wss-selection-20261114/control-antiguo-intento-01'
+=========================== short test summary info ============================
+ERROR apps/services/tests/test_nginx_wss_selection.py::test_two_immediate_websockets_after_restoring_one_peer[private-a]
+ERROR apps/services/tests/test_nginx_wss_selection.py::test_two_immediate_websockets_after_restoring_one_peer[private-b]
+ERROR apps/services/tests/test_nginx_wss_selection.py::test_two_immediate_websockets_after_restoring_one_peer[public-a]
+ERROR apps/services/tests/test_nginx_wss_selection.py::test_two_immediate_websockets_after_restoring_one_peer[public-b]
+4 errors in 2.83s

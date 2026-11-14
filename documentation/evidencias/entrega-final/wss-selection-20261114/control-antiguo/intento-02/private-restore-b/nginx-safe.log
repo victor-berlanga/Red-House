@@ -1,0 +1,12 @@
+nginx: [alert] could not open error log file: open() "/Users/victorberlanga/Programacion/integracion/Red-House/.local/wss-selection-20261114/control-antiguo-intento-02/test_two_immediate_websockets_1/logs/error.log" failed (2: No such file or directory)
+1794634734.960 GET /health/live 200 0.000 - -
+2026/11/13 23:38:54 [error] 99449#0: *2 kevent() reported that connect() failed (61: Connection refused) while connecting to upstream, client: 127.0.0.1, server: , request: "GET /ws/v1/tracking/json HTTP/1.1", upstream: "http://127.0.0.1:49825/ws/v1/tracking/json", host: "127.0.0.1:49836"
+2026/11/13 23:38:54 [warn] 99449#0: *2 upstream server temporarily disabled while connecting to upstream, client: 127.0.0.1, server: , request: "GET /ws/v1/tracking/json HTTP/1.1", upstream: "http://127.0.0.1:49825/ws/v1/tracking/json", host: "127.0.0.1:49836"
+2026/11/13 23:38:54 [error] 99449#0: *2 kevent() reported that connect() failed (61: Connection refused) while connecting to upstream, client: 127.0.0.1, server: , request: "GET /ws/v1/tracking/json HTTP/1.1", upstream: "http://127.0.0.1:49827/ws/v1/tracking/json", host: "127.0.0.1:49836"
+2026/11/13 23:38:54 [warn] 99449#0: *2 upstream server temporarily disabled while connecting to upstream, client: 127.0.0.1, server: , request: "GET /ws/v1/tracking/json HTTP/1.1", upstream: "http://127.0.0.1:49827/ws/v1/tracking/json", host: "127.0.0.1:49836"
+1794634734.966 GET /ws/v1/tracking/json 502 0.001 127.0.0.1:49825, 127.0.0.1:49827 502, 502
+2026/11/13 23:38:58 [error] 99450#0: *7 kevent() reported that connect() failed (61: Connection refused) while connecting to upstream, client: 127.0.0.1, server: , request: "GET /ws/v1/tracking/json HTTP/1.1", upstream: "http://127.0.0.1:49825/ws/v1/tracking/json", host: "127.0.0.1:49836"
+2026/11/13 23:38:58 [warn] 99450#0: *7 upstream server temporarily disabled while connecting to upstream, client: 127.0.0.1, server: , request: "GET /ws/v1/tracking/json HTTP/1.1", upstream: "http://127.0.0.1:49825/ws/v1/tracking/json", host: "127.0.0.1:49836"
+2026/11/13 23:38:58 [error] 99450#0: *7 no live upstreams while connecting to upstream, client: 127.0.0.1, server: , request: "GET /ws/v1/tracking/json HTTP/1.1", upstream: "http://transporte/ws/v1/tracking/json", host: "127.0.0.1:49836"
+1794634738.093 GET /ws/v1/tracking/json 502 0.000 127.0.0.1:49825, transporte 502, 502
+1794634738.098 GET /ws/v1/tracking/json 101 0.012 127.0.0.1:49827 101

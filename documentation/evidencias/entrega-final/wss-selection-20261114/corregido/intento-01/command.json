@@ -1,0 +1,16 @@
+{
+  "argv": [
+    "/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/.venv/bin/python",
+    "-m",
+    "pytest",
+    "apps/services/tests/test_nginx_wss_selection.py",
+    "-q",
+    "--tb=short",
+    "--basetemp=/Users/victorberlanga/Programacion/integracion/Red-House/.local/wss-selection-20261114/corregido-intento-01",
+    "--junitxml=/Users/victorberlanga/Programacion/integracion/Red-House/documentation/evidencias/entrega-final/wss-selection-20261114/corregido/intento-01/junit.xml"
+  ],
+  "environment": {
+    "REDHOUSE_TEST_NGINX": "/Users/victorberlanga/Programacion/integracion/Red-House/.local/tools/nginx-1.30.6/sbin/nginx"
+  },
+  "started_utc": "2026-11-14T05:39:24Z"
+}

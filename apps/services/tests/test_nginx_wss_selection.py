@@ -1,0 +1,322 @@
+"""Real Nginx peer selection with narrow WebSocket echo doubles; no databases."""
+
+import base64
+import hashlib
+import importlib.util
+import json
+import os
+import re
+import socket
+import subprocess
+import threading
+import time
+from datetime import UTC, datetime
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+from pathlib import Path
+
+import pytest
+import websocket
+
+from .test_nginx_runtime import certificate, wait_live
+
+ROOT = Path(__file__).resolve().parents[3]
+NGINX = os.environ.get("REDHOUSE_TEST_NGINX", "")
+
+
+class EchoPeer:
+    """A fixed-path, unauthenticated test double, not Transporte or its protocol."""
+
+    def __init__(self, port, name):
+        self.name = name
+        self.connections = set()
+        self.lock = threading.Lock()
+        peer = self
+
+        class Handler(BaseHTTPRequestHandler):
+            protocol_version = "HTTP/1.1"
+
+            def log_message(self, *_args):
+                pass
+
+            def do_GET(self):
+                if self.path != "/ws/v1/tracking/json":
+                    self.send_error(404)
+                    return
+                key = self.headers.get("Sec-WebSocket-Key", "")
+                if self.headers.get("Upgrade", "").lower() != "websocket" or not key:
+                    self.send_error(400)
+                    return
+                accept = base64.b64encode(
+                    hashlib.sha1(
+                        (key + "258EAFA5-E914-47DA-95CA-C5AB0DC85B11").encode()
+                    ).digest()
+                ).decode()
+                self.send_response(101)
+                self.send_header("Upgrade", "websocket")
+                self.send_header("Connection", "Upgrade")
+                self.send_header("Sec-WebSocket-Accept", accept)
+                self.send_header("X-Test-Peer", peer.name)
+                self.end_headers()
+                with peer.lock:
+                    peer.connections.add(self.connection)
+                try:
+                    # Controlled clients send only short, final text/close frames.
+                    while True:
+                        header = self.rfile.read(2)
+                        if len(header) != 2:
+                            break
+                        length = header[1] & 127
+                        if not header[0] & 128 or not header[1] & 128 or length > 125:
+                            break
+                        mask, data = self.rfile.read(4), self.rfile.read(length)
+                        if len(mask) != 4 or len(data) != length:
+                            break
+                        payload = bytes(
+                            value ^ mask[i % 4] for i, value in enumerate(data)
+                        )
+                        opcode = header[0] & 15
+                        if opcode == 8:
+                            self.wfile.write(bytes([0x88, len(payload)]) + payload)
+                            self.wfile.flush()
+                            break
+                        if opcode not in (1, 9):
+                            break
+                        self.wfile.write(
+                            bytes([0x8A if opcode == 9 else 0x81, length]) + payload
+                        )
+                        self.wfile.flush()
+                except (OSError, ValueError):
+                    pass
+                finally:
+                    with peer.lock:
+                        peer.connections.discard(self.connection)
+                    self.close_connection = True
+
+        self.server = ThreadingHTTPServer(("127.0.0.1", port), Handler)
+        self.server.daemon_threads = True
+        self.thread = threading.Thread(
+            target=lambda: self.server.serve_forever(poll_interval=0.05), daemon=True
+        )
+        self.thread.start()
+
+    def close(self):
+        self.server.shutdown()
+        with self.lock:
+            connections = list(self.connections)
+        for connection in connections:
+            try:
+                connection.shutdown(socket.SHUT_RDWR)
+            except OSError:
+                pass
+            connection.close()
+        self.server.server_close()
+        self.thread.join(timeout=3)
+        assert not self.thread.is_alive()
+
+
+@pytest.mark.skipif(not NGINX, reason="REDHOUSE_TEST_NGINX no configurado")
+@pytest.mark.parametrize("restored", ["a", "b"])
+@pytest.mark.parametrize("route", ["private", "public"])
+def test_two_immediate_websockets_after_restoring_one_peer(tmp_path, restored, route):
+    source = Path(os.environ.get("REDHOUSE_NGINX_CONFIG_ROOT", str(ROOT))).resolve()
+    spec = importlib.util.spec_from_file_location(
+        "selection_public_generator", source / "deployment/gcp/configure_public.py"
+    )
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    (tmp_path / "apps").mkdir()
+    (tmp_path / "web.json").write_text("{}")
+    services = json.loads((source / "compose.yaml").read_text())["services"]
+    for name in services:
+        if name.endswith("-a"):
+            (tmp_path / "apps" / (name[:-2].replace("-", "_") + ".json")).write_text(
+                "{}"
+            )
+    module.configure(tmp_path, "127.0.0.1")
+    certificate(tmp_path / "tls")
+    reservations = []
+
+    def reserve():
+        holder = socket.socket()
+        holder.bind(("127.0.0.1", 0))
+        reservations.append(holder)
+        return holder.getsockname()[1]
+
+    peers = {name: reserve() for name in ("a", "b")}
+    unused = reserve()
+    config = (tmp_path / "public.nginx.conf").read_text()
+
+    def backend(match):
+        name = match.group(1)
+        port = (
+            peers[name.removeprefix("transporte-").removesuffix("-private")]
+            if name.startswith("transporte-")
+            else unused
+        )
+        return f"server 127.0.0.1:{port} resolve"
+
+    config = re.sub(r"server ([a-z-]+):8080 resolve", backend, config)
+    ports = {}
+
+    def listener(match):
+        original = int(match.group(1))
+        if original not in ports:
+            ports[original] = reserve()
+        return f"listen 127.0.0.1:{ports[original]}"
+
+    config = re.sub(r"listen (\d+)", listener, config)
+    # Replace built-in temporary paths before inserting a possibly /private/tmp TLS path.
+    config = config.replace("/tmp/", str(tmp_path) + "/")
+    config = config.replace("/etc/nginx/tls", str(tmp_path / "tls"))
+    config = config.replace(
+        "log_format safe '$request_method $uri $status $request_time';",
+        "log_format safe '$msec $request_method $uri $status $request_time $upstream_addr $upstream_status';",
+    )
+    config_path = tmp_path / "selection.nginx.conf"
+    config_path.write_text(config)
+    report = {
+        "restored_peer": restored,
+        "route": route,
+        "peers": peers,
+        "source_hashes": {
+            name: hashlib.sha256((source / name).read_bytes()).hexdigest()
+            for name in ("deployment/nginx.conf", "deployment/gcp/configure_public.py")
+        },
+        "steps": [],
+        "phase": "nginx_preparation",
+        "handshake_statuses": {},
+        "scope": "Selection and Upgrade only; synthetic echo peers, no app auth or persistence",
+    }
+
+    def mark(event, **values):
+        report["steps"].append(
+            {
+                "event": event,
+                "utc": datetime.now(UTC).isoformat(),
+                "monotonic": time.monotonic(),
+                **values,
+            }
+        )
+
+    nginx, peer, clients = None, None, []
+    try:
+        version = subprocess.run(
+            [NGINX, "-v"], check=True, capture_output=True, text=True, timeout=5
+        )
+        report["nginx_binary"] = {
+            "version": (version.stdout + version.stderr).strip(),
+            "sha256": hashlib.sha256(Path(NGINX).read_bytes()).hexdigest(),
+        }
+        subprocess.run(
+            [NGINX, "-t", "-p", str(tmp_path), "-c", str(config_path)],
+            check=True,
+            capture_output=True,
+        )
+        for holder in reservations:
+            holder.close()
+        with (tmp_path / "nginx-safe.log").open("wb") as output:
+            nginx = subprocess.Popen(
+                [
+                    NGINX,
+                    "-p",
+                    str(tmp_path),
+                    "-c",
+                    str(config_path),
+                    "-g",
+                    "daemon off;",
+                ],
+                stdout=output,
+                stderr=subprocess.STDOUT,
+            )
+        wait_live(f"http://127.0.0.1:{ports[8080]}/health/live", nginx)
+        # Only the Nginx-local health was queried, never either upstream over HTTP.
+        if route == "public":
+            url = (
+                f"wss://127.0.0.1:{ports[8443]}/services/transporte/ws/v1/tracking/json"
+            )
+            options = {"ca_certs": str(tmp_path / "tls/fullchain.pem")}
+        else:
+            url = f"ws://127.0.0.1:{ports[5107]}/ws/v1/tracking/json"
+            options = {}
+
+        def connect_once(phase):
+            report["phase"] = phase
+            mark(phase + "_requested")
+            try:
+                client = websocket.create_connection(
+                    url, timeout=5, sslopt=options, http_no_proxy=["127.0.0.1"]
+                )
+            except websocket.WebSocketBadStatusException as exc:
+                status = int(exc.status_code) if exc.status_code is not None else None
+                report["handshake_statuses"][phase] = status
+                mark(phase + "_rejected", status=status)
+                raise
+            report["handshake_statuses"][phase] = int(client.getstatus())
+            return client
+
+        with pytest.raises(websocket.WebSocketBadStatusException) as failed:
+            connect_once("both_down_upgrade")
+        assert failed.value.status_code == 502
+        mark("both_down_handshake", status=502)
+        report["phase"] = "outage_preparation"
+        # Nginx uses integer seconds and excludes while delta <= fail_timeout.
+        # A fixed 3.1 s outage exceeds the historical 2 s window for either phase.
+        # Both configs use it; there is no retry or delay between their Upgrades.
+        time.sleep(3.1)
+        peer = EchoPeer(peers[restored], restored)
+        mark("one_peer_listening")
+        first = connect_once("first_upgrade")
+        clients.append(first)
+        assert first.getstatus() == 101
+        assert first.getheaders()["x-test-peer"] == restored
+        mark("first_open", status=101, peer=restored)
+        # No sleep, HTTP request or retry after the first Upgrade.
+        second = connect_once("second_upgrade")
+        clients.append(second)
+        assert second.getstatus() == 101
+        assert second.getheaders()["x-test-peer"] == restored
+        mark("second_open", status=101, peer=restored)
+        report["phase"] = "both_open_echo"
+        for index, client in enumerate(clients):
+            client.send(f"open-{index}")
+            assert client.recv() == f"open-{index}"
+        mark("both_still_open_after_second")
+        report["passed"] = True
+    except BaseException as exc:
+        report["failure"] = {
+            "category": type(exc).__name__,
+            "phase": report["phase"],
+            "http_status": report["handshake_statuses"].get(report["phase"]),
+        }
+        raise
+    finally:
+        cleanup_errors = []
+        for holder in reservations:
+            holder.close()
+        for client in clients:
+            try:
+                client.close(timeout=1)
+            except (OSError, websocket.WebSocketException) as exc:
+                cleanup_errors.append(type(exc).__name__)
+        if peer is not None:
+            try:
+                peer.close()
+            except (OSError, AssertionError) as exc:
+                cleanup_errors.append(type(exc).__name__)
+        if nginx is not None and nginx.poll() is None:
+            nginx.terminate()
+            try:
+                nginx.wait(timeout=5)
+            except subprocess.TimeoutExpired:
+                nginx.kill()
+                nginx.wait(timeout=3)
+        statuses = report["handshake_statuses"]
+        report["first_101_then_second_http_failure"] = (
+            statuses.get("first_upgrade") == 101
+            and statuses.get("second_upgrade") is not None
+            and statuses["second_upgrade"] != 101
+        )
+        report["nginx_closed"] = nginx is None or nginx.poll() is not None
+        report["cleanup_errors"] = cleanup_errors
+        (tmp_path / "selection.json").write_text(json.dumps(report, indent=2) + "\n")
+        assert not cleanup_errors

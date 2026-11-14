@@ -2,6 +2,12 @@
 
 Las entradas están ordenadas de reciente a histórico; un pendiente de un corte anterior puede quedar sustituido explícitamente por una entrada posterior.
 
+## Recuperación de conexiones WSS corregida y acotada — 13/11/2026
+
+El proxy separa la selección de réplicas WSS del grupo HTTP. Tras una caída de ambas réplicas, la configuración anterior rechazó la segunda conexión inmediata mientras la primera seguía abierta en los cuatro casos de control; la nueva permitió ambas conexiones y sus intercambios en los cuatro casos. Se probaron restauración de A/B y rutas privada WS/pública WSS con Nginx real 1.30.6 y servidores eco sintéticos. Dirección cotejó JUnit, los ocho registros de ejecución, las huellas actuales y manifiestos estables de 1395 fuentes. Un intento inicial falló al preparar el directorio y se conserva separado de las pruebas funcionales.
+
+No cambia el grupo HTTP ni sus rutas. Cada conexión WSS nueva puede intentar una réplica caída; el límite de conexión TCP de un segundo no limita toda la negociación. [Reproducción y límites](documentation/evidencias/entrega-final/wss-selection-20261114/RESULTADOS.md). Faltan B completo, regresión I06-07 sobre esta configuración y validación/publicación con la imagen efectiva de GCP; estos dobles no acreditan autenticación ni persistencia. I06-08 y etapa 06 siguen abiertos.
+
 ## Laboratorio iOS separado planificado — 13/11/2026
 
 Preparado un [plan pendiente de implementación](documentation/entrega-final/mobile/Plan_laboratorio_iOS.md) para probar capacidades físicas sin alterar la sesión donante de la app normal: bundle, Keychain, tareas de fondo y compilación separados; confianza HTTPS/WSS limitada a una CA pública de laboratorio y su origen exacto. La app normal ya dispone de firma y operación física comprobadas; el perfil del nuevo bundle y su conectividad aún deben verificarse. No se crearon cuentas, variante, certificados ni instalaciones mediante este plan; no acredita capacidades ni cierra 04.

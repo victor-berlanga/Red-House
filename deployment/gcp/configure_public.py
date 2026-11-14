@@ -83,7 +83,7 @@ def configure(directory, address, bootstrap=False):
             if name == "transporte":
                 blocks.append(f"""
     location {prefix}/ws/v1/tracking/ {{
-      proxy_pass http://transporte/ws/v1/tracking/;
+      proxy_pass http://transporte_wss/ws/v1/tracking/;
       proxy_http_version 1.1;
       proxy_set_header Upgrade $http_upgrade;
       proxy_set_header Connection "upgrade";
@@ -95,6 +95,9 @@ def configure(directory, address, bootstrap=False):
       proxy_set_header X-Forwarded-Port "";
       proxy_set_header X-Forwarded-By "";
       proxy_set_header Forwarded "";
+      proxy_connect_timeout 1s;
+      proxy_next_upstream error timeout;
+      proxy_next_upstream_tries 2;
       proxy_read_timeout 75s;
       proxy_send_timeout 10s;
       proxy_buffering off;

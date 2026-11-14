@@ -1,0 +1,17 @@
+{
+  "argv": [
+    "/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/.venv/bin/python",
+    "-m",
+    "pytest",
+    "apps/services/tests/test_nginx_wss_selection.py",
+    "-q",
+    "--tb=short",
+    "--basetemp=/Users/victorberlanga/Programacion/integracion/Red-House/.local/wss-selection-20261114/control-antiguo-intento-01",
+    "--junitxml=/Users/victorberlanga/Programacion/integracion/Red-House/documentation/evidencias/entrega-final/wss-selection-20261114/control-antiguo/intento-01/junit.xml"
+  ],
+  "environment": {
+    "REDHOUSE_TEST_NGINX": "/Users/victorberlanga/Programacion/integracion/Red-House/.local/tools/nginx-1.30.6/sbin/nginx",
+    "REDHOUSE_NGINX_CONFIG_ROOT": "/private/tmp/redhouse-wss-proxy-draft-fga567el/control-antiguo"
+  },
+  "started_utc": "2026-11-14T05:37:55Z"
+}

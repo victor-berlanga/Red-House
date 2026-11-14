@@ -1,0 +1,64 @@
+{
+  "mode": "corregido",
+  "pytest_exit_code": 0,
+  "seconds": 24.176,
+  "source_files": 1395,
+  "sources_equal": true,
+  "cases": [
+    {
+      "case": "private-restore-a",
+      "statuses": {
+        "both_down_upgrade": 502,
+        "first_upgrade": 101,
+        "second_upgrade": 101
+      },
+      "failure": null,
+      "first_101_then_second_http_failure": false,
+      "passed": true,
+      "nginx_closed": true,
+      "cleanup_errors": []
+    },
+    {
+      "case": "private-restore-b",
+      "statuses": {
+        "both_down_upgrade": 502,
+        "first_upgrade": 101,
+        "second_upgrade": 101
+      },
+      "failure": null,
+      "first_101_then_second_http_failure": false,
+      "passed": true,
+      "nginx_closed": true,
+      "cleanup_errors": []
+    },
+    {
+      "case": "public-restore-a",
+      "statuses": {
+        "both_down_upgrade": 502,
+        "first_upgrade": 101,
+        "second_upgrade": 101
+      },
+      "failure": null,
+      "first_101_then_second_http_failure": false,
+      "passed": true,
+      "nginx_closed": true,
+      "cleanup_errors": []
+    },
+    {
+      "case": "public-restore-b",
+      "statuses": {
+        "both_down_upgrade": 502,
+        "first_upgrade": 101,
+        "second_upgrade": 101
+      },
+      "failure": null,
+      "first_101_then_second_http_failure": false,
+      "passed": true,
+      "nginx_closed": true,
+      "cleanup_errors": []
+    }
+  ],
+  "control_mechanism_observed_all_four": false,
+  "candidate_passed_all_four": true,
+  "all_nginx_closed": true
+}

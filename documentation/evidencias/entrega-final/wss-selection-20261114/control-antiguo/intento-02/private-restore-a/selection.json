@@ -1,0 +1,78 @@
+{
+  "restored_peer": "a",
+  "route": "private",
+  "peers": {
+    "a": 49793,
+    "b": 49794
+  },
+  "source_hashes": {
+    "deployment/nginx.conf": "63e8175541283adbc223777d1977ced522c790cec54ed07aef9d018842eaf9bf",
+    "deployment/gcp/configure_public.py": "b3341bc856668e3956b27e4c7652a1497172e6cb0b927274a3e34db73d5c872d"
+  },
+  "steps": [
+    {
+      "event": "both_down_upgrade_requested",
+      "utc": "2026-11-14T05:38:50.914472+00:00",
+      "monotonic": 444176.960225282
+    },
+    {
+      "event": "both_down_upgrade_rejected",
+      "utc": "2026-11-14T05:38:50.925906+00:00",
+      "monotonic": 444176.971644558,
+      "status": 502
+    },
+    {
+      "event": "both_down_handshake",
+      "utc": "2026-11-14T05:38:50.926052+00:00",
+      "monotonic": 444176.97176285,
+      "status": 502
+    },
+    {
+      "event": "one_peer_listening",
+      "utc": "2026-11-14T05:38:54.037176+00:00",
+      "monotonic": 444180.083002785
+    },
+    {
+      "event": "first_upgrade_requested",
+      "utc": "2026-11-14T05:38:54.037202+00:00",
+      "monotonic": 444180.083012607
+    },
+    {
+      "event": "first_open",
+      "utc": "2026-11-14T05:38:54.041036+00:00",
+      "monotonic": 444180.086859577,
+      "status": 101,
+      "peer": "a"
+    },
+    {
+      "event": "second_upgrade_requested",
+      "utc": "2026-11-14T05:38:54.041057+00:00",
+      "monotonic": 444180.08686766
+    },
+    {
+      "event": "second_upgrade_rejected",
+      "utc": "2026-11-14T05:38:54.043125+00:00",
+      "monotonic": 444180.088950051,
+      "status": 502
+    }
+  ],
+  "phase": "second_upgrade",
+  "handshake_statuses": {
+    "both_down_upgrade": 502,
+    "first_upgrade": 101,
+    "second_upgrade": 502
+  },
+  "scope": "Selection and Upgrade only; synthetic echo peers, no app auth or persistence",
+  "nginx_binary": {
+    "version": "nginx version: nginx/1.30.6",
+    "sha256": "a77a9c3e7b625f2df5ba8e070a36172dc1ae461c1e8b5ca37bdf9ce7c5cd991c"
+  },
+  "failure": {
+    "category": "WebSocketBadStatusException",
+    "phase": "second_upgrade",
+    "http_status": 502
+  },
+  "first_101_then_second_http_failure": true,
+  "nginx_closed": true,
+  "cleanup_errors": []
+}

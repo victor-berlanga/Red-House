@@ -22,6 +22,12 @@ B falló en sus dos intentos: el publicador recibió 502. B02/S2 ya exigía un s
 
 Regresión I06-07 independiente sobre S1: 1/1 en 155,397 s, cancelación autónoma SQL/auditoría y tres IDs/cursores iguales en mapa/SQL/Mongo, ambas réplicas restauradas; captura final revisada por dirección. Se mantienen el expediente previo y sus límites. No es una suite agregada ni se atribuyen los aprobados S1 a S2. Cambio de rol, revocación de asignación y B continúan pendientes; I06-08 y etapa 06 permanecen abiertos. TESTING/cuotas, confianza SPKI efímera, WSGI, OSM bloqueado y coordenadas simuladas conservan los límites del ensayo local.
 
+## Selección WSS corregida en laboratorio; aceptación integrada pendiente — 13/14 de noviembre de 2026
+
+[Discriminante Nginx](../../evidencias/entrega-final/wss-selection-20261114/RESULTADOS.md): el control antiguo reprodujo cuatro veces primer Upgrade 101 y segundo inmediato 502, restaurando A/B por rutas privada WS y pública WSS. La configuración corregida pasó 4/4 en 17,017 s: ambos sockets recibieron 101 y respondieron después. El primer intento del control tuvo cuatro errores de setup, sin motores, y se conserva separado. Dirección revisó las fuentes y los ocho reportes funcionales; cada corrida mantuvo 1395 huellas iguales y cerró procesos propios.
+
+El cambio separa grupo/zona WSS con los mismos peers `max_fails=0`, failover de handshake `error timeout`/dos intentos y conexión TCP de un segundo; HTTP queda intacto. Son peers echo sintéticos, sin autenticación ni persistencia. Un segundo no limita todo el Upgrade; lectura de 75 s y ausencia de replay después de 101 conservan sus límites. Nginx local 1.30.6, sin validar la imagen Compose 1.28 ni GCP. **B03 completo, regresión I06-07 y publicación siguen pendientes**. B01/B02 permanecen fallidos; este incremento no amplía la aceptación de I06-08 ni cierra la etapa 06.
+
 ## Plan original del 6 de noviembre
 
 Preparado el 6 de noviembre de 2026. **Plan revisable, no ejecución ni autorización.**
