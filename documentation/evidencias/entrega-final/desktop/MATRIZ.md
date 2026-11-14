@@ -1,6 +1,6 @@
 # Escritorio: estado y matriz inicial
 
-Corte 13/11/2026. macOS Darwin x86_64, Python 3.12.6: ejecución desde entorno virtual y capturas Qt comprobadas. El paquete anterior pasó smoke; falta reconstruirlo con el resumen reciente. Firma de distribución, notarización, lector e impresora pendientes. Windows 11 y Linux sin ejecución. Los contratos locales son copias de OpenAPI/XSD; cada permiso y ámbito debe comprobarse contra servicio real y pruebas de autorización antes de operar.
+Corte 13/11/2026. macOS Darwin x86_64, Python 3.12.6: ejecución desde entorno virtual, capturas Qt y smoke del paquete reconstruido comprobados. Firma de distribución, notarización, lector e impresora pendientes. Windows 11 y Linux sin ejecución. Los contratos locales son copias de OpenAPI/XSD; cada permiso y ámbito debe comprobarse contra servicio real y pruebas de autorización antes de operar.
 
 | ID | Módulo y tareas | Propietario/contrato | Estado y dependencia |
 |---|---|---|---|
