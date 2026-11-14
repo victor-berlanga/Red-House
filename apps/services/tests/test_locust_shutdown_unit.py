@@ -188,6 +188,40 @@ def test_session_verification_ignores_existing_and_rejects_active_or_extra():
         )
 
 
+def test_session_verification_requires_distinct_families_per_identity():
+    class RedisDouble:
+        def mget(self, keys):
+            return [None] * len(keys)
+
+    rows = [
+        ("a1", "a", "revoked"),
+        ("a2", "a", "revoked"),
+        ("b1", "b", "revoked"),
+        ("b2", "b", "revoked"),
+    ]
+    verify_new_sessions(
+        set(), rows, ["a", "b"], "fixture:", RedisDouble(), multiplicity=2
+    )
+    with pytest.raises(ValueError):
+        verify_new_sessions(
+            set(),
+            rows[:-1] + [("a3", "a", "revoked")],
+            ["a", "b"],
+            "fixture:",
+            RedisDouble(),
+            multiplicity=2,
+        )
+    with pytest.raises(ValueError):
+        verify_new_sessions(
+            set(),
+            rows[:-1] + [("a1", "b", "revoked")],
+            ["a", "b"],
+            "fixture:",
+            RedisDouble(),
+            multiplicity=2,
+        )
+
+
 def test_real_locust_test_stop_records_revocation_before_final_stats():
     env = Environment(user_classes=[])
     runner = env.create_local_runner()

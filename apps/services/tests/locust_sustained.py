@@ -3,9 +3,12 @@
 import json
 import os
 import time
+from collections import Counter
 from pathlib import Path
 
 import gevent
+from gevent.event import Event
+from gevent.lock import Semaphore
 from locust import events
 from locust.exception import StopUser
 from locustfile import PROFILES, RegionalUser
@@ -17,12 +20,56 @@ from tests.load_cleanup import cleanup_for
 _secrets = None
 _logged_in = 0
 _user_errors = 0
+_ready = Event()
+_mfa_locks = {name: Semaphore() for name in ("medical2", "coordinator1")}
+_mfa_last = {}
+_cache = Counter()
+_http = Counter()
+
+
+def observe_cache(value, status):
+    if value in ("HIT", "MISS", "BYPASS"):
+        _cache[value] += 1
+    if status == 429:
+        _http["quota_429"] += 1
+
+
+def mark_logged_in(total):
+    global _logged_in
+    if total not in (6, 12, 24, 36) or _logged_in >= total:
+        raise ValueError("Barrera de sesiones inválida")
+    _logged_in += 1
+    if _logged_in == total:
+        _ready.set()
+        return True
+    return False
+
+
+def next_mfa_counter(profile):
+    previous = max(
+        _mfa_last.get(profile, -1), int(os.environ.get("REDHOUSE_LOAD_MFA_AFTER", "-1"))
+    )
+    while int(time.time()) // 30 <= previous:
+        gevent.sleep(0.25)
+    counter = int(time.time()) // 30
+    _mfa_last[profile] = counter
+    return counter
 
 
 @events.user_error.add_listener
 def record_user_error(**_kwargs):
     global _user_errors
     _user_errors += 1
+
+
+@events.quitting.add_listener
+def enforce_final_user_errors(environment, **_kwargs):
+    # Locust calcula el código antes de su runner.quit final; detener primero
+    # asegura que cualquier error durante el drenado también sea observable.
+    if environment.runner:
+        environment.runner.stop()
+    if _user_errors:
+        environment.process_exit_code = 1
 
 
 def observe_users(environment, seconds):
@@ -43,6 +90,7 @@ def snapshot_stats(environment, duration):
             "failures": entry.num_failures,
             "requests_per_second": entry.num_requests / duration,
             "mean_ms": entry.avg_response_time,
+            "median_ms": entry.median_response_time,
             "p95_ms": entry.get_response_time_percentile(0.95),
             "p99_ms": entry.get_response_time_percentile(0.99),
         }
@@ -81,7 +129,11 @@ def measured_cycle(environment):
             "warmup": warmup,
         },
     )
-    measurement_min_users = observe_users(environment, 120)
+    _cache.clear()
+    _http.clear()
+    measurement_min_users = observe_users(
+        environment, int(os.environ.get("REDHOUSE_LOAD_MEASURE_SECONDS", "120"))
+    )
     finished = time.monotonic()
     measurement = snapshot_stats(environment, finished - measured)
     write_marker(
@@ -95,6 +147,8 @@ def measured_cycle(environment):
             "warmup_min_users": warmup_min_users,
             "measurement_min_users": measurement_min_users,
             "user_errors": _user_errors,
+            "cache": dict(_cache),
+            "http": dict(_http),
             "measurement": measurement,
         },
     )
@@ -116,7 +170,6 @@ class SustainedUser(RegionalUser):
     issued = 0
 
     def on_start(self):
-        global _logged_in
         self.api = None
         if os.environ.get("REDHOUSE_LOAD_ISOLATED") != "1":
             raise ValueError("Laboratorio aislado requerido")
@@ -133,18 +186,24 @@ class SustainedUser(RegionalUser):
             mime="application/xml"
             if self.profile == "operator1"
             else "application/json",
+            no_cache=os.environ.get("REDHOUSE_LOAD_NO_CACHE") == "1",
+            cache_observer=observe_cache,
         )
         cleanup_for(self.environment).add(self.api, self.client)
         factors = ephemeral_factors()
-        otp = (
-            totp(factors[self.profile], int(time.time()) // 30)
-            if self.profile in factors
-            else None
-        )
         try:
-            self.api.login(self.profile, state["password"], otp=otp)
+            if self.profile in factors:
+                with _mfa_locks[self.profile]:
+                    counter = next_mfa_counter(self.profile)
+                    self.api.login(
+                        self.profile,
+                        state["password"],
+                        otp=totp(factors[self.profile], counter),
+                    )
+            else:
+                self.api.login(self.profile, state["password"])
         except LoadFailure:
             raise StopUser() from None
-        _logged_in += 1
-        if _logged_in == len(PROFILES):
+        if mark_logged_in(int(os.environ.get("REDHOUSE_LOAD_USERS", "6"))):
             gevent.spawn(measured_cycle, self.environment)
+        _ready.wait()

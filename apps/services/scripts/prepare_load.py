@@ -397,7 +397,9 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--seed", type=int, default=20261113)
     parser.add_argument("--scale-percent", type=int, choices=(1, 10), default=1)
-    parser.add_argument("--sustained-read", action="store_true")
+    modes = parser.add_mutually_exclusive_group()
+    modes.add_argument("--sustained-read", action="store_true")
+    modes.add_argument("--sustained-series", action="store_true")
     parser.add_argument("--mongod", type=Path)
     args = parser.parse_args()
     if any(
@@ -455,12 +457,12 @@ def main():
         )
         report["status"] = "prepared"
         baseline_complete = True
-        if args.sustained_read:
+        if args.sustained_read or args.sustained_series:
             report_path.write_text(json.dumps(report, indent=2, default=str) + "\n")
             os.chmod(report_path, 0o600)
             from scripts.sustained_read import run
 
-            run(env, budget)
+            run(env, budget, series=args.sustained_series)
     except BaseException as exc:  # noqa: BLE001 - retain failure evidence, including interruption
         if baseline_complete:
             sustained_failed = True

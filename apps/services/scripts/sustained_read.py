@@ -19,7 +19,7 @@ from psycopg.conninfo import conninfo_to_dict
 from redhouse.config import SERVICES, settings
 from scripts.load_client import isolated_urls
 from scripts.load_guard import guard_diagnostic
-from tests.load_support import verify_new_sessions
+from tests.load_support import verify_created_sessions_closed, verify_new_sessions
 
 ROOT = Path(__file__).resolve().parents[1]
 PROFILES = ("medical2", "operator1", "coordinator1", "auditor1", "donor1", "transport1")
@@ -271,8 +271,108 @@ def sample_or_interrupt(budget, directory, started, process):
     return sample, failure
 
 
-def run_phase(env, factors, directory, budget):
-    output = directory / "run"
+def evaluate_measurement(measured, failures, cache, *, no_cache, execution_valid):
+    p95_values = [
+        row["p95_ms"]
+        for row in measured
+        if row.get("method") == "GET"
+        and row.get("requests", 0)
+        and row.get("p95_ms") is not None
+    ]
+    requests_count = sum(row.get("requests", 0) for row in measured)
+    cache_verified = bool(
+        (
+            cache.get("BYPASS", 0) > 0
+            and not cache.get("HIT", 0)
+            and not cache.get("MISS", 0)
+        )
+        if no_cache
+        else (cache.get("HIT", 0) > 0 and not cache.get("BYPASS", 0))
+    )
+    accepted = bool(
+        execution_valid
+        and p95_values
+        and requests_count
+        and cache_verified
+        and max(p95_values) < 2000
+        and failures / requests_count < 0.01
+    )
+    return {
+        "max_p95_ms": max(p95_values) if p95_values else None,
+        "p95_limit_ms": 2000,
+        "cache_mode_verified": cache_verified,
+        "measurement_accepted": accepted,
+    }
+
+
+def cleanup_failures(rows):
+    if not isinstance(rows, list):
+        raise TypeError("Estadísticas finales inválidas")
+    return sum(
+        int(row["num_failures"])
+        for row in rows
+        if row.get("method") == "CLEANUP" and row.get("name") == "Cierre / sesiones"
+    )
+
+
+def phase_execution_valid(result, users, seconds):
+    timing = result.get("timing", {})
+    reads = (
+        "inventario / Disponibilidad regional",
+        "inventario / Inventario propio",
+        "priorizacion_geografia / Rutas",
+        "auditoria / Bitácora",
+        "donantes / Agenda propia",
+        "transporte / Tareas propias",
+    )
+
+    return not (
+        result.get("runner_exit") != 0
+        or result["stopped_by_guard"]
+        or not result["session_revocation_verified"]
+        or not result.get("session_count_verified")
+        or result.get("cleanup_failures") != 0
+        or result.get("counts", {}).get("Identidad / revocación al salir") != users
+        or any(result.get("measurement_counts", {}).get(name, 0) <= 0 for name in reads)
+        or timing.get("stage") != "finished"
+        or timing.get("warmup", {}).get("requests", 0) <= 0
+        or timing.get("warmup_min_users") != users
+        or timing.get("measurement_min_users") != users
+        or timing.get("user_errors") != 0
+        or timing.get("measured", 0) - timing.get("started", 0) < 30
+        or timing.get("finished", 0) - timing.get("measured", 0) < seconds
+    )
+
+
+def record_phase(summary, name, phase):
+    summary["phases"].append(
+        {
+            "name": name,
+            "execution_valid": phase["execution_valid"],
+            "measurement_accepted": phase["measurement_accepted"],
+        }
+    )
+    if not phase["execution_valid"]:
+        raise RuntimeError("La fase no completó las verificaciones del arnés")
+
+
+def run_phase(
+    env,
+    factors,
+    directory,
+    budget,
+    *,
+    users=6,
+    no_cache=False,
+    seconds=120,
+    name="run",
+    mfa_after=-1,
+):
+    if users not in (6, 12, 24, 36) or seconds not in (60, 120):
+        raise ValueError("Configuración de fase inválida")
+    multiplicity = users // len(PROFILES)
+    auth_timeout = 35 * multiplicity + 15
+    output = directory / name
     output.mkdir(mode=0o700)
     user_ids = [env.state["accounts"][name]["id"] for name in PROFILES]
     if len(set(user_ids)) != 6:
@@ -288,8 +388,14 @@ def run_phase(env, factors, directory, budget):
         REDHOUSE_LOAD_STATE=str(env.directory / "state.json"),
         REDHOUSE_LOAD_MFA_FD=str(read_fd),
         REDHOUSE_LOAD_MARKER=str(marker),
+        REDHOUSE_LOAD_USERS=str(users),
+        REDHOUSE_LOAD_MEASURE_SECONDS=str(seconds),
+        REDHOUSE_LOAD_MFA_AFTER=str(mfa_after),
     )
-    environment.pop("REDHOUSE_LOAD_NO_CACHE", None)
+    if no_cache:
+        environment["REDHOUSE_LOAD_NO_CACHE"] = "1"
+    else:
+        environment.pop("REDHOUSE_LOAD_NO_CACHE", None)
     command = [
         sys.executable,
         "-m",
@@ -298,11 +404,11 @@ def run_phase(env, factors, directory, budget):
         str(ROOT / "tests/locust_sustained.py"),
         "--headless",
         "--users",
-        "6",
+        str(users),
         "--spawn-rate",
-        "6",
+        str(users),
         "--run-time",
-        "210s",
+        str(auth_timeout + 30 + seconds + 30) + "s",
         "--stop-timeout",
         "30",
         "--host",
@@ -313,14 +419,16 @@ def run_phase(env, factors, directory, budget):
         "--json-file",
         str(output / "final"),
         "--exit-code-on-error",
-        "1",
+        "0",
         "--only-summary",
         "SustainedUser",
     ]
     result = {
         "warmup_seconds": 30,
-        "measurement_seconds": 120,
-        "users": 6,
+        "measurement_seconds": seconds,
+        "users": users,
+        "cache_mode": "bypass" if no_cache else "active",
+        "authentication_timeout_seconds": auth_timeout,
         "disk_samples": [],
         "stopped_by_guard": False,
         "session_revocation_verified": False,
@@ -341,7 +449,7 @@ def run_phase(env, factors, directory, budget):
             os.close(read_fd)
             read_fd = None
             started = time.monotonic()
-            deadline = started + 245
+            deadline = started + auth_timeout + 30 + seconds + 65
             while process.poll() is None:
                 sample, guard_error = sample_or_interrupt(
                     budget, env.directory, started, process
@@ -362,7 +470,7 @@ def run_phase(env, factors, directory, budget):
                     }
                     process.send_signal(signal.SIGINT)
                     break
-                if time.monotonic() - started > 45 and not marker.exists():
+                if time.monotonic() - started > auth_timeout and not marker.exists():
                     result["startup_timeout"] = True
                     result["interruption"] = {
                         "category": "startup_timeout",
@@ -392,9 +500,22 @@ def run_phase(env, factors, directory, budget):
             with redis.Redis.from_url(
                 env.state["redis_admin"], socket_timeout=3
             ) as client:
-                verify_new_sessions(
-                    previous_ids, session_rows(env, user_ids), user_ids, prefix, client
+                rows = session_rows(env, user_ids)
+                verify_created_sessions_closed(
+                    previous_ids, rows, user_ids, prefix, client
                 )
+                try:
+                    verify_new_sessions(
+                        previous_ids,
+                        rows,
+                        user_ids,
+                        prefix,
+                        client,
+                        multiplicity=multiplicity,
+                    )
+                    result["session_count_verified"] = True
+                except ValueError:
+                    result["session_count_verified"] = False
             result["session_revocation_verified"] = True
         except Exception:  # noqa: BLE001 - no credentials in report
             result["session_revocation_verified"] = False
@@ -402,6 +523,7 @@ def run_phase(env, factors, directory, budget):
         if final.exists():
             try:
                 rows = json.loads(final.read_text())
+                result["cleanup_failures"] = cleanup_failures(rows)
                 result["failures"] = sum(int(row["num_failures"]) for row in rows)
                 result["counts"] = {
                     row["name"]: int(row["num_requests"]) for row in rows
@@ -427,36 +549,27 @@ def run_phase(env, factors, directory, budget):
         (output / "summary.json").write_text(json.dumps(result, indent=2) + "\n")
         (output / "summary.json").chmod(0o600)
     timing = result.get("timing", {})
-    reads = (
-        "inventario / Disponibilidad regional",
-        "inventario / Inventario propio",
-        "priorizacion_geografia / Rutas",
-        "auditoria / Bitácora",
-        "donantes / Agenda propia",
-        "transporte / Tareas propias",
+    execution_valid = phase_execution_valid(result, users, seconds)
+    if result["stopped_by_guard"] or not result["session_revocation_verified"]:
+        raise RuntimeError("La fase interrumpió guardas o no revocó sesiones")
+    measured = timing.get("measurement", [])
+    measured_requests = sum(row.get("requests", 0) for row in measured)
+    result["execution_valid"] = execution_valid
+    result.update(
+        evaluate_measurement(
+            measured,
+            result.get("measurement_failures", measured_requests),
+            timing.get("cache", {}),
+            no_cache=no_cache,
+            execution_valid=execution_valid,
+        )
     )
-    if (
-        result.get("runner_exit") != 0
-        or result["stopped_by_guard"]
-        or not result["session_revocation_verified"]
-        or result.get("failures") != 0
-        or result.get("measurement_failures") != 0
-        or result.get("counts", {}).get("Identidad / revocación al salir") != 6
-        or any(result.get("measurement_counts", {}).get(name, 0) <= 0 for name in reads)
-        or timing.get("stage") != "finished"
-        or timing.get("warmup", {}).get("failures") != 0
-        or timing.get("warmup", {}).get("requests", 0) <= 0
-        or timing.get("warmup_min_users") != 6
-        or timing.get("measurement_min_users") != 6
-        or timing.get("user_errors") != 0
-        or timing.get("measured", 0) - timing.get("started", 0) < 30
-        or timing.get("finished", 0) - timing.get("measured", 0) < 120
-    ):
-        raise RuntimeError("La fase sostenida no completó las verificaciones")
+    (output / "summary.json").write_text(json.dumps(result, indent=2) + "\n")
+    (output / "summary.json").chmod(0o600)
     return result
 
 
-def run(env, budget):
+def run(env, budget, *, series=False):
     directory = env.directory / "sustained-read"
     directory.mkdir(mode=0o700)
     summary = {"status": "failed"}
@@ -487,8 +600,70 @@ def run(env, budget):
         )
         (directory / "runtime.json").chmod(0o600)
         factors = enroll_factors(env)
-        wait_counter_after(int(time.time()) // 30)
-        run_phase(env, factors, directory, budget)
+        if series:
+            phases = [
+                (12, False, 120, "12-active-a"),
+                (12, True, 120, "12-bypass-a"),
+                (12, False, 120, "12-active-b"),
+                (12, True, 120, "12-bypass-b"),
+                (24, False, 120, "24-active"),
+            ]
+            summary["phases"] = []
+            for users, no_cache, seconds, name in phases:
+                last_counter = int(time.time()) // 30
+                wait_counter_after(last_counter)
+                phase = run_phase(
+                    env,
+                    factors,
+                    directory,
+                    budget,
+                    users=users,
+                    no_cache=no_cache,
+                    seconds=seconds,
+                    name=name,
+                    mfa_after=last_counter,
+                )
+                record_phase(summary, name, phase)
+            if phase["measurement_accepted"]:
+                last_counter = int(time.time()) // 30
+                wait_counter_after(last_counter)
+                stress = run_phase(
+                    env,
+                    factors,
+                    directory,
+                    budget,
+                    users=36,
+                    seconds=60,
+                    name="36-stress",
+                    mfa_after=last_counter,
+                )
+                record_phase(summary, "36-stress", stress)
+            else:
+                summary["stress_skipped"] = "24 no aceptado"
+            last_counter = int(time.time()) // 30
+            wait_counter_after(last_counter)
+            recovery = run_phase(
+                env,
+                factors,
+                directory,
+                budget,
+                users=6,
+                seconds=60,
+                name="6-recovery",
+                mfa_after=last_counter,
+            )
+            record_phase(summary, "6-recovery", recovery)
+        else:
+            last_counter = int(time.time()) // 30
+            wait_counter_after(last_counter)
+            phase = run_phase(env, factors, directory, budget, mfa_after=last_counter)
+            if (
+                not phase["execution_valid"]
+                or phase.get("failures") != 0
+                or phase.get("measurement_failures") != 0
+                or phase.get("timing", {}).get("warmup", {}).get("failures") != 0
+            ):
+                raise RuntimeError("La fase sostenida no completó las verificaciones")
         after_hashes = source_hashes(env)
         summary["hashes_after"] = after_hashes
         if (
@@ -497,7 +672,11 @@ def run(env, budget):
             or runtime_topology(env) != actual_runtime
         ):
             raise RuntimeError("Configuración o fuentes cambiaron durante la medición")
-        summary["status"] = "passed"
+        summary["status"] = (
+            "completed"
+            if series and all(p["execution_valid"] for p in summary["phases"])
+            else ("incomplete" if series else "passed")
+        )
     finally:
         if "hashes_before" in summary and "hashes_after" not in summary:
             try:

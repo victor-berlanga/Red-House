@@ -5,22 +5,41 @@ import os
 import shutil
 import subprocess
 import sys
+from collections import Counter
 from pathlib import Path
 
 import redis
 
 
-def verify_new_sessions(before_ids, rows, user_ids, prefix, client):
+def verify_created_sessions_closed(before_ids, rows, user_ids, prefix, client):
     created = [row for row in rows if str(row[0]) not in before_ids]
+    if len({str(row[0]) for row in created}) != len(created) or any(
+        str(row[1]) not in user_ids or row[2] is None for row in created
+    ):
+        raise ValueError("Familias nuevas ajenas, duplicadas o no revocadas.")
+    keys = [prefix + "session:" + str(row[0]) for row in created]
+    if keys and any(value is not None for value in client.mget(keys)):
+        raise ValueError("Sesiones nuevas todavía presentes en Redis.")
+    return created
+
+
+def verify_new_sessions(before_ids, rows, user_ids, prefix, client, multiplicity=1):
     if (
-        len(created) != len(user_ids)
-        or {str(row[1]) for row in created} != set(user_ids)
+        not isinstance(multiplicity, int)
+        or isinstance(multiplicity, bool)
+        or multiplicity < 1
+        or len(set(user_ids)) != len(user_ids)
+    ):
+        raise ValueError("Multiplicidad o identidades inválidas.")
+    created = verify_created_sessions_closed(before_ids, rows, user_ids, prefix, client)
+    if (
+        len(created) != len(user_ids) * multiplicity
+        or len({str(row[0]) for row in created}) != len(created)
+        or Counter(str(row[1]) for row in created)
+        != Counter({user_id: multiplicity for user_id in user_ids})
         or any(row[2] is None for row in created)
     ):
         raise ValueError("Familias nuevas incompletas o no revocadas.")
-    keys = [prefix + "session:" + str(row[0]) for row in created]
-    if any(value is not None for value in client.mget(keys)):
-        raise ValueError("Sesiones nuevas todavía presentes en Redis.")
 
 
 def run_locust(

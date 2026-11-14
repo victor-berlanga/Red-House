@@ -57,6 +57,7 @@ def test_warmup_failures_survive_stats_reset(tmp_path, monkeypatch):
                     method="GET",
                     name="synthetic",
                     avg_response_time=8,
+                    median_response_time=9,
                     get_response_time_percentile=lambda q: 12 if q == 0.95 else 14,
                 )
             },
@@ -75,6 +76,8 @@ def test_warmup_failures_survive_stats_reset(tmp_path, monkeypatch):
         "warmup_min_users": 6,
         "measurement_min_users": 6,
         "user_errors": 0,
+        "cache": {},
+        "http": {},
         "measurement": [
             {
                 "method": "GET",
@@ -83,6 +86,7 @@ def test_warmup_failures_survive_stats_reset(tmp_path, monkeypatch):
                 "failures": 2,
                 "requests_per_second": 10 / 120,
                 "mean_ms": 8,
+                "median_ms": 9,
                 "p95_ms": 12,
                 "p99_ms": 14,
             }
@@ -90,6 +94,148 @@ def test_warmup_failures_survive_stats_reset(tmp_path, monkeypatch):
     }
     assert resets == [True] and quits == [True]
     assert marker.stat().st_mode & 0o777 == 0o600
+
+
+def test_all_sessions_arrive_before_measurement_and_cache_quota_observed(monkeypatch):
+    monkeypatch.setenv("LOCUST_SKIP_MONKEY_PATCH", "1")
+    monkeypatch.syspath_prepend(str(Path(__file__).resolve().parent))
+    module = importlib.import_module("locust_sustained")
+    ready = SimpleNamespace(set=lambda: calls.append("ready"))
+    calls = []
+    monkeypatch.setattr(module, "_ready", ready)
+    monkeypatch.setattr(module, "_logged_in", 0)
+    for _ in range(11):
+        assert not module.mark_logged_in(12)
+        assert not calls
+    assert module.mark_logged_in(12)
+    assert calls == ["ready"]
+    with pytest.raises(ValueError):
+        module.mark_logged_in(12)
+    module._cache.clear()
+    module._http.clear()
+    module.observe_cache("HIT", 200)
+    module.observe_cache("BYPASS", 429)
+    assert module._cache == {"HIT": 1, "BYPASS": 1}
+    assert module._http == {"quota_429": 1}
+
+
+def test_mfa_waits_past_enrollment_and_each_previous_counter(monkeypatch):
+    monkeypatch.setenv("LOCUST_SKIP_MONKEY_PATCH", "1")
+    monkeypatch.setenv("REDHOUSE_LOAD_MFA_AFTER", "100")
+    monkeypatch.syspath_prepend(str(Path(__file__).resolve().parent))
+    module = importlib.import_module("locust_sustained")
+    clock = [3000.0]
+    monkeypatch.setattr(module.time, "time", lambda: clock[0])
+    monkeypatch.setattr(
+        module.gevent, "sleep", lambda _: clock.__setitem__(0, clock[0] + 30)
+    )
+    monkeypatch.setattr(module, "_mfa_last", {})
+    assert module.next_mfa_counter("medical2") == 101
+    assert module.next_mfa_counter("medical2") == 102
+
+
+def test_user_error_during_final_drain_sets_failure_after_snapshot(monkeypatch):
+    monkeypatch.setenv("LOCUST_SKIP_MONKEY_PATCH", "1")
+    monkeypatch.syspath_prepend(str(Path(__file__).resolve().parent))
+    module = importlib.import_module("locust_sustained")
+    monkeypatch.setattr(module, "_user_errors", 0)
+    snapshot_errors = module._user_errors
+    environment = SimpleNamespace(
+        runner=SimpleNamespace(stop=lambda: module.record_user_error()),
+        process_exit_code=None,
+    )
+    module.enforce_final_user_errors(environment)
+    assert snapshot_errors == 0
+    assert environment.process_exit_code == 1
+
+
+def test_phase_rejects_unbalanced_user_count_and_unsupported_duration(tmp_path):
+    with pytest.raises(ValueError):
+        sustained_read.run_phase(None, {}, tmp_path, None, users=7)
+    with pytest.raises(ValueError):
+        sustained_read.run_phase(None, {}, tmp_path, None, users=12, seconds=61)
+
+
+def test_acceptance_requires_p95_error_rate_and_observed_cache_mode():
+    rows = [{"method": "GET", "requests": 200, "p95_ms": 1999}]
+    assert sustained_read.evaluate_measurement(
+        rows, 1, {"HIT": 1}, no_cache=False, execution_valid=True
+    )["measurement_accepted"]
+    assert not sustained_read.evaluate_measurement(
+        rows, 2, {"HIT": 1}, no_cache=False, execution_valid=True
+    )["measurement_accepted"]
+    assert not sustained_read.evaluate_measurement(
+        rows, 0, {}, no_cache=False, execution_valid=True
+    )["measurement_accepted"]
+    assert not sustained_read.evaluate_measurement(
+        rows, 0, {"MISS": 1, "BYPASS": 1000}, no_cache=False, execution_valid=True
+    )["measurement_accepted"]
+    assert not sustained_read.evaluate_measurement(
+        rows, 0, {"HIT": 1, "BYPASS": 1}, no_cache=False, execution_valid=True
+    )["measurement_accepted"]
+    assert not sustained_read.evaluate_measurement(
+        rows, 0, {"HIT": 1, "BYPASS": 1}, no_cache=True, execution_valid=True
+    )["measurement_accepted"]
+    rows[0]["p95_ms"] = 2000
+    assert not sustained_read.evaluate_measurement(
+        rows, 0, {"BYPASS": 1}, no_cache=True, execution_valid=True
+    )["measurement_accepted"]
+
+
+def test_cleanup_failure_invalidates_even_if_sessions_were_revoked():
+    rows = [
+        {"method": "GET", "name": "Lectura", "num_failures": 0},
+        {"method": "CLEANUP", "name": "Cierre / sesiones", "num_failures": 1},
+    ]
+    reads = (
+        "inventario / Disponibilidad regional",
+        "inventario / Inventario propio",
+        "priorizacion_geografia / Rutas",
+        "auditoria / Bitácora",
+        "donantes / Agenda propia",
+        "transporte / Tareas propias",
+    )
+    result = {
+        "runner_exit": 0,
+        "stopped_by_guard": False,
+        "session_revocation_verified": True,
+        "session_count_verified": True,
+        "cleanup_failures": sustained_read.cleanup_failures(rows),
+        "counts": {"Identidad / revocación al salir": 6},
+        "measurement_counts": {name: 1 for name in reads},
+        "timing": {
+            "stage": "finished",
+            "warmup": {"requests": 1},
+            "warmup_min_users": 6,
+            "measurement_min_users": 6,
+            "user_errors": 0,
+            "started": 0,
+            "measured": 30,
+            "finished": 150,
+        },
+    }
+    assert not sustained_read.phase_execution_valid(result, 6, 120)
+    result["cleanup_failures"] = 0
+    assert sustained_read.phase_execution_valid(result, 6, 120)
+    execution_valid = False
+    measured = [{"method": "GET", "requests": 100, "p95_ms": 100}]
+    assert not sustained_read.evaluate_measurement(
+        measured, 0, {"HIT": 1}, no_cache=False, execution_valid=execution_valid
+    )["measurement_accepted"]
+
+
+def test_invalid_phase_stops_series_but_unmet_performance_does_not():
+    summary = {"phases": []}
+    sustained_read.record_phase(
+        summary, "24-active", {"execution_valid": True, "measurement_accepted": False}
+    )
+    with pytest.raises(RuntimeError):
+        sustained_read.record_phase(
+            summary,
+            "6-recovery",
+            {"execution_valid": False, "measurement_accepted": False},
+        )
+    assert [phase["name"] for phase in summary["phases"]] == ["24-active", "6-recovery"]
 
 
 def test_process_sampling_includes_descendants_not_unrelated(monkeypatch):

@@ -85,11 +85,13 @@ class LoadSession:
         clock=time.monotonic,
         no_cache=False,
         mime="application/json",
+        cache_observer=None,
     ):
         self.client = client
         self.urls = isolated_urls(urls)
         self.clock = clock
         self.no_cache = no_cache
+        self.cache_observer = cache_observer
         if mime not in ("application/json", "application/xml"):
             raise ValueError("Formato del arnés no admitido.")
         self.mime = mime
@@ -146,6 +148,10 @@ class LoadSession:
             catch_response=True,
             **request_body,
         ) as response:
+            if self.cache_observer:
+                self.cache_observer(
+                    response.headers.get("X-Cache"), response.status_code
+                )
             if response.status_code != expected:
                 error = "http_" + str(response.status_code)
             else:
