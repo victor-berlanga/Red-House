@@ -2,6 +2,10 @@
 
 Las entradas están ordenadas de reciente a histórico; un pendiente de un corte anterior puede quedar sustituido explícitamente por una entrada posterior.
 
+## Diagnósticos de cámara sin credenciales — 13/11/2026
+
+Una excepción gRPC del laboratorio mostró el token local de consola del emulador, usado por error como credencial de otro protocolo. Los helpers ahora muestran solo códigos/mensajes fijos y cierran el canal; prueba sintética 1/1 y análisis estático aprobados. Con los emuladores cerrados se renovó atómicamente el token, conservando propietario y permisos 0600. No se modificaron credenciales de Red House ni GCP. [Incidente, prueba y alcance](documentation/evidencias/entrega-final/mobile/diagnostico-camara-20261113/RESULTADOS.md). No acredita el lector QR ni cierra la etapa 04.
+
 ## Cobertura regional consultable desde escritorio — 13/11/2026
 
 DESK-07: ensayo Qt/XML sintético aprobado, **1/1 en 65,50 s**. El médico abrió la evaluación desde la propuesta y recibió 403 al consultar mediante el cliente XML una unidad ajena. Coordinación recibió la propuesta sin instantáneas clínicas, abrió desde Qt el detalle autorizado de Inventario y consultó una propuesta vacía. Folio/estado contrastados; fuentes iguales antes/después y motores propios cerrados. Cinco capturas del ensayo real inspeccionadas.
