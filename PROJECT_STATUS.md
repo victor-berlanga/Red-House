@@ -2,6 +2,12 @@
 
 Las entradas están ordenadas de reciente a histórico; un pendiente de un corte anterior puede quedar sustituido explícitamente por una entrada posterior.
 
+## Pausa solicitada para apagar el equipo — 14/11/2026
+
+Continuar desde [el punto de reanudación](documentation/entrega-final/continuidad/Pausa_20261114.md), sin reiniciar el análisis ni repetir comprobaciones de funcionalidades no afectadas. El último arreglo móvil separa las claves idempotentes de carga/verificación y permite reintentar la verificación de fotos sin cargar otra vez un objeto VERIFIED/ERROR. JVM: 48 aprobadas y dos omitidas; recorrido Android final: 1/1 en 80,982 s con imagen emulada, respuesta sustituida por 503 y reintento verificado, captura final inspeccionada. El fallo previo del escáner por firmas antiguas permanece separado.
+
+El oráculo independiente de ese resultado y la consulta XML no se ejecutaron antes de la pausa. La compilación de paquetes normales con el arreglo se interrumpió; no se instaló. El iPhone conserva la versión anterior. AVD, fixture, ClamD y Gradle cerrados. La carga sostenida al 10 % no comenzó. Próximos bloques y artefactos privados persistentes quedan registrados en el punto de reanudación. No se declaró ninguna etapa integral terminada.
+
 ## Consolidación del avance y pruebas por impacto — 14/11/2026
 
 La [matriz de continuidad](documentation/entrega-final/continuidad/Matriz.md) refleja ahora los resultados comprobados de móvil, escritorio, almacenamiento y proxy, distinguiéndolos de los recorridos pendientes. Se conserva la cobertura de funciones no afectadas por cambios posteriores: un ajuste visual no obliga a repetir autenticación, custodia y sincronización completas. Cada resultado mantiene su versión y entorno; no se presenta como una ejecución nueva.

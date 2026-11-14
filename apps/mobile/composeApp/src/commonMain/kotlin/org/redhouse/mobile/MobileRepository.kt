@@ -142,16 +142,19 @@ class MobileRepository(val session:Session,val journal:LocalJournal,val source:S
         val prepared=session.request("documentos","/api/v1/shipments/$shipment/files",HttpMethod.Post,buildJsonObject {
             put("mime_type","image/jpeg");put("size",bytes.size);put("sha256",digest)
         },key)
-        val local=storageTarget(prepared.text("upload_url"),session.api.bases.getValue("documentos"))
-        val url=Url(prepared.text("upload_url"))
-        val allowedHeaders=storageHeaders(prepared.getValue("upload_headers").jsonObject,local)
-        val result=session.api.client.put(url) {
-            allowedHeaders.forEach {(k,v)->header(k,v)}
-            setBody(bytes)
-        }
-        // GCS precondition 412 can mean the previous PUT succeeded but its response was lost.
-        if(!result.status.isSuccess() && result.status.value!=412) throw ApiFailure(503,"upload")
         val file=prepared.getValue("file").jsonObject
-        return session.request("documentos","/api/v1/files/${file.text("id")}/verify",HttpMethod.Post,key=key)
+        if(file.text("status") !in setOf("VERIFIED","ERROR")) {
+            val local=storageTarget(prepared.text("upload_url"),session.api.bases.getValue("documentos"))
+            val url=Url(prepared.text("upload_url"))
+            val allowedHeaders=storageHeaders(prepared.getValue("upload_headers").jsonObject,local)
+            val result=session.api.client.put(url) {
+                allowedHeaders.forEach {(k,v)->header(k,v)}
+                setBody(bytes)
+            }
+            // A precondition failure can mean the earlier PUT succeeded but its response was lost.
+            if(!result.status.isSuccess() && result.status.value!=412) throw ApiFailure(503,"upload")
+        }
+        // Prepare and verify are distinct server operations; each needs its own stable key.
+        return session.request("documentos","/api/v1/files/${file.text("id")}/verify",HttpMethod.Post,key="$key-verify")
     }
 }

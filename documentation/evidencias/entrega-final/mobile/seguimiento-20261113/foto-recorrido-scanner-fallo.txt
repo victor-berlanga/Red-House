@@ -1,0 +1,21 @@
+
+org.redhouse.mobile.PhotoEvidenceJourneyTest:
+Error in captureUploadAndVerifyThroughTheTask(org.redhouse.mobile.PhotoEvidenceJourneyTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 90000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:504)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:339)
+	at org.redhouse.mobile.PhotoEvidenceJourneyTest.shown(PhotoEvidenceJourneyTest.kt:25)
+	at org.redhouse.mobile.PhotoEvidenceJourneyTest.captureUploadAndVerifyThroughTheTask(PhotoEvidenceJourneyTest.kt:61)
+
+
+Time: 151.143
+There was 1 failure:
+1) captureUploadAndVerifyThroughTheTask(org.redhouse.mobile.PhotoEvidenceJourneyTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 90000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:504)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:339)
+	at org.redhouse.mobile.PhotoEvidenceJourneyTest.shown(PhotoEvidenceJourneyTest.kt:25)
+	at org.redhouse.mobile.PhotoEvidenceJourneyTest.captureUploadAndVerifyThroughTheTask(PhotoEvidenceJourneyTest.kt:61)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
