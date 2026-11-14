@@ -104,11 +104,11 @@ final class IOSDeviceAccess: NSObject, DeviceAccess, CLLocationManagerDelegate, 
     func pauseLocation(){finish(nil,"Captura detenida al salir de primer plano.")}
     // iOS may defer this opportunity. Foreground synchronization remains available.
     func scheduleSync() {
-        let request=BGAppRefreshTaskRequest(identifier:"org.redhouse.mobile.observations")
+        let request=BGAppRefreshTaskRequest(identifier:AppEnvironment.backgroundTask)
         request.earliestBeginDate=Date(timeIntervalSinceNow:30)
         try? BGTaskScheduler.shared.submit(request)
     }
-    func clearWork() {BGTaskScheduler.shared.cancel(taskRequestWithIdentifier:"org.redhouse.mobile.observations");BackgroundSync.shared.cancel()}
+    func clearWork() {BGTaskScheduler.shared.cancel(taskRequestWithIdentifier:AppEnvironment.backgroundTask);BackgroundSync.shared.cancel()}
     func cancel(){
         captureGeneration += 1
         pauseLocation();scanner?.cancelCapture();scanner=nil

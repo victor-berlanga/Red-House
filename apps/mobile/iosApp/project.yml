@@ -3,6 +3,26 @@ options:
   bundleIdPrefix: org.redhouse
   deploymentTarget:
     iOS: '15.0'
+configs:
+  Debug: debug
+  DebugLab: debug
+  Release: release
+schemes:
+  RedHouseLab:
+    build:
+      targets:
+        RedHouse: all
+    run:
+      config: DebugLab
+    test:
+      config: DebugLab
+    profile:
+      config: DebugLab
+    analyze:
+      config: DebugLab
+    archive:
+      config: DebugLab
+      # The build script rejects archive/install actions for the lab variant.
 targets:
   RedHouse:
     type: application
@@ -13,7 +33,10 @@ targets:
       properties:
         CFBundleShortVersionString: '0.3.1'
         CFBundleVersion: '3'
-        CFBundleDisplayName: 'Red House'
+        CFBundleDisplayName: '$(REDHOUSE_DISPLAY_NAME)'
+        RedHouseVariant: '$(REDHOUSE_VARIANT)'
+        RedHouseGateway: '$(REDHOUSE_GATEWAY)'
+        RedHouseLabCASHA256: '$(REDHOUSE_LAB_CA_SHA256)'
         CADisableMinimumFrameDurationOnPhone: true
         NSCameraUsageDescription: 'Escanear la unidad y capturar evidencia del traslado autorizado.'
         NSLocationWhenInUseUsageDescription: 'Compartir la ubicación durante el traslado asignado y autorizado.'
@@ -25,7 +48,7 @@ targets:
             CFBundleIconFiles: [AppIcon60x60, AppIcon76x76, AppIcon83.5x83.5]
         UILaunchScreen: {}
         UIBackgroundModes: [fetch]
-        BGTaskSchedulerPermittedIdentifiers: [org.redhouse.mobile.observations]
+        BGTaskSchedulerPermittedIdentifiers: ['$(PRODUCT_BUNDLE_IDENTIFIER).observations']
         UISupportedInterfaceOrientations: [UIInterfaceOrientationPortrait, UIInterfaceOrientationLandscapeLeft, UIInterfaceOrientationLandscapeRight]
         UISupportedInterfaceOrientations~ipad: [UIInterfaceOrientationPortrait, UIInterfaceOrientationPortraitUpsideDown, UIInterfaceOrientationLandscapeLeft, UIInterfaceOrientationLandscapeRight]
     settings:
@@ -33,13 +56,24 @@ targets:
         PRODUCT_BUNDLE_IDENTIFIER: org.redhouse.mobile
         PRODUCT_MODULE_NAME: RedHouseHost
         SWIFT_VERSION: '5.0'
-        FRAMEWORK_SEARCH_PATHS: '$(SRCROOT)/../composeApp/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)'
+        FRAMEWORK_SEARCH_PATHS: '$(SRCROOT)/../composeApp/build/ios-$(REDHOUSE_VARIANT)/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)'
         OTHER_LDFLAGS: '$(inherited) -framework RedHouse'
         ENABLE_USER_SCRIPT_SANDBOXING: NO
+        REDHOUSE_VARIANT: normal
+        REDHOUSE_GATEWAY: 'https://34.18.186.116'
+        REDHOUSE_DISPLAY_NAME: 'Red House'
+      configs:
+        DebugLab:
+          INFOPLIST_FILE: InfoLab.plist
+          PRODUCT_BUNDLE_IDENTIFIER: org.redhouse.mobile.lab
+          PRODUCT_NAME: RedHouseLab
+          REDHOUSE_VARIANT: lab
+          REDHOUSE_GATEWAY: ''
+          REDHOUSE_DISPLAY_NAME: 'Red House Lab'
+          SWIFT_ACTIVE_COMPILATION_CONDITIONS: '$(inherited) DEBUG REDHOUSE_LAB'
+          KOTLIN_FRAMEWORK_BUILD_TYPE: Debug
     preBuildScripts:
       - name: Build shared framework
         script: |
-          set -o pipefail
-          cd "$SRCROOT/.."
-          ./gradlew :composeApp:embedAndSignAppleFrameworkForXcode --console=plain 2>&1 | tee "$TARGET_TEMP_DIR/shared-framework.log"
+          /bin/bash "$SRCROOT/build_shared_framework.sh"
         basedOnDependencyAnalysis: false

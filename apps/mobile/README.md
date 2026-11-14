@@ -84,7 +84,7 @@ xcodegen generate
 open RedHouse.xcodeproj
 ```
 
-El paso de construcción ejecuta `:composeApp:embedAndSignAppleFrameworkForXcode`. Mínimo iOS 15. Proyecto generado con XcodeGen 2.46.0 y Xcode 16.3 (16E140), SDK iPhoneOS 18.4. No se descargó runtime Simulator por instrucción vigente. Los resultados de compilación y artefactos constan en el expediente de este incremento. La cuenta Apple, provisioning y firma física no se han comprobado; no se entrega IPA ni se publica en tiendas.
+El paso de construcción ejecuta `:composeApp:embedAndSignAppleFrameworkForXcode`. Mínimo iOS 15. Proyecto generado con XcodeGen 2.46.0 y Xcode 16.3 (16E140), SDK iPhoneOS 18.4. No se descargó runtime Simulator por instrucción vigente. Los resultados de compilación y artefactos constan en el expediente de este incremento. La firma de desarrollo y la instalación física se comprobaron con el equipo Apple existente. El perfil normal observado vence el 17/11/2026; no se entrega IPA ni se publica en tiendas.
 
 ## Versiones y fuentes
 
@@ -98,7 +98,7 @@ Fuentes oficiales consultadas el 09/11/2026:
 - [Android Keystore](https://developer.android.com/privacy-and-security/keystore).
 - [Apple Keychain](https://developer.apple.com/documentation/security/keychain-services).
 
-La compilación no acredita ejecución física, firma ni aceptación integral de iOS. Consulte [matriz y pendientes](../../documentation/entrega-final/mobile/Matriz.md) y [evidencias](../../documentation/evidencias/entrega-final/mobile/android-ios-20261109/RESULTADOS.md).
+En noviembre de 2026 se comprobó iOS en un iPhone físico: lectura de donante y, en laboratorio aislado, lectura QR, fotografía y ubicación autorizada. La compilación por sí sola no acredita aceptación integral; Los rechazos TLS/WSS y la accesibilidad completa conservan pendientes. Consulte la [matriz](../../documentation/entrega-final/mobile/Matriz.md), los [paquetes normales](../../documentation/evidencias/entrega-final/mobile/seguimiento-20261114/paquetes.md) y la [evidencia histórica](../../documentation/evidencias/entrega-final/mobile/android-ios-20261109/RESULTADOS.md).
 
 ## Dependencias nativas añadidas
 
@@ -119,7 +119,7 @@ xcodebuild -project RedHouse.xcodeproj -target RedHouse -configuration Debug \
   CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO build
 ```
 
-El destino directo `-target` permite compilar `iphoneos` aunque la resolución de `-destination generic/platform=iOS` del Xcode instalado exija una plataforma no registrada. No descarga Simulator. El `.app` sin firma **no es instalable**. La versión 0.3.0 conserva las declaraciones de cámara, ubicación y BGAppRefresh en `project.yml`, que genera el Info.plist. La guía [Prueba física iPhone](../../documentation/entrega-final/mobile/Prueba_fisica_iPhone.md) describe firma, instalación y resultados esperados pendientes del usuario.
+El destino directo `-target` permite compilar `iphoneos` aunque la resolución de `-destination generic/platform=iOS` del Xcode instalado exija una plataforma no registrada. No descarga Simulator. El `.app` sin firma **no es instalable**. La versión 0.3.0 conserva las declaraciones de cámara, ubicación y BGAppRefresh en `project.yml`, que genera el Info.plist. La guía histórica [Prueba física iPhone](../../documentation/entrega-final/mobile/Prueba_fisica_iPhone.md) describe la preparación inicial; los paquetes y resultados posteriores figuran en la matriz y evidencia vigentes.
 
 Para compilar también las pruebas compartidas destinadas al dispositivo, ejecutar `./gradlew :composeApp:compileTestKotlinIosArm64` desde `apps/mobile`. Compilar pruebas no equivale a ejecutarlas en iOS. Las pruebas comunes se ejecutan en Android/JVM con `:composeApp:testDebugUnitTest`.
 
@@ -150,7 +150,7 @@ La decodificación óptica y custodia completa aprobaron en API 30 con `-gpu hos
 
 `seed_operational.py /ruta/privada/lab.json` crea por JSON una unidad en cuarentena, equipo/perfiles sintéticos y una muestra incompleta para `OperationalJourneyTest`. El intervalo térmico arbitrario de esa fixture no se aplica como regla clínica. Regenerar assets privados y APK de instrumentación antes del ensayo; no liberar la unidad ni aprobar clínicamente el perfil sintético.
 
-Resultado del incremento: 19 casos Kotlin/JVM y 19 casos nativos Android únicos aprobados; seis casos de servidor para ampliaciones/seguridad. El APK normal 0.3.0 se instala y abre en API 30. iOS compila arm64 sin firma; no se ejecutó en iPhone/Simulator. Artefactos, hashes, fallos y plataformas exactas en [RESULTADOS del incremento](../../documentation/evidencias/entrega-final/mobile/android-ios-20261109/RESULTADOS.md).
+Resultado histórico del incremento del 09/11: 19 casos Kotlin/JVM y 19 casos nativos Android únicos aprobados; seis casos de servidor para ampliaciones/seguridad. El APK normal 0.3.0 se instaló y abrió en API 30. En esa fecha iOS compiló arm64 sin firma y todavía no se había ejecutado en iPhone/Simulator. Artefactos, hashes, fallos y plataformas exactas en [RESULTADOS del incremento](../../documentation/evidencias/entrega-final/mobile/android-ios-20261109/RESULTADOS.md).
 
 `FormAndRecreationTest#rotationRestoresAuthorizedSessionWithLargeText` se ejecuta con `adb shell settings put system font_scale 1.3`; comprueba orientación mediante Configuration, reautorización y consulta real en horizontal/vertical. Restaurar `font_scale 1.0` al terminar. `PermissionDenialTest` requiere `pm clear` antes de su clase; `LocationDisabledTest` debe ejecutarse por separado tras otro `pm clear`, pues concede permisos y apaga/restaura el interruptor real. Estas clases de permiso funcionan también sobre el APK normal sin assets de laboratorio.
 

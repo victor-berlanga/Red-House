@@ -4,14 +4,20 @@
 <dict>
 	<key>BGTaskSchedulerPermittedIdentifiers</key>
 	<array>
-		<string>org.redhouse.mobile.observations</string>
+		<string>$(PRODUCT_BUNDLE_IDENTIFIER).observations</string>
 	</array>
+	<key>RedHouseVariant</key>
+	<string>$(REDHOUSE_VARIANT)</string>
+	<key>RedHouseGateway</key>
+	<string>$(REDHOUSE_GATEWAY)</string>
+	<key>RedHouseLabCASHA256</key>
+	<string>$(REDHOUSE_LAB_CA_SHA256)</string>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>Red House</string>
+	<string>$(REDHOUSE_DISPLAY_NAME)</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIcons</key>

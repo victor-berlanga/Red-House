@@ -7,20 +7,54 @@ plugins {
     id("org.jetbrains.compose")
     id("com.android.application")
 }
-val mobileGateway = providers.gradleProperty("mobileGateway").orElse("https://34.18.186.116")
+val normalMobileGateway = "https://34.18.186.116"
+val mobileGateway = providers.gradleProperty("mobileGateway").orElse(normalMobileGateway)
+// Xcode passes the variant explicitly; Android retains its existing build directory.
+val mobileIosVariant = providers.gradleProperty("mobileIosVariant")
+val iosVariant = mobileIosVariant.orElse("normal")
+require(iosVariant.get() in setOf("normal", "lab")) { "Unknown iOS build variant" }
+if (mobileIosVariant.isPresent) {
+    layout.buildDirectory.set(layout.projectDirectory.dir("build/ios-${iosVariant.get()}"))
+}
+val iosConfiguration = providers.environmentVariable("CONFIGURATION").orElse("")
+if (iosVariant.get() == "lab") {
+    tasks.configureEach {
+        if (name.contains("release", ignoreCase = true)) {
+            doFirst { throw GradleException("The iOS lab variant is Debug only") }
+        }
+    }
+}
 val mobileGcsBucket = providers.gradleProperty("mobileGcsBucket").orElse("")
 val mobileLab = providers.gradleProperty("mobileLabDirectory").isPresent
 val generateMobileEnvironment by tasks.registering {
     inputs.property("gateway", mobileGateway)
     inputs.property("gcsBucket", mobileGcsBucket)
+    inputs.property("iosVariant", iosVariant)
+    inputs.property("iosConfiguration", iosConfiguration)
+    inputs.property("iosVariantExplicit", mobileIosVariant.isPresent)
     val output = layout.buildDirectory.dir("generated/mobileEnvironment")
     outputs.dir(output)
     doLast {
         val origin = URI(mobileGateway.get())
-        require(origin.scheme == "https" && origin.host != null && origin.userInfo == null &&
+        require(origin.scheme == "https" && origin.host != null && origin.port in -1..65535 && origin.port != 0 && origin.userInfo == null &&
             origin.rawQuery == null && origin.rawFragment == null && origin.path.orEmpty() in setOf("", "/")) {
             "mobileGateway must be an HTTPS origin without credentials, path, query or fragment"
         }
+        val gateway = origin.toASCIIString().trimEnd('/')
+        if (mobileIosVariant.isPresent) {
+            if (iosVariant.get() == "normal") {
+                require(gateway == normalMobileGateway) { "Normal iOS gateway mismatch" }
+            } else {
+                val normal = URI(normalMobileGateway)
+                val sameOrigin = origin.scheme.equals(normal.scheme, ignoreCase=true) &&
+                    origin.host.trimEnd('.').equals(normal.host.trimEnd('.'), ignoreCase=true) &&
+                    (if (origin.port == -1) 443 else origin.port) == (if (normal.port == -1) 443 else normal.port)
+                require(iosConfiguration.get() == "DebugLab" && !sameOrigin) {
+                    "iOS lab requires DebugLab and a separate HTTPS gateway"
+                }
+            }
+        }
+        val iosBundle = if (iosVariant.get() == "lab") "org.redhouse.mobile.lab" else "org.redhouse.mobile"
         val bucket = mobileGcsBucket.get()
         require(bucket.isEmpty() || (bucket.length in 3..63 && bucket.matches(Regex("[a-z0-9][a-z0-9.-]*[a-z0-9]")) && ".." !in bucket)) {
             "mobileGcsBucket must be an exact lowercase bucket name"
@@ -31,6 +65,9 @@ val generateMobileEnvironment by tasks.registering {
             internal object MobileEnvironment {
                 const val gateway = "${origin.toASCIIString().trimEnd('/')}"
                 const val gcsBucket = "$bucket"
+                const val iosVariant = "${iosVariant.get()}"
+                const val iosBundleIdentifier = "$iosBundle"
+                const val iosBackgroundTask = "$iosBundle.observations"
             }
         """.trimIndent())
     }
