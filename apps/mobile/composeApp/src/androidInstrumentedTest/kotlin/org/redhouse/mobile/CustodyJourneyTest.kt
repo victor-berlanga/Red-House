@@ -48,7 +48,7 @@ class CustodyJourneyTest {
         step("Iniciar traslado","IN_TRANSIT")
         step("Confirmar entrega física","DELIVERED","operator2")
         click("Cerrar sesión");login("operator2");click("Consultar contactos y ruta de esta tarea");shown("Ruta vinculada a la reserva")
-        step("Aceptar recepción logística","ACCEPTED","Transportista asignado")
+        step("Aceptar recepción logística","ACCEPTED","transport1")
         click("Cerrar sesión");login("coordinator1");shown("Traslado · ${displayValue("status","ACCEPTED")}");click("Cerrar sesión")
         enabled("Iniciar sesión");Assert.assertNull(AndroidSecureStore(compose.activity).read())
     }

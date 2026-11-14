@@ -19,11 +19,15 @@ internal fun transportLocationSummary(point:JsonObject?,connected:Boolean):Strin
     if(point==null) return "Sin ubicación recibida; el mapa muestra la región."
     val captured=(point["captured_at"] as? JsonPrimitive)?.contentOrNull.orEmpty()
     val whenReceived=if(captured.isBlank()) "hora no disponible" else displayBriefDate(captured)
-    val simulated=if((point["simulated"] as? JsonPrimitive)?.booleanOrNull==true || (point["source"] as? JsonPrimitive)?.contentOrNull=="SIMULATOR") " · simulada" else ""
+    val simulated=if(isSimulatedPosition(point)) " · simulada" else ""
     val connection=if(connected) "" else " · sin conexión"
     val label=if(validMapPosition(point)==null) "Sin señal GPS" else "Última ubicación"
     return "$label: $whenReceived$simulated$connection"
 }
+
+internal fun isSimulatedPosition(point:JsonObject?):Boolean =
+    (point?.get("simulated") as? JsonPrimitive)?.booleanOrNull==true ||
+        (point?.get("source") as? JsonPrimitive)?.contentOrNull=="SIMULATOR"
 
 internal fun validMapPosition(point:JsonObject?):Pair<Double,Double>? {
     val fix=point?.get("fix_valid") as? JsonPrimitive ?: return null

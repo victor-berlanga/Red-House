@@ -2,6 +2,12 @@
 
 Las entradas están ordenadas de reciente a histórico; un pendiente de un corte anterior puede quedar sustituido explícitamente por una entrada posterior.
 
+## Custodia Android completa y actualización entregada al iPhone — 14/11/2026
+
+Custodia sintética Android aprobada 1/1 en 103,581 s: lectura QR por cámara emulada, recolección, tránsito, entrega y aceptación por el destinatario. El oráculo independiente confirmó cuatro transiciones, tres escaneos y siete eventos coherentes SQL/Mongo. No acredita cámara física, fotografía ni GPS. El lote posterior incluye centrado inicial y retorno al punto, marcador rojo Android y campañas como acción principal cuando no hay citas. Android/iOS compilan; JVM 46 aprobadas y dos omitidas. Su prueba de mapa falló antes de abrir la Activity, por lo que la nueva presentación sigue pendiente de inspección; no se atribuye al nuevo APK el recorrido de custodia anterior.
+
+La app normal iOS firmada `c716756eb4d157740bf12a3f7fa4df3cfd34b44015d99359b254cb6ab8be3abb` se instaló como actualización y se lanzó en el iPhone, sin desinstalar, introducir credenciales ni operar datos de negocio. [Resultados y artefactos](documentation/evidencias/entrega-final/mobile/RESULTADOS.md). Etapa 04 abierta: siguiente bloque fotografía y archivos. Por corrección de prioridad solicitada por el usuario, se agrupan cambios y comprobaciones por flujo completo, se detienen repeticiones sin fallo nuevo y se aplaza el laboratorio iOS adicional; sus borradores no están aplicados.
+
 ## Recuperación de conexiones WSS corregida y acotada — 13/11/2026
 
 El proxy separa la selección de réplicas WSS del grupo HTTP. Tras una caída de ambas réplicas, la configuración anterior rechazó la segunda conexión inmediata mientras la primera seguía abierta en los cuatro casos de control; la nueva permitió ambas conexiones y sus intercambios en los cuatro casos. Se probaron restauración de A/B y rutas privada WS/pública WSS con Nginx real 1.30.6 y servidores eco sintéticos. Dirección cotejó JUnit, los ocho registros de ejecución, las huellas actuales y manifiestos estables de 1395 fuentes. Un intento inicial falló al preparar el directorio y se conserva separado de las pruebas funcionales.

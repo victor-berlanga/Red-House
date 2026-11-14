@@ -126,7 +126,8 @@ private fun TransportTask(id:String,repository:MobileRepository,queue:Observatio
         val windowHeight=with(density) {LocalWindowInfo.current.containerSize.height.toDp()}
         val mapHeight=if(windowHeight<720.dp || density.fontScale>=1.2f) 200.dp else 280.dp
         val coordinates=validMapPosition(point)
-        RegionalMap(coordinates?.first,coordinates?.second,point?.text("source").orEmpty(),mapHeight)
+        val simulated=isSimulatedPosition(point)
+        RegionalMap(coordinates?.first,coordinates?.second,if(simulated) "Ubicación simulada" else "Última ubicación",mapHeight)
     }
     row?.let {task ->
         val transport=session.user?.text("role")=="TRANSPORT"
@@ -320,7 +321,7 @@ private fun TransportTask(id:String,repository:MobileRepository,queue:Observatio
         if(validMapPosition(it)==null) {
             Text(transportLocationSummary(it,live.connected))
         } else {
-            val simulated=it["simulated"]?.jsonPrimitive?.booleanOrNull==true || it.text("source")=="SIMULATOR"
+            val simulated=isSimulatedPosition(it)
             Text("${if(simulated) "Ubicación simulada" else "Ubicación recibida"}\n${displayBriefDate(it.text("captured_at"))} · hace ${age}s · precisión ${it.text("accuracy_m")} m")
             Text("Última coordenada recibida: latitud ${it.text("latitude")}, longitud ${it.text("longitude")}")
             if(age>30 || !live.connected)Text("Última observación; no se considera ubicación actual.")

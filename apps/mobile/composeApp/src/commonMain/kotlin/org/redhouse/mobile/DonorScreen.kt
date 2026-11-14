@@ -93,8 +93,10 @@ import io.ktor.http.HttpMethod
                 Text(displayBriefDate(next.text("starts_at")),style=MaterialTheme.typography.titleMedium)
                 Text("Estado: ${displayValue("status",next.text("status"))}")
             }
-            Button(onClick={section="Citas"}) {Text("Ver mis citas")}
-            if(nextLoaded && next==null) TextButton(onClick=onExploreCampaigns) {Text("Explorar campañas")}
+            if(nextLoaded && next==null) {
+                Button(onClick=onExploreCampaigns) {Text("Explorar campañas")}
+                TextButton(onClick={section="Citas"}) {Text("Ver mis citas")}
+            } else Button(onClick={section="Citas"}) {Text("Ver mis citas")}
         } }
         Text("Campañas públicas",style=MaterialTheme.typography.titleLarge)
     }

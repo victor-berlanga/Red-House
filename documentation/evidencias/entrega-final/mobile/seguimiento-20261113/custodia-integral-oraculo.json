@@ -1,0 +1,30 @@
+{
+  "passed": true,
+  "read_only_oracle": true,
+  "final_status": "ACCEPTED",
+  "final_version": 6,
+  "final_assigned_actor_matches": true,
+  "transitions": [
+    "COLLECTED",
+    "IN_TRANSIT",
+    "DELIVERED",
+    "ACCEPTED"
+  ],
+  "transition_actors_match": true,
+  "sequences_contiguous": true,
+  "scan_receipts": 3,
+  "scans_match_resource_and_actors": true,
+  "scan_events": 3,
+  "scan_json_request_and_response": true,
+  "four_unique_transition_events": true,
+  "audit_actors_match": true,
+  "custody_resource_seal_and_counterparts_match": true,
+  "pending_outbox_for_seven_events": 0,
+  "seven_audit_events_match_sql_exactly": true,
+  "limits": [
+    "Synthetic fixed-frame camera on Android emulator; not physical optics",
+    "No photo/GPS/MFA acceptance or clinical authorization inferred",
+    "Identity-session revocation and all inventory projections are not asserted by this oracle"
+  ],
+  "observed_at": "2026-11-14T05:27:10.614294+00:00"
+}

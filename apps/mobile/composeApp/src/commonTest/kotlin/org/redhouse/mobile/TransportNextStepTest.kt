@@ -32,6 +32,7 @@ class TransportNextStepTest {
         assertNull(validMapPosition(buildJsonObject {put("fix_valid",true);put("latitude",91.0);put("longitude",-100.0)}))
         assertNull(validMapPosition(buildJsonObject {put("fix_valid",true);put("latitude","NaN");put("longitude",-100.0)}))
         assertNull(validMapPosition(buildJsonObject {put("fix_valid",true);put("latitude",buildJsonObject {});put("longitude",-100.0)}))
+        assertTrue(!isSimulatedPosition(buildJsonObject {put("simulated",buildJsonObject {});put("source",buildJsonObject {})}))
         assertEquals(25.6 to -100.3,validMapPosition(point))
     }
 }
