@@ -14,11 +14,11 @@ import java.util.Locale
 import kotlinx.datetime.*
 
 @OptIn(ExperimentalMaterial3Api::class)
-@Composable internal actual fun SpanishDateDialog(label:String,initial:LocalDate,onDismiss:()->Unit,onSelected:(LocalDate)->Unit) {
+@Composable internal actual fun SpanishDateDialog(label:String,initial:LocalDate,confirmLabel:String,onDismiss:()->Unit,onSelected:(LocalDate)->Unit) {
     val initialMillis=initial.atStartOfDayIn(TimeZone.UTC).toEpochMilliseconds()
     val picker=remember(initialMillis) {DatePickerState(locale=Locale.forLanguageTag("es-MX"),initialSelectedDateMillis=initialMillis)}
     DatePickerDialog(onDismissRequest=onDismiss,
-        confirmButton={TextButton(enabled=picker.selectedDateMillis!=null,onClick={picker.selectedDateMillis?.let {onSelected(Instant.fromEpochMilliseconds(it).toLocalDateTime(TimeZone.UTC).date)}}) {Text("Elegir hora")}},
+        confirmButton={TextButton(enabled=picker.selectedDateMillis!=null,onClick={picker.selectedDateMillis?.let {onSelected(Instant.fromEpochMilliseconds(it).toLocalDateTime(TimeZone.UTC).date)}}) {Text(confirmLabel)}},
         dismissButton={TextButton(onClick=onDismiss){Text("Cancelar")}}) {
         SpanishPickerEnvironment {DatePicker(state=picker,title={Text("Elegir fecha · $label",modifier=Modifier.padding(start=24.dp,top=16.dp,end=24.dp))},
             headline={

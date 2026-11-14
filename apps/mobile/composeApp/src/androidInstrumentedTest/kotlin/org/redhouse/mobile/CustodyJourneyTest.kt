@@ -14,12 +14,12 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class CustodyJourneyTest {
     @get:Rule val compose=createAndroidComposeRule<MainActivity>()
-    private val lab by lazy {codec.parseToJsonElement(InstrumentationRegistry.getInstrumentation().context.assets.open("lab.json").bufferedReader().readText()).jsonObject}
+    private val lab by lazy {readMobileLabFixture()}
     private fun enabled(label:String){revealDestination(compose,label);compose.waitUntil(90000){compose.onAllNodesWithText(label).fetchSemanticsNodes().any{!it.config.contains(SemanticsProperties.Disabled)}}}
     // The native scanner temporarily replaces the Compose activity; absence of a root
     // while camera frames are decoded is expected, not a failed UI assertion.
     private fun shown(label:String){compose.waitUntil(90000){compose.onAllNodesWithText(label,substring=true).fetchSemanticsNodes(atLeastOneRootRequired=false).isNotEmpty()}}
-    private fun click(label:String){revealDestination(compose,label);enabled(label);val node=compose.onAllNodes(hasText(label) and hasClickAction())[0];if(label=="Confirmar")node.performClick() else node.performScrollTo().performClick()}
+    private fun click(label:String){presentationClick(compose,label)}
     private fun fill(label:String,value:String){compose.onNodeWithText(label).performScrollTo().performTextReplacement(value)}
     private fun login(user:String){
         enabled("Iniciar sesión");fill("Cuenta",user);fill("Contraseña",lab.text("password"));click("Iniciar sesión");enabled("Traslados")

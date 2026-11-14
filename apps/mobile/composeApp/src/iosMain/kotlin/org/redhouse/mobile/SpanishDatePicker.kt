@@ -26,7 +26,7 @@ import platform.UIKit.UIColor
 import platform.UIKit.UIUserInterfaceStyle
 
 @OptIn(ExperimentalForeignApi::class,ExperimentalComposeUiApi::class)
-@Composable internal actual fun SpanishDateDialog(label:String,initial:LocalDate,onDismiss:()->Unit,onSelected:(LocalDate)->Unit) {
+@Composable internal actual fun SpanishDateDialog(label:String,initial:LocalDate,confirmLabel:String,onDismiss:()->Unit,onSelected:(LocalDate)->Unit) {
     val primary=MaterialTheme.colorScheme.primary
     val surface=MaterialTheme.colorScheme.surface
     val zone=remember {TimeZone.currentSystemDefault()}
@@ -46,7 +46,7 @@ import platform.UIKit.UIUserInterfaceStyle
         UIKitView(factory={picker},modifier=Modifier.fillMaxWidth().height(340.dp),properties=UIKitInteropProperties(isNativeAccessibilityEnabled=true))
         Row(Modifier.fillMaxWidth(),horizontalArrangement=Arrangement.End) {
             TextButton(onClick=onDismiss){Text("Cancelar")}
-            TextButton(onClick={onSelected(Instant.fromEpochMilliseconds((picker.date.timeIntervalSince1970*1000.0).toLong()).toLocalDateTime(zone).date)}){Text("Elegir hora")}
+            TextButton(onClick={onSelected(Instant.fromEpochMilliseconds((picker.date.timeIntervalSince1970*1000.0).toLong()).toLocalDateTime(zone).date)}){Text(confirmLabel)}
         }
     }
 }

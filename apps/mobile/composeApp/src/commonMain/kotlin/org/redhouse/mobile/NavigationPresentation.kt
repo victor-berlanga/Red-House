@@ -11,6 +11,9 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.scale
 import androidx.compose.ui.graphics.vector.PathParser
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.stateDescription
+import androidx.compose.ui.semantics.clearAndSetSemantics
 import kotlinx.serialization.json.*
 
 fun primaryDestinations(role: String): List<String> = when(role) {
@@ -41,11 +44,11 @@ fun primaryDestinations(role: String): List<String> = when(role) {
     Canvas(Modifier.size(24.dp)) { scale(size.width / 24f, size.height / 24f, pivot=androidx.compose.ui.geometry.Offset.Zero) { drawPath(path, color, style=Stroke(width=1.7f)) } }
 }
 
-@Composable fun SettingRow(label: String, description: String? = null, onClick: () -> Unit) {
-    Column(Modifier.fillMaxWidth().clickable(onClick=onClick).padding(vertical=16.dp)) {
+@Composable fun SettingRow(label: String, description: String? = null, expanded:Boolean? = null, onClick: () -> Unit) {
+    Column(Modifier.fillMaxWidth().clickable(onClick=onClick).semantics {if(expanded!=null) stateDescription=if(expanded) "Abierto" else "Cerrado"}.padding(vertical=16.dp)) {
         Row(Modifier.fillMaxWidth(), horizontalArrangement=Arrangement.SpaceBetween) {
             Text(label, Modifier.weight(1f), style=MaterialTheme.typography.bodyLarge)
-            Text("›", Modifier.padding(start=12.dp), style=MaterialTheme.typography.titleMedium)
+            Text(if(expanded==null) "›" else if(expanded) "⌃" else "⌄", Modifier.padding(start=12.dp).clearAndSetSemantics {}, style=MaterialTheme.typography.titleMedium)
         }
         description?.let { Text(it, style=MaterialTheme.typography.bodyMedium, color=MaterialTheme.colorScheme.onSurfaceVariant) }
     }

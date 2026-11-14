@@ -1,6 +1,8 @@
 package org.redhouse.mobile
 
 import androidx.compose.runtime.*
+import kotlinx.datetime.LocalDate
+import kotlinx.datetime.TimeZone
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.ui.Modifier
@@ -33,9 +35,9 @@ import io.ktor.http.HttpMethod
     var publicationsLoaded by remember {mutableStateOf(false)}
     var publicPage by remember {mutableIntStateOf(1)};var publicTotal by remember {mutableIntStateOf(0)}
     var publicQuery by remember {mutableStateOf("")};var publicFrom by remember {mutableStateOf("")};var publicUntil by remember {mutableStateOf("")}
-    var queryDraft by remember {mutableStateOf("")};var fromDraft by remember {mutableStateOf("")};var untilDraft by remember {mutableStateOf("")}
+    var queryDraft by remember {mutableStateOf("")};var fromDraft by remember {mutableStateOf<LocalDate?>(null)};var untilDraft by remember {mutableStateOf<LocalDate?>(null)}
     var publicFilters by remember {mutableStateOf(false)}
-    var site by remember {mutableStateOf("")};var siteName by remember {mutableStateOf("")};var from by remember {mutableStateOf("")};var until by remember {mutableStateOf("")}
+    var site by remember {mutableStateOf("")};var siteName by remember {mutableStateOf("")};var from by remember {mutableStateOf<LocalDate?>(null)};var until by remember {mutableStateOf<LocalDate?>(null)}
     var status by remember {mutableStateOf("")};var busy by remember {mutableStateOf(true)}
     fun items(value:JsonObject)=(value["items"] as? JsonArray)?.map{it.jsonObject}?:emptyList()
     var donorPage by remember {mutableIntStateOf(1)};var appointmentPage by remember {mutableIntStateOf(1)}
@@ -86,34 +88,31 @@ import io.ktor.http.HttpMethod
     if(section=="Inicio") {
         val next=nextAppointment
         Card(Modifier.fillMaxWidth()) { Column(Modifier.padding(16.dp),verticalArrangement=Arrangement.spacedBy(8.dp)) {
-            if(busy) Text("Consultando tus citas…") else if(!nextLoaded) Text("No fue posible consultar tu próxima cita. Actualiza para intentar de nuevo.") else if(next==null) Text("No tienes citas próximas.") else {
+            if(!nextLoaded && busy) Text("Consultando tus citas…") else if(!nextLoaded) Text("No fue posible consultar tu próxima cita. Actualiza para intentar de nuevo.") else if(next==null) Text("No tienes citas próximas.") else {
                 Text(next.text("title"),style=MaterialTheme.typography.titleMedium)
                 Text(displayBriefDate(next.text("starts_at")),style=MaterialTheme.typography.titleMedium)
                 Text("Estado: ${displayValue("status",next.text("status"))}")
             }
             Button(onClick={section="Citas"}) {Text("Ver mis citas")}
-            if(!busy && nextLoaded && next==null) TextButton(onClick=onExploreCampaigns) {Text("Explorar campañas")}
+            if(nextLoaded && next==null) TextButton(onClick=onExploreCampaigns) {Text("Explorar campañas")}
         } }
         Text("Campañas públicas",style=MaterialTheme.typography.titleLarge)
     }
     if(section in setOf("Inicio","Campañas")) {
         if(section=="Campañas") {
-            SettingRow("Buscar y filtrar campañas") {publicFilters=!publicFilters}
+            SettingRow("Buscar y filtrar campañas",expanded=publicFilters) {publicFilters=!publicFilters}
             if(publicFilters) {
                 OutlinedTextField(queryDraft,{queryDraft=it.take(100)},label={Text("Campaña o sede")},singleLine=true,modifier=Modifier.fillMaxWidth())
-                DateTimeField("Desde",fromDraft,{fromDraft=it},optional=true)
-                DateTimeField("Hasta",untilDraft,{untilDraft=it},optional=true)
-                Text("La fecha final no se incluye en la búsqueda.",style=MaterialTheme.typography.bodySmall)
+                DateFilterField("Desde",fromDraft,{fromDraft=it})
+                DateFilterField("Hasta",untilDraft,{untilDraft=it})
                 Button(enabled=!busy,onClick={
-                    val from=runCatching {kotlinx.datetime.Instant.parse(fromDraft)}.getOrNull()
-                    val until=runCatching {kotlinx.datetime.Instant.parse(untilDraft)}.getOrNull()
-                    if(from!=null && until!=null && until<=from) status="La fecha final debe ser posterior a la inicial."
-                    else {status="";run{loadPublications(1,queryDraft.trim(),fromDraft,untilDraft)}}
+                    if(fromDraft!=null && untilDraft!=null && fromDraft!!>untilDraft!!) status="La fecha final debe ser igual o posterior a la inicial."
+                    else {val (start,end)=dayFilterBounds(fromDraft,untilDraft,TimeZone.currentSystemDefault());status="";run{loadPublications(1,queryDraft.trim(),start,end)}}
                 }) {Text("Buscar campañas")}
             }
         }
         if(!busy && !publicationsLoaded) Text("No fue posible consultar las campañas públicas. Actualiza para intentar de nuevo.")
-        if(!busy && publicationsLoaded && publications.isEmpty()) Text("No hay campañas publicadas en este momento.")
+        if(!busy && publicationsLoaded && publications.isEmpty()) Text(if(publicQuery.isNotBlank() || publicFrom.isNotBlank() || publicUntil.isNotBlank()) "No encontramos campañas con estos filtros." else "No hay campañas publicadas en este momento.")
         publications.forEach { publication ->
             Card(Modifier.fillMaxWidth()) { Column(Modifier.padding(16.dp),verticalArrangement=Arrangement.spacedBy(6.dp)) {
                 Text(publication.text("title"),style=MaterialTheme.typography.titleMedium)
@@ -195,13 +194,16 @@ import io.ktor.http.HttpMethod
     sites.forEach{row->TextButton(onClick={site=row.text("id");siteName=row.text("name")}){Text(row.text("name"))}}
     PageControls(sitePage,siteTotal,!busy,{run{loadSites(sitePage-1)}},{run{loadSites(sitePage+1)}})
     Text("Sede seleccionada: ${siteName.ifBlank { "Todas" }}")
-    Text("Periodo opcional. El límite final no se incluye.")
-    DateTimeField("desde",from,{from=it},optional=true)
-    DateTimeField("hasta",until,{until=it},optional=true)
-    Button(enabled=!busy,onClick={run{
-        val query=buildList{add("active=true");add("date_field=starts_at");if(site.isNotBlank())add("site_id="+site.encodeURLParameter());if(from.isNotBlank())add("from_at="+from.encodeURLParameter());if(until.isNotBlank())add("until_at="+until.encodeURLParameter())}.joinToString("&")
-        loadSlots(1,query);status="Disponibilidad consultada"
-    }}){Text("Consultar horarios")}
+    Text("Periodo opcional")
+    DateFilterField("Desde",from,{from=it})
+    DateFilterField("Hasta",until,{until=it})
+    Button(enabled=!busy,onClick={
+        if(from!=null && until!=null && from!!>until!!) status="La fecha final debe ser igual o posterior a la inicial."
+        else {
+            val (start,end)=dayFilterBounds(from,until,TimeZone.currentSystemDefault())
+            run {val query=buildList{add("active=true");add("date_field=starts_at");if(site.isNotBlank())add("site_id="+site.encodeURLParameter());if(start.isNotBlank())add("from_at="+start.encodeURLParameter());if(end.isNotBlank())add("until_at="+end.encodeURLParameter())}.joinToString("&");loadSlots(1,query);status="Disponibilidad consultada"}
+        }
+    }){Text("Consultar horarios")}
     reschedule?.let{Text("Elige nuevo horario para la cita ${it.text("id").take(8)}");TextButton(onClick={reschedule=null}){Text("Cancelar cambio")}}
     slots.forEach{slot->key("slot:"+slot.text("id")){
         Text("${displayBriefDate(slot.text("starts_at"))} · disponibles ${slot.text("available")}")

@@ -5,11 +5,13 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Text
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
 import android.graphics.BitmapFactory
+import android.view.ViewOutlineProvider
 import org.osmdroid.config.Configuration
 import org.osmdroid.views.MapView
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory
@@ -19,7 +21,7 @@ import java.io.File
 
 actual fun imageBitmap(bytes:ByteArray):ImageBitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.size).asImageBitmap()
 actual fun sha256(bytes:ByteArray)=java.security.MessageDigest.getInstance("SHA-256").digest(bytes).joinToString("") { "%02x".format(it) }
-@Composable actual fun RegionalMap(latitude:Double?,longitude:Double?,label:String) {
+@Composable actual fun RegionalMap(latitude:Double?,longitude:Double?,label:String,height:Dp) {
     val context=LocalContext.current
     val map=remember {
         Configuration.getInstance().apply {
@@ -28,13 +30,13 @@ actual fun sha256(bytes:ByteArray)=java.security.MessageDigest.getInstance("SHA-
             osmdroidTileCache=File(context.cacheDir,"cartography/tiles")
             expirationExtendedDuration=7*24*60*60*1000L
         }
-        MapView(context).apply {setTileSource(TileSourceFactory.MAPNIK);setMultiTouchControls(true);controller.setZoom(7.0);controller.setCenter(GeoPoint(25.6,-99.9))}
+        MapView(context).apply {outlineProvider=ViewOutlineProvider.BOUNDS;clipToOutline=true;setTileSource(TileSourceFactory.MAPNIK);setMultiTouchControls(true);controller.setZoom(7.0);controller.setCenter(GeoPoint(25.6,-99.9))}
     }
     val marker=remember(map) { Marker(map).also { map.overlays.add(it) } }
     DisposableEffect(map) {map.onResume();onDispose {map.onPause();map.onDetach()} }
     Column {
-        AndroidView(factory={map},modifier=Modifier.fillMaxWidth().height(280.dp),update={
-            it.contentDescription="Mapa de Nuevo León. Última ubicación: ${latitude?:"sin dato"}, ${longitude?:"sin dato"}. Fuente: $label"
+        AndroidView(factory={map},modifier=Modifier.fillMaxWidth().height(height),update={
+            it.contentDescription=if(latitude==null || longitude==null) "Mapa regional de Nuevo León sin ubicación confirmada." else "Mapa de Nuevo León. Última ubicación: $latitude, $longitude. Fuente: $label"
             marker.isEnabled=latitude!=null && longitude!=null
             if(latitude!=null && longitude!=null) {marker.position=GeoPoint(latitude,longitude);marker.title=label}
             it.invalidate()

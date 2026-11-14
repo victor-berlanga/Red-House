@@ -2,6 +2,12 @@
 
 Las entradas están ordenadas de reciente a histórico; un pendiente de un corte anterior puede quedar sustituido explícitamente por una entrada posterior.
 
+## Filtros por día y escaneo Android comprobados parcialmente — 13/11/2026
+
+Android incorpora filtros de días completos en zona local, incluido un mismo día inicial/final; conserva el selector preciso para operaciones que requieren hora. Estado de carga de la próxima cita independiente y mensajes de búsqueda vacía acordes a los filtros aplicados. Mapa reducido con texto ampliado, ubicación inválida sin marcador y estados explícitos de consulta/acceso a origen y destino. Lote Android normal, laboratorio e instrumentación compilados; JVM **46 aprobadas y dos omitidas**. Donante instrumentado **1/1 en 88,881 s**: inicio cargado, calendario español del producto y consulta del mismo día. La dirección inspeccionó esas pantallas y la tarea sin GPS: mapa, atribución y siguiente acción completos a escala 1,3. Ochenta y tres fuentes y las tres huellas APK cotejadas antes de registrar el incremento.
+
+Custodia instrumentada **0/1**: el QR excedía el área del lector; permanece separado de fallos anteriores del arnés. Al reducir el símbolo del fotograma fijo emulado y reabrir manualmente, Red House mostró «Código verificado» y «Unidad verificada». Oráculo independiente de solo lectura: un recibo y evento de escaneo, recurso/traslado/versión coincidentes, JSON y auditoría Mongo correlacionados; traslado aún PREPARED. No se confirmó recolección. [Resultados, artefactos y límites](documentation/evidencias/entrega-final/mobile/RESULTADOS.md). La custodia completa, foto, estados con GPS/centrado, accesibilidad e iOS del lote actual siguen pendientes; no acredita cámara física ni cierra 04. El iPhone conserva el artefacto y sesión anteriores.
+
 ## Diagnósticos de cámara sin credenciales — 13/11/2026
 
 Una excepción gRPC del laboratorio mostró el token local de consola del emulador, usado por error como credencial de otro protocolo. Los helpers ahora muestran solo códigos/mensajes fijos y cierran el canal; prueba sintética 1/1 y análisis estático aprobados. Con los emuladores cerrados se renovó atómicamente el token, conservando propietario y permisos 0600. No se modificaron credenciales de Red House ni GCP. [Incidente, prueba y alcance](documentation/evidencias/entrega-final/mobile/diagnostico-camara-20261113/RESULTADOS.md). No acredita el lector QR ni cierra la etapa 04.

@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Text
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.toComposeImageBitmap
 import androidx.compose.ui.viewinterop.UIKitView
@@ -23,12 +24,12 @@ actual fun sha256(bytes:ByteArray):String {
     bytes.usePinned {input->result.usePinned {output->CC_SHA256(if(bytes.isEmpty())null else input.addressOf(0),bytes.size.toUInt(),output.addressOf(0))}}
     return result.joinToString(""){it.toString(16).padStart(2,'0')}
 }
-@Composable actual fun RegionalMap(latitude:Double?,longitude:Double?,label:String) {
+@Composable actual fun RegionalMap(latitude:Double?,longitude:Double?,label:String,height:Dp) {
     UIKitView(factory={MKMapView().apply {
         setRegion(MKCoordinateRegionMake(CLLocationCoordinate2DMake(25.6,-99.9),MKCoordinateSpanMake(4.0,4.0)),false)
         showsUserLocation=false
-    }},modifier=Modifier.fillMaxWidth().height(280.dp),properties=UIKitInteropProperties(isNativeAccessibilityEnabled=true),update={map->
-        map.accessibilityLabel="Mapa de Nuevo León. Última ubicación: ${latitude?:"sin dato"}, ${longitude?:"sin dato"}. Fuente: $label"
+    }},modifier=Modifier.fillMaxWidth().height(height),properties=UIKitInteropProperties(isNativeAccessibilityEnabled=true),update={map->
+        map.accessibilityLabel=if(latitude==null || longitude==null) "Mapa regional de Nuevo León sin ubicación confirmada." else "Mapa de Nuevo León. Última ubicación: $latitude, $longitude. Fuente: $label"
         map.removeAnnotations(map.annotations)
         if(latitude!=null && longitude!=null)map.addAnnotation(MKPointAnnotation().apply {
             setCoordinate(CLLocationCoordinate2DMake(latitude,longitude));setTitle(label)

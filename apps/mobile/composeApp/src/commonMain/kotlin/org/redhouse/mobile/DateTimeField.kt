@@ -42,7 +42,7 @@ import kotlin.time.Duration.Companion.seconds
         if(optional && value.isNotBlank()) TextButton(onClick={onChange("")}) {Text("Quitar $label")}
         if(error.isNotBlank()) Text(error,color=MaterialTheme.colorScheme.error)
     }
-    if(stage==1) key(opening) {SpanishDateDialog(label,initial.date,onDismiss={stage=0},onSelected={selectedDate=it;stage=2})}
+    if(stage==1) key(opening) {SpanishDateDialog(label,initial.date,"Elegir hora",onDismiss={stage=0},onSelected={selectedDate=it;stage=2})}
     if(stage==2) AlertDialog(onDismissRequest={stage=0},title={Text("Elegir hora · $label")},
         text={Column {
             Text("Se usará la zona horaria de este teléfono.")
@@ -80,3 +80,27 @@ internal fun localCandidates(date:LocalDate,hour:Int,minute:Int,second:Int,zone:
     val candidates=if(difference==0) listOf(first) else listOf(first,first-difference.seconds,first+difference.seconds)
     return candidates.filter {it.toLocalDateTime(zone)==local}.distinct().sorted()
 }
+
+/** Inclusive calendar days translated at query time using the phone's zone. */
+internal fun dayFilterBounds(from:LocalDate?,until:LocalDate?,zone:TimeZone):Pair<String,String> {
+    require(from==null || until==null || from<=until) { "La fecha final debe ser igual o posterior a la inicial." }
+    return (from?.atStartOfDayIn(zone)?.toString().orEmpty()) to
+        (until?.plus(1,DateTimeUnit.DAY)?.atStartOfDayIn(zone)?.toString().orEmpty())
+}
+
+@Composable internal fun DateFilterField(label:String,value:LocalDate?,onChange:(LocalDate?)->Unit) {
+    var open by remember {mutableStateOf(false)}
+    var opening by remember {mutableIntStateOf(0)}
+    Column {
+        OutlinedButton(onClick={opening++;open=true},modifier=Modifier.fillMaxWidth()) {
+            Text(if(value==null) if(label=="Desde") "Fecha inicial" else "Fecha final" else "$label · ${value.dayOfMonth} ${spanishMonth(value.monthNumber)} ${value.year}")
+        }
+        if(value!=null) TextButton(onClick={onChange(null)}) {Text(if(label=="Desde") "Quitar fecha inicial" else "Quitar fecha final")}
+    }
+    if(open) key(opening) {
+        val initial=value ?: Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date
+        SpanishDateDialog(label,initial,"Elegir fecha",onDismiss={open=false},onSelected={onChange(it);open=false})
+    }
+}
+
+private fun spanishMonth(month:Int)=listOf("ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic")[month-1]

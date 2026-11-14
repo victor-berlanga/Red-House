@@ -12,6 +12,8 @@ import kotlinx.coroutines.*
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import kotlinx.serialization.json.*
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalWindowInfo
 
 @Composable
 fun TransportScreen(id:String,repository:MobileRepository,queue:ObservationQueue,devices:DeviceAccess) {
@@ -39,6 +41,9 @@ private fun TransportTask(id:String,repository:MobileRepository,queue:Observatio
     var entries by remember(queue) {mutableStateOf(queue.entries())}
     val queueRevision by queue.changes.collectAsState()
     var operational by remember(id) {mutableStateOf<JsonObject?>(null)}
+    var operationalLoading by remember(id) {mutableStateOf(true)}
+    var operationalError by remember(id) {mutableStateOf(false)}
+    var operationalDenied by remember(id) {mutableStateOf(false)}
     var handoverPerson by remember(id) {mutableStateOf<JsonObject?>(null)}
     var handoverRetry by remember(id) {mutableIntStateOf(0)}
     var handoverLoading by remember(id) {mutableStateOf(false)}
@@ -46,9 +51,16 @@ private fun TransportTask(id:String,repository:MobileRepository,queue:Observatio
     val tracking=remember(id) {Tracking(session.api.client,session,session.api.bases.getValue("transporte"),repository.journal)}
     val live by tracking.state.collectAsState()
     fun run(action:suspend ()->Unit) {if(busy)return;busy=true;scope.launch {try{action()} catch(e:CancellationException){throw e} catch(e:Exception){error=if(e is ApiFailure || e is IllegalArgumentException)e.message.orEmpty() else "Sin confirmación. Revisa pendientes antes de repetir."}finally{busy=false}}}
+    suspend fun loadOperational() {
+        operationalLoading=true;operationalError=false;operationalDenied=false
+        try {operational=session.request("transporte","/api/v1/shipments/$id/operational-context")}
+        catch(e:CancellationException){throw e}
+        catch(e:Exception){operational=null;operationalDenied=e is ApiFailure && e.status in setOf(401,403);operationalError=!operationalDenied}
+        finally {operationalLoading=false}
+    }
     LaunchedEffect(id) {
         try {row=repository.shipment(id)} catch(e:CancellationException){throw e} catch(e:Exception){error=if(e is ApiFailure)e.message.orEmpty() else "No se pudo consultar el traslado."}
-        try {operational=session.request("transporte","/api/v1/shipments/$id/operational-context")} catch(e:CancellationException){throw e} catch(_:Exception) { /* Task remains available; contacts can be retried explicitly. */ }
+        loadOperational()
     }
     LaunchedEffect(row,operational,handoverRetry) {
         handoverPerson=null
@@ -108,11 +120,13 @@ private fun TransportTask(id:String,repository:MobileRepository,queue:Observatio
     }
     if(error.isNotBlank())Text(error)
     if(busy) LinearProgressIndicator(Modifier.fillMaxWidth())
-    val point=live.position
+    val point=live.position?.takeIf {candidate->candidate.values.all {it is JsonPrimitive}}
     if(!transferView) {
-        RegionalMap(point?.get("latitude")?.jsonPrimitive?.doubleOrNull,point?.get("longitude")?.jsonPrimitive?.doubleOrNull,point?.text("source").orEmpty())
-        if(point?.get("simulated")?.jsonPrimitive?.booleanOrNull==true) Text("Ubicación simulada",style=MaterialTheme.typography.labelMedium)
-        if(point!=null && !live.connected) Text("Última ubicación recibida; sin conexión actual.",style=MaterialTheme.typography.labelMedium)
+        val density=LocalDensity.current
+        val windowHeight=with(density) {LocalWindowInfo.current.containerSize.height.toDp()}
+        val mapHeight=if(windowHeight<720.dp || density.fontScale>=1.2f) 200.dp else 280.dp
+        val coordinates=validMapPosition(point)
+        RegionalMap(coordinates?.first,coordinates?.second,point?.text("source").orEmpty(),mapHeight)
     }
     row?.let {task ->
         val transport=session.user?.text("role")=="TRANSPORT"
@@ -126,10 +140,15 @@ private fun TransportTask(id:String,repository:MobileRepository,queue:Observatio
             Text("Traslado · ${displayValue("status",task.text("status"))}",style=MaterialTheme.typography.titleMedium)
         } else Card(Modifier.fillMaxWidth()) { Column(Modifier.padding(horizontal=16.dp,vertical=8.dp)) {
             Text("Traslado · ${displayValue("status",task.text("status"))}",style=MaterialTheme.typography.titleMedium)
+            Text(transportLocationSummary(point,live.connected),style=MaterialTheme.typography.bodySmall)
             operational?.let {context ->
                 val origin=context["origin"]?.jsonObject?.text("name").orEmpty()
                 val destinationName=context["destination"]?.jsonObject?.text("name").orEmpty()
                 if(origin.isNotBlank() && destinationName.isNotBlank()) Text("$origin → $destinationName",style=MaterialTheme.typography.bodyMedium)
+            }
+            if(operational==null) {
+                Text(if(operationalLoading) "Consultando origen y destino…" else if(operationalDenied) "No se pudo confirmar tu acceso al origen y destino." else "Origen y destino temporalmente no disponibles.",style=MaterialTheme.typography.bodySmall)
+                if(operationalError) TextButton(enabled=!busy,onClick={run{loadOperational()}}) {Text("Volver a consultar")}
             }
             if(!final && (transport||operator)) {
                 if(action!=null) SettingRow("Siguiente paso: $nextStep") {transferView=true}
@@ -154,8 +173,8 @@ private fun TransportTask(id:String,repository:MobileRepository,queue:Observatio
                         Text("Selecciona la persona que participa en la entrega.")
                         val context=operational
                         if(context==null) {
-                            Text("No se pudieron cargar las personas autorizadas.")
-                            OutlinedButton(enabled=!busy,onClick={run{operational=session.request("transporte","/api/v1/shipments/$id/operational-context")}}){Text("Volver a consultar")}
+                            Text(if(operationalDenied) "No se pudo confirmar tu acceso a las personas autorizadas." else "No se pudieron cargar las personas autorizadas.")
+                            if(!operationalDenied) OutlinedButton(enabled=!busy,onClick={run{loadOperational()}}){Text("Volver a consultar")}
                         } else if(transport) {
                             val side=if(task.text("status")=="PREPARED") "origin" else "destination"
                             val operators=context.getValue(side).jsonObject.getValue("operators").jsonArray
@@ -246,8 +265,8 @@ private fun TransportTask(id:String,repository:MobileRepository,queue:Observatio
         Text("Salida: ${displayBriefDate(task.text("departure_at"))} · Llegada planificada: ${displayBriefDate(task.text("eta"))}")
         SettingRow("Contactos y ruta") {contactsView=!contactsView}
         if(contactsView) {
-        OutlinedButton(enabled=!busy,onClick={run {
-            operational=session.request("transporte","/api/v1/shipments/$id/operational-context")
+        OutlinedButton(enabled=!busy && !operationalDenied,onClick={run {
+            loadOperational()
         }}){Text("Consultar contactos y ruta de esta tarea")}
         operational?.let {context ->
             OperationalDetails(context)
@@ -297,10 +316,15 @@ private fun TransportTask(id:String,repository:MobileRepository,queue:Observatio
         dismissButton={TextButton(onClick={discardPosition=false}){Text("Conservar")}})
     point?.let {
         var age by remember {mutableStateOf(0L)}
-        LaunchedEffect(it.text("event_id")){while(isActive){age=(Clock.System.now()-Instant.parse(it.text("captured_at"))).inWholeSeconds;delay(1000)}}
-        Text("${if(it["simulated"]?.jsonPrimitive?.booleanOrNull==true) "Ubicación simulada" else "Ubicación recibida"}\n${displayBriefDate(it.text("captured_at"))} · hace ${age}s · precisión ${it.text("accuracy_m")} m")
-        Text("Última coordenada recibida: latitud ${it.text("latitude")}, longitud ${it.text("longitude")}")
-        if(age>30 || !live.connected)Text("Última observación; no se considera ubicación actual.")
+        LaunchedEffect(it.text("event_id")){while(isActive){age=runCatching {(Clock.System.now()-Instant.parse(it.text("captured_at"))).inWholeSeconds}.getOrDefault(0L);delay(1000)}}
+        if(validMapPosition(it)==null) {
+            Text(transportLocationSummary(it,live.connected))
+        } else {
+            val simulated=it["simulated"]?.jsonPrimitive?.booleanOrNull==true || it.text("source")=="SIMULATOR"
+            Text("${if(simulated) "Ubicación simulada" else "Ubicación recibida"}\n${displayBriefDate(it.text("captured_at"))} · hace ${age}s · precisión ${it.text("accuracy_m")} m")
+            Text("Última coordenada recibida: latitud ${it.text("latitude")}, longitud ${it.text("longitude")}")
+            if(age>30 || !live.connected)Text("Última observación; no se considera ubicación actual.")
+        }
     }
     SettingRow("Observaciones por sincronizar (${entries.size})") {observationsView=!observationsView}
     if(observationsView) {

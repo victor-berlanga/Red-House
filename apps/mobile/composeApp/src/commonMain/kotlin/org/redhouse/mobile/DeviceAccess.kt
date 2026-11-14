@@ -2,6 +2,7 @@ package org.redhouse.mobile
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.unit.Dp
 
 /** Platform callbacks return cancellation/permission errors explicitly; no synthetic fallback. */
 interface DeviceAccess {
@@ -20,7 +21,7 @@ data class PhonePosition(val latitude: Double, val longitude: Double, val accura
                          val capturedAt: String, val simulated: Boolean)
 expect fun imageBitmap(bytes: ByteArray): ImageBitmap
 expect fun sha256(bytes: ByteArray): String
-@Composable expect fun RegionalMap(latitude: Double?, longitude: Double?, label: String)
+@Composable expect fun RegionalMap(latitude: Double?, longitude: Double?, label: String, height: Dp)
 
 object MobileLifecycle { val foreground = kotlinx.coroutines.flow.MutableStateFlow(true); fun active(value:Boolean) { foreground.value=value } }
 
