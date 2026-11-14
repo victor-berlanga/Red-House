@@ -1,5 +1,5 @@
 {
-  "scope": "Dos bases sintéticas propias detenidas; logs conservados privados",
+  "scope": "Tres bases sintéticas propias detenidas; logs conservados privados",
   "reports": [
     {
       "fixture": "red-house-ms-tests-t5ovotxh",
@@ -32,8 +32,24 @@
       ],
       "archive": "redhouse-mobile-qr-logs-wz__7qx1",
       "deleted": true
+    },
+    {
+      "fixture": "red-house-ms-tests-7vt7aky2",
+      "mode": "delete",
+      "checked_at_utc": "2026-11-14T04:47:14.368059+00:00",
+      "files": 1851,
+      "bytes": 272731984,
+      "criteria": [
+        "ruta_y_estado",
+        "propietario_y_permisos",
+        "pids_sin_procesos",
+        "sin_archivos_abiertos",
+        "tres_eventos_sinteticos_i0607"
+      ],
+      "archive": "redhouse-i0607-logs-cu80gr5l",
+      "deleted": true
     }
   ],
-  "logical_bytes_removed": 560417641,
-  "files_removed": 3698
+  "logical_bytes_removed": 833149625,
+  "files_removed": 5549
 }

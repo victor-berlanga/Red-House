@@ -2,9 +2,9 @@
 
 Las entradas están ordenadas de reciente a histórico; un pendiente de un corte anterior puede quedar sustituido explícitamente por una entrada posterior.
 
-## Limpieza de dos laboratorios concluidos — 13/11/2026
+## Limpieza de tres laboratorios concluidos — 13/11/2026
 
-Retiradas únicamente las bases efímeras propias de DESK-07 y de la lectura QR Android, tras identificar datos sintéticos, confirmar motores cerrados y repetir guardas de ruta/propietario/archivos abiertos. Logs privados y evidencia de cada resultado conservados, incluido el fallo de custodia. Total: 3.698 archivos y 560.417.641 bytes lógicos; no es ahorro físico neto medido ni resuelve por sí solo el presupuesto de carga sostenida. [Alcance y registro](documentation/entrega-final/continuidad/Organizacion.md#retiro-de-bases-temporales-comprobadas--13112026-monterrey). Datos del proyecto, respaldos, SDK y laboratorios de carga fallidos conservados.
+Retiradas únicamente las bases efímeras propias de DESK-07, de la lectura QR Android y del intento 04 aprobado de I06-07, tras identificar datos sintéticos, confirmar motores cerrados y repetir guardas de ruta/propietario/archivos abiertos. Logs privados y evidencia de cada resultado conservados, incluido el fallo de custodia. Total: 5.549 archivos y 833.149.625 bytes lógicos en tres operaciones; no es ahorro físico neto medido ni resuelve por sí solo el presupuesto de carga sostenida. [Alcance y registro](documentation/entrega-final/continuidad/Organizacion.md#retiro-de-bases-temporales-comprobadas--13112026-monterrey). Datos del proyecto, respaldos, SDK y laboratorios de carga fallidos conservados.
 
 ## Filtros por día y escaneo Android comprobados parcialmente — 13/11/2026
 
