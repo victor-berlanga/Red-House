@@ -2,6 +2,14 @@
 
 Las entradas están ordenadas de reciente a histórico; un pendiente de un corte anterior puede quedar sustituido explícitamente por una entrada posterior.
 
+## Volumen del 10 % y diagnóstico de carga — 13/11/2026
+
+Preparación aislada completada: 2.000 donantes preliminares, 10.000 recursos y 100.000 eventos SQL sintéticos; 942 huellas de fuentes iguales antes/después. Inserción con comprobaciones: 157,918 s, incluidos 130,951 s de guardas. PostgreSQL creció 56.459.264 bytes y el directorio 124.021.623 bytes lógicos; WAL pasó de uno a cinco segmentos de 16 MiB. Los planes de consulta son observaciones únicas, no latencias sostenidas. El primer intento falló por desaparición de un archivo temporal durante el censo; su evidencia permanece separada.
+
+La lectura sostenida del segundo intento falló antes del calentamiento: tres login devolvieron 503 `redis_unavailable`, tres devolvieron 200 y hubo tres respuestas HTTP de revocación, sin comprobación individual SQL/Redis. Se activó una guarda cuyo motivo exacto no quedó registrado; la variación observada de disco no demuestra la causa. Motores propios cerrados. [Preparación, fallo y límites](documentation/evidencias/entrega-final/carga-20261113/intento-10porciento-02/RESULTADOS.md). No hay p95/p99 válidos ni aceptación de capacidad; etapa 07 abierta.
+
+El arnés ahora clasifica fallos de presupuesto/censo y registra UTC y tiempo transcurrido sin mensajes privados; mantiene los límites y tiempos. Treinta y dos unitarias ligeras pasaron tras corregir un test de importación de Locust; resultados transcritos, sin JUnit archivado ni nueva ejecución real. [Diagnóstico y reproducción](documentation/evidencias/entrega-final/carga-20261113/diagnostico-guardas-propuesta/RESULTADOS.md). Se cerraron únicamente el daemon Gradle inactivo y su hijo Kotlin propios; cinco cachés iOS reconstruibles se retiraron conservando productos y evidencia ([organización](documentation/entrega-final/continuidad/Organizacion.md)). La contención del equipo es una hipótesis pendiente de contraste.
+
 ## Calendario iOS inspeccionado en el iPhone — 13/11/2026
 
 El selector usa UIKit en línea, español y una zona local coherente al representar y recuperar la fecha. Se rechazaron visualmente la variante superpuesta en un diálogo Compose y la que marcaba como hoy el día UTC siguiente. El ejecutable normal firmado `d1003f82424fd8ded9e029683e11f7c7b692fe756f4ddcfd9e96149a68bc3513` se actualizó sin borrar la sesión. La inspección física comprobó fecha local, selección del 14 y conservación del 14 al cancelar una selección posterior del 8. No se aplicó el filtro ni se escribieron datos de negocio; capturas completas privadas.

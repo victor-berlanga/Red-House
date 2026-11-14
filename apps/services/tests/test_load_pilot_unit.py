@@ -2,6 +2,7 @@
 
 import json
 import sys
+from pathlib import Path
 from types import SimpleNamespace
 
 import pytest
@@ -22,6 +23,19 @@ def test_dimensions_are_fixed_and_seeded():
         for state in ("AVAILABLE", "QUARANTINE")
     } == {"AVAILABLE": 500, "QUARANTINE": 500}
     assert all(sum(row[1] == tenant for row in resources) == 500 for tenant in (0, 1))
+    large_donors, large_resources = pilot.dimensions(20261113, 10)
+    assert (len(large_donors), len(large_resources)) == (2000, 10000)
+    assert large_donors[:200] == donors
+    assert large_resources[:1000] == resources
+
+
+def test_wal_snapshot_counts_only_complete_segment_names(tmp_path):
+    wal = tmp_path / "pg/pg_wal"
+    wal.mkdir(parents=True)
+    (wal / "000000010000000000000001").write_bytes(b"x" * 10)
+    (wal / "000000010000000000000002").write_bytes(b"x" * 20)
+    (wal / "000000010000000000000003.partial").write_bytes(b"ignored")
+    assert pilot.wal_snapshot(tmp_path) == {"segments": 2, "bytes": 30}
 
 
 @pytest.mark.parametrize(
@@ -45,12 +59,76 @@ def test_budget_and_symlinks_are_fail_closed(tmp_path, monkeypatch):
     )
     assert pilot.budget(tmp_path)["owned_bytes"] == 4
     monkeypatch.setattr(pilot, "MAX_OWN", 3)
-    with pytest.raises(RuntimeError):
+    with pytest.raises(pilot.BudgetExceeded) as failure:
         pilot.budget(tmp_path)
+    assert failure.value.code == "owned_limit_exceeded"
+    assert failure.value.sample == {
+        "free_bytes": pilot.MIN_FREE,
+        "owned_bytes": 4,
+        "minimum_free_bytes": pilot.MIN_FREE,
+        "maximum_owned_bytes": 3,
+    }
     monkeypatch.setattr(pilot, "MAX_OWN", 10)
     (tmp_path / "link").symlink_to(tmp_path / "data")
     with pytest.raises(ValueError):
         pilot.budget(tmp_path)
+
+
+def test_budget_reports_free_space_boundary(tmp_path, monkeypatch):
+    monkeypatch.setattr(
+        pilot.shutil, "disk_usage", lambda _: SimpleNamespace(free=pilot.MIN_FREE - 1)
+    )
+    with pytest.raises(pilot.BudgetExceeded) as failure:
+        pilot.budget(tmp_path)
+    assert failure.value.code == "free_insufficient"
+    assert failure.value.sample["free_bytes"] == pilot.MIN_FREE - 1
+    assert failure.value.sample["owned_bytes"] == 0
+
+
+def test_disk_census_retries_complete_scan_after_transient_removal(
+    tmp_path, monkeypatch
+):
+    victim = tmp_path / "temporary"
+    victim.write_bytes(b"1234")
+    actual = Path.lstat
+    attempts = []
+
+    def unstable(path, *args, **kwargs):
+        if path == victim:
+            attempts.append(path)
+            if len(attempts) == 1:
+                raise FileNotFoundError("transient")
+        return actual(path, *args, **kwargs)
+
+    monkeypatch.setattr(Path, "lstat", unstable)
+    assert pilot.own_bytes(tmp_path) == 4
+    assert len(attempts) == 2
+
+
+def test_disk_census_fails_closed_on_persistent_removal_or_missing_root(
+    tmp_path, monkeypatch
+):
+    victim = tmp_path / "temporary"
+    victim.write_bytes(b"1234")
+    actual = Path.lstat
+    attempts = []
+
+    def unstable(path, *args, **kwargs):
+        if path == victim:
+            attempts.append(path)
+            raise FileNotFoundError("persistent")
+        return actual(path, *args, **kwargs)
+
+    monkeypatch.setattr(Path, "lstat", unstable)
+    with pytest.raises(pilot.CensusFailure, match="unstable"):
+        pilot.own_bytes(tmp_path)
+    assert len(attempts) == 3
+    with pytest.raises(pilot.CensusFailure, match="root_missing"):
+        pilot.own_bytes(tmp_path / "missing")
+    root_link = tmp_path / "root-link"
+    root_link.symlink_to(tmp_path, target_is_directory=True)
+    with pytest.raises(pilot.CensusFailure, match="root_invalid"):
+        pilot.own_bytes(root_link)
 
 
 def test_environment_rejects_foreign_process_before_network(tmp_path, monkeypatch):
@@ -111,7 +189,14 @@ def test_initialization_and_stop_failures_preserve_private_diagnostics(
         def stop(self):
             raise OSError("private cleanup detail")
 
-    for key in ("PGHOSTADDR", "PGSERVICE", "PGOPTIONS"):
+    for key in (
+        "PGHOSTADDR",
+        "PGSERVICE",
+        "PGOPTIONS",
+        "REDHOUSE_ENV",
+        "GOOGLE_APPLICATION_CREDENTIALS",
+        "GCS_BUCKET",
+    ):
         monkeypatch.delenv(key, raising=False)
     monkeypatch.setattr(sys, "argv", ["prepare_load.py"])
     monkeypatch.setattr(pilot.tempfile, "mkdtemp", lambda **_kw: str(tmp_path))
@@ -131,12 +216,22 @@ def test_initialization_and_stop_failures_preserve_private_diagnostics(
     assert "private cleanup detail" in diagnostic.read_text()
 
 
-@pytest.mark.parametrize("name", ["PGHOSTADDR", "PGSERVICE", "PGOPTIONS"])
+@pytest.mark.parametrize(
+    "name",
+    [
+        "PGHOSTADDR",
+        "PGSERVICE",
+        "PGOPTIONS",
+        "REDHOUSE_ENV",
+        "GOOGLE_APPLICATION_CREDENTIALS",
+        "GCS_BUCKET",
+    ],
+)
 def test_libpq_environment_is_rejected_before_creating_a_directory(name, monkeypatch):
     monkeypatch.setattr(sys, "argv", ["prepare_load.py"])
     monkeypatch.setenv(name, "unexpected")
     monkeypatch.setattr(
         pilot.tempfile, "mkdtemp", lambda **_kw: pytest.fail("unexpected directory")
     )
-    with pytest.raises(RuntimeError, match="variables libpq"):
+    with pytest.raises(RuntimeError, match="variables de conexión"):
         pilot.main()

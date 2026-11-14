@@ -4,7 +4,9 @@ import argparse
 import hashlib
 import json
 import os
+import re
 import shutil
+import stat
 import sys
 import tempfile
 import traceback
@@ -22,6 +24,7 @@ import redis
 from psycopg.conninfo import conninfo_to_dict
 from psycopg.types.json import Jsonb
 from pymongo import MongoClient
+from scripts.load_guard import BudgetExceeded, CensusFailure
 from scripts.local import Environment
 
 REFERENCE = datetime(2026, 11, 13, 12, tzinfo=timezone.utc)
@@ -32,15 +35,40 @@ BATCH = 200
 GROUPS = ("O-", "O+", "A-", "A+", "B-", "B+", "AB-", "AB+")
 
 
+def source_snapshot():
+    paths = []
+    for directory, subdirectories, files in os.walk(ROOT, followlinks=False):
+        subdirectories[:] = [
+            name
+            for name in subdirectories
+            if not name.startswith(".") and name != "__pycache__"
+        ]
+        for name in files:
+            path = Path(directory) / name
+            if (
+                not name.startswith(".")
+                and not path.is_symlink()
+                and path.suffix in {".py", ".sql", ".json", ".xsd"}
+            ):
+                paths.append(path)
+    paths.append(ROOT.parents[1] / "data/database/schema.sql")
+    return {
+        str(path.relative_to(ROOT.parents[1])): hashlib.sha256(
+            path.read_bytes()
+        ).hexdigest()
+        for path in sorted(paths)
+    }
+
+
 def identifier(seed, kind, index):
     return uuid5(NAMESPACE, f"{seed}:{kind}:{index}")
 
 
-def dimensions(seed):
+def dimensions(seed, scale=1):
     """Produce datos lógicos reproducibles, sin asignar elegibilidad clínica."""
     donors = [
         (identifier(seed, "donor", i), i % 2, f"PILOT-D-{i:05d}", GROUPS[i % 8])
-        for i in range(200)
+        for i in range(200 * scale)
     ]
     resources = [
         (
@@ -51,7 +79,7 @@ def dimensions(seed):
             REFERENCE + timedelta(days=2 + i % 30),
             "AVAILABLE" if i % 4 < 2 else "QUARANTINE",
         )
-        for i in range(1000)
+        for i in range(1000 * scale)
     ]
     return donors, resources
 
@@ -126,22 +154,54 @@ def validate_environment(env):
 
 
 def own_bytes(directory):
-    total = 0
-    for root, dirs, files in os.walk(directory, followlinks=False):
-        for name in dirs + files:
-            path = Path(root) / name
-            info = path.lstat()
-            if path.is_symlink():
-                raise ValueError("Enlace inesperado dentro del laboratorio")
-            total += info.st_size if path.is_file() else 0
-    return total
+    def root_identity():
+        try:
+            info = directory.lstat()
+        except FileNotFoundError:
+            raise CensusFailure("root_missing") from None
+        if not stat.S_ISDIR(info.st_mode):
+            raise CensusFailure("root_invalid")
+        return info.st_dev, info.st_ino
+
+    def fail_walk(error):
+        raise error
+
+    for _attempt in range(3):
+        root_before = root_identity()
+        total = 0
+        try:
+            for root, dirs, files in os.walk(
+                directory, followlinks=False, onerror=fail_walk
+            ):
+                for name in dirs + files:
+                    path = Path(root) / name
+                    info = path.lstat()
+                    if stat.S_ISLNK(info.st_mode):
+                        raise CensusFailure("symlink")
+                    if stat.S_ISREG(info.st_mode):
+                        total += info.st_size
+            if root_identity() != root_before:
+                raise CensusFailure("root_changed")
+            return total
+        except FileNotFoundError:
+            if root_identity() != root_before:
+                raise CensusFailure("root_changed") from None
+    raise CensusFailure("unstable")
 
 
 def budget(directory):
     free = shutil.disk_usage(directory).free
     used = own_bytes(directory)
-    if free < MIN_FREE or used > MAX_OWN:
-        raise RuntimeError("Límite de espacio del laboratorio alcanzado")
+    sample = {
+        "free_bytes": free,
+        "owned_bytes": used,
+        "minimum_free_bytes": MIN_FREE,
+        "maximum_owned_bytes": MAX_OWN,
+    }
+    if free < MIN_FREE:
+        raise BudgetExceeded("free_insufficient", sample)
+    if used > MAX_OWN:
+        raise BudgetExceeded("owned_limit_exceeded", sample)
     return {"free_bytes": free, "owned_bytes": used}
 
 
@@ -150,19 +210,62 @@ def chunks(values):
         yield values[i : i + BATCH]
 
 
-def populate(env, report, seed):
+def wal_snapshot(directory):
+    entries = [
+        path.stat().st_size
+        for path in (directory / "pg/pg_wal").iterdir()
+        if re.fullmatch(r"[0-9A-F]{24}", path.name) and path.is_file()
+    ]
+    return {"segments": len(entries), "bytes": sum(entries)}
+
+
+def phase_snapshot(env):
+    disk = budget(env.directory)
+    with psycopg.connect(env.state["database_owners"]["inventario"]) as conn:
+        database_bytes = conn.execute(
+            "SELECT pg_database_size(current_database())"
+        ).fetchone()[0]
+    return {
+        "disk": disk,
+        "database_bytes": database_bytes,
+        "wal": wal_snapshot(env.directory),
+    }
+
+
+def populate(env, report, seed, scale=1):
     state = env.state
-    donors, resources = dimensions(seed)
+    donors, resources = dimensions(seed, scale)
     tenants, region = state["tenants"], state["region_id"]
     report["dataset_sha256"] = hashlib.sha256(
         json.dumps([donors, resources], default=str, separators=(",", ":")).encode()
     ).hexdigest()
     report["committed"] = {"donors": 0, "resources": 0, "events": 0}
+    report["guard"] = {"calls": 0, "elapsed_ms": 0.0}
+    report["phases"] = {}
+
+    def guard():
+        begin = perf_counter()
+        try:
+            return budget(env.directory)
+        finally:
+            report["guard"]["calls"] += 1
+            report["guard"]["elapsed_ms"] += (perf_counter() - begin) * 1000
+
+    def phase_begin(name):
+        report["phase"] = name
+        report["phases"][name] = {"before": phase_snapshot(env)}
+        return perf_counter()
+
+    def phase_end(name, begin):
+        report["phases"][name]["elapsed_ms"] = round((perf_counter() - begin) * 1000, 3)
+        report["phases"][name]["after"] = phase_snapshot(env)
+
     report["phase"] = "donors"
     started = perf_counter()
+    phase_started = phase_begin("donors")
     with psycopg.connect(state["database_owners"]["donantes"]) as conn:
         for batch in chunks(donors):
-            budget(env.directory)
+            guard()
             with conn.transaction(), conn.cursor() as cur:
                 cur.executemany(
                     "INSERT INTO donors(id,tenant_id,folio,display_name,blood_group,consent,status,created_at) VALUES(%s,%s,%s,%s,%s,true,'PRELIMINARY',%s)",
@@ -179,11 +282,12 @@ def populate(env, report, seed):
                     ],
                 )
             report["committed"]["donors"] += len(batch)
-            budget(env.directory)
+            guard()
+    phase_end("donors", phase_started)
     with psycopg.connect(state["database_owners"]["inventario"]) as conn:
-        report["phase"] = "resources"
+        phase_started = phase_begin("resources")
         for batch in chunks(resources):
-            budget(env.directory)
+            guard()
             with conn.transaction(), conn.cursor() as cur:
                 cur.executemany(
                     "INSERT INTO resources(id,tenant_id,current_institution_id,region_id,folio,kind,component,blood_group,expires_at,status,created_at) VALUES(%s,%s,%s,%s,%s,'BLOOD','RBC',%s,%s,%s,%s)",
@@ -203,10 +307,11 @@ def populate(env, report, seed):
                     ],
                 )
             report["committed"]["resources"] += len(batch)
-            budget(env.directory)
-        report["phase"] = "events"
-        for group in range(50):
-            budget(env.directory)
+            guard()
+        phase_end("resources", phase_started)
+        phase_started = phase_begin("events")
+        for group in range(50 * scale):
+            guard()
             rows = []
             for i in range(group * BATCH, (group + 1) * BATCH):
                 resource, tenant, *_ = resources[i % len(resources)]
@@ -229,7 +334,8 @@ def populate(env, report, seed):
                     rows,
                 )
             report["committed"]["events"] += len(rows)
-            budget(env.directory)
+            guard()
+        phase_end("events", phase_started)
         report["phase"] = "measurements"
         report["insertion_ms"] = round((perf_counter() - started) * 1000, 3)
         database_name = conninfo_to_dict(state["database_owners"]["inventario"])[
@@ -279,8 +385,9 @@ def populate(env, report, seed):
             "SELECT count(*) FROM donors WHERE folio LIKE 'PILOT-D-%%'"
         ).fetchone()[0]
     if (
-        report["counts"] != {"donors": 200, "resources": 1000, "events": 10000}
-        or report["linked_resources"] != 1000
+        report["counts"]
+        != {"donors": 200 * scale, "resources": 1000 * scale, "events": 10000 * scale}
+        or report["linked_resources"] != 1000 * scale
     ):
         raise RuntimeError("Conteos del piloto inesperados")
     report["disk"] = budget(env.directory)
@@ -289,11 +396,23 @@ def populate(env, report, seed):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--seed", type=int, default=20261113)
+    parser.add_argument("--scale-percent", type=int, choices=(1, 10), default=1)
+    parser.add_argument("--sustained-read", action="store_true")
     parser.add_argument("--mongod", type=Path)
     args = parser.parse_args()
-    if any(name in os.environ for name in ("PGHOSTADDR", "PGSERVICE", "PGOPTIONS")):
+    if any(
+        name in os.environ
+        for name in (
+            "PGHOSTADDR",
+            "PGSERVICE",
+            "PGOPTIONS",
+            "REDHOUSE_ENV",
+            "GOOGLE_APPLICATION_CREDENTIALS",
+            "GCS_BUCKET",
+        )
+    ):
         raise RuntimeError(
-            "Quitar las variables libpq que alteran el destino o la sesión"
+            "Quitar las variables de conexión o nube ajenas al laboratorio"
         )
     parent = Path("/tmp").resolve(strict=True)
     if shutil.disk_usage(parent).free < MIN_FREE:
@@ -305,12 +424,20 @@ def main():
         "status": "started",
         "seed": args.seed,
         "reference": REFERENCE.isoformat(),
-        "expected": {"donors": 200, "resources": 1000, "events": 10000},
+        "scale_percent": args.scale_percent,
+        "expected": {
+            "donors": 200 * args.scale_percent,
+            "resources": 1000 * args.scale_percent,
+            "events": 10000 * args.scale_percent,
+        },
         "notice": "Datos sintéticos por SQL; no son registros API ni decisiones clínicas.",
     }
     env = Environment(directory, str(args.mongod) if args.mongod else None)
     diagnostics = []
+    baseline_complete = False
+    sustained_failed = False
     try:
+        report["source_hashes_before"] = source_snapshot()
         report["initial_disk"] = budget(directory)
         env.init()
         report["initialized_disk"] = budget(directory)
@@ -319,7 +446,7 @@ def main():
             report["initialized_database_bytes"] = conn.execute(
                 "SELECT pg_database_size(current_database())"
             ).fetchone()[0]
-        populate(env, report, args.seed)
+        populate(env, report, args.seed, args.scale_percent)
         report["database_delta_bytes"] = (
             report["database_bytes"] - report["initialized_database_bytes"]
         )
@@ -327,9 +454,19 @@ def main():
             report["disk"]["owned_bytes"] - report["initialized_disk"]["owned_bytes"]
         )
         report["status"] = "prepared"
+        baseline_complete = True
+        if args.sustained_read:
+            report_path.write_text(json.dumps(report, indent=2, default=str) + "\n")
+            os.chmod(report_path, 0o600)
+            from scripts.sustained_read import run
+
+            run(env, budget)
     except BaseException as exc:  # noqa: BLE001 - retain failure evidence, including interruption
-        report["status"] = "failed"
-        report["error_type"] = type(exc).__name__
+        if baseline_complete:
+            sustained_failed = True
+        else:
+            report["status"] = "failed"
+            report["error_type"] = type(exc).__name__
         diagnostics.append(traceback.format_exc())
     finally:
         try:
@@ -338,6 +475,16 @@ def main():
             report["status"] = "failed"
             report["cleanup_error_type"] = type(exc).__name__
             diagnostics.append(traceback.format_exc())
+        try:
+            report["source_hashes_after"] = source_snapshot()
+            report["source_hashes_match"] = (
+                report.get("source_hashes_before") == report["source_hashes_after"]
+            )
+            if not report["source_hashes_match"]:
+                report["status"] = "failed"
+        except OSError:
+            report["status"] = "failed"
+            report["source_hashes_unavailable"] = True
         if diagnostics:
             try:
                 descriptor = os.open(
@@ -352,7 +499,7 @@ def main():
         report_path.write_text(json.dumps(report, indent=2, default=str) + "\n")
         os.chmod(report_path, 0o600)
         print("Informe privado:", report_path)
-    if report["status"] != "prepared":
+    if report["status"] != "prepared" or sustained_failed:
         raise RuntimeError(
             "Preparación aislada fallida; consultar el informe privado"
         ) from None

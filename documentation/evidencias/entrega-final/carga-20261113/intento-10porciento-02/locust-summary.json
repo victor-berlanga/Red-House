@@ -1,0 +1,45 @@
+{
+  "warmup_seconds": 30,
+  "measurement_seconds": 120,
+  "users": 6,
+  "disk_samples": [
+    {
+      "free_bytes": 3493584896,
+      "owned_bytes": 394393094,
+      "processes": {
+        "rss_sum_kib": 1847424,
+        "ps_cpu_percent_sum": 36.0,
+        "sampled_processes": 34,
+        "root_processes_missing": 0
+      }
+    },
+    {
+      "free_bytes": 3493552128,
+      "owned_bytes": 394393094,
+      "processes": {
+        "rss_sum_kib": 1878220,
+        "ps_cpu_percent_sum": 75.4,
+        "sampled_processes": 34,
+        "root_processes_missing": 0
+      }
+    },
+    {
+      "free_bytes": 3493543936,
+      "owned_bytes": 394394270,
+      "processes": {
+        "rss_sum_kib": 1924240,
+        "ps_cpu_percent_sum": 138.0,
+        "sampled_processes": 35,
+        "root_processes_missing": 0
+      }
+    }
+  ],
+  "stopped_by_guard": true,
+  "session_revocation_verified": false,
+  "runner_exit": 1,
+  "failures": 3,
+  "counts": {
+    "Identidad / login": 6,
+    "Identidad / revocaci\u00f3n al salir": 3
+  }
+}

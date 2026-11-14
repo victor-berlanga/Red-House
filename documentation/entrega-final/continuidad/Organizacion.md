@@ -12,6 +12,10 @@ Se retiraron dos worktrees temporales concluidos (`redhouse-donor-self-20261113`
 
 En un segundo cierre se retiraron `redhouse-user-receipt-20261113` y `redhouse-reauth-20261113`, también con `git worktree remove` sin forzar. Ambos estaban limpios; sus únicos archivos ignorados eran cachés Python/pytest/Ruff, y los agentes confirmaron que su trabajo activo estaba en el checkout principal. `git cherry` confirmó la integración de `ff05df9` y de ocho de los nueve commits del checkout de seguridad. El restante, `a3dcb34`, se cotejó con `62f66ea`: cuarenta de sus 41 archivos eran idénticos y `check_real_scanner.py` solo difería en formato, con AST idéntico. No se descartó código exclusivo. Ramas y commits se conservan; `git worktree list --porcelain` confirmó que solo queda el checkout principal. No se midió ahorro físico ni se retiraron datos, respaldos o herramientas.
 
+El 13 de noviembre, tras finalizar las compilaciones móviles, se identificó como inactivo el daemon de `GRADLE_USER_HOME=/private/tmp/redhouse-gradle-home` y se cerró con `gradlew --stop`: un daemon y su hijo Kotlin propios; no otros procesos Java. Antes del cierre sumaban aproximadamente 3,1 GiB de RSS en una observación. Esto no prueba la causa del fallo de carga ni representa memoria física exclusiva.
+
+Se retiraron cinco cachés iOS temporales reconstruibles de `/private/tmp`: `redhouse-ios-current-module-cache`, `redhouse-ios-e1f0957-module-cache`, `redhouse-ios-final-module-cache`, `redhouse-ios-module-cache` y `redhouse-ios-native-calendar-module-cache`. Se comprobó propietario, directorio real, ausencia de enlaces y contenido exclusivamente `.swiftmodule`, `.pcm` y `.timestamp`: 1.231 archivos, 286.268.130 bytes lógicos. El agente móvil confirmó que estaban inactivos y que el siguiente enlace usa otro caché. Se conservaron las aplicaciones firmadas, logs, xcresult, capturas, SDK, AVD, perfiles y datos. No se equipara el tamaño lógico con ahorro físico medido.
+
 ## Guías de diseño incorporadas — 13/11/2026, Monterrey
 
 A petición del usuario se instalaron dos skills en `~/.codex/skills`, fuera del producto y de sus dependencias:

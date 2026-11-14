@@ -9,7 +9,6 @@ from urllib.parse import urlsplit
 
 from jsonschema import Draft202012Validator, FormatChecker
 from lxml import etree
-
 from redhouse.xml_response import validate_response
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -163,7 +162,7 @@ class LoadSession:
                         validator.validate(payload)
                     if check and not check(payload["data"]):
                         raise ValueError()
-                except Exception:
+                except Exception:  # noqa: BLE001 - redact contract details from load statistics
                     error = "response_contract"
             if error:
                 response.failure(error)
@@ -181,13 +180,16 @@ class LoadSession:
             raise LoadFailure("invalid_token_lifetime")
         self.renew_at = self.clock() + max(0.1, lifetime - min(30, lifetime / 2))
 
-    def login(self, username, password):
+    def login(self, username, password, otp=None):
+        body = {"username": username, "password": password}
+        if otp is not None:
+            body["otp"] = otp
         data = self._wire(
             "identidad_acceso",
             "/api/v1/auth/login",
             "Identidad / login",
             method="POST",
-            body={"username": username, "password": password},
+            body=body,
             protected=False,
             check=lambda data: (
                 data["expires_in"] > 0
