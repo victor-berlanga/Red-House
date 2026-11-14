@@ -1,0 +1,55 @@
+{
+  "verified_at": "2026-11-14T01:37:36.288991+00:00",
+  "target": {
+    "project": "sistemas-integracion-01",
+    "instance": "red-house",
+    "zone": "me-central1-a",
+    "instance_id": "2861822465669755197"
+  },
+  "healthy_containers": 30,
+  "other_containers_unchanged": 29,
+  "clamav_recreated": true,
+  "image_unchanged": true,
+  "readiness_executions": [
+    {
+      "start": "2026-11-14T01:36:02.381102083Z",
+      "end": "2026-11-14T01:36:02.536573542Z",
+      "exit_code": 0
+    },
+    {
+      "start": "2026-11-14T01:36:32.537438313Z",
+      "end": "2026-11-14T01:36:32.644483334Z",
+      "exit_code": 0
+    },
+    {
+      "start": "2026-11-14T01:37:02.646264715Z",
+      "end": "2026-11-14T01:37:02.798180216Z",
+      "exit_code": 0
+    },
+    {
+      "start": "2026-11-14T01:37:32.801580449Z",
+      "end": "2026-11-14T01:37:33.556597734Z",
+      "exit_code": 0
+    }
+  ],
+  "document_config_unchanged": true,
+  "source_sha256": {
+    "deployment/gcp/configure_scanner.py": "81805f81a6b121a13b675bc9f60e29c42b3a033c3bdc82d4e986fd17cd58e771",
+    "deployment/gcp/clamav_readiness.sh": "71b312e8edac0e9b374f1b60ffa9f36153a31e6bf6049ab9e929e6e4ad6e4049",
+    "deployment/backup.py": "568ddb428290ba7511089832eacc296946d3f61575ed20ad57c4caf7431c3707"
+  },
+  "validation": {
+    "two_periodic_healthchecks": true,
+    "helper_sha256": "71b312e8edac0e9b374f1b60ffa9f36153a31e6bf6049ab9e929e6e4ad6e4049",
+    "mount_read_only": true,
+    "signature_volume_unchanged": true,
+    "other_containers_unchanged": 29,
+    "scanner": {
+      "clean": "CLEAN",
+      "eicar": "INFECTED",
+      "in_memory_only": true
+    },
+    "storage_provider": "local",
+    "database_modified": false
+  }
+}

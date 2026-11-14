@@ -1,0 +1,36 @@
+{
+  "tls_verified": true,
+  "authenticated": false,
+  "checks": [
+    {
+      "path": "/login",
+      "accept": "text/html",
+      "http": 200,
+      "milliseconds": 1231.233
+    },
+    {
+      "path": "/services/documentos/health/ready",
+      "accept": "application/json",
+      "http": 200,
+      "milliseconds": 1038.629
+    },
+    {
+      "path": "/services/documentos/health/storage",
+      "accept": "application/json",
+      "http": 200,
+      "milliseconds": 1025.533
+    },
+    {
+      "path": "/services/donantes/api/v1/public/campaign-feed?page=1&page_size=20",
+      "accept": "application/json",
+      "http": 200,
+      "milliseconds": 1104.741
+    },
+    {
+      "path": "/services/donantes/api/v1/public/campaign-feed?page=1&page_size=20",
+      "accept": "application/xml",
+      "http": 200,
+      "milliseconds": 1108.384
+    }
+  ]
+}

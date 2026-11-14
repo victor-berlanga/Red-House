@@ -26,6 +26,6 @@ Después de abrir escrituras pasaron **55 controles públicos HTTPS**, con TLS v
 
 ## Límites y continuidad
 
-El control periódico de firmas preparado en `5970651` aún no forma parte de este despliegue; este corte verifica la alineación en momentos concretos. Los análisis históricos conservan metadatos desconocidos, sin backfill inventado. Los 34 objetos GCS históricos pendientes no fueron reanalizados.
+El control periódico de firmas preparado en `5970651` no forma parte de este corte: se publicó después en un [incremento separado](../scanner-health-20261113/RESULTADOS.md). Este corte verifica la alineación en momentos concretos. Los análisis históricos conservan metadatos desconocidos, sin backfill inventado. Los 34 objetos GCS históricos pendientes no fueron reanalizados.
 
-Los [procedimientos](procedimiento/deploy.py) dependen de respaldos/configuración privados y del estado exacto de este despliegue; no son comandos genéricos para repetir sobre cualquier VM. Los secretos no se incluyen. La clave temporal OS Login queda pendiente de retirar al concluir la publicación adicional del control de salud; las dos claves previas se conservan.
+Los [procedimientos](procedimiento/deploy.py) dependen de respaldos/configuración privados y del estado exacto de este despliegue; no son comandos genéricos para repetir sobre cualquier VM. Los secretos no se incluyen. La clave temporal OS Login se retiró después de la publicación adicional del control de salud; las dos claves previas se conservaron y la copia privada temporal se eliminó. [Cierre de acceso](access-cleanup.json).
