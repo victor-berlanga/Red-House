@@ -46,6 +46,31 @@ def verify_new_sessions(before_ids, rows, user_ids, prefix, client, multiplicity
         raise ValueError("Familias nuevas incompletas o no revocadas.")
 
 
+def transaction_site_matches(row, fixture):
+    """La sede de agenda pertenece al catálogo vigente, no a red_house.site."""
+    return row is not None and (str(row[0]), *row[1:]) == (
+        fixture["tenant_id"],
+        "sites",
+        fixture["prefix"],
+        None,
+        {"municipality": "Monterrey", "address": "Dirección sintética"},
+        True,
+        1,
+    )
+
+
+def transaction_campaign_matches(row, fixture):
+    """Compara instantes completos; PostgreSQL puede devolver otra zona horaria."""
+    return row is not None and (row[0], str(row[1]), *row[2:]) == (
+        fixture["prefix"],
+        fixture["tenant_id"],
+        datetime.fromisoformat(fixture["starts_at"]),
+        datetime.fromisoformat(fixture["ends_at"]),
+        6,
+        "OPEN",
+    )
+
+
 def prepare_transaction_fixture(env):
     """Fixture mínima una vez por dataset; SQL de preparación, jamás carga medida."""
     from scripts.local import private_file
@@ -134,9 +159,16 @@ def prepare_transaction_fixture(env):
                         ),
                     )
             conn.execute(
-                "INSERT INTO red_house.site(site_id,institution_id,site_code,site_name,street,city) "
-                "VALUES(%s,%s,%s,'Sede sintética','Dirección sintética','Monterrey')",
-                (fixture["site_id"], fixture["tenant_id"], fixture["prefix"]),
+                "INSERT INTO access_identidad_acceso.catalogue(id,tenant_id,kind,name,details) "
+                "VALUES(%s,%s,'sites',%s,%s::jsonb)",
+                (
+                    fixture["site_id"],
+                    fixture["tenant_id"],
+                    fixture["prefix"],
+                    json.dumps(
+                        {"municipality": "Monterrey", "address": "Dirección sintética"}
+                    ),
+                ),
             )
             conn.execute(
                 "INSERT INTO access_donantes.campaigns(id,tenant_id,title,starts_at,ends_at,capacity) VALUES(%s,%s,%s,%s,%s,6)",
@@ -191,25 +223,18 @@ def prepare_transaction_fixture(env):
                 (a["donor_id"],),
             ).fetchone() != (UUID(a["id"]), UUID(a["tenant_id"]), "PRELIMINARY"):
                 raise ValueError("Expediente sintético cambiado")
+        site = conn.execute(
+            "SELECT tenant_id,kind,name,parent_id,details,active,version "
+            "FROM access_identidad_acceso.catalogue WHERE id=%s",
+            (fixture["site_id"],),
+        ).fetchone()
+        if not transaction_site_matches(site, fixture):
+            raise ValueError("Sede sintética del catálogo ausente o cambiada")
         campaign = conn.execute(
             "SELECT title,tenant_id,starts_at,ends_at,capacity,status FROM access_donantes.campaigns WHERE id=%s",
             (fixture["campaign_id"],),
         ).fetchone()
-        if not campaign or (
-            campaign[0],
-            str(campaign[1]),
-            campaign[2].isoformat(),
-            campaign[3].isoformat(),
-            campaign[4],
-            campaign[5],
-        ) != (
-            fixture["prefix"],
-            fixture["tenant_id"],
-            fixture["starts_at"],
-            fixture["ends_at"],
-            6,
-            "OPEN",
-        ):
+        if not transaction_campaign_matches(campaign, fixture):
             raise ValueError("Campaña sintética cambiada")
         slots = conn.execute(
             "SELECT id,campaign_id,tenant_id,site_id,capacity,active,starts_at,ends_at FROM access_donantes.campaign_slots WHERE campaign_id=%s",

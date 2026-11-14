@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+  File "/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/scripts/prepare_load.py", line 570, in <module>
+    main()
+  File "/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/scripts/prepare_load.py", line 425, in main
+    run_existing_transactions(args.transaction_directory, args.mongod)
+  File "/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/scripts/prepare_load.py", line 561, in run_existing_transactions
+    run_transactions(env, budget)
+  File "/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/scripts/sustained_read.py", line 714, in run_transactions
+    fixture = prepare_transaction_fixture(env)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/tests/load_support.py", line 155, in prepare_transaction_fixture
+    conn.execute(
+  File "/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/.venv/lib/python3.12/site-packages/psycopg/connection.py", line 300, in execute
+    raise ex.with_traceback(None)
+psycopg.errors.ForeignKeyViolation: insert or update on table "campaign_slots" violates foreign key constraint "campaign_slots_site_id_fkey"
+DETAIL:  Key (site_id)=(dd2ced8c-f29f-41b3-b02f-becd8f1c7b53) is not present in table "catalogue_entry".

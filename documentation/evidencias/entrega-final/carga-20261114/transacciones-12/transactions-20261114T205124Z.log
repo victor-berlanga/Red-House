@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/scripts/prepare_load.py", line 570, in <module>
+    main()
+  File "/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/scripts/prepare_load.py", line 425, in main
+    run_existing_transactions(args.transaction_directory, args.mongod)
+  File "/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/scripts/prepare_load.py", line 561, in run_existing_transactions
+    run_transactions(env, budget)
+  File "/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/scripts/sustained_read.py", line 714, in run_transactions
+    fixture = prepare_transaction_fixture(env)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/tests/load_support.py", line 240, in prepare_transaction_fixture
+    raise ValueError("Campaña sintética cambiada")
+ValueError: Campaña sintética cambiada

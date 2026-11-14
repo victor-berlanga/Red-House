@@ -2,6 +2,10 @@
 
 Las entradas están ordenadas de reciente a histórico; un pendiente de un corte anterior puede quedar sustituido explícitamente por una entrada posterior.
 
+## Carga transaccional ejecutada; propagación pendiente — 14/11/2026
+
+[Doce identidades y dos recorridos JSON/XML](documentation/evidencias/entrega-final/carga-20261114/transacciones-12/RESULTADOS.md): 1.291 HTTP sin errores y 199 recorridos en 120,0118 s; p95 máximo de lectura 500 ms y de recorrido 3.300 ms. Los 765 intentos de toda la ejecución conciliaron sus filas/versiones, doce replays y doce familias revocadas. Resultado integral fallido: faltaron 175 eventos de Donantes en Auditoría y 57 avisos después del plazo previsto. Lectura posterior confirmó eventos de origen únicos y entregas pendientes, sin demostrar pérdida ni resolver su causa. Se conserva el fallo y no se repite la carga todavía. Dos errores anteriores de preparación —catálogo de sede y comparación de zonas horarias— se corrigieron; preparación/reanudación reales y nueve pruebas puras aprobaron. Dataset y manifiesto conservados, 946 fuentes estables y motores propios cerrados. Etapa 07 permanece abierta; siguiente trabajo, diagnóstico de cola global y recuperación separada.
+
 ## Paginación móvil y paquetes del lote visual — 14/11/2026
 
 [Lote móvil](documentation/evidencias/entrega-final/mobile/ui-lote-20261114/RESULTADOS.md): controles de campañas al inicio/final, salida del teclado al buscar y etiqueta única «Foto verificada». Android normal e iOS normal firmado compilaron; el nuevo iOS no se instaló y conserva como límite el vencimiento del perfil el 17 de noviembre. Recorrido Android dirigido de seis páginas aprobado, 1/1 en 50,953 s; dirección inspeccionó la captura real de página 6. Los fallos previos de preparación, sistema y sincronización del test permanecen separados. Se corrigió la espera del botón habilitado sin ampliar tiempos ni recompilar el producto. No se repitieron capacidades físicas, cuenta ni consentimiento; la cobertura anterior permanece en su alcance. AVD, fixture y Gradle cerrados. Etapa 04 continúa abierta para los pendientes ya identificados.

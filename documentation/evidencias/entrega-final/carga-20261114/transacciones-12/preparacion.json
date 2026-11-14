@@ -1,0 +1,48 @@
+{
+  "passed": true,
+  "manifest_sha256": "15f4e843aec0519cf7bf4eab4168ec155855507ed20fa70f07695ec4e30cc59b",
+  "timezone": "America/Monterrey",
+  "timestamps": [
+    {
+      "manifest": "2026-11-15T20:47:22.356895+00:00",
+      "postgres": "2026-11-15T14:47:22.356895-06:00",
+      "same_instant": true
+    },
+    {
+      "manifest": "2026-11-16T20:47:22.356895+00:00",
+      "postgres": "2026-11-16T14:47:22.356895-06:00",
+      "same_instant": true
+    }
+  ],
+  "author_valid": true,
+  "before": {
+    "users": 0,
+    "donors": 0,
+    "site": 0,
+    "campaign": 0,
+    "slots": 0,
+    "profile": 0,
+    "sessions": 0
+  },
+  "inserted": {
+    "users": 12,
+    "donors": 6,
+    "site": 1,
+    "campaign": 1,
+    "slots": 2,
+    "profile": 1,
+    "sessions": 0
+  },
+  "resumed": {
+    "users": 12,
+    "donors": 6,
+    "site": 1,
+    "campaign": 1,
+    "slots": 2,
+    "profile": 1,
+    "sessions": 0
+  },
+  "owned_processes_closed": true,
+  "manifest_unchanged": true,
+  "sources_unchanged": true
+}

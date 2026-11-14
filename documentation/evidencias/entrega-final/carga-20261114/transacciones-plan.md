@@ -1,5 +1,11 @@
 # Escrituras sostenidas: plan previo
 
+## Resultado posterior — 14/11/2026
+
+La corrida real completó HTTP y persistencia, pero falló por propagación pendiente de eventos/avisos. [Resultados y diagnósticos](transacciones-12/RESULTADOS.md). El texto siguiente conserva el plan antes de ejecutarlo; no expresa el estado actual.
+
+## Plan original
+
 Incremento preparado después de la serie de lecturas. **Todavía no ejecutado.** Reutiliza `/private/tmp/rh-load-c92ed10k` sin inicializar, migrar o repoblar el volumen. Una preparación SQL separada crea doce identidades sintéticas independientes: seis donantes con expediente y seis operadores, una campaña con dos horarios y un perfil académico DRAFT sin habilitación clínica. El manifiesto privado permite cotejar y conservar esa preparación. Los DSN administrativos de preparación/oráculo son distintos de los usuarios de ejecución de los servicios; no se amplían privilegios.
 
 Dos recorridos con respuestas previas: donante JSON consulta campaña/horarios, reserva, reprograma y cancela su cita; operador XML/XSD registra unidad en cuarentena, registra y recibe su muestra, y consulta el resultado. Cada escritura conserva un intento privado antes del envío; se repite una clave/cuerpo por usuario para comprobar idempotencia. Un resultado incierto detiene ese usuario y permanece para conciliación, sin generar otra clave.

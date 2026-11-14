@@ -486,3 +486,62 @@ def test_transaction_global_sources_detect_api_drift_outside_runtime_subset(
     assert report["status"] == ("failed" if changed else "passed")
     assert report["hashes_before"] == report["hashes_after"]
     assert "apps/services/ms_donantes/routes.py" in report["source_hashes_before"]
+
+
+@pytest.mark.parametrize(
+    "changed", [None, "missing", "tenant", "kind", "active", "details"]
+)
+def test_transaction_site_resume_requires_unchanged_active_owned_catalogue(changed):
+    from tests.load_support import transaction_site_matches
+
+    tenant = uuid4()
+    fixture = {"tenant_id": str(tenant), "prefix": "tx-test"}
+    row = [
+        tenant,
+        "sites",
+        "tx-test",
+        None,
+        {"municipality": "Monterrey", "address": "Dirección sintética"},
+        True,
+        1,
+    ]
+    if changed == "missing":
+        row = None
+    elif changed == "tenant":
+        row[0] = uuid4()
+    elif changed == "kind":
+        row[1] = "locations"
+    elif changed == "active":
+        row[5] = False
+    elif changed == "details":
+        row[4] = {}
+    assert transaction_site_matches(row, fixture) is (changed is None)
+
+
+@pytest.mark.parametrize("changed", [None, "microsecond", "capacity"])
+def test_campaign_resume_compares_instants_without_losing_precision(changed):
+    from datetime import datetime, timedelta, timezone
+
+    from tests.load_support import transaction_campaign_matches
+
+    tenant = uuid4()
+    fixture = {
+        "tenant_id": str(tenant),
+        "prefix": "tx-test",
+        "starts_at": "2026-11-15T20:47:12.123456+00:00",
+        "ends_at": "2026-11-16T20:47:12.123456+00:00",
+    }
+    local = timezone(timedelta(hours=-6))
+    row = [
+        "tx-test",
+        tenant,
+        datetime.fromisoformat(fixture["starts_at"]).astimezone(local),
+        datetime.fromisoformat(fixture["ends_at"]).astimezone(local),
+        6,
+        "OPEN",
+    ]
+    if changed == "microsecond":
+        row[2] += timedelta(microseconds=1)
+    if changed == "capacity":
+        row[4] = 7
+    assert transaction_campaign_matches(row, fixture) is (changed is None)

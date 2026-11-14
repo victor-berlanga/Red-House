@@ -1,0 +1,88 @@
+{
+  "read_only": true,
+  "workers_started": false,
+  "trace_errors": [],
+  "committed": 765,
+  "expected_audit": 765,
+  "missing_by_source_action": {
+    "donantes/APPOINTMENT_RESCHEDULE": 59,
+    "donantes/APPOINTMENT_BOOKED": 57,
+    "donantes/APPOINTMENT_CANCEL": 59
+  },
+  "expected_alerts": 121,
+  "actual_alerts": 64,
+  "alerts_match": false,
+  "outbox": {
+    "donantes": [
+      [
+        "alertas",
+        false,
+        0,
+        null,
+        175
+      ],
+      [
+        "alertas",
+        true,
+        1,
+        null,
+        190
+      ],
+      [
+        "auditoria",
+        false,
+        0,
+        null,
+        292
+      ],
+      [
+        "auditoria",
+        true,
+        1,
+        null,
+        315
+      ]
+    ],
+    "inventario": [
+      [
+        "auditoria",
+        true,
+        1,
+        null,
+        402
+      ]
+    ],
+    "compatibilidad": [
+      [
+        "auditoria",
+        true,
+        1,
+        null,
+        402
+      ]
+    ],
+    "auditoria": [
+      [
+        "mongodb",
+        false,
+        0,
+        null,
+        1119
+      ]
+    ]
+  },
+  "audit_by_source_action": {
+    "inventario/RESOURCE_CREATED": 134,
+    "inventario/READ": 268,
+    "compatibilidad/LAB_SAMPLE_REQUESTED": 134,
+    "donantes/APPOINTMENT_BOOKED": 64,
+    "compatibilidad/LAB_SAMPLE_RECEIVED": 134,
+    "donantes/READ": 125,
+    "compatibilidad/READ": 134,
+    "donantes/APPOINTMENT_RESCHEDULE": 62,
+    "donantes/APPOINTMENT_CANCEL": 62,
+    "donantes/APPOINTMENT_REMINDER": 2
+  },
+  "originals_unchanged": true,
+  "owned_postgres_closed": true
+}
