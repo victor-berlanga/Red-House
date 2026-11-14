@@ -1,0 +1,230 @@
+{
+  "identidad_acceso": {
+    "api_pid": 15575,
+    "worker_pid": 15576,
+    "api_argv": [
+      "/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/.venv/bin/python",
+      "/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/run.py",
+      "identidad_acceso",
+      "--config",
+      "/private/tmp/rh-load-c92ed10k/identidad_acceso.json"
+    ],
+    "worker_argv": [
+      "/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/.venv/bin/python",
+      "/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/worker.py",
+      "identidad_acceso",
+      "--config",
+      "/private/tmp/rh-load-c92ed10k/identidad_acceso.json"
+    ],
+    "listener": "127.0.0.1:56277"
+  },
+  "donantes": {
+    "api_pid": 15577,
+    "worker_pid": 15578,
+    "api_argv": [
+      "/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/.venv/bin/python",
+      "/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/run.py",
+      "donantes",
+      "--config",
+      "/private/tmp/rh-load-c92ed10k/donantes.json"
+    ],
+    "worker_argv": [
+      "/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/.venv/bin/python",
+      "/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/worker.py",
+      "donantes",
+      "--config",
+      "/private/tmp/rh-load-c92ed10k/donantes.json"
+    ],
+    "listener": "127.0.0.1:56278"
+  },
+  "receptores": {
+    "api_pid": 15579,
+    "worker_pid": 15580,
+    "api_argv": [
+      "/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/.venv/bin/python",
+      "/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/run.py",
+      "receptores",
+      "--config",
+      "/private/tmp/rh-load-c92ed10k/receptores.json"
+    ],
+    "worker_argv": [
+      "/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/.venv/bin/python",
+      "/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/worker.py",
+      "receptores",
+      "--config",
+      "/private/tmp/rh-load-c92ed10k/receptores.json"
+    ],
+    "listener": "127.0.0.1:56279"
+  },
+  "inventario": {
+    "api_pid": 15581,
+    "worker_pid": 15582,
+    "api_argv": [
+      "/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/.venv/bin/python",
+      "/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/run.py",
+      "inventario",
+      "--config",
+      "/private/tmp/rh-load-c92ed10k/inventario.json"
+    ],
+    "worker_argv": [
+      "/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/.venv/bin/python",
+      "/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/worker.py",
+      "inventario",
+      "--config",
+      "/private/tmp/rh-load-c92ed10k/inventario.json"
+    ],
+    "listener": "127.0.0.1:56280"
+  },
+  "compatibilidad": {
+    "api_pid": 15583,
+    "worker_pid": 15584,
+    "api_argv": [
+      "/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/.venv/bin/python",
+      "/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/run.py",
+      "compatibilidad",
+      "--config",
+      "/private/tmp/rh-load-c92ed10k/compatibilidad.json"
+    ],
+    "worker_argv": [
+      "/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/.venv/bin/python",
+      "/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/worker.py",
+      "compatibilidad",
+      "--config",
+      "/private/tmp/rh-load-c92ed10k/compatibilidad.json"
+    ],
+    "listener": "127.0.0.1:56281"
+  },
+  "priorizacion_geografia": {
+    "api_pid": 15585,
+    "worker_pid": 15586,
+    "api_argv": [
+      "/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/.venv/bin/python",
+      "/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/run.py",
+      "priorizacion_geografia",
+      "--config",
+      "/private/tmp/rh-load-c92ed10k/priorizacion_geografia.json"
+    ],
+    "worker_argv": [
+      "/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/.venv/bin/python",
+      "/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/worker.py",
+      "priorizacion_geografia",
+      "--config",
+      "/private/tmp/rh-load-c92ed10k/priorizacion_geografia.json"
+    ],
+    "listener": "127.0.0.1:56282"
+  },
+  "transporte": {
+    "api_pid": 15587,
+    "worker_pid": 15588,
+    "api_argv": [
+      "/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/.venv/bin/python",
+      "/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/run.py",
+      "transporte",
+      "--config",
+      "/private/tmp/rh-load-c92ed10k/transporte.json"
+    ],
+    "worker_argv": [
+      "/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/.venv/bin/python",
+      "/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/worker.py",
+      "transporte",
+      "--config",
+      "/private/tmp/rh-load-c92ed10k/transporte.json"
+    ],
+    "listener": "127.0.0.1:56283"
+  },
+  "custodia": {
+    "api_pid": 15589,
+    "worker_pid": 15590,
+    "api_argv": [
+      "/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/.venv/bin/python",
+      "/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/run.py",
+      "custodia",
+      "--config",
+      "/private/tmp/rh-load-c92ed10k/custodia.json"
+    ],
+    "worker_argv": [
+      "/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/.venv/bin/python",
+      "/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/worker.py",
+      "custodia",
+      "--config",
+      "/private/tmp/rh-load-c92ed10k/custodia.json"
+    ],
+    "listener": "127.0.0.1:56284"
+  },
+  "alertas": {
+    "api_pid": 15591,
+    "worker_pid": 15592,
+    "api_argv": [
+      "/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/.venv/bin/python",
+      "/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/run.py",
+      "alertas",
+      "--config",
+      "/private/tmp/rh-load-c92ed10k/alertas.json"
+    ],
+    "worker_argv": [
+      "/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/.venv/bin/python",
+      "/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/worker.py",
+      "alertas",
+      "--config",
+      "/private/tmp/rh-load-c92ed10k/alertas.json"
+    ],
+    "listener": "127.0.0.1:56285"
+  },
+  "auditoria": {
+    "api_pid": 15593,
+    "worker_pid": 15594,
+    "api_argv": [
+      "/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/.venv/bin/python",
+      "/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/run.py",
+      "auditoria",
+      "--config",
+      "/private/tmp/rh-load-c92ed10k/auditoria.json"
+    ],
+    "worker_argv": [
+      "/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/.venv/bin/python",
+      "/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/worker.py",
+      "auditoria",
+      "--config",
+      "/private/tmp/rh-load-c92ed10k/auditoria.json"
+    ],
+    "listener": "127.0.0.1:56286"
+  },
+  "monitoreo": {
+    "api_pid": 15595,
+    "worker_pid": 15596,
+    "api_argv": [
+      "/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/.venv/bin/python",
+      "/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/run.py",
+      "monitoreo",
+      "--config",
+      "/private/tmp/rh-load-c92ed10k/monitoreo.json"
+    ],
+    "worker_argv": [
+      "/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/.venv/bin/python",
+      "/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/worker.py",
+      "monitoreo",
+      "--config",
+      "/private/tmp/rh-load-c92ed10k/monitoreo.json"
+    ],
+    "listener": "127.0.0.1:56287"
+  },
+  "documentos": {
+    "api_pid": 15597,
+    "worker_pid": 15598,
+    "api_argv": [
+      "/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/.venv/bin/python",
+      "/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/run.py",
+      "documentos",
+      "--config",
+      "/private/tmp/rh-load-c92ed10k/documentos.json"
+    ],
+    "worker_argv": [
+      "/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/.venv/bin/python",
+      "/Users/victorberlanga/Programacion/integracion/Red-House/apps/services/worker.py",
+      "documentos",
+      "--config",
+      "/private/tmp/rh-load-c92ed10k/documentos.json"
+    ],
+    "listener": "127.0.0.1:56288"
+  }
+}

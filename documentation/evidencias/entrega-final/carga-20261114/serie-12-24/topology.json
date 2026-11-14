@@ -1,0 +1,86 @@
+{
+  "identidad_acceso": {
+    "server_from_run_py": "waitress-threads8",
+    "rate_limit": 180,
+    "internal_rate_limit": 1800,
+    "database_pool_size": 0,
+    "testing": false
+  },
+  "donantes": {
+    "server_from_run_py": "waitress-threads8",
+    "rate_limit": 180,
+    "internal_rate_limit": 1800,
+    "database_pool_size": 0,
+    "testing": false
+  },
+  "receptores": {
+    "server_from_run_py": "waitress-threads8",
+    "rate_limit": 180,
+    "internal_rate_limit": 1800,
+    "database_pool_size": 0,
+    "testing": false
+  },
+  "inventario": {
+    "server_from_run_py": "waitress-threads8",
+    "rate_limit": 180,
+    "internal_rate_limit": 1800,
+    "database_pool_size": 0,
+    "testing": false
+  },
+  "compatibilidad": {
+    "server_from_run_py": "waitress-threads8",
+    "rate_limit": 180,
+    "internal_rate_limit": 1800,
+    "database_pool_size": 0,
+    "testing": false
+  },
+  "priorizacion_geografia": {
+    "server_from_run_py": "waitress-threads8",
+    "rate_limit": 180,
+    "internal_rate_limit": 1800,
+    "database_pool_size": 0,
+    "testing": false
+  },
+  "transporte": {
+    "server_from_run_py": "gevent-pool96",
+    "rate_limit": 180,
+    "internal_rate_limit": 1800,
+    "database_pool_size": 0,
+    "testing": false
+  },
+  "custodia": {
+    "server_from_run_py": "waitress-threads8",
+    "rate_limit": 180,
+    "internal_rate_limit": 1800,
+    "database_pool_size": 0,
+    "testing": false
+  },
+  "alertas": {
+    "server_from_run_py": "waitress-threads8",
+    "rate_limit": 180,
+    "internal_rate_limit": 1800,
+    "database_pool_size": 0,
+    "testing": false
+  },
+  "auditoria": {
+    "server_from_run_py": "waitress-threads8",
+    "rate_limit": 180,
+    "internal_rate_limit": 1800,
+    "database_pool_size": 0,
+    "testing": false
+  },
+  "monitoreo": {
+    "server_from_run_py": "waitress-threads8",
+    "rate_limit": 180,
+    "internal_rate_limit": 1800,
+    "database_pool_size": 0,
+    "testing": false
+  },
+  "documentos": {
+    "server_from_run_py": "waitress-threads8",
+    "rate_limit": 180,
+    "internal_rate_limit": 1800,
+    "database_pool_size": 0,
+    "testing": false
+  }
+}

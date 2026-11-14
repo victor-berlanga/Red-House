@@ -1,0 +1,80 @@
+{
+  "status": "completed",
+  "hashes_before": {
+    "run.py": "11c1715afa55bfb38687439ff3cfdb30a8b071c5893a340ebe00a1d9bcd24793",
+    "worker.py": "5330730604245888c70ce504fe35e64d6a5df5057fe663e54eac056dc62fc3a5",
+    "redhouse/config.py": "0c3ad95d73d3033a1e8f92b7396e3a95303b5a8255845ece8c9c025281cd8f44",
+    "tests/locustfile.py": "0b9618a2886f1d1395b99efb9fb62f8c83edf1b76a48d258d9a68a83e6449183",
+    "tests/locust_sustained.py": "f09cf81250099424d7bd147caa6e9d6caa3b55c5336590342f751ee847b055a4",
+    "scripts/sustained_read.py": "77c2463c87f5fa867fa0fbbd4f87fe300e09bb620fc28b1b096c6eee00233906",
+    "scripts/load_client.py": "166ed756fd86c561b62aba5bd7617ec27b16a0bb964cff7847610f8a1fef49d6",
+    "scripts/load_guard.py": "3bec460da2a49376611ab31d385db2d0580b5ace1d4abf3107284dc8e7c34e8b",
+    "config/identidad_acceso.json": "74c6375f762f5af3043d38896c8ef2009a78edafe1a686143195bbac61b0f40e",
+    "config/donantes.json": "fa21d5fad4b738e3b3f26be71f69b38eb1507800d496b20be4934f3b72fb15f6",
+    "config/receptores.json": "245851ec35d086de207539d32f3ecad2c005eea2d968d0910194c479f9a3533a",
+    "config/inventario.json": "e26942022cf9d0bff2d15c48f807e71c987372a3f4d24905ad19649b83fb01ad",
+    "config/compatibilidad.json": "6e813e5bf57220583ea07a95bdb38a23478d96b13fd3e4d5499d85d2b26057b7",
+    "config/priorizacion_geografia.json": "bddd4b67f4e09b5559a3f7696b87996d8752bc25116f6081d8cb565f1e531686",
+    "config/transporte.json": "6cdb99fdc5e655c5d5b18f46c4c7280ca9f4f8a2657f52aa5c525a279748bab9",
+    "config/custodia.json": "f3c458583c76ec92a554275ebb448c2f3ea0bae9d0385e3bfa3b11677d110fcc",
+    "config/alertas.json": "6ae0a37ca47e3c41af8e926d7c0013e64df0c5b0cf1c489e0caefe60a220b56e",
+    "config/auditoria.json": "ec1186c1675b6ee9ce14f0999fc136da8db72d91bc48b5aecc2908d154780763",
+    "config/monitoreo.json": "0e3e71d0ee445d5aa0649f7206d7408c16c13590175840d38baacc07011cc061",
+    "config/documentos.json": "924245698afdd824292ee1d09159fd6852ce3d3d775fca0e2a50523457981d15"
+  },
+  "phases": [
+    {
+      "name": "12-active-a",
+      "execution_valid": true,
+      "measurement_accepted": true
+    },
+    {
+      "name": "12-bypass-a",
+      "execution_valid": true,
+      "measurement_accepted": true
+    },
+    {
+      "name": "12-active-b",
+      "execution_valid": true,
+      "measurement_accepted": true
+    },
+    {
+      "name": "12-bypass-b",
+      "execution_valid": true,
+      "measurement_accepted": true
+    },
+    {
+      "name": "24-active",
+      "execution_valid": true,
+      "measurement_accepted": false
+    },
+    {
+      "name": "6-recovery",
+      "execution_valid": true,
+      "measurement_accepted": true
+    }
+  ],
+  "stress_skipped": "24 no aceptado",
+  "hashes_after": {
+    "run.py": "11c1715afa55bfb38687439ff3cfdb30a8b071c5893a340ebe00a1d9bcd24793",
+    "worker.py": "5330730604245888c70ce504fe35e64d6a5df5057fe663e54eac056dc62fc3a5",
+    "redhouse/config.py": "0c3ad95d73d3033a1e8f92b7396e3a95303b5a8255845ece8c9c025281cd8f44",
+    "tests/locustfile.py": "0b9618a2886f1d1395b99efb9fb62f8c83edf1b76a48d258d9a68a83e6449183",
+    "tests/locust_sustained.py": "f09cf81250099424d7bd147caa6e9d6caa3b55c5336590342f751ee847b055a4",
+    "scripts/sustained_read.py": "77c2463c87f5fa867fa0fbbd4f87fe300e09bb620fc28b1b096c6eee00233906",
+    "scripts/load_client.py": "166ed756fd86c561b62aba5bd7617ec27b16a0bb964cff7847610f8a1fef49d6",
+    "scripts/load_guard.py": "3bec460da2a49376611ab31d385db2d0580b5ace1d4abf3107284dc8e7c34e8b",
+    "config/identidad_acceso.json": "74c6375f762f5af3043d38896c8ef2009a78edafe1a686143195bbac61b0f40e",
+    "config/donantes.json": "fa21d5fad4b738e3b3f26be71f69b38eb1507800d496b20be4934f3b72fb15f6",
+    "config/receptores.json": "245851ec35d086de207539d32f3ecad2c005eea2d968d0910194c479f9a3533a",
+    "config/inventario.json": "e26942022cf9d0bff2d15c48f807e71c987372a3f4d24905ad19649b83fb01ad",
+    "config/compatibilidad.json": "6e813e5bf57220583ea07a95bdb38a23478d96b13fd3e4d5499d85d2b26057b7",
+    "config/priorizacion_geografia.json": "bddd4b67f4e09b5559a3f7696b87996d8752bc25116f6081d8cb565f1e531686",
+    "config/transporte.json": "6cdb99fdc5e655c5d5b18f46c4c7280ca9f4f8a2657f52aa5c525a279748bab9",
+    "config/custodia.json": "f3c458583c76ec92a554275ebb448c2f3ea0bae9d0385e3bfa3b11677d110fcc",
+    "config/alertas.json": "6ae0a37ca47e3c41af8e926d7c0013e64df0c5b0cf1c489e0caefe60a220b56e",
+    "config/auditoria.json": "ec1186c1675b6ee9ce14f0999fc136da8db72d91bc48b5aecc2908d154780763",
+    "config/monitoreo.json": "0e3e71d0ee445d5aa0649f7206d7408c16c13590175840d38baacc07011cc061",
+    "config/documentos.json": "924245698afdd824292ee1d09159fd6852ce3d3d775fca0e2a50523457981d15"
+  }
+}

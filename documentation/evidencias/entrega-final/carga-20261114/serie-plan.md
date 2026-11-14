@@ -1,4 +1,6 @@
-# Serie de lectura sostenida: preparación
+# Serie de lectura sostenida: plan previo
+
+**Ejecución posterior:** serie completada el 14/11/2026; cinco fases cumplen el objetivo y la de 24 usuarios no cumple latencia. [Resultados y límites](serie-12-24/RESULTADOS.md). El texto siguiente conserva la decisión anterior a la medición.
 
 La serie prepara una sola población sintética y mantiene seis perfiles con familias de sesión independientes. Ejecuta, en orden, 12 usuarios con caché activa, 12 con bypass, 12 activos, 12 con bypass y 24 activos. Cada fase usa 30 s de calentamiento y 120 s medidos. Solo si la fase de 24 cumple los criterios y las guardas siguen vigentes se ejecuta estrés de 36 usuarios durante 60 s; después se mide recuperación con seis usuarios durante 60 s. Si una fase no completa las verificaciones del arnés, se detiene la serie. Si 24 completa la ejecución pero no alcanza el objetivo, se omite estrés y se mantiene recuperación, siempre que las guardas lo permitan.
 

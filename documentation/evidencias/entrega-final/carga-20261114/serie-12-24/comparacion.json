@@ -1,0 +1,114 @@
+[
+  {
+    "phase": "12-active-a",
+    "users": 12,
+    "cache_mode": "active",
+    "seconds": 120.0745478119934,
+    "requests": 1734,
+    "failures": 0,
+    "rps": 14.441028774182925,
+    "max_p95_ms": 780,
+    "max_p99_ms": 850,
+    "mean_ms": 336.5701330389834,
+    "accepted": true,
+    "execution_valid": true,
+    "session_revocation_verified": true,
+    "cache": {
+      "HIT": 255,
+      "MISS": 24
+    }
+  },
+  {
+    "phase": "12-bypass-a",
+    "users": 12,
+    "cache_mode": "bypass",
+    "seconds": 120.00582728901645,
+    "requests": 1728,
+    "failures": 0,
+    "rps": 14.399300759273673,
+    "max_p95_ms": 830,
+    "max_p99_ms": 1100,
+    "mean_ms": 345.44527571802905,
+    "accepted": true,
+    "execution_valid": true,
+    "session_revocation_verified": true,
+    "cache": {
+      "BYPASS": 280
+    }
+  },
+  {
+    "phase": "12-active-b",
+    "users": 12,
+    "cache_mode": "active",
+    "seconds": 120.04542422899976,
+    "requests": 1716,
+    "failures": 0,
+    "rps": 14.294588994300545,
+    "max_p95_ms": 910,
+    "max_p99_ms": 1300,
+    "mean_ms": 358.0737380805251,
+    "accepted": true,
+    "execution_valid": true,
+    "session_revocation_verified": true,
+    "cache": {
+      "HIT": 256,
+      "MISS": 23
+    }
+  },
+  {
+    "phase": "12-bypass-b",
+    "users": 12,
+    "cache_mode": "bypass",
+    "seconds": 120.00651544996072,
+    "requests": 1700,
+    "failures": 0,
+    "rps": 14.165897523362815,
+    "max_p95_ms": 1100,
+    "max_p99_ms": 1200,
+    "mean_ms": 352.8068034089965,
+    "accepted": true,
+    "execution_valid": true,
+    "session_revocation_verified": true,
+    "cache": {
+      "BYPASS": 280
+    }
+  },
+  {
+    "phase": "24-active",
+    "users": 24,
+    "cache_mode": "active",
+    "seconds": 120.07590840297053,
+    "requests": 2260,
+    "failures": 0,
+    "rps": 18.821427462497468,
+    "max_p95_ms": 2100,
+    "max_p99_ms": 3100,
+    "mean_ms": 746.0943874247286,
+    "accepted": false,
+    "execution_valid": true,
+    "session_revocation_verified": true,
+    "cache": {
+      "HIT": 359,
+      "MISS": 27
+    }
+  },
+  {
+    "phase": "6-recovery",
+    "users": 6,
+    "cache_mode": "active",
+    "seconds": 60.005256646021735,
+    "requests": 471,
+    "failures": 0,
+    "rps": 7.84931231572737,
+    "max_p95_ms": 840,
+    "max_p99_ms": 970,
+    "mean_ms": 278.4324807596626,
+    "accepted": true,
+    "execution_valid": true,
+    "session_revocation_verified": true,
+    "cache": {
+      "HIT": 64,
+      "MISS": 10
+    }
+  }
+]

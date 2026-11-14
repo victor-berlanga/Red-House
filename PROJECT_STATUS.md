@@ -2,6 +2,10 @@
 
 Las entradas están ordenadas de reciente a histórico; un pendiente de un corte anterior puede quedar sustituido explícitamente por una entrada posterior.
 
+## Caché, concurrencia y recuperación medidas — 14/11/2026
+
+[Serie local](documentation/evidencias/entrega-final/carga-20261114/serie-12-24/RESULTADOS.md) completada con seis fases válidas y cero errores. Cuatro corridas de 12 usuarios cumplieron p95 inferior a 2 s; la de 24 no cumplió (Traslados 2.100 ms, Tareas propias 2.000 ms). Se omitió estrés de 36 conforme al plan. Recuperación con seis: 471 lecturas/60,005 s, p95 máximo 840 ms. Las 78 familias nuevas quedaron revocadas en SQL/Redis; 945 fuentes y 20 huellas de runtime/configuración estables, procesos propios cerrados. Dataset único 2.000 donantes/10.000 recursos/100.000 eventos SQL. Se conservan CSV, medianas/percentiles por endpoint, métricas de recursos y gráfica inspeccionada. No se concluye beneficio general de caché ni capacidad GCP; quedan transacciones y otros ensayos de etapa 07.
+
 ## Planificación de traslados desde escritorio — 14/11/2026
 
 [DESK-09](documentation/evidencias/entrega-final/desktop/iteracion-planificacion/RESULTADOS.md) incorpora selección paginada de reserva y responsable, instituciones por nombre, ruta/caducidad, fechas locales convertidas a UTC y confirmación humana. Mantiene diario XML idempotente; respuesta incierta o conflicto no crea otra clave ni confirma automáticamente. Tres pruebas con dobles aprobaron; el primer laboratorio quedó impedido por socket del sandbox. Repetición autorizada Qt/XML 1/1 en 47,50 s: traslado PLANNED correlacionado con reserva/responsable en PostgreSQL y consulta XML. Fuentes estables y procesos propios cerrados. Ajuste de aviso posterior comprobado con doble 1/1, sin repetir el laboratorio. Dirección inspeccionó tres capturas. El paquete Mac aún no contiene este lote; etapa 05 y Windows siguen pendientes.
