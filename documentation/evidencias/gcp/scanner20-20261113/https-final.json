@@ -1,0 +1,301 @@
+{
+  "phase": "final",
+  "checks": [
+    {
+      "label": "identidad-acceso:ready",
+      "http": 200,
+      "milliseconds": 1160.168
+    },
+    {
+      "label": "donantes:ready",
+      "http": 200,
+      "milliseconds": 1071.927
+    },
+    {
+      "label": "receptores:ready",
+      "http": 200,
+      "milliseconds": 1046.894
+    },
+    {
+      "label": "inventario:ready",
+      "http": 200,
+      "milliseconds": 1000.357
+    },
+    {
+      "label": "compatibilidad:ready",
+      "http": 200,
+      "milliseconds": 1077.976
+    },
+    {
+      "label": "priorizacion-geografia:ready",
+      "http": 200,
+      "milliseconds": 1024.104
+    },
+    {
+      "label": "transporte:ready",
+      "http": 200,
+      "milliseconds": 1038.543
+    },
+    {
+      "label": "custodia:ready",
+      "http": 200,
+      "milliseconds": 1006.871
+    },
+    {
+      "label": "alertas:ready",
+      "http": 200,
+      "milliseconds": 1039.998
+    },
+    {
+      "label": "auditoria:ready",
+      "http": 200,
+      "milliseconds": 1017.03
+    },
+    {
+      "label": "monitoreo:ready",
+      "http": 200,
+      "milliseconds": 1044.648
+    },
+    {
+      "label": "documentos:ready",
+      "http": 200,
+      "milliseconds": 996.874
+    },
+    {
+      "label": "public-campaign-feed:?page=1&page_size=20:application/json",
+      "http": 200,
+      "milliseconds": 1072.709
+    },
+    {
+      "label": "public-campaign-feed:?q=%00:application/json",
+      "http": 400,
+      "milliseconds": 1072.665
+    },
+    {
+      "label": "public-campaign-feed:?page=1&page_size=20:application/xml",
+      "http": 200,
+      "milliseconds": 1025.937
+    },
+    {
+      "label": "public-campaign-feed:?q=%00:application/xml",
+      "http": 400,
+      "milliseconds": 1095.862
+    },
+    {
+      "label": "auditor1:/monitoreo",
+      "http": 200,
+      "milliseconds": 1184.963
+    },
+    {
+      "label": "auditor1:/monitoreo",
+      "http": 200,
+      "milliseconds": 1136.193
+    },
+    {
+      "label": "auditor1:/sesion/estado",
+      "http": 200,
+      "milliseconds": 368.437
+    },
+    {
+      "label": "donor1:/panel",
+      "http": 200,
+      "milliseconds": 585.038
+    },
+    {
+      "label": "donor1:/citas",
+      "http": 200,
+      "milliseconds": 1513.784
+    },
+    {
+      "label": "donor1:/campanas",
+      "http": 200,
+      "milliseconds": 461.035
+    },
+    {
+      "label": "donor1:/donantes/donor",
+      "http": 200,
+      "milliseconds": 331.252
+    },
+    {
+      "label": "donor1:/sesion/estado",
+      "http": 200,
+      "milliseconds": 284.064
+    },
+    {
+      "label": "donor1:personal-form",
+      "http": 200,
+      "milliseconds": 568.188
+    },
+    {
+      "label": "operator1:/panel",
+      "http": 200,
+      "milliseconds": 1120.764
+    },
+    {
+      "label": "operator1:/inventario",
+      "http": 200,
+      "milliseconds": 318.692
+    },
+    {
+      "label": "operator1:/traslados",
+      "http": 200,
+      "milliseconds": 362.254
+    },
+    {
+      "label": "auditor1:monitoreo/api/v1/status:application/json",
+      "http": 200,
+      "milliseconds": 565.643
+    },
+    {
+      "label": "auditor1:monitoreo/api/v1/status:application/xml",
+      "http": 200,
+      "milliseconds": 676.782
+    },
+    {
+      "label": "auditor1:closed-session",
+      "http": 401,
+      "milliseconds": 282.365
+    },
+    {
+      "label": "donor1:donantes/api/v1/campaign-slots?page_size=20:application/json",
+      "http": 200,
+      "milliseconds": 313.595
+    },
+    {
+      "label": "donor1:inventario/api/v1/resources:application/json",
+      "http": 403,
+      "milliseconds": 259.488
+    },
+    {
+      "label": "donor1:/api/v1/appointments/next:application/json",
+      "http": 200,
+      "milliseconds": 283.93
+    },
+    {
+      "label": "donor1:/api/v1/appointments/next:application/xml",
+      "http": 200,
+      "milliseconds": 307.892
+    },
+    {
+      "label": "donor1:/api/v1/appointments/agenda?page_size=20:application/json",
+      "http": 200,
+      "milliseconds": 269.7
+    },
+    {
+      "label": "donor1:/api/v1/appointments/agenda?page_size=20:application/xml",
+      "http": 200,
+      "milliseconds": 279.82
+    },
+    {
+      "label": "donor1:closed-session",
+      "http": 401,
+      "milliseconds": 269.456
+    },
+    {
+      "label": "operator1:inventario/api/v1/resources?page_size=20:application/json",
+      "http": 200,
+      "milliseconds": 287.251
+    },
+    {
+      "label": "operator1:inventario/api/v1/resources?page_size=20:application/xml",
+      "http": 200,
+      "milliseconds": 275.854
+    },
+    {
+      "label": "operator1:closed-session",
+      "http": 401,
+      "milliseconds": 273.543
+    },
+    {
+      "label": "transport1:transporte/api/v1/shipments?page_size=20:application/json",
+      "http": 200,
+      "milliseconds": 353.587
+    },
+    {
+      "label": "transport1:shipment-files:application/json",
+      "http": 200,
+      "milliseconds": 295.3
+    },
+    {
+      "label": "transport1:shipment-files:application/xml",
+      "http": 200,
+      "milliseconds": 309.806
+    },
+    {
+      "label": "transport1:shipment-files:application/json",
+      "http": 200,
+      "milliseconds": 379.382
+    },
+    {
+      "label": "transport1:shipment-files:application/xml",
+      "http": 200,
+      "milliseconds": 300.635
+    },
+    {
+      "label": "transport1:shipment-files:application/json",
+      "http": 200,
+      "milliseconds": 320.871
+    },
+    {
+      "label": "transport1:shipment-files:application/xml",
+      "http": 200,
+      "milliseconds": 303.578
+    },
+    {
+      "label": "transport1:closed-session",
+      "http": 401,
+      "milliseconds": 325.721
+    },
+    {
+      "label": "admin1:identidad-acceso/api/v1/user-creation-receipt:application/json",
+      "http": 400,
+      "milliseconds": 269.186
+    },
+    {
+      "label": "admin1:identidad-acceso/api/v1/devices?q=release-scanner20-no-such-device-20261113&page_size=1:application/json",
+      "http": 200,
+      "milliseconds": 264.642
+    },
+    {
+      "label": "admin1:identidad-acceso/api/v1/devices?q=release-scanner20-no-such-device-20261113&page_size=1:application/xml",
+      "http": 200,
+      "milliseconds": 295.074
+    },
+    {
+      "label": "admin1:missing-creation-receipt:application/json",
+      "http": 404,
+      "milliseconds": 313.519
+    },
+    {
+      "label": "admin1:missing-creation-receipt:application/xml",
+      "http": 404,
+      "milliseconds": 283.202
+    },
+    {
+      "label": "admin1:closed-session",
+      "http": 401,
+      "milliseconds": 262.114
+    }
+  ],
+  "tls_verification": true,
+  "donor_chart_scripts": [],
+  "personal_form_read_only": true,
+  "shipment_file_checks": 6,
+  "wss": [
+    {
+      "format": "json",
+      "tls_verified": true,
+      "authenticated": true,
+      "heartbeat": true,
+      "position_published": false
+    },
+    {
+      "format": "xml",
+      "tls_verified": true,
+      "authenticated": true,
+      "heartbeat": true,
+      "position_published": false
+    }
+  ],
+  "result": "passed"
+}

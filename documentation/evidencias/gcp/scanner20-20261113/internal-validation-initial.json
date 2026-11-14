@@ -1,0 +1,202 @@
+{
+  "result": "failed",
+  "error_type": "AssertionError",
+  "checks": [
+    {
+      "check": "identidad-acceso-a-private/health/ready",
+      "http": 200
+    },
+    {
+      "check": "identidad-acceso-b-private/health/ready",
+      "http": 200
+    },
+    {
+      "check": "donantes-a-private/health/ready",
+      "http": 200
+    },
+    {
+      "check": "donantes-b-private/health/ready",
+      "http": 200
+    },
+    {
+      "check": "receptores-a-private/health/ready",
+      "http": 200
+    },
+    {
+      "check": "receptores-b-private/health/ready",
+      "http": 200
+    },
+    {
+      "check": "inventario-a-private/health/ready",
+      "http": 200
+    },
+    {
+      "check": "inventario-b-private/health/ready",
+      "http": 200
+    },
+    {
+      "check": "compatibilidad-a-private/health/ready",
+      "http": 200
+    },
+    {
+      "check": "compatibilidad-b-private/health/ready",
+      "http": 200
+    },
+    {
+      "check": "priorizacion-geografia-a-private/health/ready",
+      "http": 200
+    },
+    {
+      "check": "priorizacion-geografia-b-private/health/ready",
+      "http": 200
+    },
+    {
+      "check": "transporte-a-private/health/ready",
+      "http": 200
+    },
+    {
+      "check": "transporte-b-private/health/ready",
+      "http": 200
+    },
+    {
+      "check": "custodia-a-private/health/ready",
+      "http": 200
+    },
+    {
+      "check": "custodia-b-private/health/ready",
+      "http": 200
+    },
+    {
+      "check": "alertas-a-private/health/ready",
+      "http": 200
+    },
+    {
+      "check": "alertas-b-private/health/ready",
+      "http": 200
+    },
+    {
+      "check": "auditoria-a-private/health/ready",
+      "http": 200
+    },
+    {
+      "check": "auditoria-b-private/health/ready",
+      "http": 200
+    },
+    {
+      "check": "monitoreo-a-private/health/ready",
+      "http": 200
+    },
+    {
+      "check": "monitoreo-b-private/health/ready",
+      "http": 200
+    },
+    {
+      "check": "documentos-a-private/health/ready",
+      "http": 200
+    },
+    {
+      "check": "documentos-b-private/health/ready",
+      "http": 200
+    },
+    {
+      "check": "donantes-a-private/openapi.json",
+      "http": 200
+    },
+    {
+      "check": "donantes-a-private/api/v1/public/campaign-feed?page_size=20",
+      "http": 200
+    },
+    {
+      "check": "donantes-a-private/api/v1/public/campaign-feed?page_size=20",
+      "http": 200
+    },
+    {
+      "check": "donantes-a-private/api/v1/public/campaign-feed?q=%00",
+      "http": 400
+    },
+    {
+      "check": "donantes-b-private/openapi.json",
+      "http": 200
+    },
+    {
+      "check": "donantes-b-private/api/v1/public/campaign-feed?page_size=20",
+      "http": 200
+    },
+    {
+      "check": "donantes-b-private/api/v1/public/campaign-feed?page_size=20",
+      "http": 200
+    },
+    {
+      "check": "donantes-b-private/api/v1/public/campaign-feed?q=%00",
+      "http": 400
+    },
+    {
+      "check": "identidad-acceso-a-private/api/v1/auth/login",
+      "http": 200
+    },
+    {
+      "check": "identidad-acceso-a-private/api/v1/auth/me",
+      "http": 200
+    },
+    {
+      "check": "identidad-acceso-a-private/api/v1/auth/reauthenticate",
+      "http": 410
+    },
+    {
+      "check": "identidad-acceso-a-private/api/v1/auth/reauthentication-proofs",
+      "http": 403
+    },
+    {
+      "check": "transporte-a-private/api/v1/shipments?page_size=1",
+      "http": 200
+    },
+    {
+      "check": "documentos-a-private/api/v1/export-jobs?page_size=1",
+      "http": 200
+    },
+    {
+      "check": "inventario-a-private/api/v1/resources?page_size=1",
+      "http": 200
+    },
+    {
+      "check": "identidad-acceso-a-private/api/v1/auth/revoke",
+      "http": 200
+    },
+    {
+      "check": "identidad-acceso-b-private/api/v1/auth/login",
+      "http": 200
+    },
+    {
+      "check": "identidad-acceso-b-private/api/v1/auth/me",
+      "http": 200
+    },
+    {
+      "check": "identidad-acceso-b-private/api/v1/auth/reauthenticate",
+      "http": 410
+    },
+    {
+      "check": "identidad-acceso-b-private/api/v1/auth/reauthentication-proofs",
+      "http": 403
+    },
+    {
+      "check": "transporte-b-private/api/v1/shipments?page_size=1",
+      "http": 200
+    },
+    {
+      "check": "documentos-b-private/api/v1/export-jobs?page_size=1",
+      "http": 200
+    },
+    {
+      "check": "inventario-b-private/api/v1/resources?page_size=1",
+      "http": 200
+    },
+    {
+      "check": "identidad-acceso-b-private/api/v1/auth/revoke",
+      "http": 200
+    },
+    {
+      "check": "identidad-acceso-a-private/api/v1/auth/login",
+      "http": 401
+    }
+  ]
+}

@@ -1,0 +1,242 @@
+{
+  "web": {
+    "id": "9f34e0313f4b4b5fa406374967ae2d57891588b8c0ce4dd6233f0388d8283613",
+    "image": "sha256:3cb7e602427c2fc125f025caf52dd9361bbf31cf16f59108612544e220904179",
+    "tag": "redhouse/web:scanner20-20261113",
+    "running": true,
+    "started_at": "2026-11-14T01:05:18.531269425Z",
+    "health": "healthy"
+  },
+  "transporte-b": {
+    "id": "f5a3299cf1b5b93b45b10773d22f69cd12785085302b51eff361fd89d97f75c5",
+    "image": "sha256:f0e0302e88751cda94dfeba42fe05a2946affc7df26d40b3912923e8dad5a32f",
+    "tag": "redhouse/transporte:scanner20-20261113",
+    "running": true,
+    "started_at": "2026-11-14T01:05:01.280580115Z",
+    "health": "healthy"
+  },
+  "transporte-a": {
+    "id": "515622908d1c60fc383daa30b6c88a3e322ddc62621d55542e49bc3047c8a129",
+    "image": "sha256:f0e0302e88751cda94dfeba42fe05a2946affc7df26d40b3912923e8dad5a32f",
+    "tag": "redhouse/transporte:scanner20-20261113",
+    "running": true,
+    "started_at": "2026-11-14T01:04:43.412943588Z",
+    "health": "healthy"
+  },
+  "receptores-b": {
+    "id": "7ef03c2eca970992c6557d9acab6d99774f3f0306d184c5ceefb306f7749701b",
+    "image": "sha256:05af7fa3521760167af229336a9e33ec1022c03a27853dc12fdd347e977ca4f1",
+    "tag": "redhouse/receptores:scanner20-20261113",
+    "running": true,
+    "started_at": "2026-11-14T01:04:25.976799511Z",
+    "health": "healthy"
+  },
+  "receptores-a": {
+    "id": "87d331d315d6f40ff172f0a20aa3b5ac23d520ef9510713a5ad79ee1f46d9202",
+    "image": "sha256:05af7fa3521760167af229336a9e33ec1022c03a27853dc12fdd347e977ca4f1",
+    "tag": "redhouse/receptores:scanner20-20261113",
+    "running": true,
+    "started_at": "2026-11-14T01:04:08.160076132Z",
+    "health": "healthy"
+  },
+  "priorizacion-geografia-b": {
+    "id": "949b6fd29a6d816f5929d879e9c254444fea8cdc8d8fbb441823979f6a07d25a",
+    "image": "sha256:104f8e546ffbd698dffb0c29f5b46d85e123823da730e18625d394c4b67e8708",
+    "tag": "redhouse/priorizacion_geografia:scanner20-20261113",
+    "running": true,
+    "started_at": "2026-11-14T01:03:48.831115714Z",
+    "health": "healthy"
+  },
+  "priorizacion-geografia-a": {
+    "id": "c84101aec151dcdab90b0441271a784a02fddc96d150071bca09b077103c69db",
+    "image": "sha256:104f8e546ffbd698dffb0c29f5b46d85e123823da730e18625d394c4b67e8708",
+    "tag": "redhouse/priorizacion_geografia:scanner20-20261113",
+    "running": true,
+    "started_at": "2026-11-14T01:03:31.593769952Z",
+    "health": "healthy"
+  },
+  "monitoreo-b": {
+    "id": "b6406003833fed091cb766ba644ea670f02666ae2a3bccc9436a06b79b3b9af4",
+    "image": "sha256:189d29aa715b6502cf83b9c9985a20e0a8d6c4929af1cb962416c94ddc577357",
+    "tag": "redhouse/monitoreo:scanner20-20261113",
+    "running": true,
+    "started_at": "2026-11-14T01:03:14.829260325Z",
+    "health": "healthy"
+  },
+  "monitoreo-a": {
+    "id": "db885edd94d359906e200378c38468f7c577f831ace405243e097c8a1932ebd3",
+    "image": "sha256:189d29aa715b6502cf83b9c9985a20e0a8d6c4929af1cb962416c94ddc577357",
+    "tag": "redhouse/monitoreo:scanner20-20261113",
+    "running": true,
+    "started_at": "2026-11-14T01:02:57.671657872Z",
+    "health": "healthy"
+  },
+  "inventario-b": {
+    "id": "19934f2e5a7350be156e7259a7cfedbb8bd71dd36951fcd8960463b830e40b02",
+    "image": "sha256:950a0a7635b4b5842e6ae941ee230c168f8ae9df55146b81f1ae721bf285e03f",
+    "tag": "redhouse/inventario:scanner20-20261113",
+    "running": true,
+    "started_at": "2026-11-14T01:02:41.197627186Z",
+    "health": "healthy"
+  },
+  "inventario-a": {
+    "id": "8e2399ef9771631f6df80dc9831389587f421c9fa154f65da82a9a54291ba762",
+    "image": "sha256:950a0a7635b4b5842e6ae941ee230c168f8ae9df55146b81f1ae721bf285e03f",
+    "tag": "redhouse/inventario:scanner20-20261113",
+    "running": true,
+    "started_at": "2026-11-14T01:02:23.506149278Z",
+    "health": "healthy"
+  },
+  "identidad-acceso-b": {
+    "id": "4baefbf72fb4ad29377d1c4bbfad0e556cc8d029e2be52b2bffaed7ce72a8bba",
+    "image": "sha256:1cfe3dcd3c29a4a6c0bfd82972c0829c99360b89bd77a1d1245a94bd35f50a0a",
+    "tag": "redhouse/identidad_acceso:scanner20-20261113",
+    "running": true,
+    "started_at": "2026-11-14T01:02:05.045678696Z",
+    "health": "healthy"
+  },
+  "identidad-acceso-a": {
+    "id": "e54f2b64f025689a7be6be263c219c5c4dabdb2244433b5305b8405c2c44e268",
+    "image": "sha256:1cfe3dcd3c29a4a6c0bfd82972c0829c99360b89bd77a1d1245a94bd35f50a0a",
+    "tag": "redhouse/identidad_acceso:scanner20-20261113",
+    "running": true,
+    "started_at": "2026-11-14T01:01:47.746935744Z",
+    "health": "healthy"
+  },
+  "donantes-b": {
+    "id": "bc0d76219e4b8d31aaebd97437687c0a767fb35c3d747d4a5fab99d7a739669d",
+    "image": "sha256:5ea88073c34c3af983d982702e0cc758ee3897583c75551bc320ad05f4a4bce0",
+    "tag": "redhouse/donantes:scanner20-20261113",
+    "running": true,
+    "started_at": "2026-11-14T01:01:30.647602442Z",
+    "health": "healthy"
+  },
+  "donantes-a": {
+    "id": "13fad678e40e423bde7f3687859cc881fd58ea998a2972e18587475395248906",
+    "image": "sha256:5ea88073c34c3af983d982702e0cc758ee3897583c75551bc320ad05f4a4bce0",
+    "tag": "redhouse/donantes:scanner20-20261113",
+    "running": true,
+    "started_at": "2026-11-14T01:01:14.271627023Z",
+    "health": "healthy"
+  },
+  "documentos-b": {
+    "id": "2bda72d6b22333d68bd7a74e1c213741724f5233977411cabdffa8df89c20b74",
+    "image": "sha256:0503076b099fca3a607a4e6b1d0a45025834f8b7cd8a61807b5810d9e1abc38d",
+    "tag": "redhouse/documentos:scanner20-20261113",
+    "running": true,
+    "started_at": "2026-11-14T01:00:56.632704457Z",
+    "health": "healthy"
+  },
+  "documentos-a": {
+    "id": "ecc0017374a7db44ae3985ebb3bacf823b049ffc6598d78e771818d9400ebd92",
+    "image": "sha256:0503076b099fca3a607a4e6b1d0a45025834f8b7cd8a61807b5810d9e1abc38d",
+    "tag": "redhouse/documentos:scanner20-20261113",
+    "running": true,
+    "started_at": "2026-11-14T01:00:37.728910568Z",
+    "health": "healthy"
+  },
+  "custodia-b": {
+    "id": "fe82df7b05edf77b5dbf0829361539d0bba6c7ff4669e9cc2fc91069652e4f7c",
+    "image": "sha256:cea6ce040d3e4b1cbceab8b133171d101378aa396eaedd6b060da378b69b8075",
+    "tag": "redhouse/custodia:scanner20-20261113",
+    "running": true,
+    "started_at": "2026-11-14T01:00:19.186027079Z",
+    "health": "healthy"
+  },
+  "custodia-a": {
+    "id": "9c4b9f7fa1b1ec9b4df0e1bbd60e0e4945c78115ada9bb080f1c58b3e1f47675",
+    "image": "sha256:cea6ce040d3e4b1cbceab8b133171d101378aa396eaedd6b060da378b69b8075",
+    "tag": "redhouse/custodia:scanner20-20261113",
+    "running": true,
+    "started_at": "2026-11-14T00:59:59.890773447Z",
+    "health": "healthy"
+  },
+  "compatibilidad-b": {
+    "id": "07d1c0116a309a3aca00573b32359aa4d5a1b1ecfde6bc6ebbd10fbcee95cd4f",
+    "image": "sha256:481ec2e8e26328c9a4c5ad27e39d90797178ebf0cca43d797d75a0213a686b27",
+    "tag": "redhouse/compatibilidad:scanner20-20261113",
+    "running": true,
+    "started_at": "2026-11-14T00:59:43.045883539Z",
+    "health": "healthy"
+  },
+  "compatibilidad-a": {
+    "id": "6082b09706f35a90746624e15e3c55bf90c9ef57c2b26978b385267d6111f4ed",
+    "image": "sha256:481ec2e8e26328c9a4c5ad27e39d90797178ebf0cca43d797d75a0213a686b27",
+    "tag": "redhouse/compatibilidad:scanner20-20261113",
+    "running": true,
+    "started_at": "2026-11-14T00:59:24.913254132Z",
+    "health": "healthy"
+  },
+  "auditoria-b": {
+    "id": "3efba93b5cedfcef23f7eeb0e3892452e74af89759a0bef9a00587d13a6db6f1",
+    "image": "sha256:e534ecb7bb58030a6508ef8cd001469f799da09a7ce3006bb7fc106e94f3f468",
+    "tag": "redhouse/auditoria:scanner20-20261113",
+    "running": true,
+    "started_at": "2026-11-14T00:59:07.27430588Z",
+    "health": "healthy"
+  },
+  "auditoria-a": {
+    "id": "9912585bfb0614f9c7a483ed1dda80b5af18872b9466cfd0a74bc6403ccbd71a",
+    "image": "sha256:e534ecb7bb58030a6508ef8cd001469f799da09a7ce3006bb7fc106e94f3f468",
+    "tag": "redhouse/auditoria:scanner20-20261113",
+    "running": true,
+    "started_at": "2026-11-14T00:58:48.588033825Z",
+    "health": "healthy"
+  },
+  "alertas-b": {
+    "id": "a63e26d1763f28d1653a6ec1f850e16feb7a97aadb606a037880d70a329d25ef",
+    "image": "sha256:fd2e471fab45263594609f5046d62dd8b561c84da921dc3008161b1d9ba2c076",
+    "tag": "redhouse/alertas:scanner20-20261113",
+    "running": true,
+    "started_at": "2026-11-14T00:58:30.654112403Z",
+    "health": "healthy"
+  },
+  "alertas-a": {
+    "id": "037bbaf16e7f1d8ed30a10cea29a100a73a930b3b90872a91e776d6943bbe1a4",
+    "image": "sha256:fd2e471fab45263594609f5046d62dd8b561c84da921dc3008161b1d9ba2c076",
+    "tag": "redhouse/alertas:scanner20-20261113",
+    "running": true,
+    "started_at": "2026-11-14T00:58:11.308245529Z",
+    "health": "healthy"
+  },
+  "clamav": {
+    "id": "9e0f6182c40573da7758c4e79357f543ef0084ae7d3c69daa7392b4c2be67313",
+    "image": "sha256:982e28f90061d0e66eb03276419f589a47c9fa601e985e472fc2f6c64b497ca0",
+    "tag": "clamav/clamav@sha256:982e28f90061d0e66eb03276419f589a47c9fa601e985e472fc2f6c64b497ca0",
+    "running": true,
+    "started_at": "2026-11-14T00:57:11.229909032Z",
+    "health": "healthy"
+  },
+  "gateway": {
+    "id": "913aa4f8b43a0fa704a791f2adb27920ecb9e41028f23b8727563f395c7a9708",
+    "image": "sha256:a8b39bd9cf0f83869a2162827a0caf6137ddf759d50a171451b335cecc87d236",
+    "tag": "nginx:1.28-alpine",
+    "running": true,
+    "started_at": "2026-11-13T19:14:29.952109943Z",
+    "health": "healthy"
+  },
+  "mongodb": {
+    "id": "fc9b64fad1e885c6fce371ffc7f916f478326d6143a8ecd999c8c837de9e6325",
+    "image": "sha256:27c0bc271b3c2fe8e18d5aa32c6aa5d891e5b9aceda5258e261ce59b2c343ef4",
+    "tag": "redhouse/mongodb-health:8.0",
+    "running": true,
+    "started_at": "2026-11-13T18:29:48.161737454Z",
+    "health": "healthy"
+  },
+  "redis": {
+    "id": "cf78afde0881d10a8c7d6e23a3eb7155fc32b7dea1a665b8ce01bea875ba904a",
+    "image": "sha256:4fa24486b8bcca8eec45ee0eb166edc674795e53a2b53d1a9ef263eecebaac85",
+    "tag": "redis:7.4-bookworm",
+    "running": true,
+    "started_at": "2026-11-13T18:29:47.526268565Z",
+    "health": "healthy"
+  },
+  "postgres": {
+    "id": "3b79ea1f9e1853f16d1e28b53f3e9363e0de0d20f9c74be213db2bf2498e65e2",
+    "image": "sha256:5a05f61a534e50e679d27fb45953afec7821f2ffc2aa6c738b94515ca0891ac2",
+    "tag": "postgres:14-bookworm",
+    "running": true,
+    "started_at": "2026-11-13T18:29:46.85441077Z",
+    "health": "healthy"
+  }
+}

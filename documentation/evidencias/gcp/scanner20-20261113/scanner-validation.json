@@ -1,0 +1,26 @@
+{
+  "checks": [
+    {
+      "result": "passed",
+      "clean": "CLEAN",
+      "eicar": "INFECTED",
+      "engine": "1.4.6",
+      "signatures": "28182",
+      "signature_at": "2026-11-13T06:24:28+00:00",
+      "max_age_seconds": 172800,
+      "bytes_only_no_database_or_object_writes": true,
+      "replica": "a"
+    },
+    {
+      "result": "passed",
+      "clean": "CLEAN",
+      "eicar": "INFECTED",
+      "engine": "1.4.6",
+      "signatures": "28182",
+      "signature_at": "2026-11-13T06:24:28+00:00",
+      "max_age_seconds": 172800,
+      "bytes_only_no_database_or_object_writes": true,
+      "replica": "b"
+    }
+  ]
+}

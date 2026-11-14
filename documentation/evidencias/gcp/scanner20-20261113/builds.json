@@ -1,0 +1,183 @@
+{
+  "alertas": {
+    "tag": "redhouse/alertas:scanner20-20261113",
+    "id": "sha256:fd2e471fab45263594609f5046d62dd8b561c84da921dc3008161b1d9ba2c076",
+    "base": "sha256:9c70c1e8e5efc3ac4779d81b5231e90c6d3d8e5577ce63fc82d4bedfe8d3830b",
+    "files": {
+      "apps/services/redhouse/config.py": "0c3ad95d73d3033a1e8f92b7396e3a95303b5a8255845ece8c9c025281cd8f44",
+      "apps/services/redhouse/evidence.py": "d1497d608ddbaa3a54011e5c74b085144867f6cc59c864593a4115ba29fb39fa",
+      "apps/services/redhouse/malware.py": "e3084ac6580d78c82f42e387e51b9792886f0729f5a99063cc019fb2cce2aa06",
+      "apps/services/redhouse/openapi.py": "eb7639dd6cff0ab13e0881a92add1a3899aff8e17e04a2536783afd7a39cedcf",
+      "apps/services/redhouse/shared_migrations.py": "c92f26d162f564ae4a94640124625d0a96abbf1119bfd9066bc1bc39fab699ac",
+      "apps/services/redhouse/shared_migrations/020.sql": "d0ccd9fa271cba74abc97bbd25d24eb9e5ba96601f132c3e6f86aa0717ee5b1c"
+    }
+  },
+  "auditoria": {
+    "tag": "redhouse/auditoria:scanner20-20261113",
+    "id": "sha256:e534ecb7bb58030a6508ef8cd001469f799da09a7ce3006bb7fc106e94f3f468",
+    "base": "sha256:c418e07d53aa6759b3ec36b5f20847d352929a444aabf451af5428144f31e33c",
+    "files": {
+      "apps/services/redhouse/config.py": "0c3ad95d73d3033a1e8f92b7396e3a95303b5a8255845ece8c9c025281cd8f44",
+      "apps/services/redhouse/evidence.py": "d1497d608ddbaa3a54011e5c74b085144867f6cc59c864593a4115ba29fb39fa",
+      "apps/services/redhouse/malware.py": "e3084ac6580d78c82f42e387e51b9792886f0729f5a99063cc019fb2cce2aa06",
+      "apps/services/redhouse/openapi.py": "eb7639dd6cff0ab13e0881a92add1a3899aff8e17e04a2536783afd7a39cedcf",
+      "apps/services/redhouse/shared_migrations.py": "c92f26d162f564ae4a94640124625d0a96abbf1119bfd9066bc1bc39fab699ac",
+      "apps/services/redhouse/shared_migrations/020.sql": "d0ccd9fa271cba74abc97bbd25d24eb9e5ba96601f132c3e6f86aa0717ee5b1c"
+    }
+  },
+  "compatibilidad": {
+    "tag": "redhouse/compatibilidad:scanner20-20261113",
+    "id": "sha256:481ec2e8e26328c9a4c5ad27e39d90797178ebf0cca43d797d75a0213a686b27",
+    "base": "sha256:68915e466d29affc3baaf2ec04c0d2b82b6298d7f56a0dcf000a681204f7c59f",
+    "files": {
+      "apps/services/redhouse/config.py": "0c3ad95d73d3033a1e8f92b7396e3a95303b5a8255845ece8c9c025281cd8f44",
+      "apps/services/redhouse/evidence.py": "d1497d608ddbaa3a54011e5c74b085144867f6cc59c864593a4115ba29fb39fa",
+      "apps/services/redhouse/malware.py": "e3084ac6580d78c82f42e387e51b9792886f0729f5a99063cc019fb2cce2aa06",
+      "apps/services/redhouse/openapi.py": "eb7639dd6cff0ab13e0881a92add1a3899aff8e17e04a2536783afd7a39cedcf",
+      "apps/services/redhouse/shared_migrations.py": "c92f26d162f564ae4a94640124625d0a96abbf1119bfd9066bc1bc39fab699ac",
+      "apps/services/redhouse/shared_migrations/020.sql": "d0ccd9fa271cba74abc97bbd25d24eb9e5ba96601f132c3e6f86aa0717ee5b1c"
+    }
+  },
+  "custodia": {
+    "tag": "redhouse/custodia:scanner20-20261113",
+    "id": "sha256:cea6ce040d3e4b1cbceab8b133171d101378aa396eaedd6b060da378b69b8075",
+    "base": "sha256:5e8750423f120004cf0871f3862c49bdf3492ffc0972e73fce118809c75e17e5",
+    "files": {
+      "apps/services/redhouse/config.py": "0c3ad95d73d3033a1e8f92b7396e3a95303b5a8255845ece8c9c025281cd8f44",
+      "apps/services/redhouse/evidence.py": "d1497d608ddbaa3a54011e5c74b085144867f6cc59c864593a4115ba29fb39fa",
+      "apps/services/redhouse/malware.py": "e3084ac6580d78c82f42e387e51b9792886f0729f5a99063cc019fb2cce2aa06",
+      "apps/services/redhouse/openapi.py": "eb7639dd6cff0ab13e0881a92add1a3899aff8e17e04a2536783afd7a39cedcf",
+      "apps/services/redhouse/shared_migrations.py": "c92f26d162f564ae4a94640124625d0a96abbf1119bfd9066bc1bc39fab699ac",
+      "apps/services/redhouse/shared_migrations/020.sql": "d0ccd9fa271cba74abc97bbd25d24eb9e5ba96601f132c3e6f86aa0717ee5b1c"
+    }
+  },
+  "documentos": {
+    "tag": "redhouse/documentos:scanner20-20261113",
+    "id": "sha256:0503076b099fca3a607a4e6b1d0a45025834f8b7cd8a61807b5810d9e1abc38d",
+    "base": "sha256:497b026d438dac2bcb6e8bb27e67e8c4f9b32741e1470201b4a8a592399bd824",
+    "files": {
+      "apps/services/ms_documentos/files.py": "9182e77bfd3a43cf5db627d729489f373b7581d944c55af05838ab739dd2db9f",
+      "apps/services/ms_documentos/reports.py": "49f3ab4370bea89b2da8a138c38c3b6ce0cdd1b40d6d760c4002c76c83be0020",
+      "apps/services/redhouse/config.py": "0c3ad95d73d3033a1e8f92b7396e3a95303b5a8255845ece8c9c025281cd8f44",
+      "apps/services/redhouse/evidence.py": "d1497d608ddbaa3a54011e5c74b085144867f6cc59c864593a4115ba29fb39fa",
+      "apps/services/redhouse/malware.py": "e3084ac6580d78c82f42e387e51b9792886f0729f5a99063cc019fb2cce2aa06",
+      "apps/services/redhouse/openapi.py": "eb7639dd6cff0ab13e0881a92add1a3899aff8e17e04a2536783afd7a39cedcf",
+      "apps/services/redhouse/shared_migrations.py": "c92f26d162f564ae4a94640124625d0a96abbf1119bfd9066bc1bc39fab699ac",
+      "apps/services/redhouse/shared_migrations/020.sql": "d0ccd9fa271cba74abc97bbd25d24eb9e5ba96601f132c3e6f86aa0717ee5b1c"
+    }
+  },
+  "donantes": {
+    "tag": "redhouse/donantes:scanner20-20261113",
+    "id": "sha256:5ea88073c34c3af983d982702e0cc758ee3897583c75551bc320ad05f4a4bce0",
+    "base": "sha256:dc5026989d8ebd9aed41c2cc38778a3339d1fbabb9d25cf126f7e51a214e221b",
+    "files": {
+      "apps/services/redhouse/config.py": "0c3ad95d73d3033a1e8f92b7396e3a95303b5a8255845ece8c9c025281cd8f44",
+      "apps/services/redhouse/evidence.py": "d1497d608ddbaa3a54011e5c74b085144867f6cc59c864593a4115ba29fb39fa",
+      "apps/services/redhouse/malware.py": "e3084ac6580d78c82f42e387e51b9792886f0729f5a99063cc019fb2cce2aa06",
+      "apps/services/redhouse/openapi.py": "eb7639dd6cff0ab13e0881a92add1a3899aff8e17e04a2536783afd7a39cedcf",
+      "apps/services/redhouse/shared_migrations.py": "c92f26d162f564ae4a94640124625d0a96abbf1119bfd9066bc1bc39fab699ac",
+      "apps/services/redhouse/shared_migrations/020.sql": "d0ccd9fa271cba74abc97bbd25d24eb9e5ba96601f132c3e6f86aa0717ee5b1c"
+    }
+  },
+  "identidad-acceso": {
+    "tag": "redhouse/identidad_acceso:scanner20-20261113",
+    "id": "sha256:1cfe3dcd3c29a4a6c0bfd82972c0829c99360b89bd77a1d1245a94bd35f50a0a",
+    "base": "sha256:f2a4c22e12a7a22c328aaafa6901aad540d912ea9d1e9ccc1c5af3b0d64179cd",
+    "files": {
+      "apps/services/ms_identidad_acceso/contracts/openapi.json": "9dbbe6fb06f0eb3bb0564ee4f08bc4ccd6c1faea3f82318dcb324e46f3b95f07",
+      "apps/services/ms_identidad_acceso/contracts/user_creation_receipt.response.json": "6453b92d4ae1c44a5e998fd758d70e772a857f21137f2f1e408af7a39f871bdd",
+      "apps/services/ms_identidad_acceso/devices.py": "15b76c3f8bf46eaae904a8240e8b20d7eac7e7898c9dbc60f19de1930098bd40",
+      "apps/services/ms_identidad_acceso/routes.py": "5a4a7c6844bdd5516e398277c6b70c48717c6a1f069b6379044c97df3c539c05",
+      "apps/services/redhouse/config.py": "0c3ad95d73d3033a1e8f92b7396e3a95303b5a8255845ece8c9c025281cd8f44",
+      "apps/services/redhouse/evidence.py": "d1497d608ddbaa3a54011e5c74b085144867f6cc59c864593a4115ba29fb39fa",
+      "apps/services/redhouse/malware.py": "e3084ac6580d78c82f42e387e51b9792886f0729f5a99063cc019fb2cce2aa06",
+      "apps/services/redhouse/openapi.py": "eb7639dd6cff0ab13e0881a92add1a3899aff8e17e04a2536783afd7a39cedcf",
+      "apps/services/redhouse/shared_migrations.py": "c92f26d162f564ae4a94640124625d0a96abbf1119bfd9066bc1bc39fab699ac",
+      "apps/services/redhouse/shared_migrations/020.sql": "d0ccd9fa271cba74abc97bbd25d24eb9e5ba96601f132c3e6f86aa0717ee5b1c"
+    }
+  },
+  "inventario": {
+    "tag": "redhouse/inventario:scanner20-20261113",
+    "id": "sha256:950a0a7635b4b5842e6ae941ee230c168f8ae9df55146b81f1ae721bf285e03f",
+    "base": "sha256:bcc0bdcdb2397b43c2e396461e96077f1e7287f789f33102764c219f4c2d1976",
+    "files": {
+      "apps/services/redhouse/config.py": "0c3ad95d73d3033a1e8f92b7396e3a95303b5a8255845ece8c9c025281cd8f44",
+      "apps/services/redhouse/evidence.py": "d1497d608ddbaa3a54011e5c74b085144867f6cc59c864593a4115ba29fb39fa",
+      "apps/services/redhouse/malware.py": "e3084ac6580d78c82f42e387e51b9792886f0729f5a99063cc019fb2cce2aa06",
+      "apps/services/redhouse/openapi.py": "eb7639dd6cff0ab13e0881a92add1a3899aff8e17e04a2536783afd7a39cedcf",
+      "apps/services/redhouse/shared_migrations.py": "c92f26d162f564ae4a94640124625d0a96abbf1119bfd9066bc1bc39fab699ac",
+      "apps/services/redhouse/shared_migrations/020.sql": "d0ccd9fa271cba74abc97bbd25d24eb9e5ba96601f132c3e6f86aa0717ee5b1c"
+    }
+  },
+  "monitoreo": {
+    "tag": "redhouse/monitoreo:scanner20-20261113",
+    "id": "sha256:189d29aa715b6502cf83b9c9985a20e0a8d6c4929af1cb962416c94ddc577357",
+    "base": "sha256:f1ec14bbbdfb7289a17e7961ce18f1df9ae6d27c25f63d75ad013d95fa3f75c5",
+    "files": {
+      "apps/services/redhouse/config.py": "0c3ad95d73d3033a1e8f92b7396e3a95303b5a8255845ece8c9c025281cd8f44",
+      "apps/services/redhouse/evidence.py": "d1497d608ddbaa3a54011e5c74b085144867f6cc59c864593a4115ba29fb39fa",
+      "apps/services/redhouse/malware.py": "e3084ac6580d78c82f42e387e51b9792886f0729f5a99063cc019fb2cce2aa06",
+      "apps/services/redhouse/openapi.py": "eb7639dd6cff0ab13e0881a92add1a3899aff8e17e04a2536783afd7a39cedcf",
+      "apps/services/redhouse/shared_migrations.py": "c92f26d162f564ae4a94640124625d0a96abbf1119bfd9066bc1bc39fab699ac",
+      "apps/services/redhouse/shared_migrations/020.sql": "d0ccd9fa271cba74abc97bbd25d24eb9e5ba96601f132c3e6f86aa0717ee5b1c"
+    }
+  },
+  "priorizacion-geografia": {
+    "tag": "redhouse/priorizacion_geografia:scanner20-20261113",
+    "id": "sha256:104f8e546ffbd698dffb0c29f5b46d85e123823da730e18625d394c4b67e8708",
+    "base": "sha256:1b746f8ac304e2827b3f0cad257493abd91af0a7939b8a3bbb707e1bf256dae9",
+    "files": {
+      "apps/services/redhouse/config.py": "0c3ad95d73d3033a1e8f92b7396e3a95303b5a8255845ece8c9c025281cd8f44",
+      "apps/services/redhouse/evidence.py": "d1497d608ddbaa3a54011e5c74b085144867f6cc59c864593a4115ba29fb39fa",
+      "apps/services/redhouse/malware.py": "e3084ac6580d78c82f42e387e51b9792886f0729f5a99063cc019fb2cce2aa06",
+      "apps/services/redhouse/openapi.py": "eb7639dd6cff0ab13e0881a92add1a3899aff8e17e04a2536783afd7a39cedcf",
+      "apps/services/redhouse/shared_migrations.py": "c92f26d162f564ae4a94640124625d0a96abbf1119bfd9066bc1bc39fab699ac",
+      "apps/services/redhouse/shared_migrations/020.sql": "d0ccd9fa271cba74abc97bbd25d24eb9e5ba96601f132c3e6f86aa0717ee5b1c"
+    }
+  },
+  "receptores": {
+    "tag": "redhouse/receptores:scanner20-20261113",
+    "id": "sha256:05af7fa3521760167af229336a9e33ec1022c03a27853dc12fdd347e977ca4f1",
+    "base": "sha256:9e6f1f2a21ae08b685189fda26e5c38a409a68e7dcd23bbfa95036729d153d6a",
+    "files": {
+      "apps/services/redhouse/config.py": "0c3ad95d73d3033a1e8f92b7396e3a95303b5a8255845ece8c9c025281cd8f44",
+      "apps/services/redhouse/evidence.py": "d1497d608ddbaa3a54011e5c74b085144867f6cc59c864593a4115ba29fb39fa",
+      "apps/services/redhouse/malware.py": "e3084ac6580d78c82f42e387e51b9792886f0729f5a99063cc019fb2cce2aa06",
+      "apps/services/redhouse/openapi.py": "eb7639dd6cff0ab13e0881a92add1a3899aff8e17e04a2536783afd7a39cedcf",
+      "apps/services/redhouse/shared_migrations.py": "c92f26d162f564ae4a94640124625d0a96abbf1119bfd9066bc1bc39fab699ac",
+      "apps/services/redhouse/shared_migrations/020.sql": "d0ccd9fa271cba74abc97bbd25d24eb9e5ba96601f132c3e6f86aa0717ee5b1c"
+    }
+  },
+  "transporte": {
+    "tag": "redhouse/transporte:scanner20-20261113",
+    "id": "sha256:f0e0302e88751cda94dfeba42fe05a2946affc7df26d40b3912923e8dad5a32f",
+    "base": "sha256:4b9ffc073fa404e9408eabd9dfc4b25da74508ca99d71ae38eb166d9cee6b4b5",
+    "files": {
+      "apps/services/redhouse/config.py": "0c3ad95d73d3033a1e8f92b7396e3a95303b5a8255845ece8c9c025281cd8f44",
+      "apps/services/redhouse/evidence.py": "d1497d608ddbaa3a54011e5c74b085144867f6cc59c864593a4115ba29fb39fa",
+      "apps/services/redhouse/malware.py": "e3084ac6580d78c82f42e387e51b9792886f0729f5a99063cc019fb2cce2aa06",
+      "apps/services/redhouse/openapi.py": "eb7639dd6cff0ab13e0881a92add1a3899aff8e17e04a2536783afd7a39cedcf",
+      "apps/services/redhouse/shared_migrations.py": "c92f26d162f564ae4a94640124625d0a96abbf1119bfd9066bc1bc39fab699ac",
+      "apps/services/redhouse/shared_migrations/020.sql": "d0ccd9fa271cba74abc97bbd25d24eb9e5ba96601f132c3e6f86aa0717ee5b1c"
+    }
+  },
+  "web": {
+    "tag": "redhouse/web:scanner20-20261113",
+    "id": "sha256:3cb7e602427c2fc125f025caf52dd9361bbf31cf16f59108612544e220904179",
+    "base": "sha256:c09829bfca142e7b005a36f436ad41e01bb3889358c20c0f931119fb5311896e",
+    "files": {
+      "apps/services/ms_documentos/files.py": "9182e77bfd3a43cf5db627d729489f373b7581d944c55af05838ab739dd2db9f",
+      "apps/services/ms_documentos/reports.py": "49f3ab4370bea89b2da8a138c38c3b6ce0cdd1b40d6d760c4002c76c83be0020",
+      "apps/services/ms_identidad_acceso/contracts/openapi.json": "9dbbe6fb06f0eb3bb0564ee4f08bc4ccd6c1faea3f82318dcb324e46f3b95f07",
+      "apps/services/ms_identidad_acceso/contracts/user_creation_receipt.response.json": "6453b92d4ae1c44a5e998fd758d70e772a857f21137f2f1e408af7a39f871bdd",
+      "apps/services/ms_identidad_acceso/devices.py": "15b76c3f8bf46eaae904a8240e8b20d7eac7e7898c9dbc60f19de1930098bd40",
+      "apps/services/ms_identidad_acceso/routes.py": "5a4a7c6844bdd5516e398277c6b70c48717c6a1f069b6379044c97df3c539c05",
+      "apps/services/redhouse/config.py": "0c3ad95d73d3033a1e8f92b7396e3a95303b5a8255845ece8c9c025281cd8f44",
+      "apps/services/redhouse/evidence.py": "d1497d608ddbaa3a54011e5c74b085144867f6cc59c864593a4115ba29fb39fa",
+      "apps/services/redhouse/malware.py": "e3084ac6580d78c82f42e387e51b9792886f0729f5a99063cc019fb2cce2aa06",
+      "apps/services/redhouse/openapi.py": "eb7639dd6cff0ab13e0881a92add1a3899aff8e17e04a2536783afd7a39cedcf",
+      "apps/services/redhouse/shared_migrations.py": "c92f26d162f564ae4a94640124625d0a96abbf1119bfd9066bc1bc39fab699ac",
+      "apps/services/redhouse/shared_migrations/020.sql": "d0ccd9fa271cba74abc97bbd25d24eb9e5ba96601f132c3e6f86aa0717ee5b1c"
+    }
+  }
+}
