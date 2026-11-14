@@ -22,7 +22,6 @@ import kotlin.time.Duration.Companion.seconds
     val zone=TimeZone.currentSystemDefault()
     var initial by remember(value) {mutableStateOf(runCatching {Instant.parse(value).toLocalDateTime(zone)}.getOrNull() ?: Clock.System.now().toLocalDateTime(zone))}
     var opening by remember {mutableIntStateOf(0)}
-    val picker=key(opening) {rememberSpanishDatePickerState(initial.date.atStartOfDayIn(TimeZone.UTC).toEpochMilliseconds())}
     var hour by remember {mutableStateOf(initial.hour.toString().padStart(2,'0'))}
     var minute by remember {mutableStateOf(initial.minute.toString().padStart(2,'0'))}
     var stage by remember {mutableStateOf(0)}
@@ -43,18 +42,7 @@ import kotlin.time.Duration.Companion.seconds
         if(optional && value.isNotBlank()) TextButton(onClick={onChange("")}) {Text("Quitar $label")}
         if(error.isNotBlank()) Text(error,color=MaterialTheme.colorScheme.error)
     }
-    if(stage==1) DatePickerDialog(onDismissRequest={stage=0},
-        confirmButton={TextButton(enabled=picker.selectedDateMillis!=null,onClick={
-            selectedDate=picker.selectedDateMillis?.let { Instant.fromEpochMilliseconds(it).toLocalDateTime(TimeZone.UTC).date };stage=2
-        }) {Text("Elegir hora")}}, dismissButton={TextButton(onClick={stage=0}){Text("Cancelar")}}) {
-        SpanishPickerEnvironment { DatePicker(state=picker,title={Text("Elegir fecha · $label",modifier=Modifier.padding(start=24.dp,top=16.dp,end=24.dp))},
-            headline={
-                val date=picker.selectedDateMillis?.let {Instant.fromEpochMilliseconds(it).toLocalDateTime(TimeZone.UTC).date}
-                val months=listOf("enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre")
-                Text(if(date==null) "Selecciona una fecha" else "${date.dayOfMonth} de ${months[date.monthNumber-1]} de ${date.year}",
-                    modifier=Modifier.padding(horizontal=24.dp,vertical=12.dp),style=MaterialTheme.typography.headlineSmall)
-            },showModeToggle=false) }
-    }
+    if(stage==1) key(opening) {SpanishDateDialog(label,initial.date,onDismiss={stage=0},onSelected={selectedDate=it;stage=2})}
     if(stage==2) AlertDialog(onDismissRequest={stage=0},title={Text("Elegir hora · $label")},
         text={Column {
             Text("Se usará la zona horaria de este teléfono.")

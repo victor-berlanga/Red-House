@@ -2,6 +2,12 @@
 
 Las entradas están ordenadas de reciente a histórico; un pendiente de un corte anterior puede quedar sustituido explícitamente por una entrada posterior.
 
+## Calendario iOS inspeccionado en el iPhone — 13/11/2026
+
+El selector usa UIKit en línea, español y una zona local coherente al representar y recuperar la fecha. Se rechazaron visualmente la variante superpuesta en un diálogo Compose y la que marcaba como hoy el día UTC siguiente. El ejecutable normal firmado `d1003f82424fd8ded9e029683e11f7c7b692fe756f4ddcfd9e96149a68bc3513` se actualizó sin borrar la sesión. La inspección física comprobó fecha local, selección del 14 y conservación del 14 al cancelar una selección posterior del 8. No se aplicó el filtro ni se escribieron datos de negocio; capturas completas privadas.
+
+El lote compilado incluye estados del mapa todavía sin aceptación visual; el incremento del calendario se registra separado de ellos. JVM: 44 aprobadas y dos omitidas; después se recompiló exclusivamente iOS para corregir la zona local. El calendario puede requerir desplazamiento al reabrirlo y el árbol de automatización no expuso sus días: gestos manuales y VoiceOver siguen pendientes. Firma vigente hasta el 17 de noviembre; no acredita el paquete final para el día 23. [Resultados y límites por intento](documentation/evidencias/entrega-final/mobile/RESULTADOS.md). Continúan abiertos filtros, capacidades y demás recorridos de la etapa 04.
+
 ## Reserva recuperable de escritorio — 13/11/2026
 
 DESK-08: recorrido Qt/XML sintético aprobado, **1/1 en 67,04 s**. Una excepción inyectada en el cliente tras parsear el primer HTTP 202 dejó resultado incierto; al reabrir el diario y recuperar con la misma clave se comprobó una operación COMPLETED, una reserva RESERVED, estados de solicitud/recurso/retención, sesión Redis y auditoría única. El proveedor de clave es un doble; no acredita corte de red, reinicio del proceso ni llavero nativo. Los intentos fallidos anteriores se conservan. La espera del arnés ahora cede ejecución a los servidores Python del mismo proceso; no se ampliaron tiempos de espera del producto.
