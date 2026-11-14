@@ -26,6 +26,19 @@ PROFILES = ("medical2", "operator1", "coordinator1", "auditor1", "donor1", "tran
 MFA_PROFILES = ("medical2", "coordinator1")
 
 
+def request_counts(rows, count_field):
+    """Keep HTTP totals separate from Locust transaction/drain markers."""
+    http, by_method = {}, {}
+    for row in rows:
+        method, name = row["method"], row["name"]
+        count = int(row[count_field])
+        group = by_method.setdefault(method, {})
+        group[name] = group.get(name, 0) + count
+        if method in {"GET", "POST", "PUT", "PATCH", "DELETE", "HEAD", "OPTIONS"}:
+            http[name] = http.get(name, 0) + count
+    return http, by_method
+
+
 def source_hashes(env):
     paths = [
         ROOT / "run.py",
@@ -556,9 +569,9 @@ def run_phase(
                 rows = json.loads(final.read_text())
                 result["cleanup_failures"] = cleanup_failures(rows)
                 result["failures"] = sum(int(row["num_failures"]) for row in rows)
-                result["counts"] = {
-                    row["name"]: int(row["num_requests"]) for row in rows
-                }
+                result["counts"], result["counts_by_method"] = request_counts(
+                    rows, "num_requests"
+                )
             except (ValueError, TypeError, KeyError):
                 result["final_statistics_invalid"] = True
         if marker.exists():
@@ -572,9 +585,10 @@ def run_phase(
                     result["measurement_failures"] = sum(
                         int(row["failures"]) for row in measured
                     )
-                    result["measurement_counts"] = {
-                        row["name"]: int(row["requests"]) for row in measured
-                    }
+                    (
+                        result["measurement_counts"],
+                        result["measurement_counts_by_method"],
+                    ) = request_counts(measured, "requests")
             except (ValueError, OSError, TypeError, KeyError):
                 result["timing_invalid"] = True
         if transactional:

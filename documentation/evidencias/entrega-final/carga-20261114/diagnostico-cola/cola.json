@@ -1,0 +1,595 @@
+{
+  "read_only": true,
+  "repeated_load": false,
+  "queue_totals": [
+    {
+      "service": "alertas",
+      "target": "auditoria",
+      "delivered": true,
+      "attempts": 1,
+      "last_error": null,
+      "total": 1897,
+      "oldest": "2026-11-14 13:34:00.873855-06:00",
+      "newest": "2026-11-14 13:53:44.421437-06:00",
+      "eligible": 0
+    },
+    {
+      "service": "auditoria",
+      "target": "auditoria",
+      "delivered": false,
+      "attempts": 0,
+      "last_error": null,
+      "total": 565,
+      "oldest": "2026-11-14 13:42:49.134512-06:00",
+      "newest": "2026-11-14 13:53:43.901639-06:00",
+      "eligible": 565
+    },
+    {
+      "service": "auditoria",
+      "target": "auditoria",
+      "delivered": true,
+      "attempts": 1,
+      "last_error": null,
+      "total": 551,
+      "oldest": "2026-11-14 13:34:00.633046-06:00",
+      "newest": "2026-11-14 13:42:48.226865-06:00",
+      "eligible": 0
+    },
+    {
+      "service": "auditoria",
+      "target": "mongodb",
+      "delivered": false,
+      "attempts": 0,
+      "last_error": null,
+      "total": 6992,
+      "oldest": "2026-11-14 13:42:48.879578-06:00",
+      "newest": "2026-11-14 14:58:36.189025-06:00",
+      "eligible": 6992
+    },
+    {
+      "service": "auditoria",
+      "target": "mongodb",
+      "delivered": false,
+      "attempts": 1,
+      "last_error": "mongodb_unavailable",
+      "total": 1,
+      "oldest": "2026-11-14 13:42:48.593141-06:00",
+      "newest": "2026-11-14 13:42:48.593141-06:00",
+      "eligible": 1
+    },
+    {
+      "service": "auditoria",
+      "target": "mongodb",
+      "delivered": true,
+      "attempts": 1,
+      "last_error": null,
+      "total": 5295,
+      "oldest": "2026-11-14 13:33:16.858862-06:00",
+      "newest": "2026-11-14 13:42:48.572356-06:00",
+      "eligible": 0
+    },
+    {
+      "service": "compatibilidad",
+      "target": "auditoria",
+      "delivered": true,
+      "attempts": 1,
+      "last_error": null,
+      "total": 402,
+      "oldest": "2026-11-14 14:55:00.485329-06:00",
+      "newest": "2026-11-14 14:57:30.236788-06:00",
+      "eligible": 0
+    },
+    {
+      "service": "donantes",
+      "target": "alertas",
+      "delivered": false,
+      "attempts": 0,
+      "last_error": null,
+      "total": 175,
+      "oldest": "2026-11-14 14:56:20.515567-06:00",
+      "newest": "2026-11-14 14:57:31.194639-06:00",
+      "eligible": 175
+    },
+    {
+      "service": "donantes",
+      "target": "alertas",
+      "delivered": true,
+      "attempts": 1,
+      "last_error": null,
+      "total": 190,
+      "oldest": "2026-11-14 14:54:59.354933-06:00",
+      "newest": "2026-11-14 14:56:19.877247-06:00",
+      "eligible": 0
+    },
+    {
+      "service": "donantes",
+      "target": "auditoria",
+      "delivered": false,
+      "attempts": 0,
+      "last_error": null,
+      "total": 460,
+      "oldest": "2026-11-14 14:56:20.260468-06:00",
+      "newest": "2026-11-14 14:57:31.535930-06:00",
+      "eligible": 460
+    },
+    {
+      "service": "donantes",
+      "target": "auditoria",
+      "delivered": true,
+      "attempts": 1,
+      "last_error": null,
+      "total": 2440,
+      "oldest": "2026-11-14 13:34:00.657420-06:00",
+      "newest": "2026-11-14 14:56:20.161026-06:00",
+      "eligible": 0
+    },
+    {
+      "service": "identidad_acceso",
+      "target": "auditoria",
+      "delivered": true,
+      "attempts": 1,
+      "last_error": null,
+      "total": 182,
+      "oldest": "2026-11-14 13:33:14.189384-06:00",
+      "newest": "2026-11-14 14:58:04.538359-06:00",
+      "eligible": 0
+    },
+    {
+      "service": "inventario",
+      "target": "auditoria",
+      "delivered": true,
+      "attempts": 1,
+      "last_error": null,
+      "total": 2421,
+      "oldest": "2026-11-14 13:34:00.657410-06:00",
+      "newest": "2026-11-14 14:57:29.411825-06:00",
+      "eligible": 0
+    },
+    {
+      "service": "monitoreo",
+      "target": "auditoria",
+      "delivered": true,
+      "attempts": 1,
+      "last_error": null,
+      "total": 803,
+      "oldest": "2026-11-14 13:34:01.169512-06:00",
+      "newest": "2026-11-14 13:53:45.943082-06:00",
+      "eligible": 0
+    },
+    {
+      "service": "priorizacion_geografia",
+      "target": "auditoria",
+      "delivered": true,
+      "attempts": 1,
+      "last_error": null,
+      "total": 803,
+      "oldest": "2026-11-14 13:34:00.659070-06:00",
+      "newest": "2026-11-14 13:53:45.145190-06:00",
+      "eligible": 0
+    },
+    {
+      "service": "receptores",
+      "target": "auditoria",
+      "delivered": true,
+      "attempts": 1,
+      "last_error": null,
+      "total": 1031,
+      "oldest": "2026-11-14 13:34:01.224785-06:00",
+      "newest": "2026-11-14 13:53:44.662023-06:00",
+      "eligible": 0
+    },
+    {
+      "service": "transporte",
+      "target": "auditoria",
+      "delivered": true,
+      "attempts": 1,
+      "last_error": null,
+      "total": 1758,
+      "oldest": "2026-11-14 13:34:00.659779-06:00",
+      "newest": "2026-11-14 13:53:45.378427-06:00",
+      "eligible": 0
+    }
+  ],
+  "historical_partition": [
+    {
+      "service": "auditoria",
+      "target": "auditoria",
+      "before_transaction_run": true,
+      "delivered": false,
+      "total": 565,
+      "oldest": "2026-11-14 13:42:49.134512-06:00",
+      "newest": "2026-11-14 13:53:43.901639-06:00"
+    },
+    {
+      "service": "auditoria",
+      "target": "auditoria",
+      "before_transaction_run": true,
+      "delivered": true,
+      "total": 551,
+      "oldest": "2026-11-14 13:34:00.633046-06:00",
+      "newest": "2026-11-14 13:42:48.226865-06:00"
+    },
+    {
+      "service": "auditoria",
+      "target": "mongodb",
+      "before_transaction_run": false,
+      "delivered": false,
+      "total": 1378,
+      "oldest": "2026-11-14 14:54:44.836036-06:00",
+      "newest": "2026-11-14 14:58:36.189025-06:00"
+    },
+    {
+      "service": "auditoria",
+      "target": "mongodb",
+      "before_transaction_run": true,
+      "delivered": false,
+      "total": 5615,
+      "oldest": "2026-11-14 13:42:48.593141-06:00",
+      "newest": "2026-11-14 13:53:51.897597-06:00"
+    },
+    {
+      "service": "auditoria",
+      "target": "mongodb",
+      "before_transaction_run": true,
+      "delivered": true,
+      "total": 5295,
+      "oldest": "2026-11-14 13:33:16.858862-06:00",
+      "newest": "2026-11-14 13:42:48.572356-06:00"
+    },
+    {
+      "service": "donantes",
+      "target": "alertas",
+      "before_transaction_run": false,
+      "delivered": false,
+      "total": 175,
+      "oldest": "2026-11-14 14:56:20.515567-06:00",
+      "newest": "2026-11-14 14:57:31.194639-06:00"
+    },
+    {
+      "service": "donantes",
+      "target": "alertas",
+      "before_transaction_run": false,
+      "delivered": true,
+      "total": 190,
+      "oldest": "2026-11-14 14:54:59.354933-06:00",
+      "newest": "2026-11-14 14:56:19.877247-06:00"
+    },
+    {
+      "service": "donantes",
+      "target": "auditoria",
+      "before_transaction_run": false,
+      "delivered": false,
+      "total": 460,
+      "oldest": "2026-11-14 14:56:20.260468-06:00",
+      "newest": "2026-11-14 14:57:31.535930-06:00"
+    },
+    {
+      "service": "donantes",
+      "target": "auditoria",
+      "before_transaction_run": false,
+      "delivered": true,
+      "total": 510,
+      "oldest": "2026-11-14 14:54:58.273578-06:00",
+      "newest": "2026-11-14 14:56:20.161026-06:00"
+    },
+    {
+      "service": "donantes",
+      "target": "auditoria",
+      "before_transaction_run": true,
+      "delivered": true,
+      "total": 1930,
+      "oldest": "2026-11-14 13:34:00.657420-06:00",
+      "newest": "2026-11-14 13:53:44.904965-06:00"
+    }
+  ],
+  "heads_without_identifiers": [
+    {
+      "service": "auditoria",
+      "target": "mongodb",
+      "created_at": "2026-11-14 13:42:48.593141-06:00",
+      "age_seconds": "7298.840810",
+      "next_attempt": "2026-11-14 14:58:39.567453-06:00",
+      "attempts": 1,
+      "last_error": "mongodb_unavailable",
+      "source": "auditoria",
+      "action": "READ",
+      "position": 1
+    },
+    {
+      "service": "auditoria",
+      "target": "mongodb",
+      "created_at": "2026-11-14 13:42:48.879578-06:00",
+      "age_seconds": "7298.554373",
+      "next_attempt": "2026-11-14 13:42:48.879578-06:00",
+      "attempts": 0,
+      "last_error": null,
+      "source": "donantes",
+      "action": "READ",
+      "position": 2
+    },
+    {
+      "service": "auditoria",
+      "target": "mongodb",
+      "created_at": "2026-11-14 13:42:48.883373-06:00",
+      "age_seconds": "7298.550578",
+      "next_attempt": "2026-11-14 13:42:48.883373-06:00",
+      "attempts": 0,
+      "last_error": null,
+      "source": "transporte",
+      "action": "READ",
+      "position": 3
+    },
+    {
+      "service": "auditoria",
+      "target": "mongodb",
+      "created_at": "2026-11-14 13:42:48.898614-06:00",
+      "age_seconds": "7298.535337",
+      "next_attempt": "2026-11-14 13:42:48.898614-06:00",
+      "attempts": 0,
+      "last_error": null,
+      "source": "inventario",
+      "action": "READ",
+      "position": 4
+    },
+    {
+      "service": "auditoria",
+      "target": "auditoria",
+      "created_at": "2026-11-14 13:42:49.134512-06:00",
+      "age_seconds": "7298.299439",
+      "next_attempt": "2026-11-14 13:42:49.134512-06:00",
+      "attempts": 0,
+      "last_error": null,
+      "source": "auditoria",
+      "action": "READ",
+      "position": 5
+    },
+    {
+      "service": "auditoria",
+      "target": "mongodb",
+      "created_at": "2026-11-14 13:42:49.134884-06:00",
+      "age_seconds": "7298.299067",
+      "next_attempt": "2026-11-14 13:42:49.134884-06:00",
+      "attempts": 0,
+      "last_error": null,
+      "source": "donantes",
+      "action": "READ",
+      "position": 6
+    },
+    {
+      "service": "auditoria",
+      "target": "mongodb",
+      "created_at": "2026-11-14 13:42:49.146529-06:00",
+      "age_seconds": "7298.287422",
+      "next_attempt": "2026-11-14 13:42:49.146529-06:00",
+      "attempts": 0,
+      "last_error": null,
+      "source": "transporte",
+      "action": "READ",
+      "position": 7
+    },
+    {
+      "service": "auditoria",
+      "target": "mongodb",
+      "created_at": "2026-11-14 13:42:49.175522-06:00",
+      "age_seconds": "7298.258429",
+      "next_attempt": "2026-11-14 13:42:49.175522-06:00",
+      "attempts": 0,
+      "last_error": null,
+      "source": "inventario",
+      "action": "READ",
+      "position": 8
+    },
+    {
+      "service": "auditoria",
+      "target": "mongodb",
+      "created_at": "2026-11-14 13:42:49.356851-06:00",
+      "age_seconds": "7298.077100",
+      "next_attempt": "2026-11-14 13:42:49.356851-06:00",
+      "attempts": 0,
+      "last_error": null,
+      "source": "donantes",
+      "action": "READ",
+      "position": 9
+    },
+    {
+      "service": "auditoria",
+      "target": "mongodb",
+      "created_at": "2026-11-14 13:42:49.410581-06:00",
+      "age_seconds": "7298.023370",
+      "next_attempt": "2026-11-14 13:42:49.410581-06:00",
+      "attempts": 0,
+      "last_error": null,
+      "source": "transporte",
+      "action": "READ",
+      "position": 10
+    },
+    {
+      "service": "donantes",
+      "target": "auditoria",
+      "created_at": "2026-11-14 14:56:20.260468-06:00",
+      "age_seconds": "2887.173483",
+      "next_attempt": "2026-11-14 14:56:20.260468-06:00",
+      "attempts": 0,
+      "last_error": null,
+      "source": "donantes",
+      "action": "READ",
+      "position": 1
+    },
+    {
+      "service": "donantes",
+      "target": "auditoria",
+      "created_at": "2026-11-14 14:56:20.261461-06:00",
+      "age_seconds": "2887.172490",
+      "next_attempt": "2026-11-14 14:56:20.261461-06:00",
+      "attempts": 0,
+      "last_error": null,
+      "source": "donantes",
+      "action": "READ",
+      "position": 2
+    },
+    {
+      "service": "donantes",
+      "target": "alertas",
+      "created_at": "2026-11-14 14:56:20.515567-06:00",
+      "age_seconds": "2886.918384",
+      "next_attempt": "2026-11-14 14:56:20.515567-06:00",
+      "attempts": 0,
+      "last_error": null,
+      "source": "donantes",
+      "action": "APPOINTMENT_RESCHEDULE",
+      "position": 3
+    },
+    {
+      "service": "donantes",
+      "target": "auditoria",
+      "created_at": "2026-11-14 14:56:20.515567-06:00",
+      "age_seconds": "2886.918384",
+      "next_attempt": "2026-11-14 14:56:20.515567-06:00",
+      "attempts": 0,
+      "last_error": null,
+      "source": "donantes",
+      "action": "APPOINTMENT_RESCHEDULE",
+      "position": 4
+    },
+    {
+      "service": "donantes",
+      "target": "auditoria",
+      "created_at": "2026-11-14 14:56:20.554820-06:00",
+      "age_seconds": "2886.879131",
+      "next_attempt": "2026-11-14 14:56:20.554820-06:00",
+      "attempts": 0,
+      "last_error": null,
+      "source": "donantes",
+      "action": "READ",
+      "position": 5
+    },
+    {
+      "service": "donantes",
+      "target": "alertas",
+      "created_at": "2026-11-14 14:56:20.698830-06:00",
+      "age_seconds": "2886.735121",
+      "next_attempt": "2026-11-14 14:56:20.698830-06:00",
+      "attempts": 0,
+      "last_error": null,
+      "source": "donantes",
+      "action": "APPOINTMENT_RESCHEDULE",
+      "position": 6
+    },
+    {
+      "service": "donantes",
+      "target": "auditoria",
+      "created_at": "2026-11-14 14:56:20.698830-06:00",
+      "age_seconds": "2886.735121",
+      "next_attempt": "2026-11-14 14:56:20.698830-06:00",
+      "attempts": 0,
+      "last_error": null,
+      "source": "donantes",
+      "action": "APPOINTMENT_RESCHEDULE",
+      "position": 7
+    },
+    {
+      "service": "donantes",
+      "target": "auditoria",
+      "created_at": "2026-11-14 14:56:20.724616-06:00",
+      "age_seconds": "2886.709335",
+      "next_attempt": "2026-11-14 14:56:20.724616-06:00",
+      "attempts": 0,
+      "last_error": null,
+      "source": "donantes",
+      "action": "APPOINTMENT_BOOKED",
+      "position": 8
+    },
+    {
+      "service": "donantes",
+      "target": "alertas",
+      "created_at": "2026-11-14 14:56:20.724616-06:00",
+      "age_seconds": "2886.709335",
+      "next_attempt": "2026-11-14 14:56:20.724616-06:00",
+      "attempts": 0,
+      "last_error": null,
+      "source": "donantes",
+      "action": "APPOINTMENT_BOOKED",
+      "position": 9
+    },
+    {
+      "service": "donantes",
+      "target": "auditoria",
+      "created_at": "2026-11-14 14:56:20.888654-06:00",
+      "age_seconds": "2886.545297",
+      "next_attempt": "2026-11-14 14:56:20.888654-06:00",
+      "attempts": 0,
+      "last_error": null,
+      "source": "donantes",
+      "action": "READ",
+      "position": 10
+    }
+  ],
+  "next_batch": [
+    {
+      "service": "auditoria",
+      "target": "auditoria",
+      "attempts": 0,
+      "last_error": null,
+      "candidates_in_first_batch": 12
+    },
+    {
+      "service": "auditoria",
+      "target": "mongodb",
+      "attempts": 0,
+      "last_error": null,
+      "candidates_in_first_batch": 87
+    },
+    {
+      "service": "auditoria",
+      "target": "mongodb",
+      "attempts": 1,
+      "last_error": "mongodb_unavailable",
+      "candidates_in_first_batch": 1
+    },
+    {
+      "service": "donantes",
+      "target": "alertas",
+      "attempts": 0,
+      "last_error": null,
+      "candidates_in_first_batch": 29
+    },
+    {
+      "service": "donantes",
+      "target": "auditoria",
+      "attempts": 0,
+      "last_error": null,
+      "candidates_in_first_batch": 71
+    }
+  ],
+  "worker_health": {
+    "auditoria": [
+      {
+        "id": 1,
+        "checked_at": "2026-11-14 14:58:27.017497-06:00",
+        "last_success": "2026-11-14 14:58:27.017497-06:00",
+        "last_error": null
+      }
+    ],
+    "donantes": [
+      {
+        "id": 1,
+        "checked_at": "2026-11-14 14:58:33.039037-06:00",
+        "last_success": "2026-11-14 14:58:33.039037-06:00",
+        "last_error": null
+      }
+    ]
+  },
+  "first_mongo_payload": {
+    "bson_encodable": true,
+    "round_trip_equal": true,
+    "bson_bytes": 633,
+    "bson_sha256": "28c94e4253db4b47d3ea35ccc282651cc94eded41627929413c4337c6453d741"
+  },
+  "execution": {
+    "passed": true,
+    "source_sha256": "896ab32c1f485e00c2967695a5d3bc85711654af6917cccb37993221cf455051",
+    "read_only": true,
+    "result_sets": 11,
+    "own_postgres_closed": true
+  }
+}
