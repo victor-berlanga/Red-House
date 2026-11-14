@@ -2,6 +2,12 @@
 
 Las entradas están ordenadas de reciente a histórico; un pendiente de un corte anterior puede quedar sustituido explícitamente por una entrada posterior.
 
+## Cobertura regional consultable desde escritorio — 13/11/2026
+
+DESK-07: ensayo Qt/XML sintético aprobado, **1/1 en 65,50 s**. El médico abrió la evaluación desde la propuesta y recibió 403 al consultar mediante el cliente XML una unidad ajena. Coordinación recibió la propuesta sin instantáneas clínicas, abrió desde Qt el detalle autorizado de Inventario y consultó una propuesta vacía. Folio/estado contrastados; fuentes iguales antes/después y motores propios cerrados. Cinco capturas del ensayo real inspeccionadas.
+
+La ventana distingue cálculo, unidades propuestas/requeridas y acciones disponibles por rol. Valida conteos e identificadores antes de construir rutas y no presenta los números temporales de filas como folios. Tres pruebas Qt con dobles pasaron tras corregir un atributo del arnés; su fallo inicial permanece separado. Después del ensayo real se ajustó únicamente la redacción del resumen y se inspeccionaron dos capturas nuevas con dobles, sin atribuirles validación XML. [Resultados y límites](documentation/evidencias/entrega-final/desktop/iteracion-cobertura-doble/RESULTADOS.md). Error/recuperación desde GUI, otros ámbitos, paquete vigente y Windows siguen pendientes; etapa 05 abierta.
+
 ## Proxy y continuidad del portal comprobados en laboratorio — 13/11/2026
 
 I06-07 pasó **1/1 en 157,31 s** mediante Chrome y Nginx HTTPS/WSS reales. Se detuvo una réplica de Transporte y después ambas; el mapa conservó las observaciones. Con todas las API del fixture cerradas, el portal autónomo canceló una inscripción sintética y se comprobaron SQL, actor y auditoría única. Al restaurar una réplica, el mismo documento recuperó tres IDs/cursores sin filas duplicadas; replay, SQL y proyección Mongo coincidieron. Después se restauró la segunda réplica y ambas respondieron live/ready 200. Tres upgrades WSS 101 y 1394 fuentes iguales antes/después; procesos propios cerrados.

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="3" time="8.271" timestamp="2026-11-13T20:44:31.068800-06:00" hostname="Victors-MacBook-Air.local"><testcase classname="apps.desktop.tests.test_coverage_ui" name="test_coverage_selection_and_authorized_evaluation" time="2.379"><failure message="AttributeError: Error calling Python override of QMainWindow::closeEvent(): 'Client' object has no attribute 'access'">def test_coverage_selection_and_authorized_evaluation():
+        window = Window()
+        window.client = type("Client", (), {"user": {"role": "MEDICAL"}})()
+        calls = []
+        window.run = lambda work, callback, status: calls.append(status)
+        item = {
+            "slot_count": 2,
+            "matched_count": 1,
+            "result": [{"request_id": REQUEST, "resource_id": RESOURCE}],
+            "snapshots": {REQUEST: {"evaluation_id": EVALUATION}},
+        }
+    
+        def inspect():
+            dialog = app.activeModalWidget()
+            table = dialog.findChild(QTableWidget)
+            buttons = {b.text(): b for b in dialog.findChildren(QPushButton)}
+            assert not buttons["Consultar unidad"].isEnabled()
+            assert not buttons["Abrir evaluación"].isEnabled()
+            table.selectRow(0)
+            app.processEvents()
+            assert buttons["Consultar unidad"].isEnabled()
+            assert buttons["Abrir evaluación"].isEnabled()
+            assert table.item(0, 0).text() == "Necesidad 1"
+            assert RESOURCE not in table.item(0, 1).text()
+            if os.environ.get("DESKTOP_CAPTURE_DIR"):
+                dialog.grab().save(
+                    str(Path(os.environ["DESKTOP_CAPTURE_DIR"]) / "cobertura-doble.png")
+                )
+            buttons["Abrir evaluación"].click()
+    
+        QTimer.singleShot(0, inspect)
+        window.coverage_detail(item)
+        assert calls == ["Consultando evaluación…"]
+&gt;       window.close()
+
+apps/desktop/tests/test_coverage_ui.py:51: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = &lt;redhouse_desktop.app.Window(0x7feaba79e260) at 0x11124a780&gt;
+event = &lt;[RuntimeError('Internal C++ object (PySide6.QtGui.QCloseEvent) already deleted.') raised in repr()] QCloseEvent object at 0x111266c00&gt;
+
+    def closeEvent(self,event):
+        if self.tracking: self.tracking.stop(); self.tracking=None
+        if self.closing: event.accept(); return
+        if self.busy: event.ignore(); self.status.setText('Espera a que termine la operación.'); return
+&gt;       if not self.client or not self.client.access: event.accept(); return
+                                  ^^^^^^^^^^^^^^^^^^
+E       AttributeError: Error calling Python override of QMainWindow::closeEvent(): 'Client' object has no attribute 'access'
+
+apps/desktop/redhouse_desktop/app.py:1225: AttributeError</failure></testcase><testcase classname="apps.desktop.tests.test_coverage_ui" name="test_coverage_empty_and_coordinator_scope" time="0.134"><failure message="AttributeError: Error calling Python override of QMainWindow::closeEvent(): 'Client' object has no attribute 'access'">def test_coverage_empty_and_coordinator_scope():
+        window = Window()
+        window.client = type("Client", (), {"user": {"role": "COORDINATOR"}})()
+    
+        def inspect():
+            dialog = app.activeModalWidget()
+            assert any(
+                "No hay unidades propuestas" in x.text()
+                for x in dialog.findChildren(QLabel)
+            )
+            buttons = {b.text(): b for b in dialog.findChildren(QPushButton)}
+            assert not buttons["Consultar unidad"].isEnabled()
+            assert not buttons["Abrir evaluación"].isVisible()
+            dialog.reject()
+    
+        QTimer.singleShot(0, inspect)
+        window.coverage_detail(
+            {"slot_count": 1, "matched_count": 0, "result": [], "snapshots": {}}
+        )
+&gt;       window.close()
+
+apps/desktop/tests/test_coverage_ui.py:73: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = &lt;redhouse_desktop.app.Window(0x7feabbde83c0) at 0x112a50a00&gt;
+event = &lt;[RuntimeError('Internal C++ object (PySide6.QtGui.QCloseEvent) already deleted.') raised in repr()] QCloseEvent object at 0x112a44080&gt;
+
+    def closeEvent(self,event):
+        if self.tracking: self.tracking.stop(); self.tracking=None
+        if self.closing: event.accept(); return
+        if self.busy: event.ignore(); self.status.setText('Espera a que termine la operación.'); return
+&gt;       if not self.client or not self.client.access: event.accept(); return
+                                  ^^^^^^^^^^^^^^^^^^
+E       AttributeError: Error calling Python override of QMainWindow::closeEvent(): 'Client' object has no attribute 'access'
+
+apps/desktop/redhouse_desktop/app.py:1225: AttributeError</failure></testcase><testcase classname="apps.desktop.tests.test_coverage_ui" name="test_invalid_proposal_is_rejected" time="0.119" /></testsuite></testsuites>

@@ -612,13 +612,39 @@ class Window(QMainWindow):
 
     def coverage_detail(self,item):
         slots=item.get('slot_count'); matched=item.get('matched_count'); result=item.get('result')
-        if isinstance(slots,bool) or not isinstance(slots,int) or isinstance(matched,bool) or not isinstance(matched,int) or not isinstance(result,list) or len(result)!=matched or not 0<=matched<=slots<=500:
-            self.status.setText('La propuesta recibida no tiene un formato válido.'); return
-        dialog=QDialog(self); dialog.setWindowTitle('Propuesta de cobertura'); form=QFormLayout(dialog)
-        form.addRow('Necesidades consideradas',QLabel(str(slots))); form.addRow('Candidatos propuestos',QLabel(str(matched)))
-        form.addRow('Versión de cálculo',QLabel(label(item.get('algorithm_version'))))
-        note=QLabel('Es una propuesta logística. Cada reserva requiere vigencia y autorización humana. El detalle individual aún no está disponible en esta vista.'); note.setWordWrap(True); form.addRow(note)
-        close=QPushButton('Cerrar'); close.clicked.connect(dialog.accept); form.addRow(close); dialog.exec()
+        def valid_id(value):
+            try: return isinstance(value,str) and str(uuid.UUID(value))==value
+            except ValueError: return False
+        if isinstance(slots,bool) or not isinstance(slots,int) or isinstance(matched,bool) or not isinstance(matched,int) or not isinstance(result,list) or len(result)!=matched or not 0<=matched<=slots<=500 or any(not isinstance(row,dict) or not valid_id(row.get('request_id')) or not valid_id(row.get('resource_id')) for row in result):
+            self.status.setText('No se pudo mostrar la propuesta. Actualiza la lista y vuelve a intentarlo.'); return
+        snapshots=item.get('snapshots') if isinstance(item.get('snapshots'),dict) else {}
+        medical=bool(self.client and self.client.user and self.client.user.get('role')=='MEDICAL')
+        dialog=QDialog(self); dialog.setWindowTitle('Propuesta de cobertura'); dialog.resize(700,480); layout=QVBoxLayout(dialog)
+        summary=QLabel(f'Unidades propuestas: {matched} · requeridas: {slots}'); summary.setWordWrap(True); layout.addWidget(summary)
+        calculation=QLabel('Cálculo: '+label(item.get('algorithm_version'))+' · Fecha: '+display_value('created_at',item.get('created_at'))); calculation.setWordWrap(True); layout.addWidget(calculation)
+        note=QLabel('La propuesta no reserva unidades. El personal médico debe revisar la vigencia y autorizar cada reserva.'); note.setWordWrap(True); layout.addWidget(note)
+        table=QTableWidget(len(result),2); table.setHorizontalHeaderLabels(['Solicitud','Unidad propuesta']); table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch); table.setSelectionBehavior(QTableWidget.SelectRows); table.setSelectionMode(QTableWidget.SingleSelection); table.setEditTriggers(QTableWidget.NoEditTriggers)
+        request_numbers={}
+        for index,row in enumerate(result):
+            number=request_numbers.setdefault(row['request_id'],len(request_numbers)+1)
+            table.setItem(index,0,QTableWidgetItem(f'Solicitud {number}')); table.setItem(index,1,QTableWidgetItem(f'Unidad propuesta {index+1}'))
+        layout.addWidget(table)
+        hint=QLabel('Los números identifican filas solo en esta propuesta; no son folios. Selecciona una unidad para consultar su folio y estado.' if result else 'No hay unidades propuestas. Consulta una evaluación actualizada con el personal médico.'); hint.setWordWrap(True); layout.addWidget(hint)
+        controls=QHBoxLayout(); unit=QPushButton('Consultar unidad'); evaluation=QPushButton('Abrir evaluación'); close=QPushButton('Cerrar')
+        def selected_row():
+            index=table.currentRow(); return result[index] if 0<=index<len(result) else None
+        def selection_changed():
+            row=selected_row(); snapshot=snapshots.get(row['request_id']) if row else None
+            unit.setEnabled(bool(row)); evaluation.setEnabled(bool(medical and isinstance(snapshot,dict) and valid_id(snapshot.get('evaluation_id'))))
+        table.itemSelectionChanged.connect(selection_changed); selection_changed()
+        evaluation.setVisible(medical); unit.clicked.connect(lambda:dialog.done(1)); evaluation.clicked.connect(lambda:dialog.done(2)); close.clicked.connect(dialog.reject)
+        for button in (unit,evaluation,close): controls.addWidget(button)
+        layout.addLayout(controls); choice=dialog.exec(); row=selected_row()
+        if choice==1 and row:
+            self.run(lambda:self.client.authorized('inventario','/api/v1/resources/'+row['resource_id'],'resource_detail'),self.detail,'Consultando unidad…')
+        elif choice==2 and row:
+            identifier=snapshots[row['request_id']]['evaluation_id']
+            self.run(lambda:self.client.authorized('compatibilidad','/api/v1/evaluations/'+identifier,'evaluation_detail'),self.evaluation_detail,'Consultando evaluación…')
 
     def download_report(self):
         item=self.selected()
