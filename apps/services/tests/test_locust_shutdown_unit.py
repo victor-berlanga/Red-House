@@ -303,6 +303,9 @@ def test_interrupted_transaction_is_failure_and_queued_shutdown_starts_none():
         workflow=interrupted,
         api=None,
         campaign="synthetic",
+        sustained=False,
+        trace=None,
+        profile_id=None,
     )
     with pytest.raises(GreenletExit):
         TransactionUser.business_cycle(user)

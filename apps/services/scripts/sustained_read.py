@@ -36,6 +36,11 @@ def source_hashes(env):
         ROOT / "scripts/sustained_read.py",
         ROOT / "scripts/load_client.py",
         ROOT / "scripts/load_guard.py",
+        ROOT / "scripts/load_workflows.py",
+        ROOT / "scripts/prepare_load.py",
+        ROOT / "tests/load_support.py",
+        ROOT / "tests/load_cleanup.py",
+        ROOT / "tests/locust_transactions.py",
     ]
     paths.extend(env.directory / f"{service}.json" for service in SERVICES)
     return {
@@ -367,16 +372,29 @@ def run_phase(
     seconds=120,
     name="run",
     mfa_after=-1,
+    transactional=False,
 ):
     if users not in (6, 12, 24, 36) or seconds not in (60, 120):
         raise ValueError("Configuración de fase inválida")
-    multiplicity = users // len(PROFILES)
-    auth_timeout = 35 * multiplicity + 15
+    if transactional and (users != 12 or no_cache):
+        raise ValueError("La carga transaccional exige 12 identidades y caché normal")
+    multiplicity = 1 if transactional else users // len(PROFILES)
+    auth_timeout = 45 if transactional else 35 * multiplicity + 15
     output = directory / name
     output.mkdir(mode=0o700)
-    user_ids = [env.state["accounts"][name]["id"] for name in PROFILES]
-    if len(set(user_ids)) != 6:
+    user_ids = (
+        [a["id"] for a in env.state["load_accounts"]]
+        if transactional
+        else [env.state["accounts"][name]["id"] for name in PROFILES]
+    )
+    if len(set(user_ids)) != (12 if transactional else 6) or len(user_ids) != (
+        12 if transactional else 6
+    ):
         raise ValueError("Seis identidades independientes requeridas")
+    if transactional:
+        from tests.load_support import transaction_commits
+
+        business_before = transaction_commits(env, env.state["load_accounts"])
     previous_ids = {str(row[0]) for row in session_rows(env, user_ids)}
     read_fd, write_fd = os.pipe()
     os.write(write_fd, json.dumps(factors).encode())
@@ -396,19 +414,29 @@ def run_phase(
         environment["REDHOUSE_LOAD_NO_CACHE"] = "1"
     else:
         environment.pop("REDHOUSE_LOAD_NO_CACHE", None)
+    environment.pop("REDHOUSE_LOAD_TRANSACTIONAL", None)
+    if transactional:
+        environment["REDHOUSE_LOAD_TRANSACTIONAL"] = "1"
     command = [
         sys.executable,
         "-m",
         "locust",
         "-f",
-        str(ROOT / "tests/locust_sustained.py"),
+        str(
+            ROOT
+            / (
+                "tests/locust_transactions.py"
+                if transactional
+                else "tests/locust_sustained.py"
+            )
+        ),
         "--headless",
         "--users",
         str(users),
         "--spawn-rate",
         str(users),
         "--run-time",
-        str(auth_timeout + 30 + seconds + 30) + "s",
+        str(auth_timeout + 30 + seconds + (60 if transactional else 30)) + "s",
         "--stop-timeout",
         "30",
         "--host",
@@ -421,7 +449,7 @@ def run_phase(
         "--exit-code-on-error",
         "0",
         "--only-summary",
-        "SustainedUser",
+        "TransactionUser" if transactional else "SustainedUser",
     ]
     result = {
         "warmup_seconds": 30,
@@ -432,6 +460,7 @@ def run_phase(
         "disk_samples": [],
         "stopped_by_guard": False,
         "session_revocation_verified": False,
+        "workload": "transactions" if transactional else "reads",
     }
     log = output / "runner.private.log"
     process = None
@@ -449,7 +478,9 @@ def run_phase(
             os.close(read_fd)
             read_fd = None
             started = time.monotonic()
-            deadline = started + auth_timeout + 30 + seconds + 65
+            deadline = (
+                started + auth_timeout + 30 + seconds + (95 if transactional else 65)
+            )
             while process.poll() is None:
                 sample, guard_error = sample_or_interrupt(
                     budget, env.directory, started, process
@@ -546,9 +577,25 @@ def run_phase(
                     }
             except (ValueError, OSError, TypeError, KeyError):
                 result["timing_invalid"] = True
+        if transactional:
+            try:
+                from tests.load_support import verify_transaction_persistence
+
+                result["business"] = verify_transaction_persistence(
+                    env, output, env.state["load_accounts"], business_before
+                )
+            except Exception as error:  # noqa: BLE001 - retain failed oracle without private SQL details
+                result["business"] = {
+                    "persistence_verified": False,
+                    "error_type": type(error).__name__,
+                }
         (output / "summary.json").write_text(json.dumps(result, indent=2) + "\n")
         (output / "summary.json").chmod(0o600)
     timing = result.get("timing", {})
+    if transactional:
+        result.update(evaluate_transactions(result, users, seconds))
+        (output / "summary.json").write_text(json.dumps(result, indent=2) + "\n")
+        return result
     execution_valid = phase_execution_valid(result, users, seconds)
     if result["stopped_by_guard"] or not result["session_revocation_verified"]:
         raise RuntimeError("La fase interrumpió guardas o no revocó sesiones")
@@ -567,6 +614,152 @@ def run_phase(
     (output / "summary.json").write_text(json.dumps(result, indent=2) + "\n")
     (output / "summary.json").chmod(0o600)
     return result
+
+
+def evaluate_transactions(result, users, seconds):
+    timing, business = result.get("timing", {}), result.get("business", {})
+    measured = timing.get("measurement", [])
+    duration = timing.get("finished", 0) - timing.get("measured", 0)
+    http = [
+        r for r in measured if r["method"] in ("GET", "POST", "PATCH", "PUT", "DELETE")
+    ]
+    cycles = [r for r in measured if r["method"] == "TRANSACTION"]
+    reads = [r for r in http if r["method"] == "GET" and r["requests"] > 0]
+    read_p95 = max((r["p95_ms"] for r in reads), default=None)
+    transaction_p95 = max((r["p95_ms"] for r in cycles), default=None)
+    profile_targets = {
+        r["name"].removeprefix("Recorrido / "): {
+            "p95_ms": r["p95_ms"],
+            "p99_ms": r["p99_ms"],
+            "p95_limit_exclusive_ms": 5000,
+            "target_met": r["requests"] > 0 and 0 <= r["p95_ms"] < 5000,
+            "completed_per_second": (r["requests"] - r["failures"]) / duration
+            if duration > 0
+            else 0,
+        }
+        for r in cycles
+    }
+    latency_met = (
+        read_p95 is not None
+        and 0 <= read_p95 < 2000
+        and set(profile_targets) == {"DONOR", "OPERATOR"}
+        and all(r["target_met"] for r in profile_targets.values())
+    )
+    http_count = sum(r["requests"] for r in http)
+    http_failures = sum(r["failures"] for r in http)
+    completed = sum(r["requests"] - r["failures"] for r in cycles)
+    measured_by_role = {
+        r["name"].removeprefix("Recorrido / "): r["requests"] - r["failures"]
+        for r in cycles
+    }
+    valid = (
+        users == 12
+        and result.get("runner_exit") == 0
+        and not result.get("stopped_by_guard")
+        and result.get("session_revocation_verified")
+        and result.get("session_count_verified")
+        and result.get("cleanup_failures") == 0
+        and result.get("failures") == 0
+        and result.get("counts", {}).get("Identidad / revocación al salir") == users
+        and timing.get("stage") == "finished"
+        and timing.get("user_errors") == 0
+        and timing.get("warmup_min_users") == users
+        and timing.get("measurement_min_users") == users
+        and timing.get("measured", 0) - timing.get("started", 0) >= 30
+        and duration >= seconds
+        and timing.get("warmup", {}).get("requests", 0) > 0
+        and timing.get("warmup", {}).get("failures") == 0
+        and business.get("persistence_verified")
+        and business.get("not_committed") == 0
+        and business.get("response_lost_committed") == 0
+        and business.get("incomplete_cycles") == 0
+        and business.get("replays") == users
+        and business.get("unconfirmed_replays") == 0
+        and business.get("measured_completed") == measured_by_role
+        and {r["name"] for r in cycles if r["requests"] > r["failures"]}
+        == {"Recorrido / DONOR", "Recorrido / OPERATOR"}
+    )
+    return {
+        "execution_valid": bool(valid),
+        "measurement_accepted": bool(valid and http_failures == 0 and latency_met),
+        "latency_targets_met": latency_met,
+        "read_p95_max_ms": read_p95,
+        "transaction_p95_max_ms": transaction_p95,
+        "read_p95_limit_exclusive_ms": 2000,
+        "transaction_p95_limit_exclusive_ms": 5000,
+        "profile_targets": profile_targets,
+        "http_requests": http_count,
+        "http_failures": http_failures,
+        "http_per_second": http_count / duration if duration > 0 else 0,
+        "business_completed": completed,
+        "business_per_second": completed / duration if duration > 0 else 0,
+        "business_latency": cycles,
+        "quota_429": timing.get("http", {}).get("quota_429", 0),
+    }
+
+
+def run_transactions(env, budget):
+    """Dos recorridos en el dataset conservado; sin repoblar ni reenrolar MFA."""
+    from tests.load_support import prepare_transaction_fixture
+
+    directory = env.directory / (
+        "transactions-" + datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S")
+    )
+    directory.mkdir(mode=0o700)
+    before = source_hashes(env)
+    configuration = topology(env)
+    budget(env.directory)
+    fixture = prepare_transaction_fixture(env)
+    env.state.update(
+        load_accounts=fixture["accounts"],
+        load_campaign=fixture["prefix"],
+        load_profile=fixture["profile_id"],
+    )
+    env.save()
+    old_proxy = {name: os.environ.get(name) for name in ("NO_PROXY", "no_proxy")}
+    try:
+        os.environ.update(NO_PROXY="127.0.0.1", no_proxy="127.0.0.1")
+        env.start()
+    finally:
+        for key, value in old_proxy.items():
+            if value is None:
+                os.environ.pop(key, None)
+            else:
+                os.environ[key] = value
+    runtime = runtime_topology(env)
+    summary = {
+        "status": "failed",
+        "hashes_before": before,
+        "fixture": fixture["prefix"],
+        "topology": configuration,
+    }
+    try:
+        phase = run_phase(
+            env,
+            {},
+            directory,
+            budget,
+            users=12,
+            seconds=120,
+            name="12-transactions",
+            transactional=True,
+        )
+        summary["phase"] = phase
+        if not phase["execution_valid"]:
+            raise RuntimeError("La fase transaccional no completó su oráculo")
+        if (
+            topology(env) != configuration
+            or runtime_topology(env) != runtime
+            or source_hashes(env) != before
+        ):
+            raise RuntimeError("Fuentes o topología cambiaron durante la carga")
+        summary["status"] = (
+            "passed" if phase["measurement_accepted"] else "completed_targets_not_met"
+        )
+    finally:
+        summary["hashes_after"] = source_hashes(env)
+        (directory / "summary.json").write_text(json.dumps(summary, indent=2) + "\n")
+        (directory / "summary.json").chmod(0o600)
 
 
 def run(env, budget, *, series=False):

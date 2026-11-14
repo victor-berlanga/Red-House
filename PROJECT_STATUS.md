@@ -2,6 +2,10 @@
 
 Las entradas están ordenadas de reciente a histórico; un pendiente de un corte anterior puede quedar sustituido explícitamente por una entrada posterior.
 
+## Carga transaccional preparada sobre población conservada — 14/11/2026
+
+[Plan previo](documentation/evidencias/entrega-final/carga-20261114/transacciones-plan.md): doce identidades sintéticas independientes, citas JSON y unidades/muestras XML, diario previo al envío, replay idempotente y conciliación SQL/auditoría/avisos de todos los intentos. Reutiliza el dataset sin repoblar y mantiene cuotas/usuarios runtime. Se separan HTTP/s de recorridos/s, calentamiento/drenado y validez de objetivos p95 (<2 s lecturas/<5 s recorridos). Dirección detectó y corrigió la omisión inicial de umbrales; pruebas puras dirigidas finales 40/40 en 2,42 s, con comprobaciones anteriores separadas. Todavía sin corrida real; espera ventana móvil. No acredita escrituras sostenidas ni cierra etapa07.
+
 ## Recuperación documental publicada en GCP — 14/11/2026
 
 [Publicación web](documentation/evidencias/gcp/portal-documentos-20261114/RESULTADOS.md) aprobada en sistemas-integracion-01/red-house/me-central1-a: tres fuentes, solo web recreado, treinta saludables y otros veintinueve intactos; esquema20/LOCAL/configuración conservados. Primer build falló al resolver el ID como repositorio; reintento con etiqueta local cotejada aprobó, sin cambiar web antes ni repetir preflight. Respaldo/rollback retenidos y clave temporal retirada, dos previas conservadas. HTTPS válido; certificado observado vence el18 y timer de renovación activo, por lo que no acredita vigencia para el23. Configuración real mantiene monolito; etiqueta constante equivocada de health/live corregida en fuente después, pendiente de próxima publicación. No se repitió el recorrido privado en producción ni se cerró etapa06.

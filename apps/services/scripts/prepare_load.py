@@ -400,6 +400,11 @@ def main():
     modes = parser.add_mutually_exclusive_group()
     modes.add_argument("--sustained-read", action="store_true")
     modes.add_argument("--sustained-series", action="store_true")
+    modes.add_argument(
+        "--transaction-directory",
+        type=Path,
+        help="Reutilizar un laboratorio rh-load detenido; sin init/populate",
+    )
     parser.add_argument("--mongod", type=Path)
     args = parser.parse_args()
     if any(
@@ -416,6 +421,9 @@ def main():
         raise RuntimeError(
             "Quitar las variables de conexión o nube ajenas al laboratorio"
         )
+    if args.transaction_directory:
+        run_existing_transactions(args.transaction_directory, args.mongod)
+        return
     parent = Path("/tmp").resolve(strict=True)
     if shutil.disk_usage(parent).free < MIN_FREE:
         raise RuntimeError("Espacio libre insuficiente antes de iniciar")
@@ -505,6 +513,57 @@ def main():
         raise RuntimeError(
             "Preparación aislada fallida; consultar el informe privado"
         ) from None
+
+
+def run_existing_transactions(directory, mongod=None):
+    from scripts.local import pid_matches
+    from scripts.sustained_read import run_transactions, topology
+
+    original = directory
+    directory = directory.resolve(strict=True)
+    if (
+        original.is_symlink()
+        or directory.parent != Path("/tmp").resolve()
+        or not directory.name.startswith("rh-load-")
+        or directory.stat().st_uid != os.getuid()
+    ):
+        raise ValueError("Solo se admite el laboratorio privado conservado")
+    # Existing strict path/process/port guards remain in use; never init or migrate.
+    env = Environment(directory, str(mongod) if mongod else None)
+    env.state = json.loads((directory / "state.json").read_text())
+    if Path(env.state["directory"]).resolve(strict=True) != directory:
+        raise ValueError("Estado de otro laboratorio")
+    env.configs = {
+        name: json.loads((directory / f"{name}.json").read_text())
+        for name in env.state["urls"]
+    }
+    topology(env)
+    budget(directory)
+    for group in ("service_pids", "worker_pids", "web_pids"):
+        if any(
+            pid_matches(pid, directory) for pid in env.state.get(group, {}).values()
+        ):
+            raise ValueError("El laboratorio todavía tiene aplicaciones activas")
+    lock = directory / "transaction-run.lock"
+    descriptor = os.open(lock, os.O_CREAT | os.O_EXCL | os.O_WRONLY, 0o600)
+    os.close(descriptor)
+    try:
+        env.ensure_infrastructure()
+        validate_environment(env)
+        with psycopg.connect(env.state["database_owners"]["identidad_acceso"]) as conn:
+            if (
+                conn.execute(
+                    "SELECT max(version) FROM red_house.schema_migration"
+                ).fetchone()[0]
+                != 20
+            ):
+                raise ValueError("Se esperaba esquema 20 existente; no se migra")
+        run_transactions(env, budget)
+    finally:
+        try:
+            env.stop()
+        finally:
+            lock.unlink()
 
 
 if __name__ == "__main__":

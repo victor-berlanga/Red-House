@@ -1,8 +1,86 @@
 """Recorridos HTTP de carga sobre cuentas y datos exclusivamente sintéticos."""
 
+import json
+import os
+import time
 from datetime import datetime, timedelta, timezone
 from urllib.parse import urlencode
 from uuid import uuid4
+
+from scripts.load_client import LoadFailure
+
+
+class TransactionTrace:
+    """Diario privado de estos dos recorridos; nunca recibe credenciales."""
+
+    def __init__(self, api, path, account, stage):
+        self.api, self.account, self.stage = api, account, stage
+        self.stream = path.open("x", encoding="utf-8")
+        path.chmod(0o600)
+        self.cycle = 0
+        self.replay_remaining = 1
+
+    def emit(self, kind, **fields):
+        self.stream.write(
+            json.dumps(
+                {
+                    "kind": kind,
+                    "cycle": self.cycle,
+                    "user_id": self.account["id"],
+                    "tenant_id": self.account["tenant_id"],
+                    "role": self.account["role"],
+                    "stage": self.stage(),
+                    "at": time.monotonic(),
+                    **fields,
+                },
+                sort_keys=True,
+            )
+            + "\n"
+        )
+        self.stream.flush()
+        os.fsync(self.stream.fileno())
+
+    def begin(self):
+        self.cycle += 1
+        self.emit("cycle_start")
+
+    def end(self, error):
+        self.emit("cycle_end", success=error is None)
+
+    def request(self, service, path, label, **kwargs):
+        if kwargs.get("method", "GET") == "GET":
+            return self.api.request(service, path, label, **kwargs)
+        if service not in (
+            "donantes",
+            "inventario",
+            "compatibilidad",
+        ) or not kwargs.get("key"):
+            raise LoadFailure("untracked_write")
+        key = kwargs["key"]
+        self.emit(
+            "intent",
+            key=key,
+            service=service,
+            path=path,
+            canonical=kwargs.get("canonical", path),
+            body=kwargs.get("body"),
+            label=label,
+        )
+        result = self.api.request(service, path, label, **kwargs)
+        self.emit("response", key=key, result=result)
+        if self.replay_remaining:
+            self.replay_remaining -= 1
+            self.emit("replay_intent", key=key)
+            repeated = self.api.request(
+                service, path, "Idempotencia / Repetir mismo intento", **kwargs
+            )
+            if repeated != result:
+                raise LoadFailure("idempotency_result_mismatch")
+            self.emit("replay_response", key=key, result=repeated)
+        return result
+
+    def close(self):
+        self.stream.close()
 
 
 def appointment_cycle(api, campaign_title):
@@ -110,7 +188,7 @@ def appointment_cycle(api, campaign_title):
     )
 
 
-def inventory_cycle(api, _campaign_title):
+def inventory_cycle(api, _campaign_title, *, profile_id=None):
     folio = "LOAD-" + uuid4().hex[:20]
     resource = api.request(
         "inventario",
@@ -137,5 +215,58 @@ def inventory_cycle(api, _campaign_title):
             value["id"] == resource["id"]
             and value["folio"] == folio
             and value["status"] == "QUARANTINE"
+        ),
+    )
+    if profile_id is None:
+        return
+    sample = api.request(
+        "compatibilidad",
+        "/api/v1/laboratory/samples",
+        "Laboratorio / Registrar muestra",
+        method="POST",
+        expected=201,
+        key=str(uuid4()),
+        body={
+            "resource_id": resource["id"],
+            "profile_id": profile_id,
+            "identifier": "LOAD-S-" + uuid4().hex[:20],
+            "collected_at": datetime.now(timezone.utc).isoformat(),
+        },
+        check=lambda value: (
+            value["resource_id"] == resource["id"]
+            and value["profile_id"] == profile_id
+            and value["status"] == "REQUESTED"
+        ),
+    )
+    path = "/api/v1/laboratory/samples/" + sample["id"]
+    received = api.request(
+        "compatibilidad",
+        path + "/receive",
+        "Laboratorio / Recibir muestra",
+        method="POST",
+        key=str(uuid4()),
+        canonical="/api/v1/laboratory/samples/{identifier}/receive",
+        body={
+            "version": sample["version"],
+            "decision": "RECEIVED",
+            "human_confirmation": True,
+            "reason": "Recepción sintética del ensayo de carga",
+        },
+        check=lambda value: (
+            value["id"] == sample["id"]
+            and value["status"] == "RECEIVED"
+            and value["version"] == sample["version"] + 1
+        ),
+    )
+    api.request(
+        "compatibilidad",
+        path,
+        "Laboratorio / Confirmar recepción",
+        canonical="/api/v1/laboratory/samples/{identifier}",
+        check=lambda value: (
+            value["id"] == sample["id"]
+            and value["resource_id"] == resource["id"]
+            and value["status"] == "RECEIVED"
+            and value["version"] == received["version"]
         ),
     )
