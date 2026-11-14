@@ -131,7 +131,7 @@ def test_private_versions_download_and_scope_in_browser(
                     "image/png",
                 )
                 assert row[4]
-                for action in ("FILE_PREPARED", "FILE_VERIFIED"):
+                for action in ("DOCUMENT_PREPARED", "FILE_VERIFIED"):
                     assert (
                         conn.execute(
                             "SELECT count(*) FROM activity_events WHERE "

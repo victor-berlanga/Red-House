@@ -1,0 +1,18 @@
+{
+  "sources_count": 1305,
+  "before_equals_after": true,
+  "manifest_sha256": "b18bcae6206efdb7b04e88f45a5099fe51317a70d4e1670bbe825382090c032a",
+  "browser_passed": true,
+  "pytest_passed": false,
+  "corrected_read_only_oracle_passed": true,
+  "browser_not_repeated": true,
+  "reviewed_images": [
+    "primera-version.png",
+    "version-obsoleta.png",
+    "institucion-ajena.png"
+  ],
+  "visual_findings": [
+    "Technical status labels remain English",
+    "Stale-version message needs a link to current versions"
+  ]
+}

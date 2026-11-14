@@ -1,0 +1,9 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_____________ test_private_versions_download_and_scope_in_browser ______________
+apps/services/tests/test_portal_private_document_browser.py:135: in test_private_versions_download_and_scope_in_browser
+    assert (
+E   assert 0 == 1
+=========================== short test summary info ============================
+FAILED apps/services/tests/test_portal_private_document_browser.py::test_private_versions_download_and_scope_in_browser
+1 failed in 124.34s (0:02:04)

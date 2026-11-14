@@ -2,6 +2,18 @@
 
 Las entradas están ordenadas de reciente a histórico; un pendiente de un corte anterior puede quedar sustituido explícitamente por una entrada posterior.
 
+## Alta de muestra y mantenimiento de receptores/solicitudes en escritorio — 14/11/2026
+
+Integrado `82c554d`: selección paginada de unidad/perfil y fecha documentada para registrar muestras; alta/corrección de receptor y edición/cancelación de solicitud con versiones, confirmación y diario XML idempotente. Cinco contratos nuevos cotejados con sus propietarios. Dos recorridos Qt/XML aprobaron juntos en 98,94 s: muestra REQUESTED→RECEIVED, receptor corregido, solicitud editada/cancelada, rechazo al operador y estados/eventos SQL comprobados. Dirección inspeccionó cinco capturas reales; motores propios cerrados. [Muestra](documentation/evidencias/entrega-final/desktop/iteracion-alta-muestra/RESULTADOS.md) y [receptores/solicitudes](documentation/evidencias/entrega-final/desktop/iteracion-receptores/RESULTADOS.md) conservan dobles, intento fallido y límites. El paquete Mac todavía no incluye este lote; Windows sigue pendiente.
+
+## Versiones privadas comprobadas desde Chrome — 14/11/2026
+
+[Recorrido documental](documentation/evidencias/entrega-final/portal-documentos-20261114/RESULTADOS.md): Chrome completó dos cargas/descargas exactas, conservación de versión anterior, conflicto 412, institución ajena 403 y bloqueo de nueva descarga tras logout, con API listeners detenidos y ClamD real. Pytest falló después por buscar FILE_PREPARED en lugar de DOCUMENT_PREPARED; ese fallo permanece. Un oráculo posterior READ ONLY sobre el mismo PostgreSQL conservado confirmó ambos archivos, versiones, CLEAN/generación/hash y eventos únicos, sin repetir Chrome. 1.305 fuentes estables y procesos cerrados. No se presenta como pytest 1/1 ni como aceptación completa de I06-02/03. Dirección inspeccionó las tres capturas; mejoras de texto de presentación posteriores se verifican aparte.
+
+## Reporte técnico final consolidado en fuente — 14/11/2026
+
+Integrado `96f2c04`: [reporte final editable](documentation/markdowns/Reporte_tecnico_final.md), veinte secciones con evidencia, arquitectura y límites vigentes; exportador existente ampliado con `--final` y dependencias editoriales aisladas/fijadas. 119 referencias revisadas, sin destinos locales ausentes; DOCX temporal íntegro e índice enlazado. La exportación histórica conservó sus entradas ZIP. Word/PDF oficiales y revisión de paginación final siguen pendientes; no se inventan reflexiones ni aceptación integral. La serie de rendimiento ya está en ejecución aislada, sin resultados finales todavía.
+
 ## Capacidades físicas y cuenta donante iOS verificadas — 14/11/2026
 
 Integrado `4203c01`: [Red House Lab separado](documentation/evidencias/entrega-final/mobile/ios-lab-20261114/RESULTADOS.md), con bundle, Keychain, tareas y compilación aislados; CA de laboratorio fijada al origen y exclusiva de la variante Debug. Compilaciones normal/Lab y siete comprobaciones de identidad aprobadas; rechazo TLS con CA ajena/hostname incorrecto todavía sin ensayo. El nuevo normal compilado no se instaló: permanece la actualización normal anterior, conservada durante el laboratorio.

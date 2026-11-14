@@ -82,6 +82,10 @@ const report = { passed: false, documents: [], checks: [] };
     // Exceptions can contain signed URLs or browser inputs; retain only the phase.
     report.failure_phase = phase;
     report.failure_type = error.name;
+    if (typeof error.actual === 'number' && typeof error.expected === 'number') {
+      report.actual_status = error.actual;
+      report.expected_status = error.expected;
+    }
     process.exitCode = 1;
     if (!['login', 'foreign-scope'].includes(phase) && pages[0]) {
       await pages[0].screenshot({ path: path.join(input.output, 'fallo.png'), fullPage: true }).catch(() => {});

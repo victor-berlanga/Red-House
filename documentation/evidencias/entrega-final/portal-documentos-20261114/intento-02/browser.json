@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "documents": [
+    "772b4d87-3cc8-4c38-ae83-0dd3798458ce",
+    "76797bf8-3bd6-44e0-9e83-c7f64afae966"
+  ],
+  "checks": [
+    "Two real uploads and exact downloads; original version remains readable",
+    "Stale predecessor rejects a branch with 412",
+    "Other institution receives 403 for detail and download authorization",
+    "Logged-out browser cannot request a new download"
+  ]
+}
