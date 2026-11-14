@@ -17,9 +17,13 @@ fun revealDestination(compose: ComposeContentTestRule, label: String) {
         "Disponibilidad regional", "Solicitudes institucionales agregadas", "Reservas regionales" -> open("Región")
         "Muestras autorizadas", "Resultados autorizados" -> open("Laboratorio")
         "Programar traslado" -> {open("Región");open("Reservas regionales")}
-        "Consultar horarios" -> {open("Campañas");open("Consultar horarios")}
-        "Gestionar citas e historial" -> open("Citas")
-        "Capturar evidencia", "Cargar y verificar" -> open("Evidencia")
+        "Consultar horarios" -> {open("Campañas");open("Buscar horarios disponibles")}
+        "Ver mis citas" -> open("Inicio")
+        "Escanear unidad", "Confirmar recolección", "Iniciar traslado", "Confirmar entrega física", "Aceptar recepción logística", "Preparar unidad", "Registrar incidencia", "Capturar evidencia", "Cargar y verificar" -> {
+            val step=compose.onAllNodes(hasText("Siguiente paso:",substring=true) and hasClickAction())[0]
+            step.performScrollTo().performClick()
+            if(label=="Capturar evidencia" || label=="Cargar y verificar") open("Evidencia")
+        }
         "Consultar contactos y ruta de esta tarea" -> open("Contactos y ruta")
         "Autorizar ubicación durante esta tarea" -> open("Ubicación")
     }

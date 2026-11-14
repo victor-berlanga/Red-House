@@ -15,12 +15,12 @@ class VisualScaleTest {
     @get:Rule val compose=createAndroidComposeRule<MainActivity>()
     private fun shot(name:String) {compose.waitForIdle();android.util.Log.i("VisualQuality",name);Thread.sleep(4000)}
     @Test fun accessAtSystemScale() {
-        compose.waitUntil(60000) {compose.onAllNodesWithText("Cuenta institucional").fetchSemanticsNodes().isNotEmpty()}
+        compose.waitUntil(60000) {compose.onAllNodesWithText("Cuenta").fetchSemanticsNodes().isNotEmpty()}
         Thread.sleep(1500)
         shot("access")
-        compose.onNodeWithText("Cuenta institucional").performScrollTo()
-        compose.onNodeWithText("Cuenta institucional").performClick()
-        compose.onNodeWithText("Cuenta institucional").performTextInput("prueba-no-enviada")
+        compose.onNodeWithText("Cuenta").performScrollTo()
+        compose.onNodeWithText("Cuenta").performClick()
+        compose.onNodeWithText("Cuenta").performTextInput("prueba-no-enviada")
         shot("keyboard")
         val device=UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
         device.pressBack()
@@ -29,7 +29,7 @@ class VisualScaleTest {
         device.setOrientationLeft()
         compose.waitUntil(60000) {
             compose.activity.resources.configuration.orientation==android.content.res.Configuration.ORIENTATION_LANDSCAPE &&
-                compose.onAllNodesWithText("Cuenta institucional").fetchSemanticsNodes(atLeastOneRootRequired=false).isNotEmpty()
+                compose.onAllNodesWithText("Cuenta").fetchSemanticsNodes(atLeastOneRootRequired=false).isNotEmpty()
         }
         compose.onNodeWithText("Iniciar sesión").performScrollTo().assertIsDisplayed()
         Thread.sleep(1500) // Allow the host emulator surface to redraw after Activity recreation.

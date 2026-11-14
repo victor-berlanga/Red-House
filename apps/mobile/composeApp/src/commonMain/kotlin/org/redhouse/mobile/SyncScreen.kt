@@ -12,8 +12,8 @@ import kotlinx.serialization.json.*
     Text("Observaciones de esta identidad e institución",style=MaterialTheme.typography.titleMedium)
     Text("No incluye transferencias de custodia ni decisiones clínicas. Tras cinco intentos automáticos se requiere recuperación manual.")
     Text(status)
-    rows.forEach{row->val command=row["command"]!!.jsonObject;Text("${command.text("id").take(8)} · captura ${displayDate(command.text("captured_at"))} · ${displayValue("state", row.text("state"))} · intentos ${row.text("attempts").ifBlank{"0"}}")}
+    rows.forEach{row->val command=row["command"]!!.jsonObject;Text("Observación del ${displayBriefDate(command.text("captured_at"))} · ${displayValue("state", row.text("state"))} · intentos ${row.text("attempts").ifBlank{"0"}}")}
     if(rows.isEmpty())Text("Sin observaciones guardadas")
-    Button(enabled=!busy,onClick={busy=true;scope.launch{try{queue.synchronize(manual=true);rows=queue.entries();status="Resultados consultados; revisa conflictos y rechazos"}catch(e:CancellationException){throw e}catch(e:Exception){status=e.message?:"Sin confirmación"}finally{busy=false}}}){Text("Recuperar y sincronizar")}
+    Button(enabled=!busy,onClick={busy=true;scope.launch{try{queue.synchronize(manual=true);rows=queue.entries();status="Resultados consultados; revisa conflictos y rechazos"}catch(e:CancellationException){throw e}catch(e:Exception){status=if(e is ApiFailure) e.message.orEmpty() else "No se pudo sincronizar. Inténtalo de nuevo."}finally{busy=false}}}){Text("Recuperar y sincronizar")}
     TextButton(enabled=!busy,onClick={scope.launch{queue.dismissCompleted();rows=queue.entries()}}){Text("Limpiar confirmadas, rechazadas y vencidas")}
 }

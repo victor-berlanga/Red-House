@@ -12,11 +12,11 @@ import org.junit.runner.RunWith
 class PresentationAccessTest {
     @get:Rule val compose = createAndroidComposeRule<MainActivity>()
     @Test fun accessAndRecoveryRemainReachable() {
-        compose.waitUntil(60000) { compose.onAllNodesWithText("Cuenta institucional").fetchSemanticsNodes().isNotEmpty() }
+        compose.waitUntil(60000) { compose.onAllNodesWithText("Cuenta").fetchSemanticsNodes().isNotEmpty() }
         compose.onNodeWithText("Gateway HTTPS").assertDoesNotExist()
         compose.onNodeWithText("Recuperar acceso").performScrollTo().assertIsNotEnabled()
-        compose.onNodeWithText("Cuenta institucional").performScrollTo().performTextInput("cuenta-sintetica-no-enviada")
-        compose.onNodeWithText("Código de segundo factor").performScrollTo().assertIsDisplayed()
+        compose.onNodeWithText("Cuenta").performScrollTo().performTextInput("cuenta-sintetica-no-enviada")
+        compose.onAllNodesWithText("Código de verificación").assertCountEquals(0)
         compose.onNodeWithText("Recuperar acceso").performScrollTo().assertIsEnabled()
         compose.onNodeWithText("Iniciar sesión").performScrollTo().assertIsDisplayed()
     }

@@ -2,9 +2,26 @@
 
 Origen: prompt 04 y complemento 09. Propietario del cliente: Móvil; las autoridades backend permanecen en sus servicios. **Aceptación integral pendiente.** Se distingue implementación ejecutable, pruebas Kotlin/JVM, pruebas de servidor y comprobación nativa. No se atribuyen a credenciales externas los casos técnicos aún no comprobados.
 
-## Revisión de cierre — 12/11/2026
+## Estado vigente — 13/11/2026
 
-**La etapa 04 no está concluida.** Se contrastaron el encargo vigente Android/iOS, el complemento 09, CONT-03…CONT-10, fuentes actuales y evidencias del 9–12 de noviembre. Los cambios de presentación y sincronización posteriores impiden usar los recorridos nativos del día 9 como aceptación de la versión actual. Esta sección prevalece sobre los pendientes históricos de las filas siguientes.
+Esta sección prevalece sobre los diagnósticos históricos inferiores. La etapa 04 sigue abierta: no se atribuyen al lote actual pruebas realizadas con un APK anterior. La dirección del servicio se fija en la compilación; ninguna variante muestra un campo o botón de configuración de servidor al usuario. Android se verifica en emulador, por decisión del usuario; no se exige dispositivo Android físico. El iPhone 16 Pro físico ya ejecutó la app normal firmada y se revisaron acceso, Inicio, citas y campañas en una sesión abierta por el usuario. La firma de esa app vence el 17/11/2026 y debe renovarse para una entrega posterior.
+
+| Alcance | Estado comprobado y pendiente |
+| --- | --- |
+| Donante | Inicio con próxima cita y campañas públicas; reserva, reprogramación y cancelación sintéticas comprobadas en laboratorio. El feed público usa filtros y paginación del servidor. El recorrido Android con 105 campañas llegó a la página 6. |
+| Datos personales y consentimiento | Edición del nombre propio por PATCH durable y retiro confirmado de una versión vigente pasaron en laboratorio sintético; JSON confirmó la actualización y retiro. Historial paginado de 106 versiones alcanzó página 6. La separación visual entre estado actual e historial fue revisada en capturas sintéticas y aceptada para esos estados. Alta y aceptación/renovación autónomas requieren catálogo de políticas aprobadas y documento legible; la institución conserva la captura. |
+| Transporte | Mapa y acción principal inspeccionados; GPS simulado con permiso y persistencia WSS comprobados. El ensayo óptico QR abrió la cámara virtual, pero no encuadró el cartel y no leyó el código; cámara, fotografía y entrega completas siguen pendientes. |
+| Diario y fechas | Operaciones de citas y nombre usan diario durable; pruebas incluyen recuperación de PATCH y diario POST anterior. El selector rechaza horas inexistentes y permite resolver horas repetidas. La prueba de cancelar/reabrir falló por configuración del arnés y se prepara su corrección. |
+| Archivos | Backend GCP usa almacenamiento local privado HTTPS; GCS permanece opcional con bucket exacto configurado en la compilación. Falta comprobar desde móvil captura y carga completa con análisis real. |
+| Avisos | Bandeja interna disponible. La entrega push real no se presenta como probada: configurar FCM/APNs y crear cuentas externas quedaron fuera de las decisiones autorizadas. |
+| Último build | Variante de laboratorio: 42 casos JVM, 40 aprobados y 2 omitidos por requerir entorno; Kotlin iOS arm64 y APK instrumentado compilaron. El recorrido nativo de volumen, nombre y retiro pasó 1/1 en laboratorio. La captura anterior detectó estado sin traducir y jerarquía confusa; la captura posterior verificó la separación entre estado actual e historial. La traducción del estado tras retiro aún carece de revisión visual específica. [Evidencia detallada](../../evidencias/entrega-final/mobile/RESULTADOS.md). |
+
+Pendientes de cierre: recompilar y revisar el lote visual más reciente; ejecutar la prueba nativa de fecha corregida; verificar búsqueda/filtros y pantallas con el backend integrado; completar lectura QR, fotografía y custodia en un entorno autorizado; firmar y probar el paquete iOS final vigente; mantener pruebas de seguridad, recuperación y separación de roles. Las capturas de iPhone con actividad del sistema permanecen privadas. No se instaló ni descargó Simulator.
+
+## Diagnóstico histórico — 12/11/2026
+
+
+**La etapa 04 no está concluida.** Se contrastaron el encargo vigente Android/iOS, el complemento 09, CONT-03…CONT-10, fuentes actuales y evidencias del 9–12 de noviembre. Los cambios de presentación y sincronización posteriores impiden usar los recorridos nativos del día 9 como aceptación de la versión actual. Este diagnóstico describe la revisión de esa fecha; el estado vigente figura arriba.
 
 Comprobación nueva: Gradle ejecutó las 44 tareas solicitadas con `--offline --rerun-tasks`; APK Android debug y Kotlin `iosArm64` compilan. JUnit registra **29 casos: 27 aprobados, cero fallos/errores y dos omitidos** por ausencia de `REDHOUSE_MOBILE_LAB`. No se ejecutó instrumentación ni se enlazó, firmó o instaló una nueva aplicación iOS. ADB no detectó dispositivos; `devicectl` mostró iPhone 16 Pro `unavailable`. El primer intento de Gradle falló por el socket bloqueado en sandbox; la repetición autorizada pasó. [Resumen, comando y artefacto](../../evidencias/entrega-final/mobile/revision-20261112/summary.json), [JUnit](../../evidencias/entrega-final/mobile/revision-20261112/junit/), [log](../../evidencias/entrega-final/mobile/revision-20261112/build.log) y [huellas de 105 archivos móviles](../../evidencias/entrega-final/mobile/revision-20261112/source-sha256.json).
 
@@ -66,4 +83,4 @@ La confirmación `PERSISTED_SQL` acredita persistencia en Transporte. No es evid
 - [Dependencias externas exactas](Dependencias_externas.md): firma/instalación física, proveedor FCM/APNs y autorización GCS; Xcode y ClamAV ya preparados.
 - [Aislamiento GCS propuesto, no ejecutado](Aislamiento_GCS_propuesto.md).
 
-No se cerrará la etapa hasta completar los casos nativos Android/iOS, los pendientes técnicos señalados y las verificaciones externas autorizadas. Los criterios clínicos permanecen bajo revisión humana institucional y no dependen de que el cliente compile.
+El cierre depende de los pendientes y verificaciones autorizadas indicados en el estado vigente. Los criterios clínicos permanecen bajo revisión humana institucional y no dependen de que el cliente compile.

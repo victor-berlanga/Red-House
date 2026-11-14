@@ -1,6 +1,9 @@
 package org.redhouse.mobile
 
 import androidx.compose.runtime.*
+import androidx.compose.foundation.layout.*
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.material3.*
 import kotlinx.coroutines.*
 import kotlinx.serialization.json.*
@@ -11,7 +14,7 @@ import kotlinx.datetime.Clock
     var temperature by remember{mutableStateOf("")};var reference by remember{mutableStateOf("")};var confirmed by remember{mutableStateOf(false)}
     var busy by remember{mutableStateOf(false)};val scope=rememberCoroutineScope()
     fun run(action:suspend ()->Unit){if(busy)return;busy=true;scope.launch{try{action()}catch(e:CancellationException){throw e}catch(e:Exception){status=if(e is ApiFailure || e is IllegalArgumentException)e.message.orEmpty() else "Sin confirmación; consulta resultados pendientes."}finally{busy=false}}}
-    LaunchedEffect(id){try{row=repository.session.request(screen.service,screen.path+"/"+id)}catch(e:Exception){status=e.message.orEmpty()}}
+    LaunchedEffect(id){try{row=repository.session.request(screen.service,screen.path+"/"+id)}catch(e:CancellationException){throw e}catch(e:Exception){status=if(e is ApiFailure)e.message.orEmpty() else "No se pudo consultar la información."}}
     TextButton(onClick=onBack){Text("Volver")};Text(screen.title);Text(status)
     row?.let{value->
         listOf("folio","identifier","kind","component","status","quantity","urgency","expires_at","version","created_at","severity","message_code","test_code","result_state","value","unit","method","laboratory","reference","measured_at").forEach{key->(value[key] as? JsonPrimitive)?.contentOrNull?.let{Text("${fieldLabel(key)}: ${displayValue(key, it)}")}}
@@ -41,19 +44,66 @@ import kotlinx.datetime.Clock
 
 @Composable fun CoordinatorPlanning(repository:MobileRepository,onBack:()->Unit){
     var reservation by remember{mutableStateOf("")};var responsible by remember{mutableStateOf("")}
+    var chosenReservation by remember{mutableStateOf<JsonObject?>(null)};var responsibleName by remember{mutableStateOf("")}
+    var reservations by remember{mutableStateOf<List<JsonObject>>(emptyList())};var transporters by remember{mutableStateOf<List<JsonObject>>(emptyList())}
+    var reservationPage by remember{mutableIntStateOf(1)};var transporterPage by remember{mutableIntStateOf(1)}
+    var reservationTotal by remember{mutableIntStateOf(0)};var transporterTotal by remember{mutableIntStateOf(0)}
+    var choosingReservation by remember{mutableStateOf(false)};var choosingTransporter by remember{mutableStateOf(false)}
+    var reservationLoading by remember{mutableStateOf(true)};var transporterLoading by remember{mutableStateOf(true)}
+    var reservationError by remember{mutableStateOf(false)};var transporterError by remember{mutableStateOf(false)}
+    var reservationRetry by remember{mutableIntStateOf(0)};var transporterRetry by remember{mutableIntStateOf(0)}
     var departure by remember{mutableStateOf("")};var eta by remember{mutableStateOf("")};var reason by remember{mutableStateOf("")}
     var status by remember{mutableStateOf("")};var busy by remember{mutableStateOf(false)};var confirm by remember{mutableStateOf(false)}
     val scope=rememberCoroutineScope()
+    LaunchedEffect(reservationPage,reservationRetry) {reservationLoading=true;reservationError=false;try {
+        val page=repository.listPage("inventario","/api/v1/reservations?status=RESERVED&unplanned=true",reservationPage)
+        reservations=page.getValue("items").jsonArray.map{it.jsonObject};reservationTotal=page.getValue("total").jsonPrimitive.int
+    } catch(e:CancellationException){throw e} catch(_:Exception){reservationError=true} finally {reservationLoading=false}}
+    LaunchedEffect(transporterPage,transporterRetry) {transporterLoading=true;transporterError=false;try {
+        val page=repository.listPage("identidad","/api/v1/users?role=TRANSPORT",transporterPage)
+        transporters=page.getValue("items").jsonArray.map{it.jsonObject};transporterTotal=page.getValue("total").jsonPrimitive.int
+    } catch(e:CancellationException){throw e} catch(_:Exception){transporterError=true} finally {transporterLoading=false}}
     TextButton(onClick=onBack){Text("Volver")};Text("Programar traslado sobre reserva autorizada");Text(status)
-    OutlinedTextField(reservation,{reservation=it},label={Text("Referencia de reserva confirmada")})
-    OutlinedTextField(responsible,{responsible=it},label={Text("Referencia del transportista de origen")})
-    Text("Copia las referencias completas del registro autorizado. Fechas: AAAA-MM-DDTHH:MM:SS±HH:MM; Z indica UTC.")
-    OutlinedTextField(departure,{departure=it},label={Text("Salida · fecha, hora y zona")})
-    OutlinedTextField(eta,{eta=it},label={Text("Llegada prevista · fecha, hora y zona")})
+    SettingRow("Reserva",chosenReservation?.let {"Registrada: ${displayBriefDate(it.text("created_at"))}"} ?: "Selecciona una reserva") {choosingReservation=!choosingReservation}
+    if(choosingReservation) {
+        if(reservationLoading) Text("Consultando reservas…")
+        else if(reservationError) TextButton(onClick={reservationRetry++}) {Text("No se pudieron consultar las reservas. Reintentar")}
+        else if(reservations.isEmpty()) Text("No hay reservas disponibles en esta página.")
+        if(!reservationLoading && !reservationError) reservations.forEach {item ->
+            Column {
+                TextButton(modifier=Modifier.testTag("reservation:"+item.text("id")),onClick={chosenReservation=item;reservation=item.text("id");responsible="";responsibleName="";choosingReservation=false}) {
+                    Text("Reserva del ${displayBriefDate(item.text("created_at"))}")
+                }
+                Text("Referencia: ${item.text("id").take(8)}",style=MaterialTheme.typography.labelSmall)
+            }
+        }
+        if(reservationTotal>20) Row {
+            TextButton(enabled=reservationPage>1,onClick={reservationPage--}){Text("Anterior")}
+            TextButton(enabled=reservationPage*20<reservationTotal,onClick={reservationPage++}){Text("Siguiente")}
+        }
+    }
+    SettingRow("Transportista",responsibleName.ifBlank {"Selecciona una persona de la institución de origen"}) {choosingTransporter=!choosingTransporter}
+    if(choosingTransporter) {
+        if(chosenReservation==null) Text("Selecciona primero una reserva.")
+        else {
+            val candidates=transporters.filter {it.text("tenant_id")==chosenReservation?.text("origin_id")}
+            if(transporterLoading) Text("Consultando personal de traslado…")
+            else if(transporterError) TextButton(onClick={transporterRetry++}) {Text("No se pudo consultar el personal. Reintentar")}
+            else if(candidates.isEmpty())Text("No hay personal de origen en esta página.")
+            if(!transporterLoading && !transporterError) candidates.forEach {person -> TextButton(modifier=Modifier.testTag("transporter:"+person.text("id")),onClick={responsible=person.text("id");responsibleName=person.text("username");choosingTransporter=false}) {Text(person.text("username"))} }
+            if(transporterTotal>20) Row {
+                TextButton(enabled=transporterPage>1,onClick={transporterPage--}){Text("Anterior")}
+                TextButton(enabled=transporterPage*20<transporterTotal,onClick={transporterPage++}){Text("Siguiente")}
+            }
+        }
+    }
+    Text("Selecciona las fechas y horas del traslado.")
+    DateTimeField("salida",departure,{departure=it})
+    DateTimeField("llegada prevista",eta,{eta=it})
     OutlinedTextField(reason,{reason=it},label={Text("Motivo de programación")})
     Button(enabled=!busy,onClick={val invalid=planningError(reservation,responsible,departure,eta,reason);if(invalid==null)confirm=true else status=invalid}){Text("Revisar programación")}
     if(confirm)AlertDialog(onDismissRequest={confirm=false},title={Text("Confirmar programación")},text={Text("Se comprobarán reserva, responsable, versión de ruta, tiempos y caducidad. La programación no sustituye asignación clínica.")},confirmButton={Button(onClick={confirm=false;busy=true;scope.launch{
-        try{require(planningError(reservation,responsible,departure,eta,reason)==null);val result=repository.execute("transporte","/api/v1/shipments",buildJsonObject{put("reservation_id",reservation.trim());put("transport_user_id",responsible.trim());put("departure_at",departure.trim());put("eta",eta.trim());put("reason",reason.trim());put("human_confirmation",true)});status="Traslado ${result.text("id")} · ${result.text("status")}"}
+        try{require(planningError(reservation,responsible,departure,eta,reason)==null);val result=repository.execute("transporte","/api/v1/shipments",buildJsonObject{put("reservation_id",reservation.trim());put("transport_user_id",responsible.trim());put("departure_at",departure.trim());put("eta",eta.trim());put("reason",reason.trim());put("human_confirmation",true)});status="Traslado programado · ${displayValue("status",result.text("status"))}"}
         catch(e:CancellationException){throw e}catch(e:Exception){status=if(e is ApiFailure)e.message.orEmpty() else "Sin confirmación; recupera la operación pendiente."}finally{busy=false}
     }}){Text("Confirmar")}},dismissButton={TextButton(onClick={confirm=false}){Text("Cancelar")}})
 }

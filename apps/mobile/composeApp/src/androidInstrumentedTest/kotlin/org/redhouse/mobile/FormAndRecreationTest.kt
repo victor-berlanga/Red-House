@@ -17,7 +17,7 @@ class FormAndRecreationTest {
     private fun fill(label:String,value:String){compose.onNodeWithText(label).performScrollTo().performTextReplacement(value)}
     @Test fun rotationRestoresAuthorizedSessionWithLargeText(){
         val lab=codec.parseToJsonElement(InstrumentationRegistry.getInstrumentation().context.assets.open("lab.json").bufferedReader().readText()).jsonObject
-        shown("Iniciar sesión");fill("Gateway HTTPS",lab.text("android_gateway"));fill("Cuenta institucional","coordinator1");fill("Contraseña",lab.text("password"));click("Iniciar sesión")
+        shown("Iniciar sesión");fill("Cuenta","coordinator1");fill("Contraseña",lab.text("password"));click("Iniciar sesión")
         shown("Traslados")
         Assert.assertTrue("Run with font_scale 1.3 or larger",compose.activity.resources.configuration.fontScale>=1.3f)
         for((requested,expected) in listOf(
@@ -32,11 +32,10 @@ class FormAndRecreationTest {
     }
     @Test fun coordinatorValidationAndActivityRecreationReauthorizeTheSameRole(){
         val lab=codec.parseToJsonElement(InstrumentationRegistry.getInstrumentation().context.assets.open("lab.json").bufferedReader().readText()).jsonObject
-        shown("Iniciar sesión");fill("Gateway HTTPS",lab.text("android_gateway"));fill("Cuenta institucional","coordinator1");fill("Contraseña",lab.text("password"));click("Iniciar sesión")
-        click("Programar traslado");click("Revisar programación");shown("Introduce un UUID de reserva válido.")
+        shown("Iniciar sesión");fill("Cuenta","coordinator1");fill("Contraseña",lab.text("password"));click("Iniciar sesión")
+        click("Programar traslado");click("Revisar programación");shown("Selecciona una reserva válida.")
         compose.onAllNodesWithText("Confirmar programación").assertCountEquals(0)
-        fill("Referencia de reserva confirmada",lab.text("shipment_id"));fill("Referencia del transportista de origen",lab.getValue("accounts").jsonObject.text("transport1"))
-        fill("Salida · fecha, hora y zona","2026-11-09T12:00:00");click("Revisar programación");shown("La salida requiere fecha ISO 8601 y zona horaria.")
+        compose.onAllNodesWithText("Código de verificación").assertCountEquals(0)
         // Real Activity destruction reconstructs Compose and reloads encrypted credentials via /auth/me.
         compose.activityRule.scenario.recreate();shown("Traslados")
         compose.onAllNodesWithText("Mi expediente").assertCountEquals(0)

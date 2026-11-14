@@ -20,8 +20,7 @@ class DeviceJourneyTest {
         val instrumentation=InstrumentationRegistry.getInstrumentation()
         val lab=codec.parseToJsonElement(instrumentation.context.assets.open("lab.json").bufferedReader().readText()).jsonObject
         compose.waitUntil(120000){compose.onAllNodesWithText("Iniciar sesión").fetchSemanticsNodes().isNotEmpty()}
-        text("Gateway HTTPS").performTextReplacement(lab.text("android_gateway"))
-        text("Cuenta institucional").performTextInput("transport1")
+        text("Cuenta").performTextInput("transport1")
         text("Contraseña").performTextInput(lab.text("password"))
         text("Iniciar sesión").performScrollTo().performClick()
         revealDestination(compose,"Traslados")
@@ -29,8 +28,7 @@ class DeviceJourneyTest {
         text("Traslados").performScrollTo().performClick()
         compose.waitUntil(120000){compose.onAllNodesWithText("Abrir tarea y mapa").fetchSemanticsNodes().isNotEmpty()}
         compose.onAllNodesWithText("Abrir tarea y mapa")[0].performScrollTo().performClick()
-        compose.waitUntil(120000){compose.onAllNodesWithText("Volver a tareas").fetchSemanticsNodes().isNotEmpty()}
-        text("Traslado ${lab.text("shipment_id").take(8)}").assertExists()
+        compose.waitUntil(120000){compose.onAllNodesWithText("Traslado ·",substring=true).fetchSemanticsNodes().isNotEmpty()}
         val device=UiDevice.getInstance(instrumentation)
         device.executeShellCommand("pm grant org.redhouse.mobile android.permission.ACCESS_FINE_LOCATION")
         device.executeShellCommand("pm grant org.redhouse.mobile android.permission.ACCESS_COARSE_LOCATION")
@@ -40,10 +38,10 @@ class DeviceJourneyTest {
         assertNotNull("Inject geo fix through adb emu geo fix; $failure",result)
         assertTrue("Emulator must label position simulated",result!!.simulated)
         assertEquals(25.6866,result!!.latitude,0.02)
-        text("Autorizar ubicación durante esta tarea").performScrollTo().performClick()
+        presentationClick(compose,"Autorizar ubicación durante esta tarea")
         compose.waitUntil(30000){compose.onAllNodesWithText("Capturar y publicar ubicación").fetchSemanticsNodes().any{!it.config.contains(androidx.compose.ui.semantics.SemanticsProperties.Disabled)}}
         text("Capturar y publicar ubicación").performScrollTo().performClick()
-        compose.waitUntil(60000){compose.onAllNodesWithText("Ubicación confirmada por Transporte (PERSISTED_SQL)").fetchSemanticsNodes().isNotEmpty()}
+        compose.waitUntil(60000){compose.onAllNodesWithText("Ubicación guardada para este traslado").fetchSemanticsNodes().isNotEmpty()}
         compose.onNodeWithText("SIMULADA / INYECTADA",substring=true).assertExists()
         compose.runOnUiThread {
             fun maps(view:android.view.View):List<org.osmdroid.views.MapView> =

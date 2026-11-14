@@ -18,8 +18,7 @@ class ProfileQueriesTest {
     private fun query(user:String,label:String){
         val lab=codec.parseToJsonElement(InstrumentationRegistry.getInstrumentation().context.assets.open("lab.json").bufferedReader().readText()).jsonObject
         enabled("Iniciar sesión")
-        compose.onNodeWithText("Gateway HTTPS").performTextReplacement(lab.text("android_gateway"))
-        compose.onNodeWithText("Cuenta institucional").performTextInput(user)
+                compose.onNodeWithText("Cuenta").performTextInput(user)
         compose.onNodeWithText("Contraseña").performTextInput(lab.text("password"))
         click("Iniciar sesión");click(label)
         compose.waitUntil(60000){compose.onAllNodesWithTag("loaded-records").fetchSemanticsNodes().isNotEmpty()}

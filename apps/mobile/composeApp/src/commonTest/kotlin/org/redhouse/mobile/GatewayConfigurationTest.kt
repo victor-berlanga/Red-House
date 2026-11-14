@@ -10,14 +10,14 @@ class GatewayConfigurationTest {
     }
 
     @Test fun switchingFromLabNeverReusesCredentialsOrPendingObservations() = runTest {
-        val config = MemoryStore("https://10.0.2.2:18443")
+        val config = MemoryStore("https://other-environment.invalid")
         val session = MemoryStore("old-session")
         val journal = MemoryStore("old-command")
         val queue = MemoryStore("old-observation")
         var cancelled = false
         assertNull(GatewayConfiguration.stored(config))
         val origin = GatewayConfiguration.prepare(config, session, journal, queue) { cancelled = true }
-        assertEquals("https://34.18.186.116", origin)
+        assertEquals(MobileEnvironment.gateway, origin)
         assertTrue(cancelled)
         assertNull(session.value); assertNull(journal.value); assertNull(queue.value)
         assertEquals(origin, GatewayConfiguration.stored(config))

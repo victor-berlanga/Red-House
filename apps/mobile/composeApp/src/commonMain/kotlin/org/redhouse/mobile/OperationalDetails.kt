@@ -14,9 +14,9 @@ import kotlinx.serialization.json.*
         contacts.forEach {val contact=it.jsonObject;Text("${contact.text("name")}: ${contact.text("value")} · versión ${contact.text("version")}")}
     }
     val route=context.getValue("route").jsonObject
-    Text("Ruta vinculada a la reserva: ${route.text("id").take(8)}")
-    Text("${route.text("distance_km")} km · ${route.text("travel_minutes")} minutos estimados\nFuente: ${route.text("source")}\nActualización: ${displayDate(route.text("updated_at"))}")
+    Text("Ruta vinculada a la reserva")
+    Text("${route.text("distance_km")} km · ${route.text("travel_minutes")} minutos estimados\nFuente: ${route.text("source")}\nActualización: ${displayBriefDate(route.text("updated_at"))}")
     Text("Versión reservada: ${route.text("reserved_version")} · actual: ${route.text("current_version")}")
     if(route.getValue("changed").jsonPrimitive.boolean)Text("La referencia cambió desde la reserva. Solicita revisión al coordinador; estos valores no sustituyen el plan autorizado.")
-    Text("Estimación logística; no geometría vial ni tiempo medido. Consulta: ${displayDate(context.text("consulted_at"))}")
+    Text("Estimación logística; no geometría vial ni tiempo medido. Consulta: ${displayBriefDate(context.text("consulted_at"))}")
 }

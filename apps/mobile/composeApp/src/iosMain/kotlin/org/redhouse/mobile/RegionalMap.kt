@@ -27,12 +27,12 @@ actual fun sha256(bytes:ByteArray):String {
     UIKitView(factory={MKMapView().apply {
         setRegion(MKCoordinateRegionMake(CLLocationCoordinate2DMake(25.6,-99.9),MKCoordinateSpanMake(4.0,4.0)),false)
         showsUserLocation=false
-    }},modifier=Modifier.fillMaxWidth().height(300.dp),properties=UIKitInteropProperties(isNativeAccessibilityEnabled=true),update={map->
+    }},modifier=Modifier.fillMaxWidth().height(280.dp),properties=UIKitInteropProperties(isNativeAccessibilityEnabled=true),update={map->
         map.accessibilityLabel="Mapa de Nuevo León. Última ubicación: ${latitude?:"sin dato"}, ${longitude?:"sin dato"}. Fuente: $label"
         map.removeAnnotations(map.annotations)
         if(latitude!=null && longitude!=null)map.addAnnotation(MKPointAnnotation().apply {
             setCoordinate(CLLocationCoordinate2DMake(latitude,longitude));setTitle(label)
         })
     })
-    Text("Cartografía Apple Maps · Nuevo León. Sin red puede faltar cartografía; el marcador procede de Transporte.")
+    Text("Cartografía Apple Maps", style=androidx.compose.material3.MaterialTheme.typography.labelSmall)
 }

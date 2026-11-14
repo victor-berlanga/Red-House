@@ -27,14 +27,14 @@ class ApiFailure(val status: Int, val code: String) : Exception(when (status) {
     409 -> "Conflicto: consulta el estado vigente antes de continuar."
     422 -> "Revisa los datos y la versión de la operación."
     429 -> "Límite de solicitudes. Espera antes de reintentar."
-    503 -> "Dependencia no disponible."
+    503 -> "El servicio no está disponible. Inténtalo de nuevo."
     else -> "Respuesta no válida del servicio."
 })
 class Api(val client: HttpClient, val bases: Map<String, String>, private val parsingDispatcher: CoroutineDispatcher = Dispatchers.Default) {
     init { require(bases.isNotEmpty()); bases.values.forEach(::requireHttps) }
     suspend fun call(service: String, path: String, method: HttpMethod = HttpMethod.Get,
                      body: JsonObject? = null, token: String? = null, key: String? = null): JsonObject {
-        require(path.startsWith("/api/v1/") && !path.contains(".."))
+        require(path.startsWith("/api/v1/") && !path.substringBefore('?').contains(".."))
         val response = client.request(bases.getValue(service).trimEnd('/') + path) {
             this.method = method
             accept(ContentType.Application.Json)

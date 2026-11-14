@@ -33,12 +33,12 @@ actual fun sha256(bytes:ByteArray)=java.security.MessageDigest.getInstance("SHA-
     val marker=remember(map) { Marker(map).also { map.overlays.add(it) } }
     DisposableEffect(map) {map.onResume();onDispose {map.onPause();map.onDetach()} }
     Column {
-        AndroidView(factory={map},modifier=Modifier.fillMaxWidth().height(320.dp),update={
+        AndroidView(factory={map},modifier=Modifier.fillMaxWidth().height(280.dp),update={
             it.contentDescription="Mapa de Nuevo León. Última ubicación: ${latitude?:"sin dato"}, ${longitude?:"sin dato"}. Fuente: $label"
             marker.isEnabled=latitude!=null && longitude!=null
             if(latitude!=null && longitude!=null) {marker.position=GeoPoint(latitude,longitude);marker.title=label}
             it.invalidate()
         })
-        Text("© OpenStreetMap contributors · Mapa en línea de Nuevo León. Sin mosaicos: comprueba conexión. No representa tráfico ni ETA.")
+        Text("© OpenStreetMap contributors", style=androidx.compose.material3.MaterialTheme.typography.labelSmall)
     }
 }

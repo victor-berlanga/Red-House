@@ -3,6 +3,7 @@ package org.redhouse.mobile
 import io.ktor.client.*
 import io.ktor.client.engine.mock.*
 import io.ktor.http.*
+import io.ktor.http.content.TextContent
 import kotlinx.coroutines.*
 import kotlinx.coroutines.test.runTest
 import kotlinx.serialization.json.*
@@ -95,4 +96,25 @@ class SessionTest {
         assertEquals("identity_changed",assertFailsWith<ApiFailure>{old.request("identidad","/api/v1/auth/me")}.code)
         assertEquals(0,protected)
     }
+    @Test fun mfaChallengeRequiresASecondLoginWithCode() = runTest {
+        var calls=0
+        val store=Memory()
+        val api=Api(HttpClient(MockEngine { request ->
+            calls++
+            val body=codec.parseToJsonElement((request.body as TextContent).text).jsonObject
+            if(calls==1) {
+                assertFalse(body.containsKey("otp"))
+                respond("{\"error\":{\"code\":\"mfa_required\"}}",HttpStatusCode.Unauthorized,headers)
+            } else {
+                assertEquals("123456",body.text("otp"))
+                respond(envelope(loginResult()),headers=headers)
+            }
+        }),mapOf("identidad" to "https://example.com"))
+        val session=Session(api,store)
+        assertEquals("mfa_required",assertFailsWith<ApiFailure>{session.login("user","secret","")}.code)
+        assertNull(store.value)
+        session.login("user","secret","123456")
+        assertEquals(2,calls);assertNotNull(store.value)
+    }
+
 }

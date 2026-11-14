@@ -5,6 +5,10 @@ import kotlinx.serialization.json.*
 
 @Serializable internal data class ProfileDto(val id:String,val tenant_id:String,val role:String)
 @Serializable internal data class TokenDto(val access_token:String,val refresh_token:String,val user:ProfileDto?=null)
+@Serializable internal data class DonorPersonalDto(val id:String,val display_name:String,val version:Int)
+@Serializable internal data class PublicCampaignDto(val title:String,val starts_at:String,val ends_at:String,val venue:String,val information:String)
+@Serializable internal data class PublicCampaignPageDto(val items:List<PublicCampaignDto>,val page:Int,val page_size:Int,val total:Int)
+@Serializable internal data class NextAppointmentDto(val id:String,val title:String,val starts_at:String,val ends_at:String,val status:String,val schedule_version:Int)
 @Serializable internal data class ShipmentDto(val id:String,val origin_id:String,val destination_id:String,val status:String,val version:Int)
 @Serializable internal data class DeviceDto(val id:String,val user_id:String,val tenant_id:String,val source:String,val active:Boolean,val version:Int,val expires_at:String)
 @Serializable internal data class ScanDto(val shipment_id:String,val resource_id:String,val origin_id:String,val destination_id:String,val version:Int,val status:String,val verified:Boolean)
@@ -26,6 +30,22 @@ internal fun validateResponse(service:String,path:String,data:JsonObject) {
             }
             service=="identidad" && route=="/api/v1/auth/me" -> {val dto=codec.decodeFromJsonElement<ProfileDto>(data);require(dto.id.isNotBlank() && dto.tenant_id.isNotBlank() && dto.role in setOf("ADMIN","OPERATOR","MEDICAL","COORDINATOR","TRANSPORT","AUDITOR","DONOR"))}
             service=="identidad" && route.startsWith("/api/v1/mobile/devices") -> {val dto=codec.decodeFromJsonElement<DeviceDto>(data);require(dto.version>0 && dto.source in setOf("ANDROID","IOS"))}
+            service=="donantes" && route.matches(Regex("/api/v1/donors/[0-9a-f-]{36}/personal")) -> {
+                val dto=codec.decodeFromJsonElement<DonorPersonalDto>(data)
+                require(dto.id==route.split('/')[4] && dto.display_name.isNotBlank() && dto.version>0)
+            }
+            service=="donantes" && route=="/api/v1/public/campaign-feed" -> {
+                val dto=codec.decodeFromJsonElement<PublicCampaignPageDto>(data)
+                require(dto.page>0 && dto.page_size in 1..100 && dto.total>=0 && dto.items.size<=dto.page_size)
+                require(dto.items.all { it.title.isNotBlank() && it.starts_at.isNotBlank() && it.ends_at.isNotBlank() })
+            }
+            service=="donantes" && route=="/api/v1/appointments/next" -> {
+                val value=data["appointment"] ?: error("missing appointment")
+                if(value !is JsonNull) {
+                    val dto=codec.decodeFromJsonElement<NextAppointmentDto>(value)
+                    require(dto.id.isNotBlank() && dto.title.isNotBlank() && dto.starts_at.isNotBlank() && dto.ends_at.isNotBlank() && dto.status=="BOOKED" && dto.schedule_version>0)
+                }
+            }
             service=="transporte" && route.endsWith("/scan") -> {val dto=codec.decodeFromJsonElement<ScanDto>(data);require(dto.version>0 && dto.verified)}
             service=="transporte" && route.endsWith("/operational-context") -> {
                 val dto=codec.decodeFromJsonElement<OperationalContextDto>(data)

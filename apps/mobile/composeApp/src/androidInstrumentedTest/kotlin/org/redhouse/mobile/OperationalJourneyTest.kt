@@ -20,7 +20,7 @@ class OperationalJourneyTest {
         if(text=="Confirmar")compose.onNodeWithText(text).performClick() else presentationClick(compose,text)
     }
     private fun fill(text:String,value:String){compose.onNodeWithText(text).performScrollTo().performTextReplacement(value)}
-    private fun login(user:String){shown("Iniciar sesión");fill("Gateway HTTPS",lab.text("android_gateway"));fill("Cuenta institucional",user);fill("Contraseña",lab.text("password"));click("Iniciar sesión")}
+    private fun login(user:String){shown("Iniciar sesión");fill("Cuenta",user);fill("Contraseña",lab.text("password"));click("Iniciar sesión")}
     private fun logout(){click("Cerrar sesión");shown("Iniciar sesión");Assert.assertNull(AndroidSecureStore(compose.activity).read())}
     @Test fun operatorRecordsManualReadingWithoutReleasingUnit(){
         login("operator1");click("Inventario");shown(lab.text("operational_folio"))

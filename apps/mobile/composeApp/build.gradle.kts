@@ -8,10 +8,11 @@ plugins {
     id("com.android.application")
 }
 val mobileGateway = providers.gradleProperty("mobileGateway").orElse("https://34.18.186.116")
+val mobileGcsBucket = providers.gradleProperty("mobileGcsBucket").orElse("")
 val mobileLab = providers.gradleProperty("mobileLabDirectory").isPresent
 val generateMobileEnvironment by tasks.registering {
     inputs.property("gateway", mobileGateway)
-    inputs.property("editableGateway", mobileLab)
+    inputs.property("gcsBucket", mobileGcsBucket)
     val output = layout.buildDirectory.dir("generated/mobileEnvironment")
     outputs.dir(output)
     doLast {
@@ -20,12 +21,16 @@ val generateMobileEnvironment by tasks.registering {
             origin.rawQuery == null && origin.rawFragment == null && origin.path.orEmpty() in setOf("", "/")) {
             "mobileGateway must be an HTTPS origin without credentials, path, query or fragment"
         }
+        val bucket = mobileGcsBucket.get()
+        require(bucket.isEmpty() || (bucket.length in 3..63 && bucket.matches(Regex("[a-z0-9][a-z0-9.-]*[a-z0-9]")) && ".." !in bucket)) {
+            "mobileGcsBucket must be an exact lowercase bucket name"
+        }
         val directory = output.get().asFile.apply { mkdirs() }
         directory.resolve("MobileEnvironment.kt").writeText("""
             package org.redhouse.mobile
             internal object MobileEnvironment {
                 const val gateway = "${origin.toASCIIString().trimEnd('/')}"
-                const val editableGateway = $mobileLab
+                const val gcsBucket = "$bucket"
             }
         """.trimIndent())
     }

@@ -21,7 +21,7 @@ class GcpGatewayTest {
         shown("Iniciar sesión")
         compose.onAllNodesWithText("Gateway HTTPS").assertCountEquals(0)
         Assert.assertEquals("https://34.18.186.116", AndroidSecureStore(compose.activity, "gateway").read())
-        compose.onNodeWithText("Cuenta institucional").assertExists()
+        compose.onNodeWithText("Cuenta").assertExists()
         compose.onNodeWithText("Contraseña").assertExists()
         compose.onAllNodesWithText("Inventario", substring = false).assertCountEquals(0)
         Assert.assertNull(AndroidSecureStore(compose.activity).read())

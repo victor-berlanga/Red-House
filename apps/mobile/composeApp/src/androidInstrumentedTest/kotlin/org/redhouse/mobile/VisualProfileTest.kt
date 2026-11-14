@@ -32,12 +32,16 @@ class VisualProfileTest {
         val first=requireNotNull(args.getString("firstDestination"))
         compose.waitUntil(60000) {compose.onAllNodesWithText("Iniciar sesión").fetchSemanticsNodes().isNotEmpty() || compose.onAllNodesWithText("Cuenta").fetchSemanticsNodes().isNotEmpty()}
         if(compose.onAllNodesWithText("Iniciar sesión").fetchSemanticsNodes().isEmpty()) presentationClick(compose,"Cerrar sesión")
-        compose.waitUntil(60000) {compose.onAllNodesWithText("Cuenta institucional").fetchSemanticsNodes().isNotEmpty()}
-        fill("Cuenta institucional",user)
+        compose.waitUntil(60000) {compose.onAllNodesWithText("Cuenta").fetchSemanticsNodes().isNotEmpty()}
+        fill("Cuenta",user)
         fill("Contraseña",password)
-        args.getString("demoOtp")?.let {fill("Código de segundo factor",it)}
         presentationClick(compose,"Iniciar sesión")
-        try {compose.waitUntil(60000) {compose.onAllNodesWithTag("loaded-records").fetchSemanticsNodes().isNotEmpty()}}
+        args.getString("demoOtp")?.let { code ->
+            compose.waitUntil(60000) {compose.onAllNodesWithText("Código de verificación").fetchSemanticsNodes().isNotEmpty()}
+            compose.onNodeWithText("Código de verificación").assertIsFocused()
+            fill("Código de verificación",code);presentationClick(compose,"Iniciar sesión")
+        }
+        try {compose.waitUntil(60000) {compose.onAllNodesWithTag("loaded-records").fetchSemanticsNodes().isNotEmpty() || (first=="Inicio" && compose.onAllNodesWithText("Ver mis citas").fetchSemanticsNodes().isNotEmpty() && compose.onAllNodesWithText("Consultando tus citas…").fetchSemanticsNodes().isEmpty())}}
         catch(error:Exception) {capture("login-or-query-error");throw error}
         compose.onNode(hasText(first) and hasClickAction()).assertIsDisplayed()
         compose.onAllNodesWithText("Secciones").assertCountEquals(0)
@@ -52,12 +56,13 @@ class VisualProfileTest {
             UiDevice.getInstance(InstrumentationRegistry.getInstrumentation()).pressBack()
         }
         if(user=="donor1") {
-            presentationClick(compose,"Gestionar citas e historial")
+            presentationClick(compose,"Ver mis citas")
             compose.waitUntil(60000) {compose.onAllNodesWithText("Buscar horarios").fetchSemanticsNodes().isNotEmpty()}
             capture("appointments")
             presentationClick(compose,"Buscar horarios");capture("booking-form")
             UiDevice.getInstance(InstrumentationRegistry.getInstrumentation()).pressBack()
-            UiDevice.getInstance(InstrumentationRegistry.getInstrumentation()).pressBack()
+            presentationClick(compose,"Inicio")
+            compose.onNodeWithText("Tu próxima cita").assertExists()
         }
         presentationClick(compose,"Cuenta")
         compose.onNode(hasText("Información de la cuenta") and hasClickAction()).performScrollTo().assertIsDisplayed()

@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.dp
 import kotlinx.serialization.json.*
 
 fun primaryDestinations(role: String): List<String> = when(role) {
-    "DONOR" -> listOf("Citas", "Campañas", "Avisos", "Cuenta")
+    "DONOR" -> listOf("Inicio", "Campañas", "Avisos", "Cuenta")
     "TRANSPORT" -> listOf("Traslados", "Pendientes", "Avisos", "Cuenta")
     "OPERATOR" -> listOf("Inventario", "Traslados", "Avisos", "Cuenta")
     "COORDINATOR" -> listOf("Traslados", "Región", "Avisos", "Cuenta")
@@ -27,7 +27,8 @@ fun primaryDestinations(role: String): List<String> = when(role) {
 @Composable fun DestinationIcon(destination: String) {
     // Same 24-unit linear icon family as the portal; the native item supplies its label.
     val data = when(destination) {
-        "Citas", "Campañas" -> "M4 5H20V21H4ZM8 2V8M16 2V8M4 11H20M8 15H10M14 15H16"
+        "Inicio" -> "M3 11L12 3L21 11V21H15V15H9V21H3Z"
+        "Campañas", "Citas" -> "M4 5H20V21H4ZM8 2V8M16 2V8M4 11H20M8 15H10M14 15H16"
         "Avisos" -> "M3 5H21V19H3ZM3 5L12 12L21 5"
         "Cuenta", "Perfil" -> "M8 6A4 4 0 1 0 16 6A4 4 0 1 0 8 6M4 22V19A8 8 0 0 1 20 19V22"
         "Traslados" -> "M2 4H14V17H2ZM14 8H18L22 13V17H14M5 17A2 2 0 1 0 9 17A2 2 0 1 0 5 17M16 17A2 2 0 1 0 20 17A2 2 0 1 0 16 17"

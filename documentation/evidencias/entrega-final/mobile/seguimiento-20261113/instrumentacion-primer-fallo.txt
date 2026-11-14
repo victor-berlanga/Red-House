@@ -1,0 +1,98 @@
+INSTRUMENTATION_STATUS: class=org.redhouse.mobile.VisualProfileTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+org.redhouse.mobile.VisualProfileTest:
+INSTRUMENTATION_STATUS: test=authenticatedNavigationAndAccount
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=org.redhouse.mobile.VisualProfileTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.IllegalArgumentException: performMeasureAndLayout called during measure layout
+	at androidx.compose.ui.internal.InlineClassHelperKt.throwIllegalArgumentException(InlineClassHelper.kt:36)
+	at androidx.compose.ui.node.MeasureAndLayoutDelegate.measureAndLayout(MeasureAndLayoutDelegate.kt:796)
+	at androidx.compose.ui.platform.AndroidComposeView.measureAndLayout(AndroidComposeView.android.kt:1541)
+	at androidx.compose.ui.node.Owner.measureAndLayout$default(Owner.kt:252)
+	at androidx.compose.ui.platform.AndroidComposeView.dispatchDraw(AndroidComposeView.android.kt:1889)
+	at android.view.View.draw(View.java:22353)
+	at android.view.View.updateDisplayListIfDirty(View.java:21226)
+	at android.view.ViewGroup.recreateChildDisplayList(ViewGroup.java:4500)
+	at android.view.ViewGroup.dispatchGetDisplayList(ViewGroup.java:4473)
+	at android.view.View.updateDisplayListIfDirty(View.java:21186)
+	at android.view.ViewGroup.recreateChildDisplayList(ViewGroup.java:4500)
+	at android.view.ViewGroup.dispatchGetDisplayList(ViewGroup.java:4473)
+	at android.view.View.updateDisplayListIfDirty(View.java:21186)
+	at android.view.ViewGroup.recreateChildDisplayList(ViewGroup.java:4500)
+	at android.view.ViewGroup.dispatchGetDisplayList(ViewGroup.java:4473)
+	at android.view.View.updateDisplayListIfDirty(View.java:21186)
+	at android.view.ViewGroup.recreateChildDisplayList(ViewGroup.java:4500)
+	at android.view.ViewGroup.dispatchGetDisplayList(ViewGroup.java:4473)
+	at android.view.View.updateDisplayListIfDirty(View.java:21186)
+	at android.view.ThreadedRenderer.updateViewTreeDisplayList(ThreadedRenderer.java:559)
+	at android.view.ThreadedRenderer.updateRootDisplayList(ThreadedRenderer.java:565)
+	at android.view.ThreadedRenderer.draw(ThreadedRenderer.java:642)
+	at android.view.ViewRootImpl.draw(ViewRootImpl.java:4101)
+	at android.view.ViewRootImpl.performDraw(ViewRootImpl.java:3828)
+	at android.view.ViewRootImpl.performTraversals(ViewRootImpl.java:3099)
+	at android.view.ViewRootImpl.doTraversal(ViewRootImpl.java:1952)
+	at android.view.ViewRootImpl$TraversalRunnable.run(ViewRootImpl.java:8171)
+	at android.view.Choreographer$CallbackRecord.run(Choreographer.java:972)
+	at android.view.Choreographer.doCallbacks(Choreographer.java:796)
+	at android.view.Choreographer.doFrame(Choreographer.java:731)
+	at android.view.Choreographer$FrameDisplayEventReceiver.run(Choreographer.java:957)
+	at android.os.Handler.handleCallback(Handler.java:938)
+	at android.os.Handler.dispatchMessage(Handler.java:99)
+	at android.os.Looper.loop(Looper.java:223)
+	at android.app.ActivityThread.main(ActivityThread.java:7656)
+	at java.lang.reflect.Method.invoke(Native Method)
+	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:592)
+	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:947)
+
+INSTRUMENTATION_STATUS: stream=
+Process crashed while executing authenticatedNavigationAndAccount(org.redhouse.mobile.VisualProfileTest):
+java.lang.IllegalArgumentException: performMeasureAndLayout called during measure layout
+	at androidx.compose.ui.internal.InlineClassHelperKt.throwIllegalArgumentException(InlineClassHelper.kt:36)
+	at androidx.compose.ui.node.MeasureAndLayoutDelegate.measureAndLayout(MeasureAndLayoutDelegate.kt:796)
+	at androidx.compose.ui.platform.AndroidComposeView.measureAndLayout(AndroidComposeView.android.kt:1541)
+	at androidx.compose.ui.node.Owner.measureAndLayout$default(Owner.kt:252)
+	at androidx.compose.ui.platform.AndroidComposeView.dispatchDraw(AndroidComposeView.android.kt:1889)
+	at android.view.View.draw(View.java:22353)
+	at android.view.View.updateDisplayListIfDirty(View.java:21226)
+	at android.view.ViewGroup.recreateChildDisplayList(ViewGroup.java:4500)
+	at android.view.ViewGroup.dispatchGetDisplayList(ViewGroup.java:4473)
+	at android.view.View.updateDisplayListIfDirty(View.java:21186)
+	at android.view.ViewGroup.recreateChildDisplayList(ViewGroup.java:4500)
+	at android.view.ViewGroup.dispatchGetDisplayList(ViewGroup.java:4473)
+	at android.view.View.updateDisplayListIfDirty(View.java:21186)
+	at android.view.ViewGroup.recreateChildDisplayList(ViewGroup.java:4500)
+	at android.view.ViewGroup.dispatchGetDisplayList(ViewGroup.java:4473)
+	at android.view.View.updateDisplayListIfDirty(View.java:21186)
+	at android.view.ViewGroup.recreateChildDisplayList(ViewGroup.java:4500)
+	at android.view.ViewGroup.dispatchGetDisplayList(ViewGroup.java:4473)
+	at android.view.View.updateDisplayListIfDirty(View.java:21186)
+	at android.view.ThreadedRenderer.updateViewTreeDisplayList(ThreadedRenderer.java:559)
+	at android.view.ThreadedRenderer.updateRootDisplayList(ThreadedRenderer.java:565)
+	at android.view.ThreadedRenderer.draw(ThreadedRenderer.java:642)
+	at android.view.ViewRootImpl.draw(ViewRootImpl.java:4101)
+	at android.view.ViewRootImpl.performDraw(ViewRootImpl.java:3828)
+	at android.view.ViewRootImpl.performTraversals(ViewRootImpl.java:3099)
+	at android.view.ViewRootImpl.doTraversal(ViewRootImpl.java:1952)
+	at android.view.ViewRootImpl$TraversalRunnable.run(ViewRootImpl.java:8171)
+	at android.view.Choreographer$CallbackRecord.run(Choreographer.java:972)
+	at android.view.Choreographer.doCallbacks(Choreographer.java:796)
+	at android.view.Choreographer.doFrame(Choreographer.java:731)
+	at android.view.Choreographer$FrameDisplayEventReceiver.run(Choreographer.java:957)
+	at android.os.Handler.handleCallback(Handler.java:938)
+	at android.os.Handler.dispatchMessage(Handler.java:99)
+	at android.os.Looper.loop(Looper.java:223)
+	at android.app.ActivityThread.main(ActivityThread.java:7656)
+	at java.lang.reflect.Method.invoke(Native Method)
+	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:592)
+	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:947)
+
+INSTRUMENTATION_STATUS: test=authenticatedNavigationAndAccount
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: shortMsg=Process crashed.
+INSTRUMENTATION_CODE: 0

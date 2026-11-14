@@ -16,7 +16,7 @@ El APK debug usa firma de desarrollo. No es una firma de distribución. Release 
 
 La compilación normal usa **https://34.18.186.116** por defecto en Android e iOS. El acceso solo pide credenciales; no muestra un campo de gateway. Los servicios mantienen sus prefijos `/services/...` y validación TLS. La VM debe estar encendida. Si una instalación anterior guardó otro gateway, se cancela su trabajo y se eliminan sesión/diario/observaciones locales antes de usar GCP; nunca se transfieren tokens o escrituras entre entornos.
 
-Para otro despliegue autorizado, generar una compilación con `-PmobileGateway=https://servidor-autorizado`; no es una opción del usuario final. El campo editable se conserva exclusivamente en la compilación explícita del laboratorio `-PmobileLabDirectory=...`, para mantener reproducibles sus pruebas aisladas.
+Para otro despliegue autorizado, generar una compilación con `-PmobileGateway=https://servidor-autorizado`; no es una opción del usuario final. En laboratorio se fija el origen durante la compilación con `-PmobileGateway=https://10.0.2.2:18443` y se aporta `-PmobileLabDirectory=...` para la CA de pruebas. Ninguna variante presenta configuración del servidor en la interfaz. Si un despliegue autorizado usa GCS, fijar el nombre exacto del bucket con `-PmobileGcsBucket=nombre-del-bucket`; sin ese valor se rechazan URL GCS y solo se acepta almacenamiento local del origen configurado.
 
 ## Operación por perfil
 
@@ -52,7 +52,7 @@ Imprime solamente la ruta de un `lab.json` privado fuera del repositorio. No cop
 ```sh
 REDHOUSE_MOBILE_LAB=/ruta/privada/lab.json ./apps/mobile/gradlew -p apps/mobile :composeApp:testDebugUnitTest
 python3 apps/mobile/tests/prepare_android_lab.py /ruta/privada/lab.json
-./apps/mobile/gradlew -p apps/mobile :composeApp:assembleDebug :composeApp:assembleDebugAndroidTest -PmobileLabDirectory=/ruta/privada/android
+./apps/mobile/gradlew -p apps/mobile :composeApp:assembleDebug :composeApp:assembleDebugAndroidTest -PmobileGateway=https://10.0.2.2:18443 -PmobileLabDirectory=/ruta/privada/android
 ```
 
 El opt-in confía únicamente en la CA efímera para `10.0.2.2`, solo en debug. La compilación normal y release no la incluyen. `RealServicesTest` se omite explícitamente si no hay laboratorio; una omisión nunca acredita integración. Para repetir transporte sobre un caso fresco, ejecutar `tests/seed_transport.py /ruta/privada/lab.json`. Los servicios siguen siendo reales; los pacientes, unidades y coordenadas son sintéticos.
@@ -153,3 +153,15 @@ La decodificación óptica y custodia completa aprobaron en API 30 con `-gpu hos
 Resultado del incremento: 19 casos Kotlin/JVM y 19 casos nativos Android únicos aprobados; seis casos de servidor para ampliaciones/seguridad. El APK normal 0.3.0 se instala y abre en API 30. iOS compila arm64 sin firma; no se ejecutó en iPhone/Simulator. Artefactos, hashes, fallos y plataformas exactas en [RESULTADOS del incremento](../../documentation/evidencias/entrega-final/mobile/android-ios-20261109/RESULTADOS.md).
 
 `FormAndRecreationTest#rotationRestoresAuthorizedSessionWithLargeText` se ejecuta con `adb shell settings put system font_scale 1.3`; comprueba orientación mediante Configuration, reautorización y consulta real en horizontal/vertical. Restaurar `font_scale 1.0` al terminar. `PermissionDenialTest` requiere `pm clear` antes de su clase; `LocationDisabledTest` debe ejecutarse por separado tras otro `pm clear`, pues concede permisos y apaga/restaura el interruptor real. Estas clases de permiso funcionan también sobre el APK normal sin assets de laboratorio.
+
+## Inicio del donante y seguimiento del traslado
+
+El inicio consulta `/api/v1/appointments/next` para mostrar la próxima cita propia y `/api/v1/public/campaigns` para el contenido publicado. Compartir envía únicamente el título, fechas, sede e información pública al selector nativo del sistema; no crea enlaces ni vincula publicaciones con registros privados. La gestión de citas utiliza el diario cifrado de operaciones para conservar la clave de idempotencia ante una respuesta incierta. Los catálogos y citas se consultan por páginas en el servidor.
+
+En el detalle de traslado, el mapa antecede a los datos y al siguiente paso; la ubicación continúa sujeta a autorización y el mapa no sustituye la información de procedencia, antigüedad y precisión. Las acciones de custodia conservan escaneo, confirmación humana, versión y validación del servidor.
+
+Fuentes para compartir texto: [Android Sharesheet](https://developer.android.com/develop/ui/compose/sharing/send) y [UIActivityViewController](https://developer.apple.com/documentation/uikit/uiactivityviewcontroller). La disponibilidad de esta presentación no acredita por sí sola su ejecución en iOS físico ni la aceptación visual o funcional de los recorridos.
+
+Los selectores de fecha y hora usan la zona del teléfono y envían un instante UTC con los segundos seleccionados. Un límite final de búsqueda permanece exclusivo. Se rechaza una hora local inexistente por cambio de horario; si una hora ocurre dos veces, se solicita elegir la primera o la segunda ocurrencia. Referencias: [selectores de fecha de Compose](https://developer.android.com/develop/ui/compose/components/datepickers), [selectores de hora](https://developer.android.com/develop/ui/compose/components/time-pickers) y [conversión de fecha local a instante](https://kotlinlang.org/api/kotlinx-datetime/kotlinx-datetime/kotlinx.datetime/to-instant.html).
+
+El segundo factor aparece al recibir el desafío de acceso; el campo solicita teclado numérico y la contraseña solicita un teclado de contraseña sin autocorrección. El comportamiento final depende del teclado del sistema. Referencias: [opciones de teclado de Compose](https://developer.android.com/reference/kotlin/androidx/compose/foundation/text/KeyboardOptions) y [gestión de foco](https://developer.android.com/develop/ui/compose/touch-input/focus/request-focus).

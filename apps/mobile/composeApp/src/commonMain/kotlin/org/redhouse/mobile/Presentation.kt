@@ -13,6 +13,7 @@ import androidx.compose.ui.graphics.vector.PathParser
 import androidx.compose.ui.unit.dp
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.ui.graphics.Color
+import kotlinx.datetime.toLocalDateTime
 
 /** Presentation only. Values sent to services are never transformed here. */
 val redHouseColors = lightColorScheme(
@@ -58,11 +59,11 @@ fun displayValue(field: String, value: String): String {
         "CANCELLED" to "Cancelado", "PREPARED" to "Preparado", "COLLECTED" to "Recolectado",
         "IN_TRANSIT" to "En tránsito", "DELIVERED" to "Entregado", "ACCEPTED" to "Aceptado",
         "RECEIVED" to "Recibido", "WITHDRAWN" to "Retirado",
-        "ACTIVE" to "Activo", "INACTIVE" to "Inactivo", "DRAFT" to "Borrador",
+        "ACTIVE" to "Activo", "INACTIVE" to "Inactivo", "DRAFT" to "Borrador", "DEFERRED" to "Aplazado", "PRELIMINARY" to "Registro preliminar",
         "AVAILABLE" to "Disponible", "RESERVED" to "Reservado", "EXPIRED" to "Vencido",
         "REJECTED" to "Rechazado", "UNCERTAIN" to "Sin confirmación", "CONFLICT" to "Conflicto"
     )[value] ?: value
-    return if ((field.endsWith("_at") || field=="campaign_start")) displayDate(value) else value
+    return if ((field.endsWith("_at") || field=="campaign_start")) displayBriefDate(value) else value
 }
 
 /** Keeps the original offset, precision and instant; only rearranges visible text. */
@@ -71,6 +72,13 @@ fun displayDate(value: String): String {
     val (year, month, day, time, zone) = match.destructured
     return "$day/$month/$year · $time ${if (zone == "Z") "UTC" else "UTC$zone"}"
 }
+
+/** Present the actual instant in the device time zone without changing the stored timestamp. */
+fun displayBriefDate(value:String):String = try {
+    val date=kotlinx.datetime.Instant.parse(value).toLocalDateTime(kotlinx.datetime.TimeZone.currentSystemDefault())
+    val months=listOf("ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic")
+    "${date.dayOfMonth} ${months[date.monthNumber-1]} ${date.year} · ${date.hour.toString().padStart(2,'0')}:${date.minute.toString().padStart(2,'0')}"
+} catch(_:Exception) {value}
 
 /** Existing Lucide droplet, lucide-static v1.41.0, ISC; same path as web branding. */
 @Composable fun RedHouseMark() {

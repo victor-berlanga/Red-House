@@ -30,8 +30,7 @@ class DonorJourneyTest {
         val context=InstrumentationRegistry.getInstrumentation().context
         val lab=codec.parseToJsonElement(context.assets.open("lab.json").bufferedReader().readText()).jsonObject
         shown("Iniciar sesión")
-        compose.onNodeWithText("Gateway HTTPS").performTextReplacement(lab.text("android_gateway"))
-        compose.onNodeWithText("Cuenta institucional").performTextInput("donor1")
+                compose.onNodeWithText("Cuenta").performTextInput("donor1")
         compose.onNodeWithText("Contraseña").performTextInput(lab.text("password"))
         click("Iniciar sesión");enabled("Mi expediente")
         compose.onAllNodesWithText("Traslados").assertCountEquals(0)
