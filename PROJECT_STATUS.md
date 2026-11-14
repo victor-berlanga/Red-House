@@ -2,6 +2,10 @@
 
 Las entradas están ordenadas de reciente a histórico; un pendiente de un corte anterior puede quedar sustituido explícitamente por una entrada posterior.
 
+## Laboratorio iOS separado planificado — 13/11/2026
+
+Preparado un [plan pendiente de implementación](documentation/entrega-final/mobile/Plan_laboratorio_iOS.md) para probar capacidades físicas sin alterar la sesión donante de la app normal: bundle, Keychain, tareas de fondo y compilación separados; confianza HTTPS/WSS limitada a una CA pública de laboratorio y su origen exacto. La app normal ya dispone de firma y operación física comprobadas; el perfil del nuevo bundle y su conectividad aún deben verificarse. No se crearon cuentas, variante, certificados ni instalaciones mediante este plan; no acredita capacidades ni cierra 04.
+
 ## Seguridad del mapa comprobada parcialmente; recuperación B fallida — 13/11/2026
 
 I06-08: ensayos independientes A, C y D aprobados: cursor fuera de ventana con hueco explícito; logout conectado sin datos privados posteriores; expiración natural de familia tras dos renovaciones reales. D usa acceso 330 s/familia 90 s solo en laboratorio y comprueba la familia vencida mientras el JWT aún vive, no expiración del acceso. La regresión dirigida I06-07 pasó por separado, 1/1 en 155,397 s. Dirección inspeccionó sus capturas. Cada intento conservó 1394 fuentes antes/después y cerró procesos propios; ventana pesada devuelta.
