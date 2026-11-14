@@ -6,6 +6,8 @@ from .journal import JournalError
 from .institutional_catalogue import COMMANDS as CATALOGUE_COMMANDS, PATCH_OPERATIONS, validate_catalogue_result
 
 COMMANDS={
+    'donation_create':('donantes','/api/v1/donations','donation_create.xsd',False),
+    'donation_step':('donantes','/api/v1/donations/{id}/steps','donation_step.xsd',True),
     'resource_fractionate':('inventario','/api/v1/resources/{id}/components','resource_fractionate.xsd',True),
     'resource_edit':('inventario','/api/v1/resources/{id}','resource_edit.xsd',True),
     'resource_create':('inventario','/api/v1/resources','resource_create.xsd',False),
@@ -77,6 +79,17 @@ def submit_command(client,journal,record,*,fresh=False,proof=None):
         return result
     if operation=='request_create' and any(result.get(field)!=record['body'][field] for field in ('recipient_id','component','quantity','urgency')):
         raise ContractError('La solicitud confirmada no corresponde al intento registrado.')
+    if operation=='donation_create':
+        if result.get('tenant_id')!=client.user.get('tenant_id') or any(result.get(field)!=record['body'][field] for field in ('donor_id','kind','component')) or result.get('status')!='COLLECTED':
+            raise ContractError('La colecta confirmada no corresponde al intento registrado.')
+        try:
+            expected=datetime.fromisoformat(record['body']['collected_at'].replace('Z','+00:00'))
+            received=datetime.fromisoformat(result['collected_at'].replace('Z','+00:00'))
+            if expected.tzinfo is None or received.tzinfo is None or expected!=received: raise ValueError()
+        except (KeyError,TypeError,ValueError,AttributeError) as exc:
+            raise ContractError('La fecha confirmada no corresponde a la colecta.') from exc
+    if operation=='donation_step' and (result.get('id')!=target['identifier'] or result.get('tenant_id')!=client.user.get('tenant_id') or result.get('version')!=record['body']['version']+1 or result.get('status')!=record['body']['state']):
+        raise ContractError('El procesamiento confirmado no corresponde al intento registrado.')
     if operation=='resource_edit':
         if result.get('id')!=target['identifier'] or result.get('version')!=record['body']['version']+1:
             raise ContractError('La versión de la unidad corregida no corresponde al intento.')

@@ -1,0 +1,9 @@
+# Colecta y procesamiento: preparación
+
+Se conectaron `donation_create` para personal médico y `donation_step` para operador con XML/XSD, selección paginada, confirmación y diario idempotente. La selección de donante usa el filtro institucional `ELIGIBLE`; el servidor conserva las comprobaciones de consentimiento y elegibilidad. El procesamiento requiere elegir explícitamente entre procesada y rechazada. No existe relación inventada con una cita.
+
+Los dobles Qt iniciales de colecta, procesamiento y selector existente pasaron 4/4 en 6,23 s (`dobles-01`). Una corrección de ancho, paginación y mensaje se verificó con 2/2 en `dobles-02`; después se completó el producto del doble y el caso de procesamiento pasó 1/1 en `dobles-03`. Dirección inspeccionó las capturas finales `dobles-02/colecta-doble.png` y `dobles-03/procesamiento-doble.png`, aceptando su presentación. Dos textos de error/vacío se ajustaron después; no se repitieron capturas por esa redacción. El control de búsqueda genérico de donaciones se deshabilitó porque el servicio solo busca UUID; el caso Qt dirigido de ese control pasó 1/1. El médico busca nombre/folio en el selector de donantes y el operador consulta colectas con filtro de fecha y paginación.
+
+Las dos pruebas puras `test_donation_commands.py` pasaron 2/2: misma clave tras respuesta perdida y rechazo de respuestas de otro ámbito o estado. Los 49 contratos empaquetables coinciden con sus fuentes. Estos dobles no acreditan servicios, consentimiento real, MFA, recuperación tras reinicio ni decisiones clínicas.
+
+El caso Qt/XML independiente `test_donation_workflows_lab.py` se preparó pero no se ejecutó. La aceptación real se coordinará con el fixture compartido de iOS, sin crear una segunda infraestructura ni afirmar un vínculo `appointment_id` que el contrato de donación no contiene. El paquete macOS anterior aún no incluye este incremento.

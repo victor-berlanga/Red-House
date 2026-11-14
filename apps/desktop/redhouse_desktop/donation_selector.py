@@ -20,9 +20,10 @@ from PySide6.QtWidgets import (
 from .client import ContractError
 
 
-def select_processed_donation(window, worker_type, display):
+def select_processed_donation(window, worker_type, display, *, status='PROCESSED'):
+    if status not in ('PROCESSED', 'COLLECTED'): raise ValueError('Estado de selección no disponible.')
     dialog = QDialog(window)
-    dialog.setWindowTitle('Seleccionar donación procesada')
+    dialog.setWindowTitle('Seleccionar donación procesada' if status == 'PROCESSED' else 'Seleccionar colecta pendiente')
     dialog.resize(900, 520)
     layout = QVBoxLayout(dialog)
     layout.setContentsMargins(24, 20, 24, 20)
@@ -30,7 +31,7 @@ def select_processed_donation(window, worker_type, display):
     heading = QLabel(dialog.windowTitle())
     heading.setObjectName('title')
     layout.addWidget(heading)
-    help_text = QLabel('Donaciones sanguíneas procesadas de tu institución. Selecciona una fila y verifica su referencia antes de continuar.')
+    help_text = QLabel(('Donaciones sanguíneas procesadas' if status == 'PROCESSED' else 'Colectas pendientes de procesamiento') + ' de tu institución. Selecciona una fila y verifica su referencia antes de continuar.')
     help_text.setWordWrap(True)
     layout.addWidget(help_text)
     filters = QHBoxLayout()
@@ -66,9 +67,9 @@ def select_processed_donation(window, worker_type, display):
     reference.setReadOnly(True)
     reference.setAccessibleName('Referencia completa de la donación seleccionada')
     layout.addWidget(reference)
-    status = QLabel('')
-    status.setWordWrap(True)
-    layout.addWidget(status)
+    status_label = QLabel('')
+    status_label.setWordWrap(True)
+    layout.addWidget(status_label)
     actions = QHBoxLayout()
     cancel, select = QPushButton('Cancelar'), QPushButton('Usar donación')
     select.setObjectName('primary')
@@ -92,7 +93,7 @@ def select_processed_donation(window, worker_type, display):
         row = choice()
         reference.setText(row['id'] if row else '')
         select.setEnabled(bool(row and current() and not state['busy']))
-        if row: status.setText('Verifica la referencia y confirma la donación seleccionada.')
+        if row: status_label.setText('Verifica la referencia y confirma la donación seleccionada.')
 
     def fetch(page):
         if state['busy']: return
@@ -100,8 +101,9 @@ def select_processed_donation(window, worker_type, display):
         table.setRowCount(0)
         reference.clear()
         for widget in (previous, following, refresh, select): widget.setEnabled(False)
-        status.setText('Consultando donaciones procesadas…')
-        params={'page': page, 'page_size': 10, 'kind': 'BLOOD', 'status': 'PROCESSED'}
+        status_label.setText('Consultando donaciones…')
+        params={'page': page, 'page_size': 10, 'status': status}
+        if status == 'PROCESSED': params['kind']='BLOOD'
         if use_date.isChecked():
             params.update(from_at=start_date.dateTime().toUTC().toString(Qt.ISODate), date_field='created_at')
         def work():
@@ -115,7 +117,7 @@ def select_processed_donation(window, worker_type, display):
                     if str(UUID(row['id'])) != row['id'] or str(UUID(row['donor_id'])) != row['donor_id']:
                         raise ValueError()
                     instant = datetime.fromisoformat(row['collected_at'].replace('Z', '+00:00'))
-                    if instant.tzinfo is None or row['tenant_id'] != actor[1] or row['kind'] != 'BLOOD' or row['status'] != 'PROCESSED':
+                    if instant.tzinfo is None or row['tenant_id'] != actor[1] or row['status'] != status or (status == 'PROCESSED' and row['kind'] != 'BLOOD'):
                         raise ValueError()
                 except (KeyError, TypeError, ValueError, AttributeError) as exc:
                     raise ContractError('Donación no disponible para la selección.') from exc
@@ -137,11 +139,11 @@ def select_processed_donation(window, worker_type, display):
             if not state['alive']: return
             state['busy'] = False
             if not current():
-                status.setText('La sesión cambió. Cierra esta ventana y vuelve a ingresar.')
+                status_label.setText('La sesión cambió. Cierra esta ventana y vuelve a ingresar.')
                 return
             refresh.setEnabled(True)
             if error:
-                status.setText('No se pudieron consultar donaciones. Vuelve a intentar.')
+                status_label.setText('No se pudieron consultar donaciones. Vuelve a intentar.')
                 return
             data, rows = result
             state.update(page=data['page'], total=data['total'], rows=[row for row, _ in rows])
@@ -156,7 +158,7 @@ def select_processed_donation(window, worker_type, display):
             page_label.setText('Página ' + str(page) + ' · ' + str(data['total']) + (' registro' if data['total'] == 1 else ' registros'))
             previous.setEnabled(page > 1)
             following.setEnabled(page * 10 < data['total'])
-            status.setText('Selecciona una donación.' if rows else 'No hay donaciones procesadas en esta página.')
+            status_label.setText('Selecciona una donación.' if rows else ('No hay donaciones procesadas en esta página.' if status == 'PROCESSED' else 'No hay colectas pendientes en esta página.'))
         worker.signals.done.connect(lambda result: finish(result))
         worker.signals.failed.connect(lambda error: finish(error, True))
         window.pool.start(worker)
