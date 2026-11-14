@@ -1,0 +1,269 @@
+{
+  "status": "prepared",
+  "seed": 20261113,
+  "reference": "2026-11-13T12:00:00+00:00",
+  "expected": {
+    "donors": 200,
+    "resources": 1000,
+    "events": 10000
+  },
+  "notice": "Datos sint\u00e9ticos por SQL; no son registros API ni decisiones cl\u00ednicas.",
+  "initial_disk": {
+    "free_bytes": 5149691904,
+    "owned_bytes": 0
+  },
+  "initialized_disk": {
+    "free_bytes": 5087223808,
+    "owned_bytes": 270011706
+  },
+  "initialized_database_bytes": 15928667,
+  "dataset_sha256": "53471d632489af488f46e3d08ed6a20952ed5a4619e55909165760dc912be542",
+  "committed": {
+    "donors": 200,
+    "resources": 1000,
+    "events": 10000
+  },
+  "phase": "measurements",
+  "insertion_ms": 25660.75,
+  "plans": {
+    "availability": [
+      {
+        "Plan": {
+          "Node Type": "Limit",
+          "Parallel Aware": false,
+          "Async Capable": false,
+          "Startup Cost": 0.27,
+          "Total Cost": 3.58,
+          "Plan Rows": 20,
+          "Plan Width": 24,
+          "Actual Startup Time": 0.094,
+          "Actual Total Time": 0.154,
+          "Actual Rows": 20,
+          "Actual Loops": 1,
+          "Shared Hit Blocks": 22,
+          "Shared Read Blocks": 0,
+          "Shared Dirtied Blocks": 0,
+          "Shared Written Blocks": 0,
+          "Local Hit Blocks": 0,
+          "Local Read Blocks": 0,
+          "Local Dirtied Blocks": 0,
+          "Local Written Blocks": 0,
+          "Temp Read Blocks": 0,
+          "Temp Written Blocks": 0,
+          "Plans": [
+            {
+              "Node Type": "Index Only Scan",
+              "Parent Relationship": "Outer",
+              "Parallel Aware": false,
+              "Async Capable": false,
+              "Scan Direction": "Forward",
+              "Index Name": "api_availability_page",
+              "Relation Name": "resource",
+              "Alias": "resource",
+              "Startup Cost": 0.27,
+              "Total Cost": 82.9,
+              "Plan Rows": 500,
+              "Plan Width": 24,
+              "Actual Startup Time": 0.091,
+              "Actual Total Time": 0.141,
+              "Actual Rows": 20,
+              "Actual Loops": 1,
+              "Index Cond": "((region_id = '54c013aa-4479-4ac9-a0a5-7639815acf44'::uuid) AND (expires_at > '2026-11-13 06:00:00-06'::timestamp with time zone))",
+              "Rows Removed by Index Recheck": 0,
+              "Heap Fetches": 20,
+              "Shared Hit Blocks": 22,
+              "Shared Read Blocks": 0,
+              "Shared Dirtied Blocks": 0,
+              "Shared Written Blocks": 0,
+              "Local Hit Blocks": 0,
+              "Local Read Blocks": 0,
+              "Local Dirtied Blocks": 0,
+              "Local Written Blocks": 0,
+              "Temp Read Blocks": 0,
+              "Temp Written Blocks": 0
+            }
+          ]
+        },
+        "Planning": {
+          "Shared Hit Blocks": 91,
+          "Shared Read Blocks": 0,
+          "Shared Dirtied Blocks": 0,
+          "Shared Written Blocks": 0,
+          "Local Hit Blocks": 0,
+          "Local Read Blocks": 0,
+          "Local Dirtied Blocks": 0,
+          "Local Written Blocks": 0,
+          "Temp Read Blocks": 0,
+          "Temp Written Blocks": 0
+        },
+        "Planning Time": 2.588,
+        "Triggers": [],
+        "Execution Time": 0.237
+      }
+    ],
+    "trace": [
+      {
+        "Plan": {
+          "Node Type": "Limit",
+          "Parallel Aware": false,
+          "Async Capable": false,
+          "Startup Cost": 732.41,
+          "Total Cost": 732.54,
+          "Plan Rows": 50,
+          "Plan Width": 24,
+          "Actual Startup Time": 12.338,
+          "Actual Total Time": 12.348,
+          "Actual Rows": 10,
+          "Actual Loops": 1,
+          "Shared Hit Blocks": 562,
+          "Shared Read Blocks": 0,
+          "Shared Dirtied Blocks": 0,
+          "Shared Written Blocks": 0,
+          "Local Hit Blocks": 0,
+          "Local Read Blocks": 0,
+          "Local Dirtied Blocks": 0,
+          "Local Written Blocks": 0,
+          "Temp Read Blocks": 0,
+          "Temp Written Blocks": 0,
+          "Plans": [
+            {
+              "Node Type": "Sort",
+              "Parent Relationship": "Outer",
+              "Parallel Aware": false,
+              "Async Capable": false,
+              "Startup Cost": 732.41,
+              "Total Cost": 732.54,
+              "Plan Rows": 50,
+              "Plan Width": 24,
+              "Actual Startup Time": 12.334,
+              "Actual Total Time": 12.339,
+              "Actual Rows": 10,
+              "Actual Loops": 1,
+              "Sort Key": [
+                "service_activity_events.created_at",
+                "service_activity_events.id"
+              ],
+              "Sort Method": "quicksort",
+              "Sort Space Used": 25,
+              "Sort Space Type": "Memory",
+              "Shared Hit Blocks": 562,
+              "Shared Read Blocks": 0,
+              "Shared Dirtied Blocks": 0,
+              "Shared Written Blocks": 0,
+              "Local Hit Blocks": 0,
+              "Local Read Blocks": 0,
+              "Local Dirtied Blocks": 0,
+              "Local Written Blocks": 0,
+              "Temp Read Blocks": 0,
+              "Temp Written Blocks": 0,
+              "Plans": [
+                {
+                  "Node Type": "Seq Scan",
+                  "Parent Relationship": "Outer",
+                  "Parallel Aware": false,
+                  "Async Capable": false,
+                  "Relation Name": "service_activity_events",
+                  "Alias": "service_activity_events",
+                  "Startup Cost": 0.0,
+                  "Total Cost": 731.0,
+                  "Plan Rows": 50,
+                  "Plan Width": 24,
+                  "Actual Startup Time": 0.035,
+                  "Actual Total Time": 12.199,
+                  "Actual Rows": 10,
+                  "Actual Loops": 1,
+                  "Filter": "((service = 'inventario'::text) AND ((event ->> 'resource_id'::text) = '81d0c6b9-39e6-55aa-97f9-af9e5bedb220'::text))",
+                  "Rows Removed by Filter": 9990,
+                  "Shared Hit Blocks": 556,
+                  "Shared Read Blocks": 0,
+                  "Shared Dirtied Blocks": 0,
+                  "Shared Written Blocks": 0,
+                  "Local Hit Blocks": 0,
+                  "Local Read Blocks": 0,
+                  "Local Dirtied Blocks": 0,
+                  "Local Written Blocks": 0,
+                  "Temp Read Blocks": 0,
+                  "Temp Written Blocks": 0
+                }
+              ]
+            }
+          ]
+        },
+        "Planning": {
+          "Shared Hit Blocks": 33,
+          "Shared Read Blocks": 0,
+          "Shared Dirtied Blocks": 0,
+          "Shared Written Blocks": 0,
+          "Local Hit Blocks": 0,
+          "Local Read Blocks": 0,
+          "Local Dirtied Blocks": 0,
+          "Local Written Blocks": 0,
+          "Temp Read Blocks": 0,
+          "Temp Written Blocks": 0
+        },
+        "Planning Time": 0.95,
+        "Triggers": [],
+        "Execution Time": 12.43
+      }
+    ]
+  },
+  "indexes": [
+    [
+      "resource",
+      "api_availability_page",
+      "CREATE INDEX api_availability_page ON red_house.resource USING btree (region_id, expires_at, resource_id) WHERE (status = 'AVAILABLE'::text)"
+    ],
+    [
+      "resource",
+      "api_available_resources",
+      "CREATE INDEX api_available_resources ON red_house.resource USING btree (region_id, resource_kind, component, expires_at) WHERE (status = 'AVAILABLE'::text)"
+    ],
+    [
+      "resource",
+      "api_resources_tenant_id_folio_key",
+      "CREATE UNIQUE INDEX api_resources_tenant_id_folio_key ON red_house.resource USING btree (tenant_id, folio)"
+    ],
+    [
+      "resource",
+      "resource_pkey",
+      "CREATE UNIQUE INDEX resource_pkey ON red_house.resource USING btree (resource_id)"
+    ],
+    [
+      "resource",
+      "resource_traceability_code_key",
+      "CREATE UNIQUE INDEX resource_traceability_code_key ON red_house.resource USING btree (traceability_code)"
+    ],
+    [
+      "service_activity_events",
+      "service_activity_events_pkey",
+      "CREATE UNIQUE INDEX service_activity_events_pkey ON red_house.service_activity_events USING btree (service, id)"
+    ]
+  ],
+  "counts": {
+    "resources": 1000,
+    "events": 10000,
+    "donors": 200
+  },
+  "resource_statuses": [
+    [
+      "AVAILABLE",
+      500
+    ],
+    [
+      "QUARANTINE",
+      500
+    ]
+  ],
+  "linked_resources": 1000,
+  "database_bytes": 21851483,
+  "relation_bytes": [
+    442368,
+    5210112
+  ],
+  "disk": {
+    "free_bytes": 5058895872,
+    "owned_bytes": 292806502
+  },
+  "database_delta_bytes": 5922816,
+  "owned_delta_bytes": 22794796
+}
