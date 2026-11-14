@@ -83,8 +83,14 @@ class Journal:
     def prepare(self, record):
         required={'key','body','state','operation_id','status'}
         if not required.issubset(record) or set(record)-required-{'kind','target'} or record['state'] not in ('PREPARED','UNCERTAIN'): raise JournalError('Registro inválido.')
-        if record.get('kind','RESERVATION') not in ('RESERVATION','LABEL','COMMAND'): raise JournalError('Tipo de operación inválido.')
+        if record.get('kind','RESERVATION') not in ('RESERVATION','LABEL','COMMAND','USER_CREATE'): raise JournalError('Tipo de operación inválido.')
         if record.get('kind') in ('LABEL','COMMAND') and not record.get('target'): raise JournalError('Falta el destino de la operación.')
+        if record.get('kind')=='USER_CREATE':
+            body=record.get('body')
+            if (record.get('target')!='user_create' or not isinstance(body,dict)
+                    or set(body)!={'username','role','tenant_id'}
+                    or any(not isinstance(body[field],str) or not body[field] for field in body)):
+                raise JournalError('El alta solo admite cuenta, perfil e institución sin secretos.')
         with self.locked():
             records,key=self._read()
             if any(x['state']!='DONE' for x in records): raise JournalError('Hay una operación pendiente de recuperación.')

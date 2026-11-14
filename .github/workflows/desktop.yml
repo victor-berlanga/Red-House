@@ -65,7 +65,7 @@ jobs:
           with open(os.environ['GITHUB_PATH'], 'a', encoding='utf-8') as stream:
               stream.write(str(bindir) + '\n')
       - name: Contratos, seguridad local e interacción Qt
-        run: python -m pytest tests --ignore=tests/test_real_lab.py -q --junitxml=results/unit.xml
+        run: python -m pytest tests --ignore-glob='*_lab.py' -q --junitxml=results/unit.xml
       - name: Empaquetar Windows
         if: runner.os == 'Windows'
         shell: cmd

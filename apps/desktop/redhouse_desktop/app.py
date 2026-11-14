@@ -21,11 +21,13 @@ from .label_output import draw_label, write_pdf
 from .download import download, DownloadError
 from .native_map import RegionMap
 from .tracking import TrackingSocket, latest_position, validate_snapshot_point
+from .user_creation import lookup_user, prepare_user, submit_user
 from PySide6.QtPrintSupport import QPrinter, QPrintDialog
 
 # La emisión se autoriza en el servicio antes de producir la salida local.
 LABEL_ISSUANCE_ENABLED = True
 CUSTODY_ACCEPT_ENABLED = True
+USER_CREATION_ENABLED = True
 
 LABELS = {'OPERATOR':'Operador', 'MEDICAL':'Personal médico', 'COORDINATOR':'Coordinación', 'ADMIN':'Administración', 'AUDITOR':'Auditoría', 'QUARANTINE':'En cuarentena', 'AVAILABLE':'Disponible', 'BLOOD':'Sangre', 'ORGAN':'Órgano', 'OPEN':'Abierta', 'IN_PROGRESS':'En curso', 'RESERVED':'Reservada', 'PREPARED':'Preparado', 'COLLECTED':'Recolectado', 'IN_TRANSIT':'En tránsito', 'DELIVERED':'Entregado', 'ACCEPTED':'Aceptado', 'CANCELLED':'Cancelado', 'INCIDENT':'Incidencia', 'CAPTURED':'Capturado', 'AUTHORIZED':'Autorizado', 'REQUESTED':'Solicitada', 'RECEIVED':'Recibida', 'REJECTED':'Rechazada', 'ACKNOWLEDGED':'Reconocido', 'CLOSED':'Cerrado', 'RBC':'Eritrocitos', 'PLASMA':'Plasma', 'PLATELETS':'Plaquetas', 'RESOURCE_RESERVED':'Unidad reservada', 'SHIPMENT_CREATED':'Traslado registrado', 'REQUEST_CREATED':'Solicitud registrada', 'APPOINTMENT_BOOKED':'Cita programada', 'INVENTORY':'Inventario', 'EXPIRY':'Caducidad', 'REQUESTS':'Solicitudes', 'SHIPMENTS':'Traslados', 'ACTIVITY':'Actividad', 'PENDING':'Pendiente', 'COMPLETE':'Listo', 'FAILED':'No disponible'}
 LABELS.update({'WITHDRAWN':'Retirada','PLANNED':'Planeado','ACTIVE':'Activo','INACTIVE':'Inactivo','KIDNEY':'Riñón','LIVER':'Hígado','HEART':'Corazón'})
@@ -109,12 +111,14 @@ class Window(QMainWindow):
         self.request_create_button=QPushButton('Registrar solicitud'); self.request_create_button.setToolTip('El registro corresponde a personal médico autorizado.'); self.request_create_button.setAccessibleDescription('El registro corresponde a personal médico autorizado.'); self.request_create_button.clicked.connect(self.open_request_form); actions.addWidget(self.request_create_button)
         self.device_create_button=QPushButton('Registrar dispositivo'); self.device_create_button.clicked.connect(self.begin_device_create); actions.addWidget(self.device_create_button)
         self.device_revoke_button=QPushButton('Revocar dispositivo'); self.device_revoke_button.clicked.connect(self.revoke_device); actions.addWidget(self.device_revoke_button)
+        self.user_create_button=QPushButton('Registrar cuenta'); self.user_create_button.clicked.connect(self.create_user); actions.addWidget(self.user_create_button)
         self.receive_button = QPushButton('Registrar recepción'); self.receive_button.setObjectName('primary'); self.receive_button.clicked.connect(self.receive); actions.addWidget(self.receive_button); self.capture_button = QPushButton('Capturar resultado'); self.capture_button.clicked.connect(self.capture_result); actions.addWidget(self.capture_button); self.review_button = QPushButton('Revisar resultado'); self.review_button.setToolTip('La revisión corresponde al personal médico autorizado.'); self.review_button.clicked.connect(self.review_result); actions.addWidget(self.review_button); self.ack_button = QPushButton('Acusar recibo'); self.ack_button.clicked.connect(self.acknowledge); actions.addWidget(self.ack_button); actions.addStretch(); outer.addLayout(actions)
         actions = QHBoxLayout(); actions.addStretch()
         self.prev = QPushButton('Anterior'); self.prev.clicked.connect(lambda:self.turn(-1)); actions.addWidget(self.prev); self.page_label = QLabel(); actions.addWidget(self.page_label); self.next = QPushButton('Siguiente'); self.next.clicked.connect(lambda:self.turn(1)); actions.addWidget(self.next); outer.addLayout(actions)
         self.status = QLabel(''); self.status.setWordWrap(True); self.status.setObjectName('hint'); outer.addWidget(self.status)
         for button in (self.trace_button,self.cold_button,self.user_state_button,self.user_role_button,self.download_button,self.report_button,self.resume_button,self.label_button,self.operation_button,self.evaluate_button,self.create_button,self.request_create_button,self.receive_button,self.capture_button,self.review_button,self.ack_button): button.hide()
         self.device_create_button.hide(); self.device_revoke_button.hide()
+        self.user_create_button.hide()
         self.stack.addWidget(page)
 
     def run(self, fn, success, label, failure=None):
@@ -127,6 +131,7 @@ class Window(QMainWindow):
         is_admin=bool(enabled and self.client and self.client.user and self.client.user.get('role')=='ADMIN')
         self.device_create_button.setEnabled(is_admin and self.mode in ('users','devices'))
         self.device_revoke_button.setEnabled(is_admin and self.mode=='devices')
+        self.user_create_button.setEnabled(is_admin and self.mode=='users' and USER_CREATION_ENABLED)
         self.request_create_button.setEnabled(enabled and self.mode=='requests' and bool(self.client and self.client.user and self.client.user.get('role')=='MEDICAL'))
         for widget in (self.username,self.password,self.otp,self.search,self.table,self.login_button,self.logout_button,self.summary_button,self.inventory_button,self.samples_button,self.results_button,self.alerts_button,self.requests_button,self.evaluations_button,self.reservations_button,self.search_button,self.reload_button,self.trace_button,self.cold_button,self.user_state_button,self.user_role_button,self.download_button,self.report_button,self.resume_button,self.label_button,self.operation_button,self.evaluate_button,self.create_button,self.detail_button,self.receive_button,self.capture_button,self.review_button,self.ack_button,self.prev,self.next): widget.setEnabled(enabled)
         if enabled and self.mode != 'samples': self.receive_button.setEnabled(False)
@@ -203,6 +208,7 @@ class Window(QMainWindow):
         if not self.client or self.busy: return
         self.rows=[]; self.table.setRowCount(0); self.page_label.setText('')
         self.device_create_button.hide(); self.device_revoke_button.hide()
+        self.user_create_button.hide()
         for button in (self.trace_button,self.cold_button,self.user_state_button,self.user_role_button,self.download_button,self.report_button,self.resume_button,self.label_button,self.operation_button,self.evaluate_button,self.create_button,self.request_create_button,self.receive_button,self.capture_button,self.review_button,self.ack_button): button.hide()
         self.table.setColumnCount(2 if self.mode in ('reservations','pending') else (3 if self.mode == 'shipments' else (4 if self.mode in ('audit','users','alerts','reports','coverage','devices') else 5)))
         if self.mode == 'pending':
@@ -249,13 +255,14 @@ class Window(QMainWindow):
     def show_pending(self,records):
         pending=[r for r in records if r['state']!='DONE']; self.rows=pending; self.total=len(pending); self.page=1; self.table.setRowCount(len(pending))
         for index,record in enumerate(pending):
-            kind=record.get('kind','RESERVATION'); name={'COMMAND':'Operación registrada','RESERVATION':'Reserva','LABEL':'Etiqueta'}.get(kind,'Operación')
+            kind=record.get('kind','RESERVATION'); name={'COMMAND':'Operación registrada','RESERVATION':'Reserva','LABEL':'Etiqueta','USER_CREATE':'Alta de cuenta'}.get(kind,'Operación')
             if kind=='COMMAND' and record.get('target',{}).get('operation')=='request_create': name='Solicitud'
             self.table.setItem(index,0,QTableWidgetItem(name)); self.table.setItem(index,1,QTableWidgetItem('Requiere revisión' if record.get('status')=='CONFLICT' else 'Por confirmar' if record['state'] in ('PREPARED','UNCERTAIN') else 'Pendiente'))
         self.operation_button.show(); self.resume_button.setVisible(self.last_operation_status in ('PENDING','ROLLBACK_PENDING')); self.detail_button.setEnabled(False); self.search.setEnabled(False); self.search_button.setEnabled(False); self.prev.setEnabled(False); self.next.setEnabled(False); self.page_label.setText(''); self.status.setText('Selecciona Consultar operación para recuperar.' if pending else 'No hay operaciones pendientes.')
 
     def show_rows(self,data):
         self.device_create_button.setVisible(self.mode in ('users','devices')); self.device_revoke_button.setVisible(self.mode=='devices')
+        self.user_create_button.setVisible(self.mode=='users' and USER_CREATION_ENABLED)
         self.request_create_button.setVisible(self.mode=='requests')
         self.trace_button.setVisible(self.mode == 'inventory'); self.cold_button.setVisible(self.mode == 'inventory'); self.user_state_button.setVisible(self.mode == 'users'); self.user_role_button.setVisible(self.mode == 'users'); self.download_button.setVisible(self.mode == 'reports'); self.report_button.setVisible(self.mode == 'reports'); self.resume_button.setVisible(self.mode == 'reservations' and self.last_operation_status in ('PENDING','ROLLBACK_PENDING')); self.label_button.setVisible(self.mode == 'inventory'); self.operation_button.setVisible(self.mode in ('reservations','pending')); self.evaluate_button.setVisible(self.mode == 'requests'); self.create_button.setVisible(self.mode == 'inventory'); self.receive_button.setVisible(self.mode == 'samples'); self.capture_button.setVisible(self.mode == 'samples'); self.review_button.setVisible(self.mode == 'results'); self.ack_button.setVisible(self.mode == 'alerts')
         self.uncertain=False; self.rows=data['items']; self.total=data['total']; self.page=data['page']; self.table.setRowCount(len(self.rows))
@@ -364,7 +371,8 @@ class Window(QMainWindow):
         while dialog.exec()==QDialog.Accepted:
             if len(password.text())>=12 and (not otp.text() or re.fullmatch(r'[0-9]{6}',otp.text())): break
             QMessageBox.warning(self,'Datos incompletos','Escribe tu contraseña y, si corresponde, un código de seis dígitos.')
-        else: return
+        else:
+            password.clear(); otp.clear(); return
         body={'password':password.text(),'challenge':challenge}
         if otp.text(): body['otp']=otp.text()
         password.clear(); otp.clear()
@@ -489,6 +497,45 @@ class Window(QMainWindow):
         if item['id']==self.client.user['id']:
             self.status.setText('No puedes cambiar tu propia cuenta desde esta acción.'); return None
         return item
+
+    def create_user(self):
+        if not USER_CREATION_ENABLED or not self.client or self.client.user.get('role')!='ADMIN': return
+        dialog=QDialog(self); dialog.setWindowTitle('Registrar cuenta'); dialog.resize(480,250); form=QFormLayout(dialog)
+        name=QLineEdit(); name.setMaxLength(80); form.addRow('Cuenta',name)
+        roles=QComboBox()
+        roles.addItem('Selecciona un perfil',None)
+        for title,code in (('Administración','ADMIN'),('Operación','OPERATOR'),('Personal médico','MEDICAL'),('Coordinación','COORDINATOR'),('Traslado','TRANSPORT'),('Auditoría','AUDITOR'),('Donante','DONOR')): roles.addItem(title,code)
+        form.addRow('Perfil',roles)
+        password=QLineEdit(); password.setEchoMode(QLineEdit.Password); form.addRow('Contraseña inicial',password)
+        repeated=QLineEdit(); repeated.setEchoMode(QLineEdit.Password); form.addRow('Repite la contraseña',repeated)
+        save=QPushButton('Registrar cuenta'); save.clicked.connect(dialog.accept); form.addRow(save)
+        while dialog.exec()==QDialog.Accepted:
+            secret=password.text()
+            if len(name.text().strip())>=3 and roles.currentData() and 12<=len(secret)<=128 and secret==repeated.text(): break
+            QMessageBox.warning(self,'Datos incompletos','Indica una cuenta, selecciona un perfil y repite la contraseña inicial de 12 a 128 caracteres.')
+        else:
+            password.clear(); repeated.clear(); return
+        username=name.text().strip(); role=roles.currentData(); password.clear(); repeated.clear()
+        def ready(record):
+            self.secure_attempt(record,'user_create',None,lambda proof:submit_user(self.client,self.journal,record,secret,proof,fresh=True),lambda _:self.received())
+        self.run(lambda:prepare_user(self.journal,self.client.user,username,role,secret),ready,'Preparando alta…')
+
+    def recover_user(self,record):
+        if not USER_CREATION_ENABLED: self.status.setText('La recuperación de cuentas aún no está disponible.'); return
+        def checked(result):
+            if result:
+                self.received(); return
+            dialog=QDialog(self); dialog.setWindowTitle('Recuperar alta de cuenta'); dialog.resize(480,180); form=QFormLayout(dialog)
+            note=QLabel('No hay confirmación disponible. La solicitud puede seguir en curso. Para recuperar el mismo intento, vuelve a introducir la contraseña inicial.'); note.setWordWrap(True); form.addRow(note)
+            form.addRow('Cuenta',QLabel(record['body']['username']))
+            password=QLineEdit(); password.setEchoMode(QLineEdit.Password); form.addRow('Contraseña inicial',password)
+            retry=QPushButton('Recuperar intento'); retry.clicked.connect(dialog.accept); form.addRow(retry)
+            if dialog.exec()!=QDialog.Accepted:
+                password.clear(); return
+            secret=password.text(); password.clear()
+            if not 12<=len(secret)<=128: self.status.setText('La contraseña debe tener entre 12 y 128 caracteres.'); return
+            self.secure_attempt(record,'user_create',None,lambda proof:submit_user(self.client,self.journal,record,secret,proof),lambda _:self.received())
+        self.run(lambda:lookup_user(self.client,self.journal,record),checked,'Consultando confirmación…')
 
     def begin_device_create(self):
         if self.mode=='devices':
@@ -997,6 +1044,7 @@ class Window(QMainWindow):
         if not pending:
             self.status.setText('No hay operaciones pendientes para esta cuenta.'); return
         record=pending[-1]
+        if record.get('kind')=='USER_CREATE': self.recover_user(record); return
         if record.get('kind')=='COMMAND':
             if record.get('status')=='CONFLICT': self.status.setText('La operación requiere revisión autorizada antes de continuar.'); return
             if QMessageBox.question(self,'Recuperar operación','La respuesta anterior no llegó. ¿Recuperar el mismo intento?') != QMessageBox.Yes: return
