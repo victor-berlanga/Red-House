@@ -14,7 +14,8 @@ from PySide6.QtWidgets import (QApplication, QDialog, QFormLayout, QHBoxLayout, 
     QTableWidgetItem, QVBoxLayout, QWidget, QHeaderView, QFileDialog, QCheckBox, QSpinBox)
 from .client import ApiError, Client, ContractError
 from .journal import Journal, JournalError
-from .durable_commands import prepare_command, submit_command
+from .durable_commands import prepare_command, submit_command, update_shipment_command
+from .shipment_planning import planning_dialog
 from .reservation import validate_operation
 from .label_issuance import prepare_label, submit_label
 from .label_output import draw_label, write_pdf
@@ -116,12 +117,14 @@ class Window(QMainWindow):
         self.recipient_edit_button=QPushButton('Corregir receptor'); self.recipient_edit_button.clicked.connect(self.edit_recipient); actions.addWidget(self.recipient_edit_button)
         self.request_edit_button=QPushButton('Editar solicitud'); self.request_edit_button.clicked.connect(self.edit_request); actions.addWidget(self.request_edit_button)
         self.request_cancel_button=QPushButton('Cancelar solicitud'); self.request_cancel_button.clicked.connect(self.cancel_request); actions.addWidget(self.request_cancel_button)
+        self.shipment_create_button=QPushButton('Planificar traslado'); self.shipment_create_button.clicked.connect(self.plan_shipment); actions.addWidget(self.shipment_create_button)
         self.sample_create_button=QPushButton('Registrar muestra'); self.sample_create_button.clicked.connect(self.create_sample); actions.addWidget(self.sample_create_button)
         self.receive_button = QPushButton('Registrar recepción'); self.receive_button.setObjectName('primary'); self.receive_button.clicked.connect(self.receive); actions.addWidget(self.receive_button); self.capture_button = QPushButton('Capturar resultado'); self.capture_button.clicked.connect(self.capture_result); actions.addWidget(self.capture_button); self.review_button = QPushButton('Revisar resultado'); self.review_button.setToolTip('La revisión corresponde al personal médico autorizado.'); self.review_button.clicked.connect(self.review_result); actions.addWidget(self.review_button); self.ack_button = QPushButton('Acusar recibo'); self.ack_button.clicked.connect(self.acknowledge); actions.addWidget(self.ack_button); actions.addStretch(); outer.addLayout(actions)
         actions = QHBoxLayout(); actions.addStretch()
         self.prev = QPushButton('Anterior'); self.prev.clicked.connect(lambda:self.turn(-1)); actions.addWidget(self.prev); self.page_label = QLabel(); actions.addWidget(self.page_label); self.next = QPushButton('Siguiente'); self.next.clicked.connect(lambda:self.turn(1)); actions.addWidget(self.next); outer.addLayout(actions)
         self.status = QLabel(''); self.status.setWordWrap(True); self.status.setObjectName('hint'); outer.addWidget(self.status)
         for button in (self.trace_button,self.cold_button,self.user_state_button,self.user_role_button,self.download_button,self.report_button,self.resume_button,self.label_button,self.operation_button,self.evaluate_button,self.create_button,self.request_create_button,self.recipient_create_button,self.recipient_edit_button,self.request_edit_button,self.request_cancel_button,self.sample_create_button,self.receive_button,self.capture_button,self.review_button,self.ack_button): button.hide()
+        self.shipment_create_button.hide()
         self.device_create_button.hide(); self.device_revoke_button.hide()
         self.user_create_button.hide()
         self.stack.addWidget(page)
@@ -137,6 +140,7 @@ class Window(QMainWindow):
         self.device_create_button.setEnabled(is_admin and self.mode in ('users','devices'))
         self.device_revoke_button.setEnabled(is_admin and self.mode=='devices')
         self.user_create_button.setEnabled(is_admin and self.mode=='users' and USER_CREATION_ENABLED)
+        self.shipment_create_button.setEnabled(bool(enabled and self.mode=='shipments' and self.client and self.client.user and self.client.user.get('role')=='COORDINATOR'))
         self.request_create_button.setEnabled(enabled and self.mode=='requests' and bool(self.client and self.client.user and self.client.user.get('role')=='MEDICAL'))
         for widget in (self.username,self.password,self.otp,self.search,self.table,self.login_button,self.logout_button,self.summary_button,self.inventory_button,self.samples_button,self.results_button,self.alerts_button,self.requests_button,self.evaluations_button,self.reservations_button,self.search_button,self.reload_button,self.trace_button,self.cold_button,self.user_state_button,self.user_role_button,self.download_button,self.report_button,self.resume_button,self.label_button,self.operation_button,self.evaluate_button,self.create_button,self.detail_button,self.recipient_create_button,self.recipient_edit_button,self.request_edit_button,self.request_cancel_button,self.sample_create_button,self.receive_button,self.capture_button,self.review_button,self.ack_button,self.prev,self.next): widget.setEnabled(enabled)
         if enabled and self.mode != 'samples': self.receive_button.setEnabled(False)
@@ -214,6 +218,7 @@ class Window(QMainWindow):
     def load(self):
         if not self.client or self.busy: return
         self.rows=[]; self.table.setRowCount(0); self.page_label.setText('')
+        self.shipment_create_button.hide()
         self.device_create_button.hide(); self.device_revoke_button.hide()
         self.user_create_button.hide()
         for button in (self.trace_button,self.cold_button,self.user_state_button,self.user_role_button,self.download_button,self.report_button,self.resume_button,self.label_button,self.operation_button,self.evaluate_button,self.create_button,self.request_create_button,self.recipient_create_button,self.recipient_edit_button,self.request_edit_button,self.request_cancel_button,self.sample_create_button,self.receive_button,self.capture_button,self.review_button,self.ack_button): button.hide()
@@ -266,10 +271,12 @@ class Window(QMainWindow):
         for index,record in enumerate(pending):
             kind=record.get('kind','RESERVATION'); name={'COMMAND':'Operación registrada','RESERVATION':'Reserva','LABEL':'Etiqueta','USER_CREATE':'Alta de cuenta'}.get(kind,'Operación')
             if kind=='COMMAND' and record.get('target',{}).get('operation')=='request_create': name='Solicitud'
+            if kind=='COMMAND' and record.get('target',{}).get('operation')=='shipment_create': name='Planificación de traslado'
             self.table.setItem(index,0,QTableWidgetItem(name)); self.table.setItem(index,1,QTableWidgetItem('Requiere revisión' if record.get('status')=='CONFLICT' else 'Por confirmar' if record['state'] in ('PREPARED','UNCERTAIN') else 'Pendiente'))
         self.operation_button.show(); self.resume_button.setVisible(self.last_operation_status in ('PENDING','ROLLBACK_PENDING')); self.detail_button.setEnabled(False); self.search.setEnabled(False); self.search_button.setEnabled(False); self.prev.setEnabled(False); self.next.setEnabled(False); self.page_label.setText(''); self.status.setText('Selecciona Consultar operación para recuperar.' if pending else 'No hay operaciones pendientes.')
 
     def show_rows(self,data):
+        self.shipment_create_button.setVisible(self.mode=='shipments' and bool(self.client and self.client.user and self.client.user.get('role')=='COORDINATOR'))
         self.device_create_button.setVisible(self.mode in ('users','devices')); self.device_revoke_button.setVisible(self.mode=='devices')
         self.user_create_button.setVisible(self.mode=='users' and USER_CREATION_ENABLED)
         self.request_create_button.setVisible(self.mode=='requests'); self.request_edit_button.setVisible(self.mode=='requests'); self.request_cancel_button.setVisible(self.mode=='requests'); self.recipient_create_button.setVisible(self.mode=='recipients'); self.recipient_edit_button.setVisible(self.mode=='recipients')
@@ -412,7 +419,8 @@ class Window(QMainWindow):
     def secure_command(self,operation,identifier,body):
         def prepare(): return prepare_command(self.journal,operation,identifier,body)
         def ready(record):
-            self.secure_attempt(record,operation,identifier,lambda proof:submit_command(self.client,self.journal,record,fresh=True,proof=proof),lambda _:self.received())
+            callback=self.shipment_plan_result if operation=='shipment_create' else lambda _:self.received()
+            self.secure_attempt(record,operation,identifier,lambda proof:submit_command(self.client,self.journal,record,fresh=True,proof=proof),callback)
         self.run(prepare,ready,'Preparando operación…')
 
     def receive(self):
@@ -755,6 +763,24 @@ class Window(QMainWindow):
                 draw_label(printer,resource)
                 self.journal.print_transition(record['key'],issuance_id,'sent')
             self.run(output,lambda _:self.status.setText('Solicitud enviada a impresión. Verifica el resultado en la impresora.'),'Enviando a impresión…')
+
+    def plan_shipment(self):
+        if self.uncertain:
+            self.status.setText('Actualiza la lista antes de planificar.'); return
+        if not self.client or not self.client.user or self.client.user.get('role')!='COORDINATOR':
+            self.status.setText('La planificación corresponde a coordinación.'); return
+        body=planning_dialog(self,Work,lambda value:display_value('expires_at',value) if isinstance(value,str) and 'T' in value else label(value))
+        if body: self.secure_command('shipment_create',None,body)
+
+    def shipment_plan_result(self,result):
+        if result.get('status')=='REJECTED':
+            self.status.setText('El traslado no pudo vincularse a la reserva. Solicita revisión.'); return
+        if result.get('inventory_pending'):
+            self.status.setText('La planificación sigue pendiente de confirmación. Consulta Operaciones pendientes antes de intentar otra.'); return
+        if result.get('status') not in ('PLANNED','PREPARED','COLLECTED','IN_TRANSIT','DELIVERED','ACCEPTED'):
+            self.status.setText('El traslado requiere revisión autorizada. Consulta Operaciones pendientes.'); return
+        self.load()
+        self.status.setText('Traslado planificado. Consulta su detalle para continuar la coordinación.')
 
     def shipment_detail(self,item):
         role=self.client.user.get('role')
@@ -1107,10 +1133,37 @@ class Window(QMainWindow):
         record=pending[-1]
         if record.get('kind')=='USER_CREATE': self.recover_user(record); return
         if record.get('kind')=='COMMAND':
-            if record.get('status')=='CONFLICT': self.status.setText('La operación requiere revisión autorizada antes de continuar.'); return
+            if record.get('status')=='CONFLICT':
+                if record['target']['operation']=='shipment_create':
+                    if QMessageBox.question(self,'Revisar planificación','El resultado anterior requiere revisión. ¿Consultar la reserva sin enviar otra planificación?') != QMessageBox.Yes: return
+                    def inspect_reservation():
+                        reservation=self.client.authorized('inventario','/api/v1/reservations/'+record['body']['reservation_id'],'reservation_detail',fresh_identity=True)
+                        if reservation['id']!=record['body']['reservation_id']: raise ContractError('La reserva consultada no corresponde al intento.')
+                        shipment_id=reservation.get('shipment_id')
+                        if not shipment_id: return None
+                        shipment=self.client.authorized('transporte','/api/v1/shipments/'+shipment_id,'shipment_detail',fresh_identity=True)
+                        if shipment['id']!=shipment_id or shipment.get('reservation_id')!=reservation['id']: raise ContractError('El traslado consultado no corresponde a la reserva.')
+                        return shipment
+                    def show_inspection(shipment):
+                        if not shipment:
+                            message='La reserva no muestra un traslado vinculado. Esto no confirma el resultado anterior; solicita revisión autorizada.'
+                        else:
+                            account='La cuenta de traslado coincide con la seleccionada.' if shipment.get('transport_user_id')==record['body']['transport_user_id'] else 'La cuenta de traslado es distinta de la seleccionada.'
+                            message='Traslado vinculado: '+label(shipment.get('status'))+'. '+account+' La consulta no demuestra que corresponda al intento anterior. Solicita revisión autorizada.'
+                        QMessageBox.information(self,'Revisión de planificación',message)
+                        self.status.setText('La operación sigue pendiente de revisión; no se envió otra planificación.')
+                    self.run(inspect_reservation,show_inspection,'Consultando reserva…'); return
+                self.status.setText('La operación requiere revisión autorizada antes de continuar.'); return
+            if record['target']['operation']=='shipment_create' and record.get('operation_id'):
+                def poll_shipment():
+                    result=self.client.authorized('transporte','/api/v1/shipments/'+record['operation_id'],'shipment_detail',fresh_identity=True)
+                    outcome=update_shipment_command(self.journal,record,result)
+                    return result,outcome
+                self.run(poll_shipment,lambda value:self.shipment_plan_result(value[0]),'Consultando traslado…'); return
             if QMessageBox.question(self,'Recuperar operación','La respuesta anterior no llegó. ¿Recuperar el mismo intento?') != QMessageBox.Yes: return
             operation=record['target']['operation']; identifier=record['target']['identifier']
-            self.secure_attempt(record,operation,identifier,lambda proof:submit_command(self.client,self.journal,record,proof=proof),lambda _:self.received())
+            callback=self.shipment_plan_result if operation=='shipment_create' else lambda _:self.received()
+            self.secure_attempt(record,operation,identifier,lambda proof:submit_command(self.client,self.journal,record,proof=proof),callback)
             return
         if record.get('kind')=='LABEL':
             if not LABEL_ISSUANCE_ENABLED: self.status.setText('La recuperación de etiqueta aún no está disponible.'); return

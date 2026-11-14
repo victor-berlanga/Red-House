@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="1" failures="0" skipped="0" tests="4" time="5.629" timestamp="2026-11-14T13:57:36.957331-06:00" hostname="Victors-MacBook-Air.local"><testcase classname="apps.desktop.tests.test_shipment_planning_command" name="test_response_lost_reuses_key_and_pending_requires_authorized_poll" time="0.028" /><testcase classname="apps.desktop.tests.test_shipment_planning_command" name="test_mismatched_shipment_or_unexpected_status_never_completes" time="0.007" /><testcase classname="apps.desktop.tests.test_shipment_planning_ui" name="test_coordinator_selects_reservation_and_origin_account" time="0.731" /><testcase classname="apps.desktop.tests.test_shipment_planning_lab" name="test_coordinator_plans_and_reads_shipment" time="1.432"><error message="failed on setup with &quot;PermissionError: [Errno 1] Operation not permitted&quot;">apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:153: in init
+    pgport, redisport, mongoport = free_port(), free_port(), free_port()
+                                   ^^^^^^^^^^^
+apps/services/scripts/local.py:35: in free_port
+    sock.bind(("127.0.0.1", 0))
+E   PermissionError: [Errno 1] Operation not permitted</error></testcase></testsuite></testsuites>

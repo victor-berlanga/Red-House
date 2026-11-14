@@ -2,6 +2,10 @@
 
 Las entradas están ordenadas de reciente a histórico; un pendiente de un corte anterior puede quedar sustituido explícitamente por una entrada posterior.
 
+## Planificación de traslados desde escritorio — 14/11/2026
+
+[DESK-09](documentation/evidencias/entrega-final/desktop/iteracion-planificacion/RESULTADOS.md) incorpora selección paginada de reserva y responsable, instituciones por nombre, ruta/caducidad, fechas locales convertidas a UTC y confirmación humana. Mantiene diario XML idempotente; respuesta incierta o conflicto no crea otra clave ni confirma automáticamente. Tres pruebas con dobles aprobaron; el primer laboratorio quedó impedido por socket del sandbox. Repetición autorizada Qt/XML 1/1 en 47,50 s: traslado PLANNED correlacionado con reserva/responsable en PostgreSQL y consulta XML. Fuentes estables y procesos propios cerrados. Ajuste de aviso posterior comprobado con doble 1/1, sin repetir el laboratorio. Dirección inspeccionó tres capturas. El paquete Mac aún no contiene este lote; etapa 05 y Windows siguen pendientes.
+
 ## Alta de muestra y mantenimiento de receptores/solicitudes en escritorio — 14/11/2026
 
 Integrado `82c554d`: selección paginada de unidad/perfil y fecha documentada para registrar muestras; alta/corrección de receptor y edición/cancelación de solicitud con versiones, confirmación y diario XML idempotente. Cinco contratos nuevos cotejados con sus propietarios. Dos recorridos Qt/XML aprobaron juntos en 98,94 s: muestra REQUESTED→RECEIVED, receptor corregido, solicitud editada/cancelada, rechazo al operador y estados/eventos SQL comprobados. Dirección inspeccionó cinco capturas reales; motores propios cerrados. [Muestra](documentation/evidencias/entrega-final/desktop/iteracion-alta-muestra/RESULTADOS.md) y [receptores/solicitudes](documentation/evidencias/entrega-final/desktop/iteracion-receptores/RESULTADOS.md) conservan dobles, intento fallido y límites. El paquete Mac todavía no incluye este lote; Windows sigue pendiente.

@@ -20,6 +20,7 @@ COMMANDS={
     'alert_ack':('alertas','/api/v1/alerts/{id}/acknowledge',None,True),
     'cold_reading_create':('inventario','/api/v1/resources/{id}/cold-readings','cold_reading_create.xsd',True),
     'export_create':('documentos','/api/v1/export-jobs','export_create.xsd',False),
+    'shipment_create':('transporte','/api/v1/shipments','shipment_create.xsd',False),
     'shipment_transition':('transporte','/api/v1/shipments/{id}/transitions','shipment_transition.xsd',True),
     'shipment_scan':('transporte','/api/v1/shipments/{id}/scan','shipment_scan.xsd',True),
     'user_state':('identidad-acceso','/api/v1/users/{id}','user_state.xsd',True),
@@ -92,5 +93,28 @@ def submit_command(client,journal,record,*,fresh=False,proof=None):
         raise ContractError('El dispositivo confirmado no corresponde al intento registrado.')
     if operation=='device_revoke' and (result.get('id')!=target['identifier'] or result.get('active') is not False):
         raise ContractError('La revocación confirmada no corresponde al dispositivo solicitado.')
-    journal.update(record['key'],{'operation_id':result.get('id'),'status':'COMPLETED'})
+    if operation=='shipment_create':
+        update_shipment_command(journal,record,result)
+    else:
+        journal.update(record['key'],{'operation_id':result.get('id'),'status':'COMPLETED'})
     return result
+
+
+def update_shipment_command(journal, record, result):
+    """Correlaciona la planificación con el intento antes de cerrar su diario."""
+    try:
+        identifier=result['id']
+        if str(UUID(identifier))!=identifier: raise ValueError()
+        if record.get('operation_id') and record['operation_id']!=identifier: raise ValueError()
+        if any(result.get(field)!=record['body'][field] for field in ('reservation_id','transport_user_id')): raise ValueError()
+        pending=result['inventory_pending']
+        if type(pending) is not bool: raise ValueError()
+        status=result['status']
+        if status=='REJECTED': outcome='FAILED'
+        elif pending: outcome='PENDING'
+        elif status in ('PLANNED','PREPARED','COLLECTED','IN_TRANSIT','DELIVERED','ACCEPTED'): outcome='COMPLETED'
+        else: outcome='CONFLICT'
+    except (KeyError,TypeError,ValueError,AttributeError) as exc:
+        raise ContractError('El traslado no corresponde al intento registrado.') from exc
+    journal.update(record['key'],{'operation_id':identifier,'status':outcome})
+    return outcome

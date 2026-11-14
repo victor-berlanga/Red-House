@@ -18,7 +18,7 @@ SCHEMAS = {
     'ms_compatibilidad': ('evaluation_create', 'evaluation_review', 'lab_result_create', 'lab_result_review', 'lab_sample_create', 'lab_sample_receive'),
     'ms_documentos': ('export_create',),
     'ms_receptores': ('request_create', 'recipient_create', 'recipient_edit', 'request_edit', 'request_cancel'),
-    'ms_transporte': ('shipment_scan', 'shipment_transition'),
+    'ms_transporte': ('shipment_create', 'shipment_scan', 'shipment_transition'),
 }
 
 
