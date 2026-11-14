@@ -18,7 +18,7 @@ MAX_BYTES = 2_000_000
 IDENTITY_READ_TTL = 5.0
 # Versiones de proceso verificadas por servicio; no son la versión de OpenAPI.
 SERVICE_VERSIONS = {
-    'identidad': frozenset({'0.4.1'}), 'inventario': frozenset({'0.4.1'}),
+    'identidad': frozenset({'0.4.1'}), 'inventario': frozenset({'0.4.1'}), 'donantes': frozenset({'0.4.1'}),
     'receptores': frozenset({'0.4.1'}), 'alertas': frozenset({'0.4.1'}),
     'transporte': frozenset({'0.4.1'}), 'documentos': frozenset({'0.4.1'}),
     'custodia': frozenset({'0.4.1'}), 'auditoria': frozenset({'0.4.1'}),

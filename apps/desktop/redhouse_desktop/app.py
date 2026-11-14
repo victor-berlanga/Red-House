@@ -16,6 +16,10 @@ from .client import ApiError, Client, ContractError
 from .journal import Journal, JournalError
 from .durable_commands import prepare_command, submit_command, update_shipment_command
 from .shipment_planning import planning_dialog
+from .resource_edit import resource_edit_dialog
+from .fractionation import fractionation_dialog
+from .institutional_catalogue import catalogue_dialog
+from .donation_selector import select_processed_donation
 from .reservation import validate_operation
 from .label_issuance import prepare_label, submit_label
 from .label_output import draw_label, write_pdf
@@ -99,7 +103,7 @@ class Window(QMainWindow):
         self.requests_button=QPushButton('Solicitudes',self); self.evaluations_button=QPushButton('Evaluaciones',self); self.reservations_button=QPushButton('Reservas',self)
         for button in (self.requests_button,self.evaluations_button,self.reservations_button): button.hide()
         self.areas=QComboBox(); self.areas.setAccessibleName('Otras áreas de trabajo')
-        for title,mode in (('Más áreas',''),('Solicitudes','requests'),('Evaluaciones','evaluations'),('Reservas','reservations'),('Traslados','shipments'),('Auditoría','audit'),('Usuarios','users'),('Operaciones pendientes','pending'),('Reportes','reports'),('Cobertura','coverage'),('Dispositivos','devices'),('Receptores','recipients')): self.areas.addItem(title,mode)
+        for title,mode in (('Más áreas',''),('Solicitudes','requests'),('Evaluaciones','evaluations'),('Reservas','reservations'),('Traslados','shipments'),('Auditoría','audit'),('Usuarios','users'),('Operaciones pendientes','pending'),('Reportes','reports'),('Cobertura','coverage'),('Dispositivos','devices'),('Receptores','recipients'),('Sedes','sites'),('Capacidades','capacities')): self.areas.addItem(title,mode)
         self.areas.currentIndexChanged.connect(lambda _index: self.switch(self.areas.currentData()) if self.areas.currentData() else None)
         nav.insertWidget(nav.count()-1,self.areas)
         self.heading = QLabel(); self.heading.setObjectName('title'); outer.addWidget(self.heading)
@@ -117,6 +121,10 @@ class Window(QMainWindow):
         self.recipient_edit_button=QPushButton('Corregir receptor'); self.recipient_edit_button.clicked.connect(self.edit_recipient); actions.addWidget(self.recipient_edit_button)
         self.request_edit_button=QPushButton('Editar solicitud'); self.request_edit_button.clicked.connect(self.edit_request); actions.addWidget(self.request_edit_button)
         self.request_cancel_button=QPushButton('Cancelar solicitud'); self.request_cancel_button.clicked.connect(self.cancel_request); actions.addWidget(self.request_cancel_button)
+        self.catalogue_create_button=QPushButton('Registrar'); self.catalogue_create_button.clicked.connect(lambda:self.catalogue_action(False)); actions.addWidget(self.catalogue_create_button)
+        self.catalogue_edit_button=QPushButton('Corregir'); self.catalogue_edit_button.clicked.connect(lambda:self.catalogue_action(True)); actions.addWidget(self.catalogue_edit_button)
+        self.fractionate_button=QPushButton('Registrar derivados'); self.fractionate_button.clicked.connect(self.fractionate_resource); actions.addWidget(self.fractionate_button)
+        self.resource_edit_button=QPushButton('Corregir unidad'); self.resource_edit_button.clicked.connect(self.edit_resource); actions.addWidget(self.resource_edit_button)
         self.shipment_create_button=QPushButton('Planificar traslado'); self.shipment_create_button.clicked.connect(self.plan_shipment); actions.addWidget(self.shipment_create_button)
         self.sample_create_button=QPushButton('Registrar muestra'); self.sample_create_button.clicked.connect(self.create_sample); actions.addWidget(self.sample_create_button)
         self.receive_button = QPushButton('Registrar recepción'); self.receive_button.setObjectName('primary'); self.receive_button.clicked.connect(self.receive); actions.addWidget(self.receive_button); self.capture_button = QPushButton('Capturar resultado'); self.capture_button.clicked.connect(self.capture_result); actions.addWidget(self.capture_button); self.review_button = QPushButton('Revisar resultado'); self.review_button.setToolTip('La revisión corresponde al personal médico autorizado.'); self.review_button.clicked.connect(self.review_result); actions.addWidget(self.review_button); self.ack_button = QPushButton('Acusar recibo'); self.ack_button.clicked.connect(self.acknowledge); actions.addWidget(self.ack_button); actions.addStretch(); outer.addLayout(actions)
@@ -124,6 +132,9 @@ class Window(QMainWindow):
         self.prev = QPushButton('Anterior'); self.prev.clicked.connect(lambda:self.turn(-1)); actions.addWidget(self.prev); self.page_label = QLabel(); actions.addWidget(self.page_label); self.next = QPushButton('Siguiente'); self.next.clicked.connect(lambda:self.turn(1)); actions.addWidget(self.next); outer.addLayout(actions)
         self.status = QLabel(''); self.status.setWordWrap(True); self.status.setObjectName('hint'); outer.addWidget(self.status)
         for button in (self.trace_button,self.cold_button,self.user_state_button,self.user_role_button,self.download_button,self.report_button,self.resume_button,self.label_button,self.operation_button,self.evaluate_button,self.create_button,self.request_create_button,self.recipient_create_button,self.recipient_edit_button,self.request_edit_button,self.request_cancel_button,self.sample_create_button,self.receive_button,self.capture_button,self.review_button,self.ack_button): button.hide()
+        self.catalogue_create_button.hide(); self.catalogue_edit_button.hide()
+        self.fractionate_button.hide()
+        self.resource_edit_button.hide()
         self.shipment_create_button.hide()
         self.device_create_button.hide(); self.device_revoke_button.hide()
         self.user_create_button.hide()
@@ -140,6 +151,10 @@ class Window(QMainWindow):
         self.device_create_button.setEnabled(is_admin and self.mode in ('users','devices'))
         self.device_revoke_button.setEnabled(is_admin and self.mode=='devices')
         self.user_create_button.setEnabled(is_admin and self.mode=='users' and USER_CREATION_ENABLED)
+        self.catalogue_create_button.setEnabled(is_admin and self.mode in ('sites','capacities'))
+        self.catalogue_edit_button.setEnabled(is_admin and self.mode in ('sites','capacities'))
+        self.fractionate_button.setEnabled(bool(enabled and self.mode=='inventory' and self.client and self.client.user and self.client.user.get('role')=='OPERATOR'))
+        self.resource_edit_button.setEnabled(bool(enabled and self.mode=='inventory' and self.client and self.client.user and self.client.user.get('role')=='OPERATOR'))
         self.shipment_create_button.setEnabled(bool(enabled and self.mode=='shipments' and self.client and self.client.user and self.client.user.get('role')=='COORDINATOR'))
         self.request_create_button.setEnabled(enabled and self.mode=='requests' and bool(self.client and self.client.user and self.client.user.get('role')=='MEDICAL'))
         for widget in (self.username,self.password,self.otp,self.search,self.table,self.login_button,self.logout_button,self.summary_button,self.inventory_button,self.samples_button,self.results_button,self.alerts_button,self.requests_button,self.evaluations_button,self.reservations_button,self.search_button,self.reload_button,self.trace_button,self.cold_button,self.user_state_button,self.user_role_button,self.download_button,self.report_button,self.resume_button,self.label_button,self.operation_button,self.evaluate_button,self.create_button,self.detail_button,self.recipient_create_button,self.recipient_edit_button,self.request_edit_button,self.request_cancel_button,self.sample_create_button,self.receive_button,self.capture_button,self.review_button,self.ack_button,self.prev,self.next): widget.setEnabled(enabled)
@@ -155,6 +170,7 @@ class Window(QMainWindow):
             self.areas.model().item(4).setEnabled(role in ('OPERATOR','MEDICAL','COORDINATOR','TRANSPORT'))
             self.areas.model().item(5).setEnabled(role == 'AUDITOR'); self.areas.model().item(6).setEnabled(role in ('ADMIN','COORDINATOR')); self.areas.model().item(8).setEnabled(role in ('OPERATOR','MEDICAL','COORDINATOR','TRANSPORT','AUDITOR')); self.areas.model().item(9).setEnabled(role in ('MEDICAL','COORDINATOR'))
             self.areas.model().item(10).setEnabled(role=='ADMIN'); self.areas.model().item(11).setEnabled(role in ('OPERATOR','MEDICAL'))
+            self.areas.model().item(12).setEnabled(role=='ADMIN'); self.areas.model().item(13).setEnabled(role=='ADMIN')
             for button in (self.recipient_create_button,self.recipient_edit_button,self.request_edit_button,self.request_cancel_button): button.setEnabled(role=='MEDICAL')
             self.inventory_button.setEnabled(role in ('OPERATOR','MEDICAL','COORDINATOR'))
             self.trace_button.setEnabled(role=='MEDICAL' and self.mode=='inventory'); self.cold_button.setEnabled(role in ('OPERATOR','MEDICAL') and self.mode=='inventory'); self.user_state_button.setEnabled(role=='ADMIN' and self.mode=='users'); self.user_role_button.setEnabled(role=='ADMIN' and self.mode=='users'); self.operation_button.setEnabled(self.mode == 'pending' or (role == 'MEDICAL' and self.mode == 'reservations')); self.resume_button.setEnabled(role == 'MEDICAL' and self.last_operation_status in ('PENDING','ROLLBACK_PENDING')); self.evaluate_button.setEnabled(role == 'MEDICAL' and self.mode == 'requests'); self.create_button.setEnabled(role == 'OPERATOR' and self.mode == 'inventory'); self.review_button.setEnabled(role == 'MEDICAL' and self.mode == 'results'); self.samples_button.setEnabled(role in ('OPERATOR','MEDICAL')); self.results_button.setEnabled(role in ('OPERATOR','MEDICAL')); self.receive_button.setEnabled(role in ('OPERATOR','MEDICAL') and self.mode == 'samples')
@@ -218,17 +234,22 @@ class Window(QMainWindow):
     def load(self):
         if not self.client or self.busy: return
         self.rows=[]; self.table.setRowCount(0); self.page_label.setText('')
+        self.catalogue_create_button.hide(); self.catalogue_edit_button.hide()
+        self.fractionate_button.hide()
+        self.resource_edit_button.hide()
         self.shipment_create_button.hide()
         self.device_create_button.hide(); self.device_revoke_button.hide()
         self.user_create_button.hide()
         for button in (self.trace_button,self.cold_button,self.user_state_button,self.user_role_button,self.download_button,self.report_button,self.resume_button,self.label_button,self.operation_button,self.evaluate_button,self.create_button,self.request_create_button,self.recipient_create_button,self.recipient_edit_button,self.request_edit_button,self.request_cancel_button,self.sample_create_button,self.receive_button,self.capture_button,self.review_button,self.ack_button): button.hide()
-        self.table.setColumnCount(2 if self.mode in ('reservations','pending') else (3 if self.mode == 'shipments' else (4 if self.mode in ('audit','users','alerts','reports','coverage','devices','recipients') else 5)))
+        self.table.setColumnCount(2 if self.mode in ('reservations','pending') else (3 if self.mode == 'shipments' else (4 if self.mode in ('audit','users','alerts','reports','coverage','devices','recipients','sites','capacities') else 5)))
         self.table.setColumnHidden(1,self.mode=='recipients' and (self.client.user or {}).get('role')!='MEDICAL')
         if self.mode == 'pending':
             self.heading.setText('Operaciones pendientes'); self.description.setText('Recupera operaciones de esta cuenta sin duplicarlas.'); self.table.setHorizontalHeaderLabels(['Operación','Estado'])
             self.run(self.journal.list,self.show_pending,'Consultando operaciones…'); return
-        if self.mode in ('requests','evaluations','reservations','shipments','audit','users','reports','coverage','devices','recipients'):
-            specs={'recipients':('Receptores','Expedientes autorizados de tu institución.','receptores','/api/v1/recipients','recipients',['Folio','Nombre','Tipo','Estado']),
+        if self.mode in ('requests','evaluations','reservations','shipments','audit','users','reports','coverage','devices','recipients','sites','capacities'):
+            specs={'sites':('Sedes','Sedes de tu institución.','identidad-acceso','/api/v1/catalogues/sites','sites_list_rows',['Nombre','Municipio','Estado','Versión']),
+                   'capacities':('Capacidades','Capacidades registradas para las sedes.','identidad-acceso','/api/v1/catalogues/capacities','capacities_list_rows',['Nombre','Producto','Cantidad','Estado']),
+                   'recipients':('Receptores','Expedientes autorizados de tu institución.','receptores','/api/v1/recipients','recipients',['Folio','Nombre','Tipo','Estado']),
                    'requests':('Solicitudes','Solicitudes autorizadas para tu institución.','receptores','/api/v1/requests','requests_list',['Producto','Cantidad','Urgencia','Estado','Fecha']),
                    'evaluations':('Evaluaciones','Preselección para revisión profesional; no constituye una decisión clínica.','compatibilidad','/api/v1/evaluations','evaluation_list',['Recurso','Versión de solicitud','Algoritmo','Candidatos','Fecha']),
                    'reservations':('Reservas','Reservas dentro de tu ámbito autorizado.','inventario','/api/v1/reservations','reservation_list',['Estado','Creada']),
@@ -276,14 +297,18 @@ class Window(QMainWindow):
         self.operation_button.show(); self.resume_button.setVisible(self.last_operation_status in ('PENDING','ROLLBACK_PENDING')); self.detail_button.setEnabled(False); self.search.setEnabled(False); self.search_button.setEnabled(False); self.prev.setEnabled(False); self.next.setEnabled(False); self.page_label.setText(''); self.status.setText('Selecciona Consultar operación para recuperar.' if pending else 'No hay operaciones pendientes.')
 
     def show_rows(self,data):
+        self.catalogue_create_button.setVisible(self.mode in ('sites','capacities') and bool(self.client and self.client.user and self.client.user.get('role')=='ADMIN'))
+        self.catalogue_edit_button.setVisible(self.mode in ('sites','capacities') and bool(self.client and self.client.user and self.client.user.get('role')=='ADMIN'))
+        self.fractionate_button.setVisible(self.mode=='inventory' and bool(self.client and self.client.user and self.client.user.get('role')=='OPERATOR'))
+        self.resource_edit_button.setVisible(self.mode=='inventory' and bool(self.client and self.client.user and self.client.user.get('role')=='OPERATOR'))
         self.shipment_create_button.setVisible(self.mode=='shipments' and bool(self.client and self.client.user and self.client.user.get('role')=='COORDINATOR'))
         self.device_create_button.setVisible(self.mode in ('users','devices')); self.device_revoke_button.setVisible(self.mode=='devices')
         self.user_create_button.setVisible(self.mode=='users' and USER_CREATION_ENABLED)
         self.request_create_button.setVisible(self.mode=='requests'); self.request_edit_button.setVisible(self.mode=='requests'); self.request_cancel_button.setVisible(self.mode=='requests'); self.recipient_create_button.setVisible(self.mode=='recipients'); self.recipient_edit_button.setVisible(self.mode=='recipients')
         self.trace_button.setVisible(self.mode == 'inventory'); self.cold_button.setVisible(self.mode == 'inventory'); self.user_state_button.setVisible(self.mode == 'users'); self.user_role_button.setVisible(self.mode == 'users'); self.download_button.setVisible(self.mode == 'reports'); self.report_button.setVisible(self.mode == 'reports'); self.resume_button.setVisible(self.mode == 'reservations' and self.last_operation_status in ('PENDING','ROLLBACK_PENDING')); self.label_button.setVisible(self.mode == 'inventory'); self.operation_button.setVisible(self.mode in ('reservations','pending')); self.evaluate_button.setVisible(self.mode == 'requests'); self.create_button.setVisible(self.mode == 'inventory'); self.sample_create_button.setVisible(self.mode == 'samples'); self.receive_button.setVisible(self.mode == 'samples'); self.capture_button.setVisible(self.mode == 'samples'); self.review_button.setVisible(self.mode == 'results'); self.ack_button.setVisible(self.mode == 'alerts')
         self.uncertain=False; self.rows=data['items']; self.total=data['total']; self.page=data['page']; self.table.setRowCount(len(self.rows))
-        if self.mode in ('requests','evaluations','reservations','shipments','audit','users','reports','coverage','devices','recipients'):
-            keys={'recipients':('folio','display_name','kind','status'),'requests':('component','quantity','urgency','status','created_at'),'evaluations':('kind','request_version','algorithm_version','candidate_count','created_at'),'reservations':('status','created_at'),'shipments':('status','departure_at','eta'),'audit':('created_at','action_label','actor_display','result_label'),'users':('username','role','user_state','version'),'devices':('label','source','user_state','expires_at'),'reports':('report','format','status','created_at'),'coverage':('slot_count','matched_count','algorithm_version','created_at')}[self.mode]
+        if self.mode in ('requests','evaluations','reservations','shipments','audit','users','reports','coverage','devices','recipients','sites','capacities'):
+            keys={'sites':('name','municipality','user_state','version'),'capacities':('name','component','quantity','user_state'),'recipients':('folio','display_name','kind','status'),'requests':('component','quantity','urgency','status','created_at'),'evaluations':('kind','request_version','algorithm_version','candidate_count','created_at'),'reservations':('status','created_at'),'shipments':('status','departure_at','eta'),'audit':('created_at','action_label','actor_display','result_label'),'users':('username','role','user_state','version'),'devices':('label','source','user_state','expires_at'),'reports':('report','format','status','created_at'),'coverage':('slot_count','matched_count','algorithm_version','created_at')}[self.mode]
             for row,item in enumerate(self.rows):
                 for column,key in enumerate(keys):
                     v=len(item.get('candidates') or []) if key=='candidate_count' else ('Activa' if item.get('active') else 'Inactiva') if key=='user_state' else item.get(key)
@@ -338,6 +363,12 @@ class Window(QMainWindow):
         item=self.selected()
         if not item: self.status.setText('Selecciona una fila.'); return
         if self.mode=='pending': return
+        if self.mode in ('sites','capacities'):
+            dialog=QDialog(self); dialog.setWindowTitle('Detalle institucional'); form=QFormLayout(dialog)
+            for title,key in (('Nombre','name'),('Municipio','municipality'),('Dirección','address'),('Producto','component'),('Cantidad','quantity')):
+                if item.get(key) is not None: form.addRow(title,QLabel(str(item[key])))
+            form.addRow('Estado',QLabel('Activo' if item.get('active') else 'Inactivo'))
+            close=QPushButton('Cerrar'); close.clicked.connect(dialog.accept); form.addRow(close); dialog.exec(); return
         if self.mode=='coverage':
             self.run(lambda:self.client.authorized('priorizacion-geografia','/api/v1/allocation-proposals/'+item['id'],'proposal_detail'),self.coverage_detail,'Abriendo propuesta…'); return
         if self.mode=='reports':
@@ -1198,8 +1229,85 @@ class Window(QMainWindow):
             validate_operation(record,result); self.journal.update(key,result); return result
         self.secure_attempt(record,'reservation_create',record['body']['resource_id'],retry,self.reservation_result)
 
+    def catalogue_action(self, edit):
+        if self.uncertain:
+            self.status.setText('Actualiza y verifica el estado antes de continuar.'); return
+        if self.mode not in ('sites','capacities') or not self.client or not self.client.user or self.client.user.get('role')!='ADMIN':
+            self.status.setText('Esta operación corresponde a administración.'); return
+        item=self.selected() if edit else None
+        if edit and not item:
+            self.status.setText('Selecciona una fila para corregir.'); return
+        client=self.client; actor=(client.user.get('id'),client.user.get('tenant_id'),client.user.get('role'))
+        kind=self.mode; identifier=item['id'] if item else None
+        body=catalogue_dialog(self,kind,item)
+        if not body: return
+        if self.client is not client or not client.user or (client.user.get('id'),client.user.get('tenant_id'),client.user.get('role'))!=actor:
+            self.status.setText('La sesión cambió. Vuelve a consultar antes de guardar.'); return
+        self.secure_command(kind+('_edit' if edit else '_create'),identifier,body)
+
+    def fractionate_resource(self):
+        if self.uncertain:
+            self.status.setText('Actualiza y verifica el estado antes de continuar.'); return
+        if not self.client or not self.client.user or self.client.user.get('role')!='OPERATOR':
+            self.status.setText('El procesamiento corresponde al personal operador autorizado.'); return
+        item=self.selected()
+        if not item:
+            self.status.setText('Selecciona una unidad.'); return
+        client=self.client; actor=(client.user.get('id'),client.user.get('tenant_id'),client.user.get('role'))
+        def ready(resource):
+            if self.client is not client or not client.user or (client.user.get('id'),client.user.get('tenant_id'),client.user.get('role'))!=actor:
+                self.status.setText('La sesión cambió. Vuelve a consultar antes de guardar.'); return
+            if resource.get('id')!=item['id']:
+                self.status.setText('La unidad consultada no corresponde a la selección.'); return
+            if resource.get('status')!='QUARANTINE' or resource.get('kind')!='BLOOD' or not resource.get('donation_id'):
+                self.status.setText('Selecciona una unidad sanguínea trazable en cuarentena.'); return
+            body=fractionation_dialog(self,resource)
+            if not body: return
+            if self.client is not client or not client.user or (client.user.get('id'),client.user.get('tenant_id'),client.user.get('role'))!=actor:
+                self.status.setText('La sesión cambió. Vuelve a consultar antes de guardar.'); return
+            self.secure_command('resource_fractionate',resource['id'],body)
+        self.run(lambda:client.authorized('inventario','/api/v1/resources/'+item['id'],'resource_detail'),ready,'Consultando unidad…')
+
+    def edit_resource(self):
+        if self.uncertain:
+            self.status.setText('Actualiza y verifica el estado antes de continuar.'); return
+        if not self.client or not self.client.user or self.client.user.get('role')!='OPERATOR':
+            self.status.setText('La corrección corresponde al personal operador autorizado.'); return
+        item=self.selected()
+        if not item:
+            self.status.setText('Selecciona una unidad.'); return
+        if item.get('status')!='QUARANTINE':
+            self.status.setText('Solo se puede corregir una unidad en cuarentena.'); return
+        client=self.client; actor=(client.user.get('id'),client.user.get('tenant_id'),client.user.get('role'))
+        def fetch():
+            resource=client.authorized('inventario','/api/v1/resources/'+item['id'],'resource_detail')
+            required=('id','folio','kind','component','blood_group','expires_at','collected_at','location_id','donation_id','version','status')
+            if any(key not in resource for key in required) or resource['id']!=item['id']:
+                raise ContractError('No se recibieron todos los datos necesarios para conservar la unidad.')
+            name='Sin ubicación registrada'
+            if resource['location_id']:
+                location=client.authorized('identidad-acceso','/api/v1/catalogues/locations/'+resource['location_id'],'locations_detail')
+                if location['id']!=resource['location_id']: raise ContractError('La ubicación no corresponde a la unidad.')
+                name=location['name']+(' · Inactiva' if not location['active'] else '')
+            return resource,name
+        def ready(result):
+            if self.client is not client or not client.user or (client.user.get('id'),client.user.get('tenant_id'),client.user.get('role'))!=actor:
+                self.status.setText('La sesión cambió. Vuelve a consultar antes de guardar.'); return
+            resource,name=result
+            if resource['status']!='QUARANTINE':
+                self.status.setText('La unidad ya no está en cuarentena. Actualiza la lista.'); return
+            body=resource_edit_dialog(self,resource,name,Work,label)
+            if not body: return
+            if self.client is not client or not client.user or (client.user.get('id'),client.user.get('tenant_id'),client.user.get('role'))!=actor:
+                self.status.setText('La sesión cambió. Vuelve a consultar antes de guardar.'); return
+            self.secure_command('resource_edit',resource['id'],body)
+        self.run(fetch,ready,'Consultando unidad…')
+
     def create_resource(self):
         if self.uncertain: self.status.setText('Actualiza y verifica el estado antes de continuar.'); return
+        if not self.client or not self.client.user or self.client.user.get('role')!='OPERATOR':
+            self.status.setText('El registro corresponde al personal operador autorizado.'); return
+        client=self.client; actor=(client.user.get('id'),client.user.get('tenant_id'),client.user.get('role'))
         dialog=QDialog(self); dialog.setWindowTitle('Registrar unidad u oferta'); dialog.resize(620,420); form=QFormLayout(dialog)
         folio=QLineEdit(); folio.setMaxLength(30); form.addRow('Folio de unidad',folio)
         kind=QComboBox(); kind.addItem('Selecciona un tipo',''); kind.addItem('Sangre','BLOOD'); kind.addItem('Órgano','ORGAN'); form.addRow('Tipo de recurso',kind)
@@ -1214,6 +1322,28 @@ class Window(QMainWindow):
         form.addRow('Grupo sanguíneo',group)
         has_collection=QCheckBox('Registrar fecha documentada de obtención o colecta'); form.addRow(has_collection)
         collected=QDateTimeEdit(QDateTime.currentDateTime()); collected.setCalendarPopup(True); collected.setDisplayFormat('dd/MM/yyyy HH:mm'); collected.setEnabled(False); has_collection.toggled.connect(collected.setEnabled); form.addRow('Obtención o colecta',collected)
+        source={'row':None}
+        source_name=QLabel('Sin donación vinculada'); source_name.setWordWrap(True); form.addRow('Procedencia',source_name)
+        source_ref=QLineEdit(); source_ref.setReadOnly(True); source_ref.setAccessibleName('Referencia completa de la donación vinculada'); form.addRow('Referencia de donación',source_ref)
+        source_actions=QHBoxLayout(); select_source=QPushButton('Seleccionar donación'); clear_source=QPushButton('Quitar donación'); clear_source.setEnabled(False); source_actions.addWidget(select_source); source_actions.addWidget(clear_source); form.addRow(source_actions)
+        def choose_source():
+            row=select_processed_donation(self,Work,label)
+            if not row: return
+            parsed=QDateTime.fromString(row['collected_at'],Qt.ISODate)
+            if row.get('component') not in ('RBC','PLASMA','PLATELETS') or group.findData(row.get('blood_group'))<0 or not parsed.isValid():
+                QMessageBox.warning(dialog,'Donación no disponible','Los datos de esta donación no se pueden usar en este formulario. Solicita revisión.'); return
+            kind.setCurrentIndex(kind.findData('BLOOD'))
+            component.setCurrentIndex(component.findData(row['component']))
+            group.setCurrentIndex(group.findData(row['blood_group']))
+            has_collection.setChecked(True); collected.setDateTime(parsed.toLocalTime())
+            for widget in (kind,component,group,has_collection,collected): widget.setEnabled(False)
+            source['row']=row; source_ref.setText(row['id']); source_name.setText(row['_donor_folio']+' · '+row['_donor_name']); clear_source.setEnabled(True)
+        def clear_source_selection():
+            source['row']=None; source_ref.clear(); source_name.setText('Sin donación vinculada'); clear_source.setEnabled(False)
+            for widget in (kind,component,group,has_collection): widget.setEnabled(True)
+            collected.setEnabled(has_collection.isChecked())
+            kind.setCurrentIndex(0); group.setCurrentIndex(0); has_collection.setChecked(False)
+        select_source.clicked.connect(choose_source); clear_source.clicked.connect(clear_source_selection)
         expiry=QDateTimeEdit(QDateTime.currentDateTime()); expiry.setCalendarPopup(True); expiry.setDisplayFormat('dd/MM/yyyy HH:mm'); form.addRow('Caducidad',expiry)
         confirm_expiry=QCheckBox('Confirmo que la caducidad coincide con el documento de la unidad.'); form.addRow(confirm_expiry)
         note=QLabel('La unidad ingresará en cuarentena.'); note.setWordWrap(True); form.addRow(note)
@@ -1223,7 +1353,11 @@ class Window(QMainWindow):
             QMessageBox.warning(self,'Datos incompletos','Indica folio, tipo, producto y grupo; confirma la caducidad documentada.')
         else: return
         body={'folio':folio.text().strip(),'kind':kind.currentData(),'component':component.currentData(),'blood_group':group.currentData(),'expires_at':expiry.dateTime().toUTC().toString(Qt.ISODate)}
-        if has_collection.isChecked(): body['collected_at']=collected.dateTime().toUTC().toString(Qt.ISODate)
+        if self.client is not client or not client.user or (client.user.get('id'),client.user.get('tenant_id'),client.user.get('role'))!=actor:
+            self.status.setText('La sesión cambió. Vuelve a consultar antes de guardar.'); return
+        if source['row']:
+            body['donation_id']=source['row']['id']; body['collected_at']=source['row']['collected_at']
+        elif has_collection.isChecked(): body['collected_at']=collected.dateTime().toUTC().toString(Qt.ISODate)
         self.run(lambda:self.durable('resource_create',None,body),lambda _:self.received(),'Registrando unidad…')
 
     def create_recipient(self):

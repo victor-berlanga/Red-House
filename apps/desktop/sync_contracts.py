@@ -9,12 +9,12 @@ OWNERS = {
     'identidad': 'ms_identidad_acceso',
     **{name: 'ms_' + name for name in (
         'alertas', 'auditoria', 'compatibilidad', 'custodia', 'documentos',
-        'inventario', 'priorizacion_geografia', 'receptores', 'transporte',
+        'inventario', 'priorizacion_geografia', 'receptores', 'transporte', 'donantes',
     )},
 }
 SCHEMAS = {
-    'ms_identidad_acceso': ('login', 'refresh', 'reauthenticate', 'user_role', 'user_state', 'device_create', 'device_revoke', 'user_create'),
-    'ms_inventario': ('cold_reading_create', 'label_issue', 'reservation_create', 'resource_create'),
+    'ms_identidad_acceso': ('login', 'refresh', 'reauthenticate', 'user_role', 'user_state', 'device_create', 'device_revoke', 'user_create', 'sites_create', 'sites_edit', 'capacities_create', 'capacities_edit'),
+    'ms_inventario': ('cold_reading_create', 'label_issue', 'reservation_create', 'resource_create', 'resource_edit', 'resource_fractionate'),
     'ms_compatibilidad': ('evaluation_create', 'evaluation_review', 'lab_result_create', 'lab_result_review', 'lab_sample_create', 'lab_sample_receive'),
     'ms_documentos': ('export_create',),
     'ms_receptores': ('request_create', 'recipient_create', 'recipient_edit', 'request_edit', 'request_cancel'),

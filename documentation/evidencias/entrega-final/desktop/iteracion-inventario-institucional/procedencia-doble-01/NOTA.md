@@ -1,0 +1,3 @@
+# Procedencia con dobles
+
+Qt offscreen, sin backend: `junit.xml` pasó 2/2 en 1,21 s. Una prueba seleccionó la segunda de dos donaciones con los mismos datos visibles y comprobó la referencia completa; la otra verificó que el alta conserve identidad, clasificación y fecha exacta procedentes de la selección. Las fuentes antes y después coinciden. Las dos capturas se inspeccionaron: controles y referencia son legibles; la columna de donante trunca el nombre en el selector de 900 px, mientras que el alta muestra el nombre completo. No se acredita autorización real ni persistencia con estos dobles; quedan para el recorrido Qt/XML real.

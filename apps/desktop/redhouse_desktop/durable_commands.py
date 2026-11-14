@@ -3,8 +3,11 @@ from uuid import UUID, uuid4
 from datetime import datetime
 from .client import ApiError, ContractError, request_xml
 from .journal import JournalError
+from .institutional_catalogue import COMMANDS as CATALOGUE_COMMANDS, PATCH_OPERATIONS, validate_catalogue_result
 
 COMMANDS={
+    'resource_fractionate':('inventario','/api/v1/resources/{id}/components','resource_fractionate.xsd',True),
+    'resource_edit':('inventario','/api/v1/resources/{id}','resource_edit.xsd',True),
     'resource_create':('inventario','/api/v1/resources','resource_create.xsd',False),
     'lab_sample_create':('compatibilidad','/api/v1/laboratory/samples','lab_sample_create.xsd',False),
     'lab_sample_receive':('compatibilidad','/api/v1/laboratory/samples/{id}/receive','lab_sample_receive.xsd',True),
@@ -28,6 +31,7 @@ COMMANDS={
     'device_create':('identidad-acceso','/api/v1/devices','device_create.xsd',False),
     'device_revoke':('identidad-acceso','/api/v1/devices/{id}/revoke','device_revoke.xsd',True),
 }
+COMMANDS.update(CATALOGUE_COMMANDS)
 
 def command_path(operation,identifier):
     if operation not in COMMANDS: raise JournalError('Operación no reconocida.')
@@ -44,7 +48,7 @@ def prepare_command(journal, operation, identifier, body):
     service,path,schema=command_path(operation,identifier)
     if schema: request_xml(body,schema)
     elif body is not None: raise JournalError('Esta operación no admite cuerpo.')
-    method='PATCH' if operation in ('user_state','recipient_edit','request_edit') else 'POST'
+    method='PATCH' if operation in ('user_state','recipient_edit','request_edit','resource_edit') or operation in PATCH_OPERATIONS else 'POST'
     record={'key':str(uuid4()),'kind':'COMMAND','target':{'operation':operation,'identifier':identifier,'service':service,'path':path,'method':method,'schema':schema},
             'body':body,'state':'PREPARED','operation_id':None,'status':None}
     journal.prepare(record)
@@ -53,7 +57,7 @@ def prepare_command(journal, operation, identifier, body):
 def submit_command(client,journal,record,*,fresh=False,proof=None):
     if record.get('kind')!='COMMAND' or record.get('state') not in ('PREPARED','UNCERTAIN'): raise JournalError('No hay comando pendiente.')
     target=record['target']; operation=target['operation']; service,path,schema=command_path(operation,target['identifier'])
-    method='PATCH' if operation in ('user_state','recipient_edit','request_edit') else 'POST'
+    method='PATCH' if operation in ('user_state','recipient_edit','request_edit','resource_edit') or operation in PATCH_OPERATIONS else 'POST'
     if 'path' in target and any(target.get(k)!=v for k,v in {'service':service,'path':path,'method':method,'schema':schema}.items()): raise JournalError('El contrato de la operación pendiente cambió; solicita revisión.')
     try:
         result=client.authorized(service,path,operation,method=method,body=record['body'],request_schema=schema,key=record['key'],proof=proof)
@@ -64,10 +68,40 @@ def submit_command(client,journal,record,*,fresh=False,proof=None):
         if exc.status in (400,403,404,409,412,413,415,422):
             journal.update(record['key'],{'operation_id':None,'status':'FAILED' if fresh else 'CONFLICT'})
         raise
+    if operation in CATALOGUE_COMMANDS:
+        validate_catalogue_result(operation,target['identifier'],record['body'],result,client.user['tenant_id'])
+    if operation=='resource_fractionate':
+        from .fractionation import validate_fractionation
+        validate_fractionation(client,record,result)
+        journal.update(record['key'],{'operation_id':target['identifier'],'status':'COMPLETED'})
+        return result
     if operation=='request_create' and any(result.get(field)!=record['body'][field] for field in ('recipient_id','component','quantity','urgency')):
         raise ContractError('La solicitud confirmada no corresponde al intento registrado.')
+    if operation=='resource_edit':
+        if result.get('id')!=target['identifier'] or result.get('version')!=record['body']['version']+1:
+            raise ContractError('La versión de la unidad corregida no corresponde al intento.')
+        if any(result.get(field)!=record['body'].get(field) for field in ('folio','kind','component','blood_group','location_id','donation_id')):
+            raise ContractError('La unidad corregida no corresponde al intento registrado.')
+        for field in ('expires_at','collected_at'):
+            try:
+                original=record['body'].get(field); confirmed=result.get(field)
+                if original is None and confirmed is None: continue
+                expected=datetime.fromisoformat(original.replace('Z','+00:00'))
+                received=datetime.fromisoformat(confirmed.replace('Z','+00:00'))
+                if expected.tzinfo is None or received.tzinfo is None or expected!=received: raise ValueError()
+            except (TypeError,ValueError,AttributeError) as exc:
+                raise ContractError('La fecha confirmada no corresponde a la corrección.') from exc
     if operation=='resource_create' and any(result.get(field)!=record['body'][field] for field in ('folio','kind','component','blood_group')):
         raise ContractError('La unidad confirmada no corresponde al intento registrado.')
+    if operation=='resource_create' and record['body'].get('donation_id'):
+        if result.get('donation_id')!=record['body']['donation_id']:
+            raise ContractError('La procedencia confirmada no corresponde al intento registrado.')
+        try:
+            expected=datetime.fromisoformat(record['body']['collected_at'].replace('Z','+00:00'))
+            received=datetime.fromisoformat(result['collected_at'].replace('Z','+00:00'))
+            if expected.tzinfo is None or received.tzinfo is None or expected!=received: raise ValueError()
+        except (KeyError,TypeError,ValueError,AttributeError) as exc:
+            raise ContractError('La colecta confirmada no corresponde a la donación seleccionada.') from exc
     if operation=='lab_sample_create' and any(result.get(field)!=record['body'][field] for field in ('resource_id','profile_id','identifier')):
         raise ContractError('La muestra confirmada no corresponde al intento registrado.')
     if operation=='lab_sample_create':
