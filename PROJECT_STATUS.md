@@ -2,6 +2,12 @@
 
 Las entradas están ordenadas de reciente a histórico; un pendiente de un corte anterior puede quedar sustituido explícitamente por una entrada posterior.
 
+## Skills de diseño y revisión física — 13/11/2026
+
+Por solicitud del usuario se instalaron `ui-ux-pro-max` y `frontend-design` desde versiones fijas de sus repositorios originales. Se revisaron instrucciones y buscador, se cotejaron los archivos instalados y se comunicó su uso a móvil/escritorio. No agregan dependencias al producto. Se descartó una propuesta automática de landing genérica y se mantienen los flujos diferenciados por rol y la identidad de Red House. [Fuentes, huellas, alcance y criterios de aplicación](documentation/entrega-final/continuidad/Organizacion.md#guías-de-diseño-incorporadas--13112026-monterrey).
+
+iPhone: nueva variante con calendario nativo compilada, firmada y actualizada sin cerrar la sesión. Tras el desbloqueo del usuario, la apertura automatizada pasó, pero la inspección de la imagen rechazó la interfaz por superposición entre UIKit y el diálogo Compose. Selección/cancelación y aceptación visual siguen pendientes; no se presenta el paso del runner como arreglo visual terminado. Las etapas 04 y 05 continúan abiertas.
+
 ## Salud periódica publicada y piloto de volumen — 13/11/2026
 
 Publicado el incremento `5970651` en **sistemas-integracion-01 / red-house / me-central1-a**: tres fuentes y recreación únicamente de ClamAV; misma imagen y volumen, otros 29 contenedores conservados, treinta sanos. El helper montado en solo lectura aprobó controles periódicos y análisis sintéticos CLEAN/EICAR desde Documentos. Cinco lecturas públicas HTTPS pasaron, separadas de las pruebas autenticadas anteriores. Proveedor local y configuración de Documentos conservados; sin migraciones ni reanálisis histórico. Clave temporal OS Login retirada, dos previas conservadas y copia privada eliminada. [Evidencia y límites](documentation/evidencias/gcp/scanner-health-20261113/RESULTADOS.md). Esto cierra los pendientes de publicación y acceso temporal del corte inmediatamente anterior.
