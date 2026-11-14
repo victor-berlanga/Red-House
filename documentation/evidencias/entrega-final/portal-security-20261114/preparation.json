@@ -1,0 +1,11 @@
+{
+  "started_at_utc": "2026-11-14T04:29:06.942802+00:00",
+  "baseline_harness_commit": "eac2c1a16ed78c636df204a507f87129682edc9a",
+  "source_hashes": {
+    "apps/services/tests/test_portal_gateway_tracking.py": "966b3c1f54c53d0b5bdcdf106ab71064c177289d90616d46936a582f70367c71",
+    "scripts/verify_portal_gateway_tracking.cjs": "89d6e17757c3ff7c49e23eac7c12101ddd05db186e031b2d74eb7480c5cf94a5"
+  },
+  "fixture_review": "autonomous restores p.apps/p.request before stopped_apis recreates every API listener; platform closes shared server dictionary and isolated engines",
+  "execution_mode": "Each nodeID in a separate pytest process and new platform; do not present as one five-case suite",
+  "scope": "Root-assigned isolated local laboratory only; no GCP, product configuration, central status or matrix changes"
+}

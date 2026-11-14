@@ -1,0 +1,39 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+___________ test_portal_gateway_security_states[logout_disconnected] ___________
+apps/services/tests/test_portal_gateway_tracking.py:949: in test_portal_gateway_security_states
+    run_gateway_scenario(p, tracking, request, tmp_path, scenario)
+apps/services/tests/test_portal_gateway_tracking.py:809: in run_gateway_scenario
+    run_security_flow(
+apps/services/tests/test_portal_gateway_tracking.py:273: in run_security_flow
+    append_points(2)
+apps/services/tests/test_portal_gateway_tracking.py:142: in append_points
+    report.setdefault("acks", []).extend(publish(points[-count:]))
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^
+apps/services/tests/test_portal_gateway_tracking.py:610: in publish
+    publisher = connect(target, tracking["credential"]["credential"], "device")
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+apps/services/tests/test_final_tracking.py:94: in connect
+    ws = websocket.create_connection(
+apps/services/.venv/lib/python3.12/site-packages/websocket/_core.py:734: in create_connection
+    websock.connect(url, **options)
+apps/services/.venv/lib/python3.12/site-packages/websocket/_core.py:284: in connect
+    self.handshake_response = handshake(self.sock, url, *addrs, **options)
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+apps/services/.venv/lib/python3.12/site-packages/websocket/_handshake.py:73: in handshake
+    status, resp = _get_resp_headers(sock)
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+apps/services/.venv/lib/python3.12/site-packages/websocket/_handshake.py:173: in _get_resp_headers
+    raise WebSocketBadStatusException(
+E   websocket._exceptions.WebSocketBadStatusException: Handshake status 502 Bad Gateway -+-+- {'server': 'nginx', 'date': 'Sat, 14 Nov 2026 04:57:51 GMT', 'content-type': 'text/html', 'content-length': '150', 'connection': 'keep-alive', 'strict-transport-security': 'max-age=31536000'} -+-+- <html>
+E   <head><title>502 Bad Gateway</title></head>
+E   <body>
+E   <center><h1>502 Bad Gateway</h1></center>
+E   <hr><center>nginx</center>
+E   </body>
+E   </html>
+----------------------------- Captured stdout call -----------------------------
+Entrada pública generada: HTTPS
+=========================== short test summary info ============================
+FAILED apps/services/tests/test_portal_gateway_tracking.py::test_portal_gateway_security_states[logout_disconnected]
+1 failed in 165.72s (0:02:45)

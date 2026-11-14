@@ -1,0 +1,61 @@
+{
+  "mode": "Independent pytest processes, not one aggregate suite",
+  "executions": [
+    {
+      "case": "cursor-resync",
+      "attempt": "intento-01",
+      "tests": "1",
+      "failures": "0",
+      "errors": "0",
+      "seconds": "155.604",
+      "junit": "cursor-resync/intento-01/junit.xml"
+    },
+    {
+      "case": "logout-disconnected",
+      "attempt": "intento-01",
+      "tests": "1",
+      "failures": "1",
+      "errors": "0",
+      "seconds": "133.934",
+      "junit": "logout-disconnected/intento-01/junit.xml"
+    },
+    {
+      "case": "logout-disconnected",
+      "attempt": "intento-02",
+      "tests": "1",
+      "failures": "1",
+      "errors": "0",
+      "seconds": "165.722",
+      "junit": "logout-disconnected/intento-02/junit.xml"
+    },
+    {
+      "case": "logout-live",
+      "attempt": "intento-01",
+      "tests": "1",
+      "failures": "0",
+      "errors": "0",
+      "seconds": "111.090",
+      "junit": "logout-live/intento-01/junit.xml"
+    },
+    {
+      "case": "regresion-i06-07",
+      "attempt": "intento-01",
+      "tests": "1",
+      "failures": "0",
+      "errors": "0",
+      "seconds": "155.397",
+      "junit": "regresion-i06-07/intento-01/junit.xml"
+    },
+    {
+      "case": "session-expiry",
+      "attempt": "intento-01",
+      "tests": "1",
+      "failures": "0",
+      "errors": "0",
+      "seconds": "189.569",
+      "junit": "session-expiry/intento-01/junit.xml"
+    }
+  ],
+  "batch_complete": true,
+  "B_status": "Failed both attempts; open"
+}

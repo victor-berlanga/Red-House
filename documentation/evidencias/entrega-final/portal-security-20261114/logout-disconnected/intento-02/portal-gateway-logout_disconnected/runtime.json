@@ -1,0 +1,72 @@
+{
+  "case": "I06-08",
+  "scenario": "logout_disconnected",
+  "shipment_id": "718ba28a-0cc8-43f5-bb7e-5901b2574243",
+  "environment": {
+    "directory": "/private/tmp/red-house-ms-tests-idkrgt7p",
+    "uid": 501,
+    "mode": "0o700"
+  },
+  "passed": false,
+  "checks": [
+    "HTTPS Nginx verificado por Python con certificado explícito"
+  ],
+  "scope": "Laboratorio local aislado; datos y ubicaciones sintéticos",
+  "limits": [
+    "No cierra I06 completo ni acredita producción, GCP o capacidad",
+    "Fixture TESTING=True; cuotas de prueba 100000; no prueba MFA",
+    "DONOR/TRANSPORT sin omitir MFA de roles críticos",
+    "TLS Python con CA explícita; Chrome con excepción SPKI del certificado efímero",
+    "No prueba confianza CA del sistema; perfiles Chrome privados efímeros",
+    "Mosaicos OSM bloqueados para evitar consumo masivo; cartografía no aceptada",
+    "Listeners loopback y puertos efímeros; WSGI de prueba con TrustedProxy real"
+  ],
+  "generated_configuration_sha256": "0ff265d09e9b7c78fa1864049017b0c21325ad106387261615b8a782fdf3063c",
+  "certificate_spki_sha256": "N6BkWbG41877xK7iZ6rcDcohAFDzf3kFFtA3ZiSDZkE=",
+  "acks": [
+    {
+      "event_id": "07ce4fdb-e203-4366-a155-070823487446",
+      "cursor": 1,
+      "state": "PERSISTED_SQL"
+    }
+  ],
+  "all_tracking_replicas_stopped": true,
+  "session_transition": {
+    "new_sessions": 2,
+    "login_occurred_at": [
+      "2026-11-14T04:56:40.294300+00:00",
+      "2026-11-14T04:56:24.949380+00:00"
+    ],
+    "family_expires_at": [
+      "2026-11-14T22:56:24.941648-06:00",
+      "2026-11-14T22:56:40.287212-06:00"
+    ],
+    "expired_in_sql": [
+      false,
+      false
+    ],
+    "revoked_count": 1,
+    "active_redis_count": 1,
+    "logout_events": 1,
+    "confirmed_web_revocations": 1,
+    "permission_cache_present": true
+  },
+  "recovery_timeline": [
+    {
+      "phase": "replica_b_restore_requested",
+      "at_utc": "2026-11-14T04:57:20.434420+00:00"
+    },
+    {
+      "phase": "replica_b_direct_live_200",
+      "at_utc": "2026-11-14T04:57:26.902450+00:00"
+    },
+    {
+      "phase": "new_authorized_native_socket_ready",
+      "at_utc": "2026-11-14T04:57:51.862462+00:00"
+    }
+  ],
+  "failure": {
+    "type": "WebSocketBadStatusException",
+    "message": "Handshake status 502 Bad Gateway -+-+- {'server': 'nginx', 'date': 'Sat, 14 Nov 2026 04:57:51 GMT', 'content-type': 'text/html', 'content-length': '150', 'connection': 'keep-alive', 'strict-transport-security': 'max-age=31536000'} -+-+- <html>\r\n<head><title>502 Bad Gateway</title></head>\r\n<body>\r\n<center><h1>502 Bad Gateway</h1></center>\r\n<hr><center>nginx</center>\r\n</body>\r\n</html>\r\n"
+  }
+}

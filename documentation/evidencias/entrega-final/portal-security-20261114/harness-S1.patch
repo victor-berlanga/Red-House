@@ -1,0 +1,1021 @@
+--- a/apps/services/tests/test_portal_gateway_tracking.py
++++ b/apps/services/tests/test_portal_gateway_tracking.py
+@@ -84,20 +84,243 @@
+         return subprocess.Popen(args, cwd=ROOT, stdout=output, stderr=subprocess.STDOUT)
+ 
+ 
+-@pytest.mark.skipif(
+-    not NGINX or not os.environ.get("REDHOUSE_BROWSER_TESTS"),
+-    reason="Requiere autorización explícita de Chrome y Nginx real",
+-)
+-def test_portal_gateway_replica_loss_autonomy_and_recovery(
+-    p, tracking, request, tmp_path
++def run_security_flow(
++    scenario,
++    p,
++    web,
++    tracking,
++    points,
++    processes,
++    replica_args,
++    replica_ports,
++    tmp_path,
++    session,
++    report,
++    publish,
++    expect,
++    reply,
++    identity_baseline,
++    web_revocation_baseline,
++    logout_event_baseline,
++    restore_identity,
+ ):
++    """Only real domain calls, process cuts and browser-owned session transitions."""
++    active = {0: processes[0], 1: processes[1]}
++
++    def restart(index):
++        process = start_process(
++            replica_args[index], tmp_path / f"security-restored-{index}.log"
++        )
++        processes.append(process)
++        active[index] = process
++        wait_live(f"http://127.0.0.1:{replica_ports[index]}/health/live", process)
++
++    def stop_all():
++        for index in (0, 1):
++            stop_process(active[index])
++        assert all(active[index].poll() is not None for index in (0, 1))
++        report["all_tracking_replicas_stopped"] = True
++
++    def health():
++        result = {}
++        for index in (0, 1):
++            assert active[index].poll() is None
++            result[str(index)] = {}
++            for endpoint in ("live", "ready"):
++                status = session.get(
++                    f"http://127.0.0.1:{replica_ports[index]}/health/{endpoint}",
++                    timeout=10,
++                ).status_code
++                assert status == 200
++                result[str(index)][endpoint] = status
++        report["final_replicas_health"] = result
++
++    def append_points(count):
++        for _ in range(count):
++            points.append(point(tracking, sequence=len(points) + 1))
++        report.setdefault("acks", []).extend(publish(points[-count:]))
++
++    def prove_session_transition(*, expired=False):
++        from redhouse.security import key, redis_call
++        from src.integration import sessions as portal_sessions
++
++        expected_sessions = 2 if scenario == "logout_disconnected" else 1
++        user_id = p.env.state["accounts"]["transport1"]["id"]
++        with p.owner("identidad_acceso") as conn:
++            rows = [
++                row
++                for row in conn.execute(
++                    "SELECT id,expires_at,revoked_at,expires_at<=now() FROM sessions WHERE user_id=%s",
++                    (user_id,),
++                ).fetchall()
++                if str(row[0]) not in identity_baseline
++            ]
++            assert len(rows) == expected_sessions
++            issued = conn.execute(
++                "SELECT event->>'occurred_at' FROM activity_events "
++                "WHERE event->>'actor_id'=%s AND event->>'action'='LOGIN' "
++                "ORDER BY event->>'occurred_at' DESC LIMIT %s",
++                (user_id, expected_sessions),
++            ).fetchall()
++            logout_events = [
++                row
++                for row in conn.execute(
++                    "SELECT id FROM activity_events WHERE event->>'actor_id'=%s AND event->>'action'='LOGOUT'",
++                    (user_id,),
++                ).fetchall()
++                if str(row[0]) not in logout_event_baseline
++            ]
++        with web.app_context(), portal_sessions.database() as conn:
++            web_revocations = (
++                conn.execute(
++                    "SELECT count(*) FROM web_runtime.session_revocations WHERE confirmed"
++                ).fetchone()[0]
++                - web_revocation_baseline
++            )
++        with p.apps["identidad_acceso"].app_context():
++            active_sessions = [
++                bool(
++                    redis_call(
++                        lambda r, identifier=str(row[0]): r.exists(
++                            key("session:" + identifier)
++                        )
++                    )
++                )
++                for row in rows
++            ]
++            permission_present = bool(
++                redis_call(lambda r: r.exists(key("permissions:" + user_id)))
++            )
++        if expired:
++            assert rows[0][3] and rows[0][2] is None
++            assert not active_sessions[0] and not logout_events and web_revocations == 0
++        else:
++            assert sum(row[2] is not None for row in rows) == 1
++            assert sum(active_sessions) == expected_sessions - 1
++            assert len(logout_events) == 1 and web_revocations == 1
++            p.drain(rounds=8)
++            with p.owner("auditoria") as conn:
++                assert (
++                    conn.execute(
++                        "SELECT count(*) FROM audit_events WHERE id=%s",
++                        (logout_events[0][0],),
++                    ).fetchone()[0]
++                    == 1
++                )
++        # Session identifiers, tokens and cookies are intentionally excluded.
++        report["session_transition"] = {
++            "new_sessions": len(rows),
++            "login_occurred_at": [row[0] for row in issued],
++            "family_expires_at": [row[1].isoformat() for row in rows],
++            "expired_in_sql": [row[3] for row in rows],
++            "revoked_count": sum(row[2] is not None for row in rows),
++            "active_redis_count": sum(active_sessions),
++            "logout_events": len(logout_events),
++            "confirmed_web_revocations": web_revocations,
++            "permission_cache_present": permission_present,
++        }
++        return [str(row[0]) for row in rows]
++
++    expect("initial_publish")
++    append_points(1)
++    reply("initial_publish", eventId=points[0]["event_id"])
++    if scenario == "cursor_resync":
++        expect("cursor_stop")
++        stop_all()
++        reply("cursor_stop")
++        expect("cursor_gap")
++        restart(1)
++        time.sleep(2.1)
++        append_points(3)
++        reply("cursor_gap", eventIds=[value["event_id"] for value in points])
++        expect("cursor_continue")
++        append_points(1)
++        reply("cursor_continue", eventId=points[-1]["event_id"])
++        expect("restore_second")
++        restart(0)
++        health()
++        reply("restore_second")
++    elif scenario == "logout_disconnected":
++        expect("logout_stop")
++        stop_all()
++        reply("logout_stop")
++        expect("verify_logout")
++        prove_session_transition()
++        reply("verify_logout")
++        expect("restore_authorized")
++        restart(1)
++        time.sleep(2.1)
++        append_points(2)
++        reply("restore_authorized", eventIds=[value["event_id"] for value in points])
++        expect("restore_second")
++        restart(0)
++        health()
++        reply("restore_second")
++    elif scenario == "logout_live":
++        expect("verify_logout")
++        prove_session_transition()
++        reply("verify_logout")
++        expect("publish_after_logout")
++        append_points(2)
++        health()
++        reply("publish_after_logout", eventIds=[value["event_id"] for value in points])
++    else:
++        assert scenario == "session_expiry"
++        expect("await_expiry")
++        reply("await_expiry")
++        # Test orchestration only: the actual family lifetime is 90 s, without clock changes.
++        expect("verify_expiry", timeout=150)
++        expired_families = prove_session_transition(expired=True)
++        report["expiry_guards"]["family_expiry_verified"] = True
++        # Device-kind authorization reads its own credential key and SQL device,
++        # user/tenant/assignment state, without the human JWT permission cache.
++        # Still require actual correlated PERSISTED_SQL ACKs before any repair login.
++        append_points(2)
++        report["expiry_guards"]["post_expiry_device_acks_verified"] = True
++        report["post_expiry_acks_before_fixture_restore"] = report["acks"][-2:]
++        health()
++        reply(
++            "verify_expiry",
++            eventIds=[value["event_id"] for value in points],
++            familyExpiresAt=report["session_transition"]["family_expires_at"][0],
++        )
++        expect("restore_fixture_identity")
++        restore_identity(phase="after_expiry_assertions")
++        with p.owner("identidad_acceso") as conn:
++            for identifier in expired_families:
++                assert conn.execute(
++                    "SELECT expires_at<=now() AND revoked_at IS NULL FROM sessions WHERE id=%s",
++                    (identifier,),
++                ).fetchone()[0]
++        with p.apps["identidad_acceso"].app_context():
++            from redhouse.security import key, redis_call
++
++            assert all(
++                not redis_call(
++                    lambda r, identifier=identifier: r.exists(
++                        key("session:" + identifier)
++                    )
++                )
++                for identifier in expired_families
++            )
++        report["expired_family_still_dead_after_fixture_login"] = True
++        report["expiry_guards"]["old_family_rechecked_after_fixture_login"] = True
++        reply("restore_fixture_identity")
++
++
++def run_gateway_scenario(p, tracking, request, tmp_path, scenario):
+     # tracking is prepared before autonomous stops every fixture API listener.
+-    output = Path(os.environ["REDHOUSE_BROWSER_RESULTS"]) / "portal-gateway"
++    output = Path(os.environ["REDHOUSE_BROWSER_RESULTS"]) / (
++        "portal-gateway"
++        if scenario == "replica_recovery"
++        else "portal-gateway-" + scenario
++    )
+     output.mkdir(parents=True, exist_ok=False)
+     sources = source_manifest()
+     write_json(output / "sources-before.json", sources)
+     report = {
+-        "case": "I06-07",
++        "case": "I06-07" if scenario == "replica_recovery" else "I06-08",
++        "scenario": scenario,
+         "passed": False,
+         "checks": [],
+         "scope": "Laboratorio local aislado; datos y ubicaciones sintéticos",
+@@ -111,9 +334,18 @@
+             "Listeners loopback y puertos efímeros; WSGI de prueba con TrustedProxy real",
+         ],
+     }
++    if scenario == "session_expiry":
++        report["expiry_guards"] = {
++            "family_expiry_verified": False,
++            "post_expiry_device_acks_verified": False,
++            "old_family_rechecked_after_fixture_login": False,
++        }
+     processes = []
+     browser = None
+     server = None
++    short_identity = None
++    identity_ttl_original = {}
++    identity_restored = False
+     session = requests.Session()
+     session.trust_env = False
+     secrets_to_hide = [p.env.state["password"], tracking["credential"]["credential"]]
+@@ -131,6 +363,32 @@
+         )
+         value = re.sub(r"(https?://[^\s?]+)\?[^\s]+", r"\1?[REDACTED]", value)
+         return value[:1500]
++
++    def restore_identity(*, phase):
++        nonlocal identity_restored
++        if short_identity is None or identity_restored:
++            return
++        short_identity.config.update(identity_ttl_original)
++        restored_auth = p.ok(
++            "identidad_acceso",
++            "POST",
++            "/api/v1/auth/login",
++            user=None,
++            data={"username": "transport1", "password": p.env.state["password"]},
++        )
++        p.tokens["transport1"] = restored_auth["access_token"]
++        secrets_to_hide.extend(
++            (restored_auth["access_token"], restored_auth["refresh_token"])
++        )
++        identity_restored = True
++        report["fixture_identity_configuration_restored"] = True
++        report["fixture_identity_restore"] = {
++            "method": "actual_identity_login_fixture_restore",
++            "phase": phase,
++            "guards_at_login": dict(report.get("expiry_guards", {})),
++            "access_ttl": identity_ttl_original["ACCESS_TTL"],
++            "refresh_ttl": identity_ttl_original["REFRESH_TTL"],
++        }
+ 
+     try:
+         donor = p.ok(
+@@ -173,6 +431,22 @@
+         web.config.update(
+             PRODUCTION=True, SESSION_COOKIE_SECURE=True, HIGHCHARTS_ENABLED=False
+         )
++        if scenario == "session_expiry":
++            # Actual Identity issuance and expiry; never mutate tokens, Redis TTLs or clocks.
++            short_identity = web.extensions["application_kernel"].apps[
++                "identidad_acceso"
++            ]
++            identity_ttl_original = {
++                name: short_identity.config[name]
++                for name in ("ACCESS_TTL", "REFRESH_TTL")
++            }
++            short_identity.config.update(ACCESS_TTL=330, REFRESH_TTL=90)
++            report["laboratory_ttl_seconds"] = {"access": 330, "refresh_session": 90}
++        if scenario == "cursor_resync":
++            report["replay_window"] = 2
++            report["limits"].append(
++                "Replay window 2 only in laboratory replicas; observer network offline is emulated"
++            )
+         server = make_server(
+             "127.0.0.1",
+             0,
+@@ -229,6 +503,8 @@
+                 TRUSTED_PROXY_HOST="",
+                 TRACKING_ALLOWED_ORIGINS=[origin],
+             )
++            if scenario == "cursor_resync":
++                replica_config["TRACKING_REPLAY_WINDOW"] = 2
+             config_path = tmp_path / f"transporte-{index}.json"
+             write_json(config_path, replica_config)
+             config_path.chmod(0o600)
+@@ -347,17 +623,45 @@
+             browser.stdin.write(json.dumps({"action": action, **values}) + "\n")
+             browser.stdin.flush()
+ 
+-        def expect(action):
++        def expect(action, timeout=90):
+             try:
+-                message = messages.get(timeout=90)
++                message = messages.get(timeout=timeout)
+             except queue.Empty:
+                 pytest.fail("Timeout de coordinación del navegador")
+             assert message.get("action") == action, "Fase inesperada: " + sanitized(
+                 message.get("action")
+             )
+ 
++        identity_baseline, logout_event_baseline, web_revocation_baseline = (
++            set(),
++            set(),
++            0,
++        )
++        if scenario != "replica_recovery":
++            with p.owner("identidad_acceso") as conn:
++                identity_baseline = {
++                    str(row[0])
++                    for row in conn.execute(
++                        "SELECT id FROM sessions WHERE user_id=%s",
++                        (p.env.state["accounts"]["transport1"]["id"],),
++                    ).fetchall()
++                }
++                logout_event_baseline = {
++                    str(row[0])
++                    for row in conn.execute(
++                        "SELECT id FROM activity_events WHERE event->>'actor_id'=%s AND event->>'action'='LOGOUT'",
++                        (p.env.state["accounts"]["transport1"]["id"],),
++                    ).fetchall()
++                }
++            from src.integration import sessions as portal_sessions
++
++            with web.app_context(), portal_sessions.database() as conn:
++                web_revocation_baseline = conn.execute(
++                    "SELECT count(*) FROM web_runtime.session_revocations WHERE confirmed"
++                ).fetchone()[0]
+         reply(
+             "configure",
++            scenario=scenario,
+             base=origin,
+             password=p.env.state["password"],
+             shipment=tracking["shipment"]["id"],
+@@ -366,103 +670,135 @@
+             output=str(output),
+             profiles=str(tmp_path / "chrome-profiles"),
+         )
+-        expect("initial_publish")
+-        points.append(point(tracking, sequence=1))
+-        report["initial_ack"] = publish([points[0]])
+-        reply("initial_publish", eventId=points[0]["event_id"])
+-        expect("stop_one")
+-        stop_process(processes[0])
+-        report["checks"].append("Réplica A detenida; B conserva proceso vivo")
+-        reply("stop_one")
+-        expect("single_publish")
+-        points.append(point(tracking, sequence=2))
+-        report["single_replica_ack"] = publish([points[1]])
+-        reply("single_publish", eventId=points[1]["event_id"])
+-        expect("stop_all")
+-        stop_process(processes[1])
+-        assert processes[0].poll() is not None and processes[1].poll() is not None
+-        failed_upgrade = session.get(
+-            origin + "/services/transporte/ws/v1/tracking/json",
+-            headers={
+-                "Connection": "Upgrade",
+-                "Upgrade": "websocket",
+-                "Sec-WebSocket-Version": "13",
+-                "Sec-WebSocket-Key": "dGhlIHNhbXBsZSBub25jZQ==",
+-            },
+-            verify=str(cert_path),
+-            timeout=10,
+-        )
+-        assert failed_upgrade.status_code == 502
+-        report["all_down_gateway_status"] = failed_upgrade.status_code
+-        with pytest.raises((OSError, websocket.WebSocketException)):
+-            connect(target, p.tokens["transport1"])
+-        reply("stop_all")
+-        expect("verify_mutation")
+-        # The browser submits the real CSRF-protected cancellation while all APIs are off.
+-        assert all(process.poll() is not None for process in processes[:2])
+-        assert all(server.socket.fileno() == -1 for server in p.servers.values())
+-        with p.owner("donantes") as conn:
+-            status = conn.execute(
+-                "SELECT status FROM appointments WHERE id=%s", (appointment["id"],)
+-            ).fetchone()[0]
+-            assert status == "CANCELLED"
+-            events = conn.execute(
+-                "SELECT id,event->>'actor_id' FROM activity_events WHERE event->>'resource_id'=%s "
+-                "AND event->>'action'='APPOINTMENT_CANCELLED'",
+-                (appointment["id"],),
+-            ).fetchall()
+-            assert len(events) == 1
+-            assert events[0][1] == p.env.state["accounts"]["donor1"]["id"]
+-        p.drain(rounds=8)
+-        with p.owner("auditoria") as conn:
+-            assert (
+-                conn.execute(
+-                    "SELECT count(*) FROM audit_events WHERE id=%s", (events[0][0],)
++        if scenario == "replica_recovery":
++            expect("initial_publish")
++            points.append(point(tracking, sequence=1))
++            report["initial_ack"] = publish([points[0]])
++            reply("initial_publish", eventId=points[0]["event_id"])
++            expect("stop_one")
++            stop_process(processes[0])
++            report["checks"].append("Réplica A detenida; B conserva proceso vivo")
++            reply("stop_one")
++            expect("single_publish")
++            points.append(point(tracking, sequence=2))
++            report["single_replica_ack"] = publish([points[1]])
++            reply("single_publish", eventId=points[1]["event_id"])
++            expect("stop_all")
++            stop_process(processes[1])
++            assert processes[0].poll() is not None and processes[1].poll() is not None
++            failed_upgrade = session.get(
++                origin + "/services/transporte/ws/v1/tracking/json",
++                headers={
++                    "Connection": "Upgrade",
++                    "Upgrade": "websocket",
++                    "Sec-WebSocket-Version": "13",
++                    "Sec-WebSocket-Key": "dGhlIHNhbXBsZSBub25jZQ==",
++                },
++                verify=str(cert_path),
++                timeout=10,
++            )
++            assert failed_upgrade.status_code == 502
++            report["all_down_gateway_status"] = failed_upgrade.status_code
++            with pytest.raises((OSError, websocket.WebSocketException)):
++                connect(target, p.tokens["transport1"])
++            reply("stop_all")
++            expect("verify_mutation")
++            # The browser submits the real CSRF-protected cancellation while all APIs are off.
++            assert all(process.poll() is not None for process in processes[:2])
++            assert all(server.socket.fileno() == -1 for server in p.servers.values())
++            with p.owner("donantes") as conn:
++                status = conn.execute(
++                    "SELECT status FROM appointments WHERE id=%s", (appointment["id"],)
+                 ).fetchone()[0]
+-                == 1
+-            )
+-        report["autonomy"] = {
+-            "appointment_id": appointment["id"],
+-            "status": status,
+-            "activity_event_id": str(events[0][0]),
+-            "audit_count": 1,
+-            "all_fixture_api_listeners_closed": True,
+-            "direct_tracking_fixture_listener_closed": True,
+-        }
+-        reply("verify_mutation")
+-        expect("restore")
+-        restored = start_process(replica_args[1], tmp_path / "transporte-restored.log")
+-        processes.append(restored)
+-        wait_live(f"http://127.0.0.1:{replica_ports[1]}/health/live", restored)
+-        time.sleep(2.1)  # Existing generated fail_timeout=2s, not an altered policy.
+-        points.append(point(tracking, sequence=3))
+-        report["recovery_acks"] = publish([points[0], points[1], points[2], points[2]])
+-        assert [ack["cursor"] for ack in report["recovery_acks"]] == [1, 2, 3, 3]
+-        reply("restore", eventIds=[value["event_id"] for value in points])
+-        expect("restore_second")
+-        restored_a = start_process(
+-            replica_args[0], tmp_path / "transporte-a-restored.log"
+-        )
+-        processes.append(restored_a)
+-        wait_live(f"http://127.0.0.1:{replica_ports[0]}/health/live", restored_a)
+-        health = {}
+-        for name, port, process in zip(
+-            ("A", "B"), replica_ports, (restored_a, restored), strict=True
+-        ):
+-            assert process.poll() is None
+-            health[name] = {}
+-            for endpoint in ("live", "ready"):
+-                response = session.get(
+-                    f"http://127.0.0.1:{port}/health/{endpoint}", timeout=10
++                assert status == "CANCELLED"
++                events = conn.execute(
++                    "SELECT id,event->>'actor_id' FROM activity_events WHERE event->>'resource_id'=%s "
++                    "AND event->>'action'='APPOINTMENT_CANCELLED'",
++                    (appointment["id"],),
++                ).fetchall()
++                assert len(events) == 1
++                assert events[0][1] == p.env.state["accounts"]["donor1"]["id"]
++            p.drain(rounds=8)
++            with p.owner("auditoria") as conn:
++                assert (
++                    conn.execute(
++                        "SELECT count(*) FROM audit_events WHERE id=%s", (events[0][0],)
++                    ).fetchone()[0]
++                    == 1
+                 )
+-                assert response.status_code == 200
+-                health[name][endpoint] = response.status_code
+-        report["restored_replicas_health"] = health
+-        reply("restore_second")
+-        expect("complete")
+-        assert browser.wait(timeout=20) == 0, (
+-            "Navegador terminó con error; revisar browser.json sanitizado"
+-        )
++            report["autonomy"] = {
++                "appointment_id": appointment["id"],
++                "status": status,
++                "activity_event_id": str(events[0][0]),
++                "audit_count": 1,
++                "all_fixture_api_listeners_closed": True,
++                "direct_tracking_fixture_listener_closed": True,
++            }
++            reply("verify_mutation")
++            expect("restore")
++            restored = start_process(
++                replica_args[1], tmp_path / "transporte-restored.log"
++            )
++            processes.append(restored)
++            wait_live(f"http://127.0.0.1:{replica_ports[1]}/health/live", restored)
++            time.sleep(
++                2.1
++            )  # Existing generated fail_timeout=2s, not an altered policy.
++            points.append(point(tracking, sequence=3))
++            report["recovery_acks"] = publish(
++                [points[0], points[1], points[2], points[2]]
++            )
++            assert [ack["cursor"] for ack in report["recovery_acks"]] == [1, 2, 3, 3]
++            reply("restore", eventIds=[value["event_id"] for value in points])
++            expect("restore_second")
++            restored_a = start_process(
++                replica_args[0], tmp_path / "transporte-a-restored.log"
++            )
++            processes.append(restored_a)
++            wait_live(f"http://127.0.0.1:{replica_ports[0]}/health/live", restored_a)
++            health = {}
++            for name, port, process in zip(
++                ("A", "B"), replica_ports, (restored_a, restored), strict=True
++            ):
++                assert process.poll() is None
++                health[name] = {}
++                for endpoint in ("live", "ready"):
++                    response = session.get(
++                        f"http://127.0.0.1:{port}/health/{endpoint}", timeout=10
++                    )
++                    assert response.status_code == 200
++                    health[name][endpoint] = response.status_code
++            report["restored_replicas_health"] = health
++            reply("restore_second")
++            expect("complete")
++            assert browser.wait(timeout=20) == 0, (
++                "Navegador terminó con error; revisar browser.json sanitizado"
++            )
++        else:
++            run_security_flow(
++                scenario,
++                p,
++                web,
++                tracking,
++                points,
++                processes,
++                replica_args,
++                replica_ports,
++                tmp_path,
++                session,
++                report,
++                publish,
++                expect,
++                reply,
++                identity_baseline,
++                web_revocation_baseline,
++                logout_event_baseline,
++                restore_identity,
++            )
++            expect("complete")
++            assert browser.wait(timeout=20) == 0, (
++                "Navegador terminó con error; revisar browser.json sanitizado"
++            )
+         with p.owner("transporte") as conn:
+             rows = conn.execute(
+                 "SELECT id,cursor FROM tracking_points WHERE shipment_id=%s ORDER BY cursor",
+@@ -475,7 +811,7 @@
+             {"event_id": str(row[0]), "cursor": row[1]} for row in rows
+         ]
+         report["checks"].append(
+-            "Tres puntos SQL únicos; replay de mismos IDs conserva cursores 1,2,3"
++            f"{len(points)} puntos SQL únicos con sus IDs y cursores esperados"
+         )
+         p.drain(rounds=8)
+         with p.owner("transporte") as conn:
+@@ -512,7 +848,7 @@
+             "pending_outbox_positions": pending_positions,
+         }
+         report["checks"].append(
+-            "Ambas réplicas restauradas y live/ready 200; SQL y Mongo conservan los tres IDs/cursores"
++            "SQL y Mongo conservan los mismos IDs/cursores; salud de réplicas comprobada por escenario"
+         )
+         assert source_manifest() == sources, "Cambió una fuente durante el ensayo"
+         report["passed"] = True
+@@ -520,6 +856,8 @@
+         report["failure"] = {"type": type(error).__name__, "message": sanitized(error)}
+         raise
+     finally:
++        failed_before_cleanup = sys.exc_info()[0] is not None
++        restore_failure = None
+         if browser is not None:
+             stop_process(browser)
+             if browser.stdin is not None:
+@@ -532,5 +870,49 @@
+         if server is not None:
+             server.shutdown()
+             server.server_close()
++        if short_identity is not None and not identity_restored:
++            # A session-scoped fixture must not retain the shortened permission-cache
++            # lifetime. Restore by an actual login under its original configuration,
++            # never by editing JWTs or Redis TTLs. Preserve the actual proof flags,
++            # including early failures before family expiry or later publication.
++            try:
++                restore_identity(
++                    phase="failure_cleanup"
++                    if failed_before_cleanup
++                    else "normal_cleanup"
++                )
++            except Exception as error:  # noqa: BLE001 - record cleanup failure without masking the original failure
++                restore_failure = type(error).__name__
++                report["passed"] = False
++                report["fixture_restore_failure"] = restore_failure
+         write_json(output / "sources-after.json", source_manifest())
+         write_json(output / "runtime.json", report)
++        if restore_failure is not None and not failed_before_cleanup:
++            pytest.fail("No se pudo restaurar la sesión técnica de la fixture")
++
++
++@pytest.mark.skipif(
++    not NGINX or not os.environ.get("REDHOUSE_BROWSER_TESTS"),
++    reason="Requiere autorización explícita de Chrome y Nginx real",
++)
++def test_portal_gateway_replica_loss_autonomy_and_recovery(
++    p, tracking, request, tmp_path
++):
++    run_gateway_scenario(p, tracking, request, tmp_path, "replica_recovery")
++
++
++@pytest.mark.skipif(
++    not NGINX or not os.environ.get("REDHOUSE_BROWSER_TESTS"),
++    reason="Requiere autorización explícita de Chrome y Nginx real",
++)
++@pytest.mark.parametrize(
++    "scenario",
++    [
++        "cursor_resync",
++        "logout_disconnected",
++        "logout_live",
++        "session_expiry",
++    ],
++)
++def test_portal_gateway_security_states(p, tracking, request, tmp_path, scenario):
++    run_gateway_scenario(p, tracking, request, tmp_path, scenario)
+--- a/scripts/verify_portal_gateway_tracking.cjs
++++ b/scripts/verify_portal_gateway_tracking.cjs
+@@ -32,10 +32,12 @@
+ (async () => {
+   const input = await next();
+   assert.equal(input.action, 'configure');
++  input.scenario ||= 'replica_recovery';
++  assert.ok(['replica_recovery', 'cursor_resync', 'logout_disconnected', 'logout_live', 'session_expiry'].includes(input.scenario));
+   assert.match(input.spki, /^[A-Za-z0-9+/]{43}=$/);
+   const output = input.output;
+   const result = {
+-    passed: false, checks: [], states: [], sockets: [], pageErrors: [],
++    passed: false, scenario: input.scenario, checks: [], states: [], sockets: [], pageErrors: [], authResponses: [],
+     tls: 'Chrome SPKI exception restricted to the ephemeral test certificate; no OS CA acceptance',
+     cartography: 'OSM tiles blocked to avoid bulk consumption; cartography is not accepted by this case',
+   };
+@@ -43,6 +45,18 @@
+   const pages = [];
+   let stage = 'launch';
+   const expectedSocket = input.base.replace('https:', 'wss:') + '/services/transporte/ws/v1/tracking/json';
++  const subscriptions = new WeakMap(), upgrades = [], authReads = [];
++  const mapUrl = input.base + '/traslados/' + input.shipment + '/mapa';
++  let terminating = false;
++  process.once('SIGTERM', async () => {
++    if (terminating) return;
++    terminating = true;
++    result.passed = false;
++    result.failure = {stage, type: 'ParentTermination', category: 'orchestration'};
++    await Promise.allSettled(contexts.map(value => value.close()));
++    fs.writeFileSync(path.join(output, 'browser.json'), JSON.stringify(result, null, 2) + '\n');
++    process.exit(143);
++  });
+ 
+   async function context(name) {
+     const value = await chromium.launchPersistentContext(path.join(input.profiles, name), {
+@@ -75,6 +89,8 @@
+       rows: Array.from(document.querySelectorAll('#tracking-history tr'), row => row.dataset.eventId),
+       rendered: window.gatewayRendered.slice(),
+       pageInstance: performance.timeOrigin,
++      recovery: document.querySelector('#tracking-recovery').textContent,
++      coordinate: document.querySelector('#tracking-coordinate').textContent,
+     }));
+     result.states.push({phase: name, ...value});
+     assert.equal(value.rows.length, new Set(value.rows).size, 'Duplicate event rows');
+@@ -89,41 +105,259 @@
+     eventId, {timeout: 45000});
+   }
+ 
+-  try {
+-    stage = 'transport-login';
+-    const transport = await login(await context('transport'), 'transport1');
+-    await transport.addInitScript(() => {
++  async function observe(page, profile) {
++    await page.addInitScript(() => {
+       window.gatewayRendered = [];
+       document.addEventListener('redhouse:position-rendered', event => {
+         window.gatewayRendered.push({event_id: event.detail.event_id, cursor: event.detail.cursor,
+-          rendered_at: event.detail.rendered_at});
++          received_at: event.detail.received_at, rendered_at: event.detail.rendered_at,
++          receive_to_map_ms: event.detail.receive_to_map_ms});
+       }, true);
+     });
+-    const subscriptions = new WeakMap();
+-    transport.on('websocket', socket => {
++    page.on('websocket', socket => {
+       // Install synchronously at creation, before awaiting any browser action.
+       // Preserve the result so a fast subscribed frame cannot race its consumer.
+       subscriptions.set(socket, socket.waitForEvent('framereceived', {
+         predicate: frame => { try { return JSON.parse(String(frame.payload)).type === 'subscribed'; } catch { return false; } },
+         timeout: 45000,
+       }).then(() => true, () => false));
+-      const observed = {url: socket.url().split('?')[0], events: [], closed: false};
++      const observed = {profile, url: socket.url().split('?')[0], events: [], closed: false};
+       result.sockets.push(observed);
+       socket.on('framereceived', frame => {
+         try {
+           const value = JSON.parse(String(frame.payload));
+           observed.events.push({type: value.type, event_id: value.position?.event_id,
+-            cursor: value.cursor});
++            cursor: value.cursor, code: value.code});
+         } catch { observed.events.push({type: 'non-json'}); }
+       });
+       socket.on('close', () => { observed.closed = true; });
+     });
+-    const cdp = await transport.context().newCDPSession(transport);
+-    const upgrades = [];
++    const cdp = await page.context().newCDPSession(page);
+     await cdp.send('Network.enable');
+     cdp.on('Network.webSocketHandshakeResponseReceived', event => {
+       upgrades.push({status: event.response.status});
+     });
++    page.on('response', response => {
++      const target = new URL(response.url());
++      const route = target.pathname.endsWith('/mapa/acceso') ? '/traslados/:id/mapa/acceso' : target.pathname;
++      if (!['/sesion/estado', '/sesion/continuar', '/logout', '/traslados/:id/mapa/acceso'].includes(route)) return;
++      const value = {profile, route, method: response.request().method(), status: response.status(), observed_at: Date.now()};
++      result.authResponses.push(value);
++      if (response.status() === 200 && ['/sesion/estado', '/sesion/continuar'].includes(route)) {
++        authReads.push(response.json().then(data => {
++          if (Number.isFinite(data.expires_at)) value.expires_at = data.expires_at;
++          if (Number.isFinite(data.server_time)) value.server_time = data.server_time;
++        }).catch(() => {}));
++      }
++    });
++  }
++
++  async function privacyEnded(page, name, timeout = 45000) {
++    await page.waitForURL(target => target.origin === new URL(input.base).origin && target.pathname === '/login', {timeout});
++    assert.equal(await page.locator('#tracking').count(), 0);
++    assert.equal(await page.locator('#tracking-history tr').count(), 0);
++    assert.equal(await page.locator('#tracking-map').count(), 0);
++    await page.screenshot({path: path.join(output, name + '.png'), fullPage: true});
++    result.checks.push(name + ': login visible; private tracking document removed');
++  }
++
++  async function realLogout(page) {
++    stage = 'security-logout-form';
++    const logoutTab = await page.context().newPage();
++    pages.push(logoutTab);
++    logoutTab.on('pageerror', error => result.pageErrors.push({name: error.name, stage}));
++    await observe(logoutTab, 'logout-tab');
++    assert.equal((await logoutTab.goto(input.base + '/panel')).status(), 200);
++    const post = logoutTab.waitForResponse(response => {
++      const target = new URL(response.url());
++      return target.origin === new URL(input.base).origin && target.pathname === '/logout' && response.request().method() === 'POST';
++    });
++    await logoutTab.locator('form[action="/logout"]').first().locator('button').click();
++    assert.equal((await post).status(), 302);
++    await privacyEnded(page, 'security-private-data-cleared');
++    await privacyEnded(logoutTab, 'security-logout-result');
++  }
++
++  function noLateFrames(eventIds) {
++    const late = new Set(eventIds);
++    assert.ok(result.sockets.filter(socket => socket.profile === 'transport')
++      .every(socket => socket.events.every(event => !late.has(event.event_id))), 'Ended session received later positions');
++  }
++
++  async function securityScenario(transport, documentInstance) {
++    stage = 'security-first-point';
++    // Own synthetic cookies stay only in this process memory for an expired-cookie
++    // replay probe. Never send them through protocol, errors or persisted results.
++    const expiryCookies = input.scenario === 'session_expiry' ? await transport.context().cookies(input.base) : [];
++    const first = await exchange('initial_publish');
++    await rendered(transport, first.eventId);
++    const before = await state(transport, 'security-01-live');
++    assert.deepEqual(before.rows, [first.eventId]);
++    if (input.scenario === 'cursor_resync') {
++      stage = 'security-cursor-offline';
++      result.networkFault = 'Playwright context.setOffline on observer profile only, plus real Transporte process cut; no WSS substitution';
++      await transport.context().setOffline(true);
++      await exchange('cursor_stop');
++      await transport.waitForFunction(() => document.querySelector('#tracking-status').textContent.includes('Desconectado'));
++      await state(transport, 'security-02-offline-retained');
++      const gap = await exchange('cursor_gap');
++      await transport.context().setOffline(false);
++      await transport.waitForFunction(() => document.querySelector('#tracking-recovery').textContent.includes('cursor salió'), null, {timeout: 45000});
++      await rendered(transport, gap.eventIds.at(-1));
++      const recovered = await state(transport, 'security-03-resync-explicit-gap');
++      assert.equal(recovered.pageInstance, documentInstance);
++      assert.deepEqual(recovered.rows, [gap.eventIds.at(-1)]);
++      assert.ok(result.sockets.some(socket => socket.events.some(event => event.type === 'resync.required')));
++      result.omittedHistoryIds = gap.eventIds.slice(0, -1);
++      stage = 'security-cursor-live-after-resync';
++      const nextPoint = await exchange('cursor_continue');
++      await rendered(transport, nextPoint.eventId);
++      const continued = await state(transport, 'security-04-live-after-gap');
++      assert.deepEqual(continued.rows, [gap.eventIds.at(-1), nextPoint.eventId]);
++      assert.equal(continued.pageInstance, documentInstance);
++      await exchange('restore_second');
++      const both = await state(transport, 'security-05-both-restored');
++      assert.deepEqual(both.rows, continued.rows);
++      assert.equal(both.pageInstance, documentInstance);
++      result.checks.push('Old real cursor rejected with resync.required; fresh authorized snapshot and explicit gap; no fabricated historical rows');
++    } else if (input.scenario === 'logout_disconnected') {
++      stage = 'security-authorized-comparison';
++      const allowed = await login(await context('allowed'), 'transport1');
++      await observe(allowed, 'allowed');
++      assert.equal((await allowed.goto(mapUrl)).status(), 200);
++      await rendered(allowed, first.eventId);
++      const allowedBefore = await state(allowed, 'security-02-other-session-live');
++      await exchange('logout_stop');
++      for (const page of [transport, allowed]) {
++        await page.waitForFunction(() => document.querySelector('#tracking-status').textContent.includes('Desconectado'));
++      }
++      await state(transport, 'security-03-disconnected-before-logout');
++      await realLogout(transport); // Portal network remains online throughout the WSS cut.
++      await exchange('verify_logout');
++      stage = 'security-authorized-recovery';
++      const recovery = await exchange('restore_authorized');
++      await rendered(allowed, recovery.eventIds.at(-1));
++      const allowedAfter = await state(allowed, 'security-04-other-session-recovered');
++      assert.equal(allowedAfter.pageInstance, allowedBefore.pageInstance);
++      assert.deepEqual(new Set(allowedAfter.rows), new Set(recovery.eventIds));
++      noLateFrames(recovery.eventIds.slice(1));
++      await privacyEnded(transport, 'security-05-revoked-stays-private');
++      await exchange('restore_second');
++      const both = await state(allowed, 'security-06-authorized-both-restored');
++      assert.equal(both.pageInstance, allowedBefore.pageInstance);
++      result.checks.push('Logout during total WSS outage revokes only its real browser session; independent authorized session recovers');
++    } else if (input.scenario === 'logout_live') {
++      await realLogout(transport);
++      await exchange('verify_logout');
++      const later = await exchange('publish_after_logout');
++      noLateFrames(later.eventIds.slice(1));
++      await privacyEnded(transport, 'security-02-live-logout-denied');
++      await transport.goto(mapUrl);
++      await privacyEnded(transport, 'security-03-protected-map-stays-denied');
++      result.checks.push('Logout with live native WSS clears private document and denies protected map after real server revocation');
++    } else {
++      assert.equal(input.scenario, 'session_expiry');
++      stage = 'security-natural-expiry';
++      await exchange('await_expiry');
++      // Laboratory inversion: 330 s access / 90 s fixed family. The unmodified
++      // 300 s warning window naturally renews about every 30 s, not every second.
++      await privacyEnded(transport, 'security-02-natural-session-expiry', 150000);
++      await Promise.allSettled(authReads);
++      const initialDeadline = result.authResponses.find(value => value.profile === 'transport' && value.route === '/sesion/estado' && value.status === 200 && Number.isFinite(value.expires_at));
++      assert.ok(initialDeadline, 'Missing real initial expiry response');
++      const renewal = result.authResponses.find(value => value.profile === 'transport' && value.route === '/sesion/continuar' && value.status === 200 && value.expires_at > initialDeadline.expires_at);
++      assert.ok(renewal, 'No successful renewal with advanced access expiry was observed');
++      const closeIndex = result.authResponses.findIndex(value => value.profile === 'transport' && value.status === 401);
++      assert.ok(closeIndex >= 0, 'No actual 401 session closure was observed');
++      const closing = result.authResponses[closeIndex];
++      const beforeClosing = result.authResponses.slice(0, closeIndex).filter(value => value.profile === 'transport');
++      const unexpected = beforeClosing.filter(value => value.status !== 200 &&
++        !(value.status === 302 && value.route === '/traslados/:id/mapa/acceso'));
++      assert.deepEqual(unexpected, [], 'Unexpected auth HTTP status before natural closure');
++      assert.ok(beforeClosing.every(value => ![429, 503].includes(value.status)));
++      assert.ok(initialDeadline.expires_at > closing.observed_at / 1000, 'Access deadline elapsed before the tested family closure');
++      result.expiry = {initial_access_expires_at: initialDeadline.expires_at,
++        renewed_access_expires_at: renewal.expires_at, renewal_server_time: renewal.server_time,
++        first_401_observed_at: closing.observed_at,
++        scope: 'Natural Redis/refresh-family expiry while announced access expiry is still in the future; not access-JWT expiry',
++        unexpected_preclosure_auth_statuses: unexpected};
++      const later = await exchange('verify_expiry');
++      const familyExpiry = Date.parse(later.familyExpiresAt);
++      assert.ok(Number.isFinite(familyExpiry));
++      result.expiry.temporal_boundary = {
++        sql_family_expires_at: later.familyExpiresAt,
++        sql_family_expires_at_parsed_ms: familyExpiry,
++        first_401_observed_at_ms: closing.observed_at,
++        first_401_minus_sql_expiry_ms: closing.observed_at - familyExpiry,
++        precision: 'SQL ISO keeps microseconds; Date.parse and Date.now compare milliseconds; Identity refresh expiry arithmetic uses integer seconds',
++        limit: 'Strict observed401 >= parsed SQL expiry, without tolerance; a subsecond boundary discrepancy must be diagnosed separately, not hidden',
++      };
++      assert.ok(closing.observed_at >= familyExpiry, '401 closure preceded SQL family expiry');
++      assert.ok(beforeClosing.filter(value => value.status === 302).every(value => value.observed_at >= familyExpiry));
++      noLateFrames(later.eventIds.slice(1));
++      // Python has already proved SQL/Redis family death and persisted both later
++      // device points before restoring fixture configuration through a real login.
++      await exchange('restore_fixture_identity');
++      stage = 'security-expired-cookie-replay';
++      const socketsBeforeReplay = result.sockets.length;
++      const framesBeforeReplay = result.sockets.map(socket => socket.events.length);
++      await transport.context().addCookies(expiryCookies);
++      expiryCookies.length = 0;
++      const protectedTarget = new URL(mapUrl);
++      const initialResponse = transport.waitForResponse(response => {
++        const target = new URL(response.url());
++        return target.origin === protectedTarget.origin && target.pathname === protectedTarget.pathname &&
++          response.request().method() === 'GET' && response.request().isNavigationRequest() &&
++          response.request().frame() === transport.mainFrame();
++      });
++      const [initialProtected, replay] = await Promise.all([initialResponse, transport.goto(mapUrl)]);
++      result.expiry.expired_cookie_replay_initial_status = initialProtected.status();
++      // identify() returns Flask's actual default302 to public.login on failed auth.
++      // A private200 followed by client-side redirect must fail this assertion.
++      assert.equal(initialProtected.status(), 302, 'Protected map did not deny the initial expired-cookie GET');
++      const location = await initialProtected.headerValue('location');
++      assert.equal(typeof location, 'string');
++      const deniedTarget = new URL(location, mapUrl);
++      assert.equal(deniedTarget.origin, new URL(input.base).origin);
++      assert.equal(deniedTarget.pathname, '/login');
++      await privacyEnded(transport, 'security-03-expired-protected-map-denied');
++      noLateFrames(later.eventIds.slice(1));
++      assert.equal(result.sockets.length, socketsBeforeReplay, 'Expired-cookie replay opened a new tracking WebSocket');
++      assert.ok(result.sockets.every((socket, index) => socket.events.length === framesBeforeReplay[index]), 'Tracking frames arrived after expired-cookie replay');
++      result.expiry.expired_cookie_replay_result_status = replay.status();
++      result.expiry.expired_cookie_replay_redirect_path = deniedTarget.pathname;
++      result.expiry.expired_cookie_replay_private_data_absent = true;
++      result.expiry.expired_cookie_replay_new_tracking_sockets = result.sockets.length - socketsBeforeReplay;
++      result.expiry.expired_cookie_replay_new_tracking_frames = 0;
++      result.expiry.expired_cookie_replay_denied_after_fixture_login = true;
++      result.checks.push('Real renewal before fixed family expiry, without access expiry; later device ACKs persisted before fixture login; expired cookie replay remains denied');
++    }
++    assert.ok(result.sockets.every(socket => socket.url === expectedSocket));
++    assert.ok(upgrades.some(value => value.status === 101));
++    assert.deepEqual(result.pageErrors, []);
++    const timings = new Map();
++    for (const snapshot of result.states) {
++      for (const event of snapshot.rendered) {
++        assert.ok(Number.isFinite(event.receive_to_map_ms));
++        assert.ok(Number.isFinite(Date.parse(event.received_at)));
++        timings.set(event.event_id + ':' + event.rendered_at, event);
++      }
++    }
++    assert.ok(timings.size >= 1);
++    result.backendReceiveToMap = {
++      observations: [...timings.values()],
++      limit: 'Server receive to actual render; replay includes intentional offline/outage delay; no physical capture latency or SLA claim',
++    };
++    await Promise.allSettled(authReads);
++    result.upgrades = upgrades;
++    result.passed = true;
++    process.stdout.write(JSON.stringify({action: 'complete'}) + '\n');
++  }
++
++  try {
++    stage = 'transport-login';
++    const transport = await login(await context('transport'), 'transport1');
++    await observe(transport, 'transport');
+     stage = 'map-open';
+     assert.equal((await transport.goto(input.base + '/traslados/' + input.shipment + '/mapa')).status(), 200);
+     await transport.waitForFunction(() => document.querySelector('#tracking-status').textContent.includes('Sin señal'), null, {timeout: 30000});
+@@ -131,6 +365,11 @@
+     assert.ok(result.sockets.every(socket => socket.url === expectedSocket));
+     const initial = await state(transport, '01-map-open');
+     const documentInstance = initial.pageInstance;
++
++    if (input.scenario !== 'replica_recovery') {
++      await securityScenario(transport, documentInstance);
++      return;
++    }
+ 
+     stage = 'initial-point';
+     const first = await exchange('initial_publish');

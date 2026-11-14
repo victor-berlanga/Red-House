@@ -1,0 +1,277 @@
+{
+  "passed": true,
+  "scenario": "cursor_resync",
+  "checks": [
+    "Old real cursor rejected with resync.required; fresh authorized snapshot and explicit gap; no fabricated historical rows"
+  ],
+  "states": [
+    {
+      "phase": "01-map-open",
+      "status": "Sin señal · sin datos",
+      "lastEventId": "",
+      "rows": [],
+      "rendered": [],
+      "pageInstance": 1794630659115.1,
+      "recovery": "",
+      "coordinate": "Sin datos"
+    },
+    {
+      "phase": "security-01-live",
+      "status": "En vivo · SIMULADO",
+      "lastEventId": "897c8a41-83dd-4091-8ac2-7fb16bed45b2",
+      "rows": [
+        "897c8a41-83dd-4091-8ac2-7fb16bed45b2"
+      ],
+      "rendered": [
+        {
+          "event_id": "897c8a41-83dd-4091-8ac2-7fb16bed45b2",
+          "cursor": 1,
+          "received_at": "2026-11-14T04:31:02.476957+00:00",
+          "rendered_at": "2026-11-14T04:31:03.055Z",
+          "receive_to_map_ms": 582
+        }
+      ],
+      "pageInstance": 1794630659115.1,
+      "recovery": "",
+      "coordinate": "25.6866, -100.3161"
+    },
+    {
+      "phase": "security-02-offline-retained",
+      "status": "Desconectado · último dato conservado · SIMULADO",
+      "lastEventId": "897c8a41-83dd-4091-8ac2-7fb16bed45b2",
+      "rows": [
+        "897c8a41-83dd-4091-8ac2-7fb16bed45b2"
+      ],
+      "rendered": [
+        {
+          "event_id": "897c8a41-83dd-4091-8ac2-7fb16bed45b2",
+          "cursor": 1,
+          "received_at": "2026-11-14T04:31:02.476957+00:00",
+          "rendered_at": "2026-11-14T04:31:03.055Z",
+          "receive_to_map_ms": 582
+        }
+      ],
+      "pageInstance": 1794630659115.1,
+      "recovery": "",
+      "coordinate": "25.6866, -100.3161"
+    },
+    {
+      "phase": "security-03-resync-explicit-gap",
+      "status": "En vivo · SIMULADO",
+      "lastEventId": "9c3ab4f8-c6a1-4da0-9a08-cfc91fc0ad20",
+      "rows": [
+        "9c3ab4f8-c6a1-4da0-9a08-cfc91fc0ad20"
+      ],
+      "rendered": [
+        {
+          "event_id": "897c8a41-83dd-4091-8ac2-7fb16bed45b2",
+          "cursor": 1,
+          "received_at": "2026-11-14T04:31:02.476957+00:00",
+          "rendered_at": "2026-11-14T04:31:03.055Z",
+          "receive_to_map_ms": 582
+        },
+        {
+          "event_id": "9c3ab4f8-c6a1-4da0-9a08-cfc91fc0ad20",
+          "cursor": 4,
+          "received_at": "2026-11-14T04:31:13.942959+00:00",
+          "rendered_at": "2026-11-14T04:31:20.272Z",
+          "receive_to_map_ms": 6330
+        }
+      ],
+      "pageInstance": 1794630659115.1,
+      "recovery": "El cursor salió de la ventana de recuperación. Se obtiene una instantánea nueva; no se inventan los puntos ausentes.",
+      "coordinate": "25.6866, -100.3161"
+    },
+    {
+      "phase": "security-04-live-after-gap",
+      "status": "En vivo · SIMULADO",
+      "lastEventId": "a39df8d9-fdc0-49c9-a963-ee47cf9fc9ef",
+      "rows": [
+        "9c3ab4f8-c6a1-4da0-9a08-cfc91fc0ad20",
+        "a39df8d9-fdc0-49c9-a963-ee47cf9fc9ef"
+      ],
+      "rendered": [
+        {
+          "event_id": "897c8a41-83dd-4091-8ac2-7fb16bed45b2",
+          "cursor": 1,
+          "received_at": "2026-11-14T04:31:02.476957+00:00",
+          "rendered_at": "2026-11-14T04:31:03.055Z",
+          "receive_to_map_ms": 582
+        },
+        {
+          "event_id": "9c3ab4f8-c6a1-4da0-9a08-cfc91fc0ad20",
+          "cursor": 4,
+          "received_at": "2026-11-14T04:31:13.942959+00:00",
+          "rendered_at": "2026-11-14T04:31:20.272Z",
+          "receive_to_map_ms": 6330
+        },
+        {
+          "event_id": "a39df8d9-fdc0-49c9-a963-ee47cf9fc9ef",
+          "cursor": 5,
+          "received_at": "2026-11-14T04:31:21.316822+00:00",
+          "rendered_at": "2026-11-14T04:31:21.857Z",
+          "receive_to_map_ms": 541
+        }
+      ],
+      "pageInstance": 1794630659115.1,
+      "recovery": "El cursor salió de la ventana de recuperación. Se obtiene una instantánea nueva; no se inventan los puntos ausentes.",
+      "coordinate": "25.6866, -100.3161"
+    },
+    {
+      "phase": "security-05-both-restored",
+      "status": "En vivo · SIMULADO",
+      "lastEventId": "a39df8d9-fdc0-49c9-a963-ee47cf9fc9ef",
+      "rows": [
+        "9c3ab4f8-c6a1-4da0-9a08-cfc91fc0ad20",
+        "a39df8d9-fdc0-49c9-a963-ee47cf9fc9ef"
+      ],
+      "rendered": [
+        {
+          "event_id": "897c8a41-83dd-4091-8ac2-7fb16bed45b2",
+          "cursor": 1,
+          "received_at": "2026-11-14T04:31:02.476957+00:00",
+          "rendered_at": "2026-11-14T04:31:03.055Z",
+          "receive_to_map_ms": 582
+        },
+        {
+          "event_id": "9c3ab4f8-c6a1-4da0-9a08-cfc91fc0ad20",
+          "cursor": 4,
+          "received_at": "2026-11-14T04:31:13.942959+00:00",
+          "rendered_at": "2026-11-14T04:31:20.272Z",
+          "receive_to_map_ms": 6330
+        },
+        {
+          "event_id": "a39df8d9-fdc0-49c9-a963-ee47cf9fc9ef",
+          "cursor": 5,
+          "received_at": "2026-11-14T04:31:21.316822+00:00",
+          "rendered_at": "2026-11-14T04:31:21.857Z",
+          "receive_to_map_ms": 541
+        }
+      ],
+      "pageInstance": 1794630659115.1,
+      "recovery": "El cursor salió de la ventana de recuperación. Se obtiene una instantánea nueva; no se inventan los puntos ausentes.",
+      "coordinate": "25.6866, -100.3161"
+    }
+  ],
+  "sockets": [
+    {
+      "profile": "transport",
+      "url": "wss://127.0.0.1:51752/services/transporte/ws/v1/tracking/json",
+      "events": [
+        {
+          "type": "authenticated"
+        },
+        {
+          "type": "subscribed",
+          "cursor": 0
+        },
+        {
+          "type": "tracking.status",
+          "cursor": 0
+        },
+        {
+          "type": "position.updated",
+          "event_id": "897c8a41-83dd-4091-8ac2-7fb16bed45b2",
+          "cursor": 1
+        }
+      ],
+      "closed": true
+    },
+    {
+      "profile": "transport",
+      "url": "wss://127.0.0.1:51752/services/transporte/ws/v1/tracking/json",
+      "events": [
+        {
+          "type": "authenticated"
+        },
+        {
+          "type": "resync.required",
+          "code": "resync_required"
+        },
+        {
+          "type": "subscribed",
+          "event_id": "9c3ab4f8-c6a1-4da0-9a08-cfc91fc0ad20",
+          "cursor": 4
+        },
+        {
+          "type": "tracking.status",
+          "cursor": 4
+        },
+        {
+          "type": "position.updated",
+          "event_id": "a39df8d9-fdc0-49c9-a963-ee47cf9fc9ef",
+          "cursor": 5
+        }
+      ],
+      "closed": false
+    }
+  ],
+  "pageErrors": [],
+  "authResponses": [
+    {
+      "profile": "transport",
+      "route": "/traslados/:id/mapa/acceso",
+      "method": "POST",
+      "status": 200,
+      "observed_at": 1794630661186
+    },
+    {
+      "profile": "transport",
+      "route": "/sesion/estado",
+      "method": "GET",
+      "status": 200,
+      "observed_at": 1794630661212,
+      "expires_at": 1794631557.469602,
+      "server_time": 1794630661.180373
+    },
+    {
+      "profile": "transport",
+      "route": "/traslados/:id/mapa/acceso",
+      "method": "POST",
+      "status": 200,
+      "observed_at": 1794630679871
+    }
+  ],
+  "tls": "Chrome SPKI exception restricted to the ephemeral test certificate; no OS CA acceptance",
+  "cartography": "OSM tiles blocked to avoid bulk consumption; cartography is not accepted by this case",
+  "networkFault": "Playwright context.setOffline on observer profile only, plus real Transporte process cut; no WSS substitution",
+  "omittedHistoryIds": [
+    "897c8a41-83dd-4091-8ac2-7fb16bed45b2",
+    "9e41041e-7127-42ba-b421-65e7f847e25d",
+    "9cd74943-7121-4d02-ba7d-78e6e6c815ed"
+  ],
+  "backendReceiveToMap": {
+    "observations": [
+      {
+        "event_id": "897c8a41-83dd-4091-8ac2-7fb16bed45b2",
+        "cursor": 1,
+        "received_at": "2026-11-14T04:31:02.476957+00:00",
+        "rendered_at": "2026-11-14T04:31:03.055Z",
+        "receive_to_map_ms": 582
+      },
+      {
+        "event_id": "9c3ab4f8-c6a1-4da0-9a08-cfc91fc0ad20",
+        "cursor": 4,
+        "received_at": "2026-11-14T04:31:13.942959+00:00",
+        "rendered_at": "2026-11-14T04:31:20.272Z",
+        "receive_to_map_ms": 6330
+      },
+      {
+        "event_id": "a39df8d9-fdc0-49c9-a963-ee47cf9fc9ef",
+        "cursor": 5,
+        "received_at": "2026-11-14T04:31:21.316822+00:00",
+        "rendered_at": "2026-11-14T04:31:21.857Z",
+        "receive_to_map_ms": 541
+      }
+    ],
+    "limit": "Server receive to actual render; replay includes intentional offline/outage delay; no physical capture latency or SLA claim"
+  },
+  "upgrades": [
+    {
+      "status": 101
+    },
+    {
+      "status": 101
+    }
+  ]
+}

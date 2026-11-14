@@ -1,0 +1,89 @@
+{
+  "status": "Diagnosis only; B01/B02 failed; no product change or new trial",
+  "observations": {
+    "replica_A": "127.0.0.1:58306 remained down",
+    "replica_B": "127.0.0.1:58370 restored",
+    "workers": 2,
+    "zone": "transporte64k shared",
+    "max_fails": 1,
+    "fail_timeout_seconds": 2,
+    "max_conns": "omitted; exact version default0",
+    "public_ws_explicit_next_upstream": false,
+    "effective_defaults": "error timeout, next_upstream_tries0 (not an explicit two-attempt policy)",
+    "private_internal_ws_also_uses_group": "transporte",
+    "timeline_utc": [
+      {
+        "event": "B restore requested",
+        "time": "2026-11-14T04:57:20.434420Z"
+      },
+      {
+        "event": "direct live200",
+        "time": "2026-11-14T04:57:26.902450Z"
+      },
+      {
+        "event": "A ECONNREFUSED before successful observer probe",
+        "time": "2026-11-14T04:57:50Z",
+        "precision": "Nginx error log seconds"
+      },
+      {
+        "event": "new allowed authenticated/subscribed cursor1, socket8 after boundary2, open and same document",
+        "time": "2026-11-14T04:57:51.861Z"
+      },
+      {
+        "event": "parent ready received then publisher502/no live upstreams",
+        "time": "2026-11-14T04:57:51.862462Z",
+        "precision": "Parent ready milliseconds; error log and HTTP Date seconds"
+      }
+    ],
+    "last_access_line": "GET /services/transporte/ws/v1/tracking/json 101 1.071",
+    "access_log_limit": "101 line is logged when that long request closes, contains duration not absolute handshake time or peer; infer no exact millisecond from its line order",
+    "errors_after_live": "Last explicit refusal after B live points to A; final publisher failure is no-live-upstreams rather than a fresh ECONNREFUSED to B"
+  },
+  "effective_config_excerpt": {
+    "upstream": "upstream transporte {\n    zone transporte 64k;\n    server 127.0.0.1:58306 resolve max_fails=1 fail_timeout=2s;\n    server 127.0.0.1:58370 resolve max_fails=1 fail_timeout=2s;\n    keepalive 8;\n  }",
+    "public_ws_location": "location /services/transporte/ws/v1/tracking/ {\n      proxy_pass http://transporte/ws/v1/tracking/;\n      proxy_http_version 1.1;\n      proxy_set_header Upgrade $http_upgrade;\n      proxy_set_header Connection \"upgrade\";\n      proxy_set_header Host 127.0.0.1:58305;\n      proxy_set_header X-Forwarded-Proto https;\n      proxy_set_header X-Forwarded-For $remote_addr;\n      proxy_set_header X-Forwarded-Host \"\";\n      proxy_set_header X-Forwarded-Prefix \"\";\n      proxy_set_header X-Forwarded-Port \"\";\n      proxy_set_header X-Forwarded-By \"\";\n      proxy_set_header Forwarded \"\";\n      proxy_read_timeout 75s;\n      proxy_send_timeout 10s;\n      proxy_buffering off;\n    }"
+  },
+  "source_version": "Nginx1.30.6 exact compiled local source",
+  "source_evidence": [
+    {
+      "file": "src/http/ngx_http_upstream_round_robin.c",
+      "lines": "874-877",
+      "finding": "Skips peers still inside failure checked/timeout window"
+    },
+    {
+      "file": "src/http/ngx_http_upstream_round_robin.c",
+      "lines": "923-927",
+      "finding": "Choosing probe after timeout advances checked without clearing fails here"
+    },
+    {
+      "file": "src/http/ngx_http_upstream_round_robin.c",
+      "lines": "1047-1049,1072-1073",
+      "finding": "Failure increments/accessed/checked; healthy release clears fails when accessed<checked"
+    },
+    {
+      "file": "src/http/ngx_http_upstream.c",
+      "lines": "3602-3651,3686-3812,4796-4798",
+      "finding": "Upgraded connection remains in tunnel; peer.free is called by finalization"
+    },
+    {
+      "file": "src/http/ngx_http_upstream.c",
+      "lines": "6460",
+      "finding": "max_conns defaults0"
+    },
+    {
+      "file": "src/http/modules/ngx_http_proxy_module.c",
+      "lines": "3671-3672,3810-3814",
+      "finding": "Default tries0 and retry mask error/timeout"
+    }
+  ],
+  "inference": "Exact source provides a mechanism matching the observations: a recovered long-lived probe can keep old fails while checked advances, so an immediate second connection excludes B, then A fails. Internal peer fails/checked/conns were not captured; do not present them as observed runtime state.",
+  "potential_separate_change": "Dedicated WSS upstream+zone, same peers max_fails0, explicit next_upstream error timeout and tries2, TCP connect timeout1s, HTTP group unchanged; requires separate review and discriminating real Nginx test before B replay",
+  "risk": "1s is TCP connection timeout only, not full Upgrade time. proxy_read_timeout75s can still delay headers on a TCP-alive stalled peer. No message replay after101; no universal recovery/SLA claim",
+  "primary_docs": [
+    "https://nginx.org/en/docs/http/ngx_http_upstream_module.html",
+    "https://nginx.org/en/docs/dev/development_guide.html"
+  ],
+  "product_changed": false,
+  "reruns_after_B02": false,
+  "deployment_version_limit": "Compose gateway declares nginx:1.28-alpine; exact local diagnosis is1.30.6. No image change; syntax/recovery of deployed image unverified and requires effective version/config review before publication."
+}

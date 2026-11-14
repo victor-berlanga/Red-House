@@ -1,0 +1,107 @@
+[
+  {
+    "case": "cursor-resync",
+    "attempt": "intento-01",
+    "environment_directory": "/private/tmp/red-house-ms-tests-vny70pfv",
+    "public_tracking_position_id": "897c8a41-83dd-4091-8ac2-7fb16bed45b2",
+    "shipment_id": null,
+    "link_method": "One Environment in execution time window containing exact public position UUID bytes/text in retained PostgreSQL base file; when available, private replica PG+Redis ports match the same state.json internally",
+    "postgres_base_match": "pg/base/16385/18662",
+    "pytest_gateway_directory": null,
+    "secrets_recorded": false,
+    "deleted": false,
+    "uid": 501,
+    "mode": "0o700",
+    "subsequent_cleanup": {
+      "retired_by_root": true,
+      "evidence": "../limpieza-20261113/temporales.json",
+      "note": "Original path/UID/mode/UUID were observed before later root cleanup; database no longer available. Logs and operation evidence retained."
+    }
+  },
+  {
+    "case": "logout-disconnected",
+    "attempt": "intento-01",
+    "environment_directory": "/private/tmp/red-house-ms-tests-8j3i3gqz",
+    "public_tracking_position_id": "544a0dd9-1b04-40da-a145-75c9f40b5949",
+    "shipment_id": "8776f716-c7cb-4867-83b3-442457e33ff7",
+    "link_method": "One Environment in execution time window containing exact public position UUID bytes/text in retained PostgreSQL base file; when available, private replica PG+Redis ports match the same state.json internally",
+    "postgres_base_match": "pg/base/16385/18662",
+    "pytest_gateway_directory": null,
+    "secrets_recorded": false,
+    "deleted": false,
+    "shipment_link_source": "Preserved original nginx-safe.log for this attempt",
+    "uid": 501,
+    "mode": "0o700"
+  },
+  {
+    "case": "logout-live",
+    "attempt": "intento-01",
+    "environment_directory": "/private/tmp/red-house-ms-tests-puwezwt4",
+    "public_tracking_position_id": "89127985-7968-411d-80bd-bd6057d70824",
+    "shipment_id": "550b25a6-3cc8-4d0a-9b35-42be160ec043",
+    "link_method": "One Environment in execution time window containing exact public position UUID bytes/text in retained PostgreSQL base file; when available, private replica PG+Redis ports match the same state.json internally",
+    "postgres_base_match": "pg/base/16385/18662",
+    "pytest_gateway_directory": "/var/folders/rk/m94gy0rj2h74sfwqknl61bzm0000gn/T/pytest-of-victorberlanga/pytest-293/test_portal_gateway_security_s0",
+    "secrets_recorded": false,
+    "deleted": false,
+    "uid": 501,
+    "mode": "0o700",
+    "subsequent_cleanup": {
+      "retired_by_root": true,
+      "evidence": "../limpieza-20261113/temporales.json",
+      "note": "Original path/UID/mode/UUID were observed before later root cleanup; database no longer available. Logs and operation evidence retained."
+    }
+  },
+  {
+    "case": "regresion-i06-07",
+    "attempt": "intento-01",
+    "environment_directory": "/private/tmp/red-house-ms-tests-ioc74_x1",
+    "public_tracking_position_id": "25765f7e-10e9-43dd-b107-63555c107713",
+    "shipment_id": "027f6abf-7803-4129-9ac3-87383982ad04",
+    "link_method": "One Environment in execution time window containing exact public position UUID bytes/text in retained PostgreSQL base file; when available, private replica PG+Redis ports match the same state.json internally",
+    "postgres_base_match": "pg/base/16385/18662",
+    "pytest_gateway_directory": "/var/folders/rk/m94gy0rj2h74sfwqknl61bzm0000gn/T/pytest-of-victorberlanga/pytest-295/test_portal_gateway_replica_lo0",
+    "secrets_recorded": false,
+    "deleted": false,
+    "uid": 501,
+    "mode": "0o700",
+    "subsequent_cleanup": {
+      "retired_by_root": true,
+      "evidence": "../limpieza-20261113/temporales.json",
+      "note": "Original path/UID/mode/UUID were observed before later root cleanup; database no longer available. Logs and operation evidence retained."
+    }
+  },
+  {
+    "case": "session-expiry",
+    "attempt": "intento-01",
+    "environment_directory": "/private/tmp/red-house-ms-tests-_jvn67qv",
+    "public_tracking_position_id": "7f7b0dd1-88ea-47f2-b8b4-20e91e1f481a",
+    "shipment_id": "11f28b51-12ef-49b5-9b88-1d98d5da582b",
+    "link_method": "One Environment in execution time window containing exact public position UUID bytes/text in retained PostgreSQL base file; when available, private replica PG+Redis ports match the same state.json internally",
+    "postgres_base_match": "pg/base/16385/18662",
+    "pytest_gateway_directory": "/var/folders/rk/m94gy0rj2h74sfwqknl61bzm0000gn/T/pytest-of-victorberlanga/pytest-294/test_portal_gateway_security_s0",
+    "secrets_recorded": false,
+    "deleted": false,
+    "uid": 501,
+    "mode": "0o700",
+    "subsequent_cleanup": {
+      "retired_by_root": true,
+      "evidence": "../limpieza-20261113/temporales.json",
+      "note": "Original path/UID/mode/UUID were observed before later root cleanup; database no longer available. Logs and operation evidence retained."
+    }
+  },
+  {
+    "case": "logout-disconnected",
+    "attempt": "intento-02",
+    "environment_directory": "/private/tmp/red-house-ms-tests-idkrgt7p",
+    "uid": 501,
+    "mode": "0o700",
+    "shipment_id": "718ba28a-0cc8-43f5-bb7e-5901b2574243",
+    "public_tracking_position_id": "07ce4fdb-e203-4366-a155-070823487446",
+    "link_method": "Environment/shipment captured directly in runtime; exact public event UUID also found in retained PostgreSQL base file",
+    "postgres_base_match": "pg/base/16385/18662",
+    "private_pytest_directory": "/Users/victorberlanga/Programacion/integracion/Red-House/.local/portal-security-20261114/logout-disconnected-intento-02-pytest",
+    "secrets_recorded": false,
+    "deleted": false
+  }
+]

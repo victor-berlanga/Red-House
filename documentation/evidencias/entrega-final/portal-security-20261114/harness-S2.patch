@@ -1,0 +1,147 @@
+--- a/apps/services/tests/test_portal_gateway_tracking.py
++++ b/apps/services/tests/test_portal_gateway_tracking.py
+@@ -16,6 +16,7 @@
+ import sys
+ import threading
+ import time
++from datetime import UTC, datetime
+ from pathlib import Path
+ from uuid import uuid4
+ 
+@@ -248,10 +249,34 @@
+         prove_session_transition()
+         reply("verify_logout")
+         expect("restore_authorized")
++        report["recovery_timeline"] = [
++            {
++                "phase": "replica_b_restore_requested",
++                "at_utc": datetime.now(UTC).isoformat(),
++            }
++        ]
+         restart(1)
+-        time.sleep(2.1)
++        report["recovery_timeline"].append(
++            {
++                "phase": "replica_b_direct_live_200",
++                "at_utc": datetime.now(UTC).isoformat(),
++            }
++        )
++        reply("restore_authorized")
++        expect("publish_for_authorized")
++        report["recovery_timeline"].append(
++            {
++                "phase": "new_authorized_native_socket_ready",
++                "at_utc": datetime.now(UTC).isoformat(),
++            }
++        )
+         append_points(2)
+-        reply("restore_authorized", eventIds=[value["event_id"] for value in points])
++        report["recovery_timeline"].append(
++            {"phase": "later_positions_acked", "at_utc": datetime.now(UTC).isoformat()}
++        )
++        reply(
++            "publish_for_authorized", eventIds=[value["event_id"] for value in points]
++        )
+         expect("restore_second")
+         restart(0)
+         health()
+@@ -321,6 +346,12 @@
+     report = {
+         "case": "I06-07" if scenario == "replica_recovery" else "I06-08",
+         "scenario": scenario,
++        "shipment_id": tracking["shipment"]["id"],
++        "environment": {
++            "directory": str(p.env.directory),
++            "uid": p.env.directory.stat().st_uid,
++            "mode": oct(p.env.directory.stat().st_mode & 0o777),
++        },
+         "passed": False,
+         "checks": [],
+         "scope": "Laboratorio local aislado; datos y ubicaciones sintéticos",
+--- a/scripts/verify_portal_gateway_tracking.cjs
++++ b/scripts/verify_portal_gateway_tracking.cjs
+@@ -46,6 +46,7 @@
+   let stage = 'launch';
+   const expectedSocket = input.base.replace('https:', 'wss:') + '/services/transporte/ws/v1/tracking/json';
+   const subscriptions = new WeakMap(), upgrades = [], authReads = [];
++  const nativeSockets = [], nativeSocketWatchers = new Set();
+   const mapUrl = input.base + '/traslados/' + input.shipment + '/mapa';
+   let terminating = false;
+   process.once('SIGTERM', async () => {
+@@ -123,14 +124,19 @@
+       }).then(() => true, () => false));
+       const observed = {profile, url: socket.url().split('?')[0], events: [], closed: false};
+       result.sockets.push(observed);
++      nativeSockets.push({socket, observed});
+       socket.on('framereceived', frame => {
+         try {
+           const value = JSON.parse(String(frame.payload));
+           observed.events.push({type: value.type, event_id: value.position?.event_id,
+             cursor: value.cursor, code: value.code});
+         } catch { observed.events.push({type: 'non-json'}); }
++        for (const notify of nativeSocketWatchers) notify();
+       });
+-      socket.on('close', () => { observed.closed = true; });
++      socket.on('close', () => {
++        observed.closed = true;
++        for (const notify of nativeSocketWatchers) notify();
++      });
+     });
+     const cdp = await page.context().newCDPSession(page);
+     await cdp.send('Network.enable');
+@@ -149,6 +155,26 @@
+           if (Number.isFinite(data.server_time)) value.server_time = data.server_time;
+         }).catch(() => {}));
+       }
++    });
++  }
++
++  function waitForNewAuthorizedSocket(boundary, cursor) {
++    return new Promise((resolve, reject) => {
++      const check = () => {
++        const found = nativeSockets.slice(boundary).find(entry =>
++          entry.observed.profile === 'allowed' && !entry.observed.closed && !entry.socket.isClosed() &&
++          entry.observed.events.some(event => event.type === 'authenticated') &&
++          entry.observed.events.some(event => event.type === 'subscribed' && event.cursor === cursor));
++        if (found) {
++          clearTimeout(timer); nativeSocketWatchers.delete(check); resolve(found);
++        }
++      };
++      const timer = setTimeout(() => {
++        nativeSocketWatchers.delete(check);
++        reject(new Error('No new live authorized subscribed socket after restoration'));
++      }, 45000);
++      nativeSocketWatchers.add(check);
++      check();
+     });
+   }
+ 
+@@ -227,6 +253,8 @@
+       assert.equal((await allowed.goto(mapUrl)).status(), 200);
+       await rendered(allowed, first.eventId);
+       const allowedBefore = await state(allowed, 'security-02-other-session-live');
++      const socketBoundary = nativeSockets.length;
++      result.recoverySocketBoundary = socketBoundary;
+       await exchange('logout_stop');
+       for (const page of [transport, allowed]) {
+         await page.waitForFunction(() => document.querySelector('#tracking-status').textContent.includes('Desconectado'));
+@@ -235,7 +263,18 @@
+       await realLogout(transport); // Portal network remains online throughout the WSS cut.
+       await exchange('verify_logout');
+       stage = 'security-authorized-recovery';
+-      const recovery = await exchange('restore_authorized');
++      await exchange('restore_authorized');
++      const readySocket = await waitForNewAuthorizedSocket(socketBoundary, 1);
++      const readyState = await state(allowed, 'security-04a-authorized-subscribed-before-publish');
++      assert.equal(readyState.pageInstance, allowedBefore.pageInstance);
++      assert.ok(!readySocket.observed.closed && !readySocket.socket.isClosed());
++      result.authorizedRecovery = {
++        socket_index: nativeSockets.indexOf(readySocket), boundary_before_cut: socketBoundary,
++        authenticated: true, subscribed_cursor: 1, closed: false,
++        original_page_instance: allowedBefore.pageInstance, recovered_page_instance: readyState.pageInstance,
++        observed_at: Date.now(),
++      };
++      const recovery = await exchange('publish_for_authorized');
+       await rendered(allowed, recovery.eventIds.at(-1));
+       const allowedAfter = await state(allowed, 'security-04-other-session-recovered');
+       assert.equal(allowedAfter.pageInstance, allowedBefore.pageInstance);

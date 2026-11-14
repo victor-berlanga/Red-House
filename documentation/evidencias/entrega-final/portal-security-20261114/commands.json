@@ -1,0 +1,123 @@
+[
+  {
+    "case": "cursor-resync",
+    "attempt": "intento-01",
+    "environment": {
+      "REDHOUSE_BROWSER_TESTS": "1",
+      "REDHOUSE_TEST_NGINX": "$PWD/.local/tools/nginx-1.30.6/sbin/nginx",
+      "REDHOUSE_TEST_MONGOD": "$PWD/.local/tools/mongodb-8.0.17/bin/mongod",
+      "REDHOUSE_BROWSER_RESULTS": "$PWD/documentation/evidencias/entrega-final/portal-security-20261114/cursor-resync/intento-01"
+    },
+    "argv": [
+      "apps/services/.venv/bin/python",
+      "-m",
+      "pytest",
+      "apps/services/tests/test_portal_gateway_tracking.py::test_portal_gateway_security_states[cursor_resync]",
+      "-q",
+      "--tb=short",
+      "--junitxml=documentation/evidencias/entrega-final/portal-security-20261114/cursor-resync/intento-01/junit.xml"
+    ],
+    "raw_log_private": ".local/portal-security-20261114/cursor-resync-intento-01.pytest.private.log"
+  },
+  {
+    "case": "logout-disconnected",
+    "attempt": "intento-01",
+    "environment": {
+      "REDHOUSE_BROWSER_TESTS": "1",
+      "REDHOUSE_TEST_NGINX": "$PWD/.local/tools/nginx-1.30.6/sbin/nginx",
+      "REDHOUSE_TEST_MONGOD": "$PWD/.local/tools/mongodb-8.0.17/bin/mongod",
+      "REDHOUSE_BROWSER_RESULTS": "$PWD/documentation/evidencias/entrega-final/portal-security-20261114/logout-disconnected/intento-01"
+    },
+    "argv": [
+      "apps/services/.venv/bin/python",
+      "-m",
+      "pytest",
+      "apps/services/tests/test_portal_gateway_tracking.py::test_portal_gateway_security_states[logout_disconnected]",
+      "-q",
+      "--tb=short",
+      "--junitxml=documentation/evidencias/entrega-final/portal-security-20261114/logout-disconnected/intento-01/junit.xml"
+    ],
+    "raw_log_private": ".local/portal-security-20261114/logout-disconnected-intento-01.pytest.private.log"
+  },
+  {
+    "case": "logout-disconnected",
+    "attempt": "intento-02",
+    "environment": {
+      "REDHOUSE_BROWSER_TESTS": "1",
+      "REDHOUSE_TEST_NGINX": "$PWD/.local/tools/nginx-1.30.6/sbin/nginx",
+      "REDHOUSE_TEST_MONGOD": "$PWD/.local/tools/mongodb-8.0.17/bin/mongod",
+      "REDHOUSE_BROWSER_RESULTS": "$PWD/documentation/evidencias/entrega-final/portal-security-20261114/logout-disconnected/intento-02"
+    },
+    "argv": [
+      "apps/services/.venv/bin/python",
+      "-m",
+      "pytest",
+      "apps/services/tests/test_portal_gateway_tracking.py::test_portal_gateway_security_states[logout_disconnected]",
+      "-q",
+      "--tb=short",
+      "--basetemp=$PWD/.local/portal-security-20261114/logout-disconnected-intento-02-pytest",
+      "--junitxml=documentation/evidencias/entrega-final/portal-security-20261114/logout-disconnected/intento-02/junit.xml"
+    ],
+    "raw_log_private": ".local/portal-security-20261114/logout-disconnected-intento-02.pytest.private.log"
+  },
+  {
+    "case": "logout-live",
+    "attempt": "intento-01",
+    "environment": {
+      "REDHOUSE_BROWSER_TESTS": "1",
+      "REDHOUSE_TEST_NGINX": "$PWD/.local/tools/nginx-1.30.6/sbin/nginx",
+      "REDHOUSE_TEST_MONGOD": "$PWD/.local/tools/mongodb-8.0.17/bin/mongod",
+      "REDHOUSE_BROWSER_RESULTS": "$PWD/documentation/evidencias/entrega-final/portal-security-20261114/logout-live/intento-01"
+    },
+    "argv": [
+      "apps/services/.venv/bin/python",
+      "-m",
+      "pytest",
+      "apps/services/tests/test_portal_gateway_tracking.py::test_portal_gateway_security_states[logout_live]",
+      "-q",
+      "--tb=short",
+      "--junitxml=documentation/evidencias/entrega-final/portal-security-20261114/logout-live/intento-01/junit.xml"
+    ],
+    "raw_log_private": ".local/portal-security-20261114/logout-live-intento-01.pytest.private.log"
+  },
+  {
+    "case": "regresion-i06-07",
+    "attempt": "intento-01",
+    "environment": {
+      "REDHOUSE_BROWSER_TESTS": "1",
+      "REDHOUSE_TEST_NGINX": "$PWD/.local/tools/nginx-1.30.6/sbin/nginx",
+      "REDHOUSE_TEST_MONGOD": "$PWD/.local/tools/mongodb-8.0.17/bin/mongod",
+      "REDHOUSE_BROWSER_RESULTS": "$PWD/documentation/evidencias/entrega-final/portal-security-20261114/regresion-i06-07/intento-01"
+    },
+    "argv": [
+      "apps/services/.venv/bin/python",
+      "-m",
+      "pytest",
+      "apps/services/tests/test_portal_gateway_tracking.py::test_portal_gateway_replica_loss_autonomy_and_recovery",
+      "-q",
+      "--tb=short",
+      "--junitxml=documentation/evidencias/entrega-final/portal-security-20261114/regresion-i06-07/intento-01/junit.xml"
+    ],
+    "raw_log_private": ".local/portal-security-20261114/regresion-i06-07-intento-01.pytest.private.log"
+  },
+  {
+    "case": "session-expiry",
+    "attempt": "intento-01",
+    "environment": {
+      "REDHOUSE_BROWSER_TESTS": "1",
+      "REDHOUSE_TEST_NGINX": "$PWD/.local/tools/nginx-1.30.6/sbin/nginx",
+      "REDHOUSE_TEST_MONGOD": "$PWD/.local/tools/mongodb-8.0.17/bin/mongod",
+      "REDHOUSE_BROWSER_RESULTS": "$PWD/documentation/evidencias/entrega-final/portal-security-20261114/session-expiry/intento-01"
+    },
+    "argv": [
+      "apps/services/.venv/bin/python",
+      "-m",
+      "pytest",
+      "apps/services/tests/test_portal_gateway_tracking.py::test_portal_gateway_security_states[session_expiry]",
+      "-q",
+      "--tb=short",
+      "--junitxml=documentation/evidencias/entrega-final/portal-security-20261114/session-expiry/intento-01/junit.xml"
+    ],
+    "raw_log_private": ".local/portal-security-20261114/session-expiry-intento-01.pytest.private.log"
+  }
+]

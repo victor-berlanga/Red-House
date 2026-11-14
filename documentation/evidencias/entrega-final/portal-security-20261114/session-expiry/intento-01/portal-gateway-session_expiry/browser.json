@@ -1,0 +1,209 @@
+{
+  "passed": true,
+  "scenario": "session_expiry",
+  "checks": [
+    "security-02-natural-session-expiry: login visible; private tracking document removed",
+    "security-03-expired-protected-map-denied: login visible; private tracking document removed",
+    "Real renewal before fixed family expiry, without access expiry; later device ACKs persisted before fixture login; expired cookie replay remains denied"
+  ],
+  "states": [
+    {
+      "phase": "01-map-open",
+      "status": "Sin señal · sin datos",
+      "lastEventId": "",
+      "rows": [],
+      "rendered": [],
+      "pageInstance": 1794631231723.4,
+      "recovery": "",
+      "coordinate": "Sin datos"
+    },
+    {
+      "phase": "security-01-live",
+      "status": "En vivo · SIMULADO",
+      "lastEventId": "7f7b0dd1-88ea-47f2-b8b4-20e91e1f481a",
+      "rows": [
+        "7f7b0dd1-88ea-47f2-b8b4-20e91e1f481a"
+      ],
+      "rendered": [
+        {
+          "event_id": "7f7b0dd1-88ea-47f2-b8b4-20e91e1f481a",
+          "cursor": 1,
+          "received_at": "2026-11-14T04:40:35.527097+00:00",
+          "rendered_at": "2026-11-14T04:40:36.121Z",
+          "receive_to_map_ms": 595
+        }
+      ],
+      "pageInstance": 1794631231723.4,
+      "recovery": "",
+      "coordinate": "25.6866, -100.3161"
+    }
+  ],
+  "sockets": [
+    {
+      "profile": "transport",
+      "url": "wss://127.0.0.1:55289/services/transporte/ws/v1/tracking/json",
+      "events": [
+        {
+          "type": "authenticated"
+        },
+        {
+          "type": "subscribed",
+          "cursor": 0
+        },
+        {
+          "type": "tracking.status",
+          "cursor": 0
+        },
+        {
+          "type": "position.updated",
+          "event_id": "7f7b0dd1-88ea-47f2-b8b4-20e91e1f481a",
+          "cursor": 1
+        },
+        {
+          "type": "tracking.status",
+          "cursor": 1
+        },
+        {
+          "type": "heartbeat"
+        },
+        {
+          "type": "tracking.status",
+          "cursor": 1
+        },
+        {
+          "type": "tracking.status",
+          "cursor": 1
+        },
+        {
+          "type": "heartbeat"
+        },
+        {
+          "type": "tracking.status",
+          "cursor": 1
+        },
+        {
+          "type": "tracking.status",
+          "cursor": 1
+        },
+        {
+          "type": "heartbeat"
+        },
+        {
+          "type": "tracking.status",
+          "cursor": 1
+        },
+        {
+          "type": "tracking.status",
+          "cursor": 1
+        },
+        {
+          "type": "heartbeat"
+        },
+        {
+          "type": "tracking.status",
+          "cursor": 1
+        },
+        {
+          "type": "error",
+          "code": "unauthorized"
+        }
+      ],
+      "closed": true
+    }
+  ],
+  "pageErrors": [],
+  "authResponses": [
+    {
+      "profile": "transport",
+      "route": "/sesion/estado",
+      "method": "GET",
+      "status": 200,
+      "observed_at": 1794631234189,
+      "expires_at": 1794631559.5726259,
+      "server_time": 1794631234.018735
+    },
+    {
+      "profile": "transport",
+      "route": "/traslados/:id/mapa/acceso",
+      "method": "POST",
+      "status": 200,
+      "observed_at": 1794631234200
+    },
+    {
+      "profile": "transport",
+      "route": "/sesion/continuar",
+      "method": "POST",
+      "status": 200,
+      "observed_at": 1794631261217,
+      "expires_at": 1794631591.103915,
+      "server_time": 1794631261.183081
+    },
+    {
+      "profile": "transport",
+      "route": "/sesion/continuar",
+      "method": "POST",
+      "status": 200,
+      "observed_at": 1794631292185,
+      "expires_at": 1794631622.099614,
+      "server_time": 1794631292.159051
+    },
+    {
+      "profile": "transport",
+      "route": "/sesion/estado",
+      "method": "GET",
+      "status": 200,
+      "observed_at": 1794631293815,
+      "expires_at": 1794631622.099614,
+      "server_time": 1794631293.805658
+    },
+    {
+      "profile": "transport",
+      "route": "/sesion/continuar",
+      "method": "POST",
+      "status": 401,
+      "observed_at": 1794631322680
+    }
+  ],
+  "tls": "Chrome SPKI exception restricted to the ephemeral test certificate; no OS CA acceptance",
+  "cartography": "OSM tiles blocked to avoid bulk consumption; cartography is not accepted by this case",
+  "expiry": {
+    "initial_access_expires_at": 1794631559.5726259,
+    "renewed_access_expires_at": 1794631591.103915,
+    "renewal_server_time": 1794631261.183081,
+    "first_401_observed_at": 1794631322680,
+    "scope": "Natural Redis/refresh-family expiry while announced access expiry is still in the future; not access-JWT expiry",
+    "unexpected_preclosure_auth_statuses": [],
+    "temporal_boundary": {
+      "sql_family_expires_at": "2026-11-13T22:41:59.278423-06:00",
+      "sql_family_expires_at_parsed_ms": 1794631319278,
+      "first_401_observed_at_ms": 1794631322680,
+      "first_401_minus_sql_expiry_ms": 3402,
+      "precision": "SQL ISO keeps microseconds; Date.parse and Date.now compare milliseconds; Identity refresh expiry arithmetic uses integer seconds",
+      "limit": "Strict observed401 >= parsed SQL expiry, without tolerance; a subsecond boundary discrepancy must be diagnosed separately, not hidden"
+    },
+    "expired_cookie_replay_initial_status": 302,
+    "expired_cookie_replay_result_status": 200,
+    "expired_cookie_replay_redirect_path": "/login",
+    "expired_cookie_replay_private_data_absent": true,
+    "expired_cookie_replay_new_tracking_sockets": 0,
+    "expired_cookie_replay_new_tracking_frames": 0,
+    "expired_cookie_replay_denied_after_fixture_login": true
+  },
+  "backendReceiveToMap": {
+    "observations": [
+      {
+        "event_id": "7f7b0dd1-88ea-47f2-b8b4-20e91e1f481a",
+        "cursor": 1,
+        "received_at": "2026-11-14T04:40:35.527097+00:00",
+        "rendered_at": "2026-11-14T04:40:36.121Z",
+        "receive_to_map_ms": 595
+      }
+    ],
+    "limit": "Server receive to actual render; replay includes intentional offline/outage delay; no physical capture latency or SLA claim"
+  },
+  "upgrades": [
+    {
+      "status": 101
+    }
+  ]
+}

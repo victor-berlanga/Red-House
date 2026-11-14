@@ -1,0 +1,19 @@
+{
+  "case": "regresion-i06-07",
+  "attempt": "intento-01",
+  "environment_directory": "/private/tmp/red-house-ms-tests-ioc74_x1",
+  "public_tracking_position_id": "25765f7e-10e9-43dd-b107-63555c107713",
+  "shipment_id": "027f6abf-7803-4129-9ac3-87383982ad04",
+  "link_method": "One Environment in execution time window containing exact public position UUID bytes/text in retained PostgreSQL base file; when available, private replica PG+Redis ports match the same state.json internally",
+  "postgres_base_match": "pg/base/16385/18662",
+  "pytest_gateway_directory": "/var/folders/rk/m94gy0rj2h74sfwqknl61bzm0000gn/T/pytest-of-victorberlanga/pytest-295/test_portal_gateway_replica_lo0",
+  "secrets_recorded": false,
+  "deleted": false,
+  "uid": 501,
+  "mode": "0o700",
+  "subsequent_cleanup": {
+    "retired_by_root": true,
+    "evidence": "../limpieza-20261113/temporales.json",
+    "note": "Original path/UID/mode/UUID were observed before later root cleanup; database no longer available. Logs and operation evidence retained."
+  }
+}

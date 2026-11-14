@@ -1,0 +1,41 @@
+{
+  "S2_hashes_match": true,
+  "python_ast": true,
+  "json_files": 44,
+  "junit": [
+    {
+      "file": "regresion-i06-07/intento-01/junit.xml",
+      "tests": "1",
+      "failures": "0"
+    },
+    {
+      "file": "logout-live/intento-01/junit.xml",
+      "tests": "1",
+      "failures": "0"
+    },
+    {
+      "file": "cursor-resync/intento-01/junit.xml",
+      "tests": "1",
+      "failures": "0"
+    },
+    {
+      "file": "session-expiry/intento-01/junit.xml",
+      "tests": "1",
+      "failures": "0"
+    },
+    {
+      "file": "logout-disconnected/intento-02/junit.xml",
+      "tests": "1",
+      "failures": "1"
+    },
+    {
+      "file": "logout-disconnected/intento-01/junit.xml",
+      "tests": "1",
+      "failures": "1"
+    }
+  ],
+  "patch_reconstructs_S1_S2": true,
+  "new_report_links": true,
+  "secret_pattern_scan": "No actual JWT, private key, or credential-bearing DSN pattern found",
+  "no_motors_started": true
+}

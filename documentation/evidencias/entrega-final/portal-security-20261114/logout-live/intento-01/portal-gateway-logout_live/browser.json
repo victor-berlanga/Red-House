@@ -1,0 +1,129 @@
+{
+  "passed": true,
+  "scenario": "logout_live",
+  "checks": [
+    "security-private-data-cleared: login visible; private tracking document removed",
+    "security-logout-result: login visible; private tracking document removed",
+    "security-02-live-logout-denied: login visible; private tracking document removed",
+    "security-03-protected-map-stays-denied: login visible; private tracking document removed",
+    "Logout with live native WSS clears private document and denies protected map after real server revocation"
+  ],
+  "states": [
+    {
+      "phase": "01-map-open",
+      "status": "Sin señal · sin datos",
+      "lastEventId": "",
+      "rows": [],
+      "rendered": [],
+      "pageInstance": 1794631077493.4,
+      "recovery": "",
+      "coordinate": "Sin datos"
+    },
+    {
+      "phase": "security-01-live",
+      "status": "En vivo · SIMULADO",
+      "lastEventId": "89127985-7968-411d-80bd-bd6057d70824",
+      "rows": [
+        "89127985-7968-411d-80bd-bd6057d70824"
+      ],
+      "rendered": [
+        {
+          "event_id": "89127985-7968-411d-80bd-bd6057d70824",
+          "cursor": 1,
+          "received_at": "2026-11-14T04:38:01.240416+00:00",
+          "rendered_at": "2026-11-14T04:38:01.732Z",
+          "receive_to_map_ms": 493
+        }
+      ],
+      "pageInstance": 1794631077493.4,
+      "recovery": "",
+      "coordinate": "25.6866, -100.3161"
+    }
+  ],
+  "sockets": [
+    {
+      "profile": "transport",
+      "url": "wss://127.0.0.1:54246/services/transporte/ws/v1/tracking/json",
+      "events": [
+        {
+          "type": "authenticated"
+        },
+        {
+          "type": "subscribed",
+          "cursor": 0
+        },
+        {
+          "type": "tracking.status",
+          "cursor": 0
+        },
+        {
+          "type": "position.updated",
+          "event_id": "89127985-7968-411d-80bd-bd6057d70824",
+          "cursor": 1
+        }
+      ],
+      "closed": false
+    }
+  ],
+  "pageErrors": [],
+  "authResponses": [
+    {
+      "profile": "transport",
+      "route": "/sesion/estado",
+      "method": "GET",
+      "status": 200,
+      "observed_at": 1794631077523
+    },
+    {
+      "profile": "transport",
+      "route": "/sesion/estado",
+      "method": "GET",
+      "status": 200,
+      "observed_at": 1794631079686,
+      "expires_at": 1794631975.6798358,
+      "server_time": 1794631079.676416
+    },
+    {
+      "profile": "transport",
+      "route": "/traslados/:id/mapa/acceso",
+      "method": "POST",
+      "status": 200,
+      "observed_at": 1794631079740
+    },
+    {
+      "profile": "logout-tab",
+      "route": "/sesion/estado",
+      "method": "GET",
+      "status": 200,
+      "observed_at": 1794631084377,
+      "expires_at": 1794631975.6798358,
+      "server_time": 1794631084.358373
+    },
+    {
+      "profile": "logout-tab",
+      "route": "/logout",
+      "method": "POST",
+      "status": 302,
+      "observed_at": 1794631085530
+    }
+  ],
+  "tls": "Chrome SPKI exception restricted to the ephemeral test certificate; no OS CA acceptance",
+  "cartography": "OSM tiles blocked to avoid bulk consumption; cartography is not accepted by this case",
+  "backendReceiveToMap": {
+    "observations": [
+      {
+        "event_id": "89127985-7968-411d-80bd-bd6057d70824",
+        "cursor": 1,
+        "received_at": "2026-11-14T04:38:01.240416+00:00",
+        "rendered_at": "2026-11-14T04:38:01.732Z",
+        "receive_to_map_ms": 493
+      }
+    ],
+    "limit": "Server receive to actual render; replay includes intentional offline/outage delay; no physical capture latency or SLA claim"
+  },
+  "upgrades": [
+    {
+      "status": 101
+    }
+  ]
+}

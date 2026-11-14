@@ -1,0 +1,460 @@
+{
+  "passed": true,
+  "scenario": "replica_recovery",
+  "checks": [
+    "Chrome native WSS same origin; real 101 handshakes",
+    "One replica unavailable; new connection and persisted point through remaining replica",
+    "Both replicas unavailable; disconnected map retains original IDs",
+    "CSRF-protected appointment cancellation in autonomous monolith during total API outage",
+    "Automatic recovery in same document; three unique event rows and observed rendered events",
+    "Both upstream replicas restored; original open document preserves live state and point IDs"
+  ],
+  "states": [
+    {
+      "phase": "01-map-open",
+      "status": "Sin señal · sin datos",
+      "lastEventId": "",
+      "rows": [],
+      "rendered": [],
+      "pageInstance": 1794631472527.8,
+      "recovery": "",
+      "coordinate": "Sin datos"
+    },
+    {
+      "phase": "02-live-two-replicas",
+      "status": "En vivo · SIMULADO",
+      "lastEventId": "25765f7e-10e9-43dd-b107-63555c107713",
+      "rows": [
+        "25765f7e-10e9-43dd-b107-63555c107713"
+      ],
+      "rendered": [
+        {
+          "event_id": "25765f7e-10e9-43dd-b107-63555c107713",
+          "cursor": 1,
+          "received_at": "2026-11-14T04:44:36.476232+00:00",
+          "rendered_at": "2026-11-14T04:44:37.028Z",
+          "receive_to_map_ms": 553
+        }
+      ],
+      "pageInstance": 1794631472527.8,
+      "recovery": "",
+      "coordinate": "25.6866, -100.3161"
+    },
+    {
+      "phase": "03-one-replica-stopped",
+      "status": "Desconectado · último dato conservado · SIMULADO",
+      "lastEventId": "25765f7e-10e9-43dd-b107-63555c107713",
+      "rows": [
+        "25765f7e-10e9-43dd-b107-63555c107713"
+      ],
+      "rendered": [
+        {
+          "event_id": "25765f7e-10e9-43dd-b107-63555c107713",
+          "cursor": 1,
+          "received_at": "2026-11-14T04:44:36.476232+00:00",
+          "rendered_at": "2026-11-14T04:44:37.028Z",
+          "receive_to_map_ms": 553
+        }
+      ],
+      "pageInstance": 1794631472527.8,
+      "recovery": "",
+      "coordinate": "25.6866, -100.3161"
+    },
+    {
+      "phase": "04-live-one-replica",
+      "status": "En vivo · SIMULADO",
+      "lastEventId": "3a8cd054-d588-4892-9e63-7bbaedc81b2a",
+      "rows": [
+        "25765f7e-10e9-43dd-b107-63555c107713",
+        "3a8cd054-d588-4892-9e63-7bbaedc81b2a"
+      ],
+      "rendered": [
+        {
+          "event_id": "25765f7e-10e9-43dd-b107-63555c107713",
+          "cursor": 1,
+          "received_at": "2026-11-14T04:44:36.476232+00:00",
+          "rendered_at": "2026-11-14T04:44:37.028Z",
+          "receive_to_map_ms": 553
+        },
+        {
+          "event_id": "25765f7e-10e9-43dd-b107-63555c107713",
+          "cursor": 1,
+          "received_at": "2026-11-14T04:44:36.476232+00:00",
+          "rendered_at": "2026-11-14T04:44:38.715Z",
+          "receive_to_map_ms": 2239
+        },
+        {
+          "event_id": "3a8cd054-d588-4892-9e63-7bbaedc81b2a",
+          "cursor": 2,
+          "received_at": "2026-11-14T04:44:39.197258+00:00",
+          "rendered_at": "2026-11-14T04:44:39.778Z",
+          "receive_to_map_ms": 581
+        }
+      ],
+      "pageInstance": 1794631472527.8,
+      "recovery": "",
+      "coordinate": "25.6866, -100.3161"
+    },
+    {
+      "phase": "05-all-replicas-stopped",
+      "status": "Desconectado · último dato conservado · SIMULADO",
+      "lastEventId": "3a8cd054-d588-4892-9e63-7bbaedc81b2a",
+      "rows": [
+        "25765f7e-10e9-43dd-b107-63555c107713",
+        "3a8cd054-d588-4892-9e63-7bbaedc81b2a"
+      ],
+      "rendered": [
+        {
+          "event_id": "25765f7e-10e9-43dd-b107-63555c107713",
+          "cursor": 1,
+          "received_at": "2026-11-14T04:44:36.476232+00:00",
+          "rendered_at": "2026-11-14T04:44:37.028Z",
+          "receive_to_map_ms": 553
+        },
+        {
+          "event_id": "25765f7e-10e9-43dd-b107-63555c107713",
+          "cursor": 1,
+          "received_at": "2026-11-14T04:44:36.476232+00:00",
+          "rendered_at": "2026-11-14T04:44:38.715Z",
+          "receive_to_map_ms": 2239
+        },
+        {
+          "event_id": "3a8cd054-d588-4892-9e63-7bbaedc81b2a",
+          "cursor": 2,
+          "received_at": "2026-11-14T04:44:39.197258+00:00",
+          "rendered_at": "2026-11-14T04:44:39.778Z",
+          "receive_to_map_ms": 581
+        }
+      ],
+      "pageInstance": 1794631472527.8,
+      "recovery": "",
+      "coordinate": "25.6866, -100.3161"
+    },
+    {
+      "phase": "07-map-preserved-during-mutation",
+      "status": "Desconectado · último dato conservado · SIMULADO",
+      "lastEventId": "3a8cd054-d588-4892-9e63-7bbaedc81b2a",
+      "rows": [
+        "25765f7e-10e9-43dd-b107-63555c107713",
+        "3a8cd054-d588-4892-9e63-7bbaedc81b2a"
+      ],
+      "rendered": [
+        {
+          "event_id": "25765f7e-10e9-43dd-b107-63555c107713",
+          "cursor": 1,
+          "received_at": "2026-11-14T04:44:36.476232+00:00",
+          "rendered_at": "2026-11-14T04:44:37.028Z",
+          "receive_to_map_ms": 553
+        },
+        {
+          "event_id": "25765f7e-10e9-43dd-b107-63555c107713",
+          "cursor": 1,
+          "received_at": "2026-11-14T04:44:36.476232+00:00",
+          "rendered_at": "2026-11-14T04:44:38.715Z",
+          "receive_to_map_ms": 2239
+        },
+        {
+          "event_id": "3a8cd054-d588-4892-9e63-7bbaedc81b2a",
+          "cursor": 2,
+          "received_at": "2026-11-14T04:44:39.197258+00:00",
+          "rendered_at": "2026-11-14T04:44:39.778Z",
+          "receive_to_map_ms": 581
+        }
+      ],
+      "pageInstance": 1794631472527.8,
+      "recovery": "",
+      "coordinate": "25.6866, -100.3161"
+    },
+    {
+      "phase": "08-recovered-same-map",
+      "status": "En vivo · SIMULADO",
+      "lastEventId": "4767e23c-63c1-4191-a03a-6caac2a589d3",
+      "rows": [
+        "25765f7e-10e9-43dd-b107-63555c107713",
+        "3a8cd054-d588-4892-9e63-7bbaedc81b2a",
+        "4767e23c-63c1-4191-a03a-6caac2a589d3"
+      ],
+      "rendered": [
+        {
+          "event_id": "25765f7e-10e9-43dd-b107-63555c107713",
+          "cursor": 1,
+          "received_at": "2026-11-14T04:44:36.476232+00:00",
+          "rendered_at": "2026-11-14T04:44:37.028Z",
+          "receive_to_map_ms": 553
+        },
+        {
+          "event_id": "25765f7e-10e9-43dd-b107-63555c107713",
+          "cursor": 1,
+          "received_at": "2026-11-14T04:44:36.476232+00:00",
+          "rendered_at": "2026-11-14T04:44:38.715Z",
+          "receive_to_map_ms": 2239
+        },
+        {
+          "event_id": "3a8cd054-d588-4892-9e63-7bbaedc81b2a",
+          "cursor": 2,
+          "received_at": "2026-11-14T04:44:39.197258+00:00",
+          "rendered_at": "2026-11-14T04:44:39.778Z",
+          "receive_to_map_ms": 581
+        },
+        {
+          "event_id": "4767e23c-63c1-4191-a03a-6caac2a589d3",
+          "cursor": 3,
+          "received_at": "2026-11-14T04:45:30.074280+00:00",
+          "rendered_at": "2026-11-14T04:45:45.424Z",
+          "receive_to_map_ms": 15350
+        }
+      ],
+      "pageInstance": 1794631472527.8,
+      "recovery": "",
+      "coordinate": "25.6866, -100.3161"
+    },
+    {
+      "phase": "09-both-replicas-restored-same-map",
+      "status": "En vivo · SIMULADO",
+      "lastEventId": "4767e23c-63c1-4191-a03a-6caac2a589d3",
+      "rows": [
+        "25765f7e-10e9-43dd-b107-63555c107713",
+        "3a8cd054-d588-4892-9e63-7bbaedc81b2a",
+        "4767e23c-63c1-4191-a03a-6caac2a589d3"
+      ],
+      "rendered": [
+        {
+          "event_id": "25765f7e-10e9-43dd-b107-63555c107713",
+          "cursor": 1,
+          "received_at": "2026-11-14T04:44:36.476232+00:00",
+          "rendered_at": "2026-11-14T04:44:37.028Z",
+          "receive_to_map_ms": 553
+        },
+        {
+          "event_id": "25765f7e-10e9-43dd-b107-63555c107713",
+          "cursor": 1,
+          "received_at": "2026-11-14T04:44:36.476232+00:00",
+          "rendered_at": "2026-11-14T04:44:38.715Z",
+          "receive_to_map_ms": 2239
+        },
+        {
+          "event_id": "3a8cd054-d588-4892-9e63-7bbaedc81b2a",
+          "cursor": 2,
+          "received_at": "2026-11-14T04:44:39.197258+00:00",
+          "rendered_at": "2026-11-14T04:44:39.778Z",
+          "receive_to_map_ms": 581
+        },
+        {
+          "event_id": "4767e23c-63c1-4191-a03a-6caac2a589d3",
+          "cursor": 3,
+          "received_at": "2026-11-14T04:45:30.074280+00:00",
+          "rendered_at": "2026-11-14T04:45:45.424Z",
+          "receive_to_map_ms": 15350
+        },
+        {
+          "event_id": "4767e23c-63c1-4191-a03a-6caac2a589d3",
+          "cursor": 3,
+          "received_at": "2026-11-14T04:45:30.074280+00:00",
+          "rendered_at": "2026-11-14T04:45:45.580Z",
+          "receive_to_map_ms": 15506
+        }
+      ],
+      "pageInstance": 1794631472527.8,
+      "recovery": "",
+      "coordinate": "25.6866, -100.3161"
+    }
+  ],
+  "sockets": [
+    {
+      "profile": "transport",
+      "url": "wss://127.0.0.1:56467/services/transporte/ws/v1/tracking/json",
+      "events": [
+        {
+          "type": "authenticated"
+        },
+        {
+          "type": "subscribed",
+          "cursor": 0
+        },
+        {
+          "type": "tracking.status",
+          "cursor": 0
+        },
+        {
+          "type": "position.updated",
+          "event_id": "25765f7e-10e9-43dd-b107-63555c107713",
+          "cursor": 1
+        }
+      ],
+      "closed": true
+    },
+    {
+      "profile": "transport",
+      "url": "wss://127.0.0.1:56467/services/transporte/ws/v1/tracking/json",
+      "events": [
+        {
+          "type": "authenticated"
+        },
+        {
+          "type": "subscribed",
+          "event_id": "25765f7e-10e9-43dd-b107-63555c107713",
+          "cursor": 1
+        },
+        {
+          "type": "tracking.status",
+          "cursor": 1
+        },
+        {
+          "type": "position.updated",
+          "event_id": "3a8cd054-d588-4892-9e63-7bbaedc81b2a",
+          "cursor": 2
+        }
+      ],
+      "closed": true
+    },
+    {
+      "profile": "transport",
+      "url": "wss://127.0.0.1:56467/services/transporte/ws/v1/tracking/json",
+      "events": [],
+      "closed": true
+    },
+    {
+      "profile": "transport",
+      "url": "wss://127.0.0.1:56467/services/transporte/ws/v1/tracking/json",
+      "events": [],
+      "closed": true
+    },
+    {
+      "profile": "transport",
+      "url": "wss://127.0.0.1:56467/services/transporte/ws/v1/tracking/json",
+      "events": [],
+      "closed": true
+    },
+    {
+      "profile": "transport",
+      "url": "wss://127.0.0.1:56467/services/transporte/ws/v1/tracking/json",
+      "events": [],
+      "closed": true
+    },
+    {
+      "profile": "transport",
+      "url": "wss://127.0.0.1:56467/services/transporte/ws/v1/tracking/json",
+      "events": [],
+      "closed": true
+    },
+    {
+      "profile": "transport",
+      "url": "wss://127.0.0.1:56467/services/transporte/ws/v1/tracking/json",
+      "events": [
+        {
+          "type": "authenticated"
+        },
+        {
+          "type": "subscribed",
+          "event_id": "4767e23c-63c1-4191-a03a-6caac2a589d3",
+          "cursor": 3
+        },
+        {
+          "type": "position.updated",
+          "event_id": "4767e23c-63c1-4191-a03a-6caac2a589d3",
+          "cursor": 3
+        },
+        {
+          "type": "tracking.status",
+          "cursor": 3
+        }
+      ],
+      "closed": false
+    }
+  ],
+  "pageErrors": [],
+  "authResponses": [
+    {
+      "profile": "transport",
+      "route": "/sesion/estado",
+      "method": "GET",
+      "status": 200,
+      "observed_at": 1794631474809,
+      "expires_at": 1794632370.144754,
+      "server_time": 1794631474.794408
+    },
+    {
+      "profile": "transport",
+      "route": "/traslados/:id/mapa/acceso",
+      "method": "POST",
+      "status": 200,
+      "observed_at": 1794631474893
+    },
+    {
+      "profile": "transport",
+      "route": "/traslados/:id/mapa/acceso",
+      "method": "POST",
+      "status": 200,
+      "observed_at": 1794631478324
+    },
+    {
+      "profile": "transport",
+      "route": "/traslados/:id/mapa/acceso",
+      "method": "POST",
+      "status": 200,
+      "observed_at": 1794631481633
+    },
+    {
+      "profile": "transport",
+      "route": "/traslados/:id/mapa/acceso",
+      "method": "POST",
+      "status": 200,
+      "observed_at": 1794631484165
+    },
+    {
+      "profile": "transport",
+      "route": "/traslados/:id/mapa/acceso",
+      "method": "POST",
+      "status": 200,
+      "observed_at": 1794631488790
+    },
+    {
+      "profile": "transport",
+      "route": "/traslados/:id/mapa/acceso",
+      "method": "POST",
+      "status": 200,
+      "observed_at": 1794631497346
+    },
+    {
+      "profile": "transport",
+      "route": "/traslados/:id/mapa/acceso",
+      "method": "POST",
+      "status": 200,
+      "observed_at": 1794631514147
+    },
+    {
+      "profile": "transport",
+      "route": "/sesion/estado",
+      "method": "GET",
+      "status": 200,
+      "observed_at": 1794631534508,
+      "expires_at": 1794632370.144754,
+      "server_time": 1794631534.500434
+    },
+    {
+      "profile": "transport",
+      "route": "/traslados/:id/mapa/acceso",
+      "method": "POST",
+      "status": 200,
+      "observed_at": 1794631544942
+    }
+  ],
+  "tls": "Chrome SPKI exception restricted to the ephemeral test certificate; no OS CA acceptance",
+  "cartography": "OSM tiles blocked to avoid bulk consumption; cartography is not accepted by this case",
+  "mutation": {
+    "form_status": 200,
+    "post_status": 302,
+    "detail_status": 200
+  },
+  "upgrades": [
+    {
+      "status": 101
+    },
+    {
+      "status": 101
+    },
+    {
+      "status": 101
+    }
+  ]
+}

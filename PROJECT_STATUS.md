@@ -2,6 +2,12 @@
 
 Las entradas están ordenadas de reciente a histórico; un pendiente de un corte anterior puede quedar sustituido explícitamente por una entrada posterior.
 
+## Seguridad del mapa comprobada parcialmente; recuperación B fallida — 13/11/2026
+
+I06-08: ensayos independientes A, C y D aprobados: cursor fuera de ventana con hueco explícito; logout conectado sin datos privados posteriores; expiración natural de familia tras dos renovaciones reales. D usa acceso 330 s/familia 90 s solo en laboratorio y comprueba la familia vencida mientras el JWT aún vive, no expiración del acceso. La regresión dirigida I06-07 pasó por separado, 1/1 en 155,397 s. Dirección inspeccionó sus capturas. Cada intento conservó 1394 fuentes antes/después y cerró procesos propios; ventana pesada devuelta.
+
+B01/B02 fallaron al abrir el publicador: 502 `no live upstreams`. B02 ya había demostrado otro WSS nuevo, autenticado/suscrito y abierto de la sesión autorizada. Los logs y la fuente local Nginx 1.30.6 sustentan una hipótesis de selección pasiva de upstream compartido, sin observar sus contadores internos. No hubo cambio de producto ni más reintentos. A/C/D/07 corresponden a S1; solo B02 ejecutó S2, fallido. [Resultados, versiones, comandos y límites](documentation/evidencias/entrega-final/portal-security-20261114/RESULTADOS.md). Cambio de rol/asignación y B siguen pendientes; I06-08 y etapa 06 abiertos. TESTING/cuotas ampliadas, SPKI efímero, OSM bloqueado, WSGI y posiciones simuladas no acreditan carga, CA del sistema, cartografía, GPS ni GCP. Compose conserva Nginx 1.28; no se extrapola el diagnóstico 1.30.6 a su imagen publicada.
+
 ## Limpieza de siete laboratorios concluidos — 13/11/2026
 
 Retiradas únicamente siete bases efímeras propias: DESK-07, lectura QR Android, intento 04 aprobado de I06-07 y cuatro ensayos aprobados del lote posterior de seguridad del portal. Se identificaron datos sintéticos, se confirmaron motores cerrados y se repitieron guardas de ruta/propietario/archivos abiertos. Logs privados y evidencia de cada resultado conservados, incluido el fallo de custodia; las bases fallidas B01/B02 del portal siguen disponibles para diagnóstico. Total: 12.951 archivos y 1.923.049.153 bytes lógicos en siete operaciones; no es ahorro físico neto medido ni resuelve por sí solo el presupuesto de carga sostenida. [Alcance y registro](documentation/entrega-final/continuidad/Organizacion.md#retiro-de-bases-temporales-comprobadas--13112026-monterrey). Datos del proyecto, respaldos, SDK y laboratorios de carga fallidos conservados.

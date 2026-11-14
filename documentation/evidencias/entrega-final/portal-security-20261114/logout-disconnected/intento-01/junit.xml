@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="133.934" timestamp="2026-11-13T22:33:05.928084-06:00" hostname="Victors-MacBook-Air.local"><testcase classname="tests.test_portal_gateway_tracking" name="test_portal_gateway_security_states[logout_disconnected]" time="132.257"><failure message="websocket._exceptions.WebSocketBadStatusException: Handshake status 502 Bad Gateway -+-+- {'server': 'nginx', 'date': 'Sat, 14 Nov 2026 04:35:15 GMT', 'content-type': 'text/html', 'content-length': '150', 'connection': 'keep-alive', 'strict-transport-security': 'max-age=31536000'} -+-+- &lt;html&gt;&#13;&#10;&lt;head&gt;&lt;title&gt;502 Bad Gateway&lt;/title&gt;&lt;/head&gt;&#13;&#10;&lt;body&gt;&#13;&#10;&lt;center&gt;&lt;h1&gt;502 Bad Gateway&lt;/h1&gt;&lt;/center&gt;&#13;&#10;&lt;hr&gt;&lt;center&gt;nginx&lt;/center&gt;&#13;&#10;&lt;/body&gt;&#13;&#10;&lt;/html&gt;">apps/services/tests/test_portal_gateway_tracking.py:918: in test_portal_gateway_security_states
+    run_gateway_scenario(p, tracking, request, tmp_path, scenario)
+apps/services/tests/test_portal_gateway_tracking.py:778: in run_gateway_scenario
+    run_security_flow(
+apps/services/tests/test_portal_gateway_tracking.py:253: in run_security_flow
+    append_points(2)
+apps/services/tests/test_portal_gateway_tracking.py:141: in append_points
+    report.setdefault("acks", []).extend(publish(points[-count:]))
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^
+apps/services/tests/test_portal_gateway_tracking.py:579: in publish
+    publisher = connect(target, tracking["credential"]["credential"], "device")
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+apps/services/tests/test_final_tracking.py:94: in connect
+    ws = websocket.create_connection(
+apps/services/.venv/lib/python3.12/site-packages/websocket/_core.py:734: in create_connection
+    websock.connect(url, **options)
+apps/services/.venv/lib/python3.12/site-packages/websocket/_core.py:284: in connect
+    self.handshake_response = handshake(self.sock, url, *addrs, **options)
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+apps/services/.venv/lib/python3.12/site-packages/websocket/_handshake.py:73: in handshake
+    status, resp = _get_resp_headers(sock)
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+apps/services/.venv/lib/python3.12/site-packages/websocket/_handshake.py:173: in _get_resp_headers
+    raise WebSocketBadStatusException(
+E   websocket._exceptions.WebSocketBadStatusException: Handshake status 502 Bad Gateway -+-+- {'server': 'nginx', 'date': 'Sat, 14 Nov 2026 04:35:15 GMT', 'content-type': 'text/html', 'content-length': '150', 'connection': 'keep-alive', 'strict-transport-security': 'max-age=31536000'} -+-+- &lt;html&gt;
+E   &lt;head&gt;&lt;title&gt;502 Bad Gateway&lt;/title&gt;&lt;/head&gt;
+E   &lt;body&gt;
+E   &lt;center&gt;&lt;h1&gt;502 Bad Gateway&lt;/h1&gt;&lt;/center&gt;
+E   &lt;hr&gt;&lt;center&gt;nginx&lt;/center&gt;
+E   &lt;/body&gt;
+E   &lt;/html&gt;</failure></testcase></testsuite></testsuites>

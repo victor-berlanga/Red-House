@@ -1,0 +1,99 @@
+{
+  "case": "I06-08",
+  "scenario": "logout_live",
+  "passed": true,
+  "checks": [
+    "HTTPS Nginx verificado por Python con certificado explícito",
+    "3 puntos SQL únicos con sus IDs y cursores esperados",
+    "SQL y Mongo conservan los mismos IDs/cursores; salud de réplicas comprobada por escenario"
+  ],
+  "scope": "Laboratorio local aislado; datos y ubicaciones sintéticos",
+  "limits": [
+    "No cierra I06 completo ni acredita producción, GCP o capacidad",
+    "Fixture TESTING=True; cuotas de prueba 100000; no prueba MFA",
+    "DONOR/TRANSPORT sin omitir MFA de roles críticos",
+    "TLS Python con CA explícita; Chrome con excepción SPKI del certificado efímero",
+    "No prueba confianza CA del sistema; perfiles Chrome privados efímeros",
+    "Mosaicos OSM bloqueados para evitar consumo masivo; cartografía no aceptada",
+    "Listeners loopback y puertos efímeros; WSGI de prueba con TrustedProxy real"
+  ],
+  "generated_configuration_sha256": "f697290f1d18738e742d363af98de6422be8ac1f2e9cdc5e1c37a31347f60437",
+  "certificate_spki_sha256": "TYn8VufrXXiYwND0bvznWazTD9apmq5bZs/lj4S0/10=",
+  "acks": [
+    {
+      "event_id": "89127985-7968-411d-80bd-bd6057d70824",
+      "cursor": 1,
+      "state": "PERSISTED_SQL"
+    },
+    {
+      "event_id": "cf49bb4b-7836-4368-a7dc-d63c5aa6dbcf",
+      "cursor": 2,
+      "state": "PERSISTED_SQL"
+    },
+    {
+      "event_id": "a94b2bc5-a780-4416-b68e-2c7bf62cd070",
+      "cursor": 3,
+      "state": "PERSISTED_SQL"
+    }
+  ],
+  "session_transition": {
+    "new_sessions": 1,
+    "login_occurred_at": [
+      "2026-11-14T04:37:55.368003+00:00"
+    ],
+    "family_expires_at": [
+      "2026-11-14T22:37:55.360235-06:00"
+    ],
+    "expired_in_sql": [
+      false
+    ],
+    "revoked_count": 1,
+    "active_redis_count": 0,
+    "logout_events": 1,
+    "confirmed_web_revocations": 1,
+    "permission_cache_present": true
+  },
+  "final_replicas_health": {
+    "0": {
+      "live": 200,
+      "ready": 200
+    },
+    "1": {
+      "live": 200,
+      "ready": 200
+    }
+  },
+  "sql_points": [
+    {
+      "event_id": "89127985-7968-411d-80bd-bd6057d70824",
+      "cursor": 1
+    },
+    {
+      "event_id": "cf49bb4b-7836-4368-a7dc-d63c5aa6dbcf",
+      "cursor": 2
+    },
+    {
+      "event_id": "a94b2bc5-a780-4416-b68e-2c7bf62cd070",
+      "cursor": 3
+    }
+  ],
+  "mongo_projection": {
+    "collection": "events",
+    "position_field": "metadata.position",
+    "points": [
+      {
+        "cursor": 1,
+        "event_id": "89127985-7968-411d-80bd-bd6057d70824"
+      },
+      {
+        "cursor": 2,
+        "event_id": "cf49bb4b-7836-4368-a7dc-d63c5aa6dbcf"
+      },
+      {
+        "cursor": 3,
+        "event_id": "a94b2bc5-a780-4416-b68e-2c7bf62cd070"
+      }
+    ],
+    "pending_outbox_positions": 0
+  }
+}

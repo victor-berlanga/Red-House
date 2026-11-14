@@ -1,0 +1,36 @@
+{
+  "source_files": 1394,
+  "sources_equal": true,
+  "candidate_processes_remaining": [],
+  "visual_review": [
+    "Expired original cookie replay after actual technical login returns login, no private map or coordinates"
+  ],
+  "result": "Passed independent family-expiry case; not access-JWT expiry",
+  "actual_renewals": 2,
+  "auth_statuses": [
+    200,
+    200,
+    200,
+    200,
+    200,
+    401
+  ],
+  "sql_points": 3,
+  "post_expiry_acks_before_fixture_restore": [
+    {
+      "event_id": "78d43e6e-5228-4e9f-9b48-5281f1ad0148",
+      "cursor": 2,
+      "state": "PERSISTED_SQL"
+    },
+    {
+      "event_id": "42f4cb22-5d45-40b2-b422-9ddca2a18ebc",
+      "cursor": 3,
+      "state": "PERSISTED_SQL"
+    }
+  ],
+  "expiry_guards": {
+    "family_expiry_verified": true,
+    "post_expiry_device_acks_verified": true,
+    "old_family_rechecked_after_fixture_login": true
+  }
+}

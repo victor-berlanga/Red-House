@@ -14,6 +14,14 @@ Aceptado el recorrido acotado del [ensayo portal/gateway](../../evidencias/entre
 
 Los tres puntos usan las mismas coordenadas sintéticas `25.6866,-100.3161`: se aceptan identidad, cursor y reconexión, sin acreditar desplazamiento físico o geometría vial. La inscripción no tiene horario asignado. El laboratorio conserva `TESTING=True`, cuotas de prueba 100000, WSGI de ensayo, confianza TLS explícita Python/excepción SPKI efímera Chrome y mosaicos OSM bloqueados; no acepta CA del sistema, capacidad, MFA, cartografía, Docker/GCP ni operación productiva. No hubo sustitución/intercepción de WebSocket ni resultados inyectados. **Esta aceptación local de I06-07 no cierra I06-01…06, I06-08/09 ni toda la etapa 06.** El plan histórico y sus demás recorridos permanecen abiertos en lo no verificado; sus referencias antiguas se interpretan con la actualización vigente superior.
 
+## I06-08: aceptación parcial y fallo de recuperación — 13/14 de noviembre de 2026
+
+[Expediente del lote](../../evidencias/entrega-final/portal-security-20261114/RESULTADOS.md): A (cursor fuera de ventana), C (logout conectado) y D (expiración natural de familia) aprobaron por separado en S1. Dirección inspeccionó hueco/retorno en vivo y páginas finales de login sin mapa ni historial privado. D observó dos renovaciones reales antes de vencer la familia; acceso 330 s/familia 90 s son configuración de laboratorio y no prueban vencimiento del JWT. La cookie antigua recibió inicialmente 302 al volver al recurso protegido y no revivió tras el login técnico de restauración.
+
+B falló en sus dos intentos: el publicador recibió 502. B02/S2 ya exigía un socket nuevo de la cuenta aún autorizada, autenticado, suscrito, abierto y en el mismo documento antes del publish. Ese paso sí ocurrió; el caso completo no aprobó. Logs y fuente exacta local Nginx 1.30.6 permiten una hipótesis de selección de upstream, no lectura de sus contadores internos. Configuración de producto intacta, sin más reintentos ni publicación. La imagen Compose 1.28 requiere comprobación propia posterior.
+
+Regresión I06-07 independiente sobre S1: 1/1 en 155,397 s, cancelación autónoma SQL/auditoría y tres IDs/cursores iguales en mapa/SQL/Mongo, ambas réplicas restauradas; captura final revisada por dirección. Se mantienen el expediente previo y sus límites. No es una suite agregada ni se atribuyen los aprobados S1 a S2. Cambio de rol, revocación de asignación y B continúan pendientes; I06-08 y etapa 06 permanecen abiertos. TESTING/cuotas, confianza SPKI efímera, WSGI, OSM bloqueado y coordenadas simuladas conservan los límites del ensayo local.
+
 ## Plan original del 6 de noviembre
 
 Preparado el 6 de noviembre de 2026. **Plan revisable, no ejecución ni autorización.**

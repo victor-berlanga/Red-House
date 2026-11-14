@@ -1,0 +1,298 @@
+{
+  "passed": false,
+  "scenario": "logout_disconnected",
+  "checks": [
+    "security-private-data-cleared: login visible; private tracking document removed",
+    "security-logout-result: login visible; private tracking document removed"
+  ],
+  "states": [
+    {
+      "phase": "01-map-open",
+      "status": "Sin señal · sin datos",
+      "lastEventId": "",
+      "rows": [],
+      "rendered": [],
+      "pageInstance": 1794630860440.2,
+      "recovery": "",
+      "coordinate": "Sin datos"
+    },
+    {
+      "phase": "security-01-live",
+      "status": "En vivo · SIMULADO",
+      "lastEventId": "544a0dd9-1b04-40da-a145-75c9f40b5949",
+      "rows": [
+        "544a0dd9-1b04-40da-a145-75c9f40b5949"
+      ],
+      "rendered": [
+        {
+          "event_id": "544a0dd9-1b04-40da-a145-75c9f40b5949",
+          "cursor": 1,
+          "received_at": "2026-11-14T04:34:23.536116+00:00",
+          "rendered_at": "2026-11-14T04:34:24.081Z",
+          "receive_to_map_ms": 545
+        }
+      ],
+      "pageInstance": 1794630860440.2,
+      "recovery": "",
+      "coordinate": "25.6866, -100.3161"
+    },
+    {
+      "phase": "security-02-other-session-live",
+      "status": "Desconectado · último dato conservado · SIMULADO",
+      "lastEventId": "544a0dd9-1b04-40da-a145-75c9f40b5949",
+      "rows": [
+        "544a0dd9-1b04-40da-a145-75c9f40b5949"
+      ],
+      "rendered": [
+        {
+          "event_id": "544a0dd9-1b04-40da-a145-75c9f40b5949",
+          "cursor": 1,
+          "received_at": "2026-11-14T04:34:23.536116+00:00",
+          "rendered_at": "2026-11-14T04:34:38.314Z",
+          "receive_to_map_ms": 14779
+        },
+        {
+          "event_id": "544a0dd9-1b04-40da-a145-75c9f40b5949",
+          "cursor": 1,
+          "received_at": "2026-11-14T04:34:23.536116+00:00",
+          "rendered_at": "2026-11-14T04:34:38.315Z",
+          "receive_to_map_ms": 14779
+        }
+      ],
+      "pageInstance": 1794630873826.7,
+      "recovery": "",
+      "coordinate": "25.6866, -100.3161"
+    },
+    {
+      "phase": "security-03-disconnected-before-logout",
+      "status": "Desconectado · último dato conservado · SIMULADO",
+      "lastEventId": "544a0dd9-1b04-40da-a145-75c9f40b5949",
+      "rows": [
+        "544a0dd9-1b04-40da-a145-75c9f40b5949"
+      ],
+      "rendered": [
+        {
+          "event_id": "544a0dd9-1b04-40da-a145-75c9f40b5949",
+          "cursor": 1,
+          "received_at": "2026-11-14T04:34:23.536116+00:00",
+          "rendered_at": "2026-11-14T04:34:24.081Z",
+          "receive_to_map_ms": 545
+        }
+      ],
+      "pageInstance": 1794630860440.2,
+      "recovery": "",
+      "coordinate": "25.6866, -100.3161"
+    }
+  ],
+  "sockets": [
+    {
+      "profile": "transport",
+      "url": "wss://127.0.0.1:52939/services/transporte/ws/v1/tracking/json",
+      "events": [
+        {
+          "type": "authenticated"
+        },
+        {
+          "type": "subscribed",
+          "cursor": 0
+        },
+        {
+          "type": "tracking.status",
+          "cursor": 0
+        },
+        {
+          "type": "position.updated",
+          "event_id": "544a0dd9-1b04-40da-a145-75c9f40b5949",
+          "cursor": 1
+        },
+        {
+          "type": "tracking.status",
+          "cursor": 1
+        }
+      ],
+      "closed": true
+    },
+    {
+      "profile": "allowed",
+      "url": "wss://127.0.0.1:52939/services/transporte/ws/v1/tracking/json",
+      "events": [
+        {
+          "type": "authenticated"
+        },
+        {
+          "type": "subscribed",
+          "event_id": "544a0dd9-1b04-40da-a145-75c9f40b5949",
+          "cursor": 1
+        },
+        {
+          "type": "tracking.status",
+          "cursor": 1
+        }
+      ],
+      "closed": true
+    },
+    {
+      "profile": "transport",
+      "url": "wss://127.0.0.1:52939/services/transporte/ws/v1/tracking/json",
+      "events": [],
+      "closed": true
+    },
+    {
+      "profile": "allowed",
+      "url": "wss://127.0.0.1:52939/services/transporte/ws/v1/tracking/json",
+      "events": [],
+      "closed": true
+    },
+    {
+      "profile": "allowed",
+      "url": "wss://127.0.0.1:52939/services/transporte/ws/v1/tracking/json",
+      "events": [],
+      "closed": true
+    },
+    {
+      "profile": "allowed",
+      "url": "wss://127.0.0.1:52939/services/transporte/ws/v1/tracking/json",
+      "events": [],
+      "closed": true
+    },
+    {
+      "profile": "allowed",
+      "url": "wss://127.0.0.1:52939/services/transporte/ws/v1/tracking/json",
+      "events": [],
+      "closed": true
+    },
+    {
+      "profile": "allowed",
+      "url": "wss://127.0.0.1:52939/services/transporte/ws/v1/tracking/json",
+      "events": [
+        {
+          "type": "authenticated"
+        },
+        {
+          "type": "subscribed",
+          "event_id": "544a0dd9-1b04-40da-a145-75c9f40b5949",
+          "cursor": 1
+        },
+        {
+          "type": "tracking.status",
+          "cursor": 1
+        }
+      ],
+      "closed": false
+    }
+  ],
+  "pageErrors": [],
+  "authResponses": [
+    {
+      "profile": "transport",
+      "route": "/sesion/estado",
+      "method": "GET",
+      "status": 200,
+      "observed_at": 1794630860467
+    },
+    {
+      "profile": "transport",
+      "route": "/traslados/:id/mapa/acceso",
+      "method": "POST",
+      "status": 200,
+      "observed_at": 1794630862240
+    },
+    {
+      "profile": "transport",
+      "route": "/sesion/estado",
+      "method": "GET",
+      "status": 200,
+      "observed_at": 1794630862339,
+      "expires_at": 1794631758.7845492,
+      "server_time": 1794630862.322468
+    },
+    {
+      "profile": "allowed",
+      "route": "/sesion/estado",
+      "method": "GET",
+      "status": 200,
+      "observed_at": 1794630873856
+    },
+    {
+      "profile": "allowed",
+      "route": "/sesion/estado",
+      "method": "GET",
+      "status": 200,
+      "observed_at": 1794630878386,
+      "expires_at": 1794631771.943827,
+      "server_time": 1794630876.265751
+    },
+    {
+      "profile": "allowed",
+      "route": "/traslados/:id/mapa/acceso",
+      "method": "POST",
+      "status": 200,
+      "observed_at": 1794630878400
+    },
+    {
+      "profile": "transport",
+      "route": "/traslados/:id/mapa/acceso",
+      "method": "POST",
+      "status": 200,
+      "observed_at": 1794630882589
+    },
+    {
+      "profile": "allowed",
+      "route": "/traslados/:id/mapa/acceso",
+      "method": "POST",
+      "status": 200,
+      "observed_at": 1794630882868
+    },
+    {
+      "profile": "logout-tab",
+      "route": "/sesion/estado",
+      "method": "GET",
+      "status": 200,
+      "observed_at": 1794630883725,
+      "expires_at": 1794631758.7845492,
+      "server_time": 1794630883.703153
+    },
+    {
+      "profile": "logout-tab",
+      "route": "/logout",
+      "method": "POST",
+      "status": 302,
+      "observed_at": 1794630884780
+    },
+    {
+      "profile": "allowed",
+      "route": "/traslados/:id/mapa/acceso",
+      "method": "POST",
+      "status": 200,
+      "observed_at": 1794630885667
+    },
+    {
+      "profile": "allowed",
+      "route": "/traslados/:id/mapa/acceso",
+      "method": "POST",
+      "status": 200,
+      "observed_at": 1794630890669
+    },
+    {
+      "profile": "allowed",
+      "route": "/traslados/:id/mapa/acceso",
+      "method": "POST",
+      "status": 200,
+      "observed_at": 1794630898964
+    },
+    {
+      "profile": "allowed",
+      "route": "/traslados/:id/mapa/acceso",
+      "method": "POST",
+      "status": 200,
+      "observed_at": 1794630915359
+    }
+  ],
+  "tls": "Chrome SPKI exception restricted to the ephemeral test certificate; no OS CA acceptance",
+  "cartography": "OSM tiles blocked to avoid bulk consumption; cartography is not accepted by this case",
+  "failure": {
+    "stage": "security-authorized-recovery",
+    "type": "ParentTermination",
+    "category": "orchestration"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "result": "Failed; not accepted as B",
+  "publisher_failure": "Nginx handshake502, no live upstreams, 2026-11-14T04:35:15Z",
+  "observed_after_failure": "Last allowed socket recorded authenticated, subscribed cursor1 and tracking.status while still open; gateway log later contains101",
+  "direct_health_timestamp": "Not recorded in attempt01; source order is restored process live200, fixed2.1s sleep, then failed publisher attempt. Do not invent a direct-health wall timestamp.",
+  "inference": "Publisher was attempted before the authorized observer recovery was coordinated; the later authenticated/subscribed socket proves replica recovery but does not make this attempt pass. Exact Nginx peer failure-state timing is not established.",
+  "approved_correction": "Remove fixed sleep in B, split restore and publish phases; require a new still-open allowed native socket after pre-cut boundary with authenticated/subscribed cursor1 and unchanged document before one publisher attempt",
+  "changes": "Only test/runner protocol and safe resource/timestamp evidence; no product, proxy policy or timeout changes",
+  "next_attempt": "intento-02, fresh pytest/platform"
+}
