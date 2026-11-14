@@ -7,9 +7,12 @@ from pathlib import Path
 
 from locust import HttpUser, between, task
 from locust.exception import StopUser
+from locust.runners import STATE_RUNNING, STATE_SPAWNING
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from scripts.load_client import LoadFailure, LoadSession
+
+from tests.load_cleanup import cleanup_for
 
 PROFILES = ("medical2", "operator1", "coordinator1", "auditor1", "donor1", "transport1")
 OPERATIONS = {
@@ -60,6 +63,7 @@ class RegionalUser(HttpUser):
             else "application/json",
             no_cache=os.environ.get("REDHOUSE_LOAD_NO_CACHE") == "1",
         )
+        cleanup_for(self.environment).add(self.api, self.client)
         try:
             self.api.login(self.profile, state["password"])
         except LoadFailure:
@@ -67,6 +71,8 @@ class RegionalUser(HttpUser):
 
     @task
     def regional_workflow(self):
+        if self.environment.runner.state not in (STATE_RUNNING, STATE_SPAWNING):
+            raise StopUser()
         try:
             for service, path, name in OPERATIONS[self.profile]:
                 query = "" if path == "/api/v1/status" else "?page_size=20"
@@ -98,9 +104,5 @@ class RegionalUser(HttpUser):
                 raise StopUser() from None
 
     def on_stop(self):
-        if self.api:
-            try:
-                self.api.close()
-            except LoadFailure:
-                pass  # La revocación fallida permanece en estadísticas de Locust.
-        self.client.close()
+        # La revocación ocurre en test_stop tras detener los usuarios.
+        pass

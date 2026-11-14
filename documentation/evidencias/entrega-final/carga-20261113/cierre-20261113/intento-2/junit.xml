@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="72.994" timestamp="2026-11-13T18:08:12.554100-06:00" hostname="Victors-MacBook-Air.local"><testcase classname="tests.test_load_probe" name="test_appointments_and_inventory_are_persisted_under_locust" time="71.631"><failure message="AssertionError">apps/services/tests/test_load_probe.py:118: in test_appointments_and_inventory_are_persisted_under_locust
+    summary = run_locust(
+apps/services/tests/load_support.py:126: in run_locust
+    assert summary["counts"]["Identidad / revocación al salir"] == users
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   AssertionError</failure></testcase></testsuite></testsuites>

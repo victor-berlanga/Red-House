@@ -1,0 +1,417 @@
+[
+    {
+        "name": "Identidad / login",
+        "method": "POST",
+        "last_request_timestamp": 1794614951.267543,
+        "start_time": 1794614949.890927,
+        "num_requests": 4,
+        "num_none_requests": 0,
+        "num_failures": 0,
+        "total_response_time": 5253.4588550333865,
+        "max_response_time": 1454.8384600202553,
+        "min_response_time": 1046.2730290018953,
+        "total_content_length": 6222,
+        "response_times": {
+            "1000": 1,
+            "1300": 1,
+            "1500": 2
+        },
+        "num_reqs_per_sec": {
+            "1794614949": 1,
+            "1794614950": 1,
+            "1794614951": 2
+        },
+        "num_fail_per_sec": {}
+    },
+    {
+        "name": "Citas / Expediente propio",
+        "method": "GET",
+        "last_request_timestamp": 1794614957.197851,
+        "start_time": 1794614950.303623,
+        "num_requests": 6,
+        "num_none_requests": 0,
+        "num_failures": 0,
+        "total_response_time": 1737.9557939711958,
+        "max_response_time": 394.6557799936272,
+        "min_response_time": 198.58813099563122,
+        "total_content_length": 3792,
+        "response_times": {
+            "390": 1,
+            "290": 1,
+            "370": 1,
+            "200": 1,
+            "220": 1,
+            "260": 1
+        },
+        "num_reqs_per_sec": {
+            "1794614950": 1,
+            "1794614951": 1,
+            "1794614954": 2,
+            "1794614956": 1,
+            "1794614957": 1
+        },
+        "num_fail_per_sec": {}
+    },
+    {
+        "name": "Inventario / Registrar cuarentena",
+        "method": "POST",
+        "last_request_timestamp": 1794614958.9803011,
+        "start_time": 1794614950.459012,
+        "num_requests": 10,
+        "num_none_requests": 0,
+        "num_failures": 0,
+        "total_response_time": 2715.5176372034475,
+        "max_response_time": 742.7116580074653,
+        "min_response_time": 158.2053750171326,
+        "total_content_length": 12670,
+        "response_times": {
+            "250": 2,
+            "210": 2,
+            "200": 1,
+            "160": 1,
+            "190": 1,
+            "220": 1,
+            "280": 1,
+            "740": 1
+        },
+        "num_reqs_per_sec": {
+            "1794614950": 1,
+            "1794614951": 2,
+            "1794614953": 2,
+            "1794614955": 2,
+            "1794614957": 2,
+            "1794614958": 1
+        },
+        "num_fail_per_sec": {}
+    },
+    {
+        "name": "Citas / Buscar campa\u00f1a",
+        "method": "GET",
+        "last_request_timestamp": 1794614957.475397,
+        "start_time": 1794614950.551734,
+        "num_requests": 6,
+        "num_none_requests": 0,
+        "num_failures": 0,
+        "total_response_time": 1400.2410849789158,
+        "max_response_time": 275.367095018737,
+        "min_response_time": 165.83497199462727,
+        "total_content_length": 2670,
+        "response_times": {
+            "210": 1,
+            "170": 1,
+            "250": 1,
+            "240": 1,
+            "260": 1,
+            "280": 1
+        },
+        "num_reqs_per_sec": {
+            "1794614950": 1,
+            "1794614951": 1,
+            "1794614954": 2,
+            "1794614957": 2
+        },
+        "num_fail_per_sec": {}
+    },
+    {
+        "name": "Inventario / Consultar unidad registrada",
+        "method": "GET",
+        "last_request_timestamp": 1794614959.2210581,
+        "start_time": 1794614950.749183,
+        "num_requests": 10,
+        "num_none_requests": 0,
+        "num_failures": 0,
+        "total_response_time": 2639.433508971706,
+        "max_response_time": 428.90200001420453,
+        "min_response_time": 198.3024320215918,
+        "total_content_length": 16170,
+        "response_times": {
+            "260": 1,
+            "220": 1,
+            "200": 1,
+            "430": 1,
+            "250": 2,
+            "240": 2,
+            "270": 2
+        },
+        "num_reqs_per_sec": {
+            "1794614950": 1,
+            "1794614951": 1,
+            "1794614952": 1,
+            "1794614954": 2,
+            "1794614955": 2,
+            "1794614957": 2,
+            "1794614959": 1
+        },
+        "num_fail_per_sec": {}
+    },
+    {
+        "name": "Recorrido / OPERATOR",
+        "method": "TRANSACTION",
+        "last_request_timestamp": 1794614959.221183,
+        "start_time": 1794614950.749453,
+        "num_requests": 10,
+        "num_none_requests": 0,
+        "num_failures": 0,
+        "total_response_time": 6563.3422130486,
+        "max_response_time": 1070.7892929785885,
+        "min_response_time": 403.39714102447033,
+        "total_content_length": 0,
+        "response_times": {
+            "560": 2,
+            "450": 1,
+            "400": 1,
+            "1100": 2,
+            "460": 1,
+            "510": 2,
+            "990": 1
+        },
+        "num_reqs_per_sec": {
+            "1794614950": 1,
+            "1794614951": 1,
+            "1794614952": 1,
+            "1794614954": 2,
+            "1794614955": 2,
+            "1794614957": 2,
+            "1794614959": 1
+        },
+        "num_fail_per_sec": {}
+    },
+    {
+        "name": "Citas / Horarios autorizados",
+        "method": "GET",
+        "last_request_timestamp": 1794614957.659395,
+        "start_time": 1794614950.8682811,
+        "num_requests": 6,
+        "num_none_requests": 0,
+        "num_failures": 0,
+        "total_response_time": 1305.1917278789915,
+        "max_response_time": 285.7837679912336,
+        "min_response_time": 178.06826898595318,
+        "total_content_length": 6360,
+        "response_times": {
+            "290": 1,
+            "210": 1,
+            "200": 1,
+            "180": 2,
+            "260": 1
+        },
+        "num_reqs_per_sec": {
+            "1794614950": 1,
+            "1794614951": 1,
+            "1794614955": 2,
+            "1794614957": 2
+        },
+        "num_fail_per_sec": {}
+    },
+    {
+        "name": "Citas / Reservar",
+        "method": "POST",
+        "last_request_timestamp": 1794614957.8525472,
+        "start_time": 1794614951.4413152,
+        "num_requests": 6,
+        "num_none_requests": 0,
+        "num_failures": 0,
+        "total_response_time": 1591.9531220570207,
+        "max_response_time": 560.3314350009896,
+        "min_response_time": 168.36632799822837,
+        "total_content_length": 2382,
+        "response_times": {
+            "560": 1,
+            "260": 1,
+            "190": 2,
+            "220": 1,
+            "170": 1
+        },
+        "num_reqs_per_sec": {
+            "1794614951": 1,
+            "1794614952": 1,
+            "1794614955": 2,
+            "1794614957": 2
+        },
+        "num_fail_per_sec": {}
+    },
+    {
+        "name": "Citas / Consultar horario",
+        "method": "GET",
+        "last_request_timestamp": 1794614958.059532,
+        "start_time": 1794614951.6894588,
+        "num_requests": 6,
+        "num_none_requests": 0,
+        "num_failures": 0,
+        "total_response_time": 1483.0753229907714,
+        "max_response_time": 373.15727496752515,
+        "min_response_time": 204.3186419759877,
+        "total_content_length": 2130,
+        "response_times": {
+            "220": 1,
+            "370": 1,
+            "260": 1,
+            "230": 1,
+            "200": 2
+        },
+        "num_reqs_per_sec": {
+            "1794614951": 1,
+            "1794614952": 1,
+            "1794614955": 2,
+            "1794614957": 1,
+            "1794614958": 1
+        },
+        "num_fail_per_sec": {}
+    },
+    {
+        "name": "Citas / Reprogramar",
+        "method": "POST",
+        "last_request_timestamp": 1794614958.267182,
+        "start_time": 1794614951.941599,
+        "num_requests": 6,
+        "num_none_requests": 0,
+        "num_failures": 0,
+        "total_response_time": 1213.0117619526573,
+        "max_response_time": 236.0097620403394,
+        "min_response_time": 157.3128110030666,
+        "total_content_length": 2130,
+        "response_times": {
+            "240": 1,
+            "200": 2,
+            "210": 2,
+            "160": 1
+        },
+        "num_reqs_per_sec": {
+            "1794614951": 1,
+            "1794614952": 1,
+            "1794614955": 2,
+            "1794614958": 2
+        },
+        "num_fail_per_sec": {}
+    },
+    {
+        "name": "Identidad / renovaci\u00f3n",
+        "method": "POST",
+        "last_request_timestamp": 1794614954.522381,
+        "start_time": 1794614952.501346,
+        "num_requests": 4,
+        "num_none_requests": 0,
+        "num_failures": 0,
+        "total_response_time": 2050.0124970567413,
+        "max_response_time": 648.7238370464183,
+        "min_response_time": 426.6104589914903,
+        "total_content_length": 4764,
+        "response_times": {
+            "530": 1,
+            "430": 1,
+            "650": 1,
+            "440": 1
+        },
+        "num_reqs_per_sec": {
+            "1794614952": 1,
+            "1794614953": 2,
+            "1794614954": 1
+        },
+        "num_fail_per_sec": {}
+    },
+    {
+        "name": "Citas / Cancelar",
+        "method": "POST",
+        "last_request_timestamp": 1794614958.973651,
+        "start_time": 1794614952.685338,
+        "num_requests": 6,
+        "num_none_requests": 0,
+        "num_failures": 0,
+        "total_response_time": 1587.4501549988054,
+        "max_response_time": 705.2675459999591,
+        "min_response_time": 131.72756502171978,
+        "total_content_length": 2148,
+        "response_times": {
+            "180": 1,
+            "130": 1,
+            "150": 1,
+            "170": 1,
+            "250": 1,
+            "710": 1
+        },
+        "num_reqs_per_sec": {
+            "1794614952": 2,
+            "1794614955": 2,
+            "1794614958": 2
+        },
+        "num_fail_per_sec": {}
+    },
+    {
+        "name": "Citas / Confirmar cancelaci\u00f3n",
+        "method": "GET",
+        "last_request_timestamp": 1794614959.211732,
+        "start_time": 1794614952.876696,
+        "num_requests": 6,
+        "num_none_requests": 0,
+        "num_failures": 0,
+        "total_response_time": 1548.8685319432989,
+        "max_response_time": 619.8435729602352,
+        "min_response_time": 118.48228698363528,
+        "total_content_length": 2148,
+        "response_times": {
+            "190": 1,
+            "120": 1,
+            "200": 1,
+            "180": 1,
+            "620": 1,
+            "240": 1
+        },
+        "num_reqs_per_sec": {
+            "1794614952": 1,
+            "1794614953": 1,
+            "1794614956": 2,
+            "1794614958": 1,
+            "1794614959": 1
+        },
+        "num_fail_per_sec": {}
+    },
+    {
+        "name": "Recorrido / DONOR",
+        "method": "TRANSACTION",
+        "last_request_timestamp": 1794614959.211948,
+        "start_time": 1794614952.8768241,
+        "num_requests": 6,
+        "num_none_requests": 0,
+        "num_failures": 0,
+        "total_response_time": 13120.598187029827,
+        "max_response_time": 2985.7529390137643,
+        "min_response_time": 1768.4841709560715,
+        "total_content_length": 0,
+        "response_times": {
+            "3000": 1,
+            "1800": 2,
+            "2100": 1,
+            "2200": 1,
+            "2300": 1
+        },
+        "num_reqs_per_sec": {
+            "1794614952": 1,
+            "1794614953": 1,
+            "1794614956": 2,
+            "1794614958": 1,
+            "1794614959": 1
+        },
+        "num_fail_per_sec": {}
+    },
+    {
+        "name": "Identidad / revocaci\u00f3n al salir",
+        "method": "POST",
+        "last_request_timestamp": 1794614959.375946,
+        "start_time": 1794614959.11646,
+        "num_requests": 3,
+        "num_none_requests": 0,
+        "num_failures": 0,
+        "total_response_time": 444.10458696074784,
+        "max_response_time": 153.334078961052,
+        "min_response_time": 142.33090402558446,
+        "total_content_length": 693,
+        "response_times": {
+            "150": 2,
+            "140": 1
+        },
+        "num_reqs_per_sec": {
+            "1794614959": 3
+        },
+        "num_fail_per_sec": {}
+    }
+]

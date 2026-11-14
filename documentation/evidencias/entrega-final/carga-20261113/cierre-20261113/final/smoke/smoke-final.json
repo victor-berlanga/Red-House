@@ -1,0 +1,429 @@
+[
+    {
+        "name": "Identidad / login",
+        "method": "POST",
+        "last_request_timestamp": 1794616695.2309031,
+        "start_time": 1794616693.0669749,
+        "num_requests": 6,
+        "num_none_requests": 0,
+        "num_failures": 0,
+        "total_response_time": 8008.166202926077,
+        "max_response_time": 1565.387322974857,
+        "min_response_time": 1139.3390700104646,
+        "total_content_length": 8122,
+        "response_times": {
+            "1100": 1,
+            "1400": 1,
+            "1300": 3,
+            "1600": 1
+        },
+        "num_reqs_per_sec": {
+            "1794616693": 2,
+            "1794616694": 2,
+            "1794616695": 2
+        },
+        "num_fail_per_sec": {}
+    },
+    {
+        "name": "inventario / Disponibilidad regional",
+        "method": "GET",
+        "last_request_timestamp": 1794616701.2272918,
+        "start_time": 1794616693.63837,
+        "num_requests": 6,
+        "num_none_requests": 0,
+        "num_failures": 0,
+        "total_response_time": 2193.9039469580166,
+        "max_response_time": 655.3923089522868,
+        "min_response_time": 186.81585299782455,
+        "total_content_length": 1494,
+        "response_times": {
+            "550": 1,
+            "660": 1,
+            "320": 1,
+            "250": 1,
+            "190": 1,
+            "240": 1
+        },
+        "num_reqs_per_sec": {
+            "1794616693": 1,
+            "1794616695": 1,
+            "1794616697": 1,
+            "1794616698": 1,
+            "1794616700": 1,
+            "1794616701": 1
+        },
+        "num_fail_per_sec": {}
+    },
+    {
+        "name": "inventario / Inventario propio",
+        "method": "GET",
+        "last_request_timestamp": 1794616701.7112901,
+        "start_time": 1794616693.6697578,
+        "num_requests": 6,
+        "num_none_requests": 0,
+        "num_failures": 0,
+        "total_response_time": 2056.331864092499,
+        "max_response_time": 563.032167032361,
+        "min_response_time": 165.07538902806118,
+        "total_content_length": 3096,
+        "response_times": {
+            "330": 1,
+            "560": 1,
+            "350": 1,
+            "360": 1,
+            "290": 1,
+            "170": 1
+        },
+        "num_reqs_per_sec": {
+            "1794616693": 1,
+            "1794616695": 1,
+            "1794616697": 1,
+            "1794616698": 1,
+            "1794616700": 1,
+            "1794616701": 1
+        },
+        "num_fail_per_sec": {}
+    },
+    {
+        "name": "receptores / Solicitudes propias",
+        "method": "GET",
+        "last_request_timestamp": 1794616701.44256,
+        "start_time": 1794616693.889788,
+        "num_requests": 6,
+        "num_none_requests": 0,
+        "num_failures": 0,
+        "total_response_time": 1463.4328419342637,
+        "max_response_time": 349.769558000844,
+        "min_response_time": 172.34453099081293,
+        "total_content_length": 1056,
+        "response_times": {
+            "240": 1,
+            "350": 1,
+            "190": 1,
+            "170": 1,
+            "300": 1,
+            "210": 1
+        },
+        "num_reqs_per_sec": {
+            "1794616693": 1,
+            "1794616696": 1,
+            "1794616697": 1,
+            "1794616699": 1,
+            "1794616700": 1,
+            "1794616701": 1
+        },
+        "num_fail_per_sec": {}
+    },
+    {
+        "name": "donantes / Campa\u00f1as",
+        "method": "GET",
+        "last_request_timestamp": 1794616702.233849,
+        "start_time": 1794616693.925678,
+        "num_requests": 6,
+        "num_none_requests": 0,
+        "num_failures": 0,
+        "total_response_time": 1516.0145899280906,
+        "max_response_time": 521.2249519536272,
+        "min_response_time": 173.78343199379742,
+        "total_content_length": 3084,
+        "response_times": {
+            "230": 1,
+            "180": 1,
+            "170": 1,
+            "190": 1,
+            "210": 1,
+            "520": 1
+        },
+        "num_reqs_per_sec": {
+            "1794616693": 1,
+            "1794616696": 1,
+            "1794616697": 1,
+            "1794616698": 1,
+            "1794616700": 1,
+            "1794616702": 1
+        },
+        "num_fail_per_sec": {}
+    },
+    {
+        "name": "priorizacion_geografia / Rutas",
+        "method": "GET",
+        "last_request_timestamp": 1794616701.314795,
+        "start_time": 1794616694.697891,
+        "num_requests": 4,
+        "num_none_requests": 0,
+        "num_failures": 0,
+        "total_response_time": 1087.6709099975415,
+        "max_response_time": 484.4258310040459,
+        "min_response_time": 137.80746201518923,
+        "total_content_length": 752,
+        "response_times": {
+            "480": 1,
+            "220": 1,
+            "140": 1,
+            "250": 1
+        },
+        "num_reqs_per_sec": {
+            "1794616694": 1,
+            "1794616697": 1,
+            "1794616699": 1,
+            "1794616701": 1
+        },
+        "num_fail_per_sec": {}
+    },
+    {
+        "name": "auditoria / Bit\u00e1cora",
+        "method": "GET",
+        "last_request_timestamp": 1794616702.236641,
+        "start_time": 1794616694.772361,
+        "num_requests": 5,
+        "num_none_requests": 0,
+        "num_failures": 0,
+        "total_response_time": 1998.4160589519888,
+        "max_response_time": 601.8124879919924,
+        "min_response_time": 303.10992198064923,
+        "total_content_length": 875,
+        "response_times": {
+            "300": 1,
+            "470": 1,
+            "310": 2,
+            "600": 1
+        },
+        "num_reqs_per_sec": {
+            "1794616694": 1,
+            "1794616696": 1,
+            "1794616698": 1,
+            "1794616700": 1,
+            "1794616702": 1
+        },
+        "num_fail_per_sec": {}
+    },
+    {
+        "name": "transporte / Traslados",
+        "method": "GET",
+        "last_request_timestamp": 1794616701.496444,
+        "start_time": 1794616695.4147131,
+        "num_requests": 4,
+        "num_none_requests": 0,
+        "num_failures": 0,
+        "total_response_time": 1446.0309820715338,
+        "max_response_time": 685.5293179978617,
+        "min_response_time": 167.0945980004035,
+        "total_content_length": 704,
+        "response_times": {
+            "690": 1,
+            "410": 1,
+            "170": 1,
+            "180": 1
+        },
+        "num_reqs_per_sec": {
+            "1794616695": 1,
+            "1794616697": 1,
+            "1794616699": 1,
+            "1794616701": 1
+        },
+        "num_fail_per_sec": {}
+    },
+    {
+        "name": "transporte / Tareas propias",
+        "method": "GET",
+        "last_request_timestamp": 1794616701.418742,
+        "start_time": 1794616695.503009,
+        "num_requests": 4,
+        "num_none_requests": 0,
+        "num_failures": 0,
+        "total_response_time": 1054.7801919747144,
+        "max_response_time": 331.19558700127527,
+        "min_response_time": 214.11619195714593,
+        "total_content_length": 704,
+        "response_times": {
+            "280": 1,
+            "210": 1,
+            "330": 1,
+            "230": 1
+        },
+        "num_reqs_per_sec": {
+            "1794616695": 1,
+            "1794616697": 1,
+            "1794616700": 1,
+            "1794616701": 1
+        },
+        "num_fail_per_sec": {}
+    },
+    {
+        "name": "donantes / Agenda propia",
+        "method": "GET",
+        "last_request_timestamp": 1794616700.360571,
+        "start_time": 1794616695.581028,
+        "num_requests": 3,
+        "num_none_requests": 0,
+        "num_failures": 0,
+        "total_response_time": 1300.372460973449,
+        "max_response_time": 651.976590976119,
+        "min_response_time": 314.8513279738836,
+        "total_content_length": 522,
+        "response_times": {
+            "330": 1,
+            "650": 1,
+            "310": 1
+        },
+        "num_reqs_per_sec": {
+            "1794616695": 1,
+            "1794616698": 1,
+            "1794616700": 1
+        },
+        "num_fail_per_sec": {}
+    },
+    {
+        "name": "monitoreo / Estado regional",
+        "method": "GET",
+        "last_request_timestamp": 1794616701.674967,
+        "start_time": 1794616695.708249,
+        "num_requests": 4,
+        "num_none_requests": 0,
+        "num_failures": 0,
+        "total_response_time": 1305.8847389766015,
+        "max_response_time": 624.2457780172117,
+        "min_response_time": 177.18814295949414,
+        "total_content_length": 1300,
+        "response_times": {
+            "290": 1,
+            "620": 1,
+            "220": 1,
+            "180": 1
+        },
+        "num_reqs_per_sec": {
+            "1794616695": 1,
+            "1794616698": 1,
+            "1794616700": 1,
+            "1794616701": 1
+        },
+        "num_fail_per_sec": {}
+    },
+    {
+        "name": "Identidad / renovaci\u00f3n",
+        "method": "POST",
+        "last_request_timestamp": 1794616698.514196,
+        "start_time": 1794616695.970377,
+        "num_requests": 6,
+        "num_none_requests": 0,
+        "num_failures": 0,
+        "total_response_time": 3810.4646939900704,
+        "max_response_time": 937.7549299970269,
+        "min_response_time": 344.20183999463916,
+        "total_content_length": 6462,
+        "response_times": {
+            "580": 1,
+            "690": 1,
+            "340": 1,
+            "550": 1,
+            "700": 1,
+            "940": 1
+        },
+        "num_reqs_per_sec": {
+            "1794616695": 1,
+            "1794616696": 1,
+            "1794616697": 2,
+            "1794616698": 2
+        },
+        "num_fail_per_sec": {}
+    },
+    {
+        "name": "alertas / Avisos de traslado",
+        "method": "GET",
+        "last_request_timestamp": 1794616701.600548,
+        "start_time": 1794616696.1535301,
+        "num_requests": 4,
+        "num_none_requests": 0,
+        "num_failures": 0,
+        "total_response_time": 1477.8632550151087,
+        "max_response_time": 633.4510649903677,
+        "min_response_time": 178.72753500705585,
+        "total_content_length": 692,
+        "response_times": {
+            "630": 1,
+            "470": 1,
+            "200": 1,
+            "180": 1
+        },
+        "num_reqs_per_sec": {
+            "1794616696": 1,
+            "1794616698": 1,
+            "1794616700": 1,
+            "1794616701": 1
+        },
+        "num_fail_per_sec": {}
+    },
+    {
+        "name": "alertas / Avisos propios",
+        "method": "GET",
+        "last_request_timestamp": 1794616700.552244,
+        "start_time": 1794616696.163405,
+        "num_requests": 3,
+        "num_none_requests": 0,
+        "num_failures": 0,
+        "total_response_time": 1061.8542520096526,
+        "max_response_time": 581.3629580079578,
+        "min_response_time": 189.54779498744756,
+        "total_content_length": 519,
+        "response_times": {
+            "580": 1,
+            "290": 1,
+            "190": 1
+        },
+        "num_reqs_per_sec": {
+            "1794616696": 1,
+            "1794616698": 1,
+            "1794616700": 1
+        },
+        "num_fail_per_sec": {}
+    },
+    {
+        "name": "donantes / Feed p\u00fablico",
+        "method": "GET",
+        "last_request_timestamp": 1794616700.6529448,
+        "start_time": 1794616696.332984,
+        "num_requests": 3,
+        "num_none_requests": 0,
+        "num_failures": 0,
+        "total_response_time": 352.4416960426606,
+        "max_response_time": 157.89562300778925,
+        "min_response_time": 95.51857301266864,
+        "total_content_length": 522,
+        "response_times": {
+            "160": 1,
+            "96": 1,
+            "99": 1
+        },
+        "num_reqs_per_sec": {
+            "1794616696": 1,
+            "1794616698": 1,
+            "1794616700": 1
+        },
+        "num_fail_per_sec": {}
+    },
+    {
+        "name": "Identidad / revocaci\u00f3n al salir",
+        "method": "POST",
+        "last_request_timestamp": 1794616703.181664,
+        "start_time": 1794616702.397584,
+        "num_requests": 6,
+        "num_none_requests": 0,
+        "num_failures": 0,
+        "total_response_time": 908.2294189720415,
+        "max_response_time": 244.85876801190898,
+        "min_response_time": 107.59957798290998,
+        "total_content_length": 1131,
+        "response_times": {
+            "130": 2,
+            "160": 1,
+            "240": 1,
+            "140": 1,
+            "110": 1
+        },
+        "num_reqs_per_sec": {
+            "1794616702": 4,
+            "1794616703": 2
+        },
+        "num_fail_per_sec": {}
+    }
+]
