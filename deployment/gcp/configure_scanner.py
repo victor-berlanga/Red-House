@@ -14,7 +14,11 @@ def configure(directory):
     services = override.setdefault("services", {})
     services["clamav"] = {
         "image": IMAGE,
-        "environment": {"TZ": "UTC"},
+        "environment": {
+            "TZ": "UTC",
+            "FRESHCLAM_CHECKS": "12",
+            "CLAMD_CONF_ConcurrentDatabaseReload": "no",
+        },
         "networks": ["data", "edge"],
         "volumes": ["clamav-signatures:/var/lib/clamav"],
         "restart": "unless-stopped",

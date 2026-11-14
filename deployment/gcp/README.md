@@ -149,4 +149,8 @@ El migrador `apps/services/scripts/upgrade_compose.py` admite el estado de la in
 
 Después de `configure.py`, ejecutar `configure_scanner.py` para incorporar ClamAV privado y sus dependencias al override GCS, antes de `configure_public.py` y `deployment/start.py`. El escáner no publica puertos y conserva firmas en un volumen propio. `deployment/backup.py` incluye los overrides y TLS en el respaldo privado y contempla el escáner al reanudar aplicaciones. Conservar directorios de fuentes con modo 755 y archivos legibles por UID 10001 al transferir; la configuración privada mantiene permisos restringidos.
 
+FreshClam comprueba actualizaciones 12 veces al día (`FRESHCLAM_CHECKS=12`); esto no garantiza que ClamD haya cargado la versión más reciente. La política de antigüedad máxima de firmas permanece en 48 horas y la salud del proceso no demuestra por sí sola la coincidencia entre firmas cargadas y disponibles en disco.
+
+`CLAMD_CONF_ConcurrentDatabaseReload=no` evita mantener dos motores de firmas durante la recarga. Durante esa operación el escaneo puede no estar disponible; Documentos debe rechazar la verificación si el escáner no responde, sin marcar archivos como limpios.
+
 La demostración usa `deployment/gcp/prepare_correction_demo.py --directory DIRECTORIO_PRIVADO` con una copia local preexistente de las credenciales ficticias. Conserva factores MFA y checkpoint privados, reutiliza registros al reanudar y nunca imprime secretos. `scripts/demonstrate_gcp_corrections.cjs` recibe la entrada por stdin, abre Chrome visible y no captura pantalla ni graba. `deployment/gcp/verify_correction_contracts.py` comprueba lecturas JSON/XML contra DTO/XSD. Ejecutarlos solo bajo autorización de cuentas y datos ficticios; no forman parte del arranque normal.
