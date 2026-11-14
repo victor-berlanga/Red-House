@@ -8,7 +8,7 @@ import time
 from pathlib import Path
 
 from run import load_app
-from redhouse.events import dispatch
+from redhouse.events import OUTBOX_BATCH_SIZE, dispatch
 from redhouse.db import transaction
 
 
@@ -90,13 +90,24 @@ def main():
     signal.signal(signal.SIGTERM, stop)
     signal.signal(signal.SIGINT, stop)
     next_poll = 0
+    interval = max(0.1, args.interval)
+    next_work = 0
     while running:
+        result = None
         with app.app_context():
             try:
-                next_poll, _ = step(app, next_poll)
+                if time.monotonic() >= next_work:
+                    next_poll, result = step(app, next_poll)
+                    next_work = time.monotonic() + interval
+                else:
+                    # Un lote lleno no adelanta recordatorios, recuperación ni sondeos.
+                    result = dispatch()
+                    heartbeat()
                 if app.config.get("WORKER_HEARTBEAT_FILE"):
                     Path(app.config["WORKER_HEARTBEAT_FILE"]).touch()
             except Exception as exc:
+                result = None
+                next_work = time.monotonic() + interval
                 logging.error(
                     "worker_failure service=%s exception_type=%s",
                     args.service,
@@ -106,9 +117,16 @@ def main():
                     heartbeat(type(exc).__name__)
                 except Exception:
                     pass  # La ausencia de latido también degrada health/worker.
-        if args.once:
+        if args.once or not running:
             break
-        time.sleep(max(0.1, args.interval))
+        progressing = (
+            result is not None
+            and result["delivered"] > 0
+            and result["delivered"] + result["failed"] >= OUTBOX_BATCH_SIZE
+        )
+        # Sin progreso o tras un error, conservar la espera ordinaria.
+        delay = 0.1 if progressing else interval
+        time.sleep(delay)
 
 
 if __name__ == "__main__":

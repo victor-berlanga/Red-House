@@ -1,0 +1,194 @@
+{
+  "service": "auditoria",
+  "baseline": true,
+  "dispatch_limit": 1,
+  "dispatch": {
+    "delivered": 1,
+    "failed": 0
+  },
+  "dispatch_seconds": 0.158018,
+  "target_before": {
+    "present": false,
+    "equal": false
+  },
+  "target_after": {
+    "present": true,
+    "equal": true
+  },
+  "owned_processes_remaining": [],
+  "originals_unchanged": true,
+  "sources_unchanged": true,
+  "mongo_commands": [
+    {
+      "command": "saslContinue",
+      "ok": true,
+      "microseconds": 1808
+    },
+    {
+      "command": "ping",
+      "ok": true,
+      "microseconds": 1013
+    },
+    {
+      "command": "find",
+      "ok": true,
+      "microseconds": 2967
+    },
+    {
+      "command": "saslContinue",
+      "ok": true,
+      "microseconds": 847
+    },
+    {
+      "command": "insert",
+      "ok": true,
+      "microseconds": 20515
+    },
+    {
+      "command": "find",
+      "ok": true,
+      "microseconds": 1194
+    },
+    {
+      "command": "endSessions",
+      "ok": true,
+      "microseconds": 948
+    },
+    {
+      "command": "endSessions",
+      "ok": true,
+      "microseconds": 719
+    }
+  ],
+  "before": {
+    "groups": [
+      {
+        "target": "auditoria",
+        "delivered": false,
+        "attempts": 0,
+        "last_error": null,
+        "count": 565
+      },
+      {
+        "target": "auditoria",
+        "delivered": true,
+        "attempts": 1,
+        "last_error": null,
+        "count": 551
+      },
+      {
+        "target": "mongodb",
+        "delivered": false,
+        "attempts": 0,
+        "last_error": null,
+        "count": 6992
+      },
+      {
+        "target": "mongodb",
+        "delivered": false,
+        "attempts": 1,
+        "last_error": "mongodb_unavailable",
+        "count": 1
+      },
+      {
+        "target": "mongodb",
+        "delivered": true,
+        "attempts": 1,
+        "last_error": null,
+        "count": 5295
+      }
+    ],
+    "delivery_times": [
+      {
+        "target": "mongodb",
+        "before_run": 4914,
+        "during_or_after_run": 381,
+        "min": "2026-11-14 13:33:20.875369-06:00",
+        "max": "2026-11-14 14:58:37.308566-06:00"
+      },
+      {
+        "target": "auditoria",
+        "before_run": 511,
+        "during_or_after_run": 40,
+        "min": "2026-11-14 13:34:01.934407-06:00",
+        "max": "2026-11-14 14:58:35.969183-06:00"
+      }
+    ],
+    "head": {
+      "target": "mongodb",
+      "created_at": "2026-11-14 13:42:48.593141-06:00",
+      "delivered_at": null,
+      "attempts": 1,
+      "last_error": "mongodb_unavailable",
+      "next_attempt": "2026-11-14 14:58:39.567453-06:00"
+    }
+  },
+  "after": {
+    "groups": [
+      {
+        "target": "auditoria",
+        "delivered": false,
+        "attempts": 0,
+        "last_error": null,
+        "count": 565
+      },
+      {
+        "target": "auditoria",
+        "delivered": true,
+        "attempts": 1,
+        "last_error": null,
+        "count": 551
+      },
+      {
+        "target": "mongodb",
+        "delivered": false,
+        "attempts": 0,
+        "last_error": null,
+        "count": 6992
+      },
+      {
+        "target": "mongodb",
+        "delivered": true,
+        "attempts": 1,
+        "last_error": null,
+        "count": 5295
+      },
+      {
+        "target": "mongodb",
+        "delivered": true,
+        "attempts": 2,
+        "last_error": null,
+        "count": 1
+      }
+    ],
+    "delivery_times": [
+      {
+        "target": "mongodb",
+        "before_run": 4914,
+        "during_or_after_run": 382,
+        "min": "2026-11-14 13:33:20.875369-06:00",
+        "max": "2026-11-14 16:02:53.590570-06:00"
+      },
+      {
+        "target": "auditoria",
+        "before_run": 511,
+        "during_or_after_run": 40,
+        "min": "2026-11-14 13:34:01.934407-06:00",
+        "max": "2026-11-14 14:58:35.969183-06:00"
+      }
+    ],
+    "head": {
+      "target": "mongodb",
+      "created_at": "2026-11-14 13:42:48.593141-06:00",
+      "delivered_at": "2026-11-14 16:02:53.590570-06:00",
+      "attempts": 2,
+      "last_error": null,
+      "next_attempt": "2026-11-14 14:58:39.567453-06:00"
+    }
+  },
+  "source_hashes": {
+    "apps/services/redhouse/events.py": "9e47bfaddce918d2bcb8f42abd69ea50fa480c77e2a7ddd8f5b350840334efb5",
+    "apps/services/worker.py": "5330730604245888c70ce504fe35e64d6a5df5057fe663e54eac056dc62fc3a5"
+  },
+  "private_receipt_sha256": "85154085d4e9bee48f859b3387c67d3839202fbe9bf563e146407a34f337b860"
+}

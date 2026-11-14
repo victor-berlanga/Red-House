@@ -1,0 +1,5453 @@
+{
+  "limit_seconds": 120,
+  "no_progress_seconds": 30,
+  "new_client_transactions": 0,
+  "auxiliary_writes_possible": true,
+  "source_hashes": {
+    "apps/services/worker.py": "69717d1a44f3186915bca0a8f5d44c60ba91056886ee9fe49db9e71d25ca2ac3",
+    "apps/services/redhouse/events.py": "2a15fa77248de84e44fa56729725fcf72bfcd9ba95c47f4fbd905943aa1cfacf"
+  },
+  "samples": [
+    {
+      "utc": "2026-11-14T22:24:15.557600+00:00",
+      "global_pending": 8179,
+      "global_delivered": 17795,
+      "pertinent_pending": 8179,
+      "pertinent_delivered": 8498,
+      "other_pending": 0,
+      "other_pending_groups": [],
+      "unsupported_target_groups": [],
+      "groups": [
+        [
+          "alertas",
+          "auditoria",
+          true,
+          1,
+          null,
+          1897,
+          "2026-11-14 13:34:00.873855-06:00",
+          "2026-11-14 13:53:49.122927-06:00"
+        ],
+        [
+          "auditoria",
+          "auditoria",
+          false,
+          0,
+          null,
+          564,
+          "2026-11-14 13:42:49.997494-06:00",
+          null
+        ],
+        [
+          "auditoria",
+          "auditoria",
+          true,
+          1,
+          null,
+          552,
+          "2026-11-14 13:34:00.633046-06:00",
+          "2026-11-14 16:24:13.356205-06:00"
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          false,
+          0,
+          null,
+          6991,
+          "2026-11-14 13:42:49.662000-06:00",
+          null
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          true,
+          1,
+          null,
+          5304,
+          "2026-11-14 13:33:16.858862-06:00",
+          "2026-11-14 16:24:14.880945-06:00"
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          true,
+          2,
+          null,
+          1,
+          "2026-11-14 13:42:48.593141-06:00",
+          "2026-11-14 16:02:53.590570-06:00"
+        ],
+        [
+          "compatibilidad",
+          "auditoria",
+          true,
+          1,
+          null,
+          402,
+          "2026-11-14 14:55:00.485329-06:00",
+          "2026-11-14 14:57:32.559293-06:00"
+        ],
+        [
+          "donantes",
+          "alertas",
+          false,
+          0,
+          null,
+          171,
+          "2026-11-14 14:56:21.057460-06:00",
+          null
+        ],
+        [
+          "donantes",
+          "alertas",
+          true,
+          1,
+          null,
+          194,
+          "2026-11-14 14:54:59.354933-06:00",
+          "2026-11-14 16:24:14.858471-06:00"
+        ],
+        [
+          "donantes",
+          "auditoria",
+          false,
+          0,
+          null,
+          453,
+          "2026-11-14 14:56:20.913964-06:00",
+          null
+        ],
+        [
+          "donantes",
+          "auditoria",
+          true,
+          1,
+          null,
+          2447,
+          "2026-11-14 13:34:00.657420-06:00",
+          "2026-11-14 16:24:14.657884-06:00"
+        ],
+        [
+          "identidad_acceso",
+          "auditoria",
+          true,
+          1,
+          null,
+          182,
+          "2026-11-14 13:33:14.189384-06:00",
+          "2026-11-14 14:58:09.334112-06:00"
+        ],
+        [
+          "inventario",
+          "auditoria",
+          true,
+          1,
+          null,
+          2421,
+          "2026-11-14 13:34:00.657410-06:00",
+          "2026-11-14 14:57:31.989991-06:00"
+        ],
+        [
+          "monitoreo",
+          "auditoria",
+          true,
+          1,
+          null,
+          803,
+          "2026-11-14 13:34:01.169512-06:00",
+          "2026-11-14 13:53:50.556746-06:00"
+        ],
+        [
+          "priorizacion_geografia",
+          "auditoria",
+          true,
+          1,
+          null,
+          803,
+          "2026-11-14 13:34:00.659070-06:00",
+          "2026-11-14 13:53:49.855069-06:00"
+        ],
+        [
+          "receptores",
+          "auditoria",
+          true,
+          1,
+          null,
+          1031,
+          "2026-11-14 13:34:01.224785-06:00",
+          "2026-11-14 13:53:47.296548-06:00"
+        ],
+        [
+          "transporte",
+          "auditoria",
+          true,
+          1,
+          null,
+          1758,
+          "2026-11-14 13:34:00.659779-06:00",
+          "2026-11-14 13:53:46.648654-06:00"
+        ]
+      ],
+      "health": {
+        "donantes": [
+          "2026-11-14 14:58:33.039037-06:00",
+          "2026-11-14 14:58:33.039037-06:00",
+          null
+        ],
+        "auditoria": [
+          "2026-11-14 14:58:27.017497-06:00",
+          "2026-11-14 14:58:27.017497-06:00",
+          null
+        ]
+      },
+      "missing_audit": 172,
+      "missing_alerts": 56,
+      "extra_alerts": 0,
+      "expected_audit": 765,
+      "expected_alerts": 121,
+      "mongo_projected_business": 0,
+      "audit_business_ids": 593,
+      "new_activity_events": [],
+      "new_outbox_groups": [
+        [
+          "auditoria",
+          "mongodb",
+          "APPOINTMENT_BOOKED",
+          1
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          "APPOINTMENT_RESCHEDULE",
+          2
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          "READ",
+          4
+        ]
+      ],
+      "changed_reminders": [],
+      "removed_reminders": [],
+      "elapsed_seconds": 5.693
+    },
+    {
+      "utc": "2026-11-14T22:24:21.244552+00:00",
+      "global_pending": 8153,
+      "global_delivered": 17841,
+      "pertinent_pending": 8153,
+      "pertinent_delivered": 8544,
+      "other_pending": 0,
+      "other_pending_groups": [],
+      "unsupported_target_groups": [],
+      "groups": [
+        [
+          "alertas",
+          "auditoria",
+          true,
+          1,
+          null,
+          1897,
+          "2026-11-14 13:34:00.873855-06:00",
+          "2026-11-14 13:53:49.122927-06:00"
+        ],
+        [
+          "auditoria",
+          "auditoria",
+          false,
+          0,
+          null,
+          562,
+          "2026-11-14 13:42:51.795870-06:00",
+          null
+        ],
+        [
+          "auditoria",
+          "auditoria",
+          true,
+          1,
+          null,
+          554,
+          "2026-11-14 13:34:00.633046-06:00",
+          "2026-11-14 16:24:16.953387-06:00"
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          false,
+          0,
+          null,
+          6993,
+          "2026-11-14 13:42:51.786745-06:00",
+          null
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          true,
+          1,
+          null,
+          5322,
+          "2026-11-14 13:33:16.858862-06:00",
+          "2026-11-14 16:24:20.551648-06:00"
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          true,
+          2,
+          null,
+          1,
+          "2026-11-14 13:42:48.593141-06:00",
+          "2026-11-14 16:02:53.590570-06:00"
+        ],
+        [
+          "compatibilidad",
+          "auditoria",
+          true,
+          1,
+          null,
+          402,
+          "2026-11-14 14:55:00.485329-06:00",
+          "2026-11-14 14:57:32.559293-06:00"
+        ],
+        [
+          "donantes",
+          "alertas",
+          false,
+          0,
+          null,
+          163,
+          "2026-11-14 14:56:23.414107-06:00",
+          null
+        ],
+        [
+          "donantes",
+          "alertas",
+          true,
+          1,
+          null,
+          202,
+          "2026-11-14 14:54:59.354933-06:00",
+          "2026-11-14 16:24:20.530897-06:00"
+        ],
+        [
+          "donantes",
+          "auditoria",
+          false,
+          0,
+          null,
+          435,
+          "2026-11-14 14:56:22.969786-06:00",
+          null
+        ],
+        [
+          "donantes",
+          "auditoria",
+          true,
+          1,
+          null,
+          2465,
+          "2026-11-14 13:34:00.657420-06:00",
+          "2026-11-14 16:24:20.320894-06:00"
+        ],
+        [
+          "identidad_acceso",
+          "auditoria",
+          true,
+          1,
+          null,
+          182,
+          "2026-11-14 13:33:14.189384-06:00",
+          "2026-11-14 14:58:09.334112-06:00"
+        ],
+        [
+          "inventario",
+          "auditoria",
+          true,
+          1,
+          null,
+          2421,
+          "2026-11-14 13:34:00.657410-06:00",
+          "2026-11-14 14:57:31.989991-06:00"
+        ],
+        [
+          "monitoreo",
+          "auditoria",
+          true,
+          1,
+          null,
+          803,
+          "2026-11-14 13:34:01.169512-06:00",
+          "2026-11-14 13:53:50.556746-06:00"
+        ],
+        [
+          "priorizacion_geografia",
+          "auditoria",
+          true,
+          1,
+          null,
+          803,
+          "2026-11-14 13:34:00.659070-06:00",
+          "2026-11-14 13:53:49.855069-06:00"
+        ],
+        [
+          "receptores",
+          "auditoria",
+          true,
+          1,
+          null,
+          1031,
+          "2026-11-14 13:34:01.224785-06:00",
+          "2026-11-14 13:53:47.296548-06:00"
+        ],
+        [
+          "transporte",
+          "auditoria",
+          true,
+          1,
+          null,
+          1758,
+          "2026-11-14 13:34:00.659779-06:00",
+          "2026-11-14 13:53:46.648654-06:00"
+        ]
+      ],
+      "health": {
+        "donantes": [
+          "2026-11-14 14:58:33.039037-06:00",
+          "2026-11-14 14:58:33.039037-06:00",
+          null
+        ],
+        "auditoria": [
+          "2026-11-14 14:58:27.017497-06:00",
+          "2026-11-14 14:58:27.017497-06:00",
+          null
+        ]
+      },
+      "missing_audit": 163,
+      "missing_alerts": 54,
+      "extra_alerts": 0,
+      "expected_audit": 765,
+      "expected_alerts": 121,
+      "mongo_projected_business": 0,
+      "audit_business_ids": 602,
+      "new_activity_events": [],
+      "new_outbox_groups": [
+        [
+          "auditoria",
+          "mongodb",
+          "APPOINTMENT_BOOKED",
+          3
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          "APPOINTMENT_CANCEL",
+          4
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          "APPOINTMENT_RESCHEDULE",
+          5
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          "READ",
+          15
+        ]
+      ],
+      "changed_reminders": [],
+      "removed_reminders": [],
+      "elapsed_seconds": 11.38
+    },
+    {
+      "utc": "2026-11-14T22:24:26.856625+00:00",
+      "global_pending": 8128,
+      "global_delivered": 17894,
+      "pertinent_pending": 8128,
+      "pertinent_delivered": 8597,
+      "other_pending": 0,
+      "other_pending_groups": [],
+      "unsupported_target_groups": [],
+      "groups": [
+        [
+          "alertas",
+          "auditoria",
+          true,
+          1,
+          null,
+          1897,
+          "2026-11-14 13:34:00.873855-06:00",
+          "2026-11-14 13:53:49.122927-06:00"
+        ],
+        [
+          "auditoria",
+          "auditoria",
+          false,
+          0,
+          null,
+          558,
+          "2026-11-14 13:42:54.656366-06:00",
+          null
+        ],
+        [
+          "auditoria",
+          "auditoria",
+          true,
+          1,
+          null,
+          558,
+          "2026-11-14 13:34:00.633046-06:00",
+          "2026-11-14 16:24:25.811277-06:00"
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          false,
+          0,
+          null,
+          7002,
+          "2026-11-14 13:42:53.782942-06:00",
+          null
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          true,
+          1,
+          null,
+          5341,
+          "2026-11-14 13:33:16.858862-06:00",
+          "2026-11-14 16:24:26.289517-06:00"
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          true,
+          2,
+          null,
+          1,
+          "2026-11-14 13:42:48.593141-06:00",
+          "2026-11-14 16:02:53.590570-06:00"
+        ],
+        [
+          "compatibilidad",
+          "auditoria",
+          true,
+          1,
+          null,
+          402,
+          "2026-11-14 14:55:00.485329-06:00",
+          "2026-11-14 14:57:32.559293-06:00"
+        ],
+        [
+          "donantes",
+          "alertas",
+          false,
+          0,
+          null,
+          157,
+          "2026-11-14 14:56:28.736768-06:00",
+          null
+        ],
+        [
+          "donantes",
+          "alertas",
+          true,
+          1,
+          null,
+          208,
+          "2026-11-14 14:54:59.354933-06:00",
+          "2026-11-14 16:24:25.510647-06:00"
+        ],
+        [
+          "donantes",
+          "auditoria",
+          false,
+          0,
+          null,
+          411,
+          "2026-11-14 14:56:28.635130-06:00",
+          null
+        ],
+        [
+          "donantes",
+          "auditoria",
+          true,
+          1,
+          null,
+          2489,
+          "2026-11-14 13:34:00.657420-06:00",
+          "2026-11-14 16:24:26.295298-06:00"
+        ],
+        [
+          "identidad_acceso",
+          "auditoria",
+          true,
+          1,
+          null,
+          182,
+          "2026-11-14 13:33:14.189384-06:00",
+          "2026-11-14 14:58:09.334112-06:00"
+        ],
+        [
+          "inventario",
+          "auditoria",
+          true,
+          1,
+          null,
+          2421,
+          "2026-11-14 13:34:00.657410-06:00",
+          "2026-11-14 14:57:31.989991-06:00"
+        ],
+        [
+          "monitoreo",
+          "auditoria",
+          true,
+          1,
+          null,
+          803,
+          "2026-11-14 13:34:01.169512-06:00",
+          "2026-11-14 13:53:50.556746-06:00"
+        ],
+        [
+          "priorizacion_geografia",
+          "auditoria",
+          true,
+          1,
+          null,
+          803,
+          "2026-11-14 13:34:00.659070-06:00",
+          "2026-11-14 13:53:49.855069-06:00"
+        ],
+        [
+          "receptores",
+          "auditoria",
+          true,
+          1,
+          null,
+          1031,
+          "2026-11-14 13:34:01.224785-06:00",
+          "2026-11-14 13:53:47.296548-06:00"
+        ],
+        [
+          "transporte",
+          "auditoria",
+          true,
+          1,
+          null,
+          1758,
+          "2026-11-14 13:34:00.659779-06:00",
+          "2026-11-14 13:53:46.648654-06:00"
+        ]
+      ],
+      "health": {
+        "donantes": [
+          "2026-11-14 14:58:33.039037-06:00",
+          "2026-11-14 14:58:33.039037-06:00",
+          null
+        ],
+        "auditoria": [
+          "2026-11-14 14:58:27.017497-06:00",
+          "2026-11-14 14:58:27.017497-06:00",
+          null
+        ]
+      },
+      "missing_audit": 157,
+      "missing_alerts": 51,
+      "extra_alerts": 0,
+      "expected_audit": 765,
+      "expected_alerts": 121,
+      "mongo_projected_business": 0,
+      "audit_business_ids": 608,
+      "new_activity_events": [],
+      "new_outbox_groups": [
+        [
+          "auditoria",
+          "mongodb",
+          "APPOINTMENT_BOOKED",
+          6
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          "APPOINTMENT_CANCEL",
+          6
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          "APPOINTMENT_RESCHEDULE",
+          6
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          "READ",
+          37
+        ]
+      ],
+      "changed_reminders": [],
+      "removed_reminders": [],
+      "elapsed_seconds": 16.993
+    },
+    {
+      "utc": "2026-11-14T22:24:32.502367+00:00",
+      "global_pending": 8094,
+      "global_delivered": 17951,
+      "pertinent_pending": 8094,
+      "pertinent_delivered": 8654,
+      "other_pending": 0,
+      "other_pending_groups": [],
+      "unsupported_target_groups": [],
+      "groups": [
+        [
+          "alertas",
+          "auditoria",
+          true,
+          1,
+          null,
+          1897,
+          "2026-11-14 13:34:00.873855-06:00",
+          "2026-11-14 13:53:49.122927-06:00"
+        ],
+        [
+          "auditoria",
+          "auditoria",
+          false,
+          0,
+          null,
+          556,
+          "2026-11-14 13:42:56.391349-06:00",
+          null
+        ],
+        [
+          "auditoria",
+          "auditoria",
+          true,
+          1,
+          null,
+          560,
+          "2026-11-14 13:34:00.633046-06:00",
+          "2026-11-14 16:24:30.420202-06:00"
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          false,
+          0,
+          null,
+          7002,
+          "2026-11-14 13:42:55.736069-06:00",
+          null
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          true,
+          1,
+          null,
+          5364,
+          "2026-11-14 13:33:16.858862-06:00",
+          "2026-11-14 16:24:31.791465-06:00"
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          true,
+          2,
+          null,
+          1,
+          "2026-11-14 13:42:48.593141-06:00",
+          "2026-11-14 16:02:53.590570-06:00"
+        ],
+        [
+          "compatibilidad",
+          "auditoria",
+          true,
+          1,
+          null,
+          402,
+          "2026-11-14 14:55:00.485329-06:00",
+          "2026-11-14 14:57:32.559293-06:00"
+        ],
+        [
+          "donantes",
+          "alertas",
+          false,
+          0,
+          null,
+          146,
+          "2026-11-14 14:56:31.556759-06:00",
+          null
+        ],
+        [
+          "donantes",
+          "alertas",
+          true,
+          1,
+          null,
+          219,
+          "2026-11-14 14:54:59.354933-06:00",
+          "2026-11-14 16:24:31.929570-06:00"
+        ],
+        [
+          "donantes",
+          "auditoria",
+          false,
+          0,
+          null,
+          390,
+          "2026-11-14 14:56:31.099750-06:00",
+          null
+        ],
+        [
+          "donantes",
+          "auditoria",
+          true,
+          1,
+          null,
+          2510,
+          "2026-11-14 13:34:00.657420-06:00",
+          "2026-11-14 16:24:31.588469-06:00"
+        ],
+        [
+          "identidad_acceso",
+          "auditoria",
+          true,
+          1,
+          null,
+          182,
+          "2026-11-14 13:33:14.189384-06:00",
+          "2026-11-14 14:58:09.334112-06:00"
+        ],
+        [
+          "inventario",
+          "auditoria",
+          true,
+          1,
+          null,
+          2421,
+          "2026-11-14 13:34:00.657410-06:00",
+          "2026-11-14 14:57:31.989991-06:00"
+        ],
+        [
+          "monitoreo",
+          "auditoria",
+          true,
+          1,
+          null,
+          803,
+          "2026-11-14 13:34:01.169512-06:00",
+          "2026-11-14 13:53:50.556746-06:00"
+        ],
+        [
+          "priorizacion_geografia",
+          "auditoria",
+          true,
+          1,
+          null,
+          803,
+          "2026-11-14 13:34:00.659070-06:00",
+          "2026-11-14 13:53:49.855069-06:00"
+        ],
+        [
+          "receptores",
+          "auditoria",
+          true,
+          1,
+          null,
+          1031,
+          "2026-11-14 13:34:01.224785-06:00",
+          "2026-11-14 13:53:47.296548-06:00"
+        ],
+        [
+          "transporte",
+          "auditoria",
+          true,
+          1,
+          null,
+          1758,
+          "2026-11-14 13:34:00.659779-06:00",
+          "2026-11-14 13:53:46.648654-06:00"
+        ]
+      ],
+      "health": {
+        "donantes": [
+          "2026-11-14 14:58:33.039037-06:00",
+          "2026-11-14 14:58:33.039037-06:00",
+          null
+        ],
+        "auditoria": [
+          "2026-11-14 14:58:27.017497-06:00",
+          "2026-11-14 14:58:27.017497-06:00",
+          null
+        ]
+      },
+      "missing_audit": 147,
+      "missing_alerts": 48,
+      "extra_alerts": 0,
+      "expected_audit": 765,
+      "expected_alerts": 121,
+      "mongo_projected_business": 0,
+      "audit_business_ids": 618,
+      "new_activity_events": [],
+      "new_outbox_groups": [
+        [
+          "auditoria",
+          "mongodb",
+          "APPOINTMENT_BOOKED",
+          9
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          "APPOINTMENT_CANCEL",
+          9
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          "APPOINTMENT_RESCHEDULE",
+          10
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          "READ",
+          50
+        ]
+      ],
+      "changed_reminders": [],
+      "removed_reminders": [],
+      "elapsed_seconds": 22.639
+    },
+    {
+      "utc": "2026-11-14T22:24:38.290478+00:00",
+      "global_pending": 8066,
+      "global_delivered": 18005,
+      "pertinent_pending": 8066,
+      "pertinent_delivered": 8708,
+      "other_pending": 0,
+      "other_pending_groups": [],
+      "unsupported_target_groups": [],
+      "groups": [
+        [
+          "alertas",
+          "auditoria",
+          true,
+          1,
+          null,
+          1897,
+          "2026-11-14 13:34:00.873855-06:00",
+          "2026-11-14 13:53:49.122927-06:00"
+        ],
+        [
+          "auditoria",
+          "auditoria",
+          false,
+          0,
+          null,
+          553,
+          "2026-11-14 13:42:58.753592-06:00",
+          null
+        ],
+        [
+          "auditoria",
+          "auditoria",
+          true,
+          1,
+          null,
+          563,
+          "2026-11-14 13:34:00.633046-06:00",
+          "2026-11-14 16:24:36.485137-06:00"
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          false,
+          0,
+          null,
+          7007,
+          "2026-11-14 13:42:58.039961-06:00",
+          null
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          true,
+          1,
+          null,
+          5385,
+          "2026-11-14 13:33:16.858862-06:00",
+          "2026-11-14 16:24:37.405723-06:00"
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          true,
+          2,
+          null,
+          1,
+          "2026-11-14 13:42:48.593141-06:00",
+          "2026-11-14 16:02:53.590570-06:00"
+        ],
+        [
+          "compatibilidad",
+          "auditoria",
+          true,
+          1,
+          null,
+          402,
+          "2026-11-14 14:55:00.485329-06:00",
+          "2026-11-14 14:57:32.559293-06:00"
+        ],
+        [
+          "donantes",
+          "alertas",
+          false,
+          0,
+          null,
+          139,
+          "2026-11-14 14:56:36.551039-06:00",
+          null
+        ],
+        [
+          "donantes",
+          "alertas",
+          true,
+          1,
+          null,
+          226,
+          "2026-11-14 14:54:59.354933-06:00",
+          "2026-11-14 16:24:37.629842-06:00"
+        ],
+        [
+          "donantes",
+          "auditoria",
+          false,
+          0,
+          null,
+          367,
+          "2026-11-14 14:56:36.487261-06:00",
+          null
+        ],
+        [
+          "donantes",
+          "auditoria",
+          true,
+          1,
+          null,
+          2533,
+          "2026-11-14 13:34:00.657420-06:00",
+          "2026-11-14 16:24:37.382861-06:00"
+        ],
+        [
+          "identidad_acceso",
+          "auditoria",
+          true,
+          1,
+          null,
+          182,
+          "2026-11-14 13:33:14.189384-06:00",
+          "2026-11-14 14:58:09.334112-06:00"
+        ],
+        [
+          "inventario",
+          "auditoria",
+          true,
+          1,
+          null,
+          2421,
+          "2026-11-14 13:34:00.657410-06:00",
+          "2026-11-14 14:57:31.989991-06:00"
+        ],
+        [
+          "monitoreo",
+          "auditoria",
+          true,
+          1,
+          null,
+          803,
+          "2026-11-14 13:34:01.169512-06:00",
+          "2026-11-14 13:53:50.556746-06:00"
+        ],
+        [
+          "priorizacion_geografia",
+          "auditoria",
+          true,
+          1,
+          null,
+          803,
+          "2026-11-14 13:34:00.659070-06:00",
+          "2026-11-14 13:53:49.855069-06:00"
+        ],
+        [
+          "receptores",
+          "auditoria",
+          true,
+          1,
+          null,
+          1031,
+          "2026-11-14 13:34:01.224785-06:00",
+          "2026-11-14 13:53:47.296548-06:00"
+        ],
+        [
+          "transporte",
+          "auditoria",
+          true,
+          1,
+          null,
+          1758,
+          "2026-11-14 13:34:00.659779-06:00",
+          "2026-11-14 13:53:46.648654-06:00"
+        ]
+      ],
+      "health": {
+        "donantes": [
+          "2026-11-14 16:24:32.565750-06:00",
+          "2026-11-14 16:24:32.565750-06:00",
+          null
+        ],
+        "auditoria": [
+          "2026-11-14 16:24:36.980994-06:00",
+          "2026-11-14 16:24:36.980994-06:00",
+          null
+        ]
+      },
+      "missing_audit": 139,
+      "missing_alerts": 46,
+      "extra_alerts": 0,
+      "expected_audit": 765,
+      "expected_alerts": 121,
+      "mongo_projected_business": 0,
+      "audit_business_ids": 626,
+      "new_activity_events": [],
+      "new_outbox_groups": [
+        [
+          "auditoria",
+          "mongodb",
+          "APPOINTMENT_BOOKED",
+          11
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          "APPOINTMENT_CANCEL",
+          12
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          "APPOINTMENT_RESCHEDULE",
+          13
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          "READ",
+          68
+        ]
+      ],
+      "changed_reminders": [],
+      "removed_reminders": [],
+      "elapsed_seconds": 28.428
+    },
+    {
+      "utc": "2026-11-14T22:24:43.706010+00:00",
+      "global_pending": 8032,
+      "global_delivered": 18069,
+      "pertinent_pending": 8032,
+      "pertinent_delivered": 8772,
+      "other_pending": 0,
+      "other_pending_groups": [],
+      "unsupported_target_groups": [],
+      "groups": [
+        [
+          "alertas",
+          "auditoria",
+          true,
+          1,
+          null,
+          1897,
+          "2026-11-14 13:34:00.873855-06:00",
+          "2026-11-14 13:53:49.122927-06:00"
+        ],
+        [
+          "auditoria",
+          "auditoria",
+          false,
+          0,
+          null,
+          550,
+          "2026-11-14 13:43:00.831542-06:00",
+          null
+        ],
+        [
+          "auditoria",
+          "auditoria",
+          true,
+          1,
+          null,
+          566,
+          "2026-11-14 13:34:00.633046-06:00",
+          "2026-11-14 16:24:42.797265-06:00"
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          false,
+          0,
+          null,
+          7011,
+          "2026-11-14 13:43:00.317752-06:00",
+          null
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          true,
+          1,
+          null,
+          5411,
+          "2026-11-14 13:33:16.858862-06:00",
+          "2026-11-14 16:24:43.287412-06:00"
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          true,
+          2,
+          null,
+          1,
+          "2026-11-14 13:42:48.593141-06:00",
+          "2026-11-14 16:02:53.590570-06:00"
+        ],
+        [
+          "compatibilidad",
+          "auditoria",
+          true,
+          1,
+          null,
+          402,
+          "2026-11-14 14:55:00.485329-06:00",
+          "2026-11-14 14:57:32.559293-06:00"
+        ],
+        [
+          "donantes",
+          "alertas",
+          false,
+          0,
+          null,
+          130,
+          "2026-11-14 14:56:39.320976-06:00",
+          null
+        ],
+        [
+          "donantes",
+          "alertas",
+          true,
+          1,
+          null,
+          235,
+          "2026-11-14 14:54:59.354933-06:00",
+          "2026-11-14 16:24:42.880457-06:00"
+        ],
+        [
+          "donantes",
+          "auditoria",
+          false,
+          0,
+          null,
+          341,
+          "2026-11-14 14:56:39.320976-06:00",
+          null
+        ],
+        [
+          "donantes",
+          "auditoria",
+          true,
+          1,
+          null,
+          2559,
+          "2026-11-14 13:34:00.657420-06:00",
+          "2026-11-14 16:24:43.186280-06:00"
+        ],
+        [
+          "identidad_acceso",
+          "auditoria",
+          true,
+          1,
+          null,
+          182,
+          "2026-11-14 13:33:14.189384-06:00",
+          "2026-11-14 14:58:09.334112-06:00"
+        ],
+        [
+          "inventario",
+          "auditoria",
+          true,
+          1,
+          null,
+          2421,
+          "2026-11-14 13:34:00.657410-06:00",
+          "2026-11-14 14:57:31.989991-06:00"
+        ],
+        [
+          "monitoreo",
+          "auditoria",
+          true,
+          1,
+          null,
+          803,
+          "2026-11-14 13:34:01.169512-06:00",
+          "2026-11-14 13:53:50.556746-06:00"
+        ],
+        [
+          "priorizacion_geografia",
+          "auditoria",
+          true,
+          1,
+          null,
+          803,
+          "2026-11-14 13:34:00.659070-06:00",
+          "2026-11-14 13:53:49.855069-06:00"
+        ],
+        [
+          "receptores",
+          "auditoria",
+          true,
+          1,
+          null,
+          1031,
+          "2026-11-14 13:34:01.224785-06:00",
+          "2026-11-14 13:53:47.296548-06:00"
+        ],
+        [
+          "transporte",
+          "auditoria",
+          true,
+          1,
+          null,
+          1758,
+          "2026-11-14 13:34:00.659779-06:00",
+          "2026-11-14 13:53:46.648654-06:00"
+        ]
+      ],
+      "health": {
+        "donantes": [
+          "2026-11-14 16:24:32.565750-06:00",
+          "2026-11-14 16:24:32.565750-06:00",
+          null
+        ],
+        "auditoria": [
+          "2026-11-14 16:24:36.980994-06:00",
+          "2026-11-14 16:24:36.980994-06:00",
+          null
+        ]
+      },
+      "missing_audit": 129,
+      "missing_alerts": 42,
+      "extra_alerts": 0,
+      "expected_audit": 765,
+      "expected_alerts": 121,
+      "mongo_projected_business": 0,
+      "audit_business_ids": 636,
+      "new_activity_events": [],
+      "new_outbox_groups": [
+        [
+          "auditoria",
+          "mongodb",
+          "APPOINTMENT_BOOKED",
+          15
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          "APPOINTMENT_CANCEL",
+          15
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          "APPOINTMENT_RESCHEDULE",
+          16
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          "READ",
+          88
+        ]
+      ],
+      "changed_reminders": [],
+      "removed_reminders": [],
+      "elapsed_seconds": 33.842
+    },
+    {
+      "utc": "2026-11-14T22:24:49.250397+00:00",
+      "global_pending": 7993,
+      "global_delivered": 18136,
+      "pertinent_pending": 7993,
+      "pertinent_delivered": 8839,
+      "other_pending": 0,
+      "other_pending_groups": [],
+      "unsupported_target_groups": [],
+      "groups": [
+        [
+          "alertas",
+          "auditoria",
+          true,
+          1,
+          null,
+          1897,
+          "2026-11-14 13:34:00.873855-06:00",
+          "2026-11-14 13:53:49.122927-06:00"
+        ],
+        [
+          "auditoria",
+          "auditoria",
+          false,
+          0,
+          null,
+          547,
+          "2026-11-14 13:43:03.119437-06:00",
+          null
+        ],
+        [
+          "auditoria",
+          "auditoria",
+          true,
+          1,
+          null,
+          569,
+          "2026-11-14 13:34:00.633046-06:00",
+          "2026-11-14 16:24:48.624285-06:00"
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          false,
+          0,
+          null,
+          7012,
+          "2026-11-14 13:43:02.051084-06:00",
+          null
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          true,
+          1,
+          null,
+          5438,
+          "2026-11-14 13:33:16.858862-06:00",
+          "2026-11-14 16:24:48.470112-06:00"
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          true,
+          2,
+          null,
+          1,
+          "2026-11-14 13:42:48.593141-06:00",
+          "2026-11-14 16:02:53.590570-06:00"
+        ],
+        [
+          "compatibilidad",
+          "auditoria",
+          true,
+          1,
+          null,
+          402,
+          "2026-11-14 14:55:00.485329-06:00",
+          "2026-11-14 14:57:32.559293-06:00"
+        ],
+        [
+          "donantes",
+          "alertas",
+          false,
+          0,
+          null,
+          119,
+          "2026-11-14 14:56:43.184829-06:00",
+          null
+        ],
+        [
+          "donantes",
+          "alertas",
+          true,
+          1,
+          null,
+          246,
+          "2026-11-14 14:54:59.354933-06:00",
+          "2026-11-14 16:24:48.296199-06:00"
+        ],
+        [
+          "donantes",
+          "auditoria",
+          false,
+          0,
+          null,
+          315,
+          "2026-11-14 14:56:43.264118-06:00",
+          null
+        ],
+        [
+          "donantes",
+          "auditoria",
+          true,
+          1,
+          null,
+          2585,
+          "2026-11-14 13:34:00.657420-06:00",
+          "2026-11-14 16:24:48.450422-06:00"
+        ],
+        [
+          "identidad_acceso",
+          "auditoria",
+          true,
+          1,
+          null,
+          182,
+          "2026-11-14 13:33:14.189384-06:00",
+          "2026-11-14 14:58:09.334112-06:00"
+        ],
+        [
+          "inventario",
+          "auditoria",
+          true,
+          1,
+          null,
+          2421,
+          "2026-11-14 13:34:00.657410-06:00",
+          "2026-11-14 14:57:31.989991-06:00"
+        ],
+        [
+          "monitoreo",
+          "auditoria",
+          true,
+          1,
+          null,
+          803,
+          "2026-11-14 13:34:01.169512-06:00",
+          "2026-11-14 13:53:50.556746-06:00"
+        ],
+        [
+          "priorizacion_geografia",
+          "auditoria",
+          true,
+          1,
+          null,
+          803,
+          "2026-11-14 13:34:00.659070-06:00",
+          "2026-11-14 13:53:49.855069-06:00"
+        ],
+        [
+          "receptores",
+          "auditoria",
+          true,
+          1,
+          null,
+          1031,
+          "2026-11-14 13:34:01.224785-06:00",
+          "2026-11-14 13:53:47.296548-06:00"
+        ],
+        [
+          "transporte",
+          "auditoria",
+          true,
+          1,
+          null,
+          1758,
+          "2026-11-14 13:34:00.659779-06:00",
+          "2026-11-14 13:53:46.648654-06:00"
+        ]
+      ],
+      "health": {
+        "donantes": [
+          "2026-11-14 16:24:48.608737-06:00",
+          "2026-11-14 16:24:48.608737-06:00",
+          null
+        ],
+        "auditoria": [
+          "2026-11-14 16:24:36.980994-06:00",
+          "2026-11-14 16:24:36.980994-06:00",
+          null
+        ]
+      },
+      "missing_audit": 118,
+      "missing_alerts": 39,
+      "extra_alerts": 0,
+      "expected_audit": 765,
+      "expected_alerts": 121,
+      "mongo_projected_business": 0,
+      "audit_business_ids": 647,
+      "new_activity_events": [],
+      "new_outbox_groups": [
+        [
+          "auditoria",
+          "mongodb",
+          "APPOINTMENT_BOOKED",
+          18
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          "APPOINTMENT_CANCEL",
+          19
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          "APPOINTMENT_RESCHEDULE",
+          20
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          "READ",
+          105
+        ]
+      ],
+      "changed_reminders": [],
+      "removed_reminders": [],
+      "elapsed_seconds": 39.387
+    },
+    {
+      "utc": "2026-11-14T22:24:54.795712+00:00",
+      "global_pending": 7962,
+      "global_delivered": 18193,
+      "pertinent_pending": 7962,
+      "pertinent_delivered": 8896,
+      "other_pending": 0,
+      "other_pending_groups": [],
+      "unsupported_target_groups": [],
+      "groups": [
+        [
+          "alertas",
+          "auditoria",
+          true,
+          1,
+          null,
+          1897,
+          "2026-11-14 13:34:00.873855-06:00",
+          "2026-11-14 13:53:49.122927-06:00"
+        ],
+        [
+          "auditoria",
+          "auditoria",
+          false,
+          0,
+          null,
+          546,
+          "2026-11-14 13:43:04.333781-06:00",
+          null
+        ],
+        [
+          "auditoria",
+          "auditoria",
+          true,
+          1,
+          null,
+          570,
+          "2026-11-14 13:34:00.633046-06:00",
+          "2026-11-14 16:24:52.928177-06:00"
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          false,
+          0,
+          null,
+          7015,
+          "2026-11-14 13:43:03.422289-06:00",
+          null
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          true,
+          1,
+          null,
+          5461,
+          "2026-11-14 13:33:16.858862-06:00",
+          "2026-11-14 16:24:54.125152-06:00"
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          true,
+          2,
+          null,
+          1,
+          "2026-11-14 13:42:48.593141-06:00",
+          "2026-11-14 16:02:53.590570-06:00"
+        ],
+        [
+          "compatibilidad",
+          "auditoria",
+          true,
+          1,
+          null,
+          402,
+          "2026-11-14 14:55:00.485329-06:00",
+          "2026-11-14 14:57:32.559293-06:00"
+        ],
+        [
+          "donantes",
+          "alertas",
+          false,
+          0,
+          null,
+          111,
+          "2026-11-14 14:56:46.393230-06:00",
+          null
+        ],
+        [
+          "donantes",
+          "alertas",
+          true,
+          1,
+          null,
+          254,
+          "2026-11-14 14:54:59.354933-06:00",
+          "2026-11-14 16:24:54.130361-06:00"
+        ],
+        [
+          "donantes",
+          "auditoria",
+          false,
+          0,
+          null,
+          290,
+          "2026-11-14 14:56:46.496837-06:00",
+          null
+        ],
+        [
+          "donantes",
+          "auditoria",
+          true,
+          1,
+          null,
+          2610,
+          "2026-11-14 13:34:00.657420-06:00",
+          "2026-11-14 16:24:54.278733-06:00"
+        ],
+        [
+          "identidad_acceso",
+          "auditoria",
+          true,
+          1,
+          null,
+          182,
+          "2026-11-14 13:33:14.189384-06:00",
+          "2026-11-14 14:58:09.334112-06:00"
+        ],
+        [
+          "inventario",
+          "auditoria",
+          true,
+          1,
+          null,
+          2421,
+          "2026-11-14 13:34:00.657410-06:00",
+          "2026-11-14 14:57:31.989991-06:00"
+        ],
+        [
+          "monitoreo",
+          "auditoria",
+          true,
+          1,
+          null,
+          803,
+          "2026-11-14 13:34:01.169512-06:00",
+          "2026-11-14 13:53:50.556746-06:00"
+        ],
+        [
+          "priorizacion_geografia",
+          "auditoria",
+          true,
+          1,
+          null,
+          803,
+          "2026-11-14 13:34:00.659070-06:00",
+          "2026-11-14 13:53:49.855069-06:00"
+        ],
+        [
+          "receptores",
+          "auditoria",
+          true,
+          1,
+          null,
+          1031,
+          "2026-11-14 13:34:01.224785-06:00",
+          "2026-11-14 13:53:47.296548-06:00"
+        ],
+        [
+          "transporte",
+          "auditoria",
+          true,
+          1,
+          null,
+          1758,
+          "2026-11-14 13:34:00.659779-06:00",
+          "2026-11-14 13:53:46.648654-06:00"
+        ]
+      ],
+      "health": {
+        "donantes": [
+          "2026-11-14 16:24:48.608737-06:00",
+          "2026-11-14 16:24:48.608737-06:00",
+          null
+        ],
+        "auditoria": [
+          "2026-11-14 16:24:36.980994-06:00",
+          "2026-11-14 16:24:36.980994-06:00",
+          null
+        ]
+      },
+      "missing_audit": 110,
+      "missing_alerts": 36,
+      "extra_alerts": 0,
+      "expected_audit": 765,
+      "expected_alerts": 121,
+      "mongo_projected_business": 0,
+      "audit_business_ids": 655,
+      "new_activity_events": [],
+      "new_outbox_groups": [
+        [
+          "auditoria",
+          "mongodb",
+          "APPOINTMENT_BOOKED",
+          21
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          "APPOINTMENT_CANCEL",
+          22
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          "APPOINTMENT_RESCHEDULE",
+          22
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          "READ",
+          123
+        ]
+      ],
+      "changed_reminders": [],
+      "removed_reminders": [],
+      "elapsed_seconds": 44.933
+    },
+    {
+      "utc": "2026-11-14T22:25:00.382585+00:00",
+      "global_pending": 7928,
+      "global_delivered": 18252,
+      "pertinent_pending": 7928,
+      "pertinent_delivered": 8955,
+      "other_pending": 0,
+      "other_pending_groups": [],
+      "unsupported_target_groups": [],
+      "groups": [
+        [
+          "alertas",
+          "auditoria",
+          true,
+          1,
+          null,
+          1897,
+          "2026-11-14 13:34:00.873855-06:00",
+          "2026-11-14 13:53:49.122927-06:00"
+        ],
+        [
+          "auditoria",
+          "auditoria",
+          false,
+          0,
+          null,
+          544,
+          "2026-11-14 13:43:05.534721-06:00",
+          null
+        ],
+        [
+          "auditoria",
+          "auditoria",
+          true,
+          1,
+          null,
+          572,
+          "2026-11-14 13:34:00.633046-06:00",
+          "2026-11-14 16:24:59.371913-06:00"
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          false,
+          0,
+          null,
+          7017,
+          "2026-11-14 13:43:04.882602-06:00",
+          null
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          true,
+          1,
+          null,
+          5484,
+          "2026-11-14 13:33:16.858862-06:00",
+          "2026-11-14 16:24:59.671193-06:00"
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          true,
+          2,
+          null,
+          1,
+          "2026-11-14 13:42:48.593141-06:00",
+          "2026-11-14 16:02:53.590570-06:00"
+        ],
+        [
+          "compatibilidad",
+          "auditoria",
+          true,
+          1,
+          null,
+          402,
+          "2026-11-14 14:55:00.485329-06:00",
+          "2026-11-14 14:57:32.559293-06:00"
+        ],
+        [
+          "donantes",
+          "alertas",
+          false,
+          0,
+          null,
+          100,
+          "2026-11-14 14:56:49.240187-06:00",
+          null
+        ],
+        [
+          "donantes",
+          "alertas",
+          true,
+          1,
+          null,
+          265,
+          "2026-11-14 14:54:59.354933-06:00",
+          "2026-11-14 16:24:59.680198-06:00"
+        ],
+        [
+          "donantes",
+          "auditoria",
+          false,
+          0,
+          null,
+          267,
+          "2026-11-14 14:56:49.240187-06:00",
+          null
+        ],
+        [
+          "donantes",
+          "auditoria",
+          true,
+          1,
+          null,
+          2633,
+          "2026-11-14 13:34:00.657420-06:00",
+          "2026-11-14 16:24:59.823227-06:00"
+        ],
+        [
+          "identidad_acceso",
+          "auditoria",
+          true,
+          1,
+          null,
+          182,
+          "2026-11-14 13:33:14.189384-06:00",
+          "2026-11-14 14:58:09.334112-06:00"
+        ],
+        [
+          "inventario",
+          "auditoria",
+          true,
+          1,
+          null,
+          2421,
+          "2026-11-14 13:34:00.657410-06:00",
+          "2026-11-14 14:57:31.989991-06:00"
+        ],
+        [
+          "monitoreo",
+          "auditoria",
+          true,
+          1,
+          null,
+          803,
+          "2026-11-14 13:34:01.169512-06:00",
+          "2026-11-14 13:53:50.556746-06:00"
+        ],
+        [
+          "priorizacion_geografia",
+          "auditoria",
+          true,
+          1,
+          null,
+          803,
+          "2026-11-14 13:34:00.659070-06:00",
+          "2026-11-14 13:53:49.855069-06:00"
+        ],
+        [
+          "receptores",
+          "auditoria",
+          true,
+          1,
+          null,
+          1031,
+          "2026-11-14 13:34:01.224785-06:00",
+          "2026-11-14 13:53:47.296548-06:00"
+        ],
+        [
+          "transporte",
+          "auditoria",
+          true,
+          1,
+          null,
+          1758,
+          "2026-11-14 13:34:00.659779-06:00",
+          "2026-11-14 13:53:46.648654-06:00"
+        ]
+      ],
+      "health": {
+        "donantes": [
+          "2026-11-14 16:24:48.608737-06:00",
+          "2026-11-14 16:24:48.608737-06:00",
+          null
+        ],
+        "auditoria": [
+          "2026-11-14 16:24:57.447303-06:00",
+          "2026-11-14 16:24:57.447303-06:00",
+          null
+        ]
+      },
+      "missing_audit": 100,
+      "missing_alerts": 33,
+      "extra_alerts": 0,
+      "expected_audit": 765,
+      "expected_alerts": 121,
+      "mongo_projected_business": 0,
+      "audit_business_ids": 665,
+      "new_activity_events": [],
+      "new_outbox_groups": [
+        [
+          "auditoria",
+          "mongodb",
+          "APPOINTMENT_BOOKED",
+          24
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          "APPOINTMENT_CANCEL",
+          25
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          "APPOINTMENT_RESCHEDULE",
+          26
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          "READ",
+          138
+        ]
+      ],
+      "changed_reminders": [],
+      "removed_reminders": [],
+      "elapsed_seconds": 50.521
+    },
+    {
+      "utc": "2026-11-14T22:25:05.897869+00:00",
+      "global_pending": 7896,
+      "global_delivered": 18310,
+      "pertinent_pending": 7896,
+      "pertinent_delivered": 9013,
+      "other_pending": 0,
+      "other_pending_groups": [],
+      "unsupported_target_groups": [],
+      "groups": [
+        [
+          "alertas",
+          "auditoria",
+          true,
+          1,
+          null,
+          1897,
+          "2026-11-14 13:34:00.873855-06:00",
+          "2026-11-14 13:53:49.122927-06:00"
+        ],
+        [
+          "auditoria",
+          "auditoria",
+          false,
+          0,
+          null,
+          543,
+          "2026-11-14 13:43:06.472438-06:00",
+          null
+        ],
+        [
+          "auditoria",
+          "auditoria",
+          true,
+          1,
+          null,
+          573,
+          "2026-11-14 13:34:00.633046-06:00",
+          "2026-11-14 16:25:01.872259-06:00"
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          false,
+          0,
+          null,
+          7018,
+          "2026-11-14 13:43:06.681754-06:00",
+          null
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          true,
+          1,
+          null,
+          5509,
+          "2026-11-14 13:33:16.858862-06:00",
+          "2026-11-14 16:25:05.385092-06:00"
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          true,
+          2,
+          null,
+          1,
+          "2026-11-14 13:42:48.593141-06:00",
+          "2026-11-14 16:02:53.590570-06:00"
+        ],
+        [
+          "compatibilidad",
+          "auditoria",
+          true,
+          1,
+          null,
+          402,
+          "2026-11-14 14:55:00.485329-06:00",
+          "2026-11-14 14:57:32.559293-06:00"
+        ],
+        [
+          "donantes",
+          "alertas",
+          false,
+          0,
+          null,
+          93,
+          "2026-11-14 14:56:53.348716-06:00",
+          null
+        ],
+        [
+          "donantes",
+          "alertas",
+          true,
+          1,
+          null,
+          272,
+          "2026-11-14 14:54:59.354933-06:00",
+          "2026-11-14 16:25:05.222518-06:00"
+        ],
+        [
+          "donantes",
+          "auditoria",
+          false,
+          0,
+          null,
+          242,
+          "2026-11-14 14:56:53.348716-06:00",
+          null
+        ],
+        [
+          "donantes",
+          "auditoria",
+          true,
+          1,
+          null,
+          2658,
+          "2026-11-14 13:34:00.657420-06:00",
+          "2026-11-14 16:25:05.363104-06:00"
+        ],
+        [
+          "identidad_acceso",
+          "auditoria",
+          true,
+          1,
+          null,
+          182,
+          "2026-11-14 13:33:14.189384-06:00",
+          "2026-11-14 14:58:09.334112-06:00"
+        ],
+        [
+          "inventario",
+          "auditoria",
+          true,
+          1,
+          null,
+          2421,
+          "2026-11-14 13:34:00.657410-06:00",
+          "2026-11-14 14:57:31.989991-06:00"
+        ],
+        [
+          "monitoreo",
+          "auditoria",
+          true,
+          1,
+          null,
+          803,
+          "2026-11-14 13:34:01.169512-06:00",
+          "2026-11-14 13:53:50.556746-06:00"
+        ],
+        [
+          "priorizacion_geografia",
+          "auditoria",
+          true,
+          1,
+          null,
+          803,
+          "2026-11-14 13:34:00.659070-06:00",
+          "2026-11-14 13:53:49.855069-06:00"
+        ],
+        [
+          "receptores",
+          "auditoria",
+          true,
+          1,
+          null,
+          1031,
+          "2026-11-14 13:34:01.224785-06:00",
+          "2026-11-14 13:53:47.296548-06:00"
+        ],
+        [
+          "transporte",
+          "auditoria",
+          true,
+          1,
+          null,
+          1758,
+          "2026-11-14 13:34:00.659779-06:00",
+          "2026-11-14 13:53:46.648654-06:00"
+        ]
+      ],
+      "health": {
+        "donantes": [
+          "2026-11-14 16:24:48.608737-06:00",
+          "2026-11-14 16:24:48.608737-06:00",
+          null
+        ],
+        "auditoria": [
+          "2026-11-14 16:24:57.447303-06:00",
+          "2026-11-14 16:24:57.447303-06:00",
+          null
+        ]
+      },
+      "missing_audit": 93,
+      "missing_alerts": 29,
+      "extra_alerts": 0,
+      "expected_audit": 765,
+      "expected_alerts": 121,
+      "mongo_projected_business": 0,
+      "audit_business_ids": 672,
+      "new_activity_events": [],
+      "new_outbox_groups": [
+        [
+          "auditoria",
+          "mongodb",
+          "APPOINTMENT_BOOKED",
+          28
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          "APPOINTMENT_CANCEL",
+          27
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          "APPOINTMENT_RESCHEDULE",
+          27
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          "READ",
+          157
+        ]
+      ],
+      "changed_reminders": [],
+      "removed_reminders": [],
+      "elapsed_seconds": 56.036
+    },
+    {
+      "utc": "2026-11-14T22:25:11.414370+00:00",
+      "global_pending": 7864,
+      "global_delivered": 18369,
+      "pertinent_pending": 7864,
+      "pertinent_delivered": 9072,
+      "other_pending": 0,
+      "other_pending_groups": [],
+      "unsupported_target_groups": [],
+      "groups": [
+        [
+          "alertas",
+          "auditoria",
+          true,
+          1,
+          null,
+          1897,
+          "2026-11-14 13:34:00.873855-06:00",
+          "2026-11-14 13:53:49.122927-06:00"
+        ],
+        [
+          "auditoria",
+          "auditoria",
+          false,
+          0,
+          null,
+          539,
+          "2026-11-14 13:43:09.775434-06:00",
+          null
+        ],
+        [
+          "auditoria",
+          "auditoria",
+          true,
+          1,
+          null,
+          577,
+          "2026-11-14 13:34:00.633046-06:00",
+          "2026-11-14 16:25:10.222675-06:00"
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          false,
+          0,
+          null,
+          7024,
+          "2026-11-14 13:43:09.236753-06:00",
+          null
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          true,
+          1,
+          null,
+          5530,
+          "2026-11-14 13:33:16.858862-06:00",
+          "2026-11-14 16:25:10.880776-06:00"
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          true,
+          2,
+          null,
+          1,
+          "2026-11-14 13:42:48.593141-06:00",
+          "2026-11-14 16:02:53.590570-06:00"
+        ],
+        [
+          "compatibilidad",
+          "auditoria",
+          true,
+          1,
+          null,
+          402,
+          "2026-11-14 14:55:00.485329-06:00",
+          "2026-11-14 14:57:32.559293-06:00"
+        ],
+        [
+          "donantes",
+          "alertas",
+          false,
+          0,
+          null,
+          82,
+          "2026-11-14 14:56:57.037546-06:00",
+          null
+        ],
+        [
+          "donantes",
+          "alertas",
+          true,
+          1,
+          null,
+          283,
+          "2026-11-14 14:54:59.354933-06:00",
+          "2026-11-14 16:25:10.969141-06:00"
+        ],
+        [
+          "donantes",
+          "auditoria",
+          false,
+          0,
+          null,
+          219,
+          "2026-11-14 14:56:56.733216-06:00",
+          null
+        ],
+        [
+          "donantes",
+          "auditoria",
+          true,
+          1,
+          null,
+          2681,
+          "2026-11-14 13:34:00.657420-06:00",
+          "2026-11-14 16:25:10.812162-06:00"
+        ],
+        [
+          "identidad_acceso",
+          "auditoria",
+          true,
+          1,
+          null,
+          182,
+          "2026-11-14 13:33:14.189384-06:00",
+          "2026-11-14 14:58:09.334112-06:00"
+        ],
+        [
+          "inventario",
+          "auditoria",
+          true,
+          1,
+          null,
+          2421,
+          "2026-11-14 13:34:00.657410-06:00",
+          "2026-11-14 14:57:31.989991-06:00"
+        ],
+        [
+          "monitoreo",
+          "auditoria",
+          true,
+          1,
+          null,
+          803,
+          "2026-11-14 13:34:01.169512-06:00",
+          "2026-11-14 13:53:50.556746-06:00"
+        ],
+        [
+          "priorizacion_geografia",
+          "auditoria",
+          true,
+          1,
+          null,
+          803,
+          "2026-11-14 13:34:00.659070-06:00",
+          "2026-11-14 13:53:49.855069-06:00"
+        ],
+        [
+          "receptores",
+          "auditoria",
+          true,
+          1,
+          null,
+          1031,
+          "2026-11-14 13:34:01.224785-06:00",
+          "2026-11-14 13:53:47.296548-06:00"
+        ],
+        [
+          "transporte",
+          "auditoria",
+          true,
+          1,
+          null,
+          1758,
+          "2026-11-14 13:34:00.659779-06:00",
+          "2026-11-14 13:53:46.648654-06:00"
+        ]
+      ],
+      "health": {
+        "donantes": [
+          "2026-11-14 16:25:05.737810-06:00",
+          "2026-11-14 16:25:05.737810-06:00",
+          null
+        ],
+        "auditoria": [
+          "2026-11-14 16:24:57.447303-06:00",
+          "2026-11-14 16:24:57.447303-06:00",
+          null
+        ]
+      },
+      "missing_audit": 83,
+      "missing_alerts": 27,
+      "extra_alerts": 0,
+      "expected_audit": 765,
+      "expected_alerts": 121,
+      "mongo_projected_business": 0,
+      "audit_business_ids": 682,
+      "new_activity_events": [],
+      "new_outbox_groups": [
+        [
+          "auditoria",
+          "mongodb",
+          "APPOINTMENT_BOOKED",
+          30
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          "APPOINTMENT_CANCEL",
+          31
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          "APPOINTMENT_RESCHEDULE",
+          31
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          "READ",
+          174
+        ]
+      ],
+      "changed_reminders": [],
+      "removed_reminders": [],
+      "elapsed_seconds": 61.552
+    },
+    {
+      "utc": "2026-11-14T22:25:17.187797+00:00",
+      "global_pending": 7835,
+      "global_delivered": 18426,
+      "pertinent_pending": 7835,
+      "pertinent_delivered": 9129,
+      "other_pending": 0,
+      "other_pending_groups": [],
+      "unsupported_target_groups": [],
+      "groups": [
+        [
+          "alertas",
+          "auditoria",
+          true,
+          1,
+          null,
+          1897,
+          "2026-11-14 13:34:00.873855-06:00",
+          "2026-11-14 13:53:49.122927-06:00"
+        ],
+        [
+          "auditoria",
+          "auditoria",
+          false,
+          0,
+          null,
+          536,
+          "2026-11-14 13:43:11.661373-06:00",
+          null
+        ],
+        [
+          "auditoria",
+          "auditoria",
+          true,
+          1,
+          null,
+          580,
+          "2026-11-14 13:34:00.633046-06:00",
+          "2026-11-14 16:25:15.463762-06:00"
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          false,
+          0,
+          null,
+          7031,
+          "2026-11-14 13:43:11.662606-06:00",
+          null
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          true,
+          1,
+          null,
+          5551,
+          "2026-11-14 13:33:16.858862-06:00",
+          "2026-11-14 16:25:16.239748-06:00"
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          true,
+          2,
+          null,
+          1,
+          "2026-11-14 13:42:48.593141-06:00",
+          "2026-11-14 16:02:53.590570-06:00"
+        ],
+        [
+          "compatibilidad",
+          "auditoria",
+          true,
+          1,
+          null,
+          402,
+          "2026-11-14 14:55:00.485329-06:00",
+          "2026-11-14 14:57:32.559293-06:00"
+        ],
+        [
+          "donantes",
+          "alertas",
+          false,
+          0,
+          null,
+          74,
+          "2026-11-14 14:57:00.705021-06:00",
+          null
+        ],
+        [
+          "donantes",
+          "alertas",
+          true,
+          1,
+          null,
+          291,
+          "2026-11-14 14:54:59.354933-06:00",
+          "2026-11-14 16:25:16.387159-06:00"
+        ],
+        [
+          "donantes",
+          "auditoria",
+          false,
+          0,
+          null,
+          194,
+          "2026-11-14 14:57:00.625953-06:00",
+          null
+        ],
+        [
+          "donantes",
+          "auditoria",
+          true,
+          1,
+          null,
+          2706,
+          "2026-11-14 13:34:00.657420-06:00",
+          "2026-11-14 16:25:16.211953-06:00"
+        ],
+        [
+          "identidad_acceso",
+          "auditoria",
+          true,
+          1,
+          null,
+          182,
+          "2026-11-14 13:33:14.189384-06:00",
+          "2026-11-14 14:58:09.334112-06:00"
+        ],
+        [
+          "inventario",
+          "auditoria",
+          true,
+          1,
+          null,
+          2421,
+          "2026-11-14 13:34:00.657410-06:00",
+          "2026-11-14 14:57:31.989991-06:00"
+        ],
+        [
+          "monitoreo",
+          "auditoria",
+          true,
+          1,
+          null,
+          803,
+          "2026-11-14 13:34:01.169512-06:00",
+          "2026-11-14 13:53:50.556746-06:00"
+        ],
+        [
+          "priorizacion_geografia",
+          "auditoria",
+          true,
+          1,
+          null,
+          803,
+          "2026-11-14 13:34:00.659070-06:00",
+          "2026-11-14 13:53:49.855069-06:00"
+        ],
+        [
+          "receptores",
+          "auditoria",
+          true,
+          1,
+          null,
+          1031,
+          "2026-11-14 13:34:01.224785-06:00",
+          "2026-11-14 13:53:47.296548-06:00"
+        ],
+        [
+          "transporte",
+          "auditoria",
+          true,
+          1,
+          null,
+          1758,
+          "2026-11-14 13:34:00.659779-06:00",
+          "2026-11-14 13:53:46.648654-06:00"
+        ]
+      ],
+      "health": {
+        "donantes": [
+          "2026-11-14 16:25:05.737810-06:00",
+          "2026-11-14 16:25:05.737810-06:00",
+          null
+        ],
+        "auditoria": [
+          "2026-11-14 16:24:57.447303-06:00",
+          "2026-11-14 16:24:57.447303-06:00",
+          null
+        ]
+      },
+      "missing_audit": 75,
+      "missing_alerts": 24,
+      "extra_alerts": 0,
+      "expected_audit": 765,
+      "expected_alerts": 121,
+      "mongo_projected_business": 0,
+      "audit_business_ids": 690,
+      "new_activity_events": [],
+      "new_outbox_groups": [
+        [
+          "auditoria",
+          "mongodb",
+          "APPOINTMENT_BOOKED",
+          33
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          "APPOINTMENT_CANCEL",
+          33
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          "APPOINTMENT_RESCHEDULE",
+          34
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          "READ",
+          194
+        ]
+      ],
+      "changed_reminders": [],
+      "removed_reminders": [],
+      "elapsed_seconds": 67.327
+    },
+    {
+      "utc": "2026-11-14T22:25:23.029721+00:00",
+      "global_pending": 7806,
+      "global_delivered": 18480,
+      "pertinent_pending": 7806,
+      "pertinent_delivered": 9183,
+      "other_pending": 0,
+      "other_pending_groups": [],
+      "unsupported_target_groups": [],
+      "groups": [
+        [
+          "alertas",
+          "auditoria",
+          true,
+          1,
+          null,
+          1897,
+          "2026-11-14 13:34:00.873855-06:00",
+          "2026-11-14 13:53:49.122927-06:00"
+        ],
+        [
+          "auditoria",
+          "auditoria",
+          false,
+          0,
+          null,
+          534,
+          "2026-11-14 13:43:13.682525-06:00",
+          null
+        ],
+        [
+          "auditoria",
+          "auditoria",
+          true,
+          1,
+          null,
+          582,
+          "2026-11-14 13:34:00.633046-06:00",
+          "2026-11-14 16:25:19.634387-06:00"
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          false,
+          0,
+          null,
+          7036,
+          "2026-11-14 13:43:13.683192-06:00",
+          null
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          true,
+          1,
+          null,
+          5571,
+          "2026-11-14 13:33:16.858862-06:00",
+          "2026-11-14 16:25:21.857419-06:00"
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          true,
+          2,
+          null,
+          1,
+          "2026-11-14 13:42:48.593141-06:00",
+          "2026-11-14 16:02:53.590570-06:00"
+        ],
+        [
+          "compatibilidad",
+          "auditoria",
+          true,
+          1,
+          null,
+          402,
+          "2026-11-14 14:55:00.485329-06:00",
+          "2026-11-14 14:57:32.559293-06:00"
+        ],
+        [
+          "donantes",
+          "alertas",
+          false,
+          0,
+          null,
+          65,
+          "2026-11-14 14:57:04.410630-06:00",
+          null
+        ],
+        [
+          "donantes",
+          "alertas",
+          true,
+          1,
+          null,
+          300,
+          "2026-11-14 14:54:59.354933-06:00",
+          "2026-11-14 16:25:21.877505-06:00"
+        ],
+        [
+          "donantes",
+          "auditoria",
+          false,
+          0,
+          null,
+          171,
+          "2026-11-14 14:57:04.410630-06:00",
+          null
+        ],
+        [
+          "donantes",
+          "auditoria",
+          true,
+          1,
+          null,
+          2729,
+          "2026-11-14 13:34:00.657420-06:00",
+          "2026-11-14 16:25:22.290269-06:00"
+        ],
+        [
+          "identidad_acceso",
+          "auditoria",
+          true,
+          1,
+          null,
+          182,
+          "2026-11-14 13:33:14.189384-06:00",
+          "2026-11-14 14:58:09.334112-06:00"
+        ],
+        [
+          "inventario",
+          "auditoria",
+          true,
+          1,
+          null,
+          2421,
+          "2026-11-14 13:34:00.657410-06:00",
+          "2026-11-14 14:57:31.989991-06:00"
+        ],
+        [
+          "monitoreo",
+          "auditoria",
+          true,
+          1,
+          null,
+          803,
+          "2026-11-14 13:34:01.169512-06:00",
+          "2026-11-14 13:53:50.556746-06:00"
+        ],
+        [
+          "priorizacion_geografia",
+          "auditoria",
+          true,
+          1,
+          null,
+          803,
+          "2026-11-14 13:34:00.659070-06:00",
+          "2026-11-14 13:53:49.855069-06:00"
+        ],
+        [
+          "receptores",
+          "auditoria",
+          true,
+          1,
+          null,
+          1031,
+          "2026-11-14 13:34:01.224785-06:00",
+          "2026-11-14 13:53:47.296548-06:00"
+        ],
+        [
+          "transporte",
+          "auditoria",
+          true,
+          1,
+          null,
+          1758,
+          "2026-11-14 13:34:00.659779-06:00",
+          "2026-11-14 13:53:46.648654-06:00"
+        ]
+      ],
+      "health": {
+        "donantes": [
+          "2026-11-14 16:25:05.737810-06:00",
+          "2026-11-14 16:25:05.737810-06:00",
+          null
+        ],
+        "auditoria": [
+          "2026-11-14 16:25:20.301441-06:00",
+          "2026-11-14 16:25:20.301441-06:00",
+          null
+        ]
+      },
+      "missing_audit": 65,
+      "missing_alerts": 21,
+      "extra_alerts": 0,
+      "expected_audit": 765,
+      "expected_alerts": 121,
+      "mongo_projected_business": 0,
+      "audit_business_ids": 700,
+      "new_activity_events": [],
+      "new_outbox_groups": [
+        [
+          "auditoria",
+          "mongodb",
+          "APPOINTMENT_BOOKED",
+          36
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          "APPOINTMENT_CANCEL",
+          37
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          "APPOINTMENT_RESCHEDULE",
+          37
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          "READ",
+          209
+        ]
+      ],
+      "changed_reminders": [],
+      "removed_reminders": [],
+      "elapsed_seconds": 73.168
+    },
+    {
+      "utc": "2026-11-14T22:25:28.614850+00:00",
+      "global_pending": 7776,
+      "global_delivered": 18534,
+      "pertinent_pending": 7776,
+      "pertinent_delivered": 9237,
+      "other_pending": 0,
+      "other_pending_groups": [],
+      "unsupported_target_groups": [],
+      "groups": [
+        [
+          "alertas",
+          "auditoria",
+          true,
+          1,
+          null,
+          1897,
+          "2026-11-14 13:34:00.873855-06:00",
+          "2026-11-14 13:53:49.122927-06:00"
+        ],
+        [
+          "auditoria",
+          "auditoria",
+          false,
+          0,
+          null,
+          532,
+          "2026-11-14 13:43:15.294750-06:00",
+          null
+        ],
+        [
+          "auditoria",
+          "auditoria",
+          true,
+          1,
+          null,
+          584,
+          "2026-11-14 13:34:00.633046-06:00",
+          "2026-11-14 16:25:25.154523-06:00"
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          false,
+          0,
+          null,
+          7039,
+          "2026-11-14 13:43:15.318025-06:00",
+          null
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          true,
+          1,
+          null,
+          5592,
+          "2026-11-14 13:33:16.858862-06:00",
+          "2026-11-14 16:25:27.871341-06:00"
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          true,
+          2,
+          null,
+          1,
+          "2026-11-14 13:42:48.593141-06:00",
+          "2026-11-14 16:02:53.590570-06:00"
+        ],
+        [
+          "compatibilidad",
+          "auditoria",
+          true,
+          1,
+          null,
+          402,
+          "2026-11-14 14:55:00.485329-06:00",
+          "2026-11-14 14:57:32.559293-06:00"
+        ],
+        [
+          "donantes",
+          "alertas",
+          false,
+          0,
+          null,
+          56,
+          "2026-11-14 14:57:08.807626-06:00",
+          null
+        ],
+        [
+          "donantes",
+          "alertas",
+          true,
+          1,
+          null,
+          309,
+          "2026-11-14 14:54:59.354933-06:00",
+          "2026-11-14 16:25:27.857268-06:00"
+        ],
+        [
+          "donantes",
+          "auditoria",
+          false,
+          0,
+          null,
+          149,
+          "2026-11-14 14:57:08.522495-06:00",
+          null
+        ],
+        [
+          "donantes",
+          "auditoria",
+          true,
+          1,
+          null,
+          2751,
+          "2026-11-14 13:34:00.657420-06:00",
+          "2026-11-14 16:25:28.032216-06:00"
+        ],
+        [
+          "identidad_acceso",
+          "auditoria",
+          true,
+          1,
+          null,
+          182,
+          "2026-11-14 13:33:14.189384-06:00",
+          "2026-11-14 14:58:09.334112-06:00"
+        ],
+        [
+          "inventario",
+          "auditoria",
+          true,
+          1,
+          null,
+          2421,
+          "2026-11-14 13:34:00.657410-06:00",
+          "2026-11-14 14:57:31.989991-06:00"
+        ],
+        [
+          "monitoreo",
+          "auditoria",
+          true,
+          1,
+          null,
+          803,
+          "2026-11-14 13:34:01.169512-06:00",
+          "2026-11-14 13:53:50.556746-06:00"
+        ],
+        [
+          "priorizacion_geografia",
+          "auditoria",
+          true,
+          1,
+          null,
+          803,
+          "2026-11-14 13:34:00.659070-06:00",
+          "2026-11-14 13:53:49.855069-06:00"
+        ],
+        [
+          "receptores",
+          "auditoria",
+          true,
+          1,
+          null,
+          1031,
+          "2026-11-14 13:34:01.224785-06:00",
+          "2026-11-14 13:53:47.296548-06:00"
+        ],
+        [
+          "transporte",
+          "auditoria",
+          true,
+          1,
+          null,
+          1758,
+          "2026-11-14 13:34:00.659779-06:00",
+          "2026-11-14 13:53:46.648654-06:00"
+        ]
+      ],
+      "health": {
+        "donantes": [
+          "2026-11-14 16:25:23.009930-06:00",
+          "2026-11-14 16:25:23.009930-06:00",
+          null
+        ],
+        "auditoria": [
+          "2026-11-14 16:25:20.301441-06:00",
+          "2026-11-14 16:25:20.301441-06:00",
+          null
+        ]
+      },
+      "missing_audit": 56,
+      "missing_alerts": 18,
+      "extra_alerts": 0,
+      "expected_audit": 765,
+      "expected_alerts": 121,
+      "mongo_projected_business": 0,
+      "audit_business_ids": 709,
+      "new_activity_events": [],
+      "new_outbox_groups": [
+        [
+          "auditoria",
+          "mongodb",
+          "APPOINTMENT_BOOKED",
+          39
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          "APPOINTMENT_CANCEL",
+          40
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          "APPOINTMENT_RESCHEDULE",
+          40
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          "READ",
+          224
+        ]
+      ],
+      "changed_reminders": [],
+      "removed_reminders": [],
+      "elapsed_seconds": 78.754
+    },
+    {
+      "utc": "2026-11-14T22:25:34.250978+00:00",
+      "global_pending": 7749,
+      "global_delivered": 18587,
+      "pertinent_pending": 7749,
+      "pertinent_delivered": 9290,
+      "other_pending": 0,
+      "other_pending_groups": [],
+      "unsupported_target_groups": [],
+      "groups": [
+        [
+          "alertas",
+          "auditoria",
+          true,
+          1,
+          null,
+          1897,
+          "2026-11-14 13:34:00.873855-06:00",
+          "2026-11-14 13:53:49.122927-06:00"
+        ],
+        [
+          "auditoria",
+          "auditoria",
+          false,
+          0,
+          null,
+          530,
+          "2026-11-14 13:43:16.937416-06:00",
+          null
+        ],
+        [
+          "auditoria",
+          "auditoria",
+          true,
+          1,
+          null,
+          586,
+          "2026-11-14 13:34:00.633046-06:00",
+          "2026-11-14 16:25:31.125709-06:00"
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          false,
+          0,
+          null,
+          7046,
+          "2026-11-14 13:43:16.960851-06:00",
+          null
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          true,
+          1,
+          null,
+          5611,
+          "2026-11-14 13:33:16.858862-06:00",
+          "2026-11-14 16:25:33.488271-06:00"
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          true,
+          2,
+          null,
+          1,
+          "2026-11-14 13:42:48.593141-06:00",
+          "2026-11-14 16:02:53.590570-06:00"
+        ],
+        [
+          "compatibilidad",
+          "auditoria",
+          true,
+          1,
+          null,
+          402,
+          "2026-11-14 14:55:00.485329-06:00",
+          "2026-11-14 14:57:32.559293-06:00"
+        ],
+        [
+          "donantes",
+          "alertas",
+          false,
+          0,
+          null,
+          48,
+          "2026-11-14 14:57:11.065574-06:00",
+          null
+        ],
+        [
+          "donantes",
+          "alertas",
+          true,
+          1,
+          null,
+          317,
+          "2026-11-14 14:54:59.354933-06:00",
+          "2026-11-14 16:25:33.338637-06:00"
+        ],
+        [
+          "donantes",
+          "auditoria",
+          false,
+          0,
+          null,
+          125,
+          "2026-11-14 14:57:11.065574-06:00",
+          null
+        ],
+        [
+          "donantes",
+          "auditoria",
+          true,
+          1,
+          null,
+          2775,
+          "2026-11-14 13:34:00.657420-06:00",
+          "2026-11-14 16:25:33.672165-06:00"
+        ],
+        [
+          "identidad_acceso",
+          "auditoria",
+          true,
+          1,
+          null,
+          182,
+          "2026-11-14 13:33:14.189384-06:00",
+          "2026-11-14 14:58:09.334112-06:00"
+        ],
+        [
+          "inventario",
+          "auditoria",
+          true,
+          1,
+          null,
+          2421,
+          "2026-11-14 13:34:00.657410-06:00",
+          "2026-11-14 14:57:31.989991-06:00"
+        ],
+        [
+          "monitoreo",
+          "auditoria",
+          true,
+          1,
+          null,
+          803,
+          "2026-11-14 13:34:01.169512-06:00",
+          "2026-11-14 13:53:50.556746-06:00"
+        ],
+        [
+          "priorizacion_geografia",
+          "auditoria",
+          true,
+          1,
+          null,
+          803,
+          "2026-11-14 13:34:00.659070-06:00",
+          "2026-11-14 13:53:49.855069-06:00"
+        ],
+        [
+          "receptores",
+          "auditoria",
+          true,
+          1,
+          null,
+          1031,
+          "2026-11-14 13:34:01.224785-06:00",
+          "2026-11-14 13:53:47.296548-06:00"
+        ],
+        [
+          "transporte",
+          "auditoria",
+          true,
+          1,
+          null,
+          1758,
+          "2026-11-14 13:34:00.659779-06:00",
+          "2026-11-14 13:53:46.648654-06:00"
+        ]
+      ],
+      "health": {
+        "donantes": [
+          "2026-11-14 16:25:23.009930-06:00",
+          "2026-11-14 16:25:23.009930-06:00",
+          null
+        ],
+        "auditoria": [
+          "2026-11-14 16:25:20.301441-06:00",
+          "2026-11-14 16:25:20.301441-06:00",
+          null
+        ]
+      },
+      "missing_audit": 48,
+      "missing_alerts": 15,
+      "extra_alerts": 0,
+      "expected_audit": 765,
+      "expected_alerts": 121,
+      "mongo_projected_business": 0,
+      "audit_business_ids": 717,
+      "new_activity_events": [],
+      "new_outbox_groups": [
+        [
+          "auditoria",
+          "mongodb",
+          "APPOINTMENT_BOOKED",
+          42
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          "APPOINTMENT_CANCEL",
+          42
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          "APPOINTMENT_RESCHEDULE",
+          43
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          "READ",
+          242
+        ]
+      ],
+      "changed_reminders": [],
+      "removed_reminders": [],
+      "elapsed_seconds": 84.391
+    },
+    {
+      "utc": "2026-11-14T22:25:39.833206+00:00",
+      "global_pending": 7719,
+      "global_delivered": 18641,
+      "pertinent_pending": 7719,
+      "pertinent_delivered": 9344,
+      "other_pending": 0,
+      "other_pending_groups": [],
+      "unsupported_target_groups": [],
+      "groups": [
+        [
+          "alertas",
+          "auditoria",
+          true,
+          1,
+          null,
+          1897,
+          "2026-11-14 13:34:00.873855-06:00",
+          "2026-11-14 13:53:49.122927-06:00"
+        ],
+        [
+          "auditoria",
+          "auditoria",
+          false,
+          0,
+          null,
+          529,
+          "2026-11-14 13:43:18.321953-06:00",
+          null
+        ],
+        [
+          "auditoria",
+          "auditoria",
+          true,
+          1,
+          null,
+          587,
+          "2026-11-14 13:34:00.633046-06:00",
+          "2026-11-14 16:25:33.729747-06:00"
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          false,
+          0,
+          null,
+          7049,
+          "2026-11-14 13:43:18.390063-06:00",
+          null
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          true,
+          1,
+          null,
+          5632,
+          "2026-11-14 13:33:16.858862-06:00",
+          "2026-11-14 16:25:39.040810-06:00"
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          true,
+          2,
+          null,
+          1,
+          "2026-11-14 13:42:48.593141-06:00",
+          "2026-11-14 16:02:53.590570-06:00"
+        ],
+        [
+          "compatibilidad",
+          "auditoria",
+          true,
+          1,
+          null,
+          402,
+          "2026-11-14 14:55:00.485329-06:00",
+          "2026-11-14 14:57:32.559293-06:00"
+        ],
+        [
+          "donantes",
+          "alertas",
+          false,
+          0,
+          null,
+          39,
+          "2026-11-14 14:57:16.186023-06:00",
+          null
+        ],
+        [
+          "donantes",
+          "alertas",
+          true,
+          1,
+          null,
+          326,
+          "2026-11-14 14:54:59.354933-06:00",
+          "2026-11-14 16:25:39.276572-06:00"
+        ],
+        [
+          "donantes",
+          "auditoria",
+          false,
+          0,
+          null,
+          102,
+          "2026-11-14 14:57:16.186023-06:00",
+          null
+        ],
+        [
+          "donantes",
+          "auditoria",
+          true,
+          1,
+          null,
+          2798,
+          "2026-11-14 13:34:00.657420-06:00",
+          "2026-11-14 16:25:39.110564-06:00"
+        ],
+        [
+          "identidad_acceso",
+          "auditoria",
+          true,
+          1,
+          null,
+          182,
+          "2026-11-14 13:33:14.189384-06:00",
+          "2026-11-14 14:58:09.334112-06:00"
+        ],
+        [
+          "inventario",
+          "auditoria",
+          true,
+          1,
+          null,
+          2421,
+          "2026-11-14 13:34:00.657410-06:00",
+          "2026-11-14 14:57:31.989991-06:00"
+        ],
+        [
+          "monitoreo",
+          "auditoria",
+          true,
+          1,
+          null,
+          803,
+          "2026-11-14 13:34:01.169512-06:00",
+          "2026-11-14 13:53:50.556746-06:00"
+        ],
+        [
+          "priorizacion_geografia",
+          "auditoria",
+          true,
+          1,
+          null,
+          803,
+          "2026-11-14 13:34:00.659070-06:00",
+          "2026-11-14 13:53:49.855069-06:00"
+        ],
+        [
+          "receptores",
+          "auditoria",
+          true,
+          1,
+          null,
+          1031,
+          "2026-11-14 13:34:01.224785-06:00",
+          "2026-11-14 13:53:47.296548-06:00"
+        ],
+        [
+          "transporte",
+          "auditoria",
+          true,
+          1,
+          null,
+          1758,
+          "2026-11-14 13:34:00.659779-06:00",
+          "2026-11-14 13:53:46.648654-06:00"
+        ]
+      ],
+      "health": {
+        "donantes": [
+          "2026-11-14 16:25:23.009930-06:00",
+          "2026-11-14 16:25:23.009930-06:00",
+          null
+        ],
+        "auditoria": [
+          "2026-11-14 16:25:20.301441-06:00",
+          "2026-11-14 16:25:20.301441-06:00",
+          null
+        ]
+      },
+      "missing_audit": 39,
+      "missing_alerts": 12,
+      "extra_alerts": 0,
+      "expected_audit": 765,
+      "expected_alerts": 121,
+      "mongo_projected_business": 0,
+      "audit_business_ids": 726,
+      "new_activity_events": [],
+      "new_outbox_groups": [
+        [
+          "auditoria",
+          "mongodb",
+          "APPOINTMENT_BOOKED",
+          45
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          "APPOINTMENT_CANCEL",
+          45
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          "APPOINTMENT_RESCHEDULE",
+          46
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          "READ",
+          257
+        ]
+      ],
+      "changed_reminders": [],
+      "removed_reminders": [],
+      "elapsed_seconds": 89.973
+    },
+    {
+      "utc": "2026-11-14T22:25:45.236661+00:00",
+      "global_pending": 7683,
+      "global_delivered": 18707,
+      "pertinent_pending": 7683,
+      "pertinent_delivered": 9410,
+      "other_pending": 0,
+      "other_pending_groups": [],
+      "unsupported_target_groups": [],
+      "groups": [
+        [
+          "alertas",
+          "auditoria",
+          true,
+          1,
+          null,
+          1897,
+          "2026-11-14 13:34:00.873855-06:00",
+          "2026-11-14 13:53:49.122927-06:00"
+        ],
+        [
+          "auditoria",
+          "auditoria",
+          false,
+          0,
+          null,
+          527,
+          "2026-11-14 13:43:20.359234-06:00",
+          null
+        ],
+        [
+          "auditoria",
+          "auditoria",
+          true,
+          1,
+          null,
+          589,
+          "2026-11-14 13:34:00.633046-06:00",
+          "2026-11-14 16:25:40.658154-06:00"
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          false,
+          0,
+          null,
+          7054,
+          "2026-11-14 13:43:20.504167-06:00",
+          null
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          true,
+          1,
+          null,
+          5657,
+          "2026-11-14 13:33:16.858862-06:00",
+          "2026-11-14 16:25:44.708676-06:00"
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          true,
+          2,
+          null,
+          1,
+          "2026-11-14 13:42:48.593141-06:00",
+          "2026-11-14 16:02:53.590570-06:00"
+        ],
+        [
+          "compatibilidad",
+          "auditoria",
+          true,
+          1,
+          null,
+          402,
+          "2026-11-14 14:55:00.485329-06:00",
+          "2026-11-14 14:57:32.559293-06:00"
+        ],
+        [
+          "donantes",
+          "alertas",
+          false,
+          0,
+          null,
+          28,
+          "2026-11-14 14:57:19.038148-06:00",
+          null
+        ],
+        [
+          "donantes",
+          "alertas",
+          true,
+          1,
+          null,
+          337,
+          "2026-11-14 14:54:59.354933-06:00",
+          "2026-11-14 16:25:44.242744-06:00"
+        ],
+        [
+          "donantes",
+          "auditoria",
+          false,
+          0,
+          null,
+          74,
+          "2026-11-14 14:57:19.038148-06:00",
+          null
+        ],
+        [
+          "donantes",
+          "auditoria",
+          true,
+          1,
+          null,
+          2826,
+          "2026-11-14 13:34:00.657420-06:00",
+          "2026-11-14 16:25:44.744339-06:00"
+        ],
+        [
+          "identidad_acceso",
+          "auditoria",
+          true,
+          1,
+          null,
+          182,
+          "2026-11-14 13:33:14.189384-06:00",
+          "2026-11-14 14:58:09.334112-06:00"
+        ],
+        [
+          "inventario",
+          "auditoria",
+          true,
+          1,
+          null,
+          2421,
+          "2026-11-14 13:34:00.657410-06:00",
+          "2026-11-14 14:57:31.989991-06:00"
+        ],
+        [
+          "monitoreo",
+          "auditoria",
+          true,
+          1,
+          null,
+          803,
+          "2026-11-14 13:34:01.169512-06:00",
+          "2026-11-14 13:53:50.556746-06:00"
+        ],
+        [
+          "priorizacion_geografia",
+          "auditoria",
+          true,
+          1,
+          null,
+          803,
+          "2026-11-14 13:34:00.659070-06:00",
+          "2026-11-14 13:53:49.855069-06:00"
+        ],
+        [
+          "receptores",
+          "auditoria",
+          true,
+          1,
+          null,
+          1031,
+          "2026-11-14 13:34:01.224785-06:00",
+          "2026-11-14 13:53:47.296548-06:00"
+        ],
+        [
+          "transporte",
+          "auditoria",
+          true,
+          1,
+          null,
+          1758,
+          "2026-11-14 13:34:00.659779-06:00",
+          "2026-11-14 13:53:46.648654-06:00"
+        ]
+      ],
+      "health": {
+        "donantes": [
+          "2026-11-14 16:25:40.514420-06:00",
+          "2026-11-14 16:25:40.514420-06:00",
+          null
+        ],
+        "auditoria": [
+          "2026-11-14 16:25:44.909333-06:00",
+          "2026-11-14 16:25:44.909333-06:00",
+          null
+        ]
+      },
+      "missing_audit": 28,
+      "missing_alerts": 9,
+      "extra_alerts": 0,
+      "expected_audit": 765,
+      "expected_alerts": 121,
+      "mongo_projected_business": 0,
+      "audit_business_ids": 737,
+      "new_activity_events": [],
+      "new_outbox_groups": [
+        [
+          "auditoria",
+          "mongodb",
+          "APPOINTMENT_BOOKED",
+          48
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          "APPOINTMENT_CANCEL",
+          49
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          "APPOINTMENT_RESCHEDULE",
+          50
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          "READ",
+          276
+        ]
+      ],
+      "changed_reminders": [],
+      "removed_reminders": [],
+      "elapsed_seconds": 95.376
+    },
+    {
+      "utc": "2026-11-14T22:25:50.786210+00:00",
+      "global_pending": 7650,
+      "global_delivered": 18770,
+      "pertinent_pending": 7650,
+      "pertinent_delivered": 9473,
+      "other_pending": 0,
+      "other_pending_groups": [],
+      "unsupported_target_groups": [],
+      "groups": [
+        [
+          "alertas",
+          "auditoria",
+          true,
+          1,
+          null,
+          1897,
+          "2026-11-14 13:34:00.873855-06:00",
+          "2026-11-14 13:53:49.122927-06:00"
+        ],
+        [
+          "auditoria",
+          "auditoria",
+          false,
+          0,
+          null,
+          525,
+          "2026-11-14 13:43:22.270380-06:00",
+          null
+        ],
+        [
+          "auditoria",
+          "auditoria",
+          true,
+          1,
+          null,
+          591,
+          "2026-11-14 13:34:00.633046-06:00",
+          "2026-11-14 16:25:45.480485-06:00"
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          false,
+          0,
+          null,
+          7061,
+          "2026-11-14 13:43:22.179549-06:00",
+          null
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          true,
+          1,
+          null,
+          5680,
+          "2026-11-14 13:33:16.858862-06:00",
+          "2026-11-14 16:25:50.095964-06:00"
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          true,
+          2,
+          null,
+          1,
+          "2026-11-14 13:42:48.593141-06:00",
+          "2026-11-14 16:02:53.590570-06:00"
+        ],
+        [
+          "compatibilidad",
+          "auditoria",
+          true,
+          1,
+          null,
+          402,
+          "2026-11-14 14:55:00.485329-06:00",
+          "2026-11-14 14:57:32.559293-06:00"
+        ],
+        [
+          "donantes",
+          "alertas",
+          false,
+          0,
+          null,
+          18,
+          "2026-11-14 14:57:24.714109-06:00",
+          null
+        ],
+        [
+          "donantes",
+          "alertas",
+          true,
+          1,
+          null,
+          347,
+          "2026-11-14 14:54:59.354933-06:00",
+          "2026-11-14 16:25:49.675538-06:00"
+        ],
+        [
+          "donantes",
+          "auditoria",
+          false,
+          0,
+          null,
+          46,
+          "2026-11-14 14:57:24.357527-06:00",
+          null
+        ],
+        [
+          "donantes",
+          "auditoria",
+          true,
+          1,
+          null,
+          2854,
+          "2026-11-14 13:34:00.657420-06:00",
+          "2026-11-14 16:25:50.242281-06:00"
+        ],
+        [
+          "identidad_acceso",
+          "auditoria",
+          true,
+          1,
+          null,
+          182,
+          "2026-11-14 13:33:14.189384-06:00",
+          "2026-11-14 14:58:09.334112-06:00"
+        ],
+        [
+          "inventario",
+          "auditoria",
+          true,
+          1,
+          null,
+          2421,
+          "2026-11-14 13:34:00.657410-06:00",
+          "2026-11-14 14:57:31.989991-06:00"
+        ],
+        [
+          "monitoreo",
+          "auditoria",
+          true,
+          1,
+          null,
+          803,
+          "2026-11-14 13:34:01.169512-06:00",
+          "2026-11-14 13:53:50.556746-06:00"
+        ],
+        [
+          "priorizacion_geografia",
+          "auditoria",
+          true,
+          1,
+          null,
+          803,
+          "2026-11-14 13:34:00.659070-06:00",
+          "2026-11-14 13:53:49.855069-06:00"
+        ],
+        [
+          "receptores",
+          "auditoria",
+          true,
+          1,
+          null,
+          1031,
+          "2026-11-14 13:34:01.224785-06:00",
+          "2026-11-14 13:53:47.296548-06:00"
+        ],
+        [
+          "transporte",
+          "auditoria",
+          true,
+          1,
+          null,
+          1758,
+          "2026-11-14 13:34:00.659779-06:00",
+          "2026-11-14 13:53:46.648654-06:00"
+        ]
+      ],
+      "health": {
+        "donantes": [
+          "2026-11-14 16:25:40.514420-06:00",
+          "2026-11-14 16:25:40.514420-06:00",
+          null
+        ],
+        "auditoria": [
+          "2026-11-14 16:25:44.909333-06:00",
+          "2026-11-14 16:25:44.909333-06:00",
+          null
+        ]
+      },
+      "missing_audit": 18,
+      "missing_alerts": 6,
+      "extra_alerts": 0,
+      "expected_audit": 765,
+      "expected_alerts": 121,
+      "mongo_projected_business": 0,
+      "audit_business_ids": 747,
+      "new_activity_events": [],
+      "new_outbox_groups": [
+        [
+          "auditoria",
+          "mongodb",
+          "APPOINTMENT_BOOKED",
+          51
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          "APPOINTMENT_CANCEL",
+          53
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          "APPOINTMENT_RESCHEDULE",
+          53
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          "READ",
+          296
+        ]
+      ],
+      "changed_reminders": [],
+      "removed_reminders": [],
+      "elapsed_seconds": 100.925
+    },
+    {
+      "utc": "2026-11-14T22:25:56.329496+00:00",
+      "global_pending": 7621,
+      "global_delivered": 18825,
+      "pertinent_pending": 7621,
+      "pertinent_delivered": 9528,
+      "other_pending": 0,
+      "other_pending_groups": [],
+      "unsupported_target_groups": [],
+      "groups": [
+        [
+          "alertas",
+          "auditoria",
+          true,
+          1,
+          null,
+          1897,
+          "2026-11-14 13:34:00.873855-06:00",
+          "2026-11-14 13:53:49.122927-06:00"
+        ],
+        [
+          "auditoria",
+          "auditoria",
+          false,
+          0,
+          null,
+          522,
+          "2026-11-14 13:43:24.021025-06:00",
+          null
+        ],
+        [
+          "auditoria",
+          "auditoria",
+          true,
+          1,
+          null,
+          594,
+          "2026-11-14 13:34:00.633046-06:00",
+          "2026-11-14 16:25:54.993462-06:00"
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          false,
+          0,
+          null,
+          7067,
+          "2026-11-14 13:43:24.092654-06:00",
+          null
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          true,
+          1,
+          null,
+          5700,
+          "2026-11-14 13:33:16.858862-06:00",
+          "2026-11-14 16:25:55.667620-06:00"
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          true,
+          2,
+          null,
+          1,
+          "2026-11-14 13:42:48.593141-06:00",
+          "2026-11-14 16:02:53.590570-06:00"
+        ],
+        [
+          "compatibilidad",
+          "auditoria",
+          true,
+          1,
+          null,
+          402,
+          "2026-11-14 14:55:00.485329-06:00",
+          "2026-11-14 14:57:32.559293-06:00"
+        ],
+        [
+          "donantes",
+          "alertas",
+          false,
+          0,
+          null,
+          9,
+          "2026-11-14 14:57:28.748466-06:00",
+          null
+        ],
+        [
+          "donantes",
+          "alertas",
+          true,
+          1,
+          null,
+          356,
+          "2026-11-14 14:54:59.354933-06:00",
+          "2026-11-14 16:25:55.130118-06:00"
+        ],
+        [
+          "donantes",
+          "auditoria",
+          false,
+          0,
+          null,
+          23,
+          "2026-11-14 14:57:28.172948-06:00",
+          null
+        ],
+        [
+          "donantes",
+          "auditoria",
+          true,
+          1,
+          null,
+          2877,
+          "2026-11-14 13:34:00.657420-06:00",
+          "2026-11-14 16:25:55.771656-06:00"
+        ],
+        [
+          "identidad_acceso",
+          "auditoria",
+          true,
+          1,
+          null,
+          182,
+          "2026-11-14 13:33:14.189384-06:00",
+          "2026-11-14 14:58:09.334112-06:00"
+        ],
+        [
+          "inventario",
+          "auditoria",
+          true,
+          1,
+          null,
+          2421,
+          "2026-11-14 13:34:00.657410-06:00",
+          "2026-11-14 14:57:31.989991-06:00"
+        ],
+        [
+          "monitoreo",
+          "auditoria",
+          true,
+          1,
+          null,
+          803,
+          "2026-11-14 13:34:01.169512-06:00",
+          "2026-11-14 13:53:50.556746-06:00"
+        ],
+        [
+          "priorizacion_geografia",
+          "auditoria",
+          true,
+          1,
+          null,
+          803,
+          "2026-11-14 13:34:00.659070-06:00",
+          "2026-11-14 13:53:49.855069-06:00"
+        ],
+        [
+          "receptores",
+          "auditoria",
+          true,
+          1,
+          null,
+          1031,
+          "2026-11-14 13:34:01.224785-06:00",
+          "2026-11-14 13:53:47.296548-06:00"
+        ],
+        [
+          "transporte",
+          "auditoria",
+          true,
+          1,
+          null,
+          1758,
+          "2026-11-14 13:34:00.659779-06:00",
+          "2026-11-14 13:53:46.648654-06:00"
+        ]
+      ],
+      "health": {
+        "donantes": [
+          "2026-11-14 16:25:55.425198-06:00",
+          "2026-11-14 16:25:55.425198-06:00",
+          null
+        ],
+        "auditoria": [
+          "2026-11-14 16:25:44.909333-06:00",
+          "2026-11-14 16:25:44.909333-06:00",
+          null
+        ]
+      },
+      "missing_audit": 9,
+      "missing_alerts": 3,
+      "extra_alerts": 0,
+      "expected_audit": 765,
+      "expected_alerts": 121,
+      "mongo_projected_business": 0,
+      "audit_business_ids": 756,
+      "new_activity_events": [],
+      "new_outbox_groups": [
+        [
+          "auditoria",
+          "mongodb",
+          "APPOINTMENT_BOOKED",
+          54
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          "APPOINTMENT_CANCEL",
+          56
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          "APPOINTMENT_RESCHEDULE",
+          56
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          "READ",
+          313
+        ]
+      ],
+      "changed_reminders": [],
+      "removed_reminders": [],
+      "elapsed_seconds": 106.469
+    },
+    {
+      "utc": "2026-11-14T22:26:01.772929+00:00",
+      "global_pending": 7590,
+      "global_delivered": 18881,
+      "pertinent_pending": 7590,
+      "pertinent_delivered": 9584,
+      "other_pending": 0,
+      "other_pending_groups": [],
+      "unsupported_target_groups": [],
+      "groups": [
+        [
+          "alertas",
+          "auditoria",
+          true,
+          1,
+          null,
+          1897,
+          "2026-11-14 13:34:00.873855-06:00",
+          "2026-11-14 13:53:49.122927-06:00"
+        ],
+        [
+          "auditoria",
+          "auditoria",
+          false,
+          0,
+          null,
+          520,
+          "2026-11-14 13:43:25.686048-06:00",
+          null
+        ],
+        [
+          "auditoria",
+          "auditoria",
+          true,
+          1,
+          null,
+          596,
+          "2026-11-14 13:34:00.633046-06:00",
+          "2026-11-14 16:26:00.538282-06:00"
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          false,
+          0,
+          null,
+          7070,
+          "2026-11-14 13:43:25.479125-06:00",
+          null
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          true,
+          1,
+          null,
+          5722,
+          "2026-11-14 13:33:16.858862-06:00",
+          "2026-11-14 16:26:01.204474-06:00"
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          true,
+          2,
+          null,
+          1,
+          "2026-11-14 13:42:48.593141-06:00",
+          "2026-11-14 16:02:53.590570-06:00"
+        ],
+        [
+          "compatibilidad",
+          "auditoria",
+          true,
+          1,
+          null,
+          402,
+          "2026-11-14 14:55:00.485329-06:00",
+          "2026-11-14 14:57:32.559293-06:00"
+        ],
+        [
+          "donantes",
+          "alertas",
+          true,
+          1,
+          null,
+          365,
+          "2026-11-14 14:54:59.354933-06:00",
+          "2026-11-14 16:26:00.653820-06:00"
+        ],
+        [
+          "donantes",
+          "auditoria",
+          true,
+          1,
+          null,
+          2900,
+          "2026-11-14 13:34:00.657420-06:00",
+          "2026-11-14 16:26:00.977533-06:00"
+        ],
+        [
+          "identidad_acceso",
+          "auditoria",
+          true,
+          1,
+          null,
+          182,
+          "2026-11-14 13:33:14.189384-06:00",
+          "2026-11-14 14:58:09.334112-06:00"
+        ],
+        [
+          "inventario",
+          "auditoria",
+          true,
+          1,
+          null,
+          2421,
+          "2026-11-14 13:34:00.657410-06:00",
+          "2026-11-14 14:57:31.989991-06:00"
+        ],
+        [
+          "monitoreo",
+          "auditoria",
+          true,
+          1,
+          null,
+          803,
+          "2026-11-14 13:34:01.169512-06:00",
+          "2026-11-14 13:53:50.556746-06:00"
+        ],
+        [
+          "priorizacion_geografia",
+          "auditoria",
+          true,
+          1,
+          null,
+          803,
+          "2026-11-14 13:34:00.659070-06:00",
+          "2026-11-14 13:53:49.855069-06:00"
+        ],
+        [
+          "receptores",
+          "auditoria",
+          true,
+          1,
+          null,
+          1031,
+          "2026-11-14 13:34:01.224785-06:00",
+          "2026-11-14 13:53:47.296548-06:00"
+        ],
+        [
+          "transporte",
+          "auditoria",
+          true,
+          1,
+          null,
+          1758,
+          "2026-11-14 13:34:00.659779-06:00",
+          "2026-11-14 13:53:46.648654-06:00"
+        ]
+      ],
+      "health": {
+        "donantes": [
+          "2026-11-14 16:26:01.190011-06:00",
+          "2026-11-14 16:26:01.190011-06:00",
+          null
+        ],
+        "auditoria": [
+          "2026-11-14 16:25:44.909333-06:00",
+          "2026-11-14 16:25:44.909333-06:00",
+          null
+        ]
+      },
+      "missing_audit": 0,
+      "missing_alerts": 0,
+      "extra_alerts": 0,
+      "expected_audit": 765,
+      "expected_alerts": 121,
+      "mongo_projected_business": 0,
+      "audit_business_ids": 765,
+      "new_activity_events": [],
+      "new_outbox_groups": [
+        [
+          "auditoria",
+          "mongodb",
+          "APPOINTMENT_BOOKED",
+          57
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          "APPOINTMENT_CANCEL",
+          59
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          "APPOINTMENT_RESCHEDULE",
+          59
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          "READ",
+          329
+        ]
+      ],
+      "changed_reminders": [],
+      "removed_reminders": [],
+      "elapsed_seconds": 111.912
+    },
+    {
+      "utc": "2026-11-14T22:26:07.221342+00:00",
+      "global_pending": 7565,
+      "global_delivered": 18908,
+      "pertinent_pending": 7565,
+      "pertinent_delivered": 9611,
+      "other_pending": 0,
+      "other_pending_groups": [],
+      "unsupported_target_groups": [],
+      "groups": [
+        [
+          "alertas",
+          "auditoria",
+          true,
+          1,
+          null,
+          1897,
+          "2026-11-14 13:34:00.873855-06:00",
+          "2026-11-14 13:53:49.122927-06:00"
+        ],
+        [
+          "auditoria",
+          "auditoria",
+          false,
+          0,
+          null,
+          518,
+          "2026-11-14 13:43:27.310131-06:00",
+          null
+        ],
+        [
+          "auditoria",
+          "auditoria",
+          true,
+          1,
+          null,
+          598,
+          "2026-11-14 13:34:00.633046-06:00",
+          "2026-11-14 16:26:05.318475-06:00"
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          false,
+          0,
+          null,
+          7047,
+          "2026-11-14 13:43:27.224855-06:00",
+          null
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          true,
+          1,
+          null,
+          5747,
+          "2026-11-14 13:33:16.858862-06:00",
+          "2026-11-14 16:26:06.785763-06:00"
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          true,
+          2,
+          null,
+          1,
+          "2026-11-14 13:42:48.593141-06:00",
+          "2026-11-14 16:02:53.590570-06:00"
+        ],
+        [
+          "compatibilidad",
+          "auditoria",
+          true,
+          1,
+          null,
+          402,
+          "2026-11-14 14:55:00.485329-06:00",
+          "2026-11-14 14:57:32.559293-06:00"
+        ],
+        [
+          "donantes",
+          "alertas",
+          true,
+          1,
+          null,
+          365,
+          "2026-11-14 14:54:59.354933-06:00",
+          "2026-11-14 16:26:00.653820-06:00"
+        ],
+        [
+          "donantes",
+          "auditoria",
+          true,
+          1,
+          null,
+          2900,
+          "2026-11-14 13:34:00.657420-06:00",
+          "2026-11-14 16:26:00.977533-06:00"
+        ],
+        [
+          "identidad_acceso",
+          "auditoria",
+          true,
+          1,
+          null,
+          182,
+          "2026-11-14 13:33:14.189384-06:00",
+          "2026-11-14 14:58:09.334112-06:00"
+        ],
+        [
+          "inventario",
+          "auditoria",
+          true,
+          1,
+          null,
+          2421,
+          "2026-11-14 13:34:00.657410-06:00",
+          "2026-11-14 14:57:31.989991-06:00"
+        ],
+        [
+          "monitoreo",
+          "auditoria",
+          true,
+          1,
+          null,
+          803,
+          "2026-11-14 13:34:01.169512-06:00",
+          "2026-11-14 13:53:50.556746-06:00"
+        ],
+        [
+          "priorizacion_geografia",
+          "auditoria",
+          true,
+          1,
+          null,
+          803,
+          "2026-11-14 13:34:00.659070-06:00",
+          "2026-11-14 13:53:49.855069-06:00"
+        ],
+        [
+          "receptores",
+          "auditoria",
+          true,
+          1,
+          null,
+          1031,
+          "2026-11-14 13:34:01.224785-06:00",
+          "2026-11-14 13:53:47.296548-06:00"
+        ],
+        [
+          "transporte",
+          "auditoria",
+          true,
+          1,
+          null,
+          1758,
+          "2026-11-14 13:34:00.659779-06:00",
+          "2026-11-14 13:53:46.648654-06:00"
+        ]
+      ],
+      "health": {
+        "donantes": [
+          "2026-11-14 16:26:06.367226-06:00",
+          "2026-11-14 16:26:06.367226-06:00",
+          null
+        ],
+        "auditoria": [
+          "2026-11-14 16:25:44.909333-06:00",
+          "2026-11-14 16:25:44.909333-06:00",
+          null
+        ]
+      },
+      "missing_audit": 0,
+      "missing_alerts": 0,
+      "extra_alerts": 0,
+      "expected_audit": 765,
+      "expected_alerts": 121,
+      "mongo_projected_business": 0,
+      "audit_business_ids": 765,
+      "new_activity_events": [],
+      "new_outbox_groups": [
+        [
+          "auditoria",
+          "mongodb",
+          "APPOINTMENT_BOOKED",
+          57
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          "APPOINTMENT_CANCEL",
+          59
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          "APPOINTMENT_RESCHEDULE",
+          59
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          "READ",
+          331
+        ]
+      ],
+      "changed_reminders": [],
+      "removed_reminders": [],
+      "elapsed_seconds": 117.361
+    },
+    {
+      "utc": "2026-11-14T22:26:12.669125+00:00",
+      "global_pending": 7538,
+      "global_delivered": 18938,
+      "pertinent_pending": 7538,
+      "pertinent_delivered": 9641,
+      "other_pending": 0,
+      "other_pending_groups": [],
+      "unsupported_target_groups": [],
+      "groups": [
+        [
+          "alertas",
+          "auditoria",
+          true,
+          1,
+          null,
+          1897,
+          "2026-11-14 13:34:00.873855-06:00",
+          "2026-11-14 13:53:49.122927-06:00"
+        ],
+        [
+          "auditoria",
+          "auditoria",
+          false,
+          0,
+          null,
+          515,
+          "2026-11-14 13:43:30.090363-06:00",
+          null
+        ],
+        [
+          "auditoria",
+          "auditoria",
+          true,
+          1,
+          null,
+          601,
+          "2026-11-14 13:34:00.633046-06:00",
+          "2026-11-14 16:26:10.919087-06:00"
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          false,
+          0,
+          null,
+          7023,
+          "2026-11-14 13:43:29.225325-06:00",
+          null
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          true,
+          1,
+          null,
+          5774,
+          "2026-11-14 13:33:16.858862-06:00",
+          "2026-11-14 16:26:12.124000-06:00"
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          true,
+          2,
+          null,
+          1,
+          "2026-11-14 13:42:48.593141-06:00",
+          "2026-11-14 16:02:53.590570-06:00"
+        ],
+        [
+          "compatibilidad",
+          "auditoria",
+          true,
+          1,
+          null,
+          402,
+          "2026-11-14 14:55:00.485329-06:00",
+          "2026-11-14 14:57:32.559293-06:00"
+        ],
+        [
+          "donantes",
+          "alertas",
+          true,
+          1,
+          null,
+          365,
+          "2026-11-14 14:54:59.354933-06:00",
+          "2026-11-14 16:26:00.653820-06:00"
+        ],
+        [
+          "donantes",
+          "auditoria",
+          true,
+          1,
+          null,
+          2900,
+          "2026-11-14 13:34:00.657420-06:00",
+          "2026-11-14 16:26:00.977533-06:00"
+        ],
+        [
+          "identidad_acceso",
+          "auditoria",
+          true,
+          1,
+          null,
+          182,
+          "2026-11-14 13:33:14.189384-06:00",
+          "2026-11-14 14:58:09.334112-06:00"
+        ],
+        [
+          "inventario",
+          "auditoria",
+          true,
+          1,
+          null,
+          2421,
+          "2026-11-14 13:34:00.657410-06:00",
+          "2026-11-14 14:57:31.989991-06:00"
+        ],
+        [
+          "monitoreo",
+          "auditoria",
+          true,
+          1,
+          null,
+          803,
+          "2026-11-14 13:34:01.169512-06:00",
+          "2026-11-14 13:53:50.556746-06:00"
+        ],
+        [
+          "priorizacion_geografia",
+          "auditoria",
+          true,
+          1,
+          null,
+          803,
+          "2026-11-14 13:34:00.659070-06:00",
+          "2026-11-14 13:53:49.855069-06:00"
+        ],
+        [
+          "receptores",
+          "auditoria",
+          true,
+          1,
+          null,
+          1031,
+          "2026-11-14 13:34:01.224785-06:00",
+          "2026-11-14 13:53:47.296548-06:00"
+        ],
+        [
+          "transporte",
+          "auditoria",
+          true,
+          1,
+          null,
+          1758,
+          "2026-11-14 13:34:00.659779-06:00",
+          "2026-11-14 13:53:46.648654-06:00"
+        ]
+      ],
+      "health": {
+        "donantes": [
+          "2026-11-14 16:26:11.592156-06:00",
+          "2026-11-14 16:26:11.592156-06:00",
+          null
+        ],
+        "auditoria": [
+          "2026-11-14 16:26:07.230250-06:00",
+          "2026-11-14 16:26:07.230250-06:00",
+          null
+        ]
+      },
+      "missing_audit": 0,
+      "missing_alerts": 0,
+      "extra_alerts": 0,
+      "expected_audit": 765,
+      "expected_alerts": 121,
+      "mongo_projected_business": 0,
+      "audit_business_ids": 765,
+      "new_activity_events": [],
+      "new_outbox_groups": [
+        [
+          "auditoria",
+          "mongodb",
+          "APPOINTMENT_BOOKED",
+          57
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          "APPOINTMENT_CANCEL",
+          59
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          "APPOINTMENT_RESCHEDULE",
+          59
+        ],
+        [
+          "auditoria",
+          "mongodb",
+          "READ",
+          334
+        ]
+      ],
+      "changed_reminders": [],
+      "removed_reminders": [],
+      "elapsed_seconds": 122.811
+    }
+  ],
+  "recovery_cutoff": "2026-11-14 16:24:06.759886-06:00",
+  "baseline_reminders_count": 2,
+  "before": {
+    "utc": "2026-11-14T22:24:07.122892+00:00",
+    "global_pending": 8192,
+    "global_delivered": 17775,
+    "pertinent_pending": 8192,
+    "pertinent_delivered": 8478,
+    "other_pending": 0,
+    "other_pending_groups": [],
+    "unsupported_target_groups": [],
+    "groups": [
+      [
+        "alertas",
+        "auditoria",
+        true,
+        1,
+        null,
+        1897,
+        "2026-11-14 13:34:00.873855-06:00",
+        "2026-11-14 13:53:49.122927-06:00"
+      ],
+      [
+        "auditoria",
+        "auditoria",
+        false,
+        0,
+        null,
+        565,
+        "2026-11-14 13:42:49.134512-06:00",
+        null
+      ],
+      [
+        "auditoria",
+        "auditoria",
+        true,
+        1,
+        null,
+        551,
+        "2026-11-14 13:34:00.633046-06:00",
+        "2026-11-14 14:58:35.969183-06:00"
+      ],
+      [
+        "auditoria",
+        "mongodb",
+        false,
+        0,
+        null,
+        6993,
+        "2026-11-14 13:42:48.879578-06:00",
+        null
+      ],
+      [
+        "auditoria",
+        "mongodb",
+        true,
+        1,
+        null,
+        5295,
+        "2026-11-14 13:33:16.858862-06:00",
+        "2026-11-14 14:58:37.308566-06:00"
+      ],
+      [
+        "auditoria",
+        "mongodb",
+        true,
+        2,
+        null,
+        1,
+        "2026-11-14 13:42:48.593141-06:00",
+        "2026-11-14 16:02:53.590570-06:00"
+      ],
+      [
+        "compatibilidad",
+        "auditoria",
+        true,
+        1,
+        null,
+        402,
+        "2026-11-14 14:55:00.485329-06:00",
+        "2026-11-14 14:57:32.559293-06:00"
+      ],
+      [
+        "donantes",
+        "alertas",
+        false,
+        0,
+        null,
+        175,
+        "2026-11-14 14:56:20.515567-06:00",
+        null
+      ],
+      [
+        "donantes",
+        "alertas",
+        true,
+        1,
+        null,
+        190,
+        "2026-11-14 14:54:59.354933-06:00",
+        "2026-11-14 14:58:32.356600-06:00"
+      ],
+      [
+        "donantes",
+        "auditoria",
+        false,
+        0,
+        null,
+        459,
+        "2026-11-14 14:56:20.261461-06:00",
+        null
+      ],
+      [
+        "donantes",
+        "auditoria",
+        true,
+        1,
+        null,
+        2441,
+        "2026-11-14 13:34:00.657420-06:00",
+        "2026-11-14 16:03:08.485055-06:00"
+      ],
+      [
+        "identidad_acceso",
+        "auditoria",
+        true,
+        1,
+        null,
+        182,
+        "2026-11-14 13:33:14.189384-06:00",
+        "2026-11-14 14:58:09.334112-06:00"
+      ],
+      [
+        "inventario",
+        "auditoria",
+        true,
+        1,
+        null,
+        2421,
+        "2026-11-14 13:34:00.657410-06:00",
+        "2026-11-14 14:57:31.989991-06:00"
+      ],
+      [
+        "monitoreo",
+        "auditoria",
+        true,
+        1,
+        null,
+        803,
+        "2026-11-14 13:34:01.169512-06:00",
+        "2026-11-14 13:53:50.556746-06:00"
+      ],
+      [
+        "priorizacion_geografia",
+        "auditoria",
+        true,
+        1,
+        null,
+        803,
+        "2026-11-14 13:34:00.659070-06:00",
+        "2026-11-14 13:53:49.855069-06:00"
+      ],
+      [
+        "receptores",
+        "auditoria",
+        true,
+        1,
+        null,
+        1031,
+        "2026-11-14 13:34:01.224785-06:00",
+        "2026-11-14 13:53:47.296548-06:00"
+      ],
+      [
+        "transporte",
+        "auditoria",
+        true,
+        1,
+        null,
+        1758,
+        "2026-11-14 13:34:00.659779-06:00",
+        "2026-11-14 13:53:46.648654-06:00"
+      ]
+    ],
+    "health": {
+      "donantes": [
+        "2026-11-14 14:58:33.039037-06:00",
+        "2026-11-14 14:58:33.039037-06:00",
+        null
+      ],
+      "auditoria": [
+        "2026-11-14 14:58:27.017497-06:00",
+        "2026-11-14 14:58:27.017497-06:00",
+        null
+      ]
+    },
+    "missing_audit": 175,
+    "missing_alerts": 57,
+    "extra_alerts": 0,
+    "expected_audit": 765,
+    "expected_alerts": 121,
+    "mongo_projected_business": 0,
+    "audit_business_ids": 590,
+    "new_activity_events": [],
+    "new_outbox_groups": [],
+    "changed_reminders": [],
+    "removed_reminders": []
+  },
+  "stop_reason": "time_limit",
+  "elapsed_seconds": 136.792,
+  "after": {
+    "utc": "2026-11-14T22:26:26.852139+00:00",
+    "global_pending": 7469,
+    "global_delivered": 19009,
+    "pertinent_pending": 7469,
+    "pertinent_delivered": 9712,
+    "other_pending": 0,
+    "other_pending_groups": [],
+    "unsupported_target_groups": [],
+    "groups": [
+      [
+        "alertas",
+        "auditoria",
+        true,
+        1,
+        null,
+        1897,
+        "2026-11-14 13:34:00.873855-06:00",
+        "2026-11-14 13:53:49.122927-06:00"
+      ],
+      [
+        "auditoria",
+        "auditoria",
+        false,
+        0,
+        null,
+        513,
+        "2026-11-14 13:44:31.204115-06:00",
+        null
+      ],
+      [
+        "auditoria",
+        "auditoria",
+        true,
+        1,
+        null,
+        603,
+        "2026-11-14 13:34:00.633046-06:00",
+        "2026-11-14 16:26:15.884461-06:00"
+      ],
+      [
+        "auditoria",
+        "mongodb",
+        false,
+        0,
+        null,
+        6956,
+        "2026-11-14 13:43:36.687245-06:00",
+        null
+      ],
+      [
+        "auditoria",
+        "mongodb",
+        true,
+        1,
+        null,
+        5843,
+        "2026-11-14 13:33:16.858862-06:00",
+        "2026-11-14 16:26:25.684240-06:00"
+      ],
+      [
+        "auditoria",
+        "mongodb",
+        true,
+        2,
+        null,
+        1,
+        "2026-11-14 13:42:48.593141-06:00",
+        "2026-11-14 16:02:53.590570-06:00"
+      ],
+      [
+        "compatibilidad",
+        "auditoria",
+        true,
+        1,
+        null,
+        402,
+        "2026-11-14 14:55:00.485329-06:00",
+        "2026-11-14 14:57:32.559293-06:00"
+      ],
+      [
+        "donantes",
+        "alertas",
+        true,
+        1,
+        null,
+        365,
+        "2026-11-14 14:54:59.354933-06:00",
+        "2026-11-14 16:26:00.653820-06:00"
+      ],
+      [
+        "donantes",
+        "auditoria",
+        true,
+        1,
+        null,
+        2900,
+        "2026-11-14 13:34:00.657420-06:00",
+        "2026-11-14 16:26:00.977533-06:00"
+      ],
+      [
+        "identidad_acceso",
+        "auditoria",
+        true,
+        1,
+        null,
+        182,
+        "2026-11-14 13:33:14.189384-06:00",
+        "2026-11-14 14:58:09.334112-06:00"
+      ],
+      [
+        "inventario",
+        "auditoria",
+        true,
+        1,
+        null,
+        2421,
+        "2026-11-14 13:34:00.657410-06:00",
+        "2026-11-14 14:57:31.989991-06:00"
+      ],
+      [
+        "monitoreo",
+        "auditoria",
+        true,
+        1,
+        null,
+        803,
+        "2026-11-14 13:34:01.169512-06:00",
+        "2026-11-14 13:53:50.556746-06:00"
+      ],
+      [
+        "priorizacion_geografia",
+        "auditoria",
+        true,
+        1,
+        null,
+        803,
+        "2026-11-14 13:34:00.659070-06:00",
+        "2026-11-14 13:53:49.855069-06:00"
+      ],
+      [
+        "receptores",
+        "auditoria",
+        true,
+        1,
+        null,
+        1031,
+        "2026-11-14 13:34:01.224785-06:00",
+        "2026-11-14 13:53:47.296548-06:00"
+      ],
+      [
+        "transporte",
+        "auditoria",
+        true,
+        1,
+        null,
+        1758,
+        "2026-11-14 13:34:00.659779-06:00",
+        "2026-11-14 13:53:46.648654-06:00"
+      ]
+    ],
+    "health": {
+      "donantes": [
+        "2026-11-14 16:26:11.592156-06:00",
+        "2026-11-14 16:26:11.592156-06:00",
+        null
+      ],
+      "auditoria": [
+        "2026-11-14 16:26:25.929110-06:00",
+        "2026-11-14 16:26:25.929110-06:00",
+        null
+      ]
+    },
+    "missing_audit": 0,
+    "missing_alerts": 0,
+    "extra_alerts": 0,
+    "expected_audit": 765,
+    "expected_alerts": 121,
+    "mongo_projected_business": 0,
+    "audit_business_ids": 765,
+    "new_activity_events": [],
+    "new_outbox_groups": [
+      [
+        "auditoria",
+        "mongodb",
+        "APPOINTMENT_BOOKED",
+        57
+      ],
+      [
+        "auditoria",
+        "mongodb",
+        "APPOINTMENT_CANCEL",
+        59
+      ],
+      [
+        "auditoria",
+        "mongodb",
+        "APPOINTMENT_RESCHEDULE",
+        59
+      ],
+      [
+        "auditoria",
+        "mongodb",
+        "READ",
+        336
+      ]
+    ],
+    "changed_reminders": [],
+    "removed_reminders": []
+  },
+  "global_queue_empty": false,
+  "recovered": false,
+  "owned_processes_remaining": [],
+  "originals_unchanged": true,
+  "sources_unchanged": true,
+  "private_receipt_sha256": "3570c3356cc7afdcb83c9fa8e830ecc16e2f65df6ee26c28f17874eca066a69f"
+}

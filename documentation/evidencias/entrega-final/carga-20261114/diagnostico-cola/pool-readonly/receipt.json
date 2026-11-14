@@ -1,0 +1,275 @@
+{
+  "read_only": true,
+  "operations_per_mode": 10,
+  "psycopg": "3.3.5",
+  "psycopg_pool": "3.3.3",
+  "samples": [
+    {
+      "pool_size": 0,
+      "iteration": 1,
+      "cold": true,
+      "pid": 2587,
+      "acquire_ms": 36.402515,
+      "readonly_setup_ms": 1.409588,
+      "select_ms": 6.855421,
+      "release_ms": 0.36816,
+      "total_ms": 45.035684
+    },
+    {
+      "pool_size": 1,
+      "iteration": 1,
+      "cold": true,
+      "pid": 2588,
+      "acquire_ms": 57.518998,
+      "readonly_setup_ms": 0.645436,
+      "select_ms": 1.77516,
+      "release_ms": 0.569139,
+      "total_ms": 60.508733
+    },
+    {
+      "pool_size": 1,
+      "iteration": 2,
+      "cold": false,
+      "pid": 2588,
+      "acquire_ms": 0.409569,
+      "readonly_setup_ms": 0.369736,
+      "select_ms": 0.416791,
+      "release_ms": 0.217115,
+      "total_ms": 1.413211
+    },
+    {
+      "pool_size": 0,
+      "iteration": 2,
+      "cold": false,
+      "pid": 2589,
+      "acquire_ms": 19.128251,
+      "readonly_setup_ms": 0.712393,
+      "select_ms": 1.299756,
+      "release_ms": 0.301818,
+      "total_ms": 21.442218
+    },
+    {
+      "pool_size": 0,
+      "iteration": 3,
+      "cold": false,
+      "pid": 2590,
+      "acquire_ms": 16.850476,
+      "readonly_setup_ms": 0.665654,
+      "select_ms": 1.109428,
+      "release_ms": 0.2446,
+      "total_ms": 18.870158
+    },
+    {
+      "pool_size": 1,
+      "iteration": 3,
+      "cold": false,
+      "pid": 2588,
+      "acquire_ms": 0.334583,
+      "readonly_setup_ms": 0.342573,
+      "select_ms": 0.502461,
+      "release_ms": 0.311126,
+      "total_ms": 1.490743
+    },
+    {
+      "pool_size": 1,
+      "iteration": 4,
+      "cold": false,
+      "pid": 2588,
+      "acquire_ms": 0.555212,
+      "readonly_setup_ms": 0.750977,
+      "select_ms": 0.491588,
+      "release_ms": 0.227148,
+      "total_ms": 2.024925
+    },
+    {
+      "pool_size": 0,
+      "iteration": 4,
+      "cold": false,
+      "pid": 2591,
+      "acquire_ms": 16.825005,
+      "readonly_setup_ms": 0.622011,
+      "select_ms": 1.178493,
+      "release_ms": 0.235417,
+      "total_ms": 18.860926
+    },
+    {
+      "pool_size": 0,
+      "iteration": 5,
+      "cold": false,
+      "pid": 2592,
+      "acquire_ms": 17.426911,
+      "readonly_setup_ms": 0.860683,
+      "select_ms": 1.566962,
+      "release_ms": 0.427816,
+      "total_ms": 20.282372
+    },
+    {
+      "pool_size": 1,
+      "iteration": 5,
+      "cold": false,
+      "pid": 2588,
+      "acquire_ms": 0.540914,
+      "readonly_setup_ms": 0.402188,
+      "select_ms": 0.390528,
+      "release_ms": 0.207748,
+      "total_ms": 1.541378
+    },
+    {
+      "pool_size": 1,
+      "iteration": 6,
+      "cold": false,
+      "pid": 2588,
+      "acquire_ms": 0.337453,
+      "readonly_setup_ms": 0.765259,
+      "select_ms": 0.785817,
+      "release_ms": 0.311478,
+      "total_ms": 2.200007
+    },
+    {
+      "pool_size": 0,
+      "iteration": 6,
+      "cold": false,
+      "pid": 2593,
+      "acquire_ms": 16.743488,
+      "readonly_setup_ms": 0.701921,
+      "select_ms": 1.082718,
+      "release_ms": 0.177951,
+      "total_ms": 18.706078
+    },
+    {
+      "pool_size": 0,
+      "iteration": 7,
+      "cold": false,
+      "pid": 2594,
+      "acquire_ms": 16.068478,
+      "readonly_setup_ms": 0.696319,
+      "select_ms": 1.093055,
+      "release_ms": 0.187644,
+      "total_ms": 18.045496
+    },
+    {
+      "pool_size": 1,
+      "iteration": 7,
+      "cold": false,
+      "pid": 2588,
+      "acquire_ms": 0.384308,
+      "readonly_setup_ms": 0.488121,
+      "select_ms": 0.352312,
+      "release_ms": 0.341356,
+      "total_ms": 1.566097
+    },
+    {
+      "pool_size": 1,
+      "iteration": 8,
+      "cold": false,
+      "pid": 2588,
+      "acquire_ms": 0.541524,
+      "readonly_setup_ms": 0.585019,
+      "select_ms": 0.460162,
+      "release_ms": 0.355194,
+      "total_ms": 1.941899
+    },
+    {
+      "pool_size": 0,
+      "iteration": 8,
+      "cold": false,
+      "pid": 2595,
+      "acquire_ms": 18.288177,
+      "readonly_setup_ms": 1.370413,
+      "select_ms": 1.486479,
+      "release_ms": 0.349767,
+      "total_ms": 21.494836
+    },
+    {
+      "pool_size": 0,
+      "iteration": 9,
+      "cold": false,
+      "pid": 2596,
+      "acquire_ms": 23.162066,
+      "readonly_setup_ms": 0.964098,
+      "select_ms": 1.71492,
+      "release_ms": 0.432392,
+      "total_ms": 26.273476
+    },
+    {
+      "pool_size": 1,
+      "iteration": 9,
+      "cold": false,
+      "pid": 2588,
+      "acquire_ms": 0.674455,
+      "readonly_setup_ms": 0.559904,
+      "select_ms": 0.48429,
+      "release_ms": 0.272234,
+      "total_ms": 1.990883
+    },
+    {
+      "pool_size": 1,
+      "iteration": 10,
+      "cold": false,
+      "pid": 2588,
+      "acquire_ms": 0.533613,
+      "readonly_setup_ms": 0.601703,
+      "select_ms": 0.624644,
+      "release_ms": 0.444196,
+      "total_ms": 2.204156
+    },
+    {
+      "pool_size": 0,
+      "iteration": 10,
+      "cold": false,
+      "pid": 2597,
+      "acquire_ms": 27.834677,
+      "readonly_setup_ms": 1.334941,
+      "select_ms": 2.181157,
+      "release_ms": 0.418423,
+      "total_ms": 31.769198
+    }
+  ],
+  "source_hashes": {
+    "apps/services/redhouse/db.py": "c9c74f85cf6c06ee7ad9f08c53f91ef0ecc1457005b5a91e84e860866ad63749",
+    "apps/services/redhouse/config.py": "0c3ad95d73d3033a1e8f92b7396e3a95303b5a8255845ece8c9c025281cd8f44",
+    "apps/services/worker.py": "69717d1a44f3186915bca0a8f5d44c60ba91056886ee9fe49db9e71d25ca2ac3"
+  },
+  "summary": {
+    "0": {
+      "cold": {
+        "pool_size": 0,
+        "iteration": 1,
+        "cold": true,
+        "pid": 2587,
+        "acquire_ms": 36.402515,
+        "readonly_setup_ms": 1.409588,
+        "select_ms": 6.855421,
+        "release_ms": 0.36816,
+        "total_ms": 45.035684
+      },
+      "distinct_pids": 10,
+      "warm_median_acquire_ms": 17.426911,
+      "warm_median_select_ms": 1.299756,
+      "warm_median_total_ms": 20.282372
+    },
+    "1": {
+      "cold": {
+        "pool_size": 1,
+        "iteration": 1,
+        "cold": true,
+        "pid": 2588,
+        "acquire_ms": 57.518998,
+        "readonly_setup_ms": 0.645436,
+        "select_ms": 1.77516,
+        "release_ms": 0.569139,
+        "total_ms": 60.508733
+      },
+      "distinct_pids": 1,
+      "warm_median_acquire_ms": 0.533613,
+      "warm_median_select_ms": 0.48429,
+      "warm_median_total_ms": 1.941899
+    }
+  },
+  "passed": true,
+  "pools_closed": true,
+  "owned_processes_remaining": [],
+  "originals_unchanged": true,
+  "sources_unchanged": true,
+  "private_receipt_sha256": "1b08c7b2ff375e02572efb4307313185e7015b4d35981715570f5baac88439e1"
+}

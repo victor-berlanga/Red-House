@@ -117,7 +117,10 @@ def deliver_mongo(event):
         ) from None
 
 
-def dispatch(limit=100):
+OUTBOX_BATCH_SIZE = 100
+
+
+def dispatch(limit=OUTBOX_BATCH_SIZE):
     """Entrega como mínimo una vez; consumidores deduplican. Sin secretos en errores."""
     done, failed = 0, 0
     blocked = set()
