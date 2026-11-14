@@ -2,6 +2,12 @@
 
 Las entradas están ordenadas de reciente a histórico; un pendiente de un corte anterior puede quedar sustituido explícitamente por una entrada posterior.
 
+## Escritorio recupera consulta tras caída de servicio — 14/11/2026
+
+[Ensayo Qt/XML](documentation/evidencias/entrega-final/desktop/iteracion-recuperacion-servicio/RESULTADOS.md) aprobado, 1/1 en 42,087 s: médico consulta propuesta, se detiene el listener propio de Priorización, la GUI limpia resultados y muestra error; tras restaurarlo, Actualizar recupera la propuesta y se comprueba su persistencia única en SQL. Sesión revocada y motores cerrados. Diario temporal con clave efímera; fixture TESTING/WSGI y Qt offscreen, sin fallo productivo ni comprobación de llavero por este caso.
+
+Dirección inspeccionó las tres capturas reales. Después se aclaró el mensaje genérico para orientar a conexión/soporte institucional; captura posterior con doble inspeccionada, sin repetir el laboratorio por redacción. El paquete Mac anterior aún conserva el mensaje antiguo; se incorporará al siguiente empaquetado. Windows e impresión física siguen sin comprobación; no se cierra toda la etapa 05.
+
 ## Primera carga sostenida aprobada — 14/11/2026
 
 Etapa 07: [línea base de seis perfiles](documentation/evidencias/entrega-final/carga-20261114/baseline-6/RESULTADOS.md) aprobada, 30 s de calentamiento y 120,005 s medidos, 1.029 lecturas y cero errores; 8,575 peticiones/s, mayor p95 por endpoint 430 ms. Seis familias nuevas revocadas y comprobadas en PostgreSQL/Redis. Dataset: 2.000 donantes, 10.000 recursos y 100.000 eventos SQL; 944 fuentes estables, límites de disco respetados y motores propios cerrados.

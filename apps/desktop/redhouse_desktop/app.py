@@ -165,7 +165,7 @@ class Window(QMainWindow):
         elif isinstance(exc, ConnectionError):
             self.uncertain = True
             text = 'Sin conexión o resultado incierto. Actualiza y consulta el estado antes de repetir una operación.'
-        else: text = str(exc) if isinstance(exc, ApiError) else 'No se pudo completar la operación. Verifica conexión y formato del servicio.'
+        else: text = str(exc) if isinstance(exc, ApiError) else 'No se pudo completar la operación. Comprueba tu conexión o contacta a soporte institucional.'
         if self.stack.currentIndex()==0 and not (isinstance(exc,ApiError) and exc.code=='mfa_required'): self.password.clear()
         self.status.setText(text); self.login_status.setText(text)
 
