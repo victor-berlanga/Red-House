@@ -1,0 +1,142 @@
+[
+  {
+    "method": "POST",
+    "name": "Identidad / login",
+    "requests": 0,
+    "failures": 0,
+    "requests_per_second": 0.0,
+    "mean_ms": 0.0,
+    "p95_ms": 0,
+    "p99_ms": 0
+  },
+  {
+    "method": "GET",
+    "name": "inventario / Disponibilidad regional",
+    "requests": 85,
+    "failures": 0,
+    "requests_per_second": 0.7083011954651879,
+    "mean_ms": 232.80291263397564,
+    "p95_ms": 400,
+    "p99_ms": 470
+  },
+  {
+    "method": "GET",
+    "name": "receptores / Solicitudes propias",
+    "requests": 85,
+    "failures": 0,
+    "requests_per_second": 0.7083011954651879,
+    "mean_ms": 204.39466855365455,
+    "p95_ms": 330,
+    "p99_ms": 410
+  },
+  {
+    "method": "GET",
+    "name": "auditoria / Bit\u00e1cora",
+    "requests": 92,
+    "failures": 0,
+    "requests_per_second": 0.7666318821505563,
+    "mean_ms": 273.66404178484,
+    "p95_ms": 430,
+    "p99_ms": 680
+  },
+  {
+    "method": "GET",
+    "name": "priorizacion_geografia / Rutas",
+    "requests": 72,
+    "failures": 0,
+    "requests_per_second": 0.599972777335218,
+    "mean_ms": 214.656844166004,
+    "p95_ms": 390,
+    "p99_ms": 460
+  },
+  {
+    "method": "GET",
+    "name": "donantes / Agenda propia",
+    "requests": 74,
+    "failures": 0,
+    "requests_per_second": 0.6166386878167518,
+    "mean_ms": 228.08895222181957,
+    "p95_ms": 340,
+    "p99_ms": 510
+  },
+  {
+    "method": "GET",
+    "name": "inventario / Inventario propio",
+    "requests": 81,
+    "failures": 0,
+    "requests_per_second": 0.6749693745021202,
+    "mean_ms": 254.35442167958016,
+    "p95_ms": 430,
+    "p99_ms": 540
+  },
+  {
+    "method": "GET",
+    "name": "transporte / Tareas propias",
+    "requests": 84,
+    "failures": 0,
+    "requests_per_second": 0.699968240224421,
+    "mean_ms": 223.95216342937644,
+    "p95_ms": 400,
+    "p99_ms": 530
+  },
+  {
+    "method": "GET",
+    "name": "donantes / Campa\u00f1as",
+    "requests": 81,
+    "failures": 0,
+    "requests_per_second": 0.6749693745021202,
+    "mean_ms": 208.2708210987614,
+    "p95_ms": 340,
+    "p99_ms": 460
+  },
+  {
+    "method": "GET",
+    "name": "transporte / Traslados",
+    "requests": 72,
+    "failures": 0,
+    "requests_per_second": 0.599972777335218,
+    "mean_ms": 238.97920382296434,
+    "p95_ms": 420,
+    "p99_ms": 580
+  },
+  {
+    "method": "GET",
+    "name": "alertas / Avisos propios",
+    "requests": 74,
+    "failures": 0,
+    "requests_per_second": 0.6166386878167518,
+    "mean_ms": 215.47933725712545,
+    "p95_ms": 340,
+    "p99_ms": 380
+  },
+  {
+    "method": "GET",
+    "name": "alertas / Avisos de traslado",
+    "requests": 84,
+    "failures": 0,
+    "requests_per_second": 0.699968240224421,
+    "mean_ms": 207.7058832461868,
+    "p95_ms": 330,
+    "p99_ms": 390
+  },
+  {
+    "method": "GET",
+    "name": "monitoreo / Estado regional",
+    "requests": 72,
+    "failures": 0,
+    "requests_per_second": 0.599972777335218,
+    "mean_ms": 210.5477244622307,
+    "p95_ms": 340,
+    "p99_ms": 380
+  },
+  {
+    "method": "GET",
+    "name": "donantes / Feed p\u00fablico",
+    "requests": 73,
+    "failures": 0,
+    "requests_per_second": 0.6083057325759849,
+    "mean_ms": 116.78610593303783,
+    "p95_ms": 180,
+    "p99_ms": 210
+  }
+]

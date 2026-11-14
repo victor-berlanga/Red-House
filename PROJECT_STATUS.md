@@ -2,6 +2,12 @@
 
 Las entradas están ordenadas de reciente a histórico; un pendiente de un corte anterior puede quedar sustituido explícitamente por una entrada posterior.
 
+## Primera carga sostenida aprobada — 14/11/2026
+
+Etapa 07: [línea base de seis perfiles](documentation/evidencias/entrega-final/carga-20261114/baseline-6/RESULTADOS.md) aprobada, 30 s de calentamiento y 120,005 s medidos, 1.029 lecturas y cero errores; 8,575 peticiones/s, mayor p95 por endpoint 430 ms. Seis familias nuevas revocadas y comprobadas en PostgreSQL/Redis. Dataset: 2.000 donantes, 10.000 recursos y 100.000 eventos SQL; 944 fuentes estables, límites de disco respetados y motores propios cerrados.
+
+Procesos reales/quotas de producto y MFA, una instancia por servicio local, XML/XSD de operador y JSON de los otros perfiles. No mide GCP, escrituras ni volumen Mongo. Quedan niveles superiores, caché, estrés/recuperación y transacciones. La mediana del corte exacto no se conservó y se incorporará a las siguientes mediciones, sin repetir esta corrida solo por instrumentación. Los fallos anteriores conservan sus expedientes independientes.
+
 ## Reanudación y paquetes móviles — 14/11/2026
 
 El usuario autorizó continuar el plan y precisó que la prioridad es cumplir los requisitos técnicos completos —seguridad, monolito, clientes e integración—, sin exigir entregables visuales intermedios. Se conserva la cobertura de código no afectado y una sola ejecución pesada local a la vez.
