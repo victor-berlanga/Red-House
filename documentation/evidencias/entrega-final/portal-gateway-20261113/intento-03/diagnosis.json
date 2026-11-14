@@ -1,0 +1,22 @@
+{
+  "status": "failed_harness_after_visible_cancellation",
+  "duration_s": 123.84,
+  "observed": [
+    "Captured donor list shows Cambio registrado and one Cancelado appointment after submission",
+    "Failure category timeout in autonomous-appointment-submit",
+    "1394 source hashes equal before/after",
+    "No matched laboratory processes remain after teardown"
+  ],
+  "source_evidence": {
+    "template": "apps/web/src/presentation/templates/integration/form.html:9",
+    "action": "request.full_path",
+    "harness_response_predicate": "response.url() === cancellationUrl",
+    "flask_test_request_context": {
+      "path": "/citas/synthetic/cancelar",
+      "full_path": "/citas/synthetic/cancelar?"
+    }
+  },
+  "inference": "Submission succeeded visibly; strict response URL equality can miss the trailing empty query delimiter produced by form action. Original failure did not retain raw URL or response, so the exact observed URL is not asserted.",
+  "proposed_correction": "Match POST method and parsed URL origin/pathname; retain HTTP 302 assertion without reading/logging query.",
+  "result": "Not accepted; SQL/audit verification and recovery/Mongo/final replica restoration not reached"
+}

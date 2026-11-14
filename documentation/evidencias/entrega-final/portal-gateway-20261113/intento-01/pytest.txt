@@ -1,0 +1,14 @@
+E                                                                        [100%]
+==================================== ERRORS ====================================
+___ ERROR at setup of test_portal_gateway_replica_loss_autonomy_and_recovery ___
+apps/services/tests/conftest.py:96: in platform
+    env.init()
+apps/services/scripts/local.py:153: in init
+    pgport, redisport, mongoport = free_port(), free_port(), free_port()
+                                   ^^^^^^^^^^^
+apps/services/scripts/local.py:35: in free_port
+    sock.bind(("127.0.0.1", 0))
+E   PermissionError: [Errno 1] Operation not permitted
+=========================== short test summary info ============================
+ERROR apps/services/tests/test_portal_gateway_tracking.py::test_portal_gateway_replica_loss_autonomy_and_recovery
+1 error in 3.66s

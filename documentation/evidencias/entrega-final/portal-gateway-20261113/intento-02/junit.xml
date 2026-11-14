@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="128.813" timestamp="2026-11-13T20:53:06.125196-06:00" hostname="Victors-MacBook-Air.local"><testcase classname="tests.test_portal_gateway_tracking" name="test_portal_gateway_replica_loss_autonomy_and_recovery" time="127.714"><failure message="AssertionError: Fase inesperada: failed&#10;assert 'failed' == 'verify_mutation'&#10;  &#10;  - verify_mutation&#10;  + failed">apps/services/tests/test_portal_gateway_tracking.py:400: in test_portal_gateway_replica_loss_autonomy_and_recovery
+    expect("verify_mutation")
+apps/services/tests/test_portal_gateway_tracking.py:355: in expect
+    assert message.get("action") == action, "Fase inesperada: " + sanitized(
+E   AssertionError: Fase inesperada: failed
+E   assert 'failed' == 'verify_mutation'
+E     
+E     - verify_mutation
+E     + failed</failure></testcase></testsuite></testsuites>

@@ -1,5 +1,21 @@
 # Portal 03: ensayo pendiente de aceptación integrada en 06
 
+## Actualización de continuidad — 13/11/2026
+
+El plan histórico inferior se conserva como lista de recorridos pendientes. Sus referencias al esquema 17, a ausencia de herramientas locales y a permisos por obtener describen la inspección del 6 de noviembre; no son el estado vigente ni obligan a pedir otra confirmación para las pruebas aisladas ya incluidas en el plan autorizado por el usuario.
+
+La VM correcta es `sistemas-integracion-01 / red-house / me-central1-a`, con esquema 20 y treinta contenedores saludables en la última comprobación. El proveedor operativo es almacenamiento privado local de servidor; GCS queda opcional para operar y conserva una prueba académica independiente. El antivirus real, su vigilancia periódica y el proxy publicado tienen evidencia fechada ([esquema 20](../../evidencias/gcp/scanner20-20261113/RESULTADOS.md), [salud periódica](../../evidencias/gcp/scanner-health-20261113/RESULTADOS.md), [GCS sintético](../../evidencias/entrega-final/gcs-sintetico-20261113/RESULTADOS.md)). Estas comprobaciones no se suman como una ejecución de I06-01…09.
+
+La continuidad prepara ensayos en laboratorios locales nuevos, con motores, archivos, puertos y procesos propios. Solo la dirección asigna la ventana de ejecución pesada. Los cortes se limitan a esos procesos: no se detienen servicios productivos ni se crean recursos de nube. Los resultados deben diferenciar certificado efímero de prueba y cadena pública confiable, almacenamiento local y GCS, portal modular autónomo y transporte HTTP, cartografía bloqueada en el arnés y mapa con mosaicos reales. La tabla de casos mantiene su exigencia de recorridos, persistencia e inspección visual; ninguna preparación o compilación cierra por sí sola un caso.
+
+## I06-07: recorrido local aceptado — 13/11/2026
+
+Aceptado el recorrido acotado del [ensayo portal/gateway](../../evidencias/entrega-final/portal-gateway-20261113/RESULTADOS.md): **1/1 aprobado en 157,31 s**, intento 04; intentos 01 de sandbox, 02 de selector y 03 de espera de URL conservados por separado. Chrome real mantuvo el mapa por Nginx HTTPS/WSS del mismo origen, con tres handshakes 101, caída de una réplica de Transporte y luego ambas, conservación de los dos IDs previos y reconexión automática del mismo documento. Durante la caída total, DONOR canceló una inscripción sintética desde el portal modular; recarga, estado SQL, actor y evento de auditoría comprobados antes de restaurar. Primero volvió B y luego A; ambas terminaron con `live/ready=200`. Tres IDs/cursores iguales en SQL, Mongo `events.metadata.position` y filas del mapa, sin duplicados. La dirección inspeccionó las capturas de caída, cancelación y recuperación; 1394 hashes de fuentes permanecieron iguales y los procesos propios cerraron.
+
+Los tres puntos usan las mismas coordenadas sintéticas `25.6866,-100.3161`: se aceptan identidad, cursor y reconexión, sin acreditar desplazamiento físico o geometría vial. La inscripción no tiene horario asignado. El laboratorio conserva `TESTING=True`, cuotas de prueba 100000, WSGI de ensayo, confianza TLS explícita Python/excepción SPKI efímera Chrome y mosaicos OSM bloqueados; no acepta CA del sistema, capacidad, MFA, cartografía, Docker/GCP ni operación productiva. No hubo sustitución/intercepción de WebSocket ni resultados inyectados. **Esta aceptación local de I06-07 no cierra I06-01…06, I06-08/09 ni toda la etapa 06.** El plan histórico y sus demás recorridos permanecen abiertos en lo no verificado; sus referencias antiguas se interpretan con la actualización vigente superior.
+
+## Plan original del 6 de noviembre
+
 Preparado el 6 de noviembre de 2026. **Plan revisable, no ejecución ni autorización.**
 El usuario confirmó mantener estas pruebas integradas pendientes de 06.
 El encargo vigente permite continuar a 04 si el alcance local está aprobado y solo

@@ -1,0 +1,17 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+____________ test_portal_gateway_replica_loss_autonomy_and_recovery ____________
+apps/services/tests/test_portal_gateway_tracking.py:400: in test_portal_gateway_replica_loss_autonomy_and_recovery
+    expect("verify_mutation")
+apps/services/tests/test_portal_gateway_tracking.py:355: in expect
+    assert message.get("action") == action, "Fase inesperada: " + sanitized(
+E   AssertionError: Fase inesperada: failed
+E   assert 'failed' == 'verify_mutation'
+E     
+E     - verify_mutation
+E     + failed
+----------------------------- Captured stdout call -----------------------------
+Entrada pública generada: HTTPS
+=========================== short test summary info ============================
+FAILED apps/services/tests/test_portal_gateway_tracking.py::test_portal_gateway_replica_loss_autonomy_and_recovery
+1 failed in 123.84s (0:02:03)

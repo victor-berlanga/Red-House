@@ -1,0 +1,12 @@
+{
+  "case": "I06-07",
+  "status": "blocked_before_runtime",
+  "phase": "fixture.env.init.free_port",
+  "type": "PermissionError",
+  "errno": 1,
+  "duration_s": 3.66,
+  "engines_started": false,
+  "browser_started": false,
+  "functional_result": null,
+  "reason": "Sandbox denied bind on loopback; not a functional failure"
+}

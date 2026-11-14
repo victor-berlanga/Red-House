@@ -1,0 +1,110 @@
+{
+  "case": "I06-07",
+  "passed": true,
+  "checks": [
+    "HTTPS Nginx verificado por Python con certificado explícito",
+    "Réplica A detenida; B conserva proceso vivo",
+    "Tres puntos SQL únicos; replay de mismos IDs conserva cursores 1,2,3",
+    "Ambas réplicas restauradas y live/ready 200; SQL y Mongo conservan los tres IDs/cursores"
+  ],
+  "scope": "Laboratorio local aislado; datos y ubicaciones sintéticos",
+  "limits": [
+    "No cierra I06 completo ni acredita producción, GCP o capacidad",
+    "Fixture TESTING=True; cuotas de prueba 100000; no prueba MFA",
+    "DONOR/TRANSPORT sin omitir MFA de roles críticos",
+    "TLS Python con CA explícita; Chrome con excepción SPKI del certificado efímero",
+    "No prueba confianza CA del sistema; perfiles Chrome privados efímeros",
+    "Mosaicos OSM bloqueados para evitar consumo masivo; cartografía no aceptada",
+    "Listeners loopback y puertos efímeros; WSGI de prueba con TrustedProxy real"
+  ],
+  "generated_configuration_sha256": "1b90390fc86a7f83bcf8e775c03d18686f9bcde32bf3c8396dc6d96c340a8e44",
+  "certificate_spki_sha256": "LUi6KMpSp9dFcRcMCajRk/1R2j+OJMPDreWqBNH7PDs=",
+  "initial_ack": [
+    {
+      "event_id": "96061936-3a50-425d-9150-edc14c59d961",
+      "cursor": 1,
+      "state": "PERSISTED_SQL"
+    }
+  ],
+  "single_replica_ack": [
+    {
+      "event_id": "3cba9837-e4dd-4837-a178-e30dda94005f",
+      "cursor": 2,
+      "state": "PERSISTED_SQL"
+    }
+  ],
+  "all_down_gateway_status": 502,
+  "autonomy": {
+    "appointment_id": "55f0ae30-0df9-4c4c-aaa6-f248af52b711",
+    "status": "CANCELLED",
+    "activity_event_id": "cfdfd9eb-abe9-4d57-a0e6-5beb1b3eeda7",
+    "audit_count": 1,
+    "all_fixture_api_listeners_closed": true,
+    "direct_tracking_fixture_listener_closed": true
+  },
+  "recovery_acks": [
+    {
+      "event_id": "96061936-3a50-425d-9150-edc14c59d961",
+      "cursor": 1,
+      "state": "PERSISTED_SQL"
+    },
+    {
+      "event_id": "3cba9837-e4dd-4837-a178-e30dda94005f",
+      "cursor": 2,
+      "state": "PERSISTED_SQL"
+    },
+    {
+      "event_id": "7c77ed5b-239d-4a8d-96d5-eadd20862308",
+      "cursor": 3,
+      "state": "PERSISTED_SQL"
+    },
+    {
+      "event_id": "7c77ed5b-239d-4a8d-96d5-eadd20862308",
+      "cursor": 3,
+      "state": "PERSISTED_SQL"
+    }
+  ],
+  "restored_replicas_health": {
+    "A": {
+      "live": 200,
+      "ready": 200
+    },
+    "B": {
+      "live": 200,
+      "ready": 200
+    }
+  },
+  "sql_points": [
+    {
+      "event_id": "96061936-3a50-425d-9150-edc14c59d961",
+      "cursor": 1
+    },
+    {
+      "event_id": "3cba9837-e4dd-4837-a178-e30dda94005f",
+      "cursor": 2
+    },
+    {
+      "event_id": "7c77ed5b-239d-4a8d-96d5-eadd20862308",
+      "cursor": 3
+    }
+  ],
+  "mongo_projection": {
+    "collection": "events",
+    "position_field": "metadata.position",
+    "points": [
+      {
+        "cursor": 1,
+        "event_id": "96061936-3a50-425d-9150-edc14c59d961"
+      },
+      {
+        "cursor": 2,
+        "event_id": "3cba9837-e4dd-4837-a178-e30dda94005f"
+      },
+      {
+        "cursor": 3,
+        "event_id": "7c77ed5b-239d-4a8d-96d5-eadd20862308"
+      }
+    ],
+    "pending_outbox_positions": 0
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "case": "I06-07",
+  "passed": false,
+  "checks": [
+    "HTTPS Nginx verificado por Python con certificado explícito",
+    "Réplica A detenida; B conserva proceso vivo"
+  ],
+  "scope": "Laboratorio local aislado; datos y ubicaciones sintéticos",
+  "limits": [
+    "No cierra I06 completo ni acredita producción, GCP o capacidad",
+    "Fixture TESTING=True; cuotas de prueba 100000; no prueba MFA",
+    "DONOR/TRANSPORT sin omitir MFA de roles críticos",
+    "TLS Python con CA explícita; Chrome con excepción SPKI del certificado efímero",
+    "No prueba confianza CA del sistema; perfiles Chrome privados efímeros",
+    "Mosaicos OSM bloqueados para evitar consumo masivo; cartografía no aceptada",
+    "Listeners loopback y puertos efímeros; WSGI de prueba con TrustedProxy real"
+  ],
+  "generated_configuration_sha256": "352a40762a94cc9223c5af0e5480d1b1ef2e78d6eb0ba5807072d98059e70ea7",
+  "certificate_spki_sha256": "mkf+W6uTQVsZ68DxMk74fvIKBfzmpUDnVMsNE/3hnr4=",
+  "initial_ack": [
+    {
+      "event_id": "0b639302-a5a3-496b-ac26-40ed64f22c12",
+      "cursor": 1,
+      "state": "PERSISTED_SQL"
+    }
+  ],
+  "single_replica_ack": [
+    {
+      "event_id": "e9ca5833-093a-4306-afe2-24c1a95ccf4b",
+      "cursor": 2,
+      "state": "PERSISTED_SQL"
+    }
+  ],
+  "all_down_gateway_status": 502,
+  "failure": {
+    "type": "AssertionError",
+    "message": "Fase inesperada: failed\nassert 'failed' == 'verify_mutation'\n  \n  - verify_mutation\n  + failed"
+  }
+}

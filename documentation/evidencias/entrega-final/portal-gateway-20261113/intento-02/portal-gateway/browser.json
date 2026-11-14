@@ -1,0 +1,174 @@
+{
+  "passed": false,
+  "checks": [],
+  "states": [
+    {
+      "phase": "01-map-open",
+      "status": "Sin señal · sin datos",
+      "lastEventId": "",
+      "rows": [],
+      "rendered": [],
+      "pageInstance": 1794624886684.1
+    },
+    {
+      "phase": "02-live-two-replicas",
+      "status": "En vivo · SIMULADO",
+      "lastEventId": "0b639302-a5a3-496b-ac26-40ed64f22c12",
+      "rows": [
+        "0b639302-a5a3-496b-ac26-40ed64f22c12"
+      ],
+      "rendered": [
+        {
+          "event_id": "0b639302-a5a3-496b-ac26-40ed64f22c12",
+          "cursor": 1,
+          "rendered_at": "2026-11-14T02:54:49.958Z"
+        }
+      ],
+      "pageInstance": 1794624886684.1
+    },
+    {
+      "phase": "03-one-replica-stopped",
+      "status": "Desconectado · último dato conservado · SIMULADO",
+      "lastEventId": "0b639302-a5a3-496b-ac26-40ed64f22c12",
+      "rows": [
+        "0b639302-a5a3-496b-ac26-40ed64f22c12"
+      ],
+      "rendered": [
+        {
+          "event_id": "0b639302-a5a3-496b-ac26-40ed64f22c12",
+          "cursor": 1,
+          "rendered_at": "2026-11-14T02:54:49.958Z"
+        }
+      ],
+      "pageInstance": 1794624886684.1
+    },
+    {
+      "phase": "04-live-one-replica",
+      "status": "En vivo · SIMULADO",
+      "lastEventId": "e9ca5833-093a-4306-afe2-24c1a95ccf4b",
+      "rows": [
+        "0b639302-a5a3-496b-ac26-40ed64f22c12",
+        "e9ca5833-093a-4306-afe2-24c1a95ccf4b"
+      ],
+      "rendered": [
+        {
+          "event_id": "0b639302-a5a3-496b-ac26-40ed64f22c12",
+          "cursor": 1,
+          "rendered_at": "2026-11-14T02:54:49.958Z"
+        },
+        {
+          "event_id": "0b639302-a5a3-496b-ac26-40ed64f22c12",
+          "cursor": 1,
+          "rendered_at": "2026-11-14T02:54:51.411Z"
+        },
+        {
+          "event_id": "e9ca5833-093a-4306-afe2-24c1a95ccf4b",
+          "cursor": 2,
+          "rendered_at": "2026-11-14T02:54:52.125Z"
+        }
+      ],
+      "pageInstance": 1794624886684.1
+    },
+    {
+      "phase": "05-all-replicas-stopped",
+      "status": "Desconectado · último dato conservado · SIMULADO",
+      "lastEventId": "e9ca5833-093a-4306-afe2-24c1a95ccf4b",
+      "rows": [
+        "0b639302-a5a3-496b-ac26-40ed64f22c12",
+        "e9ca5833-093a-4306-afe2-24c1a95ccf4b"
+      ],
+      "rendered": [
+        {
+          "event_id": "0b639302-a5a3-496b-ac26-40ed64f22c12",
+          "cursor": 1,
+          "rendered_at": "2026-11-14T02:54:49.958Z"
+        },
+        {
+          "event_id": "0b639302-a5a3-496b-ac26-40ed64f22c12",
+          "cursor": 1,
+          "rendered_at": "2026-11-14T02:54:51.411Z"
+        },
+        {
+          "event_id": "e9ca5833-093a-4306-afe2-24c1a95ccf4b",
+          "cursor": 2,
+          "rendered_at": "2026-11-14T02:54:52.125Z"
+        }
+      ],
+      "pageInstance": 1794624886684.1
+    }
+  ],
+  "sockets": [
+    {
+      "url": "wss://127.0.0.1:59483/services/transporte/ws/v1/tracking/json",
+      "events": [
+        {
+          "type": "authenticated"
+        },
+        {
+          "type": "subscribed",
+          "cursor": 0
+        },
+        {
+          "type": "tracking.status",
+          "cursor": 0
+        },
+        {
+          "type": "position.updated",
+          "event_id": "0b639302-a5a3-496b-ac26-40ed64f22c12",
+          "cursor": 1
+        }
+      ],
+      "closed": true
+    },
+    {
+      "url": "wss://127.0.0.1:59483/services/transporte/ws/v1/tracking/json",
+      "events": [
+        {
+          "type": "authenticated"
+        },
+        {
+          "type": "subscribed",
+          "event_id": "0b639302-a5a3-496b-ac26-40ed64f22c12",
+          "cursor": 1
+        },
+        {
+          "type": "tracking.status",
+          "cursor": 1
+        },
+        {
+          "type": "position.updated",
+          "event_id": "e9ca5833-093a-4306-afe2-24c1a95ccf4b",
+          "cursor": 2
+        }
+      ],
+      "closed": true
+    },
+    {
+      "url": "wss://127.0.0.1:59483/services/transporte/ws/v1/tracking/json",
+      "events": [],
+      "closed": true
+    },
+    {
+      "url": "wss://127.0.0.1:59483/services/transporte/ws/v1/tracking/json",
+      "events": [],
+      "closed": true
+    },
+    {
+      "url": "wss://127.0.0.1:59483/services/transporte/ws/v1/tracking/json",
+      "events": [],
+      "closed": true
+    },
+    {
+      "url": "wss://127.0.0.1:59483/services/transporte/ws/v1/tracking/json",
+      "events": [],
+      "closed": true
+    }
+  ],
+  "pageErrors": [],
+  "tls": "Chrome SPKI exception restricted to the ephemeral test certificate; no OS CA acceptance",
+  "cartography": "OSM tiles blocked to avoid bulk consumption; cartography is not accepted by this case",
+  "failure": {
+    "stage": "autonomous-appointment-cancellation",
+    "type": "Error"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "status": "failed_harness_before_mutation_verification",
+  "observed": [
+    "Donor screenshot remains on cancellation form",
+    "Five map states captured, including total outage with two unique existing point rows",
+    "No product source changed; 1394 source hashes equal before/after",
+    "No matched laboratory processes remain after teardown"
+  ],
+  "inference": "Global button[type=submit] is ambiguous on authenticated pages: base.html includes timezone/session submits and form.html adds the cancellation submit. Original sanitized failure retained only Error type, so exact exception text was not preserved.",
+  "correction": "Use accessible button name Cancelar inscripción, exact match; record login/goto/submit/result stages, numeric HTTP statuses, and failure category without exception payloads.",
+  "result": "Not accepted; recovery/Mongo/final replica restoration not reached",
+  "duration_s": 128.83
+}

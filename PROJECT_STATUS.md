@@ -2,6 +2,12 @@
 
 Las entradas están ordenadas de reciente a histórico; un pendiente de un corte anterior puede quedar sustituido explícitamente por una entrada posterior.
 
+## Proxy y continuidad del portal comprobados en laboratorio — 13/11/2026
+
+I06-07 pasó **1/1 en 157,31 s** mediante Chrome y Nginx HTTPS/WSS reales. Se detuvo una réplica de Transporte y después ambas; el mapa conservó las observaciones. Con todas las API del fixture cerradas, el portal autónomo canceló una inscripción sintética y se comprobaron SQL, actor y auditoría única. Al restaurar una réplica, el mismo documento recuperó tres IDs/cursores sin filas duplicadas; replay, SQL y proyección Mongo coincidieron. Después se restauró la segunda réplica y ambas respondieron live/ready 200. Tres upgrades WSS 101 y 1394 fuentes iguales antes/después; procesos propios cerrados.
+
+La dirección inspeccionó las capturas de desconexión, inscripción cancelada y recuperación. Se conservaron por separado el bloqueo inicial de sandbox y dos fallos del arnés de navegación, corregidos antes de la ejecución final. [Ensayos y límites](documentation/evidencias/entrega-final/portal-gateway-20261113/RESULTADOS.md). Fixture con TESTING/cuotas ampliadas, certificado efímero y excepción SPKI específica en Chrome, cartografía bloqueada y ubicaciones simuladas; no acredita confianza del sistema, GPS físico, carga ni GCP. Los demás casos I06 y la aceptación integral de 06 siguen abiertos.
+
 ## Volumen del 10 % y diagnóstico de carga — 13/11/2026
 
 Preparación aislada completada: 2.000 donantes preliminares, 10.000 recursos y 100.000 eventos SQL sintéticos; 942 huellas de fuentes iguales antes/después. Inserción con comprobaciones: 157,918 s, incluidos 130,951 s de guardas. PostgreSQL creció 56.459.264 bytes y el directorio 124.021.623 bytes lógicos; WAL pasó de uno a cinco segmentos de 16 MiB. Los planes de consulta son observaciones únicas, no latencias sostenidas. El primer intento falló por desaparición de un archivo temporal durante el censo; su evidencia permanece separada.

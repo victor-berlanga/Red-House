@@ -1,0 +1,12 @@
+{
+  "source_files": 1394,
+  "sources_unchanged": true,
+  "secret_pattern_files": [],
+  "visual_review": [
+    "05-all-replicas-stopped.png: disconnected label, retained marker, explicit SIMULADO and unavailable cartography notice",
+    "06-appointment-cancelled-without-apis.png: cancelled inscription and synthetic donor, no assigned schedule",
+    "08-recovered-same-map.png: live label and marker restored",
+    "09-both-replicas-restored-same-map.png: live label preserved; both healthy upstreams checked independently"
+  ],
+  "limits": "This visual review accepts these states only, not cartography, accessibility, physical GPS, production CA trust, capacity, MFA or complete I06."
+}
