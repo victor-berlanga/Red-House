@@ -172,7 +172,7 @@ def recovery_complete():
 
 @public.get("/health/live")
 def live():
-    return {"status": "alive", "component": "red-house-web", "backend": "microservices"}
+    return {"status": "alive", "component": "red-house-web", "backend": current_app.config["BACKEND_MODE"]}
 
 
 @public.get("/sesion/estado")
