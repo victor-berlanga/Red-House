@@ -175,6 +175,7 @@ def document_new():
         identifier=identifier,
         previous=previous,
         error=error,
+        error_status=status,
         prepared_id=prepared_id,
         idempotency_key=idem,
     ), status
