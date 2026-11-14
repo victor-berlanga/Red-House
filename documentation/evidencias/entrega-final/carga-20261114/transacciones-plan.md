@@ -8,7 +8,7 @@ Doce sesiones listas antes de admitir recorridos; 30 s de calentamiento, drenado
 
 El oráculo coteja todos los intentos, incluidos calentamiento/drenado/parciales, con idempotencia, filas, versiones, propietario/institución, efectos extra, auditoría y avisos. Solo ciclos iniciados y terminados dentro de medición aportan recorridos/s. Se verifica revocación de doce familias en PostgreSQL/Redis, topología/fuentes estables y cierre de procesos propios. El diario con `fsync`, validación de contratos y generador comparten el equipo con los servicios; su coste forma parte de este entorno, no debe atribuirse íntegramente al servidor.
 
-Preparación comprobada por revisión fuerte y dirección. Corridas puras separadas: 47 casos en 2,06 s, uno dirigido a cierre/interrupción en 0,98 s; después de corregir umbrales, 40 dirigidos en 2,42 s. No se suman como casos distintos. Resultados observados en herramientas, sin JUnit archivado. Ruff y diff limpios. Ningún resultado sostenido se deriva de esos dobles.
+Preparación comprobada por revisión fuerte y dirección. Corridas puras separadas: 47 casos en 2,06 s, uno dirigido a cierre/interrupción en 0,98 s; después de corregir umbrales, 40 dirigidos en 2,42 s. No se suman como casos distintos. Resultados observados en herramientas, sin JUnit archivado. Una revisión posterior incorporó también la instantánea global de fuentes de servicios y esquema antes/después; dos casos dirigidos de deriva/estabilidad aprobaron en 1,07 s. Ruff y diff limpios. Ningún resultado sostenido se deriva de esos dobles.
 
 Comando previsto, con ventana local exclusiva y log privado nuevo:
 

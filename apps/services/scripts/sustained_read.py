@@ -700,12 +700,14 @@ def evaluate_transactions(result, users, seconds):
 
 def run_transactions(env, budget):
     """Dos recorridos en el dataset conservado; sin repoblar ni reenrolar MFA."""
+    from scripts.prepare_load import source_snapshot
     from tests.load_support import prepare_transaction_fixture
 
     directory = env.directory / (
         "transactions-" + datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S")
     )
     directory.mkdir(mode=0o700)
+    global_before = source_snapshot()
     before = source_hashes(env)
     configuration = topology(env)
     budget(env.directory)
@@ -730,6 +732,8 @@ def run_transactions(env, budget):
     summary = {
         "status": "failed",
         "hashes_before": before,
+        "source_hashes_before": global_before,
+        "source_scope": "apps/services (.py/.sql/.json/.xsd) y data/database/schema.sql; excluye ocultos, __pycache__ y enlaces",
         "fixture": fixture["prefix"],
         "topology": configuration,
     }
@@ -757,9 +761,22 @@ def run_transactions(env, budget):
             "passed" if phase["measurement_accepted"] else "completed_targets_not_met"
         )
     finally:
-        summary["hashes_after"] = source_hashes(env)
-        (directory / "summary.json").write_text(json.dumps(summary, indent=2) + "\n")
-        (directory / "summary.json").chmod(0o600)
+        try:
+            summary["hashes_after"] = source_hashes(env)
+            summary["source_hashes_after"] = source_snapshot()
+            summary["source_hashes_match"] = (
+                global_before == summary["source_hashes_after"]
+            )
+            if not summary["source_hashes_match"]:
+                summary["status"] = "failed"
+                raise RuntimeError("Fuentes globales cambiaron durante la carga")
+        except OSError:
+            summary["status"] = "failed"
+            summary["source_hashes_unavailable"] = True
+            raise
+        finally:
+            (directory / "summary.json").write_text(json.dumps(summary, indent=2) + "\n")
+            (directory / "summary.json").chmod(0o600)
 
 
 def run(env, budget, *, series=False):

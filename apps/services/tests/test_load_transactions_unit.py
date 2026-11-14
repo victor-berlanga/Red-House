@@ -439,3 +439,50 @@ def test_donor_cycle_versions_and_owned_appointment_are_reconciled():
     assert checked["expected"]["appointments"][identifier]["status"] == "CANCELLED"
     assert checked["expected"]["appointments"][identifier]["version"] == 3
     assert checked["alerts"] == {(identifier, owner["id"])}
+
+
+@pytest.mark.parametrize("changed", [False, True])
+def test_transaction_global_sources_detect_api_drift_outside_runtime_subset(
+    tmp_path, monkeypatch, changed
+):
+    from scripts import prepare_load, sustained_read
+    from tests import load_support
+
+    snapshots = iter(
+        [
+            {"apps/services/ms_donantes/routes.py": "before"},
+            {"apps/services/ms_donantes/routes.py": "after" if changed else "before"},
+        ]
+    )
+    monkeypatch.setattr(prepare_load, "source_snapshot", lambda: next(snapshots))
+    monkeypatch.setattr(
+        sustained_read, "source_hashes", lambda _env: {"runtime": "same"}
+    )
+    monkeypatch.setattr(sustained_read, "topology", lambda _env: {})
+    monkeypatch.setattr(sustained_read, "runtime_topology", lambda _env: {})
+    monkeypatch.setattr(
+        load_support,
+        "prepare_transaction_fixture",
+        lambda _env: {"accounts": [], "prefix": "test", "profile_id": "test"},
+    )
+    monkeypatch.setattr(
+        sustained_read,
+        "run_phase",
+        lambda *_args, **_kwargs: {
+            "execution_valid": True,
+            "measurement_accepted": True,
+        },
+    )
+    env = SimpleNamespace(
+        directory=tmp_path, state={}, save=lambda: None, start=lambda: None
+    )
+    if changed:
+        with pytest.raises(RuntimeError, match="Fuentes globales"):
+            sustained_read.run_transactions(env, lambda _directory: None)
+    else:
+        sustained_read.run_transactions(env, lambda _directory: None)
+    report = json.loads(next(tmp_path.glob("transactions-*/summary.json")).read_text())
+    assert report["source_hashes_match"] is not changed
+    assert report["status"] == ("failed" if changed else "passed")
+    assert report["hashes_before"] == report["hashes_after"]
+    assert "apps/services/ms_donantes/routes.py" in report["source_hashes_before"]
