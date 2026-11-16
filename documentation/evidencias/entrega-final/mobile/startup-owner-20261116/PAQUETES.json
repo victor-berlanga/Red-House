@@ -5,7 +5,8 @@
       "gateway": "https://34.18.186.116",
       "lab_assets_absent": true,
       "private_reference": ".local/artifacts/mobile/final-startup-owner-build-20261116-02/RedHouse-normal-debug.apk",
-      "binary_published": false
+      "binary_published": false,
+      "installed_for_controlled_visual_test_in_emulator": true
     },
     "normal": {
       "variant": "normal",
@@ -75,7 +76,11 @@
       "lab": "2026-11-21T18:32:33Z"
     },
     "coverage_through_2026_11_23": false,
-    "installed_or_activated": false,
+    "installed_or_activated": {
+      "android_controlled_visual": true,
+      "ios_normal": false,
+      "ios_lab": false
+    },
     "private_provenance_hashes": {
       "artifacts.json": "9bb0e968d991275f5ab760b289934bff649e19b4ae8410a56a7b4d1b2860d4fb",
       "plan.json": "e838e2c0e072cb98ffafdba5eb0c75e862266cc5e48be5943b69b3a284308c69",

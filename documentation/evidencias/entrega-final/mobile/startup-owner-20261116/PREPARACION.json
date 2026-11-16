@@ -5,7 +5,15 @@
   "product_failures_attributed": false,
   "original_logs_preserved": true,
   "normal_ios_and_lab_compiled": true,
-  "installation_pending": true,
-  "visual_restore_retry_pending": true,
-  "visual_candidate_is_private": true
+  "installation_pending": {
+    "ios_normal": true,
+    "ios_lab": true,
+    "android_controlled_ui": false
+  },
+  "visual_restore_retry_pending": {
+    "android_controlled_state": false,
+    "ios_current_build": true
+  },
+  "visual_candidate_is_private": true,
+  "android_controlled_visual_summary": "visual/summary.json"
 }

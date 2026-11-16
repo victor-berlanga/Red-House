@@ -1,0 +1,25 @@
+{
+  "visual_test": "PASS",
+  "visual_cases": 1,
+  "technical_network_precondition": "Separate probe passed before synthetic record; not a second business/UI criterion",
+  "image_sha256": "efa3eec027750dfb47c69917712fc29ab318be2dcc08878df77975a8f99a744e",
+  "product_sha256": "10dd299c7b1d9f5c039ebb12470bf707e646ec5edbed87f5afa1a4459e08287d",
+  "private_test_apk_sha256": "be82da5d8c4595370ba6df293234742fcbe86d71686f41895387d346ff2e6b53",
+  "actual_credential_usage": false,
+  "fresh_tls_or_login_proof": false,
+  "cleanup": {
+    "stores_restored": true,
+    "uid_rules_removed": true,
+    "adbd_privilege_restored": true,
+    "emulator_kill_sent_by_root": true
+  },
+  "earlier_startup_preparation": [
+    "First emulator invocation omitted ANDROID_AVD_HOME; it did not start.",
+    "Next cold boot exceeded the 45-second initial wait; subsequent boot_completed=1 allowed this single visual execution."
+  ],
+  "duplicate_visual_execution": false,
+  "unmodified_source_log_hashes": {
+    "visual-instrumentation.log": "a675b64c49e17d0bf27203626e91e2bf5a34908829f33124c2830117425d4af6",
+    "network-probe.log": "500c14203a328f5fdd94db7ddb5b87e66c9449640020798c60a511c8d76558ca"
+  }
+}

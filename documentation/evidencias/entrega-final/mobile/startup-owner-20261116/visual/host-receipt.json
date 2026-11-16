@@ -1,0 +1,40 @@
+{
+  "started_at": "2026-11-16T23:11:37.640218+00:00",
+  "scope": "Real normal APK UI, controlled synthetic record; no real authentication/TLS assertion",
+  "serial": "emulator-5554",
+  "normal_product_sha256": "10dd299c7b1d9f5c039ebb12470bf707e646ec5edbed87f5afa1a4459e08287d",
+  "test_apk_sha256": "be82da5d8c4595370ba6df293234742fcbe86d71686f41895387d346ff2e6b53",
+  "captures": 1,
+  "network_verified_before_synthetic_record": true,
+  "stores_restored": true,
+  "network_restored": true,
+  "adbd_initial_uid": "2000",
+  "real_credentials_used": false,
+  "http_probe_used": false,
+  "fixture_started": false,
+  "flag_secure_removed": false,
+  "image_review_pending": true,
+  "trial": "4ccc633532f844de88a4a588538d3507",
+  "network_proof": {
+    "trial": "4ccc633532f844de88a4a588538d3507",
+    "uid": 10130,
+    "ipv4_rejected_packets": 1,
+    "ipv6_rejected_packets": 0,
+    "ipv6_default_route": false,
+    "ipv6_guarded": true,
+    "both_uid_rules_verified": true
+  },
+  "image_sha256": "efa3eec027750dfb47c69917712fc29ab318be2dcc08878df77975a8f99a744e",
+  "image": "startup-retry.png",
+  "adbd_privilege_restored": true,
+  "capture_error_types": [],
+  "finished_at": "2026-11-16T23:12:07.979772+00:00",
+  "review": {
+    "reviewed_by": "Root",
+    "scope": "Actual Retry screen legible: brand/message/button; no login fields, gateway or protected data. Controlled synthetic state only; no real login or TLS acceptance.",
+    "image_original_unedited": true,
+    "peripheral_emulator_bar_and_Dock_retained": true,
+    "original_private_host_receipt_sha256": "9e277513e29162ce38e090d84dc40d794e17584fd31d47e62411523a9ee2e418",
+    "completed_after_capture": true
+  }
+}
