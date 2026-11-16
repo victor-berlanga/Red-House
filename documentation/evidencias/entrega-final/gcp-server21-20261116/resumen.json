@@ -1,0 +1,454 @@
+{
+  "status": "passed",
+  "target": {
+    "project": "sistemas-integracion-01",
+    "instance": "red-house",
+    "zone": "me-central1-a",
+    "id": "2861822465669755197",
+    "ip": "34.18.186.116"
+  },
+  "runtime": {
+    "healthy": 30,
+    "apps_updated": 25,
+    "infrastructure_unchanged": 5,
+    "candidate_images": 13,
+    "source_files": 21,
+    "backend": "monolith",
+    "storage_provider": "LOCAL"
+  },
+  "migration": {
+    "from": 20,
+    "to": 21,
+    "physical_tables": 115,
+    "physical_rows": 1311517,
+    "rows_and_hashes_equal": true,
+    "prior_history_equal": true,
+    "grants_equal": true,
+    "columns_equal": true,
+    "additive_index_only": true
+  },
+  "backup": {
+    "bytes": 51233064,
+    "sha256": "372c9514834ca1ba93de529a05fd2dffc66f46aaf2e97bcadabba499deb3a671",
+    "catalogue_valid": true,
+    "restore_tested": false
+  },
+  "protected_contracts": {
+    "passed": true,
+    "checks": 40,
+    "revoked_families": 3,
+    "business_writes": false,
+    "session_writes": true,
+    "process_exit": 0,
+    "images_verified": true,
+    "probe_sha256": "1d89226996d52515c247e22d35cc50397ef6612632e56734ad9d51ed13073437",
+    "checks_detail": [
+      {
+        "service": "identidad-acceso",
+        "replica": "a",
+        "operation": "login",
+        "representation": "application/json",
+        "http": 200,
+        "correlation_id": "a374455f-777e-4ff5-9fa4-dd6ed4a67b08"
+      },
+      {
+        "service": "identidad-acceso",
+        "replica": "a",
+        "operation": "me",
+        "representation": "application/json",
+        "http": 200,
+        "correlation_id": "36d39186-05b8-40bb-995d-37cd77d929cb"
+      },
+      {
+        "service": "identidad-acceso",
+        "replica": "a",
+        "operation": "me",
+        "representation": "application/xml",
+        "http": 200,
+        "correlation_id": "1981c38e-51af-40ff-8294-5ccea12e7db4"
+      },
+      {
+        "service": "identidad-acceso",
+        "replica": "b",
+        "operation": "me",
+        "representation": "application/json",
+        "http": 200,
+        "correlation_id": "58f66f00-1429-4d70-8978-51e380460a4b"
+      },
+      {
+        "service": "identidad-acceso",
+        "replica": "b",
+        "operation": "me",
+        "representation": "application/xml",
+        "http": 200,
+        "correlation_id": "90491ef8-b9e9-4513-a7f1-626ac4457aa4"
+      },
+      {
+        "service": "identidad-acceso",
+        "replica": "a",
+        "operation": "login",
+        "representation": "application/json",
+        "http": 200,
+        "correlation_id": "54964dea-6d2e-4b21-8475-60d9139bf1b2"
+      },
+      {
+        "service": "identidad-acceso",
+        "replica": "a",
+        "operation": "me",
+        "representation": "application/json",
+        "http": 200,
+        "correlation_id": "a7483e18-6591-465f-bb9a-c962897c81f9"
+      },
+      {
+        "service": "identidad-acceso",
+        "replica": "a",
+        "operation": "me",
+        "representation": "application/xml",
+        "http": 200,
+        "correlation_id": "e9484b97-f13e-41c3-99cc-22a68ff49219"
+      },
+      {
+        "service": "identidad-acceso",
+        "replica": "b",
+        "operation": "me",
+        "representation": "application/json",
+        "http": 200,
+        "correlation_id": "4f436d69-980f-41ae-aec0-9653b9509af1"
+      },
+      {
+        "service": "identidad-acceso",
+        "replica": "b",
+        "operation": "me",
+        "representation": "application/xml",
+        "http": 200,
+        "correlation_id": "ddb7a319-8d30-4b03-a068-a014776cc204"
+      },
+      {
+        "service": "identidad-acceso",
+        "replica": "a",
+        "operation": "login",
+        "representation": "application/json",
+        "http": 200,
+        "correlation_id": "3b9dba47-2569-4f87-afb5-2ebf8c269db5"
+      },
+      {
+        "service": "identidad-acceso",
+        "replica": "a",
+        "operation": "me",
+        "representation": "application/json",
+        "http": 200,
+        "correlation_id": "50723e29-df27-4fff-b510-cd25c133e5c2"
+      },
+      {
+        "service": "identidad-acceso",
+        "replica": "a",
+        "operation": "me",
+        "representation": "application/xml",
+        "http": 200,
+        "correlation_id": "f268c49f-96b5-488a-88d5-d9cf4bcc108b"
+      },
+      {
+        "service": "identidad-acceso",
+        "replica": "b",
+        "operation": "me",
+        "representation": "application/json",
+        "http": 200,
+        "correlation_id": "7a4e1663-3f23-42ea-a4df-061d02120a6f"
+      },
+      {
+        "service": "identidad-acceso",
+        "replica": "b",
+        "operation": "me",
+        "representation": "application/xml",
+        "http": 200,
+        "correlation_id": "d96814d4-1779-4b92-b605-a96701d9c954"
+      },
+      {
+        "service": "donantes",
+        "replica": "a",
+        "operation": "campaign_slots_list",
+        "representation": "application/json",
+        "http": 200,
+        "correlation_id": "1de7c6a0-7919-4b19-ac22-38b261282e61"
+      },
+      {
+        "service": "donantes",
+        "replica": "a",
+        "operation": "campaign_slots_detail",
+        "representation": "application/json",
+        "http": 200,
+        "correlation_id": "2f934965-36b1-45d7-8625-0ca731c1e939"
+      },
+      {
+        "service": "donantes",
+        "replica": "a",
+        "operation": "campaign_slots_detail",
+        "representation": "application/json",
+        "http": 403,
+        "correlation_id": "491d8458-d71d-45ff-8031-604ccbe4d0fc"
+      },
+      {
+        "service": "documentos",
+        "replica": "a",
+        "operation": "export_list",
+        "representation": "application/json",
+        "http": 200,
+        "correlation_id": "e380e28d-b1a9-4a43-88e2-ea21ae864df5"
+      },
+      {
+        "service": "donantes",
+        "replica": "a",
+        "operation": "campaign_slots_list",
+        "representation": "application/xml",
+        "http": 200,
+        "correlation_id": "ceb12f39-6c28-4f0c-9633-8f9d8f3688be"
+      },
+      {
+        "service": "donantes",
+        "replica": "a",
+        "operation": "campaign_slots_detail",
+        "representation": "application/xml",
+        "http": 200,
+        "correlation_id": "8cf73b7a-1778-4303-b7be-bd372cbc076e"
+      },
+      {
+        "service": "donantes",
+        "replica": "a",
+        "operation": "campaign_slots_detail",
+        "representation": "application/xml",
+        "http": 403,
+        "correlation_id": "c70aff73-8814-47e7-9459-43578f87898b"
+      },
+      {
+        "service": "documentos",
+        "replica": "a",
+        "operation": "export_list",
+        "representation": "application/xml",
+        "http": 200,
+        "correlation_id": "a7909176-6da7-4578-86e9-617135d11fd2"
+      },
+      {
+        "service": "donantes",
+        "replica": "b",
+        "operation": "campaign_slots_list",
+        "representation": "application/json",
+        "http": 200,
+        "correlation_id": "4200e385-4e0a-4c3e-804b-a82bef32be10"
+      },
+      {
+        "service": "donantes",
+        "replica": "b",
+        "operation": "campaign_slots_detail",
+        "representation": "application/json",
+        "http": 200,
+        "correlation_id": "11dd09f8-aa8d-45fa-baf9-b0d57aa9dc13"
+      },
+      {
+        "service": "donantes",
+        "replica": "b",
+        "operation": "campaign_slots_detail",
+        "representation": "application/json",
+        "http": 403,
+        "correlation_id": "da8770ed-dc99-4e90-9f5c-9147ed33f789"
+      },
+      {
+        "service": "documentos",
+        "replica": "b",
+        "operation": "export_list",
+        "representation": "application/json",
+        "http": 200,
+        "correlation_id": "edf3a390-eb2a-4cd9-9d2c-be5f9c3fec5d"
+      },
+      {
+        "service": "donantes",
+        "replica": "b",
+        "operation": "campaign_slots_list",
+        "representation": "application/xml",
+        "http": 200,
+        "correlation_id": "cfd4f780-bdd2-4a09-b377-80dccb51da66"
+      },
+      {
+        "service": "donantes",
+        "replica": "b",
+        "operation": "campaign_slots_detail",
+        "representation": "application/xml",
+        "http": 200,
+        "correlation_id": "7216b2c7-ac2e-43a5-a3c2-ddd04ac1d1b9"
+      },
+      {
+        "service": "donantes",
+        "replica": "b",
+        "operation": "campaign_slots_detail",
+        "representation": "application/xml",
+        "http": 403,
+        "correlation_id": "42645ec5-58bd-4c78-bd79-4abb4edfce05"
+      },
+      {
+        "service": "documentos",
+        "replica": "b",
+        "operation": "export_list",
+        "representation": "application/xml",
+        "http": 200,
+        "correlation_id": "bb020ebb-b897-4124-871e-b93f1a1b49ef"
+      },
+      {
+        "service": "identidad-acceso",
+        "replica": "a",
+        "operation": "revoke",
+        "representation": "application/json",
+        "http": 200,
+        "correlation_id": "f316f209-afc2-459d-80c3-26f7aee52a50"
+      },
+      {
+        "service": "identidad-acceso",
+        "replica": "a",
+        "operation": "me",
+        "representation": "application/json",
+        "http": 401,
+        "correlation_id": "03ce1f6f-de86-408f-b7ab-7572eb1ec0a9"
+      },
+      {
+        "service": "identidad-acceso",
+        "replica": "b",
+        "operation": "me",
+        "representation": "application/json",
+        "http": 401,
+        "correlation_id": "432e50c3-0538-4ef2-8b28-69081a4123bf"
+      },
+      {
+        "service": "identidad-acceso",
+        "replica": "a",
+        "operation": "revoke",
+        "representation": "application/json",
+        "http": 200,
+        "correlation_id": "237d1264-efdb-4897-9f83-778b1b6a8bcd"
+      },
+      {
+        "service": "identidad-acceso",
+        "replica": "a",
+        "operation": "me",
+        "representation": "application/json",
+        "http": 401,
+        "correlation_id": "d1ac7ac3-6f84-437e-b06a-d664b3ecbdc3"
+      },
+      {
+        "service": "identidad-acceso",
+        "replica": "b",
+        "operation": "me",
+        "representation": "application/json",
+        "http": 401,
+        "correlation_id": "6cb99aeb-9514-4b42-9d28-dc4ca4a7fe04"
+      },
+      {
+        "service": "identidad-acceso",
+        "replica": "a",
+        "operation": "revoke",
+        "representation": "application/json",
+        "http": 200,
+        "correlation_id": "9935605f-3ea6-461f-bb10-2c7f09aeea45"
+      },
+      {
+        "service": "identidad-acceso",
+        "replica": "a",
+        "operation": "me",
+        "representation": "application/json",
+        "http": 401,
+        "correlation_id": "ae2ac899-d539-4c25-b3fc-915ebd3f2332"
+      },
+      {
+        "service": "identidad-acceso",
+        "replica": "b",
+        "operation": "me",
+        "representation": "application/json",
+        "http": 401,
+        "correlation_id": "9ee8c486-9e9f-4fc2-a1ca-52f58f3d47f6"
+      }
+    ]
+  },
+  "public_checks": [
+    {
+      "round": 1,
+      "path": "/health/live",
+      "http": 200,
+      "at_epoch": 1794869839.6322453,
+      "tls_verified": true,
+      "maintenance": false,
+      "same_url": true
+    },
+    {
+      "round": 1,
+      "path": "/login",
+      "http": 200,
+      "at_epoch": 1794869839.7787108,
+      "tls_verified": true,
+      "maintenance": false,
+      "same_url": true
+    },
+    {
+      "round": 2,
+      "path": "/health/live",
+      "http": 200,
+      "at_epoch": 1794869844.7904437,
+      "tls_verified": true,
+      "maintenance": false,
+      "same_url": true
+    },
+    {
+      "round": 2,
+      "path": "/login",
+      "http": 200,
+      "at_epoch": 1794869844.8047757,
+      "tls_verified": true,
+      "maintenance": false,
+      "same_url": true
+    }
+  ],
+  "tls": {
+    "checked_at": "2026-11-16T22:57:24.859881+00:00",
+    "not_after": "2026-11-21T15:14:23+00:00",
+    "certificate_sha256": "a5c19375af97ae6d4beef5a8a16ae939512052670bf0fc804b63397cbff3e737",
+    "tls_trust_and_ip_validated": true,
+    "delivery_day_end_utc": "2026-11-24T06:00:00+00:00",
+    "covers_delivery_day_end": false,
+    "renewal_timer": {
+      "NextElapseUSecRealtime": "Tue 2026-11-17 00:14:37 UTC",
+      "LastTriggerUSec": "Mon 2026-11-16 18:08:28 UTC",
+      "LoadState": "loaded",
+      "ActiveState": "active",
+      "UnitFileState": "enabled"
+    },
+    "timer_query_exit_code": 0,
+    "renewal_service": {
+      "Result": "success",
+      "ExecMainExitTimestamp": "Mon 2026-11-16 18:08:29 UTC",
+      "ExecMainStatus": "0",
+      "LoadState": "loaded"
+    },
+    "service_query_exit_code": 0,
+    "renewal_performed": false
+  },
+  "cleanup_duplicates": {
+    "files_removed": 794,
+    "identical_duplicate_bytes_removed": 949001048,
+    "all_originals_retained": true,
+    "operational_configuration_or_database_dumps_at_deployment_root_removed": false,
+    "disk_free_before": 1518141440,
+    "disk_free_after": 2468855808
+  },
+  "access_cleanup": {
+    "temporary_key_removed": true,
+    "prior_keys_preserved": 2,
+    "private_key_deleted": true,
+    "validation_action": "publication"
+  },
+  "limits": {
+    "backup_restore_tested": false,
+    "load_capacity_gcp_tested": false,
+    "open_original_exit": 1,
+    "open_http_error_status_recorded": false,
+    "final_check_independent": true,
+    "failure_cause": "not established; later public checks passed",
+    "first_image_permission_failure_retained": true,
+    "rollback_executed": false
+  }
+}

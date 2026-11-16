@@ -2,6 +2,12 @@
 
 Las entradas están ordenadas de reciente a histórico; un pendiente de un corte anterior puede quedar sustituido explícitamente por una entrada posterior.
 
+## Servicios y esquema 21 publicados en la GCP de Red House — 16/11/2026
+
+[Publicación comprobada](documentation/evidencias/entrega-final/gcp-server21-20261116/RESULTADOS.md) en `sistemas-integracion-01/red-house/me-central1-a`: trece imágenes, 25 aplicaciones actualizadas y 30 contenedores saludables; cinco de infraestructura conservados. Portal monolítico y archivos LOCAL. Respaldo con catálogo válido; migración 20→21 conserva 115 tablas/1.311.517 filas físicas por huella, historial, columnas y permisos. Cuarenta controles JSON/XML por réplica aprobaron, incluidos 403 institucional y revocación de tres familias técnicas. Acceso público HTTPS comprobado; clave temporal retirada conservando las dos anteriores.
+
+Se conservan los fallos previos de acceso, preparación de permisos y primer control público de `open`. Una validación posterior independiente aprobó con el servicio sano; no se atribuye causa al HTTPError cuyo código no quedó registrado. Limpieza exacta de 794 copias duplicadas liberó 949.001.048 bytes conservando originales y respaldos. Sin restauración de dump, rollback ni carga GCP ensayados. Certificado observado vigente hasta el 21/11, temporizador habilitado; comprobar renovación antes del 23. Esto publica el lote de servidor, no cierra todas las etapas de entrega.
+
 ## Carga de doce identidades: latencia aprobada, propagación todavía pendiente — 16/11/2026
 
 [Repetición única](documentation/evidencias/entrega-final/carga-20261114/transacciones-12-repeticion-20261116/RESULTADOS.md), reutilizando el fixture en esquema 21: 1.270 HTTP sin fallos durante 120,043 s; p95 máximo de lectura 800 ms y de recorridos 3.800 ms. Entre calentamiento, medición y drenado quedaron 756 escrituras confirmadas, ninguna incierta y doce repeticiones idempotentes. El oráculo integral venció a los 30,17 s y la ejecución conserva **exit 1**; no se acepta la carga completa ni se sustituye el fallo anterior.
