@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "documents": [
+    "cfc8aabe-a408-4d74-b036-82f77b84c00a"
+  ],
+  "checks": [
+    "GCS egress denied: verify 503 and download 409; same UUID recovered and exact bytes downloaded with CA validation"
+  ],
+  "scenario": "gcs-failure",
+  "scope": [
+    "I06-05"
+  ],
+  "mutations": {
+    "prepare": 0,
+    "verify": 2
+  }
+}

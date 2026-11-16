@@ -126,6 +126,8 @@ def bounded_signing(credentials, auth_request):
 
 def signed_url(blob, method, mime=None):
     try:
+        if method == "GET" and blob.generation is None:
+            raise ValueError("Verified object generation is required.")
         return blob.generate_signed_url(
             credentials=current_app.extensions.get("gcs_signing"),
             version="v4",
@@ -133,6 +135,8 @@ def signed_url(blob, method, mime=None):
             method=method,
             content_type=mime,
             headers={"x-goog-if-generation-match": "0"} if method == "PUT" else None,
+            generation=str(blob.generation) if method == "GET" else None,
+            response_disposition="attachment" if method == "GET" else None,
         )
     except Exception:  # noqa: BLE001 - SDK/auth boundary returns a sanitized dependency error
         raise APIError(

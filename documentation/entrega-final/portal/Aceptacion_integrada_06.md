@@ -1,5 +1,11 @@
 # Portal 03: ensayo pendiente de aceptación integrada en 06
 
+## I06-05: rama GCS recuperada desde Chrome — 16/11/2026
+
+[Segundo intento aprobado](../../evidencias/entrega-final/gcs-recuperacion-20261116/RESULTADOS.md): corte del SDK GCS aislado después de cargar un objeto sintético propio; verificación 503/descarga 409, mismo UUID y generación recuperados con ClamD real CLEAN y bytes exactos. Firma GET fija la generación y solicita descarga; primer intento fallido por apertura inline conservado. Limpieza por generación y ausencia confirmadas, sin cambios IAM ni objetos históricos. Dirección inspeccionó ambas pantallas reales; 1.322 fuentes estables y 41 procesos cerrados.
+
+Con la rama ClamD aceptada el 14/11, **I06-05 queda aceptado para los dos cortes aislados documentados**, realizados por separado. No acredita fallo durante PUT, política nativa de retención GCS ni despliegue de las nuevas fuentes. El producto conserva LOCAL como proveedor predeterminado.
+
 ## I06-06: tres formatos y revocación desde Chrome — 16/11/2026
 
 [Recorrido local](../../evidencias/entrega-final/portal-reportes-20261116/RESULTADOS.md), segundo intento aprobado 1/1: CSV/PDF/XLSX de 1.003 filas autorizadas, generación/ClamD/descarga reales, orden y bytes exactos. Revocación después de completar y antes de solicitar descarga confirmada en SQL/Redis; cero firmas nuevas. Nueva sesión del propietario descargó los mismos archivos. Primer fallo PDF conservado; fuentes/objetos históricos y diagnóstico separados. Dirección inspeccionó salida PDF y pantallas reales.

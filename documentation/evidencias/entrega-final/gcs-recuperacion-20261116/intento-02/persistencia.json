@@ -1,0 +1,22 @@
+{
+  "same_uuid": true,
+  "same_generation": true,
+  "prepare_count": 1,
+  "verify_attempts": 2,
+  "error": "storage_unavailable",
+  "error_http": 503,
+  "download_blocked_http": 409,
+  "recovered_status": "VERIFIED",
+  "scan": "CLEAN",
+  "download_sha256": "69c0968d87945cf84f13efbfdafde032b66d43ddce05572eef2def85173cc85f",
+  "real_gcs": true,
+  "gcs_tls_ca_validation": true,
+  "proxy": {
+    "accepted": 3,
+    "rejected": 1,
+    "closed_on_cut": 1
+  },
+  "scanner_processes": 1,
+  "backend": "monolith_without_api_listeners",
+  "scope": "Documentos SDK egress; preparation/PUT precede fault"
+}

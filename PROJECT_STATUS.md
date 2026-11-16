@@ -2,6 +2,12 @@
 
 Las entradas están ordenadas de reciente a histórico; un pendiente de un corte anterior puede quedar sustituido explícitamente por una entrada posterior.
 
+## Recuperación GCS y firma de generación comprobadas — 16/11/2026
+
+[I06-05 GCS](documentation/evidencias/entrega-final/gcs-recuperacion-20261116/RESULTADOS.md): segundo recorrido Chrome 1/1, 92,39 s de pytest. Corte aislado del SDK tras cargar un PNG sintético: verificación 503, descarga 409 y ERROR sin análisis aceptado; restauración del mismo UUID/generación a VERIFIED/CLEAN y descarga exacta. Limpieza propia con precondición y ausencia confirmadas. TLS GCS validado, 1.322 fuentes estables y 41 procesos propios cerrados; dirección inspeccionó error/recuperación.
+
+La URL GET firma explícitamente la generación analizada y descarga como archivo; no basta la generación guardada en el Blob del SDK. Sin generación rechaza seguro. Tres pruebas del firmante SDK aprobadas, sin red. Primer Chrome fallido por apertura inline conservado con su limpieza confirmada. Producto mantiene LOCAL predeterminado; no hubo IAM, recursos nuevos, datos históricos ni despliegue de estas fuentes. I06-05 queda aceptado en los cortes ClamD/GCS ensayados por separado; demás criterios y etapa 06 permanecen abiertos.
+
 ## Reportes privados completos desde Chrome — 16/11/2026
 
 [I06-06 local](documentation/evidencias/entrega-final/portal-reportes-20261116/RESULTADOS.md): segundo recorrido 1/1 aprobado, 112,920 s de lanzador. CSV/PDF/XLSX con 1.003 filas autorizadas, orden/bytes/hash/eventos exactos, ClamD real CLEAN. Revocación después de completar y antes de descargar confirmada en SQL/Redis; cero firmas nuevas y Chrome regresó al login. Nueva sesión propia descargó los tres archivos. 1.322 fuentes estables y 42 procesos propios cerrados.

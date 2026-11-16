@@ -12,8 +12,13 @@ const report = { passed: false, documents: [], checks: [] };
   const initial = await commands.next();
   const input = JSON.parse(initial.value);
   const { chromium } = require(path.join(input.root, '.local/gcp-public/browser/node_modules/playwright'));
-  const browser = await chromium.launch({ channel: 'chrome', headless: true });
-  if (input.scenario === 'scanner-failure') {
+  const gcsFailure = input.scenario === 'gcs-failure';
+  if (gcsFailure) assert.match(input.local_tls_spki, /^[A-Za-z0-9+/]{43}=$/);
+  const browser = await chromium.launch({ channel: 'chrome', headless: true,
+    // Solo el certificado efímero del portal local. GCS conserva validación CA.
+    args: gcsFailure ? ['--ignore-certificate-errors-spki-list=' + input.local_tls_spki] : [],
+  });
+  if (['scanner-failure', 'gcs-failure'].includes(input.scenario)) {
     // El orquestador puede abortar durante un control; cerrar también Chrome.
     process.once('SIGTERM', () => {
       channel.close();
@@ -24,7 +29,7 @@ const report = { passed: false, documents: [], checks: [] };
   let phase = 'login';
   try {
     async function login(username) {
-      const context = await browser.newContext({ ignoreHTTPSErrors: true, viewport: { width: 1280, height: 960 } });
+      const context = await browser.newContext({ ignoreHTTPSErrors: !gcsFailure, viewport: { width: 1280, height: 960 } });
       const page = await context.newPage();
       pages.push(page);
       await page.goto(input.base + '/login');
@@ -83,10 +88,61 @@ const report = { passed: false, documents: [], checks: [] };
     }
     async function deniedDownload(identifier) {
       assert.equal(await owner.getByRole('link', { name: 'Descargar objeto verificado', exact: true }).count(), 0);
+      if (gcsFailure) {
+        // fetch del navegador conserva TLS; APIRequestContext no usa el SPKI local.
+        const denied = await owner.evaluate(async route => {
+          const response = await fetch(route, { redirect: 'manual' });
+          return { status: response.status, location: response.headers.get('location'),
+            disposition: response.headers.get('content-disposition') };
+        }, '/archivos/' + identifier + '/descargar');
+        assert.deepEqual(denied, { status: 409, location: null, disposition: null });
+        return;
+      }
       const response = await owner.request.get(input.base + '/archivos/' + identifier + '/descargar', { maxRedirects: 0 });
       assert.equal(response.status(), 409);
       assert.equal(response.headers()['location'], undefined);
       assert.equal(response.headers()['content-disposition'], undefined);
+    }
+    if (gcsFailure) {
+      report.scenario = input.scenario;
+      report.scope = ['I06-05'];
+      const identifier = input.document;
+      assert.match(identifier, /^[0-9a-f-]{36}$/);
+      report.documents.push(identifier);
+      const mutations = { prepare: 0, verify: 0 };
+      owner.on('request', request => {
+        if (request.method() !== 'POST') return;
+        const route = new URL(request.url()).pathname;
+        if (route === '/documentos/nuevo') mutations.prepare++;
+        if (/^\/documentos\/[0-9a-f-]{36}\/verificar$/.test(route)) mutations.verify++;
+      });
+      async function verifyExisting(expected) {
+        await owner.goto(input.base + '/documentos/' + identifier);
+        await owner.getByRole('link', { name: 'Analizar y verificar', exact: true }).click();
+        const route = '/documentos/' + identifier + '/verificar';
+        await owner.waitForURL(url => url.pathname === route);
+        const response = owner.waitForResponse(r => new URL(r.url()).pathname === route && r.request().method() === 'POST');
+        await owner.locator('form.record-form button[type=submit]').click();
+        assert.equal((await response).status(), expected);
+        if (expected === 302) await owner.waitForURL(url => url.pathname !== route);
+        else assert.ok(await owner.locator('#form-error').isVisible());
+      }
+      phase = 'gcs-denied-verify';
+      await verifyExisting(503);
+      await owner.goto(input.base + '/documentos/' + identifier);
+      await deniedDownload(identifier);
+      await owner.screenshot({ path: path.join(input.output, 'gcs-no-disponible.png'), fullPage: true });
+      await scannerControl('gcs-restore', identifier);
+      phase = 'gcs-recover-same-document';
+      await verifyExisting(302);
+      await download(identifier, input.files[0], 'gcs-descarga-recuperada.png');
+      await owner.screenshot({ path: path.join(input.output, 'gcs-mismo-documento-recuperado.png'), fullPage: true });
+      assert.deepEqual(mutations, { prepare: 0, verify: 2 });
+      report.mutations = mutations;
+      await scannerControl('gcs-complete', identifier);
+      report.checks.push('GCS egress denied: verify 503 and download 409; same UUID recovered and exact bytes downloaded with CA validation');
+      report.passed = true;
+      return;
     }
     if (input.scenario === 'scanner-failure') {
       report.scenario = input.scenario;
