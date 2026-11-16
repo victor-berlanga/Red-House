@@ -1,0 +1,24 @@
+{
+  "fixture": "/private/tmp/red-house-ms-tests-kojcusww",
+  "runtime_overrides": {
+    "INTERNAL_RATE_LIMIT": 100000,
+    "RATE_LIMIT": 100000,
+    "TESTING": true,
+    "WORKER_REQUIRED": false
+  },
+  "scope": "Functional synthetic fixture; not MFA, rate-limit or capacity acceptance",
+  "service_urls": {
+    "alertas": "http://127.0.0.1:51324",
+    "auditoria": "http://127.0.0.1:51325",
+    "compatibilidad": "http://127.0.0.1:51317",
+    "custodia": "http://127.0.0.1:51323",
+    "documentos": "http://127.0.0.1:51327",
+    "donantes": "http://127.0.0.1:51314",
+    "identidad_acceso": "http://127.0.0.1:51313",
+    "inventario": "http://127.0.0.1:51316",
+    "monitoreo": "http://127.0.0.1:51326",
+    "priorizacion_geografia": "http://127.0.0.1:51320",
+    "receptores": "http://127.0.0.1:51315",
+    "transporte": "http://127.0.0.1:51322"
+  }
+}

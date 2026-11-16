@@ -1,0 +1,72 @@
+{
+  "actor": "f181db7a-4dd9-4525-9de0-0e442836a727",
+  "appointment": {
+    "id": "0e1b5824-8f61-487d-823d-de1b987ded63",
+    "status": "BOOKED"
+  },
+  "children": [
+    {
+      "component": "RBC",
+      "folio": "E2EC-A-be873d74",
+      "id": "7e153323-64b5-481e-80ef-1a23e0bb7f00",
+      "status": "AVAILABLE",
+      "version": 3
+    },
+    {
+      "component": "PLASMA",
+      "folio": "E2EC-B-4451d93c",
+      "id": "fbdac0f5-3f27-4c55-bf7f-8266a20c54d7",
+      "status": "QUARANTINE",
+      "version": 1
+    }
+  ],
+  "collection_actor": "24de7c48-bcd9-4346-8a8a-4456d5ac5e7a",
+  "donation": {
+    "id": "f2d24138-76f2-4b38-8ec0-73b1ea09d873",
+    "status": "PROCESSED",
+    "steps": [
+      [
+        "COLLECTED",
+        "24de7c48-bcd9-4346-8a8a-4456d5ac5e7a"
+      ],
+      [
+        "PROCESSED",
+        "f181db7a-4dd9-4525-9de0-0e442836a727"
+      ]
+    ],
+    "version": 2
+  },
+  "donor": {
+    "account": "f00c833a-20d1-4968-b04b-268a65ac1ef1",
+    "display_name": "Donante Prueba iOS",
+    "folio": "LAB-IOS-DONOR-01",
+    "id": "72530dc9-f428-4e8f-90df-94f83942c4b9",
+    "status": "ELIGIBLE",
+    "tenant": "764b880a-4be2-4d69-a911-b3f36f0d8ccc"
+  },
+  "limit": "Cita y colecta enlazadas por mismo donor_id; sin FK de cita ni cierre autom\u00e1tico demostrado.",
+  "lineage": [
+    [
+      "ce97b07f-cc26-4350-89bb-39cfcdeae7ab",
+      "7e153323-64b5-481e-80ef-1a23e0bb7f00",
+      "f2d24138-76f2-4b38-8ec0-73b1ea09d873",
+      "764b880a-4be2-4d69-a911-b3f36f0d8ccc",
+      "f181db7a-4dd9-4525-9de0-0e442836a727"
+    ],
+    [
+      "ce97b07f-cc26-4350-89bb-39cfcdeae7ab",
+      "fbdac0f5-3f27-4c55-bf7f-8266a20c54d7",
+      "f2d24138-76f2-4b38-8ec0-73b1ea09d873",
+      "764b880a-4be2-4d69-a911-b3f36f0d8ccc",
+      "f181db7a-4dd9-4525-9de0-0e442836a727"
+    ]
+  ],
+  "operator": "operator1",
+  "parent": {
+    "folio": "E2EC-9c06d9f7a5",
+    "id": "ce97b07f-cc26-4350-89bb-39cfcdeae7ab",
+    "status": "WITHDRAWN",
+    "version": 2
+  },
+  "tenant": "764b880a-4be2-4d69-a911-b3f36f0d8ccc"
+}

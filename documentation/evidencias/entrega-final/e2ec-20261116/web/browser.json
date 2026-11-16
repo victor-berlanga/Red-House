@@ -1,0 +1,43 @@
+{
+  "passed": true,
+  "pages": [
+    {
+      "route": "/citas/0e1b5824-8f61-487d-823d-de1b987ded63",
+      "status": 200,
+      "state": "BOOKED"
+    },
+    {
+      "route": "/donantes/donor/72530dc9-f428-4e8f-90df-94f83942c4b9",
+      "status": 200,
+      "state": "ELIGIBLE"
+    },
+    {
+      "route": "/donaciones/f2d24138-76f2-4b38-8ec0-73b1ea09d873",
+      "status": 200,
+      "state": "PROCESSED"
+    },
+    {
+      "route": "/inventario/ce97b07f-cc26-4350-89bb-39cfcdeae7ab",
+      "status": 200,
+      "state": "WITHDRAWN"
+    },
+    {
+      "route": "/inventario/ce97b07f-cc26-4350-89bb-39cfcdeae7ab/linaje",
+      "status": 200,
+      "state": null
+    },
+    {
+      "route": "/inventario/7e153323-64b5-481e-80ef-1a23e0bb7f00",
+      "status": 200,
+      "state": "AVAILABLE"
+    },
+    {
+      "route": "/inventario/fbdac0f5-3f27-4c55-bf7f-8266a20c54d7",
+      "status": 200,
+      "state": "QUARANTINE"
+    }
+  ],
+  "javascript_errors": 0,
+  "business_posts": [],
+  "foreign_status": 403
+}

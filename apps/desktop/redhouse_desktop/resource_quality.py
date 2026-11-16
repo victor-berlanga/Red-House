@@ -48,7 +48,9 @@ def quality_dialog(window, resource, controls, work_type, display, *, release=Fa
         table.setHorizontalHeaderLabels(['Nombre', 'Producto', 'Versión'])
         table.setSelectionBehavior(QAbstractItemView.SelectRows); table.setSelectionMode(QAbstractItemView.SingleSelection)
         table.setEditTriggers(QAbstractItemView.NoEditTriggers); table.verticalHeader().hide()
-        table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch); layout.addWidget(table, 1)
+        header = table.horizontalHeader(); header.setSectionResizeMode(0, QHeaderView.Stretch)
+        header.setSectionResizeMode(1, QHeaderView.ResizeToContents); header.setSectionResizeMode(2, QHeaderView.ResizeToContents)
+        layout.addWidget(table, 1)
         navigation = QHBoxLayout(); previous = QPushButton('Anterior'); following = QPushButton('Siguiente'); refresh = QPushButton('Actualizar'); page_label = QLabel()
         for widget in (previous, page_label, following, refresh): navigation.addWidget(widget)
         navigation.addStretch(); layout.addLayout(navigation)
@@ -85,8 +87,10 @@ def quality_dialog(window, resource, controls, work_type, display, *, release=Fa
                     name = row['name'] if compatible else row['name'] + ' (no corresponde)'
                     for column, value in enumerate((name, display(row['component']), row['version'])):
                         cell = QTableWidgetItem(str(value))
+                        if column == 0: cell.setToolTip(row['name'])
                         if not compatible:
-                            cell.setFlags(cell.flags() & ~Qt.ItemIsSelectable); cell.setToolTip('El producto o tipo no corresponde a esta unidad.')
+                            cell.setFlags(cell.flags() & ~Qt.ItemIsSelectable)
+                            cell.setToolTip((row['name'] + '. ' if column == 0 else '') + 'El producto o tipo no corresponde a esta unidad.')
                         table.setItem(index, column, cell)
                 page_label.setText(f"Página {state['page']} · {state['total']} registros")
                 previous.setEnabled(state['page'] > 1); following.setEnabled(state['page'] * 20 < state['total'])
