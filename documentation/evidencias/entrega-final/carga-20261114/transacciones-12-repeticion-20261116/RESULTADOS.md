@@ -30,3 +30,11 @@ Una consulta independiente a las 22:39:59 UTC reconstruyó las 756 intenciones d
 - Inventario y Compatibilidad mostraban 134 y 268 entregas respectivamente hacia Auditoría, todas registradas como entregadas; Auditoría mostraba 697 entregas a MongoDB. Los conteos de cola corresponden solo a los eventos seleccionados, no al backlog global.
 
 La inspección observó el estado posterior, no una fotografía del instante exacto de 30 segundos. La cola pendiente indica propagación incompleta al observarla; no demuestra pérdida permanente ni que llegara después. Los dos motores iniciados por la inspección cerraron y `postmaster.pid` quedó ausente. El resultado inicial de la carga permanece fallido.
+
+## Observación posterior del worker de Donantes
+
+Una observación posterior y sin carga concurrente arrancó un solo worker Donantes, PostgreSQL, Redis y las APIs de Auditoría y Alertas. No inició Locust ni MongoDB. El subconjunto fue de **354 eventos de Donantes** de la corrida, no los 756 eventos de todos los servicios. [Métricas saneadas](observacion-worker.json) y [huellas](observacion-worker-huellas.json).
+
+La cola global pendiente de Donantes pasó de **215 a cero**: 156 entregas hacia Auditoría y 59 hacia Alertas. Dentro del subconjunto, 119 pasaron a cero; Auditoría pasó de 295 a 354 eventos y los avisos propios de 99 a 118. No se crearon recordatorios nuevos. Los tres lotes entregaron 100, 100 y 15 filas en 8,875; 8,5653 y 1,2533 segundos, sin fallos; las 215 llamadas internas tuvieron medianas aproximadas de 79,9 ms a Alertas y 83,4 ms a Auditoría.
+
+La señal de cierre llegó a los 20,010 s; el worker terminó el lote y cerró sin kill en 1,235 s adicionales. Los procesos propios cerraron, no quedó `postmaster.pid` y las fuentes/configuraciones comprobadas coincidieron. La observación demuestra entrega **posterior** en ese entorno sin tráfico concurrente. No demuestra que la corrida transaccional cumpliera el plazo de 30 s ni identifica por sí sola la causa del retraso bajo carga; el resultado original sigue fallido.

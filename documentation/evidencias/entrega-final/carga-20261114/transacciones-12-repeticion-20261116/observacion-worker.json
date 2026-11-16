@@ -1,0 +1,173 @@
+{
+  "resumen": {
+    "status": "observado",
+    "sin_locust": true,
+    "trabajador": "donantes",
+    "sql_read_only": true,
+    "eventos_seleccionados": 354,
+    "duracion_hasta_senal_s": 20.01,
+    "worker_forced": false,
+    "drenado_tras_senal_s": 1.235,
+    "nuevos_recordatorios": 0,
+    "worker_exit": 0,
+    "fuentes_config_iguales": true,
+    "procesos_propios_cerrados": true,
+    "pg_pid_ausente": true
+  },
+  "antes": {
+    "utc": 1794869191.625995,
+    "cola_global_donantes": [
+      {
+        "target": "alertas",
+        "pending": false,
+        "count": 668,
+        "attempted": 668,
+        "future": 0
+      },
+      {
+        "target": "alertas",
+        "pending": true,
+        "count": 59,
+        "attempted": 0,
+        "future": 0
+      },
+      {
+        "target": "auditoria",
+        "pending": false,
+        "count": 3699,
+        "attempted": 3699,
+        "future": 0
+      },
+      {
+        "target": "auditoria",
+        "pending": true,
+        "count": 156,
+        "attempted": 1,
+        "future": 0
+      }
+    ],
+    "cola_eventos_carga": [
+      {
+        "target": "alertas",
+        "pending": false,
+        "count": 295,
+        "attempted": 295,
+        "future": 0
+      },
+      {
+        "target": "alertas",
+        "pending": true,
+        "count": 59,
+        "attempted": 0,
+        "future": 0
+      },
+      {
+        "target": "auditoria",
+        "pending": false,
+        "count": 294,
+        "attempted": 294,
+        "future": 0
+      },
+      {
+        "target": "auditoria",
+        "pending": true,
+        "count": 60,
+        "attempted": 1,
+        "future": 0
+      }
+    ],
+    "recordatorios_origen_total": 10,
+    "eventos_auditoria_presentes": 295,
+    "avisos_presentes": 99
+  },
+  "despues": {
+    "utc": 1794869215.370222,
+    "cola_global_donantes": [
+      {
+        "target": "alertas",
+        "pending": false,
+        "count": 727,
+        "attempted": 727,
+        "future": 0
+      },
+      {
+        "target": "auditoria",
+        "pending": false,
+        "count": 3855,
+        "attempted": 3855,
+        "future": 0
+      }
+    ],
+    "cola_eventos_carga": [
+      {
+        "target": "alertas",
+        "pending": false,
+        "count": 354,
+        "attempted": 354,
+        "future": 0
+      },
+      {
+        "target": "auditoria",
+        "pending": false,
+        "count": 354,
+        "attempted": 354,
+        "future": 0
+      }
+    ],
+    "recordatorios_origen_total": 10,
+    "eventos_auditoria_presentes": 354,
+    "avisos_presentes": 118
+  },
+  "lotes": [
+    {
+      "seconds": 8.875,
+      "result": {
+        "delivered": 100,
+        "failed": 0
+      },
+      "failure": null
+    },
+    {
+      "seconds": 8.5653,
+      "result": {
+        "delivered": 100,
+        "failed": 0
+      },
+      "failure": null
+    },
+    {
+      "seconds": 1.2533,
+      "result": {
+        "delivered": 15,
+        "failed": 0
+      },
+      "failure": null
+    }
+  ],
+  "recordatorios": [
+    {
+      "seconds": 0.0647,
+      "failure": null
+    },
+    {
+      "seconds": 0.0047,
+      "failure": null
+    }
+  ],
+  "llamadas": {
+    "alertas": {
+      "count": 59,
+      "median_ms": 79.914,
+      "min_ms": 73.513,
+      "max_ms": 124.448,
+      "failures": 0
+    },
+    "auditoria": {
+      "count": 156,
+      "median_ms": 83.34299999999999,
+      "min_ms": 69.166,
+      "max_ms": 181.224,
+      "failures": 0
+    }
+  }
+}
