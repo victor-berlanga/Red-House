@@ -38,6 +38,7 @@ USER_CREATION_ENABLED = True
 
 LABELS = {'OPERATOR':'Operador', 'MEDICAL':'Personal médico', 'COORDINATOR':'Coordinación', 'ADMIN':'Administración', 'AUDITOR':'Auditoría', 'QUARANTINE':'En cuarentena', 'AVAILABLE':'Disponible', 'BLOOD':'Sangre', 'ORGAN':'Órgano', 'OPEN':'Abierta', 'IN_PROGRESS':'En curso', 'RESERVED':'Reservada', 'PREPARED':'Preparado', 'COLLECTED':'Recolectado', 'IN_TRANSIT':'En tránsito', 'DELIVERED':'Entregado', 'ACCEPTED':'Aceptado', 'CANCELLED':'Cancelado', 'INCIDENT':'Incidencia', 'CAPTURED':'Capturado', 'AUTHORIZED':'Autorizado', 'REQUESTED':'Solicitada', 'RECEIVED':'Recibida', 'REJECTED':'Rechazada', 'ACKNOWLEDGED':'Reconocido', 'CLOSED':'Cerrado', 'RBC':'Eritrocitos', 'PLASMA':'Plasma', 'PLATELETS':'Plaquetas', 'RESOURCE_RESERVED':'Unidad reservada', 'SHIPMENT_CREATED':'Traslado registrado', 'REQUEST_CREATED':'Solicitud registrada', 'APPOINTMENT_BOOKED':'Cita programada', 'INVENTORY':'Inventario', 'EXPIRY':'Caducidad', 'REQUESTS':'Solicitudes', 'SHIPMENTS':'Traslados', 'ACTIVITY':'Actividad', 'PENDING':'Pendiente', 'COMPLETE':'Listo', 'FAILED':'No disponible'}
 LABELS.update({'WITHDRAWN':'Retirada','PLANNED':'Planeado','ACTIVE':'Activo','INACTIVE':'Inactivo','KIDNEY':'Riñón','LIVER':'Hígado','HEART':'Corazón'})
+LABELS.update({'DONOR_REVIEWED':'Evaluación del donante registrada', 'APPOINTMENT_RESCHEDULE':'Cita reprogramada', 'SHIPMENT_PREPARED':'Traslado preparado', 'SHIPMENT_PLANNED':'Traslado programado', 'INFO':'Informativo'})
 
 def label(value):
     return LABELS.get(str(value), str(value)) if value is not None else '—'
@@ -1701,10 +1702,16 @@ class Window(QMainWindow):
         item=self.selected()
         if self.uncertain: self.status.setText('Actualiza la lista y verifica el estado antes de continuar.'); return
         if not item: self.status.setText('Selecciona un aviso.'); return
+        if not self.client or not self.client.user: self.status.setText('Inicia sesión para atender el aviso.'); return
         if item.get('status') in ('ACKNOWLEDGED','CLOSED'): self.status.setText('El aviso ya fue atendido.'); return
-        if QMessageBox.question(self,'Acusar recibo','¿Confirmas que leíste este aviso?') != QMessageBox.Yes: return
-        key=str(uuid.uuid4())
-        self.run(lambda:self.durable('alert_ack',item['id'],None),lambda _:self.received(),'Registrando acuse…')
+        client=self.client; actor=(client.user.get('id'),client.user.get('tenant_id'),client.user.get('role'))
+        dialog=QMessageBox(self); dialog.setWindowTitle('Acusar recibo'); dialog.setText('¿Confirmas que leíste este aviso?'); dialog.setIcon(QMessageBox.Question)
+        confirm=dialog.addButton('Confirmar',QMessageBox.AcceptRole); cancel=dialog.addButton('Cancelar',QMessageBox.RejectRole)
+        dialog.setDefaultButton(cancel); dialog.setEscapeButton(cancel); dialog.exec()
+        if dialog.clickedButton() is not confirm: return
+        if self.client is not client or not client.user or (client.user.get('id'),client.user.get('tenant_id'),client.user.get('role'))!=actor:
+            self.status.setText('La sesión cambió. Vuelve a consultar antes de guardar.'); return
+        self.secure_command('alert_ack',item['id'],None)
 
     def received(self):
         self.load(); self.status.setText('Operación confirmada por el servicio.')

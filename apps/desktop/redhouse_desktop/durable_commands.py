@@ -74,6 +74,8 @@ def submit_command(client,journal,record,*,fresh=False,proof=None):
         raise
     if operation in CATALOGUE_COMMANDS:
         validate_catalogue_result(operation,target['identifier'],record['body'],result,client.user['tenant_id'])
+    if operation=='alert_ack' and (result.get('id')!=target['identifier'] or result.get('tenant_id')!=client.user.get('tenant_id') or result.get('status')!='ACKNOWLEDGED' or result.get('acknowledged_by')!=client.user.get('id')):
+        raise ContractError('El acuse confirmado no corresponde al aviso seleccionado.')
     if operation=='resource_controls_create' and (result.get('id')!=target['identifier'] or any(result.get(key)!=record['body'].get(key) for key in ('lab_profile_id','cold_equipment_id','cold_profile_id'))):
         raise ContractError('El perfil confirmado no corresponde a la unidad seleccionada.')
     if operation=='resource_release' and (result.get('id')!=target['identifier'] or result.get('tenant_id')!=client.user.get('tenant_id') or result.get('version')!=record['body']['version']+1 or result.get('status')!='AVAILABLE'):

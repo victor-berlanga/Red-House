@@ -2,6 +2,12 @@
 
 Las entradas están ordenadas de reciente a histórico; un pendiente de un corte anterior puede quedar sustituido explícitamente por una entrada posterior.
 
+## Auditoría y acuse de escritorio verificados — 16/11/2026
+
+[DESK-14, alcance comprobado](documentation/evidencias/entrega-final/desktop/iteracion-avisos/RESULTADOS.md): auditor consultó listado/detalle del dictamen sintético E2E-C; otra institución recibió 403. Acuse Qt/XML dirigido salió 0: ACKNOWLEDGED, actor y evento único conciliados por SQL; sesión propia cerrada y 982 fuentes estables. El cliente revalida identidad tras el diálogo y correlaciona aviso, institución, estado y actor antes de cerrar el comando recuperable.
+
+Dos intentos anteriores fallaron en el arnés de diálogo; ambos conservaron aviso OPEN y no se repitieron escrituras. La causa se reprodujo sin API: QMessageBox offscreen tiene título vacío. El primer runner se interrumpió y dejó como límite la expiración natural de una familia técnica cuyos tokens solo estaban en RAM; el segundo cerró su sesión. Se conservan fallos, diagnóstico y éxito por separado. Dirección inspeccionó las capturas reales. Botones en español/cancelación por defecto y etiquetas legibles son ajustes posteriores comprobados con cuatro pruebas dirigidas y vistas con dobles, sin repetir negocio. Paquete Mac final y Windows siguen pendientes.
+
 ## Continuidad nativa iOS, Qt/XML y monolito comprobada — 16/11/2026
 
 [Tramo principal E2E-C](documentation/evidencias/entrega-final/e2ec-20261116/RESULTADOS.md): usuario reservó, reprogramó y canceló desde iPhone; una cita final conservada dio continuidad por donante/cronología a colecta, procesamiento, fraccionamiento, muestra, revisión y liberación en Qt/XML. Eritrocitos AVAILABLE, plasma QUARANTINE y origen WITHDRAWN; consentimiento y dictamen exclusivamente sintéticos ACADEMIC. Rechazos 409 sin revisión y 403 institucional, avisos propios y proyección de auditoría comprobados. No existe FK cita–donación y no se afirma cierre automático de cita.
