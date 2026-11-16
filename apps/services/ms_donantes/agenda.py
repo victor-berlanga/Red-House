@@ -6,7 +6,6 @@ from uuid import uuid4
 
 from flask import g
 from pydantic import Field
-
 from redhouse.api import atomic, endpoint, listing
 from redhouse.client import call
 from redhouse.db import get, insert, transaction, update
@@ -59,6 +58,8 @@ class Slot(SlotCreate):
 
 
 class SlotAvailability(Slot):
+    campaign_title: Text
+    site_name: Text
     occupied: int
     available: int
     attended: int
@@ -99,6 +100,40 @@ def slots_availability(conn, rows):
             )
         )
     return result
+
+
+def slot_campaign_labels(conn, rows):
+    if not rows:
+        return []
+    titles = conn.execute(
+        "SELECT id,title FROM campaigns WHERE tenant_id=%s AND id=ANY(%s::uuid[])",
+        (g.actor["tenant_id"], sorted({str(row["campaign_id"]) for row in rows})),
+    ).fetchall()
+    by_id = {str(row["id"]): row["title"] for row in titles}
+    if any(str(row["campaign_id"]) not in by_id for row in rows):
+        raise APIError(
+            "dependency_unavailable",
+            "No se pudo identificar la campaña del horario.",
+            503,
+        )
+    return [dict(row, campaign_title=by_id[str(row["campaign_id"])]) for row in rows]
+
+
+def slot_site_labels(rows):
+    if not rows:
+        return []
+    sites = call(
+        "identidad_acceso",
+        "POST",
+        "/internal/v1/appointment-site-labels",
+        {"ids": sorted({str(row["site_id"]) for row in rows})},
+    )
+    by_id = {str(row["id"]): row["name"] for row in sites["items"]}
+    if any(str(row["site_id"]) not in by_id for row in rows):
+        raise APIError(
+            "dependency_unavailable", "No se pudo identificar la sede del horario.", 503
+        )
+    return [dict(row, site_name=by_id[str(row["site_id"])]) for row in rows]
 
 
 class AppointmentCommand(Confirm):
@@ -200,6 +235,13 @@ def book(conn, data):
     require_active(donor)
     campaign = get(conn, "campaigns", data["campaign_id"], True)
     own(campaign["tenant_id"])
+    if conn.execute(
+        "SELECT 1 FROM appointments WHERE donor_id=%s AND campaign_id=%s AND status='BOOKED'",
+        (donor["id"], campaign["id"]),
+    ).fetchone():
+        raise APIError(
+            "active_appointment", "Ya tienes una cita activa en esta campaña.", 409
+        )
     count = conn.execute(
         "SELECT count(*) AS n FROM appointments WHERE campaign_id=%s AND status='BOOKED'",
         (campaign["id"],),
@@ -392,8 +434,11 @@ def install(app):
                 date_columns=("starts_at", "ends_at", "created_at"),
                 order="starts_at,id",
             )
-            result["items"] = slots_availability(conn, result["items"])
-            return result
+            result["items"] = slot_campaign_labels(
+                conn, slots_availability(conn, result["items"])
+            )
+        result["items"] = slot_site_labels(result["items"])
+        return result
 
     @endpoint(
         app,
@@ -405,7 +450,8 @@ def install(app):
         with transaction() as conn:
             row = get(conn, "campaign_slots", identifier)
             own(row["tenant_id"])
-            return slot_availability(conn, row)
+            rows = slot_campaign_labels(conn, [slot_availability(conn, row)])
+        return slot_site_labels(rows)[0]
 
     @endpoint(
         app,

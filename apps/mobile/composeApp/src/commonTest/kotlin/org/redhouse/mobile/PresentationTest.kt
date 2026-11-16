@@ -26,6 +26,13 @@ class PresentationTest {
         assertTrue(localCandidates(LocalDate(2026,3,8),2,30,0,TimeZone.of("America/New_York")).isEmpty())
         assertEquals(2,localCandidates(LocalDate(2026,11,1),1,30,0,TimeZone.of("America/New_York")).size)
     }
+    @Test fun noticeCodesDoNotTranslateFreeTextOrUnknownCodes() {
+        assertEquals("Recordatorio de tu cita",displayValue("message_code","APPOINTMENT_REMINDER"))
+        assertEquals("Evaluación del donante registrada",displayValue("message_code","DONOR_REVIEWED"))
+        assertEquals("APPOINTMENT_REMINDER",displayValue("title","APPOINTMENT_REMINDER"))
+        assertEquals("APPOINTMENT_REMINDER",displayValue("message","APPOINTMENT_REMINDER"))
+        assertEquals("FUTURE_NOTICE",displayValue("message_code","FUTURE_NOTICE"))
+    }
     @Test fun labelsDoNotChangeFreeTextOrMergeUncertainty() {
         assertEquals("AUTHORIZED", displayValue("title", "AUTHORIZED"))
         assertEquals("Autorizado documentalmente", displayValue("result_state", "AUTHORIZED"))

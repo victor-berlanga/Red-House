@@ -8,6 +8,8 @@ import androidx.compose.material3.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.LiveRegionMode
+import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.*
@@ -25,6 +27,9 @@ import io.ktor.http.HttpMethod
     var donor by remember {mutableStateOf<JsonObject?>(null)}
     var ownDonors by remember {mutableStateOf<List<JsonObject>>(emptyList())}
     var slots by remember {mutableStateOf<List<JsonObject>>(emptyList())}
+    var slotsCurrent by remember {mutableStateOf(false)}
+    var bookingMessage by remember {mutableStateOf("")}
+    var bookingSlotId by remember {mutableStateOf("")}
     var appointments by remember {mutableStateOf<List<JsonObject>>(emptyList())}
     var nextAppointment by remember {mutableStateOf<JsonObject?>(null)}
     var nextLoaded by remember {mutableStateOf(false)}
@@ -54,7 +59,7 @@ import io.ktor.http.HttpMethod
     suspend fun loadAppointments(page:Int=appointmentPage){val data=checkedPage(repository.listPage("donantes","/api/v1/appointments/agenda",page),page);appointments=items(data);appointmentTotal=total(data);appointmentPage=page}
     suspend fun loadSites(page:Int=sitePage){val data=checkedPage(repository.listPage("identidad","/api/v1/appointment-sites",page),page);sites=items(data);siteTotal=total(data);sitePage=page}
     suspend fun loadCampaigns(page:Int=campaignPage){val data=checkedPage(repository.listPage("donantes","/api/v1/campaigns",page),page);campaigns=items(data);campaignTotal=total(data);campaignPage=page}
-    suspend fun loadSlots(page:Int=slotPage,query:String=slotQuery){val data=checkedPage(repository.listPage("donantes","/api/v1/campaign-slots?$query",page),page);slots=items(data);slotTotal=total(data);slotPage=page;slotQuery=query}
+    suspend fun loadSlots(page:Int=slotPage,query:String=slotQuery){slotsCurrent=false;val data=checkedPage(repository.listPage("donantes","/api/v1/campaign-slots?$query",page),page);slots=items(data);slotTotal=total(data);slotPage=page;slotQuery=query;slotsCurrent=true}
     suspend fun loadConsents(donorId:String,page:Int){
         val data=checkedPage(repository.listPage("donantes","/api/v1/donors/$donorId/consents",page),page)
         consents=items(data);consentTotal=total(data);consentPage=page
@@ -66,6 +71,7 @@ import io.ktor.http.HttpMethod
         publicQuery=query;publicFrom=from;publicUntil=until;publicationsLoaded=true
     }
     var reschedule by remember {mutableStateOf<JsonObject?>(null)}
+    var confirmationDetails by remember {mutableStateOf("")}
     var confirmation by remember {mutableStateOf<Pair<String,suspend ()->Unit>?>(null)}
     suspend fun reload(){
         try {loadPublications()} catch(e:CancellationException){throw e} catch(_:Exception) {publicationsLoaded=false}
@@ -80,6 +86,14 @@ import io.ktor.http.HttpMethod
         donor?.let{loadConsents(it.text("id"),1)}
         loadCampaigns()
         loadSites()
+        if(section=="Reservar"){loadSlots(slotPage,slotQuery);bookingMessage=""}
+    }
+    suspend fun refreshBookingState():Boolean {
+        slotsCurrent=false
+        var refreshed=true
+        try {loadAppointments()}catch(cancelled:CancellationException){throw cancelled}catch(_:Exception){refreshed=false}
+        try {loadSlots(slotPage,slotQuery)}catch(cancelled:CancellationException){throw cancelled}catch(_:Exception){refreshed=false}
+        return refreshed
     }
     fun run(action:suspend ()->Unit){if(busy)return;busy=true;scope.launch{try{action()}catch(e:CancellationException){throw e}catch(e:Exception){status=if(e is ApiFailure || e is IllegalArgumentException)e.message.orEmpty() else "Sin confirmación; recupera la operación pendiente."}finally{busy=false}}}
     LaunchedEffect(Unit){try{reload()}catch(e:CancellationException){throw e}catch(e:Exception){status=if(e is ApiFailure)e.message.orEmpty() else "No se pudo consultar la información. Inténtalo de nuevo."}finally{busy=false}}
@@ -209,19 +223,48 @@ import io.ktor.http.HttpMethod
         if(from!=null && until!=null && from!!>until!!) status="La fecha final debe ser igual o posterior a la inicial."
         else {
             val (start,end)=dayFilterBounds(from,until,TimeZone.currentSystemDefault())
-            run {val query=buildList{add("active=true");add("date_field=starts_at");if(site.isNotBlank())add("site_id="+site.encodeURLParameter());if(start.isNotBlank())add("from_at="+start.encodeURLParameter());if(end.isNotBlank())add("until_at="+end.encodeURLParameter())}.joinToString("&");loadSlots(1,query);status="Disponibilidad consultada"}
+            run {val query=buildList{add("active=true");add("date_field=starts_at");if(site.isNotBlank())add("site_id="+site.encodeURLParameter());if(start.isNotBlank())add("from_at="+start.encodeURLParameter());if(end.isNotBlank())add("until_at="+end.encodeURLParameter())}.joinToString("&");loadSlots(1,query);bookingMessage="";status="Disponibilidad consultada"}
         }
     }){Text("Consultar horarios")}
-    reschedule?.let{Text("Elige nuevo horario para la cita ${it.text("id").take(8)}");TextButton(onClick={reschedule=null}){Text("Cancelar cambio")}}
+    reschedule?.let{Text("Elige un nuevo horario para ${it.text("title")}");TextButton(onClick={reschedule=null}){Text("Cancelar cambio")}}
+    val pendingAppointments=repository.journal.pendingCommands().values.map {it.jsonObject}.filter(::isAppointmentCommand)
+    pendingAppointments.forEach {command->key(command.text("id")) {
+        AppointmentRecoveryCard(repository,command,busy,scope,onBusyChange={busy=it}) {message,slotId->
+            bookingSlotId=slotId;bookingMessage=message
+            if(!refreshBookingState())bookingMessage+=" No se pudo actualizar toda la información. Consulta los horarios de nuevo."
+        }
+    }}
+    if(bookingMessage.isNotBlank() && slots.none {it.text("id")==bookingSlotId}) Text(bookingMessage,Modifier.semantics{liveRegion=LiveRegionMode.Polite})
+    if(!slotsCurrent && slots.isNotEmpty()) Text("La disponibilidad necesita actualizarse. Pulsa Consultar horarios.")
     slots.forEach{slot->key("slot:"+slot.text("id")){
+        Card(Modifier.fillMaxWidth().padding(vertical=6.dp)) { Column(Modifier.padding(16.dp),verticalArrangement=Arrangement.spacedBy(8.dp)) {
+        Text(slot.text("campaign_title"),style=MaterialTheme.typography.titleMedium)
+        Text("Sede: ${slot.text("site_name")}")
         Text("${displayBriefDate(slot.text("starts_at"))} · disponibles ${slot.text("available")}")
-        Button(enabled=!busy && donor!=null && (slot["available"]?.jsonPrimitive?.intOrNull?:0)>0,onClick={confirmation="Confirmar horario ${displayBriefDate(slot.text("starts_at"))}" to {
+        if(bookingSlotId==slot.text("id") && bookingMessage.isNotBlank())Text(bookingMessage,Modifier.semantics{liveRegion=LiveRegionMode.Polite})
+        val commandPath=if(reschedule==null) "/api/v1/appointments" else "/api/v1/appointments/${reschedule!!.text("id")}/commands"
+        val hasPending=pendingAppointments.any {it.text("path")==commandPath}
+        if(hasPending)Text("Hay un intento anterior sin confirmar. Recupéralo antes de continuar.")
+        Button(enabled=!busy && slotsCurrent && !hasPending && donor!=null && (slot["available"]?.jsonPrimitive?.intOrNull?:0)>0,onClick={confirmationDetails="${slot.text("campaign_title")}\nSede: ${slot.text("site_name")}";confirmation="Confirmar horario ${displayBriefDate(slot.text("starts_at"))}" to bookingAction@{
             val old=reschedule
-            if(old==null)repository.execute("donantes","/api/v1/appointments",obj("donor_id" to donor!!.text("id"),"campaign_id" to slot.text("campaign_id"),"slot_id" to slot.text("id")))
-            else {val schedule=session.request("donantes","/api/v1/appointments/${old.text("id")}/schedule")
-                repository.execute("donantes","/api/v1/appointments/${old.text("id")}/commands",buildJsonObject{put("action","RESCHEDULE");put("slot_id",slot.text("id"));put("version",schedule.getValue("version"));put("human_confirmation",true);put("reason","Cambio de horario solicitado por el titular")})}
-            reschedule=null;reload();section="Citas";appointmentId=null;status="Cita confirmada por Donantes"
+            bookingSlotId=slot.text("id");bookingMessage="";status=""
+            try {
+                if(old==null)repository.execute("donantes","/api/v1/appointments",obj("donor_id" to donor!!.text("id"),"campaign_id" to slot.text("campaign_id"),"slot_id" to slot.text("id")))
+                else {val schedule=session.request("donantes","/api/v1/appointments/${old.text("id")}/schedule")
+                    repository.execute("donantes","/api/v1/appointments/${old.text("id")}/commands",buildJsonObject{put("action","RESCHEDULE");put("slot_id",slot.text("id"));put("version",schedule.getValue("version"));put("human_confirmation",true);put("reason","Cambio de horario solicitado por el titular")})}
+            } catch(cancelled:CancellationException){throw cancelled}
+            catch(error:Exception) {
+                bookingMessage=appointmentFailureMessage(error)
+                if(error is ApiFailure && error.status in setOf(409,412)) {
+                    if(!refreshBookingState())bookingMessage+=" No se pudo actualizar la disponibilidad. Pulsa Consultar horarios."
+                } else slotsCurrent=false
+                return@bookingAction
+            }
+            reschedule=null;section="Citas";appointmentId=null;status="Cita confirmada por Donantes"
+            try {reload()}catch(cancelled:CancellationException){throw cancelled}
+            catch(_:Exception){status="La reserva se registró. Pulsa Actualizar para consultar tus citas."}
         }}){Text(if(reschedule==null)"Agendar" else "Cambiar a este horario")}
+        } }
     }}
     PageControls(slotPage,slotTotal,!busy,{run{loadSlots(slotPage-1)}},{run{loadSlots(slotPage+1)}})
     }
@@ -243,15 +286,16 @@ import io.ktor.http.HttpMethod
     PageControls(appointmentPage,appointmentTotal,!busy,{run{loadAppointments(appointmentPage-1)}},{run{loadAppointments(appointmentPage+1)}})
     }
     val pending=confirmation
-    if(pending!=null)DonorConfirmationDialog(pending.first,busy,
-        onConfirm={confirmation=null;run(pending.second)},onDismiss={confirmation=null})
+    if(pending!=null)DonorConfirmationDialog(pending.first,busy,details=confirmationDetails,
+        onConfirm={confirmation=null;confirmationDetails="";run(pending.second)},onDismiss={confirmation=null;confirmationDetails=""})
     TextButton(enabled=!busy,onClick={run{reload()}}){Text("Actualizar")}
 }
 
 @Composable
-private fun DonorConfirmationDialog(title:String,busy:Boolean,onConfirm:()->Unit,onDismiss:()->Unit){
+private fun DonorConfirmationDialog(title:String,busy:Boolean,details:String="",onConfirm:()->Unit,onDismiss:()->Unit){
     AlertDialog(onDismissRequest=onDismiss,title={Text(title)},
-        text={Text(if(title=="Retirar consentimiento") "Confirma que deseas retirar tu consentimiento. Tu institución recibirá el registro." else "Confirma que deseas continuar. Se comprobarán el consentimiento y la disponibilidad.")},
+        text={Column(verticalArrangement=Arrangement.spacedBy(8.dp)) {if(details.isNotBlank())Text(details)
+            Text(if(title=="Retirar consentimiento") "Confirma que deseas retirar tu consentimiento. Tu institución recibirá el registro." else "Confirma que deseas continuar. Se comprobarán el consentimiento y la disponibilidad.")} },
         confirmButton={Button(enabled=!busy,onClick=onConfirm){Text("Confirmar")}},
         dismissButton={TextButton(onClick=onDismiss){Text("Volver")}})
 }

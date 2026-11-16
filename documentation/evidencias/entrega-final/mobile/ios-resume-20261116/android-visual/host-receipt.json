@@ -1,0 +1,26 @@
+{
+  "started_at": "2026-11-16T22:11:59.886244+00:00",
+  "serial": "emulator-5554",
+  "capture_attempts": 1,
+  "marker_seen": true,
+  "technical_session_revoked_marker": true,
+  "existing_avd_only": true,
+  "uninstall": false,
+  "flag_secure_preserved": true,
+  "trusted_verified_by_root": true,
+  "test_hold_ms": 4000,
+  "fixture_started_or_stopped": false,
+  "image": "booking-inline-error.png",
+  "instrumentation_exit": 0,
+  "capture_error_types": [],
+  "finished_at": "2026-11-16T22:12:26.783754+00:00",
+  "image_review_pending": false,
+  "review": {
+    "reviewer": "Root, with separate agent inspection of the same original image",
+    "scope": "Campaign/site/date/capacity and inline active_appointment error legible; capture during refresh with Consultar horarios disabled; not final idle state",
+    "original_private_host_receipt_sha256": "27cdba38a664400eba20ce638a16b24f1dc30c29a7bbbe6cae101775da4a2027",
+    "image_original_sha256": "5178c00ba53cf15011b79fd82297834e268152b38f5b845fa17364a17ecee3e5",
+    "instrumentation_log_sha256": "720eabe4113d20785b963444bb05b1f942e2fbeff90f55151dc19bfdb43140b2",
+    "sanitization": "Image copied byte for byte; host image path replaced by public relative path and review outcome added; instrumentation text unchanged after credential check"
+  }
+}

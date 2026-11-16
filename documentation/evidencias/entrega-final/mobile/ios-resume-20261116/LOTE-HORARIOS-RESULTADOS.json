@@ -1,0 +1,157 @@
+{
+  "date": "2026-11-16",
+  "synthetic_fixture": true,
+  "unit_tests": {
+    "total": 16,
+    "failures": 0,
+    "errors": 0,
+    "classes": {
+      "DurablePatch": 4,
+      "AppointmentContract": 1,
+      "ResponseContracts": 2,
+      "Session": 9
+    }
+  },
+  "slot_labels": {
+    "statuses": [
+      200,
+      200,
+      403
+    ],
+    "signed_delegated_identity_reads": 2,
+    "same_labels_list_detail": true,
+    "technical_sessions_revoked": true,
+    "business_writes": 0
+  },
+  "original_recovery": {
+    "status": 409,
+    "error_code": "active_appointment",
+    "correlation_id": "4138487c-3670-46bf-bff1-01a2b8397ffc",
+    "original_campaign_rows_unchanged": true,
+    "native_key_or_body_measured": false,
+    "human_observation": "Usuario pulsó Recuperar intento anterior y comunicó que ya tenía una cita activa. No se extrajo el diario local."
+  },
+  "invalid_old_race": {
+    "accepted": false,
+    "reason": "Native donor already held a BOOKED appointment in that campaign; 45s harness gate exceeded native timeout15s; old extra503 has no sufficient actor/key/body observation"
+  },
+  "valid_new_race": {
+    "fresh_campaign_both_preflighted": true,
+    "arrival_gap_ms": 89.128,
+    "rival_status": 201,
+    "native_status": 409,
+    "native_error_code": "slot_full",
+    "native_correlation_id": "82e1dc48-9e45-4e56-a310-af06e374624f",
+    "unique_booking_belongs_to_rival": true,
+    "occupied": 1,
+    "new_native_rows": 0,
+    "human_observation": "Usuario confirmó Ultimo cupo academico disponibles0 y que Mis citas solo contenía sus citas anteriores; no hubo éxito falso confirmado.",
+    "ios_visual_capture": false
+  },
+  "own_reminder": {
+    "native_slot_local": "2026-11-16 16:05 UTC-06:00",
+    "native_booking_human_confirmed": true,
+    "appointment_status": "BOOKED",
+    "schedule_version": 1,
+    "reminder_version": 1,
+    "sent_at": "2026-11-16 15:44:50.113170-06:00",
+    "action": "APPOINTMENT_REMINDER",
+    "event_id": "707b92d9-a798-4a4d-aec3-32ccbdf038a9",
+    "correlation_id": "0972b786-bf7d-4923-be53-f56ba85696a9",
+    "booked_actor": "synthetic donor1",
+    "reminder_actor": null,
+    "recipient": "same synthetic donor1",
+    "own_alerts": 1,
+    "operator_alerts": 1,
+    "audit_matches": true,
+    "mongo_matches": true,
+    "duplicates": 0,
+    "native_inbox_human_confirmation": "Usuario comunicó literalmente «APOINTMENT_REMINDER»; asociado al único evento APPOINTMENT_REMINDER, sin captura visual.",
+    "worker_runs": 1
+  },
+  "artifacts": {
+    "android": {
+      "sha256": "cdf5cfee15bfc90270952efc2f8e1273dbe1bda9917c60252e1ef52044e43099",
+      "gateway": "https://34.18.186.116",
+      "lab_assets_absent": true
+    },
+    "lab": {
+      "variant": "lab",
+      "bundle_identifier": "org.redhouse.mobile.lab",
+      "gateway": "https://10.0.0.22:18443",
+      "background_task": "org.redhouse.mobile.lab.observations",
+      "configuration": "DebugLab",
+      "ca_sha256": "379967e5eb85bb038eb85dcacad987f01942c35a749ef4ea7d7c843a5d195b00",
+      "tls": "lab_pinned_ca",
+      "framework_sha256": "f627a5f66b479e28028260dba863f9dad550231f3798db4e1aaf9644b36391e7",
+      "generated_environment_sha256": "9bc397449b22abf418e7db8f3e2edfc51397eee8e6e06e8fea0f581def105c6a",
+      "sdk": "iphoneos18.4",
+      "executable_sha256": "5807ab3ce3f9235c17178af64cd26b102312cdf0082ecb7892e8c15658106e50",
+      "info_plist_sha256": "1131c36a387bc11c91c001bf6d617fa9c27fafd85b9e1b51209857dbb51e288a",
+      "profile_expires": "2026-11-21T18:32:33Z",
+      "installed_update": true
+    }
+  },
+  "limits": [
+    "No runtime same-key/body measurement for original native recovery",
+    "BGAppRefresh not tested",
+    "Normal iOS not rebuilt in this lot; production backend publication pending",
+    "Native TLS observations are human functional evidence; no image or Security.framework logs"
+  ],
+  "notice_labels_followup": {
+    "integrated": true,
+    "reminder_label": "Recordatorio de tu cita",
+    "free_text_unchanged": true,
+    "unknown_codes_unchanged": true,
+    "ios_tested_binary_still_raw_code": true,
+    "android_compiled": true,
+    "ios_compiled": false
+  },
+  "native_tls_summary": {
+    "untrusted_ca_blocked_human": true,
+    "wrong_san_blocked_human": true,
+    "gateway_http_delta_both": 0,
+    "first_trusted_recovery_human": true,
+    "second_trusted_recovery_human": true,
+    "startup_login_message_defect": true,
+    "private_fix_candidate_applied": false
+  },
+  "android_notice_labels_followup": {
+    "presentation_tests": 5,
+    "failures": 0,
+    "apk_private_sha256": "7ba1bf602c0034a84d6820ea282e74eb8a29bfa789078c97562a56e9ec9f5b66",
+    "native_visual_run": "PASS; one real image reviewed during refresh, not final idle",
+    "ios_new_build": false
+  },
+  "android_visual_result": {
+    "run": "run03",
+    "tests": 1,
+    "failures": 0,
+    "errors": 0,
+    "time_seconds": 23.304,
+    "instrumentation_result": "OK (1 test)",
+    "host_capture_attempts": 1,
+    "technical_session_revoked_marker": true,
+    "image_reviewed": true,
+    "image_state": "refresh in progress; not final idle",
+    "image_sha256": "5178c00ba53cf15011b79fd82297834e268152b38f5b845fa17364a17ecee3e5",
+    "product_apk_sha256": "7ba1bf602c0034a84d6820ea282e74eb8a29bfa789078c97562a56e9ec9f5b66",
+    "test_only_rebuild_apk_sha256": "c69c70c7ad00add2857202c8c7c22e61b8a605d8eaf7a7f89cb42692ca8c9a22",
+    "public_apks_included": false,
+    "earlier_attempts": [
+      {
+        "run": "run01",
+        "failure": "Emulator boot guard before instrumentation"
+      },
+      {
+        "run": "run02",
+        "failure": "Exact selector did not match combined campaign/site dialog Text, before POST; remote date quoting broke logcat; technical session cleanup still executed"
+      }
+    ],
+    "cleanup_by_root": {
+      "avd_closed": true,
+      "gradle_stop_session": 31775
+    },
+    "junit_export": "Derived XML from original instrumentation text; previous16 and Presentation5 remain separate"
+  }
+}

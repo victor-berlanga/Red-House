@@ -6,16 +6,28 @@ from uuid import uuid4
 
 from flask import g
 from pydantic import Field, create_model
-
 from redhouse.api import atomic, endpoint, listing
+from redhouse.cache import cached_read
 from redhouse.db import get, insert, transaction, update
-from redhouse.decisions import record, history
+from redhouse.decisions import history, record
 from redhouse.errors import APIError
 from redhouse.events import emit
-from redhouse.models import Confirm, ID, Model, Text
+from redhouse.models import ID, Confirm, Model, Text
 from redhouse.security import own
-from redhouse.cache import cached_read
 from redhouse.validation import invalid
+
+
+class AppointmentSiteLabelsQuery(Model):
+    ids: Annotated[list[ID], Field(min_length=1, max_length=100)]
+
+
+class AppointmentSiteLabel(Model):
+    id: ID
+    name: Text
+
+
+class AppointmentSiteLabels(Model):
+    items: list[AppointmentSiteLabel]
 
 
 class Site(Model):
@@ -132,6 +144,30 @@ def values(conn, kind, data):
 
 
 def install(app):
+    from redhouse.extension_contracts import schema
+
+    @endpoint(
+        app,
+        "/internal/v1/appointment-site-labels",
+        "POST",
+        model=AppointmentSiteLabelsQuery,
+        internal=("donantes",),
+        roles=("DONOR", "OPERATOR"),
+        result=schema(AppointmentSiteLabels),
+        summary="Nombres de sedes propias para una página de horarios autorizados",
+    )
+    def appointment_site_labels(data):
+        from redhouse.events import audit_read
+
+        audit_read("appointment-site-labels")
+        with transaction() as conn:
+            rows = conn.execute(
+                "SELECT id,name FROM catalogue WHERE tenant_id=%s AND kind='sites' "
+                "AND id=ANY(%s::uuid[]) ORDER BY id",
+                (g.actor["tenant_id"], data["ids"]),
+            ).fetchall()
+            return {"items": rows}
+
     @endpoint(
         app,
         "/internal/v1/institutions/<identifier>/operational-contacts",
@@ -351,7 +387,8 @@ def install(app):
         output, paged = None, None
         if kind in ("responsibles", "services"):
             from typing import Any
-            from redhouse.extension_contracts import schema, page_schema
+
+            from redhouse.extension_contracts import page_schema, schema
 
             output_model = create_model(
                 "Institutional" + kind,

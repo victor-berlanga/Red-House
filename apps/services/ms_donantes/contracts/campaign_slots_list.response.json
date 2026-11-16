@@ -91,6 +91,18 @@
                 "title": "Created At",
                 "type": "string"
               },
+              "campaign_title": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Campaign Title",
+                "type": "string"
+              },
+              "site_name": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Site Name",
+                "type": "string"
+              },
               "occupied": {
                 "title": "Occupied",
                 "type": "integer"
@@ -115,6 +127,8 @@
               "active",
               "version",
               "created_at",
+              "campaign_title",
+              "site_name",
               "occupied",
               "available",
               "attended"

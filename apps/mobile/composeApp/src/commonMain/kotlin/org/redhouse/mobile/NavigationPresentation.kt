@@ -62,7 +62,7 @@ fun primaryDestinations(role: String): List<String> = when(role) {
     val heading = when(screen.title) {
         "Mis citas", "Horarios" -> first("scheduled_at", "starts_at")?.let(::displayDate) ?: first("campaign_title") ?: "Inscripción ${row.text("id").take(8)}"
         "Campañas" -> first("title") ?: "Campaña"
-        "Avisos" -> first("message", "title", "message_code") ?: "Aviso"
+        "Avisos" -> first("message", "title") ?: first("message_code")?.let { displayValue("message_code",it) } ?: "Aviso"
         "Inventario" -> first("folio", "identifier") ?: "Unidad"
         "Traslados" -> first("reference", "folio") ?: "Traslado ${row.text("id").take(8)}"
         "Solicitudes" -> first("reference", "folio") ?: "Solicitud ${row.text("id").take(8)}"

@@ -58,19 +58,25 @@ class LocalJournal(private val store:SecureStore) {
 class MobileRepository(val session:Session,val journal:LocalJournal,val source:String) {
     private val mutation=Mutex()
     suspend fun execute(service:String,path:String,body:JsonObject=JsonObject(emptyMap()),method:HttpMethod=HttpMethod.Post):JsonObject=mutation.withLock {
+        executeLocked(service,path,body,method)
+    }
+    private suspend fun executeLocked(service:String,path:String,body:JsonObject,method:HttpMethod):JsonObject {
         require(method==HttpMethod.Post || method==HttpMethod.Patch)
         val name="command:$service:$path"
         val old=journal.value(name)?.jsonObject
         if(old!=null && (old["body"]!=body || old.text("method").ifBlank {"POST"}!=method.value)) throw ApiFailure(409,"pending_operation")
         val command=old?:buildJsonObject {put("id",newId());put("service",service);put("path",path);put("method",method.value);put("body",body);put("captured_at",Clock.System.now().toString())}.also{journal.put(name,it)}
-        try {
+        return try {
             val result=session.request(service,path,method,command["body"]!!.jsonObject,command.text("id"))
             journal.remove(name);result
         } catch(e:ApiFailure){if(e.status in setOf(400,403,409,422))journal.remove(name);throw e}
     }
-    suspend fun recover(command:JsonObject):JsonObject {
+    suspend fun recover(command:JsonObject):JsonObject=mutation.withLock {
+        val name="command:${command.text("service")}:${command.text("path")}"
+        val current=journal.value(name) as? JsonObject
+        if(current==null || current!=command)throw ApiFailure(409,"pending_operation_changed")
         val method=when(command.text("method").ifBlank {"POST"}) {"POST"->HttpMethod.Post;"PATCH"->HttpMethod.Patch;else->throw ApiFailure(422,"journal_method")}
-        return execute(command.text("service"),command.text("path"),command["body"]!!.jsonObject,method)
+        executeLocked(current.text("service"),current.text("path"),current["body"]!!.jsonObject,method)
     }
     suspend fun listPage(service:String,path:String,page:Int):JsonObject {
         require(page>0)

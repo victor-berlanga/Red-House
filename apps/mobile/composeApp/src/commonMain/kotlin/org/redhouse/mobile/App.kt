@@ -276,11 +276,15 @@ fun RedHouseApp(store: SecureStore, localStore: SecureStore, queueStore: SecureS
                     if ((accountView && accountSection=="Operaciones pendientes") || destination=="Pendientes") {
                     Text("Operaciones por confirmar", style = MaterialTheme.typography.titleMedium)
                     repository?.journal?.pendingCommands()?.forEach {(_,command)->
+                        if(isAppointmentCommand(command.jsonObject)) {
+                            AppointmentRecoveryCard(repository!!,command.jsonObject,busy,scope,onBusyChange={busy=it}) {message,_->status=message}
+                        } else {
                         var showReference by remember(command.jsonObject.text("id")) { mutableStateOf(false) }
                         Text("Pendiente · ${displayBriefDate(command.jsonObject.text("captured_at"))}")
                         TextButton(onClick = { showReference = !showReference }) { Text("Referencia de la operación") }
                         if (showReference) Text(command.jsonObject.text("id"), style = MaterialTheme.typography.bodySmall)
                         Button(enabled=!busy,onClick={run{repository!!.recover(command.jsonObject);status="Operación pendiente recuperada"}}){Text("Consultar y recuperar operación pendiente")}
+                        }
                     }
                     }
                     if(accountView && accountSection==null && !donorView) {

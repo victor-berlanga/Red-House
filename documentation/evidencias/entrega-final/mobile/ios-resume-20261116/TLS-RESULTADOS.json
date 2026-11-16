@@ -1,0 +1,78 @@
+{
+  "date": "2026-11-16",
+  "scope": "Same iOS Lab binary/origin/pinned CA; server certificate scenarios only; human observation and gateway counts",
+  "scenarios": [
+    {
+      "scenario": "untrusted-ca",
+      "at": "2026-11-16T21:54:46.212735+00:00",
+      "independent_tls_verification": {
+        "verified": false,
+        "verify_code": 20,
+        "reason": "unable to get local issuer certificate"
+      },
+      "gateway_baseline_lines": 0,
+      "http_requests_sent_by_control": 0,
+      "business_writes": 0,
+      "certificate_pem_sha256": "e84e4d19ba72f9b87e8af766b084face42b61b042e3cb95a2f87bdd177ceaf36",
+      "private_receipt_sha256": "cfba7d685a99ea1ba781e0a2b46aed8915dccfbaea84c3f42599565c7d0fbbdd",
+      "human_result": "Access blocked; login form displayed",
+      "gateway_after_lines": 0,
+      "gateway_delta": 0
+    },
+    {
+      "scenario": "trusted",
+      "at": "2026-11-16T21:56:39.611000+00:00",
+      "independent_tls_verification": {
+        "verified": true,
+        "certificate_der_sha256": "3d6dc1e6b4646d37698cf15a5efab108b73c08071164482d7cbc2f417b19e0b0"
+      },
+      "gateway_baseline_lines": 0,
+      "http_requests_sent_by_control": 0,
+      "business_writes": 0,
+      "certificate_pem_sha256": "8d569ff585418a174bb174bcf9720be5728920337f870c751c3963b961014d2c",
+      "private_receipt_sha256": "bfb13432942c1949477b759f9e1eef5697b85cb33f270c89cf79e98e6f144bb9",
+      "human_result": "Regresa a mi cuenta de donante; no credentials entered"
+    },
+    {
+      "scenario": "wrong-san",
+      "at": "2026-11-16T21:57:38.361514+00:00",
+      "independent_tls_verification": {
+        "verified": false,
+        "verify_code": 64,
+        "reason": "IP address mismatch, certificate is not valid for '10.0.0.22'."
+      },
+      "gateway_baseline_lines": 8,
+      "http_requests_sent_by_control": 0,
+      "business_writes": 0,
+      "certificate_pem_sha256": "5b1d1f59df59eee76eb59066444fbc7bafd12d84f44886f6f235a7919f08912e",
+      "private_receipt_sha256": "fbd36704496ae6797ed6033619f3994351623a5b5e003078ed6d7e9e72cdd1d8",
+      "human_result": "Access blocked; login form displayed",
+      "gateway_after_lines": 8,
+      "gateway_delta": 0
+    },
+    {
+      "scenario": "trusted",
+      "at": "2026-11-16T21:59:23.444428+00:00",
+      "independent_tls_verification": {
+        "verified": true,
+        "certificate_der_sha256": "3d6dc1e6b4646d37698cf15a5efab108b73c08071164482d7cbc2f417b19e0b0"
+      },
+      "gateway_baseline_lines": 8,
+      "http_requests_sent_by_control": 0,
+      "business_writes": 0,
+      "certificate_pem_sha256": "8d569ff585418a174bb174bcf9720be5728920337f870c751c3963b961014d2c",
+      "private_receipt_sha256": "b71b0f4db3325d1cb867262974a8c9362353af1a36fb8ef131b865c419311605",
+      "human_result": "Sí, regresa a mi cuenta; no credentials entered"
+    }
+  ],
+  "human_observations_supplied_by_root": true,
+  "ios_screenshot": false,
+  "native_security_framework_logs": false,
+  "host_tls_error_codes_are_not_native_error_codes": true,
+  "normal_app_affected": false,
+  "native_login_attempt_during_invalid_tls": false,
+  "startup_ui_defect": "General restoration error shows login despite saved credentials; token loss not observed; private retry-state candidate prepared, not applied",
+  "trusted_final_restored_at": "2026-11-16T21:59:23.444428+00:00",
+  "second_trusted_human_recovery": "Sí, regresa a mi cuenta; no credentials entered",
+  "fixture_reload_failure": "First private harness reload guard failed without mutation; context assignment then raised AttributeError and closed that runtime before a native trial. Root verified the listening SSLSocket had _sslobj=None, changed only the private reload to load_cert_chain, and reopened retained schema21 fixture. Failure and receipts preserved; no product defect attributed."
+}

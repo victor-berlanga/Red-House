@@ -3957,6 +3957,8 @@
                     "active": true,
                     "version": 1,
                     "created_at": "Dato ficticio para reemplazar",
+                    "campaign_title": "Dato ficticio para reemplazar",
+                    "site_name": "Dato ficticio para reemplazar",
                     "occupied": 1,
                     "available": 1,
                     "attended": 1
@@ -3972,7 +3974,7 @@
                 "schema": {
                   "type": "string"
                 },
-                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"campaign_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"site_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"starts_at\" type=\"string\">2030-01-01T15:00:00+00:00</field><field name=\"ends_at\" type=\"string\">2030-01-01T15:00:00+00:00</field><field name=\"capacity\" type=\"integer\">1</field><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"tenant_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"active\" type=\"boolean\">true</field><field name=\"version\" type=\"integer\">1</field><field name=\"created_at\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"occupied\" type=\"integer\">1</field><field name=\"available\" type=\"integer\">1</field><field name=\"attended\" type=\"integer\">1</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">donantes</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"campaign_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"site_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"starts_at\" type=\"string\">2030-01-01T15:00:00+00:00</field><field name=\"ends_at\" type=\"string\">2030-01-01T15:00:00+00:00</field><field name=\"capacity\" type=\"integer\">1</field><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"tenant_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"active\" type=\"boolean\">true</field><field name=\"version\" type=\"integer\">1</field><field name=\"created_at\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"campaign_title\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"site_name\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"occupied\" type=\"integer\">1</field><field name=\"available\" type=\"integer\">1</field><field name=\"attended\" type=\"integer\">1</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">donantes</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
                 "x-json-equivalent-schema": {
                   "$ref": "#/components/schemas/Response_campaign_slots_detail"
                 },
@@ -8317,6 +8319,18 @@
                       "title": "Created At",
                       "type": "string"
                     },
+                    "campaign_title": {
+                      "maxLength": 200,
+                      "minLength": 1,
+                      "title": "Campaign Title",
+                      "type": "string"
+                    },
+                    "site_name": {
+                      "maxLength": 200,
+                      "minLength": 1,
+                      "title": "Site Name",
+                      "type": "string"
+                    },
                     "occupied": {
                       "title": "Occupied",
                       "type": "integer"
@@ -8341,6 +8355,8 @@
                     "active",
                     "version",
                     "created_at",
+                    "campaign_title",
+                    "site_name",
                     "occupied",
                     "available",
                     "attended"
@@ -8444,6 +8460,18 @@
                 "title": "Created At",
                 "type": "string"
               },
+              "campaign_title": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Campaign Title",
+                "type": "string"
+              },
+              "site_name": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Site Name",
+                "type": "string"
+              },
               "occupied": {
                 "title": "Occupied",
                 "type": "integer"
@@ -8468,6 +8496,8 @@
               "active",
               "version",
               "created_at",
+              "campaign_title",
+              "site_name",
               "occupied",
               "available",
               "attended"

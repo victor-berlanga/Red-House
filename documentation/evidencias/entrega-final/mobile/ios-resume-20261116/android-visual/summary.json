@@ -1,0 +1,31 @@
+{
+  "run": "run03",
+  "tests": 1,
+  "failures": 0,
+  "errors": 0,
+  "time_seconds": 23.304,
+  "instrumentation_result": "OK (1 test)",
+  "host_capture_attempts": 1,
+  "technical_session_revoked_marker": true,
+  "image_reviewed": true,
+  "image_state": "refresh in progress; not final idle",
+  "image_sha256": "5178c00ba53cf15011b79fd82297834e268152b38f5b845fa17364a17ecee3e5",
+  "product_apk_sha256": "7ba1bf602c0034a84d6820ea282e74eb8a29bfa789078c97562a56e9ec9f5b66",
+  "test_only_rebuild_apk_sha256": "c69c70c7ad00add2857202c8c7c22e61b8a605d8eaf7a7f89cb42692ca8c9a22",
+  "public_apks_included": false,
+  "earlier_attempts": [
+    {
+      "run": "run01",
+      "failure": "Emulator boot guard before instrumentation"
+    },
+    {
+      "run": "run02",
+      "failure": "Exact selector did not match combined campaign/site dialog Text, before POST; remote date quoting broke logcat; technical session cleanup still executed"
+    }
+  ],
+  "cleanup_by_root": {
+    "avd_closed": true,
+    "gradle_stop_session": 31775
+  },
+  "junit_export": "Derived XML from original instrumentation text; previous16 and Presentation5 remain separate"
+}

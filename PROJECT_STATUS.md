@@ -2,6 +2,24 @@
 
 Las entradas están ordenadas de reciente a histórico; un pendiente de un corte anterior puede quedar sustituido explícitamente por una entrada posterior.
 
+## Formularios de escritorio conservan contexto y descartan callbacks ajenos — 16/11/2026
+
+[Complemento modal](documentation/evidencias/entrega-final/desktop/iteracion-contexto-formularios/RESULTADOS.md): consultas, selecciones, confirmaciones, evaluación y descarga conservan cliente, institución, perfil y SID. Una respuesta o un error de conexión de la sesión anterior no altera la cuenta nueva ni su diario. Se vuelve a comprobar el contexto antes de iniciar el trabajo; no se promete cancelar una petición remota ya enviada.
+
+Siete módulos y el test integrados byte a byte con el candidato revisado independientemente `0e25202b…`. Tres pruebas dirigidas de respuestas/errores tardíos y nueve regresiones del complemento aprobaron; otros dobles y el fallo inicial por datos incompletos se conservan separados. No se repitieron pruebas idénticas tras el cotejo. Sin motores nuevos, paquete Mac actualizado ni Windows; no cierra toda la etapa 05.
+
+## Agenda móvil: nombres, recuperación y último cupo comprobados — 16/11/2026
+
+[Lote de horarios](documentation/evidencias/entrega-final/mobile/ios-resume-20261116/LOTE-HORARIOS.md): campaña y sede en lista, detalle y confirmación; nombres propios resueltos mediante llamada interna firmada con identidad delegada. Los errores aparecen junto al horario y la disponibilidad se vuelve a consultar. La recuperación conserva el comando anterior y rechaza una copia local obsoleta. Cinco pruebas puras de servidor y 16 JVM dirigidas aprobaron; consulta real de lista/detalle 200 y detalle de otra institución 403. Contratos JSON/XML y copias de escritorio actualizados.
+
+Lab se instaló como actualización separada; el usuario confirmó recuperación del intento antiguo con «ya tengo una cita activa». No se capturó su clave/cuerpo nativo y no se afirma comparación física de esos bytes. Una carrera nueva, con ambos donantes sin reserva previa en esa campaña, produjo rival 201 y móvil 409 `slot_full`, separados por 89,128 ms de llegada; SQL conserva una sola reserva. El usuario aclaró que vio cupo cero y ninguna cita nueva propia. La carrera antigua inválida permanece descartada.
+
+Una segunda plaza permitió la reserva propia de las 16:05, confirmada por el usuario. Una ejecución del worker generó un único recordatorio dirigido al donante; versión, evento, Auditoría y Mongo coinciden. El usuario confirmó su título en Avisos; la traducción posterior «Recordatorio de tu cita» aprobó cinco pruebas JVM de presentación por separado. No se atribuye inspección visual a esas respuestas humanas.
+
+Android de laboratorio completó el caso de nombres y rechazo por cita activa; dirección inspeccionó la captura real y la sesión técnica quedó revocada. Imagen tomada durante la actualización de disponibilidad; no acredita estado final en reposo. Dos intentos de arnés previos —arranque del emulador y selector del texto combinado— se conservan. El segundo también falló al preparar la hora de logcat; no se atribuye a la aplicación. Solo se recompiló el APK de pruebas después; el APK de producto permaneció idéntico.
+
+iOS bloqueó el acceso con CA ajena y certificado para otra dirección, sin HTTP registrado durante esos intervalos; ambos retornos al certificado válido recuperaron la cuenta sin credenciales nuevas. Son respuestas humanas y verificación TLS del host, sin captura ni log nativo de Security.framework. El arnés falló primero al reemplazar el contexto de un socket de escucha; se corrigió y reabrió el mismo fixture conservando datos/configuración. El login mostrado ante fallo de conexión es confuso: corrección de restauración preparada por separado, aún sin integrar. APK normal construido; publicación del backend y compilación final iOS normal pendientes. Etapa 04 permanece abierta.
+
 ## Migración 21 y recuperación de cola conservada aprobadas — 16/11/2026
 
 [Recuperación real](documentation/evidencias/entrega-final/carga-20261114/diagnostico-cola/worker-schema21-20261116/RESULTADOS.md), sin nuevas transacciones de cliente: cola global de 5.733 a cero, observada vacía a los 75,284 s dentro del límite de 120 s; cierre de workers a los 79,209 s. Conciliación exacta de 765 eventos de Auditoría, 121 avisos y 765 proyecciones Mongo. Las 6.072 entregas incluyen 339 READ auxiliares. Cero procesos propios supervivientes; configuraciones, fuentes y resultados fallidos previos conservados.

@@ -49,6 +49,20 @@ fun fieldLabel(field: String): String = mapOf(
 )[field] ?: field.replace('_', ' ')
 
 fun displayValue(field: String, value: String): String {
+    if (field == "message_code") return mapOf(
+        "APPOINTMENT_BOOKED" to "Inscripción en campaña confirmada",
+        "APPOINTMENT_CANCELLED" to "Inscripción en campaña cancelada",
+        "APPOINTMENT_CONFIRM" to "Cita confirmada",
+        "APPOINTMENT_RESCHEDULE" to "Cita reprogramada",
+        "APPOINTMENT_ATTEND" to "Asistencia a cita registrada",
+        "APPOINTMENT_CANCEL" to "Cita cancelada",
+        "APPOINTMENT_REMINDER" to "Recordatorio de tu cita",
+        "CAMPAIGN_CREATED" to "Campaña registrada",
+        "CAMPAIGN_UPDATED" to "Campaña actualizada",
+        "CAMPAIGN_SLOT_CREATED" to "Cupo de campaña creado",
+        "CAMPAIGN_PUBLICATION_CHANGED" to "Publicación de campaña actualizada",
+        "DONOR_REVIEWED" to "Evaluación del donante registrada"
+    )[value] ?: value
     if (field == "role") return mapOf("DONOR" to "Donante", "TRANSPORT" to "Transporte",
         "OPERATOR" to "Operador", "MEDICAL" to "Médico", "COORDINATOR" to "Coordinador",
         "ADMIN" to "Administración", "AUDITOR" to "Auditoría")[value] ?: value

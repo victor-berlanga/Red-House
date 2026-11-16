@@ -1,0 +1,43 @@
+{
+  "tests": 16,
+  "failures": 0,
+  "errors": 0,
+  "reports": [
+    {
+      "file": "junit/TEST-org.redhouse.mobile.AppointmentContractTest.xml",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "original_private_sha256": "ad3925bb5dd74fea4dc6476d6c1f1e625c31fd8f3f0182371a8f9c1770c69a0b",
+      "public_sha256": "9c08c5538f92d424d2a3b0f3372ff8aeb43bb1a5802f58183ce0d6f64c9658e8",
+      "sanitization": "hostname attribute removed; test names/results/times and diagnostic stderr preserved"
+    },
+    {
+      "file": "junit/TEST-org.redhouse.mobile.DurablePatchTest.xml",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "original_private_sha256": "8db7e8f78da3416139f91c642e33e89cfee540f1e8efeb7b80fa17afc8baa66d",
+      "public_sha256": "23034e74c2f902d30901c9e7f68e7d64124c63b6cd57feb72ec6c7ce2d6e47d6",
+      "sanitization": "hostname attribute removed; test names/results/times and diagnostic stderr preserved"
+    },
+    {
+      "file": "junit/TEST-org.redhouse.mobile.ResponseContractsTest.xml",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "original_private_sha256": "51aaf6a8b3ac4420c0aa97daef31c16fcc006336f240a0b20ed5941af2533f9d",
+      "public_sha256": "d3bff19fda0f0484fabe2fa2851ac2a545b1a91a89918823ecb779f69ded6690",
+      "sanitization": "hostname attribute removed; test names/results/times and diagnostic stderr preserved"
+    },
+    {
+      "file": "junit/TEST-org.redhouse.mobile.SessionTest.xml",
+      "tests": 9,
+      "failures": 0,
+      "errors": 0,
+      "original_private_sha256": "5b89bffb298d9dbe61b880cef34a58c2fbcc30f915d0c8c796f68eb18f84e03c",
+      "public_sha256": "e5505e1d73c4f0c3f28c9a8db12caa03e2ca58118999d5d8c690c69236f8915e",
+      "sanitization": "hostname attribute removed; test names/results/times and diagnostic stderr preserved"
+    }
+  ]
+}

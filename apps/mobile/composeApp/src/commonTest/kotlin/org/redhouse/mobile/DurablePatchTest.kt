@@ -68,4 +68,38 @@ class DurablePatchTest {
         assertTrue(calls[0].second.isNotBlank());assertEquals(calls[0],calls[1])
         assertTrue(recovered.journal.pendingCommands().isEmpty())
     }
+    @Test fun uncertainReservationBlocksNewBodyAndOnlyExplicitlyReplaysOriginal()=runTest {
+        val calls=mutableListOf<Pair<String,String>>()
+        val client=HttpClient(MockEngine { request ->
+            if(request.url.encodedPath.endsWith("/login")) {
+                val login=buildJsonObject {put("access_token","a");put("refresh_token","r");put("user",obj("id" to "u","tenant_id" to "t","role" to "DONOR"))}
+                respond(buildJsonObject {put("data",login);put("meta",JsonObject(emptyMap()))}.toString(),headers=headersOf(HttpHeaders.ContentType,"application/json"))
+            } else {
+                calls.add(request.headers["Idempotency-Key"].orEmpty() to (request.body as TextContent).text)
+                if(calls.size==1) error("response lost")
+                val status=if(calls.size==2)HttpStatusCode.ServiceUnavailable else HttpStatusCode.Conflict
+                val code=if(calls.size==2)"service_unavailable" else "active_appointment"
+                respond("{\"error\":{\"code\":\"$code\"}}",status,headersOf(HttpHeaders.ContentType,"application/json"))
+            }
+        })
+        val session=Session(Api(client,mapOf("identidad" to "https://example.com","donantes" to "https://example.com")),Memory());session.login("u","p","")
+        val storage=Memory();val repository=MobileRepository(session,LocalJournal(storage),"IOS")
+        val original=obj("donor_id" to "d","campaign_id" to "c","slot_id" to "original")
+        assertFails {repository.execute("donantes","/api/v1/appointments",original)}
+        val saved=repository.journal.pendingCommands().values.single().jsonObject
+        val changed=JsonObject(original+("slot_id" to JsonPrimitive("another")))
+        assertEquals("pending_operation",assertFailsWith<ApiFailure>{repository.execute("donantes","/api/v1/appointments",changed)}.code)
+        assertEquals(1,calls.size)
+        val forged=JsonObject(saved+("id" to JsonPrimitive("different-key")))
+        assertEquals("pending_operation_changed",assertFailsWith<ApiFailure>{repository.recover(forged)}.code)
+        assertEquals(saved,repository.journal.pendingCommands().values.single())
+        val restored=MobileRepository(session,LocalJournal(storage),"IOS")
+        assertEquals(503,assertFailsWith<ApiFailure>{restored.recover(saved)}.status)
+        assertEquals(saved,restored.journal.pendingCommands().values.single())
+        assertEquals("active_appointment",assertFailsWith<ApiFailure>{restored.recover(saved)}.code)
+        assertTrue(restored.journal.pendingCommands().isEmpty())
+        assertEquals(3,calls.size);assertTrue(calls[0].first.isNotBlank());assertTrue(calls.all {it==calls[0]})
+        assertEquals("pending_operation_changed",assertFailsWith<ApiFailure>{restored.recover(saved)}.code)
+        assertEquals(3,calls.size)
+    }
 }

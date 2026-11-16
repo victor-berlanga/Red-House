@@ -8,6 +8,8 @@ import kotlinx.serialization.json.*
 @Serializable internal data class DonorPersonalDto(val id:String,val display_name:String,val version:Int)
 @Serializable internal data class PublicCampaignDto(val title:String,val starts_at:String,val ends_at:String,val venue:String,val information:String)
 @Serializable internal data class PublicCampaignPageDto(val items:List<PublicCampaignDto>,val page:Int,val page_size:Int,val total:Int)
+@Serializable internal data class CampaignSlotDto(val id:String,val campaign_id:String,val site_id:String,val campaign_title:String,val site_name:String,val starts_at:String,val ends_at:String,val available:Int)
+@Serializable internal data class CampaignSlotPageDto(val items:List<CampaignSlotDto>,val page:Int,val page_size:Int,val total:Int)
 @Serializable internal data class NextAppointmentDto(val id:String,val title:String,val starts_at:String,val ends_at:String,val status:String,val schedule_version:Int)
 @Serializable internal data class ShipmentDto(val id:String,val origin_id:String,val destination_id:String,val status:String,val version:Int)
 @Serializable internal data class DeviceDto(val id:String,val user_id:String,val tenant_id:String,val source:String,val active:Boolean,val version:Int,val expires_at:String)
@@ -38,6 +40,15 @@ internal fun validateResponse(service:String,path:String,data:JsonObject) {
                 val dto=codec.decodeFromJsonElement<PublicCampaignPageDto>(data)
                 require(dto.page>0 && dto.page_size in 1..100 && dto.total>=0 && dto.items.size<=dto.page_size)
                 require(dto.items.all { it.title.isNotBlank() && it.starts_at.isNotBlank() && it.ends_at.isNotBlank() })
+            }
+            service=="donantes" && route=="/api/v1/campaign-slots" && data.containsKey("items") -> {
+                val dto=codec.decodeFromJsonElement<CampaignSlotPageDto>(data)
+                require(dto.page>0 && dto.page_size in 1..100 && dto.total>=0 && dto.items.size<=dto.page_size)
+                require(dto.items.all { it.id.isNotBlank() && it.campaign_id.isNotBlank() && it.site_id.isNotBlank() && it.campaign_title.isNotBlank() && it.site_name.isNotBlank() && it.starts_at.isNotBlank() && it.ends_at.isNotBlank() && it.available>=0 })
+            }
+            service=="donantes" && route.startsWith("/api/v1/campaign-slots/") -> {
+                val dto=codec.decodeFromJsonElement<CampaignSlotDto>(data)
+                require(dto.id==route.substringAfterLast('/') && dto.campaign_id.isNotBlank() && dto.site_id.isNotBlank() && dto.campaign_title.isNotBlank() && dto.site_name.isNotBlank() && dto.starts_at.isNotBlank() && dto.ends_at.isNotBlank() && dto.available>=0)
             }
             service=="donantes" && route=="/api/v1/appointments/next" -> {
                 val value=data["appointment"] ?: error("missing appointment")
