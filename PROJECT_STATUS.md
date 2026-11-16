@@ -2,6 +2,12 @@
 
 Las entradas están ordenadas de reciente a histórico; un pendiente de un corte anterior puede quedar sustituido explícitamente por una entrada posterior.
 
+## Compilación XML protegida tras reproducir el fallo en imagen GCP — 16/11/2026
+
+[Corrección y evidencia](documentation/evidencias/entrega-final/carga-20261114/xml-compilation-lock-20261116/RESULTADOS.md): la preparación de imagen GCP reprodujo XMLSchemaParseError aun con parser propio; se detuvo antes de release y server21 continúa activo. Un candado por proceso protege los tres constructores runtime, conservando validadores de petición, XSD y rechazo XXE. Catorce pruebas puras aprobaron, incluido proceso frío con 216 intentos y tres constructores. Comparativo aislado en la misma imagen: control y candidato 192/192; el control no reprodujo el fallo en esa ejecución. No se atribuye causalidad upstream ni mejora de rendimiento. Ambos contenedores temporales cerrados, sin tocar servicios activos.
+
+Los fallos de importación/variable del arnés y cambio local de hash se conservan separados del fallo real. Publicación final y carga HTTP de estas tres fuentes pendientes; la corrida previa de doce identidades corresponde al hash anterior. Esto sustituye únicamente la afirmación de que restaba publicar un archivo: el incremento requiere ahora tres fuentes y su aceptación propia.
+
 ## Captura HLA y corrección documental incorporadas a escritorio — 16/11/2026
 
 [Incremento Qt/XML](documentation/evidencias/entrega-final/desktop/iteracion-resultado-hla/RESULTADOS.md): resultado pendiente/informado, declaración HLA por locus, emisión y corrección con antecedente fijo; selección de documento ya verificado y revisión profesional con contexto. Respuesta y callbacks se cotejan contra actor, institución, muestra y cuerpo original. Conflicto/reauth incierta conservan un formulario bloqueado; únicamente rechazo de validación reconocido permite corrección humana, sin reintento automático.

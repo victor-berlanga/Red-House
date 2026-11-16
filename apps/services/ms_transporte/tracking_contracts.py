@@ -6,7 +6,7 @@ from typing import Annotated, Literal
 from lxml import etree as E
 from pydantic import Field, ValidationError, model_validator
 
-from redhouse.codec import request_xsd, _decode, _pairs
+from redhouse.codec import XML_SCHEMA_COMPILE_LOCK, request_xsd, _decode, _pairs
 from redhouse.errors import APIError
 from redhouse.examples import request_xml
 from redhouse.models import ID, Model, Text
@@ -120,7 +120,12 @@ def decode(raw, model=Message, representation="json"):
             )
             if tree.getroottree().docinfo.doctype:
                 raise ValueError()
-            E.XMLSchema(E.fromstring(request_xsd(model))).assertValid(tree)
+            with XML_SCHEMA_COMPILE_LOCK:
+                parser = E.XMLParser(
+                    resolve_entities=False, load_dtd=False, no_network=True, huge_tree=False
+                )
+                validator = E.XMLSchema(E.fromstring(request_xsd(model), parser))
+            validator.assertValid(tree)
             definition = model.model_json_schema()
             value = _decode(tree, definition, definition)
         return model.model_validate(value).model_dump()

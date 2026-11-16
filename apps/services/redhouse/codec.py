@@ -2,6 +2,7 @@
 
 import json
 import math
+from threading import Lock
 from datetime import date, datetime
 from decimal import Decimal
 from uuid import UUID
@@ -15,6 +16,7 @@ from .validation import details_for, invalid
 
 XS = "http://www.w3.org/2001/XMLSchema"
 XSI = "http://www.w3.org/2001/XMLSchema-instance"
+XML_SCHEMA_COMPILE_LOCK = Lock()
 
 
 def plain(value):
@@ -169,11 +171,12 @@ def parse(model):
                 raise ValueError()
             # El XSD sigue siendo obligatorio. Sus mensajes internos pueden incluir
             # datos del cuerpo: devolver únicamente campos conocidos y causas seguras.
-            # Keep generated-schema parsing independent across requests.
-            schema_parser = E.XMLParser(
-                resolve_entities=False, load_dtd=False, no_network=True, huge_tree=False
-            )
-            validator = E.XMLSchema(E.fromstring(request_xsd(model), schema_parser))
+            # Serialize schema construction; validators/error logs remain request-local.
+            with XML_SCHEMA_COMPILE_LOCK:
+                schema_parser = E.XMLParser(
+                    resolve_entities=False, load_dtd=False, no_network=True, huge_tree=False
+                )
+                validator = E.XMLSchema(E.fromstring(request_xsd(model), schema_parser))
             if not validator.validate(tree):
                 try:
                     decoded = _decode(

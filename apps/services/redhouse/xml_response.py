@@ -8,10 +8,13 @@ from lxml import etree as E
 from jsonschema import Draft202012Validator, FormatChecker
 from jsonschema.exceptions import ValidationError
 
+from .codec import XML_SCHEMA_COMPILE_LOCK
+
 
 @lru_cache(maxsize=1)
 def envelope():
-    return E.XMLSchema(E.parse(str(Path(__file__).with_name("response.xsd"))))
+    with XML_SCHEMA_COMPILE_LOCK:
+        return E.XMLSchema(E.parse(str(Path(__file__).with_name("response.xsd"))))
 
 
 def validate_response(content, schema):

@@ -1,0 +1,128 @@
+{
+  "image_id": "sha256:8693ff8ffafc6fe92079f0dc9a5e73530f6bede32cb61b5bbde0aab66a8446fd",
+  "user": "10001:10001",
+  "probe_sha256": "1c6980e6b11320628c5d6ee891a1a6606cc6969c7176910dcd03f89e3a5954ca",
+  "runner_sha256": "324798231ca49496cb463c458754756a4af96cb3d253e7512e4d809bc62604f0",
+  "runs": [
+    {
+      "label": "control",
+      "source_sha256": "64eb84e46ea78f3715f4ed504b644f54c13af48142abaf91490ee54529934220",
+      "container_closed": true,
+      "exit_code": 0,
+      "result": {
+        "passed": true,
+        "source_sha256": "64eb84e46ea78f3715f4ed504b644f54c13af48142abaf91490ee54529934220",
+        "xsd_sha256": "c44e841609216789820023fd487a27da4d1324fa95dd20a5a5edb6dc85caee44",
+        "corpus_sha256": {
+          "valid": "b00e9f27fabcb4a13e336a9effa1bdc9787d0f5b0a702d9d25761f9ba3b6520c",
+          "duplicate_rejected": "111e1778d945e210bd40238e1e706e4fd44cec617d62f1118690e01ccbdfb67f",
+          "xxe_rejected": "6af2cde9d8881a2aeb1b9d1f314e66b379d5ef0e9ed46249c656fd9fc96b3861"
+        },
+        "counts": {
+          "valid": 64,
+          "duplicate_rejected": 64,
+          "xxe_rejected": 64
+        },
+        "attempts": 192,
+        "error_count": 0,
+        "errors": [],
+        "cold_seconds": [
+          0.16808299900731072,
+          0.1908430399489589,
+          0.19589261803776026,
+          0.2016858109855093,
+          0.1875024589826353,
+          0.16753764101304114,
+          0.16037346294615418,
+          0.16163963999133557
+        ],
+        "elapsed_seconds": 1.0391170780058019,
+        "python": "3.13.18",
+        "lxml": [
+          6,
+          1,
+          3,
+          0
+        ],
+        "libxml": [
+          2,
+          14,
+          6
+        ],
+        "compiled_libxml": [
+          2,
+          14,
+          6
+        ],
+        "threads": 8,
+        "iterations_per_thread": 8,
+        "sequential_schema_warmup": false,
+        "scope": "codec only; no HTTP/auth/atomic/database; identical fresh-process corpus"
+      },
+      "elapsed_seconds": 3.85796582698822,
+      "forced_cleanup": false
+    },
+    {
+      "label": "candidate",
+      "source_sha256": "964c65b1982e0dcadccb0080b47bfcb68cdd4975a9ef06bbb3814417e705fe30",
+      "container_closed": true,
+      "exit_code": 0,
+      "result": {
+        "passed": true,
+        "source_sha256": "964c65b1982e0dcadccb0080b47bfcb68cdd4975a9ef06bbb3814417e705fe30",
+        "xsd_sha256": "c44e841609216789820023fd487a27da4d1324fa95dd20a5a5edb6dc85caee44",
+        "corpus_sha256": {
+          "valid": "b00e9f27fabcb4a13e336a9effa1bdc9787d0f5b0a702d9d25761f9ba3b6520c",
+          "duplicate_rejected": "111e1778d945e210bd40238e1e706e4fd44cec617d62f1118690e01ccbdfb67f",
+          "xxe_rejected": "6af2cde9d8881a2aeb1b9d1f314e66b379d5ef0e9ed46249c656fd9fc96b3861"
+        },
+        "counts": {
+          "valid": 64,
+          "duplicate_rejected": 64,
+          "xxe_rejected": 64
+        },
+        "attempts": 192,
+        "error_count": 0,
+        "errors": [],
+        "cold_seconds": [
+          0.09959360596258193,
+          0.08840682596201077,
+          0.12535498896613717,
+          0.10967311897547916,
+          0.10455158102558926,
+          0.0939139339607209,
+          0.12147735198959708,
+          0.08188464096747339
+        ],
+        "elapsed_seconds": 2.82947623700602,
+        "python": "3.13.18",
+        "lxml": [
+          6,
+          1,
+          3,
+          0
+        ],
+        "libxml": [
+          2,
+          14,
+          6
+        ],
+        "compiled_libxml": [
+          2,
+          14,
+          6
+        ],
+        "threads": 8,
+        "iterations_per_thread": 8,
+        "sequential_schema_warmup": false,
+        "scope": "codec only; no HTTP/auth/atomic/database; identical fresh-process corpus"
+      },
+      "elapsed_seconds": 6.927886477962602,
+      "forced_cleanup": false
+    }
+  ],
+  "own_containers_closed": true,
+  "scope": "Two ephemeral containers only; existing runtime and configuration untouched",
+  "candidate_passed": true,
+  "control_reproduced": false
+}

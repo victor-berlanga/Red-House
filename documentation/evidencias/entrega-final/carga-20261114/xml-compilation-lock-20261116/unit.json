@@ -1,0 +1,29 @@
+{
+  "passed": true,
+  "exit_code": 0,
+  "at": "2026-11-16T23:51:32.448045+00:00",
+  "counts": {
+    "tests": 14,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "pytest_seconds": 26.62,
+  "test_sha256": "f2355a8d0087648ccfc8a85f8c1ae5cab65a3bb8167d6f1c471307a3d810e52a",
+  "source_sha256": {
+    "apps/services/redhouse/codec.py": "964c65b1982e0dcadccb0080b47bfcb68cdd4975a9ef06bbb3814417e705fe30",
+    "apps/services/ms_transporte/tracking_contracts.py": "00a3a56b8a17d76efd60fd75b0931c81b84b136d19b9c30fb6dfad5d12139026",
+    "apps/services/redhouse/xml_response.py": "7f01a181ece8e340002b0f01903e36b114a02444fec258635bda067a6e76f36d"
+  },
+  "selection": [
+    "tests/test_codec_concurrency.py",
+    "tests/test_review_unit.py::test_xml_response_rejects_invalid_types_duplicates_and_missing_fields",
+    "tests/test_final_tracking.py::test_tracking_rejects_xxe_nonfinite_and_unknown_fields",
+    "tests/test_xml_compilation_isolation.py"
+  ],
+  "noconftest": true,
+  "scope": "Pure parsers, real fresh-process lxml runtime; no engines/HTTP/database; existing parallel codec plus three constructors",
+  "original_junit_sha256": "966d46ba0c038af03ec649377344c2f579b6c4900ecee7be2f01509251831e72",
+  "public_junit_sha256": "07a3e193588fa01325cc4bf9ec40141949e6d63f70ac2b305f9b3b0ab052199e",
+  "public_junit_change": "Only hostname attribute removed; test counts unchanged."
+}
