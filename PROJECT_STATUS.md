@@ -2,6 +2,14 @@
 
 Las entradas están ordenadas de reciente a histórico; un pendiente de un corte anterior puede quedar sustituido explícitamente por una entrada posterior.
 
+## Índice de despacho medido y migración 21 preparada — 16/11/2026
+
+[Perfil de diez entregas](documentation/evidencias/entrega-final/carga-20261114/diagnostico-cola/worker-profile-20261116/RESULTADOS.md) identificó SELECT de 30,985 ms de mediana con lectura secuencial/ordenación. [Discriminante reversible](documentation/evidencias/entrega-final/carga-20261114/diagnostico-cola/worker-index-benchmark-20261116/RESULTADOS.md): misma cabeza, diez muestras calientes por condición y rollback; SELECT+fila pasó de 31,618 a 0,822 ms. Las 26.652 filas conservaron hash lógico, índice experimental eliminado y PostgreSQL cerrado. Un fallo previo de guarda ocurrió antes de arrancar motores y permanece separado.
+
+Migración aditiva 21 agrega el índice parcial por servicio/created_at/id para filas pendientes, conservando el índice por próximo intento. Tres pruebas puras del actualizador aprobaron. No cambia entrega, orden, reintentos ni permisos. Esquema 21 aún no aplicado al fixture conservado ni GCP; actualizar antes de iniciar estas fuentes, porque health/database exige la versión vigente. No acredita mejora de carga global ni cierra los drenados fallidos.
+
+La nueva carrera móvil fue descartada: donor1 ya tenía una cita activa en la misma campaña; la barrera del ensayo bloqueó un intento posterior. No se acepta 201/409 como competencia válida por cupo. Fixture cerrado con datos/sesión/diario conservados; escenario nuevo y correcciones de mensajes/disponibilidad en preparación. Recordatorio y negativos TLS siguen pendientes. Reportes Chrome fallaron por PDF RETRYABLE/scanner_unavailable; CSV/XLSX alcanzaron COMPLETE. GCS Chrome bloqueó la descarga durante la caída y falló después al abrir el objeto como imagen, con limpieza propia confirmada. Ambos expedientes permanecen privados en diagnóstico, sin aceptación integral.
+
 ## Auditoría y acuse de escritorio verificados — 16/11/2026
 
 [DESK-14, alcance comprobado](documentation/evidencias/entrega-final/desktop/iteracion-avisos/RESULTADOS.md): auditor consultó listado/detalle del dictamen sintético E2E-C; otra institución recibió 403. Acuse Qt/XML dirigido salió 0: ACKNOWLEDGED, actor y evento único conciliados por SQL; sesión propia cerrada y 982 fuentes estables. El cliente revalida identidad tras el diálogo y correlaciona aviso, institución, estado y actor antes de cerrar el comando recuperable.
