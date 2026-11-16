@@ -169,7 +169,11 @@ def parse(model):
                 raise ValueError()
             # El XSD sigue siendo obligatorio. Sus mensajes internos pueden incluir
             # datos del cuerpo: devolver únicamente campos conocidos y causas seguras.
-            validator = E.XMLSchema(E.fromstring(request_xsd(model)))
+            # Keep generated-schema parsing independent across requests.
+            schema_parser = E.XMLParser(
+                resolve_entities=False, load_dtd=False, no_network=True, huge_tree=False
+            )
+            validator = E.XMLSchema(E.fromstring(request_xsd(model), schema_parser))
             if not validator.validate(tree):
                 try:
                     decoded = _decode(

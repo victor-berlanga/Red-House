@@ -1,0 +1,320 @@
+{
+  "status": "failed",
+  "scenario": "local-api2-worker2-interval2",
+  "warmup_seconds": 30,
+  "measurement_seconds": 120,
+  "warmup_min_users": 10,
+  "measurement_min_users": 10,
+  "warmup": {
+    "requests": 401,
+    "failures": 4
+  },
+  "execution_valid": false,
+  "measurement_accepted": false,
+  "timing": {
+    "stage": "finished",
+    "started": 484950.710192072,
+    "warmup_min_users": 10,
+    "warmup": {
+      "requests": 401,
+      "failures": 4
+    },
+    "measured": 484982.563014686,
+    "measurement_min_users": 10,
+    "finished": 485102.589854194,
+    "measurement": [
+      {
+        "method": "POST",
+        "name": "Identidad / login",
+        "requests": 0,
+        "failures": 0,
+        "requests_per_second": 0.0,
+        "mean_ms": 0.0,
+        "median_ms": 0,
+        "p95_ms": 0,
+        "p99_ms": 0
+      },
+      {
+        "method": "GET",
+        "name": "Citas / Expediente propio",
+        "requests": 108,
+        "failures": 0,
+        "requests_per_second": 0.8997987487021212,
+        "mean_ms": 143.10024068658498,
+        "median_ms": 130,
+        "p95_ms": 220,
+        "p99_ms": 290
+      },
+      {
+        "method": "GET",
+        "name": "Citas / Buscar campaña",
+        "requests": 108,
+        "failures": 0,
+        "requests_per_second": 0.8997987487021212,
+        "mean_ms": 138.2659719394589,
+        "median_ms": 140,
+        "p95_ms": 220,
+        "p99_ms": 260
+      },
+      {
+        "method": "POST",
+        "name": "Inventario / Registrar cuarentena",
+        "requests": 80,
+        "failures": 0,
+        "requests_per_second": 0.666517591631201,
+        "mean_ms": 152.82877803692827,
+        "median_ms": 150,
+        "p95_ms": 260,
+        "p99_ms": 300
+      },
+      {
+        "method": "TRANSACTION",
+        "name": "Recorrido / OPERATOR",
+        "requests": 80,
+        "failures": 0,
+        "requests_per_second": 0.666517591631201,
+        "mean_ms": 1015.2508396036865,
+        "median_ms": 1000,
+        "p95_ms": 1300,
+        "p99_ms": 1500
+      },
+      {
+        "method": "GET",
+        "name": "Citas / Horarios autorizados",
+        "requests": 108,
+        "failures": 0,
+        "requests_per_second": 0.8997987487021212,
+        "mean_ms": 325.59888107115745,
+        "median_ms": 320,
+        "p95_ms": 450,
+        "p99_ms": 480
+      },
+      {
+        "method": "POST",
+        "name": "Idempotencia / Repetir mismo intento",
+        "requests": 0,
+        "failures": 0,
+        "requests_per_second": 0.0,
+        "mean_ms": 0.0,
+        "median_ms": 0,
+        "p95_ms": 0,
+        "p99_ms": 0
+      },
+      {
+        "method": "POST",
+        "name": "Citas / Reservar",
+        "requests": 108,
+        "failures": 0,
+        "requests_per_second": 0.8997987487021212,
+        "mean_ms": 151.2209076285621,
+        "median_ms": 140,
+        "p95_ms": 250,
+        "p99_ms": 290
+      },
+      {
+        "method": "GET",
+        "name": "Inventario / Consultar unidad registrada",
+        "requests": 80,
+        "failures": 0,
+        "requests_per_second": 0.666517591631201,
+        "mean_ms": 137.76366267411504,
+        "median_ms": 130,
+        "p95_ms": 230,
+        "p99_ms": 300
+      },
+      {
+        "method": "GET",
+        "name": "Citas / Consultar horario",
+        "requests": 108,
+        "failures": 0,
+        "requests_per_second": 0.8997987487021212,
+        "mean_ms": 143.4391760671537,
+        "median_ms": 150,
+        "p95_ms": 230,
+        "p99_ms": 260
+      },
+      {
+        "method": "POST",
+        "name": "Laboratorio / Registrar muestra",
+        "requests": 80,
+        "failures": 0,
+        "requests_per_second": 0.666517591631201,
+        "mean_ms": 284.4476556376321,
+        "median_ms": 280,
+        "p95_ms": 430,
+        "p99_ms": 530
+      },
+      {
+        "method": "POST",
+        "name": "Citas / Reprogramar",
+        "requests": 108,
+        "failures": 0,
+        "requests_per_second": 0.8997987487021212,
+        "mean_ms": 150.60532957916925,
+        "median_ms": 150,
+        "p95_ms": 250,
+        "p99_ms": 290
+      },
+      {
+        "method": "POST",
+        "name": "Laboratorio / Recibir muestra",
+        "requests": 80,
+        "failures": 0,
+        "requests_per_second": 0.666517591631201,
+        "mean_ms": 149.14075381093426,
+        "median_ms": 140,
+        "p95_ms": 270,
+        "p99_ms": 320
+      },
+      {
+        "method": "POST",
+        "name": "Citas / Cancelar",
+        "requests": 108,
+        "failures": 0,
+        "requests_per_second": 0.8997987487021212,
+        "mean_ms": 154.63465873283525,
+        "median_ms": 150,
+        "p95_ms": 250,
+        "p99_ms": 280
+      },
+      {
+        "method": "GET",
+        "name": "Laboratorio / Confirmar recepción",
+        "requests": 80,
+        "failures": 0,
+        "requests_per_second": 0.666517591631201,
+        "mean_ms": 144.94853584983503,
+        "median_ms": 150,
+        "p95_ms": 230,
+        "p99_ms": 310
+      },
+      {
+        "method": "GET",
+        "name": "Citas / Confirmar cancelación",
+        "requests": 108,
+        "failures": 0,
+        "requests_per_second": 0.8997987487021212,
+        "mean_ms": 139.3749747782109,
+        "median_ms": 140,
+        "p95_ms": 250,
+        "p99_ms": 260
+      },
+      {
+        "method": "TRANSACTION",
+        "name": "Recorrido / DONOR",
+        "requests": 108,
+        "failures": 0,
+        "requests_per_second": 0.8997987487021212,
+        "mean_ms": 1500.4371024352386,
+        "median_ms": 1500,
+        "p95_ms": 1900,
+        "p99_ms": 2000
+      },
+      {
+        "method": "DRAIN",
+        "name": "Recorrido / OPERATOR",
+        "requests": 0,
+        "failures": 0,
+        "requests_per_second": 0.0,
+        "mean_ms": 0.0,
+        "median_ms": 0,
+        "p95_ms": 0,
+        "p99_ms": 0
+      },
+      {
+        "method": "DRAIN",
+        "name": "Recorrido / DONOR",
+        "requests": 0,
+        "failures": 0,
+        "requests_per_second": 0.0,
+        "mean_ms": 0.0,
+        "median_ms": 0,
+        "p95_ms": 0,
+        "p99_ms": 0
+      }
+    ],
+    "cache": {},
+    "http": {},
+    "drained": 485104.142741758,
+    "user_errors": 0
+  },
+  "http": {
+    "requests": 1264,
+    "failures": 0,
+    "requests_per_second": 10.530977947772975,
+    "weighted_mean_ms": 170.03503643428314,
+    "maximum_endpoint_read_p95_ms": 450,
+    "maximum_endpoint_read_p99_ms": 480,
+    "quota_429": 0
+  },
+  "profiles": {
+    "OPERATOR": {
+      "p95_ms": 1300,
+      "p99_ms": 1500,
+      "p95_limit_exclusive_ms": 5000,
+      "target_met": true,
+      "completed_per_second": 0.666517591631201
+    },
+    "DONOR": {
+      "p95_ms": 1900,
+      "p99_ms": 2000,
+      "p95_limit_exclusive_ms": 5000,
+      "target_met": true,
+      "completed_per_second": 0.8997987487021212
+    }
+  },
+  "business": {
+    "committed": 717,
+    "not_committed": 2,
+    "response_lost_committed": 0,
+    "incomplete_cycles": 2,
+    "completed": {
+      "DONOR": 138,
+      "OPERATOR": 101
+    },
+    "replays": 10,
+    "unconfirmed_replays": 0,
+    "errors": [],
+    "attempted": 719,
+    "trace_files": 12,
+    "measured_completed": {
+      "DONOR": 108,
+      "OPERATOR": 80
+    },
+    "persistence_verified": true,
+    "event_wait_seconds": 0.1656518550007604
+  },
+  "postgres_budget": {
+    "max_connections": 100,
+    "reserved": 3,
+    "existing_clients_including_check": 1,
+    "planned_pools_max": 48,
+    "auxiliary_margin": 5
+  },
+  "cleanup": {
+    "setup_logout_verified": true,
+    "setup_new_families": null,
+    "processes_closed": true,
+    "lock_removed": true
+  },
+  "load_session_count_verified": true,
+  "load_session_revocation_verified": true,
+  "source_configuration_history_checks": {
+    "sources_unchanged": true,
+    "topology_unchanged": true,
+    "history_unchanged": true,
+    "setup_events_verified": true
+  },
+  "resources": {
+    "samples": 86,
+    "minimum_free_bytes": 12213641216,
+    "maximum_owned_bytes": 527993696,
+    "maximum_sum_rss_kib": 2538776,
+    "scope": "Generator and services share one local machine; sum of sampled process RSS, not GCP capacity."
+  },
+  "receipts_sha256": {
+    "summary-wrapper.json": "3b235e84a5c713c65c79c158a56ab44ab8f0cf36fdde4ddf511ddd5885ba98a5",
+    "12-transactions/phase.json": "d1dd74813543e1b317c5f6a03693f79724a6f3b8b7b4d35820010fdcdc51360a",
+    "12-transactions/reconciliation.private.json": "a96bf56874ad847df000a3ff3a70d7dd3283483cc36a1c23065acc22689bdd2c"
+  }
+}

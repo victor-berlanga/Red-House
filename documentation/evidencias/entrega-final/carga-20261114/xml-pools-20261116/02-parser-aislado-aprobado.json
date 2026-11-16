@@ -1,0 +1,309 @@
+{
+  "status": "passed",
+  "scenario": "local-api2-worker2-interval2",
+  "warmup_seconds": 30,
+  "measurement_seconds": 120,
+  "warmup_min_users": 12,
+  "measurement_min_users": 12,
+  "warmup": {
+    "requests": 408,
+    "failures": 0
+  },
+  "execution_valid": true,
+  "measurement_accepted": true,
+  "timing": {
+    "stage": "finished",
+    "started": 486085.416218474,
+    "warmup_min_users": 12,
+    "warmup": {
+      "requests": 408,
+      "failures": 0
+    },
+    "measured": 486116.437483931,
+    "measurement_min_users": 12,
+    "finished": 486236.48383506,
+    "measurement": [
+      {
+        "method": "POST",
+        "name": "Identidad / login",
+        "requests": 0,
+        "failures": 0,
+        "requests_per_second": 0.0,
+        "mean_ms": 0.0,
+        "median_ms": 0,
+        "p95_ms": 0,
+        "p99_ms": 0
+      },
+      {
+        "method": "GET",
+        "name": "Citas / Expediente propio",
+        "requests": 103,
+        "failures": 0,
+        "requests_per_second": 0.8580019220188979,
+        "mean_ms": 203.69164680483416,
+        "median_ms": 190,
+        "p95_ms": 330,
+        "p99_ms": 400
+      },
+      {
+        "method": "GET",
+        "name": "Citas / Buscar campaña",
+        "requests": 102,
+        "failures": 0,
+        "requests_per_second": 0.8496718062711416,
+        "mean_ms": 188.79786474794588,
+        "median_ms": 180,
+        "p95_ms": 300,
+        "p99_ms": 400
+      },
+      {
+        "method": "POST",
+        "name": "Inventario / Registrar cuarentena",
+        "requests": 117,
+        "failures": 0,
+        "requests_per_second": 0.974623542487486,
+        "mean_ms": 177.099322699683,
+        "median_ms": 180,
+        "p95_ms": 290,
+        "p99_ms": 320
+      },
+      {
+        "method": "GET",
+        "name": "Citas / Horarios autorizados",
+        "requests": 101,
+        "failures": 0,
+        "requests_per_second": 0.8413416905233853,
+        "mean_ms": 398.035260354224,
+        "median_ms": 400,
+        "p95_ms": 520,
+        "p99_ms": 580
+      },
+      {
+        "method": "POST",
+        "name": "Idempotencia / Repetir mismo intento",
+        "requests": 0,
+        "failures": 0,
+        "requests_per_second": 0.0,
+        "mean_ms": 0.0,
+        "median_ms": 0,
+        "p95_ms": 0,
+        "p99_ms": 0
+      },
+      {
+        "method": "POST",
+        "name": "Citas / Reservar",
+        "requests": 101,
+        "failures": 0,
+        "requests_per_second": 0.8413416905233853,
+        "mean_ms": 207.94498395707257,
+        "median_ms": 200,
+        "p95_ms": 310,
+        "p99_ms": 390
+      },
+      {
+        "method": "GET",
+        "name": "Inventario / Consultar unidad registrada",
+        "requests": 117,
+        "failures": 0,
+        "requests_per_second": 0.974623542487486,
+        "mean_ms": 176.41526884717754,
+        "median_ms": 170,
+        "p95_ms": 300,
+        "p99_ms": 370
+      },
+      {
+        "method": "GET",
+        "name": "Citas / Consultar horario",
+        "requests": 101,
+        "failures": 0,
+        "requests_per_second": 0.8413416905233853,
+        "mean_ms": 222.4613954474467,
+        "median_ms": 210,
+        "p95_ms": 350,
+        "p99_ms": 410
+      },
+      {
+        "method": "POST",
+        "name": "Citas / Reprogramar",
+        "requests": 101,
+        "failures": 0,
+        "requests_per_second": 0.8413416905233853,
+        "mean_ms": 222.37633766449693,
+        "median_ms": 220,
+        "p95_ms": 350,
+        "p99_ms": 430
+      },
+      {
+        "method": "POST",
+        "name": "Laboratorio / Registrar muestra",
+        "requests": 117,
+        "failures": 0,
+        "requests_per_second": 0.974623542487486,
+        "mean_ms": 344.7430246299666,
+        "median_ms": 340,
+        "p95_ms": 540,
+        "p99_ms": 560
+      },
+      {
+        "method": "POST",
+        "name": "Laboratorio / Recibir muestra",
+        "requests": 117,
+        "failures": 0,
+        "requests_per_second": 0.974623542487486,
+        "mean_ms": 187.74230793142357,
+        "median_ms": 180,
+        "p95_ms": 350,
+        "p99_ms": 380
+      },
+      {
+        "method": "POST",
+        "name": "Citas / Cancelar",
+        "requests": 101,
+        "failures": 0,
+        "requests_per_second": 0.8413416905233853,
+        "mean_ms": 225.6671381880308,
+        "median_ms": 230,
+        "p95_ms": 350,
+        "p99_ms": 400
+      },
+      {
+        "method": "GET",
+        "name": "Laboratorio / Confirmar recepción",
+        "requests": 117,
+        "failures": 0,
+        "requests_per_second": 0.974623542487486,
+        "mean_ms": 171.53654561445722,
+        "median_ms": 160,
+        "p95_ms": 320,
+        "p99_ms": 430
+      },
+      {
+        "method": "TRANSACTION",
+        "name": "Recorrido / OPERATOR",
+        "requests": 117,
+        "failures": 0,
+        "requests_per_second": 0.974623542487486,
+        "mean_ms": 1217.8998510353267,
+        "median_ms": 1200,
+        "p95_ms": 1700,
+        "p99_ms": 1900
+      },
+      {
+        "method": "GET",
+        "name": "Citas / Confirmar cancelación",
+        "requests": 101,
+        "failures": 0,
+        "requests_per_second": 0.8413416905233853,
+        "mean_ms": 207.36948502858604,
+        "median_ms": 210,
+        "p95_ms": 320,
+        "p99_ms": 410
+      },
+      {
+        "method": "TRANSACTION",
+        "name": "Recorrido / DONOR",
+        "requests": 101,
+        "failures": 0,
+        "requests_per_second": 0.8413416905233853,
+        "mean_ms": 2070.510109722854,
+        "median_ms": 2100,
+        "p95_ms": 2500,
+        "p99_ms": 2700
+      },
+      {
+        "method": "DRAIN",
+        "name": "Recorrido / OPERATOR",
+        "requests": 0,
+        "failures": 0,
+        "requests_per_second": 0.0,
+        "mean_ms": 0.0,
+        "median_ms": 0,
+        "p95_ms": 0,
+        "p99_ms": 0
+      }
+    ],
+    "cache": {},
+    "http": {},
+    "drained": 486237.919083919,
+    "user_errors": 0
+  },
+  "http": {
+    "requests": 1396,
+    "failures": 0,
+    "requests_per_second": 11.62884158386778,
+    "weighted_mean_ms": 224.81282481903352,
+    "maximum_endpoint_read_p95_ms": 520,
+    "maximum_endpoint_read_p99_ms": 580,
+    "quota_429": 0
+  },
+  "profiles": {
+    "OPERATOR": {
+      "p95_ms": 1700,
+      "p99_ms": 1900,
+      "p95_limit_exclusive_ms": 5000,
+      "target_met": true,
+      "completed_per_second": 0.974623542487486
+    },
+    "DONOR": {
+      "p95_ms": 2500,
+      "p99_ms": 2700,
+      "p95_limit_exclusive_ms": 5000,
+      "target_met": true,
+      "completed_per_second": 0.8413416905233853
+    }
+  },
+  "business": {
+    "committed": 822,
+    "not_committed": 0,
+    "response_lost_committed": 0,
+    "incomplete_cycles": 0,
+    "completed": {
+      "DONOR": 127,
+      "OPERATOR": 147
+    },
+    "replays": 12,
+    "unconfirmed_replays": 0,
+    "errors": [],
+    "attempted": 822,
+    "trace_files": 12,
+    "measured_completed": {
+      "DONOR": 101,
+      "OPERATOR": 117
+    },
+    "persistence_verified": true,
+    "event_wait_seconds": 0.08105800801422447
+  },
+  "postgres_budget": {
+    "max_connections": 100,
+    "reserved": 3,
+    "existing_clients_including_check": 1,
+    "planned_pools_max": 48,
+    "auxiliary_margin": 5
+  },
+  "cleanup": {
+    "setup_logout_verified": true,
+    "setup_new_families": null,
+    "processes_closed": true,
+    "lock_removed": true
+  },
+  "load_session_count_verified": true,
+  "load_session_revocation_verified": true,
+  "source_configuration_history_checks": {
+    "sources_unchanged": true,
+    "topology_unchanged": true,
+    "history_unchanged": true,
+    "setup_events_verified": true
+  },
+  "resources": {
+    "samples": 86,
+    "minimum_free_bytes": 12173115392,
+    "maximum_owned_bytes": 545447226,
+    "maximum_sum_rss_kib": 2500508,
+    "scope": "Generator and services share one local machine; sum of sampled process RSS, not GCP capacity."
+  },
+  "receipts_sha256": {
+    "summary-wrapper.json": "1050883eb616b416088901cc6ffc955db1a998bdf5264880808027d77b2e7d02",
+    "12-transactions/phase.json": "e41ee92fc959bb00601b2b579d749cad3191fa164eef2826312381dddc57ced5",
+    "12-transactions/reconciliation.private.json": "54df0524f1287722993db8b28a6dab3ad4caeddc2427b06903fca88f35143348"
+  }
+}

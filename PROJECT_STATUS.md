@@ -2,6 +2,12 @@
 
 Las entradas están ordenadas de reciente a histórico; un pendiente de un corte anterior puede quedar sustituido explícitamente por una entrada posterior.
 
+## Carga transaccional de doce identidades aprobada tras aislamiento del parser XML — 16/11/2026
+
+[Escenario API2/worker2](documentation/evidencias/entrega-final/carga-20261114/xml-pools-20261116/RESULTADOS.md): doce usuarios mínimos en calentamiento y medición, 1.396 HTTP medidos sin fallos, p95 de consulta 520 ms/recorrido 2.500 ms; 822 escrituras, 274 recorridos completos y doce replays reconciliados. El oráculo confirmó propagación en 0,081 s de espera final, sin atribuir esa cifra a latencia individual. Trece sesiones técnicas revocadas, procesos cerrados, datos históricos/configuración/fuentes conservados. Copias privadas usan pool2 e intervalo2 del despliegue generado; no es una comparación A/B pura ni medición GCP.
+
+La primera ejecución de esa configuración conserva exit1: dos 500 XMLSchemaParseError durante calentamiento dejaron diez usuarios efectivos. El fallo se reprodujo una vez con compilación concurrente pura; otra comparación posterior no lo reprodujo, por lo que se mantiene su carácter intermitente. `codec.parse` usa ahora parser propio para el XSD generado, conservando validación y rechazo XXE. Once pruebas integradas aprobaron y la carga HTTP posterior con todos los XML activos pasó. No se atribuye resolución universal ni cierre completo de etapa07; falta publicar este único archivo en GCP. Los fallos anteriores no se reescriben como éxitos.
+
 ## Restauración móvil y pendientes protegidos; compilación final aprobada — 16/11/2026
 
 [Lote de restauración](documentation/evidencias/entrega-final/mobile/startup-owner-20261116/RESULTADOS.md): el fallo de conexión al recuperar una sesión guardada ofrece reintentar sin mostrar el login ni datos protegidos. Autenticación fallida conserva diario y observaciones; el mismo propietario autenticado conserva pendientes y otro propietario los desvincula antes de publicar la sesión. El diario persiste antes de modificar memoria o enviar comandos. No se promete atomicidad entre diario y cola; ante refresh incierto se conserva la eliminación de credenciales y no se repite la renovación.
