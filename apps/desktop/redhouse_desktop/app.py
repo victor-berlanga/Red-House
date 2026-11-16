@@ -18,6 +18,7 @@ from .durable_commands import prepare_command, submit_command, update_shipment_c
 from .shipment_planning import planning_dialog
 from .resource_edit import resource_edit_dialog
 from .fractionation import fractionation_dialog
+from .resource_quality import quality_dialog
 from .institutional_catalogue import catalogue_dialog
 from .donation_selector import select_processed_donation
 from .donation_workflows import collect_dialog, processing_dialog
@@ -128,6 +129,8 @@ class Window(QMainWindow):
         self.catalogue_edit_button=QPushButton('Corregir'); self.catalogue_edit_button.clicked.connect(lambda:self.catalogue_action(True)); actions.addWidget(self.catalogue_edit_button)
         self.fractionate_button=QPushButton('Registrar derivados'); self.fractionate_button.clicked.connect(self.fractionate_resource); actions.addWidget(self.fractionate_button)
         self.resource_edit_button=QPushButton('Corregir unidad'); self.resource_edit_button.clicked.connect(self.edit_resource); actions.addWidget(self.resource_edit_button)
+        self.bind_profile_button=QPushButton('Vincular perfil'); self.bind_profile_button.clicked.connect(lambda:self.resource_quality(False)); actions.addWidget(self.bind_profile_button)
+        self.release_resource_button=QPushButton('Liberar unidad'); self.release_resource_button.clicked.connect(lambda:self.resource_quality(True)); actions.addWidget(self.release_resource_button)
         self.shipment_create_button=QPushButton('Planificar traslado'); self.shipment_create_button.clicked.connect(self.plan_shipment); actions.addWidget(self.shipment_create_button)
         self.sample_create_button=QPushButton('Registrar muestra'); self.sample_create_button.clicked.connect(self.create_sample); actions.addWidget(self.sample_create_button)
         self.receive_button = QPushButton('Registrar recepción'); self.receive_button.setObjectName('primary'); self.receive_button.clicked.connect(self.receive); actions.addWidget(self.receive_button); self.capture_button = QPushButton('Capturar resultado'); self.capture_button.clicked.connect(self.capture_result); actions.addWidget(self.capture_button); self.review_button = QPushButton('Revisar resultado'); self.review_button.setToolTip('La revisión corresponde al personal médico autorizado.'); self.review_button.clicked.connect(self.review_result); actions.addWidget(self.review_button); self.ack_button = QPushButton('Acusar recibo'); self.ack_button.clicked.connect(self.acknowledge); actions.addWidget(self.ack_button); actions.addStretch(); outer.addLayout(actions)
@@ -139,6 +142,7 @@ class Window(QMainWindow):
         self.catalogue_create_button.hide(); self.catalogue_edit_button.hide()
         self.fractionate_button.hide()
         self.resource_edit_button.hide()
+        self.bind_profile_button.hide(); self.release_resource_button.hide()
         self.shipment_create_button.hide()
         self.device_create_button.hide(); self.device_revoke_button.hide()
         self.user_create_button.hide()
@@ -161,6 +165,8 @@ class Window(QMainWindow):
         self.catalogue_edit_button.setEnabled(is_admin and self.mode in ('sites','capacities'))
         self.fractionate_button.setEnabled(bool(enabled and self.mode=='inventory' and self.client and self.client.user and self.client.user.get('role')=='OPERATOR'))
         self.resource_edit_button.setEnabled(bool(enabled and self.mode=='inventory' and self.client and self.client.user and self.client.user.get('role')=='OPERATOR'))
+        for button in (self.bind_profile_button,self.release_resource_button):
+            button.setEnabled(bool(enabled and self.mode=='inventory' and self.client and self.client.user and self.client.user.get('role')=='MEDICAL'))
         self.shipment_create_button.setEnabled(bool(enabled and self.mode=='shipments' and self.client and self.client.user and self.client.user.get('role')=='COORDINATOR'))
         self.request_create_button.setEnabled(enabled and self.mode=='requests' and bool(self.client and self.client.user and self.client.user.get('role')=='MEDICAL'))
         for widget in (self.username,self.password,self.otp,self.search,self.table,self.login_button,self.logout_button,self.summary_button,self.inventory_button,self.samples_button,self.results_button,self.alerts_button,self.requests_button,self.evaluations_button,self.reservations_button,self.search_button,self.reload_button,self.trace_button,self.cold_button,self.user_state_button,self.user_role_button,self.download_button,self.report_button,self.resume_button,self.label_button,self.operation_button,self.evaluate_button,self.create_button,self.detail_button,self.recipient_create_button,self.recipient_edit_button,self.request_edit_button,self.request_cancel_button,self.sample_create_button,self.receive_button,self.capture_button,self.review_button,self.ack_button,self.prev,self.next): widget.setEnabled(enabled)
@@ -313,6 +319,8 @@ class Window(QMainWindow):
         self.catalogue_edit_button.setVisible(self.mode in ('sites','capacities') and bool(self.client and self.client.user and self.client.user.get('role')=='ADMIN'))
         self.fractionate_button.setVisible(self.mode=='inventory' and bool(self.client and self.client.user and self.client.user.get('role')=='OPERATOR'))
         self.resource_edit_button.setVisible(self.mode=='inventory' and bool(self.client and self.client.user and self.client.user.get('role')=='OPERATOR'))
+        for button in (self.bind_profile_button,self.release_resource_button):
+            button.setVisible(self.mode=='inventory' and bool(self.client and self.client.user and self.client.user.get('role')=='MEDICAL'))
         self.shipment_create_button.setVisible(self.mode=='shipments' and bool(self.client and self.client.user and self.client.user.get('role')=='COORDINATOR'))
         self.device_create_button.setVisible(self.mode in ('users','devices')); self.device_revoke_button.setVisible(self.mode=='devices')
         self.user_create_button.setVisible(self.mode=='users' and USER_CREATION_ENABLED)
@@ -472,6 +480,9 @@ class Window(QMainWindow):
     def receive(self):
         if self.uncertain:
             self.status.setText('Actualiza la lista y verifica el estado antes de continuar.'); return
+        if not self.client or not self.client.user or self.client.user.get('role') not in ('OPERATOR','MEDICAL'):
+            self.status.setText('La recepción requiere personal autorizado.'); return
+        client=self.client; actor=(client.user.get('id'),client.user.get('tenant_id'),client.user.get('role'))
         item=self.selected()
         if not item: self.status.setText('Selecciona una muestra.'); return
         if item.get('status')!='REQUESTED': self.status.setText('La muestra ya fue atendida. Actualiza para consultar su estado.'); return
@@ -482,8 +493,10 @@ class Window(QMainWindow):
             if len(reason.text().strip())>=6: break
             QMessageBox.warning(self,'Motivo incompleto','Escribe al menos seis caracteres.')
         else: return
-        body={'decision':'RECEIVED','reason':reason.text().strip(),'version':item['version'],'human_confirmation':'true'}; key=str(uuid.uuid4())
-        self.run(lambda:self.durable('lab_sample_receive',item['id'],body),lambda _:self.received(),'Registrando recepción…')
+        if self.client is not client or not client.user or (client.user.get('id'),client.user.get('tenant_id'),client.user.get('role'))!=actor:
+            self.status.setText('La sesión cambió. Vuelve a consultar antes de guardar.'); return
+        body={'decision':'RECEIVED','reason':reason.text().strip(),'version':item['version'],'human_confirmation':'true'}
+        self.secure_command('lab_sample_receive',item['id'],body)
 
     def open_trace(self):
         item=self.selected()
@@ -1299,6 +1312,48 @@ class Window(QMainWindow):
             self.status.setText('La sesión cambió. Vuelve a consultar antes de guardar.'); return
         self.secure_command(kind+('_edit' if edit else '_create'),identifier,body)
 
+    def resource_quality(self, release):
+        if self.uncertain:
+            self.status.setText('Actualiza y verifica el estado antes de continuar.'); return
+        if not self.client or not self.client.user or self.client.user.get('role')!='MEDICAL':
+            self.status.setText('Esta decisión corresponde al personal médico autorizado.'); return
+        item=self.selected()
+        if not item:
+            self.status.setText('Selecciona una unidad.'); return
+        client=self.client; actor=(client.user.get('id'),client.user.get('tenant_id'),client.user.get('role'))
+        def fetch():
+            resource=client.authorized('inventario','/api/v1/resources/'+item['id'],'resource_detail',fresh_identity=True)
+            if resource.get('id')!=item['id'] or resource.get('current_institution_id')!=actor[1]:
+                raise ContractError('La unidad no corresponde a esta institución.')
+            try:
+                controls=client.authorized('inventario','/api/v1/resources/'+item['id']+'/controls','resource_controls_detail')
+            except ApiError as exc:
+                if exc.status!=404: raise
+                controls={}
+            if controls and controls.get('id')!=item['id']: raise ContractError('Los controles no corresponden a la unidad.')
+            if release and controls.get('lab_profile_id'):
+                profile_id=controls['lab_profile_id']
+                profile=client.authorized('compatibilidad','/api/v1/laboratory/profiles/'+profile_id,'lab_profiles_detail')
+                if profile.get('id')!=profile_id or profile.get('tenant_id')!=actor[1]:
+                    raise ContractError('El perfil no corresponde a esta institución.')
+                check=client.authorized('compatibilidad','/api/v1/laboratory/resources/'+item['id']+'/check','lab_resource_completeness',method='POST',body={'profile_id':profile_id,'tenant_id':actor[1]},request_schema='lab_resource_completeness.xsd')
+                if check.get('profile_id')!=profile_id or type(check.get('complete')) is not bool:
+                    raise ContractError('La revisión no corresponde al perfil de la unidad.')
+                controls=dict(controls,_profile=profile,_completeness=check)
+            return resource,controls
+        def ready(result):
+            if self.client is not client or not client.user or (client.user.get('id'),client.user.get('tenant_id'),client.user.get('role'))!=actor:
+                self.status.setText('La sesión cambió. Vuelve a consultar antes de guardar.'); return
+            resource,controls=result
+            if resource.get('status')!='QUARANTINE':
+                self.status.setText('Selecciona una unidad en cuarentena.'); return
+            body=quality_dialog(self,resource,controls,Work,label,release=release)
+            if not body: return
+            if self.client is not client or not client.user or (client.user.get('id'),client.user.get('tenant_id'),client.user.get('role'))!=actor:
+                self.status.setText('La sesión cambió. Vuelve a consultar antes de guardar.'); return
+            self.secure_command('resource_release' if release else 'resource_controls_create',resource['id'],body)
+        self.run(fetch,ready,'Consultando unidad…')
+
     def fractionate_resource(self):
         if self.uncertain:
             self.status.setText('Actualiza y verifica el estado antes de continuar.'); return
@@ -1525,6 +1580,7 @@ class Window(QMainWindow):
             self.status.setText('Actualiza y verifica el estado antes de continuar.'); return
         if not self.client or not self.client.user or self.client.user.get('role') not in ('OPERATOR','MEDICAL'):
             self.status.setText('El registro corresponde al personal de laboratorio autorizado.'); return
+        client=self.client; actor=(client.user.get('id'),client.user.get('tenant_id'),client.user.get('role'))
         dialog=QDialog(self); dialog.setWindowTitle('Registrar muestra de unidad'); dialog.resize(760,620); layout=QVBoxLayout(dialog)
         guidance=QLabel('Selecciona la unidad y el perfil documentado. El servicio comprobará su vigencia y correspondencia.'); guidance.setWordWrap(True); layout.addWidget(guidance)
         search_row=QHBoxLayout(); search=QLineEdit(); search.setPlaceholderText('Buscar unidad por folio'); search_row.addWidget(search); find=QPushButton('Buscar unidad'); search_row.addWidget(find); layout.addLayout(search_row)
@@ -1552,12 +1608,19 @@ class Window(QMainWindow):
             service,path,operation=('inventario','/api/v1/resources','resources_list') if key=='unit' else ('compatibilidad','/api/v1/laboratory/profiles','lab_profiles_list')
             params={'page':page,'page_size':20}
             if key=='unit' and search.text().strip(): params['q']=search.text().strip()
-            worker=Work(lambda:self.client.authorized(service,path,operation,params=params))
+            def query():
+                if self.client is not client or not client.user or (client.user.get('id'),client.user.get('tenant_id'),client.user.get('role'))!=actor:
+                    raise ContractError('La sesión cambió.')
+                return client.authorized(service,path,operation,params=params)
+            worker=Work(query)
             if not hasattr(self,'_request_workers'): self._request_workers=[]
             self._request_workers.append(worker)
             def done(data):
                 self._request_workers.remove(worker)
                 if not state['alive']: return
+                if self.client is not client or not client.user or (client.user.get('id'),client.user.get('tenant_id'),client.user.get('role'))!=actor:
+                    panel['busy']=False; panel['rows']=[]; panel['table'].setRowCount(0); save.setEnabled(False)
+                    status.setText('La sesión cambió. Cierra y vuelve a consultar.'); return
                 panel.update(page=data['page'],total=data['total'],rows=data['items'],busy=False); table=panel['table']; table.setRowCount(len(panel['rows']))
                 for index,row in enumerate(panel['rows']):
                     values=(row.get('folio'),row.get('component'),row.get('status')) if key=='unit' else (row.get('name'),row.get('component'),row.get('version'))
@@ -1566,6 +1629,9 @@ class Window(QMainWindow):
             def failed(error):
                 self._request_workers.remove(worker)
                 if not state['alive']: return
+                if self.client is not client or not client.user or (client.user.get('id'),client.user.get('tenant_id'),client.user.get('role'))!=actor:
+                    panel['busy']=False; panel['rows']=[]; panel['table'].setRowCount(0); save.setEnabled(False)
+                    status.setText('La sesión cambió. Cierra y vuelve a consultar.'); return
                 panel['busy']=False; status.setText('No se pudieron consultar '+('las unidades' if key=='unit' else 'los perfiles')+'. Vuelve a intentar.'); ready()
             worker.signals.done.connect(done); worker.signals.failed.connect(failed); self.pool.start(worker)
         for key,panel in panels.items():
@@ -1579,12 +1645,15 @@ class Window(QMainWindow):
         save.clicked.connect(submit); ready(); QTimer.singleShot(0,lambda:fetch('unit',1)); QTimer.singleShot(0,lambda:fetch('profile',1))
         accepted=dialog.exec(); state['alive']=False
         if accepted==QDialog.Accepted and state['body']:
+            if self.client is not client or not client.user or (client.user.get('id'),client.user.get('tenant_id'),client.user.get('role'))!=actor:
+                self.status.setText('La sesión cambió. Vuelve a consultar antes de guardar.'); return
             self.secure_command('lab_sample_create',None,state['body'])
 
     def capture_result(self):
         item=self.selected()
         if self.uncertain: self.status.setText('Actualiza y verifica el estado antes de continuar.'); return
         if not self.client or not self.client.user or self.client.user.get('role') not in ('OPERATOR','MEDICAL'): self.status.setText('La captura requiere personal autorizado.'); return
+        client=self.client; actor=(client.user.get('id'),client.user.get('tenant_id'),client.user.get('role'))
         if not item: self.status.setText('Selecciona una muestra.'); return
         if item.get('status')!='RECEIVED': self.status.setText('Selecciona una muestra recibida antes de capturar el resultado.'); return
         dialog=QDialog(self); dialog.setWindowTitle('Capturar resultado'); dialog.resize(540,380); form=QFormLayout(dialog)
@@ -1599,14 +1668,17 @@ class Window(QMainWindow):
             if all(values.values()) and verified.isChecked() and re.fullmatch(r'[A-Z0-9_.-]{1,60}',values['test_code']): break
             QMessageBox.warning(self,'Datos incompletos','Completa los campos y confirma la fecha documentada. El código de prueba usa letras mayúsculas, números, punto, guion o guion bajo.')
         else: return
-        body=dict(values,sample_id=item['id'],measured_at=measured.dateTime().toUTC().toString(Qt.ISODate)); key=str(uuid.uuid4())
-        self.run(lambda:self.durable('lab_result_create',None,body),lambda _:self.received(),'Registrando resultado…')
+        if self.client is not client or not client.user or (client.user.get('id'),client.user.get('tenant_id'),client.user.get('role'))!=actor:
+            self.status.setText('La sesión cambió. Vuelve a consultar antes de guardar.'); return
+        body=dict(values,sample_id=item['id'],measured_at=measured.dateTime().toUTC().toString(Qt.ISODate))
+        self.secure_command('lab_result_create',None,body)
 
     def review_result(self):
         item=self.selected()
         if self.uncertain: self.status.setText('Actualiza y verifica el estado antes de continuar.'); return
         if not item: self.status.setText('Selecciona un resultado.'); return
         if not self.client or not self.client.user or self.client.user.get('role')!='MEDICAL': self.status.setText('La revisión corresponde al personal médico autorizado.'); return
+        client=self.client; actor=(client.user.get('id'),client.user.get('tenant_id'),client.user.get('role'))
         if item.get('status')!='CAPTURED': self.status.setText('El resultado ya fue revisado o no está disponible para revisión.'); return
         dialog=QDialog(self); dialog.setWindowTitle('Revisión profesional'); dialog.resize(540,300); form=QFormLayout(dialog)
         form.addRow('Prueba',QLabel(label(item.get('test_code')))); result_label=QLabel(label(item.get('value'))); result_label.setWordWrap(True); form.addRow('Resultado',result_label)
@@ -1620,7 +1692,9 @@ class Window(QMainWindow):
             if decision.currentData() and len(reason.text().strip())>=6: break
             QMessageBox.warning(self,'Datos incompletos','Selecciona una decisión y escribe un motivo de al menos seis caracteres.')
         else: return
-        body={'human_confirmation':'true','reason':reason.text().strip(),'version':item['version'],'decision':decision.currentData()}; key=str(uuid.uuid4())
+        if self.client is not client or not client.user or (client.user.get('id'),client.user.get('tenant_id'),client.user.get('role'))!=actor:
+            self.status.setText('La sesión cambió. Vuelve a consultar antes de guardar.'); return
+        body={'human_confirmation':'true','reason':reason.text().strip(),'version':item['version'],'decision':decision.currentData()}
         self.secure_command('lab_result_review',item['id'],body)
 
     def acknowledge(self):

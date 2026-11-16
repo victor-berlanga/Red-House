@@ -2,6 +2,10 @@
 
 Las entradas están ordenadas de reciente a histórico; un pendiente de un corte anterior puede quedar sustituido explícitamente por una entrada posterior.
 
+## Perfil de laboratorio y liberación en escritorio — 16/11/2026
+
+[Incremento de calidad de unidad](documentation/evidencias/entrega-final/desktop/iteracion-calidad-unidad/RESULTADOS.md): selección paginada de perfiles compatibles, conservación de controles térmicos, requisitos pendientes antes de liberar y confirmación médica explícita. Escrituras XML/XSD con versión, reautenticación y diario idempotente; recepción/captura/revisión comprueban identidad y correlación de respuesta antes de cerrar el comando. Cincuenta y tres contratos coinciden; tres pruebas puras finales y tres dobles Qt finales aprobados. Dos carreras de sesión y la repetición dirigida del doble de captura aprobaron por separado; se conserva el fallo previo 3/4 del doble desactualizado. Dirección inspeccionó ambos formularios finales. Recorrido Qt/XML real y paquete actualizado pendientes; sin aceptación clínica ni cierre de etapa 05. El runner compartido está revisado y preparado para el resultado esperado RBC AVAILABLE/PLASMA QUARANTINE, sin ejecución todavía.
+
 ## Reanudación y pool acotado del worker — 16/11/2026
 
 Usuario indicó continuar; queda levantada la pausa inferior. Árbol inicial limpio en `ceb1936`, fixtures originales y copias privadas conservados. [Pool del worker](documentation/evidencias/entrega-final/carga-20261114/diagnostico-cola/worker-pool-20261116/RESULTADOS.md): una conexión reutilizada por defecto solo en `worker.main`, configuración explícita respetada y cierre garantizado. Diecinueve pruebas dirigidas aprobaron; cero hallazgos nuevos de Ruff. Recuperación limitada a 120 s conservó exit 1: cola de 7469 a 5742 pendientes, 765/765 eventos SQL y 121/121 avisos exactos, todavía 0/765 eventos de negocio en Mongo detrás del histórico. Procesos propios cerrados, fuentes/configuraciones y fallos anteriores conservados. El aumento observado de entrega no constituye comparación A/B controlada ni cierre de etapa 07; diagnóstico adicional preparado, sin ejecutar.

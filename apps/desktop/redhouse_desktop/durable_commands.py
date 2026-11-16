@@ -6,6 +6,8 @@ from .journal import JournalError
 from .institutional_catalogue import COMMANDS as CATALOGUE_COMMANDS, PATCH_OPERATIONS, validate_catalogue_result
 
 COMMANDS={
+    'resource_controls_create':('inventario','/api/v1/resources/{id}/controls','resource_controls_create.xsd',True),
+    'resource_release':('inventario','/api/v1/resources/{id}/release','resource_release.xsd',True),
     'donation_create':('donantes','/api/v1/donations','donation_create.xsd',False),
     'donation_step':('donantes','/api/v1/donations/{id}/steps','donation_step.xsd',True),
     'resource_fractionate':('inventario','/api/v1/resources/{id}/components','resource_fractionate.xsd',True),
@@ -72,6 +74,10 @@ def submit_command(client,journal,record,*,fresh=False,proof=None):
         raise
     if operation in CATALOGUE_COMMANDS:
         validate_catalogue_result(operation,target['identifier'],record['body'],result,client.user['tenant_id'])
+    if operation=='resource_controls_create' and (result.get('id')!=target['identifier'] or any(result.get(key)!=record['body'].get(key) for key in ('lab_profile_id','cold_equipment_id','cold_profile_id'))):
+        raise ContractError('El perfil confirmado no corresponde a la unidad seleccionada.')
+    if operation=='resource_release' and (result.get('id')!=target['identifier'] or result.get('tenant_id')!=client.user.get('tenant_id') or result.get('version')!=record['body']['version']+1 or result.get('status')!='AVAILABLE'):
+        raise ContractError('La liberación confirmada no corresponde a la unidad seleccionada.')
     if operation=='resource_fractionate':
         from .fractionation import validate_fractionation
         validate_fractionation(client,record,result)
@@ -117,6 +123,12 @@ def submit_command(client,journal,record,*,fresh=False,proof=None):
             raise ContractError('La colecta confirmada no corresponde a la donación seleccionada.') from exc
     if operation=='lab_sample_create' and any(result.get(field)!=record['body'][field] for field in ('resource_id','profile_id','identifier')):
         raise ContractError('La muestra confirmada no corresponde al intento registrado.')
+    if operation=='lab_sample_receive' and (result.get('id')!=target['identifier'] or result.get('tenant_id')!=client.user.get('tenant_id') or result.get('version')!=record['body']['version']+1 or result.get('status')!=record['body']['decision']):
+        raise ContractError('La recepción confirmada no corresponde a la muestra seleccionada.')
+    if operation=='lab_result_create' and (result.get('tenant_id')!=client.user.get('tenant_id') or result.get('sample_id')!=record['body']['sample_id'] or result.get('test_code')!=record['body']['test_code'] or result.get('status')!='CAPTURED'):
+        raise ContractError('El resultado confirmado no corresponde a la muestra seleccionada.')
+    if operation=='lab_result_review' and (result.get('id')!=target['identifier'] or result.get('tenant_id')!=client.user.get('tenant_id') or result.get('version')!=record['body']['version'] or result.get('status')!=record['body']['decision']):
+        raise ContractError('La revisión confirmada no corresponde al resultado seleccionado.')
     if operation=='lab_sample_create':
         try:
             expected=datetime.fromisoformat(record['body']['collected_at'].replace('Z','+00:00'))

@@ -1,0 +1,13 @@
+# Vinculación de perfil y liberación de unidad
+
+La consola ofrece al personal médico autorizado la selección paginada de un perfil y la liberación de una unidad en cuarentena. Conserva los controles térmicos existentes. Antes de liberar consulta el perfil y la completitud; muestra requisitos pendientes e identifica los perfiles sintéticos sin autorización clínica. El servicio decide si permite la operación. Ambas escrituras usan diario, clave de idempotencia, versión y confirmación explícita; la sesión se comprueba antes y después del diálogo.
+
+Verificación del 16/11: tres pruebas puras finales de correlación y recuperación aprobadas; 53 contratos coinciden con sus propietarios. Comando: `PYTHONPATH=apps/desktop apps/desktop/.venv/bin/python -m pytest -q apps/desktop/tests/test_resource_quality_commands.py`; `apps/desktop/.venv/bin/python apps/desktop/sync_contracts.py --check`. Dobles Qt y revisión visual finales aprobados en el alcance descrito abajo. El recorrido real con muestra, resultado, revisión y liberación sigue pendiente de ventana coordinada. No se acredita liberación clínica ni Windows.
+
+Los dobles Qt `dobles-01` y `dobles-02` aprobaron 3/3 cada uno. En la primera inspección la acción deshabilitada conservaba color activo y el producto se mostraba como código; se corrigieron ambos. Las capturas finales de `dobles-02` fueron inspeccionadas: texto y campos legibles; el perfil incompatible se marca y no permite selección; el botón de liberación incompleta se distingue como deshabilitado. Son respuestas sintéticas, no comunicación con servicios. El cambio de sesión posterior al diálogo no prepara comando.
+
+La recepción y captura de laboratorio ahora usan el mismo mecanismo de reautenticación y diario que la revisión. Los cuatro formularios de muestra/recepción/captura/revisión comprueban sesión antes de guardar. Las guardas de captura y respuesta tardía de muestra tienen los dobles dirigidos descritos abajo; el recorrido real compartido permanece pendiente.
+
+Una ejecución adicional de los dobles anteriores de laboratorio dio 3/4: el doble de captura aún sustituía `durable`, mientras la pantalla usa ahora `secure_command`. Se ajustó ese doble; la repetición dirigida del caso pasó 1/1. Dos pruebas adicionales, también sin servicios, pasaron 1/1 cada una: cambio de sesión al confirmar resultado y llegada tardía de respuesta de muestra tras cambio de sesión. Dirección inspeccionó las dos capturas finales y aceptó su presentación en el alcance de dobles.
+
+Se amplió la correlación del diario de laboratorio a recepción, captura y revisión; otra ejecución pura pasó 3/3, incluyendo rechazo de una respuesta de revisión de otro resultado. La ejecución anterior de 2/2 corresponde al código previo a esta ampliación.

@@ -30,8 +30,7 @@ def test_result_uses_confirmed_documented_measurement():
         "status": "RECEIVED",
     }
     sent = []
-    window.durable = lambda operation, identifier, body: sent.append((operation, body))
-    window.run = lambda fn, success, label: fn()
+    window.secure_command = lambda operation, identifier, body: sent.append((operation, body))
 
     def fill():
         modal = app.activeModalWidget()
