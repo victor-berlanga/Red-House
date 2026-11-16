@@ -155,6 +155,16 @@ class Window(QMainWindow):
         self.busy = True; self.set_controls(False); self.status.setText(label); self.login_status.setText(label)
         worker = Work(fn); self._worker=worker; worker.signals.done.connect(lambda result: self.finished(success,result)); worker.signals.failed.connect(failure or self.failed); self.pool.start(worker)
 
+    def run_in_context(self, context, work, success, message):
+        def failure(error):
+            if context.current(): self.failed(error)
+            else:
+                self.busy=False; self._worker=None; self.set_controls(True); self.discard_invalid_context(context)
+        def completed(result):
+            if context.current(): success(result)
+            else: self.discard_invalid_context(context)
+        self.run(work,completed,message,failure)
+
     def set_controls(self, enabled):
         self.areas.setEnabled(enabled)
         is_admin=bool(enabled and self.client and self.client.user and self.client.user.get('role')=='ADMIN')
@@ -408,7 +418,10 @@ class Window(QMainWindow):
                 form.addRow(title,QLabel(str(value or 'No disponible')))
             close=QPushButton('Cerrar'); close.clicked.connect(dialog.accept); form.addRow(close); dialog.exec(); return
         if self.mode=='shipments':
-            self.run(lambda:self.client.authorized('transporte','/api/v1/shipments/'+item['id'],'shipment_detail'),self.shipment_detail,'Abriendo traslado…'); return
+            context=OperationContext(self)
+            def get_shipment():
+                context.check(); return context.client.authorized('transporte','/api/v1/shipments/'+item['id'],'shipment_detail')
+            self.run_in_context(context,get_shipment,lambda value:self.shipment_detail(value,context),'Abriendo traslado…'); return
         if self.mode=='evaluations':
             self.run(lambda:self.client.authorized('compatibilidad','/api/v1/evaluations/'+item['id'],'evaluation_detail'),self.evaluation_detail,'Consultando candidatos…'); return
         if self.mode=='requests':
@@ -815,9 +828,14 @@ class Window(QMainWindow):
     def preview_label(self):
         item=self.selected()
         if not item: self.status.setText('Selecciona una unidad.'); return
-        self.run(lambda:self.client.authorized('inventario','/api/v1/resources/'+item['id'],'resource_detail'),self.show_label,'Verificando unidad…')
+        context=OperationContext(self)
+        def fetch():
+            context.check(); return context.client.authorized('inventario','/api/v1/resources/'+item['id'],'resource_detail')
+        self.run_in_context(context,fetch,lambda value:self.show_label(value,context),'Verificando unidad…')
 
-    def show_label(self,item):
+    def show_label(self,item,context=None):
+        context=context or OperationContext(self)
+        if not context.current(): return
         qr=qrcode.QRCode(border=4,box_size=4); qr.add_data(item['id']); qr.make(fit=True); matrix=qr.get_matrix(); scale=5
         image=QImage(len(matrix)*scale,len(matrix)*scale,QImage.Format_RGB32); image.fill(QColor('white'))
         painter=QPainter(image); painter.setPen(Qt.NoPen); painter.setBrush(QColor('black'))
@@ -841,30 +859,37 @@ class Window(QMainWindow):
             if choice not in (1,2) or not LABEL_ISSUANCE_ENABLED: return
             if len(reason.text().strip())>=6: break
             QMessageBox.warning(self,'Motivo incompleto','Escribe al menos seis caracteres.')
+        if not context.current(): return
         action='EXPORT_PDF' if choice==1 else 'PRINT'; text=reason.text().strip()
         def issue():
-            record=prepare_label(self.journal,item,action,text); result=submit_label(self.client,self.journal,record); return record,result
-        self.run(issue,lambda pair:self.label_authorized(item,pair[0],pair[1]['issuance_id']),'Autorizando emisión…')
+            context.check(); record=prepare_label(context.journal,item,action,text)
+            result=context.submit(record,lambda:submit_label(context.client,context.journal,record)); return record,result
+        self.run_in_context(context,issue,lambda pair:self.label_authorized(item,pair[0],pair[1]['issuance_id'],context),'Autorizando emisión…')
 
-    def label_authorized(self,resource,record,issuance_id):
+    def label_authorized(self,resource,record,issuance_id,context=None):
+        context=context or OperationContext(self)
+        if not context.current(): return
         QMessageBox.information(self,'Emisión autorizada','La emisión quedó registrada. A continuación elige dónde producir la etiqueta.')
+        if not context.current(): return
         if record['body']['action']=='EXPORT_PDF':
             target,_=QFileDialog.getSaveFileName(self,'Guardar etiqueta','','PDF (*.pdf)')
             if not target: self.status.setText('Emisión autorizada; salida pendiente.'); return
             overwrite=Path(target).exists()
             if overwrite and QMessageBox.question(self,'Reemplazar archivo','El archivo existe. ¿Deseas reemplazarlo?') != QMessageBox.Yes: return
+            if not context.current(): return
             def output():
-                write_pdf(target,resource,overwrite=overwrite)
-                self.journal.update(record['key'],{'operation_id':issuance_id,'status':'COMPLETED'})
-            self.run(output,lambda _:self.status.setText('Etiqueta guardada en PDF.'),'Generando PDF…')
+                context.check(); write_pdf(target,resource,overwrite=overwrite)
+                context.journal.update(record['key'],{'operation_id':issuance_id,'status':'COMPLETED'})
+            self.run_in_context(context,output,lambda _:self.status.setText('Etiqueta guardada en PDF.'),'Generando PDF…')
         else:
             printer=QPrinter(QPrinter.HighResolution); choice=QPrintDialog(printer,self)
             if choice.exec()!=QDialog.Accepted: self.status.setText('Emisión autorizada; impresión pendiente.'); return
+            if not context.current(): return
             def output():
-                self.journal.print_transition(record['key'],issuance_id,'start')
+                context.check(); context.journal.print_transition(record['key'],issuance_id,'start')
                 draw_label(printer,resource)
-                self.journal.print_transition(record['key'],issuance_id,'sent')
-            self.run(output,lambda _:self.status.setText('Solicitud enviada a impresión. Verifica el resultado en la impresora.'),'Enviando a impresión…')
+                context.journal.print_transition(record['key'],issuance_id,'sent')
+            self.run_in_context(context,output,lambda _:self.status.setText('Solicitud enviada a impresión. Verifica el resultado en la impresora.'),'Enviando a impresión…')
 
     def plan_shipment(self):
         if self.uncertain:
@@ -884,13 +909,19 @@ class Window(QMainWindow):
         self.load()
         self.status.setText('Traslado planificado. Consulta su detalle para continuar la coordinación.')
 
-    def shipment_detail(self,item):
-        role=self.client.user.get('role')
+    def shipment_detail(self,item,session=None):
+        session=session or OperationContext(self)
+        if not session.current(): return
+        role=session.client.user.get('role')
         if role in ('OPERATOR','COORDINATOR','TRANSPORT'):
-            self.run(lambda:self.client.authorized('transporte','/api/v1/shipments/'+item['id']+'/operational-context','operational_context'),lambda context:self.shipment_context(item,context),'Consultando instituciones…')
-        else: self.shipment_context(item,None)
+            def fetch():
+                session.check(); return session.client.authorized('transporte','/api/v1/shipments/'+item['id']+'/operational-context','operational_context')
+            self.run_in_context(session,fetch,lambda context:self.shipment_context(item,context,session),'Consultando instituciones…')
+        else: self.shipment_context(item,None,session)
 
-    def shipment_context(self,item,context):
+    def shipment_context(self,item,context,session=None):
+        session=session or OperationContext(self)
+        if not session.current(): return
         dialog=QDialog(self); dialog.setWindowTitle('Detalle del traslado'); layout=QFormLayout(dialog)
         layout.addRow('Estado',QLabel(label(item.get('status')))); layout.addRow('Salida prevista',QLabel(label(item.get('departure_at')))); layout.addRow('Llegada prevista',QLabel(label(item.get('eta'))))
         if context:
@@ -903,12 +934,17 @@ class Window(QMainWindow):
             accept=QPushButton('Documentar recepción'); accept.clicked.connect(lambda:dialog.done(4)); layout.addRow(accept)
         close=QPushButton('Cerrar'); close.clicked.connect(dialog.reject); layout.addRow(close)
         choice=dialog.exec()
+        if not session.current(): return
         if choice==1: self.open_tracking(item)
         elif choice==2: self.prepare_shipment(item)
         elif choice==3:
-            self.run(lambda:self.client.authorized('custodia','/api/v1/chains/'+item['id'],'chain_detail'),lambda data:self.custody_dialog(item,data),'Consultando cadena de custodia…')
+            def fetch_chain():
+                session.check(); return session.client.authorized('custodia','/api/v1/chains/'+item['id'],'chain_detail')
+            self.run_in_context(session,fetch_chain,lambda data:self.custody_dialog(item,data),'Consultando cadena de custodia…')
         elif choice==4:
-            self.run(lambda:self.client.authorized('transporte','/api/v1/shipments/'+item['id']+'/operational-handover','operational_handover'),lambda data:self.accept_shipment(item,context,data),'Verificando responsable…')
+            def fetch_handover():
+                session.check(); return session.client.authorized('transporte','/api/v1/shipments/'+item['id']+'/operational-handover','operational_handover')
+            self.run_in_context(session,fetch_handover,lambda data:self.accept_shipment(item,context,data),'Verificando responsable…')
 
     def accept_shipment(self,item,context,handover):
         if (handover['shipment_id']!=item['id'] or handover['shipment_version']!=item['version']
@@ -1216,16 +1252,24 @@ class Window(QMainWindow):
 
     def resume_operation(self):
         if not self.journal or not self.last_operation: return
-        self.run(self.journal.list,self.resume_pending,'Consultando operación…')
+        context=OperationContext(self); operation_id=self.last_operation
+        def fetch():
+            context.check(); return context.journal.list()
+        self.run_in_context(context,fetch,lambda records:self.resume_pending(records,context,operation_id),'Consultando operación…')
 
-    def resume_pending(self,records):
-        record=next((r for r in records if r.get('operation_id')==self.last_operation and r['state']=='PENDING' and r.get('kind','RESERVATION')=='RESERVATION'),None)
+    def resume_pending(self,records,context=None,operation_id=None):
+        context=context or OperationContext(self); operation_id=operation_id or self.last_operation
+        if not context.current(): return
+        record=next((r for r in records if r.get('operation_id')==operation_id and r['state']=='PENDING' and r.get('kind','RESERVATION')=='RESERVATION'),None)
         if not record: self.status.setText('No hay una reserva pendiente para reanudar.'); return
         if QMessageBox.question(self,'Reanudar reserva','¿Reanudar la operación pendiente?') != QMessageBox.Yes: return
+        if not context.current(): return
         def resume():
-            result=self.client.authorized('inventario','/api/v1/operations/'+record['operation_id']+'/resume','operation_resume',method='POST',key=record['key'])
-            validate_operation(record,result); self.journal.update(record['key'],result); return result
-        self.run(resume,self.reservation_result,'Reanudando reserva…')
+            def send():
+                result=context.client.authorized('inventario','/api/v1/operations/'+record['operation_id']+'/resume','operation_resume',method='POST',key=record['key'])
+                validate_operation(record,result); context.journal.update(record['key'],result); return result
+            return context.submit(record,send)
+        self.run_in_context(context,resume,self.reservation_result,'Reanudando reserva…')
 
     def check_operation(self):
         if not self.journal: self.status.setText('Inicia sesión para recuperar operaciones.'); return
@@ -1247,15 +1291,17 @@ class Window(QMainWindow):
             if record.get('status')=='CONFLICT':
                 if record['target']['operation']=='shipment_create':
                     if QMessageBox.question(self,'Revisar planificación','El resultado anterior requiere revisión. ¿Consultar la reserva sin enviar otra planificación?') != QMessageBox.Yes: return
+                    if not context.current(): return
                     def inspect_reservation():
-                        reservation=self.client.authorized('inventario','/api/v1/reservations/'+record['body']['reservation_id'],'reservation_detail',fresh_identity=True)
+                        context.check(); reservation=context.client.authorized('inventario','/api/v1/reservations/'+record['body']['reservation_id'],'reservation_detail',fresh_identity=True)
                         if reservation['id']!=record['body']['reservation_id']: raise ContractError('La reserva consultada no corresponde al intento.')
                         shipment_id=reservation.get('shipment_id')
                         if not shipment_id: return None
-                        shipment=self.client.authorized('transporte','/api/v1/shipments/'+shipment_id,'shipment_detail',fresh_identity=True)
+                        context.check(); shipment=context.client.authorized('transporte','/api/v1/shipments/'+shipment_id,'shipment_detail',fresh_identity=True)
                         if shipment['id']!=shipment_id or shipment.get('reservation_id')!=reservation['id']: raise ContractError('El traslado consultado no corresponde a la reserva.')
                         return shipment
                     def show_inspection(shipment):
+                        if not context.current(): return
                         if not shipment:
                             message='La reserva no muestra un traslado vinculado. Esto no confirma el resultado anterior; solicita revisión autorizada.'
                         else:
@@ -1263,14 +1309,14 @@ class Window(QMainWindow):
                             message='Traslado vinculado: '+label(shipment.get('status'))+'. '+account+' La consulta no demuestra que corresponda al intento anterior. Solicita revisión autorizada.'
                         QMessageBox.information(self,'Revisión de planificación',message)
                         self.status.setText('La operación sigue pendiente de revisión; no se envió otra planificación.')
-                    self.run(inspect_reservation,show_inspection,'Consultando reserva…'); return
+                    self.run_in_context(context,inspect_reservation,show_inspection,'Consultando reserva…'); return
                 self.status.setText('La operación requiere revisión autorizada antes de continuar.'); return
             if record['target']['operation']=='shipment_create' and record.get('operation_id'):
                 def poll_shipment():
-                    result=self.client.authorized('transporte','/api/v1/shipments/'+record['operation_id'],'shipment_detail',fresh_identity=True)
-                    outcome=update_shipment_command(self.journal,record,result)
+                    context.check(); result=context.client.authorized('transporte','/api/v1/shipments/'+record['operation_id'],'shipment_detail',fresh_identity=True)
+                    outcome=update_shipment_command(context.journal,record,result)
                     return result,outcome
-                self.run(poll_shipment,lambda value:self.shipment_plan_result(value[0]),'Consultando traslado…'); return
+                self.run_in_context(context,poll_shipment,lambda value:self.shipment_plan_result(value[0]),'Consultando traslado…'); return
             if QMessageBox.question(self,'Recuperar operación','La respuesta anterior no llegó. ¿Recuperar el mismo intento?') != QMessageBox.Yes: return
             operation=record['target']['operation']; identifier=record['target']['identifier']
             callback=self.shipment_plan_result if operation=='shipment_create' else lambda _:self.received()
@@ -1283,17 +1329,22 @@ class Window(QMainWindow):
                 message=('No se sabe si la impresora recibió la solicitud. Revisa la impresora y las copias existentes. '
                          'Al cerrar esta revisión no se enviará otra copia; una nueva impresión requiere una nueva emisión autorizada. ¿Ya revisaste?')
                 if QMessageBox.question(self,'Revisar impresión',message)!=QMessageBox.Yes: return
-                self.run(lambda:self.journal.print_transition(record['key'],record['operation_id'],'review'),
+                if not context.current(): return
+                def review_print():
+                    context.check(); return context.journal.print_transition(record['key'],record['operation_id'],'review')
+                self.run_in_context(context,review_print,
                          lambda _:self.status.setText('Revisión registrada. Para otra copia solicita una nueva emisión.'),
                          'Registrando revisión…')
                 return
             if QMessageBox.question(self,'Recuperar etiqueta','¿Continuar la emisión pendiente?') != QMessageBox.Yes: return
+            if not context.current(): return
             def recover_label():
-                result=submit_label(self.client,self.journal,record) if record['state']=='UNCERTAIN' else None
-                resource=self.client.authorized('inventario','/api/v1/resources/'+record['target'],'resource_detail')
+                context.check()
+                result=context.submit(record,lambda:submit_label(context.client,context.journal,record)) if record['state']=='UNCERTAIN' else None
+                context.check(); resource=context.client.authorized('inventario','/api/v1/resources/'+record['target'],'resource_detail')
                 if resource['version']!=record['body']['version']: raise JournalError('La unidad cambió. Solicita revisión antes de emitir la etiqueta.')
                 return resource,result['issuance_id'] if result else record['operation_id']
-            self.run(recover_label,lambda pair:self.label_authorized(pair[0],record,pair[1]),'Recuperando etiqueta…'); return
+            self.run_in_context(context,recover_label,lambda pair:self.label_authorized(pair[0],record,pair[1],context),'Recuperando etiqueta…'); return
         if record.get('kind','RESERVATION')!='RESERVATION':
             self.status.setText('La operación pendiente requiere revisión autorizada.'); return
         if record.get('target') and record['target']!={'service':'inventario','path':'/api/v1/reservations','method':'POST','schema':'reservation_create.xsd'}:
@@ -1301,9 +1352,9 @@ class Window(QMainWindow):
         operation_id=record.get('operation_id'); key=record['key']
         if operation_id:
             def poll():
-                result=self.client.authorized('inventario','/api/v1/operations/'+operation_id,'operation_detail',fresh_identity=True)
-                validate_operation(record,result); self.journal.update(key,result); return result
-            self.run(poll,self.reservation_result,'Consultando operación…'); return
+                context.check(); result=context.client.authorized('inventario','/api/v1/operations/'+operation_id,'operation_detail',fresh_identity=True)
+                validate_operation(record,result); context.journal.update(key,result); return result
+            self.run_in_context(context,poll,self.reservation_result,'Consultando operación…'); return
         if QMessageBox.question(self,'Recuperar reserva','La respuesta anterior no llegó. ¿Recuperar la solicitud sin duplicarla?') != QMessageBox.Yes: return
         def retry(proof):
             result=context.client.authorized('inventario','/api/v1/reservations','reservation_create',method='POST',body=record['body'],request_schema='reservation_create.xsd',key=key,proof=proof)
