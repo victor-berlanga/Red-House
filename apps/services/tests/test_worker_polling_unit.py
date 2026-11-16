@@ -18,7 +18,7 @@ def run_worker(
     handlers = {}
     sequence = iter(outcomes)
     durations = iter(durations or [0.0] * len(outcomes))
-    app = SimpleNamespace(config={}, app_context=nullcontext)
+    app = SimpleNamespace(config={}, app_context=nullcontext, extensions={})
     config = tmp_path / "worker.json"
     config.write_text("{}")
     monkeypatch.setattr(

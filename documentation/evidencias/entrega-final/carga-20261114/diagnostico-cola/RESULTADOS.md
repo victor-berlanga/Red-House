@@ -15,3 +15,7 @@ Los [diagnósticos posteriores](baseline-worker/RESULTADOS.md) entregaron una fi
 ## Recuperación parcial y discriminante de conexión
 
 El [drenado acotado](drenado-01/RESULTADOS.md) mantuvo exit 1: SQL alcanzó 765 eventos y 121 avisos exactos, pero quedaron 7469 entregas históricas y ninguna de las 765 proyecciones de negocio había llegado a Mongo. Todos los procesos propios cerraron. El [discriminante posterior de 20 transacciones READ ONLY](pool-readonly/RESULTADOS.md) confirmó adquisición caliente de 17,43 ms con conexión nueva frente a 0,53 ms reutilizando un pool de una conexión. Son resultados separados; no convierten la carga original en aprobada ni acreditan todavía una nueva configuración de worker.
+
+## Reanudación del 16 de noviembre: pool exclusivo del worker
+
+El [pool aplicado y su recuperación](worker-pool-20261116/RESULTADOS.md) pasaron 19 pruebas dirigidas; la recuperación conservó exit 1 con 5742 entregas históricas pendientes. Auditoría entregó 1900 filas en 125,098 s hasta el cierre normal; mejor ritmo observado, pero Mongo de negocio continúa pendiente. SQL mantiene 765 eventos y 121 avisos exactos. Todos los procesos propios cerraron, sin nueva carga ni publicación.

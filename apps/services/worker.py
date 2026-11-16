@@ -81,6 +81,9 @@ def main():
     parser.add_argument("--interval", type=float, default=5)
     args = parser.parse_args()
     app = load_app(args.service, json.loads(args.config.read_text()))
+    # Solo el proceso worker reutiliza una conexión por defecto. Un valor
+    # explícito (incluido 0) conserva el comportamiento configurado.
+    app.config.setdefault("DATABASE_POOL_SIZE", 1)
     running = True
 
     def stop(*_):
@@ -92,41 +95,45 @@ def main():
     next_poll = 0
     interval = max(0.1, args.interval)
     next_work = 0
-    while running:
-        result = None
-        with app.app_context():
-            try:
-                if time.monotonic() >= next_work:
-                    next_poll, result = step(app, next_poll)
-                    next_work = time.monotonic() + interval
-                else:
-                    # Un lote lleno no adelanta recordatorios, recuperación ni sondeos.
-                    result = dispatch()
-                    heartbeat()
-                if app.config.get("WORKER_HEARTBEAT_FILE"):
-                    Path(app.config["WORKER_HEARTBEAT_FILE"]).touch()
-            except Exception as exc:
-                result = None
-                next_work = time.monotonic() + interval
-                logging.error(
-                    "worker_failure service=%s exception_type=%s",
-                    args.service,
-                    type(exc).__name__,
-                )
+    try:
+        while running:
+            result = None
+            with app.app_context():
                 try:
-                    heartbeat(type(exc).__name__)
-                except Exception:
-                    pass  # La ausencia de latido también degrada health/worker.
-        if args.once or not running:
-            break
-        progressing = (
-            result is not None
-            and result["delivered"] > 0
-            and result["delivered"] + result["failed"] >= OUTBOX_BATCH_SIZE
-        )
-        # Sin progreso o tras un error, conservar la espera ordinaria.
-        delay = 0.1 if progressing else interval
-        time.sleep(delay)
+                    if time.monotonic() >= next_work:
+                        next_poll, result = step(app, next_poll)
+                        next_work = time.monotonic() + interval
+                    else:
+                        # Un lote lleno no adelanta recordatorios, recuperación ni sondeos.
+                        result = dispatch()
+                        heartbeat()
+                    if app.config.get("WORKER_HEARTBEAT_FILE"):
+                        Path(app.config["WORKER_HEARTBEAT_FILE"]).touch()
+                except Exception as exc:
+                    result = None
+                    next_work = time.monotonic() + interval
+                    logging.error(
+                        "worker_failure service=%s exception_type=%s",
+                        args.service,
+                        type(exc).__name__,
+                    )
+                    try:
+                        heartbeat(type(exc).__name__)
+                    except Exception:
+                        pass  # La ausencia de latido también degrada health/worker.
+            if args.once or not running:
+                break
+            progressing = (
+                result is not None
+                and result["delivered"] > 0
+                and result["delivered"] + result["failed"] >= OUTBOX_BATCH_SIZE
+            )
+            # Sin progreso o tras un error, conservar la espera ordinaria.
+            delay = 0.1 if progressing else interval
+            time.sleep(delay)
+    finally:
+        for pool in app.extensions.get("database_pools", {}).values():
+            pool.close()
 
 
 if __name__ == "__main__":
