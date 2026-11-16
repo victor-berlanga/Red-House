@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<testsuites name="pytest tests">
+  <testsuite name="pytest" errors="0" failures="0" skipped="0" tests="9" time="1.180" timestamp="2026-11-16T17:40:05.205205-06:00">
+    <testcase classname=".local.artifacts.desktop.resultado-documental-candidato-20261116.test_document_upload" name="test_journal_rejects_secrets_and_extra_fields" time="0.032" />
+    <testcase classname=".local.artifacts.desktop.resultado-documental-candidato-20261116.test_document_upload" name="test_read_document_checks_magic_size_and_hash" time="0.006" />
+    <testcase classname=".local.artifacts.desktop.resultado-documental-candidato-20261116.test_document_upload" name="test_prepare_response_lost_reuses_key_and_never_stores_url" time="0.019" />
+    <testcase classname=".local.artifacts.desktop.resultado-documental-candidato-20261116.test_document_upload" name="test_upload_rejects_altered_destination_headers_or_file[origin]" time="0.018" />
+    <testcase classname=".local.artifacts.desktop.resultado-documental-candidato-20261116.test_document_upload" name="test_upload_rejects_altered_destination_headers_or_file[headers]" time="0.014" />
+    <testcase classname=".local.artifacts.desktop.resultado-documental-candidato-20261116.test_document_upload" name="test_upload_rejects_altered_destination_headers_or_file[hash]" time="0.023" />
+    <testcase classname=".local.artifacts.desktop.resultado-documental-candidato-20261116.test_document_upload" name="test_lost_put_preserves_state_and_never_reissues" time="0.035" />
+    <testcase classname=".local.artifacts.desktop.resultado-documental-candidato-20261116.test_document_upload" name="test_changed_sid_does_not_transfer" time="0.032" />
+    <testcase classname=".local.artifacts.desktop.resultado-documental-candidato-20261116.test_document_upload" name="test_missing_then_verified_keeps_id_and_verify_key" time="0.078" />
+  </testsuite>
+</testsuites>

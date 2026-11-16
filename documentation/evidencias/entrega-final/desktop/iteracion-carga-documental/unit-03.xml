@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='utf-8'?>
+<testsuites name="pytest tests">
+  <testsuite name="pytest" errors="0" failures="0" skipped="0" tests="4" time="0.649" timestamp="2026-11-16T17:40:39.010988-06:00">
+    <testcase classname=".local.artifacts.desktop.resultado-documental-candidato-20261116.test_document_upload" name="test_put_once_no_proxy_no_auth_and_existing_is_verified[201]" time="0.024" />
+    <testcase classname=".local.artifacts.desktop.resultado-documental-candidato-20261116.test_document_upload" name="test_put_once_no_proxy_no_auth_and_existing_is_verified[412]" time="0.012" />
+    <testcase classname=".local.artifacts.desktop.resultado-documental-candidato-20261116.test_document_upload" name="test_gcs_destination_must_match_exact_tenant_and_document" time="0.013" />
+    <testcase classname=".local.artifacts.desktop.resultado-documental-candidato-20261116.test_document_upload" name="test_mismatched_verified_generation_does_not_close_journal" time="0.017" />
+  </testsuite>
+</testsuites>

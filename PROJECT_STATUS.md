@@ -2,6 +2,12 @@
 
 Las entradas están ordenadas de reciente a histórico; un pendiente de un corte anterior puede quedar sustituido explícitamente por una entrada posterior.
 
+## Carga documental Qt integrada con recuperación durable — 16/11/2026
+
+[Incremento de escritorio](documentation/evidencias/entrega-final/desktop/iteracion-carga-documental/RESULTADOS.md): preparación XML/XSD, PUT HTTPS restringido y verificación XML/CLEAN para adjuntar un informe al resultado. El diario conserva clave, documento y huella, sin rutas, capacidades, credenciales ni bytes. Antes de transferir persiste incertidumbre; recuperación exige mismo archivo y documento, y una respuesta 412 obliga a verificar. Se preserva contexto original y se bloquean callbacks de otra sesión. La carga usa CA explícita cuando está configurada, sin proxies ni redirecciones.
+
+Veinte casos puros aprobados en cuatro ejecuciones; dos casos Qt con dobles y comprobaciones dirigidas posteriores de presentación/callback, enumerados sin sumar repeticiones en el expediente. Dirección inspeccionó el formulario real con estilo. El mensaje de éxito permanece en resultados; pendientes se recarga para retirar el registro completado. XSD cotejado con propietario. Los fallos del doble y del formato inicial de parche se conservan; producto integrado cotejado byte a byte antes del ajuste mínimo de callback. No se acredita todavía carga API real, GCS ni proceso clínico. El permiso de reintento LOCAL desde MISSING está integrado en preparación aparte y requiere ensayo real antes de publicación. DESK-04/06 y etapa05 continúan abiertos.
+
 ## Compilación XML protegida tras reproducir el fallo en imagen GCP — 16/11/2026
 
 [Corrección y evidencia](documentation/evidencias/entrega-final/carga-20261114/xml-compilation-lock-20261116/RESULTADOS.md): la preparación de imagen GCP reprodujo XMLSchemaParseError aun con parser propio; se detuvo antes de release y server21 continúa activo. Un candado por proceso protege los tres constructores runtime, conservando validadores de petición, XSD y rechazo XXE. Catorce pruebas puras aprobaron, incluido proceso frío con 216 intentos y tres constructores. Comparativo aislado en la misma imagen: control y candidato 192/192; el control no reprodujo el fallo en esa ejecución. No se atribuye causalidad upstream ni mejora de rendimiento. Ambos contenedores temporales cerrados, sin tocar servicios activos.

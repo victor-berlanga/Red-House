@@ -9,6 +9,8 @@ import hashlib
 import json
 import os
 from pathlib import Path
+import re
+from uuid import UUID
 import tempfile
 import keyring
 from cryptography.fernet import Fernet, InvalidToken
@@ -83,8 +85,21 @@ class Journal:
     def prepare(self, record):
         required={'key','body','state','operation_id','status'}
         if not required.issubset(record) or set(record)-required-{'kind','target'} or record['state'] not in ('PREPARED','UNCERTAIN'): raise JournalError('Registro inválido.')
-        if record.get('kind','RESERVATION') not in ('RESERVATION','LABEL','COMMAND','USER_CREATE'): raise JournalError('Tipo de operación inválido.')
+        if record.get('kind','RESERVATION') not in ('RESERVATION','LABEL','COMMAND','USER_CREATE','DOCUMENT'): raise JournalError('Tipo de operación inválido.')
         if record.get('kind') in ('LABEL','COMMAND') and not record.get('target'): raise JournalError('Falta el destino de la operación.')
+        if record.get('kind')=='DOCUMENT':
+            body=record.get('body'); target=record.get('target')
+            expected={'subject_kind','subject_id','category','mime_type','size','sha256','policy_reference'}
+            try:
+                if (not isinstance(body,dict) or set(body)!=expected or target!=body['subject_id']
+                        or str(UUID(target))!=target or body['subject_kind']!='RESULT' or body['category']!='LAB_RESULT'
+                        or body['mime_type'] not in ('image/png','image/jpeg','application/pdf')
+                        or type(body['size']) is not int or not 1<=body['size']<=10485760
+                        or not re.fullmatch(r'[0-9a-f]{64}',body['sha256'])
+                        or not isinstance(body['policy_reference'],str) or not 1<=len(body['policy_reference'])<=200
+                        or str(UUID(record['key']))!=record['key'] or record['operation_id'] is not None or record['status'] is not None):
+                    raise ValueError()
+            except (KeyError,TypeError,ValueError,AttributeError) as exc: raise JournalError('Intención documental inválida.') from exc
         if record.get('kind')=='USER_CREATE':
             body=record.get('body')
             if (record.get('target')!='user_create' or not isinstance(body,dict)
@@ -115,6 +130,36 @@ class Journal:
             if record['state'] not in ('PREPARED','UNCERTAIN'): return
             record['state']='UNCERTAIN'; record['status']='UNCERTAIN'
             self._write(records,key)
+
+    def document_transition(self, key_value, document_id, action):
+        """Mantiene una sola intención y nunca guarda capacidades ni archivos."""
+        if action not in ('assign','start','uploaded','missing','verified'): raise JournalError('Acción documental inválida.')
+        try:
+            if str(UUID(document_id))!=document_id: raise ValueError()
+        except (TypeError,ValueError,AttributeError) as exc: raise JournalError('Documento inválido.') from exc
+        with self.locked():
+            records,key=self._read(); record=next((r for r in records if r['key']==key_value),None)
+            if not record or record.get('kind')!='DOCUMENT' or record.get('state')=='DONE': raise JournalError('Documento no pendiente.')
+            existing=record.get('operation_id')
+            if existing and existing!=document_id: raise JournalError('La respuesta corresponde a otro documento.')
+            status=record.get('status'); state=record.get('state')
+            if action=='assign':
+                if state not in ('PREPARED','UNCERTAIN') or existing: raise JournalError('Preparación ya registrada.')
+                record.update(operation_id=document_id,state='PENDING',status='ASSIGNED')
+            elif action=='start':
+                if status not in ('ASSIGNED','MISSING'): raise JournalError('Consulta el estado antes de transmitir.')
+                record.update(state='PENDING',status='PUT_UNCERTAIN')
+            elif action=='uploaded':
+                if status!='PUT_UNCERTAIN': raise JournalError('Transferencia no iniciada.')
+                record.update(state='PENDING',status='UPLOADED')
+            elif action=='missing':
+                if status not in ('ASSIGNED','PUT_UNCERTAIN','UPLOADED'): raise JournalError('Estado no admite recuperación.')
+                record.update(state='PENDING',status='MISSING')
+            else:
+                if status not in ('ASSIGNED','PUT_UNCERTAIN','UPLOADED','MISSING'): raise JournalError('Estado no admite verificación.')
+                record.update(state='DONE',status='COMPLETED')
+            self._write(records,key)
+            return dict(record)
 
     def print_transition(self, key_value, issuance_id, action):
         """Registra envío incierto y revisión sin volver a usar la autorización."""

@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='utf-8'?>
+<testsuites name="pytest tests">
+  <testsuite name="pytest" errors="0" failures="0" skipped="0" tests="4" time="2.172" timestamp="2026-11-16T17:45:33.077580-06:00">
+    <testcase classname=".local.artifacts.desktop.resultado-documental-candidato-20261116.test_document_upload" name="test_restart_other_account_cannot_read_pending_document" time="0.065" />
+    <testcase classname=".local.artifacts.desktop.resultado-documental-candidato-20261116.test_document_upload" name="test_journal_rejects_private_fields[path-/tmp/private.pdf]" time="0.018" />
+    <testcase classname=".local.artifacts.desktop.resultado-documental-candidato-20261116.test_document_upload" name="test_journal_rejects_private_fields[password-secret]" time="0.015" />
+    <testcase classname=".local.artifacts.desktop.resultado-documental-candidato-20261116.test_document_upload" name="test_journal_rejects_private_fields[proof-secret]" time="0.018" />
+  </testsuite>
+</testsuites>

@@ -135,12 +135,14 @@ class Window(QMainWindow):
         self.release_resource_button=QPushButton('Liberar unidad'); self.release_resource_button.clicked.connect(lambda:self.resource_quality(True)); actions.addWidget(self.release_resource_button)
         self.shipment_create_button=QPushButton('Planificar traslado'); self.shipment_create_button.clicked.connect(self.plan_shipment); actions.addWidget(self.shipment_create_button)
         self.sample_create_button=QPushButton('Registrar muestra'); self.sample_create_button.clicked.connect(self.create_sample); actions.addWidget(self.sample_create_button)
+        self.document_upload_button=QPushButton('Adjuntar documento'); self.document_upload_button.clicked.connect(self.document_upload); actions.addWidget(self.document_upload_button); self.document_upload_button.hide()
         self.correct_result_button=QPushButton('Corregir resultado'); self.correct_result_button.clicked.connect(self.correct_result); actions.addWidget(self.correct_result_button); self.correct_result_button.hide()
         self.receive_button = QPushButton('Registrar recepción'); self.receive_button.setObjectName('primary'); self.receive_button.clicked.connect(self.receive); actions.addWidget(self.receive_button); self.capture_button = QPushButton('Capturar resultado'); self.capture_button.clicked.connect(self.capture_result); actions.addWidget(self.capture_button); self.review_button = QPushButton('Revisar resultado'); self.review_button.setToolTip('La revisión corresponde al personal médico autorizado.'); self.review_button.clicked.connect(self.review_result); actions.addWidget(self.review_button); self.ack_button = QPushButton('Acusar recibo'); self.ack_button.clicked.connect(self.acknowledge); actions.addWidget(self.ack_button); actions.addStretch(); outer.addLayout(actions)
         actions = QHBoxLayout(); actions.addStretch()
         self.prev = QPushButton('Anterior'); self.prev.clicked.connect(lambda:self.turn(-1)); actions.addWidget(self.prev); self.page_label = QLabel(); actions.addWidget(self.page_label); self.next = QPushButton('Siguiente'); self.next.clicked.connect(lambda:self.turn(1)); actions.addWidget(self.next); outer.addLayout(actions)
         self.status = QLabel(''); self.status.setWordWrap(True); self.status.setObjectName('hint'); outer.addWidget(self.status)
         for button in (self.trace_button,self.cold_button,self.user_state_button,self.user_role_button,self.download_button,self.report_button,self.resume_button,self.label_button,self.operation_button,self.evaluate_button,self.create_button,self.request_create_button,self.recipient_create_button,self.recipient_edit_button,self.request_edit_button,self.request_cancel_button,self.sample_create_button,self.receive_button,self.capture_button,self.review_button,self.ack_button): button.hide()
+        self.document_upload_button.hide()
         self.correct_result_button.hide()
         self.collect_button.hide(); self.process_donation_button.hide()
         self.catalogue_create_button.hide(); self.catalogue_edit_button.hide()
@@ -171,6 +173,7 @@ class Window(QMainWindow):
 
     def set_controls(self, enabled):
         self.areas.setEnabled(enabled)
+        self.document_upload_button.setEnabled(bool(enabled and self.mode=='results' and self.client and self.client.user and self.client.user.get('role') in ('OPERATOR','MEDICAL')))
         self.correct_result_button.setEnabled(bool(enabled and self.mode=='results' and self.client and self.client.user and self.client.user.get('role') in ('OPERATOR','MEDICAL')))
         is_admin=bool(enabled and self.client and self.client.user and self.client.user.get('role')=='ADMIN')
         self.device_create_button.setEnabled(is_admin and self.mode in ('users','devices'))
@@ -265,6 +268,7 @@ class Window(QMainWindow):
     def load(self):
         if not self.client or self.busy: return
         self.rows=[]; self.table.setRowCount(0); self.page_label.setText('')
+        self.document_upload_button.hide(); self.correct_result_button.hide()
         self.collect_button.hide(); self.process_donation_button.hide()
         self.catalogue_create_button.hide(); self.catalogue_edit_button.hide()
         self.fractionate_button.hide()
@@ -330,6 +334,7 @@ class Window(QMainWindow):
         self.operation_button.show(); self.resume_button.setVisible(self.last_operation_status in ('PENDING','ROLLBACK_PENDING')); self.detail_button.setEnabled(False); self.search.setEnabled(False); self.search_button.setEnabled(False); self.prev.setEnabled(False); self.next.setEnabled(False); self.page_label.setText(''); self.status.setText('Selecciona Consultar operación para recuperar.' if pending else 'No hay operaciones pendientes.')
 
     def show_rows(self,data):
+        self.document_upload_button.setVisible(self.mode=='results' and bool(self.client and self.client.user and self.client.user.get('role') in ('OPERATOR','MEDICAL')))
         self.correct_result_button.setVisible(self.mode=='results' and bool(self.client and self.client.user and self.client.user.get('role') in ('OPERATOR','MEDICAL')))
         self.collect_button.setVisible(self.mode=='donations' and bool(self.client and self.client.user and self.client.user.get('role')=='MEDICAL'))
         self.process_donation_button.setVisible(self.mode=='donations' and bool(self.client and self.client.user and self.client.user.get('role')=='OPERATOR'))
@@ -1374,6 +1379,7 @@ class Window(QMainWindow):
             self.status.setText('No hay operaciones pendientes para esta cuenta.'); return
         record=pending[-1]
         if record.get('kind')=='USER_CREATE': self.recover_user(record,context); return
+        if record.get('kind')=='DOCUMENT': self.recover_document(record,context); return
         if record.get('kind')=='COMMAND':
             if record.get('status')=='CONFLICT':
                 if record['target']['operation']=='shipment_create':
@@ -1859,6 +1865,79 @@ class Window(QMainWindow):
             if not binding.current():
                 self.status.setText('La sesión cambió. Vuelve a consultar antes de guardar.'); return
             self.secure_command('lab_sample_create',None,state['body'])
+
+    def document_upload(self):
+        item=self.selected()
+        if self.uncertain: self.status.setText('Actualiza y verifica el estado antes de continuar.'); return
+        if not self.client or not self.client.user or self.client.user.get('role') not in ('OPERATOR','MEDICAL'): self.status.setText('La carga requiere personal autorizado.'); return
+        if not item: self.status.setText('Selecciona un resultado.'); return
+        context=OperationContext(self); identifier=item['id']
+        def fetch():
+            context.check(); result=context.client.authorized('compatibilidad','/api/v1/laboratory/results/'+identifier,'lab_results_detail')
+            if result.get('id')!=identifier or result.get('tenant_id')!=context.actor[1]: raise ContractError('El resultado no corresponde a esta institución.')
+            return result
+        self.run_in_context(context,fetch,lambda result:self.document_upload_form(result,None,context),'Consultando resultado…')
+
+    def document_upload_form(self,result,record,context):
+        from .document_upload import read_document, prepare_document, prepare_remote, upload_bytes
+        if not context.current(): return
+        dialog=QDialog(self); dialog.setWindowTitle('Adjuntar documento al resultado'); dialog.resize(640,280); form=QFormLayout(dialog)
+        form.addRow('Prueba',QLabel(label(result.get('test_code')))); path=QLineEdit(); path.setReadOnly(True); form.addRow('Archivo elegido',path)
+        choose=QPushButton('Seleccionar PDF o imagen'); form.addRow(choose)
+        def choose_file():
+            value,_=QFileDialog.getOpenFileName(dialog,'Seleccionar documento','','Documentos (*.pdf *.png *.jpg *.jpeg)')
+            if context.current() and value: path.setText(value)
+        choose.clicked.connect(choose_file)
+        reference=QLineEdit(); reference.setMaxLength(200)
+        if record: reference.setText(record['body']['policy_reference']); reference.setReadOnly(True)
+        form.addRow('Referencia documental',reference)
+        note=QLabel('El archivo será verificado por el servicio antes de poder usarse. Tamaño máximo: 10 MiB.'); note.setWordWrap(True); form.addRow(note)
+        button=QPushButton('Cargar y verificar'); button.setObjectName('primary'); button.clicked.connect(dialog.accept); form.addRow(button)
+        cancel=QPushButton('Cancelar'); cancel.clicked.connect(dialog.reject); form.addRow(cancel)
+        while dialog.exec()==QDialog.Accepted:
+            if path.text() and reference.text().strip(): break
+            QMessageBox.warning(dialog,'Datos incompletos','Selecciona el archivo e indica la referencia documental.')
+        else: return
+        if not context.current(): return
+        local_path=path.text(); reference_text=reference.text().strip()
+        def prepare():
+            context.check(); content,details=read_document(local_path); context.check()
+            if record:
+                if any(details[key]!=record['body'][key] for key in ('mime_type','size','sha256')): raise JournalError('El archivo no coincide con la carga pendiente.')
+                current=record
+            else: current=prepare_document(context.journal,result['id'],details,reference_text)
+            return current,content
+        def ready(pair):
+            current,content=pair
+            def prepared(value):
+                if not context.current(): return
+                assigned=dict(current,operation_id=value['id'],state='PENDING',status=current.get('status') or 'ASSIGNED')
+                def transfer(): return upload_bytes(context,assigned,value,content)
+                self.run_in_context(context,transfer,lambda _:self.document_verify(dict(assigned,status='UPLOADED'),context),'Cargando documento…')
+            self.secure_attempt(current,'document_prepare',result['id'],lambda proof:prepare_remote(context,current,proof),prepared,context)
+        self.run_in_context(context,prepare,ready,'Preparando documento…')
+
+    def document_verify(self,record,context):
+        from .document_upload import verify_remote
+        if not context.current(): return
+        def verified(_):
+            if self.mode=='pending': self.load()
+            self.status.setText('Documento verificado. Puedes seleccionarlo al corregir el resultado.')
+        self.secure_attempt(record,'file_verify',record['operation_id'],lambda proof:verify_remote(context,record,proof),verified,context)
+
+    def recover_document(self,record,context):
+        if not context.current(): return
+        if QMessageBox.question(self,'Recuperar documento','Se conservará el mismo intento. ¿Consultar la carga pendiente?')!=QMessageBox.Yes: return
+        if not context.current(): return
+        if record.get('status') in ('PUT_UNCERTAIN','UPLOADED'):
+            self.document_verify(record,context); return
+        if record.get('status') not in (None,'UNCERTAIN','ASSIGNED','MISSING'):
+            self.status.setText('La carga requiere revisión autorizada.'); return
+        def fetch():
+            context.check(); value=context.client.authorized('compatibilidad','/api/v1/laboratory/results/'+record['target'],'lab_results_detail')
+            if value.get('id')!=record['target'] or value.get('tenant_id')!=context.actor[1]: raise ContractError('El resultado no corresponde a la carga.')
+            return value
+        self.run_in_context(context,fetch,lambda result:self.document_upload_form(result,record,context),'Consultando resultado…')
 
     def capture_result(self):
         item=self.selected()

@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<testsuites name="pytest tests">
+  <testsuite name="pytest" errors="0" failures="0" skipped="0" tests="2" time="5.220" timestamp="2026-11-16T17:54:55.152980-06:00">
+    <testcase classname="apps.desktop.tests.test_document_upload_ui" name="test_verification_callback_keeps_result_status_and_refreshes_pending" time="1.740" />
+    <testcase classname="apps.desktop.tests.test_document_upload_ui" name="test_loading_another_area_hides_result_actions" time="0.090" />
+  </testsuite>
+</testsuites>
