@@ -142,8 +142,9 @@ def submit_command(client,journal,record,*,fresh=False,proof=None):
         raise ContractError('La muestra confirmada no corresponde al intento registrado.')
     if operation=='lab_sample_receive' and (result.get('id')!=target['identifier'] or result.get('tenant_id')!=client.user.get('tenant_id') or result.get('version')!=record['body']['version']+1 or result.get('status')!=record['body']['decision']):
         raise ContractError('La recepción confirmada no corresponde a la muestra seleccionada.')
-    if operation=='lab_result_create' and (result.get('tenant_id')!=client.user.get('tenant_id') or result.get('sample_id')!=record['body']['sample_id'] or result.get('test_code')!=record['body']['test_code'] or result.get('status')!='CAPTURED'):
-        raise ContractError('El resultado confirmado no corresponde a la muestra seleccionada.')
+    if operation=='lab_result_create':
+        from .laboratory_result import validate_result_confirmation
+        validate_result_confirmation(result,record['body'],client.user)
     if operation=='lab_result_review' and (result.get('id')!=target['identifier'] or result.get('tenant_id')!=client.user.get('tenant_id') or result.get('version')!=record['body']['version'] or result.get('status')!=record['body']['decision']):
         raise ContractError('La revisión confirmada no corresponde al resultado seleccionado.')
     if operation=='lab_sample_create':

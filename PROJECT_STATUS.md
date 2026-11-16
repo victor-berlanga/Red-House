@@ -2,6 +2,12 @@
 
 Las entradas están ordenadas de reciente a histórico; un pendiente de un corte anterior puede quedar sustituido explícitamente por una entrada posterior.
 
+## Captura HLA y corrección documental incorporadas a escritorio — 16/11/2026
+
+[Incremento Qt/XML](documentation/evidencias/entrega-final/desktop/iteracion-resultado-hla/RESULTADOS.md): resultado pendiente/informado, declaración HLA por locus, emisión y corrección con antecedente fijo; selección de documento ya verificado y revisión profesional con contexto. Respuesta y callbacks se cotejan contra actor, institución, muestra y cuerpo original. Conflicto/reauth incierta conservan un formulario bloqueado; únicamente rechazo de validación reconocido permite corrección humana, sin reintento automático.
+
+Tres fuentes y test integrados idénticos al candidato revisado. Dieciocho pruebas Qt con dobles aprobadas antes del ajuste de presentación; verificaciones dirigidas posteriores de tres y un caso, separadas. Dirección inspeccionó formulario superior/inferior y estado bloqueado con estilo real; encabezados corregidos y campos legibles. Regresión integrada de sesión/contextos: 31/31. No hay persistencia API nueva ni interpretación clínica acreditada; falta carga de archivos desde Qt y el recorrido HLA integral. Se conserva selector parcial y la evidencia histórica; no cierra DESK-04/06 ni etapa05.
+
 ## Carga transaccional de doce identidades aprobada tras aislamiento del parser XML — 16/11/2026
 
 [Escenario API2/worker2](documentation/evidencias/entrega-final/carga-20261114/xml-pools-20261116/RESULTADOS.md): doce usuarios mínimos en calentamiento y medición, 1.396 HTTP medidos sin fallos, p95 de consulta 520 ms/recorrido 2.500 ms; 822 escrituras, 274 recorridos completos y doce replays reconciliados. El oráculo confirmó propagación en 0,081 s de espera final, sin atribuir esa cifra a latencia individual. Trece sesiones técnicas revocadas, procesos cerrados, datos históricos/configuración/fuentes conservados. Copias privadas usan pool2 e intervalo2 del despliegue generado; no es una comparación A/B pura ni medición GCP.

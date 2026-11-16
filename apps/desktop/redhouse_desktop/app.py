@@ -11,7 +11,7 @@ from PySide6.QtGui import QImage, QPixmap, QColor, QPainter
 import qrcode
 from PySide6.QtWidgets import (QApplication, QDialog, QFormLayout, QHBoxLayout, QLabel,
     QLineEdit, QMainWindow, QMessageBox, QPushButton, QStackedWidget, QTableWidget, QComboBox, QDateTimeEdit,
-    QTableWidgetItem, QVBoxLayout, QWidget, QHeaderView, QFileDialog, QCheckBox, QSpinBox)
+    QTableWidgetItem, QVBoxLayout, QWidget, QHeaderView, QFileDialog, QCheckBox, QSpinBox, QScrollArea)
 from .client import ApiError, Client, ContractError
 from .journal import Journal, JournalError
 from .session_context import OperationContext, SessionChanged
@@ -135,11 +135,13 @@ class Window(QMainWindow):
         self.release_resource_button=QPushButton('Liberar unidad'); self.release_resource_button.clicked.connect(lambda:self.resource_quality(True)); actions.addWidget(self.release_resource_button)
         self.shipment_create_button=QPushButton('Planificar traslado'); self.shipment_create_button.clicked.connect(self.plan_shipment); actions.addWidget(self.shipment_create_button)
         self.sample_create_button=QPushButton('Registrar muestra'); self.sample_create_button.clicked.connect(self.create_sample); actions.addWidget(self.sample_create_button)
+        self.correct_result_button=QPushButton('Corregir resultado'); self.correct_result_button.clicked.connect(self.correct_result); actions.addWidget(self.correct_result_button); self.correct_result_button.hide()
         self.receive_button = QPushButton('Registrar recepción'); self.receive_button.setObjectName('primary'); self.receive_button.clicked.connect(self.receive); actions.addWidget(self.receive_button); self.capture_button = QPushButton('Capturar resultado'); self.capture_button.clicked.connect(self.capture_result); actions.addWidget(self.capture_button); self.review_button = QPushButton('Revisar resultado'); self.review_button.setToolTip('La revisión corresponde al personal médico autorizado.'); self.review_button.clicked.connect(self.review_result); actions.addWidget(self.review_button); self.ack_button = QPushButton('Acusar recibo'); self.ack_button.clicked.connect(self.acknowledge); actions.addWidget(self.ack_button); actions.addStretch(); outer.addLayout(actions)
         actions = QHBoxLayout(); actions.addStretch()
         self.prev = QPushButton('Anterior'); self.prev.clicked.connect(lambda:self.turn(-1)); actions.addWidget(self.prev); self.page_label = QLabel(); actions.addWidget(self.page_label); self.next = QPushButton('Siguiente'); self.next.clicked.connect(lambda:self.turn(1)); actions.addWidget(self.next); outer.addLayout(actions)
         self.status = QLabel(''); self.status.setWordWrap(True); self.status.setObjectName('hint'); outer.addWidget(self.status)
         for button in (self.trace_button,self.cold_button,self.user_state_button,self.user_role_button,self.download_button,self.report_button,self.resume_button,self.label_button,self.operation_button,self.evaluate_button,self.create_button,self.request_create_button,self.recipient_create_button,self.recipient_edit_button,self.request_edit_button,self.request_cancel_button,self.sample_create_button,self.receive_button,self.capture_button,self.review_button,self.ack_button): button.hide()
+        self.correct_result_button.hide()
         self.collect_button.hide(); self.process_donation_button.hide()
         self.catalogue_create_button.hide(); self.catalogue_edit_button.hide()
         self.fractionate_button.hide()
@@ -169,6 +171,7 @@ class Window(QMainWindow):
 
     def set_controls(self, enabled):
         self.areas.setEnabled(enabled)
+        self.correct_result_button.setEnabled(bool(enabled and self.mode=='results' and self.client and self.client.user and self.client.user.get('role') in ('OPERATOR','MEDICAL')))
         is_admin=bool(enabled and self.client and self.client.user and self.client.user.get('role')=='ADMIN')
         self.device_create_button.setEnabled(is_admin and self.mode in ('users','devices'))
         self.device_revoke_button.setEnabled(is_admin and self.mode=='devices')
@@ -327,6 +330,7 @@ class Window(QMainWindow):
         self.operation_button.show(); self.resume_button.setVisible(self.last_operation_status in ('PENDING','ROLLBACK_PENDING')); self.detail_button.setEnabled(False); self.search.setEnabled(False); self.search_button.setEnabled(False); self.prev.setEnabled(False); self.next.setEnabled(False); self.page_label.setText(''); self.status.setText('Selecciona Consultar operación para recuperar.' if pending else 'No hay operaciones pendientes.')
 
     def show_rows(self,data):
+        self.correct_result_button.setVisible(self.mode=='results' and bool(self.client and self.client.user and self.client.user.get('role') in ('OPERATOR','MEDICAL')))
         self.collect_button.setVisible(self.mode=='donations' and bool(self.client and self.client.user and self.client.user.get('role')=='MEDICAL'))
         self.process_donation_button.setVisible(self.mode=='donations' and bool(self.client and self.client.user and self.client.user.get('role')=='OPERATOR'))
         self.catalogue_create_button.setVisible(self.mode in ('sites','capacities') and bool(self.client and self.client.user and self.client.user.get('role')=='ADMIN'))
@@ -454,7 +458,7 @@ class Window(QMainWindow):
         if self.client is context.client and not context.client.user:
             self.failed(SessionChanged('La sesión terminó.'))
 
-    def reauthenticate(self,operation,resource_id,challenge,continuation,context=None):
+    def reauthenticate(self,operation,resource_id,challenge,continuation,context=None,failure_callback=None):
         context=context or OperationContext(self)
         if not context.current(): self.discard_invalid_context(context); return
         dialog=QDialog(self); dialog.setWindowTitle('Confirmar identidad'); form=QFormLayout(dialog)
@@ -465,7 +469,9 @@ class Window(QMainWindow):
             if len(password.text())>=12 and (not otp.text() or re.fullmatch(r'[0-9]{6}',otp.text())): break
             QMessageBox.warning(self,'Datos incompletos','Escribe tu contraseña y, si corresponde, un código de seis dígitos.')
         else:
-            password.clear(); otp.clear(); return
+            password.clear(); otp.clear()
+            if failure_callback and context.current(): failure_callback(JournalError('Confirmación cancelada; el intento permanece pendiente.'),'reauth')
+            return
         if not context.current(): password.clear(); otp.clear(); self.discard_invalid_context(context); return
         body={'password':password.text(),'challenge':challenge}
         if otp.text(): body['otp']=otp.text()
@@ -484,10 +490,12 @@ class Window(QMainWindow):
                 self.busy=False; self._worker=None; self.set_controls(True); self.discard_invalid_context(context); return
             if isinstance(error,ApiError) and error.status==403 and error.code=='reauthentication_required':
                 self.busy=False; self._worker=None; self.set_controls(True); continuation(None)
-            else: self.failed(error)
+            else:
+                self.failed(error)
+                if failure_callback and context.current(): failure_callback(JournalError('La confirmación requiere recuperación del intento.'),'reauth')
         self.run(authenticate,confirmed,'Confirmando identidad…',auth_failed)
 
-    def secure_attempt(self,record,operation,resource_id,submit,success,context=None):
+    def secure_attempt(self,record,operation,resource_id,submit,success,context=None,failure_callback=None):
         context=context or OperationContext(self)
         def attempt(proof=None):
             if not context.current(): self.discard_invalid_context(context); return
@@ -504,16 +512,20 @@ class Window(QMainWindow):
             def completed(result):
                 if not context.current(): self.discard_invalid_context(context); return
                 if result[0]=='result': success(result[1])
-                else: self.reauthenticate(operation,resource_id,result[1],attempt,context)
+                else:
+                    if failure_callback: self.reauthenticate(operation,resource_id,result[1],attempt,context,failure_callback)
+                    else: self.reauthenticate(operation,resource_id,result[1],attempt,context)
             def failed(error):
-                if context.current(): self.failed(error)
+                if context.current():
+                    self.failed(error)
+                    if failure_callback and context.current(): failure_callback(error,'submit')
                 else:
                     if sent['value']: context.journal.mark_uncertain(record['key'])
                     self.busy=False; self._worker=None; self.set_controls(True); self.discard_invalid_context(context)
             self.run(work,completed,'Registrando operación…',failed)
         attempt()
 
-    def secure_command(self,operation,identifier,body,success=None):
+    def secure_command(self,operation,identifier,body,success=None,failure_callback=None):
         try: context=OperationContext(self)
         except SessionChanged: self.status.setText('La sesión terminó. Vuelve a consultar.'); return
         def prepare():
@@ -522,9 +534,14 @@ class Window(QMainWindow):
         def ready(record):
             if not context.current(): self.discard_invalid_context(context); return
             callback=success or (self.shipment_plan_result if operation=='shipment_create' else lambda _:self.received())
-            self.secure_attempt(record,operation,identifier,lambda proof:submit_command(context.client,context.journal,record,fresh=True,proof=proof),callback,context)
+            if failure_callback:
+                self.secure_attempt(record,operation,identifier,lambda proof:submit_command(context.client,context.journal,record,fresh=True,proof=proof),callback,context,failure_callback)
+            else:
+                self.secure_attempt(record,operation,identifier,lambda proof:submit_command(context.client,context.journal,record,fresh=True,proof=proof),callback,context)
         def failed(error):
-            if context.current(): self.failed(error)
+            if context.current():
+                self.failed(error)
+                if failure_callback and context.current(): failure_callback(error,'prepare')
             else: self.busy=False; self._worker=None; self.set_controls(True); self.discard_invalid_context(context)
         self.run(prepare,ready,'Preparando operación…',failed)
 
@@ -1847,38 +1864,73 @@ class Window(QMainWindow):
         item=self.selected()
         if self.uncertain: self.status.setText('Actualiza y verifica el estado antes de continuar.'); return
         if not self.client or not self.client.user or self.client.user.get('role') not in ('OPERATOR','MEDICAL'): self.status.setText('La captura requiere personal autorizado.'); return
-        binding=OperationContext(self); client=binding.client; actor=binding.actor
         if not item: self.status.setText('Selecciona una muestra.'); return
         if item.get('status')!='RECEIVED': self.status.setText('Selecciona una muestra recibida antes de capturar el resultado.'); return
-        dialog=QDialog(self); dialog.setWindowTitle('Capturar resultado'); dialog.resize(540,380); form=QFormLayout(dialog)
-        form.addRow('Muestra',QLabel(item['identifier'])); fields={}
-        for key,title in [('test_code','Código de prueba'),('value','Resultado'),('method','Método'),('laboratory','Laboratorio'),('reference','Referencia')]:
-            fields[key]=QLineEdit(); fields[key].setMaxLength(60 if key=='test_code' else 2000 if key=='value' else 200); form.addRow(title,fields[key])
-        measured=QDateTimeEdit(QDateTime.currentDateTime()); measured.setCalendarPopup(True); measured.setDisplayFormat('dd/MM/yyyy HH:mm:ss'); form.addRow('Medición documentada (hora local)',measured)
-        verified=QCheckBox('Confirmo la fecha de medición documentada.'); form.addRow(verified)
-        confirm=QPushButton('Registrar resultado'); confirm.clicked.connect(dialog.accept); form.addRow(confirm)
-        while dialog.exec()==QDialog.Accepted:
-            values={k:v.text().strip() for k,v in fields.items()}
-            if all(values.values()) and verified.isChecked() and re.fullmatch(r'[A-Z0-9_.-]{1,60}',values['test_code']): break
-            QMessageBox.warning(self,'Datos incompletos','Completa los campos y confirma la fecha documentada. El código de prueba usa letras mayúsculas, números, punto, guion o guion bajo.')
-        else: return
-        if not binding.current():
-            self.status.setText('La sesión cambió. Vuelve a consultar antes de guardar.'); return
-        body=dict(values,sample_id=item['id'],measured_at=measured.dateTime().toUTC().toString(Qt.ISODate))
-        self.secure_command('lab_result_create',None,body)
+        self.edit_laboratory_result(item,None,OperationContext(self))
+
+    def edit_laboratory_result(self,sample,prior,binding,draft=None,locked=False,notice=None):
+        from .laboratory_result import result_dialog
+        if not binding.current(): return
+        result=result_dialog(self,sample,prior,Work,draft=draft,locked=locked,notice=notice)
+        if not result or not binding.current() or locked: return
+        body,document=result
+        def rejected(error,phase):
+            # Un conflicto o respuesta incierta conserva el antecedente sin permitir otro envío.
+            editable=(phase=='prepare' and isinstance(error,ContractError)) or (phase=='submit' and isinstance(error,ApiError) and error.status==422 and error.code in ('validation','documentation_required'))
+            note='Revisa los datos documentados antes de guardar.' if editable else 'La información cambió o el intento requiere recuperación. Actualiza y revisa antes de iniciar otra operación.'
+            self.edit_laboratory_result(sample,prior,binding,draft=result,locked=not editable,notice=note)
+        self.secure_command('lab_result_create',None,body,failure_callback=rejected)
+
+    def correct_result(self):
+        item=self.selected()
+        if self.uncertain: self.status.setText('Actualiza y verifica el estado antes de continuar.'); return
+        if not self.client or not self.client.user or self.client.user.get('role') not in ('OPERATOR','MEDICAL'): self.status.setText('La corrección requiere personal autorizado.'); return
+        if not item: self.status.setText('Selecciona un resultado.'); return
+        binding=OperationContext(self); identifier=item['id']
+        def fetch():
+            binding.check(); result=binding.client.authorized('compatibilidad','/api/v1/laboratory/results/'+identifier,'lab_results_detail')
+            if result.get('id')!=identifier or result.get('tenant_id')!=binding.actor[1]: raise ContractError('El resultado no corresponde a esta institución.')
+            binding.check(); sample=binding.client.authorized('compatibilidad','/api/v1/laboratory/samples/'+result['sample_id'],'lab_samples_detail')
+            if sample.get('id')!=result['sample_id'] or sample.get('tenant_id')!=binding.actor[1] or sample.get('status')!='RECEIVED': raise ContractError('La muestra no corresponde al resultado.')
+            return sample,result
+        def ready(pair):
+            sample,prior=pair
+            if binding.current(): self.edit_laboratory_result(sample,prior,binding)
+        self.run_in_context(binding,fetch,ready,'Consultando resultado…')
 
     def review_result(self):
         item=self.selected()
         if self.uncertain: self.status.setText('Actualiza y verifica el estado antes de continuar.'); return
         if not item: self.status.setText('Selecciona un resultado.'); return
         if not self.client or not self.client.user or self.client.user.get('role')!='MEDICAL': self.status.setText('La revisión corresponde al personal médico autorizado.'); return
-        binding=OperationContext(self); client=binding.client; actor=binding.actor
+        binding=OperationContext(self); identifier=item['id']
+        def fetch():
+            binding.check(); data=binding.client.authorized('compatibilidad','/api/v1/laboratory/results/'+identifier,'lab_results_detail')
+            if data.get('id')!=identifier or data.get('tenant_id')!=binding.actor[1]: raise ContractError('El resultado no corresponde a esta institución.')
+            return data
+        self.run_in_context(binding,fetch,lambda value:self.review_result_dialog(value,binding),'Consultando resultado…')
+
+    def review_result_dialog(self,item,binding):
+        if not binding.current(): return
         if item.get('status')!='CAPTURED': self.status.setText('El resultado ya fue revisado o no está disponible para revisión.'); return
-        dialog=QDialog(self); dialog.setWindowTitle('Revisión profesional'); dialog.resize(540,300); form=QFormLayout(dialog)
+        dialog=QDialog(self); dialog.setWindowTitle('Revisión profesional'); dialog.resize(700,620); outer=QVBoxLayout(dialog); scroll=QScrollArea(); scroll.setWidgetResizable(True); panel=QWidget(); form=QFormLayout(panel); scroll.setWidget(panel); outer.addWidget(scroll)
         form.addRow('Prueba',QLabel(label(item.get('test_code')))); result_label=QLabel(label(item.get('value'))); result_label.setWordWrap(True); form.addRow('Resultado',result_label)
         for key,title in (('method','Método'),('laboratory','Laboratorio'),('reference','Referencia')):
             if item.get(key):
                 detail=QLabel(label(item[key])); detail.setWordWrap(True); form.addRow(title,detail)
+        form.addRow('Estado documentado',QLabel(label(item.get('result_state'))))
+        if item.get('issued_at'): form.addRow('Emisión · hora local',QLabel(display_value('created_at',item['issued_at'])))
+        if item.get('hla'):
+            typing=item['hla']; lines=['Nomenclatura '+str(typing.get('nomenclature',''))+' · '+str(typing.get('nomenclature_version','')),'Resolución '+str(typing.get('resolution',''))]
+            if typing.get('catalogue_version'): lines.append('Catálogo '+str(typing['catalogue_version']))
+            for locus in typing.get('loci',[]):
+                lines.append(str(locus.get('locus',''))+': '+', '.join(locus.get('alleles',[])+locus.get('groups',[]))+(' · ambigua' if locus.get('ambiguous') else '')+(' · parcial' if locus.get('partial') else ''))
+            detail=QLabel('\n'.join(lines)); detail.setWordWrap(True); detail.setTextInteractionFlags(Qt.TextSelectableByMouse); form.addRow('Tipificación HLA',detail)
+        snapshot=item.get('document_snapshot')
+        if snapshot:
+            text='Documento verificado · '+str(snapshot.get('category',''))+' · generación '+str(snapshot.get('generation',''))+'\nSHA-256 '+str(snapshot.get('sha256',''))
+            detail=QLabel(text); detail.setWordWrap(True); detail.setTextInteractionFlags(Qt.TextSelectableByMouse); form.addRow('Documento',detail)
+        note=QLabel('La declaración HLA y su revisión no sustituyen la autorización clínica.'); note.setWordWrap(True); form.addRow(note)
         decision=QComboBox(); decision.addItem('Selecciona una decisión',''); decision.addItem('Autorizar','AUTHORIZED'); decision.addItem('Rechazar','REJECTED'); form.addRow('Decisión',decision)
         reason=QLineEdit(); reason.setMaxLength(1000); form.addRow('Motivo de revisión',reason)
         confirm=QPushButton('Registrar revisión'); confirm.clicked.connect(dialog.accept); form.addRow(confirm)
