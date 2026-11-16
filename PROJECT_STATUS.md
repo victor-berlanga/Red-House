@@ -2,6 +2,12 @@
 
 Las entradas están ordenadas de reciente a histórico; un pendiente de un corte anterior puede quedar sustituido explícitamente por una entrada posterior.
 
+## Comandos de escritorio vinculados a su sesión original — 16/11/2026
+
+[Núcleo de contexto](documentation/evidencias/entrega-final/desktop/iteracion-contexto-sesion/RESULTADOS.md): cliente, diario, identidad, institución, rol y SID se fijan antes de preparar/reautenticar/enviar/reintentar. La renovación legítima conserva SID; una respuesta tardía no se muestra a otra cuenta y el resultado confirmado permanece en el diario original. La invalidación de la misma sesión limpia la vista. No cancela peticiones ya enviadas ni promete atomicidad remota.
+
+Revisión independiente confirmó cuatro fuentes idénticas al candidato aprobado. Pruebas ligeras: 28/28 de contexto/cliente y 4/4 regresiones Qt afectadas; dos intentos anteriores con dobles desactualizados quedan documentados por separado. No hubo motores, paquete nuevo ni Windows. Recuperación manual, etiquetas y guardas de otros diálogos permanecen pendientes del lote complementario.
+
 ## Índice de despacho medido y migración 21 preparada — 16/11/2026
 
 [Perfil de diez entregas](documentation/evidencias/entrega-final/carga-20261114/diagnostico-cola/worker-profile-20261116/RESULTADOS.md) identificó SELECT de 30,985 ms de mediana con lectura secuencial/ordenación. [Discriminante reversible](documentation/evidencias/entrega-final/carga-20261114/diagnostico-cola/worker-index-benchmark-20261116/RESULTADOS.md): misma cabeza, diez muestras calientes por condición y rollback; SELECT+fila pasó de 31,618 a 0,822 ms. Las 26.652 filas conservaron hash lógico, índice experimental eliminado y PostgreSQL cerrado. Un fallo previo de guarda ocurrió antes de arrancar motores y permanece separado.

@@ -2,6 +2,8 @@
 
 import os
 from pathlib import Path
+from types import SimpleNamespace
+from uuid import uuid4
 
 from PySide6.QtCore import QTimer
 from PySide6.QtWidgets import (
@@ -18,8 +20,19 @@ from redhouse_desktop.app import Window
 app = QApplication.instance() or QApplication([])
 
 
-def test_candidate_actions_follow_server_validity():
+def authenticated_window():
     window = Window()
+    window.client = SimpleNamespace(
+        user={"id": str(uuid4()), "tenant_id": str(uuid4()), "role": "MEDICAL"},
+        session_id=str(uuid4()),
+        access=None,
+    )
+    window.journal = object()
+    return window
+
+
+def test_candidate_actions_follow_server_validity():
+    window = authenticated_window()
     observed = []
     evaluation = {
         "id": "evaluacion",
@@ -84,7 +97,7 @@ def test_candidate_actions_follow_server_validity():
 
 
 def test_reservation_requires_prior_favorable_review():
-    window = Window()
+    window = authenticated_window()
     observed = []
     evaluation = {
         "id": "evaluacion",
@@ -136,7 +149,7 @@ def test_reservation_requires_prior_favorable_review():
 
 
 def test_recorded_unfavorable_review_cannot_be_changed_or_reserved():
-    window = Window()
+    window = authenticated_window()
     evaluation = {
         "id": "evaluacion",
         "candidates": [{"resource_id": "recurso-a", "resource_folio": "UNIDAD-A"}],

@@ -54,12 +54,16 @@ def test_refresh_failure_clears_tokens_and_is_not_replayed():
 def test_parallel_expired_requests_rotate_only_once():
     from concurrent.futures import ThreadPoolExecutor
     from redhouse_desktop.client import ApiError
-    c=Client('https://example.com'); c.access='old'; c.refresh='refresh'; c.user={'id':'u','tenant_id':'t','region_id':'r','role':'OPERATOR','active':True}
+    import base64
+    sid='00000000-0000-4000-8000-000000000001'
+    payload=base64.urlsafe_b64encode(json.dumps({'sid':sid}).encode()).decode().rstrip('=')
+    renewed='header.'+payload+'.signature'
+    c=Client('https://example.com'); c.access='old'; c.refresh='refresh'; c.session_id=sid; c.user={'id':'u','tenant_id':'t','region_id':'r','role':'OPERATOR','active':True}
     refreshes=[]
     def call(service,path,*args,**kwargs):
         if path.endswith('/refresh'):
             refreshes.append(1)
-            return {'access_token':'new','refresh_token':'rotated'}
+            return {'access_token':renewed,'refresh_token':'rotated'}
         if c.access=='old': raise ApiError(401,'expired','expired')
         if path.endswith('/auth/me'): return dict(c.user)
         return {'items':[]}

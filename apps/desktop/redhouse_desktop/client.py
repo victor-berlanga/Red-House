@@ -127,6 +127,8 @@ def decode(raw, service, operation, success):
         raise ContractError('Servicio o versión incompatibles con el contrato instalado.')
     return result
 
+from .session_context import session_id
+
 class Client:
     def __init__(self, base):
         u = urlsplit(base)
@@ -135,6 +137,7 @@ class Client:
         self.base = base.rstrip('/')
         self.access = self.refresh = None
         self.user = None
+        self.session_id = None
         self.last_identity_check = 0.0
         self.lock = threading.RLock()
 
@@ -173,7 +176,9 @@ class Client:
             fields = {'username':username, 'password':password}
             if otp: fields['otp'] = otp
             data = self.call('identidad-acceso','/api/v1/auth/login','login','POST',fields,'login.xsd',auth=False)
-            self.access, self.refresh, self.user = data['access_token'], data['refresh_token'], data['user']
+            sid = session_id(data['access_token'])
+            if not sid: self.clear(); raise ContractError('La sesión recibida no tiene identificador válido.')
+            self.access, self.refresh, self.user, self.session_id = data['access_token'], data['refresh_token'], data['user'], sid
             return self.user
 
     def _check_identity(self, current):
@@ -190,6 +195,7 @@ class Client:
         self.access=self.refresh=None
         try:
             data=self.call('identidad-acceso','/api/v1/auth/refresh','refresh','POST',{'refresh_token':token},'refresh.xsd',auth=False)
+            if not self.session_id or session_id(data['access_token'])!=self.session_id: raise ContractError('La renovación cambió la sesión.')
             self.access,self.refresh=data['access_token'],data['refresh_token']
             current=self.call('identidad-acceso','/api/v1/auth/me','me')
             return self._check_identity(current)
@@ -224,5 +230,5 @@ class Client:
             finally: self.clear()
 
     def clear(self):
-        self.access = self.refresh = self.user = None
+        self.access = self.refresh = self.user = self.session_id = None
         self.last_identity_check = 0.0

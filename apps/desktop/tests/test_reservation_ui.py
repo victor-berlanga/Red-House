@@ -28,7 +28,8 @@ def test_reservation_button_prepares_and_sends_same_candidate(tmp_path, monkeypa
             return self.key
 
     class Client:
-        user = {"role": "MEDICAL"}
+        user = {"id": str(uuid4()), "tenant_id": str(uuid4()), "role": "MEDICAL"}
+        session_id = str(uuid4())
         access = None
 
         def __init__(self):
@@ -47,7 +48,7 @@ def test_reservation_button_prepares_and_sends_same_candidate(tmp_path, monkeypa
     window.journal = Journal(
         tmp_path, "https://lab", str(uuid4()), str(uuid4()), Keys()
     )
-    window.run = lambda fn, success, label: success(fn())
+    window.run = lambda fn, success, label, failed=None: success(fn())
     monkeypatch.setattr(
         QMessageBox, "information", lambda *args, **kwargs: QMessageBox.Ok
     )

@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="4" skipped="0" tests="5" time="3.152" timestamp="2026-11-16T14:55:23.583434-06:00" hostname="Victors-MacBook-Air.local"><testcase classname="apps.desktop.tests.test_reservation_ui" name="test_reservation_button_prepares_and_sends_same_candidate" time="0.593"><failure message="AttributeError: 'Client' object has no attribute 'session_id'">tmp_path = PosixPath('/private/var/folders/rk/m94gy0rj2h74sfwqknl61bzm0000gn/T/pytest-of-victorberlanga/pytest-337/test_reservation_button_prepar0')
+monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x10e40f470&gt;
+
+    def test_reservation_button_prepares_and_sends_same_candidate(tmp_path, monkeypatch):
+        class Keys:
+            def __init__(self):
+                self.key = Fernet.generate_key()
+
+            def get(self, identifier, exists):
+                return self.key
+
+        class Client:
+            user = {"role": "MEDICAL"}
+            access = None
+
+            def __init__(self):
+                self.calls = []
+
+            def authorized(self, service, path, operation, **kwargs):
+                self.calls.append((operation, kwargs))
+                return {
+                    "status": "PENDING",
+                    "operation_id": str(uuid4()),
+                    "reservation": None,
+                }
+
+        window = Window()
+        window.client = Client()
+        window.journal = Journal(
+            tmp_path, "https://lab", str(uuid4()), str(uuid4()), Keys()
+        )
+        window.run = lambda fn, success, label: success(fn())
+        monkeypatch.setattr(
+            QMessageBox, "information", lambda *args, **kwargs: QMessageBox.Ok
+        )
+        evaluation = {
+            "id": str(uuid4()),
+            "candidates": [
+                {
+                    "resource_id": str(uuid4()),
+                    "resource_folio": "UNIDAD-SINTETICA",
+                    "distance_km": 2,
+                    "travel_minutes": 5,
+                    "expires_at": "2030-01-01T00:00:00Z",
+                }
+            ],
+        }
+        candidate = evaluation["candidates"][0]
+        evaluation["validity"] = {
+            "candidates": [{"resource_id": candidate["resource_id"], "current": True}]
+        }
+        evaluation["reviews"] = [
+            {"resource_id": candidate["resource_id"], "decision": "FAVORABLE"}
+        ]
+
+        def submit():
+            modal = app.activeModalWidget()
+            assert modal
+            modal.findChild(QTableWidget).selectRow(0)
+            modal.findChild(QLineEdit).setText("Reserva sintética documentada")
+            next(
+                button
+                for button in modal.findChildren(QPushButton)
+                if button.text() == "Reservar unidad"
+            ).click()
+
+        QTimer.singleShot(0, submit)
+&gt;       window.evaluation_detail(evaluation)
+
+apps/desktop/tests/test_reservation_ui.py:86:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+apps/desktop/redhouse_desktop/app.py:1141: in evaluation_detail
+    context=OperationContext(self)
+            ^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = &lt;redhouse_desktop.session_context.OperationContext object at 0x1151deba0&gt;
+window = &lt;redhouse_desktop.app.Window(0x7ff1c872b3d0) at 0x1151e0980&gt;
+
+    def __init__(self, window):
+        self.window = window
+        self.client = window.client
+        self.journal = window.journal
+        if not self.client or not self.client.user or not self.journal:
+            raise SessionChanged('La sesión terminó.')
+        self.actor = tuple(self.client.user.get(key) for key in ('id', 'tenant_id', 'role'))
+&gt;       self.sid = self.client.session_id
+                   ^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'Client' object has no attribute 'session_id'
+
+apps/desktop/redhouse_desktop/session_context.py:32: AttributeError</failure></testcase><testcase classname="apps.desktop.tests.test_evaluation_ui" name="test_candidate_actions_follow_server_validity" time="0.021"><failure message="redhouse_desktop.session_context.SessionChanged: La sesión terminó.">def test_candidate_actions_follow_server_validity():
+        window = Window()
+        observed = []
+        evaluation = {
+            "id": "evaluacion",
+            "snapshot": {"clinical_notice": "Filtro ilustrativo; requiere dictamen."},
+            "candidates": [
+                {
+                    "resource_id": "recurso-a",
+                    "resource_folio": "UNIDAD-A",
+                    "distance_km": 2,
+                    "travel_minutes": 5,
+                    "expires_at": "2030-01-01T00:00:00Z",
+                    "explanation": "Explicación del candidato A",
+                },
+                {
+                    "resource_id": "recurso-b",
+                    "resource_folio": "UNIDAD-B",
+                    "distance_km": 3,
+                    "travel_minutes": 6,
+                    "expires_at": "2030-01-01T00:00:00Z",
+                    "explanation": "Explicación del candidato B",
+                },
+            ],
+            "validity": {
+                "candidates": [
+                    {"resource_id": "recurso-a", "current": True},
+                    {"resource_id": "recurso-b", "current": False},
+                ]
+            },
+        }
+
+        def inspect():
+            modal = app.activeModalWidget()
+            assert modal
+            table = modal.findChild(QTableWidget)
+            buttons = {button.text(): button for button in modal.findChildren(QPushButton)}
+            assert not buttons["Dictamen favorable"].isEnabled()
+            table.selectRow(0)
+            app.processEvents()
+            observed.append(buttons["Dictamen favorable"].isEnabled())
+            assert not buttons["Reservar unidad"].isEnabled()
+            assert any(
+                "primero registra un dictamen favorable" in label.text()
+                for label in modal.findChildren(QLabel)
+            )
+            if os.environ.get("DESKTOP_CAPTURE_DIR"):
+                modal.grab().save(
+                    str(Path(os.environ["DESKTOP_CAPTURE_DIR"]) / "sin-dictamen-doble.png")
+                )
+            table.selectRow(1)
+            app.processEvents()
+            observed.append(buttons["Dictamen favorable"].isEnabled())
+            assert any(
+                "vigencia no está confirmada" in label.text()
+                for label in modal.findChildren(QLabel)
+            )
+            modal.reject()
+
+        QTimer.singleShot(0, inspect)
+&gt;       window.evaluation_detail(evaluation)
+
+apps/desktop/tests/test_evaluation_ui.py:81:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+apps/desktop/redhouse_desktop/app.py:1141: in evaluation_detail
+    context=OperationContext(self)
+            ^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = &lt;redhouse_desktop.session_context.OperationContext object at 0x115203e30&gt;
+window = &lt;redhouse_desktop.app.Window(0x7ff1cbd89ac0) at 0x11515b700&gt;
+
+    def __init__(self, window):
+        self.window = window
+        self.client = window.client
+        self.journal = window.journal
+        if not self.client or not self.client.user or not self.journal:
+&gt;           raise SessionChanged('La sesión terminó.')
+E           redhouse_desktop.session_context.SessionChanged: La sesión terminó.
+
+apps/desktop/redhouse_desktop/session_context.py:30: SessionChanged</failure></testcase><testcase classname="apps.desktop.tests.test_evaluation_ui" name="test_reservation_requires_prior_favorable_review" time="0.011"><failure message="redhouse_desktop.session_context.SessionChanged: La sesión terminó.">def test_reservation_requires_prior_favorable_review():
+        window = Window()
+        observed = []
+        evaluation = {
+            "id": "evaluacion",
+            "candidates": [
+                {
+                    "resource_id": "recurso-a",
+                    "resource_folio": "UNIDAD-A",
+                    "distance_km": 2,
+                    "travel_minutes": 5,
+                    "expires_at": "2030-01-01T00:00:00Z",
+                }
+            ],
+            "validity": {"candidates": [{"resource_id": "recurso-a", "current": True}]},
+            "reviews": [{"resource_id": "recurso-a", "decision": "FAVORABLE"}],
+        }
+
+        def inspect():
+            modal = app.activeModalWidget()
+            assert modal
+            modal.findChild(QTableWidget).selectRow(0)
+            app.processEvents()
+            buttons = {button.text(): button for button in modal.findChildren(QPushButton)}
+            assert not buttons["Dictamen favorable"].isEnabled()
+            assert not buttons["Dictamen desfavorable"].isEnabled()
+            assert any(
+                "Dictamen favorable registrado" in label.text()
+                for label in modal.findChildren(QLabel)
+            )
+            if os.environ.get("DESKTOP_CAPTURE_DIR"):
+                modal.grab().save(
+                    str(
+                        Path(os.environ["DESKTOP_CAPTURE_DIR"])
+                        / "dictamen-favorable-doble.png"
+                    )
+                )
+            observed.append(
+                next(
+                    button
+                    for button in modal.findChildren(QPushButton)
+                    if button.text() == "Reservar unidad"
+                ).isEnabled()
+            )
+            modal.reject()
+
+        QTimer.singleShot(0, inspect)
+&gt;       window.evaluation_detail(evaluation)
+
+apps/desktop/tests/test_evaluation_ui.py:133:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+apps/desktop/redhouse_desktop/app.py:1141: in evaluation_detail
+    context=OperationContext(self)
+            ^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = &lt;redhouse_desktop.session_context.OperationContext object at 0x115203800&gt;
+window = &lt;redhouse_desktop.app.Window(0x7ff1cbe61740) at 0x10e492200&gt;
+
+    def __init__(self, window):
+        self.window = window
+        self.client = window.client
+        self.journal = window.journal
+        if not self.client or not self.client.user or not self.journal:
+&gt;           raise SessionChanged('La sesión terminó.')
+E           redhouse_desktop.session_context.SessionChanged: La sesión terminó.
+
+apps/desktop/redhouse_desktop/session_context.py:30: SessionChanged</failure></testcase><testcase classname="apps.desktop.tests.test_evaluation_ui" name="test_recorded_unfavorable_review_cannot_be_changed_or_reserved" time="0.014"><failure message="redhouse_desktop.session_context.SessionChanged: La sesión terminó.">def test_recorded_unfavorable_review_cannot_be_changed_or_reserved():
+        window = Window()
+        evaluation = {
+            "id": "evaluacion",
+            "candidates": [{"resource_id": "recurso-a", "resource_folio": "UNIDAD-A"}],
+            "validity": {"candidates": [{"resource_id": "recurso-a", "current": True}]},
+            "reviews": [{"resource_id": "recurso-a", "decision": "UNFAVORABLE"}],
+        }
+
+        def inspect():
+            modal = app.activeModalWidget()
+            modal.findChild(QTableWidget).selectRow(0)
+            app.processEvents()
+            buttons = {button.text(): button for button in modal.findChildren(QPushButton)}
+            assert all(
+                not buttons[name].isEnabled()
+                for name in (
+                    "Dictamen favorable",
+                    "Dictamen desfavorable",
+                    "Reservar unidad",
+                )
+            )
+            assert any(
+                "Dictamen desfavorable registrado" in label.text()
+                for label in modal.findChildren(QLabel)
+            )
+            modal.reject()
+
+        QTimer.singleShot(0, inspect)
+&gt;       window.evaluation_detail(evaluation)
+
+apps/desktop/tests/test_evaluation_ui.py:167:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+apps/desktop/redhouse_desktop/app.py:1141: in evaluation_detail
+    context=OperationContext(self)
+            ^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = &lt;redhouse_desktop.session_context.OperationContext object at 0x115203d10&gt;
+window = &lt;redhouse_desktop.app.Window(0x7ff1cbd8f580) at 0x127d174c0&gt;
+
+    def __init__(self, window):
+        self.window = window
+        self.client = window.client
+        self.journal = window.journal
+        if not self.client or not self.client.user or not self.journal:
+&gt;           raise SessionChanged('La sesión terminó.')
+E           redhouse_desktop.session_context.SessionChanged: La sesión terminó.
+
+apps/desktop/redhouse_desktop/session_context.py:30: SessionChanged</failure></testcase><testcase classname="apps.desktop.tests.test_evaluation_ui" name="test_new_evaluation_fetches_validity_before_opening" time="0.018" /></testsuite></testsuites>

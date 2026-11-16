@@ -105,6 +105,17 @@ class Journal:
             record['state']='DONE' if operation['status'] in ('COMPLETED','FAILED') else 'PENDING'
             self._write(records,key)
 
+    def mark_uncertain(self, key_value):
+        """Conserva el intento original para recuperar bajo la sesión propietaria."""
+        with self.locked():
+            records,key=self._read()
+            record=next((x for x in records if x['key']==key_value),None)
+            if record is None: raise JournalError('No se encontró la operación local.')
+            # Un resultado validado o conflicto de revisión ya no es incierto.
+            if record['state'] not in ('PREPARED','UNCERTAIN'): return
+            record['state']='UNCERTAIN'; record['status']='UNCERTAIN'
+            self._write(records,key)
+
     def print_transition(self, key_value, issuance_id, action):
         """Registra envío incierto y revisión sin volver a usar la autorización."""
         transitions={'start':('AUTHORIZED','PRINT_UNCERTAIN','PENDING'),

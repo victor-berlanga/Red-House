@@ -14,6 +14,7 @@ from PySide6.QtWidgets import (QApplication, QDialog, QFormLayout, QHBoxLayout, 
     QTableWidgetItem, QVBoxLayout, QWidget, QHeaderView, QFileDialog, QCheckBox, QSpinBox)
 from .client import ApiError, Client, ContractError
 from .journal import Journal, JournalError
+from .session_context import OperationContext, SessionChanged
 from .durable_commands import prepare_command, submit_command, update_shipment_command
 from .shipment_planning import planning_dialog
 from .resource_edit import resource_edit_dialog
@@ -434,7 +435,13 @@ class Window(QMainWindow):
         record=prepare_command(self.journal,operation,identifier,body)
         return submit_command(self.client,self.journal,record,fresh=True,proof=proof)
 
-    def reauthenticate(self,operation,resource_id,challenge,continuation):
+    def discard_invalid_context(self,context):
+        if self.client is context.client and not context.client.user:
+            self.failed(SessionChanged('La sesión terminó.'))
+
+    def reauthenticate(self,operation,resource_id,challenge,continuation,context=None):
+        context=context or OperationContext(self)
+        if not context.current(): self.discard_invalid_context(context); return
         dialog=QDialog(self); dialog.setWindowTitle('Confirmar identidad'); form=QFormLayout(dialog)
         password=QLineEdit(); password.setEchoMode(QLineEdit.Password); form.addRow('Contraseña',password)
         otp=QLineEdit(); otp.setMaxLength(6); otp.setPlaceholderText('Si tu cuenta lo requiere'); form.addRow('Código de verificación nuevo',otp)
@@ -444,39 +451,67 @@ class Window(QMainWindow):
             QMessageBox.warning(self,'Datos incompletos','Escribe tu contraseña y, si corresponde, un código de seis dígitos.')
         else:
             password.clear(); otp.clear(); return
+        if not context.current(): password.clear(); otp.clear(); self.discard_invalid_context(context); return
         body={'password':password.text(),'challenge':challenge}
         if otp.text(): body['otp']=otp.text()
         password.clear(); otp.clear()
         def authenticate():
-            result=self.client.authorized('identidad-acceso','/api/v1/auth/reauthentication-proofs','reauthenticate',method='POST',body=body,request_schema='reauthenticate.xsd')
+            context.check()
+            result=context.client.authorized('identidad-acceso','/api/v1/auth/reauthentication-proofs','reauthenticate',method='POST',body=body,request_schema='reauthenticate.xsd')
+            context.check()
             if result['operation']!=operation or result['resource_id']!=resource_id or not 40<=len(result['proof'])<=200 or not 1<=result['expires_in']<=120: raise ContractError('Confirmación no corresponde a la acción.')
             return result['proof']
+        def confirmed(proof):
+            if context.current(): continuation(proof)
+            else: self.discard_invalid_context(context)
         def auth_failed(error):
-            if isinstance(error,ApiError) and error.status==403 and error.code=='reauthentication_required' and self.client and self.client.user:
+            if not context.current():
+                self.busy=False; self._worker=None; self.set_controls(True); self.discard_invalid_context(context); return
+            if isinstance(error,ApiError) and error.status==403 and error.code=='reauthentication_required':
                 self.busy=False; self._worker=None; self.set_controls(True); continuation(None)
             else: self.failed(error)
-        self.run(authenticate,continuation,'Confirmando identidad…',auth_failed)
+        self.run(authenticate,confirmed,'Confirmando identidad…',auth_failed)
 
-    def secure_attempt(self,record,operation,resource_id,submit,success):
+    def secure_attempt(self,record,operation,resource_id,submit,success,context=None):
+        context=context or OperationContext(self)
         def attempt(proof=None):
+            if not context.current(): self.discard_invalid_context(context); return
+            sent={'value':False}
+            def dispatch():
+                sent['value']=True
+                return submit(proof)
             def work():
-                try: return ('result',submit(proof))
+                try: return ('result',context.submit(record,dispatch))
                 except ApiError as exc:
                     challenge=exc.challenge()
                     if challenge is None: raise
                     return ('challenge',challenge)
             def completed(result):
+                if not context.current(): self.discard_invalid_context(context); return
                 if result[0]=='result': success(result[1])
-                else: self.reauthenticate(operation,resource_id,result[1],attempt)
-            self.run(work,completed,'Registrando operación…')
+                else: self.reauthenticate(operation,resource_id,result[1],attempt,context)
+            def failed(error):
+                if context.current(): self.failed(error)
+                else:
+                    if sent['value']: context.journal.mark_uncertain(record['key'])
+                    self.busy=False; self._worker=None; self.set_controls(True); self.discard_invalid_context(context)
+            self.run(work,completed,'Registrando operación…',failed)
         attempt()
 
-    def secure_command(self,operation,identifier,body):
-        def prepare(): return prepare_command(self.journal,operation,identifier,body)
+    def secure_command(self,operation,identifier,body,success=None):
+        try: context=OperationContext(self)
+        except SessionChanged: self.status.setText('La sesión terminó. Vuelve a consultar.'); return
+        def prepare():
+            context.check()
+            return prepare_command(context.journal,operation,identifier,body)
         def ready(record):
-            callback=self.shipment_plan_result if operation=='shipment_create' else lambda _:self.received()
-            self.secure_attempt(record,operation,identifier,lambda proof:submit_command(self.client,self.journal,record,fresh=True,proof=proof),callback)
-        self.run(prepare,ready,'Preparando operación…')
+            if not context.current(): self.discard_invalid_context(context); return
+            callback=success or (self.shipment_plan_result if operation=='shipment_create' else lambda _:self.received())
+            self.secure_attempt(record,operation,identifier,lambda proof:submit_command(context.client,context.journal,record,fresh=True,proof=proof),callback,context)
+        def failed(error):
+            if context.current(): self.failed(error)
+            else: self.busy=False; self._worker=None; self.set_controls(True); self.discard_invalid_context(context)
+        self.run(prepare,ready,'Preparando operación…',failed)
 
     def receive(self):
         if self.uncertain:
@@ -577,6 +612,7 @@ class Window(QMainWindow):
 
     def create_user(self):
         if not USER_CREATION_ENABLED or not self.client or self.client.user.get('role')!='ADMIN': return
+        context=OperationContext(self); user_snapshot=dict(context.client.user)
         dialog=QDialog(self); dialog.setWindowTitle('Registrar cuenta'); dialog.resize(480,250); form=QFormLayout(dialog)
         name=QLineEdit(); name.setMaxLength(80); form.addRow('Cuenta',name)
         roles=QComboBox()
@@ -593,13 +629,18 @@ class Window(QMainWindow):
         else:
             password.clear(); repeated.clear(); return
         username=name.text().strip(); role=roles.currentData(); password.clear(); repeated.clear()
+        if not context.current(): return
+        def prepare():
+            context.check(); return prepare_user(context.journal,user_snapshot,username,role,secret)
         def ready(record):
-            self.secure_attempt(record,'user_create',None,lambda proof:submit_user(self.client,self.journal,record,secret,proof,fresh=True),lambda _:self.received())
-        self.run(lambda:prepare_user(self.journal,self.client.user,username,role,secret),ready,'Preparando alta…')
+            if context.current(): self.secure_attempt(record,'user_create',None,lambda proof:submit_user(context.client,context.journal,record,secret,proof,fresh=True),lambda _:self.received(),context)
+        self.run(prepare,ready,'Preparando alta…')
 
-    def recover_user(self,record):
+    def recover_user(self,record,context=None):
         if not USER_CREATION_ENABLED: self.status.setText('La recuperación de cuentas aún no está disponible.'); return
+        context=context or OperationContext(self)
         def checked(result):
+            if not context.current(): return
             if result:
                 self.received(); return
             dialog=QDialog(self); dialog.setWindowTitle('Recuperar alta de cuenta'); dialog.resize(480,180); form=QFormLayout(dialog)
@@ -611,8 +652,9 @@ class Window(QMainWindow):
                 password.clear(); return
             secret=password.text(); password.clear()
             if not 12<=len(secret)<=128: self.status.setText('La contraseña debe tener entre 12 y 128 caracteres.'); return
-            self.secure_attempt(record,'user_create',None,lambda proof:submit_user(self.client,self.journal,record,secret,proof),lambda _:self.received())
-        self.run(lambda:lookup_user(self.client,self.journal,record),checked,'Consultando confirmación…')
+            if not context.current(): return
+            self.secure_attempt(record,'user_create',None,lambda proof:submit_user(context.client,context.journal,record,secret,proof),lambda _:self.received(),context)
+        self.run(lambda:context.submit(record,lambda:lookup_user(context.client,context.journal,record)),checked,'Consultando confirmación…')
 
     def begin_device_create(self):
         if self.mode=='devices':
@@ -1096,6 +1138,7 @@ class Window(QMainWindow):
             self.run(lambda:self.durable('request_create',None,state['body']),lambda _:self.received(),'Registrando solicitud…')
 
     def evaluation_detail(self,evaluation):
+        context=OperationContext(self)
         candidates=evaluation.get('candidates') or []
         dialog=QDialog(self); dialog.setWindowTitle('Candidatos para revisión'); dialog.resize(760,540); layout=QVBoxLayout(dialog)
         notice=QLabel(evaluation.get('snapshot',{}).get('clinical_notice') or 'Preselección de apoyo: requiere evaluación y decisión del profesional autorizado.'); notice.setWordWrap(True); layout.addWidget(notice)
@@ -1140,18 +1183,20 @@ class Window(QMainWindow):
             if not choice: return
             if table.currentRow()>=0 and len(reason.text().strip())>=6: break
             QMessageBox.warning(self,'Datos incompletos','Selecciona un candidato y documenta un motivo de al menos seis caracteres.')
+        if not context.current(): return
         candidate=candidates[table.currentRow()]; common={'human_confirmation':'true','reason':reason.text().strip(),'resource_id':candidate['resource_id']}; key=str(uuid.uuid4())
         if choice==3:
             if self.reservation_uncertain:
                 self.status.setText('La reserva anterior tiene resultado incierto. No repitas la operación; consulta su estado con soporte autorizado.'); return
             body=dict(common,evaluation_id=evaluation['id']); record={'key':key,'body':body,'state':'PREPARED','operation_id':None,'status':None,'target':{'service':'inventario','path':'/api/v1/reservations','method':'POST','schema':'reservation_create.xsd'}}
-            def prepare_reservation(): self.journal.prepare(record); return record
+            def prepare_reservation(): context.check(); context.journal.prepare(record); return record
             def ready_reservation(_):
+                if not context.current(): return
                 self.reservation_uncertain=True
                 def submit_reservation(proof):
-                    result=self.client.authorized('inventario','/api/v1/reservations','reservation_create',method='POST',body=body,request_schema='reservation_create.xsd',key=key,proof=proof)
-                    validate_operation(record,result); self.journal.update(key,result); return result
-                self.secure_attempt(record,'reservation_create',candidate['resource_id'],submit_reservation,self.reservation_result)
+                    result=context.client.authorized('inventario','/api/v1/reservations','reservation_create',method='POST',body=body,request_schema='reservation_create.xsd',key=key,proof=proof)
+                    validate_operation(record,result); context.journal.update(key,result); return result
+                self.secure_attempt(record,'reservation_create',candidate['resource_id'],submit_reservation,self.reservation_result,context)
             self.run(prepare_reservation,ready_reservation,'Preparando reserva…')
         else:
             body=dict(common,decision='FAVORABLE' if choice==1 else 'UNFAVORABLE')
@@ -1184,14 +1229,20 @@ class Window(QMainWindow):
 
     def check_operation(self):
         if not self.journal: self.status.setText('Inicia sesión para recuperar operaciones.'); return
-        self.run(self.journal.list,self.recover_operation,'Buscando operaciones…')
+        context=OperationContext(self)
+        def ready(records):
+            if context.current(): self.recover_operation(records,context)
+        def fetch(): context.check(); return context.journal.list()
+        self.run(fetch,ready,'Buscando operaciones…')
 
-    def recover_operation(self,records):
+    def recover_operation(self,records,context=None):
+        context=context or OperationContext(self)
+        if not context.current(): return
         pending=[r for r in records if r['state']!='DONE']
         if not pending:
             self.status.setText('No hay operaciones pendientes para esta cuenta.'); return
         record=pending[-1]
-        if record.get('kind')=='USER_CREATE': self.recover_user(record); return
+        if record.get('kind')=='USER_CREATE': self.recover_user(record,context); return
         if record.get('kind')=='COMMAND':
             if record.get('status')=='CONFLICT':
                 if record['target']['operation']=='shipment_create':
@@ -1223,7 +1274,8 @@ class Window(QMainWindow):
             if QMessageBox.question(self,'Recuperar operación','La respuesta anterior no llegó. ¿Recuperar el mismo intento?') != QMessageBox.Yes: return
             operation=record['target']['operation']; identifier=record['target']['identifier']
             callback=self.shipment_plan_result if operation=='shipment_create' else lambda _:self.received()
-            self.secure_attempt(record,operation,identifier,lambda proof:submit_command(self.client,self.journal,record,proof=proof),callback)
+            if not context.current(): return
+            self.secure_attempt(record,operation,identifier,lambda proof:submit_command(context.client,context.journal,record,proof=proof),callback,context)
             return
         if record.get('kind')=='LABEL':
             if not LABEL_ISSUANCE_ENABLED: self.status.setText('La recuperación de etiqueta aún no está disponible.'); return
@@ -1254,9 +1306,10 @@ class Window(QMainWindow):
             self.run(poll,self.reservation_result,'Consultando operación…'); return
         if QMessageBox.question(self,'Recuperar reserva','La respuesta anterior no llegó. ¿Recuperar la solicitud sin duplicarla?') != QMessageBox.Yes: return
         def retry(proof):
-            result=self.client.authorized('inventario','/api/v1/reservations','reservation_create',method='POST',body=record['body'],request_schema='reservation_create.xsd',key=key,proof=proof)
-            validate_operation(record,result); self.journal.update(key,result); return result
-        self.secure_attempt(record,'reservation_create',record['body']['resource_id'],retry,self.reservation_result)
+            result=context.client.authorized('inventario','/api/v1/reservations','reservation_create',method='POST',body=record['body'],request_schema='reservation_create.xsd',key=key,proof=proof)
+            validate_operation(record,result); context.journal.update(key,result); return result
+        if not context.current(): return
+        self.secure_attempt(record,'reservation_create',record['body']['resource_id'],retry,self.reservation_result,context)
 
     def create_donation(self):
         if self.uncertain:

@@ -1,0 +1,328 @@
+FFFF                                                                     [100%]
+=================================== FAILURES ===================================
+__________ test_reservation_button_prepares_and_sends_same_candidate ___________
+
+tmp_path = PosixPath('/private/var/folders/rk/m94gy0rj2h74sfwqknl61bzm0000gn/T/pytest-of-victorberlanga/pytest-338/test_reservation_button_prepar0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x10d9dac00>
+
+    def test_reservation_button_prepares_and_sends_same_candidate(tmp_path, monkeypatch):
+        class Keys:
+            def __init__(self):
+                self.key = Fernet.generate_key()
+    
+            def get(self, identifier, exists):
+                return self.key
+    
+        class Client:
+            user = {"id": str(uuid4()), "tenant_id": str(uuid4()), "role": "MEDICAL"}
+            session_id = str(uuid4())
+            access = None
+    
+            def __init__(self):
+                self.calls = []
+    
+            def authorized(self, service, path, operation, **kwargs):
+                self.calls.append((operation, kwargs))
+                return {
+                    "status": "PENDING",
+                    "operation_id": str(uuid4()),
+                    "reservation": None,
+                }
+    
+        window = Window()
+        window.client = Client()
+        window.journal = Journal(
+            tmp_path, "https://lab", str(uuid4()), str(uuid4()), Keys()
+        )
+        window.run = lambda fn, success, label: success(fn())
+        monkeypatch.setattr(
+            QMessageBox, "information", lambda *args, **kwargs: QMessageBox.Ok
+        )
+        evaluation = {
+            "id": str(uuid4()),
+            "candidates": [
+                {
+                    "resource_id": str(uuid4()),
+                    "resource_folio": "UNIDAD-SINTETICA",
+                    "distance_km": 2,
+                    "travel_minutes": 5,
+                    "expires_at": "2030-01-01T00:00:00Z",
+                }
+            ],
+        }
+        candidate = evaluation["candidates"][0]
+        evaluation["validity"] = {
+            "candidates": [{"resource_id": candidate["resource_id"], "current": True}]
+        }
+        evaluation["reviews"] = [
+            {"resource_id": candidate["resource_id"], "decision": "FAVORABLE"}
+        ]
+    
+        def submit():
+            modal = app.activeModalWidget()
+            assert modal
+            modal.findChild(QTableWidget).selectRow(0)
+            modal.findChild(QLineEdit).setText("Reserva sintética documentada")
+            next(
+                button
+                for button in modal.findChildren(QPushButton)
+                if button.text() == "Reservar unidad"
+            ).click()
+    
+        QTimer.singleShot(0, submit)
+>       window.evaluation_detail(evaluation)
+
+apps/desktop/tests/test_reservation_ui.py:87: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+apps/desktop/redhouse_desktop/app.py:1200: in evaluation_detail
+    self.run(prepare_reservation,ready_reservation,'Preparando reserva…')
+apps/desktop/tests/test_reservation_ui.py:51: in <lambda>
+    window.run = lambda fn, success, label: success(fn())
+                                            ^^^^^^^^^^^^^
+apps/desktop/redhouse_desktop/app.py:1199: in ready_reservation
+    self.secure_attempt(record,'reservation_create',candidate['resource_id'],submit_reservation,self.reservation_result,context)
+apps/desktop/redhouse_desktop/app.py:499: in secure_attempt
+    attempt()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+proof = None
+
+    def attempt(proof=None):
+        if not context.current(): self.discard_invalid_context(context); return
+        sent={'value':False}
+        def dispatch():
+            sent['value']=True
+            return submit(proof)
+        def work():
+            try: return ('result',context.submit(record,dispatch))
+            except ApiError as exc:
+                challenge=exc.challenge()
+                if challenge is None: raise
+                return ('challenge',challenge)
+        def completed(result):
+            if not context.current(): self.discard_invalid_context(context); return
+            if result[0]=='result': success(result[1])
+            else: self.reauthenticate(operation,resource_id,result[1],attempt,context)
+        def failed(error):
+            if context.current(): self.failed(error)
+            else:
+                if sent['value']: context.journal.mark_uncertain(record['key'])
+                self.busy=False; self._worker=None; self.set_controls(True); self.discard_invalid_context(context)
+>       self.run(work,completed,'Registrando operación…',failed)
+E       TypeError: test_reservation_button_prepares_and_sends_same_candidate.<locals>.<lambda>() takes 3 positional arguments but 4 were given
+
+apps/desktop/redhouse_desktop/app.py:498: TypeError
+----------------------------- Captured stderr call -----------------------------
+qt.qpa.fonts: Populating font family aliases took 148 ms. Replace uses of missing font family "Sans Serif" with one that exists to avoid this cost. 
+This plugin does not support propagateSizeHints()
+________________ test_candidate_actions_follow_server_validity _________________
+
+    def test_candidate_actions_follow_server_validity():
+        window = authenticated_window()
+        observed = []
+        evaluation = {
+            "id": "evaluacion",
+            "snapshot": {"clinical_notice": "Filtro ilustrativo; requiere dictamen."},
+            "candidates": [
+                {
+                    "resource_id": "recurso-a",
+                    "resource_folio": "UNIDAD-A",
+                    "distance_km": 2,
+                    "travel_minutes": 5,
+                    "expires_at": "2030-01-01T00:00:00Z",
+                    "explanation": "Explicación del candidato A",
+                },
+                {
+                    "resource_id": "recurso-b",
+                    "resource_folio": "UNIDAD-B",
+                    "distance_km": 3,
+                    "travel_minutes": 6,
+                    "expires_at": "2030-01-01T00:00:00Z",
+                    "explanation": "Explicación del candidato B",
+                },
+            ],
+            "validity": {
+                "candidates": [
+                    {"resource_id": "recurso-a", "current": True},
+                    {"resource_id": "recurso-b", "current": False},
+                ]
+            },
+        }
+    
+        def inspect():
+            modal = app.activeModalWidget()
+            assert modal
+            table = modal.findChild(QTableWidget)
+            buttons = {button.text(): button for button in modal.findChildren(QPushButton)}
+            assert not buttons["Dictamen favorable"].isEnabled()
+            table.selectRow(0)
+            app.processEvents()
+            observed.append(buttons["Dictamen favorable"].isEnabled())
+            assert not buttons["Reservar unidad"].isEnabled()
+            assert any(
+                "primero registra un dictamen favorable" in label.text()
+                for label in modal.findChildren(QLabel)
+            )
+            if os.environ.get("DESKTOP_CAPTURE_DIR"):
+                modal.grab().save(
+                    str(Path(os.environ["DESKTOP_CAPTURE_DIR"]) / "sin-dictamen-doble.png")
+                )
+            table.selectRow(1)
+            app.processEvents()
+            observed.append(buttons["Dictamen favorable"].isEnabled())
+            assert any(
+                "vigencia no está confirmada" in label.text()
+                for label in modal.findChildren(QLabel)
+            )
+            modal.reject()
+    
+        QTimer.singleShot(0, inspect)
+        window.evaluation_detail(evaluation)
+        assert observed == [True, False]
+>       window.close()
+
+apps/desktop/tests/test_evaluation_ui.py:95: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <redhouse_desktop.app.Window(0x7fbc7954d620) at 0x10da5b8c0>
+event = <[RuntimeError('Internal C++ object (PySide6.QtGui.QCloseEvent) already deleted.') raised in repr()] QCloseEvent object at 0x1148145c0>
+
+    def closeEvent(self,event):
+        if self.tracking: self.tracking.stop(); self.tracking=None
+        if self.closing: event.accept(); return
+        if self.busy: event.ignore(); self.status.setText('Espera a que termine la operación.'); return
+>       if not self.client or not self.client.access: event.accept(); return
+                                  ^^^^^^^^^^^^^^^^^^
+E       AttributeError: Error calling Python override of QMainWindow::closeEvent(): 'types.SimpleNamespace' object has no attribute 'access'
+
+apps/desktop/redhouse_desktop/app.py:1776: AttributeError
+----------------------------- Captured stderr call -----------------------------
+This plugin does not support propagateSizeHints()
+_______________ test_reservation_requires_prior_favorable_review _______________
+
+    def test_reservation_requires_prior_favorable_review():
+        window = authenticated_window()
+        observed = []
+        evaluation = {
+            "id": "evaluacion",
+            "candidates": [
+                {
+                    "resource_id": "recurso-a",
+                    "resource_folio": "UNIDAD-A",
+                    "distance_km": 2,
+                    "travel_minutes": 5,
+                    "expires_at": "2030-01-01T00:00:00Z",
+                }
+            ],
+            "validity": {"candidates": [{"resource_id": "recurso-a", "current": True}]},
+            "reviews": [{"resource_id": "recurso-a", "decision": "FAVORABLE"}],
+        }
+    
+        def inspect():
+            modal = app.activeModalWidget()
+            assert modal
+            modal.findChild(QTableWidget).selectRow(0)
+            app.processEvents()
+            buttons = {button.text(): button for button in modal.findChildren(QPushButton)}
+            assert not buttons["Dictamen favorable"].isEnabled()
+            assert not buttons["Dictamen desfavorable"].isEnabled()
+            assert any(
+                "Dictamen favorable registrado" in label.text()
+                for label in modal.findChildren(QLabel)
+            )
+            if os.environ.get("DESKTOP_CAPTURE_DIR"):
+                modal.grab().save(
+                    str(
+                        Path(os.environ["DESKTOP_CAPTURE_DIR"])
+                        / "dictamen-favorable-doble.png"
+                    )
+                )
+            observed.append(
+                next(
+                    button
+                    for button in modal.findChildren(QPushButton)
+                    if button.text() == "Reservar unidad"
+                ).isEnabled()
+            )
+            modal.reject()
+    
+        QTimer.singleShot(0, inspect)
+        window.evaluation_detail(evaluation)
+        assert observed == [True]
+>       window.close()
+
+apps/desktop/tests/test_evaluation_ui.py:147: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <redhouse_desktop.app.Window(0x7fbc793dc860) at 0x114845e00>
+event = <[RuntimeError('Internal C++ object (PySide6.QtGui.QCloseEvent) already deleted.') raised in repr()] QCloseEvent object at 0x127399880>
+
+    def closeEvent(self,event):
+        if self.tracking: self.tracking.stop(); self.tracking=None
+        if self.closing: event.accept(); return
+        if self.busy: event.ignore(); self.status.setText('Espera a que termine la operación.'); return
+>       if not self.client or not self.client.access: event.accept(); return
+                                  ^^^^^^^^^^^^^^^^^^
+E       AttributeError: Error calling Python override of QMainWindow::closeEvent(): 'types.SimpleNamespace' object has no attribute 'access'
+
+apps/desktop/redhouse_desktop/app.py:1776: AttributeError
+----------------------------- Captured stderr call -----------------------------
+This plugin does not support propagateSizeHints()
+________ test_recorded_unfavorable_review_cannot_be_changed_or_reserved ________
+
+    def test_recorded_unfavorable_review_cannot_be_changed_or_reserved():
+        window = authenticated_window()
+        evaluation = {
+            "id": "evaluacion",
+            "candidates": [{"resource_id": "recurso-a", "resource_folio": "UNIDAD-A"}],
+            "validity": {"candidates": [{"resource_id": "recurso-a", "current": True}]},
+            "reviews": [{"resource_id": "recurso-a", "decision": "UNFAVORABLE"}],
+        }
+    
+        def inspect():
+            modal = app.activeModalWidget()
+            modal.findChild(QTableWidget).selectRow(0)
+            app.processEvents()
+            buttons = {button.text(): button for button in modal.findChildren(QPushButton)}
+            assert all(
+                not buttons[name].isEnabled()
+                for name in (
+                    "Dictamen favorable",
+                    "Dictamen desfavorable",
+                    "Reservar unidad",
+                )
+            )
+            assert any(
+                "Dictamen desfavorable registrado" in label.text()
+                for label in modal.findChildren(QLabel)
+            )
+            modal.reject()
+    
+        QTimer.singleShot(0, inspect)
+        window.evaluation_detail(evaluation)
+>       window.close()
+
+apps/desktop/tests/test_evaluation_ui.py:180: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <redhouse_desktop.app.Window(0x7fbc7975a050) at 0x127490bc0>
+event = <[RuntimeError('Internal C++ object (PySide6.QtGui.QCloseEvent) already deleted.') raised in repr()] QCloseEvent object at 0x127490840>
+
+    def closeEvent(self,event):
+        if self.tracking: self.tracking.stop(); self.tracking=None
+        if self.closing: event.accept(); return
+        if self.busy: event.ignore(); self.status.setText('Espera a que termine la operación.'); return
+>       if not self.client or not self.client.access: event.accept(); return
+                                  ^^^^^^^^^^^^^^^^^^
+E       AttributeError: Error calling Python override of QMainWindow::closeEvent(): 'types.SimpleNamespace' object has no attribute 'access'
+
+apps/desktop/redhouse_desktop/app.py:1776: AttributeError
+----------------------------- Captured stderr call -----------------------------
+This plugin does not support propagateSizeHints()
+- generated xml file: /Users/victorberlanga/Programacion/integracion/Red-House/documentation/evidencias/entrega-final/desktop/iteracion-contexto-sesion/unidad-03/junit.xml -
+=========================== short test summary info ============================
+FAILED apps/desktop/tests/test_reservation_ui.py::test_reservation_button_prepares_and_sends_same_candidate
+FAILED apps/desktop/tests/test_evaluation_ui.py::test_candidate_actions_follow_server_validity
+FAILED apps/desktop/tests/test_evaluation_ui.py::test_reservation_requires_prior_favorable_review
+FAILED apps/desktop/tests/test_evaluation_ui.py::test_recorded_unfavorable_review_cannot_be_changed_or_reserved
+4 failed in 3.55s
