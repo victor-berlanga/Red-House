@@ -80,6 +80,21 @@ def submit_command(client,journal,record,*,fresh=False,proof=None):
         raise ContractError('El perfil confirmado no corresponde a la unidad seleccionada.')
     if operation=='resource_release' and (result.get('id')!=target['identifier'] or result.get('tenant_id')!=client.user.get('tenant_id') or result.get('version')!=record['body']['version']+1 or result.get('status')!='AVAILABLE'):
         raise ContractError('La liberación confirmada no corresponde a la unidad seleccionada.')
+    if operation=='shipment_scan' and (result.get('shipment_id')!=target['identifier'] or result.get('resource_id')!=record['body']['scanned_resource_id'] or result.get('verified') is not True):
+        raise ContractError('La verificación confirmada no corresponde a la unidad seleccionada.')
+    if operation=='shipment_transition' and (result.get('id')!=target['identifier'] or result.get('version')!=record['body']['version']+1 or (record['body']['state']!='INCIDENT' and result.get('status')!=record['body']['state'])):
+        raise ContractError('El paso confirmado no corresponde al traslado seleccionado.')
+    if operation=='cold_reading_create':
+        if result.get('resource_id')!=target['identifier'] or result.get('tenant_id')!=client.user.get('tenant_id') or result.get('author_id')!=client.user.get('id') or any(result.get(field)!=record['body'].get(field) for field in ('temperature_c','source','calibration_reference')):
+            raise ContractError('La lectura confirmada no corresponde a la unidad seleccionada.')
+        try:
+            expected=datetime.fromisoformat(record['body']['captured_at'].replace('Z','+00:00'))
+            received=datetime.fromisoformat(result['captured_at'].replace('Z','+00:00'))
+            if expected.tzinfo is None or received.tzinfo is None or expected!=received: raise ValueError()
+        except (KeyError,TypeError,ValueError,AttributeError) as exc:
+            raise ContractError('La fecha confirmada no corresponde a la lectura.') from exc
+    if operation=='export_create' and (result.get('tenant_id')!=client.user.get('tenant_id') or result.get('user_id')!=client.user.get('id') or any(result.get(field)!=record['body'][field] for field in ('report','format'))):
+        raise ContractError('El reporte confirmado no corresponde a la solicitud registrada.')
     if operation=='resource_fractionate':
         from .fractionation import validate_fractionation
         validate_fractionation(client,record,result)

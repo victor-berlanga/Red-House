@@ -1,5 +1,6 @@
 """Planificación regional: selección autorizada y confirmación humana."""
 from threading import Lock
+from .session_context import OperationContext
 
 from PySide6.QtCore import QDateTime, Qt, QTimer
 from PySide6.QtWidgets import (
@@ -10,6 +11,7 @@ from PySide6.QtWidgets import (
 
 
 def planning_dialog(window, worker_type, display):
+    binding = OperationContext(window)
     dialog = QDialog(window)
     dialog.setWindowTitle('Planificar traslado')
     dialog.resize(850, 720)
@@ -99,12 +101,17 @@ def planning_dialog(window, worker_type, display):
         if valid: status.setText('Reserva y cuenta seleccionadas. Confirma los horarios y el motivo.')
 
     def launch(fn, done, failed):
-        worker = worker_type(fn)
+        def guarded():
+            binding.check(); result = fn(); binding.check(); return result
+        worker = worker_type(guarded)
         if not hasattr(window, '_request_workers'): window._request_workers = []
         window._request_workers.append(worker)
         def finish(callback, value):
             window._request_workers.remove(worker)
-            if state['alive']: callback(value)
+            if state['alive'] and binding.current(): callback(value)
+            elif state['alive']:
+                for panel in panels.values(): panel['rows'] = []; panel['table'].setRowCount(0)
+                save.setEnabled(False); status.setText('La sesión cambió. Cierra y vuelve a consultar.')
         worker.signals.done.connect(lambda value: finish(done, value))
         worker.signals.failed.connect(lambda error: finish(failed, error))
         window.pool.start(worker)
@@ -116,7 +123,7 @@ def planning_dialog(window, worker_type, display):
                 return institution_cache['names']
             result = {}
             for page in range(1, 51):
-                data = window.client.authorized('identidad-acceso', '/api/v1/institutions', 'institutions', params={'page': page, 'page_size': 100})
+                data = binding.client.authorized('identidad-acceso', '/api/v1/institutions', 'institutions', params={'page': page, 'page_size': 100})
                 result.update({item['id']: item['name'] for item in data['items']})
                 if page * 100 >= data['total']:
                     institution_cache['names'] = result
@@ -138,15 +145,15 @@ def planning_dialog(window, worker_type, display):
         def work():
             names = institutions()
             if key == 'reservation':
-                data = window.client.authorized('inventario', '/api/v1/reservations', 'reservation_list', params={'page': page, 'page_size': 10, 'status': 'RESERVED', 'unplanned': 'true'})
+                data = binding.client.authorized('inventario', '/api/v1/reservations', 'reservation_list', params={'page': page, 'page_size': 10, 'status': 'RESERVED', 'unplanned': 'true'})
                 rows = []
                 for row in data['items']:
-                    resource = window.client.authorized('inventario', '/api/v1/resources/' + row['resource_id'], 'resource_detail')
+                    resource = binding.client.authorized('inventario', '/api/v1/resources/' + row['resource_id'], 'resource_detail')
                     rows.append((row, (resource['folio'], display(resource.get('component')), names.get(row['origin_id'], 'Institución no disponible'), names.get(row['destination_id'], 'Institución no disponible'))))
             else:
                 params = {'page': page, 'page_size': 10, 'role': 'TRANSPORT'}
                 if query: params['q'] = query
-                data = window.client.authorized('identidad-acceso', '/api/v1/users', 'user_list', params=params)
+                data = binding.client.authorized('identidad-acceso', '/api/v1/users', 'user_list', params=params)
                 rows = [(row, (row['username'], names.get(row['tenant_id'], 'Institución no disponible'))) for row in data['items']]
             return data, rows
         def done(result):
@@ -178,9 +185,9 @@ def planning_dialog(window, worker_type, display):
         identifier = row['id']
         info.setText('Consultando la ruta y la caducidad…')
         def work():
-            reservation = window.client.authorized('inventario', '/api/v1/reservations/' + identifier, 'reservation_detail')
-            route = window.client.authorized('priorizacion-geografia', '/api/v1/routes/' + reservation['route_id'], 'route_detail')
-            resource = window.client.authorized('inventario', '/api/v1/resources/' + reservation['resource_id'], 'resource_detail')
+            reservation = binding.client.authorized('inventario', '/api/v1/reservations/' + identifier, 'reservation_detail')
+            route = binding.client.authorized('priorizacion-geografia', '/api/v1/routes/' + reservation['route_id'], 'route_detail')
+            resource = binding.client.authorized('inventario', '/api/v1/resources/' + reservation['resource_id'], 'resource_detail')
             return reservation, route, resource
         def done(result):
             current = selection('reservation')
@@ -205,6 +212,7 @@ def planning_dialog(window, worker_type, display):
         launch(work, done, failed)
 
     def submit():
+        if not binding.current(): status.setText('La sesión cambió. Cierra y vuelve a consultar.'); return
         row, driver = selection('reservation'), selection('transport')
         if not row or not driver or not state['detail'] or state['reservation'] != row['id'] or driver['tenant_id'] != row['origin_id'] or len(reason.text().strip()) < 6 or not confirm.isChecked():
             QMessageBox.warning(dialog, 'Datos incompletos', 'Selecciona una reserva y una cuenta de origen, escribe el motivo y confirma los datos.')

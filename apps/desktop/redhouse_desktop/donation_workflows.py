@@ -1,6 +1,8 @@
 """Colecta y procesamiento documentados con revisión humana."""
 from uuid import UUID
 
+from .session_context import OperationContext
+
 from PySide6.QtCore import QDateTime, Qt, QTimer
 from PySide6.QtWidgets import (
     QCheckBox,
@@ -96,13 +98,12 @@ def collect_dialog(window, worker_type):
     actions.addWidget(cancel)
     actions.addWidget(save)
     layout.addLayout(actions)
-    client = window.client
-    actor = (client.user['id'], client.user['tenant_id'], client.user['role'])
+    binding = OperationContext(window)
+    client = binding.client
     state = {'alive': True, 'busy': False, 'rows': [], 'page': 1, 'total': 0, 'body': None}
 
     def current():
-        user = client.user or {}
-        return window.client is client and (user.get('id'), user.get('tenant_id'), user.get('role')) == actor
+        return binding.current()
 
     def selection():
         index = table.currentRow()

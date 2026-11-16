@@ -2,6 +2,8 @@
 from datetime import datetime
 from uuid import UUID
 
+from .session_context import OperationContext
+
 from PySide6.QtCore import QDateTime, Qt, QTimer
 from PySide6.QtWidgets import (
     QCheckBox,
@@ -77,13 +79,12 @@ def select_processed_donation(window, worker_type, display, *, status='PROCESSED
     actions.addWidget(cancel)
     actions.addWidget(select)
     layout.addLayout(actions)
-    client = window.client
-    actor = (client.user['id'], client.user['tenant_id'], client.user['role'])
+    binding = OperationContext(window)
+    client = binding.client
     state = {'alive': True, 'busy': False, 'rows': [], 'page': 1, 'total': 0, 'chosen': None}
 
     def current():
-        user = client.user or {}
-        return window.client is client and (user.get('id'), user.get('tenant_id'), user.get('role')) == actor
+        return binding.current()
 
     def choice():
         index = table.currentRow()

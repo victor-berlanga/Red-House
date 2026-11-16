@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="5" time="2.363" timestamp="2026-11-16T15:12:11.157031-06:00" hostname="Victors-MacBook-Air.local"><testcase classname=".local.artifacts.desktop.session-modal-rebased-20261116.test_modal_contexts" name="test_new_session_after_modal_never_submits[cold]" time="0.587" /><testcase classname=".local.artifacts.desktop.session-modal-rebased-20261116.test_modal_contexts" name="test_new_session_after_modal_never_submits[device]" time="0.033" /><testcase classname=".local.artifacts.desktop.session-modal-rebased-20261116.test_modal_contexts" name="test_new_session_after_state_confirmation_never_submits" time="0.018" /><testcase classname=".local.artifacts.desktop.session-modal-rebased-20261116.test_modal_contexts" name="test_new_session_after_planning_never_submits" time="0.020" /><testcase classname=".local.artifacts.desktop.session-modal-rebased-20261116.test_modal_contexts" name="test_refresh_same_session_during_state_confirmation_submits" time="0.033"><failure message="KeyError: 'version'">monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x115b09250&gt;
+
+    def test_refresh_same_session_during_state_confirmation_submits(monkeypatch):
+        window = window_for('ADMIN'); item = {'id': str(uuid4()), 'active': True, 'username': 'other'}
+        monkeypatch.setattr(window, 'administrable_user', lambda: item)
+        commands = []; monkeypatch.setattr(window, 'secure_command', lambda *args: commands.append(args))
+        def accept(*_args):
+            window.client.access = token()  # La renovación conserva el SID estable del cliente.
+            return QMessageBox.Yes
+        monkeypatch.setattr(QMessageBox, 'question', accept)
+&gt;       window.change_user_state()
+
+.local/artifacts/desktop/session-modal-rebased-20261116/test_modal_contexts.py:76:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = &lt;redhouse_desktop.app.Window(0x7f882b13c450) at 0x1292a0a80&gt;
+
+    def change_user_state(self):
+        item=self.administrable_user()
+        if not item: return
+        binding=OperationContext(self)
+        new_state=not item['active']; action='activar' if new_state else 'desactivar'
+        detail=' Las sesiones abiertas de esta cuenta se cerrarán.' if not new_state else ''
+        if QMessageBox.question(self,'Cambiar estado','¿Deseas '+action+' la cuenta '+item['username']+'?'+detail) != QMessageBox.Yes: return
+        if not binding.current(): self.status.setText('La sesión cambió. Vuelve a consultar antes de guardar.'); return
+&gt;       body={'active':new_state,'version':item['version']}
+                                           ^^^^^^^^^^^^^^^
+E       KeyError: 'version'
+
+.local/artifacts/desktop/session-modal-rebased-20261116/runtime/redhouse_desktop/app.py:749: KeyError</failure></testcase></testsuite></testsuites>

@@ -1,5 +1,6 @@
 """Selección documentada de perfil y confirmación de liberación."""
 from PySide6.QtCore import QTimer, Qt
+from .session_context import OperationContext
 from PySide6.QtWidgets import (
     QAbstractItemView, QCheckBox, QDialog, QFormLayout, QHeaderView,
     QHBoxLayout, QLabel, QLineEdit, QMessageBox, QPushButton, QTableWidget,
@@ -17,8 +18,8 @@ def missing_label(value):
 
 
 def quality_dialog(window, resource, controls, work_type, display, *, release=False):
-    client = window.client
-    actor = tuple(client.user.get(key) for key in ('id', 'tenant_id', 'role'))
+    binding = OperationContext(window)
+    client = binding.client
     dialog = QDialog(window)
     dialog.setWindowTitle('Liberar unidad' if release else 'Vincular perfil de laboratorio')
     dialog.resize(680, 540 if not release else 310)
@@ -42,7 +43,7 @@ def quality_dialog(window, resource, controls, work_type, display, *, release=Fa
         readiness = QLabel(text); readiness.setWordWrap(True); layout.addWidget(readiness)
     state = {'alive': True, 'rows': [], 'page': 1, 'total': 0, 'busy': False, 'body': None}
     def same_session():
-        return window.client is client and bool(client.user) and tuple(client.user.get(key) for key in ('id', 'tenant_id', 'role')) == actor
+        return binding.current()
     if not release:
         table = QTableWidget(0, 3); table.setAccessibleName('Perfiles de laboratorio')
         table.setHorizontalHeaderLabels(['Nombre', 'Producto', 'Versión'])

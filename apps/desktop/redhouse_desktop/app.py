@@ -163,7 +163,9 @@ class Window(QMainWindow):
         def completed(result):
             if context.current(): success(result)
             else: self.discard_invalid_context(context)
-        self.run(work,completed,message,failure)
+        def guarded():
+            context.check(); return work()
+        self.run(guarded,completed,message,failure)
 
     def set_controls(self, enabled):
         self.areas.setEnabled(enabled)
@@ -531,7 +533,7 @@ class Window(QMainWindow):
             self.status.setText('Actualiza la lista y verifica el estado antes de continuar.'); return
         if not self.client or not self.client.user or self.client.user.get('role') not in ('OPERATOR','MEDICAL'):
             self.status.setText('La recepción requiere personal autorizado.'); return
-        client=self.client; actor=(client.user.get('id'),client.user.get('tenant_id'),client.user.get('role'))
+        binding=OperationContext(self); client=binding.client; actor=binding.actor
         item=self.selected()
         if not item: self.status.setText('Selecciona una muestra.'); return
         if item.get('status')!='REQUESTED': self.status.setText('La muestra ya fue atendida. Actualiza para consultar su estado.'); return
@@ -542,7 +544,7 @@ class Window(QMainWindow):
             if len(reason.text().strip())>=6: break
             QMessageBox.warning(self,'Motivo incompleto','Escribe al menos seis caracteres.')
         else: return
-        if self.client is not client or not client.user or (client.user.get('id'),client.user.get('tenant_id'),client.user.get('role'))!=actor:
+        if not binding.current():
             self.status.setText('La sesión cambió. Vuelve a consultar antes de guardar.'); return
         body={'decision':'RECEIVED','reason':reason.text().strip(),'version':item['version'],'human_confirmation':'true'}
         self.secure_command('lab_sample_receive',item['id'],body)
@@ -568,9 +570,16 @@ class Window(QMainWindow):
     def open_cold(self):
         item=self.selected()
         if not item: self.status.setText('Selecciona una unidad.'); return
-        self.run(lambda:self.client.authorized('inventario','/api/v1/resources/'+item['id']+'/cold-readings','cold_readings_list',params={'page':1,'page_size':20}),lambda data:self.cold_dialog(item,data),'Consultando conservación…')
+        binding=OperationContext(self); client=binding.client; actor=binding.actor
+        def ready(data):
+            if not binding.current():
+                self.status.setText('La sesión cambió. Vuelve a consultar.'); return
+            self.cold_dialog(item,data)
+        self.run_in_context(binding,lambda:client.authorized('inventario','/api/v1/resources/'+item['id']+'/cold-readings','cold_readings_list',params={'page':1,'page_size':20}),ready,'Consultando conservación…')
 
     def cold_dialog(self,item,initial):
+        binding=OperationContext(self); client=binding.client; actor=binding.actor
+        def current(): return binding.current()
         dialog=QDialog(self); dialog.setWindowTitle('Conservación · '+label(item.get('folio'))); dialog.resize(760,480); layout=QVBoxLayout(dialog)
         notice=QLabel('Lecturas documentadas; las alertas y límites proceden del servicio.'); notice.setWordWrap(True); layout.addWidget(notice)
         table=QTableWidget(); table.setColumnCount(4); table.setHorizontalHeaderLabels(['Fecha','Temperatura °C','Fuente','Revisión']); table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch); table.setEditTriggers(QTableWidget.NoEditTriggers); layout.addWidget(table,1)
@@ -580,6 +589,7 @@ class Window(QMainWindow):
         close=QPushButton('Cerrar'); close.clicked.connect(dialog.reject); controls.addWidget(close); layout.addLayout(controls); state={'page':1,'alive':True}
         def show(data):
             if not state['alive']: return
+            if not current(): table.setRowCount(0); status.setText('La sesión cambió. Cierra y vuelve a consultar.'); return
             state['page']=data['page']; table.setRowCount(len(data['items']))
             for row,value in enumerate(data['items']):
                 review=' · '.join([text for condition,text in ((value.get('excursion'),'Excursión'),(value.get('gap'),'Intervalo incompleto')) if condition]) or 'Sin alerta registrada'
@@ -587,16 +597,26 @@ class Window(QMainWindow):
             page_label.setText('Página '+str(data['page'])+' · '+str(data['total'])+' lecturas'); previous.setEnabled(data['page']>1); following.setEnabled(data['page']*20<data['total']); status.setText('Sin lecturas registradas.' if not data['items'] else '')
         def fetch(page):
             previous.setEnabled(False); following.setEnabled(False); status.setText('Consultando lecturas…')
-            worker=Work(lambda:self.client.authorized('inventario','/api/v1/resources/'+item['id']+'/cold-readings','cold_readings_list',params={'page':page,'page_size':20})); dialog.page_worker=worker
+            def query():
+                if not current(): raise ContractError('La sesión cambió.')
+                return client.authorized('inventario','/api/v1/resources/'+item['id']+'/cold-readings','cold_readings_list',params={'page':page,'page_size':20})
+            worker=Work(query); dialog.page_worker=worker
             worker.signals.done.connect(show)
             def failed(error):
-                if state['alive']: status.setText(str(error) if isinstance(error,ApiError) else 'No se pudo consultar las lecturas.')
+                if state['alive']:
+                    if not current(): table.setRowCount(0); status.setText('La sesión cambió. Cierra y vuelve a consultar.')
+                    else: status.setText(str(error) if isinstance(error,ApiError) else 'No se pudo consultar las lecturas.')
             worker.signals.failed.connect(failed); self.pool.start(worker)
         previous.clicked.connect(lambda:fetch(state['page']-1)); following.clicked.connect(lambda:fetch(state['page']+1)); show(initial)
         choice=dialog.exec(); state['alive']=False
-        if choice==2: self.create_cold_reading(item)
+        if choice==2:
+            if not current(): self.status.setText('La sesión cambió. Vuelve a consultar antes de guardar.'); return
+            self.create_cold_reading(item)
 
     def create_cold_reading(self,item):
+        if self.uncertain: self.status.setText('Actualiza y verifica el estado antes de continuar.'); return
+        if not self.client or not self.client.user or self.client.user.get('role')!='OPERATOR': self.status.setText('La lectura requiere personal operador autorizado.'); return
+        binding=OperationContext(self); client=binding.client; actor=binding.actor
         dialog=QDialog(self); dialog.setWindowTitle('Registrar lectura'); form=QFormLayout(dialog)
         temperature=QLineEdit(); temperature.setPlaceholderText('Ejemplo: 4.2'); form.addRow('Temperatura °C',temperature)
         captured=QDateTimeEdit(QDateTime.currentDateTime()); captured.setCalendarPopup(True); captured.setDisplayFormat('dd/MM/yyyy HH:mm'); form.addRow('Fecha observada',captured)
@@ -610,9 +630,11 @@ class Window(QMainWindow):
                 break
             except ValueError: QMessageBox.warning(self,'Datos incompletos','Indica temperatura válida y fuente de lectura.')
         else: return
+        if not binding.current():
+            self.status.setText('La sesión cambió. Vuelve a consultar antes de guardar.'); return
         body={'temperature_c':value,'captured_at':captured.dateTime().toUTC().toString(Qt.ISODate),'source':source.text().strip()}
         if calibration.text().strip(): body['calibration_reference']=calibration.text().strip()
-        self.run(lambda:self.durable('cold_reading_create',item['id'],body),lambda _:self.received(),'Registrando lectura…')
+        self.secure_command('cold_reading_create',item['id'],body)
 
     def administrable_user(self):
         item=self.selected()
@@ -680,6 +702,7 @@ class Window(QMainWindow):
             self.status.setText('Selecciona una cuenta de traslado de tu institución.'); return
         if item.get('tenant_id')!=self.client.user.get('tenant_id') or item.get('role')!='TRANSPORT' or not item.get('active'):
             self.status.setText('Selecciona una cuenta de traslado activa de tu institución.'); return
+        binding=OperationContext(self)
         dialog=QDialog(self); dialog.setWindowTitle('Registrar dispositivo de traslado'); dialog.resize(480,230); form=QFormLayout(dialog)
         form.addRow('Cuenta',QLabel(item['username']))
         name=QLineEdit(); name.setMaxLength(200); form.addRow('Nombre del dispositivo',name)
@@ -695,6 +718,7 @@ class Window(QMainWindow):
             QMessageBox.warning(self,'Datos incompletos','Indica el nombre y confirma una vigencia futura de hasta 30 días.')
         else: return
         body={'id':str(uuid.uuid4()),'user_id':item['id'],'source':source.currentData(),'label':name.text().strip(),'expires_at':moment.astimezone(timezone.utc).isoformat()}
+        if not binding.current(): self.status.setText('La sesión cambió. Vuelve a consultar antes de guardar.'); return
         self.secure_command('device_create',None,body)
 
     def revoke_device(self):
@@ -703,6 +727,7 @@ class Window(QMainWindow):
             self.status.setText('Selecciona un dispositivo.'); return
         if not item.get('active'):
             self.status.setText('El dispositivo ya está revocado.'); return
+        binding=OperationContext(self)
         dialog=QDialog(self); dialog.setWindowTitle('Revocar dispositivo'); dialog.resize(480,180); form=QFormLayout(dialog)
         form.addRow('Dispositivo',QLabel(item['label']))
         reason=QLineEdit(); reason.setMaxLength(1000); form.addRow('Motivo',reason)
@@ -712,14 +737,17 @@ class Window(QMainWindow):
             if confirm.isChecked() and len(reason.text().strip())>=6: break
             QMessageBox.warning(self,'Datos incompletos','Confirma la revocación e indica un motivo de al menos seis caracteres.')
         else: return
+        if not binding.current(): self.status.setText('La sesión cambió. Vuelve a consultar antes de guardar.'); return
         self.secure_command('device_revoke',item['id'],{'version':item['version'],'human_confirmation':True,'reason':reason.text().strip()})
 
     def change_user_state(self):
         item=self.administrable_user()
         if not item: return
+        binding=OperationContext(self)
         new_state=not item['active']; action='activar' if new_state else 'desactivar'
         detail=' Las sesiones abiertas de esta cuenta se cerrarán.' if not new_state else ''
         if QMessageBox.question(self,'Cambiar estado','¿Deseas '+action+' la cuenta '+item['username']+'?'+detail) != QMessageBox.Yes: return
+        if not binding.current(): self.status.setText('La sesión cambió. Vuelve a consultar antes de guardar.'); return
         body={'active':new_state,'version':item['version']}
         self.secure_command('user_state',item['id'],body)
 
@@ -728,6 +756,7 @@ class Window(QMainWindow):
         if not item: return
         if item['role'] in ('ADMIN','AUDITOR','COORDINATOR'):
             self.status.setText('Los perfiles regionales requieren provisión autorizada.'); return
+        binding=OperationContext(self)
         dialog=QDialog(self); dialog.setWindowTitle('Cambiar perfil'); form=QFormLayout(dialog)
         form.addRow('Cuenta',QLabel(item['username'])); role=QComboBox(); role.addItem('Selecciona un perfil','')
         for name,code in (('Operador','OPERATOR'),('Personal médico','MEDICAL'),('Transporte','TRANSPORT'),('Donante','DONOR')): role.addItem(name,code)
@@ -739,6 +768,7 @@ class Window(QMainWindow):
             QMessageBox.warning(self,'Datos incompletos','Elige un perfil distinto y escribe un motivo de al menos seis caracteres.')
         else: return
         body={'human_confirmation':True,'reason':reason.text().strip(),'role':role.currentData(),'version':item['version']}
+        if not binding.current(): self.status.setText('La sesión cambió. Vuelve a consultar antes de guardar.'); return
         self.secure_command('user_role',item['id'],body)
 
     def coverage_detail(self,item):
@@ -778,6 +808,9 @@ class Window(QMainWindow):
             self.run(lambda:self.client.authorized('compatibilidad','/api/v1/evaluations/'+identifier,'evaluation_detail'),self.evaluation_detail,'Consultando evaluación…')
 
     def download_report(self):
+        if not self.client or not self.client.user: self.status.setText('Inicia sesión para descargar.'); return
+        binding=OperationContext(self); client=binding.client; actor=binding.actor
+        def current(): return binding.current()
         item=self.selected()
         if not item: self.status.setText('Selecciona un reporte.'); return
         if item.get('status')!='COMPLETE' or not item.get('file_id'):
@@ -788,17 +821,23 @@ class Window(QMainWindow):
         if not target: return
         overwrite=Path(target).exists()
         if overwrite and QMessageBox.question(self,'Reemplazar archivo','El archivo existe. ¿Deseas reemplazarlo?') != QMessageBox.Yes: return
+        if not current(): self.status.setText('La sesión cambió. Vuelve a consultar antes de descargar.'); return
         def transfer():
-            job=self.client.authorized('documentos','/api/v1/export-jobs/'+item['id'],'export_detail')
+            if not current(): raise DownloadError('La sesión cambió. Vuelve a consultar.')
+            job=client.authorized('documentos','/api/v1/export-jobs/'+item['id'],'export_detail')
             if job['status']!='COMPLETE' or job['file_id']!=item['file_id']: raise DownloadError('El reporte cambió. Actualiza e inténtalo de nuevo.')
-            metadata=self.client.authorized('documentos','/api/v1/documents/'+job['file_id']+'/verified','document_verified')
+            metadata=client.authorized('documentos','/api/v1/documents/'+job['file_id']+'/verified','document_verified')
             if metadata.get('analysis')!='CLEAN' or metadata.get('file_status')!='VERIFIED': raise DownloadError('El reporte aún no terminó la verificación.')
-            access=self.client.authorized('documentos','/api/v1/files/'+job['file_id']+'/download','file_download')
-            download(access['download_url'],self.client.base,metadata['sha256'],target,overwrite=overwrite)
-        self.run(transfer,lambda _:self.status.setText('Reporte descargado y verificado.'),'Descargando reporte…')
+            access=client.authorized('documentos','/api/v1/files/'+job['file_id']+'/download','file_download')
+            if not current(): raise DownloadError('La sesión cambió. Vuelve a consultar.')
+            download(access['download_url'],client.base,metadata['sha256'],target,overwrite=overwrite)
+        self.run_in_context(binding,transfer,lambda _:self.status.setText('Reporte descargado y verificado.'),'Descargando reporte…')
 
     def create_report(self):
-        role=self.client.user.get('role'); available=[]
+        if self.uncertain: self.status.setText('Actualiza y verifica el estado antes de continuar.'); return
+        if not self.client or not self.client.user: self.status.setText('Inicia sesión para solicitar un reporte.'); return
+        binding=OperationContext(self); client=binding.client; actor=binding.actor
+        role=actor[2]; available=[]
         for title,code,roles in (
             ('Inventario','INVENTORY',('OPERATOR','MEDICAL','COORDINATOR')),
             ('Caducidad','EXPIRY',('OPERATOR','MEDICAL','COORDINATOR')),
@@ -820,10 +859,10 @@ class Window(QMainWindow):
             if report.currentData() and output.currentIndex()>0 and start.dateTime()<end.dateTime(): break
             QMessageBox.warning(self,'Datos incompletos','Elige reporte, formato y un periodo válido.')
         else: return
+        if not binding.current():
+            self.status.setText('La sesión cambió. Vuelve a consultar antes de guardar.'); return
         body={'report':report.currentData(),'format':output.currentText(),'from_at':start.dateTime().toUTC().toString(Qt.ISODate),'until_at':end.dateTime().toUTC().toString(Qt.ISODate),'timezone':'America/Monterrey'}
-        def requested(_):
-            self.load(); self.status.setText('Reporte solicitado. Consulta su estado antes de descargarlo.')
-        self.run(lambda:self.durable('export_create',None,body),requested,'Solicitando reporte…')
+        self.secure_command('export_create',None,body)
 
     def preview_label(self):
         item=self.selected()
@@ -896,8 +935,10 @@ class Window(QMainWindow):
             self.status.setText('Actualiza la lista antes de planificar.'); return
         if not self.client or not self.client.user or self.client.user.get('role')!='COORDINATOR':
             self.status.setText('La planificación corresponde a coordinación.'); return
+        binding=OperationContext(self)
         body=planning_dialog(self,Work,lambda value:display_value('expires_at',value) if isinstance(value,str) and 'T' in value else label(value))
-        if body: self.secure_command('shipment_create',None,body)
+        if body and binding.current(): self.secure_command('shipment_create',None,body)
+        elif body: self.status.setText('La sesión cambió. Vuelve a consultar antes de guardar.')
 
     def shipment_plan_result(self,result):
         if result.get('status')=='REJECTED':
@@ -947,6 +988,10 @@ class Window(QMainWindow):
             self.run_in_context(session,fetch_handover,lambda data:self.accept_shipment(item,context,data),'Verificando responsable…')
 
     def accept_shipment(self,item,context,handover):
+        if self.uncertain: self.status.setText('Actualiza y verifica el estado antes de continuar.'); return
+        if not self.client or not self.client.user or self.client.user.get('role')!='OPERATOR': self.status.setText('La recepción requiere personal operador autorizado.'); return
+        context_op=OperationContext(self); client=context_op.client; journal=context_op.journal
+        def current(): return context_op.current()
         if (handover['shipment_id']!=item['id'] or handover['shipment_version']!=item['version']
                 or context['shipment_version']!=item['version'] or handover['transport_user']['id']!=context['transport_user_id']
                 or item['transport_user_id']!=context['transport_user_id']):
@@ -966,16 +1011,23 @@ class Window(QMainWindow):
             except ValueError:
                 QMessageBox.warning(self,'Datos incompletos','Verifica el código, el sello, el motivo y la confirmación.')
         else: return
+        if not current(): self.status.setText('La sesión cambió. Vuelve a consultar antes de guardar.'); return
         body={'human_confirmation':True,'reason':reason.text().strip(),'version':item['version'],'state':'ACCEPTED',
               'custody':{'scanned_resource_id':value,'seal':seal.text().strip(),'captured_at':QDateTime.currentDateTimeUtc().toString(Qt.ISODate),
                          'reported_handover_user_id':handover['transport_user']['id'],'electronic_acceptance':True}}
         def verified(result):
+            if not current(): self.status.setText('La sesión cambió. Vuelve a consultar antes de guardar.'); return
             if (result.get('shipment_id')!=item['id'] or result.get('resource_id')!=value
                     or result.get('version')!=item['version'] or result.get('status')!='DELIVERED'
                     or result.get('verified') is not True):
                 self.status.setText('La verificación no corresponde al traslado. Actualiza y revisa.'); return
             self.secure_command('shipment_transition',item['id'],body)
-        self.run(lambda:self.durable('shipment_scan',item['id'],{'scanned_resource_id':value}),verified,'Verificando código de la unidad…')
+        def prepared(record):
+            if not current(): self.status.setText('La sesión cambió. Vuelve a consultar antes de guardar.'); return
+            self.secure_attempt(record,'shipment_scan',item['id'],lambda proof:submit_command(client,journal,record,fresh=True,proof=proof),verified,context_op)
+        def prepare_scan():
+            context_op.check(); return prepare_command(journal,'shipment_scan',item['id'],{'scanned_resource_id':value})
+        self.run_in_context(context_op,prepare_scan,prepared,'Preparando verificación…')
 
     def custody_dialog(self,item,data):
         if data['chain']['id']!=item['id'] or any(event['shipment_id']!=item['id'] for event in data['events']):
@@ -989,6 +1041,9 @@ class Window(QMainWindow):
         layout.addWidget(table); close=QPushButton('Cerrar'); close.clicked.connect(dialog.accept); layout.addWidget(close); dialog.exec()
 
     def prepare_shipment(self,item):
+        if self.uncertain: self.status.setText('Actualiza y verifica el estado antes de continuar.'); return
+        if not self.client or not self.client.user or self.client.user.get('role')!='OPERATOR': self.status.setText('La preparación requiere personal operador autorizado.'); return
+        binding=OperationContext(self); client=binding.client; actor=binding.actor
         dialog=QDialog(self); dialog.setWindowTitle('Preparar traslado'); form=QFormLayout(dialog)
         reason=QLineEdit(); reason.setMaxLength(1000); form.addRow('Motivo documentado',reason)
         confirm=QPushButton('Confirmar preparación'); confirm.clicked.connect(dialog.accept); form.addRow(confirm)
@@ -996,8 +1051,10 @@ class Window(QMainWindow):
             if len(reason.text().strip())>=6: break
             QMessageBox.warning(self,'Motivo incompleto','Escribe al menos seis caracteres.')
         else: return
+        if not binding.current():
+            self.status.setText('La sesión cambió. Vuelve a consultar antes de guardar.'); return
         body={'human_confirmation':True,'reason':reason.text().strip(),'version':item['version'],'state':'PREPARED'}
-        self.run(lambda:self.durable('shipment_transition',item['id'],body),lambda _:self.received(),'Registrando preparación…')
+        self.secure_command('shipment_transition',item['id'],body)
 
     def open_tracking(self,item):
         client=self.client; shipment=item['id']; actor=client.user['id']
@@ -1093,11 +1150,17 @@ class Window(QMainWindow):
         item=self.selected()
         if self.uncertain: self.status.setText('Actualiza y verifica el estado antes de continuar.'); return
         if not item: self.status.setText('Selecciona una solicitud.'); return
+        if not self.client or not self.client.user or self.client.user.get('role')!='MEDICAL': self.status.setText('La evaluación corresponde al personal médico.'); return
+        binding=OperationContext(self); client=binding.client; actor=binding.actor
         if QMessageBox.question(self,'Generar evaluación','Se generará una preselección para revisión médica. ¿Continuar?') != QMessageBox.Yes: return
-        body={'request_id':item['id']}; key=str(uuid.uuid4())
+        if not binding.current():
+            self.status.setText('La sesión cambió. Vuelve a consultar antes de guardar.'); return
+        body={'request_id':item['id']}
         def created(evaluation):
-            self.run(lambda:self.client.authorized('compatibilidad','/api/v1/evaluations/'+evaluation['id'],'evaluation_detail'),self.evaluation_detail,'Comprobando vigencia…')
-        self.run(lambda:self.durable('evaluation_create',None,body),created,'Generando evaluación…')
+            if not binding.current():
+                self.status.setText('La sesión cambió. Vuelve a consultar.'); return
+            self.run_in_context(binding,lambda:client.authorized('compatibilidad','/api/v1/evaluations/'+evaluation['id'],'evaluation_detail'),self.evaluation_detail,'Comprobando vigencia…')
+        self.secure_command('evaluation_create',None,body,created)
 
     def open_request_form(self):
         if self.uncertain:
@@ -1107,7 +1170,8 @@ class Window(QMainWindow):
         self.request_form()
 
     def request_form(self):
-        client=self.client
+        binding=OperationContext(self); client=binding.client; actor=binding.actor
+        def current(): return binding.current()
         dialog=QDialog(self); dialog.setWindowTitle('Registrar solicitud'); dialog.resize(760,560)
         layout=QVBoxLayout(dialog)
         note=QLabel('Busca y selecciona un receptor de tu institución. La solicitud requiere revisión profesional.'); note.setWordWrap(True); layout.addWidget(note)
@@ -1137,6 +1201,7 @@ class Window(QMainWindow):
                 component.addItem(label(person['organ_type']),person['organ_type'])
         def show(data):
             if not state['alive']: return
+            if not current(): state.update(rows=[],busy=False); table.setRowCount(0); confirm.setEnabled(False); status.setText('La sesión cambió. Cierra y vuelve a consultar.'); return
             state.update(page=data['page'],total=data['total'],rows=data['items'],busy=False)
             table.setRowCount(len(state['rows']))
             for index,row in enumerate(state['rows']):
@@ -1149,7 +1214,10 @@ class Window(QMainWindow):
             state.update(busy=True,rows=[]); table.setRowCount(0); component.clear(); component.addItem('Selecciona un receptor',''); previous.setEnabled(False); following.setEnabled(False); confirm.setEnabled(False); status.setText('Consultando receptores…')
             params={'page':page,'page_size':20}; term=search.text().strip()
             if term: params['q']=term
-            worker=Work(lambda:client.authorized('receptores','/api/v1/recipients','recipients',params=params))
+            def query():
+                if not current(): raise ContractError('La sesión cambió.')
+                return client.authorized('receptores','/api/v1/recipients','recipients',params=params)
+            worker=Work(query)
             if not hasattr(self,'_request_workers'): self._request_workers=[]
             self._request_workers.append(worker)
             def completed(data):
@@ -1160,7 +1228,8 @@ class Window(QMainWindow):
                 self._request_workers.remove(worker)
                 if not state['alive']: return
                 state['busy']=False; confirm.setEnabled(False)
-                status.setText(str(error) if isinstance(error,ApiError) else 'No se pudo consultar receptores.')
+                if not current(): table.setRowCount(0); status.setText('La sesión cambió. Cierra y vuelve a consultar.')
+                else: status.setText(str(error) if isinstance(error,ApiError) else 'No se pudo consultar receptores.')
             worker.signals.failed.connect(failed); self.pool.start(worker)
         def save():
             index=table.currentRow()
@@ -1171,7 +1240,8 @@ class Window(QMainWindow):
         table.itemSelectionChanged.connect(choose_recipient); find.clicked.connect(lambda:fetch(1)); search.returnPressed.connect(lambda:fetch(1)); previous.clicked.connect(lambda:fetch(state['page']-1)); following.clicked.connect(lambda:fetch(state['page']+1)); confirm.clicked.connect(save); cancel.clicked.connect(dialog.reject)
         QTimer.singleShot(0,lambda:fetch(1)); accepted=dialog.exec(); state['alive']=False
         if accepted==QDialog.Accepted and state['body']:
-            self.run(lambda:self.durable('request_create',None,state['body']),lambda _:self.received(),'Registrando solicitud…')
+            if not current(): self.status.setText('La sesión cambió. Vuelve a consultar antes de guardar.'); return
+            self.secure_command('request_create',None,state['body'])
 
     def evaluation_detail(self,evaluation):
         context=OperationContext(self)
@@ -1367,10 +1437,10 @@ class Window(QMainWindow):
             self.status.setText('Actualiza y verifica el estado antes de continuar.'); return
         if not self.client or not self.client.user or self.client.user.get('role')!='MEDICAL':
             self.status.setText('El registro de colecta corresponde al personal médico.'); return
-        client=self.client; actor=(client.user.get('id'),client.user.get('tenant_id'),client.user.get('role'))
+        binding=OperationContext(self); client=binding.client; actor=binding.actor
         body=collect_dialog(self,Work)
         if not body: return
-        if self.client is not client or not client.user or (client.user.get('id'),client.user.get('tenant_id'),client.user.get('role'))!=actor:
+        if not binding.current():
             self.status.setText('La sesión cambió. Vuelve a consultar antes de guardar.'); return
         self.secure_command('donation_create',None,body)
 
@@ -1379,10 +1449,10 @@ class Window(QMainWindow):
             self.status.setText('Actualiza y verifica el estado antes de continuar.'); return
         if not self.client or not self.client.user or self.client.user.get('role')!='OPERATOR':
             self.status.setText('El procesamiento corresponde al personal operador.'); return
-        client=self.client; actor=(client.user.get('id'),client.user.get('tenant_id'),client.user.get('role'))
+        binding=OperationContext(self); client=binding.client; actor=binding.actor
         chosen=select_processed_donation(self,Work,label,status='COLLECTED')
         if not chosen: return
-        if self.client is not client or not client.user or (client.user.get('id'),client.user.get('tenant_id'),client.user.get('role'))!=actor:
+        if not binding.current():
             self.status.setText('La sesión cambió. Vuelve a consultar antes de guardar.'); return
         def fetch():
             result=client.authorized('donantes','/api/v1/donations/'+chosen['id'],'donation_detail',fresh_identity=True)
@@ -1390,16 +1460,16 @@ class Window(QMainWindow):
                 raise ContractError('La colecta no corresponde a la selección.')
             return dict(result,_donor_folio=chosen['_donor_folio'],_donor_name=chosen['_donor_name'])
         def ready(item):
-            if self.client is not client or not client.user or (client.user.get('id'),client.user.get('tenant_id'),client.user.get('role'))!=actor:
+            if not binding.current():
                 self.status.setText('La sesión cambió. Vuelve a consultar antes de guardar.'); return
             if item.get('status')!='COLLECTED':
                 self.status.setText('La colecta ya fue atendida. Actualiza la lista.'); return
             body=processing_dialog(self,item)
             if not body: return
-            if self.client is not client or not client.user or (client.user.get('id'),client.user.get('tenant_id'),client.user.get('role'))!=actor:
+            if not binding.current():
                 self.status.setText('La sesión cambió. Vuelve a consultar antes de guardar.'); return
             self.secure_command('donation_step',item['id'],body)
-        self.run(fetch,ready,'Consultando colecta…')
+        self.run_in_context(binding,fetch,ready,'Consultando colecta…')
 
     def catalogue_action(self, edit):
         if self.uncertain:
@@ -1409,11 +1479,11 @@ class Window(QMainWindow):
         item=self.selected() if edit else None
         if edit and not item:
             self.status.setText('Selecciona una fila para corregir.'); return
-        client=self.client; actor=(client.user.get('id'),client.user.get('tenant_id'),client.user.get('role'))
+        binding=OperationContext(self); client=binding.client; actor=binding.actor
         kind=self.mode; identifier=item['id'] if item else None
         body=catalogue_dialog(self,kind,item)
         if not body: return
-        if self.client is not client or not client.user or (client.user.get('id'),client.user.get('tenant_id'),client.user.get('role'))!=actor:
+        if not binding.current():
             self.status.setText('La sesión cambió. Vuelve a consultar antes de guardar.'); return
         self.secure_command(kind+('_edit' if edit else '_create'),identifier,body)
 
@@ -1425,7 +1495,7 @@ class Window(QMainWindow):
         item=self.selected()
         if not item:
             self.status.setText('Selecciona una unidad.'); return
-        client=self.client; actor=(client.user.get('id'),client.user.get('tenant_id'),client.user.get('role'))
+        binding=OperationContext(self); client=binding.client; actor=binding.actor
         def fetch():
             resource=client.authorized('inventario','/api/v1/resources/'+item['id'],'resource_detail',fresh_identity=True)
             if resource.get('id')!=item['id'] or resource.get('current_institution_id')!=actor[1]:
@@ -1447,17 +1517,17 @@ class Window(QMainWindow):
                 controls=dict(controls,_profile=profile,_completeness=check)
             return resource,controls
         def ready(result):
-            if self.client is not client or not client.user or (client.user.get('id'),client.user.get('tenant_id'),client.user.get('role'))!=actor:
+            if not binding.current():
                 self.status.setText('La sesión cambió. Vuelve a consultar antes de guardar.'); return
             resource,controls=result
             if resource.get('status')!='QUARANTINE':
                 self.status.setText('Selecciona una unidad en cuarentena.'); return
             body=quality_dialog(self,resource,controls,Work,label,release=release)
             if not body: return
-            if self.client is not client or not client.user or (client.user.get('id'),client.user.get('tenant_id'),client.user.get('role'))!=actor:
+            if not binding.current():
                 self.status.setText('La sesión cambió. Vuelve a consultar antes de guardar.'); return
             self.secure_command('resource_release' if release else 'resource_controls_create',resource['id'],body)
-        self.run(fetch,ready,'Consultando unidad…')
+        self.run_in_context(binding,fetch,ready,'Consultando unidad…')
 
     def fractionate_resource(self):
         if self.uncertain:
@@ -1467,9 +1537,9 @@ class Window(QMainWindow):
         item=self.selected()
         if not item:
             self.status.setText('Selecciona una unidad.'); return
-        client=self.client; actor=(client.user.get('id'),client.user.get('tenant_id'),client.user.get('role'))
+        binding=OperationContext(self); client=binding.client; actor=binding.actor
         def ready(resource):
-            if self.client is not client or not client.user or (client.user.get('id'),client.user.get('tenant_id'),client.user.get('role'))!=actor:
+            if not binding.current():
                 self.status.setText('La sesión cambió. Vuelve a consultar antes de guardar.'); return
             if resource.get('id')!=item['id']:
                 self.status.setText('La unidad consultada no corresponde a la selección.'); return
@@ -1477,10 +1547,10 @@ class Window(QMainWindow):
                 self.status.setText('Selecciona una unidad sanguínea trazable en cuarentena.'); return
             body=fractionation_dialog(self,resource)
             if not body: return
-            if self.client is not client or not client.user or (client.user.get('id'),client.user.get('tenant_id'),client.user.get('role'))!=actor:
+            if not binding.current():
                 self.status.setText('La sesión cambió. Vuelve a consultar antes de guardar.'); return
             self.secure_command('resource_fractionate',resource['id'],body)
-        self.run(lambda:client.authorized('inventario','/api/v1/resources/'+item['id'],'resource_detail'),ready,'Consultando unidad…')
+        self.run_in_context(binding,lambda:client.authorized('inventario','/api/v1/resources/'+item['id'],'resource_detail'),ready,'Consultando unidad…')
 
     def edit_resource(self):
         if self.uncertain:
@@ -1492,7 +1562,7 @@ class Window(QMainWindow):
             self.status.setText('Selecciona una unidad.'); return
         if item.get('status')!='QUARANTINE':
             self.status.setText('Solo se puede corregir una unidad en cuarentena.'); return
-        client=self.client; actor=(client.user.get('id'),client.user.get('tenant_id'),client.user.get('role'))
+        binding=OperationContext(self); client=binding.client; actor=binding.actor
         def fetch():
             resource=client.authorized('inventario','/api/v1/resources/'+item['id'],'resource_detail')
             required=('id','folio','kind','component','blood_group','expires_at','collected_at','location_id','donation_id','version','status')
@@ -1505,23 +1575,23 @@ class Window(QMainWindow):
                 name=location['name']+(' · Inactiva' if not location['active'] else '')
             return resource,name
         def ready(result):
-            if self.client is not client or not client.user or (client.user.get('id'),client.user.get('tenant_id'),client.user.get('role'))!=actor:
+            if not binding.current():
                 self.status.setText('La sesión cambió. Vuelve a consultar antes de guardar.'); return
             resource,name=result
             if resource['status']!='QUARANTINE':
                 self.status.setText('La unidad ya no está en cuarentena. Actualiza la lista.'); return
             body=resource_edit_dialog(self,resource,name,Work,label)
             if not body: return
-            if self.client is not client or not client.user or (client.user.get('id'),client.user.get('tenant_id'),client.user.get('role'))!=actor:
+            if not binding.current():
                 self.status.setText('La sesión cambió. Vuelve a consultar antes de guardar.'); return
             self.secure_command('resource_edit',resource['id'],body)
-        self.run(fetch,ready,'Consultando unidad…')
+        self.run_in_context(binding,fetch,ready,'Consultando unidad…')
 
     def create_resource(self):
         if self.uncertain: self.status.setText('Actualiza y verifica el estado antes de continuar.'); return
         if not self.client or not self.client.user or self.client.user.get('role')!='OPERATOR':
             self.status.setText('El registro corresponde al personal operador autorizado.'); return
-        client=self.client; actor=(client.user.get('id'),client.user.get('tenant_id'),client.user.get('role'))
+        binding=OperationContext(self); client=binding.client; actor=binding.actor
         dialog=QDialog(self); dialog.setWindowTitle('Registrar unidad u oferta'); dialog.resize(620,420); form=QFormLayout(dialog)
         folio=QLineEdit(); folio.setMaxLength(30); form.addRow('Folio de unidad',folio)
         kind=QComboBox(); kind.addItem('Selecciona un tipo',''); kind.addItem('Sangre','BLOOD'); kind.addItem('Órgano','ORGAN'); form.addRow('Tipo de recurso',kind)
@@ -1567,12 +1637,12 @@ class Window(QMainWindow):
             QMessageBox.warning(self,'Datos incompletos','Indica folio, tipo, producto y grupo; confirma la caducidad documentada.')
         else: return
         body={'folio':folio.text().strip(),'kind':kind.currentData(),'component':component.currentData(),'blood_group':group.currentData(),'expires_at':expiry.dateTime().toUTC().toString(Qt.ISODate)}
-        if self.client is not client or not client.user or (client.user.get('id'),client.user.get('tenant_id'),client.user.get('role'))!=actor:
+        if not binding.current():
             self.status.setText('La sesión cambió. Vuelve a consultar antes de guardar.'); return
         if source['row']:
             body['donation_id']=source['row']['id']; body['collected_at']=source['row']['collected_at']
         elif has_collection.isChecked(): body['collected_at']=collected.dateTime().toUTC().toString(Qt.ISODate)
-        self.run(lambda:self.durable('resource_create',None,body),lambda _:self.received(),'Registrando unidad…')
+        self.secure_command('resource_create',None,body)
 
     def create_recipient(self):
         if not self.client or not self.client.user or self.client.user.get('role')!='MEDICAL': self.status.setText('El registro corresponde al personal médico.'); return
@@ -1584,11 +1654,16 @@ class Window(QMainWindow):
         if not item: self.status.setText('Selecciona un receptor.'); return
         if not self.client or not self.client.user or self.client.user.get('role')!='MEDICAL': self.status.setText('La corrección corresponde al personal médico.'); return
         if self.uncertain: self.status.setText('Actualiza y verifica el estado antes de continuar.'); return
-        self.run(lambda:self.client.authorized('receptores','/api/v1/recipients/'+item['id'],'recipient_detail'),self.recipient_form,'Consultando expediente…')
+        binding=OperationContext(self)
+        def fetch(): binding.check(); return binding.client.authorized('receptores','/api/v1/recipients/'+item['id'],'recipient_detail')
+        def ready(data):
+            if binding.current(): self.recipient_form(data)
+        self.run_in_context(binding,fetch,ready,'Consultando expediente…')
 
     def recipient_form(self,item):
         if item and not item.get('can_edit'):
             self.status.setText('El expediente ya tiene solicitudes y no admite esta corrección.'); return
+        binding=OperationContext(self)
         dialog=QDialog(self); dialog.setWindowTitle('Corregir receptor' if item else 'Registrar receptor'); dialog.resize(600,530); form=QFormLayout(dialog)
         folio=QLineEdit(); folio.setMaxLength(30); form.addRow('Folio',folio)
         name=QLineEdit(); name.setMaxLength(200); form.addRow('Nombre documentado',name)
@@ -1619,6 +1694,7 @@ class Window(QMainWindow):
             if re.fullmatch(r'[A-Za-z0-9_-]{6,30}',folio.text().strip()) and name.text().strip() and kind.currentData() and group.currentData() and len(studies.text().strip())>=6 and all(not x or len(x)>=6 for x in optional) and (kind.currentData()!='ORGAN' or organ.currentData()) and (not item or (len(reason.text().strip())>=6 and confirmation.isChecked())): break
             QMessageBox.warning(dialog,'Datos incompletos','Verifica folio, nombre, tipo, grupo y estudios; confirma el motivo si corriges.')
         else: return
+        if not binding.current(): self.status.setText('La sesión cambió. Vuelve a consultar antes de guardar.'); return
         body={'folio':folio.text().strip(),'display_name':name.text().strip(),'kind':kind.currentData(),'blood_group':group.currentData(),'studies':studies.text().strip()}
         if kind.currentData()=='ORGAN': body['organ_type']=organ.currentData()
         if restrictions.text().strip(): body['restrictions']=restrictions.text().strip()
@@ -1631,15 +1707,21 @@ class Window(QMainWindow):
         if not item: self.status.setText('Selecciona una solicitud.'); return
         if not self.client or not self.client.user or self.client.user.get('role')!='MEDICAL': self.status.setText('La edición corresponde al personal médico.'); return
         if self.uncertain: self.status.setText('Actualiza y verifica el estado antes de continuar.'); return
+        binding=OperationContext(self)
         def fetch():
-            request=self.client.authorized('receptores','/api/v1/requests/'+item['id'],'request_detail')
-            person=self.client.authorized('receptores','/api/v1/recipients/'+request['recipient_id'],'recipient_detail')
+            binding.check()
+            request=binding.client.authorized('receptores','/api/v1/requests/'+item['id'],'request_detail')
+            binding.check()
+            person=binding.client.authorized('receptores','/api/v1/recipients/'+request['recipient_id'],'recipient_detail')
             return request,person
-        self.run(fetch,lambda pair:self.request_edit_form(*pair),'Consultando solicitud…')
+        def ready(pair):
+            if binding.current(): self.request_edit_form(*pair)
+        self.run_in_context(binding,fetch,ready,'Consultando solicitud…')
 
     def request_edit_form(self,item,person):
         if not item.get('can_edit'):
             self.status.setText('La solicitud no admite edición: consulta sus retenciones o estado.'); return
+        binding=OperationContext(self)
         dialog=QDialog(self); dialog.setWindowTitle('Editar solicitud'); form=QFormLayout(dialog)
         component=QComboBox()
         choices=(('Eritrocitos','RBC'),('Plasma','PLASMA'),('Plaquetas','PLATELETS')) if item['kind']=='BLOOD' else ((label(person['organ_type']),person['organ_type']),)
@@ -1656,6 +1738,7 @@ class Window(QMainWindow):
             if len(reason.text().strip())>=6 and confirm.isChecked(): break
             QMessageBox.warning(dialog,'Datos incompletos','Documenta el motivo y confirma la corrección.')
         else: return
+        if not binding.current(): self.status.setText('La sesión cambió. Vuelve a consultar antes de guardar.'); return
         body={'component':component.currentData(),'quantity':quantity.value(),'urgency':urgency.currentData(),'version':item['version'],'reason':reason.text().strip(),'human_confirmation':'true'}
         self.secure_command('request_edit',item['id'],body)
 
@@ -1664,11 +1747,16 @@ class Window(QMainWindow):
         if not item: self.status.setText('Selecciona una solicitud.'); return
         if not self.client or not self.client.user or self.client.user.get('role')!='MEDICAL': self.status.setText('La cancelación corresponde al personal médico.'); return
         if self.uncertain: self.status.setText('Actualiza y verifica el estado antes de continuar.'); return
-        self.run(lambda:self.client.authorized('receptores','/api/v1/requests/'+item['id'],'request_detail'),self.request_cancel_form,'Consultando solicitud…')
+        binding=OperationContext(self)
+        def fetch(): binding.check(); return binding.client.authorized('receptores','/api/v1/requests/'+item['id'],'request_detail')
+        def ready(data):
+            if binding.current(): self.request_cancel_form(data)
+        self.run_in_context(binding,fetch,ready,'Consultando solicitud…')
 
     def request_cancel_form(self,item):
         if item.get('status') not in ('OPEN','IN_PROGRESS'):
             self.status.setText('La solicitud ya no admite cancelación.'); return
+        binding=OperationContext(self)
         dialog=QDialog(self); dialog.setWindowTitle('Cancelar solicitud'); dialog.resize(560,230); form=QFormLayout(dialog)
         note=QLabel('El servicio comprobará que no existan retenciones ni reservas pendientes.'); note.setWordWrap(True); form.addRow(note)
         reason=QLineEdit(); reason.setMaxLength(1000); form.addRow('Motivo documentado',reason)
@@ -1678,6 +1766,7 @@ class Window(QMainWindow):
             if len(reason.text().strip())>=6 and confirm.isChecked(): break
             QMessageBox.warning(dialog,'Datos incompletos','Documenta el motivo y confirma la cancelación.')
         else: return
+        if not binding.current(): self.status.setText('La sesión cambió. Vuelve a consultar antes de guardar.'); return
         self.secure_command('request_cancel',item['id'],{'version':item['version'],'reason':reason.text().strip(),'human_confirmation':'true'})
 
     def create_sample(self):
@@ -1685,7 +1774,7 @@ class Window(QMainWindow):
             self.status.setText('Actualiza y verifica el estado antes de continuar.'); return
         if not self.client or not self.client.user or self.client.user.get('role') not in ('OPERATOR','MEDICAL'):
             self.status.setText('El registro corresponde al personal de laboratorio autorizado.'); return
-        client=self.client; actor=(client.user.get('id'),client.user.get('tenant_id'),client.user.get('role'))
+        binding=OperationContext(self); client=binding.client; actor=binding.actor
         dialog=QDialog(self); dialog.setWindowTitle('Registrar muestra de unidad'); dialog.resize(760,620); layout=QVBoxLayout(dialog)
         guidance=QLabel('Selecciona la unidad y el perfil documentado. El servicio comprobará su vigencia y correspondencia.'); guidance.setWordWrap(True); layout.addWidget(guidance)
         search_row=QHBoxLayout(); search=QLineEdit(); search.setPlaceholderText('Buscar unidad por folio'); search_row.addWidget(search); find=QPushButton('Buscar unidad'); search_row.addWidget(find); layout.addLayout(search_row)
@@ -1714,7 +1803,7 @@ class Window(QMainWindow):
             params={'page':page,'page_size':20}
             if key=='unit' and search.text().strip(): params['q']=search.text().strip()
             def query():
-                if self.client is not client or not client.user or (client.user.get('id'),client.user.get('tenant_id'),client.user.get('role'))!=actor:
+                if not binding.current():
                     raise ContractError('La sesión cambió.')
                 return client.authorized(service,path,operation,params=params)
             worker=Work(query)
@@ -1723,7 +1812,7 @@ class Window(QMainWindow):
             def done(data):
                 self._request_workers.remove(worker)
                 if not state['alive']: return
-                if self.client is not client or not client.user or (client.user.get('id'),client.user.get('tenant_id'),client.user.get('role'))!=actor:
+                if not binding.current():
                     panel['busy']=False; panel['rows']=[]; panel['table'].setRowCount(0); save.setEnabled(False)
                     status.setText('La sesión cambió. Cierra y vuelve a consultar.'); return
                 panel.update(page=data['page'],total=data['total'],rows=data['items'],busy=False); table=panel['table']; table.setRowCount(len(panel['rows']))
@@ -1734,7 +1823,7 @@ class Window(QMainWindow):
             def failed(error):
                 self._request_workers.remove(worker)
                 if not state['alive']: return
-                if self.client is not client or not client.user or (client.user.get('id'),client.user.get('tenant_id'),client.user.get('role'))!=actor:
+                if not binding.current():
                     panel['busy']=False; panel['rows']=[]; panel['table'].setRowCount(0); save.setEnabled(False)
                     status.setText('La sesión cambió. Cierra y vuelve a consultar.'); return
                 panel['busy']=False; status.setText('No se pudieron consultar '+('las unidades' if key=='unit' else 'los perfiles')+'. Vuelve a intentar.'); ready()
@@ -1750,7 +1839,7 @@ class Window(QMainWindow):
         save.clicked.connect(submit); ready(); QTimer.singleShot(0,lambda:fetch('unit',1)); QTimer.singleShot(0,lambda:fetch('profile',1))
         accepted=dialog.exec(); state['alive']=False
         if accepted==QDialog.Accepted and state['body']:
-            if self.client is not client or not client.user or (client.user.get('id'),client.user.get('tenant_id'),client.user.get('role'))!=actor:
+            if not binding.current():
                 self.status.setText('La sesión cambió. Vuelve a consultar antes de guardar.'); return
             self.secure_command('lab_sample_create',None,state['body'])
 
@@ -1758,7 +1847,7 @@ class Window(QMainWindow):
         item=self.selected()
         if self.uncertain: self.status.setText('Actualiza y verifica el estado antes de continuar.'); return
         if not self.client or not self.client.user or self.client.user.get('role') not in ('OPERATOR','MEDICAL'): self.status.setText('La captura requiere personal autorizado.'); return
-        client=self.client; actor=(client.user.get('id'),client.user.get('tenant_id'),client.user.get('role'))
+        binding=OperationContext(self); client=binding.client; actor=binding.actor
         if not item: self.status.setText('Selecciona una muestra.'); return
         if item.get('status')!='RECEIVED': self.status.setText('Selecciona una muestra recibida antes de capturar el resultado.'); return
         dialog=QDialog(self); dialog.setWindowTitle('Capturar resultado'); dialog.resize(540,380); form=QFormLayout(dialog)
@@ -1773,7 +1862,7 @@ class Window(QMainWindow):
             if all(values.values()) and verified.isChecked() and re.fullmatch(r'[A-Z0-9_.-]{1,60}',values['test_code']): break
             QMessageBox.warning(self,'Datos incompletos','Completa los campos y confirma la fecha documentada. El código de prueba usa letras mayúsculas, números, punto, guion o guion bajo.')
         else: return
-        if self.client is not client or not client.user or (client.user.get('id'),client.user.get('tenant_id'),client.user.get('role'))!=actor:
+        if not binding.current():
             self.status.setText('La sesión cambió. Vuelve a consultar antes de guardar.'); return
         body=dict(values,sample_id=item['id'],measured_at=measured.dateTime().toUTC().toString(Qt.ISODate))
         self.secure_command('lab_result_create',None,body)
@@ -1783,7 +1872,7 @@ class Window(QMainWindow):
         if self.uncertain: self.status.setText('Actualiza y verifica el estado antes de continuar.'); return
         if not item: self.status.setText('Selecciona un resultado.'); return
         if not self.client or not self.client.user or self.client.user.get('role')!='MEDICAL': self.status.setText('La revisión corresponde al personal médico autorizado.'); return
-        client=self.client; actor=(client.user.get('id'),client.user.get('tenant_id'),client.user.get('role'))
+        binding=OperationContext(self); client=binding.client; actor=binding.actor
         if item.get('status')!='CAPTURED': self.status.setText('El resultado ya fue revisado o no está disponible para revisión.'); return
         dialog=QDialog(self); dialog.setWindowTitle('Revisión profesional'); dialog.resize(540,300); form=QFormLayout(dialog)
         form.addRow('Prueba',QLabel(label(item.get('test_code')))); result_label=QLabel(label(item.get('value'))); result_label.setWordWrap(True); form.addRow('Resultado',result_label)
@@ -1797,7 +1886,7 @@ class Window(QMainWindow):
             if decision.currentData() and len(reason.text().strip())>=6: break
             QMessageBox.warning(self,'Datos incompletos','Selecciona una decisión y escribe un motivo de al menos seis caracteres.')
         else: return
-        if self.client is not client or not client.user or (client.user.get('id'),client.user.get('tenant_id'),client.user.get('role'))!=actor:
+        if not binding.current():
             self.status.setText('La sesión cambió. Vuelve a consultar antes de guardar.'); return
         body={'human_confirmation':'true','reason':reason.text().strip(),'version':item['version'],'decision':decision.currentData()}
         self.secure_command('lab_result_review',item['id'],body)
@@ -1808,12 +1897,12 @@ class Window(QMainWindow):
         if not item: self.status.setText('Selecciona un aviso.'); return
         if not self.client or not self.client.user: self.status.setText('Inicia sesión para atender el aviso.'); return
         if item.get('status') in ('ACKNOWLEDGED','CLOSED'): self.status.setText('El aviso ya fue atendido.'); return
-        client=self.client; actor=(client.user.get('id'),client.user.get('tenant_id'),client.user.get('role'))
+        binding=OperationContext(self); client=binding.client; actor=binding.actor
         dialog=QMessageBox(self); dialog.setWindowTitle('Acusar recibo'); dialog.setText('¿Confirmas que leíste este aviso?'); dialog.setIcon(QMessageBox.Question)
         confirm=dialog.addButton('Confirmar',QMessageBox.AcceptRole); cancel=dialog.addButton('Cancelar',QMessageBox.RejectRole)
         dialog.setDefaultButton(cancel); dialog.setEscapeButton(cancel); dialog.exec()
         if dialog.clickedButton() is not confirm: return
-        if self.client is not client or not client.user or (client.user.get('id'),client.user.get('tenant_id'),client.user.get('role'))!=actor:
+        if not binding.current():
             self.status.setText('La sesión cambió. Vuelve a consultar antes de guardar.'); return
         self.secure_command('alert_ack',item['id'],None)
 

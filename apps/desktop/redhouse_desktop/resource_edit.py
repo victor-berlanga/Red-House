@@ -1,6 +1,8 @@
 """Corrección documentada de unidad en cuarentena."""
 import re
 
+from .session_context import OperationContext
+
 from PySide6.QtCore import QDateTime, Qt, QTimer
 from PySide6.QtWidgets import (
     QCheckBox,
@@ -18,6 +20,7 @@ from PySide6.QtWidgets import (
 
 
 def resource_edit_dialog(window, item, location_name, worker_type, display):
+    binding = OperationContext(window)
     dialog = QDialog(window)
     dialog.setWindowTitle('Corregir unidad en cuarentena')
     dialog.resize(650, 500)
@@ -91,14 +94,18 @@ def resource_edit_dialog(window, item, location_name, worker_type, display):
         save.setEnabled(False)
         reset_choices()
         status.setText('Consultando ubicaciones de tu institución…')
-        worker = worker_type(lambda: window.client.authorized(
-            'identidad-acceso', '/api/v1/catalogues/locations', 'locations_list_rows',
-            params={'page': page, 'page_size': 20, 'active': 'true'}))
+        def query():
+            binding.check()
+            result = binding.client.authorized('identidad-acceso', '/api/v1/catalogues/locations', 'locations_list_rows',
+                                               params={'page': page, 'page_size': 20, 'active': 'true'})
+            binding.check(); return result
+        worker = worker_type(query)
         if not hasattr(window, '_request_workers'): window._request_workers = []
         window._request_workers.append(worker)
         def finish(data, error=False):
             window._request_workers.remove(worker)
             if not state['alive']: return
+            if not binding.current(): choices.clear(); save.setEnabled(False); status.setText('La sesión cambió. Cierra y vuelve a consultar.'); return
             state['busy'] = False
             retry.setEnabled(True)
             save.setEnabled(True)
@@ -117,6 +124,7 @@ def resource_edit_dialog(window, item, location_name, worker_type, display):
         window.pool.start(worker)
 
     def submit():
+        if not binding.current(): status.setText('La sesión cambió. Cierra y vuelve a consultar.'); return
         if not re.fullmatch(r'[A-Za-z0-9_-]{6,30}', folio.text().strip()) or len(reason.text().strip()) < 6 or not confirm_expiry.isChecked() or not confirm.isChecked():
             QMessageBox.warning(dialog, 'Datos incompletos', 'Revisa el folio, confirma la caducidad y escribe y confirma el motivo.')
             return
