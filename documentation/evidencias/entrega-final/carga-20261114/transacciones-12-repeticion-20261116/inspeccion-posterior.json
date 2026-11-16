@@ -1,0 +1,91 @@
+{
+  "observacion_posterior": true,
+  "workers_iniciados": false,
+  "sql_read_only": true,
+  "esperados": {
+    "eventos_negocio": 756,
+    "avisos": 118,
+    "recursos": 386
+  },
+  "fuente": {
+    "presentes": 756,
+    "ausentes": 0,
+    "duplicados": 0
+  },
+  "auditoria": {
+    "presentes": 697,
+    "ausentes": 59
+  },
+  "avisos": {
+    "presentes": 99,
+    "ausentes": 19,
+    "duplicados": 0
+  },
+  "colas": {
+    "donantes": [
+      {
+        "destino": "alertas",
+        "pendiente": true,
+        "cantidad": 59,
+        "con_intentos": 0,
+        "pendiente_futuro": 0
+      },
+      {
+        "destino": "auditoria",
+        "pendiente": true,
+        "cantidad": 60,
+        "con_intentos": 1,
+        "pendiente_futuro": 0
+      },
+      {
+        "destino": "alertas",
+        "pendiente": false,
+        "cantidad": 295,
+        "con_intentos": 295,
+        "pendiente_futuro": 0
+      },
+      {
+        "destino": "auditoria",
+        "pendiente": false,
+        "cantidad": 294,
+        "con_intentos": 294,
+        "pendiente_futuro": 0
+      }
+    ],
+    "inventario": [
+      {
+        "destino": "auditoria",
+        "pendiente": false,
+        "cantidad": 134,
+        "con_intentos": 134,
+        "pendiente_futuro": 0
+      }
+    ],
+    "compatibilidad": [
+      {
+        "destino": "auditoria",
+        "pendiente": false,
+        "cantidad": 268,
+        "con_intentos": 268,
+        "pendiente_futuro": 0
+      }
+    ],
+    "auditoria": [
+      {
+        "destino": "mongodb",
+        "pendiente": false,
+        "cantidad": 697,
+        "con_intentos": 697,
+        "pendiente_futuro": 0
+      }
+    ]
+  },
+  "mongo": {
+    "presentes": 697,
+    "ausentes": 59
+  },
+  "observado_utc": "2026-11-16T22:39:59.452325+00:00",
+  "status": "observado",
+  "procesos_propios_cerrados": true,
+  "pg_pid_ausente": true
+}

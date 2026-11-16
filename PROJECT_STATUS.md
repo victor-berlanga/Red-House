@@ -2,6 +2,12 @@
 
 Las entradas están ordenadas de reciente a histórico; un pendiente de un corte anterior puede quedar sustituido explícitamente por una entrada posterior.
 
+## Carga de doce identidades: latencia aprobada, propagación todavía pendiente — 16/11/2026
+
+[Repetición única](documentation/evidencias/entrega-final/carga-20261114/transacciones-12-repeticion-20261116/RESULTADOS.md), reutilizando el fixture en esquema 21: 1.270 HTTP sin fallos durante 120,043 s; p95 máximo de lectura 800 ms y de recorridos 3.800 ms. Entre calentamiento, medición y drenado quedaron 756 escrituras confirmadas, ninguna incierta y doce repeticiones idempotentes. El oráculo integral venció a los 30,17 s y la ejecución conserva **exit 1**; no se acepta la carga completa ni se sustituye el fallo anterior.
+
+Inspección posterior, sin APIs ni workers y con SQL READ ONLY: 756 eventos fuente, 697 en Auditoría y Mongo, y 99 de 118 avisos esperados. Donantes conservaba 60 entregas pendientes a Auditoría y 59 a Alertas; Inventario y Compatibilidad habían entregado todas las seleccionadas. Es estado posterior al cierre, no una instantánea del segundo 30 ni prueba de pérdida permanente; los pendientes no equivalen directamente a eventos ausentes. Las trece sesiones técnicas quedaron revocadas y los procesos propios cerrados. Configuración, fuentes, población histórica y evidencia previa conservadas. Diagnóstico del límite de despacho abierto; sin repetición automática ni medición de capacidad GCP.
+
 ## Formularios de escritorio conservan contexto y descartan callbacks ajenos — 16/11/2026
 
 [Complemento modal](documentation/evidencias/entrega-final/desktop/iteracion-contexto-formularios/RESULTADOS.md): consultas, selecciones, confirmaciones, evaluación y descarga conservan cliente, institución, perfil y SID. Una respuesta o un error de conexión de la sesión anterior no altera la cuenta nueva ni su diario. Se vuelve a comprobar el contexto antes de iniciar el trabajo; no se promete cancelar una petición remota ya enviada.

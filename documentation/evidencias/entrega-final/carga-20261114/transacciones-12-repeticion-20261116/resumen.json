@@ -1,0 +1,75 @@
+{
+  "status": "failed",
+  "phase_executed": true,
+  "execution_valid": false,
+  "measurement_accepted": false,
+  "latency_targets_met": true,
+  "runner_exit": 0,
+  "session_revocation_verified": true,
+  "session_count_verified": true,
+  "setup_logout_verified": true,
+  "processes_closed": true,
+  "lock_removed": true,
+  "setup_events": {
+    "donantes": [
+      1,
+      1,
+      1
+    ],
+    "auditoria": [
+      1,
+      1,
+      1
+    ]
+  },
+  "history_unchanged": true,
+  "sources_unchanged": true,
+  "topology_unchanged": true,
+  "http_requests": 1270,
+  "http_failures": 0,
+  "read_p95_max_ms": 800,
+  "profile_targets": {
+    "OPERATOR": {
+      "p95_ms": 2700,
+      "p99_ms": 2900,
+      "p95_limit_exclusive_ms": 5000,
+      "target_met": true,
+      "completed_per_second": 0.8830154859416303
+    },
+    "DONOR": {
+      "p95_ms": 3800,
+      "p99_ms": 4100,
+      "p95_limit_exclusive_ms": 5000,
+      "target_met": true,
+      "completed_per_second": 0.7580604643461165
+    }
+  },
+  "duration_seconds": 120.04319481097627,
+  "business": {
+    "committed": 756,
+    "not_committed": 0,
+    "response_lost_committed": 0,
+    "incomplete_cycles": 0,
+    "completed": {
+      "DONOR": 118,
+      "OPERATOR": 134
+    },
+    "replays": 12,
+    "unconfirmed_replays": 0,
+    "errors": [
+      "event_propagation"
+    ],
+    "attempted": 756,
+    "trace_files": 12,
+    "measured_completed": {
+      "DONOR": 91,
+      "OPERATOR": 106
+    },
+    "persistence_verified": false,
+    "event_wait_seconds": 30.174552006006707,
+    "pending": []
+  },
+  "samples": 81,
+  "min_free_bytes": 12390985728,
+  "max_owned_bytes": 509599829
+}
