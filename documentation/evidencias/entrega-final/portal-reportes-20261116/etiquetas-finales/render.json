@@ -1,0 +1,16 @@
+{
+  "synthetic": true,
+  "real_template": true,
+  "javascript_enabled": false,
+  "network_requests_blocked": true,
+  "authenticated_flow": false,
+  "labels": [
+    "Completado",
+    "Pendiente de reintento"
+  ],
+  "source_hashes": {
+    "apps/web/src/integration/routes/common.py": "cce95fa39cc71b1ed0a77269a7b116f4f1f7ce83b4526746b4fdcef9267a9c48",
+    "apps/web/src/presentation/templates/integration/detail.html": "e1a2edfbd9e119db249b1f5a0aebc2697fef0c245107359af0e6a3dcac3273d2",
+    "apps/web/src/presentation/templates/integration/values.html": "c87a0c8e65235a079db06e11195bf033e00ab0d0793ef40730a15941327dcfff"
+  }
+}

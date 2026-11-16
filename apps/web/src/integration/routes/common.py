@@ -111,6 +111,8 @@ LABELS = {
     "ERROR": "Error",
     "MISSING": "Archivo no disponible",
     "COMPLETED": "Completado",
+    "COMPLETE": "Completado",
+    "RETRYABLE": "Pendiente de reintento",
     "FAILED": "Fallido",
     "WITHDRAWN": "Retirado",
     "ACKNOWLEDGED": "Leída",
