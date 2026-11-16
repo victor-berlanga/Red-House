@@ -2,6 +2,12 @@
 
 Las entradas están ordenadas de reciente a histórico; un pendiente de un corte anterior puede quedar sustituido explícitamente por una entrada posterior.
 
+## Migración 21 y recuperación de cola conservada aprobadas — 16/11/2026
+
+[Recuperación real](documentation/evidencias/entrega-final/carga-20261114/diagnostico-cola/worker-schema21-20261116/RESULTADOS.md), sin nuevas transacciones de cliente: cola global de 5.733 a cero, observada vacía a los 75,284 s dentro del límite de 120 s; cierre de workers a los 79,209 s. Conciliación exacta de 765 eventos de Auditoría, 121 avisos y 765 proyecciones Mongo. Las 6.072 entregas incluyen 339 READ auxiliares. Cero procesos propios supervivientes; configuraciones, fuentes y resultados fallidos previos conservados.
+
+Migración oficial 20→21 bajo propietario y transacción: respaldo frío verificado y dump nuevo, 115 tablas/180.888 filas físicas conservadas por huella, historial anterior intacto, único índice aditivo y reentrada comprobada. Primer intento falló en guarda de preparación antes de DDL/workers; no se inventa su línea exacta. Rechazo automático inicial por contexto de autorización se resolvió al presentar desde dirección el alcance local sintético autorizado; no queda aprobación humana pendiente. GCP sigue sin esta migración. La recuperación cierra el atraso observado, no acredita una nueva corrida de carga ni mejora del p95 de lectura.
+
 ## Recuperación GCS y firma de generación comprobadas — 16/11/2026
 
 [I06-05 GCS](documentation/evidencias/entrega-final/gcs-recuperacion-20261116/RESULTADOS.md): segundo recorrido Chrome 1/1, 92,39 s de pytest. Corte aislado del SDK tras cargar un PNG sintético: verificación 503, descarga 409 y ERROR sin análisis aceptado; restauración del mismo UUID/generación a VERIFIED/CLEAN y descarga exacta. Limpieza propia con precondición y ausencia confirmadas. TLS GCS validado, 1.322 fuentes estables y 41 procesos propios cerrados; dirección inspeccionó error/recuperación.

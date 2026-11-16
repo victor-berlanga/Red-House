@@ -1,0 +1,364 @@
+{
+  "limit_seconds": 120,
+  "no_progress_seconds": 30,
+  "new_client_transactions": 0,
+  "auxiliary_writes_possible": true,
+  "worker_pool_sizes": {
+    "donantes": 1,
+    "auditoria": 1
+  },
+  "api_pool_sizes": {
+    "auditoria": 0,
+    "alertas": 0
+  },
+  "stop_reason": "pertinent_queue_empty",
+  "stop_requested_seconds": 75.29,
+  "within_limit": true,
+  "elapsed_seconds": 79.209,
+  "global_queue_empty": true,
+  "recovered": true,
+  "owned_processes_remaining": [],
+  "originals_unchanged": true,
+  "sources_unchanged": true,
+  "cold_checkpoint": {
+    "files": 2002,
+    "bytes": 475286188,
+    "manifest_sha256": "5db34ea2eea1459569ac091f4053f37a2f970e7a3e8605ec0910b5e729badd4b",
+    "hashes_match": true,
+    "restored": false
+  },
+  "receipt_sha256": "e2384e9f8d9c540e2bf393c8a10798b21e14c0f30d383e7cd3b9e7a75c41bcc2",
+  "runner_sha256": "8774212c916fde037655d962d8e53ecff96f7232dc22d48fc2afacaa1520bd08",
+  "source_count": 64,
+  "original_file_count": 36,
+  "before": {
+    "global_pending": 5733,
+    "pertinent_pending": 5733,
+    "other_pending": 0,
+    "global_delivered": 20919,
+    "pertinent_delivered": 11622,
+    "missing_audit": 0,
+    "missing_alerts": 0,
+    "extra_alerts": 0,
+    "expected_audit": 765,
+    "expected_alerts": 121,
+    "mongo_projected_business": 0
+  },
+  "after": {
+    "global_pending": 0,
+    "pertinent_pending": 0,
+    "other_pending": 0,
+    "global_delivered": 26991,
+    "pertinent_delivered": 17694,
+    "missing_audit": 0,
+    "missing_alerts": 0,
+    "extra_alerts": 0,
+    "expected_audit": 765,
+    "expected_alerts": 121,
+    "mongo_projected_business": 765
+  },
+  "samples": [
+    {
+      "global_pending": 5587,
+      "pertinent_pending": 5587,
+      "other_pending": 0,
+      "global_delivered": 21076,
+      "pertinent_delivered": 11779,
+      "missing_audit": 0,
+      "missing_alerts": 0,
+      "extra_alerts": 0,
+      "expected_audit": 765,
+      "expected_alerts": 121,
+      "mongo_projected_business": 0,
+      "elapsed_seconds": 5.333
+    },
+    {
+      "global_pending": 5249,
+      "pertinent_pending": 5249,
+      "other_pending": 0,
+      "global_delivered": 21445,
+      "pertinent_delivered": 12148,
+      "missing_audit": 0,
+      "missing_alerts": 0,
+      "extra_alerts": 0,
+      "expected_audit": 765,
+      "expected_alerts": 121,
+      "mongo_projected_business": 0,
+      "elapsed_seconds": 10.741
+    },
+    {
+      "global_pending": 4953,
+      "pertinent_pending": 4953,
+      "other_pending": 0,
+      "global_delivered": 21775,
+      "pertinent_delivered": 12478,
+      "missing_audit": 0,
+      "missing_alerts": 0,
+      "extra_alerts": 0,
+      "expected_audit": 765,
+      "expected_alerts": 121,
+      "mongo_projected_business": 0,
+      "elapsed_seconds": 16.187
+    },
+    {
+      "global_pending": 4734,
+      "pertinent_pending": 4734,
+      "other_pending": 0,
+      "global_delivered": 22031,
+      "pertinent_delivered": 12734,
+      "missing_audit": 0,
+      "missing_alerts": 0,
+      "extra_alerts": 0,
+      "expected_audit": 765,
+      "expected_alerts": 121,
+      "mongo_projected_business": 0,
+      "elapsed_seconds": 21.59
+    },
+    {
+      "global_pending": 4458,
+      "pertinent_pending": 4458,
+      "other_pending": 0,
+      "global_delivered": 22343,
+      "pertinent_delivered": 13046,
+      "missing_audit": 0,
+      "missing_alerts": 0,
+      "extra_alerts": 0,
+      "expected_audit": 765,
+      "expected_alerts": 121,
+      "mongo_projected_business": 0,
+      "elapsed_seconds": 27.042
+    },
+    {
+      "global_pending": 4209,
+      "pertinent_pending": 4209,
+      "other_pending": 0,
+      "global_delivered": 22630,
+      "pertinent_delivered": 13333,
+      "missing_audit": 0,
+      "missing_alerts": 0,
+      "extra_alerts": 0,
+      "expected_audit": 765,
+      "expected_alerts": 121,
+      "mongo_projected_business": 0,
+      "elapsed_seconds": 32.421
+    },
+    {
+      "global_pending": 3879,
+      "pertinent_pending": 3879,
+      "other_pending": 0,
+      "global_delivered": 22998,
+      "pertinent_delivered": 13701,
+      "missing_audit": 0,
+      "missing_alerts": 0,
+      "extra_alerts": 0,
+      "expected_audit": 765,
+      "expected_alerts": 121,
+      "mongo_projected_business": 0,
+      "elapsed_seconds": 37.865
+    },
+    {
+      "global_pending": 3645,
+      "pertinent_pending": 3645,
+      "other_pending": 0,
+      "global_delivered": 23270,
+      "pertinent_delivered": 13973,
+      "missing_audit": 0,
+      "missing_alerts": 0,
+      "extra_alerts": 0,
+      "expected_audit": 765,
+      "expected_alerts": 121,
+      "mongo_projected_business": 0,
+      "elapsed_seconds": 43.111
+    },
+    {
+      "global_pending": 3038,
+      "pertinent_pending": 3038,
+      "other_pending": 0,
+      "global_delivered": 23897,
+      "pertinent_delivered": 14600,
+      "missing_audit": 0,
+      "missing_alerts": 0,
+      "extra_alerts": 0,
+      "expected_audit": 765,
+      "expected_alerts": 121,
+      "mongo_projected_business": 0,
+      "elapsed_seconds": 48.475
+    },
+    {
+      "global_pending": 2676,
+      "pertinent_pending": 2676,
+      "other_pending": 0,
+      "global_delivered": 24293,
+      "pertinent_delivered": 14996,
+      "missing_audit": 0,
+      "missing_alerts": 0,
+      "extra_alerts": 0,
+      "expected_audit": 765,
+      "expected_alerts": 121,
+      "mongo_projected_business": 0,
+      "elapsed_seconds": 53.853
+    },
+    {
+      "global_pending": 2161,
+      "pertinent_pending": 2161,
+      "other_pending": 0,
+      "global_delivered": 24830,
+      "pertinent_delivered": 15533,
+      "missing_audit": 0,
+      "missing_alerts": 0,
+      "extra_alerts": 0,
+      "expected_audit": 765,
+      "expected_alerts": 121,
+      "mongo_projected_business": 107,
+      "elapsed_seconds": 59.191
+    },
+    {
+      "global_pending": 1259,
+      "pertinent_pending": 1259,
+      "other_pending": 0,
+      "global_delivered": 25732,
+      "pertinent_delivered": 16435,
+      "missing_audit": 0,
+      "missing_alerts": 0,
+      "extra_alerts": 0,
+      "expected_audit": 765,
+      "expected_alerts": 121,
+      "mongo_projected_business": 524,
+      "elapsed_seconds": 64.585
+    },
+    {
+      "global_pending": 523,
+      "pertinent_pending": 523,
+      "other_pending": 0,
+      "global_delivered": 26468,
+      "pertinent_delivered": 17171,
+      "missing_audit": 0,
+      "missing_alerts": 0,
+      "extra_alerts": 0,
+      "expected_audit": 765,
+      "expected_alerts": 121,
+      "mongo_projected_business": 765,
+      "elapsed_seconds": 70.059
+    },
+    {
+      "global_pending": 0,
+      "pertinent_pending": 0,
+      "other_pending": 0,
+      "global_delivered": 26991,
+      "pertinent_delivered": 17694,
+      "missing_audit": 0,
+      "missing_alerts": 0,
+      "extra_alerts": 0,
+      "expected_audit": 765,
+      "expected_alerts": 121,
+      "mongo_projected_business": 765,
+      "elapsed_seconds": 75.284
+    }
+  ],
+  "auxiliary_activity": {
+    "new_outbox_groups": [
+      [
+        "auditoria",
+        "mongodb",
+        "READ",
+        339
+      ]
+    ],
+    "new_activity_events": 0,
+    "changed_reminders": 0,
+    "removed_reminders": 0
+  },
+  "migration": {
+    "before_expected": 20,
+    "after_expected": 21,
+    "backup": {
+      "file": "before-schema21.dump",
+      "bytes": 12803622,
+      "sha256": "5199c2dda718559a1b455533cef59b3d34dc8ed6a2ecc9cb4f8d02c93112f26a"
+    },
+    "committed": true,
+    "rows_unchanged": true,
+    "indexes_before": [
+      [
+        "service_outbox_pkey",
+        "CREATE UNIQUE INDEX service_outbox_pkey ON red_house.service_outbox USING btree (service, id)"
+      ],
+      [
+        "service_outbox_service_event_id_target_key",
+        "CREATE UNIQUE INDEX service_outbox_service_event_id_target_key ON red_house.service_outbox USING btree (service, event_id, target)"
+      ],
+      [
+        "shared_outbox_pending",
+        "CREATE INDEX shared_outbox_pending ON red_house.service_outbox USING btree (service, next_attempt, created_at) WHERE (delivered_at IS NULL)"
+      ]
+    ],
+    "indexes_after": [
+      [
+        "service_outbox_pkey",
+        "CREATE UNIQUE INDEX service_outbox_pkey ON red_house.service_outbox USING btree (service, id)"
+      ],
+      [
+        "service_outbox_service_event_id_target_key",
+        "CREATE UNIQUE INDEX service_outbox_service_event_id_target_key ON red_house.service_outbox USING btree (service, event_id, target)"
+      ],
+      [
+        "shared_outbox_dispatch_order",
+        "CREATE INDEX shared_outbox_dispatch_order ON red_house.service_outbox USING btree (service, created_at, id) WHERE (delivered_at IS NULL)"
+      ],
+      [
+        "shared_outbox_pending",
+        "CREATE INDEX shared_outbox_pending ON red_house.service_outbox USING btree (service, next_attempt, created_at) WHERE (delivered_at IS NULL)"
+      ]
+    ],
+    "versions_before": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "versions_after": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21
+    ],
+    "history_preserved": true,
+    "physical_tables": 115,
+    "physical_rows": 180888,
+    "rows_manifest_sha256": "96983b4021ae94db45375e3dadeeb0de33b7cf40af86d3c44d1ab6f931d840a7",
+    "reentry_same_transaction_verified": true
+  }
+}

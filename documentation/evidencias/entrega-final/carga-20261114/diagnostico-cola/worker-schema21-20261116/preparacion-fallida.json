@@ -1,0 +1,14 @@
+{
+  "receipt_sha256": "c809ea5be05d918e1a08f3af6a83d494fbf612cb0733b9e06912947f80b893fa",
+  "exit_code": 1,
+  "error_type": "AssertionError",
+  "phase": "preflight previo a backup y DDL",
+  "exact_failing_frame_recorded": false,
+  "invalid_guard": "historial esperado 6–20, omite versiones válidas 1–5",
+  "correction": "historial esperado 1–20; frames sanitizados añadidos",
+  "migration_committed": false,
+  "drain_started": false,
+  "originals_unchanged": true,
+  "sources_unchanged": true,
+  "owned_processes_remaining": []
+}
