@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='utf-8'?>
+<testsuite name="org.redhouse.mobile.SessionTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2026-11-16T22:44:53" time="0.461">
+  <properties />
+  <testcase name="insecureConfigurationRejected" classname="org.redhouse.mobile.SessionTest" time="0.004" />
+  <testcase name="offlineLogoutDestroysLocalCredentials" classname="org.redhouse.mobile.SessionTest" time="0.051" />
+  <testcase name="donorNavigationHasNoOperationalInventory" classname="org.redhouse.mobile.SessionTest" time="0.004" />
+  <testcase name="staleSessionCannotSendAfterAccountSwitch" classname="org.redhouse.mobile.SessionTest" time="0.048" />
+  <testcase name="htmlRejectedAsContractFailure" classname="org.redhouse.mobile.SessionTest" time="0.016" />
+  <testcase name="loginUsesJsonAndDoesNotStorePassword" classname="org.redhouse.mobile.SessionTest" time="0.024" />
+  <testcase name="simultaneousUnauthorizedRequestsRotateOnce" classname="org.redhouse.mobile.SessionTest" time="0.24" />
+  <testcase name="mfaChallengeRequiresASecondLoginWithCode" classname="org.redhouse.mobile.SessionTest" time="0.027" />
+  <testcase name="lostRefreshClearsCredentials" classname="org.redhouse.mobile.SessionTest" time="0.041" />
+  <system-out />
+  <system-err />
+</testsuite>

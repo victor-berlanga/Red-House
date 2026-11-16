@@ -235,7 +235,7 @@ import io.ktor.http.HttpMethod
         }
     }}
     if(bookingMessage.isNotBlank() && slots.none {it.text("id")==bookingSlotId}) Text(bookingMessage,Modifier.semantics{liveRegion=LiveRegionMode.Polite})
-    if(!slotsCurrent && slots.isNotEmpty()) Text("La disponibilidad necesita actualizarse. Pulsa Consultar horarios.")
+    if(!slotsCurrent && slots.isNotEmpty()) Text(if(busy) "Actualizando disponibilidad…" else "La disponibilidad necesita actualizarse. Pulsa Consultar horarios.")
     slots.forEach{slot->key("slot:"+slot.text("id")){
         Card(Modifier.fillMaxWidth().padding(vertical=6.dp)) { Column(Modifier.padding(16.dp),verticalArrangement=Arrangement.spacedBy(8.dp)) {
         Text(slot.text("campaign_title"),style=MaterialTheme.typography.titleMedium)

@@ -2,6 +2,12 @@
 
 Las entradas están ordenadas de reciente a histórico; un pendiente de un corte anterior puede quedar sustituido explícitamente por una entrada posterior.
 
+## Restauración móvil y pendientes protegidos; compilación final aprobada — 16/11/2026
+
+[Lote de restauración](documentation/evidencias/entrega-final/mobile/startup-owner-20261116/RESULTADOS.md): el fallo de conexión al recuperar una sesión guardada ofrece reintentar sin mostrar el login ni datos protegidos. Autenticación fallida conserva diario y observaciones; el mismo propietario autenticado conserva pendientes y otro propietario los desvincula antes de publicar la sesión. El diario persiste antes de modificar memoria o enviar comandos. No se promete atomicidad entre diario y cola; ante refresh incierto se conserva la eliminación de credenciales y no se repite la renovación.
+
+Seis fuentes cotejadas con el candidato revisado; **27/27 pruebas dirigidas** aprobadas. APK Android normal y aplicaciones iOS normal/Lab compilados, identidad, firma, Keychain y separación de CA verificados. Los dos fallos de preparación del runner —etiqueta del certificado y esquema de Xcode— se conservaron; iOS reanudó sin repetir Android ni las pruebas. No se instalaron esos paquetes en el iPhone en este corte; revisión visual de la nueva pantalla en preparación. Perfiles observados vencen 17/11 normal y 21/11 Lab: falta acreditar firma vigente para el 23. Etapa 04 abierta.
+
 ## Servicios y esquema 21 publicados en la GCP de Red House — 16/11/2026
 
 [Publicación comprobada](documentation/evidencias/entrega-final/gcp-server21-20261116/RESULTADOS.md) en `sistemas-integracion-01/red-house/me-central1-a`: trece imágenes, 25 aplicaciones actualizadas y 30 contenedores saludables; cinco de infraestructura conservados. Portal monolítico y archivos LOCAL. Respaldo con catálogo válido; migración 20→21 conserva 115 tablas/1.311.517 filas físicas por huella, historial, columnas y permisos. Cuarenta controles JSON/XML por réplica aprobaron, incluidos 403 institucional y revocación de tres familias técnicas. Acceso público HTTPS comprobado; clave temporal retirada conservando las dos anteriores.

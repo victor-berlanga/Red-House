@@ -1,0 +1,90 @@
+{
+  "artifacts": {
+    "android": {
+      "sha256": "10dd299c7b1d9f5c039ebb12470bf707e646ec5edbed87f5afa1a4459e08287d",
+      "gateway": "https://34.18.186.116",
+      "lab_assets_absent": true,
+      "private_reference": ".local/artifacts/mobile/final-startup-owner-build-20261116-02/RedHouse-normal-debug.apk",
+      "binary_published": false
+    },
+    "normal": {
+      "variant": "normal",
+      "bundle_identifier": "org.redhouse.mobile",
+      "gateway": "https://34.18.186.116",
+      "background_task": "org.redhouse.mobile.observations",
+      "configuration": "Debug",
+      "ca_sha256": "",
+      "tls": "system_default_only",
+      "framework_sha256": "8ede9ca8ad9d46ac9bf43a3b1db8c9c991b8e8b5771a79122f27987a90daf35a",
+      "generated_environment_sha256": "ba1d8b18b38c512281c97fb1b1514769c180f79befd2912cda0dbf273f9a713a",
+      "sdk": "iphoneos18.4",
+      "state": "PREPARED_NOT_INSTALLED_NOT_PHYSICALLY_VERIFIED",
+      "executable_sha256": "39429d9f3116b9016bb375b4f0e578bacc02aba1e8617c06c26f664678d9cdf6",
+      "info_plist_sha256": "daa9475f895a69e0dc0f97c668a061bbadb72d5a580f20ee1b1a5e399b59e8ef",
+      "profile_expires": "2026-11-17T22:39:00Z",
+      "installed_update": false,
+      "private_reference": ".local/artifacts/mobile/final-startup-owner-build-20261116-03/ios-normal/Debug-iphoneos/RedHouse.app",
+      "binary_published": false
+    },
+    "lab": {
+      "variant": "lab",
+      "bundle_identifier": "org.redhouse.mobile.lab",
+      "gateway": "https://10.0.0.22:18443",
+      "background_task": "org.redhouse.mobile.lab.observations",
+      "configuration": "DebugLab",
+      "ca_sha256": "379967e5eb85bb038eb85dcacad987f01942c35a749ef4ea7d7c843a5d195b00",
+      "tls": "lab_pinned_ca",
+      "framework_sha256": "e2ff437067e26c9333627e4f7e05e53498b413f23d3d8309c3d9a6eb09047e28",
+      "generated_environment_sha256": "9bc397449b22abf418e7db8f3e2edfc51397eee8e6e06e8fea0f581def105c6a",
+      "sdk": "iphoneos18.4",
+      "state": "PREPARED_NOT_INSTALLED_NOT_PHYSICALLY_VERIFIED",
+      "executable_sha256": "dcc9027c52dfd540c1106e221257f53b5b15bc08ae0bc12abfd6b3d072295219",
+      "info_plist_sha256": "1131c36a387bc11c91c001bf6d617fa9c27fafd85b9e1b51209857dbb51e288a",
+      "profile_expires": "2026-11-21T18:32:33Z",
+      "installed_update": false,
+      "private_reference": ".local/artifacts/mobile/final-startup-owner-build-20261116-03/ios-lab/DebugLab-iphoneos/RedHouseLab.app",
+      "binary_published": false
+    }
+  },
+  "verification": {
+    "code_signing_certificate": {
+      "certificate_sha1": "E62208677BCC8E6F602422D69885AF1523B0EAD6",
+      "certificate_sha256": "eb79a852d7fa98b325cfcae2a49b420254fd3eded735273ffe116264397564e0",
+      "subject_ou": "QNKMG4ALLQ",
+      "valid_identity_fingerprint_present": true,
+      "certificate_not_expired": true,
+      "validity_observed": {
+        "notBefore": "Nov 10 22:22:56 2026 GMT",
+        "notAfter": "Nov 10 22:22:55 2027 GMT"
+      },
+      "certificate_or_account_created": false,
+      "label_used_as_team": false
+    },
+    "completed_runner_checks": [
+      "variant/bundle/origin preflight and artifact identity",
+      "codesign --verify --deep --strict for normal and Lab",
+      "application-identifier and profile TeamIdentifier match authorized team",
+      "keychain-access-groups equal prior signed artifact per variant",
+      "Lab CA digest exact; normal system trust and no Lab CA",
+      "mobile sources and Lab JSON/CA stable between phases"
+    ],
+    "keychain_groups_unchanged": true,
+    "normal_ca_absent": true,
+    "profiles_observed_utc": {
+      "normal": "2026-11-17T22:39:00Z",
+      "lab": "2026-11-21T18:32:33Z"
+    },
+    "coverage_through_2026_11_23": false,
+    "installed_or_activated": false,
+    "private_provenance_hashes": {
+      "artifacts.json": "9bb0e968d991275f5ab760b289934bff649e19b4ae8410a56a7b4d1b2860d4fb",
+      "plan.json": "e838e2c0e072cb98ffafdba5eb0c75e862266cc5e48be5943b69b3a284308c69",
+      "resume.json": "1d2a944cecc5362bc23e2c5efb631620fa464763c8f93f09ee2f1fe2bcbc5697",
+      "signing-preflight.json": "16211819ae3000ab1b91d808b49a5d13515eb9e1c78ea902e58ebcce78fd1e45",
+      "codesign-normal.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "codesign-lab.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "framework-manifest-normal.json": "460e509b5f76747750e9e76731deee258a3f7aa913af73029b68b2faa4591898",
+      "framework-manifest-lab.json": "599966ec200683d287dbc1e842c26d17874051248ba9b5ebd993d2a520e24f4a"
+    }
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "tests": 27,
+  "failures": 0,
+  "errors": 0,
+  "reports": [
+    {
+      "class": "SessionOwnerTest",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "file": "junit/TEST-org.redhouse.mobile.SessionOwnerTest.xml",
+      "original_sha256": "9dcfdc79997a7a0e4b3130ff44894f9b2a9d9507256d4e0b331a8ef44c02f459",
+      "public_sha256": "c8013eeee773fbf8a72d2c9e4173386d3791638feb28a3165ce88228a567d66f",
+      "sanitization": "hostname removed; test cases/results/time/diagnostic output retained"
+    },
+    {
+      "class": "DurablePatchTest",
+      "tests": 6,
+      "failures": 0,
+      "errors": 0,
+      "file": "junit/TEST-org.redhouse.mobile.DurablePatchTest.xml",
+      "original_sha256": "ccad3c0d31620fdcda0a4f1895cb1577eb6c15a7498e371962ebdef8a87e6857",
+      "public_sha256": "3b9dda4b6b3431f038f0e83f7aaf7df9eb1a182c2b01d9b20b9f39f5b5a94084",
+      "sanitization": "hostname removed; test cases/results/time/diagnostic output retained"
+    },
+    {
+      "class": "AppointmentContractTest",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "file": "junit/TEST-org.redhouse.mobile.AppointmentContractTest.xml",
+      "original_sha256": "a9bd901c5e9552fec959af2b4dd2c25e35e3ed619391a1b36ea931f0da307f25",
+      "public_sha256": "da870e467d3ea742dc080c25a93c81222186ecad0e12e494cfef456ea06aa0f2",
+      "sanitization": "hostname removed; test cases/results/time/diagnostic output retained"
+    },
+    {
+      "class": "ResponseContractsTest",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "file": "junit/TEST-org.redhouse.mobile.ResponseContractsTest.xml",
+      "original_sha256": "139a81e2f03a818903e4544abb7f27e0732ef2935ad4075290bc481214fd22aa",
+      "public_sha256": "a40be560cfe352330c7e235ba877c619e57c2776edf6222e03e32501cd6414a8",
+      "sanitization": "hostname removed; test cases/results/time/diagnostic output retained"
+    },
+    {
+      "class": "SessionTest",
+      "tests": 9,
+      "failures": 0,
+      "errors": 0,
+      "file": "junit/TEST-org.redhouse.mobile.SessionTest.xml",
+      "original_sha256": "ecec992b68a3ca35689609eab2ef8432b2528bd0612aafd9d4aa454c6f5b5047",
+      "public_sha256": "009df5f768964e694d1bd82a688b0d8e81770a94c36a1b9717ed06f8f79b29f4",
+      "sanitization": "hostname removed; test cases/results/time/diagnostic output retained"
+    },
+    {
+      "class": "PresentationTest",
+      "tests": 5,
+      "failures": 0,
+      "errors": 0,
+      "file": "junit/TEST-org.redhouse.mobile.PresentationTest.xml",
+      "original_sha256": "8b603d0a505d8311137c2a0a1249fbc2047fb5c5ce66cff7a03671098c3d50a8",
+      "public_sha256": "a3f5e90d72d1f49d4a0a81950a55adc6e6f5928ae593ed2caebb02d40b87c02b",
+      "sanitization": "hostname removed; test cases/results/time/diagnostic output retained"
+    }
+  ],
+  "execution_origin": "batch02 only; reused byte-identical by ios batch03, not executed twice",
+  "previous_16_and_5_not_added_to_this_count": true
+}

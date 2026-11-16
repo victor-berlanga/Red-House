@@ -45,13 +45,16 @@ internal fun storageHeaders(value:JsonObject,local:Boolean):Map<String,String> {
 /** Encrypted client journal. Critical writes are retained for explicit recovery, never auto-synchronized. */
 class LocalJournal(private val store:SecureStore) {
     private var data:JsonObject=store.read()?.let { runCatching {codec.parseToJsonElement(it).jsonObject}.getOrNull() }?: JsonObject(emptyMap())
-    private fun save()=store.write(data.toString())
-    fun bind(identity:String) { if(data.text("identity")!=identity) {data=obj("identity" to identity);save()} }
+    private fun persist(next:JsonObject) {
+        store.write(next.toString())
+        data=next
+    }
+    fun bind(identity:String) { if(data.text("identity")!=identity) persist(obj("identity" to identity)) }
     fun value(name:String)=data[name]
     fun pendingCommands()=data.filterKeys {it.startsWith("command:")}
-    fun put(name:String,value:JsonElement) {data=JsonObject(data+(name to value));save()}
-    fun remove(name:String) {data=JsonObject(data-name);save()}
-    fun clear() {data=JsonObject(emptyMap());store.write(null)}
+    fun put(name:String,value:JsonElement) = persist(JsonObject(data+(name to value)))
+    fun remove(name:String) = persist(JsonObject(data-name))
+    fun clear() {store.write(null);data=JsonObject(emptyMap())}
     fun deviceId():String=data.text("device_id").ifBlank {newId().also {put("device_id",JsonPrimitive(it))}}
     fun sequence():Long {val next=(data["sequence"]?.jsonPrimitive?.longOrNull?:0)+1;put("sequence",JsonPrimitive(next));return next}
 }

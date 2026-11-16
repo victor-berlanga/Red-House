@@ -12,8 +12,12 @@ import kotlin.test.*
 class DurablePatchTest {
     private class Memory : SecureStore {
         var value:String?=null
+        var failNextWrite=false
         override fun read()=value
-        override fun write(value:String?) {this.value=value}
+        override fun write(value:String?) {
+            if(failNextWrite){failNextWrite=false;throw IllegalStateException("Injected store failure")}
+            this.value=value
+        }
     }
 
     @Test fun legacyJournalWithoutMethodReplaysPost()=runTest {
@@ -101,5 +105,63 @@ class DurablePatchTest {
         assertEquals(3,calls.size);assertTrue(calls[0].first.isNotBlank());assertTrue(calls.all {it==calls[0]})
         assertEquals("pending_operation_changed",assertFailsWith<ApiFailure>{restored.recover(saved)}.code)
         assertEquals(3,calls.size)
+    }
+    @Test fun failedCommandPreparationSendsNothingAndRetryPersistsBeforeHttp()=runTest {
+        val storage=Memory();val calls=mutableListOf<Pair<String,String>>()
+        val body=buildJsonObject {put("display_name","Nombre");put("version",1)}
+        val client=HttpClient(MockEngine { request ->
+            val result=if(request.url.encodedPath.endsWith("/login")) buildJsonObject {
+                put("access_token","a");put("refresh_token","r");put("user",obj("id" to "u","tenant_id" to "t","role" to "DONOR"))
+            } else {
+                val persisted=LocalJournal(storage).pendingCommands().values.single().jsonObject
+                val key=request.headers["Idempotency-Key"].orEmpty()
+                assertTrue(key.isNotBlank());assertEquals(persisted.text("id"),key)
+                assertEquals(body,persisted["body"]);assertEquals("PATCH",persisted.text("method"))
+                calls+=key to (request.body as TextContent).text
+                buildJsonObject {put("id","d");put("display_name","Nombre");put("version",2)}
+            }
+            respond(buildJsonObject {put("data",result);put("meta",JsonObject(emptyMap()))}.toString(),headers=headersOf(HttpHeaders.ContentType,"application/json"))
+        })
+        try {
+            val session=Session(Api(client,mapOf("identidad" to "https://example.com","donantes" to "https://example.com")),Memory())
+            session.login("u","p","")
+            val repository=MobileRepository(session,LocalJournal(storage),"ANDROID")
+            storage.failNextWrite=true
+            assertFailsWith<IllegalStateException>{repository.execute("donantes","/api/v1/donors/d/personal",body,HttpMethod.Patch)}
+            assertTrue(calls.isEmpty());assertTrue(repository.journal.pendingCommands().isEmpty());assertNull(storage.value)
+            assertEquals("Nombre",repository.execute("donantes","/api/v1/donors/d/personal",body,HttpMethod.Patch).text("display_name"))
+            assertEquals(1,calls.size);assertEquals(body,codec.parseToJsonElement(calls.single().second))
+            assertTrue(repository.journal.pendingCommands().isEmpty());assertTrue(LocalJournal(storage).pendingCommands().isEmpty())
+        } finally {client.close()}
+    }
+    @Test fun failedConfirmedCommandRemovalKeepsOriginalKeyForRecovery()=runTest {
+        val storage=Memory();val calls=mutableListOf<Pair<String,String>>()
+        val body=buildJsonObject {put("display_name","Nombre");put("version",1)}
+        val client=HttpClient(MockEngine { request ->
+            val result=if(request.url.encodedPath.endsWith("/login")) buildJsonObject {
+                put("access_token","a");put("refresh_token","r");put("user",obj("id" to "u","tenant_id" to "t","role" to "DONOR"))
+            } else {
+                val persisted=LocalJournal(storage).pendingCommands().values.single().jsonObject
+                val key=request.headers["Idempotency-Key"].orEmpty()
+                assertEquals(persisted.text("id"),key)
+                calls+=key to (request.body as TextContent).text
+                if(calls.size==1)storage.failNextWrite=true
+                buildJsonObject {put("id","d");put("display_name","Nombre");put("version",2)}
+            }
+            respond(buildJsonObject {put("data",result);put("meta",JsonObject(emptyMap()))}.toString(),headers=headersOf(HttpHeaders.ContentType,"application/json"))
+        })
+        try {
+            val session=Session(Api(client,mapOf("identidad" to "https://example.com","donantes" to "https://example.com")),Memory())
+            session.login("u","p","")
+            val repository=MobileRepository(session,LocalJournal(storage),"ANDROID")
+            assertFailsWith<IllegalStateException>{repository.execute("donantes","/api/v1/donors/d/personal",body,HttpMethod.Patch)}
+            val pending=repository.journal.pendingCommands().values.single().jsonObject
+            assertEquals(calls.single().first,pending.text("id"));assertEquals(body,pending["body"])
+            val restored=MobileRepository(session,LocalJournal(storage),"ANDROID")
+            assertEquals(pending,restored.journal.pendingCommands().values.single())
+            assertEquals("Nombre",restored.recover(pending).text("display_name"))
+            assertEquals(2,calls.size);assertEquals(calls[0],calls[1])
+            assertTrue(restored.journal.pendingCommands().isEmpty());assertTrue(LocalJournal(storage).pendingCommands().isEmpty())
+        } finally {client.close()}
     }
 }

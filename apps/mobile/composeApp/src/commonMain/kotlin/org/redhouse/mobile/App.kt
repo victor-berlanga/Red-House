@@ -76,6 +76,10 @@ fun RedHouseApp(store: SecureStore, localStore: SecureStore, queueStore: SecureS
         var accountSection by remember { mutableStateOf<String?>(null) }
         var donorSection by remember { mutableStateOf("Citas") }
         var loaded by remember { mutableStateOf(false) }
+        var restoringSession by remember {mutableStateOf(true)}
+        var restoreFailure by remember {mutableStateOf<String?>(null)}
+        var replacementLogin by remember {mutableStateOf(false)}
+        var restoreAttempt by remember {mutableIntStateOf(0)}
         var taskId by remember {mutableStateOf<String?>(null)}
         var repository by remember {mutableStateOf<MobileRepository?>(null)}
         var queue by remember {mutableStateOf<ObservationQueue?>(null)}
@@ -96,21 +100,47 @@ fun RedHouseApp(store: SecureStore, localStore: SecureStore, queueStore: SecureS
                 while(isActive) {try{queue?.synchronize()}catch(e:CancellationException){throw e}catch(_:Exception){};delay(30000)}
             }
         }
-        LaunchedEffect(Unit) {
-            gateway = GatewayConfiguration.prepare(configStore, store, localStore, queueStore) { devices.clearWork() }
-            if(gateway.isNotBlank()) {
-                val http = platformClient()
-                try {
-                    val active=Session(Api(http,gatewayBases(gateway)),store)
-                    val restored=active.restore()
-                    journal.bind(gateway+":"+restored.text("id")+":"+restored.text("tenant_id"))
-                    val restoredRepository=MobileRepository(active,journal,devices.source)
-                    val restoredQueue=ObservationQueue(queueStore,active)
-                    session=active;user=restored;repository=restoredRepository;queue=restoredQueue
-                    status=""
-                } catch(e:CancellationException) {http.close();throw e}
-                catch(_:Exception) {http.close();status="Inicia sesión para continuar."}
-            }
+        LaunchedEffect(restoreAttempt) {
+            restoringSession=true;restoreFailure=null;status=""
+            try {
+                gateway = GatewayConfiguration.prepare(configStore, store, localStore, queueStore) { devices.clearWork() }
+                if(gateway.isNotBlank()) {
+                    val http = platformClient()
+                    try {
+                        val active=Session(Api(http,gatewayBases(gateway)),store)
+                        val restored=active.restore()
+                        journal.bind(gateway+":"+restored.text("id")+":"+restored.text("tenant_id"))
+                        val restoredRepository=MobileRepository(active,journal,devices.source)
+                        val restoredQueue=ObservationQueue(queueStore,active)
+                        session=active;user=restored;repository=restoredRepository;queue=restoredQueue
+                        status=""
+                    } catch(error:Exception) {http.close();throw error}
+                }
+            } catch(error:CancellationException) {throw error}
+            catch(error:Exception) {
+                val saved=runCatching {store.read()}
+                val raw=saved.getOrNull()
+                val validRecord=raw?.let {runCatching {
+                    val record=codec.parseToJsonElement(it).jsonObject
+                    val identity=record["user"] as? JsonObject
+                    record.text("access_token").isNotBlank() && record.text("refresh_token").isNotBlank() &&
+                        identity!=null && identity.text("id").isNotBlank() && identity.text("tenant_id").isNotBlank()
+                }.getOrDefault(false)} ?: false
+                val terminal=(error is ApiFailure && error.status !in setOf(408,429,500,502,503,504)) || error is IllegalArgumentException
+                restoreFailure=when {
+                    saved.isFailure -> "STORAGE"
+                    // Session already clears credentials after uncertain refresh; never replay it.
+                    raw==null -> null
+                    !validRecord || terminal -> "TERMINAL"
+                    else -> "CONNECTION"
+                }
+                status=when(restoreFailure) {
+                    "STORAGE" -> "No pudimos leer el acceso guardado. Vuelve a intentarlo cuando el teléfono esté desbloqueado."
+                    "TERMINAL" -> "No pudimos restaurar el acceso guardado. Revisa las opciones antes de iniciar otra sesión."
+                    "CONNECTION" -> if(error is ApiFailure && error.status==429) "Espera antes de reintentar comprobar tu sesión." else "No pudimos comprobar tu sesión. Revisa la conexión y vuelve a intentarlo."
+                    else -> "Inicia sesión para continuar."
+                }
+            } finally {restoringSession=false}
         }
         fun run(action: suspend () -> Unit) {
             if (busy) return
@@ -162,16 +192,34 @@ fun RedHouseApp(store: SecureStore, localStore: SecureStore, queueStore: SecureS
                 if(status.isNotBlank()) Text(status, style = MaterialTheme.typography.bodyMedium)
                 if (busy) LinearProgressIndicator(Modifier.fillMaxWidth())
                 if (user == null) {
+                    if(restoringSession) {
+                        Text("Comprobando tu sesión…")
+                        LinearProgressIndicator(Modifier.fillMaxWidth())
+                    } else if(restoreFailure!=null) {
+                        if(restoreFailure=="TERMINAL") {
+                            Text("Al volver a entrar con la misma cuenta y servidor podrás recuperar tus operaciones pendientes. Una cuenta distinta elimina los datos locales anteriores.")
+                            OutlinedButton(onClick={replacementLogin=true;restoreFailure=null;status=""}) {Text("Mostrar inicio de sesión")}
+                        } else {
+                            Text("No necesitas volver a escribir tu contraseña para reintentar.")
+                            OutlinedButton(onClick={restoringSession=true;restoreAttempt++}) {Text(if(restoreFailure=="STORAGE") "Reintentar acceso guardado" else "Reintentar conexión")}
+                        }
+                    } else {
+                    if(replacementLogin) Text("La misma cuenta y servidor conservan tus operaciones pendientes. Una cuenta distinta elimina los datos locales anteriores.")
                     OutlinedTextField(username, { username = it; if(mfaRequired){mfaRequired=false;password="";otp=""} }, modifier=Modifier.fillMaxWidth(), label = { Text("Cuenta") }, singleLine = true)
                     OutlinedTextField(password, { password = it }, modifier=Modifier.fillMaxWidth(), label = { Text("Contraseña") }, visualTransformation = PasswordVisualTransformation(), keyboardOptions=KeyboardOptions(keyboardType=KeyboardType.Password,autoCorrectEnabled=false), singleLine = true)
                     if(mfaRequired) OutlinedTextField(otp, { otp = it }, modifier=Modifier.fillMaxWidth().focusRequester(mfaFocus), label = { Text("Código de verificación") }, keyboardOptions=KeyboardOptions(keyboardType=KeyboardType.Number,autoCorrectEnabled=false), singleLine = true, supportingText = { Text("Escribe los seis dígitos de tu autenticador.") })
                     Button(enabled = !busy, onClick = { run {
                         requireHttps(gateway)
                         val bases = gatewayBases(gateway)
-                        devices.clearWork();ObservationQueue.clearStore(queueStore);journal.clear()
+                        devices.clearWork()
                         val http = platformClient()
                         val active = try {
-                            Session(Api(http, bases), store).also { it.login(username.trim(), password, otp.trim()) }
+                            Session(Api(http, bases), store).also { active ->
+                                authenticateAndBindOwner(gateway,journal,queueStore) {
+                                    active.login(username.trim(), password, otp.trim())
+                                    active.user ?: throw ApiFailure(502,"profile_contract")
+                                }
+                            }
                         } catch(e:ApiFailure) {
                             http.close()
                             if(e.code=="mfa_required") {status=if(mfaRequired) "El código no es válido. Intenta con uno nuevo." else "Para continuar, escribe el código de tu autenticador.";mfaRequired=true;otp="";return@run}
@@ -181,7 +229,6 @@ fun RedHouseApp(store: SecureStore, localStore: SecureStore, queueStore: SecureS
                         commandKeys.clear(); session = active; user = active.user; rows = emptyList(); selected = null
                         destination="";accountSection=null;accountView=false;taskId=null;detail=null;planning=false;donorView=false;syncView=false
                         configStore.write(gateway)
-                        journal.bind(gateway+":"+user!!.text("id")+":"+user!!.text("tenant_id"))
                         repository=MobileRepository(active,journal,devices.source);queue=ObservationQueue(queueStore,active)
                         repository!!.device()
                         status = ""
@@ -196,7 +243,7 @@ fun RedHouseApp(store: SecureStore, localStore: SecureStore, queueStore: SecureS
                         } finally { http.close() }
                     } }) { Text("Recuperar acceso") }
                     if(username.isBlank()) Text("Para recuperar el acceso, escribe tu cuenta.",style=MaterialTheme.typography.bodySmall)
-
+                    }
                 } else {
                     if(accountView && !donorView) {
                         if(accountSection==null) {

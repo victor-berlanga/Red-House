@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='utf-8'?>
+<testsuite name="org.redhouse.mobile.SessionOwnerTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-11-16T22:44:53" time="0.092">
+  <properties />
+  <testcase name="sameAuthenticatedOwnerPreservesOriginalCommandsAndObservations" classname="org.redhouse.mobile.SessionOwnerTest" time="0.026" />
+  <testcase name="failedOwnerPersistenceKeepsOriginalIdentityAndRetryPersistsNewOwner" classname="org.redhouse.mobile.SessionOwnerTest" time="0.04" />
+  <testcase name="failedAuthenticationPreservesJournalAndQueue" classname="org.redhouse.mobile.SessionOwnerTest" time="0.009" />
+  <testcase name="differentAuthenticatedOwnerClearsQueueAndBindsBeforeReturn" classname="org.redhouse.mobile.SessionOwnerTest" time="0.013" />
+  <system-out />
+  <system-err />
+</testsuite>

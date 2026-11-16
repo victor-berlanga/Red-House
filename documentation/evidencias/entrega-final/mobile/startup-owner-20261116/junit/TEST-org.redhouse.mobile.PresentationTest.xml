@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<testsuite name="org.redhouse.mobile.PresentationTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-11-16T22:44:52" time="0.616">
+  <properties />
+  <testcase name="briefDatesUseTheSameLocalInstantRegardlessOfSourceOffset" classname="org.redhouse.mobile.PresentationTest" time="0.545" />
+  <testcase name="labelsDoNotChangeFreeTextOrMergeUncertainty" classname="org.redhouse.mobile.PresentationTest" time="0.002" />
+  <testcase name="noticeCodesDoNotTranslateFreeTextOrUnknownCodes" classname="org.redhouse.mobile.PresentationTest" time="0.0" />
+  <testcase name="selectedLocalTimePreservesSecondsAndRejectsClockGap" classname="org.redhouse.mobile.PresentationTest" time="0.025" />
+  <testcase name="datesKeepOffsetAndPrecision" classname="org.redhouse.mobile.PresentationTest" time="0.04" />
+  <system-out />
+  <system-err />
+</testsuite>

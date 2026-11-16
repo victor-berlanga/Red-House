@@ -1,0 +1,15 @@
+{
+  "approved_patch_sha256": "2eb95b359b56a039db316d0a6fca7e33ef6f733f31013fd9fead92b34060fbd8",
+  "six_source_hashes": {
+    "apps/mobile/composeApp/src/commonMain/kotlin/org/redhouse/mobile/App.kt": "b62669e591555b7218ab16652b974cc4661a3453fda937c29e0b75b8550475cf",
+    "apps/mobile/composeApp/src/commonMain/kotlin/org/redhouse/mobile/DonorScreen.kt": "a5f7cd998a0828468fd86a5f7acb62cbf342a72a6bc38251914fd3e0a3c7b15c",
+    "apps/mobile/composeApp/src/commonMain/kotlin/org/redhouse/mobile/SessionOwner.kt": "8d1aa947ad1869a7c7904b6071e472dd3233e5305b3207297e149d23d840aa53",
+    "apps/mobile/composeApp/src/commonMain/kotlin/org/redhouse/mobile/MobileRepository.kt": "673eca2b7651b2dcb3770e31728caac77cf55d7a17669f8e826ee960c68947d6",
+    "apps/mobile/composeApp/src/commonTest/kotlin/org/redhouse/mobile/SessionOwnerTest.kt": "0a7fe550bda8907a4e4cedec629fef8f829d5e0e0861e5eb8fde4be9a69a6075",
+    "apps/mobile/composeApp/src/commonTest/kotlin/org/redhouse/mobile/DurablePatchTest.kt": "c6b8ac31235312ac626451759ca2c0754f92bf843f8473e96877f6cbde4bf99a"
+  },
+  "matched_reviewed_copies": true,
+  "matched_build03_start_and_current": true,
+  "mobile_build_start_manifest_private_sha256": "8a39a882f97ab4474bd4653ee74f983af03fe7de33b29eefbd78c99d567302a6",
+  "scope": "Six approved sources; no visual instrumentation source integrated"
+}

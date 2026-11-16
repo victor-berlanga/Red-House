@@ -1,0 +1,11 @@
+{
+  "build01": "Stopped before compilation: incorrectly assumed code-signing label contained team. Corrected with actual public-certificate OU and SHA1 membership in valid identities; no new certificate/account.",
+  "build02": "Android +27 directed tests passed. iOS normal stopped before compilation because -scheme RedHouse does not exist. Actual project has target RedHouse and scheme RedHouseLab.",
+  "build03": "Resumed only iOS: normal target RedHouse then Lab scheme RedHouseLab. Android/JUnit from02 checked and reused, without rerun.",
+  "product_failures_attributed": false,
+  "original_logs_preserved": true,
+  "normal_ios_and_lab_compiled": true,
+  "installation_pending": true,
+  "visual_restore_retry_pending": true,
+  "visual_candidate_is_private": true
+}
