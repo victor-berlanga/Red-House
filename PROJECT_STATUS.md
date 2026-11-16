@@ -2,6 +2,12 @@
 
 Las entradas están ordenadas de reciente a histórico; un pendiente de un corte anterior puede quedar sustituido explícitamente por una entrada posterior.
 
+## Reportes privados completos desde Chrome — 16/11/2026
+
+[I06-06 local](documentation/evidencias/entrega-final/portal-reportes-20261116/RESULTADOS.md): segundo recorrido 1/1 aprobado, 112,920 s de lanzador. CSV/PDF/XLSX con 1.003 filas autorizadas, orden/bytes/hash/eventos exactos, ClamD real CLEAN. Revocación después de completar y antes de descargar confirmada en SQL/Redis; cero firmas nuevas y Chrome regresó al login. Nueva sesión propia descargó los tres archivos. 1.322 fuentes estables y 42 procesos propios cerrados.
+
+PDF v2 elimina contexto repetido por fila, conservando los registros; XLSX v2 fija timestamps ZIP para reintentos idénticos. Trabajos históricos conservan representación anterior, incluidos contextos vacíos. Primer fallo PDF/scanner_unavailable y diagnóstico posterior CLEAN se conservan sin atribuir una causa no registrada. Dirección inspeccionó páginas PDF, detalle web y sesión cerrada. Almacén LOCAL/monolito; no amplía a GCS ni a revocación previa a extracción. Publicación de estas fuentes y demás criterios de 06 siguen pendientes.
+
 ## Comandos de escritorio vinculados a su sesión original — 16/11/2026
 
 [Núcleo de contexto](documentation/evidencias/entrega-final/desktop/iteracion-contexto-sesion/RESULTADOS.md): cliente, diario, identidad, institución, rol y SID se fijan antes de preparar/reautenticar/enviar/reintentar. La renovación legítima conserva SID; una respuesta tardía no se muestra a otra cuenta y el resultado confirmado permanece en el diario original. La invalidación de la misma sesión limpia la vista. No cancela peticiones ya enviadas ni promete atomicidad remota.

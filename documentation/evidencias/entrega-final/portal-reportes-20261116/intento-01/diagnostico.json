@@ -1,0 +1,26 @@
+{
+  "read_only": true,
+  "jobs": [
+    {
+      "format": "CSV",
+      "status": "COMPLETE",
+      "last_error": null,
+      "attempts": 1,
+      "row_count": "1003"
+    },
+    {
+      "format": "PDF",
+      "status": "RETRYABLE",
+      "last_error": "scanner_unavailable",
+      "attempts": 1,
+      "row_count": "1003"
+    },
+    {
+      "format": "XLSX",
+      "status": "COMPLETE",
+      "last_error": null,
+      "attempts": 1,
+      "row_count": "1003"
+    }
+  ]
+}

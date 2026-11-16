@@ -1,0 +1,46 @@
+{
+  "passed": true,
+  "jobs": [
+    {
+      "id": "44e0d3f5-9e98-4af2-9190-5b3598f2b286",
+      "format": "CSV"
+    },
+    {
+      "id": "e5a7e9f6-cf72-4fd3-9b69-c789c1f1624d",
+      "format": "PDF"
+    },
+    {
+      "id": "3c42333f-da63-4d7c-af15-9f1b35152c9a",
+      "format": "XLSX"
+    }
+  ],
+  "downloads": [
+    {
+      "job": "44e0d3f5-9e98-4af2-9190-5b3598f2b286",
+      "format": "CSV",
+      "name": "reporte.csv",
+      "size": 433574,
+      "sha256": "eb179e90c69e3767a0eb4ded9545ea4df4cb665d56a157ce0d1b2ca38fa06865"
+    },
+    {
+      "job": "e5a7e9f6-cf72-4fd3-9b69-c789c1f1624d",
+      "format": "PDF",
+      "name": "reporte.pdf",
+      "size": 336701,
+      "sha256": "29317353bac223c58f32451afc08e70e6bc874626593b6a125744eb9fa516fed"
+    },
+    {
+      "job": "3c42333f-da63-4d7c-af15-9f1b35152c9a",
+      "format": "XLSX",
+      "name": "reporte.xlsx",
+      "size": 41290,
+      "sha256": "1347ba0320cd4905e82f2dee745d730b0ce024d692bdf600463925f9dfd272a3"
+    }
+  ],
+  "denied": [
+    302,
+    302,
+    302
+  ],
+  "javascript_errors": 0
+}

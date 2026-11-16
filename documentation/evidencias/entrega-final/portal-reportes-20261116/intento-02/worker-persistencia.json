@@ -1,0 +1,39 @@
+{
+  "files": [
+    {
+      "job": "44e0d3f5-9e98-4af2-9190-5b3598f2b286",
+      "format": "CSV",
+      "file": "4d26fd64-ed8c-54af-80fd-9470778b3561",
+      "size": 433574,
+      "sha256": "eb179e90c69e3767a0eb4ded9545ea4df4cb665d56a157ce0d1b2ca38fa06865",
+      "generation": "978094862363170753632001846102971385",
+      "rows": 1003,
+      "scan": "CLEAN",
+      "actor": "da4163a5-0ea0-4e3f-ba84-08e16d136d5a"
+    },
+    {
+      "job": "e5a7e9f6-cf72-4fd3-9b69-c789c1f1624d",
+      "format": "PDF",
+      "file": "6d6f2af0-a246-5b34-bdc2-985888065627",
+      "size": 336701,
+      "sha256": "29317353bac223c58f32451afc08e70e6bc874626593b6a125744eb9fa516fed",
+      "generation": "2145216987673609180060746468445428",
+      "rows": 1003,
+      "scan": "CLEAN",
+      "actor": "da4163a5-0ea0-4e3f-ba84-08e16d136d5a"
+    },
+    {
+      "job": "3c42333f-da63-4d7c-af15-9f1b35152c9a",
+      "format": "XLSX",
+      "file": "508ecf64-be1f-56e5-b5d8-3cedc6348fa0",
+      "size": 41290,
+      "sha256": "1347ba0320cd4905e82f2dee745d730b0ce024d692bdf600463925f9dfd272a3",
+      "generation": "1060235110364719558194634022510441144",
+      "rows": 1003,
+      "scan": "CLEAN",
+      "actor": "da4163a5-0ea0-4e3f-ba84-08e16d136d5a"
+    }
+  ],
+  "own_clamd_pid": 89631,
+  "backend": "monolith_without_api_listeners"
+}

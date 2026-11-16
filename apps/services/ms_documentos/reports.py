@@ -2,11 +2,11 @@
 
 import hashlib
 from datetime import datetime, timezone
-from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 from urllib.parse import urlencode
 from uuid import NAMESPACE_URL, uuid4, uuid5
+from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
-from flask import g, current_app, request
+from flask import current_app, g, request
 from redhouse.api import atomic, endpoint, listing
 from redhouse.client import call
 from redhouse.db import get, insert, transaction, update
@@ -76,6 +76,7 @@ def public(row):
 
 def authorization_cipher():
     import base64
+
     from cryptography.fernet import Fernet
 
     secret = current_app.config["SERVICE_PRIVATE_KEY"]
@@ -430,6 +431,7 @@ def install(app):
                     "rows": [],
                     "sealed_authorization": seal_authorization(),
                     "context": {
+                        "render_version": 2,
                         "report": data["report"],
                         "filters": data["filters"],
                         "subject_id": data["subject_id"],

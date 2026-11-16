@@ -1,5 +1,11 @@
 # Portal 03: ensayo pendiente de aceptación integrada en 06
 
+## I06-06: tres formatos y revocación desde Chrome — 16/11/2026
+
+[Recorrido local](../../evidencias/entrega-final/portal-reportes-20261116/RESULTADOS.md), segundo intento aprobado 1/1: CSV/PDF/XLSX de 1.003 filas autorizadas, generación/ClamD/descarga reales, orden y bytes exactos. Revocación después de completar y antes de solicitar descarga confirmada en SQL/Redis; cero firmas nuevas. Nueva sesión del propietario descargó los mismos archivos. Primer fallo PDF conservado; fuentes/objetos históricos y diagnóstico separados. Dirección inspeccionó salida PDF y pantallas reales.
+
+Se acepta generación/descarga y revocación posterior en LOCAL con monolito autónomo. Revocación antes de extracción y cuenta ajena conservan cobertura previa de servidor, sin nueva ejecución de esos recorridos en Chrome. No acredita GCS de reportes ni despliegue del incremento; los demás I06 mantienen sus límites inferiores.
+
 Estado consolidado al 14/11/2026: **I06-04 e I06-07 aceptados localmente; I06-03/05 e I06-08 PARCIALES con cobertura compuesta**. El [informe único de cobertura](../../evidencias/entrega-final/portal-security-20261114/RESULTADOS.md#cobertura-compuesta-i06-08--revisión-documental-del-14112026) reúne A/C/D, B03 aprobado, rol JSON/XML y mapa, asignación WSS y cambio de responsable, y publicación del proxy. Rol por el mismo Nginx y asignación durante caída total siguen sin ensayo exacto; no equivalen a controles ausentes. Es consolidación documental, no nueva ejecución. Las entradas cronológicas inferiores conservan los estados que existían en cada momento.
 
 ## I06-02/03: documento de acreditación y versiones — 14/11/2026

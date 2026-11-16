@@ -2,9 +2,8 @@
 
 import csv
 from io import BytesIO, StringIO
-from zipfile import ZipFile, ZIP_DEFLATED
 from xml.sax.saxutils import escape
-
+from zipfile import ZIP_DEFLATED, ZipFile, ZipInfo
 
 MIMES = {
     "CSV": "text/csv",
@@ -30,6 +29,9 @@ def cells(rows):
 
 
 def render(rows, format, context=None):
+    # Los trabajos ya persistidos conservan su representación recuperable original.
+    modern = (context or {}).get("render_version", 1) >= 2
+    pdf_metadata = {}
     if context:
         import json
         from datetime import datetime
@@ -56,8 +58,14 @@ def render(rows, format, context=None):
             if isinstance(v, (dict, list))
             else str(v)
             for k, v in context.items()
+            if k != "render_version"
         }
-        rows = [{**row, **metadata} for row in converted] or [metadata]
+        if format == "PDF" and modern:
+            # PDF conserva el contexto una vez; CSV/XLSX siguen siendo tabulares.
+            pdf_metadata = metadata
+            rows = converted
+        else:
+            rows = [{**row, **metadata} for row in converted] or [metadata]
     table = cells(rows)
     if format == "CSV":
         output = StringIO(newline="")
@@ -65,12 +73,18 @@ def render(rows, format, context=None):
         return output.getvalue().encode("utf-8-sig")
     if format == "PDF":
         from pypdf import PdfWriter
-        from pypdf.generic import DictionaryObject, NameObject, DecodedStreamObject
+        from pypdf.generic import DecodedStreamObject, DictionaryObject, NameObject
 
         writer = PdfWriter()
         # Una celda por línea evita cortar columnas anchas; todos los valores quedan
         # representados. Formato operativo identificado, pendiente de revisión.
         lines = ["Red House | reporte operativo v1 | sujeto a revision"]
+        if pdf_metadata:
+            lines.append("Contexto del reporte")
+            for name, value in pdf_metadata.items():
+                text = f"{name}: {value}"
+                lines.extend(text[i : i + 95] for i in range(0, len(text), 95))
+            lines.append("")
         for index, row in enumerate(table[1:], 1):
             lines.append(f"Registro {index}")
             for name, value in zip(table[0], row):
@@ -111,19 +125,28 @@ def render(rows, format, context=None):
         raise ValueError("unsupported_report_format")
     output = BytesIO()
     with ZipFile(output, "w", ZIP_DEFLATED) as archive:
-        archive.writestr(
+
+        def write_entry(name, content):
+            if modern:
+                info = ZipInfo(name, date_time=(1980, 1, 1, 0, 0, 0))
+                info.compress_type = ZIP_DEFLATED
+                archive.writestr(info, content)
+            else:
+                archive.writestr(name, content)
+
+        write_entry(
             "[Content_Types].xml",
             '<?xml version="1.0"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/><Override PartName="/xl/worksheets/sheet1.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/></Types>',
         )
-        archive.writestr(
+        write_entry(
             "_rels/.rels",
             '<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/></Relationships>',
         )
-        archive.writestr(
+        write_entry(
             "xl/workbook.xml",
             '<workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><sheets><sheet name="Reporte" sheetId="1" r:id="rId1"/></sheets></workbook>',
         )
-        archive.writestr(
+        write_entry(
             "xl/_rels/workbook.xml.rels",
             '<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet1.xml"/></Relationships>',
         )
@@ -141,7 +164,7 @@ def render(rows, format, context=None):
                 )
                 + "</row>"
             )
-        archive.writestr(
+        write_entry(
             "xl/worksheets/sheet1.xml", "".join(lines) + "</sheetData></worksheet>"
         )
     return output.getvalue()
