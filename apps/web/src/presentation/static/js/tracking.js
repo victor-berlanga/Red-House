@@ -3,6 +3,8 @@
   const root = document.getElementById('tracking');
   if (!root) return;
   const text = (id, value) => { document.getElementById('tracking-' + id).textContent = value; };
+  const isSimulated = position => position?.source === 'SIMULATOR' || position?.simulated === true;
+  const sourceLabel = position => ({SIMULATOR:'Simulador', GPS_BRIDGE:'Puente GPS', ANDROID:'Teléfono Android', IOS:'Teléfono iPhone'}[position.source] || 'Desconocida') + (isSimulated(position) ? ' · SIMULADO' : '');
   const initial = JSON.parse(root.dataset.snapshot);
   const policy = JSON.parse(root.dataset.policy), provider = JSON.parse(root.dataset.provider);
   root.dataset.snapshot = '';
@@ -15,7 +17,7 @@
     maxZoom: 19, attribution: credit.outerHTML,
   }).addTo(map);
   tiles.on('tileload', () => { root.dataset.tilesLoaded = String(Number(root.dataset.tilesLoaded || 0) + 1); });
-  tiles.on('tileerror', () => text('tiles', 'Cartografía no disponible. Se conserva el último dato recibido; puedes continuar usando el portal.'));
+  tiles.on('tileerror', () => text('tiles', 'Cartografía no disponible. Puedes continuar usando el portal.'));
   for (const anchor of JSON.parse(root.dataset.anchors)) {
     if (anchor.latitude == null || anchor.longitude == null) continue;
     const label = document.createElement('span'); label.textContent = anchor.label + ': ' + anchor.name + (anchor.synthetic ? ' · SINTÉTICO' : '');
@@ -26,7 +28,7 @@
     const age = latest ? Math.max(0, Math.floor((Date.now() - Date.parse(latest.captured_at)) / 1000)) : null;
     text('age', age === null ? 'Sin datos' : age + ' s');
     const state = terminal ? 'Finalizado o sin permiso de rastreo' : !connected ? 'Desconectado · último dato conservado' : !latest ? 'Sin señal · sin datos' : !latest.fix_valid ? 'Sin señal GPS' : age > policy.tracking_stale_seconds ? 'Retrasado · última observación' : 'En vivo';
-    text('status', state + (latest?.source === 'SIMULATOR' ? ' · SIMULADO' : ''));
+    text('status', state + (isSimulated(latest) ? ' · SIMULADO' : ''));
   }
   function receive(position) {
     if (!position) return;
@@ -38,7 +40,7 @@
       line.setLatLngs(ordered.filter(p=>p.fix_valid).map(p => [p.latitude,p.longitude]));
       if (!existed) {
         const tr = document.createElement('tr'); tr.dataset.eventId = position.event_id;
-        for (const value of [new Date(position.captured_at).toLocaleString('es-MX',{timeZone:root.dataset.timezone}), position.source === 'SIMULATOR' ? 'SIMULADO' : position.source, position.fix_valid ? 'Válida' : 'Sin señal', position.latitude ?? 'No informada', position.longitude ?? 'No informada', position.accuracy_m == null ? 'No informada' : position.accuracy_m + ' m']) {
+        for (const value of [new Date(position.captured_at).toLocaleString('es-MX',{timeZone:root.dataset.timezone}), sourceLabel(position), position.fix_valid ? 'Válida' : 'Sin señal', position.latitude ?? 'No informada', position.longitude ?? 'No informada', position.accuracy_m == null ? 'No informada' : position.accuracy_m + ' m']) {
           const td=document.createElement('td'); td.textContent=String(value); tr.append(td);
         }
         const history=document.getElementById('tracking-history'); history.append(tr); if (history.rows.length>1000) history.firstElementChild.remove();
@@ -49,7 +51,7 @@
     // Late replay never moves the current marker backwards in capture time.
     if (latest && Date.parse(position.captured_at) < Date.parse(latest.captured_at)) return;
     latest = position;
-    text('source', {SIMULATOR:'SIMULADO · simulador', GPS_BRIDGE:'Puente GPS', ANDROID:'Teléfono Android'}[position.source] || 'Desconocida');
+    text('source', sourceLabel(position));
     text('time', new Date(position.captured_at).toLocaleString('es-MX', {timeZone:root.dataset.timezone}));
     text('accuracy', position.accuracy_m == null ? 'No informada' : position.accuracy_m + ' m');
     if (position.fix_valid) {

@@ -1,0 +1,91 @@
+{
+  "passed": true,
+  "business_case": "E2E-A",
+  "platform": "ANDROID_EMULATOR",
+  "checked_at": "2026-11-17T17:22:21.339134+00:00",
+  "checks": {
+    "RBC_retirada_destino_mismo_origen": true,
+    "reserva_recibida": true,
+    "destino_unico_humano": true,
+    "solicitud_cerrada_RBC": true,
+    "receptor_sangre_sin_organo": true,
+    "evaluacion_misma_RBC": true,
+    "dictamen_unico": true,
+    "ABO_autorizado": true,
+    "traslado_aceptado": true,
+    "custodia_secuencia_actores": true,
+    "secuencias_sin_duplicados": true,
+    "LAB_RESULT_AUTHORIZED:4d4e2ffe-8eb2-4425-bdbb-4c35a5927327": true,
+    "RESOURCE_RELEASED:7e153323-64b5-481e-80ef-1a23e0bb7f00": true,
+    "RECIPIENT_CREATED:4ebfa281-d702-4f9d-a8f9-3412b6f101ed": true,
+    "REQUEST_CREATED:1c067a22-c5b3-4b9e-b5b4-581a44de8424": true,
+    "EVALUATION_CREATED:33761452-5038-430e-8ad7-45b14b419cbd": true,
+    "EVALUATION_REVIEWED:33761452-5038-430e-8ad7-45b14b419cbd": true,
+    "RESOURCE_RESERVED:3d6af0c0-7f56-4027-b97e-9a07b3a86054": true,
+    "RESOURCE_DESTINATION_RECORDED:7e153323-64b5-481e-80ef-1a23e0bb7f00": true,
+    "SHIPMENT_PREPARED:a42353cb-b9a0-4bfe-b127-8eb8a5f9fc19": true,
+    "SHIPMENT_COLLECTED:a42353cb-b9a0-4bfe-b127-8eb8a5f9fc19": true,
+    "SHIPMENT_INCIDENT:a42353cb-b9a0-4bfe-b127-8eb8a5f9fc19": true,
+    "SHIPMENT_IN_TRANSIT:a42353cb-b9a0-4bfe-b127-8eb8a5f9fc19": true,
+    "SHIPMENT_DELIVERED:a42353cb-b9a0-4bfe-b127-8eb8a5f9fc19": true,
+    "SHIPMENT_ACCEPTED:a42353cb-b9a0-4bfe-b127-8eb8a5f9fc19": true,
+    "cierre_sistemico_unico": true,
+    "cobertura_recibida_exacta": true,
+    "tres_verificaciones": true,
+    "formatos_JSON_XML": true,
+    "auditoria_SQL_exacta": true,
+    "auditoria_Mongo_exacta": true,
+    "avisos_destinatarios_exactos": true,
+    "GPS_evidencia_compuesta": true,
+    "mismo_GPS_ya_comprobado": true,
+    "movil_final_aceptado": true,
+    "movil_misma_cadena": true,
+    "foto_recibo_GCS_CLEAN": true,
+    "GPS_recibo_movil_mismo_evento": true,
+    "foto_ligada_transicion": true
+  },
+  "event_count": 18,
+  "audit_sql_matches": 18,
+  "audit_mongo_matches": 18,
+  "alert_recipients_expected": 17,
+  "alert_recipients_found": 17,
+  "expected_destination": "DISCARDED",
+  "observer_receipts": [
+    {
+      "platform": "web",
+      "event_id": "b055a21f-912b-49df-b042-306c2ef2a749",
+      "shipment_id": "a42353cb-b9a0-4bfe-b127-8eb8a5f9fc19",
+      "cursor": 1,
+      "composite": true,
+      "live_original_sha256": "1f9de5ada6824faaea3c4a30018637834f98697bc39b93b4da4b3261fae1c68e",
+      "artifacts": {
+        "web_wrapper": "950fb1ccbe5b7b8dae2e35bc9712d25f2a0fd66f5a03da42afd6dc3fa49ca896",
+        "web_browser": "1f9de5ada6824faaea3c4a30018637834f98697bc39b93b4da4b3261fae1c68e",
+        "qt_wrapper": "b58594696d38a4464e05be008925c9daf1e1188de4a37847d056094759fb0052",
+        "reconciliation": "6e4fa20a39a78cac3bd0f23b1442a93cadb91609d27d159cf6e9d81f91141418",
+        "qt_tiles": "4c7338f89ff06510ddd7c6b9a43e70b5c6fe3097e5f7d52c895fa62865691881"
+      }
+    },
+    {
+      "platform": "qt",
+      "event_id": "b055a21f-912b-49df-b042-306c2ef2a749",
+      "shipment_id": "a42353cb-b9a0-4bfe-b127-8eb8a5f9fc19",
+      "cursor": 1,
+      "composite": true,
+      "live_original_sha256": "b58594696d38a4464e05be008925c9daf1e1188de4a37847d056094759fb0052",
+      "artifacts": {
+        "web_wrapper": "950fb1ccbe5b7b8dae2e35bc9712d25f2a0fd66f5a03da42afd6dc3fa49ca896",
+        "web_browser": "1f9de5ada6824faaea3c4a30018637834f98697bc39b93b4da4b3261fae1c68e",
+        "qt_wrapper": "b58594696d38a4464e05be008925c9daf1e1188de4a37847d056094759fb0052",
+        "reconciliation": "6e4fa20a39a78cac3bd0f23b1442a93cadb91609d27d159cf6e9d81f91141418",
+        "qt_tiles": "4c7338f89ff06510ddd7c6b9a43e70b5c6fe3097e5f7d52c895fa62865691881"
+      }
+    }
+  ],
+  "mobile_receipt_sha256": "1d5d4f40a14a1c1777c690ef838a91dd8db13730804f5220f33630cdeee7ca71",
+  "limits": [
+    "Sin consultas nuevas a tracking_points ni or\u00e1culo GPS repetido.",
+    "READ ONLY del host; no prueba \u00f3ptica, fotograf\u00eda ni UI por s\u00ed solo.",
+    "No acepta recorrido iPhone ni cierre \u00edntegro07."
+  ]
+}

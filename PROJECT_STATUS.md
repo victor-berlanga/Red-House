@@ -2,6 +2,20 @@
 
 Las entradas están ordenadas de reciente a histórico; un pendiente de un corte anterior puede quedar sustituido explícitamente por una entrada posterior.
 
+## Reanudación y control de consumo — 17/11/2026
+
+El usuario autorizó continuar desde la pausa del 17/11, priorizando ahorro de tokens sin reducir los requisitos ni la calidad. Cuando avise que queda aproximadamente 5% de su saldo, detener el avance y preparar un traspaso completo para otro agente: estado comprobado, cambios/commits, pendientes ordenados, comandos, evidencias, procesos activos, límites y riesgos. No se conoce automáticamente el saldo. La estimación histórica 85%/12–20 horas es orientativa, no una medición ponderada de requisitos ni presupuesto de consumo. Reutilizar pruebas aceptadas; agrupar compilaciones y evitar repeticiones sin cambio o fallo concreto. Una tarea pesada local a la vez y apoyo de agentes acotado.
+
+La pausa histórica y sus copias verificadas se conservan. Reconexión móvil en validación dirigida; etiquetas web todavía sin publicación GCP.
+
+## E2E-A Android cerrado en Qt y consultado desde web — 17/11/2026
+
+[Cierre compuesto del mismo caso](documentation/evidencias/entrega-final/e2ea-cierre-20261117/RESULTADOS.md): Qt recibió una única vez la RBC sintética (ACCEPTED v7) y documentó DISCARDED con MFA/reauth antes de la caducidad, sin modificar fechas ni repetir Android. Oráculo de solo lectura: 39 controles, 18 eventos coincidentes en Auditoría SQL/Mongo y 17 destinatarios de avisos. Reserva RECEIVED, solicitud CLOSED y unidad WITHDRAWN. No hubo lecturas térmicas ni decisión clínica real acreditada.
+
+Chrome aprobó cinco vistas del mismo caso; el mapa terminal conserva el único GPS Android simulado y su historial, sin nueva publicación/WSS. Dirección inspeccionó las siete capturas Qt/web. Tres familias técnicas propias cerradas SQL/Redis. El primer arranque quedó bloqueado por el sandbox antes de motores; el siguiente cerró con salida 0, fuentes/configuración/población/archivos conservados. Se conserva un aviso MFA rechazado anterior al acceso exitoso, sin atribuir causa no observada.
+
+Etiquetas web revisadas integradas: iPhone reconocido, marca SIMULADO también por bandera y aviso cartográfico coherente; hash exacto del candidato y sintaxis verificados. Publicación GCP pendiente. La evidencia compuesta cierra este caso Android→Qt→web, no los recorridos iPhone, carga, paquetes ni las etapas completas 04–07.
+
 ## Pausa solicitada y continuidad guardada — 17/11/2026
 
 **Trabajo detenido por instrucción del usuario.** Retomar desde [Pausa_20261117.md](documentation/entrega-final/continuidad/Pausa_20261117.md), sin iniciar tareas hasta nueva indicación. Android E2E-A llegó a DELIVERED v6 con dos escaneos ópticos, foto GCS VERIFIED/CLEAN, un GPS simulado y diez eventos conciliados en Auditoría SQL/Mongo. Familias propias cerradas y permisos restaurados; AVD y servidor GCS local cerraron con salida 0, fuentes/configuración conservadas. Recepción/destino Qt y consulta final web todavía no ejecutados. La unidad sintética vence el 17/11 a las 13:50:41 Monterrey: comprobar vigencia al retomar; no alterar fechas para pasar pruebas.
