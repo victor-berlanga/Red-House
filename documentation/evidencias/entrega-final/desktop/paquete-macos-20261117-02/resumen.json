@@ -1,0 +1,58 @@
+{
+  "build_exit": 0,
+  "smoke": {
+    "ok": true,
+    "window": true,
+    "xsd": "login.xsd",
+    "operation": "login"
+  },
+  "contracts_identical": 59,
+  "source_count": 163,
+  "sources_unchanged": true,
+  "executable_sha256": "8fa8dc9c3ea6b754688cff8a3590d2eab4bc2d2a194d94d27f054518423f5b8e",
+  "platform": "macOS x86_64",
+  "windows_tested": false,
+  "notarized": false,
+  "zip_crc_errors": 0,
+  "zip_entries": 1629,
+  "private_configuration_names_found": [],
+  "package": {
+    "archive": ".local/dist/RedHouse-macOS-x86_64-20261117-02.zip",
+    "sha256": "c8d648fd905b45dacbe273bce0b1940172dd18fef903960a82e4d7f49bd88d30",
+    "bytes": 56632855,
+    "visual_login_reviewed": true,
+    "scope": "macOS Intel startup; 59 embedded contracts; no Windows/ARM/notarization"
+  },
+  "visible_launch": {
+    "exit_code": -15,
+    "closed": true,
+    "authenticated": false
+  },
+  "root_visual_inspection": {
+    "performed": true,
+    "account_password_focus_button_legible": true,
+    "clipping_observed": false,
+    "gateway_field_visible": false
+  },
+  "prebuild_contract_check": {
+    "initial_check": "FAILED: quality_review.xsd additional",
+    "fix": "include existing quality_review owner contract in sync mapping",
+    "subsequent_check": "59 contracts; zero differences",
+    "changed_only": "apps/desktop/sync_contracts.py"
+  },
+  "new_business_test": false,
+  "source_sha256": {
+    "apps/desktop/redhouse_desktop/app.py": "a5bdd3eefca975d22def800d6d701e13facbd3367a2647484e79948291cf994b",
+    "apps/desktop/redhouse_desktop/cold_review.py": "e370f0dfefea38f89256d08ccde7091efbb7eaac4f84a71da660ac3d72c5faf0",
+    "apps/desktop/redhouse_desktop/durable_commands.py": "892906d948bfdc12276eebb5dd7323cc67846253b6793f84cd8647516c442b0b",
+    "apps/desktop/sync_contracts.py": "c97bcaa4c805363c2abb44fd6e86d2bab130f1e8761abc5562cff33115493dda"
+  },
+  "provenance_sha256": {
+    "inspection.json": "74738d6af0cdaea709fcd6083ac4dbf0360a3b8893c66ea0038658f74abd99e4",
+    "smoke.json": "2a9d98709068de2b29e41037288aef18b73e422bc3bde875ea079b30f441390c",
+    "build.log": "4903b3722d523dbfbaf152a70465b041ac5e77d936593e83ab66ad5b46e46c80",
+    "sources-build-start.json": "a41dee501a7de75d3b49d5425433e53946f1fa2ef77bb7e92163035dd8cd0a33",
+    "prebuild-contract-check.json": "6b38654c633bf9ecfee3e0f177997a7b9a70e4f62a19417561869d1fb647dd20",
+    "build.sh": "ae5302f1d87d2701b76f33dfa5ff110ccb779035e5c3bc9b96ad8a203fd11105"
+  }
+}
