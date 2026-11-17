@@ -1,0 +1,112 @@
+{
+  "observed_utc": "2026-11-17T00:09:03.992664+00:00",
+  "status": "passed",
+  "single_authorized_run": true,
+  "files": {
+    "summary-wrapper.json": "9ec4dde65dda811ef6418b973d3d645a79f9f677616f9944e3161be30c3bf55f",
+    "12-transactions/summary.json": "2b23f72f654f8180250c3b3741db572a7214c1d08d3d3545a6bbbfc3524e2228",
+    "12-transactions/phase.json": "4430e47f10b622ec01a207561790b119f0568368e02a5a8aab73c40f5e3fcc04",
+    "sources-before.json": "4d49746cd9a386e0b3d3aa42723166aa9d7ddadc3b125316b78fa1ba41912af9",
+    "sources-after.json": "4d49746cd9a386e0b3d3aa42723166aa9d7ddadc3b125316b78fa1ba41912af9",
+    "source-hashes-before.json": "56ba2518c463018b43da25e74acc30f7e047d8d5e0f443611fc0fa7795b9a637",
+    "source-hashes-after.json": "56ba2518c463018b43da25e74acc30f7e047d8d5e0f443611fc0fa7795b9a637",
+    "xml-reviewed-before.json": "74fa5b6342a8fe4dfc3e3f19c0e413436eca5bff0995b5849140ab63e53b17f3"
+  },
+  "reviewed_sources": {
+    "apps/services/redhouse/codec.py": "964c65b1982e0dcadccb0080b47bfcb68cdd4975a9ef06bbb3814417e705fe30",
+    "apps/services/ms_transporte/tracking_contracts.py": "00a3a56b8a17d76efd60fd75b0931c81b84b136d19b9c30fb6dfad5d12139026",
+    "apps/services/redhouse/xml_response.py": "7f01a181ece8e340002b0f01903e36b114a02444fec258635bda067a6e76f36d"
+  },
+  "source_maps_equal": true,
+  "detail_maps_equal": true,
+  "current_source_hashes_match": true,
+  "warmup": {
+    "requests": 462,
+    "failures": 0
+  },
+  "warmup_min_users": 12,
+  "measurement_min_users": 12,
+  "metrics": {
+    "runner_exit": 0,
+    "execution_valid": true,
+    "measurement_accepted": true,
+    "http_requests": 1472,
+    "http_failures": 0,
+    "http_per_second": 12.25468729807243,
+    "business_completed": 228,
+    "business_per_second": 1.8981444999731751,
+    "read_p95_max_ms": 480,
+    "transaction_p95_max_ms": 2000,
+    "profile_targets": {
+      "OPERATOR": {
+        "p95_ms": 1400,
+        "p99_ms": 1500,
+        "p95_limit_exclusive_ms": 5000,
+        "target_met": true,
+        "completed_per_second": 0.9906982258631923
+      },
+      "DONOR": {
+        "p95_ms": 2000,
+        "p99_ms": 2200,
+        "p95_limit_exclusive_ms": 5000,
+        "target_met": true,
+        "completed_per_second": 0.9074462741099829
+      }
+    },
+    "quota_429": 0
+  },
+  "business": {
+    "committed": 873,
+    "not_committed": 0,
+    "response_lost_committed": 0,
+    "incomplete_cycles": 0,
+    "completed": {
+      "DONOR": 140,
+      "OPERATOR": 151
+    },
+    "replays": 12,
+    "unconfirmed_replays": 0,
+    "errors": [],
+    "attempted": 873,
+    "trace_files": 12,
+    "measured_completed": {
+      "DONOR": 109,
+      "OPERATOR": 119
+    },
+    "persistence_verified": true,
+    "event_wait_seconds": 0.13148801698116586,
+    "pending": []
+  },
+  "cleanup": {
+    "session_count_verified": true,
+    "session_revocation_verified": true,
+    "cleanup_failures": 0
+  },
+  "wrapper_checks": {
+    "setup_logout_verified": true,
+    "setup_events_verified": true,
+    "history_unchanged": true,
+    "sources_unchanged": true,
+    "source_maps_persisted": true,
+    "reviewed_sources_unchanged": true,
+    "topology_unchanged": true,
+    "processes_closed": true,
+    "lock_removed": true
+  },
+  "post_run_process_check": {
+    "matching_owned_pids": [],
+    "fixture_lock_present": false,
+    "method": "ps -axo pid,command; exact fixture and runner path markers; inspected after summary"
+  },
+  "scope": [
+    "APIpool2/workerpool2/interval2; same retained dataset; one new campaign and two slots through API",
+    "30s warmup +120s measurement; original thresholds and 30s propagation deadline",
+    "873 attempts includes warmup and drain; 228 measured business cycles only",
+    "event_wait_seconds is final oracle wait, not per-event propagation latency",
+    "No causal performance comparison established from consecutive runs"
+  ],
+  "run_reference": "transactions-xml-lock-20261117T000157Z-d01722d3",
+  "kind": "sanitized_observation_not_junit",
+  "local_date": "2026-11-16",
+  "utc_start_date": "2026-11-17"
+}

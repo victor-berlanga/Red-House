@@ -2,6 +2,12 @@
 
 Las entradas están ordenadas de reciente a histórico; un pendiente de un corte anterior puede quedar sustituido explícitamente por una entrada posterior.
 
+## Carga HTTP con las tres fuentes XML actuales aprobada — 16/11/2026
+
+[Una corrida HTTP12](documentation/evidencias/entrega-final/carga-20261114/xml-lock-http12-20261116/RESULTADOS.md), vinculada a las tres fuentes de 9e48f11 mediante mapas persistidos: doce identidades efectivas, 1.472 HTTP medidos sin fallos, p95 máximo de lectura 480 ms y recorrido 2.000 ms. Ochocientas setenta y tres escrituras totales, 291 recorridos completos totales y doce replays conciliados; 228 recorridos corresponden a la medición. Sin incompletos ni pendientes. Espera final del oráculo 0,131488 s, no latencia individual. Familias propias revocadas, fuentes/configuración/historia conservadas, procesos cerrados y candado retirado.
+
+No hubo repetición ni cambio de límites. La comparación con la corrida anterior no aísla causalmente el coste del candado. El gate local de publicación enlaza esta evidencia adicional al paquete GCP03 sellado sin modificarlo. Las trece imágenes candidatas aprobaron sus pruebas aisladas; el SSH de preparación quedó abierto después de terminar el proceso remoto y se cerró únicamente su cliente local, conservando exit255. Se añadieron keepalives al runner privado. La publicación está en curso y todavía no se declara aceptada; etapa07 sigue abierta.
+
 ## Alta preliminar móvil y bucket opcional compilados — 16/11/2026
 
 [Lote móvil](documentation/evidencias/entrega-final/mobile/preliminary-gcs-20261116/RESULTADOS.md): donante sin expediente propio puede registrar nombre/grupo y consentimiento explícito, sin preselecciones ni aptitud clínica automática. Consulta fallida no ofrece alta; cuerpo/clave/propietario se fijan antes de los mutex y las respuestas tardías no afectan otra identidad. La lógica nueva separa formulario y caso de uso. Configuración de bucket opcional propagada y cotejada en Android/iOS; los paquetes habilitan únicamente el bucket existente de Red House, con servidor LOCAL y predeterminado de código vacío.
