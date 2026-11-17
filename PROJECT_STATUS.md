@@ -2,6 +2,12 @@
 
 Las entradas están ordenadas de reciente a histórico; un pendiente de un corte anterior puede quedar sustituido explícitamente por una entrada posterior.
 
+## Traslado Android E2E-B entregado — 16/11/2026
+
+[Tramo Android conservado](documentation/evidencias/entrega-final/mobile/e2eb-android-20261116/RESULTADOS.md): el mismo órgano, reserva y traslado de Qt avanzaron desde PLANNED hasta DELIVERED mediante la interfaz nativa. Cuatro transiciones únicas, dos lecturas ópticas del QR y seis eventos coincidentes en Auditoría SQL/Mongo. Tres familias técnicas propias cerradas en SQL/Redis y emulador cerrado con exit 0; el servidor permanece para continuar en escritorio.
+
+La instrumentación inicial falló después de PREPARED por encuadre del QR; se conserva el fallo de 152,028 s. Dirección inspeccionó la cámara real del emulador, el QR completo tras corregir su pose y la pantalla final Entregado. La continuación fue mediante UI nativa, sin repetir PREPARED ni la suite. El APK de producto no cambió. No acredita captura GPS nueva, GCS nativo, alta preliminar ni cierre de etapa04. Recepción Qt confirmada por separado; destino documental espera autorización explícita solicitada tras bloqueo de la revisión automática. No se ejecutó ese descarte ni se declara completo E2E-B.
+
 ## Catálogo de conservación comprobado por Qt/XML — 16/11/2026
 
 [Ensayo real DESK-10](documentation/evidencias/entrega-final/desktop/iteracion-catalogo-conservacion-real/RESULTADOS.md): OPERATOR creó equipo, MEDICAL con MFA creó perfil académico y vinculó ambos a una unidad sintética independiente en cuarentena. XML y SQL confirmaron los tres identificadores y la conservación de `lab_profile_id`; eventos de alta correlacionados por actor. Preparación y Qt cerraron cuatro familias propias en SQL/Redis. Los dos procesos terminaron con exit 0 observado en herramienta; no se inventa contenido para sus logs vacíos.

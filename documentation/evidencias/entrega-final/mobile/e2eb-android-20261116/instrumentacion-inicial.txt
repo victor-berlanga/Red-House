@@ -1,0 +1,50 @@
+INSTRUMENTATION_STATUS: class=org.redhouse.mobile.E2EBCustodyNativeTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+org.redhouse.mobile.E2EBCustodyNativeTest:
+INSTRUMENTATION_STATUS: test=existingOrganPreparedCollectedInTransitAndDelivered
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=org.redhouse.mobile.E2EBCustodyNativeTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 90000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:504)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:339)
+	at org.redhouse.mobile.E2EBCustodyNativeTest.shown(E2EBCustodyNativeTest.kt:37)
+	at org.redhouse.mobile.E2EBCustodyNativeTest.scan(E2EBCustodyNativeTest.kt:59)
+	at org.redhouse.mobile.E2EBCustodyNativeTest.step(E2EBCustodyNativeTest.kt:64)
+	at org.redhouse.mobile.E2EBCustodyNativeTest.existingOrganPreparedCollectedInTransitAndDelivered(E2EBCustodyNativeTest.kt:93)
+
+INSTRUMENTATION_STATUS: stream=
+Error in existingOrganPreparedCollectedInTransitAndDelivered(org.redhouse.mobile.E2EBCustodyNativeTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 90000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:504)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:339)
+	at org.redhouse.mobile.E2EBCustodyNativeTest.shown(E2EBCustodyNativeTest.kt:37)
+	at org.redhouse.mobile.E2EBCustodyNativeTest.scan(E2EBCustodyNativeTest.kt:59)
+	at org.redhouse.mobile.E2EBCustodyNativeTest.step(E2EBCustodyNativeTest.kt:64)
+	at org.redhouse.mobile.E2EBCustodyNativeTest.existingOrganPreparedCollectedInTransitAndDelivered(E2EBCustodyNativeTest.kt:93)
+
+INSTRUMENTATION_STATUS: test=existingOrganPreparedCollectedInTransitAndDelivered
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 152.028
+There was 1 failure:
+1) existingOrganPreparedCollectedInTransitAndDelivered(org.redhouse.mobile.E2EBCustodyNativeTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 90000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:504)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:339)
+	at org.redhouse.mobile.E2EBCustodyNativeTest.shown(E2EBCustodyNativeTest.kt:37)
+	at org.redhouse.mobile.E2EBCustodyNativeTest.scan(E2EBCustodyNativeTest.kt:59)
+	at org.redhouse.mobile.E2EBCustodyNativeTest.step(E2EBCustodyNativeTest.kt:64)
+	at org.redhouse.mobile.E2EBCustodyNativeTest.existingOrganPreparedCollectedInTransitAndDelivered(E2EBCustodyNativeTest.kt:93)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
