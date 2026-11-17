@@ -214,7 +214,7 @@ def resource_conservation(identifier):
     return render_template(
         "integration/conservation.html",
         title="Conservación · " + unit["folio"],
-        active="inventory",
+        active="organos" if unit["kind"] == "ORGAN" else "inventory",
         unit=unit,
         control=control,
         readings=readings,

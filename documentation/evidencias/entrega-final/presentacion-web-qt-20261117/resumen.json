@@ -1,0 +1,56 @@
+{
+  "synthetic_only": true,
+  "product_changes_integrated": true,
+  "product_sha256": {
+    "apps/web/src/integration/routes/common.py": "9c667b6cdf52e95752cf4e7149b24cfc46209c369561e800955ab0c57fffb5a3",
+    "apps/web/src/integration/presentation.py": "e9ad016027f32ed5e402ae5732b28fed68d307b6930ad8580756025e0a136c86",
+    "apps/web/src/integration/routes/conservation.py": "106d2e144ce3da084d89165912ac08e4bedc8abbfbe55433a8a0e1536b20a4ad",
+    "apps/desktop/redhouse_desktop/app.py": "a5bdd3eefca975d22def800d6d701e13facbd3367a2647484e79948291cf994b"
+  },
+  "common_original_candidate_unchanged": true,
+  "scope": [
+    "Laboratorio: etiqueta Resultado informado y estados de resultado en español solo en vista de resultado",
+    "Evento RESOURCE_COLD_QUARANTINE: Bloqueo por conservación sin cambiar estado de recurso",
+    "Conservación: navegación organos para ORGAN e inventory para BLOOD",
+    "Qt: salida/llegada con helper existente de hora local y ancho de motivo de preparación"
+  ],
+  "verification": {
+    "common_real_template_synthetic_passed": true,
+    "conservation_real_template_synthetic_passed": true,
+    "unknown_events_preserved": true,
+    "blood_navigation_preserved": true,
+    "organ_active_navigation_visible_in_additional_capture": true,
+    "qt_cancelled_dialogs": 2,
+    "qt_api_calls": 0,
+    "qt_business_commands": 0,
+    "web_live_get": false,
+    "common_live_get": "PENDING",
+    "sessions": false,
+    "runtime_or_database": false,
+    "gcp_published": false
+  },
+  "preserved_failures": {
+    "common_synthetic_preparation_failures": 2,
+    "qt_initial_sandbox_exit": 134,
+    "first_web_capture_navigation_limit_preserved": true
+  },
+  "private_evidence_sha256": {
+    ".local/artifacts/web-laboratory-labels-20261117-prepared/verification.json": "683d27acee541f92d93d09cbc6ad44bb70b8ce4c811dec4a074c5df502043d0c",
+    ".local/artifacts/web-laboratory-labels-20261117-prepared/capture.json": "b50da05a5a1b95b1f8540ac6f2ff78c8ed6f3f7ca336b14d68d3bb9ad539cac9",
+    ".local/artifacts/web-laboratory-labels-20261117-prepared/verification-initial-failure.json": "8009dba14448b76754595dd2e2f96d64323c54727fa5070f64baf72f69859719",
+    ".local/artifacts/web-laboratory-labels-20261117-prepared/verification-render-context-failure.json": "ac926153e64bc8c3664cc1ac0b5b4b7002d7923762b7cefda10920fd3ee477c8",
+    ".local/artifacts/web-conservation-labels-20261117-prepared/verification.json": "6e4b881bfe395ef1e7799d1798596ab0de2c6e4e3f7a7f40978db48c81d734ac",
+    ".local/artifacts/web-conservation-labels-20261117-prepared/capture.json": "4dcc5821e6635e26ef6749f08715558a7d5f4a9a59189033b6b2333aba716f0f",
+    ".local/artifacts/web-conservation-labels-20261117-prepared/navigation-capture.json": "d521c14d9ba55210cb9432ad8e54a9fd7723a35588dd714c0b46977b2d97e34d",
+    ".local/artifacts/web-conservation-labels-20261117-prepared/integration-receipt.json": "c40a9d1eee4a308d88e3f7fb0353f9d5d7d03a2b3209f7555f0777ce2e7c4093",
+    ".local/artifacts/desktop/shipment-detail-layout-prepared-20261117/capture-exit.json": "bcd457c662e6500da594e2a01d4de1b20ac130c37ad2a5f369e8afe1bf67b688",
+    ".local/artifacts/desktop/shipment-detail-layout-prepared-20261117/captures/receipt.json": "19271619b9a9e0e5f42e64ebae063f410c10d4cbf4ed709f7ede884f9892617d"
+  },
+  "public_image_sha256": {
+    "laboratorio-sintetico.png": "6dc45a49e8dcb3e1a807a32758fce3c7c0a2079d7b8e90b8f07116efba4c23ab",
+    "evento-conservacion-sintetico.png": "2ed8b4ec787622e33002a68be5fbe3b8410b91c45638554ee3631568c378bf90",
+    "conservacion-organo-navegacion-sintetica.png": "bc194e93501454636988e1db6799a711421083821cb22405859f96465861baca",
+    "qt-fechas-locales-cancelado.png": "7da4884b0c24b6c9530e88d13c862621564cdfd4627e2d7872c13f1552b46c2d",
+    "qt-motivo-cancelado.png": "29ec2749d8ff48cf80a0bdcdc7d2f32c6c957c1285e4c94adcb28bb8096243c5"
+  }
+}

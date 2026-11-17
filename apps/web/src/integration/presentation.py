@@ -315,6 +315,7 @@ EVENT_LABELS = {
     "COLLECTED": "Recolección confirmada",
     "ACCEPTED": "Recepción aceptada",
     "RESOURCE_CONTROLS_BOUND": "Controles de conservación vinculados",
+    "RESOURCE_COLD_QUARANTINE": "Bloqueo por conservación",
     "READ": "Consulta de información",
     "AUDIT_FINDING_CREATED": "Hallazgo registrado",
     "AUDIT_FINDING_IN_PROGRESS": "Atención de hallazgo registrada",

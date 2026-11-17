@@ -1,0 +1,76 @@
+diff --git a/apps/desktop/redhouse_desktop/app.py b/apps/desktop/redhouse_desktop/app.py
+index 6d7bfc1..ea92ee1 100644
+--- a/apps/desktop/redhouse_desktop/app.py
++++ b/apps/desktop/redhouse_desktop/app.py
+@@ -1043,7 +1043,7 @@ class Window(QMainWindow):
+         session=session or OperationContext(self)
+         if not session.current(): return
+         dialog=QDialog(self); dialog.setWindowTitle('Detalle del traslado'); layout=QFormLayout(dialog)
+-        layout.addRow('Estado',QLabel(label(item.get('status')))); layout.addRow('Salida prevista',QLabel(label(item.get('departure_at')))); layout.addRow('Llegada prevista',QLabel(label(item.get('eta'))))
++        layout.addRow('Estado',QLabel(label(item.get('status')))); layout.addRow('Salida prevista',QLabel(display_value('departure_at',item.get('departure_at')))); layout.addRow('Llegada prevista',QLabel(display_value('eta',item.get('eta'))))
+         if context:
+             layout.addRow('Origen',QLabel(context['origin']['name'])); layout.addRow('Destino',QLabel(context['destination']['name']))
+         track=QPushButton('Ver seguimiento'); track.clicked.connect(lambda:dialog.done(1)); layout.addRow(track)
+@@ -1124,7 +1124,7 @@ class Window(QMainWindow):
+         if self.uncertain: self.status.setText('Actualiza y verifica el estado antes de continuar.'); return
+         if not self.client or not self.client.user or self.client.user.get('role')!='OPERATOR': self.status.setText('La preparación requiere personal operador autorizado.'); return
+         binding=OperationContext(self); client=binding.client; actor=binding.actor
+-        dialog=QDialog(self); dialog.setWindowTitle('Preparar traslado'); form=QFormLayout(dialog)
++        dialog=QDialog(self); dialog.setWindowTitle('Preparar traslado'); dialog.resize(760,180); form=QFormLayout(dialog); form.setFieldGrowthPolicy(QFormLayout.AllNonFixedFieldsGrow)
+         reason=QLineEdit(); reason.setMaxLength(1000); form.addRow('Motivo documentado',reason)
+         confirm=QPushButton('Confirmar preparación'); confirm.clicked.connect(dialog.accept); form.addRow(confirm)
+         while dialog.exec()==QDialog.Accepted:
+diff --git a/apps/web/src/integration/presentation.py b/apps/web/src/integration/presentation.py
+index 5ea7a9c..7f24a63 100644
+--- a/apps/web/src/integration/presentation.py
++++ b/apps/web/src/integration/presentation.py
+@@ -315,6 +315,7 @@ EVENT_LABELS = {
+     "COLLECTED": "Recolección confirmada",
+     "ACCEPTED": "Recepción aceptada",
+     "RESOURCE_CONTROLS_BOUND": "Controles de conservación vinculados",
++    "RESOURCE_COLD_QUARANTINE": "Bloqueo por conservación",
+     "READ": "Consulta de información",
+     "AUDIT_FINDING_CREATED": "Hallazgo registrado",
+     "AUDIT_FINDING_IN_PROGRESS": "Atención de hallazgo registrada",
+diff --git a/apps/web/src/integration/routes/common.py b/apps/web/src/integration/routes/common.py
+index e014e74..68dbfed 100644
+--- a/apps/web/src/integration/routes/common.py
++++ b/apps/web/src/integration/routes/common.py
+@@ -634,6 +634,9 @@ def facts(row):
+         "occurred_at": "Fecha",
+         "last_error": "Último error",
+     }
++    laboratory_result = request.endpoint == "regional.lab_result"
++    if laboratory_result:
++        labels["value"] = "Resultado informado"
+     result = []
+     for name, label in labels.items():
+         if name not in row:
+@@ -643,6 +646,14 @@ def facts(row):
+             value = event_label(value)
+         elif name == "source" and value in SERVICE_LABELS:
+             value = SERVICE_LABELS[value]
++        elif laboratory_result and name == "result_state":
++            value = {
++                "NOT_PERFORMED": "No realizado",
++                "PENDING": "Pendiente",
++                "INDETERMINATE": "Indeterminado",
++                "REPORTED": "Reportado",
++                "CORRECTED": "Corregido",
++            }.get(value, value)
+         result.append((label, reference_value(name, value)))
+     return result
+ 
+diff --git a/apps/web/src/integration/routes/conservation.py b/apps/web/src/integration/routes/conservation.py
+index 87af328..ac15789 100644
+--- a/apps/web/src/integration/routes/conservation.py
++++ b/apps/web/src/integration/routes/conservation.py
+@@ -214,7 +214,7 @@ def resource_conservation(identifier):
+     return render_template(
+         "integration/conservation.html",
+         title="Conservación · " + unit["folio"],
+-        active="inventory",
++        active="organos" if unit["kind"] == "ORGAN" else "inventory",
+         unit=unit,
+         control=control,
+         readings=readings,

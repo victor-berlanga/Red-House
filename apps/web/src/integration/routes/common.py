@@ -634,6 +634,9 @@ def facts(row):
         "occurred_at": "Fecha",
         "last_error": "Último error",
     }
+    laboratory_result = request.endpoint == "regional.lab_result"
+    if laboratory_result:
+        labels["value"] = "Resultado informado"
     result = []
     for name, label in labels.items():
         if name not in row:
@@ -643,6 +646,14 @@ def facts(row):
             value = event_label(value)
         elif name == "source" and value in SERVICE_LABELS:
             value = SERVICE_LABELS[value]
+        elif laboratory_result and name == "result_state":
+            value = {
+                "NOT_PERFORMED": "No realizado",
+                "PENDING": "Pendiente",
+                "INDETERMINATE": "Indeterminado",
+                "REPORTED": "Reportado",
+                "CORRECTED": "Corregido",
+            }.get(value, value)
         result.append((label, reference_value(name, value)))
     return result
 

@@ -1043,7 +1043,7 @@ class Window(QMainWindow):
         session=session or OperationContext(self)
         if not session.current(): return
         dialog=QDialog(self); dialog.setWindowTitle('Detalle del traslado'); layout=QFormLayout(dialog)
-        layout.addRow('Estado',QLabel(label(item.get('status')))); layout.addRow('Salida prevista',QLabel(label(item.get('departure_at')))); layout.addRow('Llegada prevista',QLabel(label(item.get('eta'))))
+        layout.addRow('Estado',QLabel(label(item.get('status')))); layout.addRow('Salida prevista',QLabel(display_value('departure_at',item.get('departure_at')))); layout.addRow('Llegada prevista',QLabel(display_value('eta',item.get('eta'))))
         if context:
             layout.addRow('Origen',QLabel(context['origin']['name'])); layout.addRow('Destino',QLabel(context['destination']['name']))
         track=QPushButton('Ver seguimiento'); track.clicked.connect(lambda:dialog.done(1)); layout.addRow(track)
@@ -1124,7 +1124,7 @@ class Window(QMainWindow):
         if self.uncertain: self.status.setText('Actualiza y verifica el estado antes de continuar.'); return
         if not self.client or not self.client.user or self.client.user.get('role')!='OPERATOR': self.status.setText('La preparación requiere personal operador autorizado.'); return
         binding=OperationContext(self); client=binding.client; actor=binding.actor
-        dialog=QDialog(self); dialog.setWindowTitle('Preparar traslado'); form=QFormLayout(dialog)
+        dialog=QDialog(self); dialog.setWindowTitle('Preparar traslado'); dialog.resize(760,180); form=QFormLayout(dialog); form.setFieldGrowthPolicy(QFormLayout.AllNonFixedFieldsGrow)
         reason=QLineEdit(); reason.setMaxLength(1000); form.addRow('Motivo documentado',reason)
         confirm=QPushButton('Confirmar preparación'); confirm.clicked.connect(dialog.accept); form.addRow(confirm)
         while dialog.exec()==QDialog.Accepted:
