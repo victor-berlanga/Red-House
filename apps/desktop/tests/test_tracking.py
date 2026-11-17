@@ -72,3 +72,25 @@ def test_tile_cache_prunes_expired_then_lru_only_owned_files(tmp_path):
     total=trim_cache(tmp_path,limit=one_size,now=now)
     assert total<=one_size and not pairs[0][0].exists() and not pairs[1][0].exists() and pairs[2][0].exists()
     assert unrelated.read_text()=='conservar'
+
+
+def test_new_position_has_neutral_state_until_server_status():
+    from PySide6.QtCore import QCoreApplication
+    from redhouse_desktop.tracking import TrackingSocket
+
+    app = QCoreApplication.instance() or QCoreApplication([])
+    tracker = TrackingSocket('https://localhost', SHIPMENT)
+    tracker.cursor = 4
+    states, points = [], []
+    tracker.state.connect(states.append)
+    tracker.position.connect(points.append)
+    tracker.received(f'<request><type>tracking.status</type><shipment_id>{SHIPMENT}</shipment_id><cursor>4</cursor><state>NO_DATA</state></request>')
+    assert states == ['NO_DATA'] and not points
+    tracker.received(event())
+    assert states[-1] == 'Observación recibida' and len(points) == 1
+    tracker.received(event())
+    assert states.count('Observación recibida') == 1 and len(points) == 1
+    tracker.received(f'<request><type>tracking.status</type><shipment_id>{SHIPMENT}</shipment_id><cursor>5</cursor><state>STALE</state></request>')
+    assert states[-1] == 'STALE'
+    tracker.stop()
+    assert app is not None

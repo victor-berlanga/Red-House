@@ -2,6 +2,12 @@
 
 Las entradas están ordenadas de reciente a histórico; un pendiente de un corte anterior puede quedar sustituido explícitamente por una entrada posterior.
 
+## Cartografía Qt corregida y relectura del mismo GPS — 16/11/2026
+
+[Ensayo de mosaicos y seguimiento](documentation/evidencias/entrega-final/desktop/mapa-mosaicos-20261116/RESULTADOS.md): PySide6 6.10.1 recibía HTTPS 200, pero `rawHeader(bytes)` impedía guardar los mosaicos. Se corrigieron ambos encabezados a `str`, conservando validaciones y política de caché. Un evento nuevo informa «Observación recibida» hasta la clasificación del servidor. Cuatro pruebas enfocadas aprobaron y una comprobación separada con QNetworkReply real conservó el rechazo `no-store`.
+
+Qt releyó por XML/WSS el mismo punto Android simulado, mostró 15 mosaicos y terminó con salida 0; una posición total, cero publicaciones nuevas, fuentes iguales y familia propia cerrada en SQL/Redis. Dirección abrió la captura real y comprobó mapa, marcador y etiquetas Retrasada/Simulada. Se conserva el primer observador fallido; su comparación textual de fechas se concilió aparte por instante UTC. No acredita otra entrega GPS en vivo, Nginx WSS, Windows, paquete actualizado ni cierre integral E2E-A. Android continúa la entrega del traslado existente.
+
 ## Informe alineado con publicación GCP y analítica Qt — 16/11/2026
 
 El [informe final editable](documentation/markdowns/Reporte_tecnico_final.md) incorpora la publicación de cinco fuentes documentada en `4e80a26` y la analítica XML real de `e3ef9b8`, con fallos previos, ámbitos y límites de cada comprobación. Corrige la referencia al esquema publicado a 21 y distingue las etiquetas ya verificadas de su lectura histórica anterior. Ciento cincuenta y una referencias locales válidas y diff sin errores de whitespace. Word/PDF no se regeneraron; paquetes, Windows y aceptación integral siguen pendientes. No se repitieron pruebas funcionales.

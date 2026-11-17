@@ -178,12 +178,12 @@ class RegionMap(QWidget):
             if len(data)>1_000_000: raise ValueError()
             image=QPixmap()
             if not image.loadFromData(data,'PNG') or image.width()!=256 or image.height()!=256: raise ValueError()
-            cache_control=bytes(reply.rawHeader(b'Cache-Control')).decode('ascii','ignore').lower()
+            cache_control=bytes(reply.rawHeader('Cache-Control')).decode('ascii','ignore').lower()
             if 'no-store' in cache_control or 'no-cache' in cache_control: raise ValueError()
             match=re.search(r'(?:^|,)\s*max-age\s*=\s*(\d+)',cache_control)
             expires=time.time()+int(match.group(1)) if match else None
             if expires is None:
-                try: expires=parsedate_to_datetime(bytes(reply.rawHeader(b'Expires')).decode('ascii')).timestamp()
+                try: expires=parsedate_to_datetime(bytes(reply.rawHeader('Expires')).decode('ascii')).timestamp()
                 except (ValueError,TypeError,OverflowError):
                     if 'must-revalidate' in cache_control: raise ValueError()
                     expires=time.time()+7*86400

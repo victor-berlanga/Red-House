@@ -112,7 +112,7 @@ class TrackingSocket(QObject):
             if event.get('position'): self.position.emit(event['position'])
         elif typ=='position.updated':
             if self.cursor is None or event['cursor']>self.cursor:
-                self.cursor=event['cursor']; self.position.emit(event['position'])
+                self.cursor=event['cursor']; self.position.emit(event['position']); self.state.emit('Observación recibida')
         elif typ=='tracking.status': self.state.emit(event['state'])
         elif typ=='resync.required':
             self.cursor=None; self.resync.emit(); self.send({'type':'subscribe','shipment_id':self.shipment})
