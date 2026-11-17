@@ -2,6 +2,12 @@
 
 Las entradas están ordenadas de reciente a histórico; un pendiente de un corte anterior puede quedar sustituido explícitamente por una entrada posterior.
 
+## Catálogo de conservación comprobado por Qt/XML — 16/11/2026
+
+[Ensayo real DESK-10](documentation/evidencias/entrega-final/desktop/iteracion-catalogo-conservacion-real/RESULTADOS.md): OPERATOR creó equipo, MEDICAL con MFA creó perfil académico y vinculó ambos a una unidad sintética independiente en cuarentena. XML y SQL confirmaron los tres identificadores y la conservación de `lab_profile_id`; eventos de alta correlacionados por actor. Preparación y Qt cerraron cuatro familias propias en SQL/Redis. Los dos procesos terminaron con exit 0 observado en herramienta; no se inventa contenido para sus logs vacíos.
+
+Dirección inspeccionó las tres capturas nativas: campos legibles, selección y confirmación explícitas. También comprobó el ancho corregido de receptor y planificación mediante dos ventanas Cocoa con dobles, sin envío ni repetición de negocio. El fixture compartido permanece activo y no se modificó el órgano del traslado E2E-B. No se acreditan lectura térmica, política clínica, Windows, GCP ni empaquetado vigente por este ensayo. Matriz e informe editable actualizados; etapa05 sigue parcial.
+
 ## Consolidación de informe y matriz de escritorio — 16/11/2026
 
 El [informe final editable](documentation/markdowns/Reporte_tecnico_final.md) incorpora los resultados públicos del 16/11: HLA documental real, catálogos/destino de escritorio con aceptación pendiente, agenda/TLS físicos iOS, lote móvil compilado, carga HTTP12 y publicación XML en GCP. La [matriz de escritorio](documentation/evidencias/entrega-final/desktop/MATRIZ.md) distingue preparación, pruebas con dobles y persistencia real. Ciento cincuenta referencias locales comprobadas, sin destinos ausentes; diff sin errores de whitespace. No se repitieron pruebas funcionales ni se incorporó como aprobado el recorrido E2E-B en curso.

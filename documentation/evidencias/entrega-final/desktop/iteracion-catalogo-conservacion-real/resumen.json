@@ -1,0 +1,10 @@
+{
+  "fixture": "local sintético, TESTING=False, ACADEMIC",
+  "setup": "exit 0 observado; unidad y controles confirmados",
+  "qt": "exit 0 observado; equipo, perfil y vínculo confirmados",
+  "familias_revocadas_sql_y_ausentes_redis": {
+    "setup": 2,
+    "qt": 2
+  },
+  "limites": "Sin lecturas térmicas, uso clínico, GCP o Windows"
+}
