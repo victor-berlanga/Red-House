@@ -1,0 +1,28 @@
+{
+  "observed_at": "2026-11-17T19:26:55.822801+00:00",
+  "platform": "physical iPhone16Pro",
+  "bundle": "org.redhouse.mobile.lab",
+  "version": "renewed17Nov",
+  "method": "User operated actual installed UI; no automated input",
+  "checks": [
+    {
+      "action": "manual donor1 login",
+      "result": "Inicio visible"
+    },
+    {
+      "action": "VoiceOver name and activation of Avisos",
+      "result": "name announced and tab opened"
+    },
+    {
+      "action": "Actualizar notices",
+      "result": "Recordatorio de tu cita shown, not raw APPOINTMENT_REMINDER"
+    },
+    {
+      "action": "Compartir campaña",
+      "result": "iOS share menu opened; instructed to cancel without sending"
+    }
+  ],
+  "visual_screenshot_accepted": false,
+  "screen_reader_full_acceptance": false,
+  "user_screenshot_pending": true
+}

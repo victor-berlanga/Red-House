@@ -1,0 +1,35 @@
+{
+  "fecha": "2026-11-17",
+  "alcance": "consulta GUI Qt de solo lectura sobre evento existente de E2E-C aceptado",
+  "recurso_objetivo": "7e153323-64b5-481e-80ef-1a23e0bb7f00",
+  "evento_consultado": "dff96f4d-73f1-4607-aba0-07a0554fe5d3",
+  "accion": "RESOURCE_RELEASED",
+  "http": {
+    "total": 6,
+    "correctas": 6,
+    "fallos": 0,
+    "login_post": 1,
+    "auth_me_get": 1,
+    "audit_list_get": 2,
+    "audit_detail_get": 1,
+    "logout_post": 1
+  },
+  "captura_runner": {
+    "salida": 1,
+    "error_principal": "ValueError",
+    "modal_detectado_por_timer": false,
+    "event_id_en_recibo_runner": null
+  },
+  "captura_ventana_propia_inspeccionada": true,
+  "sesion_propia": {
+    "sql_revoked": true,
+    "redis_session_absent": true,
+    "redis_jti_revoked": true,
+    "cleanup_errors": []
+  },
+  "mutaciones_negocio": 0,
+  "limitaciones": [
+    "El proceso del runner conservó salida 1; la inspección visual y la consulta HTTP son evidencia separada.",
+    "No se repitió el E2E-C, no se consultó toda la cadena de eventos y no se declara aceptación de etapas completas."
+  ]
+}
