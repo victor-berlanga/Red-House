@@ -1,0 +1,57 @@
+{
+  "passed": true,
+  "same_repeatable_read_transaction": true,
+  "business_writes": false,
+  "samples": [
+    {
+      "method": "original",
+      "elapsed_ms": 1297.5036019925028,
+      "rows": 4502,
+      "null_profiles": 4499,
+      "ordered_rows_sha256": "459be2d52136cb57205a1e781bc5c7339934ae8b8147633a0edf826187a700ae"
+    },
+    {
+      "method": "join",
+      "elapsed_ms": 43.909183994401246,
+      "rows": 4502,
+      "null_profiles": 4499,
+      "ordered_rows_sha256": "459be2d52136cb57205a1e781bc5c7339934ae8b8147633a0edf826187a700ae"
+    },
+    {
+      "method": "join",
+      "elapsed_ms": 74.14203300140798,
+      "rows": 4502,
+      "null_profiles": 4499,
+      "ordered_rows_sha256": "459be2d52136cb57205a1e781bc5c7339934ae8b8147633a0edf826187a700ae"
+    },
+    {
+      "method": "original",
+      "elapsed_ms": 732.7295260038227,
+      "rows": 4502,
+      "null_profiles": 4499,
+      "ordered_rows_sha256": "459be2d52136cb57205a1e781bc5c7339934ae8b8147633a0edf826187a700ae"
+    }
+  ],
+  "pins": {
+    "fixture_manifest_sha256": "e3215321dbee2cc31618ffcf313223dcab72a65ae5c37df36f174d4607f61934",
+    "failed_summary_sha256": "22b084b9b19faf857f063948319432ccf66b6eea24f878a4aaf42d33e2faca62",
+    "candidate_source_sha256": "6714dd289d983f7c4060c33d6abfc40523277f14629625d24786acd048eeafa6",
+    "medical_trace_sha256": "da6874b37dac1baf0edc9ef822ffecda65e3d7bd28b2bb2a9a6f68eaaedc9f27"
+  },
+  "runtime": {
+    "scope": "PostgreSQL only; read-only SQL benchmark",
+    "benchmark_exit": 0,
+    "postgres_pid": 24709,
+    "postgres_exit": 0,
+    "closed": true,
+    "state_file_unchanged": true
+  },
+  "unit_tests": {
+    "passed": 17,
+    "failures": 0,
+    "errors": 0,
+    "seconds": 2.188
+  },
+  "http_acceptance": false,
+  "gcp_published": false
+}

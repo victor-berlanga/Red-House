@@ -50,8 +50,11 @@ class Claim(Model):
 
 def available(conn):
     return conn.execute(
-        "SELECT id,folio,tenant_id,region_id,kind,component,blood_group,expires_at,status,version FROM resources "
-        "WHERE region_id=%s AND status='AVAILABLE' AND expires_at>now() ORDER BY expires_at,id",
+        "SELECT r.id,r.folio,r.tenant_id,r.region_id,r.kind,r.component,r.blood_group,"
+        "r.expires_at,r.status,r.version,c.lab_profile_id FROM resources r "
+        "LEFT JOIN resource_controls c ON c.id=r.id "
+        "WHERE r.region_id=%s AND r.status='AVAILABLE' AND r.expires_at>now() "
+        "ORDER BY r.expires_at,r.id",
         (g.actor["region_id"],),
     ).fetchall()
 
@@ -699,14 +702,7 @@ def register(app):
     )
     def resources_internal():
         with transaction() as conn:
-            items = available(conn)
-            for item in items:
-                control = conn.execute(
-                    "SELECT lab_profile_id FROM resource_controls WHERE id=%s",
-                    (item["id"],),
-                ).fetchone()
-                item["lab_profile_id"] = control["lab_profile_id"] if control else None
-            return {"items": items}
+            return {"items": available(conn)}
 
     @endpoint(
         app,
