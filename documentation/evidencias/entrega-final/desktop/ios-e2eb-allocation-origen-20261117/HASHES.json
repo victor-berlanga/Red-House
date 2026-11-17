@@ -1,0 +1,54 @@
+{
+  "scope": "Only synthetic iOS B Qt allocation stages and origin PREPARED; no mobile transfer/custody confirmations",
+  "status": "PASS",
+  "stages": {
+    "evaluation": {
+      "exit": 0,
+      "closed_own_families": 1,
+      "cleanup_errors": 0,
+      "receipt_sha256": "5ca4a08251bb1d32171f97987e74a220914f1b84a25cc0fecca54f21b3ac4b87",
+      "exit_sha256": "2934ea4e00a587091a265183965022ebfd4a5358a3e4bc7b6043aee52ff88976",
+      "cleanup_sha256": "a1f70d678ca6a3e9206a31d12271a884ea99304bc2db11b5e19bd3c40d94ebba",
+      "sessions_closed_sha256": "7f055f7e43a1786871c0efc8f665f69112e533eea5f212cf5fbc402f30d1f223"
+    },
+    "reservation": {
+      "exit": 0,
+      "closed_own_families": 1,
+      "cleanup_errors": 0,
+      "receipt_sha256": "c86fad67c5696cbd2c47dd09c1a3a07f69b56a863a15d918c96d8213d577723a",
+      "exit_sha256": "0325f4a8ee16bd9275eba1a035f571e6e4b6e5b636a8b04709ec1045aae1e001",
+      "cleanup_sha256": "a1f70d678ca6a3e9206a31d12271a884ea99304bc2db11b5e19bd3c40d94ebba",
+      "sessions_closed_sha256": "2290f1467064114af26f74f698b48c662a4bd15857c8114a5c1286f4f6f36777"
+    },
+    "planning": {
+      "exit": 0,
+      "closed_own_families": 1,
+      "cleanup_errors": 0,
+      "receipt_sha256": "dcb6320d0326e064a55f881b5c313c4e0fdd0d938e60e8bd47853118ebd23f45",
+      "exit_sha256": "870b74c2a61129c8b23f46bdc0f89821b2de1b24333d55d8f8e89bc479547d85",
+      "cleanup_sha256": "a1f70d678ca6a3e9206a31d12271a884ea99304bc2db11b5e19bd3c40d94ebba",
+      "sessions_closed_sha256": "97328444f11bece93b2502b4061af361d0b469ffbd94ca4eb87f33c757b194fc"
+    },
+    "origin-preparation": {
+      "exit": 0,
+      "closed_own_families": 1,
+      "cleanup_errors": 0,
+      "receipt_sha256": "06f1623d200faa65608101ab5d167b336b7d3b435bf9078b8b38e930ea087ad6",
+      "exit_sha256": "37ecc8950048cbeae9f6366e568056ce38e2aa9f1c53258f64344124f62e33ae",
+      "cleanup_sha256": "01483a503ca0de461b1d28d2eee76680c5e9c265c9d33e789ebaa919a7aa4290",
+      "sessions_closed_sha256": "75bc8256a76f467c6e121383d901f6a8fcfb4edabaab00837f3bc7491dff4b67"
+    }
+  },
+  "all_real_captures_inspected_by_root": true,
+  "reservation_modal_note": "Candidates dialog remained open until 180s watchdog after reservation already DONE/COMPLETED; no replay or duplicate business operation",
+  "visual_pending": "Origin preparation reason field shows only trailing text; functional persistence separately confirmed; no product changes during support",
+  "captures_sha256": {
+    "candidato.png": "6deef9d1a18e879ae6b55adee65617c6fcc35b2dcb5db0f807c0f14de148a496",
+    "detalle-qt.png": "cff6468b2bf5c6bc096fb1f5918379093f7cc422bb182e20aa1b9a2a244640dc",
+    "planificacion.png": "59f01123d5f5d048cdfffdb0fd590053fd2e4ff760309d9a285e32531248b0b4",
+    "preparacion-qt.png": "df77dbd0e4907b0746c9052cdf95bd83b7052df3ddd0a3644a33d66241b0dbcd",
+    "reserva.png": "bee345cf7692c4e6e23bac6eaf15ad7894f2119acde02984995ffc751352799c"
+  },
+  "source_allocation_manifest_sha256": "3fbd4fc4e14f617e5818d61b0dd128e1e7242b91f741a4feecf0868eb16a0bed",
+  "source_origin_manifest_sha256": "308f11cb0b7fc8a994ed12a45663cbc5b90c1656c3ba8b04c80df25a2dd91807"
+}
