@@ -31,3 +31,9 @@ Los paquetes de CI no constituyen distribuciones firmadas/notarizadas para terce
 Workflow preparado; YAML y sus tres bloques Python analizados localmente. Treinta contratos comparados sin diferencias. No se ha ejecutado Actions ni se atribuye éxito a sus cuatro destinos. El paquete macOS Intel se reconstruyó después de seguridad, custodia, descarga y corrección de impresión; su ejecutable pasó la comprobación de arranque/recursos. Los ensayos XML reales y de interfaz existentes figuran en [evidencia de escritorio](../../evidencias/entrega-final/desktop/).
 
 Para reclamar cada destino deben existir su trabajo CI aprobado, artefacto identificado y recorrido de aceptación correspondiente. Windows 11 conserva además la comprobación en el equipo disponible del usuario.
+
+## Actualización con evidencia local — 17/11/2026
+
+El paquete [macOS Intel actualizado](../../evidencias/entrega-final/desktop/paquete-macos-20261117/RESULTADOS.md) se construyó con las fuentes vigentes, incluidos mapas, reportes y analítica. Compilación y smoke terminaron con salida 0; 160 fuentes se mantuvieron estables, 58 contratos embebidos coincidieron con sus originales y la ventana de login empaquetada se abrió e inspeccionó. El ZIP pasó CRC completo. Esto acredita el arranque/UI del artefacto en macOS Intel, sin iniciar sesión ni ejecutar un proceso de negocio desde el paquete.
+
+Este resultado local no equivale a ejecutar el workflow de Actions ni a aceptar todos los destinos. No prueba Windows 11, macOS Apple Silicon, Linux, notarización/distribución firmada, impresión física ni el proceso funcional en el paquete. La accesibilidad completa de escritorio permanece pendiente según la [matriz de escritorio](../../evidencias/entrega-final/desktop/MATRIZ.md). Los resultados del 13/11 siguen como antecedente, no se reescriben como ejecución de CI.
