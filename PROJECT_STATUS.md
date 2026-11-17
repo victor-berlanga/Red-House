@@ -2,6 +2,12 @@
 
 Las entradas están ordenadas de reciente a histórico; un pendiente de un corte anterior puede quedar sustituido explícitamente por una entrada posterior.
 
+## Catálogo de conservación incorporado a escritorio — 16/11/2026
+
+[Incremento DESK-10](documentation/evidencias/entrega-final/desktop/iteracion-catalogo-conservacion/RESULTADOS.md): equipos y perfiles térmicos con consulta paginada, detalle y operaciones según perfil; vinculación a unidad autorizada conservando su perfil de laboratorio. Valores térmicos y fuente capturados expresamente, exclusivamente académicos. Diario, recuperación, XSD y contexto de sesión reutilizados; controles de otra unidad rechazados antes de abrir el formulario.
+
+Diez pruebas nuevas aprobaron en 2,55 s; ocho archivos integrados cotejados con el candidato y 57 contratos exactos. Se ajustó además el ancho de campos de receptor y planificación tras observar truncamiento en capturas. Recorrido API, inspección nativa del lote y paquete vigente todavía pendientes; no cierra etapa05.
+
 ## Destino documentado incorporado a escritorio — 16/11/2026
 
 [Incremento DESK-11](documentation/evidencias/entrega-final/desktop/iteracion-destino/RESULTADOS.md): MEDICAL puede documentar destino o corrección conservando historia, versión, antecedente y fecha precisa. Se verifica institución actual de la unidad, sesión original y correlación de la respuesta. Diario cifrado, reautenticación y recuperación reutilizan el comando original; conflicto no provoca reenvío automático. Las confirmaciones humanas permanecen explícitas y no se agregan reglas clínicas.

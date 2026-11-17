@@ -63,6 +63,7 @@ def planning_dialog(window, worker_type, display):
     info.setWordWrap(True)
     layout.addWidget(info)
     fields = QFormLayout()
+    fields.setFieldGrowthPolicy(QFormLayout.AllNonFixedFieldsGrow)
     departure = QDateTimeEdit(QDateTime.currentDateTime())
     arrival = QDateTimeEdit(QDateTime.currentDateTime())
     for field in (departure, arrival):

@@ -1,0 +1,22 @@
+{
+  "candidato": "fe3b6b0c7b6a13357d48da4ee6acdc0e36623c41557cfd47ff493c8723ff87e4",
+  "base_commit": "cb9f1881bd4850f9c943977a8bd345939cdcf57f",
+  "desk11_commit": "7779583",
+  "archivos_candidato_cotejados_antes_del_ajuste_visual": 8,
+  "ajuste_posterior": "Solo crecimiento de campos QFormLayout en receptor y planificación; no repite procesos de negocio.",
+  "fuentes_integradas": {
+    "apps/desktop/redhouse_desktop/app.py": "ce4c3523dd3311a4da952a42a20c2e623e382ecd742493e634c4df3ac5ef419d",
+    "apps/desktop/redhouse_desktop/durable_commands.py": "9c74a05b96d32e8b42982a25e6bfe38ea1df6ef409601f6faeabd0ddaa6f48e7",
+    "apps/desktop/sync_contracts.py": "83963a8324c7fa19e4c4c9caaae6beaee1231ad884685cb5873de3affe07b9cc",
+    "apps/desktop/redhouse_desktop/cold_catalogue.py": "cf1a59b558b7c32c09231754cd279ba9e4d391ff9a62c6a6f76f34242e36f5fd",
+    "apps/desktop/redhouse_desktop/contracts/cold_equipment_create.xsd": "1777b2afc66870890fe2b6cc704fd321333ac4cc01d0e27d519b94cc1408bd2b",
+    "apps/desktop/redhouse_desktop/contracts/cold_profile_create.xsd": "1281ba6ef9d00999f12fa980147c7949c4f330f4eb83125ec89584c725359ff7",
+    "apps/desktop/tests/test_cold_commands.py": "f4072d186feb69e7b438c9863df942229077f1fd1ebc43a21ea009ffd3a3df73",
+    "apps/desktop/tests/test_cold_navigation.py": "3c2c1a131274ae131456b319c22a60280261b115556661c19d9628a9328465ec",
+    "apps/desktop/redhouse_desktop/shipment_planning.py": "e43522ae303b18da0ed833dad36e640842220c681e4e35746c92c6b778aa6d57"
+  },
+  "junit_original_sha256": "4fb45b40f43554f1fc36719ee3c9d85be84b8b3124b57d09f990c53d560820ae",
+  "junit_publico_sha256": "2ce178b1bb6764ace04c4a5186ab4ddf0edc75e5457572a433a0607d633475de",
+  "saneamiento": "Solo hostname retirado del XML; casos, tiempos y resultados conservados.",
+  "nota_manifest_original": "El campo baseline_includes_uncommitted_desk11 del manifiesto privado era descriptivo e inexacto: DESK11 ya estaba en 7779583, anterior al head registrado cb9f188."
+}

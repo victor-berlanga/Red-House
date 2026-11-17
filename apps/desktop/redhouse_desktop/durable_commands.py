@@ -37,6 +37,8 @@ COMMANDS={
     'device_revoke':('identidad-acceso','/api/v1/devices/{id}/revoke','device_revoke.xsd',True),
 }
 COMMANDS.update(CATALOGUE_COMMANDS)
+from .cold_catalogue import COMMANDS as COLD_COMMANDS, validate_result as validate_cold_result
+COMMANDS.update(COLD_COMMANDS)
 
 def command_path(operation,identifier):
     if operation not in COMMANDS: raise JournalError('Operación no reconocida.')
@@ -76,6 +78,8 @@ def submit_command(client,journal,record,*,fresh=False,proof=None):
     if operation=='resource_destination':
         from .resource_destination import validate_destination_result
         validate_destination_result(client,record,result)
+    if operation in COLD_COMMANDS:
+        validate_cold_result(operation,record['body'],result,client.user)
     if operation in CATALOGUE_COMMANDS:
         validate_catalogue_result(operation,target['identifier'],record['body'],result,client.user['tenant_id'])
     if operation=='alert_ack' and (result.get('id')!=target['identifier'] or result.get('tenant_id')!=client.user.get('tenant_id') or result.get('status')!='ACKNOWLEDGED' or result.get('acknowledged_by')!=client.user.get('id')):
