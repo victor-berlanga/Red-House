@@ -1,0 +1,255 @@
+{
+  "status": "DEPLOYED_VALIDATED_TLS_RECONCILED_ACCESS_REMOVED",
+  "date": "2026-11-17",
+  "target": {
+    "project": "sistemas-integracion-01",
+    "instance": "red-house",
+    "zone": "me-central1-a",
+    "id": "2861822465669755197"
+  },
+  "package_manifest_sha256": "351922b37c3e78f63a5786448b57114d63acef0c308131f7cb22badd577f8bea",
+  "targets": [
+    "transporte-a",
+    "transporte-b",
+    "web"
+  ],
+  "images": {
+    "transporte": {
+      "id": "sha256:4b5fa58040b9370e7e5fc63f61d2fb374486ba35ae10c94d515b48e2731fe3ed",
+      "tag": "redhouse/transporte:custody-clock-lab-labels-20261117-01",
+      "base": "sha256:784d2b285144f09e8a0fabcfa0422404947189146ba3ae8f484ad156309266df",
+      "previous_tag": "redhouse/transporte:before-custody-clock-lab-labels-20261117-01"
+    },
+    "web": {
+      "id": "sha256:4a17d3ef9cf1ecc8609df67c397e03734b3a6de8251457f313a3422f2c14dff3",
+      "tag": "redhouse-web:custody-clock-lab-labels-20261117-01",
+      "base": "sha256:671ccee75e3033f079dfacd70ac7cb071f2cb5bf7e676dd50895099793daeab8",
+      "previous_tag": "redhouse-web:before-custody-clock-lab-labels-20261117-01"
+    }
+  },
+  "sources": {
+    "apps/services/ms_transporte/routes.py": {
+      "baseline_sha256": "04ccaeea8ac980dbcff9e8a516e8746cb2be72ebce21b7ee647444a7b050e20b",
+      "candidate_sha256": "d6e189dadc602c102a5f3dd7d8e95a5609729ce14b06fdea67a1a73f228d0896"
+    },
+    "apps/services/ms_transporte/custody_time.py": {
+      "baseline_sha256": null,
+      "candidate_sha256": "4b5a7ad6692960147718645bef8cb13bbb6464f133ab9750133daac1ade09d12"
+    },
+    "apps/web/src/integration/routes/common.py": {
+      "baseline_sha256": "bdbcbe643659e61be3c616d57024751d3b3d40b3ab676f5fe151edfea6103934",
+      "candidate_sha256": "9c667b6cdf52e95752cf4e7149b24cfc46209c369561e800955ab0c57fffb5a3"
+    },
+    "apps/web/src/integration/presentation.py": {
+      "baseline_sha256": "2c8ed28cdd17eadbdc375f4a3062d3b210ae431c1dcaec668ea47a2c552560e0",
+      "candidate_sha256": "e9ad016027f32ed5e402ae5732b28fed68d307b6930ad8580756025e0a136c86"
+    },
+    "apps/web/src/integration/routes/conservation.py": {
+      "baseline_sha256": "7b3f6aa51e3bd76b70a67d11e3b9f43c79c44d227427cf45dc9b10ea3dd7e174",
+      "candidate_sha256": "106d2e144ce3da084d89165912ac08e4bedc8abbfbe55433a8a0e1536b20a4ad"
+    }
+  },
+  "healthy_containers": 30,
+  "unchanged_containers": 27,
+  "schema": 21,
+  "storage": "local",
+  "backend": "monolith",
+  "published_inventory_images_preserved": true,
+  "published_inventory_image_id": "sha256:fa43724f2d475872c1f8c8ef90eb3f8c7ea756828ad60dff06b3aec2ba72afca",
+  "web_tracking_js_preserved_sha256": "64c9986e24385e498507791e6160e63eb358cdaa842ab0ad75c8d7a0a1c81503",
+  "public_rounds": [
+    {
+      "at": 1794956555.2031,
+      "checks": [
+        {
+          "path": "/services/transporte/health/live",
+          "http": 200,
+          "sha256": "35df33127be1b63f9951405f478ccbf5deb8ca28ee2a50e844012f4994542433"
+        },
+        {
+          "path": "/services/transporte/health/ready",
+          "http": 200,
+          "sha256": "499c70332186d92d26e3f4a4112ef96981f5d88de9e9f5318440fe01490a54e0"
+        },
+        {
+          "path": "/health/live",
+          "http": 200,
+          "sha256": "8a1ba4f31889e085e60298217996a3738c7e6ef8b7cb6c5cb8478cafe5750e0e"
+        },
+        {
+          "path": "/login",
+          "http": 200,
+          "sha256": "ae7a963f51245bc3d42a182d826756b4ffdfa3c7534b6d0bdc82043cf697b037"
+        },
+        {
+          "path": "/static/js/tracking.js",
+          "http": 200,
+          "sha256": "64c9986e24385e498507791e6160e63eb358cdaa842ab0ad75c8d7a0a1c81503"
+        }
+      ]
+    },
+    {
+      "at": 1794956560.8789577,
+      "checks": [
+        {
+          "path": "/services/transporte/health/live",
+          "http": 200,
+          "sha256": "9680c60c30701490105bb864cc9338c753898f50fd792a95534b7c6dad1b9a69"
+        },
+        {
+          "path": "/services/transporte/health/ready",
+          "http": 200,
+          "sha256": "550c9962672b1e254ee11b27a0260bb0f4c6fc971a5c578b25b2774deefedadf"
+        },
+        {
+          "path": "/health/live",
+          "http": 200,
+          "sha256": "8a1ba4f31889e085e60298217996a3738c7e6ef8b7cb6c5cb8478cafe5750e0e"
+        },
+        {
+          "path": "/login",
+          "http": 200,
+          "sha256": "6b9bd5358bef3992166ba0aff926c4b03a7a882ba608222b8c3151a61ab76bad"
+        },
+        {
+          "path": "/static/js/tracking.js",
+          "http": 200,
+          "sha256": "64c9986e24385e498507791e6160e63eb358cdaa842ab0ad75c8d7a0a1c81503"
+        }
+      ]
+    }
+  ],
+  "technical_login_created": false,
+  "business_writes": false,
+  "nginx_changed": false,
+  "database_restored": false,
+  "tls_observed": {
+    "checked_at": "2026-11-17T23:02:52.272966+00:00",
+    "not_after": "2026-11-21T15:14:23+00:00",
+    "certificate_sha256": "a5c19375af97ae6d4beef5a8a16ae939512052670bf0fc804b63397cbff3e737",
+    "tls_trust_and_ip_validated": true,
+    "delivery_day_end_utc": "2026-11-24T06:00:00+00:00",
+    "covers_delivery_day_end": false,
+    "renewal_timer": {
+      "NextElapseUSecRealtime": "Wed 2026-11-18 00:11:58 UTC",
+      "LastTriggerUSec": "Tue 2026-11-17 18:13:45 UTC",
+      "LoadState": "loaded",
+      "ActiveState": "active",
+      "UnitFileState": "enabled"
+    },
+    "timer_query_exit_code": 0,
+    "renewal_service": {
+      "Result": "success",
+      "ExecMainExitTimestamp": "Tue 2026-11-17 18:13:47 UTC",
+      "ExecMainStatus": "0",
+      "LoadState": "loaded"
+    },
+    "service_query_exit_code": 0,
+    "renewal_performed": false,
+    "phase": "historical_publication_before_renewal"
+  },
+  "tls_renewal_reconciliation": {
+    "status": "passed",
+    "reconciliation_exit": 0,
+    "acceptance": "composite_read_only_reconciliation",
+    "original_wrapper_exit": 1,
+    "original_command_result": {
+      "exit": 0,
+      "elapsed_seconds": 12.446,
+      "attempts": 1
+    },
+    "original_failure_preserved": true,
+    "read_only": true,
+    "container_ids_images_started_at_unchanged": 30,
+    "healthy": 30,
+    "non_tls_configuration_hashes_unchanged": 184,
+    "hooks_and_units_unchanged": true,
+    "certificate_sha256": "d88b61893df86a26263c17933de7b24d893ae6d363d63b0bdef7f3afe5c038a6",
+    "matching_certificates": [
+      "lineage",
+      "installed",
+      "served"
+    ],
+    "not_after": "2026-11-24T14:08:33+00:00",
+    "delivery_day_end_utc": "2026-11-24T06:00:00+00:00",
+    "covers_delivery_day_end": true,
+    "installed_uid_gid_mode": {
+      "fullchain.pem": {
+        "uid": 0,
+        "gid": 101,
+        "mode": "0o640"
+      },
+      "privkey.pem": {
+        "uid": 0,
+        "gid": 101,
+        "mode": "0o640"
+      }
+    },
+    "renewal_timer_active_enabled": true,
+    "nginx_config_test_exit": 0,
+    "public_gets": [
+      {
+        "at": 1794957273.2369187,
+        "checks": [
+          {
+            "path": "/health/live",
+            "http": 200
+          },
+          {
+            "path": "/login",
+            "http": 200
+          }
+        ]
+      },
+      {
+        "at": 1794957278.2655294,
+        "checks": [
+          {
+            "path": "/health/live",
+            "http": 200
+          },
+          {
+            "path": "/login",
+            "http": 200
+          }
+        ]
+      }
+    ],
+    "public_client": "system_CA_IP_no_redirect_no_cookies_no_auth",
+    "renewal_repeated": false,
+    "reload_performed": false,
+    "rollback_performed": false,
+    "remote_backup_created": false,
+    "private_keys_exported": false,
+    "finish_receipt_sha256": "ccc75d230ce137a7b20c9a6f81663e52bde63724f8ee20d217217fb3126e62d2",
+    "renewal_configuration_change": {
+      "before": "0o644",
+      "after": "0o600",
+      "sha256": "2b945a14e24c2fce5716ec83a210aee50cc8fd09317261af26314983abd9a59b",
+      "content_options_owner_preserved": true
+    }
+  },
+  "temporary_access": {
+    "status": "removed",
+    "own_key_still_active": false,
+    "access_removed": true,
+    "closure_pending": false,
+    "removal_exit": 0,
+    "prior_keys_preserved": 2,
+    "own_local_key_files_removed": true
+  },
+  "new_local_business_run_for_this_document": false,
+  "provenance_sha256": {
+    "validation.json": "ccc75d230ce137a7b20c9a6f81663e52bde63724f8ee20d217217fb3126e62d2",
+    "preflight.json": "3f89ee157fc9dd1d22d54ff424329b14f7b5f4fdc7b75803729e4040580f3cb9",
+    "prepared.json": "fc090b0c2704b365e62b02c0d33fd8563cc63562891ccd78d2c1a9cfb3abc0ae",
+    "builds.json": "e890c661b1e12d355949624e0ba03b9e61b8a4c2a835146d99b94bf748fa6193",
+    "released.json": "4c081b1e082f42e0b65d5c9840b7846704dcd93576ec5e7d361c53b6e0b8ca5d",
+    "tls-reconciliation-readonly-20261117T231420Z-748b0626.private.log": "0ebb2ec7288bee76411e97093f54e8e1b511a8bb3f7eb264ca7961a22201fcec",
+    "tls-reconciliation-readonly-20261117T231420Z-748b0626.exit.json": "5536641562c8aaacd76265e191f0179917f1ee487c86f5ec6fc4a647d3a0174b",
+    "tls-renewal-once-20261117T230638Z-b012a276.exit.json": "b67ffb45f241cb9cd70401d997f8811d91104ea5ae44fefdaa912e5a096962a2",
+    "inspect-renewal-failure-20261117T230742Z-791dcac8.private.log": "10d45f46022beab6533dcc696db8010bf8205e1eb94c5b1fa16751c050795eb7",
+    "access-cleanup.json": "17f9e19af2efb699ccee6ca57f44dd1674556545a03c244cd4d57a9653f95be0",
+    "access-remove-20261117T231513Z-45af1d3a.exit.json": "fa4c84c5472806e28daf34a990ed29b3f17be254c840edb3cfaa80208cec8a35"
+  }
+}
