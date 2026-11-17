@@ -1,0 +1,99 @@
+{
+  "passed": true,
+  "process_exit": 0,
+  "checks": [
+    {
+      "owner": "identidad-acceso",
+      "replica": "a",
+      "operation": "login",
+      "mime": "application/json",
+      "status": 200
+    },
+    {
+      "owner": "identidad-acceso",
+      "replica": "a",
+      "operation": "me",
+      "mime": "application/json",
+      "status": 200
+    },
+    {
+      "owner": "documentos",
+      "replica": "a",
+      "operation": "export_list",
+      "mime": "application/json",
+      "status": 200
+    },
+    {
+      "owner": "identidad-acceso",
+      "replica": "a",
+      "operation": "me",
+      "mime": "application/xml",
+      "status": 200
+    },
+    {
+      "owner": "documentos",
+      "replica": "a",
+      "operation": "export_list",
+      "mime": "application/xml",
+      "status": 200
+    },
+    {
+      "owner": "identidad-acceso",
+      "replica": "b",
+      "operation": "me",
+      "mime": "application/json",
+      "status": 200
+    },
+    {
+      "owner": "documentos",
+      "replica": "b",
+      "operation": "export_list",
+      "mime": "application/json",
+      "status": 200
+    },
+    {
+      "owner": "identidad-acceso",
+      "replica": "b",
+      "operation": "me",
+      "mime": "application/xml",
+      "status": 200
+    },
+    {
+      "owner": "documentos",
+      "replica": "b",
+      "operation": "export_list",
+      "mime": "application/xml",
+      "status": 200
+    },
+    {
+      "owner": "identidad-acceso",
+      "replica": "a",
+      "operation": "revoke",
+      "mime": "application/json",
+      "status": 200
+    },
+    {
+      "owner": "identidad-acceso",
+      "replica": "a",
+      "operation": "me",
+      "mime": "application/json",
+      "status": 401
+    },
+    {
+      "owner": "identidad-acceso",
+      "replica": "b",
+      "operation": "me",
+      "mime": "application/json",
+      "status": 401
+    }
+  ],
+  "checks_count": 12,
+  "own_families_revoked_sql_redis": 1,
+  "business_writes": false,
+  "images": {
+    "documentos": "sha256:d9dab83ef286d3dd68fd5f7f5e6a51449e75840a2d120b926a9175d49c0d7a52",
+    "web": "sha256:7ad4e8abcc6619116e9454b139afd530ac603d8e9477e1678e909d22433e47fe"
+  },
+  "probe_sha256": "b6471ff57eff9671505e0060438a70d5d8c31559d2b77305d9464be01c15d89d",
+  "original_receipt_sha256": "b5dbfd8d2dfa84fcd0ab2d082e6853a67e3d73e1b5dd45b0470c5939e37a8e33"
+}

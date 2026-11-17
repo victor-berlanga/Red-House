@@ -1,0 +1,79 @@
+{
+  "status": "passed",
+  "public": [
+    {
+      "at": 1794887770.1252334,
+      "checks": [
+        {
+          "path": "/health/live",
+          "http": 200
+        },
+        {
+          "path": "/login",
+          "http": 200
+        }
+      ]
+    },
+    {
+      "at": 1794887775.1712062,
+      "checks": [
+        {
+          "path": "/health/live",
+          "http": 200
+        },
+        {
+          "path": "/login",
+          "http": 200
+        }
+      ]
+    }
+  ],
+  "tls": {
+    "checked_at": "2026-11-17T03:56:20.653394+00:00",
+    "not_after": "2026-11-21T15:14:23+00:00",
+    "certificate_sha256": "a5c19375af97ae6d4beef5a8a16ae939512052670bf0fc804b63397cbff3e737",
+    "tls_trust_and_ip_validated": true,
+    "delivery_day_end_utc": "2026-11-24T06:00:00+00:00",
+    "covers_delivery_day_end": false,
+    "renewal_timer": {
+      "NextElapseUSecRealtime": "Tue 2026-11-17 06:08:05 UTC",
+      "LastTriggerUSec": "Tue 2026-11-17 00:14:37 UTC",
+      "LoadState": "loaded",
+      "ActiveState": "active",
+      "UnitFileState": "enabled"
+    },
+    "timer_query_exit_code": 0,
+    "renewal_service": {
+      "Result": "success",
+      "ExecMainExitTimestamp": "Tue 2026-11-17 00:14:45 UTC",
+      "ExecMainStatus": "0",
+      "LoadState": "loaded"
+    },
+    "service_query_exit_code": 0,
+    "renewal_performed": false
+  },
+  "business_writes": false,
+  "finish_client": "urllib_stdlib_default_CA_no_redirect",
+  "companion_sha256": "c8adbade6969948117eb8ec1c36533fb6824198c8d3c4292fd3569edd4810639",
+  "original_validation_preserved": true,
+  "independent_before_companion": [
+    {
+      "path": "/health/live",
+      "status": 200,
+      "bytes": 68,
+      "seconds": 0.796,
+      "tls_verified": true,
+      "maintenance_header": null,
+      "content_type": "application/json"
+    },
+    {
+      "path": "/login",
+      "status": 200,
+      "bytes": 5109,
+      "seconds": 0.334,
+      "tls_verified": true,
+      "maintenance_header": null,
+      "content_type": "text/html; charset=utf-8"
+    }
+  ]
+}

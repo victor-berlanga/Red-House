@@ -1,0 +1,63 @@
+{
+  "local_metadata_selection": {
+    "stage": "local credential metadata selection before subprocess",
+    "failure_type": "AssertionError",
+    "cause": "users is a list of account objects, not strings",
+    "http_or_ssh_executed": false,
+    "correction": "match exact username/id/role from confirmed rotation record",
+    "password_or_account_modified": false
+  },
+  "first_protected": {
+    "passed": false,
+    "process_exit": 1,
+    "login_http": 401,
+    "http_check_count": 1,
+    "new_families": 0,
+    "business_writes": false,
+    "cause": "Obsolete test credential; confirmed prior rotation used only in subsequent stdin retry; no reset",
+    "original_receipt_sha256": "7f827acdcfdfbc0045322ade8d29c892e343b8f934eacbc20326c658bb75160a"
+  },
+  "first_protected_reconciliation": {
+    "passed": true,
+    "initial_http_status": 401,
+    "new_families": 0,
+    "sessions_unchanged_at_reconciliation": true,
+    "original_receipts_preserved": {
+      "protected-sessions-before.private.json": "36b9d923ec66e82e6dbd2a18eb102dbce5222239525e18f111a1c0dabf6b1673",
+      "protected-output.private.json": "e49e3e90044de9cf140702f345a360d342194309931abc4f5bd573158dc6e78c",
+      "protected-validation.private.json": "7f827acdcfdfbc0045322ade8d29c892e343b8f934eacbc20326c658bb75160a"
+    },
+    "authentication_performed_by_reconciliation": false,
+    "product_sources_or_credentials_modified": false
+  },
+  "first_finish": {
+    "phase": "finish",
+    "type": "ModuleNotFoundError",
+    "frames": [
+      {
+        "file": "/tmp/redhouse-documents-reference-20261116-01/deploy.py",
+        "line": 327,
+        "function": "main"
+      },
+      {
+        "file": "/tmp/redhouse-documents-reference-20261116-01/deploy.py",
+        "line": 292,
+        "function": "finish"
+      }
+    ],
+    "failed_import": "requests",
+    "public_http_attempted": false,
+    "original_receipt_sha256": "4cc4786e235180b9f6469997dcef5df12a1132c2f350fe8f24e33615e7c7c5d6"
+  },
+  "changes_for_retry": {
+    "package_product_or_dependencies_modified": false,
+    "protected_probe_reused_unchanged": true,
+    "finish_companion_sha256": "c8adbade6969948117eb8ec1c36533fb6824198c8d3c4292fd3569edd4810639",
+    "stdlib_default_CA": true,
+    "redirects": false,
+    "maximum_body_bytes": 2097152,
+    "timeout_seconds": 15,
+    "rounds": 2,
+    "seconds_between_rounds": 5
+  }
+}

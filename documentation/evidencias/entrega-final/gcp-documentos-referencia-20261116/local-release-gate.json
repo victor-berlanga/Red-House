@@ -1,0 +1,37 @@
+{
+  "passed": true,
+  "source_hashes": {
+    "apps/services/ms_documentos/local_objects.py": "b8c8caabbdc62fab5b0fc4f6a6fc9b0b55a9955da8638de78e980bc8c48ebb6b",
+    "apps/web/src/integration/routes/common.py": "bdbcbe643659e61be3c616d57024751d3b3d40b3ab676f5fe151edfea6103934",
+    "apps/web/src/integration/routes/requests.py": "48fc7acf5f05906e6d86438ab6bfe693833c856587594a2c8d2449ec26334b16",
+    "apps/web/src/integration/presentation.py": "2c8ed28cdd17eadbdc375f4a3062d3b210ae431c1dcaec668ea47a2c552560e0",
+    "apps/web/src/integration/routes/quality.py": "032cd00137978195abc5a3cf8e3810d65d679b331f8310c797426d8c4725d0b0"
+  },
+  "package_manifest_sha256": "3f770cece89a375f5d9c3fc0d290b75bb3971ebf00b8f214c9a8672d87dbdc89",
+  "gate_sha256": "62c5a763917a6aa72e36c98e98816307f2e847b2da3b135690f4507f4f1953bd",
+  "local_four_cases": {
+    "passed": true,
+    "case_count": 4,
+    "isolated_fixture_closed": true,
+    "owned_processes_observed": 136,
+    "owned_processes_remaining": [],
+    "forced_cleanup": [],
+    "fixture_all_families_revoked_claimed": false,
+    "source_count": 1421,
+    "seconds": 247.075
+  },
+  "chrome_reference": {
+    "passed": true,
+    "own_family_closed_sql_redis": true
+  },
+  "chrome_e2eb": {
+    "passed": true,
+    "own_family_closed_sql_redis": true
+  },
+  "previous_xml_acceptance_reused": false,
+  "receipt_sha256": {
+    "local_missing_json_xml": "c62e5aef520d4727531eddeb5bf2bd5c3d0eb4689c2a64345e4083d26fc4f662",
+    "portal_reference_html_csv": "f1182e806754c9533b85d576f5d0c56ce80a924d624998858feec132cd517a18",
+    "portal_e2eb_views": "bcaad863e4be7ef9e782b54c4d02efbf299ad98a5d429b7eb13ed15466b503b0"
+  }
+}

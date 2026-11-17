@@ -1,0 +1,79 @@
+[
+  {
+    "receipt_name": "access-add-20261117T033005Z-75d80082.exit.json",
+    "action": "access-add",
+    "exit": 0,
+    "elapsed_seconds": 13.073,
+    "original_sha256": "54c1addc2149ef4d25d09119a2e5fce20c41a9dd16f81a1246b8168520cda013"
+  },
+  {
+    "receipt_name": "access-remove-20261117T035721Z-7d3e16ce.exit.json",
+    "action": "access-remove",
+    "exit": 0,
+    "elapsed_seconds": 7.261,
+    "original_sha256": "16efc4d7ed61ae2f0442c9aee99da53ea1c6f049df0c1b4db4437daeae229f88"
+  },
+  {
+    "receipt_name": "finish-20261117T034610Z-701ff692.exit.json",
+    "action": "finish",
+    "exit": 1,
+    "elapsed_seconds": 16.493,
+    "original_sha256": "95b481cc7171b24fc48654c9fedff974816cbee7aef7bdd7709393e31a6697ed"
+  },
+  {
+    "receipt_name": "finish-stdlib-20261117T035551Z-2c2dc670.exit.json",
+    "action": "finish-stdlib",
+    "exit": 0,
+    "elapsed_seconds": 27.109,
+    "original_sha256": "73288cb23ed3577d7b02f0d73d130674f74f259eca0a2fcd45c5815d65e8746e"
+  },
+  {
+    "receipt_name": "preflight-20261117T033146Z-9aba0208.exit.json",
+    "action": "preflight",
+    "exit": 0,
+    "elapsed_seconds": 24.132,
+    "original_sha256": "0091a8cd621060809865d4e11746e46a59f2b14c376f00e0c756d6edf0bdf05d"
+  },
+  {
+    "receipt_name": "prepare-20261117T033246Z-2bcb2045.exit.json",
+    "action": "prepare",
+    "exit": 0,
+    "elapsed_seconds": 59.57,
+    "original_sha256": "e9f7859c950f495d44d6b7f711576c105bbe5c6bf43c0d9d3bf81ac22855e717"
+  },
+  {
+    "receipt_name": "protected-20261117T033652Z-f953d977.exit.json",
+    "action": "protected",
+    "exit": 1,
+    "elapsed_seconds": 21.706,
+    "original_sha256": "93dc3dc5f913f2f6a504c509ec991e1cbec0bad15995b0c13e438c304056780e"
+  },
+  {
+    "receipt_name": "protected-20261117T034503Z-bdf4400c.exit.json",
+    "action": "protected",
+    "exit": 0,
+    "elapsed_seconds": 23.204,
+    "original_sha256": "5d9bc2317dce727c618af1e9b78fcf505f00840f75b80fa600864b72cc13aec9"
+  },
+  {
+    "receipt_name": "reconcile-login-401-20261117T034319Z-1abb3c60.exit.json",
+    "action": "reconcile-login-401",
+    "exit": 0,
+    "elapsed_seconds": 16.357,
+    "original_sha256": "15460b9ad66ecde76ff0cb94d41fca9b72f761aad5f9dcedd63829a04bc9f46f"
+  },
+  {
+    "receipt_name": "release-20261117T033453Z-27a64397.exit.json",
+    "action": "release",
+    "exit": 0,
+    "elapsed_seconds": 92.032,
+    "original_sha256": "7cc74bda346e60787d9adbb50c981a0526264d1545a5248e4140f6934acdb64b"
+  },
+  {
+    "receipt_name": "stage-20261117T033049Z-4356492d.exit.json",
+    "action": "stage",
+    "exit": 0,
+    "elapsed_seconds": 10.274,
+    "original_sha256": "257a919f8a8992a3f9b2f9a0cfcdd6f9fedcee9e553ccc94a92f8e614fff2b82"
+  }
+]

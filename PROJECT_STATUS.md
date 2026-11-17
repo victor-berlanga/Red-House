@@ -2,6 +2,14 @@
 
 Las entradas están ordenadas de reciente a histórico; un pendiente de un corte anterior puede quedar sustituido explícitamente por una entrada posterior.
 
+## Documentos y referencia publicados en GCP — 16/11/2026
+
+[Publicación validada](documentation/evidencias/entrega-final/gcp-documentos-referencia-20261116/RESULTADOS.md) en `sistemas-integracion-01/red-house/me-central1-a`: dos imágenes derivadas y tres contenedores actualizados, treinta saludables y veintisiete conservados. Cinco fuentes corrigen el reintento LOCAL del mismo documento MISSING, la referencia HTML/CSV y las etiquetas/sección del portal. Almacenamiento LOCAL, monolito y esquema 21 permanecen; sin migración, cambios IAM ni Nginx. Gate ligado a cuatro casos dirigidos y dos relecturas Chrome sobre las mismas huellas.
+
+Doce controles protegidos JSON/XML aprobaron, con una familia propia revocada en SQL/Redis y dos rondas públicas HTTPS 200. Se conservan el primer 401 por credencial obsoleta sin nueva familia, un fallo local de selección anterior al envío corregido y el cierre fallido por ausencia de requests en Python del host. La conciliación preservó los recibos; se repitió únicamente el probe con la contraseña ya rotada y el cierre mediante urllib estándar, sin reconstruir imágenes, modificar producto ni instalar dependencias.
+
+Clave temporal retirada, dos claves previas intactas y privada propia eliminada. Certificado observado hasta el 21/11 a las 15:14:23 UTC, con renovación automática activa; falta comprobar cobertura del 23. Rollback preparado sin ejecutar. Las etapas 06/07 siguen abiertas; el aviso genérico de cartografía conserva su ajuste menor pendiente, sin fuga observada.
+
 ## Recuperación LOCAL y combinaciones restantes del proxy aprobadas — 16/11/2026
 
 [Cuatro casos dirigidos](documentation/evidencias/entrega-final/portal-i06-08-local-20261116/RESULTADOS.md) aprobaron en una ventana aislada: reintento MISSING del mismo documento JSON/XML con PUT concurrentes 201/412 y ClamD real, retirada de asignación durante caída total y cambio de rol por formulario del mismo Nginx. El responsable anterior perdió snapshot/historial; el coordinador recuperó tres puntos correlacionados SQL/Mongo/mapa. El cambio de rol revocó las familias afectadas y regresó al login. Las negativas documentales con capacidades recifradas y el cambio de asignación por SQL propietario conservan esos límites explícitos.
