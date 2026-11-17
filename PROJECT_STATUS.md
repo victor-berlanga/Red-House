@@ -2,6 +2,12 @@
 
 Las entradas están ordenadas de reciente a histórico; un pendiente de un corte anterior puede quedar sustituido explícitamente por una entrada posterior.
 
+## Pausa solicitada y continuidad guardada — 17/11/2026
+
+**Trabajo detenido por instrucción del usuario.** Retomar desde [Pausa_20261117.md](documentation/entrega-final/continuidad/Pausa_20261117.md), sin iniciar tareas hasta nueva indicación. Android E2E-A llegó a DELIVERED v6 con dos escaneos ópticos, foto GCS VERIFIED/CLEAN, un GPS simulado y diez eventos conciliados en Auditoría SQL/Mongo. Familias propias cerradas y permisos restaurados; AVD y servidor GCS local cerraron con salida 0, fuentes/configuración conservadas. Recepción/destino Qt y consulta final web todavía no ejecutados. La unidad sintética vence el 17/11 a las 13:50:41 Monterrey: comprobar vigencia al retomar; no alterar fechas para pasar pruebas.
+
+Copias frías verificadas de ambos fixtures y launchers conservadas fuera de `/private/tmp`, en `.local/checkpoints/20261117-0013/`, privado y excluido de Git. El punto de dirección registra los candidatos de reconexión móvil, etiquetas web, prueba TLS de transporte y carga de tres perfiles; siguen sin integrar/ejecutar. Mapas Qt ya corregidos y guardados en `e668da6`. GCP mantiene certificado verificado hasta el 21/11; cobertura del 23 y firmas iOS actuales siguen pendientes. No se declaró cierre de etapas. Estimación de esfuerzo al pausar: 85% técnico completado, 15% pendiente y 12–20 horas efectivas, con límites externos separados.
+
 ## Cartografía Qt corregida y relectura del mismo GPS — 16/11/2026
 
 [Ensayo de mosaicos y seguimiento](documentation/evidencias/entrega-final/desktop/mapa-mosaicos-20261116/RESULTADOS.md): PySide6 6.10.1 recibía HTTPS 200, pero `rawHeader(bytes)` impedía guardar los mosaicos. Se corrigieron ambos encabezados a `str`, conservando validaciones y política de caché. Un evento nuevo informa «Observación recibida» hasta la clasificación del servidor. Cuatro pruebas enfocadas aprobaron y una comprobación separada con QNetworkReply real conservó el rechazo `no-store`.
