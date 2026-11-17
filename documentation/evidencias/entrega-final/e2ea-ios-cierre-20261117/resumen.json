@@ -1,0 +1,79 @@
+{
+  "status": "TRANSACTIONAL_IOS_A_QT_WEB_CLOSURE_ACCEPTED",
+  "source_platform": "IOS",
+  "academic_synthetic": true,
+  "ids": {
+    "shipment_id": "e7985640-ec1b-4efb-807e-09cd34357e38",
+    "resource_id": "470efd9c-8e48-4015-8a5e-87de1db1c9a0",
+    "reservation_id": "0282c44e-9d41-4033-b864-af46a72f160d"
+  },
+  "reception": {
+    "status": "ACCEPTED",
+    "version": 6,
+    "transitions": 1,
+    "emitted_events": 1,
+    "custody_events": 1,
+    "audit_events": 1,
+    "own_sessions_closed_sql_redis": 1,
+    "receipt_sha256": "be707d29542405caecf5a5c8aabc587637dc3222dd19d268d5ee9b4d2f2188bd",
+    "closure_sha256": "ddd179dfaaa955d07ed2c0edebd297f8afd79f0c48696e911a08e338bab2fa37",
+    "screenshot_sha256": "4966281ddef6cfc1a69139011c139fdb50ffe0415058bb1bb1ccce5b77b32877"
+  },
+  "destination": {
+    "status": "ACCEPTED",
+    "selected": "DISCARDED",
+    "reason": "Descarte académico de unidad sintética; sin uso clínico",
+    "receipt_sha256": "9f2961949eafc72b8f9aad0b0731d89439c05c0f1524d13abb5f680155542988",
+    "own_sessions_closed_sql_redis": 1,
+    "version": 1,
+    "unit_final_status": "WITHDRAWN",
+    "event_count": 1,
+    "closure_sha256": "1c186b111c59369c9bc9fd2f2f2cc42616926b4c9394adef589023473ca32901",
+    "screenshot_sha256": "c76117a5e8504a7292c87075c96a3225aff0acb06ad290e3e63f081cc73bcbd4",
+    "mfa_and_reauthentication": true
+  },
+  "web": {
+    "status": "PASSED",
+    "browser_exit": 0,
+    "business_gets": 4,
+    "javascript_errors": 0,
+    "technical_posts": [
+      "/login",
+      "/logout"
+    ],
+    "logout_http_required": 302,
+    "business_unchanged": true,
+    "sources_unchanged": true,
+    "own_sessions_closed_sql_redis": 1,
+    "tls_ca_verified": true,
+    "receipt_sha256": "bc654fc65432833742a69c2bdd63b892c7a541e2f10e09128de8532a74ce6bd7",
+    "browser_receipt_sha256": "33349da95c121480c5c0bc00dc76f48cf66e14962f300bcd208a98ffff683519",
+    "screenshot_sha256": {
+      "01-recurso.png": "200890d06e641990de0827a1fdc60d1c75e058ac61971e3f9aa577b666cfe2f1",
+      "02-destino.png": "7cbdd342acd50f8040fb3a1ec88b4d35cf22187bbd7b08f5206f293aec4807dd",
+      "03-traslado.png": "b195af88ca908037a0368de9c40f43b9f6a904025483fe5e955ef6779e9fbe0f",
+      "04-solicitud.png": "fb938cabb49b59e6ab268db28014e6be399a4ca27cfe747852538af44d2ee526"
+    },
+    "destination_form_scope": "Selected DISCARDED observed; new reference/reason fields blank and not submitted; not a complete historical destination detail read."
+  },
+  "stages_04_to_07_closed": false,
+  "clinical_use": false,
+  "business_repeated_for_documentation": false,
+  "transactional_closure_accepted": true,
+  "complete_prompt07_scope_accepted": false,
+  "own_families_closed_total": 3,
+  "remaining_limits": [
+    "No transfusion or real clinical approval.",
+    "Four GET do not repeat mobile/Qt business or live GPS.",
+    "GPS/maps retain partial end-to-end latency and no joint live-session acceptance.",
+    "Prompt07 negative variants, concurrency, complete audit and accessibility retain their own evidence/status.",
+    "No stage04-07 closure."
+  ],
+  "scripts_sha256": {
+    "recepcion.py": "77cab04e2cadfec3638dfb9ec8c0b7a8ccc39171dccd38215588ce5bbb4f3e0d",
+    "destino.py": "4545b35a264b52eb2257a02d2e69d82dd7f8af259782dbac0960429af599c3b5",
+    "web_read.py": "0cf45d5ba81b2cfcc62a8a9cc224f8f978bd78707cde4fe2a8c8a2d32a66d971",
+    "browser.cjs": "b0bd63febdbac89cc8c6a24681e9a1231433cc5c13ee72ec8d58536adeb1a452",
+    "read_e2ea.cjs": "db28cd121cf0048df0c61efc5551038b2ee67763ff55b117ced6309ea5b365c6"
+  }
+}
