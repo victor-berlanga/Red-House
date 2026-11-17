@@ -1039,6 +1039,7 @@ class Window(QMainWindow):
                 or item['transport_user_id']!=context['transport_user_id']):
             self.status.setText('El traslado cambió. Actualiza antes de documentar la recepción.'); return
         dialog=QDialog(self); dialog.setWindowTitle('Documentar recepción'); dialog.resize(760,260); form=QFormLayout(dialog)
+        form.setFieldGrowthPolicy(QFormLayout.AllNonFixedFieldsGrow)
         form.addRow('Cuenta operativa del transportista',QLabel(handover['transport_user']['name']))
         code=QLineEdit(); code.setPlaceholderText('Identificador leído de la unidad'); form.addRow('Código de la unidad',code)
         seal=QLineEdit(); seal.setMaxLength(200); form.addRow('Sello documentado',seal)
