@@ -2,6 +2,12 @@
 
 Las entradas están ordenadas de reciente a histórico; un pendiente de un corte anterior puede quedar sustituido explícitamente por una entrada posterior.
 
+## Consolidación de informe y matriz de escritorio — 16/11/2026
+
+El [informe final editable](documentation/markdowns/Reporte_tecnico_final.md) incorpora los resultados públicos del 16/11: HLA documental real, catálogos/destino de escritorio con aceptación pendiente, agenda/TLS físicos iOS, lote móvil compilado, carga HTTP12 y publicación XML en GCP. La [matriz de escritorio](documentation/evidencias/entrega-final/desktop/MATRIZ.md) distingue preparación, pruebas con dobles y persistencia real. Ciento cincuenta referencias locales comprobadas, sin destinos ausentes; diff sin errores de whitespace. No se repitieron pruebas funcionales ni se incorporó como aprobado el recorrido E2E-B en curso.
+
+Word y PDF conservan el corte del 14/11 y se regenerarán una vez consolidada la evidencia técnica restante. Esta edición no declara cierre de etapas, distribución vigente ni aprobación clínica.
+
 ## Catálogo de conservación incorporado a escritorio — 16/11/2026
 
 [Incremento DESK-10](documentation/evidencias/entrega-final/desktop/iteracion-catalogo-conservacion/RESULTADOS.md): equipos y perfiles térmicos con consulta paginada, detalle y operaciones según perfil; vinculación a unidad autorizada conservando su perfil de laboratorio. Valores térmicos y fuente capturados expresamente, exclusivamente académicos. Diario, recuperación, XSD y contexto de sesión reutilizados; controles de otra unidad rechazados antes de abrir el formulario.
