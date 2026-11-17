@@ -27,6 +27,7 @@ COMMANDS={
     'evaluation_review':('compatibilidad','/api/v1/evaluations/{id}/reviews','evaluation_review.xsd',True),
     'alert_ack':('alertas','/api/v1/alerts/{id}/acknowledge',None,True),
     'cold_reading_create':('inventario','/api/v1/resources/{id}/cold-readings','cold_reading_create.xsd',True),
+    'quality_review':('inventario','/api/v1/resources/{id}/quality-review','quality_review.xsd',True),
     'export_create':('documentos','/api/v1/export-jobs','export_create.xsd',False),
     'export_retry':('documentos','/api/v1/export-jobs/{id}/retry','export_retry.xsd',True),
     'shipment_create':('transporte','/api/v1/shipments','shipment_create.xsd',False),
@@ -89,6 +90,8 @@ def submit_command(client,journal,record,*,fresh=False,proof=None):
         raise ContractError('El perfil confirmado no corresponde a la unidad seleccionada.')
     if operation=='resource_release' and (result.get('id')!=target['identifier'] or result.get('tenant_id')!=client.user.get('tenant_id') or result.get('version')!=record['body']['version']+1 or result.get('status')!='AVAILABLE'):
         raise ContractError('La liberación confirmada no corresponde a la unidad seleccionada.')
+    if operation=='quality_review' and (result.get('id')!=target['identifier'] or result.get('version')!=record['body']['version']+1 or result.get('blocked') is not False):
+        raise ContractError('La revisión confirmada no corresponde a los controles seleccionados.')
     if operation=='shipment_scan' and (result.get('shipment_id')!=target['identifier'] or result.get('resource_id')!=record['body']['scanned_resource_id'] or result.get('verified') is not True):
         raise ContractError('La verificación confirmada no corresponde a la unidad seleccionada.')
     if operation=='shipment_transition' and (result.get('id')!=target['identifier'] or result.get('version')!=record['body']['version']+1 or (record['body']['state']!='INCIDENT' and result.get('status')!=record['body']['state'])):

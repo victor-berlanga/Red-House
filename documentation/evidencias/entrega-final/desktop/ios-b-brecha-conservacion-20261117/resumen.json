@@ -1,0 +1,113 @@
+{
+  "scope": "DESK-10: lectura sintética, revisión humana de brecha y liberación académica separadas en Qt/XML",
+  "accepted": true,
+  "stages": [
+    {
+      "stage": "reading",
+      "exit": 0,
+      "cleanup_errors": 0,
+      "own_sessions_closed": 1,
+      "physical_measurement": false,
+      "prior_gap_preserved": true,
+      "resource_state": "QUARANTINE",
+      "resource_version": 5,
+      "controls_blocked": true,
+      "controls_version": 3,
+      "cold_review_count": 0,
+      "release_count": 1,
+      "event_action": "COLD_READING_RECORDED",
+      "event_delta": 1,
+      "capture": "01-lectura.png"
+    },
+    {
+      "stage": "review",
+      "exit": 0,
+      "cleanup_errors": 0,
+      "own_sessions_closed": 1,
+      "physical_measurement": false,
+      "prior_gap_preserved": true,
+      "resource_state": "QUARANTINE",
+      "resource_version": 6,
+      "controls_blocked": false,
+      "controls_version": 4,
+      "cold_review_count": 1,
+      "release_count": 1,
+      "event_action": "QUALITY_INCIDENT_REVIEWED",
+      "event_delta": 1,
+      "capture": "02-revision.png"
+    },
+    {
+      "stage": "release",
+      "exit": 0,
+      "cleanup_errors": 0,
+      "own_sessions_closed": 1,
+      "physical_measurement": false,
+      "prior_gap_preserved": true,
+      "resource_state": "AVAILABLE",
+      "resource_version": 7,
+      "controls_blocked": false,
+      "controls_version": 4,
+      "cold_review_count": 1,
+      "release_count": 2,
+      "event_action": "RESOURCE_RELEASED",
+      "event_delta": 1,
+      "capture": "03-liberacion.png"
+    }
+  ],
+  "test_runs": [
+    {
+      "tests": 50,
+      "failures": 0,
+      "errors": 0,
+      "scope": "regresión previa"
+    },
+    {
+      "tests": 13,
+      "failures": 0,
+      "errors": 0,
+      "scope": "afectadas finales"
+    }
+  ],
+  "test_counts_are_not_additive": true,
+  "root_visual_inspection": [
+    "01-lectura.png",
+    "02-revision.png"
+  ],
+  "agent_visual_inspection": [
+    "01-lectura.png",
+    "02-revision.png",
+    "03-liberacion.png"
+  ],
+  "clinical_authorization": false,
+  "physical_temperature_measurement": false,
+  "entire_stage05_or07_closed": false,
+  "source_receipt_hashes": {
+    "reading": {
+      "receipt.json": "523d9a4a36441cb633d19ef4b672f598debaa7d7c0019aa86082dd45d609c0f1",
+      "exit.json": "d3bd362bbbcd92aeaf8b4ea2da5c553ba55fc28eeab2d173276807c86336bfa5",
+      "sessions-closed.json": "be0ff15db773e17a34c981e83f76926dae7d1684a049bddd6eabb94a3914367e",
+      "reading.png": "d8b739dc3370c610fd3ee05db11bf4edc1b7384f0420f2538212207be3ae0618"
+    },
+    "review": {
+      "receipt.json": "0c8bfb296f8a2ea128cccdd9f7cf33a3092e6ac11d1f8987e90f755f115c396c",
+      "exit.json": "65e14a88fb1f5b81a12bc7fc1ec0279fc1b0b468f079d99d567c5bd33d716120",
+      "sessions-closed.json": "1d0e9fc10fb1dca3df7d23f515716b4e0f4f6235c00facd6dbd60f89ba49d3ed",
+      "review.png": "60076c75ea53425c134b16ecf73ed577b9f18e61bf8fb0f46ea7901fb93f5aaa"
+    },
+    "release": {
+      "receipt.json": "03ff07c08df25bb32752f9907dc857754d51a782785a604664b1b1ca63c0d6a9",
+      "exit.json": "119ccfe02753b15dd39d73148836d31bb2e8cdd84e8202da2980cedcdb75f1cc",
+      "sessions-closed.json": "092a5493cb7916cc280ac84797f87b97809479b655399eeb636198d071f21c61",
+      "release.png": "07760c37047d727ac2f9b10d7d85b33b73820dd82af28e69cdcf7b8bf2ea8c03"
+    },
+    "desktop-review-junit.xml": "4a02ea48eedfb92c2fda6ddca088b96d5b7ce651aa5feaf567033942352ce74c",
+    "desktop-review-final-junit.xml": "7ebc92e94e7020df2a06e59549658d99ae4cc2e62a5697f79ab1a05145d59aa9"
+  },
+  "recorded_product_hashes": {
+    "apps/desktop/redhouse_desktop/app.py": "45175361cec845900733df0f5e5ce7d0d1ec89414473b6fc06979e6367dd8d91",
+    "apps/desktop/redhouse_desktop/cold_review.py": "e370f0dfefea38f89256d08ccde7091efbb7eaac4f84a71da660ac3d72c5faf0",
+    "apps/desktop/redhouse_desktop/durable_commands.py": "892906d948bfdc12276eebb5dd7323cc67846253b6793f84cd8647516c442b0b",
+    "apps/desktop/redhouse_desktop/contracts/quality_review.xsd": "91b1ae6987a4697910884165b8fa52a279a3eaca370c488e910c3eb24abc369f",
+    "apps/desktop/tests/test_cold_review.py": "2287ac680bfb995c4beb2d2797800f3f44f8baa7a1218f75d14b329aa667f4a7"
+  }
+}

@@ -634,6 +634,8 @@ class Window(QMainWindow):
         status=QLabel(); layout.addWidget(status); controls=QHBoxLayout(); previous=QPushButton('Anterior'); following=QPushButton('Siguiente'); page_label=QLabel(); controls.addWidget(previous); controls.addWidget(page_label); controls.addWidget(following); controls.addStretch()
         if self.client.user.get('role')=='OPERATOR':
             create=QPushButton('Registrar lectura'); create.clicked.connect(lambda:dialog.done(2)); controls.addWidget(create)
+        if self.client.user.get('role')=='MEDICAL':
+            review=QPushButton('Revisar incidente'); review.clicked.connect(lambda:dialog.done(3)); controls.addWidget(review)
         close=QPushButton('Cerrar'); close.clicked.connect(dialog.reject); controls.addWidget(close); layout.addLayout(controls); state={'page':1,'alive':True}
         def show(data):
             if not state['alive']: return
@@ -660,6 +662,10 @@ class Window(QMainWindow):
         if choice==2:
             if not current(): self.status.setText('La sesión cambió. Vuelve a consultar antes de guardar.'); return
             self.create_cold_reading(item)
+        elif choice==3:
+            if not current(): self.status.setText('La sesión cambió. Vuelve a consultar antes de revisar.'); return
+            from .cold_review import open_review
+            open_review(self,item)
 
     def create_cold_reading(self,item):
         if self.uncertain: self.status.setText('Actualiza y verifica el estado antes de continuar.'); return
