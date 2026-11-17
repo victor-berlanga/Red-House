@@ -1,0 +1,48 @@
+{
+  "initial_build_exit": 0,
+  "unit_tests_repeated": false,
+  "installed": false,
+  "activated": false,
+  "android_normal": {
+    "apk_sha256": "91b7d03a0f64a57c95036afd7ff5598b685be44686f95f6d364da2b113c29f65",
+    "lab_ca_and_assets_absent": true
+  },
+  "android_lab": {
+    "apk_sha256": "8ac9e2f1af956d2d69e5a77085daac25577987737832190027b90ca8d702637e",
+    "private_ca_present": true,
+    "fixture_credentials_absent": true
+  },
+  "ios": {
+    "normal": {
+      "bundle_identifier": "org.redhouse.mobile",
+      "executable_sha256": "b5229c8c2e31d23eb8edb6805b698f208895ce93118bd391830ee73facf98d97",
+      "framework_sha256": "c59906be61c73ab22904f50da40a2cb81a52efee9a9404935348cd10e9762461",
+      "tls": "system_default_only",
+      "profile_expires": "2026-11-17T22:39:00Z",
+      "profile_covers_delivery": false,
+      "installed_update": false
+    },
+    "lab": {
+      "bundle_identifier": "org.redhouse.mobile.lab",
+      "executable_sha256": "aa23286c0c2bf8981ed318fd05b1947a8e0b9858701a899fb374a4ed2cd6ae38",
+      "framework_sha256": "301757062ade339eabdadbf8aba816a46d9b3acf2b5893177d4da5b190dcf015",
+      "tls": "lab_pinned_ca",
+      "profile_expires": "2026-11-21T18:32:33Z",
+      "profile_covers_delivery": false,
+      "installed_update": false
+    }
+  },
+  "ios_keychain_groups_unchanged": true,
+  "delivery_cutoff_utc": "2026-11-24T06:00:00Z",
+  "renewal": {
+    "attempts": 1,
+    "wrapper_exit": 1,
+    "build_exit": 1,
+    "failed_phase": "ios-normal",
+    "reason": "Authentication failed: Your session has expired. Please log in.",
+    "old_profiles_restored_exact_bytes_and_mode": true,
+    "delivery_coverage": false,
+    "android_rebuilt": false,
+    "new_account_or_certificate_created": false
+  }
+}
