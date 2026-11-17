@@ -1,0 +1,11 @@
+# iOS B: conservación y liberación académica desde Qt
+
+Dos comandos separados completados el 17/11/2026 sobre el mismo órgano de laboratorio. Operator1 registró una única lectura de 1,5 °C con hora real y fuente explícita «ACADEMICO MANUAL SINTETICO; valor generado del perfil; NO medicion fisica». Es un dato generado para el ensayo, no una medición de sensor ni evidencia de conservación clínica. Se mantuvieron perfil sintético 1–2 °C, intervalo máximo de 300 segundos, equipo y caducidad originales. Una fila y un evento confirmados por el propietario, sin excursión ni intervalo incompleto en esa lectura.
+
+Tras inspeccionar el recibo y [formulario real](lectura-sintetica.png), se ejecutó por separado la liberación autorizada con medical1. El servicio comprobó vigencia de la lectura y completitud documental HLA: unidad AVAILABLE v4, una revisión y un evento RESOURCE_RELEASED. Dirección abrió la [captura de revisión](liberacion.png); la persistencia se acredita mediante recibos del propietario, no por la captura previa a confirmar. Ambos procesos terminaron exit0; dos familias propias cerradas en PostgreSQL/Redis, factores temporales retirados y ningún error de limpieza.
+
+El [rechazo cold_gap anterior](../ios-e2eb-liberacion-origen-20261117/RESULTADOS.md) y su comando DONE/FAILED permanecen íntegros. Cada etapa copió el diario cifrado y su clave, conservó los registros previos y añadió únicamente su comando nuevo. No hubo reset, replay del fallo, cambios de reglas o fechas, GCP ni datos reales. Esto acredita preparación de origen; no reserva, asignación, traslado ni uso clínico del órgano.
+
+La inspección previa detectó que el formulario estrecho recortaba la identificación de lectura sintética. Se amplió su tamaño inicial y crecimiento de campos, sin cambiar lógica. Una captura sintética cancelada comprobó el texto completo antes del recorrido real; no produjo llamadas API ni comandos. El arnés también dejó de confundir el editor interno de fecha con un campo de texto: selecciona los roles de QFormLayout por etiqueta. No se añade una prueba de negocio redundante para ese ajuste visual. El paquete macOS debe reconstruirse al concluir los cambios de escritorio.
+
+[HASHES.json](HASHES.json) fija fuentes, capturas y recibos privados. Identificadores de sesiones, claves y factores permanecen fuera de Git.

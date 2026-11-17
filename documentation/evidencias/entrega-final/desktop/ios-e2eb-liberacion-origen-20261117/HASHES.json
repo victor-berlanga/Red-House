@@ -24,9 +24,12 @@
     "sessions-closed.json": "b3f9177838f75873217890352753486d70689dbeba6ef8bdf67768f96cd711cd",
     "release-reconciliation-readonly.json": "8433a5ad02480ba010d55b406c7b9f795a07efe8a8c14bd7ecc885e6757d66ab",
     "cold-guard-readonly.json": "03ac1e97563cb9a64c81909daef550dcf357a8aee33aeb8ee5f17a8af7b90131",
-    "journal-readonly-summary.json": "6a978b65d941bbb54bf8146f9b0f3c03a1edc11bedb4f4a60bfe71f0baed9a5e"
+    "journal-readonly-summary.json": "6a978b65d941bbb54bf8146f9b0f3c03a1edc11bedb4f4a60bfe71f0baed9a5e",
+    "rejected-events-readonly.json": "a50aa7181f7be8baab3772b9008633267a14464e65572cc12f7238cd405ace62"
   },
   "capture_sha256": "45cbd24daca8202d1e2054b7b8df863c3c72c21863529cbd00d2cd35f1220ba9",
   "http_error_response_preserved": false,
-  "guard_diagnosis_basis": "source guard plus read-only persisted state"
+  "guard_diagnosis_basis": "exact inventory REJECTED event: actor/resource/operation/time match, plus read-only state",
+  "rejected_event_code": "cold_gap",
+  "rejected_event_at": "2026-11-17T20:55:31.075672+00:00"
 }

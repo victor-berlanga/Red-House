@@ -665,7 +665,7 @@ class Window(QMainWindow):
         if self.uncertain: self.status.setText('Actualiza y verifica el estado antes de continuar.'); return
         if not self.client or not self.client.user or self.client.user.get('role')!='OPERATOR': self.status.setText('La lectura requiere personal operador autorizado.'); return
         binding=OperationContext(self); client=binding.client; actor=binding.actor
-        dialog=QDialog(self); dialog.setWindowTitle('Registrar lectura'); form=QFormLayout(dialog)
+        dialog=QDialog(self); dialog.setWindowTitle('Registrar lectura'); dialog.resize(800,280); form=QFormLayout(dialog); form.setFieldGrowthPolicy(QFormLayout.AllNonFixedFieldsGrow)
         temperature=QLineEdit(); temperature.setPlaceholderText('Ejemplo: 4.2'); form.addRow('Temperatura °C',temperature)
         captured=QDateTimeEdit(QDateTime.currentDateTime()); captured.setCalendarPopup(True); captured.setDisplayFormat('dd/MM/yyyy HH:mm'); form.addRow('Fecha observada',captured)
         source=QLineEdit(); source.setMaxLength(200); form.addRow('Fuente de lectura',source)

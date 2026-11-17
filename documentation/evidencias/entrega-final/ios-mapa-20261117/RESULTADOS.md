@@ -1,0 +1,15 @@
+# iOS: mapa, conciliación histórica y entrega — 17/11/2026
+
+**Resultado compuesto: PARCIAL.** Se confirma persistencia del segundo evento iOS en SQL, outbox, MongoDB y auditoría. No se acredita recepción viva simultánea en ambos mapas. Los ensayos Qt-02 y wrapper Chrome-02 permanecen **FAILED**; el recibo derivado no los reescribe ni convierte su estado en aprobado.
+
+El fallo común del oráculo fue comparar literalmente `received_at`: la conexión SQL de lectura usa `America/Monterrey` y devolvió `−06:00`, mientras que las proyecciones contienen `+00:00`. Son cadenas del mismo instante y microsegundo. La conciliación normaliza únicamente `received_at` a UTC y exige igualdad exacta de las demás claves, valores y tipos. Pasaron 15 comprobaciones históricas; cada punto/proyección/evento de auditoría conserva su UUID correspondiente. La envolvente fuente coincide y la auditoría se enlaza por su ID original; no se confunde UUID de posición con UUID de proyección o auditoría.
+
+Qt recibió `position.updated`, mostró el mapa real y conservó `live_event=true`; Chrome recuperó correctamente una autenticación expirada, pero el recibo seleccionado muestra `recovery_snapshot/live_event=false`. Los frames anteriores a la renovación no se conservaron individualmente: el contador de tres frames es evidencia indirecta y no permite elevar Chrome a entrega viva. Raíz inspeccionó los PNG reales privados: ambos mapas, marcadores y textos completos, estado retrasado coherente con la edad, zoom regional Qt y zoom local Chrome.
+
+Los 29 678,75 ms registrados por Qt corresponden al callback de un repintado posterior, tras esperar el archivo de selección y reenfocar. El arnés sobrescribió el registro de pintado por evento. **No se dispone de la latencia del primer pintado y ese valor no representa una latencia medida del producto.** No se realizó otra publicación para reconstruirla.
+
+Ambas familias propias de los observadores quedaron revocadas en PostgreSQL y ausentes de Redis. La conciliación consultó solo esos identificadores y no modificó otras familias. Los dos eventos iOS existentes se conservaron. Se verificó después `IN_TRANSIT` y finalmente **`DELIVERED v5`, sin inventario pendiente**, mediante lecturas por propietario; QR de la unidad, contraparte de destino y sello sintético corresponden al mismo traslado. La entrega logística no equivale a recepción del banco, transfusión ni cierre clínico: no se declara `ACCEPTED`.
+
+El usuario confirmó ubicación detenida; el servidor conserva evento de detención y cero asignaciones activas para la misma tarea/dispositivo iOS. No se leyó directamente el flag local de consentimiento del teléfono. No se realizaron logins, replay, transición de negocio ni nuevas publicaciones GPS durante la conciliación.
+
+`resumen.json` contiene resultados y hashes saneados. PNG, coordenadas precisas, identificadores de dispositivo/sesiones y recibos completos permanecen privados. Este informe no publica imágenes con ubicaciones personales ni extrapola un snapshot a una observación viva simultánea.

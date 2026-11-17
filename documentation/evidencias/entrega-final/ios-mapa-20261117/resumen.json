@@ -1,0 +1,69 @@
+{
+  "status": "PARCIAL",
+  "scope": "iOS native tracking and maps; historical event2 persistence reconciliation",
+  "storage_provider": "LOCAL",
+  "raw_runs": {
+    "qt02": "FAILED",
+    "chrome02_wrapper": "FAILED",
+    "chrome02_browser": "PASSED_RECOVERY_SNAPSHOT"
+  },
+  "raw_failures_preserved": true,
+  "derived_persistence_verified": true,
+  "persistence_checks_passed": 15,
+  "timestamp_comparison_cause": {
+    "field": "received_at",
+    "types": [
+      "str",
+      "str"
+    ],
+    "same_instant_different_UTC_offsets": true,
+    "normalisation": "received_at only to UTC; all other payload fields and types exact"
+  },
+  "maps": {
+    "qt": {
+      "live_event": true,
+      "map_available": true,
+      "first_paint_latency_verified": false,
+      "recorded_selected_late_repaint_callback_ms": 29678.747644997202
+    },
+    "chrome": {
+      "live_event": false,
+      "delivery_kind": "recovery_snapshot",
+      "map_available": true,
+      "pre_renewal_raw_position_updated_frame_retained": false
+    }
+  },
+  "simultaneous_live_acceptance": false,
+  "root_visual_inspection": {
+    "both_maps_markers_text_complete": true,
+    "stale_age_label_coherent": true,
+    "qt_regional_and_web_local_zoom_seen": true
+  },
+  "observer_sessions": {
+    "families": 2,
+    "SQL_revoked": true,
+    "Redis_keys_absent": true
+  },
+  "native_delivery": {
+    "status": "DELIVERED",
+    "version": 5,
+    "inventory_pending": false,
+    "QR_counterparty_seal_verified": true,
+    "bank_reception_ACCEPTED_claimed": false
+  },
+  "tracking_stop": {
+    "user_reported_stopped": true,
+    "server_assignments_active": 0,
+    "stop_source_event_count": 1,
+    "device_UI_consent_flag_read_directly": false
+  },
+  "IOS_point_count": 2,
+  "additional_GPS_login_replay_by_reconciliation": 0,
+  "private_capture_SHA256": {
+    "qt_map": "5e3416057ad09c534e1376f34f570544896ff05171abe594d92382ef22ce3bb5",
+    "chrome_map": "819a6babe72f981ec800fdd92bb9528097912b6202df73d04dafa932bf2d1b4f"
+  },
+  "private_checkpoint_sha256": "7cbbb759ab36c41d41178534d79ee2476275c04990c3ccc7051f4017160fd7e4",
+  "location_coordinates_device_and_session_IDs": "omitted",
+  "private_derived_receipt_sha256": "be47976a1844d2331a361a6ddadd2faf692f3f8d09d477e7774276f2b461e073"
+}
