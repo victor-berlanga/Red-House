@@ -2,6 +2,10 @@
 
 Las entradas están ordenadas de reciente a histórico; un pendiente de un corte anterior puede quedar sustituido explícitamente por una entrada posterior.
 
+## Informe alineado con publicación GCP y analítica Qt — 16/11/2026
+
+El [informe final editable](documentation/markdowns/Reporte_tecnico_final.md) incorpora la publicación de cinco fuentes documentada en `4e80a26` y la analítica XML real de `e3ef9b8`, con fallos previos, ámbitos y límites de cada comprobación. Corrige la referencia al esquema publicado a 21 y distingue las etiquetas ya verificadas de su lectura histórica anterior. Ciento cincuenta y una referencias locales válidas y diff sin errores de whitespace. Word/PDF no se regeneraron; paquetes, Windows y aceptación integral siguen pendientes. No se repitieron pruebas funcionales.
+
 ## Analítica nativa de escritorio con XML real — 16/11/2026
 
 [Indicadores operativos](documentation/evidencias/entrega-final/desktop/iteracion-analitica/RESULTADOS.md) incorpora filtro temporal, tablas y barras nativas para inventario, solicitudes y caducidades, además de media de recolección a aceptación con unidad y población. Consume las proyecciones XML existentes de los propietarios; conserva ámbitos, valores ausentes y restricciones por perfil. Coordinación no consulta Receptores. No se añadieron reglas ni métricas de negocio en el cliente.
