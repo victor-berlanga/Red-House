@@ -2,6 +2,20 @@
 
 Las entradas están ordenadas de reciente a histórico; un pendiente de un corte anterior puede quedar sustituido explícitamente por una entrada posterior.
 
+## Recuperación LOCAL y combinaciones restantes del proxy aprobadas — 16/11/2026
+
+[Cuatro casos dirigidos](documentation/evidencias/entrega-final/portal-i06-08-local-20261116/RESULTADOS.md) aprobaron en una ventana aislada: reintento MISSING del mismo documento JSON/XML con PUT concurrentes 201/412 y ClamD real, retirada de asignación durante caída total y cambio de rol por formulario del mismo Nginx. El responsable anterior perdió snapshot/historial; el coordinador recuperó tres puntos correlacionados SQL/Mongo/mapa. El cambio de rol revocó las familias afectadas y regresó al login. Las negativas documentales con capacidades recifradas y el cambio de asignación por SQL propietario conservan esos límites explícitos.
+
+JUnit 4/4 en 210,707 s; envoltorio 247,075 s, 1.421 fuentes idénticas, 136 procesos propios observados, cero restantes y ninguna limpieza forzada. No acredita revocación individual de todas las familias del fixture ni carga, GPS físico o cortes en GCP. Dirección inspeccionó las dos pantallas sin acceso; queda un aviso genérico de mosaicos contradictorio con la limpieza ya realizada, sin fuga observada. I06-08 compone estos dos escenarios con los históricos aceptados, sin repetirlos. El gate local de las cinco fuentes quedó sellado; publicación GCP en curso, aún sin aceptación remota.
+
+## Reporte Qt real y presentación web corregida — 16/11/2026
+
+[Reporte de inventario Qt/XML](documentation/evidencias/entrega-final/desktop/reporte-qt-20261116/RESULTADOS.md): una solicitud CSV, listado/detalle y descarga HTTPS de 1.698 bytes con VERIFIED/CLEAN y SHA coincidente. El procesador del propietario ejecutó únicamente el nuevo trabajo tras comprobar cola vacía; no hubo worker continuo ni reintento RETRYABLE real. Familia propia cerrada en SQL/Redis, fuentes idénticas y salida 0. Dirección inspeccionó formulario y descarga; los cuatro estados tienen capturas. Sustituye el pendiente del recorrido real de reportes, sin extenderlo a otros formatos, GCS o Windows.
+
+[Dos relecturas Chrome](documentation/evidencias/entrega-final/portal-referencia-etiquetas-20261116/RESULTADOS.md) comprobaron la referencia original en HTML/CSV, «Documentada», la acción «Documentar constancia», seis eventos traducidos y Órganos activo en el formulario de destino. Se conservaron los mismos registros E2E-B, sin POST de negocio. Ambas familias propias cerradas; cinco fuentes antes/después idénticas. Dirección inspeccionó recurso y destino corregidos. LOCAL run04 cerró sus procesos conservando configuración, fuentes, población y archivos. Cuatro pruebas puras previas de referencia mantienen su corte anterior a las etiquetas; no se repitieron ni se atribuyen a otra huella.
+
+La aceptación integrada también concilia I06-01 por sus controles fechados de TLS/configuración GCP, privacidad GCS y ClamAV real, sin inventar una nueva ejecución conjunta. I06-09 sigue abierto por consolidación; la restauración aceptada del 13/11 no se repite. La publicación de cinco fuentes todavía espera los cuatro casos dirigidos de almacenamiento/proxy y su gate final; etapas 06/07 abiertas.
+
 ## GCS nativo, permisos y alta preliminar móvil comprobados — 16/11/2026
 
 [Android e iPhone](documentation/evidencias/entrega-final/mobile/native-gcs-20261116/RESULTADOS.md) atravesaron MobileRepository y Ktor OkHttp/Darwin con un JPEG sintético nuevo por plataforma: VERIFIED/CLEAN, hash/generación y dos eventos por objeto en Auditoría SQL/Mongo. Ambos GET anónimos de la generación propia recibieron 403; descarga SDK/hash y limpieza condicionada de las generaciones propias comprobadas. Familias técnicas exactas cerradas SQL/Redis, sin IAM ni objetos históricos afectados. ADC conservó su 403 de metadata bucket; una lectura separada autorizada observó PAP enforced, UBLA y soft-delete de 604.800 segundos, sin inventar retención/versionado no informados.
