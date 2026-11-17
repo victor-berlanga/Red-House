@@ -1,0 +1,52 @@
+{
+  "passed": true,
+  "scenario": "role_live_gateway",
+  "javascript_errors": 0,
+  "upgrades": [
+    101,
+    101
+  ],
+  "same_origin_role_form": {
+    "same_nginx_origin": true,
+    "post_status": 302,
+    "new_role": "DONOR"
+  },
+  "authorized_recovery_same_document": null,
+  "tls": "Chrome SPKI exception restricted to the ephemeral test certificate; no OS CA acceptance",
+  "cartography": "OSM tiles blocked to avoid bulk consumption; cartography is not accepted by this case",
+  "browser_logout": [
+    {
+      "context": 0,
+      "already_denied": true
+    },
+    {
+      "context": 1,
+      "logout_status": 302
+    },
+    {
+      "context": 2,
+      "logout_status": 302
+    }
+  ],
+  "states": [
+    {
+      "phase": "01-map-open",
+      "status": "Sin señal · sin datos",
+      "visible_row_count": 0,
+      "coordinate": "Sin datos",
+      "receive_to_map_ms": []
+    },
+    {
+      "phase": "remaining-authorized-three-points",
+      "status": "En vivo · SIMULADO",
+      "visible_row_count": 3,
+      "coordinate": "25.6866, -100.3161",
+      "receive_to_map_ms": [
+        278,
+        358,
+        267
+      ]
+    }
+  ],
+  "original_browser_sha256": "00a219bf1658de4ea0e9efa84818e9e33cdd6cb3cc1bf5e907829d8de7397ae2"
+}

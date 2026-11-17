@@ -33,7 +33,7 @@ async function exchange(action) {
   const input = await next();
   assert.equal(input.action, 'configure');
   input.scenario ||= 'replica_recovery';
-  assert.ok(['replica_recovery', 'cursor_resync', 'logout_disconnected', 'logout_live', 'session_expiry'].includes(input.scenario));
+  assert.ok(['replica_recovery', 'cursor_resync', 'logout_disconnected', 'logout_live', 'session_expiry', 'role_live_gateway', 'assignment_disconnected'].includes(input.scenario));
   assert.match(input.spki, /^[A-Za-z0-9+/]{43}=$/);
   const output = input.output;
   const result = {
@@ -208,6 +208,110 @@ async function exchange(action) {
     const late = new Set(eventIds);
     assert.ok(result.sockets.filter(socket => socket.profile === 'transport')
       .every(socket => socket.events.every(event => !late.has(event.event_id))), 'Ended session received later positions');
+  }
+
+  const isRemaining = ['role_live_gateway', 'assignment_disconnected'].includes(input.scenario);
+  let remainingBrowsersClosed = false;
+  async function cleanupRemainingBrowsers() {
+    if (!isRemaining || remainingBrowsersClosed) return;
+    const checks = [];
+    for (let index = 0; index < contexts.length; index++) {
+      const tab = await contexts[index].newPage();
+      pages.push(tab);
+      const response = await tab.goto(input.base + '/panel', {timeout: 10000});
+      if (new URL(tab.url()).pathname === '/login') {
+        assert.equal(await tab.locator('#tracking').count(), 0);
+        checks.push({context: index, already_denied: true});
+      } else {
+        assert.equal(response.status(), 200);
+        const post = tab.waitForResponse(r => new URL(r.url()).pathname === '/logout' && r.request().method() === 'POST', {timeout: 10000});
+        await tab.locator('form[action="/logout"]').first().locator('button').click();
+        assert.equal((await post).status(), 302);
+        await tab.waitForURL('**/login', {timeout: 10000});
+        checks.push({context: index, logout_status: 302});
+      }
+    }
+    result.browserLogout = checks;
+    remainingBrowsersClosed = true;
+  }
+
+  async function assignmentPrivacy(page, name) {
+    await page.waitForFunction(() =>
+      document.querySelector('#tracking-coordinate')?.textContent === 'Acceso terminado' &&
+      document.querySelector('#tracking').dataset.lastEventId === '' &&
+      document.querySelectorAll('#tracking-history tr').length === 0, null, {timeout: 45000});
+    const privatePaths = await page.locator('#tracking-map .leaflet-overlay-pane path[stroke="#a51c30"]').evaluateAll(nodes =>
+      nodes.map(node => node.getAttribute('d')).filter(value => value && value !== 'M0 0'));
+    assert.deepEqual(privatePaths, [], 'Private marker or path survived revoked responsibility');
+    const value = await state(page, name);
+    assert.equal(value.coordinate, 'Acceso terminado');
+    assert.deepEqual(value.rows, []);
+    assert.ok(value.status.includes('sin permiso'));
+  }
+
+  async function remainingScenario(transport, documentInstance) {
+    stage = 'remaining-authorized-observer';
+    const allowed = await login(await context('allowed'), 'coordinator1');
+    await observe(allowed, 'allowed');
+    assert.equal((await allowed.goto(mapUrl)).status(), 200);
+    const allowedInstance = await allowed.evaluate(() => performance.timeOrigin);
+    const first = await exchange('initial_publish');
+    await rendered(transport, first.eventId);
+    await rendered(allowed, first.eventId);
+    assert.equal(await transport.evaluate(() => performance.timeOrigin), documentInstance);
+    const boundary = nativeSockets.length;
+    if (input.scenario === 'role_live_gateway') {
+      stage = 'remaining-real-role-form';
+      const admin = await login(await context('administrator'), 'admin1');
+      const roleUrl = input.base + '/administracion/usuarios/' + input.operatorId + '/perfil';
+      assert.equal((await admin.goto(roleUrl)).status(), 200);
+      await admin.locator('#role').selectOption('DONOR');
+      await admin.locator('#reason').fill(input.roleReason);
+      await admin.locator('#human_confirmation').check();
+      const post = admin.waitForResponse(r => r.url().split('?')[0] === roleUrl && r.request().method() === 'POST');
+      await admin.locator('form.record-form button[type="submit"]').click();
+      assert.equal((await post).status(), 302);
+      await exchange('verify_role');
+      await privacyEnded(transport, 'remaining-role-revoked-private-data-cleared');
+      result.roleForm = {same_nginx_origin: true, post_status: 302, new_role: 'DONOR'};
+    } else {
+      stage = 'remaining-both-replicas-down';
+      await exchange('assignment_stop');
+      for (const page of [transport, allowed]) {
+        await page.waitForFunction(() => document.querySelector('#tracking-status').textContent.includes('Desconectado'), null, {timeout: 30000});
+      }
+      await exchange('assignment_change');
+      stage = 'remaining-authorized-recovery';
+      await exchange('restore_authorized');
+      const live = await waitForNewAuthorizedSocket(boundary, 1);
+      assert.ok(!live.socket.isClosed());
+      assert.equal(await allowed.evaluate(() => performance.timeOrigin), allowedInstance);
+      await assignmentPrivacy(transport, 'remaining-responsibility-revoked-private-data-cleared');
+      result.authorizedRecovery = {authenticated: true, subscribed_cursor: 1,
+        original_page_instance: allowedInstance, same_document: true, observed_at: Date.now()};
+    }
+    stage = 'remaining-later-points';
+    const later = await exchange('publish_for_authorized');
+    await rendered(allowed, later.eventIds.at(-1));
+    const after = await state(allowed, 'remaining-authorized-three-points');
+    assert.equal(after.pageInstance, allowedInstance);
+    assert.deepEqual(new Set(after.rows), new Set(later.eventIds));
+    noLateFrames(later.eventIds.slice(1));
+    if (input.scenario === 'assignment_disconnected') {
+      await assignmentPrivacy(transport, 'remaining-responsibility-still-denied');
+    } else {
+      await privacyEnded(transport, 'remaining-role-still-denied');
+    }
+    await exchange('remaining_restore');
+    assert.ok(upgrades.some(value => value.status === 101));
+    assert.ok(result.sockets.every(socket => socket.url === expectedSocket));
+    assert.deepEqual(result.pageErrors, []);
+    result.upgrades = upgrades;
+    stage = 'remaining-real-session-cleanup';
+    await cleanupRemainingBrowsers();
+    await exchange('remaining_finish');
+    result.passed = true;
+    process.stdout.write(JSON.stringify({action: 'complete'}) + '\n');
   }
 
   async function securityScenario(transport, documentInstance) {
@@ -395,7 +499,7 @@ async function exchange(action) {
 
   try {
     stage = 'transport-login';
-    const transport = await login(await context('transport'), 'transport1');
+    const transport = await login(await context('transport'), input.scenario === 'role_live_gateway' ? 'operator1' : 'transport1');
     await observe(transport, 'transport');
     stage = 'map-open';
     assert.equal((await transport.goto(input.base + '/traslados/' + input.shipment + '/mapa')).status(), 200);
@@ -405,6 +509,10 @@ async function exchange(action) {
     const initial = await state(transport, '01-map-open');
     const documentInstance = initial.pageInstance;
 
+    if (isRemaining) {
+      await remainingScenario(transport, documentInstance);
+      return;
+    }
     if (input.scenario !== 'replica_recovery') {
       await securityScenario(transport, documentInstance);
       return;
@@ -514,6 +622,10 @@ async function exchange(action) {
           await pages[i].screenshot({path: path.join(output, 'failure-page-' + i + '.png'), fullPage: true});
         }
       } catch { /* Preserve original failure. */ }
+    }
+    if (isRemaining) {
+      try { await cleanupRemainingBrowsers(); }
+      catch (cleanupError) { result.browserCleanupFailure = {type: cleanupError.name}; }
     }
     process.exitCode = 1;
     process.stdout.write(JSON.stringify({action: 'failed', stage, type: error.name}) + '\n');

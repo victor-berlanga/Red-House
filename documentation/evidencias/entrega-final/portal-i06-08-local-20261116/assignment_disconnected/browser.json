@@ -1,0 +1,64 @@
+{
+  "passed": true,
+  "scenario": "assignment_disconnected",
+  "javascript_errors": 0,
+  "upgrades": [
+    101,
+    101,
+    101
+  ],
+  "same_origin_role_form": null,
+  "authorized_recovery_same_document": true,
+  "tls": "Chrome SPKI exception restricted to the ephemeral test certificate; no OS CA acceptance",
+  "cartography": "OSM tiles blocked to avoid bulk consumption; cartography is not accepted by this case",
+  "browser_logout": [
+    {
+      "context": 0,
+      "logout_status": 302
+    },
+    {
+      "context": 1,
+      "logout_status": 302
+    }
+  ],
+  "states": [
+    {
+      "phase": "01-map-open",
+      "status": "Sin señal · sin datos",
+      "visible_row_count": 0,
+      "coordinate": "Sin datos",
+      "receive_to_map_ms": []
+    },
+    {
+      "phase": "remaining-responsibility-revoked-private-data-cleared",
+      "status": "Finalizado o sin permiso de rastreo",
+      "visible_row_count": 0,
+      "coordinate": "Acceso terminado",
+      "receive_to_map_ms": [
+        505
+      ]
+    },
+    {
+      "phase": "remaining-authorized-three-points",
+      "status": "En vivo · SIMULADO",
+      "visible_row_count": 3,
+      "coordinate": "25.6866, -100.3161",
+      "receive_to_map_ms": [
+        470,
+        4534,
+        390,
+        255
+      ]
+    },
+    {
+      "phase": "remaining-responsibility-still-denied",
+      "status": "Finalizado o sin permiso de rastreo",
+      "visible_row_count": 0,
+      "coordinate": "Acceso terminado",
+      "receive_to_map_ms": [
+        505
+      ]
+    }
+  ],
+  "original_browser_sha256": "eeed6a27d2034fcd070969772d6ed7c274dddd1cb8fbb4a54db6a2e9a5ac21e4"
+}

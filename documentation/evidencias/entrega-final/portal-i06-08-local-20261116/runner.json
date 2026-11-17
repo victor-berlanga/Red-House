@@ -1,0 +1,23 @@
+{
+  "cases": [
+    "test_missing_retry_same_document_and_immutable_object[json]",
+    "test_missing_retry_same_document_and_immutable_object[xml]",
+    "test_portal_gateway_remaining_security[assignment_disconnected]",
+    "test_portal_gateway_remaining_security[role_live_gateway]"
+  ],
+  "failure_type": null,
+  "forced_cleanup": [],
+  "four_cases_passed": true,
+  "owned_processes_observed": 136,
+  "owned_processes_remaining": [],
+  "passed": true,
+  "pytest_exit": 0,
+  "scope": "Two LOCAL storage guard cases and two Chrome/Nginx cases; no clinical/GCP/capacity acceptance",
+  "seconds": 247.075,
+  "source_count": 1421,
+  "sources_unchanged": true,
+  "isolated_fixture": true,
+  "owned_fixture_closed": true,
+  "all_fixture_families_revoked_claimed": false,
+  "original_receipt_sha256": "5359a6c7da1a9234896598d08cbc7341074222b09cf43eb67b5e82206b7b67be"
+}

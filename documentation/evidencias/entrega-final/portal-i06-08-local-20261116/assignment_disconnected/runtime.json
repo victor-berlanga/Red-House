@@ -1,0 +1,60 @@
+{
+  "case": "I06-08",
+  "scenario": "assignment_disconnected",
+  "passed": true,
+  "checks": [
+    "HTTPS Nginx verificado por Python con certificado explícito",
+    "3 puntos SQL únicos con sus IDs y cursores esperados",
+    "SQL y Mongo conservan los mismos IDs/cursores; salud de réplicas comprobada por escenario"
+  ],
+  "scope": "Laboratorio local aislado; datos y ubicaciones sintéticos",
+  "limits": [
+    "No cierra I06 completo ni acredita producción, GCP o capacidad",
+    "Fixture TESTING=True; cuotas de prueba 100000; no prueba MFA",
+    "TLS Python con CA explícita; Chrome con excepción SPKI del certificado efímero",
+    "No prueba confianza CA del sistema; perfiles Chrome privados efímeros",
+    "Mosaicos OSM bloqueados para evitar consumo masivo; cartografía no aceptada",
+    "Listeners loopback y puertos efímeros; WSGI de prueba con TrustedProxy real"
+  ],
+  "replacement_preparation": {
+    "one_new_account": true,
+    "same_institution": true,
+    "device_and_assignment_via_API": true,
+    "original_responsible_restored_before_browser": true,
+    "version_delta": 2,
+    "administrative_reassignment": false
+  },
+  "all_tracking_replicas_stopped": true,
+  "assignment_fault": {
+    "method": "owner_SQL_fixture_relationship_only",
+    "administrative_operation_accepted": false,
+    "old_responsible_snapshot_history": [
+      403,
+      403
+    ]
+  },
+  "both_replicas_healthy": true,
+  "browser_session_cleanup": {
+    "new_families": 2,
+    "all_revoked_sql_redis": true
+  },
+  "relationship_restored": {
+    "exact_original": true,
+    "monotonic_version_delta": 4
+  },
+  "remaining_cleanup": {
+    "passed": true,
+    "failures": []
+  },
+  "persistence": {
+    "sql_mongo_ack_map_ids_equal": true,
+    "unique_points": 3,
+    "cursors": [
+      1,
+      2,
+      3
+    ],
+    "pending_outbox_positions": 0
+  },
+  "original_runtime_sha256": "f23cad8dea95b5c4b131591eb47777a5236aff795fabdb3dc495656489d6648c"
+}

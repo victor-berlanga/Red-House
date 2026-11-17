@@ -333,6 +333,438 @@ def run_security_flow(
         reply("restore_fixture_identity")
 
 
+REMAINING_SCENARIOS = ("assignment_disconnected", "role_live_gateway")
+
+
+def remaining_call(p, service, method, path, **kwargs):
+    response = p.request(service, method, path, **kwargs)
+    assert response.status_code < 300, (service, method, response.status_code)
+    return response.json()["data"]
+
+
+def remaining_relation(p, tracking, state, target):
+    """Controlled fixture fault only; not an administrative reassignment API."""
+    with p.owner("transporte") as conn:
+        current = conn.execute(
+            "SELECT transport_user_id,version FROM shipments WHERE id=%s FOR UPDATE",
+            (tracking["shipment"]["id"],),
+        ).fetchone()
+        assert (str(current[0]), current[1]) == state["relation_current"]
+        updated = conn.execute(
+            "UPDATE shipments SET transport_user_id=%s,version=version+1 "
+            "WHERE id=%s AND transport_user_id=%s AND version=%s RETURNING version",
+            (target, tracking["shipment"]["id"], current[0], current[1]),
+        ).fetchone()
+        assert updated and updated[0] == current[1] + 1
+    state["relation_current"] = (str(target), updated[0])
+    return updated[0]
+
+
+def prepare_remaining(p, tracking, scenario, state, report, secrets_to_hide):
+    with p.owner("identidad_acceso") as conn:
+        state["sessions_before"] = {
+            str(r[0]) for r in conn.execute("SELECT id FROM sessions")
+        }
+        state["operator"] = p.env.state["accounts"]["operator1"]["id"]
+        state["role_before"] = conn.execute(
+            "SELECT role,version FROM users WHERE id=%s", (state["operator"],)
+        ).fetchone()
+        state["role_events_before"] = {
+            str(r[0])
+            for r in conn.execute(
+                "SELECT id FROM activity_events WHERE event->>'resource_id'=%s "
+                "AND event->>'action'='USER_ROLE_CHANGED'",
+                (state["operator"],),
+            )
+        }
+    state["reason"] = "Cambio de perfil sintético I06 " + uuid4().hex[:12]
+    report["effective_test_policy"] = {
+        name: {
+            k: app.config.get(k)
+            for k in (
+                "TESTING",
+                "RATE_LIMIT",
+                "INTERNAL_RATE_LIMIT",
+                "MFA_REQUIRED_ROLES",
+            )
+        }
+        for name, app in p.apps.items()
+    }
+    if scenario == "role_live_gateway":
+        assert state["role_before"][0] == "OPERATOR"
+        return
+    assert scenario == "assignment_disconnected"
+    with p.owner("transporte") as conn:
+        row = conn.execute(
+            "SELECT transport_user_id,version FROM shipments WHERE id=%s",
+            (tracking["shipment"]["id"],),
+        ).fetchone()
+    state["relation_before"] = state["relation_current"] = (str(row[0]), row[1])
+    assert str(row[0]) == p.env.state["accounts"]["transport1"]["id"]
+    state["original_emitter"] = (tracking["device"], tracking["credential"])
+    user = remaining_call(
+        p,
+        "identidad_acceso",
+        "POST",
+        "/api/v1/users",
+        user="admin1",
+        data={
+            "username": "i06_transport_" + uuid4().hex[:12],
+            "password": p.env.state["password"],
+            "tenant_id": tracking["shipment"]["origin_id"],
+            "role": "TRANSPORT",
+        },
+    )
+    state["replacement_user"] = user
+    device = remaining_call(
+        p,
+        "identidad_acceso",
+        "POST",
+        "/api/v1/devices",
+        user="admin1",
+        data={
+            "id": str(uuid4()),
+            "user_id": user["id"],
+            "source": "SIMULATOR",
+            "label": "Relevo sintético I06",
+            "expires_at": iso(days=1),
+        },
+    )
+    state["replacement_device"] = device
+    credential = remaining_call(
+        p,
+        "identidad_acceso",
+        "POST",
+        f"/api/v1/devices/{device['id']}/credentials",
+        user="admin1",
+        data={
+            "version": device["version"],
+            "human_confirmation": True,
+            "reason": "Credencial sintética para fallo aislado I06",
+        },
+    )
+    state["replacement_credential"] = credential
+    secrets_to_hide.append(credential["credential"])
+    # Prepare the valid alternate assignment before any observer or outage. Restore
+    # the original responsible before Chrome sees the first point.
+    version = remaining_relation(p, tracking, state, user["id"])
+    try:
+        state["replacement_assignment"] = remaining_call(
+            p,
+            "transporte",
+            "POST",
+            f"/api/v1/shipments/{tracking['shipment']['id']}/tracking/assignments",
+            user="coordinator1",
+            data={
+                "device_id": device["id"],
+                "version": version,
+                "starts_at": iso(minutes=-5),
+                "ends_at": iso(minutes=60),
+                "human_confirmation": True,
+                "reason": "Asignación previa al fallo controlado I06; no reasignación administrativa",
+            },
+        )
+    finally:
+        remaining_relation(p, tracking, state, state["relation_before"][0])
+    report["replacement_preparation"] = {
+        "one_new_account": True,
+        "same_institution": True,
+        "device_and_assignment_via_API": True,
+        "original_responsible_restored_before_browser": True,
+        "version_delta": 2,
+        "administrative_reassignment": False,
+    }
+
+
+def remaining_sessions(p, state):
+    from redhouse.security import key, redis_call
+
+    with p.owner("identidad_acceso") as conn:
+        rows = [
+            r
+            for r in conn.execute("SELECT id,revoked_at FROM sessions")
+            if str(r[0]) not in state["sessions_before"]
+        ]
+        assert all(r[1] is not None for r in rows), "New browser family not revoked"
+    with p.apps["identidad_acceso"].app_context():
+        assert all(
+            not redis_call(lambda r, sid=str(row[0]): r.exists(key("session:" + sid)))
+            for row in rows
+        )
+    return {"new_families": len(rows), "all_revoked_sql_redis": True}
+
+
+def cleanup_remaining(p, tracking, scenario, state, report):
+    """Attempt each owned restoration independently; never hide a failed restore."""
+    failures = []
+
+    def attempt(name, action):
+        try:
+            action()
+        except Exception as error:  # noqa: BLE001 - attempt every independent owned cleanup
+            failures.append({"step": name, "type": type(error).__name__})
+
+    def restore_relation():
+        original = state["relation_before"][0]
+        if state["relation_current"][0] != original:
+            remaining_relation(p, tracking, state, original)
+        with p.owner("transporte") as conn:
+            row = conn.execute(
+                "SELECT transport_user_id,version FROM shipments WHERE id=%s",
+                (tracking["shipment"]["id"],),
+            ).fetchone()
+            assert (str(row[0]), row[1]) == state["relation_current"] and str(
+                row[0]
+            ) == original
+        report["relationship_restored"] = {
+            "exact_original": True,
+            "monotonic_version_delta": row[1] - state["relation_before"][1],
+        }
+
+    if "relation_before" in state:
+        attempt("responsible", restore_relation)
+    if "original_emitter" in state:
+        tracking["device"], tracking["credential"] = state["original_emitter"]
+    if "replacement_assignment" in state:
+        a = state["replacement_assignment"]
+        attempt(
+            "assignment",
+            lambda: remaining_call(
+                p,
+                "transporte",
+                "POST",
+                f"/api/v1/tracking/assignments/{a['id']}/revoke",
+                user="coordinator1",
+                data={
+                    "version": a["version"],
+                    "human_confirmation": True,
+                    "reason": "Cierre de ensayo sintético I06",
+                },
+            ),
+        )
+    if "replacement_device" in state:
+
+        def revoke_device():
+            d = remaining_call(
+                p,
+                "identidad_acceso",
+                "GET",
+                f"/api/v1/devices/{state['replacement_device']['id']}",
+                user="admin1",
+            )
+            v = remaining_call(
+                p,
+                "identidad_acceso",
+                "POST",
+                f"/api/v1/devices/{d['id']}/revoke",
+                user="admin1",
+                data={
+                    "version": d["version"],
+                    "human_confirmation": True,
+                    "reason": "Cierre de ensayo sintético I06",
+                },
+            )
+            assert not v["active"]
+
+        attempt("device", revoke_device)
+    if "replacement_user" in state:
+
+        def disable_user():
+            uid = state["replacement_user"]["id"]
+            with p.owner("identidad_acceso") as conn:
+                version = conn.execute(
+                    "SELECT version FROM users WHERE id=%s", (uid,)
+                ).fetchone()[0]
+            v = remaining_call(
+                p,
+                "identidad_acceso",
+                "PATCH",
+                f"/api/v1/users/{uid}",
+                user="admin1",
+                data={"version": version, "active": False},
+            )
+            assert not v["active"]
+
+        attempt("synthetic_account", disable_user)
+    if scenario == "role_live_gateway" and "role_before" in state:
+
+        def restore_role():
+            with p.owner("identidad_acceso") as conn:
+                current = conn.execute(
+                    "SELECT role,version FROM users WHERE id=%s", (state["operator"],)
+                ).fetchone()
+            if current != state["role_before"]:
+                assert current == ("DONOR", state["role_before"][1] + 1)
+                v = remaining_call(
+                    p,
+                    "identidad_acceso",
+                    "POST",
+                    f"/api/v1/users/{state['operator']}/role",
+                    user="admin1",
+                    data={
+                        "role": state["role_before"][0],
+                        "version": current[1],
+                        "human_confirmation": True,
+                        "reason": "Restauración de perfil tras ensayo sintético I06",
+                    },
+                )
+                assert (
+                    v["role"] == state["role_before"][0]
+                    and v["version"] == current[1] + 1
+                )
+            report["role_restored"] = True
+
+        attempt("role", restore_role)
+    if "sessions_before" in state:
+
+        def check_sessions():
+            report["browser_session_cleanup"] = remaining_sessions(p, state)
+
+        attempt("browser_sessions", check_sessions)
+    report["remaining_cleanup"] = {"passed": not failures, "failures": failures}
+    return not failures
+
+
+def run_remaining_security_flow(
+    scenario,
+    p,
+    tracking,
+    points,
+    processes,
+    replica_args,
+    replica_ports,
+    tmp_path,
+    session,
+    report,
+    publish,
+    expect,
+    reply,
+    state,
+):
+    from redhouse.security import key, redis_call
+
+    active = {0: processes[0], 1: processes[1]}
+
+    def restart(index):
+        process = start_process(
+            replica_args[index], tmp_path / f"remaining-restored-{index}.log"
+        )
+        processes.append(process)
+        active[index] = process
+        wait_live(f"http://127.0.0.1:{replica_ports[index]}/health/live", process)
+
+    def append(count):
+        values = [point(tracking, sequence=len(points) + i + 1) for i in range(count)]
+        points.extend(values)
+        report.setdefault("acks", []).extend(publish(values))
+
+    expect("initial_publish")
+    append(1)
+    reply("initial_publish", eventId=points[0]["event_id"])
+    if scenario == "role_live_gateway":
+        expect("verify_role")
+        with p.owner("identidad_acceso") as conn:
+            current = conn.execute(
+                "SELECT role,version FROM users WHERE id=%s", (state["operator"],)
+            ).fetchone()
+            assert current == ("DONOR", state["role_before"][1] + 1)
+            rows = conn.execute(
+                "SELECT id,revoked_at FROM sessions WHERE user_id=%s",
+                (state["operator"],),
+            ).fetchall()
+            assert rows and all(r[1] is not None for r in rows)
+            events = [
+                r
+                for r in conn.execute(
+                    "SELECT id,event->>'actor_id',event->'metadata'->>'role' FROM activity_events "
+                    "WHERE event->>'resource_id'=%s AND event->>'action'='USER_ROLE_CHANGED'",
+                    (state["operator"],),
+                )
+                if str(r[0]) not in state["role_events_before"]
+            ]
+            assert (
+                len(events) == 1
+                and events[0][1] == p.env.state["accounts"]["admin1"]["id"]
+                and events[0][2] == "DONOR"
+            )
+        with p.apps["identidad_acceso"].app_context():
+            assert all(
+                not redis_call(
+                    lambda r, sid=str(row[0]): r.exists(key("session:" + sid))
+                )
+                for row in rows
+            )
+        p.drain(rounds=8)
+        with p.owner("auditoria") as conn:
+            assert (
+                conn.execute(
+                    "SELECT count(*) FROM audit_events WHERE id=%s", (events[0][0],)
+                ).fetchone()[0]
+                == 1
+            )
+        report["role_change"] = {
+            "version_delta": 1,
+            "revoked_families": len(rows),
+            "audit_events": 1,
+            "method": "actual_portal_form_same_nginx",
+        }
+        reply("verify_role")
+    else:
+        assert scenario == "assignment_disconnected"
+        expect("assignment_stop")
+        for index in (0, 1):
+            stop_process(active[index])
+        assert all(active[i].poll() is not None for i in (0, 1))
+        report["all_tracking_replicas_stopped"] = True
+        reply("assignment_stop")
+        expect("assignment_change")
+        remaining_relation(p, tracking, state, state["replacement_user"]["id"])
+        tracking["device"], tracking["credential"] = (
+            state["replacement_device"],
+            state["replacement_credential"],
+        )
+        for suffix in ("tracking/snapshot", "tracking/history"):
+            assert (
+                p.request(
+                    "transporte",
+                    "GET",
+                    f"/api/v1/shipments/{tracking['shipment']['id']}/{suffix}",
+                    user="transport1",
+                ).status_code
+                == 403
+            )
+        report["assignment_fault"] = {
+            "method": "owner_SQL_fixture_relationship_only",
+            "administrative_operation_accepted": False,
+            "old_responsible_snapshot_history": [403, 403],
+        }
+        reply("assignment_change")
+        expect("restore_authorized")
+        restart(1)
+        reply("restore_authorized")
+    expect("publish_for_authorized")
+    append(2)
+    reply("publish_for_authorized", eventIds=[v["event_id"] for v in points])
+    expect("remaining_restore")
+    if scenario == "assignment_disconnected":
+        restart(0)
+    for i in (0, 1):
+        assert active[i].poll() is None
+        for endpoint in ("live", "ready"):
+            assert (
+                session.get(
+                    f"http://127.0.0.1:{replica_ports[i]}/health/{endpoint}", timeout=10
+                ).status_code
+                == 200
+            )
+    report["both_replicas_healthy"] = True
+    reply("remaining_restore")
+    expect("remaining_finish")
+    report["browser_session_cleanup"] = remaining_sessions(p, state)
+    assert report["browser_session_cleanup"]["new_families"] >= 2
+    reply("remaining_finish")
+
+
 def run_gateway_scenario(p, tracking, request, tmp_path, scenario):
     # tracking is prepared before autonomous stops every fixture API listener.
     output = Path(os.environ["REDHOUSE_BROWSER_RESULTS"]) / (
@@ -371,6 +803,7 @@ def run_gateway_scenario(p, tracking, request, tmp_path, scenario):
             "post_expiry_device_acks_verified": False,
             "old_family_rechecked_after_fixture_login": False,
         }
+    remaining_state = {}
     processes = []
     browser = None
     server = None
@@ -422,37 +855,39 @@ def run_gateway_scenario(p, tracking, request, tmp_path, scenario):
         }
 
     try:
-        donor = p.ok(
-            "donantes",
-            "POST",
-            "/api/v1/donors",
-            user="donor1",
-            data={
-                "folio": "GW-" + uuid4().hex[:12],
-                "display_name": "Donante sintético gateway",
-                "blood_group": "O+",
-                "consent": True,
-            },
-        )
-        campaign = p.ok(
-            "donantes",
-            "POST",
-            "/api/v1/campaigns",
-            user="operator1",
-            data={
-                "title": "Continuidad sintética " + uuid4().hex[:8],
-                "starts_at": iso(minutes=5),
-                "ends_at": iso(days=1),
-                "capacity": 5,
-            },
-        )
-        appointment = p.ok(
-            "donantes",
-            "POST",
-            "/api/v1/appointments",
-            user="donor1",
-            data={"donor_id": donor["id"], "campaign_id": campaign["id"]},
-        )
+        appointment = None
+        if scenario not in REMAINING_SCENARIOS:
+            donor = p.ok(
+                "donantes",
+                "POST",
+                "/api/v1/donors",
+                user="donor1",
+                data={
+                    "folio": "GW-" + uuid4().hex[:12],
+                    "display_name": "Donante sintético gateway",
+                    "blood_group": "O+",
+                    "consent": True,
+                },
+            )
+            campaign = p.ok(
+                "donantes",
+                "POST",
+                "/api/v1/campaigns",
+                user="operator1",
+                data={
+                    "title": "Continuidad sintética " + uuid4().hex[:8],
+                    "starts_at": iso(minutes=5),
+                    "ends_at": iso(days=1),
+                    "capacity": 5,
+                },
+            )
+            appointment = p.ok(
+                "donantes",
+                "POST",
+                "/api/v1/appointments",
+                user="donor1",
+                data={"donor_id": donor["id"], "campaign_id": campaign["id"]},
+            )
         # The reused tracking fixture starts a direct TLS helper. Close it so the
         # only external Transporte listeners in this case are the two Nginx upstreams.
         tracking["server"].shutdown()
@@ -462,6 +897,15 @@ def run_gateway_scenario(p, tracking, request, tmp_path, scenario):
         web.config.update(
             PRODUCTION=True, SESSION_COOKIE_SECURE=True, HIGHCHARTS_ENABLED=False
         )
+        if scenario in REMAINING_SCENARIOS:
+            prepare_remaining(
+                p, tracking, scenario, remaining_state, report, secrets_to_hide
+            )
+            report["limits"] = [
+                v
+                for v in report["limits"]
+                if v != "DONOR/TRANSPORT sin omitir MFA de roles críticos"
+            ]
         if scenario == "session_expiry":
             # Actual Identity issuance and expiry; never mutate tokens, Redis TTLs or clocks.
             short_identity = web.extensions["application_kernel"].apps[
@@ -696,7 +1140,9 @@ def run_gateway_scenario(p, tracking, request, tmp_path, scenario):
             base=origin,
             password=p.env.state["password"],
             shipment=tracking["shipment"]["id"],
-            appointment=appointment["id"],
+            appointment=appointment["id"] if appointment else None,
+            operatorId=remaining_state.get("operator"),
+            roleReason=remaining_state.get("reason"),
             spki=spki,
             output=str(output),
             profiles=str(tmp_path / "chrome-profiles"),
@@ -805,6 +1251,27 @@ def run_gateway_scenario(p, tracking, request, tmp_path, scenario):
             assert browser.wait(timeout=20) == 0, (
                 "Navegador terminó con error; revisar browser.json sanitizado"
             )
+        elif scenario in REMAINING_SCENARIOS:
+            run_remaining_security_flow(
+                scenario,
+                p,
+                tracking,
+                points,
+                processes,
+                replica_args,
+                replica_ports,
+                tmp_path,
+                session,
+                report,
+                publish,
+                expect,
+                reply,
+                remaining_state,
+            )
+            expect("complete")
+            assert browser.wait(timeout=20) == 0, (
+                "Browser failed; inspect sanitized receipt"
+            )
         else:
             run_security_flow(
                 scenario,
@@ -895,6 +1362,11 @@ def run_gateway_scenario(p, tracking, request, tmp_path, scenario):
                 browser.stdin.close()
             if browser.stdout is not None:
                 browser.stdout.close()
+        if scenario in REMAINING_SCENARIOS and not cleanup_remaining(
+            p, tracking, scenario, remaining_state, report
+        ):
+            restore_failure = "RemainingScenarioCleanupFailure"
+            report["passed"] = False
         for process in reversed(processes):
             stop_process(process)
         session.close()
@@ -946,4 +1418,13 @@ def test_portal_gateway_replica_loss_autonomy_and_recovery(
     ],
 )
 def test_portal_gateway_security_states(p, tracking, request, tmp_path, scenario):
+    run_gateway_scenario(p, tracking, request, tmp_path, scenario)
+
+
+@pytest.mark.skipif(
+    not NGINX or not os.environ.get("REDHOUSE_BROWSER_TESTS"),
+    reason="Requires explicit Chrome/Nginx laboratory window",
+)
+@pytest.mark.parametrize("scenario", REMAINING_SCENARIOS)
+def test_portal_gateway_remaining_security(p, tracking, request, tmp_path, scenario):
     run_gateway_scenario(p, tracking, request, tmp_path, scenario)
