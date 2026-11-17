@@ -6,6 +6,10 @@ Los documentos se organizan por su función y formato. Haber sido elaborados en 
 
 El [expediente backend](entrega-final/backend/README.md) documenta las 24 responsabilidades agrupadas en doce servicios independientes (once de dominio y Monitoreo), migraciones aditivas, estados, contratos JSON/XML, adaptadores, rastreo WSS y simulador. Incluye [matriz BE](entrega-final/backend/Matriz_BE.md), [GPS/recuperación y matriz TRACK](entrega-final/backend/Rastreo.md) y [resultados correctivos locales](evidencias/entrega-final/backend/correccion_comprobacion/20261029T125058Z/RESULTADOS.md) y [resultados anteriores](evidencias/entrega-final/backend/RESULTADOS.md). Separa software verificado de hardware, clientes, aprobación clínica y nuevo despliegue pendientes.
 
+## Entrega final y continuidad
+
+- [Reporte técnico final](markdowns/Reporte_tecnico_final.md), [matriz de continuidad](entrega-final/continuidad/Matriz.md) y [registro selectivo de incidencias](entrega-final/Registro_incidencias.md). El registro conserva fallos y límites por intento; no es un inventario exhaustivo de logs.
+
 ## Análisis y planificación del semestre
 
 Estas fuentes permanecen activas como referencia de alcance. Sus fases son las del plan original; no certifican que cada requisito esté implementado. Las reglas clínicas y las hipótesis institucionales conservan sus condiciones de validación.
