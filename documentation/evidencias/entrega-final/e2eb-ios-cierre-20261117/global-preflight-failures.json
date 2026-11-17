@@ -1,0 +1,25 @@
+{
+  "preserved_attempts": [
+    {
+      "failure": "Archivos privados con modo 0644; se exige 0600",
+      "exit": 1,
+      "before_select": true,
+      "business_mutations": false,
+      "evidence": "existing private permission-failure receipt",
+      "sha256": "ddb4e12887ce83844b30d8ecd4d7e857985c8317bb5ed8ea76722505b0fef7c3"
+    },
+    {
+      "failure": "sandbox prevented ps runtime binding",
+      "before_select": true,
+      "business_mutations": false,
+      "evidence": "root execution record; failure reported and retained by direction"
+    }
+  ],
+  "final_attempt": {
+    "exit": 0,
+    "same_reviewed_command_with_local_escalation": true,
+    "read_only": true,
+    "root_accepted": true
+  },
+  "support_wrapper_failure_is_separate_and_still_preserved": true
+}

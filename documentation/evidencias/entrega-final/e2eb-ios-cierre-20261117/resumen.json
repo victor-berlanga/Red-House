@@ -1,0 +1,123 @@
+{
+  "case": "IOS-E2E-B",
+  "synthetic": true,
+  "global_acceptance": "ACCEPTED_COMPOSITE_IOS_QT_WEB_READ_ONLY_ORACLE",
+  "resource_id": "097cb5d9-fc8a-4a61-9050-815a4bb3c357",
+  "shipment_id": "5b90b104-888a-4adf-9ab5-5df40a686ac0",
+  "reservation_id": "2d494368-3c5a-4458-b358-62803c767d44",
+  "request_id": "15163544-0aa1-4b9f-83dd-8dacc83b543f",
+  "recipient_id": "889fe2fb-5a95-4012-a2d6-aeb2ada72446",
+  "qt_reception": {
+    "status": "ACCEPTED",
+    "version": 6,
+    "transition": 1,
+    "source_event": 1,
+    "custody_projection": 1,
+    "audit_projection": 1,
+    "own_family_closed": true
+  },
+  "qt_destination": {
+    "destination": "DISCARDED",
+    "document_version": 1,
+    "event": 1,
+    "own_family_closed": true,
+    "reason": "Descarte académico de unidad sintética; sin uso clínico",
+    "reference": "IOSB-DESCARTE-SINTETICO-20261117"
+  },
+  "web": {
+    "passed": true,
+    "business_gets": 5,
+    "javascript_errors": 0,
+    "business_posts": 0,
+    "posts": [
+      "/login",
+      "/logout"
+    ],
+    "own_family_closed": true,
+    "business_and_sources_unchanged": true,
+    "root_inspected_five_png": true,
+    "destination_get_is_unsubmitted_correction_form": true
+  },
+  "thermal": {
+    "synthetic_readings_total": 18,
+    "gaps_preserved": 2,
+    "excursions": 0,
+    "medical_incident_reviews": 2,
+    "resource_releases": 2,
+    "support_accepted_readings": 15,
+    "support_wrapper_original_passed": false,
+    "support_closure_derived_passed": true,
+    "physical_measurement": false,
+    "source_labels": {
+      "first_reading": "ACADEMICO MANUAL SINTETICO; valor generado del perfil; NO medicion fisica",
+      "remaining_17_readings": "SIMULACION TERMICA ACADEMICA; NO MEDICION FISICA"
+    }
+  },
+  "visual_pending": [
+    "RESOURCE_COLD_QUARANTINE aparece como Evento sin clasificación",
+    "Conservación de órgano resalta Inventario sanguíneo"
+  ],
+  "private_evidence_sha256": {
+    ".local/artifacts/desktop/ios-e2eb-final-prepared-20261117/recepcion-run-01/qt-receipt.json": "04526883bb517e2f5641774207f4ebd2b6c797deaf8b92c1b50621763836facb",
+    ".local/artifacts/desktop/ios-e2eb-final-prepared-20261117/recepcion-run-01/sessions-closed.json": "99ad73739706bae6711022c789b11c29be9c867b7a9a586d0ca1d901bfbef567",
+    ".local/artifacts/desktop/ios-e2eb-final-prepared-20261117/destino-run-01/destination-receipt.json": "a0eb7487a73077923feac31a396c67122b192435876d58f13226eeae618c0948",
+    ".local/artifacts/desktop/ios-e2eb-final-prepared-20261117/destino-run-01/sessions-closed.json": "e841c57245d8d94b2e2dc360041c852b003c67461978b313ba3bdb86339cface",
+    ".local/artifacts/desktop/ios-e2eb-final-prepared-20261117/web-run-01/receipt.json": "d3722d89b5cd44ce7a3990ec2b5392fd92efa093bc621a4541b48536c6140580",
+    ".local/artifacts/desktop/ios-e2eb-final-prepared-20261117/web-run-01/browser.json": "b450443f28f623afbc56012de2849061b4c623dfe571de60d47fbb137f2c8ebd",
+    ".local/artifacts/desktop/ios-e2eb-thermal-support-20261117-01/exit.json": "b84935c07f937bd9972cd0c595c1310ad08a4d6bf3f84c8616c48d92b194a32d",
+    ".local/artifacts/desktop/ios-e2eb-thermal-support-20261117-01/sessions-closed.json": "e63c31f83437b42f7913f435067dc3d48df2c9b00e7cfb56af63bab6524c4eba",
+    ".local/artifacts/desktop/ios-e2eb-thermal-support-20261117-01/readings.json": "92d123b0024beff1abec3af71f42a42e28327cb3fb37e83fd9eafff8dcf549a5",
+    ".local/artifacts/desktop/ios-e2eb-thermal-support-reconciliation-20261117-01/reconciliation.private.json": "24288103e6d0c95adaa8ba24a9b316ce368f4659ed8b0acfafe430546103bfa7",
+    ".local/artifacts/desktop/ios-e2eb-final-prepared-20261117/recepcion-wrapper-exit.json": "1a2d675043c6425ffd9aeffe84485a22cb750ad8ff02a9ac224b64797002856a",
+    ".local/artifacts/desktop/ios-e2eb-final-prepared-20261117/destino-wrapper-exit.json": "5fb9a34a0012113efa73ca8f29d02e70083c512d2386f53e16090050711b5924",
+    ".local/artifacts/desktop/ios-e2eb-final-prepared-20261117/web-wrapper-exit.json": "51a360b930600cd095f378c2f13d1c80b9c533c4e89e6c986534e303a4521571",
+    ".local/artifacts/desktop/ios-e2eb-gap-reading-20261117-01/receipt.json": "523d9a4a36441cb633d19ef4b672f598debaa7d7c0019aa86082dd45d609c0f1",
+    ".local/artifacts/desktop/ios-e2eb-gap-reading-20261117-01/exit.json": "d3bd362bbbcd92aeaf8b4ea2da5c553ba55fc28eeab2d173276807c86336bfa5",
+    ".local/artifacts/desktop/ios-e2eb-gap-reading-20261117-01/sessions-closed.json": "be0ff15db773e17a34c981e83f76926dae7d1684a049bddd6eabb94a3914367e",
+    ".local/artifacts/desktop/ios-e2eb-gap-review-20261117-01/receipt.json": "0c8bfb296f8a2ea128cccdd9f7cf33a3092e6ac11d1f8987e90f755f115c396c",
+    ".local/artifacts/desktop/ios-e2eb-gap-review-20261117-01/exit.json": "65e14a88fb1f5b81a12bc7fc1ec0279fc1b0b468f079d99d567c5bd33d716120",
+    ".local/artifacts/desktop/ios-e2eb-gap-review-20261117-01/sessions-closed.json": "1d0e9fc10fb1dca3df7d23f515716b4e0f4f6235c00facd6dbd60f89ba49d3ed",
+    ".local/artifacts/desktop/ios-e2eb-gap-release-20261117-01/receipt.json": "03ff07c08df25bb32752f9907dc857754d51a782785a604664b1b1ca63c0d6a9",
+    ".local/artifacts/desktop/ios-e2eb-gap-release-20261117-01/exit.json": "119ccfe02753b15dd39d73148836d31bb2e8cdd84e8202da2980cedcdb75f1cc",
+    ".local/artifacts/desktop/ios-e2eb-gap-release-20261117-01/sessions-closed.json": "092a5493cb7916cc280ac84797f87b97809479b655399eeb636198d071f21c61",
+    ".local/artifacts/desktop/ios-e2eb-intransit-gap-reading-20261117-01/receipt.json": "bddf01b719be27f68575ed81627432c3588906db8809a75a749a1c2d41e84330",
+    ".local/artifacts/desktop/ios-e2eb-intransit-gap-reading-20261117-01/exit.json": "d3bd362bbbcd92aeaf8b4ea2da5c553ba55fc28eeab2d173276807c86336bfa5",
+    ".local/artifacts/desktop/ios-e2eb-intransit-gap-reading-20261117-01/sessions-closed.json": "da44201c15b379ef3a293a87f0f71a9b8d8f07df769bb454e93f2fd104b8ea4f",
+    ".local/artifacts/desktop/ios-e2eb-intransit-gap-review-20261117-01/receipt.json": "609e7a72da3167da531eddedba809a2a35286d3ce661de1e3a5bb2cdade162ed",
+    ".local/artifacts/desktop/ios-e2eb-intransit-gap-review-20261117-01/exit.json": "65e14a88fb1f5b81a12bc7fc1ec0279fc1b0b468f079d99d567c5bd33d716120",
+    ".local/artifacts/desktop/ios-e2eb-intransit-gap-review-20261117-01/sessions-closed.json": "4e54f494ec26e401e90fa2af08cb0d38cd056766e0385f2b69ca24913c6048f5",
+    ".local/artifacts/mobile/ios-e2eb-global-oracle-20261117-01/oracle-summary.json": "a4292baa209645fac19cc4d1728ee49d4e775fbb3e9213b411b1a3cd2a346224",
+    ".local/artifacts/mobile/ios-e2eb-global-oracle-prepared-20261117/first-launch-permission-failure.json": "ddb4e12887ce83844b30d8ecd4d7e857985c8317bb5ed8ea76722505b0fef7c3",
+    ".local/artifacts/e2eb-preserved-20261116/native-ios-wss-20261117-02/closure.json": "fa3ecd65b35555ac85eba7d29f7aa0381948774b33ff503929d1518df0ef57f1"
+  },
+  "public_artifact_sha256": {
+    "05-conservacion-brecha.png": "fdd03de6dd31e84ca9a94cc98e350f7db2ac1b155760feba4059065d3f16b5b2",
+    "global-oracle.json": "657c38e0c588db762a93e49475c0f03a5affff47578de114789a6b020c57615f",
+    "04-solicitud.png": "eefa0e179d02977bddb460f28b0cf3ddf29f2a17c872a778daa346dce36791d5",
+    "support-reconciliation.json": "ae72cada0d7a932630a957ad31fda9c029a2771b4ae6c72c07af3bb7d85553a2",
+    "01-recurso.png": "dab9c0656c9f067b73c673141d43a365c3258b9e52c0c366be43a6094c4c89d6",
+    "destino-qt.png": "3635f07380799479174e6b86b614309ef4c271750f538408a20df3945b3c3af1",
+    "support-wrapper-FAIL-original.json": "b84935c07f937bd9972cd0c595c1310ad08a4d6bf3f84c8616c48d92b194a32d",
+    "global-preflight-failures.json": "4ef2b6a71d854c629865b0a08c3a33aea92d84e0a6c035c3ef5feea6d0fa336a",
+    "recepcion-qt.png": "837089cc7805686aaa222bc1a3f77eff97473db6de9276fe33ff4322667bc365",
+    "03-traslado.png": "a116bfbbfa2dca3de84a3dd6fff403091ae517b9dafae87a9693ee9b64b3ff90",
+    "02-destino.png": "95403f30e5dfffebbb5bcebd70f8f303a90ce0a40d6cb3a21ab05e7983f05506",
+    "runtime-closure.json": "37868650bf24f59f3e1a14cc7175a3a3b32a679bbc57e603772eb03041a105dc"
+  },
+  "global_oracle": {
+    "checks_passed": 112,
+    "source_events": 49,
+    "audit_sql_matches": 49,
+    "audit_mongo_matches": 49,
+    "alerts_found": 13,
+    "alerts_expected": 13,
+    "final_exit": 0,
+    "earlier_preselect_failures_preserved": 2
+  },
+  "runtime_closure": {
+    "exit": 0,
+    "closure_passed": true,
+    "sources_configuration_objects_preserved": true,
+    "reset": false
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "derived_reconciliation_passed": true,
+  "original_wrapper_passed": false,
+  "original_wrapper_failure_preserved": true,
+  "accepted_synthetic_readings": 15,
+  "physical_measurement": false,
+  "support_snapshot_delta_count": 2,
+  "support_own_family_revoked_sql_and_absent_redis": true,
+  "overlapping_prepared_qt_family_revoked_sql_and_absent_redis": true,
+  "count_explanation": "closure() computes all operator1 families created after its snapshot. Qt PREPARED created and closed its family during the support window; wrapper then asserted len(closed)==1 after helper had already validated both SQL revocations and absent Redis keys.",
+  "scope_limit": "Solo esas dos familias verificadas; no es declaración de todas las sesiones del sistema.",
+  "private_receipt_sha256": "24288103e6d0c95adaa8ba24a9b316ce368f4659ed8b0acfafe430546103bfa7"
+}
