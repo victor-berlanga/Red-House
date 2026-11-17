@@ -1,0 +1,99 @@
+{
+  "IOS": {
+    "denial_events": [
+      {
+        "at": "2026-11-17T02:40:12Z",
+        "bytes_received": false,
+        "denied": true,
+        "event": "denied_camera_callback"
+      },
+      {
+        "at": "2026-11-17T02:40:18Z",
+        "denied": true,
+        "event": "denied_location_callback",
+        "point_received": false
+      }
+    ],
+    "restored_permission_snapshot": [
+      {
+        "at": "2026-11-17T02:42:12Z",
+        "camera": 3,
+        "event": "permissions_observed",
+        "location": 4
+      }
+    ],
+    "camera_background_events": [
+      {
+        "at": "2026-11-17T02:42:21Z",
+        "event": "camera_opened_for_background_cancel"
+      },
+      {
+        "at": "2026-11-17T02:42:30Z",
+        "bytes_received": false,
+        "cancelled": true,
+        "event": "camera_cancelled"
+      }
+    ],
+    "background_observation": {
+      "scheduled": [
+        {
+          "after": 1,
+          "at": "2026-11-17T02:43:44Z",
+          "before": 0,
+          "event": "background_schedule_observed",
+          "private_observer_only": true,
+          "product_queue_worker_executed": false
+        }
+      ],
+      "observed_callbacks_by_90s": 0,
+      "later_callbacks_not_credited": 0,
+      "cutoff_utc": "2026-11-17T02:45:14Z",
+      "receipt_copied_at": "2026-11-17T02:45:45.843747+00:00",
+      "product_queue_worker_executed": false,
+      "callback_simulated": false
+    },
+    "distributed_lab_restored_as_update": true,
+    "restored_lab_donor_session_confirmed_by_user": true
+  },
+  "ANDROID": {
+    "before": {
+      "android.permission.CAMERA": {
+        "granted": true,
+        "user_set": false,
+        "user_fixed": false
+      },
+      "android.permission.ACCESS_FINE_LOCATION": {
+        "granted": false,
+        "user_set": false,
+        "user_fixed": false
+      },
+      "android.permission.ACCESS_COARSE_LOCATION": {
+        "granted": false,
+        "user_set": false,
+        "user_fixed": false
+      }
+    },
+    "after": {
+      "android.permission.CAMERA": {
+        "granted": true,
+        "user_set": true,
+        "user_fixed": false
+      },
+      "android.permission.ACCESS_FINE_LOCATION": {
+        "granted": false,
+        "user_set": true,
+        "user_fixed": false
+      },
+      "android.permission.ACCESS_COARSE_LOCATION": {
+        "granted": false,
+        "user_set": true,
+        "user_fixed": false
+      }
+    },
+    "grants_restored": true,
+    "flags_identical": false,
+    "flag_history_preserved_no_reset": true,
+    "pm_clear": false,
+    "new_positive_camera_qr_gps": false
+  }
+}

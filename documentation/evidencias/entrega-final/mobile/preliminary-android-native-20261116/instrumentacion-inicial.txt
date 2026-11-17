@@ -1,0 +1,95 @@
+INSTRUMENTATION_STATUS: class=org.redhouse.mobile.AndroidRegistrationVisualTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+org.redhouse.mobile.AndroidRegistrationVisualTest:
+INSTRUMENTATION_STATUS: test=oneOwnPreliminaryRegistration
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=org.redhouse.mobile.AndroidRegistrationVisualTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed to perform text input.
+Failed to assert the following: (is enabled)
+Semantics of the node:
+Node #353 at (l=64.0, t=240.0, r=656.0, b=368.0)px
+ContentDataType = 'AndroidContentDataType(androidAutofillType=1)'
+EditableText = ''
+ImeAction = 'Default'
+InputText = ''
+IsEditable = 'false'
+Text = '[Nombre]'
+TextSelectionRange = 'TextRange(0, 0)'
+[Disabled]
+Actions = [ClearTextSubstitution, GetTextLayoutResult, OnAutofillText, OnClick, OnLongClick, PerformImeAction, SetSelection, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 8 siblings
+Selector used: (Text + InputText + EditableText contains 'Nombre' (ignoreCase: false))
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:260)
+	at androidx.compose.ui.test.TextActionsKt.getNodeAndFocus(TextActions.kt:110)
+	at androidx.compose.ui.test.TextActionsKt.getNodeAndFocus$default(TextActions.kt:103)
+	at androidx.compose.ui.test.TextActionsKt.performTextReplacement(TextActions.kt:68)
+	at org.redhouse.mobile.AndroidRegistrationVisualTest.oneOwnPreliminaryRegistration(AndroidRegistrationVisualTest.kt:57)
+
+INSTRUMENTATION_STATUS: stream=
+Error in oneOwnPreliminaryRegistration(org.redhouse.mobile.AndroidRegistrationVisualTest):
+java.lang.AssertionError: Failed to perform text input.
+Failed to assert the following: (is enabled)
+Semantics of the node:
+Node #353 at (l=64.0, t=240.0, r=656.0, b=368.0)px
+ContentDataType = 'AndroidContentDataType(androidAutofillType=1)'
+EditableText = ''
+ImeAction = 'Default'
+InputText = ''
+IsEditable = 'false'
+Text = '[Nombre]'
+TextSelectionRange = 'TextRange(0, 0)'
+[Disabled]
+Actions = [ClearTextSubstitution, GetTextLayoutResult, OnAutofillText, OnClick, OnLongClick, PerformImeAction, SetSelection, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 8 siblings
+Selector used: (Text + InputText + EditableText contains 'Nombre' (ignoreCase: false))
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:260)
+	at androidx.compose.ui.test.TextActionsKt.getNodeAndFocus(TextActions.kt:110)
+	at androidx.compose.ui.test.TextActionsKt.getNodeAndFocus$default(TextActions.kt:103)
+	at androidx.compose.ui.test.TextActionsKt.performTextReplacement(TextActions.kt:68)
+	at org.redhouse.mobile.AndroidRegistrationVisualTest.oneOwnPreliminaryRegistration(AndroidRegistrationVisualTest.kt:57)
+
+INSTRUMENTATION_STATUS: test=oneOwnPreliminaryRegistration
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 18.003
+There was 1 failure:
+1) oneOwnPreliminaryRegistration(org.redhouse.mobile.AndroidRegistrationVisualTest)
+java.lang.AssertionError: Failed to perform text input.
+Failed to assert the following: (is enabled)
+Semantics of the node:
+Node #353 at (l=64.0, t=240.0, r=656.0, b=368.0)px
+ContentDataType = 'AndroidContentDataType(androidAutofillType=1)'
+EditableText = ''
+ImeAction = 'Default'
+InputText = ''
+IsEditable = 'false'
+Text = '[Nombre]'
+TextSelectionRange = 'TextRange(0, 0)'
+[Disabled]
+Actions = [ClearTextSubstitution, GetTextLayoutResult, OnAutofillText, OnClick, OnLongClick, PerformImeAction, SetSelection, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 8 siblings
+Selector used: (Text + InputText + EditableText contains 'Nombre' (ignoreCase: false))
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:260)
+	at androidx.compose.ui.test.TextActionsKt.getNodeAndFocus(TextActions.kt:110)
+	at androidx.compose.ui.test.TextActionsKt.getNodeAndFocus$default(TextActions.kt:103)
+	at androidx.compose.ui.test.TextActionsKt.performTextReplacement(TextActions.kt:68)
+	at org.redhouse.mobile.AndroidRegistrationVisualTest.oneOwnPreliminaryRegistration(AndroidRegistrationVisualTest.kt:57)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

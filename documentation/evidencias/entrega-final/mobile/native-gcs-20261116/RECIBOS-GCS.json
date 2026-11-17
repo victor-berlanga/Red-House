@@ -1,0 +1,84 @@
+{
+  "IOS": {
+    "native_acceptance": true,
+    "native_bridge_status": "PASS",
+    "anonymous_generation_get_status": 403,
+    "exact_technical_family_revoked": true,
+    "exact_technical_family_absent_redis": true,
+    "new_matching_file_count": 1,
+    "audit_sql_events": 2,
+    "mongo_events": 2,
+    "object_metadata": {
+      "generation": "1794882994475457",
+      "metageneration": 1,
+      "temporary_hold": null,
+      "event_based_hold": null,
+      "retention_expiration_time": null,
+      "retention_mode": null,
+      "retain_until_time": null,
+      "download_hash_verified": true
+    },
+    "object_deleted": true,
+    "physical_soft_delete_expiry_proved": false,
+    "oracle_completed": true,
+    "engine": "Ktor Darwin",
+    "sample_size": 289695,
+    "sample_sha256": "e5831817a8c8b4f82583501fdc0b48d9e8d16557ffd8e997a7074d1847c7d810",
+    "real_product_repository": true,
+    "camera_qr_gps_invoked": false,
+    "product_keychain_or_journal_opened": false,
+    "bucket_metadata_adc": {
+      "observable": false,
+      "reason": "storage.buckets.get403; use an already-authorized metadata identity if needed; never expand IAM"
+    }
+  },
+  "ANDROID": {
+    "native_acceptance": true,
+    "native_bridge_status": "PASS",
+    "anonymous_generation_get_status": 403,
+    "exact_technical_family_revoked": true,
+    "exact_technical_family_absent_redis": true,
+    "new_matching_file_count": 1,
+    "audit_sql_events": 2,
+    "mongo_events": 2,
+    "object_metadata": {
+      "generation": "1794883933167523",
+      "metageneration": 1,
+      "temporary_hold": null,
+      "event_based_hold": null,
+      "retention_expiration_time": null,
+      "retention_mode": null,
+      "retain_until_time": null,
+      "download_hash_verified": true
+    },
+    "object_deleted": true,
+    "physical_soft_delete_expiry_proved": false,
+    "oracle_completed": true,
+    "engine": "Ktor OkHttp",
+    "sample_size": 289695,
+    "sample_sha256": "e5831817a8c8b4f82583501fdc0b48d9e8d16557ffd8e997a7074d1847c7d810",
+    "real_product_repository": true,
+    "camera_qr_gps_invoked": false,
+    "product_keychain_or_journal_opened": false,
+    "bucket_metadata_adc": {
+      "observable": false,
+      "reason": "storage.buckets.get403; use an already-authorized metadata identity if needed; never expand IAM"
+    }
+  },
+  "bucket_policy_read_by_existing_authorized_identity": {
+    "metageneration": 2,
+    "public_access_prevention": "enforced",
+    "uniform_bucket_level_access": true,
+    "soft_delete_policy": {
+      "effectiveTime": "2026-10-15T18:24:07.285000+00:00",
+      "retentionDurationSeconds": "604800"
+    }
+  },
+  "bucket_policy_fields_not_reported_by_that_cli": [
+    "retention",
+    "versioning",
+    "default_event_based_hold"
+  ],
+  "bucket_or_iam_modified": false,
+  "new_objects_only_deleted": true
+}

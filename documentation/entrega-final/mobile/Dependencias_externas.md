@@ -3,6 +3,12 @@
 Se inspeccionaron `/Applications`, `~/Applications`, `xcode-select`, `xcrun`, configuración móvil y nombres de archivos locales. No se imprimieron secretos. No se crearon recursos GCP ni se cambió producción.
 
 
+## Estado vigente — 16/11/2026
+
+Las ausencias y solicitudes de preparación inferiores son históricas. Cuenta/team/certificado y dispositivo iPhone existentes ya permitieron firma e instalación normal/Lab. El usuario confirmó restauración de su sesión donante después del host privado; perfiles observados normal 17/11 y Lab 21/11 aún no cubren el 23. No se crearon cuentas/certificados/dispositivos ni se descargó Simulator.
+
+[GCS nativo Android/iPhone y permisos](../../evidencias/entrega-final/mobile/native-gcs-20261116/RESULTADOS.md) ya cuentan con autorización explícita y recibos: dos objetos sintéticos propios VERIFIED/CLEAN, GET anónimo 403, familias revocadas y limpieza por generación, sin IAM/históricos. Se reutilizó el bucket existente; producción sigue LOCAL. La lectura ADC de metadata bucket 403 y la lectura separada autorizada de PAP/UBLA/soft-delete se distinguen. FCM/APNs continúa pendiente externo por decisión humana; no es un bloqueo de GCS. La [matriz actual](Matriz.md) conserva los límites de firma/accesibilidad/BGAppRefresh y la falta de inspección visual del alta.
+
 ## Preparación local posterior — 09/11/2026
 
 Por solicitud del usuario se preparan las dependencias locales. Las inspecciones de ausencia que siguen describen el estado anterior, no el resultado de esta preparación.
@@ -18,11 +24,11 @@ Por solicitud del usuario se preparan las dependencias locales. Las inspecciones
 
 Fuentes oficiales: [descargas ClamAV](https://www.clamav.net/downloads), [configuración ClamAV](https://docs.clamav.net/manual/Usage/Configuration.html), [requisitos de Xcode](https://developer.apple.com/xcode/system-requirements), [notas Xcode 27](https://developer.apple.com/documentation/xcode-release-notes/xcode-27-release-notes). Consultadas el 09/11/2026.
 
-## Gateway disponible — 10/11/2026
+## Gateway disponible — corte histórico del 10/11/2026
 
 La VM existente quedó encendida con `mobile04-20261110` y esquema 18. HTTPS de `https://34.18.186.116` valida con certificado para esa IP; Android/iOS 0.3.1 lo incorporan sin pedir configuración al usuario. No falta un gateway común para iniciar sesión. Un entorno aislado adicional sigue siendo requisito para los ensayos de caídas o GCS que aún no están autorizados. [Resultados del despliegue](../../evidencias/gcp/mobile04-20261110/RESULTADOS.md).
 
-## Apple: dependencias vigentes
+## Apple: preparación histórica — 09/11/2026
 
 - Xcode **16.3 (16E140)** en `/Applications/Xcode.app`, Developer directory seleccionado, licencia y configuración inicial completadas. SDK iPhoneOS **18.4** y XcodeGen **2.46.0** disponibles. Las ausencias documentadas en el expediente anterior son históricas.
 - El proyecto se genera con `cd apps/mobile/iosApp && xcodegen generate --spec project.yml`. Los permisos y el identificador `org.redhouse.mobile.observations` se conservan en `project.yml`; regenerar no debe borrar las declaraciones del Info.plist.
@@ -47,8 +53,8 @@ Rotación: Android conserva token cifrado y actualiza el registro al volver a pr
 
 ## Evidencia GCS
 
-Bucket existente comprobado solo por metadatos. Ver `Aislamiento_GCS_propuesto.md`: falta autorización para escribir/borrar en el prefijo aislado, comprobar permisos de firma de URLs y ejecutar el ciclo autorizado. ClamD real ya está disponible y volvió a verificarse con contenido limpio y EICAR en este incremento. No se sustituye el análisis por mocks. La captura/preview, SHA-256, preparación JSON y PUT firmado están implementados; la carga completa aún requiere prueba autorizada.
+El ensayo autorizado del 16/11 ya atravesó repositorio/Ktor nativos Android e iPhone con JPEG sintético, ClamD real, generación/hash, eventos SQL/Mongo y negativa anónima403. Se revocaron sus familias exactas y limpiaron solo generaciones nuevas propias. [Resultados y límites](../../evidencias/entrega-final/mobile/native-gcs-20261116/RESULTADOS.md). El documento `Aislamiento_GCS_propuesto.md` conserva la propuesta anterior, no un bloqueo vigente de autorización. La operación del servidor público mantuvo LOCAL; no se amplió IAM ni se creó bucket.
 
-## Dispositivos
+## Dispositivos — corte histórico del 09/11/2026
 
 Android se comprobó en emulador AOSP API 30 x86_64. Los intentos API 35 sufrieron fallos/ANR y no acreditan recorridos. Las posiciones inyectadas se etiquetan `ANDROID` + `simulated=true`; no son GPS físico. No se ha conectado un teléfono Android/iPhone físico. El puente externo `GPS_BRIDGE` existente permanece separado y no exige comprar hardware.
