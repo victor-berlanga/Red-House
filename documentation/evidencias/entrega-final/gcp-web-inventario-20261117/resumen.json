@@ -1,0 +1,211 @@
+{
+  "status": "DEPLOYED_VALIDATED_ACCESS_CLOSED",
+  "date": "2026-11-17",
+  "target": {
+    "project": "sistemas-integracion-01",
+    "instance": "red-house",
+    "zone": "me-central1-a",
+    "id": "2861822465669755197"
+  },
+  "package_manifest_sha256": "da7440ec811c97223ddf3d604024228f02f97d8d91e087c72b9febc44a2ba3aa",
+  "targets": [
+    "web"
+  ],
+  "images": {
+    "web": {
+      "id": "sha256:671ccee75e3033f079dfacd70ac7cb071f2cb5bf7e676dd50895099793daeab8",
+      "tag": "redhouse-web:web-inventory-nplus1-20261117-01",
+      "base": "sha256:8f25712cbc20d718e4cfef2a268d06d287db4a3aec4636b21862bf849e6d5a7a",
+      "previous_tag": "redhouse-web:before-web-inventory-nplus1-20261117-01"
+    }
+  },
+  "source_sha256": "6714dd289d983f7c4060c33d6abfc40523277f14629625d24786acd048eeafa6",
+  "previous_web_source_sha256": "4bd431c084dc92e30d8168a69bdd1ba204dcf6291ed19578c2ed737613ba2a29",
+  "host_candidate_preserved": true,
+  "healthy_containers": 30,
+  "unchanged_containers": 29,
+  "published_inventory_images_preserved": true,
+  "published_inventory_image_id": "sha256:fa43724f2d475872c1f8c8ef90eb3f8c7ea756828ad60dff06b3aec2ba72afca",
+  "schema": 21,
+  "storage": "local",
+  "backend": "monolith",
+  "web_tracking_js_preserved_sha256": "64c9986e24385e498507791e6160e63eb358cdaa842ab0ad75c8d7a0a1c81503",
+  "public_rounds": [
+    {
+      "at": 1794946340.5389507,
+      "checks": [
+        {
+          "path": "/health/live",
+          "http": 200,
+          "sha256": "8a1ba4f31889e085e60298217996a3738c7e6ef8b7cb6c5cb8478cafe5750e0e"
+        },
+        {
+          "path": "/login",
+          "http": 200,
+          "sha256": "79ff828fa333425f7eb38ab7ec06ab526aba4e5991c443e0b5bf553b0abdbc30"
+        },
+        {
+          "path": "/static/js/tracking.js",
+          "http": 200,
+          "sha256": "64c9986e24385e498507791e6160e63eb358cdaa842ab0ad75c8d7a0a1c81503"
+        }
+      ]
+    },
+    {
+      "at": 1794946345.8033872,
+      "checks": [
+        {
+          "path": "/health/live",
+          "http": 200,
+          "sha256": "8a1ba4f31889e085e60298217996a3738c7e6ef8b7cb6c5cb8478cafe5750e0e"
+        },
+        {
+          "path": "/login",
+          "http": 200,
+          "sha256": "3af0dd225734a64db86e4eb8ecac0839e02eb90655e79b7697e319f31fffb742"
+        },
+        {
+          "path": "/static/js/tracking.js",
+          "http": 200,
+          "sha256": "64c9986e24385e498507791e6160e63eb358cdaa842ab0ad75c8d7a0a1c81503"
+        }
+      ]
+    }
+  ],
+  "tls": {
+    "checked_at": "2026-11-17T20:12:34.978081+00:00",
+    "not_after": "2026-11-21T15:14:23+00:00",
+    "certificate_sha256": "a5c19375af97ae6d4beef5a8a16ae939512052670bf0fc804b63397cbff3e737",
+    "tls_trust_and_ip_validated": true,
+    "delivery_day_end_utc": "2026-11-24T06:00:00+00:00",
+    "covers_delivery_day_end": false,
+    "renewal_timer": {
+      "NextElapseUSecRealtime": "Wed 2026-11-18 00:11:58 UTC",
+      "LastTriggerUSec": "Tue 2026-11-17 18:13:45 UTC",
+      "LoadState": "loaded",
+      "ActiveState": "active",
+      "UnitFileState": "enabled"
+    },
+    "timer_query_exit_code": 0,
+    "renewal_service": {
+      "Result": "success",
+      "ExecMainExitTimestamp": "Tue 2026-11-17 18:13:47 UTC",
+      "ExecMainStatus": "0",
+      "LoadState": "loaded"
+    },
+    "service_query_exit_code": 0,
+    "renewal_performed": false
+  },
+  "access_cleanup": {
+    "temporary_key_removed": true,
+    "prior_keys_preserved": 2,
+    "private_key_deleted": true,
+    "validation_action": "finish"
+  },
+  "phases": [
+    {
+      "action": "access-add",
+      "exit": 0,
+      "elapsed_seconds": 15.273
+    },
+    {
+      "action": "access-remove",
+      "exit": 0,
+      "elapsed_seconds": 10.708
+    },
+    {
+      "action": "finish",
+      "exit": 0,
+      "elapsed_seconds": 36.572
+    },
+    {
+      "action": "preflight",
+      "exit": 0,
+      "elapsed_seconds": 27.993
+    },
+    {
+      "action": "prepare",
+      "exit": 0,
+      "elapsed_seconds": 53.102
+    },
+    {
+      "action": "release",
+      "exit": 0,
+      "elapsed_seconds": 60.137
+    },
+    {
+      "action": "stage",
+      "exit": 0,
+      "elapsed_seconds": 10.679
+    }
+  ],
+  "local_gate": {
+    "accepted": true,
+    "mode": "ROOT_ACCEPTED_COMPOSITE",
+    "runtime": "local monolith; procedural startup provenance, not bytecode introspection",
+    "browser_exit": 0,
+    "get_checks": [
+      {
+        "path": "/inventario",
+        "http": 200
+      },
+      {
+        "path": "/inventario/470efd9c-8e48-4015-8a5e-87de1db1c9a0",
+        "http": 200
+      }
+    ],
+    "logout_http": 302,
+    "browser_logout_confirmed": true,
+    "one_own_family_closed_sql_redis": true,
+    "business_unchanged": true,
+    "sources_unchanged": true,
+    "raw_wrapper_passed": false,
+    "raw_wrapper_exit": 1,
+    "raw_failure_preserved": true,
+    "failure": "Main-page request observer omitted logout performed by a different page in the same browser context. The browser separately awaited POST logout HTTP302 and navigation to login.",
+    "repeated_login": false,
+    "reconciliation_sha256": "346651039e8edba13c8dc360f677bbb71693e94d4156ad1d2824545077703615",
+    "composite_gate_sha256": "2bb7b2bdd94d8024899ac537f4d424783eff004b36f94136f37fa2a11ccf368d",
+    "originals_sha256": {
+      "01-inventario.png": "dc85a4ec3b77be8b865698fde57ae9c03d64afb52e205af62beb33e3fad6d5e0",
+      "02-inventario.png": "b127034dff2c4d0ddd764e621041c4034b6c1170658dc8174cb7942f4d0cb84f",
+      "browser-private.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "browser.json": "f94b1e12a7136cf4756a9c6a1d6535e649de6d461c3c777187ba2392987c63e8",
+      "executed-monolith_browser.cjs.txt": "021fe9b92ccfcc86c5c8ae6fa3efedee5734c1308511d87c84e7665489374fe7",
+      "executed-monolith_browser_runner.py.txt": "81d0b7adddf41d1ea5862c7ef5fd93fea62c4cb1ef8bf7335be81cfc8d7e9863",
+      "failure-original-1794945963519796000.private.json": "3a97ffa40aeb77e1c85022057e5eb2592f97263d56ea7fdc73796ea3dfbecc76",
+      "receipt.json": "98a9def7c1ad84395ffce7ba0c398ea7abe04074911b82f81de1f7325b2662a5"
+    },
+    "later_listener_fix_executed": false
+  },
+  "private_evidence_verification": {
+    "receipt_files_verified": 9,
+    "receipt_hashes": {
+      "deploy-web-inventory-nplus1-20261117-01/build-progress.json": "eeb03abb477ea5b20d596aa9947f0c76bc42fdc9aa2df8e80809d2da27246600",
+      "deploy-web-inventory-nplus1-20261117-01/builds.json": "eeb03abb477ea5b20d596aa9947f0c76bc42fdc9aa2df8e80809d2da27246600",
+      "deploy-web-inventory-nplus1-20261117-01/compose-before.private.json": "c647c9877708c5893d78b6949a9bcd7873ebbbdcb355bd7ba5d53f55424f0232",
+      "deploy-web-inventory-nplus1-20261117-01/preflight-complete.json": "2b18d5f718529858563fcc7400eb81f200137f524f64e0a0d0b7153097508eaa",
+      "deploy-web-inventory-nplus1-20261117-01/preflight.json": "b7358260c5c4ef8c7ca2eeec1c0d4e44790c09a6a2af9910b8cc4d73764b1653",
+      "deploy-web-inventory-nplus1-20261117-01/prepared.json": "fbbfcb9514cd5df4ae4970e66289a55048b9aab6c5bb2b9f36f7a70901911ee5",
+      "deploy-web-inventory-nplus1-20261117-01/publication-intent.json": "f1b82e377102da6b07c80756ec15511200c37dcf8975bbeb3126cf890561c3ce",
+      "deploy-web-inventory-nplus1-20261117-01/released.json": "981e38a34e2c7bfcc7a38e0d53890ccf685835012ef28c517ac06c5610d74ec5",
+      "deploy-web-inventory-nplus1-20261117-01/validation.json": "24f433b677e58d6f1169c6f79bad2de577fb8f4ec5b71061d8d9b2588b9a2cd6"
+    },
+    "final_summary_sha256": "6a4c3aaa6ffbdcf345d4558ca805764e7f0cea1f5e0ae62a7bc7625781326cfd",
+    "access_cleanup_sha256": "17f9e19af2efb699ccee6ca57f44dd1674556545a03c244cd4d57a9653f95be0",
+    "all_verified_before_public_summary": true,
+    "private_content_published": false
+  },
+  "rollback_executed": false,
+  "business_writes_remote": false,
+  "technical_login_created_remote": false,
+  "protected_inventory_probe_repeated": false,
+  "iam_buckets_migrations_changed": false,
+  "local_fixtures_started_or_restarted": false,
+  "limitations": [
+    "Brief web recreation; not an availability or capacity benchmark.",
+    "Public remote validation only; no new authenticated remote session.",
+    "TLS does not cover delivery day23.",
+    "Local Chrome wrapper remains FAILED; acceptance is composite and preserves its original failure."
+  ]
+}
