@@ -7,16 +7,18 @@ from datetime import datetime, timedelta, timezone
 from urllib.parse import urlencode
 from uuid import uuid4
 
-from scripts.load_client import LoadFailure
+from scripts.load_client import LoadFailure, ReauthenticationRequired
 
 
 class TransactionTrace:
-    """Diario privado de estos dos recorridos; nunca recibe credenciales."""
+    """Diario privado de recorridos sintéticos; nunca recibe credenciales."""
 
-    def __init__(self, api, path, account, stage):
+    def __init__(self, api, path, account, stage, reauthenticate=None):
         self.api, self.account, self.stage = api, account, stage
         self.stream = path.open("x", encoding="utf-8")
         path.chmod(0o600)
+        self.reauthenticate = reauthenticate
+        self.mfa_wait_ms = 0.0
         self.cycle = 0
         self.replay_remaining = 1
 
@@ -42,20 +44,50 @@ class TransactionTrace:
 
     def begin(self):
         self.cycle += 1
+        self.mfa_wait_ms = 0.0
         self.emit("cycle_start")
 
     def end(self, error):
         self.emit("cycle_end", success=error is None)
 
     def request(self, service, path, label, **kwargs):
+        critical = kwargs.pop("critical", None)
+        if "proof" in kwargs:
+            raise LoadFailure("proof_must_not_enter_trace")
+        if critical:
+            if not self.reauthenticate or kwargs.get("method", "GET") != "POST":
+                raise LoadFailure("reauthentication_handler_missing")
+            kwargs["allow_reauthentication"] = True
         if kwargs.get("method", "GET") == "GET":
             return self.api.request(service, path, label, **kwargs)
         if service not in (
             "donantes",
             "inventario",
             "compatibilidad",
+            "transporte",
         ) or not kwargs.get("key"):
             raise LoadFailure("untracked_write")
+
+        def secret(value):
+            if isinstance(value, dict):
+                return any(
+                    k.lower()
+                    in {
+                        "password",
+                        "otp",
+                        "challenge",
+                        "proof",
+                        "access_token",
+                        "refresh_token",
+                        "authorization",
+                    }
+                    or secret(v)
+                    for k, v in value.items()
+                )
+            return isinstance(value, list) and any(secret(v) for v in value)
+
+        if secret(kwargs.get("body")):
+            raise LoadFailure("secret_must_not_enter_trace")
         key = kwargs["key"]
         self.emit(
             "intent",
@@ -66,7 +98,19 @@ class TransactionTrace:
             body=kwargs.get("body"),
             label=label,
         )
-        result = self.api.request(service, path, label, **kwargs)
+        try:
+            result = self.api.request(service, path, label, **kwargs)
+        except ReauthenticationRequired as challenge:
+            if not critical:
+                raise LoadFailure("unexpected_reauthentication") from None
+            self.emit("reauthentication_requested", key=key, operation=critical[0])
+            proof, waiting = self.reauthenticate(challenge.challenge, *critical)
+            self.mfa_wait_ms += waiting
+            self.emit("mfa_wait", key=key, duration_ms=waiting)
+            try:
+                result = self.api.request(service, path, label, proof=proof, **kwargs)
+            finally:
+                proof = None
         self.emit("response", key=key, result=result)
         if self.replay_remaining:
             self.replay_remaining -= 1
@@ -269,4 +313,319 @@ def inventory_cycle(api, _campaign_title, *, profile_id=None):
             and value["status"] == "RECEIVED"
             and value["version"] == received["version"]
         ),
+    )
+
+
+def _confirmed(fetch, predicate, timeout=20):
+    """Observe the original asynchronous command; never create a replacement."""
+    deadline = time.monotonic() + timeout
+    while True:
+        value = fetch()
+        if predicate(value):
+            return value
+        if value.get("status") in (
+            "FAILED",
+            "ROLLBACK_PENDING",
+            "REJECTED",
+            "CANCELLED",
+        ):
+            raise LoadFailure("business_command_failed")
+        if time.monotonic() >= deadline:
+            raise LoadFailure("business_command_pending")
+        time.sleep(0.25)
+
+
+def medical_cycle(api, case):
+    """Academic confirmation of the exact prepared candidate, never ranking autopick."""
+    request_id, resource_id = case["request_id"], case["resource_id"]
+    api.request(
+        "receptores",
+        "/api/v1/requests/" + request_id,
+        "Médico / Solicitud propia",
+        canonical="/api/v1/requests/{identifier}",
+        check=lambda row: row["id"] == request_id and row["status"] == "OPEN",
+    )
+    evaluation = api.request(
+        "compatibilidad",
+        "/api/v1/evaluations",
+        "Médico / Evaluar",
+        method="POST",
+        expected=201,
+        key=str(uuid4()),
+        body={"request_id": request_id},
+        check=lambda row: (
+            row["request_id"] == request_id
+            and sum(c["resource_id"] == resource_id for c in row["candidates"]) == 1
+        ),
+    )
+    reviewed = api.request(
+        "compatibilidad",
+        "/api/v1/evaluations/" + evaluation["id"] + "/reviews",
+        "Médico / Dictamen académico",
+        canonical="/api/v1/evaluations/{identifier}/reviews",
+        method="POST",
+        expected=201,
+        key=str(uuid4()),
+        critical=("evaluation_review", evaluation["id"]),
+        body={
+            "resource_id": resource_id,
+            "decision": "FAVORABLE",
+            "human_confirmation": True,
+            "reason": case["approved_reason"],
+        },
+        check=lambda row: (
+            row["evaluation_id"] == evaluation["id"]
+            and row["resource_id"] == resource_id
+            and row["decision"] == "FAVORABLE"
+        ),
+    )
+    operation = api.request(
+        "inventario",
+        "/api/v1/reservations",
+        "Médico / Reservar",
+        method="POST",
+        expected=202,
+        key=str(uuid4()),
+        critical=("reservation_create", resource_id),
+        body={
+            "evaluation_id": evaluation["id"],
+            "resource_id": resource_id,
+            "human_confirmation": True,
+            "reason": case["approved_reason"],
+        },
+    )
+    final = _confirmed(
+        lambda: api.request(
+            "inventario",
+            "/api/v1/operations/" + operation["operation_id"],
+            "Médico / Confirmar operación",
+            canonical="/api/v1/operations/{identifier}",
+        ),
+        lambda row: (
+            row["operation_id"] == operation["operation_id"]
+            and row["status"] == "COMPLETED"
+            and row["reservation"] is not None
+            and row["reservation"]["status"] == "RESERVED"
+        ),
+    )
+    if (
+        final["reservation"]["resource_id"] != resource_id
+        or final["reservation"]["request_id"] != request_id
+    ):
+        raise LoadFailure("reservation_correlation")
+    api.emit(
+        "case_result",
+        case_id=case["case_id"],
+        resource_id=resource_id,
+        evaluation_id=evaluation["id"],
+        review_id=reviewed["id"],
+        operation_id=operation["operation_id"],
+        reservation_id=final["reservation"]["id"],
+        status="RESERVED",
+    )
+
+
+def coordinator_cycle(api, case):
+    reservation_id = case["reservation_id"]
+    reserved = api.request(
+        "inventario",
+        "/api/v1/reservations/" + reservation_id,
+        "Coordinación / Reserva propia",
+        canonical="/api/v1/reservations/{identifier}",
+        check=lambda row: (
+            row["id"] == reservation_id
+            and row["resource_id"] == case["resource_id"]
+            and row["status"] == "RESERVED"
+            and row["shipment_id"] is None
+        ),
+    )
+    resource = api.request(
+        "inventario",
+        "/api/v1/resources/" + reserved["resource_id"],
+        "Coordinación / Caducidad del recurso reservado",
+        canonical="/api/v1/resources/{identifier}",
+        check=lambda row: (
+            row["id"] == reserved["resource_id"] == case["resource_id"]
+            and row["status"] == "RESERVED"
+        ),
+    )
+    route = api.request(
+        "priorizacion_geografia",
+        "/api/v1/routes/" + reserved["route_id"],
+        "Coordinación / Ruta vigente",
+        canonical="/api/v1/routes/{identifier}",
+        check=lambda row: (
+            row["id"] == reserved["route_id"]
+            and row["version"] == reserved["route_version"]
+        ),
+    )
+    api.request(
+        "identidad_acceso",
+        "/api/v1/users?"
+        + urlencode({"q": case["transport_username"], "page_size": 20}),
+        "Coordinación / Responsable habilitado",
+        check=lambda value: any(
+            row["id"] == case["transport_user_id"]
+            and row["role"] == "TRANSPORT"
+            and row["active"]
+            and row["tenant_id"] == reserved["origin_id"]
+            for row in value["items"]
+        ),
+    )
+    departure = datetime.now(timezone.utc) + timedelta(minutes=1)
+    eta = departure + timedelta(minutes=route["travel_minutes"] + 1)
+    if eta >= datetime.fromisoformat(resource["expires_at"].replace("Z", "+00:00")):
+        raise LoadFailure("prepared_reservation_expiring")
+    planned = api.request(
+        "transporte",
+        "/api/v1/shipments",
+        "Coordinación / Planificar",
+        method="POST",
+        expected=202,
+        key=str(uuid4()),
+        body={
+            "reservation_id": reservation_id,
+            "transport_user_id": case["transport_user_id"],
+            "departure_at": departure.isoformat(),
+            "eta": eta.isoformat(),
+            "human_confirmation": True,
+            "reason": case["approved_reason"],
+        },
+    )
+    final = _confirmed(
+        lambda: api.request(
+            "transporte",
+            "/api/v1/shipments/" + planned["id"],
+            "Coordinación / Confirmar plan",
+            canonical="/api/v1/shipments/{identifier}",
+        ),
+        lambda row: (
+            row["id"] == planned["id"]
+            and row["status"] == "PLANNED"
+            and not row["inventory_pending"]
+        ),
+    )
+    if (
+        final["reservation_id"] != reservation_id
+        or final["transport_user_id"] != case["transport_user_id"]
+    ):
+        raise LoadFailure("shipment_correlation")
+    api.emit(
+        "case_result",
+        case_id=case["case_id"],
+        reservation_id=reservation_id,
+        resource_id=case["resource_id"],
+        shipment_id=final["id"],
+        status="PLANNED",
+    )
+
+
+def transport_cycle(api, case):
+    shipment_id, resource_id = case["shipment_id"], case["resource_id"]
+    path = "/api/v1/shipments/" + shipment_id
+    current = api.request(
+        "transporte",
+        path,
+        "Traslado / Tarea asignada",
+        canonical="/api/v1/shipments/{identifier}",
+        check=lambda row: (
+            row["id"] == shipment_id
+            and row["reservation_id"] == case["reservation_id"]
+            and row["transport_user_id"] == api.account["id"]
+            and row["status"] == "PREPARED"
+            and not row["inventory_pending"]
+        ),
+    )
+    context = api.request(
+        "transporte",
+        path + "/operational-context",
+        "Traslado / Contrapartes",
+        canonical="/api/v1/shipments/{identifier}/operational-context",
+        check=lambda row: (
+            row["shipment_id"] == shipment_id
+            and row["shipment_version"] == current["version"]
+        ),
+    )
+    for stage, field in (("COLLECTED", "origin"), ("DELIVERED", "destination")):
+        counterparty = case[field + "_operator_id"]
+        if not any(row["id"] == counterparty for row in context[field]["operators"]):
+            raise LoadFailure("prepared_counterparty_unavailable")
+        scanned = api.request(
+            "transporte",
+            path + "/scan",
+            "Traslado / Verificar unidad",
+            canonical="/api/v1/shipments/{identifier}/scan",
+            method="POST",
+            key=str(uuid4()),
+            body={"scanned_resource_id": resource_id},
+            check=lambda row: (
+                row["shipment_id"] == shipment_id
+                and row["resource_id"] == resource_id
+                and row["verified"]
+            ),
+        )
+        if scanned["version"] != current["version"]:
+            raise LoadFailure("shipment_version_changed")
+        current = api.request(
+            "transporte",
+            path + "/transitions",
+            "Traslado / " + stage,
+            canonical="/api/v1/shipments/{identifier}/transitions",
+            method="POST",
+            key=str(uuid4()),
+            body={
+                "state": stage,
+                "version": current["version"],
+                "human_confirmation": True,
+                "reason": case["approved_reason"],
+                "custody": {
+                    "scanned_resource_id": resource_id,
+                    "seal": case["seal"],
+                    "captured_at": datetime.now(timezone.utc).isoformat(),
+                    "reported_handover_user_id": counterparty,
+                    "electronic_acceptance": True,
+                },
+            },
+            check=lambda row, expected_stage=stage: (
+                row["id"] == shipment_id and row["status"] == expected_stage
+            ),
+        )
+        if stage == "COLLECTED":
+            current = api.request(
+                "transporte",
+                path + "/transitions",
+                "Traslado / IN_TRANSIT",
+                canonical="/api/v1/shipments/{identifier}/transitions",
+                method="POST",
+                key=str(uuid4()),
+                body={
+                    "state": "IN_TRANSIT",
+                    "version": current["version"],
+                    "human_confirmation": True,
+                    "reason": case["approved_reason"],
+                },
+                check=lambda row: (
+                    row["id"] == shipment_id and row["status"] == "IN_TRANSIT"
+                ),
+            )
+    api.request(
+        "transporte",
+        path,
+        "Traslado / Confirmar entrega",
+        canonical="/api/v1/shipments/{identifier}",
+        check=lambda row: (
+            row["id"] == shipment_id
+            and row["status"] == "DELIVERED"
+            and row["version"] == current["version"]
+        ),
+    )
+    api.emit(
+        "case_result",
+        case_id=case["case_id"],
+        resource_id=resource_id,
+        reservation_id=case["reservation_id"],
+        shipment_id=shipment_id,
+        status="DELIVERED",
+        gps_in_this_increment=False,
+        accepted_by_destination=False,
     )

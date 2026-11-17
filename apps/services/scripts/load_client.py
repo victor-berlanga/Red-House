@@ -18,6 +18,80 @@ class LoadFailure(Exception):
     """Solo códigos fijos, aptos para estadísticas sin datos de respuesta."""
 
 
+class ReauthenticationRequired(LoadFailure):
+    """Expected, validated challenge; the secret is never part of exception text."""
+
+    def __init__(self, challenge):
+        super().__init__("reauthentication_required")
+        self.challenge = challenge
+
+
+@lru_cache(maxsize=16)
+def error_contract(service):
+    module = "servicio_monitoreo" if service == "monitoreo" else "ms_" + service
+    spec = json.loads((ROOT / module / "contracts/openapi.json").read_text())
+    definition = {
+        "$ref": "#/components/schemas/Error",
+        "components": spec["components"],
+    }
+    return definition, Draft202012Validator(definition, format_checker=FormatChecker())
+
+
+@lru_cache(maxsize=16)
+def service_version(service):
+    module = "servicio_monitoreo" if service == "monitoreo" else "ms_" + service
+    return json.loads((ROOT / module / "contracts/openapi.json").read_text())["info"]["version"]
+
+
+def reauthentication_challenge(response, service, mime, *, diagnostic=None):
+    """Accept only the declared 403 challenge; other denials remain failures."""
+    schema, validator = error_contract(service)
+    if diagnostic is not None:
+        diagnostic.update(status=response.status_code, expected_service=service,
+                          expected_version=service_version(service),
+                          mime_matches=response.headers.get("Content-Type", "").split(";", 1)[0] == mime,
+                          response_bytes=len(response.content))
+    if (
+        response.headers.get("Content-Type", "").split(";", 1)[0] != mime
+        or len(response.content) > 65536
+    ):
+        raise ValueError("invalid_challenge_contract")
+    if mime == "application/xml":
+        payload = validate_response(response.content, schema)
+    else:
+        payload = response.json()
+        validator.validate(payload)
+    if diagnostic is not None:
+        diagnostic.update(
+            owner_matches=payload["meta"]["service"] == service,
+            version_matches=payload["meta"]["version"] == service_version(service),
+            correlation_id=payload["meta"]["correlation_id"],
+            reauthentication_required=payload["error"]["code"] == "reauthentication_required",
+            details=[{"reauthentication_field": d.get("field") == "reauthentication",
+                      "challenge_code": d.get("code") == "challenge",
+                      "challenge_type": type(d.get("challenge")).__name__,
+                      "challenge_length": len(d["challenge"]) if isinstance(d.get("challenge"), str) else None}
+                     for d in payload["error"].get("details", [])],
+        )
+    if payload["meta"]["service"] != service or payload["meta"]["version"] != service_version(service):
+        raise ValueError("invalid_challenge_owner")
+    error = payload["error"]
+    if error["code"] != "reauthentication_required":
+        raise ValueError("unexpected_denial")
+    matches = [
+        item.get("challenge")
+        for item in error.get("details", [])
+        if item.get("field") == "reauthentication" and item.get("code") == "challenge"
+    ]
+    if (
+        len(matches) != 1
+        or not isinstance(matches[0], str)
+        or not 40 <= len(matches[0]) <= 4096
+    ):
+        raise ValueError("invalid_challenge")
+    return matches[0]
+
+
 def isolated_urls(urls):
     if not isinstance(urls, dict) or not urls:
         raise ValueError("Faltan destinos de laboratorio.")
@@ -98,6 +172,7 @@ class LoadSession:
         self.access = self.refresh = None
         self.renew_at = 0
         self.user = None
+        self.last_challenge_diagnostic = None
 
     def _wire(
         self,
@@ -113,6 +188,8 @@ class LoadSession:
         key=None,
         expected=200,
         check=None,
+        allow_reauthentication=False,
+        proof=None,
     ):
         if not path.startswith("/api/v1/") or "://" in path or "#" in path:
             raise ValueError("Ruta no permitida en el arnés.")
@@ -129,6 +206,8 @@ class LoadSession:
             headers["Cache-Control"] = "no-cache"
         if key:
             headers["Idempotency-Key"] = key
+        if proof:
+            headers["X-Reauthentication-Proof"] = proof
         request_body = {}
         if body is not None:
             if mime == "application/xml":
@@ -138,6 +217,7 @@ class LoadSession:
                 request_body["json"] = body
         error = None
         payload = None
+        challenge = None
         with self.client.request(
             method,
             self.urls[service] + path,
@@ -152,7 +232,16 @@ class LoadSession:
                 self.cache_observer(
                     response.headers.get("X-Cache"), response.status_code
                 )
-            if response.status_code != expected:
+            if response.status_code == 403 and allow_reauthentication and proof is None:
+                diagnostic = {}
+                try:
+                    challenge = reauthentication_challenge(response, service, mime, diagnostic=diagnostic)
+                    response.success()
+                except Exception as exc:  # noqa: BLE001 - keep hostile response bodies out of statistics
+                    diagnostic["parser_exception"] = type(exc).__name__
+                    self.last_challenge_diagnostic = diagnostic
+                    error = "reauthentication_contract"
+            elif response.status_code != expected:
                 error = "http_" + str(response.status_code)
             else:
                 try:
@@ -174,6 +263,8 @@ class LoadSession:
                 response.failure(error)
         if error:
             raise LoadFailure(error)
+        if challenge is not None:
+            raise ReauthenticationRequired(challenge)
         return payload["data"]
 
     def _accept_tokens(self, data):

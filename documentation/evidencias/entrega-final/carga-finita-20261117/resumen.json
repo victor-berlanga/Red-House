@@ -1,0 +1,385 @@
+{
+  "run": "finite-continuation-20261117T183325Z-38890985",
+  "original_status": "FAILED_CLEANUP",
+  "source_sha256": "6714dd289d983f7c4060c33d6abfc40523277f14629625d24786acd048eeafa6",
+  "metrics": {
+    "runner_exit": 0,
+    "execution_valid": false,
+    "measurement_accepted": false,
+    "cleanup_failures": 1,
+    "session_revocation_verified": false,
+    "users": 3,
+    "measurement_seconds": 120,
+    "measured_sample_size": 6,
+    "http_requests": 49,
+    "http_failures": 0,
+    "read_p95_max_ms": 630,
+    "capacity_estimate": false,
+    "gps_in_this_increment": false
+  },
+  "business": {
+    "coverage": "COMPOSITE_NINE_CASES_SIX_NEW_MEASURED",
+    "attempted": 27,
+    "committed": 27,
+    "not_committed": 0,
+    "response_lost_committed": 0,
+    "completed": {
+      "TRANSPORT": 3,
+      "COORDINATOR": 3,
+      "MEDICAL": 3
+    },
+    "measured_completed": {
+      "TRANSPORT": 2,
+      "COORDINATOR": 2,
+      "MEDICAL": 2
+    },
+    "replays": 3,
+    "persistence_verified": true,
+    "source_events": 156,
+    "expected_alerts": 30,
+    "pending_outbox": 0,
+    "errors": []
+  },
+  "closure_reconciliation": "last_family_closed_later_via_owner_logout; original run remains FAILED",
+  "previous_failed_run_families_closed": 6,
+  "business_latency_including_mfa": [
+    {
+      "method": "TRANSACTION",
+      "name": "Recorrido finito / TRANSPORT",
+      "requests": 2,
+      "failures": 0,
+      "requests_per_second": 0.01666545689017779,
+      "mean_ms": 2061.5091444924474,
+      "median_ms": 2100,
+      "p95_ms": 2100,
+      "p99_ms": 2100
+    },
+    {
+      "method": "TRANSACTION",
+      "name": "Recorrido finito / COORDINATOR",
+      "requests": 2,
+      "failures": 0,
+      "requests_per_second": 0.01666545689017779,
+      "mean_ms": 1907.955155998934,
+      "median_ms": 2400,
+      "p95_ms": 2400,
+      "p99_ms": 2400
+    },
+    {
+      "method": "TRANSACTION",
+      "name": "Recorrido finito / MEDICAL",
+      "requests": 2,
+      "failures": 0,
+      "requests_per_second": 0.01666545689017779,
+      "mean_ms": 40970.74038546998,
+      "median_ms": 56000,
+      "p95_ms": 56000,
+      "p99_ms": 56000
+    }
+  ],
+  "measurement_duration_actual_seconds": 120.00871102302335,
+  "http_statistics": [
+    {
+      "method": "POST",
+      "name": "Identidad / login",
+      "requests": 0,
+      "failures": 0,
+      "requests_per_second": 0.0,
+      "mean_ms": 0.0,
+      "median_ms": 0,
+      "p95_ms": 0,
+      "p99_ms": 0
+    },
+    {
+      "method": "GET",
+      "name": "M\u00e9dico / Solicitud propia",
+      "requests": 2,
+      "failures": 0,
+      "requests_per_second": 0.01666545689017779,
+      "mean_ms": 58.67695898632519,
+      "median_ms": 80.61877096770331,
+      "p95_ms": 81,
+      "p99_ms": 81
+    },
+    {
+      "method": "POST",
+      "name": "M\u00e9dico / Reservar",
+      "requests": 4,
+      "failures": 0,
+      "requests_per_second": 0.03333091378035558,
+      "mean_ms": 2225.803099485347,
+      "median_ms": 3000,
+      "p95_ms": 3200,
+      "p99_ms": 3200
+    },
+    {
+      "method": "POST",
+      "name": "Seguridad / Confirmar acci\u00f3n",
+      "requests": 4,
+      "failures": 0,
+      "requests_per_second": 0.03333091378035558,
+      "mean_ms": 283.17942476132885,
+      "median_ms": 300,
+      "p95_ms": 380,
+      "p99_ms": 380
+    },
+    {
+      "method": "GET",
+      "name": "M\u00e9dico / Confirmar operaci\u00f3n",
+      "requests": 2,
+      "failures": 0,
+      "requests_per_second": 0.01666545689017779,
+      "mean_ms": 47.656686016125605,
+      "median_ms": 59,
+      "p95_ms": 59,
+      "p99_ms": 59
+    },
+    {
+      "method": "GET",
+      "name": "Calentamiento finito / MEDICAL",
+      "requests": 0,
+      "failures": 0,
+      "requests_per_second": 0.0,
+      "mean_ms": 0.0,
+      "median_ms": 0,
+      "p95_ms": 0,
+      "p99_ms": 0
+    },
+    {
+      "method": "GET",
+      "name": "Calentamiento finito / COORDINATOR",
+      "requests": 0,
+      "failures": 0,
+      "requests_per_second": 0.0,
+      "mean_ms": 0.0,
+      "median_ms": 0,
+      "p95_ms": 0,
+      "p99_ms": 0
+    },
+    {
+      "method": "GET",
+      "name": "Calentamiento finito / TRANSPORT",
+      "requests": 0,
+      "failures": 0,
+      "requests_per_second": 0.0,
+      "mean_ms": 0.0,
+      "median_ms": 0,
+      "p95_ms": 0,
+      "p99_ms": 0
+    },
+    {
+      "method": "GET",
+      "name": "Traslado / Tarea asignada",
+      "requests": 2,
+      "failures": 0,
+      "requests_per_second": 0.01666545689017779,
+      "mean_ms": 59.81806752970442,
+      "median_ms": 66,
+      "p95_ms": 66,
+      "p99_ms": 66
+    },
+    {
+      "method": "GET",
+      "name": "Traslado / Contrapartes",
+      "requests": 2,
+      "failures": 0,
+      "requests_per_second": 0.01666545689017779,
+      "mean_ms": 480.24382849689573,
+      "median_ms": 630,
+      "p95_ms": 630,
+      "p99_ms": 630
+    },
+    {
+      "method": "POST",
+      "name": "Traslado / Verificar unidad",
+      "requests": 4,
+      "failures": 0,
+      "requests_per_second": 0.03333091378035558,
+      "mean_ms": 225.0287755014142,
+      "median_ms": 230,
+      "p95_ms": 420,
+      "p99_ms": 420
+    },
+    {
+      "method": "POST",
+      "name": "Idempotencia / Repetir mismo intento",
+      "requests": 3,
+      "failures": 0,
+      "requests_per_second": 0.02499818533526669,
+      "mean_ms": 1085.2283170097508,
+      "median_ms": 570,
+      "p95_ms": 2600,
+      "p99_ms": 2600
+    },
+    {
+      "method": "POST",
+      "name": "Traslado / COLLECTED",
+      "requests": 2,
+      "failures": 0,
+      "requests_per_second": 0.01666545689017779,
+      "mean_ms": 270.5431859649252,
+      "median_ms": 330,
+      "p95_ms": 330,
+      "p99_ms": 330
+    },
+    {
+      "method": "POST",
+      "name": "Traslado / IN_TRANSIT",
+      "requests": 2,
+      "failures": 0,
+      "requests_per_second": 0.01666545689017779,
+      "mean_ms": 145.72794100968167,
+      "median_ms": 169.87922601401806,
+      "p95_ms": 170,
+      "p99_ms": 170
+    },
+    {
+      "method": "GET",
+      "name": "Coordinaci\u00f3n / Reserva propia",
+      "requests": 2,
+      "failures": 0,
+      "requests_per_second": 0.01666545689017779,
+      "mean_ms": 297.73098696023226,
+      "median_ms": 467.1999479760416,
+      "p95_ms": 470,
+      "p99_ms": 470
+    },
+    {
+      "method": "GET",
+      "name": "Coordinaci\u00f3n / Caducidad del recurso reservado",
+      "requests": 2,
+      "failures": 0,
+      "requests_per_second": 0.01666545689017779,
+      "mean_ms": 114.27208298118785,
+      "median_ms": 150,
+      "p95_ms": 150,
+      "p99_ms": 150
+    },
+    {
+      "method": "POST",
+      "name": "Traslado / DELIVERED",
+      "requests": 2,
+      "failures": 0,
+      "requests_per_second": 0.01666545689017779,
+      "mean_ms": 365.0523869728204,
+      "median_ms": 390,
+      "p95_ms": 390,
+      "p99_ms": 390
+    },
+    {
+      "method": "GET",
+      "name": "Coordinaci\u00f3n / Ruta vigente",
+      "requests": 2,
+      "failures": 0,
+      "requests_per_second": 0.01666545689017779,
+      "mean_ms": 90.93479698640294,
+      "median_ms": 91,
+      "p95_ms": 91,
+      "p99_ms": 91
+    },
+    {
+      "method": "GET",
+      "name": "Traslado / Confirmar entrega",
+      "requests": 2,
+      "failures": 0,
+      "requests_per_second": 0.01666545689017779,
+      "mean_ms": 124.0161754831206,
+      "median_ms": 140,
+      "p95_ms": 140,
+      "p99_ms": 140
+    },
+    {
+      "method": "GET",
+      "name": "Coordinaci\u00f3n / Responsable habilitado",
+      "requests": 2,
+      "failures": 0,
+      "requests_per_second": 0.01666545689017779,
+      "mean_ms": 79.70935999765061,
+      "median_ms": 82,
+      "p95_ms": 82,
+      "p99_ms": 82
+    },
+    {
+      "method": "POST",
+      "name": "Coordinaci\u00f3n / Planificar",
+      "requests": 2,
+      "failures": 0,
+      "requests_per_second": 0.01666545689017779,
+      "mean_ms": 742.7785235049669,
+      "median_ms": 786.9509080192074,
+      "p95_ms": 790,
+      "p99_ms": 790
+    },
+    {
+      "method": "GET",
+      "name": "Coordinaci\u00f3n / Confirmar plan",
+      "requests": 2,
+      "failures": 0,
+      "requests_per_second": 0.01666545689017779,
+      "mean_ms": 144.1414204891771,
+      "median_ms": 148.95068999612704,
+      "p95_ms": 150,
+      "p99_ms": 150
+    },
+    {
+      "method": "POST",
+      "name": "M\u00e9dico / Evaluar",
+      "requests": 2,
+      "failures": 0,
+      "requests_per_second": 0.01666545689017779,
+      "mean_ms": 2907.4085524771363,
+      "median_ms": 3664.2567629460245,
+      "p95_ms": 3700,
+      "p99_ms": 3700
+    },
+    {
+      "method": "POST",
+      "name": "M\u00e9dico / Dictamen acad\u00e9mico",
+      "requests": 4,
+      "failures": 0,
+      "requests_per_second": 0.03333091378035558,
+      "mean_ms": 592.5582617492182,
+      "median_ms": 920,
+      "p95_ms": 1200,
+      "p99_ms": 1200
+    }
+  ],
+  "subsequent_teardown": {
+    "scope": "read-only teardown; business run183325 remains FAILED",
+    "sample_seconds": 8,
+    "runner_exit": 0,
+    "http_failures": 0,
+    "business_ledger_unchanged": true,
+    "session_revocation_verified": true,
+    "session_count_verified": true,
+    "lifecycle": {
+      "scope": "read_only_FiniteRoleUser_teardown",
+      "business_workflows_called": false,
+      "sample_seconds": 8,
+      "cleanup_present": true,
+      "failure_codes": [],
+      "close_greenlets": 3,
+      "all_close_greenlets_done": true,
+      "entries_remaining": 0
+    },
+    "counts": {
+      "Identidad / login": 3,
+      "Teardown solo lectura / MEDICAL": 1,
+      "Teardown solo lectura / COORDINATOR": 1,
+      "Teardown solo lectura / TRANSPORT": 1,
+      "Calentamiento finito / MEDICAL": 2,
+      "Calentamiento finito / TRANSPORT": 3,
+      "Calentamiento finito / COORDINATOR": 3,
+      "Identidad / revocaci\u00f3n al salir": 3
+    },
+    "wrapper": {
+      "status": "passed",
+      "sources_unchanged": true,
+      "history_unchanged": true,
+      "topology_unchanged": true,
+      "processes_closed": true,
+      "lock_removed": true
+    }
+  },
+  "acceptance": "composite business persistence and separately verified corrected teardown; original run remains FAILED"
+}

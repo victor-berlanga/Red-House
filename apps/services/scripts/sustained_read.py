@@ -386,24 +386,46 @@ def run_phase(
     name="run",
     mfa_after=-1,
     transactional=False,
+    finite_manifest=None,
 ):
-    if users not in (6, 12, 24, 36) or seconds not in (60, 120):
+    finite = finite_manifest is not None
+    if finite and (users != 3 or seconds != 120 or no_cache or transactional):
+        raise ValueError(
+            "La cobertura finita exige tres identidades, 120 s y caché normal"
+        )
+    if not finite and (users not in (6, 12, 24, 36) or seconds not in (60, 120)):
         raise ValueError("Configuración de fase inválida")
     if transactional and (users != 12 or no_cache):
         raise ValueError("La carga transaccional exige 12 identidades y caché normal")
-    multiplicity = 1 if transactional else users // len(PROFILES)
-    auth_timeout = 45 if transactional else 35 * multiplicity + 15
+    multiplicity = 1 if (transactional or finite) else users // len(PROFILES)
+    auth_timeout = 120 if finite else 45 if transactional else 35 * multiplicity + 15
     output = directory / name
     output.mkdir(mode=0o700)
+    fixture = None
+    if finite:
+        finite_manifest = Path(finite_manifest).resolve()
+        if finite_manifest.parent != env.directory.resolve():
+            raise ValueError("Manifiesto finito ajeno al laboratorio")
+        fixture = json.loads(finite_manifest.read_text())
+        if fixture.get("directory") != str(env.directory) or not fixture.get(
+            "preparation_complete"
+        ):
+            raise ValueError("Preparación finita no confirmada")
     user_ids = (
-        [a["id"] for a in env.state["load_accounts"]]
+        [a["id"] for a in fixture["accounts"]]
+        if finite
+        else [a["id"] for a in env.state["load_accounts"]]
         if transactional
         else [env.state["accounts"][name]["id"] for name in PROFILES]
     )
-    if len(set(user_ids)) != (12 if transactional else 6) or len(user_ids) != (
-        12 if transactional else 6
-    ):
+    if len(set(user_ids)) != (3 if finite else 12 if transactional else 6) or len(
+        user_ids
+    ) != (3 if finite else 12 if transactional else 6):
         raise ValueError("Seis identidades independientes requeridas")
+    if finite:
+        from tests.load_finite_support import finite_commits
+
+        business_before = finite_commits(env, fixture["accounts"])
     if transactional:
         from tests.load_support import transaction_commits
 
@@ -423,6 +445,11 @@ def run_phase(
         REDHOUSE_LOAD_MEASURE_SECONDS=str(seconds),
         REDHOUSE_LOAD_MFA_AFTER=str(mfa_after),
     )
+    environment.pop("REDHOUSE_LOAD_FINITE_ROLES", None)
+    environment.pop("REDHOUSE_LOAD_FINITE_MANIFEST", None)
+    if finite:
+        environment["REDHOUSE_LOAD_FINITE_ROLES"] = "1"
+        environment["REDHOUSE_LOAD_FINITE_MANIFEST"] = str(finite_manifest)
     if no_cache:
         environment["REDHOUSE_LOAD_NO_CACHE"] = "1"
     else:
@@ -439,7 +466,7 @@ def run_phase(
             ROOT
             / (
                 "tests/locust_transactions.py"
-                if transactional
+                if transactional or finite
                 else "tests/locust_sustained.py"
             )
         ),
@@ -449,7 +476,8 @@ def run_phase(
         "--spawn-rate",
         str(users),
         "--run-time",
-        str(auth_timeout + 30 + seconds + (60 if transactional else 30)) + "s",
+        str(auth_timeout + 30 + seconds + (60 if transactional or finite else 30))
+        + "s",
         "--stop-timeout",
         "30",
         "--host",
@@ -462,7 +490,11 @@ def run_phase(
         "--exit-code-on-error",
         "0",
         "--only-summary",
-        "TransactionUser" if transactional else "SustainedUser",
+        "FiniteRoleUser"
+        if finite
+        else "TransactionUser"
+        if transactional
+        else "SustainedUser",
     ]
     result = {
         "warmup_seconds": 30,
@@ -473,7 +505,11 @@ def run_phase(
         "disk_samples": [],
         "stopped_by_guard": False,
         "session_revocation_verified": False,
-        "workload": "transactions" if transactional else "reads",
+        "workload": "finite-three-roles"
+        if finite
+        else "transactions"
+        if transactional
+        else "reads",
     }
     log = output / "runner.private.log"
     process = None
@@ -492,7 +528,11 @@ def run_phase(
             read_fd = None
             started = time.monotonic()
             deadline = (
-                started + auth_timeout + 30 + seconds + (95 if transactional else 65)
+                started
+                + auth_timeout
+                + 30
+                + seconds
+                + (95 if transactional or finite else 65)
             )
             while process.poll() is None:
                 sample, guard_error = sample_or_interrupt(
@@ -591,6 +631,18 @@ def run_phase(
                     ) = request_counts(measured, "requests")
             except (ValueError, OSError, TypeError, KeyError):
                 result["timing_invalid"] = True
+        if finite:
+            try:
+                from tests.load_finite_support import verify_finite_persistence
+
+                result["business"] = verify_finite_persistence(
+                    env, output, fixture, business_before
+                )
+            except Exception as error:  # noqa: BLE001 - preserve failed run and always close owned processes
+                result["business"] = {
+                    "persistence_verified": False,
+                    "error_type": type(error).__name__,
+                }
         if transactional:
             try:
                 from tests.load_support import verify_transaction_persistence
@@ -606,6 +658,10 @@ def run_phase(
         (output / "summary.json").write_text(json.dumps(result, indent=2) + "\n")
         (output / "summary.json").chmod(0o600)
     timing = result.get("timing", {})
+    if finite:
+        result.update(evaluate_finite_transactions(result))
+        (output / "summary.json").write_text(json.dumps(result, indent=2) + "\n")
+        return result
     if transactional:
         result.update(evaluate_transactions(result, users, seconds))
         (output / "summary.json").write_text(json.dumps(result, indent=2) + "\n")
@@ -789,7 +845,9 @@ def run_transactions(env, budget):
             summary["source_hashes_unavailable"] = True
             raise
         finally:
-            (directory / "summary.json").write_text(json.dumps(summary, indent=2) + "\n")
+            (directory / "summary.json").write_text(
+                json.dumps(summary, indent=2) + "\n"
+            )
             (directory / "summary.json").chmod(0o600)
 
 
@@ -909,3 +967,68 @@ def run(env, budget, *, series=False):
                 summary["hashes_after_unavailable"] = True
         (directory / "summary.json").write_text(json.dumps(summary, indent=2) + "\n")
         (directory / "summary.json").chmod(0o600)
+
+
+def evaluate_finite_transactions(result):
+    """Six measured samples are complementary coverage, never a capacity estimate."""
+    timing = result.get("timing", {})
+    business = result.get("business", {})
+    rows = timing.get("measurement", [])
+    http = [r for r in rows if r["method"] in ("GET", "POST", "PATCH", "PUT", "DELETE")]
+    cycles = [r for r in rows if r["method"] == "TRANSACTION"]
+    expected = {role: 2 for role in ("MEDICAL", "COORDINATOR", "TRANSPORT")}
+    observed = {
+        r["name"].removeprefix("Recorrido finito / "): r["requests"] - r["failures"]
+        for r in cycles
+    }
+    read_max = max(
+        (r["p95_ms"] for r in http if r["method"] == "GET" and r["requests"]),
+        default=None,
+    )
+    duration = timing.get("finished", 0) - timing.get("measured", 0)
+    valid = bool(
+        result.get("runner_exit") == 0
+        and not result.get("stopped_by_guard")
+        and result.get("session_revocation_verified")
+        and result.get("session_count_verified")
+        and result.get("cleanup_failures") == 0
+        and result.get("failures") == 0
+        and result.get("counts", {}).get("Identidad / revocación al salir") == 3
+        and timing.get("stage") == "finished"
+        and timing.get("user_errors") == 0
+        and timing.get("warmup_min_users") == 3
+        and timing.get("measurement_min_users") == 3
+        and timing.get("measured", 0) - timing.get("started", 0) >= 30
+        and duration >= 120
+        and timing.get("warmup", {}).get("requests", 0) > 0
+        and timing.get("warmup", {}).get("failures") == 0
+        and business.get("persistence_verified")
+        and business.get("not_committed") == 0
+        and business.get("response_lost_committed") == 0
+        and business.get("incomplete_cycles") == 0
+        and business.get("unconfirmed_replays") == 0
+        and business.get("replays") == 3
+        and business.get("measured_completed") == expected
+        and observed == expected
+    )
+    failures = sum(r["failures"] for r in http)
+    read_target = read_max is not None and 0 <= read_max < 2000
+    return {
+        "execution_valid": valid,
+        "measurement_accepted": bool(valid and failures == 0 and read_target),
+        "capacity_estimate": False,
+        "measured_sample_size": 6,
+        "active_cycle_peak": business.get("active_cycle_peak"),
+        "active_cycle_seconds": business.get("active_cycle_seconds"),
+        "read_p95_max_ms": read_max,
+        "read_p95_limit_exclusive_ms": 2000,
+        "http_requests": sum(r["requests"] for r in http),
+        "http_failures": failures,
+        "business_completed": sum(observed.values()),
+        "business_per_second": sum(observed.values()) / duration if duration > 0 else 0,
+        "business_latency": cycles,
+        "totp_waits_separate": business.get("timings", []),
+        "transaction_p95_limit_exclusive_ms": None,
+        "quota_429": timing.get("http", {}).get("quota_429", 0),
+        "gps_in_this_increment": False,
+    }
