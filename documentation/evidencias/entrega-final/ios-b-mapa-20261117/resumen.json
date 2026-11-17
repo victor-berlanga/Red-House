@@ -1,0 +1,82 @@
+{
+  "scope": "Un punto iOS B compartido en vivo por WSS con Qt/XML y web/JSON",
+  "accepted": true,
+  "shipment_id": "5b90b104-888a-4adf-9ab5-5df40a686ac0",
+  "event_id": "0b868dd5-687e-4f4d-865d-a88051ee060c",
+  "cursor": 1,
+  "baseline_points": 0,
+  "source": "IOS",
+  "expected_event_source": "SERVER_OBSERVED",
+  "client_ack_captured": false,
+  "observers_positions_published": 0,
+  "routing": "LOCAL Werkzeug TLS gateway",
+  "nginx_in_this_run": false,
+  "observations": {
+    "qt": {
+      "passed": true,
+      "delivery_kind": "position.updated",
+      "live_event": true,
+      "generation": 1,
+      "subscribed_at": "2026-11-17T22:01:05.257619+00:00",
+      "frame_observed_at": "2026-11-17T22:02:11.884005+00:00",
+      "first_callback_at": "2026-11-17T22:02:11.915380+00:00",
+      "receive_to_first_callback_ms": 31.391143915243447,
+      "metric_clock": "host time.monotonic; ObservedSocket signal callback to first timer callback after QEvent.Paint dispatch",
+      "tiles_cached": 15,
+      "sources_unchanged": true,
+      "own_sessions_closed_sql_redis": 1
+    },
+    "web": {
+      "passed": true,
+      "delivery_kind": "position.updated",
+      "live_event": true,
+      "generation": 1,
+      "subscribed_at": "2026-11-17T22:01:26.960Z",
+      "frame_observed_at": "2026-11-17T22:02:11.985Z",
+      "rendered_at": "2026-11-17T22:02:11.983Z",
+      "frame_notice_to_binding_callback_ms": 18.110419999997248,
+      "metric_clock": "host Node performance.now; Playwright framereceived notification to exposeBinding callback",
+      "server_received_to_raf_ms": 416,
+      "server_to_raf_metric_clock": "browser Date.now at requestAnimationFrame minus server received_at; includes delivery/scheduling and clock differences",
+      "tiles_loaded": 30,
+      "javascript_errors": 0,
+      "sources_unchanged": true,
+      "own_sessions_closed_sql_redis": 1
+    }
+  },
+  "oracles": {
+    "sql_count": 1,
+    "mongo_count": 1,
+    "audit_count": 1,
+    "new_points": 1,
+    "audit_event_id": "18a8e9ba-4d5c-4994-93c0-9cfcf5cf6fb1",
+    "projection_event_id": "472b2e36-e5a9-4b08-8aa5-6c9d9e8f0240"
+  },
+  "authentication_recoveries": {
+    "qt": 0,
+    "web": 0
+  },
+  "first_callback_retained_by_event_and_generation": true,
+  "sample_size": 1,
+  "p95_claimed": false,
+  "physical_display_latency_measured": false,
+  "root_visual_inspection": {
+    "qt": "marker/text correct; regional framing",
+    "web": "marker/text correct; urban framing"
+  },
+  "coordinates_and_images_public": false,
+  "entire_stage07_or_ios_b_flow_closed": false,
+  "source_hashes": {
+    "qt_receipt": "36c06d62f30dcd8b508d9026515f158f38a1ac230b30c4c5619ec1d67edaccd5",
+    "web_receipt": "9e25d959577088eeca7af215bc63ac6f86c407d1f75ca4a8326b7a0228d94a54",
+    "web_browser": "84aeadae1de418d495f5473db4512ade062d59d22c037e17f4385eb2f44c85e6",
+    "qt_frames_private": "d76f604110a9d8e083d9e48f832baad19f59297d2c12f0711316967a8ca4e285",
+    "web_frames_private": "d2c9794d38483d26db2b47c32d2ec8ef61260f471e2555b9fd817a2775ce220a",
+    "server_observed": "7b2f6b74950413f1d7e24262b2e14c6ec9fb04025d692fc02fe8c3c000db98f0",
+    "qt_png_private": "e01e7fc6279a2cf711bf2a85a1922a6564368caaa8a70b731be7c803333e453e",
+    "web_png_private": "32921c3b5aac0c7b6bbf0892dd5c9779755ac920f6ea0f5f5b7b62661fc95047",
+    "first_paint_py": "34a1d9ec580c252a4a6cc98250ff7c0bd8b35158c80f03ab2dd665797ceb6a93",
+    "first_paint_cjs": "3bf7e169297daa390d6d3f803e5c4d7b237aee80e0552b4441e40ec36ec0940b",
+    "observer_manifest": "44ceb6b4f0c6b167cf06755a35c1f2e625e89756e5a019beca99bcfca1cc48f2"
+  }
+}
