@@ -100,7 +100,7 @@ class Window(QMainWindow):
 
     def build_workspace(self):
         page = QWidget(); outer = QVBoxLayout(page); outer.setContentsMargins(28,20,28,20); outer.setSpacing(14)
-        head = QHBoxLayout(); brand = QLabel('RED HOUSE'); brand.setObjectName('brand'); head.addWidget(brand); head.addStretch(); self.summary_button=QPushButton('Resumen'); self.summary_button.clicked.connect(self.open_summary); head.addWidget(self.summary_button); self.identity = QLabel(); head.addWidget(self.identity)
+        head = QHBoxLayout(); brand = QLabel('RED HOUSE'); brand.setObjectName('brand'); head.addWidget(brand); head.addStretch(); self.summary_button=QPushButton('Resumen'); self.summary_button.clicked.connect(self.open_summary); head.addWidget(self.summary_button); self.analytics_button=QPushButton('Indicadores'); self.analytics_button.clicked.connect(self.open_analytics); head.addWidget(self.analytics_button); self.identity = QLabel(); head.addWidget(self.identity)
         self.logout_button = QPushButton('Cerrar sesión'); self.logout_button.clicked.connect(self.logout); head.addWidget(self.logout_button); outer.addLayout(head)
         nav = QHBoxLayout(); self.inventory_button = QPushButton('Inventario'); self.inventory_button.clicked.connect(lambda: self.switch('inventory')); nav.addWidget(self.inventory_button)
         self.samples_button = QPushButton('Muestras'); self.samples_button.clicked.connect(lambda: self.switch('samples')); nav.addWidget(self.samples_button); self.results_button = QPushButton('Resultados'); self.results_button.clicked.connect(lambda: self.switch('results')); nav.addWidget(self.results_button); self.alerts_button = QPushButton('Avisos'); self.alerts_button.clicked.connect(lambda: self.switch('alerts')); nav.addWidget(self.alerts_button); nav.addStretch(); outer.addLayout(nav)
@@ -198,7 +198,7 @@ class Window(QMainWindow):
             button.setEnabled(bool(enabled and self.mode=='inventory' and self.client and self.client.user and self.client.user.get('role')=='MEDICAL'))
         self.shipment_create_button.setEnabled(bool(enabled and self.mode=='shipments' and self.client and self.client.user and self.client.user.get('role')=='COORDINATOR'))
         self.request_create_button.setEnabled(enabled and self.mode=='requests' and bool(self.client and self.client.user and self.client.user.get('role')=='MEDICAL'))
-        for widget in (self.username,self.password,self.otp,self.search,self.table,self.login_button,self.logout_button,self.summary_button,self.inventory_button,self.samples_button,self.results_button,self.alerts_button,self.requests_button,self.evaluations_button,self.reservations_button,self.search_button,self.reload_button,self.trace_button,self.cold_button,self.user_state_button,self.user_role_button,self.download_button,self.report_button,self.report_retry_button,self.resume_button,self.label_button,self.operation_button,self.evaluate_button,self.create_button,self.detail_button,self.recipient_create_button,self.recipient_edit_button,self.request_edit_button,self.request_cancel_button,self.sample_create_button,self.receive_button,self.capture_button,self.review_button,self.ack_button,self.prev,self.next): widget.setEnabled(enabled)
+        for widget in (self.username,self.password,self.otp,self.search,self.table,self.login_button,self.logout_button,self.summary_button,self.analytics_button,self.inventory_button,self.samples_button,self.results_button,self.alerts_button,self.requests_button,self.evaluations_button,self.reservations_button,self.search_button,self.reload_button,self.trace_button,self.cold_button,self.user_state_button,self.user_role_button,self.download_button,self.report_button,self.report_retry_button,self.resume_button,self.label_button,self.operation_button,self.evaluate_button,self.create_button,self.detail_button,self.recipient_create_button,self.recipient_edit_button,self.request_edit_button,self.request_cancel_button,self.sample_create_button,self.receive_button,self.capture_button,self.review_button,self.ack_button,self.prev,self.next): widget.setEnabled(enabled)
         if enabled and self.mode in ('donations','cold_equipment','cold_profiles'):
             self.search.setEnabled(False); self.search_button.setEnabled(False)
         if enabled and self.mode != 'samples': self.receive_button.setEnabled(False)
@@ -208,7 +208,7 @@ class Window(QMainWindow):
         if enabled and self.client and self.client.user:
             role = self.client.user.get('role'); self.requests_button.setEnabled(role in ('OPERATOR','MEDICAL')); self.evaluations_button.setEnabled(role == 'MEDICAL'); self.reservations_button.setEnabled(role in ('OPERATOR','MEDICAL','COORDINATOR'));
             for button in (self.inventory_button,self.samples_button,self.results_button): button.setVisible(role!='ADMIN')
-            self.summary_button.setEnabled(role in ('OPERATOR','MEDICAL','COORDINATOR','TRANSPORT'))
+            self.summary_button.setEnabled(role in ('OPERATOR','MEDICAL','COORDINATOR','TRANSPORT')); self.analytics_button.setEnabled(role in ('OPERATOR','MEDICAL','COORDINATOR','TRANSPORT'))
             for index,button in ((1,self.requests_button),(2,self.evaluations_button),(3,self.reservations_button)): self.areas.model().item(index).setEnabled(button.isEnabled())
             self.areas.model().item(4).setEnabled(role in ('OPERATOR','MEDICAL','COORDINATOR','TRANSPORT'))
             self.areas.model().item(5).setEnabled(role == 'AUDITOR'); self.areas.model().item(6).setEnabled(role in ('ADMIN','COORDINATOR')); self.areas.model().item(8).setEnabled(role in ('OPERATOR','MEDICAL','COORDINATOR','TRANSPORT','AUDITOR')); self.areas.model().item(9).setEnabled(role in ('MEDICAL','COORDINATOR'))
@@ -389,6 +389,10 @@ class Window(QMainWindow):
     def selected(self):
         index=self.table.currentRow()
         return self.rows[index] if 0 <= index < len(self.rows) else None
+
+    def open_analytics(self):
+        from .analytics import open_analytics
+        open_analytics(self,label)
 
     def open_summary(self):
         role=self.client.user.get('role')

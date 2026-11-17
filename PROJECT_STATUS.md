@@ -2,6 +2,12 @@
 
 Las entradas están ordenadas de reciente a histórico; un pendiente de un corte anterior puede quedar sustituido explícitamente por una entrada posterior.
 
+## Analítica nativa de escritorio con XML real — 16/11/2026
+
+[Indicadores operativos](documentation/evidencias/entrega-final/desktop/iteracion-analitica/RESULTADOS.md) incorpora filtro temporal, tablas y barras nativas para inventario, solicitudes y caducidades, además de media de recolección a aceptación con unidad y población. Consume las proyecciones XML existentes de los propietarios; conserva ámbitos, valores ausentes y restricciones por perfil. Coordinación no consulta Receptores. No se añadieron reglas ni métricas de negocio en el cliente.
+
+Cuatro pruebas iniciales con dobles, una regresión de ventana/resumen y una regresión dirigida de campos opcionales aprobaron en ejecuciones separadas. El primer recorrido real falló por asumir `unit` obligatorio; se conservó su resultado y se corrigieron los valores predeterminados de `unit` y `values` definidos por el contrato. Una repetición de solo lectura con OPERATOR en Qt consultó los tres propietarios, cotejó todas las tablas con sus respuestas XML y aprobó. Ambas familias propias quedaron cerradas en SQL/Redis; fuentes estables por intento. Dirección inspeccionó las capturas reales y las de estados vacío/degradado; Tab y Page Down tienen comprobación acotada con dobles. Falta reconstruir el paquete final; no acredita Windows ni accesibilidad completa.
+
 ## Documentos y referencia publicados en GCP — 16/11/2026
 
 [Publicación validada](documentation/evidencias/entrega-final/gcp-documentos-referencia-20261116/RESULTADOS.md) en `sistemas-integracion-01/red-house/me-central1-a`: dos imágenes derivadas y tres contenedores actualizados, treinta saludables y veintisiete conservados. Cinco fuentes corrigen el reintento LOCAL del mismo documento MISSING, la referencia HTML/CSV y las etiquetas/sección del portal. Almacenamiento LOCAL, monolito y esquema 21 permanecen; sin migración, cambios IAM ni Nginx. Gate ligado a cuatro casos dirigidos y dos relecturas Chrome sobre las mismas huellas.

@@ -1,0 +1,59 @@
+{
+  "series": [
+    {
+      "owner": "inventario",
+      "title": "Inventario por estado",
+      "scope": "Instituci\u00f3n",
+      "population": "Recursos creados en el periodo, incluidos retirados; estado actual",
+      "denominator": 1,
+      "unit": "registros",
+      "values": [
+        {
+          "label": "WITHDRAWN",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "owner": "receptores",
+      "title": "Solicitudes por estado",
+      "scope": "Instituci\u00f3n",
+      "population": "Solicitudes creadas en el periodo; estado actual",
+      "denominator": 3,
+      "unit": "registros",
+      "values": [
+        {
+          "label": "CLOSED",
+          "value": 1
+        },
+        {
+          "label": "IN_PROGRESS",
+          "value": 2
+        }
+      ]
+    },
+    {
+      "owner": "inventario",
+      "title": "Caducidades por estado",
+      "scope": "Instituci\u00f3n",
+      "population": "Recursos cuya fecha de vencimiento cae en el periodo; no equivale a descarte documentado",
+      "denominator": 0,
+      "unit": "registros",
+      "values": []
+    },
+    {
+      "owner": "transporte",
+      "title": "Recolecci\u00f3n a aceptaci\u00f3n",
+      "scope": "Instituci\u00f3n",
+      "population": "Traslados de la cohorte con ambos tiempos registrados",
+      "denominator": 1,
+      "unit": "minutos",
+      "values": [
+        {
+          "label": "Media observada",
+          "value": 5.863600133333334
+        }
+      ]
+    }
+  ]
+}
