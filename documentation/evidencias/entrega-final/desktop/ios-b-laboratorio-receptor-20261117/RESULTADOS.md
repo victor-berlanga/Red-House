@@ -1,0 +1,7 @@
+# iOS B: laboratorio documental del receptor
+
+Dos etapas separadas aprobaron el 17/11/2026. La preparación XML creó y recibió una única muestra del receptor y su solicitud ya existentes, reutilizando el perfil HLA sintético de Hospital 2. Muestra RECEIVED v2 y dos eventos propios confirmados. Este paso fue preparación mediante API XML; no se presenta como interacción gráfica Qt.
+
+La etapa Qt capturó un resultado HLA pendiente, cargó un PNG sintético privado, corrigió el resultado y registró su revisión académica. Resultado CORRECTED/AUTHORIZED, antecedente conservado y una revisión; eventos únicos de captura, autorización, preparación documental y verificación. Se comprobaron propietario, institución, vínculo al resultado, SHA/generación, estado VERIFIED y análisis real CLEAN con CLAMD_INSTREAM. Se usó almacenamiento LOCAL. El documento y el HLA son datos de ensayo; no acreditan estudio físico ni autorización clínica.
+
+Ambos procesos terminaron exit0 y cerraron dos familias propias en PostgreSQL/Redis. Factores temporales eliminados, sin errores de limpieza. Dirección abrió las capturas reales de [adjunto](02-adjuntar.png), [corrección](03-correccion.png) y [revisión](04-revision.png); el formulario desplazable de corrección no muestra todos sus campos en una sola imagen. La revisión muestra HLA A*02:01 y huella del documento. No se creó otro perfil ni órgano, ni se repitieron los estudios del origen. Continúan constancia profesional académica, evaluación y logística. [HASHES.json](HASHES.json) conserva la correspondencia con los recibos privados.
