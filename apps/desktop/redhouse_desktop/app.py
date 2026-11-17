@@ -585,6 +585,7 @@ class Window(QMainWindow):
         if not item: self.status.setText('Selecciona una muestra.'); return
         if item.get('status')!='REQUESTED': self.status.setText('La muestra ya fue atendida. Actualiza para consultar su estado.'); return
         dialog=QDialog(self); dialog.setWindowTitle('Recepción de muestra'); dialog.resize(520,160); form=QFormLayout(dialog)
+        form.setFieldGrowthPolicy(QFormLayout.AllNonFixedFieldsGrow)
         form.addRow('Muestra',QLabel(item['identifier'])); reason=QLineEdit(); reason.setMaxLength(1000); reason.setPlaceholderText('Describe la recepción (mínimo 6 caracteres)'); form.addRow('Motivo',reason)
         confirm=QPushButton('Confirmar recepción'); confirm.setObjectName('primary'); confirm.clicked.connect(dialog.accept); form.addRow(confirm)
         while dialog.exec()==QDialog.Accepted:
@@ -1870,7 +1871,8 @@ class Window(QMainWindow):
             layout.addWidget(QLabel(title)); table=QTableWidget(0,3); table.setAccessibleName(title); table.setHorizontalHeaderLabels(headers); table.setSelectionBehavior(QTableWidget.SelectRows); table.setSelectionMode(QTableWidget.SingleSelection); table.setEditTriggers(QTableWidget.NoEditTriggers); table.verticalHeader().hide(); table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch); layout.addWidget(table,1)
             nav=QHBoxLayout(); previous=QPushButton('Anterior'); following=QPushButton('Siguiente'); previous.setAccessibleName('Página anterior de '+title.lower()); following.setAccessibleName('Página siguiente de '+title.lower()); page=QLabel(); nav.addWidget(previous); nav.addWidget(page); nav.addWidget(following); nav.addStretch(); layout.addLayout(nav)
             panels[key]={'table':table,'previous':previous,'following':following,'page_label':page,'page':1,'total':0,'rows':[],'busy':False}
-        fields=QFormLayout(); identifier=QLineEdit(); identifier.setMaxLength(200); fields.addRow('Identificador de la muestra',identifier)
+        fields=QFormLayout(); fields.setFieldGrowthPolicy(QFormLayout.AllNonFixedFieldsGrow)
+        identifier=QLineEdit(); identifier.setMaxLength(200); fields.addRow('Identificador de la muestra',identifier)
         collected=QDateTimeEdit(QDateTime.currentDateTime()); collected.setCalendarPopup(True); collected.setDisplayFormat('dd/MM/yyyy HH:mm:ss'); fields.addRow('Fecha documentada de colecta · hora local',collected)
         confirm_date=QCheckBox('Confirmo la fecha y hora documentadas.'); fields.addRow(confirm_date); layout.addLayout(fields)
         status=QLabel(''); status.setWordWrap(True); layout.addWidget(status)

@@ -1,0 +1,29 @@
+{
+  "collection_fix": "Use OperationContext.actor snapshot for donor tenant validation",
+  "regression": {
+    "command": "QT_QPA_PLATFORM=offscreen PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=apps/desktop apps/desktop/.venv/bin/python -m pytest -q apps/desktop/tests/test_donation_workflows_ui.py",
+    "exit": 0,
+    "tests_passed": 5,
+    "elapsed_seconds": 5.08
+  },
+  "sources": {
+    "apps/desktop/redhouse_desktop/donation_workflows.py": "5306210939786adaec405bb0e05ec1f6fdec5308dc00e7c665960e89d6a9f6aa",
+    "apps/desktop/tests/test_donation_workflows_ui.py": "447110b55cfde8b16bc954ade8b603e310f419d77fc804afaaa2798ab04414c7",
+    "apps/desktop/redhouse_desktop/app.py": "06785d02b0e72105a7121474d64caa6f93c81d97801ce71c8c01633d9cb35447",
+    "apps/desktop/redhouse_desktop/resource_quality.py": "07f4fccdc33d2a21e4b3c72f0c759b8a2c32aa83f58399de4ea797c2269b8850"
+  },
+  "visual": {
+    "forms": 3,
+    "rendering": "Qt offscreen; actual widgets and local synthetic data",
+    "reviewed_by_root": true,
+    "cancelled_without_submission": true,
+    "images_sha256": {
+      "01-vinculo-perfil-sintetico.png": "12e9555b30c114429d75a6365da818e08494e9d013c84dd34664d555d4688159",
+      "02-registro-muestra-sintetica.png": "f2ad8f4bc8f7a619944e04a67f530d2aebabfb3c95a4e060acd953c137eaee2a",
+      "03-recepcion-muestra-sintetica.png": "55643b015506dd1a9d0724e12b15e00c7dd089c386d4395785998113283e8dc9"
+    },
+    "business_acceptance": false,
+    "windows_11_acceptance": false,
+    "packaged_binary_updated": false
+  }
+}

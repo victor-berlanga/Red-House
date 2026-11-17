@@ -100,6 +100,7 @@ def collect_dialog(window, worker_type):
     layout.addLayout(actions)
     binding = OperationContext(window)
     client = binding.client
+    actor = binding.actor
     state = {'alive': True, 'busy': False, 'rows': [], 'page': 1, 'total': 0, 'body': None}
 
     def current():

@@ -3,6 +3,7 @@ import os
 import time
 from pathlib import Path
 from uuid import uuid4
+import pytest
 
 from PySide6.QtCore import QTimer
 from PySide6.QtWidgets import (
@@ -11,6 +12,7 @@ from PySide6.QtWidgets import (
     QComboBox,
     QDateTimeEdit,
     QLineEdit,
+    QLabel,
     QPushButton,
     QTableWidget,
 )
@@ -24,12 +26,15 @@ app.setStyleSheet(STYLE)
 def test_medical_selects_donor_and_documents_collection():
     tenant, donor = str(uuid4()), str(uuid4())
     class Client:
+        access = None
+        session_id = str(uuid4())
         def __init__(self): self.user = {'id': str(uuid4()), 'tenant_id': tenant, 'role': 'MEDICAL'}
         def authorized(self, _service, _path, operation, **kwargs):
             assert operation == 'donors' and kwargs['params']['status'] == 'ELIGIBLE'
             return {'items': [{'id': donor, 'tenant_id': tenant, 'status': 'ELIGIBLE', 'folio': 'DONANTE-01', 'display_name': 'Persona ficticia', 'blood_group': 'O-'}], 'page': 1, 'total': 1}
     window = Window()
     window.client = Client()
+    window.journal = object()
     errors = []
     deadline = time.monotonic() + 8
     def fill():
@@ -60,6 +65,36 @@ def test_medical_selects_donor_and_documents_collection():
     body = collect_dialog(window, Work)
     assert not errors and body['donor_id'] == donor and body['component'] == 'RBC'
     assert body['collected_at'].endswith('Z') and body['human_confirmation'] == 'true'
+    window.close()
+
+
+@pytest.mark.parametrize('changed_session', [False, True])
+def test_collection_rejects_foreign_tenant_or_changed_session(changed_session):
+    tenant = str(uuid4())
+    class Client:
+        access = None
+        session_id = str(uuid4())
+        user = {'id': str(uuid4()), 'tenant_id': tenant, 'role': 'MEDICAL'}
+        def authorized(self, *_args, **_kwargs):
+            if changed_session: self.session_id = str(uuid4())
+            return {'items': [{'id': str(uuid4()), 'tenant_id': tenant if changed_session else str(uuid4()), 'status': 'ELIGIBLE', 'folio': 'DONANTE-AJENO', 'display_name': 'Persona ficticia', 'blood_group': 'O-'}], 'page': 1, 'total': 1}
+    window = Window()
+    window.client, window.journal = Client(), object()
+    observed = []
+    deadline = time.monotonic() + 8
+    def inspect():
+        dialog = app.activeModalWidget()
+        expected = 'La sesión cambió.' if changed_session else 'No se pudieron consultar donantes.'
+        if dialog and any(label.text().startswith(expected) for label in dialog.findChildren(QLabel)):
+            observed.append((dialog.findChild(QTableWidget).rowCount(), next(button for button in dialog.findChildren(QPushButton) if button.text() == 'Registrar colecta').isEnabled()))
+            dialog.reject()
+        elif time.monotonic() >= deadline:
+            if dialog: dialog.reject()
+        else: QTimer.singleShot(20, inspect)
+    QTimer.singleShot(0, inspect)
+    assert collect_dialog(window, Work) is None
+    assert observed == [(0, False)]
+    window.close()
 
 
 def test_operator_must_choose_processing_result():
