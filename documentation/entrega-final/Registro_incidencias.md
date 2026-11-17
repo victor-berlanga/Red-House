@@ -29,7 +29,7 @@ Corte: 17/11/2026. Registro **selectivo**, no inventario exhaustivo de todos los
 - **Síntoma e impacto:** sesión caducada impidió al primer intento emitir perfiles que cubrieran el día 23. El runner no encontró perfil iOS normal; los perfiles originales se restauraron intactos.
 - **Reproducción/evidencia:** [build y fallo inicial](../evidencias/entrega-final/mobile/final-build-20261117/RESULTADOS.md); [renovación posterior](../evidencias/entrega-final/mobile/profile-renewal-20261117/RESULTADOS.md).
 - **Responsable:** rol de firma/distribución móvil y titular de la cuenta existente; no se nombra persona.
-- **Acción y estado:** reautenticar Xcode y repetir una sola renovación acotada; **resuelto para firma**: ambos perfiles vencen el 24/11 cerca de 18:03 UTC y cubren el 23. Lab se instaló como actualización; normal no se instaló.
+- **Acción y estado:** reautenticar Xcode y repetir una sola renovación acotada; **resuelto para firma**: ambos perfiles vencen el 24/11 cerca de 18:03 UTC y cubren el 23. Lab se instaló como actualización y la [variante normal también se actualizó después](../evidencias/entrega-final/mobile/normal-update-20261117/RESULTADOS.md), sin abrirla.
 - **Comprobación:** firma/perfil/Keychain verificados. Apertura, sesión, recorridos nativos, VoiceOver y distribución general siguen pendientes.
 
 ## INC-04 — Qt no persistía mosaicos por formato de encabezados
