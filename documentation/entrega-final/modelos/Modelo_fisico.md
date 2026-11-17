@@ -1,10 +1,10 @@
 # Modelo físico PostgreSQL instalado
 
-Base `red_house`, esquemas `red_house` y `web_runtime`, versión 20. Catálogo extraído en una transacción READ ONLY del laboratorio privado; no contiene filas de negocio ni credenciales. No acredita instalación GCP, validación clínica ni normalización lógica por sí solo.
+Base `red_house`, esquemas `red_house` y `web_runtime`, versión 21. Catálogo extraído en una transacción READ ONLY del laboratorio privado; no contiene filas de negocio ni credenciales. No acredita instalación GCP, validación clínica ni normalización lógica por sí solo.
 
-117 tablas físicas y 226 índices. Las vistas `access_*` adaptan los contratos sin duplicar estas tablas. La correspondencia por propietario está en las fichas de servicios; una vista no constituye otra tabla física.
+117 tablas físicas y 227 índices. Las vistas `access_*` adaptan los contratos sin duplicar estas tablas. La correspondencia por propietario está en las fichas de servicios; una vista no constituye otra tabla física.
 
-[Metadatos verificables](../../evidencias/entrega-final/modelos-20261114/postgresql-physical.json) · [SQL de instalación](../../../data/database/schema.sql) · [Diagrama editable](diagramas/postgresql-completo.mmd) · [SVG físico ampliable](diagramas/postgresql-completo.svg). La generación e inspección se identifican por separado en el registro editorial.
+[Metadatos verificables](../../evidencias/entrega-final/modelos-20261117/postgresql-physical.json) · [SQL de instalación](../../../data/database/schema.sql) · [Diagrama editable](diagramas/postgresql-completo.mmd) · [SVG físico ampliable](diagramas/postgresql-completo.svg). La generación e inspección se identifican por separado en el registro editorial.
 
 ## red_house.account_role
 
@@ -3102,6 +3102,7 @@ Restricciones:
 
 - `service_outbox_pkey`: `CREATE UNIQUE INDEX service_outbox_pkey ON red_house.service_outbox USING btree (service, id)`.
 - `service_outbox_service_event_id_target_key`: `CREATE UNIQUE INDEX service_outbox_service_event_id_target_key ON red_house.service_outbox USING btree (service, event_id, target)`.
+- `shared_outbox_dispatch_order`: `CREATE INDEX shared_outbox_dispatch_order ON red_house.service_outbox USING btree (service, created_at, id) WHERE (delivered_at IS NULL)`.
 - `shared_outbox_pending`: `CREATE INDEX shared_outbox_pending ON red_house.service_outbox USING btree (service, next_attempt, created_at) WHERE (delivered_at IS NULL)`.
 
 Disparadores no internos:

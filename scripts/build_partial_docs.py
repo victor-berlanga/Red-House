@@ -39,12 +39,12 @@ def main():
     )
     metadata = json.loads(metadata_path.read_text())
     if args.final and (
-        metadata.get("schema_version") != 20
+        metadata.get("schema_version") != 21
         or metadata.get("transaction_read_only") is not True
         or set(metadata.get("service_names", [])) != set(SERVICES)
     ):
         parser.error(
-            "Metadatos finales requieren esquema 20, READ ONLY y propietarios coincidentes"
+            "Metadatos finales requieren esquema 21, READ ONLY y propietarios coincidentes"
         )
     metadata_link = os.path.relpath(metadata_path.resolve(), output)
     repository_link = "../../.." if args.final else "../.."
@@ -52,7 +52,7 @@ def main():
         "# Modelo físico PostgreSQL instalado",
         "",
         (
-            "Base `red_house`, esquemas `red_house` y `web_runtime`, versión 20. Catálogo extraído en una transacción READ ONLY del laboratorio privado; no contiene filas de negocio ni credenciales. No acredita instalación GCP, validación clínica ni normalización lógica por sí solo."
+            "Base `red_house`, esquemas `red_house` y `web_runtime`, versión 21. Catálogo extraído en una transacción READ ONLY del laboratorio privado; no contiene filas de negocio ni credenciales. No acredita instalación GCP, validación clínica ni normalización lógica por sí solo."
             if args.final
             else "Base `red_house`, esquema `red_house`. Metadatos exportados de la instancia Docker aislada. No contiene filas de negocio ni credenciales."
         ),
@@ -234,7 +234,7 @@ def main():
         )
         (output / "Modelo_relacional.md").write_text(
             "# Vista relacional final derivada del esquema instalado\n\n"
-            "Esquema 20. Se proyectan los atributos de PK, UNIQUE y FK y sus relaciones reales, "
+            "Esquema 21. Se proyectan los atributos de PK, UNIQUE y FK y sus relaciones reales, "
             "sin inventar cardinalidades clínicas ni presentar el ejercicio 0FN–4FN como instalado. "
             "Los atributos restantes, CHECK, índices parciales, disparadores y valores predeterminados "
             "se conservan en [el catálogo físico](Modelo_fisico.md).\n\n"
@@ -258,7 +258,7 @@ def main():
         "# Fichas individuales de microservicios",
         "",
         (
-            "Corte final: doce servicios independientes; esquema 20. Las versiones contractuales se leen de sus OpenAPI actuales. El catálogo documenta contratos, no ejecución ni aceptación de todas sus operaciones."
+            "Corte final: doce servicios independientes; esquema 21. Las versiones contractuales se leen de sus OpenAPI actuales. El catálogo documenta contratos, no ejecución ni aceptación de todas sus operaciones."
             if args.final
             else "Edición 0.3.0. Los contratos enlazados contienen campos, tipos, obligatoriedad, ejemplos JSON/XML, XSD, errores y paginación. El expediente HTTP distingue ejemplos de ejecuciones."
         ),

@@ -136,7 +136,7 @@ def apply_report_design(document, *, final_report=False):
             if cover_text == "Reporte Técnico Integral - Red House":
                 replacement = "Reporte técnico final - Red House"
             elif cover_text.startswith("San Pedro Garza García, Nuevo León"):
-                replacement = "Corte documental: 14 de noviembre de 2026."
+                replacement = "Corte documental: 17 de noviembre de 2026."
             elif cover_text.startswith("Nombre:"):
                 replacement = "" if team_identified else "Proyecto 6 · Equipo 01"
                 team_identified = True

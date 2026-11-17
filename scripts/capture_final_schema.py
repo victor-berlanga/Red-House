@@ -54,8 +54,8 @@ def capture(directory):
         version = conn.execute(
             "SELECT max(version) AS version FROM red_house.schema_migration"
         ).fetchone()["version"]
-        if version != 20:
-            raise ValueError("El catálogo final requiere esquema 20")
+        if version != 21:
+            raise ValueError("El catálogo final requiere esquema 21")
         tables = conn.execute("""
             SELECT n.nspname AS schema,c.relname AS name,c.oid
             FROM pg_catalog.pg_class c JOIN pg_catalog.pg_namespace n ON n.oid=c.relnamespace

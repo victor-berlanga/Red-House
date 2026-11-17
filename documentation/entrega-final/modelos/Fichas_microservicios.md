@@ -1,6 +1,6 @@
 # Fichas individuales de microservicios
 
-Corte final: doce servicios independientes; esquema 20. Las versiones contractuales se leen de sus OpenAPI actuales. El catálogo documenta contratos, no ejecución ni aceptación de todas sus operaciones.
+Corte final: doce servicios independientes; esquema 21. Las versiones contractuales se leen de sus OpenAPI actuales. El catálogo documenta contratos, no ejecución ni aceptación de todas sus operaciones.
 
 Cada servicio tiene API Flask/REST y worker supervisado, módulos de rutas/modelos, biblioteca común de autorización/contratos y persistencia propia mediante vistas limitadas. Puerto interno 8080; el gateway publica un puerto por propietario. Versiones exactas de dependencias en `requirements-verified.txt`; Docker usa Python 3.13 y las pruebas locales Python 3.12.
 
@@ -67,6 +67,7 @@ Identifica a cada persona y limita qué puede hacer y en qué institución.
 | POST | `/api/v1/users/{identifier}/role` | user_role | 200, 400, 401, 403, 404, 406, 409, 412, 413, 415, 422, 429, 500, 503 |
 | GET | `/internal/v1/institutions/{identifier}` | Referencia institucional autorizada | 200, 400, 401, 403, 404, 406, 409, 412, 413, 415, 422, 429, 500, 503 |
 | GET | `/internal/v1/users/{identifier}` | Validar personal de traslado | 200, 400, 401, 403, 404, 406, 409, 412, 413, 415, 422, 429, 500, 503 |
+| POST | `/internal/v1/appointment-site-labels` | Nombres de sedes propias para una página de horarios autorizados | 200, 400, 401, 403, 404, 406, 409, 412, 413, 415, 422, 429, 500, 503 |
 | GET | `/internal/v1/institutions/{identifier}/operational-contacts` | Contactos explícitamente operativos; solo proyección de tarea por Transporte | 200, 400, 401, 403, 404, 406, 409, 412, 413, 415, 422, 429, 500, 503 |
 | GET | `/api/v1/appointment-sites` | appointment_sites | 200, 400, 401, 403, 404, 406, 409, 412, 413, 415, 422, 429, 500, 503 |
 | GET | `/api/v1/catalogues/sites` | Consultar sites | 200, 400, 401, 403, 404, 406, 409, 412, 413, 415, 422, 429, 500, 503 |
