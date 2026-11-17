@@ -125,6 +125,7 @@ def external_authorizations(identifier):
             ("version", "Versión"),
         ],
         new=url_for("regional.external_authorization_new", identifier=identifier),
+        new_label="Documentar constancia",
         note="El portal conserva la constancia; no emite autorizaciones clínicas ni oficiales.",
     )
 

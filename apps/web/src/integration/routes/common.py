@@ -116,6 +116,7 @@ LABELS = {
     "FAILED": "Fallido",
     "WITHDRAWN": "Retirado",
     "ACKNOWLEDGED": "Leída",
+    "RECORDED": "Documentada",
     "CREATED": "Registro inicial",
     "RELEASED": "Liberación",
     "INACTIVE": "Inactivo",
@@ -450,6 +451,7 @@ def table(
     links=None,
     actions=None,
     new=None,
+    new_label=None,
     filters=(),
     note=None,
     prepare=None,
@@ -484,7 +486,7 @@ def table(
             )
         ]
         if "id" in row:
-            row["reference"] = row.get("folio") or "REG-" + row["id"][:8].upper()
+            row.setdefault("reference", row.get("folio") or "REG-" + row["id"][:8].upper())
         row["_action_key"] = uuid4().hex
     pages = max(1, math.ceil(data["total"] / 20))
     pagination = []
@@ -566,7 +568,7 @@ def table(
         previous_page=dict(pagination).get(page - 1),
         next_page=dict(pagination).get(page + 1),
         new=contextual(new, target),
-        new_label=LISTS.get(active, ("", "", "Registrar"))[2],
+        new_label=new_label or LISTS.get(active, ("", "", "Registrar"))[2],
         filters=filters,
         filter_options=filter_options or filter_choices(active),
         groups=GROUPS,

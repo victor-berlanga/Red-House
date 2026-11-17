@@ -1,0 +1,24 @@
+{
+  "scope": "Four existing pure tests on reference candidate, before later label changes; not rerun or attributed to final five-source cut",
+  "files": {
+    "apps/web/src/integration/routes/common.py": {
+      "baseline_sha256": "cce95fa39cc71b1ed0a77269a7b116f4f1f7ce83b4526746b4fdcef9267a9c48",
+      "candidate_sha256": "f1648c134bd5c8f1e66e1301cd4b9abcae778392aaa54fe1a11e1adf7e4d5536"
+    },
+    "apps/web/src/integration/routes/requests.py": {
+      "baseline_sha256": "6faed81463ab4b2a86fdbdd23c589ff1fa07048e8488e61f3b5dab8e67c5205f",
+      "candidate_sha256": "48fc7acf5f05906e6d86438ab6bfe693833c856587594a2c8d2449ec26334b16"
+    },
+    "apps/web/tests/test_list_references.py": {
+      "baseline_sha256": null,
+      "candidate_sha256": "4fe48fc223382a50b0316316ee4d67d242273f7153d6b828c67ed84d7b371f4f"
+    }
+  },
+  "tests": {
+    "passed": 4,
+    "seconds": 0.88,
+    "junit": "junit-02.xml"
+  },
+  "original_junit_sha256": "6da1ce9e084c0b78392c8f34a4eccb2f62da98ccf50fc11df26dac68001d5fe5",
+  "earlier_junit_sha256": "325a12981973367102ba303c717ad10a9d1259780114312177d2beb50f36a635"
+}

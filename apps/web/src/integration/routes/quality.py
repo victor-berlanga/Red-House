@@ -259,7 +259,7 @@ def destination(identifier):
         f"/api/v1/resources/{identifier}/destination",
         fields + confirmations(),
         title="Corregir destino" if old else "Registrar destino",
-        active="inventory",
+        active="organos" if row["kind"] == "ORGAN" else "inventory",
         back=url_for("inventory.detail", identifier=identifier),
         note="La recepción logística y el uso clínico son hechos distintos. Una corrección conserva toda la historia.",
     )

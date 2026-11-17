@@ -309,6 +309,12 @@ TASKS = {
 
 
 EVENT_LABELS = {
+    "CREATED": "Registro inicial",
+    "RELEASED": "Liberación",
+    "RESERVED": "Reserva confirmada",
+    "COLLECTED": "Recolección confirmada",
+    "ACCEPTED": "Recepción aceptada",
+    "RESOURCE_CONTROLS_BOUND": "Controles de conservación vinculados",
     "READ": "Consulta de información",
     "AUDIT_FINDING_CREATED": "Hallazgo registrado",
     "AUDIT_FINDING_IN_PROGRESS": "Atención de hallazgo registrada",

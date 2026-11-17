@@ -1,0 +1,31 @@
+{
+  "passed": true,
+  "browser_exit": 0,
+  "started_at": "2026-11-17T03:21:00.030443+00:00",
+  "finished_at": "2026-11-17T03:21:23.029866+00:00",
+  "read_existing": true,
+  "csv_reference_verified": true,
+  "dates_utc_verified": true,
+  "audit_projection_count": 1,
+  "own_families_closed_sql_redis": 1,
+  "source_hashes": {
+    "apps/services/ms_documentos/local_objects.py": "b8c8caabbdc62fab5b0fc4f6a6fc9b0b55a9955da8638de78e980bc8c48ebb6b",
+    "apps/web/src/integration/routes/common.py": "bdbcbe643659e61be3c616d57024751d3b3d40b3ab676f5fe151edfea6103934",
+    "apps/web/src/integration/routes/requests.py": "48fc7acf5f05906e6d86438ab6bfe693833c856587594a2c8d2449ec26334b16",
+    "apps/web/src/integration/presentation.py": "2c8ed28cdd17eadbdc375f4a3062d3b210ae431c1dcaec668ea47a2c552560e0",
+    "apps/web/src/integration/routes/quality.py": "032cd00137978195abc5a3cf8e3810d65d679b331f8310c797426d8c4725d0b0"
+  },
+  "sources_unchanged": true,
+  "original_receipt_sha256": "98e90aaf5c29ec6f65dca10d7ccc495d5a60ac31bd48b10c5c826849052f89a4",
+  "browser": {
+    "passed": true,
+    "javascript_errors": 0,
+    "posts": [
+      "/login"
+    ],
+    "logout": true,
+    "read_existing": true,
+    "list_status": 200,
+    "csv_status": 200
+  }
+}

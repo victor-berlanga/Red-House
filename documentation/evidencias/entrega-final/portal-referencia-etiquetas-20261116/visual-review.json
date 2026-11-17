@@ -1,0 +1,32 @@
+{
+  "passed": true,
+  "reviewed_at": "2026-11-17T03:23:12.225392+00:00",
+  "method": "Actual image inspection with view_image; CSV parsed locally; no additional requests",
+  "sources_unchanged": true,
+  "checks": {
+    "authorization_original_reference_html_csv": true,
+    "authorization_recorded_display_Documentada_html_csv": true,
+    "authorization_create_button_Documentar_constancia": true,
+    "resource_labels_visible": [
+      "Registro inicial",
+      "Liberación",
+      "Reserva confirmada",
+      "Recolección confirmada",
+      "Recepción aceptada",
+      "Controles de conservación vinculados"
+    ],
+    "organ_sidebar_active_on_resource_and_destination": true,
+    "resource_withdrawn": true,
+    "destination_discarded": true,
+    "shipment_accepted": true,
+    "request_closed_received": true
+  },
+  "limits": [
+    "Read-only business continuation on LOCAL run04; not a new authorization or custody operation.",
+    "Unrelated request history still displays a full request UUID; outside this label patch.",
+    "Fixture remains owned by root; this agent started no infrastructure processes.",
+    "GCP publication and four-case validation remain separate gates."
+  ],
+  "original_review_sha256": "afba81eb3a48be9729a2c5b43ff0db650dbe1e3a47964f3864e503312fcfac67",
+  "private_csv_sha256": "108b5f922c2f7df077ca31eef2e9823e1c5308ae05fcbf792e7e31ee582a5156"
+}
