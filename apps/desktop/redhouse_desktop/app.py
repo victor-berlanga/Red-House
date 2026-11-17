@@ -1680,7 +1680,7 @@ class Window(QMainWindow):
         if not self.client or not self.client.user or self.client.user.get('role')!='OPERATOR':
             self.status.setText('El registro corresponde al personal operador autorizado.'); return
         binding=OperationContext(self); client=binding.client; actor=binding.actor
-        dialog=QDialog(self); dialog.setWindowTitle('Registrar unidad u oferta'); dialog.resize(620,420); form=QFormLayout(dialog)
+        dialog=QDialog(self); dialog.setWindowTitle('Registrar unidad u oferta'); dialog.resize(620,420); form=QFormLayout(dialog); form.setFieldGrowthPolicy(QFormLayout.AllNonFixedFieldsGrow)
         folio=QLineEdit(); folio.setMaxLength(30); form.addRow('Folio de unidad',folio)
         kind=QComboBox(); kind.addItem('Selecciona un tipo',''); kind.addItem('Sangre','BLOOD'); kind.addItem('Órgano','ORGAN'); form.addRow('Tipo de recurso',kind)
         component=QComboBox(); component.addItem('Selecciona un tipo primero',''); form.addRow('Producto u órgano',component)
@@ -1710,8 +1710,10 @@ class Window(QMainWindow):
             has_collection.setChecked(True); collected.setDateTime(parsed.toLocalTime())
             for widget in (kind,component,group,has_collection,collected): widget.setEnabled(False)
             source['row']=row; source_ref.setText(row['id']); source_name.setText(row['_donor_folio']+' · '+row['_donor_name']); clear_source.setEnabled(True)
+            source_name.setMinimumHeight(max(source_name.fontMetrics().lineSpacing(),source_name.heightForWidth(source_name.width()))); dialog.adjustSize()
         def clear_source_selection():
             source['row']=None; source_ref.clear(); source_name.setText('Sin donación vinculada'); clear_source.setEnabled(False)
+            source_name.setMinimumHeight(source_name.fontMetrics().lineSpacing()); dialog.adjustSize()
             for widget in (kind,component,group,has_collection): widget.setEnabled(True)
             collected.setEnabled(has_collection.isChecked())
             kind.setCurrentIndex(0); group.setCurrentIndex(0); has_collection.setChecked(False)

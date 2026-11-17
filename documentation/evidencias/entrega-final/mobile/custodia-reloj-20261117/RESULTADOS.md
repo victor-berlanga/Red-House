@@ -1,0 +1,11 @@
+# Custodia: margen de reloj entre dispositivo y servidor
+
+El iPhone rechazaba una recolección válida con custody_mismatch. En el rechazo diagnosticado, QR, contraparte y versión coincidían; captured_at estaba 637 ms adelantado respecto a la recepción del servidor. La comparación anterior rechazaba cualquier fecha futura. El primer rechazo histórico, sin esa captura diagnóstica, permanece registrado sin atribuirle un payload no observado.
+
+Se conserva la ventana de 24 horas y se permite un adelanto técnico máximo de cinco segundos, ambos límites inclusivos: `[ahora del servidor − 24 h, ahora del servidor + 5 s]`. La hora se toma una vez para esta comprobación. Se conserva íntegro captured_at del dispositivo en la custodia auditada y la hora propia del evento del servidor; no se normalizan fechas para hacer pasar el caso. Este margen no amplía caducidades, periodos de asignación, permisos ni estados. Fecha fuera de rango produce `409 custody_timestamp_invalid` con una indicación de revisar la hora del dispositivo, sin exponer valores internos. JSON/XML mantienen su forma y versión.
+
+Veinticinco pruebas dirigidas aprobaron en 1,67 s: seis límites puros, doce casos de la ruta Flask JSON/XML y siete controles negativos de QR, contraparte, actor, versión y caducidad. Los dobles se limitan a autenticación/persistencia/propietarios; no se atribuye a estas pruebas un recorrido de motores reales. Los bytes integrados coinciden con el candidato probado y sus importaciones normales fueron comprobadas.
+
+Después del cierre ordenado del runtime previo, el mismo laboratorio LOCAL arrancó sin semillas, cambios de configuración ni pérdida de archivos. El usuario confirmó «Recolectado» en iPhone y el diagnóstico del servidor observó HTTP 200 para la misma tarea, foto y contraparte, con un adelanto aproximado de 1,27 s respecto a recepción. Los intentos rechazados permanecen; no se repitió fotografía ni preparación de origen. La confirmación física complementa las pruebas dirigidas; todavía no acredita la entrega, recepción institucional ni cierre del caso completo.
+
+La publicación GCP sigue pendiente. Recibos con identificadores, payload mínimo de custodia y horas precisas permanecen privados en .local. La prueba no habilita uso clínico ni custodia automática sin confirmación.

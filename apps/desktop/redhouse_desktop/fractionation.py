@@ -77,6 +77,7 @@ def fractionation_dialog(window, item):
         if len(rows) >= 8: return
         container = QWidget()
         form = QFormLayout(container)
+        form.setFieldGrowthPolicy(QFormLayout.AllNonFixedFieldsGrow)
         folio = QLineEdit()
         folio.setMaxLength(30)
         form.addRow('Folio del derivado', folio)
@@ -109,6 +110,7 @@ def fractionation_dialog(window, item):
     navigation.addStretch()
     layout.addLayout(navigation)
     form = QFormLayout()
+    form.setFieldGrowthPolicy(QFormLayout.AllNonFixedFieldsGrow)
     reason = QLineEdit()
     reason.setMaxLength(1000)
     form.addRow('Motivo del procesamiento', reason)

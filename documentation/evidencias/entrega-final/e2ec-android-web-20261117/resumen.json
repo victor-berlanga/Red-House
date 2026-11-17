@@ -1,0 +1,134 @@
+{
+  "status": "PASSED",
+  "scope": "Academic real Chrome read of same Android C / Qt result on existing LOCAL monolith; no business writes",
+  "source_platform": "ANDROID",
+  "runtime_pid": 93558,
+  "backend": "monolith",
+  "storage_provider": "local",
+  "handoff_sha256": "2b7e136020d03595f4cca64ac1f2e629fa53eb00dfa2b41df05d18c924fcad34",
+  "prepared_manifest_sha256": "63670448e377fe832b441ac17147869bab58549f81405b6eac1ccd0cac3831c8",
+  "executed_runner_sha256": "6565385d7162b47b1a6d8da60f240190acba4e296bcf76d18fa24d83f85b79c4",
+  "executed_browser_sha256": "2a2605b1ca666d360b89e0eb85770dcebf0ee42b2734d7d630e65b9946ad05d2",
+  "browser_exit": 0,
+  "tls_ca_verified": true,
+  "browser_checks": [
+    {
+      "route": "/citas/2a290684-1c49-4a42-827f-300285886a7b",
+      "status": 200,
+      "state": "BOOKED"
+    },
+    {
+      "route": "/donantes/donor/72530dc9-f428-4e8f-90df-94f83942c4b9",
+      "status": 200,
+      "state": "ELIGIBLE"
+    },
+    {
+      "route": "/donaciones/8a76e740-9721-4b75-b5f3-b0701d9890ee",
+      "status": 200,
+      "state": "PROCESSED"
+    },
+    {
+      "route": "/inventario/5128cd9a-8d68-49f9-8bf7-e43e3de3558b",
+      "status": 200,
+      "state": "WITHDRAWN"
+    },
+    {
+      "route": "/inventario/5128cd9a-8d68-49f9-8bf7-e43e3de3558b/linaje",
+      "status": 200,
+      "state": null
+    },
+    {
+      "route": "/inventario/1458fdaf-d719-4936-bb39-cae519cf4c32",
+      "status": 200,
+      "state": "QUARANTINE"
+    },
+    {
+      "route": "/inventario/884e33f8-2974-4476-abb6-4467402afdf4",
+      "status": 200,
+      "state": "AVAILABLE"
+    },
+    {
+      "route": "/laboratorio/muestras/ecaf2075-7958-4207-8dc5-94b16326b37b",
+      "status": 200,
+      "state": "RECEIVED"
+    },
+    {
+      "route": "/laboratorio/resultados/f1abbe1e-71bf-436d-a851-8b00a052e54e",
+      "status": 200,
+      "state": "AUTHORIZED"
+    }
+  ],
+  "foreign_institution_http": 403,
+  "foreign_folio_not_disclosed": true,
+  "javascript_errors": 0,
+  "business_posts": [],
+  "technical_posts": [
+    "/login",
+    "/login",
+    "/logout",
+    "/logout"
+  ],
+  "logout_http_required": 302,
+  "own_families_created_and_closed_sql_redis": 2,
+  "temporary_cookies_removed": true,
+  "business_unchanged": true,
+  "sources_unchanged": true,
+  "source_count": 1631,
+  "ids": {
+    "donor_id": "72530dc9-f428-4e8f-90df-94f83942c4b9",
+    "appointment_id": "2a290684-1c49-4a42-827f-300285886a7b",
+    "donation_id": "8a76e740-9721-4b75-b5f3-b0701d9890ee",
+    "parent_resource_id": "5128cd9a-8d68-49f9-8bf7-e43e3de3558b",
+    "child_resource_ids": [
+      "1458fdaf-d719-4936-bb39-cae519cf4c32",
+      "884e33f8-2974-4476-abb6-4467402afdf4"
+    ],
+    "sample_id": "ecaf2075-7958-4207-8dc5-94b16326b37b",
+    "result_id": "f1abbe1e-71bf-436d-a851-8b00a052e54e",
+    "released_resource_id": "884e33f8-2974-4476-abb6-4467402afdf4"
+  },
+  "expected_states": {
+    "appointment": "BOOKED",
+    "donation": "PROCESSED",
+    "parent": "WITHDRAWN",
+    "RBC": "AVAILABLE",
+    "PLASMA": "QUARANTINE",
+    "sample": "RECEIVED",
+    "result": "AUTHORIZED"
+  },
+  "source_artifacts_sha256": {
+    "browser-private.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "browser.json": "eaba364c4b92d179ffee0533f126b61f94ea6e3b8d8c2ebb5f21d80d4b6c4ec2",
+    "business-after.private.json": "08dc275cd18496b3e197bc7d6c61412c2671e2bc2bd6332d174230a5c2070099",
+    "business-before.private.json": "08dc275cd18496b3e197bc7d6c61412c2671e2bc2bd6332d174230a5c2070099",
+    "cita-android-consultada-web.png": "9ac75a6a8a28d67d76545fb91164cd7f1722d0e71f2495f494c7235c319dc0cf",
+    "derivados-escritorio-consultados-web.png": "6557e9ba31c7e9faabceed3930890340e9ae5644cec3a7a47d6066198f75e692",
+    "laboratorio-escritorio-consultado-web.png": "995bf91a08a0a748dd4f79ed60280bfc39d691672f19cd49ccb133885c965d37",
+    "procesamiento-escritorio-consultado-web.png": "aad21c71b8aa6e7ca4dca69788361b316e6dabaf49de672876c8e0d76a6fef39",
+    "receipt.json": "d559f932f79b4c4bc6d5fa9940838f33c6207c21ace5e1ce1d3f335980962169",
+    "sources-after.private.json": "cf82ee57e93bf30c4590d07094e43dfff09e47f8f19a3f6365eaa16a3586e0ab",
+    "sources-before.private.json": "cf82ee57e93bf30c4590d07094e43dfff09e47f8f19a3f6365eaa16a3586e0ab"
+  },
+  "visual_review": {
+    "images": [
+      "cita-android-consultada-web.png",
+      "procesamiento-escritorio-consultado-web.png",
+      "derivados-escritorio-consultados-web.png",
+      "laboratorio-escritorio-consultado-web.png"
+    ],
+    "reviewed_actual_images": true,
+    "observations": [
+      "Same appointment, processed donation, Spanish lineage labels and authorized ABO result visible.",
+      "ABO detail retains raw REPORTED and displays O under Contacto; no claim of full presentation acceptance.",
+      "Donor display name contains iOS from the preexisting synthetic account; this run originated from the Android handoff."
+    ]
+  },
+  "limitations": [
+    "Same donor links appointment and collection; no donations.appointment_id FK or automatic appointment closure.",
+    "Does not cover Android last-slot race, reminder, laboratory privacy denial to donor or complete accessibility.",
+    "Does not repeat Qt collection/processing/laboratory/review/release, Android booking or iOS operations.",
+    "No new infrastructure, GCP publication or capacity claim."
+  ],
+  "started_at": "2026-11-17T20:40:08.324936+00:00",
+  "finished_at": "2026-11-17T20:41:07.175760+00:00"
+}

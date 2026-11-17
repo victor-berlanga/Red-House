@@ -13,6 +13,7 @@ from redhouse.validation import invalid
 from redhouse.decisions import record, history
 from redhouse.events import emit, queue
 from redhouse.models import Confirm, ID, Model, Reason, Text, utc_date
+from .custody_time import validate_custody_capture_time
 
 
 class ShipmentCreate(Confirm):
@@ -476,15 +477,15 @@ def register(app):
                     if (
                         data["custody"]["scanned_resource_id"]
                         != validation["resource_id"]
-                        or captured > datetime.now(timezone.utc)
-                        or captured < datetime.now(timezone.utc) - timedelta(hours=24)
                         or state not in ("COLLECTED", "DELIVERED", "ACCEPTED")
                     ):
                         raise APIError(
                             "custody_mismatch",
-                            "Escaneo, fecha o paso de custodia incompatible.",
+                            "Escaneo o paso de custodia incompatible.",
                             409,
                         )
+                    custody_now = datetime.now(timezone.utc)
+                    validate_custody_capture_time(captured, custody_now)
             seq = logistics_event(
                 conn,
                 row,

@@ -1,0 +1,32 @@
+{
+  "status": "NOT_COMPLETED",
+  "process_exit": 1,
+  "released": false,
+  "resource_state": "QUARANTINE",
+  "resource_version": 3,
+  "release_reviews": 0,
+  "release_events": 0,
+  "journal_state": "DONE",
+  "journal_status": "FAILED",
+  "own_session_families_closed_sql_redis": 1,
+  "temporary_factor_removed": true,
+  "cleanup_errors": [],
+  "blocking_guard": "cold_gap",
+  "last_thermal_reading_exists": false,
+  "configured_max_gap_seconds": 300,
+  "hla_document_preflight_passed": true,
+  "capture_opened": true,
+  "no_retry": true,
+  "manifest_sha256": "4684c37cbbba448ac151b4b1a6fc05683d5d5c36aca0b62ad7a0e68639dafb07",
+  "receipts_sha256": {
+    "exit.json": "df365b61a465f4d5d7e42464680ed47103bc008ca50c22ed4ad96013a42c0d76",
+    "cleanup.json": "deb4175053265009cbd1bff2e819a78844e1190608378633d25dc292312fd95b",
+    "sessions-closed.json": "b3f9177838f75873217890352753486d70689dbeba6ef8bdf67768f96cd711cd",
+    "release-reconciliation-readonly.json": "8433a5ad02480ba010d55b406c7b9f795a07efe8a8c14bd7ecc885e6757d66ab",
+    "cold-guard-readonly.json": "03ac1e97563cb9a64c81909daef550dcf357a8aee33aeb8ee5f17a8af7b90131",
+    "journal-readonly-summary.json": "6a978b65d941bbb54bf8146f9b0f3c03a1edc11bedb4f4a60bfe71f0baed9a5e"
+  },
+  "capture_sha256": "45cbd24daca8202d1e2054b7b8df863c3c72c21863529cbd00d2cd35f1220ba9",
+  "http_error_response_preserved": false,
+  "guard_diagnosis_basis": "source guard plus read-only persisted state"
+}
