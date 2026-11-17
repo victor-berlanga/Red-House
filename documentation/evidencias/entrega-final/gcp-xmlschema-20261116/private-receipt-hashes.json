@@ -1,0 +1,145 @@
+{
+  "scope": "Original private receipts preserved; only basename and SHA-256 published",
+  "receipts": [
+    {
+      "name": "release-root-gate.json",
+      "sha256": "7cfc7909dd0a565e6a7619b980a7bb7633f267b74ef82226c2c70a0bbab897ca"
+    },
+    {
+      "name": "ssh-prepare-close.json",
+      "sha256": "d08ec305fba375b79201d5d69ce9644e9fbb503f5d0092f5e2152f183064bb9f"
+    },
+    {
+      "name": "public-after-503.json",
+      "sha256": "6cb178e044ee4e5a4d46f18bccdc1893a1582ec17704bb739aa50f92a6f9a3d9"
+    },
+    {
+      "name": "public-after-503-certifi.json",
+      "sha256": "77df76da924aefcd321b0a4a2922336e6bbac1631d1e158a5b4b0a9b07cbca3d"
+    },
+    {
+      "name": "access-cleanup.json",
+      "sha256": "778a9bc6929270dc69006a6efdb7a24f034b81b8ae3e8e97cf57493ac947f01e"
+    },
+    {
+      "name": "validation.json",
+      "sha256": "44aa53b42fca88bbbd2836867d26e6798067bf92b657c72f5a4907d78b5abccc"
+    },
+    {
+      "name": "prepared.json",
+      "sha256": "32bef0221d3917acf9cd680f257389ebceac153ae356f1493c480f8454d824e0"
+    },
+    {
+      "name": "released.json",
+      "sha256": "7628e5b0fc47a805065a77546bd79465d129ae6edc9cce29bc640f38691ddedd"
+    },
+    {
+      "name": "builds.json",
+      "sha256": "93942d171cf0122bf721dd42d43e20ff5ba96a3153d75bc67061e101dae27e1b"
+    },
+    {
+      "name": "contract-validation.private.json",
+      "sha256": "42fea7149151377bb01cce0bb1f0c256bedb90d31e079fa0d9af00f1008e7c5e"
+    },
+    {
+      "name": "internal-validation.json",
+      "sha256": "9c4793f48e4a7b5b83d55e0e2fb443b98f0f7f4a468f40e521e3020ad4d07645"
+    },
+    {
+      "name": "failure-finish-1794874834999172354.private.json",
+      "sha256": "39d655ae42201d485237dde99ef515c3bbcd1b6b840673cb14d9c73549ea19e8"
+    },
+    {
+      "name": "package-hashes.json",
+      "sha256": "1b2fd4ea6ea6aaa05fa978adf7c862dc5d9a046133e7744303c605660ca05818"
+    },
+    {
+      "name": "access-add-20261116T235633Z-b6718e8e.exit.json",
+      "sha256": "487713710867c4e41706091ab081decbefd291476f038c1d1492d3f617f4b60d"
+    },
+    {
+      "name": "preflight-20261116T235808Z-9f8af8dd.exit.json",
+      "sha256": "996819848486b141028e8280b134fe5dfcfffaeb7dabf4a04c88d9d74a6c99f7"
+    },
+    {
+      "name": "stage-20261116T235718Z-1b0ad087.exit.json",
+      "sha256": "2496b4684fe990907f577aae4f052705519bdce9c723d820815a1d2ce5237e50"
+    },
+    {
+      "name": "finish-20261117T001955Z-bab5a196.exit.json",
+      "sha256": "ffd496ad5480fdd31e9ca219f0bb67776d3182b9710f3cd96b6315aa41910f04"
+    },
+    {
+      "name": "finish-20261117T002349Z-6cbec022.exit.json",
+      "sha256": "b8660cefd2f13642e63989286120c4a8680f10dfa8c542448a064ea6b87f3aa3"
+    },
+    {
+      "name": "negativos-20261117T001901Z-67a824db.exit.json",
+      "sha256": "66ce8b48ee6f887475b86a310f73806080e93a1a3f17f9124050dee67a8457c5"
+    },
+    {
+      "name": "prepare-20261116T235947Z-c894b179.exit.json",
+      "sha256": "9a9ea7e42e354e39cc0607724d828dcdf6dcd550925f79aee9555442ea84f792"
+    },
+    {
+      "name": "release-20261117T001348Z-538e0da7.exit.json",
+      "sha256": "f4761f8d5997edcd45a6bd93f87627d0cd7648d33f882c7d80cd3bccd40b7eb3"
+    },
+    {
+      "name": "access-remove-20261117T002547Z-d8199d20.exit.json",
+      "sha256": "02ea4a2ab92ec5bb1b100173077773292224a3e17d5df4d5e20f665edc9e6d33"
+    },
+    {
+      "name": "image-probe-alertas.json",
+      "sha256": "883dc13e4ff5b85ce1e68ba497d70ae73c133051c149fdd535067acc12375f50"
+    },
+    {
+      "name": "image-probe-auditoria.json",
+      "sha256": "b420c02242925931e71b4a24eb06fdcbca0ff6e4e1e44e99515dad7143fdb725"
+    },
+    {
+      "name": "image-probe-compatibilidad.json",
+      "sha256": "6da7e418475069af7b534d28e0dadacdd181448ba0b6a441f07df357a08a2769"
+    },
+    {
+      "name": "image-probe-custodia.json",
+      "sha256": "5abeb5458fe45365dff1e30e74c55b385f91b9a2a4d13d59817ad23a1b3c5bde"
+    },
+    {
+      "name": "image-probe-documentos.json",
+      "sha256": "34e689408c9b56caf31ebada4f5775e8e7d18042d8c2ce088031d58e50091f37"
+    },
+    {
+      "name": "image-probe-donantes.json",
+      "sha256": "33c19565eadfeda5b96ba2025600caf51c4bb8efb3660d7c1789694516d45978"
+    },
+    {
+      "name": "image-probe-identidad-acceso.json",
+      "sha256": "8c3dd546ef8432c924635d399922905eaf7e7e36ecae2e0667af11f2f5109cdc"
+    },
+    {
+      "name": "image-probe-inventario.json",
+      "sha256": "a34a765512e6a2ad11694047ac2a217be8e47e16f4cf688db1f1cb606c7cf63b"
+    },
+    {
+      "name": "image-probe-monitoreo.json",
+      "sha256": "1a1917302cd1d7ea1c4e54becb939a4ae53e01a82a8e4739e8e56aa4268189e7"
+    },
+    {
+      "name": "image-probe-priorizacion-geografia.json",
+      "sha256": "1ed0525dd88f40161c108f762a03e0a576fd546e91c8a588d117000ebb99a79b"
+    },
+    {
+      "name": "image-probe-receptores.json",
+      "sha256": "7fdb201d742d0398b3cd130a805210cfac8ec5e374dc6a35b02e45293b3dd6b0"
+    },
+    {
+      "name": "image-probe-transporte.json",
+      "sha256": "d6302f08b1c477cc2a7dcd14311f6e5d5698581aa536b953febb9d0ad9abf6cc"
+    },
+    {
+      "name": "image-probe-web.json",
+      "sha256": "ebfeb75acd821646110b7c90e5232ed0cdb7e9850e37d3c12fbb472549fde857"
+    }
+  ]
+}

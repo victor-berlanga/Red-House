@@ -2,6 +2,12 @@
 
 Las entradas están ordenadas de reciente a histórico; un pendiente de un corte anterior puede quedar sustituido explícitamente por una entrada posterior.
 
+## Compilación XML protegida publicada y validada en GCP — 16/11/2026
+
+[Publicación de las tres fuentes XML](documentation/evidencias/entrega-final/gcp-xmlschema-20261116/RESULTADOS.md) en `sistemas-integracion-01/red-house/me-central1-a`: trece imágenes verificadas, 25 aplicaciones actualizadas, cinco contenedores de infraestructura conservados y 30 saludables. Esquema 21, monolito y almacenamiento LOCAL sin cambios. Gate enlazado a la carga HTTP12 vigente y al paquete inmutable. Cuarenta controles protegidos JSON/XML y ocho XML inválidos concurrentes aprobaron; cero recursos/idempotencias creados por esos negativos y tres familias técnicas revocadas.
+
+El primer cierre público conservó HTTP 503 de causa no establecida; la comprobación independiente y la repetición exclusiva de `finish` aprobaron con TLS validado. Se conservan también el exit 255 del cliente SSH de preparación y el fallo local de confianza CA, sin atribuirlos a éxitos. Clave temporal propia retirada, dos claves previas conservadas y clave privada local eliminada. Certificado observado hasta el 21/11; renovación automática activa, todavía debe comprobarse vigencia para el 23. Esto sustituye el pendiente de publicación XML del corte anterior; no acredita rollback, carga GCP ni cierre total de etapa07.
+
 ## Carga HTTP con las tres fuentes XML actuales aprobada — 16/11/2026
 
 [Una corrida HTTP12](documentation/evidencias/entrega-final/carga-20261114/xml-lock-http12-20261116/RESULTADOS.md), vinculada a las tres fuentes de 9e48f11 mediante mapas persistidos: doce identidades efectivas, 1.472 HTTP medidos sin fallos, p95 máximo de lectura 480 ms y recorrido 2.000 ms. Ochocientas setenta y tres escrituras totales, 291 recorridos completos totales y doce replays conciliados; 228 recorridos corresponden a la medición. Sin incompletos ni pendientes. Espera final del oráculo 0,131488 s, no latencia individual. Familias propias revocadas, fuentes/configuración/historia conservadas, procesos cerrados y candado retirado.

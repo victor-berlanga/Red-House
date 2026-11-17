@@ -1,0 +1,196 @@
+{
+  "original_finish_failure": {
+    "phase": "finish",
+    "type": "HTTPError",
+    "at": 1794874834.9518518,
+    "http_status": 503,
+    "frames": [
+      {
+        "file": "deploy.py",
+        "line": 417,
+        "function": "main"
+      },
+      {
+        "file": "deploy.py",
+        "line": 388,
+        "function": "finish"
+      },
+      {
+        "file": "deploy.py",
+        "line": 368,
+        "function": "public_checks"
+      },
+      {
+        "file": "request.py",
+        "line": 521,
+        "function": "open"
+      },
+      {
+        "file": "request.py",
+        "line": 630,
+        "function": "http_response"
+      },
+      {
+        "file": "request.py",
+        "line": 559,
+        "function": "error"
+      },
+      {
+        "file": "request.py",
+        "line": 492,
+        "function": "_call_chain"
+      },
+      {
+        "file": "request.py",
+        "line": 639,
+        "function": "http_error_default"
+      }
+    ],
+    "url_and_round_not_recorded": true,
+    "cause": "not_established",
+    "preserved": true
+  },
+  "local_system_ca_attempt": {
+    "passed": false,
+    "tls_validation": "system default, no redirects/proxies",
+    "checks": [
+      {
+        "utc": "2026-11-17T00:22:59.476391+00:00",
+        "round": 1,
+        "path": "/health/live",
+        "error_type": "URLError"
+      },
+      {
+        "utc": "2026-11-17T00:22:59.963069+00:00",
+        "round": 1,
+        "path": "/login",
+        "error_type": "URLError"
+      },
+      {
+        "utc": "2026-11-17T00:23:05.457063+00:00",
+        "round": 2,
+        "path": "/health/live",
+        "error_type": "URLError"
+      },
+      {
+        "utc": "2026-11-17T00:23:05.937977+00:00",
+        "round": 2,
+        "path": "/login",
+        "error_type": "URLError"
+      }
+    ],
+    "root_observed_detail": {
+      "type": "SSLCertVerificationError",
+      "verify_code": 20,
+      "reason": "issuer unavailable to local system trust store",
+      "evidence_limit": "Original local diagnostic reported by root; JSON retains URLError only"
+    }
+  },
+  "external_independent_followup": {
+    "passed": true,
+    "tls_validation": "requests default CA verification; no redirects/proxies",
+    "checks": [
+      {
+        "utc": "2026-11-17T00:23:32.163441+00:00",
+        "round": 1,
+        "path": "/health/live",
+        "http": 200,
+        "url_exact": true,
+        "maintenance": null
+      },
+      {
+        "utc": "2026-11-17T00:23:32.952583+00:00",
+        "round": 1,
+        "path": "/login",
+        "http": 200,
+        "url_exact": true,
+        "maintenance": null
+      },
+      {
+        "utc": "2026-11-17T00:23:38.609932+00:00",
+        "round": 2,
+        "path": "/health/live",
+        "http": 200,
+        "url_exact": true,
+        "maintenance": null
+      },
+      {
+        "utc": "2026-11-17T00:23:38.851486+00:00",
+        "round": 2,
+        "path": "/login",
+        "http": 200,
+        "url_exact": true,
+        "maintenance": null
+      }
+    ]
+  },
+  "final_validation": {
+    "status": "passed",
+    "action": "publication",
+    "target": {
+      "project": "sistemas-integracion-01",
+      "instance": "red-house",
+      "zone": "me-central1-a",
+      "id": "2861822465669755197",
+      "ip": "34.18.186.116"
+    },
+    "healthy": 30,
+    "schema": 21,
+    "sources": 3,
+    "public_checks": [
+      {
+        "at": 1794875067.006166,
+        "checks": [
+          {
+            "path": "/health/live",
+            "http": 200
+          },
+          {
+            "path": "/login",
+            "http": 200
+          }
+        ]
+      },
+      {
+        "at": 1794875072.0657885,
+        "checks": [
+          {
+            "path": "/health/live",
+            "http": 200
+          },
+          {
+            "path": "/login",
+            "http": 200
+          }
+        ]
+      }
+    ],
+    "tls": {
+      "checked_at": "2026-11-17T00:24:56.889487+00:00",
+      "not_after": "2026-11-21T15:14:23+00:00",
+      "certificate_sha256": "a5c19375af97ae6d4beef5a8a16ae939512052670bf0fc804b63397cbff3e737",
+      "tls_trust_and_ip_validated": true,
+      "delivery_day_end_utc": "2026-11-24T06:00:00+00:00",
+      "covers_delivery_day_end": false,
+      "renewal_timer": {
+        "NextElapseUSecRealtime": "Tue 2026-11-17 06:08:05 UTC",
+        "LastTriggerUSec": "Tue 2026-11-17 00:14:37 UTC",
+        "LoadState": "loaded",
+        "ActiveState": "active",
+        "UnitFileState": "enabled"
+      },
+      "timer_query_exit_code": 0,
+      "renewal_service": {
+        "Result": "success",
+        "ExecMainExitTimestamp": "Tue 2026-11-17 00:14:45 UTC",
+        "ExecMainStatus": "0",
+        "LoadState": "loaded"
+      },
+      "service_query_exit_code": 0,
+      "renewal_performed": false
+    },
+    "http_report_sha256": "1050883eb616b416088901cc6ffc955db1a998bdf5264880808027d77b2e7d02",
+    "database_restored": false
+  },
+  "binding_note": "final_validation.http_report_sha256 is the immutable package historical parser-only load; release-gate.json separately binds the current three-source lock HTTP12 before release"
+}

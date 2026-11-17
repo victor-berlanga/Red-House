@@ -1,0 +1,294 @@
+{
+  "builds": {
+    "alertas": {
+      "id": "sha256:f2f5e75b0f2ae3a08030d36508cddaa20bc4e54c73a3686ced5dc0f728a07dbe",
+      "tag": "redhouse/alertas:xmlschema-20261116-01",
+      "base": "sha256:cbc83106f703d2d5092b2da48e6531e2f92f1e62d281617308ed8ef30ed3410d",
+      "previous_tag": "redhouse/alertas:before-xmlschema-20261116-01",
+      "files": {
+        "apps/services/redhouse/codec.py": "964c65b1982e0dcadccb0080b47bfcb68cdd4975a9ef06bbb3814417e705fe30",
+        "apps/services/redhouse/xml_response.py": "7f01a181ece8e340002b0f01903e36b114a02444fec258635bda067a6e76f36d"
+      }
+    },
+    "auditoria": {
+      "id": "sha256:40a225797e2f9f4837d23b5d4fd372119c49ec5728d9854a6f87cba7467888f5",
+      "tag": "redhouse/auditoria:xmlschema-20261116-01",
+      "base": "sha256:f714134b68fca8177aaccad5515ebda28143c400c027e00d9779bf552a29e10c",
+      "previous_tag": "redhouse/auditoria:before-xmlschema-20261116-01",
+      "files": {
+        "apps/services/redhouse/codec.py": "964c65b1982e0dcadccb0080b47bfcb68cdd4975a9ef06bbb3814417e705fe30",
+        "apps/services/redhouse/xml_response.py": "7f01a181ece8e340002b0f01903e36b114a02444fec258635bda067a6e76f36d"
+      }
+    },
+    "compatibilidad": {
+      "id": "sha256:945394f997a0964d99db7b7ea9f06f336615ac99714976775b6c5d01e5fb67e1",
+      "tag": "redhouse/compatibilidad:xmlschema-20261116-01",
+      "base": "sha256:b7bf950dd87a8be229e541f0ca5a29acc25c0b25fbea27b3a9dd92c59e15ff5f",
+      "previous_tag": "redhouse/compatibilidad:before-xmlschema-20261116-01",
+      "files": {
+        "apps/services/redhouse/codec.py": "964c65b1982e0dcadccb0080b47bfcb68cdd4975a9ef06bbb3814417e705fe30",
+        "apps/services/redhouse/xml_response.py": "7f01a181ece8e340002b0f01903e36b114a02444fec258635bda067a6e76f36d"
+      }
+    },
+    "custodia": {
+      "id": "sha256:c010e17dbd5c388d8e91aa4b070d26a3e46c4567bc8bceb82054deb361d2ea53",
+      "tag": "redhouse/custodia:xmlschema-20261116-01",
+      "base": "sha256:92a4a2c69ce29cf576852c90d40c8ea56b8cc0da8f014b8c8b8b2fc18c79625c",
+      "previous_tag": "redhouse/custodia:before-xmlschema-20261116-01",
+      "files": {
+        "apps/services/redhouse/codec.py": "964c65b1982e0dcadccb0080b47bfcb68cdd4975a9ef06bbb3814417e705fe30",
+        "apps/services/redhouse/xml_response.py": "7f01a181ece8e340002b0f01903e36b114a02444fec258635bda067a6e76f36d"
+      }
+    },
+    "documentos": {
+      "id": "sha256:cf111e8527bab5eade8b2efc71626f53476ccabfeb8908f631c9b66fe2929d17",
+      "tag": "redhouse/documentos:xmlschema-20261116-01",
+      "base": "sha256:c10e2efa74a33a52421dd7c0cfba7538fa4f4c69b76585f97139a3f10294eb88",
+      "previous_tag": "redhouse/documentos:before-xmlschema-20261116-01",
+      "files": {
+        "apps/services/redhouse/codec.py": "964c65b1982e0dcadccb0080b47bfcb68cdd4975a9ef06bbb3814417e705fe30",
+        "apps/services/redhouse/xml_response.py": "7f01a181ece8e340002b0f01903e36b114a02444fec258635bda067a6e76f36d"
+      }
+    },
+    "donantes": {
+      "id": "sha256:7e733e134ebdfae45ff42ea7a516b48495f3d5b6fd86939d4d254443c30f6f1a",
+      "tag": "redhouse/donantes:xmlschema-20261116-01",
+      "base": "sha256:8357457a9392f86a4f079d8a7c86083ac618a95b0c28fb2f4b36c3dcdbacdcc8",
+      "previous_tag": "redhouse/donantes:before-xmlschema-20261116-01",
+      "files": {
+        "apps/services/redhouse/codec.py": "964c65b1982e0dcadccb0080b47bfcb68cdd4975a9ef06bbb3814417e705fe30",
+        "apps/services/redhouse/xml_response.py": "7f01a181ece8e340002b0f01903e36b114a02444fec258635bda067a6e76f36d"
+      }
+    },
+    "identidad-acceso": {
+      "id": "sha256:45ded3ff47a729c4a8d5ec0b75176513672a9652059a4bc7ddb2ec0b7df0b784",
+      "tag": "redhouse/identidad_acceso:xmlschema-20261116-01",
+      "base": "sha256:ded63de66d40f23daa71a48a17c410fec40cca63c7173f74e14aeaaf770c0d40",
+      "previous_tag": "redhouse/identidad_acceso:before-xmlschema-20261116-01",
+      "files": {
+        "apps/services/redhouse/codec.py": "964c65b1982e0dcadccb0080b47bfcb68cdd4975a9ef06bbb3814417e705fe30",
+        "apps/services/redhouse/xml_response.py": "7f01a181ece8e340002b0f01903e36b114a02444fec258635bda067a6e76f36d"
+      }
+    },
+    "inventario": {
+      "id": "sha256:0af9d3013999ea546dbcb553541515101109995bfc4f63650cee20957d47782e",
+      "tag": "redhouse/inventario:xmlschema-20261116-01",
+      "base": "sha256:8ebf1ed4b5732061b0791afa66c673e79058b49913dd462de70a341bf125327e",
+      "previous_tag": "redhouse/inventario:before-xmlschema-20261116-01",
+      "files": {
+        "apps/services/redhouse/codec.py": "964c65b1982e0dcadccb0080b47bfcb68cdd4975a9ef06bbb3814417e705fe30",
+        "apps/services/redhouse/xml_response.py": "7f01a181ece8e340002b0f01903e36b114a02444fec258635bda067a6e76f36d"
+      }
+    },
+    "monitoreo": {
+      "id": "sha256:b05af343fb6c7b1fb72b4664ac014a2646085d77f8312fd714e0252bb5540869",
+      "tag": "redhouse/monitoreo:xmlschema-20261116-01",
+      "base": "sha256:38d68d74820fd00e961f4870233f41daa976563274e1b911cecebd1365eedb39",
+      "previous_tag": "redhouse/monitoreo:before-xmlschema-20261116-01",
+      "files": {
+        "apps/services/redhouse/codec.py": "964c65b1982e0dcadccb0080b47bfcb68cdd4975a9ef06bbb3814417e705fe30",
+        "apps/services/redhouse/xml_response.py": "7f01a181ece8e340002b0f01903e36b114a02444fec258635bda067a6e76f36d"
+      }
+    },
+    "priorizacion-geografia": {
+      "id": "sha256:15b818b0fb260422a1e51f2cccfba195ea08f1c3156f828562932a5fb9bd17b5",
+      "tag": "redhouse/priorizacion_geografia:xmlschema-20261116-01",
+      "base": "sha256:e76860fa7506def0606fb59f2c285d54b3d4a5b4508aa4434677b8eed1917563",
+      "previous_tag": "redhouse/priorizacion_geografia:before-xmlschema-20261116-01",
+      "files": {
+        "apps/services/redhouse/codec.py": "964c65b1982e0dcadccb0080b47bfcb68cdd4975a9ef06bbb3814417e705fe30",
+        "apps/services/redhouse/xml_response.py": "7f01a181ece8e340002b0f01903e36b114a02444fec258635bda067a6e76f36d"
+      }
+    },
+    "receptores": {
+      "id": "sha256:bdd209e85287c274d53ea0b047338366c5fe5c4b64e946ed66b2dcec31c38341",
+      "tag": "redhouse/receptores:xmlschema-20261116-01",
+      "base": "sha256:564bff2deede0a01e93ae2df2499ee3e8172876b6f7f17f07f245005fa67e0c7",
+      "previous_tag": "redhouse/receptores:before-xmlschema-20261116-01",
+      "files": {
+        "apps/services/redhouse/codec.py": "964c65b1982e0dcadccb0080b47bfcb68cdd4975a9ef06bbb3814417e705fe30",
+        "apps/services/redhouse/xml_response.py": "7f01a181ece8e340002b0f01903e36b114a02444fec258635bda067a6e76f36d"
+      }
+    },
+    "transporte": {
+      "id": "sha256:784d2b285144f09e8a0fabcfa0422404947189146ba3ae8f484ad156309266df",
+      "tag": "redhouse/transporte:xmlschema-20261116-01",
+      "base": "sha256:a37a72ead35a33b21f8a9d6600efc69ac564d1cd632b87a7bb53af94ae201fea",
+      "previous_tag": "redhouse/transporte:before-xmlschema-20261116-01",
+      "files": {
+        "apps/services/ms_transporte/tracking_contracts.py": "00a3a56b8a17d76efd60fd75b0931c81b84b136d19b9c30fb6dfad5d12139026",
+        "apps/services/redhouse/codec.py": "964c65b1982e0dcadccb0080b47bfcb68cdd4975a9ef06bbb3814417e705fe30",
+        "apps/services/redhouse/xml_response.py": "7f01a181ece8e340002b0f01903e36b114a02444fec258635bda067a6e76f36d"
+      }
+    },
+    "web": {
+      "id": "sha256:9aaa80dc87e0a9daa1cc7b6fe4d7b14faca28bd0435839ee33cf51345a48589a",
+      "tag": "redhouse-web:xmlschema-20261116-01",
+      "base": "sha256:d5f1c499dc471aa01ca56e8f0773f49fffac868297275dccd565effe53ba0507",
+      "previous_tag": "redhouse-web:before-xmlschema-20261116-01",
+      "files": {
+        "apps/services/ms_transporte/tracking_contracts.py": "00a3a56b8a17d76efd60fd75b0931c81b84b136d19b9c30fb6dfad5d12139026",
+        "apps/services/redhouse/codec.py": "964c65b1982e0dcadccb0080b47bfcb68cdd4975a9ef06bbb3814417e705fe30",
+        "apps/services/redhouse/xml_response.py": "7f01a181ece8e340002b0f01903e36b114a02444fec258635bda067a6e76f36d"
+      }
+    }
+  },
+  "cold_probes": {
+    "alertas": {
+      "passed": true,
+      "source_sha256": "964c65b1982e0dcadccb0080b47bfcb68cdd4975a9ef06bbb3814417e705fe30",
+      "constructors": 2,
+      "threads": 6,
+      "valid_per_constructor": 24,
+      "rejected_per_constructor": 48,
+      "attempts": 144,
+      "cold_envelope": true,
+      "image": "sha256:f2f5e75b0f2ae3a08030d36508cddaa20bc4e54c73a3686ced5dc0f728a07dbe",
+      "probe_sha256": "044b6ae33f29bc4443b81b6d96608c9732ebe4e9423a77f9f630f6c866df598a"
+    },
+    "auditoria": {
+      "passed": true,
+      "source_sha256": "964c65b1982e0dcadccb0080b47bfcb68cdd4975a9ef06bbb3814417e705fe30",
+      "constructors": 2,
+      "threads": 6,
+      "valid_per_constructor": 24,
+      "rejected_per_constructor": 48,
+      "attempts": 144,
+      "cold_envelope": true,
+      "image": "sha256:40a225797e2f9f4837d23b5d4fd372119c49ec5728d9854a6f87cba7467888f5",
+      "probe_sha256": "044b6ae33f29bc4443b81b6d96608c9732ebe4e9423a77f9f630f6c866df598a"
+    },
+    "compatibilidad": {
+      "passed": true,
+      "source_sha256": "964c65b1982e0dcadccb0080b47bfcb68cdd4975a9ef06bbb3814417e705fe30",
+      "constructors": 2,
+      "threads": 6,
+      "valid_per_constructor": 24,
+      "rejected_per_constructor": 48,
+      "attempts": 144,
+      "cold_envelope": true,
+      "image": "sha256:945394f997a0964d99db7b7ea9f06f336615ac99714976775b6c5d01e5fb67e1",
+      "probe_sha256": "044b6ae33f29bc4443b81b6d96608c9732ebe4e9423a77f9f630f6c866df598a"
+    },
+    "custodia": {
+      "passed": true,
+      "source_sha256": "964c65b1982e0dcadccb0080b47bfcb68cdd4975a9ef06bbb3814417e705fe30",
+      "constructors": 2,
+      "threads": 6,
+      "valid_per_constructor": 24,
+      "rejected_per_constructor": 48,
+      "attempts": 144,
+      "cold_envelope": true,
+      "image": "sha256:c010e17dbd5c388d8e91aa4b070d26a3e46c4567bc8bceb82054deb361d2ea53",
+      "probe_sha256": "044b6ae33f29bc4443b81b6d96608c9732ebe4e9423a77f9f630f6c866df598a"
+    },
+    "documentos": {
+      "passed": true,
+      "source_sha256": "964c65b1982e0dcadccb0080b47bfcb68cdd4975a9ef06bbb3814417e705fe30",
+      "constructors": 2,
+      "threads": 6,
+      "valid_per_constructor": 24,
+      "rejected_per_constructor": 48,
+      "attempts": 144,
+      "cold_envelope": true,
+      "image": "sha256:cf111e8527bab5eade8b2efc71626f53476ccabfeb8908f631c9b66fe2929d17",
+      "probe_sha256": "044b6ae33f29bc4443b81b6d96608c9732ebe4e9423a77f9f630f6c866df598a"
+    },
+    "donantes": {
+      "passed": true,
+      "source_sha256": "964c65b1982e0dcadccb0080b47bfcb68cdd4975a9ef06bbb3814417e705fe30",
+      "constructors": 2,
+      "threads": 6,
+      "valid_per_constructor": 24,
+      "rejected_per_constructor": 48,
+      "attempts": 144,
+      "cold_envelope": true,
+      "image": "sha256:7e733e134ebdfae45ff42ea7a516b48495f3d5b6fd86939d4d254443c30f6f1a",
+      "probe_sha256": "044b6ae33f29bc4443b81b6d96608c9732ebe4e9423a77f9f630f6c866df598a"
+    },
+    "identidad-acceso": {
+      "passed": true,
+      "source_sha256": "964c65b1982e0dcadccb0080b47bfcb68cdd4975a9ef06bbb3814417e705fe30",
+      "constructors": 2,
+      "threads": 6,
+      "valid_per_constructor": 24,
+      "rejected_per_constructor": 48,
+      "attempts": 144,
+      "cold_envelope": true,
+      "image": "sha256:45ded3ff47a729c4a8d5ec0b75176513672a9652059a4bc7ddb2ec0b7df0b784",
+      "probe_sha256": "044b6ae33f29bc4443b81b6d96608c9732ebe4e9423a77f9f630f6c866df598a"
+    },
+    "inventario": {
+      "passed": true,
+      "source_sha256": "964c65b1982e0dcadccb0080b47bfcb68cdd4975a9ef06bbb3814417e705fe30",
+      "constructors": 2,
+      "threads": 6,
+      "valid_per_constructor": 24,
+      "rejected_per_constructor": 48,
+      "attempts": 144,
+      "cold_envelope": true,
+      "image": "sha256:0af9d3013999ea546dbcb553541515101109995bfc4f63650cee20957d47782e",
+      "probe_sha256": "044b6ae33f29bc4443b81b6d96608c9732ebe4e9423a77f9f630f6c866df598a"
+    },
+    "monitoreo": {
+      "passed": true,
+      "source_sha256": "964c65b1982e0dcadccb0080b47bfcb68cdd4975a9ef06bbb3814417e705fe30",
+      "constructors": 2,
+      "threads": 6,
+      "valid_per_constructor": 24,
+      "rejected_per_constructor": 48,
+      "attempts": 144,
+      "cold_envelope": true,
+      "image": "sha256:b05af343fb6c7b1fb72b4664ac014a2646085d77f8312fd714e0252bb5540869",
+      "probe_sha256": "044b6ae33f29bc4443b81b6d96608c9732ebe4e9423a77f9f630f6c866df598a"
+    },
+    "priorizacion-geografia": {
+      "passed": true,
+      "source_sha256": "964c65b1982e0dcadccb0080b47bfcb68cdd4975a9ef06bbb3814417e705fe30",
+      "constructors": 2,
+      "threads": 6,
+      "valid_per_constructor": 24,
+      "rejected_per_constructor": 48,
+      "attempts": 144,
+      "cold_envelope": true,
+      "image": "sha256:15b818b0fb260422a1e51f2cccfba195ea08f1c3156f828562932a5fb9bd17b5",
+      "probe_sha256": "044b6ae33f29bc4443b81b6d96608c9732ebe4e9423a77f9f630f6c866df598a"
+    },
+    "receptores": {
+      "passed": true,
+      "source_sha256": "964c65b1982e0dcadccb0080b47bfcb68cdd4975a9ef06bbb3814417e705fe30",
+      "constructors": 2,
+      "threads": 6,
+      "valid_per_constructor": 24,
+      "rejected_per_constructor": 48,
+      "attempts": 144,
+      "cold_envelope": true,
+      "image": "sha256:bdd209e85287c274d53ea0b047338366c5fe5c4b64e946ed66b2dcec31c38341",
+      "probe_sha256": "044b6ae33f29bc4443b81b6d96608c9732ebe4e9423a77f9f630f6c866df598a"
+    },
+    "transporte": {
+      "passed": true,
+      "source_sha256": "964c65b1982e0dcadccb0080b47bfcb68cdd4975a9ef06bbb3814417e705fe30",
+      "constructors": 3,
+      "threads": 9,
+      "valid_per_constructor": 24,
+      "rejected_per_constructor": 48,
+      "attempts": 216,
+      "cold_envelope": true,
+      "image": "sha256:784d2b285144f09e8a0fabcfa0422404947189146ba3ae8f484ad156309266df",
+      "probe_sha256": "044b6ae33f29bc4443b81b6d96608c9732ebe4e9423a77f9f630f6c866df598a"
+    },
+    "web": {
+      "passed": true,
+      "source_sha256": "964c65b1982e0dcadccb0080b47bfcb68cdd4975a9ef06bbb3814417e705fe30",
+      "constructors": 3,
+      "threads": 9,
+      "valid_per_constructor": 24,
+      "rejected_per_constructor": 48,
+      "attempts": 216,
+      "cold_envelope": true,
+      "image": "sha256:9aaa80dc87e0a9daa1cc7b6fe4d7b14faca28bd0435839ee33cf51345a48589a",
+      "probe_sha256": "044b6ae33f29bc4443b81b6d96608c9732ebe4e9423a77f9f630f6c866df598a"
+    }
+  }
+}

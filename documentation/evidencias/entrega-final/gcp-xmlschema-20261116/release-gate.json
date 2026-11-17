@@ -1,0 +1,31 @@
+{
+  "passed": true,
+  "at": "2026-11-17T00:13:48.626270+00:00",
+  "manifest_sha256": "1b2fd4ea6ea6aaa05fa978adf7c862dc5d9a046133e7744303c605660ca05818",
+  "load_review_sha256": "ad142d2cf5564ca570e1f8e64c5ed05bf637e31856e04c025b23f637d5e43948",
+  "load_summary_sha256": "9ec4dde65dda811ef6418b973d3d645a79f9f677616f9944e3161be30c3bf55f",
+  "source_hashes": {
+    "apps/services/redhouse/codec.py": "964c65b1982e0dcadccb0080b47bfcb68cdd4975a9ef06bbb3814417e705fe30",
+    "apps/services/ms_transporte/tracking_contracts.py": "00a3a56b8a17d76efd60fd75b0931c81b84b136d19b9c30fb6dfad5d12139026",
+    "apps/services/redhouse/xml_response.py": "7f01a181ece8e340002b0f01903e36b114a02444fec258635bda067a6e76f36d"
+  },
+  "images": {
+    "alertas": "sha256:f2f5e75b0f2ae3a08030d36508cddaa20bc4e54c73a3686ced5dc0f728a07dbe",
+    "auditoria": "sha256:40a225797e2f9f4837d23b5d4fd372119c49ec5728d9854a6f87cba7467888f5",
+    "compatibilidad": "sha256:945394f997a0964d99db7b7ea9f06f336615ac99714976775b6c5d01e5fb67e1",
+    "custodia": "sha256:c010e17dbd5c388d8e91aa4b070d26a3e46c4567bc8bceb82054deb361d2ea53",
+    "documentos": "sha256:cf111e8527bab5eade8b2efc71626f53476ccabfeb8908f631c9b66fe2929d17",
+    "donantes": "sha256:7e733e134ebdfae45ff42ea7a516b48495f3d5b6fd86939d4d254443c30f6f1a",
+    "identidad-acceso": "sha256:45ded3ff47a729c4a8d5ec0b75176513672a9652059a4bc7ddb2ec0b7df0b784",
+    "inventario": "sha256:0af9d3013999ea546dbcb553541515101109995bfc4f63650cee20957d47782e",
+    "monitoreo": "sha256:b05af343fb6c7b1fb72b4664ac014a2646085d77f8312fd714e0252bb5540869",
+    "priorizacion-geografia": "sha256:15b818b0fb260422a1e51f2cccfba195ea08f1c3156f828562932a5fb9bd17b5",
+    "receptores": "sha256:bdd209e85287c274d53ea0b047338366c5fe5c4b64e946ed66b2dcec31c38341",
+    "transporte": "sha256:784d2b285144f09e8a0fabcfa0422404947189146ba3ae8f484ad156309266df",
+    "web": "sha256:9aaa80dc87e0a9daa1cc7b6fe4d7b14faca28bd0435839ee33cf51345a48589a"
+  },
+  "prepare_transport_exit": 255,
+  "remote_prepare_completed": true,
+  "prepare_connection_closed_separately": true,
+  "runtime_will_be_revalidated_by_release": true
+}
