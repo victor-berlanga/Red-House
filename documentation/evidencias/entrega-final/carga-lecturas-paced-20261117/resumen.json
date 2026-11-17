@@ -1,0 +1,216 @@
+{
+  "historical": {
+    "wrapper_status": "failed",
+    "identities": 6,
+    "pacing_seconds": [
+      0.5,
+      1.5
+    ],
+    "invariants": {
+      "population_unchanged": true,
+      "effective_configs_unchanged": true,
+      "sources_unchanged": true,
+      "topology_unchanged": true,
+      "processes_closed": true,
+      "manifests_unchanged": true,
+      "sources_unchanged_final": true,
+      "lock_removed": true
+    },
+    "inventory_count": 10676,
+    "phases": [
+      {
+        "users": 24,
+        "warmup_seconds": 30,
+        "measurement_seconds": 120,
+        "cache_mode": "active",
+        "execution_valid": true,
+        "measurement_accepted": false,
+        "session_count_verified": true,
+        "session_revocation_verified": true,
+        "cleanup_failures": 0,
+        "runner_exit": 0,
+        "identities": 6,
+        "sessions_per_identity": 4,
+        "measured_seconds": 120.06516122003086,
+        "get_requests": 4097,
+        "get_failures": 244,
+        "get_requests_per_second": 34.123137456100665,
+        "error_ratio": 0.059555772516475466,
+        "max_endpoint_p95_ms": 1300,
+        "max_endpoint_p99_ms": 1400,
+        "weighted_get_mean_ms": 241.35975537973727,
+        "cache": {
+          "HIT": 610,
+          "MISS": 26
+        },
+        "quota_429": 244,
+        "logout_requests": 24,
+        "warmup": {
+          "requests": 1087,
+          "failures": 0
+        },
+        "user_errors": 0,
+        "business_transactions_measured": 0,
+        "phase_process_samples": {
+          "count": 96,
+          "peak_rss_sum_kib": 2675088,
+          "max_sum_ps_cpu_percent": 363.5,
+          "minimum_free_bytes": 9811947520,
+          "scope": "Whole phase including startup/authentication; ps CPU is the sum of per-process lifetime estimates, not instantaneous CPU utilization."
+        }
+      }
+    ]
+  },
+  "paced": {
+    "wrapper_status": "passed",
+    "identities": 6,
+    "pacing_seconds": [
+      4,
+      6
+    ],
+    "invariants": {
+      "population_unchanged": true,
+      "effective_configs_unchanged": true,
+      "sources_unchanged": true,
+      "topology_unchanged": true,
+      "processes_closed": true,
+      "manifests_unchanged": true,
+      "sources_unchanged_final": true,
+      "lock_removed": true
+    },
+    "inventory_count": 10676,
+    "phases": [
+      {
+        "users": 24,
+        "warmup_seconds": 30,
+        "measurement_seconds": 120,
+        "cache_mode": "active",
+        "execution_valid": true,
+        "measurement_accepted": true,
+        "session_count_verified": true,
+        "session_revocation_verified": true,
+        "cleanup_failures": 0,
+        "runner_exit": 0,
+        "identities": 6,
+        "sessions_per_identity": 4,
+        "measured_seconds": 120.03862733393908,
+        "get_requests": 1334,
+        "get_failures": 0,
+        "get_requests_per_second": 11.113089424864091,
+        "error_ratio": 0.0,
+        "max_endpoint_p95_ms": 890,
+        "max_endpoint_p99_ms": 1000,
+        "weighted_get_mean_ms": 138.4217600516013,
+        "cache": {
+          "HIT": 165,
+          "MISS": 20
+        },
+        "quota_429": 0,
+        "logout_requests": 24,
+        "warmup": {
+          "requests": 373,
+          "failures": 0
+        },
+        "user_errors": 0,
+        "business_transactions_measured": 0,
+        "phase_process_samples": {
+          "count": 89,
+          "peak_rss_sum_kib": 2562612,
+          "max_sum_ps_cpu_percent": 374.7,
+          "minimum_free_bytes": 9767587840,
+          "scope": "Whole phase including startup/authentication; ps CPU is the sum of per-process lifetime estimates, not instantaneous CPU utilization."
+        }
+      },
+      {
+        "users": 36,
+        "warmup_seconds": 30,
+        "measurement_seconds": 60,
+        "cache_mode": "active",
+        "execution_valid": true,
+        "measurement_accepted": true,
+        "session_count_verified": true,
+        "session_revocation_verified": true,
+        "cleanup_failures": 0,
+        "runner_exit": 0,
+        "identities": 6,
+        "sessions_per_identity": 6,
+        "measured_seconds": 60.00749101897236,
+        "get_requests": 981,
+        "get_failures": 0,
+        "get_requests_per_second": 16.3479589521555,
+        "error_ratio": 0.0,
+        "max_endpoint_p95_ms": 1000,
+        "max_endpoint_p99_ms": 1100,
+        "weighted_get_mean_ms": 177.94861540871898,
+        "cache": {
+          "HIT": 122,
+          "MISS": 12
+        },
+        "quota_429": 0,
+        "logout_requests": 36,
+        "warmup": {
+          "requests": 556,
+          "failures": 0
+        },
+        "user_errors": 0,
+        "business_transactions_measured": 0,
+        "phase_process_samples": {
+          "count": 99,
+          "peak_rss_sum_kib": 2666496,
+          "max_sum_ps_cpu_percent": 392.3,
+          "minimum_free_bytes": 9751834624,
+          "scope": "Whole phase including startup/authentication; ps CPU is the sum of per-process lifetime estimates, not instantaneous CPU utilization."
+        }
+      },
+      {
+        "users": 6,
+        "warmup_seconds": 30,
+        "measurement_seconds": 60,
+        "cache_mode": "active",
+        "execution_valid": true,
+        "measurement_accepted": true,
+        "session_count_verified": true,
+        "session_revocation_verified": true,
+        "cleanup_failures": 0,
+        "runner_exit": 0,
+        "identities": 6,
+        "sessions_per_identity": 1,
+        "measured_seconds": 60.020684293005615,
+        "get_requests": 173,
+        "get_failures": 0,
+        "get_requests_per_second": 2.8823396806917145,
+        "error_ratio": 0.0,
+        "max_endpoint_p95_ms": 620,
+        "max_endpoint_p99_ms": 620,
+        "weighted_get_mean_ms": 83.62883620698952,
+        "cache": {
+          "HIT": 15,
+          "MISS": 8
+        },
+        "quota_429": 0,
+        "logout_requests": 6,
+        "warmup": {
+          "requests": 98,
+          "failures": 0
+        },
+        "user_errors": 0,
+        "business_transactions_measured": 0,
+        "phase_process_samples": {
+          "count": 41,
+          "peak_rss_sum_kib": 2760524,
+          "max_sum_ps_cpu_percent": 169.79999999999998,
+          "minimum_free_bytes": 9748684800,
+          "scope": "Whole phase including startup/authentication; ps CPU is the sum of per-process lifetime estimates, not instantaneous CPU utilization."
+        }
+      }
+    ]
+  },
+  "new_business_writes": false,
+  "new_seed": false,
+  "server_rate_limit_changed": false,
+  "capacity_estimate": false,
+  "direct_performance_improvement_claim": false,
+  "percentile_definition": "Maximum per-endpoint percentile; not a global percentile. Endpoint medians remain separate.",
+  "raw_historical_failure_preserved": true,
+  "own_families_closed_in_paced_run": 66
+}
