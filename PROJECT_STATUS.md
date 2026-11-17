@@ -14,6 +14,8 @@ El [informe final editable](documentation/markdowns/Reporte_tecnico_final.md) in
 
 Word y PDF conservan el corte del 14/11 y se regenerarán una vez consolidada la evidencia técnica restante. Esta edición no declara cierre de etapas, distribución vigente ni aprobación clínica.
 
+La [matriz móvil](documentation/entrega-final/mobile/Matriz.md) también distingue agenda, recordatorio y TLS físicos del binario observado, restauración posterior del arranque y alta/GCS compilados sin aceptación nativa. Página 6 conserva confirmación humana y falta de captura/correlación final. Treinta y dos referencias locales válidas; firmas para el 23, permisos/accesibilidad, BGAppRefresh programado y push externo mantienen sus límites. El traslado Android E2E-B en curso no se presenta como aprobado en esta consolidación.
+
 ## Catálogo de conservación incorporado a escritorio — 16/11/2026
 
 [Incremento DESK-10](documentation/evidencias/entrega-final/desktop/iteracion-catalogo-conservacion/RESULTADOS.md): equipos y perfiles térmicos con consulta paginada, detalle y operaciones según perfil; vinculación a unidad autorizada conservando su perfil de laboratorio. Valores térmicos y fuente capturados expresamente, exclusivamente académicos. Diario, recuperación, XSD y contexto de sesión reutilizados; controles de otra unidad rechazados antes de abrir el formulario.
