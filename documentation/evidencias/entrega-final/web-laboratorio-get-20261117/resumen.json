@@ -1,0 +1,37 @@
+{
+  "passed": true,
+  "common_sha256": "9c667b6cdf52e95752cf4e7149b24cfc46209c369561e800955ab0c57fffb5a3",
+  "runtime_mode": "monolith",
+  "tls_ca_verified": true,
+  "browser_exit": 0,
+  "get_result_http": 200,
+  "labels_verified": true,
+  "no_business_posts": true,
+  "business_unchanged": true,
+  "sources_unchanged": true,
+  "started_at": "2026-11-17T22:53:49.316785+00:00",
+  "finished_at": "2026-11-17T22:54:15.820189+00:00",
+  "scope": "Un GET Chrome del resultado ABO sintético Android C existente",
+  "synthetic_result": "O",
+  "reported_state": "Reportado",
+  "business_writes": 0,
+  "own_sessions_closed_sql_redis": 1,
+  "javascript_errors": 0,
+  "http_posts": [
+    "/login",
+    "/logout"
+  ],
+  "root_visual_inspection": true,
+  "agent_visual_inspection": true,
+  "clinical_authorization": false,
+  "gcp_operations": 0,
+  "private_source_sha256": {
+    "receipt.json": "b368917637afaf20c61c9e568058cbf006b02c3d5117888bba04131dec9b4515",
+    "browser.json": "27bb8c403fa00c906ebf5c251d0efc81b6872b34a67137b7149553181b468f3c",
+    "resultado-abo-common-candidate.png": "fd495fbdd4c4dbfba222c845c608edd0fa0a5ec04b68a6d548a272cbefb3e24a",
+    "business-before.private.json": "a56be3c5d66fbae749873465a4095a4a3e7a4361b24b80ae38862689396c1165",
+    "business-after.private.json": "a56be3c5d66fbae749873465a4095a4a3e7a4361b24b80ae38862689396c1165",
+    "sources-before.private.json": "f69badb12608c6fdae1d7c0efc01a4f967fd2078d234338ea6e942798aea9428",
+    "sources-after.private.json": "f69badb12608c6fdae1d7c0efc01a4f967fd2078d234338ea6e942798aea9428"
+  }
+}
