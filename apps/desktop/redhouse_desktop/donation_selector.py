@@ -81,6 +81,7 @@ def select_processed_donation(window, worker_type, display, *, status='PROCESSED
     layout.addLayout(actions)
     binding = OperationContext(window)
     client = binding.client
+    actor = binding.actor
     state = {'alive': True, 'busy': False, 'rows': [], 'page': 1, 'total': 0, 'chosen': None}
 
     def current():

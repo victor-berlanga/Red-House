@@ -3,9 +3,10 @@ import os
 import time
 from pathlib import Path
 from uuid import uuid4
+import pytest
 
 from PySide6.QtCore import QTimer
-from PySide6.QtWidgets import QApplication, QLineEdit, QPushButton, QTableWidget
+from PySide6.QtWidgets import QApplication, QLabel, QLineEdit, QPushButton, QTableWidget
 from redhouse_desktop.app import STYLE, Window, Work, label
 from redhouse_desktop.donation_selector import select_processed_donation
 
@@ -17,6 +18,7 @@ def test_selected_reference_distinguishes_similar_donations():
     tenant, donor, first, second = (str(uuid4()) for _ in range(4))
     class Client:
         access = None
+        session_id = str(uuid4())
         def __init__(self): self.user = {'id': str(uuid4()), 'tenant_id': tenant, 'role': 'OPERATOR'}
         def authorized(self, _service, _path, operation, **kwargs):
             if operation == 'donations_list':
@@ -27,6 +29,7 @@ def test_selected_reference_distinguishes_similar_donations():
             return {'id': donor, 'tenant_id': tenant, 'folio': 'DONANTE-01', 'display_name': 'Persona ficticia'}
     window = Window()
     window.client = Client()
+    window.journal = object()
     errors = []
     deadline = time.monotonic() + 8
     def choose():
@@ -51,6 +54,39 @@ def test_selected_reference_distinguishes_similar_donations():
     QTimer.singleShot(0, choose)
     selected = select_processed_donation(window, Work, label)
     assert not errors and selected['id'] == second
+    window.close()
+
+
+@pytest.mark.parametrize('changed_session', [False, True])
+def test_selector_rejects_foreign_tenant_or_changed_session(changed_session):
+    tenant, donor = str(uuid4()), str(uuid4())
+    class Client:
+        access = None
+        session_id = str(uuid4())
+        user = {'id': str(uuid4()), 'tenant_id': tenant, 'role': 'OPERATOR'}
+        def authorized(self, _service, _path, operation, **_kwargs):
+            if operation == 'donations_list':
+                if changed_session: self.session_id = str(uuid4())
+                return {'items': [{'id': str(uuid4()), 'donor_id': donor, 'tenant_id': tenant if changed_session else str(uuid4()), 'kind': 'BLOOD', 'status': 'PROCESSED', 'collected_at': '2026-11-17T20:20:01Z'}], 'page': 1, 'total': 1}
+            assert operation == 'donor_detail'
+            return {'id': donor, 'tenant_id': tenant, 'folio': 'DONANTE-01', 'display_name': 'Persona ficticia'}
+    window = Window()
+    window.client, window.journal = Client(), object()
+    observed = []
+    deadline = time.monotonic() + 8
+    def inspect():
+        dialog = app.activeModalWidget()
+        expected = 'La sesión cambió.' if changed_session else 'No se pudieron consultar donaciones.'
+        if dialog and any(label.text().startswith(expected) for label in dialog.findChildren(QLabel)):
+            observed.append((dialog.findChild(QTableWidget).rowCount(), next(button for button in dialog.findChildren(QPushButton) if button.text() == 'Usar donación').isEnabled()))
+            dialog.reject()
+        elif time.monotonic() >= deadline:
+            if dialog: dialog.reject()
+        else: QTimer.singleShot(20, inspect)
+    QTimer.singleShot(0, inspect)
+    assert select_processed_donation(window, Work, label) is None
+    assert observed == [(0, False)]
+    window.close()
 
 
 def test_resource_form_keeps_selected_origin(monkeypatch):
@@ -62,12 +98,14 @@ def test_resource_form_keeps_selected_origin(monkeypatch):
                 '_donor_name': 'Persona ficticia'}
     window = Window()
     class Client:
+        access = None
+        session_id = str(uuid4())
         def __init__(self): self.user = {'id': str(uuid4()), 'tenant_id': str(uuid4()), 'role': 'OPERATOR'}
     window.client = Client()
+    window.journal = object()
     errors, calls = [], []
     monkeypatch.setattr(desktop, 'select_processed_donation', lambda *_args: donation)
-    monkeypatch.setattr(window, 'durable', lambda operation, identifier, body: calls.append((operation, identifier, body)))
-    monkeypatch.setattr(window, 'run', lambda work, _success, _message: work())
+    monkeypatch.setattr(window, 'secure_command', lambda operation, identifier, body: calls.append((operation, identifier, body)))
     def fill():
         dialog = app.activeModalWidget()
         if not dialog: QTimer.singleShot(20, fill); return
@@ -90,3 +128,4 @@ def test_resource_form_keeps_selected_origin(monkeypatch):
     body = calls[0][2]
     assert body['donation_id'] == donation['id'] and body['collected_at'] == donation['collected_at']
     assert body['kind'] == 'BLOOD' and body['component'] == 'RBC' and body['blood_group'] == 'O-'
+    window.close()

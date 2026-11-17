@@ -8,6 +8,8 @@ El [build móvil final](../../evidencias/entrega-final/mobile/final-build-202611
 
 La [recuperación de seguimiento](../../evidencias/entrega-final/mobile/tracking-recovery-20261117/RESULTADOS.md) aprobó regresiones comunes y un peer TLS/WSS de loopback con HTTP/ACK controlados; no constituye recepción WSS nativa iOS, persistencia SQL ni GPS. El [E2E-A Android](../../evidencias/entrega-final/e2ea-cierre-20261117/RESULTADOS.md) completó Android→Qt→web con 39 controles aceptados el 17/11. Es evidencia compuesta del recorrido sintético; no acredita E2E-A de iPhone ni cierra etapas 04–07.
 
+Las [comprobaciones físicas de Lab renovada](../../evidencias/entrega-final/mobile/ios-current-20261117/RESULTADOS.md) sustituyen únicamente los pendientes del título traducido de recordatorio y apertura del control Avisos con VoiceOver: el usuario confirmó ambos, además de Compartir campaña nativo, sin enviar contenido externo. No hubo captura válida ni aceptación general de VoiceOver; su restauración al estado anterior no quedó confirmada. Las filas históricas MOV-08/10/16 se interpretan con esta actualización, sin atribuirles nuevas pruebas de negocio.
+
 Este corte prevalece sobre la sección del 16/11 y la cobertura fechada del 14/11, que se conservan como historia. La etapa 04 permanece abierta.
 
 ## Estado histórico — 16/11/2026

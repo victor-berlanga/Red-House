@@ -16,7 +16,7 @@ El equipo asigna integrantes y confirma autoría; este documento no atribuye nom
 
 ## Pendientes antes de declarar cierre
 
-- Firma iOS para la fecha de entrega: el perfil actual vence el **17/11/2026**; la firma válida para el día 23 sigue pendiente.
+- Firma iOS: [ambos perfiles renovados](../../evidencias/entrega-final/mobile/profile-renewal-20261117/RESULTADOS.md) vencen el 24/11 y cubren el 23. Normal/Lab fueron actualizadas; normal sigue sin apertura/recorrido y Lab conserva aceptación física parcial. [Comprobaciones y límites](../../evidencias/entrega-final/mobile/ios-current-20261117/RESULTADOS.md). No repetir builds por esta consolidación.
 - Windows 11 de escritorio sin verificación; el runner Windows de CI no sustituye la prueba en el equipo destino.
 - Recepción física de FCM/APNs pendiente externa y sin cuentas configuradas por decisión del equipo.
 - Grabar y conservar el video final, hacer la exposición, recibir reflexiones individuales y confirmar la subida a Ubiquitous. Son entregas humanas; no se sustituyen por este guion ni por evidencia del segundo parcial.
