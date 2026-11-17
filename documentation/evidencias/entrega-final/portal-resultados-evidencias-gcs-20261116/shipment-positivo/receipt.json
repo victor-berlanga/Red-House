@@ -1,0 +1,36 @@
+{
+  "status": "passed",
+  "receipt_passed": true,
+  "kind": "SHIPMENT",
+  "negative": false,
+  "account_alias": "transport1",
+  "started_at": "2026-11-17T02:44:47.362560+00:00",
+  "finished_at": "2026-11-17T02:45:11.749255+00:00",
+  "elapsed_seconds": 24.387,
+  "browser_exit": 0,
+  "browser_logout": true,
+  "javascript_errors": 0,
+  "own_families_sql_redis_closed": 1,
+  "sources_unchanged": true,
+  "source_count": 523,
+  "receipt_sha256": "c823465ea17eda9a95383a38f4cd6d60cba7b3868ab70d67a9cc78f22ca1a2da",
+  "browser_receipt_sha256": "efe940a4eef2049d2bc12cb63fe4594701af5bb6ebfa795c4a6835ca0b7e3f25",
+  "source_map_before_sha256": "d67e60b26ccb20cf1b0e1656ca2aff750e8b3e6c6c7448595f2a5035530873b1",
+  "source_map_after_sha256": "d67e60b26ccb20cf1b0e1656ca2aff750e8b3e6c6c7448595f2a5035530873b1",
+  "screenshot_sha256": "d6c5458cfff6921872e39eb1336edb6eb8ea668f59a819afb98c565e28b6b801",
+  "oracle": {
+    "status": "VERIFIED",
+    "scan": "CLEAN",
+    "generation": "1794883499764832",
+    "source_events": 2,
+    "audit_sql_matches": 2,
+    "audit_mongo_matches": 2
+  },
+  "download": {
+    "size": 645,
+    "sha256": "6ab75b0dfede488acf4deb8d9b33726adbbb0d597d9b4b43a2be11feed7969ba"
+  },
+  "subject_unchanged": true,
+  "document_posts": 1,
+  "root_validation": true
+}

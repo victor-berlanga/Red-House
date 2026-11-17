@@ -1,0 +1,33 @@
+{
+  "status": "passed",
+  "receipt_passed": true,
+  "kind": "SHIPMENT",
+  "negative": true,
+  "account_alias": "transport2",
+  "started_at": "2026-11-17T02:46:02.836267+00:00",
+  "finished_at": "2026-11-17T02:46:25.638087+00:00",
+  "elapsed_seconds": 22.802,
+  "browser_exit": 0,
+  "browser_logout": true,
+  "javascript_errors": 0,
+  "own_families_sql_redis_closed": 1,
+  "sources_unchanged": true,
+  "source_count": 523,
+  "receipt_sha256": "589909f0c74ea1aed785934caebfd48795b528197776c1c797f89a9b56047b34",
+  "browser_receipt_sha256": "79854751f45d2d4d4d3efab4e072c83cf386b2c9335c7248fd0be84aaf17f7a7",
+  "source_map_before_sha256": "d67e60b26ccb20cf1b0e1656ca2aff750e8b3e6c6c7448595f2a5035530873b1",
+  "source_map_after_sha256": "d67e60b26ccb20cf1b0e1656ca2aff750e8b3e6c6c7448595f2a5035530873b1",
+  "screenshot_sha256": "e2bd588fe62fbcd316c67eb7582009959f95d7e6bd17296dd57971046824eaad",
+  "denials": [
+    {
+      "status": 403,
+      "no_signed_url": true
+    },
+    {
+      "status": 403,
+      "no_signed_url": true
+    }
+  ],
+  "document_posts": 0,
+  "subject_unchanged": true
+}

@@ -1,5 +1,15 @@
 # Portal 03: ensayo pendiente de aceptación integrada en 06
 
+## I06-02: tres tipos documentales cubiertos por evidencia compuesta — 16/11/2026
+
+[RESULT y evidencia de traslado en GCS](../../evidencias/entrega-final/portal-resultados-evidencias-gcs-20261116/RESULTADOS.md) completan los tipos que faltaban a la acreditación LOCAL aceptada el 14/11. Médico de la institución cargó PNG de un resultado autorizado; transportista asignado cargó JPEG antes del cierre del traslado original del laboratorio. Formularios reales, ClamD real CLEAN, mismo sujeto/propietario, objeto/generación/tamaño/SHA-256 y bytes descargados comprobados; dos eventos por archivo proyectados en Auditoría SQL y MongoDB. Otra institución y responsable no asignado recibieron 403 en sus dos rutas de consulta/descarga, sin URL firmada. Cada familia nueva cerró en SQL/Redis y las fuentes no cambiaron.
+
+El primer RESULT permanece fallido por comparación literal del href con `return_to`, después de su único POST. La continuación GET aprobada usó el mismo archivo, sin nueva carga ni verificación. La fila HLA se comparó íntegramente solo durante esa continuación; no existe snapshot persistido anterior al POST original. Las capturas y manifiestos se mantienen en sus expedientes, al igual que el fallo de oráculo y la consulta correctiva de la acreditación del 14/11.
+
+**I06-02 queda cubierto en los tres tipos exigidos por evidencia compuesta**, con alcances LOCAL/GCS separados y TLS de laboratorio explícito. No se repiten acreditación ni operaciones confirmadas, no se presenta una suite conjunta nueva y no se acreditan todos los formatos por cada tipo. Los dos objetos web siguen conservados; la limpieza iOS no los elimina. Esto sustituye el pendiente de tipos documentales del corte del 14/11, no cierra I06-01/03/08/09 ni las etapas06/07. La publicación de cinco fuentes y su relectura con huellas nuevas siguen con gate cerrado.
+
+La [lectura web final E2E-B](../../evidencias/entrega-final/desktop/e2eb-recepcion-destino-20261116/RESULTADOS.md#consulta-web-posterior) comprobó sobre los mismos identificadores unidad retirada, destino sintético, traslado aceptado y solicitud cerrada; sin POST de negocio. No es otra carga documental I06-02 ni prueba de las etiquetas posteriores aún candidatas.
+
 ## I06-05: rama GCS recuperada desde Chrome — 16/11/2026
 
 [Segundo intento aprobado](../../evidencias/entrega-final/gcs-recuperacion-20261116/RESULTADOS.md): corte del SDK GCS aislado después de cargar un objeto sintético propio; verificación 503/descarga 409, mismo UUID y generación recuperados con ClamD real CLEAN y bytes exactos. Firma GET fija la generación y solicita descarga; primer intento fallido por apertura inline conservado. Limpieza por generación y ausencia confirmadas, sin cambios IAM ni objetos históricos. Dirección inspeccionó ambas pantallas reales; 1.322 fuentes estables y 41 procesos cerrados.

@@ -1,0 +1,38 @@
+{
+  "criterion": "I06-02 RESULT y evidencia de traslado",
+  "status": "PASSED_SCOPED_RESULT_AND_SHIPMENT",
+  "storage_provider": "gcs",
+  "portal_backend": "monolith",
+  "synthetic_data": true,
+  "runtime_receipt_sha256": "2139f243c51594e544f1fb27b0ad4079b10599862aa2dbc33880dd681c6e857c",
+  "cases": [
+    {
+      "name": "result-primer-intento",
+      "status": "failed",
+      "receipt": "./result-primer-intento/receipt.json"
+    },
+    {
+      "name": "result-continuacion-get",
+      "status": "passed",
+      "receipt": "./result-continuacion-get/receipt.json"
+    },
+    {
+      "name": "result-negativa",
+      "status": "passed",
+      "receipt": "./result-negativa/receipt.json"
+    },
+    {
+      "name": "shipment-positivo",
+      "status": "passed",
+      "receipt": "./shipment-positivo/receipt.json"
+    },
+    {
+      "name": "shipment-negativa",
+      "status": "passed",
+      "receipt": "./shipment-negativa/receipt.json"
+    }
+  ],
+  "scope": "Dos tipos documentales: positivos RESULT/SHIPMENT y negativas; primer intento fallido conservado, continuación GET separada. No aceptación integral de etapa06.",
+  "web_objects_retained_as_evidence": 2,
+  "native_ios_cleanup_does_not_cover_web_objects": true
+}

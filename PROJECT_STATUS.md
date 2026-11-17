@@ -2,6 +2,16 @@
 
 Las entradas están ordenadas de reciente a histórico; un pendiente de un corte anterior puede quedar sustituido explícitamente por una entrada posterior.
 
+## I06-02 compuesto y consulta web E2E-B comprobados — 16/11/2026
+
+[RESULT y evidencia de traslado en GCS](documentation/evidencias/entrega-final/portal-resultados-evidencias-gcs-20261116/RESULTADOS.md): Chrome real verificó PNG de resultado propio y JPEG del traslado asignado, CLEAN real, generación/hash/bytes exactos y dos eventos por archivo coincidentes en Auditoría SQL/Mongo. Las negativas de otra institución y responsable no asignado recibieron dos 403 cada una, sin URL firmada. Cada ejecución cerró una familia propia en SQL/Redis; fuentes estables. Los dos objetos web se conservan como evidencia y no forman parte de la limpieza del ensayo nativo iOS.
+
+El primer RESULT permanece FAIL: tras un único POST, el arnés rechazó el parámetro contextual `return_to` del enlace. La continuación aprobada solo hizo GET del mismo documento y descargó el PNG original; no repitió creación, carga ni verificación. La fila HLA completa permaneció igual durante la continuación; no se guardó su snapshot anterior al POST original. Capturas, hashes y límites se conservan separados.
+
+Con la [acreditación aceptada del 14/11](documentation/evidencias/entrega-final/portal-documentos-20261114/RESULTADOS.md), **I06-02 queda cubierto por evidencia compuesta de los tres tipos exigidos**, sin repetir acreditación ni convertir sus fallos de oráculo en un pytest aprobado. LOCAL y GCS conservan sus entornos distintos. WEB-12/15/19 y las etapas 06/07 no se declaran completas: los demás criterios y el gate de publicación de cinco fuentes siguen pendientes.
+
+La [consulta web posterior E2E-B](documentation/evidencias/entrega-final/desktop/e2eb-recepcion-destino-20261116/RESULTADOS.md#consulta-web-posterior) abrió con `medical2` el mismo recurso, destino, traslado y solicitud de Qt/Android. Mostró unidad retirada, destino DISCARDED, traslado ACCEPTED y solicitud Cerrada/cobertura Recibido; sin POST de negocio ni errores JavaScript, familia propia cerrada en SQL/Redis. Esto sustituye únicamente el pendiente de consulta web del corte anterior. Los códigos visibles y el menú sanguíneo en destino de órgano motivaron candidatos de presentación aún sin aplicar; no se atribuye la lectura a esas nuevas huellas ni se cierra toda la etapa07.
+
 ## Reintento autorizado de reportes en escritorio — 16/11/2026
 
 [Incremento DESK-12](documentation/evidencias/entrega-final/desktop/iteracion-reintento-reportes/RESULTADOS.md): solo un reporte RETRYABLE seleccionado permite pedir reintento con motivo y confirmación humana. Se conserva contexto de sesión y diario idempotente; identificador, institución, propietario y estado de respuesta deben coincidir antes de cerrar el comando. Refrescar la fila a COMPLETE oculta la acción. No se añadió cancelación sin contrato del propietario.

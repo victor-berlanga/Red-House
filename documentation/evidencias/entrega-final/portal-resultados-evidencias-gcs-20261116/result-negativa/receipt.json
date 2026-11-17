@@ -1,0 +1,33 @@
+{
+  "status": "passed",
+  "receipt_passed": true,
+  "kind": "RESULT",
+  "negative": true,
+  "account_alias": "medical1",
+  "started_at": "2026-11-17T02:43:30.166898+00:00",
+  "finished_at": "2026-11-17T02:43:50.391051+00:00",
+  "elapsed_seconds": 20.224,
+  "browser_exit": 0,
+  "browser_logout": true,
+  "javascript_errors": 0,
+  "own_families_sql_redis_closed": 1,
+  "sources_unchanged": true,
+  "source_count": 523,
+  "receipt_sha256": "6e4b71eaa33421100c601a6086fa40a4ba2f024e3ee9b1dc62cb928c5341be2e",
+  "browser_receipt_sha256": "79854751f45d2d4d4d3efab4e072c83cf386b2c9335c7248fd0be84aaf17f7a7",
+  "source_map_before_sha256": "d67e60b26ccb20cf1b0e1656ca2aff750e8b3e6c6c7448595f2a5035530873b1",
+  "source_map_after_sha256": "d67e60b26ccb20cf1b0e1656ca2aff750e8b3e6c6c7448595f2a5035530873b1",
+  "screenshot_sha256": "8448d084babc8cbdd273f1e87a01ded9b3b58ae6db1bd77018fafe26eed25869",
+  "denials": [
+    {
+      "status": 403,
+      "no_signed_url": true
+    },
+    {
+      "status": 403,
+      "no_signed_url": true
+    }
+  ],
+  "document_posts": 0,
+  "subject_unchanged": true
+}

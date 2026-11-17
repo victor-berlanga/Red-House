@@ -1,0 +1,40 @@
+{
+  "status": "passed",
+  "receipt_passed": true,
+  "kind": "RESULT",
+  "negative": false,
+  "account_alias": "medical2",
+  "started_at": "2026-11-17T02:41:00.071429+00:00",
+  "finished_at": "2026-11-17T02:41:21.714439+00:00",
+  "elapsed_seconds": 21.643,
+  "browser_exit": 0,
+  "browser_logout": true,
+  "javascript_errors": 0,
+  "own_families_sql_redis_closed": 1,
+  "sources_unchanged": true,
+  "source_count": 523,
+  "receipt_sha256": "aefc99757a7dde395abd52d44a38a424ab6700a14f3443436f3a8bc13a104b12",
+  "browser_receipt_sha256": "4955d449ed8b6f1c75b9c313b9d3878495af535c43c7a9661c216e4f89a4ea02",
+  "source_map_before_sha256": "d67e60b26ccb20cf1b0e1656ca2aff750e8b3e6c6c7448595f2a5035530873b1",
+  "source_map_after_sha256": "d67e60b26ccb20cf1b0e1656ca2aff750e8b3e6c6c7448595f2a5035530873b1",
+  "screenshot_sha256": "9cf2af669e85a2ebd1556d256672880a2a6e5a985770b29b2ef14872fc4ff8ea",
+  "oracle": {
+    "status": "VERIFIED",
+    "scan": "CLEAN",
+    "generation": "1794882939170916",
+    "source_events": 2,
+    "audit_sql_matches": 2,
+    "audit_mongo_matches": 2
+  },
+  "download": {
+    "size": 116,
+    "sha256": "1464e5d869dbacc702b876258ad6127d32fe29510a3f3065a5f7ab545cf4b50d"
+  },
+  "subject_unchanged": true,
+  "document_posts": 0,
+  "continuation_of": "result-primer-intento",
+  "no_new_document": true,
+  "limits": [
+    "La fila HLA previa al POST original no se guardó; igualdad completa acreditada solo durante esta continuación."
+  ]
+}
