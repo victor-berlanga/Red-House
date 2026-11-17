@@ -133,6 +133,7 @@ class Window(QMainWindow):
         self.resource_edit_button=QPushButton('Corregir unidad'); self.resource_edit_button.clicked.connect(self.edit_resource); actions.addWidget(self.resource_edit_button)
         self.bind_profile_button=QPushButton('Vincular perfil'); self.bind_profile_button.clicked.connect(lambda:self.resource_quality(False)); actions.addWidget(self.bind_profile_button)
         self.release_resource_button=QPushButton('Liberar unidad'); self.release_resource_button.clicked.connect(lambda:self.resource_quality(True)); actions.addWidget(self.release_resource_button)
+        self.resource_destination_button=QPushButton('Documentar destino'); self.resource_destination_button.setToolTip('Registra o corrige el destino documentado de una unidad.'); self.resource_destination_button.clicked.connect(self.document_destination); actions.addWidget(self.resource_destination_button)
         self.shipment_create_button=QPushButton('Planificar traslado'); self.shipment_create_button.clicked.connect(self.plan_shipment); actions.addWidget(self.shipment_create_button)
         self.sample_create_button=QPushButton('Registrar muestra'); self.sample_create_button.clicked.connect(self.create_sample); actions.addWidget(self.sample_create_button)
         self.document_upload_button=QPushButton('Adjuntar documento'); self.document_upload_button.clicked.connect(self.document_upload); actions.addWidget(self.document_upload_button); self.document_upload_button.hide()
@@ -148,7 +149,7 @@ class Window(QMainWindow):
         self.catalogue_create_button.hide(); self.catalogue_edit_button.hide()
         self.fractionate_button.hide()
         self.resource_edit_button.hide()
-        self.bind_profile_button.hide(); self.release_resource_button.hide()
+        self.bind_profile_button.hide(); self.release_resource_button.hide(); self.resource_destination_button.hide()
         self.shipment_create_button.hide()
         self.device_create_button.hide(); self.device_revoke_button.hide()
         self.user_create_button.hide()
@@ -185,7 +186,7 @@ class Window(QMainWindow):
         self.catalogue_edit_button.setEnabled(is_admin and self.mode in ('sites','capacities'))
         self.fractionate_button.setEnabled(bool(enabled and self.mode=='inventory' and self.client and self.client.user and self.client.user.get('role')=='OPERATOR'))
         self.resource_edit_button.setEnabled(bool(enabled and self.mode=='inventory' and self.client and self.client.user and self.client.user.get('role')=='OPERATOR'))
-        for button in (self.bind_profile_button,self.release_resource_button):
+        for button in (self.bind_profile_button,self.release_resource_button,self.resource_destination_button):
             button.setEnabled(bool(enabled and self.mode=='inventory' and self.client and self.client.user and self.client.user.get('role')=='MEDICAL'))
         self.shipment_create_button.setEnabled(bool(enabled and self.mode=='shipments' and self.client and self.client.user and self.client.user.get('role')=='COORDINATOR'))
         self.request_create_button.setEnabled(enabled and self.mode=='requests' and bool(self.client and self.client.user and self.client.user.get('role')=='MEDICAL'))
@@ -267,6 +268,7 @@ class Window(QMainWindow):
     def turn(self,delta): self.page=max(1,self.page+delta); self.load()
     def load(self):
         if not self.client or self.busy: return
+        self.resource_destination_button.hide()
         self.rows=[]; self.table.setRowCount(0); self.page_label.setText('')
         self.document_upload_button.hide(); self.correct_result_button.hide()
         self.collect_button.hide(); self.process_donation_button.hide()
@@ -330,6 +332,7 @@ class Window(QMainWindow):
             kind=record.get('kind','RESERVATION'); name={'COMMAND':'Operación registrada','RESERVATION':'Reserva','LABEL':'Etiqueta','USER_CREATE':'Alta de cuenta'}.get(kind,'Operación')
             if kind=='COMMAND' and record.get('target',{}).get('operation')=='request_create': name='Solicitud'
             if kind=='COMMAND' and record.get('target',{}).get('operation')=='shipment_create': name='Planificación de traslado'
+            if kind=='COMMAND' and record.get('target',{}).get('operation')=='resource_destination': name='Destino documentado'
             self.table.setItem(index,0,QTableWidgetItem(name)); self.table.setItem(index,1,QTableWidgetItem('Requiere revisión' if record.get('status')=='CONFLICT' else 'Por confirmar' if record['state'] in ('PREPARED','UNCERTAIN') else 'Pendiente'))
         self.operation_button.show(); self.resume_button.setVisible(self.last_operation_status in ('PENDING','ROLLBACK_PENDING')); self.detail_button.setEnabled(False); self.search.setEnabled(False); self.search_button.setEnabled(False); self.prev.setEnabled(False); self.next.setEnabled(False); self.page_label.setText(''); self.status.setText('Selecciona Consultar operación para recuperar.' if pending else 'No hay operaciones pendientes.')
 
@@ -342,7 +345,7 @@ class Window(QMainWindow):
         self.catalogue_edit_button.setVisible(self.mode in ('sites','capacities') and bool(self.client and self.client.user and self.client.user.get('role')=='ADMIN'))
         self.fractionate_button.setVisible(self.mode=='inventory' and bool(self.client and self.client.user and self.client.user.get('role')=='OPERATOR'))
         self.resource_edit_button.setVisible(self.mode=='inventory' and bool(self.client and self.client.user and self.client.user.get('role')=='OPERATOR'))
-        for button in (self.bind_profile_button,self.release_resource_button):
+        for button in (self.bind_profile_button,self.release_resource_button,self.resource_destination_button):
             button.setVisible(self.mode=='inventory' and bool(self.client and self.client.user and self.client.user.get('role')=='MEDICAL'))
         self.shipment_create_button.setVisible(self.mode=='shipments' and bool(self.client and self.client.user and self.client.user.get('role')=='COORDINATOR'))
         self.device_create_button.setVisible(self.mode in ('users','devices')); self.device_revoke_button.setVisible(self.mode=='devices')
@@ -1551,6 +1554,11 @@ class Window(QMainWindow):
                 self.status.setText('La sesión cambió. Vuelve a consultar antes de guardar.'); return
             self.secure_command('resource_release' if release else 'resource_controls_create',resource['id'],body)
         self.run_in_context(binding,fetch,ready,'Consultando unidad…')
+
+    def document_destination(self):
+        if self.mode!='inventory': return
+        from .resource_destination import open_destination
+        open_destination(self,label)
 
     def fractionate_resource(self):
         if self.uncertain:

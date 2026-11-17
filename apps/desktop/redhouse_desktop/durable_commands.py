@@ -8,6 +8,7 @@ from .institutional_catalogue import COMMANDS as CATALOGUE_COMMANDS, PATCH_OPERA
 COMMANDS={
     'resource_controls_create':('inventario','/api/v1/resources/{id}/controls','resource_controls_create.xsd',True),
     'resource_release':('inventario','/api/v1/resources/{id}/release','resource_release.xsd',True),
+    'resource_destination':('inventario','/api/v1/resources/{id}/destination','resource_destination.xsd',True),
     'donation_create':('donantes','/api/v1/donations','donation_create.xsd',False),
     'donation_step':('donantes','/api/v1/donations/{id}/steps','donation_step.xsd',True),
     'resource_fractionate':('inventario','/api/v1/resources/{id}/components','resource_fractionate.xsd',True),
@@ -72,6 +73,9 @@ def submit_command(client,journal,record,*,fresh=False,proof=None):
         if exc.status in (400,403,404,409,412,413,415,422):
             journal.update(record['key'],{'operation_id':None,'status':'FAILED' if fresh else 'CONFLICT'})
         raise
+    if operation=='resource_destination':
+        from .resource_destination import validate_destination_result
+        validate_destination_result(client,record,result)
     if operation in CATALOGUE_COMMANDS:
         validate_catalogue_result(operation,target['identifier'],record['body'],result,client.user['tenant_id'])
     if operation=='alert_ack' and (result.get('id')!=target['identifier'] or result.get('tenant_id')!=client.user.get('tenant_id') or result.get('status')!='ACKNOWLEDGED' or result.get('acknowledged_by')!=client.user.get('id')):

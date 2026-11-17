@@ -2,6 +2,12 @@
 
 Las entradas están ordenadas de reciente a histórico; un pendiente de un corte anterior puede quedar sustituido explícitamente por una entrada posterior.
 
+## Destino documentado incorporado a escritorio — 16/11/2026
+
+[Incremento DESK-11](documentation/evidencias/entrega-final/desktop/iteracion-destino/RESULTADOS.md): MEDICAL puede documentar destino o corrección conservando historia, versión, antecedente y fecha precisa. Se verifica institución actual de la unidad, sesión original y correlación de la respuesta. Diario cifrado, reautenticación y recuperación reutilizan el comando original; conflicto no provoca reenvío automático. Las confirmaciones humanas permanecen explícitas y no se agregan reglas clínicas.
+
+Seis pruebas del formulario y ocho del comando aprobaron por separado; copias XSD y siete fuentes integradas cotejadas con el candidato. Dirección inspeccionó el formulario Cocoa real con datos sintéticos y sin envío: etiquetas, campos y confirmaciones legibles. Registro API real y continuidad con recepción de la cadena E2E-B pendientes; etapa05 sigue abierta.
+
 ## Resultado HLA documentado comprobado desde Qt/XML — 16/11/2026
 
 [Ensayo real conservado](documentation/evidencias/entrega-final/desktop/iteracion-hla-documento-real/RESULTADOS.md): Qt creó un resultado pendiente y, sobre el mismo antecedente, cargó un PNG privado, obtuvo CLEAN, registró corrección HLA/documento y revisión MEDICAL con MFA/reautenticación. SQL correlacionó sujeto, actor, antecedente, hash, generación y revisión única; sesión propia revocada en SQL/Redis. Fixture ACADEMIC, TESTING=False, perfil/autorización de órganos exigidos y ClamD real. Los intentos fallidos del arranque, bootstrap y automatización Qt permanecen separados; las operaciones confirmadas no se reenviaron.
