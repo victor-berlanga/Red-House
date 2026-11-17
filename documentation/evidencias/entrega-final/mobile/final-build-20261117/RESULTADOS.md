@@ -1,5 +1,7 @@
 # Lote móvil y límite de firma — 17/11/2026
 
+**Resultado posterior:** [segundo intento de renovación aprobado](../profile-renewal-20261117/RESULTADOS.md), perfiles hasta el 24/11 y Lab actualizada. Este documento conserva el lote inicial y el primer fallo.
+
 Las cuatro variantes Android normal/Lab e iOS normal/Lab compilaron con salida 0. Incluyen la recuperación WSS y los dos ajustes de texto: ubicación no disponible en esta vista y recepción institucional pendiente después de DELIVERED. No se instalaron ni activaron aplicaciones. Los artefactos previos permanecen conservados.
 
 ## Aceptación comprobada
@@ -32,7 +34,7 @@ El intento falló durante iOS normal con el mensaje `Authentication failed: Your
 
 El wrapper restauró ambos perfiles originales. Una comprobación posterior confirmó igualdad de bytes, SHA-256 y modo frente a sus backups. Los cuatro artefactos del lote aprobado permanecieron intactos. Gradle confirmó que no quedaban daemons activos. No hubo instalación, cuentas o certificados nuevos, cambios a perfiles ajenos ni reintentos automáticos.
 
-Para continuar se requiere reautenticar la cuenta existente en Xcode y autorizar otro intento acotado. La sesión caducada no se resuelve prolongando fechas ni manipulando firmas. Aun después de autenticar, la cobertura deberá comprobarse en cada nuevo perfil embebido; no se presupone.
+En este corte, continuar requería reautenticar la cuenta existente en Xcode y repetir el intento acotado. La sesión caducada no se resuelve prolongando fechas ni manipulando firmas. Aun después de autenticar, la cobertura deberá comprobarse en cada nuevo perfil embebido; no se presupone.
 
 ## Conservación y límites
 
