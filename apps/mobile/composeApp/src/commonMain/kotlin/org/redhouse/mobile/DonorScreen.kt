@@ -51,11 +51,13 @@ import io.ktor.http.HttpMethod
     fun items(value:JsonObject)=(value["items"] as? JsonArray)?.map{it.jsonObject}?:emptyList()
     var donorPage by remember {mutableIntStateOf(1)};var appointmentPage by remember {mutableIntStateOf(1)}
     var sitePage by remember {mutableIntStateOf(1)};var campaignPage by remember {mutableIntStateOf(1)};var slotPage by remember {mutableIntStateOf(1)}
+    var donorListLoaded by remember {mutableStateOf(false)}
+    var registrationMessage by remember {mutableStateOf("")}
     var donorTotal by remember {mutableIntStateOf(0)};var appointmentTotal by remember {mutableIntStateOf(0)}
     var siteTotal by remember {mutableIntStateOf(0)};var campaignTotal by remember {mutableIntStateOf(0)};var slotTotal by remember {mutableIntStateOf(0)}
     var slotQuery by remember {mutableStateOf("active=true&date_field=starts_at")}
     fun total(value:JsonObject)=value["total"]?.jsonPrimitive?.intOrNull ?: throw ApiFailure(502,"response_contract")
-    suspend fun loadDonors(page:Int=donorPage){val data=checkedPage(repository.listPage("donantes","/api/v1/donors",page),page);ownDonors=items(data).filter{it.text("user_id")==session.user!!.text("id")};donorTotal=total(data);donorPage=page}
+    suspend fun loadDonors(page:Int=donorPage){donorListLoaded=false;val data=checkedPage(repository.listPage("donantes","/api/v1/donors",page),page);ownDonors=items(data).filter{it.text("user_id")==session.user!!.text("id")};donorTotal=total(data);donorPage=page;donorListLoaded=true}
     suspend fun loadAppointments(page:Int=appointmentPage){val data=checkedPage(repository.listPage("donantes","/api/v1/appointments/agenda",page),page);appointments=items(data);appointmentTotal=total(data);appointmentPage=page}
     suspend fun loadSites(page:Int=sitePage){val data=checkedPage(repository.listPage("identidad","/api/v1/appointment-sites",page),page);sites=items(data);siteTotal=total(data);sitePage=page}
     suspend fun loadCampaigns(page:Int=campaignPage){val data=checkedPage(repository.listPage("donantes","/api/v1/campaigns",page),page);campaigns=items(data);campaignTotal=total(data);campaignPage=page}
@@ -189,7 +191,28 @@ import io.ktor.http.HttpMethod
         }
         PageControls(consentPage,consentTotal,!busy,{run{loadConsents(row.text("id"),consentPage-1)}},{run{loadConsents(row.text("id"),consentPage+1)}})
     }
-    if(donor==null) Text("Para registrar tu expediente y conocer el consentimiento vigente, acude a tu institución.")
+    if(donor==null) {
+        val pending=repository.journal.value("command:donantes:/api/v1/donors") as? JsonObject
+        if(pending!=null || (donorListLoaded && donorTotal==0)) {
+            fun submitRegistration(action:suspend ()->Unit) {run {
+                registrationMessage=""
+                try {
+                    action();registrationMessage="Expediente preliminar registrado. Tu institución revisará la información.";status=registrationMessage
+                    try {loadDonors();donor=ownDonors.firstOrNull()}catch(cancelled:CancellationException){throw cancelled}
+                    catch(_:Exception){registrationMessage+=" Pulsa Actualizar para consultarlo."}
+                }catch(cancelled:CancellationException){throw cancelled}
+                catch(error:Exception) {
+                    registrationMessage=if(repository.journal.value("command:donantes:/api/v1/donors")!=null)
+                        "Sin confirmación. Recupera el registro anterior; no envíes otro."
+                        else if(error is ApiFailure || error is IllegalArgumentException)error.message.orEmpty()
+                        else "No fue posible registrar el expediente. Inténtalo de nuevo."
+                }
+            }}
+            PreliminaryDonorRegistrationCard(busy,pending,registrationMessage,
+                onRegister={body->submitRegistration {registerPreliminaryDonor(repository,body)}},
+                onRecover={command->submitRegistration {repository.recover(command)}})
+        } else if(!donorListLoaded && !busy) Text("No fue posible comprobar si tienes expediente. Pulsa Actualizar antes de registrarte.")
+    }
     else {
         Text("Para revisar o renovar tu consentimiento, acude a tu institución. Aún no es posible aceptarlo desde la app.")
         val latest=latestConsent

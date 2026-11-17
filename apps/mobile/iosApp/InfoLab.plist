@@ -10,6 +10,8 @@
 	<string>$(REDHOUSE_VARIANT)</string>
 	<key>RedHouseGateway</key>
 	<string>$(REDHOUSE_GATEWAY)</string>
+	<key>RedHouseGCSBucket</key>
+	<string>$(REDHOUSE_GCS_BUCKET)</string>
 	<key>RedHouseLabCASHA256</key>
 	<string>$(REDHOUSE_LAB_CA_SHA256)</string>
 	<key>CADisableMinimumFrameDurationOnPhone</key>

@@ -14,5 +14,6 @@ cd "$mobile_root"
   --console=plain --no-build-cache \
   --project-cache-dir "$mobile_root/composeApp/build/ios-$variant/gradle-state" \
   "-PmobileIosVariant=$variant" "-PmobileGateway=$REDHOUSE_GATEWAY" \
+  "-PmobileGcsBucket=${REDHOUSE_GCS_BUCKET:-}" \
   2>&1 | tee "$TARGET_TEMP_DIR/shared-framework.log"
 python3 "$SRCROOT/verify_build_identity.py" framework

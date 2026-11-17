@@ -1,0 +1,93 @@
+{
+  "state": "BUILT_VERIFIED_NOT_INSTALLED_NATIVE_ACCEPTANCE_PENDING",
+  "packages": {
+    "android": {
+      "sha256": "d091730761e574161b4025585c8bc64127fcea1e240c801d45caeb09f1e97bfd",
+      "gateway": "https://34.18.186.116",
+      "lab_assets_absent": true,
+      "gcs_bucket": "red-house-evidencias-sistemas-integracion-01",
+      "generated_environment_sha256": "e747e421ca02d07d542d60110c143c7767a523fdc29ae2a6fca45209c1ab8f54",
+      "installed_update": false,
+      "private_artifact_reference": ".local/artifacts/mobile/preliminary-gcs-build-20261116-01/RedHouse-normal-debug.apk",
+      "artifact_distributed": false,
+      "signature_scope": "Android Debug build signing tasks passed; no separate apksigner inspection in this receipt"
+    },
+    "normal": {
+      "variant": "normal",
+      "bundle_identifier": "org.redhouse.mobile",
+      "gateway": "https://34.18.186.116",
+      "gcs_bucket": "red-house-evidencias-sistemas-integracion-01",
+      "background_task": "org.redhouse.mobile.observations",
+      "configuration": "Debug",
+      "ca_sha256": "",
+      "tls": "system_default_only",
+      "framework_sha256": "dce34a74260e8d990a6ad2683f54ef527abcd7f78ade21a623128117830e31ee",
+      "generated_environment_sha256": "e747e421ca02d07d542d60110c143c7767a523fdc29ae2a6fca45209c1ab8f54",
+      "sdk": "iphoneos18.4",
+      "state": "PREPARED_NOT_INSTALLED_NOT_PHYSICALLY_VERIFIED",
+      "executable_sha256": "95419322619c1100ddb472869085ee69131b6a7a0a7ab5ca722af49311a8e383",
+      "info_plist_sha256": "f1ab07b03781e87b5068e2772e2bb5529ef57184a388fe55c0fb7091f85dafa2",
+      "profile_expires": "2026-11-17T22:39:00Z",
+      "installed_update": false,
+      "private_artifact_reference": ".local/artifacts/mobile/preliminary-gcs-build-20261116-01/ios-normal/Debug-iphoneos/RedHouse.app",
+      "artifact_distributed": false,
+      "codesign_deep_strict_verified": true,
+      "team": "QNKMG4ALLQ",
+      "bundle_and_keychain_groups_equal_previous_artifact": true,
+      "profile_valid_for_delivery_23_not_claimed": true
+    },
+    "lab": {
+      "variant": "lab",
+      "bundle_identifier": "org.redhouse.mobile.lab",
+      "gateway": "https://10.0.0.22:18443",
+      "gcs_bucket": "red-house-evidencias-sistemas-integracion-01",
+      "background_task": "org.redhouse.mobile.lab.observations",
+      "configuration": "DebugLab",
+      "ca_sha256": "379967e5eb85bb038eb85dcacad987f01942c35a749ef4ea7d7c843a5d195b00",
+      "tls": "lab_pinned_ca",
+      "framework_sha256": "f9478e0a4d39cb5501ce0796cae310c797a127e0dc7280dd575c32a22ab7c446",
+      "generated_environment_sha256": "3f7e41429279a315aee4b78636ffb920cce49211966d27b1f013be2276b6cce3",
+      "sdk": "iphoneos18.4",
+      "state": "PREPARED_NOT_INSTALLED_NOT_PHYSICALLY_VERIFIED",
+      "executable_sha256": "76166b6edbe55e13b5d3ed44c324edaa63bcdf7f2846ceed7a51bf3912bcfc8f",
+      "info_plist_sha256": "e44da2ebd90b3085d78a21c06f4a2558178158cf049f0a25afa2ba432669a60d",
+      "profile_expires": "2026-11-21T18:32:33Z",
+      "installed_update": false,
+      "private_artifact_reference": ".local/artifacts/mobile/preliminary-gcs-build-20261116-01/ios-lab/DebugLab-iphoneos/RedHouseLab.app",
+      "artifact_distributed": false,
+      "codesign_deep_strict_verified": true,
+      "team": "QNKMG4ALLQ",
+      "bundle_and_keychain_groups_equal_previous_artifact": true,
+      "profile_valid_for_delivery_23_not_claimed": true
+    },
+    "android_lab": {
+      "sha256": "74a8926ddc777c83a4f274c132a0b1126d0a591d9174b2a5c53e8a196c068685",
+      "gateway": "https://10.0.0.22:18443",
+      "gcs_bucket": "red-house-evidencias-sistemas-integracion-01",
+      "generated_environment_sha256": "efae42f35e7b3c61a62850abd8e2e24fd788050775a2f419701618f205cbf964",
+      "private_lab": true,
+      "installed_update": false,
+      "private_artifact_reference": ".local/artifacts/mobile/preliminary-gcs-android-lab-origin-fix-20261116-01/RedHouse-private-lab-debug.apk",
+      "artifact_distributed": false,
+      "signature_scope": "Android Debug build signing tasks passed; no separate apksigner inspection in this receipt",
+      "ca_sha256": "379967e5eb85bb038eb85dcacad987f01942c35a749ef4ea7d7c843a5d195b00"
+    }
+  },
+  "server_storage_provider": "LOCAL unchanged",
+  "gcs_bucket_default_in_source": "",
+  "firebase_enabled": false,
+  "private_lab_packages_not_for_distribution": true,
+  "signing_preflight": {
+    "certificate_sha1": "E62208677BCC8E6F602422D69885AF1523B0EAD6",
+    "certificate_sha256": "eb79a852d7fa98b325cfcae2a49b420254fd3eded735273ffe116264397564e0",
+    "subject_ou": "QNKMG4ALLQ",
+    "valid_identity_fingerprint_present": true,
+    "certificate_not_expired": true,
+    "validity_observed": {
+      "notBefore": "Nov 10 22:22:56 2026 GMT",
+      "notAfter": "Nov 10 22:22:55 2027 GMT"
+    },
+    "certificate_or_account_created": false,
+    "label_used_as_team": false
+  }
+}

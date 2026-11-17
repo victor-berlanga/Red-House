@@ -46,6 +46,10 @@ def identity(environment):
         normal.scheme, normal.hostname.rstrip(".").lower(), normal.port or 443)
     require((gateway == NORMAL_GATEWAY) if variant == "normal" else not same_origin,
             "Gateway/variant mismatch")
+    bucket = environment.get("REDHOUSE_GCS_BUCKET", "")
+    require(not bucket or (3 <= len(bucket) <= 63 and
+            bool(re.fullmatch(r"[a-z0-9][a-z0-9.-]*[a-z0-9]", bucket)) and ".." not in bucket),
+            "GCS bucket must be an exact lowercase name")
     ca_hash = ""
     if variant == "lab":
         ca = Path(environment.get("REDHOUSE_LAB_CA_DER", ""))
@@ -53,7 +57,7 @@ def identity(environment):
         ca_hash = environment.get("REDHOUSE_LAB_CA_SHA256", "")
         require(bool(re.fullmatch(r"[0-9a-f]{64}", ca_hash)) and sha256(ca) == ca_hash,
                 "Lab CA fingerprint mismatch")
-    return {"variant": variant, "bundle_identifier": bundle, "gateway": gateway,
+    return {"variant": variant, "bundle_identifier": bundle, "gateway": gateway, "gcs_bucket": bucket,
             "background_task": bundle + ".observations", "configuration": configuration,
             "ca_sha256": ca_hash, "tls": "lab_pinned_ca" if variant == "lab" else "system_default_only"}
 
@@ -71,7 +75,7 @@ def framework_manifest(environment):
     generated = output / "generated/mobileEnvironment/MobileEnvironment.kt"
     source = generated.read_text()
     constants = dict(re.findall(r'const val (\w+) = "([^"\n]*)"', source))
-    for key, value in {"gateway": result["gateway"], "iosVariant": result["variant"],
+    for key, value in {"gateway": result["gateway"], "gcsBucket": result["gcs_bucket"], "iosVariant": result["variant"],
                        "iosBundleIdentifier": result["bundle_identifier"],
                        "iosBackgroundTask": result["background_task"]}.items():
         require(constants.get(key) == value, "Generated environment mismatch: " + key)
@@ -99,7 +103,8 @@ def verify_artifact(app, manifest):
     with (app / "Info.plist").open("rb") as file:
         info = plistlib.load(file)
     for field, expected in {"CFBundleIdentifier": expected_bundle, "RedHouseVariant": result["variant"],
-                            "RedHouseGateway": result["gateway"], "RedHouseLabCASHA256": result["ca_sha256"],
+                            "RedHouseGateway": result["gateway"], "RedHouseGCSBucket": result["gcs_bucket"],
+                            "RedHouseLabCASHA256": result["ca_sha256"],
                             "BGTaskSchedulerPermittedIdentifiers": [expected_bundle + ".observations"]}.items():
         require(info.get(field) == expected, "Artifact identity mismatch: " + field)
     executable = info.get("CFBundleExecutable", "")

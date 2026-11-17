@@ -235,6 +235,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.redhouse.mobile;
 				REDHOUSE_VARIANT = normal;
 				REDHOUSE_GATEWAY = "https://34.18.186.116";
+				REDHOUSE_GCS_BUCKET = "";
 				REDHOUSE_DISPLAY_NAME = "Red House";
 				PRODUCT_MODULE_NAME = RedHouseHost;
 				SDKROOT = iphoneos;
@@ -327,6 +328,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.redhouse.mobile;
 				REDHOUSE_VARIANT = normal;
 				REDHOUSE_GATEWAY = "https://34.18.186.116";
+				REDHOUSE_GCS_BUCKET = "";
 				REDHOUSE_DISPLAY_NAME = "Red House";
 				PRODUCT_MODULE_NAME = RedHouseHost;
 				SDKROOT = iphoneos;
@@ -420,6 +422,7 @@
 				PRODUCT_NAME = RedHouseLab;
 				REDHOUSE_VARIANT = lab;
 				REDHOUSE_GATEWAY = "";
+				REDHOUSE_GCS_BUCKET = "";
 				REDHOUSE_DISPLAY_NAME = "Red House Lab";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG REDHOUSE_LAB";
 				KOTLIN_FRAMEWORK_BUILD_TYPE = Debug;

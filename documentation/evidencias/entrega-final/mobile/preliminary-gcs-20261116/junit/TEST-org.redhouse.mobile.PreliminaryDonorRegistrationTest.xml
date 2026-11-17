@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.redhouse.mobile.PreliminaryDonorRegistrationTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2026-11-16T23:48:30" time="0.205">
+  <properties/>
+  <testcase name="lostRegistrationOnlyRecoversThePersistedOriginalBodyAndKey" classname="org.redhouse.mobile.PreliminaryDonorRegistrationTest" time="0.035"/>
+  <testcase name="lateForbiddenResponseCannotRemoveAReplacementCommand" classname="org.redhouse.mobile.PreliminaryDonorRegistrationTest" time="0.021"/>
+  <testcase name="aChangedSessionCannotValidateTheResponseAsTheNewOwner" classname="org.redhouse.mobile.PreliminaryDonorRegistrationTest" time="0.028"/>
+  <testcase name="unknownGroupAndUncheckedAcknowledgementNeverProduceARegistrationBody" classname="org.redhouse.mobile.PreliminaryDonorRegistrationTest" time="0.001"/>
+  <testcase name="queuedRequestCannotSelectNewLoginIdentityBeforeHttp" classname="org.redhouse.mobile.PreliminaryDonorRegistrationTest" time="0.032"/>
+  <testcase name="validOriginalResponseAfterLoginChangeRetainsTheOriginalCommand" classname="org.redhouse.mobile.PreliminaryDonorRegistrationTest" time="0.027"/>
+  <testcase name="responseForAnotherOwnerCannotDiscardTheRecoverableCommand" classname="org.redhouse.mobile.PreliminaryDonorRegistrationTest" time="0.02"/>
+  <testcase name="repositoryWaitPreservesOwnerBeforeNewRegistrationAndRecovery" classname="org.redhouse.mobile.PreliminaryDonorRegistrationTest" time="0.039"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

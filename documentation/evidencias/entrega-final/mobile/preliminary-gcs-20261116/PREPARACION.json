@@ -1,0 +1,33 @@
+{
+  "main_build_exit": 0,
+  "main_build_private_reference": ".local/artifacts/mobile/preliminary-gcs-build-20261116-01",
+  "main_runner_sha256": "970ef75c57b44f1940030b8d7db12f077d7d3271d2bee962be03dda4ae58f0e4",
+  "accepted_android_lab_correction_exit": 0,
+  "corrective_build_private_reference": ".local/artifacts/mobile/preliminary-gcs-android-lab-origin-fix-20261116-01",
+  "corrected_runner_sha256": "e53f71b23cbc30b935ac5e4d0ad9618390b7dbbbf46a53846caa35c78e8de457",
+  "initial_android_lab": {
+    "scope": "runner preparation error, not a product runtime defect",
+    "status": "INVALID_FOR_EXECUTION_NOT_PUBLISHED",
+    "compiled_gateway": "https://10.0.2.2:18443",
+    "actual_fixture_xml_ca_and_certificate_san": "10.0.0.22",
+    "apk_sha256": "5ecf6e1156e6339d4e66dd04f0e11169de34aa797bff0edcbb450c472ca96215",
+    "installed_or_executed": false
+  },
+  "corrective_scope": "Android Lab assembleDebug only; no tests, normal Android or iOS repeated",
+  "corrective_preflight": [
+    "asset gateway equals22",
+    "private CA XML exact22 without includeSubdomains",
+    "base trust system only",
+    "domain trust exact reviewed CA",
+    "CA DER fingerprint",
+    "offline CA chain and certificate IP SAN22"
+  ],
+  "runtime_emulator_tls_socket_check_before_install": "PREPARED_NOT_EXECUTED; fixture and AVD were not started",
+  "gradle_daemons_stopped": [
+    1,
+    1
+  ],
+  "avd_fixture_simulator_started": false,
+  "apps_installed_or_launched": false,
+  "new_visual_inspection": false
+}

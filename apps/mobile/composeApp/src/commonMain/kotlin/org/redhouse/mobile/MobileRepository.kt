@@ -60,26 +60,56 @@ class LocalJournal(private val store:SecureStore) {
 }
 class MobileRepository(val session:Session,val journal:LocalJournal,val source:String) {
     private val mutation=Mutex()
-    suspend fun execute(service:String,path:String,body:JsonObject=JsonObject(emptyMap()),method:HttpMethod=HttpMethod.Post):JsonObject=mutation.withLock {
-        executeLocked(service,path,body,method)
+    private fun registrationOwner(service:String,path:String,method:HttpMethod,expectedIdentity:JsonObject?):JsonObject? {
+        if(service!="donantes" || path!="/api/v1/donors" || method!=HttpMethod.Post)return null
+        val owner=expectedIdentity ?: session.user
+        if(owner?.text("role")!="DONOR" || !sameSessionIdentity(owner,session.user))
+            throw ApiFailure(401,"identity_changed")
+        return owner
     }
-    private suspend fun executeLocked(service:String,path:String,body:JsonObject,method:HttpMethod):JsonObject {
+    suspend fun execute(service:String,path:String,body:JsonObject=JsonObject(emptyMap()),method:HttpMethod=HttpMethod.Post,
+                        expectedIdentity:JsonObject?=null):JsonObject {
+        // Capture before waiting for a different repository operation to finish.
+        val owner=registrationOwner(service,path,method,expectedIdentity)
+        return mutation.withLock {executeLocked(service,path,body,method,owner)}
+    }
+    private suspend fun executeLocked(service:String,path:String,body:JsonObject,method:HttpMethod,expectedIdentity:JsonObject?):JsonObject {
         require(method==HttpMethod.Post || method==HttpMethod.Patch)
+        val registrationOwner=if(service=="donantes" && path=="/api/v1/donors" && method==HttpMethod.Post) {
+            if(expectedIdentity==null || expectedIdentity.text("role")!="DONOR" || !sameSessionIdentity(expectedIdentity,session.user))
+                throw ApiFailure(401,"identity_changed")
+            expectedIdentity
+        }else null
         val name="command:$service:$path"
         val old=journal.value(name)?.jsonObject
         if(old!=null && (old["body"]!=body || old.text("method").ifBlank {"POST"}!=method.value)) throw ApiFailure(409,"pending_operation")
         val command=old?:buildJsonObject {put("id",newId());put("service",service);put("path",path);put("method",method.value);put("body",body);put("captured_at",Clock.System.now().toString())}.also{journal.put(name,it)}
         return try {
-            val result=session.request(service,path,method,command["body"]!!.jsonObject,command.text("id"))
+            val result=session.request(service,path,method,command["body"]!!.jsonObject,command.text("id"),expectedIdentity=registrationOwner)
+            if(registrationOwner!=null) {
+                // A late result cannot be published or remove a command under another identity.
+                if(!sameSessionIdentity(registrationOwner,session.user) || journal.value(name)!=command)
+                    throw ApiFailure(401,"identity_changed")
+                validatePreliminaryDonorResponse(result,command["body"]!!.jsonObject,registrationOwner)
+            }
             journal.remove(name);result
-        } catch(e:ApiFailure){if(e.status in setOf(400,403,409,422))journal.remove(name);throw e}
+        } catch(e:ApiFailure){
+            // A terminal response from an earlier attempt cannot discard a replacement command.
+            if(registrationOwner!=null && (!sameSessionIdentity(registrationOwner,session.user) || journal.value(name)!=command))
+                throw ApiFailure(401,"identity_changed")
+            if(e.status in setOf(400,403,409,422))journal.remove(name)
+            throw e
+        }
     }
-    suspend fun recover(command:JsonObject):JsonObject=mutation.withLock {
-        val name="command:${command.text("service")}:${command.text("path")}"
-        val current=journal.value(name) as? JsonObject
-        if(current==null || current!=command)throw ApiFailure(409,"pending_operation_changed")
+    suspend fun recover(command:JsonObject):JsonObject {
         val method=when(command.text("method").ifBlank {"POST"}) {"POST"->HttpMethod.Post;"PATCH"->HttpMethod.Patch;else->throw ApiFailure(422,"journal_method")}
-        executeLocked(current.text("service"),current.text("path"),current["body"]!!.jsonObject,method)
+        val owner=registrationOwner(command.text("service"),command.text("path"),method,null)
+        return mutation.withLock {
+            val name="command:${command.text("service")}:${command.text("path")}"
+            val current=journal.value(name) as? JsonObject
+            if(current==null || current!=command)throw ApiFailure(409,"pending_operation_changed")
+            executeLocked(current.text("service"),current.text("path"),current["body"]!!.jsonObject,method,owner)
+        }
     }
     suspend fun listPage(service:String,path:String,page:Int):JsonObject {
         require(page>0)

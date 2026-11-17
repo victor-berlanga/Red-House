@@ -61,6 +61,11 @@ fun requireHttps(value: String) {
 expect fun newId(): String
 expect fun platformClient(): HttpClient
 
+internal fun sameSessionIdentity(expected:JsonObject?,current:JsonObject?):Boolean =
+    expected!=null && current!=null && listOf("id","tenant_id","role").all {
+        expected.text(it).isNotBlank() && expected.text(it)==current.text(it)
+    }
+
 /** Serializes rotation and logout. A lost refresh response is never replayed. */
 class Session(val api: Api, private val store: SecureStore) {
     companion object { private val processMutex = Mutex() }
@@ -85,8 +90,14 @@ class Session(val api: Api, private val store: SecureStore) {
         save(result)
     }
     suspend fun request(service: String, path: String, method: HttpMethod = HttpMethod.Get,
-                        body: JsonObject? = null, key: String? = null): JsonObject {
-        val before = mutex.withLock { reload() ?: throw ApiFailure(401, "session") }
+                        body: JsonObject? = null, key: String? = null,
+                        expectedIdentity: JsonObject? = null): JsonObject {
+        val before = mutex.withLock {
+            val current=reload() ?: throw ApiFailure(401, "session")
+            if(expectedIdentity!=null && !sameSessionIdentity(expectedIdentity,current["user"] as? JsonObject))
+                throw ApiFailure(401,"identity_changed")
+            current
+        }
         try { return api.call(service, path, method, body, before.text("access_token"), key) }
         catch (e: ApiFailure) { if (e.status != 401) throw e }
         val after = mutex.withLock {

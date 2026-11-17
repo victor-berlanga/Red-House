@@ -2,6 +2,12 @@
 
 Las entradas están ordenadas de reciente a histórico; un pendiente de un corte anterior puede quedar sustituido explícitamente por una entrada posterior.
 
+## Alta preliminar móvil y bucket opcional compilados — 16/11/2026
+
+[Lote móvil](documentation/evidencias/entrega-final/mobile/preliminary-gcs-20261116/RESULTADOS.md): donante sin expediente propio puede registrar nombre/grupo y consentimiento explícito, sin preselecciones ni aptitud clínica automática. Consulta fallida no ofrece alta; cuerpo/clave/propietario se fijan antes de los mutex y las respuestas tardías no afectan otra identidad. La lógica nueva separa formulario y caso de uso. Configuración de bucket opcional propagada y cotejada en Android/iOS; los paquetes habilitan únicamente el bucket existente de Red House, con servidor LOCAL y predeterminado de código vacío.
+
+Veinticinco pruebas JVM dirigidas aprobaron; el verificador iOS tuvo ocho pruebas puras aprobadas por separado antes del lote. Android normal, Android Lab corregido e iOS normal/Lab compilados, sin instalar. Ciento dieciséis fuentes estables, firma/bundle/Keychain/CA comprobados según los recibos; perfiles iOS vencen 17/21 de noviembre y no cubren aún el 23. El primer APK Lab usó un origen incompatible con su CA por error del runner; se detectó sin instalarlo, se conservó y se recompiló solo Lab con origen/SAN correctos. No se repitieron unidades, normal ni iOS por esa corrección. Daemons propios cerrados. Falta aceptación nativa del alta/GCS, permisos/accesibilidad y firma vigente; no hay nueva captura ni revisión visual atribuida a este lote. Etapa04 sigue abierta.
+
 ## Carga documental Qt integrada con recuperación durable — 16/11/2026
 
 [Incremento de escritorio](documentation/evidencias/entrega-final/desktop/iteracion-carga-documental/RESULTADOS.md): preparación XML/XSD, PUT HTTPS restringido y verificación XML/CLEAN para adjuntar un informe al resultado. El diario conserva clave, documento y huella, sin rutas, capacidades, credenciales ni bytes. Antes de transferir persiste incertidumbre; recuperación exige mismo archivo y documento, y una respuesta 412 obliga a verificar. Se preserva contexto original y se bloquean callbacks de otra sesión. La carga usa CA explícita cuando está configurada, sin proxies ni redirecciones.

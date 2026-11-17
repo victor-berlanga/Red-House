@@ -1,0 +1,41 @@
+{
+  "tests": 25,
+  "failures": 0,
+  "errors": 0,
+  "single_execution": true,
+  "not_added_to_prior_27_or_prior_16_or_5": true,
+  "reports": {
+    "PreliminaryDonorRegistrationTest": {
+      "tests": 8,
+      "failures": 0,
+      "errors": 0,
+      "private_original_sha256": "9f7f2143ef493dc1cab66fc8ea125f767f42bd186168e867fa74b30c9333c245",
+      "public_sha256": "4fa33ecd1b58eb02d046ef8dbf446cf63268a0420501715b492c47de7a47608d",
+      "sanitization": "hostname attribute removed only"
+    },
+    "SessionTest": {
+      "tests": 9,
+      "failures": 0,
+      "errors": 0,
+      "private_original_sha256": "f898f0acf3b2ba6e97797c30092957bf8b6626e374f1c0503c723b8086cf49e0",
+      "public_sha256": "1e235bc89dea1fe26df2de57ad6de9f9fa416a3a8f88b61619993120869a72b7",
+      "sanitization": "hostname attribute removed only"
+    },
+    "DurablePatchTest": {
+      "tests": 6,
+      "failures": 0,
+      "errors": 0,
+      "private_original_sha256": "6c7c7023f52f1f4e8638f4e0f26e16fc0f97924e0efa0b628875b0c30e39a33b",
+      "public_sha256": "88a8d58f46f4ee43a5daedfd40cee59760ec78b19bac6df5b8ed103c603d8cf5",
+      "sanitization": "hostname attribute removed only"
+    },
+    "StorageTargetTest": {
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "private_original_sha256": "05a9fe7db7497863ca0496ff85c2d13dffef150255489879618d8f06e0a027f4",
+      "public_sha256": "3db6d122715d931e9a697b4a3cc8dc450869d3ee022a8e6b702b5ea89804640b",
+      "sanitization": "hostname attribute removed only"
+    }
+  }
+}

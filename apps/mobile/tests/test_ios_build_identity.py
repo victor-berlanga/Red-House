@@ -35,6 +35,15 @@ class BuildIdentityTest(unittest.TestCase):
         self.assertEqual(result["background_task"], "org.redhouse.mobile.observations")
         self.assertEqual(result["ca_sha256"], "")
 
+    def test_optional_gcs_bucket_is_exact_and_default_local_is_unchanged(self):
+        self.assertEqual(MODULE.identity(self.normal())["gcs_bucket"], "")
+        allowed = "red-house-evidencias-sistemas-integracion-01"
+        for environment in (self.normal(), self.lab()):
+            self.assertEqual(MODULE.identity(environment | {"REDHOUSE_GCS_BUCKET": allowed})["gcs_bucket"], allowed)
+            for invalid in ("*", "https://storage.googleapis.com/bucket", "UPPER", "bucket/path", "a..b", "a\\b", "a\nname"):
+                with self.subTest(invalid=invalid), self.assertRaises(ValueError):
+                    MODULE.identity(environment | {"REDHOUSE_GCS_BUCKET": invalid})
+
     def test_local_network_description_is_lab_only(self):
         root = Path(__file__).parents[1] / "iosApp"
         normal = plistlib.loads((root / "Info.plist").read_bytes())
@@ -72,6 +81,7 @@ class BuildIdentityTest(unittest.TestCase):
             source = output / "generated/mobileEnvironment/MobileEnvironment.kt"
             source.parent.mkdir(parents=True)
             source.write_text('const val gateway = "https://192.0.2.10:8443"\n'
+                              'const val gcsBucket = ""\n'
                               'const val iosVariant = "lab"\n'
                               'const val iosBundleIdentifier = "org.redhouse.mobile.lab"\n'
                               'const val iosBackgroundTask = "org.redhouse.mobile.lab.observations"\n')
@@ -80,6 +90,10 @@ class BuildIdentityTest(unittest.TestCase):
             env = self.lab() | dict(SRCROOT=str(ios), SDK_NAME="iphoneos", TARGET_TEMP_DIR=directory)
             result = MODULE.framework_manifest(env)
             self.assertEqual(result["framework_sha256"], MODULE.sha256(binary))
+            with self.assertRaises(ValueError):
+                MODULE.framework_manifest(env | {"REDHOUSE_GCS_BUCKET": "red-house-evidencias-sistemas-integracion-01"})
+            source.write_text(source.read_text().replace('gcsBucket = ""', 'gcsBucket = "red-house-evidencias-sistemas-integracion-01"'))
+            MODULE.framework_manifest(env | {"REDHOUSE_GCS_BUCKET": "red-house-evidencias-sistemas-integracion-01"})
             source.write_text(source.read_text().replace('iosVariant = "lab"', 'iosVariant = "normal"'))
             with self.assertRaises(ValueError):
                 MODULE.framework_manifest(env)
@@ -91,7 +105,7 @@ class BuildIdentityTest(unittest.TestCase):
             manifest.write_text(json.dumps(MODULE.identity(self.lab())))
             app = root / "RedHouseLab.app"; app.mkdir()
             info = dict(CFBundleIdentifier="org.redhouse.mobile", CFBundleExecutable="RedHouseLab",
-                        RedHouseVariant="lab", RedHouseGateway="https://192.0.2.10:8443",
+                        RedHouseVariant="lab", RedHouseGateway="https://192.0.2.10:8443", RedHouseGCSBucket="",
                         RedHouseLabCASHA256=MODULE.identity(self.lab())["ca_sha256"],
                         BGTaskSchedulerPermittedIdentifiers=["org.redhouse.mobile.lab.observations"])
             with (app / "Info.plist").open("wb") as file:
@@ -105,6 +119,14 @@ class BuildIdentityTest(unittest.TestCase):
                 plistlib.dump(info, file)
             self.assertEqual(MODULE.verify_artifact(app, manifest)["executable_sha256"],
                              MODULE.sha256(app / "RedHouseLab"))
+            info["RedHouseGCSBucket"] = "unexpected-bucket"
+            with (app / "Info.plist").open("wb") as file:
+                plistlib.dump(info, file)
+            with self.assertRaises(ValueError):
+                MODULE.verify_artifact(app, manifest)
+            info["RedHouseGCSBucket"] = ""
+            with (app / "Info.plist").open("wb") as file:
+                plistlib.dump(info, file)
             (app / "redhouse-lab-ca.der").write_bytes(b"different-ca")
             with self.assertRaises(ValueError):
                 MODULE.verify_artifact(app, manifest)
@@ -116,7 +138,7 @@ class BuildIdentityTest(unittest.TestCase):
             manifest.write_text(json.dumps(MODULE.identity(self.normal())))
             app = root / "RedHouse.app"; app.mkdir()
             info = dict(CFBundleIdentifier="org.redhouse.mobile", CFBundleExecutable="RedHouse",
-                        RedHouseVariant="normal", RedHouseGateway="https://34.18.186.116",
+                        RedHouseVariant="normal", RedHouseGateway="https://34.18.186.116", RedHouseGCSBucket="",
                         RedHouseLabCASHA256="",
                         BGTaskSchedulerPermittedIdentifiers=["org.redhouse.mobile.observations"])
             with (app / "Info.plist").open("wb") as file:
