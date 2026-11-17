@@ -1,0 +1,72 @@
+{
+  "scope": "Catálogo físico PostgreSQL independiente, corte 17/11/2026",
+  "schema": 21,
+  "tables": 117,
+  "indexes": 227,
+  "page_count": 74,
+  "page_size_letter": true,
+  "pdf_producer": "LibreOffice 26.8.0.3 (X86_64)",
+  "docx_zip_integrity": true,
+  "pdf_table_headings_found": 117,
+  "text_outside_page": [],
+  "local_source_links": [
+    "documentation/evidencias/entrega-final/modelos-20261117/postgresql-physical.json",
+    "data/database/schema.sql",
+    "documentation/entrega-final/modelos/diagramas/postgresql-completo.mmd",
+    "documentation/entrega-final/modelos/diagramas/postgresql-completo.svg"
+  ],
+  "rendered_review_pages": [
+    1,
+    65,
+    71,
+    72,
+    74
+  ],
+  "outbox_index_page": 65,
+  "tracking_table_page": 71,
+  "tracking_relationships_page": 72,
+  "sha256": {
+    "documentation/entrega-final/modelos/Modelo_fisico.md": "eb1f8cb0e09158d5d4748992b81ff31741ce5db99e57b2f7b77b0430e5cc93f3",
+    "documentation/evidencias/entrega-final/modelos-20261117/postgresql-physical.json": "25715b794be3630b7b11bd8720f7228af217c9fdde24cee3e02414c29707160d",
+    "documentation/docx/Modelo_fisico_PostgreSQL_final.docx": "4b2d0cd311ad42f7a8225d150e122af6f64655e771cd8826dac2921d5110fa24",
+    "scripts/export_partial_report.py": "d08def610dd33518705d356717ffa46f5e87b10b62beaf8d7e0c6e0fa790669a",
+    "documentation/pdf/Modelo_fisico_PostgreSQL_final.pdf": "2e666a265b2f49c1791ad1610e11bbddbf92b82bb9be1a471d40c15b12ac22d8"
+  },
+  "bytes": {
+    "documentation/docx/Modelo_fisico_PostgreSQL_final.docx": 70552,
+    "documentation/pdf/Modelo_fisico_PostgreSQL_final.pdf": 2817928
+  },
+  "status": "passed",
+  "manual_visual_review": {
+    "reviewed_pages": [
+      1,
+      65,
+      71,
+      72,
+      74
+    ],
+    "observations": {
+      "1": "Título, alcance del esquema 21, conteos, columnas y texto de restricciones legibles.",
+      "65": "Índice parcial shared_outbox_dispatch_order completo, incluida la condición WHERE.",
+      "71": "Columnas de tracking_assignments y tracking_points legibles al final de página.",
+      "72": "Continuación de tracking_points, claves foráneas, índices y disparador legibles.",
+      "74": "Encabezado de tabla repetido, web_runtime y cuatro referencias completas."
+    },
+    "scope": "Inspección visual por muestreo sobre PNG del PDF convertido. La comprobación de límites del texto cubre las 74 páginas."
+  },
+  "attempts": {
+    "word": {
+      "exit_code": 0,
+      "runs": 1
+    },
+    "pdf": {
+      "exit_code": 0,
+      "runs": 1,
+      "note": "LibreOffice avisó que la caché de Fontconfig proviene de una versión más reciente."
+    },
+    "visual_page_selection": {
+      "first": "StopIteration al usar tracking_point en vez del nombre físico tracking_points.",
+      "corrected": "passed"
+    }
+  }
+}

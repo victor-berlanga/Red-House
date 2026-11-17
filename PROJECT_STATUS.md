@@ -26,7 +26,9 @@ El intento más rápido anterior conserva FAIL: 24 sesiones, 4.097 GET, 244 resp
 
 ## Catálogo físico actualizado al esquema 21 — 17/11/2026
 
-[Captura READ ONLY y builder aprobados](documentation/evidencias/entrega-final/modelos-20261117/RESULTADOS.md): 117 tablas, 227 índices y doce servicios. Solo PostgreSQL propio inició y cerró en 2,043 s; state.json permaneció igual. Se añadió el índice parcial de outbox ya instalado; no se migraron datos para documentarlos. Metadatos, tablas, columnas y referencias comprobados; diagramas idénticos, sin render repetido. Scripts finales exigen esquema 21 y la portada toma el corte del 17/11. El informe corrige firmas iOS vigentes hasta el 24 y enlaces de paquetes; mantiene pendiente el nuevo Mac. Word/PDF y revisión editorial del nuevo corte todavía pendientes.
+[Captura READ ONLY y builder aprobados](documentation/evidencias/entrega-final/modelos-20261117/RESULTADOS.md): 117 tablas, 227 índices y doce servicios. Solo PostgreSQL propio inició y cerró en 2,043 s; state.json permaneció igual. Se añadió el índice parcial de outbox ya instalado; no se migraron datos para documentarlos. Metadatos, tablas, columnas y referencias comprobados; diagramas idénticos, sin render repetido. Scripts finales exigen esquema 21 y la portada toma el corte del 17/11. El informe incorpora las firmas iOS vigentes hasta el 24 y los enlaces del paquete macOS final 02.
+
+El [catálogo físico Word/PDF del 17/11](documentation/evidencias/entrega-final/modelos-20261117/validacion-exportacion.json) quedó aprobado con 74 páginas Carta, 117 tablas, ZIP íntegro y cero palabras fuera de página. Dirección inspeccionó 1, 65 y 74. El agente de documentación revisó esas páginas y también 71–72, con la tabla de seguimiento y sus claves foráneas. Word y PDF se generaron en una pasada cada uno. El informe técnico principal sigue pendiente de exportación Word/PDF y revisión editorial para este corte.
 
 ## Presentación web/Qt y GET de laboratorio aprobados — 17/11/2026
 

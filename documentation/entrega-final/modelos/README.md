@@ -8,7 +8,9 @@ La [captura READ ONLY del 17/11](../../evidencias/entrega-final/modelos-20261117
 
 El builder final también terminó con salida 0 y actualizó el catálogo físico, la vista relacional y las fichas a partir de esa captura real. Frente al corte 20, el catálogo conserva 117 tablas y añade únicamente el índice parcial `shared_outbox_dispatch_order` sobre `red_house.service_outbox`, coherente con la migración `021.sql`; no se inventaron conteos ni se modificó el JSON histórico. Los archivos Mermaid y SVG permanecieron sin diferencias: la topología no cambió y no se volvió a renderizar.
 
-**Word/PDF del corte 21 y revisión editorial permanecen pendientes.** Los documentos del 14/11, sus 24/74 páginas y su aprobación editorial siguen identificados como históricos; no se atribuyen a la actualización del 17/11. Los gates actuales exigen exactamente esquema 21 y conservan READ ONLY, loopback, propietario, directorio de PostgreSQL y doce servicios. Para reproducir el corte 20 se utiliza el código de su revisión histórica, sin cambiar su metadata a 21.
+El catálogo físico del 17/11 quedó exportado en [Word](../../docx/Modelo_fisico_PostgreSQL_final.docx) y [PDF de 74 páginas Carta](../../pdf/Modelo_fisico_PostgreSQL_final.pdf). Dirección inspeccionó las páginas 1, 65 y 74. El agente de documentación revisó también las páginas 71 y 72 para comprobar la tabla de seguimiento y sus relaciones. El [registro de exportación](../../evidencias/entrega-final/modelos-20261117/validacion-exportacion.json) conserva los hashes y el alcance de los controles. La exportación Word/PDF y la revisión editorial del informe técnico principal siguen pendientes para este corte.
+
+Los documentos del 14/11 conservan su alcance histórico y su registro editorial. Los scripts actuales exigen esquema 21, READ ONLY, acceso por loopback, propietario, directorio de PostgreSQL y doce servicios. Para reproducir el corte 20 se utiliza el código y los metadatos de su revisión histórica.
 
 ## Herramientas reutilizadas
 
@@ -18,11 +20,11 @@ El builder final también terminó con salida 0 y actualizó el catálogo físic
 
 `scripts/render_final_diagrams.cjs` adapta el render histórico Playwright/Mermaid. Reutiliza Chrome/Playwright ya presentes y el bundle Mermaid MIT incluido en la documentación local de ClamAV. No instala Mermaid CLI ni descarga navegadores. El bundle se puede indicar con `REDHOUSE_MERMAID_BUNDLE`; su SHA se conserva en `_render.json`. Ese resultado distingue generación de revisión visual. El directorio temporal antiguo de herramientas solo conserva restos de dependencias y no constituye una instalación Mermaid utilizable.
 
-## Reproducción y exportación pendiente
+## Reproducción y exportación
 
 La captura requiere **solo el PostgreSQL propio de `/private/tmp/rh-load-c92ed10k` activo**. Si la serie ya lo cerró, dirección debe iniciarlo mediante el comando privado `infrastructure_commands.postgres` de su `state.json`, comprobando propiedad/directorio/puerto; conservar el PID recién creado y cerrarlo al terminar. No usar `Environment.init`, `ensure_infrastructure` o el arranque completo: no se necesitan Redis, MongoDB, API ni workers para capturar este catálogo. El script falla si PostgreSQL está cerrado y no intenta reiniciarlo.
 
-Los dos primeros comandos documentan la captura y el builder ya concluidos el 17/11; no deben repetirse sobre el mismo archivo ni durante la carga. La exportación pendiente se realizará desde la raíz, tras liberar la ventana y cerrar el corte editorial:
+Los dos primeros comandos documentan la captura y el builder completados el 17/11. Para una nueva captura, usar una salida propia y una ventana sin carga. Los comandos de exportación se ejecutan desde la raíz. El Word y el PDF del catálogo físico ya se generaron. El último comando corresponde al informe técnico principal pendiente.
 
 ```sh
 # Captura ya aprobada; no repetir sobre esta salida existente.
@@ -56,7 +58,7 @@ Están escritas cinco fuentes de detalle: `diagramas/componentes.mmd`, `desplieg
 
 El builder produjo `Modelo_fisico.md`, `Modelo_relacional.md`, `Fichas_microservicios.md`, `diagramas/postgresql-completo.mmd`, `modelo-relacional.mmd` y doce `postgresql-<propietario>.mmd`. `Modelo_conceptual.md` explica la vista de negocio. Las vistas por servicio muestran tablas referidas por sus vistas SQL y claves de contexto; **no declaran propiedad de escritura por el mero hecho de consultarlas**. Las tablas compartidas se repiten como referencias gráficas, no como copias físicas. Los modelos lógicos 0FN–4FN del semestre mantienen su origen y no se reescriben para aparentar el esquema actual.
 
-En el corte del 14/11 se generaron **21 SVG ampliables y siete PNG**; se conservan sin cambios en la actualización al esquema 21. El informe imprime los dos resúmenes y la gráfica de carga; enlaza los diagramas amplios para conservar su legibilidad. El renderer evita rasterizar el catálogo físico completo como una imagen enorme. Los Word/PDF del corte anterior están en las carpetas existentes, con nombre propio; su registro editorial conserva hashes, paginación y alcance de inspección. La exportación y revisión del nuevo corte 21 siguen pendientes. Un archivo `_render.json` con estado GENERATED no constituye por sí solo aprobación editorial ni verificación clínica.
+En el corte del 14/11 se generaron **21 SVG ampliables y siete PNG**; se conservan sin cambios en la actualización al esquema 21. El informe imprime los dos resúmenes y la gráfica de carga; enlaza los diagramas amplios para conservar su legibilidad. El renderer evita rasterizar el catálogo físico completo como una imagen enorme. Las carpetas de entrega contienen Word y PDF del catálogo físico del corte 21. El registro editorial del 14/11 conserva hashes, paginación y alcance de las versiones históricas. Un archivo `_render.json` con estado GENERATED no constituye por sí solo aprobación editorial ni verificación clínica.
 
 ## Validación mínima del cierre
 
