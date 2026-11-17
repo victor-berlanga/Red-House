@@ -1,0 +1,7 @@
+# Reintento de reportes
+
+El cliente ofrece reintentar únicamente el reporte seleccionado en estado RETRYABLE. Solicita motivo y confirmación, conserva el contexto de sesión y registra el comando idempotente con el esquema XML del propietario. La respuesta debe corresponder al identificador, institución, usuario y estado PENDING antes de cerrar el diario. Una recuperación reutiliza la misma clave.
+
+En el candidato privado, nueve pruebas dirigidas pasaron en 5,15 s: respuesta, recuperación con clave original, respuestas ajenas, estado no apto, cancelación, cambio de sesión y confirmación. Luego se cambió la visibilidad tras refrescar y se amplió el formulario. La segunda ejecución obtuvo cuatro aprobadas y un fallo de arnés: la pantalla padre estaba oculta. Tras corregir solo ese montaje, el caso de refresco seleccionado RETRYABLE→COMPLETE pasó 1/1; no se repitieron las demás pruebas. Los JUnit públicos omiten el hostname y el traceback del fallo; los originales permanecen privados.
+
+La [captura nativa](retry-nativo.png) usa datos sintéticos y un cliente doble, sin envío. Dirección inspeccionó reporte, formato, motivo y confirmación. No demuestra una solicitud ni descarga real, MFA real ni Windows. La operación real queda pendiente de prueba dirigida. Los cuatro archivos de producto coinciden con el candidato revisado; `export_retry.xsd` coincide con el propietario y `sync_contracts.py --check` verificó 58 contratos sin diferencias.

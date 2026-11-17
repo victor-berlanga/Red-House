@@ -2,6 +2,12 @@
 
 Las entradas están ordenadas de reciente a histórico; un pendiente de un corte anterior puede quedar sustituido explícitamente por una entrada posterior.
 
+## Reintento autorizado de reportes en escritorio — 16/11/2026
+
+[Incremento DESK-12](documentation/evidencias/entrega-final/desktop/iteracion-reintento-reportes/RESULTADOS.md): solo un reporte RETRYABLE seleccionado permite pedir reintento con motivo y confirmación humana. Se conserva contexto de sesión y diario idempotente; identificador, institución, propietario y estado de respuesta deben coincidir antes de cerrar el comando. Refrescar la fila a COMPLETE oculta la acción. No se añadió cancelación sin contrato del propietario.
+
+Nueve pruebas iniciales aprobadas; tras ajustar refresco y formulario, cuatro aprobadas y un fallo de montaje, seguido por una repetición corregida aprobada. Resultados separados, sin sumarlos como casos nuevos. Dirección inspeccionó formulario Cocoa con estilo y sin envío; fuente y test integrados cotejados con candidato, 58 contratos idénticos al propietario. Falta recorrido real Qt de reporte; no cierra etapa05.
+
 ## Traslado Android E2E-B entregado — 16/11/2026
 
 [Tramo Android conservado](documentation/evidencias/entrega-final/mobile/e2eb-android-20261116/RESULTADOS.md): el mismo órgano, reserva y traslado de Qt avanzaron desde PLANNED hasta DELIVERED mediante la interfaz nativa. Cuatro transiciones únicas, dos lecturas ópticas del QR y seis eventos coincidentes en Auditoría SQL/Mongo. Tres familias técnicas propias cerradas en SQL/Redis y emulador cerrado con exit 0; el servidor se conservó para continuar en escritorio.
