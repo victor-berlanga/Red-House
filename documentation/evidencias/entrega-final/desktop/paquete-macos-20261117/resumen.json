@@ -1,0 +1,30 @@
+{
+  "build_exit": 0,
+  "smoke": {
+    "ok": true,
+    "window": true,
+    "xsd": "login.xsd",
+    "operation": "login"
+  },
+  "contracts_identical": 58,
+  "sources_unchanged": true,
+  "executable_sha256": "03e13934f89cd46a76d463a1d9d0e58f270e13127ca9d475b83953219f6ce494",
+  "platform": "macOS x86_64",
+  "windows_tested": false,
+  "notarized": false,
+  "package": {
+    "archive": ".local/dist/RedHouse-macOS-x86_64-20261117.zip",
+    "sha256": "b39da094f5d140129c1946663a505d940c413962dc08075d23f409efad0c4816",
+    "bytes": 56627299,
+    "visual_login_reviewed": true,
+    "scope": "macOS Intel, startup and all 58 embedded contracts; no native Windows/ARM/notarization"
+  },
+  "zip_crc_errors": 0,
+  "visible_launch": {
+    "pid": 21379,
+    "exit_code": -15,
+    "closed": true,
+    "authenticated": false
+  },
+  "source_count": 160
+}
