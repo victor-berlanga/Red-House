@@ -1,0 +1,137 @@
+{
+  "status": "DEPLOYED_VALIDATED_ACCESS_CLOSED",
+  "target": {
+    "project": "sistemas-integracion-01",
+    "instance": "red-house",
+    "zone": "me-central1-a",
+    "id": "2861822465669755197",
+    "ip": "34.18.186.116"
+  },
+  "package_manifest_sha256": "68cb79eef975cc48241662143515c0cbc41f6cdda8014bb994a0946a6b94cc32",
+  "source_sha256": "6714dd289d983f7c4060c33d6abfc40523277f14629625d24786acd048eeafa6",
+  "targets": [
+    "inventario-a",
+    "inventario-b"
+  ],
+  "images": {
+    "inventario": {
+      "id": "sha256:fa43724f2d475872c1f8c8ef90eb3f8c7ea756828ad60dff06b3aec2ba72afca",
+      "tag": "redhouse/inventario:inventory-nplus1-20261117-01",
+      "base": "sha256:0af9d3013999ea546dbcb553541515101109995bfc4f63650cee20957d47782e",
+      "previous_tag": "redhouse/inventario:before-inventory-nplus1-20261117-01"
+    }
+  },
+  "healthy_containers": 30,
+  "unchanged_containers": 28,
+  "schema": 21,
+  "storage": "local",
+  "backend": "monolith",
+  "web_tracking_js_preserved_sha256": "64c9986e24385e498507791e6160e63eb358cdaa842ab0ad75c8d7a0a1c81503",
+  "protected": {
+    "passed": true,
+    "checks": 12,
+    "status_counts": {
+      "200": 10,
+      "401": 2
+    },
+    "one_own_family_closed_sql_redis": true,
+    "business_writes": false
+  },
+  "public_rounds": 2,
+  "public_checks_per_round": [
+    5,
+    5
+  ],
+  "tls": {
+    "checked_at": "2026-11-17T19:04:49.593617+00:00",
+    "not_after": "2026-11-21T15:14:23+00:00",
+    "certificate_sha256": "a5c19375af97ae6d4beef5a8a16ae939512052670bf0fc804b63397cbff3e737",
+    "tls_trust_and_ip_validated": true,
+    "delivery_day_end_utc": "2026-11-24T06:00:00+00:00",
+    "covers_delivery_day_end": false,
+    "renewal_timer": {
+      "NextElapseUSecRealtime": "Wed 2026-11-18 00:11:58 UTC",
+      "LastTriggerUSec": "Tue 2026-11-17 18:13:45 UTC",
+      "LoadState": "loaded",
+      "ActiveState": "active",
+      "UnitFileState": "enabled"
+    },
+    "timer_query_exit_code": 0,
+    "renewal_service": {
+      "Result": "success",
+      "ExecMainExitTimestamp": "Tue 2026-11-17 18:13:47 UTC",
+      "ExecMainStatus": "0",
+      "LoadState": "loaded"
+    },
+    "service_query_exit_code": 0,
+    "renewal_performed": false
+  },
+  "access_cleanup": {
+    "temporary_key_removed": true,
+    "prior_keys_preserved": 2,
+    "private_key_deleted": true,
+    "validation_action": "finish"
+  },
+  "phases": [
+    {
+      "action": "access-add",
+      "exit": 0,
+      "elapsed_seconds": 13.82
+    },
+    {
+      "action": "access-remove",
+      "exit": 0,
+      "elapsed_seconds": 11.319
+    },
+    {
+      "action": "finish",
+      "exit": 0,
+      "elapsed_seconds": 37.052
+    },
+    {
+      "action": "preflight",
+      "exit": 0,
+      "elapsed_seconds": 28.663
+    },
+    {
+      "action": "prepare",
+      "exit": 0,
+      "elapsed_seconds": 43.39
+    },
+    {
+      "action": "protected",
+      "exit": 1,
+      "elapsed_seconds": 20.985
+    },
+    {
+      "action": "protected-stdin-isolated",
+      "exit": 0,
+      "elapsed_seconds": 31.875
+    },
+    {
+      "action": "release",
+      "exit": 0,
+      "elapsed_seconds": 61.113
+    },
+    {
+      "action": "stage",
+      "exit": 0,
+      "elapsed_seconds": 10.521
+    }
+  ],
+  "preserved_failure": {
+    "phase": "protected initial",
+    "exit": 1,
+    "type": "JSONDecodeError before login",
+    "new_family_created": false,
+    "companion_sha256": "53649a85f66af262b54ba61079e6a822f6df5c6fca08c367298df54c370fea7e",
+    "fixed_scope": "isolated stdin in memory; same sealed deploy main, no product/package/image/release changes"
+  },
+  "rollback_executed": false,
+  "raw_local_load_status_unchanged": "FAILED cleanup; composite acceptance only N+1 source",
+  "initial_review_rejection": {
+    "before_transfer": true,
+    "temporary_access_removed": true,
+    "user_explicit_authorization_received": true
+  }
+}
