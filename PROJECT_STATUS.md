@@ -2,6 +2,12 @@
 
 Las entradas están ordenadas de reciente a histórico; un pendiente de un corte anterior puede quedar sustituido explícitamente por una entrada posterior.
 
+## Resultado HLA documentado comprobado desde Qt/XML — 16/11/2026
+
+[Ensayo real conservado](documentation/evidencias/entrega-final/desktop/iteracion-hla-documento-real/RESULTADOS.md): Qt creó un resultado pendiente y, sobre el mismo antecedente, cargó un PNG privado, obtuvo CLEAN, registró corrección HLA/documento y revisión MEDICAL con MFA/reautenticación. SQL correlacionó sujeto, actor, antecedente, hash, generación y revisión única; sesión propia revocada en SQL/Redis. Fixture ACADEMIC, TESTING=False, perfil/autorización de órganos exigidos y ClamD real. Los intentos fallidos del arranque, bootstrap y automatización Qt permanecen separados; las operaciones confirmadas no se reenviaron.
+
+Dirección inspeccionó las capturas nativas y corrigió campos estrechos y texto recortado en revisión. Vistas posteriores sin envío muestran referencia y locus/alelo completos, con etiquetas traducidas; no representan otra autorización. Una rama XML separada comprobó reintento LOCAL desde MISSING con el mismo documento y PUT concurrentes 201/412, seguido de CLEAN. Las negativas adicionales del cambio de servidor siguen pendientes y este corte no lo publica en GCP. Falta completar receptor, constancia, evaluación/reserva, traslado móvil y recepción Qt de la misma cadena E2E-B; etapa05 sigue abierta.
+
 ## Compilación XML protegida publicada y validada en GCP — 16/11/2026
 
 [Publicación de las tres fuentes XML](documentation/evidencias/entrega-final/gcp-xmlschema-20261116/RESULTADOS.md) en `sistemas-integracion-01/red-house/me-central1-a`: trece imágenes verificadas, 25 aplicaciones actualizadas, cinco contenedores de infraestructura conservados y 30 saludables. Esquema 21, monolito y almacenamiento LOCAL sin cambios. Gate enlazado a la carga HTTP12 vigente y al paquete inmutable. Cuarenta controles protegidos JSON/XML y ocho XML inválidos concurrentes aprobaron; cero recursos/idempotencias creados por esos negativos y tres familias técnicas revocadas.

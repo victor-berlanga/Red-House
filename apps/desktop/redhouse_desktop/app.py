@@ -6,7 +6,7 @@ import sys
 import uuid
 from datetime import datetime, timezone
 from pathlib import Path
-from PySide6.QtCore import QObject, QRunnable, QThreadPool, Signal, Qt, QTimer, QDateTime, QStandardPaths, QTimeZone
+from PySide6.QtCore import QObject, QRunnable, QThreadPool, Signal, Qt, QTimer, QDateTime, QStandardPaths, QTimeZone, QRect
 from PySide6.QtGui import QImage, QPixmap, QColor, QPainter
 import qrcode
 from PySide6.QtWidgets import (QApplication, QDialog, QFormLayout, QHBoxLayout, QLabel,
@@ -1881,7 +1881,7 @@ class Window(QMainWindow):
     def document_upload_form(self,result,record,context):
         from .document_upload import read_document, prepare_document, prepare_remote, upload_bytes
         if not context.current(): return
-        dialog=QDialog(self); dialog.setWindowTitle('Adjuntar documento al resultado'); dialog.resize(640,280); form=QFormLayout(dialog)
+        dialog=QDialog(self); dialog.setWindowTitle('Adjuntar documento al resultado'); dialog.resize(640,280); form=QFormLayout(dialog); form.setFieldGrowthPolicy(QFormLayout.AllNonFixedFieldsGrow)
         form.addRow('Prueba',QLabel(label(result.get('test_code')))); path=QLineEdit(); path.setReadOnly(True); form.addRow('Archivo elegido',path)
         choose=QPushButton('Seleccionar PDF o imagen'); form.addRow(choose)
         def choose_file():
@@ -1992,23 +1992,28 @@ class Window(QMainWindow):
     def review_result_dialog(self,item,binding):
         if not binding.current(): return
         if item.get('status')!='CAPTURED': self.status.setText('El resultado ya fue revisado o no está disponible para revisión.'); return
-        dialog=QDialog(self); dialog.setWindowTitle('Revisión profesional'); dialog.resize(700,620); outer=QVBoxLayout(dialog); scroll=QScrollArea(); scroll.setWidgetResizable(True); panel=QWidget(); form=QFormLayout(panel); scroll.setWidget(panel); outer.addWidget(scroll)
-        form.addRow('Prueba',QLabel(label(item.get('test_code')))); result_label=QLabel(label(item.get('value'))); result_label.setWordWrap(True); form.addRow('Resultado',result_label)
+        dialog=QDialog(self); dialog.setWindowTitle('Revisión profesional'); dialog.resize(700,620); outer=QVBoxLayout(dialog); scroll=QScrollArea(); scroll.setWidgetResizable(True); panel=QWidget(); form=QFormLayout(panel); form.setFieldGrowthPolicy(QFormLayout.AllNonFixedFieldsGrow); scroll.setWidget(panel); outer.addWidget(scroll)
+        def readable(text):
+            value=QLabel(text); value.setWordWrap(True); value.setTextInteractionFlags(Qt.TextSelectableByMouse)
+            value.setMinimumHeight(value.fontMetrics().boundingRect(QRect(0,0,360,10000),Qt.TextWordWrap,text).height()+8)
+            return value
+        form.addRow('Prueba',QLabel(label(item.get('test_code')))); form.addRow('Resultado',readable(label(item.get('value'))))
         for key,title in (('method','Método'),('laboratory','Laboratorio'),('reference','Referencia')):
             if item.get(key):
-                detail=QLabel(label(item[key])); detail.setWordWrap(True); form.addRow(title,detail)
-        form.addRow('Estado documentado',QLabel(label(item.get('result_state'))))
+                form.addRow(title,readable(label(item[key])))
+        form.addRow('Estado documentado',QLabel('Corregido' if item.get('result_state')=='CORRECTED' else label(item.get('result_state'))))
         if item.get('issued_at'): form.addRow('Emisión · hora local',QLabel(display_value('created_at',item['issued_at'])))
         if item.get('hla'):
             typing=item['hla']; lines=['Nomenclatura '+str(typing.get('nomenclature',''))+' · '+str(typing.get('nomenclature_version','')),'Resolución '+str(typing.get('resolution',''))]
             if typing.get('catalogue_version'): lines.append('Catálogo '+str(typing['catalogue_version']))
             for locus in typing.get('loci',[]):
                 lines.append(str(locus.get('locus',''))+': '+', '.join(locus.get('alleles',[])+locus.get('groups',[]))+(' · ambigua' if locus.get('ambiguous') else '')+(' · parcial' if locus.get('partial') else ''))
-            detail=QLabel('\n'.join(lines)); detail.setWordWrap(True); detail.setTextInteractionFlags(Qt.TextSelectableByMouse); form.addRow('Tipificación HLA',detail)
+            form.addRow('Tipificación HLA',readable('\n'.join(lines)))
         snapshot=item.get('document_snapshot')
         if snapshot:
-            text='Documento verificado · '+str(snapshot.get('category',''))+' · generación '+str(snapshot.get('generation',''))+'\nSHA-256 '+str(snapshot.get('sha256',''))
-            detail=QLabel(text); detail.setWordWrap(True); detail.setTextInteractionFlags(Qt.TextSelectableByMouse); form.addRow('Documento',detail)
+            category='Resultado de laboratorio' if snapshot.get('category')=='LAB_RESULT' else str(snapshot.get('category',''))
+            text='Documento verificado · '+category+' · generación '+str(snapshot.get('generation',''))+'\nSHA-256 '+str(snapshot.get('sha256',''))
+            form.addRow('Documento',readable(text))
         note=QLabel('La declaración HLA y su revisión no sustituyen la autorización clínica.'); note.setWordWrap(True); form.addRow(note)
         decision=QComboBox(); decision.addItem('Selecciona una decisión',''); decision.addItem('Autorizar','AUTHORIZED'); decision.addItem('Rechazar','REJECTED'); form.addRow('Decisión',decision)
         reason=QLineEdit(); reason.setMaxLength(1000); form.addRow('Motivo de revisión',reason)

@@ -103,7 +103,7 @@ def document_selector(window, prior, worker_type):
 def result_dialog(window, sample, prior, worker_type, draft=None, locked=False, notice=None):
     binding=OperationContext(window); dialog=QDialog(window); dialog.setWindowTitle('Corregir resultado' if prior else 'Capturar resultado'); dialog.resize(780,680)
     outer=QVBoxLayout(dialog); title=QLabel(dialog.windowTitle()); title.setObjectName('title'); outer.addWidget(title)
-    scroll=QScrollArea(); scroll.setWidgetResizable(True); panel=QWidget(); form=QFormLayout(panel); scroll.setWidget(panel); outer.addWidget(scroll,1)
+    scroll=QScrollArea(); scroll.setWidgetResizable(True); panel=QWidget(); form=QFormLayout(panel); form.setFieldGrowthPolicy(QFormLayout.AllNonFixedFieldsGrow); scroll.setWidget(panel); outer.addWidget(scroll,1)
     form.addRow('Muestra',QLabel(sample.get('identifier') or 'Muestra seleccionada'))
     if prior: form.addRow('Antecedente',QLabel('Resultado anterior · versión '+str(prior['version'])))
     code=QLineEdit(prior['test_code'] if prior else ''); code.setObjectName('result_code'); code.setMaxLength(60); code.setReadOnly(bool(prior)); form.addRow('Código de prueba',code)
@@ -118,7 +118,7 @@ def result_dialog(window, sample, prior, worker_type, draft=None, locked=False, 
     measured=QDateTimeEdit(QDateTime.currentDateTime()); measured.setObjectName('measured_time'); measured.setCalendarPopup(True); measured.setDisplayFormat('dd/MM/yyyy HH:mm:ss'); form.addRow('Medición documentada · hora local',measured)
     confirm_measured=QCheckBox('Confirmo la fecha y hora documentadas de medición.'); confirm_measured.setObjectName('confirm_measured'); form.addRow(confirm_measured)
     use_hla=QCheckBox('Registrar tipificación HLA declarada'); use_hla.setObjectName('use_hla'); form.addRow(use_hla)
-    hla_panel=QWidget(); hla_form=QFormLayout(hla_panel); hla_form.addRow('Nomenclatura',QLabel('HLA-colon-2010'))
+    hla_panel=QWidget(); hla_form=QFormLayout(hla_panel); hla_form.setFieldGrowthPolicy(QFormLayout.AllNonFixedFieldsGrow); hla_form.addRow('Nomenclatura',QLabel('HLA-colon-2010'))
     syntax=QComboBox(); syntax.setObjectName('hla_syntax'); syntax.addItem('Selecciona una versión',''); syntax.addItem('2010','2010'); syntax.addItem('2010 · sintaxis 2','2010:syntax-2'); hla_form.addRow('Versión de nomenclatura',syntax)
     resolution=QLineEdit(); resolution.setObjectName('hla_resolution'); resolution.setMaxLength(200); hla_form.addRow('Resolución documentada',resolution)
     catalogue=QComboBox(); catalogue.addItem('Sin catálogo declarado',''); hla_form.addRow('Catálogo de referencia',catalogue)
