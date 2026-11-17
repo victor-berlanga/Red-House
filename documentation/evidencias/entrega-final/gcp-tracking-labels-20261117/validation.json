@@ -1,0 +1,91 @@
+{
+  "action": "finish",
+  "status": "passed",
+  "target": {
+    "project": "sistemas-integracion-01",
+    "instance": "red-house",
+    "zone": "me-central1-a",
+    "id": "2861822465669755197",
+    "ip": "34.18.186.116"
+  },
+  "schema": 21,
+  "healthy": 30,
+  "unchanged_other_containers": 29,
+  "storage": "local",
+  "backend": "monolith",
+  "public": [
+    {
+      "at": 1794937157.2527666,
+      "checks": [
+        {
+          "path": "/health/live",
+          "http": 200,
+          "sha256": "8a1ba4f31889e085e60298217996a3738c7e6ef8b7cb6c5cb8478cafe5750e0e"
+        },
+        {
+          "path": "/login",
+          "http": 200,
+          "sha256": "6484d83850af2bae4ad10440e54b93692db5ced7d0e99ad8d3c79d668560961b"
+        },
+        {
+          "path": "/static/js/tracking.js",
+          "http": 200,
+          "sha256": "64c9986e24385e498507791e6160e63eb358cdaa842ab0ad75c8d7a0a1c81503"
+        }
+      ]
+    },
+    {
+      "at": 1794937163.0587354,
+      "checks": [
+        {
+          "path": "/health/live",
+          "http": 200,
+          "sha256": "8a1ba4f31889e085e60298217996a3738c7e6ef8b7cb6c5cb8478cafe5750e0e"
+        },
+        {
+          "path": "/login",
+          "http": 200,
+          "sha256": "15861c9ed348a7a237d7e776ee05d887b4025261b140e28ce365db5c22830e4b"
+        },
+        {
+          "path": "/static/js/tracking.js",
+          "http": 200,
+          "sha256": "64c9986e24385e498507791e6160e63eb358cdaa842ab0ad75c8d7a0a1c81503"
+        }
+      ]
+    }
+  ],
+  "tls": {
+    "checked_at": "2026-11-17T17:39:27.747126+00:00",
+    "not_after": "2026-11-21T15:14:23+00:00",
+    "certificate_sha256": "a5c19375af97ae6d4beef5a8a16ae939512052670bf0fc804b63397cbff3e737",
+    "tls_trust_and_ip_validated": true,
+    "delivery_day_end_utc": "2026-11-24T06:00:00+00:00",
+    "covers_delivery_day_end": false,
+    "renewal_timer": {
+      "NextElapseUSecRealtime": "Tue 2026-11-17 18:13:38 UTC",
+      "LastTriggerUSec": "Tue 2026-11-17 12:13:16 UTC",
+      "LoadState": "loaded",
+      "ActiveState": "active",
+      "UnitFileState": "enabled"
+    },
+    "timer_query_exit_code": 0,
+    "renewal_service": {
+      "Result": "success",
+      "ExecMainExitTimestamp": "Tue 2026-11-17 12:13:20 UTC",
+      "ExecMainStatus": "0",
+      "LoadState": "loaded"
+    },
+    "service_query_exit_code": 0,
+    "renewal_performed": false
+  },
+  "sources": {
+    "apps/web/src/presentation/static/js/tracking.js": {
+      "baseline_sha256": "4a50a29b7c9b8e01723f6da5b7018e14d619a331926819ae35eb8b3ad24bf47f",
+      "candidate_sha256": "64c9986e24385e498507791e6160e63eb358cdaa842ab0ad75c8d7a0a1c81503"
+    }
+  },
+  "business_writes": false,
+  "technical_login_created": false,
+  "finish_client": "urllib_stdlib_default_CA_no_redirect"
+}

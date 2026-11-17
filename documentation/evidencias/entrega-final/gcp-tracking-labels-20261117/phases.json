@@ -1,0 +1,51 @@
+{
+  "phases": [
+    {
+      "action": "access-add",
+      "exit": 0,
+      "elapsed_seconds": 33.312,
+      "private_receipt_sha256": "76078d19fd4092d236691034eefb40912295bc01b5d1322dfb999d3dc2d85b19"
+    },
+    {
+      "action": "access-remove",
+      "exit": 0,
+      "elapsed_seconds": 15.865,
+      "private_receipt_sha256": "bc4f66254cbd77d5d96222ed29ac9132963bcaa17695ac30edcb9cf430d9de11"
+    },
+    {
+      "action": "finish",
+      "exit": 0,
+      "elapsed_seconds": 33.131,
+      "private_receipt_sha256": "c3f6f46a2e9f99a46a9e162a0685a9cbca53d78746efb811034da69659179feb"
+    },
+    {
+      "action": "preflight",
+      "exit": 0,
+      "elapsed_seconds": 27.874,
+      "private_receipt_sha256": "eadf53a754aa26b2be4ef551fbb9998ccc06da0889f0cfedb8e8b787fe170cb0"
+    },
+    {
+      "action": "prepare",
+      "exit": 0,
+      "elapsed_seconds": 44.882,
+      "private_receipt_sha256": "55b6659e17806d8d460ca979870b6e804a9902b97ad0b810fcd1bf183e729198"
+    },
+    {
+      "action": "release",
+      "exit": 0,
+      "elapsed_seconds": 50.063,
+      "private_receipt_sha256": "5164281c2c07f18a61888929271e2e48ae4858688a7645389d0ac10523648416"
+    },
+    {
+      "action": "stage",
+      "exit": 0,
+      "elapsed_seconds": 10.143,
+      "private_receipt_sha256": "7b8a9b151651c85c7c803d67aa27413358ac27068e17a5a61224fad72a32acbf"
+    }
+  ],
+  "fetch": {
+    "result": "passed",
+    "receipt_inventory_sha256": "d250cfaf4e708a4a8d25662f66b53a83ebd29afde303b8aa2f85c4755d0899c6"
+  },
+  "package_manifest_sha256": "b75a5dda186a4d2734235cdbf16f5449a344c00ddc2a95ec64f2701da92ab431"
+}

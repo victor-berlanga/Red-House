@@ -6,7 +6,13 @@ Las entradas están ordenadas de reciente a histórico; un pendiente de un corte
 
 El usuario autorizó continuar desde la pausa del 17/11, priorizando ahorro de tokens sin reducir los requisitos ni la calidad. Cuando avise que queda aproximadamente 5% de su saldo, detener el avance y preparar un traspaso completo para otro agente: estado comprobado, cambios/commits, pendientes ordenados, comandos, evidencias, procesos activos, límites y riesgos. No se conoce automáticamente el saldo. La estimación histórica 85%/12–20 horas es orientativa, no una medición ponderada de requisitos ni presupuesto de consumo. Reutilizar pruebas aceptadas; agrupar compilaciones y evitar repeticiones sin cambio o fallo concreto. Una tarea pesada local a la vez y apoyo de agentes acotado.
 
-La pausa histórica y sus copias verificadas se conservan. Lote móvil final en compilación; etiquetas web todavía sin publicación GCP. Carga finita: primer intento detenido antes de semilla/medición por faltar OPERATION_SCOPE académico; fuentes/historia conservadas y procesos cerrados. Copias privadas API/worker corregidas a ACADEMIC y TESTING=False, con 24 configuraciones efectivas comprobadas sin debilitar MFA/reauth; reintento pendiente de ventana.
+La pausa histórica y sus copias verificadas se conservan. Lote móvil final en compilación; perfil normal observado todavía vence hoy, se prepara renovación de su perfil con la cuenta existente. Carga finita: primer intento detenido antes de semilla/medición por faltar OPERATION_SCOPE académico; fuentes/historia conservadas y procesos cerrados. Copias privadas API/worker corregidas a ACADEMIC y TESTING=False, con 24 configuraciones efectivas comprobadas sin debilitar MFA/reauth; reintento pendiente de ventana.
+
+## Etiquetas del seguimiento publicadas en GCP — 17/11/2026
+
+[Publicación mínima verificada](documentation/evidencias/entrega-final/gcp-tracking-labels-20261117/RESULTADOS.md) en `sistemas-integracion-01/red-house/me-central1-a`: una fuente JS, imagen derivada y contenedor web; 30 saludables y 29 intactos. LOCAL/monolith/esquema21 conservados, sin migración, IAM, Nginx ni escrituras de negocio. Dos rondas HTTPS verificaron salud/login y SHA exacto del JavaScript. Clave temporal propia retirada, dos anteriores intactas y privada local eliminada. Rollback preparado, sin ejecutar.
+
+Certificado observado hasta 21/11 15:14:23 UTC; temporizador activo/habilitado y servicio anterior exitoso, sin renovación forzada. La cobertura del 23 sigue pendiente. No se repitieron autenticación protegida ni WSS por un ajuste de etiquetas; gate enlaza el recorrido local real del mismo JS.
 
 ## Reconexión móvil verificada y lote nativo agrupado — 17/11/2026
 
