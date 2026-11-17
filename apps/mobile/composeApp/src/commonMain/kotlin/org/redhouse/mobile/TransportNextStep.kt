@@ -16,7 +16,7 @@ internal fun transportAction(role: String, tenant: String, origin: String, desti
 }
 
 internal fun transportLocationSummary(point:JsonObject?,connected:Boolean):String {
-    if(point==null) return "Sin ubicación recibida; el mapa muestra la región."
+    if(point==null) return "Ubicación no disponible en esta vista; el mapa muestra la región."
     val captured=(point["captured_at"] as? JsonPrimitive)?.contentOrNull.orEmpty()
     val whenReceived=if(captured.isBlank()) "hora no disponible" else displayBriefDate(captured)
     val simulated=if(isSimulatedPosition(point)) " · simulada" else ""

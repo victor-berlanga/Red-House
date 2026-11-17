@@ -6,7 +6,13 @@ Las entradas están ordenadas de reciente a histórico; un pendiente de un corte
 
 El usuario autorizó continuar desde la pausa del 17/11, priorizando ahorro de tokens sin reducir los requisitos ni la calidad. Cuando avise que queda aproximadamente 5% de su saldo, detener el avance y preparar un traspaso completo para otro agente: estado comprobado, cambios/commits, pendientes ordenados, comandos, evidencias, procesos activos, límites y riesgos. No se conoce automáticamente el saldo. La estimación histórica 85%/12–20 horas es orientativa, no una medición ponderada de requisitos ni presupuesto de consumo. Reutilizar pruebas aceptadas; agrupar compilaciones y evitar repeticiones sin cambio o fallo concreto. Una tarea pesada local a la vez y apoyo de agentes acotado.
 
-La pausa histórica y sus copias verificadas se conservan. Reconexión móvil en validación dirigida; etiquetas web todavía sin publicación GCP.
+La pausa histórica y sus copias verificadas se conservan. Lote móvil final en compilación; etiquetas web todavía sin publicación GCP. Carga finita: primer intento detenido antes de semilla/medición por faltar OPERATION_SCOPE académico; fuentes/historia conservadas y procesos cerrados. Copias privadas API/worker corregidas a ACADEMIC y TESTING=False, con 24 configuraciones efectivas comprobadas sin debilitar MFA/reauth; reintento pendiente de ventana.
+
+## Reconexión móvil verificada y lote nativo agrupado — 17/11/2026
+
+[Recuperación de seguimiento](documentation/evidencias/entrega-final/mobile/tracking-recovery-20261117/RESULTADOS.md): 13 pruebas JVM dirigidas aprobadas y, en ejecución separada, un ensayo TLS/OkHttp WSS aprobado. Renovación única mediante Session, rechazos terminales preservados, ocho fallos consecutivos y reinicio del contador únicamente por heartbeat posterior a suscripción. Tres sockets cerrados; publicación incierta conservada sin replay automático. El ACK del peer es un doble, no prueba SQL ni iOS. Primer bloqueo del caché Gradle por sandbox conservado; reintento autorizado pasó. Test temporal retirado por hash y peer cerrado.
+
+Dos textos del transportista ahora distinguen ubicación no disponible en la vista y entrega pendiente de recepción institucional. Sin cambios de custodia o permisos; inspección del lote nativo todavía pendiente. Cuatro variantes se compilan juntas reutilizando los ensayos aceptados, sin repetir suites por el empaquetado. Certificado Apple existente válido hasta noviembre de 2027; la vigencia del perfil embebido para el 23 debe comprobarse en cada artefacto.
 
 ## E2E-A Android cerrado en Qt y consultado desde web — 17/11/2026
 

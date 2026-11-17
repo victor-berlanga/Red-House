@@ -1,0 +1,35 @@
+{
+  "status": "PASSED_SCOPED",
+  "source_sha256": {
+    "apps/mobile/composeApp/src/commonMain/kotlin/org/redhouse/mobile/Tracking.kt": "25ca167f9c6ed61a06f75d38172bc980d93ac48a829608c1b89be23d5dadaf40",
+    "apps/mobile/composeApp/src/commonTest/kotlin/org/redhouse/mobile/TrackingReconnectTest.kt": "6ee3d19cd2855e98dabd84afaf4a1c34c3dbed86c22f1ddd6e78a786c060d39e"
+  },
+  "jvm": {
+    "TrackingReconnectTest": 11,
+    "TrackingRecoveryTest": 1,
+    "SessionTest.lostRefreshClearsCredentials": 1,
+    "failures": 0,
+    "skipped": 0,
+    "build_seconds": 237
+  },
+  "controlled_wss": {
+    "tests": 1,
+    "failures": 0,
+    "skipped": 0,
+    "test_seconds": 35.741,
+    "build_seconds": 111,
+    "connections": 3,
+    "closed": 3,
+    "active": 0,
+    "refreshes": 1,
+    "publications": 2,
+    "acknowledgments": 1,
+    "automatic_replays": 0,
+    "pending_preserved": true,
+    "disconnected": true,
+    "peer_exit": 0,
+    "temporary_test_removed_after_hash_check": true
+  },
+  "test_sha256": "27ed0d95edce2e5b2318fbd9de1003982b7fe2ad22fcff21e8430bf6c1885d81",
+  "peer_sha256": "540c154b5dbb3a5315405edeb18fcba735fa3c2e400bd2c38a1974fc9636a020"
+}

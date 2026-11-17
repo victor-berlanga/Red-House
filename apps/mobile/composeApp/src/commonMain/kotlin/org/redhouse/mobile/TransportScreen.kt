@@ -143,7 +143,7 @@ private fun TransportTask(id:String,repository:MobileRepository,queue:Observatio
         val operator=session.user?.text("role")=="OPERATOR"
         val final=task.text("status") in setOf("ACCEPTED","CANCELLED","REJECTED")
         val action=transportAction(session.user?.text("role").orEmpty(),session.user?.text("tenant_id").orEmpty(),task.text("origin_id"),task.text("destination_id"),task.text("status"))
-        val nextStep=when(action){"PREPARED"->"Preparar unidad";"COLLECTED"->"Confirmar recolección";"IN_TRANSIT"->"Iniciar traslado";"DELIVERED"->"Confirmar entrega física";"ACCEPTED"->"Aceptar recepción logística";else->if(task.text("status")=="PLANNED") "La institución prepara la unidad" else "Esperando la siguiente etapa"}
+        val nextStep=when(action){"PREPARED"->"Preparar unidad";"COLLECTED"->"Confirmar recolección";"IN_TRANSIT"->"Iniciar traslado";"DELIVERED"->"Confirmar entrega física";"ACCEPTED"->"Aceptar recepción logística";else->when(task.text("status")){"PLANNED"->"La institución prepara la unidad";"DELIVERED"->"La institución debe confirmar la recepción";else->"Esperando la siguiente etapa"}}
         LaunchedEffect(action) {if(action==null) {transferView=false;transferStage=1}}
         if(transferView) Row(verticalAlignment=androidx.compose.ui.Alignment.CenterVertically) {
             TextButton(onClick={transferView=false}) {Text("Volver al mapa")}
