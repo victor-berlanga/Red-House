@@ -10,6 +10,27 @@ Estado de corte: documentación de apoyo en curso. Este índice ordena evidencia
 
 Los tres ensayos son evidencias separadas; la secuencia no se ha aceptado como una única demostración integral ni acredita por sí sola los tres flujos integrales exigidos. Antes de grabar, confirmar la versión desplegada siguiendo el [procedimiento GCE](../../../deployment/gcp/README.md). El paquete actual de escritorio es [macOS Intel](../../evidencias/entrega-final/desktop/paquete-mac-20261114/RESULTADOS.md); los paquetes móviles constan en el [registro de compilación y firma](../../evidencias/entrega-final/mobile/seguimiento-20261114/paquetes.md).
 
+## Guion del video (temas que pide la consigna)
+
+Video breve, unos 10 a 12 minutos. Grabar contra la VM encendida (`https://34.18.186.116`), con cuentas sintéticas y **sin mostrar contraseñas ni códigos MFA** (pausar la grabación al iniciar sesión). Pasos de prueba y cuentas: [guía de prueba manual](../../markdowns/Guia_prueba_manual.md).
+
+| # | Tema | Qué mostrar | Dónde |
+|---|---|---|---|
+| 1 | El problema | Información dispersa entre bancos de sangre y hospitales; demoras y falta de trazabilidad | Reporte técnico, sección 2 |
+| 2 | La arquitectura | Diagrama: portal, 12 servicios, PostgreSQL, MongoDB, Redis, GCS, Nginx; JSON para móvil, XML para escritorio | [despliegue.svg](../modelos/diagramas/despliegue.svg), reporte sección 4 |
+| 3 | El sistema web | Panel por perfil; inventario, solicitud y traslado | Portal, proceso 1 de la guía |
+| 4 | La aplicación móvil | Transportista: tarea, escaneo, sello, entrega y mapa; donante: reservar cita | App Android (APK del Release) |
+| 5 | La aplicación de escritorio | Médico u operador: muestras, resultados, colecta y reporte en XML | Consola PySide6 |
+| 6 | Los microservicios | Los 12 servicios con dos réplicas; `/health/ready` de cada uno | `sudo python3 /opt/redhouse/deployment/gcp/fallo.py estado` |
+| 7 | Swagger | Swagger UI de un servicio y una operación con su contrato | `https://34.18.186.116/services/inventario/docs/` |
+| 8 | El monitoreo | Panel «Estado de la plataforma» y «Diagnóstico técnico» (con `auditor1`) | Portal |
+| 9 | La nube | Consola GCP: VM, IP estática, firewall 80/443 y bucket GCS con objetos privados | Consola de Google Cloud |
+| 10 | El algoritmo | Evaluación de candidatos: entradas, puntaje explicado y decisión humana | Reporte sección 9, [Algoritmos](../../markdowns/Algoritmos.md) |
+| 11 | Las pruebas de carga | Gráficas y tabla de Locust: usuarios, RPS, p95/p99, errores | [Resultados de carga](../../evidencias/entrega-final/) más recientes, reporte sección 15 |
+| 12 | La integración | Un proceso completo que cruza web → móvil → escritorio, y la bitácora de Auditoría con cada paso | Procesos 1 a 3 de la guía |
+
+Cierre sugerido: un fallo en vivo (`fallo.py microservicio` y `restablecer`) para mostrar detección y recuperación.
+
 ## Quién debe participar
 
 El equipo asigna integrantes y confirma autoría; este documento no atribuye nombres ni contribuciones. Perfiles para el recorrido: operador de laboratorio, personal médico autorizado, coordinador y transportista. Una persona del equipo presenta y otra registra incidencias si el grupo así lo decide. Las reflexiones deben redactarlas y aprobarlas sus autores.

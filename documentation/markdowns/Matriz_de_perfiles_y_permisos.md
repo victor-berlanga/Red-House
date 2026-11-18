@@ -62,6 +62,10 @@ Los códigos describen el tipo de acción, no una jerarquía entre perfiles. Un 
 
 El consumo de microservicios será indirecto a través del sistema web o de las aplicaciones cliente. El perfil no modifica esta separación ni habilita conexiones directas con los almacenes de datos.
 
+### 3.1 Mismos perfiles en todas las aplicaciones (corte 18/11/2026)
+
+Los siete perfiles implementados son los mismos en el portal web (monolito), los microservicios, la app móvil y la consola de escritorio: `ADMIN`, `MEDICAL`, `OPERATOR`, `COORDINATOR`, `TRANSPORT`, `AUDITOR` y `DONOR`. Se crean una sola vez en Identidad (`apps/services/scripts/provision.py`) y viajan en el JWT (`role_code`). Ninguna aplicación define perfiles propios: cada una solo decide **qué vista o funciones muestra** para el perfil que recibe. Por ejemplo, el transportista trabaja sobre todo en el móvil y el médico en web y escritorio. **La autorización la decide siempre el servidor**, con el mismo perfil, institución y permisos sin importar desde qué aplicación llegue la petición. Qué ve cada perfil en cada aplicación: [Manual de usuario, sección 1](Manual_de_usuario.md#1-qué-aplicación-usa-cada-perfil). Las cuentas sintéticas por perfil están en la [guía de prueba manual](Guia_prueba_manual.md#2-cuentas).
+
 ## 4. Responsabilidades e información autorizada
 
 | Perfil | Responsabilidades | Información que puede consultar | Información que puede registrar o modificar | Restricciones principales |
