@@ -16,7 +16,9 @@ def test_coordinator_selects_reservation_and_origin_account():
     origin, destination, reservation, resource, route, transport = ids
     class Client:
         access = None
-        user = {'role': 'COORDINATOR'}
+        # Contrato de OperationContext: usuario con ámbito completo y sesión identificada.
+        user = {'id': str(uuid4()), 'tenant_id': origin, 'role': 'COORDINATOR'}
+        session_id = str(uuid4())
         def authorized(self, _service, _path, operation, **_kwargs):
             page = lambda rows: {'items': rows, 'page': 1, 'total': len(rows)}
             if operation == 'institutions': return page([{'id': origin, 'name': 'Hospital Norte'}, {'id': destination, 'name': 'Hospital Sur'}])
@@ -28,6 +30,7 @@ def test_coordinator_selects_reservation_and_origin_account():
             raise AssertionError(operation)
     window = Window()
     window.client = Client()
+    window.journal = object()
     calls, errors = [], []
     window.secure_command = lambda operation, identifier, body: calls.append((operation, identifier, body))
     selected = [False]

@@ -20,11 +20,15 @@ def test_correction_selects_location_and_preserves_documented_data():
             'version': 2, 'status': 'QUARANTINE'}
     class Client:
         access = None
+        # Contrato de OperationContext: usuario con ámbito completo y sesión identificada.
+        user = {'id': str(uuid4()), 'tenant_id': str(uuid4()), 'role': 'OPERATOR'}
+        session_id = str(uuid4())
         def authorized(self, _service, _path, operation, **_kwargs):
             assert operation == 'locations_list_rows'
             return {'items': [{'id': new, 'name': 'Refrigerador 1', 'active': True}], 'page': 1, 'total': 1}
     window = Window()
     window.client = Client()
+    window.journal = object()
     errors = []
     def choose():
         dialog = app.activeModalWidget()

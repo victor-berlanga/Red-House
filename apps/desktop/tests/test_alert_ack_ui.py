@@ -13,7 +13,13 @@ app.setStyleSheet(STYLE)
 
 
 def account(tenant, actor):
-    return SimpleNamespace(user={'id': actor, 'tenant_id': tenant, 'role': 'OPERATOR'})
+    # Contrato de OperationContext: usuario con ámbito completo y sesión identificada.
+    return SimpleNamespace(user={'id': actor, 'tenant_id': tenant, 'role': 'OPERATOR'}, session_id=str(uuid4()), access=None)
+
+
+def signed_in(tenant, actor):
+    window = Window(); window.client = account(tenant, actor); window.journal = object()
+    return window
 
 
 def choose(button_name, errors, before=None, capture=False):
@@ -23,7 +29,7 @@ def choose(button_name, errors, before=None, capture=False):
         buttons = {button.text(): button for button in dialog.buttons()}
         assert set(buttons) == {'Confirmar', 'Cancelar'}
         assert dialog.defaultButton() is buttons['Cancelar']
-        if capture:
+        if capture and os.environ.get('DESKTOP_CAPTURE_DIR'):
             app.processEvents()
             assert dialog.grab().save(str(Path(os.environ['DESKTOP_CAPTURE_DIR']) / 'confirmacion-es.png'))
         if before: before()
@@ -34,7 +40,7 @@ def choose(button_name, errors, before=None, capture=False):
 
 def test_acknowledgement_uses_secure_command(monkeypatch):
     tenant, actor, identifier = (str(uuid4()) for _ in range(3))
-    window = Window(); window.client = account(tenant, actor)
+    window = signed_in(tenant, actor)
     monkeypatch.setattr(window, 'selected', lambda: {'id': identifier, 'status': 'OPEN'})
     commands, errors = [], []; monkeypatch.setattr(window, 'secure_command', lambda *args: commands.append(args))
     QTimer.singleShot(0, lambda: choose('Confirmar', errors, capture=True)); window.acknowledge()
@@ -43,7 +49,7 @@ def test_acknowledgement_uses_secure_command(monkeypatch):
 
 def test_acknowledgement_rejects_session_change(monkeypatch):
     tenant, actor = str(uuid4()), str(uuid4())
-    window = Window(); window.client = account(tenant, actor)
+    window = signed_in(tenant, actor)
     monkeypatch.setattr(window, 'selected', lambda: {'id': str(uuid4()), 'status': 'OPEN'})
     commands, errors = [], []; monkeypatch.setattr(window, 'secure_command', lambda *args: commands.append(args))
     QTimer.singleShot(0, lambda: choose('Confirmar', errors, before=lambda: setattr(window, 'client', account(tenant, str(uuid4())))))
@@ -53,7 +59,7 @@ def test_acknowledgement_rejects_session_change(monkeypatch):
 
 def test_cancelling_acknowledgement_sends_nothing(monkeypatch):
     tenant, actor = str(uuid4()), str(uuid4())
-    window = Window(); window.client = account(tenant, actor)
+    window = signed_in(tenant, actor)
     monkeypatch.setattr(window, 'selected', lambda: {'id': str(uuid4()), 'status': 'OPEN'})
     commands, errors = [], []; monkeypatch.setattr(window, 'secure_command', lambda *args: commands.append(args))
     QTimer.singleShot(0, lambda: choose('Cancelar', errors)); window.acknowledge()

@@ -2,6 +2,8 @@
 
 import os
 from pathlib import Path
+from types import SimpleNamespace
+from uuid import uuid4
 
 from PySide6.QtCore import QTimer
 from PySide6.QtWidgets import (
@@ -18,13 +20,25 @@ app = QApplication.instance() or QApplication([])
 app.setStyleSheet(STYLE)
 
 
+def signed_in():
+    # Contrato de OperationContext: usuario con ámbito completo, sesión y diario.
+    window = Window()
+    window.client = SimpleNamespace(
+        user={"id": str(uuid4()), "tenant_id": str(uuid4()), "role": "MEDICAL"},
+        session_id=str(uuid4()),
+        access=None,
+    )
+    window.journal = object()
+    return window
+
+
 def capture(dialog, name):
     if os.environ.get("DESKTOP_CAPTURE_DIR"):
         assert dialog.grab().save(str(Path(os.environ["DESKTOP_CAPTURE_DIR"]) / name))
 
 
 def test_register_recipient_with_documented_values():
-    window = Window()
+    window = signed_in()
     recorded = []
     window.secure_command = lambda *args: recorded.append(args)
 
@@ -60,7 +74,7 @@ def test_register_recipient_with_documented_values():
 
 
 def test_edit_request_includes_version_and_confirmation():
-    window = Window()
+    window = signed_in()
     recorded = []
     window.secure_command = lambda *args: recorded.append(args)
     request = {
@@ -95,7 +109,7 @@ def test_edit_request_includes_version_and_confirmation():
 
 
 def test_cancel_requires_reason_and_version():
-    window = Window()
+    window = signed_in()
     recorded = []
     window.secure_command = lambda *args: recorded.append(args)
     request = {
@@ -137,7 +151,7 @@ def test_operator_can_list_but_cannot_modify_recipients():
 
 
 def test_changing_kind_clears_and_hides_previous_organ():
-    window = Window()
+    window = signed_in()
     observed = []
 
     def inspect():

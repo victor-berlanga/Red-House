@@ -11,7 +11,9 @@ app = QApplication.instance() or QApplication([])
 app.setStyleSheet(STYLE)
 
 class FakeClient:
-    user={'username':'operador','role':'OPERATOR'}
+    # Contrato de OperationContext: usuario con ámbito completo y sesión identificada.
+    user={'username':'operador','id':'00000000-0000-4000-8000-0000000000a1','tenant_id':'00000000-0000-4000-8000-0000000000b1','role':'OPERATOR'}
+    session_id='00000000-0000-4000-8000-0000000000c1'
     access=None
     calls=0
     def authorized(self,*args,**kwargs):
@@ -68,7 +70,7 @@ def test_recovery_reuses_original_key_and_body(tmp_path,monkeypatch):
     journal.prepare({'key':'original-key','body':body,'state':'UNCERTAIN','operation_id':None,'status':None})
     calls=[]
     class Client:
-        user={'role':'MEDICAL'}; access=None
+        user={'id':'user','tenant_id':'tenant','role':'MEDICAL'}; session_id='00000000-0000-4000-8000-0000000000c2'; access=None
         def authorized(self,*args,**kwargs):
             from redhouse_desktop.client import ApiError
             calls.append((args,kwargs))
@@ -77,7 +79,7 @@ def test_recovery_reuses_original_key_and_body(tmp_path,monkeypatch):
     monkeypatch.setattr(QMessageBox,'question',lambda *args:QMessageBox.Yes)
     monkeypatch.setattr(QMessageBox,'information',lambda *args:QMessageBox.Ok)
     w=Window(); w.client=Client(); w.journal=journal
-    monkeypatch.setattr(w,'reauthenticate',lambda operation,resource,challenge,continuation:continuation('proof-in-memory'))
+    monkeypatch.setattr(w,'reauthenticate',lambda operation,resource,challenge,continuation,*_context:continuation('proof-in-memory'))
     w.recover_operation(journal.list())
     for _ in range(1000):
         if not w.busy and len(calls)==2: break
@@ -145,11 +147,11 @@ def test_request_picker_reports_selected_recipient(tmp_path,monkeypatch):
     from PySide6.QtCore import QTimer
     from PySide6.QtWidgets import QLabel, QTableWidget
     class Client:
-        user={'role':'MEDICAL'}; access=None
+        user={'id':'00000000-0000-4000-8000-0000000000a2','tenant_id':'00000000-0000-4000-8000-0000000000b2','role':'MEDICAL'}; session_id='00000000-0000-4000-8000-0000000000c3'; access=None
         def authorized(self,*args,**kwargs):
             return {'items':[{'id':'00000000-0000-4000-8000-000000000001','folio':'PACIENTE-FICTICIO','display_name':'Paciente ficticio','status':'ACTIVE','kind':'BLOOD'},
                              {'id':'00000000-0000-4000-8000-000000000002','folio':'ORGANO-FICTICIO','display_name':'Paciente ficticio','status':'ACTIVE','kind':'ORGAN','organ_type':'KIDNEY'}],'page':1,'total':2}
-    window=Window(); window.client=Client(); seen=[]; limits=[]
+    window=Window(); window.client=Client(); window.journal=object(); seen=[]; limits=[]
     def inspect():
         modal=QApplication.activeModalWidget()
         table=modal.findChild(QTableWidget) if modal else None
@@ -173,8 +175,8 @@ def test_resource_form_captures_organ_and_optional_collection(tmp_path,monkeypat
     from pathlib import Path
     from PySide6.QtCore import QDateTime, QTimer
     from PySide6.QtWidgets import QCheckBox, QComboBox, QDateTimeEdit, QLineEdit, QMessageBox, QPushButton
-    window=Window(); window.client=FakeClient(); submitted=[]; warnings=[]
-    monkeypatch.setattr(window,'durable',lambda operation,identifier,body:submitted.append((operation,body)))
+    window=Window(); window.client=FakeClient(); window.journal=object(); submitted=[]; warnings=[]
+    monkeypatch.setattr(window,'secure_command',lambda operation,identifier,body:submitted.append((operation,body)))
     monkeypatch.setattr(window,'received',lambda:None)
     monkeypatch.setattr(QMessageBox,'warning',lambda *args:warnings.append(True))
     def fill():

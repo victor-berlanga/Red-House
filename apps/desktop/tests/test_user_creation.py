@@ -103,8 +103,9 @@ def test_user_form_requires_explicit_profile(monkeypatch):
     monkeypatch.setattr(desktop,'USER_CREATION_ENABLED',True)
     class Client:
         user={'id':str(uuid4()),'tenant_id':str(uuid4()),'role':'ADMIN'}
+        session_id=str(uuid4())
         access=None
-    window=desktop.Window(); window.client=Client(); seen=[]; cleared=[]
+    window=desktop.Window(); window.client=Client(); window.journal=object(); seen=[]; cleared=[]
     original_clear=QLineEdit.clear
     def clear(field):
         if field.echoMode()==QLineEdit.Password: cleared.append(True)

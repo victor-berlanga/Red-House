@@ -51,16 +51,19 @@ def test_session_replaced_after_modal_never_prepares_command(monkeypatch):
 
     resource = {'id': str(uuid4()), 'status': 'QUARANTINE', 'kind': 'BLOOD', 'donation_id': str(uuid4())}
     class Client:
-        def __init__(self): self.user = {'id': str(uuid4()), 'tenant_id': str(uuid4()), 'role': 'OPERATOR'}
+        def __init__(self):
+            self.user = {'id': str(uuid4()), 'tenant_id': str(uuid4()), 'role': 'OPERATOR'}
+            self.session_id = str(uuid4())
         def authorized(self, *_args, **_kwargs): return resource
     window = Window()
     window.client = Client()
+    window.journal = object()
     calls = []
     monkeypatch.setattr(window, 'selected', lambda: resource)
-    monkeypatch.setattr(window, 'run', lambda work, success, _message: success(work()))
+    monkeypatch.setattr(window, 'run', lambda work, success, _message, _failure=None: success(work()))
     monkeypatch.setattr(window, 'secure_command', lambda *args: calls.append(args))
     def replace_session(_window, _resource):
-        window.client = SimpleNamespace(user={'id': str(uuid4()), 'tenant_id': str(uuid4()), 'role': 'OPERATOR'})
+        window.client = SimpleNamespace(user={'id': str(uuid4()), 'tenant_id': str(uuid4()), 'role': 'OPERATOR'}, session_id=str(uuid4()))
         return {'children': []}
     monkeypatch.setattr(desktop, 'fractionation_dialog', replace_session)
     window.fractionate_resource()
@@ -84,13 +87,14 @@ def test_two_derivatives_remain_reachable_in_scroll_area():
             next(x for x in dialog.findChildren(QLineEdit) if x.maxLength() == 1000).setText('Procesamiento documentado')
             dialog.findChild(QCheckBox).setChecked(True)
             app.processEvents()
-            output = Path(os.environ['DESKTOP_CAPTURE_DIR'])
-            assert dialog.grab().save(str(output / 'derivados-primero.png'))
+            # Las capturas son opcionales: el CI no define DESKTOP_CAPTURE_DIR.
+            output = os.environ.get('DESKTOP_CAPTURE_DIR')
+            if output: assert dialog.grab().save(str(Path(output) / 'derivados-primero.png'))
             scroll = dialog.findChild(QScrollArea)
             scroll.ensureWidgetVisible(dialog.findChildren(QDateTimeEdit)[1])
             app.processEvents()
             assert scroll.verticalScrollBar().value() > 0
-            assert dialog.grab().save(str(output / 'derivados-segundo.png'))
+            if output: assert dialog.grab().save(str(Path(output) / 'derivados-segundo.png'))
             next(x for x in dialog.findChildren(QPushButton) if x.text() == 'Registrar derivados').click()
         except Exception as exc:  # noqa: BLE001 - sin datos privados
             errors.append(type(exc).__name__)

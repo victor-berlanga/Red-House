@@ -2,6 +2,7 @@
 
 import os
 from pathlib import Path
+from uuid import uuid4
 
 from PySide6.QtCore import QTimer
 from PySide6.QtWidgets import (
@@ -26,7 +27,9 @@ def test_sample_form_uses_selected_unit_profile_and_documented_time():
         access = None
 
         def __init__(self):
-            self.user = {"role": "OPERATOR"}
+            # Contrato de OperationContext: usuario con ámbito completo y sesión identificada.
+            self.user = {"id": str(uuid4()), "tenant_id": str(uuid4()), "role": "OPERATOR"}
+            self.session_id = str(uuid4())
 
         def authorized(self, service, path, operation, **kwargs):
             if operation == "resources_list":
@@ -52,6 +55,7 @@ def test_sample_form_uses_selected_unit_profile_and_documented_time():
             return {"items": rows, "page": 1, "page_size": 20, "total": 1}
 
     window.client = Client()
+    window.journal = object()
     window.secure_command = lambda operation, identifier, body: calls.append(
         (operation, identifier, body)
     )

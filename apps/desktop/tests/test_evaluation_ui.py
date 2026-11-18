@@ -186,6 +186,8 @@ def test_new_evaluation_fetches_validity_before_opening(monkeypatch):
     seen = []
 
     class Client:
+        user = {"id": str(uuid4()), "tenant_id": str(uuid4()), "role": "MEDICAL"}
+        session_id = str(uuid4())
         access = None
 
         def authorized(self, service, path, operation, **kwargs):
@@ -193,9 +195,11 @@ def test_new_evaluation_fetches_validity_before_opening(monkeypatch):
             return {"id": "evaluation", "validity": {"current": True}, "candidates": []}
 
     window.client = Client()
+    window.journal = object()
     window.selected = lambda: {"id": "request"}
-    window.durable = lambda *args: {"id": "evaluation"}
-    window.run = lambda fn, success, label: success(fn())
+    # El alta segura confirma la evaluación y entrega su identificador al callback.
+    window.secure_command = lambda operation, identifier, body, success: success({"id": "evaluation"})
+    window.run = lambda fn, success, label, failure=None: success(fn())
     window.evaluation_detail = lambda value: seen.append(value)
     monkeypatch.setattr(
         QMessageBox, "question", lambda *args, **kwargs: QMessageBox.Yes
