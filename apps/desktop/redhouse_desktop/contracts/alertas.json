@@ -345,6 +345,131 @@
         }
       }
     },
+    "/api/v1/alerts/{identifier}": {
+      "get": {
+        "operationId": "alert_detail",
+        "summary": "Detalle de un aviso de la bandeja autorizada",
+        "parameters": [
+          {
+            "name": "identifier",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-Correlation-ID",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "application/json",
+                "application/xml"
+              ]
+            }
+          }
+        ],
+        "description": "Roles: según sesión. Contrato público de API.",
+        "security": [
+          {
+            "BearerJWT": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resultado confirmado o estado pendiente documentado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_alert_detail"
+                },
+                "example": {
+                  "data": {
+                    "id": "00000000-0000-4000-8000-000000000001",
+                    "event_id": "00000000-0000-4000-8000-000000000001",
+                    "tenant_id": "00000000-0000-4000-8000-000000000001",
+                    "region_id": "00000000-0000-4000-8000-000000000001",
+                    "target_role": "Dato ficticio para reemplazar",
+                    "target_user_id": "00000000-0000-4000-8000-000000000001",
+                    "message_code": "RESOURCE_CREATED",
+                    "resource_id": "00000000-0000-4000-8000-000000000001",
+                    "status": "Dato ficticio para reemplazar",
+                    "acknowledged_by": "00000000-0000-4000-8000-000000000001",
+                    "created_at": "2030-01-01T15:00:00+00:00",
+                    "severity": "Dato ficticio para reemplazar"
+                  },
+                  "meta": {
+                    "correlation_id": "00000000-0000-4000-8000-000000000001",
+                    "service": "alertas",
+                    "version": "0.4.1"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "<?xml version='1.0' encoding='UTF-8'?>\n<response type=\"object\"><field name=\"data\" type=\"object\"><field name=\"id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"event_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"tenant_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"region_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"target_role\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"target_user_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"message_code\" type=\"string\">RESOURCE_CREATED</field><field name=\"resource_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"status\" type=\"string\">Dato ficticio para reemplazar</field><field name=\"acknowledged_by\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"created_at\" type=\"string\">2030-01-01T15:00:00+00:00</field><field name=\"severity\" type=\"string\">Dato ficticio para reemplazar</field></field><field name=\"meta\" type=\"object\"><field name=\"correlation_id\" type=\"string\">00000000-0000-4000-8000-000000000001</field><field name=\"service\" type=\"string\">alertas</field><field name=\"version\" type=\"string\">0.4.1</field></field></response>",
+                "x-json-equivalent-schema": {
+                  "$ref": "#/components/schemas/Response_alert_detail"
+                },
+                "x-xsd": "/schemas/response.xsd",
+                "x-response-schema": "/schemas/alert_detail.response.json"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "406": {
+            "$ref": "#/components/responses/Error406"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "412": {
+            "$ref": "#/components/responses/Error412"
+          },
+          "413": {
+            "$ref": "#/components/responses/Error413"
+          },
+          "415": {
+            "$ref": "#/components/responses/Error415"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
+          }
+        }
+      }
+    },
     "/api/v1/alerts/{identifier}/acknowledge": {
       "post": {
         "operationId": "alert_ack",
@@ -2050,6 +2175,95 @@
               "page",
               "page_size",
               "total"
+            ]
+          },
+          "meta": {
+            "type": "object",
+            "required": [
+              "correlation_id",
+              "service",
+              "version"
+            ],
+            "properties": {
+              "correlation_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "service": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "Response_alert_detail": {
+        "type": "object",
+        "required": [
+          "data",
+          "meta"
+        ],
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "event_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "tenant_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "region_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "target_role": {
+                "type": "string"
+              },
+              "target_user_id": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "format": "uuid"
+              },
+              "message_code": {
+                "type": "string"
+              },
+              "resource_id": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "acknowledged_by": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "format": "uuid"
+              },
+              "created_at": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "severity": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            },
+            "required": [
+              "id"
             ]
           },
           "meta": {
