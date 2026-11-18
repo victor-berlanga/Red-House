@@ -66,6 +66,25 @@ def test_donor_campaign_appointment_review_and_alert(p):
         and a["resource_id"] == appointment["id"]
         for a in alerts["items"]
     )
+    # Regresión «Ver detalle» de Avisos (Android C): el detalle de un aviso propio existe,
+    # coincide con la bandeja y no se expone a otro destinatario.
+    booked = next(
+        a
+        for a in alerts["items"]
+        if a["message_code"] == "APPOINTMENT_BOOKED"
+        and a["resource_id"] == appointment["id"]
+    )
+    detail = p.ok("alertas", "GET", f"/api/v1/alerts/{booked['id']}", user="donor1")
+    assert detail["id"] == booked["id"]
+    assert detail["message_code"] == "APPOINTMENT_BOOKED"
+    assert detail["status"] == booked["status"]
+    assert "severity" in detail
+    other = p.request("alertas", "GET", f"/api/v1/alerts/{booked['id']}", user="donor2")
+    assert other.status_code == 404, other.text
+    missing = p.request(
+        "alertas", "GET", "/api/v1/alerts/00000000-0000-4000-8000-000000000000", user="donor1"
+    )
+    assert missing.status_code == 404, missing.text
     p.ok(
         "donantes",
         "POST",

@@ -91,6 +91,66 @@
       "total"
     ]
   },
+  "alert_detail": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "event_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "tenant_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "region_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "target_role": {
+        "type": "string"
+      },
+      "target_user_id": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "uuid"
+      },
+      "message_code": {
+        "type": "string"
+      },
+      "resource_id": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "acknowledged_by": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "uuid"
+      },
+      "created_at": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "severity": {
+        "type": [
+          "string",
+          "null"
+        ]
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
   "alert_ack": {
     "type": "object",
     "properties": {

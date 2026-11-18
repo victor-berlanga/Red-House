@@ -2,6 +2,27 @@
 
 Las entradas están ordenadas de reciente a histórico; un pendiente de un corte anterior puede quedar sustituido explícitamente por una entrada posterior.
 
+## Android C «Ver detalle» de Avisos: causa en el backend corregida — 17/11/2026
+
+Continuación desde el traspaso, en un Mac nuevo (Darwin arm64), por Alberto Reyna con Claude Code. **Causa:** Alertas no
+publicaba `GET /api/v1/alerts/{identifier}`; solo la bandeja, acuse, cierre y entregas. La app pide ese detalle desde
+«Ver detalle» (`OperationalScreens.kt`) y desde el enlace de aviso (`App.kt`), recibía 404 y `ApiFailure` lo mostraba como
+«Respuesta no válida del servicio». No era un fallo de parseo del cliente ni del contrato de bandeja.
+
+**Corrección:** `ms_alertas/routes.py` agrega `alert_detail` con el mismo ámbito de la bandeja (institución, rol y usuario
+destinatario) y la misma severidad derivada; un aviso ajeno responde 404 igual que uno inexistente. Se añadió el esquema de
+salida en `outputs.json` y se regeneró `ms_alertas/contracts/openapi.json` con `scripts/document.py --openapi-only`.
+
+**Pruebas:** regresión dirigida en `tests/test_flows.py::test_donor_campaign_appointment_review_and_alert` (detalle propio
+200 coherente con la bandeja; otro donante 404; identificador inexistente 404): **1 passed**. `test_flows.py` +
+`test_openapi_documentation.py`: **20 passed, 1 failed**. La falla es
+`test_shared_openapi_matches_export_and_preserves_representations[identidad_acceso]` (respuesta 410 sin `$ref` compartido)
+y **ya fallaba en el commit `30e1a84` sin este cambio**; queda pendiente aparte. Motores usados por la suite: PostgreSQL 14,
+MongoDB 8.0 y Redis de Homebrew.
+
+**Pendiente de este caso:** reabrir el aviso ya persistido del worker en el AVD con el fixture conservado, y la recuperación
+tras reinicio. El AVD de origen era x86_64; en este Mac se instaló la imagen `android-30;google_apis;arm64-v8a`.
+
 ## Traspaso por saldo del 5 % — 17/11/2026
 
 El usuario pidió detener desarrollo nuevo y transferir la continuidad a un compañero y Claude Code, incluyendo push y almacenamiento privado en GCP. El punto de entrada es [HANDOFF_CLAUDE_CODE.md](HANDOFF_CLAUDE_CODE.md), acompañado por [CLAUDE.md](CLAUDE.md). Contiene inducción desde cero, requisitos por sistema, decisiones, fuentes académicas, pruebas reutilizables y pendientes ordenados. La estimación de avance sigue siendo aproximadamente 90 %, orientativa; ninguna etapa pendiente se convierte en aprobada por este traspaso.

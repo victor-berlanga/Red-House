@@ -7,6 +7,7 @@ from redhouse.db import get, insert, transaction, update
 from redhouse.errors import APIError
 from redhouse.event_model import Event
 from redhouse.events import consume, emit
+from redhouse.models import validate_id
 
 SOURCES = (
     "donantes",
@@ -94,6 +95,26 @@ def register(app):
                 (g.actor["tenant_id"], g.actor["role"], g.actor["id"]),
                 columns="alerts.*, (SELECT severity FROM alert_severity s WHERE s.id=alerts.id) AS severity",
             )
+
+    @endpoint(
+        app,
+        "/api/v1/alerts/<identifier>",
+        summary="Detalle de un aviso de la bandeja autorizada",
+    )
+    def alert_detail(identifier):
+        # Mismo ámbito que la bandeja: institución, rol y usuario destinatario. Un aviso
+        # ajeno responde 404 igual que uno inexistente, para no revelar que existe.
+        validate_id(identifier)
+        with transaction() as conn:
+            row = conn.execute(
+                "SELECT alerts.*, (SELECT severity FROM alert_severity s WHERE s.id=alerts.id) AS severity"
+                " FROM alerts WHERE id=%s AND tenant_id=%s AND target_role=%s"
+                " AND (target_user_id IS NULL OR target_user_id=%s)",
+                (identifier, g.actor["tenant_id"], g.actor["role"], g.actor["id"]),
+            ).fetchone()
+        if not row:
+            raise APIError("not_found", "Recurso inexistente.", 404)
+        return row
 
     @endpoint(
         app,
