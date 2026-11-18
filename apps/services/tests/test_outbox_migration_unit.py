@@ -40,7 +40,9 @@ def test_upgrade_20_applies_21_once_and_skips_it_on_resume(migration_context):
     assert views.call_count == grants.call_count == 2
 
 
-def test_failed_index_creation_propagates_before_view_or_grant_updates(migration_context):
+def test_failed_index_creation_propagates_before_view_or_grant_updates(
+    migration_context,
+):
     views, grants, migration = migration_context
 
     def execute(statement):

@@ -174,7 +174,10 @@ def parse(model):
             # Serialize schema construction; validators/error logs remain request-local.
             with XML_SCHEMA_COMPILE_LOCK:
                 schema_parser = E.XMLParser(
-                    resolve_entities=False, load_dtd=False, no_network=True, huge_tree=False
+                    resolve_entities=False,
+                    load_dtd=False,
+                    no_network=True,
+                    huge_tree=False,
                 )
                 validator = E.XMLSchema(E.fromstring(request_xsd(model), schema_parser))
             if not validator.validate(tree):

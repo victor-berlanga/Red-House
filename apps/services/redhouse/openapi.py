@@ -332,9 +332,7 @@ def spec(app):
                     },
                 },
             }
-            operation["responses"]["410"] = {
-                "$ref": "#/components/responses/Error410"
-            }
+            operation["responses"]["410"] = {"$ref": "#/components/responses/Error410"}
         paths.setdefault(path, {})[contract["method"].lower()] = operation
     document = {
         "openapi": "3.1.0",

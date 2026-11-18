@@ -123,7 +123,9 @@ def test_connection_refused_is_controlled():
     ids=["html", "html-502", "lista", "sin-meta", "sin-data", "truncado"],
 )
 def test_invalid_response_is_controlled(status, body, content_type):
-    server, _ = serve(lambda handler, release: reply(handler, status, body, content_type))
+    server, _ = serve(
+        lambda handler, release: reply(handler, status, body, content_type)
+    )
     try:
         error, _ = invoke(f"http://127.0.0.1:{server.server_port}")
     finally:
@@ -146,8 +148,13 @@ def test_connection_closed_without_response_is_controlled():
 
 def test_dependency_error_keeps_its_code():
     # Contraste: un error válido de la dependencia no se disfraza de indisponibilidad.
-    envelope = {"meta": {}, "error": {"code": "conflict", "message": "Versión distinta."}}
-    server, _ = serve(lambda handler, release: reply(handler, 409, json.dumps(envelope)))
+    envelope = {
+        "meta": {},
+        "error": {"code": "conflict", "message": "Versión distinta."},
+    }
+    server, _ = serve(
+        lambda handler, release: reply(handler, 409, json.dumps(envelope))
+    )
     try:
         error, _ = invoke(f"http://127.0.0.1:{server.server_port}")
     finally:
@@ -157,7 +164,9 @@ def test_dependency_error_keeps_its_code():
 
 def test_valid_response_returns_data():
     envelope = {"meta": {"request_id": "x"}, "data": {"ok": True}}
-    server, _ = serve(lambda handler, release: reply(handler, 200, json.dumps(envelope)))
+    server, _ = serve(
+        lambda handler, release: reply(handler, 200, json.dumps(envelope))
+    )
     try:
         app = app_for(f"http://127.0.0.1:{server.server_port}")
         with app.test_request_context("/"):

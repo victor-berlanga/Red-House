@@ -82,7 +82,10 @@ def test_donor_campaign_appointment_review_and_alert(p):
     other = p.request("alertas", "GET", f"/api/v1/alerts/{booked['id']}", user="donor2")
     assert other.status_code == 404, other.text
     missing = p.request(
-        "alertas", "GET", "/api/v1/alerts/00000000-0000-4000-8000-000000000000", user="donor1"
+        "alertas",
+        "GET",
+        "/api/v1/alerts/00000000-0000-4000-8000-000000000000",
+        user="donor1",
     )
     assert missing.status_code == 404, missing.text
     p.ok(

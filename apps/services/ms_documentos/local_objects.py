@@ -83,7 +83,10 @@ def install(app):
                 response = Response(content, content_type=row["mime_type"])
                 response.headers["Content-Disposition"] = "attachment"
                 return response
-            if row["status"] not in ("PENDING", "MISSING") or str(row["owner_id"]) != g.actor["id"]:
+            if (
+                row["status"] not in ("PENDING", "MISSING")
+                or str(row["owner_id"]) != g.actor["id"]
+            ):
                 raise APIError("conflict", "Carga no disponible.", 409)
             if shipment["status"] in (
                 "ACCEPTED",

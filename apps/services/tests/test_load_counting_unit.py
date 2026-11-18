@@ -10,7 +10,10 @@ def test_same_label_keeps_http_transaction_and_drain_counts_separate(count_field
     rows = [
         {"method": method, "name": "Shared label", count_field: count}
         for method, count in (
-            ("TRANSACTION", 199), ("DRAIN", 1), ("GET", 2), ("POST", 3)
+            ("TRANSACTION", 199),
+            ("DRAIN", 1),
+            ("GET", 2),
+            ("POST", 3),
         )
     ]
     http, by_method = request_counts(rows, count_field)

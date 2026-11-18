@@ -486,7 +486,9 @@ def table(
             )
         ]
         if "id" in row:
-            row.setdefault("reference", row.get("folio") or "REG-" + row["id"][:8].upper())
+            row.setdefault(
+                "reference", row.get("folio") or "REG-" + row["id"][:8].upper()
+            )
         row["_action_key"] = uuid4().hex
     pages = max(1, math.ceil(data["total"] / 20))
     pagination = []

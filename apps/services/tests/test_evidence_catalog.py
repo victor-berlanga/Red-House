@@ -101,7 +101,11 @@ def test_all_registered_routes_expose_real_http_contracts_and_controlled_errors(
                 )
                 if contract.get("public") and contract["method"] == "GET":
                     # Lectura pública por diseño (p. ej. catálogo de instituciones del registro).
-                    assert result.status_code == 200, (service, path, result.status_code)
+                    assert result.status_code == 200, (
+                        service,
+                        path,
+                        result.status_code,
+                    )
                     continue
                 assert result.status_code in (400, 401, 403, 415, 422), (
                     service,

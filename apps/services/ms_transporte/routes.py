@@ -474,11 +474,9 @@ def register(app):
                             "Responsable de entrega/recepción no habilitado para este paso.",
                             409,
                         )
-                    if (
-                        data["custody"]["scanned_resource_id"]
-                        != validation["resource_id"]
-                        or state not in ("COLLECTED", "DELIVERED", "ACCEPTED")
-                    ):
+                    if data["custody"]["scanned_resource_id"] != validation[
+                        "resource_id"
+                    ] or state not in ("COLLECTED", "DELIVERED", "ACCEPTED"):
                         raise APIError(
                             "custody_mismatch",
                             "Escaneo o paso de custodia incompatible.",

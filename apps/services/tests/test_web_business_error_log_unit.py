@@ -52,7 +52,9 @@ def test_business_error_reference_is_logged(caplog):
     page = response.get_data(as_text=True)
     reference = page.split("Referencia: <code>", 1)[1].split("</code>", 1)[0]
     assert reference and reference != "no-disponible"
-    lines = [r.getMessage() for r in caplog.records if "web_business_error" in r.getMessage()]
+    lines = [
+        r.getMessage() for r in caplog.records if "web_business_error" in r.getMessage()
+    ]
     assert lines == [
         f"web_business_error correlation={reference} status=403 code=- endpoint=public.live"
     ]

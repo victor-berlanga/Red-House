@@ -396,7 +396,9 @@ class FiniteRoleUser(HttpUser):
         except BaseException as exc:
             self.environment.process_exit_code = 1
             # A failed startup still owns a session; compensate before stopping peers.
-            self.environment._redhouse_load_cleanup.schedule_close(self.api, self.client)
+            self.environment._redhouse_load_cleanup.schedule_close(
+                self.api, self.client
+            )
             gevent.spawn(self.environment.runner.quit)
             if not isinstance(exc, Exception):
                 raise
@@ -498,7 +500,9 @@ class FiniteRoleUser(HttpUser):
             raise StopUser() from None
 
     def on_stop(self):
-        diagnostic = getattr(getattr(self, "api", None), "last_challenge_diagnostic", None)
+        diagnostic = getattr(
+            getattr(self, "api", None), "last_challenge_diagnostic", None
+        )
         if diagnostic and self.trace:
             self.trace.emit("challenge_contract_diagnostic", metadata=diagnostic)
             self.api.last_challenge_diagnostic = None

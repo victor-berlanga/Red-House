@@ -35,8 +35,12 @@ class SessionCleanup:
     def schedule_close(self, api, client):
         """Network cleanup must outlive the user greenlet being stopped."""
         token = id(api)
-        if token not in self.closers and any(e[0] is api and e[1] is client for e in self.entries):
-            self.closers[token] = gevent.spawn(self.close_entry, api, client, preserve_error=True)
+        if token not in self.closers and any(
+            e[0] is api and e[1] is client for e in self.entries
+        ):
+            self.closers[token] = gevent.spawn(
+                self.close_entry, api, client, preserve_error=True
+            )
         return self.closers.get(token)
 
     def close_entry(self, api, client, *, preserve_error=False):

@@ -122,7 +122,10 @@ def decode(raw, model=Message, representation="json"):
                 raise ValueError()
             with XML_SCHEMA_COMPILE_LOCK:
                 parser = E.XMLParser(
-                    resolve_entities=False, load_dtd=False, no_network=True, huge_tree=False
+                    resolve_entities=False,
+                    load_dtd=False,
+                    no_network=True,
+                    huge_tree=False,
                 )
                 validator = E.XMLSchema(E.fromstring(request_xsd(model), parser))
             validator.assertValid(tree)
