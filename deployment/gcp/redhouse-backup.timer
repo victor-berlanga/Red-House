@@ -1,0 +1,10 @@
+[Unit]
+Description=Respaldo diario de Red House a las 09:00 UTC (03:00 en Monterrey)
+
+[Timer]
+OnCalendar=*-*-* 09:00:00
+RandomizedDelaySec=600
+# Sin Persistent: si la VM estuvo apagada, no respalda al encender (evita una pausa justo antes de usarla).
+
+[Install]
+WantedBy=timers.target

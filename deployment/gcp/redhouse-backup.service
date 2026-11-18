@@ -1,0 +1,9 @@
+[Unit]
+Description=Respaldo diario de Red House (PostgreSQL, MongoDB, Redis y configuración)
+Requires=docker.service redhouse.service
+After=docker.service redhouse.service
+
+[Service]
+Type=oneshot
+ExecStart=/bin/sh /opt/redhouse/deployment/gcp/daily_backup.sh
+TimeoutStartSec=1800
