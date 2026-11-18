@@ -1,0 +1,294 @@
+{
+  "stage": "finished",
+  "mode": "reads",
+  "users": 12,
+  "logged_in": 12,
+  "login_failures": 0,
+  "distinct_identities": 12,
+  "identities_by_role": {
+    "MEDICAL": 2,
+    "OPERATOR": 2,
+    "COORDINATOR": 2,
+    "AUDITOR": 2,
+    "DONOR": 2,
+    "TRANSPORT": 2
+  },
+  "barrier_seconds": 0.88,
+  "warmup_seconds": 30,
+  "warmup": {
+    "requests": 759,
+    "failures": 0
+  },
+  "measurement_seconds": 120.01,
+  "measurement_min_users": 12,
+  "user_errors": 0,
+  "cache": {
+    "HIT": 397,
+    "MISS": 50
+  },
+  "http_status": {
+    "200": 2900
+  },
+  "measurement": [
+    {
+      "method": "POST",
+      "name": "Identidad / login",
+      "requests": 0,
+      "failures": 0,
+      "requests_per_second": 0.0,
+      "mean_ms": 0.0,
+      "median_ms": 0,
+      "p95_ms": 0,
+      "p99_ms": 0,
+      "max_ms": 0
+    },
+    {
+      "method": "GET",
+      "name": "auditoria / Bitácora",
+      "requests": 223,
+      "failures": 0,
+      "requests_per_second": 1.858172627215355,
+      "mean_ms": 50.25138580052374,
+      "median_ms": 44,
+      "p95_ms": 86,
+      "p99_ms": 170,
+      "max_ms": 306.2076250789687
+    },
+    {
+      "method": "GET",
+      "name": "priorizacion_geografia / Rutas",
+      "requests": 227,
+      "failures": 0,
+      "requests_per_second": 1.891503077927738,
+      "mean_ms": 29.847954467066156,
+      "median_ms": 25,
+      "p95_ms": 56,
+      "p99_ms": 110,
+      "max_ms": 151.71887492761016
+    },
+    {
+      "method": "GET",
+      "name": "inventario / Inventario propio",
+      "requests": 218,
+      "failures": 0,
+      "requests_per_second": 1.816509563824876,
+      "mean_ms": 34.70575329292258,
+      "median_ms": 30,
+      "p95_ms": 68,
+      "p99_ms": 120,
+      "max_ms": 146.84091706294566
+    },
+    {
+      "method": "GET",
+      "name": "inventario / Disponibilidad regional",
+      "requests": 229,
+      "failures": 0,
+      "requests_per_second": 1.9081683032839294,
+      "mean_ms": 31.312672085307668,
+      "median_ms": 28,
+      "p95_ms": 60,
+      "p99_ms": 81,
+      "max_ms": 118.57858300209045
+    },
+    {
+      "method": "GET",
+      "name": "donantes / Agenda propia",
+      "requests": 218,
+      "failures": 0,
+      "requests_per_second": 1.816509563824876,
+      "mean_ms": 29.33306150659577,
+      "median_ms": 26,
+      "p95_ms": 53,
+      "p99_ms": 66,
+      "max_ms": 90.69300000555813
+    },
+    {
+      "method": "GET",
+      "name": "transporte / Tareas propias",
+      "requests": 224,
+      "failures": 0,
+      "requests_per_second": 1.8665052398934505,
+      "mean_ms": 31.100902906993205,
+      "median_ms": 27,
+      "p95_ms": 56,
+      "p99_ms": 94,
+      "max_ms": 168.59512496739626
+    },
+    {
+      "method": "GET",
+      "name": "transporte / Traslados",
+      "requests": 227,
+      "failures": 0,
+      "requests_per_second": 1.891503077927738,
+      "mean_ms": 26.514186705401094,
+      "median_ms": 24,
+      "p95_ms": 48,
+      "p99_ms": 65,
+      "max_ms": 69.14908299222589
+    },
+    {
+      "method": "GET",
+      "name": "donantes / Campañas",
+      "requests": 218,
+      "failures": 0,
+      "requests_per_second": 1.816509563824876,
+      "mean_ms": 27.122997880140062,
+      "median_ms": 23,
+      "p95_ms": 49,
+      "p99_ms": 82,
+      "max_ms": 118.105125031434
+    },
+    {
+      "method": "GET",
+      "name": "receptores / Solicitudes propias",
+      "requests": 229,
+      "failures": 0,
+      "requests_per_second": 1.9081683032839294,
+      "mean_ms": 27.91765868596684,
+      "median_ms": 24,
+      "p95_ms": 55,
+      "p99_ms": 90,
+      "max_ms": 125.12316694483161
+    },
+    {
+      "method": "GET",
+      "name": "alertas / Avisos propios",
+      "requests": 218,
+      "failures": 0,
+      "requests_per_second": 1.816509563824876,
+      "mean_ms": 25.370759007290278,
+      "median_ms": 23,
+      "p95_ms": 45,
+      "p99_ms": 58,
+      "max_ms": 95.54008394479752
+    },
+    {
+      "method": "GET",
+      "name": "alertas / Avisos de traslado",
+      "requests": 224,
+      "failures": 0,
+      "requests_per_second": 1.8665052398934505,
+      "mean_ms": 28.11715440995093,
+      "median_ms": 23,
+      "p95_ms": 55,
+      "p99_ms": 98,
+      "max_ms": 179.82595902867615
+    },
+    {
+      "method": "GET",
+      "name": "monitoreo / Estado regional",
+      "requests": 227,
+      "failures": 0,
+      "requests_per_second": 1.891503077927738,
+      "mean_ms": 26.83955634890805,
+      "median_ms": 24,
+      "p95_ms": 52,
+      "p99_ms": 78,
+      "max_ms": 82.11087493691593
+    },
+    {
+      "method": "GET",
+      "name": "donantes / Feed público",
+      "requests": 218,
+      "failures": 0,
+      "requests_per_second": 1.816509563824876,
+      "mean_ms": 14.771181982172944,
+      "median_ms": 13,
+      "p95_ms": 23,
+      "p99_ms": 34,
+      "max_ms": 84.88695905543864
+    },
+    {
+      "method": "",
+      "name": "Aggregated",
+      "requests": 2900,
+      "failures": 0,
+      "requests_per_second": 24.16457676647771,
+      "mean_ms": 29.498501122880985,
+      "median_ms": 25,
+      "p95_ms": 57,
+      "p99_ms": 92,
+      "max_ms": 306.2076250789687
+    }
+  ],
+  "errors": [],
+  "name": "lecturas-12",
+  "started_utc": "2026-11-18T17:45:12+00:00",
+  "finished_utc": "2026-11-18T17:47:44+00:00",
+  "cache_mode": "active",
+  "exit_code": 0,
+  "resources": {
+    "samples": 56,
+    "servicios_api": {
+      "cpu_percent": {
+        "mean": 39.5,
+        "max": 65.6
+      },
+      "rss_mb": {
+        "mean": 317.5,
+        "max": 407.3
+      }
+    },
+    "workers": {
+      "cpu_percent": {
+        "mean": 7.6,
+        "max": 17.0
+      },
+      "rss_mb": {
+        "mean": 187.3,
+        "max": 278.0
+      }
+    },
+    "postgres": {
+      "cpu_percent": {
+        "mean": 7.5,
+        "max": 95.1
+      },
+      "rss_mb": {
+        "mean": 151.4,
+        "max": 205.4
+      }
+    },
+    "mongodb": {
+      "cpu_percent": {
+        "mean": 0.8,
+        "max": 2.0
+      },
+      "rss_mb": {
+        "mean": 30.3,
+        "max": 38.4
+      }
+    },
+    "redis": {
+      "cpu_percent": {
+        "mean": 1.2,
+        "max": 2.2
+      },
+      "rss_mb": {
+        "mean": 3.6,
+        "max": 3.8
+      }
+    },
+    "locust": {
+      "cpu_percent": {
+        "mean": 3.7,
+        "max": 4.9
+      },
+      "rss_mb": {
+        "mean": 32.4,
+        "max": 34.6
+      }
+    },
+    "sistema": {
+      "available_mb": {
+        "mean": 1248.2,
+        "max": 1345,
+        "min": 1204
+      },
+      "cpu_percent": {
+        "mean": 49.5,
+        "max": 78.9
+      }
+    }
+  }
+}

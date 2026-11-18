@@ -1,0 +1,2084 @@
+{
+  "criterio": {
+    "p95_endpoint_ms_menor_que": 2000,
+    "errores_menor_que_pct": 1.0
+  },
+  "fases": [
+    {
+      "fase": "lecturas-12",
+      "modo": "reads",
+      "usuarios": 12,
+      "sesiones": 12,
+      "identidades_distintas": 12,
+      "peticiones": 2900,
+      "rps": 24.16,
+      "media_ms": 29.5,
+      "p95_global_ms": 57,
+      "p99_global_ms": 92,
+      "p95_max_endpoint_ms": 86,
+      "p99_max_endpoint_ms": 170,
+      "errores": 0,
+      "errores_pct": 0.0,
+      "cache": {
+        "HIT": 397,
+        "MISS": 50
+      },
+      "http_status": {
+        "200": 2900
+      },
+      "cumple": true,
+      "errores_sin_feed_anonimo": 0,
+      "errores_sin_feed_anonimo_pct": 0.0
+    },
+    {
+      "fase": "lecturas-24",
+      "modo": "reads",
+      "usuarios": 24,
+      "sesiones": 24,
+      "identidades_distintas": 24,
+      "peticiones": 5510,
+      "rps": 45.92,
+      "media_ms": 55.5,
+      "p95_global_ms": 130,
+      "p99_global_ms": 420,
+      "p95_max_endpoint_ms": 240,
+      "p99_max_endpoint_ms": 970,
+      "errores": 54,
+      "errores_pct": 0.98,
+      "cache": {
+        "HIT": 787,
+        "MISS": 79
+      },
+      "http_status": {
+        "200": 5456,
+        "429": 48,
+        "503": 6
+      },
+      "cumple": true,
+      "errores_sin_feed_anonimo": 6,
+      "errores_sin_feed_anonimo_pct": 0.12
+    },
+    {
+      "fase": "lecturas-36",
+      "modo": "reads",
+      "usuarios": 36,
+      "sesiones": 36,
+      "identidades_distintas": 36,
+      "peticiones": 8400,
+      "rps": 70.0,
+      "media_ms": 52.5,
+      "p95_global_ms": 120,
+      "p99_global_ms": 280,
+      "p95_max_endpoint_ms": 280,
+      "p99_max_endpoint_ms": 800,
+      "errores": 292,
+      "errores_pct": 3.48,
+      "cache": {
+        "HIT": 1202,
+        "MISS": 119
+      },
+      "http_status": {
+        "200": 8108,
+        "429": 292
+      },
+      "cumple": false,
+      "errores_sin_feed_anonimo": 0,
+      "errores_sin_feed_anonimo_pct": 0.0
+    },
+    {
+      "fase": "lecturas-recuperacion-6",
+      "modo": "reads",
+      "usuarios": 6,
+      "sesiones": 6,
+      "identidades_distintas": 6,
+      "peticiones": 712,
+      "rps": 11.87,
+      "media_ms": 41.9,
+      "p95_global_ms": 95,
+      "p99_global_ms": 510,
+      "p95_max_endpoint_ms": 160,
+      "p99_max_endpoint_ms": 900,
+      "errores": 0,
+      "errores_pct": 0.0,
+      "cache": {
+        "HIT": 100,
+        "MISS": 10
+      },
+      "http_status": {
+        "200": 712
+      },
+      "cumple": true,
+      "errores_sin_feed_anonimo": 0,
+      "errores_sin_feed_anonimo_pct": 0.0
+    },
+    {
+      "fase": "mixta-12",
+      "modo": "mixed",
+      "usuarios": 12,
+      "sesiones": 12,
+      "identidades_distintas": 11,
+      "peticiones": 1920,
+      "rps": 16.0,
+      "media_ms": 27.9,
+      "p95_global_ms": 52,
+      "p99_global_ms": 100,
+      "p95_max_endpoint_ms": 130,
+      "p99_max_endpoint_ms": 130,
+      "errores": 0,
+      "errores_pct": 0.0,
+      "cache": {
+        "MISS": 176,
+        "HIT": 249
+      },
+      "http_status": {
+        "200": 1864,
+        "201": 55,
+        "202": 1
+      },
+      "cumple": true,
+      "errores_sin_feed_anonimo": 0,
+      "errores_sin_feed_anonimo_pct": 0.0
+    },
+    {
+      "fase": "mixta-24",
+      "modo": "mixed",
+      "usuarios": 24,
+      "sesiones": 24,
+      "identidades_distintas": 23,
+      "peticiones": 3625,
+      "rps": 30.21,
+      "media_ms": 37.3,
+      "p95_global_ms": 91,
+      "p99_global_ms": 170,
+      "p95_max_endpoint_ms": 210,
+      "p99_max_endpoint_ms": 890,
+      "errores": 0,
+      "errores_pct": 0.0,
+      "cache": {
+        "HIT": 260,
+        "MISS": 510
+      },
+      "http_status": {
+        "200": 3506,
+        "201": 115,
+        "202": 4
+      },
+      "cumple": true,
+      "errores_sin_feed_anonimo": 0,
+      "errores_sin_feed_anonimo_pct": 0.0
+    },
+    {
+      "fase": "mixta-36",
+      "modo": "mixed",
+      "usuarios": 36,
+      "sesiones": 36,
+      "identidades_distintas": 35,
+      "peticiones": 5359,
+      "rps": 44.66,
+      "media_ms": 44.6,
+      "p95_global_ms": 100,
+      "p99_global_ms": 180,
+      "p95_max_endpoint_ms": 260,
+      "p99_max_endpoint_ms": 780,
+      "errores": 0,
+      "errores_pct": 0.0,
+      "cache": {
+        "MISS": 932,
+        "HIT": 315
+      },
+      "http_status": {
+        "200": 5185,
+        "201": 167,
+        "202": 7
+      },
+      "cumple": true,
+      "errores_sin_feed_anonimo": 0,
+      "errores_sin_feed_anonimo_pct": 0.0
+    },
+    {
+      "fase": "mixta-48",
+      "modo": "mixed",
+      "usuarios": 48,
+      "sesiones": 48,
+      "identidades_distintas": 47,
+      "peticiones": 7040,
+      "rps": 58.66,
+      "media_ms": 60.6,
+      "p95_global_ms": 160,
+      "p99_global_ms": 290,
+      "p95_max_endpoint_ms": 470,
+      "p99_max_endpoint_ms": 700,
+      "errores": 0,
+      "errores_pct": 0.0,
+      "cache": {
+        "MISS": 1427,
+        "HIT": 193
+      },
+      "http_status": {
+        "200": 6775,
+        "201": 255,
+        "202": 10
+      },
+      "cumple": true,
+      "errores_sin_feed_anonimo": 0,
+      "errores_sin_feed_anonimo_pct": 0.0
+    },
+    {
+      "fase": "mixta-recuperacion-12",
+      "modo": "mixed",
+      "usuarios": 12,
+      "sesiones": 12,
+      "identidades_distintas": 11,
+      "peticiones": 963,
+      "rps": 16.05,
+      "media_ms": 31.2,
+      "p95_global_ms": 62,
+      "p99_global_ms": 180,
+      "p95_max_endpoint_ms": 370,
+      "p99_max_endpoint_ms": 370,
+      "errores": 0,
+      "errores_pct": 0.0,
+      "cache": {
+        "MISS": 68,
+        "HIT": 145
+      },
+      "http_status": {
+        "200": 936,
+        "201": 27
+      },
+      "cumple": true,
+      "errores_sin_feed_anonimo": 0,
+      "errores_sin_feed_anonimo_pct": 0.0
+    }
+  ],
+  "perfiles": {
+    "lecturas-12": {
+      "Auditor (JSON)": {
+        "peticiones": 223,
+        "rps": 1.86,
+        "media_ms": 50.3,
+        "p95_max_ms": 86,
+        "p99_max_ms": 170,
+        "errores": 0
+      },
+      "Coordinador (JSON)": {
+        "peticiones": 681,
+        "rps": 5.67,
+        "media_ms": 27.7,
+        "p95_max_ms": 56,
+        "p99_max_ms": 110,
+        "errores": 0
+      },
+      "Donante (JSON)": {
+        "peticiones": 654,
+        "rps": 5.45,
+        "media_ms": 23.2,
+        "p95_max_ms": 53,
+        "p99_max_ms": 66,
+        "errores": 0
+      },
+      "Médico (JSON)": {
+        "peticiones": 458,
+        "rps": 3.82,
+        "media_ms": 29.6,
+        "p95_max_ms": 60,
+        "p99_max_ms": 90,
+        "errores": 0
+      },
+      "Operador (XML)": {
+        "peticiones": 436,
+        "rps": 3.63,
+        "media_ms": 30.9,
+        "p95_max_ms": 68,
+        "p99_max_ms": 120,
+        "errores": 0
+      },
+      "Transportista (JSON)": {
+        "peticiones": 448,
+        "rps": 3.73,
+        "media_ms": 29.6,
+        "p95_max_ms": 56,
+        "p99_max_ms": 98,
+        "errores": 0
+      }
+    },
+    "lecturas-24": {
+      "Auditor (JSON)": {
+        "peticiones": 432,
+        "rps": 3.6,
+        "media_ms": 102.1,
+        "p95_max_ms": 240,
+        "p99_max_ms": 610,
+        "errores": 0
+      },
+      "Coordinador (JSON)": {
+        "peticiones": 1215,
+        "rps": 10.12,
+        "media_ms": 51.6,
+        "p95_max_ms": 160,
+        "p99_max_ms": 690,
+        "errores": 2
+      },
+      "Donante (JSON)": {
+        "peticiones": 1274,
+        "rps": 10.62,
+        "media_ms": 45.5,
+        "p95_max_ms": 140,
+        "p99_max_ms": 970,
+        "errores": 50
+      },
+      "Médico (JSON)": {
+        "peticiones": 868,
+        "rps": 7.23,
+        "media_ms": 53.9,
+        "p95_max_ms": 150,
+        "p99_max_ms": 530,
+        "errores": 0
+      },
+      "Operador (XML)": {
+        "peticiones": 865,
+        "rps": 7.21,
+        "media_ms": 56.2,
+        "p95_max_ms": 150,
+        "p99_max_ms": 890,
+        "errores": 1
+      },
+      "Transportista (JSON)": {
+        "peticiones": 856,
+        "rps": 7.13,
+        "media_ms": 53.3,
+        "p95_max_ms": 130,
+        "p99_max_ms": 570,
+        "errores": 1
+      }
+    },
+    "lecturas-36": {
+      "Auditor (JSON)": {
+        "peticiones": 633,
+        "rps": 5.28,
+        "media_ms": 129.2,
+        "p95_max_ms": 280,
+        "p99_max_ms": 800,
+        "errores": 0
+      },
+      "Coordinador (JSON)": {
+        "peticiones": 1905,
+        "rps": 15.88,
+        "media_ms": 45.9,
+        "p95_max_ms": 100,
+        "p99_max_ms": 510,
+        "errores": 0
+      },
+      "Donante (JSON)": {
+        "peticiones": 1902,
+        "rps": 15.85,
+        "media_ms": 39.5,
+        "p95_max_ms": 110,
+        "p99_max_ms": 540,
+        "errores": 292
+      },
+      "Médico (JSON)": {
+        "peticiones": 1336,
+        "rps": 11.13,
+        "media_ms": 48.6,
+        "p95_max_ms": 98,
+        "p99_max_ms": 530,
+        "errores": 0
+      },
+      "Operador (XML)": {
+        "peticiones": 1306,
+        "rps": 10.88,
+        "media_ms": 50.1,
+        "p95_max_ms": 110,
+        "p99_max_ms": 490,
+        "errores": 0
+      },
+      "Transportista (JSON)": {
+        "peticiones": 1318,
+        "rps": 10.98,
+        "media_ms": 50.5,
+        "p95_max_ms": 130,
+        "p99_max_ms": 570,
+        "errores": 0
+      }
+    },
+    "lecturas-recuperacion-6": {
+      "Auditor (JSON)": {
+        "peticiones": 55,
+        "rps": 0.92,
+        "media_ms": 117.2,
+        "p95_max_ms": 160,
+        "p99_max_ms": 900,
+        "errores": 0
+      },
+      "Coordinador (JSON)": {
+        "peticiones": 159,
+        "rps": 2.65,
+        "media_ms": 36.1,
+        "p95_max_ms": 68,
+        "p99_max_ms": 680,
+        "errores": 0
+      },
+      "Donante (JSON)": {
+        "peticiones": 168,
+        "rps": 2.8,
+        "media_ms": 32.3,
+        "p95_max_ms": 52,
+        "p99_max_ms": 850,
+        "errores": 0
+      },
+      "Médico (JSON)": {
+        "peticiones": 114,
+        "rps": 1.9,
+        "media_ms": 37.2,
+        "p95_max_ms": 64,
+        "p99_max_ms": 680,
+        "errores": 0
+      },
+      "Operador (XML)": {
+        "peticiones": 106,
+        "rps": 1.77,
+        "media_ms": 39.7,
+        "p95_max_ms": 54,
+        "p99_max_ms": 690,
+        "errores": 0
+      },
+      "Transportista (JSON)": {
+        "peticiones": 110,
+        "rps": 1.83,
+        "media_ms": 34.1,
+        "p95_max_ms": 78,
+        "p99_max_ms": 550,
+        "errores": 0
+      }
+    },
+    "mixta-12": {
+      "Consulta web (médico)": {
+        "peticiones": 498,
+        "rps": 4.15,
+        "media_ms": 29.3,
+        "p95_max_ms": 59,
+        "p99_max_ms": 82,
+        "errores": 0
+      },
+      "Escritorio XML (operador)": {
+        "peticiones": 329,
+        "rps": 2.74,
+        "media_ms": 30.4,
+        "p95_max_ms": 63,
+        "p99_max_ms": 75,
+        "errores": 0
+      },
+      "Móvil donante": {
+        "peticiones": 566,
+        "rps": 4.72,
+        "media_ms": 25.5,
+        "p95_max_ms": 75,
+        "p99_max_ms": 77,
+        "errores": 0
+      },
+      "Móvil transportista": {
+        "peticiones": 64,
+        "rps": 0.53,
+        "media_ms": 30.9,
+        "p95_max_ms": 56,
+        "p99_max_ms": 70,
+        "errores": 0
+      },
+      "Panel auditor/monitoreo": {
+        "peticiones": 187,
+        "rps": 1.56,
+        "media_ms": 39.9,
+        "p95_max_ms": 130,
+        "p99_max_ms": 130,
+        "errores": 0
+      },
+      "Proceso automático": {
+        "peticiones": 276,
+        "rps": 2.3,
+        "media_ms": 18.8,
+        "p95_max_ms": 29,
+        "p99_max_ms": 36,
+        "errores": 0
+      }
+    },
+    "mixta-24": {
+      "Consulta web (médico)": {
+        "peticiones": 819,
+        "rps": 6.82,
+        "media_ms": 38.0,
+        "p95_max_ms": 77,
+        "p99_max_ms": 130,
+        "errores": 0
+      },
+      "Escritorio XML (operador)": {
+        "peticiones": 796,
+        "rps": 6.63,
+        "media_ms": 36.8,
+        "p95_max_ms": 200,
+        "p99_max_ms": 270,
+        "errores": 0
+      },
+      "Móvil donante": {
+        "peticiones": 975,
+        "rps": 8.12,
+        "media_ms": 34.5,
+        "p95_max_ms": 160,
+        "p99_max_ms": 890,
+        "errores": 0
+      },
+      "Móvil transportista": {
+        "peticiones": 210,
+        "rps": 1.75,
+        "media_ms": 37.6,
+        "p95_max_ms": 76,
+        "p99_max_ms": 150,
+        "errores": 0
+      },
+      "Panel auditor/monitoreo": {
+        "peticiones": 549,
+        "rps": 4.57,
+        "media_ms": 48.7,
+        "p95_max_ms": 210,
+        "p99_max_ms": 710,
+        "errores": 0
+      },
+      "Proceso automático": {
+        "peticiones": 276,
+        "rps": 2.3,
+        "media_ms": 23.1,
+        "p95_max_ms": 41,
+        "p99_max_ms": 55,
+        "errores": 0
+      }
+    },
+    "mixta-36": {
+      "Consulta web (médico)": {
+        "peticiones": 1329,
+        "rps": 11.07,
+        "media_ms": 46.3,
+        "p95_max_ms": 91,
+        "p99_max_ms": 320,
+        "errores": 0
+      },
+      "Escritorio XML (operador)": {
+        "peticiones": 1244,
+        "rps": 10.37,
+        "media_ms": 45.9,
+        "p95_max_ms": 140,
+        "p99_max_ms": 580,
+        "errores": 0
+      },
+      "Móvil donante": {
+        "peticiones": 1524,
+        "rps": 12.7,
+        "media_ms": 38.2,
+        "p95_max_ms": 140,
+        "p99_max_ms": 490,
+        "errores": 0
+      },
+      "Móvil transportista": {
+        "peticiones": 268,
+        "rps": 2.23,
+        "media_ms": 44.7,
+        "p95_max_ms": 82,
+        "p99_max_ms": 780,
+        "errores": 0
+      },
+      "Panel auditor/monitoreo": {
+        "peticiones": 730,
+        "rps": 6.08,
+        "media_ms": 57.7,
+        "p95_max_ms": 260,
+        "p99_max_ms": 460,
+        "errores": 0
+      },
+      "Proceso automático": {
+        "peticiones": 264,
+        "rps": 2.2,
+        "media_ms": 31.1,
+        "p95_max_ms": 59,
+        "p99_max_ms": 87,
+        "errores": 0
+      }
+    },
+    "mixta-48": {
+      "Consulta web (médico)": {
+        "peticiones": 1780,
+        "rps": 14.83,
+        "media_ms": 64.1,
+        "p95_max_ms": 150,
+        "p99_max_ms": 250,
+        "errores": 0
+      },
+      "Escritorio XML (operador)": {
+        "peticiones": 1547,
+        "rps": 12.89,
+        "media_ms": 59.0,
+        "p95_max_ms": 280,
+        "p99_max_ms": 290,
+        "errores": 0
+      },
+      "Móvil donante": {
+        "peticiones": 2236,
+        "rps": 18.63,
+        "media_ms": 52.9,
+        "p95_max_ms": 210,
+        "p99_max_ms": 310,
+        "errores": 0
+      },
+      "Móvil transportista": {
+        "peticiones": 318,
+        "rps": 2.65,
+        "media_ms": 53.3,
+        "p95_max_ms": 120,
+        "p99_max_ms": 300,
+        "errores": 0
+      },
+      "Panel auditor/monitoreo": {
+        "peticiones": 895,
+        "rps": 7.46,
+        "media_ms": 85.4,
+        "p95_max_ms": 470,
+        "p99_max_ms": 700,
+        "errores": 0
+      },
+      "Proceso automático": {
+        "peticiones": 264,
+        "rps": 2.2,
+        "media_ms": 36.8,
+        "p95_max_ms": 76,
+        "p99_max_ms": 150,
+        "errores": 0
+      }
+    },
+    "mixta-recuperacion-12": {
+      "Consulta web (médico)": {
+        "peticiones": 246,
+        "rps": 4.1,
+        "media_ms": 29.2,
+        "p95_max_ms": 60,
+        "p99_max_ms": 190,
+        "errores": 0
+      },
+      "Escritorio XML (operador)": {
+        "peticiones": 165,
+        "rps": 2.75,
+        "media_ms": 34.9,
+        "p95_max_ms": 230,
+        "p99_max_ms": 230,
+        "errores": 0
+      },
+      "Móvil donante": {
+        "peticiones": 284,
+        "rps": 4.73,
+        "media_ms": 27.4,
+        "p95_max_ms": 100,
+        "p99_max_ms": 100,
+        "errores": 0
+      },
+      "Móvil transportista": {
+        "peticiones": 38,
+        "rps": 0.63,
+        "media_ms": 30.5,
+        "p95_max_ms": 52,
+        "p99_max_ms": 52,
+        "errores": 0
+      },
+      "Panel auditor/monitoreo": {
+        "peticiones": 95,
+        "rps": 1.58,
+        "media_ms": 56.3,
+        "p95_max_ms": 370,
+        "p99_max_ms": 370,
+        "errores": 0
+      },
+      "Proceso automático": {
+        "peticiones": 135,
+        "rps": 2.25,
+        "media_ms": 20.7,
+        "p95_max_ms": 36,
+        "p99_max_ms": 45,
+        "errores": 0
+      }
+    }
+  },
+  "mas_lentos": {
+    "lecturas-12": [
+      {
+        "method": "GET",
+        "name": "auditoria / Bitácora",
+        "requests": 223,
+        "mean_ms": 50.25138580052374,
+        "p95_ms": 86,
+        "p99_ms": 170,
+        "failures": 0
+      },
+      {
+        "method": "GET",
+        "name": "inventario / Inventario propio",
+        "requests": 218,
+        "mean_ms": 34.70575329292258,
+        "p95_ms": 68,
+        "p99_ms": 120,
+        "failures": 0
+      },
+      {
+        "method": "GET",
+        "name": "inventario / Disponibilidad regional",
+        "requests": 229,
+        "mean_ms": 31.312672085307668,
+        "p95_ms": 60,
+        "p99_ms": 81,
+        "failures": 0
+      },
+      {
+        "method": "GET",
+        "name": "transporte / Tareas propias",
+        "requests": 224,
+        "mean_ms": 31.100902906993205,
+        "p95_ms": 56,
+        "p99_ms": 94,
+        "failures": 0
+      },
+      {
+        "method": "GET",
+        "name": "priorizacion_geografia / Rutas",
+        "requests": 227,
+        "mean_ms": 29.847954467066156,
+        "p95_ms": 56,
+        "p99_ms": 110,
+        "failures": 0
+      },
+      {
+        "method": "GET",
+        "name": "alertas / Avisos de traslado",
+        "requests": 224,
+        "mean_ms": 28.11715440995093,
+        "p95_ms": 55,
+        "p99_ms": 98,
+        "failures": 0
+      },
+      {
+        "method": "GET",
+        "name": "receptores / Solicitudes propias",
+        "requests": 229,
+        "mean_ms": 27.91765868596684,
+        "p95_ms": 55,
+        "p99_ms": 90,
+        "failures": 0
+      },
+      {
+        "method": "GET",
+        "name": "donantes / Agenda propia",
+        "requests": 218,
+        "mean_ms": 29.33306150659577,
+        "p95_ms": 53,
+        "p99_ms": 66,
+        "failures": 0
+      }
+    ],
+    "lecturas-24": [
+      {
+        "method": "GET",
+        "name": "auditoria / Bitácora",
+        "requests": 432,
+        "mean_ms": 102.0795840102235,
+        "p95_ms": 240,
+        "p99_ms": 610,
+        "failures": 0
+      },
+      {
+        "method": "GET",
+        "name": "priorizacion_geografia / Rutas",
+        "requests": 406,
+        "mean_ms": 67.3395140415397,
+        "p95_ms": 160,
+        "p99_ms": 690,
+        "failures": 2
+      },
+      {
+        "method": "GET",
+        "name": "inventario / Inventario propio",
+        "requests": 433,
+        "mean_ms": 69.81222230110825,
+        "p95_ms": 150,
+        "p99_ms": 890,
+        "failures": 1
+      },
+      {
+        "method": "GET",
+        "name": "inventario / Disponibilidad regional",
+        "requests": 434,
+        "mean_ms": 62.51452063571894,
+        "p95_ms": 150,
+        "p99_ms": 530,
+        "failures": 0
+      },
+      {
+        "method": "GET",
+        "name": "donantes / Agenda propia",
+        "requests": 426,
+        "mean_ms": 68.59821154508617,
+        "p95_ms": 140,
+        "p99_ms": 970,
+        "failures": 2
+      },
+      {
+        "method": "GET",
+        "name": "transporte / Tareas propias",
+        "requests": 428,
+        "mean_ms": 61.44545704292821,
+        "p95_ms": 130,
+        "p99_ms": 570,
+        "failures": 1
+      },
+      {
+        "method": "GET",
+        "name": "alertas / Avisos propios",
+        "requests": 424,
+        "mean_ms": 46.40417612615735,
+        "p95_ms": 110,
+        "p99_ms": 290,
+        "failures": 0
+      },
+      {
+        "method": "GET",
+        "name": "receptores / Solicitudes propias",
+        "requests": 434,
+        "mean_ms": 45.378680475869466,
+        "p95_ms": 110,
+        "p99_ms": 180,
+        "failures": 0
+      }
+    ],
+    "lecturas-36": [
+      {
+        "method": "GET",
+        "name": "auditoria / Bitácora",
+        "requests": 633,
+        "mean_ms": 129.15333545098073,
+        "p95_ms": 280,
+        "p99_ms": 800,
+        "failures": 0
+      },
+      {
+        "method": "GET",
+        "name": "transporte / Tareas propias",
+        "requests": 659,
+        "mean_ms": 57.46846762344479,
+        "p95_ms": 130,
+        "p99_ms": 570,
+        "failures": 0
+      },
+      {
+        "method": "GET",
+        "name": "inventario / Inventario propio",
+        "requests": 653,
+        "mean_ms": 59.71974197359382,
+        "p95_ms": 110,
+        "p99_ms": 490,
+        "failures": 0
+      },
+      {
+        "method": "GET",
+        "name": "donantes / Agenda propia",
+        "requests": 634,
+        "mean_ms": 55.752989696118426,
+        "p95_ms": 110,
+        "p99_ms": 540,
+        "failures": 0
+      },
+      {
+        "method": "GET",
+        "name": "transporte / Traslados",
+        "requests": 635,
+        "mean_ms": 45.22336285788654,
+        "p95_ms": 100,
+        "p99_ms": 210,
+        "failures": 0
+      },
+      {
+        "method": "GET",
+        "name": "inventario / Disponibilidad regional",
+        "requests": 668,
+        "mean_ms": 56.07345259332232,
+        "p95_ms": 98,
+        "p99_ms": 530,
+        "failures": 0
+      },
+      {
+        "method": "GET",
+        "name": "receptores / Solicitudes propias",
+        "requests": 668,
+        "mean_ms": 41.20834824429758,
+        "p95_ms": 93,
+        "p99_ms": 180,
+        "failures": 0
+      },
+      {
+        "method": "GET",
+        "name": "alertas / Avisos propios",
+        "requests": 634,
+        "mean_ms": 43.9419567613269,
+        "p95_ms": 89,
+        "p99_ms": 210,
+        "failures": 0
+      }
+    ],
+    "lecturas-recuperacion-6": [
+      {
+        "method": "GET",
+        "name": "auditoria / Bitácora",
+        "requests": 55,
+        "mean_ms": 117.1558985359628,
+        "p95_ms": 160,
+        "p99_ms": 900,
+        "failures": 0
+      },
+      {
+        "method": "GET",
+        "name": "transporte / Tareas propias",
+        "requests": 55,
+        "mean_ms": 40.68197572222826,
+        "p95_ms": 78,
+        "p99_ms": 550,
+        "failures": 0
+      },
+      {
+        "method": "GET",
+        "name": "monitoreo / Estado regional",
+        "requests": 53,
+        "mean_ms": 29.17910607988542,
+        "p95_ms": 68,
+        "p99_ms": 100,
+        "failures": 0
+      },
+      {
+        "method": "GET",
+        "name": "priorizacion_geografia / Rutas",
+        "requests": 53,
+        "mean_ms": 48.0553152452592,
+        "p95_ms": 65,
+        "p99_ms": 680,
+        "failures": 0
+      },
+      {
+        "method": "GET",
+        "name": "inventario / Disponibilidad regional",
+        "requests": 57,
+        "mean_ms": 42.73223392910471,
+        "p95_ms": 64,
+        "p99_ms": 680,
+        "failures": 0
+      },
+      {
+        "method": "GET",
+        "name": "transporte / Traslados",
+        "requests": 53,
+        "mean_ms": 30.94008649295231,
+        "p95_ms": 55,
+        "p99_ms": 150,
+        "failures": 0
+      },
+      {
+        "method": "GET",
+        "name": "inventario / Inventario propio",
+        "requests": 53,
+        "mean_ms": 40.733590467288245,
+        "p95_ms": 54,
+        "p99_ms": 510,
+        "failures": 0
+      },
+      {
+        "method": "GET",
+        "name": "receptores / Solicitudes propias",
+        "requests": 57,
+        "mean_ms": 31.72410524393056,
+        "p95_ms": 54,
+        "p99_ms": 200,
+        "failures": 0
+      }
+    ],
+    "mixta-12": [
+      {
+        "method": "GET",
+        "name": "Panel auditor/monitoreo | Bitácora",
+        "requests": 37,
+        "mean_ms": 104.96515772821432,
+        "p95_ms": 130,
+        "p99_ms": 130,
+        "failures": 0
+      },
+      {
+        "method": "GET",
+        "name": "Citas / Horarios autorizados",
+        "requests": 31,
+        "mean_ms": 57.0713561929522,
+        "p95_ms": 75,
+        "p99_ms": 77,
+        "failures": 0
+      },
+      {
+        "method": "POST",
+        "name": "Escritorio XML (operador) | Solicitar reporte de inventario",
+        "requests": 1,
+        "mean_ms": 63.482708064839244,
+        "p95_ms": 63,
+        "p99_ms": 63,
+        "failures": 0
+      },
+      {
+        "method": "GET",
+        "name": "Escritorio XML (operador) | Inventario propio",
+        "requests": 93,
+        "mean_ms": 35.73504033228082,
+        "p95_ms": 59,
+        "p99_ms": 75,
+        "failures": 0
+      },
+      {
+        "method": "GET",
+        "name": "Consulta web (médico) | Disponibilidad regional",
+        "requests": 166,
+        "mean_ms": 33.62352642544871,
+        "p95_ms": 59,
+        "p99_ms": 82,
+        "failures": 0
+      },
+      {
+        "method": "GET",
+        "name": "Móvil transportista | Tareas propias",
+        "requests": 32,
+        "mean_ms": 35.162036496330984,
+        "p95_ms": 56,
+        "p99_ms": 57,
+        "failures": 0
+      },
+      {
+        "method": "GET",
+        "name": "Escritorio XML (operador) | Reportes solicitados",
+        "requests": 93,
+        "mean_ms": 33.04814830953155,
+        "p95_ms": 52,
+        "p99_ms": 62,
+        "failures": 0
+      },
+      {
+        "method": "GET",
+        "name": "Consulta web (médico) | Indicadores de inventario",
+        "requests": 166,
+        "mean_ms": 27.827529608361782,
+        "p95_ms": 44,
+        "p99_ms": 55,
+        "failures": 0
+      }
+    ],
+    "mixta-24": [
+      {
+        "method": "GET",
+        "name": "Panel auditor/monitoreo | Bitácora",
+        "requests": 109,
+        "mean_ms": 135.62598397929665,
+        "p95_ms": 210,
+        "p99_ms": 710,
+        "failures": 0
+      },
+      {
+        "method": "POST",
+        "name": "Escritorio XML (operador) | Solicitar reporte de inventario",
+        "requests": 4,
+        "mean_ms": 149.66512500541285,
+        "p95_ms": 200,
+        "p99_ms": 200,
+        "failures": 0
+      },
+      {
+        "method": "GET",
+        "name": "Citas / Horarios autorizados",
+        "requests": 57,
+        "mean_ms": 72.60629158720309,
+        "p95_ms": 160,
+        "p99_ms": 230,
+        "failures": 0
+      },
+      {
+        "method": "GET",
+        "name": "Citas / Expediente propio",
+        "requests": 57,
+        "mean_ms": 33.58393487634889,
+        "p95_ms": 110,
+        "p99_ms": 220,
+        "failures": 0
+      },
+      {
+        "method": "GET",
+        "name": "Escritorio XML (operador) | Inventario propio",
+        "requests": 224,
+        "mean_ms": 48.36095758478872,
+        "p95_ms": 96,
+        "p99_ms": 180,
+        "failures": 0
+      },
+      {
+        "method": "GET",
+        "name": "Consulta web (médico) | Disponibilidad regional",
+        "requests": 273,
+        "mean_ms": 43.711103365036756,
+        "p95_ms": 77,
+        "p99_ms": 120,
+        "failures": 0
+      },
+      {
+        "method": "GET",
+        "name": "Móvil transportista | Tareas propias",
+        "requests": 105,
+        "mean_ms": 38.86666940636046,
+        "p95_ms": 76,
+        "p99_ms": 150,
+        "failures": 0
+      },
+      {
+        "method": "GET",
+        "name": "Móvil donante | Agenda propia",
+        "requests": 173,
+        "mean_ms": 46.189333539660694,
+        "p95_ms": 68,
+        "p99_ms": 890,
+        "failures": 0
+      }
+    ],
+    "mixta-36": [
+      {
+        "method": "GET",
+        "name": "Panel auditor/monitoreo | Bitácora",
+        "requests": 146,
+        "mean_ms": 160.5495485646191,
+        "p95_ms": 260,
+        "p99_ms": 460,
+        "failures": 0
+      },
+      {
+        "method": "POST",
+        "name": "Escritorio XML (operador) | Solicitar reporte de inventario",
+        "requests": 7,
+        "mean_ms": 102.95344644691795,
+        "p95_ms": 140,
+        "p99_ms": 140,
+        "failures": 0
+      },
+      {
+        "method": "GET",
+        "name": "Citas / Horarios autorizados",
+        "requests": 93,
+        "mean_ms": 78.70523527424822,
+        "p95_ms": 140,
+        "p99_ms": 210,
+        "failures": 0
+      },
+      {
+        "method": "GET",
+        "name": "Escritorio XML (operador) | Inventario propio",
+        "requests": 361,
+        "mean_ms": 65.24637567590138,
+        "p95_ms": 110,
+        "p99_ms": 580,
+        "failures": 0
+      },
+      {
+        "method": "GET",
+        "name": "Consulta web (médico) | Disponibilidad regional",
+        "requests": 443,
+        "mean_ms": 55.0166028880243,
+        "p95_ms": 91,
+        "p99_ms": 320,
+        "failures": 0
+      },
+      {
+        "method": "GET",
+        "name": "Consulta web (médico) | Indicadores de inventario",
+        "requests": 443,
+        "mean_ms": 48.38208334034826,
+        "p95_ms": 85,
+        "p99_ms": 140,
+        "failures": 0
+      },
+      {
+        "method": "GET",
+        "name": "Inventario / Consultar unidad registrada",
+        "requests": 74,
+        "mean_ms": 35.11426864173011,
+        "p95_ms": 83,
+        "p99_ms": 110,
+        "failures": 0
+      },
+      {
+        "method": "GET",
+        "name": "Móvil transportista | Tareas propias",
+        "requests": 134,
+        "mean_ms": 53.47389425932944,
+        "p95_ms": 82,
+        "p99_ms": 780,
+        "failures": 0
+      }
+    ],
+    "mixta-48": [
+      {
+        "method": "GET",
+        "name": "Panel auditor/monitoreo | Bitácora",
+        "requests": 179,
+        "mean_ms": 231.44886360501133,
+        "p95_ms": 470,
+        "p99_ms": 700,
+        "failures": 0
+      },
+      {
+        "method": "POST",
+        "name": "Escritorio XML (operador) | Solicitar reporte de inventario",
+        "requests": 10,
+        "mean_ms": 130.50013351021335,
+        "p95_ms": 280,
+        "p99_ms": 280,
+        "failures": 0
+      },
+      {
+        "method": "GET",
+        "name": "Citas / Horarios autorizados",
+        "requests": 140,
+        "mean_ms": 106.10131012758107,
+        "p95_ms": 210,
+        "p99_ms": 300,
+        "failures": 0
+      },
+      {
+        "method": "GET",
+        "name": "Escritorio XML (operador) | Inventario propio",
+        "requests": 433,
+        "mean_ms": 77.94185845486768,
+        "p95_ms": 160,
+        "p99_ms": 260,
+        "failures": 0
+      },
+      {
+        "method": "GET",
+        "name": "Consulta web (médico) | Disponibilidad regional",
+        "requests": 594,
+        "mean_ms": 70.42151950856338,
+        "p95_ms": 150,
+        "p99_ms": 240,
+        "failures": 0
+      },
+      {
+        "method": "GET",
+        "name": "Consulta web (médico) | Indicadores de inventario",
+        "requests": 593,
+        "mean_ms": 73.36531528589767,
+        "p95_ms": 140,
+        "p99_ms": 250,
+        "failures": 0
+      },
+      {
+        "method": "GET",
+        "name": "Móvil donante | Agenda propia",
+        "requests": 373,
+        "mean_ms": 53.54619739126494,
+        "p95_ms": 140,
+        "p99_ms": 250,
+        "failures": 0
+      },
+      {
+        "method": "GET",
+        "name": "Escritorio XML (operador) | Reportes solicitados",
+        "requests": 431,
+        "mean_ms": 53.86790329603405,
+        "p95_ms": 130,
+        "p99_ms": 290,
+        "failures": 0
+      }
+    ],
+    "mixta-recuperacion-12": [
+      {
+        "method": "GET",
+        "name": "Panel auditor/monitoreo | Bitácora",
+        "requests": 19,
+        "mean_ms": 184.94185762430885,
+        "p95_ms": 370,
+        "p99_ms": 370,
+        "failures": 0
+      },
+      {
+        "method": "POST",
+        "name": "Inventario / Registrar cuarentena",
+        "requests": 9,
+        "mean_ms": 48.7526897729064,
+        "p95_ms": 230,
+        "p99_ms": 230,
+        "failures": 0
+      },
+      {
+        "method": "GET",
+        "name": "Citas / Expediente propio",
+        "requests": 18,
+        "mean_ms": 34.59393043562563,
+        "p95_ms": 100,
+        "p99_ms": 100,
+        "failures": 0
+      },
+      {
+        "method": "GET",
+        "name": "Inventario / Consultar unidad registrada",
+        "requests": 9,
+        "mean_ms": 33.549736137501895,
+        "p95_ms": 100,
+        "p99_ms": 100,
+        "failures": 0
+      },
+      {
+        "method": "GET",
+        "name": "Citas / Horarios autorizados",
+        "requests": 18,
+        "mean_ms": 60.48235644508774,
+        "p95_ms": 99,
+        "p99_ms": 99,
+        "failures": 0
+      },
+      {
+        "method": "GET",
+        "name": "Citas / Buscar campaña",
+        "requests": 18,
+        "mean_ms": 27.171428224796223,
+        "p95_ms": 79,
+        "p99_ms": 79,
+        "failures": 0
+      },
+      {
+        "method": "GET",
+        "name": "Escritorio XML (operador) | Reportes solicitados",
+        "requests": 49,
+        "mean_ms": 43.52599225121037,
+        "p95_ms": 72,
+        "p99_ms": 89,
+        "failures": 0
+      },
+      {
+        "method": "GET",
+        "name": "Escritorio XML (operador) | Inventario propio",
+        "requests": 49,
+        "mean_ms": 34.03817434148977,
+        "p95_ms": 65,
+        "p99_ms": 68,
+        "failures": 0
+      }
+    ]
+  },
+  "errores": {
+    "lecturas-24": [
+      {
+        "method": "GET",
+        "name": "donantes / Feed público",
+        "error": "http_429",
+        "occurrences": 48
+      },
+      {
+        "method": "GET",
+        "name": "priorizacion_geografia / Rutas",
+        "error": "http_503",
+        "occurrences": 2
+      },
+      {
+        "method": "GET",
+        "name": "donantes / Agenda propia",
+        "error": "http_503",
+        "occurrences": 2
+      },
+      {
+        "method": "GET",
+        "name": "inventario / Inventario propio",
+        "error": "http_503",
+        "occurrences": 1
+      },
+      {
+        "method": "GET",
+        "name": "transporte / Tareas propias",
+        "error": "http_503",
+        "occurrences": 1
+      }
+    ],
+    "lecturas-36": [
+      {
+        "method": "GET",
+        "name": "donantes / Feed público",
+        "error": "http_429",
+        "occurrences": 292
+      }
+    ]
+  },
+  "recursos": {
+    "lecturas-12": {
+      "samples": 56,
+      "servicios_api": {
+        "cpu_percent": {
+          "mean": 39.5,
+          "max": 65.6
+        },
+        "rss_mb": {
+          "mean": 317.5,
+          "max": 407.3
+        }
+      },
+      "workers": {
+        "cpu_percent": {
+          "mean": 7.6,
+          "max": 17.0
+        },
+        "rss_mb": {
+          "mean": 187.3,
+          "max": 278.0
+        }
+      },
+      "postgres": {
+        "cpu_percent": {
+          "mean": 7.5,
+          "max": 95.1
+        },
+        "rss_mb": {
+          "mean": 151.4,
+          "max": 205.4
+        }
+      },
+      "mongodb": {
+        "cpu_percent": {
+          "mean": 0.8,
+          "max": 2.0
+        },
+        "rss_mb": {
+          "mean": 30.3,
+          "max": 38.4
+        }
+      },
+      "redis": {
+        "cpu_percent": {
+          "mean": 1.2,
+          "max": 2.2
+        },
+        "rss_mb": {
+          "mean": 3.6,
+          "max": 3.8
+        }
+      },
+      "locust": {
+        "cpu_percent": {
+          "mean": 3.7,
+          "max": 4.9
+        },
+        "rss_mb": {
+          "mean": 32.4,
+          "max": 34.6
+        }
+      },
+      "sistema": {
+        "available_mb": {
+          "mean": 1248.2,
+          "max": 1345,
+          "min": 1204
+        },
+        "cpu_percent": {
+          "mean": 49.5,
+          "max": 78.9
+        }
+      }
+    },
+    "lecturas-24": {
+      "samples": 54,
+      "servicios_api": {
+        "cpu_percent": {
+          "mean": 67.5,
+          "max": 106.8
+        },
+        "rss_mb": {
+          "mean": 306.7,
+          "max": 406.4
+        }
+      },
+      "workers": {
+        "cpu_percent": {
+          "mean": 10.4,
+          "max": 22.0
+        },
+        "rss_mb": {
+          "mean": 165.6,
+          "max": 246.0
+        }
+      },
+      "postgres": {
+        "cpu_percent": {
+          "mean": 15.0,
+          "max": 117.6
+        },
+        "rss_mb": {
+          "mean": 148.4,
+          "max": 195.5
+        }
+      },
+      "mongodb": {
+        "cpu_percent": {
+          "mean": 1.4,
+          "max": 4.2
+        },
+        "rss_mb": {
+          "mean": 30.6,
+          "max": 40.5
+        }
+      },
+      "redis": {
+        "cpu_percent": {
+          "mean": 1.8,
+          "max": 3.0
+        },
+        "rss_mb": {
+          "mean": 3.8,
+          "max": 4.0
+        }
+      },
+      "locust": {
+        "cpu_percent": {
+          "mean": 7.9,
+          "max": 10.8
+        },
+        "rss_mb": {
+          "mean": 35.0,
+          "max": 55.8
+        }
+      },
+      "sistema": {
+        "available_mb": {
+          "mean": 1199.1,
+          "max": 1477,
+          "min": 1074
+        },
+        "cpu_percent": {
+          "mean": 59.3,
+          "max": 88.8
+        }
+      }
+    },
+    "lecturas-36": {
+      "samples": 53,
+      "servicios_api": {
+        "cpu_percent": {
+          "mean": 104.2,
+          "max": 145.5
+        },
+        "rss_mb": {
+          "mean": 321.4,
+          "max": 370.2
+        }
+      },
+      "workers": {
+        "cpu_percent": {
+          "mean": 14.9,
+          "max": 25.7
+        },
+        "rss_mb": {
+          "mean": 173.7,
+          "max": 235.0
+        }
+      },
+      "postgres": {
+        "cpu_percent": {
+          "mean": 201.7,
+          "max": 8458.2
+        },
+        "rss_mb": {
+          "mean": 190.1,
+          "max": 301.0
+        }
+      },
+      "mongodb": {
+        "cpu_percent": {
+          "mean": 1.8,
+          "max": 4.5
+        },
+        "rss_mb": {
+          "mean": 33.1,
+          "max": 40.4
+        }
+      },
+      "redis": {
+        "cpu_percent": {
+          "mean": 2.8,
+          "max": 3.6
+        },
+        "rss_mb": {
+          "mean": 4.4,
+          "max": 5.0
+        }
+      },
+      "locust": {
+        "cpu_percent": {
+          "mean": 12.0,
+          "max": 16.0
+        },
+        "rss_mb": {
+          "mean": 41.8,
+          "max": 75.0
+        }
+      },
+      "sistema": {
+        "available_mb": {
+          "mean": 1235.7,
+          "max": 1419,
+          "min": 1174
+        },
+        "cpu_percent": {
+          "mean": 64.5,
+          "max": 90.1
+        }
+      }
+    },
+    "lecturas-recuperacion-6": {
+      "samples": 27,
+      "servicios_api": {
+        "cpu_percent": {
+          "mean": 19.3,
+          "max": 27.1
+        },
+        "rss_mb": {
+          "mean": 278.0,
+          "max": 306.0
+        }
+      },
+      "workers": {
+        "cpu_percent": {
+          "mean": 3.9,
+          "max": 7.5
+        },
+        "rss_mb": {
+          "mean": 144.2,
+          "max": 211.5
+        }
+      },
+      "postgres": {
+        "cpu_percent": {
+          "mean": 3.0,
+          "max": 5.4
+        },
+        "rss_mb": {
+          "mean": 126.4,
+          "max": 170.1
+        }
+      },
+      "mongodb": {
+        "cpu_percent": {
+          "mean": 0.9,
+          "max": 1.7
+        },
+        "rss_mb": {
+          "mean": 32.0,
+          "max": 43.8
+        }
+      },
+      "redis": {
+        "cpu_percent": {
+          "mean": 0.6,
+          "max": 1.0
+        },
+        "rss_mb": {
+          "mean": 3.9,
+          "max": 4.1
+        }
+      },
+      "locust": {
+        "cpu_percent": {
+          "mean": 2.3,
+          "max": 3.7
+        },
+        "rss_mb": {
+          "mean": 33.6,
+          "max": 74.4
+        }
+      },
+      "sistema": {
+        "available_mb": {
+          "mean": 1193.9,
+          "max": 1223,
+          "min": 1169
+        },
+        "cpu_percent": {
+          "mean": 36.4,
+          "max": 69.0
+        }
+      }
+    },
+    "mixta-12": {
+      "samples": 55,
+      "servicios_api": {
+        "cpu_percent": {
+          "mean": 25.2,
+          "max": 48.3
+        },
+        "rss_mb": {
+          "mean": 321.6,
+          "max": 412.5
+        }
+      },
+      "workers": {
+        "cpu_percent": {
+          "mean": 4.5,
+          "max": 10.8
+        },
+        "rss_mb": {
+          "mean": 129.6,
+          "max": 242.8
+        }
+      },
+      "postgres": {
+        "cpu_percent": {
+          "mean": 3.7,
+          "max": 6.8
+        },
+        "rss_mb": {
+          "mean": 99.4,
+          "max": 126.3
+        }
+      },
+      "mongodb": {
+        "cpu_percent": {
+          "mean": 1.0,
+          "max": 1.8
+        },
+        "rss_mb": {
+          "mean": 39.9,
+          "max": 49.8
+        }
+      },
+      "redis": {
+        "cpu_percent": {
+          "mean": 0.8,
+          "max": 1.4
+        },
+        "rss_mb": {
+          "mean": 3.9,
+          "max": 7.2
+        }
+      },
+      "locust": {
+        "cpu_percent": {
+          "mean": 2.5,
+          "max": 3.6
+        },
+        "rss_mb": {
+          "mean": 34.8,
+          "max": 45.6
+        }
+      },
+      "sistema": {
+        "available_mb": {
+          "mean": 1215.3,
+          "max": 1316,
+          "min": 1171
+        },
+        "cpu_percent": {
+          "mean": 30.4,
+          "max": 52.1
+        }
+      }
+    },
+    "mixta-24": {
+      "samples": 54,
+      "servicios_api": {
+        "cpu_percent": {
+          "mean": 48.4,
+          "max": 103.6
+        },
+        "rss_mb": {
+          "mean": 337.4,
+          "max": 423.2
+        }
+      },
+      "workers": {
+        "cpu_percent": {
+          "mean": 7.5,
+          "max": 17.8
+        },
+        "rss_mb": {
+          "mean": 128.1,
+          "max": 190.5
+        }
+      },
+      "postgres": {
+        "cpu_percent": {
+          "mean": 33.2,
+          "max": 963.1
+        },
+        "rss_mb": {
+          "mean": 112.4,
+          "max": 242.3
+        }
+      },
+      "mongodb": {
+        "cpu_percent": {
+          "mean": 1.6,
+          "max": 3.9
+        },
+        "rss_mb": {
+          "mean": 41.9,
+          "max": 49.0
+        }
+      },
+      "redis": {
+        "cpu_percent": {
+          "mean": 1.5,
+          "max": 2.8
+        },
+        "rss_mb": {
+          "mean": 4.1,
+          "max": 6.2
+        }
+      },
+      "locust": {
+        "cpu_percent": {
+          "mean": 5.0,
+          "max": 8.0
+        },
+        "rss_mb": {
+          "mean": 42.3,
+          "max": 47.2
+        }
+      },
+      "sistema": {
+        "available_mb": {
+          "mean": 1199.9,
+          "max": 1278,
+          "min": 1127
+        },
+        "cpu_percent": {
+          "mean": 42.0,
+          "max": 85.3
+        }
+      }
+    },
+    "mixta-36": {
+      "samples": 54,
+      "servicios_api": {
+        "cpu_percent": {
+          "mean": 75.1,
+          "max": 116.9
+        },
+        "rss_mb": {
+          "mean": 348.3,
+          "max": 442.6
+        }
+      },
+      "workers": {
+        "cpu_percent": {
+          "mean": 10.9,
+          "max": 21.6
+        },
+        "rss_mb": {
+          "mean": 130.1,
+          "max": 203.7
+        }
+      },
+      "postgres": {
+        "cpu_percent": {
+          "mean": 38.2,
+          "max": 473.6
+        },
+        "rss_mb": {
+          "mean": 132.4,
+          "max": 269.9
+        }
+      },
+      "mongodb": {
+        "cpu_percent": {
+          "mean": 2.1,
+          "max": 4.1
+        },
+        "rss_mb": {
+          "mean": 40.8,
+          "max": 48.2
+        }
+      },
+      "redis": {
+        "cpu_percent": {
+          "mean": 2.3,
+          "max": 3.2
+        },
+        "rss_mb": {
+          "mean": 4.5,
+          "max": 6.6
+        }
+      },
+      "locust": {
+        "cpu_percent": {
+          "mean": 7.7,
+          "max": 10.5
+        },
+        "rss_mb": {
+          "mean": 37.7,
+          "max": 75.1
+        }
+      },
+      "sistema": {
+        "available_mb": {
+          "mean": 1217.5,
+          "max": 1569,
+          "min": 1141
+        },
+        "cpu_percent": {
+          "mean": 58.2,
+          "max": 80.3
+        }
+      }
+    },
+    "mixta-48": {
+      "samples": 53,
+      "servicios_api": {
+        "cpu_percent": {
+          "mean": 107.2,
+          "max": 144.3
+        },
+        "rss_mb": {
+          "mean": 362.8,
+          "max": 446.7
+        }
+      },
+      "workers": {
+        "cpu_percent": {
+          "mean": 15.1,
+          "max": 27.4
+        },
+        "rss_mb": {
+          "mean": 150.3,
+          "max": 205.6
+        }
+      },
+      "postgres": {
+        "cpu_percent": {
+          "mean": 88.0,
+          "max": 806.1
+        },
+        "rss_mb": {
+          "mean": 171.1,
+          "max": 363.9
+        }
+      },
+      "mongodb": {
+        "cpu_percent": {
+          "mean": 3.1,
+          "max": 6.3
+        },
+        "rss_mb": {
+          "mean": 42.9,
+          "max": 50.3
+        }
+      },
+      "redis": {
+        "cpu_percent": {
+          "mean": 2.7,
+          "max": 4.0
+        },
+        "rss_mb": {
+          "mean": 5.0,
+          "max": 7.4
+        }
+      },
+      "locust": {
+        "cpu_percent": {
+          "mean": 10.4,
+          "max": 15.1
+        },
+        "rss_mb": {
+          "mean": 39.4,
+          "max": 43.6
+        }
+      },
+      "sistema": {
+        "available_mb": {
+          "mean": 1222.6,
+          "max": 1407,
+          "min": 1165
+        },
+        "cpu_percent": {
+          "mean": 72.3,
+          "max": 92.4
+        }
+      }
+    },
+    "mixta-recuperacion-12": {
+      "samples": 28,
+      "servicios_api": {
+        "cpu_percent": {
+          "mean": 25.8,
+          "max": 40.7
+        },
+        "rss_mb": {
+          "mean": 324.4,
+          "max": 412.4
+        }
+      },
+      "workers": {
+        "cpu_percent": {
+          "mean": 4.6,
+          "max": 6.8
+        },
+        "rss_mb": {
+          "mean": 120.2,
+          "max": 195.8
+        }
+      },
+      "postgres": {
+        "cpu_percent": {
+          "mean": 3.8,
+          "max": 5.7
+        },
+        "rss_mb": {
+          "mean": 97.1,
+          "max": 128.4
+        }
+      },
+      "mongodb": {
+        "cpu_percent": {
+          "mean": 1.1,
+          "max": 2.0
+        },
+        "rss_mb": {
+          "mean": 39.3,
+          "max": 45.4
+        }
+      },
+      "redis": {
+        "cpu_percent": {
+          "mean": 0.8,
+          "max": 1.3
+        },
+        "rss_mb": {
+          "mean": 4.0,
+          "max": 4.2
+        }
+      },
+      "locust": {
+        "cpu_percent": {
+          "mean": 2.7,
+          "max": 3.8
+        },
+        "rss_mb": {
+          "mean": 32.4,
+          "max": 36.6
+        }
+      },
+      "sistema": {
+        "available_mb": {
+          "mean": 1244.0,
+          "max": 1390,
+          "min": 1162
+        },
+        "cpu_percent": {
+          "mean": 42.0,
+          "max": 66.6
+        }
+      }
+    }
+  }
+}

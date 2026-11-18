@@ -1,0 +1,302 @@
+{
+  "stage": "finished",
+  "mode": "reads",
+  "users": 36,
+  "logged_in": 36,
+  "login_failures": 0,
+  "distinct_identities": 36,
+  "identities_by_role": {
+    "MEDICAL": 6,
+    "OPERATOR": 6,
+    "COORDINATOR": 6,
+    "AUDITOR": 6,
+    "DONOR": 6,
+    "TRANSPORT": 6
+  },
+  "barrier_seconds": 2.243,
+  "warmup_seconds": 30,
+  "warmup": {
+    "requests": 2167,
+    "failures": 0
+  },
+  "measurement_seconds": 120.0,
+  "measurement_min_users": 36,
+  "user_errors": 0,
+  "cache": {
+    "HIT": 1202,
+    "MISS": 119
+  },
+  "http_status": {
+    "200": 8108,
+    "429": 292
+  },
+  "measurement": [
+    {
+      "method": "POST",
+      "name": "Identidad / login",
+      "requests": 0,
+      "failures": 0,
+      "requests_per_second": 0.0,
+      "mean_ms": 0.0,
+      "median_ms": 0,
+      "p95_ms": 0,
+      "p99_ms": 0,
+      "max_ms": 0
+    },
+    {
+      "method": "GET",
+      "name": "transporte / Tareas propias",
+      "requests": 659,
+      "failures": 0,
+      "requests_per_second": 5.491658738085259,
+      "mean_ms": 57.46846762344479,
+      "median_ms": 38,
+      "p95_ms": 130,
+      "p99_ms": 570,
+      "max_ms": 1316.5187089471146
+    },
+    {
+      "method": "GET",
+      "name": "donantes / Agenda propia",
+      "requests": 634,
+      "failures": 0,
+      "requests_per_second": 5.283325705532707,
+      "mean_ms": 55.752989696118426,
+      "median_ms": 37,
+      "p95_ms": 110,
+      "p99_ms": 540,
+      "max_ms": 1306.7135420860723
+    },
+    {
+      "method": "GET",
+      "name": "priorizacion_geografia / Rutas",
+      "requests": 635,
+      "failures": 0,
+      "requests_per_second": 5.291659026834809,
+      "mean_ms": 51.171560038438464,
+      "median_ms": 35,
+      "p95_ms": 83,
+      "p99_ms": 510,
+      "max_ms": 1316.7997910641134
+    },
+    {
+      "method": "GET",
+      "name": "inventario / Disponibilidad regional",
+      "requests": 668,
+      "failures": 0,
+      "requests_per_second": 5.566658629804177,
+      "mean_ms": 56.07345259332232,
+      "median_ms": 40,
+      "p95_ms": 98,
+      "p99_ms": 530,
+      "max_ms": 1373.8513750722632
+    },
+    {
+      "method": "GET",
+      "name": "inventario / Inventario propio",
+      "requests": 653,
+      "failures": 0,
+      "requests_per_second": 5.441658810272647,
+      "mean_ms": 59.71974197359382,
+      "median_ms": 43,
+      "p95_ms": 110,
+      "p99_ms": 490,
+      "max_ms": 1462.763624964282
+    },
+    {
+      "method": "GET",
+      "name": "auditoria / Bitácora",
+      "requests": 633,
+      "failures": 0,
+      "requests_per_second": 5.274992384230606,
+      "mean_ms": 129.15333545098073,
+      "median_ms": 99,
+      "p95_ms": 280,
+      "p99_ms": 800,
+      "max_ms": 1323.3837090665475
+    },
+    {
+      "method": "GET",
+      "name": "alertas / Avisos propios",
+      "requests": 634,
+      "failures": 0,
+      "requests_per_second": 5.283325705532707,
+      "mean_ms": 43.9419567613269,
+      "median_ms": 35,
+      "p95_ms": 89,
+      "p99_ms": 210,
+      "max_ms": 710.5627920245752
+    },
+    {
+      "method": "GET",
+      "name": "receptores / Solicitudes propias",
+      "requests": 668,
+      "failures": 0,
+      "requests_per_second": 5.566658629804177,
+      "mean_ms": 41.20834824429758,
+      "median_ms": 34,
+      "p95_ms": 93,
+      "p99_ms": 180,
+      "max_ms": 264.710208051838
+    },
+    {
+      "method": "GET",
+      "name": "donantes / Campañas",
+      "requests": 653,
+      "failures": 0,
+      "requests_per_second": 5.441658810272647,
+      "mean_ms": 40.47497619491835,
+      "median_ms": 34,
+      "p95_ms": 82,
+      "p99_ms": 160,
+      "max_ms": 231.28675005864352
+    },
+    {
+      "method": "GET",
+      "name": "alertas / Avisos de traslado",
+      "requests": 659,
+      "failures": 0,
+      "requests_per_second": 5.491658738085259,
+      "mean_ms": 43.44223229474584,
+      "median_ms": 35,
+      "p95_ms": 87,
+      "p99_ms": 210,
+      "max_ms": 588.6807499919087
+    },
+    {
+      "method": "GET",
+      "name": "transporte / Traslados",
+      "requests": 635,
+      "failures": 0,
+      "requests_per_second": 5.291659026834809,
+      "mean_ms": 45.22336285788654,
+      "median_ms": 37,
+      "p95_ms": 100,
+      "p99_ms": 210,
+      "max_ms": 283.5577920777723
+    },
+    {
+      "method": "GET",
+      "name": "donantes / Feed público",
+      "requests": 634,
+      "failures": 292,
+      "requests_per_second": 5.283325705532707,
+      "mean_ms": 18.66089187254718,
+      "median_ms": 14,
+      "p95_ms": 38,
+      "p99_ms": 110,
+      "max_ms": 211.17633301764727
+    },
+    {
+      "method": "GET",
+      "name": "monitoreo / Estado regional",
+      "requests": 635,
+      "failures": 0,
+      "requests_per_second": 5.291659026834809,
+      "mean_ms": 41.38004644847233,
+      "median_ms": 35,
+      "p95_ms": 76,
+      "p99_ms": 160,
+      "max_ms": 670.7177920034155
+    },
+    {
+      "method": "",
+      "name": "Aggregated",
+      "requests": 8400,
+      "failures": 292,
+      "requests_per_second": 69.99989893765732,
+      "mean_ms": 52.52265637443911,
+      "median_ms": 37,
+      "p95_ms": 120,
+      "p99_ms": 280,
+      "max_ms": 1462.763624964282
+    }
+  ],
+  "errors": [
+    {
+      "method": "GET",
+      "name": "donantes / Feed público",
+      "error": "http_429",
+      "occurrences": 292
+    }
+  ],
+  "name": "lecturas-36",
+  "started_utc": "2026-11-18T17:50:57+00:00",
+  "finished_utc": "2026-11-18T17:53:31+00:00",
+  "cache_mode": "active",
+  "exit_code": 0,
+  "resources": {
+    "samples": 53,
+    "servicios_api": {
+      "cpu_percent": {
+        "mean": 104.2,
+        "max": 145.5
+      },
+      "rss_mb": {
+        "mean": 321.4,
+        "max": 370.2
+      }
+    },
+    "workers": {
+      "cpu_percent": {
+        "mean": 14.9,
+        "max": 25.7
+      },
+      "rss_mb": {
+        "mean": 173.7,
+        "max": 235.0
+      }
+    },
+    "postgres": {
+      "cpu_percent": {
+        "mean": 201.7,
+        "max": 8458.2
+      },
+      "rss_mb": {
+        "mean": 190.1,
+        "max": 301.0
+      }
+    },
+    "mongodb": {
+      "cpu_percent": {
+        "mean": 1.8,
+        "max": 4.5
+      },
+      "rss_mb": {
+        "mean": 33.1,
+        "max": 40.4
+      }
+    },
+    "redis": {
+      "cpu_percent": {
+        "mean": 2.8,
+        "max": 3.6
+      },
+      "rss_mb": {
+        "mean": 4.4,
+        "max": 5.0
+      }
+    },
+    "locust": {
+      "cpu_percent": {
+        "mean": 12.0,
+        "max": 16.0
+      },
+      "rss_mb": {
+        "mean": 41.8,
+        "max": 75.0
+      }
+    },
+    "sistema": {
+      "available_mb": {
+        "mean": 1235.7,
+        "max": 1419,
+        "min": 1174
+      },
+      "cpu_percent": {
+        "mean": 64.5,
+        "max": 90.1
+      }
+    }
+  }
+}

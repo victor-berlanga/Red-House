@@ -1,0 +1,82 @@
+{
+ "find_page": {
+  "executionTimeMillis": 0,
+  "totalDocsExamined": 20,
+  "totalKeysExamined": 20,
+  "winningPlan": {
+   "isCached": false,
+   "stage": "LIMIT",
+   "limitAmount": 20,
+   "inputStage": {
+    "stage": "PROJECTION_SIMPLE",
+    "transformBy": {
+     "_id": 0
+    },
+    "inputStage": {
+     "stage": "FETCH",
+     "filter": {
+      "region_id": {
+       "$eq": "9221236e-f4dd-46ab-afdf-55263dd24aa6"
+      }
+     },
+     "inputStage": {
+      "stage": "IXSCAN",
+      "keyPattern": {
+       "_id": 1
+      },
+      "indexName": "_id_",
+      "isMultiKey": false,
+      "isUnique": true,
+      "isSparse": false,
+      "isPartial": false,
+      "indexVersion": 2,
+      "direction": "forward",
+      "indexBounds": {
+       "_id": [
+        "[MinKey, MaxKey]"
+       ]
+      }
+     }
+    }
+   }
+  }
+ },
+ "count": {
+  "executionTimeMillis": 32,
+  "totalDocsExamined": 0,
+  "totalKeysExamined": 146262,
+  "winningPlan": {
+   "isCached": false,
+   "stage": "COUNT",
+   "inputStage": {
+    "stage": "COUNT_SCAN",
+    "keyPattern": {
+     "region_id": 1,
+     "source": 1
+    },
+    "indexName": "region_id_1_source_1",
+    "isMultiKey": false,
+    "multiKeyPaths": {
+     "region_id": [],
+     "source": []
+    },
+    "isUnique": false,
+    "isSparse": false,
+    "isPartial": false,
+    "indexVersion": 2,
+    "indexBounds": {
+     "startKey": {
+      "region_id": "9221236e-f4dd-46ab-afdf-55263dd24aa6",
+      "source": "MinKey()"
+     },
+     "startKeyInclusive": true,
+     "endKey": {
+      "region_id": "9221236e-f4dd-46ab-afdf-55263dd24aa6",
+      "source": "MaxKey()"
+     },
+     "endKeyInclusive": true
+    }
+   }
+  }
+ }
+}

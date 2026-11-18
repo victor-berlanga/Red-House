@@ -1,0 +1,62 @@
+{
+ "find_page": {
+  "executionTimeMillis": 0,
+  "totalDocsExamined": 20,
+  "totalKeysExamined": 20,
+  "winningPlan": {
+   "isCached": false,
+   "stage": "LIMIT",
+   "limitAmount": 20,
+   "inputStage": {
+    "stage": "PROJECTION_SIMPLE",
+    "transformBy": {
+     "_id": 0
+    },
+    "inputStage": {
+     "stage": "FETCH",
+     "filter": {
+      "region_id": {
+       "$eq": "9221236e-f4dd-46ab-afdf-55263dd24aa6"
+      }
+     },
+     "inputStage": {
+      "stage": "IXSCAN",
+      "keyPattern": {
+       "_id": 1
+      },
+      "indexName": "_id_",
+      "isMultiKey": false,
+      "isUnique": true,
+      "isSparse": false,
+      "isPartial": false,
+      "indexVersion": 2,
+      "direction": "forward",
+      "indexBounds": {
+       "_id": [
+        "[MinKey, MaxKey]"
+       ]
+      }
+     }
+    }
+   }
+  }
+ },
+ "count": {
+  "executionTimeMillis": 13,
+  "totalDocsExamined": 56261,
+  "totalKeysExamined": 0,
+  "winningPlan": {
+   "isCached": false,
+   "stage": "COUNT",
+   "inputStage": {
+    "stage": "COLLSCAN",
+    "filter": {
+     "region_id": {
+      "$eq": "9221236e-f4dd-46ab-afdf-55263dd24aa6"
+     }
+    },
+    "direction": "forward"
+   }
+  }
+ }
+}

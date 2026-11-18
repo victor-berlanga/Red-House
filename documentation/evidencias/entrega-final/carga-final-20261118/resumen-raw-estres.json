@@ -1,0 +1,702 @@
+{
+  "criterio": {
+    "p95_endpoint_ms_menor_que": 2000,
+    "errores_menor_que_pct": 1.0
+  },
+  "fases": [
+    {
+      "fase": "mixta-72",
+      "modo": "mixed",
+      "usuarios": 72,
+      "sesiones": 72,
+      "identidades_distintas": 71,
+      "peticiones": 10333,
+      "rps": 86.11,
+      "media_ms": 65.9,
+      "p95_global_ms": 130,
+      "p99_global_ms": 210,
+      "p95_max_endpoint_ms": 290,
+      "p99_max_endpoint_ms": 400,
+      "errores": 0,
+      "errores_pct": 0.0,
+      "cache": {
+        "HIT": 54,
+        "MISS": 2343
+      },
+      "http_status": {
+        "200": 9940,
+        "201": 377,
+        "202": 16
+      },
+      "cumple": true,
+      "errores_sin_feed_anonimo": 0,
+      "errores_sin_feed_anonimo_pct": 0.0
+    },
+    {
+      "fase": "mixta-96",
+      "modo": "mixed",
+      "usuarios": 96,
+      "sesiones": 90,
+      "identidades_distintas": 95,
+      "peticiones": 11803,
+      "rps": 98.34,
+      "media_ms": 114.2,
+      "p95_global_ms": 250,
+      "p99_global_ms": 360,
+      "p95_max_endpoint_ms": 10000,
+      "p99_max_endpoint_ms": 10000,
+      "errores": 6,
+      "errores_pct": 0.05,
+      "cache": {
+        "MISS": 2898,
+        "HIT": 50
+      },
+      "http_status": {
+        "200": 11312,
+        "201": 468,
+        "202": 17,
+        "0": 6
+      },
+      "cumple": false,
+      "errores_sin_feed_anonimo": 6,
+      "errores_sin_feed_anonimo_pct": 0.05
+    },
+    {
+      "fase": "mixta-recuperacion-12",
+      "modo": "mixed",
+      "usuarios": 12,
+      "sesiones": 12,
+      "identidades_distintas": 11,
+      "peticiones": 964,
+      "rps": 16.07,
+      "media_ms": 36.0,
+      "p95_global_ms": 82,
+      "p99_global_ms": 200,
+      "p95_max_endpoint_ms": 750,
+      "p99_max_endpoint_ms": 750,
+      "errores": 0,
+      "errores_pct": 0.0,
+      "cache": {
+        "HIT": 112,
+        "MISS": 94
+      },
+      "http_status": {
+        "200": 928,
+        "201": 36
+      },
+      "cumple": true,
+      "errores_sin_feed_anonimo": 0,
+      "errores_sin_feed_anonimo_pct": 0.0
+    }
+  ],
+  "perfiles": {
+    "mixta-72": {
+      "Consulta web (médico)": {
+        "peticiones": 2583,
+        "rps": 21.52,
+        "media_ms": 75.5,
+        "p95_max_ms": 150,
+        "p99_max_ms": 250,
+        "errores": 0
+      },
+      "Escritorio XML (operador)": {
+        "peticiones": 2411,
+        "rps": 20.09,
+        "media_ms": 66.9,
+        "p95_max_ms": 290,
+        "p99_max_ms": 290,
+        "errores": 0
+      },
+      "Móvil donante": {
+        "peticiones": 3140,
+        "rps": 26.17,
+        "media_ms": 58.2,
+        "p95_max_ms": 170,
+        "p99_max_ms": 290,
+        "errores": 0
+      },
+      "Móvil transportista": {
+        "peticiones": 543,
+        "rps": 4.52,
+        "media_ms": 59.8,
+        "p95_max_ms": 120,
+        "p99_max_ms": 240,
+        "errores": 0
+      },
+      "Panel auditor/monitoreo": {
+        "peticiones": 1404,
+        "rps": 11.7,
+        "media_ms": 68.3,
+        "p95_max_ms": 260,
+        "p99_max_ms": 400,
+        "errores": 0
+      },
+      "Proceso automático": {
+        "peticiones": 252,
+        "rps": 2.1,
+        "media_ms": 51.8,
+        "p95_max_ms": 110,
+        "p99_max_ms": 180,
+        "errores": 0
+      }
+    },
+    "mixta-96": {
+      "Consulta web (médico)": {
+        "peticiones": 3191,
+        "rps": 26.59,
+        "media_ms": 118.4,
+        "p95_max_ms": 270,
+        "p99_max_ms": 430,
+        "errores": 0
+      },
+      "Escritorio XML (operador)": {
+        "peticiones": 2961,
+        "rps": 24.67,
+        "media_ms": 110.7,
+        "p95_max_ms": 320,
+        "p99_max_ms": 480,
+        "errores": 0
+      },
+      "Móvil donante": {
+        "peticiones": 4007,
+        "rps": 33.39,
+        "media_ms": 99.1,
+        "p95_max_ms": 310,
+        "p99_max_ms": 390,
+        "errores": 0
+      },
+      "Móvil transportista": {
+        "peticiones": 700,
+        "rps": 5.83,
+        "media_ms": 97.3,
+        "p95_max_ms": 230,
+        "p99_max_ms": 310,
+        "errores": 0
+      },
+      "Panel auditor/monitoreo": {
+        "peticiones": 824,
+        "rps": 6.87,
+        "media_ms": 131.3,
+        "p95_max_ms": 520,
+        "p99_max_ms": 660,
+        "errores": 0
+      },
+      "Proceso automático": {
+        "peticiones": 120,
+        "rps": 1.0,
+        "media_ms": 570.3,
+        "p95_max_ms": 10000,
+        "p99_max_ms": 10000,
+        "errores": 6
+      }
+    },
+    "mixta-recuperacion-12": {
+      "Consulta web (médico)": {
+        "peticiones": 249,
+        "rps": 4.15,
+        "media_ms": 36.0,
+        "p95_max_ms": 73,
+        "p99_max_ms": 450,
+        "errores": 0
+      },
+      "Escritorio XML (operador)": {
+        "peticiones": 150,
+        "rps": 2.5,
+        "media_ms": 36.9,
+        "p95_max_ms": 100,
+        "p99_max_ms": 140,
+        "errores": 0
+      },
+      "Móvil donante": {
+        "peticiones": 309,
+        "rps": 5.15,
+        "media_ms": 30.3,
+        "p95_max_ms": 140,
+        "p99_max_ms": 410,
+        "errores": 0
+      },
+      "Móvil transportista": {
+        "peticiones": 34,
+        "rps": 0.57,
+        "media_ms": 51.2,
+        "p95_max_ms": 350,
+        "p99_max_ms": 350,
+        "errores": 0
+      },
+      "Panel auditor/monitoreo": {
+        "peticiones": 90,
+        "rps": 1.5,
+        "media_ms": 64.4,
+        "p95_max_ms": 750,
+        "p99_max_ms": 750,
+        "errores": 0
+      },
+      "Proceso automático": {
+        "peticiones": 132,
+        "rps": 2.2,
+        "media_ms": 24.9,
+        "p95_max_ms": 48,
+        "p99_max_ms": 91,
+        "errores": 0
+      }
+    }
+  },
+  "mas_lentos": {
+    "mixta-72": [
+      {
+        "method": "POST",
+        "name": "Escritorio XML (operador) | Solicitar reporte de inventario",
+        "requests": 16,
+        "mean_ms": 157.0490000594873,
+        "p95_ms": 290,
+        "p99_ms": 290,
+        "failures": 0
+      },
+      {
+        "method": "GET",
+        "name": "Panel auditor/monitoreo | Bitácora",
+        "requests": 280,
+        "mean_ms": 123.355854932119,
+        "p95_ms": 260,
+        "p99_ms": 400,
+        "failures": 0
+      },
+      {
+        "method": "GET",
+        "name": "Citas / Horarios autorizados",
+        "requests": 200,
+        "mean_ms": 111.63472335436381,
+        "p95_ms": 170,
+        "p99_ms": 290,
+        "failures": 0
+      },
+      {
+        "method": "GET",
+        "name": "Escritorio XML (operador) | Inventario propio",
+        "requests": 675,
+        "mean_ms": 92.5999450067886,
+        "p95_ms": 170,
+        "p99_ms": 250,
+        "failures": 0
+      },
+      {
+        "method": "GET",
+        "name": "Consulta web (médico) | Disponibilidad regional",
+        "requests": 861,
+        "mean_ms": 84.16690877906471,
+        "p95_ms": 150,
+        "p99_ms": 240,
+        "failures": 0
+      },
+      {
+        "method": "GET",
+        "name": "Escritorio XML (operador) | Estado del reporte",
+        "requests": 16,
+        "mean_ms": 67.41789323859848,
+        "p95_ms": 150,
+        "p99_ms": 150,
+        "failures": 0
+      },
+      {
+        "method": "POST",
+        "name": "Inventario / Registrar cuarentena",
+        "requests": 177,
+        "mean_ms": 62.667804140081934,
+        "p95_ms": 150,
+        "p99_ms": 270,
+        "failures": 0
+      },
+      {
+        "method": "GET",
+        "name": "Consulta web (médico) | Indicadores de inventario",
+        "requests": 861,
+        "mean_ms": 87.65122025616091,
+        "p95_ms": 140,
+        "p99_ms": 250,
+        "failures": 0
+      }
+    ],
+    "mixta-96": [
+      {
+        "method": "GET",
+        "name": "Proceso automático | /health/ready",
+        "requests": 120,
+        "mean_ms": 570.2966780925635,
+        "p95_ms": 10000,
+        "p99_ms": 10000,
+        "failures": 6
+      },
+      {
+        "method": "GET",
+        "name": "Panel auditor/monitoreo | Bitácora",
+        "requests": 165,
+        "mean_ms": 284.03474142365724,
+        "p95_ms": 520,
+        "p99_ms": 660,
+        "failures": 0
+      },
+      {
+        "method": "GET",
+        "name": "Escritorio XML (operador) | Inventario propio",
+        "requests": 820,
+        "mean_ms": 144.4953565115234,
+        "p95_ms": 320,
+        "p99_ms": 480,
+        "failures": 0
+      },
+      {
+        "method": "GET",
+        "name": "Citas / Horarios autorizados",
+        "requests": 236,
+        "mean_ms": 163.6035961900064,
+        "p95_ms": 310,
+        "p99_ms": 390,
+        "failures": 0
+      },
+      {
+        "method": "POST",
+        "name": "Escritorio XML (operador) | Solicitar reporte de inventario",
+        "requests": 17,
+        "mean_ms": 184.55892387667998,
+        "p95_ms": 300,
+        "p99_ms": 300,
+        "failures": 0
+      },
+      {
+        "method": "GET",
+        "name": "Consulta web (médico) | Indicadores de inventario",
+        "requests": 1063,
+        "mean_ms": 135.51146620757498,
+        "p95_ms": 270,
+        "p99_ms": 380,
+        "failures": 0
+      },
+      {
+        "method": "GET",
+        "name": "Consulta web (médico) | Disponibilidad regional",
+        "requests": 1065,
+        "mean_ms": 130.7198922385947,
+        "p95_ms": 270,
+        "p99_ms": 430,
+        "failures": 0
+      },
+      {
+        "method": "POST",
+        "name": "Inventario / Registrar cuarentena",
+        "requests": 234,
+        "mean_ms": 107.3428331501185,
+        "p95_ms": 260,
+        "p99_ms": 430,
+        "failures": 0
+      }
+    ],
+    "mixta-recuperacion-12": [
+      {
+        "method": "GET",
+        "name": "Panel auditor/monitoreo | Bitácora",
+        "requests": 18,
+        "mean_ms": 195.58099527946777,
+        "p95_ms": 750,
+        "p99_ms": 750,
+        "failures": 0
+      },
+      {
+        "method": "GET",
+        "name": "Panel auditor/monitoreo | Proyección documental",
+        "requests": 18,
+        "mean_ms": 51.45545587745599,
+        "p95_ms": 480,
+        "p99_ms": 480,
+        "failures": 0
+      },
+      {
+        "method": "GET",
+        "name": "Móvil transportista | Tareas propias",
+        "requests": 17,
+        "mean_ms": 62.01119364841896,
+        "p95_ms": 350,
+        "p99_ms": 350,
+        "failures": 0
+      },
+      {
+        "method": "GET",
+        "name": "Móvil transportista | Avisos de traslado",
+        "requests": 17,
+        "mean_ms": 40.321370230658964,
+        "p95_ms": 160,
+        "p99_ms": 160,
+        "failures": 0
+      },
+      {
+        "method": "GET",
+        "name": "Citas / Horarios autorizados",
+        "requests": 21,
+        "mean_ms": 66.92327777411612,
+        "p95_ms": 140,
+        "p99_ms": 200,
+        "failures": 0
+      },
+      {
+        "method": "GET",
+        "name": "Escritorio XML (operador) | Reportes solicitados",
+        "requests": 40,
+        "mean_ms": 46.61897090845741,
+        "p95_ms": 100,
+        "p99_ms": 100,
+        "failures": 0
+      },
+      {
+        "method": "GET",
+        "name": "Escritorio XML (operador) | Inventario propio",
+        "requests": 40,
+        "mean_ms": 44.44520426332019,
+        "p95_ms": 97,
+        "p99_ms": 140,
+        "failures": 0
+      },
+      {
+        "method": "GET",
+        "name": "Panel auditor/monitoreo | Estado regional",
+        "requests": 18,
+        "mean_ms": 30.794437340874637,
+        "p95_ms": 91,
+        "p99_ms": 91,
+        "failures": 0
+      }
+    ]
+  },
+  "errores": {
+    "mixta-96": [
+      {
+        "method": "GET",
+        "name": "Proceso automático | /health/ready",
+        "error": "http_0",
+        "occurrences": 6
+      }
+    ]
+  },
+  "recursos": {
+    "mixta-72": {
+      "samples": 53,
+      "servicios_api": {
+        "cpu_percent": {
+          "mean": 166.4,
+          "max": 201.4
+        },
+        "rss_mb": {
+          "mean": 400.2,
+          "max": 469.3
+        }
+      },
+      "workers": {
+        "cpu_percent": {
+          "mean": 20.0,
+          "max": 27.2
+        },
+        "rss_mb": {
+          "mean": 212.0,
+          "max": 279.0
+        }
+      },
+      "postgres": {
+        "cpu_percent": {
+          "mean": 18.5,
+          "max": 22.3
+        },
+        "rss_mb": {
+          "mean": 188.1,
+          "max": 412.4
+        }
+      },
+      "mongodb": {
+        "cpu_percent": {
+          "mean": 3.0,
+          "max": 5.9
+        },
+        "rss_mb": {
+          "mean": 42.1,
+          "max": 45.9
+        }
+      },
+      "redis": {
+        "cpu_percent": {
+          "mean": 3.5,
+          "max": 4.0
+        },
+        "rss_mb": {
+          "mean": 6.5,
+          "max": 8.2
+        }
+      },
+      "locust": {
+        "cpu_percent": {
+          "mean": 17.5,
+          "max": 22.7
+        },
+        "rss_mb": {
+          "mean": 44.1,
+          "max": 55.4
+        }
+      },
+      "sistema": {
+        "available_mb": {
+          "mean": 1198.5,
+          "max": 1237,
+          "min": 1167
+        },
+        "cpu_percent": {
+          "mean": 87.1,
+          "max": 96.1
+        }
+      }
+    },
+    "mixta-96": {
+      "samples": 50,
+      "servicios_api": {
+        "cpu_percent": {
+          "mean": 197.6,
+          "max": 222.9
+        },
+        "rss_mb": {
+          "mean": 389.3,
+          "max": 466.6
+        }
+      },
+      "workers": {
+        "cpu_percent": {
+          "mean": 19.1,
+          "max": 27.9
+        },
+        "rss_mb": {
+          "mean": 211.9,
+          "max": 285.8
+        }
+      },
+      "postgres": {
+        "cpu_percent": {
+          "mean": 19.3,
+          "max": 23.3
+        },
+        "rss_mb": {
+          "mean": 218.7,
+          "max": 337.3
+        }
+      },
+      "mongodb": {
+        "cpu_percent": {
+          "mean": 3.3,
+          "max": 5.3
+        },
+        "rss_mb": {
+          "mean": 45.8,
+          "max": 52.6
+        }
+      },
+      "redis": {
+        "cpu_percent": {
+          "mean": 3.2,
+          "max": 3.8
+        },
+        "rss_mb": {
+          "mean": 6.6,
+          "max": 10.8
+        }
+      },
+      "locust": {
+        "cpu_percent": {
+          "mean": 22.0,
+          "max": 26.7
+        },
+        "rss_mb": {
+          "mean": 46.1,
+          "max": 82.1
+        }
+      },
+      "sistema": {
+        "available_mb": {
+          "mean": 1340.0,
+          "max": 1677,
+          "min": 1170
+        },
+        "cpu_percent": {
+          "mean": 93.4,
+          "max": 99.2
+        }
+      }
+    },
+    "mixta-recuperacion-12": {
+      "samples": 29,
+      "servicios_api": {
+        "cpu_percent": {
+          "mean": 26.8,
+          "max": 53.6
+        },
+        "rss_mb": {
+          "mean": 300.7,
+          "max": 445.6
+        }
+      },
+      "workers": {
+        "cpu_percent": {
+          "mean": 5.0,
+          "max": 11.7
+        },
+        "rss_mb": {
+          "mean": 154.0,
+          "max": 203.8
+        }
+      },
+      "postgres": {
+        "cpu_percent": {
+          "mean": 4.1,
+          "max": 8.3
+        },
+        "rss_mb": {
+          "mean": 142.2,
+          "max": 192.3
+        }
+      },
+      "mongodb": {
+        "cpu_percent": {
+          "mean": 1.1,
+          "max": 2.2
+        },
+        "rss_mb": {
+          "mean": 41.7,
+          "max": 50.0
+        }
+      },
+      "redis": {
+        "cpu_percent": {
+          "mean": 0.9,
+          "max": 1.7
+        },
+        "rss_mb": {
+          "mean": 4.7,
+          "max": 4.9
+        }
+      },
+      "locust": {
+        "cpu_percent": {
+          "mean": 2.7,
+          "max": 4.6
+        },
+        "rss_mb": {
+          "mean": 31.1,
+          "max": 35.6
+        }
+      },
+      "sistema": {
+        "available_mb": {
+          "mean": 1206.5,
+          "max": 1271,
+          "min": 1138
+        },
+        "cpu_percent": {
+          "mean": 48.3,
+          "max": 80.8
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,6 @@
+Method,Name,Error,Occurrences,First Seen,Last Seen
+GET,transporte / Tareas propias,CatchResponseError('http_503'),1,2026-11-18T17:49:02Z,2026-11-18T17:49:02Z
+GET,priorizacion_geografia / Rutas,CatchResponseError('http_503'),2,2026-11-18T17:49:02Z,2026-11-18T17:49:02Z
+GET,donantes / Feed público,CatchResponseError('http_429'),48,2026-11-18T17:48:54Z,2026-11-18T17:49:59Z
+GET,donantes / Agenda propia,CatchResponseError('http_503'),2,2026-11-18T17:49:02Z,2026-11-18T17:49:02Z
+GET,inventario / Inventario propio,CatchResponseError('http_503'),1,2026-11-18T17:49:02Z,2026-11-18T17:49:02Z

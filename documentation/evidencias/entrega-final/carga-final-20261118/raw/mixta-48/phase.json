@@ -1,0 +1,487 @@
+{
+  "stage": "finished",
+  "mode": "mixed",
+  "users": 48,
+  "logged_in": 48,
+  "login_failures": 0,
+  "distinct_identities": 47,
+  "identities_by_role": {
+    "MEDICAL": 11,
+    "OPERATOR": 10,
+    "DONOR": 16,
+    "TRANSPORT": 5,
+    "AUDITOR": 5
+  },
+  "barrier_seconds": 2.884,
+  "warmup_seconds": 30,
+  "warmup": {
+    "requests": 1852,
+    "failures": 0
+  },
+  "measurement_seconds": 120.007,
+  "measurement_min_users": 48,
+  "user_errors": 0,
+  "cache": {
+    "MISS": 1427,
+    "HIT": 193
+  },
+  "http_status": {
+    "200": 6775,
+    "201": 255,
+    "202": 10
+  },
+  "measurement": [
+    {
+      "method": "POST",
+      "name": "Identidad / login",
+      "requests": 0,
+      "failures": 0,
+      "requests_per_second": 0.0,
+      "mean_ms": 0.0,
+      "median_ms": 0,
+      "p95_ms": 0,
+      "p99_ms": 0,
+      "max_ms": 0
+    },
+    {
+      "method": "GET",
+      "name": "Proceso automático | /health/ready",
+      "requests": 264,
+      "failures": 0,
+      "requests_per_second": 2.19986814923479,
+      "mean_ms": 36.75894290438119,
+      "median_ms": 31,
+      "p95_ms": 76,
+      "p99_ms": 150,
+      "max_ms": 158.2584170391783
+    },
+    {
+      "method": "GET",
+      "name": "Citas / Expediente propio",
+      "requests": 140,
+      "failures": 0,
+      "requests_per_second": 1.166596745806328,
+      "mean_ms": 48.68176846232797,
+      "median_ms": 41,
+      "p95_ms": 88,
+      "p99_ms": 190,
+      "max_ms": 302.5670420611277
+    },
+    {
+      "method": "GET",
+      "name": "Móvil donante | Agenda propia",
+      "requests": 373,
+      "failures": 0,
+      "requests_per_second": 3.1081470441840024,
+      "mean_ms": 53.54619739126494,
+      "median_ms": 42,
+      "p95_ms": 140,
+      "p99_ms": 250,
+      "max_ms": 296.700167004019
+    },
+    {
+      "method": "GET",
+      "name": "Consulta web (médico) | Disponibilidad regional",
+      "requests": 594,
+      "failures": 0,
+      "requests_per_second": 4.949703335778278,
+      "mean_ms": 70.42151950856338,
+      "median_ms": 59,
+      "p95_ms": 150,
+      "p99_ms": 240,
+      "max_ms": 387.28983397595584
+    },
+    {
+      "method": "GET",
+      "name": "Móvil donante | Avisos propios",
+      "requests": 373,
+      "failures": 0,
+      "requests_per_second": 3.1081470441840024,
+      "mean_ms": 51.34513781651924,
+      "median_ms": 40,
+      "p95_ms": 130,
+      "p99_ms": 250,
+      "max_ms": 304.55216695554554
+    },
+    {
+      "method": "GET",
+      "name": "Móvil transportista | Tareas propias",
+      "requests": 159,
+      "failures": 0,
+      "requests_per_second": 1.324920589880044,
+      "mean_ms": 54.92999791548406,
+      "median_ms": 44,
+      "p95_ms": 120,
+      "p99_ms": 190,
+      "max_ms": 208.86345801409334
+    },
+    {
+      "method": "GET",
+      "name": "Consulta web (médico) | Solicitudes propias",
+      "requests": 593,
+      "failures": 0,
+      "requests_per_second": 4.9413705018796605,
+      "mean_ms": 48.44220906093993,
+      "median_ms": 38,
+      "p95_ms": 120,
+      "p99_ms": 210,
+      "max_ms": 376.6495840391144
+    },
+    {
+      "method": "GET",
+      "name": "Escritorio XML (operador) | Inventario propio",
+      "requests": 433,
+      "failures": 0,
+      "requests_per_second": 3.6081170781010004,
+      "mean_ms": 77.94185845486768,
+      "median_ms": 68,
+      "p95_ms": 160,
+      "p99_ms": 260,
+      "max_ms": 301.5833330573514
+    },
+    {
+      "method": "GET",
+      "name": "Citas / Buscar campaña",
+      "requests": 140,
+      "failures": 0,
+      "requests_per_second": 1.166596745806328,
+      "mean_ms": 46.51009135164453,
+      "median_ms": 39,
+      "p95_ms": 79,
+      "p99_ms": 290,
+      "max_ms": 289.57549994811416
+    },
+    {
+      "method": "POST",
+      "name": "Inventario / Registrar cuarentena",
+      "requests": 116,
+      "failures": 0,
+      "requests_per_second": 0.9666087322395289,
+      "mean_ms": 50.888543505952214,
+      "median_ms": 43,
+      "p95_ms": 94,
+      "p99_ms": 190,
+      "max_ms": 252.42166698444635
+    },
+    {
+      "method": "GET",
+      "name": "Móvil donante | Expediente propio",
+      "requests": 373,
+      "failures": 0,
+      "requests_per_second": 3.1081470441840024,
+      "mean_ms": 49.075219897870426,
+      "median_ms": 36,
+      "p95_ms": 110,
+      "p99_ms": 310,
+      "max_ms": 394.67170904390514
+    },
+    {
+      "method": "GET",
+      "name": "Consulta web (médico) | Indicadores de inventario",
+      "requests": 593,
+      "failures": 0,
+      "requests_per_second": 4.9413705018796605,
+      "mean_ms": 73.36531528589767,
+      "median_ms": 63,
+      "p95_ms": 140,
+      "p99_ms": 250,
+      "max_ms": 379.4311669189483
+    },
+    {
+      "method": "POST",
+      "name": "Escritorio XML (operador) | Solicitar reporte de inventario",
+      "requests": 10,
+      "failures": 0,
+      "requests_per_second": 0.08332833898616629,
+      "mean_ms": 130.50013351021335,
+      "median_ms": 110,
+      "p95_ms": 280,
+      "p99_ms": 280,
+      "max_ms": 282.5101249618456
+    },
+    {
+      "method": "GET",
+      "name": "Móvil transportista | Avisos de traslado",
+      "requests": 159,
+      "failures": 0,
+      "requests_per_second": 1.324920589880044,
+      "mean_ms": 51.73098744089428,
+      "median_ms": 41,
+      "p95_ms": 120,
+      "p99_ms": 300,
+      "max_ms": 363.12916700262576
+    },
+    {
+      "method": "GET",
+      "name": "Citas / Horarios autorizados",
+      "requests": 140,
+      "failures": 0,
+      "requests_per_second": 1.166596745806328,
+      "mean_ms": 106.10131012758107,
+      "median_ms": 95,
+      "p95_ms": 210,
+      "p99_ms": 300,
+      "max_ms": 321.1725839646533
+    },
+    {
+      "method": "GET",
+      "name": "Escritorio XML (operador) | Campañas",
+      "requests": 431,
+      "failures": 0,
+      "requests_per_second": 3.591451410303767,
+      "mean_ms": 48.67028295583245,
+      "median_ms": 38,
+      "p95_ms": 99,
+      "p99_ms": 270,
+      "max_ms": 365.9295829711482
+    },
+    {
+      "method": "GET",
+      "name": "Panel auditor/monitoreo | Bitácora",
+      "requests": 179,
+      "failures": 0,
+      "requests_per_second": 1.4915772678523764,
+      "mean_ms": 231.44886360501133,
+      "median_ms": 190,
+      "p95_ms": 470,
+      "p99_ms": 700,
+      "max_ms": 761.1249160254374
+    },
+    {
+      "method": "GET",
+      "name": "Inventario / Consultar unidad registrada",
+      "requests": 116,
+      "failures": 0,
+      "requests_per_second": 0.9666087322395289,
+      "mean_ms": 48.6966464939479,
+      "median_ms": 40,
+      "p95_ms": 110,
+      "p99_ms": 160,
+      "max_ms": 220.94866598490626
+    },
+    {
+      "method": "GET",
+      "name": "Panel auditor/monitoreo | Proyección documental",
+      "requests": 179,
+      "failures": 0,
+      "requests_per_second": 1.4915772678523764,
+      "mean_ms": 49.43364551329891,
+      "median_ms": 39,
+      "p95_ms": 100,
+      "p99_ms": 260,
+      "max_ms": 322.4514169851318
+    },
+    {
+      "method": "GET",
+      "name": "Escritorio XML (operador) | Reportes solicitados",
+      "requests": 431,
+      "failures": 0,
+      "requests_per_second": 3.591451410303767,
+      "mean_ms": 53.86790329603405,
+      "median_ms": 41,
+      "p95_ms": 130,
+      "p99_ms": 290,
+      "max_ms": 393.4559590416029
+    },
+    {
+      "method": "POST",
+      "name": "Citas / Reservar",
+      "requests": 139,
+      "failures": 0,
+      "requests_per_second": 1.1582639119077114,
+      "mean_ms": 50.348561121445655,
+      "median_ms": 41,
+      "p95_ms": 120,
+      "p99_ms": 180,
+      "max_ms": 210.99308389239013
+    },
+    {
+      "method": "GET",
+      "name": "Panel auditor/monitoreo | Hallazgos",
+      "requests": 179,
+      "failures": 0,
+      "requests_per_second": 1.4915772678523764,
+      "mean_ms": 51.2957562862859,
+      "median_ms": 39,
+      "p95_ms": 130,
+      "p99_ms": 360,
+      "max_ms": 364.81466598343104
+    },
+    {
+      "method": "GET",
+      "name": "Panel auditor/monitoreo | Estado regional",
+      "requests": 179,
+      "failures": 0,
+      "requests_per_second": 1.4915772678523764,
+      "mean_ms": 52.5891881178565,
+      "median_ms": 42,
+      "p95_ms": 130,
+      "p99_ms": 230,
+      "max_ms": 352.93645807541907
+    },
+    {
+      "method": "GET",
+      "name": "Citas / Consultar horario",
+      "requests": 139,
+      "failures": 0,
+      "requests_per_second": 1.1582639119077114,
+      "mean_ms": 46.22190081842726,
+      "median_ms": 41,
+      "p95_ms": 91,
+      "p99_ms": 170,
+      "max_ms": 227.34283399768174
+    },
+    {
+      "method": "GET",
+      "name": "Panel auditor/monitoreo | Chequeos",
+      "requests": 179,
+      "failures": 0,
+      "requests_per_second": 1.4915772678523764,
+      "mean_ms": 42.34962337312169,
+      "median_ms": 36,
+      "p95_ms": 98,
+      "p99_ms": 150,
+      "max_ms": 215.61583306174725
+    },
+    {
+      "method": "POST",
+      "name": "Citas / Reprogramar",
+      "requests": 139,
+      "failures": 0,
+      "requests_per_second": 1.1582639119077114,
+      "mean_ms": 49.364470697523984,
+      "median_ms": 41,
+      "p95_ms": 99,
+      "p99_ms": 230,
+      "max_ms": 394.8810000438243
+    },
+    {
+      "method": "POST",
+      "name": "Citas / Cancelar",
+      "requests": 140,
+      "failures": 0,
+      "requests_per_second": 1.166596745806328,
+      "mean_ms": 44.131052404242965,
+      "median_ms": 36,
+      "p95_ms": 120,
+      "p99_ms": 150,
+      "max_ms": 159.80495908297598
+    },
+    {
+      "method": "GET",
+      "name": "Citas / Confirmar cancelación",
+      "requests": 140,
+      "failures": 0,
+      "requests_per_second": 1.166596745806328,
+      "mean_ms": 44.04335774930327,
+      "median_ms": 37,
+      "p95_ms": 84,
+      "p99_ms": 160,
+      "max_ms": 299.6649999404326
+    },
+    {
+      "method": "GET",
+      "name": "Escritorio XML (operador) | Estado del reporte",
+      "requests": 10,
+      "failures": 0,
+      "requests_per_second": 0.08332833898616629,
+      "mean_ms": 49.252441711723804,
+      "median_ms": 47,
+      "p95_ms": 120,
+      "p99_ms": 120,
+      "max_ms": 115.20783300511539
+    },
+    {
+      "method": "",
+      "name": "Aggregated",
+      "requests": 7040,
+      "failures": 0,
+      "requests_per_second": 58.663150646261066,
+      "mean_ms": 60.612470393541365,
+      "median_ms": 45,
+      "p95_ms": 160,
+      "p99_ms": 290,
+      "max_ms": 761.1249160254374
+    }
+  ],
+  "errors": [],
+  "name": "mixta-48",
+  "started_utc": "2026-11-18T18:04:24+00:00",
+  "finished_utc": "2026-11-18T18:06:59+00:00",
+  "cache_mode": "active",
+  "exit_code": 0,
+  "resources": {
+    "samples": 53,
+    "servicios_api": {
+      "cpu_percent": {
+        "mean": 107.2,
+        "max": 144.3
+      },
+      "rss_mb": {
+        "mean": 362.8,
+        "max": 446.7
+      }
+    },
+    "workers": {
+      "cpu_percent": {
+        "mean": 15.1,
+        "max": 27.4
+      },
+      "rss_mb": {
+        "mean": 150.3,
+        "max": 205.6
+      }
+    },
+    "postgres": {
+      "cpu_percent": {
+        "mean": 88.0,
+        "max": 806.1
+      },
+      "rss_mb": {
+        "mean": 171.1,
+        "max": 363.9
+      }
+    },
+    "mongodb": {
+      "cpu_percent": {
+        "mean": 3.1,
+        "max": 6.3
+      },
+      "rss_mb": {
+        "mean": 42.9,
+        "max": 50.3
+      }
+    },
+    "redis": {
+      "cpu_percent": {
+        "mean": 2.7,
+        "max": 4.0
+      },
+      "rss_mb": {
+        "mean": 5.0,
+        "max": 7.4
+      }
+    },
+    "locust": {
+      "cpu_percent": {
+        "mean": 10.4,
+        "max": 15.1
+      },
+      "rss_mb": {
+        "mean": 39.4,
+        "max": 43.6
+      }
+    },
+    "sistema": {
+      "available_mb": {
+        "mean": 1222.6,
+        "max": 1407,
+        "min": 1165
+      },
+      "cpu_percent": {
+        "mean": 72.3,
+        "max": 92.4
+      }
+    }
+  }
+}

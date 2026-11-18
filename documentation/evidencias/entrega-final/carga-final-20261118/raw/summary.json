@@ -1,0 +1,61 @@
+{
+  "started_utc": "2026-11-18T17:44:37+00:00",
+  "laboratory": "/private/tmp/rh-final-* (borrado al terminar)",
+  "phases": [
+    {
+      "name": "lecturas-12",
+      "stage": "finished"
+    },
+    {
+      "name": "lecturas-24",
+      "stage": "finished"
+    },
+    {
+      "name": "lecturas-36",
+      "stage": "finished"
+    },
+    {
+      "name": "lecturas-recuperacion-6",
+      "stage": "finished"
+    },
+    {
+      "name": "mixta-12",
+      "stage": "finished"
+    },
+    {
+      "name": "mixta-24",
+      "stage": "finished"
+    },
+    {
+      "name": "mixta-36",
+      "stage": "finished"
+    },
+    {
+      "name": "mixta-48",
+      "stage": "finished"
+    },
+    {
+      "name": "mixta-recuperacion-12",
+      "stage": "finished"
+    }
+  ],
+  "dataset": {
+    "counts": {
+      "resources": 10000,
+      "events": 100000,
+      "donors": 2000
+    },
+    "insertion_ms": 18471.324
+  },
+  "accounts_by_role": {
+    "MEDICAL": 20,
+    "OPERATOR": 20,
+    "COORDINATOR": 8,
+    "AUDITOR": 10,
+    "DONOR": 20,
+    "TRANSPORT": 10
+  },
+  "mfa_enrolled": 28,
+  "status": "completed",
+  "finished_utc": "2026-11-18T18:16:11+00:00"
+}
