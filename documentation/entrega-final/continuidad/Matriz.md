@@ -75,7 +75,7 @@ Mapa de cada entregable de la consigna de la bandeja de entrega final (lista «E
 | E-16 | Presentación | [Guion de demostración](Demostracion_final.md) | equipo | Exposición final efectuada pendiente (WORK-DELIVERY) |
 | E-17 | Evidencias de GCP | [`evidencias/gcp/`](../../evidencias/gcp/RESULTADOS.md) y recibos `gcp-*` de [`evidencias/entrega-final/`](../../evidencias/entrega-final/gcp-xmlschema-20261116/RESULTADOS.md) | completo | Cada recibo conserva sus límites y fallos originales |
 | E-18 | Bitácora de participación | Antecedentes: [bitácora histórica](../../historial/bitacora/ESTADO_HASTA_2026_10_12.md), [coevaluación del primer parcial](../../Coevaluacion.txt) | equipo | WORK-ORG NO VERIFICADO: responsables y contribuciones los confirman los integrantes; no se deducen por commits |
-| E-19 | Registro de incidencias | [Registro de incidencias](../Registro_incidencias.md) | completo | 435 incidencias con fuente citada al 18/11; responsables nominales los aporta el equipo (WORK-ORG) |
+| E-19 | Registro de incidencias | [Registro de incidencias](../Registro_incidencias.md) | completo | 436 incidencias con fuente citada al 18/11; responsables nominales los aporta el equipo (WORK-ORG) |
 | E-20 | Reflexión individual de cada integrante | n/a | equipo | Aporte personal de cada integrante (WORK-DELIVERY) |
 
 ### Expediente técnico
@@ -106,7 +106,7 @@ Mapa de cada entregable de la consigna de la bandeja de entrega final (lista «E
 | X-22 | Contenedores | Ver E-10 | completo | — |
 | X-23 | Monitoreo | [Servicio de monitoreo](../../../apps/services/servicio_monitoreo/README.md); «Infraestructura, operación y recuperación» | completo | — |
 | X-24 | Plan de pruebas | [Pruebas y validación](../../markdowns/Pruebas_y_validacion.md) | completo | — |
-| X-25 | Resultados de Locust | «Pruebas y resultados de rendimiento»; ver E-12 | parcial | [INC-290](../Registro_incidencias.md#inc-290) abierta; capacidad y estrés pendientes |
+| X-25 | Resultados de Locust | «Pruebas y resultados de rendimiento»; ver E-12; [serie M1 18/11](../../evidencias/entrega-final/carga-serie-20261118/RESULTADOS.md) | parcial | [INC-290](../Registro_incidencias.md#inc-290) abierta (mismo equipo); en M1 la latencia con 24 usuarios fue p95 ≤ 90 ms, pero la cuota por cuenta dio 10.9 % de 429 ([INC-436](../Registro_incidencias.md#inc-436)); estrés de 36 sin espera pendiente |
 | X-26 | Resultados de rendimiento | «Pruebas y resultados de rendimiento»; [matriz de optimización](../optimizacion/Matriz.md) | parcial | La comparación de caché no demuestra mejora general |
 | X-27 | Manual de instalación | [Instalación y operación](../../markdowns/Instalacion_y_operacion.md) | completo | — |
 | X-28 | Manual técnico | [Manual técnico](../../markdowns/Manual_tecnico.md): índice único con componentes y puertos, pruebas por componente, regeneración de contratos, publicación acotada en GCP y problemas conocidos; enlaza READMEs de [servicios](../../../apps/services/README.md), [web](../../../apps/web/README.md), [móvil](../../../apps/mobile/README.md), [escritorio](../../../apps/desktop/README.md) y [despliegue](../../../deployment/README.md) | completo | Índice documental; no ejecuta comandos. Comandos y límites son los de cada guía enlazada |

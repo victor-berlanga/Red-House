@@ -1,0 +1,156 @@
+[
+  {
+    "method": "POST",
+    "name": "Identidad / login",
+    "requests": 0,
+    "failures": 0,
+    "requests_per_second": 0.0,
+    "mean_ms": 0.0,
+    "median_ms": 0,
+    "p95_ms": 0,
+    "p99_ms": 0
+  },
+  {
+    "method": "GET",
+    "name": "transporte / Tareas propias",
+    "requests": 222,
+    "failures": 0,
+    "requests_per_second": 1.849827705243898,
+    "mean_ms": 27.028713749222423,
+    "median_ms": 25,
+    "p95_ms": 40,
+    "p99_ms": 46
+  },
+  {
+    "method": "GET",
+    "name": "donantes / Agenda propia",
+    "requests": 226,
+    "failures": 0,
+    "requests_per_second": 1.8831579341672116,
+    "mean_ms": 26.94829661899815,
+    "median_ms": 24,
+    "p95_ms": 44,
+    "p99_ms": 58
+  },
+  {
+    "method": "GET",
+    "name": "priorizacion_geografia / Rutas",
+    "requests": 223,
+    "failures": 0,
+    "requests_per_second": 1.8581602624747264,
+    "mean_ms": 26.062994905133554,
+    "median_ms": 24,
+    "p95_ms": 40,
+    "p99_ms": 69
+  },
+  {
+    "method": "GET",
+    "name": "auditoria / Bit\u00e1cora",
+    "requests": 231,
+    "failures": 0,
+    "requests_per_second": 1.9248207203213534,
+    "mean_ms": 42.70439753127466,
+    "median_ms": 41,
+    "p95_ms": 59,
+    "p99_ms": 80
+  },
+  {
+    "method": "GET",
+    "name": "alertas / Avisos de traslado",
+    "requests": 222,
+    "failures": 0,
+    "requests_per_second": 1.849827705243898,
+    "mean_ms": 23.965733647052836,
+    "median_ms": 22,
+    "p95_ms": 33,
+    "p99_ms": 54
+  },
+  {
+    "method": "GET",
+    "name": "alertas / Avisos propios",
+    "requests": 226,
+    "failures": 0,
+    "requests_per_second": 1.8831579341672116,
+    "mean_ms": 23.512235065856206,
+    "median_ms": 21,
+    "p95_ms": 36,
+    "p99_ms": 51
+  },
+  {
+    "method": "GET",
+    "name": "transporte / Traslados",
+    "requests": 223,
+    "failures": 0,
+    "requests_per_second": 1.8581602624747264,
+    "mean_ms": 24.001118850230235,
+    "median_ms": 22,
+    "p95_ms": 38,
+    "p99_ms": 45
+  },
+  {
+    "method": "GET",
+    "name": "inventario / Disponibilidad regional",
+    "requests": 230,
+    "failures": 0,
+    "requests_per_second": 1.916488163090525,
+    "mean_ms": 27.092541786133435,
+    "median_ms": 25,
+    "p95_ms": 44,
+    "p99_ms": 61
+  },
+  {
+    "method": "GET",
+    "name": "inventario / Inventario propio",
+    "requests": 232,
+    "failures": 0,
+    "requests_per_second": 1.9331532775521818,
+    "mean_ms": 28.247841354860956,
+    "median_ms": 26,
+    "p95_ms": 46,
+    "p99_ms": 59
+  },
+  {
+    "method": "GET",
+    "name": "donantes / Feed p\u00fablico",
+    "requests": 227,
+    "failures": 0,
+    "requests_per_second": 1.89149049139804,
+    "mean_ms": 13.64031533807073,
+    "median_ms": 13,
+    "p95_ms": 21,
+    "p99_ms": 28
+  },
+  {
+    "method": "GET",
+    "name": "donantes / Campa\u00f1as",
+    "requests": 232,
+    "failures": 0,
+    "requests_per_second": 1.9331532775521818,
+    "mean_ms": 22.980099337693336,
+    "median_ms": 21,
+    "p95_ms": 34,
+    "p99_ms": 50
+  },
+  {
+    "method": "GET",
+    "name": "monitoreo / Estado regional",
+    "requests": 223,
+    "failures": 0,
+    "requests_per_second": 1.8581602624747264,
+    "mean_ms": 22.713411600963784,
+    "median_ms": 20,
+    "p95_ms": 35,
+    "p99_ms": 56
+  },
+  {
+    "method": "GET",
+    "name": "receptores / Solicitudes propias",
+    "requests": 230,
+    "failures": 0,
+    "requests_per_second": 1.916488163090525,
+    "mean_ms": 24.094530622191403,
+    "median_ms": 22,
+    "p95_ms": 39,
+    "p99_ms": 53
+  }
+]

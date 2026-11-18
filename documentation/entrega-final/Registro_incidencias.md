@@ -1,6 +1,6 @@
 # Registro de incidencias de entrega final
 
-Corte: 18/11/2026. Registro **completo** de las incidencias documentadas en el repositorio: 435 entradas, de la más reciente a la más antigua. Sustituye al registro selectivo anterior, cuyas once fichas se conservan al final como [fichas ampliadas](#fichas-ampliadas).
+Corte: 18/11/2026. Registro **completo** de las incidencias documentadas en el repositorio: 436 entradas, de la más reciente a la más antigua. Sustituye al registro selectivo anterior, cuyas once fichas se conservan al final como [fichas ampliadas](#fichas-ampliadas).
 
 ## Alcance y método
 
@@ -19,8 +19,8 @@ Corte: 18/11/2026. Registro **completo** de las incidencias documentadas en el r
 |---|---|
 | Cerradas | 345 |
 | Abiertas | 33 |
-| Aceptadas como límite | 57 |
-| **Total** | **435** |
+| Aceptadas como límite | 58 |
+| **Total** | **436** |
 
 | Área | Cerradas | Abiertas | Aceptadas como límite | Total |
 |---|---|---|---|---|
@@ -30,7 +30,7 @@ Corte: 18/11/2026. Registro **completo** de las incidencias documentadas en el r
 | Escritorio Qt | 40 | 6 | 4 | 50 |
 | Proxy/gateway y WSS | 3 | 0 | 3 | 6 |
 | Despliegue e infraestructura | 41 | 3 | 7 | 51 |
-| Arnés y pruebas | 104 | 3 | 5 | 112 |
+| Arnés y pruebas | 104 | 3 | 6 | 113 |
 | Documentación | 4 | 0 | 1 | 5 |
 
 El área se asigna por el componente de cada fila; los fallos del arnés, del entorno o del proceso de publicación se separan de los defectos de producto.
@@ -75,7 +75,7 @@ El área se asigna por el componente de cada fila; los fallos del arnés, del en
 
 ## Índice por fecha
 
-- **Noviembre 2026:** [18/11](#d-2026-11-18) (11) · [17/11](#d-2026-11-17) (61) · [16/11](#d-2026-11-16) (69) · [14/11](#d-2026-11-14) (42) · [13/11](#d-2026-11-13) (101) · [12/11](#d-2026-11-12) (8) · [11/11](#d-2026-11-11) (2) · [10/11](#d-2026-11-10) (18) · [09/11](#d-2026-11-09) (22) · [06/11](#d-2026-11-06) (19) · [04/11](#d-2026-11-04) (6) · [02/11](#d-2026-11-02) (9) · [01/11](#d-2026-11-01) (10)
+- **Noviembre 2026:** [18/11](#d-2026-11-18) (12) · [17/11](#d-2026-11-17) (61) · [16/11](#d-2026-11-16) (69) · [14/11](#d-2026-11-14) (42) · [13/11](#d-2026-11-13) (101) · [12/11](#d-2026-11-12) (8) · [11/11](#d-2026-11-11) (2) · [10/11](#d-2026-11-10) (18) · [09/11](#d-2026-11-09) (22) · [06/11](#d-2026-11-06) (19) · [04/11](#d-2026-11-04) (6) · [02/11](#d-2026-11-02) (9) · [01/11](#d-2026-11-01) (10)
 - **Octubre 2026:** [31/10](#d-2026-10-31) (14) · [29/10](#d-2026-10-29) (4) · [28/10](#d-2026-10-28) (4) · [27/10](#d-2026-10-27) (1) · [22/10](#d-2026-10-22) (4) · [21/10](#d-2026-10-21) (11) · [20/10](#d-2026-10-20) (4) · [19/10](#d-2026-10-19) (11) · [15/10](#d-2026-10-15) (3) · [14/10](#d-2026-10-14) (1)
 
 ## Registro
@@ -84,7 +84,7 @@ Columnas: ID, componente, síntoma, causa, corrección o commit, evidencia, esta
 
 <a name="d-2026-11-18"></a>
 
-### 18/11/2026 (11)
+### 18/11/2026 (12)
 
 | ID | Componente | Síntoma | Causa | Corrección / commit | Evidencia | Estado | Fuente |
 |---|---|---|---|---|---|---|---|
@@ -99,6 +99,7 @@ Columnas: ID, componente, síntoma, causa, corrección o commit, evidencia, esta
 | <a name="inc-433"></a>INC-433 | Pruebas (catálogo de rutas) | `test_evidence_catalog.py::test_all_registered_routes_expose_real_http_contracts_and_controlled_errors` falla: espera rechazo sin credenciales en `/api/v1/public/institutions`, que responde 200 | La ruta es pública por diseño y la prueba no la excluye | n/d; falla igual sin los cambios del 18/11 | [fallos-consigna-20261118](../../documentation/evidencias/entrega-final/fallos-consigna-20261118/RESULTADOS.md) | abierta | [fallos-consigna:52](../../documentation/evidencias/entrega-final/fallos-consigna-20261118/RESULTADOS.md#L52) |
 | <a name="inc-434"></a>INC-434 | Pruebas (almacén privado) | `test_private_storage_local.py::test_gateway_rejects_unsafe_binary_requests` falla con `ModuleNotFoundError: src` al correrse desde la raíz | La prueba importa el paquete `src` del portal sin agregar `apps/web` a la ruta | n/d; falla igual sin los cambios del 18/11 | [fallos-consigna-20261118](../../documentation/evidencias/entrega-final/fallos-consigna-20261118/RESULTADOS.md) | abierta | [fallos-consigna:52](../../documentation/evidencias/entrega-final/fallos-consigna-20261118/RESULTADOS.md#L52) |
 | <a name="inc-435"></a>INC-435 | Instalación (Documentos / GCS) | La primera corrección de INC-431 fijaba `STORAGE_PROVIDER=local` y `test_final_delivery_documents.py` respondió 503 `storage_unconfigured` en JSON y XML | El proveedor explícito gana sobre `GCS_BUCKET`, y `configure_gcs.py` solo escribe `GCS_BUCKET` | Detectado antes de publicar; el instalador solo escribe `STORAGE_LOCAL_ROOT`; prueba 2/2 y tercera instalación limpia 12/12; `4f08abf` | [fallos-consigna-20261118](../../documentation/evidencias/entrega-final/fallos-consigna-20261118/RESULTADOS.md) | cerrada | [fallos-consigna:53](../../documentation/evidencias/entrega-final/fallos-consigna-20261118/RESULTADOS.md#L53) |
+| <a name="inc-436"></a>INC-436 | Carga (serie sostenida, 24 usuarios) | La fase de 24 usuarios en Mac M1 tuvo 575 respuestas 429 (10.9 %) y no cumplió el criterio de menos de 1 % de errores; p95 máximo 90 ms | Cuota HTTP por cuenta del producto (180, intacta): el equipo responde más rápido (43.95 HTTP/s) y 24 sesiones comparten seis identidades sin espera | n/d; la continuación con espera de 4–6 s ya aprobó 24 y 36 sesiones sin errores | [carga-serie-20261118](../../documentation/evidencias/entrega-final/carga-serie-20261118/RESULTADOS.md) | aceptada como límite | [carga-serie-20261118](../../documentation/evidencias/entrega-final/carga-serie-20261118/RESULTADOS.md) |
 
 <a name="d-2026-11-17"></a>
 

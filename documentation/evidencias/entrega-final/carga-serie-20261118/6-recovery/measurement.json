@@ -1,0 +1,156 @@
+[
+  {
+    "method": "POST",
+    "name": "Identidad / login",
+    "requests": 0,
+    "failures": 0,
+    "requests_per_second": 0.0,
+    "mean_ms": 0.0,
+    "median_ms": 0,
+    "p95_ms": 0,
+    "p99_ms": 0
+  },
+  {
+    "method": "GET",
+    "name": "donantes / Agenda propia",
+    "requests": 58,
+    "failures": 0,
+    "requests_per_second": 0.9665971817496669,
+    "mean_ms": 28.65460843193056,
+    "median_ms": 25,
+    "p95_ms": 49,
+    "p99_ms": 54
+  },
+  {
+    "method": "GET",
+    "name": "transporte / Tareas propias",
+    "requests": 56,
+    "failures": 0,
+    "requests_per_second": 0.9332662444479543,
+    "mean_ms": 27.70225960661524,
+    "median_ms": 26,
+    "p95_ms": 43,
+    "p99_ms": 54
+  },
+  {
+    "method": "GET",
+    "name": "priorizacion_geografia / Rutas",
+    "requests": 56,
+    "failures": 0,
+    "requests_per_second": 0.9332662444479543,
+    "mean_ms": 31.162574340539454,
+    "median_ms": 28,
+    "p95_ms": 49,
+    "p99_ms": 95
+  },
+  {
+    "method": "GET",
+    "name": "inventario / Disponibilidad regional",
+    "requests": 57,
+    "failures": 0,
+    "requests_per_second": 0.9499317130988105,
+    "mean_ms": 29.57913305471537,
+    "median_ms": 28,
+    "p95_ms": 52,
+    "p99_ms": 64
+  },
+  {
+    "method": "GET",
+    "name": "inventario / Inventario propio",
+    "requests": 57,
+    "failures": 0,
+    "requests_per_second": 0.9499317130988105,
+    "mean_ms": 30.908720798610727,
+    "median_ms": 28,
+    "p95_ms": 58,
+    "p99_ms": 64
+  },
+  {
+    "method": "GET",
+    "name": "alertas / Avisos propios",
+    "requests": 58,
+    "failures": 0,
+    "requests_per_second": 0.9665971817496669,
+    "mean_ms": 22.79805462879675,
+    "median_ms": 21,
+    "p95_ms": 34,
+    "p99_ms": 40
+  },
+  {
+    "method": "GET",
+    "name": "alertas / Avisos de traslado",
+    "requests": 56,
+    "failures": 0,
+    "requests_per_second": 0.9332662444479543,
+    "mean_ms": 22.89916741470474,
+    "median_ms": 22,
+    "p95_ms": 32,
+    "p99_ms": 34
+  },
+  {
+    "method": "GET",
+    "name": "transporte / Traslados",
+    "requests": 56,
+    "failures": 0,
+    "requests_per_second": 0.9332662444479543,
+    "mean_ms": 24.12967337295413,
+    "median_ms": 22,
+    "p95_ms": 36,
+    "p99_ms": 37
+  },
+  {
+    "method": "GET",
+    "name": "auditoria / Bit\u00e1cora",
+    "requests": 51,
+    "failures": 0,
+    "requests_per_second": 0.8499389011936725,
+    "mean_ms": 92.84379907573263,
+    "median_ms": 87,
+    "p95_ms": 130,
+    "p99_ms": 140
+  },
+  {
+    "method": "GET",
+    "name": "donantes / Feed p\u00fablico",
+    "requests": 58,
+    "failures": 0,
+    "requests_per_second": 0.9665971817496669,
+    "mean_ms": 12.238670917276036,
+    "median_ms": 12,
+    "p95_ms": 18,
+    "p99_ms": 18
+  },
+  {
+    "method": "GET",
+    "name": "donantes / Campa\u00f1as",
+    "requests": 57,
+    "failures": 0,
+    "requests_per_second": 0.9499317130988105,
+    "mean_ms": 22.728888134128955,
+    "median_ms": 22,
+    "p95_ms": 34,
+    "p99_ms": 35
+  },
+  {
+    "method": "GET",
+    "name": "receptores / Solicitudes propias",
+    "requests": 57,
+    "failures": 0,
+    "requests_per_second": 0.9499317130988105,
+    "mean_ms": 23.75471561313852,
+    "median_ms": 23,
+    "p95_ms": 32,
+    "p99_ms": 34
+  },
+  {
+    "method": "GET",
+    "name": "monitoreo / Estado regional",
+    "requests": 56,
+    "failures": 0,
+    "requests_per_second": 0.9332662444479543,
+    "mean_ms": 22.04816666822548,
+    "median_ms": 22,
+    "p95_ms": 28,
+    "p99_ms": 41
+  }
+]

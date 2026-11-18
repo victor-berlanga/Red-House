@@ -19,6 +19,11 @@ Las entradas están ordenadas de reciente a histórico; un pendiente de un corte
 - **Recuperación (RTO/RPO):** ensayo aislado repetido **3/3** (RTO técnico 3.9–4.3 s, RPO 6.6–7.0 s) y objetivos
   **propuestos** en el plan: RPO ≤ 24 h / RTO ≤ 60 min para bases y archivos, Redis ≤ 5 min, configuración ≤ 30 min.
   Pendiente para cumplir el RPO real: programar `backup.py --verify` diario. [Evidencia](documentation/evidencias/entrega-final/recuperacion-20261118/RESULTADOS.md).
+- **Locust (serie sostenida repetida en Mac M1):** 6 fases válidas. Las cuatro de 12 usuarios y la recuperación con seis
+  cumplen, con 0 errores y p95 máximo de 59 a 130 ms. La de 24 bajó el p95 a 90 ms (2,100 ms en la Mac Intel del 14/11), pero
+  tuvo 575 respuestas 429 (10.9 %) de la cuota por cuenta: no se acepta y se omitió el estrés de 36 (INC-436, límite).
+  INC-290 sigue abierta porque el equipo es distinto. El arnés transaccional multiperfil no corre en laboratorios de
+  esquema 21. [Evidencia](documentation/evidencias/entrega-final/carga-serie-20261118/RESULTADOS.md).
 
 ## Android: UI de detalle, mensaje 401, sesión y cambio de cuenta — 18/11/2026
 

@@ -1,0 +1,90 @@
+{
+  "status": "completed",
+  "hashes_before": {
+    "run.py": "11c1715afa55bfb38687439ff3cfdb30a8b071c5893a340ebe00a1d9bcd24793",
+    "worker.py": "36119f443a6fcf65b26e66ec12f39b1296fb787ba0d146b075f45db526e0bf7c",
+    "redhouse/config.py": "0c3ad95d73d3033a1e8f92b7396e3a95303b5a8255845ece8c9c025281cd8f44",
+    "tests/locustfile.py": "0b9618a2886f1d1395b99efb9fb62f8c83edf1b76a48d258d9a68a83e6449183",
+    "tests/locust_sustained.py": "f09cf81250099424d7bd147caa6e9d6caa3b55c5336590342f751ee847b055a4",
+    "scripts/sustained_read.py": "2bd884285affc9518710350eac0c6a1e107ce74975162b0b165b51188aed259b",
+    "scripts/load_client.py": "c330cc132450d20d303b18610fbff243908609163413c6affc970c5f6c729059",
+    "scripts/load_guard.py": "3bec460da2a49376611ab31d385db2d0580b5ace1d4abf3107284dc8e7c34e8b",
+    "scripts/load_workflows.py": "fb4e65efcb9b4e5c67876807986f1b049f400afe98edcf51b24e4a5b059628d8",
+    "scripts/prepare_load.py": "6455fd7b7bd28b4b3a06197a358b6053d9c12c49510832841d30ce4e31f666ed",
+    "tests/load_support.py": "33a87cd2eebfabfbf6abac3898b3026e5961271ff758126710aeca50eac64cfd",
+    "tests/load_cleanup.py": "24cd588fc85a224c2d10139fe854d1fb804a81902423b7734ab4edb4f190148a",
+    "tests/locust_transactions.py": "2c83f34b5008118ee4d910f4429262cd2ab0fc1103305adf8c8a406332bbc8e9",
+    "config/identidad_acceso.json": "ce3f5604d0b2d4b638da48beaa13bc6badbf4db297dd29856be9264a90be58e6",
+    "config/donantes.json": "afce17690d75149e4769337a09192e022f9e96cdd275f26b9eed654744e56481",
+    "config/receptores.json": "eaa78eea725ddfcf54c0c5887120b4848a79f83f6f8f1df9046499b939b7a5a0",
+    "config/inventario.json": "fba74ea5d942a6f302fb6b3e364274a3250b251cc57320a4d7d40fc4539f3767",
+    "config/compatibilidad.json": "13a15f35d4f5f7486e9c7dea9d1d8de2dce60c8e6f878445577941b9d3e86055",
+    "config/priorizacion_geografia.json": "df8adbbfa029eebf9b8450656c009eba1b37859241c6a86367064a0f2a292bc3",
+    "config/transporte.json": "22ea501eee07fe206b51972eace586c115d62564da5697d295caccf8730c2f8b",
+    "config/custodia.json": "94d7793c2064d53ee823b4c20b686781d1fde48d2bb35871baa9e9ed4661d60d",
+    "config/alertas.json": "1245e2f47393a01e3cfd4b73e0296ee1fd673dbada8d85d2ae97529e734cc600",
+    "config/auditoria.json": "2283dcbf620cf58cc25dc2f077550c4e66a170dd7f0856eadb6ea435cb928a7a",
+    "config/monitoreo.json": "d9bef07b95040b461516887dc61be3b06c861dcdee93c99146dbd3d7ae33f4b0",
+    "config/documentos.json": "e825f15cffa97e245505bfc3ae672e4d83c4031a60c6866899108bead3a92537"
+  },
+  "phases": [
+    {
+      "name": "12-active-a",
+      "execution_valid": true,
+      "measurement_accepted": true
+    },
+    {
+      "name": "12-bypass-a",
+      "execution_valid": true,
+      "measurement_accepted": true
+    },
+    {
+      "name": "12-active-b",
+      "execution_valid": true,
+      "measurement_accepted": true
+    },
+    {
+      "name": "12-bypass-b",
+      "execution_valid": true,
+      "measurement_accepted": true
+    },
+    {
+      "name": "24-active",
+      "execution_valid": true,
+      "measurement_accepted": false
+    },
+    {
+      "name": "6-recovery",
+      "execution_valid": true,
+      "measurement_accepted": true
+    }
+  ],
+  "stress_skipped": "24 no aceptado",
+  "hashes_after": {
+    "run.py": "11c1715afa55bfb38687439ff3cfdb30a8b071c5893a340ebe00a1d9bcd24793",
+    "worker.py": "36119f443a6fcf65b26e66ec12f39b1296fb787ba0d146b075f45db526e0bf7c",
+    "redhouse/config.py": "0c3ad95d73d3033a1e8f92b7396e3a95303b5a8255845ece8c9c025281cd8f44",
+    "tests/locustfile.py": "0b9618a2886f1d1395b99efb9fb62f8c83edf1b76a48d258d9a68a83e6449183",
+    "tests/locust_sustained.py": "f09cf81250099424d7bd147caa6e9d6caa3b55c5336590342f751ee847b055a4",
+    "scripts/sustained_read.py": "2bd884285affc9518710350eac0c6a1e107ce74975162b0b165b51188aed259b",
+    "scripts/load_client.py": "c330cc132450d20d303b18610fbff243908609163413c6affc970c5f6c729059",
+    "scripts/load_guard.py": "3bec460da2a49376611ab31d385db2d0580b5ace1d4abf3107284dc8e7c34e8b",
+    "scripts/load_workflows.py": "fb4e65efcb9b4e5c67876807986f1b049f400afe98edcf51b24e4a5b059628d8",
+    "scripts/prepare_load.py": "6455fd7b7bd28b4b3a06197a358b6053d9c12c49510832841d30ce4e31f666ed",
+    "tests/load_support.py": "33a87cd2eebfabfbf6abac3898b3026e5961271ff758126710aeca50eac64cfd",
+    "tests/load_cleanup.py": "24cd588fc85a224c2d10139fe854d1fb804a81902423b7734ab4edb4f190148a",
+    "tests/locust_transactions.py": "2c83f34b5008118ee4d910f4429262cd2ab0fc1103305adf8c8a406332bbc8e9",
+    "config/identidad_acceso.json": "ce3f5604d0b2d4b638da48beaa13bc6badbf4db297dd29856be9264a90be58e6",
+    "config/donantes.json": "afce17690d75149e4769337a09192e022f9e96cdd275f26b9eed654744e56481",
+    "config/receptores.json": "eaa78eea725ddfcf54c0c5887120b4848a79f83f6f8f1df9046499b939b7a5a0",
+    "config/inventario.json": "fba74ea5d942a6f302fb6b3e364274a3250b251cc57320a4d7d40fc4539f3767",
+    "config/compatibilidad.json": "13a15f35d4f5f7486e9c7dea9d1d8de2dce60c8e6f878445577941b9d3e86055",
+    "config/priorizacion_geografia.json": "df8adbbfa029eebf9b8450656c009eba1b37859241c6a86367064a0f2a292bc3",
+    "config/transporte.json": "22ea501eee07fe206b51972eace586c115d62564da5697d295caccf8730c2f8b",
+    "config/custodia.json": "94d7793c2064d53ee823b4c20b686781d1fde48d2bb35871baa9e9ed4661d60d",
+    "config/alertas.json": "1245e2f47393a01e3cfd4b73e0296ee1fd673dbada8d85d2ae97529e734cc600",
+    "config/auditoria.json": "2283dcbf620cf58cc25dc2f077550c4e66a170dd7f0856eadb6ea435cb928a7a",
+    "config/monitoreo.json": "d9bef07b95040b461516887dc61be3b06c861dcdee93c99146dbd3d7ae33f4b0",
+    "config/documentos.json": "e825f15cffa97e245505bfc3ae672e4d83c4031a60c6866899108bead3a92537"
+  }
+}

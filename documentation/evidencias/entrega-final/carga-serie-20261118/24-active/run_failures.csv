@@ -1,0 +1,7 @@
+Method,Name,Error,Occurrences,First Seen,Last Seen
+GET,priorizacion_geografia / Rutas,CatchResponseError('http_429'),84,2026-11-18T04:05:50Z,2026-11-18T04:06:59Z
+GET,donantes / Agenda propia,CatchResponseError('http_429'),93,2026-11-18T04:05:47Z,2026-11-18T04:06:59Z
+GET,auditoria / Bitácora,CatchResponseError('http_429'),100,2026-11-18T04:05:47Z,2026-11-18T04:06:59Z
+GET,inventario / Inventario propio,CatchResponseError('http_429'),100,2026-11-18T04:05:47Z,2026-11-18T04:06:59Z
+GET,transporte / Tareas propias,CatchResponseError('http_429'),94,2026-11-18T04:05:48Z,2026-11-18T04:06:59Z
+GET,inventario / Disponibilidad regional,CatchResponseError('http_429'),104,2026-11-18T04:05:47Z,2026-11-18T04:06:59Z
