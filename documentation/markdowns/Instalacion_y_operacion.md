@@ -102,7 +102,7 @@ El almacenamiento privado local es la opción predeterminada del producto. GCS e
 Artefactos comprobados disponibles en el entorno privado del proyecto:
 
 - Android normal debug: `.local/artifacts/mobile/redhouse-android-normal-foto-d735668.apk`. Incluye una Activity de prueba no exportada; no es un release. [Registro, hash y límites](../evidencias/entrega-final/mobile/seguimiento-20261114/paquetes.md).
-- iOS normal: `.local/artifacts/mobile/ios-foto-d735668/Debug-iphoneos/RedHouse.app`. Se firmó, instaló y abrió en iPhone; el perfil vigente vence el **17/11/2026** y no cubre la entrega del día 23. [Registro, hash y límites](../evidencias/entrega-final/mobile/seguimiento-20261114/paquetes.md).
+- iOS normal: `.local/artifacts/mobile/ios-foto-d735668/Debug-iphoneos/RedHouse.app`. Se firmó, instaló y abrió en iPhone; el perfil se renovó el 17/11/2026 y vence el **24/11/2026**, por lo que cubre la entrega del día 23 (ver `PROJECT_STATUS.md`, corte del 17/11). [Registro, hash y límites](../evidencias/entrega-final/mobile/seguimiento-20261114/paquetes.md).
 - Escritorio macOS Intel: `.local/artifacts/desktop/RedHouse-macOS-20261114.zip`. Arranque y carga de contratos pasaron; no se verificaron firma/notarización ni servicios desde el bundle. [Resultado y hash](../evidencias/entrega-final/desktop/paquete-mac-20261114/RESULTADOS.md).
 
 Windows 11 no está verificado. Los lanzadores BAT del entorno de servidor usan WSL; no deben confundirse con `apps/desktop/build.bat`, que prepara el cliente nativo en Windows. La recepción física de push FCM/APNs sigue pendiente externa por decisión del equipo; no se configuraron cuentas de esos proveedores. Video final, exposición, reflexiones individuales y subida a Ubiquitous requieren acción y confirmación humanas.

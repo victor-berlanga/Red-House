@@ -1,8 +1,8 @@
 # Red House en Google Compute Engine
 
-## Estado vigente — 14/11/2026
+## Estado vigente — 18/11/2026
 
-Destino vigente: VM `red-house`, proyecto `sistemas-integracion-01`, zona `me-central1-a`, instancia `2861822465669755197`, acceso HTTPS `https://34.18.186.116`. El corte actual conserva esquema 20, ClamAV con control periódico de vigencia y almacenamiento privado `LOCAL`; GCS es opcional y tiene verificación académica separada. Véanse [publicación del esquema 20 y escáner](../../documentation/evidencias/gcp/scanner20-20261113/RESULTADOS.md), [control periódico de firmas](../../documentation/evidencias/gcp/scanner-health-20261113/RESULTADOS.md) y [proxy WSS vigente](../../documentation/evidencias/gcp/proxy-wss-20261114/RESULTADOS.md).
+Destino vigente: VM `red-house`, proyecto `sistemas-integracion-01`, zona `me-central1-a`, instancia `2861822465669755197`, acceso HTTPS `https://34.18.186.116`. El corte actual conserva esquema 21 (publicaciones acotadas posteriores: [custodia y web del 17/11](../../documentation/evidencias/entrega-final/gcp-custody-clock-lab-labels-20261117/RESULTADOS.md) y [detalle de Avisos del 18/11](../../documentation/evidencias/entrega-final/gcp-alert-detail-20261118/RESULTADOS.md)), ClamAV con control periódico de vigencia y almacenamiento privado `LOCAL`; GCS es opcional y tiene verificación académica separada. Véanse [publicación del esquema 20 y escáner](../../documentation/evidencias/gcp/scanner20-20261113/RESULTADOS.md), [control periódico de firmas](../../documentation/evidencias/gcp/scanner-health-20261113/RESULTADOS.md) y [proxy WSS vigente](../../documentation/evidencias/gcp/proxy-wss-20261114/RESULTADOS.md).
 
 Los siguientes registros del 10/11 conservan un corte histórico de esquema 18; no describen la versión actualmente publicada.
 

@@ -4,7 +4,7 @@ Red regional de bancos de sangre y donación de órganos · Proyecto 6 · Equipo
 
 Portal Flask/Jinja2 con backend modular autónomo y once microservicios de dominio más Monitoreo. El modo HTTP sigue disponible mediante configuración explícita. PostgreSQL mantiene una base persistente compartida (`red_house`), con permisos por servicio; Redis mantiene sesiones y caché; MongoDB conserva documentos y proyecciones. Los datos locales son ficticios. Las reglas de compatibilidad requieren revisión humana y no sustituyen decisiones clínicas.
 
-Portal publicado en GCP: **https://34.18.186.116**. Actualizado y comprobado el 31/10/2026 con **0.4.1 / esquema 13**, treinta contenedores sanos y demostración visible sin grabación. [Resultados y límites](documentation/evidencias/gcp/correccion-20261031/RESULTADOS.md) · [Guía de acceso y administración](deployment/gcp/README.md).
+Portal publicado en GCP: **https://34.18.186.116**. Corte vigente al 18/11/2026: **esquema 21**, treinta contenedores sanos; últimas publicaciones acotadas: [custodia y web del 17/11](documentation/evidencias/entrega-final/gcp-custody-clock-lab-labels-20261117/RESULTADOS.md) y [detalle de Avisos del 18/11](documentation/evidencias/entrega-final/gcp-alert-detail-20261118/RESULTADOS.md). El registro del 31/10 (0.4.1 / esquema 13) se conserva como antecedente. [Resultados y límites](documentation/evidencias/gcp/correccion-20261031/RESULTADOS.md) · [Guía de acceso y administración](deployment/gcp/README.md).
 
 [Corrección backend 0.4.1 / esquema 13: resultados y límites](documentation/evidencias/entrega-final/backend/correccion_comprobacion/20261029T125058Z/RESULTADOS.md) · [Estado del proyecto](PROJECT_STATUS.md).
 

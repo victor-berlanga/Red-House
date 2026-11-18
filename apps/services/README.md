@@ -111,7 +111,7 @@ PostgreSQL garantiza cambios locales, eventos y outbox juntos; no se promete una
 
 Redis local usa AOF con `appendfsync always`, política `noeviction`, autenticación y ACL por usuario/prefijo. MongoDB local exige autenticación; sus usuarios de aplicación solo pueden insertar y consultar su colección de eventos. Las credenciales PostgreSQL no son propietarias de base/esquema y no pueden conectarse a otra base; los historiales no admiten UPDATE/DELETE bajo credenciales de aplicación.
 
-El entorno local enlaza únicamente a 127.0.0.1 y usa HTTP para pruebas. HTTPS, gestión institucional de claves, retención aprobada, respaldo/recuperación de producción y despliegue en GCP son pendientes explícitos. No exponer directamente este entorno local en una red pública.
+El entorno local enlaza únicamente a 127.0.0.1 y usa HTTP para pruebas. El despliegue en GCP con entrada HTTPS está en [deployment/gcp](../../deployment/gcp/README.md). Gestión institucional de claves, retención aprobada y respaldo/recuperación de producción siguen como pendientes explícitos. No exponer directamente este entorno local en una red pública.
 
 ## Pruebas, evidencia y presentación
 
