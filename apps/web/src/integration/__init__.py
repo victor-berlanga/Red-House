@@ -532,6 +532,15 @@ def configure(app):
 
     @app.errorhandler(BusinessError)
     def business_error(exc):
+        # La página muestra «Referencia: <correlation_id>»; esta línea permite
+        # encontrarla en el log del portal. No registra el mensaje ni datos del usuario.
+        app.logger.warning(
+            "web_business_error correlation=%s status=%s code=%s endpoint=%s",
+            g.get("correlation_id", "no-disponible"),
+            exc.status,
+            exc.code or "-",
+            request.endpoint or "-",
+        )
         return render_template(
             "error.html",
             title="No fue posible completar la operación",
