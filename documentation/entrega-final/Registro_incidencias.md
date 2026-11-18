@@ -17,20 +17,20 @@ Corte: 17/11/2026. Registro **completo** de las incidencias documentadas en el r
 
 | Estado | Incidencias |
 |---|---|
-| Cerradas | 337 |
+| Cerradas | 342 |
 | Abiertas | 31 |
 | Aceptadas como límite | 56 |
-| **Total** | **424** |
+| **Total** | **429** |
 
 | Área | Cerradas | Abiertas | Aceptadas como límite | Total |
 |---|---|---|---|---|
 | Servicios, datos y algoritmos | 63 | 9 | 16 | 88 |
 | Portal web | 27 | 4 | 7 | 38 |
-| Móvil (Android/iOS) | 59 | 8 | 14 | 81 |
+| Móvil (Android/iOS) | 63 | 8 | 14 | 85 |
 | Escritorio Qt | 40 | 6 | 4 | 50 |
 | Proxy/gateway y WSS | 3 | 0 | 3 | 6 |
 | Despliegue e infraestructura | 38 | 3 | 6 | 47 |
-| Arnés y pruebas | 103 | 1 | 5 | 109 |
+| Arnés y pruebas | 104 | 1 | 5 | 110 |
 | Documentación | 4 | 0 | 1 | 5 |
 
 El área se asigna por el componente de cada fila; los fallos del arnés, del entorno o del proceso de publicación se separan de los defectos de producto.
@@ -39,12 +39,12 @@ El área se asigna por el componente de cada fila; los fallos del arnés, del en
 
 | ID | Fecha | Componente | Síntoma |
 |---|---|---|---|
+| [INC-428](#inc-428) | 18/11/2026 | Android / accesibilidad | Acciones repetidas sin contexto, estado sin `liveRegion`, títulos sin `heading()` |
 | [INC-424](#inc-424) | 17/11/2026 | Accesibilidad (portal, Android, iOS, escritorio) | TalkBack, VoiceOver completo y accesibilidad de escritorio sin aceptación |
 | [INC-423](#inc-423) | 17/11/2026 | Escritorio Qt (distribución Windows 11) | Sin build, instalación ni recorrido aceptado en Windows 11; solo paquete macOS Intel comprobado |
 | [INC-420](#inc-420) | 17/11/2026 | Restauración de respaldo (continuidad) | Restauración del respaldo lógico/frío en otro equipo no probada |
 | [INC-416](#inc-416) | 17/11/2026 | Qt escritorio (receptor y solicitud iOS B) | Campo largo de estudios muestra solo la parte final y el nombre de la tabla se abrevia |
 | [INC-400](#inc-400) | 17/11/2026 | iOS Lab (arnés XCTest) | Dos capturas XCTest fallaron con LocalAuthentication −4, incluso con dispositivo desbloqueado |
-| [INC-367](#inc-367) | 17/11/2026 | Android / Alertas | Etiquetas ELIGIBLE e INFO del recordatorio sin traducir |
 | [INC-366](#inc-366) | 17/11/2026 | Android (reserva E2E-C) | Ensayo instrumental FAIL por timeout de captura; imagen mostraba tarjetas anteriores |
 | [INC-290](#inc-290) | 14/11/2026 | Serie de lecturas con 24 usuarios | Listado de Traslados p95 2.100 ms y Tareas propias 2.000 ms; objetivo p95 menor de 2.000 ms incumplido |
 | [INC-282](#inc-282) | 14/11/2026 | Portal web / endpoint live | El campo backend de /health/live era una etiqueta constante microservices que no reflejaba BACKEND_MODE=monolith |
@@ -73,12 +73,24 @@ El área se asigna por el componente de cada fila; los fallos del arnés, del en
 
 ## Índice por fecha
 
-- **Noviembre 2026:** [17/11](#d-2026-11-17) (61) · [16/11](#d-2026-11-16) (69) · [14/11](#d-2026-11-14) (42) · [13/11](#d-2026-11-13) (101) · [12/11](#d-2026-11-12) (8) · [11/11](#d-2026-11-11) (2) · [10/11](#d-2026-11-10) (18) · [09/11](#d-2026-11-09) (22) · [06/11](#d-2026-11-06) (19) · [04/11](#d-2026-11-04) (6) · [02/11](#d-2026-11-02) (9) · [01/11](#d-2026-11-01) (10)
+- **Noviembre 2026:** [18/11](#d-2026-11-18) (5) · [17/11](#d-2026-11-17) (61) · [16/11](#d-2026-11-16) (69) · [14/11](#d-2026-11-14) (42) · [13/11](#d-2026-11-13) (101) · [12/11](#d-2026-11-12) (8) · [11/11](#d-2026-11-11) (2) · [10/11](#d-2026-11-10) (18) · [09/11](#d-2026-11-09) (22) · [06/11](#d-2026-11-06) (19) · [04/11](#d-2026-11-04) (6) · [02/11](#d-2026-11-02) (9) · [01/11](#d-2026-11-01) (10)
 - **Octubre 2026:** [31/10](#d-2026-10-31) (14) · [29/10](#d-2026-10-29) (4) · [28/10](#d-2026-10-28) (4) · [27/10](#d-2026-10-27) (1) · [22/10](#d-2026-10-22) (4) · [21/10](#d-2026-10-21) (11) · [20/10](#d-2026-10-20) (4) · [19/10](#d-2026-10-19) (11) · [15/10](#d-2026-10-15) (3) · [14/10](#d-2026-10-14) (1)
 
 ## Registro
 
 Columnas: ID, componente, síntoma, causa, corrección o commit, evidencia, estado y fuente. Los enlaces son relativos a esta carpeta.
+
+<a name="d-2026-11-18"></a>
+
+### 18/11/2026 (5)
+
+| ID | Componente | Síntoma | Causa | Corrección / commit | Evidencia | Estado | Fuente |
+|---|---|---|---|---|---|---|---|
+| <a name="inc-425"></a>INC-425 | Android / sesión | Con la sesión abierta y revocada en el servidor, la app pedía login pero mostraba «Cuenta o contraseña incorrectas.» sin que el usuario escribiera nada | Todo 401 `unauthorized` se presentaba como credencial inválida, también fuera del formulario de login | `failureMessage` en `Api.kt`/`App.kt`: con sesión abierta muestra «Sesión vencida o revocada. Inicia sesión.»; intento 2 PASS; commit `9918724` | [evidencia](../../documentation/evidencias/entrega-final/mobile/android-ui-talkback-sesion-20261118/RESULTADOS.md) | cerrada | [PROJECT_STATUS](../../PROJECT_STATUS.md) |
+| <a name="inc-426"></a>INC-426 | Android / Avisos | El detalle de Avisos repetía «Volver» y el título de la barra | `OperationalDetail` dibujaba su propio encabezado dentro de una pantalla con barra | Detalle y `CoordinatorPlanning` sin encabezado propio; verificado en AVD; commit `9918724` | [evidencia](../../documentation/evidencias/entrega-final/mobile/android-ui-talkback-sesion-20261118/RESULTADOS.md) | cerrada | [PROJECT_STATUS](../../PROJECT_STATUS.md) |
+| <a name="inc-427"></a>INC-427 | Android (pruebas JVM) | `DonorPaginationTest` y `TransportNextStepTest` fallaban (78 casos, 2 fallidos) | Dobles y expectativas desfasados respecto de `fd4fbcf` (contrato de horarios) y `84b3394` (texto de ubicación) | Pruebas actualizadas al contrato vigente; 81 casos, 0 fallos; commit `9918724` | [evidencia](../../documentation/evidencias/entrega-final/mobile/android-ui-talkback-sesion-20261118/RESULTADOS.md) | cerrada | [PROJECT_STATUS](../../PROJECT_STATUS.md) |
+| <a name="inc-428"></a>INC-428 | Android / accesibilidad | Inspección sustituta del árbol: acciones repetidas sin contexto por tarjeta, mensaje de estado sin `liveRegion`, títulos sin `heading()` | Semántica de accesibilidad incompleta en código común | Ninguna aún; requiere TalkBack o instrumentación para comprobar la corrección | [evidencia](../../documentation/evidencias/entrega-final/mobile/android-ui-talkback-sesion-20261118/RESULTADOS.md) | abierta | [PROJECT_STATUS](../../PROJECT_STATUS.md) |
+| <a name="inc-429"></a>INC-429 | Arnés / descarga del traspaso | `gcloud storage cp` dejaba archivos `_.gstmp` completos sin finalizar y no terminaba | Finalización de la copia de gcloud en este host (causa exacta no determinada) | Descarga con `gcloud storage cat` y verificación `shasum -a 256 -c`: 14/14 OK | [gcp-alert-detail-20261118](../../documentation/evidencias/entrega-final/gcp-alert-detail-20261118/RESULTADOS.md) | cerrada | [PROJECT_STATUS](../../PROJECT_STATUS.md) |
 
 <a name="d-2026-11-17"></a>
 
@@ -143,7 +155,7 @@ Columnas: ID, componente, síntoma, causa, corrección o commit, evidencia, esta
 | <a name="inc-370"></a>INC-370 | Android / observador de reserva | Observador del primer intento quedó FAIL tras leer 401, antes de la renovación y el 201 | Observador terminó antes de que la app renovara sesión y reenviara con la misma clave | Recibos posteriores documentan el 201 y una sola cita BOOKED | [android-c-cierre-20261117](../../documentation/evidencias/entrega-final/mobile/android-c-cierre-20261117/RESULTADOS.md) | aceptada como límite | [android-c-cierre-20261117:23](../../documentation/evidencias/entrega-final/mobile/android-c-cierre-20261117/RESULTADOS.md#L23) |
 | <a name="inc-369"></a>INC-369 | Android / Donantes (último cupo) | Ejecutor en FAIL temporal: entradas WSGI separadas 1,157 s, sobre umbral de 1 s; concurrency_accepted=false | Umbral de 1 s del ensayo incumplido; negocio sí pasó (un 201, un 409 slot_full) | Ninguna; umbral no está en Prompt 07 y el desenlace esperado se observó | [android-c-cierre-20261117](../../documentation/evidencias/entrega-final/mobile/android-c-cierre-20261117/RESULTADOS.md) | aceptada como límite | [android-c-cierre-20261117:15](../../documentation/evidencias/entrega-final/mobile/android-c-cierre-20261117/RESULTADOS.md#L15); [PROJECT_STATUS:36](../../PROJECT_STATUS.md#L36) |
 | <a name="inc-368"></a>INC-368 | Android / Alertas | Tocar «Ver detalle» del recordatorio devuelve «Respuesta no válida del servicio» | Alertas no publicaba GET /api/v1/alerts/{identifier}; el cliente lo pedía | Se añadió alert_detail en ms_alertas/routes.py con mismo ámbito que la bandeja; OpenAPI regenerado; commit `0edf74d`; reapertura en AVD arm64 y tras reinicio PASS | [android-c-ver-detalle-20261117](../../documentation/evidencias/entrega-final/mobile/android-c-ver-detalle-20261117/RESULTADOS.md) | cerrada | [android-c-cierre-20261117:29](../../documentation/evidencias/entrega-final/mobile/android-c-cierre-20261117/RESULTADOS.md#L29); [PROJECT_STATUS:7](../../PROJECT_STATUS.md#L7) |
-| <a name="inc-367"></a>INC-367 | Android / Alertas | Etiquetas ELIGIBLE e INFO del recordatorio sin traducir | n/d | Ninguna; pendiente de traducción | [android-c-cierre-20261117](../../documentation/evidencias/entrega-final/mobile/android-c-cierre-20261117/RESULTADOS.md) | abierta | [android-c-cierre-20261117:35](../../documentation/evidencias/entrega-final/mobile/android-c-cierre-20261117/RESULTADOS.md#L35) |
+| <a name="inc-367"></a>INC-367 | Android / Alertas | Etiquetas ELIGIBLE e INFO del recordatorio sin traducir | n/d | Traducidas en `Presentation.kt` (Informativo, Elegible para donar); verificado en AVD; commit `9918724` | [android-c-cierre-20261117](../../documentation/evidencias/entrega-final/mobile/android-c-cierre-20261117/RESULTADOS.md) | cerrada | [android-c-cierre-20261117:35](../../documentation/evidencias/entrega-final/mobile/android-c-cierre-20261117/RESULTADOS.md#L35) |
 | <a name="inc-366"></a>INC-366 | Android (reserva E2E-C) | Ensayo instrumental FAIL por timeout de captura; imagen mostraba tarjetas anteriores | Desplazamiento retenido | Imagen rechazada como evidencia; reserva no repetida; inspección de la tarjeta pendiente | n/d (ver fuente) | abierta | [PROJECT_STATUS:136](../../PROJECT_STATUS.md#L136) |
 | <a name="inc-365"></a>INC-365 | Android (recuperación de seguimiento) | Caché Gradle bloqueada por sandbox en la ejecución inicial | Sandbox | Reintento autorizado pasó | [tracking-recovery-20261117](../../documentation/evidencias/entrega-final/mobile/tracking-recovery-20261117/RESULTADOS.md) | cerrada | [PROJECT_STATUS:178](../../PROJECT_STATUS.md#L178) |
 | <a name="inc-364"></a>INC-364 | Android (preparación C) | Ejecutor de preparación en FAIL: ValueError en logout y RuntimeError al verificar cierre; sesión quedó activa | El ejecutor omitió la cabecera Idempotency-Key exigida por la ruta | Revocación de esa sesión con credenciales de Identidad (PASS, PostgreSQL y Redis); FAIL conservado | [android-c-cierre-20261117](../../documentation/evidencias/entrega-final/mobile/android-c-cierre-20261117/RESULTADOS.md) | cerrada | [android-c-cierre-20261117:7](../../documentation/evidencias/entrega-final/mobile/android-c-cierre-20261117/RESULTADOS.md#L7) |

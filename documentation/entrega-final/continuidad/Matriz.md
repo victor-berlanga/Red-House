@@ -75,7 +75,7 @@ Mapa de cada entregable de la consigna de la bandeja de entrega final (lista «E
 | E-16 | Presentación | [Guion de demostración](Demostracion_final.md) | equipo | Exposición final efectuada pendiente (WORK-DELIVERY) |
 | E-17 | Evidencias de GCP | [`evidencias/gcp/`](../../evidencias/gcp/RESULTADOS.md) y recibos `gcp-*` de [`evidencias/entrega-final/`](../../evidencias/entrega-final/gcp-xmlschema-20261116/RESULTADOS.md) | completo | Cada recibo conserva sus límites y fallos originales |
 | E-18 | Bitácora de participación | Antecedentes: [bitácora histórica](../../historial/bitacora/ESTADO_HASTA_2026_10_12.md), [coevaluación del primer parcial](../../Coevaluacion.txt) | equipo | WORK-ORG NO VERIFICADO: responsables y contribuciones los confirman los integrantes; no se deducen por commits |
-| E-19 | Registro de incidencias | [Registro de incidencias](../Registro_incidencias.md) | completo | 424 incidencias con fuente citada al 17/11; responsables nominales los aporta el equipo (WORK-ORG) |
+| E-19 | Registro de incidencias | [Registro de incidencias](../Registro_incidencias.md) | completo | 429 incidencias con fuente citada al 17/11; responsables nominales los aporta el equipo (WORK-ORG) |
 | E-20 | Reflexión individual de cada integrante | n/a | equipo | Aporte personal de cada integrante (WORK-DELIVERY) |
 
 ### Expediente técnico
