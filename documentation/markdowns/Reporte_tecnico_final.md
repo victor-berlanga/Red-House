@@ -344,6 +344,7 @@ La evidencia anterior de [segundo parcial](../evidencias/segundo-parcial/RESULTA
 El 18/11 se [instaló desde un clon nuevo](../evidencias/entrega-final/clon-limpio-20261118/RESULTADOS.md) de `entrega-final`. Con los pasos documentados no arrancaba: Documentos quedaba sin la dependencia `google-api-core` y sin almacenamiento configurado, y su `/health/ready` respondía 503. Ambos defectos se corrigieron en el instalador. Tras la corrección, `install.sh` y `start.sh` dejaron 12/12 servicios listos sin intervención manual, con el portal en 200. La ruta Compose funcionó con una réplica por API. El stack completo de 30 contenedores no cabe en los 3.8 GB de Docker Desktop del equipo de prueba.
 
 Las [pruebas de fallas](../evidencias/entrega-final/fallos-consigna-20261118/RESULTADOS.md) corrieron en un laboratorio nuevo: **43 aprobadas y 1 omitida** (requiere GCS real). Cubren resiliencia, salud, continuidad, frescura del antivirus, flujos y una prueba nueva de tiempo agotado y respuestas inválidas entre servicios: todas terminan en un 503 `dependency_unavailable` controlado, y la lectura se corta a los 3 s. En la demostración en vivo se detuvieron servicios con `components.sh`:
+
 - **Alertas caído:** Donantes siguió agendando citas, y el aviso pendiente llegó 3.4 s después de reiniciar Alertas.
 - **Identidad caído:** los tokens vigentes siguieron sirviendo y la validación que depende de Identidad respondió 503 en 9 ms, sin quedarse colgada.
 
