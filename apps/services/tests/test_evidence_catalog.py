@@ -99,6 +99,10 @@ def test_all_registered_routes_expose_real_http_contracts_and_controlled_errors(
                     data={} if contract["method"] != "GET" else None,
                     headers={"Accept": mime},
                 )
+                if contract.get("public") and contract["method"] == "GET":
+                    # Lectura pública por diseño (p. ej. catálogo de instituciones del registro).
+                    assert result.status_code == 200, (service, path, result.status_code)
+                    continue
                 assert result.status_code in (400, 401, 403, 415, 422), (
                     service,
                     path,
@@ -109,6 +113,9 @@ def test_all_registered_routes_expose_real_http_contracts_and_controlled_errors(
                 if contract["name"] == "document_list":
                     # La lista documental exige propietario concreto, antes de paginar.
                     path += "?subject_kind=ACCREDITATION&subject_id=" + str(uuid4())
+                if contract["name"] == "operation_by_key":
+                    # La consulta exige la huella SHA-256 del comando; sin ella responde 422.
+                    path += "?fingerprint=" + "0" * 64
                 response = p.request(service, "GET", path, user=user)
                 assert response.status_code in (200, 404), (
                     service,

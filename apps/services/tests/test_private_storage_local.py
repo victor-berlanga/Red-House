@@ -1,5 +1,8 @@
 """Local disk plus isolated PostgreSQL/Redis; ClamD is an explicit test receiver."""
 
+import sys
+from pathlib import Path
+
 import hashlib
 from io import BytesIO
 from urllib.parse import urlsplit
@@ -172,6 +175,11 @@ def test_local_immutable_object_and_symlink(tmp_path):
 
 
 def test_gateway_rejects_unsafe_binary_requests():
+    # Igual que las demás pruebas del portal: `src` vive en apps/web y la prueba no debe
+    # depender de que otro módulo lo haya agregado antes a la ruta de importación.
+    web = str(Path(__file__).resolve().parents[2] / "web")
+    if web not in sys.path:
+        sys.path.insert(0, web)
     from flask import Flask
     from src.integration.storage_gateway import install
     from werkzeug.test import Client, EnvironBuilder
@@ -181,14 +189,14 @@ def test_gateway_rejects_unsafe_binary_requests():
     app.config["SERVICE_URLS"] = {"documentos": "http://127.0.0.1:1"}
     install(app)
     client = Client(app, Response)
-    assert client.post("/storage/v1/objects/token").status_code == 405
+    assert client.post("/portal-storage/v1/objects/token").status_code == 405
     assert (
         client.put(
-            "/storage/v1/objects/token", data=b"x" * (10 * 1024 * 1024 + 1)
+            "/portal-storage/v1/objects/token", data=b"x" * (10 * 1024 * 1024 + 1)
         ).status_code
         == 413
     )
-    builder = EnvironBuilder(path="/storage/v1/objects/token", method="PUT")
+    builder = EnvironBuilder(path="/portal-storage/v1/objects/token", method="PUT")
     environ = builder.get_environ()
     environ.pop("CONTENT_LENGTH", None)
     response = Response.from_app(app, environ)
