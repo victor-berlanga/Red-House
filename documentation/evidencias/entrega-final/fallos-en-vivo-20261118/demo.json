@@ -1,0 +1,1235 @@
+{
+  "started": "2026-11-18T17:22:19.464479+00:00",
+  "finished": "2026-11-18T17:24:05.375180+00:00",
+  "result": {
+    "g_archivo_inexistente": true,
+    "i_sin_permisos": true,
+    "b_revocar_token": true,
+    "a_microservicio_detenido": true,
+    "f_tiempo_agotado": true,
+    "j_archivos_no_disponibles": true,
+    "c_redis": true,
+    "d_mongodb": true,
+    "e_postgresql": true,
+    "h_sobrecarga": true,
+    "k_logs": true
+  },
+  "steps": [
+    {
+      "at": "2026-11-18T17:22:20.591777+00:00",
+      "step": "base: /health/ready",
+      "ready": {
+        "identidad_acceso": 200,
+        "donantes": 200,
+        "receptores": 200,
+        "inventario": 200,
+        "compatibilidad": 200,
+        "priorizacion_geografia": 200,
+        "transporte": 200,
+        "custodia": 200,
+        "alertas": 200,
+        "auditoria": 200,
+        "monitoreo": 200,
+        "documentos": 200
+      }
+    },
+    {
+      "at": "2026-11-18T17:22:20.785249+00:00",
+      "step": "testigo creado antes de los fallos",
+      "status": 201,
+      "code": null,
+      "seconds": 0.021,
+      "correlation_id": "86ae3c40-52bb-4763-8c4a-3b7cb2f02163",
+      "testigo": "3dec48a6-0d00-46ba-89da-8e227b085323"
+    },
+    {
+      "at": "2026-11-18T17:22:20.804283+00:00",
+      "step": "g. metadatos de documento inexistente",
+      "status": 404,
+      "code": "not_found",
+      "seconds": 0.019,
+      "correlation_id": "c413eb76-a00c-4ef9-b9e5-685e5d0600a0"
+    },
+    {
+      "at": "2026-11-18T17:22:20.823852+00:00",
+      "step": "g. descarga de archivo inexistente",
+      "status": 404,
+      "code": "not_found",
+      "seconds": 0.019,
+      "correlation_id": "78b5a14f-fdfc-4a7d-8795-7fb15a196a1c"
+    },
+    {
+      "at": "2026-11-18T17:22:20.840463+00:00",
+      "step": "g. identificador mal formado",
+      "status": 400,
+      "code": "validation",
+      "seconds": 0.017,
+      "correlation_id": "db74b3d1-d7a6-45ed-a771-1b9010a5ae13"
+    },
+    {
+      "at": "2026-11-18T17:22:20.840498+00:00",
+      "step": "g_archivo_inexistente: resultado",
+      "ok": true,
+      "seconds": 0.1
+    },
+    {
+      "at": "2026-11-18T17:22:20.865316+00:00",
+      "step": "i. operator2 (Hospital 2) abre donante del Hospital 1",
+      "status": 403,
+      "code": "forbidden",
+      "seconds": 0.025,
+      "correlation_id": "0c5c5012-59cd-4505-bda5-24f723b1199c"
+    },
+    {
+      "at": "2026-11-18T17:22:20.878380+00:00",
+      "step": "i. donor1 (DONOR) intenta registrar inventario",
+      "status": 403,
+      "code": "forbidden",
+      "seconds": 0.013,
+      "correlation_id": "1bfcfceb-9a66-4101-930b-26166adc4f1f"
+    },
+    {
+      "at": "2026-11-18T17:22:20.883731+00:00",
+      "step": "i. auditor1 (solo lectura) intenta registrar donante",
+      "status": 403,
+      "code": "forbidden",
+      "seconds": 0.005,
+      "correlation_id": "3d29bdd9-8258-4058-a5e9-1370d56c0328"
+    },
+    {
+      "at": "2026-11-18T17:22:20.889866+00:00",
+      "step": "i. petición sin token",
+      "status": 401,
+      "code": "unauthorized",
+      "seconds": 0.006,
+      "correlation_id": "ff529dc6-84b1-4eb9-93ac-e46911c7124c"
+    },
+    {
+      "at": "2026-11-18T17:22:27.017899+00:00",
+      "step": "i. auditoría registra el rechazo entre instituciones por correlation_id",
+      "status": 200,
+      "code": null,
+      "seconds": 0.123,
+      "correlation_id": "d00aa2f7-b22e-412e-b73d-c6ac9cedafdf",
+      "acciones": [
+        [
+          "REJECTED",
+          "TECHNICAL"
+        ],
+        [
+          "READ",
+          "READ"
+        ]
+      ]
+    },
+    {
+      "at": "2026-11-18T17:22:27.067985+00:00",
+      "step": "i: integridad tras recuperar",
+      "ok": true,
+      "testigo_igual": true,
+      "testigo_veces": 1,
+      "altas_intentadas": {}
+    },
+    {
+      "at": "2026-11-18T17:22:27.068039+00:00",
+      "step": "i_sin_permisos: resultado",
+      "ok": true,
+      "seconds": 6.2
+    },
+    {
+      "at": "2026-11-18T17:22:27.382189+00:00",
+      "step": "b. token vigente consulta su perfil",
+      "status": 200,
+      "code": null,
+      "seconds": 0.013,
+      "correlation_id": "6291aab5-ecf4-418b-a060-5cd2482b5881"
+    },
+    {
+      "at": "2026-11-18T17:22:27.402008+00:00",
+      "step": "b. POST /auth/revoke con el token de renovación",
+      "status": 200,
+      "code": null,
+      "seconds": 0.02,
+      "correlation_id": "a1436098-846a-4418-9817-afc5d6889dfa"
+    },
+    {
+      "at": "2026-11-18T17:22:27.409097+00:00",
+      "step": "b. reutilizar el token de acceso revocado",
+      "status": 401,
+      "code": "unauthorized",
+      "seconds": 0.007,
+      "correlation_id": "ac45c2a5-9cc1-4de1-86b9-c3cf025cd491"
+    },
+    {
+      "at": "2026-11-18T17:22:27.415801+00:00",
+      "step": "b. renovar con la familia revocada",
+      "status": 401,
+      "code": "unauthorized",
+      "seconds": 0.007,
+      "correlation_id": "0128e366-7337-411a-b652-5e3b77f71af1"
+    },
+    {
+      "at": "2026-11-18T17:22:27.431146+00:00",
+      "step": "b. otra sesión del mismo usuario sigue vigente",
+      "status": 200,
+      "code": null,
+      "seconds": 0.015,
+      "correlation_id": "ad04c517-73b5-4791-a797-105725721190"
+    },
+    {
+      "at": "2026-11-18T17:22:27.603492+00:00",
+      "step": "b. POST /auth/logout",
+      "status": 200,
+      "code": null,
+      "seconds": 0.024,
+      "correlation_id": "80d7ae38-d0b4-4cff-9231-0492e108f05d"
+    },
+    {
+      "at": "2026-11-18T17:22:27.608827+00:00",
+      "step": "b. reutilizar el token tras cerrar sesión",
+      "status": 401,
+      "code": "unauthorized",
+      "seconds": 0.005,
+      "correlation_id": "d3cdb4bc-3252-42ff-9f6b-313041e014ec"
+    },
+    {
+      "at": "2026-11-18T17:22:27.608875+00:00",
+      "step": "b_revocar_token: resultado",
+      "ok": true,
+      "seconds": 0.5
+    },
+    {
+      "at": "2026-11-18T17:22:30.348344+00:00",
+      "step": "bash components.sh detener inventario",
+      "exit": 0,
+      "seconds": 2.74,
+      "output": [
+        "Servicio detenido: inventario"
+      ]
+    },
+    {
+      "at": "2026-11-18T17:22:30.492639+00:00",
+      "step": "a. inventario detenido: /health/ready",
+      "ready": {
+        "identidad_acceso": 200,
+        "donantes": 200,
+        "receptores": 200,
+        "inventario": "ConnectionError",
+        "compatibilidad": 200,
+        "priorizacion_geografia": 200,
+        "transporte": 200,
+        "custodia": 200,
+        "alertas": 200,
+        "auditoria": 200,
+        "monitoreo": 200,
+        "documentos": 200
+      }
+    },
+    {
+      "at": "2026-11-18T17:22:30.493453+00:00",
+      "step": "a. API de inventario sin proceso",
+      "status": null,
+      "error": "ConnectionError",
+      "seconds": 0.001,
+      "correlation_id": "844c0cc9-943a-424c-bcb1-28ff1a925106"
+    },
+    {
+      "at": "2026-11-18T17:22:30.511632+00:00",
+      "step": "a. donantes sigue atendiendo",
+      "status": 200,
+      "code": null,
+      "seconds": 0.018,
+      "correlation_id": "8753b5ce-07ed-4dda-ad62-ba2fcf531b2f"
+    },
+    {
+      "at": "2026-11-18T17:22:30.570476+00:00",
+      "step": "a. portal web (monolito) /inventario con la API detenida",
+      "status": 200,
+      "title": "Inventario sanguíneo"
+    },
+    {
+      "at": "2026-11-18T17:22:30.600504+00:00",
+      "step": "a. monitoreo registra la caída",
+      "detected": true,
+      "seconds": 0.0,
+      "state": "down",
+      "error": "unreachable_or_invalid_response",
+      "checked_at": "2026-11-18T17:22:29.214858+00:00",
+      "stopped_at": "2026-11-18T17:22:27.608900+00:00"
+    },
+    {
+      "at": "2026-11-18T17:22:32.360367+00:00",
+      "step": "bash components.sh reiniciar inventario",
+      "exit": 0,
+      "seconds": 1.76,
+      "output": [
+        "Servicios solicitados disponibles; URLs en /private/tmp/rh-fallos-20261118/.local/runtime/state.json",
+        "Logs y datos privados: /private/tmp/rh-fallos-20261118/.local/runtime"
+      ]
+    },
+    {
+      "at": "2026-11-18T17:22:32.392938+00:00",
+      "step": "a. inventario reiniciado registra una unidad",
+      "status": 201,
+      "code": null,
+      "seconds": 0.032,
+      "correlation_id": "cb8f9e11-3e07-4171-ba39-55d770464e8e"
+    },
+    {
+      "at": "2026-11-18T17:22:41.537112+00:00",
+      "step": "a. monitoreo registra la recuperación",
+      "recovered": true,
+      "seconds": 9.1
+    },
+    {
+      "at": "2026-11-18T17:22:41.607998+00:00",
+      "step": "a: integridad tras recuperar",
+      "ok": true,
+      "testigo_igual": true,
+      "testigo_veces": 1,
+      "altas_intentadas": {}
+    },
+    {
+      "at": "2026-11-18T17:22:41.608052+00:00",
+      "step": "a_microservicio_detenido: resultado",
+      "ok": true,
+      "seconds": 14.0
+    },
+    {
+      "at": "2026-11-18T17:22:41.891620+00:00",
+      "step": "f. identidad_acceso congelado (SIGSTOP): acepta conexiones y no responde",
+      "pid": 77451
+    },
+    {
+      "at": "2026-11-18T17:22:47.897529+00:00",
+      "step": "f. inicio de sesión directo con identidad congelado",
+      "status": null,
+      "error": "ReadTimeout",
+      "seconds": 6.006
+    },
+    {
+      "at": "2026-11-18T17:22:50.949476+00:00",
+      "step": "f. inventario espera a identidad (lectura máx. 3 s)",
+      "status": 503,
+      "code": "dependency_unavailable",
+      "seconds": 3.051,
+      "correlation_id": "f2db046f-f8fe-429c-a852-f1f6bfc9be65"
+    },
+    {
+      "at": "2026-11-18T17:22:50.988051+00:00",
+      "step": "f. alta sin ubicación no depende de identidad",
+      "status": 201,
+      "code": null,
+      "seconds": 0.038,
+      "correlation_id": "c03359f6-02ed-46f6-9b4a-7ae56c6edf47"
+    },
+    {
+      "at": "2026-11-18T17:22:50.995514+00:00",
+      "step": "f. identidad_acceso reanudado (SIGCONT)",
+      "pid": 77451
+    },
+    {
+      "at": "2026-11-18T17:22:51.055440+00:00",
+      "step": "f. misma alta tras reanudar (la ubicación ficticia no existe)",
+      "status": 404,
+      "code": "not_found",
+      "seconds": 0.06,
+      "correlation_id": "a5e242c0-d192-4b24-a8cc-03f1c8e6df5e"
+    },
+    {
+      "at": "2026-11-18T17:22:51.093418+00:00",
+      "step": "f. unidades con el folio del intento fallido",
+      "count": 0
+    },
+    {
+      "at": "2026-11-18T17:22:51.143021+00:00",
+      "step": "f: integridad tras recuperar",
+      "ok": true,
+      "testigo_igual": true,
+      "testigo_veces": 1,
+      "altas_intentadas": {}
+    },
+    {
+      "at": "2026-11-18T17:22:51.143067+00:00",
+      "step": "f_tiempo_agotado: resultado",
+      "ok": true,
+      "seconds": 9.5
+    },
+    {
+      "at": "2026-11-18T17:22:52.080751+00:00",
+      "step": "bash components.sh detener documentos",
+      "exit": 0,
+      "seconds": 0.94,
+      "output": [
+        "Servicio detenido: documentos"
+      ]
+    },
+    {
+      "at": "2026-11-18T17:22:52.260023+00:00",
+      "step": "j. documentos detenido: /health/ready",
+      "ready": {
+        "identidad_acceso": 200,
+        "donantes": 200,
+        "receptores": 200,
+        "inventario": 200,
+        "compatibilidad": 200,
+        "priorizacion_geografia": 200,
+        "transporte": 200,
+        "custodia": 200,
+        "alertas": 200,
+        "auditoria": 200,
+        "monitoreo": 200,
+        "documentos": "ConnectionError"
+      }
+    },
+    {
+      "at": "2026-11-18T17:22:52.260611+00:00",
+      "step": "j. API de documentos sin proceso",
+      "status": null,
+      "error": "ConnectionError",
+      "seconds": 0.001,
+      "correlation_id": "5a1e989f-a865-459b-b582-e5c5cb42d36e"
+    },
+    {
+      "at": "2026-11-18T17:22:52.387587+00:00",
+      "step": "j. portal (monolito) consulta los documentos del testigo",
+      "status": 200
+    },
+    {
+      "at": "2026-11-18T17:22:54.114862+00:00",
+      "step": "bash components.sh reiniciar documentos",
+      "exit": 0,
+      "seconds": 1.73,
+      "output": [
+        "Servicios solicitados disponibles; URLs en /private/tmp/rh-fallos-20261118/.local/runtime/state.json",
+        "Logs y datos privados: /private/tmp/rh-fallos-20261118/.local/runtime"
+      ]
+    },
+    {
+      "at": "2026-11-18T17:22:54.131674+00:00",
+      "step": "j. almacén privado sin permisos: /health/storage",
+      "status": 503,
+      "data": {
+        "state": "down",
+        "error": "dependency_unavailable"
+      },
+      "ready": {
+        "status": 503,
+        "down": [
+          "storage"
+        ]
+      }
+    },
+    {
+      "at": "2026-11-18T17:22:54.133401+00:00",
+      "step": "j. almacén restablecido (0700): /health/storage",
+      "status": 200,
+      "data": {
+        "state": "up",
+        "required": true,
+        "provider": "local"
+      }
+    },
+    {
+      "at": "2026-11-18T17:22:54.237414+00:00",
+      "step": "j. portal tras reiniciar documentos",
+      "status": 200
+    },
+    {
+      "at": "2026-11-18T17:22:54.293790+00:00",
+      "step": "j: integridad tras recuperar",
+      "ok": true,
+      "testigo_igual": true,
+      "testigo_veces": 1,
+      "altas_intentadas": {}
+    },
+    {
+      "at": "2026-11-18T17:22:54.293932+00:00",
+      "step": "j_archivos_no_disponibles: resultado",
+      "ok": true,
+      "seconds": 3.2
+    },
+    {
+      "at": "2026-11-18T17:22:54.500783+00:00",
+      "step": "c. Redis detenido",
+      "pid": 99862,
+      "seconds": 0.2
+    },
+    {
+      "at": "2026-11-18T17:22:54.510931+00:00",
+      "step": "c. petición autenticada con Redis caído",
+      "status": 503,
+      "code": "redis_unavailable",
+      "seconds": 0.01,
+      "correlation_id": "933ee573-fa05-4a7f-88be-934a455ab27e"
+    },
+    {
+      "at": "2026-11-18T17:22:54.525990+00:00",
+      "step": "c. inicio de sesión con Redis caído",
+      "status": 503,
+      "code": "redis_unavailable",
+      "seconds": 0.015
+    },
+    {
+      "at": "2026-11-18T17:22:54.533889+00:00",
+      "step": "c. alta de donante con Redis caído",
+      "status": 503,
+      "code": "redis_unavailable",
+      "seconds": 0.008,
+      "correlation_id": "307da311-3abf-474d-a986-9f39dccd58e7"
+    },
+    {
+      "at": "2026-11-18T17:22:54.536137+00:00",
+      "step": "c. donantes /health/live",
+      "status": 200
+    },
+    {
+      "at": "2026-11-18T17:22:54.857427+00:00",
+      "step": "c. Redis caído: /health/ready",
+      "ready": {
+        "identidad_acceso": {
+          "status": 503,
+          "down": [
+            "redis"
+          ]
+        },
+        "donantes": {
+          "status": 503,
+          "down": [
+            "redis"
+          ]
+        },
+        "receptores": {
+          "status": 503,
+          "down": [
+            "redis"
+          ]
+        },
+        "inventario": {
+          "status": 503,
+          "down": [
+            "redis"
+          ]
+        },
+        "compatibilidad": {
+          "status": 503,
+          "down": [
+            "redis"
+          ]
+        },
+        "priorizacion_geografia": {
+          "status": 503,
+          "down": [
+            "redis"
+          ]
+        },
+        "transporte": {
+          "status": 503,
+          "down": [
+            "redis"
+          ]
+        },
+        "custodia": {
+          "status": 503,
+          "down": [
+            "redis"
+          ]
+        },
+        "alertas": {
+          "status": 503,
+          "down": [
+            "redis"
+          ]
+        },
+        "auditoria": {
+          "status": 503,
+          "down": [
+            "redis"
+          ]
+        },
+        "monitoreo": {
+          "status": 503,
+          "down": [
+            "redis"
+          ]
+        },
+        "documentos": {
+          "status": 503,
+          "down": [
+            "redis"
+          ]
+        }
+      }
+    },
+    {
+      "at": "2026-11-18T17:22:54.870884+00:00",
+      "step": "c. portal web /panel durante la caída",
+      "status": 503,
+      "title": "No fue posible completar la operación"
+    },
+    {
+      "at": "2026-11-18T17:23:06.900361+00:00",
+      "step": "c. caída sostenida",
+      "seconds": 12,
+      "worker_failure_nuevos": 0
+    },
+    {
+      "at": "2026-11-18T17:23:08.166933+00:00",
+      "step": "bash components.sh bases",
+      "exit": 0,
+      "seconds": 1.27,
+      "output": [
+        "PostgreSQL, Redis y MongoDB disponibles.",
+        "Logs y datos privados: /private/tmp/rh-fallos-20261118/.local/runtime"
+      ]
+    },
+    {
+      "at": "2026-11-18T17:23:08.386979+00:00",
+      "step": "c. Redis reiniciado: /health/ready",
+      "seconds_to_ready": 0.22,
+      "ready": {
+        "identidad_acceso": 200,
+        "donantes": 200,
+        "receptores": 200,
+        "inventario": 200,
+        "compatibilidad": 200,
+        "priorizacion_geografia": 200,
+        "transporte": 200,
+        "custodia": 200,
+        "alertas": 200,
+        "auditoria": 200,
+        "monitoreo": 200,
+        "documentos": 200
+      }
+    },
+    {
+      "at": "2026-11-18T17:23:08.403850+00:00",
+      "step": "c. el mismo token vuelve a servir (sesiones persistidas en AOF)",
+      "status": 200,
+      "code": null,
+      "seconds": 0.017,
+      "correlation_id": "a0fb975d-fa1a-40e0-8fc0-c8adf2d56b35"
+    },
+    {
+      "at": "2026-11-18T17:23:08.626586+00:00",
+      "step": "c. portal web /panel tras recuperar (misma sesión)",
+      "status": 200,
+      "title": "Panel principal"
+    },
+    {
+      "at": "2026-11-18T17:23:08.633608+00:00",
+      "step": "c. el token revocado en (b) sigue revocado tras reiniciar Redis",
+      "status": 401,
+      "code": "unauthorized",
+      "seconds": 0.007,
+      "correlation_id": "0d524a08-bfcc-465e-9ca2-49f5fa706222"
+    },
+    {
+      "at": "2026-11-18T17:23:08.688357+00:00",
+      "step": "c: integridad tras recuperar",
+      "ok": true,
+      "testigo_igual": true,
+      "testigo_veces": 1,
+      "altas_intentadas": {
+        "alta durante la caída": 0
+      }
+    },
+    {
+      "at": "2026-11-18T17:23:08.688418+00:00",
+      "step": "c_redis: resultado",
+      "ok": true,
+      "seconds": 14.4
+    },
+    {
+      "at": "2026-11-18T17:23:09.010149+00:00",
+      "step": "d. MongoDB detenido",
+      "pid": 95772,
+      "seconds": 0.21,
+      "pendientes_antes": 7
+    },
+    {
+      "at": "2026-11-18T17:23:14.993885+00:00",
+      "step": "d. MongoDB caído: /health/ready",
+      "ready": {
+        "identidad_acceso": 200,
+        "donantes": 200,
+        "receptores": 200,
+        "inventario": 200,
+        "compatibilidad": 200,
+        "priorizacion_geografia": 200,
+        "transporte": {
+          "status": 503,
+          "down": [
+            "mongodb"
+          ]
+        },
+        "custodia": {
+          "status": 503,
+          "down": [
+            "mongodb"
+          ]
+        },
+        "alertas": 200,
+        "auditoria": {
+          "status": 503,
+          "down": [
+            "mongodb"
+          ]
+        },
+        "monitoreo": {
+          "status": 503,
+          "down": [
+            "mongodb"
+          ]
+        },
+        "documentos": 200
+      }
+    },
+    {
+      "at": "2026-11-18T17:23:15.238185+00:00",
+      "step": "d. portal web /panel durante la caída",
+      "status": 200,
+      "title": "Panel principal"
+    },
+    {
+      "at": "2026-11-18T17:23:15.260209+00:00",
+      "step": "d. alta de donante (negocio en PostgreSQL) con MongoDB caído",
+      "status": 201,
+      "code": null,
+      "seconds": 0.022,
+      "correlation_id": "0a114491-4faf-4b72-85a7-b77a1ad62d67"
+    },
+    {
+      "at": "2026-11-18T17:23:17.269103+00:00",
+      "step": "d. auditoría retenida en bandeja de salida (outbox) hacia MongoDB",
+      "pendientes": 35,
+      "seconds": 2.0
+    },
+    {
+      "at": "2026-11-18T17:23:17.313043+00:00",
+      "step": "d. bitácora SQL de auditoría sigue consultable",
+      "status": 200,
+      "code": null,
+      "seconds": 0.044,
+      "correlation_id": "5c04ea2d-692b-40bf-9d05-5a461d11518d"
+    },
+    {
+      "at": "2026-11-18T17:23:18.474504+00:00",
+      "step": "d. proyección documental (MongoDB) con MongoDB caído",
+      "status": 503,
+      "code": "mongodb_unavailable",
+      "seconds": 1.161,
+      "correlation_id": "c8f397c2-5b76-4ab6-8a72-4dd7b1c02921"
+    },
+    {
+      "at": "2026-11-18T17:23:22.258730+00:00",
+      "step": "bash components.sh bases",
+      "exit": 0,
+      "seconds": 3.78,
+      "output": [
+        "PostgreSQL, Redis y MongoDB disponibles.",
+        "Logs y datos privados: /private/tmp/rh-fallos-20261118/.local/runtime"
+      ]
+    },
+    {
+      "at": "2026-11-18T17:23:24.287961+00:00",
+      "step": "d. MongoDB reiniciado: bandeja de salida vaciada",
+      "seconds": 2.0
+    },
+    {
+      "at": "2026-11-18T17:23:24.574269+00:00",
+      "step": "d. MongoDB reiniciado: /health/ready",
+      "seconds_to_ready": 0.28,
+      "ready": {
+        "identidad_acceso": 200,
+        "donantes": 200,
+        "receptores": 200,
+        "inventario": 200,
+        "compatibilidad": 200,
+        "priorizacion_geografia": 200,
+        "transporte": 200,
+        "custodia": 200,
+        "alertas": 200,
+        "auditoria": 200,
+        "monitoreo": 200,
+        "documentos": 200
+      }
+    },
+    {
+      "at": "2026-11-18T17:23:24.611952+00:00",
+      "step": "d. proyección documental tras recuperar",
+      "status": 200,
+      "code": null,
+      "seconds": 0.03,
+      "correlation_id": "f744f783-d1c1-4b1d-a600-ca8342a02331",
+      "total_antes": 899,
+      "total_despues": 936,
+      "copias_del_evento": 1
+    },
+    {
+      "at": "2026-11-18T17:23:24.668779+00:00",
+      "step": "d: integridad tras recuperar",
+      "ok": true,
+      "testigo_igual": true,
+      "testigo_veces": 1,
+      "altas_intentadas": {
+        "alta durante la caída": 1
+      }
+    },
+    {
+      "at": "2026-11-18T17:23:24.668839+00:00",
+      "step": "d_mongodb: resultado",
+      "ok": true,
+      "seconds": 16.0
+    },
+    {
+      "at": "2026-11-18T17:23:24.878558+00:00",
+      "step": "e. PostgreSQL detenido (apagado rápido)",
+      "pid": 97900,
+      "seconds": 0.21
+    },
+    {
+      "at": "2026-11-18T17:23:24.883152+00:00",
+      "step": "e. donantes /health/live",
+      "status": 200
+    },
+    {
+      "at": "2026-11-18T17:23:24.888416+00:00",
+      "step": "e. donantes /health/database",
+      "status": 503,
+      "data": {
+        "state": "down",
+        "error": "dependency_unavailable"
+      }
+    },
+    {
+      "at": "2026-11-18T17:23:24.977632+00:00",
+      "step": "e. PostgreSQL caído: /health/ready",
+      "ready": {
+        "identidad_acceso": {
+          "status": 503,
+          "down": [
+            "database",
+            "worker"
+          ]
+        },
+        "donantes": {
+          "status": 503,
+          "down": [
+            "database",
+            "worker"
+          ]
+        },
+        "receptores": {
+          "status": 503,
+          "down": [
+            "database",
+            "worker"
+          ]
+        },
+        "inventario": {
+          "status": 503,
+          "down": [
+            "database",
+            "worker"
+          ]
+        },
+        "compatibilidad": {
+          "status": 503,
+          "down": [
+            "database",
+            "worker"
+          ]
+        },
+        "priorizacion_geografia": {
+          "status": 503,
+          "down": [
+            "database",
+            "worker"
+          ]
+        },
+        "transporte": {
+          "status": 503,
+          "down": [
+            "database",
+            "worker"
+          ]
+        },
+        "custodia": {
+          "status": 503,
+          "down": [
+            "database",
+            "worker"
+          ]
+        },
+        "alertas": {
+          "status": 503,
+          "down": [
+            "database",
+            "worker"
+          ]
+        },
+        "auditoria": {
+          "status": 503,
+          "down": [
+            "database",
+            "worker"
+          ]
+        },
+        "monitoreo": {
+          "status": 503,
+          "down": [
+            "database",
+            "worker"
+          ]
+        },
+        "documentos": {
+          "status": 503,
+          "down": [
+            "database",
+            "worker"
+          ]
+        }
+      }
+    },
+    {
+      "at": "2026-11-18T17:23:24.987506+00:00",
+      "step": "e. portal web /panel durante la caída",
+      "status": 503,
+      "title": "No fue posible completar la operación"
+    },
+    {
+      "at": "2026-11-18T17:23:24.998568+00:00",
+      "step": "e. lectura autenticada con PostgreSQL caído",
+      "status": 503,
+      "code": "database_unavailable",
+      "seconds": 0.011,
+      "correlation_id": "2d082810-bf19-4d6a-8a6c-e55e0fe6c6ae"
+    },
+    {
+      "at": "2026-11-18T17:23:25.006241+00:00",
+      "step": "e. alta de donante con PostgreSQL caído",
+      "status": 503,
+      "code": "database_unavailable",
+      "seconds": 0.008,
+      "correlation_id": "7ae21a2b-c420-40b3-a16a-11a2300ecbae"
+    },
+    {
+      "at": "2026-11-18T17:23:25.020897+00:00",
+      "step": "e. inicio de sesión con PostgreSQL caído",
+      "status": 503,
+      "code": "database_unavailable",
+      "seconds": 0.015
+    },
+    {
+      "at": "2026-11-18T17:23:37.032333+00:00",
+      "step": "e. caída sostenida",
+      "seconds": 12,
+      "worker_failure_nuevos": 15
+    },
+    {
+      "at": "2026-11-18T17:23:38.339378+00:00",
+      "step": "bash components.sh bases",
+      "exit": 0,
+      "seconds": 1.31,
+      "output": [
+        "PostgreSQL, Redis y MongoDB disponibles.",
+        "Logs y datos privados: /private/tmp/rh-fallos-20261118/.local/runtime"
+      ]
+    },
+    {
+      "at": "2026-11-18T17:23:38.496225+00:00",
+      "step": "e. PostgreSQL reiniciado: /health/ready",
+      "seconds_to_ready": 0.16,
+      "ready": {
+        "identidad_acceso": 200,
+        "donantes": 200,
+        "receptores": 200,
+        "inventario": 200,
+        "compatibilidad": 200,
+        "priorizacion_geografia": 200,
+        "transporte": 200,
+        "custodia": 200,
+        "alertas": 200,
+        "auditoria": 200,
+        "monitoreo": 200,
+        "documentos": 200
+      }
+    },
+    {
+      "at": "2026-11-18T17:23:38.517171+00:00",
+      "step": "e. la misma lectura tras recuperar",
+      "status": 200,
+      "code": null,
+      "seconds": 0.021,
+      "correlation_id": "d703092f-59be-46dc-b07a-f1d5d378a1c0"
+    },
+    {
+      "at": "2026-11-18T17:23:38.794539+00:00",
+      "step": "e. portal web /panel tras recuperar (misma sesión)",
+      "status": 200,
+      "title": "Panel principal"
+    },
+    {
+      "at": "2026-11-18T17:23:38.855053+00:00",
+      "step": "e: integridad tras recuperar",
+      "ok": true,
+      "testigo_igual": true,
+      "testigo_veces": 1,
+      "altas_intentadas": {
+        "alta durante la caída": 0
+      }
+    },
+    {
+      "at": "2026-11-18T17:23:38.855177+00:00",
+      "step": "e_postgresql: resultado",
+      "ok": true,
+      "seconds": 14.2
+    },
+    {
+      "at": "2026-11-18T17:23:39.798953+00:00",
+      "step": "h. ráfaga de operator1 contra donantes",
+      "peticiones": 240,
+      "concurrencia": 24,
+      "seconds": 0.94,
+      "codigos": {
+        "200": 160,
+        "429": 80
+      },
+      "codigo_error": "rate_limit",
+      "retry_after": "60",
+      "p_max_seconds": 0.143
+    },
+    {
+      "at": "2026-11-18T17:23:39.799005+00:00",
+      "step": "h. operator2 durante la ráfaga",
+      "status": 200,
+      "code": null,
+      "seconds": 0.136,
+      "correlation_id": "11cf1517-1108-4989-aa46-40db26915e72"
+    },
+    {
+      "at": "2026-11-18T17:23:39.799027+00:00",
+      "step": "h. donantes /health/ready durante la ráfaga",
+      "status": 200
+    },
+    {
+      "at": "2026-11-18T17:24:05.044937+00:00",
+      "step": "h. operator1 vuelve a ser atendido al cambiar la ventana",
+      "seconds": 25.2
+    },
+    {
+      "at": "2026-11-18T17:24:05.097509+00:00",
+      "step": "h: integridad tras recuperar",
+      "ok": true,
+      "testigo_igual": true,
+      "testigo_veces": 1,
+      "altas_intentadas": {}
+    },
+    {
+      "at": "2026-11-18T17:24:05.098282+00:00",
+      "step": "h_sobrecarga: resultado",
+      "ok": true,
+      "seconds": 26.2
+    },
+    {
+      "at": "2026-11-18T17:24:05.103644+00:00",
+      "step": "k. línea de log por correlation_id",
+      "label": "documento inexistente",
+      "log": ".local/runtime/documentos.log",
+      "correlation_id": "c413eb76-a00c-4ef9-b9e5-685e5d0600a0",
+      "line": {
+        "service": "documentos",
+        "correlation_id": "c413eb76-a00c-4ef9-b9e5-685e5d0600a0",
+        "method": "GET",
+        "route": "/api/v1/documents/<identifier>",
+        "status": 404,
+        "elapsed_ms": 17.505,
+        "error": "not_found"
+      }
+    },
+    {
+      "at": "2026-11-18T17:24:05.103727+00:00",
+      "step": "k. línea de log por correlation_id",
+      "label": "descarga inexistente",
+      "log": ".local/runtime/documentos.log",
+      "correlation_id": "78b5a14f-fdfc-4a7d-8795-7fb15a196a1c",
+      "line": {
+        "service": "documentos",
+        "correlation_id": "78b5a14f-fdfc-4a7d-8795-7fb15a196a1c",
+        "method": "GET",
+        "route": "/api/v1/files/<identifier>/download",
+        "status": 404,
+        "elapsed_ms": 18.151,
+        "error": "not_found"
+      }
+    },
+    {
+      "at": "2026-11-18T17:24:05.103746+00:00",
+      "step": "k. línea de log por correlation_id",
+      "label": "otra institución",
+      "log": ".local/runtime/donantes.log",
+      "correlation_id": "0c5c5012-59cd-4505-bda5-24f723b1199c",
+      "line": {
+        "service": "donantes",
+        "correlation_id": "0c5c5012-59cd-4505-bda5-24f723b1199c",
+        "method": "GET",
+        "route": "/api/v1/donors/<identifier>",
+        "status": 403,
+        "elapsed_ms": 23.342,
+        "error": "forbidden"
+      }
+    },
+    {
+      "at": "2026-11-18T17:24:05.103763+00:00",
+      "step": "k. línea de log por correlation_id",
+      "label": "rol sin permiso",
+      "log": ".local/runtime/inventario.log",
+      "correlation_id": "1bfcfceb-9a66-4101-930b-26166adc4f1f",
+      "line": {
+        "service": "inventario",
+        "correlation_id": "1bfcfceb-9a66-4101-930b-26166adc4f1f",
+        "method": "POST",
+        "route": "/api/v1/resources",
+        "status": 403,
+        "elapsed_ms": 10.958,
+        "error": "forbidden"
+      }
+    },
+    {
+      "at": "2026-11-18T17:24:05.103774+00:00",
+      "step": "k. línea de log por correlation_id",
+      "label": "token revocado",
+      "log": ".local/runtime/identidad_acceso.log",
+      "correlation_id": "ac45c2a5-9cc1-4de1-86b9-c3cf025cd491",
+      "line": {
+        "service": "identidad_acceso",
+        "correlation_id": "ac45c2a5-9cc1-4de1-86b9-c3cf025cd491",
+        "method": "GET",
+        "route": "/api/v1/auth/me",
+        "status": 401,
+        "elapsed_ms": 5.536,
+        "error": "unauthorized"
+      }
+    },
+    {
+      "at": "2026-11-18T17:24:05.103786+00:00",
+      "step": "k. línea de log por correlation_id",
+      "label": "tiempo agotado",
+      "log": ".local/runtime/inventario.log",
+      "correlation_id": "f2db046f-f8fe-429c-a852-f1f6bfc9be65",
+      "line": {
+        "service": "inventario",
+        "correlation_id": "f2db046f-f8fe-429c-a852-f1f6bfc9be65",
+        "method": "POST",
+        "route": "/api/v1/resources",
+        "status": 503,
+        "elapsed_ms": 3031.837,
+        "error": "dependency_unavailable"
+      }
+    },
+    {
+      "at": "2026-11-18T17:24:05.103796+00:00",
+      "step": "k. línea de log por correlation_id",
+      "label": "redis caído",
+      "log": ".local/runtime/donantes.log",
+      "correlation_id": "933ee573-fa05-4a7f-88be-934a455ab27e",
+      "line": {
+        "service": "donantes",
+        "correlation_id": "933ee573-fa05-4a7f-88be-934a455ab27e",
+        "method": "GET",
+        "route": "/api/v1/campaigns",
+        "status": 503,
+        "elapsed_ms": 6.783,
+        "error": "redis_unavailable"
+      }
+    },
+    {
+      "at": "2026-11-18T17:24:05.103811+00:00",
+      "step": "k. línea de log por correlation_id",
+      "label": "mongodb caído",
+      "log": ".local/runtime/auditoria.log",
+      "correlation_id": "c8f397c2-5b76-4ab6-8a72-4dd7b1c02921",
+      "line": {
+        "service": "auditoria",
+        "correlation_id": "c8f397c2-5b76-4ab6-8a72-4dd7b1c02921",
+        "method": "GET",
+        "route": "/api/v1/documentary-events",
+        "status": 503,
+        "elapsed_ms": 1159.006,
+        "error": "mongodb_unavailable"
+      }
+    },
+    {
+      "at": "2026-11-18T17:24:05.103820+00:00",
+      "step": "k. línea de log por correlation_id",
+      "label": "postgres caído",
+      "log": ".local/runtime/donantes.log",
+      "correlation_id": "2d082810-bf19-4d6a-8a6c-e55e0fe6c6ae",
+      "line": {
+        "service": "donantes",
+        "correlation_id": "2d082810-bf19-4d6a-8a6c-e55e0fe6c6ae",
+        "method": "GET",
+        "route": "/api/v1/campaigns",
+        "status": 503,
+        "elapsed_ms": 9.714,
+        "error": "database_unavailable"
+      }
+    },
+    {
+      "at": "2026-11-18T17:24:05.103834+00:00",
+      "step": "k. línea de log por correlation_id",
+      "label": "sobrecarga 429",
+      "log": ".local/runtime/donantes.log",
+      "correlation_id": "aefd35e7-f69a-4dd5-a289-5883c199cbc2",
+      "line": {
+        "service": "donantes",
+        "correlation_id": "aefd35e7-f69a-4dd5-a289-5883c199cbc2",
+        "method": "GET",
+        "route": "/api/v1/campaigns",
+        "status": 429,
+        "elapsed_ms": 14.666,
+        "error": "rate_limit"
+      }
+    },
+    {
+      "at": "2026-11-18T17:24:05.104102+00:00",
+      "step": "k. errores registrados por los workers durante las caídas",
+      "workers": [
+        {
+          "log": "donantes-worker.log",
+          "worker_failure": 6
+        },
+        {
+          "log": "auditoria-worker.log",
+          "worker_failure": 6
+        }
+      ]
+    },
+    {
+      "at": "2026-11-18T17:24:05.104121+00:00",
+      "step": "k_logs: resultado",
+      "ok": true,
+      "seconds": 0.0
+    },
+    {
+      "at": "2026-11-18T17:24:05.375107+00:00",
+      "step": "final: /health/ready",
+      "seconds_to_ready": 0.27,
+      "ready": {
+        "identidad_acceso": 200,
+        "donantes": 200,
+        "receptores": 200,
+        "inventario": 200,
+        "compatibilidad": 200,
+        "priorizacion_geografia": 200,
+        "transporte": 200,
+        "custodia": 200,
+        "alertas": 200,
+        "auditoria": 200,
+        "monitoreo": 200,
+        "documentos": 200
+      }
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.15, pytest-9.2.0, pluggy-1.7.0 -- /Users/albertoreynaramirez/CLAUDE/red-house/Red-House/apps/services/.venv/bin/python
+rootdir: <instalación desechable>/apps/services
+configfile: pyproject.toml
+plugins: locust-2.47.0
+collecting ... collected 11 items
+
+tests/test_dependency_timeout_unit.py::test_read_timeout_is_bounded_and_controlled PASSED [  9%]
+tests/test_dependency_timeout_unit.py::test_connection_refused_is_controlled PASSED [ 18%]
+tests/test_dependency_timeout_unit.py::test_invalid_response_is_controlled[html] PASSED [ 27%]
+tests/test_dependency_timeout_unit.py::test_invalid_response_is_controlled[html-502] PASSED [ 36%]
+tests/test_dependency_timeout_unit.py::test_invalid_response_is_controlled[lista] PASSED [ 45%]
+tests/test_dependency_timeout_unit.py::test_invalid_response_is_controlled[sin-meta] PASSED [ 54%]
+tests/test_dependency_timeout_unit.py::test_invalid_response_is_controlled[sin-data] PASSED [ 63%]
+tests/test_dependency_timeout_unit.py::test_invalid_response_is_controlled[truncado] PASSED [ 72%]
+tests/test_dependency_timeout_unit.py::test_connection_closed_without_response_is_controlled PASSED [ 81%]
+tests/test_dependency_timeout_unit.py::test_dependency_error_keeps_its_code PASSED [ 90%]
+tests/test_dependency_timeout_unit.py::test_valid_response_returns_data PASSED [100%]
+
+============================== 11 passed in 6.64s ==============================
