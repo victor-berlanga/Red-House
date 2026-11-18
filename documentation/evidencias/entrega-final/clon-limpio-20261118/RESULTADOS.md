@@ -2,7 +2,7 @@
 
 Resultado global: **FAIL de la ruta documentada sin intervención; PASS funcional tras dos correcciones manuales de configuración**.
 
-> **Actualización 18/11:** D1 y D2 quedaron corregidos en el código y una reinstalación desde copia limpia pasó sin intervención manual; ver [pruebas de fallas](../fallos-consigna-20261118/RESULTADOS.md#3-defecto-corregido-en-este-bloque-clon-limpio).
+> **Actualización 18/11:** D1 y D2 quedaron corregidos en el código y una reinstalación desde copia limpia pasó sin intervención manual; ver [pruebas de fallas](../fallos-consigna-20261118/RESULTADOS.md#3-defecto-corregido-en-este-bloque-clon-limpio). La ruta Compose completa también pasó después, con 29 sanos y los contenedores ajenos detenidos: [compose-completo-20261118](../compose-completo-20261118/RESULTADOS.md).
 Ventana: 2026-11-18 03:02–03:33 UTC (17/11 21:02–21:33 CST). Equipo: Mac M1 arm64, 8 GB RAM; Docker Desktop
 `desktop-linux` con 3.825 GiB y 8 CPU, compartido con contenedores de otros proyectos.
 

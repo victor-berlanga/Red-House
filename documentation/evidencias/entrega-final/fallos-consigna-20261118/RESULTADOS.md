@@ -43,7 +43,7 @@ El [ensayo de clon limpio](../clon-limpio-20261118/RESULTADOS.md) encontró dos 
 - **D1.** `scripts/manage.py` instala `requirements-storage.txt`, que incluye `requirements.txt`, en el entorno de servicios. El almacén local usa las excepciones de `google-api-core`.
 - **D2.** `provision.py` escribe `STORAGE_LOCAL_ROOT` en la instalación nueva (sin fijar `STORAGE_PROVIDER`, para que `configure_gcs.py` siga activando GCS con solo `GCS_BUCKET`): `.local/runtime/private-files` en local y `/var/lib/redhouse-private` en Compose. El origen HTTPS de los enlaces temporales sigue siendo un paso explícito con `deployment/configure_local_storage.py`, porque el portal local usa HTTP y la regla HTTPS no se relajó.
 
-La ruta Compose corregida no se volvió a ensayar completa: el stack completo no cabe en los 3.8 GB de Docker Desktop de esta Mac (D3, límite del equipo).
+La ruta Compose corregida se ensayó después completa: 29 sanos sin intervención, estable y reiniciable, con los contenedores ajenos detenidos ([compose-completo-20261118](../compose-completo-20261118/RESULTADOS.md)).
 
 ## Límites
 

@@ -9,8 +9,8 @@ Las entradas están ordenadas de reciente a histórico; un pendiente de un corte
   Corregido: `scripts/manage.py` instala `requirements-storage.txt` y `provision.py` deja el almacén local privado
   (`.local/runtime/private-files` 0700 o `/var/lib/redhouse-private` en Compose). Reinstalación desde copia limpia
   **PASS**: 12/12 listos, Documentos `up`, portal 200. El origen HTTPS de los enlaces temporales sigue siendo paso
-  explícito. Compose completo no cabe en los 3.8 GB de Docker Desktop de esta Mac (D3, límite del equipo; con una réplica
-  por API pasó). [Evidencia del clon](documentation/evidencias/entrega-final/clon-limpio-20261118/RESULTADOS.md).
+  explícito. Compose completo **PASS** después, con los contenedores ajenos detenidos: 29 sanos sin intervención, 3 min
+  estable y reinicio con datos conservados; en 3.8 GiB no queda margen ([evidencia](documentation/evidencias/entrega-final/compose-completo-20261118/RESULTADOS.md)). [Evidencia del clon](documentation/evidencias/entrega-final/clon-limpio-20261118/RESULTADOS.md).
 - **Fallas (consigna):** laboratorio nuevo, **43 aprobadas, 1 omitida (GCS real)**: resiliencia, salud, continuidad,
   frescura antivirus, flujos y la prueba nueva `test_dependency_timeout_unit.py` (tiempo agotado y respuestas inválidas
   → 503 controlado). Demostración en vivo con `components.sh detener/reiniciar`: con Alertas caído Donantes siguió
