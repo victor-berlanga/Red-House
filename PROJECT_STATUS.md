@@ -21,8 +21,9 @@ Revisión de la consigna de Blackboard contra el repo y la VM. Todo lo de abajo 
   ([matriz de perfiles, 3.1](documentation/markdowns/Matriz_de_perfiles_y_permisos.md)); fallos con un comando; cambios subidos a GCP.
 - **Documentación:** reporte técnico con GCS, Swagger por nombre, justificación de bases en la VM, monitoreo y
   sección 18 «trabajo futuro»; guion del video con los 12 temas; plantilla de bitácora de participación y reflexiones.
-- **Pendiente:** respaldo diario programado (`deployment/gcp/daily_backup.sh` y `redhouse-backup.timer`, en el repo y sin
-  instalar hasta que el equipo lo autorice); carga final con Locust; Release con APK y escritorio; regenerar Word/PDF.
+- **Respaldo:** manual por decisión del equipo (la consigna no pide respaldo diario); `backup.py --verify` antes de cada
+  cambio en la VM y de la presentación. El timer diario queda en el repo como trabajo futuro, sin instalar.
+- **Pendiente:** carga final con Locust; Release con APK y escritorio; regenerar Word/PDF.
   Humanos: video, presentación, reflexiones, bitácora de participación y entrega individual en Blackboard.
 
 ## Clon limpio corregido y pruebas de fallas de la consigna — 18/11/2026

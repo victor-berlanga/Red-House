@@ -3,6 +3,8 @@
 # con restauración de prueba en contenedores aislados (--verify).
 # Lo ejecuta redhouse-backup.timer. Las aplicaciones se detienen durante el
 # respaldo (unos minutos) y backup.py las vuelve a iniciar en orden.
+# TRABAJO FUTURO: no está instalado en la VM. Por decisión del equipo (18/11/2026) el
+# respaldo se corre a mano antes de cada cambio y antes de la presentación.
 set -eu
 ROOT=/opt/redhouse
 DIRECTORY=$ROOT/.local/compose

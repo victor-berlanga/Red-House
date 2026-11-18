@@ -60,7 +60,7 @@ Para actualizar o recuperar componentes, usar `sudo python3 /opt/redhouse/deploy
 
 **Demostración de fallos.** `sudo python3 /opt/redhouse/deployment/gcp/fallo.py` lista los casos; `fallo.py <caso>` provoca uno y `fallo.py <caso> restablecer` lo recupera. Ver el [guion](../../documentation/entrega-final/continuidad/Guion_fallos_en_vivo.md#atajo-en-la-vm-un-comando-por-caso).
 
-**Respaldo diario (preparado, no instalado).** `daily_backup.sh` con `redhouse-backup.service` y `redhouse-backup.timer` corre `backup.py --verify` a las 09:00 UTC, conserva 7 respaldos y se omite si quedan menos de 1.5 GB libres. Detiene las aplicaciones unos minutos. Para instalarlo, con autorización del equipo:
+**Respaldo: manual, por decisión del equipo.** Antes de cada cambio en la VM y antes de la presentación: `sudo python3 /opt/redhouse/deployment/backup.py --directory /opt/redhouse/.local/compose --verify --output /opt/redhouse/.local/compose/backups/ultimo-respaldo.json` (detiene las aplicaciones unos minutos). **Trabajo futuro, no instalado:** `daily_backup.sh` con `redhouse-backup.service` y `redhouse-backup.timer` lo automatizaría a las 09:00 UTC, conservando 7 respaldos y omitiéndose si quedan menos de 1.5 GB libres. Se instalaría así:
 
 ```sh
 sudo install -m 0755 deployment/gcp/daily_backup.sh /opt/redhouse/deployment/gcp/daily_backup.sh
