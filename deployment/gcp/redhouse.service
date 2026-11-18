@@ -10,7 +10,7 @@ RemainAfterExit=yes
 WorkingDirectory=/opt/redhouse
 ExecStart=/usr/bin/python3 /opt/redhouse/deployment/start.py
 ExecStop=/usr/bin/docker compose -f /opt/redhouse/compose.yaml stop
-TimeoutStartSec=900
+TimeoutStartSec=1800
 TimeoutStopSec=180
 
 [Install]

@@ -1,6 +1,6 @@
 # Registro de incidencias de entrega final
 
-Corte: 18/11/2026. Registro **completo** de las incidencias documentadas en el repositorio: 436 entradas, de la más reciente a la más antigua. Sustituye al registro selectivo anterior, cuyas once fichas se conservan al final como [fichas ampliadas](#fichas-ampliadas).
+Corte: 18/11/2026. Registro **completo** de las incidencias documentadas en el repositorio: 437 entradas, de la más reciente a la más antigua. Sustituye al registro selectivo anterior, cuyas once fichas se conservan al final como [fichas ampliadas](#fichas-ampliadas).
 
 ## Alcance y método
 
@@ -17,10 +17,10 @@ Corte: 18/11/2026. Registro **completo** de las incidencias documentadas en el r
 
 | Estado | Incidencias |
 |---|---|
-| Cerradas | 348 |
+| Cerradas | 349 |
 | Abiertas | 31 |
 | Aceptadas como límite | 57 |
-| **Total** | **436** |
+| **Total** | **437** |
 
 | Área | Cerradas | Abiertas | Aceptadas como límite | Total |
 |---|---|---|---|---|
@@ -97,6 +97,7 @@ Columnas: ID, componente, síntoma, causa, corrección o commit, evidencia, esta
 | <a name="inc-433"></a>INC-433 | Pruebas (catálogo de rutas) | `test_evidence_catalog.py::test_all_registered_routes_expose_real_http_contracts_and_controlled_errors` falla: espera rechazo sin credenciales en `/api/v1/public/institutions`, que responde 200 | La ruta es pública por diseño y la prueba no la excluye; después, la consulta `operations/by-key` respondía 422 porque la prueba no enviaba la huella `fingerprint` | Prueba actualizada: lecturas públicas deben dar 200 y `operation_by_key` recibe huella; archivo 2/2 aprobado | [fallos-consigna-20261118](../../documentation/evidencias/entrega-final/fallos-consigna-20261118/RESULTADOS.md) | cerrada | [fallos-consigna:52](../../documentation/evidencias/entrega-final/fallos-consigna-20261118/RESULTADOS.md#L52) |
 | <a name="inc-434"></a>INC-434 | Pruebas (almacén privado) | `test_private_storage_local.py::test_gateway_rejects_unsafe_binary_requests` falla con `ModuleNotFoundError: src` al correrse desde la raíz | La prueba importa el paquete `src` del portal sin agregar `apps/web` a la ruta; además usaba `/storage/v1/objects/`, que el gateway del portal cambió a `/portal-storage/v1/objects/` en `9b04a90` (13/11) | Prueba con la ruta de `apps/web` y el prefijo vigente; archivo 13/13 aprobado | [fallos-consigna-20261118](../../documentation/evidencias/entrega-final/fallos-consigna-20261118/RESULTADOS.md) | cerrada | [fallos-consigna:52](../../documentation/evidencias/entrega-final/fallos-consigna-20261118/RESULTADOS.md#L52) |
 | <a name="inc-435"></a>INC-435 | Instalación (Documentos / GCS) | La primera corrección de INC-431 fijaba `STORAGE_PROVIDER=local` y `test_final_delivery_documents.py` respondió 503 `storage_unconfigured` en JSON y XML | El proveedor explícito gana sobre `GCS_BUCKET`, y `configure_gcs.py` solo escribe `GCS_BUCKET` | Detectado antes de publicar; el instalador solo escribe `STORAGE_LOCAL_ROOT`; prueba 2/2 y tercera instalación limpia 12/12; `4f08abf` | [fallos-consigna-20261118](../../documentation/evidencias/entrega-final/fallos-consigna-20261118/RESULTADOS.md) | cerrada | [fallos-consigna:53](../../documentation/evidencias/entrega-final/fallos-consigna-20261118/RESULTADOS.md#L53) |
+| <a name="inc-437"></a>INC-437 | GCP (arranque de la VM, ClamAV) | Al encender la VM tras horas apagada, el portal respondió 502: `redhouse.service` falló porque ClamAV quedó unhealthy (`version mismatch`) y Documentos, Monitoreo y web no arrancaron | ClamD cargó la firma `daily` anterior (28186) mientras FreshClam bajaba la nueva (28187) y no pudo avisarle porque el socket aún no existía | `start.py` espera a ClamAV y le manda `RELOAD` si queda unhealthy; `TimeoutStartSec` 1800 s; en la VM: 30/30 sanos y portal 200 | [gcp-arranque-clamav-20261118](../../documentation/evidencias/entrega-final/gcp-arranque-clamav-20261118/RESULTADOS.md) | cerrada | [gcp-arranque-clamav-20261118](../../documentation/evidencias/entrega-final/gcp-arranque-clamav-20261118/RESULTADOS.md) |
 | <a name="inc-436"></a>INC-436 | Carga (serie sostenida, 24 usuarios) | La fase de 24 usuarios en Mac M1 tuvo 575 respuestas 429 (10.9 %) y no cumplió el criterio de menos de 1 % de errores; p95 máximo 90 ms | Cuota HTTP por cuenta del producto (180, intacta): el equipo responde más rápido (43.95 HTTP/s) y 24 sesiones comparten seis identidades sin espera | n/d; la continuación con espera de 4–6 s ya aprobó 24 y 36 sesiones sin errores | [carga-serie-20261118](../../documentation/evidencias/entrega-final/carga-serie-20261118/RESULTADOS.md) | aceptada como límite | [carga-serie-20261118](../../documentation/evidencias/entrega-final/carga-serie-20261118/RESULTADOS.md) |
 
 <a name="d-2026-11-17"></a>
