@@ -23,6 +23,12 @@ MongoDB 8.0 y Redis de Homebrew.
 **Pendiente de este caso:** reabrir el aviso ya persistido del worker en el AVD con el fixture conservado, y la recuperación
 tras reinicio. El AVD de origen era x86_64; en este Mac se instaló la imagen `android-30;google_apis;arm64-v8a`.
 
+**OpenAPI de Identidad corregido (mismo día):** la 410 de la ruta retirada `/api/v1/auth/reauthenticate` (añadida en
+`25fed4a`) estaba en línea y sin ejemplos, contra la regla de respuestas compartidas de `cbe3503`/`apps/services/README.md`.
+`redhouse/openapi.py` la emite ahora como `$ref` a `components.responses.Error410`, que conserva la descripción con la ruta
+nueva y lleva ejemplos JSON/XML con el código y mensaje reales (`strong_auth.py`). Regenerado con `document.py --openapi-only`:
+solo cambia el contrato de Identidad. `--check-openapi` exit 0; `test_openapi_documentation.py` **12 passed**.
+
 ## Traspaso por saldo del 5 % — 17/11/2026
 
 El usuario pidió detener desarrollo nuevo y transferir la continuidad a un compañero y Claude Code, incluyendo push y almacenamiento privado en GCP. El punto de entrada es [HANDOFF_CLAUDE_CODE.md](HANDOFF_CLAUDE_CODE.md), acompañado por [CLAUDE.md](CLAUDE.md). Contiene inducción desde cero, requisitos por sistema, decisiones, fuentes académicas, pruebas reutilizables y pendientes ordenados. La estimación de avance sigue siendo aproximadamente 90 %, orientativa; ninguna etapa pendiente se convierte en aprobada por este traspaso.

@@ -308,15 +308,32 @@ def spec(app):
                 },
             }
         if contract["name"] == "obsolete_reauthentication":
+            # La 410 solo existe en esta ruta retirada: se comparte como las
+            # demás respuestas de error y su descripción conserva la ruta nueva.
             operation["responses"].pop("200", None)
-            operation["responses"]["410"] = {
+            gone_example = {
+                "error": {
+                    "code": "reauthentication_protocol_obsolete",
+                    "message": "Actualiza el cliente para confirmar operaciones protegidas.",
+                    "details": [],
+                },
+                "meta": example["meta"],
+            }
+            responses["Error410"] = {
                 "description": "Protocolo anterior retirado; usar /api/v1/auth/reauthentication-proofs.",
                 "content": {
                     "application/json": {
-                        "schema": {"$ref": "#/components/schemas/Error"}
+                        "schema": {"$ref": "#/components/schemas/Error"},
+                        "example": gone_example,
                     },
-                    "application/xml": {"schema": {"type": "string"}},
+                    "application/xml": {
+                        "schema": {"type": "string"},
+                        "example": response_xml(gone_example),
+                    },
                 },
+            }
+            operation["responses"]["410"] = {
+                "$ref": "#/components/responses/Error410"
             }
         paths.setdefault(path, {})[contract["method"].lower()] = operation
     document = {
