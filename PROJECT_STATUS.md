@@ -2,6 +2,21 @@
 
 Las entradas están ordenadas de reciente a histórico; un pendiente de un corte anterior puede quedar sustituido explícitamente por una entrada posterior.
 
+## Clon limpio corregido y pruebas de fallas de la consigna — 18/11/2026
+
+- **Clon limpio (pendiente #18):** un clon nuevo de `9918724` **no arrancaba** con los pasos documentados:
+  Documentos quedaba sin dependencia `google-api-core` (D1) y sin almacenamiento configurado (D2, `/health/ready` 503).
+  Corregido: `scripts/manage.py` instala `requirements-storage.txt` y `provision.py` deja el almacén local privado
+  (`.local/runtime/private-files` 0700 o `/var/lib/redhouse-private` en Compose). Reinstalación desde copia limpia
+  **PASS**: 12/12 listos, Documentos `up`, portal 200. El origen HTTPS de los enlaces temporales sigue siendo paso
+  explícito. Compose completo no cabe en los 3.8 GB de Docker Desktop de esta Mac (D3, límite del equipo; con una réplica
+  por API pasó). [Evidencia del clon](documentation/evidencias/entrega-final/clon-limpio-20261118/RESULTADOS.md).
+- **Fallas (consigna):** laboratorio nuevo, **43 aprobadas, 1 omitida (GCS real)**: resiliencia, salud, continuidad,
+  frescura antivirus, flujos y la prueba nueva `test_dependency_timeout_unit.py` (tiempo agotado y respuestas inválidas
+  → 503 controlado). Demostración en vivo con `components.sh detener/reiniciar`: con Alertas caído Donantes siguió
+  agendando y el aviso llegó 3.4 s después de reiniciar; con Identidad caído los tokens vigentes siguieron sirviendo y la
+  validación dependiente respondió 503 en 9 ms. [Evidencia](documentation/evidencias/entrega-final/fallos-consigna-20261118/RESULTADOS.md).
+
 ## Android: UI de detalle, mensaje 401, sesión y cambio de cuenta — 18/11/2026
 
 Con el mismo fixture restaurado y el AVD arm64 ([evidencia](documentation/evidencias/entrega-final/mobile/android-ui-talkback-sesion-20261118/RESULTADOS.md)):

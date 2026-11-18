@@ -92,7 +92,11 @@ def ensure_pip(python, install):
 
 def ensure_python(app, install):
     python = app / ".venv/bin/python"
-    requirement_file = app / ("requirements-monolith.txt" if app == WEB else "requirements.txt")
+    # Los servicios usan requirements-storage.txt (incluye requirements.txt): el almacén
+    # local de Documentos usa las excepciones de google-api-core aunque no se use GCS.
+    requirement_file = app / (
+        "requirements-monolith.txt" if app == WEB else "requirements-storage.txt"
+    )
     if not python.exists():
         if not install:
             raise RuntimeError(
@@ -195,7 +199,9 @@ sys.exit(bool(missing))
         except (subprocess.CalledProcessError, OSError) as exc:
             raise RuntimeError(
                 f"No se completaron las dependencias de {app.name}. "
-                f"Archivo: {app / 'requirements.txt'}. "
+                f"Archivo: {requirement_file}"
+                + ("" if app == WEB else " (incluye requirements.txt)")
+                + ". "
                 "El error anterior de pip identifica el paquete o conflicto. "
                 "Revisa conexión/proxy, compatibilidad con tu Python y permisos de escritura "
                 f"en {app / '.venv'}. No ejecutes pip con sudo. "

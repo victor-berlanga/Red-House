@@ -109,7 +109,7 @@ Windows 11 no está verificado. Los lanzadores BAT del entorno de servidor usan 
 
 ## Docker y archivos privados
 
-La guía [Docker Compose](../../deployment/README.md) contiene instalación local aislada, imágenes por servicio, redes, puertos y recuperación. Usa `.local/compose` y volúmenes independientes; no sustituye `.local/runtime` ni sus datos. El portal Compose local escucha en 6050 y las API en 6101–6112, solo loopback. El override GCS es opcional y requiere autorización propia; no se activa para usar el almacenamiento local predeterminado.
+La guía [Docker Compose](../../deployment/README.md) contiene instalación local aislada, imágenes por servicio, redes, puertos y recuperación. Usa `.local/compose` y volúmenes independientes; no sustituye `.local/runtime` ni sus datos. El portal Compose local escucha en 6050 y las API en 6101–6112, solo loopback. El override GCS es opcional y requiere autorización propia; no se activa para usar el almacenamiento local predeterminado. El instalador local y el bootstrap de Compose configuran ese almacenamiento privado (`.local/runtime/private-files` o el volumen `private-files`); para subir o descargar archivos hace falta además el origen HTTPS de los enlaces temporales, que se configura con `deployment/configure_local_storage.py` según [Documentos](../../apps/services/ms_documentos/README.md).
 
 Para ensayar continuidad sobre ese entorno: `apps/services/.venv/bin/python deployment/verify.py --phase all`. Para respaldo y restauración en contenedores nuevos: `apps/services/.venv/bin/python deployment/backup.py --verify`. Los dos comandos escriben únicamente datos ficticios y evidencia en el entorno de ensayo; el segundo pausa sus aplicaciones para obtener un corte coherente.
 

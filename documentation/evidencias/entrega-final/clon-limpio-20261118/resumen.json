@@ -1,0 +1,257 @@
+{
+  "date_utc": "2026-11-18T03:02:58Z/2026-11-18T03:33Z",
+  "source": "git clone --branch entrega-final https://github.com/victor-berlanga/Red-House.git",
+  "commit_tested": "9918724ad2205d6b4d72b41126f259b7e18234cc",
+  "remote_head_at_clone": "9918724ad2205d6b4d72b41126f259b7e18234cc",
+  "remote_head_at_close": "2f6fe7867e7261de3e0ecab1405c83a1f1f4fda6",
+  "remote_head_delta": "solo documentation/entrega-final/{Registro_incidencias.md,continuidad/Matriz.md}",
+  "clone_clean_after_run": true,
+  "overall": "FAIL sin intervención; PASS funcional tras D1+D2 (local) y D2 + modo reducido por memoria (Compose)",
+  "host": {
+    "cpu": "Apple M1 arm64",
+    "ram_gb": 8,
+    "docker_mem_gib": 3.825,
+    "docker_cpus": 8,
+    "disk_free_start_gib": 17.7
+  },
+  "route_local": {
+    "steps": [
+      {
+        "step": "bash install.sh",
+        "seconds": 41.7,
+        "result": "PASS"
+      },
+      {
+        "step": "bash start.sh",
+        "seconds": 9.5,
+        "result": "FAIL",
+        "cause": "D1"
+      },
+      {
+        "step": "bash start.sh tras D1",
+        "seconds": 58.7,
+        "result": "FAIL",
+        "cause": "D2"
+      },
+      {
+        "step": "D2 + components.sh reiniciar documentos/web",
+        "result": "PASS"
+      },
+      {
+        "step": "bash components.sh estado",
+        "seconds": 1.3,
+        "result": "PASS",
+        "detail": "12/12 up + portal 200"
+      },
+      {
+        "step": "humo",
+        "result": "PASS"
+      },
+      {
+        "step": "bash stop.sh",
+        "seconds": 6.3,
+        "result": "PASS",
+        "detail": "0 procesos del clon"
+      },
+      {
+        "step": "reinicio start.sh + humo + stop.sh",
+        "seconds": 9.6,
+        "result": "PASS"
+      }
+    ],
+    "smoke": {
+      "health_ready_200": 12,
+      "swagger_docs_200": 12,
+      "openapi_200": 12,
+      "openapi_paths": {
+        "identidad_acceso": 56,
+        "donantes": 27,
+        "receptores": 14,
+        "inventario": 40,
+        "compatibilidad": 22,
+        "priorizacion_geografia": 17,
+        "transporte": 35,
+        "custodia": 2,
+        "alertas": 10,
+        "auditoria": 13,
+        "monitoreo": 3,
+        "documentos": 12
+      },
+      "portal_status": 200,
+      "login": {
+        "user": "operator1",
+        "role": "OPERATOR",
+        "status": 200
+      },
+      "me_json_status": 200,
+      "institutions_json": {
+        "status": 200,
+        "count": 2
+      },
+      "institutions_xml": {
+        "status": 200,
+        "content_type": "application/xml; charset=utf-8",
+        "xsd_dto_valid": true
+      },
+      "resources_xml": {
+        "status": 200,
+        "xsd_dto_valid": true
+      }
+    },
+    "resources": {
+      "processes": 28,
+      "rss_mib": 430
+    }
+  },
+  "route_compose": {
+    "project": "redhouse-clean-20261118",
+    "tag": "clean-20261118",
+    "steps": [
+      {
+        "step": "prepare.py",
+        "seconds": 0,
+        "result": "PASS"
+      },
+      {
+        "step": "build bootstrap mongodb",
+        "seconds": 90,
+        "result": "PASS"
+      },
+      {
+        "step": "up --wait postgres redis mongodb",
+        "seconds": 33,
+        "result": "PASS"
+      },
+      {
+        "step": "run --rm bootstrap",
+        "seconds": 4,
+        "result": "PASS",
+        "detail": "14 cuentas ficticias"
+      },
+      {
+        "step": "build (13 imágenes)",
+        "seconds": 9,
+        "result": "PASS"
+      },
+      {
+        "step": "start.py",
+        "seconds": 184,
+        "result": "FAIL",
+        "cause": "D2"
+      },
+      {
+        "step": "D2 + recrear documentos-a/b",
+        "seconds": 33,
+        "result": "PASS"
+      },
+      {
+        "step": "start.py (repetido)",
+        "seconds": 266,
+        "result": "FAIL",
+        "cause": "D3",
+        "detail": "24 healthy, 4 unhealthy (-b), web sin iniciar"
+      },
+      {
+        "step": "modo reducido: stop -b + up web",
+        "seconds": 113,
+        "result": "PASS",
+        "detail": "17 healthy"
+      },
+      {
+        "step": "humo",
+        "result": "PASS"
+      },
+      {
+        "step": "stop + arranque reducido",
+        "seconds": 108,
+        "result": "PASS"
+      },
+      {
+        "step": "oráculos antes/después",
+        "result": "PASS",
+        "detail": "esquema 21, 14 user_account, 2 institution, 4 volúmenes, mismos IDs"
+      },
+      {
+        "step": "docker compose stop",
+        "seconds": 4,
+        "result": "PASS"
+      }
+    ],
+    "smoke": {
+      "health_ready_200": 12,
+      "swagger_docs_200": 12,
+      "openapi_200": 12,
+      "openapi_paths": {
+        "identidad_acceso": 56,
+        "donantes": 27,
+        "receptores": 14,
+        "inventario": 40,
+        "compatibilidad": 22,
+        "priorizacion_geografia": 17,
+        "transporte": 35,
+        "custodia": 2,
+        "alertas": 10,
+        "auditoria": 13,
+        "monitoreo": 3,
+        "documentos": 12
+      },
+      "portal_status": 200,
+      "login": {
+        "user": "operator1",
+        "role": "OPERATOR",
+        "status": 200
+      },
+      "me_json_status": 200,
+      "institutions_json": {
+        "status": 200,
+        "count": 2
+      },
+      "institutions_xml": {
+        "status": 200,
+        "content_type": "application/xml; charset=utf-8",
+        "xsd_dto_valid": true
+      },
+      "resources_xml": {
+        "status": 200,
+        "xsd_dto_valid": true
+      }
+    },
+    "full_topology_29_services_healthy": false,
+    "memory": {
+      "full_stack_project_mib": 2504,
+      "other_projects_mib": 253,
+      "vm_mem_available_kib": 436872,
+      "vm_swap_free_kib": 128,
+      "psi_full_avg300": 9.79,
+      "postgres_crash_recoveries": 2,
+      "reduced_17_containers_mib": 1935
+    }
+  },
+  "defects": {
+    "D1": "venv local de servicios sin google-cloud-storage; ms_documentos importa google.api_core al cargar",
+    "D2": "instalación nueva no configura STORAGE_PROVIDER/STORAGE_LOCAL_ROOT de Documentos; readiness 503",
+    "D3": "límite de memoria Docker Desktop 3.825 GiB para 29 servicios (no defecto de código)"
+  },
+  "side_effects": [
+    "spg-local-odoo (ajeno) reinició 2 veces durante la saturación; recuperado, /web/health 200"
+  ],
+  "cleanup": {
+    "containers": 30,
+    "networks": 2,
+    "volumes": 4,
+    "images": 18,
+    "clone_dir_removed": true,
+    "docker_after": {
+      "images": 307,
+      "containers": 10,
+      "volumes": 9
+    },
+    "buildkit_cache_not_pruned_gb": 1.69
+  },
+  "not_executed": [
+    "verify.py",
+    "check_clean_clone.py",
+    "login por formulario del portal",
+    "flujo transaccional"
+  ]
+}

@@ -32,6 +32,7 @@ def provision(
     urls,
     schema_path,
     seed=True,
+    storage_root=None,
 ):
     from scripts.local import pem, private_file
 
@@ -217,6 +218,13 @@ def provision(
         }
         if service == "identidad_acceso":
             config["JWT_PRIVATE_KEY"] = jwt_private
+        if service == "documentos" and storage_root:
+            # Almacén local privado por omisión: sin esto /health/ready responde 503.
+            # No se fija STORAGE_PROVIDER: sin GCS_BUCKET el proveedor implícito es
+            # local, y configure_gcs.py (que solo escribe GCS_BUCKET) sigue activando GCS.
+            # El origen HTTPS de los enlaces temporales (STORAGE_PUBLIC_BASE_URL) se
+            # configura aparte con deployment/configure_local_storage.py.
+            config["STORAGE_LOCAL_ROOT"] = str(storage_root)
         if service in MONGO_SERVICES:
             mongo_name = "rh_" + service
             mongo_db = mongo[mongo_name]

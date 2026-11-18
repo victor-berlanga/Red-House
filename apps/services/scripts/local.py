@@ -105,6 +105,13 @@ def infrastructure_pid(state, name):
 
 
 class Environment:
+    def private_files(self):
+        # Directorio privado (0700) del almacén local de Documentos.
+        root = self.directory / "private-files"
+        root.mkdir(mode=0o700, exist_ok=True)
+        root.chmod(0o700)
+        return root
+
     def __init__(self, directory, mongo_bin=None):
         self.directory = Path(directory).resolve()
         self.mongo_bin = mongo_bin
@@ -256,6 +263,7 @@ class Environment:
             urls=urls,
             schema_path=ROOT.parents[1] / "data/database/schema.sql",
             seed=seed,
+            storage_root=self.private_files(),
         )
         self.configs = prepared["configs"]
         dbowners, accounts = prepared["database_owners"], prepared["accounts"]

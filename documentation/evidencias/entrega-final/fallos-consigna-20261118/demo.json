@@ -1,0 +1,201 @@
+{
+  "result": {
+    "alertas": true,
+    "identidad": true
+  },
+  "steps": [
+    {
+      "at": "2026-11-18T03:41:20.475312+00:00",
+      "step": "base: /health/ready",
+      "ready": {
+        "identidad_acceso": 200,
+        "donantes": 200,
+        "receptores": 200,
+        "inventario": 200,
+        "compatibilidad": 200,
+        "priorizacion_geografia": 200,
+        "transporte": 200,
+        "custodia": 200,
+        "alertas": 200,
+        "auditoria": 200,
+        "monitoreo": 200,
+        "documentos": 200
+      }
+    },
+    {
+      "at": "2026-11-18T03:41:24.295972+00:00",
+      "step": "components.sh detener alertas",
+      "exit": 0,
+      "seconds": 3.82,
+      "output": [
+        "Servicio detenido: alertas"
+      ]
+    },
+    {
+      "at": "2026-11-18T03:41:24.585228+00:00",
+      "step": "alertas detenido: /health/ready",
+      "ready": {
+        "identidad_acceso": 200,
+        "donantes": 200,
+        "receptores": 200,
+        "inventario": 200,
+        "compatibilidad": 200,
+        "priorizacion_geografia": 200,
+        "transporte": 200,
+        "custodia": 200,
+        "alertas": "ConnectionError",
+        "auditoria": 200,
+        "monitoreo": 200,
+        "documentos": 200
+      }
+    },
+    {
+      "at": "2026-11-18T03:41:24.612851+00:00",
+      "step": "donantes registra donante con alertas caído",
+      "status": 201,
+      "code": null,
+      "seconds": 0.028
+    },
+    {
+      "at": "2026-11-18T03:41:24.628544+00:00",
+      "step": "donantes crea campaña con alertas caído",
+      "status": 201,
+      "code": null,
+      "seconds": 0.016
+    },
+    {
+      "at": "2026-11-18T03:41:24.644310+00:00",
+      "step": "donantes agenda cita con alertas caído",
+      "status": 201,
+      "code": null,
+      "seconds": 0.016
+    },
+    {
+      "at": "2026-11-18T03:41:24.645098+00:00",
+      "step": "bandeja de avisos con alertas caído",
+      "status": null,
+      "error": "ConnectionError",
+      "seconds": 0.001
+    },
+    {
+      "at": "2026-11-18T03:41:26.017933+00:00",
+      "step": "components.sh reiniciar alertas",
+      "exit": 0,
+      "seconds": 1.37,
+      "output": [
+        "Logs y datos privados: /private/tmp/rh-demo-20261118/.local/runtime"
+      ]
+    },
+    {
+      "at": "2026-11-18T03:41:28.077235+00:00",
+      "step": "aviso APPOINTMENT_BOOKED entregado tras reiniciar alertas",
+      "delivered": true,
+      "seconds_after_restart": 3.43
+    },
+    {
+      "at": "2026-11-18T03:41:28.325168+00:00",
+      "step": "alertas reiniciado: /health/ready",
+      "ready": {
+        "identidad_acceso": 200,
+        "donantes": 200,
+        "receptores": 200,
+        "inventario": 200,
+        "compatibilidad": 200,
+        "priorizacion_geografia": 200,
+        "transporte": 200,
+        "custodia": 200,
+        "alertas": 200,
+        "auditoria": 200,
+        "monitoreo": 200,
+        "documentos": 200
+      }
+    },
+    {
+      "at": "2026-11-18T03:41:33.895420+00:00",
+      "step": "components.sh detener identidad_acceso",
+      "exit": 0,
+      "seconds": 5.57,
+      "output": [
+        "Servicio detenido: identidad_acceso"
+      ]
+    },
+    {
+      "at": "2026-11-18T03:41:34.091499+00:00",
+      "step": "identidad detenido: /health/ready",
+      "ready": {
+        "identidad_acceso": "ConnectionError",
+        "donantes": 200,
+        "receptores": 200,
+        "inventario": 200,
+        "compatibilidad": 200,
+        "priorizacion_geografia": 200,
+        "transporte": 200,
+        "custodia": 200,
+        "alertas": 200,
+        "auditoria": 200,
+        "monitoreo": 200,
+        "documentos": 200
+      }
+    },
+    {
+      "at": "2026-11-18T03:41:34.092193+00:00",
+      "step": "inicio de sesión con identidad caído",
+      "result": "ConnectionError"
+    },
+    {
+      "at": "2026-11-18T03:41:34.122047+00:00",
+      "step": "token ya emitido sigue sirviendo en donantes",
+      "status": 200,
+      "code": null,
+      "seconds": 0.03
+    },
+    {
+      "at": "2026-11-18T03:41:34.159336+00:00",
+      "step": "inventario registra unidad sin ubicación (no consulta identidad)",
+      "status": 201,
+      "code": null,
+      "seconds": 0.037
+    },
+    {
+      "at": "2026-11-18T03:41:34.168673+00:00",
+      "step": "inventario valida ubicación en identidad, con identidad caído",
+      "status": 503,
+      "code": "dependency_unavailable",
+      "seconds": 0.009
+    },
+    {
+      "at": "2026-11-18T03:41:35.655395+00:00",
+      "step": "components.sh reiniciar identidad_acceso",
+      "exit": 0,
+      "seconds": 1.49,
+      "output": [
+        "Logs y datos privados: /private/tmp/rh-demo-20261118/.local/runtime"
+      ]
+    },
+    {
+      "at": "2026-11-18T03:41:35.691515+00:00",
+      "step": "misma validación tras reiniciar identidad (la ubicación ficticia no existe)",
+      "status": 404,
+      "code": "not_found",
+      "seconds": 0.036
+    },
+    {
+      "at": "2026-11-18T03:41:35.847981+00:00",
+      "step": "identidad reiniciado: /health/ready",
+      "ready": {
+        "identidad_acceso": 200,
+        "donantes": 200,
+        "receptores": 200,
+        "inventario": 200,
+        "compatibilidad": 200,
+        "priorizacion_geografia": 200,
+        "transporte": 200,
+        "custodia": 200,
+        "alertas": 200,
+        "auditoria": 200,
+        "monitoreo": 200,
+        "documentos": 200
+      }
+    }
+  ]
+}

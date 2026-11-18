@@ -83,6 +83,8 @@ def main():
         mongoport=27017,
         urls=urls,
         schema_path=Path("/app/data/database/schema.sql"),
+        # Volumen private-files de compose.yaml, preparado para el UID 10001.
+        storage_root="/var/lib/redhouse-private",
     )
     redisadmin.execute_command("ACL", "SAVE")
     mongo.close()
