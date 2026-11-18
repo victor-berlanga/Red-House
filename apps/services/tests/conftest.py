@@ -14,6 +14,9 @@ from werkzeug.serving import WSGIRequestHandler, make_server
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
+# Locust carga los arneses desde tests/, donde «locustfile» es un módulo de
+# primer nivel. Se agrega al final para no ocultar ningún módulo del servicio.
+sys.path.append(str(Path(__file__).resolve().parent))
 
 from redhouse.config import SERVICES
 from redhouse.events import dispatch

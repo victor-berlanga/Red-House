@@ -125,7 +125,9 @@ def test_undrained_user_is_recorded_as_failure_before_cleanup():
     assert str(env.events.request.calls[0]["exception"]) == "users_not_drained"
 
 
-def test_drain_error_is_sanitized_and_never_runs_revocation_concurrently():
+def test_drain_error_is_sanitized_and_still_revokes_each_session_once():
+    # Desde 6a85c09 el cierre compensa cada sesión aunque el drenado falle, para
+    # no dejar refresh tokens vivos; el error se registra sin su mensaje.
     env = environment()
 
     def fail_drain(timeout):
@@ -139,7 +141,8 @@ def test_drain_error_is_sanitized_and_never_runs_revocation_concurrently():
     )
     cleanup.add(api, SimpleNamespace(close=lambda: calls.append(2)))
     cleanup.finish()
-    assert not calls
+    assert calls == [1, 2]
+    assert not cleanup.entries
     assert str(env.events.request.calls[0]["exception"]) == "drain_RuntimeError"
     assert "private detail" not in str(env.events.request.calls[0])
 
