@@ -2,7 +2,7 @@
 
 ## Estado vigente — 18/11/2026
 
-Destino vigente: VM `red-house`, proyecto `sistemas-integracion-01`, zona `me-central1-a`, instancia `2861822465669755197`, acceso HTTPS `https://34.18.186.116`. El corte actual conserva esquema 21 (publicaciones acotadas posteriores: [custodia y web del 17/11](../../documentation/evidencias/entrega-final/gcp-custody-clock-lab-labels-20261117/RESULTADOS.md) y [detalle de Avisos del 18/11](../../documentation/evidencias/entrega-final/gcp-alert-detail-20261118/RESULTADOS.md)), ClamAV con control periódico de vigencia y almacenamiento privado `LOCAL`; GCS es opcional y tiene verificación académica separada. Véanse [publicación del esquema 20 y escáner](../../documentation/evidencias/gcp/scanner20-20261113/RESULTADOS.md), [control periódico de firmas](../../documentation/evidencias/gcp/scanner-health-20261113/RESULTADOS.md) y [proxy WSS vigente](../../documentation/evidencias/gcp/proxy-wss-20261114/RESULTADOS.md).
+Destino vigente: VM `red-house`, proyecto `sistemas-integracion-01`, zona `me-central1-a`, instancia `2861822465669755197`, acceso HTTPS `https://34.18.186.116`. El corte actual conserva esquema 21 (publicaciones acotadas posteriores: [custodia y web del 17/11](../../documentation/evidencias/entrega-final/gcp-custody-clock-lab-labels-20261117/RESULTADOS.md) y [detalle de Avisos del 18/11](../../documentation/evidencias/entrega-final/gcp-alert-detail-20261118/RESULTADOS.md)), ClamAV con control periódico de vigencia y **archivos nuevos en GCS** desde el 18/11/2026 ([activación](../../documentation/evidencias/entrega-final/gcp-gcs-activacion-20261118/RESULTADOS.md)); los archivos `LOCAL` anteriores siguen en el volumen privado y se descargan igual. Véanse [publicación del esquema 20 y escáner](../../documentation/evidencias/gcp/scanner20-20261113/RESULTADOS.md), [control periódico de firmas](../../documentation/evidencias/gcp/scanner-health-20261113/RESULTADOS.md) y [proxy WSS vigente](../../documentation/evidencias/gcp/proxy-wss-20261114/RESULTADOS.md).
 
 Los siguientes registros del 10/11 conservan un corte histórico de esquema 18; no describen la versión actualmente publicada.
 
@@ -12,7 +12,7 @@ Los siguientes registros del 10/11 conservan un corte histórico de esquema 18; 
 
 VM `red-house`, proyecto `sistemas-integracion-01`, zona `me-central1-a`. Referencia: `maquina01`, con CentOS Stream 10, tipo `e2-standard-2` (2 vCPU, 8 GB de RAM), disco `pd-standard` de 20 GB, red `default`, OS Login y las mismas opciones de Shielded VM. Se utilizó su imagen de origen `centos-stream-10-v20260609`.
 
-El proyecto reside en `/opt/redhouse` y se ejecuta por completo en la VM: monolito, microservicios, PostgreSQL, MongoDB, Redis y workers. Docker Compose conserva dos instancias por API. El corte vigente usa almacenamiento privado `LOCAL`; no se debe asumir que archivos de producción estén en GCS. Las referencias a GCS más abajo describen la ruta opcional explícita.
+El proyecto reside en `/opt/redhouse` y se ejecuta por completo en la VM: monolito, microservicios, PostgreSQL, MongoDB, Redis y workers. Docker Compose conserva dos instancias por API. Desde el 18/11/2026 `apps/documentos.json` tiene `STORAGE_PROVIDER=gcs`: los archivos nuevos van al bucket `red-house-evidencias-sistemas-integracion-01` con URLs firmadas V4, usando la cuenta de servicio adjunta `red-house-archivos` (sin claves descargadas). Cada archivo guarda su propio proveedor, así que los `LOCAL` anteriores conviven con los de GCS. Reversa: restaurar `backups/gcs-activacion-20261118/documentos.json.orig` y recrear `documentos-a/b`.
 
 ## Abrir el portal
 
@@ -55,6 +55,18 @@ sudo docker compose -f /opt/redhouse/compose.yaml ps
 El servicio `redhouse` inicia los componentes por grupos y queda habilitado al arrancar la VM. El código y la configuración privada pertenecen a `root`; administrar requiere `sudo`. Los datos permanecen en volúmenes Docker.
 
 Para actualizar o recuperar componentes, usar `sudo python3 /opt/redhouse/deployment/start.py`; incorpora automáticamente los archivos privados `gcs.compose.yaml` y `public.compose.yaml`. Un `docker compose up` con solo el archivo base no incluye la entrada HTTPS. Las configuraciones y certificados privados no se versionan.
+
+**Arranque después de tener la VM apagada.** `start.py` espera a que ClamAV esté sano antes de Documentos y, si quedó con la firma anterior («version mismatch»), le pide `RELOAD`. Sin eso el portal quedaba en 502 tras encender la VM ([INC-437](../../documentation/evidencias/entrega-final/gcp-arranque-clamav-20261118/RESULTADOS.md)). Esperar de 5 a 10 minutos tras encenderla.
+
+**Demostración de fallos.** `sudo python3 /opt/redhouse/deployment/gcp/fallo.py` lista los casos; `fallo.py <caso>` provoca uno y `fallo.py <caso> restablecer` lo recupera. Ver el [guion](../../documentation/entrega-final/continuidad/Guion_fallos_en_vivo.md#atajo-en-la-vm-un-comando-por-caso).
+
+**Respaldo diario (preparado, no instalado).** `daily_backup.sh` con `redhouse-backup.service` y `redhouse-backup.timer` corre `backup.py --verify` a las 09:00 UTC, conserva 7 respaldos y se omite si quedan menos de 1.5 GB libres. Detiene las aplicaciones unos minutos. Para instalarlo, con autorización del equipo:
+
+```sh
+sudo install -m 0755 deployment/gcp/daily_backup.sh /opt/redhouse/deployment/gcp/daily_backup.sh
+sudo install -m 0644 deployment/gcp/redhouse-backup.service deployment/gcp/redhouse-backup.timer /etc/systemd/system/
+sudo systemctl daemon-reload && sudo systemctl enable --now redhouse-backup.timer
+```
 
 Apagar o encender la VM desde tu equipo:
 
