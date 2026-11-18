@@ -1,6 +1,6 @@
 # Registro de incidencias de entrega final
 
-Corte: 17/11/2026. Registro **completo** de las incidencias documentadas en el repositorio: 424 entradas, de la más reciente a la más antigua. Sustituye al registro selectivo anterior, cuyas once fichas se conservan al final como [fichas ampliadas](#fichas-ampliadas).
+Corte: 18/11/2026. Registro **completo** de las incidencias documentadas en el repositorio: 435 entradas, de la más reciente a la más antigua. Sustituye al registro selectivo anterior, cuyas once fichas se conservan al final como [fichas ampliadas](#fichas-ampliadas).
 
 ## Alcance y método
 
@@ -17,10 +17,10 @@ Corte: 17/11/2026. Registro **completo** de las incidencias documentadas en el r
 
 | Estado | Incidencias |
 |---|---|
-| Cerradas | 342 |
-| Abiertas | 31 |
-| Aceptadas como límite | 56 |
-| **Total** | **429** |
+| Cerradas | 345 |
+| Abiertas | 33 |
+| Aceptadas como límite | 57 |
+| **Total** | **435** |
 
 | Área | Cerradas | Abiertas | Aceptadas como límite | Total |
 |---|---|---|---|---|
@@ -29,8 +29,8 @@ Corte: 17/11/2026. Registro **completo** de las incidencias documentadas en el r
 | Móvil (Android/iOS) | 63 | 8 | 14 | 85 |
 | Escritorio Qt | 40 | 6 | 4 | 50 |
 | Proxy/gateway y WSS | 3 | 0 | 3 | 6 |
-| Despliegue e infraestructura | 38 | 3 | 6 | 47 |
-| Arnés y pruebas | 104 | 1 | 5 | 110 |
+| Despliegue e infraestructura | 41 | 3 | 7 | 51 |
+| Arnés y pruebas | 104 | 3 | 5 | 112 |
 | Documentación | 4 | 0 | 1 | 5 |
 
 El área se asigna por el componente de cada fila; los fallos del arnés, del entorno o del proceso de publicación se separan de los defectos de producto.
@@ -39,6 +39,8 @@ El área se asigna por el componente de cada fila; los fallos del arnés, del en
 
 | ID | Fecha | Componente | Síntoma |
 |---|---|---|---|
+| [INC-434](#inc-434) | 18/11/2026 | Pruebas (almacén privado) | `test_gateway_rejects_unsafe_binary_requests` no encuentra el paquete `src` del portal |
+| [INC-433](#inc-433) | 18/11/2026 | Pruebas (catálogo de rutas) | La prueba de catálogo espera rechazo en una ruta pública |
 | [INC-428](#inc-428) | 18/11/2026 | Android / accesibilidad | Acciones repetidas sin contexto, estado sin `liveRegion`, títulos sin `heading()` |
 | [INC-424](#inc-424) | 17/11/2026 | Accesibilidad (portal, Android, iOS, escritorio) | TalkBack, VoiceOver completo y accesibilidad de escritorio sin aceptación |
 | [INC-423](#inc-423) | 17/11/2026 | Escritorio Qt (distribución Windows 11) | Sin build, instalación ni recorrido aceptado en Windows 11; solo paquete macOS Intel comprobado |
@@ -73,7 +75,7 @@ El área se asigna por el componente de cada fila; los fallos del arnés, del en
 
 ## Índice por fecha
 
-- **Noviembre 2026:** [18/11](#d-2026-11-18) (5) · [17/11](#d-2026-11-17) (61) · [16/11](#d-2026-11-16) (69) · [14/11](#d-2026-11-14) (42) · [13/11](#d-2026-11-13) (101) · [12/11](#d-2026-11-12) (8) · [11/11](#d-2026-11-11) (2) · [10/11](#d-2026-11-10) (18) · [09/11](#d-2026-11-09) (22) · [06/11](#d-2026-11-06) (19) · [04/11](#d-2026-11-04) (6) · [02/11](#d-2026-11-02) (9) · [01/11](#d-2026-11-01) (10)
+- **Noviembre 2026:** [18/11](#d-2026-11-18) (11) · [17/11](#d-2026-11-17) (61) · [16/11](#d-2026-11-16) (69) · [14/11](#d-2026-11-14) (42) · [13/11](#d-2026-11-13) (101) · [12/11](#d-2026-11-12) (8) · [11/11](#d-2026-11-11) (2) · [10/11](#d-2026-11-10) (18) · [09/11](#d-2026-11-09) (22) · [06/11](#d-2026-11-06) (19) · [04/11](#d-2026-11-04) (6) · [02/11](#d-2026-11-02) (9) · [01/11](#d-2026-11-01) (10)
 - **Octubre 2026:** [31/10](#d-2026-10-31) (14) · [29/10](#d-2026-10-29) (4) · [28/10](#d-2026-10-28) (4) · [27/10](#d-2026-10-27) (1) · [22/10](#d-2026-10-22) (4) · [21/10](#d-2026-10-21) (11) · [20/10](#d-2026-10-20) (4) · [19/10](#d-2026-10-19) (11) · [15/10](#d-2026-10-15) (3) · [14/10](#d-2026-10-14) (1)
 
 ## Registro
@@ -82,7 +84,7 @@ Columnas: ID, componente, síntoma, causa, corrección o commit, evidencia, esta
 
 <a name="d-2026-11-18"></a>
 
-### 18/11/2026 (5)
+### 18/11/2026 (11)
 
 | ID | Componente | Síntoma | Causa | Corrección / commit | Evidencia | Estado | Fuente |
 |---|---|---|---|---|---|---|---|
@@ -91,6 +93,12 @@ Columnas: ID, componente, síntoma, causa, corrección o commit, evidencia, esta
 | <a name="inc-427"></a>INC-427 | Android (pruebas JVM) | `DonorPaginationTest` y `TransportNextStepTest` fallaban (78 casos, 2 fallidos) | Dobles y expectativas desfasados respecto de `fd4fbcf` (contrato de horarios) y `84b3394` (texto de ubicación) | Pruebas actualizadas al contrato vigente; 81 casos, 0 fallos; commit `9918724` | [evidencia](../../documentation/evidencias/entrega-final/mobile/android-ui-talkback-sesion-20261118/RESULTADOS.md) | cerrada | [PROJECT_STATUS](../../PROJECT_STATUS.md) |
 | <a name="inc-428"></a>INC-428 | Android / accesibilidad | Inspección sustituta del árbol: acciones repetidas sin contexto por tarjeta, mensaje de estado sin `liveRegion`, títulos sin `heading()` | Semántica de accesibilidad incompleta en código común | Ninguna aún; requiere TalkBack o instrumentación para comprobar la corrección | [evidencia](../../documentation/evidencias/entrega-final/mobile/android-ui-talkback-sesion-20261118/RESULTADOS.md) | abierta | [PROJECT_STATUS](../../PROJECT_STATUS.md) |
 | <a name="inc-429"></a>INC-429 | Arnés / descarga del traspaso | `gcloud storage cp` dejaba archivos `_.gstmp` completos sin finalizar y no terminaba | Finalización de la copia de gcloud en este host (causa exacta no determinada) | Descarga con `gcloud storage cat` y verificación `shasum -a 256 -c`: 14/14 OK | [gcp-alert-detail-20261118](../../documentation/evidencias/entrega-final/gcp-alert-detail-20261118/RESULTADOS.md) | cerrada | [PROJECT_STATUS](../../PROJECT_STATUS.md) |
+| <a name="inc-430"></a>INC-430 | Instalación local (clon limpio) | En un clon nuevo, `start.sh` fallaba: Documentos no arrancaba por `ModuleNotFoundError` de `google.api_core` | `scripts/manage.py` instalaba solo `requirements.txt`; el almacén local usa las excepciones de `google-api-core`. El venv del checkout de trabajo ya lo tenía y ocultaba el fallo | `manage.py` instala `requirements-storage.txt` (incluye `requirements.txt`); `4f08abf` | [clon-limpio-20261118](../../documentation/evidencias/entrega-final/clon-limpio-20261118/RESULTADOS.md); [fallos-consigna-20261118](../../documentation/evidencias/entrega-final/fallos-consigna-20261118/RESULTADOS.md) | cerrada | [clon-limpio:96](../../documentation/evidencias/entrega-final/clon-limpio-20261118/RESULTADOS.md#L96) |
+| <a name="inc-431"></a>INC-431 | Instalación local y Compose (Documentos) | En una instalación nueva, Documentos respondía `/health/ready` 503 (`storage: down`), así que `start.sh` y `start.py` terminaban con error | Ni `provision.py` ni `bootstrap.py` configuraban `STORAGE_LOCAL_ROOT`; el paso solo estaba documentado para instalaciones existentes | `provision.py` crea `.local/runtime/private-files` (0700) o usa `/var/lib/redhouse-private` en Compose; reinstalación limpia 12/12 listos; `4f08abf` | [clon-limpio-20261118](../../documentation/evidencias/entrega-final/clon-limpio-20261118/RESULTADOS.md); [fallos-consigna-20261118](../../documentation/evidencias/entrega-final/fallos-consigna-20261118/RESULTADOS.md) | cerrada | [clon-limpio:104](../../documentation/evidencias/entrega-final/clon-limpio-20261118/RESULTADOS.md#L104) |
+| <a name="inc-432"></a>INC-432 | Compose en Docker Desktop (equipo de prueba) | Con el stack completo, 4 réplicas `-b` quedaron unhealthy (`PoolTimeout`), PostgreSQL entró dos veces en recuperación y el contenedor ajeno `spg-local-odoo` se reinició dos veces | Docker Desktop con 3.8 GB y 1 GiB de swap agotado; 28 contenedores del proyecto usaban 2,504 MiB | Con una réplica por API (17 contenedores) el arranque fue estable; no se cambió la configuración de Docker Desktop | [clon-limpio-20261118](../../documentation/evidencias/entrega-final/clon-limpio-20261118/RESULTADOS.md) | aceptada como límite | [clon-limpio:117](../../documentation/evidencias/entrega-final/clon-limpio-20261118/RESULTADOS.md#L117) |
+| <a name="inc-433"></a>INC-433 | Pruebas (catálogo de rutas) | `test_evidence_catalog.py::test_all_registered_routes_expose_real_http_contracts_and_controlled_errors` falla: espera rechazo sin credenciales en `/api/v1/public/institutions`, que responde 200 | La ruta es pública por diseño y la prueba no la excluye | n/d; falla igual sin los cambios del 18/11 | [fallos-consigna-20261118](../../documentation/evidencias/entrega-final/fallos-consigna-20261118/RESULTADOS.md) | abierta | [fallos-consigna:52](../../documentation/evidencias/entrega-final/fallos-consigna-20261118/RESULTADOS.md#L52) |
+| <a name="inc-434"></a>INC-434 | Pruebas (almacén privado) | `test_private_storage_local.py::test_gateway_rejects_unsafe_binary_requests` falla con `ModuleNotFoundError: src` al correrse desde la raíz | La prueba importa el paquete `src` del portal sin agregar `apps/web` a la ruta | n/d; falla igual sin los cambios del 18/11 | [fallos-consigna-20261118](../../documentation/evidencias/entrega-final/fallos-consigna-20261118/RESULTADOS.md) | abierta | [fallos-consigna:52](../../documentation/evidencias/entrega-final/fallos-consigna-20261118/RESULTADOS.md#L52) |
+| <a name="inc-435"></a>INC-435 | Instalación (Documentos / GCS) | La primera corrección de INC-431 fijaba `STORAGE_PROVIDER=local` y `test_final_delivery_documents.py` respondió 503 `storage_unconfigured` en JSON y XML | El proveedor explícito gana sobre `GCS_BUCKET`, y `configure_gcs.py` solo escribe `GCS_BUCKET` | Detectado antes de publicar; el instalador solo escribe `STORAGE_LOCAL_ROOT`; prueba 2/2 y tercera instalación limpia 12/12; `4f08abf` | [fallos-consigna-20261118](../../documentation/evidencias/entrega-final/fallos-consigna-20261118/RESULTADOS.md) | cerrada | [fallos-consigna:53](../../documentation/evidencias/entrega-final/fallos-consigna-20261118/RESULTADOS.md#L53) |
 
 <a name="d-2026-11-17"></a>
 
