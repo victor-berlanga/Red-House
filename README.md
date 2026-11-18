@@ -42,6 +42,7 @@ stuff/presentacion/        Apuntes generados para exposición
 
 - [Estado comprobado y pendientes](PROJECT_STATUS.md).
 - [Índice documental](documentation/README.md).
+- [Guía de prueba manual para el equipo](documentation/markdowns/Guia_prueba_manual.md).
 - [Arquitectura](documentation/markdowns/Arquitectura.md).
 - [Datos y persistencia](documentation/markdowns/Datos_y_persistencia.md).
 - [Microservicios y contratos](apps/services/README.md).
