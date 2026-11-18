@@ -29,7 +29,10 @@ Las entradas están ordenadas de reciente a histórico; un pendiente de un corte
   `test_final_delivery_documents.py` (INC-433/434 cerradas).
 - **Reporte técnico:** corte 18/11 con esta evidencia, referencias APA unificadas y citadas en el texto; Word/PDF
   exportados (32 páginas, índice verificado en 2 pasadas).
-- **Siguen fuera de este equipo:** TalkBack (requiere descargar la imagen `google_apis_playstore` arm64, ~1.5 GB),
+- **TalkBack:** se probó la imagen `google_apis_playstore` arm64 API 30. Tampoco trae TalkBack (`com.google.android.marvin.talkback`
+  no está); hay que instalar «Android Accessibility Suite» desde Play Store con una cuenta de Google, y el equipo decidió no
+  hacerlo. INC-424 sigue abierta; la imagen y el AVD se borraron.
+- **Siguen fuera de este equipo:** TalkBack (cuenta de Google en el emulador o un teléfono físico),
   Windows 11, iOS en la Mac de Victor (perfiles hasta el 24/11), programar el respaldo diario, video, presentación,
   reflexiones, bitácora de participación y entrega en Ubiquitous.
 
