@@ -1,6 +1,7 @@
 """Cold concurrent runtime constructors; no databases, sockets or service startup."""
 
 import json
+import os
 from pathlib import Path
 import subprocess
 import sys
@@ -111,6 +112,8 @@ def _cold_runtime_constructors():
 def test_three_runtime_xml_constructors_in_fresh_process():
     completed = subprocess.run(
         [sys.executable, "-B", str(Path(__file__).resolve()), "--cold-xml"],
+        # El intérprete nuevo no hereda el sys.path de conftest; sin esto no ve los servicios.
+        env={**os.environ, "PYTHONPATH": str(Path(__file__).resolve().parents[1])},
         capture_output=True,
         text=True,
         timeout=25,

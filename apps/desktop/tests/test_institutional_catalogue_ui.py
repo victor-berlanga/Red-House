@@ -5,7 +5,7 @@ from pathlib import Path
 from uuid import uuid4
 
 import pytest
-from PySide6.QtCore import QThreadPool, QTimer
+from PySide6.QtCore import QEvent, QThreadPool, QTimer
 from PySide6.QtWidgets import (
     QApplication,
     QCheckBox,
@@ -58,6 +58,10 @@ def run_dialog(kind, client, choose, item=None):
         deadline.stop()
         window.pool.waitForDone(1000)
         window.close()
+        # Destruir el diálogo y la ventana mientras QApplication vive; si quedan
+        # para el cierre del intérprete, Qt aborta («pure virtual method called»).
+        window.deleteLater()
+        QApplication.sendPostedEvents(None, QEvent.DeferredDelete)
     assert not errors
     return result
 

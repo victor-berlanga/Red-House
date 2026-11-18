@@ -28,10 +28,16 @@ jobs:
         run: |
           curl -fsSL https://pgp.mongodb.com/server-8.0.asc | sudo gpg --dearmor -o /usr/share/keyrings/mongodb-server-8.0.gpg
           echo "deb [ arch=amd64 signed-by=/usr/share/keyrings/mongodb-server-8.0.gpg ] https://repo.mongodb.org/apt/ubuntu noble/mongodb-org/8.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-8.0.list
+          # El proyecto fija PostgreSQL 14 (scripts/dependencies.py); Ubuntu 24.04 trae 16.
+          sudo apt-get install -y postgresql-common
+          sudo /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh -y
           sudo apt-get update
-          sudo apt-get install -y postgresql redis-server mongodb-org-server
-          pg_config --bindir >> "$GITHUB_PATH"
+          sudo apt-get install -y postgresql-14 redis-server mongodb-org-server
+          echo /usr/lib/postgresql/14/bin >> "$GITHUB_PATH"
           python -m pip install -r apps/services/requirements-dev.txt
+          # components.sh exige el intérprete que deja install.sh; en CI es el de setup-python.
+          mkdir -p apps/services/.venv/bin
+          ln -sf "$(command -v python)" apps/services/.venv/bin/python
       - name: Catálogo HLA público fijado por versión y SHA-256
         run: python apps/services/scripts/fetch_public_references.py hla --version 3.66.0 --directory .local/reference-data/hla
       - name: Análisis estático y formato
