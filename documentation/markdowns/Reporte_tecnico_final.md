@@ -170,7 +170,7 @@ La evidencia del 16/11 completa los otros tipos de I06-02: [RESULT y evidencia d
 
 El primer intento RESULT permanece FAIL por un href con `return_to` que el arnés comparó literalmente después del único POST. La continuación aprobada hizo solo GET del mismo documento y descarga del PNG original. La fila HLA completa se comparó antes/después de esa continuación, sin inventar un snapshot anterior al POST que no se guardó. Los objetos web se conservan; no forman parte de la limpieza nativa iOS. Junto con la acreditación14/11, **I06-02 queda cubierto por evidencia compuesta para los tres tipos requeridos**. No se suma una suite nueva ni se cierran I06-01/03/08/09 o etapas 06/07 mediante ese recorrido. Las etiquetas y el reintento LOCAL se validaron y publicaron después en el [lote de cinco fuentes](../evidencias/entrega-final/gcp-documentos-referencia-20261116/RESULTADOS.md), con gate y alcance propios descritos en la sección 14; esta publicación sustituye su pendiente anterior, sin repetir el ciclo GCS.
 
-GCS continúa **opcional para operar** y mantiene requisito académico separado. El [ensayo GCS real sintético JSON/XML](../evidencias/entrega-final/gcs-sintetico-20261113/RESULTADOS.md) y la [prueba anterior de bucket/URLs firmadas](../evidencias/segundo-parcial/gcs-real.json) conservan su evidencia. Google Cloud describe la firma temporal de objetos privados en su documentación de V4; la firma no sustituye la autorización de aplicación (Google Cloud, 2026c, referencia heredada).
+GCS continúa **opcional para operar** y mantiene requisito académico separado. El [ensayo GCS real sintético JSON/XML](../evidencias/entrega-final/gcs-sintetico-20261113/RESULTADOS.md) y la [prueba anterior de bucket/URLs firmadas](../evidencias/segundo-parcial/gcs-real.json) conservan su evidencia. Google Cloud describe la firma temporal de objetos privados en su documentación de V4; la firma no sustituye la autorización de aplicación (Google Cloud, 2026).
 
 Los 34 objetos GCS históricos pendientes de análisis no se presentan como descargables ni limpios. Las políticas clínicas de retención, clasificación, eliminación y conservación necesitan aprobación institucional; un hash/scan no acredita esa aprobación ni hace inviolable el archivo ante un administrador del host.
 
@@ -457,30 +457,36 @@ El alcance probado continúa siendo académico, con datos ficticios y entornos i
 
 ## 20. Referencias y procedencia
 
-Las citas técnicas/normativas siguientes se reutilizan de los registros existentes. **Esta edición no realizó una nueva consulta web ni certifica vigencia legal o compatibilidad actual de dependencias.** Fechas/versiones de adquisición y sus hashes permanecen en el [registro clínico](Reglas_y_fuentes_clinicas.md), [fuentes públicas](../evidencias/entrega-final/algoritmos/fuentes_publicas/20261102T143541Z/RESULTADOS.md), [dependencias móviles](../entrega-final/mobile/Dependencias_externas.md) y expedientes enlazados. Las fuentes previas en [APA del segundo parcial](../segundo-parcial/Referencias.md) conservan su corte; la revisión final de referencias sigue abierta.
+Las fuentes técnicas/normativas se reutilizan de los registros existentes. El 17/11/2026 se comprobó que cada URL responde y se tomaron título, fecha visible y versión documental; **esa comprobación no certifica vigencia legal ni compatibilidad actual de dependencias**. Las versiones documentales siguen las fijadas en el repositorio: PostgreSQL 14 y Nginx 1.28 (`compose.yaml`), PySide6 6.10.1 (`apps/desktop/requirements.txt`), Kotlin 2.1.21 y Compose Multiplatform 1.8.2 (`apps/mobile/build.gradle.kts`). Fechas/versiones de adquisición y sus hashes permanecen en el [registro clínico](Reglas_y_fuentes_clinicas.md), [fuentes públicas](../evidencias/entrega-final/algoritmos/fuentes_publicas/20261102T143541Z/RESULTADOS.md), [dependencias móviles](../entrega-final/mobile/Dependencias_externas.md) y expedientes enlazados. Las fuentes previas en [APA del segundo parcial](../segundo-parcial/Referencias.md) conservan su corte.
 
-Apple. (s. f.). *Keychain services*. Apple Developer Documentation. [Documentación oficial](https://developer.apple.com/documentation/security/keychain-services).
+El catálogo IPD-IMGT/HLA se usa bajo su [licencia y atribución](https://www.ebi.ac.uk/ipd/imgt/hla/licence/); adquisición del 02/11/2026, edición y hash constan en el expediente de fuentes públicas. La NOM-253-SSA1-2012 tiene sucesora publicada el 12/10/2026, con entrada prevista el 10/04/2027; su aplicabilidad y transición requieren revisión competente y no se deriva aquí una regla clínica. El proyecto no sustituye los procedimientos del reglamento de trasplantes por un ranking local.
 
-Docker. (s. f.). *Networking in Compose*. Docker Docs. [Documentación oficial](https://docs.docker.com/compose/how-tos/networking/).
+**Referencias citadas en el texto**
 
-Google Cloud. (2026c, 21 de octubre). *V4 signing process with Cloud Storage tools*. [Referencia conservada del segundo parcial](https://docs.cloud.google.com/storage/docs/access-control/signing-urls-with-helpers).
+Google Cloud. (2026, 21 de octubre). *V4 signing process with Cloud Storage tools*. Google Cloud Documentation. <https://docs.cloud.google.com/storage/docs/access-control/signing-urls-with-helpers>
 
-IPD-IMGT/HLA. (2026). *IPD-IMGT/HLA Database* (edición 3.66.0). European Bioinformatics Institute. [Licencia y atribución](https://www.ebi.ac.uk/ipd/imgt/hla/licence/). Adquisición documentada el 02/11/2026; edición/hash en el expediente del proyecto.
+**Fuentes de procedencia no citadas en el texto**
 
-JetBrains. (s. f.). *Multiplatform compatibility guide*. Kotlin Documentation. [Guía oficial](https://kotlinlang.org/docs/multiplatform/multiplatform-compatibility-guide.html).
+Apple. (s. f.). *Keychain services*. Apple Developer Documentation. Recuperado el 17 de noviembre de 2026 de <https://developer.apple.com/documentation/security/keychain-services>
 
-NGINX. (s. f.). *WebSocket proxying*. [Documentación oficial](https://nginx.org/en/docs/http/websocket.html).
+Docker. (2026, 16 de agosto). *Networking in Compose*. Docker Docs. <https://docs.docker.com/compose/how-tos/networking/>
 
-OpenStreetMap Foundation. (s. f.). *Tile usage policy*. [Política oficial](https://operations.osmfoundation.org/policies/tiles/).
+IPD-IMGT/HLA. (2026, 14 de octubre). *IPD-IMGT/HLA Database* (versión 3.66.0) [Conjunto de datos]. European Bioinformatics Institute. <https://www.ebi.ac.uk/ipd/imgt/hla/>
 
-OWASP Foundation. (s. f.). *WebSocket security cheat sheet*. OWASP Cheat Sheet Series. [Guía oficial](https://cheatsheetseries.owasp.org/cheatsheets/WebSocket_Security_Cheat_Sheet.html).
+JetBrains. (2026, 8 de octubre). *Compatibility guide for Kotlin Multiplatform*. Kotlin Multiplatform Documentation. <https://kotlinlang.org/docs/multiplatform/multiplatform-compatibility-guide.html>
 
-PostgreSQL Global Development Group. (s. f.). *Explicit locking*. PostgreSQL Documentation. [Documentación oficial](https://www.postgresql.org/docs/current/explicit-locking.html).
+NGINX. (s. f.). *WebSocket proxying*. nginx documentation. Recuperado el 17 de noviembre de 2026 de <https://nginx.org/en/docs/http/websocket.html>
 
-Qt Group. (s. f.). *Getting started*. Qt for Python Documentation. [Guía oficial](https://doc.qt.io/qtforpython-6/gettingstarted.html).
+OpenStreetMap Foundation. (s. f.). *Tile usage policy*. Recuperado el 17 de noviembre de 2026 de <https://operations.osmfoundation.org/policies/tiles/>
 
-Secretaría de Salud. (2012). *NOM-253-SSA1-2012, para la disposición de sangre humana y sus componentes con fines terapéuticos*. Diario Oficial de la Federación. [Texto oficial enlazado por el registro clínico](https://dof.gob.mx/normasOficiales/4917/salud3a/salud3a.html). Su aplicabilidad y transición requieren revisión competente; no se deriva aquí una regla clínica.
+OWASP Foundation. (s. f.). *WebSocket security cheat sheet*. OWASP Cheat Sheet Series. Recuperado el 17 de noviembre de 2026 de <https://cheatsheetseries.owasp.org/cheatsheets/WebSocket_Security_Cheat_Sheet.html>
 
-Secretaría de Salud. (2014). *Reglamento de la Ley General de Salud en materia de trasplantes*. [Texto oficial conservado en referencias](https://www.diputados.gob.mx/LeyesBiblio/regley/Reg_LGS_MT.pdf). El proyecto no sustituye sus procedimientos por un ranking local.
+PostgreSQL Global Development Group. (s. f.). *Explicit locking* (versión 14). PostgreSQL Documentation. Recuperado el 17 de noviembre de 2026 de <https://www.postgresql.org/docs/14/explicit-locking.html>
+
+Qt Group. (s. f.). *Getting started* (versión 6.10). Qt for Python Documentation. Recuperado el 17 de noviembre de 2026 de <https://doc.qt.io/qtforpython-6.10/gettingstarted.html>
+
+*Reglamento de la Ley General de Salud en Materia de Trasplantes*. (2014, 26 de marzo). Diario Oficial de la Federación. Texto vigente compilado por la Cámara de Diputados. Recuperado el 17 de noviembre de 2026 de <https://www.diputados.gob.mx/LeyesBiblio/regley/Reg_LGS_MT.pdf>
+
+Secretaría de Salud. (2012, 26 de octubre). *Norma Oficial Mexicana NOM-253-SSA1-2012, para la disposición de sangre humana y sus componentes con fines terapéuticos*. Diario Oficial de la Federación. <https://dof.gob.mx/normasOficiales/4917/salud3a/salud3a.html>
 
 La consigna de entrega final y la retroalimentación docente están disponibles en `../stuff/` respecto de la raíz del repositorio del entorno original. Sus requisitos se conservan en los [prompts de entrega final](../../stuff/prompts/entrega-final/README.md), en especial [documentación/entrega](../../stuff/prompts/entrega-final/08_documentacion_y_entrega.md) y [rastreo](../../stuff/prompts/entrega-final/09_rastreo_gps_websockets.md), para que el expediente no dependa de distribuir archivos externos.
