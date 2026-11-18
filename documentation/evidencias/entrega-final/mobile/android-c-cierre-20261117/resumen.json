@@ -1,0 +1,103 @@
+{
+  "fecha": "2026-11-17",
+  "entorno": "LOCAL académico",
+  "preparacion": {
+    "estado_ejecutor": "failed_logout_missing_idempotency_key",
+    "campanas_creadas": 1,
+    "horarios_creados": 1,
+    "usuarios_creados": 0,
+    "solicitudes_reserva": 0,
+    "revocacion": "passed",
+    "sesiones_revocadas": 1,
+    "estado_sql_redis_verificado": true
+  },
+  "ultimo_cupo": {
+    "estado": "business_passed_concurrency_failed",
+    "business_passed": true,
+    "concurrency_accepted": false,
+    "separacion_entradas_wsgi_ms": 1157.497431,
+    "umbral_ensayo_ms": 1000,
+    "entradas_wsgi": 2,
+    "http_rival": 201,
+    "http_android": 409,
+    "rechazo_android": "slot_full",
+    "citas_booked": 1,
+    "ocupados": 1,
+    "disponibles": 0,
+    "idempotencia_ganador_verificada": true,
+    "auditorias_sql_mongo_verificadas": true,
+    "rechazo_ui_inspeccionado": true,
+    "cierre_sesion_rival_sql_redis": true,
+    "casos_anteriores_conservados": true
+  },
+  "segundo_horario": {
+    "estado": "passed",
+    "misma_campana_y_sede": true,
+    "horarios_creados": 1,
+    "capacidad": 1,
+    "solicitudes_reserva_desde_setup": 0,
+    "reserva_rival_conservada": true,
+    "cierre_sesion_operador_sql_redis": true
+  },
+  "reserva_nativa": {
+    "estado": "passed",
+    "hora_local": "18:19",
+    "toques_confirmacion": 1,
+    "secuencia": [
+      401,
+      "REFRESH",
+      201
+    ],
+    "misma_clave_idempotencia": true,
+    "citas_booked": 1,
+    "version_horario": 1,
+    "cita_anterior_conservada": true,
+    "confirmacion_ui_inspeccionada": true,
+    "estado_observador_inicial": "failed_stopped_at_initial_401"
+  },
+  "recordatorio": {
+    "estado_persistencia": "passed",
+    "citas_elegibles_del_caso": 2,
+    "ejecuciones_worker": 1,
+    "salida_worker": 0,
+    "aviso_donante_y_operador_verificados": true,
+    "auditorias_sql_mongo_verificadas": true,
+    "ui_android": "aviso_visible_detalle_fallido",
+    "push_os": "sin_evidencia",
+    "detalle_ui": "Respuesta no válida del servicio",
+    "aviso_ui_inspeccionado_por_direccion": true,
+    "detalle_ui_inspeccionado_por_direccion": true
+  },
+  "pendientes_android": [
+    "detalle_recordatorio",
+    "reinicio_y_reapertura_app",
+    "traduccion_etiquetas_ELIGIBLE_INFO"
+  ],
+  "sha256_evidencia_privada": {
+    "ejecutor_ultimo_cupo": "26b28b1534b32864c705b4e786c73a8c442d154a3a3afdc83653fcf0add2ed90",
+    "oraculo_ultimo_cupo": "7684a87a217a17e446995f1cf0ded210bd2c53581f299cc26abb1d824a3fc93d",
+    "segundo_horario": "60691eccc72c088a7e373a037c9050b0caea32971c0f0807158e0a25efcde895",
+    "observador_reserva_nativa": "fdea3848bf2239f7c31a703acfdbbf4b5a14bc879d3a3082b2c479d18a601cfc",
+    "oraculo_reserva_nativa": "65e564b96208656c77a9348a699636c4b5e5f23f534fd88bb1c509d9976821a9",
+    "worker_recordatorio": "c23e56d2163ad08e9e6673f033e6e405fff05f13d3afd4200a093e8e017c8a06",
+    "oraculo_recordatorio": "7383f512d714cc9f6b70c03e25a990230fad79d47002b69b5eada7548ceb6b28",
+    "revision_visual_expediente_y_cupo": "30bcd73ae174fc082bc2f07bb65563654c73d9c553c2a5390d33108fb1fca642",
+    "captura_reserva_confirmada": "4bf2c9de389c041ace3fcb3d84c2a01159707f3efb6abde8658008d7ec763b2b",
+    "preparacion_original": "d9b1bc7ce0d632fd9232eb1d28b35c882da341a5750ed865fce6809ac019c915",
+    "revocacion_preparacion": "2d67e4fc0d086c769a9e145184025910480e3e3ed9c72d1cf878354c7455e65a",
+    "captura_aviso_android": "96c03ad066d895c94e667e04f9c0e9309c5885f92506f16973bcf0d0611c9645",
+    "captura_detalle_aviso_fallido": "1c80364e0acf7661bc24645538028cddcecd4180bcdffa62695b173be7357f94",
+    "oraculo_cierre_nativo": "0ab302ac8c952a064bf78df885153ecbc68622344e655f8cda4abee44225ce5e",
+    "captura_inicio_sesion_final": "3112817f1d179e48bc19291a8c93e233d7d9b9a01187001b709e4b7432d9dabb"
+  },
+  "cierre_nativo": {
+    "estado": "passed",
+    "toques_cierre": 1,
+    "familias_revocadas": 1,
+    "familias_activas": 0,
+    "ausencia_en_redis_confirmada": true,
+    "captura_inicio_sesion_vacio": true,
+    "captura_inspeccionada_por_direccion": true
+  },
+  "reinicio_app": "no_ejecutado"
+}
