@@ -109,9 +109,8 @@ def test_result_session_change_never_submits():
             errors.append(type(exc).__name__); dialog.reject()
     QTimer.singleShot(0, fill); window.capture_result()
     assert not errors and not commands
-    if 'sesión cambió' not in window.status.text().lower():
-        # Desde 9f4a3ff el diálogo de resultado se cierra sin avisar; el envío sí se bloquea.
-        pytest.xfail('Defecto conocido: capture_result no informa el cambio de sesión.')
+    # El envío se bloquea y el usuario recibe el aviso del cambio de sesión.
+    assert 'sesión cambió' in window.status.text().lower()
 
 
 def test_sample_response_after_session_change_is_not_shown():

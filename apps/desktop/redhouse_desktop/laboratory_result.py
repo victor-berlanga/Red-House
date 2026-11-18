@@ -187,7 +187,10 @@ def result_dialog(window, sample, prior, worker_type, draft=None, locked=False, 
     worker.signals.done.connect(catalogues); worker.signals.failed.connect(lambda e:catalogues(e,True)); window.pool.start(worker)
     result=None
     while dialog.exec()==QDialog.Accepted:
-        if not binding.current(): break
+        if not binding.current():
+            # No se envía con otra cuenta; se avisa, como antes de 9f4a3ff.
+            if getattr(window,'status',None) is not None: window.status.setText('La sesión cambió. Vuelve a consultar antes de guardar.')
+            break
         values={k:v.text().strip() for k,v in fields.items()}; status=state.currentData(); test=code.text().strip()
         if not re.fullmatch(r'[A-Z0-9_.-]{1,60}',test) or not status or not all(values[k] for k in ('method','laboratory','reference')) or not confirm_measured.isChecked():
             QMessageBox.warning(dialog,'Datos incompletos','Completa prueba, estado, método, laboratorio, referencia y confirma la medición.'); continue
