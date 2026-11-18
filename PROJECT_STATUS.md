@@ -24,6 +24,14 @@ Las entradas están ordenadas de reciente a histórico; un pendiente de un corte
   tuvo 575 respuestas 429 (10.9 %) de la cuota por cuenta: no se acepta y se omitió el estrés de 36 (INC-436, límite).
   INC-290 sigue abierta porque el equipo es distinto. El arnés transaccional multiperfil no corre en laboratorios de
   esquema 21. [Evidencia](documentation/evidencias/entrega-final/carga-serie-20261118/RESULTADOS.md).
+- **Pruebas desfasadas:** `test_evidence_catalog.py` y `test_private_storage_local.py` fallaban por expectativas viejas
+  (ruta `/portal-storage/` de `9b04a90`, lectura pública y huella de `by-key`); actualizadas, 17/17 junto con
+  `test_final_delivery_documents.py` (INC-433/434 cerradas).
+- **Reporte técnico:** corte 18/11 con esta evidencia, referencias APA unificadas y citadas en el texto; Word/PDF
+  exportados (32 páginas, índice verificado en 2 pasadas).
+- **Siguen fuera de este equipo:** TalkBack (requiere descargar la imagen `google_apis_playstore` arm64, ~1.5 GB),
+  Windows 11, iOS en la Mac de Victor (perfiles hasta el 24/11), programar el respaldo diario, video, presentación,
+  reflexiones, bitácora de participación y entrega en Ubiquitous.
 
 ## Android: UI de detalle, mensaje 401, sesión y cambio de cuenta — 18/11/2026
 
