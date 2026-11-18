@@ -2,6 +2,29 @@
 
 Las entradas están ordenadas de reciente a histórico; un pendiente de un corte anterior puede quedar sustituido explícitamente por una entrada posterior.
 
+## Cierre de huecos de la consigna en la VM — 18/11/2026 (tarde)
+
+Revisión de la consigna de Blackboard contra el repo y la VM. Todo lo de abajo está publicado en GCP y la VM quedó
+**sincronizada con la rama: 0 diferencias** en 411 archivos y 606 contratos ([evidencia](documentation/evidencias/entrega-final/gcp-sincronizacion-final-20261118/RESULTADOS.md)).
+
+- **Arranque de la VM (INC-437, cerrada):** al encenderla tras horas apagada, ClamAV quedaba con la firma anterior y el
+  portal daba 502. `deployment/start.py` ahora lo recarga; comprobado con la falla real: 30/30 sanos ([evidencia](documentation/evidencias/entrega-final/gcp-arranque-clamav-20261118/RESULTADOS.md)).
+- **GCS activo en la VM:** archivos nuevos al bucket con URLs firmadas V4. Recorrido real con `donor1`: PUT 200,
+  repetición 412, `VERIFIED`, descarga 200 con el mismo SHA-256 y anónimo 403. Los archivos LOCAL anteriores siguen
+  descargando. Respaldo y reversa documentados ([evidencia](documentation/evidencias/entrega-final/gcp-gcs-activacion-20261118/RESULTADOS.md)).
+- **Fallos en vivo:** ensayo local **11/11** ([evidencia](documentation/evidencias/entrega-final/fallos-en-vivo-20261118/RESULTADOS.md)) y
+  `deployment/gcp/fallo.py`, un comando por caso en la terminal de la VM, ensayado **12/12** en GCP, cada caso
+  restablecido ([evidencia](documentation/evidencias/entrega-final/gcp-fallos-en-vivo-20261118/RESULTADOS.md); [guion](documentation/entrega-final/continuidad/Guion_fallos_en_vivo.md)).
+- **Portal (INC-438, cerrada):** la «Referencia» de una página de error ahora queda en el log ([evidencia](documentation/evidencias/entrega-final/gcp-web-log-referencia-20261118/RESULTADOS.md)).
+- **Pendientes de Victor atendidos:** [guía de prueba manual](documentation/markdowns/Guia_prueba_manual.md) (cuentas, MFA,
+  Android, escritorio, Swagger, monitoreo y los tres procesos); perfiles iguales en web, móvil y escritorio
+  ([matriz de perfiles, 3.1](documentation/markdowns/Matriz_de_perfiles_y_permisos.md)); fallos con un comando; cambios subidos a GCP.
+- **Documentación:** reporte técnico con GCS, Swagger por nombre, justificación de bases en la VM, monitoreo y
+  sección 18 «trabajo futuro»; guion del video con los 12 temas; plantilla de bitácora de participación y reflexiones.
+- **Pendiente:** respaldo diario programado (`deployment/gcp/daily_backup.sh` y `redhouse-backup.timer`, en el repo y sin
+  instalar hasta que el equipo lo autorice); carga final con Locust; Release con APK y escritorio; regenerar Word/PDF.
+  Humanos: video, presentación, reflexiones, bitácora de participación y entrega individual en Blackboard.
+
 ## Clon limpio corregido y pruebas de fallas de la consigna — 18/11/2026
 
 - **Clon limpio (pendiente #18):** un clon nuevo de `9918724` **no arrancaba** con los pasos documentados:
