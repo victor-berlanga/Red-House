@@ -1,0 +1,41 @@
+{
+  "fecha": "2026-11-17 (CST) / 2026-11-18 UTC",
+  "fuente": "bc92f8d + cambios sin commit en apps/mobile",
+  "apk_lab_sha256": {
+    "primera": "2b86126b9bb153b8a9d088409283385e11d5e7698c78b7b5b312faccafe109bc",
+    "con_correccion_401": "55427a6454e1d2751746d147f7e74293bed73cfe3e0da4a443b87cbef33375d8"
+  },
+  "jvm": {
+    "casos": 80,
+    "fallos": 0,
+    "omitidos": 2
+  },
+  "recibos_privados": {
+    "cotejo": "4cdaecaee0d7373915bed901eecfaeeaf502a3b61b5d6e34f13cbd441bf9a79f",
+    "revocacion_01": "bd774705d7f30230aac74bf254ae8344b1f2ebc21d90ce180ed0d79139858226",
+    "revocacion_02": "106884dcfbb6a0ee0c87d527a0ec407097a9188c5fc6ee470db21d5613553d2a",
+    "cierre_previo_drenado": "323f06e78065b65440277281ad26c52cbea6635d9bd5c1caea2bf34103088685",
+    "cierre": "f07267af08de6cbb06312a6f5b1682b37ed9877227229fc798fc2602e7928911"
+  },
+  "lanzador_serve_lab_sha256": "7d6cae8c1ec9eeb50afdb3fbe8e938f867c54295a4b8778d266275888b1397f5",
+  "capturas": {
+    "02-inicio.png": "39651417e364e9a04208b80a0d65972fa608a8668c6933c2406f72ad8f51b1fd",
+    "03-avisos.png": "ea763a8e0aa19779ea075dba6d889473050708535ad5b1262c9835cbe22a381f",
+    "04-ver-detalle.png": "dd1df69e4bf2bb6f0537acc68d5893756cea12f8a0e08793d67b68076ce368dd",
+    "05-tras-volver.png": "ea763a8e0aa19779ea075dba6d889473050708535ad5b1262c9835cbe22a381f",
+    "06-cuenta.png": "ae1ca5a346bb4dc5bedca0dae7e82c232e528d779ecf0b70858394d515595fac",
+    "07-expediente.png": "06076f1c34cf96b45d5196e583748f939f3cfe858d12acdaa3c73703d293d91e",
+    "08-tras-cerrar-sesion.png": "48a56b6692306c7066ad30a07edc19c39f29b71fb11a8f3dc8cd4aed607482e2",
+    "09-avisos-antes-revocar.png": "75674aa8b1b625d189240bb3f59d6e3fb885aebe7a652318bf7b1d658da7ebde",
+    "10-tras-revocacion.png": "6397514a64bd8792738e5c7ee99af25afe42df8c565344b2707cf02f0cd1fcf6",
+    "12-avisos-antes-revocar-2.png": "20029f60e72d9e9e8018cf29b91fb5907eeb82c70d160bb4dea379ebec554221",
+    "13-tras-revocacion-2.png": "9b1f6bb5046aa4cab97e1715039043a0d13ccfaf8b63822d52b87ecf1aeda9c9",
+    "14-avisos-donor1.png": "20029f60e72d9e9e8018cf29b91fb5907eeb82c70d160bb4dea379ebec554221",
+    "16-cierre-donor1.png": "7f362813f7e5f8f4c758709c2092adf13888a9ef7b3e19a8a9ae0fbdec9af993",
+    "18-avisos-donor2.png": "d6c857c03f4159cdcb1f1c80df1cd0cade9e64499a0221012e6f664932b65822",
+    "19-cuenta-donor2.png": "5180a153012135913ea296208d670f116b6124c7984ed408d0aa17c00606cf66",
+    "20-expediente-donor2.png": "d3c9ee201c4551d94213ed5015e8c0cd54adf5eac93dbf75a3860b636e021d1d",
+    "21-enlace-ajeno-donor2.png": "4e6547551e06cbcf92825ab5ba6de5d8b8bd457da2809925efd47a7ab7efdfcd",
+    "22-cierre-donor2.png": "859058eef7e0187212c8e6c6d3c9c63e34df4cd6b545c2a7afb79cfa356f72ee"
+  }
+}

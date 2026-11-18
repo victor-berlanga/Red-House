@@ -17,7 +17,9 @@ class TransportNextStepTest {
         assertEquals("ACCEPTED", transportAction("OPERATOR", "b", "a", "b", "DELIVERED"))
     }
     @Test fun locationSummaryDoesNotImplyARecentFix() {
-        assertTrue(transportLocationSummary(null,true).contains("Sin ubicación"))
+        val missing=transportLocationSummary(null,true)
+        assertTrue(missing.contains("Ubicación no disponible"))
+        assertTrue(!missing.contains("Última ubicación"))
         val point=buildJsonObject {put("captured_at","2026-11-13T15:21:00Z");put("simulated",true);put("fix_valid",true);put("latitude",25.6);put("longitude",-100.3)}
         assertTrue(transportLocationSummary(point,true).contains("Última ubicación"))
         assertTrue(transportLocationSummary(point,true).contains("simulada"))

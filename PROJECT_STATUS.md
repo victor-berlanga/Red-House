@@ -2,6 +2,25 @@
 
 Las entradas están ordenadas de reciente a histórico; un pendiente de un corte anterior puede quedar sustituido explícitamente por una entrada posterior.
 
+## Android: UI de detalle, mensaje 401, sesión y cambio de cuenta — 18/11/2026
+
+Con el mismo fixture restaurado y el AVD arm64 ([evidencia](documentation/evidencias/entrega-final/mobile/android-ui-talkback-sesion-20261118/RESULTADOS.md)):
+- **Cotejo con oráculo privado: PASS.** El aviso `543dbbb8…` coincide en destinatario, cita, horario, evento y huellas con
+  `reminder-oracle` y `worker-once` (anotado en la evidencia de «Ver detalle»).
+- **UI: PASS.** El detalle de Avisos y la programación de traslado ya no duplican «Volver»/título; severidad, urgencia y
+  estados `ELIGIBLE`/`ACKNOWLEDGED`/`DISMISSED` se muestran en español. Reapertura del mismo aviso: 200, sin escrituras.
+- **Revocación desde el servidor (CONT-03):** primer intento **FAIL conservado**: la app exigió login (401) pero mostró
+  «Cuenta o contraseña incorrectas.» sin que el usuario escribiera nada. Corregido con `failureMessage` (`Api.kt`/`App.kt`):
+  con sesión abierta muestra «Sesión vencida o revocada. Inicia sesión.»; segundo intento **PASS**.
+- **Cambio de cuenta: PASS.** `donor2` no ve avisos, cuenta ni expediente de `donor1`; el enlace frío al aviso ajeno da 404 y
+  «Aviso no disponible para esta sesión.».
+- **Pruebas JVM:** se actualizaron `DonorPaginationTest` (contrato de horarios de `fd4fbcf`) y `TransportNextStepTest`
+  (texto intencional de `84b3394`); `testDebugUnitTest` **81 casos, 0 fallos, 2 omitidos** (requieren `lab.json`).
+- **Pendientes:** TalkBack **bloqueado** (la imagen `google_apis` arm64 no lo trae); inspección sustituta del árbol de
+  accesibilidad sin botones sin nombre y con tres hallazgos abiertos (acciones repetidas sin contexto, estado sin
+  `liveRegion`, títulos sin `heading`). Expiración natural de 24 h sin ejecutar (no se alteran relojes). Instrumentación
+  Compose e iOS no ejecutados para este cambio de código común.
+
 ## Corrección de Avisos publicada en GCP — 18/11/2026
 
 Publicación acotada **PASS** en la VM `red-house`: imagen `redhouse/alertas:alert-detail-20261117-01` derivada de la base en

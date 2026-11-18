@@ -66,6 +66,9 @@ fun displayValue(field: String, value: String): String {
     if (field == "role") return mapOf("DONOR" to "Donante", "TRANSPORT" to "Transporte",
         "OPERATOR" to "Operador", "MEDICAL" to "Médico", "COORDINATOR" to "Coordinador",
         "ADMIN" to "Administración", "AUDITOR" to "Auditoría")[value] ?: value
+    // Alert severity (Alertas INFO/WARNING/CRITICAL) and request urgency (LOW..CRITICAL); unknown codes stay visible as sent.
+    if (field == "severity") return mapOf("INFO" to "Informativo", "WARNING" to "Advertencia", "CRITICAL" to "Crítico")[value] ?: value
+    if (field == "urgency") return mapOf("LOW" to "Baja", "MEDIUM" to "Media", "HIGH" to "Alta", "CRITICAL" to "Crítica")[value] ?: value
     if (field in setOf("status", "state", "result_state")) return mapOf(
         "AUTHORIZED" to "Autorizado documentalmente", "CORRECTED" to "Corregido",
         "NOT_CHECKED" to "Sin comprobar", "SENDING" to "Enviando; sin confirmación", "RECORDED" to "Registrado", "QUEUED" to "Pendiente local", "PENDING" to "Pendiente", "CONFIRMED" to "Confirmado",
@@ -75,7 +78,8 @@ fun displayValue(field: String, value: String): String {
         "RECEIVED" to "Recibido", "WITHDRAWN" to "Retirado",
         "ACTIVE" to "Activo", "INACTIVE" to "Inactivo", "DRAFT" to "Borrador", "DEFERRED" to "Aplazado", "PRELIMINARY" to "Registro preliminar",
         "AVAILABLE" to "Disponible", "RESERVED" to "Reservado", "EXPIRED" to "Vencido",
-        "REJECTED" to "Rechazado", "UNCERTAIN" to "Sin confirmación", "CONFLICT" to "Conflicto"
+        "REJECTED" to "Rechazado", "UNCERTAIN" to "Sin confirmación", "CONFLICT" to "Conflicto",
+        "ELIGIBLE" to "Elegible para donar", "ACKNOWLEDGED" to "Leída", "DISMISSED" to "Descartada"
     )[value] ?: value
     return if ((field.endsWith("_at") || field=="campaign_start")) displayBriefDate(value) else value
 }

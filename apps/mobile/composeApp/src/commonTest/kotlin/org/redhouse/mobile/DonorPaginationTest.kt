@@ -43,6 +43,11 @@ class DonorPaginationTest {
         assertEquals(1,confirmed.getValue("page").jsonPrimitive.int)
         assertEquals("first",confirmed.getValue("items").jsonArray.first().jsonObject.text("id"))
     }
+    /** Slot row with every field the campaign-slots contract requires since fd4fbcf. */
+    private fun slot(id:String)=buildJsonObject {
+        put("id",id);put("campaign_id","campaign");put("site_id","site");put("campaign_title","Campaña académica");put("site_name","Sede académica")
+        put("starts_at","2026-11-17T18:00:00Z");put("ends_at","2026-11-17T19:00:00Z");put("available",1)
+    }
     @Test fun requestedPageAndExistingFilterArePreserved()=runTest {
         val requested=mutableListOf<Int>()
         val client=HttpClient(MockEngine { request ->
@@ -51,7 +56,7 @@ class DonorPaginationTest {
             } else {
                 assertEquals("true",request.url.parameters["active"])
                 val page=request.url.parameters["page"]!!.toInt();requested.add(page)
-                buildJsonObject {put("items",buildJsonArray { for(i in if(page==1) 1..100 else 101..103) add(obj("id" to "$i")) });put("total",103);put("page",page);put("page_size",100)}
+                buildJsonObject {put("items",buildJsonArray { for(i in if(page==1) 1..100 else 101..103) add(slot("$i")) });put("total",103);put("page",page);put("page_size",100)}
             }
             respond(buildJsonObject {put("data",result);put("meta",JsonObject(emptyMap()))}.toString(),headers=headersOf(HttpHeaders.ContentType,"application/json"))
         })

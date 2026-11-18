@@ -53,3 +53,17 @@ El aviso se identificó por consulta SQL de solo lectura: `APPOINTMENT_REMINDER`
 - La restauración física x86_64 → arm64 funcionó para este caso de lectura. No acredita por sí sola la equivalencia de todos los casos ni del `load-cold`.
 
 Recibos privados, fuera de Git: `http-probe.private.json` `8373b1619525aff2aa2b19cfc12330ef602f32f9e63db5ce015c9b85cc5954c5`, `close-oracle.private.json` `3961398c5812223c7167e745e3d3274623132f1985f61cd6b9178e9069887343` y lanzador `serve_lab.py` `7d6cae8c1ec9eeb50afdb3fbe8e938f867c54295a4b8778d266275888b1397f5`. Las huellas de las capturas están en [resumen.json](resumen.json).
+
+## Cotejo con oráculo privado
+
+Realizado el 17/11/2026 a las 20:45 CST, después de extraer `private-continuity.tar.gz`. Fue de solo lectura: SQL con `read_only` sobre la base restaurada, sin escrituras. Se cotejó el aviso `543dbbb8…` con `reminder-oracle.private.json` (SHA-256 `7383f512…`) y `worker-once.private.json` (`c23e56d2…`). Las huellas coinciden con las de [resumen.json](../android-c-cierre-20261117/resumen.json) del cierre anterior.
+
+| Dato | Aviso persistido | Oráculo / worker | Resultado |
+| --- | --- | --- | --- |
+| Identidad | Destinatario `donor1`, rol DONOR. La cita `a3bf0a00…` pertenece al expediente `72530dc9…`, vinculado a `donor1` | El worker marca `a3bf0a00…` como cita nativa (`native_appointment_id`) | **Coincide** |
+| Cita | `entity_reference` `a3bf0a00…` | `appointment_id` `a3bf0a00…`; está entre las 2 elegibles (`eligible_count` 2). La otra, `3e533d77…`, es de la cuenta rival | **Coincide** |
+| Evento | `event_id` `4c9ee5eb…`; auditoría `APPOINTMENT_REMINDER` del servicio donantes con el mismo id | `reminder_event_id` `4c9ee5eb…` | **Coincide** |
+| Horario | Cupo `78976006…` de 18:19:21 a 18:29:21 CST. Recordatorio versión 1, enviado a las 17:46:17.312144 CST | `schedule_version` 1, `sent_at` 17:46:17.312144 CST | **Coincide** |
+| Tipo | `APPOINTMENT_REMINDER`, severidad `INFO`, `OPEN`, `acknowledged_by` nulo | Worker: 1 corrida, salida 0, `worker_finished_verify_reminder`. Oráculo: `passed` | **Coincide**. Sigue sin escrituras sobre el aviso |
+
+El aviso reabierto en Android es el mismo que produjo la única corrida del worker. Con esto se cierra el límite «sin cotejar contra el oráculo» de este expediente. Recibo privado: `cotejo-oracle.private.json` `4cdaecae…`, fuera de Git. El lanzador original `serve_preserved_local_wss_arrivals.py` no se volvió a ejecutar. El laboratorio sigue usando el lanzador reconstruido.

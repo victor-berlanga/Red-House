@@ -4,6 +4,7 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotEquals
 import kotlin.test.assertFalse
+import kotlin.test.assertNull
 import kotlin.test.assertTrue
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
@@ -40,5 +41,28 @@ class PresentationTest {
         assertNotEquals(displayValue("status", "NOT_CHECKED"), displayValue("status", "REJECTED"))
         assertEquals("Aplazado", displayValue("status", "DEFERRED"))
         assertEquals("FUTURE_STATE", displayValue("status", "FUTURE_STATE"))
+    }
+    @Test fun severityUrgencyAndEligibilityAreShownInSpanish() {
+        assertEquals("Informativo", displayValue("severity", "INFO"))
+        assertEquals("Advertencia", displayValue("severity", "WARNING"))
+        assertEquals("Crítico", displayValue("severity", "CRITICAL"))
+        assertEquals("FUTURE_LEVEL", displayValue("severity", "FUTURE_LEVEL"))
+        assertEquals("Alta", displayValue("urgency", "HIGH"))
+        assertEquals("Elegible para donar", displayValue("status", "ELIGIBLE"))
+        assertEquals("Leída", displayValue("status", "ACKNOWLEDGED"))
+        // Free text keeps the code as sent; only the coded fields are translated.
+        assertEquals("INFO", displayValue("message", "INFO"))
+        assertEquals("ELIGIBLE", displayValue("title", "ELIGIBLE"))
+    }
+    @Test fun nestedDetailDoesNotRepeatTheShellTitle() {
+        assertNull(detailSubtitle("Avisos", "Avisos"))
+        assertNull(detailSubtitle("", "Avisos"))
+        assertEquals("Muestras autorizadas", detailSubtitle("Muestras autorizadas", "Laboratorio"))
+    }
+    @Test fun revokedSessionIsNotReportedAsWrongPassword() {
+        assertEquals("Cuenta o contraseña incorrectas.", failureMessage(ApiFailure(401, "unauthorized"), signedIn = false))
+        assertEquals("Sesión vencida o revocada. Inicia sesión.", failureMessage(ApiFailure(401, "unauthorized"), signedIn = true))
+        assertEquals("Sesión vencida o revocada. Inicia sesión.", failureMessage(ApiFailure(401, "session"), signedIn = true))
+        assertEquals("Sin permiso sobre este recurso.", failureMessage(ApiFailure(403, "forbidden"), signedIn = true))
     }
 }

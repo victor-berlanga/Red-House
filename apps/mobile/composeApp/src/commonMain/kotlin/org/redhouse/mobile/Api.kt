@@ -30,6 +30,9 @@ class ApiFailure(val status: Int, val code: String) : Exception(when (status) {
     503 -> "El servicio no está disponible. Inténtalo de nuevo."
     else -> "Respuesta no válida del servicio."
 })
+/** A 401 while a session is open means it expired or was revoked by the service, never a wrong password. */
+internal fun failureMessage(e: ApiFailure, signedIn: Boolean): String =
+    if (e.code == "unauthorized" && !signedIn) "Cuenta o contraseña incorrectas." else e.message.orEmpty()
 class Api(val client: HttpClient, val bases: Map<String, String>, private val parsingDispatcher: CoroutineDispatcher = Dispatchers.Default) {
     init { require(bases.isNotEmpty()); bases.values.forEach(::requireHttps) }
     suspend fun call(service: String, path: String, method: HttpMethod = HttpMethod.Get,

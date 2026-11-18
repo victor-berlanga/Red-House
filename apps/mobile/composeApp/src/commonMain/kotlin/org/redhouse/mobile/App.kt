@@ -148,7 +148,7 @@ fun RedHouseApp(store: SecureStore, localStore: SecureStore, queueStore: SecureS
             scope.launch {
                 try { action() }
                 catch (e: CancellationException) { throw e }
-                catch (e: ApiFailure) { status = if(e.code=="unauthorized") "Cuenta o contraseña incorrectas." else e.message.orEmpty(); if (e.status == 401) { user = null; rows = emptyList() } }
+                catch (e: ApiFailure) { status = failureMessage(e, signedIn = user != null); if (e.status == 401) { user = null; rows = emptyList() } }
                 catch (_: Exception) { status = "No se confirmó la operación. Consulta su estado antes de intentarlo de nuevo." }
                 finally { busy = false }
             }
@@ -277,8 +277,8 @@ fun RedHouseApp(store: SecureStore, localStore: SecureStore, queueStore: SecureS
                     if(donorView && repository!=null) DonorScreen(repository!!,initialSection=donorSection,showBack=accountView,onExploreCampaigns={navigate("Campañas")}) {donorView=false}
                     if (!accountView) {
                     if(destination=="Pendientes" && queue!=null) { Text("Observaciones por sincronizar",style=MaterialTheme.typography.titleMedium); SyncScreen(queue!!) }
-                    if(detail!=null && repository!=null)OperationalDetail(detail!!.first,detail!!.second,repository!!,devices){detail=null}
-                    if(planning && repository!=null)CoordinatorPlanning(repository!!){planning=false}
+                    if(detail!=null && repository!=null)OperationalDetail(detail!!.first,detail!!.second,repository!!,devices,shellTitle=accountSection ?: destination)
+                    if(planning && repository!=null)CoordinatorPlanning(repository!!)
                     if(taskId==null && detail==null && !planning && destination=="Región" && selected?.title=="Reservas regionales") Button(onClick={planning=true}){Text("Programar traslado")}
                     if(destination in setOf("Región","Laboratorio") && selected==null) {
                         val secondary=if(destination=="Región") listOf("Disponibilidad regional","Solicitudes institucionales agregadas","Reservas regionales") else listOf("Muestras autorizadas","Resultados autorizados")

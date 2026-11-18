@@ -9,13 +9,15 @@ import kotlinx.coroutines.*
 import kotlinx.serialization.json.*
 import kotlinx.datetime.Clock
 
-@Composable fun OperationalDetail(screen:Screen,id:String,repository:MobileRepository,devices:DeviceAccess,onBack:()->Unit){
+/** The shell bar already offers «Volver» and the destination title; the detail only adds a subtitle when it differs. */
+@Composable fun OperationalDetail(screen:Screen,id:String,repository:MobileRepository,devices:DeviceAccess,shellTitle:String){
     var row by remember {mutableStateOf<JsonObject?>(null)};var status by remember{mutableStateOf("")}
     var temperature by remember{mutableStateOf("")};var reference by remember{mutableStateOf("")};var confirmed by remember{mutableStateOf(false)}
     var busy by remember{mutableStateOf(false)};val scope=rememberCoroutineScope()
     fun run(action:suspend ()->Unit){if(busy)return;busy=true;scope.launch{try{action()}catch(e:CancellationException){throw e}catch(e:Exception){status=if(e is ApiFailure || e is IllegalArgumentException)e.message.orEmpty() else "Sin confirmación; consulta resultados pendientes."}finally{busy=false}}}
     LaunchedEffect(id){try{row=repository.session.request(screen.service,screen.path+"/"+id)}catch(e:CancellationException){throw e}catch(e:Exception){status=if(e is ApiFailure)e.message.orEmpty() else "No se pudo consultar la información."}}
-    TextButton(onClick=onBack){Text("Volver")};Text(screen.title);Text(status)
+    detailSubtitle(screen.title,shellTitle)?.let{Text(it,style=MaterialTheme.typography.titleMedium)}
+    if(status.isNotBlank())Text(status)
     row?.let{value->
         listOf("folio","identifier","kind","component","status","quantity","urgency","expires_at","version","created_at","severity","message_code","test_code","result_state","value","unit","method","laboratory","reference","measured_at").forEach{key->(value[key] as? JsonPrimitive)?.contentOrNull?.let{Text("${fieldLabel(key)}: ${displayValue(key, it)}")}}
         if(screen.service=="inventario" && repository.session.user?.text("role")=="OPERATOR"){
@@ -42,7 +44,7 @@ import kotlinx.datetime.Clock
     }
 }
 
-@Composable fun CoordinatorPlanning(repository:MobileRepository,onBack:()->Unit){
+@Composable fun CoordinatorPlanning(repository:MobileRepository){
     var reservation by remember{mutableStateOf("")};var responsible by remember{mutableStateOf("")}
     var chosenReservation by remember{mutableStateOf<JsonObject?>(null)};var responsibleName by remember{mutableStateOf("")}
     var reservations by remember{mutableStateOf<List<JsonObject>>(emptyList())};var transporters by remember{mutableStateOf<List<JsonObject>>(emptyList())}
@@ -63,7 +65,7 @@ import kotlinx.datetime.Clock
         val page=repository.listPage("identidad","/api/v1/users?role=TRANSPORT",transporterPage)
         transporters=page.getValue("items").jsonArray.map{it.jsonObject};transporterTotal=page.getValue("total").jsonPrimitive.int
     } catch(e:CancellationException){throw e} catch(_:Exception){transporterError=true} finally {transporterLoading=false}}
-    TextButton(onClick=onBack){Text("Volver")};Text("Programar traslado sobre reserva autorizada");Text(status)
+    Text("Programar traslado sobre reserva autorizada",style=MaterialTheme.typography.titleMedium);if(status.isNotBlank())Text(status)
     SettingRow("Reserva",chosenReservation?.let {"Registrada: ${displayBriefDate(it.text("created_at"))}"} ?: "Selecciona una reserva") {choosingReservation=!choosingReservation}
     if(choosingReservation) {
         if(reservationLoading) Text("Consultando reservas…")
@@ -107,3 +109,6 @@ import kotlinx.datetime.Clock
         catch(e:CancellationException){throw e}catch(e:Exception){status=if(e is ApiFailure)e.message.orEmpty() else "Sin confirmación; recupera la operación pendiente."}finally{busy=false}
     }}){Text("Confirmar")}},dismissButton={TextButton(onClick={confirm=false}){Text("Cancelar")}})
 }
+
+/** Subtitle for a nested detail; null when it would repeat the title already shown in the shell bar. */
+internal fun detailSubtitle(screenTitle:String,shellTitle:String):String? = screenTitle.takeIf{it.isNotBlank() && it!=shellTitle}
