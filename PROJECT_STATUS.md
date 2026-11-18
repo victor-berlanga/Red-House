@@ -23,7 +23,12 @@ Revisión de la consigna de Blackboard contra el repo y la VM. Todo lo de abajo 
   sección 18 «trabajo futuro»; guion del video con los 12 temas; plantilla de bitácora de participación y reflexiones.
 - **Respaldo:** manual por decisión del equipo (la consigna no pide respaldo diario); `backup.py --verify` antes de cada
   cambio en la VM y de la presentación. El timer diario queda en el repo como trabajo futuro, sin instalar.
-- **Pendiente:** carga final con Locust; Release con APK y escritorio; regenerar Word/PDF.
+- **Carga final (Locust, una cuenta por usuario):** mixta de seis perfiles cumple hasta 72 usuarios con 0 errores; satura con
+  96 en la Mac de prueba; 1,046,236 eventos SQL y 146,261 documentos Mongo con consultas filtradas en 30–74 ms. INC-436
+  cerrada; nuevas INC-439 (reportes y cuota) e INC-442 (listado de la Bitácora no escala) como trabajo futuro
+  ([evidencia](documentation/evidencias/entrega-final/carga-final-20261118/RESULTADOS.md)).
+- **CI:** escritorio fallaba por contratos desincronizados (corregido) y servicios por formato desde octubre (corregido).
+- **Pendiente:** Release con APK y escritorio; regenerar Word/PDF.
   Humanos: video, presentación, reflexiones, bitácora de participación y entrega individual en Blackboard.
 
 ## Clon limpio corregido y pruebas de fallas de la consigna — 18/11/2026
