@@ -2,6 +2,13 @@
 
 Las entradas están ordenadas de reciente a histórico; un pendiente de un corte anterior puede quedar sustituido explícitamente por una entrada posterior.
 
+## Corrección de Avisos publicada en GCP — 18/11/2026
+
+Publicación acotada **PASS** en la VM `red-house`: imagen `redhouse/alertas:alert-detail-20261117-01` derivada de la base en
+uso con las tres fuentes de `0edf74d`; solo se recrearon `alertas-a/b`, treinta contenedores saludables y veintiocho
+conservados. Por HTTPS, el detalle de un aviso sin sesión pasó de 404 (ruta inexistente) a 401 en 6/6 rondas; salud y login
+200; OpenAPI publicado con la ruta. Clave SSH temporal retirada. [Evidencia](documentation/evidencias/entrega-final/gcp-alert-detail-20261118/RESULTADOS.md).
+
 ## Android C «Ver detalle» cerrado en AVD; registro de incidencias e inventario académico — 17/11/2026
 
 **Android C «Ver detalle»: PASS** con el fixture conservado. Se restauró la copia fría final `lab-cold` (SHA-256 verificado) en
