@@ -11,8 +11,42 @@ corrompe datos** y **se recupera** al restablecer el servicio.
 - **Ensayo local aprobado 11/11** el 18/11/2026, en una instalación desechable:
   [evidencia](../../evidencias/entrega-final/fallos-en-vivo-20261118/RESULTADOS.md) ·
   [bitácora](../../evidencias/entrega-final/fallos-en-vivo-20261118/demo.json).
-- **Los comandos de la VM aún no se han ensayado.** Los nombres de servicio salen de `compose.yaml` y
-  `deployment/gcp/README.md`. Ensayarlos antes de presentar y anotar aquí lo que cambie.
+- **Ensayo en la VM aprobado** el 18/11/2026 con el atajo `fallo.py`: los 12 casos, cada uno restablecido
+  ([evidencia](../../evidencias/entrega-final/gcp-fallos-en-vivo-20261118/RESULTADOS.md)). Los comandos manuales de las
+  secciones siguientes son equivalentes, pero el atajo es lo que se ensayó.
+
+## Atajo en la VM: un comando por caso
+
+Para la presentación en la nube basta con un comando, desde la terminal de la VM
+(`gcloud compute ssh red-house --project=sistemas-integracion-01 --zone=me-central1-a`). El script es
+[`deployment/gcp/fallo.py`](../../../deployment/gcp/fallo.py); solo usa Python estándar, se conecta a la propia VM, lee la
+contraseña sintética de `state.json` y nunca la imprime. Cada caso imprime lo que pasó y un bloque **«Qué mostrar al
+profesor»**.
+
+```sh
+F='sudo python3 /opt/redhouse/deployment/gcp/fallo.py'
+$F                      # lista de casos
+$F estado               # 30 contenedores y /health/ready de los 12 servicios
+```
+
+| Pedido del profesor | Provocar | Restablecer |
+|---|---|---|
+| Detener un microservicio | `$F microservicio` | `$F microservicio restablecer` |
+| Revocar un token | `$F token` | termina solo |
+| Desactivar temporalmente Redis | `$F redis` | `$F redis restablecer` |
+| Provocar una respuesta inválida | `$F invalida` | termina solo |
+| Consultar un archivo inexistente | `$F inexistente` | termina solo |
+| Simular una sobrecarga | `$F sobrecarga` | termina solo (operator1 queda limitado ~60 s) |
+| Mostrar un intento sin permisos | `$F permisos` | termina solo |
+| Explicar un error en los logs | `$F logs` | termina solo |
+| MongoDB no responde | `$F mongodb` | `$F mongodb restablecer` |
+| PostgreSQL no responde | `$F postgres` | `$F postgres restablecer` |
+| Servicio de archivos no disponible | `$F archivos` | `$F archivos restablecer` |
+| Petición que excede el tiempo máximo | `$F tiempo` | termina solo (Identidad se congela unos segundos) |
+| Si algo quedó a medias | — | `$F todo restablecer` (reanuda y corre `start.py`) |
+
+Mientras Redis, MongoDB o PostgreSQL estén caídos, todo el equipo ve el efecto: restablecer en menos de un minuto. Las
+secciones siguientes explican cada caso con detalle y los comandos manuales equivalentes.
 
 ## 0. Preparación
 

@@ -1,0 +1,181 @@
+
+== Revocar un token
+   -> sesión A consulta su perfil: HTTP 200 en 0.08 s
+   -> revocar sesión A: HTTP 200 en 0.26 s
+   -> sesión A reusa su token: HTTP 401 unauthorized en 0.01 s
+   -> sesión A intenta renovarse: HTTP 401 unauthorized en 0.02 s
+   -> sesión B (otro dispositivo) sigue: HTTP 200 en 0.06 s
+
+Qué mostrar al profesor:
+   * El token revocado da 401 de inmediato y no se puede renovar; las otras sesiones no se afectan.
+
+== Provocar una respuesta inválida
+   -> JSON mal formado: HTTP 400 invalid_body en 0.05 s
+   -> tipos y valores inválidos: HTTP 422 validation en 0.11 s — Selecciona o confirma una opción válida.
+   -> ruta con identificador inválido: HTTP 400 validation en 0.05 s
+
+Qué mostrar al profesor:
+   * Cada error regresa con el mismo sobre JSON (error.code, message, details) y su correlation_id; nunca un 500.
+   * Las respuestas inválidas de un servicio a otro (HTML, JSON sin sobre, truncado) se cubren con apps/services/tests/test_dependency_timeout_unit.py: terminan en 503 dependency_unavailable.
+
+== Consultar un archivo inexistente
+   -> descargar archivo b48dabc9…: HTTP 404 not_found en 0.06 s
+   -> metadatos del documento: HTTP 404 not_found en 0.06 s
+
+Qué mostrar al profesor:
+   * 404 not_found controlado; no revela rutas ni el bucket.
+
+== Mostrar un intento sin permisos
+   -> operator2 (Hospital 2) abre un donante del Hospital 1: HTTP 403 forbidden en 0.07 s  correlation_id 1471296c-6e00-4ea7-aaf5-016f0081ec88
+   -> donor1 intenta registrar inventario: HTTP 403 forbidden en 0.02 s
+   -> sin token: HTTP 401 unauthorized en 0.02 s
+
+Qué mostrar al profesor:
+   * 403 forbidden por institución y por rol; 401 sin token. No se muestra ningún dato ajeno.
+   * El rechazo entre instituciones queda auditado (acción REJECTED; en Auditoría filtrar 'Todas las categorías').
+
+== Explicar un error en los logs
+   -> error provocado: HTTP 403 forbidden en 0.03 s; correlation_id = 502e65a8-8ef9-46ea-ac3a-6e9df894851b
+   -> donantes-a: {"service": "donantes", "correlation_id": "502e65a8-8ef9-46ea-ac3a-6e9df894851b", "method": "GET", "route": "/api/v1/donors/<identifier>", "status": 403, "elapsed_ms": 20.007, "error": "forbidden"}
+
+Qué mostrar al profesor:
+   * El usuario ve el correlation_id (en el portal: 'Referencia'); con él se encuentra la línea exacta del log:
+   * sudo docker logs redhouse-parcial2-donantes-a-1 2>&1 | grep 502e65a8-8ef9-46ea-ac3a-6e9df894851b
+   * La línea trae ruta, estado HTTP, código de error y tiempo; nunca contraseñas ni tokens.
+
+== Simular una sobrecarga (240 peticiones simultáneas de una cuenta)
+   -> respuestas de operator1: {200: 175, 429: 65}
+   -> ejemplo de 429: código rate_limit, Retry-After 60 s
+   -> operator2 durante la ráfaga: HTTP 200 en 1.0 s
+
+Qué mostrar al profesor:
+   * La cuota por cuenta responde 429 rate_limit con Retry-After; el servicio sigue atendiendo a los demás.
+   * operator1 queda limitado unos 60 s; no usar esa cuenta en ese minuto.
+
+== Una petición excede el tiempo máximo (Identidad congelada)
+   -> Identidad congelada: acepta la conexión pero no responde
+   -> Inventario, alta que consulta a Identidad: HTTP 503 dependency_unavailable en 3.05 s
+   -> Identidad reanudada
+   -> misma petición con Identidad de vuelta: HTTP 404 not_found en 0.08 s (la ubicación ficticia no existe; no se creó nada)
+
+Qué mostrar al profesor:
+   * Inventario corta la espera a ~3 s (lectura máx. 3 s en redhouse/client.py) y responde 503 dependency_unavailable.
+   * No queda colgado ni escribe: la unidad no se registró.
+
+== Estado de la plataforma
+   -> contenedores sanos: 28 de 30
+
+== Detener un microservicio: Inventario (sus dos réplicas)
+   -> inventario-a e inventario-b detenidos
+   -> Inventario /health/ready HTTP 502 en 0.14 s
+   -> Donantes /health/ready HTTP 200 en 0.05 s
+   -> Identidad /health/ready HTTP 200 en 0.03 s
+   -> portal /login HTTP 200 en 0.03 s
+   -> Monitoreo, última comprobación de inventario: 17:54:55 down
+
+Qué mostrar al profesor:
+   * Inventario responde 502 desde Nginx; los demás servicios y el portal siguen en 200.
+   * Monitoreo lo detecta solo y lo marca 'down' (panel Estado de la plataforma, con auditor1).
+   * Restablecer: sudo python3 /opt/redhouse/deployment/gcp/fallo.py microservicio restablecer
+
+== Restablecer Inventario
+   -> inventario-a, inventario-b: sanos en 26 s
+   -> Inventario /health/ready HTTP 200 en 0.15 s
+   -> Monitoreo, última comprobación de inventario: 17:55:59 up
+
+== El servicio de archivos no está disponible (Documentos)
+   -> Documentos /health/ready HTTP 502 en 0.02 s
+   -> Inventario /health/ready HTTP 200 en 0.06 s
+   -> portal /login HTTP 200 en 0.03 s
+
+Qué mostrar al profesor:
+   * Solo fallan las cargas y descargas; el resto del sistema y el portal siguen.
+   * Los archivos ya guardados en GCS no se pierden: el bucket es independiente.
+   * Restablecer: sudo python3 /opt/redhouse/deployment/gcp/fallo.py archivos restablecer
+
+== Restablecer Documentos
+   -> documentos-a, documentos-b: sanos en 22 s
+   -> Documentos /health/ready HTTP 200 en 0.26 s almacenamiento: {'state': 'up', 'required': True, 'provider': 'gcs'}
+
+== Desactivar temporalmente Redis
+   -> antes: consulta autenticada HTTP 200 en 0.05 s
+   -> redis detenido
+   -> donantes /health/ready HTTP 503 en 0.07 s  dependencias caídas: ['redis']
+   -> donantes /health/live HTTP 200 en 0.03 s (el proceso sigue vivo)
+   -> consulta autenticada con Redis caído HTTP 503 redis_unavailable en 0.04 s
+   -> inicio de sesión con Redis caído HTTP 503 redis_unavailable en 0.03 s
+
+Qué mostrar al profesor:
+   * Falla cerrada: las peticiones autenticadas responden 503 (sesiones y revocaciones viven en Redis); no hay 500 ni se cuelga.
+   * /health/ready marca redis: down; /health/live sigue en 200.
+   * Restablecer: sudo python3 /opt/redhouse/deployment/gcp/fallo.py redis restablecer (verás 200 otra vez).
+
+== Restablecer redis
+   -> redis: sanos en 6 s
+   -> donantes /health/ready HTTP 200 en 0.04 s
+   -> el mismo token de antes: HTTP 200 en 0.04 s
+
+== MongoDB no responde
+   -> eventos pendientes en la bandeja de salida antes: 0
+   -> mongodb detenido
+   -> auditoria /health/ready HTTP 503 en 1.27 s  dependencias caídas: ['mongodb']
+   -> auditoria /health/live HTTP 200 en 0.02 s (el proceso sigue vivo)
+   -> inicio de sesión (operación auditada) con MongoDB caído: HTTP 200
+   -> eventos pendientes en la bandeja de salida ahora: 2
+
+Qué mostrar al profesor:
+   * El negocio sigue (PostgreSQL); la auditoría documental queda retenida en la bandeja de salida, sin perderse.
+   * Auditoría /health/ready marca mongodb: down.
+   * Restablecer: sudo python3 /opt/redhouse/deployment/gcp/fallo.py mongodb restablecer (los pendientes bajan a 0).
+
+== Restablecer mongodb
+   -> mongodb: sanos en 6 s
+   -> auditoria /health/ready HTTP 200 en 0.13 s
+   -> eventos pendientes en la bandeja de salida: 0 (se entregaron a Auditoría)
+
+== PostgreSQL no responde
+   -> postgres detenido
+   -> donantes /health/ready HTTP 503 en 4.02 s  dependencias caídas: ['database', 'worker']
+   -> donantes /health/live HTTP 200 en 0.02 s (el proceso sigue vivo)
+   -> inicio de sesión HTTP 503 database_unavailable en 2.03 s
+
+Qué mostrar al profesor:
+   * Las operaciones responden 503 controlado (database_unavailable), sin escrituras a medias.
+   * /health/live 200 (proceso vivo) y /health/ready 503 (no listo).
+   * Restablecer: sudo python3 /opt/redhouse/deployment/gcp/fallo.py postgres restablecer
+
+== Restablecer postgres
+   -> postgres: sanos en 6 s
+   -> donantes /health/ready HTTP 503 en 4.04 s caídas: ['database', 'worker']
+   -> consulta pública HTTP 503 database_unavailable en 2.02 s
+
+== Estado de la plataforma
+   -> contenedores sanos: 30 de 30
+   -> identidad-acceso         /health/ready HTTP 200 en 0.05 s
+   -> donantes                 /health/ready HTTP 200 en 0.06 s
+   -> receptores               /health/ready HTTP 200 en 0.04 s
+   -> inventario               /health/ready HTTP 200 en 0.05 s
+   -> compatibilidad           /health/ready HTTP 200 en 0.03 s
+   -> priorizacion-geografia   /health/ready HTTP 200 en 0.03 s
+   -> transporte               /health/ready HTTP 200 en 0.02 s
+   -> custodia                 /health/ready HTTP 200 en 0.02 s
+   -> alertas                  /health/ready HTTP 200 en 0.02 s
+   -> auditoria                /health/ready HTTP 200 en 0.03 s
+   -> monitoreo                /health/ready HTTP 200 en 0.02 s
+   -> documentos               /health/ready HTTP 200 en 0.26 s
+   -> portal /login HTTP 200 en 0.01 s
+
+== PostgreSQL no responde
+   -> postgres detenido
+   -> donantes /health/ready HTTP 503 en 4.02 s  dependencias caídas: ['database', 'worker']
+   -> donantes /health/live HTTP 200 en 0.04 s (el proceso sigue vivo)
+
+== Restablecer postgres
+   -> postgres: sanos en 6 s
+   -> donantes /health/ready HTTP 200 en 0.02 s, listo 0 s después
+   -> consulta pública HTTP 200 en 0.1 s
+Qué mostrar al profesor:
+   * El usuario ve el correlation_id (en el portal: 'Referencia'); con él se encuentra la línea exacta del log:
+   * sudo docker logs redhouse-parcial2-donantes-b-1 2>&1 | grep a0a7a22d-fd0b-45f9-ac3a-bf6aec269b60
+   * La línea trae ruta, estado HTTP, código de error y tiempo; nunca contraseñas ni tokens.
+079dddb1835759b84262d3d294dcffffa919be52bc10ade71b466a88f7d80e43  /opt/redhouse/deployment/gcp/fallo.py
