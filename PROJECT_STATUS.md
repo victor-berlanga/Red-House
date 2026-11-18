@@ -2,6 +2,27 @@
 
 Las entradas están ordenadas de reciente a histórico; un pendiente de un corte anterior puede quedar sustituido explícitamente por una entrada posterior.
 
+## Android C «Ver detalle» cerrado en AVD; registro de incidencias e inventario académico — 17/11/2026
+
+**Android C «Ver detalle»: PASS** con el fixture conservado. Se restauró la copia fría final `lab-cold` (SHA-256 verificado) en
+`.local/` y los motores arrancaron sobre los datos originales sin reinicializar ni resembrar. El aviso persistido del worker
+(`APPOINTMENT_REMINDER` `543dbbb8…`, `donor1`) abrió su detalle por HTTP (200; `donor2` e id inexistente 404) y en el AVD nuevo
+`RedHouse_API30_arm64`: «Ver detalle» 200, reapertura tras `am force-stop` con sesión restaurada y nuevo detalle 200, y enlace de
+aviso en arranque frío 200. Sin escrituras sobre el aviso; cierre de sesión con sus familias revocadas. Ver
+[evidencia](documentation/evidencias/entrega-final/mobile/android-c-ver-detalle-20261117/RESULTADOS.md). Límites: el aviso se
+identificó por SQL de solo lectura (sin cotejar aún contra `reminder-oracle.private.json`, que viaja en `private-continuity`);
+el lanzador del laboratorio es nuevo y sin workers. Siguen abiertos en Android: encabezado «Volver/Avisos» duplicado en el
+detalle, severidad `INFO`/`ELIGIBLE` sin traducir, y dos pruebas JVM desfasadas (`DonorPaginationTest`,
+`TransportNextStepTest`; 78 casos, 2 fallidos ajenos a Avisos).
+
+**Registro de incidencias completo:** [Registro_incidencias.md](documentation/entrega-final/Registro_incidencias.md) pasa de
+selectivo a inventario de 424 incidencias (337 cerradas, 31 abiertas, 56 aceptadas como límite), cada una con fuente citada.
+**Inventario académico de entregables** agregado en [Matriz.md](documentation/entrega-final/continuidad/Matriz.md): 20
+entregables finales (9 completos, 7 parciales, 4 del equipo) y 32 apartados del expediente (27 completos, 5 parciales). No se
+cambió ningún estado CONT. 1.263 enlaces relativos comprobados, 0 rotos.
+
+**Entorno de exportación del informe** verificado en arm64 con el lock vigente; LibreOffice 26.8 instalado para el PDF.
+
 ## Android C «Ver detalle» de Avisos: causa en el backend corregida — 17/11/2026
 
 Continuación desde el traspaso, en un Mac nuevo (Darwin arm64), por Alberto Reyna con Claude Code. **Causa:** Alertas no

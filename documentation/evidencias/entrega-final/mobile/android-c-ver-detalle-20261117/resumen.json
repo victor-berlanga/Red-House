@@ -1,0 +1,74 @@
+{
+  "fecha": "2026-11-17",
+  "host": "Darwin arm64",
+  "entorno": "LOCAL académico restaurado desde lab-cold (copia fría 17:59 CST)",
+  "codigo_runtime": "ddea219 (incluye 0edf74d)",
+  "workers": false,
+  "aviso": {
+    "id_prefijo": "543dbbb8",
+    "message_code": "APPOINTMENT_REMINDER",
+    "destinatario": "donor1",
+    "cita_prefijo": "a3bf0a00",
+    "horario_local": "18:19:21",
+    "creado_local": "17:46:17"
+  },
+  "http": {
+    "bandeja_donor1": 200,
+    "detalle_donor1": 200,
+    "detalle_donor2_ajeno": 404,
+    "detalle_inexistente": 404
+  },
+  "android": {
+    "avd": "API 30 google_apis arm64-v8a",
+    "apk_sha256": "f85fcb7ad9482ad84e6af42cef8d60ea7c14a7c7532a5bd479e1f3d0640bee84",
+    "ver_detalle": "passed",
+    "get_detalle_ui": 200,
+    "reapertura_force_stop": "passed",
+    "sesion_restaurada_auth_me": 200,
+    "detalle_tras_reinicio": "passed",
+    "enlace_aviso_arranque_frio": "passed",
+    "marcar_leido": "no_tocado",
+    "cierre_sesion": "passed"
+  },
+  "oraculo_final": {
+    "aviso_status": "OPEN",
+    "acknowledged_by": null,
+    "avisos_total": 110,
+    "recordatorios_total": 4,
+    "sesiones_ventana": 3,
+    "sesiones_revocadas_sql": 3,
+    "sesiones_en_redis": 0,
+    "outbox_pendiente_final": 0,
+    "outbox_entregado_solo_dispatch": 74
+  },
+  "unit_tests": {
+    "total": 78,
+    "fallidos": 2,
+    "omitidos": 2,
+    "fallidos_ajenos_a_avisos": [
+      "DonorPaginationTest.requestedPageAndExistingFilterArePreserved",
+      "TransportNextStepTest.locationSummaryDoesNotImplyARecentFix"
+    ]
+  },
+  "limites": [
+    "private-continuity no descargado: sin cotejo con reminder-oracle/worker-once",
+    "lanzador reconstruido, no el original",
+    "sin LOCAL storage ni WSS",
+    "sin ProcessRecoveryTest instrumentado",
+    "INFO/ELIGIBLE sin traducir",
+    "push FCM sin evidencia"
+  ],
+  "sha256_capturas": {
+    "03-avisos.png": "e5fad3eb7f2225c5641167381c4bcdba392902c7fe51f7eaadc89c0d8dc951d5",
+    "04-ver-detalle.png": "8cbc88cd57dd7e06527521789c760631fe4629a4cf46e9ab360bd3175f2149ca",
+    "05-reapertura-tras-force-stop.png": "e7ffc69ad5bf6b0b33c668a8513406f917dc972ba9ccf4038b05c28f87455c02",
+    "07-detalle-tras-reinicio.png": "8cbc88cd57dd7e06527521789c760631fe4629a4cf46e9ab360bd3175f2149ca",
+    "08-enlace-aviso-arranque-frio.png": "e320b160ba34267af6ee655e785363d9b1897d286c9131f3c3ad8a0e9581bbaf",
+    "10-tras-cerrar-sesion.png": "d35800434edfe3e0ca68d1bfe395e76e3a602ec5329d029fe1728f7a96d372ed"
+  },
+  "sha256_recibos_privados": {
+    "http_probe": "8373b1619525aff2aa2b19cfc12330ef602f32f9e63db5ce015c9b85cc5954c5",
+    "close_oracle": "3961398c5812223c7167e745e3d3274623132f1985f61cd6b9178e9069887343",
+    "serve_lab": "7d6cae8c1ec9eeb50afdb3fbe8e938f867c54295a4b8778d266275888b1397f5"
+  }
+}

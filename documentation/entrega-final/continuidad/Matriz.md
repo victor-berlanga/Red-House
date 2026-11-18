@@ -47,10 +47,81 @@ La [continuación de lecturas con ritmo de 4–6 segundos](../../evidencias/entr
 | WORK-ORG | Registro de responsables/contribuciones, incidencias y matriz de requisitos | NO VERIFICADO hasta completar con acuerdos y hechos comprobables | Equipo; consolidación 08 | Integrantes aportan nombres y evidencias propias | Cada tarea/incidente tiene ID, responsable, estado y evidencia; no se deduce autoría por conteo de commits | Revisar tareas, PR/cambios, acuerdos, incidencias y evidencias; confirmación de integrantes cuando proceda |
 | WORK-DELIVERY | Video, exposición, «ubiquitous», reflexiones y entregas individuales | PENDIENTE HUMANO: no son acciones ejecutables por el agente ni evidencia derivable del repositorio | Cada integrante; compilación final 08 | Grabación/presentación real, acceso humano a Ubiquitous, aportes personales, envío individual | Video final real; exposición final efectuada; subida a Ubiquitous confirmada por el equipo; reflexión auténtica por integrante; cada entrega individual confirmada | Archivos/acta/enlace autorizado con metadatos; confirmación original del envío por el responsable; reflexión confirmada por autor. Sin inventar contenido, autoría ni evento |
 
+## Inventario académico de entregables
+
+Mapa de cada entregable de la consigna de la bandeja de entrega final (lista «ENTREGABLES FINALES» y contenido del expediente técnico) a su ubicación en el repositorio. Corte: 17/11/2026. El inventario ubica artefactos; no ejecuta pruebas ni cambia los estados PARCIAL/APROBADO de las tablas anteriores. Los enlaces son relativos a esta carpeta. Las secciones del [documento técnico final](../../markdowns/Reporte_tecnico_final.md) se citan por título, porque su numeración puede cambiar.
+
+**Estados.** `completo`: el artefacto existe y su evidencia no deja límites que afecten al entregable. `parcial`: existe con límites citados. `pendiente`: falta y el proyecto puede producirlo. `equipo`: lo aporta el equipo o cada integrante; no se deriva del repositorio (WORK-DELIVERY, WORK-ORG).
+
+### Entregables finales
+
+| # | Entregable | Ubicación en el repositorio | Estado | Límite o fuente |
+| --- | --- | --- | --- | --- |
+| E-01 | Código fuente completo | [`apps/`](../../../apps/): [servicios](../../../apps/services/), [web](../../../apps/web/), [móvil](../../../apps/mobile/), [escritorio](../../../apps/desktop/) | completo | Rama `entrega-final`; correcciones del 17/11 en `0edf74d` y `ddea219` |
+| E-02 | Repositorios organizados | [README raíz](../../../README.md), [organización](Organizacion.md), [índice documental](../../README.md) | completo | Monorrepositorio único con carpetas por producto |
+| E-03 | Sistema desplegado en la nube y en Ubiquitous | Nube: [evidencias GCP](../../evidencias/gcp/), [Inventario 17/11](../../evidencias/entrega-final/gcp-inventario-20261117/RESULTADOS.md), [custodia y TLS 17/11](../../evidencias/entrega-final/gcp-custody-clock-lab-labels-20261117/RESULTADOS.md), [despliegue](../../../deployment/gcp/) | parcial | Publicaciones acotadas con TLS hasta el 24/11; sin constancia de publicación de `0edf74d`, `ddea219` ni de la corrección de `/health/live` ([INC-282](../Registro_incidencias.md#inc-282)). Ubiquitous es la plataforma humana de entrega: lo aporta el equipo (WORK-DELIVERY) |
+| E-04 | Sistema web | [`apps/web/`](../../../apps/web/), [operación del portal](../portal/Operacion.md), [matriz del portal](../portal/Matriz.md) | parcial | CONT-02 PARCIAL: aceptación integral del portal e I06 pendiente |
+| E-05 | Microservicios | [`apps/services/`](../../../apps/services/README.md), [fichas](../modelos/Fichas_microservicios.md) | completo | Doce servicios con contratos; la aceptación funcional sigue en CONT-01…10 |
+| E-06 | Aplicación Android instalable | [`apps/mobile/`](../../../apps/mobile/README.md), [build final 17/11](../../evidencias/entrega-final/mobile/final-build-20261117/RESULTADOS.md), [matriz móvil](../mobile/Matriz.md) | parcial | Cuatro variantes compilaron; el APK sigue siendo debug y Android se acepta en emulador (CONT-03/10) |
+| E-07 | Aplicación de escritorio instalable | [`apps/desktop/`](../../../apps/desktop/README.md), [paquete macOS Intel 02](../../evidencias/entrega-final/desktop/paquete-macos-20261117-02/RESULTADOS.md), [distribución](Distribucion_escritorio.md) | parcial | Solo macOS Intel con smoke; Windows 11 sin aceptación ([INC-423](../Registro_incidencias.md#inc-423)); sin firma ni notarización |
+| E-08 | Bases de datos | [`data/database/`](../../../data/database/README.md), [esquema](../../../data/database/schema.sql), [modelo físico](../modelos/Modelo_fisico.md) | completo | Esquema 21 con migraciones por servicio |
+| E-09 | Scripts de inicialización | [`install.sh`](../../../install.sh), [`start.sh`](../../../start.sh), [`deployment/bootstrap.py`](../../../deployment/bootstrap.py), [scripts SQL](../../../data/database/postgresql/) | completo | Variantes `.bat` para Windows mediante WSL; la restauración de respaldo en otro equipo no está probada ([INC-420](../Registro_incidencias.md#inc-420)) |
+| E-10 | Contenedores | [`compose.yaml`](../../../compose.yaml), [Dockerfile web](../../../apps/web/Dockerfile), [`deployment/`](../../../deployment/README.md) | completo | Treinta contenedores sanos en la última publicación GCP citada en E-03 |
+| E-11 | Swagger | `/docs` y `/openapi.json` por servicio ([guía](../../../apps/services/README.md)); [capturas de endpoints](../../evidencias/gcp/swagger-endpoints/index.html) | completo | OpenAPI de Identidad corregido el 17/11 en `ddea219` ([INC-394](../Registro_incidencias.md#inc-394)) |
+| E-12 | Pruebas Locust | [`locustfile.py`](../../../apps/services/tests/locustfile.py), [transaccional](../../../apps/services/tests/locust_transactions.py), [sostenida](../../../apps/services/tests/locust_sustained.py); [lecturas con ritmo](../../evidencias/entrega-final/carga-lecturas-paced-20261117/RESULTADOS.md) | parcial | p95 con 24 usuarios incumplido en la serie histórica ([INC-290](../Registro_incidencias.md#inc-290)); capacidad y estrés pendientes |
+| E-13 | Documentación completa | [Documento técnico final](../../markdowns/Reporte_tecnico_final.md), [Word](../../docx/Reporte_tecnico_final.docx), [PDF](../../pdf/Reporte_tecnico_final.pdf) | parcial | El documento declara consolidación parcial; Word/PDF son del 14/11 y el Markdown del 17/11 |
+| E-14 | Manuales | [Instalación y operación](../../markdowns/Instalacion_y_operacion.md), [operación del portal](../portal/Operacion.md), READMEs de [móvil](../../../apps/mobile/README.md) y [escritorio](../../../apps/desktop/README.md) | parcial | Sin manual de usuario consolidado por rol y plataforma (ver X-28 y X-29) |
+| E-15 | Video | [Guion de demostración](Demostracion_final.md) | equipo | Grabación final real pendiente (WORK-DELIVERY) |
+| E-16 | Presentación | [Guion de demostración](Demostracion_final.md) | equipo | Exposición final efectuada pendiente (WORK-DELIVERY) |
+| E-17 | Evidencias de GCP | [`evidencias/gcp/`](../../evidencias/gcp/RESULTADOS.md) y recibos `gcp-*` de [`evidencias/entrega-final/`](../../evidencias/entrega-final/gcp-xmlschema-20261116/RESULTADOS.md) | completo | Cada recibo conserva sus límites y fallos originales |
+| E-18 | Bitácora de participación | Antecedentes: [bitácora histórica](../../historial/bitacora/ESTADO_HASTA_2026_10_12.md), [coevaluación del primer parcial](../../Coevaluacion.txt) | equipo | WORK-ORG NO VERIFICADO: responsables y contribuciones los confirman los integrantes; no se deducen por commits |
+| E-19 | Registro de incidencias | [Registro de incidencias](../Registro_incidencias.md) | completo | 424 incidencias con fuente citada al 17/11; responsables nominales los aporta el equipo (WORK-ORG) |
+| E-20 | Reflexión individual de cada integrante | n/a | equipo | Aporte personal de cada integrante (WORK-DELIVERY) |
+
+### Expediente técnico
+
+| # | Contenido exigido | Ubicación en el repositorio | Estado | Límite o fuente |
+| --- | --- | --- | --- | --- |
+| X-01 | Portada | [Word](../../docx/Reporte_tecnico_final.docx), [PDF](../../pdf/Reporte_tecnico_final.pdf) | parcial | Portada del 14/11; falta regenerar con el corte final |
+| X-02 | Resumen ejecutivo | [Documento técnico](../../markdowns/Reporte_tecnico_final.md), «Resumen ejecutivo» | completo | — |
+| X-03 | Descripción del problema | «Problema, objetivos, beneficios y alcance»; [análisis del problema](../../markdowns/Analisis_del_problema.md) | completo | — |
+| X-04 | Objetivos | «Problema, objetivos, beneficios y alcance» | completo | — |
+| X-05 | Alcance | «Problema, objetivos, beneficios y alcance» | completo | — |
+| X-06 | Usuarios | «Actores, requisitos y trazabilidad»; [perfiles y permisos](../../markdowns/Matriz_de_perfiles_y_permisos.md) | completo | — |
+| X-07 | Requerimientos | [Requerimientos funcionales y no funcionales](../../markdowns/Requerimientos_funcionales_y_no_funcionales.md); [trazabilidad](../../markdowns/Matriz_de_trazabilidad.md) | completo | — |
+| X-08 | Reglas de negocio | [Reglas de negocio](../../markdowns/Reglas_de_negocio.md); [reglas y fuentes clínicas](../../markdowns/Reglas_y_fuentes_clinicas.md) | completo | Protocolos clínicos oficiales siguen externos |
+| X-09 | Arquitectura | [Arquitectura](../../markdowns/Arquitectura.md), [diseño arquitectónico](../../markdowns/Diseno_arquitectonico.md); «Arquitectura ejecutable y evolución» | completo | — |
+| X-10 | Diagramas | [Diagramas finales](../modelos/diagramas/), [diagramas de base de datos](../../database-diagrams/README.md) | completo | — |
+| X-11 | Modelo relacional | [Modelo relacional](../modelos/Modelo_relacional.md), [modelo físico](../modelos/Modelo_fisico.md), [esquema](../../../data/database/schema.sql) | completo | Esquema 21 |
+| X-12 | Diseño MongoDB | «Persistencia, modelos y archivos privados»; [datos y persistencia](../../markdowns/Datos_y_persistencia.md) | completo | — |
+| X-13 | Diseño Redis | «Persistencia, modelos y archivos privados»; [datos y persistencia](../../markdowns/Datos_y_persistencia.md) | completo | — |
+| X-14 | Diseño de buckets | «Persistencia, modelos y archivos privados»; [plan GCS](PLAN_GCS_REAL.md), [rutas de almacenamiento](Rutas_almacenamiento_autonomas.md) | completo | GCS opcional para operar; WORK-STORAGE PARCIAL |
+| X-15 | Microservicios | [Fichas de microservicios](../modelos/Fichas_microservicios.md), [guía de servicios](../../../apps/services/README.md) | completo | — |
+| X-16 | Contratos JSON | `apps/services/ms_*/contracts/` (p. ej. [Alertas](../../../apps/services/ms_alertas/contracts/)) | completo | — |
+| X-17 | Contratos XML | XSD en `apps/services/ms_*/contracts/`; [copia del cliente de escritorio](../../../apps/desktop/redhouse_desktop/contracts/) | completo | — |
+| X-18 | Swagger | Ver E-11 | completo | — |
+| X-19 | Seguridad | «Seguridad, privacidad y auditoría» | completo | — |
+| X-20 | Algoritmos | [Algoritmos](../../markdowns/Algoritmos.md); «Algoritmos explicables» | completo | — |
+| X-21 | Infraestructura de GCP | «Infraestructura, operación y recuperación»; [`deployment/gcp/`](../../../deployment/gcp/) | completo | Dos réplicas en un host; sin alta disponibilidad multizona |
+| X-22 | Contenedores | Ver E-10 | completo | — |
+| X-23 | Monitoreo | [Servicio de monitoreo](../../../apps/services/servicio_monitoreo/README.md); «Infraestructura, operación y recuperación» | completo | — |
+| X-24 | Plan de pruebas | [Pruebas y validación](../../markdowns/Pruebas_y_validacion.md) | completo | — |
+| X-25 | Resultados de Locust | «Pruebas y resultados de rendimiento»; ver E-12 | parcial | [INC-290](../Registro_incidencias.md#inc-290) abierta; capacidad y estrés pendientes |
+| X-26 | Resultados de rendimiento | «Pruebas y resultados de rendimiento»; [matriz de optimización](../optimizacion/Matriz.md) | parcial | La comparación de caché no demuestra mejora general |
+| X-27 | Manual de instalación | [Instalación y operación](../../markdowns/Instalacion_y_operacion.md) | completo | — |
+| X-28 | Manual técnico | «Manuales, artefactos y reproducción»; READMEs de [servicios](../../../apps/services/README.md), [web](../../../apps/web/README.md), [móvil](../../../apps/mobile/README.md) y [escritorio](../../../apps/desktop/README.md) | parcial | Sin documento único titulado manual técnico; el contenido está repartido |
+| X-29 | Manual de usuario | [Operación del portal](../portal/Operacion.md), [pantallas y permisos](../portal/Pantallas_y_permisos.md) | parcial | Sin manual de usuario para móvil ni escritorio |
+| X-30 | Limitaciones | «Limitaciones, riesgos y trabajo pendiente» | completo | — |
+| X-31 | Trabajo futuro | «Limitaciones, riesgos y trabajo pendiente» | completo | — |
+| X-32 | Conclusiones | «Conclusiones técnicas sustentadas» | completo | — |
+
+**Resumen.** Entregables finales: 9 completos, 7 parciales, 0 pendientes y 4 del equipo. Expediente técnico: 27 completos, 5 parciales, 0 pendientes y 0 del equipo. Los parciales del expediente son portada, resultados de Locust y de rendimiento, manual técnico y manual de usuario.
+
 ## Registro de cambios
 
 | Fecha | Cambio | Evidencia |
 | --- | --- | --- |
+| 2026-11-17 | Inventario académico de entregables agregado: 20 entregables finales y 32 contenidos del expediente mapeados a su ubicación. Registro de incidencias convertido en registro completo con fuente citada (424 entradas). Sin cambios de estado en CONT ni en trabajos transversales; WORK-ORG sigue NO VERIFICADO por responsables nominales. | [Inventario](#inventario-académico-de-entregables); [registro de incidencias](../Registro_incidencias.md) |
 | 2026-11-16 | WORK-DESK / CONT-01/08: carga documental HLA y revisión real Qt/XML con MFA/reauth, mismo antecedente y archivo CLEAN. Destino final integrado con 14 pruebas dirigidas y formulario Cocoa inspeccionado; aceptación API del destino todavía pendiente. Cadena E2E-B continúa, sin cierre de etapa. | [HLA real](../../evidencias/entrega-final/desktop/iteracion-hla-documento-real/RESULTADOS.md), [destino](../../evidencias/entrega-final/desktop/iteracion-destino/RESULTADOS.md) |
 | 2026-11-16 | Etapa07 / WORK-PROXY: carga HTTP12 con tres fuentes XML actuales, 1.472 peticiones medidas sin fallos, 12 identidades efectivas y 873 escrituras totales conciliadas. Publicación en Red House: 25 aplicaciones actualizadas, 30 contenedores sanos, controles protegidos y negativos XML aprobados. Fallos iniciales conservados; certificado aún requiere comprobar cobertura del 23. | [Carga](../../evidencias/entrega-final/carga-20261114/xml-lock-http12-20261116/RESULTADOS.md), [GCP](../../evidencias/entrega-final/gcp-xmlschema-20261116/RESULTADOS.md) |
 | 2026-11-16 | CONT-03/07/09: agenda iOS, carrera válida por último cupo y recordatorio correlacionados; dos certificados inválidos bloquearon acceso y ambos retornos válidos recuperaron cuenta sin credenciales, con confirmación humana. Corrección posterior del arranque y alta preliminar/bucket opcional compilados; no se atribuyen esas negativas al binario nuevo. | [Agenda y TLS](../../evidencias/entrega-final/mobile/ios-resume-20261116/LOTE-HORARIOS.md), [arranque](../../evidencias/entrega-final/mobile/startup-owner-20261116/RESULTADOS.md), [alta compilada](../../evidencias/entrega-final/mobile/preliminary-gcs-20261116/RESULTADOS.md) |
