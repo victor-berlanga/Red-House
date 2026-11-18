@@ -11,3 +11,18 @@ Una restauración de Redis anterior a una revocación puede resucitar sesiones. 
 El RTO observado va desde el incidente simulado hasta la descarga autorizada tras restaurar las cuatro dependencias; el RPO observado es el intervalo entre la confirmación documental más reciente conservada y el incidente. Son mediciones de un escenario controlado, sin detección de fallas, reconstrucción de host, transferencia de copias externas, claves perdidas ni procesos concurrentes. No son garantías, objetivos aprobados, recuperación de GCS o evidencia de alta disponibilidad. Una posible restauración real requiere además política aprobada, inventario de roles/secretos, copias fuera del host, reconciliación de transacciones posteriores y validación aislada previa.
 
 El receptor ClamD es real únicamente cuando se proporciona explícitamente `REDHOUSE_TEST_CLAMD_PORT`; en caso contrario el fixture utiliza un receptor doble y deberá informarse como tal. Las carpetas temporales contienen material sensible de prueba y se eliminan conforme al ciclo del fixture; el informe y JUnit no deben incluir contraseñas, tokens, dumps ni rutas privadas de objetos.
+
+## Objetivos propuestos (RTO y RPO)
+
+Objetivos **propuestos por el equipo** el 18/11/2026 para la operación académica en un solo host GCP. No son un SLA ni están aprobados por un tercero. Se miden desde que se detecta el incidente; el RPO es la pérdida máxima aceptable de datos confirmados.
+
+| Componente | RPO objetivo | RTO objetivo | Cómo se cumple | Estado |
+|---|---|---|---|---|
+| PostgreSQL (21 esquemas, roles) | ≤ 24 h | ≤ 60 min | `deployment/backup.py --verify` diario y restauración en un clúster nuevo | Técnica ensayada; **falta programar el respaldo diario** |
+| MongoDB (bitácoras de auditoría) | ≤ 24 h | ≤ 60 min | Mismo respaldo, copia con `fsyncLock` | Igual que PostgreSQL |
+| Redis (sesiones, ACL) | Sin objetivo de datos: las sesiones se invalidan al restaurar | ≤ 5 min | RDB + ACL; invalidar sesiones y volver a iniciar sesión | Ensayado (invalidación explícita) |
+| Archivos privados locales | ≤ 24 h | ≤ 60 min | Copia del volumen `private-files` junto con la base | Ensayado en laboratorio |
+| Configuración y claves | Sin pérdida (copia privada fuera del host) | ≤ 30 min | `.local/compose` y llaves en respaldo privado autorizado | Copia privada existente; recuperación de claves **no ensayada** |
+
+**Medición contra los objetivos.** Tres repeticiones del ensayo aislado del 18/11 ([evidencia](../../evidencias/entrega-final/recuperacion-20261118/RESULTADOS.md)) dieron un RTO técnico de 3.9 a 4.3 s y un RPO de 6.6 a 7.0 s. Cumplen los objetivos, pero solo cubren la restauración con copias ya disponibles en el mismo equipo. El margen restante del RTO es para detectar el incidente, decidir, preparar el host y transferir las copias, y nada de eso está medido. El RPO de 24 h depende de correr el respaldo cada día. Hoy se ejecuta a mano, así que mientras no exista una tarea programada el objetivo no está garantizado.
+

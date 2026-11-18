@@ -1,0 +1,8 @@
+.                                                                        [100%]
+=============================== warnings summary ===============================
+tests/test_storage_recovery.py::test_coordinated_recovery_in_isolated_lab
+  tests/test_storage_recovery.py:68: PytestWarning: record_property is incompatible with junit_family 'xunit2' (use 'legacy' or 'xunit1')
+    def test_coordinated_recovery_in_isolated_lab(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+1 passed, 1 warning in 22.76s

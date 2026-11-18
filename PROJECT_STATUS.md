@@ -16,6 +16,9 @@ Las entradas están ordenadas de reciente a histórico; un pendiente de un corte
   → 503 controlado). Demostración en vivo con `components.sh detener/reiniciar`: con Alertas caído Donantes siguió
   agendando y el aviso llegó 3.4 s después de reiniciar; con Identidad caído los tokens vigentes siguieron sirviendo y la
   validación dependiente respondió 503 en 9 ms. [Evidencia](documentation/evidencias/entrega-final/fallos-consigna-20261118/RESULTADOS.md).
+- **Recuperación (RTO/RPO):** ensayo aislado repetido **3/3** (RTO técnico 3.9–4.3 s, RPO 6.6–7.0 s) y objetivos
+  **propuestos** en el plan: RPO ≤ 24 h / RTO ≤ 60 min para bases y archivos, Redis ≤ 5 min, configuración ≤ 30 min.
+  Pendiente para cumplir el RPO real: programar `backup.py --verify` diario. [Evidencia](documentation/evidencias/entrega-final/recuperacion-20261118/RESULTADOS.md).
 
 ## Android: UI de detalle, mensaje 401, sesión y cambio de cuenta — 18/11/2026
 
