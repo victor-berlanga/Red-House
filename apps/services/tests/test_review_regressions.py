@@ -398,7 +398,7 @@ def test_configured_storage_health_does_not_report_unconfigured(p, monkeypatch):
         target.list_blobs.return_value = []
         assert p.request("documentos", "GET", "/health/storage", user=None).json()[
             "data"
-        ] == {"state": "up", "required": True}
+        ] == {"state": "up", "required": True, "provider": "gcs"}
 
 
 def test_additive_migration_preserves_v1_data_and_is_repeatable(p):

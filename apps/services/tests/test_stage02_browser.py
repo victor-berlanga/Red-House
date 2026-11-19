@@ -9,6 +9,7 @@ import time
 from pathlib import Path
 from uuid import uuid4
 
+import pytest
 from werkzeug.serving import make_server, make_ssl_devcert
 
 from .conftest import QuietHandler
@@ -20,6 +21,13 @@ from .test_stage02_corrections import graph_body
 from .test_web_integration import create_app
 
 
+# Corrida separada (Operacion_y_reproduccion.md): el enrolamiento MFA revoca las
+# sesiones de medical1, medical2 y auditor1 de la plataforma compartida, así que
+# en la suite completa dejaría en 401 a todas las pruebas posteriores.
+@pytest.mark.skipif(
+    not os.environ.get("REDHOUSE_STAGE02_EVIDENCE"),
+    reason="Requiere REDHOUSE_STAGE02_EVIDENCE, Chrome y Playwright; se ejecuta en una corrida separada porque el enrolamiento MFA revoca las sesiones compartidas.",
+)
 def test_stage02_real_browser_autonomous_reinforced(p, tmp_path):
     from ms_identidad_acceso.strong_auth import totp
 

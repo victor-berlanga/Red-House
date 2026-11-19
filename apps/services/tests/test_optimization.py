@@ -413,7 +413,10 @@ def test_monitor_real_storage_outages_and_recovery(p):
         for name, proc in (("postgres", pg), ("mongodb", mongo)):
             if proc.poll() is not None:
                 p.env.processes.remove(proc)
-                p.env.launch(p.env.state["infrastructure_commands"][name], name)
+                # test_resilience localiza el proceso por este PID.
+                p.env.state["infrastructure_pids"][name] = p.env.launch(
+                    p.env.state["infrastructure_commands"][name], name
+                ).pid
         p.env.wait(lambda: psycopg.connect(p.env.state["database_admin"]).close())
         with MongoClient(
             p.env.state["mongo_admin"], serverSelectionTimeoutMS=1000

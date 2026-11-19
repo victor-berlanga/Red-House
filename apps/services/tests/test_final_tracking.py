@@ -739,8 +739,12 @@ def test_two_production_wss_processes_single_and_total_outage(p, tracking, tmp_p
         assert receive(subscriber, "position.updated", "xml")["position"]["cursor"] == 1
         processes[1].kill()
         processes[1].wait(timeout=10)
+        # Tras la réplica el bucle del socket envía «tracking.status» de inmediato
+        # (last_status=0); si llegó antes del kill queda en el búfer. Se consumen
+        # esos marcos y el canal debe terminar en error, nunca seguir vivo.
         with pytest.raises((OSError, websocket.WebSocketException)):
-            subscriber.recv()
+            for _ in range(10):
+                subscriber.recv()
         subscriber.close()
         with pytest.raises(requests.RequestException):
             requests.get(p.urls["transporte"] + "/health/live", timeout=1)

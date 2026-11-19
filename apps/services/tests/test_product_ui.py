@@ -13,7 +13,10 @@ def test_admin_redirects_and_weekday_roundtrip(web, p):
     admin = login(web, p, "admin1")
     page = admin.get("/panel")
     assert b"Roles y par" not in page.data
-    assert admin.get("/configuracion").location == "/administracion/users"
+    # Desde 9ab04c4 «Configuración» es un índice propio, con acceso a usuarios.
+    settings = admin.get("/configuracion")
+    assert settings.status_code == 200
+    assert etree.HTML(settings.data).xpath('//a[@href="/administracion/users"]')
     assert admin.get("/administracion/components").location == "/catalogos/sites"
     donor = login(web, p, "donor1")
     assert donor.get("/configuracion").status_code == 403
@@ -63,6 +66,10 @@ def test_admin_redirects_and_weekday_roundtrip(web, p):
 
 
 def test_notifications_read_post_is_authorized_and_translated(web, p):
+    # Las alertas toman created_at al entregarse. Si el outbox trae eventos de
+    # pruebas previas, al drenarlos después de este caso generan avisos más
+    # recientes que empujan el propio fuera de la primera página: se entregan antes.
+    p.drain(rounds=1000)
     operator = login(web, p, "operator1")
     donor = p.ok(
         "donantes",
@@ -88,7 +95,7 @@ def test_notifications_read_post_is_authorized_and_translated(web, p):
             "reason": "Evaluación humana de prueba para notificación",
         },
     )
-    p.drain()
+    p.drain(rounds=1000)
     doc = etree.HTML(operator.get("/notificaciones").data)
     assert "Evaluación del donante registrada" in " ".join(doc.itertext())
     assert "DONOR_REVIEWED" not in " ".join(doc.itertext())
@@ -175,7 +182,13 @@ def test_campaign_registration_context_and_cancel_modal(web, p):
 
 def test_personal_dashboards_timezone_and_help(web, p):
     public = web.test_client()
-    response = public.get("/recuperar-acceso", follow_redirects=True)
+    # Desde 9ab04c4 la recuperación es autoservicio (ya no redirige a la ayuda).
+    response = public.get("/recuperar-acceso")
+    assert response.status_code == 200
+    parsed = etree.HTML(response.data)
+    assert parsed.xpath('//form[@method="post"]//input[@name="username"]')
+    assert parsed.xpath('//a[@href="/recuperar-acceso/confirmar"]')
+    response = public.get("/login?help=access")
     assert response.status_code == 200
     assert etree.HTML(response.data).xpath('//details[@id="access-help" and @open]')
     for user, expected in [

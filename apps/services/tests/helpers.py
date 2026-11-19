@@ -221,3 +221,16 @@ def telemetry_body(p, shipment):
         "latitude": 25.6,
         "longitude": -100.3,
     }
+
+
+def park_foreign_export_jobs(p):
+    """process() atiende primero el PENDING más antiguo de la base compartida.
+
+    Los trabajos que otras pruebas dejaron pendientes se apartan como
+    RETRYABLE para que el caso procese el suyo sin depender del orden.
+    """
+    with p.owner("documentos") as conn:
+        conn.execute(
+            "UPDATE export_jobs SET status='RETRYABLE', last_error='test_isolation' "
+            "WHERE status='PENDING'"
+        )

@@ -10,7 +10,7 @@ from .test_final_quality import api
 
 
 @pytest.mark.parametrize("fmt", ["json", "xml"])
-def test_next_appointment_is_owned_future_and_not_limited_by_list_page(p, fmt):
+def test_next_appointment_is_owned_future_and_not_limited_by_list_page(p, fmt, request):
     username = "next-" + uuid4().hex[:12]
     password = "Synthetic-appointment-password"
     api(
@@ -36,6 +36,9 @@ def test_next_appointment_is_owned_future_and_not_limited_by_list_page(p, fmt):
         None,
     )
     p.tokens[username] = session["access_token"]
+    # La cuenta usa otra contraseña: si su token quedara en la plataforma, el
+    # fixture «p» intentaría renovarlo al vencer (15 min) y fallaría todo lo demás.
+    request.addfinalizer(lambda: p.tokens.pop(username, None))
     donor = api(
         p,
         "donantes",
@@ -155,18 +158,18 @@ def test_next_appointment_is_owned_future_and_not_limited_by_list_page(p, fmt):
         )["total"]
         == 0
     )
-    assert (
-        api(
-            p,
-            "donantes",
-            "/api/v1/appointments/agenda",
-            user="donor1",
-            fmt=fmt,
-            method="GET",
-        )["total"]
-        == 0
+    # Seed donor1 is another account in the same institution. Other tests may
+    # book for donor1, so ownership is checked against this campaign only.
+    foreign = api(
+        p,
+        "donantes",
+        "/api/v1/appointments/agenda?page_size=100",
+        user="donor1",
+        fmt=fmt,
+        method="GET",
     )
-    # Seed donor1 is another account in the same institution.
+    assert foreign["total"] == len(foreign["items"])
+    assert all(item["campaign_id"] != campaign["id"] for item in foreign["items"])
     assert upcoming("donor1") is None
     assert upcoming("donor2") is None
     assert (

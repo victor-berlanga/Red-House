@@ -79,7 +79,11 @@ def test_monitor_records_and_serves_status_when_postgres_unavailable(p):
             assert len(result["items"]) == len(p.apps)
         response = p.request("monitoreo", "GET", "/api/v1/status", user="auditor1")
         assert response.status_code == 200, response.text
-        assert len(response.json()["data"]["latest"]) == len(p.apps)
+        # Otras pruebas registran servicios sintéticos (p. ej. «opt-*» en
+        # test_optimization); se exige uno, y solo uno, por cada servicio real.
+        services = [row["service"] for row in response.json()["data"]["latest"]]
+        assert len(services) == len(set(services))
+        assert set(p.apps) <= set(services)
     finally:
         app.config["DATABASE_URL"] = original
 

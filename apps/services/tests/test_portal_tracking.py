@@ -214,7 +214,41 @@ def test_web_password_recovery_real_smtp_single_use(p, web, monkeypatch):
         )
 
 
-def test_web_consent_and_hourly_agenda_persist(p, web):
+@pytest.fixture
+def fresh_donor1(p):
+    # Una cuenta DONOR solo admite un donante vinculado (409 al repetir) y otras
+    # pruebas de la sesión ya lo crean para «donor1»: se usa una cuenta nueva.
+    from uuid import uuid4
+
+    previous = p.tokens["donor1"]
+    owner = p.ok("identidad_acceso", "GET", "/api/v1/auth/me", user="admin1")
+    username = "portal-" + uuid4().hex[:16] + "@redhouse.test"
+    p.ok(
+        "identidad_acceso",
+        "POST",
+        "/api/v1/users",
+        user="admin1",
+        data={
+            "username": username,
+            "password": p.env.state["password"],
+            "role": "DONOR",
+            "tenant_id": owner["tenant_id"],
+        },
+    )
+    p.tokens["donor1"] = p.ok(
+        "identidad_acceso",
+        "POST",
+        "/api/v1/auth/login",
+        user=None,
+        data={"username": username, "password": p.env.state["password"]},
+    )["access_token"]
+    try:
+        yield username
+    finally:
+        p.tokens["donor1"] = previous
+
+
+def test_web_consent_and_hourly_agenda_persist(p, web, fresh_donor1):
     from uuid import uuid4
     from .helpers import iso
     from .test_web_integration import post
@@ -231,7 +265,7 @@ def test_web_consent_and_hourly_agenda_persist(p, web):
             "consent": True,
         },
     )
-    client = login(web, p, "donor1")
+    client = login(web, p, fresh_donor1)
     post(
         client,
         f"/donantes/donor/{donor['id']}/consentimientos/nuevo",

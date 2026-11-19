@@ -319,7 +319,8 @@ def test_coordinated_recovery_in_isolated_lab(
                         "-h",
                         "127.0.0.1",
                         "-k",
-                        str(tmp_path),
+                        # tmp_path en macOS excede los 103 bytes de un socket Unix.
+                        str(lab_root),
                     ],
                     stdout=log,
                     stderr=subprocess.STDOUT,

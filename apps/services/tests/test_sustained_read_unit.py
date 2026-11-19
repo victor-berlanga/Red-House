@@ -5,6 +5,7 @@ import importlib
 import json
 import signal
 import sys
+import time
 from pathlib import Path
 from types import SimpleNamespace
 
@@ -43,7 +44,11 @@ def test_warmup_failures_survive_stats_reset(tmp_path, monkeypatch):
     marker = tmp_path / "phase.json"
     monkeypatch.setenv("REDHOUSE_LOAD_MARKER", str(marker))
     times = iter((1.0, 31.0, 151.0))
-    monkeypatch.setattr(module.time, "monotonic", lambda: next(times))
+    # Reloj falso solo para este módulo: parchar time.monotonic global lo
+    # consumen también los hilos de la plataforma de sesión (StopIteration).
+    monkeypatch.setattr(
+        module, "time", SimpleNamespace(monotonic=lambda: next(times), time=time.time)
+    )
     monkeypatch.setattr(module, "observe_users", lambda _environment, _seconds: 6)
     monkeypatch.setattr(module, "_user_errors", 0)
     resets = []

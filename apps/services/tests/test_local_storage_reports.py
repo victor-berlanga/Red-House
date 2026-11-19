@@ -7,7 +7,7 @@ import pytest
 from pypdf import PdfReader
 
 from .final_receivers import clamd_receiver
-from .helpers import iso
+from .helpers import iso, park_foreign_export_jobs
 from .test_final_operations import CONFIRM
 
 
@@ -16,6 +16,7 @@ def test_local_report_provider_survives_retry(p, tmp_path, monkeypatch, format):
     from ms_documentos.reports import process
     from redhouse.errors import APIError
 
+    park_foreign_export_jobs(p)
     app = p.apps["documentos"]
     monkeypatch.setitem(app.config, "STORAGE_PROVIDER", "local")
     monkeypatch.setitem(app.config, "STORAGE_LOCAL_ROOT", str(tmp_path))

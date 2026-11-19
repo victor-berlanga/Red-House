@@ -11,7 +11,7 @@ from PIL import Image
 from pypdf import PdfReader
 
 from .final_receivers import clamd_receiver, smtp_receiver, push_receiver
-from .helpers import iso, resource
+from .helpers import iso, park_foreign_export_jobs, resource
 from .test_final_identity import email_token
 from .test_final_operations import CONFIRM
 from .test_final_quality import api
@@ -327,6 +327,7 @@ def test_documents_scan_private_access_and_export_formats(p, monkeypatch, fmt):
             method="GET",
         )
         resource(p)
+        park_foreign_export_jobs(p)
         for format in ("CSV", "PDF", "XLSX"):
             job = api(
                 p,

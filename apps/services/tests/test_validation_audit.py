@@ -508,7 +508,10 @@ def test_web_audit_preserves_filters_and_csv_escapes_formulas(web, p):
     response = client.get(path)
     assert response.status_code == 200, response.text[:1000]
     root = etree.HTML(response.data)
-    detail_link = root.xpath('//a[text()="Investigar"]/@href')[0]
+    # Desde 9ab04c4 el detalle se abre desde la acción de cada renglón.
+    detail_link = root.xpath(
+        '//td[@data-label="Acción"]/a[contains(@class,"record-link")]/@href'
+    )[0]
     assert "return_to=" in detail_link and resource in detail_link
     detail = client.get(detail_link)
     assert detail.status_code == 200

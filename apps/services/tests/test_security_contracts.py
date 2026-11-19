@@ -40,8 +40,23 @@ def test_health_swagger_and_openapi_all_services(p, service):
         ]
         == "3.1.0"
     )
+
+    def documented_response(contract, operation):
+        # La ruta retirada de reautenticación solo documenta su 410 compartida
+        # (redhouse/openapi.py); las demás documentan su estado de éxito.
+        if contract["name"] == "obsolete_reauthentication":
+            assert str(contract["status"]) not in operation["responses"]
+            response = operation["responses"]["410"]
+        else:
+            response = operation["responses"][str(contract["status"])]
+        if "$ref" in response:
+            response = schema["components"]["responses"][
+                response["$ref"].rsplit("/", 1)[1]
+            ]
+        return response
+
     assert all(
-        "application/xml" in op["responses"][str(c["status"])]["content"]
+        "application/xml" in documented_response(c, op)["content"]
         for c in p.apps[service].extensions["contracts"]
         for op in [
             schema["paths"][__import__("re").sub(r"<([^>]+)>", r"{\1}", c["path"])][

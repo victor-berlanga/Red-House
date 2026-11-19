@@ -25,7 +25,8 @@ def test_documents_configuration_upgrade_repeatable_preserves_sessions(
 ):
     env = Environment(
         tempfile.mkdtemp(prefix="rh-upgrade-", dir="/tmp"),
-        os.environ["REDHOUSE_TEST_MONGOD"],
+        # Sin variable, Environment.init resuelve mongod como en conftest.
+        os.environ.get("REDHOUSE_TEST_MONGOD"),
     )
     try:
         env.init(seed=False)

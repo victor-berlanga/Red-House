@@ -131,7 +131,20 @@ def test_backup_inventory_includes_finding_history(p, monkeypatch):
 
     monkeypatch.setattr(module, "command", query)
     rows = module.sql_state([])
-    assert len(rows) == 108
+    # Cada tabla de red_house más web_runtime.session_revocations; el número
+    # crece con las migraciones, así que se compara contra el catálogo real.
+    tables = json.loads(
+        query(
+            [
+                "SELECT json_agg(tablename) FROM pg_tables WHERE schemaname='red_house'",
+            ]
+        )
+    )
+    assert len(tables) >= 108
+    assert {row["name"] for row in rows} == set(tables) | {
+        "web_runtime.session_revocations"
+    }
+    assert len(rows) == len(tables) + 1
     assert {
         "audit_findings",
         "audit_finding_actions",

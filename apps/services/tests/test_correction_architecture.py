@@ -160,11 +160,23 @@ def test_all_report_families_formats_private_jobs_and_retries(
                     ).status_code
                     == 403
                 )
+                # La extracción ocurre en el worker (ms_documentos.reports.hydrate):
+                # al crear el trabajo solo se guarda la credencial sellada.
                 with p.owner("documentos") as conn:
-                    rows = conn.execute(
-                        "SELECT rows FROM export_jobs WHERE id=%s", (job["id"],)
-                    ).fetchone()[0]
-                assert rows, family
+                    rows, sealed = conn.execute(
+                        "SELECT rows, sealed_authorization FROM export_jobs WHERE id=%s",
+                        (job["id"],),
+                    ).fetchone()
+                assert rows == [] and sealed, family
+                with app.app_context():
+                    process(limit=100)
+                    process(limit=100)
+                with p.owner("documentos") as conn:
+                    rows, sealed = conn.execute(
+                        "SELECT rows, sealed_authorization FROM export_jobs WHERE id=%s",
+                        (job["id"],),
+                    ).fetchone()
+                assert rows and sealed is None, family
                 assert not any(
                     set(row)
                     & {"display_name", "value", "studies", "password_hash", "latitude"}
@@ -173,9 +185,6 @@ def test_all_report_families_formats_private_jobs_and_retries(
                 if family == "SHIPMENTS":
                     observed = next(row for row in rows if row["id"] == shipment["id"])
                     assert float(observed["observed_seconds"]) >= 0
-                with app.app_context():
-                    process(limit=100)
-                    process(limit=100)
                 ready = api(
                     p,
                     "documentos",
@@ -265,7 +274,7 @@ def test_all_report_families_formats_private_jobs_and_retries(
 
 
 def test_schema_11_extraction_backup_restore_and_idempotency(p, tmp_path):
-    from redhouse.shared_migrations import upgrade
+    from redhouse.shared_migrations import LATEST_VERSION, upgrade
 
     root = Path(__file__).resolve().parents[3]
     source = subprocess.check_output(
@@ -368,14 +377,12 @@ def test_schema_11_extraction_backup_restore_and_idempotency(p, tmp_path):
                 )
                 for _ in range(2):
                     with conn.transaction():
-                        assert upgrade(conn) == 13
-                assert (
-                    conn.execute(
-                        "SELECT row_to_json(f) FROM access_documentos.files f WHERE id=%s",
-                        (file,),
-                    ).fetchone()[0]
-                    == before
-                )
+                        assert upgrade(conn) == LATEST_VERSION
+                # Migración 019: las filas previas conservan su proveedor GCS.
+                assert conn.execute(
+                    "SELECT row_to_json(f) FROM access_documentos.files f WHERE id=%s",
+                    (file,),
+                ).fetchone()[0] == {**before, "storage_provider": "gcs"}
                 assert conn.execute(
                     "SELECT result FROM access_documentos.idempotency WHERE key='migration-key'"
                 ).fetchone()[0] == {"id": job}

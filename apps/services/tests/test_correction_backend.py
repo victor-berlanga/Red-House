@@ -617,12 +617,25 @@ def test_report_window_applies_before_limit(p):
         data=dict(report="INVENTORY", format="CSV", from_at=start, until_at=end),
     )
     assert job["status"] == "PENDING"
-    with p.owner("documentos") as conn:
-        rows = conn.execute(
-            "SELECT rows FROM export_jobs WHERE id=%s", (job["id"],)
-        ).fetchone()[0]
-        assert any(r["id"] == unit["id"] for r in rows)
-        assert all(not r["folio"].startswith("BULK-") for r in rows)
+    # La extracción ocurre en el worker; se ejecuta solo la de este trabajo.
+    from flask import g
+    from ms_documentos.reports import hydrate
+    from redhouse.db import transaction
+
+    with p.apps["documentos"].app_context():
+        with transaction() as conn:
+            row = conn.execute(
+                "SELECT * FROM export_jobs WHERE id=%s FOR UPDATE", (job["id"],)
+            ).fetchone()
+            g.actor = {
+                "id": str(row["user_id"]),
+                "role": None,
+                "tenant_id": str(row["tenant_id"]),
+                "region_id": str(row["region_id"]) if row["region_id"] else None,
+            }
+            rows = hydrate(conn, row)["rows"]
+    assert any(r["id"] == unit["id"] for r in rows)
+    assert all(not r["folio"].startswith("BULK-") for r in rows)
 
 
 def test_empirical_forecast_positive_independent_oracle(p, record_property):

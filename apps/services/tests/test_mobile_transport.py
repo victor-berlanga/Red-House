@@ -6,6 +6,38 @@ from .test_final_tracking import tracking, connect, send, receive
 from .helpers import iso, move
 
 
+@pytest.fixture(autouse=True)
+def transport1_device_quota(p):
+    # El límite de 10 dispositivos vigentes por usuario es real. Otras pruebas de
+    # la sesión registran simuladores para transport1 sin revocarlos; se revocan
+    # antes de cada caso para que la cuota no dependa del orden de ejecución.
+    owner = p.env.state["accounts"]["transport1"]["id"]
+    page, stale = 1, []
+    while True:
+        result = p.ok(
+            "identidad_acceso",
+            "GET",
+            f"/api/v1/devices?page={page}&page_size=100",
+            user="admin1",
+        )
+        stale += [d for d in result["items"] if d["user_id"] == owner and d["active"]]
+        if page * result["page_size"] >= result["total"]:
+            break
+        page += 1
+    for device in stale:
+        p.ok(
+            "identidad_acceso",
+            "POST",
+            f"/api/v1/devices/{device['id']}/revoke",
+            user="admin1",
+            data={
+                "version": device["version"],
+                "human_confirmation": True,
+                "reason": "Aislamiento de cuota entre pruebas",
+            },
+        )
+
+
 @pytest.mark.parametrize("source", ["ANDROID", "IOS"])
 def test_mobile_registration_is_owner_scoped_and_revocable(p, source):
     body = {"id": str(uuid4()), "source": source, "label": "Teléfono de integración"}
