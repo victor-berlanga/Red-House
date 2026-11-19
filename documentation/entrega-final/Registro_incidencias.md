@@ -1,6 +1,6 @@
 # Registro de incidencias de entrega final
 
-Corte: 18/11/2026. Registro **completo** de las incidencias documentadas en el repositorio: 442 entradas, de la más reciente a la más antigua. Sustituye al registro selectivo anterior, cuyas once fichas se conservan al final como [fichas ampliadas](#fichas-ampliadas).
+Corte: 18/11/2026. Registro **completo** de las incidencias documentadas en el repositorio: 445 entradas, de la más reciente a la más antigua. Sustituye al registro selectivo anterior, cuyas once fichas se conservan al final como [fichas ampliadas](#fichas-ampliadas).
 
 ## Alcance y método
 
@@ -24,14 +24,14 @@ Corte: 18/11/2026. Registro **completo** de las incidencias documentadas en el r
 
 | Área | Cerradas | Abiertas | Aceptadas como límite | Total |
 |---|---|---|---|---|
-| Servicios, datos y algoritmos | 63 | 9 | 16 | 88 |
-| Portal web | 27 | 4 | 7 | 38 |
-| Móvil (Android/iOS) | 63 | 8 | 14 | 85 |
-| Escritorio Qt | 41 | 6 | 4 | 51 |
-| Proxy/gateway y WSS | 3 | 0 | 3 | 6 |
-| Despliegue e infraestructura | 42 | 3 | 6 | 51 |
-| Arnés y pruebas | 107 | 2 | 6 | 115 |
-| Documentación | 4 | 0 | 1 | 5 |
+| Servicios, datos y algoritmos | 49 | 7 | 15 | 71 |
+| Portal web | 29 | 4 | 8 | 41 |
+| Móvil (Android/iOS) | 63 | 10 | 16 | 89 |
+| Escritorio Qt | 40 | 5 | 3 | 48 |
+| Proxy/gateway y WSS | 3 | 0 | 1 | 4 |
+| Despliegue e infraestructura | 49 | 3 | 7 | 59 |
+| Arnés y pruebas | 115 | 5 | 7 | 127 |
+| Documentación | 5 | 0 | 1 | 6 |
 
 El área se asigna por el componente de cada fila; los fallos del arnés, del entorno o del proceso de publicación se separan de los defectos de producto.
 
