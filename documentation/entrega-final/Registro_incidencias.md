@@ -39,9 +39,10 @@ El área se asigna por el componente de cada fila; los fallos del arnés, del en
 
 | ID | Fecha | Componente | Síntoma |
 |---|---|---|---|
+| [INC-445](#inc-445) | 18/11/2026 | CI de servicios (GitHub Actions) | 86 pruebas de integración fallan solo en GitHub; arreglos de PostgreSQL 14 e importaciones aplicados |
 | [INC-428](#inc-428) | 18/11/2026 | Android / accesibilidad | Acciones repetidas sin contexto, estado sin `liveRegion`, títulos sin `heading()` |
 | [INC-424](#inc-424) | 17/11/2026 | Accesibilidad (portal, Android, iOS, escritorio) | TalkBack, VoiceOver completo y accesibilidad de escritorio sin aceptación |
-| [INC-423](#inc-423) | 17/11/2026 | Escritorio Qt (distribución Windows 11) | Sin build, instalación ni recorrido aceptado en Windows 11; solo paquete macOS Intel comprobado |
+| [INC-423](#inc-423) | 17/11/2026 | Escritorio Qt (distribución Windows 11) | Sin instalación ni recorrido aceptado en Windows 11; el CI construye y arranca el paquete en Windows Server 2025 ([Release](https://github.com/victor-berlanga/Red-House/releases/tag/entrega-final-v1)) |
 | [INC-420](#inc-420) | 17/11/2026 | Restauración de respaldo (continuidad) | Restauración del respaldo lógico/frío en otro equipo no probada |
 | [INC-416](#inc-416) | 17/11/2026 | Qt escritorio (receptor y solicitud iOS B) | Campo largo de estudios muestra solo la parte final y el nombre de la tabla se abrevia |
 | [INC-400](#inc-400) | 17/11/2026 | iOS Lab (arnés XCTest) | Dos capturas XCTest fallaron con LocalAuthentication −4, incluso con dispositivo desbloqueado |
