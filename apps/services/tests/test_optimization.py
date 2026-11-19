@@ -55,7 +55,9 @@ def test_monitor_history_cost_and_equivalence(p):
         conn.execute("ANALYZE red_house.service_health_check")
     with p.owner("monitoreo") as conn:
         conn.row_factory = dict_row
-        conn.execute("SET statement_timeout=5000")
+        # La variante anterior recorre todo el histórico a propósito; en runners
+        # lentos de GitHub pasa de 5 s. El límite solo evita una consulta colgada.
+        conn.execute("SET statement_timeout=30000")
         old, old_time = measure(lambda: conn.execute(OLD_LATEST).fetchall())
         new, new_time = measure(lambda: conn.execute(NEW_LATEST).fetchall())
         assert old == new
