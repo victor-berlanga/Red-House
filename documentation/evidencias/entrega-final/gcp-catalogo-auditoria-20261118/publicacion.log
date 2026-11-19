@@ -1,0 +1,39 @@
+imagen en uso: redhouse/auditoria:xmlschema-20261116-01
+sha nuevo: 3bef3ed2c929a9b74e5ca8099bab977cc4defd84e9304f641d6ded412f3d4fa2
+dentro: /app/apps/services/redhouse/audit_catalog.py (0:0 755)
+sha256:51c1ffa99f178254a1900686e06fe035a6adce4518ca4a2608d4a8bdaf4a128b
+ Container redhouse-parcial2-auditoria-b-1 Recreate 
+ Container redhouse-parcial2-auditoria-b-1 Recreated 
+ Container redhouse-parcial2-auditoria-b-1 Starting 
+ Container redhouse-parcial2-auditoria-b-1 Started 
+ Container redhouse-parcial2-auditoria-b-1 Waiting 
+ Container redhouse-parcial2-auditoria-b-1 Healthy 
+ Container redhouse-parcial2-auditoria-a-1 Recreate 
+ Container redhouse-parcial2-auditoria-a-1 Recreated 
+ Container redhouse-parcial2-auditoria-a-1 Starting 
+ Container redhouse-parcial2-auditoria-a-1 Started 
+ Container redhouse-parcial2-auditoria-a-1 Waiting 
+ Container redhouse-parcial2-auditoria-a-1 Healthy 
+--- contenedores cambiados:
+< redhouse-parcial2-auditoria-a-1 5ff568810de6
+< redhouse-parcial2-auditoria-b-1 52dfd0332122
+> redhouse-parcial2-auditoria-a-1 4c301b8ba957
+> redhouse-parcial2-auditoria-b-1 c2256d7d610f
+--- sanos: 30 de 30
+redhouse-parcial2-auditoria-a-1 3bef3ed2c929a9b74e5ca8099bab977cc4defd84e9304f641d6ded412f3d4fa2 redhouse/auditoria:audit-catalog-20261118-01
+   ALERT_SUBSCRIPTION_ROTATED ('Suscripción de alertas renovada', 'BUSINESS', 'RECORDED')
+   LABEL_ISSUANCE_AUTHORIZED ('Emisión de etiqueta autorizada', 'DECISION', 'RECORDED')
+   OPERATIONAL_CONTACTS_READ ('Contactos operativos consultados', 'READ', 'RECORDED')
+   SHIPMENT_OPERATIONAL_CONTEXT_READ ('Contexto operativo de traslado consultado', 'READ', 'RECORDED')
+   SHIPMENT_OPERATIONAL_HANDOVER_READ ('Datos de entrega de traslado consultados', 'READ', 'RECORDED')
+   SHIPMENT_RESOURCE_IDENTIFIER_VERIFIED ('Identificador del recurso verificado en traslado', 'BUSINESS', 'RECORDED')
+   TRACKING_UNASSIGNED ('Rastreo detenido', 'BUSINESS', 'RECORDED')
+redhouse-parcial2-auditoria-b-1 3bef3ed2c929a9b74e5ca8099bab977cc4defd84e9304f641d6ded412f3d4fa2 redhouse/auditoria:audit-catalog-20261118-01
+   ALERT_SUBSCRIPTION_ROTATED ('Suscripción de alertas renovada', 'BUSINESS', 'RECORDED')
+   LABEL_ISSUANCE_AUTHORIZED ('Emisión de etiqueta autorizada', 'DECISION', 'RECORDED')
+   OPERATIONAL_CONTACTS_READ ('Contactos operativos consultados', 'READ', 'RECORDED')
+   SHIPMENT_OPERATIONAL_CONTEXT_READ ('Contexto operativo de traslado consultado', 'READ', 'RECORDED')
+   SHIPMENT_OPERATIONAL_HANDOVER_READ ('Datos de entrega de traslado consultados', 'READ', 'RECORDED')
+   SHIPMENT_RESOURCE_IDENTIFIER_VERIFIED ('Identificador del recurso verificado en traslado', 'BUSINESS', 'RECORDED')
+   TRACKING_UNASSIGNED ('Rastreo detenido', 'BUSINESS', 'RECORDED')
+imagen sha256:51c1ffa99f178254a1900686e06fe035a6adce4518ca4a2608d4a8bdaf4a128b
