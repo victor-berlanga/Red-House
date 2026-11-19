@@ -280,12 +280,6 @@ def submit(
             field(
                 "reauth_password", "Confirma tu contraseña", "password", required=False
             ),
-            field(
-                "reauth_otp",
-                "Código nuevo de segundo factor",
-                "password",
-                required=False,
-            ),
         ]
     error, status, field_errors = None, 200, []
     fields = prepare_fields(fields, service, path, method)
@@ -336,7 +330,8 @@ def submit(
                     "Revisa los datos señalados.", 422, details=conversion_errors
                 )
             password = data.pop("reauth_password", None)
-            otp = data.pop("reauth_otp", None)
+            # Sin segundo factor en el portal (19/11/2026): solo contraseña.
+            otp = None
             if transform:
                 data = transform(data)
             command_key = request.form.get("idempotency_key") or uuid4().hex

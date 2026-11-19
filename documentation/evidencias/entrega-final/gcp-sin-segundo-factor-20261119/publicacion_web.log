@@ -1,0 +1,17 @@
+
+
+imagen en uso: redhouse-web:web-config-ios-20261118-01
+sha256:3d909327dacabebc74f6b7e4adfbec77ad72ccf4279062244176f5ff3626dcb4
+ Container redhouse-parcial2-web-1 Recreate 
+ Container redhouse-parcial2-web-1 Recreated 
+ Container redhouse-parcial2-web-1 Starting 
+ Container redhouse-parcial2-web-1 Started 
+ Container redhouse-parcial2-web-1 Waiting 
+ Container redhouse-parcial2-web-1 Healthy 
+--- contenedores cambiados:
+< redhouse-parcial2-web-1 cf47b3c09afe
+> redhouse-parcial2-web-1 c79a3c40bb71
+--- sanos: 30 de 30
+apps/web/src/presentation/templates/login.html 5d02b9ea8d325990cf654ffce0623bb50fd21e3106c284aaa6524124b1c7eaa0
+apps/web/src/integration/routes/common.py 2d6d19cb401fece8d830eb8078d315afaf9e29bffd2e42bb441abe09c4d0d1bc
+imagen sha256:3d909327dacabebc74f6b7e4adfbec77ad72ccf4279062244176f5ff3626dcb4
