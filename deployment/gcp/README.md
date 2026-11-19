@@ -121,6 +121,8 @@ Esta sección aplica solo si una instalación autorizada opta por GCS; no descri
 
 El despliegue tiene una VM y una instancia de cada almacén. Las réplicas API permiten ensayar fallos de aplicación; la infraestructura completa no tiene redundancia. El acceso público utiliza HTTPS, sin dominio. El cliente Android 0.3.1 apunta a este gateway; su aceptación integral, escritorio, validación clínica y operación productiva siguen pendientes. [Resultados y límites verificados](../../documentation/evidencias/gcp/RESULTADOS.md).
 
+**Segundo factor desactivado para la demostración (19/11/2026).** El login de la VM ya no pide el código: `MFA_REQUIRED_ROLES=[]` en `apps/identidad_acceso.json` y los 4 factores enrolados quedaron inactivos. Solo cambió la configuración y los datos de la VM, no el código. Reversa: `sudo bash /opt/redhouse/.local/compose/quitar_mfa.sh revertir`. [Detalle y comprobación](../../documentation/evidencias/entrega-final/gcp-sin-segundo-factor-20261119/RESULTADOS.md).
+
 ## Datos para la demostración
 
 El 21 de octubre se amplió la base de GCP con datos ficticios relacionados, conservando los registros anteriores. Cada hospital original dispone de 34 donantes, 30 campañas, 59 citas y 30 donaciones. También se agregaron inventarios, receptores, solicitudes y 30 traslados con archivos reales privados. `donor1` y `donor2` tienen expediente propio y 30 citas cada uno. Los listados muestran 20 filas por página; usar «Siguiente» para ver el resto.
