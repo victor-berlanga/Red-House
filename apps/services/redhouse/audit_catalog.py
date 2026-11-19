@@ -329,6 +329,44 @@ ACTIONS.update(
     }
 )
 
+# Eventos que ya se emitían sin entrada y se mostraban «sin clasificación»
+# (detectados por test_new_event_classification_visibility_and_export).
+ACTIONS.update(
+    {
+        "ALERT_SUBSCRIPTION_ROTATED": (
+            "Suscripción de alertas renovada",
+            "BUSINESS",
+            "RECORDED",
+        ),
+        "LABEL_ISSUANCE_AUTHORIZED": (
+            "Emisión de etiqueta autorizada",
+            "DECISION",
+            "RECORDED",
+        ),
+        "OPERATIONAL_CONTACTS_READ": (
+            "Contactos operativos consultados",
+            "READ",
+            "RECORDED",
+        ),
+        "SHIPMENT_OPERATIONAL_CONTEXT_READ": (
+            "Contexto operativo de traslado consultado",
+            "READ",
+            "RECORDED",
+        ),
+        "SHIPMENT_OPERATIONAL_HANDOVER_READ": (
+            "Datos de entrega de traslado consultados",
+            "READ",
+            "RECORDED",
+        ),
+        "SHIPMENT_RESOURCE_IDENTIFIER_VERIFIED": (
+            "Identificador del recurso verificado en traslado",
+            "BUSINESS",
+            "RECORDED",
+        ),
+        "TRACKING_UNASSIGNED": ("Rastreo detenido", "BUSINESS", "RECORDED"),
+    }
+)
+
 CATEGORIES = {
     "BUSINESS": "Operaciones de negocio",
     "DECISION": "Decisiones y autorizaciones",
