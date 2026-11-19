@@ -75,7 +75,7 @@ Mapa de cada entregable de la consigna de la bandeja de entrega final (lista «E
 | E-16 | Presentación | [Guion de demostración](Demostracion_final.md), [guion de fallos en vivo](Guion_fallos_en_vivo.md) | equipo | La hace otro integrante del equipo (WORK-DELIVERY) |
 | E-17 | Evidencias de GCP | [`evidencias/gcp/`](../../evidencias/gcp/RESULTADOS.md) y recibos `gcp-*` de [`evidencias/entrega-final/`](../../evidencias/entrega-final/gcp-xmlschema-20261116/RESULTADOS.md) | completo | Cada recibo conserva sus límites y fallos originales |
 | E-18 | Bitácora de participación | [Plantilla y datos del repositorio](../Bitacora_participacion.md); antecedentes: [bitácora histórica](../../historial/bitacora/ESTADO_HASTA_2026_10_12.md), [coevaluación del primer parcial](../../Coevaluacion.txt) | equipo | La llenan y confirman los integrantes; los commits no miden contribución |
-| E-19 | Registro de incidencias | [Registro de incidencias](../Registro_incidencias.md) | completo | 442 incidencias al 18/11 (351 cerradas, 33 abiertas, 58 aceptadas como límite); responsables nominales los aporta el equipo (WORK-ORG) |
+| E-19 | Registro de incidencias | [Registro de incidencias](../Registro_incidencias.md) | completo | 445 incidencias al 18/11 (353 cerradas, 34 abiertas, 58 aceptadas como límite); responsables nominales los aporta el equipo (WORK-ORG) |
 | E-20 | Reflexión individual de cada integrante | [Plantilla con preguntas guía](../Bitacora_participacion.md#reflexión-individual-una-por-integrante-cada-quien-escribe-la-suya) | equipo | Cada integrante escribe la suya (WORK-DELIVERY) |
 
 ### Expediente técnico
