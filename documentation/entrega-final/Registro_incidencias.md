@@ -17,20 +17,20 @@ Corte: 18/11/2026. Registro **completo** de las incidencias documentadas en el r
 
 | Estado | Incidencias |
 |---|---|
-| Cerradas | 351 |
-| Abiertas | 33 |
+| Cerradas | 353 |
+| Abiertas | 34 |
 | Aceptadas como límite | 58 |
-| **Total** | **442** |
+| **Total** | **445** |
 
 | Área | Cerradas | Abiertas | Aceptadas como límite | Total |
 |---|---|---|---|---|
 | Servicios, datos y algoritmos | 63 | 9 | 16 | 88 |
 | Portal web | 27 | 4 | 7 | 38 |
 | Móvil (Android/iOS) | 63 | 8 | 14 | 85 |
-| Escritorio Qt | 40 | 6 | 4 | 50 |
+| Escritorio Qt | 41 | 6 | 4 | 51 |
 | Proxy/gateway y WSS | 3 | 0 | 3 | 6 |
 | Despliegue e infraestructura | 42 | 3 | 6 | 51 |
-| Arnés y pruebas | 106 | 1 | 6 | 113 |
+| Arnés y pruebas | 107 | 2 | 6 | 115 |
 | Documentación | 4 | 0 | 1 | 5 |
 
 El área se asigna por el componente de cada fila; los fallos del arnés, del entorno o del proceso de publicación se separan de los defectos de producto.
@@ -73,7 +73,7 @@ El área se asigna por el componente de cada fila; los fallos del arnés, del en
 
 ## Índice por fecha
 
-- **Noviembre 2026:** [18/11](#d-2026-11-18) (12) · [17/11](#d-2026-11-17) (61) · [16/11](#d-2026-11-16) (69) · [14/11](#d-2026-11-14) (42) · [13/11](#d-2026-11-13) (101) · [12/11](#d-2026-11-12) (8) · [11/11](#d-2026-11-11) (2) · [10/11](#d-2026-11-10) (18) · [09/11](#d-2026-11-09) (22) · [06/11](#d-2026-11-06) (19) · [04/11](#d-2026-11-04) (6) · [02/11](#d-2026-11-02) (9) · [01/11](#d-2026-11-01) (10)
+- **Noviembre 2026:** [18/11](#d-2026-11-18) (15) · [17/11](#d-2026-11-17) (61) · [16/11](#d-2026-11-16) (69) · [14/11](#d-2026-11-14) (42) · [13/11](#d-2026-11-13) (101) · [12/11](#d-2026-11-12) (8) · [11/11](#d-2026-11-11) (2) · [10/11](#d-2026-11-10) (18) · [09/11](#d-2026-11-09) (22) · [06/11](#d-2026-11-06) (19) · [04/11](#d-2026-11-04) (6) · [02/11](#d-2026-11-02) (9) · [01/11](#d-2026-11-01) (10)
 - **Octubre 2026:** [31/10](#d-2026-10-31) (14) · [29/10](#d-2026-10-29) (4) · [28/10](#d-2026-10-28) (4) · [27/10](#d-2026-10-27) (1) · [22/10](#d-2026-10-22) (4) · [21/10](#d-2026-10-21) (11) · [20/10](#d-2026-10-20) (4) · [19/10](#d-2026-10-19) (11) · [15/10](#d-2026-10-15) (3) · [14/10](#d-2026-10-14) (1)
 
 ## Registro
@@ -82,10 +82,13 @@ Columnas: ID, componente, síntoma, causa, corrección o commit, evidencia, esta
 
 <a name="d-2026-11-18"></a>
 
-### 18/11/2026 (12)
+### 18/11/2026 (15)
 
 | ID | Componente | Síntoma | Causa | Corrección / commit | Evidencia | Estado | Fuente |
 |---|---|---|---|---|---|---|---|
+| <a name="inc-445"></a>INC-445 | CI de servicios (GitHub Actions) | `services.yml` nunca terminó en verde: primero formato y dependencias; luego ~390 pruebas sin arrancar, colección rota de las pruebas de carga y dos pruebas dependientes del equipo local; con eso resuelto, 86 de 890 pruebas de integración fallan solo en GitHub | El runner Ubuntu 24.04 instala PostgreSQL 16 y el proyecto fija 14; `locustfile` solo era importable desde Locust; `test_xml_compilation_isolation` no pasaba `PYTHONPATH` al proceso hijo (también fallaba en local); `components.sh` exige el intérprete de `install.sh`; una prueba de cierre de Locust esperaba el comportamiento anterior a `6a85c09` | `8bb0147`, `3942b55`, `d7d0fd4`, `1fcedaa` (PostgreSQL 14 desde PGDG, ruta de `locustfile`, `PYTHONPATH`, intérprete en CI). Las 86 restantes se investigan contra la corrida local completa | [corrida 44421598440](https://github.com/victor-berlanga/Red-House/actions/runs/44421598440) | abierta | [corrida 44421598440](https://github.com/victor-berlanga/Red-House/actions/runs/44421598440) |
+| <a name="inc-444"></a>INC-444 | CI de escritorio (GitHub Actions) | `desktop.yml` fallaba en los cuatro sistemas, así que no generaba paquetes | Contratos empaquetados desfasados de sus propietarios; 26 dobles de prueba anteriores a `OperationContext`; después, las 286 pruebas pasaban, pero el intérprete abortaba al salir (134 en Linux: «pure virtual method called»; 139 en macOS), porque `test_institutional_catalogue_ui` dejaba la ventana y el diálogo vivos hasta el cierre de Qt | `d6fa688` (contratos), `5e5b595` (dobles), `1fcedaa` (destruir los widgets antes de salir). La corrida 44421598448 quedó en verde en Windows, macOS Intel, macOS Apple Silicon y Linux, con 286 pruebas y arranque del paquete en cada uno | [release-20261118](../../documentation/evidencias/entrega-final/release-20261118/RESULTADOS.md) | cerrada | [corrida 44421598448](https://github.com/victor-berlanga/Red-House/actions/runs/44421598448) |
+| <a name="inc-443"></a>INC-443 | Escritorio / resultado de laboratorio | Si la sesión cambiaba mientras el diálogo de resultado estaba abierto, al aceptar no se enviaba nada y tampoco se avisaba (prueba marcada `xfail`) | Desde `9f4a3ff` el ciclo del diálogo salía en silencio cuando `binding.current()` era falso | `2cc3af9`: se muestra «La sesión cambió. Vuelve a consultar antes de guardar.» y no se envía con otra cuenta. El `xfail` pasó a ser una aserción: 286 pruebas aprobadas | [release-20261118](../../documentation/evidencias/entrega-final/release-20261118/RESULTADOS.md) | cerrada | `apps/desktop/tests/test_resource_quality_ui.py` |
 | <a name="inc-425"></a>INC-425 | Android / sesión | Con la sesión abierta y revocada en el servidor, la app pedía login pero mostraba «Cuenta o contraseña incorrectas.» sin que el usuario escribiera nada | Todo 401 `unauthorized` se presentaba como credencial inválida, también fuera del formulario de login | `failureMessage` en `Api.kt`/`App.kt`: con sesión abierta muestra «Sesión vencida o revocada. Inicia sesión.»; intento 2 PASS; commit `9918724` | [evidencia](../../documentation/evidencias/entrega-final/mobile/android-ui-talkback-sesion-20261118/RESULTADOS.md) | cerrada | [PROJECT_STATUS](../../PROJECT_STATUS.md) |
 | <a name="inc-426"></a>INC-426 | Android / Avisos | El detalle de Avisos repetía «Volver» y el título de la barra | `OperationalDetail` dibujaba su propio encabezado dentro de una pantalla con barra | Detalle y `CoordinatorPlanning` sin encabezado propio; verificado en AVD; commit `9918724` | [evidencia](../../documentation/evidencias/entrega-final/mobile/android-ui-talkback-sesion-20261118/RESULTADOS.md) | cerrada | [PROJECT_STATUS](../../PROJECT_STATUS.md) |
 | <a name="inc-427"></a>INC-427 | Android (pruebas JVM) | `DonorPaginationTest` y `TransportNextStepTest` fallaban (78 casos, 2 fallidos) | Dobles y expectativas desfasados respecto de `fd4fbcf` (contrato de horarios) y `84b3394` (texto de ubicación) | Pruebas actualizadas al contrato vigente; 81 casos, 0 fallos; commit `9918724` | [evidencia](../../documentation/evidencias/entrega-final/mobile/android-ui-talkback-sesion-20261118/RESULTADOS.md) | cerrada | [PROJECT_STATUS](../../PROJECT_STATUS.md) |
