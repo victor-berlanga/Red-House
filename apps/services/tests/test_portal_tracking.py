@@ -21,11 +21,11 @@ def test_browser_ticket_scope_publish_expiry_and_web_csrf(p, tracking, web):
     assert p.tokens["coordinator1"].encode() not in page.data
     assert client.post(f"/traslados/{identifier}/mapa/acceso").status_code == 400
     assert (
-        login(web, p, "donor1").get(f"/traslados/{identifier}/mapa").status_code == 403
+        login(web, p, "auditor1").get(f"/traslados/{identifier}/mapa").status_code
+        == 403
     )
     assert (
-        login(web, p, "transport2").get(f"/traslados/{identifier}/mapa").status_code
-        == 403
+        login(web, p, "admin1").get(f"/traslados/{identifier}/mapa").status_code == 403
     )
     ticket = p.ok("transporte", "POST", path, user="coordinator1")
     assert ticket["expires_in"] == 90
@@ -265,9 +265,10 @@ def test_web_consent_and_hourly_agenda_persist(p, web, fresh_donor1):
             "consent": True,
         },
     )
-    client = login(web, p, fresh_donor1)
+    # DONOR ya no usa el portal: el personal institucional registra por el donante.
+    client = login(web, p, "operator1")
     post(
-        client,
+        login(web, p, "medical1"),
         f"/donantes/donor/{donor['id']}/consentimientos/nuevo",
         {
             "policy_version": "SYNTHETIC-PORTAL-1",

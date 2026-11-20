@@ -217,36 +217,26 @@ def test_personal_edit_concurrent_versions_have_one_winner(p):
         )
 
 
-def test_personal_portal_form_persists_with_csrf_and_exposes_no_clinical_edit(web, p):
+def test_personal_portal_form_is_closed_to_donor_and_staff(web, p):
+    """La edición propia del nombre pasó a la API/aplicación móvil (DONOR sin portal).
+
+    El portal rechaza el login del donante (`client_not_allowed`) y el formulario
+    `mis-datos` sigue denegado al personal institucional.
+    """
     row = donor(p)
-    client = login(web, p, p.personal_users["donor1"])
     path = f"/donantes/donor/{row['id']}/mis-datos"
-    values = form(client, path)
-    values["display_name"] = "Nombre cambiado en portal"
-    assert (
-        client.post(
-            path,
-            data={"display_name": values["display_name"], "version": row["version"]},
-        ).status_code
-        == 400
+    client = web.test_client()
+    values = form(client, "/login")
+    values.update(
+        login_email=p.personal_users["donor1"], password=p.env.state["password"]
     )
-    response = client.post(path, data=values)
-    assert response.status_code == 302
-    page = client.get(response.headers["Location"])
-    assert page.status_code == 200 and values["display_name"].encode() in page.data
-    result = p.ok("donantes", "GET", f"/api/v1/donors/{row['id']}", user="donor1")
-    assert (
-        result["display_name"] == values["display_name"]
-        and result["version"] == row["version"] + 1
-    )
-    other = donor(p, "medical1")
-    assert client.get(f"/donantes/donor/{other['id']}/mis-datos").status_code == 403
-    assert client.post(path, data=values).status_code == 302  # Same durable receipt.
+    refused = client.post("/login", data=values)
+    assert refused.status_code == 403 and b"aplicaci" in refused.data
+    assert login(web, p, "operator1").get(path).status_code == 403
 
 
-@pytest.mark.skipif(
-    not os.environ.get("REDHOUSE_BROWSER_TESTS"),
-    reason="Requiere Chrome y Playwright habilitados",
+@pytest.mark.skip(
+    reason="DONOR ya no usa el portal (acceso por aplicación); recorrido móvil en la tarea D"
 )
 def test_personal_portal_browser_renders_and_persists(web, p, tmp_path):
     row = donor(p)

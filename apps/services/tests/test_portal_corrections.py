@@ -51,7 +51,7 @@ def test_configuration_publication_privacy_versions_and_metrics(p, web):
     )
     saved = p.ok("identidad_acceso", "GET", "/api/v1/portal-policy", user="admin1")
     assert saved["version"] == 1
-    assert login(web, p, "donor1").get("/configuracion/politica").status_code == 403
+    assert login(web, p, "operator1").get("/configuracion/politica").status_code == 403
     assert admin.get("/configuracion").status_code == 200
     for owner, user in (
         ("donantes", "operator1"),
@@ -408,4 +408,4 @@ def test_page_csv_distinguishes_account_institution_from_authorized_scope(web, p
     )
     assert foreign.status_code == 200
     assert not list(csv.DictReader(io.StringIO(foreign.data.decode("utf-8-sig"))))
-    assert login(web, p, "donor1").get("/inventario?format=csv").status_code == 403
+    assert login(web, p, "auditor1").get("/inventario?format=csv").status_code == 403

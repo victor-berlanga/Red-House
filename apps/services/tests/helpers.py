@@ -2,6 +2,21 @@ from datetime import datetime, timedelta, timezone
 from uuid import uuid4
 
 
+MOBILE_ROLES = ("DONOR", "TRANSPORT")
+
+
+def client_for(username, role=None):
+    """Aplicación con la que inicia sesión una cuenta de laboratorio.
+
+    Distribución vigente: DONOR y TRANSPORT en móvil; el resto de perfiles en el
+    portal web. Sin `role`, se deduce del nombre de las cuentas sembradas
+    (admin1, donor2…). Las pruebas de acceso por aplicación envían la cabecera
+    explícita y no usan este valor por omisión.
+    """
+    role = (role or username.rstrip("0123456789")).upper()
+    return "mobile" if role in MOBILE_ROLES else "web"
+
+
 def iso(minutes=0, days=0):
     return (
         datetime.now(timezone.utc) + timedelta(minutes=minutes, days=days)

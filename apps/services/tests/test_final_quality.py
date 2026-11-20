@@ -33,6 +33,8 @@ def api(p, service, path, data=None, user="medical1", fmt="json", method="POST")
     }
     if user:
         headers["Authorization"] = "Bearer " + p.tokens[user]
+    if path == "/api/v1/auth/login" and data:
+        headers["X-RedHouse-Client"] = p.client_of(data.get("username", ""))
     response = requests.request(
         method,
         p.urls[service] + path,

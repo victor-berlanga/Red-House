@@ -10,6 +10,9 @@ from redhouse import extension_schema, shared_migrations
 @pytest.fixture
 def migration_context(monkeypatch):
     views, grants = Mock(), Mock()
+    # Estas pruebas fijan el comportamiento del incremento 21; las migraciones
+    # posteriores (22, acceso por aplicación) se cubren en test_acceso_por_aplicacion.
+    monkeypatch.setattr(shared_migrations, "LATEST_VERSION", 21)
     monkeypatch.setattr(extension_schema, "views", views)
     monkeypatch.setattr(extension_schema, "grants", grants)
     migration = (

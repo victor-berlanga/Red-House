@@ -249,7 +249,7 @@ def finite_manifest(state, manifest):
     """A finite, disjoint inventory prepared outside timing; never recycle a case."""
     if (
         manifest.get("directory") != state["directory"]
-        or manifest.get("schema_version") != 21
+        or manifest.get("schema_version") != 22
         or manifest.get("kind") != "finite-three-roles-v1"
         or manifest.get("gps") is not False
         or manifest.get("preparation_complete") is not True
