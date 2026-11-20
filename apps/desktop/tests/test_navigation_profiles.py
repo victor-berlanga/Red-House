@@ -3,6 +3,7 @@ import os
 from types import SimpleNamespace
 import pytest
 os.environ.setdefault('QT_QPA_PLATFORM','offscreen')
+from PySide6.QtGui import QFont
 from PySide6.QtWidgets import QApplication
 from redhouse_desktop.app import NAV_PROFILES, SECTION_TITLES, STYLE, Window, initial_section, sections_for
 
@@ -97,11 +98,56 @@ def test_motivos_no_se_quedan_pegados_al_cambiar_de_pantalla():
     w.close()
 
 
-def test_barra_cabe_en_1000_px_en_todos_los_perfiles():
-    for role in ESPERADAS:
-        w=abrir(role); w.resize(1000,700); app.processEvents()
-        assert w.minimumSizeHint().width()<=1000 and w.width()==1000
-        w.close()
+def accesibles(w):
+    """Secciones alcanzables: botones visibles de la barra más lo que vive en «Más»."""
+    return {m for m,b in w.nav_buttons.items() if b.isVisible()}|set(w.more_modes)
+
+
+@pytest.mark.parametrize('escala',[1.0,1.5,2.0])
+def test_barra_cabe_en_1000_px_aunque_la_fuente_sea_mas_ancha(escala):
+    """Simula Windows (fuente/DPI mayores): el mínimo real de la ventana no depende del ancho de los botones."""
+    # STYLE fija font-size:14px y pisa a QApplication.setFont, así que la fuente mayor se aplica también por hoja de estilo
+    # (como Windows, donde la fuente de sistema y el DPI ensanchan los botones). Se usa también setFont por si cambia STYLE.
+    base=app.font(); grande=QFont(base); grande.setPixelSize(round(14*escala)); app.setFont(grande); app.setStyleSheet(STYLE+'QWidget { font-size:%dpx; }'%round(14*escala))
+    try:
+        for role in ESPERADAS:
+            w=abrir(role); w.resize(1000,700); app.processEvents()
+            assert w.minimumSizeHint().width()<=1000 and w.width()==1000, (role,escala,w.minimumSizeHint().width())
+            assert accesibles(w)==ESPERADAS[role]
+            w.close()
+    finally: app.setFont(base); app.setStyleSheet(STYLE)
+
+
+def test_desbordamiento_pasa_secciones_a_mas_al_angostar_y_regresan_al_ensanchar():
+    w=abrir('OPERATOR'); w.resize(1600,700); app.processEvents()
+    ancha={m for m,b in w.nav_buttons.items() if b.isVisible()}; assert not w.nav_overflow and ancha==set(NAV_PROFILES['OPERATOR']['bar'])
+    w.resize(760,700); app.processEvents()
+    assert w.nav_overflow and accesibles(w)==ESPERADAS['OPERATOR'] and w.more_button.isVisible()
+    assert w.nav_overflow==NAV_PROFILES['OPERATOR']['bar'][-len(w.nav_overflow):]
+    assert [a.text() for a in w.more_menu.actions()]==[SECTION_TITLES[m] for m in w.nav_overflow+NAV_PROFILES['OPERATOR']['more']]
+    assert not set(w.nav_overflow)&{m for m,b in w.nav_buttons.items() if b.isVisible()}
+    w.resize(1600,700); app.processEvents()
+    assert not w.nav_overflow and {m for m,b in w.nav_buttons.items() if b.isVisible()}==ancha
+    w.close()
+
+
+def test_perfil_sin_mas_propio_muestra_mas_solo_si_se_desborda():
+    w=abrir('COORDINATOR'); w.resize(1600,700); app.processEvents()
+    assert w.more_modes==['users']
+    w.resize(500,700); app.processEvents()
+    assert w.nav_overflow and accesibles(w)==ESPERADAS['COORDINATOR']
+    w.close()
+
+
+def test_seccion_activa_sigue_resaltada_al_desbordarse():
+    w=abrir('OPERATOR'); w.resize(1600,700); w.mode='alerts'; w.update_navigation(); app.processEvents()
+    assert w.nav_buttons['alerts'].objectName()=='activeNav' and w.more_button.objectName()!='activeNav'
+    w.resize(700,700); app.processEvents()
+    assert 'alerts' in w.nav_overflow and w.more_button.objectName()=='activeNav'
+    assert all(b.objectName()!='activeNav' for b in w.nav_buttons.values())
+    w.resize(1600,700); app.processEvents()
+    assert w.nav_buttons['alerts'].objectName()=='activeNav' and w.more_button.objectName()!='activeNav'
+    w.close()
 
 
 def test_perfil_fuera_de_lista_no_truena():

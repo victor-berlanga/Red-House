@@ -6,12 +6,12 @@ import sys
 import uuid
 from datetime import datetime, timezone
 from pathlib import Path
-from PySide6.QtCore import QObject, QRunnable, QThreadPool, Signal, Qt, QTimer, QDateTime, QStandardPaths, QTimeZone, QRect
+from PySide6.QtCore import QObject, QRunnable, QThreadPool, Signal, Qt, QTimer, QDateTime, QStandardPaths, QTimeZone, QRect, QEvent
 from PySide6.QtGui import QImage, QPixmap, QColor, QPainter
 import qrcode
 from PySide6.QtWidgets import (QApplication, QDialog, QFormLayout, QHBoxLayout, QLabel,
     QLineEdit, QMainWindow, QMessageBox, QPushButton, QStackedWidget, QTableWidget, QComboBox, QDateTimeEdit,
-    QTableWidgetItem, QVBoxLayout, QWidget, QHeaderView, QFileDialog, QCheckBox, QSpinBox, QScrollArea, QToolButton, QMenu)
+    QTableWidgetItem, QVBoxLayout, QWidget, QHeaderView, QFileDialog, QCheckBox, QSpinBox, QScrollArea, QToolButton, QMenu, QSizePolicy)
 from .client import ApiError, Client, ContractError
 from .journal import Journal, JournalError
 from .session_context import OperationContext, SessionChanged
@@ -133,14 +133,17 @@ class Window(QMainWindow):
         head = QHBoxLayout(); brand = QLabel('RED HOUSE'); brand.setObjectName('brand'); head.addWidget(brand); head.addStretch(); self.summary_button=QPushButton('Resumen'); self.summary_button.clicked.connect(self.open_summary); head.addWidget(self.summary_button); self.analytics_button=QPushButton('Indicadores'); self.analytics_button.clicked.connect(self.open_analytics); head.addWidget(self.analytics_button); self.identity = QLabel(); head.addWidget(self.identity)
         self.logout_button = QPushButton('Cerrar sesión'); self.logout_button.clicked.connect(self.logout); head.addWidget(self.logout_button); outer.addLayout(head)
         # Barra de secciones: se llena según el perfil en apply_navigation (ver NAV_PROFILES).
-        self.nav_layout = QHBoxLayout(); self.nav_buttons = {}; self.nav_role = None
+        # La barra vive en un contenedor con política horizontal «Ignored»: su ancho mínimo es 0 y el ancho
+        # de la fuente (Windows/DPI) ya no fuerza el de la ventana. fit_navigation() decide qué botones caben.
+        self.nav_container = QWidget(page); self.nav_container.setSizePolicy(QSizePolicy.Ignored,QSizePolicy.Preferred); self.nav_container.installEventFilter(self)
+        self.nav_layout = QHBoxLayout(self.nav_container); self.nav_layout.setContentsMargins(0,0,0,0); self.nav_buttons = {}; self.nav_role = None; self.nav_overflow = []
         for mode,title in SECTION_TITLES.items():
             button = QPushButton(title, page); button.setStyleSheet('padding:8px 9px;'); button.setAccessibleName('Sección '+title); button.clicked.connect(lambda _checked=False,m=mode: self.switch(m)); button.hide(); self.nav_buttons[mode] = button
         self.more_button = QToolButton(page); self.more_button.setStyleSheet('padding:8px 9px;'); self.more_button.setText('Más ▾'); self.more_button.setAccessibleName('Más secciones'); self.more_button.setPopupMode(QToolButton.InstantPopup); self.more_menu = QMenu(self.more_button); self.more_button.setMenu(self.more_menu); self.more_button.hide()
         self.more_modes = []
         self.inventory_button = self.nav_buttons['inventory']; self.samples_button = self.nav_buttons['samples']; self.results_button = self.nav_buttons['results']; self.alerts_button = self.nav_buttons['alerts']
         self.requests_button = self.nav_buttons['requests']; self.evaluations_button = self.nav_buttons['evaluations']; self.reservations_button = self.nav_buttons['reservations']
-        outer.addLayout(self.nav_layout)
+        outer.addWidget(self.nav_container)
         self.heading = QLabel(); self.heading.setObjectName('title'); outer.addWidget(self.heading)
         self.description = QLabel(); self.description.setObjectName('hint'); outer.addWidget(self.description)
         tools = QHBoxLayout(); self.search = QLineEdit(); self.search.setPlaceholderText('Buscar por folio o identificador'); self.search.returnPressed.connect(self.search_now); tools.addWidget(self.search)
@@ -292,23 +295,51 @@ class Window(QMainWindow):
         self.mode=mode; self.page=1; self.search.clear(); self.update_navigation(); self.load()
 
     def apply_navigation(self,role):
-        """Coloca en la barra solo las secciones del perfil; lo no permitido no se muestra."""
+        """Registra el perfil y reparte sus secciones entre la barra y «Más» (ver fit_navigation)."""
         if role == self.nav_role: return
         self.nav_role = role
-        while self.nav_layout.count(): self.nav_layout.takeAt(0)
+        self.fit_navigation()
+
+    def eventFilter(self,obj,event):
+        # Al cambiar el ancho de la barra se recalcula qué secciones caben.
+        if obj is getattr(self,'nav_container',None) and event.type() in (QEvent.Resize,QEvent.Show): self.fit_navigation()
+        return super().eventFilter(obj,event)
+
+    def fit_navigation(self):
+        """Desbordamiento dinámico de la barra: las secciones de NAV_PROFILES['bar'] que no caben en el ancho
+        disponible pasan al menú «Más» (antes de las secciones propias de 'more', conservando el orden) y
+        regresan a la barra cuando hay espacio. No depende de la fuente: se mide con sizeHint real de cada botón.
+        Efecto: nav_overflow (modos desbordados) y more_modes (todo lo que vive en «Más»)."""
+        role = self.nav_role; profile = NAV_PROFILES.get(role)
         for button in (*self.nav_buttons.values(),self.more_button): button.hide()
-        self.more_menu.clear(); profile = NAV_PROFILES.get(role); self.more_modes = []
-        if not profile: return
-        for mode in profile['bar']: self.nav_layout.addWidget(self.nav_buttons[mode]); self.nav_buttons[mode].show()
-        if profile['more']:
-            for mode in profile['more']:
+        if not profile:
+            self.nav_overflow = []; self.more_modes = []; self.more_menu.clear(); self.refresh_navigation_highlight(); return
+        bar = list(profile['bar']); more_own = list(profile['more']); spacing = self.nav_layout.spacing()
+        widths = [self.nav_buttons[m].sizeHint().width() for m in bar]; more_w = self.more_button.sizeHint().width()
+        available = self.nav_container.width() or 10**6
+        def used(n,with_more): return sum(widths[:n]) + spacing*(max(n-1,0) + (1 if with_more and n else 0)) + (more_w if with_more else 0)
+        n = len(bar)
+        # Con «Más» propio siempre se reserva su lugar; si no, solo cuando algo se desborda.
+        while n > 0 and used(n,bool(more_own) or n < len(bar)) > available: n -= 1
+        overflow = bar[n:]; menu_modes = overflow + more_own
+        if menu_modes != self.more_modes or [a.text() for a in self.more_menu.actions()] != [SECTION_TITLES[m] for m in menu_modes]:
+            self.more_menu.clear()
+            for mode in menu_modes:
                 action = self.more_menu.addAction(SECTION_TITLES[mode]); action.triggered.connect(lambda _checked=False,m=mode: self.switch(m))
-            self.more_modes = list(profile['more']); self.nav_layout.addWidget(self.more_button); self.more_button.show()
+        self.nav_overflow = overflow; self.more_modes = menu_modes
+        while self.nav_layout.count(): self.nav_layout.takeAt(0)
+        for mode in bar[:n]: self.nav_layout.addWidget(self.nav_buttons[mode]); self.nav_buttons[mode].show()
+        if menu_modes: self.nav_layout.addWidget(self.more_button); self.more_button.show()
         self.nav_layout.addStretch()
+        self.refresh_navigation_highlight()
 
     def update_navigation(self):
         role = ((self.client.user or {}).get('role') if self.client else None)
         if role: self.apply_navigation(role)
+        self.refresh_navigation_highlight()
+
+    def refresh_navigation_highlight(self):
+        """Resalta la sección activa; si vive en «Más» (propia o desbordada) se resalta «Más»."""
         for mode,button in self.nav_buttons.items():
             active = self.mode == mode and mode not in self.more_modes
             button.setObjectName('activeNav' if active else ''); button.setAccessibleDescription('Sección actual' if active else '')
