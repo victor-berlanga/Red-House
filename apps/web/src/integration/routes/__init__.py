@@ -20,6 +20,10 @@ from . import (
     documents,
 )
 
+from .. import navigation
+
+navigation.register(portal)
+
 # El módulo inventory comparte nombre con el Blueprint: importar explícitamente.
 from importlib import import_module
 

@@ -1,6 +1,8 @@
 """Conservación y componentes; Inventario conserva todas las decisiones de negocio."""
 
 import base64
+
+from ..navigation import mark
 from .common import (
     BusinessError,
     call,
@@ -211,6 +213,7 @@ def resource_conservation(identifier):
                 url_for("inventory.quality_review", identifier=identifier),
             )
         )
+    mark("organos" if unit["kind"] == "ORGAN" else "inventory")
     return render_template(
         "integration/conservation.html",
         title="Conservación · " + unit["folio"],

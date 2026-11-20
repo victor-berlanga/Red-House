@@ -1,3 +1,4 @@
+from ..navigation import mark
 from ..selectors import selection
 
 """Rutas web: inventory. Las reglas residen en las API propietarias."""
@@ -92,6 +93,7 @@ def resource_new():
     kind = request.args.get("kind", "BLOOD")
     if kind not in ("BLOOD", "ORGAN"):
         raise BusinessError("Tipo de recurso inválido.", 422)
+    mark("inventory" if kind == "BLOOD" else "organos")
     return submit(
         "inventario",
         "/api/v1/resources",
@@ -177,6 +179,7 @@ def resource_detail(identifier):
                 url_for("inventory.destination", identifier=identifier),
             )
         )
+    mark("inventory" if row["kind"] == "BLOOD" else "organos")
     return detail(
         row["folio"],
         "inventory" if row["kind"] == "BLOOD" else "organos",
