@@ -134,10 +134,13 @@ class Window(QMainWindow):
         self.logout_button = QPushButton('Cerrar sesión'); self.logout_button.clicked.connect(self.logout); head.addWidget(self.logout_button)
         # Cabecera en un área con desplazamiento horizontal, igual que la fila de acciones: en Windows (fuente/DPI mayores)
         # marca, botones e identidad suman más de 1000 px y no deben fijar el ancho mínimo de la ventana.
-        head_box = QWidget(); head_box.setLayout(head); head.setContentsMargins(0,0,0,0)
+        self.head_box = head_box = QWidget(); head_box.setLayout(head); head.setContentsMargins(0,0,0,0)
         self.head_scroll = QScrollArea(); self.head_scroll.setWidget(head_box); self.head_scroll.setWidgetResizable(True); self.head_scroll.setFrameShape(QScrollArea.NoFrame)
         self.head_scroll.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff); self.head_scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarAsNeeded); self.head_scroll.setSizePolicy(QSizePolicy.Ignored,QSizePolicy.Fixed)
-        self.head_scroll.setFixedHeight(head_box.sizeHint().height()+self.head_scroll.horizontalScrollBar().sizeHint().height()+2); outer.addWidget(self.head_scroll)
+        # Altura = la de la cabecera; solo suma la de la barra cuando el contenido no cabe (fuente normal: idéntica a antes).
+        self.head_scroll.installEventFilter(self); head_box.installEventFilter(self); self.fit_head(); outer.addWidget(self.head_scroll)
+        # Con Tab el botón enfocado de la cabecera se desplaza a la vista (QScrollArea no lo hace solo).
+        QApplication.instance().focusChanged.connect(self.head_focus)
         # Barra de secciones: se llena según el perfil en apply_navigation (ver NAV_PROFILES).
         # La barra vive en un contenedor con política horizontal «Ignored»: su ancho mínimo es 0 y el ancho
         # de la fuente (Windows/DPI) ya no fuerza el de la ventana. fit_navigation() decide qué botones caben.
@@ -317,7 +320,17 @@ class Window(QMainWindow):
         # Reentrancia: mostrar/ocultar botones dentro de fit_navigation vuelve a generar Resize/Show del contenedor;
         # mientras se ajusta se ignoran, y tras ajustar solo se reacciona si el ancho realmente cambió (sin bucles).
         if obj is getattr(self,'nav_container',None) and event.type() in (QEvent.Resize,QEvent.Show) and not self._nav_fitting and self.nav_container.width()!=self._nav_fit_width: self.fit_navigation()
+        if obj in (getattr(self,'head_scroll',None),getattr(self,'head_box',None)) and event.type() in (QEvent.Resize,QEvent.LayoutRequest,QEvent.Show): self.fit_head()
         return super().eventFilter(obj,event)
+
+    def fit_head(self):
+        """Altura de la cabecera: la del contenido, más la barra horizontal solo si el contenido es más ancho que el área."""
+        hs,box=self.head_scroll,self.head_box
+        h=box.sizeHint().height()+(hs.horizontalScrollBar().sizeHint().height() if box.minimumSizeHint().width()>hs.width() else 0)
+        if hs.height()!=h: hs.setFixedHeight(h)
+
+    def head_focus(self,old,now):
+        if now is not None and self.head_box.isAncestorOf(now): self.head_scroll.ensureWidgetVisible(now,16,0)
 
     def fit_navigation(self):
         """Desbordamiento dinámico de la barra: las secciones de NAV_PROFILES['bar'] que no caben en el ancho

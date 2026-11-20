@@ -106,6 +106,22 @@ def accesibles(w):
     return {m for m,b in w.nav_buttons.items() if b.isVisible()}|set(w.more_modes)
 
 
+def culpables(w,umbral=250,maximo=8):
+    """Diagnóstico permanente del mensaje de fallo (sin coste si pasa): widgets visibles de mayor ancho mínimo, con su cadena de padres."""
+    from PySide6.QtWidgets import QWidget
+    filas=[]
+    for x in w.findChildren(QWidget):
+        if not x.isVisible(): continue
+        n=x.minimumSizeHint().width()
+        if n<=umbral: continue
+        cadena=[]; p=x
+        while p is not None and p is not w: cadena.append(p.__class__.__name__+'#'+p.objectName()); p=p.parentWidget()
+        texto=getattr(x,'text',None); texto=texto()[:40] if callable(texto) else ''
+        filas.append((n,x.minimumWidth(),x.__class__.__name__,x.objectName(),texto or x.accessibleName(),' < '.join(cadena[1:4])))
+    filas.sort(reverse=True)
+    return ' || '.join('%d(min=%d) %s#%s %r [%s]'%f for f in filas[:maximo])
+
+
 @pytest.mark.parametrize('escala',[1.0,1.5,2.0])
 def test_barra_cabe_en_1000_px_aunque_la_fuente_sea_mas_ancha(escala):
     """Simula Windows (fuente/DPI mayores): el mínimo real de la ventana no depende del ancho de los botones."""
@@ -115,7 +131,7 @@ def test_barra_cabe_en_1000_px_aunque_la_fuente_sea_mas_ancha(escala):
     try:
         for role in ESPERADAS:
             w=abrir(role); w.resize(1000,700); app.processEvents()
-            assert w.minimumSizeHint().width()<=1000 and w.width()==1000, (role,escala,w.minimumSizeHint().width())
+            if not (w.minimumSizeHint().width()<=1000 and w.width()==1000): pytest.fail('%s %s min=%d :: %s'%(role,escala,w.minimumSizeHint().width(),culpables(w)),pytrace=False)
             assert accesibles(w)==ESPERADAS[role]
             w.close()
     finally: app.setFont(base); app.setStyleSheet(STYLE)
@@ -130,7 +146,7 @@ def test_ninguna_seccion_rompe_el_limite_de_1000_px_con_fuente_grande(escala):
             w=abrir(role); w.resize(1000,700); w.run=lambda *a,**k:None; w.journal=SimpleNamespace(list=None)
             for modo in sorted(ESPERADAS[role]):
                 w.mode=modo; w.update_navigation(); w.load(); app.processEvents()
-                assert w.minimumSizeHint().width()<=1000, (role,escala,modo,w.minimumSizeHint().width())
+                if w.minimumSizeHint().width()>1000: pytest.fail('%s %s %s min=%d :: %s'%(role,escala,modo,w.minimumSizeHint().width(),culpables(w)),pytrace=False)
             w.close()
     finally: app.setFont(base); app.setStyleSheet(STYLE)
 
@@ -189,3 +205,21 @@ def test_perfil_fuera_de_lista_no_truena():
         w=Window(); w.client=Cliente(role); w.stack.setCurrentIndex(1); w.mode=initial_section(role); w.show(); w.set_controls(True); w.update_navigation(); app.processEvents()
         assert not any(b.isVisible() for b in w.nav_buttons.values()) and not w.more_button.isVisible()
         w.close()
+
+
+def test_cabecera_no_reserva_barra_con_fuente_normal_y_la_muestra_al_desbordar():
+    """La cabecera del espacio de trabajo mide lo mismo que sin área de desplazamiento si cabe; si no cabe, suma su barra."""
+    w=abrir('OPERATOR'); app.processEvents()
+    assert w.head_scroll.height()==w.head_box.sizeHint().height() and not w.head_scroll.horizontalScrollBar().isVisible()
+    w.resize(300,700); app.processEvents()
+    assert w.head_scroll.height()>w.head_box.sizeHint().height()
+    w.close()
+
+
+def test_tab_lleva_a_cerrar_sesion_aunque_la_cabecera_desborde():
+    """Con la ventana angosta, enfocar «Cerrar sesión» desplaza la cabecera hasta dejarlo a la vista."""
+    w=abrir('OPERATOR'); w.resize(300,700); app.processEvents()
+    w.logout_button.setFocus(); app.processEvents()
+    zona=w.head_scroll.viewport().rect()
+    assert zona.contains(w.logout_button.mapTo(w.head_scroll.viewport(),w.logout_button.rect().center()))
+    w.close()
