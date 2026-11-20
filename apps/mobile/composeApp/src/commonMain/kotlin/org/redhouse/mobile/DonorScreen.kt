@@ -18,7 +18,7 @@ import io.ktor.http.encodeURLParameter
 import io.ktor.http.HttpMethod
 
 /** Own records only. No local eligibility calculation and no self-link by folio. */
-@Composable fun DonorScreen(repository:MobileRepository,initialSection:String="Citas",showBack:Boolean=true,onExploreCampaigns:()->Unit={},onBack:()->Unit) {
+@Composable fun DonorScreen(repository:MobileRepository,initialSection:String="Citas",showBack:Boolean=true,onExploreCampaigns:()->Unit={},onOpenAppointments:()->Unit={},onOpenNotices:()->Unit={},onBack:()->Unit) {
     var section by remember(initialSection) {mutableStateOf(initialSection)}
     val share = rememberPublicShare()
     val focusManager = LocalFocusManager.current
@@ -33,6 +33,7 @@ import io.ktor.http.HttpMethod
     var appointments by remember {mutableStateOf<List<JsonObject>>(emptyList())}
     var nextAppointment by remember {mutableStateOf<JsonObject?>(null)}
     var nextLoaded by remember {mutableStateOf(false)}
+    var unread by remember {mutableStateOf<Int?>(null)}
     var consents by remember {mutableStateOf<List<JsonObject>>(emptyList())}
     var latestConsent by remember {mutableStateOf<JsonObject?>(null)}
     var consentLoaded by remember {mutableStateOf(false)}
@@ -86,6 +87,8 @@ import io.ktor.http.HttpMethod
         nextAppointment=nextResponse["appointment"] as? JsonObject;nextLoaded=true
         consents=emptyList();latestConsent=null;consentLoaded=false;consentPage=1;consentTotal=0
         donor?.let{loadConsents(it.text("id"),1)}
+        // Avisos sin leer para Inicio: si la consulta falla, simplemente no se muestra el contador.
+        unread=try {unreadNotices(items(session.request("alertas","/api/v1/alerts?page=1&page_size=20")))} catch(e:CancellationException){throw e} catch(_:Exception){null}
         loadCampaigns()
         loadSites()
         if(section=="Reservar"){loadSlots(slotPage,slotQuery);bookingMessage=""}
@@ -102,23 +105,35 @@ import io.ktor.http.HttpMethod
     PresentationBackHandler(section!=initialSection || appointmentId!=null) { if(appointmentId!=null) appointmentId=null else section=initialSection }
     Row(Modifier.fillMaxWidth(),verticalAlignment=androidx.compose.ui.Alignment.CenterVertically) {
         if(showBack || section!=initialSection || appointmentId!=null) TextButton(onClick={if(appointmentId!=null)appointmentId=null else if(section!=initialSection)section=initialSection else onBack()}){Text("Volver")}
-        Text(when(section){"Inicio"->"Tu próxima cita";"Citas"->"Mis citas";"Campañas"->"Campañas públicas";"Reservar"->"Reservar horario";else->"Mi expediente"},style=MaterialTheme.typography.headlineSmall)
+        if(section!="Inicio") Text(when(section){"Citas"->"Mis citas";"Campañas"->"Campañas públicas";"Reservar"->"Reservar horario";else->"Mi expediente"},style=MaterialTheme.typography.headlineSmall)
     }
     if(status.isNotBlank())Text(status)
     if(section=="Inicio") {
+        // Siguiente paso: completar registro, ver la cita próxima o reservar. Una sola acción principal.
         val next=nextAppointment
-        Card(Modifier.fillMaxWidth()) { Column(Modifier.padding(16.dp),verticalArrangement=Arrangement.spacedBy(8.dp)) {
-            if(!nextLoaded && busy) Text("Consultando tus citas…") else if(!nextLoaded) Text("No fue posible consultar tu próxima cita. Actualiza para intentar de nuevo.") else if(next==null) Text("No tienes citas próximas.") else {
-                Text(next.text("title"),style=MaterialTheme.typography.titleMedium)
+        val step=donorNextStep(donorListLoaded,donor!=null,nextLoaded,next,busy)
+        Card(Modifier.fillMaxWidth(),colors=CardDefaults.cardColors(containerColor=MaterialTheme.colorScheme.primaryContainer,contentColor=MaterialTheme.colorScheme.onPrimaryContainer)) { Column(Modifier.padding(16.dp),verticalArrangement=Arrangement.spacedBy(10.dp)) {
+            Text(if(step.kind==DonorStepKind.Appointment) "Tu próxima cita" else "Siguiente paso",style=MaterialTheme.typography.labelLarge)
+            Text(step.title,style=MaterialTheme.typography.titleLarge)
+            if(step.kind==DonorStepKind.Appointment && next!=null) {
                 Text(displayBriefDate(next.text("starts_at")),style=MaterialTheme.typography.titleMedium)
-                Text("Estado: ${displayValue("status",next.text("status"))}")
+                StatusChip(next.text("status"))
             }
-            if(nextLoaded && next==null) {
-                Button(onClick=onExploreCampaigns) {Text("Explorar campañas")}
-                TextButton(onClick={section="Citas"}) {Text("Ver mis citas")}
-            } else Button(onClick={section="Citas"}) {Text("Ver mis citas")}
+            if(step.kind==DonorStepKind.Book) Text("Elige una campaña y un horario disponible.")
+            if(step.kind==DonorStepKind.Register) Text("Tu institución revisará la información.")
+            if(step.kind!=DonorStepKind.Loading) Button(onClick={when(step.kind){
+                DonorStepKind.Register -> section="Expediente"
+                DonorStepKind.Appointment -> onOpenAppointments()
+                DonorStepKind.Book -> section="Reservar"
+                else -> run{reload()}
+            }},modifier=Modifier.fillMaxWidth().heightIn(min=56.dp)) {Text(step.action,style=MaterialTheme.typography.titleMedium)}
         } }
-        Text("Campañas públicas",style=MaterialTheme.typography.titleLarge)
+        donor?.takeIf{it.text("status")=="PRELIMINARY"}?.let { Row(verticalAlignment=androidx.compose.ui.Alignment.CenterVertically,horizontalArrangement=Arrangement.spacedBy(8.dp)) {Text("Registro");StatusChip("PRELIMINARY")} }
+        unread?.takeIf{it>0}?.let { count -> OutlinedButton(onClick=onOpenNotices,modifier=Modifier.fillMaxWidth().heightIn(min=48.dp)) {Text(if(count==1) "1 aviso sin leer" else "$count avisos sin leer")} }
+        Row(Modifier.fillMaxWidth(),horizontalArrangement=Arrangement.SpaceBetween,verticalAlignment=androidx.compose.ui.Alignment.CenterVertically) {
+            Text("Campañas cercanas",style=MaterialTheme.typography.titleLarge)
+            TextButton(onClick=onExploreCampaigns,modifier=Modifier.heightIn(min=48.dp)) {Text("Ver todas")}
+        }
     }
     if(section in setOf("Inicio","Campañas")) {
         if(section=="Campañas") {
@@ -137,7 +152,7 @@ import io.ktor.http.HttpMethod
         if(!busy && !publicationsLoaded) Text("No fue posible consultar las campañas públicas. Actualiza para intentar de nuevo.")
         if(!busy && publicationsLoaded && publications.isEmpty()) Text(if(publicQuery.isNotBlank() || publicFrom.isNotBlank() || publicUntil.isNotBlank()) "No encontramos campañas con estos filtros." else "No hay campañas publicadas en este momento.")
         if(section=="Campañas") PageControls(publicPage,publicTotal,!busy,{run{loadPublications(publicPage-1)}},{run{loadPublications(publicPage+1)}},"al inicio")
-        publications.forEach { publication ->
+        (if(section=="Inicio") publications.take(2) else publications).forEach { publication ->
             Card(Modifier.fillMaxWidth()) { Column(Modifier.padding(16.dp),verticalArrangement=Arrangement.spacedBy(6.dp)) {
                 Text(publication.text("title"),style=MaterialTheme.typography.titleMedium)
                 Text("${displayBriefDate(publication.text("starts_at"))} – ${displayBriefDate(publication.text("ends_at"))}")
@@ -297,7 +312,7 @@ import io.ktor.http.HttpMethod
         Card(Modifier.fillMaxWidth().padding(vertical=6.dp)) { Column(Modifier.padding(16.dp),verticalArrangement=Arrangement.spacedBy(4.dp)) {
         Text(row.text("title").ifBlank {"Cita sin campaña disponible"},style=MaterialTheme.typography.titleMedium)
         Text(if(row.text("starts_at").isBlank()) "Registro sin horario. Consulta a tu institución." else displayBriefDate(row.text("starts_at")))
-        Text("Estado: ${displayValue("status",row.text("status"))}")
+        StatusChip(row.text("status"))
         TextButton(onClick={appointmentId=if(appointmentId==row.text("id"))null else row.text("id")}){Text("Consultar cita")}
         if(appointmentId==row.text("id") && row.text("status")=="BOOKED"){
             TextButton(onClick={reschedule=row;section="Reservar"}){Text("Reprogramar")}
