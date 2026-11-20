@@ -56,6 +56,8 @@ def call(
         )
     headers = {
         "Accept": "application/json",
+        # Aplicación declarada ante Identidad (acceso por aplicación); solo cuenta en el login.
+        "X-RedHouse-Client": "web",
         "X-Correlation-ID": str(getattr(g, "correlation_id", uuid4())),
     }
     token = token if token is not None else getattr(g, "access_token", None)

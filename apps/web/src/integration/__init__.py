@@ -31,24 +31,28 @@ ROLES = {
     "AUDITOR": "Auditor",
     "DONOR": "Donante",
 }
+# Distribución por aplicación (19-nov-2026): el portal privado es de estos cinco
+# perfiles. DONOR y TRANSPORT usan la aplicación móvil; el servidor rechaza su
+# login web con 403 `client_not_allowed` (redhouse.security.CLIENT_ROLES).
+PORTAL_ROLES = frozenset({"ADMIN", "OPERATOR", "MEDICAL", "COORDINATOR", "AUDITOR"})
 PERMISSIONS = {
-    "dashboard": set(ROLES),
+    "dashboard": set(PORTAL_ROLES),
     "inventory.read": {"OPERATOR", "MEDICAL", "COORDINATOR"},
-    "donor.write": {"OPERATOR", "MEDICAL", "DONOR"},
+    "donor.write": {"OPERATOR", "MEDICAL"},
     "recipient.write": {"MEDICAL", "OPERATOR"},
     "requests.read": {"MEDICAL", "OPERATOR"},
     "matching.read": {"MEDICAL"},
     "algorithms.read": {"MEDICAL", "COORDINATOR"},
     "donations.read": {"MEDICAL", "OPERATOR"},
-    "campaigns.read": {"MEDICAL", "OPERATOR", "DONOR"},
-    "appointments.read": {"OPERATOR", "DONOR"},
-    "route.write": {"COORDINATOR", "MEDICAL", "OPERATOR", "TRANSPORT"},
-    "logistics": {"COORDINATOR", "MEDICAL", "OPERATOR", "TRANSPORT"},
+    "campaigns.read": {"MEDICAL", "OPERATOR"},
+    "appointments.read": {"OPERATOR"},
+    "route.write": {"COORDINATOR", "MEDICAL", "OPERATOR"},
+    "logistics": {"COORDINATOR", "MEDICAL", "OPERATOR"},
     "organ.read": {"COORDINATOR", "MEDICAL", "OPERATOR"},
     "audit.read": {"AUDITOR"},
     "findings.read": {"AUDITOR", "COORDINATOR"},
     "administration": {"ADMIN"},
-    "alerts.read": set(ROLES),
+    "alerts.read": set(PORTAL_ROLES),
     "monitor.read": {"ADMIN", "COORDINATOR", "AUDITOR"},
 }
 NAV = [
@@ -376,8 +380,11 @@ def configure(app):
         try:
             user = sessions.authenticate(sid)
         except BusinessError as exc:
-            if exc.status != 401:
+            # 403 client_not_allowed: el perfil ya no corresponde al portal; se cierra el acceso.
+            if exc.status != 401 and exc.code != "client_not_allowed":
                 raise
+            user = None
+        if user and user["role"] not in PORTAL_ROLES:
             user = None
         if not user:
             if request.endpoint == "public.session_status":
