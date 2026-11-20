@@ -568,6 +568,7 @@ def test_coordinated_recovery_in_isolated_lab(
                     headers={
                         "Content-Type": "application/json",
                         "Accept": "application/json",
+                        "X-RedHouse-Client": "web",
                     },
                 )
                 assert login.status_code == 200, login.text
@@ -586,6 +587,7 @@ def test_coordinated_recovery_in_isolated_lab(
                     headers={
                         "Content-Type": "application/json",
                         "Accept": "application/json",
+                        "X-RedHouse-Client": "web",
                     },
                 )
                 assert outsider.status_code == 200
