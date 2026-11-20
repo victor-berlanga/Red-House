@@ -9,6 +9,7 @@ def date(minutes=0):return (datetime.now(timezone.utc)+timedelta(minutes=minutes
 def call(service,path,body=None,user='coordinator1'):
     headers={'Accept':'application/json','Idempotency-Key':str(uuid4())}
     if user:headers['Authorization']='Bearer '+tokens[user]
+    if body and 'password' in body:headers['X-RedHouse-Client']='web'  # acceso por aplicación
     r=requests.request('POST' if body is not None else 'GET',lab['gateway']+'/services/'+service+path,json=body,headers=headers,verify=lab['ca'],timeout=30)
     if r.status_code>=300:raise RuntimeError(f'{service} {path}: {r.status_code} '+r.json().get('error',{}).get('code',''))
     return r.json()['data']

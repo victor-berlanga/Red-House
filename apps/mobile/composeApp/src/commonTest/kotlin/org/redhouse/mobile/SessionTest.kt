@@ -33,11 +33,16 @@ class SessionTest {
         val store = Memory()
         val api = Api(HttpClient(MockEngine {
             assertEquals("application/json", it.headers[HttpHeaders.Accept])
+            assertEquals("mobile", it.headers["X-RedHouse-Client"])
             respond(envelope(loginResult()), headers = headers)
         }), mapOf("identidad" to "https://example.com"))
         Session(api, store).login("user", "unique-secret", "")
         assertFalse(store.value!!.contains("unique-secret"))
         assertEquals("renew", codec.parseToJsonElement(store.value!!).jsonObject.text("refresh_token"))
+    }
+    @Test fun loginRefusedForAnotherApplicationExplainsWhereToEnter() {
+        val message = failureMessage(ApiFailure(403, "client_not_allowed"), false)
+        assertTrue("portal web" in message && "escritorio" in message)
     }
     @Test fun simultaneousUnauthorizedRequestsRotateOnce() = runTest {
         var rotations = 0
