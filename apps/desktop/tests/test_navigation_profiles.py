@@ -25,7 +25,9 @@ class Cliente:
 
 
 def abrir(role):
-    w=Window(); w.client=Cliente(role); w.stack.setCurrentIndex(1); w.mode=initial_section(role); w.show(); w.set_controls(True); w.update_navigation(); app.processEvents()
+    # Ventana ancha: así ninguna sección se desborda a «Más» por la fuente del sistema (en Windows la fuente es más
+    # ancha que en macOS/Linux). Las pruebas de desbordamiento angostan la ventana de forma explícita.
+    w=Window(); w.resize(2400,800); w.client=Cliente(role); w.stack.setCurrentIndex(1); w.mode=initial_section(role); w.show(); w.set_controls(True); w.update_navigation(); app.processEvents()
     return w
 
 
@@ -40,7 +42,8 @@ def test_cada_perfil_ve_exactamente_sus_secciones(role):
     assert barra|mas==ESPERADAS[role] and not barra&mas and set(sections_for(role))==ESPERADAS[role]
     assert not (barra|mas)&EXCLUSIVAS_OTROS
     assert w.more_button.isVisible()==bool(mas)
-    assert [a.text() for a in w.more_menu.actions()]==[SECTION_TITLES[m] for m in NAV_PROFILES[role]['more']]
+    assert not w.nav_overflow
+    assert [a.text() for a in w.more_menu.actions()]==[SECTION_TITLES[m] for m in w.nav_overflow+NAV_PROFILES[role]['more']]
     w.close()
 
 
