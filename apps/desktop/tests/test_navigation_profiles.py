@@ -118,6 +118,37 @@ def test_barra_cabe_en_1000_px_aunque_la_fuente_sea_mas_ancha(escala):
     finally: app.setFont(base); app.setStyleSheet(STYLE)
 
 
+@pytest.mark.parametrize('escala',[1.5,2.0])
+def test_ninguna_seccion_rompe_el_limite_de_1000_px_con_fuente_grande(escala):
+    """Además de la barra, la descripción y la fila de acciones de cada pantalla no deben fijar el ancho mínimo."""
+    px=round(14*escala); base=app.font(); grande=QFont(base); grande.setPixelSize(px); app.setFont(grande); app.setStyleSheet(STYLE+'QWidget { font-size:%dpx; }'%px)
+    try:
+        for role in ESPERADAS:
+            w=abrir(role); w.resize(1000,700); w.run=lambda *a,**k:None; w.journal=SimpleNamespace(list=None)
+            for modo in sorted(ESPERADAS[role]):
+                w.mode=modo; w.update_navigation(); w.load(); app.processEvents()
+                assert w.minimumSizeHint().width()<=1000, (role,escala,modo,w.minimumSizeHint().width())
+            w.close()
+    finally: app.setFont(base); app.setStyleSheet(STYLE)
+
+
+def test_ajuste_de_la_barra_no_encadena_redimensionados_ni_duplica_acciones():
+    llamadas=[]; original=Window._fit_navigation
+    Window._fit_navigation=lambda self:(llamadas.append(1),original(self))[1]
+    try:
+        w=abrir('OPERATOR'); llamadas.clear(); w.resize(900,700); app.processEvents()
+        assert len(llamadas)==1  # un redimensionado = un ajuste, sin cascada
+        llamadas.clear(); w.resize(900,800); app.processEvents(); assert not llamadas  # solo cambió el alto
+        for i,ancho in enumerate((500,1700,640,1200,800)*6):
+            if i%4==0: w.client=Cliente(('OPERATOR','MEDICAL','COORDINATOR')[i%3]); w.update_navigation()
+            w.resize(ancho,700); app.processEvents(); perfil=NAV_PROFILES[w.nav_role]
+            assert [a.text() for a in w.more_menu.actions()]==[SECTION_TITLES[m] for m in w.nav_overflow+perfil['more']]
+            visibles=[m for m in perfil['bar'] if w.nav_buttons[m].isVisible()]
+            assert visibles==perfil['bar'][:len(visibles)] and w.nav_overflow==perfil['bar'][len(visibles):]
+        w.close()
+    finally: Window._fit_navigation=original
+
+
 def test_desbordamiento_pasa_secciones_a_mas_al_angostar_y_regresan_al_ensanchar():
     w=abrir('OPERATOR'); w.resize(1600,700); app.processEvents()
     ancha={m for m,b in w.nav_buttons.items() if b.isVisible()}; assert not w.nav_overflow and ancha==set(NAV_PROFILES['OPERATOR']['bar'])

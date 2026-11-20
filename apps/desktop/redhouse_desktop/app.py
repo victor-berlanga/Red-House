@@ -136,7 +136,7 @@ class Window(QMainWindow):
         # La barra vive en un contenedor con política horizontal «Ignored»: su ancho mínimo es 0 y el ancho
         # de la fuente (Windows/DPI) ya no fuerza el de la ventana. fit_navigation() decide qué botones caben.
         self.nav_container = QWidget(page); self.nav_container.setSizePolicy(QSizePolicy.Ignored,QSizePolicy.Preferred); self.nav_container.installEventFilter(self)
-        self.nav_layout = QHBoxLayout(self.nav_container); self.nav_layout.setContentsMargins(0,0,0,0); self.nav_buttons = {}; self.nav_role = None; self.nav_overflow = []
+        self.nav_layout = QHBoxLayout(self.nav_container); self.nav_layout.setContentsMargins(0,0,0,0); self.nav_buttons = {}; self.nav_role = None; self.nav_overflow = []; self._nav_fitting = False; self._nav_fit_width = -1
         for mode,title in SECTION_TITLES.items():
             button = QPushButton(title, page); button.setStyleSheet('padding:8px 9px;'); button.setAccessibleName('Sección '+title); button.clicked.connect(lambda _checked=False,m=mode: self.switch(m)); button.hide(); self.nav_buttons[mode] = button
         self.more_button = QToolButton(page); self.more_button.setStyleSheet('padding:8px 9px;'); self.more_button.setText('Más ▾'); self.more_button.setAccessibleName('Más secciones'); self.more_button.setPopupMode(QToolButton.InstantPopup); self.more_menu = QMenu(self.more_button); self.more_button.setMenu(self.more_menu); self.more_button.hide()
@@ -145,7 +145,7 @@ class Window(QMainWindow):
         self.requests_button = self.nav_buttons['requests']; self.evaluations_button = self.nav_buttons['evaluations']; self.reservations_button = self.nav_buttons['reservations']
         outer.addWidget(self.nav_container)
         self.heading = QLabel(); self.heading.setObjectName('title'); outer.addWidget(self.heading)
-        self.description = QLabel(); self.description.setObjectName('hint'); outer.addWidget(self.description)
+        self.description = QLabel(); self.description.setObjectName('hint'); self.description.setWordWrap(True); outer.addWidget(self.description)  # con ajuste de línea su ancho mínimo no depende de la fuente
         tools = QHBoxLayout(); self.search = QLineEdit(); self.search.setPlaceholderText('Buscar por folio o identificador'); self.search.returnPressed.connect(self.search_now); tools.addWidget(self.search)
         self.search_button = QPushButton('Buscar'); self.search_button.clicked.connect(self.search_now); tools.addWidget(self.search_button)
         self.reload_button = QPushButton('Actualizar'); self.reload_button.clicked.connect(self.load); tools.addWidget(self.reload_button); outer.addLayout(tools)
@@ -176,7 +176,13 @@ class Window(QMainWindow):
         self.sample_create_button=QPushButton('Registrar muestra'); self.sample_create_button.clicked.connect(self.create_sample); actions.addWidget(self.sample_create_button)
         self.document_upload_button=QPushButton('Adjuntar documento'); self.document_upload_button.clicked.connect(self.document_upload); actions.addWidget(self.document_upload_button); self.document_upload_button.hide()
         self.correct_result_button=QPushButton('Corregir resultado'); self.correct_result_button.clicked.connect(self.correct_result); actions.addWidget(self.correct_result_button); self.correct_result_button.hide()
-        self.receive_button = QPushButton('Registrar recepción'); self.receive_button.setObjectName('primary'); self.receive_button.clicked.connect(self.receive); actions.addWidget(self.receive_button); self.capture_button = QPushButton('Capturar resultado'); self.capture_button.clicked.connect(self.capture_result); actions.addWidget(self.capture_button); self.review_button = QPushButton('Revisar resultado'); self.review_button.setToolTip('La revisión corresponde al personal médico autorizado.'); self.review_button.clicked.connect(self.review_result); actions.addWidget(self.review_button); self.ack_button = QPushButton('Acusar recibo'); self.ack_button.clicked.connect(self.acknowledge); actions.addWidget(self.ack_button); actions.addStretch(); outer.addLayout(actions)
+        self.receive_button = QPushButton('Registrar recepción'); self.receive_button.setObjectName('primary'); self.receive_button.clicked.connect(self.receive); actions.addWidget(self.receive_button); self.capture_button = QPushButton('Capturar resultado'); self.capture_button.clicked.connect(self.capture_result); actions.addWidget(self.capture_button); self.review_button = QPushButton('Revisar resultado'); self.review_button.setToolTip('La revisión corresponde al personal médico autorizado.'); self.review_button.clicked.connect(self.review_result); actions.addWidget(self.review_button); self.ack_button = QPushButton('Acusar recibo'); self.ack_button.clicked.connect(self.acknowledge); actions.addWidget(self.ack_button); actions.addStretch()
+        # Fila de acciones: puede tener muchos botones visibles a la vez; va en un área con desplazamiento horizontal
+        # para que su suma (que crece con la fuente) no fije el ancho mínimo de la ventana.
+        actions_box = QWidget(); actions_box.setLayout(actions); actions.setContentsMargins(0,0,0,0)
+        self.actions_scroll = QScrollArea(); self.actions_scroll.setWidget(actions_box); self.actions_scroll.setWidgetResizable(True); self.actions_scroll.setFrameShape(QScrollArea.NoFrame)
+        self.actions_scroll.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff); self.actions_scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarAsNeeded); self.actions_scroll.setSizePolicy(QSizePolicy.Ignored,QSizePolicy.Fixed)
+        self.actions_scroll.setFixedHeight(actions_box.sizeHint().height()+self.actions_scroll.horizontalScrollBar().sizeHint().height()+2); outer.addWidget(self.actions_scroll)
         actions = QHBoxLayout(); actions.addStretch()
         self.prev = QPushButton('Anterior'); self.prev.clicked.connect(lambda:self.turn(-1)); actions.addWidget(self.prev); self.page_label = QLabel(); actions.addWidget(self.page_label); self.next = QPushButton('Siguiente'); self.next.clicked.connect(lambda:self.turn(1)); actions.addWidget(self.next); outer.addLayout(actions)
         self.status = QLabel(''); self.status.setWordWrap(True); self.status.setObjectName('hint'); outer.addWidget(self.status)
@@ -302,7 +308,9 @@ class Window(QMainWindow):
 
     def eventFilter(self,obj,event):
         # Al cambiar el ancho de la barra se recalcula qué secciones caben.
-        if obj is getattr(self,'nav_container',None) and event.type() in (QEvent.Resize,QEvent.Show): self.fit_navigation()
+        # Reentrancia: mostrar/ocultar botones dentro de fit_navigation vuelve a generar Resize/Show del contenedor;
+        # mientras se ajusta se ignoran, y tras ajustar solo se reacciona si el ancho realmente cambió (sin bucles).
+        if obj is getattr(self,'nav_container',None) and event.type() in (QEvent.Resize,QEvent.Show) and not self._nav_fitting and self.nav_container.width()!=self._nav_fit_width: self.fit_navigation()
         return super().eventFilter(obj,event)
 
     def fit_navigation(self):
@@ -310,7 +318,13 @@ class Window(QMainWindow):
         disponible pasan al menú «Más» (antes de las secciones propias de 'more', conservando el orden) y
         regresan a la barra cuando hay espacio. No depende de la fuente: se mide con sizeHint real de cada botón.
         Efecto: nav_overflow (modos desbordados) y more_modes (todo lo que vive en «Más»)."""
-        role = self.nav_role; profile = NAV_PROFILES.get(role)
+        if self._nav_fitting: return
+        self._nav_fitting = True
+        try: self._fit_navigation()
+        finally: self._nav_fitting = False
+
+    def _fit_navigation(self):
+        role = self.nav_role; profile = NAV_PROFILES.get(role); self._nav_fit_width = self.nav_container.width()
         for button in (*self.nav_buttons.values(),self.more_button): button.hide()
         if not profile:
             self.nav_overflow = []; self.more_modes = []; self.more_menu.clear(); self.refresh_navigation_highlight(); return
