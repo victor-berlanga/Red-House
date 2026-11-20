@@ -459,6 +459,20 @@
                 "application/xml"
               ]
             }
+          },
+          {
+            "name": "X-RedHouse-Client",
+            "in": "header",
+            "required": true,
+            "description": "Aplicación que inicia sesión; define con qué perfiles puede hacerlo (403 client_not_allowed si el perfil no corresponde).",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "web",
+                "desktop",
+                "mobile"
+              ]
+            }
           }
         ],
         "description": "Roles: según sesión. Contrato público de API.",
@@ -7399,7 +7413,7 @@
             }
           }
         ],
-        "description": "Roles: según sesión. Contrato público de API.",
+        "description": "Roles: DONOR, TRANSPORT. Contrato público de API.",
         "security": [
           {
             "BearerJWT": []
@@ -7556,7 +7570,7 @@
             }
           }
         ],
-        "description": "Roles: según sesión. Contrato público de API.",
+        "description": "Roles: DONOR, TRANSPORT. Contrato público de API.",
         "security": [
           {
             "BearerJWT": []

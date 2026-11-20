@@ -324,3 +324,103 @@ def test_resource_outside_the_scope_stays_denied_with_a_desktop_session(p):
     path = "/api/v1/resources/" + unit["id"]
     assert authed(p, own, path, "inventario").status_code == 200
     assert authed(p, other, path, "inventario").status_code in (403, 404)
+
+
+def test_claim_and_redis_session_must_agree_on_the_client(p):
+    """Revisión adversaria: el JWT no basta; si Redis dice otra aplicación, 401."""
+    data = login(p, "operator2", "web").json()["data"]
+    claims = jwt.decode(data["access_token"], options={"verify_signature": False})
+    assert authed(p, data["access_token"]).status_code == 200
+    r, key, ctx = redis_access(p)
+    try:
+        state = json.loads(r.get(key("session:" + claims["sid"])))
+        state["client"] = "desktop"
+        r.set(key("session:" + claims["sid"]), json.dumps(state), ex=600)
+        assert authed(p, data["access_token"]).status_code == 401
+        state["client"] = "web"
+        r.set(key("session:" + claims["sid"]), json.dumps(state), ex=600)
+        assert authed(p, data["access_token"]).status_code == 200
+    finally:
+        ctx.pop()
+
+
+def test_changing_the_header_after_login_changes_nothing(p):
+    """Revisión adversaria: la cabecera solo cuenta en el login; el JWT decide después."""
+    token = login(p, "donor2", "mobile").json()["data"]["access_token"]
+    for header in ("web", "desktop", "mobile", "garbage"):
+        response = requests.get(
+            p.urls["identidad_acceso"] + "/api/v1/auth/me",
+            headers={
+                "Authorization": "Bearer " + token,
+                "X-RedHouse-Client": header,
+                "Accept": "application/json",
+            },
+            timeout=10,
+        )
+        assert response.status_code == 200, header
+
+
+def test_script_end_to_end_only_touches_sessions_without_client(p, capsys):
+    """Revisión adversaria: --dry-run no cambia nada, --aplicar no toca sesiones con
+    cliente, es idempotente y no imprime credenciales."""
+    from scripts import revocar_sesiones_sin_cliente as script
+
+    old = login(p, "auditor2", "web").json()["data"]
+    new = login(p, "medical2", "desktop").json()["data"]
+    old_sid = jwt.decode(old["access_token"], options={"verify_signature": False})[
+        "sid"
+    ]
+    r, key, ctx = redis_access(p)
+    try:
+        state = json.loads(r.get(key("session:" + old_sid)))
+        state.pop("client")
+        r.set(key("session:" + old_sid), json.dumps(state), ex=600)
+        with p.owner("identidad_acceso") as conn:
+            conn.execute("SET search_path=access_identidad_acceso,pg_catalog")
+            conn.execute("UPDATE sessions SET client=NULL WHERE id=%s", (old_sid,))
+            conn.commit()
+        directory = p.env.directory
+        assert script.main(["--directory", str(directory)]) == 0
+        dry = capsys.readouterr().out
+        assert "no se cambió nada" in dry
+        assert authed(p, new["access_token"]).status_code == 200
+        assert script.main(["--directory", str(directory), "--aplicar"]) == 0
+        applied = capsys.readouterr().out
+        assert "Sesiones revocadas: " in applied
+        assert authed(p, new["access_token"]).status_code == 200
+        assert r.get(key("session:" + old_sid)) is None
+        assert script.main(["--directory", str(directory), "--aplicar"]) == 0
+        assert "Sesiones revocadas: 0" in capsys.readouterr().out
+    finally:
+        ctx.pop()
+    for text in (dry, applied):
+        assert "postgresql://" not in text and "redis://" not in text
+        assert p.env.state["password"] not in text
+
+
+def test_script_finds_the_compose_layout_and_requires_the_redis_prefix(tmp_path):
+    from scripts import revocar_sesiones_sin_cliente as script
+
+    (tmp_path / "apps").mkdir()
+    (tmp_path / "apps" / "identidad_acceso.json").write_text("{}")
+    assert script.archivo_de_configuracion(tmp_path).name == "identidad_acceso.json"
+    with pytest.raises(SystemExit):
+        script.archivo_de_configuracion(tmp_path / "apps" / "nada")
+
+
+def test_openapi_declares_the_required_client_header_on_login():
+    from redhouse.openapi import spec
+    from ms_identidad_acceso import create_app
+
+    app = create_app(
+        {
+            "DATABASE_URL": "postgresql://UNCONFIGURED",
+            "JWT_PUBLIC_KEY": "UNCONFIGURED",
+            "JWT_PRIVATE_KEY": "UNCONFIGURED",
+            "SERVICE_PRIVATE_KEY": "UNCONFIGURED",
+        }
+    )
+    login_op = spec(app)["paths"]["/api/v1/auth/login"]["post"]
+    header = next(x for x in login_op["parameters"] if x["name"] == "X-RedHouse-Client")
+    assert header["required"] and header["in"] == "header"
+    assert header["schema"]["enum"] == list(CLIENT_ROLES)

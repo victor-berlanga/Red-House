@@ -96,6 +96,19 @@ def spec(app):
                 },
             },
         ]
+        if contract["name"] == "login":
+            # Acceso por aplicación: sin esta cabecera el login responde 400 client_required.
+            from .security import CLIENT_HEADER, CLIENT_ROLES
+
+            parameters.append(
+                {
+                    "name": CLIENT_HEADER,
+                    "in": "header",
+                    "required": True,
+                    "description": "Aplicación que inicia sesión; define con qué perfiles puede hacerlo (403 client_not_allowed si el perfil no corresponde).",
+                    "schema": {"type": "string", "enum": list(CLIENT_ROLES)},
+                }
+            )
         if contract["paginated"]:
             parameters += [
                 {
