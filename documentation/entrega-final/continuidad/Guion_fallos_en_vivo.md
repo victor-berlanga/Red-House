@@ -79,7 +79,8 @@ $DC ps --format 'table {{.Service}}\t{{.Status}}'      # 29 contenedores; las AP
 ```sh
 B=https://34.18.186.116/services
 read -rs RH_PASS     # contraseña sintética de la VM: registro privado /opt/redhouse/.local/compose/state.json
-login() { printf '{"username":"%s","password":"%s"}' "$1" "$RH_PASS" | curl -sS -m 10 -H 'Content-Type: application/json' --data-binary @- "$B/identidad-acceso/api/v1/auth/login"; }
+# Aplicación según el perfil: donor y transport entran como mobile; el resto, como web.
+login() { printf '{"username":"%s","password":"%s"}' "$1" "$RH_PASS" | curl -sS -m 10 -H 'Content-Type: application/json' -H "X-RedHouse-Client: $(case "$1" in donor*|transport*) echo mobile;; *) echo web;; esac)" --data-binary @- "$B/identidad-acceso/api/v1/auth/login"; }
 tok()   { login "$1" | python3 -c 'import sys,json; print(json.load(sys.stdin)["data"]["access_token"])'; }
 api()   { local t="$1"; shift; curl -sS -m 15 -H "Authorization: Bearer $t" -H "X-Correlation-ID: $(uuidgen | tr A-Z a-z)" -D /tmp/rh-h -w '\nHTTP %{http_code} en %{time_total} s\n' "$@"; grep -i x-correlation-id /tmp/rh-h; }
 OP1=$(tok operator1); OP2=$(tok operator2); DON=$(tok donor1); AUD=$(tok auditor1)
