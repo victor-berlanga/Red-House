@@ -31,13 +31,15 @@ class PhotoEvidenceJourneyTest {
         val lab=readMobileLabFixture()
         val device=UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
         device.executeShellCommand("pm grant org.redhouse.mobile android.permission.CAMERA")
-        enabled("Iniciar sesión");fill("Cuenta","operator1");fill("Contraseña",lab.text("password"));click("Iniciar sesión")
-        enabled("Traslados");click("Traslados");enabled("Abrir tarea y mapa")
-        compose.onAllNodesWithText("Abrir tarea y mapa")[0].performScrollTo().performClick()
-        shown("Traslado · Planificado")
+        enabled("Iniciar sesión");fill("Cuenta","transport1");fill("Contraseña",lab.text("password"));click("Iniciar sesión")
+        enabled("Traslados");click("Traslados");enabled("Abrir traslado")
+        compose.onAllNodesWithText("Abrir traslado")[0].performScrollTo().performClick()
+        shown("Traslado ·")
         android.util.Log.i("PhotoJourney","task-loaded")
         Thread.sleep(8000) // Leave time to capture this real screen on the host.
-        click("Siguiente paso: Preparar unidad");click("Continuar")
+        // La evidencia se captura en el paso 3. «Iniciar traslado» (orden recolectada) es la única acción de TRANSPORT que no exige
+        // escanear antes de continuar; el fixture del laboratorio debe dejar una orden recolectada asignada a transport1.
+        click("Siguiente paso: Iniciar traslado");click("Continuar")
         fill("Observación / motivo (mínimo 6 caracteres)","Evidencia sintética de prueba")
         click("Revisar");click("Evidencia");click("Capturar evidencia")
         val shutter=device.wait(Until.findObject(By.res("com.android.camera2","shutter_button")),30000)

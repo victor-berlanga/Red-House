@@ -17,7 +17,7 @@ class FormAndRecreationTest {
     private fun fill(label:String,value:String){compose.onNodeWithText(label).performScrollTo().performTextReplacement(value)}
     @Test fun rotationRestoresAuthorizedSessionWithLargeText(){
         val lab=codec.parseToJsonElement(InstrumentationRegistry.getInstrumentation().context.assets.open("lab.json").bufferedReader().readText()).jsonObject
-        shown("Iniciar sesión");fill("Cuenta","coordinator1");fill("Contraseña",lab.text("password"));click("Iniciar sesión")
+        shown("Iniciar sesión");fill("Cuenta","transport1");fill("Contraseña",lab.text("password"));click("Iniciar sesión")
         shown("Traslados")
         Assert.assertTrue("Run with font_scale 1.3 or larger",compose.activity.resources.configuration.fontScale>=1.3f)
         for((requested,expected) in listOf(
@@ -26,20 +26,19 @@ class FormAndRecreationTest {
             compose.activityRule.scenario.onActivity{it.requestedOrientation=requested}
             compose.waitUntil(90000){compose.activity.resources.configuration.orientation==expected && compose.onAllNodesWithText("Traslados").fetchSemanticsNodes(atLeastOneRootRequired=false).isNotEmpty()}
             compose.onAllNodesWithText("Mi expediente").assertCountEquals(0)
-            click("Disponibilidad regional");compose.waitUntil(90000){compose.onAllNodesWithTag("loaded-records").fetchSemanticsNodes().isNotEmpty()}
+            click("Avisos");compose.waitUntil(90000){compose.onAllNodesWithTag("loaded-records").fetchSemanticsNodes().isNotEmpty()}
         }
         click("Cerrar sesión");shown("Iniciar sesión");Assert.assertNull(AndroidSecureStore(compose.activity).read())
     }
-    @Test fun coordinatorValidationAndActivityRecreationReauthorizeTheSameRole(){
+    @Test fun transportActivityRecreationReauthorizesTheSameRole(){
         val lab=codec.parseToJsonElement(InstrumentationRegistry.getInstrumentation().context.assets.open("lab.json").bufferedReader().readText()).jsonObject
-        shown("Iniciar sesión");fill("Cuenta","coordinator1");fill("Contraseña",lab.text("password"));click("Iniciar sesión")
-        click("Programar traslado");click("Revisar programación");shown("Selecciona una reserva válida.")
-        compose.onAllNodesWithText("Confirmar programación").assertCountEquals(0)
+        shown("Iniciar sesión");fill("Cuenta","transport1");fill("Contraseña",lab.text("password"));click("Iniciar sesión")
+        shown("Traslados")
         compose.onAllNodesWithText("Código de verificación").assertCountEquals(0)
         // Real Activity destruction reconstructs Compose and reloads encrypted credentials via /auth/me.
         compose.activityRule.scenario.recreate();shown("Traslados")
         compose.onAllNodesWithText("Mi expediente").assertCountEquals(0)
-        click("Disponibilidad regional");compose.waitUntil(90000){compose.onAllNodesWithTag("loaded-records").fetchSemanticsNodes().isNotEmpty()}
+        click("Avisos");compose.waitUntil(90000){compose.onAllNodesWithTag("loaded-records").fetchSemanticsNodes().isNotEmpty()}
         click("Cerrar sesión");shown("Iniciar sesión");Assert.assertNull(AndroidSecureStore(compose.activity).read())
     }
 }

@@ -41,13 +41,15 @@ class VisualProfileTest {
             compose.onNodeWithText("Código de verificación").assertIsFocused()
             fill("Código de verificación",code);presentationClick(compose,"Iniciar sesión")
         }
-        try {compose.waitUntil(60000) {compose.onAllNodesWithTag("loaded-records").fetchSemanticsNodes().isNotEmpty() || (first=="Inicio" && compose.onAllNodesWithText("Ver mis citas").fetchSemanticsNodes().isNotEmpty() && compose.onAllNodesWithText("Consultando tus citas…").fetchSemanticsNodes().isEmpty())}}
+        try {compose.waitUntil(60000) {compose.onAllNodesWithTag("loaded-records").fetchSemanticsNodes().isNotEmpty() || (first=="Inicio" && (compose.onAllNodesWithText("Siguiente paso").fetchSemanticsNodes().isNotEmpty() || compose.onAllNodesWithText("Traslado activo").fetchSemanticsNodes().isNotEmpty() || compose.onAllNodesWithText("Sin traslado activo").fetchSemanticsNodes().isNotEmpty()) && compose.onAllNodesWithText("Consultando tus citas…").fetchSemanticsNodes().isEmpty())}}
         catch(error:Exception) {capture("login-or-query-error");throw error}
         compose.onNode(hasText(first) and hasClickAction()).assertIsDisplayed()
         compose.onAllNodesWithText("Secciones").assertCountEquals(0)
         capture("work")
         if(user=="transport1") {
-            presentationClick(compose,"Abrir tarea y mapa")
+            presentationClick(compose,"Traslados")
+            compose.waitUntil(60000) {compose.onAllNodesWithText("Abrir traslado").fetchSemanticsNodes().isNotEmpty()}
+            presentationClick(compose,"Abrir traslado")
             compose.waitUntil(60000) {compose.onAllNodesWithText("Contactos y ruta").fetchSemanticsNodes().isNotEmpty()}
             capture("task")
             presentationClick(compose,"Contactos y ruta")
@@ -56,13 +58,13 @@ class VisualProfileTest {
             UiDevice.getInstance(InstrumentationRegistry.getInstrumentation()).pressBack()
         }
         if(user=="donor1") {
-            presentationClick(compose,"Ver mis citas")
+            presentationClick(compose,"Citas")
             compose.waitUntil(60000) {compose.onAllNodesWithText("Buscar horarios").fetchSemanticsNodes().isNotEmpty()}
             capture("appointments")
             presentationClick(compose,"Buscar horarios");capture("booking-form")
             UiDevice.getInstance(InstrumentationRegistry.getInstrumentation()).pressBack()
             presentationClick(compose,"Inicio")
-            compose.onNodeWithText("Tu próxima cita").assertExists()
+            compose.onAllNodes(hasText("Siguiente paso") or hasText("Tu próxima cita")).onFirst().assertExists()
         }
         presentationClick(compose,"Cuenta")
         compose.onNode(hasText("Información de la cuenta") and hasClickAction()).performScrollTo().assertIsDisplayed()
@@ -75,14 +77,6 @@ class VisualProfileTest {
         compose.waitUntil(60000) {compose.onAllNodesWithTag("loaded-records").fetchSemanticsNodes().isNotEmpty()}
         compose.onAllNodesWithText("Programar traslado").assertCountEquals(0)
         capture("notices")
-        if(user=="coordinator1" || user=="medical1") {
-            presentationClick(compose,if(user=="coordinator1") "Región" else "Laboratorio")
-            capture("subhub")
-            presentationClick(compose,if(user=="coordinator1") "Disponibilidad regional" else "Muestras autorizadas")
-            compose.waitUntil(60000) {compose.onAllNodesWithTag("loaded-records").fetchSemanticsNodes().isNotEmpty()}
-            capture("secondary-list")
-            UiDevice.getInstance(InstrumentationRegistry.getInstrumentation()).pressBack()
-        }
         presentationClick(compose,"Cerrar sesión")
         compose.waitUntil(60000) {compose.onAllNodesWithText("Iniciar sesión").fetchSemanticsNodes().isNotEmpty()}
         org.junit.Assert.assertNull(AndroidSecureStore(compose.activity).read())

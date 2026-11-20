@@ -6,14 +6,9 @@ import kotlinx.serialization.json.booleanOrNull
 import kotlinx.serialization.json.contentOrNull
 import kotlinx.serialization.json.doubleOrNull
 
-internal fun transportAction(role: String, tenant: String, origin: String, destination: String, status: String): String? = when {
-    role == "TRANSPORT" && status == "PREPARED" -> "COLLECTED"
-    role == "TRANSPORT" && status == "COLLECTED" -> "IN_TRANSIT"
-    role == "TRANSPORT" && status == "IN_TRANSIT" -> "DELIVERED"
-    role == "OPERATOR" && tenant == origin && status == "PLANNED" -> "PREPARED"
-    role == "OPERATOR" && tenant == destination && status == "DELIVERED" -> "ACCEPTED"
-    else -> null
-}
+/** Transición que puede solicitar la persona con este perfil. La app móvil solo ejecuta traslados como TRANSPORT. */
+internal fun transportAction(role: String, status: String): String? =
+    if (role == "TRANSPORT") transportStep(status)?.action else null
 
 internal fun transportLocationSummary(point:JsonObject?,connected:Boolean):String {
     if(point==null) return "Ubicación no disponible en esta vista; el mapa muestra la región."

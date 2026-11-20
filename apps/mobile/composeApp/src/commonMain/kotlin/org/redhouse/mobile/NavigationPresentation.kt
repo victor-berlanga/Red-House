@@ -16,13 +16,15 @@ import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import kotlinx.serialization.json.*
 
+/**
+ * Destinos de la barra inferior. La app móvil es solo para DONOR y TRANSPORT; cualquier otro rol
+ * (el servidor ya lo rechaza al iniciar sesión) solo ve «Cuenta» para poder cerrar sesión.
+ * Inicio siempre es el primero: muestra lo frecuente y el siguiente paso.
+ */
 fun primaryDestinations(role: String): List<String> = when(role) {
-    "DONOR" -> listOf("Inicio", "Campañas", "Avisos", "Cuenta")
-    "TRANSPORT" -> listOf("Traslados", "Pendientes", "Avisos", "Cuenta")
-    "OPERATOR" -> listOf("Inventario", "Traslados", "Avisos", "Cuenta")
-    "COORDINATOR" -> listOf("Traslados", "Región", "Avisos", "Cuenta")
-    "MEDICAL" -> listOf("Solicitudes", "Laboratorio", "Avisos", "Cuenta")
-    else -> listOf("Perfil", "Avisos")
+    "DONOR" -> listOf("Inicio", "Citas", "Campañas", "Avisos", "Cuenta")
+    "TRANSPORT" -> listOf("Inicio", "Traslados", "Avisos", "Cuenta")
+    else -> listOf("Cuenta")
 }
 
 @Composable expect fun PresentationBackHandler(enabled: Boolean, onBack: () -> Unit)
@@ -31,12 +33,11 @@ fun primaryDestinations(role: String): List<String> = when(role) {
     // Same 24-unit linear icon family as the portal; the native item supplies its label.
     val data = when(destination) {
         "Inicio" -> "M3 11L12 3L21 11V21H15V15H9V21H3Z"
-        "Campañas", "Citas" -> "M4 5H20V21H4ZM8 2V8M16 2V8M4 11H20M8 15H10M14 15H16"
+        "Citas" -> "M4 5H20V21H4ZM8 2V8M16 2V8M4 11H20M8 15H10M14 15H16"
+        "Campañas" -> "M5 22V3M5 4H19L16 9L19 14H5"
         "Avisos" -> "M3 5H21V19H3ZM3 5L12 12L21 5"
         "Cuenta", "Perfil" -> "M8 6A4 4 0 1 0 16 6A4 4 0 1 0 8 6M4 22V19A8 8 0 0 1 20 19V22"
         "Traslados" -> "M2 4H14V17H2ZM14 8H18L22 13V17H14M5 17A2 2 0 1 0 9 17A2 2 0 1 0 5 17M16 17A2 2 0 1 0 20 17A2 2 0 1 0 16 17"
-        "Región" -> "M3 5L9 2L15 5L21 2V19L15 22L9 19L3 22ZM9 2V19M15 5V22"
-        "Laboratorio" -> "M8 2H16M10 2V10L4 20V22H20V20L14 10V2M7 16H17"
         else -> "M5 3H19V21H5ZM9 8H15M9 12H15M9 16H13"
     }
     val path = remember(data) { PathParser().parsePathString(data).toPath() }
