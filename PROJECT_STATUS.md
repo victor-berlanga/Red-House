@@ -2,6 +2,45 @@
 
 Las entradas están ordenadas de reciente a histórico; un pendiente de un corte anterior puede quedar sustituido explícitamente por una entrada posterior.
 
+## Navegación y acceso por aplicación — 19-20/11/2026
+
+Pedido de Victor (19/11): mejorar la navegación de las tres aplicaciones y repartir los perfiles por aplicación,
+aplicado en el servidor. Sustituye el punto «perfiles iguales en web, móvil y escritorio» del corte del 18/11.
+Cada parte la construyó un agente y la revisó otro que intentó romperla. Matriz completa:
+[Matriz de acceso por aplicación](documentation/markdowns/Matriz_acceso_por_aplicacion.md).
+
+- **Acceso por aplicación (servidor):** portal = ADMIN, OPERATOR, MEDICAL, COORDINATOR, AUDITOR; escritorio =
+  OPERATOR, MEDICAL, COORDINATOR; móvil = DONOR, TRANSPORT; sitio público y campañas sin sesión. El login exige
+  `X-RedHouse-Client: web|desktop|mobile` (sin ella, 400 `client_required`; perfil fuera de su app, 403
+  `client_not_allowed` con la app correcta en español). La app queda en la sesión (migración compartida 022, aditiva),
+  en Redis y en el JWT; `authenticate()` rechaza sesiones previas sin app (401) y perfiles que ya no corresponden (403);
+  rol, ámbito y recurso se siguen verificando igual. Script `revocar_sesiones_sin_cliente.py` (`--dry-run`/`--aplicar`).
+  OpenAPI de identidad declara la cabecera. Evidencia: `test_acceso_por_aplicacion.py` (51, 7 perfiles × 3 apps,
+  sesiones previas, bypass por cabecera o por Redis).
+- **Portal web:** la barra lateral resaltaba otra sección en Apoyo a decisiones, Muestras, Conservación, Configuración
+  y anomalías. Ahora la sección sale del endpoint (`apps/web/src/integration/navigation.py`) y, en unidades, del tipo
+  real (sangre u órgano). Evidencia: `test_portal_navigation.py` (11; con el código anterior fallan 4 de 5 perfiles).
+- **Escritorio:** barra superior por perfil y menú «Más» solo con destinos permitidos (`NAV_PROFILES`), sin opciones
+  grises; las acciones inactivas por estado dicen qué paso falta; cabe en 1000 px. Evidencia: 302 pruebas,
+  capturas en `documentation/evidencias/entrega-final/navegacion-escritorio-20261119/`.
+- **Móvil:** donante con Inicio (siguiente paso), Citas, Campañas, Avisos y Cuenta; transportista con Inicio (orden
+  activa y acción principal según el estado real de custodia), Traslados, Avisos y Cuenta, seguimiento por etapas y
+  «Abrir en mapas» con la app del sistema. Se retiraron las pantallas de operador, coordinador y médico (tienen su vía
+  en portal y escritorio). Evidencia: 116 pruebas unitarias y `assembleDebug`.
+- **Huecos cerrados (20/11):** H1 evaluaciones del donante y H2 carga de su consentimiento (móvil, Expediente);
+  H3 resumen, indicadores y reporte CSV del transportista (móvil, Inicio › Resumen). Evidencia:
+  `test_donor_expediente_movil.py`, `test_transporte_resumen.py`, `DonorDocumentsTest`, `TransportSummaryTest`.
+- **Documentos:** Manual de usuario y Guía de prueba manual coherentes con la distribución; la guía aclara que en la VM
+  el MFA está desactivado desde el 19/11.
+- **Suite de servicios:** completa sobre la rama integrada: **910 pasan, 37 omitidas, 10 fallan** (26 min). Las 10 son
+  `test_public_reference_sources.py` y fallan igual en `cd6708e`: falta el catálogo HLA público fijado en
+  `.local/reference-data/hla` de esta Mac (en CI se descarga con `fetch_public_references.py`). Escritorio 302,
+  móvil 116 + `assembleDebug`, `ruff`, `document.py --check-openapi` y `sync_contracts.py --check` en verde.
+- **Pendiente:** publicar en la VM (migración 022, servicios, revocar sesiones previas, verificación por perfil) y
+  generar APK y paquetes de escritorio nuevos: los ya distribuidos no mandan la cabecera y no podrán iniciar sesión.
+  Sin verificar en esta Mac: pruebas instrumentadas de Android (sin emulador ni dependencias offline), compilación iOS
+  (sin Xcode), recorridos de navegador. Regenerar Word/PDF (decisión de Victor).
+
 ## Cierre de huecos de la consigna en la VM — 18/11/2026 (tarde)
 
 Revisión de la consigna de Blackboard contra el repo y la VM. Todo lo de abajo está publicado en GCP y la VM quedó
