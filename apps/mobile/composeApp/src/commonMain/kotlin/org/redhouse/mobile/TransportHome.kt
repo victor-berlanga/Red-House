@@ -17,7 +17,7 @@ import kotlinx.serialization.json.*
  * «Traslados»: la lista completa con estado visible y paginación. [onOpen] recibe el id y el paso con el que
  * se abre la tarea (0 detalle, 1 transferencia, 2 incidencia; ver [TransportScreen]).
  */
-@Composable fun TransportOrders(repository: MobileRepository, queue: ObservationQueue, home: Boolean, onOpen: (String, Int) -> Unit, onPending: () -> Unit) {
+@Composable fun TransportOrders(repository: MobileRepository, queue: ObservationQueue, home: Boolean, onOpen: (String, Int) -> Unit, onPending: () -> Unit, onSummary: () -> Unit = {}) {
     val scope = rememberCoroutineScope()
     val openInMaps = rememberOpenInMaps()
     var rows by remember { mutableStateOf<List<JsonObject>>(emptyList()) }
@@ -48,6 +48,7 @@ import kotlinx.serialization.json.*
     if (message.isNotBlank()) Text(message)
     if (busy) LinearProgressIndicator(Modifier.fillMaxWidth())
     if (home) {
+        TransportSummaryCard(repository, onSummary)
         if (active != null) ActiveOrderCard(active, onOpen, openInMaps) { message = it }
         else if (loaded) Card(Modifier.fillMaxWidth()) { Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
             Text("Sin traslado activo", style = MaterialTheme.typography.titleMedium)

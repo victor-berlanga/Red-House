@@ -165,10 +165,10 @@ fun RedHouseApp(store: SecureStore, localStore: SecureStore, queueStore: SecureS
         LaunchedEffect(user?.text("id"),busy) {
             if(user!=null && !busy && selected==null && destination.isEmpty()) navigate(primaryDestinations(user!!.text("role")).first())
         }
-        val nested = accountSection!=null || taskId!=null || detail!=null || (donorView && accountView) || destination=="Pendientes"
+        val nested = accountSection!=null || taskId!=null || detail!=null || (donorView && accountView) || destination=="Pendientes" || destination=="Resumen"
         fun back() {
             when { donorView -> donorView=false; taskId!=null -> taskId=null; detail!=null -> detail=null; accountSection!=null -> accountSection=null
-                destination=="Pendientes" -> navigate("Inicio") }
+                destination=="Pendientes" || destination=="Resumen" -> navigate("Inicio") }
         }
         PresentationBackHandler(user!=null && nested) { back() }
         PresentationBackHandler(user==null && mfaRequired) { password="";otp="";mfaRequired=false;status="" }
@@ -276,7 +276,8 @@ fun RedHouseApp(store: SecureStore, localStore: SecureStore, queueStore: SecureS
                     if(detail!=null && repository!=null)OperationalDetail(detail!!.first,detail!!.second,repository!!,shellTitle=accountSection ?: destination)
                     if(taskId!=null && repository!=null && queue!=null) TransportScreen(taskId!!,repository!!,queue!!,devices,taskStage)
                     if(taskId==null && !donorView && user!!.text("role")=="TRANSPORT" && destination in setOf("Inicio","Traslados") && repository!=null && queue!=null)
-                        TransportOrders(repository!!,queue!!,home=destination=="Inicio",onOpen={id,stage->taskStage=stage;taskId=id},onPending={navigate("Pendientes")})
+                        TransportOrders(repository!!,queue!!,home=destination=="Inicio",onOpen={id,stage->taskStage=stage;taskId=id},onPending={navigate("Pendientes")},onSummary={navigate("Resumen")})
+                    if(taskId==null && !donorView && user!!.text("role")=="TRANSPORT" && destination=="Resumen" && repository!=null) TransportSummaryScreen(repository!!)
                     if(!accountView && destination!="Pendientes" && taskId==null && !donorView && detail==null) selected?.let { screen ->
                         Row(Modifier.fillMaxWidth().testTag(if(loaded) "loaded-records" else "loading-records"),horizontalArrangement=Arrangement.SpaceBetween) {
                             if(screen.title != if(destination=="Citas") "Mis citas" else destination) Text(screen.title,style=MaterialTheme.typography.titleMedium,modifier=Modifier.weight(1f))
