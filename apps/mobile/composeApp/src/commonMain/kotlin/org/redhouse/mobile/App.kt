@@ -245,7 +245,7 @@ fun RedHouseApp(store: SecureStore, localStore: SecureStore, queueStore: SecureS
                             Text(user!!.text("display_name").ifBlank { user!!.text("username") },style=MaterialTheme.typography.headlineSmall)
                             Text(displayValue("role",user!!.text("role")),color=MaterialTheme.colorScheme.onSurfaceVariant)
                             if(user!!.text("role") !in mobileRoles) Text("Esta aplicación es para donantes y personal de traslado. Usa el portal o la consola de escritorio de tu perfil.")
-                            if(user!!.text("role")=="DONOR") SettingRow("Mi expediente") {donorSection="Expediente";donorView=true}
+                            if(user!!.text("role")=="DONOR") SettingRow("Mi expediente","Evaluaciones y consentimiento firmado") {donorSection="Expediente";donorView=true}
                             SettingRow("Notificaciones") {accountSection="Notificaciones"}
                             SettingRow("Privacidad y permisos") {accountSection="Privacidad y permisos"}
                             SettingRow("Información de la cuenta") {accountSection="Información de la cuenta"}
@@ -270,7 +270,7 @@ fun RedHouseApp(store: SecureStore, localStore: SecureStore, queueStore: SecureS
                             OutlinedButton(onClick={devices.openSettings()}){Text("Abrir permisos del sistema")}
                         }
                     }
-                    if(donorView && repository!=null) DonorScreen(repository!!,initialSection=donorSection,showBack=accountView,onExploreCampaigns={navigate("Campañas")},onOpenAppointments={navigate("Citas")},onOpenNotices={navigate("Avisos")}) {donorView=false}
+                    if(donorView && repository!=null) DonorScreen(repository!!,initialSection=donorSection,showBack=accountView,devices=devices,onExploreCampaigns={navigate("Campañas")},onOpenAppointments={navigate("Citas")},onOpenNotices={navigate("Avisos")}) {donorView=false}
                     if (!accountView) {
                     if(destination=="Pendientes" && queue!=null) { Text("Observaciones por sincronizar",style=MaterialTheme.typography.titleMedium); SyncScreen(queue!!) }
                     if(detail!=null && repository!=null)OperationalDetail(detail!!.first,detail!!.second,repository!!,shellTitle=accountSection ?: destination)

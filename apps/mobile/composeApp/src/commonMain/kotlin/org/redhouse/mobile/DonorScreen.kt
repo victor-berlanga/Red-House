@@ -18,7 +18,7 @@ import io.ktor.http.encodeURLParameter
 import io.ktor.http.HttpMethod
 
 /** Own records only. No local eligibility calculation and no self-link by folio. */
-@Composable fun DonorScreen(repository:MobileRepository,initialSection:String="Citas",showBack:Boolean=true,onExploreCampaigns:()->Unit={},onOpenAppointments:()->Unit={},onOpenNotices:()->Unit={},onBack:()->Unit) {
+@Composable fun DonorScreen(repository:MobileRepository,initialSection:String="Citas",showBack:Boolean=true,devices:DeviceAccess?=null,onExploreCampaigns:()->Unit={},onOpenAppointments:()->Unit={},onOpenNotices:()->Unit={},onBack:()->Unit) {
     var section by remember(initialSection) {mutableStateOf(initialSection)}
     val share = rememberPublicShare()
     val focusManager = LocalFocusManager.current
@@ -37,6 +37,7 @@ import io.ktor.http.HttpMethod
     var consents by remember {mutableStateOf<List<JsonObject>>(emptyList())}
     var latestConsent by remember {mutableStateOf<JsonObject?>(null)}
     var consentLoaded by remember {mutableStateOf(false)}
+    var consentDoc by remember {mutableStateOf(ConsentDoc(ConsentDocStatus.Unknown))}
     var consentPage by remember {mutableIntStateOf(1)};var consentTotal by remember {mutableIntStateOf(0)}
     var editName by remember {mutableStateOf(false)};var nameDraft by remember {mutableStateOf("")}
     var sites by remember {mutableStateOf<List<JsonObject>>(emptyList())}
@@ -87,6 +88,9 @@ import io.ktor.http.HttpMethod
         nextAppointment=nextResponse["appointment"] as? JsonObject;nextLoaded=true
         consents=emptyList();latestConsent=null;consentLoaded=false;consentPage=1;consentTotal=0
         donor?.let{loadConsents(it.text("id"),1)}
+        // Documento de consentimiento (H2): si falla la consulta queda «Sin comprobar»; nunca se supone que falta.
+        consentDoc=ConsentDoc(ConsentDocStatus.Unknown)
+        donor?.let{d->consentDoc=try{repository.loadConsentDocument(d.text("id"))}catch(e:CancellationException){throw e}catch(_:Exception){ConsentDoc(ConsentDocStatus.Unknown)}}
         // Avisos sin leer para Inicio: si la consulta falla, simplemente no se muestra el contador.
         unread=try {unreadNotices(items(session.request("alertas","/api/v1/alerts?page=1&page_size=20")))} catch(e:CancellationException){throw e} catch(_:Exception){null}
         loadCampaigns()
@@ -111,7 +115,9 @@ import io.ktor.http.HttpMethod
     if(section=="Inicio") {
         // Siguiente paso: completar registro, ver la cita próxima o reservar. Una sola acción principal.
         val next=nextAppointment
-        val step=donorNextStep(donorListLoaded,donor!=null,nextLoaded,next,busy)
+        val baseStep=donorNextStep(donorListLoaded,donor!=null,nextLoaded,next,busy)
+        val step=donorNextStepWithConsent(baseStep,donor!=null,consentDoc)
+        val reminder=consentReminder(baseStep,donor!=null,consentDoc)
         Card(Modifier.fillMaxWidth(),colors=CardDefaults.cardColors(containerColor=MaterialTheme.colorScheme.primaryContainer,contentColor=MaterialTheme.colorScheme.onPrimaryContainer)) { Column(Modifier.padding(16.dp),verticalArrangement=Arrangement.spacedBy(10.dp)) {
             Text(if(step.kind==DonorStepKind.Appointment) "Tu próxima cita" else "Siguiente paso",style=MaterialTheme.typography.labelLarge)
             Text(step.title,style=MaterialTheme.typography.titleLarge)
@@ -121,13 +127,15 @@ import io.ktor.http.HttpMethod
             }
             if(step.kind==DonorStepKind.Book) Text("Elige una campaña y un horario disponible.")
             if(step.kind==DonorStepKind.Register) Text("Tu institución revisará la información.")
+            if(step.kind==DonorStepKind.Consent) Text("Tu institución lo necesita para revisar tu expediente.")
             if(step.kind!=DonorStepKind.Loading) Button(onClick={when(step.kind){
-                DonorStepKind.Register -> section="Expediente"
+                DonorStepKind.Register, DonorStepKind.Consent -> section="Expediente"
                 DonorStepKind.Appointment -> onOpenAppointments()
                 DonorStepKind.Book -> section="Reservar"
                 else -> run{reload()}
             }},modifier=Modifier.fillMaxWidth().heightIn(min=56.dp)) {Text(step.action,style=MaterialTheme.typography.titleMedium)}
         } }
+        reminder?.let { OutlinedButton(onClick={section="Expediente"},modifier=Modifier.fillMaxWidth().heightIn(min=48.dp)) {Text(it)} }
         donor?.takeIf{it.text("status")=="PRELIMINARY"}?.let { Row(verticalAlignment=androidx.compose.ui.Alignment.CenterVertically,horizontalArrangement=Arrangement.spacedBy(8.dp)) {Text("Registro");StatusChip("PRELIMINARY")} }
         unread?.takeIf{it>0}?.let { count -> OutlinedButton(onClick=onOpenNotices,modifier=Modifier.fillMaxWidth().heightIn(min=48.dp)) {Text(if(count==1) "1 aviso sin leer" else "$count avisos sin leer")} }
         Row(Modifier.fillMaxWidth(),horizontalArrangement=Arrangement.SpaceBetween,verticalAlignment=androidx.compose.ui.Alignment.CenterVertically) {
@@ -205,6 +213,8 @@ import io.ktor.http.HttpMethod
             HorizontalDivider()
         }
         PageControls(consentPage,consentTotal,!busy,{run{loadConsents(row.text("id"),consentPage-1)}},{run{loadConsents(row.text("id"),consentPage+1)}})
+        if(devices!=null) ConsentDocumentSection(repository,devices,row.text("id"),consentDoc){run{reload()}}
+        DonorReviewsSection(repository,row.text("id"))
     }
     if(donor==null) {
         val pending=repository.journal.value("command:donantes:/api/v1/donors") as? JsonObject

@@ -104,7 +104,7 @@ fun appleMapsUrl(target: MapTarget): String = when {
 
 // ---------------------------------------------------------------- Donante
 
-enum class DonorStepKind { Loading, Error, Register, Appointment, Book }
+enum class DonorStepKind { Loading, Error, Register, Appointment, Book, Consent }
 
 /** Siguiente paso del donante en Inicio: título, y etiqueta del botón principal. */
 class DonorStep(val kind: DonorStepKind, val title: String, val action: String)
