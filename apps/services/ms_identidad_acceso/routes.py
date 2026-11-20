@@ -18,7 +18,16 @@ from redhouse.errors import APIError
 from redhouse.events import emit
 from redhouse.models import Confirm, ID, Model, Role, Text, validate_id
 from redhouse.decisions import record, history
-from redhouse.security import access_token, authenticate, key, own, redis_call
+from redhouse.security import (
+    access_token,
+    CLIENT_ROLES,
+    authenticate,
+    ensure_client_allowed,
+    key,
+    own,
+    redis_call,
+    request_client,
+)
 from redhouse.extension_contracts import schema
 
 
@@ -224,9 +233,12 @@ def register(app):
         summary="Iniciar sesión independiente",
     )
     def login(data):
+        # Falla cerrada antes de tocar credenciales: sin aplicación declarada no hay sesión.
+        client = request_client()
         lock = key(
             "login_fail:" + hashlib.sha256(data["username"].encode()).hexdigest()
         )
+        denied = None
         attempts = redis_call(lambda r: r.get(lock))
         if attempts and int(attempts) >= 5:
             raise APIError("login_locked", "Acceso temporalmente bloqueado.", 429)
@@ -257,21 +269,42 @@ def register(app):
                 failed = True
             else:
                 failed = False
-                from .strong_auth import enforce_login
-
-                enforce_login(conn, row, data.get("otp"))
                 user = public_user(row)
                 g.actor = user
-                sid = str(uuid4())
-                expires = datetime.now(timezone.utc) + timedelta(
-                    seconds=app.config["REFRESH_TTL"]
-                )
-                insert(
-                    conn,
-                    "sessions",
-                    {"id": sid, "user_id": user["id"], "expires_at": expires},
-                )
-                emit(conn, "LOGIN", user["id"], user["tenant_id"])
+                try:
+                    ensure_client_allowed(user["role"], client)
+                except APIError as exc:
+                    # Credenciales válidas, perfil fuera de esta aplicación: se audita
+                    # sin contarlo como intento fallido y se rechaza fuera de la transacción.
+                    denied = exc
+                    emit(
+                        conn,
+                        "LOGIN_FAILED",
+                        row["id"],
+                        row["tenant_id"],
+                        metadata={"reason": "client_not_allowed", "client": client},
+                    )
+                else:
+                    from .strong_auth import enforce_login
+
+                    enforce_login(conn, row, data.get("otp"))
+                    sid = str(uuid4())
+                    expires = datetime.now(timezone.utc) + timedelta(
+                        seconds=app.config["REFRESH_TTL"]
+                    )
+                    insert(
+                        conn,
+                        "sessions",
+                        {
+                            "id": sid,
+                            "user_id": user["id"],
+                            "expires_at": expires,
+                            "client": client,
+                        },
+                    )
+                    emit(conn, "LOGIN", user["id"], user["tenant_id"])
+        if denied:
+            raise denied
         if failed:
             raise APIError("unauthorized", "Credenciales inválidas.", 401)
         token = sid + "." + secrets.token_urlsafe(32)
@@ -282,7 +315,11 @@ def register(app):
                 pipe.set(
                     key("session:" + sid),
                     json.dumps(
-                        {"user_id": user["id"], "expires": int(expires.timestamp())}
+                        {
+                            "user_id": user["id"],
+                            "expires": int(expires.timestamp()),
+                            "client": client,
+                        }
                     ),
                     ex=app.config["REFRESH_TTL"],
                 )
@@ -292,7 +329,7 @@ def register(app):
 
         redis_call(save)
         return {
-            "access_token": access_token(user, sid),
+            "access_token": access_token(user, sid, client),
             "refresh_token": token,
             "token_type": "Bearer",
             "expires_in": app.config["ACCESS_TTL"],
@@ -315,6 +352,14 @@ def register(app):
         if not current:
             raise APIError("unauthorized", "Renovación inválida.", 401)
         state = json.loads(current)
+        client = state.get("client")
+        if client not in CLIENT_ROLES:
+            # Sesión emitida antes del acceso por aplicación: falla cerrada.
+            raise APIError(
+                "unauthorized",
+                "Tu sesión es anterior al acceso por aplicación; inicia sesión de nuevo.",
+                401,
+            )
         with transaction() as conn:
             row = conn.execute(
                 "SELECT u.*,i.region_id FROM users u JOIN institutions i ON i.id=u.tenant_id WHERE u.id=%s AND i.active",
@@ -323,6 +368,8 @@ def register(app):
             if not row or not row["active"]:
                 raise APIError("unauthorized", "Cuenta inactiva.", 401)
             user = public_user(row)
+            # El refresh conserva la aplicación y vuelve a validar el perfil vigente.
+            ensure_client_allowed(user["role"], client)
             g.actor = user
             emit(conn, "REFRESH_ATTEMPT", user["id"], user["tenant_id"])
         replacement = sid + "." + secrets.token_urlsafe(32)
@@ -353,7 +400,7 @@ def register(app):
             )
         permissions(user)
         return {
-            "access_token": access_token(user, sid),
+            "access_token": access_token(user, sid, client),
             "refresh_token": replacement,
             "token_type": "Bearer",
             "expires_in": app.config["ACCESS_TTL"],
