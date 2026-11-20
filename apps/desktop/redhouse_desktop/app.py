@@ -11,7 +11,7 @@ from PySide6.QtGui import QImage, QPixmap, QColor, QPainter
 import qrcode
 from PySide6.QtWidgets import (QApplication, QDialog, QFormLayout, QHBoxLayout, QLabel,
     QLineEdit, QMainWindow, QMessageBox, QPushButton, QStackedWidget, QTableWidget, QComboBox, QDateTimeEdit,
-    QTableWidgetItem, QVBoxLayout, QWidget, QHeaderView, QFileDialog, QCheckBox, QSpinBox, QScrollArea)
+    QTableWidgetItem, QVBoxLayout, QWidget, QHeaderView, QFileDialog, QCheckBox, QSpinBox, QScrollArea, QToolButton, QMenu)
 from .client import ApiError, Client, ContractError
 from .journal import Journal, JournalError
 from .session_context import OperationContext, SessionChanged
@@ -50,6 +50,32 @@ def display_value(key,value):
         if moment.isValid(): return moment.toLocalTime().toString('dd/MM/yyyy HH:mm')+' local'
     return label(value)
 
+# --- Navegación por perfil -------------------------------------------------------
+# Única fuente de verdad de qué secciones ve cada perfil en la consola.
+# La consola es solo para OPERATOR, MEDICAL y COORDINATOR (el servidor y client.py rechazan otros
+# perfiles). Las listas se derivan de lo que app.py habilitaba por rol antes del rediseño:
+#   'initial' sección que se abre al iniciar sesión.
+#   'bar'     destinos siempre visibles en la barra superior, en orden.
+#   'more'    destinos secundarios permitidos; viven en el menú «Más» (nunca opciones grises).
+# Lo que no aparece aquí no se muestra al perfil. Los modos de vista de otros perfiles
+# (users, devices, sites, capacities, audit) siguen en Window.load() para reutilizarse,
+# pero ya no tienen acceso desde la navegación del escritorio.
+SECTION_TITLES = {'inventory':'Inventario','samples':'Muestras','results':'Resultados','alerts':'Avisos','requests':'Solicitudes','evaluations':'Evaluaciones','reservations':'Reservas','shipments':'Traslados','donations':'Donaciones','recipients':'Receptores','coverage':'Cobertura','cold_equipment':'Equipos de conservación','cold_profiles':'Perfiles térmicos','reports':'Reportes','pending':'Operaciones pendientes'}
+NAV_PROFILES = {
+    'OPERATOR': {'initial':'inventory','bar':['inventory','samples','results','donations','requests','reservations','shipments','alerts'],'more':['recipients','cold_equipment','cold_profiles','reports','pending']},
+    'MEDICAL': {'initial':'inventory','bar':['inventory','samples','results','requests','evaluations','reservations','recipients','alerts'],'more':['donations','shipments','coverage','cold_equipment','cold_profiles','reports','pending']},
+    'COORDINATOR': {'initial':'shipments','bar':['shipments','inventory','reservations','coverage','alerts','reports','pending'],'more':[]},
+}
+
+def sections_for(role):
+    """Modos visibles para un perfil, en el orden de la barra y luego del menú «Más»."""
+    profile=NAV_PROFILES.get(role)
+    return list(profile['bar']+profile['more']) if profile else []
+
+def initial_section(role):
+    profile=NAV_PROFILES.get(role)
+    return profile['initial'] if profile else {'ADMIN':'users','AUDITOR':'audit','TRANSPORT':'shipments'}.get(role,'inventory')
+
 STYLE = '''
 QWidget { background:#f6f7f9; color:#202c39; font-size:14px; }
 QLabel#brand { color:#a32035; font-size:23px; font-weight:700; }
@@ -58,6 +84,10 @@ QLabel#hint { color:#536474; }
 QPushButton { background:#fff; border:1px solid #b8c3cc; border-radius:5px; padding:8px 14px; }
 QPushButton:hover { border-color:#a32035; }
 QPushButton:focus, QLineEdit:focus, QTableWidget:focus { border:2px solid #245b87; }
+QToolButton { background:#fff; border:1px solid #b8c3cc; border-radius:5px; padding:8px 14px; }
+QToolButton:hover { border-color:#a32035; }
+QToolButton::menu-indicator { image:none; width:0; }
+QToolButton#activeNav { background:#fbecef; border:1px solid #a32035; color:#8d182c; font-weight:700; }
 QPushButton#activeNav { background:#fbecef; border:1px solid #a32035; color:#8d182c; font-weight:700; }
 QPushButton#primary { background:#a32035; border:1px solid #a32035; color:white; font-weight:600; }
 QPushButton:disabled { color:#88939a; background:#e6eaed; border-color:#d3dbe1; }
@@ -102,14 +132,15 @@ class Window(QMainWindow):
         page = QWidget(); outer = QVBoxLayout(page); outer.setContentsMargins(28,20,28,20); outer.setSpacing(14)
         head = QHBoxLayout(); brand = QLabel('RED HOUSE'); brand.setObjectName('brand'); head.addWidget(brand); head.addStretch(); self.summary_button=QPushButton('Resumen'); self.summary_button.clicked.connect(self.open_summary); head.addWidget(self.summary_button); self.analytics_button=QPushButton('Indicadores'); self.analytics_button.clicked.connect(self.open_analytics); head.addWidget(self.analytics_button); self.identity = QLabel(); head.addWidget(self.identity)
         self.logout_button = QPushButton('Cerrar sesión'); self.logout_button.clicked.connect(self.logout); head.addWidget(self.logout_button); outer.addLayout(head)
-        nav = QHBoxLayout(); self.inventory_button = QPushButton('Inventario'); self.inventory_button.clicked.connect(lambda: self.switch('inventory')); nav.addWidget(self.inventory_button)
-        self.samples_button = QPushButton('Muestras'); self.samples_button.clicked.connect(lambda: self.switch('samples')); nav.addWidget(self.samples_button); self.results_button = QPushButton('Resultados'); self.results_button.clicked.connect(lambda: self.switch('results')); nav.addWidget(self.results_button); self.alerts_button = QPushButton('Avisos'); self.alerts_button.clicked.connect(lambda: self.switch('alerts')); nav.addWidget(self.alerts_button); nav.addStretch(); outer.addLayout(nav)
-        self.requests_button=QPushButton('Solicitudes',self); self.evaluations_button=QPushButton('Evaluaciones',self); self.reservations_button=QPushButton('Reservas',self)
-        for button in (self.requests_button,self.evaluations_button,self.reservations_button): button.hide()
-        self.areas=QComboBox(); self.areas.setAccessibleName('Otras áreas de trabajo')
-        for title,mode in (('Más áreas',''),('Solicitudes','requests'),('Evaluaciones','evaluations'),('Reservas','reservations'),('Traslados','shipments'),('Auditoría','audit'),('Usuarios','users'),('Operaciones pendientes','pending'),('Reportes','reports'),('Cobertura','coverage'),('Dispositivos','devices'),('Receptores','recipients'),('Sedes','sites'),('Capacidades','capacities'),('Donaciones','donations'),('Equipos de conservación','cold_equipment'),('Perfiles térmicos','cold_profiles')): self.areas.addItem(title,mode)
-        self.areas.currentIndexChanged.connect(lambda _index: self.switch(self.areas.currentData()) if self.areas.currentData() else None)
-        nav.insertWidget(nav.count()-1,self.areas)
+        # Barra de secciones: se llena según el perfil en apply_navigation (ver NAV_PROFILES).
+        self.nav_layout = QHBoxLayout(); self.nav_buttons = {}; self.nav_role = None
+        for mode,title in SECTION_TITLES.items():
+            button = QPushButton(title, page); button.setAccessibleName('Sección '+title); button.clicked.connect(lambda _checked=False,m=mode: self.switch(m)); button.hide(); self.nav_buttons[mode] = button
+        self.more_button = QToolButton(page); self.more_button.setText('Más ▾'); self.more_button.setAccessibleName('Más secciones'); self.more_button.setPopupMode(QToolButton.InstantPopup); self.more_menu = QMenu(self.more_button); self.more_button.setMenu(self.more_menu); self.more_button.hide()
+        self.more_modes = []
+        self.inventory_button = self.nav_buttons['inventory']; self.samples_button = self.nav_buttons['samples']; self.results_button = self.nav_buttons['results']; self.alerts_button = self.nav_buttons['alerts']
+        self.requests_button = self.nav_buttons['requests']; self.evaluations_button = self.nav_buttons['evaluations']; self.reservations_button = self.nav_buttons['reservations']
+        outer.addLayout(self.nav_layout)
         self.heading = QLabel(); self.heading.setObjectName('title'); outer.addWidget(self.heading)
         self.description = QLabel(); self.description.setObjectName('hint'); outer.addWidget(self.description)
         tools = QHBoxLayout(); self.search = QLineEdit(); self.search.setPlaceholderText('Buscar por folio o identificador'); self.search.returnPressed.connect(self.search_now); tools.addWidget(self.search)
@@ -181,7 +212,7 @@ class Window(QMainWindow):
         role=self.client.user.get('role') if self.client and self.client.user else None
         self.cold_create_button.setEnabled(bool(enabled and ((self.mode=='cold_equipment' and role=='OPERATOR') or (self.mode=='cold_profiles' and role=='MEDICAL'))))
         self.cold_correct_button.setEnabled(bool(enabled and self.mode=='cold_profiles' and role=='MEDICAL'))
-        self.areas.setEnabled(enabled)
+        self.more_button.setEnabled(enabled)
         self.document_upload_button.setEnabled(bool(enabled and self.mode=='results' and self.client and self.client.user and self.client.user.get('role') in ('OPERATOR','MEDICAL')))
         self.correct_result_button.setEnabled(bool(enabled and self.mode=='results' and self.client and self.client.user and self.client.user.get('role') in ('OPERATOR','MEDICAL')))
         is_admin=bool(enabled and self.client and self.client.user and self.client.user.get('role')=='ADMIN')
@@ -198,7 +229,7 @@ class Window(QMainWindow):
             button.setEnabled(bool(enabled and self.mode=='inventory' and self.client and self.client.user and self.client.user.get('role')=='MEDICAL'))
         self.shipment_create_button.setEnabled(bool(enabled and self.mode=='shipments' and self.client and self.client.user and self.client.user.get('role')=='COORDINATOR'))
         self.request_create_button.setEnabled(enabled and self.mode=='requests' and bool(self.client and self.client.user and self.client.user.get('role')=='MEDICAL'))
-        for widget in (self.username,self.password,self.otp,self.search,self.table,self.login_button,self.logout_button,self.summary_button,self.analytics_button,self.inventory_button,self.samples_button,self.results_button,self.alerts_button,self.requests_button,self.evaluations_button,self.reservations_button,self.search_button,self.reload_button,self.trace_button,self.cold_button,self.user_state_button,self.user_role_button,self.download_button,self.report_button,self.report_retry_button,self.resume_button,self.label_button,self.operation_button,self.evaluate_button,self.create_button,self.detail_button,self.recipient_create_button,self.recipient_edit_button,self.request_edit_button,self.request_cancel_button,self.sample_create_button,self.receive_button,self.capture_button,self.review_button,self.ack_button,self.prev,self.next): widget.setEnabled(enabled)
+        for widget in (self.username,self.password,self.otp,self.search,self.table,self.login_button,self.logout_button,self.summary_button,self.analytics_button,*self.nav_buttons.values(),self.search_button,self.reload_button,self.trace_button,self.cold_button,self.user_state_button,self.user_role_button,self.download_button,self.report_button,self.report_retry_button,self.resume_button,self.label_button,self.operation_button,self.evaluate_button,self.create_button,self.detail_button,self.recipient_create_button,self.recipient_edit_button,self.request_edit_button,self.request_cancel_button,self.sample_create_button,self.receive_button,self.capture_button,self.review_button,self.ack_button,self.prev,self.next): widget.setEnabled(enabled)
         if enabled and self.mode in ('donations','cold_equipment','cold_profiles'):
             self.search.setEnabled(False); self.search_button.setEnabled(False)
         if enabled and self.mode != 'samples': self.receive_button.setEnabled(False)
@@ -206,19 +237,12 @@ class Window(QMainWindow):
         if enabled:
             self.prev.setEnabled(self.page>1); self.next.setEnabled(self.page*20<self.total)
         if enabled and self.client and self.client.user:
-            role = self.client.user.get('role'); self.requests_button.setEnabled(role in ('OPERATOR','MEDICAL')); self.evaluations_button.setEnabled(role == 'MEDICAL'); self.reservations_button.setEnabled(role in ('OPERATOR','MEDICAL','COORDINATOR'));
-            for button in (self.inventory_button,self.samples_button,self.results_button): button.setVisible(role!='ADMIN')
-            self.summary_button.setEnabled(role in ('OPERATOR','MEDICAL','COORDINATOR','TRANSPORT')); self.analytics_button.setEnabled(role in ('OPERATOR','MEDICAL','COORDINATOR','TRANSPORT'))
-            for index,button in ((1,self.requests_button),(2,self.evaluations_button),(3,self.reservations_button)): self.areas.model().item(index).setEnabled(button.isEnabled())
-            self.areas.model().item(4).setEnabled(role in ('OPERATOR','MEDICAL','COORDINATOR','TRANSPORT'))
-            self.areas.model().item(5).setEnabled(role == 'AUDITOR'); self.areas.model().item(6).setEnabled(role in ('ADMIN','COORDINATOR')); self.areas.model().item(8).setEnabled(role in ('OPERATOR','MEDICAL','COORDINATOR','TRANSPORT','AUDITOR')); self.areas.model().item(9).setEnabled(role in ('MEDICAL','COORDINATOR'))
-            self.areas.model().item(10).setEnabled(role=='ADMIN'); self.areas.model().item(11).setEnabled(role in ('OPERATOR','MEDICAL'))
-            self.areas.model().item(12).setEnabled(role=='ADMIN'); self.areas.model().item(13).setEnabled(role=='ADMIN'); self.areas.model().item(14).setEnabled(role in ('OPERATOR','MEDICAL'))
+            role = self.client.user.get('role'); self.apply_navigation(role)
+            self.summary_button.setVisible(role in NAV_PROFILES); self.analytics_button.setVisible(role in NAV_PROFILES)
             for button in (self.recipient_create_button,self.recipient_edit_button,self.request_edit_button,self.request_cancel_button): button.setEnabled(role=='MEDICAL')
-            for mode in ('cold_equipment','cold_profiles'):self.areas.model().item(self.areas.findData(mode)).setEnabled(role in ('OPERATOR','MEDICAL'))
-            self.inventory_button.setEnabled(role in ('OPERATOR','MEDICAL','COORDINATOR'))
-            self.trace_button.setEnabled(role=='MEDICAL' and self.mode=='inventory'); self.cold_button.setEnabled(role in ('OPERATOR','MEDICAL') and self.mode=='inventory'); self.user_state_button.setEnabled(role=='ADMIN' and self.mode=='users'); self.user_role_button.setEnabled(role=='ADMIN' and self.mode=='users'); self.operation_button.setEnabled(self.mode == 'pending' or (role == 'MEDICAL' and self.mode == 'reservations')); self.resume_button.setEnabled(role == 'MEDICAL' and self.last_operation_status in ('PENDING','ROLLBACK_PENDING')); self.evaluate_button.setEnabled(role == 'MEDICAL' and self.mode == 'requests'); self.create_button.setEnabled(role == 'OPERATOR' and self.mode == 'inventory'); self.review_button.setEnabled(role == 'MEDICAL' and self.mode == 'results'); self.samples_button.setEnabled(role in ('OPERATOR','MEDICAL')); self.results_button.setEnabled(role in ('OPERATOR','MEDICAL')); self.receive_button.setEnabled(role in ('OPERATOR','MEDICAL') and self.mode == 'samples')
+            self.trace_button.setEnabled(role=='MEDICAL' and self.mode=='inventory'); self.cold_button.setEnabled(role in ('OPERATOR','MEDICAL') and self.mode=='inventory'); self.user_state_button.setEnabled(role=='ADMIN' and self.mode=='users'); self.user_role_button.setEnabled(role=='ADMIN' and self.mode=='users'); self.operation_button.setEnabled(self.mode == 'pending' or (role == 'MEDICAL' and self.mode == 'reservations')); self.resume_button.setEnabled(role == 'MEDICAL' and self.last_operation_status in ('PENDING','ROLLBACK_PENDING')); self.evaluate_button.setEnabled(role == 'MEDICAL' and self.mode == 'requests'); self.create_button.setEnabled(role == 'OPERATOR' and self.mode == 'inventory'); self.review_button.setEnabled(role == 'MEDICAL' and self.mode == 'results'); self.receive_button.setEnabled(role in ('OPERATOR','MEDICAL') and self.mode == 'samples')
             self.capture_button.setEnabled(role in ('OPERATOR','MEDICAL') and self.mode=='samples'); self.sample_create_button.setEnabled(role in ('OPERATOR','MEDICAL') and self.mode=='samples')
+            self.explain_disabled()
 
     def finished(self, callback, result):
         self.busy = False; self._worker=None; self.set_controls(True); callback(result)
@@ -250,7 +274,7 @@ class Window(QMainWindow):
         self.password.clear(); self.otp.clear(); self.otp.hide(); self.otp_label.hide()
         self.last_operation=None; self.last_operation_status=None; self.reservation_uncertain=False
         self.journal=Journal(QStandardPaths.writableLocation(QStandardPaths.AppDataLocation)+'/journal',self.client.base,user['id'],user['tenant_id'])
-        self.identity.setText(user.get('username','') + ' · ' + label(user.get('role',''))); self.stack.setCurrentIndex(1); self.switch({'ADMIN':'users','AUDITOR':'audit','TRANSPORT':'shipments'}.get(user.get('role'),'inventory'))
+        self.identity.setText(user.get('username','') + ' · ' + label(user.get('role',''))); self.stack.setCurrentIndex(1); self.switch(initial_section(user.get('role')))
 
     def logout(self):
         if self.tracking: self.tracking.stop(); self.tracking=None
@@ -267,11 +291,43 @@ class Window(QMainWindow):
     def switch(self,mode):
         self.mode=mode; self.page=1; self.search.clear(); self.update_navigation(); self.load()
 
+    def apply_navigation(self,role):
+        """Coloca en la barra solo las secciones del perfil; lo no permitido no se muestra."""
+        if role == self.nav_role: return
+        self.nav_role = role
+        while self.nav_layout.count(): self.nav_layout.takeAt(0)
+        for button in (*self.nav_buttons.values(),self.more_button): button.hide()
+        self.more_menu.clear(); profile = NAV_PROFILES.get(role); self.more_modes = []
+        if not profile: return
+        for mode in profile['bar']: self.nav_layout.addWidget(self.nav_buttons[mode]); self.nav_buttons[mode].show()
+        if profile['more']:
+            for mode in profile['more']:
+                action = self.more_menu.addAction(SECTION_TITLES[mode]); action.triggered.connect(lambda _checked=False,m=mode: self.switch(m))
+            self.more_modes = list(profile['more']); self.nav_layout.addWidget(self.more_button); self.more_button.show()
+        self.nav_layout.addStretch()
+
     def update_navigation(self):
-        self.areas.blockSignals(True); self.areas.setCurrentIndex(max(0,self.areas.findData(self.mode))); self.areas.blockSignals(False)
-        for button,mode in ((self.inventory_button,'inventory'),(self.samples_button,'samples'),(self.results_button,'results'),(self.alerts_button,'alerts'),(self.requests_button,'requests'),(self.evaluations_button,'evaluations'),(self.reservations_button,'reservations')):
-            button.setObjectName('activeNav' if self.mode == mode else '')
+        role = ((self.client.user or {}).get('role') if self.client else None)
+        if role: self.apply_navigation(role)
+        for mode,button in self.nav_buttons.items():
+            active = self.mode == mode and mode not in self.more_modes
+            button.setObjectName('activeNav' if active else ''); button.setAccessibleDescription('Sección actual' if active else '')
             button.style().unpolish(button); button.style().polish(button)
+        inside = self.mode in self.more_modes
+        self.more_button.setObjectName('activeNav' if inside else ''); self.more_button.setAccessibleDescription('Sección actual: '+SECTION_TITLES.get(self.mode,'') if inside else '')
+        self.more_button.style().unpolish(self.more_button); self.more_button.style().polish(self.more_button)
+
+    def explain_disabled(self):
+        """Acciones autorizadas pero inactivas por el estado de la pantalla: dice qué paso falta."""
+        def reason(widget,text):
+            widget.setToolTip('' if widget.isEnabled() else text); widget.setAccessibleDescription('' if widget.isEnabled() else text)
+        reason(self.prev,'Ya estás en la primera página.'); reason(self.next,'Ya estás en la última página.')
+        if self.mode=='pending':
+            reason(self.detail_button,'Las operaciones pendientes no tienen detalle. Selecciona una y pulsa Consultar operación.')
+            reason(self.search,'No hay búsqueda en operaciones pendientes; la lista es corta.'); reason(self.search_button,'No hay búsqueda en operaciones pendientes.')
+        elif self.mode=='donations': reason(self.search,'Las colectas se buscan desde el botón de registrar o documentar.'); reason(self.search_button,'Las colectas se buscan desde el botón de registrar o documentar.')
+        elif self.mode in ('cold_equipment','cold_profiles'): reason(self.search,'Esta lista no admite búsqueda; usa las páginas.'); reason(self.search_button,'Esta lista no admite búsqueda; usa las páginas.')
+        reason(self.resume_button,'No hay una reserva pendiente de confirmar. Consulta la operación primero.')
 
     def search_now(self): self.page=1; self.load()
     def turn(self,delta): self.page=max(1,self.page+delta); self.load()
@@ -349,7 +405,7 @@ class Window(QMainWindow):
             if kind=='COMMAND' and record.get('target',{}).get('operation')=='cold_equipment_create': name='Equipo de conservación'
             if kind=='COMMAND' and record.get('target',{}).get('operation')=='cold_profile_create': name='Perfil térmico académico'
             self.table.setItem(index,0,QTableWidgetItem(name)); self.table.setItem(index,1,QTableWidgetItem('Requiere revisión' if record.get('status')=='CONFLICT' else 'Por confirmar' if record['state'] in ('PREPARED','UNCERTAIN') else 'Pendiente'))
-        self.operation_button.show(); self.resume_button.setVisible(self.last_operation_status in ('PENDING','ROLLBACK_PENDING')); self.detail_button.setEnabled(False); self.search.setEnabled(False); self.search_button.setEnabled(False); self.prev.setEnabled(False); self.next.setEnabled(False); self.page_label.setText(''); self.status.setText('Selecciona Consultar operación para recuperar.' if pending else 'No hay operaciones pendientes.')
+        self.operation_button.show(); self.resume_button.setVisible(self.last_operation_status in ('PENDING','ROLLBACK_PENDING')); self.detail_button.setEnabled(False); self.search.setEnabled(False); self.search_button.setEnabled(False); self.prev.setEnabled(False); self.next.setEnabled(False); self.page_label.setText(''); self.status.setText('Selecciona Consultar operación para recuperar.' if pending else 'No hay operaciones pendientes.'); self.explain_disabled()
 
     def show_rows(self,data):
         self.document_upload_button.setVisible(self.mode=='results' and bool(self.client and self.client.user and self.client.user.get('role') in ('OPERATOR','MEDICAL')))
@@ -363,10 +419,12 @@ class Window(QMainWindow):
         for button in (self.bind_profile_button,self.release_resource_button,self.resource_destination_button,self.cold_bind_button):
             button.setVisible(self.mode=='inventory' and bool(self.client and self.client.user and self.client.user.get('role')=='MEDICAL'))
         self.shipment_create_button.setVisible(self.mode=='shipments' and bool(self.client and self.client.user and self.client.user.get('role')=='COORDINATOR'))
-        self.device_create_button.setVisible(self.mode in ('users','devices')); self.device_revoke_button.setVisible(self.mode=='devices')
-        self.user_create_button.setVisible(self.mode=='users' and USER_CREATION_ENABLED)
-        self.request_create_button.setVisible(self.mode=='requests'); self.request_edit_button.setVisible(self.mode=='requests'); self.request_cancel_button.setVisible(self.mode=='requests'); self.recipient_create_button.setVisible(self.mode=='recipients'); self.recipient_edit_button.setVisible(self.mode=='recipients')
-        self.trace_button.setVisible(self.mode == 'inventory'); self.cold_button.setVisible(self.mode == 'inventory'); self.user_state_button.setVisible(self.mode == 'users'); self.user_role_button.setVisible(self.mode == 'users'); self.download_button.setVisible(self.mode == 'reports'); self.report_button.setVisible(self.mode == 'reports'); self.resume_button.setVisible(self.mode == 'reservations' and self.last_operation_status in ('PENDING','ROLLBACK_PENDING')); self.label_button.setVisible(self.mode == 'inventory'); self.operation_button.setVisible(self.mode in ('reservations','pending')); self.evaluate_button.setVisible(self.mode == 'requests'); self.create_button.setVisible(self.mode == 'inventory'); self.sample_create_button.setVisible(self.mode == 'samples'); self.receive_button.setVisible(self.mode == 'samples'); self.capture_button.setVisible(self.mode == 'samples'); self.review_button.setVisible(self.mode == 'results'); self.ack_button.setVisible(self.mode == 'alerts')
+        # Acciones que solo dependen del perfil: si no corresponde, no se muestran (ni grises).
+        role=(self.client.user or {}).get('role') if self.client else None; admin=role=='ADMIN'; medical=role=='MEDICAL'
+        self.device_create_button.setVisible(admin and self.mode in ('users','devices')); self.device_revoke_button.setVisible(admin and self.mode=='devices')
+        self.user_create_button.setVisible(admin and self.mode=='users' and USER_CREATION_ENABLED)
+        self.request_create_button.setVisible(medical and self.mode=='requests'); self.request_edit_button.setVisible(medical and self.mode=='requests'); self.request_cancel_button.setVisible(medical and self.mode=='requests'); self.recipient_create_button.setVisible(medical and self.mode=='recipients'); self.recipient_edit_button.setVisible(medical and self.mode=='recipients')
+        self.trace_button.setVisible(self.mode == 'inventory'); self.cold_button.setVisible(self.mode == 'inventory'); self.user_state_button.setVisible(admin and self.mode == 'users'); self.user_role_button.setVisible(admin and self.mode == 'users'); self.download_button.setVisible(self.mode == 'reports'); self.report_button.setVisible(self.mode == 'reports'); self.resume_button.setVisible(self.mode == 'reservations' and self.last_operation_status in ('PENDING','ROLLBACK_PENDING')); self.label_button.setVisible(self.mode == 'inventory'); self.operation_button.setVisible(self.mode=='pending' or (medical and self.mode=='reservations')); self.evaluate_button.setVisible(medical and self.mode == 'requests'); self.create_button.setVisible(self.mode == 'inventory'); self.sample_create_button.setVisible(self.mode == 'samples'); self.receive_button.setVisible(self.mode == 'samples'); self.capture_button.setVisible(self.mode == 'samples'); self.review_button.setVisible(medical and self.mode == 'results'); self.ack_button.setVisible(self.mode == 'alerts')
         self.uncertain=False; self.rows=data['items']; self.total=data['total']; self.page=data['page']; self.table.setRowCount(len(self.rows))
         if self.mode in ('requests','evaluations','reservations','shipments','audit','users','reports','coverage','devices','recipients','sites','capacities','donations'):
             keys={'donations':('kind','component','status','collected_at'),'sites':('name','municipality','user_state','version'),'capacities':('name','component','quantity','user_state'),'recipients':('folio','display_name','kind','status'),'requests':('component','quantity','urgency','status','created_at'),'evaluations':('kind','request_version','algorithm_version','candidate_count','created_at'),'reservations':('status','created_at'),'shipments':('status','departure_at','eta'),'audit':('created_at','action_label','actor_display','result_label'),'users':('username','role','user_state','version'),'devices':('label','source','user_state','expires_at'),'reports':('report','format','status','created_at'),'coverage':('slot_count','matched_count','algorithm_version','created_at')}[self.mode]
@@ -850,7 +908,9 @@ class Window(QMainWindow):
             index=table.currentRow(); return result[index] if 0<=index<len(result) else None
         def selection_changed():
             row=selected_row(); snapshot=snapshots.get(row['request_id']) if row else None
+            unit.setToolTip('' if row else 'Selecciona una unidad propuesta.')
             unit.setEnabled(bool(row)); evaluation.setEnabled(bool(medical and isinstance(snapshot,dict) and valid_id(snapshot.get('evaluation_id'))))
+            evaluation.setToolTip('' if evaluation.isEnabled() else 'Selecciona una unidad cuya solicitud tenga una evaluación generada.')
         table.itemSelectionChanged.connect(selection_changed); selection_changed()
         evaluation.setVisible(medical); unit.clicked.connect(lambda:dialog.done(1)); evaluation.clicked.connect(lambda:dialog.done(2)); close.clicked.connect(dialog.reject)
         for button in (unit,evaluation,close): controls.addWidget(button)
@@ -1353,6 +1413,8 @@ class Window(QMainWindow):
             review=next((item for item in (evaluation.get('reviews') or []) if candidate and isinstance(item,dict) and item.get('resource_id')==candidate['resource_id']),None)
             for button in (favorable,unfavorable): button.setEnabled(current and review is None)
             reserve.setEnabled(current and bool(review and review.get('decision')=='FAVORABLE'))
+            for button,why in ((favorable,'Selecciona un candidato con vigencia confirmada y sin dictamen previo.'),(unfavorable,'Selecciona un candidato con vigencia confirmada y sin dictamen previo.'),(reserve,'Primero registra un dictamen favorable para este candidato.')):
+                button.setToolTip('' if button.isEnabled() else (('La vigencia no está confirmada. Genera una nueva evaluación antes de decidir.' if candidate and not current else 'Este candidato ya tiene dictamen registrado.' if candidate and review is not None and button is not reserve else 'El dictamen registrado no es favorable; esta unidad no puede reservarse.' if candidate and review is not None else why)))
             if not candidate: hint.setText('Selecciona un candidato para consultar su dictamen.')
             elif not current: hint.setText('La vigencia no está confirmada. Genera una nueva evaluación antes de decidir.')
             elif review and review.get('decision')=='FAVORABLE': hint.setText('Dictamen favorable registrado. El servicio comprobará la reserva.')

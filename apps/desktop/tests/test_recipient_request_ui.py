@@ -14,7 +14,7 @@ from PySide6.QtWidgets import (
     QPushButton,
     QSpinBox,
 )
-from redhouse_desktop.app import STYLE, Window
+from redhouse_desktop.app import STYLE, Window, sections_for
 
 app = QApplication.instance() or QApplication([])
 app.setStyleSheet(STYLE)
@@ -141,7 +141,7 @@ def test_operator_can_list_but_cannot_modify_recipients():
     window.client = type("Client", (), {"user": {"role": "OPERATOR"}, "access": None})()
     window.mode = "recipients"
     window.set_controls(True)
-    assert window.areas.model().item(11).isEnabled()
+    assert 'recipients' in sections_for('OPERATOR')
     assert not window.recipient_create_button.isEnabled()
     assert not window.recipient_edit_button.isEnabled()
     assert not window.request_edit_button.isEnabled()

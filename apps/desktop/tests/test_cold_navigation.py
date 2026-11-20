@@ -5,7 +5,7 @@ from uuid import uuid4
 import pytest
 from PySide6.QtWidgets import QApplication
 from redhouse_desktop import cold_catalogue
-from redhouse_desktop.app import Window, display_value
+from redhouse_desktop.app import Window, display_value, sections_for
 from redhouse_desktop.client import ContractError
 
 
@@ -33,7 +33,7 @@ def test_catalogue_navigation_routes_pagination_and_permissions(window):
         assert window.cold_create_button.isEnabled()==can_create and not window.search.isEnabled()
         window.set_controls(False);assert not window.cold_create_button.isEnabled()
     window.client.user['role']='COORDINATOR';window.set_controls(True)
-    assert all(not window.areas.model().item(window.areas.findData(mode)).isEnabled() for mode in cold_catalogue.CATALOGUES)
+    assert all(mode not in sections_for('COORDINATOR') for mode in cold_catalogue.CATALOGUES)
     before=len(calls);cold_catalogue.load_catalogue(window,display_value);assert len(calls)==before
 
 

@@ -62,7 +62,7 @@ def quality_dialog(window, resource, controls, work_type, display, *, release=Fa
     buttons = QHBoxLayout(); save = QPushButton('Liberar unidad' if release else 'Vincular perfil'); save.setObjectName('primary')
     save.setStyleSheet('QPushButton:disabled { background: #e1e5e9; color: #596572; }')
     cancel = QPushButton('Cancelar'); buttons.addWidget(save); buttons.addWidget(cancel); layout.addLayout(buttons)
-    if release and (not controls.get('_completeness') or not controls['_completeness']['complete']): save.setEnabled(False)
+    if release and (not controls.get('_completeness') or not controls['_completeness']['complete']): save.setEnabled(False); save.setToolTip('Faltan resultados o revisión: ' + text)
     cancel.clicked.connect(dialog.reject)
     if not release:
         def fetch(page):
