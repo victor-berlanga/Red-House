@@ -1,0 +1,400 @@
+=== 15:18:00 UTC · modo aplicar · etiqueta acceso-app-20261120-01
+--- 1. Carga útil (/opt/redhouse/.local/compose/acceso-app-20261120-payload)
+  carga útil: 34 archivos, SHA-256 = 989f2e7
+--- 2. Estado de la VM
+  redhouse.service: active · contenedores sanos: 30 de 30
+  esquema compartido: 21 · columna client en web_session: 0
+  sesiones vivas (todas sin aplicación hoy): 4
+  disco libre en /: 2.4G · respaldo previo de esta publicación: existe (/opt/redhouse/.local/compose/backups/acceso-app-20261120)
+  huella conjunta de la configuración privada: ee00c518d1c2ad05 (state.json, web.json, apps/*.json, overrides, nginx)
+--- 3. Imágenes: vigente -> nueva (archivos que entran con COPY; dueño y modo del original)
+  [web] redhouse-web:sin-segundo-factor-20261119-01 -> redhouse-web:acceso-app-20261120-01
+      cambia  apps/services/redhouse/security.py (0:0 644) e4f3aaeec5af -> dcec239c6e20
+      cambia  apps/services/redhouse/shared_migrations.py (0:0 644) f0541ee1e3c9 -> fa33d6b02b64
+      nuevo   apps/services/redhouse/shared_migrations/022.sql (0:0 644)
+      cambia  apps/services/ms_identidad_acceso/routes.py (0:0 755) 5a4a7c6844bd -> 6d36053ad7e1
+      cambia  apps/services/ms_identidad_acceso/mobile.py (0:0 755) 38d7af904d53 -> 63f90479c3bc
+      cambia  apps/services/ms_identidad_acceso/contracts/openapi.json (0:0 644) ec7f56e411f1 -> 67a0d6bda163
+      cambia  apps/services/redhouse/openapi.py (0:0 755) eb7639dd6cff -> 7d7629b3d2d2
+      cambia  apps/services/scripts/benchmark_cache.py (0:0 644) 395fd1b27233 -> 38d7536624fa
+      cambia  apps/services/scripts/check_independence.py (0:0 644) d7fdd6abf03c -> be9cbd764b2c
+      cambia  apps/services/scripts/check_integrated.py (0:0 644) 05e070ff7255 -> 385fbb25b957
+      cambia  apps/services/scripts/check_launcher.py (0:0 644) a5a1826f4073 -> 4dfe7cc1074d
+      cambia  apps/services/scripts/seed_catalogues.py (0:0 644) cffb011093ab -> cafe54207e71
+      cambia  apps/services/scripts/seed_nuevo_leon.py (0:0 644) 1c2d549638cb -> deef5c88f543
+      nuevo   apps/services/scripts/revocar_sesiones_sin_cliente.py (0:0 644)
+      cambia  apps/web/src/integration/__init__.py (0:0 755) 489a0f082a6a -> c0ffa4ffdecf
+      cambia  apps/web/src/integration/client.py (0:0 644) 14747de3c6bb -> ec1b082d781d
+      cambia  apps/web/src/integration/maintenance.py (0:0 644) c2302620962e -> 48118ec567a7
+      nuevo   apps/web/src/integration/navigation.py (0:0 644)
+      cambia  apps/web/src/integration/presentation.py (0:0 644) e9ad016027f3 -> 8d3d7d2f4266
+      cambia  apps/web/src/integration/routes/__init__.py (0:0 644) e28a89d2b0dc -> 20f8177491a6
+      cambia  apps/web/src/integration/routes/conservation.py (0:0 644) 106d2e144ce3 -> 49c1c25516ec
+      cambia  apps/web/src/integration/routes/inventory.py (0:0 755) b734b8341fcd -> 0a1f6540e294
+      cambia  apps/web/src/integration/routes/quality.py (0:0 644) 032cd0013797 -> 0525b4532282
+      cambia  apps/web/src/presentation/templates/base.html (0:0 644) ebd62e792779 -> eef752672ef3
+  [bootstrap] redhouse/bootstrap:mobile04-20261110 -> redhouse/bootstrap:acceso-app-20261120-01
+      cambia  apps/services/redhouse/shared_migrations.py (0:0 644) ad93997fa71e -> fa33d6b02b64
+      nuevo   apps/services/redhouse/shared_migrations/019.sql (0:0 644)
+      nuevo   apps/services/redhouse/shared_migrations/020.sql (0:0 644)
+      nuevo   apps/services/redhouse/shared_migrations/021.sql (0:0 644)
+      nuevo   apps/services/redhouse/shared_migrations/022.sql (0:0 644)
+      nuevo   apps/services/scripts/revocar_sesiones_sin_cliente.py (0:0 644)
+  [auditoria] redhouse/auditoria:audit-catalog-20261118-01 -> redhouse/auditoria:acceso-app-20261120-01
+      cambia  apps/services/redhouse/security.py (0:0 644) e4f3aaeec5af -> dcec239c6e20
+      cambia  apps/services/redhouse/shared_migrations.py (0:0 644) f0541ee1e3c9 -> fa33d6b02b64
+      nuevo   apps/services/redhouse/shared_migrations/022.sql (0:0 644)
+  [alertas] redhouse/alertas:alert-detail-20261117-01 -> redhouse/alertas:acceso-app-20261120-01
+      cambia  apps/services/redhouse/security.py (0:0 644) e4f3aaeec5af -> dcec239c6e20
+      cambia  apps/services/redhouse/shared_migrations.py (0:0 644) f0541ee1e3c9 -> fa33d6b02b64
+      nuevo   apps/services/redhouse/shared_migrations/022.sql (0:0 644)
+  [custodia] redhouse/custodia:xmlschema-20261116-01 -> redhouse/custodia:acceso-app-20261120-01
+      cambia  apps/services/redhouse/security.py (0:0 644) e4f3aaeec5af -> dcec239c6e20
+      cambia  apps/services/redhouse/shared_migrations.py (0:0 644) f0541ee1e3c9 -> fa33d6b02b64
+      nuevo   apps/services/redhouse/shared_migrations/022.sql (0:0 644)
+  [identidad-acceso] redhouse/identidad_acceso:openapi410-20261118-01 -> redhouse/identidad_acceso:acceso-app-20261120-01
+      cambia  apps/services/redhouse/security.py (0:0 644) e4f3aaeec5af -> dcec239c6e20
+      cambia  apps/services/redhouse/shared_migrations.py (0:0 644) f0541ee1e3c9 -> fa33d6b02b64
+      nuevo   apps/services/redhouse/shared_migrations/022.sql (0:0 644)
+      cambia  apps/services/ms_identidad_acceso/routes.py (0:0 755) 5a4a7c6844bd -> 6d36053ad7e1
+      cambia  apps/services/ms_identidad_acceso/mobile.py (0:0 755) 38d7af904d53 -> 63f90479c3bc
+      cambia  apps/services/ms_identidad_acceso/contracts/openapi.json (0:0 644) ec7f56e411f1 -> 67a0d6bda163
+      cambia  apps/services/redhouse/openapi.py (0:0 755) 103f006dfb43 -> 7d7629b3d2d2
+  [donantes] redhouse/donantes:xmlschema-20261116-01 -> redhouse/donantes:acceso-app-20261120-01
+      cambia  apps/services/redhouse/security.py (0:0 644) e4f3aaeec5af -> dcec239c6e20
+      cambia  apps/services/redhouse/shared_migrations.py (0:0 644) f0541ee1e3c9 -> fa33d6b02b64
+      nuevo   apps/services/redhouse/shared_migrations/022.sql (0:0 644)
+  [receptores] redhouse/receptores:xmlschema-20261116-01 -> redhouse/receptores:acceso-app-20261120-01
+      cambia  apps/services/redhouse/security.py (0:0 644) e4f3aaeec5af -> dcec239c6e20
+      cambia  apps/services/redhouse/shared_migrations.py (0:0 644) f0541ee1e3c9 -> fa33d6b02b64
+      nuevo   apps/services/redhouse/shared_migrations/022.sql (0:0 644)
+  [compatibilidad] redhouse/compatibilidad:xmlschema-20261116-01 -> redhouse/compatibilidad:acceso-app-20261120-01
+      cambia  apps/services/redhouse/security.py (0:0 644) e4f3aaeec5af -> dcec239c6e20
+      cambia  apps/services/redhouse/shared_migrations.py (0:0 644) f0541ee1e3c9 -> fa33d6b02b64
+      nuevo   apps/services/redhouse/shared_migrations/022.sql (0:0 644)
+  [priorizacion-geografia] redhouse/priorizacion_geografia:xmlschema-20261116-01 -> redhouse/priorizacion_geografia:acceso-app-20261120-01
+      cambia  apps/services/redhouse/security.py (0:0 644) e4f3aaeec5af -> dcec239c6e20
+      cambia  apps/services/redhouse/shared_migrations.py (0:0 644) f0541ee1e3c9 -> fa33d6b02b64
+      nuevo   apps/services/redhouse/shared_migrations/022.sql (0:0 644)
+  [inventario] redhouse/inventario:inventory-nplus1-20261117-01 -> redhouse/inventario:acceso-app-20261120-01
+      cambia  apps/services/redhouse/security.py (0:0 644) e4f3aaeec5af -> dcec239c6e20
+      cambia  apps/services/redhouse/shared_migrations.py (0:0 644) f0541ee1e3c9 -> fa33d6b02b64
+      nuevo   apps/services/redhouse/shared_migrations/022.sql (0:0 644)
+  [transporte] redhouse/transporte:custody-clock-lab-labels-20261117-01 -> redhouse/transporte:acceso-app-20261120-01
+      cambia  apps/services/redhouse/security.py (0:0 644) e4f3aaeec5af -> dcec239c6e20
+      cambia  apps/services/redhouse/shared_migrations.py (0:0 644) f0541ee1e3c9 -> fa33d6b02b64
+      nuevo   apps/services/redhouse/shared_migrations/022.sql (0:0 644)
+  [documentos] redhouse/documentos:documents-reference-20261116-01 -> redhouse/documentos:acceso-app-20261120-01
+      cambia  apps/services/redhouse/security.py (0:0 644) e4f3aaeec5af -> dcec239c6e20
+      cambia  apps/services/redhouse/shared_migrations.py (0:0 644) f0541ee1e3c9 -> fa33d6b02b64
+      nuevo   apps/services/redhouse/shared_migrations/022.sql (0:0 644)
+  [monitoreo] redhouse/monitoreo:xmlschema-20261116-01 -> redhouse/monitoreo:acceso-app-20261120-01
+      cambia  apps/services/redhouse/security.py (0:0 644) e4f3aaeec5af -> dcec239c6e20
+      cambia  apps/services/redhouse/shared_migrations.py (0:0 644) f0541ee1e3c9 -> fa33d6b02b64
+      nuevo   apps/services/redhouse/shared_migrations/022.sql (0:0 644)
+--- 4. Archivos en /opt/redhouse (cd6708e -> 989f2e7, sin pruebas ni .md)
+      cambia  apps/services/ms_identidad_acceso/contracts/openapi.json (0:0 644) 5a07689e351f -> 67a0d6bda163
+      cambia  apps/services/ms_identidad_acceso/mobile.py (0:0 644) 38d7af904d53 -> 63f90479c3bc
+      cambia  apps/services/ms_identidad_acceso/routes.py (0:0 644) 5a4a7c6844bd -> 6d36053ad7e1
+      cambia  apps/services/redhouse/openapi.py (0:0 644) 103f006dfb43 -> 7d7629b3d2d2
+      cambia  apps/services/redhouse/security.py (0:0 644) e4f3aaeec5af -> dcec239c6e20
+      cambia  apps/services/redhouse/shared_migrations.py (0:0 644) f0541ee1e3c9 -> fa33d6b02b64
+      nuevo   apps/services/redhouse/shared_migrations/022.sql (0:0 644)
+      cambia  apps/services/scripts/benchmark_cache.py (0:0 644) 395fd1b27233 -> 38d7536624fa
+      cambia  apps/services/scripts/check_independence.py (0:0 644) d7fdd6abf03c -> be9cbd764b2c
+      cambia  apps/services/scripts/check_integrated.py (0:0 644) 05e070ff7255 -> 385fbb25b957
+      cambia  apps/services/scripts/check_launcher.py (0:0 644) a5a1826f4073 -> 4dfe7cc1074d
+      nuevo   apps/services/scripts/revocar_sesiones_sin_cliente.py (0:0 644)
+      cambia  apps/services/scripts/seed_catalogues.py (0:0 644) cffb011093ab -> cafe54207e71
+      cambia  apps/services/scripts/seed_nuevo_leon.py (0:0 644) 1c2d549638cb -> deef5c88f543
+      cambia  apps/web/src/integration/__init__.py (0:0 644) 489a0f082a6a -> c0ffa4ffdecf
+      cambia  apps/web/src/integration/client.py (0:0 644) 14747de3c6bb -> ec1b082d781d
+      cambia  apps/web/src/integration/maintenance.py (0:0 644) c2302620962e -> 48118ec567a7
+      nuevo   apps/web/src/integration/navigation.py (0:0 644)
+      cambia  apps/web/src/integration/presentation.py (0:0 644) e9ad016027f3 -> 8d3d7d2f4266
+      cambia  apps/web/src/integration/routes/__init__.py (0:0 644) e28a89d2b0dc -> 20f8177491a6
+      cambia  apps/web/src/integration/routes/conservation.py (0:0 644) 106d2e144ce3 -> 49c1c25516ec
+      cambia  apps/web/src/integration/routes/inventory.py (0:0 644) b734b8341fcd -> 0a1f6540e294
+      cambia  apps/web/src/integration/routes/quality.py (0:0 644) 032cd0013797 -> 0525b4532282
+      cambia  apps/web/src/presentation/templates/base.html (0:0 644) ebd62e792779 -> eef752672ef3
+      cambia  deployment/gcp/fallo.py (0:0 644) 079dddb18357 -> 005f5908c164
+      cambia  deployment/gcp/populate_demo.py (0:0 644) 23b021421e9d -> 79d355f505d0
+      cambia  deployment/gcp/prepare_correction_demo.py (0:0 644) 844eaa3d5a7d -> 06a652e352f5
+      cambia  deployment/gcp/verify_audit_forms.py (0:0 644) 1d02e6572036 -> e11d9bec7359
+      cambia  deployment/gcp/verify_donor_withdrawal.cjs (0:0 644) f3db574c2152 -> 55a5ee3359d5
+      cambia  deployment/gcp/verify_public.cjs (0:0 644) de6843445a5e -> 1cd28bf01530
+      cambia  deployment/verify.py (0:0 644) 1e97be2dd375 -> 907d54f4c20d
+--- 5. Compose
+  compose config: válido
+  bootstrap resuelve a: redhouse/bootstrap:mobile04-20261110
+=== a1. Respaldo de archivos 15:18:19
+  28 originales y 3 nuevos anotados
+=== b. Copia a /opt/redhouse 15:18:24
+  31 archivos con el SHA-256 de 989f2e7
+=== c. Imágenes derivadas 15:18:26
+  redhouse-web:acceso-app-20261120-01 sha256:b563c2450704 (de redhouse-web:sin-segundo-factor-20261119-01, 24 archivos con SHA-256, dueño y modo correctos; 14 módulos importados, LATEST_VERSION 22)
+  redhouse/bootstrap:acceso-app-20261120-01 sha256:2ec73ba40d60 (de redhouse/bootstrap:mobile04-20261110, 6 archivos con SHA-256, dueño y modo correctos; 2 módulos importados, LATEST_VERSION 22)
+  redhouse/auditoria:acceso-app-20261120-01 sha256:2be71d212f9e (de redhouse/auditoria:audit-catalog-20261118-01, 3 archivos con SHA-256, dueño y modo correctos; 2 módulos importados, LATEST_VERSION 22)
+  redhouse/alertas:acceso-app-20261120-01 sha256:6be961341d78 (de redhouse/alertas:alert-detail-20261117-01, 3 archivos con SHA-256, dueño y modo correctos; 2 módulos importados, LATEST_VERSION 22)
+  redhouse/custodia:acceso-app-20261120-01 sha256:72e10b0ef384 (de redhouse/custodia:xmlschema-20261116-01, 3 archivos con SHA-256, dueño y modo correctos; 2 módulos importados, LATEST_VERSION 22)
+  redhouse/identidad_acceso:acceso-app-20261120-01 sha256:cce727393646 (de redhouse/identidad_acceso:openapi410-20261118-01, 7 archivos con SHA-256, dueño y modo correctos; 5 módulos importados, LATEST_VERSION 22)
+  redhouse/donantes:acceso-app-20261120-01 sha256:1721eeb96738 (de redhouse/donantes:xmlschema-20261116-01, 3 archivos con SHA-256, dueño y modo correctos; 2 módulos importados, LATEST_VERSION 22)
+  redhouse/receptores:acceso-app-20261120-01 sha256:5b73381cca5e (de redhouse/receptores:xmlschema-20261116-01, 3 archivos con SHA-256, dueño y modo correctos; 2 módulos importados, LATEST_VERSION 22)
+  redhouse/compatibilidad:acceso-app-20261120-01 sha256:dbf743ccb47a (de redhouse/compatibilidad:xmlschema-20261116-01, 3 archivos con SHA-256, dueño y modo correctos; 2 módulos importados, LATEST_VERSION 22)
+  redhouse/priorizacion_geografia:acceso-app-20261120-01 sha256:25ca7bbe12d3 (de redhouse/priorizacion_geografia:xmlschema-20261116-01, 3 archivos con SHA-256, dueño y modo correctos; 2 módulos importados, LATEST_VERSION 22)
+  redhouse/inventario:acceso-app-20261120-01 sha256:8076ceb73b19 (de redhouse/inventario:inventory-nplus1-20261117-01, 3 archivos con SHA-256, dueño y modo correctos; 2 módulos importados, LATEST_VERSION 22)
+  redhouse/transporte:acceso-app-20261120-01 sha256:78661ef1c26a (de redhouse/transporte:custody-clock-lab-labels-20261117-01, 3 archivos con SHA-256, dueño y modo correctos; 2 módulos importados, LATEST_VERSION 22)
+  redhouse/documentos:acceso-app-20261120-01 sha256:82c435446549 (de redhouse/documentos:documents-reference-20261116-01, 3 archivos con SHA-256, dueño y modo correctos; 2 módulos importados, LATEST_VERSION 22)
+  redhouse/monitoreo:acceso-app-20261120-01 sha256:f9d38e6afb19 (de redhouse/monitoreo:xmlschema-20261116-01, 3 archivos con SHA-256, dueño y modo correctos; 2 módulos importados, LATEST_VERSION 22)
+  gcs.compose.yaml apunta a acceso-app-20261120-01 (storage-init y clamav sin cambio)
+  sesión previa de prueba: no se pudo crear (se omite esa prueba)
+=== a2. Respaldo verificado (aplicaciones detenidas desde aquí) 15:20:26
+{"backup": "passed", "restore": "passed", "private_path": "/opt/redhouse/.local/compose/backups/20261120T152027Z"}
+  respaldo: passed · restauración aislada: passed · /opt/redhouse/.local/compose/backups/20261120T152027Z
+  disco libre después del respaldo: 994M · respaldo: 113M
+  aplicaciones en marcha: 0 (deben ser 0)
+=== d. Migración 22 15:26:52
+ Container redhouse-parcial2-bootstrap-run-78fe8cd54221 Creating 
+ Container redhouse-parcial2-bootstrap-run-78fe8cd54221 Created 
+{"antes": 21, "despues": 22, "latest": 22, "columna_client_tabla": 1, "columna_client_vista": 1, "identidad_puede_usar_client": true, "create_db_previo": false, "modo": "aplicado (COMMIT)"}
+=== e. Recreación 15:26:55
+ Container redhouse-parcial2-gateway-1 Starting 
+ Container redhouse-parcial2-gateway-1 Started 
+ Container redhouse-parcial2-clamav-1 Starting 
+ Container redhouse-parcial2-clamav-1 Started 
+  clamav sano
+ Container redhouse-parcial2-auditoria-b-1 Recreate 
+ Container redhouse-parcial2-auditoria-b-1 Recreated 
+ Container redhouse-parcial2-auditoria-b-1 Starting 
+ Container redhouse-parcial2-auditoria-b-1 Started 
+ Container redhouse-parcial2-auditoria-b-1 Waiting 
+ Container redhouse-parcial2-auditoria-b-1 Healthy 
+  auditoria-b 15:27:35
+ Container redhouse-parcial2-auditoria-a-1 Recreate 
+ Container redhouse-parcial2-auditoria-a-1 Recreated 
+ Container redhouse-parcial2-auditoria-a-1 Starting 
+ Container redhouse-parcial2-auditoria-a-1 Started 
+ Container redhouse-parcial2-auditoria-a-1 Waiting 
+ Container redhouse-parcial2-auditoria-a-1 Healthy 
+  auditoria-a 15:27:42
+ Container redhouse-parcial2-alertas-b-1 Recreate 
+ Container redhouse-parcial2-alertas-b-1 Recreated 
+ Container redhouse-parcial2-alertas-b-1 Starting 
+ Container redhouse-parcial2-alertas-b-1 Started 
+ Container redhouse-parcial2-alertas-b-1 Waiting 
+ Container redhouse-parcial2-alertas-b-1 Healthy 
+  alertas-b 15:27:49
+ Container redhouse-parcial2-alertas-a-1 Recreate 
+ Container redhouse-parcial2-alertas-a-1 Recreated 
+ Container redhouse-parcial2-alertas-a-1 Starting 
+ Container redhouse-parcial2-alertas-a-1 Started 
+ Container redhouse-parcial2-alertas-a-1 Waiting 
+ Container redhouse-parcial2-alertas-a-1 Healthy 
+  alertas-a 15:27:56
+ Container redhouse-parcial2-custodia-b-1 Recreate 
+ Container redhouse-parcial2-custodia-b-1 Recreated 
+ Container redhouse-parcial2-custodia-b-1 Starting 
+ Container redhouse-parcial2-custodia-b-1 Started 
+ Container redhouse-parcial2-custodia-b-1 Waiting 
+ Container redhouse-parcial2-custodia-b-1 Healthy 
+  custodia-b 15:28:04
+ Container redhouse-parcial2-custodia-a-1 Recreate 
+ Container redhouse-parcial2-custodia-a-1 Recreated 
+ Container redhouse-parcial2-custodia-a-1 Starting 
+ Container redhouse-parcial2-custodia-a-1 Started 
+ Container redhouse-parcial2-custodia-a-1 Waiting 
+ Container redhouse-parcial2-custodia-a-1 Healthy 
+  custodia-a 15:28:11
+ Container redhouse-parcial2-identidad-acceso-b-1 Recreate 
+ Container redhouse-parcial2-identidad-acceso-b-1 Recreated 
+ Container redhouse-parcial2-identidad-acceso-b-1 Starting 
+ Container redhouse-parcial2-identidad-acceso-b-1 Started 
+ Container redhouse-parcial2-identidad-acceso-b-1 Waiting 
+ Container redhouse-parcial2-identidad-acceso-b-1 Healthy 
+  identidad-acceso-b 15:28:19
+ Container redhouse-parcial2-identidad-acceso-a-1 Recreate 
+ Container redhouse-parcial2-identidad-acceso-a-1 Recreated 
+ Container redhouse-parcial2-identidad-acceso-a-1 Starting 
+ Container redhouse-parcial2-identidad-acceso-a-1 Started 
+ Container redhouse-parcial2-identidad-acceso-a-1 Waiting 
+ Container redhouse-parcial2-identidad-acceso-a-1 Healthy 
+  identidad-acceso-a 15:28:27
+ Container redhouse-parcial2-donantes-b-1 Recreate 
+ Container redhouse-parcial2-donantes-b-1 Recreated 
+ Container redhouse-parcial2-donantes-b-1 Starting 
+ Container redhouse-parcial2-donantes-b-1 Started 
+ Container redhouse-parcial2-donantes-b-1 Waiting 
+ Container redhouse-parcial2-donantes-b-1 Healthy 
+  donantes-b 15:28:34
+ Container redhouse-parcial2-donantes-a-1 Recreate 
+ Container redhouse-parcial2-donantes-a-1 Recreated 
+ Container redhouse-parcial2-donantes-a-1 Starting 
+ Container redhouse-parcial2-donantes-a-1 Started 
+ Container redhouse-parcial2-donantes-a-1 Waiting 
+ Container redhouse-parcial2-donantes-a-1 Healthy 
+  donantes-a 15:28:42
+ Container redhouse-parcial2-receptores-b-1 Recreate 
+ Container redhouse-parcial2-receptores-b-1 Recreated 
+ Container redhouse-parcial2-receptores-b-1 Starting 
+ Container redhouse-parcial2-receptores-b-1 Started 
+ Container redhouse-parcial2-receptores-b-1 Waiting 
+ Container redhouse-parcial2-receptores-b-1 Healthy 
+  receptores-b 15:28:49
+ Container redhouse-parcial2-receptores-a-1 Recreate 
+ Container redhouse-parcial2-receptores-a-1 Recreated 
+ Container redhouse-parcial2-receptores-a-1 Starting 
+ Container redhouse-parcial2-receptores-a-1 Started 
+ Container redhouse-parcial2-receptores-a-1 Waiting 
+ Container redhouse-parcial2-receptores-a-1 Healthy 
+  receptores-a 15:29:04
+ Container redhouse-parcial2-compatibilidad-b-1 Recreate 
+ Container redhouse-parcial2-compatibilidad-b-1 Recreated 
+ Container redhouse-parcial2-compatibilidad-b-1 Starting 
+ Container redhouse-parcial2-compatibilidad-b-1 Started 
+ Container redhouse-parcial2-compatibilidad-b-1 Waiting 
+ Container redhouse-parcial2-compatibilidad-b-1 Healthy 
+  compatibilidad-b 15:29:12
+ Container redhouse-parcial2-compatibilidad-a-1 Recreate 
+ Container redhouse-parcial2-compatibilidad-a-1 Recreated 
+ Container redhouse-parcial2-compatibilidad-a-1 Starting 
+ Container redhouse-parcial2-compatibilidad-a-1 Started 
+ Container redhouse-parcial2-compatibilidad-a-1 Waiting 
+ Container redhouse-parcial2-compatibilidad-a-1 Healthy 
+  compatibilidad-a 15:29:20
+ Container redhouse-parcial2-priorizacion-geografia-b-1 Recreate 
+ Container redhouse-parcial2-priorizacion-geografia-b-1 Recreated 
+ Container redhouse-parcial2-priorizacion-geografia-b-1 Starting 
+ Container redhouse-parcial2-priorizacion-geografia-b-1 Started 
+ Container redhouse-parcial2-priorizacion-geografia-b-1 Waiting 
+ Container redhouse-parcial2-priorizacion-geografia-b-1 Healthy 
+  priorizacion-geografia-b 15:29:28
+ Container redhouse-parcial2-priorizacion-geografia-a-1 Recreate 
+ Container redhouse-parcial2-priorizacion-geografia-a-1 Recreated 
+ Container redhouse-parcial2-priorizacion-geografia-a-1 Starting 
+ Container redhouse-parcial2-priorizacion-geografia-a-1 Started 
+ Container redhouse-parcial2-priorizacion-geografia-a-1 Waiting 
+ Container redhouse-parcial2-priorizacion-geografia-a-1 Healthy 
+  priorizacion-geografia-a 15:29:36
+ Container redhouse-parcial2-inventario-b-1 Recreate 
+ Container redhouse-parcial2-inventario-b-1 Recreated 
+ Container redhouse-parcial2-inventario-b-1 Starting 
+ Container redhouse-parcial2-inventario-b-1 Started 
+ Container redhouse-parcial2-inventario-b-1 Waiting 
+ Container redhouse-parcial2-inventario-b-1 Healthy 
+  inventario-b 15:29:44
+ Container redhouse-parcial2-inventario-a-1 Recreate 
+ Container redhouse-parcial2-inventario-a-1 Recreated 
+ Container redhouse-parcial2-inventario-a-1 Starting 
+ Container redhouse-parcial2-inventario-a-1 Started 
+ Container redhouse-parcial2-inventario-a-1 Waiting 
+ Container redhouse-parcial2-inventario-a-1 Healthy 
+  inventario-a 15:29:52
+ Container redhouse-parcial2-transporte-b-1 Recreate 
+ Container redhouse-parcial2-transporte-b-1 Recreated 
+ Container redhouse-parcial2-transporte-b-1 Starting 
+ Container redhouse-parcial2-transporte-b-1 Started 
+ Container redhouse-parcial2-transporte-b-1 Waiting 
+ Container redhouse-parcial2-transporte-b-1 Healthy 
+  transporte-b 15:30:00
+ Container redhouse-parcial2-transporte-a-1 Recreate 
+ Container redhouse-parcial2-transporte-a-1 Recreated 
+ Container redhouse-parcial2-transporte-a-1 Starting 
+ Container redhouse-parcial2-transporte-a-1 Started 
+ Container redhouse-parcial2-transporte-a-1 Waiting 
+ Container redhouse-parcial2-transporte-a-1 Healthy 
+  transporte-a 15:30:14
+  clamav sano
+ Container redhouse-parcial2-documentos-b-1 Recreate 
+ Container redhouse-parcial2-documentos-b-1 Recreated 
+ Container redhouse-parcial2-documentos-b-1 Starting 
+ Container redhouse-parcial2-documentos-b-1 Started 
+ Container redhouse-parcial2-documentos-b-1 Waiting 
+ Container redhouse-parcial2-documentos-b-1 Healthy 
+  documentos-b 15:30:25
+ Container redhouse-parcial2-documentos-a-1 Recreate 
+ Container redhouse-parcial2-documentos-a-1 Recreated 
+ Container redhouse-parcial2-documentos-a-1 Starting 
+ Container redhouse-parcial2-documentos-a-1 Started 
+ Container redhouse-parcial2-documentos-a-1 Waiting 
+ Container redhouse-parcial2-documentos-a-1 Healthy 
+  documentos-a 15:30:35
+ Container redhouse-parcial2-monitoreo-b-1 Recreate 
+ Container redhouse-parcial2-monitoreo-b-1 Recreated 
+ Container redhouse-parcial2-monitoreo-b-1 Starting 
+ Container redhouse-parcial2-monitoreo-b-1 Started 
+ Container redhouse-parcial2-monitoreo-b-1 Waiting 
+ Container redhouse-parcial2-monitoreo-b-1 Healthy 
+  monitoreo-b 15:30:49
+ Container redhouse-parcial2-monitoreo-a-1 Recreate 
+ Container redhouse-parcial2-monitoreo-a-1 Recreated 
+ Container redhouse-parcial2-monitoreo-a-1 Starting 
+ Container redhouse-parcial2-monitoreo-a-1 Started 
+ Container redhouse-parcial2-monitoreo-a-1 Waiting 
+ Container redhouse-parcial2-monitoreo-a-1 Healthy 
+  monitoreo-a 15:31:02
+ Container redhouse-parcial2-web-1 Recreate 
+ Container redhouse-parcial2-web-1 Recreated 
+ Container redhouse-parcial2-web-1 Starting 
+ Container redhouse-parcial2-web-1 Started 
+ Container redhouse-parcial2-web-1 Waiting 
+ Container redhouse-parcial2-web-1 Healthy 
+  web 15:31:24
+  tiempo sin servicio (desde el respaldo hasta web sano): 658 s
+--- sesión abierta antes de publicar (sin aplicación) contra los servicios nuevos
+  (sin sesión previa: prueba omitida)
+  pruebas HTTPS: PASA
+=== f. Sesiones previas 15:31:26
+ Container redhouse-parcial2-bootstrap-run-5b57464035d6 Creating 
+ Container redhouse-parcial2-bootstrap-run-5b57464035d6 Created 
+Sesiones vivas sin aplicación registrada: 5
+Modo --dry-run: no se cambió nada. Usa --aplicar para revocarlas.
+ Container redhouse-parcial2-bootstrap-run-3b9f68bcc1f8 Creating 
+ Container redhouse-parcial2-bootstrap-run-3b9f68bcc1f8 Created 
+Sesiones vivas sin aplicación registrada: 5
+Sesiones revocadas: 5
+ Container redhouse-parcial2-bootstrap-run-5465cfac3ff3 Creating 
+ Container redhouse-parcial2-bootstrap-run-5465cfac3ff3 Created 
+Sesiones vivas sin aplicación registrada: 0
+Modo --dry-run: no se cambió nada. Usa --aplicar para revocarlas.
+=== g. Verificación 15:31:44 UTC
+  contenedores sanos: 30 de 30
+  imágenes y SHA-256 dentro de los 25 contenedores de aplicación: OK
+  HTTPS /login: 200 · /health/live: 200
+  /services/identidad-acceso/health/ready 200
+  /services/donantes/health/ready 200
+  /services/receptores/health/ready 200
+  /services/inventario/health/ready 200
+  /services/compatibilidad/health/ready 200
+  /services/priorizacion-geografia/health/ready 200
+  /services/transporte/health/ready 200
+  /services/custodia/health/ready 200
+  /services/alertas/health/ready 200
+  /services/auditoria/health/ready 200
+  /services/monitoreo/health/ready 200
+  /services/documentos/health/ready 200
+  gcs.compose.yaml: 26 etiquetas cambiadas a acceso-app-20261120-01; resto idéntico: True; storage-init y clamav intactos: True
+  esquema: 22 · columna client: 1
+  configuración privada (state.json, web.json, apps/*.json, public.*): sin cambios
+- login por API con la cabecera X-RedHouse-Client
+  OK    admin1 en web: 200 (esperado 200)
+  OK    auditor1 en web: 200 (esperado 200)
+  OK    operator1 en desktop: 200 (esperado 200)
+  OK    medical1 en desktop: 200 (esperado 200)
+  OK    donor1 en mobile: 200 (esperado 200)
+  OK    transport1 en mobile: 200 (esperado 200)
+  OK    donor1 en web (app equivocada): (403, 'client_not_allowed') (esperado (403, 'client_not_allowed'))
+  OK    admin1 en desktop (app equivocada): (403, 'client_not_allowed') (esperado (403, 'client_not_allowed'))
+  OK    auditor1 en desktop (app equivocada): (403, 'client_not_allowed') (esperado (403, 'client_not_allowed'))
+  OK    operator1 en mobile (app equivocada): (403, 'client_not_allowed') (esperado (403, 'client_not_allowed'))
+  OK    transport1 en desktop (app equivocada): (403, 'client_not_allowed') (esperado (403, 'client_not_allowed'))
+  OK    operator1 sin cabecera: (400, 'client_required') (esperado (400, 'client_required'))
+  OK    operator1 con valor desconocido «WEB»: (400, 'client_required') (esperado (400, 'client_required'))
+- peticiones protegidas con los tokens nuevos (Identidad y otro servicio)
+- portal web: formulario de login con CSRF
+  OK    GET /login: 200 (esperado 200)
+  OK    POST /login admin1: 302 (esperado 302)
+  OK    redirige a: /panel (esperado /panel)
+  OK    GET /panel con la sesión: 200 (esperado 200)
+- cierre de las sesiones de prueba por API
+  pruebas HTTPS: PASA
+=== RESULTADO: PASA · 15:32:03 UTC

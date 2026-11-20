@@ -1,0 +1,175 @@
+8b409bc04e7472fec13779d4d8a2270ba8b38b83bb6d4d2141127066613f9776  /opt/redhouse/.local/compose/publicar_acceso_por_app.sh
+=== 15:13:08 UTC · modo verificar · etiqueta acceso-app-20261120-01
+--- 1. Carga útil (/opt/redhouse/.local/compose/acceso-app-20261120-payload)
+  carga útil: 34 archivos, SHA-256 = 989f2e7
+--- 2. Estado de la VM
+  redhouse.service: active · contenedores sanos: 30 de 30
+  esquema compartido: 21 · columna client en web_session: 0
+  sesiones vivas (todas sin aplicación hoy): 4
+  disco libre en /: 2.4G · respaldo previo de esta publicación: no
+  huella conjunta de la configuración privada: ee00c518d1c2ad05 (state.json, web.json, apps/*.json, overrides, nginx)
+--- 3. Imágenes: vigente -> nueva (archivos que entran con COPY; dueño y modo del original)
+  [web] redhouse-web:sin-segundo-factor-20261119-01 -> redhouse-web:acceso-app-20261120-01
+      cambia  apps/services/redhouse/security.py (0:0 644) e4f3aaeec5af -> dcec239c6e20
+      cambia  apps/services/redhouse/shared_migrations.py (0:0 644) f0541ee1e3c9 -> fa33d6b02b64
+      nuevo   apps/services/redhouse/shared_migrations/022.sql (0:0 644)
+      cambia  apps/services/ms_identidad_acceso/routes.py (0:0 755) 5a4a7c6844bd -> 6d36053ad7e1
+      cambia  apps/services/ms_identidad_acceso/mobile.py (0:0 755) 38d7af904d53 -> 63f90479c3bc
+      cambia  apps/services/ms_identidad_acceso/contracts/openapi.json (0:0 644) ec7f56e411f1 -> 67a0d6bda163
+      cambia  apps/services/redhouse/openapi.py (0:0 755) eb7639dd6cff -> 7d7629b3d2d2
+      cambia  apps/services/scripts/benchmark_cache.py (0:0 644) 395fd1b27233 -> 38d7536624fa
+      cambia  apps/services/scripts/check_independence.py (0:0 644) d7fdd6abf03c -> be9cbd764b2c
+      cambia  apps/services/scripts/check_integrated.py (0:0 644) 05e070ff7255 -> 385fbb25b957
+      cambia  apps/services/scripts/check_launcher.py (0:0 644) a5a1826f4073 -> 4dfe7cc1074d
+      cambia  apps/services/scripts/seed_catalogues.py (0:0 644) cffb011093ab -> cafe54207e71
+      cambia  apps/services/scripts/seed_nuevo_leon.py (0:0 644) 1c2d549638cb -> deef5c88f543
+      nuevo   apps/services/scripts/revocar_sesiones_sin_cliente.py (0:0 644)
+      cambia  apps/web/src/integration/__init__.py (0:0 755) 489a0f082a6a -> c0ffa4ffdecf
+      cambia  apps/web/src/integration/client.py (0:0 644) 14747de3c6bb -> ec1b082d781d
+      cambia  apps/web/src/integration/maintenance.py (0:0 644) c2302620962e -> 48118ec567a7
+      nuevo   apps/web/src/integration/navigation.py (0:0 644)
+      cambia  apps/web/src/integration/presentation.py (0:0 644) e9ad016027f3 -> 8d3d7d2f4266
+      cambia  apps/web/src/integration/routes/__init__.py (0:0 644) e28a89d2b0dc -> 20f8177491a6
+      cambia  apps/web/src/integration/routes/conservation.py (0:0 644) 106d2e144ce3 -> 49c1c25516ec
+      cambia  apps/web/src/integration/routes/inventory.py (0:0 755) b734b8341fcd -> 0a1f6540e294
+      cambia  apps/web/src/integration/routes/quality.py (0:0 644) 032cd0013797 -> 0525b4532282
+      cambia  apps/web/src/presentation/templates/base.html (0:0 644) ebd62e792779 -> eef752672ef3
+  [bootstrap] redhouse/bootstrap:mobile04-20261110 -> redhouse/bootstrap:acceso-app-20261120-01
+      cambia  apps/services/redhouse/shared_migrations.py (0:0 644) ad93997fa71e -> fa33d6b02b64
+      nuevo   apps/services/redhouse/shared_migrations/019.sql (0:0 644)
+      nuevo   apps/services/redhouse/shared_migrations/020.sql (0:0 644)
+      nuevo   apps/services/redhouse/shared_migrations/021.sql (0:0 644)
+      nuevo   apps/services/redhouse/shared_migrations/022.sql (0:0 644)
+      nuevo   apps/services/scripts/revocar_sesiones_sin_cliente.py (0:0 644)
+  [auditoria] redhouse/auditoria:audit-catalog-20261118-01 -> redhouse/auditoria:acceso-app-20261120-01
+      cambia  apps/services/redhouse/security.py (0:0 644) e4f3aaeec5af -> dcec239c6e20
+      cambia  apps/services/redhouse/shared_migrations.py (0:0 644) f0541ee1e3c9 -> fa33d6b02b64
+      nuevo   apps/services/redhouse/shared_migrations/022.sql (0:0 644)
+  [alertas] redhouse/alertas:alert-detail-20261117-01 -> redhouse/alertas:acceso-app-20261120-01
+      cambia  apps/services/redhouse/security.py (0:0 644) e4f3aaeec5af -> dcec239c6e20
+      cambia  apps/services/redhouse/shared_migrations.py (0:0 644) f0541ee1e3c9 -> fa33d6b02b64
+      nuevo   apps/services/redhouse/shared_migrations/022.sql (0:0 644)
+  [custodia] redhouse/custodia:xmlschema-20261116-01 -> redhouse/custodia:acceso-app-20261120-01
+      cambia  apps/services/redhouse/security.py (0:0 644) e4f3aaeec5af -> dcec239c6e20
+      cambia  apps/services/redhouse/shared_migrations.py (0:0 644) f0541ee1e3c9 -> fa33d6b02b64
+      nuevo   apps/services/redhouse/shared_migrations/022.sql (0:0 644)
+  [identidad-acceso] redhouse/identidad_acceso:openapi410-20261118-01 -> redhouse/identidad_acceso:acceso-app-20261120-01
+      cambia  apps/services/redhouse/security.py (0:0 644) e4f3aaeec5af -> dcec239c6e20
+      cambia  apps/services/redhouse/shared_migrations.py (0:0 644) f0541ee1e3c9 -> fa33d6b02b64
+      nuevo   apps/services/redhouse/shared_migrations/022.sql (0:0 644)
+      cambia  apps/services/ms_identidad_acceso/routes.py (0:0 755) 5a4a7c6844bd -> 6d36053ad7e1
+      cambia  apps/services/ms_identidad_acceso/mobile.py (0:0 755) 38d7af904d53 -> 63f90479c3bc
+      cambia  apps/services/ms_identidad_acceso/contracts/openapi.json (0:0 644) ec7f56e411f1 -> 67a0d6bda163
+      cambia  apps/services/redhouse/openapi.py (0:0 755) 103f006dfb43 -> 7d7629b3d2d2
+  [donantes] redhouse/donantes:xmlschema-20261116-01 -> redhouse/donantes:acceso-app-20261120-01
+      cambia  apps/services/redhouse/security.py (0:0 644) e4f3aaeec5af -> dcec239c6e20
+      cambia  apps/services/redhouse/shared_migrations.py (0:0 644) f0541ee1e3c9 -> fa33d6b02b64
+      nuevo   apps/services/redhouse/shared_migrations/022.sql (0:0 644)
+  [receptores] redhouse/receptores:xmlschema-20261116-01 -> redhouse/receptores:acceso-app-20261120-01
+      cambia  apps/services/redhouse/security.py (0:0 644) e4f3aaeec5af -> dcec239c6e20
+      cambia  apps/services/redhouse/shared_migrations.py (0:0 644) f0541ee1e3c9 -> fa33d6b02b64
+      nuevo   apps/services/redhouse/shared_migrations/022.sql (0:0 644)
+  [compatibilidad] redhouse/compatibilidad:xmlschema-20261116-01 -> redhouse/compatibilidad:acceso-app-20261120-01
+      cambia  apps/services/redhouse/security.py (0:0 644) e4f3aaeec5af -> dcec239c6e20
+      cambia  apps/services/redhouse/shared_migrations.py (0:0 644) f0541ee1e3c9 -> fa33d6b02b64
+      nuevo   apps/services/redhouse/shared_migrations/022.sql (0:0 644)
+  [priorizacion-geografia] redhouse/priorizacion_geografia:xmlschema-20261116-01 -> redhouse/priorizacion_geografia:acceso-app-20261120-01
+      cambia  apps/services/redhouse/security.py (0:0 644) e4f3aaeec5af -> dcec239c6e20
+      cambia  apps/services/redhouse/shared_migrations.py (0:0 644) f0541ee1e3c9 -> fa33d6b02b64
+      nuevo   apps/services/redhouse/shared_migrations/022.sql (0:0 644)
+  [inventario] redhouse/inventario:inventory-nplus1-20261117-01 -> redhouse/inventario:acceso-app-20261120-01
+      cambia  apps/services/redhouse/security.py (0:0 644) e4f3aaeec5af -> dcec239c6e20
+      cambia  apps/services/redhouse/shared_migrations.py (0:0 644) f0541ee1e3c9 -> fa33d6b02b64
+      nuevo   apps/services/redhouse/shared_migrations/022.sql (0:0 644)
+  [transporte] redhouse/transporte:custody-clock-lab-labels-20261117-01 -> redhouse/transporte:acceso-app-20261120-01
+      cambia  apps/services/redhouse/security.py (0:0 644) e4f3aaeec5af -> dcec239c6e20
+      cambia  apps/services/redhouse/shared_migrations.py (0:0 644) f0541ee1e3c9 -> fa33d6b02b64
+      nuevo   apps/services/redhouse/shared_migrations/022.sql (0:0 644)
+  [documentos] redhouse/documentos:documents-reference-20261116-01 -> redhouse/documentos:acceso-app-20261120-01
+      cambia  apps/services/redhouse/security.py (0:0 644) e4f3aaeec5af -> dcec239c6e20
+      cambia  apps/services/redhouse/shared_migrations.py (0:0 644) f0541ee1e3c9 -> fa33d6b02b64
+      nuevo   apps/services/redhouse/shared_migrations/022.sql (0:0 644)
+  [monitoreo] redhouse/monitoreo:xmlschema-20261116-01 -> redhouse/monitoreo:acceso-app-20261120-01
+      cambia  apps/services/redhouse/security.py (0:0 644) e4f3aaeec5af -> dcec239c6e20
+      cambia  apps/services/redhouse/shared_migrations.py (0:0 644) f0541ee1e3c9 -> fa33d6b02b64
+      nuevo   apps/services/redhouse/shared_migrations/022.sql (0:0 644)
+--- 4. Archivos en /opt/redhouse (cd6708e -> 989f2e7, sin pruebas ni .md)
+      cambia  apps/services/ms_identidad_acceso/contracts/openapi.json (0:0 644) 5a07689e351f -> 67a0d6bda163
+      cambia  apps/services/ms_identidad_acceso/mobile.py (0:0 644) 38d7af904d53 -> 63f90479c3bc
+      cambia  apps/services/ms_identidad_acceso/routes.py (0:0 644) 5a4a7c6844bd -> 6d36053ad7e1
+      cambia  apps/services/redhouse/openapi.py (0:0 644) 103f006dfb43 -> 7d7629b3d2d2
+      cambia  apps/services/redhouse/security.py (0:0 644) e4f3aaeec5af -> dcec239c6e20
+      cambia  apps/services/redhouse/shared_migrations.py (0:0 644) f0541ee1e3c9 -> fa33d6b02b64
+      nuevo   apps/services/redhouse/shared_migrations/022.sql (0:0 644)
+      cambia  apps/services/scripts/benchmark_cache.py (0:0 644) 395fd1b27233 -> 38d7536624fa
+      cambia  apps/services/scripts/check_independence.py (0:0 644) d7fdd6abf03c -> be9cbd764b2c
+      cambia  apps/services/scripts/check_integrated.py (0:0 644) 05e070ff7255 -> 385fbb25b957
+      cambia  apps/services/scripts/check_launcher.py (0:0 644) a5a1826f4073 -> 4dfe7cc1074d
+      nuevo   apps/services/scripts/revocar_sesiones_sin_cliente.py (0:0 644)
+      cambia  apps/services/scripts/seed_catalogues.py (0:0 644) cffb011093ab -> cafe54207e71
+      cambia  apps/services/scripts/seed_nuevo_leon.py (0:0 644) 1c2d549638cb -> deef5c88f543
+      cambia  apps/web/src/integration/__init__.py (0:0 644) 489a0f082a6a -> c0ffa4ffdecf
+      cambia  apps/web/src/integration/client.py (0:0 644) 14747de3c6bb -> ec1b082d781d
+      cambia  apps/web/src/integration/maintenance.py (0:0 644) c2302620962e -> 48118ec567a7
+      nuevo   apps/web/src/integration/navigation.py (0:0 644)
+      cambia  apps/web/src/integration/presentation.py (0:0 644) e9ad016027f3 -> 8d3d7d2f4266
+      cambia  apps/web/src/integration/routes/__init__.py (0:0 644) e28a89d2b0dc -> 20f8177491a6
+      cambia  apps/web/src/integration/routes/conservation.py (0:0 644) 106d2e144ce3 -> 49c1c25516ec
+      cambia  apps/web/src/integration/routes/inventory.py (0:0 644) b734b8341fcd -> 0a1f6540e294
+      cambia  apps/web/src/integration/routes/quality.py (0:0 644) 032cd0013797 -> 0525b4532282
+      cambia  apps/web/src/presentation/templates/base.html (0:0 644) ebd62e792779 -> eef752672ef3
+      cambia  deployment/gcp/fallo.py (0:0 644) 079dddb18357 -> 005f5908c164
+      cambia  deployment/gcp/populate_demo.py (0:0 644) 23b021421e9d -> 79d355f505d0
+      cambia  deployment/gcp/prepare_correction_demo.py (0:0 644) 844eaa3d5a7d -> 06a652e352f5
+      cambia  deployment/gcp/verify_audit_forms.py (0:0 644) 1d02e6572036 -> e11d9bec7359
+      cambia  deployment/gcp/verify_donor_withdrawal.cjs (0:0 644) f3db574c2152 -> 55a5ee3359d5
+      cambia  deployment/gcp/verify_public.cjs (0:0 644) de6843445a5e -> 1cd28bf01530
+      cambia  deployment/verify.py (0:0 644) 1e97be2dd375 -> 907d54f4c20d
+--- 5. Compose
+  compose config: válido
+  bootstrap resuelve a: redhouse/bootstrap:mobile04-20261110
+--- 5b. Prueba de humo: el código nuevo importa en cada imagen vigente (montado de solo lectura, sin red)
+  [web] 14 módulos importados, LATEST_VERSION 22
+  [bootstrap] 2 módulos importados, LATEST_VERSION 22
+  [auditoria] 2 módulos importados, LATEST_VERSION 22
+  [alertas] 2 módulos importados, LATEST_VERSION 22
+  [custodia] 2 módulos importados, LATEST_VERSION 22
+  [identidad-acceso] 5 módulos importados, LATEST_VERSION 22
+  [donantes] 2 módulos importados, LATEST_VERSION 22
+  [receptores] 2 módulos importados, LATEST_VERSION 22
+  [compatibilidad] 2 módulos importados, LATEST_VERSION 22
+  [priorizacion-geografia] 2 módulos importados, LATEST_VERSION 22
+  [inventario] 2 módulos importados, LATEST_VERSION 22
+  [transporte] 2 módulos importados, LATEST_VERSION 22
+  [documentos] 2 módulos importados, LATEST_VERSION 22
+  [monitoreo] 2 módulos importados, LATEST_VERSION 22
+  [bootstrap] python -m scripts.revocar_sesiones_sin_cliente --help: usage: revocar_sesiones_sin_cliente.py [-h] --directory DIRECTORY [--dry-run |
+--- 6. Ensayo de la migración 22 en una transacción con ROLLBACK (imagen redhouse/bootstrap:mobile04-20261110, red redhouse-parcial2_data)
+  {"antes": 21, "despues": 22, "latest": 22, "columna_client_tabla": 1, "columna_client_vista": 1, "identidad_puede_usar_client": true, "create_db_previo": false, "modo": "ensayo: ROLLBACK, nada escrito"}
+  esquema después del ensayo: 21 (debe seguir en 21)
+--- 7. Lo que haría «aplicar» (en este orden)
+  a1. Respaldo de archivos en /opt/redhouse/.local/compose/backups/acceso-app-20261120: gcs.compose.yaml.orig, cada archivo de /opt/redhouse que se reemplaza
+      (archivos/<ruta>.orig), lista de nuevos, docker ps e imágenes antes, huella de la configuración.
+  b.  Copia a /opt/redhouse de 31 archivos (dueño y modo del original o de su hermano si es nuevo).
+  c.  Construye 14 imágenes derivadas «FROM vigente + COPY» con etiqueta acceso-app-20261120-01
+      y comprueba en cada una SHA-256, dueño y modo de cada archivo y la prueba de humo (importar el código).
+      Todo antes de detener nada; si falla, deshace override y archivos y la VM sigue igual.
+      Se apunta gcs.compose.yaml a las nuevas. Exige 30/30 sanos y más de 2 GB libres.
+  -   Abre una sesión de prueba con el servidor vigente (operator2, sin cabecera) para comprobar luego el 401
+      (la renovación con su refresh token debe responder «sesión anterior al acceso por aplicación»).
+  a2. Respaldo verificado: deployment/backup.py --verify --leave-stopped (detiene las 27 aplicaciones,
+      vuelca PostgreSQL/Mongo/Redis, restaura en contenedores aislados y compara conteos y hashes).
+      Informe en /opt/redhouse/.local/compose/backups/acceso-app-20261120/respaldo.json. SIN SERVICIO desde aquí.
+  d.  Migración 22 (parte SQL de upgrade_compose.py) con la imagen bootstrap nueva, aplicaciones detenidas:
+      docker compose --project-directory /opt/redhouse -f /opt/redhouse/compose.yaml -f /opt/redhouse/.local/compose/gcs.compose.yaml -f /opt/redhouse/.local/compose/public.compose.yaml --profile install run --rm --no-deps -T --entrypoint python bootstrap -c <MIGRAR_PY>
+  e.  Arranca gateway y clamav (mismos contenedores), luego recrea por grupo, réplica b antes que a:
+      auditoria alertas custodia identidad-acceso donantes receptores compatibilidad priorizacion-geografia inventario transporte documentos monitoreo, y al final web, con:
+      docker compose --project-directory /opt/redhouse -f /opt/redhouse/compose.yaml -f /opt/redhouse/.local/compose/gcs.compose.yaml -f /opt/redhouse/.local/compose/public.compose.yaml up -d --wait --no-deps --no-build --force-recreate <servicio>
+  f.  Revoca sesiones previas: primero en seco y luego --aplicar; la tercera corrida en seco debe dar 0 o falla:
+      docker compose --project-directory /opt/redhouse -f /opt/redhouse/compose.yaml -f /opt/redhouse/.local/compose/gcs.compose.yaml -f /opt/redhouse/.local/compose/public.compose.yaml --profile install run --rm --no-deps -T --entrypoint python bootstrap -m scripts.revocar_sesiones_sin_cliente --directory /run/install [--aplicar]
+  g.  Verificación: 30/30 sanos, imagen y SHA-256 de security.py en cada contenedor, /login 200, /health/ready
+      de los 12 servicios por HTTPS, esquema 22, huella de configuración igual a la de antes, login por API
+      (200 en su app, 403 client_not_allowed en otra, 400 client_required sin cabecera), sesión previa 401 (antes de f),
+      login del portal por formulario, cierre de las sesiones de prueba y gcs.compose.yaml con solo 26 etiquetas cambiadas.
+=== verificar terminó sin cambiar nada · 15:14:21 UTC
+EXIT=0

@@ -36,8 +36,12 @@ Cada parte la construyó un agente y la revisó otro que intentó romperla. Matr
   `test_public_reference_sources.py` y fallan igual en `cd6708e`: falta el catálogo HLA público fijado en
   `.local/reference-data/hla` de esta Mac (en CI se descarga con `fetch_public_references.py`). Escritorio 302,
   móvil 116 + `assembleDebug`, `ruff`, `document.py --check-openapi` y `sync_contracts.py --check` en verde.
-- **Pendiente:** publicar en la VM (migración 022, servicios, revocar sesiones previas, verificación por perfil) y
-  generar APK y paquetes de escritorio nuevos: los ya distribuidos no mandan la cabecera y no podrán iniciar sesión.
+- **Publicado en la VM (20/11, 15:18–15:32 UTC):** 14 imágenes `acceso-app-20261120-01`, esquema 22, 5 sesiones previas
+  revocadas, 30/30 sanos, 658 s sin servicio; login 200/403/400 por perfil y app y peticiones protegidas 200
+  ([evidencia](documentation/evidencias/entrega-final/gcp-acceso-por-app-20261120/RESULTADOS.md)).
+- **Escritorio en Windows:** la barra pasa a «Más» lo que no cabe; cabe en 1000 px con fuente al doble (310 pruebas).
+- **Pendiente:** generar APK y paquetes de escritorio nuevos: los ya distribuidos no mandan la cabecera y no pueden
+  iniciar sesión en la VM. Liberar disco en la VM (994 MB libres; contenedores `redhouse-restore-*` viejos).
   Sin verificar en esta Mac: pruebas instrumentadas de Android (sin emulador ni dependencias offline), compilación iOS
   (sin Xcode), recorridos de navegador. Regenerar Word/PDF (decisión de Victor).
 
