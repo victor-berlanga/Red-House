@@ -9,23 +9,42 @@ import kotlinx.serialization.json.*
 import org.junit.*
 import org.junit.runner.RunWith
 
-/** Real profile navigation and reads; these checks do not claim clinical decisions or full profile workflows. */
+/**
+ * Navegación y lecturas reales de los dos perfiles de la app móvil (DONOR y TRANSPORT).
+ * Los demás perfiles ya no tienen pantallas en móvil: usan portal o escritorio.
+ */
 @RunWith(AndroidJUnit4::class)
 class ProfileQueriesTest {
     @get:Rule val compose=createAndroidComposeRule<MainActivity>()
     private fun enabled(label:String){revealDestination(compose,label);compose.waitUntil(60000){compose.onAllNodesWithText(label).fetchSemanticsNodes().any{!it.config.contains(SemanticsProperties.Disabled)}}}
     private fun click(label:String){revealDestination(compose,label);enabled(label);presentationClick(compose,label)}
-    private fun query(user:String,label:String){
+    private fun shownAny(vararg labels:String){compose.waitUntil(60000){labels.any{compose.onAllNodesWithText(it,substring=true).fetchSemanticsNodes().isNotEmpty()}}}
+    private fun login(user:String){
         val lab=codec.parseToJsonElement(InstrumentationRegistry.getInstrumentation().context.assets.open("lab.json").bufferedReader().readText()).jsonObject
         enabled("Iniciar sesión")
-                compose.onNodeWithText("Cuenta").performTextInput(user)
+        compose.onNodeWithText("Cuenta").performTextInput(user)
         compose.onNodeWithText("Contraseña").performTextInput(lab.text("password"))
-        click("Iniciar sesión");click(label)
+        click("Iniciar sesión")
+    }
+    private fun notices(){
+        click("Avisos")
         compose.waitUntil(60000){compose.onAllNodesWithTag("loaded-records").fetchSemanticsNodes().isNotEmpty()}
         compose.onAllNodesWithText("Gestionar citas e historial").assertCountEquals(0)
+    }
+    @Test fun donorHomeAppointmentsAndNotices(){
+        login("donor1")
+        shownAny("Siguiente paso","Tu próxima cita")
+        compose.onAllNodesWithText("Traslados").assertCountEquals(0)
+        click("Citas");shownAny("Mis citas")
+        notices()
         click("Cerrar sesión");enabled("Iniciar sesión")
     }
-    @Test fun operatorReadsOwnInventory()=query("operator1","Inventario")
-    @Test fun coordinatorReadsRegionalAvailability()=query("coordinator1","Disponibilidad regional")
-    @Test fun medicalReadsAuthorizedResults()=query("medical1","Resultados autorizados")
+    @Test fun transportHomeOrdersAndNotices(){
+        login("transport1")
+        shownAny("Traslado activo","Sin traslado activo")
+        compose.onAllNodesWithText("Mi expediente").assertCountEquals(0)
+        click("Traslados");shownAny("Abrir traslado","No tienes traslados asignados.")
+        notices()
+        click("Cerrar sesión");enabled("Iniciar sesión")
+    }
 }

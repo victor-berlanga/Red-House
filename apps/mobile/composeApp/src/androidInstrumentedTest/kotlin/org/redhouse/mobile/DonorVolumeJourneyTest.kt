@@ -38,7 +38,7 @@ class DonorVolumeJourneyTest {
         compose.onNodeWithText("Cuenta").performTextReplacement(requireNotNull(args.getString("demoUser")))
         compose.onNodeWithText("Contraseña").performTextReplacement(password)
         presentationClick(compose,"Iniciar sesión")
-        shown("Ver mis citas")
+        shown("Siguiente paso")
         presentationClick(compose,"Campañas")
         shown("1 / 6")
     }

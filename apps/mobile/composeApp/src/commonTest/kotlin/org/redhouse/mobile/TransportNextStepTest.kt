@@ -8,13 +8,15 @@ import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.put
 
 class TransportNextStepTest {
-    @Test fun actionsRespectRoleInstitutionAndStatus() {
-        assertNull(transportAction("TRANSPORT", "a", "a", "b", "PLANNED"))
-        assertEquals("PREPARED", transportAction("OPERATOR", "a", "a", "b", "PLANNED"))
-        assertNull(transportAction("OPERATOR", "b", "a", "b", "PLANNED"))
-        assertEquals("COLLECTED", transportAction("TRANSPORT", "a", "a", "b", "PREPARED"))
-        assertNull(transportAction("OPERATOR", "a", "a", "b", "DELIVERED"))
-        assertEquals("ACCEPTED", transportAction("OPERATOR", "b", "a", "b", "DELIVERED"))
+    @Test fun actionsRespectRoleAndStatus() {
+        assertNull(transportAction("TRANSPORT", "PLANNED"))
+        assertEquals("COLLECTED", transportAction("TRANSPORT", "PREPARED"))
+        assertEquals("IN_TRANSIT", transportAction("TRANSPORT", "COLLECTED"))
+        assertEquals("DELIVERED", transportAction("TRANSPORT", "IN_TRANSIT"))
+        assertNull(transportAction("TRANSPORT", "DELIVERED"))
+        // Preparar en origen y aceptar en destino ya no se ejecutan en móvil; ningún otro perfil actúa aquí.
+        for (role in listOf("OPERATOR", "COORDINATOR", "MEDICAL", "ADMIN", "AUDITOR", "DONOR"))
+            for (status in listOf("PLANNED", "PREPARED", "COLLECTED", "IN_TRANSIT", "DELIVERED")) assertNull(transportAction(role, status))
     }
     @Test fun locationSummaryDoesNotImplyARecentFix() {
         val missing=transportLocationSummary(null,true)

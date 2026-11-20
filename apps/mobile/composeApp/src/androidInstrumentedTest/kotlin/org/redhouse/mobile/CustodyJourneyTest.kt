@@ -23,7 +23,7 @@ class CustodyJourneyTest {
     private fun fill(label:String,value:String){compose.onNodeWithText(label).performScrollTo().performTextReplacement(value)}
     private fun login(user:String){
         enabled("Iniciar sesión");fill("Cuenta",user);fill("Contraseña",lab.text("password"));click("Iniciar sesión");enabled("Traslados")
-        click("Traslados");enabled("Abrir tarea y mapa");compose.onAllNodesWithText("Abrir tarea y mapa")[0].performScrollTo().performClick();shown("Traslado ·")
+        click("Traslados");enabled("Abrir traslado");compose.onAllNodesWithText("Abrir traslado")[0].performScrollTo().performClick();shown("Traslado ·")
     }
     private fun scan(){
         android.util.Log.i("CustodyJourney","optical_scan_requested")
@@ -39,7 +39,7 @@ class CustodyJourneyTest {
         click("Revisar");click(action);click("Confirmar");shown("Traslado · ${displayValue("status",state)}")
         android.util.Log.i("CustodyJourney","state=$state")
     }
-    @Test fun opticalScanCollectionDeliveryAcceptanceAndCoordinatorRead(){
+    @Test fun opticalScanCollectionAndDelivery(){
         UiDevice.getInstance(InstrumentationRegistry.getInstrumentation()).executeShellCommand("pm grant org.redhouse.mobile android.permission.CAMERA")
         login("transport1");click("Consultar contactos y ruta de esta tarea");shown("Ruta vinculada a la reserva")
         click("Siguiente paso: Confirmar recolección")
@@ -47,9 +47,8 @@ class CustodyJourneyTest {
         step("Confirmar recolección","COLLECTED","operator1")
         step("Iniciar traslado","IN_TRANSIT")
         step("Confirmar entrega física","DELIVERED","operator2")
-        click("Cerrar sesión");login("operator2");click("Consultar contactos y ruta de esta tarea");shown("Ruta vinculada a la reserva")
-        step("Aceptar recepción logística","ACCEPTED","transport1")
-        click("Cerrar sesión");login("coordinator1");shown("Traslado · ${displayValue("status","ACCEPTED")}");click("Cerrar sesión")
+        // La aceptación en destino (OPERATOR) y la lectura del coordinador ya no se hacen en móvil.
+        click("Cerrar sesión")
         enabled("Iniciar sesión");Assert.assertNull(AndroidSecureStore(compose.activity).read())
     }
 }

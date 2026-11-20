@@ -20,7 +20,7 @@ class DonorDayFilterJourneyTest {
         compose.onNodeWithText("Cuenta").performTextReplacement("donor1")
         compose.onNodeWithText("Contraseña").performTextReplacement(lab.text("password"))
         presentationClick(compose,"Iniciar sesión")
-        shown("No tienes citas próximas.")
+        shown("Aún no tienes cita")
         capture("donor-home")
         presentationClick(compose,"Campañas")
         presentationClick(compose,"Buscar y filtrar campañas")

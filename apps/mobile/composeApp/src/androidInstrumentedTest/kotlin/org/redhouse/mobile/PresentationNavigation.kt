@@ -14,12 +14,9 @@ fun revealDestination(compose: ComposeContentTestRule, label: String) {
     }
     when(label) {
         "Cerrar sesión", "Mi expediente", "Privacidad y permisos", "Notificaciones" -> open("Cuenta")
-        "Disponibilidad regional", "Solicitudes institucionales agregadas", "Reservas regionales" -> open("Región")
-        "Muestras autorizadas", "Resultados autorizados" -> open("Laboratorio")
-        "Programar traslado" -> {open("Región");open("Reservas regionales")}
         "Consultar horarios" -> {open("Campañas");open("Buscar horarios disponibles")}
-        "Ver mis citas" -> open("Inicio")
-        "Escanear unidad", "Confirmar recolección", "Iniciar traslado", "Confirmar entrega física", "Aceptar recepción logística", "Preparar unidad", "Registrar incidencia", "Capturar evidencia", "Cargar y verificar" -> {
+        "Mis citas" -> open("Citas")
+        "Escanear unidad", "Confirmar recolección", "Iniciar traslado", "Confirmar entrega física", "Registrar incidencia", "Capturar evidencia", "Cargar y verificar" -> {
             val step=compose.onAllNodes(hasText("Siguiente paso:",substring=true) and hasClickAction())[0]
             step.performScrollTo().performClick()
             if(label=="Capturar evidencia" || label=="Cargar y verificar") open("Evidencia")

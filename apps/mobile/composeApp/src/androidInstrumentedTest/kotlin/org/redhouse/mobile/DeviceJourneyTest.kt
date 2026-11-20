@@ -26,8 +26,8 @@ class DeviceJourneyTest {
         revealDestination(compose,"Traslados")
         compose.waitUntil(120000){compose.onAllNodesWithText("Traslados").fetchSemanticsNodes().any{!it.config.contains(androidx.compose.ui.semantics.SemanticsProperties.Disabled)}}
         text("Traslados").performScrollTo().performClick()
-        compose.waitUntil(120000){compose.onAllNodesWithText("Abrir tarea y mapa").fetchSemanticsNodes().isNotEmpty()}
-        compose.onAllNodesWithText("Abrir tarea y mapa")[0].performScrollTo().performClick()
+        compose.waitUntil(120000){compose.onAllNodesWithText("Abrir traslado").fetchSemanticsNodes().isNotEmpty()}
+        compose.onAllNodesWithText("Abrir traslado")[0].performScrollTo().performClick()
         compose.waitUntil(120000){compose.onAllNodesWithText("Traslado ·",substring=true).fetchSemanticsNodes().isNotEmpty()}
         val device=UiDevice.getInstance(instrumentation)
         device.executeShellCommand("pm grant org.redhouse.mobile android.permission.ACCESS_FINE_LOCATION")
