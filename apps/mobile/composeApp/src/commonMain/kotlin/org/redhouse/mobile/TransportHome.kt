@@ -17,7 +17,7 @@ import kotlinx.serialization.json.*
  * «Traslados»: la lista completa con estado visible y paginación. [onOpen] recibe el id y el paso con el que
  * se abre la tarea (0 detalle, 1 transferencia, 2 incidencia; ver [TransportScreen]).
  */
-@Composable fun TransportOrders(repository: MobileRepository, queue: ObservationQueue, home: Boolean, onOpen: (String, Int) -> Unit, onPending: () -> Unit) {
+@Composable fun TransportOrders(repository: MobileRepository, queue: ObservationQueue, home: Boolean, onOpen: (String, Int) -> Unit, onPending: () -> Unit, onSummary: () -> Unit = {}) {
     val scope = rememberCoroutineScope()
     val openInMaps = rememberOpenInMaps()
     var rows by remember { mutableStateOf<List<JsonObject>>(emptyList()) }
@@ -58,6 +58,8 @@ import kotlinx.serialization.json.*
             Text(if (waiting > 0) "$waiting por sincronizar" else "Observaciones guardadas", style = MaterialTheme.typography.titleMedium)
             OutlinedButton(onClick = onPending, modifier = Modifier.heightIn(min = 48.dp)) { Text("Ver pendientes") }
         } }
+        // Después de la acción principal y de los pendientes: la tarjeta de resumen nunca desplaza el traslado activo.
+        TransportSummaryCard(repository, onSummary)
         if (rest.isNotEmpty()) Text("Otras órdenes", style = MaterialTheme.typography.titleMedium)
     }
     if (!home && loaded && rows.isEmpty() && !busy) Text("No tienes traslados asignados.")
