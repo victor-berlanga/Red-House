@@ -131,7 +131,13 @@ class Window(QMainWindow):
     def build_workspace(self):
         page = QWidget(); outer = QVBoxLayout(page); outer.setContentsMargins(28,20,28,20); outer.setSpacing(14)
         head = QHBoxLayout(); brand = QLabel('RED HOUSE'); brand.setObjectName('brand'); head.addWidget(brand); head.addStretch(); self.summary_button=QPushButton('Resumen'); self.summary_button.clicked.connect(self.open_summary); head.addWidget(self.summary_button); self.analytics_button=QPushButton('Indicadores'); self.analytics_button.clicked.connect(self.open_analytics); head.addWidget(self.analytics_button); self.identity = QLabel(); head.addWidget(self.identity)
-        self.logout_button = QPushButton('Cerrar sesión'); self.logout_button.clicked.connect(self.logout); head.addWidget(self.logout_button); outer.addLayout(head)
+        self.logout_button = QPushButton('Cerrar sesión'); self.logout_button.clicked.connect(self.logout); head.addWidget(self.logout_button)
+        # Cabecera en un área con desplazamiento horizontal, igual que la fila de acciones: en Windows (fuente/DPI mayores)
+        # marca, botones e identidad suman más de 1000 px y no deben fijar el ancho mínimo de la ventana.
+        head_box = QWidget(); head_box.setLayout(head); head.setContentsMargins(0,0,0,0)
+        self.head_scroll = QScrollArea(); self.head_scroll.setWidget(head_box); self.head_scroll.setWidgetResizable(True); self.head_scroll.setFrameShape(QScrollArea.NoFrame)
+        self.head_scroll.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff); self.head_scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarAsNeeded); self.head_scroll.setSizePolicy(QSizePolicy.Ignored,QSizePolicy.Fixed)
+        self.head_scroll.setFixedHeight(head_box.sizeHint().height()+self.head_scroll.horizontalScrollBar().sizeHint().height()+2); outer.addWidget(self.head_scroll)
         # Barra de secciones: se llena según el perfil en apply_navigation (ver NAV_PROFILES).
         # La barra vive en un contenedor con política horizontal «Ignored»: su ancho mínimo es 0 y el ancho
         # de la fuente (Windows/DPI) ya no fuerza el de la ventana. fit_navigation() decide qué botones caben.
