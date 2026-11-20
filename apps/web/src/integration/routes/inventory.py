@@ -195,6 +195,7 @@ def resource_detail(identifier):
 @inventory.route("/inventario/<uuid:identifier>/liberar", methods=["GET", "POST"])
 def release(identifier):
     row = call("inventario", "/api/v1/resources/" + str(identifier))
+    mark("organos" if row["kind"] == "ORGAN" else "inventory")
     return submit(
         "inventario",
         "/api/v1/resources/" + str(identifier) + "/release",

@@ -18,7 +18,8 @@ from uuid import uuid4
 import pytest
 from lxml import etree
 
-from .test_web_integration import login, web  # noqa: F401
+from .helpers import iso
+from .test_web_integration import login, post, web  # noqa: F401
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "web"))
 from src.integration import NAV  # noqa: E402
@@ -207,3 +208,47 @@ def test_error_page_inside_a_section_keeps_that_section(web, p):  # noqa: F811
         active = [h for h, a, _ in links if a]
         # Si el rol no ve esa entrada en la barra, ninguna otra debe resaltarse.
         assert active in ([section_href], []), (path, active)
+
+
+@pytest.mark.parametrize(
+    "kind,component,section",
+    [("ORGAN", "KIDNEY", "/organos"), ("BLOOD", "RBC", "/inventario")],
+)
+def test_unit_subroutes_highlight_by_the_real_resource_kind(  # noqa: F811
+    web, p, kind, component, section
+):
+    """Liberar, controles, lectura, revisión, linaje y etiqueta siguen al tipo real.
+
+    Una unidad de órgano resalta «Órganos» y una de sangre «Inventario» en todas
+    las rutas que cuelgan de ella, no solo en su detalle.
+    """
+    operator = login(web, p, "operator1")
+    medical = login(web, p, "medical1")
+    unit_url = post(
+        operator,
+        "/inventario/nuevo?kind=" + kind,
+        {
+            "folio": "NAV-" + uuid4().hex[:12],
+            "component": component,
+            "blood_group": "O+" if kind == "ORGAN" else "O-",
+            "expires_at": iso(days=2),
+            "donation_id": "",
+        },
+    )
+    # (cliente, ruta): cada una con el rol que puede abrirla.
+    routes = [
+        (medical, "/liberar"),
+        (medical, "/controles"),
+        (operator, "/lectura"),
+        (operator, "/linaje"),
+        (operator, "/etiqueta"),
+    ]
+    for client, suffix in routes:
+        assert_highlight(client, unit_url + suffix, section, suffix)
+    # Sin controles configurados la revisión de calidad responde 404, pero la
+    # página de error ya resalta la sección correcta (la marca va antes).
+    response = medical.get(unit_url + "/revision-calidad")
+    assert response.status_code == 404, response.status_code
+    active = [h for h, a, _ in sidebar(etree.HTML(response.data)) if a]
+    assert active in ([section], []), active
+    assert active == [section], "la revisión de calidad no resalta su sección"

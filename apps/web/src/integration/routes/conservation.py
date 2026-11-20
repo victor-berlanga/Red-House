@@ -229,6 +229,7 @@ def resource_conservation(identifier):
 def controls_new(identifier):
     permit("MEDICAL")
     unit = call("inventario", f"/api/v1/resources/{identifier}")
+    mark("organos" if unit["kind"] == "ORGAN" else "inventory")
     return submit(
         "inventario",
         f"/api/v1/resources/{identifier}/controls",
@@ -271,7 +272,8 @@ def controls_new(identifier):
 @inventory.route("/inventario/<uuid:identifier>/lectura", methods=["GET", "POST"])
 def cold_reading_new(identifier):
     permit("OPERATOR")
-    call("inventario", f"/api/v1/resources/{identifier}")
+    unit = call("inventario", f"/api/v1/resources/{identifier}")
+    mark("organos" if unit["kind"] == "ORGAN" else "inventory")
     return submit(
         "inventario",
         f"/api/v1/resources/{identifier}/cold-readings",
@@ -294,6 +296,11 @@ def cold_reading_new(identifier):
 )
 def quality_review(identifier):
     permit("MEDICAL")
+    # Los controles no traen el tipo del recurso: una lectura adicional (barata,
+    # por id) decide la sección y va primero para que también la página de error
+    # (p. ej. 404 si aún no hay controles) resalte la sección correcta.
+    unit = call("inventario", f"/api/v1/resources/{identifier}")
+    mark("organos" if unit["kind"] == "ORGAN" else "inventory")
     control = call("inventario", f"/api/v1/resources/{identifier}/controls")
     return submit(
         "inventario",
@@ -361,12 +368,13 @@ def fractionate(identifier):
 def lineage(identifier):
     permit("OPERATOR", "MEDICAL")
     unit = call("inventario", f"/api/v1/resources/{identifier}")
+    mark("organos" if unit["kind"] == "ORGAN" else "inventory")
     links = call("inventario", f"/api/v1/resources/{identifier}/lineage")
     children = [call("inventario", "/api/v1/resources/" + r["child_id"]) for r in links]
     return render_template(
         "integration/lineage.html",
         title="Linaje · " + unit["folio"],
-        active="inventory",
+        active="organos" if unit["kind"] == "ORGAN" else "inventory",
         unit=unit,
         children=children,
     )
@@ -378,6 +386,7 @@ def label(identifier):
     from reportlab.graphics.barcode import createBarcodeDrawing
 
     unit = call("inventario", f"/api/v1/resources/{identifier}")
+    mark("organos" if unit["kind"] == "ORGAN" else "inventory")
     drawing = createBarcodeDrawing(
         "Code128", value=str(identifier), barHeight=45, humanReadable=False
     )
@@ -385,7 +394,7 @@ def label(identifier):
     return render_template(
         "integration/label.html",
         title="Etiqueta · " + unit["folio"],
-        active="inventory",
+        active="organos" if unit["kind"] == "ORGAN" else "inventory",
         unit=unit,
         barcode=barcode,
     )
