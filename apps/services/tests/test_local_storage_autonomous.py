@@ -105,5 +105,6 @@ def test_document_web_upload_without_api_listeners(
         "/api/v1/auth/login",
         user=None,
         data={"username": "admin1", "password": p.env.state["password"]},
+        headers={"X-RedHouse-Client": "web"},
     )
     p.tokens["admin1"] = renewed["access_token"]

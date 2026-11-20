@@ -175,7 +175,11 @@ class LoadSession:
         no_cache=False,
         mime="application/json",
         cache_observer=None,
+        app_client=None,
     ):
+        # Aplicación declarada en la cabecera X-RedHouse-Client del login; si no se
+        # indica, se deduce del prefijo del usuario (donor*/transport* = mobile).
+        self.app_client = app_client
         self.client = client
         self.urls = isolated_urls(urls)
         self.clock = clock
@@ -225,7 +229,7 @@ class LoadSession:
             headers["X-Reauthentication-Proof"] = proof
         if path == "/api/v1/auth/login":
             # Acceso por aplicación: DONOR/TRANSPORT inician como móvil; el resto como portal.
-            headers["X-RedHouse-Client"] = (
+            headers["X-RedHouse-Client"] = self.app_client or (
                 "mobile"
                 if str((body or {}).get("username", "")).startswith(
                     ("donor", "transport")

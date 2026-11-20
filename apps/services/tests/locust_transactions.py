@@ -149,7 +149,12 @@ class TransactionUser(HttpUser):
             self.wait_time = between(4, 6).__get__(self, type(self))
         self.client.trust_env = False
         self.api = LoadSession(
-            self.client, state["urls"], mime=account["mime"], cache_observer=observer
+            self.client,
+            state["urls"],
+            mime=account["mime"],
+            cache_observer=observer,
+            # Las cuentas creadas por la prueba no siguen el prefijo donor*/transport*.
+            app_client="mobile" if self.role in ("DONOR", "TRANSPORT") else "web",
         )
         cleanup_for(self.environment).add(self.api, self.client)
         try:

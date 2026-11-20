@@ -235,7 +235,7 @@ def test_session_poll_cost_and_security(web, p, monkeypatch):
 
     from .test_web_integration import login
 
-    client = login(web, p, "donor1")
+    client = login(web, p, "operator1")
     original = web.before_request_funcs[None][0]
     baseline = (
         Path(__file__).resolve().parents[3]
@@ -306,7 +306,8 @@ def test_dashboard_assets_without_charts(web, p):
     from .test_web_integration import login
 
     web.config["HIGHCHARTS_ENABLED"] = True
-    client = login(web, p, "donor1")
+    # AUDITOR: su panel no lleva gráficas (OPERATOR sí), como el de DONOR antes.
+    client = login(web, p, "auditor1")
     loader = web.jinja_env.loader
     baseline = (
         Path(__file__).resolve().parents[3]

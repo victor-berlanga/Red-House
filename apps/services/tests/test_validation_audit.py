@@ -223,7 +223,9 @@ def test_file_form_marks_reselection_without_creating_records(web, p):
     from .test_documents_storage import planned
 
     shipment = planned(p)
-    client = login(web, p, "transport1")
+    # TRANSPORT sube evidencias desde la aplicación móvil; el portal lo hace el
+    # personal de coordinación con el mismo formulario.
+    client = login(web, p, "coordinator1")
     path = "/traslados/" + shipment["id"] + "/archivos"
     values = form(client, path)
     for content, filename, mime in [
