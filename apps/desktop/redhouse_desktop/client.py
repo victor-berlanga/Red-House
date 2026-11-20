@@ -28,6 +28,9 @@ SERVICE_VERSIONS = {
 class ContractError(Exception):
     pass
 
+CLIENT_HEADER, CLIENT_NAME = 'X-RedHouse-Client', 'desktop'
+
+
 class ApiError(Exception):
     def __init__(self, status, code, message, details=None):
         super().__init__(message)
@@ -143,7 +146,9 @@ class Client:
 
     def call(self, service, path, operation, method='GET', body=None, request_schema=None, params=None, key=None, auth=True, proof=None):
         if not path.startswith('/api/v1/') or '..' in path: raise ValueError('Ruta inválida.')
-        headers = {'Accept':'application/xml', 'X-Correlation-ID':str(uuid.uuid4())}
+        # X-RedHouse-Client: aplicación declarada ante Identidad; el servidor rechaza con 403
+        # `client_not_allowed` (mensaje en español) al perfil que no corresponde a la consola.
+        headers = {'Accept':'application/xml', 'X-Correlation-ID':str(uuid.uuid4()), CLIENT_HEADER:CLIENT_NAME}
         if auth and self.access: headers['Authorization'] = 'Bearer ' + self.access
         if key: headers['Idempotency-Key'] = key
         if proof: headers['X-Reauthentication-Proof'] = proof

@@ -10,13 +10,15 @@ Las capturas enlazadas son reales y están versionadas en el repositorio; muestr
 
 | Perfil | Portal web | App móvil | Consola de escritorio |
 | --- | --- | --- | --- |
-| Donante | Sí | Sí | No prevista |
-| Médico | Sí | Consulta | Sí |
-| Operador | Sí | Sí | Sí |
-| Coordinador | Sí | Sí | Sí |
-| Personal de traslado (transportista) | Sí | Sí, aplicación principal | Consulta |
-| Auditor | Sí | Solo perfil y avisos | Sí |
-| Administrador | Sí | Solo perfil y avisos | Sí |
+| Donante | No | Sí | No |
+| Médico | Sí | No | Sí |
+| Operador | Sí | No | Sí |
+| Coordinador | Sí | No | Sí |
+| Personal de traslado (transportista) | No | Sí | No |
+| Auditor | Sí | No | No |
+| Administrador | Sí | No | No |
+
+El sitio público y las campañas publicadas se consultan sin iniciar sesión. Si intentas entrar con tu cuenta en una aplicación que no es la de tu perfil, el sistema te lo dice y te indica cuál usar (por ejemplo, «Usa la aplicación móvil»). Los apartados por aplicación de las secciones 3 a 10 que describan una aplicación marcada «No» para el perfil corresponden a la versión anterior al 19/11/2026 y ya no están disponibles. Detalle: [Matriz de acceso por aplicación](Matriz_acceso_por_aplicacion.md).
 
 Cada persona ve únicamente las opciones de su perfil y de su institución. Si un botón aparece desactivado, la acción corresponde a otro perfil o a otro momento del proceso.
 

@@ -138,9 +138,7 @@ def post(client, path, data):
                 "/organos",
             ],
         ),
-        ("transport1", ["/panel", "/traslados", "/rutas"]),
         ("auditor1", ["/panel", "/auditoria", "/monitoreo"]),
-        ("donor1", ["/panel", "/donantes/donor", "/campanas", "/citas"]),
     ],
 )
 def test_roles_can_render_authorized_pages_through_http(web, p, user, paths):
@@ -175,7 +173,9 @@ def test_full_reservation_transport_receipt_from_web_and_xml(
     medical1 = login(web, p, "medical1")
     medical2 = login(web, p, "medical2")
     coord = login(web, p, "coordinator1")
-    transport = login(web, p, "transport1")
+    # TRANSPORT ya no usa el portal (acceso por aplicación): sus pasos van por la
+    # misma API que consume la aplicación móvil, con su sesión de cliente `mobile`.
+    transport = None
     operator2 = login(web, p, "operator2")
     code = "NL-WEB-" + uuid4().hex[:12]
     unit_url = post(
@@ -270,6 +270,16 @@ def test_full_reservation_transport_receipt_from_web_and_xml(
         ("DELIVERED", transport),
         ("ACCEPTED", operator2),
     ]:
+        if client is None:
+            from .helpers import move
+
+            current = p.ok(
+                "transporte",
+                "GET",
+                "/api/v1/shipments/" + shipment_url.rsplit("/", 1)[1],
+            )
+            move(p, current, state, "transport1")
+            continue
         post(
             client,
             shipment_url + "/paso/" + state,

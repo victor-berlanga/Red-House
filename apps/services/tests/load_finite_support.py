@@ -93,9 +93,9 @@ def prepare_finite_fixture(env):
             conn.execute(
                 "SELECT max(version) AS v FROM red_house.schema_migration"
             ).fetchone()["v"]
-            != 21
+            != 22
         ):
-            raise ValueError("schema_21_required")
+            raise ValueError("schema_22_required")
         for a in accounts:
             actual = conn.execute(
                 "SELECT id::text,tenant_id::text,role,active FROM access_identidad_acceso.users WHERE username=%s",
@@ -153,7 +153,7 @@ def prepare_finite_fixture(env):
             route_id = str(routes[0]["id"]) if routes else str(uuid4())
             manifest = {
                 "kind": "finite-three-roles-v1",
-                "schema_version": 21,
+                "schema_version": 22,
                 "directory": str(env.directory),
                 "gps": False,
                 "preparation_complete": False,

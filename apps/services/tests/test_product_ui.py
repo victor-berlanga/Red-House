@@ -18,9 +18,10 @@ def test_admin_redirects_and_weekday_roundtrip(web, p):
     assert settings.status_code == 200
     assert etree.HTML(settings.data).xpath('//a[@href="/administracion/users"]')
     assert admin.get("/administracion/components").location == "/catalogos/sites"
-    donor = login(web, p, "donor1")
-    assert donor.get("/configuracion").status_code == 403
-    assert donor.get("/administracion/components").status_code == 403
+    # DONOR ya no entra al portal; un perfil no administrativo sigue sin ver configuración.
+    operator = login(web, p, "operator1")
+    assert operator.get("/configuracion").status_code == 403
+    assert operator.get("/administracion/components").status_code == 403
     site = p.ok(
         "identidad_acceso",
         "POST",
@@ -118,20 +119,8 @@ def test_notifications_read_post_is_authorized_and_translated(web, p):
 
 
 def test_campaign_registration_context_and_cancel_modal(web, p):
-    username = "appointments-" + uuid4().hex[:12]
-    p.ok(
-        "identidad_acceso",
-        "POST",
-        "/api/v1/users",
-        user="admin1",
-        data={
-            "username": username,
-            "password": p.env.state["password"],
-            "role": "DONOR",
-            "tenant_id": p.env.state["tenants"][0],
-        },
-    )
-    donor = login(web, p, username)
+    # DONOR ya no usa el portal: el operador registra donante y cita en su nombre.
+    donor = login(web, p, "operator1")
     person_url = post(
         donor,
         "/donantes/donor/nuevo",
@@ -192,7 +181,6 @@ def test_personal_dashboards_timezone_and_help(web, p):
     assert response.status_code == 200
     assert etree.HTML(response.data).xpath('//details[@id="access-help" and @open]')
     for user, expected in [
-        ("donor1", "Mis inscripciones recientes"),
         ("auditor1", "Actividad reciente de la red"),
     ]:
         client = login(web, p, user)
@@ -207,122 +195,28 @@ def test_personal_dashboards_timezone_and_help(web, p):
     assert b"service-grid" in coordinator.get("/monitoreo").data
 
 
-def test_location_capture_requires_assigned_active_shipment(web, p):
-    from .helpers import (
-        resource,
-        recipient_request,
-        evaluation,
-        reservation,
-        plan,
-        move,
-    )
+def test_location_capture_is_not_available_in_portal(web, p):
+    """La captura de ubicación del traslado es de la aplicación móvil (TRANSPORT).
+
+    El portal ya no admite TRANSPORT: su login web es 403 `client_not_allowed` y la
+    página de captura sigue denegada a los perfiles del portal.
+    """
+    from .helpers import resource, recipient_request, evaluation, reservation, plan
 
     unit = resource(p)
     _, req = recipient_request(p)
     ev = evaluation(p, req, [unit])
     reserve = reservation(p, ev, unit)
     trip = plan(p, reserve["reservation"])
-    transport = login(web, p, "transport1")
-    operator = login(web, p, "operator1")
     url = f"/traslados/{trip['id']}/ubicacion"
-    assert transport.get(url).status_code == 403
-    for state, actor in [("PREPARED", "operator1"), ("COLLECTED", "transport1")]:
-        trip = move(p, trip, state, actor)
-        p.drain()
-    response = transport.get(url)
-    assert response.status_code == 200 and b"data-capture-location" in response.data
-    assert "geolocation=(self)" in response.headers["Permissions-Policy"]
-    denied = operator.get(url)
-    assert (
-        denied.status_code == 403
-        and "geolocation=()" in denied.headers["Permissions-Policy"]
-    )
-    assert "geolocation=()" in transport.get("/panel").headers["Permissions-Policy"]
-    # Prueba opcional en Chrome con ubicación simulada y el mismo entorno aislado.
-    # Nunca utiliza credenciales ni expedientes del entorno de presentación.
-    import json
-    import os
-    import subprocess
-    import threading
-    from pathlib import Path
-    from werkzeug.serving import make_server
-    from .conftest import QuietHandler
-
-    if os.environ.get("REDHOUSE_BROWSER_MODULES"):
-        device = p.ok(
-            "identidad_acceso",
-            "POST",
-            "/api/v1/devices",
-            user="admin1",
-            data={
-                "id": str(uuid4()),
-                "user_id": p.env.state["accounts"]["transport1"]["id"],
-                "source": "SIMULATOR",
-                "label": "Captura sintética navegador",
-                "expires_at": iso(days=1),
-            },
+    for user in ("operator1", "coordinator1"):
+        denied = login(web, p, user).get(url)
+        assert (
+            denied.status_code == 403
+            and "geolocation=()" in denied.headers["Permissions-Policy"]
         )
-        p.ok(
-            "transporte",
-            "POST",
-            f"/api/v1/shipments/{trip['id']}/tracking/assignments",
-            user="coordinator1",
-            data={
-                "device_id": device["id"],
-                "starts_at": iso(minutes=-1),
-                "ends_at": iso(minutes=30),
-                "version": trip["version"],
-                "human_confirmation": True,
-                "reason": "Captura sintética autorizada del navegador",
-            },
-        )
-        server = make_server(
-            "127.0.0.1", 0, web, threaded=True, request_handler=QuietHandler
-        )
-        threading.Thread(target=server.serve_forever, daemon=True).start()
-        state = p.env.directory / "location-browser.json"
-        output = (
-            Path(
-                os.environ.get(
-                    "REDHOUSE_BROWSER_RESULTS", str(p.env.directory / "browser")
-                )
-            )
-            / "ubicacion"
-        )
-        output.mkdir(parents=True, exist_ok=True)
-        state.touch(mode=0o600)
-        state.write_text(
-            json.dumps(
-                {
-                    "url": f"http://127.0.0.1:{server.server_port}",
-                    "path": url,
-                    "device_id": device["id"],
-                    "cookie_name": web.config["JWT_COOKIE_NAME"],
-                    "cookie_value": transport.get_cookie(
-                        web.config["JWT_COOKIE_NAME"]
-                    ).value,
-                }
-            )
-        )
-        try:
-            script = (
-                Path(__file__).resolve().parents[2] / "web/tests/location_browser.cjs"
-            )
-            subprocess.run(
-                ["node", str(script), str(state), str(output)],
-                check=True,
-                timeout=90,
-                env={**os.environ, "NODE_PATH": os.environ["REDHOUSE_BROWSER_MODULES"]},
-            )
-            with p.owner("transporte") as conn:
-                assert (
-                    conn.execute(
-                        "SELECT count(*) FROM tracking_points WHERE shipment_id=%s AND device_id=%s",
-                        (trip["id"], device["id"]),
-                    ).fetchone()[0]
-                    == 1
-                )
-        finally:
-            state.unlink(missing_ok=True)
-            server.shutdown()
-            server.server_close()
+    client = web.test_client()
+    values = form(client, "/login")
+    values.update(login_email="transport1", password=p.env.state["password"])
+    refused = client.post("/login", data=values)
+    assert refused.status_code == 403 and b"aplicaci" in refused.data

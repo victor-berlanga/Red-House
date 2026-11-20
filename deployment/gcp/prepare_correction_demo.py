@@ -134,7 +134,15 @@ for user in (
     if user in state["factors"]:
         data["otp"] = code(user)
     state["tokens"][user] = call(
-        "identidad_acceso", "POST", "/api/v1/auth/login", data
+        "identidad_acceso",
+        "POST",
+        "/api/v1/auth/login",
+        data,
+        headers={
+            "X-RedHouse-Client": "mobile"
+            if user.startswith(("donor", "transport"))
+            else "web"
+        },
     )["access_token"]
     save()
 print("Autenticación API y MFA verificadas.", flush=True)

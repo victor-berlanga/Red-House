@@ -223,6 +223,15 @@ class LoadSession:
             headers["Idempotency-Key"] = key
         if proof:
             headers["X-Reauthentication-Proof"] = proof
+        if path == "/api/v1/auth/login":
+            # Acceso por aplicación: DONOR/TRANSPORT inician como móvil; el resto como portal.
+            headers["X-RedHouse-Client"] = (
+                "mobile"
+                if str((body or {}).get("username", "")).startswith(
+                    ("donor", "transport")
+                )
+                else "web"
+            )
         request_body = {}
         if body is not None:
             if mime == "application/xml":

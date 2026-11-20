@@ -60,6 +60,52 @@ def rate_limit(category="anonymous", identity=None):
         raise APIError("rate_limit", "Límite de consumo alcanzado.", 429)
 
 
+# Distribución de perfiles por aplicación (requisito 19-nov-2026). Cada sesión
+# nace en una aplicación declarada con la cabecera X-RedHouse-Client; el
+# servidor la guarda en la sesión y en el JWT y exige que el perfil vigente siga
+# permitido en ella. Los siete roles de Identidad no cambian.
+CLIENT_HEADER = "X-RedHouse-Client"
+CLIENT_ROLES = {
+    "web": frozenset({"ADMIN", "OPERATOR", "MEDICAL", "COORDINATOR", "AUDITOR"}),
+    "desktop": frozenset({"OPERATOR", "MEDICAL", "COORDINATOR"}),
+    "mobile": frozenset({"DONOR", "TRANSPORT"}),
+}
+CLIENT_NAMES = {
+    "web": "el portal web",
+    "desktop": "la consola de escritorio",
+    "mobile": "la aplicación móvil",
+}
+
+
+def allowed_apps(role):
+    """Aplicaciones, en español, donde el perfil puede iniciar sesión."""
+    names = [CLIENT_NAMES[c] for c in CLIENT_ROLES if role in CLIENT_ROLES[c]]
+    return " o ".join(names) if names else "ninguna aplicación"
+
+
+def ensure_client_allowed(role, client):
+    """403 `client_not_allowed` si el perfil no corresponde a la aplicación."""
+    if client not in CLIENT_ROLES or role not in CLIENT_ROLES[client]:
+        raise APIError(
+            "client_not_allowed",
+            f"Tu perfil no puede iniciar sesión en {CLIENT_NAMES.get(client, 'esta aplicación')}. "
+            f"Usa {allowed_apps(role)}.",
+            403,
+        )
+
+
+def request_client():
+    """Aplicación declarada en el login; falla cerrada si falta o es desconocida."""
+    value = request.headers.get(CLIENT_HEADER, "")
+    if value not in CLIENT_ROLES:
+        raise APIError(
+            "client_required",
+            f"Declara la aplicación con la cabecera {CLIENT_HEADER}: web, desktop o mobile.",
+            400,
+        )
+    return value
+
+
 def authenticate(roles=()):
     header = request.headers.get("Authorization", "")
     if not header.startswith("Bearer "):
@@ -115,6 +161,15 @@ def authenticate(roles=()):
         or str(actor.get("version")) != permission_version
     ):
         raise APIError("unauthorized", "Sesión inactiva.", 401)
+    client = state.get("client")
+    if client not in CLIENT_ROLES or claims.get("client") != client:
+        # Sesión emitida antes de la distribución por aplicación: falla cerrada.
+        raise APIError(
+            "unauthorized",
+            "Tu sesión es anterior al acceso por aplicación; inicia sesión de nuevo.",
+            401,
+        )
+    ensure_client_allowed(actor["role"], client)
     if roles and actor["role"] not in roles:
         raise APIError("forbidden", "Perfil sin permiso para esta operación.", 403)
     g.actor, g.claims = actor, claims
@@ -184,7 +239,7 @@ def internal_auth(allowed):
     g.caller = service
 
 
-def access_token(user, sid):
+def access_token(user, sid, client):
     now = int(time.time())
     return jwt.encode(
         {
@@ -195,6 +250,7 @@ def access_token(user, sid):
             "nbf": now,
             "exp": now + current_app.config["ACCESS_TTL"],
             "token_use": "access",
+            "client": client,
             "iss": current_app.config["JWT_ISSUER"],
             "aud": current_app.config["JWT_AUDIENCE"],
         },

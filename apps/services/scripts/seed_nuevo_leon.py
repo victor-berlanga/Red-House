@@ -179,6 +179,11 @@ class RegionalDataset:
             login = requests.post(
                 self.state["urls"]["identidad_acceso"] + "/api/v1/auth/login",
                 json={"username": user, "password": self.state["password"]},
+                headers={
+                    "X-RedHouse-Client": "mobile"
+                    if user.startswith(("donor", "transport"))
+                    else "web"
+                },
                 timeout=20,
             )
             if login.status_code != 200:

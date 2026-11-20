@@ -584,7 +584,16 @@ def api_login(env, username, otp_secret=None):
         body["otp"] = totp(otp_secret, int(time.time()) // 30 + 1)
     with requests.Session() as session:
         session.trust_env = False
-        response = session.post(base + "/api/v1/auth/login", json=body, timeout=(5, 15))
+        response = session.post(
+            base + "/api/v1/auth/login",
+            json=body,
+            headers={
+                "X-RedHouse-Client": "mobile"
+                if str(body.get("username", "")).startswith(("donor", "transport"))
+                else "web"
+            },
+            timeout=(5, 15),
+        )
     response.raise_for_status()
     return response.json()["data"]["access_token"]
 

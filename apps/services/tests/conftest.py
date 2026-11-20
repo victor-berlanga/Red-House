@@ -18,6 +18,7 @@ sys.path.insert(0, str(ROOT))
 # primer nivel. Se agrega al final para no ocultar ningún módulo del servicio.
 sys.path.append(str(Path(__file__).resolve().parent))
 
+from tests.helpers import client_for
 from redhouse.config import SERVICES
 from redhouse.events import dispatch
 from scripts.local import Environment
@@ -36,6 +37,18 @@ class Platform:
         }
         self.tokens = {}
 
+    def client_of(self, username):
+        """Aplicación propia del perfil de la cuenta (también de las creadas en la prueba)."""
+        account = self.env.state["accounts"].get(username)
+        if account:
+            return client_for(username, account["role"])
+        with self.owner("identidad_acceso") as conn:
+            row = conn.execute(
+                "SELECT role FROM access_identidad_acceso.users WHERE username=%s",
+                (username,),
+            ).fetchone()
+        return client_for(username, row[0] if row else None)
+
     def request(
         self,
         service,
@@ -50,6 +63,10 @@ class Platform:
         hdr = {"Accept": "application/json", "Idempotency-Key": key or uuid4().hex}
         if user:
             hdr["Authorization"] = "Bearer " + self.tokens[user]
+        if path == "/api/v1/auth/login" and isinstance(data, dict):
+            # Acceso por aplicación: el arnés declara la aplicación propia de cada
+            # perfil salvo que la prueba envíe su propia cabecera.
+            hdr["X-RedHouse-Client"] = self.client_of(data.get("username", ""))
         hdr.update(headers or {})
         return requests.request(
             method, self.urls[service] + path, json=data, headers=hdr, timeout=20
@@ -126,6 +143,11 @@ def platform():
             result = requests.post(
                 urls["identidad_acceso"] + "/api/v1/auth/login",
                 json={"username": username, "password": env.state["password"]},
+                headers={
+                    "X-RedHouse-Client": client_for(
+                        username, env.state["accounts"][username]["role"]
+                    )
+                },
                 timeout=10,
             )
             assert result.status_code == 200, (result.status_code, result.text)

@@ -27,6 +27,7 @@ def main():
         login = http.post(
             before["urls"]["identidad_acceso"] + "/api/v1/auth/login",
             json={"username": "medical1", "password": before["password"]},
+            headers={"X-RedHouse-Client": "web"},
             timeout=10,
         )
         login.raise_for_status()

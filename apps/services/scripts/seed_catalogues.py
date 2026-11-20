@@ -39,6 +39,7 @@ def main():
             login = http.post(
                 base + "/api/v1/auth/login",
                 json={"username": "admin" + str(i), "password": state["password"]},
+                headers={"X-RedHouse-Client": "web"},
                 timeout=15,
             )
             if login.status_code != 200:

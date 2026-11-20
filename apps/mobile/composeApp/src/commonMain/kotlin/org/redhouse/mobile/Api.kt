@@ -32,7 +32,12 @@ class ApiFailure(val status: Int, val code: String) : Exception(when (status) {
 })
 /** A 401 while a session is open means it expired or was revoked by the service, never a wrong password. */
 internal fun failureMessage(e: ApiFailure, signedIn: Boolean): String =
-    if (e.code == "unauthorized" && !signedIn) "Cuenta o contraseña incorrectas." else e.message.orEmpty()
+    when {
+        e.code == "unauthorized" && !signedIn -> "Cuenta o contraseña incorrectas."
+        // Acceso por aplicación: el servidor rechaza el login de perfiles que no son de la app móvil.
+        e.code == "client_not_allowed" -> "Tu perfil no usa la aplicación móvil. Entra al portal web o a la consola de escritorio."
+        else -> e.message.orEmpty()
+    }
 class Api(val client: HttpClient, val bases: Map<String, String>, private val parsingDispatcher: CoroutineDispatcher = Dispatchers.Default) {
     init { require(bases.isNotEmpty()); bases.values.forEach(::requireHttps) }
     suspend fun call(service: String, path: String, method: HttpMethod = HttpMethod.Get,
@@ -42,6 +47,8 @@ class Api(val client: HttpClient, val bases: Map<String, String>, private val pa
             this.method = method
             accept(ContentType.Application.Json)
             header("X-Correlation-ID", newId())
+            // Aplicación declarada ante Identidad: define con qué perfiles puede iniciar sesión.
+            header("X-RedHouse-Client", "mobile")
             token?.let { bearerAuth(it) }
             key?.let { header("Idempotency-Key", it) }
             if (body != null) { contentType(ContentType.Application.Json); setBody(body.toString()) }

@@ -62,9 +62,18 @@ Los códigos describen el tipo de acción, no una jerarquía entre perfiles. Un 
 
 El consumo de microservicios será indirecto a través del sistema web o de las aplicaciones cliente. El perfil no modifica esta separación ni habilita conexiones directas con los almacenes de datos.
 
-### 3.1 Mismos perfiles en todas las aplicaciones (corte 18/11/2026)
+### 3.1 Mismos perfiles, distribuidos por aplicación (corte 19/11/2026)
 
-Los siete perfiles implementados son los mismos en el portal web (monolito), los microservicios, la app móvil y la consola de escritorio: `ADMIN`, `MEDICAL`, `OPERATOR`, `COORDINATOR`, `TRANSPORT`, `AUDITOR` y `DONOR`. Se crean una sola vez en Identidad (`apps/services/scripts/provision.py`) y viajan en el JWT (`role_code`). Ninguna aplicación define perfiles propios: cada una solo decide **qué vista o funciones muestra** para el perfil que recibe. Por ejemplo, el transportista trabaja sobre todo en el móvil y el médico en web y escritorio. **La autorización la decide siempre el servidor**, con el mismo perfil, institución y permisos sin importar desde qué aplicación llegue la petición. Qué ve cada perfil en cada aplicación: [Manual de usuario, sección 1](Manual_de_usuario.md#1-qué-aplicación-usa-cada-perfil). Las cuentas sintéticas por perfil están en la [guía de prueba manual](Guia_prueba_manual.md#2-cuentas).
+Los siete perfiles implementados son los mismos en el portal web, los microservicios, la app móvil y la consola de escritorio: `ADMIN`, `MEDICAL`, `OPERATOR`, `COORDINATOR`, `TRANSPORT`, `AUDITOR` y `DONOR`. Se crean una sola vez en Identidad (`apps/services/scripts/provision.py`) y viajan en el JWT (`role_code`); ninguna aplicación define perfiles propios. Desde el 19/11/2026 **cada aplicación admite solo ciertos perfiles y el servidor lo exige**:
+
+| Aplicación | Perfiles admitidos |
+| --- | --- |
+| Portal web privado | `ADMIN`, `OPERATOR`, `MEDICAL`, `COORDINATOR`, `AUDITOR` |
+| Consola de escritorio | `OPERATOR`, `MEDICAL`, `COORDINATOR` |
+| App móvil (Android e iOS) | `DONOR`, `TRANSPORT` |
+| Sitio público y campañas publicadas | Sin sesión |
+
+Cada cliente declara su aplicación al iniciar sesión (`X-RedHouse-Client: web|desktop|mobile`); Identidad rechaza con 403 `client_not_allowed` al perfil que no corresponde, guarda la aplicación en la sesión y en el JWT, y rechaza las peticiones de sesiones sin aplicación (401) o cuyo perfil ya no corresponde (403). **La autorización de cada operación la sigue decidiendo el servidor** con perfil, institución y recurso, sin importar la aplicación. Las columnas «Componentes utilizados» de la sección 3 describen el origen histórico; la distribución vigente es esta. Aplicación × perfil × operación, ámbito y pruebas de aceptación: [Matriz de acceso por aplicación](Matriz_acceso_por_aplicacion.md). Qué ve cada perfil: [Manual de usuario, sección 1](Manual_de_usuario.md#1-qué-aplicación-usa-cada-perfil). Cuentas sintéticas: [guía de prueba manual](Guia_prueba_manual.md#2-cuentas).
 
 ## 4. Responsabilidades e información autorizada
 

@@ -189,6 +189,7 @@ def main():
             response = session.post(
                 current["urls"]["identidad_acceso"] + "/api/v1/auth/login",
                 json={"username": "admin1", "password": current["password"]},
+                headers={"X-RedHouse-Client": "web"},
                 timeout=10,
             )
             assert response.status_code == 200

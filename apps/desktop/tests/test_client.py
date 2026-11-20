@@ -170,6 +170,31 @@ def test_reauthentication_proof_is_only_sent_as_header(monkeypatch):
     assert captured['data'] is None and captured.get('params') is None
 
 
+def test_every_request_declares_the_desktop_client(monkeypatch):
+    import requests
+    raw=example('inventario','/api/v1/resources','get'); captured={}
+    class Response:
+        status_code=200; headers={'Content-Type':'application/xml'}
+        def __enter__(self): return self
+        def __exit__(self,*args): pass
+        def iter_content(self,size): yield raw
+    monkeypatch.setattr(requests,'request',lambda method,url,**kw:(captured.update(kw),Response())[1])
+    c=Client('https://example.com'); c.access='access'
+    c.call('inventario','/api/v1/resources','resources_list')
+    assert captured['headers']['X-RedHouse-Client']=='desktop'
+
+
+def test_login_rejected_for_other_application_keeps_the_server_message():
+    from redhouse_desktop.client import ApiError
+    c=Client('https://example.com')
+    message='Tu perfil no puede iniciar sesión en la consola de escritorio. Usa el portal web.'
+    def refuse(*args,**kwargs): raise ApiError(403,'client_not_allowed',message)
+    c.call=refuse
+    with pytest.raises(ApiError) as caught: c.login('admin1','x'*12,'')
+    assert caught.value.code=='client_not_allowed' and str(caught.value)==message
+    assert c.access is None and c.user is None
+
+
 def test_cold_reading_xsd_rejects_nonfinite_or_out_of_range():
     valid={'temperature_c':4.2,'captured_at':'2030-01-01T00:00:00Z','source':'Termómetro ficticio'}
     assert b'<temperature_c>4.2</temperature_c>' in request_xml(valid,'cold_reading_create.xsd')

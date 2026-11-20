@@ -278,10 +278,6 @@ TASKS = {
         ("Traslados", "/traslados", "Coordinar origen, destino y responsable"),
         ("Disponibilidad regional", "/disponibilidad", "Consultar recursos de la red"),
     ],
-    "TRANSPORT": [
-        ("Mis traslados", "/traslados", "Recolección, tránsito y entrega"),
-        ("Notificaciones", "/notificaciones", "Avisos de las órdenes asignadas"),
-    ],
     "ADMIN": [
         ("Usuarios", "/administracion/users", "Administrar accesos institucionales"),
         ("Catálogos", "/catalogos/sites", "Sedes, contactos y ubicaciones"),
@@ -299,11 +295,6 @@ TASKS = {
             "/monitoreo",
             "Disponibilidad y fallas de dependencias",
         ),
-    ],
-    "DONOR": [
-        ("Mi expediente", "/donantes/donor", "Consultar registro y evaluaciones"),
-        ("Campañas", "/campanas", "Consultar jornadas de donación"),
-        ("Mis inscripciones", "/citas", "Reservar cupo en una campaña"),
     ],
 }
 

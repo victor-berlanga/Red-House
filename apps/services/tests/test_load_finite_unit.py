@@ -234,7 +234,7 @@ def test_finite_inventory_cannot_share_units_across_actors():
     }
     m = {
         "directory": state["directory"],
-        "schema_version": 21,
+        "schema_version": 22,
         "kind": "finite-three-roles-v1",
         "gps": False,
         "preparation_complete": True,

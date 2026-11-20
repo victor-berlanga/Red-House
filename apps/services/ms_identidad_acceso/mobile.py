@@ -1,4 +1,7 @@
-"""Registro del teléfono propio: nunca permite elegir usuario, tenant o credencial autónoma."""
+"""Registro del teléfono propio: nunca permite elegir usuario, tenant o credencial autónoma.
+
+Solo DONOR y TRANSPORT (perfiles de la aplicación móvil); sus sesiones nacen con
+X-RedHouse-Client: mobile y el resto de perfiles no puede iniciar sesión allí."""
 
 from datetime import datetime, timezone, timedelta
 from typing import Literal
@@ -25,6 +28,7 @@ def install(app):
         "/api/v1/mobile/devices",
         "POST",
         model=MobileDevice,
+        roles=("DONOR", "TRANSPORT"),
         result=schema(Device),
         summary="Registrar teléfono propio, sin credencial de emisor autónomo",
     )
@@ -86,6 +90,7 @@ def install(app):
         "/api/v1/mobile/devices/<identifier>/revoke",
         "POST",
         model=DeviceChange,
+        roles=("DONOR", "TRANSPORT"),
         result=schema(Device),
     )
     def mobile_device_revoke(identifier, data):

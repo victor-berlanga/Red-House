@@ -143,7 +143,8 @@ def password():
 
 
 def login(user):
-    r = http("POST", "/services/identidad-acceso/api/v1/auth/login", data={"username": user, "password": password()})
+    r = http("POST", "/services/identidad-acceso/api/v1/auth/login", data={"username": user, "password": password()},
+             headers={"X-RedHouse-Client": "mobile" if user.startswith(("donor", "transport")) else "web"})
     if r["status"] != 200:
         raise SystemExit(f"No se pudo iniciar sesión con {user}: {resumen(r)}")
     return r["data"]
@@ -258,7 +259,7 @@ def redis(restablecer=False):
     base("redis", "donantes")
     ver("consulta autenticada con Redis caído " + resumen(http("GET", "/services/donantes/api/v1/campaigns", token)))
     ver("inicio de sesión con Redis caído " + resumen(http(
-        "POST", "/services/identidad-acceso/api/v1/auth/login", data={"username": "operator2", "password": password()})))
+        "POST", "/services/identidad-acceso/api/v1/auth/login", data={"username": "operator2", "password": password()}, headers={"X-RedHouse-Client": "web"})))
     mostrar("Falla cerrada: las peticiones autenticadas responden 503 (sesiones y revocaciones viven en Redis); no hay 500 ni se cuelga.",
             "/health/ready marca redis: down; /health/live sigue en 200.",
             f"Restablecer: {SCRIPT} redis restablecer (verás 200 otra vez).")
@@ -294,7 +295,7 @@ def postgres(restablecer=False):
     titulo("PostgreSQL no responde")
     base("postgres", "donantes")
     ver("inicio de sesión " + resumen(http(
-        "POST", "/services/identidad-acceso/api/v1/auth/login", data={"username": "operator1", "password": password()})))
+        "POST", "/services/identidad-acceso/api/v1/auth/login", data={"username": "operator1", "password": password()}, headers={"X-RedHouse-Client": "web"})))
     mostrar("Las operaciones responden 503 controlado (database_unavailable), sin escrituras a medias.",
             "/health/live 200 (proceso vivo) y /health/ready 503 (no listo).",
             f"Restablecer: {SCRIPT} postgres restablecer")
