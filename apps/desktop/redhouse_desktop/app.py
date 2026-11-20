@@ -60,11 +60,11 @@ def display_value(key,value):
 # Lo que no aparece aquí no se muestra al perfil. Los modos de vista de otros perfiles
 # (users, devices, sites, capacities, audit) siguen en Window.load() para reutilizarse,
 # pero ya no tienen acceso desde la navegación del escritorio.
-SECTION_TITLES = {'inventory':'Inventario','samples':'Muestras','results':'Resultados','alerts':'Avisos','requests':'Solicitudes','evaluations':'Evaluaciones','reservations':'Reservas','shipments':'Traslados','donations':'Donaciones','recipients':'Receptores','coverage':'Cobertura','cold_equipment':'Equipos de conservación','cold_profiles':'Perfiles térmicos','reports':'Reportes','pending':'Operaciones pendientes'}
+SECTION_TITLES = {'inventory':'Inventario','samples':'Muestras','results':'Resultados','alerts':'Avisos','requests':'Solicitudes','evaluations':'Evaluaciones','reservations':'Reservas','shipments':'Traslados','donations':'Donaciones','recipients':'Receptores','coverage':'Cobertura','cold_equipment':'Equipos de conservación','cold_profiles':'Perfiles térmicos','reports':'Reportes','pending':'Operaciones pendientes','users':'Usuarios'}
 NAV_PROFILES = {
     'OPERATOR': {'initial':'inventory','bar':['inventory','samples','results','donations','requests','reservations','shipments','alerts'],'more':['recipients','cold_equipment','cold_profiles','reports','pending']},
     'MEDICAL': {'initial':'inventory','bar':['inventory','samples','results','requests','evaluations','reservations','recipients','alerts'],'more':['donations','shipments','coverage','cold_equipment','cold_profiles','reports','pending']},
-    'COORDINATOR': {'initial':'shipments','bar':['shipments','inventory','reservations','coverage','alerts','reports','pending'],'more':[]},
+    'COORDINATOR': {'initial':'shipments','bar':['shipments','inventory','reservations','coverage','alerts','reports','pending'],'more':['users']},
 }
 
 def sections_for(role):
@@ -135,8 +135,8 @@ class Window(QMainWindow):
         # Barra de secciones: se llena según el perfil en apply_navigation (ver NAV_PROFILES).
         self.nav_layout = QHBoxLayout(); self.nav_buttons = {}; self.nav_role = None
         for mode,title in SECTION_TITLES.items():
-            button = QPushButton(title, page); button.setAccessibleName('Sección '+title); button.clicked.connect(lambda _checked=False,m=mode: self.switch(m)); button.hide(); self.nav_buttons[mode] = button
-        self.more_button = QToolButton(page); self.more_button.setText('Más ▾'); self.more_button.setAccessibleName('Más secciones'); self.more_button.setPopupMode(QToolButton.InstantPopup); self.more_menu = QMenu(self.more_button); self.more_button.setMenu(self.more_menu); self.more_button.hide()
+            button = QPushButton(title, page); button.setStyleSheet('padding:8px 9px;'); button.setAccessibleName('Sección '+title); button.clicked.connect(lambda _checked=False,m=mode: self.switch(m)); button.hide(); self.nav_buttons[mode] = button
+        self.more_button = QToolButton(page); self.more_button.setStyleSheet('padding:8px 9px;'); self.more_button.setText('Más ▾'); self.more_button.setAccessibleName('Más secciones'); self.more_button.setPopupMode(QToolButton.InstantPopup); self.more_menu = QMenu(self.more_button); self.more_button.setMenu(self.more_menu); self.more_button.hide()
         self.more_modes = []
         self.inventory_button = self.nav_buttons['inventory']; self.samples_button = self.nav_buttons['samples']; self.results_button = self.nav_buttons['results']; self.alerts_button = self.nav_buttons['alerts']
         self.requests_button = self.nav_buttons['requests']; self.evaluations_button = self.nav_buttons['evaluations']; self.reservations_button = self.nav_buttons['reservations']
@@ -321,13 +321,15 @@ class Window(QMainWindow):
         """Acciones autorizadas pero inactivas por el estado de la pantalla: dice qué paso falta."""
         def reason(widget,text):
             widget.setToolTip('' if widget.isEnabled() else text); widget.setAccessibleDescription('' if widget.isEnabled() else text)
+        # Limpia motivos de una pantalla anterior: un motivo nunca debe quedar pegado a una acción habilitada.
+        for widget in (self.search,self.search_button,self.detail_button,self.resume_button): widget.setToolTip(''); widget.setAccessibleDescription('')
         reason(self.prev,'Ya estás en la primera página.'); reason(self.next,'Ya estás en la última página.')
         if self.mode=='pending':
             reason(self.detail_button,'Las operaciones pendientes no tienen detalle. Selecciona una y pulsa Consultar operación.')
             reason(self.search,'No hay búsqueda en operaciones pendientes; la lista es corta.'); reason(self.search_button,'No hay búsqueda en operaciones pendientes.')
         elif self.mode=='donations': reason(self.search,'Las colectas se buscan desde el botón de registrar o documentar.'); reason(self.search_button,'Las colectas se buscan desde el botón de registrar o documentar.')
         elif self.mode in ('cold_equipment','cold_profiles'): reason(self.search,'Esta lista no admite búsqueda; usa las páginas.'); reason(self.search_button,'Esta lista no admite búsqueda; usa las páginas.')
-        reason(self.resume_button,'No hay una reserva pendiente de confirmar. Consulta la operación primero.')
+        if (self.client.user or {}).get('role')=='MEDICAL': reason(self.resume_button,'No hay una reserva pendiente de confirmar. Consulta la operación primero.')
 
     def search_now(self): self.page=1; self.load()
     def turn(self,delta): self.page=max(1,self.page+delta); self.load()
