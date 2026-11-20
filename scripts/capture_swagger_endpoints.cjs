@@ -54,7 +54,7 @@ async function pageFor(service){
  await page.addStyleTag({content:'.responses-inner > .responses-table,.curl-command{display:none!important}.highlight-code{max-height:550px;overflow:auto!important}'});
  pages[service]=page;return page;
 }
-async function capture(service,method,route,{user='medical2',data,params={},query={},failure=false,label}={}){
+async function capture(service,method,route,{user='medical2',data,params={},query={},headers={},failure=false,label}={}){
  const key=service+' '+method+' '+route+' '+(failure?'error':'success');
  if(report.captures.some(c=>c.key===key))return results.outputs[key];
  const page=await pageFor(service);const token=user?await login(user):null;
@@ -64,8 +64,10 @@ async function capture(service,method,route,{user='medical2',data,params={},quer
  if(!await operation.locator('.opblock-body').count())await operation.locator('.opblock-summary').click();
  await operation.getByRole('button',{name:/^(Try it out|Cancel)$/}).waitFor();
  const tryButton=operation.getByRole('button',{name:'Try it out',exact:true});if(await tryButton.count())await tryButton.click();
- for(const [name,value] of Object.entries({page_size:3,...params,...query,'Idempotency-Key':crypto.randomUUID()})){
+ for(const [name,value] of Object.entries({page_size:3,...params,...query,...headers,'Idempotency-Key':crypto.randomUUID()})){
    const row=operation.locator('tr[data-param-name="'+name+'"]');if(!await row.count())continue;
+   // Los parámetros con enum (p. ej. X-RedHouse-Client) son un <select>; el resto, un <input>.
+   const select=row.locator('select');if(await select.count()){await select.selectOption(String(value));continue;}
    const input=row.locator('input');if(await input.count())await input.fill(String(value));
  }
  if(data!==undefined)await operation.locator('textarea').first().fill(JSON.stringify(data,null,2));
@@ -252,7 +254,7 @@ async function fullRun(){
    return A('auditoria','POST','/api/v1/findings/'+finding.id+'/actions',{status:'CLOSED',version:f.version,evidence:'Evidencia ficticia contrastada para la captura',...confirm},'auditor1');
  });
  // Emisión, rotación y revocación en sesiones independientes de la automatización.
- const authLogin=await C('identidad-acceso','POST','/api/v1/auth/login',{user:null,data:{username:'medical1',password:state.password}});
+ const authLogin=await C('identidad-acceso','POST','/api/v1/auth/login',{user:null,headers:{'X-RedHouse-Client':'web'},data:{username:'medical1',password:state.password}});
  const authRefresh=await C('identidad-acceso','POST','/api/v1/auth/refresh',{user:null,data:{refresh_token:authLogin.refresh_token}});
  await C('identidad-acceso','POST','/api/v1/auth/revoke',{user:null,data:{refresh_token:authRefresh.refresh_token}});
  await C('identidad-acceso','POST','/api/v1/auth/logout',{user:'donor2'});delete sessions.donor2;

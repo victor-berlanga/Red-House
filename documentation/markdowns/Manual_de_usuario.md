@@ -1,6 +1,6 @@
 # Manual de usuario
 
-Corte: 17/11/2026. Guía para las personas que usan Red House, la red regional de bancos de sangre y donación de órganos. Se organiza por perfil y, dentro de cada perfil, por aplicación: portal web, app móvil (Android/iOS) y consola de escritorio. Los textos entre comillas son los que aparecen en pantalla.
+Corte: 20/11/2026. Guía para las personas que usan Red House, la red regional de bancos de sangre y donación de órganos. Se organiza por perfil y, dentro de cada perfil, por las aplicaciones donde ese perfil entra: portal web, app móvil (Android/iOS) o consola de escritorio. Los textos entre comillas son los que aparecen en pantalla.
 
 Las capturas enlazadas son reales y están versionadas en el repositorio; muestran datos ficticios de prueba. La fecha de cada captura se indica cuando la pantalla pudo cambiar después. Las capturas de iPhone se conservaron en un directorio privado y no se enlazan; la app iOS comparte las pantallas de Android.
 
@@ -18,27 +18,30 @@ Las capturas enlazadas son reales y están versionadas en el repositorio; muestr
 | Auditor | Sí | No | No |
 | Administrador | Sí | No | No |
 
-El sitio público y las campañas publicadas se consultan sin iniciar sesión. Si intentas entrar con tu cuenta en una aplicación que no es la de tu perfil, el sistema te lo dice y te indica cuál usar (por ejemplo, «Usa la aplicación móvil»). Los apartados por aplicación de las secciones 3 a 10 que describan una aplicación marcada «No» para el perfil corresponden a la versión anterior al 19/11/2026 y ya no están disponibles. Detalle: [Matriz de acceso por aplicación](Matriz_acceso_por_aplicacion.md).
+Resumen: el portal web es para administrador, auditor, operador, médico y coordinador; la consola de escritorio, para operador, médico y coordinador; la app móvil, para donante y personal de traslado.
+
+El sitio público y las campañas publicadas se consultan sin iniciar sesión. Si intentas entrar con tu cuenta en una aplicación que no es la de tu perfil, el sistema te lo dice y te indica cuál usar (por ejemplo, «Usa la aplicación móvil»). Cada apartado de las secciones 4 a 10 describe solo las aplicaciones donde el perfil entra. Detalle: [Matriz de acceso por aplicación](Matriz_acceso_por_aplicacion.md).
 
 Cada persona ve únicamente las opciones de su perfil y de su institución. Si un botón aparece desactivado, la acción corresponde a otro perfil o a otro momento del proceso.
 
 ## 2. Entrar, salir y recuperar el acceso
 
-**Portal web.** Abre `https://34.18.186.116` en el navegador. La página pública muestra la plataforma y las campañas publicadas; pulsa «Acceso institucional».
+**Portal web** (administrador, auditor, operador, médico y coordinador). Abre `https://34.18.186.116` en el navegador. La página pública muestra la plataforma y las campañas publicadas; pulsa «Acceso institucional».
 
 1. Escribe tu «Cuenta institucional» y tu «Contraseña».
-2. Si tu cuenta tiene segundo factor, escribe en «Código de segundo factor» los seis dígitos de tu aplicación autenticadora.
-3. Pulsa «Iniciar sesión». Verás el «Panel principal» con las tareas de tu perfil.
+2. Pulsa «Iniciar sesión». El portal no pide código de segundo factor: basta la contraseña. Verás el «Panel principal» con las tareas de tu perfil.
 
 ![Acceso al portal](../evidencias/gcp/uiux-quality-20261110/after-login.png)
 
 Para salir, usa el icono de salida junto a tu nombre, abajo a la izquierda. Si olvidaste la contraseña, pulsa «¿Necesitas recuperar tu acceso?», escribe tu cuenta y revisa el correo verificado: el código llega por correo, vale 15 minutos y sirve una sola vez. Se escribe en el formulario de confirmación junto con la contraseña nueva. Al cambiarla se cierran tus sesiones anteriores. [Pantalla de recuperación](../evidencias/uiux/20261110/capturas/web-recuperacion.png).
 
-**App móvil.** Abre Red House, escribe «Cuenta» y «Contraseña» y pulsa «Iniciar sesión». Si se pide, escribe el «Código de verificación» de seis dígitos ([captura](../evidencias/entrega-final/mobile/seguimiento-20261113/mfa-desafio-sintetico.png)). «Recuperar acceso» envía la solicitud al contacto verificado de tu cuenta. La app no pide la dirección del servidor. Para salir: pestaña «Cuenta» → «Cerrar sesión»; se borran los datos guardados en el teléfono.
+**App móvil** (donante y personal de traslado). Abre Red House, escribe «Cuenta» y «Contraseña» y pulsa «Iniciar sesión». Si tu cuenta lo requiere, escribe el «Código de verificación» de seis dígitos ([captura](../evidencias/entrega-final/mobile/seguimiento-20261113/mfa-desafio-sintetico.png)). «Recuperar acceso» envía la solicitud al contacto verificado de tu cuenta. La app no pide la dirección del servidor. Para salir: pestaña «Cuenta» → «Cerrar sesión»; se borran los datos guardados en el teléfono.
 
-**Consola de escritorio.** Abre la aplicación «Red House | Consola institucional», escribe «Cuenta» y «Contraseña» y pulsa «Iniciar sesión». Si se solicita, aparece «Código de verificación». Para salir pulsa «Cerrar sesión» o cierra la ventana. [Acceso](../evidencias/entrega-final/desktop/iteracion-sec/login.png) · [con verificación](../evidencias/entrega-final/desktop/iteracion-sec/login-verificacion.png).
+**Consola de escritorio** (operador, médico y coordinador). Abre la aplicación «Red House | Consola institucional», escribe «Cuenta» y «Contraseña» y pulsa «Iniciar sesión». Si tu cuenta lo requiere, aparece «Código de verificación». Para salir pulsa «Cerrar sesión» o cierra la ventana. [Acceso](../evidencias/entrega-final/desktop/iteracion-sec/login.png) · [con verificación](../evidencias/entrega-final/desktop/iteracion-sec/login-verificacion.png).
 
-**Acciones críticas.** Liberar una unidad, emitir un dictamen o autorizar una reserva pueden pedir que confirmes tu identidad: en el portal, «Confirma tu contraseña» y «Código nuevo de segundo factor»; en escritorio, la ventana «Confirmar identidad».
+Si entras con una cuenta en una aplicación que no es la de su perfil, el acceso se rechaza con un mensaje que indica cuál usar; no hay que hacer nada más que abrir esa aplicación.
+
+**Acciones críticas.** Liberar una unidad, emitir un dictamen o autorizar una reserva pueden pedir que confirmes tu identidad: en el portal, «Confirma tu contraseña»; en escritorio, la ventana «Confirmar identidad».
 
 ## 3. Cómo se usa cada aplicación
 
@@ -54,7 +57,7 @@ Para salir, usa el icono de salida junto a tu nombre, abajo a la izquierda. Si o
 
 ### App móvil
 
-- **Barra inferior** con cuatro destinos según el perfil (por ejemplo, «Inicio», «Campañas», «Avisos», «Cuenta»). «Volver» regresa a la pantalla anterior.
+- **Barra inferior** según el perfil. Donante: «Inicio», «Citas», «Campañas», «Avisos», «Cuenta». Personal de traslado: «Inicio», «Traslados», «Avisos», «Cuenta». «Volver» regresa a la pantalla anterior.
 - **Listas** con «Actualizar», «Más información», «Anterior» y «Siguiente».
 - **Avisos.** Bandeja de notificaciones; «Ver detalle» y «Marcar leído». [Bandeja](../evidencias/entrega-final/mobile/android-c-ver-detalle-20261117/03-avisos.png) · [detalle](../evidencias/entrega-final/mobile/android-c-ver-detalle-20261117/04-ver-detalle.png).
 - **Cuenta.** Opciones «Notificaciones» («Activar notificaciones»), «Privacidad y permisos» («Abrir permisos del sistema»), «Información de la cuenta» («Consultar perfil vigente»), «Operaciones pendientes» cuando las hay, y «Cerrar sesión». El donante ve además «Mi expediente». [Cuenta](../evidencias/uiux/20261110-calidad/donor1-account-360-130.png) · [privacidad](../evidencias/uiux/20261110-calidad/donor1-privacy-360-130.png).
@@ -63,8 +66,14 @@ Para salir, usa el icono de salida junto a tu nombre, abajo a la izquierda. Si o
 
 ### Consola de escritorio
 
-- **Barra superior**: «Resumen», «Indicadores», tu cuenta y «Cerrar sesión».
-- **Áreas**: botones «Inventario», «Muestras», «Resultados», «Avisos» y la lista «Más áreas» (Solicitudes, Evaluaciones, Reservas, Traslados, Auditoría, Usuarios, Operaciones pendientes, Reportes, Cobertura, Dispositivos, Receptores, Sedes, Capacidades, Donaciones, Equipos de conservación, Perfiles térmicos). Las áreas que no corresponden a tu perfil aparecen desactivadas.
+- **Barra superior**: «Resumen», «Indicadores», tu cuenta y «Cerrar sesión». Debajo, una barra de áreas según tu perfil y el menú «Más ▾» con el resto de las áreas. Al entrar se abre el área inicial de tu perfil.
+
+  | Perfil | Área inicial | Barra de áreas | Menú «Más» |
+  | --- | --- | --- | --- |
+  | Operador | Inventario | Inventario, Muestras, Resultados, Donaciones, Solicitudes, Reservas, Traslados, Avisos | Receptores, Equipos de conservación, Perfiles térmicos, Reportes, Operaciones pendientes |
+  | Médico | Inventario | Inventario, Muestras, Resultados, Solicitudes, Evaluaciones, Reservas, Receptores, Avisos | Donaciones, Traslados, Cobertura, Equipos de conservación, Perfiles térmicos, Reportes, Operaciones pendientes |
+  | Coordinador | Traslados | Traslados, Inventario, Reservas, Cobertura, Avisos, Reportes, Operaciones pendientes | Usuarios |
+
 - **Tabla**: «Buscar», «Actualizar», selecciona una fila y pulsa «Ver detalle». «Anterior» y «Siguiente» cambian de página.
 - **Acciones**: los botones bajo la tabla cambian según el área y el perfil. [Inventario de operador](../evidencias/entrega-final/desktop/iteracion-sec/inventario.png).
 - **Indicadores**: gráficas por periodo ([captura](../evidencias/entrega-final/desktop/iteracion-analitica/real-02/02-superior.png)).
@@ -72,31 +81,24 @@ Para salir, usa el icono de salida junto a tu nombre, abajo a la izquierda. Si o
 
 ## 4. Donante
 
-Puedes consultar tu expediente, campañas y horarios, reservar y gestionar tus citas. La evaluación de aptitud y las correcciones de datos clínicos las realiza tu institución.
-
-### Portal web
-
-1. **Mi expediente** (Panel → «Mi expediente» o menú «Donantes»): estado del registro, evaluaciones comunicadas y consentimientos. Puedes corregir tu nombre mostrado desde tus datos ([editar nombre](../evidencias/entrega-final/edicion-personal-20261113/browser-attempt4/editar-nombre-1280.png)).
-2. **Campañas**: jornadas publicadas con fechas y sede ([captura](../evidencias/gcp/uiux-quality-20261110/after-donor1-campanas-1440.png)).
-3. **Reservar un cupo**: «Inscripciones» → «Reservar cupo». Elige campaña, sede y «Horario seleccionado» y guarda. La disponibilidad se confirma al guardar; si otra persona ocupó el cupo, se te avisa sin duplicar la reserva.
-4. **Gestionar tu cita**: en «Mis inscripciones», abre la cita para cambiar el horario o «Cancelar inscripción». Las inscripciones antiguas sin horario aparecen como «Sin horario asignado» y requieren coordinación con la institución ([captura](../evidencias/gcp/uiux-quality-20261110/after-donor1-citas-1440.png)).
-5. **Documentos privados** y **Notificaciones**: tus archivos y avisos ([documentos](../evidencias/gcp/uiux-quality-20261110/after-donor1-documentos-1440.png), [avisos](../evidencias/gcp/uiux-quality-20261110/after-donor1-notificaciones-1440.png)).
+Puedes consultar tu expediente, campañas y horarios, reservar y gestionar tus citas. La evaluación de aptitud y las correcciones de datos clínicos las realiza tu institución. Tu perfil entra solo en la **app móvil**; si intentas entrar al portal o a la consola, el sistema te indica «Usa la aplicación móvil».
 
 ### App móvil
 
-Barra inferior: «Inicio», «Campañas», «Avisos», «Cuenta».
+Barra inferior: «Inicio», «Citas», «Campañas», «Avisos», «Cuenta».
 
-1. **Inicio**: «Tu próxima cita» y «Campañas públicas». Desde una campaña, «Compartir campaña» envía solo su información pública ([inicio](../evidencias/entrega-final/mobile/seguimiento-20261113/donante-lote-final.png)).
+1. **Inicio**: muestra tu **siguiente paso** (por ejemplo, registrarte, reservar un horario o asistir a tu cita) y «Campañas públicas». Desde una campaña, «Compartir campaña» envía solo su información pública ([inicio](../evidencias/entrega-final/mobile/seguimiento-20261113/donante-lote-final.png)).
 2. **Registrarte**: si aún no tienes expediente, completa el registro preliminar, marca el consentimiento para registrar tus datos y pulsa «Registrar expediente preliminar». No sustituye el consentimiento documental ni la evaluación médica. Si no conoces tu grupo sanguíneo, no lo supongas: tu institución lo establece.
-3. **Buscar horario**: «Campañas» → «Buscar horarios disponibles». Filtra por «Campaña o sede», elige sede y periodo opcional y pulsa «Consultar horarios». Elige un horario y confirma ([formulario](../evidencias/uiux/20261110-calidad/donor1-booking-form-360-130.png)).
-4. **Mis citas**: «Consultar cita», «Reprogramar», «Cancelar cita» o «Confirmar asistencia prevista» ([agenda](../evidencias/entrega-final/mobile/seguimiento-20261113/agenda-lote-final.png)). Las fechas usan la zona horaria del teléfono.
-5. **Mi expediente**: «Nombre mostrado» → «Guardar nombre»; «Consentimiento actual» e «Historial de consentimiento» ([nombre actualizado](../evidencias/entrega-final/mobile/seguimiento-20261113/nombre-actualizado.png)). Para aceptar, renovar o retirar un consentimiento debes acudir a tu institución; la app aún no lo permite.
+3. **Campañas**: jornadas publicadas con fechas y sede. «Buscar horarios disponibles»: filtra por «Campaña o sede», elige sede y periodo opcional y pulsa «Consultar horarios». Elige un horario y confirma. La disponibilidad se confirma al guardar; si otra persona ocupó el cupo, se te avisa sin duplicar la reserva ([formulario](../evidencias/uiux/20261110-calidad/donor1-booking-form-360-130.png)).
+4. **Citas**: «Consultar cita», «Reprogramar», «Cancelar cita» o «Confirmar asistencia prevista» ([agenda](../evidencias/entrega-final/mobile/seguimiento-20261113/agenda-lote-final.png)). Las fechas usan la zona horaria del teléfono.
+5. **Avisos**: confirmaciones y cambios de tus citas; «Ver detalle» y «Marcar leído».
+6. **Cuenta** → **Mi expediente**: «Nombre mostrado» → «Guardar nombre»; «Consentimiento actual» e «Historial de consentimiento» ([nombre actualizado](../evidencias/entrega-final/mobile/seguimiento-20261113/nombre-actualizado.png)). Para aceptar, renovar o retirar un consentimiento debes acudir a tu institución; la app aún no lo permite.
 
 Si aparece «Hay un intento anterior sin confirmar», usa la opción de recuperar antes de enviar otro.
 
 ## 5. Médico
 
-Revisa expedientes, laboratorio y solicitudes; emite dictámenes y libera unidades. Ningún resultado de algoritmo sustituye tu decisión.
+Revisa expedientes, laboratorio y solicitudes; emite dictámenes y libera unidades. Ningún resultado de algoritmo sustituye tu decisión. Entras al **portal web** y a la **consola de escritorio**; la app móvil no es para tu perfil.
 
 ### Portal web
 
@@ -111,10 +113,6 @@ Panel: «Solicitudes abiertas», «Liberaciones pendientes» y «Donantes».
 7. **Destino final**: tras la recepción, «Registrar destino» (uso, devolución, descarte u otro permitido). Aceptar un traslado no equivale a transfundir ni trasplantar ([destino](../evidencias/entrega-final/desktop/e2eb-recepcion-destino-20261116/web/02-destino.png)).
 8. **Conservación**: perfiles térmicos sintéticos, controles y revisión de incidencias; la revisión no libera.
 
-### App móvil
-
-Barra inferior: «Solicitudes», «Laboratorio», «Avisos», «Cuenta». Es de consulta: solicitudes de tu institución, «Muestras autorizadas», «Resultados autorizados» y «Consultar completitud registrada». Los dictámenes no se emiten desde el teléfono ([solicitudes](../evidencias/uiux/20261110-calidad/medical1-work-360-130.png)).
-
 ### Consola de escritorio
 
 1. **Muestras / Resultados**: «Registrar muestra», «Registrar recepción», «Capturar resultado», «Adjuntar documento», «Corregir resultado» y «Revisar resultado» ([recepción](../evidencias/entrega-final/desktop/iteracion-laboratorio/repeticion-final/recepcion-qt.png), [captura](../evidencias/entrega-final/desktop/iteracion-laboratorio/repeticion-final/captura-qt.png), [revisión](../evidencias/entrega-final/desktop/iteracion-laboratorio/repeticion-final/revision-qt.png), [documento HLA](../evidencias/entrega-final/desktop/iteracion-hla-documento-real/02-adjuntar.png)).
@@ -127,7 +125,7 @@ Barra inferior: «Solicitudes», «Laboratorio», «Avisos», «Cuenta». Es de 
 
 ## 6. Operador
 
-Registra unidades, procesa donaciones, controla la conservación y prepara o recibe traslados. No libera unidades ni emite dictámenes.
+Registra unidades, procesa donaciones, controla la conservación y prepara o recibe traslados. No libera unidades ni emite dictámenes. Entras al **portal web** y a la **consola de escritorio**; la app móvil no es para tu perfil. Las lecturas de temperatura se registran en «Conservación» del portal o en «Conservación» del inventario del escritorio.
 
 ### Portal web
 
@@ -141,13 +139,6 @@ Panel: «Registrar unidad», «Inventario en cuarentena» y «Traslados» ([inve
 6. **Laboratorio**: recibir muestras y capturar resultados dentro de tu institución.
 7. **Traslados**: en origen, «Documentar: Preparado»; en destino, aceptar la recepción después de la entrega ([traslados](../evidencias/gcp/uiux-quality-20261110/after-operator1-traslados-1440.png)).
 
-### App móvil
-
-Barra inferior: «Inventario», «Traslados», «Avisos», «Cuenta» ([inicio](../evidencias/uiux/20261110-calidad/operator1-work-360-130.png)).
-
-1. **Inventario**: «Escanear y consultar unidad». En el detalle, «Lectura manual en °C» y «Referencia de calibración del instrumento» → «Registrar lectura manual» → «Confirmar lectura observada». El servidor comprueba equipo, perfil y restricciones; la lectura no libera la unidad.
-2. **Traslados**: abre la tarea; en origen el siguiente paso es preparar y en destino aceptar la recepción, siempre después de escanear la unidad.
-
 ### Consola de escritorio
 
 1. **Inventario**: «Registrar unidad» (con o sin donación de origen), «Registrar derivados», «Corregir unidad», «Conservación» y «Vista previa de etiqueta» → «Guardar PDF» o «Imprimir» ([derivados](../evidencias/entrega-final/desktop/e2ec-qt-20261116/capturas/derivados-primero-qt.png), [etiqueta](../evidencias/entrega-final/desktop/iteracion-sec/etiqueta-previa.png)).
@@ -158,7 +149,7 @@ Barra inferior: «Inventario», «Traslados», «Avisos», «Cuenta» ([inicio](
 
 ## 7. Coordinador
 
-Consulta la disponibilidad regional, programa traslados sobre reservas autorizadas y atiende hallazgos asignados. No ve expedientes clínicos individuales.
+Consulta la disponibilidad regional, programa traslados sobre reservas autorizadas y atiende hallazgos asignados. No ve expedientes clínicos individuales. Entras al **portal web** y a la **consola de escritorio**; la app móvil no es para tu perfil.
 
 ### Portal web
 
@@ -169,49 +160,35 @@ Panel: «Hallazgos asignados», «Reservas y asignaciones», «Traslados» y «D
 3. **Planear traslado**: «Traslados y custodia» → «Planear traslado» sobre una reserva, con origen, destino, responsable y horarios. Puedes «Asignar rastreo a la orden».
 4. **Seguimiento**: en el traslado, el mapa «Seguimiento en Nuevo León» (ver sección 8).
 5. **Hallazgos**: registra la atención y la evidencia de corrección; el cierre lo verifica el auditor.
-6. **Apoyo a decisiones** y **Propuestas de cobertura**: consulta; no puedes crear propuestas ni dictámenes.
-
-### App móvil
-
-Barra inferior: «Traslados», «Región», «Avisos», «Cuenta» ([traslados](../evidencias/uiux/20261110-calidad/coordinator1-work-360-130.png), [región](../evidencias/uiux/20261110-calidad/coordinator1-subhub-360-130.png)).
-
-1. **Región**: «Disponibilidad regional», «Solicitudes institucionales agregadas» y «Reservas regionales».
-2. **Programar traslado**: en «Reservas regionales» → «Programar traslado». Elige la reserva, el transportista asignado, las fechas y horas y el «Motivo de programación»; «Revisar programación» → «Confirmar programación». Programar no equivale a una asignación clínica.
-3. **Traslados**: «Abrir tarea y mapa» para seguir el traslado. Mientras esté planificado o preparado, puedes «Cancelar antes de recolección» con un motivo de al menos 6 caracteres.
+6. **Apoyo a decisiones**: consulta; no puedes crear propuestas de cobertura ni dictámenes (esa sección del menú es del médico).
 
 ### Consola de escritorio
 
-**Traslados** → «Planificar traslado» ([planificación](../evidencias/entrega-final/desktop/iteracion-planificacion/ensayo-02/planificacion-qt.png)); en el detalle, «Ver seguimiento» y «Ver cadena de custodia» ([mapa](../evidencias/entrega-final/desktop/iteracion-wss/mapa-wss-sintetico.png)). **Cobertura**: propuestas regionales ([cobertura](../evidencias/entrega-final/desktop/iteracion-cobertura-doble/ensayo-xml-real/cobertura-coordinacion-qt.png)).
+Al entrar, el escritorio abre «Traslados». **Traslados** → «Planificar traslado» ([planificación](../evidencias/entrega-final/desktop/iteracion-planificacion/ensayo-02/planificacion-qt.png)); en el detalle, «Ver seguimiento» y «Ver cadena de custodia» ([mapa](../evidencias/entrega-final/desktop/iteracion-wss/mapa-wss-sintetico.png)). **Cobertura**: propuestas regionales ([cobertura](../evidencias/entrega-final/desktop/iteracion-cobertura-doble/ensayo-xml-real/cobertura-coordinacion-qt.png)).
 
 ## 8. Personal de traslado (transportista)
 
-Recoge, transporta y entrega las unidades de las órdenes asignadas, con escaneo, sello, contraparte y confirmación en cada paso.
+Recoge, transporta y entrega las unidades de las órdenes asignadas, con escaneo, sello, contraparte y confirmación en cada paso. Tu perfil entra solo en la **app móvil**; el portal y la consola no están disponibles para él y el sistema te indica «Usa la aplicación móvil».
 
-### App móvil (principal)
+### App móvil
 
-Barra inferior: «Traslados», «Pendientes», «Avisos», «Cuenta» ([lista](../evidencias/uiux/20261110-calidad/transport1-work-360-130.png)).
+Barra inferior: «Inicio», «Traslados», «Avisos», «Cuenta» ([lista](../evidencias/uiux/20261110-calidad/transport1-work-360-130.png)).
 
-1. **Abrir la tarea**: «Traslados» → elige el tuyo. Verás el mapa, el estado, origen → destino y el siguiente paso ([tarea](../evidencias/uiux/20261110-calidad/transport1-task-360-130.png)).
-2. **Contactos y ruta**: «Consultar contactos y ruta de esta tarea». Solo aparecen contactos operativos autorizados; la ruta avisa si cambió la versión ([contactos](../evidencias/uiux/20261110-calidad/transport1-contacts-360-130.png)). Nunca envíes credenciales al contacto.
-3. **Confirmar un paso** (recolección, inicio de tránsito, entrega), en tres pasos:
+1. **Inicio**: muestra tu **orden activa** con su estado, origen → destino y una **acción principal** (el siguiente paso que te toca). Si no tienes orden activa, te lo indica. Aquí también aparecen las observaciones y operaciones pendientes de sincronizar.
+2. **Traslados**: lista de tus órdenes; elige una para abrir la tarea. Verás el mapa, el estado, origen → destino y el siguiente paso ([tarea](../evidencias/uiux/20261110-calidad/transport1-task-360-130.png)). «Abrir en mapas» abre la ruta en la aplicación de mapas de tu teléfono.
+3. **Contactos y ruta**: «Consultar contactos y ruta de esta tarea». Solo aparecen contactos operativos autorizados; la ruta avisa si cambió la versión ([contactos](../evidencias/uiux/20261110-calidad/transport1-contacts-360-130.png)). Nunca envíes credenciales al contacto.
+4. **Confirmar un paso** (recolección, inicio de tránsito, entrega), en tres pasos:
    - «Paso 1 de 3»: «Escanear unidad» con la cámara y escribir el «Sello verificado» → «Continuar» ([paso 1](../evidencias/entrega-final/mobile/seguimiento-20261113/custodia-paso1.png)).
    - «Paso 2 de 3»: elige la contraparte autorizada y escribe la observación o motivo (mínimo 6 caracteres) → «Revisar».
    - «Paso 3 de 3»: revisa los datos y confirma. La entrega física no equivale a aceptación clínica; la recepción la documenta el operador de destino ([entregado](../evidencias/entrega-final/mobile/e2eb-android-20261116/entregado.png)).
-4. **Ubicación**: «Ubicación» → «Autorizar ubicación durante esta tarea». Puedes «Capturar y publicar ubicación» o activar «Enviar GPS cada 15 segundos mientras la tarea esté visible». La captura se detiene al salir de la tarea, al pasar a segundo plano o al cerrar sesión. Si una lectura queda sin confirmar, puedes reintentar o «Descartar lectura sin confirmar»; la custodia no cambia.
-5. **Evidencia**: «Capturar evidencia» → revisar la foto → «Cargar y verificar». Solo una evidencia verificada se puede usar.
-6. **Incidencias y observaciones**: «Registrar incidencia» o «Añadir observación». Las observaciones no cambian el estado del traslado y se guardan en «Pendientes» hasta sincronizarse («Recuperar y sincronizar»). Se conservan 24 horas; tras cinco intentos automáticos se requiere recuperación manual.
-
-### Portal web
-
-«Mis traslados»: documentar recolección, tránsito, entrega e incidencias, registrar ubicación y abrir el mapa. El mapa muestra la última posición, su fuente, antigüedad y precisión; las posiciones simuladas se identifican como «SIMULADO» y la línea entre puntos no es una ruta vial ([mapa](../evidencias/entrega-final/portal/browser/map-1440.png)). Si la cartografía no carga, se conserva el último dato y puedes seguir usando el portal; «Reconectar» reanuda el seguimiento.
-
-### Consola de escritorio
-
-Consulta de «Traslados» con «Ver seguimiento» y «Ver cadena de custodia», además de «Resumen» e «Indicadores».
+5. **Ubicación**: «Ubicación» → «Autorizar ubicación durante esta tarea». Puedes «Capturar y publicar ubicación» o activar «Enviar GPS cada 15 segundos mientras la tarea esté visible». La captura se detiene al salir de la tarea, al pasar a segundo plano o al cerrar sesión. Si una lectura queda sin confirmar, puedes reintentar o «Descartar lectura sin confirmar»; la custodia no cambia. El mapa muestra la última posición, su fuente y antigüedad; las posiciones simuladas se identifican como «Ubicación simulada» y la línea entre puntos no es una ruta vial.
+6. **Evidencia**: «Capturar evidencia» → revisar la foto → «Cargar y verificar». Solo una evidencia verificada se puede usar.
+7. **Incidencias y observaciones**: «Registrar incidencia» o «Añadir observación». Las observaciones no cambian el estado del traslado y se conservan hasta sincronizarse («Recuperar y sincronizar»). Se conservan 24 horas; tras cinco intentos automáticos se requiere recuperación manual.
+8. **Avisos** y **Cuenta**: bandeja de avisos de tus órdenes, permisos del sistema y «Cerrar sesión».
 
 ## 9. Auditor
 
-Consulta la bitácora de la región, investiga y verifica hallazgos. No tiene acceso al mapa ni a expedientes clínicos completos.
+Consulta la bitácora de la región, investiga y verifica hallazgos. No tiene acceso al mapa ni a expedientes clínicos completos. Entras solo al **portal web**; la consola de escritorio y la app móvil no son para tu perfil.
 
 ### Portal web
 
@@ -219,13 +196,9 @@ Consulta la bitácora de la región, investiga y verifica hallazgos. No tiene ac
 2. **Hallazgos**: «Registrar hallazgo», vincula eventos y asigna un coordinador responsable. Cuando el responsable lo envía a verificación, otro auditor lo verifica y cierra. El historial no se borra ([hallazgo cerrado](../evidencias/gcp/auditoria-formularios/hallazgo-cerrado.png)).
 3. **Estado de la plataforma**: disponibilidad de servicios y dependencias.
 
-### Consola de escritorio
-
-«Más áreas» → «Auditoría»: lista filtrable y detalle del evento ([auditoría](../evidencias/entrega-final/desktop/auditoria-e2ec-20261117/auditoria-filtrada.png)). También «Reportes» y «Avisos».
-
 ## 10. Administrador
 
-Gestiona usuarios, catálogos, configuración y dispositivos de su institución. Administrar no concede acceso a expedientes clínicos ni al mapa.
+Gestiona usuarios, catálogos, configuración y dispositivos de su institución. Administrar no concede acceso a expedientes clínicos ni al mapa. Entras solo al **portal web**; la consola de escritorio y la app móvil no son para tu perfil.
 
 ### Portal web
 
@@ -235,12 +208,6 @@ Panel: «Usuarios», «Catálogos» y «Estado de la plataforma».
 2. **Instituciones** y **Catálogos**: sedes, contactos, horarios, capacidades y ubicaciones ([sedes, 0.3.0](../evidencias/segundo-parcial/browser/admin1-catalogos-sites.png)).
 3. **Configuración y seguridad**: presentación pública de la institución y política del portal; publicar exige confirmación.
 4. **Dispositivos de traslado**: alta para un transportista de tu institución, credencial de un solo uso y revocación. No compartas ni captures la credencial.
-
-### Consola de escritorio
-
-1. **Usuarios**: «Registrar cuenta», «Cambiar estado», «Cambiar perfil» ([alta](../evidencias/entrega-final/desktop/iteracion-alta-usuario/alta-qt.png)).
-2. **Dispositivos**: «Registrar dispositivo» y «Revocar dispositivo» ([registro](../evidencias/entrega-final/desktop/iteracion-dispositivos/registro-qt.png)).
-3. **Sedes** y **Capacidades**: «Registrar» y «Corregir» ([sede](../evidencias/entrega-final/desktop/iteracion-inventario-institucional/vertical-01/sede-alta-qt.png)).
 
 ## 11. Si algo no sale como esperabas
 
@@ -252,6 +219,7 @@ Panel: «Usuarios», «Catálogos» y «Estado de la plataforma».
 | Negaste cámara o ubicación | «Cuenta» → «Abrir permisos del sistema» y vuelve a la tarea |
 | Un documento queda rechazado o sin analizar | Carga una nueva versión; no se puede usar hasta verificarse |
 | Un botón aparece desactivado | La acción corresponde a otro perfil, institución o estado del registro |
+| «Tu perfil no puede iniciar sesión en…» | Abre la aplicación que indica el mensaje (portal, consola o app móvil); no es un error de tu contraseña |
 | Problemas con tu cuenta | Contacta al administrador de tu institución |
 
 ## 12. Límites conocidos

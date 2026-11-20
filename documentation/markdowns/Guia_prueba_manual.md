@@ -1,6 +1,6 @@
 # Guía de prueba manual para el equipo
 
-Corte: 18/11/2026. Sirve para que cualquier integrante pruebe Red House a mano, de punta a punta, sin conocer el código. Para el detalle de cada pantalla, consulta el [Manual de usuario](Manual_de_usuario.md); aquí solo se indica con qué cuenta entrar, en qué orden y qué debe pasar.
+Corte: 20/11/2026. Sirve para que cualquier integrante pruebe Red House a mano, de punta a punta, sin conocer el código. Para el detalle de cada pantalla, consulta el [Manual de usuario](Manual_de_usuario.md); aquí solo se indica con qué cuenta entrar, en qué orden y qué debe pasar.
 
 > Las cuentas y los datos son ficticios. **Nunca** pegues la contraseña ni los secretos de MFA en chats, capturas, documentos o commits.
 
@@ -28,15 +28,17 @@ Alternativa sin nube: instalación local con `bash install.sh` y `bash start.sh`
 
 Hay 14 cuentas: 7 perfiles por 2 hospitales. Las terminadas en 1 son del Hospital 1; las terminadas en 2, del Hospital 2. **Todas usan la misma contraseña.**
 
-| Cuenta | Perfil | MFA | Para qué sirve en la prueba |
-| --- | --- | --- | --- |
-| `donor1`, `donor2` | Donante | No | Expediente, campañas y citas (app móvil y web) |
-| `operator1`, `operator2` | Operador | No | Registrar unidades, procesar donaciones, preparar y recibir traslados |
-| `medical1`, `medical2` | Médico | **Sí** | Liberar unidades, solicitudes, dictámenes, reservas y destino final |
-| `coordinator1`, `coordinator2` | Coordinador | **Sí** | Disponibilidad regional y programar traslados |
-| `transport1`, `transport2` | Transportista | No | Recolección, tránsito y entrega en la app móvil |
-| `auditor1`, `auditor2` | Auditor | No | Bitácora de auditoría, hallazgos y estado de la plataforma |
-| `admin1`, `admin2` | Administrador | **Sí** | Usuarios, catálogos, dispositivos y estado de la plataforma |
+| Cuenta | Perfil | MFA | Aplicación | Para qué sirve en la prueba |
+| --- | --- | --- | --- | --- |
+| `donor1`, `donor2` | Donante | No | App móvil | Expediente, campañas y citas |
+| `operator1`, `operator2` | Operador | No | Portal web y escritorio | Registrar unidades, procesar donaciones, preparar y recibir traslados |
+| `medical1`, `medical2` | Médico | **Sí** | Portal web y escritorio | Liberar unidades, solicitudes, dictámenes, reservas y destino final |
+| `coordinator1`, `coordinator2` | Coordinador | **Sí** | Portal web y escritorio | Disponibilidad regional y programar traslados |
+| `transport1`, `transport2` | Transportista | No | App móvil | Recolección, tránsito y entrega |
+| `auditor1`, `auditor2` | Auditor | No | Portal web | Bitácora de auditoría, hallazgos y estado de la plataforma |
+| `admin1`, `admin2` | Administrador | **Sí** | Portal web | Usuarios, catálogos, dispositivos y estado de la plataforma |
+
+Cada cuenta entra solo en la aplicación de su perfil. El portal y la consola envían su identificador de aplicación al iniciar sesión (cabecera `X-RedHouse-Client`: `web`, `desktop` o `mobile`); si pruebas una cuenta en otra aplicación, el sistema responde 403 `client_not_allowed` y dice cuál usar. Esa respuesta también es una prueba válida.
 
 ### Dónde está la contraseña
 
@@ -82,11 +84,12 @@ Sin factor registrado, estos perfiles reciben «mfa_enrollment_required» al ini
 
 ## 4. Primera vuelta: entrar con cada perfil
 
-Abre https://34.18.186.116 → «Acceso institucional» y entra con cada cuenta que vayas a usar. Comprueba que:
+Abre https://34.18.186.116 → «Acceso institucional» y entra con cada cuenta del portal (`admin`, `operator`, `medical`, `coordinator` y `auditor`). Comprueba que:
 
 - el «Panel principal» solo muestra las opciones de ese perfil;
 - un botón de otro perfil aparece desactivado;
-- al salir (icono junto a tu nombre) vuelves al acceso.
+- al salir (icono junto a tu nombre) vuelves al acceso;
+- con `donor1` o `transport1` el portal rechaza el acceso y dice que uses la aplicación móvil.
 
 Prueba también un intento sin permiso. Con `operator2`, abre el enlace de una unidad del Hospital 1: debe responder que no tienes acceso y no mostrar el folio.
 
@@ -107,7 +110,7 @@ La app apunta a `https://34.18.186.116` y no pide la dirección del servidor; la
    adb install -r apps/mobile/composeApp/build/outputs/apk/debug/composeApp-debug.apk
    ```
 
-3. Entra con `donor1`, `operator1` y `transport1`; no piden MFA. Qué ver por perfil: [Manual de usuario, secciones 4 a 8](Manual_de_usuario.md#4-donante).
+3. Entra con `donor1` (Inicio con siguiente paso, Citas, Campañas, Avisos, Cuenta) y con `transport1` (Inicio con orden activa y acción principal, Traslados, Avisos, Cuenta, «Abrir en mapas»); no piden MFA. Con `operator1` la app debe rechazar el acceso y decir que uses el portal o la consola. Qué ver por perfil: [Manual de usuario, secciones 4 y 8](Manual_de_usuario.md#4-donante).
 
 iOS: se instala desde Xcode en la Mac de Victor. Los perfiles de desarrollo vencen el 24/11/2026.
 
@@ -122,11 +125,12 @@ python3 -m venv .venv
 .venv/bin/python -m redhouse_desktop
 ```
 
-Por omisión se conecta a `https://34.18.186.116`. Entra con `operator1` y luego con un médico. Qué hay en cada área: [Manual de usuario, sección 3](Manual_de_usuario.md#consola-de-escritorio).
+Por omisión se conecta a `https://34.18.186.116`. Entra con `operator1`, con un médico y con un coordinador (la barra superior cambia por perfil y el resto de las áreas está en «Más ▾»). Con `donor1`, `transport1`, `auditor1` o `admin1` debe rechazar el acceso. Qué hay en cada área: [Manual de usuario, sección 3](Manual_de_usuario.md#consola-de-escritorio).
 
 ## 7. Swagger y monitoreo
 
 - **Swagger** de cada servicio: `https://34.18.186.116/services/<servicio>/docs/`, por ejemplo [Inventario](https://34.18.186.116/services/inventario/docs/). La lista de prefijos está en [deployment/gcp/README.md](../../deployment/gcp/README.md#abrir-el-portal).
+- **Iniciar sesión a mano en Swagger.** El login (`POST /api/v1/auth/login` del servicio `identidad-acceso`) exige la cabecera `X-RedHouse-Client`. En «Try it out» elige en ese parámetro el valor que corresponda a la cuenta: `web` para admin, auditor, operador, médico y coordinador; `desktop` solo para operador, médico y coordinador cuando quieras probar la consola; `mobile` para donante y transportista. Si lo dejas vacío responde 400 `client_required`; con un valor que no corresponde al perfil, 403 `client_not_allowed`. Con `curl` agrega `-H "X-RedHouse-Client: web"`. Después copia el `access_token` en «Authorize».
 - **Salud** de un servicio: `/services/<servicio>/health/live` y `/health/ready`. Deben responder 200 y mostrar la versión y el estado de PostgreSQL, MongoDB, Redis y almacenamiento.
 - **Panel de monitoreo**: entra con `auditor1` (no pide MFA) y abre «Estado de la plataforma». Debe mostrar cada servicio con su estado y su última verificación. Al desplegar «Diagnóstico técnico», que solo ven auditor y administrador, aparecen tiempo medio, disponibilidad de 24 h, errores, dependencia caída, último error y versión.
 - **Rutas internas bloqueadas**: `https://34.18.186.116/services/inventario/internal/...` debe rechazarse desde fuera.
@@ -143,9 +147,9 @@ Haz cada proceso en orden. Al final de cada uno, entra con `auditor1` → «Bit�
 | 2 | `medical1` | Web | Abrir la unidad → liberar (pide confirmar identidad) | Unidad disponible |
 | 3 | `medical2` | Web | «Receptores» → registrar receptor; «Registrar solicitud» | Solicitud abierta |
 | 4 | `medical2` | Web | En la solicitud: «Evaluar candidatos» → «Dictamen del candidato» → «Autorizar reserva» | Reserva autorizada; si queda pendiente, «Reanudar operación», nunca otra reserva |
-| 5 | `coordinator1` | Web o app | «Traslados y custodia» → «Planear traslado» con `transport1` | Traslado planificado |
+| 5 | `coordinator1` | Web o escritorio | «Traslados y custodia» → «Planear traslado» con `transport1` | Traslado planificado |
 | 6 | `operator1` | Web | En el traslado: «Documentar: Preparado» | Listo para recolección |
-| 7 | `transport1` | App Android | Abrir la tarea → recolección, inicio de tránsito y entrega (escanear, sello, contraparte, confirmar) | Estado «Entregado»; el mapa muestra la posición |
+| 7 | `transport1` | App Android | «Traslados» (o la orden activa en «Inicio») → abrir la tarea → recolección, inicio de tránsito y entrega (escanear, sello, contraparte, confirmar) | Estado «Entregado»; el mapa muestra la posición |
 | 8 | `operator2` | Web o escritorio | Aceptar la recepción | Traslado aceptado |
 | 9 | `medical2` | Web | «Registrar destino» | Unidad retirada y solicitud cerrada |
 
