@@ -29,20 +29,19 @@ Cada persona ve únicamente las opciones de su perfil y de su institución. Si u
 **Portal web** (administrador, auditor, operador, médico y coordinador). Abre `https://34.18.186.116` en el navegador. La página pública muestra la plataforma y las campañas publicadas; pulsa «Acceso institucional».
 
 1. Escribe tu «Cuenta institucional» y tu «Contraseña».
-2. Si tu cuenta tiene segundo factor, escribe en «Código de segundo factor» los seis dígitos de tu aplicación autenticadora.
-3. Pulsa «Iniciar sesión». Verás el «Panel principal» con las tareas de tu perfil.
+2. Pulsa «Iniciar sesión». El portal no pide código de segundo factor: basta la contraseña. Verás el «Panel principal» con las tareas de tu perfil.
 
 ![Acceso al portal](../evidencias/gcp/uiux-quality-20261110/after-login.png)
 
 Para salir, usa el icono de salida junto a tu nombre, abajo a la izquierda. Si olvidaste la contraseña, pulsa «¿Necesitas recuperar tu acceso?», escribe tu cuenta y revisa el correo verificado: el código llega por correo, vale 15 minutos y sirve una sola vez. Se escribe en el formulario de confirmación junto con la contraseña nueva. Al cambiarla se cierran tus sesiones anteriores. [Pantalla de recuperación](../evidencias/uiux/20261110/capturas/web-recuperacion.png).
 
-**App móvil** (donante y personal de traslado). Abre Red House, escribe «Cuenta» y «Contraseña» y pulsa «Iniciar sesión». Si se pide, escribe el «Código de verificación» de seis dígitos ([captura](../evidencias/entrega-final/mobile/seguimiento-20261113/mfa-desafio-sintetico.png)). «Recuperar acceso» envía la solicitud al contacto verificado de tu cuenta. La app no pide la dirección del servidor. Para salir: pestaña «Cuenta» → «Cerrar sesión»; se borran los datos guardados en el teléfono.
+**App móvil** (donante y personal de traslado). Abre Red House, escribe «Cuenta» y «Contraseña» y pulsa «Iniciar sesión». Si tu cuenta lo requiere, escribe el «Código de verificación» de seis dígitos ([captura](../evidencias/entrega-final/mobile/seguimiento-20261113/mfa-desafio-sintetico.png)). «Recuperar acceso» envía la solicitud al contacto verificado de tu cuenta. La app no pide la dirección del servidor. Para salir: pestaña «Cuenta» → «Cerrar sesión»; se borran los datos guardados en el teléfono.
 
-**Consola de escritorio** (operador, médico y coordinador). Abre la aplicación «Red House | Consola institucional», escribe «Cuenta» y «Contraseña» y pulsa «Iniciar sesión». Si se solicita, aparece «Código de verificación». Para salir pulsa «Cerrar sesión» o cierra la ventana. [Acceso](../evidencias/entrega-final/desktop/iteracion-sec/login.png) · [con verificación](../evidencias/entrega-final/desktop/iteracion-sec/login-verificacion.png).
+**Consola de escritorio** (operador, médico y coordinador). Abre la aplicación «Red House | Consola institucional», escribe «Cuenta» y «Contraseña» y pulsa «Iniciar sesión». Si tu cuenta lo requiere, aparece «Código de verificación». Para salir pulsa «Cerrar sesión» o cierra la ventana. [Acceso](../evidencias/entrega-final/desktop/iteracion-sec/login.png) · [con verificación](../evidencias/entrega-final/desktop/iteracion-sec/login-verificacion.png).
 
 Si entras con una cuenta en una aplicación que no es la de su perfil, el acceso se rechaza con un mensaje que indica cuál usar; no hay que hacer nada más que abrir esa aplicación.
 
-**Acciones críticas.** Liberar una unidad, emitir un dictamen o autorizar una reserva pueden pedir que confirmes tu identidad: en el portal, «Confirma tu contraseña» y «Código nuevo de segundo factor»; en escritorio, la ventana «Confirmar identidad».
+**Acciones críticas.** Liberar una unidad, emitir un dictamen o autorizar una reserva pueden pedir que confirmes tu identidad: en el portal, «Confirma tu contraseña»; en escritorio, la ventana «Confirmar identidad».
 
 ## 3. Cómo se usa cada aplicación
 
@@ -161,7 +160,7 @@ Panel: «Hallazgos asignados», «Reservas y asignaciones», «Traslados» y «D
 3. **Planear traslado**: «Traslados y custodia» → «Planear traslado» sobre una reserva, con origen, destino, responsable y horarios. Puedes «Asignar rastreo a la orden».
 4. **Seguimiento**: en el traslado, el mapa «Seguimiento en Nuevo León» (ver sección 8).
 5. **Hallazgos**: registra la atención y la evidencia de corrección; el cierre lo verifica el auditor.
-6. **Apoyo a decisiones** y **Propuestas de cobertura**: consulta; no puedes crear propuestas ni dictámenes.
+6. **Apoyo a decisiones**: consulta; no puedes crear propuestas de cobertura ni dictámenes (esa sección del menú es del médico).
 
 ### Consola de escritorio
 
@@ -182,7 +181,7 @@ Barra inferior: «Inicio», «Traslados», «Avisos», «Cuenta» ([lista](../ev
    - «Paso 1 de 3»: «Escanear unidad» con la cámara y escribir el «Sello verificado» → «Continuar» ([paso 1](../evidencias/entrega-final/mobile/seguimiento-20261113/custodia-paso1.png)).
    - «Paso 2 de 3»: elige la contraparte autorizada y escribe la observación o motivo (mínimo 6 caracteres) → «Revisar».
    - «Paso 3 de 3»: revisa los datos y confirma. La entrega física no equivale a aceptación clínica; la recepción la documenta el operador de destino ([entregado](../evidencias/entrega-final/mobile/e2eb-android-20261116/entregado.png)).
-5. **Ubicación**: «Ubicación» → «Autorizar ubicación durante esta tarea». Puedes «Capturar y publicar ubicación» o activar «Enviar GPS cada 15 segundos mientras la tarea esté visible». La captura se detiene al salir de la tarea, al pasar a segundo plano o al cerrar sesión. Si una lectura queda sin confirmar, puedes reintentar o «Descartar lectura sin confirmar»; la custodia no cambia. El mapa muestra la última posición, su fuente y antigüedad; las posiciones simuladas se identifican como «SIMULADO» y la línea entre puntos no es una ruta vial.
+5. **Ubicación**: «Ubicación» → «Autorizar ubicación durante esta tarea». Puedes «Capturar y publicar ubicación» o activar «Enviar GPS cada 15 segundos mientras la tarea esté visible». La captura se detiene al salir de la tarea, al pasar a segundo plano o al cerrar sesión. Si una lectura queda sin confirmar, puedes reintentar o «Descartar lectura sin confirmar»; la custodia no cambia. El mapa muestra la última posición, su fuente y antigüedad; las posiciones simuladas se identifican como «Ubicación simulada» y la línea entre puntos no es una ruta vial.
 6. **Evidencia**: «Capturar evidencia» → revisar la foto → «Cargar y verificar». Solo una evidencia verificada se puede usar.
 7. **Incidencias y observaciones**: «Registrar incidencia» o «Añadir observación». Las observaciones no cambian el estado del traslado y se conservan hasta sincronizarse («Recuperar y sincronizar»). Se conservan 24 horas; tras cinco intentos automáticos se requiere recuperación manual.
 8. **Avisos** y **Cuenta**: bandeja de avisos de tus órdenes, permisos del sistema y «Cerrar sesión».
