@@ -133,6 +133,13 @@ class Deployment:
         }
         if user:
             hdr["Authorization"] = "Bearer " + self.tokens[user]
+        if path == "/api/v1/auth/login" and isinstance(data, dict):
+            # Acceso por aplicación: DONOR/TRANSPORT inician como móvil; el resto como portal.
+            hdr["X-RedHouse-Client"] = (
+                "mobile"
+                if str(data.get("username", "")).startswith(("donor", "transport"))
+                else "web"
+            )
         hdr.update(headers or {})
         started = time.perf_counter()
         response = requests.request(

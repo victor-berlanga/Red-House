@@ -44,6 +44,8 @@ def main():
 
     def request(service, method, path, user=None, data=None, mime="application/json"):
         headers = {"Accept": mime}
+        if path == "/api/v1/auth/login":
+            headers["X-RedHouse-Client"] = "web"
         if user:
             headers["Authorization"] = "Bearer " + tokens[user]
         if data is not None:

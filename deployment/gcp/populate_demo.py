@@ -196,7 +196,15 @@ class Demo:
             path = "/api/v1/auth/refresh" if token else "/api/v1/auth/login"
             try:
                 status, response, headers = self.raw(
-                    "identidad_acceso", "POST", path, payload
+                    "identidad_acceso",
+                    "POST",
+                    path,
+                    payload,
+                    {
+                        "X-RedHouse-Client": "mobile"
+                        if user.startswith(("donor", "transport"))
+                        else "web"
+                    },
                 )
             except RuntimeError:
                 # A lost refresh response may already have rotated the token.

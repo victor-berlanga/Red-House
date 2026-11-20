@@ -106,7 +106,8 @@ if (swaggerOnly) {
     const page = await context.newPage();
     page.on('pageerror', error => report.errors.push(error.message));
     const auth = await context.request.post(base + '/services/identidad-acceso/api/v1/auth/login', {
-      data: {username: 'operator1', password: state.password}
+      data: {username: 'operator1', password: state.password},
+      headers: {'X-RedHouse-Client': 'web'}
     });
     assert.equal(auth.status(), 200, 'API login');
     const access = (await auth.json()).data.access_token;

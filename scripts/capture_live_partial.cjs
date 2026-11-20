@@ -72,7 +72,7 @@ const report=filesOnly?JSON.parse(fs.readFileSync(path.join(output,'browser-resu
   report.checks.push({web_gcs_upload:'VERIFIED',shipment,date:new Date().toISOString()});await files.context.close();
 
   const context=await browser.newContext();const page=await context.newPage();
-  const loginResponse=await context.request.post('http://127.0.0.1:6101/api/v1/auth/login',{data:{username:'operator1',password:state.password}});
+  const loginResponse=await context.request.post('http://127.0.0.1:6101/api/v1/auth/login',{data:{username:'operator1',password:state.password},headers:{'X-RedHouse-Client':'web'}});
   assert.equal(loginResponse.status(),200);const token=(await loginResponse.json()).data.access_token;
   await page.goto('http://127.0.0.1:6104/docs/');
   const security=Object.keys(JSON.parse(fs.readFileSync('apps/services/ms_inventario/contracts/openapi.json')).components.securitySchemes)[0];

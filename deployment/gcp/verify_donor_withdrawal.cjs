@@ -29,7 +29,8 @@ const report = {startedAt: new Date().toISOString(), origin: base, checks: [], r
   };
   try {
     const login = await context.request.post(base + '/services/identidad-acceso/api/v1/auth/login', {
-      data: {username: 'medical1', password: state.password}
+      data: {username: 'medical1', password: state.password},
+      headers: {'X-RedHouse-Client': 'web'}
     });
     assert.equal(login.status(), 200, 'API login');
     access = (await login.json()).data.access_token;

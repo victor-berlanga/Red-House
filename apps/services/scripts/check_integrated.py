@@ -33,6 +33,11 @@ def main():
             result = requests.post(
                 state["urls"]["identidad_acceso"] + "/api/v1/auth/login",
                 json={"username": user, "password": state["password"]},
+                headers={
+                    "X-RedHouse-Client": "mobile"
+                    if user.startswith(("donor", "transport"))
+                    else "web"
+                },
                 timeout=20,
             )
             if result.status_code != 200:

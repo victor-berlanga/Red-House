@@ -29,7 +29,7 @@ const redact = value => {
 let browser, context, request;const sessions={},specs={},pages={};
 async function login(user){
   if(sessions[user] && sessions[user].until>Date.now()+60000) return sessions[user].token;
-  const res=await request.post(BASE+'/services/identidad-acceso/api/v1/auth/login',{data:{username:user,password:state.password},timeout:30000});
+  const res=await request.post(BASE+'/services/identidad-acceso/api/v1/auth/login',{data:{username:user,password:state.password},headers:{'X-RedHouse-Client':/^(donor|transport)/.test(user)?'mobile':'web'},timeout:30000});
   assert.equal(res.status(),200,'login '+user);const d=(await res.json()).data;
   sessions[user]={token:d.access_token,refresh:d.refresh_token,until:Date.now()+800000};return d.access_token;
 }

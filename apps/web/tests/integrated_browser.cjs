@@ -62,7 +62,7 @@ const report = {browser:'Chrome',base,checks:[],captures:[],javascriptErrors:0,s
     const destination=await context('medical2');
     await inspect(destination.page,'/solicitudes');
     const tokenResponse=await destination.ctx.request.post(state.urls.identidad_acceso+'/api/v1/auth/login',
-      {data:{username:'medical2',password:state.password}});
+      {data:{username:'medical2',password:state.password},headers:{'X-RedHouse-Client':'web'}});
     assert.equal(tokenResponse.status(),200);
     const token=(await tokenResponse.json()).data.access_token;
     const evResponse=await destination.ctx.request.get(state.urls.compatibilidad+'/api/v1/evaluations',
