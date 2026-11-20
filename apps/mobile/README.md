@@ -59,7 +59,7 @@ El opt-in confía únicamente en la CA efímera para `10.0.2.2`, solo en debug. 
 
 Instrumentación comprobada en AOSP API 30 x86_64: instalar ambos APK únicamente en emulador privado. Ejecutar cada clase por separado con `adb shell am instrument -w -e class org.redhouse.mobile.NombreTest org.redhouse.mobile.test/androidx.test.runner.AndroidJUnitRunner`. Limpiar datos de la aplicación entre recorridos independientes; `PermissionDenialTest` requiere permiso inicialmente denegado. `CameraPermissionTest` abre cámara/QR y captura JPEG; no demuestra decodificación óptica.
 
-`DeviceJourneyTest` requiere inyectar `adb emu geo fix -100.3161 25.6866` repetidamente durante la captura. Comprueba publicación WSS real y marcador nativo; la posición aparece como simulada, no GPS físico. `ProfileQueriesTest` comprueba consultas por operador, coordinador y médico; `DonorJourneyTest` reserva y cancela desde Compose.
+`DeviceJourneyTest` requiere inyectar `adb emu geo fix -100.3161 25.6866` repetidamente durante la captura. Comprueba publicación WSS real y marcador nativo; la posición aparece como simulada, no GPS físico. `ProfileQueriesTest` comprueba Inicio, citas, traslados y avisos de DONOR y TRANSPORT (los demás perfiles ya no usan la app móvil); `DonorJourneyTest` reserva y cancela desde Compose.
 
 La recuperación de proceso requiere este orden, sin limpiar datos entre fases:
 
@@ -125,7 +125,7 @@ Para compilar también las pruebas compartidas destinadas al dispositivo, ejecut
 
 ## Nuevos casos nativos
 
-`CustodyJourneyTest` exige una tarea PREPARED fresca y un QR óptico del `resource_id` sintético frente a la cámara. En emulador usar cámara trasera `virtualscene` y un póster PNG generado con ese ID. No inyecta el resultado del lector ni sustituye el servidor: confirma recolección, tránsito, entrega, aceptación por operador y consulta del coordinador. No acredita evidencia GCS ni GPS físico.
+`CustodyJourneyTest` exige una tarea PREPARED fresca y un QR óptico del `resource_id` sintético frente a la cámara. En emulador usar cámara trasera `virtualscene` y un póster PNG generado con ese ID. No inyecta el resultado del lector ni sustituye el servidor: confirma recolección, tránsito y entrega como TRANSPORT (la aceptación en destino la hace el operador en escritorio o portal). No acredita evidencia GCS ni GPS físico.
 
 `FormAndRecreationTest` rechaza entradas inválidas de programación antes de confirmar y recrea la Activity. Comprueba restauración cifrada, `/auth/me`, navegación del mismo rol y consulta real. Los resultados ejecutados, fallos y reintentos se registran en [el expediente](../../documentation/evidencias/entrega-final/mobile/android-ios-20261109/RESULTADOS.md).
 
@@ -146,9 +146,9 @@ El módulo Swift anfitrión se llama `RedHouseHost`; el framework Kotlin mantien
 
 La decodificación óptica y custodia completa aprobaron en API 30 con `-gpu host -camera-back virtualscene`. Para el escenario Toren1BD del emulador 37.2.13: cargar el póster `wall` y orientar con `aim_virtual_camera.py ... --position -2.307 0.9 2.718 --rotation 11 -150 0`. Bloquear la rotación de pantalla del emulador durante ese ensayo evita que la orientación física de cámara cambie el tamaño de la interfaz. Esto no inyecta el resultado de ZXing. La espera de Compose admite ausencia temporal de raíz mientras se muestra la Activity del lector.
 
-`seed_transport.py /ruta/privada/lab.json --planning-only` prepara una reserva sintética adicional sin cambiar la tarea del ensayo QR. Regenerar assets privados con `prepare_android_lab.py` y reconstruir instrumentación antes de ejecutar `PlanningJourneyTest`: programación, cancelación previa a recolección y reconsulta tras recreación contra servicios reales.
+`seed_transport.py /ruta/privada/lab.json --planning-only` prepara una reserva sintética adicional. `PlanningJourneyTest` (programar y cancelar como coordinador) se retiró de la app móvil: esa tarea es de portal y escritorio.
 
-`seed_operational.py /ruta/privada/lab.json` crea por JSON una unidad en cuarentena, equipo/perfiles sintéticos y una muestra incompleta para `OperationalJourneyTest`. El intervalo térmico arbitrario de esa fixture no se aplica como regla clínica. Regenerar assets privados y APK de instrumentación antes del ensayo; no liberar la unidad ni aprobar clínicamente el perfil sintético.
+`seed_operational.py /ruta/privada/lab.json` crea por JSON una unidad en cuarentena, equipo/perfiles sintéticos y una muestra incompleta (las pruebas móviles `OperationalJourneyTest` se retiraron: operador y médico ya no usan móvil). El intervalo térmico arbitrario de esa fixture no se aplica como regla clínica. Regenerar assets privados y APK de instrumentación antes del ensayo; no liberar la unidad ni aprobar clínicamente el perfil sintético.
 
 Resultado histórico del incremento del 09/11: 19 casos Kotlin/JVM y 19 casos nativos Android únicos aprobados; seis casos de servidor para ampliaciones/seguridad. El APK normal 0.3.0 se instaló y abrió en API 30. En esa fecha iOS compiló arm64 sin firma y todavía no se había ejecutado en iPhone/Simulator. Artefactos, hashes, fallos y plataformas exactas en [RESULTADOS del incremento](../../documentation/evidencias/entrega-final/mobile/android-ios-20261109/RESULTADOS.md).
 

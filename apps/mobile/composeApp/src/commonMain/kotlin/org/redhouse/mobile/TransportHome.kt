@@ -26,7 +26,8 @@ import kotlinx.serialization.json.*
     var busy by remember { mutableStateOf(true) }
     var message by remember { mutableStateOf("") }
     val revision by queue.changes.collectAsState()
-    val waiting = remember(revision) { queue.entries().count { it.text("state") in setOf("PENDING", "SENDING", "UNCERTAIN") } }
+    val saved = remember(revision) { queue.entries() }
+    val waiting = saved.count { it.text("state") in setOf("PENDING", "SENDING", "UNCERTAIN") }
     fun load(number: Int) {
         busy = true; message = ""
         scope.launch {
@@ -52,8 +53,9 @@ import kotlinx.serialization.json.*
             Text("Sin traslado activo", style = MaterialTheme.typography.titleMedium)
             Text(ordered.firstOrNull { it.text("status") == "PLANNED" }?.let { "Próximo: ${shipmentTitle(it)} · ${transportWaitingText("PLANNED")}" } ?: "Cuando te asignen una orden aparecerá aquí.")
         } }
-        if (waiting > 0) Card(Modifier.fillMaxWidth()) { Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-            Text("$waiting por sincronizar", style = MaterialTheme.typography.titleMedium)
+        // Pendientes ya no es una pestaña: mientras haya observaciones guardadas (también las que dieron conflicto o fueron rechazadas) queda esta entrada.
+        if (saved.isNotEmpty()) Card(Modifier.fillMaxWidth()) { Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+            Text(if (waiting > 0) "$waiting por sincronizar" else "Observaciones guardadas", style = MaterialTheme.typography.titleMedium)
             OutlinedButton(onClick = onPending, modifier = Modifier.heightIn(min = 48.dp)) { Text("Ver pendientes") }
         } }
         if (rest.isNotEmpty()) Text("Otras órdenes", style = MaterialTheme.typography.titleMedium)

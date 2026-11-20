@@ -1,5 +1,6 @@
 package org.redhouse.mobile
 
+import android.app.Activity
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
@@ -12,7 +13,10 @@ import androidx.compose.ui.platform.LocalContext
     return { target ->
         if (target.isEmpty) false
         else try {
-            context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(geoUri(target))))
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(geoUri(target)))
+            // Fuera de una Activity (contexto de aplicación) Android exige una tarea nueva; dentro de ella no se agrega.
+            if (context !is Activity) intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            context.startActivity(intent)
             true
         } catch (_: ActivityNotFoundException) { false }
     }
