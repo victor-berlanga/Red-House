@@ -66,15 +66,19 @@ Implementación (Identidad y `redhouse/security.py`):
 | El rechazo de aplicación no bloquea la cuenta | `TA::test_wrong_application_does_not_count_as_failed_attempt` |
 | Los permisos del portal excluyen DONOR y TRANSPORT | `TA::test_portal_permissions_exclude_mobile_profiles` |
 
-## 3. Huecos de acceso detectados (sin cambiar la distribución)
+## 3. Huecos de acceso detectados y cerrados (sin cambiar la distribución)
 
-Tareas que un perfil hacía en una aplicación que pierde y no tienen vía equivalente en una aplicación autorizada. Se señalan para decidir; no se construyeron pantallas.
+Tareas que un perfil hacía en una aplicación que pierde. Las tres se cerraron el 20/11/2026 en la aplicación autorizada
+(móvil), con los endpoints y permisos que ya existían; no se cambió la distribución ni el contrato de la API.
 
-| # | Perfil | Tarea sin vía | Dónde existía | Estado en la aplicación autorizada |
-| --- | --- | --- | --- | --- |
-| H1 | DONOR | Consultar sus «Evaluaciones humanas» dentro del expediente | Portal: `apps/web/src/integration/routes/people.py:143-196` (`person_detail`, sección `reviews`) | Móvil: `DonorScreen.kt` solo muestra nombre, estado y consentimiento; sin evaluaciones |
-| H2 | DONOR | Cargar documento de consentimiento (sujeto `DONOR`, tipo `CONSENT`) | Portal: `apps/web/src/integration/routes/documents.py:26-33` y `/documentos/nuevo` (línea 103) | Móvil: sin pantalla de documentos; `MobileRepository.kt:181-197` solo sube evidencias de traslado |
-| H3 | TRANSPORT | Resumen de tareas, analítica y reportes de sus traslados | Escritorio: `apps/desktop/redhouse_desktop/app.py:211,213-214` y `analytics.py:21,30` | Móvil: sin resumen ni reportes; el portal no admite TRANSPORT |
+| # | Perfil | Tarea | Dónde existía | Cómo quedó (móvil) | Prueba de aceptación |
+| --- | --- | --- | --- | --- | --- |
+| H1 | DONOR | Consultar sus «Evaluaciones humanas» | Portal: `people.py` (`person_detail`, sección `reviews`) | Cuenta › Mi expediente › «Evaluaciones del personal médico» (fecha, resultado y nota; sin el id del evaluador) con `GET /api/v1/donors/{id}` | `test_donor_expediente_movil.py` (otro donante de la misma institución recibe 403); `DonorDocumentsTest` |
+| H2 | DONOR | Cargar su consentimiento firmado (sujeto `DONOR`, tipo `CONSENT`) | Portal: `documents.py` y `/documentos/nuevo` | Expediente › «Consentimiento firmado»: foto JPEG, progreso, estado (en revisión, verificado, rechazado) y reemplazo con `supersedes`; si falta, aparece como siguiente paso en Inicio | `test_donor_expediente_movil.py` (flujo completo, ámbito, reemplazo e idempotencia); `DonorDocumentsTest` |
+| H3 | TRANSPORT | Resumen de tareas, indicadores y reportes de sus traslados | Escritorio: `app.py` (resumen, indicadores, reportes) y `analytics.py` | Inicio › tarjeta «Resumen» y sección con contadores (`/summary`), indicadores (`/portal-metrics`) y reporte CSV de traslados (`/export-jobs`, verificado por SHA-256, para ver y compartir) | `test_transporte_resumen.py` (solo traslados propios); `TransportSummaryTest` |
+
+Límites: el consentimiento se carga como foto (no hay selector de archivos PDF en la app); el reporte móvil es CSV
+(el escritorio también ofrecía otros formatos). Falta verlos en emulador e iOS.
 
 Revisadas sin hueco (con la vía en la aplicación autorizada):
 

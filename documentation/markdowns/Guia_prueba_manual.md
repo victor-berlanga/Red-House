@@ -53,6 +53,11 @@ Si no tienes permiso, pídesela a otro integrante en persona o por llamada, no p
 
 ## 3. Segundo factor (MFA) para médico, coordinador y administrador
 
+> **Estado en la VM desde el 19/11/2026 (demo):** el segundo factor está **desactivado** por pedido del equipo
+> (`MFA_REQUIRED_ROLES=[]` y los 4 factores registrados inactivos) y el portal ya no muestra el campo de código. Ninguna
+> cuenta pide código en la VM. Lo de esta sección aplica a una instalación con MFA activo. Para reactivarlo en la VM:
+> `sudo bash /opt/redhouse/.local/compose/quitar_mfa.sh revertir` ([evidencia](../evidencias/entrega-final/gcp-sin-segundo-factor-20261119/RESULTADOS.md)).
+
 Sin factor registrado, estos perfiles reciben «mfa_enrollment_required» al iniciar sesión. No hay pantalla para registrarlo; se hace una sola vez por API.
 
 **Cuentas que ya tienen factor en la VM.** La demostración de correcciones de GCP (`deployment/gcp/prepare_correction_demo.py`) registró factor para `admin1`, `medical1`, `medical2` y `coordinator1`. Sus secretos quedaron en el archivo privado `demo-checkpoint.json` de quien ejecutó esa demostración, fuera de Git. Para usar esas cuentas necesitas ese secreto en tu app autenticadora. Si no lo tienes, no se puede volver a registrar: la API responde 409 `mfa_exists`.

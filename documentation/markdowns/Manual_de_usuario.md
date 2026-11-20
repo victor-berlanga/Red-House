@@ -92,7 +92,7 @@ Barra inferior: «Inicio», «Citas», «Campañas», «Avisos», «Cuenta».
 3. **Campañas**: jornadas publicadas con fechas y sede. «Buscar horarios disponibles»: filtra por «Campaña o sede», elige sede y periodo opcional y pulsa «Consultar horarios». Elige un horario y confirma. La disponibilidad se confirma al guardar; si otra persona ocupó el cupo, se te avisa sin duplicar la reserva ([formulario](../evidencias/uiux/20261110-calidad/donor1-booking-form-360-130.png)).
 4. **Citas**: «Consultar cita», «Reprogramar», «Cancelar cita» o «Confirmar asistencia prevista» ([agenda](../evidencias/entrega-final/mobile/seguimiento-20261113/agenda-lote-final.png)). Las fechas usan la zona horaria del teléfono.
 5. **Avisos**: confirmaciones y cambios de tus citas; «Ver detalle» y «Marcar leído».
-6. **Cuenta** → **Mi expediente**: «Nombre mostrado» → «Guardar nombre»; «Consentimiento actual» e «Historial de consentimiento» ([nombre actualizado](../evidencias/entrega-final/mobile/seguimiento-20261113/nombre-actualizado.png)). Para aceptar, renovar o retirar un consentimiento debes acudir a tu institución; la app aún no lo permite.
+6. **Cuenta** → **Mi expediente**: «Nombre mostrado» → «Guardar nombre»; «Consentimiento actual» e «Historial de consentimiento» ([nombre actualizado](../evidencias/entrega-final/mobile/seguimiento-20261113/nombre-actualizado.png)). También ves «Evaluaciones del personal médico» (fecha, resultado y nota) y «Consentimiento firmado»: toma la foto del documento firmado, pulsa «Cargar documento» y sigue su estado (en revisión, verificado o rechazado). Si falta, Inicio te lo muestra como siguiente paso. Aceptar, renovar o retirar el consentimiento en sí lo registra tu institución.
 
 Si aparece «Hay un intento anterior sin confirmar», usa la opción de recuperar antes de enviar otro.
 
@@ -185,6 +185,7 @@ Barra inferior: «Inicio», «Traslados», «Avisos», «Cuenta» ([lista](../ev
 6. **Evidencia**: «Capturar evidencia» → revisar la foto → «Cargar y verificar». Solo una evidencia verificada se puede usar.
 7. **Incidencias y observaciones**: «Registrar incidencia» o «Añadir observación». Las observaciones no cambian el estado del traslado y se conservan hasta sincronizarse («Recuperar y sincronizar»). Se conservan 24 horas; tras cinco intentos automáticos se requiere recuperación manual.
 8. **Avisos** y **Cuenta**: bandeja de avisos de tus órdenes, permisos del sistema y «Cerrar sesión».
+9. **Resumen**: en Inicio, la tarjeta «Resumen» muestra tus traslados pendientes, en curso, entregados y cancelados; «Ver resumen» abre tus indicadores y los reportes de tus traslados. «Solicitar reporte de traslados» genera un CSV de tus órdenes; cuando esté listo, «Abrir reporte» lo muestra en pantalla y «Compartir CSV» lo envía con las apps de tu teléfono.
 
 ## 9. Auditor
 
