@@ -1,5 +1,6 @@
 """Recorridos de revisión y corrección; reglas y permisos permanecen en sus propietarios."""
 
+from ..navigation import mark
 from .common import (
     BusinessError,
     ZoneInfo,
@@ -254,6 +255,7 @@ def destination(identifier):
         fields.append(
             field("supersedes", "Destino anterior", "hidden", default=old["id"])
         )
+    mark("organos" if row["kind"] == "ORGAN" else "inventory")
     return submit(
         "inventario",
         f"/api/v1/resources/{identifier}/destination",

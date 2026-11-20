@@ -6,6 +6,7 @@ from flask import Blueprint, g, request, url_for
 from ..access import BusinessError, require
 from ..presentation.timezones import selected_zone
 from .client import call
+from .navigation import mark
 from .presentation import edit_action
 from .routes.common import (
     field,
@@ -281,6 +282,7 @@ def edit(entity, identifier):
             field("donation_id", "Procedencia", "hidden", required=False),
         ]
         active = "inventory"
+        mark("organos" if row.get("kind") == "ORGAN" else "inventory")
         back = url_for("inventory.detail", identifier=identifier)
     elif entity == "requests":
         fields = [
