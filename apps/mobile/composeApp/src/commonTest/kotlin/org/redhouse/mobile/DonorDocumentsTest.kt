@@ -121,15 +121,16 @@ class DonorDocumentsTest {
         session.login("donor1", "p", "")
         val store = Memory(); val photo = byteArrayOf(1, 2, 3)
         val stages = mutableListOf<ConsentUploadStage>()
-        assertFailsWith<ApiFailure> { MobileRepository(session, LocalJournal(store), "ANDROID").uploadConsentDocument(donorId, photo) { s, _ -> stages += s } }
-        val ok = MobileRepository(session, LocalJournal(store), "ANDROID").uploadConsentDocument(donorId, photo, "33333333-3333-4333-8333-333333333333")
+        assertFailsWith<ApiFailure> { MobileRepository(session, LocalJournal(store), "ANDROID").uploadConsentDocument(donorId, photo, "33333333-3333-4333-8333-333333333333") { s, _ -> stages += s } }
+        val ok = MobileRepository(session, LocalJournal(store), "ANDROID").uploadConsentDocument(donorId, photo, docId) // el documento vigente ya cambió, pero el reintento conserva el cuerpo original
         assertEquals("VERIFIED", ok.text("status"))
         assertEquals(1, prepares.distinct().size) // misma clave tras perder la respuesta: no duplica el documento
         assertEquals(listOf(prepares.first() + "-verify", prepares.first() + "-verify"), verifies)
         assertEquals("DONOR", bodies.first().text("subject_kind")); assertEquals("CONSENT", bodies.first().text("category"))
         assertEquals(donorId, bodies.first().text("subject_id")); assertEquals("image/jpeg", bodies.first().text("mime_type"))
-        assertTrue(bodies.first().text("policy_reference").isNotBlank()); assertFalse(bodies.first().containsKey("supersedes"))
-        assertEquals("33333333-3333-4333-8333-333333333333", bodies.last().text("supersedes"))
+        assertTrue(bodies.first().text("policy_reference").isNotBlank())
+        assertEquals("33333333-3333-4333-8333-333333333333", bodies.first().text("supersedes"))
+        assertEquals(bodies.first(), bodies.first().let { bodies[1] }) // mismo cuerpo exacto: el servidor no responde 409 por huella distinta
         assertEquals(listOf(ConsentUploadStage.Preparing, ConsentUploadStage.Uploading, ConsentUploadStage.Verifying), stages.distinct())
         // Éxito: la clave se liberó; una carga posterior del mismo archivo es un documento nuevo.
         verifyFailures = 0

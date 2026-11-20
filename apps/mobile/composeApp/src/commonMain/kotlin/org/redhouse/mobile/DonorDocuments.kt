@@ -199,12 +199,17 @@ suspend fun MobileRepository.uploadConsentDocument(
     require(bytes.size in 1..CONSENT_MAX_BYTES) { "El archivo debe pesar entre 1 byte y 10 MiB." }
     val digest = sha256(bytes)
     val name = "consent:$donorId:$digest"
-    val key = journal.value(name)?.jsonPrimitive?.content ?: newId().also { journal.put(name, JsonPrimitive(it)) }
+    // El diario guarda la clave Y el `supersedes` con que se preparó: el servidor huella el cuerpo completo, y tras
+    // perder la respuesta el documento vigente ya sería el recién preparado (cuerpo distinto = 409 y documento huérfano).
+    val pending = journal.value(name) as? JsonObject
+    val key = pending?.text("key")?.takeIf { it.isNotBlank() } ?: newId()
+    val replaces = if (pending != null) pending.text("supersedes").ifBlank { null } else supersedes
+    if (pending == null) journal.put(name, buildJsonObject { put("key", key); if (supersedes != null) put("supersedes", supersedes) })
     try {
         onStage(ConsentUploadStage.Preparing, null)
         val prepared = session.request("documentos", "/api/v1/documents", HttpMethod.Post, buildJsonObject {
             put("subject_kind", "DONOR");put("subject_id", donorId);put("category", "CONSENT")
-            if (supersedes != null) put("supersedes", supersedes)
+            if (replaces != null) put("supersedes", replaces)
             put("policy_reference", "Consentimiento firmado cargado desde la app móvil")
             put("mime_type", CONSENT_MIME);put("size", bytes.size);put("sha256", digest)
         }, key)
@@ -296,6 +301,8 @@ suspend fun MobileRepository.uploadConsentDocument(
         else LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
         Text(consentProgressText(current, fraction), style = MaterialTheme.typography.bodyMedium, modifier = Modifier.semantics { liveRegion = LiveRegionMode.Polite })
     }
+    // Sin saber qué documento está vigente no se carga nada: se evita duplicar versiones.
+    val blocked = doc.status == ConsentDocStatus.Unknown
     val canReplace = doc.status != ConsentDocStatus.Verified && doc.status != ConsentDocStatus.InReview && doc.status != ConsentDocStatus.Unknown
     val label = when {
         doc.status == ConsentDocStatus.Missing -> "Fotografiar consentimiento"
@@ -303,7 +310,7 @@ suspend fun MobileRepository.uploadConsentDocument(
         else -> "Cargar una versión nueva"
     }
     if (photo == null) {
-        OutlinedButton(enabled = !uploading, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp), onClick = {
+        OutlinedButton(enabled = !uploading && !blocked, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp), onClick = {
             devices.photograph { bytes, failure -> photo = bytes; message = failure.orEmpty() }
         }) { Text(label) }
         if (doc.status == ConsentDocStatus.Verified || doc.status == ConsentDocStatus.InReview)
@@ -313,7 +320,7 @@ suspend fun MobileRepository.uploadConsentDocument(
         Image(remember(bytes) { imageBitmap(bytes) }, "Vista previa del consentimiento", Modifier.fillMaxWidth().height(180.dp))
         Text("Revisa que el documento se lea completo (${bytes.size / 1024} KB).", style = MaterialTheme.typography.bodySmall)
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            Button(enabled = !uploading, onClick = {
+            Button(enabled = !uploading && !blocked, modifier = Modifier.heightIn(min = 48.dp), onClick = {
                 message = "";stage = ConsentUploadStage.Preparing;fraction = null
                 scope.launch {
                     try {
@@ -326,11 +333,11 @@ suspend fun MobileRepository.uploadConsentDocument(
                     finally { stage = null;fraction = null;onChanged() }
                 }
             }) { Text("Cargar documento") }
-            TextButton(enabled = !uploading, onClick = { photo = null }) { Text("Eliminar foto") }
+            TextButton(enabled = !uploading, modifier = Modifier.heightIn(min = 48.dp), onClick = { photo = null }) { Text("Eliminar foto") }
         }
     }
     if (doc.status == ConsentDocStatus.Unknown || doc.status == ConsentDocStatus.InReview)
-        TextButton(enabled = !uploading, onClick = onChanged) { Text("Actualizar estado") }
+        TextButton(enabled = !uploading, modifier = Modifier.heightIn(min = 48.dp), onClick = onChanged) { Text("Actualizar estado") }
 }
 
 @Composable private fun ConsentChip(status: ConsentDocStatus) {
