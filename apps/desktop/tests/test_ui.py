@@ -38,8 +38,9 @@ def test_selection_is_read_only_and_pagination_reflects_server():
 def test_only_medical_can_review_result():
     w=Window(); w.client=FakeClient(); w.stack.setCurrentIndex(1); w.mode='results'; w.show()
     w.show_rows({'items':[],'page':1,'page_size':20,'total':0}); app.processEvents()
-    assert w.review_button.isVisible() and not w.review_button.isEnabled()
-    w.client.user={'username':'medico','role':'MEDICAL'}; w.set_controls(True)
+    assert not w.review_button.isVisible()
+    w.client.user={'username':'medico','role':'MEDICAL'}; w.show_rows({'items':[],'page':1,'page_size':20,'total':0}); w.set_controls(True)
+    assert w.review_button.isVisible()
     assert w.review_button.isEnabled()
     w.close()
 
@@ -48,13 +49,13 @@ def test_device_actions_restricted_to_administrator():
     w=Window(); w.client=FakeClient(); w.stack.setCurrentIndex(1); w.mode='devices'; w.show()
     data={'items':[{'id':'device','label':'Unidad móvil','source':'ANDROID','active':True,'expires_at':'2030-01-01T00:00:00+00:00','version':1}], 'page':1,'page_size':20,'total':1}
     w.show_rows(data); app.processEvents()
-    assert w.device_revoke_button.isVisible() and not w.device_revoke_button.isEnabled()
+    assert not w.device_revoke_button.isVisible() and not w.device_create_button.isVisible()
     assert w.table.item(0,1).text()=='Teléfono Android'
-    w.client.user={'username':'administradora','role':'ADMIN'}; w.set_controls(True)
+    w.client.user={'username':'administradora','role':'ADMIN'}; w.show_rows(data); w.set_controls(True)
     assert w.device_revoke_button.isEnabled() and w.device_create_button.isEnabled()
     assert not w.inventory_button.isVisible() and not w.samples_button.isVisible() and not w.results_button.isVisible()
     assert w.search.isEnabled() and w.search_button.isEnabled()
-    w.mode='users'; w.show_rows({'items':[],'page':1,'page_size':20,'total':0})
+    w.mode='users'; w.show_rows({'items':[],'page':1,'page_size':20,'total':0}); w.show(); app.processEvents()
     assert w.device_create_button.isVisible() and w.device_create_button.isEnabled()
     w.close()
 
@@ -136,8 +137,9 @@ def test_summary_keeps_other_services_when_one_is_unavailable(monkeypatch):
 def test_request_creation_is_only_available_to_medical_role():
     window=Window(); window.client=FakeClient(); window.stack.setCurrentIndex(1); window.mode='requests'; window.show()
     window.show_rows({'items':[],'page':1,'total':0}); app.processEvents()
-    assert window.request_create_button.isVisible() and not window.request_create_button.isEnabled()
-    window.client.user={'role':'MEDICAL'}; window.set_controls(True)
+    assert not window.request_create_button.isVisible()
+    window.client.user={'role':'MEDICAL'}; window.show_rows({'items':[],'page':1,'total':0}); window.set_controls(True); app.processEvents()
+    assert window.request_create_button.isVisible()
     assert window.request_create_button.isEnabled()
     window.close()
 
