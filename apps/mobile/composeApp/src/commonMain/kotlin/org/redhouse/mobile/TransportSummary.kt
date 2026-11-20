@@ -29,8 +29,13 @@ import kotlin.time.Duration.Companion.days
 
 // ---------------------------------------------------------------- lógica pura (probada en commonTest)
 
-/** Contadores del resumen. Los estados se agrupan igual que las etapas del recorrido de la app. */
-internal data class SummaryCounts(val pending: Int, val inProgress: Int, val delivered: Int, val incidents: Int, val closed: Int, val total: Int)
+/**
+ * Contadores del resumen. Los estados se agrupan igual que las etapas del recorrido de la app.
+ * No hay contador de incidencias: en el servidor una incidencia es una transición que NO cambia el estado del
+ * traslado (ms_transporte/routes.py: `status = row["status"] if state == "INCIDENT"`), así que `/summary` nunca
+ * devuelve el estado INCIDENT. Por si algún día lo hiciera, se cuenta como «En curso» para que no se pierda.
+ */
+internal data class SummaryCounts(val pending: Int, val inProgress: Int, val delivered: Int, val closed: Int, val total: Int)
 
 internal fun summaryCounts(data: JsonObject): SummaryCounts {
     val statuses = data["statuses"] as? JsonArray ?: throw ApiFailure(502, "response_contract")
@@ -43,7 +48,7 @@ internal fun summaryCounts(data: JsonObject): SummaryCounts {
     }
     fun sum(vararg names: String) = names.sumOf { byStatus[it] ?: 0 }
     val total = (data["total"] as? JsonPrimitive)?.intOrNull ?: byStatus.values.sum()
-    return SummaryCounts(sum("PLANNED", "PREPARED"), sum("COLLECTED", "IN_TRANSIT"), sum("DELIVERED", "ACCEPTED"), sum("INCIDENT"), sum("CANCELLED", "REJECTED"), total)
+    return SummaryCounts(sum("PLANNED", "PREPARED"), sum("COLLECTED", "IN_TRANSIT", "INCIDENT"), sum("DELIVERED", "ACCEPTED"), sum("CANCELLED", "REJECTED"), total)
 }
 
 internal data class MetricPoint(val label: String, val value: Double?)
@@ -82,7 +87,7 @@ internal fun shipmentReportBody(now: Instant): JsonObject = buildJsonObject {
 /** CSV según RFC 4180 (comillas, comas y saltos dentro de comillas); descarta la marca BOM que antepone el servidor. */
 internal fun parseCsv(text: String): List<List<String>> {
     val rows = ArrayList<List<String>>(); var row = ArrayList<String>(); val cell = StringBuilder(); var quoted = false; var i = 0
-    val input = text.removePrefix("﻿")
+    val input = text.removePrefix("\uFEFF")
     fun endCell() { row.add(cell.toString()); cell.clear() }
     fun endRow() { endCell(); if (!(row.size == 1 && row[0].isEmpty())) rows.add(row); row = ArrayList() }
     while (i < input.length) {
@@ -128,6 +133,10 @@ internal fun reportStatusText(status: String) = when (status) {
 
 // ---------------------------------------------------------------- acceso al servidor (extensiones del repositorio)
 
+private const val MAX_REPORT_BYTES = 2_000_000
+/** Tope de texto que se entrega al selector del sistema: un Intent grande (>~1 MB) lanza TransactionTooLargeException en Android. */
+internal const val MAX_SHARE_CHARS = 400_000
+
 internal suspend fun MobileRepository.transportSummary(): JsonObject = session.request("transporte", "/api/v1/summary")
 internal suspend fun MobileRepository.transportMetrics(): JsonObject = session.request("transporte", "/api/v1/portal-metrics")
 internal suspend fun MobileRepository.shipmentReportJobs(): List<JsonObject> =
@@ -151,8 +160,10 @@ internal suspend fun MobileRepository.downloadReportCsv(jobId: String): String {
     storageTarget(url, session.api.bases.getValue("documentos"))
     val response = session.api.client.get(url)
     if (!response.status.isSuccess()) throw ApiFailure(503, "download")
+    // Se rechaza por la cabecera antes de leer el cuerpo; la comprobación de abajo cubre respuestas sin longitud.
+    if ((response.contentLength() ?: 0L) > MAX_REPORT_BYTES) throw ApiFailure(502, "report_integrity")
     val bytes = response.body<ByteArray>()
-    if (bytes.size > 2_000_000 || sha256(bytes) != meta.text("sha256")) throw ApiFailure(502, "report_integrity")
+    if (bytes.size > MAX_REPORT_BYTES || sha256(bytes) != meta.text("sha256")) throw ApiFailure(502, "report_integrity")
     return bytes.decodeToString()
 }
 
@@ -175,7 +186,7 @@ private fun failureText(e: Exception, fallback: String) = if (e is ApiFailure) e
         Counter("Pendientes", counts.pending, Modifier.weight(1f))
         Counter("En curso", counts.inProgress, Modifier.weight(1f))
         Counter("Entregadas", counts.delivered, Modifier.weight(1f))
-        Counter("Incidencias", counts.incidents, Modifier.weight(1f))
+        Counter("Canceladas", counts.closed, Modifier.weight(1f))
     }
 }
 
@@ -246,7 +257,6 @@ private fun failureText(e: Exception, fallback: String) = if (e is ApiFailure) e
         else -> Card(Modifier.fillMaxWidth()) { Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
             CountersRow(c)
             Text("Total asignado: ${c.total}", style = MaterialTheme.typography.bodyMedium)
-            if (c.closed > 0) Text("Canceladas o rechazadas: ${c.closed}", style = MaterialTheme.typography.bodyMedium)
         } }
     }
 
@@ -315,7 +325,10 @@ private fun failureText(e: Exception, fallback: String) = if (e is ApiFailure) e
         }
         if (lines.size > 100) Text("Se muestran 100 de ${lines.size}; comparte el CSV para verlos todos.")
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            OutlinedButton(modifier = Modifier.heightIn(min = 48.dp), onClick = { share(csv) }) { Text("Compartir CSV") }
+            OutlinedButton(modifier = Modifier.heightIn(min = 48.dp), onClick = {
+                if (csv.length > MAX_SHARE_CHARS) message = "El reporte es demasiado grande para compartirlo. Solicita uno nuevo."
+                else share(csv.removePrefix("\uFEFF"))
+            }) { Text("Compartir CSV") }
             TextButton(modifier = Modifier.heightIn(min = 48.dp), onClick = { opened = null }) { Text("Cerrar reporte") }
         }
     }

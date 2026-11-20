@@ -13,11 +13,11 @@ class TransportSummaryTest {
     @Test fun countersGroupStatusesLikeTheJourney() {
         val data = parse("""{"total":9,"statuses":[{"status":"PLANNED","value":2},{"status":"PREPARED","value":1},{"status":"IN_TRANSIT","value":1},
             {"status":"COLLECTED","value":1},{"status":"ACCEPTED","value":2},{"status":"INCIDENT","value":1},{"status":"CANCELLED","value":1}]}""")
-        assertEquals(SummaryCounts(pending = 3, inProgress = 2, delivered = 2, incidents = 1, closed = 1, total = 9), summaryCounts(data))
+        assertEquals(SummaryCounts(pending = 3, inProgress = 3, delivered = 2, closed = 1, total = 9), summaryCounts(data))
     }
 
     @Test fun emptySummaryIsAllZero() {
-        assertEquals(SummaryCounts(0, 0, 0, 0, 0, 0), summaryCounts(parse("""{"total":0,"statuses":[]}""")))
+        assertEquals(SummaryCounts(0, 0, 0, 0, 0), summaryCounts(parse("""{"total":0,"statuses":[]}""")))
     }
 
     @Test fun malformedSummaryIsRejectedNotShownAsZero() {

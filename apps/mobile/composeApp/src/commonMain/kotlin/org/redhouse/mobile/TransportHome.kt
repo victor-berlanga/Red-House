@@ -48,7 +48,6 @@ import kotlinx.serialization.json.*
     if (message.isNotBlank()) Text(message)
     if (busy) LinearProgressIndicator(Modifier.fillMaxWidth())
     if (home) {
-        TransportSummaryCard(repository, onSummary)
         if (active != null) ActiveOrderCard(active, onOpen, openInMaps) { message = it }
         else if (loaded) Card(Modifier.fillMaxWidth()) { Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
             Text("Sin traslado activo", style = MaterialTheme.typography.titleMedium)
@@ -59,6 +58,8 @@ import kotlinx.serialization.json.*
             Text(if (waiting > 0) "$waiting por sincronizar" else "Observaciones guardadas", style = MaterialTheme.typography.titleMedium)
             OutlinedButton(onClick = onPending, modifier = Modifier.heightIn(min = 48.dp)) { Text("Ver pendientes") }
         } }
+        // Después de la acción principal y de los pendientes: la tarjeta de resumen nunca desplaza el traslado activo.
+        TransportSummaryCard(repository, onSummary)
         if (rest.isNotEmpty()) Text("Otras órdenes", style = MaterialTheme.typography.titleMedium)
     }
     if (!home && loaded && rows.isEmpty() && !busy) Text("No tienes traslados asignados.")
