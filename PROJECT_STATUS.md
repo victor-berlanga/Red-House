@@ -39,9 +39,13 @@ Cada parte la construyó un agente y la revisó otro que intentó romperla. Matr
 - **Publicado en la VM (20/11, 15:18–15:32 UTC):** 14 imágenes `acceso-app-20261120-01`, esquema 22, 5 sesiones previas
   revocadas, 30/30 sanos, 658 s sin servicio; login 200/403/400 por perfil y app y peticiones protegidas 200
   ([evidencia](documentation/evidencias/entrega-final/gcp-acceso-por-app-20261120/RESULTADOS.md)).
-- **Escritorio en Windows:** la barra pasa a «Más» lo que no cabe; cabe en 1000 px con fuente al doble (310 pruebas).
-- **Pendiente:** generar APK y paquetes de escritorio nuevos: los ya distribuidos no mandan la cabecera y no pueden
-  iniciar sesión en la VM. Liberar disco en la VM (994 MB libres; contenedores `redhouse-restore-*` viejos).
+- **Escritorio en Windows:** la barra pasa a «Más» lo que no cabe y la cabecera se desplaza; cabe en 1000 px con fuente
+  al doble y el CI de Windows pasa (corrida 44770070983, 312 pruebas, arranque del paquete en los 4 sistemas).
+- **Release [`entrega-final-v2`](https://github.com/victor-berlanga/Red-House/releases/tag/entrega-final-v2)** (commit
+  `6bff7b6`): APK debug con el bucket GCS autorizado y paquetes de escritorio del CI; `entrega-final-v1` marcado obsoleto.
+- **Disco de la VM:** se borraron 4 juegos viejos `redhouse-restore-*` (1, 2, 7 y 10/11); quedan 3.3 GB libres.
+- **Pendiente:** iOS con Xcode; pruebas instrumentadas de Android y recorrido en emulador contra la VM; regenerar
+  Word/PDF (decisión de Victor).
   Sin verificar en esta Mac: pruebas instrumentadas de Android (sin emulador ni dependencias offline), compilación iOS
   (sin Xcode), recorridos de navegador. Regenerar Word/PDF (decisión de Victor).
 
